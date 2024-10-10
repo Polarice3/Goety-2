@@ -1,0 +1,21 @@
+{
+  "name": "マーヴェリック",
+  "icon": "minecraft:iron_sword",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_maverick",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ウィッチよりも戦闘向けになった、いとこに相当するこのカルト集団は、刃を通してポーション効果を与え、その後逃げてポーションを飲み、自分自身を強化します。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:maverick",
+      "text": "ウィッチと同じように、魔法に耐性があります。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "村人が雷に打たれるとウィッチになるように、行商人が雷に打たれるとマーヴェリックになります。"
+    }
+  ]
+}

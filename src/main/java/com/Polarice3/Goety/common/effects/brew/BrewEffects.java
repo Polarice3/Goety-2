@@ -112,6 +112,7 @@ public class BrewEffects {
         this.register(new PotionBrewEffect(GoetyEffects.FLIMSY.get(), BrewConfig.FlimsyCost.get(), 1800), Items.FEATHER);
         this.register(new PotionBrewEffect(GoetyEffects.FORTUNATE.get(), BrewConfig.FortunateCost.get(), 6, 1800), Items.DIAMOND);
         this.register(new PotionBrewEffect(GoetyEffects.FREEZING.get(), BrewConfig.FreezingCost.get(), 900), Items.POWDER_SNOW_BUCKET);
+        this.register(new PotionBrewEffect(GoetyEffects.FROG_LEG.get(), BrewConfig.SwiftSwimCost.get(), 3600), ModItems.FEET_OF_FROG.get());
         this.register(new PotionBrewEffect(GoetyEffects.FROSTY_AURA.get(), BrewConfig.FrostyAuraCost.get(), 2, 1800), Items.BLUE_ICE);
         this.register(new PotionBrewEffect(GoetyEffects.GOLD_TOUCHED.get(), BrewConfig.GoldTouchedCost.get(), 1800), Items.GOLD_NUGGET);
         this.register(new PotionBrewEffect(GoetyEffects.INSIGHT.get(), BrewConfig.InsightCost.get(), 3600), Items.WRITABLE_BOOK);
@@ -124,7 +125,7 @@ public class BrewEffects {
         this.register(new PotionBrewEffect(GoetyEffects.SAVE_EFFECTS.get(), BrewConfig.SaveEffectsCost.get(), 8, 6000), Items.ECHO_SHARD);
         this.register(new PotionBrewEffect(GoetyEffects.STORMS_WRATH.get(), BrewConfig.StormsWrathCost.get(), 4, 3600), Items.LIGHTNING_ROD);
         this.register(new PotionBrewEffect(GoetyEffects.SUN_ALLERGY.get(), BrewConfig.SunAllergyCost.get(), 4, 3600), Items.SKELETON_SKULL);
-        this.register(new PotionBrewEffect(GoetyEffects.SWIFT_SWIM.get(), BrewConfig.SwiftSwimCost.get(), 3600), ModItems.FEET_OF_FROG.get());
+        this.register(new PotionBrewEffect(GoetyEffects.SWIFT_SWIM.get(), BrewConfig.SwiftSwimCost.get(), 3600), ModItems.COOKED_FEET_OF_FROG.get());
         this.register(new PotionBrewEffect(GoetyEffects.TRIPPING.get(), BrewConfig.TrippingCost.get(), 1800), Items.CRACKED_STONE_BRICKS);
         this.register(new PotionBrewEffect(GoetyEffects.VENOMOUS_HANDS.get(), BrewConfig.VenomousHandsCost.get(), 3600), ModItems.VENOMOUS_FANG.get());
         this.register(new PotionBrewEffect(GoetyEffects.WILD_RAGE.get(), BrewConfig.WildRageCost.get(), 2, 900), ModItems.RAGING_MATTER.get());

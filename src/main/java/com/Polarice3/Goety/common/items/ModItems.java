@@ -350,6 +350,7 @@ public class ModItems {
     public static final RegistryObject<Item> HUNGRY_DAGGER = ITEMS.register("hungry_dagger", HungryDaggerItem::new);
     public static final RegistryObject<Item> FELL_BLADE = ITEMS.register("fell_blade", () -> new SwordItem(ModTiers.SPECIAL, 3, -2.4F, new Item.Properties().durability(256)));
     public static final RegistryObject<Item> FROZEN_BLADE = ITEMS.register("frozen_blade", () -> new SwordItem(ModTiers.SPECIAL, 4, -2.4F, new Item.Properties()));
+    public static final RegistryObject<Item> INFERNAL_TOME = ITEMS.register("infernal_tome", InfernalTome::new);
 
     //Sherds
     public static final RegistryObject<Item> CROSS_POTTERY_SHERD = ITEMS.register("cross_pottery_sherd", ItemBase::new);

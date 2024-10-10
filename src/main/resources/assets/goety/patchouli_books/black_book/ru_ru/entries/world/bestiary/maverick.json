@@ -1,0 +1,21 @@
+{
+  "name": "Вольнодумцы",
+  "icon": "minecraft:iron_sword",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_maverick",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Более умелые, чем их собратья. Своими ударами они накладывают на жертву эффекты, а затем отступают и выпивают зелье, чтобы усилить себя."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:maverick",
+      "text": "Обладает защитой от магии, как и его родственницы, ведьмы."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Если в странствующего торговца попадёт молния, он может превратиться в вольнодумца."
+    }
+  ]
+}

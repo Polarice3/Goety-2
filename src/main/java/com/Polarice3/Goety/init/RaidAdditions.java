@@ -17,6 +17,9 @@ public class RaidAdditions {
         if (MobsConfig.WarlockRaid.get()) {
             addWaves("WARLOCK", ModEntityType.WARLOCK.get(), MobsConfig.WarlockRaidCount.get());
         }
+        if (MobsConfig.MaverickRaid.get()) {
+            addWaves("MAVERICK", ModEntityType.MAVERICK.get(), MobsConfig.MaverickRaidCount.get());
+        }
         if (MobsConfig.IllagerRaid.get()) {
             if (MobsConfig.PikerRaid.get()) {
                 addWaves("PIKER", ModEntityType.PIKER.get(), MobsConfig.PikerRaidCount.get());

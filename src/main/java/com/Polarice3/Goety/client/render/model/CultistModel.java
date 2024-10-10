@@ -199,6 +199,8 @@ public class CultistModel<T extends Cultist> extends HumanoidModel<T> {
             case ITEM:
                 this.head.xRot = 0.5F;
                 this.head.yRot = 0.0F;
+                this.hat.xRot = 0.5F;
+                this.hat.yRot = 0.0F;
                 if (entityIn.isLeftHanded()) {
                     this.rightArm.yRot = -0.5F;
                     this.rightArm.xRot = -0.9F;
@@ -224,6 +226,7 @@ public class CultistModel<T extends Cultist> extends HumanoidModel<T> {
                     this.leftLeg.yRot = 0.0F;
                     this.leftLeg.zRot = 0.0F;
                     this.head.xRot = -MathHelper.modelDegrees(25.0F);
+                    this.hat.xRot = -MathHelper.modelDegrees(25.0F);
                 }
         }
 

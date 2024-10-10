@@ -22,8 +22,10 @@ import com.Polarice3.Goety.compat.minecolonies.MinecoloniesLoaded;
 import com.Polarice3.Goety.config.BrewConfig;
 import com.Polarice3.Goety.config.MainConfig;
 import net.minecraft.ChatFormatting;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetCameraPacket;
@@ -32,6 +34,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -592,21 +595,106 @@ public class SEHelper {
         SEHelper.sendSEUpdatePacket(player);
     }
 
+    //Air Jumps codes based on Zepalesque's codes: https://github.com/Zepalesque/The-Aether-Redux/blob/1.20.1/src/main/java/net/zepalesque/redux/capability/player/ReduxPlayerCapability.java
+    public static int getTicksInAir(Player player){
+        return getCapability(player).getTicksInAir();
+    }
+
+    public static int getAirJumps(Player player){
+        return getCapability(player).getAirJumps();
+    }
+
+    public static int getAirJumpCooldown(Player player){
+        return getCapability(player).getAirJumpCooldown();
+    }
+
+    public static void setTicksInAir(Player player, int tick){
+        getCapability(player).setTicksInAir(tick);
+        SEHelper.sendSEUpdatePacket(player);
+    }
+
+    public static void setAirJumps(Player player, int jump){
+        getCapability(player).setAirJumps(jump);
+        SEHelper.sendSEUpdatePacket(player);
+    }
+
+    public static boolean increaseAirJumpCount(Player player){
+        MobEffectInstance instance = player.getEffect(GoetyEffects.FROG_LEG.get());
+        if (instance != null) {
+            if (getAirJumpCooldown(player) <= 0 && getAirJumps(player) < (instance.getAmplifier() + 1)) {
+                setAirJumps(player, getAirJumps(player) + 1);
+                setAirJumpCooldown(player, 4);
+                SEHelper.sendSEUpdatePacket(player);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void setAirJumpCooldown(Player player, int cool){
+        getCapability(player).setAirJumpCooldown(cool);
+        SEHelper.sendSEUpdatePacket(player);
+    }
+
+    public static boolean doubleJump(Player player) {
+        if (increaseAirJumpCount(player)) {
+            doDoubleJumpMovement(player);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void doDoubleJumpMovement(LivingEntity entity) {
+        double xDelta = entity.getDeltaMovement().x() * 1.4D;
+        double yDelta = 0.42D + entity.getJumpBoostPower();
+        double zDelta = entity.getDeltaMovement().z() * 1.4D;
+        entity.setDeltaMovement(xDelta, yDelta, zDelta);
+        entity.resetFallDistance();
+        spawnDoubleJumpParticles(entity.level, entity.position(), 1.5D, 12);
+        entity.level.playSound(null, entity.position().x, entity.position().y, entity.position().z, SoundEvents.FROG_LONG_JUMP, SoundSource.PLAYERS, 1.0F, 0.9F + entity.level.random.nextFloat() * 0.2F);
+    }
+
+    public static void spawnDoubleJumpParticles(Level level, Vec3 vec3, double radius, int quantity) {
+        for (int i = 0; i < quantity; i++) {
+            double x2 = vec3.x + (level.random.nextDouble() * radius) - (radius * 0.5D);
+            double y2 = vec3.y + (level.random.nextDouble() * 0.4D);
+            double z2 = vec3.z + (level.random.nextDouble() * radius) - (radius * 0.5D);
+            level.addParticle(ParticleTypes.CLOUD, x2, y2, z2, 0.0D, level.random.nextDouble() * 0.03D, 0.0D);
+        }
+    }
+
     public static boolean hasCamera(Player player){
         return getCapability(player).getCameraUUID() != null;
     }
 
     public static void setCamera(Player player, @Nullable Entity target){
-        if (target != null) {
-            if (target == player){
-                SurveyEye surveyEye = new SurveyEye(ModEntityType.SURVEY_EYE.get(), player.level);
-                BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(player.getX(), player.getY() + 8, player.getZ());
+        setCamera(player, target, null);
+    }
 
-                while(blockpos$mutable.getY() < player.getY() + 16.0D && !player.level.getBlockState(blockpos$mutable).blocksMotion()) {
+    public static void setCamera(Player player, @Nullable Entity target, @Nullable BlockPos blockPos){
+        if (target != null || blockPos != null) {
+            if (target == player || blockPos != null){
+                double Y;
+                SurveyEye surveyEye = new SurveyEye(ModEntityType.SURVEY_EYE.get(), player.level);
+                BlockPos.MutableBlockPos blockpos$mutable;
+                if (target == player){
+                    Y = player.getY();
+                    blockpos$mutable = new BlockPos.MutableBlockPos(player.getX(), player.getY() + 8, player.getZ());
+                } else {
+                    Y = blockPos.getY();
+                    blockpos$mutable = new BlockPos.MutableBlockPos(blockPos.getX(), blockPos.getY() + 1, blockPos.getZ());
+                }
+
+                while(blockpos$mutable.getY() < Y + 16.0D && !player.level.getBlockState(blockpos$mutable).blocksMotion()) {
                     blockpos$mutable.move(Direction.UP);
                 }
                 surveyEye.setPos(Vec3.atCenterOf(blockpos$mutable));
-                surveyEye.lookAt(player, 90.0F, 90.0F);
+                if (target == player) {
+                    surveyEye.lookAt(player, 90.0F, 90.0F);
+                } else {
+                    surveyEye.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atBottomCenterOf(blockpos$mutable));
+                }
                 surveyEye.setOwner(player);
                 if (player.level.addFreshEntity(surveyEye)){
                     getCapability(player).setCameraUUID(surveyEye.getUUID());
@@ -619,7 +707,7 @@ public class SEHelper {
             getCapability(player).setCameraUUID(null);
             target = player;
         }
-        if (player instanceof ServerPlayer serverPlayer) {
+        if (player instanceof ServerPlayer serverPlayer && target != null) {
             serverPlayer.connection.send(new ClientboundSetCameraPacket(target));
         }
         sendSEUpdatePacket(player);
@@ -640,6 +728,9 @@ public class SEHelper {
         tag.putInt("bottling", soulEnergy.bottling());
         tag.putInt("warding", soulEnergy.wardingLeft());
         tag.putInt("maxWarding", soulEnergy.maxWarding());
+        tag.putInt("airTick", soulEnergy.getTicksInAir());
+        tag.putInt("airJumps", soulEnergy.getAirJumps());
+        tag.putInt("airJumpCoolDown", soulEnergy.getAirJumpCooldown());
         if (soulEnergy.getCameraUUID() != null) {
             tag.putUUID("cameraUUID", soulEnergy.getCameraUUID());
         }
@@ -736,6 +827,9 @@ public class SEHelper {
         soulEnergy.setBottling(tag.getInt("bottling"));
         soulEnergy.setWarding(tag.getInt("warding"));
         soulEnergy.setMaxWarding(tag.getInt("maxWarding"));
+        soulEnergy.setTicksInAir(tag.getInt("airTick"));
+        soulEnergy.setAirJumps(tag.getInt("airJumps"));
+        soulEnergy.setAirJumpCooldown(tag.getInt("airJumpCoolDown"));
         if (tag.contains("cameraUUID")) {
             soulEnergy.setCameraUUID(tag.getUUID("cameraUUID"));
         } else {

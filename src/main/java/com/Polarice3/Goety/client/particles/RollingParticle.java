@@ -74,4 +74,22 @@ public class RollingParticle extends TextureSheetParticle {
             return particle;
         }
     }
+
+    public static class EnchantProvider implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet sprite;
+
+        public EnchantProvider(SpriteSet p_106884_) {
+            this.sprite = p_106884_;
+        }
+
+        @Nullable
+        @Override
+        public Particle createParticle(SimpleParticleType p_107421_, ClientLevel p_107422_, double p_107423_, double p_107424_, double p_107425_, double p_107426_, double p_107427_, double p_107428_) {
+            RollingParticle particle = new RollingParticle(p_107422_, p_107423_, p_107424_, p_107425_, 0.0D, 0.0D, 0.0D, this.sprite);
+            particle.setColor((float) p_107426_, (float) p_107427_, (float) p_107428_);
+            particle.pickSprite(this.sprite);
+            particle.quadSize = 0.25F;
+            return particle;
+        }
+    }
 }

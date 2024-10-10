@@ -104,7 +104,11 @@ public class NightBeaconBlockEntity extends BlockEntity {
         if (p_155108_.getServer() != null) {
             if (p_155111_.isActive && !p_155111_.beamSections.isEmpty()) {
                 for (ServerLevel serverLevel : p_155108_.getServer().getAllLevels()) {
-                    serverLevel.setDayTime(MathHelper.setDayNumberAndTime(40, 18000));
+                    long currentDay = serverLevel.getDayTime() / 24000L;
+                    if (currentDay % 8 != 0){
+                        currentDay += 1;
+                    }
+                    serverLevel.setDayTime(MathHelper.setDayNumberAndTime(currentDay, 18000));
                     for (ServerPlayer player : serverLevel.players()) {
                         player.connection.send(new ClientboundSetTimePacket(serverLevel.getGameTime(), serverLevel.getDayTime(), serverLevel.getGameRules().getBoolean(GameRules.RULE_DAYLIGHT)));
                     }
@@ -118,7 +122,7 @@ public class NightBeaconBlockEntity extends BlockEntity {
         }
 
         if (!p_155108_.isClientSide && p_155108_ instanceof ServerLevel serverLevel) {
-            if (!p_155111_.isActive && !p_155111_.getBeamSections().isEmpty()) {
+            if (!p_155111_.isActive && !serverLevel.dimensionType().hasFixedTime() && !p_155111_.getBeamSections().isEmpty()) {
                 playSound(p_155108_, p_155109_, SoundEvents.BEACON_ACTIVATE);
                 serverLevel.sendParticles(new PortalShockwaveParticleOption(), i + 0.5F, j, k + 0.5F, 0, 0, 0, 0, 0);
                 p_155111_.isActive = true;
@@ -143,7 +147,8 @@ public class NightBeaconBlockEntity extends BlockEntity {
             if (MainConfig.EnableNightBeacon.get()) {
                 if (this.level.getServer() != null && this.isActive && !this.beamSections.isEmpty()) {
                     for (ServerLevel serverLevel : this.level.getServer().getAllLevels()) {
-                        serverLevel.setDayTime(MathHelper.setDayNumberAndTime(40, 23000));
+                        long currentDay = serverLevel.getDayTime() / 24000L;
+                        serverLevel.setDayTime(MathHelper.setDayNumberAndTime(currentDay, 23000));
                         for (ServerPlayer player : serverLevel.players()) {
                             player.connection.send(new ClientboundSetTimePacket(serverLevel.getGameTime(), serverLevel.getDayTime(), serverLevel.getGameRules().getBoolean(GameRules.RULE_DAYLIGHT)));
                         }

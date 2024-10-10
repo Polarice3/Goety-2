@@ -34,6 +34,8 @@ public class ModModelLayer {
     public static final ModelLayerLocation POISON_QUILL_VINE = register("poison_quill_vine");
     public static final ModelLayerLocation BLOCK = register("block");
     public static final ModelLayerLocation WARLOCK = register("warlock");
+    public static final ModelLayerLocation HERETIC = register("heretic");
+    public static final ModelLayerLocation MAVERICK = register("maverick");
     public static final ModelLayerLocation CRONE = register("crone");
     public static final ModelLayerLocation APOSTLE = register("apostle");
     public static final ModelLayerLocation APOSTLE_SHADE = register("apostle_shade");

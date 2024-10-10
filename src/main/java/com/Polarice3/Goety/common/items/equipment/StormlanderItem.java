@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.items.equipment;
 
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SLightningBoltPacket;
 import com.Polarice3.Goety.common.network.server.SThunderBoltPacket;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -124,5 +126,10 @@ public class StormlanderItem extends HammerItem{
         float f7 = f2 * f4;
         Vec3 vector3d1 = vector3d.add((double)f6 * range, (double)f5 * range, (double)f7 * range);
         return worldIn.clip(new ClipContext(vector3d, vector3d1, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity));
+    }
+
+    @Override
+    public boolean isValidRepairItem(ItemStack pToRepair, ItemStack pRepair) {
+        return pRepair.getItem() == ModItems.CURSED_METAL_INGOT.get();
     }
 }

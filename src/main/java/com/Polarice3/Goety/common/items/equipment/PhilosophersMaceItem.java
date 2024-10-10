@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.items.equipment;
 
 import com.Polarice3.Goety.api.items.ISoulRepair;
-import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.init.ModTags;
@@ -9,7 +8,6 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -20,7 +18,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.Vanishable;
-import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.SweepingEdgeEnchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -43,8 +44,6 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
         stack.hurtAndBreak(1, attacker, (entity) -> {
             entity.broadcastBreakEvent(EquipmentSlot.MAINHAND);
         });
-        int i2 = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.MOB_LOOTING, stack);
-        target.addEffect(new MobEffectInstance(GoetyEffects.GOLD_TOUCHED.get(), 300, i2));
         return true;
     }
 

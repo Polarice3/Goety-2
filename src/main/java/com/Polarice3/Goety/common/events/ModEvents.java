@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.events;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.ISoulRepair;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
@@ -26,9 +27,7 @@ import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.hostile.WitherNecromancer;
-import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
-import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
-import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
+import com.Polarice3.Goety.common.entities.hostile.cultists.*;
 import com.Polarice3.Goety.common.entities.hostile.illagers.*;
 import com.Polarice3.Goety.common.entities.hostile.servants.Damned;
 import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
@@ -81,6 +80,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.CombatRules;
 import net.minecraft.world.damagesource.DamageSource;
@@ -101,14 +101,12 @@ import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.entity.npc.AbstractVillager;
-import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.entity.npc.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.DragonFireball;
+import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.*;
@@ -128,6 +126,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -314,14 +313,7 @@ public class ModEvents {
                         Player player = EntityFinder.getNearbyPlayer(world, raid.getCenter());
                         if (player != null) {
                             if (MobsConfig.IllagerRaid.get()) {
-                                if (SEHelper.getSoulAmountInt(player) >= (MobsConfig.IllagerAssaultSEThreshold.get() * 2)) {
-                                    if (SEHelper.getSoulAmountInt(player) < (MobsConfig.IllagerAssaultSEThreshold.get() * 5)){
-                                        if (raider instanceof Minister) {
-                                            raid.removeFromRaid(raider, true);
-                                            event.setCanceled(true);
-                                        }
-                                    }
-                                } else {
+                                if (SEHelper.getSoulAmountInt(player) < (MobsConfig.IllagerAssaultSEThreshold.get() * 2)) {
                                     if (raider instanceof HuntingIllagerEntity){
                                         raid.removeFromRaid(raider, true);
                                         event.setCanceled(true);
@@ -696,12 +688,12 @@ public class ModEvents {
                 }
             }
             if (livingEntity instanceof Mob mob){
+                double followRange = 32.0D;
+                if (mob.getAttribute(Attributes.FOLLOW_RANGE) != null){
+                    followRange = mob.getAttributeValue(Attributes.FOLLOW_RANGE) * 2;
+                }
                 if (mob.getTarget() instanceof Apostle apostle){
                     if (apostle.obsidianInvul > 5){
-                        double followRange = 32.0D;
-                        if (mob.getAttribute(Attributes.FOLLOW_RANGE) != null){
-                            followRange = mob.getAttributeValue(Attributes.FOLLOW_RANGE) * 2;
-                        }
                         for (ObsidianMonolith obsidianMonolith : mob.level.getEntitiesOfClass(ObsidianMonolith.class, mob.getBoundingBox().inflate(followRange, 8.0D, followRange))){
                             if (obsidianMonolith.getOwner() == apostle){
                                 mob.setTarget(obsidianMonolith);
@@ -709,13 +701,17 @@ public class ModEvents {
                         }
                     }
                 }
-            }
-            if (livingEntity instanceof Raider raider) {
-                if (raider instanceof Cultist || raider instanceof Witch) {
-                    if (WitchBarterHelper.getTimer(raider) > 0) {
-                        WitchBarterHelper.decreaseTimer(raider);
+                if (mob.getTarget() instanceof ObsidianMonolith monolith){
+                    if (monolith.empowered > 5){
+                        for (Heretic heretic : mob.level.getEntitiesOfClass(Heretic.class, mob.getBoundingBox().inflate(followRange, 8.0D, followRange))){
+                            if (heretic.getMonolith() == monolith){
+                                mob.setTarget(heretic);
+                            }
+                        }
                     }
                 }
+            }
+            if (livingEntity instanceof Raider raider) {
                 if (raider.getTarget() instanceof Player player) {
                     if (SEHelper.getSoulAmountInt(player) > MobsConfig.IllagerAssaultSEThreshold.get() * 2){
                         if (!raider.isAggressive()) {
@@ -752,7 +748,7 @@ public class ModEvents {
                 }
             }
             if (livingEntity instanceof Villager villager){
-                if (!livingEntity.level.isClientSide) {
+                if (!villager.level.isClientSide) {
                     Brain<?> brain = villager.getBrain();
                     Optional<LivingEntity> avoidIllager = Optional.empty();
                     NearestVisibleLivingEntities nearestvisiblelivingentities = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES).orElse(NearestVisibleLivingEntities.empty());
@@ -785,31 +781,55 @@ public class ModEvents {
                             }
                         }
                     }
-                }
-            }
-            if (MobsConfig.VillagerConvertWarlock.get()) {
-                if (livingEntity instanceof Villager villager) {
                     if (villager.level instanceof ServerLevel serverLevel) {
-                        if (BlockFinder.getVerticalBlock(serverLevel, villager.blockPosition(), Blocks.CRYING_OBSIDIAN.defaultBlockState(), 16, true)) {
-                            if (villager.getRandom().nextFloat() < 7.5E-4F && serverLevel.getDifficulty() != Difficulty.PEACEFUL) {
-                                if (ForgeEventFactory.canLivingConvert(villager, ModEntityType.WARLOCK.get(), (timer) -> {
-                                })) {
-                                    serverLevel.explode(villager, villager.getX(), villager.getY(), villager.getZ(), 0.1F, Level.ExplosionInteraction.NONE);
-                                    Warlock witch = ModEntityType.WARLOCK.get().create(serverLevel);
-                                    if (witch != null) {
-                                        witch.moveTo(villager.getX(), villager.getY(), villager.getZ(), villager.getYRot(), villager.getXRot());
-                                        witch.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(witch.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
-                                        witch.setNoAi(villager.isNoAi());
-                                        if (villager.hasCustomName()) {
-                                            witch.setCustomName(villager.getCustomName());
-                                            witch.setCustomNameVisible(villager.isCustomNameVisible());
-                                        }
+                        if (MobsConfig.VillagerConvertWarlock.get()) {
+                            if (BlockFinder.getVerticalBlock(serverLevel, villager.blockPosition(), Blocks.CRYING_OBSIDIAN.defaultBlockState(), 16, true)) {
+                                if (villager.getRandom().nextFloat() < 7.5E-4F && serverLevel.getDifficulty() != Difficulty.PEACEFUL) {
+                                    if (ForgeEventFactory.canLivingConvert(villager, ModEntityType.WARLOCK.get(), (timer) -> {
+                                    })) {
+                                        serverLevel.explode(villager, villager.getX(), villager.getY(), villager.getZ(), 0.1F, Level.ExplosionInteraction.NONE);
+                                        Warlock warlock = ModEntityType.WARLOCK.get().create(serverLevel);
+                                        if (warlock != null) {
+                                            warlock.moveTo(villager.getX(), villager.getY(), villager.getZ(), villager.getYRot(), villager.getXRot());
+                                            warlock.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(warlock.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+                                            warlock.setNoAi(villager.isNoAi());
+                                            if (villager.hasCustomName()) {
+                                                warlock.setCustomName(villager.getCustomName());
+                                                warlock.setCustomNameVisible(villager.isCustomNameVisible());
+                                            }
 
-                                        witch.setPersistenceRequired();
-                                        ForgeEventFactory.onLivingConvert(villager, witch);
-                                        serverLevel.addFreshEntityWithPassengers(witch);
-                                        MobUtil.releaseAllPois(villager);
-                                        villager.discard();
+                                            warlock.setPersistenceRequired();
+                                            ForgeEventFactory.onLivingConvert(villager, warlock);
+                                            serverLevel.addFreshEntityWithPassengers(warlock);
+                                            MobUtil.releaseAllPois(villager);
+                                            villager.discard();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (MobsConfig.VillagerConvertHeretic.get()) {
+                            if (BlockFinder.findNetherPortal(serverLevel, villager.blockPosition(), 8).isPresent()){
+                                if (villager.getRandom().nextFloat() < 7.5E-4F && serverLevel.getDifficulty() != Difficulty.PEACEFUL) {
+                                    if (ForgeEventFactory.canLivingConvert(villager, ModEntityType.HERETIC.get(), (timer) -> {
+                                    })) {
+                                        serverLevel.explode(villager, villager.getX(), villager.getY(), villager.getZ(), 0.1F, Level.ExplosionInteraction.NONE);
+                                        Heretic heretic = ModEntityType.HERETIC.get().create(serverLevel);
+                                        if (heretic != null) {
+                                            heretic.moveTo(villager.getX(), villager.getY(), villager.getZ(), villager.getYRot(), villager.getXRot());
+                                            heretic.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(heretic.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+                                            heretic.setNoAi(villager.isNoAi());
+                                            if (villager.hasCustomName()) {
+                                                heretic.setCustomName(villager.getCustomName());
+                                                heretic.setCustomNameVisible(villager.isCustomNameVisible());
+                                            }
+
+                                            heretic.setPersistenceRequired();
+                                            ForgeEventFactory.onLivingConvert(villager, heretic);
+                                            serverLevel.addFreshEntityWithPassengers(heretic);
+                                            MobUtil.releaseAllPois(villager);
+                                            villager.discard();
+                                        }
                                     }
                                 }
                             }
@@ -1075,42 +1095,6 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void InteractEntityEvent(PlayerInteractEvent.EntityInteractSpecific event){
-        Player player = event.getEntity();
-        if (!event.getLevel().isClientSide) {
-            if (CuriosFinder.isWitchFriendly(player)) {
-                if (event.getTarget() instanceof Raider witch) {
-                    if (event.getTarget() instanceof Witch || event.getTarget() instanceof Warlock || event.getTarget() instanceof Crone) {
-                        if (!witch.isAggressive()) {
-                            if (WitchBarterHelper.getTimer(witch) <= 0) {
-                                if (witch.getMainHandItem().isEmpty() && (event.getItemStack().is(ModTags.Items.WITCH_CURRENCY) || event.getItemStack().is(ModTags.Items.WITCH_BETTER_CURRENCY))) {
-                                    event.setCanceled(true);
-                                    event.setCancellationResult(InteractionResult.SUCCESS);
-                                    if (witch instanceof Witch) {
-                                        witch.playSound(SoundEvents.WITCH_CELEBRATE);
-                                    } else if (witch instanceof Warlock){
-                                        witch.playSound(ModSounds.WARLOCK_CELEBRATE.get());
-                                    } else if (witch instanceof Crone){
-                                        witch.playSound(ModSounds.CRONE_AMBIENT.get());
-                                    }
-                                    ItemStack itemstack1;
-                                    if (player.isCreative()){
-                                        itemstack1 = event.getItemStack();
-                                    } else {
-                                        itemstack1 = event.getItemStack().split(1);
-                                    }
-                                    witch.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
-                                    WitchBarterHelper.setTrader(witch, player);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
     public static void AttackEvent(LivingAttackEvent event){
         LivingEntity victim = event.getEntity();
         Entity source = event.getSource().getEntity();
@@ -1285,6 +1269,15 @@ public class ModEvents {
             }
             event.setAmount(amount);
         }
+        if (victim instanceof BlazeServant){
+            if (event.getSource().getDirectEntity() instanceof Snowball){
+                if (event.getSource().is(DamageTypes.THROWN)) {
+                    if (event.getAmount() <= 0.0F) {
+                        event.setAmount(3.0F);
+                    }
+                }
+            }
+        }
         if (event.getAmount() > 0.0F) {
             if (event.getSource().getDirectEntity() instanceof LivingEntity livingAttacker) {
                 if (ModDamageSource.physicalAttacks(event.getSource())) {
@@ -1314,6 +1307,9 @@ public class ModEvents {
                         if (weapon == ModItems.FROZEN_BLADE.get()) {
                             victim.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), MathHelper.secondsToTicks(2)));
                         }
+                    } else if (livingAttacker.getMainHandItem().getItem() instanceof PhilosophersMaceItem){
+                        int i2 = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.MOB_LOOTING, livingAttacker.getMainHandItem());
+                        victim.addEffect(new MobEffectInstance(GoetyEffects.GOLD_TOUCHED.get(), 300, i2));
                     }
                 }
             }
@@ -1692,6 +1688,36 @@ public class ModEvents {
         genericTrades.add(new ModTradeUtil.ItemsForEmeralds(ModItems.JADE.get(), 1, 64, 16));
         rareTrades.add(new ModTradeUtil.TreasureMapForEmeralds(8, ModStructureTags.WIND_SHRINE, "filled_map.goety.wind_shrine", MapDecoration.Type.TARGET_X, 12, 10));
         rareTrades.add(new ModTradeUtil.TreasureMapForEmeralds(8, ModStructureTags.BLIGHTED_SHACK, "filled_map.goety.blighted_shack", MapDecoration.Type.MANSION, 12, 10));
+    }
+
+    @SubscribeEvent
+    public static void LightningStruckEvent(EntityStruckByLightningEvent event){
+        Entity entity = event.getEntity();
+        Level level = entity.level;
+        if (level instanceof ServerLevel serverLevel) {
+            if (entity instanceof WanderingTrader trader) {
+                if (MobsConfig.TraderConvertMaverick.get()) {
+                    if (serverLevel.getDifficulty() != Difficulty.PEACEFUL && net.minecraftforge.event.ForgeEventFactory.canLivingConvert(trader, ModEntityType.MAVERICK.get(), (timer) -> {
+                    })) {
+                        Maverick maverick = ModEntityType.MAVERICK.get().create(serverLevel);
+                        if (maverick != null) {
+                            maverick.moveTo(trader.getX(), trader.getY(), trader.getZ(), trader.getYRot(), trader.getXRot());
+                            maverick.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(maverick.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+                            maverick.setNoAi(trader.isNoAi());
+                            if (trader.hasCustomName()) {
+                                maverick.setCustomName(trader.getCustomName());
+                                maverick.setCustomNameVisible(trader.isCustomNameVisible());
+                            }
+
+                            maverick.setPersistenceRequired();
+                            net.minecraftforge.event.ForgeEventFactory.onLivingConvert(trader, maverick);
+                            serverLevel.addFreshEntityWithPassengers(maverick);
+                            trader.discard();
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @SubscribeEvent

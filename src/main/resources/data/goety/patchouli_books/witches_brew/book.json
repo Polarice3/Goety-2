@@ -1,6 +1,6 @@
 {
-  "name": "The Witch's Brews",
-  "landing_text": "A Witch's guide to brewery.",
+  "name": "info.goety.witch_brew.title",
+  "landing_text": "info.goety.witch_brew.landing",
   "book_texture": "goety:textures/gui/witch_book.png",
   "version": 1,
   "model": "goety:witches_brew",

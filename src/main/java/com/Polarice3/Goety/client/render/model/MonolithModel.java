@@ -9,7 +9,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
 public class MonolithModel<T extends AbstractMonolith> extends EntityModel<T> {
-	private final ModelPart monolith;
+	public final ModelPart monolith;
 
 	public MonolithModel(ModelPart root) {
 		this.monolith = root.getChild("monolith");

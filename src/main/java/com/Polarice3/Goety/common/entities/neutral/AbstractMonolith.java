@@ -17,6 +17,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -71,6 +72,11 @@ public abstract class AbstractMonolith extends Owned{
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
         this.initRotate(pLevel);
+        if (pReason == MobSpawnType.MOB_SUMMONED) {
+            if (!this.canSpawn(pLevel.getLevel())) {
+                this.discard();
+            }
+        }
         return pSpawnData;
     }
 
@@ -156,8 +162,12 @@ public abstract class AbstractMonolith extends Owned{
         return 1;
     }
 
+    public AABB getInitialBB(){
+        return this.getType().getDimensions().makeBoundingBox(this.position());
+    }
+
     public boolean canSpawn(Level level){
-        return level.noCollision(this, this.getBoundingBox().move(0, 1, 0).deflate(0.25D));
+        return level.noCollision(this.getInitialBB().deflate(0.25D)) && level.getEntityCollisions(this, this.getInitialBB().deflate(0.25D)).isEmpty();
     }
 
     @Override
@@ -172,9 +182,6 @@ public abstract class AbstractMonolith extends Owned{
         }
         if (this.isEmerging()){
             if (!this.level.isClientSide) {
-                if (!this.canSpawn(this.level)){
-                    this.discard();
-                }
                 this.setAge(this.getAge() + this.getAgeSpeed());
                 this.level.broadcastEntityEvent(this, (byte) 4);
                 for (AbstractMonolith abstractMonolith : this.level.getEntitiesOfClass(AbstractMonolith.class, this.getBoundingBox())){

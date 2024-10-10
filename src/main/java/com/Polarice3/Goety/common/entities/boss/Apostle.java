@@ -26,6 +26,7 @@ import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -78,6 +79,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -147,6 +149,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     public double prevY;
     public double prevZ;
     public DamageSource deathBlow = this.damageSources().generic();
+    public NetherSpreaderUtil netherSpreaderUtil = NetherSpreaderUtil.createLevelSpreader();
 
     public Apostle(EntityType<? extends SpellCastingCultist> type, Level worldIn) {
         super(type, worldIn);
@@ -970,6 +973,21 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         return this.level.dimension() == Level.NETHER;
     }
 
+    @Nullable
+    @Override
+    public Entity getLeader() {
+        return null;
+    }
+
+    @Override
+    public void setLeader(@Nullable Entity entity) {
+    }
+
+    @Override
+    public boolean isBarterable() {
+        return false;
+    }
+
     public void aiStep() {
         super.aiStep();
         if (this.level.getDifficulty() == Difficulty.PEACEFUL){
@@ -1019,19 +1037,39 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             } else {
                 this.level.broadcastEntityEvent(this, (byte) 102);
             }
+            if (this.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.ApocalypseMode.get() && !this.isInNether()) {
+                this.netherSpreaderUtil.updateCursors(this.level, this.blockPosition().below(), this.random, true);
+                if (this.tickCount >= 100 && this.tickCount % 100 == 0 && !this.isSettingUpSecond()) {
+                    this.netherSpreaderUtil.clear();
+                    for (int i = 0; i < 5; i++) {
+                        int range = 2;
+                        int x = this.getRandom().nextInt(-range, range);
+                        int y = this.getRandom().nextInt(-range, range / 2);
+                        int z = this.getRandom().nextInt(-range, range);
+                        BlockPos blockPos = this.blockPosition().below().offset(x, y, z);
+                        this.netherSpreaderUtil.addCursors(blockPos, 10);
+                    }
+                }
+            } else {
+                this.netherSpreaderUtil.clear();
+            }
         }
         if (this.isSettingUpSecond()){
             this.setFiring(false);
             this.f = 0;
             this.heal(1.0F);
             for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(3.0D), ALIVE)) {
-                if (!entity.isAlliedTo(this)) {
+                if (!MobUtil.areAllies(this, entity)) {
                     this.barrier(entity, this);
                 }
             }
 
             if (!this.level.isClientSide){
                 this.resetHitTime();
+                if (this.level instanceof ServerLevel serverLevel){
+                    ServerParticleUtil.windParticle(serverLevel, new ColorUtil(ChatFormatting.BLACK), 2.0F, 1.5F, this.getId(), this.position());
+                    ServerParticleUtil.windParticle(serverLevel, new ColorUtil(ChatFormatting.BLACK), 4.0F, 0.5F, this.getId(), this.position());
+                }
             }
             if (this.getHealth() >= this.getMaxHealth()){
                 if (!this.level.isClientSide){
@@ -1159,8 +1197,13 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                             chance = 0.75F;
                         }
                         if (this.tickCount % 100 == 0 && this.random.nextFloat() <= chance && villager.getVillagerData().getLevel() <= 5) {
+                            float chance2 = this.random.nextFloat();
                             Mob mob = EntityType.WITCH.create(serverLevel);
-                            if (this.random.nextBoolean()) {
+                            if (chance2 <= 0.25F) {
+                                mob = ModEntityType.HERETIC.get().create(serverLevel);
+                            } else if (chance2 <= 0.5F){
+                                mob = ModEntityType.MAVERICK.get().create(serverLevel);
+                            } else if (chance2 <= 0.75F){
                                 mob = ModEntityType.WARLOCK.get().create(serverLevel);
                             }
                             if (mob != null) {

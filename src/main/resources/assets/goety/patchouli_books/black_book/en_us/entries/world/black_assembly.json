@@ -1,0 +1,16 @@
+{
+  "name": "Black Assemblies",
+  "icon": "minecraft:obsidian",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Travelers from all over have tales of coming across odd highly robed beings chanting towards a monolith made what appears to be obsidian. They mentioned that the area around them made them feel uneasy..."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/black_assembly.png"],
+      "border": true
+    }
+  ]
+}

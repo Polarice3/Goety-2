@@ -47,6 +47,17 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> WARLOCK_CELEBRATE = create("warlock_celebrate");
     public static final RegistryObject<SoundEvent> WARLOCK_DEATH = create("warlock_death");
 
+    public static final RegistryObject<SoundEvent> HERETIC_AMBIENT = create("heretic_ambient");
+    public static final RegistryObject<SoundEvent> HERETIC_HURT = create("heretic_hurt");
+    public static final RegistryObject<SoundEvent> HERETIC_CHANT = create("heretic_chant");
+    public static final RegistryObject<SoundEvent> HERETIC_CELEBRATE = create("heretic_celebrate");
+    public static final RegistryObject<SoundEvent> HERETIC_DEATH = create("heretic_death");
+
+    public static final RegistryObject<SoundEvent> MAVERICK_AMBIENT = create("maverick_ambient");
+    public static final RegistryObject<SoundEvent> MAVERICK_HURT = create("maverick_hurt");
+    public static final RegistryObject<SoundEvent> MAVERICK_CELEBRATE = create("maverick_celebrate");
+    public static final RegistryObject<SoundEvent> MAVERICK_DEATH = create("maverick_death");
+
     public static final RegistryObject<SoundEvent> CRONE_AMBIENT = create("crone_ambient");
     public static final RegistryObject<SoundEvent> CRONE_LAUGH = create("crone_laugh");
     public static final RegistryObject<SoundEvent> CRONE_DEATH = create("crone_death");
@@ -451,6 +462,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> GRAVITY = create("gravity");
     public static final RegistryObject<SoundEvent> PLATE = create("plate");
     public static final RegistryObject<SoundEvent> PLATE_DROP = create("plate_drop");
+    public static final RegistryObject<SoundEvent> SCARY_RECITE = create("scary_recite");
     public static final RegistryObject<SoundEvent> RUMBLE = create("rumble");
     public static final RegistryObject<SoundEvent> TOOTH_SPAWN = create("tooth_spawn");
     public static final RegistryObject<SoundEvent> IMPALE = create("impale");
@@ -460,6 +472,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> DOOM = create("doom");
     public static final RegistryObject<SoundEvent> DEAD_MOAN = create("dead_moan");
     public static final RegistryObject<SoundEvent> SOUL_EAT = create("soul_eat");
+
+    public static final RegistryObject<SoundEvent> NETHER_SPREAD = create("nether_spread");
 
     public static final RegistryObject<SoundEvent> SCYTHE_SWING = create("scythe_swing");
     public static final RegistryObject<SoundEvent> SCYTHE_HIT = create("scythe_hit");

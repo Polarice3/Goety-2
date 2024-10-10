@@ -1,0 +1,39 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "minecraft:book"
+  },
+  "craftType": "adept_nether",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "minecraft:crying_obsidian"
+    },
+    {
+      "item": "minecraft:crying_obsidian"
+    },
+    {
+      "item": "goety:magic_emerald"
+    },
+    {
+      "item": "goety:magic_emerald"
+    },
+    {
+      "item": "goety:mystic_core"
+    },
+    {
+      "tag": "forge:rods/blaze"
+    },
+    {
+      "item": "minecraft:ghast_tear"
+    },
+    {
+      "item": "goety:updraft_focus"
+    }
+  ],
+  "result": {
+    "item": "goety:infernal_tome"
+  }
+}

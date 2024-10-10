@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.items.curios;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.compat.iron.IronAttributes;
 import com.Polarice3.Goety.compat.iron.IronLoaded;
 import com.Polarice3.Goety.config.ItemConfig;
@@ -16,6 +17,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.MobEffectEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import top.theillusivec4.curios.api.SlotContext;
@@ -33,9 +36,10 @@ public class FrostRobeItem extends SingleStackItem{
     public static void LivingEffects(LivingEvent.LivingTickEvent event){
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity != null){
-            if (CuriosFinder.hasCurio(livingEntity, item -> item.getItem() instanceof FrostRobeItem)){
+            if (CuriosFinder.hasFrostRobes(livingEntity)){
                 livingEntity.setTicksFrozen(0);
                 livingEntity.setIsInPowderSnow(false);
+                livingEntity.getActiveEffects().removeIf(effectInstance -> effectInstance.getEffect() == GoetyEffects.FREEZING.get());
             }
         }
     }
@@ -43,10 +47,19 @@ public class FrostRobeItem extends SingleStackItem{
     @SubscribeEvent
     public static void HurtEvent(LivingHurtEvent event){
         LivingEntity victim = event.getEntity();
-        if (CuriosFinder.hasCurio(victim, item -> item.getItem() instanceof FrostRobeItem)){
+        if (CuriosFinder.hasFrostRobes(victim)){
             if (ModDamageSource.freezeAttacks(event.getSource()) || event.getSource().is(DamageTypeTags.IS_FREEZING)){
                 float resistance = 1.0F - (ItemConfig.FrostRobeResistance.get() / 100.0F);
                 event.setAmount(event.getAmount() * resistance);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void PotionApplicationEvents(MobEffectEvent.Applicable event){
+        if (event.getEffectInstance().getEffect() == GoetyEffects.FREEZING.get()){
+            if (CuriosFinder.hasFrostRobes(event.getEntity())){
+                event.setResult(Event.Result.DENY);
             }
         }
     }

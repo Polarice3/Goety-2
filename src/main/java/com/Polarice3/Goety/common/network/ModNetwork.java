@@ -62,6 +62,7 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), CAddFocusToInventoryPacket.class, CAddFocusToInventoryPacket::encode, CAddFocusToInventoryPacket::decode, CAddFocusToInventoryPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CBrewBagKeyPacket.class, CBrewBagKeyPacket::encode, CBrewBagKeyPacket::decode, CBrewBagKeyPacket::consume);
         INSTANCE.registerMessage(nextID(), CThrowBrewKeyPacket.class, CThrowBrewKeyPacket::encode, CThrowBrewKeyPacket::decode, CThrowBrewKeyPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
+        INSTANCE.registerMessage(nextID(), CMultiJumpPacket.class, CMultiJumpPacket::encode, CMultiJumpPacket::decode, CMultiJumpPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), TotemDeathPacket.class, TotemDeathPacket::encode, TotemDeathPacket::decode, TotemDeathPacket::consume);
         INSTANCE.registerMessage(nextID(), SPlayPlayerSoundPacket.class, SPlayPlayerSoundPacket::encode, SPlayPlayerSoundPacket::decode, SPlayPlayerSoundPacket::consume);
         INSTANCE.registerMessage(nextID(), SPlayWorldSoundPacket.class, SPlayWorldSoundPacket::encode, SPlayWorldSoundPacket::decode, SPlayWorldSoundPacket::consume);

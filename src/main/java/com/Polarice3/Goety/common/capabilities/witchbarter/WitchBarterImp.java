@@ -1,11 +1,9 @@
 package com.Polarice3.Goety.common.capabilities.witchbarter;
 
-import net.minecraft.world.entity.LivingEntity;
-
 public class WitchBarterImp implements IWitchBarter {
 
     private int timer;
-    private LivingEntity trader;
+    private int traderID = -1;
 
     @Override
     public int getTimer() {
@@ -18,12 +16,12 @@ public class WitchBarterImp implements IWitchBarter {
     }
 
     @Override
-    public LivingEntity getTrader() {
-        return trader;
+    public int getTraderID() {
+        return this.traderID;
     }
 
     @Override
-    public void setTrader(LivingEntity trader) {
-        this.trader = trader;
+    public void setTraderID(int id) {
+        this.traderID = id;
     }
 }

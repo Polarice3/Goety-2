@@ -1,0 +1,16 @@
+{
+  "name": "何かの儀式",
+  "icon": "minecraft:obsidian",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "世界中の旅行者は、黒曜石のように見える壁に向かって何かを唱えている、ローブを着た奇妙な存在に出会ったという話を伝えています。彼らは、奇妙な者の周囲がどよめいていると言った..."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/black_assembly.png"],
+      "border": true
+    }
+  ]
+}

@@ -15,6 +15,8 @@ import com.Polarice3.Goety.common.entities.deco.HauntedArmorStand;
 import com.Polarice3.Goety.common.entities.deco.HauntedPainting;
 import com.Polarice3.Goety.common.entities.hostile.*;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Heretic;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Maverick;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.hostile.illagers.*;
 import com.Polarice3.Goety.common.entities.hostile.servants.*;
@@ -58,6 +60,14 @@ public class ModEntityType {
             EntityType.Builder.<HellBlast>of(HellBlast::new, MobCategory.MISC)
                     .sized(1.0F, 1.0F)
                     .clientTrackingRange(4));
+
+    public static final RegistryObject<EntityType<HellChant>> HELL_CHANT = register("hell_chant",
+            EntityType.Builder.<HellChant>of(HellChant::new, MobCategory.MISC)
+                    .sized(1.0F, 1.0F)
+                    .setCustomClientFactory(HellChant::new)
+                    .setTrackingRange(64)
+                    .setShouldReceiveVelocityUpdates(true)
+                    .setUpdateInterval(3));
 
     public static final RegistryObject<EntityType<SwordProjectile>> SWORD = register("sword",
             EntityType.Builder.<SwordProjectile>of(SwordProjectile::new, MobCategory.MISC)
@@ -443,6 +453,16 @@ public class ModEntityType {
     public static final RegistryObject<EntityType<Wartling>> WARTLING = register("wartling",
             EntityType.Builder.of(Wartling::new, MobCategory.MONSTER)
                     .sized(0.4F, 0.2F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<Heretic>> HERETIC = register("heretic",
+            EntityType.Builder.of(Heretic::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<Maverick>> MAVERICK = register("maverick",
+            EntityType.Builder.of(Maverick::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 
     public static final RegistryObject<EntityType<Crone>> CRONE = register("crone",

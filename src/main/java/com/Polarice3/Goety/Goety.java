@@ -27,6 +27,8 @@ import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.deco.HauntedArmorStand;
 import com.Polarice3.Goety.common.entities.hostile.*;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Heretic;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Maverick;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.hostile.illagers.*;
 import com.Polarice3.Goety.common.entities.hostile.servants.*;
@@ -455,6 +457,8 @@ public class Goety {
         event.put(ModEntityType.OBSIDIAN_MONOLITH.get(), ObsidianMonolith.setCustomAttributes().build());
         event.put(ModEntityType.WARLOCK.get(), Warlock.setCustomAttributes().build());
         event.put(ModEntityType.WARTLING.get(), Wartling.setCustomAttributes().build());
+        event.put(ModEntityType.HERETIC.get(), Heretic.setCustomAttributes().build());
+        event.put(ModEntityType.MAVERICK.get(), Maverick.setCustomAttributes().build());
         event.put(ModEntityType.CRONE.get(), Crone.setCustomAttributes().build());
         event.put(ModEntityType.SKELETON_VILLAGER_SERVANT.get(), SkeletonVillagerServant.setCustomAttributes().build());
         event.put(ModEntityType.ZPIGLIN_SERVANT.get(), ZPiglinServant.setCustomAttributes().build());
@@ -565,6 +569,9 @@ public class Goety {
 
     private void SpawnPlacementEvent(SpawnPlacementRegisterEvent event){
         event.register(ModEntityType.WARLOCK.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(ModEntityType.HERETIC.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(ModEntityType.MAVERICK.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(ModEntityType.OBSIDIAN_MONOLITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ObsidianMonolith::checkOMSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.HOSTILE_BLACK_WOLF.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkDayMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.BORDER_WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);

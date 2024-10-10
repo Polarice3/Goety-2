@@ -14,13 +14,11 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.gossip.GossipType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.IronGolem;
@@ -28,12 +26,13 @@ import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -130,7 +129,6 @@ public class LichEvents {
                 }
             }
             if (player.isAlive()){
-                player.setAirSupply(player.getMaxAirSupply() + 10);
                 if (!player.level.isClientSide) {
                     if (LichdomHelper.nightVision(player) && MainConfig.LichNightVision.get()) {
                         player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, -1, 0, false, false, false));
@@ -233,23 +231,6 @@ public class LichEvents {
     public static void HurtEvent(LivingHurtEvent event){
         if (event.getEntity() instanceof Player player) {
             if (LichdomHelper.isLich(player)){
-                if (event.getSource().getEntity() instanceof LivingEntity attacker){
-                    if (attacker.getMainHandItem().isEnchanted()){
-                        ItemStack weapon = attacker.getMainHandItem();
-                        if (MainConfig.LichSmite.get()) {
-                            int smite = EnchantmentHelper.getEnchantmentLevel(Enchantments.SMITE, attacker);
-                            if (smite > 0) {
-                                int smite2 = Mth.clamp(smite, 1, 5);
-                                int duration = MathHelper.secondsToTicks(smite2);
-                                LichdomHelper.setSmited(player, duration);
-                            }
-                        }
-                        event.setAmount((float) (EnchantmentHelper.getDamageBonus(weapon, MobType.UNDEAD) + attacker.getAttributeValue(Attributes.ATTACK_DAMAGE)));
-                    }
-                }
-                if (event.getSource().is(DamageTypeTags.IS_DROWNING)){
-                    event.setCanceled(true);
-                }
                 if (MainConfig.LichMagicResist.get()) {
                     if (event.getSource().is(DamageTypeTags.WITCH_RESISTANT_TO)) {
                         event.setAmount(event.getAmount() * 0.15F);
@@ -302,17 +283,6 @@ public class LichEvents {
                     if (event.getEntity().getMobType() != MobType.UNDEAD && player.getMainHandItem().is(ModTags.Items.LICH_WITHER_ITEMS)){
                         event.getEntity().addEffect(new MobEffectInstance(MobEffects.WITHER, MathHelper.secondsToTicks(5)));
                     }
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void AttackEvent(LivingAttackEvent event){
-        if (event.getEntity() instanceof Player player) {
-            if (LichdomHelper.isLich(player)) {
-                if (event.getSource().is(DamageTypeTags.IS_DROWNING)){
-                    event.setCanceled(true);
                 }
             }
         }

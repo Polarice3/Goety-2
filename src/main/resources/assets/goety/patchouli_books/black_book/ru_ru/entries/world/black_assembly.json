@@ -1,0 +1,16 @@
+{
+  "name": "Тёмные собрания",
+  "icon": "minecraft:obsidian",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Путешественники со всего мира рассказывают истории о странных существах в просторных одеждах, которые пели, обращаясь к обсидиановому монолиту. Они добавляют, что местность вокруг монолита вызывает у них беспокойство..."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/black_assembly.png"],
+      "border": true
+    }
+  ]
+}

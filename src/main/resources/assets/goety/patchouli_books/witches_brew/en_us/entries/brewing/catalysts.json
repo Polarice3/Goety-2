@@ -178,6 +178,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.frog_leg",
+      "text": "Why just jump off the ground when you can also jump off the air as well?"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.frosty_aura",
       "text": "Don't get too close to me! I'm too cold for ya!"
     },

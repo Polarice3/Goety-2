@@ -1,6 +1,6 @@
 {
-  "name": "The Black Book",
-  "landing_text": "The power of the arcane are ever present, one needs to find it first.",
+  "name": "info.goety.black_book.title",
+  "landing_text": "info.goety.black_book.landing",
   "book_texture": "goety:textures/gui/black_book.png",
   "version": 1,
   "model": "goety:black_book",

@@ -52,6 +52,7 @@ public class HauntedArmorStand extends ArmorStand {
                         hauntedArmorServant.setItemSlot(equipmentSlot, this.getItemBySlot(equipmentSlot));
                         hauntedArmorServant.setGuaranteedDrop(equipmentSlot);
                     }
+                    hauntedArmorServant.setPersistenceRequired();
                     hauntedArmorServant.setTrueOwner(playerIn);
                     hauntedArmorServant.moveTo(this.blockPosition(), this.getYRot(), this.getXRot());
                     hauntedArmorServant.setLeftHanded(playerIn.getMainArm() == HumanoidArm.LEFT);

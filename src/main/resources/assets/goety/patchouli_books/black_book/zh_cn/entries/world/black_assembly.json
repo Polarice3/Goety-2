@@ -1,0 +1,16 @@
+{
+  "name": "黑色集会",
+  "icon": "minecraft:obsidian",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "来自各地的旅人讲述着偶遇奇特的、身着华丽长袍的生物，它们对着似乎是黑曜石制成的巨石吟唱。在那周围，他们感到莫名的不安..."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/black_assembly.png"],
+      "border": true
+    }
+  ]
+}

@@ -62,6 +62,8 @@
   "entity.goety.obsidian_monolith":"Obsidian Monolith",
   "entity.goety.warlock":"Warlock",
   "entity.goety.wartling":"Wartling",
+  "entity.goety.heretic":"Heretic",
+  "entity.goety.maverick":"Maverick",
   "entity.goety.crone":"Crone",
   "entity.goety.zombie_villager_servant":"Zombie Villager Servant",
   "entity.goety.skeleton_villager_servant":"Skeleton Villager Servant",
@@ -206,6 +208,7 @@
   "entity.goety.steam_missile":"Steam Missile",
   "entity.goety.hell_bolt":"Hell Bolt",
   "entity.goety.hell_blast":"Hell Blast",
+  "entity.goety.hell_chant":"Hell Chant",
   "entity.goety.necro_bolt":"Necro Bolt",
   "entity.goety.magic_bolt":"Magic Bolt",
   "entity.goety.shield_debris": "Shield Debris",
@@ -270,6 +273,9 @@
 
   "item.goety.apostle_spawn_egg": "Apostle Spawn Egg",
   "item.goety.warlock_spawn_egg": "Warlock Spawn Egg",
+  "item.goety.obsidian_monolith_spawn_egg": "Obsidian Monolith Spawn Egg",
+  "item.goety.heretic_spawn_egg": "Heretic Spawn Egg",
+  "item.goety.maverick_spawn_egg": "Maverick Spawn Egg",
   "item.goety.crone_spawn_egg": "Crone Spawn Egg",
   "item.goety.hostile_black_wolf_spawn_egg": "Hostile Black Wolf Spawn Egg",
   "item.goety.wraith_spawn_egg": "Wraith Spawn Egg",
@@ -405,6 +411,7 @@
 
   "item.goety.hunters_bow": "Hunter's Bow",
 
+  "item.goety.infernal_tome": "Infernal Tome",
   "item.goety.philosophers_mace": "Philosopher's Mace",
 
   "item.goety.dark_scroll": "Dark Scroll",
@@ -1152,6 +1159,8 @@
   "effect.goety.explosive.description": "Have a chance of unleashing an explosion when hurt; higher levels increases chance and explosion strength.",
   "effect.goety.swift_swim": "Swift Swim",
   "effect.goety.swift_swim.description": "Increase speed when swimming.",
+  "effect.goety.frog_leg": "Frog Legs",
+  "effect.goety.frog_leg.description": "Allows double jumping; higher levels increases number of jumps.",
   "effect.goety.insight": "Insight",
   "effect.goety.insight.description": "Doubles the amount of experience points dropped; higher levels increases yield.",
   "effect.goety.bottling": "Bottling",
@@ -1460,6 +1469,12 @@
   "info.goety.summon.hunt": "Something is hunting you down...",
   "info.goety.apostle.summon": "A dark presence washes over you...",
 
+  "info.goety.black_book.title": "The Black Book",
+  "info.goety.black_book.landing": "The power of the arcane are ever present, one needs to find it first.",
+
+  "info.goety.witch_brew.title": "The Witch's Brews",
+  "info.goety.witch_brew.landing": "A Witch's guide to brewery.",
+
   "filled_map.goety.blighted_shack": "Blighted Shack Explorer Map",
   "filled_map.goety.crypt": "Crypt Explorer Map",
   "filled_map.goety.wind_shrine": "Wind Shrine Explorer Map",
@@ -1669,6 +1684,17 @@
   "subtitle.goety.warlock_hurt": "Warlock hurts",
   "subtitle.goety.warlock_celebrate": "Warlock cheers",
   "subtitle.goety.warlock_death": "Warlock dies",
+
+  "subtitle.goety.heretic_ambient": "Heretic murmurs",
+  "subtitle.goety.heretic_hurt": "Heretic hurts",
+  "subtitle.goety.heretic_chant": "Heretic chants",
+  "subtitle.goety.heretic_celebrate": "Heretic cheers",
+  "subtitle.goety.heretic_death": "Heretic dies",
+
+  "subtitle.goety.maverick_ambient": "Maverick murmurs",
+  "subtitle.goety.maverick_hurt": "Maverick hurts",
+  "subtitle.goety.maverick_celebrate": "Maverick cheers",
+  "subtitle.goety.maverick_death": "Maverick dies",
 
   "subtitle.goety.crone_ambient": "Crone cackles",
   "subtitle.goety.crone_laugh": "Crone laughs",

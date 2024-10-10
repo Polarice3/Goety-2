@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:crimson_fungus",
+    "#goety:nether_spread_replaceable",
+    "#minecraft:overworld_carver_replaceables",
+    "#minecraft:nether_carver_replaceables",
+    "#minecraft:logs_that_burn"
+  ]
+}

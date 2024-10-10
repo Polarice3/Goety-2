@@ -25,10 +25,7 @@ import com.Polarice3.Goety.common.items.ArcaCompassItem;
 import com.Polarice3.Goety.common.items.FlameCaptureItem;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.WaystoneItem;
-import com.Polarice3.Goety.common.items.magic.CallFocus;
-import com.Polarice3.Goety.common.items.magic.RecallFocus;
-import com.Polarice3.Goety.common.items.magic.TaglockKit;
-import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
+import com.Polarice3.Goety.common.items.magic.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -67,6 +64,10 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import org.jetbrains.annotations.UnknownNullability;
 
 import javax.annotation.Nullable;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
@@ -119,6 +120,34 @@ public class ClientInitEvents {
                 , (stack, world, living, seed) -> CallFocus.hasSummon(stack) ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.RECALL_FOCUS.get(), new ResourceLocation("active")
                 , (stack, world, living, seed) -> RecallFocus.hasRecall(stack) ? 1.0F : 0.0F);
+        ItemProperties.register(ModItems.INFERNAL_TOME.get(), new ResourceLocation("active")
+                , (stack, world, living, seed) -> living != null && living.isUsingItem() && (living.getUseItem() == stack || InfernalTome.isChanting(stack)) ? 1.0F : 0.0F);
+
+        copyOldArtIfMissing();
+    }
+
+    private static void copyOldArtIfMissing() {
+        File dir = new File(".", "resourcepacks");
+        File target = new File(dir, "Goety Old Textures.zip");
+
+        if(!target.exists())
+            try {
+                dir.mkdirs();
+                InputStream in = Goety.class.getResourceAsStream("/assets/goety/old_textures.zip");
+                FileOutputStream out = new FileOutputStream(target);
+
+                byte[] buf = new byte[16384];
+                int len;
+                if (in != null) {
+                    while ((len = in.read(buf)) > 0)
+                        out.write(buf, 0, len);
+
+                    in.close();
+                }
+                out.close();
+            } catch (IOException ignored) {
+
+            }
     }
 
     private static ModPlayerRenderer renderer;
@@ -205,6 +234,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.SOUL_BOLT, SoulBoltModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SHIELD_DEBRIS, ShieldDebrisModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.HELL_BLAST, HellBlastModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.SCREAM, HellChantModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SCATTER_MINE, ScatterMineModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.BLAST_FUNGUS, BlastFungusModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WEB_SHOT, WebShotModel::createBodyLayer);
@@ -219,6 +249,8 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.VOLCANO, VolcanoModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.BLOCK, BlockModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WARLOCK, WarlockModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.HERETIC, HereticModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.MAVERICK, MaverickModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.CRONE, CroneModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.APOSTLE, ApostleModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.APOSTLE_SHADE, ApostleShadeRenderer.ApostleShadeModel::createBodyLayer);
@@ -366,6 +398,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.LAVABALL.get(), (rendererManager) -> new ModFireballRenderer<>(rendererManager, 3.0F, true));
         event.registerEntityRenderer(ModEntityType.HELL_BOLT.get(), HellBoltRenderer::new);
         event.registerEntityRenderer(ModEntityType.HELL_BLAST.get(), HellBlastRenderer::new);
+        event.registerEntityRenderer(ModEntityType.HELL_CHANT.get(), HellChantRenderer::new);
         event.registerEntityRenderer(ModEntityType.SWORD.get(), (rendererManager) -> new SwordProjectileRenderer<>(rendererManager, itemRenderer, 1.25F, true));
         event.registerEntityRenderer(ModEntityType.ICE_SPIKE.get(), IceSpikeRenderer::new);
         event.registerEntityRenderer(ModEntityType.ICE_SPEAR.get(), IceSpearRenderer::new);
@@ -435,6 +468,8 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.HAUNTED_ARMOR_STAND.get(), HauntedArmorStandRenderer::new);
         event.registerEntityRenderer(ModEntityType.WARLOCK.get(), WarlockRenderer::new);
         event.registerEntityRenderer(ModEntityType.WARTLING.get(), WartlingRenderer::new);
+        event.registerEntityRenderer(ModEntityType.HERETIC.get(), HereticRenderer::new);
+        event.registerEntityRenderer(ModEntityType.MAVERICK.get(), MaverickRenderer::new);
         event.registerEntityRenderer(ModEntityType.CRONE.get(), CroneRenderer::new);
         event.registerEntityRenderer(ModEntityType.APOSTLE.get(), ApostleRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKELETON_VILLAGER_SERVANT.get(), SkeletonVillagerServantRenderer::new);
@@ -619,6 +654,7 @@ public class ClientInitEvents {
         event.registerSpriteSet(ModParticleTypes.WARLOCK.get(), SpellParticle.WitchProvider::new);
         event.registerSpriteSet(ModParticleTypes.BONE.get(), ShortFlameParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.LEECH.get(), FlameParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.CHANT.get(), FlameParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.ELECTRIC.get(), GlowParticle.ElectricSparkProvider::new);
         event.registerSpriteSet(ModParticleTypes.BIG_ELECTRIC.get(), BigElectricParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.BREW_BUBBLE.get(), BrewBubbleParticle.Provider::new);
@@ -664,6 +700,8 @@ public class ClientInitEvents {
         event.registerSpriteSet(ModParticleTypes.MAGIC_BOLT.get(), RollingParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.NECRO_BOLT.get(), RollingParticle.QuickProvider::new);
         event.registerSpriteSet(ModParticleTypes.STUN.get(), RollingParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.RISING_ENCHANT.get(), RisingRollingParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.ROLLING_ENCHANT.get(), RollingParticle.EnchantProvider::new);
         event.registerSpriteSet(ModParticleTypes.FUNGUS_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
         event.registerSpecial(ModParticleTypes.FUNGUS_EXPLOSION_EMITTER.get(), new HugeFungusExplosionSeedParticle.Provider());
         event.registerSpriteSet(ModParticleTypes.SOUL_EXPLODE.get(), SoulExplodeParticle.Provider::new);

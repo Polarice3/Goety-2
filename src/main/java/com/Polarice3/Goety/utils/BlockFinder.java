@@ -14,9 +14,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.entity.player.Player;
@@ -25,6 +23,7 @@ import net.minecraft.world.item.context.DirectionalPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -199,15 +198,15 @@ public class BlockFinder {
         }
     }
 
-    public static BlockPos SummonPosition(LivingEntity livingEntity, BlockPos blockPos){
-        return SummonPosition(livingEntity, blockPos.getX(), blockPos.getY(), blockPos.getZ());
+    public static BlockPos SummonPosition(Entity entity, BlockPos blockPos){
+        return SummonPosition(entity, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
-    public static BlockPos SummonPosition(LivingEntity livingEntity, double x, double y, double z){
+    public static BlockPos SummonPosition(Entity entity, double x, double y, double z){
         double d3 = y;
         boolean flag = false;
         BlockPos blockpos = BlockPos.containing(x, y, z);
-        Level level = livingEntity.level;
+        Level level = entity.level;
         if (level.isLoaded(blockpos)) {
             boolean flag1 = false;
 
@@ -223,7 +222,7 @@ public class BlockFinder {
             }
 
             if (flag1) {
-                if (level.noCollision(livingEntity) && !level.containsAnyLiquid(livingEntity.getBoundingBox())) {
+                if (level.noCollision(entity) && !level.containsAnyLiquid(entity.getBoundingBox())) {
                     flag = true;
                 }
             }
@@ -235,24 +234,24 @@ public class BlockFinder {
         }
     }
 
-    public static BlockPos SummonRadius(BlockPos blockPos, LivingEntity livingEntity, Level world){
-        return SummonRadius(blockPos, livingEntity, world, 5);
+    public static BlockPos SummonRadius(BlockPos blockPos, Entity entity, Level world){
+        return SummonRadius(blockPos, entity, world, 5);
     }
 
-    public static BlockPos SummonRadius(BlockPos blockPos, LivingEntity livingEntity, Level world, int radius){
-        return SummonRadius(blockPos, livingEntity, world, 64, radius);
+    public static BlockPos SummonRadius(BlockPos blockPos, Entity entity, Level world, int radius){
+        return SummonRadius(blockPos, entity, world, 64, radius);
     }
 
-    public static BlockPos SummonRadius(BlockPos blockPos, LivingEntity livingEntity, Level world, int attempts, int radius){
+    public static BlockPos SummonRadius(BlockPos blockPos, Entity entity, Level world, int attempts, int radius){
         for (int i = 0; i < attempts; ++i) {
             BlockPos.MutableBlockPos blockpos$mutable = blockPos.mutable().move(0, 0, 0);
             blockpos$mutable.setX(blockpos$mutable.getX() + world.random.nextInt(radius) - world.random.nextInt(radius));
             blockpos$mutable.setY(blockPos.getY());
             blockpos$mutable.setZ(blockpos$mutable.getZ() + world.random.nextInt(radius) - world.random.nextInt(radius));
-            if (world.noCollision(livingEntity, livingEntity.getBoundingBox().move(blockpos$mutable))
-                    && !world.containsAnyLiquid(livingEntity.getBoundingBox().move(blockpos$mutable))
+            if (world.noCollision(entity, entity.getBoundingBox().move(blockpos$mutable))
+                    && !world.containsAnyLiquid(entity.getBoundingBox().move(blockpos$mutable))
             && blockpos$mutable.distToCenterSqr(blockPos.getCenter()) <= Mth.square(radius * 2)) {
-                blockPos = SummonPosition(livingEntity, blockpos$mutable);
+                blockPos = SummonPosition(entity, blockpos$mutable);
                 break;
             }
         }
@@ -618,6 +617,12 @@ public class BlockFinder {
                 (poiTypeHolder) -> poiTypeHolder.is(PoiTypes.LIGHTNING_ROD),
                 (blockPos1) -> blockPos1.getY() == serverLevel.getHeight(Heightmap.Types.WORLD_SURFACE, blockPos1.getX(), blockPos1.getZ()) - 1, blockPos, range, PoiManager.Occupancy.ANY);
         return optional.map((blockPos1) -> blockPos1.above(1));
+    }
+
+    public static Optional<BlockPos> findNetherPortal(ServerLevel serverLevel, BlockPos blockPos, int range) {
+        return serverLevel.getPoiManager().findClosest(
+                (poiTypeHolder) -> poiTypeHolder.is(PoiTypes.NETHER_PORTAL),
+                blockPos, range, PoiManager.Occupancy.ANY);
     }
 
     public static void preventCreativeDropFromBottomPart(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {

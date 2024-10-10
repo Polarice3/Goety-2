@@ -551,8 +551,8 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
             return true;
         } else if (super.isAlliedTo(pEntity)) {
             return true;
-        } else if (pEntity instanceof Irk) {
-            return this.isAlliedTo(((Irk)pEntity).getTrueOwner());
+        } else if (pEntity instanceof Irk irk && irk.getTrueOwner() != null) {
+            return this.isAlliedTo(irk.getTrueOwner());
         } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.ILLAGER) {
             return this.getTeam() == null && pEntity.getTeam() == null;
         } else {

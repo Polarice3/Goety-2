@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.util.Map;
 
-public class GlacialWallRenderer extends AbstractMonolithRenderer{
+public class GlacialWallRenderer<T extends AbstractMonolith> extends AbstractMonolithRenderer<T>{
     private static final ResourceLocation TEXTURE_LOCATION = Goety.location("textures/entity/monolith/glacial_wall.png");
     private static final Map<AbstractMonolith.Crackiness, ResourceLocation> resourceLocations = ImmutableMap.of(AbstractMonolith.Crackiness.LOW, Goety.location("textures/entity/monolith/glacial_wall_crack_1.png"), AbstractMonolith.Crackiness.MEDIUM, Goety.location("textures/entity/monolith/glacial_wall_crack_1.png"), AbstractMonolith.Crackiness.HIGH, Goety.location("textures/entity/monolith/glacial_wall_crack_2.png"));
 

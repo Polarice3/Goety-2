@@ -175,14 +175,13 @@ public class Summoned extends Owned implements IServant {
         }
         if (this.isPatrolling()){
             if (this.getTarget() != null){
-                if (this.getTarget().distanceToSqr(this.vec3BoundPos()) > Mth.square(PATROL_RANGE)){
+                if (this.getTarget().distanceToSqr(this.vec3BoundPos()) > Mth.square(PATROL_RANGE * 2)){
                     this.setTarget(null);
                     if (!this.isCommanded()){
                         this.getNavigation().moveTo(this.boundPos.getX(), this.boundPos.getY(), this.boundPos.getZ(), 1.0F);
                     }
                 }
-            }
-            if (!this.isCommanded() && this.distanceToSqr(this.vec3BoundPos()) > Mth.square(PATROL_RANGE)){
+            } else if (!this.isCommanded() && this.distanceToSqr(this.vec3BoundPos()) > Mth.square(PATROL_RANGE)){
                 this.getNavigation().moveTo(this.boundPos.getX(), this.boundPos.getY(), this.boundPos.getZ(), 1.0F);
             }
         }

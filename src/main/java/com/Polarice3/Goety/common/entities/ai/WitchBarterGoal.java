@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.ai;
 
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Heretic;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.ModLootTables;
@@ -59,6 +60,9 @@ public class WitchBarterGoal extends Goal {
                     if (this.witch instanceof Warlock){
                         loottable = this.witch.level.getServer().getLootData().getLootTable(ModLootTables.WARLOCK_BARTER);
                     }
+                    if (this.witch instanceof Heretic){
+                        loottable = this.witch.level.getServer().getLootData().getLootTable(ModLootTables.HERETIC_BARTER);
+                    }
                     if (this.witch instanceof Crone){
                         loottable = this.witch.level.getServer().getLootData().getLootTable(ModLootTables.CRONE_BARTER);
                     }
@@ -110,5 +114,10 @@ public class WitchBarterGoal extends Goal {
         this.witch.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
         WitchBarterHelper.setTimer(this.witch, 5);
         WitchBarterHelper.setTrader(this.witch, null);
+    }
+
+    @Override
+    public boolean requiresUpdateEveryTick() {
+        return true;
     }
 }

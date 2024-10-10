@@ -17,15 +17,15 @@ import net.minecraft.world.entity.LivingEntity;
 import javax.annotation.Nullable;
 import java.util.Map;
 
-public abstract class AbstractMonolithRenderer extends EntityRenderer<AbstractMonolith> {
-    private final MonolithModel<AbstractMonolith> model;
+public abstract class AbstractMonolithRenderer<T extends AbstractMonolith> extends EntityRenderer<T> {
+    public final MonolithModel<T> model;
 
     public AbstractMonolithRenderer(EntityRendererProvider.Context p_i47208_1_) {
         super(p_i47208_1_);
         this.model = new MonolithModel<>(p_i47208_1_.bakeLayer(ModModelLayer.MONOLITH));
     }
 
-    public void render(AbstractMonolith pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
+    public void render(T pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
         float f = Math.min(AbstractMonolith.getEmergingTime(), pEntity.getAge());
         pMatrixStack.pushPose();
         pMatrixStack.mulPose(Axis.YP.rotationDegrees(pEntity.getYRot()));
@@ -60,8 +60,8 @@ public abstract class AbstractMonolithRenderer extends EntityRenderer<AbstractMo
     }
 
     @Nullable
-    public abstract RenderType getActivatedTextureLocation(AbstractMonolith monolith);
+    public abstract RenderType getActivatedTextureLocation(T monolith);
 
     @Nullable
-    public abstract Map<AbstractMonolith.Crackiness, ResourceLocation> cracknessLocation();
+    public abstract Map<T.Crackiness, ResourceLocation> cracknessLocation();
 }

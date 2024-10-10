@@ -48,6 +48,8 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WarlockSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithSpawnWeight;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HereticSpawnWeight;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MaverickSpawnWeight;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> ZombieServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DrownedServantTexture;
@@ -114,6 +116,8 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHate;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHateRavager;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerConvertWarlock;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerConvertHeretic;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> TraderConvertMaverick;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerAssault;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SoulEnergyBadOmen;
@@ -134,6 +138,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> HostileRedstoneMonstrosityRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ArmoredRavagerRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WarlockRaid;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> MaverickRaid;
 
     public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> PikerRaidCount;
     public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> RipperRaidCount;
@@ -148,6 +153,7 @@ public class MobsConfig {
     public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> HostileRedstoneGolemRaidCount;
     public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> HostileRedstoneMonstrosityRaidCount;
     public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> WarlockRaidCount;
+    public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> MaverickRaidCount;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> CryologerIceChunk;
 
@@ -170,6 +176,8 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleBoilsWater;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleConvertsVillagers;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FancierApostleDeath;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ObsidianMonolithSpread;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ObsidianMonolithBiome;
     public static final ForgeConfigSpec.ConfigValue<Boolean> HellfireFireImmune;
     public static final ForgeConfigSpec.ConfigValue<Boolean> HellfireFireProtection;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneMonstrosityLeafBreak;
@@ -484,6 +492,14 @@ public class MobsConfig {
                         .defineList("warlockRaidCount",
                                 Arrays.asList(0, 0, 0, 0, 1, 2, 0, 1), (i) -> i instanceof Integer);
                 BUILDER.pop();
+                BUILDER.push("Maverick");
+                MaverickRaid = BUILDER.comment("Whether Mavericks appear in Raids, Default: true")
+                        .define("maverickRaid", true);
+                MaverickRaidCount = BUILDER.comment("How many Mavericks each wave", "Requires game restart", "Must have no more and no less than 8 integers")
+                        .worldRestart()
+                        .defineList("maverickRaidCount",
+                                Arrays.asList(0, 1, 0, 1, 0, 0, 0, 1), (i) -> i instanceof Integer);
+                BUILDER.pop();
             BUILDER.pop();
         CryologerIceChunk = BUILDER.comment("Whether Cryologers can summon Ice Chunks on Hard Difficulty, Default: false")
                 .define("cryologerIceChunk", false);
@@ -501,10 +517,14 @@ public class MobsConfig {
                 .defineInRange("villagerHateSpells", 0, 0, Integer.MAX_VALUE);
         VillagerConvertWarlock = BUILDER.comment("Villagers have a chance of converting into Warlocks if they're underneath a Block of Crying Obsidian, Default: true")
                 .define("villagerConvertToWarlock", true);
+        VillagerConvertHeretic = BUILDER.comment("Villagers have a chance of converting into Heretics if they're near an active Nether Portal, Default: true")
+                .define("villagerConvertToHeretic", true);
+        TraderConvertMaverick = BUILDER.comment("Wandering Traders transforms into Mavericks when struck by lightning, Default: true")
+                .define("traderConvertMaverick", true);
         BUILDER.pop();
         BUILDER.push("Misc");
             BUILDER.push("Apostle");
-            ApocalypseMode = BUILDER.comment("Nether Meteors deals environmental damage. WARNING: Causes lots of lag. Default: false")
+            ApocalypseMode = BUILDER.comment("Apostle spreads Nether biomes, and Nether Meteors deals environmental damage and spread Nether biomes as well. WARNING: Causes lots of lag. Default: false")
                     .define("apocalypseMode", false);
             ApostlePersistent = BUILDER.comment("Whether Apostles are persistent and do not naturally despawn. Default: false")
                     .define("apostlePersistent", true);
@@ -521,6 +541,12 @@ public class MobsConfig {
             VizierMinion = BUILDER.comment("Viziers spawn Vexes instead of Irks, Default: false")
                     .define("vizierMinion", false);
             BUILDER.pop();
+            BUILDER.push("Obsidian Monolith");
+            ObsidianMonolithSpread = BUILDER.comment("Whether unowned Obsidian Monoliths, empowered by Heretics, converts nearby Overworld blocks to Nether blocks. Default: true")
+                    .define("obsidianMonolithSpread", true);
+            ObsidianMonolithBiome = BUILDER.comment("Whether unowned Obsidian Monoliths, empowered by Heretics, change Overworld biomes to Nether biomes, Default: true")
+                    .define("obsidianMonolithBiome", true);
+            BUILDER.pop();
         WightSpawn = BUILDER.comment("Whether Wights can spawn near players that have a high amount of Soul Energy, Default: true")
                 .define("wightSpawn", true);
         WightSpawnFreq = BUILDER.comment("How many ticks it takes for Wights to spawn, Default: 24000")
@@ -533,6 +559,10 @@ public class MobsConfig {
                 .defineInRange("warlockSpawnWeight", 5, 0, Integer.MAX_VALUE);
         WraithSpawnWeight = BUILDER.comment("Spawn Weight for Wraith, Default: 20")
                 .defineInRange("wraithSpawnWeight", 20, 0, Integer.MAX_VALUE);
+        HereticSpawnWeight = BUILDER.comment("Spawn Weight for Heretic, Default: 5")
+                .defineInRange("hereticSpawnWeight", 5, 0, Integer.MAX_VALUE);
+        MaverickSpawnWeight = BUILDER.comment("Spawn Weight for Maverick, Default: 5")
+                .defineInRange("maverickSpawnWeight", 5, 0, Integer.MAX_VALUE);
         TallSkullDrops = BUILDER.comment("Whether Mobs with Tall Heads(ie. Villagers, Illagers, etc.) will drop Tall Skulls, Default: true")
                 .define("tallSkullDrop", true);
         WraithAggressiveTeleport = BUILDER.comment("Whether Wraiths should teleport towards their targets if they can't see them instead of just teleporting away when they're near them, Default: true")

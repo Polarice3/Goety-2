@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.util.Map;
 
-public class TotemicWallRenderer extends AbstractMonolithRenderer{
+public class TotemicWallRenderer<T extends AbstractMonolith> extends AbstractMonolithRenderer<T>{
     private static final ResourceLocation TEXTURE_LOCATION = Goety.location("textures/entity/monolith/totemic_wall.png");
 
     public TotemicWallRenderer(EntityRendererProvider.Context p_i47208_1_) {

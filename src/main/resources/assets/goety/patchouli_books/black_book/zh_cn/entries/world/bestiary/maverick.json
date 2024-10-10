@@ -1,0 +1,21 @@
+{
+  "name": "独行者们",
+  "icon": "minecraft:iron_sword",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_maverick",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "相较于其族人，他们更加倾向于亲力亲为，他们借由利刃施展药剂的魔力，随后饮用药剂以迅速撤离。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:maverick",
+      "text": "他们对魔法有抗性，就像是他们的女巫表亲们一样。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "如果一个旅商被闪电击中了，那么他会转变成为独行者。"
+    }
+  ]
+}

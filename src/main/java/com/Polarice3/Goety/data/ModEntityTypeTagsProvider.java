@@ -45,7 +45,9 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.ICE_GOLEM.get(),
                 ModEntityType.CRYOLOGER.get(),
                 ModEntityType.GLACIAL_WALL.get());
-        this.tag(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES).add(ModEntityType.INFERNO.get(),
+        this.tag(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES).add(ModEntityType.BLAZE_SERVANT.get(),
+                ModEntityType.WILDFIRE.get(),
+                ModEntityType.INFERNO.get(),
                 ModEntityType.MAGMA_CUBE_SERVANT.get());
         this.tag(EntityTypeTags.POWDER_SNOW_WALKABLE_MOBS).add(ModEntityType.WRAITH.get(),
                 ModEntityType.WRAITH_SERVANT.get(),

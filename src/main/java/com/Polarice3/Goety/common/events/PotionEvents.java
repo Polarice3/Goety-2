@@ -712,9 +712,6 @@ public class PotionEvents {
             }
         }
         if (event.getEffectInstance().getEffect() == MobEffects.BLINDNESS){
-            if (CuriosFinder.hasIllusionRobe(event.getEntity())){
-                event.setResult(Event.Result.DENY);
-            }
             if (event.getEntity() instanceof Player player) {
                 if (ItemConfig.DarkHelmetBlindness.get()) {
                     if (ItemHelper.findHelmet(player, ModItems.DARK_HELMET.get())) {

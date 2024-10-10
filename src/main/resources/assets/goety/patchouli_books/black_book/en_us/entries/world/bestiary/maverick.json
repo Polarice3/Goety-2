@@ -1,0 +1,21 @@
+{
+  "name": "Mavericks",
+  "icon": "minecraft:iron_sword",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_maverick",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "More hands on than their cousins, they apply potions effects through their blades, before fleeing and drinking a potion to buff themselves."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:maverick",
+      "text": "They're resistant to magic much like their Witch cousins."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If a Wandering Trader gets struck by lightning, they will transform into a Maverick."
+    }
+  ]
+}
