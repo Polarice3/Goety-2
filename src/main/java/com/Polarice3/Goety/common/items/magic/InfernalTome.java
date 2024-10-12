@@ -25,7 +25,10 @@ public class InfernalTome extends Item {
     public static String CHANT_TIMES = "Chant Times";
 
     public InfernalTome() {
-        super(new Properties().durability(64).fireResistant().rarity(Rarity.UNCOMMON));
+        super(new Properties()
+                .durability(64)
+                .fireResistant()
+                .rarity(Rarity.UNCOMMON));
     }
 
     @Override
@@ -146,6 +149,16 @@ public class InfernalTome extends Item {
         ItemStack itemstack = p_40673_.getItemInHand(p_40674_);
         p_40673_.startUsingItem(p_40674_);
         return InteractionResultHolder.consume(itemstack);
+    }
+
+    @Override
+    public int getEnchantmentValue(ItemStack stack) {
+        return 5;
+    }
+
+    @Override
+    public boolean isEnchantable(ItemStack pStack) {
+        return pStack.getCount() == 1;
     }
 
     @Override

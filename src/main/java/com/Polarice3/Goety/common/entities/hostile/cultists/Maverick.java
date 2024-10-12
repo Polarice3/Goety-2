@@ -261,7 +261,7 @@ public class Maverick extends Cultist{
             }
 
             for (MobEffectInstance instance : potion.getEffects()){
-                livingEntity.addEffect(instance);
+                livingEntity.addEffect(new MobEffectInstance(instance));
             }
             if (!livingEntity.isSprinting()) {
                 if (this.fleeTime <= 0) {

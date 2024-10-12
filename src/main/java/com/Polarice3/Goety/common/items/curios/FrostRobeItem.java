@@ -11,6 +11,7 @@ import com.Polarice3.Goety.utils.ModDamageSource;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -39,7 +40,11 @@ public class FrostRobeItem extends SingleStackItem{
             if (CuriosFinder.hasFrostRobes(livingEntity)){
                 livingEntity.setTicksFrozen(0);
                 livingEntity.setIsInPowderSnow(false);
-                livingEntity.getActiveEffects().removeIf(effectInstance -> effectInstance.getEffect() == GoetyEffects.FREEZING.get());
+                if (!livingEntity.level.isClientSide) {
+                    if (livingEntity.hasEffect(GoetyEffects.FREEZING.get())){
+                        livingEntity.removeEffect(GoetyEffects.FREEZING.get());
+                    }
+                }
             }
         }
     }

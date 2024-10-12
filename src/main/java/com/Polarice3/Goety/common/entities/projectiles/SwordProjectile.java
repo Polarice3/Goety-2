@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.Irk;
+import com.Polarice3.Goety.utils.ItemHelper;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.Util;
 import net.minecraft.core.particles.ParticleTypes;
@@ -139,9 +140,12 @@ public class SwordProjectile extends AbstractArrow implements ItemSupplier {
                 if (owner instanceof LivingEntity) {
                     EnchantmentHelper.doPostHurtEffects(livingTarget, owner);
                     EnchantmentHelper.doPostDamageEffects((LivingEntity)owner, livingTarget);
+                    ItemHelper.setItemEffect(this.getItem(), livingTarget);
                 }
                 if (f1 > 0) {
-                    livingTarget.knockback((double)((float)f1 * 0.5F), (double) Mth.sin(this.getYRot() * ((float)Math.PI / 180F)), (double)(-Mth.cos(this.getYRot() * ((float)Math.PI / 180F))));
+                    double d0 = livingTarget.getX() - this.getX();
+                    double d1 = livingTarget.getZ() - this.getZ();
+                    livingTarget.knockback(f1 * 0.5F, d0, d1);
                 }
                 if (i > 0) {
                     livingTarget.setSecondsOnFire(i * 4);

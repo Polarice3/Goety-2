@@ -17,8 +17,12 @@ public class IllusionRobeItem extends SingleStackItem {
     public static void LivingEffects(LivingEvent.LivingTickEvent event){
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity != null){
-            if (CuriosFinder.hasIllusionRobe(livingEntity)){
-                livingEntity.getActiveEffects().removeIf(effectInstance -> effectInstance.getEffect() == MobEffects.BLINDNESS);
+            if (CuriosFinder.hasIllusionRobe(livingEntity)) {
+                if (!livingEntity.level.isClientSide) {
+                    if (livingEntity.hasEffect(MobEffects.BLINDNESS)){
+                        livingEntity.removeEffect(MobEffects.BLINDNESS);
+                    }
+                }
             }
         }
     }
