@@ -1323,6 +1323,7 @@ public class ModEvents {
         if (event.getAmount() > 0.0F) {
             if (event.getSource().getDirectEntity() instanceof LivingEntity livingAttacker) {
                 if (ModDamageSource.physicalAttacks(event.getSource())) {
+                    ItemHelper.setItemEffect(livingAttacker.getMainHandItem(), victim);
                     if (livingAttacker.getMainHandItem().getItem() instanceof TieredItem weapon) {
                         if (weapon instanceof DarkScytheItem) {
                             victim.playSound(ModSounds.SCYTHE_HIT_MEATY.get());
@@ -1340,18 +1341,6 @@ public class ModEvents {
                                 }
                             }
                         }
-                        if (weapon.getTier() == ModTiers.DARK) {
-                            victim.addEffect(new MobEffectInstance(GoetyEffects.WANE.get(), 60));
-                        }
-                        if (weapon == ModItems.FELL_BLADE.get() && victim.getRandom().nextBoolean()) {
-                            victim.addEffect(new MobEffectInstance(GoetyEffects.BUSTED.get(), MathHelper.secondsToTicks(5)));
-                        }
-                        if (weapon == ModItems.FROZEN_BLADE.get()) {
-                            victim.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), MathHelper.secondsToTicks(2)));
-                        }
-                    } else if (livingAttacker.getMainHandItem().getItem() instanceof PhilosophersMaceItem){
-                        int i2 = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.MOB_LOOTING, livingAttacker.getMainHandItem());
-                        victim.addEffect(new MobEffectInstance(GoetyEffects.GOLD_TOUCHED.get(), 300, i2));
                     }
                 }
             }

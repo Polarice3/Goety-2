@@ -39,7 +39,11 @@ public class FrostRobeItem extends SingleStackItem{
             if (CuriosFinder.hasFrostRobes(livingEntity)){
                 livingEntity.setTicksFrozen(0);
                 livingEntity.setIsInPowderSnow(false);
-                livingEntity.getActiveEffects().removeIf(effectInstance -> effectInstance.getEffect() == GoetyEffects.FREEZING.get());
+                if (!livingEntity.level.isClientSide) {
+                    if (livingEntity.hasEffect(GoetyEffects.FREEZING.get())){
+                        livingEntity.removeEffect(GoetyEffects.FREEZING.get());
+                    }
+                }
             }
         }
     }

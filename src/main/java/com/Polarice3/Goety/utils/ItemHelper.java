@@ -1,18 +1,22 @@
 package com.Polarice3.Goety.utils;
 
+import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.ModTiers;
+import com.Polarice3.Goety.common.items.equipment.PhilosophersMaceItem;
 import com.Polarice3.Goety.config.ItemConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -240,5 +244,22 @@ public class ItemHelper {
                     return handler.getContainer();
                 })
                 .orElse(stack);
+    }
+
+    public static void setItemEffect(ItemStack stack, LivingEntity victim){
+        if (stack.getItem() instanceof TieredItem weapon){
+            if (weapon.getTier() == ModTiers.DARK) {
+                victim.addEffect(new MobEffectInstance(GoetyEffects.WANE.get(), 60));
+            }
+            if (weapon == ModItems.FELL_BLADE.get() && victim.getRandom().nextBoolean()) {
+                victim.addEffect(new MobEffectInstance(GoetyEffects.BUSTED.get(), MathHelper.secondsToTicks(5)));
+            }
+            if (weapon == ModItems.FROZEN_BLADE.get()) {
+                victim.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), MathHelper.secondsToTicks(2)));
+            }
+        } else if (stack.getItem() instanceof PhilosophersMaceItem){
+            int i2 = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.MOB_LOOTING, stack);
+            victim.addEffect(new MobEffectInstance(GoetyEffects.GOLD_TOUCHED.get(), 300, i2));
+        }
     }
 }

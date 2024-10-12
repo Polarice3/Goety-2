@@ -30,8 +30,14 @@ public class WildRobeItem extends SingleStackItem {
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity != null){
             if (CuriosFinder.hasWildRobe(livingEntity)){
-                livingEntity.getActiveEffects().removeIf(effectInstance -> effectInstance.getEffect() == MobEffects.POISON
-                || effectInstance.getEffect() == GoetyEffects.ACID_VENOM.get());
+                if (!livingEntity.level.isClientSide) {
+                    if (livingEntity.hasEffect(MobEffects.POISON)){
+                        livingEntity.removeEffect(MobEffects.POISON);
+                    }
+                    if (livingEntity.hasEffect(GoetyEffects.ACID_VENOM.get())){
+                        livingEntity.removeEffect(GoetyEffects.ACID_VENOM.get());
+                    }
+                }
             }
         }
     }
