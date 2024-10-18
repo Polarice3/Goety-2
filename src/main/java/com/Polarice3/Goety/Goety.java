@@ -5,9 +5,7 @@ import com.Polarice3.Goety.client.inventory.container.ModContainerType;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.CommonProxy;
 import com.Polarice3.Goety.common.advancements.ModCriteriaTriggers;
-import com.Polarice3.Goety.common.blocks.BrewCauldronBlock;
-import com.Polarice3.Goety.common.blocks.ModBlocks;
-import com.Polarice3.Goety.common.blocks.ModWoodType;
+import com.Polarice3.Goety.common.blocks.*;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.ModBlockEntities;
 import com.Polarice3.Goety.common.crafting.ModRecipeSerializer;
@@ -76,10 +74,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -426,7 +421,11 @@ public class Goety {
             });
             for (Block block : blocks){
                 if (block.defaultBlockState().ignitedByLava()){
-                    fireBlockAccessor.callSetFlammable(block, 5, 20);
+                    if (!(block instanceof PressurePlateBlock) && !(block instanceof AbstractChestBlock<?>)
+                    && !(block instanceof DoorBlock) && !(block instanceof SignBlock)
+                    && !(block instanceof SpiderNestBlock) && !(block instanceof WitchPoleBlock)) {
+                        fireBlockAccessor.callSetFlammable(block, 5, 20);
+                    }
                 }
             }
         });

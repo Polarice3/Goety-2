@@ -1,0 +1,23 @@
+{
+  "name": "Инфернальный фолиант",
+  "icon": "goety:infernal_tome",
+  "category": "goety:crafts/equipment",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Еретики могут выронить после смерти или дать вам при обмене инфернальный фолиант, который можно прочитать, чтобы воспроизвести их адские песнопения. Но тех, кто недостоин даров Незера, при этом будет поджигать и тошнить..."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:infernal_tome"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Инфернальный фолиант можно починить с помощью бумаги на наковальне (не спрашивайте, почему для починки книг используется наковальня)."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:infernal_tome": 1
+  }
+}

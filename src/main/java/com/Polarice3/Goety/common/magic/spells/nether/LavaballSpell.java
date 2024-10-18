@@ -61,7 +61,7 @@ public class LavaballSpell extends Spell {
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         Vec3 vector3d = entityLiving.getViewVector( 1.0F);
-        float extraBlast = WandUtil.getLevels(ModEnchantments.RADIUS.get(), entityLiving) / 2.5F;
+        float extraBlast = WandUtil.getLevels(ModEnchantments.RADIUS.get(), entityLiving) / 2.0F;
         Lavaball fireballEntity = new Lavaball(worldIn,
                 entityLiving.getX() + vector3d.x / 2,
                 entityLiving.getEyeY() - 0.2,

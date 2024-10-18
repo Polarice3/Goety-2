@@ -420,6 +420,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> FIRE_BREATH_START = create("fire_breath_start");
     public static final RegistryObject<SoundEvent> FIRE_BREATH = create("fire_breath");
     public static final RegistryObject<SoundEvent> FROST_BREATH = create("frost_breath");
+    public static final RegistryObject<SoundEvent> BURROW = create("burrow_spell");
     public static final RegistryObject<SoundEvent> FLIGHT = create("flight");
     public static final RegistryObject<SoundEvent> WHIRLWIND = create("whirlwind");
     public static final RegistryObject<SoundEvent> IRON_HIDE = create("soul_armor");
@@ -458,6 +459,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> THUNDERBOLT = create("thunderbolt");
     public static final RegistryObject<SoundEvent> UPDRAFT_BLAST = create("updraft_blast");
     public static final RegistryObject<SoundEvent> WIND_BLAST = create("wind_blast");
+    public static final RegistryObject<SoundEvent> WIND_HORN = create("wind_horn");
     public static final RegistryObject<SoundEvent> ZAP = create("zap");
     public static final RegistryObject<SoundEvent> GRAVITY = create("gravity");
     public static final RegistryObject<SoundEvent> PLATE = create("plate");

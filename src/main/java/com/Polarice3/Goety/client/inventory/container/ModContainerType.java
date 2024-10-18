@@ -24,4 +24,7 @@ public class ModContainerType {
 
     public static final RegistryObject<MenuType<DarkAnvilMenu>> DARK_ANVIL = CONTAINER_TYPE.register("dark_anvil",
             () -> IForgeMenuType.create(DarkAnvilMenu::new));
+
+    public static final RegistryObject<MenuType<CraftingFocusMenu>> CRAFTING_FOCUS = CONTAINER_TYPE.register("crafting_focus",
+            () -> IForgeMenuType.create(CraftingFocusMenu::new));
 }

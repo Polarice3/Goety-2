@@ -1,0 +1,18 @@
+{
+  "name": "Фокус трепета",
+  "icon": "goety:trembling_focus",
+  "category": "goety:focuses/wind",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Фокус создаёт круговой порыв ветра вокруг вас, отбрасывая существ на некоторое расстояние и ненадолго замедляя их."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/trembling_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:trembling_focus": 1
+  }
+}

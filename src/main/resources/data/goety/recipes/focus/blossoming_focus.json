@@ -1,0 +1,30 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:poison_dart_focus"
+  },
+  "craftType": "animation",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "goety:overgrown_roots"
+    },
+    {
+      "item": "goety:animation_core"
+    },
+    {
+      "tag": "forge:seeds"
+    },
+    {
+      "item": "minecraft:bone_meal"
+    },
+    {
+      "item": "goety:corpse_blossom"
+    }
+  ],
+  "result": {
+    "item": "goety:blossoming_focus"
+  }
+}

@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Focuses have their own specialize enchantments, but not all Focuses can be enchanted nor accept every enchantments. There are five enchantments that are only applicable to certain Focuses, Potency, Radius, Burning, Range and Life Absorb."
+      "text": "Focuses have their own specialize enchantments, but not all Focuses can be enchanted nor accept every enchantments. There are many enchantments that are only applicable to certain Focuses."
     },
     {
       "type": "patchouli:spotlight",
@@ -44,6 +44,18 @@
       "item": "minecraft:enchanted_book",
       "title": "Life Absorb",
       "text": "Your spells absorb health from targets when hit. Very Rare and is not compatible with Potency."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Magnetize",
+      "text": "Your spells immediately pulls blocks broken by them into your inventory. Very Rare."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Velocity",
+      "text": "Projectiles made from your spells move quicker."
     }
   ]
 }

@@ -33,6 +33,9 @@ public class SEImp implements ISoulEnergy{
     private int ticksInAir = 0;
     private int airJumps = 0;
     private int airJumpCooldown = 0;
+    private int miningProgress = 0;
+    @Nullable
+    private BlockPos miningPos = null;
     private UUID cameraUUID = null;
     private BlockPos EndWalkPos = null;
     private ResourceKey<Level> EndWalkDim = null;
@@ -291,6 +294,26 @@ public class SEImp implements ISoulEnergy{
     @Override
     public void setAirJumpCooldown(int airJumpCooldown) {
         this.airJumpCooldown = airJumpCooldown;
+    }
+
+    @Override
+    public int getMiningProgress() {
+        return this.miningProgress;
+    }
+
+    @Override
+    public void setMiningProgress(int tick) {
+        this.miningProgress = tick;
+    }
+
+    @Nullable
+    @Override
+    public BlockPos getMiningPos() {
+        return this.miningPos;
+    }
+
+    public void setMiningPos(BlockPos blockPos){
+        this.miningPos = blockPos;
     }
 
     @Override

@@ -68,7 +68,9 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
+import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
@@ -1191,35 +1193,47 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             }
             if (MobsConfig.ApostleConvertsVillagers.get()){
                 if (this.level instanceof ServerLevel serverLevel) {
-                    if (living instanceof Villager villager) {
+                    if (living instanceof AbstractVillager villager) {
                         float chance = 0.25F;
                         if (MobUtil.isDirectlyLooking(this, villager)){
                             chance = 0.75F;
                         }
-                        if (this.tickCount % 100 == 0 && this.random.nextFloat() <= chance && villager.getVillagerData().getLevel() <= 5) {
-                            float chance2 = this.random.nextFloat();
-                            Mob mob = EntityType.WITCH.create(serverLevel);
-                            if (chance2 <= 0.25F) {
-                                mob = ModEntityType.HERETIC.get().create(serverLevel);
-                            } else if (chance2 <= 0.5F){
-                                mob = ModEntityType.MAVERICK.get().create(serverLevel);
-                            } else if (chance2 <= 0.75F){
-                                mob = ModEntityType.WARLOCK.get().create(serverLevel);
-                            }
-                            if (mob != null) {
-                                mob.moveTo(villager.getX(), villager.getY(), villager.getZ(), villager.getYRot(), villager.getXRot());
-                                ForgeEventFactory.onFinalizeSpawn(mob, serverLevel, serverLevel.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.CONVERSION, null, null);
-                                mob.setNoAi(villager.isNoAi());
-                                if (villager.hasCustomName()) {
-                                    mob.setCustomName(villager.getCustomName());
-                                    mob.setCustomNameVisible(villager.isCustomNameVisible());
+                        if (this.tickCount % 100 == 0 && this.random.nextFloat() <= chance) {
+                            boolean flag = true;
+                            if (villager instanceof Villager villager1){
+                                if (villager1.getVillagerData().getLevel() >= 5){
+                                    flag = false;
                                 }
+                            }
+                            if (flag){
+                                float chance2 = this.random.nextFloat();
+                                Mob mob = EntityType.WITCH.create(serverLevel);
+                                if (this.random.nextBoolean()){
+                                    mob = ModEntityType.WARLOCK.get().create(serverLevel);
+                                }
+                                if (chance2 <= 0.25F) {
+                                    mob = ModEntityType.HERETIC.get().create(serverLevel);
+                                }
+                                if (villager instanceof WanderingTrader){
+                                    mob = ModEntityType.MAVERICK.get().create(serverLevel);
+                                }
+                                if (mob != null) {
+                                    mob.moveTo(villager.getX(), villager.getY(), villager.getZ(), villager.getYRot(), villager.getXRot());
+                                    ForgeEventFactory.onFinalizeSpawn(mob, serverLevel, serverLevel.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.CONVERSION, null, null);
+                                    mob.setNoAi(villager.isNoAi());
+                                    if (villager.hasCustomName()) {
+                                        mob.setCustomName(villager.getCustomName());
+                                        mob.setCustomNameVisible(villager.isCustomNameVisible());
+                                    }
 
-                                mob.setPersistenceRequired();
-                                net.minecraftforge.event.ForgeEventFactory.onLivingConvert(villager, mob);
-                                serverLevel.addFreshEntityWithPassengers(mob);
-                                MobUtil.releaseAllPois(villager);
-                                villager.discard();
+                                    mob.setPersistenceRequired();
+                                    net.minecraftforge.event.ForgeEventFactory.onLivingConvert(villager, mob);
+                                    serverLevel.addFreshEntityWithPassengers(mob);
+                                    if (villager instanceof Villager villager1) {
+                                        MobUtil.releaseAllPois(villager1);
+                                    }
+                                    villager.discard();
+                                }
                             }
                         }
                     }

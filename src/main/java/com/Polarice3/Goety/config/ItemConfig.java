@@ -40,6 +40,7 @@ public class ItemConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Double> HammerBaseDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> HammerAttackSpeed;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HammerDurability;
 
     public static final ForgeConfigSpec.ConfigValue<Double> DarkToolsDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> DarkToolsBreakSpeed;
@@ -240,6 +241,8 @@ public class ItemConfig {
                     .defineInRange("hammerBaseDamage", 5.0, 1.0, Double.MAX_VALUE);
             HammerAttackSpeed = BUILDER.comment("How fast it takes to fully swing a Hammers. The lower the number the slower it takes to recharge, Default: 0.5")
                     .defineInRange("hammerAttackSpeed", 0.5, 0.0, Double.MAX_VALUE);
+            HammerDurability = BUILDER.comment("How many uses before Hammers breaks, Default: 2500")
+                    .defineInRange("hammerDurability", 2500, 1, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Dark Tools");
             DarkToolsDamage = BUILDER.comment("How much damage Dark Tools deals, the configured number is added to Tool Base Damage, Default: 3.0")

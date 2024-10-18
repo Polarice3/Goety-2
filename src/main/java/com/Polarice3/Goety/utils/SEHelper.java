@@ -664,6 +664,27 @@ public class SEHelper {
         }
     }
 
+    public static int getMiningProgress(Player player){
+        return getCapability(player).getMiningProgress();
+    }
+
+    public static void setMiningProgress(Player player, int progress){
+        getCapability(player).setMiningProgress(progress);
+    }
+
+    public static void increaseMiningProgress(Player player){
+        setMiningProgress(player, getMiningProgress(player) + 1);
+    }
+
+    @Nullable
+    public static BlockPos getMiningPos(Player player){
+        return getCapability(player).getMiningPos();
+    }
+
+    public static void setMiningPos(Player player, BlockPos blockPos){
+        getCapability(player).setMiningPos(blockPos);
+    }
+
     public static boolean hasCamera(Player player){
         return getCapability(player).getCameraUUID() != null;
     }
@@ -731,6 +752,7 @@ public class SEHelper {
         tag.putInt("airTick", soulEnergy.getTicksInAir());
         tag.putInt("airJumps", soulEnergy.getAirJumps());
         tag.putInt("airJumpCoolDown", soulEnergy.getAirJumpCooldown());
+        tag.putInt("miningProgress", soulEnergy.getMiningProgress());
         if (soulEnergy.getCameraUUID() != null) {
             tag.putUUID("cameraUUID", soulEnergy.getCameraUUID());
         }
@@ -740,6 +762,11 @@ public class SEHelper {
             tag.putInt("arcaz", soulEnergy.getArcaBlock().getZ());
             ResourceLocation.CODEC.encodeStart(NbtOps.INSTANCE, soulEnergy.getArcaBlockDimension().location()).resultOrPartial(Goety.LOGGER::error).ifPresent(
                     (p_241148_1_) -> tag.put("dimension", p_241148_1_));
+        }
+        if (soulEnergy.getMiningPos() != null) {
+            tag.putInt("miningPosX", soulEnergy.getMiningPos().getX());
+            tag.putInt("miningPosY", soulEnergy.getMiningPos().getY());
+            tag.putInt("miningPosZ", soulEnergy.getMiningPos().getZ());
         }
 
         if (soulEnergy.grudgeList() != null) {
@@ -820,6 +847,9 @@ public class SEHelper {
             soulEnergy.setEndWalkPos(new BlockPos(tag.getInt("EndWalkX"), tag.getInt("EndWalkY"), tag.getInt("EndWalkZ")));
             soulEnergy.setEndWalkDimension(Level.RESOURCE_KEY_CODEC.parse(NbtOps.INSTANCE, tag.get("EndWalkDim")).resultOrPartial(Goety.LOGGER::error).orElse(Level.OVERWORLD));
         }
+        if (tag.contains("miningPosX") && tag.contains("miningPosY") && tag.contains("miningPosZ")) {
+            soulEnergy.setMiningPos(new BlockPos(tag.getInt("miningPosX"), tag.getInt("miningPosY"), tag.getInt("miningPosZ")));
+        }
         soulEnergy.setSoulEnergy(tag.getInt("soulEnergy"));
         soulEnergy.setRecoil(tag.getInt("recoil"));
         soulEnergy.setRestPeriod(tag.getInt("restPeriod"));
@@ -830,6 +860,7 @@ public class SEHelper {
         soulEnergy.setTicksInAir(tag.getInt("airTick"));
         soulEnergy.setAirJumps(tag.getInt("airJumps"));
         soulEnergy.setAirJumpCooldown(tag.getInt("airJumpCoolDown"));
+        soulEnergy.setMiningProgress(tag.getInt("miningProgress"));
         if (tag.contains("cameraUUID")) {
             soulEnergy.setCameraUUID(tag.getUUID("cameraUUID"));
         } else {

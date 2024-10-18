@@ -14,13 +14,11 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -143,8 +141,8 @@ public class SwordProjectile extends AbstractArrow implements ItemSupplier {
                     ItemHelper.setItemEffect(this.getItem(), livingTarget);
                 }
                 if (f1 > 0) {
-                    double d0 = livingTarget.getX() - this.getX();
-                    double d1 = livingTarget.getZ() - this.getZ();
+                    double d0 = this.getX() - livingTarget.getX();
+                    double d1 = this.getZ() - livingTarget.getZ();
                     livingTarget.knockback(f1 * 0.5F, d0, d1);
                 }
                 if (i > 0) {

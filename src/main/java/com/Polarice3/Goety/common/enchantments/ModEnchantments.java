@@ -39,6 +39,9 @@ public class ModEnchantments {
     public static final RegistryObject<Enchantment> ABSORB = ENCHANTMENTS.register("absorb",
             () -> new AbsorbEnchantment(Enchantment.Rarity.VERY_RARE, EquipmentSlot.MAINHAND));
 
+    public static final RegistryObject<Enchantment> MAGNET = ENCHANTMENTS.register("magnet",
+            () -> new MagnetEnchantment(Enchantment.Rarity.VERY_RARE, EquipmentSlot.MAINHAND));
+
     public static final RegistryObject<Enchantment> DURATION = ENCHANTMENTS.register("duration",
             () -> new DurationEnchantment(Enchantment.Rarity.UNCOMMON, EquipmentSlot.MAINHAND));
 

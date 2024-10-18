@@ -982,9 +982,9 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
 
     @Override
     public boolean doHurtTarget(Entity entityIn) {
-        boolean flag = super.doHurtTarget(entityIn);
+        boolean flag;
         if (this.isHallucination()){
-            flag = this.doHurtTarget(1.0F, entityIn);
+            flag = this.doHurtTarget(0.5F, entityIn);
             if (flag) {
                 if (entityIn instanceof LivingEntity living) {
                     living.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 40, 0, false, false));
@@ -993,6 +993,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
                 this.hallucinateVanish();
             }
         } else {
+            flag = super.doHurtTarget(entityIn);
             if (flag){
                 if (entityIn instanceof LivingEntity living){
                     if (entityIn instanceof Player player){

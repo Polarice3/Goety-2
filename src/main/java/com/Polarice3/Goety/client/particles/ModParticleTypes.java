@@ -216,6 +216,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> REDSTONE_DEBRIS = PARTICLE_TYPES.register("redstone_debris",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> BLOSSOM_THORN_INDICATOR = PARTICLE_TYPES.register("blossom_thorn_indicator",
+            () -> new SimpleParticleType(true));
+
     public static final RegistryObject<ParticleType<SparkleParticleOption>> SPARKLE = PARTICLE_TYPES.register("sparkle",
             () -> new ParticleType<>(false, SparkleParticleOption.DESERIALIZER) {
                 @Override

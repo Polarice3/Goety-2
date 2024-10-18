@@ -26,9 +26,12 @@ import com.Polarice3.Goety.common.items.FlameCaptureItem;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.WaystoneItem;
 import com.Polarice3.Goety.common.items.magic.*;
+import com.Polarice3.Goety.utils.ColorUtil;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.gui.screens.inventory.CraftingScreen;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.EntityModel;
@@ -38,6 +41,7 @@ import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
@@ -82,6 +86,7 @@ public class ClientInitEvents {
         MenuScreens.register(ModContainerType.FOCUS_PACK.get(), FocusPackScreen::new);
         MenuScreens.register(ModContainerType.BREW_BAG.get(), BrewBagScreen::new);
         MenuScreens.register(ModContainerType.DARK_ANVIL.get(), DarkAnvilScreen::new);
+        MenuScreens.register(ModContainerType.CRAFTING_FOCUS.get(), CraftingScreen::new);
         CuriosRenderer.register();
         ModKeybindings.init();
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
@@ -118,6 +123,8 @@ public class ClientInitEvents {
                 , (stack, world, living, seed) -> living != null && living.isUsingItem() && living.getUseItem() == stack ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.CALL_FOCUS.get(), new ResourceLocation("active")
                 , (stack, world, living, seed) -> CallFocus.hasSummon(stack) ? 1.0F : 0.0F);
+        ItemProperties.register(ModItems.TROOP_FOCUS.get(), new ResourceLocation("active")
+                , (stack, world, living, seed) -> TroopFocus.hasSummonType(stack) ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.RECALL_FOCUS.get(), new ResourceLocation("active")
                 , (stack, world, living, seed) -> RecallFocus.hasRecall(stack) ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.INFERNAL_TOME.get(), new ResourceLocation("active")
@@ -432,6 +439,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.ICE_CHUNK.get(), IceChunkRenderer::new);
         event.registerEntityRenderer(ModEntityType.VICIOUS_TOOTH.get(), ViciousToothRenderer::new);
         event.registerEntityRenderer(ModEntityType.VICIOUS_PIKE.get(), ViciousPikeRenderer::new);
+        event.registerEntityRenderer(ModEntityType.BLOSSOM_THORN.get(), BlossomThornRenderer::new);
         event.registerEntityRenderer(ModEntityType.CORRUPTED_BEAM.get(), CorruptedBeamRenderer::new);
         event.registerEntityRenderer(ModEntityType.SCATTER_MINE.get(), ScatterMineRenderer::new);
         event.registerEntityRenderer(ModEntityType.SCATTER_BOMB.get(), ScatterBombRenderer::new);
@@ -441,6 +449,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.BERSERK_FUNGUS.get(), BerserkFungusRenderer::new);
         event.registerEntityRenderer(ModEntityType.PYROCLAST.get(), PyroclastRenderer::new);
         event.registerEntityRenderer(ModEntityType.MAGMA_BOMB.get(), MagmaBombRenderer::new);
+        event.registerEntityRenderer(ModEntityType.BLOSSOM_BALL.get(), BlossomBallRenderer::new);
         event.registerEntityRenderer(ModEntityType.WEB_SHOT.get(), WebShotRenderer::new);
         event.registerEntityRenderer(ModEntityType.DELAYED_SUMMON.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.SUMMON_CIRCLE.get(), SummonCircleRenderer::new);
@@ -721,6 +730,16 @@ public class ClientInitEvents {
         event.registerSpriteSet(ModParticleTypes.WIND_SHOCKWAVE.get(), WindShockwaveParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.FAST_DUST.get(), FastFallDust.Provider::new);
         event.registerSpriteSet(ModParticleTypes.GATHER_TRAIL.get(), GatherTrailParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.BLOSSOM_THORN_INDICATOR.get(),
+                spriteSet -> new GeometricParticle.Provider(spriteSet,
+                particleContext -> {
+                    GeometricParticle particle = new GeometricParticle(particleContext, 30, GeometricParticle.Geometries::buildFlatGeometry, true, true);
+                    particle.setColorOverride(f -> new ColorUtil(ChatFormatting.LIGHT_PURPLE));
+                    particle.setColorVariation(0.2D);
+                    particle.setBrightnessOverride(f -> LightTexture.FULL_BRIGHT);
+                    particle.setScaleOverride(f -> (1.0F + f) * 0.25F);
+                    return particle;
+                }));
     }
 
 }

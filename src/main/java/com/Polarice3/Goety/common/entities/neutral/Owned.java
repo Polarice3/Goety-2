@@ -361,9 +361,24 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         }
     }
 
-    public void setLimitedLife(int limitedLifeTicksIn) {
-        this.limitedLifespan = true;
-        this.limitedLifeTicks = limitedLifeTicksIn;
+    @Override
+    public void setHasLifespan(boolean lifespan) {
+        this.limitedLifespan = lifespan;
+    }
+
+    @Override
+    public boolean hasLifespan() {
+        return this.limitedLifespan;
+    }
+
+    @Override
+    public void setLifespan(int lifespan) {
+        this.limitedLifeTicks = lifespan;
+    }
+
+    @Override
+    public int getLifespan() {
+        return this.limitedLifeTicks;
     }
 
     @Override

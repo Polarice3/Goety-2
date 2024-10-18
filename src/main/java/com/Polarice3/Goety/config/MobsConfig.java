@@ -14,6 +14,7 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Integer> RavagerRoarCooldown;
     public static final ForgeConfigSpec.ConfigValue<Integer> ServantPatrolRange;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ServantHealHalt;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> UndeadMinionHealCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> UndeadMinionHealTime;
@@ -294,24 +295,24 @@ public class MobsConfig {
                     .define("necromancerSoulJar", true);
             NecromancerSummonsLife = BUILDER.comment("Whether Necromancer's summons have limited lifespans, Default: true")
                     .define("necromancerSummonsLife", true);
-            UndeadMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for an Undead Servant to heal, Default: 5")
-                    .defineInRange("undeadServantsHealCost", 5, 0, Integer.MAX_VALUE);
+            UndeadMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for an Undead Servant to heal, Default: 1")
+                    .defineInRange("undeadServantsHealCost", 1, 0, Integer.MAX_VALUE);
             UndeadMinionHealTime = BUILDER.comment("How frequent Undead Servants heal, count seconds, Default: 1")
                     .defineInRange("undeadServantsHealTime", 1, 0, Integer.MAX_VALUE);
-            UndeadMinionHealAmount = BUILDER.comment("How much Health Undead Servants heal, numerically, Default: 0.5")
-                    .defineInRange("undeadServantsHealAmount", 0.5, 0.0, Double.MAX_VALUE);
+            UndeadMinionHealAmount = BUILDER.comment("How much Health Undead Servants heal, numerically, Default: 1.0")
+                    .defineInRange("undeadServantsHealAmount", 1.0, 0.0, Double.MAX_VALUE);
             ZombieServantBabyChance = BUILDER.comment("Chance that a zombie (or subclass) servant is summoned as a baby, Default: 0.05")
                     .defineInRange("zombieServantBabyChance", 0.05, 0.0, 1.0D);
             BUILDER.pop();
             BUILDER.push("Natural Servants");
             NaturalMinionHeal = BUILDER.comment("Whether Natural Servants can heal if summoned while wearing Wild Robe, Default: true")
                     .define("naturalMinionHeal", true);
-            NaturalMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for a Natural Servant to heal, Default: 5")
-                    .defineInRange("naturalMinionHealCost", 5, 0, Integer.MAX_VALUE);
+            NaturalMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for a Natural Servant to heal, Default: 1")
+                    .defineInRange("naturalMinionHealCost", 1, 0, Integer.MAX_VALUE);
             NaturalMinionHealTime = BUILDER.comment("How frequent Natural Servants heal, count seconds, Default: 1")
                     .defineInRange("naturalMinionHealTime", 1, 0, Integer.MAX_VALUE);
-            NaturalMinionHealAmount = BUILDER.comment("How much Health Natural Servants heal, numerically, Default: 0.5")
-                    .defineInRange("naturalMinionHealAmount", 0.5, 0.0, Double.MAX_VALUE);
+            NaturalMinionHealAmount = BUILDER.comment("How much Health Natural Servants heal, numerically, Default: 1.0")
+                    .defineInRange("naturalMinionHealAmount", 1.0, 0.0, Double.MAX_VALUE);
             BlackBeastDayStrength = BUILDER.comment("Whether Black Beasts gain buffs if total game time has gone long enough, Default: true")
                     .define("blackBeastDayStrength", true);
             BlackBeastHowlingSoul = BUILDER.comment("Whether owned Black Beasts drop Howling Soul, Default: true")
@@ -320,22 +321,22 @@ public class MobsConfig {
             BUILDER.push("Frost Servants");
             FrostMinionHeal = BUILDER.comment("Whether Frost Servants can heal if summoned while wearing Frost Robe, Default: true")
                     .define("frostMinionHeal", true);
-            FrostMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for a Frost Servant to heal, Default: 5")
-                    .defineInRange("frostMinionHealCost", 5, 0, Integer.MAX_VALUE);
+            FrostMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for a Frost Servant to heal, Default: 1")
+                    .defineInRange("frostMinionHealCost", 1, 0, Integer.MAX_VALUE);
             FrostMinionHealTime = BUILDER.comment("How frequent Frost Servants heal, count seconds, Default: 1")
                     .defineInRange("frostMinionHealTime", 1, 0, Integer.MAX_VALUE);
-            FrostMinionHealAmount = BUILDER.comment("How much Health Frost Servants heal, numerically, Default: 0.5")
-                    .defineInRange("frostMinionHealAmount", 0.5, 0.0, Double.MAX_VALUE);
+            FrostMinionHealAmount = BUILDER.comment("How much Health Frost Servants heal, numerically, Default: 1.0")
+                    .defineInRange("frostMinionHealAmount", 1.0, 0.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Nether Servants");
             NetherMinionHeal = BUILDER.comment("Whether Nether Servants can heal if summoned while wearing Nether Robe, Default: true")
                     .define("netherMinionHeal", true);
-            NetherMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for a Nether Servant to heal, Default: 5")
-                    .defineInRange("netherMinionHealCost", 5, 0, Integer.MAX_VALUE);
+            NetherMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for a Nether Servant to heal, Default: 1")
+                    .defineInRange("netherMinionHealCost", 1, 0, Integer.MAX_VALUE);
             NetherMinionHealTime = BUILDER.comment("How frequent Nether Servants heal, count seconds, Default: 1")
                     .defineInRange("netherMinionHealTime", 1, 0, Integer.MAX_VALUE);
-            NetherMinionHealAmount = BUILDER.comment("How much Health Nether Servants heal, numerically, Default: 0.5")
-                    .defineInRange("netherMinionHealAmount", 0.5, 0.0, Double.MAX_VALUE);
+            NetherMinionHealAmount = BUILDER.comment("How much Health Nether Servants heal, numerically, Default: 1.0")
+                    .defineInRange("netherMinionHealAmount", 1.0, 0.0, Double.MAX_VALUE);
             WildfireSummonsLife = BUILDER.comment("Whether Wildfire's summons have limited lifespans, Default: true")
                     .define("wildfireSummonsLife", true);
             BUILDER.pop();
@@ -363,6 +364,8 @@ public class MobsConfig {
                 .defineInRange("ravagerRoarCooldown", 10, 0, Integer.MAX_VALUE);
         ServantPatrolRange = BUILDER.comment("How far servants can patrol from their patrol location, Default: 16")
                 .defineInRange("servantPatrolRange", 16, 2, Integer.MAX_VALUE);
+        ServantHealHalt = BUILDER.comment("How many seconds a servant can't heal through Soul Energy after being injured, Default: 5")
+                .defineInRange("servantHealHalt", 5, 0, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Illagers");
             BUILDER.push("Illager Assaults");

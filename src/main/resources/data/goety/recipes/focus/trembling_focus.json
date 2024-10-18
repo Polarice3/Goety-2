@@ -1,0 +1,27 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:wind_core"
+  },
+  "craftType": "sky",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:feather"
+    },
+    {
+      "item": "minecraft:goat_horn"
+    },
+    {
+      "item": "minecraft:cobweb"
+    }
+  ],
+  "result": {
+    "item": "goety:trembling_focus"
+  }
+}

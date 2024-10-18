@@ -6,7 +6,6 @@ import com.Polarice3.Goety.common.entities.projectiles.HellChant;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.ItemHelper;
-import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;

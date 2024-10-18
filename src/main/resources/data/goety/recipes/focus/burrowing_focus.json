@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "mqi",
+    "qeq",
+    "iqm"
+  ],
+  "key":
+  {
+    "e":
+    {
+      "item": "goety:empty_focus"
+    },
+    "m":
+    {
+      "tag": "forge:gems/emerald"
+    },
+    "q":
+    {
+      "tag": "forge:gems/quartz"
+    },
+    "i":
+    {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "result": {
+    "item": "goety:burrowing_focus"
+  }
+}

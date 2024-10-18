@@ -89,12 +89,6 @@ public class AllyIrk extends Minion {
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("shootTime", this.shootTime);
-
-    }
-
-    public void setLimitedLife(int limitedLifeTicksIn) {
-        this.limitedLifespan = true;
-        this.limitedLifeTicks = limitedLifeTicksIn;
     }
 
     protected SoundEvent getAmbientSound() {

@@ -13,6 +13,7 @@ import com.Polarice3.Goety.common.items.ArcaCompassItem;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.armor.ModArmorMaterials;
 import com.Polarice3.Goety.common.items.magic.GrudgeGrimoire;
+import com.Polarice3.Goety.common.magic.spells.geomancy.BurrowingSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.network.server.TotemDeathPacket;
@@ -87,6 +88,9 @@ public class SoulEnergyEvents {
                         SEHelper.sendSEUpdatePacket(player);
                     }
                 }
+            }
+            if (!player.isUsingItem() || !(WandUtil.getSpell(player) instanceof BurrowingSpell)) {
+                BurrowingSpell.resetMiningProgress(world, player);
             }
         }
         if (soulEnergy.getArcaBlock() != null){

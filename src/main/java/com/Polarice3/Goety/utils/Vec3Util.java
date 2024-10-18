@@ -2,9 +2,17 @@ package com.Polarice3.Goety.utils;
 
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.function.Supplier;
+
 public class Vec3Util {
+    public static final Vec3 xAxis = new Vec3(1.0D, 0.0D, 0.0D);
+    public static final Vec3 yAxis = new Vec3(0.0D, 1.0D, 0.0D);
+    public static final Vec3 zAxis = new Vec3(0.0D, 0.0D, 1.0D);
+    public static final Vec3 unit = new Vec3(1.0D, 1.0D, 1.0D);
+
     public static Vec3 north(Vec3 vector3d){
         return relative(vector3d, Direction.NORTH);
     }
@@ -66,5 +74,21 @@ public class Vec3Util {
         compoundtag.putDouble("Y", vec3.y);
         compoundtag.putDouble("Z", vec3.z);
         return compoundtag;
+    }
+
+    public static Vec3 coerceAtLeast(Vec3 vec1, Vec3 vec2) {
+        return new Vec3(Math.max(vec1.x(), vec2.x()), Math.max(vec1.y(), vec2.y()), Math.max(vec1.z(), vec2.z()));
+    }
+
+    public static Vec3 coerceAtMost(Vec3 vec1, Vec3 vec2) {
+        return new Vec3(Math.min(vec1.x(), vec2.x()), Math.min(vec1.y(), vec2.y()), Math.min(vec1.z(), vec2.z()));
+    }
+
+    public static Vec3 randVec(Supplier<Double> rand) {
+        return new Vec3(rand.get() - 0.5D, rand.get() - 0.5D, rand.get() - 0.5D);
+    }
+
+    public static Vec3 randVec(RandomSource random) {
+        return randVec(random::nextDouble);
     }
 }

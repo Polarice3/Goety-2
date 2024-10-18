@@ -617,6 +617,14 @@ public class RedstoneGolem extends AbstractGolemServant {
         }
     }
 
+    @Override
+    public void setTarget(@Nullable LivingEntity p_21544_) {
+        if (!(p_21544_ instanceof Player) && p_21544_ != null && this.getTarget() != p_21544_ && this.summonCool <= 0){
+            this.summonCool = MathHelper.secondsToTicks(SUMMON_SECONDS_TIME);
+        }
+        super.setTarget(p_21544_);
+    }
+
     public InteractionResult mobInteract(Player pPlayer, InteractionHand p_230254_2_) {
         if (!this.level.isClientSide) {
             ItemStack itemstack = pPlayer.getItemInHand(p_230254_2_);

@@ -20,6 +20,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -99,7 +100,11 @@ public class CallFocus extends MagicFocus{
                     if (player.isShiftKeyDown() || player.isCrouching()) {
                         for (Entity entity : serverLevel.getAllEntities()) {
                             if (entity instanceof LivingEntity livingEntity1 && entity.getType() == livingEntity.getType()) {
-                                list.add(livingEntity1);
+                                if (livingEntity1 instanceof OwnableEntity ownable){
+                                    if (ownable.getOwner() == player){
+                                        list.add(livingEntity1);
+                                    }
+                                }
                             }
                         }
                     }

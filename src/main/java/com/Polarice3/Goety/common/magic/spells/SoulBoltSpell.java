@@ -75,6 +75,11 @@ public class SoulBoltSpell extends Spell {
         } else {
             SoundUtil.playSoulBolt(entityLiving);
         }
+        if (soulBolt instanceof SoulBolt soulBolt1){
+            if (staff.is(ModItems.NECRO_STAFF.get()) || staff.is(ModItems.NAMELESS_STAFF.get())){
+                soulBolt1.setNecro(true);
+            }
+        }
         if (WandUtil.enchantedFocus(entityLiving)){
             soulBolt.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving));
             soulBolt.setBoltSpeed(WandUtil.getLevels(ModEnchantments.VELOCITY.get(), entityLiving));

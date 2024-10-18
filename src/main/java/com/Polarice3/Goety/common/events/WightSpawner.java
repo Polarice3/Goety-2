@@ -7,7 +7,9 @@ import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.SEHelper;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
@@ -75,23 +77,31 @@ public class WightSpawner {
         return 0;
     }
 
-    public static void summonWight(ServerLevel serverLevel, Player player, int sePercent){
+    public static boolean summonWight(ServerLevel serverLevel, Player player, int sePercent){
         Wight wight = new Wight(ModEntityType.WIGHT.get(), serverLevel);
         Random rand = new Random();
         for (int i = 0; i < 16; ++i) {
             Vec3 vec3 = BlockFinder.getRandomSpawnBehindDirection(serverLevel, rand, player.position(), player.getLookAngle());
             BlockPos blockPos = BlockPos.containing(vec3);
             if (BlockFinder.canSeeBlock(player, blockPos) || i == 15) {
-                if (!serverLevel.isLoaded(blockPos)){
-                    break;
-                }
-                wight.setPos(vec3);
-                wight.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(wight.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-                wight.upgradePower(sePercent);
-                if (serverLevel.addFreshEntity(wight)) {
-                    break;
+                if (serverLevel.isLoaded(blockPos)){
+                    wight.setPos(vec3);
+                    wight.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(wight.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+                    wight.upgradePower(sePercent);
+                    return serverLevel.addFreshEntity(wight);
                 }
             }
+        }
+        return false;
+    }
+
+    public void forceSpawn(ServerLevel pLevel, ServerPlayer pPlayer, CommandSourceStack pSource){
+        float rawPercent = (float) SEHelper.getSoulAmountInt(pPlayer) / MainConfig.MaxArcaSouls.get();
+        int sePercent = (int) (rawPercent * 100);
+        if (summonWight(pLevel, pPlayer, sePercent)){
+            pSource.sendSuccess(() -> Component.translatable("commands.goety.misc.wight.success", pPlayer.getDisplayName()), true);
+        } else {
+            pSource.sendFailure(Component.translatable("commands.goety.misc.wight.failure"));
         }
     }
 }

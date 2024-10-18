@@ -220,6 +220,10 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> RotationCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> RotationCoolDown;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> BurrowingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BurrowingChargeUp;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BurrowingInitialSpeed;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> EruptionCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> EruptionDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> EruptionCoolDown;
@@ -258,6 +262,10 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastCoolDown;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> TremblingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> TremblingDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> TremblingCoolDown;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> SwarmCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SwarmChargeUp;
     public static final ForgeConfigSpec.ConfigValue<Double> SwarmDamage;
@@ -266,6 +274,11 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> PoisonDartDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> PoisonDartCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> PoisonDartDamage;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlossomCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlossomDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlossomCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> BlossomDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> GrappleCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> GrappleDuration;
@@ -326,6 +339,10 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> CallDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> CallCoolDown;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> TroopCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> TroopDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> TroopCoolDown;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> RecallCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> RecallDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> RecallCoolDown;
@@ -357,6 +374,10 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> RuptureDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> RuptureCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> RuptureDamage;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> CraftingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CraftingDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CraftingCoolDown;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveDuration;
@@ -834,8 +855,8 @@ public class SpellConfig {
                     .defineInRange("quakingCost", 8, 0, Integer.MAX_VALUE);
             QuakingDuration = BUILDER.comment("Time to cast Quaking Spell, Default: 20")
                     .defineInRange("quakingTime", 20, 0, 72000);
-            QuakingCoolDown = BUILDER.comment("Quaking Spell Cooldown, Default: 0")
-                    .defineInRange("quakingCoolDown", 0, 0, Integer.MAX_VALUE);
+            QuakingCoolDown = BUILDER.comment("Quaking Spell Cooldown, Default: 100")
+                    .defineInRange("quakingCoolDown", 100, 0, Integer.MAX_VALUE);
             QuakingDamage = BUILDER.comment("How much base damage Quaking Spell deals, Default: 4.0")
                     .defineInRange("quakingDamage", 4.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
@@ -850,6 +871,14 @@ public class SpellConfig {
                     .defineInRange("rotationCost", 2, 0, Integer.MAX_VALUE);
             RotationCoolDown = BUILDER.comment("Rotation Spell Cooldown, Default: 0")
                     .defineInRange("rotationCoolDown", 0, 0, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Burrowing Spell");
+            BurrowingCost = BUILDER.comment("Burrowing Spell Cost per second, Default: 4")
+                    .defineInRange("burrowingCost", 4, 0, Integer.MAX_VALUE);
+            BurrowingChargeUp = BUILDER.comment("How many ticks the Burrowing Spell much charge before casting, Default: 0")
+                    .defineInRange("burrowingCoolDown", 0, 0, Integer.MAX_VALUE);
+            BurrowingInitialSpeed = BUILDER.comment("The initial breaking speed of the Burrowing spell, the lower the value the quicker, Default: 4")
+                    .defineInRange("burrowingInitialSpeed", 4, 0, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Eruption Spell");
             EruptionCost = BUILDER.comment("Eruption Spell Cost, Default: 32")
@@ -927,6 +956,14 @@ public class SpellConfig {
             WindBlastCoolDown = BUILDER.comment("Wind Blast Spell Cooldown, Default: 60")
                     .defineInRange("windBlastCoolDown", 60, 0, Integer.MAX_VALUE);
             BUILDER.pop();
+            BUILDER.push("Trembling Spell");
+            TremblingCost = BUILDER.comment("Trembling Spell Cost, Default: 8")
+                    .defineInRange("tremblingCost", 8, 0, Integer.MAX_VALUE);
+            TremblingDuration = BUILDER.comment("Time to cast Trembling Spell, Default: 0")
+                    .defineInRange("tremblingTime", 0, 0, 72000);
+            TremblingCoolDown = BUILDER.comment("Trembling Spell Cooldown, Default: 200")
+                    .defineInRange("tremblingCoolDown", 200, 0, Integer.MAX_VALUE);
+            BUILDER.pop();
             BUILDER.push("Swarm Spell");
             SwarmCost = BUILDER.comment("Swarm Spell Cost per second, Default: 2")
                     .defineInRange("swarmCost", 2, 0, Integer.MAX_VALUE);
@@ -944,6 +981,16 @@ public class SpellConfig {
                     .defineInRange("poisonDartCoolDown", 20, 0, Integer.MAX_VALUE);
             PoisonDartDamage = BUILDER.comment("How much base damage Poison Quills deals, Default: 2.5")
                     .defineInRange("poisonDartDamage", 2.5, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Blossoming Spell");
+            BlossomCost = BUILDER.comment("Blossoming Spell Cost, Default: 32")
+                    .defineInRange("blossomCost", 32, 0, Integer.MAX_VALUE);
+            BlossomDuration = BUILDER.comment("Time to cast Blossoming Spell, Default: 40")
+                    .defineInRange("blossomTime", 40, 0, 72000);
+            BlossomCoolDown = BUILDER.comment("Blossoming Spell Cooldown, Default: 200")
+                    .defineInRange("blossomCoolDown", 200, 0, Integer.MAX_VALUE);
+            BlossomDamage = BUILDER.comment("How much base damage Blossoming Balls and Thorns deals, Default: 6.0")
+                    .defineInRange("blossomDamage", 6.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Grapple Spell");
             GrappleCost = BUILDER.comment("Grapple Spell Cost, Default: 4")
@@ -1063,6 +1110,14 @@ public class SpellConfig {
             CallCoolDown = BUILDER.comment("Call Spell Cooldown, Default: 0")
                     .defineInRange("callCoolDown", 0, 0, Integer.MAX_VALUE);
             BUILDER.pop();
+            BUILDER.push("Troop Spell");
+            TroopCost = BUILDER.comment("Troop Spell Cost, Default: 32")
+                    .defineInRange("troopCost", 32, 0, Integer.MAX_VALUE);
+            TroopDuration = BUILDER.comment("Time to cast Troop Spell, Default: 100")
+                    .defineInRange("troopTime", 100, 0, 72000);
+            TroopCoolDown = BUILDER.comment("Troop Spell Cooldown, Default: 20")
+                    .defineInRange("troopCoolDown", 20, 0, Integer.MAX_VALUE);
+            BUILDER.pop();
             BUILDER.push("Recall Spell");
             RecallCost = BUILDER.comment("Recall Spell Cost, Default: 1000")
                     .defineInRange("recallCost", 1000, 0, Integer.MAX_VALUE);
@@ -1131,6 +1186,14 @@ public class SpellConfig {
                     .defineInRange("ruptureCoolDown", 6000, 0, Integer.MAX_VALUE);
             RuptureDamage = BUILDER.comment("How much base damage the Void Rift deals, Default: 2.0")
                     .defineInRange("ruptureDamage", 2.0, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Crafting Spell");
+            CraftingCost = BUILDER.comment("Crafting Spell Cost, Default: 2")
+                    .defineInRange("craftingCost", 2, 0, Integer.MAX_VALUE);
+            CraftingDuration = BUILDER.comment("Time to cast Crafting Spell, Default: 0")
+                    .defineInRange("craftingDuration", 0, 0, 72000);
+            CraftingCoolDown = BUILDER.comment("Crafting Spell Cooldown, Default: 20")
+                    .defineInRange("craftingCoolDown", 20, 0, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Shockwave Spell");
             ShockwaveCost = BUILDER.comment("Shockwave Spell Cost, Default: 80")

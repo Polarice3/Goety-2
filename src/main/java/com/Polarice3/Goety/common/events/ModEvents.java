@@ -2,12 +2,12 @@ package com.Polarice3.Goety.common.events;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.entities.IOwned;
-import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.ISoulRepair;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.EnchanteableBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.common.blocks.ModChestBlock;
 import com.Polarice3.Goety.common.capabilities.lichdom.ILichdom;
 import com.Polarice3.Goety.common.capabilities.lichdom.LichProvider;
 import com.Polarice3.Goety.common.capabilities.misc.IMisc;
@@ -27,7 +27,10 @@ import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.hostile.WitherNecromancer;
-import com.Polarice3.Goety.common.entities.hostile.cultists.*;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Heretic;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Maverick;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.hostile.illagers.*;
 import com.Polarice3.Goety.common.entities.hostile.servants.Damned;
 import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
@@ -80,8 +83,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.CombatRules;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -130,7 +131,7 @@ import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.event.level.LevelEvent;
@@ -231,6 +232,12 @@ public class ModEvents {
         player.getCapability(SEProvider.CAPABILITY)
                 .ifPresent(soulEnergy ->
                         soulEnergy.setCameraUUID(null));
+        player.getCapability(SEProvider.CAPABILITY)
+                .ifPresent(soulEnergy ->
+                        soulEnergy.setMiningProgress(0));
+        player.getCapability(SEProvider.CAPABILITY)
+                .ifPresent(soulEnergy ->
+                        soulEnergy.setMiningPos(null));
 
         IMisc capability4 = MiscCapHelper.getCapability(original);
 
@@ -1722,6 +1729,25 @@ public class ModEvents {
         if (event.getProjectile() instanceof AbstractArrow arrowEntity) {
             if (arrowEntity.getTags().contains(ConstantPaths.rainArrow())) {
                 arrowEntity.discard();
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void FurnaceBurnItems(FurnaceFuelBurnTimeEvent event){
+        if (!event.getItemStack().isEmpty()){
+            ItemStack itemStack = event.getItemStack();
+            if (itemStack.is(ModBlocks.HAUNTED_BOOKSHELF.get().asItem())
+                    || itemStack.is(ModBlocks.ROTTEN_BOOKSHELF.get().asItem())
+                    || itemStack.is(ModBlocks.WINDSWEPT_BOOKSHELF.get().asItem())
+                    || (itemStack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof ModChestBlock)
+                    || itemStack.is(ModBlocks.COMPACTED_WINDSWEPT_PLANKS.get().asItem())
+                    || itemStack.is(ModBlocks.THATCHED_WINDSWEPT_PLANKS.get().asItem())
+                    || itemStack.is(ModBlocks.OVERGROWN_ROOTS.get().asItem())) {
+                event.setBurnTime(300);
+            }
+            if (itemStack.is(ModBlocks.WITCH_POLE.get().asItem())){
+                event.setBurnTime(200);
             }
         }
     }

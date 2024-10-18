@@ -240,9 +240,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> ROTTEN_LOG = register("rotten_log", () -> log(MapColor.COLOR_GREEN, MapColor.COLOR_GREEN, SoundType.STEM));
     public static final RegistryObject<Block> STRIPPED_ROTTEN_LOG = register("stripped_rotten_log", () -> log(MapColor.COLOR_GREEN, MapColor.COLOR_GREEN, SoundType.STEM));
     public static final RegistryObject<Block> ROTTEN_WOOD = register("rotten_wood",
-            () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.STEM)));
+            () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.STEM).ignitedByLava()));
     public static final RegistryObject<Block> STRIPPED_ROTTEN_WOOD = register("stripped_rotten_wood",
-            () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.STEM)));
+            () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.STEM).ignitedByLava()));
     public static final RegistryObject<Block> ROTTEN_LEAVES = register("rotten_leaves", () -> leaves(SoundType.GRASS), true, LootTableType.EMPTY);
     public static final RegistryObject<Block> ROTTEN_PRESSURE_PLATE = register("rotten_pressure_plate",
             () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of().mapColor(ROTTEN_PLANKS.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY).ignitedByLava(), ModBlockSetType.ROTTEN));

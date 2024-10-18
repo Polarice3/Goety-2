@@ -167,6 +167,7 @@ public class DarkWand extends Item implements IWand {
     }
 
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
+        boolean flag = false;
         if (!player.level.isClientSide) {
             if (entity instanceof LivingEntity target && target instanceof IOwned owned && (owned.getTrueOwner() == player || (owned.getTrueOwner() instanceof IOwned owned1 && owned1.getTrueOwner() == player))) {
                 if (IWand.getFocus(stack).getItem() instanceof CallFocus && !CallFocus.hasSummon(IWand.getFocus(stack))) {
@@ -178,7 +179,17 @@ public class DarkWand extends Item implements IWand {
                     IWand.getFocus(stack).setTag(compoundTag);
                     player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
                     ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
-                    return true;
+                    flag = true;
+                } else if (IWand.getFocus(stack).getItem() instanceof TroopFocus && !TroopFocus.hasSummonType(IWand.getFocus(stack))) {
+                    CompoundTag compoundTag = new CompoundTag();
+                    if (IWand.getFocus(stack).hasTag()) {
+                        compoundTag = IWand.getFocus(stack).getTag();
+                    }
+                    TroopFocus.setSummonType(compoundTag, target.getType());
+                    IWand.getFocus(stack).setTag(compoundTag);
+                    player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
+                    ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
+                    flag = true;
                 } else if (IWand.getFocus(stack).getItem() instanceof CommandFocus && owned instanceof IServant && !CommandFocus.hasServant(IWand.getFocus(stack))) {
                     CompoundTag compoundTag = new CompoundTag();
                     if (IWand.getFocus(stack).hasTag()) {
@@ -188,19 +199,20 @@ public class DarkWand extends Item implements IWand {
                     IWand.getFocus(stack).setTag(compoundTag);
                     player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
                     ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
-                    return true;
-                } else {
+                    flag = true;
+                }
+                if (!flag){
                     if (owned instanceof IServant summonedEntity) {
                         if (player.isShiftKeyDown() || player.isCrouching()) {
                             if (SpellConfig.OwnerHitKill.get()) {
                                 summonedEntity.tryKill(player);
-                                return true;
+                                flag = true;
                             }
                         } else {
                             if (SpellConfig.OwnerHitCommand.get()) {
                                 if (summonedEntity.canUpdateMove()) {
                                     summonedEntity.updateMoveMode(player);
-                                    return true;
+                                    flag = true;
                                 }
                             }
                         }
@@ -208,14 +220,14 @@ public class DarkWand extends Item implements IWand {
                         if (player.isShiftKeyDown() || player.isCrouching()) {
                             if (SpellConfig.OwnerHitKill.get()) {
                                 vine.kill();
-                                return true;
+                                flag = true;
                             }
                         }
                     }
                 }
             }
         }
-        return false;
+        return flag;
     }
 
     @Nonnull

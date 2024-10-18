@@ -195,7 +195,7 @@ public class Maverick extends Cultist{
                 } else if (this.random.nextFloat() < 0.15F && (this.isOnFire() || this.getLastDamageSource() != null && this.getLastDamageSource().is(DamageTypeTags.IS_FIRE)) && !this.hasEffect(MobEffects.FIRE_RESISTANCE)) {
                     potion = Potions.FIRE_RESISTANCE;
                 } else if (this.random.nextFloat() < 0.05F && this.getHealth() < this.getMaxHealth() && ((this.getTarget() == null) || (this.getTarget() != null && this.getTarget().distanceTo(this) >= 8.0D))) {
-                    if (this.random.nextFloat() <= 0.25F){
+                    if (this.random.nextFloat() <= 0.25F && !this.hasEffect(MobEffects.REGENERATION)){
                         potion = Potions.REGENERATION;
                     } else {
                         potion = Potions.HEALING;

@@ -45,7 +45,7 @@ public class HammerItem extends TieredItem implements Vanishable {
     protected final float speed;
 
     public HammerItem(Tier itemTier) {
-        super(itemTier, new Properties().rarity(Rarity.UNCOMMON).durability(itemTier.getUses()));
+        super(itemTier, new Properties().rarity(Rarity.UNCOMMON).durability(ItemConfig.HammerDurability.get()));
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         initialDamage = ItemConfig.HammerBaseDamage.get().floatValue() + itemTier.getAttackDamageBonus();
         double attackSpeed = 4.0D - ItemConfig.HammerAttackSpeed.get();
