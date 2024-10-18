@@ -38,10 +38,14 @@ public class WarlockRobeItem extends WarlockGarmentItem{
     public static void TargetEvents(LivingChangeTargetEvent event){
         if (event.getEntity().getMobType() == MobType.ARTHROPOD){
             if (CuriosFinder.hasWarlockRobe(event.getOriginalTarget())) {
-                if (event.getTargetType() == MOB_TARGET) {
-                    event.setNewTarget(null);
+                if (event.getEntity().getLastHurtByMob() != event.getOriginalTarget()) {
+                    if (event.getTargetType() == MOB_TARGET) {
+                        event.setNewTarget(null);
+                    } else {
+                        event.setCanceled(true);
+                    }
                 } else {
-                    event.setCanceled(true);
+                    event.getEntity().setLastHurtByMob(event.getOriginalTarget());
                 }
             }
         }

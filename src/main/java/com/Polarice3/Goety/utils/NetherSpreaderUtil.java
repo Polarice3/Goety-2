@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.init.ModTags;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;

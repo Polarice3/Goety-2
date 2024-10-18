@@ -1,0 +1,20 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "goety:item/focus/troop_spell"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "active": 0.00000
+      },
+      "model": "goety:item/troop_focus_inactive"
+    },
+    {
+      "predicate": {
+        "active": 1.00000
+      },
+      "model": "goety:item/troop_focus_active"
+    }
+  ]
+}

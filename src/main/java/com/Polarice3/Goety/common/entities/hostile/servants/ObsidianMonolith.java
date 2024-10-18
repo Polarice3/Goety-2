@@ -13,7 +13,6 @@ import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinBruteServant;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
 import com.Polarice3.Goety.common.entities.util.SummonCircle;
-import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -39,7 +38,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
@@ -364,6 +362,7 @@ public class ObsidianMonolith extends AbstractMonolith implements Enemy {
                 this.setActivate(true);
             } else {
                 if (this.empowered > 0){
+                    --this.empowered;
                     if (this.tickCount % MathHelper.secondsToTicks(20) == 0){
                         this.playSound(ModSounds.SCARY_RECITE.get(), 1.0F, this.getVoicePitch());
                     }
@@ -445,7 +444,6 @@ public class ObsidianMonolith extends AbstractMonolith implements Enemy {
                     RandomSource random1 = this.level.random;
                     int spawnChance = 256;
                     if (this.empowered > 0) {
-                        --this.empowered;
                         this.spreadNether();
                         int i = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(24.0D, 16.0D, 24.0D), livingEntity -> livingEntity.isAlive() && livingEntity instanceof Maverick).size();
                         if (this.tickCount % time == 0) {

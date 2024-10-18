@@ -1,0 +1,18 @@
+{
+  "name": "绽放聚晶",
+  "icon": "goety:blossoming_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "该聚晶允许玩家抛射出一颗充满荒野能量的荆棘之球，在球的落地范围内会长出几根荆棘伤害敌人"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/blossoming_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:blossoming_focus": 1
+  }
+}

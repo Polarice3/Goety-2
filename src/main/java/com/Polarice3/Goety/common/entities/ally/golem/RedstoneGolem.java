@@ -609,6 +609,14 @@ public class RedstoneGolem extends AbstractGolemServant {
     }
 
     @Override
+    public void setTarget(@Nullable LivingEntity p_21544_) {
+        if (!(p_21544_ instanceof Player) && p_21544_ != null && this.getTarget() != p_21544_ && this.summonCool <= 0){
+            this.summonCool = MathHelper.secondsToTicks(SUMMON_SECONDS_TIME);
+        }
+        super.setTarget(p_21544_);
+    }
+
+    @Override
     public void tryKill(Player player) {
         if (this.killChance <= 0){
             this.warnKill(player);

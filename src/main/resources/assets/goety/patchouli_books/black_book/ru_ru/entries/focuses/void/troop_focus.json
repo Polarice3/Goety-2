@@ -1,0 +1,18 @@
+{
+  "name": "Фокус армии",
+  "icon": "goety:troop_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Измененный фокус призыва, который вместо сохранения отдельного прислужника сохраняет его вид, позволяя вам телепортировать всех слуг этого типа к себе."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/troop_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:troop_focus": 1
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "穿凿聚晶",
+  "icon": "goety:burrowing_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "聚晶会汇聚魔力能量于一点，射出的魔力光束能够开采石头，更坚硬的材料需要更长的挖掘时间。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/burrowing_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "强效附魔可以挖掘速度，并在更高的魔力等级下允许法术挖掘需要钻石或下界合金工具才能挖掘的方块。."
+    }
+  ]
+}

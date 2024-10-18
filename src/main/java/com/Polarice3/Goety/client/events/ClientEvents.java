@@ -7,6 +7,7 @@ import com.Polarice3.Goety.api.magic.ISpell;
 import com.Polarice3.Goety.client.audio.*;
 import com.Polarice3.Goety.client.gui.screen.inventory.BrewRadialMenuScreen;
 import com.Polarice3.Goety.client.gui.screen.inventory.FocusRadialMenuScreen;
+import com.Polarice3.Goety.client.render.BurrowingLaserRenderer;
 import com.Polarice3.Goety.client.render.ModModelLayer;
 import com.Polarice3.Goety.client.render.WearRenderer;
 import com.Polarice3.Goety.client.render.model.LichModeModel;
@@ -29,6 +30,7 @@ import com.Polarice3.Goety.common.entities.projectiles.IceStorm;
 import com.Polarice3.Goety.common.entities.util.CameraShake;
 import com.Polarice3.Goety.common.items.WaystoneItem;
 import com.Polarice3.Goety.common.items.curios.GloveItem;
+import com.Polarice3.Goety.common.magic.spells.geomancy.BurrowingSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.*;
 import com.Polarice3.Goety.common.network.client.brew.CBrewBagKeyPacket;
@@ -90,10 +92,7 @@ import org.lwjgl.glfw.GLFW;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 import static net.minecraft.client.gui.GuiComponent.blit;
 
@@ -535,6 +534,7 @@ public class ClientEvents {
         }
         Minecraft minecraft = Minecraft.getInstance();
         Player player = minecraft.player;
+        List<AbstractClientPlayer> players = minecraft.level.players();
         if (player != null) {
             Level world = player.level;
             ItemStack stack = player.getMainHandItem();
@@ -553,6 +553,15 @@ public class ClientEvents {
                 PoseStack matrix = event.getPoseStack();
                 Vec3 view = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
                 RenderBlockUtils.renderColourCubes(matrix, view, renderCubes, 1.0F, 1.0F);
+            }
+            for (Player player1 : players) {
+                if (player1.distanceToSqr(player) > 500.0F) {
+                    continue;
+                }
+
+                if (player1.isUsingItem() && WandUtil.getSpell(player1) instanceof BurrowingSpell) {
+                    BurrowingLaserRenderer.renderLaser(event, player1, Minecraft.getInstance().getFrameTime());
+                }
             }
         }
     }

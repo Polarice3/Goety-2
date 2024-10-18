@@ -1,0 +1,19 @@
+{
+  "name": "Burrowing Focus",
+  "icon": "goety:burrowing_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The focus shoots a beam of magical energy that's capable of mining the very rock and stone with tougher materials taking longer to mine."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/burrowing_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Potency enchantment increases the speed of mining and on higher levels allows the spell to mine blocks that require diamond or netherite tools."
+    }
+  ]
+}

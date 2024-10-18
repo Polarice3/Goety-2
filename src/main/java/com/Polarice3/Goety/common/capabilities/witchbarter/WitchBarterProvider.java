@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.capabilities.witchbarter;
 
-import com.Polarice3.Goety.utils.EntityFinder;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.*;

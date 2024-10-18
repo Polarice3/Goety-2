@@ -1,8 +1,6 @@
 package com.Polarice3.Goety.common.entities.hostile.cultists;
 
-import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
-import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -196,7 +194,7 @@ public class Maverick extends Cultist{
                 } else if (this.random.nextFloat() < 0.15F && (this.isOnFire() || this.getLastDamageSource() != null && this.getLastDamageSource().isFire()) && !this.hasEffect(MobEffects.FIRE_RESISTANCE)) {
                     potion = Potions.FIRE_RESISTANCE;
                 } else if (this.random.nextFloat() < 0.05F && this.getHealth() < this.getMaxHealth() && ((this.getTarget() == null) || (this.getTarget() != null && this.getTarget().distanceTo(this) >= 8.0D))) {
-                    if (this.random.nextFloat() <= 0.25F){
+                    if (this.random.nextFloat() <= 0.25F && !this.hasEffect(MobEffects.REGENERATION)){
                         potion = Potions.REGENERATION;
                     } else {
                         potion = Potions.HEALING;

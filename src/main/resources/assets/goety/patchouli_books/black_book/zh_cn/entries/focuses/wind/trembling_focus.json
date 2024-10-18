@@ -1,0 +1,18 @@
+{
+  "name": "战栗聚晶",
+  "icon": "goety:trembling_focus",
+  "category": "goety:focuses/wind",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "聚晶允许玩家释放出环绕施法者周围的圆形风爆，将非友方生物推开一定距离，并短暂减缓它们的速度。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/trembling_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:trembling_focus": 1
+  }
+}

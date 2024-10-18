@@ -543,6 +543,14 @@ public class HostileRedstoneGolem extends HostileGolem {
         return true;
     }
 
+    @Override
+    public void setTarget(@Nullable LivingEntity p_21544_) {
+        if (!(p_21544_ instanceof Player) && p_21544_ != null && this.getTarget() != p_21544_ && this.summonCool <= 0){
+            this.summonCool = MathHelper.secondsToTicks(SUMMON_SECONDS_TIME);
+        }
+        super.setTarget(p_21544_);
+    }
+
     /**
      * Attack and Melee Goals based of @Infamous-Misadventures codes to make animation sync up: <a href="https://github.com/Infamous-Misadventures/Dungeons-Mobs/blob/1.19/src/main/java/com/infamous/dungeons_mobs/entities/redstone/RedstoneGolemEntity.java#L92">...</a>
      */

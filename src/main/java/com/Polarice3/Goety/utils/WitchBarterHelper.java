@@ -6,7 +6,6 @@ import com.Polarice3.Goety.common.capabilities.witchbarter.WitchBarterImp;
 import com.Polarice3.Goety.common.capabilities.witchbarter.WitchBarterProvider;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raider;
 
 import javax.annotation.Nullable;

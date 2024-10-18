@@ -4795,6 +4795,14 @@
     ],
     "subtitle": "subtitle.goety.frost_breath"
   },
+  "burrow_spell": {
+    "sounds": [
+      {
+        "name": "goety:spell/burrow_spell"
+      }
+    ],
+    "subtitle": "subtitle.goety.burrow_spell"
+  },
   "flight": {
     "sounds": [
       {
@@ -5284,6 +5292,14 @@
       },
       {
         "name": "goety:spell/wind_blast_3"
+      }
+    ],
+    "subtitle": "subtitle.goety.wind"
+  },
+  "wind_horn": {
+    "sounds": [
+      {
+        "name": "goety:spell/wind_horn"
       }
     ],
     "subtitle": "subtitle.goety.wind"

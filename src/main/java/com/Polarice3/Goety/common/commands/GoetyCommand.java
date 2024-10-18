@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.commands;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.events.IllagerSpawner;
+import com.Polarice3.Goety.common.events.WightSpawner;
 import com.Polarice3.Goety.common.research.Research;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.config.MobsConfig;
@@ -35,10 +36,13 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class GoetyCommand {
     private static final SimpleCommandExceptionType ERROR_FAILED = new SimpleCommandExceptionType(Component.translatable("commands.summon.failed"));
@@ -192,7 +196,48 @@ public class GoetyCommand {
                                         .then(Commands.argument("targets", EntityArgument.players())
                                                 .then(Commands.argument("amount", IntegerArgumentType.integer(0)).executes((p_198439_0_) -> {
                                                     return setBrewBottling(p_198439_0_.getSource(), EntityArgument.getPlayers(p_198439_0_, "targets"), IntegerArgumentType.getInteger(p_198439_0_, "amount"));
-                                                })))))));
+                                                }))))))
+                .then(Commands.literal("misc")
+                        .then(Commands.literal("wight").executes((p_198352_0_) -> {
+                            return spawnWight(p_198352_0_.getSource(), p_198352_0_.getSource().getPlayerOrException());
+                        })
+                                .then(Commands.argument("targets", EntityArgument.player()).executes((p_198435_0_) -> {
+                                    return spawnWight(p_198435_0_.getSource(), EntityArgument.getPlayer(p_198435_0_, "targets"));
+                                })))
+                        .then(Commands.literal("repair")
+                                .then(Commands.literal("held").executes((p_198352_0_) -> {
+                                            if (p_198352_0_.getSource().isPlayer()) {
+                                                List<ServerPlayer> list = new ArrayList<>();
+                                                list.add(p_198352_0_.getSource().getPlayerOrException());
+                                                return repairItem(p_198352_0_.getSource(), list);
+                                            }
+                                            return 0;
+                                        })
+                                        .then(Commands.argument("targets", EntityArgument.players()).executes((p_198435_0_) -> {
+                                            return repairItem(p_198435_0_.getSource(), EntityArgument.getPlayers(p_198435_0_, "targets"));
+                                        })))
+                                .then(Commands.literal("inventory").executes((p_198352_0_) -> {
+                                            if (p_198352_0_.getSource().isPlayer()) {
+                                                List<ServerPlayer> list = new ArrayList<>();
+                                                list.add(p_198352_0_.getSource().getPlayerOrException());
+                                                return repairAllItems(p_198352_0_.getSource(), list);
+                                            }
+                                            return 0;
+                                        })
+                                        .then(Commands.argument("targets", EntityArgument.players()).executes((p_198435_0_) -> {
+                                            return repairAllItems(p_198435_0_.getSource(), EntityArgument.getPlayers(p_198435_0_, "targets"));
+                                        }))))
+                        .then(Commands.literal("heal").executes((p_198352_0_) -> {
+                                    if (p_198352_0_.getSource().isPlayer()) {
+                                        List<ServerPlayer> list = new ArrayList<>();
+                                        list.add(p_198352_0_.getSource().getPlayerOrException());
+                                        return heal(p_198352_0_.getSource(), list);
+                                    }
+                                    return 0;
+                                })
+                                .then(Commands.argument("targets", EntityArgument.players()).executes((p_198435_0_) -> {
+                                    return heal(p_198435_0_.getSource(), EntityArgument.getPlayers(p_198435_0_, "targets"));
+                                })))));
     }
 
     private static int addSoulEnergy(CommandSourceStack pSource, Collection<? extends ServerPlayer> pTargets, int pAmount) {
@@ -577,5 +622,75 @@ public class GoetyCommand {
 
             return pTargets.size();
         }
+    }
+
+    private static int spawnWight(CommandSourceStack pSource, ServerPlayer pPlayer) {
+        WightSpawner spawner = new WightSpawner();
+        spawner.forceSpawn(pPlayer.getLevel(), pPlayer, pSource);
+        return 1;
+    }
+
+    private static int repairItem(CommandSourceStack pSource, Collection<? extends ServerPlayer> pTargets) {
+        int i = 0;
+        for(ServerPlayer serverPlayer : pTargets) {
+            if (!serverPlayer.getMainHandItem().isEmpty()){
+                if (serverPlayer.getMainHandItem().isDamaged()){
+                    serverPlayer.getMainHandItem().setDamageValue(0);
+                    ++i;
+                }
+            }
+        }
+
+        if (i == 0){
+            pSource.sendFailure(Component.translatable("commands.goety.misc.repair.held.failure"));
+        } else {
+            if (pTargets.size() == 1) {
+                pSource.sendSuccess(Component.translatable("commands.goety.misc.repair.held.success.single", pTargets.iterator().next().getDisplayName(), pTargets.iterator().next().getMainHandItem().getDisplayName()), true);
+            } else {
+                pSource.sendSuccess(Component.translatable("commands.goety.misc.repair.held.success.multiple", pTargets.size()), true);
+            }
+        }
+        return i;
+    }
+
+    private static int repairAllItems(CommandSourceStack pSource, Collection<? extends ServerPlayer> pTargets) {
+        int i0 = 0;
+        for(ServerPlayer serverPlayer : pTargets) {
+            for (int i = 0; i < serverPlayer.getInventory().getContainerSize(); ++i){
+                ItemStack itemStack = serverPlayer.getInventory().getItem(i);
+                if (itemStack.isDamaged()){
+                    itemStack.setDamageValue(0);
+                    ++i0;
+                }
+            }
+        }
+
+        if (i0 == 0){
+            pSource.sendFailure(Component.translatable("commands.goety.misc.repair.inventory.failure"));
+        } else {
+            if (pTargets.size() == 1) {
+                pSource.sendSuccess(Component.translatable("commands.goety.misc.repair.inventory.success.single", pTargets.iterator().next().getDisplayName()), true);
+            } else {
+                pSource.sendSuccess(Component.translatable("commands.goety.misc.repair.inventory.success.multiple", pTargets.size()), true);
+            }
+        }
+        return i0;
+    }
+
+    private static int heal(CommandSourceStack pSource, Collection<? extends ServerPlayer> pTargets) {
+        for(ServerPlayer serverPlayer : pTargets) {
+            serverPlayer.removeAllEffects();
+            serverPlayer.heal(serverPlayer.getMaxHealth());
+            serverPlayer.getFoodData().setFoodLevel(20);
+            serverPlayer.getFoodData().setSaturation(20);
+            serverPlayer.getFoodData().setExhaustion(0);
+        }
+
+        if (pTargets.size() == 1) {
+            pSource.sendSuccess(Component.translatable("commands.goety.misc.heal.success.single", pTargets.iterator().next().getDisplayName()), true);
+        } else {
+            pSource.sendSuccess(Component.translatable("commands.goety.misc.heal.success.multiple", pTargets.size()), true);
+        }
+        return 1;
     }
 }

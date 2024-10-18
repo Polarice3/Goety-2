@@ -78,6 +78,7 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
     public BlockPos boundPos;
     public int commandTick;
     public int killChance;
+    public int noHealTime;
 
     public AbstractSpiderServant(EntityType<? extends Spider> p_33786_, Level p_33787_) {
         super(p_33786_, p_33787_);
@@ -275,75 +276,10 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
                 this.getNavigation().moveTo(this.boundPos.getX(), this.boundPos.getY(), this.boundPos.getZ(), 1.0F);
             }
         }
-        if (this.getTrueOwner() != null){
-            boolean crown = false;
-            if (this.getMobType() == ModMobType.FROST){
-                crown = CuriosFinder.hasFrostCrown(this.getTrueOwner());
-            }
-            if (this.getMobType() == ModMobType.NATURAL){
-                crown = CuriosFinder.hasWildCrown(this.getTrueOwner());
-            }
-            if (this.getMobType() == ModMobType.NETHER){
-                crown = CuriosFinder.hasNetherCrown(this.getTrueOwner());
-            }
-            if (this.getMobType() == MobType.UNDEAD){
-                crown = CuriosFinder.hasUndeadCrown(this.getTrueOwner());
-            }
-            if (!crown){
-                if (this.limitedLifeTicks > 0){
-                    this.limitedLifespan = true;
-                }
-            } else {
-                this.limitedLifespan = false;
-            }
-            if (!this.level.isClientSide) {
-                if (!this.isOnFire() && !this.isDeadOrDying() && (!this.limitedLifespan || this.limitedLifeTicks > 20)) {
-                    if (this.getHealth() < this.getMaxHealth()){
-                        if (this.getTrueOwner() instanceof Player owner) {
-                            boolean curio = false;
-                            int soulCost = 0;
-                            int healRate = 0;
-                            float healAmount = 0;
-                            if (this.getMobType() == MobType.UNDEAD && MobsConfig.UndeadMinionHeal.get()){
-                                curio = CuriosFinder.hasUndeadCape(owner);
-                                soulCost = MobsConfig.UndeadMinionHealCost.get();
-                                healRate = MobsConfig.UndeadMinionHealTime.get();
-                                healAmount = MobsConfig.UndeadMinionHealAmount.get().floatValue();
-                            }
-                            if (this.getMobType() == ModMobType.NATURAL && MobsConfig.NaturalMinionHeal.get()){
-                                curio = CuriosFinder.hasWildRobe(owner);
-                                soulCost = MobsConfig.NaturalMinionHealCost.get();
-                                healRate = MobsConfig.NaturalMinionHealTime.get();
-                                healAmount = MobsConfig.NaturalMinionHealAmount.get().floatValue();
-                            }
-                            if (this.getMobType() == ModMobType.FROST && MobsConfig.FrostMinionHeal.get()){
-                                curio = CuriosFinder.hasFrostRobes(owner);
-                                soulCost = MobsConfig.FrostMinionHealCost.get();
-                                healRate = MobsConfig.FrostMinionHealTime.get();
-                                healAmount = MobsConfig.FrostMinionHealAmount.get().floatValue();
-                            }
-                            if (this.getMobType() == ModMobType.NETHER && MobsConfig.NetherMinionHeal.get()){
-                                curio = CuriosFinder.hasNetherRobe(owner);
-                                soulCost = MobsConfig.NetherMinionHealCost.get();
-                                healRate = MobsConfig.NetherMinionHealTime.get();
-                                healAmount = MobsConfig.NetherMinionHealAmount.get().floatValue();
-                            }
-                            if (curio) {
-                                if (SEHelper.getSoulsAmount(owner, soulCost)) {
-                                    if (this.tickCount % (MathHelper.secondsToTicks(healRate) + 1) == 0) {
-                                        this.heal(healAmount);
-                                        Vec3 vector3d = this.getDeltaMovement();
-                                        if (this.level instanceof ServerLevel serverWorld) {
-                                            SEHelper.decreaseSouls(owner, soulCost);
-                                            serverWorld.sendParticles(ParticleTypes.SCULK_SOUL, this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0, vector3d.x * -0.2D, 0.1D, vector3d.z * -0.2D, 0.5F);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+        if (this.noHealTime <= 0){
+            this.healServant(this);
+        } else {
+            --this.noHealTime;
         }
         boolean flag = this.isSunSensitive() && this.isSunBurnTick() && MobsConfig.UndeadServantSunlightBurn.get();
         if (flag) {
@@ -574,6 +510,9 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
         if (compound.contains("boundPos")){
             this.boundPos = NbtUtils.readBlockPos(compound.getCompound("boundPos"));
         }
+        if (compound.contains("noHealTime")){
+            this.noHealTime = compound.getInt("noHealTime");
+        }
         this.setConfigurableAttributes();
     }
 
@@ -607,6 +546,7 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
         if (this.boundPos != null){
             compound.put("boundPos", NbtUtils.writeBlockPos(this.boundPos));
         }
+        compound.putInt("noHealTime", this.noHealTime);
     }
 
     private boolean getFlag(int mask) {
@@ -750,9 +690,24 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
         this.kill();
     }
 
-    public void setLimitedLife(int limitedLifeTicksIn) {
-        this.limitedLifespan = true;
-        this.limitedLifeTicks = limitedLifeTicksIn;
+    @Override
+    public void setHasLifespan(boolean lifespan) {
+        this.limitedLifespan = lifespan;
+    }
+
+    @Override
+    public boolean hasLifespan() {
+        return this.limitedLifespan;
+    }
+
+    @Override
+    public void setLifespan(int lifespan) {
+        this.limitedLifeTicks = lifespan;
+    }
+
+    @Override
+    public int getLifespan() {
+        return this.limitedLifeTicks;
     }
 
     @Override
@@ -787,7 +742,11 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
                 }
             }
         }
-        return super.hurt(source, amount);
+        boolean flag = super.hurt(source, amount);
+        if (flag){
+            this.noHealTime = MathHelper.secondsToTicks(MobsConfig.ServantHealHalt.get());
+        }
+        return flag;
     }
 
     public void die(DamageSource pCause) {

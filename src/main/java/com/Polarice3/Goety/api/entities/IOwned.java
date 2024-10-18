@@ -47,6 +47,25 @@ public interface IOwned {
     default void convertNewEquipment(Entity entity) {
     }
 
+    default void setLimitedLife(int limitedLifeTicksIn) {
+        this.setHasLifespan(true);
+        this.setLifespan(limitedLifeTicksIn);
+    }
+
+    default void setHasLifespan(boolean lifespan){
+    }
+
+    default boolean hasLifespan(){
+        return false;
+    }
+
+    default void setLifespan(int lifespan){
+    }
+
+    default int getLifespan(){
+        return 0;
+    }
+
     default boolean isFamiliar(){
         return false;
     }

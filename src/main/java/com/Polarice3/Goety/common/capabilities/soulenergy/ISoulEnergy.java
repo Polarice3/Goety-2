@@ -64,6 +64,11 @@ public interface ISoulEnergy {
     void setTicksInAir(int tick);
     void setAirJumps(int airJumps);
     void setAirJumpCooldown(int cooldown);
+    int getMiningProgress();
+    void setMiningProgress(int tick);
+    @Nullable
+    BlockPos getMiningPos();
+    void setMiningPos(BlockPos blockPos);
     @Nullable
     UUID getCameraUUID();
     void setCameraUUID(@Nullable UUID camera);

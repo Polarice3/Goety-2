@@ -56,11 +56,15 @@ public class MagmaSpell extends Spell {
 
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){
+        float radius = 3.0F;
         float velocity = WandUtil.getLevels(ModEnchantments.VELOCITY.get(), entityLiving) / 3.0F;
-        float extraBlast = WandUtil.getLevels(ModEnchantments.RADIUS.get(), entityLiving) / 2.5F;
+        float extraBlast = WandUtil.getLevels(ModEnchantments.RADIUS.get(), entityLiving) / 2.0F;
+        if (this.rightStaff(staff)){
+            radius = 4.0F;
+        }
         MagmaBomb blast = new MagmaBomb(entityLiving, worldIn);
         blast.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving));
-        blast.setExplosionPower(extraBlast + 3.0F);
+        blast.setExplosionPower(extraBlast + radius);
         blast.setDuration(WandUtil.getLevels(ModEnchantments.DURATION.get(), entityLiving));
         blast.setStaff(this.rightStaff(staff));
         blast.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F, 1.5F + velocity, 1.0F);

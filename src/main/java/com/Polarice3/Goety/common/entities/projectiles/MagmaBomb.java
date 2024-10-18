@@ -142,7 +142,7 @@ public class MagmaBomb extends SpellThrowableProjectile {
                     pyroclast.setExplosionPower(this.getExplosionPower() / 2.0F);
                     pyroclast.setPotency((int)this.getExtraDamage());
                     pyroclast.setFlaming(0);
-                    MobUtil.shootUp(pyroclast, MobUtil.ceilingVelocity(this, 0.75F));
+                    MobUtil.shootUp(pyroclast, this, MobUtil.ceilingVelocity(this, 0.75F));
                 }
             }
             this.discard();

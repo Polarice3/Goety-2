@@ -259,6 +259,12 @@ public class ModEntityType {
                     .clientTrackingRange(10)
                     .updateInterval(1));
 
+    public static final RegistryObject<EntityType<BlossomThorn>> BLOSSOM_THORN = register("blossom_thorn",
+            EntityType.Builder.<BlossomThorn>of(BlossomThorn::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(10)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<CorruptedBeam>> CORRUPTED_BEAM = register("corrupted_beam",
             EntityType.Builder.<CorruptedBeam>of(CorruptedBeam::new, MobCategory.MISC)
                     .fireImmune()
@@ -312,6 +318,12 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<MagmaBomb>> MAGMA_BOMB = register("magma_bomb",
             EntityType.Builder.<MagmaBomb>of(MagmaBomb::new, MobCategory.MISC)
+                    .sized(1.25F, 1.25F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<BlossomBall>> BLOSSOM_BALL = register("blossom_ball",
+            EntityType.Builder.<BlossomBall>of(BlossomBall::new, MobCategory.MISC)
                     .sized(1.25F, 1.25F)
                     .clientTrackingRange(8)
                     .updateInterval(1));

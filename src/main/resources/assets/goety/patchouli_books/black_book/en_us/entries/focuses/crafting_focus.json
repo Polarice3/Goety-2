@@ -1,0 +1,15 @@
+{
+  "name": "Crafting Focus",
+  "icon": "goety:crafting_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Sometimes one forgets, or is unable to place, their crafting table, so having one on the go makes crafting more convenient!"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/crafting_focus"
+    }
+  ]
+}
