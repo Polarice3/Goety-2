@@ -244,6 +244,7 @@ public class ModItems {
     public static final RegistryObject<Item> QUAKING_FOCUS = ITEMS.register("quaking_focus", () -> new MagicFocus(new QuakingSpell()));
     public static final RegistryObject<Item> PULVERIZE_FOCUS = ITEMS.register("pulverize_focus", () -> new MagicFocus(new PulverizeSpell()));
     public static final RegistryObject<Item> ROTATION_FOCUS = ITEMS.register("rotation_focus", () -> new MagicFocus(new RotationSpell()));
+    public static final RegistryObject<Item> BURROWING_FOCUS = ITEMS.register("burrowing_focus", () -> new MagicFocus(new BurrowingSpell()));
     public static final RegistryObject<Item> SCATTER_FOCUS = ITEMS.register("scatter_focus", () -> new MagicFocus(new ScatterSpell()));
     public static final RegistryObject<Item> ERUPTION_FOCUS = ITEMS.register("eruption_focus", () -> new MagicFocus(new EruptionSpell()));
 

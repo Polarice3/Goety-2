@@ -528,7 +528,7 @@ public class ClientEvents {
     }
 
     @SubscribeEvent
-    public void RenderWorldLast(RenderLevelStageEvent event) {
+    public static void RenderWorldLast(RenderLevelStageEvent event) {
         if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS) {
             return;
         }
