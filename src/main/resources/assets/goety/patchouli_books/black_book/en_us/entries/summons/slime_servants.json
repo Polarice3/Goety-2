@@ -5,11 +5,19 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "With an $(l:crafts/cores)Animation Core$(), you're able to bring a block of slime to life as a loyal Slime Servant. Using a Slimeball will heal them but a Block of Slime on them will not only heal, but also increase their size up to a point."
+      "text": "With an $(l:crafts/cores)Animation Core$() on a Block of Slime or casting Slimy spell, you're able to conjure a loyal Slime Servant. Using a Slimeball will heal them but a Block of Slime on them will not only heal, but also increase their size up to a point."
     },
     {
       "type": "patchouli:entity",
       "entity": "goety:slime_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If a Block of Slime is surrounded by water, the resulting slime appears to be tropical to say the least, with fishes swimming within itself and being able to traverse through water far better than their other variants. When slain, creatures nearby will gain oxygen with the range and amount depending on size."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:tropical_slime_servant"
     },
     {
       "type": "patchouli:text",
@@ -22,7 +30,7 @@
     {
       "type": "patchouli:text",
       "advancement": "goety:goety/find_crypt",
-      "text": "Using an $(l:crafts/cores)Animation Core$() on a Block of Slime while within a Crypt will summon forth a loyal ectoplasmic Crypt Slime."
+      "text": "Using an $(l:crafts/cores)Animation Core$() on a Block of Slime or casting Slimy spell while within a Crypt will summon forth a loyal ectoplasmic Crypt Slime."
     },
     {
       "type": "patchouli:entity",

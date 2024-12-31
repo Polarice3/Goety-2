@@ -384,7 +384,7 @@ public class DrownedNecromancerAnimations {
 			))
 			.build();
 
-	public static final AnimationDefinition RAPID = AnimationDefinition.Builder.withLength(4.4167F)
+	public static final AnimationDefinition RAPID = AnimationDefinition.Builder.withLength(4.0833F)
 			.addAnimation("right_arm", new AnimationChannel(AnimationChannel.Targets.ROTATION,
 					new Keyframe(0.0F, KeyframeAnimations.degreeVec(-80.0F, 15.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(0.0833F, KeyframeAnimations.degreeVec(-118.7F, -16.67F, -35.19F), AnimationChannel.Interpolations.CATMULLROM),
@@ -419,11 +419,8 @@ public class DrownedNecromancerAnimations {
 					new Keyframe(3.375F, KeyframeAnimations.degreeVec(-135.0F, -30.0F, -50.0F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(3.4167F, KeyframeAnimations.degreeVec(-118.7F, -16.67F, -35.19F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(3.4583F, KeyframeAnimations.degreeVec(-135.0F, -30.0F, -50.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.7083F, KeyframeAnimations.degreeVec(-135.0F, -30.0F, -50.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.75F, KeyframeAnimations.degreeVec(-118.7F, -16.67F, -35.19F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.7917F, KeyframeAnimations.degreeVec(-135.0F, -30.0F, -50.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.9167F, KeyframeAnimations.degreeVec(-90.0F, 15.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(4.4167F, KeyframeAnimations.degreeVec(-80.0F, 15.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
+					new Keyframe(3.5833F, KeyframeAnimations.degreeVec(-90.0F, 15.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+					new Keyframe(4.0833F, KeyframeAnimations.degreeVec(-80.0F, 15.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
 			))
 			.addAnimation("left_arm", new AnimationChannel(AnimationChannel.Targets.ROTATION,
 					new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, -5.0F), AnimationChannel.Interpolations.CATMULLROM),
@@ -459,11 +456,8 @@ public class DrownedNecromancerAnimations {
 					new Keyframe(3.375F, KeyframeAnimations.degreeVec(-65.0F, -30.0F, -25.0F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(3.4167F, KeyframeAnimations.degreeVec(-45.74F, -21.11F, -19.07F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(3.4583F, KeyframeAnimations.degreeVec(-65.0F, -30.0F, -25.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.7083F, KeyframeAnimations.degreeVec(-65.0F, -30.0F, -25.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.75F, KeyframeAnimations.degreeVec(-45.74F, -21.11F, -19.07F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.7917F, KeyframeAnimations.degreeVec(-65.0F, -30.0F, -25.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.9167F, KeyframeAnimations.degreeVec(45.0F, 25.0F, -30.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(4.4167F, KeyframeAnimations.degreeVec(0.0F, 0.0F, -5.0F), AnimationChannel.Interpolations.CATMULLROM)
+					new Keyframe(3.5833F, KeyframeAnimations.degreeVec(45.0F, 25.0F, -30.0F), AnimationChannel.Interpolations.CATMULLROM),
+					new Keyframe(4.0833F, KeyframeAnimations.degreeVec(0.0F, 0.0F, -5.0F), AnimationChannel.Interpolations.CATMULLROM)
 			))
 			.addAnimation("staff", new AnimationChannel(AnimationChannel.Targets.ROTATION,
 					new Keyframe(0.0F, KeyframeAnimations.degreeVec(-7.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
@@ -488,12 +482,10 @@ public class DrownedNecromancerAnimations {
 					new Keyframe(3.0833F, KeyframeAnimations.degreeVec(-7.44F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(3.375F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(3.4167F, KeyframeAnimations.degreeVec(-7.44F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.7083F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.75F, KeyframeAnimations.degreeVec(-7.44F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.7917F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.9167F, KeyframeAnimations.degreeVec(65.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(4.1667F, KeyframeAnimations.degreeVec(65.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(4.4167F, KeyframeAnimations.degreeVec(-7.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
+					new Keyframe(3.4583F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+					new Keyframe(3.5833F, KeyframeAnimations.degreeVec(65.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+					new Keyframe(3.8333F, KeyframeAnimations.degreeVec(65.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+					new Keyframe(4.0833F, KeyframeAnimations.degreeVec(-7.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
 			))
 			.addAnimation("staff", new AnimationChannel(AnimationChannel.Targets.POSITION,
 					new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, -1.0F, 5.5F), AnimationChannel.Interpolations.CATMULLROM),
@@ -529,13 +521,10 @@ public class DrownedNecromancerAnimations {
 					new Keyframe(3.375F, KeyframeAnimations.posVec(1.0F, 0.0F, -5.0F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(3.4167F, KeyframeAnimations.posVec(0.7F, -0.3F, -1.89F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(3.4583F, KeyframeAnimations.posVec(1.0F, 0.0F, -5.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.7083F, KeyframeAnimations.posVec(1.0F, 0.0F, -5.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.75F, KeyframeAnimations.posVec(0.7F, -0.3F, -1.89F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.7917F, KeyframeAnimations.posVec(1.0F, 0.0F, -5.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.9167F, KeyframeAnimations.posVec(0.0F, -1.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(4.1667F, KeyframeAnimations.posVec(0.0F, -1.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(4.2917F, KeyframeAnimations.posVec(0.0F, -1.0F, 1.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(4.4167F, KeyframeAnimations.posVec(0.0F, -1.0F, 5.5F), AnimationChannel.Interpolations.CATMULLROM)
+					new Keyframe(3.5833F, KeyframeAnimations.posVec(0.0F, -1.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+					new Keyframe(3.8333F, KeyframeAnimations.posVec(0.0F, -1.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+					new Keyframe(3.9583F, KeyframeAnimations.posVec(0.0F, -1.0F, 1.0F), AnimationChannel.Interpolations.CATMULLROM),
+					new Keyframe(4.0833F, KeyframeAnimations.posVec(0.0F, -1.0F, 5.5F), AnimationChannel.Interpolations.CATMULLROM)
 			))
 			.addAnimation("body", new AnimationChannel(AnimationChannel.Targets.ROTATION,
 					new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, -15.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
@@ -571,11 +560,8 @@ public class DrownedNecromancerAnimations {
 					new Keyframe(3.375F, KeyframeAnimations.degreeVec(-15.0F, 45.0F, -15.0F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(3.4167F, KeyframeAnimations.degreeVec(-10.56F, 27.22F, -10.56F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(3.4583F, KeyframeAnimations.degreeVec(-15.0F, 45.0F, -15.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.7083F, KeyframeAnimations.degreeVec(-15.0F, 45.0F, -15.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.75F, KeyframeAnimations.degreeVec(-10.56F, 27.22F, -10.56F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.7917F, KeyframeAnimations.degreeVec(-15.0F, 45.0F, -15.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.9167F, KeyframeAnimations.degreeVec(30.0F, -25.0F, -20.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(4.4167F, KeyframeAnimations.degreeVec(0.0F, -15.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
+					new Keyframe(3.5833F, KeyframeAnimations.degreeVec(30.0F, -25.0F, -20.0F), AnimationChannel.Interpolations.CATMULLROM),
+					new Keyframe(4.0833F, KeyframeAnimations.degreeVec(0.0F, -15.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
 			))
 			.addAnimation("head", new AnimationChannel(AnimationChannel.Targets.ROTATION,
 					new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 15.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
@@ -611,11 +597,8 @@ public class DrownedNecromancerAnimations {
 					new Keyframe(3.375F, KeyframeAnimations.degreeVec(15.0F, -45.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(3.4167F, KeyframeAnimations.degreeVec(10.56F, -27.22F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(3.4583F, KeyframeAnimations.degreeVec(15.0F, -45.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.7083F, KeyframeAnimations.degreeVec(15.0F, -45.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.75F, KeyframeAnimations.degreeVec(10.56F, -27.22F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.7917F, KeyframeAnimations.degreeVec(15.0F, -45.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.9167F, KeyframeAnimations.degreeVec(16.5F, 28.5F, 12.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(4.4167F, KeyframeAnimations.degreeVec(0.0F, 15.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
+					new Keyframe(3.5833F, KeyframeAnimations.degreeVec(16.5F, 28.5F, 12.0F), AnimationChannel.Interpolations.CATMULLROM),
+					new Keyframe(4.0833F, KeyframeAnimations.degreeVec(0.0F, 15.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
 			))
 			.addAnimation("right_leg", new AnimationChannel(AnimationChannel.Targets.ROTATION,
 					new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 2.5F), AnimationChannel.Interpolations.CATMULLROM),
@@ -651,10 +634,7 @@ public class DrownedNecromancerAnimations {
 					new Keyframe(3.375F, KeyframeAnimations.degreeVec(20.0F, 0.0F, 2.5F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(3.4167F, KeyframeAnimations.degreeVec(14.07F, 0.0F, 2.5F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(3.4583F, KeyframeAnimations.degreeVec(20.0F, 0.0F, 2.5F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.7083F, KeyframeAnimations.degreeVec(20.0F, 0.0F, 2.5F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.75F, KeyframeAnimations.degreeVec(14.07F, 0.0F, 2.5F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.7917F, KeyframeAnimations.degreeVec(20.0F, 0.0F, 2.5F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(4.4167F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 2.5F), AnimationChannel.Interpolations.CATMULLROM)
+					new Keyframe(4.0833F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 2.5F), AnimationChannel.Interpolations.CATMULLROM)
 			))
 			.addAnimation("left_leg", new AnimationChannel(AnimationChannel.Targets.ROTATION,
 					new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, -7.5F), AnimationChannel.Interpolations.CATMULLROM),
@@ -690,10 +670,7 @@ public class DrownedNecromancerAnimations {
 					new Keyframe(3.375F, KeyframeAnimations.degreeVec(-17.5F, 0.0F, -7.5F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(3.4167F, KeyframeAnimations.degreeVec(-12.31F, 0.0F, -7.5F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(3.4583F, KeyframeAnimations.degreeVec(-17.5F, 0.0F, -7.5F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.7083F, KeyframeAnimations.degreeVec(-17.5F, 0.0F, -7.5F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.75F, KeyframeAnimations.degreeVec(-12.31F, 0.0F, -7.5F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.7917F, KeyframeAnimations.degreeVec(-17.5F, 0.0F, -7.5F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(4.4167F, KeyframeAnimations.degreeVec(0.0F, 0.0F, -7.5F), AnimationChannel.Interpolations.CATMULLROM)
+					new Keyframe(4.0833F, KeyframeAnimations.degreeVec(0.0F, 0.0F, -7.5F), AnimationChannel.Interpolations.CATMULLROM)
 			))
 			.addAnimation("cape", new AnimationChannel(AnimationChannel.Targets.ROTATION,
 					new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
@@ -728,12 +705,9 @@ public class DrownedNecromancerAnimations {
 					new Keyframe(3.125F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(3.375F, KeyframeAnimations.degreeVec(10.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(3.4167F, KeyframeAnimations.degreeVec(-0.74F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.4583F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.7083F, KeyframeAnimations.degreeVec(10.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.75F, KeyframeAnimations.degreeVec(-0.74F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.7917F, KeyframeAnimations.degreeVec(10.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.9167F, KeyframeAnimations.degreeVec(70.0F, 10.0F, -5.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(4.4167F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
+					new Keyframe(3.4583F, KeyframeAnimations.degreeVec(10.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+					new Keyframe(3.5833F, KeyframeAnimations.degreeVec(70.0F, 10.0F, -5.0F), AnimationChannel.Interpolations.CATMULLROM),
+					new Keyframe(4.0833F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
 			))
 			.addAnimation("right_pauldron", new AnimationChannel(AnimationChannel.Targets.ROTATION,
 					new Keyframe(0.0F, KeyframeAnimations.degreeVec(60.0F, -5.0F, -15.0F), AnimationChannel.Interpolations.CATMULLROM),
@@ -769,10 +743,7 @@ public class DrownedNecromancerAnimations {
 					new Keyframe(3.375F, KeyframeAnimations.degreeVec(110.0F, -5.0F, -15.0F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(3.4167F, KeyframeAnimations.degreeVec(95.19F, -5.0F, -15.0F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(3.4583F, KeyframeAnimations.degreeVec(110.0F, -5.0F, -15.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.7083F, KeyframeAnimations.degreeVec(110.0F, -5.0F, -15.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.75F, KeyframeAnimations.degreeVec(95.19F, -5.0F, -15.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(3.7917F, KeyframeAnimations.degreeVec(110.0F, -5.0F, -15.0F), AnimationChannel.Interpolations.CATMULLROM),
-					new Keyframe(4.4167F, KeyframeAnimations.degreeVec(60.0F, -5.0F, -15.0F), AnimationChannel.Interpolations.CATMULLROM)
+					new Keyframe(4.0833F, KeyframeAnimations.degreeVec(60.0F, -5.0F, -15.0F), AnimationChannel.Interpolations.CATMULLROM)
 			))
 			.build();
 

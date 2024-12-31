@@ -28,11 +28,13 @@ public class ModModelLayer {
     public static final ModelLayerLocation SUMMON_CIRCLE_BOSS = register("summon_circle_boss");
     public static final ModelLayerLocation ENTANGLE_VINES = register("entangle_vines");
     public static final ModelLayerLocation FIRE_TORNADO = register("fire_tornado");
+    public static final ModelLayerLocation TIDAL_SURGE = register("tidal_surge");
     public static final ModelLayerLocation MONOLITH = register("pillar");
     public static final ModelLayerLocation VOLCANO = register("volcano");
     public static final ModelLayerLocation TRIDENT_STORM = register("trident_storm");
     public static final ModelLayerLocation QUICK_GROWING_VINE = register("quick_growing_vine");
     public static final ModelLayerLocation POISON_QUILL_VINE = register("poison_quill_vine");
+    public static final ModelLayerLocation BIOMINE = register("biomine");
     public static final ModelLayerLocation BLOCK = register("block");
     public static final ModelLayerLocation WARLOCK = register("warlock");
     public static final ModelLayerLocation HERETIC = register("heretic");
@@ -51,6 +53,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation RAVAGER_ARMOR = register("ravager_armor");
     public static final ModelLayerLocation BLACK_WOLF = register("black_wolf");
     public static final ModelLayerLocation BEAR = register("bear");
+    public static final ModelLayerLocation SNAPPER = register("snapper");
     public static final ModelLayerLocation BLACK_BEAST = register("black_beast");
     public static final ModelLayerLocation WHISPERER = register("whisperer");
     public static final ModelLayerLocation LEAPLEAF = register("leapleaf");
@@ -67,6 +70,8 @@ public class ModModelLayer {
     public static final ModelLayerLocation WILDFIRE = register("wildfire");
     public static final ModelLayerLocation MINI_GHAST = register("mini_ghast");
     public static final ModelLayerLocation MAGMA_CUBE = register("magma_cube");
+    public static final ModelLayerLocation TROPICAL_SLIME_OUTER = register("tropical_slime_outer");
+    public static final ModelLayerLocation TROPICAL_SLIME_INNER = register("tropical_slime_inner");
     public static final ModelLayerLocation MOD_SPIDER = register("mod_spider");
     public static final ModelLayerLocation ICY_SPIDER = register("icy_spider");
     public static final ModelLayerLocation SPECTER = register("specter");

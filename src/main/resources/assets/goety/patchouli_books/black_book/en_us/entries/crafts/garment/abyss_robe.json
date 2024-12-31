@@ -1,0 +1,31 @@
+{
+  "name": "Abyss Robes",
+  "icon": "goety:abyss_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Abyss Robes allows you to harness the power of the oceans far more efficiently and effectively. The Robes makes the wearer swim faster, and reduces the damage from drowning, even providing a small amount of air after taking damage."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:abyss_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Loyal water creatures will slowly heal themselves using their summoner's soul energy, should the summoner don this robe."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:abyss_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Abyss Crown reduce the amount of time to cast Abyss spells by half and keeps your water servants from dying off like Vexes."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:abyss_robe": 1,
+    "goety:abyss_crown": 2
+  }
+}

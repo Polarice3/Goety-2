@@ -1,0 +1,15 @@
+{
+  "name": "Bubble Stream Focus",
+  "icon": "goety:bubble_stream_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Bubbles aren't exactly what people prefer to use in true combat, but the bubbles blown by the power of soul energy will wash any foes, especially ones sensitive to water, away! Unfortunately, said bubbles can also provide a smidgen of oxygen to said foes as well."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/bubble_stream_focus"
+    }
+  ]
+}

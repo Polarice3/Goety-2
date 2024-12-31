@@ -149,12 +149,19 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
     public Team getTeam() {
         if (this.getTrueOwner() != null) {
             LivingEntity livingentity = this.getTrueOwner();
-            if (livingentity != null && livingentity != this && livingentity.getTeam() != null) {
+            if (livingentity != null && livingentity != this && !this.areOwnedByEachOther(livingentity) && livingentity.getTeam() != null) {
                 return livingentity.getTeam();
             }
         }
 
         return super.getTeam();
+    }
+
+    public boolean areOwnedByEachOther(LivingEntity livingEntity){
+        if (livingEntity instanceof IOwned owned){
+            return owned.getTrueOwner() == this && this.getTrueOwner() == livingEntity;
+        }
+        return false;
     }
 
     //look at dish

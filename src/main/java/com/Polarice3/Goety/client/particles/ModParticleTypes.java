@@ -162,6 +162,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> SPELL_ELECTRIC = PARTICLE_TYPES.register("spell_electric",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> BUBBLE_STREAM = PARTICLE_TYPES.register("bubble_stream",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> BREW_BUBBLE = PARTICLE_TYPES.register("brew_bubble",
             () -> new SimpleParticleType(false));
 
@@ -340,6 +343,22 @@ public class ModParticleTypes {
                 @Override
                 public Codec codec() {
                     return AuraParticle.Option.CODEC;
+                }
+            });
+
+    public static final RegistryObject<ParticleType<VerticalCircleExplodeParticleOption>> VERTICAL_CIRCLE_EXPLODE = PARTICLE_TYPES.register("vertical_circle_explode",
+            () -> new ParticleType<>(false, VerticalCircleExplodeParticleOption.DESERIALIZER) {
+                @Override
+                public Codec codec() {
+                    return VerticalCircleExplodeParticleOption.CODEC;
+                }
+            });
+
+    public static final RegistryObject<ParticleType<AbsorbTrailParticleOption>> ABSORB_TRAIL = PARTICLE_TYPES.register("absorb_trail",
+            () -> new ParticleType<>(false, AbsorbTrailParticleOption.DESERIALIZER) {
+                @Override
+                public Codec codec() {
+                    return AbsorbTrailParticleOption.CODEC;
                 }
             });
 }

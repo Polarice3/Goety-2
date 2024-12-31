@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.projectiles.SpellHurtingProjectile;
 import com.Polarice3.Goety.common.entities.projectiles.SteamMissile;
 import com.Polarice3.Goety.common.magic.ChargingSpell;
+import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.WandUtil;
@@ -21,7 +22,12 @@ import java.util.List;
 public class SteamSpell extends ChargingSpell {
 
     public int defaultSoulCost() {
-        return SpellConfig.SoulBoltCost.get();
+        return SpellConfig.SteamingCost.get();
+    }
+
+    @Override
+    public int defaultCastUp() {
+        return SpellConfig.SteamingDuration.get();
     }
 
     @Override
@@ -30,8 +36,17 @@ public class SteamSpell extends ChargingSpell {
     }
 
     @Override
+    public int Cooldown(LivingEntity caster, ItemStack staff, int shots) {
+        if (shots % 5 == 0){
+            return 8;
+        } else {
+            return super.Cooldown(caster, staff, shots);
+        }
+    }
+
+    @Override
     public int defaultSpellCooldown() {
-        return 10;
+        return SpellConfig.SteamingCoolDown.get();
     }
 
     public SoundEvent CastingSound() {
@@ -44,8 +59,12 @@ public class SteamSpell extends ChargingSpell {
     }
 
     @Override
-    public int shotsNumber() {
-        return 5;
+    public int shotsNumber(LivingEntity caster, ItemStack staff) {
+        if (this.rightStaff(staff)){
+            return 20;
+        } else {
+            return 5;
+        }
     }
 
     @Override
@@ -62,17 +81,25 @@ public class SteamSpell extends ChargingSpell {
     }
 
     @Override
-    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff) {
-        Vec3 vector3d = caster.getViewVector( 1.0F);
+    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
+        int potency = spellStat.getPotency();
+        float velocity = spellStat.getVelocity();
+        if (WandUtil.enchantedFocus(caster)) {
+            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            velocity += WandUtil.getLevels(ModEnchantments.VELOCITY.get(), caster);
+        }
+        Vec3 vector3d = caster.getViewVector(1.0F);
+        double accuracy = 8.0D;
+        Vec3 vec3 = (new Vec3(vector3d.x, vector3d.y, vector3d.z)).normalize().add(worldIn.random.triangle(0.0D, 0.0172275D * (double) accuracy), 0.0D, worldIn.random.triangle(0.0D, 0.0172275D * (double) accuracy));
         SpellHurtingProjectile steamMissile = new SteamMissile(
                 caster.getX() + vector3d.x / 2,
                 caster.getEyeY() - 0.2,
                 caster.getZ() + vector3d.z / 2,
-                vector3d.x,
-                vector3d.y,
-                vector3d.z, worldIn);
-        steamMissile.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
-        steamMissile.setBoltSpeed(WandUtil.getLevels(ModEnchantments.VELOCITY.get(), caster));
+                vec3.x,
+                vec3.y,
+                vec3.z, worldIn);
+        steamMissile.setExtraDamage(potency);
+        steamMissile.setBoltSpeed((int) velocity);
         steamMissile.setOwner(caster);
         worldIn.addFreshEntity(steamMissile);
     }

@@ -1,0 +1,22 @@
+{
+  "name": "Deep Ritual",
+  "icon": "minecraft:prismarine_bricks",
+  "category": "goety:rituals",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requirements: $(li)Altar is in Deep Ocean biome and below sea level $(br)$(l)OR$()$() $(li)4 Sea Lanterns $(li)16 Prismarine Blocks Any $(li)16 Granite Blocks Any $(br)Altar must be waterlogged$()"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/deep_ritual.png"],
+      "border": true,
+      "text": "An example of how the ritual can be placed."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The power of the ocean courses through the Altar, allowing you harness the very tides for your own diabolical purposes."
+    }
+  ]
+}

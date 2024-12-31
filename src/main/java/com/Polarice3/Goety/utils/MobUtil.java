@@ -29,6 +29,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -36,9 +37,11 @@ import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.CombatRules;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -58,6 +61,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -1306,7 +1310,7 @@ public class MobUtil {
                     && !(CuriosFinder.validWildMob(target) && owner != null && CuriosFinder.neutralWildSet(owner))
                     && !(CuriosFinder.validNetherMob(target) && owner != null && CuriosFinder.neutralNetherSet(owner))
                     && !(target.getMobType() == MobType.ARTHROPOD && owner != null && CuriosFinder.hasWarlockRobe(owner))
-                    && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.MinionsAttackCreepers.get())
+                    && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.ServantsAttackCreepers.get())
                     && !(target instanceof NeutralMob neutralMob && ((owner != null && neutralMob.getTarget() != owner) || neutralMob.getTarget() != attacker))
                     && !(target instanceof AbstractPiglin piglin && ((owner != null && piglin.getTarget() != owner) || piglin.getTarget() != attacker))
                     && !(target instanceof IOwned ownedTarget && (owner != null && ownedTarget.getTrueOwner() == owner))
@@ -1358,5 +1362,48 @@ public class MobUtil {
      */
     public static AABB makeAttackRange(double x, double y, double z, double sizeX, double sizeY, double sizeZ) {
         return new AABB(x - (sizeX / 2.0D), y - (sizeY / 2.0D), z - (sizeZ / 2.0D), x + (sizeX / 2.0D), y + (sizeY / 2.0D), z + (sizeZ / 2.0D));
+    }
+
+    public static float hurtCalculation(LivingEntity livingEntity, DamageSource damageSource, float amount) {
+        amount = net.minecraftforge.common.ForgeHooks.onLivingHurt(livingEntity, damageSource, amount);
+        amount = getDamageAfterArmorAbsorb(livingEntity, damageSource, amount);
+        amount = getDamageAfterMagicAbsorb(livingEntity, damageSource, amount);
+        float f1 = Math.max(amount - livingEntity.getAbsorptionAmount(), 0.0F);
+        f1 = net.minecraftforge.common.ForgeHooks.onLivingDamage(livingEntity, damageSource, f1);
+        return f1;
+    }
+
+    public static float getDamageAfterArmorAbsorb(LivingEntity livingEntity, DamageSource damageSource, float amount) {
+        if (!damageSource.is(DamageTypeTags.BYPASSES_ARMOR)) {
+            amount = CombatRules.getDamageAfterAbsorb(amount, (float)livingEntity.getArmorValue(), (float)livingEntity.getAttributeValue(Attributes.ARMOR_TOUGHNESS));
+        }
+
+        return amount;
+    }
+
+    public static float getDamageAfterMagicAbsorb(LivingEntity livingEntity, DamageSource damageSource, float amount) {
+        if (damageSource.is(DamageTypeTags.BYPASSES_EFFECTS)) {
+            return amount;
+        } else {
+            if (livingEntity.hasEffect(MobEffects.DAMAGE_RESISTANCE) && !damageSource.is(DamageTypeTags.BYPASSES_RESISTANCE)) {
+                int i = (livingEntity.getEffect(MobEffects.DAMAGE_RESISTANCE).getAmplifier() + 1) * 5;
+                int j = 25 - i;
+                float f = amount * (float)j;
+                amount = Math.max(f / 25.0F, 0.0F);
+            }
+
+            if (amount <= 0.0F) {
+                return 0.0F;
+            } else if (damageSource.is(DamageTypeTags.BYPASSES_ENCHANTMENTS)) {
+                return amount;
+            } else {
+                int k = EnchantmentHelper.getDamageProtection(livingEntity.getArmorSlots(), damageSource);
+                if (k > 0) {
+                    amount = CombatRules.getDamageAfterMagicAbsorb(amount, (float)k);
+                }
+
+                return amount;
+            }
+        }
     }
 }

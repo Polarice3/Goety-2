@@ -1,0 +1,22 @@
+{
+  "name": "Slimy Focus",
+  "icon": "goety:slimy_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Conjures forth loyal $(l:summons/slime_servants)Slime Servant$() around you to do your bidding."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/slimy_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/wild_staff)Wild Staff$() summon more Slime Servants. Casting with $(l:crafts/staff/abyss_staff)Abyss Staff$() will summon Tropical Slimes, $(l:crafts/staff/nether_staff)Nether Staff$() will summon Magma Cubes, $(l:crafts/staff/necro_staff)Necro Staff$() will summon Crypt Slimes."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:slimy_focus": 1
+  }
+}

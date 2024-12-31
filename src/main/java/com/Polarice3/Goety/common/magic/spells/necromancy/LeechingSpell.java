@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.magic.spells.necromancy;
 
 import com.Polarice3.Goety.api.magic.SpellType;
+import com.Polarice3.Goety.client.particles.AbsorbTrailParticleOption;
 import com.Polarice3.Goety.client.particles.GatherTrailParticle;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.EverChargeSpell;
@@ -84,6 +85,7 @@ public class LeechingSpell extends EverChargeSpell {
             Vec3 vector3d = new Vec3(livingEntity.getRandomX(1.0F), livingEntity.getRandomY(), livingEntity.getRandomZ(1.0F));
             Vec3 vector3d1 = new Vec3(caster.getRandomX(1.0F), caster.getEyeY(), caster.getRandomZ(1.0F));
             worldIn.sendParticles(new GatherTrailParticle.Option(colorUtil, vector3d1), vector3d.x, vector3d.y, vector3d.z, 0, 0.0F, 0.0F, 0.0F, 0.5F);
+            worldIn.sendParticles(new AbsorbTrailParticleOption(vector3d1, 11141120, 10), vector3d.x, vector3d.y, vector3d.z, 1, 0.0, 0.0, 0.0, 0.0);
             if (livingEntity.hurt(ModDamageSource.lifeLeech(caster, caster), potency)) {
                 if (this.rightStaff(staff)){
                     livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 60, 0));

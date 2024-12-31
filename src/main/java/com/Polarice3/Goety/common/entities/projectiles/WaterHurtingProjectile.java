@@ -31,7 +31,7 @@ public abstract class WaterHurtingProjectile extends AbstractHurtingProjectile {
 
     public void tick() {
         Entity entity = this.getOwner();
-        if (this.level().isClientSide || (entity == null || !entity.isRemoved()) && this.level().hasChunkAt(this.blockPosition())) {
+        if (this.level.isClientSide || (entity == null || !entity.isRemoved()) && this.level.isLoaded(this.blockPosition())) {
             if (!this.hasBeenShot) {
                 this.gameEvent(GameEvent.PROJECTILE_SHOOT, this.getOwner());
                 this.hasBeenShot = true;
@@ -60,7 +60,7 @@ public abstract class WaterHurtingProjectile extends AbstractHurtingProjectile {
             if (this.isInWater()) {
                 for(int i = 0; i < 4; ++i) {
                     float f1 = 0.25F;
-                    this.level().addParticle(ParticleTypes.BUBBLE, d0 - vec3.x * f1, d1 - vec3.y * f1, d2 - vec3.z * f1, vec3.x, vec3.y, vec3.z);
+                    this.level.addParticle(ParticleTypes.BUBBLE, d0 - vec3.x * f1, d1 - vec3.y * f1, d2 - vec3.z * f1, vec3.x, vec3.y, vec3.z);
                 }
 
                 if (this.isAffectedByWater()) {
@@ -69,17 +69,22 @@ public abstract class WaterHurtingProjectile extends AbstractHurtingProjectile {
             }
 
             this.setDeltaMovement(vec3.add(this.xPower, this.yPower, this.zPower).scale(f));
-            this.level().addParticle(this.getTrailParticle(), d0, d1 + 0.5D, d2, 0.0D, 0.0D, 0.0D);
+            this.setDeltaMovement(this.getDeltaMovement().subtract(0.0D, this.getGravity(), 0.0D));
+            this.level.addParticle(this.getTrailParticle(), d0, d1 + 0.5D, d2, 0.0D, 0.0D, 0.0D);
             this.setPos(d0, d1, d2);
         } else {
             this.discard();
         }
     }
 
+    public float getGravity(){
+        return 0.0F;
+    }
+
     private boolean checkLeftOwner() {
         Entity entity = this.getOwner();
         if (entity != null) {
-            for(Entity entity1 : this.level().getEntities(this, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), (p_37272_) -> !p_37272_.isSpectator() && p_37272_.isPickable())) {
+            for(Entity entity1 : this.level.getEntities(this, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), (p_37272_) -> !p_37272_.isSpectator() && p_37272_.isPickable())) {
                 if (entity1.getRootVehicle() == entity.getRootVehicle()) {
                     return false;
                 }

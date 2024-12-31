@@ -10,6 +10,7 @@ import com.Polarice3.Goety.common.entities.ally.undead.zombie.BlackguardServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.entities.neutral.AbstractWraith;
+import com.Polarice3.Goety.common.entities.neutral.DrownedNecromancer;
 import com.Polarice3.Goety.common.entities.neutral.Wildfire;
 import com.Polarice3.Goety.common.magic.spells.necromancy.*;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -17,6 +18,7 @@ import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
@@ -27,6 +29,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 
 public class RitualRequirements extends RitualTypes{
@@ -59,7 +62,22 @@ public class RitualRequirements extends RitualTypes{
                 if (summon instanceof VanguardServant){
                     return new VanguardSpell().conditionsMet(serverLevel, castingPlayer);
                 }
-                if (summon instanceof AbstractNecromancer){
+                if (summon instanceof DrownedNecromancer){
+                    int count = 0;
+                    for (Entity entity : serverLevel.getAllEntities()) {
+                        if (entity instanceof DrownedNecromancer servant) {
+                            if (servant.getTrueOwner() == castingPlayer) {
+                                ++count;
+                            }
+                        }
+                    }
+                    if (count >= SpellConfig.DrownedNecromancerLimit.get()){
+                        castingPlayer.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
+                        return false;
+                    } else {
+                        return true;
+                    }
+                } else if (summon instanceof AbstractNecromancer){
                     int count = 0;
                     for (Entity entity : serverLevel.getAllEntities()) {
                         if (entity instanceof AbstractNecromancer servant) {
@@ -141,6 +159,7 @@ public class RitualRequirements extends RitualTypes{
             case FROST -> frostRitual(pPos, pLevel);
             case SKY -> skyRitual(pTileEntity, pLevel, pPos);
             case STORM -> RitualRequirements.getStructures(craftType, pPos, pLevel) && skyRitual(pTileEntity, pLevel, pPos) && pLevel.isThundering() && pLevel.canSeeSky(pPos.above());
+            case DEEP -> deepRitual(pTileEntity, pLevel, pPos);
             default -> false;
         };
     }
@@ -155,6 +174,10 @@ public class RitualRequirements extends RitualTypes{
 
     public static boolean skyRitual(RitualBlockEntity pTileEntity, Level pLevel, BlockPos pPos){
         return pPos.getY() >= 128 || pLevel.getBiome(pPos).is(biomeResourceKey -> biomeResourceKey.registry().getNamespace().contains("aether")) || getStructures("sky", pPos, pTileEntity.getLevel());
+    }
+
+    public static boolean deepRitual(RitualBlockEntity pTileEntity, Level pLevel, BlockPos pPos){
+        return ((pPos.getY() <= pLevel.getSeaLevel() && pLevel.getBiome(pPos).is(BiomeTags.IS_DEEP_OCEAN)) || getStructures("deep", pPos, pTileEntity.getLevel())) && pTileEntity.getBlockState().hasProperty(BlockStateProperties.WATERLOGGED) && pTileEntity.getBlockState().getValue(BlockStateProperties.WATERLOGGED);
     }
 
     public static boolean getStructures(String craftType, BlockPos pPos, Level pLevel){
@@ -329,6 +352,20 @@ public class RitualRequirements extends RitualTypes{
                                 ++secondCount;
                             }
                             if (blockstate.getBlock() instanceof ChainBlock) {
+                                ++thirdCount;
+                            }
+                        }
+                        case DEEP ->{
+                            totalFirst = 4;
+                            totalSecond = 16;
+                            totalThird = 16;
+                            if (blockstate.is(Blocks.SEA_LANTERN)) {
+                                ++firstCount;
+                            }
+                            if (blockstate.getBlock().getDescriptionId().contains("prismarine")) {
+                                ++secondCount;
+                            }
+                            if (blockstate.getBlock().getDescriptionId().contains("granite")) {
                                 ++thirdCount;
                             }
                         }

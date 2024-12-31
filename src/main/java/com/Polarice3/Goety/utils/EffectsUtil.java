@@ -1,16 +1,22 @@
 package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.Vec3;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EffectsUtil {
 
@@ -145,5 +151,21 @@ public class EffectsUtil {
 
     public static int infiniteEffect(){
         return -1;
+    }
+
+    public static List<LivingEntity> addEffectToAllAround(ServerLevel p_216947_, @org.jetbrains.annotations.Nullable Entity p_216948_, Vec3 p_216949_, double p_216950_, MobEffectInstance p_216951_, int p_216952_) {
+        MobEffect mobeffect = p_216951_.getEffect();
+        List<LivingEntity> list = new ArrayList<>();
+        for (Entity entity : p_216947_.getAllEntities()){
+            if (entity instanceof LivingEntity livingEntity){
+                if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity) && !MobUtil.areAllies(p_216948_, livingEntity) && p_216949_.closerThan(livingEntity.position(), p_216950_) && (!livingEntity.hasEffect(mobeffect) || livingEntity.getEffect(mobeffect).getAmplifier() < p_216951_.getAmplifier() || livingEntity.getEffect(mobeffect).endsWithin(p_216952_ - 1))){
+                    list.add(livingEntity);
+                }
+            }
+        }
+        list.forEach((p_238232_) -> {
+            p_238232_.addEffect(new MobEffectInstance(p_216951_), p_216948_);
+        });
+        return list;
     }
 }

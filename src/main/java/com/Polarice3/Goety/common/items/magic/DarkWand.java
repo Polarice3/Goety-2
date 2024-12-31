@@ -160,7 +160,7 @@ public class DarkWand extends Item implements IWand {
                     player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
                     ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
                     flag = true;
-                } else if (IWand.getFocus(stack).getItem() instanceof CommandFocus && owned instanceof IServant && !CommandFocus.hasServant(IWand.getFocus(stack))) {
+                } else if (IWand.getFocus(stack).getItem() instanceof CommandFocus && owned instanceof IServant servant && servant.canBeCommanded() && !CommandFocus.hasServant(IWand.getFocus(stack))) {
                     CompoundTag compoundTag = new CompoundTag();
                     if (IWand.getFocus(stack).hasTag()) {
                         compoundTag = IWand.getFocus(stack).getTag();
@@ -375,7 +375,7 @@ public class DarkWand extends Item implements IWand {
                         stack.getTag().putInt(COOL, stack.getTag().getInt(COOL) + 1);
                         if (stack.getTag().getInt(COOL) >= Cooldown(stack)) {
                             stack.getTag().putInt(COOL, 0);
-                            if (spell.shotsNumber() > 0){
+                            if (spell.shotsNumber(livingEntityIn, stack) > 0){
                                 this.increaseShots(stack);
                             }
                             this.MagicResults(stack, worldIn, livingEntityIn);
@@ -399,9 +399,9 @@ public class DarkWand extends Item implements IWand {
                 this.getSpell(stack).stopSpell(serverLevel, livingEntity, stack, useTimeRemaining);
                 if (livingEntity instanceof Player player) {
                     if (this.getSpell(stack) instanceof IChargingSpell spell) {
-                        if (spell.shotsNumber() > 0) {
+                        if (spell.shotsNumber(player, stack) > 0) {
                             if (this.ShotsFired(stack) > 0) {
-                                float coolPercent = (float) this.ShotsFired(stack) / spell.shotsNumber();
+                                float coolPercent = (float) this.ShotsFired(stack) / spell.shotsNumber(player, stack);
                                 this.setShots(stack, 0);
                                 SEHelper.addCooldown(player, IWand.getFocus(stack).getItem(), Mth.floor(spell.spellCooldown() * coolPercent));
                             }
@@ -485,8 +485,8 @@ public class DarkWand extends Item implements IWand {
             if (spell != null) {
                 stack.getTag().putInt(SOULCOST, spell.soulCost(livingEntity));
                 stack.getTag().putInt(DURATION, spell.castDuration(livingEntity));
-                if (spell instanceof IChargingSpell) {
-                    stack.getTag().putInt(COOLDOWN, ((IChargingSpell) spell).Cooldown());
+                if (spell instanceof IChargingSpell chargingSpell) {
+                    stack.getTag().putInt(COOLDOWN, chargingSpell.Cooldown(livingEntity, stack, stack.getTag().contains(SHOTS) ? stack.getTag().getInt(SHOTS) : 0));
                 } else {
                     stack.getTag().putInt(COOLDOWN, 0);
                 }
@@ -599,7 +599,7 @@ public class DarkWand extends Item implements IWand {
                             spell.SpellResult(serverWorld, caster, stack);
                             boolean flag = false;
                             if (spell instanceof IChargingSpell chargingSpell){
-                                if (chargingSpell.shotsNumber() > 0 && this.ShotsFired(stack) >= chargingSpell.shotsNumber()){
+                                if (chargingSpell.shotsNumber(playerEntity, stack) > 0 && this.ShotsFired(stack) >= chargingSpell.shotsNumber(playerEntity, stack)){
                                     flag = true;
                                 }
                             } else {
@@ -637,7 +637,7 @@ public class DarkWand extends Item implements IWand {
                             spell.SpellResult(serverWorld, caster, stack);
                             boolean flag = false;
                             if (spell instanceof IChargingSpell chargingSpell){
-                                if (chargingSpell.shotsNumber() > 0 && this.ShotsFired(stack) >= chargingSpell.shotsNumber()){
+                                if (chargingSpell.shotsNumber(playerEntity, stack) > 0 && this.ShotsFired(stack) >= chargingSpell.shotsNumber(playerEntity, stack)){
                                     flag = true;
                                 }
                             } else {

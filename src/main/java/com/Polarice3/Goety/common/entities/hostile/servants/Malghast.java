@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.hostile.servants;
 
-import com.Polarice3.Goety.common.entities.neutral.OwnedFlying;
+import com.Polarice3.Goety.common.entities.neutral.SummonedFlying;
 import com.Polarice3.Goety.common.entities.projectiles.HellBlast;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModMobType;
@@ -37,7 +37,7 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
-public class Malghast extends OwnedFlying {
+public class Malghast extends SummonedFlying {
     private static final EntityDataAccessor<Boolean> DATA_IS_CHARGING = SynchedEntityData.defineId(Malghast.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> DATA_SWELL_DIR = SynchedEntityData.defineId(Malghast.class, EntityDataSerializers.INT);
     private float explosionPower = 1.0F;
@@ -46,7 +46,7 @@ public class Malghast extends OwnedFlying {
     private int swell;
     private int stun;
 
-    public Malghast(EntityType<? extends OwnedFlying> type, Level p_i48578_2_) {
+    public Malghast(EntityType<? extends SummonedFlying> type, Level p_i48578_2_) {
         super(type, p_i48578_2_);
         this.moveControl = new MoveHelperController(this);
     }

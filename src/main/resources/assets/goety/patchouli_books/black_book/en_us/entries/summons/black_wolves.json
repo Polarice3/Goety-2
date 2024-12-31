@@ -35,7 +35,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "An undead version of regular wolves, though unlike them, these wolves may emit a howl that boosts the damage of their skeleton allies. They are summoned by casting $(l:focuses/wild/hunting_focus)Hunting spell$() with a $(l:crafts/necro_staff)Necro Staff$(), or through another ritual."
+      "text": "An undead version of regular wolves, though unlike them, these wolves may emit a howl that boosts the damage of their skeleton allies. They are summoned by casting $(l:focuses/wild/hunting_focus)Hunting spell$() with a $(l:crafts/staff/necro_staff)Necro Staff$(), or through another ritual."
     },
     {
       "type": "goety:ritual",

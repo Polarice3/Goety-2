@@ -29,6 +29,7 @@ public class ModDamageTypeTagsProvider extends TagsProvider<DamageType> {
                         ModDamageSource.DOOM,
                         ModDamageSource.HELLFIRE,
                         ModDamageSource.INDIRECT_HELLFIRE,
+                        ModDamageSource.ACID,
                         ModDamageSource.SPIKE,
                         ModDamageSource.MAGIC_BOLT,
                         ModDamageSource.CHOKE,
@@ -67,6 +68,7 @@ public class ModDamageTypeTagsProvider extends TagsProvider<DamageType> {
         this.tag(DamageTypeTags.WITCH_RESISTANT_TO)
                 .add(ModDamageSource.PHOBIA,
                         ModDamageSource.ICE_BOUQUET,
+                        ModDamageSource.ACID,
                         ModDamageSource.SPIKE,
                         ModDamageSource.MAGIC_BOLT,
                         ModDamageSource.WIND_BLAST,
@@ -74,6 +76,7 @@ public class ModDamageTypeTagsProvider extends TagsProvider<DamageType> {
                         ModDamageSource.LIFE_LEECH);
         this.tag(ModTags.DamageTypes.NO_KNOCKBACK)
                 .add(ModDamageSource.ICE_BOUQUET,
+                        ModDamageSource.ACID,
                         ModDamageSource.SPIKE,
                         ModDamageSource.HELLFIRE,
                         ModDamageSource.INDIRECT_HELLFIRE,
@@ -110,6 +113,11 @@ public class ModDamageTypeTagsProvider extends TagsProvider<DamageType> {
                         ModDamageSource.DIRECT_SHOCK,
                         ModDamageSource.INDIRECT_SHOCK,
                         ModDamageSource.LIGHTNING);
+        this.tag(ModTags.DamageTypes.WATER_ATTACKS)
+                .add(ModDamageSource.BUBBLE_STREAM,
+                        ModDamageSource.DRENCH,
+                        ModDamageSource.DIRECT_DRENCH,
+                        ModDamageSource.INDIRECT_DRENCH);
         this.tag(ModTags.DamageTypes.MAGIC_FIRE)
                 .add(ModDamageSource.MAGIC_FIRE,
                         ModDamageSource.MAGIC_FIREBALL,
@@ -123,6 +131,7 @@ public class ModDamageTypeTagsProvider extends TagsProvider<DamageType> {
                 .addTag(ModTags.DamageTypes.FIRE_ATTACKS)
                 .addTag(ModTags.DamageTypes.FROST_ATTACKS)
                 .addTag(ModTags.DamageTypes.SHOCK_ATTACKS)
+                .addTag(ModTags.DamageTypes.WATER_ATTACKS)
                 .add(ModDamageSource.LOOT_EXPLODE,
                         ModDamageSource.LOOT_EXPLODE_OWNED);
     }

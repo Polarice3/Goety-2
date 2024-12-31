@@ -1,0 +1,19 @@
+{
+  "name": "卫射聚晶",
+  "icon": "goety:prisma_beam_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这个法术复刻了海底神殿中守卫者的力量，它会向你持续注视的非友方生物发射激光，激光会在延迟数秒后造成伤害，不幸的是，停止注视也会导致激光的中止消失"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/prisma_beam_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用 $(l:crafts/staff/abyss_staff)深渊魔杖$() 可以让该法术的基础伤害+2"
+    }
+  ]
+}

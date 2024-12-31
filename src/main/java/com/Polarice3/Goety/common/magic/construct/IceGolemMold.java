@@ -120,6 +120,8 @@ public class IceGolemMold implements IMold {
                     } else {
                         player.displayClientMessage(Component.translatable("info.goety.block.fail"), true);
                     }
+                } else {
+                    player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
                 }
             }
         }

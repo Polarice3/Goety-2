@@ -60,7 +60,7 @@ public class SkeletonWolfModel<T extends SkeletonWolf> extends HierarchicalModel
             this.tail.yRot = Mth.cos(pLimbSwing * 0.6662F) * 1.4F * pLimbSwingAmount;
         }
 
-        if (pEntity.isStaying()) {
+        if (pEntity.isSitting()) {
             this.upperBody.setPos(-1.0F, 16.0F, -3.0F);
             this.upperBody.xRot = 1.2566371F;
             this.upperBody.yRot = 0.0F;

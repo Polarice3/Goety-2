@@ -204,6 +204,12 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockingCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> ShockingDamage;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> BubbleStreamCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BubbleStreamChargeUp;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BubbleStreamDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BubbleStreamCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> BubbleStreamDamage;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulLightCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulLightDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulLightCoolDown;
@@ -342,6 +348,12 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> MaulingSummonDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaulingLimit;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> SlimyCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SlimyDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SlimyCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SlimySummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SlimyLimit;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> OvergrowthCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> OvergrowthDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> OvergrowthCoolDown;
@@ -386,9 +398,32 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> LightningDamage;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> BouncyBubbleCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BouncyBubbleDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BouncyBubbleCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> BouncyBubbleDamage;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> SteamingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SteamingDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SteamingCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> SteamingDamage;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> TridentStormCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> TridentStormCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> TridentStormDamage;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> PrismaBeamCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PrismaBeamDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PrismaBeamCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> PrismaBeamDamage;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> BiomineCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BiomineDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BiomineCoolDown;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> TidalCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> TidalDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> TidalCoolDown;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> CallCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> CallDuration;
@@ -483,6 +518,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> LeapleafLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> SpiderLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> NecromancerLimit;
+    public static final ForgeConfigSpec.ConfigValue<Integer> DrownedNecromancerLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> BoundIllagerLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> BlackBeastLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> WildfireLimit;
@@ -909,6 +945,18 @@ public class SpellConfig {
             ShockingDamage = BUILDER.comment("How much base damage Shocking Sparks deals, Default: 2.0")
                     .defineInRange("shockingDamage", 2.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
+            BUILDER.push("Bubble Stream Spell");
+            BubbleStreamCost = BUILDER.comment("Bubble Stream Spell Cost per second, Default: 2")
+                    .defineInRange("bubbleStreamCost", 2, 0, Integer.MAX_VALUE);
+            BubbleStreamChargeUp = BUILDER.comment("How many ticks the Bubble Stream Spell much charge before casting, Default: 0")
+                    .defineInRange("bubbleStreamChargeUp", 0, 0, Integer.MAX_VALUE);
+            BubbleStreamDuration = BUILDER.comment("How long the Bubble Stream Spell can be casted, setting it to 0 will allow the spell to be cast indefinitely, Default: 100")
+                    .defineInRange("bubbleStreamTime", 100, 0, 72000);
+            BubbleStreamCoolDown = BUILDER.comment("Bubble Stream Spell Cooldown, Default: 100")
+                    .defineInRange("bubbleStreamCoolDown", 100, 0, 72000);
+            BubbleStreamDamage = BUILDER.comment("How much base damage Bubble Stream deals, Default: 1.0")
+                    .defineInRange("bubbleStreamDamage", 1.0, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
             BUILDER.push("Soul Light Spell");
             SoulLightCost = BUILDER.comment("Soul Light Spell Cost, Default: 1")
                     .defineInRange("soulLightCost", 1, 0, Integer.MAX_VALUE);
@@ -1185,6 +1233,18 @@ public class SpellConfig {
             MaulingLimit = BUILDER.comment("Number of Bear Servants that can exist around the player, Default: 8")
                     .defineInRange("maulingLimit", 8, 1, Integer.MAX_VALUE);
             BUILDER.pop();
+            BUILDER.push("Slimy Spell");
+            SlimyCost = BUILDER.comment("Slimy Spell Cost, Default: 16")
+                    .defineInRange("slimyCost", 16, 0, Integer.MAX_VALUE);
+            SlimyDuration = BUILDER.comment("Time to cast Slimy Spell, Default: 20")
+                    .defineInRange("slimyTime", 20, 0, 72000);
+            SlimyCoolDown = BUILDER.comment("Slimy Spell Cooldown, Default: 200")
+                    .defineInRange("slimyCoolDown", 200, 0, Integer.MAX_VALUE);
+            SlimySummonDown = BUILDER.comment("Slimy Spell Summon Down, Default: 100")
+                    .defineInRange("slimySummonDown", 100, 0, 72000);
+            SlimyLimit = BUILDER.comment("Number of Slime Servants and variants a player can have, Default: 16")
+                    .defineInRange("slimyLimit", 16, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
             BUILDER.push("Overgrowth Spell");
             OvergrowthCost = BUILDER.comment("Overgrowth Spell Cost, Default: 8")
                     .defineInRange("overgrowthCost", 8, 0, Integer.MAX_VALUE);
@@ -1273,6 +1333,26 @@ public class SpellConfig {
             LightningDamage = BUILDER.comment("How much base damage Lightning from the spell deals, Default: 5.0")
                     .defineInRange("lightningDamage", 5.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
+            BUILDER.push("Bouncy Bubble Spell");
+            BouncyBubbleCost = BUILDER.comment("Bouncy Bubble Spell Cost, Default: 8")
+                    .defineInRange("bouncyBubbleCost", 8, 0, Integer.MAX_VALUE);
+            BouncyBubbleDuration = BUILDER.comment("Time to cast Bouncy Bubble Spell, Default: 0")
+                    .defineInRange("bouncyBubbleTime", 0, 0, 72000);
+            BouncyBubbleCoolDown = BUILDER.comment("Bouncy Bubble Spell Cooldown, Default: 100")
+                    .defineInRange("bouncyBubbleCoolDown", 100, 0, Integer.MAX_VALUE);
+            BouncyBubbleDamage = BUILDER.comment("How much base damage Bouncy Bubble from the spell deals, Default: 4.0")
+                    .defineInRange("bouncyBubbleDamage", 4.0, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Steaming Spell");
+            SteamingCost = BUILDER.comment("Steaming Spell Cost, Default: 4")
+                    .defineInRange("steamingCost", 4, 0, Integer.MAX_VALUE);
+            SteamingDuration = BUILDER.comment("Time to cast Steaming Spell, Default: 0")
+                    .defineInRange("steamingTime", 0, 0, 72000);
+            SteamingCoolDown = BUILDER.comment("Steaming Spell Cooldown, Default: 20")
+                    .defineInRange("steamingCoolDown", 20, 0, Integer.MAX_VALUE);
+            SteamingDamage = BUILDER.comment("How much base damage Steam Missiles deals, Default: 4.0")
+                    .defineInRange("steamingDamage", 4.0, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
             BUILDER.push("Trident Storm Spell");
             TridentStormCost = BUILDER.comment("Trident Storm Spell Cost, Default: 48")
                     .defineInRange("tridentStormCost", 48, 0, Integer.MAX_VALUE);
@@ -1280,6 +1360,32 @@ public class SpellConfig {
                     .defineInRange("tridentStormCoolDown", 200, 0, Integer.MAX_VALUE);
             TridentStormDamage = BUILDER.comment("How much base damage Trident Storm from the spell deals, Default: 16.0")
                     .defineInRange("tridentStormDamage", 16.0, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Prisma Beam Spell");
+            PrismaBeamCost = BUILDER.comment("Prisma Beam Spell Cost, Default: 8")
+                    .defineInRange("prismaBeamCost", 8, 0, Integer.MAX_VALUE);
+            PrismaBeamDuration = BUILDER.comment("Time to cast Prisma Beam Spell, Default: 80")
+                    .defineInRange("prismaBeamTime", 80, 0, 72000);
+            PrismaBeamCoolDown = BUILDER.comment("Prisma Beam Spell Cooldown, Default: 20")
+                    .defineInRange("prismaBeamCoolDown", 20, 0, Integer.MAX_VALUE);
+            PrismaBeamDamage = BUILDER.comment("How much base damage the spell deals, Default: 6.0")
+                    .defineInRange("prismaBeamDamage", 6.0, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Biomine Spell");
+            BiomineCost = BUILDER.comment("Biomine Spell Cost, Default: 16")
+                    .defineInRange("biomineCost", 16, 0, Integer.MAX_VALUE);
+            BiomineDuration = BUILDER.comment("Time to cast Biomine Spell, Default: 40")
+                    .defineInRange("biomineTime", 40, 0, 72000);
+            BiomineCoolDown = BUILDER.comment("Biomine Spell Cooldown, Default: 200")
+                    .defineInRange("biomineCoolDown", 200, 0, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Tidal Spell");
+            TidalCost = BUILDER.comment("Tidal Spell Cost, Default: 24")
+                    .defineInRange("tidalCost", 24, 0, Integer.MAX_VALUE);
+            TidalDuration = BUILDER.comment("Time to cast Tidal Spell, Default: 20")
+                    .defineInRange("tidalTime", 20, 0, 72000);
+            TidalCoolDown = BUILDER.comment("Tidal Spell Cooldown, Default: 60")
+                    .defineInRange("tidalCoolDown", 60, 0, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Call Spell");
             CallCost = BUILDER.comment("Call Spell Cost, Default: 16")
@@ -1479,6 +1585,8 @@ public class SpellConfig {
                 .defineInRange("spiderLimit", 32, 1, Integer.MAX_VALUE);
         NecromancerLimit = BUILDER.comment("Number of Necromancer Servants that an individual player can have in total, Default: 8")
                 .defineInRange("necromancerLimit", 8, 1, Integer.MAX_VALUE);
+        DrownedNecromancerLimit = BUILDER.comment("Number of Drowned Necromancer Servants that an individual player can have in total, Default: 2")
+                .defineInRange("drownedNecromancerLimit", 2, 1, Integer.MAX_VALUE);
         BoundIllagerLimit = BUILDER.comment("Number of Bound Illager Servants that an individual player can have in total, Default: 2")
                 .defineInRange("boundIllagerLimit", 2, 1, Integer.MAX_VALUE);
         BlackBeastLimit = BUILDER.comment("Number of Black Beast Servants that an individual player can have in total, Default: 2")

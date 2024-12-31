@@ -155,6 +155,11 @@
       "recipe": "effect.goety.love",
       "text": "Время размножения!"
     },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.frog_leg",
+      "text": "Зачем прыгать с земли, когда можно прыгать прямо в полёте?"
+    },
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.instant_damage"

@@ -363,7 +363,7 @@ public class StormCaster extends HuntingIllagerEntity{
                 if (this.shockTime > 0) {
                     --this.shockTime;
                     if (this.shockTime < 20 && MobUtil.hasVisualLineOfSight(StormCaster.this, StormCaster.this.getTarget())) {
-                        new ShockingSpell().SpellResult(StormCaster.this, STAFF);
+                        new ShockingSpell().mobSpellResult(StormCaster.this, STAFF);
                     }
                 }
             }
@@ -473,7 +473,7 @@ public class StormCaster extends HuntingIllagerEntity{
         @Override
         protected void performSpellCasting() {
             if (StormCaster.this.getTarget() != null){
-                new MonsoonSpell().SpellResult(StormCaster.this, STAFF);
+                new MonsoonSpell().mobSpellResult(StormCaster.this, STAFF);
             }
         }
 
@@ -509,7 +509,7 @@ public class StormCaster extends HuntingIllagerEntity{
         @Override
         protected void performSpellCasting() {
             if (StormCaster.this.getTarget() != null) {
-                new DischargeSpell().SpellResult(StormCaster.this, STAFF);
+                new DischargeSpell().mobSpellResult(StormCaster.this, STAFF);
             }
         }
 

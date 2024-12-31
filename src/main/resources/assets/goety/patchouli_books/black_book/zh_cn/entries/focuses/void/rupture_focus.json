@@ -1,0 +1,19 @@
+{
+  "name": "撕裂聚晶",
+  "icon": "goety:rupture_focus",
+  "category": "goety:focuses/void",
+  "advancement": "minecraft:end/kill_dragon",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "只要有足够的灵魂能量，你就可以在这世界中打开一个虚空之外的裂缝，将附近的所有非友方生物吸入其中，持续对被吸入的生物造成伤害，裂缝最终会在一场巨大的爆炸中关闭"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/rupture_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:rupture_focus": 1
+  }
+}

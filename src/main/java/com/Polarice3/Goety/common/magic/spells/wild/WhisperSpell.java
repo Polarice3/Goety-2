@@ -118,7 +118,7 @@ public class WhisperSpell extends SummonSpell {
                 if (caster.isUnderWater()){
                     blockPos = BlockFinder.SummonWaterRadius(caster, worldIn);
                 }
-                if (worldIn.isWaterAt(blockPos)){
+                if (worldIn.isWaterAt(blockPos) || this.typeStaff(staff, SpellType.ABYSS)){
                     summonedentity = new Wavewhisperer(ModEntityType.WAVEWHISPERER.get(), worldIn);
                 }
                 summonedentity.setTrueOwner(caster);

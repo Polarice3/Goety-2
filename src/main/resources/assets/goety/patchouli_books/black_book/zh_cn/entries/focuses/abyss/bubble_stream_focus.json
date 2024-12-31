@@ -1,0 +1,15 @@
+{
+  "name": "气泡柱聚晶",
+  "icon": "goety:bubble_stream_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "泡泡并不是人们在真正的战斗中想要使用的东西，但你可以用灵魂能量吹出能够冲走任何敌人的气泡，尤其是那些怕水的敌人！不幸的是，这种气泡也可以少量地恢复这些敌人的氧气值"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/bubble_stream_focus"
+    }
+  ]
+}

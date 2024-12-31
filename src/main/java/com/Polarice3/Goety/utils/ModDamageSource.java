@@ -31,6 +31,9 @@ public class ModDamageSource extends DamageSource {
     public static ResourceKey<DamageType> DIRECT_FREEZE = create("direct_freeze");
     public static ResourceKey<DamageType> INDIRECT_FREEZE = create("indirect_freeze");
     public static ResourceKey<DamageType> ICE_SPIKE = create("ice_spike");
+    public static ResourceKey<DamageType> DRENCH = create("drench");
+    public static ResourceKey<DamageType> DIRECT_DRENCH = create("direct_drench");
+    public static ResourceKey<DamageType> INDIRECT_DRENCH = create("indirect_drench");
     public static ResourceKey<DamageType> SWORD = create("sword");
     public static ResourceKey<DamageType> WIND_BLAST = create("wind_blast");
     public static ResourceKey<DamageType> ICE_BOUQUET = create("ice_bouquet");
@@ -43,9 +46,11 @@ public class ModDamageSource extends DamageSource {
     public static ResourceKey<DamageType> LOOT_EXPLODE_OWNED = create("loot_explode_owned");
     public static ResourceKey<DamageType> FIRE_BREATH = create("fire_breath");
     public static ResourceKey<DamageType> FROST_BREATH = create("frost_breath");
+    public static ResourceKey<DamageType> BUBBLE_STREAM = create("bubble_stream");
     public static ResourceKey<DamageType> MAGIC_BOLT = create("magic_bolt");
     public static ResourceKey<DamageType> SOUL_LEECH = create("soul_leech");
     public static ResourceKey<DamageType> LIFE_LEECH = create("life_leech");
+    public static ResourceKey<DamageType> ACID = create("acid");
     public static ResourceKey<DamageType> SPIKE = create("spike");
     public static ResourceKey<DamageType> BOILING = create("boiling");
     public static ResourceKey<DamageType> PHOBIA = create("phobia");
@@ -125,6 +130,14 @@ public class ModDamageSource extends DamageSource {
         return ModDamageSource.indirectEntityDamageSource(pSource.level, ICE_SPIKE, pSource, pIndirectEntity);
     }
 
+    public static DamageSource directDrench(LivingEntity pMob) {
+        return ModDamageSource.entityDamageSource(pMob.level, DIRECT_DRENCH, pMob);
+    }
+
+    public static DamageSource indirectDrench(Entity pSource, @Nullable Entity pIndirectEntity) {
+        return ModDamageSource.indirectEntityDamageSource(pSource.level, INDIRECT_DRENCH, pSource, pIndirectEntity);
+    }
+
     public static DamageSource modFireball(@Nullable Entity pIndirectEntity, Level world){
         LargeFireball fireball = new LargeFireball(EntityType.FIREBALL, world);
         return pIndirectEntity == null ? indirectEntityDamageSource(world, DamageTypes.FIREBALL, fireball, fireball) : indirectEntityDamageSource(world, DamageTypes.FIREBALL, fireball, pIndirectEntity);
@@ -162,8 +175,16 @@ public class ModDamageSource extends DamageSource {
         return noKnockbackDamageSource(pSource.level, FROST_BREATH, pSource, pIndirectEntity);
     }
 
+    public static DamageSource bubbleStream(Entity pSource, @Nullable Entity pIndirectEntity){
+        return noKnockbackDamageSource(pSource.level, BUBBLE_STREAM, pSource, pIndirectEntity);
+    }
+
     public static DamageSource magicBolt(Entity pSource, @Nullable Entity pIndirectEntity){
         return noKnockbackDamageSource(pSource.level, MAGIC_BOLT, pSource, pIndirectEntity);
+    }
+
+    public static DamageSource acid(Entity pSource, @Nullable Entity pIndirectEntity){
+        return noKnockbackDamageSource(pSource.level, ACID, pSource, pIndirectEntity);
     }
 
     public static DamageSource spike(Entity pSource, @Nullable Entity pIndirectEntity){
@@ -199,6 +220,14 @@ public class ModDamageSource extends DamageSource {
                 || source.getMsgId().equals(source("iceBouquet"))
                 || source.getMsgId().equals(source("frostBreath"))
                 || source.is(ModTags.DamageTypes.FROST_ATTACKS);
+    }
+
+    public static boolean waterAttacks(DamageSource source){
+        return source.getMsgId().equals(source("drench"))
+                || source.getMsgId().equals(source("directDrench"))
+                || source.getMsgId().equals(source("indirectDrench"))
+                || source.getMsgId().equals(source("bubbleStream"))
+                || source.is(ModTags.DamageTypes.WATER_ATTACKS);
     }
 
     public static boolean physicalAttacks(DamageSource source){
@@ -277,6 +306,9 @@ public class ModDamageSource extends DamageSource {
         context.register(DIRECT_FREEZE, new DamageType("goety.directFreeze", 0.0F, DamageEffects.FREEZING));
         context.register(INDIRECT_FREEZE, new DamageType("goety.indirectFreeze", 0.0F, DamageEffects.FREEZING));
         context.register(ICE_SPIKE, new DamageType("goety.indirectFreeze", 0.0F, DamageEffects.FREEZING));
+        context.register(DRENCH, new DamageType("goety.drench", 0.0F, DamageEffects.DROWNING));
+        context.register(DIRECT_DRENCH, new DamageType("goety.directDrench", 0.0F, DamageEffects.DROWNING));
+        context.register(INDIRECT_DRENCH, new DamageType("goety.indirectDrench", 0.0F, DamageEffects.DROWNING));
         context.register(SWORD, new DamageType("goety.sword", 0.0F));
         context.register(WIND_BLAST, new DamageType("goety.windBlast", 0.0F));
         context.register(ICE_BOUQUET, new DamageType("goety.iceBouquet", 0.0F, DamageEffects.FREEZING));
@@ -289,7 +321,9 @@ public class ModDamageSource extends DamageSource {
         context.register(FIRE_BREATH, new DamageType("goety.fireBreath", 0.0F, DamageEffects.BURNING));
         context.register(MAGIC_FIRE, new DamageType("goety.fireBreath", 0.0F, DamageEffects.BURNING));
         context.register(FROST_BREATH, new DamageType("goety.frostBreath", 0.0F, DamageEffects.FREEZING));
+        context.register(BUBBLE_STREAM, new DamageType("goety.bubbleStream", 0.0F, DamageEffects.DROWNING));
         context.register(MAGIC_BOLT, new DamageType("indirectMagic", 0.0F));
+        context.register(ACID, new DamageType("goety.acid", 0.0F));
         context.register(SOUL_LEECH, new DamageType("goety.soulLeech", 0.0F));
         context.register(LIFE_LEECH, new DamageType("goety.lifeLeech", 0.0F));
         context.register(SPIKE, new DamageType("goety.spike", 0.0F, DamageEffects.POKING));

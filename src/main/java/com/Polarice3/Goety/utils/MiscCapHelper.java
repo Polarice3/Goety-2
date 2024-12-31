@@ -9,6 +9,7 @@ import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
@@ -104,6 +105,28 @@ public class MiscCapHelper {
         MiscCapHelper.sendMiscUpdatePacket(livingEntity);
     }
 
+    public static int getClientTargetID(LivingEntity livingEntity){
+        return getCapability(livingEntity).getClientTargetID();
+    }
+
+    public static void setClientTargetID(LivingEntity livingEntity, int clientTargetID){
+        getCapability(livingEntity).setClientTargetID(clientTargetID);
+        MiscCapHelper.sendMiscUpdatePacket(livingEntity);
+    }
+
+    @Nullable
+    public static Entity getClientTarget(LivingEntity livingEntity){
+        return livingEntity.level.getEntity(getClientTargetID(livingEntity));
+    }
+
+    public static void setClientTarget(LivingEntity livingEntity, @Nullable Entity entity){
+        if (entity == null){
+            setClientTargetID(livingEntity, 0);
+        } else {
+            setClientTargetID(livingEntity, entity.getId());
+        }
+    }
+
     @Nullable
     public static ResourceLocation getCustomSpinTexture(LivingEntity livingEntity){
         String string = getCapability(livingEntity).customSpinTexture();
@@ -132,6 +155,7 @@ public class MiscCapHelper {
         tag.putInt("shieldTime", misc.shieldTime());
         tag.putInt("shieldCool", misc.shieldCool());
         tag.putInt("ambientSoundTime", misc.ambientSoundTime());
+        tag.putInt("clientTargetID", misc.getClientTargetID());
         tag.putString("customSpinTexture", misc.customSpinTexture());
         return tag;
     }
@@ -151,6 +175,9 @@ public class MiscCapHelper {
         }
         if (tag.contains("ambientSoundTime")) {
             misc.setAmbientSoundTime(tag.getInt("ambientSoundTime"));
+        }
+        if (tag.contains("clientTargetID")){
+            misc.setClientTargetID(tag.getInt("clientTargetID"));
         }
         if (tag.contains("customSpinTexture")) {
             misc.setCustomSpinTexture(tag.getString("customSpinTexture"));

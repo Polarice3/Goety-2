@@ -499,7 +499,7 @@ public class Cryologer extends HuntingIllagerEntity implements IBreathing {
         @Override
         protected void performSpellCasting() {
             if (Cryologer.this.getTarget() != null){
-                new HailSpell().SpellResult(Cryologer.this, ItemStack.EMPTY);
+                new HailSpell().mobSpellResult(Cryologer.this, ItemStack.EMPTY);
             }
         }
 
@@ -578,7 +578,7 @@ public class Cryologer extends HuntingIllagerEntity implements IBreathing {
             super.start();
             Cryologer.this.setAnimationState("chunk");
             if (Cryologer.this.getTarget() != null){
-                new IceChunkSpell().SpellResult(Cryologer.this, STAFF);
+                new IceChunkSpell().mobSpellResult(Cryologer.this, STAFF);
             }
         }
 

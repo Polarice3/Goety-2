@@ -1,0 +1,22 @@
+{
+  "name": "Necro Staff",
+  "icon": "goety:necro_staff",
+  "category": "goety:crafts/staff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Ectoplasms dropped by the Wraiths gave you an idea. With some $(l:intro/magical_components)Cursed Metal Ingots$(), you've managed to create an upgrade to your $(l:intro/dark_wand)Wand$() and create a Staff fit for a Necromancer."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:necro_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Necro Staff powers up Necroturgic spells, allowing one to summon more than 1 Undead Servant per cast for example."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:necro_staff": 1
+  }
+}

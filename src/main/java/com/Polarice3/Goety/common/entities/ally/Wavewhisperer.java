@@ -1,6 +1,9 @@
 package com.Polarice3.Goety.common.entities.ally;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.ai.ModLeaveWaterGoal;
+import com.Polarice3.Goety.common.entities.ai.path.GroundPathNavigatorFat;
+import com.Polarice3.Goety.common.entities.ai.path.ModWaterPathNavigation;
 import com.Polarice3.Goety.common.entities.neutral.AbstractMonolith;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.init.ModSounds;
@@ -35,11 +38,11 @@ public class Wavewhisperer extends Whisperer{
 
     public Wavewhisperer(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
-        this.setMaxUpStep(1.0F);
+        this.setMaxUpStep(1.25F);
         this.moveControl = new MoveHelperController(this);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.waterNavigation = new WaterBoundPathNavigation(this, worldIn);
-        this.groundNavigation = new GroundPathNavigation(this, worldIn);
+        this.waterNavigation = new ModWaterPathNavigation(this, worldIn);
+        this.groundNavigation = new GroundPathNavigatorFat(this, worldIn);
     }
 
     @Override
@@ -47,6 +50,7 @@ public class Wavewhisperer extends Whisperer{
         super.registerGoals();
         this.goalSelector.addGoal(1, new GoToWaterGoal(this, 1.0F));
         this.goalSelector.addGoal(1, new FollowOwnerWaterGoal(this, 1.0D, 10.0F, 2.0F));
+        this.goalSelector.addGoal(4, new ModLeaveWaterGoal<>(this));
         this.goalSelector.addGoal(5, new GoToBeachGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new SwimUpGoal(this, 1.0D, this.level.getSeaLevel()));
         this.goalSelector.addGoal(8, new WaterWanderGoal<>(this){

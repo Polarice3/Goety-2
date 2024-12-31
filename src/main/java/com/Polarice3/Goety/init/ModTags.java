@@ -104,6 +104,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> MINI_BOSSES = tag("mini_bosses");
         public static final TagKey<EntityType<?>> APOSTLE_OTHER_ALLIES = tag("apostle_other_allies");
         public static final TagKey<EntityType<?>> WITCH_SET_NEUTRAL = tag("witch_set_neutral");
+        public static final TagKey<EntityType<?>> ABYSS_SET_NEUTRAL = tag("abyss_set_neutral");
         public static final TagKey<EntityType<?>> FROST_SET_NEUTRAL = tag("frost_set_neutral");
         public static final TagKey<EntityType<?>> WILD_SET_NEUTRAL = tag("wild_set_neutral");
         public static final TagKey<EntityType<?>> NETHER_SET_NEUTRAL = tag("nether_set_neutral");
@@ -203,6 +204,7 @@ public class ModTags {
         public static final TagKey<DamageType> FIRE_ATTACKS = tag("fire_attacks");
         public static final TagKey<DamageType> FROST_ATTACKS = tag("frost_attacks");
         public static final TagKey<DamageType> SHOCK_ATTACKS = tag("shock_attacks");
+        public static final TagKey<DamageType> WATER_ATTACKS = tag("water_attacks");
         public static final TagKey<DamageType> MAGIC_FIRE = tag("magic_fire");
         public static final TagKey<DamageType> HELLFIRE = tag("hellfire");
         public static final TagKey<DamageType> NO_KNOCKBACK = tag("no_knockback");

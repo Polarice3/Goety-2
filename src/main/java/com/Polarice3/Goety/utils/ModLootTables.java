@@ -37,6 +37,7 @@ public class ModLootTables {
     public static final ResourceLocation PLAYER_WITCH = register("entities/player_witch");
     public static final ResourceLocation CULTISTS = register("entities/cultist_extra");
     public static final ResourceLocation CRYPT_SLIME = register("entities/crypt_slime");
+    public static final ResourceLocation TROPICAL_SLIME = register("entities/tropical_slime");
     public static final ResourceLocation INFERNO = register("entities/inferno_extra");
     public static final ResourceLocation APOSTLE_HARD = register("entities/apostle_2");
 

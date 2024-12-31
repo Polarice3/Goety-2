@@ -3,7 +3,6 @@
   "icon": "goety:necro_cape",
   "category": "goety:mutations",
   "advancement": "goety:goety/unlock_necromancer",
-  "secret": true,
   "pages": [
     {
       "type": "patchouli:text",
@@ -14,9 +13,8 @@
       "recipe": "goety:convert_skeleton_to_necromancer"
     },
     {
-      "type": "patchouli:spotlight",
-      "item": "goety:soul_jar",
-      "text": "The Necromancers can be taught to summon more than just Zombies. Right-clicking with certain Necromancy Focuses allows them to summon more types of servants. It's rumored that feeding them with a jar of souls will increase their power..."
+      "type": "patchouli:text",
+      "text": "The Necromancers can be taught to summon more than just Zombies. Right-clicking with certain Necromancy Focuses allows them to summon more types of servants. Right-clicking on them with an empty hand will cause the Necromancer to summon Undead Servants for you. They are healed the same way as regular Skeleton Servants."
     },
     {
       "type": "patchouli:entity",
@@ -29,9 +27,14 @@
     {
       "type": "patchouli:entity",
       "entity": "goety:cairn_necromancer_servant"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:soul_jar",
+      "text": "Should a Necromancer fall, they will drop their Soul Jar, which, when right-clicked on a Skeleton, will revive them using said Skeleton as their new body. It's also rumored that feeding them with a jar of another necromancer will increase their power..."
     }
   ],
   "extra_recipe_mappings": {
-    "goety:soul_jar": 2
+    "goety:soul_jar": 7
   }
 }

@@ -286,6 +286,25 @@ public class BlockFinder {
         return blockPos;
     }
 
+    public static BlockPos SummonWaterAwayRadius(BlockPos blockPos, LivingEntity livingEntity, Level world, int attempts, int radius){
+        BlockPos.MutableBlockPos blockpos$mutable = blockPos.mutable();
+        for (int i = 0; i < attempts; ++i) {
+            int xOffset = world.random.nextIntBetweenInclusive(-radius, radius);
+            int yOffset = world.random.nextIntBetweenInclusive(-radius / 2, radius / 2);
+            int zOffset = world.random.nextIntBetweenInclusive(-radius, radius);
+            blockpos$mutable.setX(blockpos$mutable.getX() + xOffset);
+            blockpos$mutable.setY(blockpos$mutable.getY() + yOffset);
+            blockpos$mutable.setZ(blockpos$mutable.getZ() + zOffset);
+            if (world.noCollision(livingEntity, livingEntity.getBoundingBox().move(blockpos$mutable))
+                    && canSeeBlock(livingEntity, blockpos$mutable)
+                    && blockpos$mutable.distToCenterSqr(blockPos.getCenter()) >= Mth.square(radius / 2)) {
+                blockPos = blockpos$mutable;
+                break;
+            }
+        }
+        return blockPos;
+    }
+
     public static BlockPos SummonRadiusSight(BlockPos blockPos, LivingEntity looker, LivingEntity summoned, Level world, int radius){
         for (int i = 0; i < 64; ++i) {
             BlockPos.MutableBlockPos blockpos$mutable = blockPos.mutable().move(0, 0, 0);
@@ -334,17 +353,34 @@ public class BlockFinder {
         return blockPos;
     }
 
-    public static BlockPos SummonWaterRadius(LivingEntity livingEntity, Level world){
-        BlockPos.MutableBlockPos blockpos$mutable = livingEntity.blockPosition().mutable().move(0, 0, 0);
-        blockpos$mutable.setX(blockpos$mutable.getX() + world.random.nextInt(5) - world.random.nextInt(5));
-        blockpos$mutable.setY((int) BlockFinder.spawnWaterY(livingEntity, livingEntity.blockPosition()));
-        blockpos$mutable.setZ(blockpos$mutable.getZ() + world.random.nextInt(5) - world.random.nextInt(5));
-        if (hasChunksAt(livingEntity)
-                && isEmptyBlock(world, blockpos$mutable, world.getBlockState(blockpos$mutable), world.getFluidState(blockpos$mutable), ModEntityType.ZOMBIE_SERVANT.get(), true)){
-            return blockpos$mutable;
-        } else {
-            return livingEntity.blockPosition().mutable().move(0, (int) BlockFinder.spawnWaterY(livingEntity, livingEntity.blockPosition()), 0);
+    public static BlockPos SummonWaterRadius(LivingEntity entity, Level world){
+        return SummonWaterRadius(entity.blockPosition(), entity, world);
+    }
+
+    public static BlockPos SummonWaterRadius(BlockPos blockPos, LivingEntity entity, Level world){
+        return SummonWaterRadius(blockPos, entity, world, 5);
+    }
+
+    public static BlockPos SummonWaterRadius(BlockPos blockPos, LivingEntity entity, Level world, int radius){
+        return SummonWaterRadius(blockPos, entity, world, 16, radius);
+    }
+
+    public static BlockPos SummonWaterRadius(BlockPos blockPos, LivingEntity livingEntity, Level world, int attempts, int radius){
+        BlockPos.MutableBlockPos blockpos$mutable = blockPos.mutable();
+        for (int i = 0; i < attempts; ++i) {
+            int xOffset = world.random.nextIntBetweenInclusive(-radius, radius);
+            int yOffset = world.random.nextIntBetweenInclusive(-radius / 2, radius / 2);
+            int zOffset = world.random.nextIntBetweenInclusive(-radius, radius);
+            blockpos$mutable.setX(blockpos$mutable.getX() + xOffset);
+            blockpos$mutable.setY(blockpos$mutable.getY() + yOffset);
+            blockpos$mutable.setZ(blockpos$mutable.getZ() + zOffset);
+            if (hasChunksAt(livingEntity)
+                    && isEmptyBlock(world, blockpos$mutable, world.getBlockState(blockpos$mutable), world.getFluidState(blockpos$mutable), ModEntityType.ZOMBIE_SERVANT.get(), true)){
+                blockPos = blockpos$mutable;
+                break;
+            }
         }
+        return blockPos;
     }
 
     /**

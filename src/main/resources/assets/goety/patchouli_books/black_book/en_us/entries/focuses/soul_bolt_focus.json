@@ -14,7 +14,7 @@
     {
       "type": "patchouli:text",
       "advancement": "goety:goety/read_forbidden_scroll",
-      "text": "Casting this spell with a $(l:crafts/nameless_staff)Nameless Staff$() will shoot forth Necro Bolts, which does far more damage and can hit multiple targets, instead."
+      "text": "Casting this spell with a $(l:crafts/staff/nameless_staff)Nameless Staff$() will shoot forth Necro Bolts, which does far more damage and can hit multiple targets, instead."
     }
   ]
 }

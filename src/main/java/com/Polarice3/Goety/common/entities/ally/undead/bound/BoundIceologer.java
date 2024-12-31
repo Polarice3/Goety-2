@@ -137,7 +137,7 @@ public class BoundIceologer extends AbstractBoundIllager{
             super.start();
             BoundIceologer.this.playSound(ModSounds.ICEOLOGER_ATTACK.get(), 1.0F, BoundIceologer.this.getVoicePitch());
             if (BoundIceologer.this.getTarget() != null){
-                new IceChunkSpell().SpellResult(BoundIceologer.this, new ItemStack(ModItems.FROST_STAFF.get()));
+                new IceChunkSpell().mobSpellResult(BoundIceologer.this, new ItemStack(ModItems.FROST_STAFF.get()));
             }
         }
 

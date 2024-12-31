@@ -741,6 +741,11 @@ public class PotionEvents {
                 event.setResult(Event.Result.DENY);
             }
         }
+        if (event.getEffectInstance().getEffect() == GoetyEffects.STUNNED.get()){
+            if (event.getEntity().getType().is(Tags.EntityTypes.BOSSES) || event.getEntity().getType().is(ModTags.EntityTypes.MINI_BOSSES)){
+                event.setResult(Event.Result.DENY);
+            }
+        }
         if (event.getEffectInstance().getEffect() == GoetyEffects.ILLAGUE.get()){
             if (event.getEntity().getType().is(EntityTypeTags.RAIDERS) || event.getEntity() instanceof PatrollingMonster){
                 event.setResult(Event.Result.DENY);

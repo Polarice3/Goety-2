@@ -1,0 +1,18 @@
+{
+  "name": "深渊魔杖",
+  "icon": "goety:abyss_staff",
+  "category": "goety:crafts/staff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "深渊魔杖能够赋予你掀起惊涛骇浪的权能，增强深渊法术的力量"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:abyss_staff"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:abyss_staff": 1
+  }
+}

@@ -9,21 +9,17 @@ import com.Polarice3.Goety.common.network.server.SThunderBoltPacket;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.ColorUtil;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.world.damagesource.CombatRules;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -88,7 +84,7 @@ public class KillingSpell extends Spell {
             DamageSource damageSource = ModDamageSource.deathCurse(caster);
             float damage = target.getHealth();
             float casterDamage = damage * 1.25F;
-            if (caster.getHealth() - this.hurtCalculation(caster, damageSource, casterDamage) <= 0.0F && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(caster)){
+            if (caster.getHealth() - MobUtil.hurtCalculation(caster, damageSource, casterDamage) <= 0.0F && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(caster)){
                 damage = caster.getHealth() - 1;
                 casterDamage = caster.getHealth() - 1;
             }
@@ -104,49 +100,6 @@ public class KillingSpell extends Spell {
                     worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.THUNDERBOLT.get(), this.getSoundSource(), 3.0F, 0.75F);
                     worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.LIGHTNING_BOLT_IMPACT, this.getSoundSource(), 3.0F, 0.75F);
                 }
-            }
-        }
-    }
-
-    protected float hurtCalculation(LivingEntity livingEntity, DamageSource p_21240_, float p_21241_) {
-        p_21241_ = net.minecraftforge.common.ForgeHooks.onLivingHurt(livingEntity, p_21240_, p_21241_);
-        p_21241_ = this.getDamageAfterArmorAbsorb(livingEntity, p_21240_, p_21241_);
-        p_21241_ = this.getDamageAfterMagicAbsorb(livingEntity, p_21240_, p_21241_);
-        float f1 = Math.max(p_21241_ - livingEntity.getAbsorptionAmount(), 0.0F);
-        f1 = net.minecraftforge.common.ForgeHooks.onLivingDamage(livingEntity, p_21240_, f1);
-        return f1;
-    }
-
-    protected float getDamageAfterArmorAbsorb(LivingEntity livingEntity, DamageSource p_21162_, float p_21163_) {
-        if (!p_21162_.is(DamageTypeTags.BYPASSES_ARMOR)) {
-            p_21163_ = CombatRules.getDamageAfterAbsorb(p_21163_, (float)livingEntity.getArmorValue(), (float)livingEntity.getAttributeValue(Attributes.ARMOR_TOUGHNESS));
-        }
-
-        return p_21163_;
-    }
-
-    protected float getDamageAfterMagicAbsorb(LivingEntity livingEntity, DamageSource p_21193_, float p_21194_) {
-        if (p_21193_.is(DamageTypeTags.BYPASSES_EFFECTS)) {
-            return p_21194_;
-        } else {
-            if (livingEntity.hasEffect(MobEffects.DAMAGE_RESISTANCE) && !p_21193_.is(DamageTypeTags.BYPASSES_RESISTANCE)) {
-                int i = (livingEntity.getEffect(MobEffects.DAMAGE_RESISTANCE).getAmplifier() + 1) * 5;
-                int j = 25 - i;
-                float f = p_21194_ * (float)j;
-                p_21194_ = Math.max(f / 25.0F, 0.0F);
-            }
-
-            if (p_21194_ <= 0.0F) {
-                return 0.0F;
-            } else if (p_21193_.is(DamageTypeTags.BYPASSES_ENCHANTMENTS)) {
-                return p_21194_;
-            } else {
-                int k = EnchantmentHelper.getDamageProtection(livingEntity.getArmorSlots(), p_21193_);
-                if (k > 0) {
-                    p_21194_ = CombatRules.getDamageAfterMagicAbsorb(p_21194_, (float)k);
-                }
-
-                return p_21194_;
             }
         }
     }

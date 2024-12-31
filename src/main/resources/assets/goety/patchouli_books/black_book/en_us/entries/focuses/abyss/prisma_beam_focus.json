@@ -1,0 +1,19 @@
+{
+  "name": "Prisma Beam Focus",
+  "icon": "goety:prisma_beam_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The spell replicates the power of the Ocean Monument's Guardians whereupon it projects a laser towards any non-allied creature you're directly looking it that will damage them after a while. Unfortunately, much like the Guardians, the laser will stop once direct sight is broken."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/prisma_beam_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/abyss_staff)Abyss Staff$() increases the spell's base damage by one heart."
+    }
+  ]
+}

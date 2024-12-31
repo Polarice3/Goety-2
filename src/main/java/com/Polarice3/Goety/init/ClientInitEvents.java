@@ -21,10 +21,7 @@ import com.Polarice3.Goety.common.blocks.entities.ModBlockEntities;
 import com.Polarice3.Goety.common.crafting.ModRecipeSerializer;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.vehicle.ModBoat;
-import com.Polarice3.Goety.common.items.ArcaCompassItem;
-import com.Polarice3.Goety.common.items.FlameCaptureItem;
-import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.items.WaystoneItem;
+import com.Polarice3.Goety.common.items.*;
 import com.Polarice3.Goety.common.items.magic.*;
 import com.Polarice3.Goety.utils.ColorUtil;
 import net.minecraft.ChatFormatting;
@@ -103,6 +100,8 @@ public class ClientInitEvents {
                 (stack, world, living, seed) -> TotemOfSouls.isActivated(stack) ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.FLAME_CAPTURE.get(), new ResourceLocation("capture"),
                 (stack, world, living, seed) -> FlameCaptureItem.hasEntity(stack) ? 1.0F : 0.0F);
+        ItemProperties.register(ModItems.SOUL_JAR.get(), new ResourceLocation("drowned"),
+                (stack, world, living, seed) -> SoulJar.isDrowned(stack) ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.TAGLOCK_KIT.get(), new ResourceLocation("tagged"),
                 (stack, world, living, seed) -> TaglockKit.hasEntity(stack) ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.WAYSTONE.get(), new ResourceLocation("store"),
@@ -238,9 +237,11 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.SUMMON_CIRCLE_BOSS, SummonCircleBossModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ENTANGLE_VINES, EntangleVinesModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.FIRE_TORNADO, CycloneModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.TIDAL_SURGE, TidalSurgeModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MONOLITH, MonolithModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.QUICK_GROWING_VINE, QuickGrowingVineModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.POISON_QUILL_VINE, PoisonQuillVineModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.BIOMINE, BioMineModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VOLCANO, VolcanoModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.TRIDENT_STORM, TridentStormModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.BLOCK, BlockModel::createBodyLayer);
@@ -261,6 +262,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.RAVAGER_ARMOR, ModRavagerModel::createArmorLayer);
         event.registerLayerDefinition(ModModelLayer.BLACK_WOLF, BlackWolfModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.BEAR, BearServantModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.SNAPPER, SnapperModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.BLACK_BEAST, BlackBeastModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WHISPERER, WhispererModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.LEAPLEAF, LeapleafModel::createBodyLayer);
@@ -277,6 +279,8 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.WILDFIRE, WildfireModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MINI_GHAST, MiniGhastModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MAGMA_CUBE, MagmaCubeServantModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.TROPICAL_SLIME_OUTER, TropicalSlimeModel::createOuterBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.TROPICAL_SLIME_INNER, TropicalSlimeModel::createInnerBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MOD_SPIDER, ModSpiderModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ICY_SPIDER, ModSpiderModel::createIcyBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WRAITH, WraithModel::createBodyLayer);
@@ -430,6 +434,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.ILL_BOMB.get(), IllBombRenderer::new);
         event.registerEntityRenderer(ModEntityType.CRYPTIC_EYE.get(), (rendererManager) -> new ThrownItemRenderer<>(rendererManager, 1.0F, true));
         event.registerEntityRenderer(ModEntityType.ELECTRO_ORB.get(), ElectroOrbRenderer::new);
+        event.registerEntityRenderer(ModEntityType.BOUNCY_BUBBLE.get(), BouncyBubbleRenderer::new);
         event.registerEntityRenderer(ModEntityType.ICE_BOUQUET.get(), IceBouquetRenderer::new);
         event.registerEntityRenderer(ModEntityType.HELLFIRE.get(), HellfireRenderer::new);
         event.registerEntityRenderer(ModEntityType.ICE_CHUNK.get(), IceChunkRenderer::new);
@@ -462,10 +467,12 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.QUICK_GROWING_KELP.get(), QuickGrowingVineRenderer::new);
         event.registerEntityRenderer(ModEntityType.POISON_QUILL_VINE.get(), PoisonQuillVineRenderer::new);
         event.registerEntityRenderer(ModEntityType.POISON_ANEMONE.get(), PoisonQuillVineRenderer::new);
+        event.registerEntityRenderer(ModEntityType.BIOMINE.get(), BioMineRenderer::new);
         event.registerEntityRenderer(ModEntityType.INSECT_SWARM.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.VOLCANO.get(), VolcanoRenderer::new);
         event.registerEntityRenderer(ModEntityType.FIRE_TORNADO.get(), FireTornadoRenderer::new);
         event.registerEntityRenderer(ModEntityType.CYCLONE.get(), CycloneRenderer::new);
+        event.registerEntityRenderer(ModEntityType.TIDAL_SURGE.get(), TidalSurgeRenderer::new);
         event.registerEntityRenderer(ModEntityType.FALLING_BLOCK.get(), ModFallingBlockRenderer::new);
         event.registerEntityRenderer(ModEntityType.BREW_EFFECT_GAS.get(), BrewGasRenderer::new);
         event.registerEntityRenderer(ModEntityType.MOD_BOAT.get(), (render) -> new ModBoatRenderer(render, false));
@@ -527,6 +534,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.SLIME_SERVANT.get(), SlimeServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.MAGMA_CUBE_SERVANT.get(), MagmaCubeServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.CRYPT_SLIME_SERVANT.get(), CryptSlimeServantRenderer::new);
+        event.registerEntityRenderer(ModEntityType.TROPICAL_SLIME_SERVANT.get(), TropicalSlimeServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.SPIDER_SERVANT.get(), SpiderServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.CAVE_SPIDER_SERVANT.get(), CaveSpiderServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.WEB_SPIDER_SERVANT.get(), WebSpiderServantRenderer::new);
@@ -540,6 +548,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.BLACK_WOLF.get(), BlackWolfRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKELETON_WOLF.get(), SkeletonWolfRenderer::new);
         event.registerEntityRenderer(ModEntityType.HELLHOUND.get(), HellhoundRenderer::new);
+        event.registerEntityRenderer(ModEntityType.SNAPPER.get(), SnapperRenderer::new);
         event.registerEntityRenderer(ModEntityType.BEAR_SERVANT.get(), BearServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.POLAR_BEAR_SERVANT.get(), BearServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.HOGLIN_SERVANT.get(), HoglinServantRenderer::new);
@@ -675,6 +684,7 @@ public class ClientInitEvents {
         event.registerSpriteSet(ModParticleTypes.ELECTRIC.get(), GlowParticle.ElectricSparkProvider::new);
         event.registerSpriteSet(ModParticleTypes.BIG_ELECTRIC.get(), BigElectricParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SPELL_ELECTRIC.get(), GlowParticle.ElectricSparkProvider::new);
+        event.registerSpriteSet(ModParticleTypes.BUBBLE_STREAM.get(), BubbleStreamParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.BREW_BUBBLE.get(), BrewBubbleParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.WIND_BLAST.get(), SonicBoomParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.HEAL_EFFECT.get(), HeartParticle.Provider::new);
@@ -719,6 +729,7 @@ public class ClientInitEvents {
         event.registerSpriteSet(ModParticleTypes.NECRO_BOLT.get(), RollingParticle.QuickProvider::new);
         event.registerSpriteSet(ModParticleTypes.STUN.get(), RollingParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.AURA.get(), AuraParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.VERTICAL_CIRCLE_EXPLODE.get(), VerticalCircleExplodeParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.RISING_ENCHANT.get(), RisingRollingParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.ROLLING_ENCHANT.get(), RollingParticle.EnchantProvider::new);
         event.registerSpriteSet(ModParticleTypes.FUNGUS_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
@@ -742,6 +753,7 @@ public class ClientInitEvents {
         event.registerSpriteSet(ModParticleTypes.WIND_SHOCKWAVE.get(), WindShockwaveParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.FAST_DUST.get(), FastFallDust.Provider::new);
         event.registerSpriteSet(ModParticleTypes.GATHER_TRAIL.get(), GatherTrailParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.ABSORB_TRAIL.get(), AbsorbTrailParticle.Provider::new);
         event.registerSpecial(ModParticleTypes.WATER_STREAM.get(), new WaterStreamParticle.Provider());
         event.registerSpriteSet(ModParticleTypes.BLOSSOM_THORN_INDICATOR.get(),
                 spriteSet -> new GeometricParticle.Provider(spriteSet,

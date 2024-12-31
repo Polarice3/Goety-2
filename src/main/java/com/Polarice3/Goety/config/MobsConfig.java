@@ -21,6 +21,10 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> UndeadMinionHealAmount;
     public static final ForgeConfigSpec.ConfigValue<Double> ZombieServantBabyChance;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> WaterMinionHealCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WaterMinionHealTime;
+    public static final ForgeConfigSpec.ConfigValue<Double> WaterMinionHealAmount;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> NaturalMinionHealCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> NaturalMinionHealTime;
     public static final ForgeConfigSpec.ConfigValue<Double> NaturalMinionHealAmount;
@@ -68,6 +72,7 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> WraithServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PhantomServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PhantomServantTranslucent;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> ZPiglinServantTexture;
 
@@ -99,13 +104,14 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadTeleport;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VexTeleport;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> MinionsAttackCreepers;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ServantsAttackCreepers;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecroRobeUndead;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VariousRobeWitch;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> MinionsMasterImmune;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ServantsMasterImmune;
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerAttackCancel;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MobSense;
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadMinionHeal;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WaterMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NaturalMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FrostMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NetherMinionHeal;
@@ -230,6 +236,8 @@ public class MobsConfig {
                 BUILDER.push("Phantom Servants");
                 PhantomServantTexture = BUILDER.comment("If Phantom Servants have custom textures, Default: true")
                         .define("phantomServantTexture", true);
+                PhantomServantTranslucent = BUILDER.comment("If Phantom Servants are translucent when upgraded, Default: true")
+                        .define("phantomServantTranslucent", true);
                 BUILDER.pop();
                 BUILDER.push("Zombified Piglin Servants");
                 ZPiglinServantTexture = BUILDER.comment("If Zombified Piglin Servants have custom textures, Default: true")
@@ -312,6 +320,16 @@ public class MobsConfig {
             ZombieServantBabyChance = BUILDER.comment("Chance that a zombie (or subclass) servant is summoned as a baby, Default: 0.05")
                     .defineInRange("zombieServantBabyChance", 0.05, 0.0, 1.0D);
             BUILDER.pop();
+            BUILDER.push("Water Servants");
+            WaterMinionHeal = BUILDER.comment("Whether Water Servants can heal if summoned while wearing Abyss Robe, Default: true")
+                    .define("waterMinionHeal", true);
+            WaterMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for a Water Servant to heal, Default: 1")
+                    .defineInRange("waterMinionHealCost", 1, 0, Integer.MAX_VALUE);
+            WaterMinionHealTime = BUILDER.comment("How frequent Water Servants heal, count seconds, Default: 1")
+                    .defineInRange("waterMinionHealTime", 1, 0, Integer.MAX_VALUE);
+            WaterMinionHealAmount = BUILDER.comment("How much Health Water Servants heal, numerically, Default: 1.0")
+                    .defineInRange("waterMinionHealAmount", 1.0, 0.0, Double.MAX_VALUE);
+            BUILDER.pop();
             BUILDER.push("Natural Servants");
             NaturalMinionHeal = BUILDER.comment("Whether Natural Servants can heal if summoned while wearing Wild Robe, Default: true")
                     .define("naturalMinionHeal", true);
@@ -354,9 +372,9 @@ public class MobsConfig {
                 .define("RedstoneCubeBlockFind", true);
         VexTeleport = BUILDER.comment("Whether Vex Servants can teleport to Players, Default: true")
                 .define("vexTeleport", true);
-        MinionsAttackCreepers = BUILDER.comment("Whether Servants can attack Creepers if Mob Griefing Rule is False, Default: true")
+        ServantsAttackCreepers = BUILDER.comment("Whether Servants can attack Creepers if Mob Griefing Rule is False, Default: true")
                 .define("servantsAttackCreepers", true);
-        MinionsMasterImmune = BUILDER.comment("Whether Servants or their owner are immune to attacks made by other servants that are summoned by the same owner, Default: true")
+        ServantsMasterImmune = BUILDER.comment("Whether Servants or their owner are immune to attacks made by other servants that are summoned by the same owner, Default: true")
                 .define("servantsMasterImmune", true);
         OwnerAttackCancel = BUILDER.comment("Owners can't attack or hurt their servants, Default: true")
                 .define("ownerAttackCancel", true);

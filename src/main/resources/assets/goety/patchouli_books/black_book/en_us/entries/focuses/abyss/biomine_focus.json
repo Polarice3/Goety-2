@@ -1,0 +1,22 @@
+{
+  "name": "Biomine Focus",
+  "icon": "goety:biomine_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The focus allows you to summon biomines, which are egg-like structures that explode into poisonous gas when popped or if an non-allied creature is nearby."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/biomine_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/abyss_staff)Abyss Staff$() will summon forth more biomines."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:biomine_focus": 1
+  }
+}

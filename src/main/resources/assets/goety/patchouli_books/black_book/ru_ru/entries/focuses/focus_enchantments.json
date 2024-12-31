@@ -1,8 +1,9 @@
 {
-  "name": "Зачарования фокусов",
+  "name": "Зачарование фокусов",
   "icon": "minecraft:enchanting_table",
   "category": "goety:focuses",
   "sortnum": 0,
+  "priority": true,
   "pages": [
     {
       "type": "patchouli:text",

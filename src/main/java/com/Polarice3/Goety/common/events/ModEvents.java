@@ -665,6 +665,11 @@ public class ModEvents {
     public static void LivingEffects(LivingEvent.LivingTickEvent event){
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity != null && livingEntity.isAlive()){
+            if (!MobUtil.isSpellCasting(livingEntity)){
+                if (MiscCapHelper.getClientTargetID(livingEntity) != 0){
+                    MiscCapHelper.setClientTargetID(livingEntity, 0);
+                }
+            }
             if (MiscCapHelper.getShields(livingEntity) > 0) {
                 if (MiscCapHelper.getShieldTime(livingEntity) > 0) {
                     MiscCapHelper.decreaseShieldTime(livingEntity);
@@ -1098,6 +1103,13 @@ public class ModEvents {
                 if (target.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)){
                     event.setAmount(damageAmount * 2.0F);
                 } else if (target.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)){
+                    event.setAmount(damageAmount * 0.5F);
+                }
+            }
+            if (ModDamageSource.waterAttacks(event.getSource())){
+                if (target.isSensitiveToWater()){
+                    event.setAmount(damageAmount * 2.0F);
+                } else if (target.getMobType() == MobType.WATER){
                     event.setAmount(damageAmount * 0.5F);
                 }
             }

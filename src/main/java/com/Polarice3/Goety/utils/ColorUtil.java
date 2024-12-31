@@ -1,7 +1,10 @@
 package com.Polarice3.Goety.utils;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 
 public class ColorUtil {
     public static ColorUtil WHITE = new ColorUtil(0xffffff);
@@ -61,5 +64,142 @@ public class ColorUtil {
 
     public float alpha() {
         return this.alpha;
+    }
+
+    public static class ARGB {
+
+        public static int alpha(int i) {
+            return i >>> 24;
+        }
+
+        public static int red(int i) {
+            return i >> 16 & 0xFF;
+        }
+
+        public static int green(int i) {
+            return i >> 8 & 0xFF;
+        }
+
+        public static int blue(int i) {
+            return i & 0xFF;
+        }
+
+        public static int color(int alpha, int red, int green, int blue) {
+            return alpha << 24 | red << 16 | green << 8 | blue;
+        }
+
+        public static int color(int red, int green, int blue) {
+            return color(255, red, green, blue);
+        }
+
+        public static int color(Vec3 vec3) {
+            return color(as8BitChannel((float)vec3.x()), as8BitChannel((float)vec3.y()), as8BitChannel((float)vec3.z()));
+        }
+
+        public static int multiply(int color, int alpha) {
+            if (color == -1) {
+                return alpha;
+            } else {
+                return alpha == -1 ? color : color(alpha(color) * alpha(alpha) / 255, red(color) * red(alpha) / 255, green(color) * green(alpha) / 255, blue(color) * blue(alpha) / 255);
+            }
+        }
+
+        public static int scaleRGB(int color, float alpha) {
+            return scaleRGB(color, alpha, alpha, alpha);
+        }
+
+        public static int scaleRGB(int color, float redAlpha, float greenAlpha, float blueAlpha) {
+            return color(
+                    alpha(color),
+                    Mth.clamp(((int)((float)red(color) * redAlpha)), 0, 255),
+                    Mth.clamp(((int)((float)green(color) * greenAlpha)), 0, 255),
+                    Mth.clamp(((int)((float)blue(color) * blueAlpha)), 0, 255)
+            );
+        }
+
+        public static int scaleRGB(int color, int alpha) {
+            return color(
+                    alpha(color),
+                    Mth.clamp(red(color) * alpha / 255, 0, 255),
+                    Mth.clamp(green(color) * alpha / 255, 0, 255),
+                    Mth.clamp(blue(color) * alpha / 255, 0, 255)
+            );
+        }
+
+        public static int greyscale(int color) {
+            int j = (int)((float)red(color) * 0.3F + (float)green(color) * 0.59F + (float)blue(color) * 0.11F);
+            return color(j, j, j);
+        }
+
+        public static int lerp(float partialTick, int colorFrom, int colorTo) {
+            int alpha = Mth.lerpInt(partialTick, alpha(colorFrom), alpha(colorTo));
+            int red = Mth.lerpInt(partialTick, red(colorFrom), red(colorTo));
+            int green = Mth.lerpInt(partialTick, green(colorFrom), green(colorTo));
+            int blue = Mth.lerpInt(partialTick, blue(colorFrom), blue(colorTo));
+            return color(alpha, red, green, blue);
+        }
+
+        public static int opaque(int color) {
+            return color | 0xFF000000;
+        }
+
+        public static int transparent(int color) {
+            return color & 16777215;
+        }
+
+        public static int color(int alpha, int color) {
+            return alpha << 24 | color & 16777215;
+        }
+
+        public static int white(float alpha) {
+            return as8BitChannel(alpha) << 24 | 16777215;
+        }
+
+        public static int colorFromFloat(float alpha, float red, float green, float blue) {
+            return color(as8BitChannel(alpha), as8BitChannel(red), as8BitChannel(green), as8BitChannel(blue));
+        }
+
+        public static Vector3f vector3fFromRGB24(int color) {
+            float f = (float)red(color) / 255.0F;
+            float g = (float)green(color) / 255.0F;
+            float h = (float)blue(color) / 255.0F;
+            return new Vector3f(f, g, h);
+        }
+
+        public static int average(int color, int color2) {
+            return color((alpha(color) + alpha(color2)) / 2, (red(color) + red(color2)) / 2, (green(color) + green(color2)) / 2, (blue(color) + blue(color2)) / 2);
+        }
+
+        public static int as8BitChannel(float f) {
+            return Mth.floor(f * 255.0F);
+        }
+
+        public static float alphaFloat(int i) {
+            return from8BitChannel(alpha(i));
+        }
+
+        public static float redFloat(int i) {
+            return from8BitChannel(red(i));
+        }
+
+        public static float greenFloat(int i) {
+            return from8BitChannel(green(i));
+        }
+
+        public static float blueFloat(int i) {
+            return from8BitChannel(blue(i));
+        }
+
+        private static float from8BitChannel(int i) {
+            return (float)i / 255.0F;
+        }
+
+        public static int toABGR(int i) {
+            return i & -16711936 | (i & 0xFF0000) >> 16 | (i & 0xFF) << 16;
+        }
+
+        public static int fromABGR(int i) {
+            return toABGR(i);
+        }
     }
 }

@@ -99,6 +99,14 @@ public class RobeEvents {
                 event.setAmount(event.getAmount() * resistance);
             }
         }
+        if (CuriosFinder.hasAbyssRobes(victim)){
+            if (event.getSource().is(DamageTypeTags.IS_DROWNING)){
+                if (victim.getAirSupply() <= 0){
+                    victim.setAirSupply(20);
+                }
+                event.setAmount(event.getAmount() * 0.5F);
+            }
+        }
         if (CuriosFinder.hasNetherRobe(victim)){
             float resistance = 1.0F - (ItemConfig.NetherRobeResistance.get() / 100.0F);
             if (resistance <= 0.0F){
@@ -260,6 +268,19 @@ public class RobeEvents {
                             }
                         }
                     }
+                    if (CuriosFinder.neutralAbyssSet(target)) {
+                        if (CuriosFinder.validAbyssMob(mobAttacker)) {
+                            if (mobAttacker.getLastHurtByMob() != target) {
+                                if (event.getTargetType() == MOB_TARGET) {
+                                    event.setNewTarget(null);
+                                } else {
+                                    event.setCanceled(true);
+                                }
+                            } else {
+                                mobAttacker.setLastHurtByMob(target);
+                            }
+                        }
+                    }
                     if (CuriosFinder.neutralFrostSet(target)) {
                         if (CuriosFinder.validFrostMob(mobAttacker)) {
                             if (mobAttacker.getLastHurtByMob() != target) {
@@ -383,6 +404,16 @@ public class RobeEvents {
                         event.modifyVisibility(0.5);
                     }
                     if (CuriosFinder.hasWildRobe(looker)) {
+                        event.modifyVisibility(0.5);
+                    }
+                }
+            }
+            if (ItemConfig.AbyssSetMobNeutral.get()) {
+                if (CuriosFinder.validAbyssMob(looker)) {
+                    if (CuriosFinder.hasAbyssCrown(entity)) {
+                        event.modifyVisibility(0.5);
+                    }
+                    if (CuriosFinder.hasAbyssRobes(looker)) {
                         event.modifyVisibility(0.5);
                     }
                 }

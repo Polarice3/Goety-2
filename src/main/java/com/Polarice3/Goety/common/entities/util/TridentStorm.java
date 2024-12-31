@@ -113,7 +113,6 @@ public class TridentStorm extends CastSpellTrap{
                 new SpellExplosion(this.level, this, ModDamageSource.lightning(this, this.getOwner()), this.getX(), this.getY(), this.getZ(), radius, damage);
                 if (this.level instanceof ServerLevel serverLevel){
                     ColorUtil colorUtil = ColorUtil.WHITE;
-                    serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, radius - 0.5F, 1), this.getX(), this.getY(), this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                     serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, radius, 1), this.getX(), this.getY(), this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                 }
                 ModNetwork.sendToALL(new SLightningBoltPacket(this.position().add(0.0D, 250.0D, 0.0D), this.position(), 5));

@@ -143,8 +143,8 @@ public class MainConfig {
                 .define("cameraShake", true);
         BUILDER.pop();
         BUILDER.push("Mod Compatibility");
-        BetterDragonFireball = BUILDER.comment("If enabled, Ender Dragon's Fireballs will leave clouds that damages even undead and will not hit itself. Default: true")
-                .define("betterDragonFireball", true);
+        BetterDragonFireball = BUILDER.comment("If enabled, Ender Dragon's Fireballs will leave clouds that damages even undead and will not hit itself. Default: false")
+                .define("betterDragonFireball", false);
         CataclysmLootCompat = BUILDER.comment("If L_Ender Cataclysm is installed, certain loots are modified and change between this and the latter mod. Default: true")
                 .define("cataclysmLootCompat", true);
         RobesIronResist = BUILDER.comment("If Iron's Spells and Spellbooks is installed, certain robes provides Spell resistances. Default: true")

@@ -30,7 +30,6 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
@@ -56,6 +55,7 @@ public class SkeletonWolf extends AnimalSummon {
     private float shakeAnim;
     private float shakeAnimO;
     private int howlingCool;
+    public boolean isSitting;
     public AnimationState howlAnimationState = new AnimationState();
 
     public SkeletonWolf(EntityType<? extends Owned> type, Level worldIn) {
@@ -122,6 +122,9 @@ public class SkeletonWolf extends AnimalSummon {
         if (compound.contains("CollarColor", 99)) {
             this.setCollarColor(DyeColor.byId(compound.getInt("CollarColor")));
         }
+        if (compound.contains("Sitting")) {
+            this.isSitting = compound.getBoolean("Sitting");
+        }
     }
 
     @Override
@@ -129,6 +132,7 @@ public class SkeletonWolf extends AnimalSummon {
         super.addAdditionalSaveData(compound);
         compound.putInt("HowlingCool", this.howlingCool);
         compound.putByte("CollarColor", (byte)this.getCollarColor().getId());
+        compound.putBoolean("Sitting", this.isSitting);
     }
 
     @Override
@@ -207,6 +211,10 @@ public class SkeletonWolf extends AnimalSummon {
     public void setBaby(boolean p_146756_) {
     }
 
+    public boolean isSitting() {
+        return this.isSitting;
+    }
+
     public void aiStep() {
         super.aiStep();
         if (!this.level.isClientSide && !this.isHowling() && this.isWet && !this.isShaking && !this.isPathFinding() && this.onGround()) {
@@ -264,6 +272,13 @@ public class SkeletonWolf extends AnimalSummon {
             if (!this.level.isClientSide){
                 if (this.howlingCool > 0){
                     --this.howlingCool;
+                }
+                if (this.isStaying()){
+                    this.isSitting = true;
+                    this.level.broadcastEntityEvent(this, (byte) 9);
+                } else {
+                    this.isSitting = false;
+                    this.level.broadcastEntityEvent(this, (byte) 10);
                 }
                 if (this.getTarget() != null){
                     this.setAggressive(true);
@@ -335,6 +350,10 @@ public class SkeletonWolf extends AnimalSummon {
             this.isShaking = true;
             this.shakeAnim = 0.0F;
             this.shakeAnimO = 0.0F;
+        } else if (p_30379_ == 9) {
+            this.isSitting = true;
+        } else if (p_30379_ == 10) {
+            this.isSitting = false;
         } else if (p_30379_ == 56) {
             this.cancelShake();
         } else {
@@ -356,26 +375,23 @@ public class SkeletonWolf extends AnimalSummon {
         Item item = itemstack.getItem();
         if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
             if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
-                FoodProperties foodProperties = itemstack.getFoodProperties(this);
-                if (foodProperties != null){
-                    this.heal((float)foodProperties.getNutrition());
-                    if (!pPlayer.getAbilities().instabuild) {
-                        itemstack.shrink(1);
-                    }
-
-                    this.gameEvent(GameEvent.EAT, this);
-                    this.eat(this.level, itemstack);
-                    if (this.level instanceof ServerLevel serverLevel) {
-                        for (int i = 0; i < 7; ++i) {
-                            double d0 = this.random.nextGaussian() * 0.02D;
-                            double d1 = this.random.nextGaussian() * 0.02D;
-                            double d2 = this.random.nextGaussian() * 0.02D;
-                            serverLevel.sendParticles(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
-                        }
-                    }
-                    pPlayer.swing(pHand);
-                    return InteractionResult.SUCCESS;
+                this.heal(1.0F);
+                if (!pPlayer.getAbilities().instabuild) {
+                    itemstack.shrink(1);
                 }
+
+                this.gameEvent(GameEvent.EAT, this);
+                this.eat(this.level, itemstack);
+                if (this.level instanceof ServerLevel serverLevel) {
+                    for (int i = 0; i < 7; ++i) {
+                        double d0 = this.random.nextGaussian() * 0.02D;
+                        double d1 = this.random.nextGaussian() * 0.02D;
+                        double d2 = this.random.nextGaussian() * 0.02D;
+                        serverLevel.sendParticles(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+                    }
+                }
+                pPlayer.swing(pHand);
+                return InteractionResult.SUCCESS;
             } else {
                 if (item instanceof DyeItem dyeitem) {
                     if (this.getTrueOwner() == pPlayer) {

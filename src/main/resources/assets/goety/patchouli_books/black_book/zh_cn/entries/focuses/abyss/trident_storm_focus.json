@@ -1,0 +1,22 @@
+{
+  "name": "风暴戟聚晶",
+  "icon": "goety:trident_storm_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "深海的力量可以让你召唤从天而降的三叉戟，引导闪电束炸开你的敌人"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/trident_storm_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用 $(l:crafts/staff/abyss_staff)深渊魔杖$() 施法能以一个精致的阵列排开召唤更多三叉戟"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:trident_storm_focus": 1
+  }
+}

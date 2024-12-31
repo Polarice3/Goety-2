@@ -46,6 +46,7 @@ public class ModItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
                 ModItems.WIND_ROBE.get(),
                 ModItems.STORM_ROBE.get(),
                 ModItems.WILD_ROBE.get(),
+                ModItems.ABYSS_ROBE.get(),
                 ModItems.WITCH_ROBE.get(),
                 ModItems.WITCH_ROBE_HEDGE.get(),
                 ModItems.WARLOCK_ROBE.get(),

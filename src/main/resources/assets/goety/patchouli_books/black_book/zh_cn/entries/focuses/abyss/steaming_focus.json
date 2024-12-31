@@ -1,0 +1,19 @@
+{
+  "name": "蒸腾聚晶",
+  "icon": "goety:steaming_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "该法术能持续向你注视的方向发射大量蒸汽泵弹，命中后可对目标造成伤害和击退"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/steaming_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用 $(l:crafts/staff/abyss_staff)深渊法杖$() 施法时能一次发射更多蒸汽泵弹"
+    }
+  ]
+}

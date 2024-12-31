@@ -75,8 +75,8 @@ public class SoulEnergyGui {
             float useTime0 = (useDuration - remain) / useDuration;
             int bar = 27;
             if (WandUtil.getSpell(minecraft.player) instanceof IChargingSpell spell){
-                if (WandUtil.getShots(minecraft.player) > 0 && spell.shotsNumber() > 0){
-                    useDuration = spell.shotsNumber();
+                if (WandUtil.getShots(minecraft.player) > 0 && spell.shotsNumber(minecraft.player, minecraft.player.getUseItem()) > 0){
+                    useDuration = spell.shotsNumber(minecraft.player, minecraft.player.getUseItem());
                     remain = WandUtil.getShots(minecraft.player);
                     useTime0 = remain / useDuration;
                     bar = 45;

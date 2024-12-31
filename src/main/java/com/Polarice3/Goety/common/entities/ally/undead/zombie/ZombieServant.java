@@ -203,10 +203,9 @@ public class ZombieServant extends Summoned {
         super.tick();
     }
 
-    protected void populateDefaultEquipmentSlots(RandomSource p_217055_, DifficultyInstance difficulty) {
-        super.populateDefaultEquipmentSlots(p_217055_, difficulty);
-        if (this.random.nextFloat() < (this.isUpgraded() ? 0.05F : 0.01F)) {
-            int i = this.random.nextInt(3);
+    public void populateDefaultWeapons(RandomSource randomSource, DifficultyInstance difficulty){
+        if (randomSource.nextFloat() < (this.isUpgraded() ? 0.05F : 0.01F)) {
+            int i = randomSource.nextInt(3);
             if (i == 0) {
                 this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
             } else {
@@ -214,7 +213,6 @@ public class ZombieServant extends Summoned {
             }
             this.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
         }
-
     }
 
     public EntityType<?> getVariant(Level level, BlockPos blockPos){

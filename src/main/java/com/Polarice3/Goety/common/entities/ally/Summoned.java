@@ -167,18 +167,27 @@ public class Summoned extends Owned implements IServant {
 
     protected void populateDefaultEquipmentSlots(RandomSource p_217055_, DifficultyInstance p_217056_) {
         if (this.canSpawnArmor()){
+            this.populateDefaultArmor(p_217055_, p_217056_);
+        } else {
+            super.populateDefaultEquipmentSlots(p_217055_, p_217056_);
+        }
+        this.populateDefaultWeapons(p_217055_, p_217056_);
+    }
+
+    public void populateDefaultArmor(RandomSource randomSource, DifficultyInstance difficulty) {
+        if (this.canSpawnArmor()){
             for(EquipmentSlot equipmentslot : EquipmentSlot.values()) {
                 if (equipmentslot.getType() == EquipmentSlot.Type.ARMOR) {
-                    int i = p_217055_.nextInt(2);
-                    if (p_217055_.nextFloat() < 0.095F) {
+                    int i = randomSource.nextInt(2);
+                    if (randomSource.nextFloat() < 0.095F) {
                         ++i;
                     }
 
-                    if (p_217055_.nextFloat() < 0.095F) {
+                    if (randomSource.nextFloat() < 0.095F) {
                         ++i;
                     }
 
-                    if (p_217055_.nextFloat() < 0.095F) {
+                    if (randomSource.nextFloat() < 0.095F) {
                         ++i;
                     }
                     ItemStack itemstack = this.getItemBySlot(equipmentslot);
@@ -191,9 +200,10 @@ public class Summoned extends Owned implements IServant {
                     }
                 }
             }
-        } else {
-            super.populateDefaultEquipmentSlots(p_217055_, p_217056_);
         }
+    }
+
+    public void populateDefaultWeapons(RandomSource randomSource, DifficultyInstance difficulty) {
     }
 
     public void die(DamageSource pCause) {
@@ -204,7 +214,7 @@ public class Summoned extends Owned implements IServant {
     }
 
     public boolean hurt(DamageSource source, float amount) {
-        if (MobsConfig.MinionsMasterImmune.get()) {
+        if (MobsConfig.ServantsMasterImmune.get()) {
             if (source.getEntity() instanceof Summoned summoned) {
                 if (!summoned.isHostile() && !this.isHostile()) {
                     if (this.getTrueOwner() != null && summoned.getTrueOwner() == this.getTrueOwner()) {
@@ -789,7 +799,7 @@ public class Summoned extends Owned implements IServant {
 
         public boolean canUse() {
             if (super.canUse()){
-                return !Summoned.this.isStaying() || Summoned.this.getTrueOwner() == null;
+                return (!Summoned.this.isStaying() && !Summoned.this.isCommanded()) || Summoned.this.getTrueOwner() == null;
             } else {
                 return false;
             }

@@ -11,9 +11,9 @@ public class ItemLoopSound extends AbstractTickableSoundInstance {
     public ItemLoopSound(SoundEvent soundEvent, LivingEntity entity) {
         super(soundEvent, entity.getSoundSource(), SoundInstance.createUnseededRandom());
         this.entity = entity;
-        this.x = (double)((float)entity.getX());
-        this.y = (double)((float)entity.getY());
-        this.z = (double)((float)entity.getZ());
+        this.x = (float)entity.getX();
+        this.y = (float)entity.getY();
+        this.z = (float)entity.getZ();
         this.looping = true;
         this.delay = 0;
         this.volume = 1.0F;

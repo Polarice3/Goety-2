@@ -25,6 +25,9 @@ public abstract class AbstractTrap extends Entity {
     public LivingEntity owner;
     private UUID ownerUniqueId;
     private static final EntityDataAccessor<ParticleOptions> DATA_PARTICLE = SynchedEntityData.defineId(AbstractTrap.class, EntityDataSerializers.PARTICLE);
+    public double xSpeed = 0.0D;
+    public double ySpeed = 0.0D;
+    public double zSpeed = 0.0D;
 
     public AbstractTrap(EntityType<?> entityTypeIn, Level worldIn) {
         super(entityTypeIn, worldIn);
@@ -44,6 +47,15 @@ public abstract class AbstractTrap extends Entity {
         if (compound.hasUUID("Owner")) {
             this.ownerUniqueId = compound.getUUID("Owner");
         }
+        if (compound.contains("XSpeed")) {
+            this.xSpeed = compound.getDouble("XSpeed");
+        }
+        if (compound.contains("YSpeed")) {
+            this.ySpeed = compound.getDouble("YSpeed");
+        }
+        if (compound.contains("ZSpeed")) {
+            this.zSpeed = compound.getDouble("ZSpeed");
+        }
     }
 
     @Override
@@ -52,6 +64,9 @@ public abstract class AbstractTrap extends Entity {
         if (this.ownerUniqueId != null) {
             compound.putUUID("Owner", this.ownerUniqueId);
         }
+        compound.putDouble("XSpeed", this.xSpeed);
+        compound.putDouble("YSpeed", this.ySpeed);
+        compound.putDouble("ZSpeed", this.zSpeed);
     }
 
     public int getDuration() {
@@ -89,7 +104,7 @@ public abstract class AbstractTrap extends Entity {
         if (this.getParticle() != null) {
             if (this.level instanceof ServerLevel serverWorld) {
                 ParticleOptions iparticledata = this.getParticle();
-                ServerParticleUtil.circularParticles(serverWorld, iparticledata, this.getX(), this.getY(), this.getZ(), this.radius());
+                ServerParticleUtil.circularParticles(serverWorld, iparticledata, this.getX(), this.getY(), this.getZ(), this.xSpeed, this.ySpeed, this.zSpeed, this.radius() / 2.0F);
             }
         }
     }
@@ -101,6 +116,12 @@ public abstract class AbstractTrap extends Entity {
 
     public void setParticle(ParticleOptions pParticleData) {
         this.getEntityData().set(DATA_PARTICLE, pParticleData);
+    }
+
+    public void setParticleSpeed(double xSpeed, double ySpeed, double zSpeed){
+        this.xSpeed = xSpeed;
+        this.ySpeed = ySpeed;
+        this.zSpeed = zSpeed;
     }
 
     public PushReaction getPistonPushReaction() {

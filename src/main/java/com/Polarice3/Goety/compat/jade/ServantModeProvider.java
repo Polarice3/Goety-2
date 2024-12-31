@@ -32,7 +32,7 @@ public enum ServantModeProvider implements IEntityComponentProvider, IServerData
     public void appendServerData(CompoundTag tag, EntityAccessor accessor) {
         String mode = null;
         Entity entity = accessor.getEntity();
-        if (entity instanceof IServant servant) {
+        if (entity instanceof IServant servant && servant.canUpdateMove()) {
             if (servant.getTrueOwner() instanceof Player) {
                 if (servant.isFollowing()) {
                     mode = "follow";

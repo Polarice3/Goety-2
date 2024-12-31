@@ -1,13 +1,13 @@
 package com.Polarice3.Goety.common.entities.ally.undead;
 
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
-import com.Polarice3.Goety.common.entities.neutral.OwnedFlying;
+import com.Polarice3.Goety.common.entities.neutral.SummonedFlying;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -38,15 +38,15 @@ import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
 
-public class PhantomServant extends OwnedFlying {
+public class PhantomServant extends SummonedFlying {
     public static final float FLAP_DEGREES_PER_TICK = 7.448451F;
     public static final int TICKS_PER_FLAP = Mth.ceil(24.166098F);
     private static final EntityDataAccessor<Integer> ID_SIZE = SynchedEntityData.defineId(PhantomServant.class, EntityDataSerializers.INT);
     Vec3 moveTargetPoint = Vec3.ZERO;
+    BlockPos anchorPoint = BlockPos.ZERO;
     AttackPhase attackPhase = AttackPhase.CIRCLE;
-    public boolean isPatrolling;
 
-    public PhantomServant(EntityType<? extends OwnedFlying> type, Level worldIn) {
+    public PhantomServant(EntityType<? extends SummonedFlying> type, Level worldIn) {
         super(type, worldIn);
         this.moveControl = new PhantomMoveControl(this);
         this.lookControl = new PhantomLookControl(this);
@@ -79,13 +79,13 @@ public class PhantomServant extends OwnedFlying {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.PhantomServantHealth.get())
                 .add(Attributes.ARMOR, AttributesConfig.PhantomServantArmor.get())
-                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.PhantomServantDamage.get());
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.PhantomServantInitialDamage.get());
     }
 
     public void setConfigurableAttributes(){
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.PhantomServantHealth.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.PhantomServantArmor.get());
-        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.PhantomServantDamage.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.PhantomServantInitialDamage.get());
     }
 
     protected void defineSynchedData() {
@@ -101,7 +101,7 @@ public class PhantomServant extends OwnedFlying {
         this.refreshDimensions();
         AttributeInstance instance = this.getAttribute(Attributes.ATTACK_DAMAGE);
         if (instance != null){
-            double attack = (4.0D + AttributesConfig.PhantomServantDamage.get());
+            double attack = AttributesConfig.PhantomServantSizeDamage.get();
             instance.setBaseValue(attack + this.getPhantomSize());
         }
     }
@@ -122,25 +122,14 @@ public class PhantomServant extends OwnedFlying {
         super.onSyncedDataUpdated(p_33134_);
     }
 
-    public BlockPos getBoundPos() {
-        if (this.boundPos == null){
-            return BlockPos.ZERO;
-        }
-        return this.boundPos;
-    }
-
     @Override
-    public boolean isPatrolling() {
-        return this.isPatrolling;
-    }
-
-    public void setPatrolling(boolean patrolling){
-        this.isPatrolling = patrolling;
+    public boolean canStay() {
+        return false;
     }
 
     @Override
     public boolean isInvisible() {
-        if (this.isUpgraded()){
+        if (this.isUpgraded() && MobsConfig.PhantomServantTranslucent.get()){
             return true;
         }
         return super.isInvisible();
@@ -148,22 +137,10 @@ public class PhantomServant extends OwnedFlying {
 
     @Override
     public boolean isInvisibleTo(Player p_20178_) {
-        if (this.isUpgraded()){
+        if (this.isUpgraded() && MobsConfig.PhantomServantTranslucent.get()){
             return false;
         }
         return super.isInvisibleTo(p_20178_);
-    }
-
-    @Override
-    public void updateMoveMode(Player player) {
-        if (!this.isPatrolling()){
-            this.setPatrolling(true);
-            player.displayClientMessage(Component.translatable("info.goety.servant.patrol", this.getDisplayName()), true);
-        } else {
-            this.setPatrolling(false);
-            player.displayClientMessage(Component.translatable("info.goety.servant.follow", this.getDisplayName()), true);
-        }
-        this.playSound(SoundEvents.ZOMBIE_VILLAGER_CONVERTED, 1.0f, 1.0f);
     }
 
     public int getUniqueFlapTickOffset() {
@@ -201,9 +178,8 @@ public class PhantomServant extends OwnedFlying {
     }
 
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_33126_, DifficultyInstance p_33127_, MobSpawnType p_33128_, @Nullable SpawnGroupData p_33129_, @Nullable CompoundTag p_33130_) {
-        this.setBoundPos(this.blockPosition().above(5));
+        this.anchorPoint = this.blockPosition().above(5);
         this.setPhantomSize(0);
-        this.setPatrolling(this.getTrueOwner() == null);
         return super.finalizeSpawn(p_33126_, p_33127_, p_33128_, p_33129_, p_33130_);
     }
 
@@ -213,13 +189,17 @@ public class PhantomServant extends OwnedFlying {
 
     public void readAdditionalSaveData(CompoundTag p_33132_) {
         super.readAdditionalSaveData(p_33132_);
-        this.setPatrolling(p_33132_.getBoolean("Patrolling"));
+        if (p_33132_.contains("AX")) {
+            this.anchorPoint = new BlockPos(p_33132_.getInt("AX"), p_33132_.getInt("AY"), p_33132_.getInt("AZ"));
+        }
         this.setPhantomSize(p_33132_.getInt("Size"));
     }
 
     public void addAdditionalSaveData(CompoundTag p_33141_) {
         super.addAdditionalSaveData(p_33141_);
-        p_33141_.putBoolean("Patrolling", this.isPatrolling());
+        p_33141_.putInt("AX", this.anchorPoint.getX());
+        p_33141_.putInt("AY", this.anchorPoint.getY());
+        p_33141_.putInt("AZ", this.anchorPoint.getZ());
         p_33141_.putInt("Size", this.getPhantomSize());
     }
 
@@ -309,7 +289,11 @@ public class PhantomServant extends OwnedFlying {
         }
 
         public void stop() {
-            PhantomServant.this.setBoundPos(PhantomServant.this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, PhantomServant.this.getBoundPos()).above(10 + PhantomServant.this.random.nextInt(20)));
+            if (PhantomServant.this.isPatrolling()){
+                PhantomServant.this.anchorPoint = PhantomServant.this.getBoundPos();
+            } else {
+                PhantomServant.this.anchorPoint = PhantomServant.this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, PhantomServant.this.anchorPoint).above(10 + PhantomServant.this.random.nextInt(20));
+            }
         }
 
         public void tick() {
@@ -326,11 +310,21 @@ public class PhantomServant extends OwnedFlying {
         }
 
         private void setAnchorAboveTarget() {
-            PhantomServant.this.setBoundPos(PhantomServant.this.getTarget().blockPosition().above(20 + PhantomServant.this.random.nextInt(20)));
-            if (PhantomServant.this.getBoundPos().getY() < PhantomServant.this.level.getSeaLevel()) {
-                PhantomServant.this.setBoundPos(new BlockPos(PhantomServant.this.getBoundPos().getX(), PhantomServant.this.level.getSeaLevel() + 1, PhantomServant.this.getBoundPos().getZ()));
+            if (PhantomServant.this.getTarget() != null) {
+                boolean flag = true;
+                if (PhantomServant.this.isPatrolling() && PhantomServant.this.getBoundPos() != null){
+                    if (PhantomServant.this.getTarget().distanceToSqr(PhantomServant.this.vec3BoundPos()) > Mth.square(PATROL_RANGE)){
+                        PhantomServant.this.anchorPoint = PhantomServant.this.getBoundPos();
+                        flag = false;
+                    }
+                }
+                if (flag) {
+                    PhantomServant.this.anchorPoint = PhantomServant.this.getTarget().blockPosition().above(20 + PhantomServant.this.random.nextInt(20));
+                    if (PhantomServant.this.anchorPoint.getY() < PhantomServant.this.level.getSeaLevel()) {
+                        PhantomServant.this.anchorPoint = new BlockPos(PhantomServant.this.anchorPoint.getX(), PhantomServant.this.level.getSeaLevel() + 1, PhantomServant.this.anchorPoint.getZ());
+                    }
+                }
             }
-
         }
     }
 
@@ -349,7 +343,7 @@ public class PhantomServant extends OwnedFlying {
 
         public boolean canUse() {
             LivingEntity livingentity = PhantomServant.this.getTrueOwner();
-            return livingentity != null && PhantomServant.this.getTarget() == null && PhantomServant.this.attackPhase != AttackPhase.SWOOP;
+            return livingentity != null && PhantomServant.this.isFollowing() && PhantomServant.this.getTarget() == null && PhantomServant.this.attackPhase != AttackPhase.SWOOP;
         }
 
         public void start() {
@@ -358,7 +352,11 @@ public class PhantomServant extends OwnedFlying {
         }
 
         public void stop() {
-            PhantomServant.this.setBoundPos(PhantomServant.this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, PhantomServant.this.getBoundPos()).above(10 + PhantomServant.this.random.nextInt(20)));
+            if (PhantomServant.this.isPatrolling()){
+                PhantomServant.this.anchorPoint = PhantomServant.this.getBoundPos();
+            } else {
+                PhantomServant.this.anchorPoint = PhantomServant.this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, PhantomServant.this.anchorPoint).above(10 + PhantomServant.this.random.nextInt(20));
+            }
         }
 
         public void tick() {
@@ -369,7 +367,7 @@ public class PhantomServant extends OwnedFlying {
         }
 
         private void setAnchorAboveOwner() {
-            PhantomServant.this.setBoundPos(PhantomServant.this.getTrueOwner().blockPosition().above(10 + PhantomServant.this.random.nextInt(10)));
+            PhantomServant.this.anchorPoint = PhantomServant.this.getTrueOwner().blockPosition().above(10 + PhantomServant.this.random.nextInt(10));
         }
     }
 
@@ -425,12 +423,14 @@ public class PhantomServant extends OwnedFlying {
         }
 
         private void selectNext() {
-            if (BlockPos.ZERO.equals(PhantomServant.this.getBoundPos())) {
-                PhantomServant.this.setBoundPos(PhantomServant.this.blockPosition());
+            if (PhantomServant.this.isPatrolling() && PhantomServant.this.getBoundPos() != null){
+                PhantomServant.this.anchorPoint = PhantomServant.this.getBoundPos();
+            } else if (BlockPos.ZERO.equals(PhantomServant.this.anchorPoint)) {
+                PhantomServant.this.anchorPoint = PhantomServant.this.blockPosition();
             }
 
             this.angle += this.clockwise * 15.0F * ((float)Math.PI / 180F);
-            PhantomServant.this.moveTargetPoint = Vec3.atLowerCornerOf(PhantomServant.this.getBoundPos()).add((double)(this.distance * Mth.cos(this.angle)), (double)(-4.0F + this.height), (double)(this.distance * Mth.sin(this.angle)));
+            PhantomServant.this.moveTargetPoint = Vec3.atLowerCornerOf(PhantomServant.this.anchorPoint).add((double)(this.distance * Mth.cos(this.angle)), (double)(-4.0F + this.height), (double)(this.distance * Mth.sin(this.angle)));
         }
     }
 

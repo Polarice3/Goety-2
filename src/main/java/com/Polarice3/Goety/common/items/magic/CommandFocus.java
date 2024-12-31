@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.items.magic;
 
-import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.common.magic.spells.utility.CommandSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
@@ -46,7 +46,7 @@ public class CommandFocus extends MagicFocus{
         if (!player.level.isClientSide) {
             if (entity instanceof LivingEntity target) {
                 if (stack.getItem() instanceof CommandFocus) {
-                    if (entity instanceof IOwned owned) {
+                    if (entity instanceof IServant owned && owned.canBeCommanded()) {
                         if (owned.getTrueOwner() == player) {
                             if (!hasServant(stack)) {
                                 CompoundTag compoundTag = new CompoundTag();

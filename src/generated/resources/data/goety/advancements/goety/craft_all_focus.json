@@ -37,6 +37,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.biomine_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:biomine_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.biting_focus": {
       "conditions": {
         "items": [
@@ -721,6 +733,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.prisma_beam_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:prisma_beam_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.pulverize_focus": {
       "conditions": {
         "items": [
@@ -925,6 +949,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.steaming_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:steaming_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.swarm_focus": {
       "conditions": {
         "items": [
@@ -991,6 +1027,18 @@
           {
             "items": [
               "goety:trembling_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "item.goety.trident_storm_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:trident_storm_focus"
             ]
           }
         ]
@@ -1361,6 +1409,18 @@
     ],
     [
       "item.goety.lightning_focus"
+    ],
+    [
+      "item.goety.steaming_focus"
+    ],
+    [
+      "item.goety.trident_storm_focus"
+    ],
+    [
+      "item.goety.prisma_beam_focus"
+    ],
+    [
+      "item.goety.biomine_focus"
     ],
     [
       "item.goety.fireball_focus"

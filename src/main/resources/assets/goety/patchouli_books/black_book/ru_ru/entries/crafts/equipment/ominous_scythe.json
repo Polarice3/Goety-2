@@ -14,6 +14,16 @@
     {
       "type": "patchouli:text",
       "text": "Косу можно починить на наковальне с помощью $(l:intro/magical_components)слитков проклятого металла$(). Её также можно использовать как инструмент для уборки травы или сбора урожая на больших площадях, а также для добычи скалка без «шёлкового касания»."
+    },
+    {
+      "type": "goety:ritual",
+      "advancement": "goety:goety/craft_necro_brazier",
+      "recipe": "goety:dark/dark_metal_scythe"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/craft_necro_brazier",
+      "text": "Модернизированная версия зловещей косы, обладающая качествами других инструментов из $(l:crafts/dark_metal_ingot)тёмного металла$()."
     }
   ],
   "extra_recipe_mappings": {

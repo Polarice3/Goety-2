@@ -1,0 +1,32 @@
+{
+  "name": "Drowned Necromancer",
+  "icon": "goety:abyss_staff",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/unlock_necromancer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You've discovered a more powerful variant of regular Necromancers, one that still retains their flesh and holds great power over the ocean, shooting torrents of steam missiles and conjure falling tridents around themselves. Rather than Skeletons, the ritual is performed on a Drowned instead."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_drowned_to_drowned_necromancer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Much like regular Necromancers, they can be taught to summon more than just Drowned. Right-clicking with certain Necromancy Focuses allows them to summon more types of servants. Right-clicking on them with an empty hand will cause the Necromancer to summon Undead Servants for you. They are healed the same way as regular Drowned Servants."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:drowned_necromancer_servant"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:soul_jar{Drowned: 1b}",
+      "text": "Should a Drowned Necromancer fall, they will drop their special Soul Jar, which, when right-clicked on a Drowned, will revive them using said Drowned as their new body."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:soul_jar{Drowned: 1b}": 5
+  }
+}

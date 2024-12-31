@@ -59,7 +59,7 @@ public class TridentStormModel<T extends TridentStorm> extends HierarchicalModel
 	public static final AnimationDefinition SHOOT = AnimationDefinition.Builder.withLength(0.25F)
 			.addAnimation("trident", new AnimationChannel(AnimationChannel.Targets.POSITION,
 					new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
-					new Keyframe(0.25F, KeyframeAnimations.posVec(0.0F, -212.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+					new Keyframe(0.25F, KeyframeAnimations.posVec(0.0F, -216.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
 			))
 			.build();
 }

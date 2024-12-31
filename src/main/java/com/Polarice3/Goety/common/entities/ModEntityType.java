@@ -234,6 +234,13 @@ public class ModEntityType {
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(10));
 
+    public static final RegistryObject<EntityType<BouncyBubble>> BOUNCY_BUBBLE = register("bouncy_bubble",
+            EntityType.Builder.<BouncyBubble>of(BouncyBubble::new, MobCategory.MISC)
+                    .sized(1.0F, 1.0F)
+                    .clientTrackingRange(10)
+                    .updateInterval(1)
+                    .setUpdateInterval(1));
+
     public static final RegistryObject<EntityType<IceBouquet>> ICE_BOUQUET = register("ice_bouquet",
             EntityType.Builder.<IceBouquet>of(IceBouquet::new, MobCategory.MISC)
                     .fireImmune()
@@ -403,6 +410,12 @@ public class ModEntityType {
                     .clientTrackingRange(8)
                     .updateInterval(1));
 
+    public static final RegistryObject<EntityType<BioMine>> BIOMINE = register("biomine",
+            EntityType.Builder.of(BioMine::new, MobCategory.MONSTER)
+                    .sized(1.2F, 1.2F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<InsectSwarm>> INSECT_SWARM = register("insect_swarm",
             EntityType.Builder.<InsectSwarm>of(InsectSwarm::new, MobCategory.MONSTER)
                     .sized(1.0F, 1.0F)
@@ -426,6 +439,13 @@ public class ModEntityType {
             EntityType.Builder.<Cyclone>of(Cyclone::new, MobCategory.MISC)
                     .sized(1.0F, 1.5F)
                     .clientTrackingRange(4)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<TidalSurge>> TIDAL_SURGE = register("tidal_surge",
+            EntityType.Builder.<TidalSurge>of(TidalSurge::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(1.5F, 1.5F)
+                    .setShouldReceiveVelocityUpdates(true)
                     .updateInterval(1));
 
     public static final RegistryObject<EntityType<ModFallingBlock>> FALLING_BLOCK = register("falling_block",
@@ -750,6 +770,11 @@ public class ModEntityType {
                     .sized(2.04F, 2.04F)
                     .clientTrackingRange(10));
 
+    public static final RegistryObject<EntityType<TropicalSlimeServant>> TROPICAL_SLIME_SERVANT = register("tropical_slime_servant",
+            EntityType.Builder.of(TropicalSlimeServant::new, MobCategory.MONSTER)
+                    .sized(2.04F, 2.04F)
+                    .clientTrackingRange(10));
+
     public static final RegistryObject<EntityType<SpiderServant>> SPIDER_SERVANT = register("spider_servant",
             EntityType.Builder.of(SpiderServant::new, MobCategory.MONSTER)
                     .sized(1.4F, 0.9F)
@@ -816,6 +841,11 @@ public class ModEntityType {
                     .sized(0.6F, 0.85F)
                     .fireImmune()
                     .noSummon() //Temp
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<Snapper>> SNAPPER = register("snapper",
+            EntityType.Builder.of(Snapper::new, MobCategory.MONSTER)
+                    .sized(0.85F, 0.6F)
                     .clientTrackingRange(8));
 
     public static final RegistryObject<EntityType<BearServant>> BEAR_SERVANT = register("bear_servant",

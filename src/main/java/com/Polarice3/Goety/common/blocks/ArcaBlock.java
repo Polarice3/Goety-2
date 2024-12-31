@@ -30,7 +30,7 @@ public class ArcaBlock extends BaseEntityBlock implements IForgeBlock {
     public ArcaBlock() {
         super(Properties.of()
                 .mapColor(MapColor.COLOR_PURPLE)
-                .strength(100.0F, 2400.0F)
+                .strength(75.0F, 2400.0F)
                 .sound(SoundType.METAL)
                 .requiresCorrectToolForDrops()
                 .forceSolidOn()

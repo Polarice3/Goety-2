@@ -75,7 +75,7 @@ public class BlackWolfModel<T extends BlackWolf> extends HierarchicalModel<T> {
 	public void prepareMobModel(T p_104132_, float p_104133_, float p_104134_, float p_104135_) {
 		this.tail.yRot = 0.0F;
 
-		if (p_104132_.isStaying()) {
+		if (p_104132_.isSitting()) {
 			this.head.setPos(0.0F, -12.0F, -5.0F);
 			this.upperBody.setPos(0.0F, -6.0F, 2.0F);
 			this.upperBody.xRot = 0.8727F;

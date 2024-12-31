@@ -64,6 +64,7 @@ public class BlackWolf extends AnimalSummon{
     private boolean isShaking;
     private float shakeAnim;
     private float shakeAnimO;
+    public boolean isSitting;
 
     public BlackWolf(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
@@ -126,12 +127,16 @@ public class BlackWolf extends AnimalSummon{
         if (compound.contains("InvisibleCool")) {
             this.invisibleCool = compound.getInt("InvisibleCool");
         }
+        if (compound.contains("Sitting")) {
+            this.isSitting = compound.getBoolean("Sitting");
+        }
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("InvisibleCool", this.invisibleCool);
+        compound.putBoolean("Sitting", this.isSitting);
     }
 
     @Override
@@ -185,6 +190,10 @@ public class BlackWolf extends AnimalSummon{
 
     @Override
     public void setBaby(boolean p_146756_) {
+    }
+
+    public boolean isSitting() {
+        return this.isSitting;
     }
 
     /*public EntityType<?> getVariant(Level level, BlockPos blockPos){
@@ -263,6 +272,13 @@ public class BlackWolf extends AnimalSummon{
             if (!this.level.isClientSide){
                 if (this.invisibleCool > 0){
                     --this.invisibleCool;
+                }
+                if (this.isStaying()){
+                    this.isSitting = true;
+                    this.level.broadcastEntityEvent(this, (byte) 4);
+                } else {
+                    this.isSitting = false;
+                    this.level.broadcastEntityEvent(this, (byte) 5);
                 }
             }
 
@@ -376,7 +392,11 @@ public class BlackWolf extends AnimalSummon{
     }
 
     public void handleEntityEvent(byte p_30379_) {
-        if (p_30379_ == 8) {
+        if (p_30379_ == 4) {
+            this.isSitting = true;
+        } else if (p_30379_ == 5) {
+            this.isSitting = false;
+        } else if (p_30379_ == 8) {
             this.isShaking = true;
             this.shakeAnim = 0.0F;
             this.shakeAnimO = 0.0F;

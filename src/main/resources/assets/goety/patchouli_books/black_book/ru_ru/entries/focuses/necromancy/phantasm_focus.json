@@ -1,0 +1,18 @@
+{
+  "name": "Фокус бессонницы",
+  "icon": "goety:phantasm_focus",
+  "category": "goety:focuses/necromancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Фантомы — довольно странные существа, которые летают между реальностью и нереальностью, появляясь только рядом с теми, кто страдает бессонницей. С помощью этого фокуса вы можете вызывать их и подчинять своей воле."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/phantasm_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:phantasm_focus": 1
+  }
+}

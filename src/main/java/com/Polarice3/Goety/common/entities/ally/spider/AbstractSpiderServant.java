@@ -432,7 +432,7 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
     }
 
     public boolean hurt(DamageSource source, float amount) {
-        if (MobsConfig.MinionsMasterImmune.get()) {
+        if (MobsConfig.ServantsMasterImmune.get()) {
             if (source.getEntity() instanceof Summoned summoned) {
                 if (!summoned.isHostile() && !this.isHostile()) {
                     if (this.getTrueOwner() != null && summoned.getTrueOwner() == this.getTrueOwner()) {

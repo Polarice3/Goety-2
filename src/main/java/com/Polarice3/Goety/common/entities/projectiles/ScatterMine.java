@@ -16,7 +16,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -40,6 +39,7 @@ public class ScatterMine extends Entity {
     public float extraRadius = 0.0F;
     private LivingEntity owner;
     private UUID ownerUUID;
+    public int growTick = 0;
     public int lifeTicks = MathHelper.secondsToTicks(10);
 
     public ScatterMine(EntityType<?> p_19870_, Level p_19871_) {
@@ -70,22 +70,17 @@ public class ScatterMine extends Entity {
 
     @Override
     protected void readAdditionalSaveData(CompoundTag pCompound) {
-        UUID ownerUUID;
-        if (pCompound.hasUUID("Owner")) {
-            ownerUUID = pCompound.getUUID("Owner");
-        } else {
-            String s = pCompound.getString("Owner");
-            ownerUUID = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), s);
-        }
-
-        if (ownerUUID != null) {
-            this.ownerUUID = ownerUUID;
+        if (pCompound.contains("Owner")) {
+            this.ownerUUID = pCompound.getUUID("Owner");
         }
         if (pCompound.contains("LifeTicks")){
             this.lifeTicks = pCompound.getInt("LifeTicks");
         }
         if (pCompound.contains("CurrentTicks")){
             this.tickCount = pCompound.getInt("CurrentTicks");
+        }
+        if (pCompound.contains("GrowTicks")){
+            this.growTick = pCompound.getInt("GrowTicks");
         }
         if (pCompound.contains("Spell")){
             this.setSpell(pCompound.getBoolean("Spell"));
@@ -105,6 +100,7 @@ public class ScatterMine extends Entity {
         }
         pCompound.putInt("LifeTicks", this.lifeTicks);
         pCompound.putInt("CurrentTicks", this.tickCount);
+        pCompound.putInt("GrowTicks", this.growTick);
         pCompound.putBoolean("Spell", this.isSpell());
         pCompound.putFloat("ExtraDamage", this.getExtraDamage());
         pCompound.putFloat("ExtraRadius", this.getExtraRadius());
@@ -168,9 +164,13 @@ public class ScatterMine extends Entity {
                 this.level.addParticle(ParticleTypes.SMOKE, this.getRandomX(1.0D) - d0 * d3, this.getRandomY() - d1 * d3, this.getRandomZ(1.0D) - d2 * d3, d0, d1, d2);
             }
         } else if (id == 6){
+            this.growTick = 1;
             this.finalizeExplosion();
         } else if (id == 7){
             this.setSpell(true);
+        } else if (id == 8){
+            this.getGlow = Mth.clamp(this.getGlow - 0.1F, 0, 1);
+            this.size += 3.0F;
         } else {
             super.handleEntityEvent(id);
         }
@@ -189,11 +189,15 @@ public class ScatterMine extends Entity {
         super.tick();
         --this.lifeTicks;
         if (this.level.isClientSide){
-            if (this.startGlow()) {
-                this.glow();
-            }
-            if (this.startShrink()){
-                this.shrink();
+            if (this.growTick <= 0) {
+                if (this.startGlow()) {
+                    this.glow();
+                }
+                if (this.startShrink()) {
+                    this.shrink();
+                } else {
+                    this.size = 1.0F;
+                }
             }
         }
         if (!this.level.isClientSide) {
@@ -201,29 +205,37 @@ public class ScatterMine extends Entity {
                 MobUtil.moveDownToGround(this);
             }
             this.level.broadcastEntityEvent(this, (byte) 4);
-            if (this.lifeTicks <= 0){
-                if (!this.isSpell()) {
-                    this.level.broadcastEntityEvent(this, (byte) 5);
+            if (this.growTick >= 1){
+                ++this.growTick;
+                this.level.broadcastEntityEvent(this, (byte) 8);
+                if (this.growTick >= 5){
                     this.discard();
-                } else {
-                    this.trigger();
                 }
-            } else if (this.tickCount >= 20){
-                if (this.tickCount % 10 == 0) {
-                    if (this.level instanceof ServerLevel serverLevel) {
-                        float pulse = 1.0F + this.getExtraRadius();
-                        serverLevel.sendParticles(new PulsatingCircleParticleOption(pulse), this.getX(), this.getY(), this.getZ(), 1, 0, 0, 0, 0.5F);
+            } else {
+                if (this.lifeTicks <= 0){
+                    if (!this.isSpell()) {
+                        this.level.broadcastEntityEvent(this, (byte) 5);
+                        this.discard();
+                    } else {
+                        this.trigger();
                     }
-                }
-                double bbSize = 0.6D + this.getExtraRadius();
-                for (LivingEntity livingentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(bbSize, bbSize / 2.0D, bbSize))) {
-                    if (livingentity.isAlive() && !livingentity.isInvulnerable()) {
-                        if (this.getOwner() != null) {
-                            if (!MobUtil.areAllies(this.getOwner(), livingentity) && livingentity != this.getOwner()) {
+                } else if (this.tickCount >= 20){
+                    if (this.tickCount % 10 == 0) {
+                        if (this.level instanceof ServerLevel serverLevel) {
+                            float pulse = 1.0F + this.getExtraRadius();
+                            serverLevel.sendParticles(new PulsatingCircleParticleOption(pulse), this.getX(), this.getY(), this.getZ(), 1, 0, 0, 0, 0.5F);
+                        }
+                    }
+                    double bbSize = 0.6D + this.getExtraRadius();
+                    for (LivingEntity livingentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(bbSize, bbSize / 2.0D, bbSize))) {
+                        if (livingentity.isAlive() && !livingentity.isInvulnerable()) {
+                            if (this.getOwner() != null) {
+                                if (!MobUtil.areAllies(this.getOwner(), livingentity) && livingentity != this.getOwner()) {
+                                    this.trigger();
+                                }
+                            } else {
                                 this.trigger();
                             }
-                        } else {
-                            this.trigger();
                         }
                     }
                 }
@@ -254,7 +266,7 @@ public class ScatterMine extends Entity {
                     }
                 }
             }
-            this.discard();
+            this.growTick = 1;
         }
     }
 

@@ -1,0 +1,22 @@
+{
+  "name": "黏泞聚晶",
+  "icon": "goety:slimy_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在你周围召唤忠诚且遵循你命令的 $(l:summons/slime_servants)史莱姆仆从$()"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/slimy_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用 $(l:crafts/staff/wild_staff)荒野魔杖$() 能一次召唤更多史莱姆仆从，使用 $(l:crafts/staff/abyss_staff)深渊魔杖$() 则改为召唤热带史莱姆仆从， $(l:crafts/staff/nether_staff)下界魔杖$() 则能召唤岩浆怪仆从，$(l:crafts/staff/necro_staff)死灵魔杖$() 则可以召唤墓穴史莱姆仆从"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:slimy_focus": 1
+  }
+}

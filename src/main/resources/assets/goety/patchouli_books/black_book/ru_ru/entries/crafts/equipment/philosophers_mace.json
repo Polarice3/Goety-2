@@ -3,7 +3,6 @@
   "icon": "goety:philosophers_mace",
   "category": "goety:crafts/equipment",
   "advancement": "goety:goety/kill_a_apostle",
-  "secret": true,
   "pages": [
     {
       "type": "patchouli:text",

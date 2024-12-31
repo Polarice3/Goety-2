@@ -258,7 +258,7 @@ public class CuriosFinder {
     }
 
     public static boolean hasFrostCrown(LivingEntity livingEntity){
-        return hasCurio(livingEntity, ModItems.FROST_CROWN.get());
+        return hasCurio(livingEntity, item -> item.getItem() instanceof MagicCrownItem crownItem && crownItem.spellType == SpellType.FROST);
     }
 
     public static boolean hasFrostSet(LivingEntity livingEntity){
@@ -279,6 +279,30 @@ public class CuriosFinder {
 
     public static boolean hasWindyRobes(LivingEntity livingEntity){
         return hasCurio(livingEntity, item -> item.getItem() instanceof WindyRobeItem);
+    }
+
+    public static boolean hasAbyssCrown(LivingEntity livingEntity){
+        return hasCurio(livingEntity, item -> item.getItem() instanceof MagicCrownItem crownItem && crownItem.spellType == SpellType.ABYSS);
+    }
+
+    public static boolean hasAbyssRobes(LivingEntity livingEntity){
+        return hasCurio(livingEntity, item -> item.getItem() instanceof AbyssRobeItem);
+    }
+
+    public static boolean hasAbyssSet(LivingEntity livingEntity){
+        return hasAbyssRobes(livingEntity)
+                && hasAbyssCrown(livingEntity);
+    }
+
+    public static boolean neutralAbyssSet(LivingEntity livingEntity){
+        return hasAbyssSet(livingEntity) && ItemConfig.AbyssSetMobNeutral.get();
+    }
+
+    public static boolean validAbyssMob(LivingEntity livingEntity){
+        return (livingEntity.getMobType() == MobType.WATER
+                || livingEntity.getType().is(ModTags.EntityTypes.ABYSS_SET_NEUTRAL))
+                && livingEntity.getMaxHealth() <= ItemConfig.AbyssSetMobNeutralHealth.get()
+                && !(livingEntity instanceof IOwned && !(livingEntity instanceof Enemy));
     }
 
     private static boolean isRing(ItemStack itemStack) {

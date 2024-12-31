@@ -3,6 +3,7 @@
   "icon": "goety:zombie_servant_spawn_egg",
   "category": "goety:summons",
   "sortnum": 0,
+  "priority": true,
   "pages": [
     {
       "type": "patchouli:text",

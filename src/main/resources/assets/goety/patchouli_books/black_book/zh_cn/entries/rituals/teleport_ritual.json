@@ -1,0 +1,16 @@
+{
+  "name": "用仪式进行传送",
+  "icon": "goety:waystone",
+  "category": "goety:rituals",
+  "priority": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "利用已绑定坐标的 $(l:crafts/waystone)指路石$()，你可以将自己传送到世界的任意位置，前提是该位置与你处在同一个维度内"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:teleport_ritual"
+    }
+  ]
+}

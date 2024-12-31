@@ -89,6 +89,9 @@ public class ArcaCompassItem extends Item implements Vanishable {
             if (hasPlayer(p_40720_)){
                 if (compoundtag.contains(TAG_PLAYER)){
                     Player player = p_40721_.getPlayerByUUID(compoundtag.getUUID(TAG_PLAYER));
+                    if (player == null) {
+                        return;
+                    }
                     if (SEHelper.getArcaBlock(player) != null){
                         if (!compoundtag.contains(TAG_ARCA_POS)){
                             compoundtag.put(TAG_ARCA_POS, NbtUtils.writeBlockPos(SEHelper.getArcaBlock(player)));

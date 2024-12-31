@@ -512,6 +512,7 @@ public class Goety {
         event.put(ModEntityType.SLIME_SERVANT.get(), SlimeServant.setCustomAttributes().build());
         event.put(ModEntityType.MAGMA_CUBE_SERVANT.get(), MagmaCubeServant.setCustomAttributes().build());
         event.put(ModEntityType.CRYPT_SLIME_SERVANT.get(), CryptSlimeServant.setCustomAttributes().build());
+        event.put(ModEntityType.TROPICAL_SLIME_SERVANT.get(), TropicalSlimeServant.setCustomAttributes().build());
         event.put(ModEntityType.SPIDER_SERVANT.get(), SpiderServant.setCustomAttributes().build());
         event.put(ModEntityType.CAVE_SPIDER_SERVANT.get(), CaveSpiderServant.setCustomAttributes().build());
         event.put(ModEntityType.WEB_SPIDER_SERVANT.get(), WebSpiderServant.setCustomAttributes().build());
@@ -525,6 +526,7 @@ public class Goety {
         event.put(ModEntityType.BLACK_WOLF.get(), BlackWolf.setCustomAttributes().build());
         event.put(ModEntityType.SKELETON_WOLF.get(), SkeletonWolf.setCustomAttributes().build());
         event.put(ModEntityType.HELLHOUND.get(), Hellhound.setCustomAttributes().build());
+        event.put(ModEntityType.SNAPPER.get(), Snapper.setCustomAttributes().build());
         event.put(ModEntityType.BEAR_SERVANT.get(), BearServant.setCustomAttributes().build());
         event.put(ModEntityType.POLAR_BEAR_SERVANT.get(), BearServant.setCustomAttributes().build());
         event.put(ModEntityType.HOGLIN_SERVANT.get(), HoglinServant.setCustomAttributes().build());

@@ -1,0 +1,19 @@
+{
+  "name": "Steaming Focus",
+  "icon": "goety:steaming_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The spell allows you to shoot a torrent of hot steaming missiles towards the direction you're looking at, damaging and knocking back creatures when hit."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/steaming_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/abyss_staff)Abyss Staff$() allows the caster to shoot more torrents of missiles."
+    }
+  ]
+}

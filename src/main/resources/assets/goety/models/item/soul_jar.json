@@ -2,5 +2,19 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "goety:item/soul_jar"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "drowned": 0.00000
+      },
+      "model": "goety:item/soul_jar_regular"
+    },
+    {
+      "predicate": {
+        "drowned": 1.00000
+      },
+      "model": "goety:item/soul_jar_drowned"
+    }
+  ]
 }

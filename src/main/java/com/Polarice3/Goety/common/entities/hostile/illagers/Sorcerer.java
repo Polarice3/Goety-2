@@ -439,7 +439,7 @@ public class Sorcerer extends HuntingIllagerEntity {
                     if (this.spell.levelIncrease){
                         spellStat.setPotency(Sorcerer.this.getLevels() - this.spell.minLevel);
                     }
-                    spell1.SpellResult(Sorcerer.this, Sorcerer.this.getLevels() >= this.spell.upgradeStaff.getB() ? this.spell.upgradeStaff.getA() : ItemStack.EMPTY, spellStat);
+                    spell1.mobSpellResult(Sorcerer.this, Sorcerer.this.getLevels() >= this.spell.upgradeStaff.getB() ? this.spell.upgradeStaff.getA() : ItemStack.EMPTY, spellStat);
                     if (this.spell.getSpell() instanceof IBreathingSpell breathingSpell) {
                         if (Sorcerer.this.getTarget() != null) {
                             MobUtil.instaLook(Sorcerer.this, Sorcerer.this.getTarget());
@@ -481,21 +481,21 @@ public class Sorcerer extends HuntingIllagerEntity {
                 } else {
                     Sorcerer.this.level.broadcastEntityEvent(Sorcerer.this, (byte) 7);
                 }
-                spell1.SpellResult(Sorcerer.this, Sorcerer.this.getLevels() >= this.spell.upgradeStaff.getB() ? this.spell.upgradeStaff.getA() : ItemStack.EMPTY, spellStat);
+                spell1.mobSpellResult(Sorcerer.this, Sorcerer.this.getLevels() >= this.spell.upgradeStaff.getB() ? this.spell.upgradeStaff.getA() : ItemStack.EMPTY, spellStat);
             }
         }
 
         @Override
         protected int getCastWarmupTime() {
             if (this.spell.getSpell() instanceof IChargingSpell chargingSpell){
-                return chargingSpell.shotsNumber();
+                return chargingSpell.shotsNumber(Sorcerer.this, ItemStack.EMPTY);
             }
             return this.spell.getSpell().defaultCastDuration() + 5;
         }
 
         protected int getCastingTime() {
             if (this.spell.getSpell() instanceof IChargingSpell chargingSpell){
-                return chargingSpell.shotsNumber();
+                return chargingSpell.shotsNumber(Sorcerer.this, ItemStack.EMPTY);
             }
             return this.spell.getSpell().defaultCastDuration() + 5;
         }

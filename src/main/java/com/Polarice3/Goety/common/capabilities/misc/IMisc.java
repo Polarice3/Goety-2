@@ -17,4 +17,6 @@ public interface IMisc {
     void setAmbientSoundTime(int soundTime);
     String customSpinTexture();
     void setCustomSpinTexture(String texture);
+    int getClientTargetID();
+    void setClientTargetID(int id);
 }

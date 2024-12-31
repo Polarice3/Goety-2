@@ -4,7 +4,10 @@ import com.Polarice3.Goety.client.particles.FoggyCloudParticleOption;
 import com.Polarice3.Goety.common.entities.util.AbstractTrap;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -12,12 +15,14 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.network.NetworkHooks;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AcidPool extends AbstractTrap {
     private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(AcidPool.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> DATA_DAMAGE = SynchedEntityData.defineId(AcidPool.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Integer> DATA_COLOR = SynchedEntityData.defineId(AcidPool.class, EntityDataSerializers.INT);
 
     public AcidPool(EntityType<?> entityTypeIn, Level worldIn) {
@@ -30,6 +35,7 @@ public class AcidPool extends AbstractTrap {
         super.defineSynchedData();
         this.getEntityData().define(DATA_COLOR, 0x44b529);
         this.getEntityData().define(DATA_RADIUS, 2.0F);
+        this.getEntityData().define(DATA_DAMAGE, 2.0F);
     }
 
     public void onSyncedDataUpdated(EntityDataAccessor<?> p_19729_) {
@@ -48,6 +54,7 @@ public class AcidPool extends AbstractTrap {
     protected void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putFloat("Radius", this.radius());
+        compound.putFloat("Damage", this.getDamage());
         compound.putInt("Color", this.getColor());
     }
 
@@ -56,6 +63,9 @@ public class AcidPool extends AbstractTrap {
         super.readAdditionalSaveData(compound);
         if (compound.contains("Radius")){
             this.setRadius(compound.getFloat("Radius"));
+        }
+        if (compound.contains("Damage")){
+            this.setDamage(compound.getFloat("Damage"));
         }
         if (compound.contains("Color")){
             this.setColor(compound.getInt("Color"));
@@ -66,6 +76,14 @@ public class AcidPool extends AbstractTrap {
         if (!this.level.isClientSide) {
             this.getEntityData().set(DATA_RADIUS, Mth.clamp(p_19713_, 0.0F, 32.0F));
         }
+    }
+
+    public void setDamage(float damage) {
+        this.getEntityData().set(DATA_DAMAGE, damage);
+    }
+
+    public float getDamage() {
+        return this.getEntityData().get(DATA_DAMAGE);
     }
 
     public int getColor() {
@@ -92,8 +110,10 @@ public class AcidPool extends AbstractTrap {
     public void tick() {
         super.tick();
         if (this.level instanceof ServerLevel serverLevel) {
-            if (this.tickCount % 5 == 0) {
-                serverLevel.sendParticles(new FoggyCloudParticleOption(new ColorUtil(this.getColor()), this.radius() / 2.0F, 1), this.getX(), this.getY() + 0.25D, this.getZ(), 1, 0, 0, 0, 0);
+            if (this.getParticle() == null) {
+                if (this.tickCount % 5 == 0) {
+                    serverLevel.sendParticles(new FoggyCloudParticleOption(new ColorUtil(this.getColor()), this.radius() / 2.0F, 1), this.getX(), this.getY() + 0.25D, this.getZ(), 1, 0, 0, 0, 0);
+                }
             }
             List<LivingEntity> targets = new ArrayList<>();
             for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox())){
@@ -109,10 +129,9 @@ public class AcidPool extends AbstractTrap {
                 for (LivingEntity livingEntity : targets) {
                     if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)) {
                         if (this.owner != null) {
-                            float damage = 2.0F;
-                            livingEntity.hurt(this.damageSources().indirectMagic(this, this.owner), damage);
+                            livingEntity.hurt(ModDamageSource.acid(this, this.owner), this.getDamage());
                         } else {
-                            livingEntity.hurt(this.damageSources().magic(), 2.0F);
+                            livingEntity.hurt(this.damageSources().magic(), this.getDamage());
                         }
                     }
                 }
@@ -121,5 +140,10 @@ public class AcidPool extends AbstractTrap {
                 this.discard();
             }
         }
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

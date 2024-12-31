@@ -1,8 +1,12 @@
 package com.Polarice3.Goety.common.entities.ally;
 
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.init.ModTags;
+import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -26,17 +30,12 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -50,6 +49,9 @@ public class SlimeServant extends Summoned{
     private float interestTime;
     public static final int MIN_SIZE = 1;
     public static final int MAX_SIZE = 127;
+    public static final int TINY = 1;
+    public static final int MEDIUM = 2;
+    public static final int LARGE = 3;
     public float targetSquish;
     public float squish;
     public float oSquish;
@@ -62,6 +64,10 @@ public class SlimeServant extends Summoned{
 
     protected void registerGoals() {
         super.registerGoals();
+        this.slimeGoal();
+    }
+
+    public void slimeGoal(){
         this.goalSelector.addGoal(1, new SlimeFloatGoal(this));
         this.goalSelector.addGoal(2, new SlimeAttackGoal(this));
         this.goalSelector.addGoal(3, new SlimeRandomDirectionGoal(this));
@@ -89,24 +95,14 @@ public class SlimeServant extends Summoned{
     }
 
     protected void dropFromLootTable(DamageSource p_21021_, boolean p_21022_) {
-        ResourceLocation resourcelocation = this.getLootTable();
-        if (this.level.getServer() != null) {
-            LootTable loottable = this.level().getServer().getLootData().getLootTable(resourcelocation);
-            Slime slime = new Slime(EntityType.SLIME, this.level);
-            slime.setSize(this.getSize(), true);
-            LootParams.Builder lootparams$builder = (new LootParams.Builder((ServerLevel) this.level())).withParameter(LootContextParams.THIS_ENTITY, slime).withParameter(LootContextParams.ORIGIN, this.position()).withParameter(LootContextParams.DAMAGE_SOURCE, p_21021_).withOptionalParameter(LootContextParams.KILLER_ENTITY, p_21021_.getEntity()).withOptionalParameter(LootContextParams.DIRECT_KILLER_ENTITY, p_21021_.getDirectEntity());
-            if (p_21022_ && this.lastHurtByPlayer != null) {
-                lootparams$builder = lootparams$builder.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, this.lastHurtByPlayer).withLuck(this.lastHurtByPlayer.getLuck());
-            }
-
-            LootParams lootparams = lootparams$builder.create(LootContextParamSets.ENTITY);
-            loottable.getRandomItems(lootparams, this.getLootTableSeed(), this::spawnAtLocation);
+        if (!this.limitedLifespan && this.limitedLifeTicks <= 0){
+            super.dropFromLootTable(p_21021_, p_21022_);
         }
     }
 
     @Override
     protected boolean shouldDropLoot() {
-        return !this.limitedLifespan;
+        return !this.limitedLifespan && this.limitedLifeTicks <= 0;
     }
 
     public void setSize(int p_33594_, boolean p_33595_) {
@@ -152,6 +148,14 @@ public class SlimeServant extends Summoned{
         return this.getSize() <= 1;
     }
 
+    public boolean isMedium() {
+        return this.getSize() == 2;
+    }
+
+    public boolean isLarge() {
+        return this.getSize() >= 3;
+    }
+
     protected ParticleOptions getParticleType() {
         return ParticleTypes.ITEM_SLIME;
     }
@@ -183,7 +187,7 @@ public class SlimeServant extends Summoned{
                     aabb = this.getTarget().getBoundingBox().inflate(1.0D, 0.5D, 1.0D);
                 }
 
-                List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, aabb);
+                List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, aabb);
 
                 for (LivingEntity target : list) {
                     if (target == this.getTarget() && this.isDealsDamage()) {
@@ -258,6 +262,20 @@ public class SlimeServant extends Summoned{
         return (EntityType<? extends SlimeServant>)super.getType();
     }
 
+    public EntityType<?> getVariant(Level level, BlockPos blockPos){
+        EntityType<?> entityType = ModEntityType.SLIME_SERVANT.get();
+        if (level instanceof ServerLevel serverLevel) {
+            if (level.isWaterAt(blockPos)) {
+                entityType = ModEntityType.TROPICAL_SLIME_SERVANT.get();
+            } else if (level.dimension() == Level.NETHER) {
+                entityType = ModEntityType.MAGMA_CUBE_SERVANT.get();
+            } else if (BlockFinder.findStructure(serverLevel, blockPos, ModTags.Structures.CRYPT)) {
+                entityType = ModEntityType.CRYPT_SLIME_SERVANT.get();
+            }
+        }
+        return entityType;
+    }
+
     public void remove(RemovalReason p_149847_) {
         int i = this.getSize();
         if (!this.level.isClientSide && i > 1 && this.isDeadOrDying()) {
@@ -317,7 +335,7 @@ public class SlimeServant extends Summoned{
         if (this.isAlive()) {
             int i = this.getSize();
             if (this.distanceToSqr(p_33638_) < 0.6D * (double)i * 0.6D * (double)i && this.hasLineOfSight(p_33638_) && p_33638_.hurt(this.damageSources().mobAttack(this), this.getAttackDamage())) {
-                this.playSound(SoundEvents.SLIME_ATTACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+                this.playSound(this.getAttackSound(), 1.0F, this.getVoicePitch());
                 this.doEnchantDamageEffects(this, p_33638_);
             }
         }
@@ -381,13 +399,17 @@ public class SlimeServant extends Summoned{
         return super.finalizeSpawn(p_33601_, p_33602_, p_33603_, p_33604_, p_33605_);
     }
 
-    float getSoundPitch() {
+    protected float getSoundPitch() {
         float f = this.isTiny() ? 1.4F : 0.8F;
         return ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * f;
     }
 
     protected SoundEvent getJumpSound() {
         return this.isTiny() ? SoundEvents.SLIME_JUMP_SMALL : SoundEvents.SLIME_JUMP;
+    }
+
+    protected SoundEvent getAttackSound() {
+        return SoundEvents.SLIME_ATTACK;
     }
 
     public EntityDimensions getDimensions(Pose p_33597_) {
@@ -415,7 +437,7 @@ public class SlimeServant extends Summoned{
                 }
 
                 this.setSize(this.getSize() + 1, true);
-                this.playSound(SoundEvents.SLIME_ATTACK);
+                this.playSound(this.getAttackSound());
 
                 return InteractionResult.SUCCESS;
             } else if (this.getHealth() < this.getMaxHealth()) {
@@ -467,7 +489,7 @@ public class SlimeServant extends Summoned{
         if (pId == 102){
             this.setIsInterested(true);
             this.interestTime = 40;
-            this.playSound(SoundEvents.SLIME_SQUISH, 1.0F, 2.0F);
+            this.playSound(this.getSquishSound(), 1.0F, 2.0F);
             this.addParticlesAroundSelf(ParticleTypes.HEART);
         }
     }

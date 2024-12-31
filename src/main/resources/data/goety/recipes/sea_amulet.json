@@ -4,7 +4,7 @@
   "activation_item": {
     "item": "minecraft:nautilus_shell"
   },
-  "craftType": "geoturgy",
+  "craftType": "deep",
   "soulCost": 1,
   "duration": 10,
   "ingredients": [

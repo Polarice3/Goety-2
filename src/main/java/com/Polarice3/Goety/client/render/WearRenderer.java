@@ -41,6 +41,8 @@ public record WearRenderer(ResourceLocation texture,
             if (ItemConfig.NecroCapeChangeTexture.get()) {
                 if (CuriosFinder.hasFrostRobes(livingEntity)) {
                     return CuriosRenderer.render("necro_cape_crypt.png");
+                } else if (CuriosFinder.hasAbyssRobes(livingEntity)){
+                    return CuriosRenderer.render("necro_cape_abyss.png");
                 } else if (CuriosFinder.hasNetherRobe(livingEntity)){
                     return CuriosRenderer.render("necro_cape_nether.png");
                 }
@@ -72,7 +74,7 @@ public record WearRenderer(ResourceLocation texture,
     @Override
     public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack matrixStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         LivingEntity livingEntity = slotContext.entity();
-        HumanoidModel<LivingEntity> model = getModel();
+        HumanoidModel<LivingEntity> model = this.getModel();
 
         model.setupAnim(slotContext.entity(), limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         model.prepareMobModel(slotContext.entity(), limbSwing, limbSwingAmount, partialTicks);
@@ -126,9 +128,9 @@ public record WearRenderer(ResourceLocation texture,
     }
 
     private void render(LivingEntity livingEntity, PoseStack matrixStack, MultiBufferSource buffer, int light) {
-        RenderType renderType = model.renderType(getTexture(livingEntity));
+        RenderType renderType = this.getModel().renderType(getTexture(livingEntity));
         VertexConsumer vertexBuilder = buffer.getBuffer(renderType);
-        model.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+        this.getModel().renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
     }
 
     public void renderFirstPersonArm(PoseStack matrixStack, MultiBufferSource buffer, int light, AbstractClientPlayer player, HumanoidArm side, boolean hasFoil) {

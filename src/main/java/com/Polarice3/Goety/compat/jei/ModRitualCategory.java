@@ -30,6 +30,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -207,6 +208,8 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
             itemStack = new ItemStack(Items.AMETHYST_BLOCK);
         } else if (recipe.getCraftType().contains(RitualTypes.FROST)) {
             itemStack = new ItemStack(ModBlocks.FREEZING_LAMP.get());
+        } else if (recipe.getCraftType().contains(RitualTypes.DEEP)) {
+            itemStack = new ItemStack(Blocks.PRISMARINE_BRICKS);
         }
         return itemStack;
     }

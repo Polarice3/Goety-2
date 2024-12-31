@@ -1,0 +1,39 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:convert_complete_tamed",
+  "activation_item": {
+    "item": "goety:necro_cape"
+  },
+  "craftType": "deep",
+  "entity_to_convert": {
+    "tag": "goety:drowned",
+    "display_name": "entity.minecraft.drowned"
+  },
+  "entity_to_convert_into": "goety:drowned_necromancer_servant",
+  "soulCost": 5,
+  "duration": 30,
+  "research": "buried",
+  "ingredients": [
+    {
+      "item": "goety:abyss_staff"
+    },
+    {
+      "item": "goety:necro_crown"
+    },
+    {
+      "item": "minecraft:nautilus_shell"
+    },
+    {
+      "tag": "goety:rotting_focus"
+    },
+    {
+      "item": "goety:trident_storm_focus"
+    },
+    {
+      "tag": "forge:storage_blocks/gold"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

@@ -1,7 +1,8 @@
 {
-  "name": "Ритуальные зачарования",
+  "name": "Ритуальное зачарование",
   "icon": "minecraft:enchanted_book",
   "category": "goety:rituals",
+  "priority": true,
   "pages": [
     {
       "type": "patchouli:text",

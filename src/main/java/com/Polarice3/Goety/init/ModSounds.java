@@ -221,6 +221,24 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> RAVAGED_BIG_STEP = create("ravaged_big_step");
     public static final RegistryObject<SoundEvent> RAVAGED_DEATH = create("ravaged_death");
 
+    public static final RegistryObject<SoundEvent> TROPICAL_SLIME_SMALL_HURT = create("tropical_slime_small_hurt");
+    public static final RegistryObject<SoundEvent> TROPICAL_SLIME_SMALL_ATTACK = create("tropical_slime_small_attack");
+    public static final RegistryObject<SoundEvent> TROPICAL_SLIME_SMALL_JUMP = create("tropical_slime_small_jump");
+    public static final RegistryObject<SoundEvent> TROPICAL_SLIME_SMALL_SQUISH = create("tropical_slime_small_squish");
+    public static final RegistryObject<SoundEvent> TROPICAL_SLIME_SMALL_DEATH = create("tropical_slime_small_death");
+
+    public static final RegistryObject<SoundEvent> TROPICAL_SLIME_MEDIUM_HURT = create("tropical_slime_medium_hurt");
+    public static final RegistryObject<SoundEvent> TROPICAL_SLIME_MEDIUM_ATTACK = create("tropical_slime_medium_attack");
+    public static final RegistryObject<SoundEvent> TROPICAL_SLIME_MEDIUM_JUMP = create("tropical_slime_medium_jump");
+    public static final RegistryObject<SoundEvent> TROPICAL_SLIME_MEDIUM_SQUISH = create("tropical_slime_medium_squish");
+    public static final RegistryObject<SoundEvent> TROPICAL_SLIME_MEDIUM_DEATH = create("tropical_slime_medium_death");
+
+    public static final RegistryObject<SoundEvent> TROPICAL_SLIME_LARGE_HURT = create("tropical_slime_large_hurt");
+    public static final RegistryObject<SoundEvent> TROPICAL_SLIME_LARGE_ATTACK = create("tropical_slime_large_attack");
+    public static final RegistryObject<SoundEvent> TROPICAL_SLIME_LARGE_JUMP = create("tropical_slime_large_jump");
+    public static final RegistryObject<SoundEvent> TROPICAL_SLIME_LARGE_SQUISH = create("tropical_slime_large_squish");
+    public static final RegistryObject<SoundEvent> TROPICAL_SLIME_LARGE_DEATH = create("tropical_slime_large_death");
+
     public static final RegistryObject<SoundEvent> BONE_SPIDER_AMBIENT = create("bone_spider_ambient");
     public static final RegistryObject<SoundEvent> BONE_SPIDER_HURT = create("bone_spider_hurt");
     public static final RegistryObject<SoundEvent> BONE_SPIDER_SPIT = create("bone_spider_spit");
@@ -426,6 +444,9 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> LICH_TELEPORT_OUT = create("lich_teleport_out");
     public static final RegistryObject<SoundEvent> LICH_DEATH = create("lich_death");
 
+    public static final RegistryObject<SoundEvent> BIOMINE_SPAWN = create("biomine_spawn");
+    public static final RegistryObject<SoundEvent> BIOMINE_TRIGGER = create("biomine_trigger");
+
     public static final RegistryObject<SoundEvent> GHAST_DISAPPEAR = create("ghast_disappear");
 
     public static final RegistryObject<SoundEvent> DAMNED_SCREAM = create("damned_scream");
@@ -441,6 +462,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> FIRE_BREATH_START = create("fire_breath_start");
     public static final RegistryObject<SoundEvent> FIRE_BREATH = create("fire_breath");
     public static final RegistryObject<SoundEvent> FROST_BREATH = create("frost_breath");
+    public static final RegistryObject<SoundEvent> BUBBLE_STREAM = create("bubble_stream");
     public static final RegistryObject<SoundEvent> BURROW = create("burrow_spell");
     public static final RegistryObject<SoundEvent> FLIGHT = create("flight");
     public static final RegistryObject<SoundEvent> WHIRLWIND = create("whirlwind");
@@ -451,6 +473,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> PREPARE_SUMMON = create("prepare_summon");
     public static final RegistryObject<SoundEvent> FROST_PREPARE_SPELL = create("frost_prepare_spell");
     public static final RegistryObject<SoundEvent> WILD_PREPARE_SPELL = create("wild_prepare_spell");
+    public static final RegistryObject<SoundEvent> ABYSS_PREPARE_SPELL = create("abyss_prepare_spell");
     public static final RegistryObject<SoundEvent> VOID_PREPARE_SPELL = create("void_prepare_spell");
     public static final RegistryObject<SoundEvent> CAST_SPELL = create("cast_spell");
     public static final RegistryObject<SoundEvent> CAST_SPELL_TWO = create("cast_spell_two");

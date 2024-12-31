@@ -1,0 +1,41 @@
+{
+  "parent": "goety:goety/craft_dark_altar",
+  "display": {
+    "icon": {
+      "item": "minecraft:raw_porkchop"
+    },
+    "title": {
+      "translate": "advancements.goety.ride_hoglin_servant.title"
+    },
+    "description": {
+      "translate": "advancements.goety.ride_hoglin_servant.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "ride_hoglin_servant": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "vehicle": {
+                "type": "goety:hoglin_servant"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:started_riding"
+    }
+  },
+  "requirements": [
+    [
+      "ride_hoglin_servant"
+    ]
+  ]
+}

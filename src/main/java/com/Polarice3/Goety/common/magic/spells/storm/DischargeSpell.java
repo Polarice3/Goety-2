@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.magic.spells.storm;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
+import com.Polarice3.Goety.client.particles.VerticalCircleExplodeParticleOption;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.Spell;
@@ -83,7 +84,7 @@ public class DischargeSpell extends Spell {
         }
         ColorUtil colorUtil = new ColorUtil(0xfef597);
         worldIn.sendParticles(new ShockwaveParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue()), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 0, 0, 0, 0, 0);
-        worldIn.sendParticles(ModParticleTypes.ELECTRIC_EXPLODE.get(), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.0F);
+        worldIn.sendParticles(new VerticalCircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius, 1), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 1, 0, 0, 0, 0);
         float trueDamage = Mth.clamp(damage + worldIn.random.nextInt((int) (maxDamage - damage)), damage, maxDamage);
         new SpellExplosion(worldIn, caster, ModDamageSource.directShock(caster), caster.blockPosition(), radius, trueDamage){
             @Override

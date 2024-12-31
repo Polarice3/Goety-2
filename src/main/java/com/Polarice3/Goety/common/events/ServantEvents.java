@@ -103,7 +103,7 @@ public class ServantEvents {
         LivingEntity victim = event.getEntity();
         Entity attacker = event.getSource().getEntity();
         if (attacker instanceof IOwned owned){
-            if (MobsConfig.MinionsMasterImmune.get()){
+            if (MobsConfig.ServantsMasterImmune.get()){
                 if (owned.getTrueOwner() == victim){
                     event.setCanceled(true);
                 }

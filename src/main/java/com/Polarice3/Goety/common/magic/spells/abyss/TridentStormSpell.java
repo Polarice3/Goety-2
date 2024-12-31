@@ -13,6 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
 public class TridentStormSpell extends Spell {
+
     public int defaultSoulCost() {
         return SpellConfig.TridentStormCost.get();
     }
@@ -42,15 +43,19 @@ public class TridentStormSpell extends Spell {
     @Override
     public void startSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
         int warmUp = MathHelper.secondsToTicks(2);
-        int i = caster.getRandom().nextInt(4);
-        if (i == 0){
-            WandUtil.summonTridentSurround(caster, warmUp);
-        } else if (i == 1){
-            WandUtil.summonTridentSquare(caster, warmUp);
-        } else if (i == 2){
-            WandUtil.summonTridentWideCircle(caster, warmUp);
+        if (this.rightStaff(staff)) {
+            int i = caster.getRandom().nextInt(4);
+            if (i == 0) {
+                WandUtil.summonTridentSurround(caster, warmUp);
+            } else if (i == 1) {
+                WandUtil.summonTridentSquare(caster, warmUp);
+            } else if (i == 2) {
+                WandUtil.summonTridentWideCircle(caster, warmUp);
+            } else {
+                WandUtil.summonTridentCross(caster, warmUp);
+            }
         } else {
-            WandUtil.summonTridentCross(caster, warmUp);
+            WandUtil.summonTridentMinor(caster, warmUp);
         }
     }
 }

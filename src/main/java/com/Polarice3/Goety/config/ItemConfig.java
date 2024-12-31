@@ -26,12 +26,14 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> StormRobeResistance;
     public static final ForgeConfigSpec.ConfigValue<Integer> NetherRobeResistance;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> StaffOffhandBuff;
     public static final ForgeConfigSpec.ConfigValue<Double> OminousStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> NecroStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> WindStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> StormStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> FrostStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> WildStaffDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> AbyssStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> NetherStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> NamelessStaffDamage;
 
@@ -102,6 +104,7 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkHelmetDarkness;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> RobeCape;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> AbyssSetMobNeutral;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FrostSetMobNeutral;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WildSetMobNeutral;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NetherSetMobNeutral;
@@ -120,6 +123,7 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> FireSpawnCage;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ScytheSlashBreaks;
 
+    public static final ForgeConfigSpec.ConfigValue<Double> AbyssSetMobNeutralHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> FrostSetMobNeutralHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> WildSetMobNeutralHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> NetherSetMobNeutralHealth;
@@ -157,6 +161,10 @@ public class ItemConfig {
                     .defineInRange("stormRobeResistance", 85, 0, 100);
             NetherRobeResistance = BUILDER.comment("How much fire resistance Nether Robes provides by percent, Default: 85")
                     .defineInRange("netherRobeResistance", 85, 0, 100);
+            AbyssSetMobNeutral = BUILDER.comment("Whether wearing both Abyss Robe and Crown will cause certain mobs to be neutral, Default: true")
+                    .define("abyssSetMobNeutral", true);
+            AbyssSetMobNeutralHealth = BUILDER.comment("If 'abyssSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
+                    .defineInRange("abyssSetMobNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
             FrostSetMobNeutral = BUILDER.comment("Whether wearing both Frost Robe and Crown will cause certain mobs to be neutral, Default: true")
                     .define("frostSetMobNeutral", true);
             FrostSetMobNeutralHealth = BUILDER.comment("If 'frostSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
@@ -203,6 +211,8 @@ public class ItemConfig {
         BUILDER.pop();
         BUILDER.push("Tools & Weapons");
             BUILDER.push("Staffs");
+            StaffOffhandBuff = BUILDER.comment("Holding a Staff offhand increases wielder's melee attack damage by 25%, Default: true")
+                    .define("staffOffhandBuff", true);
             OminousStaffDamage = BUILDER.comment("How much base damage Ominous Staffs deals, Default: 4.0")
                     .defineInRange("ominousStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
             NecroStaffDamage = BUILDER.comment("How much base damage Necro Staffs deals, Default: 4.0")
@@ -215,6 +225,8 @@ public class ItemConfig {
                     .defineInRange("frostStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
             WildStaffDamage = BUILDER.comment("How much base damage Wild Staffs deals, Default: 4.0")
                     .defineInRange("wildStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
+            AbyssStaffDamage = BUILDER.comment("How much base damage Abyss Staffs deals, Default: 9.0")
+                    .defineInRange("abyssStaffDamage", 9.0, 1.0, Double.MAX_VALUE);
             NetherStaffDamage = BUILDER.comment("How much base damage Nether Staffs deals, Default: 4.0")
                     .defineInRange("netherStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
             NamelessStaffDamage = BUILDER.comment("How much base damage Nameless Staffs deals, Default: 6.0")

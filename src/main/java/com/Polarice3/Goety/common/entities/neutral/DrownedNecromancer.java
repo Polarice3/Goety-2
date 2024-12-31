@@ -4,6 +4,9 @@ import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
+import com.Polarice3.Goety.common.entities.ai.ModLeaveWaterGoal;
+import com.Polarice3.Goety.common.entities.ai.path.GroundPathNavigatorFat;
+import com.Polarice3.Goety.common.entities.ai.path.ModWaterPathNavigation;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.undead.WraithServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SunkenSkeletonServant;
@@ -12,6 +15,7 @@ import com.Polarice3.Goety.common.entities.ally.undead.zombie.DrownedServant;
 import com.Polarice3.Goety.common.entities.projectiles.SpellHurtingProjectile;
 import com.Polarice3.Goety.common.entities.projectiles.SteamMissile;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.SoulJar;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -25,6 +29,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -67,17 +72,18 @@ public class DrownedNecromancer extends AbstractNecromancer {
 
     public DrownedNecromancer(EntityType<? extends AbstractNecromancer> type, Level level) {
         super(type, level);
-        this.setMaxUpStep(1.0F);
-        this.moveControl = new MoveHelperController(this);
+        this.setMaxUpStep(1.25F);
+        this.moveControl = new MoveHelperController(this, 2.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.waterNavigation = new WaterBoundPathNavigation(this, level);
-        this.groundNavigation = new GroundPathNavigation(this, level);
+        this.waterNavigation = new ModWaterPathNavigation(this, level);
+        this.groundNavigation = new GroundPathNavigatorFat(this, level);
     }
 
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new GoToWaterGoal(this, 1.0D));
         this.goalSelector.addGoal(1, new FollowOwnerWaterGoal(this, 1.0D, 10.0F, 2.0F));
+        this.goalSelector.addGoal(4, new ModLeaveWaterGoal<>(this));
         this.goalSelector.addGoal(5, new GoToBeachGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new SwimUpGoal(this, 1.0D, this.level.getSeaLevel()));
         this.goalSelector.addGoal(7, new WaterWanderGoal<>(this));
@@ -95,6 +101,7 @@ public class DrownedNecromancer extends AbstractNecromancer {
     public void summonSpells(int priority){
         this.goalSelector.addGoal(priority, new TridentStormGoal());
         this.goalSelector.addGoal(priority + 1, new SummonServantSpell());
+        this.goalSelector.addGoal(priority + 2, new DrownedSummonUndeadGoal());
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -210,6 +217,12 @@ public class DrownedNecromancer extends AbstractNecromancer {
         }
     }
 
+    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
+        float f1 = (float)this.getNecroLevel();
+        float size = 1.0F + Math.max(f1 * 0.15F, 0);
+        return 2.5F * size;
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -306,7 +319,7 @@ public class DrownedNecromancer extends AbstractNecromancer {
             Item item = itemstack.getItem();
             if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
                 if (!this.spawnUndeadIdle() && pHand == InteractionHand.MAIN_HAND && itemstack.isEmpty()){
-                    if (this.idleSpellCool <= 0){
+                    if (this.idleSpellCool <= 0 && this.getSpellCooldown() <= 0){
                         this.setUndeadIdle(true);
                     } else {
                         this.playSound(ModSounds.DROWNED_NECROMANCER_HURT.get());
@@ -317,7 +330,7 @@ public class DrownedNecromancer extends AbstractNecromancer {
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
-                    this.playSound(ModSounds.DROWNED_NECROMANCER_SWIM.get(), 1.0F, 1.25F);
+                    this.playSound(SoundEvents.DROWNED_STEP, 1.0F, 1.25F);
                     this.heal(2.0F);
                     if (this.level instanceof ServerLevel serverLevel) {
                         for (int i = 0; i < 7; ++i) {
@@ -356,14 +369,14 @@ public class DrownedNecromancer extends AbstractNecromancer {
                     this.addSummon(ModEntityType.VANGUARD_SERVANT.get());
                     this.playSound(ModSounds.DROWNED_NECROMANCER_AMBIENT.get(), 1.0F, 1.5F);
                     return InteractionResult.SUCCESS;
-                } else if (item == ModItems.SOUL_JAR.get()){
+                } else if (SoulJar.isDrowned(itemstack)){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
                     if (this.getNecroLevel() < 2) {
                         this.setNecroLevel(this.getNecroLevel() + 1);
                     }
-                    this.heal(AttributesConfig.NecromancerHealth.get().floatValue());
+                    this.heal(AttributesConfig.DrownedNecromancerHealth.get().floatValue());
                     if (this.level instanceof ServerLevel serverLevel) {
                         for (int i = 0; i < 7; ++i) {
                             double d0 = this.random.nextGaussian() * 0.02D;
@@ -382,17 +395,19 @@ public class DrownedNecromancer extends AbstractNecromancer {
 
     static class MoveHelperController extends MoveControl {
         private final DrownedNecromancer drowned;
+        private final float speedModifier2;
 
-        public MoveHelperController(DrownedNecromancer p_i48909_1_) {
+        public MoveHelperController(DrownedNecromancer p_i48909_1_, float speedModifier) {
             super(p_i48909_1_);
             this.drowned = p_i48909_1_;
+            this.speedModifier2 = speedModifier;
         }
 
         public void tick() {
             LivingEntity livingentity = this.drowned.getTarget();
             LivingEntity owner = this.drowned.getTrueOwner();
             if (this.drowned.wantsToSwim() && this.drowned.isInWater()) {
-                if (livingentity != null && livingentity.getY() > this.drowned.getY() || this.drowned.searchingForLand) {
+                if ((livingentity != null && livingentity.getY() > this.drowned.getY()) || this.drowned.searchingForLand) {
                     this.drowned.setDeltaMovement(this.drowned.getDeltaMovement().add(0.0D, 0.002D, 0.0D));
                 } else if (owner != null && owner.getY() > this.drowned.getY()){
                     this.drowned.setDeltaMovement(this.drowned.getDeltaMovement().add(0.0D, 0.002D, 0.0D));
@@ -406,12 +421,12 @@ public class DrownedNecromancer extends AbstractNecromancer {
                 double d0 = this.wantedX - this.drowned.getX();
                 double d1 = this.wantedY - this.drowned.getY();
                 double d2 = this.wantedZ - this.drowned.getZ();
-                double d3 = Mth.sqrt((float) (d0 * d0 + d1 * d1 + d2 * d2));
-                d1 = d1 / d3;
+                double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+                d1 /= d3;
                 float f = (float)(Mth.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
                 this.drowned.setYRot(this.rotlerp(this.drowned.getYRot(), f, 90.0F));
-                this.drowned.setYBodyRot(this.drowned.getYRot());
-                float f1 = (float)(this.speedModifier * this.drowned.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                this.drowned.yBodyRot = this.drowned.getYRot();
+                float f1 = (float)(this.speedModifier * (double)this.speedModifier2 * this.drowned.getAttributeValue(Attributes.MOVEMENT_SPEED));
                 float f2 = Mth.lerp(0.125F, this.drowned.getSpeed(), f1);
                 this.drowned.setSpeed(f2);
                 this.drowned.setDeltaMovement(this.drowned.getDeltaMovement().add((double)f2 * d0 * 0.005D, (double)f2 * d1 * 0.1D, (double)f2 * d2 * 0.005D));
@@ -665,7 +680,7 @@ public class DrownedNecromancer extends AbstractNecromancer {
         }
 
         public boolean canContinueToUse() {
-            return this.target != null && this.target.isAlive() && this.totalShots < 5 && !DrownedNecromancer.this.isSpellCasting() && DrownedNecromancer.this.stormSpellCool > 0;
+            return this.target != null && this.target.isAlive() && this.totalShots < 4 && !DrownedNecromancer.this.isSpellCasting() && DrownedNecromancer.this.stormSpellCool > 0;
         }
 
         public void start() {
@@ -762,5 +777,113 @@ public class DrownedNecromancer extends AbstractNecromancer {
         public boolean requiresUpdateEveryTick() {
             return true;
         }
+    }
+
+    public class DrownedSummonUndeadGoal extends Goal{
+        protected int spellTime;
+
+        @Override
+        public boolean canUse() {
+            if (DrownedNecromancer.this.getTarget() != null && DrownedNecromancer.this.getTarget().isAlive()){
+                return false;
+            } else if (DrownedNecromancer.this.isShooting()){
+                return false;
+            } else if (DrownedNecromancer.this.isSpellCasting()) {
+                return false;
+            } else if (!DrownedNecromancer.this.spawnUndeadIdle()){
+                return false;
+            } else {
+                return DrownedNecromancer.this.getSpellCooldown() <= 0 && DrownedNecromancer.this.idleSpellCool <= 0;
+            }
+        }
+
+        public boolean canContinueToUse() {
+            return this.spellTime > 0 && DrownedNecromancer.this.hurtTime <= 0;
+        }
+
+        public void start() {
+            this.spellTime = 29;
+            DrownedNecromancer.this.setSpellCooldown(100);
+            DrownedNecromancer.this.playSound(ModSounds.PREPARE_SUMMON.get(), 1.0F, 1.0F);
+            DrownedNecromancer.this.setSpellCasting(true);
+            DrownedNecromancer.this.setNecromancerSpellType(NecromancerSpellType.ZOMBIE);
+            DrownedNecromancer.this.setAnimationState(SPELL_ANIM);
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            DrownedNecromancer.this.setSpellCasting(false);
+            DrownedNecromancer.this.setAnimationState(IDLE);
+        }
+
+        public void tick() {
+            --this.spellTime;
+            if (this.spellTime == 0) {
+                DrownedNecromancer.this.playSound(ModSounds.DROWNED_NECROMANCER_AMBIENT.get(), 2.0F, DrownedNecromancer.this.getVoicePitch());
+                DrownedNecromancer.this.setNecromancerSpellType(NecromancerSpellType.NONE);
+                int i = 2 + DrownedNecromancer.this.level.random.nextInt(4);
+                for (int i1 = 0; i1 < i; ++i1) {
+                    if (DrownedNecromancer.this.level instanceof ServerLevel serverLevel) {
+                        Summoned summonedentity = DrownedNecromancer.this.getSummon();
+                        if (DrownedNecromancer.this.summonVariants()) {
+                            EntityType<?> entityType = summonedentity.getVariant(serverLevel, DrownedNecromancer.this.blockPosition());
+                            if (entityType != null && entityType.create(serverLevel) instanceof Summoned summoned) {
+                                summonedentity = summoned;
+                            }
+                        }
+                        BlockPos blockPos = BlockFinder.SummonRadius(DrownedNecromancer.this.blockPosition(), summonedentity, serverLevel);
+                        LivingEntity owner = DrownedNecromancer.this.getTrueOwner() != null ? DrownedNecromancer.this.getTrueOwner() : DrownedNecromancer.this;
+                        summonedentity.setTrueOwner(owner);
+                        summonedentity.moveTo(blockPos, DrownedNecromancer.this.getYRot(), DrownedNecromancer.this.getXRot());
+                        if (MobsConfig.NecromancerSummonsLife.get()) {
+                            summonedentity.setLimitedLife(MobUtil.getSummonLifespan(serverLevel));
+                        }
+                        summonedentity.setPersistenceRequired();
+                        summonedentity.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(DrownedNecromancer.this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+                        this.populateDefaultEquipmentSlots(summonedentity, serverLevel.random);
+                        if (serverLevel.addFreshEntity(summonedentity)){
+                            if (!DrownedNecromancer.this.isSilent()) {
+                                DrownedNecromancer.this.level.playSound(null, DrownedNecromancer.this.getX(), DrownedNecromancer.this.getY(), DrownedNecromancer.this.getZ(), ModSounds.DROWNED_NECROMANCER_SUMMON.get(), DrownedNecromancer.this.getSoundSource(), 1.4F, 1.0F);
+                            }
+                            ColorUtil colorUtil = new ColorUtil(0x2ac9cf);
+                            ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 0.1F, 0.1F, 0.05F, -1, summonedentity.position());
+                        }
+                    }
+                }
+                DrownedNecromancer.this.setUndeadIdle(false);
+                DrownedNecromancer.this.idleSpellCool = MathHelper.secondsToTicks(20);
+            }
+        }
+
+        protected void populateDefaultEquipmentSlots(LivingEntity livingEntity, RandomSource p_217055_) {
+            if (p_217055_.nextFloat() <= 0.15F) {
+                int i = p_217055_.nextInt(2) + 2;
+                if (p_217055_.nextFloat() < 0.095F) {
+                    ++i;
+                }
+
+                boolean flag = true;
+
+                for(EquipmentSlot equipmentslot : EquipmentSlot.values()) {
+                    if (equipmentslot.getType() == EquipmentSlot.Type.ARMOR) {
+                        ItemStack itemstack = livingEntity.getItemBySlot(equipmentslot);
+                        if (!flag && p_217055_.nextFloat() < 0.1F) {
+                            break;
+                        }
+
+                        flag = false;
+                        if (itemstack.isEmpty()) {
+                            Item item = getEquipmentForSlot(equipmentslot, i);
+                            if (item != null) {
+                                livingEntity.setItemSlot(equipmentslot, new ItemStack(item));
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
     }
 }

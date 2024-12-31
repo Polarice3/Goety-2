@@ -464,7 +464,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
     @Override
     public void performRangedAttack(@NotNull LivingEntity p_33317_, float p_33318_) {
         if (this.getNecroLevel() <= 0) {
-            new SoulBoltSpell().SpellResult(this.level, this, ItemStack.EMPTY);
+            new SoulBoltSpell().mobSpellResult(this, ItemStack.EMPTY);
         } else {
             for (int i = -this.getNecroLevel(); i <= this.getNecroLevel(); i++) {
                 Vec3 vector3d = this.getViewVector(1.0F);
@@ -484,7 +484,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
             Item item = itemstack.getItem();
             if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
                 if (!this.spawnUndeadIdle() && pHand == InteractionHand.MAIN_HAND && itemstack.isEmpty()){
-                    if (this.idleSpellCool <= 0){
+                    if (this.idleSpellCool <= 0 && this.getSpellCooldown() <= 0){
                         this.setUndeadIdle(true);
                     } else {
                         this.playSound(ModSounds.NECROMANCER_HURT.get());

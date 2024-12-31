@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "This spell will summon entangling roots upon a target. If the roots managed to catch a target in time, they will be unable to move until the roots retreat back into the ground. When cast with $(l:crafts/wild_staff)Wild Staff$(), the roots will be summoned underneath 8 nearby non-allied creatures."
+      "text": "This spell will summon entangling roots upon a target. If the roots managed to catch a target in time, they will be unable to move until the roots retreat back into the ground. When cast with $(l:crafts/staff/wild_staff)Wild Staff$(), the roots will be summoned underneath 8 nearby non-allied creatures."
     },
     {
       "type": "goety:ritual",

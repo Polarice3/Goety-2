@@ -1,0 +1,22 @@
+{
+  "name": "Trident Storm Focus",
+  "icon": "goety:trident_storm_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The powers of the deep allows you to conjure tridents to fall around you, blasting your foes away with channeled lightning bolts."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/trident_storm_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/abyss_staff)Abyss Staff$() summon more tridents around you with more elaborate patterns."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:trident_storm_focus": 1
+  }
+}

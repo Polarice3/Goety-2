@@ -1,0 +1,18 @@
+{
+  "name": "Storm Staff",
+  "icon": "goety:storm_staff",
+  "category": "goety:crafts/staff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The power of the storms and lightning rest within this staff. With it, storm spells are no longer affected by Lightning Rods and can chain lightning multiple non-allied mobs."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:storm_staff"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:storm_staff": 1
+  }
+}

@@ -3,11 +3,14 @@ package com.Polarice3.Goety.common.items;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.StrayServant;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.DrownedServant;
 import com.Polarice3.Goety.common.entities.neutral.AbstractCairnNecromancer;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
+import com.Polarice3.Goety.common.entities.neutral.DrownedNecromancer;
 import com.Polarice3.Goety.common.ritual.RitualRequirements;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
@@ -23,6 +26,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.monster.Stray;
 import net.minecraft.world.entity.player.Player;
@@ -39,12 +43,33 @@ import java.util.List;
 import java.util.Objects;
 
 public class SoulJar extends Item {
+    public static final String TAG_DROWNED = "Drowned";
+
     public SoulJar(){
         super(new Properties()
                 .rarity(Rarity.UNCOMMON)
                 .setNoRepair()
                 .stacksTo(1)
         );
+    }
+
+    @Override
+    public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (!worldIn.isClientSide) {
+            LivingEntity livingEntity = getNecromancer(stack, worldIn);
+            if (livingEntity != null) {
+                if (livingEntity instanceof DrownedNecromancer) {
+                    if (!isDrowned(stack)) {
+                        setDrowned(stack);
+                    }
+                } else if (stack.getTag() != null && isDrowned(stack)) {
+                    stack.getTag().remove(TAG_DROWNED);
+                }
+            } else if (stack.getTag() != null) {
+                stack.getTag().remove(TAG_DROWNED);
+            }
+        }
+        super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
     }
 
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
@@ -54,7 +79,9 @@ public class SoulJar extends Item {
             AbstractNecromancer necromancer = getNecromancer(stack, level);
             if (necromancer != null) {
                 boolean flag;
-                if (necromancer instanceof AbstractCairnNecromancer){
+                if (necromancer instanceof DrownedNecromancer || isDrowned(stack)){
+                    flag = target instanceof DrownedServant || target instanceof Drowned;
+                } else if (necromancer instanceof AbstractCairnNecromancer){
                     flag = target instanceof StrayServant || target instanceof Stray;
                 } else {
                     flag = target instanceof SkeletonServant || target instanceof Skeleton;
@@ -74,10 +101,14 @@ public class SoulJar extends Item {
                                     }
                                 }
                                 necromancer.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 0.5F);
-                                necromancer.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, 0.5F);
+                                if (necromancer instanceof DrownedNecromancer){
+                                    necromancer.playSound(ModSounds.DROWNED_NECROMANCER_AMBIENT.get(), 2.0F, 0.5F);
+                                } else {
+                                    necromancer.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, 0.5F);
+                                }
                                 target.discard();
                                 player.swing(hand);
-                                player.getCooldowns().addCooldown(ModItems.SOUL_JAR.get(), MathHelper.secondsToTicks(30));
+                                SEHelper.addCooldown(player, this, MathHelper.secondsToTicks(30));
                                 stack.shrink(1);
                             }
                         }
@@ -87,6 +118,16 @@ public class SoulJar extends Item {
         }
 
         return super.interactLivingEntity(stack, player, target, hand);
+    }
+
+    public static boolean isDrowned(ItemStack stack) {
+        CompoundTag compoundtag = stack.getTag();
+        return stack.getItem() instanceof SoulJar && compoundtag != null && compoundtag.contains(TAG_DROWNED);
+    }
+
+    public static void setDrowned(ItemStack stack){
+        CompoundTag compoundTag = stack.getOrCreateTag();
+        compoundTag.putBoolean(TAG_DROWNED, true);
     }
 
     public static void setNecromancer(AbstractNecromancer necromancer, ItemStack stack) {
@@ -104,6 +145,9 @@ public class SoulJar extends Item {
             necromancer.save(entityTag);
             CompoundTag itemNBT = stack.getOrCreateTag();
             itemNBT.put("entity", entityTag);
+            if (necromancer instanceof DrownedNecromancer){
+                setDrowned(stack);
+            }
         }
     }
 

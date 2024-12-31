@@ -107,6 +107,7 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
         this.tag(EntityTypeTags.FROG_FOOD).add(ModEntityType.SLIME_SERVANT.get(),
                 ModEntityType.MAGMA_CUBE_SERVANT.get(),
                 ModEntityType.CRYPT_SLIME_SERVANT.get(),
+                ModEntityType.TROPICAL_SLIME_SERVANT.get(),
                 ModEntityType.CRYPT_SLIME.get());
 
         //Based on https://github.com/ochotonida/artifacts/blob/1.20.x/data/src/main/java/artifacts/data/providers/EntityTypeTags.java for max compat

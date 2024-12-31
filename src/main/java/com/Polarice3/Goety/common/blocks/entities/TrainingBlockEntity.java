@@ -183,7 +183,7 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
                             && !(CuriosFinder.validWildMob(target) && this.getTrueOwner() != null && CuriosFinder.neutralWildSet(this.getTrueOwner()))
                             && !(CuriosFinder.validNetherMob(target) && this.getTrueOwner() != null && CuriosFinder.neutralNetherSet(this.getTrueOwner()))
                             && !(target.getMobType() == MobType.ARTHROPOD && this.getTrueOwner() != null && CuriosFinder.hasWarlockRobe(this.getTrueOwner()))
-                            && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.MinionsAttackCreepers.get())
+                            && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.ServantsAttackCreepers.get())
                             && !(target instanceof NeutralMob && ((this.getTrueOwner() != null && ((NeutralMob) target).getTarget() != this.getTrueOwner())))
                             && !(target instanceof IOwned && this.getTrueOwner() != null && ((IOwned) target).getTrueOwner() == this.getTrueOwner()))
                             || (target instanceof IOwned owned && owned.isHostile())

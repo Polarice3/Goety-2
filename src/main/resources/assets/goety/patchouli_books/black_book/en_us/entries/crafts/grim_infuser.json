@@ -13,5 +13,8 @@
       "type": "goety:ritual",
       "recipe": "goety:grim_infuser"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:grim_infuser": 1
+  }
 }

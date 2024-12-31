@@ -17,6 +17,7 @@ public class ScatterMineRenderer<T extends ScatterMine> extends EntityRenderer<T
     private static final ResourceLocation TEXTURE = Goety.location("textures/entity/projectiles/scatter_mine.png");
     private static final ResourceLocation GLOW = Goety.location("textures/entity/projectiles/scatter_mine_glow.png");
     private static final ResourceLocation GLOW_SPELL = Goety.location("textures/entity/projectiles/scatter_mine_glow_spell.png");
+    private static final ResourceLocation EXPLODE = Goety.location("textures/entity/projectiles/scatter_mine_explode.png");
     private final ScatterMineModel<T> model;
 
     public ScatterMineRenderer(EntityRendererProvider.Context p_i47208_1_) {
@@ -25,20 +26,32 @@ public class ScatterMineRenderer<T extends ScatterMine> extends EntityRenderer<T
     }
 
     public void render(T pEntity, float entityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource bufferIn, int packedLightIn) {
-        pMatrixStack.pushPose();
-        pMatrixStack.mulPose(Axis.YP.rotationDegrees(90.0F - pEntity.getYRot()));
-        VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.model.renderType(this.getTextureLocation(pEntity)));
-        float scale = pEntity.size;
-        if (!pEntity.startShrink()){
-            scale = 1.0F;
+        if (pEntity.growTick <= 0) {
+            pMatrixStack.pushPose();
+            pMatrixStack.mulPose(Axis.YP.rotationDegrees(90.0F - pEntity.getYRot()));
+            VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.model.renderType(this.getTextureLocation(pEntity)));
+            float scale = pEntity.size;
+            if (!pEntity.startShrink()) {
+                scale = 1.0F;
+            }
+            pMatrixStack.scale(-scale, -scale, scale);
+            pMatrixStack.translate(0.0D, -1.45D, 0.0D);
+            this.model.renderToBuffer(pMatrixStack, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 0.15F);
+            ResourceLocation resourceLocation = pEntity.isSpell() ? GLOW_SPELL : GLOW;
+            VertexConsumer vertexconsumer = bufferIn.getBuffer(RenderType.entityTranslucentEmissive(resourceLocation));
+            this.model.renderToBuffer(pMatrixStack, vertexconsumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, pEntity.getGlow);
+            pMatrixStack.popPose();
+        } else {
+            pMatrixStack.pushPose();
+            pMatrixStack.mulPose(Axis.YP.rotationDegrees(90.0F - pEntity.getYRot()));
+            float scale2 = pEntity.size;
+            pMatrixStack.scale(-scale2, -scale2, scale2);
+            pMatrixStack.translate(0.0D, -1.45D, 0.0D);
+            ResourceLocation resourceLocation3 = pEntity.isSpell() ? GLOW_SPELL : EXPLODE;
+            VertexConsumer vertexconsumer2 = bufferIn.getBuffer(RenderType.itemEntityTranslucentCull(resourceLocation3));
+            this.model.renderToBuffer(pMatrixStack, vertexconsumer2, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, pEntity.getGlow);
+            pMatrixStack.popPose();
         }
-        pMatrixStack.scale(-scale, -scale, scale);
-        pMatrixStack.translate(0.0D, -1.45D, 0.0D);
-        this.model.renderToBuffer(pMatrixStack, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 0.15F);
-        ResourceLocation resourceLocation = pEntity.isSpell() ? GLOW_SPELL : GLOW;
-        VertexConsumer vertexconsumer = bufferIn.getBuffer(RenderType.entityTranslucentEmissive(resourceLocation));
-        this.model.renderToBuffer(pMatrixStack, vertexconsumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, pEntity.getGlow);
-        pMatrixStack.popPose();
         super.render(pEntity, entityYaw, pPartialTicks, pMatrixStack, bufferIn, packedLightIn);
     }
 

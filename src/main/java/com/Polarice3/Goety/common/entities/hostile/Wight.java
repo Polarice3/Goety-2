@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.neutral.CarrionMaggot;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.util.DelayedSummon;
+import com.Polarice3.Goety.common.magic.spells.geomancy.QuakingSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.ModServerBossInfo;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
@@ -1169,8 +1170,14 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
                     if (Wight.this.attackTick < MathHelper.secondsToTicks(1.7F)) {
                         Wight.this.setYBodyRot(Wight.this.getYHeadRot());
                         if (Wight.this.getCurrentAnimation() == Wight.this.getAnimationState(SMASH)) {
+                            float chance = MobUtil.healthIsHalved(Wight.this) ? 0.45F : 0.0F;
                             if (Wight.this.attackTick == 20) {
                                 Wight.this.playSound(ModSounds.WIGHT_SWING.get(), Wight.this.getSoundVolume(), Wight.this.getVoicePitch() - 0.5F);
+                                if (Wight.this.level.getRandom().nextFloat() <= chance){
+                                    for (int i = 0; i <= 3; ++i) {
+                                        QuakingSpell.surroundTremor(Wight.this, i, 3, 0.0F, false, (float) Wight.this.getAttributeValue(Attributes.ATTACK_DAMAGE), 0.1F);
+                                    }
+                                }
                                 if (Wight.this.targetClose(enemy, distToEnemySqr)) {
                                     Wight.this.doHurtTarget(enemy);
                                     if (enemy instanceof Player player){

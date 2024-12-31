@@ -1,0 +1,24 @@
+{
+  "name": "幻翼仆从",
+  "icon": "minecraft:phantom_membrane",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "虽说幻翼通常更喜欢猎杀睡眠不足的人，但你还是找到了一种方法，让它们被迫为听从你的指挥"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:phantom_servant",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "当你穿戴死灵套召唤幻翼仆从时，幻翼仆从的身体会变得半透明且可以穿透方块飞行，你可以使用 $(l:focuses/necromancy/phantasm_focus)幻散聚晶$() 召唤幻翼仆从，或是使用仪式召唤一只无限寿命的幻翼仆从"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_phantom_servant_thrall"
+    }
+  ]
+}

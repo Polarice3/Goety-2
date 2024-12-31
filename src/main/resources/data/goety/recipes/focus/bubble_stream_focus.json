@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "swm",
+    "wew",
+    "mws"
+  ],
+  "key":
+  {
+    "e":
+    {
+      "item": "goety:empty_focus"
+    },
+    "w":
+    {
+      "item": "minecraft:water_bucket"
+    },
+    "s":
+    {
+      "item": "minecraft:soul_sand"
+    },
+    "m":
+    {
+      "item": "minecraft:magma_block"
+    }
+  },
+  "result":
+  {
+    "item": "goety:bubble_stream_focus",
+    "count": 1
+  }
+}

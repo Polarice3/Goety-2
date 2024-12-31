@@ -7,7 +7,6 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -41,38 +40,16 @@ public abstract class SpellTargetProjectile extends Projectile {
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        UUID uuid;
-        if (compound.hasUUID("Owner")) {
-            uuid = compound.getUUID("Owner");
-        } else {
-            String s = compound.getString("Owner");
-            uuid = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), s);
-        }
-
-        if (uuid != null) {
-            try {
-                this.setOwnerId(uuid);
-            } catch (Throwable ignored) {
-            }
+        if (compound.contains("Owner")) {
+            this.setOwnerId(compound.getUUID("Owner"));
         }
 
         if (compound.contains("OwnerClient")){
             this.setOwnerClientId(compound.getInt("OwnerClient"));
         }
 
-        UUID uuid2;
         if (compound.hasUUID("Target")) {
-            uuid2 = compound.getUUID("Target");
-        } else {
-            String s = compound.getString("Target");
-            uuid2 = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), s);
-        }
-
-        if (uuid2 != null) {
-            try {
-                this.setTargetId(uuid2);
-            } catch (Throwable ignored) {
-            }
+            this.setTargetId(compound.getUUID("Target"));
         }
 
         if (compound.contains("TargetClient")){

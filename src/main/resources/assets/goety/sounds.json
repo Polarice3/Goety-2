@@ -4795,6 +4795,252 @@
     ],
     "subtitle": "subtitle.goety.vine_trap_hold"
   },
+  "tropical_slime_small_hurt": {
+    "sounds": [
+      {
+        "name": "goety:tropical_slime/small/hurt1"
+      },
+      {
+        "name": "goety:tropical_slime/small/hurt2"
+      },
+      {
+        "name": "goety:tropical_slime/small/hurt3"
+      },
+      {
+        "name": "goety:tropical_slime/small/hurt4"
+      }
+    ],
+    "subtitle": "subtitles.entity.slime.hurt"
+  },
+  "tropical_slime_small_attack": {
+    "sounds": [
+      {
+        "name": "goety:tropical_slime/small/attack1"
+      },
+      {
+        "name": "goety:tropical_slime/small/attack2"
+      }
+    ],
+    "subtitle": "subtitles.entity.slime.attack"
+  },
+  "tropical_slime_small_jump": {
+    "sounds": [
+      {
+        "name": "goety:tropical_slime/small/jump1"
+      },
+      {
+        "name": "goety:tropical_slime/small/jump2"
+      },
+      {
+        "name": "goety:tropical_slime/small/jump3"
+      },
+      {
+        "name": "goety:tropical_slime/small/jump4"
+      },
+      {
+        "name": "goety:tropical_slime/small/jump5"
+      }
+    ],
+    "subtitle": "subtitles.entity.slime.squish"
+  },
+  "tropical_slime_small_squish": {
+    "sounds": [
+      {
+        "name": "goety:tropical_slime/small/squish1"
+      },
+      {
+        "name": "goety:tropical_slime/small/squish2"
+      },
+      {
+        "name": "goety:tropical_slime/small/squish3"
+      },
+      {
+        "name": "goety:tropical_slime/small/squish4"
+      },
+      {
+        "name": "goety:tropical_slime/small/squish5"
+      }
+    ],
+    "subtitle": "subtitles.entity.slime.squish"
+  },
+  "tropical_slime_small_death": {
+    "sounds": [
+      {
+        "name": "goety:tropical_slime/small/death1"
+      },
+      {
+        "name": "goety:tropical_slime/small/death2"
+      },
+      {
+        "name": "goety:tropical_slime/small/death3"
+      }
+    ],
+    "subtitle": "subtitles.entity.slime.death"
+  },
+  "tropical_slime_medium_hurt": {
+    "sounds": [
+      {
+        "name": "goety:tropical_slime/medium/hurt1"
+      },
+      {
+        "name": "goety:tropical_slime/medium/hurt2"
+      },
+      {
+        "name": "goety:tropical_slime/medium/hurt3"
+      },
+      {
+        "name": "goety:tropical_slime/medium/hurt4"
+      }
+    ],
+    "subtitle": "subtitles.entity.slime.hurt"
+  },
+  "tropical_slime_medium_attack": {
+    "sounds": [
+      {
+        "name": "goety:tropical_slime/medium/attack1"
+      },
+      {
+        "name": "goety:tropical_slime/medium/attack2"
+      }
+    ],
+    "subtitle": "subtitles.entity.slime.attack"
+  },
+  "tropical_slime_medium_jump": {
+    "sounds": [
+      {
+        "name": "goety:tropical_slime/medium/jump1"
+      },
+      {
+        "name": "goety:tropical_slime/medium/jump2"
+      },
+      {
+        "name": "goety:tropical_slime/medium/jump3"
+      },
+      {
+        "name": "goety:tropical_slime/medium/jump4"
+      },
+      {
+        "name": "goety:tropical_slime/medium/jump5"
+      }
+    ],
+    "subtitle": "subtitles.entity.slime.squish"
+  },
+  "tropical_slime_medium_squish": {
+    "sounds": [
+      {
+        "name": "goety:tropical_slime/medium/squish1"
+      },
+      {
+        "name": "goety:tropical_slime/medium/squish2"
+      },
+      {
+        "name": "goety:tropical_slime/medium/squish3"
+      },
+      {
+        "name": "goety:tropical_slime/medium/squish4"
+      },
+      {
+        "name": "goety:tropical_slime/medium/squish5"
+      }
+    ],
+    "subtitle": "subtitles.entity.slime.squish"
+  },
+  "tropical_slime_medium_death": {
+    "sounds": [
+      {
+        "name": "goety:tropical_slime/medium/death1"
+      },
+      {
+        "name": "goety:tropical_slime/medium/death2"
+      },
+      {
+        "name": "goety:tropical_slime/medium/death3"
+      }
+    ],
+    "subtitle": "subtitles.entity.slime.death"
+  },
+  "tropical_slime_large_hurt": {
+    "sounds": [
+      {
+        "name": "goety:tropical_slime/large/hurt1"
+      },
+      {
+        "name": "goety:tropical_slime/large/hurt2"
+      },
+      {
+        "name": "goety:tropical_slime/large/hurt3"
+      },
+      {
+        "name": "goety:tropical_slime/large/hurt4"
+      }
+    ],
+    "subtitle": "subtitles.entity.slime.hurt"
+  },
+  "tropical_slime_large_attack": {
+    "sounds": [
+      {
+        "name": "goety:tropical_slime/large/attack1"
+      },
+      {
+        "name": "goety:tropical_slime/large/attack2"
+      }
+    ],
+    "subtitle": "subtitles.entity.slime.attack"
+  },
+  "tropical_slime_large_jump": {
+    "sounds": [
+      {
+        "name": "goety:tropical_slime/large/jump1"
+      },
+      {
+        "name": "goety:tropical_slime/large/jump2"
+      },
+      {
+        "name": "goety:tropical_slime/large/jump3"
+      },
+      {
+        "name": "goety:tropical_slime/large/jump4"
+      },
+      {
+        "name": "goety:tropical_slime/large/jump5"
+      }
+    ],
+    "subtitle": "subtitles.entity.slime.squish"
+  },
+  "tropical_slime_large_squish": {
+    "sounds": [
+      {
+        "name": "goety:tropical_slime/large/squish1"
+      },
+      {
+        "name": "goety:tropical_slime/large/squish2"
+      },
+      {
+        "name": "goety:tropical_slime/large/squish3"
+      },
+      {
+        "name": "goety:tropical_slime/large/squish4"
+      },
+      {
+        "name": "goety:tropical_slime/large/squish5"
+      }
+    ],
+    "subtitle": "subtitles.entity.slime.squish"
+  },
+  "tropical_slime_large_death": {
+    "sounds": [
+      {
+        "name": "goety:tropical_slime/large/death1"
+      },
+      {
+        "name": "goety:tropical_slime/large/death2"
+      },
+      {
+        "name": "goety:tropical_slime/large/death3"
+      }
+    ],
+    "subtitle": "subtitles.entity.slime.death"
+  },
   "spider_bite": {
     "sounds": [
       {
@@ -4928,6 +5174,34 @@
       }
     ]
   },
+  "biomine_spawn": {
+    "sounds": [
+      {
+        "name": "goety:random/biomine_spawn1"
+      },
+      {
+        "name": "goety:random/biomine_spawn2"
+      },
+      {
+        "name": "goety:random/biomine_spawn3"
+      }
+    ],
+    "subtitle": "subtitle.goety.biomine_spawn"
+  },
+  "biomine_trigger": {
+    "sounds": [
+      {
+        "name": "goety:random/biomine_trigger1"
+      },
+      {
+        "name": "goety:random/biomine_trigger2"
+      },
+      {
+        "name": "goety:random/biomine_trigger3"
+      }
+    ],
+    "subtitle": "subtitle.goety.biomine_trigger"
+  },
   "ghast_disappear": {
     "sounds": [
       {
@@ -5028,6 +5302,20 @@
       }
     ],
     "subtitle": "subtitle.goety.frost_breath"
+  },
+  "bubble_stream": {
+    "sounds": [
+      {
+        "name": "goety:spell/bubble_stream1"
+      },
+      {
+        "name": "goety:spell/bubble_stream2"
+      },
+      {
+        "name": "goety:spell/bubble_stream3"
+      }
+    ],
+    "subtitle": "subtitle.goety.bubble_stream"
   },
   "burrow_spell": {
     "sounds": [
@@ -5133,6 +5421,23 @@
       }
     ],
     "subtitle": "subtitle.goety.wild_prepare_spell"
+  },
+  "abyss_prepare_spell": {
+    "sounds": [
+      {
+        "name": "goety:spell/abyss_prepare_spell1"
+      },
+      {
+        "name": "goety:spell/abyss_prepare_spell2"
+      },
+      {
+        "name": "goety:spell/abyss_prepare_spell3"
+      },
+      {
+        "name": "goety:spell/abyss_prepare_spell4"
+      }
+    ],
+    "subtitle": "subtitle.goety.prepare_spell"
   },
   "void_prepare_spell": {
     "sounds": [

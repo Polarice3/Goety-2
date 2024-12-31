@@ -305,6 +305,8 @@ public interface ISpell {
             return CuriosFinder.hasFrostCrown(caster) || CuriosFinder.hasMagicHat(caster);
         } else if (this.getSpellType() == SpellType.WILD){
             return CuriosFinder.hasWildCrown(caster) || CuriosFinder.hasMagicHat(caster);
+        } else if (this.getSpellType() == SpellType.ABYSS){
+            return CuriosFinder.hasAbyssCrown(caster) || CuriosFinder.hasMagicHat(caster);
         } else if (this.getSpellType() == SpellType.NETHER){
             return CuriosFinder.hasNetherCrown(caster) || CuriosFinder.hasMagicHat(caster);
         } else if (this.getSpellType() == SpellType.NECROMANCY){
@@ -356,7 +358,7 @@ public interface ISpell {
     }
 
     default boolean AbyssSoulDiscount(LivingEntity caster){
-        return false;
+        return CuriosFinder.hasAbyssRobes(caster);
     }
 
     default boolean NecroSoulDiscount(LivingEntity caster){

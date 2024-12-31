@@ -12,6 +12,7 @@ import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import com.Polarice3.Goety.utils.WandUtil;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -46,21 +47,15 @@ public abstract class Spell implements ISpell {
 
     public abstract int defaultSpellCooldown();
 
-    public void SpellResult(LivingEntity caster, ItemStack staff){
-        SpellResult(caster.level, caster, staff, this.defaultStats());
+    public void mobSpellResult(LivingEntity caster, ItemStack staff){
+        mobSpellResult(caster, staff, this.defaultStats());
     }
 
-    public void SpellResult(LivingEntity caster, ItemStack staff, SpellStat spellStat){
-        SpellResult(caster.level, caster, staff, spellStat);
+    public void mobSpellResult(LivingEntity caster, ItemStack staff, SpellStat spellStat){
+        serverCheckSpellResult(caster.level, caster, staff, spellStat);
     }
 
-    public void SpellResult(Level level, LivingEntity caster, ItemStack staff){
-        if (level instanceof ServerLevel serverLevel){
-            SpellResult(serverLevel, caster, staff, this.defaultStats());
-        }
-    }
-
-    public void SpellResult(Level level, LivingEntity caster, ItemStack staff, SpellStat spellStat){
+    public void serverCheckSpellResult(Level level, LivingEntity caster, ItemStack staff, SpellStat spellStat){
         if (level instanceof ServerLevel serverLevel){
             SpellResult(serverLevel, caster, staff, spellStat);
         }
@@ -141,6 +136,10 @@ public abstract class Spell implements ISpell {
                 ColorUtil colorUtil = new ColorUtil(0xfcd9f7);
                 serverLevel.sendParticles(ModParticleTypes.SPELL_SQUARE.get(), caster.getX(), caster.getY() + 2.0D, caster.getZ(), 0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 0.5F);
                 serverLevel.sendParticles(new FoggyCloudParticleOption(new ColorUtil(0xcf75af), 0.25F, 6), caster.getX(), caster.getY() + 1.5D, caster.getZ(), 1, 0, 0, 0, 0);
+            } else if (this.getSpellType() == SpellType.ABYSS){
+                int range = 1;
+                ColorUtil colorUtil = new ColorUtil(ChatFormatting.AQUA);
+                ServerParticleUtil.gatheringParticles(new GatherTrailParticle.Option(colorUtil, caster.position().add(0, 2, 0)), caster, serverLevel, range);
             } else if (this.getSpellType() == SpellType.NECROMANCY){
                 int range = 1;
                 ColorUtil colorUtil = new ColorUtil(0xffffff);

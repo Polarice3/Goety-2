@@ -1,0 +1,22 @@
+{
+  "name": "Bouncy Bubble Focus",
+  "icon": "goety:bouncy_bubble_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "An odd spell that summons forth a big bubble that bounces from surfaces and creatures, somehow hurting them as though it were sharp or made of acid. After bouncing multiple times, the bubble will burst, hurting nearby non-allied creatures."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/bouncy_bubble_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/abyss_staff)Abyss Staff$() will summon two Bouncy Bubbles instead of one."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:bouncy_bubble_focus": 1
+  }
+}

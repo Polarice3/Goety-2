@@ -110,6 +110,9 @@ public class BlossomBall extends SpellThrowableProjectile{
                     if (this.level instanceof ServerLevel serverLevel){
                         serverLevel.sendParticles(ModParticleTypes.BLOSSOM_THORN_INDICATOR.get(), blossomThorn.position().x, blossomThorn.position().y + 0.1F, blossomThorn.position().z, 1, 0.0F, 0.0F, 0.0F, 0.0F);
                     }
+                    if (vec31 != vec3){
+                        blossomThorn.setSilent(true);
+                    }
                     this.level.addFreshEntity(blossomThorn);
                 }
             }

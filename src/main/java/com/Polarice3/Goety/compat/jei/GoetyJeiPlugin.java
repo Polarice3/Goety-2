@@ -42,6 +42,7 @@ public class GoetyJeiPlugin implements IModPlugin {
         registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), RitualTypes.FROST));
         registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), RitualTypes.SKY));
         registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), RitualTypes.STORM));
+        registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), RitualTypes.DEEP));
         registration.addRecipeCategories(new ModBrazierCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new PulverizeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new WitchBrewCategory(registration.getJeiHelpers().getGuiHelper()));
@@ -66,6 +67,7 @@ public class GoetyJeiPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.FREEZING_LAMP.get()), JeiRecipeTypes.getRitual(RitualTypes.FROST));
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.MARBLE_BLOCK.get()), JeiRecipeTypes.getRitual(RitualTypes.SKY));
         registration.addRecipeCatalyst(new ItemStack(Blocks.LIGHTNING_ROD), JeiRecipeTypes.getRitual(RitualTypes.STORM));
+        registration.addRecipeCatalyst(new ItemStack(Blocks.PRISMARINE_BRICKS), JeiRecipeTypes.getRitual(RitualTypes.DEEP));
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.NECRO_BRAZIER.get()), JeiRecipeTypes.BRAZIER);
         registration.addRecipeCatalyst(new ItemStack(ModItems.PULVERIZE_FOCUS.get()), JeiRecipeTypes.PULVERIZE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.BREWING_CAULDRON.get()), JeiRecipeTypes.BREWING);
@@ -91,6 +93,7 @@ public class GoetyJeiPlugin implements IModPlugin {
         this.registerRitualType(registration, recipeManager, RitualTypes.FROST);
         this.registerRitualType(registration, recipeManager, RitualTypes.SKY);
         this.registerRitualType(registration, recipeManager, RitualTypes.STORM);
+        this.registerRitualType(registration, recipeManager, RitualTypes.DEEP);
         List<BrazierRecipe> brazierRecipes = recipeManager.getAllRecipesFor(ModRecipeSerializer.BRAZIER_TYPE.get());
         registration.addRecipes(JeiRecipeTypes.BRAZIER, brazierRecipes);
         List<PulverizeRecipe> pulverizeRecipes = recipeManager.getAllRecipesFor(ModRecipeSerializer.PULVERIZE_TYPE.get());

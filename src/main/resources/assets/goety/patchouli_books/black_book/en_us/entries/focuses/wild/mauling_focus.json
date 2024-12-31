@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Bears are strong, but wild and aggressive. With your dark powers, you're able to summon forth bears that are loyal towards you to the very end. When cast with $(l:crafts/wild_staff)Wild Staff$(), two bears are summoned at once, wearing a Wild Robe will summoned stronger versions where their claws even inflict Sapped on their victim."
+      "text": "Bears are strong, but wild and aggressive. With your dark powers, you're able to summon forth bears that are loyal towards you to the very end. When cast with $(l:crafts/staff/wild_staff)Wild Staff$(), two bears are summoned at once, wearing a Wild Robe will summoned stronger versions where their claws even inflict Sapped on their victim."
     },
     {
       "type": "patchouli:crafting",

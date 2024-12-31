@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.ModDamageSource;
 import com.google.common.collect.Maps;
 import net.minecraft.Util;
 import net.minecraft.core.particles.ParticleOptions;
@@ -87,7 +88,7 @@ public class SteamMissile extends SpellHurtingProjectile {
     protected void onHitEntity(EntityHitResult p_37626_) {
         super.onHitEntity(p_37626_);
         if (!this.level.isClientSide) {
-            float baseDamage = SpellConfig.SoulBoltDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+            float baseDamage = SpellConfig.SteamingDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
             Entity entity = p_37626_.getEntity();
             Entity entity1 = this.getOwner();
             boolean flag;
@@ -98,7 +99,7 @@ public class SteamMissile extends SpellHurtingProjectile {
                     }
                 }
                 baseDamage += this.getExtraDamage();
-                flag = entity.hurt(this.damageSources().indirectMagic(this, livingentity), baseDamage);
+                flag = entity.hurt(ModDamageSource.indirectDrench(this, livingentity), baseDamage);
                 if (flag) {
                     if (entity.isAlive()) {
                         this.doEnchantDamageEffects(livingentity, entity);

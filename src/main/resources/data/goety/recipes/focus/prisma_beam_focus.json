@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "sfs",
+    "fef",
+    "sfs"
+  ],
+  "key":
+  {
+    "e":
+    {
+      "item": "goety:empty_focus"
+    },
+    "f":
+    {
+      "tag": "forge:dusts/prismarine"
+    },
+    "s":
+    {
+      "tag": "forge:gems/prismarine"
+    }
+  },
+  "result":
+  {
+    "item": "goety:prisma_beam_focus",
+    "count": 1
+  }
+}

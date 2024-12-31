@@ -23,6 +23,37 @@
     {
       "type": "patchouli:text",
       "text": "Нажатие ПКМ по чёрному волку мясом исцелит его."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Из чёрных волков можно получать другие их виды или даже некоторых гончих."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:skeleton_wolf",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Восставшая из мёртвых версия обычных волков, в отличие от которых, эти волки могут издавать вой, который увеличивает урон их союзников-скелетов. Их можно вызвать, вставив $(l:focuses/wild/hunting_focus)фокус охоты$() в $(l:crafts/necro_staff)некро-посох$(), или с помощью ритуала."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_skeleton_wolf_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:hellhound",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Черные волки, которые бродят по инфернальному измерению. Невосприимчивы к огню и поджигают врагов своим укусом. Их можно вызвать, использовав $(l:focuses/wild/hunting_focus)фокус охоты$() или проведя ритуал призыва чёрного волка в Незере."
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "text": "Также их можно вызвать, вставив $(l:focuses/wild/hunting_focus)фокус охоты$() в $(l:crafts/nether_staff)незерский посох$()."
     }
   ]
 }

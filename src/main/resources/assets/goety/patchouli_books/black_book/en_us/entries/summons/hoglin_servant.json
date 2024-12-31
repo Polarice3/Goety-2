@@ -32,7 +32,7 @@
     {
       "type": "patchouli:text",
       "advancement": "goety:goety/read_bygone_scroll",
-      "text": "Obtaining and wearing a $(l:crafts/garment/nether_robe)Nether Robes$() will stop the zombification from affecting your Hoglins. Using the $(l:focuses/wild/mauling_focus)Mauling Focus$() with a $(l:crafts/nether_staff)Nether Staff$() will call them forth no matter what dimension you're in."
+      "text": "Obtaining and wearing a $(l:crafts/garment/nether_robe)Nether Robes$() will stop the zombification from affecting your Hoglins. Using the $(l:focuses/wild/mauling_focus)Mauling Focus$() with a $(l:crafts/staff/nether_staff)Nether Staff$() will call them forth no matter what dimension you're in."
     }
   ]
 }

@@ -1,0 +1,22 @@
+{
+  "name": "起泡聚晶",
+  "icon": "goety:bouncy_bubble_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "召唤一个可以在方块或生物之间弹跳的巨大泡泡，它会像酸液或锋利的武器一样伤害任何触及的非友方生物，在多次弹跳后，气泡会破裂，并对周围所有非友方生物造成伤害"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/bouncy_bubble_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用 $(l:crafts/staff/abyss_staff)深渊魔杖$() 施法时可一次召唤两个泡泡，而不是只召唤一个"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:bouncy_bubble_focus": 1
+  }
+}

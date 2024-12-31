@@ -1,0 +1,22 @@
+{
+  "name": "Tidal Focus",
+  "icon": "goety:tidal_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The spell conjures a surge of flowing water in front of the caster, pushing back and damaging non-allied targets."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/tidal_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/abyss_staff)Abyss Staff$() will summon three tidal surges in front of the caster instead of one."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:tidal_focus": 1
+  }
+}

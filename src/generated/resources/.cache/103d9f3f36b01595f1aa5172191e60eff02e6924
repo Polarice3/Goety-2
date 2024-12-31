@@ -1,15 +1,20 @@
-// 1.20.1	2024-12-11T20:33:25.5077057	Registries
+// 1.20.1	2024-12-24T10:55:42.339042	Registries
+ee94e54a57be7587d413a72d7ff20c1ca4f97bb9 data/goety/damage_type/acid.json
 1c81619d690aa854535c8fad68b58aef03da65ab data/goety/damage_type/boiling.json
+0ce14aa03d8d6c87ee612550d2ae46968475cb6f data/goety/damage_type/bubble_stream.json
 6c769217837e51b72b3a876816a01dfd388da08b data/goety/damage_type/choke.json
 7196f45831dd3c054cbd956acb0f09a847f1043a data/goety/damage_type/death.json
+a2ea2f084b1a8235f3b0188854be30d88b2ffc12 data/goety/damage_type/direct_drench.json
 564a695e0c8fec48db39c5750c199f12645b4e43 data/goety/damage_type/direct_freeze.json
 bc278868e02ced496ad91c969737876aed8862ee data/goety/damage_type/direct_shock.json
 b45a76fb8f874e5078a34cdf5a9fe675544ddb93 data/goety/damage_type/doom.json
+c94c9d032f15f3dd5b83c00e5a6d87466d5701b1 data/goety/damage_type/drench.json
 7ec7c63d33e38e3aea9083b6fc4853268a50c767 data/goety/damage_type/fire_breath.json
 5297bb8dc663ecae0ee9611d0049c6388f7d9798 data/goety/damage_type/frost_breath.json
 f322d9b7fd22ed2de45584524a6790d121ac7935 data/goety/damage_type/hellfire.json
 ffd981f8c18252576f6e595dedc580e5a71badd5 data/goety/damage_type/ice_bouquet.json
 cdbfbb1c8a48d8789e2d70aca318c3081eb06cb0 data/goety/damage_type/ice_spike.json
+88803ffb8544ed1c85a2ae98299adb095db4345d data/goety/damage_type/indirect_drench.json
 cdbfbb1c8a48d8789e2d70aca318c3081eb06cb0 data/goety/damage_type/indirect_freeze.json
 b25b4307d28c0d071c679a3d5c4c6dd1efe07665 data/goety/damage_type/indirect_hellfire.json
 9c519dac81d373b4dcc0e819b45f4b1d8e0359c7 data/goety/damage_type/indirect_shock.json

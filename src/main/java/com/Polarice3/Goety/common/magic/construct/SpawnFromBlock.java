@@ -4,10 +4,15 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.SlimeServant;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.world.structures.ModStructures;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.BlockFinder;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -19,33 +24,68 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class SpawnFromBlock {
 
+    public static boolean surroundedWater(Level level, BlockPos blockPos){
+        for(int i = -1; i <= 1; ++i) {
+            for(int j = -1; j <= 1; ++j) {
+                for(int k = -1; k <= 1; ++k) {
+                    BlockPos blockpos = blockPos.offset(i, j, k);
+                    if (!level.isWaterAt(blockpos)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    public static boolean conditionsMet(Level worldIn, LivingEntity entityLiving) {
+        int count = 0;
+        if (worldIn instanceof ServerLevel serverLevel) {
+            for (Entity entity : serverLevel.getAllEntities()) {
+                if (entity instanceof SlimeServant servant) {
+                    if (servant.getTrueOwner() == entityLiving && servant.isAlive()) {
+                        ++count;
+                    }
+                }
+            }
+        }
+        return count < SpellConfig.SlimyLimit.get();
+    }
+
     public static boolean spawnServant(Player player, ItemStack stack, Level level, BlockPos blockPos) {
         BlockState blockState = level.getBlockState(blockPos);
         if (!level.isClientSide) {
             Summoned summoned = null;
             if (blockState.is(Blocks.SLIME_BLOCK)) {
                 summoned = ModEntityType.SLIME_SERVANT.get().create(level);
-                if (BlockFinder.findStructure(level, blockPos, ModStructures.CRYPT_KEY)){
+                if (surroundedWater(level, blockPos)){
+                    summoned = ModEntityType.TROPICAL_SLIME_SERVANT.get().create(level);
+                } else if (BlockFinder.findStructure(level, blockPos, ModStructures.CRYPT_KEY)){
                     summoned = ModEntityType.CRYPT_SLIME_SERVANT.get().create(level);
                 }
             } else if (blockState.is(Blocks.MAGMA_BLOCK)){
                 summoned = ModEntityType.MAGMA_CUBE_SERVANT.get().create(level);
             }
             if (summoned != null){
-                summoned.setTrueOwner(player);
-                summoned.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(summoned.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-                summoned.moveTo((double) blockPos.getX() + 0.5D, (double) blockPos.getY() + 0.05D, (double) blockPos.getZ() + 0.5D, 0.0F, 0.0F);
-                if (summoned instanceof SlimeServant slime) {
-                    slime.setSize(2, true);
-                }
-                if (level.addFreshEntity(summoned)) {
-                    level.levelEvent(2001, blockPos, Block.getId(level.getBlockState(blockPos)));
-                    level.setBlockAndUpdate(blockPos, Blocks.AIR.defaultBlockState());
-                    stack.shrink(1);
-                    if (player instanceof ServerPlayer serverPlayer) {
-                        CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, summoned);
+                if (conditionsMet(level, player)){
+                    summoned.setTrueOwner(player);
+                    summoned.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(summoned.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+                    summoned.moveTo((double) blockPos.getX() + 0.5D, (double) blockPos.getY() + 0.05D, (double) blockPos.getZ() + 0.5D, 0.0F, 0.0F);
+                    if (summoned instanceof SlimeServant slime) {
+                        slime.setSize(2, true);
                     }
-                    return true;
+                    if (level.addFreshEntity(summoned)) {
+                        level.levelEvent(2001, blockPos, Block.getId(level.getBlockState(blockPos)));
+                        level.setBlockAndUpdate(blockPos, Blocks.AIR.defaultBlockState());
+                        stack.shrink(1);
+                        if (player instanceof ServerPlayer serverPlayer) {
+                            CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, summoned);
+                        }
+                        return true;
+                    }
+                } else {
+                    player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
+                    summoned.discard();
                 }
             }
         }

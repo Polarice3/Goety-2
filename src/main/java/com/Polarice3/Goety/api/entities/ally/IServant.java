@@ -38,8 +38,20 @@ public interface IServant extends IOwned {
 
     void setStaying(boolean staying);
 
+    default boolean canWander(){
+        return true;
+    }
+
+    default boolean canStay(){
+        return true;
+    }
+
     default boolean isPatrolling(){
         return this.getBoundPos() != null;
+    }
+
+    default boolean canPatrol(){
+        return true;
     }
 
     default BlockPos getBoundPos(){
@@ -60,7 +72,11 @@ public interface IServant extends IOwned {
     }
 
     default boolean isFollowing(){
-        return !this.isWandering() && !this.isStaying() && !this.isPatrolling();
+        return !this.isWandering() && !this.isStaying() && !this.isPatrolling() && this.canFollow();
+    }
+
+    default boolean canFollow() {
+        return true;
     }
 
     default void spawnUpgraded(){
@@ -79,29 +95,40 @@ public interface IServant extends IOwned {
 
     default void updateMoveMode(Player player){
         if (this instanceof LivingEntity living) {
-            if (!this.isWandering() && !this.isStaying() && !this.isPatrolling()) {
+            boolean flag = false;
+            if (!this.isWandering() && !this.isStaying() && !this.isPatrolling() && this.canWander()) {
                 this.setBoundPos(null);
                 this.setWandering(true);
                 this.setStaying(false);
                 player.displayClientMessage(Component.translatable("info.goety.servant.wander", living.getDisplayName()), true);
-            } else if (!this.isStaying() && !this.isPatrolling()) {
+                flag = true;
+            } else if (!this.isStaying() && !this.isPatrolling() && this.canStay()) {
                 this.setBoundPos(null);
                 this.setWandering(false);
                 this.setStaying(true);
                 player.displayClientMessage(Component.translatable("info.goety.servant.staying", living.getDisplayName()), true);
-            } else if (!this.isPatrolling()) {
+                flag = true;
+            } else if (!this.isPatrolling() && this.canPatrol()) {
                 this.setBoundPos(living.blockPosition());
                 this.setWandering(false);
                 this.setStaying(false);
                 player.displayClientMessage(Component.translatable("info.goety.servant.patrol", living.getDisplayName()), true);
-            } else {
+                flag = true;
+            } else if (this.canFollow()) {
                 this.setBoundPos(null);
                 this.setWandering(false);
                 this.setStaying(false);
                 player.displayClientMessage(Component.translatable("info.goety.servant.follow", living.getDisplayName()), true);
+                flag = true;
             }
-            living.playSound(SoundEvents.ZOMBIE_VILLAGER_CONVERTED, 1.0f, 1.0f);
+            if (flag){
+                living.playSound(SoundEvents.ZOMBIE_VILLAGER_CONVERTED, 1.0f, 1.0f);
+            }
         }
+    }
+
+    default boolean canBeCommanded(){
+        return true;
     }
 
     boolean isCommanded();
@@ -310,6 +337,9 @@ public interface IServant extends IOwned {
             if (livingEntity.getMobType() == MobType.UNDEAD){
                 crown = CuriosFinder.hasUndeadCrown(this.getTrueOwner());
             }
+            if (livingEntity.getMobType() == MobType.WATER){
+                crown = CuriosFinder.hasAbyssCrown(this.getTrueOwner());
+            }
             if (!crown){
                 if (this.getLifespan() > 0){
                     this.setHasLifespan(true);
@@ -330,6 +360,12 @@ public interface IServant extends IOwned {
                                 soulCost = MobsConfig.UndeadMinionHealCost.get();
                                 healRate = MobsConfig.UndeadMinionHealTime.get();
                                 healAmount = MobsConfig.UndeadMinionHealAmount.get().floatValue();
+                            }
+                            if (livingEntity.getMobType() == MobType.WATER && MobsConfig.WaterMinionHeal.get()){
+                                curio = CuriosFinder.hasAbyssRobes(owner);
+                                soulCost = MobsConfig.WaterMinionHealCost.get();
+                                healRate = MobsConfig.WaterMinionHealTime.get();
+                                healAmount = MobsConfig.WaterMinionHealAmount.get().floatValue();
                             }
                             if (livingEntity.getMobType() == ModMobType.NATURAL && MobsConfig.NaturalMinionHeal.get()){
                                 curio = CuriosFinder.hasWildRobe(owner);

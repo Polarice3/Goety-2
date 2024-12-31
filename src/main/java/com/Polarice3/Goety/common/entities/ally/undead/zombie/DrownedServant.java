@@ -90,15 +90,14 @@ public class DrownedServant extends ZombieServant implements RangedAttackMob {
         return SoundEvents.DROWNED_SWIM;
     }
 
-    protected void populateDefaultEquipmentSlots(RandomSource p_218953_, DifficultyInstance p_218954_) {
-        if (p_218953_.nextFloat() > 0.9F) {
-            int i = p_218953_.nextInt(16);
+    public void populateDefaultWeapons(RandomSource randomSource, DifficultyInstance difficulty){
+        if (randomSource.nextFloat() > 0.9F) {
+            int i = randomSource.nextInt(16);
             if (i < 10) {
                 this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.TRIDENT));
             }
             this.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
         }
-
     }
 
     public boolean isPushedByFluid() {

@@ -40,6 +40,8 @@ public class CommandHorn extends Item {
                         if (!servant.isPatrolling()
                                 && !servant.isCommanded()
                                 && servant.canUpdateMove()
+                                && servant.canStay()
+                                && servant.canWander()
                                 && !SEHelper.getGroundedEntities(player).contains(livingEntity)
                                 && !SEHelper.getGroundedEntityTypes(player).contains(livingEntity.getType())){
                             if (servant.isStaying() || servant.isWandering()){
@@ -76,6 +78,7 @@ public class CommandHorn extends Item {
                             if (servant.getTrueOwner() == player){
                                 if (!servant.isPatrolling()
                                         && !servant.isCommanded()
+                                        && servant.canBeCommanded()
                                         && servant.canUpdateMove()
                                         && !SEHelper.getGroundedEntities(player).contains(livingEntity)
                                         && !SEHelper.getGroundedEntityTypes(player).contains(livingEntity.getType())){
