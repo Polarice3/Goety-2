@@ -53,7 +53,7 @@
     {
       "type": "patchouli:text",
       "advancement": "goety:goety/read_bygone_scroll",
-      "text": "Также их можно вызвать, вставив $(l:focuses/wild/hunting_focus)фокус охоты$() в $(l:crafts/nether_staff)незерский посох$()."
+      "text": "Также их можно вызвать, вставив $(l:focuses/wild/hunting_focus)фокус охоты$() в $(l:crafts/staff/nether_staff)незерский посох$()."
     }
   ]
 }

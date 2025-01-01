@@ -9,6 +9,7 @@ import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.magic.SummonSpell;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.EffectsUtil;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -26,6 +27,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -121,43 +123,45 @@ public class SlimySpell extends SummonSpell {
                 i = 2;
             }
             for (int i1 = 0; i1 < i; ++i1) {
-                EntityType<?> entityType;
-                Summoned summonedentity = new SlimeServant(ModEntityType.SLIME_SERVANT.get(), worldIn);
-                BlockPos blockPos = BlockFinder.SummonRadius(caster.blockPosition(), summonedentity, worldIn);
+                SlimeServant slimeServant = new SlimeServant(ModEntityType.SLIME_SERVANT.get(), worldIn);
+                BlockPos blockPos = BlockFinder.SummonRadius(caster.blockPosition(), slimeServant, worldIn);
                 if (caster.isUnderWater()){
                     blockPos = BlockFinder.SummonWaterRadius(caster, worldIn);
                 }
                 if (specialStaffs(staff)) {
                     if (typeStaff(staff, SpellType.ABYSS)) {
-                        summonedentity = new TropicalSlimeServant(ModEntityType.TROPICAL_SLIME_SERVANT.get(), worldIn);
+                        slimeServant = new TropicalSlimeServant(ModEntityType.TROPICAL_SLIME_SERVANT.get(), worldIn);
                     } else if (typeStaff(staff, SpellType.NECROMANCY)) {
-                        summonedentity = new CryptSlimeServant(ModEntityType.CRYPT_SLIME_SERVANT.get(), worldIn);
+                        slimeServant = new CryptSlimeServant(ModEntityType.CRYPT_SLIME_SERVANT.get(), worldIn);
                     } else if (typeStaff(staff, SpellType.NETHER)) {
-                        summonedentity = new MagmaCubeServant(ModEntityType.MAGMA_CUBE_SERVANT.get(), worldIn);
+                        slimeServant = new MagmaCubeServant(ModEntityType.MAGMA_CUBE_SERVANT.get(), worldIn);
                     }
                 } else {
-                    entityType = summonedentity.getVariant(worldIn, blockPos);
-                    if (entityType != null){
-                        Entity entity = entityType.create(worldIn);
-                        if (entity instanceof Summoned summoned){
-                            summonedentity = summoned;
-                        }
+                    if (worldIn.isWaterAt(blockPos)) {
+                        slimeServant = new TropicalSlimeServant(ModEntityType.TROPICAL_SLIME_SERVANT.get(), worldIn);
+                    } else if (worldIn.dimension() == Level.NETHER) {
+                        slimeServant = new MagmaCubeServant(ModEntityType.MAGMA_CUBE_SERVANT.get(), worldIn);
+                    } else if (BlockFinder.findStructure(worldIn, blockPos, ModTags.Structures.CRYPT)) {
+                        slimeServant = new CryptSlimeServant(ModEntityType.CRYPT_SLIME_SERVANT.get(), worldIn);
                     }
                 }
-                summonedentity.setTrueOwner(caster);
-                summonedentity.moveTo(blockPos, 0.0F, 0.0F);
-                MobUtil.moveDownToGround(summonedentity);
-                summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
-                summonedentity.setPersistenceRequired();
-                summonedentity.finalizeSpawn(worldIn, caster.level.getCurrentDifficultyAt(caster.blockPosition()), MobSpawnType.MOB_SUMMONED,null,null);
+                slimeServant.setTrueOwner(caster);
+                slimeServant.moveTo(blockPos, 0.0F, 0.0F);
+                if (slimeServant.getType() != ModEntityType.TROPICAL_SLIME_SERVANT.get()){
+                    MobUtil.moveDownToGround(slimeServant);
+                }
+                slimeServant.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
+                slimeServant.setPersistenceRequired();
+                slimeServant.finalizeSpawn(worldIn, caster.level.getCurrentDifficultyAt(caster.blockPosition()), MobSpawnType.MOB_SUMMONED,null,null);
+                slimeServant.setSize(2, true);
                 if (potency > 0){
                     int boost = Mth.clamp(potency - 1, 0, 10);
-                    summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), EffectsUtil.infiniteEffect(), boost, false, false));
+                    slimeServant.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), EffectsUtil.infiniteEffect(), boost, false, false));
                 }
-                this.SummonSap(caster, summonedentity);
-                this.setTarget(caster, summonedentity);
-                worldIn.addFreshEntity(summonedentity);
-                this.summonAdvancement(caster, summonedentity);
+                this.SummonSap(caster, slimeServant);
+                this.setTarget(caster, slimeServant);
+                worldIn.addFreshEntity(slimeServant);
+                this.summonAdvancement(caster, slimeServant);
             }
             this.SummonDown(caster);
             worldIn.playSound((Player) null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.SUMMON_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);

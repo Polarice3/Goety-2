@@ -1,0 +1,31 @@
+{
+  "name": "深渊长袍",
+  "icon": "goety:abyss_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "深渊长袍使您能够更有效地亲和并掌控海洋的力量，长袍可以使佩戴者游得更快，并减少其溺水时受到的伤害，甚至还能在受伤后提供少量氧气值"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:abyss_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "穿戴深渊长袍召唤生物后，忠诚于你的水生仆从会使用召唤者的灵魂能量缓慢自愈"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:abyss_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "深渊王冠可以使你释放深渊法术所需的吟唱时间减半，并让你的水生仆从能够永续存在"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:abyss_robe": 1,
+    "goety:abyss_crown": 2
+  }
+}

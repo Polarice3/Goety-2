@@ -9,6 +9,7 @@ import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Locale;
@@ -16,7 +17,7 @@ import java.util.Locale;
 public record AbsorbTrailParticleOption(Vec3 target, int color, int duration) implements ParticleOptions {
     public static final Codec<AbsorbTrailParticleOption> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Vec3.CODEC.fieldOf("target").forGetter(AbsorbTrailParticleOption::target),
-            Codec.INT.fieldOf("red").forGetter(AbsorbTrailParticleOption::color),
+            Codec.INT.fieldOf("color").forGetter(AbsorbTrailParticleOption::color),
             ExtraCodecs.POSITIVE_INT.fieldOf("duration").forGetter(AbsorbTrailParticleOption::duration)
     ).apply(instance, AbsorbTrailParticleOption::new));
 
@@ -46,14 +47,20 @@ public record AbsorbTrailParticleOption(Vec3 target, int color, int duration) im
 
     @Override
     public void writeToNetwork(FriendlyByteBuf p_123732_) {
-        p_123732_.writeVector3f(this.target().toVector3f());
+        p_123732_.writeDouble(this.target().x);
+        p_123732_.writeDouble(this.target().y);
+        p_123732_.writeDouble(this.target().z);
         p_123732_.writeInt(this.color());
         p_123732_.writeInt(this.duration());
     }
 
     @Override
     public String writeToString() {
-        return String.format(Locale.ROOT, "%s %s %s %s",
-                BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.target, this.color, this.duration);
+        Vec3 vec3 = this.target();
+        double d0 = vec3.x();
+        double d1 = vec3.y();
+        double d2 = vec3.z();
+        return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %s %s",
+                BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), d0, d1, d2, this.color, this.duration);
     }
 }

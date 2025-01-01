@@ -1,0 +1,24 @@
+{
+  "name": "Фантомы-прислужники",
+  "icon": "minecraft:phantom_membrane",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Хотя обычно фантомы охотятся на тех, кто страдает бессонницей, вы нашли способ подчинить этих существ себе."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:phantom_servant",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Если призвать фантома, надев некро-плащ, он будет полупрозрачным и обретет способность проходить сквозь блоки! Призывать их можно с помощью $(l:focuses/necromancy/phantasm_focus)фокуса бессонницы$() или с помощью ритуала, который призывает фантомов с неограниченным сроком жизни."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_phantom_servant_thrall"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Фокус прилива",
+  "icon": "goety:tidal_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Создаёт перед вами движущуюся волну, которая отбрасывает и наносит урон жертвам."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/tidal_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/abyss_staff)глубоководного посоха$() позволяет вызывать три приливных волны вместо одной."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:tidal_focus": 1
+  }
+}

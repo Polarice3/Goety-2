@@ -34,6 +34,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
@@ -221,6 +222,17 @@ public class DrownedNecromancer extends AbstractNecromancer {
         float f1 = (float)this.getNecroLevel();
         float size = 1.0F + Math.max(f1 * 0.15F, 0);
         return 2.5F * size;
+    }
+
+    public void setNecroLevel(int shot){
+        int i = Mth.clamp(shot, 0, 2);
+        this.entityData.set(LEVEL, i);
+        AttributeInstance attributeInstance = this.getAttribute(Attributes.MAX_HEALTH);
+        if (attributeInstance != null){
+            attributeInstance.setBaseValue(AttributesConfig.DrownedNecromancerHealth.get() * Math.max(i * 1.25F, 1));
+        }
+        this.reapplyPosition();
+        this.refreshDimensions();
     }
 
     @Override
@@ -624,13 +636,13 @@ public class DrownedNecromancer extends AbstractNecromancer {
             int warmUp = MathHelper.secondsToTicks(2);
             int i = DrownedNecromancer.this.getRandom().nextInt(4);
             if (i == 0){
-                WandUtil.summonTridentSurround(DrownedNecromancer.this, warmUp);
+                WandUtil.summonTridentSurround(DrownedNecromancer.this, warmUp, DrownedNecromancer.this.getNecroLevel());
             } else if (i == 1){
-                WandUtil.summonTridentSquare(DrownedNecromancer.this, warmUp);
+                WandUtil.summonTridentSquare(DrownedNecromancer.this, warmUp, DrownedNecromancer.this.getNecroLevel());
             } else if (i == 2){
-                WandUtil.summonTridentWideCircle(DrownedNecromancer.this, warmUp);
+                WandUtil.summonTridentWideCircle(DrownedNecromancer.this, warmUp, DrownedNecromancer.this.getNecroLevel());
             } else {
-                WandUtil.summonTridentCross(DrownedNecromancer.this, warmUp);
+                WandUtil.summonTridentCross(DrownedNecromancer.this, warmUp, DrownedNecromancer.this.getNecroLevel());
             }
         }
 
@@ -720,6 +732,7 @@ public class DrownedNecromancer extends AbstractNecromancer {
                         vec3.y,
                         vec3.z, worldIn);
                 steamMissile.setOwner(DrownedNecromancer.this);
+                steamMissile.setExtraDamage(DrownedNecromancer.this.getNecroLevel());
                 if (worldIn.addFreshEntity(steamMissile)) {
                     ++this.shots;
                 }

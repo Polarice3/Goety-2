@@ -180,6 +180,9 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> CRYPT_SLIME_SERVANT_SPAWN_EGG = ITEMS.register("crypt_slime_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.CRYPT_SLIME_SERVANT, 0x091c25, 0x4b585f, egg()));
 
+    public static final RegistryObject<ModSpawnEggItem> TROPICAL_SLIME_SERVANT_SPAWN_EGG = ITEMS.register("tropical_slime_servant_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.TROPICAL_SLIME_SERVANT, 0x0e696e, 0x4bc536, egg()));
+
     public static final RegistryObject<ModSpawnEggItem> SPIDER_SERVANT_SPAWN_EGG = ITEMS.register("spider_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.SPIDER_SERVANT, 0x0a0a0a, 11013646, egg()));
 
@@ -203,6 +206,9 @@ public class ModSpawnEggs {
 
     /*public static final RegistryObject<ModSpawnEggItem> HELLHOUND_SPAWN_EGG = ITEMS.register("hellhound_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.HELLHOUND, 0x8d2600, 0x140000, egg()));*/
+
+    public static final RegistryObject<ModSpawnEggItem> SNAPPER_SPAWN_EGG = ITEMS.register("snapper_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.SNAPPER, 0x141817, 0x481e00, egg()));
 
     public static final RegistryObject<ModSpawnEggItem> BEAR_SERVANT_SPAWN_EGG = ITEMS.register("bear_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.BEAR_SERVANT, 0x3a281d, 0xfa2e14, egg()));

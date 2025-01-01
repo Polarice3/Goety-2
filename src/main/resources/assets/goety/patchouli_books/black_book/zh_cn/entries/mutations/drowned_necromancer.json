@@ -1,0 +1,32 @@
+{
+  "name": "溺尸死灵法师",
+  "icon": "goety:abyss_staff",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/unlock_necromancer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你发现了一种更强的死灵法师变种，它仍旧有着肉身且掌握着强大的海洋之力，它可以发射蒸汽泵弹，或是在自身周围降下三叉戟风暴，不过该仪式需要转化一只溺尸而非骷髅"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_drowned_to_drowned_necromancer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "就像其它死灵法师仆从一样，它不仅能够召唤溺尸仆从，如果你把其它死灵系聚晶给予它，它就能召唤更多的仆从，空手右键则可以让你的溺尸死灵法师立刻为你召唤一些亡灵仆从"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:drowned_necromancer_servant"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:soul_jar{Drowned: 1b}",
+      "text": "如果一个溺尸死灵法师被消灭了，那它会掉落一个更特殊的灵魂罐，拿它右键一只溺尸，它就会利用这具溺尸的肉体复活"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:soul_jar{Drowned: 1b}": 5
+  }
+}

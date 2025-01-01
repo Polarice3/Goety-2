@@ -1,0 +1,16 @@
+{
+  "name": "Ритуальная телепортация",
+  "icon": "goety:waystone",
+  "category": "goety:rituals",
+  "priority": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Используя $(l:crafts/waystone)путеводные камни$(), вы можете телепортироваться между разными локациями в пределах одного измерения."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:teleport_ritual"
+    }
+  ]
+}

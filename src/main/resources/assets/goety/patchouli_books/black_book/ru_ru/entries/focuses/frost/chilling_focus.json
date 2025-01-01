@@ -1,0 +1,15 @@
+{
+  "name": "Фокус охлаждения",
+  "icon": "goety:chilling_focus",
+  "category": "goety:focuses/frost",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Этот фокус не только увеличивает вашу броню, но и замораживает существ, атакующих вас в ближнем бою. Это фокус также можно применить к союзнику, если смотреть на него, присев."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/chilling_focus"
+    }
+  ]
+}

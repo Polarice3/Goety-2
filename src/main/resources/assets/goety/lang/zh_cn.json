@@ -2276,7 +2276,7 @@
   "jei.goety.item_to_use": "要使用的物品:",
   "jei.goety.xp": "经验等级:%s 每附魔等级",
   "jei.goety.enchantment": "附魔:%s",
-  "jei.goety.craftType": "仪式类型： ",
+  "jei.goety.craftType": "仪式类型: ",
   "jei.goety.craftType.null": "空",
   "jei.goety.craftType.animation": "活力",
   "jei.goety.craftType.necroturgy": "死灵",
@@ -2593,5 +2593,6 @@
   "death.attack.goety.indirectDrench": "%1$s被%2$s浸透了",
   "death.attack.goety.indirectDrench.item": "%1$s被%2$s用%3$s浸透了",
   "death.attack.goety.bubbleStream": "%1$s被%2$s搓了泡泡",
-  "death.attack.goety.bubbleStream.item": "%1$s被%2$s用%3$s搓了泡泡"
+  "death.attack.goety.bubbleStream.item": "%1$s被%2$s用%3$s搓了泡泡",
+  "item.goety.tropical_slime_servant_spawn_egg": "热带史莱姆仆从刷怪蛋"
 }

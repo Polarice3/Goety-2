@@ -1,0 +1,22 @@
+{
+  "name": "Ритуал глубин",
+  "icon": "minecraft:prismarine_bricks",
+  "category": "goety:rituals",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Требования: $(li)Алтарь должен быть в биоме глубокого океана ниже уровня моря $(br)$(l)ИЛИ$()$() $(li)4 морских фонаря $(li)16 призмариновых блоков $(li)16 гранитных блоков $(br)Алтарь должен быть под водой$()"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/deep_ritual.png"],
+      "border": true,
+      "text": "Пример того, как можно провести ритуал."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Сила океана протекает через алтарь, позволяя вам использовать приливы и отливы в корыстных целях."
+    }
+  ]
+}

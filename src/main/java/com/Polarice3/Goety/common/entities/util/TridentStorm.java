@@ -107,10 +107,10 @@ public class TridentStorm extends CastSpellTrap{
                 }
                 if (!targets.isEmpty()) {
                     for (LivingEntity livingEntity : targets) {
-                        livingEntity.hurt(this.damageSources().trident(this, this.getOwner()), 8.0F);
+                        livingEntity.hurt(this.damageSources().trident(this, this.getOwner()), 8.0F + this.getExtraDamage());
                     }
                 }
-                new SpellExplosion(this.level, this, ModDamageSource.lightning(this, this.getOwner()), this.getX(), this.getY(), this.getZ(), radius, damage);
+                new SpellExplosion(this.level, this, ModDamageSource.lightning(this, this.getOwner()), this.getX(), this.getY(), this.getZ(), radius, damage + this.getExtraDamage());
                 if (this.level instanceof ServerLevel serverLevel){
                     ColorUtil colorUtil = ColorUtil.WHITE;
                     serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, radius, 1), this.getX(), this.getY(), this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);

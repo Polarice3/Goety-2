@@ -1,0 +1,22 @@
+{
+  "name": "深渊仪式",
+  "icon": "minecraft:prismarine_bricks",
+  "category": "goety:rituals",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "需求：$(li)祭坛位于海平面以下的深海生物群系 $(br)$(l)或是$()$() $(li)4 个海晶灯 $(li)16 个任意变种的海晶石块 $(li)16 个任意变种的花岗岩 $(br)仪式必须在水下进行$()"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/deep_ritual.png"],
+      "border": true,
+      "text": "一个正确摆放仪式的例子"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The power of the ocean courses through the Altar, allowing you harness the very tides for your own diabolical purposes."
+    }
+  ]
+}

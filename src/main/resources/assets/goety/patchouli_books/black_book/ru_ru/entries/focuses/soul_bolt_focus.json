@@ -10,6 +10,11 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/soul_bolt_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_forbidden_scroll",
+      "text": "Использование $(l:crafts/staff/nameless_staff)безымянного посоха$() позволит фокусу создавать некро-снаряды, которые наносят больше урона нескольким жертвам."
     }
   ]
 }

@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.magic.spells.abyss;
 
 import com.Polarice3.Goety.api.magic.SpellType;
+import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -11,6 +12,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TridentStormSpell extends Spell {
 
@@ -41,21 +46,32 @@ public class TridentStormSpell extends Spell {
     }
 
     @Override
+    public List<Enchantment> acceptedEnchantments() {
+        List<Enchantment> list = new ArrayList<>();
+        list.add(ModEnchantments.POTENCY.get());
+        return list;
+    }
+
+    @Override
     public void startSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
+        int potency = spellStat.getPotency();
+        if (WandUtil.enchantedFocus(caster)) {
+            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+        }
         int warmUp = MathHelper.secondsToTicks(2);
         if (this.rightStaff(staff)) {
             int i = caster.getRandom().nextInt(4);
             if (i == 0) {
-                WandUtil.summonTridentSurround(caster, warmUp);
+                WandUtil.summonTridentSurround(caster, warmUp, potency);
             } else if (i == 1) {
-                WandUtil.summonTridentSquare(caster, warmUp);
+                WandUtil.summonTridentSquare(caster, warmUp, potency);
             } else if (i == 2) {
-                WandUtil.summonTridentWideCircle(caster, warmUp);
+                WandUtil.summonTridentWideCircle(caster, warmUp, potency);
             } else {
-                WandUtil.summonTridentCross(caster, warmUp);
+                WandUtil.summonTridentCross(caster, warmUp, potency);
             }
         } else {
-            WandUtil.summonTridentMinor(caster, warmUp);
+            WandUtil.summonTridentMinor(caster, warmUp, potency);
         }
     }
 }

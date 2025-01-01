@@ -32,7 +32,7 @@
     {
       "type": "patchouli:text",
       "advancement": "goety:goety/read_bygone_scroll",
-      "text": "Ношение $(l:crafts/garment/nether_robe)незерской мантии$() предотвратит зомбификацию ваших хоглинов-прислужников. Использование $(l:focuses/wild/mauling_focus)фокуса терзаний$() с помощью $(l:crafts/nether_staff)незерского посоха$() вызовет хоглинов вне зависимости от измерения."
+      "text": "Ношение $(l:crafts/garment/nether_robe)незерской мантии$() предотвратит зомбификацию ваших хоглинов-прислужников. Использование $(l:focuses/wild/mauling_focus)фокуса терзаний$() с помощью $(l:crafts/staff/nether_staff)незерского посоха$() вызовет хоглинов вне зависимости от измерения."
     }
   ]
 }

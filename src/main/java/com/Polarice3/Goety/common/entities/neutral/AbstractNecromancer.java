@@ -60,7 +60,7 @@ import java.util.function.Predicate;
 public abstract class AbstractNecromancer extends AbstractSkeletonServant implements RangedAttackMob {
     private static final EntityDataAccessor<Byte> SPELL = SynchedEntityData.defineId(AbstractNecromancer.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Byte> FLAGS = SynchedEntityData.defineId(AbstractNecromancer.class, EntityDataSerializers.BYTE);
-    private static final EntityDataAccessor<Integer> LEVEL = SynchedEntityData.defineId(AbstractNecromancer.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> LEVEL = SynchedEntityData.defineId(AbstractNecromancer.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(AbstractNecromancer.class, EntityDataSerializers.INT);
     public static int INITIAL_LEVEL = 0;
     public static int MAX_LEVEL = 2;

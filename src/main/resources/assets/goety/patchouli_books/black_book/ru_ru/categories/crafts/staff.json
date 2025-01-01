@@ -1,0 +1,7 @@
+{
+  "name": "Посохи",
+  "description": "Орудия труда для тёмного колдуна.",
+  "icon": "goety:necro_staff",
+  "parent": "goety:crafts",
+  "sortnum": 4
+}

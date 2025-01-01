@@ -1,0 +1,18 @@
+{
+  "name": "Глубоководный посох",
+  "icon": "goety:abyss_staff",
+  "category": "goety:crafts/staff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Глубоководный посох даёт владельцу абсолютную власть над волнами, увеличивая силу глубоководных заклинаний."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:abyss_staff"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:abyss_staff": 1
+  }
+}

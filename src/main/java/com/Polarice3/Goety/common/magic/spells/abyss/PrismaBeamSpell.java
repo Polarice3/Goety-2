@@ -12,7 +12,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PrismaBeamSpell extends Spell {
 
@@ -45,6 +49,13 @@ public class PrismaBeamSpell extends Spell {
     @Override
     public boolean conditionsMet(ServerLevel worldIn, LivingEntity caster) {
         return this.getTarget(caster) != null && super.conditionsMet(worldIn, caster);
+    }
+
+    @Override
+    public List<Enchantment> acceptedEnchantments() {
+        List<Enchantment> list = new ArrayList<>();
+        list.add(ModEnchantments.POTENCY.get());
+        return list;
     }
 
     @Override
@@ -88,6 +99,7 @@ public class PrismaBeamSpell extends Spell {
 
             if (this.rightStaff(staff)) {
                 f += 2.0F;
+                damage += 2.0F;
             }
 
             target.hurt(caster.damageSources().indirectMagic(caster, caster), f + potency);

@@ -1,4 +1,4 @@
-// 1.20.1	2024-12-11T20:08:59.2445003	Item Models: goety
+// 1.20.1	2025-01-01T07:58:04.5910828	Item Models: goety
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/apostle_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/bear_servant_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/blackguard_servant_spawn_egg.json
@@ -66,6 +66,7 @@
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/skeleton_wolf_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/skull_lord_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/slime_servant_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/snapper_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/sorcerer_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/spider_servant_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/squall_golem_spawn_egg.json
@@ -74,6 +75,7 @@
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/sunken_skeleton_servant_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/tormentor_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/trampler_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/tropical_slime_servant_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/vanguard_servant_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/vizier_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/warlock_spawn_egg.json

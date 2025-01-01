@@ -1,0 +1,22 @@
+{
+  "name": "Фокус биомин",
+  "icon": "goety:biomine_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Фокус позволяет вам вызывать биомины, которые представляют собой яйцеобразные снаряды, которые взрываются ядовитым газом при касании или приближении врага."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/biomine_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/abyss_staff)глубоководного посоха$() позволит создавать больше биомин."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:biomine_focus": 1
+  }
+}

@@ -133,6 +133,30 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.bouncy_bubble_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:bouncy_bubble_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "item.goety.bubble_stream_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:bubble_stream_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.bulwark_focus": {
       "conditions": {
         "items": [
@@ -889,6 +913,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.slimy_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:slimy_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.sonic_boom_focus": {
       "conditions": {
         "items": [
@@ -1015,6 +1051,18 @@
           {
             "items": [
               "goety:thunderbolt_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "item.goety.tidal_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:tidal_focus"
             ]
           }
         ]
@@ -1354,6 +1402,9 @@
       "item.goety.mauling_focus"
     ],
     [
+      "item.goety.slimy_focus"
+    ],
+    [
       "item.goety.overgrowth_focus"
     ],
     [
@@ -1411,6 +1462,12 @@
       "item.goety.lightning_focus"
     ],
     [
+      "item.goety.bubble_stream_focus"
+    ],
+    [
+      "item.goety.bouncy_bubble_focus"
+    ],
+    [
       "item.goety.steaming_focus"
     ],
     [
@@ -1421,6 +1478,9 @@
     ],
     [
       "item.goety.biomine_focus"
+    ],
+    [
+      "item.goety.tidal_focus"
     ],
     [
       "item.goety.fireball_focus"

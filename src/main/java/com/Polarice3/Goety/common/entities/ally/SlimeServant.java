@@ -173,6 +173,10 @@ public class SlimeServant extends Summoned{
         this.squish += (this.targetSquish - this.squish) * 0.5F;
         this.oSquish = this.squish;
         if (this.isAlive()) {
+            //Why won't your hitbox be correct reeeeeee
+            if (this.tickCount < 5){
+                this.refreshDimensions();
+            }
             if (this.isInterested()) {
                 --this.interestTime;
             }
@@ -316,7 +320,7 @@ public class SlimeServant extends Summoned{
 
     @Override
     public void tryKill(Player player) {
-        if (this.limitedLifespan){
+        if (this.limitedLifespan || this.limitedLifeTicks > 0){
             this.lifeSpanDamage();
         } else {
             super.tryKill(player);

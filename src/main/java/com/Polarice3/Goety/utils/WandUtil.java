@@ -345,7 +345,7 @@ public class WandUtil {
         }
     }
 
-    public static void summonTridentStorm(LivingEntity casterEntity, Vec3 targetPos, double xshift, double zshift, int warmUp) {
+    public static void summonTridentStorm(LivingEntity casterEntity, Vec3 targetPos, double xshift, double zshift, int warmUp, int potency) {
         targetPos = targetPos.add(xshift, 0.5F, zshift);
         Level level = casterEntity.level;
         TridentStorm tridentStorm = ModEntityType.TRIDENT_STORM.get().create(level);
@@ -353,82 +353,83 @@ public class WandUtil {
             tridentStorm.setOwner(casterEntity);
             tridentStorm.setPos(targetPos.x(), targetPos.y(), targetPos.z());
             tridentStorm.setWarmUp(warmUp);
+            tridentStorm.setExtraDamage(potency);
             MobUtil.moveDownToGround(tridentStorm);
             level.addFreshEntity(tridentStorm);
         }
     }
 
-    public static void summonTridentMinor(LivingEntity casterEntity, int warmUp){
+    public static void summonTridentMinor(LivingEntity casterEntity, int warmUp, int potency){
         Vec3 vec3 = casterEntity.position();
         if (casterEntity.getRandom().nextBoolean()) {
-            summonTridentStorm(casterEntity, vec3, 2, 0, warmUp);
-            summonTridentStorm(casterEntity, vec3, 0, 2, warmUp);
-            summonTridentStorm(casterEntity, vec3, -2, 0, warmUp);
-            summonTridentStorm(casterEntity, vec3, 0, -2, warmUp);
+            summonTridentStorm(casterEntity, vec3, 2, 0, warmUp, potency);
+            summonTridentStorm(casterEntity, vec3, 0, 2, warmUp, potency);
+            summonTridentStorm(casterEntity, vec3, -2, 0, warmUp, potency);
+            summonTridentStorm(casterEntity, vec3, 0, -2, warmUp, potency);
         } else {
-            summonTridentStorm(casterEntity, vec3, 2, 2, warmUp);
-            summonTridentStorm(casterEntity, vec3, -2, 2, warmUp);
-            summonTridentStorm(casterEntity, vec3, 2, -2, warmUp);
-            summonTridentStorm(casterEntity, vec3, -2, -2, warmUp);
+            summonTridentStorm(casterEntity, vec3, 2, 2, warmUp, potency);
+            summonTridentStorm(casterEntity, vec3, -2, 2, warmUp, potency);
+            summonTridentStorm(casterEntity, vec3, 2, -2, warmUp, potency);
+            summonTridentStorm(casterEntity, vec3, -2, -2, warmUp, potency);
         }
     }
 
-    public static void summonTridentSurround(LivingEntity casterEntity, int warmUp) {
+    public static void summonTridentSurround(LivingEntity casterEntity, int warmUp, int potency) {
         Vec3 vec3 = casterEntity.position();
 
-        summonTridentStorm(casterEntity, vec3, 3, 0, warmUp);
-        summonTridentStorm(casterEntity, vec3, 2, 2, warmUp);
-        summonTridentStorm(casterEntity, vec3, -3, 0, warmUp);
-        summonTridentStorm(casterEntity, vec3, -2, 2, warmUp);
-        summonTridentStorm(casterEntity, vec3, 0, 3, warmUp);
-        summonTridentStorm(casterEntity, vec3, 2, -2, warmUp);
-        summonTridentStorm(casterEntity, vec3, 0, -3, warmUp);
-        summonTridentStorm(casterEntity, vec3, -2, -2, warmUp);
+        summonTridentStorm(casterEntity, vec3, 3, 0, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, 2, 2, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, -3, 0, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, -2, 2, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, 0, 3, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, 2, -2, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, 0, -3, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, -2, -2, warmUp, potency);
     }
 
-    public static void summonTridentSquare(LivingEntity casterEntity, int warmUp) {
+    public static void summonTridentSquare(LivingEntity casterEntity, int warmUp, int potency) {
         Vec3 vec3 = casterEntity.position();
 
-        summonTridentStorm(casterEntity, vec3, 2.25, 0, warmUp);
-        summonTridentStorm(casterEntity, vec3, 5, 0, warmUp);
-        summonTridentStorm(casterEntity, vec3, 2.25, 3.5, warmUp);
-        summonTridentStorm(casterEntity, vec3, 5, 3.5, warmUp);
-        summonTridentStorm(casterEntity, vec3, 2.25, -3.5, warmUp);
-        summonTridentStorm(casterEntity, vec3, 5, -3.5, warmUp);
-        summonTridentStorm(casterEntity, vec3, -2.25, 0, warmUp);
-        summonTridentStorm(casterEntity, vec3, -5, 0, warmUp);
-        summonTridentStorm(casterEntity, vec3, -2.25, 3.5, warmUp);
-        summonTridentStorm(casterEntity, vec3, -5, 3.5, warmUp);
-        summonTridentStorm(casterEntity, vec3, -2.25, -3.5, warmUp);
-        summonTridentStorm(casterEntity, vec3, -5, -3.5, warmUp);
+        summonTridentStorm(casterEntity, vec3, 2.25, 0, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, 5, 0, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, 2.25, 3.5, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, 5, 3.5, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, 2.25, -3.5, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, 5, -3.5, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, -2.25, 0, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, -5, 0, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, -2.25, 3.5, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, -5, 3.5, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, -2.25, -3.5, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, -5, -3.5, warmUp, potency);
     }
 
-    public static void summonTridentCross(LivingEntity casterEntity, int warmUp) {
+    public static void summonTridentCross(LivingEntity casterEntity, int warmUp, int potency) {
         Vec3 vec3 = casterEntity.position();
 
-        summonTridentStorm(casterEntity, vec3, 2, 0, warmUp);
-        summonTridentStorm(casterEntity, vec3, 0, 2, warmUp);
-        summonTridentStorm(casterEntity, vec3, -2, 0, warmUp);
-        summonTridentStorm(casterEntity, vec3, 0, -2, warmUp);
-        summonTridentStorm(casterEntity, vec3, 3.5, -3.5, warmUp);
-        summonTridentStorm(casterEntity, vec3, -3.5, -3.5, warmUp);
-        summonTridentStorm(casterEntity, vec3, 3.5, 3.5, warmUp);
-        summonTridentStorm(casterEntity, vec3, -3.5, 3.5, warmUp);
+        summonTridentStorm(casterEntity, vec3, 2, 0, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, 0, 2, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, -2, 0, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, 0, -2, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, 3.5, -3.5, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, -3.5, -3.5, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, 3.5, 3.5, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, -3.5, 3.5, warmUp, potency);
     }
 
-    public static void summonTridentWideCircle(LivingEntity casterEntity, int warmUp) {
+    public static void summonTridentWideCircle(LivingEntity casterEntity, int warmUp, int potency) {
         Vec3 vec3 = casterEntity.position();
 
-        summonTridentStorm(casterEntity, vec3, 2, 0, warmUp);
-        summonTridentStorm(casterEntity, vec3, 0, 2, warmUp);
-        summonTridentStorm(casterEntity, vec3, -2, 0, warmUp);
-        summonTridentStorm(casterEntity, vec3, 0, -2, warmUp);
-        summonTridentStorm(casterEntity, vec3, 0, 5, warmUp);
-        summonTridentStorm(casterEntity, vec3, 0, -5, warmUp);
-        summonTridentStorm(casterEntity, vec3, 4.5, 2.25, warmUp);
-        summonTridentStorm(casterEntity, vec3, 4.5, -2.25, warmUp);
-        summonTridentStorm(casterEntity, vec3, -4.5, 2.25, warmUp);
-        summonTridentStorm(casterEntity, vec3, -4.5, -2.25, warmUp);
+        summonTridentStorm(casterEntity, vec3, 2, 0, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, 0, 2, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, -2, 0, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, 0, -2, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, 0, 5, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, 0, -5, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, 4.5, 2.25, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, 4.5, -2.25, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, -4.5, 2.25, warmUp, potency);
+        summonTridentStorm(casterEntity, vec3, -4.5, -2.25, warmUp, potency);
     }
 
     /**

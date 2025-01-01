@@ -1,0 +1,19 @@
+{
+  "name": "Фокус пара",
+  "icon": "goety:steaming_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Позволяет вам стрелять потоком клубов горячего пара по направлению взгляда, отбрасывающих жертв и наносящих им урон."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/steaming_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/abyss_staff)глубоководного посоха$() позволяет выпускать больше клубов."
+    }
+  ]
+}

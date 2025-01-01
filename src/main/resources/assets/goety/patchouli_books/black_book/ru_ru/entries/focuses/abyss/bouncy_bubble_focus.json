@@ -1,0 +1,22 @@
+{
+  "name": "Фокус упругого пузыря",
+  "icon": "goety:bouncy_bubble_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Странное заклинание, создающее большой пузырь, который отскакивает от поверхностей и жертв, нанося им урон, как будто он колючий или кислотный. После многократного отскакивания пузырь лопается, нанося урон по области."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/bouncy_bubble_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/abyss_staff)глубоководного посоха$() позволяет создать два пузыря вместо одного."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:bouncy_bubble_focus": 1
+  }
+}

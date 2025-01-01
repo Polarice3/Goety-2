@@ -1,0 +1,22 @@
+{
+  "name": "Фокус града трезубцев",
+  "icon": "goety:trident_storm_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Сила бездны заставляет трезубцы падать вокруг вас, уничтожая врагов молниями."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/trident_storm_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/abyss_staff)глубоководного посоха$() позволяет создавать больше трезубцев по более удобной области"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:trident_storm_focus": 1
+  }
+}

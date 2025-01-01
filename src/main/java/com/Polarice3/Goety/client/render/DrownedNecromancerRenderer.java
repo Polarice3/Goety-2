@@ -2,6 +2,7 @@ package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.DrownedNecromancerModel;
+import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.entities.neutral.DrownedNecromancer;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -24,7 +25,10 @@ public class DrownedNecromancerRenderer extends MobRenderer<DrownedNecromancer, 
    }
 
    protected void scale(DrownedNecromancer necromancer, PoseStack matrixStackIn, float partialTickTime) {
-      matrixStackIn.scale(1.45F, 1.45F, 1.45F);
+      float original = 1.45F;
+      float f1 = (float)necromancer.getNecroLevel();
+      float size = original + Math.max(f1 * 0.15F, 0);
+      matrixStackIn.scale(size, size, size);
    }
 
    public ResourceLocation getTextureLocation(DrownedNecromancer p_115941_) {

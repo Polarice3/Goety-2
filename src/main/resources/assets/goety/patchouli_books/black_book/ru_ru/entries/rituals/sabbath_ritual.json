@@ -2,7 +2,7 @@
   "name": "Ритуал шабаша",
   "icon": "minecraft:crying_obsidian",
   "category": "goety:rituals",
-  "sortnum": 7,
+  "sortnum": 10,
   "pages": [
     {
       "type": "patchouli:text",
