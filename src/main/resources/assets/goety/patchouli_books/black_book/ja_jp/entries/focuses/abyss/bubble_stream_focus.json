@@ -1,0 +1,15 @@
+{
+  "name": "泡のストリームのフォーカス",
+  "icon": "goety:bubble_stream_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "泡は実際の戦闘で人々が好んで使用するものではありませんが、ソウルエネルギーの力によって吹き飛ばされる泡は、敵、特に水に敏感な敵(ブレイズなど)を洗い流します。残念なことに、当たった敵に少量の酸素を与えます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/bubble_stream_focus"
+    }
+  ]
+}

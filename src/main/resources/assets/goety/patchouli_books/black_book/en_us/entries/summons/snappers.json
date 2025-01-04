@@ -1,0 +1,28 @@
+{
+  "name": "Snappers",
+  "icon": "minecraft:cod",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "While piranhas are, in reality, passive and shy creatures, these horrid creatures live up to their vicious and aggressive reputation."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "One can call upon a loyal snapper through the use of a $(l:focuses/wild/hunting_focus)Hunting Focus$() underwater or through $(l:crafts/staff/abyss_staff)Abyss Staff$(), or through a ritual which summons one without a limited lifespan."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_snapper_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:snapper",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Right-clicking on a loyal Snapper with meat will heal them."
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.init.ModSounds;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 
 public class SoundUtil {
@@ -29,9 +30,9 @@ public class SoundUtil {
         }
     }
 
-    public static void playNecromancerSummon(LivingEntity livingEntity){
-        if (!livingEntity.isSilent()) {
-            livingEntity.level.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), ModSounds.NECROMANCER_SUMMON.get(), livingEntity.getSoundSource(), 1.4F, 0.7F);
+    public static void playNecromancerSummon(Entity entity){
+        if (!entity.isSilent()) {
+            entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), ModSounds.NECROMANCER_SUMMON.get(), entity.getSoundSource(), 1.4F, 0.7F);
         }
     }
 }

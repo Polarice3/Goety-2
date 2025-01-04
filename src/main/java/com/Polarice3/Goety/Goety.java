@@ -475,6 +475,7 @@ public class Goety {
         event.put(ModEntityType.BORDER_WRAITH.get(), BorderWraith.setCustomAttributes().build());
         event.put(ModEntityType.CRYPT_SLIME.get(), CryptSlime.setCustomAttributes().build());
         event.put(ModEntityType.BONE_SPIDER.get(), BoneSpider.setCustomAttributes().build());
+        event.put(ModEntityType.NECROMANCER.get(), HostileNecromancer.setCustomAttributes().build());
         event.put(ModEntityType.CAIRN_NECROMANCER.get(), CairnNecromancer.setCustomAttributes().build());
         event.put(ModEntityType.HAUNTED_ARMOR.get(), HauntedArmor.setCustomAttributes().build());
         event.put(ModEntityType.ALLY_VEX.get(), AllyVex.setCustomAttributes().build());
@@ -570,6 +571,7 @@ public class Goety {
         event.put(ModEntityType.IRK.get(), Irk.setCustomAttributes().build());
         event.put(ModEntityType.WIGHT.get(), Wight.setCustomAttributes().build());
         event.put(ModEntityType.CARRION_MAGGOT.get(), CarrionMaggot.setCustomAttributes().build());
+        event.put(ModEntityType.CARRION_FLY.get(), CarrionFly.setCustomAttributes().build());
         event.put(ModEntityType.SKULL_LORD.get(), SkullLord.setCustomAttributes().build());
         event.put(ModEntityType.BONE_LORD.get(), BoneLord.setCustomAttributes().build());
         event.put(ModEntityType.WITHER_NECROMANCER.get(), WitherNecromancer.setCustomAttributes().build());
@@ -586,6 +588,7 @@ public class Goety {
         event.register(ModEntityType.WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.BORDER_WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.CRYPT_SLIME.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CryptSlime::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(ModEntityType.NECROMANCER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.CAIRN_NECROMANCER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.HAUNTED_ARMOR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
     }

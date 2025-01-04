@@ -26,6 +26,7 @@ import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.hostile.Wight;
 import com.Polarice3.Goety.common.entities.hostile.servants.Inferno;
 import com.Polarice3.Goety.common.entities.neutral.ApostleShade;
+import com.Polarice3.Goety.common.entities.neutral.CarrionFly;
 import com.Polarice3.Goety.common.entities.neutral.InsectSwarm;
 import com.Polarice3.Goety.common.entities.neutral.Wildfire;
 import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
@@ -136,6 +137,9 @@ public class ClientEvents {
             }
             if (entity instanceof InsectSwarm){
                 soundHandler.play(new LoopSound(ModSounds.INSECT_SWARM.get(), entity));
+            }
+            if (entity instanceof CarrionFly){
+                soundHandler.play(new LoopSound(ModSounds.FLY_LOOP.get(), 0.4F, 2.0F, entity));
             }
             if (entity instanceof Wight wight && !wight.isHallucination()){
                 soundHandler.play(new WightLoopSound(wight));

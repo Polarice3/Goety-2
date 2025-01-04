@@ -130,7 +130,6 @@ public class DrownedNecromancer extends AbstractNecromancer {
         if (pCompound.contains("RapidCoolDown")) {
             this.rapidShotCool = pCompound.getInt("RapidCoolDown");
         }
-        this.setConfigurableAttributes();
     }
 
     public void addAdditionalSaveData(CompoundTag pCompound) {

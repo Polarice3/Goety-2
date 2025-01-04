@@ -242,42 +242,7 @@ public interface IServant extends IOwned {
                     }
                 }
             }
-            if (this.isCommanded()){
-                if (owned.getNavigation().isStableDestination(this.getCommandPos()) || this.getCommandPosEntity() != null){
-                    this.setCommandTick(this.getCommandTick() - 1);
-                    if (this.getCommandPosEntity() != null){
-                        owned.getNavigation().moveTo(this.getCommandPosEntity(), 1.25D);
-                    } else {
-                        owned.getNavigation().moveTo(this.getCommandPos().getX() + 0.5D, this.getCommandPos().getY(), this.getCommandPos().getZ() + 0.5D, 1.25D);
-                    }
-
-                    if (owned.getNavigation().isStuck() || this.getCommandTick() <= 0){
-                        this.setCommandPosEntity(null);
-                        this.setCommandPos(null);
-                    } else if (this.getCommandPos().closerToCenterThan(
-                            owned.getControlledVehicle() != null ? owned.getControlledVehicle().position() : owned.position(),
-                            owned.getControlledVehicle() != null ? owned.getControlledVehicle().getBbWidth() + 1.0D : owned.getBbWidth() + 1.0D)){
-                        if (this.getCommandPosEntity() != null &&
-                                owned.getBoundingBox().inflate(1.25D).intersects(this.getCommandPosEntity().getBoundingBox())){
-                            if (this.canRide(this.getCommandPosEntity())) {
-                                if (owned.startRiding(this.getCommandPosEntity())) {
-                                    if (this.getTrueOwner() instanceof Player player){
-                                        player.displayClientMessage(Component.translatable("info.goety.servant.dismount"), true);
-                                    }
-                                }
-                            }
-                            this.setCommandPosEntity(null);
-                        }
-                        if (this.isPatrolling()){
-                            this.setBoundPos(this.getCommandPos());
-                        }
-                        owned.moveTo(this.getCommandPos(), owned.getYRot(), owned.getXRot());
-                        this.setCommandPos(null);
-                    }
-                } else {
-                    this.setCommandPos(null);
-                }
-            }
+            this.commandMode();
             if (this.isWandering() || this.isPatrolling()){
                 if (this.isStaying()) {
                     this.setStaying(false);
@@ -399,6 +364,51 @@ public interface IServant extends IOwned {
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+
+    default double getCommandSpeed(){
+        return 1.25D;
+    }
+
+    default void commandMode(){
+        if (this instanceof Mob owned){
+            if (this.isCommanded()){
+                if (owned.getNavigation().isStableDestination(this.getCommandPos()) || this.getCommandPosEntity() != null){
+                    this.setCommandTick(this.getCommandTick() - 1);
+                    if (this.getCommandPosEntity() != null){
+                        owned.getNavigation().moveTo(this.getCommandPosEntity(), this.getCommandSpeed());
+                    } else {
+                        owned.getNavigation().moveTo(this.getCommandPos().getX() + 0.5D, this.getCommandPos().getY(), this.getCommandPos().getZ() + 0.5D, this.getCommandSpeed());
+                    }
+
+                    if (owned.getNavigation().isStuck() || this.getCommandTick() <= 0){
+                        this.setCommandPosEntity(null);
+                        this.setCommandPos(null);
+                    } else if (this.getCommandPos().closerToCenterThan(
+                            owned.getControlledVehicle() != null ? owned.getControlledVehicle().position() : owned.position(),
+                            owned.getControlledVehicle() != null ? owned.getControlledVehicle().getBbWidth() + 1.0D : owned.getBbWidth() + 1.0D)){
+                        if (this.getCommandPosEntity() != null &&
+                                owned.getBoundingBox().inflate(1.25D).intersects(this.getCommandPosEntity().getBoundingBox())){
+                            if (this.canRide(this.getCommandPosEntity())) {
+                                if (owned.startRiding(this.getCommandPosEntity())) {
+                                    if (this.getTrueOwner() instanceof Player player){
+                                        player.displayClientMessage(Component.translatable("info.goety.servant.dismount"), true);
+                                    }
+                                }
+                            }
+                            this.setCommandPosEntity(null);
+                        }
+                        if (this.isPatrolling()){
+                            this.setBoundPos(this.getCommandPos());
+                        }
+                        owned.moveTo(this.getCommandPos(), owned.getYRot(), owned.getXRot());
+                        this.setCommandPos(null);
+                    }
+                } else {
+                    this.setCommandPos(null);
                 }
             }
         }

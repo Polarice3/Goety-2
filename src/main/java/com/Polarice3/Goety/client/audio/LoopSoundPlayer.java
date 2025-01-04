@@ -6,8 +6,8 @@ import net.minecraft.world.entity.Entity;
 
 public class LoopSoundPlayer {
 
-    public static void playSound(Entity entity, SoundEvent soundEvent, float volume) {
+    public static void playSound(Entity entity, SoundEvent soundEvent, float volume, float pitch) {
         Minecraft minecraft = Minecraft.getInstance();
-        minecraft.getSoundManager().play(new LoopSound(soundEvent, volume, entity));
+        minecraft.getSoundManager().play(new LoopSound(soundEvent, volume, pitch, entity));
     }
 }

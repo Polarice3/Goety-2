@@ -1,11 +1,11 @@
 {
-  "name": "打撃のフォーカス",
+  "name": "猛獣のフォーカス",
   "icon": "goety:mauling_focus",
   "category": "goety:focuses/wild",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "耳は強いが、野性的で攻撃的。闇の力で、最後まであなたに忠実なクマを召喚することができます。$(l:crafts/wild_staff)野生の杖$() で唱えると、2 匹のクマが同時に召喚されます。野生のローブ を身に着けると、爪で犠牲者にサップを与える強力なバージョンが召喚されます。"
+      "text": "クマは強く、野生で攻撃的です。闇の力を使えば、最後まで自分に忠実なクマを呼び出すことができます。 $(l:crafts/staff/wild_staff)野生の杖$()でキャストすると、2頭のクマが一度に召喚され、野生のローブを着ているとより強力なバージョンが召喚され、その爪で敵に耐性低下を与えることもできます。"
     },
     {
       "type": "patchouli:crafting",
@@ -14,7 +14,7 @@
     {
       "type": "patchouli:text",
       "advancement": "minecraft:story/enter_the_nether",
-      "text": "ネザーでこのフォーカスを唱えると、クマの代わりに忠実なホグリンが呼び出されます。"
+      "text": "ネザーでこの呪文を唱えると、クマの代わりに忠実なホグリンが呼び出されます。"
     }
   ]
 }

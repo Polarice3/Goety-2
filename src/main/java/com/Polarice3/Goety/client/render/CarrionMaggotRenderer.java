@@ -8,7 +8,8 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class CarrionMaggotRenderer extends MobRenderer<CarrionMaggot, CarrionMaggotModel<CarrionMaggot>> {
-   private static final ResourceLocation TEXTURES = Goety.location("textures/entity/carrion_maggot.png");
+   private static final ResourceLocation TEXTURES = Goety.location("textures/entity/wight/carrion_maggot.png");
+   private static final ResourceLocation COCOON = Goety.location("textures/entity/wight/carrion_maggot_cocoon.png");
 
    public CarrionMaggotRenderer(EntityRendererProvider.Context p_173994_) {
       super(p_173994_, new CarrionMaggotModel<>(p_173994_.bakeLayer(ModModelLayer.MAGGOT)), 0.3F);
@@ -19,6 +20,9 @@ public class CarrionMaggotRenderer extends MobRenderer<CarrionMaggot, CarrionMag
    }
 
    public ResourceLocation getTextureLocation(CarrionMaggot p_114354_) {
+      if (p_114354_.isCocoon()){
+         return COCOON;
+      }
       return TEXTURES;
    }
 }

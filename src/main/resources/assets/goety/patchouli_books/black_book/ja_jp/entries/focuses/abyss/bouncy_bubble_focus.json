@@ -1,0 +1,22 @@
+{
+  "name": "巨大な泡のフォーカス",
+  "icon": "goety:bouncy_bubble_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "大きな泡を召喚します。地面や生き物で跳ね返り、まるで酸でできているかのようにそれらを傷つける奇妙な泡です。何度も跳ね返った後、泡は破裂し、近くの味方ではないクリーチャーにダメージを与えます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/bouncy_bubble_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/abyss_staff)深淵の杖$()で唱えると、1つの泡ではなく、2つの泡を出せます。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:bouncy_bubble_focus": 1
+  }
+}

@@ -2606,5 +2606,13 @@
   "death.attack.goety.indirectDrench.item": "%1$s был потоплен %2$s с помощью %3$s",
   "death.attack.goety.bubbleStream": "%1$s пустил пузыри из-за %2$s",
   "death.attack.goety.bubbleStream.item": "%1$s был запузырен %2$s с помощью %3$s",
-  "item.goety.tropical_slime_servant_spawn_egg": "Яйцо призыва Тропический слизень-прислужник"
+  "item.goety.tropical_slime_servant_spawn_egg": "Яйцо призыва Тропический слизень-прислужник",
+  "entity.goety.necromancer": "Некромант",
+  "entity.goety.carrion_fly": "Carrion Fly",
+  "entity.goety.tidal_surge": "Tidal Surge",
+  "item.goety.necromancer_spawn_egg": "Яйцо призыва Некромант",
+  "item.goety.carrion_fly_spawn_egg": "Carrion Fly Spawn Egg",
+  "subtitle.goety.fly_loop": "Fly buzzes",
+  "subtitle.goety.fly_hurt": "Fly hurts",
+  "subtitle.goety.fly_death": "Fly dies"
 }

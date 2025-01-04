@@ -28,9 +28,11 @@ public class SpawnFromBlock {
         for(int i = -1; i <= 1; ++i) {
             for(int j = -1; j <= 1; ++j) {
                 for(int k = -1; k <= 1; ++k) {
-                    BlockPos blockpos = blockPos.offset(i, j, k);
-                    if (!level.isWaterAt(blockpos)) {
-                        return false;
+                    if (i != 0 && j != 0 && k != 0) {
+                        BlockPos blockpos = blockPos.offset(i, j, k);
+                        if (!level.isWaterAt(blockpos)) {
+                            return false;
+                        }
                     }
                 }
             }

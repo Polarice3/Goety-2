@@ -1,0 +1,22 @@
+{
+  "name": "潮汐のフォーカス",
+  "icon": "goety:tidal_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "潮汐(ちょうせき)の呪文は術者の前に水流のうねりを引き起こし、味方以外のターゲットを押し返してダメージを与えます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/tidal_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/abyss_staff)深淵の杖$()で唱えると、術者の前に1つではなく3つの水流を召喚します。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:tidal_focus": 1
+  }
+}

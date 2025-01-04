@@ -1,0 +1,19 @@
+{
+  "name": "プラズマビームのフォーカス",
+  "icon": "goety:prisma_beam_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この呪文は海底神殿のガーディアンの力を再現しています。直接見ている味方でないクリーチャーにレーザーを発射し、しばらくするとダメージを与えます。残念ながら、ガーディアンと同じように、視界が遮断されるとレーザーは停止します。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/prisma_beam_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/abyss_staff)深淵の杖$()でこの呪文を唱えると、ビームの基本ダメージがハート1つ分増加します。"
+    }
+  ]
+}

@@ -4,7 +4,6 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.common.entities.ally.SlimeServant;
 import com.Polarice3.Goety.common.entities.ally.undead.HauntedSkull;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.projectiles.ThrowableFungus;
@@ -17,7 +16,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.OwnableEntity;
-import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -70,13 +68,6 @@ public class ServantEvents {
                                 event.setCanceled(true);
                             }
                         }
-                    }
-                }
-            }
-            if (attacker instanceof Frog){
-                if (newTarget instanceof SlimeServant slime) {
-                    if (slime.getSize() != 1) {
-                        event.setCanceled(true);
                     }
                 }
             }

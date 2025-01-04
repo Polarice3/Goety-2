@@ -79,6 +79,10 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> MAGGOT_STEP = create("maggot_step");
     public static final RegistryObject<SoundEvent> MAGGOT_DEATH = create("maggot_death");
 
+    public static final RegistryObject<SoundEvent> FLY_LOOP = create("fly_loop");
+    public static final RegistryObject<SoundEvent> FLY_HURT = create("fly_hurt");
+    public static final RegistryObject<SoundEvent> FLY_DEATH = create("fly_death");
+
     public static final RegistryObject<SoundEvent> SKULL_LORD_AMBIENT = create("skull_lord_ambient");
     public static final RegistryObject<SoundEvent> SKULL_LORD_HURT = create("skull_lord_hurt");
     public static final RegistryObject<SoundEvent> SKULL_LORD_CHARGE = create("skull_lord_charge");

@@ -1,0 +1,18 @@
+{
+  "name": "深淵の杖",
+  "icon": "goety:abyss_staff",
+  "category": "goety:crafts/staff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "深淵の杖は、使用者に波に対する大きな権威を与え、深淵呪文の力を高めます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:abyss_staff"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:abyss_staff": 1
+  }
+}

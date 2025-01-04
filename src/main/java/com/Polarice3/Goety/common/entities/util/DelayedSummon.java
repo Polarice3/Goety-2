@@ -2,8 +2,7 @@ package com.Polarice3.Goety.common.entities.util;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.utils.EntityFinder;
-import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -16,6 +15,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
@@ -27,6 +27,7 @@ public class DelayedSummon extends Entity {
     public Entity entity;
     public boolean preMade;
     public boolean noPos;
+    public boolean necromancy;
     public int lifeSpan = 20;
 
     public DelayedSummon(EntityType<?> pType, Level pLevel) {
@@ -69,6 +70,7 @@ public class DelayedSummon extends Entity {
         }
         this.preMade = pCompound.getBoolean("preMade");
         this.noPos = pCompound.getBoolean("noPos");
+        this.necromancy = pCompound.getBoolean("Necromancy");
         this.lifeSpan = pCompound.getInt("lifeSpan");
     }
 
@@ -82,6 +84,7 @@ public class DelayedSummon extends Entity {
         }
         pCompound.putBoolean("preMade", this.preMade);
         pCompound.putBoolean("noPos", this.noPos);
+        pCompound.putBoolean("Necromancy", this.necromancy);
         pCompound.putInt("lifeSpan", this.lifeSpan);
     }
 
@@ -121,6 +124,10 @@ public class DelayedSummon extends Entity {
         return this.lifeSpan;
     }
 
+    public void setNecromancy(boolean necromancy) {
+        this.necromancy = necromancy;
+    }
+
     public PushReaction getPistonPushReaction() {
         return PushReaction.IGNORE;
     }
@@ -131,33 +138,37 @@ public class DelayedSummon extends Entity {
             MobUtil.moveDownToGround(this);
         }
         if (this.level instanceof ServerLevel serverWorld) {
-            if (this.tickCount == this.getLifeSpan()){
+            if (this.tickCount >= this.getLifeSpan()){
                 if (this.entity != null){
                     if (this.noPos) {
                         this.entity.setPos(this.getX(), this.getY(), this.getZ());
                     }
                     if (this.preMade) {
-                        if (this.entity instanceof TamableAnimal && this.getOwnerId() != null) {
-                            ((TamableAnimal) this.entity).setOwnerUUID(this.getOwnerId());
+                        if (this.entity instanceof TamableAnimal animal && this.getOwnerId() != null) {
+                            animal.setOwnerUUID(this.getOwnerId());
                         }
-                        if (this.entity instanceof IOwned && this.getTrueOwner() != null) {
-                            ((IOwned) this.entity).setTrueOwner(this.getTrueOwner());
+                        if (this.entity instanceof IOwned owned && this.getTrueOwner() != null) {
+                            owned.setTrueOwner(this.getTrueOwner());
                         }
-                        if (this.entity instanceof Mob) {
-                            ((Mob) this.entity).finalizeSpawn(serverWorld, this.level.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-                            if (this.getTrueOwner() != null && this.getTrueOwner() instanceof Mob) {
-                                if (((Mob) this.getTrueOwner()).getTarget() != null) {
-                                    ((Mob) this.entity).setTarget(((Mob) this.getTrueOwner()).getTarget());
+                        if (this.entity instanceof Mob mob) {
+                            ForgeEventFactory.onFinalizeSpawn(mob, serverWorld, this.level.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+                            if (this.getTrueOwner() != null && this.getTrueOwner() instanceof Mob mob1) {
+                                if (mob1.getTarget() != null) {
+                                    mob.setTarget(mob1.getTarget());
                                 }
                             }
                         }
                     }
-                    serverWorld.addFreshEntity(entity);
+                    if (serverWorld.addFreshEntity(this.entity)){
+                        if (this.necromancy){
+                            SoundUtil.playNecromancerSummon(this.entity);
+                            ColorUtil colorUtil = new ColorUtil(0x2ac9cf);
+                            ServerParticleUtil.windShockwaveParticle(serverWorld, colorUtil, 0.1F, 0.1F, 0.05F, -1, this.entity.position());
+                        }
+                        this.discard();
+                    }
                 }
             }
-        }
-        if (this.tickCount >= this.getLifeSpan()){
-            this.discard();
         }
     }
 

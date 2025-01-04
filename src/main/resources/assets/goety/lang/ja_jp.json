@@ -725,8 +725,6 @@
   "block.goety.wall_redstone_golem_skull": "レッドストーンゴーレムの頭",
 
   "effect.goety.summon_down": "召喚酔い",
-  "effect.goety.summon_down.description": "呪文を唱えるにはより多くのソウルエネルギーが必要で、レベルが高いほどコストが増加します。新しく召喚されたモブは防御力低下と弱体化を獲得します。",
-  "effect.goety.sapped": "防御力低下",
   "effect.goety.sapped.description": "レベルごとに受けるダメージが20%増加します。",
   "effect.goety.gold_touched": "ゴールドタッチ",
   "effect.goety.gold_touched.description": "モブは死亡すると金塊をドロップし、効果レベルが上がるほど量が増加します。",
@@ -744,7 +742,6 @@
   "effect.goety.climbing.description": "水平の壁を登り、クモの巣を通過する能力を与えます。",
   "effect.goety.wane": "ウェイン",
   "effect.goety.wane.description": "移動力と近接ダメージを弱めます。",
-  "effect.goety.busted": "バステッド",
   "effect.goety.busted.description": "レベルごとにアーマーポイントが50%減少します。",
   "effect.goety.cursed": "呪い",
   "effect.goety.cursed.description": "再生・治癒できなくなります。",
@@ -2534,5 +2531,17 @@
   "death.attack.goety.bubbleStream.item": "%1$sは%2$sの%3$sによって泡にされた",
   "subtitle.goety.biomine_spawn": "Biomine spawns",
   "subtitle.goety.biomine_trigger": "Biomine triggers",
-  "subtitle.goety.bubble_stream": "Blowing bubbles"
+  "subtitle.goety.bubble_stream": "Blowing bubbles",
+  "entity.goety.carrion_fly": "Carrion Fly",
+  "item.goety.tropical_slime_servant_spawn_egg": "Tropical Slime Servant Spawn Egg",
+  "effect.goety.summon_down.description": "呪文を唱えるにはより多くのソウルエネルギーが必要で、レベルが高いほどコストが増加します。新しく召喚されたモブは耐性低下と弱体化を獲得します。",
+  "effect.goety.sapped": "耐性低下",
+  "effect.goety.busted": "防御力低下",
+  "entity.goety.necromancer": "ネクロマンサー",
+  "entity.goety.tidal_surge": "Tidal Surge",
+  "item.goety.necromancer_spawn_egg": "ネクロマンサーのスポーンエッグ",
+  "item.goety.carrion_fly_spawn_egg": "Carrion Fly Spawn Egg",
+  "subtitle.goety.fly_loop": "Fly buzzes",
+  "subtitle.goety.fly_hurt": "Fly hurts",
+  "subtitle.goety.fly_death": "Fly dies"
 }

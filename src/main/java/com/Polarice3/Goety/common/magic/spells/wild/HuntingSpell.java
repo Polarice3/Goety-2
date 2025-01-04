@@ -76,7 +76,7 @@ public class HuntingSpell extends SummonSpell {
 
     @Override
     public Predicate<LivingEntity> summonPredicate() {
-        return livingEntity -> livingEntity instanceof BlackWolf || livingEntity instanceof SkeletonWolf;
+        return livingEntity -> livingEntity instanceof BlackWolf || livingEntity instanceof SkeletonWolf || livingEntity instanceof Snapper;
     }
 
     @Override
@@ -88,8 +88,14 @@ public class HuntingSpell extends SummonSpell {
     public void commonResult(ServerLevel worldIn, LivingEntity caster) {
         if (isShifting(caster)) {
             for (Entity entity : worldIn.getAllEntities()) {
-                if (entity instanceof BlackWolf) {
-                    this.teleportServants(caster, entity);
+                if (entity instanceof LivingEntity livingEntity && summonPredicate().test(livingEntity)) {
+                    if (livingEntity instanceof Snapper){
+                        if (caster.isUnderWater()){
+                            this.teleportServants(caster, entity);
+                        }
+                    } else {
+                        this.teleportServants(caster, entity);
+                    }
                 }
             }
             for (int i = 0; i < caster.level.random.nextInt(35) + 10; ++i) {

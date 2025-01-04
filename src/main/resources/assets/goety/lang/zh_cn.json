@@ -2594,5 +2594,13 @@
   "death.attack.goety.indirectDrench.item": "%1$s被%2$s用%3$s浸透了",
   "death.attack.goety.bubbleStream": "%1$s被%2$s搓了泡泡",
   "death.attack.goety.bubbleStream.item": "%1$s被%2$s用%3$s搓了泡泡",
-  "item.goety.tropical_slime_servant_spawn_egg": "热带史莱姆仆从刷怪蛋"
+  "item.goety.tropical_slime_servant_spawn_egg": "热带史莱姆仆从刷怪蛋",
+  "entity.goety.necromancer": "死灵法师",
+  "entity.goety.carrion_fly": "Carrion Fly",
+  "entity.goety.tidal_surge": "Tidal Surge",
+  "item.goety.necromancer_spawn_egg": "死灵法师刷怪蛋",
+  "item.goety.carrion_fly_spawn_egg": "Carrion Fly Spawn Egg",
+  "subtitle.goety.fly_loop": "Fly buzzes",
+  "subtitle.goety.fly_hurt": "Fly hurts",
+  "subtitle.goety.fly_death": "Fly dies"
 }

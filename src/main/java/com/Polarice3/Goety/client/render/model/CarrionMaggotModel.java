@@ -9,12 +9,22 @@ import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import org.joml.Vector3f;
 
 public class CarrionMaggotModel<T extends CarrionMaggot> extends HierarchicalModel<T> {
 	private final ModelPart root;
+	private final ModelPart head;
+	private final ModelPart body;
+    private final ModelPart mid;
+	private final ModelPart tail;
 
 	public CarrionMaggotModel(ModelPart root) {
 		this.root = root;
+        ModelPart maggot = root.getChild("maggot");
+		this.head = maggot.getChild("head");
+		this.body = maggot.getChild("body");
+		this.mid = maggot.getChild("mid");
+		this.tail = maggot.getChild("tail");
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -44,6 +54,12 @@ public class CarrionMaggotModel<T extends CarrionMaggot> extends HierarchicalMod
 			this.animate(entity.idleAnimationState, IDLE, ageInTicks);
 			this.animate(entity.emergeAnimationState, EMERGE, ageInTicks);
 			this.animateWalk(WALK, limbSwing, limbSwingAmount, 2.5F, 20.0F);
+			if (entity.isCocoon()){
+				this.head.offsetScale(new Vector3f(-1.0F));
+				this.body.offsetScale(new Vector3f(1.25F));
+				this.mid.offsetScale(new Vector3f(-1.0F));
+				this.tail.offsetScale(new Vector3f(-1.0F));
+			}
 		}
 	}
 

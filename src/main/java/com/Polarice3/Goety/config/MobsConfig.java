@@ -53,6 +53,7 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WarlockSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithSpawnWeight;
+    public static final ForgeConfigSpec.ConfigValue<Integer> NecromancerSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> HereticSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaverickSpawnWeight;
 
@@ -598,6 +599,8 @@ public class MobsConfig {
                 .defineInRange("warlockSpawnWeight", 5, 0, Integer.MAX_VALUE);
         WraithSpawnWeight = BUILDER.comment("Spawn Weight for Wraith, Default: 20")
                 .defineInRange("wraithSpawnWeight", 20, 0, Integer.MAX_VALUE);
+        NecromancerSpawnWeight = BUILDER.comment("Spawn Weight for Necromancer, Default: 1")
+                .defineInRange("necromancerSpawnWeight", 1, 0, Integer.MAX_VALUE);
         HereticSpawnWeight = BUILDER.comment("Spawn Weight for Heretic, Default: 5")
                 .defineInRange("hereticSpawnWeight", 5, 0, Integer.MAX_VALUE);
         MaverickSpawnWeight = BUILDER.comment("Spawn Weight for Maverick, Default: 5")

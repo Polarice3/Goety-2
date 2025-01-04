@@ -771,6 +771,78 @@
     ],
     "subtitle": "subtitle.goety.maggot_death"
   },
+  "fly_loop": {
+    "sounds": [
+      {
+        "name": "mob/bee/loop1",
+        "attenuation_distance": 6,
+        "volume": 0.6
+      },
+      {
+        "name": "mob/bee/loop2",
+        "attenuation_distance": 6,
+        "volume": 0.6
+      },
+      {
+        "name": "mob/bee/loop3",
+        "attenuation_distance": 6,
+        "volume": 0.65
+      },
+      {
+        "name": "mob/bee/loop4",
+        "attenuation_distance": 6,
+        "volume": 0.65
+      },
+      {
+        "name": "mob/bee/loop5",
+        "attenuation_distance": 6,
+        "volume": 0.7
+      },
+      {
+        "name": "mob/bee/loop5",
+        "attenuation_distance": 6,
+        "volume": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.fly_loop"
+  },
+  "fly_hurt": {
+    "sounds": [
+      {
+        "name": "mob/bee/hurt1"
+      },
+      {
+        "name": "mob/bee/hurt1",
+        "pitch": 1.2
+      },
+      {
+        "name": "mob/bee/hurt2"
+      },
+      {
+        "name": "mob/bee/hurt2",
+        "pitch": 1.2
+      },
+      {
+        "name": "mob/bee/hurt3"
+      },
+      {
+        "name": "mob/bee/hurt3",
+        "pitch": 1.2
+      }
+    ],
+    "subtitle": "subtitle.goety.fly_hurt"
+  },
+  "fly_death": {
+    "sounds": [
+      {
+        "name": "mob/bee/death1"
+      },
+      {
+        "name": "mob/bee/death2"
+      }
+    ],
+    "subtitle": "subtitle.goety.fly_death"
+  },
   "skull_lord_ambient": {
     "sounds": [
       {

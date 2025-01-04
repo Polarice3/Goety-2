@@ -574,6 +574,11 @@ public class ModEntityType {
                     .sized(0.6F, 0.7F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<HostileNecromancer>> NECROMANCER = register("necromancer",
+            EntityType.Builder.of(HostileNecromancer::new, MobCategory.MONSTER)
+                    .sized(0.75F, 2.4875F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<CairnNecromancer>> CAIRN_NECROMANCER = register("cairn_necromancer",
             EntityType.Builder.of(CairnNecromancer::new, MobCategory.MONSTER)
                     .sized(0.75F, 2.4875F)
@@ -1038,6 +1043,11 @@ public class ModEntityType {
     public static final RegistryObject<EntityType<CarrionMaggot>> CARRION_MAGGOT = register("carrion_maggot",
             EntityType.Builder.of(CarrionMaggot::new, MobCategory.MONSTER)
                     .sized(0.4F, 0.3F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<CarrionFly>> CARRION_FLY = register("carrion_fly",
+            EntityType.Builder.of(CarrionFly::new, MobCategory.MONSTER)
+                    .sized(0.4F, 0.5F)
                     .clientTrackingRange(8));
 
     public static final RegistryObject<EntityType<SkullLord>> SKULL_LORD = register("skull_lord",

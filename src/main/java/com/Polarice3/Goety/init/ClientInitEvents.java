@@ -292,6 +292,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.BLACKGUARD, BlackguardModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WIGHT, WightModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MAGGOT, CarrionMaggotModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.FLY, CarrionFlyModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SORCERER, SorcererModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.TORMENTOR, TormentorModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.INQUILLAGER, InquillagerModel::createBodyLayer);
@@ -497,6 +498,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.BORDER_WRAITH.get(), BorderWraithRenderer::new);
         event.registerEntityRenderer(ModEntityType.CRYPT_SLIME.get(), CryptSlimeRenderer::new);
         event.registerEntityRenderer(ModEntityType.BONE_SPIDER.get(), BoneSpiderRenderer::new);
+        event.registerEntityRenderer(ModEntityType.NECROMANCER.get(), NecromancerRenderer::new);
         event.registerEntityRenderer(ModEntityType.CAIRN_NECROMANCER.get(), AbstractCairnNecromancerRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_ARMOR.get(), HauntedArmorRenderer::new);
         event.registerEntityRenderer(ModEntityType.ALLY_VEX.get(), AllyVexRenderer::new);
@@ -583,6 +585,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.IRK.get(), IrkRenderer::new);
         event.registerEntityRenderer(ModEntityType.WIGHT.get(), WightRenderer::new);
         event.registerEntityRenderer(ModEntityType.CARRION_MAGGOT.get(), CarrionMaggotRenderer::new);
+        event.registerEntityRenderer(ModEntityType.CARRION_FLY.get(), CarrionFlyRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKULL_LORD.get(), SkullLordRenderer::new);
         event.registerEntityRenderer(ModEntityType.BONE_LORD.get(), BoneLordRenderer::new);
         event.registerEntityRenderer(ModEntityType.WITHER_NECROMANCER.get(), WitherNecromancerRenderer::new);

@@ -175,7 +175,7 @@ public class VoidRift extends CastSpellTrap {
                 }
                 if (!this.playEvent) {
                     this.playSound(ModSounds.VOID_RIFT_OPEN.get(), 5.0F, 1.0F);
-                    ModNetwork.sendToALL(new SPlayLoopSoundPacket(this, ModSounds.VOID_RIFT.get(), 5.0F));
+                    ModNetwork.sendToALL(new SPlayLoopSoundPacket(this, ModSounds.VOID_RIFT.get(), 5.0F, 1.0F));
                     this.playEvent = true;
                 }
                 if (this.tickCount % 200 == 0){

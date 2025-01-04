@@ -2,7 +2,7 @@
   "parent": "goety:goety/craft_dark_altar",
   "display": {
     "icon": {
-      "item": "minecraft:raw_porkchop"
+      "item": "minecraft:porkchop"
     },
     "title": {
       "translate": "advancements.goety.ride_hoglin_servant.title"

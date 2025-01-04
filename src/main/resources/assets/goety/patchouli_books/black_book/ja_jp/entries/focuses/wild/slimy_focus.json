@@ -1,0 +1,22 @@
+{
+  "name": "スライムのフォーカス",
+  "icon": "goety:slimy_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "あなたの周りに忠実な$(l:summons/slime_servants)スライムの従者$()を呼び出します。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/slimy_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/wild_staff)野生の杖$()で唱えると多くのスライムを呼び出せます。$(l:crafts/staff/abyss_staff)深淵の杖$()で唱えるとトロピカルスライムに、$(l:crafts/staff/nether_staff)ネザーの杖$()で唱えるとマグマキューブに、$(l:crafts/staff/necro_staff)ネクロの杖$()で唱えるとクリプトスライムになります。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:slimy_focus": 1
+  }
+}

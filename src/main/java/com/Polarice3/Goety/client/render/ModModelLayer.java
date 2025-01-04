@@ -84,6 +84,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation BLACKGUARD = register("blackguard");
     public static final ModelLayerLocation WIGHT = register("wight");
     public static final ModelLayerLocation MAGGOT = register("maggot");
+    public static final ModelLayerLocation FLY = register("fly");
     public static final ModelLayerLocation VILLAGER_ARMOR_INNER = registerInnerArmor("villager_armor");
     public static final ModelLayerLocation VILLAGER_ARMOR_OUTER = registerOuterArmor("villager_armor");
     public static final ModelLayerLocation CURSED_KNIGHT_ARMOR_INNER = registerInnerArmor("cursed_knight_armor");

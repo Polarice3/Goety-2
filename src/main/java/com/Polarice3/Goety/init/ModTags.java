@@ -126,6 +126,8 @@ public class ModTags {
         public static final TagKey<Biome> COMMON_BLACKLIST = tag("mob_spawn/common_blacklist");
         public static final TagKey<Biome> WRAITH_SPAWN = tag("mob_spawn/wraith");
         public static final TagKey<Biome> WRAITH_EXCLUDE_SPAWN = tag("mob_spawn/wraith_exclude");
+        public static final TagKey<Biome> NECROMANCER_SPAWN = tag("mob_spawn/necromancer");
+        public static final TagKey<Biome> NECROMANCER_EXCLUDE_SPAWN = tag("mob_spawn/necromancer_exclude");
         public static final TagKey<Biome> WARLOCK_SPAWN = tag("mob_spawn/warlock");
         public static final TagKey<Biome> WARLOCK_EXCLUDE_SPAWN = tag("mob_spawn/warlock_exclude");
         public static final TagKey<Biome> HERETIC_SPAWN = tag("mob_spawn/heretic");

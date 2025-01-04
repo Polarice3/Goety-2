@@ -453,11 +453,13 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
     }
 
     public void spellCastParticles(){
-        double d0 = MathHelper.rgbParticle(this.getNecromancerSpellType().particleSpeed)[0];
-        double d1 = MathHelper.rgbParticle(this.getNecromancerSpellType().particleSpeed)[1];
-        double d2 = MathHelper.rgbParticle(this.getNecromancerSpellType().particleSpeed)[2];
-        for (int i = 0; i < this.level.random.nextInt(35) + 10; ++i) {
-            this.level.addParticle(ModParticleTypes.CULT_SPELL.get(), this.getX(), this.getY(), this.getZ(), d0, d1, d2);
+        if (this.getNecromancerSpellType() != NecromancerSpellType.NONE) {
+            double d0 = MathHelper.rgbParticle(this.getNecromancerSpellType().particleSpeed)[0];
+            double d1 = MathHelper.rgbParticle(this.getNecromancerSpellType().particleSpeed)[1];
+            double d2 = MathHelper.rgbParticle(this.getNecromancerSpellType().particleSpeed)[2];
+            for (int i = 0; i < this.level.random.nextInt(4) + 4; ++i) {
+                this.level.addParticle(ModParticleTypes.BIG_CULT_SPELL.get(), this.getX(), this.getY(), this.getZ(), d0, d1, d2);
+            }
         }
     }
 

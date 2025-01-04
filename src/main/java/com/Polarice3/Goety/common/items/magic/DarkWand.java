@@ -9,7 +9,6 @@ import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.entities.neutral.AbstractVine;
 import com.Polarice3.Goety.common.events.GoetyEventFactory;
 import com.Polarice3.Goety.common.magic.spells.void_spells.RecallSpell;
-import com.Polarice3.Goety.common.magic.spells.wind.FlyingSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayEntitySoundPacket;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
@@ -722,36 +721,6 @@ public class DarkWand extends Item implements IWand {
     }
 
     public static class DarkWandClient implements IClientItemExtensions{
-        private static final HumanoidModel.ArmPose WAND_POSE = HumanoidModel.ArmPose.create("WAND", false, (model, entity, arm) -> {
-            float f5 = entity.walkAnimation.position(Minecraft.getInstance().getPartialTick());
-            if (arm == HumanoidArm.RIGHT) {
-                model.rightArm.xRot -= MathHelper.modelDegrees(105);
-                model.rightArm.zRot = Mth.cos(f5 * 0.6662F) * 0.25F;
-                model.leftArm.xRot += MathHelper.modelDegrees(25);
-            } else {
-                model.leftArm.xRot -= MathHelper.modelDegrees(105);
-                model.leftArm.zRot = -Mth.cos(f5 * 0.6662F) * 0.25F;
-                model.rightArm.xRot += MathHelper.modelDegrees(25);
-            }
-        });
-
-        private static final HumanoidModel.ArmPose FLYING_POSE = HumanoidModel.ArmPose.create("FLYING_WAND", false, (model, entity, arm) -> {
-            float f5 = 1.0F;
-            if (arm == HumanoidArm.RIGHT) {
-                model.rightArm.xRot = -MathHelper.modelDegrees(105);
-                model.rightArm.zRot = Mth.cos(f5 * 0.6662F) * 0.25F;
-                model.leftArm.xRot = MathHelper.modelDegrees(25);
-            } else {
-                model.leftArm.xRot = -MathHelper.modelDegrees(105);
-                model.leftArm.zRot = -Mth.cos(f5 * 0.6662F) * 0.25F;
-                model.rightArm.xRot = MathHelper.modelDegrees(25);
-            }
-            model.rightLeg.xRot = MathHelper.modelDegrees(17.5F);
-            model.leftLeg.xRot = MathHelper.modelDegrees(17.5F);
-
-            model.rightLeg.xRot += 1.0F * Mth.sin(Minecraft.getInstance().getPartialTick() * 0.067F) * 0.05F;
-            model.leftLeg.xRot += -1.0F * Mth.sin(Minecraft.getInstance().getPartialTick() * 0.067F) * 0.05F;
-        });
 
         private static final HumanoidModel.ArmPose HOLD_STAFF = HumanoidModel.ArmPose.create("HOLD_STAFF", false, (model, entity, arm) -> {
             float f5 = entity.walkAnimation.position(Minecraft.getInstance().getPartialTick());
@@ -766,12 +735,11 @@ public class DarkWand extends Item implements IWand {
 
         @Override
         public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
-            if (!itemStack.isEmpty() && itemStack.getItem() instanceof DarkWand) {
+            if (!itemStack.isEmpty() && itemStack.getItem() instanceof IWand) {
                 if (entityLiving.getUsedItemHand() == hand && entityLiving.getUseItemRemainingTicks() > 0) {
-                    if (WandUtil.getSpell(entityLiving) instanceof FlyingSpell){
-                        return FLYING_POSE;
-                    } else {
-                        return WAND_POSE;
+                    ISpell spell = WandUtil.getSpell(entityLiving);
+                    if (spell != null && spell.spellPose() != null){
+                        return spell.spellPose();
                     }
                 }
             }

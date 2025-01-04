@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Black wolves are supernatural, or demonic hounds mentioned in folklore that are said to be seen throughout the Overworld. With the focus, you're able to summon or conjure them for aid. When cast with $(l:crafts/staff/wild_staff)Wild Staff$(), more wolves are summoned, wearing a Wild Robe will strengthened them, where their claws and bites Curses their target."
+      "text": "$(l:summons/black_wolves)Black wolves$() are supernatural, or demonic hounds mentioned in folklore that are said to be seen throughout the Overworld. With the focus, you're able to summon or conjure them for aid. When underwater, you'll summon forth $(l:summons/snappers)Snappers$(), ferocious piranha-like creatures that will gnaw on your foes."
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/hunting_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "When cast with $(l:crafts/staff/wild_staff)Wild Staff$(), more wolves are summoned, wearing a Wild Robe will strengthened them, where their claws and bites Curses their target. When cast with $(l:crafts/staff/abyss_staff)Abyss Staff$() you'll summon Snappers... even on land. Snappers will only teleport towards you if crouch-casting underwater."
     }
   ]
 }

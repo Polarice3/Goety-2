@@ -1,0 +1,7 @@
+{
+  "name": "杖",
+  "description": "闇の魔法使いが呪文を唱える方法",
+  "icon": "goety:necro_staff",
+  "parent": "goety:crafts",
+  "sortnum": 4
+}

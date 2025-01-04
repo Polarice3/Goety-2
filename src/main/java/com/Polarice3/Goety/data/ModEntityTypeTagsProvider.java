@@ -62,6 +62,7 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.INFERNO.get(),
                 ModEntityType.MAGMA_CUBE_SERVANT.get(),
                 ModEntityType.CARRION_MAGGOT.get(),
+                ModEntityType.CARRION_FLY.get(),
                 ModEntityType.STORM_CASTER.get());
         this.tag(EntityTypeTags.RAIDERS).add(ModEntityType.ARMORED_RAVAGER.get(),
                 ModEntityType.WARLOCK.get(),

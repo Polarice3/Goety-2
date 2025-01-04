@@ -93,6 +93,7 @@
   "entity.goety.border_wraith":"Border Wraith",
   "entity.goety.crypt_slime":"Crypt Slime",
   "entity.goety.bone_spider":"Bone Spider",
+  "entity.goety.necromancer":"Necromancer",
   "entity.goety.cairn_necromancer":"Cairn Necromancer",
   "entity.goety.haunted_armor":"Haunted Armor",
 
@@ -170,6 +171,7 @@
 
   "entity.goety.wight":"Wight",
   "entity.goety.carrion_maggot":"Carrion Maggot",
+  "entity.goety.carrion_fly":"Carrion Fly",
 
   "entity.goety.skull_lord":"Skull Lord",
   "entity.goety.bone_lord":"Bone Lord",
@@ -248,6 +250,7 @@
   "entity.goety.spider_web":"Spider Web",
   "entity.goety.fire_tornado":"Flaming Tornado",
   "entity.goety.cyclone":"Cyclone",
+  "entity.goety.tidal_surge":"Tidal Surge",
   "entity.goety.falling_block":"Falling Block",
   "entity.goety.corrupted_beam":"Beam of Corruption",
 
@@ -297,6 +300,7 @@
   "item.goety.border_wraith_spawn_egg": "Border Wraith Spawn Egg",
   "item.goety.crypt_slime_spawn_egg": "Crypt Slime Spawn Egg",
   "item.goety.bone_spider_spawn_egg": "Bone Spider Spawn Egg",
+  "item.goety.necromancer_spawn_egg": "Necromancer Spawn Egg",
   "item.goety.cairn_necromancer_spawn_egg": "Cairn Necromancer Spawn Egg",
   "item.goety.haunted_armor_spawn_egg": "Haunted Armor Spawn Egg",
   "item.goety.zombie_servant_spawn_egg": "Zombie Servant Spawn Egg",
@@ -361,6 +365,7 @@
   "item.goety.irk_spawn_egg": "Irk Spawn Egg",
   "item.goety.wight_spawn_egg": "Wight Spawn Egg",
   "item.goety.carrion_maggot_spawn_egg": "Carrion Maggot Spawn Egg",
+  "item.goety.carrion_fly_spawn_egg": "Carrion Fly Spawn Egg",
   "item.goety.skull_lord_spawn_egg": "Skull Lord Spawn Egg",
   "item.goety.ravaged_spawn_egg": "Ravaged Spawn Egg",
   "item.goety.whisperer_spawn_egg": "Whisperer Spawn Egg",
@@ -1754,6 +1759,10 @@
   "subtitle.goety.maggot_attack": "Maggot bites",
   "subtitle.goety.maggot_step": "Maggot crawls",
   "subtitle.goety.maggot_death": "Maggot dies",
+
+  "subtitle.goety.fly_loop": "Fly buzzes",
+  "subtitle.goety.fly_hurt": "Fly hurts",
+  "subtitle.goety.fly_death": "Fly dies",
 
   "subtitle.goety.skull_lord_ambient": "Skull Lord murmurs",
   "subtitle.goety.skull_lord_hurt": "Skull Lord hurts",

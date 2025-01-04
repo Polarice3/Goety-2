@@ -1,0 +1,22 @@
+{
+  "name": "バイオマインのフォーカス",
+  "icon": "goety:biomine_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "唱えると、バイオマインを呼び出すことができます。バイオマインは卵のようなモノで、割られたとき、または味方ではない生き物が近くにいる場合に爆発して有毒ガスが発生させます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/biomine_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/abyss_staff)深淵の杖$()で唱えると、さらに多くのバイオマインを呼び出すことができます。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:biomine_focus": 1
+  }
+}

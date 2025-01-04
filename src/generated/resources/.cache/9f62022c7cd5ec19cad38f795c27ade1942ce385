@@ -1,8 +1,8 @@
-// 1.20.1	2024-12-24T10:55:42.3400396	Tags for minecraft:entity_type mod id goety
+// 1.20.1	2025-01-03T19:05:22.9947898	Tags for minecraft:entity_type mod id goety
 871115c37b303672b43b321b0acc6c83ef85f81d data/goety/tags/entity_types/creepers.json
 241a48f6d6b2dccd272d958c1f85c0197c0bc5dd data/goety/tags/entity_types/endermen.json
 c5a67ab048296c1385e098bf79167be1a3b69ce0 data/minecraft/tags/entity_types/arrows.json
-3dfe62a957e0779a0220522ae68fedd77d0458dd data/minecraft/tags/entity_types/fall_damage_immune.json
+602524b3434f69e00a60d8f1db0b314610a04649 data/minecraft/tags/entity_types/fall_damage_immune.json
 eebd1514a58994d94496b6990ce7bb1001d38743 data/minecraft/tags/entity_types/freeze_hurts_extra_types.json
 ff92cc2de0fc40b0721f20152072c23c12b3bcdc data/minecraft/tags/entity_types/freeze_immune_entity_types.json
 cd7e06dcd6b50ff544408dec787fa2a71ecf2c2c data/minecraft/tags/entity_types/frog_food.json

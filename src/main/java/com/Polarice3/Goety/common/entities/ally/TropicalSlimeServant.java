@@ -4,6 +4,7 @@ import com.Polarice3.Goety.client.render.TropicalSlimeTextures;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.ModLootTables;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -16,10 +17,8 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -31,6 +30,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.fluids.FluidType;
 
 import java.util.EnumSet;
@@ -56,6 +56,12 @@ public class TropicalSlimeServant extends SlimeServant{
 
     public void followGoal(){
         this.goalSelector.addGoal(8, new SlimeFollowGoal(this, 4.0F, 10.0F));
+    }
+
+    public static AttributeSupplier.Builder setCustomAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.ATTACK_DAMAGE)
+                .add(ForgeMod.SWIM_SPEED.get(), 0.1D);
     }
 
     @Override
@@ -85,14 +91,16 @@ public class TropicalSlimeServant extends SlimeServant{
     protected void dropCustomDeathLoot(DamageSource p_33574_, int p_33575_, boolean p_33576_) {
         super.dropCustomDeathLoot(p_33574_, p_33575_, p_33576_);
         if (this.level.getServer() != null) {
-            LootTable loottable = this.level.getServer().getLootData().getLootTable(ModLootTables.TROPICAL_SLIME);
-            LootParams.Builder lootparams$builder = (new LootParams.Builder((ServerLevel) this.level)).withParameter(LootContextParams.THIS_ENTITY, this).withParameter(LootContextParams.ORIGIN, this.position()).withParameter(LootContextParams.DAMAGE_SOURCE, p_33574_).withOptionalParameter(LootContextParams.KILLER_ENTITY, p_33574_.getEntity()).withOptionalParameter(LootContextParams.DIRECT_KILLER_ENTITY, p_33574_.getDirectEntity());
-            if (this.lastHurtByPlayerTime > 0 && this.lastHurtByPlayer != null) {
-                lootparams$builder = lootparams$builder.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, this.lastHurtByPlayer).withLuck(this.lastHurtByPlayer.getLuck());
-            }
+            if (this.shouldDropLoot()) {
+                LootTable loottable = this.level.getServer().getLootData().getLootTable(ModLootTables.TROPICAL_SLIME);
+                LootParams.Builder lootparams$builder = (new LootParams.Builder((ServerLevel) this.level)).withParameter(LootContextParams.THIS_ENTITY, this).withParameter(LootContextParams.ORIGIN, this.position()).withParameter(LootContextParams.DAMAGE_SOURCE, p_33574_).withOptionalParameter(LootContextParams.KILLER_ENTITY, p_33574_.getEntity()).withOptionalParameter(LootContextParams.DIRECT_KILLER_ENTITY, p_33574_.getDirectEntity());
+                if (this.lastHurtByPlayerTime > 0 && this.lastHurtByPlayer != null) {
+                    lootparams$builder = lootparams$builder.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, this.lastHurtByPlayer).withLuck(this.lastHurtByPlayer.getLuck());
+                }
 
-            LootParams lootparams = lootparams$builder.create(LootContextParamSets.ENTITY);
-            loottable.getRandomItems(lootparams, this.getLootTableSeed(), this::spawnAtLocation);
+                LootParams lootparams = lootparams$builder.create(LootContextParamSets.ENTITY);
+                loottable.getRandomItems(lootparams, this.getLootTableSeed(), this::spawnAtLocation);
+            }
         }
     }
 
@@ -168,6 +176,28 @@ public class TropicalSlimeServant extends SlimeServant{
     }
 
     @Override
+    public void commandMode() {
+        if (this.isCommanded()) {
+            if (this.isInWater()) {
+                this.lookAt(EntityAnchorArgument.Anchor.EYES, this.getCommandPos().getCenter());
+                if (this.getMoveControl() instanceof TropicalSlimeMoveControl control) {
+                    control.setDirection(this.getYRot(), true);
+                    control.setWantedMovement(0.5D);
+                }
+            }
+        }
+        super.commandMode();
+    }
+
+    @Override
+    public double getCommandSpeed() {
+        if (this.isInWater()){
+            return 0.5D;
+        }
+        return 1.0D;
+    }
+
+    @Override
     public MobType getMobType() {
         return MobType.WATER;
     }
@@ -238,7 +268,7 @@ public class TropicalSlimeServant extends SlimeServant{
         }
 
         public void tick() {
-            this.mob.setDeltaMovement(this.mob.getDeltaMovement().add(0.0D, -0.008D, 0.0D));
+            this.mob.setDeltaMovement(this.mob.getDeltaMovement().subtract(0.0D, 0.008D, 0.0D));
             this.mob.setYRot(this.rotlerp(this.mob.getYRot(), this.yRot, 90.0F));
             this.mob.yHeadRot = this.mob.getYRot();
             this.mob.yBodyRot = this.mob.getYRot();
@@ -249,7 +279,7 @@ public class TropicalSlimeServant extends SlimeServant{
                 this.operation = MoveControl.Operation.WAIT;
                 if (this.mob.isInWater() && !this.mob.onGround()) {
 
-                    float f1 = (float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                    float f1 = (float) (this.speedModifier * this.mob.getAttributeValue(ForgeMod.SWIM_SPEED.get()));
 
                     double d1 = this.wantedY - this.mob.getY();
                     boolean flag = d1 < 0.0D && this.mob.getTarget() != null;
@@ -338,14 +368,14 @@ public class TropicalSlimeServant extends SlimeServant{
         }
 
         public void tick() {
-            if (this.owner != null) {
-                this.slime.lookAt(this.owner, 10.0F, 10.0F);
-            }
-
             MoveControl movecontrol = this.slime.getMoveControl();
-            if (movecontrol instanceof TropicalSlimeMoveControl slime$slimemovecontrol) {
-                slime$slimemovecontrol.setDirection(this.slime.getYRot(), true);
-                slime$slimemovecontrol.setWantedMovement(1.0D);
+            if (movecontrol instanceof TropicalSlimeMoveControl control) {
+                if (this.owner != null) {
+                    this.slime.lookAt(this.owner, 10.0F, 10.0F);
+                    control.setWantedY(this.owner.getY());
+                }
+                control.setDirection(this.slime.getYRot(), true);
+                control.setWantedMovement(1.0D);
             }
         }
     }
@@ -358,7 +388,10 @@ public class TropicalSlimeServant extends SlimeServant{
         }
 
         public boolean canUse() {
-            return !this.slime.isPassenger();
+            return !this.slime.isPassenger()
+                    && !this.slime.isStaying()
+                    && (this.slime.getTrueOwner() == null
+                    || this.slime.isWandering() || this.slime.getTarget() != null);
         }
 
         public void tick() {
@@ -379,7 +412,10 @@ public class TropicalSlimeServant extends SlimeServant{
         }
 
         public boolean canUse() {
-            return this.slime.getTarget() == null && (this.slime.onGround() || this.slime.isInWater() || this.slime.isInLava() || this.slime.hasEffect(MobEffects.LEVITATION)) && this.slime.getMoveControl() instanceof TropicalSlimeMoveControl;
+            return this.slime.getTarget() == null
+                    && (this.slime.getTrueOwner() == null || this.slime.isWandering())
+                    && (this.slime.onGround() || this.slime.isInWater() || this.slime.isInLava() || this.slime.hasEffect(MobEffects.LEVITATION))
+                    && this.slime.getMoveControl() instanceof TropicalSlimeMoveControl;
         }
 
         public void tick() {

@@ -12,6 +12,7 @@
     "EntityMixin",
     "FireBlockAccessor",
     "FlowingFluidMixin",
+    "FrogMixin",
     "ItemEntityMixin",
     "LivingEntityMixin",
     "RaidMixin",

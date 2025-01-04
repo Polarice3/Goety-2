@@ -1,0 +1,22 @@
+{
+  "name": "トライデントストームのフォーカス",
+  "icon": "goety:trident_storm_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "深海の力により、トライデントを自分の周りに落下させ、チャネル付きの稲妻で敵を吹き飛ばすことができます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/trident_storm_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/abyss_staff)深淵の杖$()で唱えると、より精巧なパターンでより多くのトライデントを周囲に召喚します。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:trident_storm_focus": 1
+  }
+}

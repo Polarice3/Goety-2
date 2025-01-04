@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.ally;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
@@ -167,6 +168,11 @@ public class SlimeServant extends Summoned{
     @Override
     public boolean canUpdateMove() {
         return true;
+    }
+
+    @Override
+    public MobType getMobType() {
+        return ModMobType.NATURAL;
     }
 
     public void tick() {

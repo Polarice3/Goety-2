@@ -1,0 +1,19 @@
+{
+  "name": "蒸気のフォーカス",
+  "icon": "goety:steaming_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この呪文を使用すると、見ている方向に向かって熱い蒸気のミサイルを発射し、当たるとクリーチャーにダメージを与えてノックバックさせることができます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/steaming_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/abyss_staff)深淵の杖$()で唱えると、術者はより多くのミサイルを発射できるようになります。"
+    }
+  ]
+}
