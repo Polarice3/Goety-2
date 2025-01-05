@@ -155,10 +155,11 @@ public class ZPiglinServant extends ZombieServant {
         this.playSound(this.getStepSound(), 0.15F, 1.0F);
     }
 
-    protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance pDifficulty) {
+    protected void populateDefaultEquipmentSlots(RandomSource p_217055_, DifficultyInstance p_217056_) {
         if (this.canSpawnArmor()){
-            super.populateDefaultEquipmentSlots(randomSource, pDifficulty);
+            this.populateDefaultArmor(p_217055_, p_217056_);
         }
+        this.populateDefaultWeapons(p_217055_, p_217056_);
     }
 
     public void populateDefaultWeapons(RandomSource randomSource, DifficultyInstance pDifficulty){
