@@ -13,9 +13,6 @@ import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.MathHelper;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleOptions;
@@ -24,7 +21,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
@@ -371,22 +367,5 @@ public interface ISpell {
 
     default boolean VoidSoulDiscount(LivingEntity caster){
         return false;
-    }
-
-    HumanoidModel.ArmPose SPELL = HumanoidModel.ArmPose.create("GOETY_SPELL", false, (model, entity, arm) -> {
-        float f5 = entity.walkAnimation.position(Minecraft.getInstance().getPartialTick());
-        if (arm == HumanoidArm.RIGHT) {
-            model.rightArm.xRot -= MathHelper.modelDegrees(105);
-            model.rightArm.zRot = Mth.cos(f5 * 0.6662F) * 0.25F;
-            model.leftArm.xRot += MathHelper.modelDegrees(25);
-        } else {
-            model.leftArm.xRot -= MathHelper.modelDegrees(105);
-            model.leftArm.zRot = -Mth.cos(f5 * 0.6662F) * 0.25F;
-            model.rightArm.xRot += MathHelper.modelDegrees(25);
-        }
-    });
-
-    default HumanoidModel.ArmPose spellPose() {
-        return SPELL;
     }
 }
