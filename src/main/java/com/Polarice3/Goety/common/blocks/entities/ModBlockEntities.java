@@ -91,6 +91,9 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<PithosBlockEntity>> PITHOS = BLOCK_ENTITY.register("pithos",
             () -> BlockEntityType.Builder.of(PithosBlockEntity::new, ModBlocks.PITHOS.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<SpiderMotherDenBlockEntity>> SPIDER_MOTHER_DEN = BLOCK_ENTITY.register("spider_mother_den",
+            () -> BlockEntityType.Builder.of(SpiderMotherDenBlockEntity::new, ModBlocks.SPIDER_MOTHER_DEN.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<UrnBlockEntity>> CRYPT_URN = BLOCK_ENTITY.register("crypt_urn",
             () -> BlockEntityType.Builder.of(UrnBlockEntity::new, ModBlocks.CRYPT_URN.get()).build(null));
 

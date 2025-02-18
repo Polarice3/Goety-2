@@ -100,6 +100,11 @@ public class BlossomBall extends SpellThrowableProjectile{
                     Entity entity1 = entityHitResult.getEntity();
                     vec3 = Vec3.atCenterOf(entity1.blockPosition());
                 }
+                BlossomThorn blossomThorn0 = new BlossomThorn(this.level, vec3.x, vec3.y, vec3.z, 30, this.getOwner());
+                MobUtil.moveDownToGround(blossomThorn0);
+                blossomThorn0.setDuration(this.getDuration());
+                blossomThorn0.setExtraDamage(this.getExtraDamage());
+                this.level.addFreshEntity(blossomThorn0);
                 List<Vec3> circlePoints = BlockFinder.buildBlockCircle(this.getRadius());
                 for (Vec3 point : circlePoints) {
                     Vec3 vec31 = vec3.add(point);
@@ -110,9 +115,7 @@ public class BlossomBall extends SpellThrowableProjectile{
                     if (this.level instanceof ServerLevel serverLevel){
                         serverLevel.sendParticles(ModParticleTypes.BLOSSOM_THORN_INDICATOR.get(), blossomThorn.position().x, blossomThorn.position().y + 0.1F, blossomThorn.position().z, 1, 0.0F, 0.0F, 0.0F, 0.0F);
                     }
-                    if (vec31 != vec3){
-                        blossomThorn.setSilent(true);
-                    }
+                    blossomThorn.setSilent(true);
                     this.level.addFreshEntity(blossomThorn);
                 }
             }

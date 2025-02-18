@@ -26,7 +26,7 @@ public abstract class EnderDragonMixin extends Mob {
         if (SpellConfig.SpellDamageEnderDragon.get()) {
             if (damageSource instanceof NoKnockBackDamageSource damageSource1 && damageSource.getEntity() == null) {
                 if (damageSource1.getOwner() != null) {
-                    $this.hurt(part, new DamageSource(damageSource1.typeHolder(), damageSource1.getDirectAttacker(), damageSource1.getOwner()), amount);
+                    $this.hurt(part, new DamageSource(damageSource1.typeHolder(), damageSource1.getDirectEntity(), damageSource1.getOwner()), amount);
                 }
             }
         }

@@ -793,6 +793,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.reaping_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:reaping_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.recall_focus": {
       "conditions": {
         "items": [
@@ -1310,6 +1322,9 @@
     ],
     [
       "item.goety.ghost_fire_focus"
+    ],
+    [
+      "item.goety.reaping_focus"
     ],
     [
       "item.goety.spooky_focus"

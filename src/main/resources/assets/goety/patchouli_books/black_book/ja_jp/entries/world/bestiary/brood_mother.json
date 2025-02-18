@@ -1,0 +1,21 @@
+{
+  "name": "ブラッドマザー",
+  "icon": "minecraft:cobweb",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_brood_mother",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "巣穴を荒らそうとする者を攻撃する巨大なクモ。その牙はアンデッドにさえも毒を与える。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:brood_mother",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ブラッドマザーは標的を攻撃しようとしますが、もし自分の子供が戦いに加わった場合は、代わりに自分の子供に食事を与えるようにします。"
+    }
+  ]
+}

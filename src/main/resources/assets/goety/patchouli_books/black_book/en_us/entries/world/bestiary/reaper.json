@@ -1,0 +1,16 @@
+{
+  "name": "Reapers",
+  "icon": "goety:spirit_fabric",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_reaper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Hooded apparitions that are proficient at wielding scythes with a hunger for souls."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:reaper"
+    }
+  ]
+}

@@ -78,6 +78,12 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> IRK_SPAWN_EGG = ITEMS.register("irk_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.IRK, 8032420, 8032420, egg()));
 
+    public static final RegistryObject<ModSpawnEggItem> HOSTILE_REDSTONE_GOLEM_SPAWN_EGG = ITEMS.register("hostile_redstone_golem_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.HOSTILE_REDSTONE_GOLEM, 0x442b30, 0xd12b13, egg()));
+
+    public static final RegistryObject<ModSpawnEggItem> HOSTILE_REDSTONE_MONSTROSITY_SPAWN_EGG = ITEMS.register("hostile_redstone_monstrosity_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.HOSTILE_REDSTONE_MONSTROSITY, 0x1a1012, 0xd12b13, egg()));
+
     public static final RegistryObject<ModSpawnEggItem> WIGHT_SPAWN_EGG = ITEMS.register("wight_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.WIGHT, 0x19161d, 0x282534, egg()));
 
@@ -144,6 +150,9 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> VANGUARD_SERVANT_SPAWN_EGG = ITEMS.register("vanguard_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.VANGUARD_SERVANT, 0xd6d0c9, 0xe8b42f, egg()));
 
+    public static final RegistryObject<ModSpawnEggItem> REAPER_SERVANT_SPAWN_EGG = ITEMS.register("reaper_servant_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.REAPER_SERVANT, 0x1f1f2e, 0xd8e1e6, egg()));
+
     public static final RegistryObject<ModSpawnEggItem> WRAITH_SERVANT_SPAWN_EGG = ITEMS.register("wraith_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.WRAITH_SERVANT, 0x0e0d36, 0x2586d9, egg()));
 
@@ -201,6 +210,9 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> BONE_SPIDER_SERVANT_SPAWN_EGG = ITEMS.register("bone_spider_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.BONE_SPIDER_SERVANT, 0x311a3b, 0xedf7f5, egg()));
 
+    public static final RegistryObject<ModSpawnEggItem> BROOD_MOTHER_SERVANT_SPAWN_EGG = ITEMS.register("brood_mother_servant_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.BROOD_MOTHER_SERVANT, 0x261e23, 0xff0e0e, egg()));
+
     public static final RegistryObject<ModSpawnEggItem> BLACK_WOLF_SPAWN_EGG = ITEMS.register("black_wolf_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.BLACK_WOLF, 0x1c161e, 0x495065, egg()));
 
@@ -209,6 +221,9 @@ public class ModSpawnEggs {
 
     /*public static final RegistryObject<ModSpawnEggItem> HELLHOUND_SPAWN_EGG = ITEMS.register("hellhound_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.HELLHOUND, 0x8d2600, 0x140000, egg()));*/
+
+    public static final RegistryObject<ModSpawnEggItem> TWILIGHT_GOAT_SPAWN_EGG = ITEMS.register("twilight_goat_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.TWILIGHT_GOAT, 0x1d1d26, 0xdbd5c2, egg()));
 
     public static final RegistryObject<ModSpawnEggItem> SNAPPER_SPAWN_EGG = ITEMS.register("snapper_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.SNAPPER, 0x141817, 0x481e00, egg()));
@@ -282,6 +297,9 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> HOSTILE_BLACK_WOLF_SPAWN_EGG = ITEMS.register("hostile_black_wolf_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.HOSTILE_BLACK_WOLF, 0x132025, 0x495065, egg()));
 
+    public static final RegistryObject<ModSpawnEggItem> REAPER_SPAWN_EGG = ITEMS.register("reaper_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.REAPER, 0x1c1b25, 0x454545, egg()));
+
     public static final RegistryObject<ModSpawnEggItem> WRAITH_SPAWN_EGG = ITEMS.register("wraith_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.WRAITH, 0x16215c, 0x82d8f8, egg()));
 
@@ -291,8 +309,14 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> CRYPT_SLIME_SPAWN_EGG = ITEMS.register("crypt_slime_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.CRYPT_SLIME, 0x22252a, 0x4d6577, egg()));
 
+    public static final RegistryObject<ModSpawnEggItem> WEB_SPIDER_SPAWN_EGG = ITEMS.register("web_spider_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.WEB_SPIDER, 0x2b341c, 11013646, egg()));
+
     public static final RegistryObject<ModSpawnEggItem> BONE_SPIDER_SPAWN_EGG = ITEMS.register("bone_spider_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.BONE_SPIDER, 0x4f1434, 0xf3f7ef, egg()));
+
+    public static final RegistryObject<ModSpawnEggItem> BROOD_MOTHER_SPAWN_EGG = ITEMS.register("brood_mother_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.BROOD_MOTHER, 0x644a30, 0xff0e0e, egg()));
 
     public static final RegistryObject<ModSpawnEggItem> NECROMANCER_SPAWN_EGG = ITEMS.register("necromancer_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.NECROMANCER, 0x2c1a2c, 0x00c6ea, egg()));

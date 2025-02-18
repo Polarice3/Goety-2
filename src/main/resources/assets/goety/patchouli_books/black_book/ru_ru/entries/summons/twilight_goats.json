@@ -1,0 +1,28 @@
+{
+  "name": "Сумеречные козы",
+  "icon": "minecraft:goat_horn",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Тёмные, зловещие сородичи обычных коз, которые будут бодать противников, пронзая их рогами, или кусаться, если потеряют их."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Сумеречных коз можно призвать, используя (l:focuses/wild/hunting_focus)фокус охоты() в горах или с помощью (l:crafts/staff/wind_staff)ветряного посоха(), или с помощью ритуала, который призывает коз с неограниченным сроком жизни."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_twilight_goat_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:twilight_goat",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Сумеречных коз можно исцелить, нажав по ним ПКМ мясом."
+    }
+  ]
+}

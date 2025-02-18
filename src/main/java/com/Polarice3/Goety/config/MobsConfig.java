@@ -52,7 +52,9 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxSlimeSize;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WarlockSpawnWeight;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ReaperSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithSpawnWeight;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WebSpiderSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> NecromancerSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> HereticSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaverickSpawnWeight;
@@ -85,6 +87,7 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> SpiderServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CaveSpiderServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WebSpiderServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> BoneSpiderServantTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> SlimeServantTexture;
@@ -95,6 +98,8 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> PoisonQuillVineTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WhispererTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LeapleafTexture;
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SquallGolemTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemCrack;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemTexture;
@@ -263,6 +268,8 @@ public class MobsConfig {
                         .define("spiderServantTexture", true);
                 CaveSpiderServantTexture = BUILDER.comment("If Cave Spiders Servants have custom textures, Default: true")
                         .define("caveSpiderServantTexture", true);
+                WebSpiderServantTexture = BUILDER.comment("If Web Spiders Servants have different textures from hostile versions, Default: true")
+                        .define("webSpiderServantTexture", true);
                 BoneSpiderServantTexture = BUILDER.comment("If Bone Spiders Servants have custom textures, Default: true")
                         .define("boneSpiderServantTexture", true);
                 BUILDER.pop();
@@ -283,6 +290,10 @@ public class MobsConfig {
                         .define("whispererTexture", true);
                 LeapleafTexture = BUILDER.comment("If Leapleaf Servants have custom textures, Default: true")
                         .define("leapleafTexture", true);
+                BUILDER.pop();
+                BUILDER.push("Squall Golem");
+                SquallGolemTexture = BUILDER.comment("If Squall Golems have custom textures, Default: true")
+                        .define("squallGolemTexture", true);
                 BUILDER.pop();
                 BUILDER.push("Redstone Golem");
                 RedstoneGolemCrack = BUILDER.comment("If Redstone Golems show cracks when damaged sufficiently, Default: true")
@@ -597,8 +608,12 @@ public class MobsConfig {
                 .define("interDimensionalMobs", false);
         WarlockSpawnWeight = BUILDER.comment("Spawn Weight for Warlock, Default: 5")
                 .defineInRange("warlockSpawnWeight", 5, 0, Integer.MAX_VALUE);
+        ReaperSpawnWeight = BUILDER.comment("Spawn Weight for Reaper, Default: 10")
+                .defineInRange("reaperSpawnWeight", 10, 0, Integer.MAX_VALUE);
         WraithSpawnWeight = BUILDER.comment("Spawn Weight for Wraith, Default: 20")
                 .defineInRange("wraithSpawnWeight", 20, 0, Integer.MAX_VALUE);
+        WebSpiderSpawnWeight = BUILDER.comment("Spawn Weight for Web Spiders, Default: 40")
+                .defineInRange("webSpiderSpawnWeight", 40, 0, Integer.MAX_VALUE);
         NecromancerSpawnWeight = BUILDER.comment("Spawn Weight for Necromancer, Default: 1")
                 .defineInRange("necromancerSpawnWeight", 1, 0, Integer.MAX_VALUE);
         HereticSpawnWeight = BUILDER.comment("Spawn Weight for Heretic, Default: 5")

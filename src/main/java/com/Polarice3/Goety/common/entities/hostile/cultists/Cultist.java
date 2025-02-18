@@ -26,6 +26,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -114,8 +115,8 @@ public class Cultist extends Raider implements ICustomAttributes {
         List<Mob> list = this.level.getEntitiesOfClass(Mob.class, axisalignedbb);
 
         for (Mob mob : list){
-            if (this.getLastHurtByMob() != null && !(this.getLastHurtByMob() instanceof Raider) && !MobUtil.areAllies(this.getLastHurtByMob(), this)) {
-                if (mob instanceof Witch && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(this.getLastHurtByMob())) {
+            if (mob.getTarget() == null && this.getLastHurtByMob() != null && !(this.getLastHurtByMob() instanceof Raider) && !MobUtil.areAllies(this.getLastHurtByMob(), this)) {
+                if ((mob instanceof Witch || mob instanceof Cultist) && !mob.getType().is(Tags.EntityTypes.BOSSES) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(this.getLastHurtByMob())) {
                     mob.setTarget(this.getLastHurtByMob());
                 }
             }

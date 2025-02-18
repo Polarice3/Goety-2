@@ -3,6 +3,7 @@ package com.Polarice3.Goety.client.render;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.ModSpiderModel;
 import com.Polarice3.Goety.common.entities.ally.spider.WebSpiderServant;
+import com.Polarice3.Goety.config.MobsConfig;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -12,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
 public class WebSpiderServantRenderer<T extends WebSpiderServant> extends MobRenderer<T, ModSpiderModel<T>> {
+   private static final ResourceLocation ORIGINAL = Goety.location("textures/entity/servants/spider/web_spider.png");
    private static final ResourceLocation SPIDER_LOCATION = Goety.location("textures/entity/servants/spider/web_spider_servant.png");
 
    public WebSpiderServantRenderer(EntityRendererProvider.Context p_173946_) {
@@ -24,7 +26,11 @@ public class WebSpiderServantRenderer<T extends WebSpiderServant> extends MobRen
    }
 
    public ResourceLocation getTextureLocation(WebSpiderServant p_113972_) {
-      return SPIDER_LOCATION;
+      if (p_113972_.isHostile() || !MobsConfig.WebSpiderServantTexture.get()){
+         return ORIGINAL;
+      } else {
+         return SPIDER_LOCATION;
+      }
    }
 
    public static class SpiderEyesLayer<T extends Entity, M extends ModSpiderModel<T>> extends EyesLayer<T, M> {

@@ -1,0 +1,16 @@
+{
+  "name": "Жнецы",
+  "icon": "goety:spirit_fabric",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_reaper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Призраки в капюшонах, искусно владеющие косами и жаждущие душ."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:reaper"
+    }
+  ]
+}

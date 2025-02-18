@@ -1,0 +1,28 @@
+{
+  "name": "收割者仆从",
+  "icon": "goety:reaper_servant_spawn_egg",
+  "category": "goety:summons",
+  "advancement": "goety:goety/kill_a_reaper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这些幽灵受你意志的召唤和束缚，以至于它们的镰刀不会划伤你或你的盟友。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:reaper_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你可以使用$(l:focuses/necromancy/reaping_focus)收割聚晶$()来召唤这些生物, 或者通过仪式召唤一个永续存在的仆从。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_reaper_thrall"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你可以用灵质右键点击收割者来治疗它们。"
+    }
+  ]
+}

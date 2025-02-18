@@ -9,6 +9,7 @@ import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.magic.SummonSpell;
 import com.Polarice3.Goety.common.magic.spells.*;
+import com.Polarice3.Goety.common.magic.spells.abyss.BouncyBubbleSpell;
 import com.Polarice3.Goety.common.magic.spells.frost.FrostBreathSpell;
 import com.Polarice3.Goety.common.magic.spells.frost.IceGolemSpell;
 import com.Polarice3.Goety.common.magic.spells.frost.IceSpikeSpell;
@@ -17,7 +18,6 @@ import com.Polarice3.Goety.common.magic.spells.geomancy.EruptionSpell;
 import com.Polarice3.Goety.common.magic.spells.geomancy.ScatterSpell;
 import com.Polarice3.Goety.common.magic.spells.storm.ElectroOrbSpell;
 import com.Polarice3.Goety.common.magic.spells.storm.ThunderboltSpell;
-import com.Polarice3.Goety.common.magic.spells.void_spells.BlinkSpell;
 import com.Polarice3.Goety.common.magic.spells.wild.HuntingSpell;
 import com.Polarice3.Goety.common.magic.spells.wild.MaulingSpell;
 import com.Polarice3.Goety.common.magic.spells.wind.CycloneSpell;
@@ -534,7 +534,7 @@ public class Sorcerer extends HuntingIllagerEntity {
         ICE_STORM(new IceStormSpell(), nextID(), 4, 5, true),
         BULWARK(new BulwarkSpell(), nextID(), 4, 5),
         ELECTRO(new ElectroOrbSpell(), nextID(), 4, 5, true),
-        BLINK(new BlinkSpell(), nextID(), 4, 5),
+        BOUNCY_BUBBLE(new BouncyBubbleSpell(), nextID(), 4, 5),
         ARROW_RAIN(new ArrowRainSpell(), nextID(), 5, 5),
         VEX(new VexSpell(), nextID(), 5, 5),
         CYCLONE(new CycloneSpell(), nextID(), 5, 5),

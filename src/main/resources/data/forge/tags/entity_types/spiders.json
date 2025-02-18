@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:spider",
+    "minecraft:cave_spider",
+    "goety:web_spider",
+    "goety:bone_spider"
+  ]
+}

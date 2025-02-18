@@ -116,7 +116,7 @@ public class Summoned extends Owned implements IServant {
     }
 
     @Override
-    public boolean isSunSensitive2() {
+    public boolean servantSunBurn() {
         return this.isSunSensitive();
     }
 
@@ -162,7 +162,7 @@ public class Summoned extends Owned implements IServant {
     }
 
     public boolean canSpawnArmor(){
-        return this.getTrueOwner() != null && CuriosFinder.hasCurio(this.getTrueOwner(), ModItems.RING_OF_THE_FORGE.get());
+        return this.getTrueOwner() != null && this.getSpawnType() != MobSpawnType.CONVERSION && CuriosFinder.hasCurio(this.getTrueOwner(), ModItems.RING_OF_THE_FORGE.get());
     }
 
     protected void populateDefaultEquipmentSlots(RandomSource p_217055_, DifficultyInstance p_217056_) {
@@ -698,7 +698,7 @@ public class Summoned extends Owned implements IServant {
     }
 
     public static class WanderGoal<T extends PathfinderMob & IServant> extends RandomStrollGoal {
-        private final T summonedEntity;
+        public final T summonedEntity;
         protected final float probability;
 
         public WanderGoal(T p_i47301_1_, double p_i47301_2_) {

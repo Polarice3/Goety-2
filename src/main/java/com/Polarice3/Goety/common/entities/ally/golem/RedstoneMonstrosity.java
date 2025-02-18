@@ -671,6 +671,9 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
                 }
                 if (this.isMeleeAttacking()) {
                     ++this.attackTick;
+                    if (this.attackTick > MathHelper.secondsToTicks(3.3F)){
+                        this.setMeleeAttacking(false);
+                    }
                 }
                 if (this.isSummoning()) {
                     this.makeBigGlow();

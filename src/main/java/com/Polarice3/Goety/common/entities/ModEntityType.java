@@ -38,7 +38,7 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<NetherMeteor>> NETHER_METEOR = register("nether_meteor",
             EntityType.Builder.<NetherMeteor>of(NetherMeteor::new, MobCategory.MISC)
-                    .sized(1.0f,1.0f)
+                    .sized(1.0F, 1.0F)
                     .clientTrackingRange(4));
 
     public static final RegistryObject<EntityType<ModFireball>> MOD_FIREBALL = register("fireball",
@@ -411,8 +411,14 @@ public class ModEntityType {
                     .updateInterval(1));
 
     public static final RegistryObject<EntityType<BioMine>> BIOMINE = register("biomine",
-            EntityType.Builder.of(BioMine::new, MobCategory.MONSTER)
+            EntityType.Builder.of(BioMine::new, MobCategory.MISC)
                     .sized(1.2F, 1.2F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<SpiderEgg>> SPIDER_EGG = register("spider_egg",
+            EntityType.Builder.of(SpiderEgg::new, MobCategory.MONSTER)
+                    .sized(1.0F, 1.0F)
                     .clientTrackingRange(8)
                     .updateInterval(1));
 
@@ -554,6 +560,11 @@ public class ModEntityType {
                     .sized(0.6F, 0.85F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<Reaper>> REAPER = register("reaper",
+            EntityType.Builder.of(Reaper::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<Wraith>> WRAITH = register("wraith",
             EntityType.Builder.of(Wraith::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F)
@@ -569,9 +580,19 @@ public class ModEntityType {
                     .sized(2.04F, 2.04F)
                     .clientTrackingRange(10));
 
+    public static final RegistryObject<EntityType<WebSpider>> WEB_SPIDER = register("web_spider",
+            EntityType.Builder.of(WebSpider::new, MobCategory.MONSTER)
+                    .sized(1.4F, 0.9F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<BoneSpider>> BONE_SPIDER = register("bone_spider",
             EntityType.Builder.of(BoneSpider::new, MobCategory.MONSTER)
                     .sized(0.6F, 0.7F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<BroodMother>> BROOD_MOTHER = register("brood_mother",
+            EntityType.Builder.of(BroodMother::new, MobCategory.MONSTER)
+                    .sized(3.2F, 1.8F)
                     .clientTrackingRange(8));
 
     public static final RegistryObject<EntityType<HostileNecromancer>> NECROMANCER = register("necromancer",
@@ -680,6 +701,11 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<VanguardServant>> VANGUARD_SERVANT = register("vanguard_servant",
             EntityType.Builder.of(VanguardServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<ReaperServant>> REAPER_SERVANT = register("reaper_servant",
+            EntityType.Builder.of(ReaperServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F)
                     .clientTrackingRange(8));
 
@@ -805,6 +831,11 @@ public class ModEntityType {
                     .sized(0.6F, 0.7F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<BroodMotherServant>> BROOD_MOTHER_SERVANT = register("brood_mother_servant",
+            EntityType.Builder.of(BroodMotherServant::new, MobCategory.MONSTER)
+                    .sized(3.2F, 1.8F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<AllyTrampler>> ALLY_TRAMPLER = register("ally_trampler",
             EntityType.Builder.of(AllyTrampler::new, MobCategory.MONSTER)
                     .canSpawnFarFromPlayer()
@@ -847,6 +878,11 @@ public class ModEntityType {
                     .fireImmune()
                     .noSummon() //Temp
                     .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<TwilightGoat>> TWILIGHT_GOAT = register("twilight_goat",
+            EntityType.Builder.of(TwilightGoat::new, MobCategory.MONSTER)
+                    .sized(0.9F, 1.3F)
+                    .clientTrackingRange(10));
 
     public static final RegistryObject<EntityType<Snapper>> SNAPPER = register("snapper",
             EntityType.Builder.of(Snapper::new, MobCategory.MONSTER)

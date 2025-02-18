@@ -307,6 +307,14 @@ public class MobUtil {
     }
 
     public static void twister(Entity pEntity, double pX, double pY, double pZ){
+        if (pEntity instanceof Player player) {
+            if (MobUtil.playerValidity(player, false)) {
+                player.hurtMarked = true;
+                if (!player.level.isClientSide){
+                    player.setOnGround(false);
+                }
+            }
+        }
         pEntity.setDeltaMovement(pX, pY, pZ);
         pEntity.hasImpulse = true;
     }

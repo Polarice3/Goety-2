@@ -1,0 +1,28 @@
+{
+  "name": "黑鲷",
+  "icon": "minecraft:cod",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "虽然现实会认为食人鱼是被动且羞涩的生物，但这些可怕的生物总是不会辜负它们恶毒和好斗的名声"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "在水下使用$(l:focuses/wild/hunting_focus)狩猎聚晶$()施法，或是使用$(l:crafts/staff/abyss_staff)深渊魔杖$()承载狩猎聚晶施法即可召唤黑鲷，或是使用仪式召唤一只无限寿命的黑鲷"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_snapper_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:snapper",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "手持肉类右键一只忠诚于你的黑鲷即可治愈它"
+    }
+  ]
+}

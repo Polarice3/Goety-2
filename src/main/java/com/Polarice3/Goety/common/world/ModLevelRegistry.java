@@ -18,8 +18,14 @@ public class ModLevelRegistry {
 
     public static void addBiomeSpawns(Holder<Biome> biome, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
         if (!biome.containsTag(ModTags.Biomes.COMMON_BLACKLIST) && !biome.is(biomeResourceKey -> biomeResourceKey.registry().getNamespace().contains("alexscaves"))){
+            if (biome.is(ModTags.Biomes.REAPER_SPAWN) && !biome.is(ModTags.Biomes.REAPER_EXCLUDE_SPAWN) && MobsConfig.ReaperSpawnWeight.get() > 0){
+                builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.REAPER.get(), MobsConfig.ReaperSpawnWeight.get(), 1, 1));
+            }
             if (biome.is(ModTags.Biomes.WRAITH_SPAWN) && !biome.is(ModTags.Biomes.WRAITH_EXCLUDE_SPAWN) && MobsConfig.WraithSpawnWeight.get() > 0){
                 builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.WRAITH.get(), MobsConfig.WraithSpawnWeight.get(), 1, 1));
+            }
+            if (biome.is(ModTags.Biomes.WEB_SPIDER_SPAWN) && !biome.is(ModTags.Biomes.WEB_SPIDER_EXCLUDE_SPAWN) && MobsConfig.WebSpiderSpawnWeight.get() > 0){
+                builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.WEB_SPIDER.get(), MobsConfig.WebSpiderSpawnWeight.get(), 4, 4));
             }
             if (biome.is(ModTags.Biomes.NECROMANCER_SPAWN) && !biome.is(ModTags.Biomes.NECROMANCER_EXCLUDE_SPAWN) && MobsConfig.NecromancerSpawnWeight.get() > 0){
                 builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.NECROMANCER.get(), MobsConfig.NecromancerSpawnWeight.get(), 1, 1));
@@ -35,6 +41,10 @@ public class ModLevelRegistry {
             }
         }
         if (biome.is(Biomes.SOUL_SAND_VALLEY)){
+            if (MobsConfig.ReaperSpawnWeight.get() > 0) {
+                builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.REAPER.get(), MobsConfig.ReaperSpawnWeight.get(), 1, 1));
+                builder.getMobSpawnSettings().addMobCharge(ModEntityType.REAPER.get(), 0.7D, 0.15D);
+            }
             if (MobsConfig.WraithSpawnWeight.get() > 0) {
                 builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.WRAITH.get(), MobsConfig.WraithSpawnWeight.get(), 1, 1));
                 builder.getMobSpawnSettings().addMobCharge(ModEntityType.WRAITH.get(), 0.7D, 0.15D);

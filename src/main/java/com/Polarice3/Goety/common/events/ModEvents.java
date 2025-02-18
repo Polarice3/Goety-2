@@ -122,6 +122,7 @@ import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.TickEvent;
@@ -130,6 +131,7 @@ import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.ExplosionEvent;
@@ -1527,6 +1529,22 @@ public class ModEvents {
         if (event.getProjectile() instanceof AbstractArrow arrowEntity) {
             if (arrowEntity.getTags().contains(ConstantPaths.rainArrow())) {
                 arrowEntity.discard();
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void SleepEvents(PlayerSleepInBedEvent event){
+        if (!event.getEntity().isCreative()) {
+            double d0 = 8.0D;
+            double d1 = 5.0D;
+            Vec3 vec3 = Vec3.atBottomCenterOf(event.getPos());
+            List<LivingEntity> list = event.getEntity().level.getEntitiesOfClass(LivingEntity.class, new AABB(vec3.x() - d0, vec3.y() - d1, vec3.z() - d0, vec3.x() + d0, vec3.y() + d1, vec3.z() + d0), (p_9062_) -> {
+                return p_9062_ instanceof IOwned owned
+                        &&  owned.isPreventingPlayerRest(event.getEntity());
+            });
+            if (!list.isEmpty()) {
+                event.setResult(Player.BedSleepingProblem.NOT_SAFE);
             }
         }
     }

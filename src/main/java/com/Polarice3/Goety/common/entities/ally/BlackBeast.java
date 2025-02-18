@@ -46,7 +46,6 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.util.GoalUtils;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -488,15 +487,6 @@ public class BlackBeast extends Summoned{
         }
 
         return flag;
-    }
-
-    protected void customServerAiStep() {
-        if (!this.isNoAi() && GoalUtils.hasGroundPathNavigation(this)) {
-            boolean flag = this.getPrey() != null && this.getTarget() == this.getPrey();
-            ((GroundPathNavigation)this.getNavigation()).setCanOpenDoors(flag);
-        }
-
-        super.customServerAiStep();
     }
 
     @Override

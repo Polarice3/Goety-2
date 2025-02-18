@@ -15,6 +15,7 @@
     "FrogMixin",
     "ItemEntityMixin",
     "LivingEntityMixin",
+    "MobAccessor",
     "RaidMixin",
     "SensorMixin",
     "SlimePredicateMixin",

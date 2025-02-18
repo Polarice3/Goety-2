@@ -1,0 +1,28 @@
+{
+  "name": "Кусаки",
+  "icon": "minecraft:cod",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "В то время как пираньи на самом деле являются мирными и застенчивыми существами, эти ужасные создания вполне оправдывают свою злобную и агрессивную репутацию."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Кусаку можно призвать, использовав $(l:focuses/wild/hunting_focus)фокус охоты$() под водой или вставив его в $(l:crafts/staff/abyss_staff)глубоководный посох$(), или с помощью ритуала, который призывает кусаку с неограниченным сроком жизни."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_snapper_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:snapper",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Кусак можно исцелять мясом."
+    }
+  ]
+}

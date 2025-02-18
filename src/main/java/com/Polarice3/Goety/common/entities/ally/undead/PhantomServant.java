@@ -169,12 +169,9 @@ public class PhantomServant extends SummonedFlying {
 
     }
 
-    public void aiStep() {
-        if (this.isAlive() && this.isSunBurnTick()) {
-            this.setSecondsOnFire(8);
-        }
-
-        super.aiStep();
+    @Override
+    protected boolean isSunSensitive() {
+        return true;
     }
 
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_33126_, DifficultyInstance p_33127_, MobSpawnType p_33128_, @Nullable SpawnGroupData p_33129_, @Nullable CompoundTag p_33130_) {

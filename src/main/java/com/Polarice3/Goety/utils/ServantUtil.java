@@ -20,7 +20,9 @@ public class ServantUtil {
     public static void convertZombies(Entity target, LivingEntity owner, boolean permanent){
         if (target instanceof Zombie zombieEntity && net.minecraftforge.event.ForgeEventFactory.canLivingConvert(zombieEntity, ModEntityType.ZOMBIE_SERVANT.get(), (timer) -> {})) {
             EntityType<? extends Mob> entityType = ModEntityType.ZOMBIE_SERVANT.get();
-            if (zombieEntity instanceof Husk){
+            if (zombieEntity instanceof ZombieVillager){
+                entityType = ModEntityType.ZOMBIE_VILLAGER_SERVANT.get();
+            } else if (zombieEntity instanceof Husk){
                 entityType = ModEntityType.HUSK_SERVANT.get();
             } else if (zombieEntity instanceof Drowned){
                 entityType = ModEntityType.DROWNED_SERVANT.get();
@@ -34,6 +36,12 @@ public class ServantUtil {
                 }
                 if (target.level instanceof ServerLevel serverLevel) {
                     zombieServant.finalizeSpawn(serverLevel, target.level.getCurrentDifficultyAt(zombieServant.blockPosition()), MobSpawnType.CONVERSION, null, null);
+                }
+                if (zombieEntity instanceof ZombieVillager villager && zombieServant instanceof ZombieVillagerServant servant){
+                    servant.setVillagerData(villager.getVillagerData());
+                    servant.setGossips(villager.gossips);
+                    servant.setTradeOffers(villager.tradeOffers);
+                    servant.setVillagerXp(villager.getVillagerXp());
                 }
                 if (!permanent) {
                     zombieServant.setLimitedLife(10 * (15 + target.level.random.nextInt(45)));
@@ -79,11 +87,10 @@ public class ServantUtil {
             summoned = target.convertTo(ModEntityType.WRAITH_SERVANT.get(), keepLoot);
         } else if (target instanceof BorderWraith){
             summoned = target.convertTo(ModEntityType.BORDER_WRAITH_SERVANT.get(), keepLoot);
+        } else if (target instanceof PiglinBrute){
+            summoned = target.convertTo(ModEntityType.ZPIGLIN_BRUTE_SERVANT.get(), keepLoot);
         } else if (target instanceof AbstractPiglin){
             summoned = target.convertTo(ModEntityType.ZPIGLIN_SERVANT.get(), keepLoot);
-            if (target instanceof PiglinBrute){
-                summoned = target.convertTo(ModEntityType.ZPIGLIN_BRUTE_SERVANT.get(), keepLoot);
-            }
         } else if (target instanceof Villager){
             summoned = target.convertTo(ModEntityType.ZOMBIE_VILLAGER_SERVANT.get(), keepLoot);
         } else if (target instanceof Vindicator){

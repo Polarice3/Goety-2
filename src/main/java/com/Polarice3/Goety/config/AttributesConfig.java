@@ -82,6 +82,9 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> ConquillagerHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> ConquillagerArmor;
 
+    public static final ForgeConfigSpec.ConfigValue<Double> ReaperHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> ReaperArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> ReaperDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> WraithHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> WraithArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> WraithDamage;
@@ -175,12 +178,18 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> BoneSpiderServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> BoneSpiderServantDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> BoneSpiderServantRangeDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> BroodMotherHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> BroodMotherArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> BroodMotherDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> BlackWolfHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> BlackWolfArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> BlackWolfDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SkeletonWolfHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SkeletonWolfArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> SkeletonWolfDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> TwilightGoatHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> TwilightGoatArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> TwilightGoatDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SnapperHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SnapperArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> SnapperDamage;
@@ -402,6 +411,14 @@ public class AttributesConfig {
                     .defineInRange("conquillagerArmor", 0.0, 0.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("General");
+                BUILDER.push("Reaper");
+                ReaperHealth = BUILDER.comment("How much Max Health Reapers have, Default: 24.0")
+                        .defineInRange("reaperHealth", 24.0, 1.0, Double.MAX_VALUE);
+                ReaperArmor = BUILDER.comment("How much natural Armor Reapers have, Default: 0.0")
+                        .defineInRange("reaperArmor", 0.0, 0.0, Double.MAX_VALUE);
+                ReaperDamage = BUILDER.comment("How much damage Reapers deals, Default: 8.0")
+                        .defineInRange("reaperDamage", 8.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
                 BUILDER.push("Wraith");
                 WraithHealth = BUILDER.comment("How much Max Health Wraiths have, Default: 25.0")
                         .defineInRange("wraithHealth", 25.0, 1.0, Double.MAX_VALUE);
@@ -686,6 +703,14 @@ public class AttributesConfig {
                 BoneSpiderServantRangeDamage = BUILDER.comment("How much extra damage Bone Spider Servants range attack deals, Default: 0.0")
                         .defineInRange("boneSpiderServantRangeDamage", 0.0, 0.0, Double.MAX_VALUE);
                 BUILDER.pop();
+                BUILDER.push("Brood Mother");
+                BroodMotherHealth = BUILDER.comment("How much Max Health Brood Mothers have, Default: 96.0")
+                        .defineInRange("broodMotherHealth", 96.0, 1.0, Double.MAX_VALUE);
+                BroodMotherArmor = BUILDER.comment("How much natural Armor Brood Mothers have, Default: 0.0")
+                        .defineInRange("broodMotherArmor", 0.0, 0.0, Double.MAX_VALUE);
+                BroodMotherDamage = BUILDER.comment("How much damage Brood Mothers melee attack deals, Default: 6.0")
+                        .defineInRange("broodMotherDamage", 6.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
                 BUILDER.push("Black Wolf");
                 BlackWolfHealth = BUILDER.comment("How much Max Health Black Wolves have, Default: 10.0")
                         .defineInRange("blackWolfHealth", 10.0, 1.0, Double.MAX_VALUE);
@@ -701,6 +726,14 @@ public class AttributesConfig {
                         .defineInRange("skeletonWolfArmor", 0.0, 0.0, Double.MAX_VALUE);
                 SkeletonWolfDamage = BUILDER.comment("How much damage Skeleton Wolves melee attack deals, Default: 4.0")
                         .defineInRange("skeletonWolfDamage", 4.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Twilight Goat");
+                TwilightGoatHealth = BUILDER.comment("How much Max Health Twilight Goats have, Default: 10.0")
+                        .defineInRange("twilightGoatHealth", 10.0, 1.0, Double.MAX_VALUE);
+                TwilightGoatArmor = BUILDER.comment("How much natural Armor Twilight Goats have, Default: 0.0")
+                        .defineInRange("twilightGoatArmor", 0.0, 0.0, Double.MAX_VALUE);
+                TwilightGoatDamage = BUILDER.comment("How much damage Twilight Goats melee attack deals, Default: 2.0")
+                        .defineInRange("twilightGoatDamage", 2.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Snapper");
                 SnapperHealth = BUILDER.comment("How much Max Health Snappers have, Default: 10.0")

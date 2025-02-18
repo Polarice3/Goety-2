@@ -1757,6 +1757,75 @@
   ],
     "subtitle": "subtitle.goety.minister_death"
   },
+  "reaper_ambient": {
+    "sounds": [
+      {
+        "name": "goety:reaper/idle1"
+      },
+      {
+        "name": "goety:reaper/idle2"
+      },
+      {
+        "name": "goety:reaper/idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.reaper_ambient"
+  },
+  "reaper_hurt": {
+    "sounds": [
+      {
+        "name": "goety:reaper/hurt1"
+      },
+      {
+        "name": "goety:reaper/hurt2"
+      }
+    ],
+    "subtitle": "subtitle.goety.reaper_hurt"
+  },
+  "reaper_fly": {
+    "sounds": [
+      {
+        "name": "goety:wraith/fly1",
+        "pitch": 0.5
+      },
+      {
+        "name": "goety:wraith/fly2",
+        "pitch": 0.5
+      },
+      {
+        "name": "goety:wraith/fly3",
+        "pitch": 0.5
+      },
+      {
+        "name": "goety:wraith/fly4",
+        "pitch": 0.5
+      },
+      {
+        "name": "goety:wraith/fly5",
+        "pitch": 0.5
+      }
+    ],
+    "subtitle": "subtitle.goety.reaper_fly"
+  },
+  "reaper_swing": {
+    "sounds": [
+      {
+        "name": "goety:reaper/swing"
+      }
+    ],
+    "subtitle": "subtitle.goety.reaper_swing"
+  },
+  "reaper_death": {
+    "sounds": [
+      {
+        "name": "goety:reaper/death1"
+      },
+      {
+        "name": "goety:reaper/death2"
+      }
+    ],
+    "subtitle": "subtitle.goety.reaper_death"
+  },
   "wraith_ambient": {
     "sounds": [
       {

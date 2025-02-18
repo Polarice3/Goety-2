@@ -361,4 +361,12 @@ public class ModParticleTypes {
                     return AbsorbTrailParticleOption.CODEC;
                 }
             });
+
+    public static final RegistryObject<ParticleType<MagicSmokeParticle.Option>> MAGIC_SMOKE = PARTICLE_TYPES.register("magic_smoke",
+            () -> new ParticleType<>(false, MagicSmokeParticle.Option.DESERIALIZER) {
+                @Override
+                public Codec codec() {
+                    return MagicSmokeParticle.Option.CODEC;
+                }
+            });
 }

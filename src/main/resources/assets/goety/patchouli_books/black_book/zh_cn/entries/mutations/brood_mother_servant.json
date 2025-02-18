@@ -1,0 +1,28 @@
+{
+  "name": "育母蜘蛛",
+  "icon": "minecraft:cobweb",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "通过一些试剂和黑魔法，你成功地将一只蜘蛛变成了一个可怕的育母蜘蛛。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_spider_to_brood_mother"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:brood_mother_servant",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "育母蜘蛛不仅是强大的可骑乘坐骑，还能发射多道蛛丝，产下蜘蛛卵，孵化出忠诚的蜘蛛仆从。孵化出的仆从种类会因产卵地点不同而各异。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这只蜘蛛可以像其他蜘蛛仆从一样通过喂食肉类来恢复生命值，并且如果它的主人穿上荒野长袍，它还能被动恢复生命值。"
+    }
+  ]
+}

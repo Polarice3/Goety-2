@@ -1,0 +1,21 @@
+{
+  "name": "Паучьи королевы",
+  "icon": "minecraft:cobweb",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_brood_mother",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Гигантские пауки, нападающие на всех, кто осмелится сунуться в их логово. Их клыки отравляют даже нежить."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:brood_mother",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Эти существа пытаются атаковать жертву, но если к битве присоединятся их дети, то они будут держаться на расстоянии, позволяя малышам поесть."
+    }
+  ]
+}

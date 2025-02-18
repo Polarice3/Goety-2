@@ -12,13 +12,19 @@ public class SurroundGoal<T extends Mob> extends Goal {
    private final double attackRadiusSqr;
    private boolean strafingClockwise;
    private boolean strafingBackwards;
+   private boolean chanceBack;
    private int strafingTime = -1;
 
-   public SurroundGoal(T p_25792_, double p_25793_, float p_25795_) {
-      this.mob = p_25792_;
-      this.speedModifier = p_25793_;
-      this.attackRadiusSqr = p_25795_ * p_25795_;
+   public SurroundGoal(T mob, double speedModifier, float radius, boolean chanceBack) {
+      this.mob = mob;
+      this.speedModifier = speedModifier;
+      this.attackRadiusSqr = radius * radius;
+      this.chanceBack = chanceBack;
       this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+   }
+
+   public SurroundGoal(T mob, double speedModifier, float radius) {
+      this(mob, speedModifier, radius, true);
    }
 
    public boolean canUse() {
@@ -59,8 +65,10 @@ public class SurroundGoal<T extends Mob> extends Goal {
                this.strafingClockwise = !this.strafingClockwise;
             }
 
-            if ((double)this.mob.getRandom().nextFloat() < 0.3D) {
-               this.strafingBackwards = !this.strafingBackwards;
+            if (this.chanceBack) {
+               if ((double) this.mob.getRandom().nextFloat() < 0.3D) {
+                  this.strafingBackwards = !this.strafingBackwards;
+               }
             }
 
             this.strafingTime = 0;

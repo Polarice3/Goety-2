@@ -1288,7 +1288,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                     if (this.tickCount % count == 0) {
                         BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(target.getX(), target.getY(), target.getZ());
 
-                        while (blockpos$mutable.getY() > 0 && !this.level.getBlockState(blockpos$mutable).blocksMotion()) {
+                        while (blockpos$mutable.getY() > this.level.getMinBuildHeight() && !this.level.getBlockState(blockpos$mutable).blocksMotion()) {
                             blockpos$mutable.move(Direction.DOWN);
                         }
 
@@ -1919,7 +1919,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 if (livingentity != null) {
                     BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(livingentity.getX(), livingentity.getY(), livingentity.getZ());
 
-                    while (blockpos$mutable.getY() > 0 && !Apostle.this.level.getBlockState(blockpos$mutable).blocksMotion()) {
+                    while (blockpos$mutable.getY() > Apostle.this.level.getMinBuildHeight() && !Apostle.this.level.getBlockState(blockpos$mutable).blocksMotion()) {
                         blockpos$mutable.move(Direction.DOWN);
                     }
 

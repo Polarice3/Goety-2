@@ -10,6 +10,7 @@ import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.mixin.MobAccessor;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -20,16 +21,18 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.player.Player;
@@ -120,15 +123,6 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
 
     public void tick(){
         super.tick();
-        if (!this.level.isClientSide) {
-            if (!this.isHostile()) {
-                if (this.tickCount <= 10) {
-                    if (this.getFirstPassenger() instanceof AbstractSkeleton) {
-                        this.getFirstPassenger().discard();
-                    }
-                }
-            }
-        }
         this.ownedTick();
         this.servantTick();
     }
@@ -197,12 +191,19 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
     public Team getTeam() {
         if (this.getTrueOwner() != null) {
             LivingEntity livingentity = this.getTrueOwner();
-            if (livingentity != null && livingentity != this && livingentity.getTeam() != null) {
+            if (livingentity != null && livingentity != this && !this.areOwnedByEachOther(livingentity) && livingentity.getTeam() != null) {
                 return livingentity.getTeam();
             }
         }
 
         return super.getTeam();
+    }
+
+    public boolean areOwnedByEachOther(LivingEntity livingEntity){
+        if (livingEntity instanceof IOwned owned){
+            return owned.getTrueOwner() == this && this.getTrueOwner() == livingEntity;
+        }
+        return false;
     }
 
     //look at dish
@@ -421,7 +422,15 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
 
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
-        pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        RandomSource randomsource = pLevel.getRandom();
+        AttributeInstance instance = this.getAttribute(Attributes.FOLLOW_RANGE);
+        if (instance != null){
+            instance.addPermanentModifier(new AttributeModifier("Random spawn bonus", randomsource.triangle(0.0D, 0.11485000000000001D), AttributeModifier.Operation.MULTIPLY_BASE));
+        }
+        this.setLeftHanded(randomsource.nextFloat() < 0.05F);
+
+        MobAccessor mobAccessor = (MobAccessor) this;
+        mobAccessor.setSpawnType(pReason);
         this.checkHostility();
         if (pReason != MobSpawnType.MOB_SUMMONED && this.getTrueOwner() == null){
             this.setNatural(true);

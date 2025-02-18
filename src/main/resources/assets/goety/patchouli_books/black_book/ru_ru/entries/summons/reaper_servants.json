@@ -1,0 +1,28 @@
+{
+  "name": "Жнец-прислужник",
+  "icon": "goety:reaper_servant_spawn_egg",
+  "category": "goety:summons",
+  "advancement": "goety:goety/kill_a_reaper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Эти призраки подчинены вашей воле до такой степени, что их косы не наносят урона ни вам, ни вашим союзникам."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:reaper_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Можно призвать этих существ с помощью $(l:focuses/necromancy/reaping_focus)фокуса жатвы() или с помощью ритуала, который призывает их с неограниченным сроком жизни."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_reaper_thrall"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Жнецов можно исцелять эктоплазмой."
+    }
+  ]
+}

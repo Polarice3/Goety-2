@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Focuses have their own specialize enchantments, but not all Focuses can be enchanted nor accept every enchantments. There are many enchantments that are only applicable to certain Focuses."
+      "text": "Focuses have their own specialize enchantments, but not all Focuses can be enchanted nor accept every enchantments. There are many enchantments that are only applicable to certain Focuses. Enchanted Focuses doubles the amount of Soul Energy needed to cast."
     },
     {
       "type": "patchouli:spotlight",

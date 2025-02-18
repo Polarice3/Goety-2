@@ -74,7 +74,7 @@ public class StormCaster extends HuntingIllagerEntity{
                 .add(Attributes.FOLLOW_RANGE, 16.0D)
                 .add(Attributes.MAX_HEALTH, AttributesConfig.StormCasterHealth.get())
                 .add(Attributes.ARMOR, AttributesConfig.StormCasterArmor.get())
-                .add(Attributes.MOVEMENT_SPEED, 0.5D)
+                .add(Attributes.MOVEMENT_SPEED, 0.35D)
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.StormCasterDamage.get());
     }
 

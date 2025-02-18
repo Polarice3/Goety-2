@@ -1,0 +1,16 @@
+{
+  "name": "收割者",
+  "icon": "goety:spirit_fabric",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_reaper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "戴着兜帽的幽灵，擅使镰刀且对灵魂充满渴望。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:reaper"
+    }
+  ]
+}

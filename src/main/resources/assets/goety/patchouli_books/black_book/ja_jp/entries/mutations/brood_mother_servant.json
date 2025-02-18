@@ -1,0 +1,28 @@
+{
+  "name": "ブラッドマザーの従者",
+  "icon": "minecraft:cobweb",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "いくつかの試薬と黒魔術を使って、クモを恐ろしい女王蜘蛛に変身させることに成功しました。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_spider_to_brood_mother"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:brood_mother_servant",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ブラッドマザーは強力な乗り物であるだけでなく、複数のウェブショットを発射したり、忠実なクモの従者が孵化するクモの卵を産んだりすることもできます。結果として生じるクモの従者は、卵の場所に応じてさまざまな種類が出現します。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "他のクモの従者と同様に肉を与えることで治癒することができ、また、所有者が野生のローブを着用している場合は自動的に治癒することができます。"
+    }
+  ]
+}

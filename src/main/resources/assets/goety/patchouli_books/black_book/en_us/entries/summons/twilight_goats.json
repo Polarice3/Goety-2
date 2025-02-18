@@ -1,0 +1,28 @@
+{
+  "name": "Twilight Goats",
+  "icon": "minecraft:goat_horn",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Dark colored and vicious counterparts of regular goats, these dark omens will ram onto their masters enemies or skewer them with their horns, or bites if they lose them."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "One can call upon twilight goats through the use of a $(l:focuses/wild/hunting_focus)Hunting Focus$() while on a mountain, or through casting it with a $(l:crafts/staff/wind_staff)Wind Staff$(), or through a ritual which summons one without a limited lifespan."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_twilight_goat_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:twilight_goat",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Right-clicking on a loyal Black Wolf with meat will heal them."
+    }
+  ]
+}

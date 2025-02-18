@@ -27,7 +27,8 @@ public class NoKnockBackDamageSource extends DamageSource {
     }
 
     @Nullable
-    public Entity getDirectAttacker() {
+    @Override
+    public Entity getDirectEntity() {
         return this.entity;
     }
 
@@ -36,7 +37,7 @@ public class NoKnockBackDamageSource extends DamageSource {
         if (this.owner != null) {
             return this.owner;
         } else {
-            return this.getDirectAttacker();
+            return this.getDirectEntity();
         }
     }
 
@@ -45,7 +46,7 @@ public class NoKnockBackDamageSource extends DamageSource {
         if (this.damageSourcePosition != null) {
             return this.damageSourcePosition;
         } else {
-            return this.getDirectAttacker() != null ? this.getDirectAttacker().position() : null;
+            return this.getDirectEntity() != null ? this.getDirectEntity().position() : null;
         }
     }
 

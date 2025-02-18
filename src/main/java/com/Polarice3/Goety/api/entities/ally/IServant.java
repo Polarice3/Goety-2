@@ -83,10 +83,12 @@ public interface IServant extends IOwned {
         if (this instanceof Mob mob) {
             if (mob.getMobType() == MobType.UNDEAD) {
                 this.setUpgraded(CuriosFinder.hasUndeadCape(this.getTrueOwner()));
-            } else if (mob.getMobType() == ModMobType.NATURAL) {
+            } else if (mob.getMobType() == ModMobType.NATURAL || mob.getMobType() == MobType.ARTHROPOD) {
                 this.setUpgraded(CuriosFinder.hasWildRobe(this.getTrueOwner()));
             } else if (mob.getMobType() == ModMobType.FROST) {
                 this.setUpgraded(CuriosFinder.hasFrostRobes(this.getTrueOwner()));
+            } else if (mob.getMobType() == MobType.WATER) {
+                this.setUpgraded(CuriosFinder.hasAbyssRobes(this.getTrueOwner()));
             }
         }
     }
@@ -187,7 +189,12 @@ public interface IServant extends IOwned {
 
     }
 
+    @Deprecated
     default boolean isSunSensitive2() {
+        return this.servantSunBurn();
+    }
+
+    default boolean servantSunBurn() {
         return false;
     }
 
@@ -265,7 +272,7 @@ public interface IServant extends IOwned {
             } else {
                 this.setNoHealTime(this.getNoHealTime() - 1);
             }
-            boolean flag = this.isSunSensitive2() && this.burnSunTick() && MobsConfig.UndeadServantSunlightBurn.get();
+            boolean flag = this.servantSunBurn() && this.burnSunTick() && !owned.fireImmune() && MobsConfig.UndeadServantSunlightBurn.get();
             if (flag) {
                 ItemStack itemstack = owned.getItemBySlot(EquipmentSlot.HEAD);
                 if (!itemstack.isEmpty()) {
@@ -293,7 +300,7 @@ public interface IServant extends IOwned {
             if (livingEntity.getMobType() == ModMobType.FROST){
                 crown = CuriosFinder.hasFrostCrown(this.getTrueOwner());
             }
-            if (livingEntity.getMobType() == ModMobType.NATURAL){
+            if (livingEntity.getMobType() == ModMobType.NATURAL || livingEntity.getMobType() == MobType.ARTHROPOD){
                 crown = CuriosFinder.hasWildCrown(this.getTrueOwner());
             }
             if (livingEntity.getMobType() == ModMobType.NETHER){
@@ -332,7 +339,7 @@ public interface IServant extends IOwned {
                                 healRate = MobsConfig.WaterMinionHealTime.get();
                                 healAmount = MobsConfig.WaterMinionHealAmount.get().floatValue();
                             }
-                            if (livingEntity.getMobType() == ModMobType.NATURAL && MobsConfig.NaturalMinionHeal.get()){
+                            if (livingEntity.getMobType() == ModMobType.NATURAL && livingEntity.getMobType() == MobType.ARTHROPOD && MobsConfig.NaturalMinionHeal.get()){
                                 curio = CuriosFinder.hasWildRobe(owner);
                                 soulCost = MobsConfig.NaturalMinionHealCost.get();
                                 healRate = MobsConfig.NaturalMinionHealTime.get();

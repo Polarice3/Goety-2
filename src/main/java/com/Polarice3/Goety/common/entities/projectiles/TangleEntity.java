@@ -1,6 +1,8 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.client.CSetDeltaMovement;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -13,6 +15,7 @@ import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
@@ -179,6 +182,10 @@ public abstract class TangleEntity extends Entity {
     public void tangleTarget(){
         if (this.getTarget() != null && this.getTarget().isAlive()){
             this.getTarget().setPos(this.position());
+            this.getTarget().setDeltaMovement(Vec3.ZERO);
+            if (this.level.isClientSide){
+                ModNetwork.sendToServer(new CSetDeltaMovement(this.getTarget().getId(), 0.0D, 0.0D, 0.0D));
+            }
             this.getTarget().addEffect(new MobEffectInstance(GoetyEffects.TANGLED.get(), 2, 0, false, false, false));
         }
     }

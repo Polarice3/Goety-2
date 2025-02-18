@@ -35,7 +35,8 @@ public class HauntedArmorStand extends ArmorStand {
     }
 
     public HauntedArmorStand(Level p_31556_, double p_31557_, double p_31558_, double p_31559_) {
-        super(p_31556_, p_31557_, p_31558_, p_31559_);
+        this(ModEntityType.HAUNTED_ARMOR_STAND.get(), p_31556_);
+        this.setPos(p_31557_, p_31558_, p_31559_);
     }
 
     public boolean isShowArms() {

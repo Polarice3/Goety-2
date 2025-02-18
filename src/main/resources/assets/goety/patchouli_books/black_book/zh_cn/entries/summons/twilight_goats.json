@@ -1,0 +1,28 @@
+{
+  "name": "暮光山羊",
+  "icon": "minecraft:goat_horn",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这些深色且凶残的生物是普通山羊的同类，这群黑暗的不祥之物会冲向它们主人的敌人，用角将敌人刺穿，若是角被消耗殆尽，它们也会使用牙来撕咬敌人。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你可以使用$(l:focuses/wild/hunting_focus)狩猎聚晶$()在山峰上召唤暮光山羊,或者干脆使用$(l:crafts/staff/wind_staff)烈风魔杖$()施法,你也可以使用一个仪式来召唤出永续存在的仆从。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_twilight_goat_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:twilight_goat",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你可以手持肉来右键治疗它们。"
+    }
+  ]
+}

@@ -35,6 +35,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation QUICK_GROWING_VINE = register("quick_growing_vine");
     public static final ModelLayerLocation POISON_QUILL_VINE = register("poison_quill_vine");
     public static final ModelLayerLocation BIOMINE = register("biomine");
+    public static final ModelLayerLocation SPIDER_EGG = register("spider_egg");
     public static final ModelLayerLocation BLOCK = register("block");
     public static final ModelLayerLocation WARLOCK = register("warlock");
     public static final ModelLayerLocation HERETIC = register("heretic");
@@ -74,7 +75,9 @@ public class ModModelLayer {
     public static final ModelLayerLocation TROPICAL_SLIME_INNER = register("tropical_slime_inner");
     public static final ModelLayerLocation MOD_SPIDER = register("mod_spider");
     public static final ModelLayerLocation ICY_SPIDER = register("icy_spider");
+    public static final ModelLayerLocation BROOD_MOTHER = register("brood_mother");
     public static final ModelLayerLocation SPECTER = register("specter");
+    public static final ModelLayerLocation REAPER = register("reaper");
     public static final ModelLayerLocation WRAITH = register("wraith");
     public static final ModelLayerLocation SUNKEN_SKELETON = register("sunken_skeleton");
     public static final ModelLayerLocation NECROMANCER = register("necromancer");

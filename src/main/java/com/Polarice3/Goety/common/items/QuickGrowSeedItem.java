@@ -8,7 +8,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
@@ -40,7 +39,7 @@ public class QuickGrowSeedItem extends Item {
          ItemStack itemstack = p_40510_.getItemInHand();
          Vec3 vec3 = Vec3.atBottomCenterOf(blockpos);
          AABB aabb = ModEntityType.QUICK_GROWING_VINE.get().getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
-         if (level.noCollision((Entity)null, aabb) && level.getEntities((Entity)null, aabb).isEmpty()) {
+         if (level.noCollision(null, aabb.deflate(0.25D)) && level.getEntities(null, aabb.deflate(0.25D)).isEmpty()) {
             if (level instanceof ServerLevel serverlevel) {
                AbstractVine vine = ModEntityType.QUICK_GROWING_VINE.get().create(serverlevel);
                if (this.isPoison){

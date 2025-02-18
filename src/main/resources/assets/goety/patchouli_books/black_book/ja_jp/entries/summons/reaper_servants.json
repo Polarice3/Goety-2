@@ -1,0 +1,28 @@
+{
+  "name": "リーパーの従者",
+  "icon": "goety:reaper_servant_spawn_egg",
+  "category": "goety:summons",
+  "advancement": "goety:goety/kill_a_reaper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "これらの幽霊はあなたの意志によって呼び出され、縛られ、彼らの鎌はあなたやあなたの仲間を切ることができないほどです。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:reaper_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "これらのクリーチャーは、$(l:focuses/necromancy/reaping_focus)リーパーのフォーカス$()を使用するか、儀式(これで召喚すると、寿命に制限がありません)を通じて呼び出すことができます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_reaper_thrall"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "リーパーはエクトプラズムで右クリックすると回復できます。"
+    }
+  ]
+}

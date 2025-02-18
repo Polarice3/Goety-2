@@ -1,0 +1,21 @@
+{
+  "name": "Brood Mothers",
+  "icon": "minecraft:cobweb",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_brood_mother",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Gigantic spiders that attacks those who dare mess with their dens, with fangs that poison even the undead."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:brood_mother",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These creatures will try to directly attack their target, but if their children were to join the fight they would instead circle around them, letting their kids have their meal."
+    }
+  ]
+}

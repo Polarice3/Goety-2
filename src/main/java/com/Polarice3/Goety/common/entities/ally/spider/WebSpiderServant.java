@@ -95,6 +95,8 @@ public class WebSpiderServant extends SpiderServant implements RangedAttackMob {
                                 this.getNavigation().moveTo(vec3.x, vec3.y, vec3.z, 1.25F);
                             }
                         }
+                    } else {
+                        this.setClimbing(false);
                     }
                 }
             }

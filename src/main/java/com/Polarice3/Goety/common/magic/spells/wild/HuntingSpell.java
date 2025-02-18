@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.BlackWolf;
 import com.Polarice3.Goety.common.entities.ally.Snapper;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.ally.TwilightGoat;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonWolf;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.magic.SummonSpell;
@@ -28,6 +29,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -76,7 +78,7 @@ public class HuntingSpell extends SummonSpell {
 
     @Override
     public Predicate<LivingEntity> summonPredicate() {
-        return livingEntity -> livingEntity instanceof BlackWolf || livingEntity instanceof SkeletonWolf || livingEntity instanceof Snapper;
+        return livingEntity -> livingEntity instanceof BlackWolf || livingEntity instanceof SkeletonWolf || livingEntity instanceof TwilightGoat || livingEntity instanceof Snapper;
     }
 
     @Override
@@ -107,6 +109,7 @@ public class HuntingSpell extends SummonSpell {
 
     public boolean specialStaffs(ItemStack stack){
         return typeStaff(stack, SpellType.NECROMANCY)
+                || typeStaff(stack, SpellType.WIND)
                 || typeStaff(stack, SpellType.ABYSS)
                 /*|| typeStaff(stack, SpellType.NETHER)*/;
     }
@@ -135,6 +138,8 @@ public class HuntingSpell extends SummonSpell {
                 }
                 if (this.typeStaff(staff, SpellType.NECROMANCY)){
                     summonedentity = new SkeletonWolf(ModEntityType.SKELETON_WOLF.get(), worldIn);
+                } else if (this.typeStaff(staff, SpellType.WIND) || worldIn.getBiome(blockPos).is(Tags.Biomes.IS_MOUNTAIN)){
+                    summonedentity = new TwilightGoat(ModEntityType.TWILIGHT_GOAT.get(), worldIn);
                 } else if (worldIn.isWaterAt(blockPos) || this.typeStaff(staff, SpellType.ABYSS)) {
                     summonedentity = new Snapper(ModEntityType.SNAPPER.get(), worldIn);
                 }/* else if (worldIn.dimension() == Level.NETHER || this.typeStaff(staff, SpellType.NETHER)){

@@ -22,10 +22,10 @@ public class ChargeGoal extends Goal {
     protected double minRange;
     protected double maxRange;
     protected int chance;
-    private int windup;
-    private int coolDown;
-    private final int coolDownTotal;
-    private boolean hasAttacked;
+    public int windup;
+    public int coolDown;
+    public final int coolDownTotal;
+    public boolean hasAttacked;
 
     public ChargeGoal(PathfinderMob mob, float speed, int coolDownTotal) {
         this(mob, speed, 10, coolDownTotal);

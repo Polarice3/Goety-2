@@ -102,6 +102,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> HOLE = register("hole", HoleBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> PART_LIQUID = register("part_liquid", PartLiquidBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> PITHOS = register("pithos", PithosBlock::new);
+    public static final RegistryObject<Block> SPIDER_MOTHER_DEN = register("spider_mother_den", SpiderMotherDenBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> NIGHT_BEACON = register("night_beacon", NightBeaconBlock::new, false);
     public static final RegistryObject<Block> TALL_SKULL_BLOCK = register("tall_skull", TallSkullBlock::new, false);
     public static final RegistryObject<Block> WALL_TALL_SKULL_BLOCK = register("wall_tall_skull", WallTallSkullBlock::new, false, LootTableType.EMPTY);

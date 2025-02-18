@@ -46,6 +46,12 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonSummonDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonLimit;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> ReaperCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ReaperDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ReaperCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ReaperSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ReaperLimit;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithCoolDown;
@@ -517,6 +523,7 @@ public class SpellConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Integer> LeapleafLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> SpiderLimit;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BroodMotherLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> NecromancerLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> DrownedNecromancerLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> BoundIllagerLimit;
@@ -628,6 +635,18 @@ public class SpellConfig {
                     .defineInRange("skeletonSummonDown", 120, 0, 72000);
             SkeletonLimit = BUILDER.comment("Number of Skeleton Servants that an individual player can have in total, Default: 32")
                     .defineInRange("skeletonLimit", 32, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Reaping Spell");
+            ReaperCost = BUILDER.comment("Reaping Spell Cost, Default: 24")
+                    .defineInRange("reaperCost", 24, 0, Integer.MAX_VALUE);
+            ReaperDuration = BUILDER.comment("Time to cast Reaping Spell, Default: 60")
+                    .defineInRange("reaperTime", 60, 0, 72000);
+            ReaperCoolDown = BUILDER.comment("Reaping Spell Cooldown, Default: 100")
+                    .defineInRange("reaperCoolDown", 100, 0, Integer.MAX_VALUE);
+            ReaperSummonDown = BUILDER.comment("Reaping Spell Summon Down, Default: 300")
+                    .defineInRange("reaperSummonDown", 300, 0, 72000);
+            ReaperLimit = BUILDER.comment("Number of Reaper Servants that a player can have, Default: 8")
+                    .defineInRange("reaperLimit", 8, 1, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Spooky Spell");
             WraithCost = BUILDER.comment("Spooky Spell Cost, Default: 24")
@@ -1583,6 +1602,8 @@ public class SpellConfig {
                 .defineInRange("leapleafLimit", 16, 1, Integer.MAX_VALUE);
         SpiderLimit = BUILDER.comment("Number of Spider Servants that an individual player can have in total, Default: 32")
                 .defineInRange("spiderLimit", 32, 1, Integer.MAX_VALUE);
+        BroodMotherLimit = BUILDER.comment("Number of Brood Mother Servants that an individual player can have in total, Default: 2")
+                .defineInRange("broodMotherLimit", 2, 1, Integer.MAX_VALUE);
         NecromancerLimit = BUILDER.comment("Number of Necromancer Servants that an individual player can have in total, Default: 8")
                 .defineInRange("necromancerLimit", 8, 1, Integer.MAX_VALUE);
         DrownedNecromancerLimit = BUILDER.comment("Number of Drowned Necromancer Servants that an individual player can have in total, Default: 2")

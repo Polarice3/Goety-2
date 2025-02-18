@@ -1,14 +1,20 @@
 package com.Polarice3.Goety.common.entities.hostile;
 
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.common.entities.ally.spider.SpiderServant;
 import com.Polarice3.Goety.common.entities.projectiles.WebShot;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -19,6 +25,7 @@ import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -51,6 +58,17 @@ public class WebSpider extends Spider implements RangedAttackMob {
         this.targetSelector.addGoal(3, new SpiderTargetGoal<>(this, IronGolem.class));
     }
 
+    public static AttributeSupplier.Builder setCustomAttributes() {
+        return SpiderServant.setCustomAttributes()
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.WebSpiderServantDamage.get())
+                .add(Attributes.MAX_HEALTH, AttributesConfig.WebSpiderServantHealth.get());
+    }
+
+    public void setConfigurableAttributes() {
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.WebSpiderServantDamage.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.WebSpiderServantHealth.get());
+    }
+
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(WEB_SHOOTING, false);
@@ -66,6 +84,11 @@ public class WebSpider extends Spider implements RangedAttackMob {
     }
 
     @Override
+    protected @NotNull ResourceLocation getDefaultLootTable() {
+        return EntityType.SPIDER.getDefaultLootTable();
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (!this.level.isClientSide){
@@ -78,6 +101,8 @@ public class WebSpider extends Spider implements RangedAttackMob {
                                 this.getNavigation().moveTo(vec3.x, vec3.y, vec3.z, 1.25F);
                             }
                         }
+                    } else {
+                        this.setClimbing(false);
                     }
                 }
             }

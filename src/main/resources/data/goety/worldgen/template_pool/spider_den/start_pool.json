@@ -1,0 +1,22 @@
+{
+  "name": "goety:spider_den/start_pool",
+
+  "fallback": "minecraft:empty",
+
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:spider_den/spider_den",
+
+        "processors": "minecraft:mossify_70_percent",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

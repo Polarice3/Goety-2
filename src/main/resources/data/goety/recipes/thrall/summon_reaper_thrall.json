@@ -1,0 +1,25 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:summon_tamed",
+  "activation_item": {
+    "item": "goety:spirit_fabric"
+  },
+  "craftType": "necroturgy",
+  "entity_to_summon": "goety:reaper_servant",
+  "soulCost": 5,
+  "duration": 30,
+  "ingredients": [
+    {
+      "item": "goety:savage_tooth"
+    },
+    {
+      "item": "goety:hunger_core"
+    },
+    {
+      "tag": "goety:haunted_logs"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

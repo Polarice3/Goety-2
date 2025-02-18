@@ -202,7 +202,7 @@ public class RobeEvents {
                     } else if (damageSource.getOwner() instanceof OwnableEntity ownable && ownable.getOwner() != null) {
                         source1 = ownable.getOwner();
                     }
-                    direct1 = damageSource.getDirectAttacker();
+                    direct1 = damageSource.getDirectEntity();
                 }
                 if (CuriosFinder.hasNetherRobe(source1)){
                     if (victim.isInvulnerableTo(event.getSource()) || victim.hasEffect(MobEffects.FIRE_RESISTANCE)){

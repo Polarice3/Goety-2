@@ -1,0 +1,18 @@
+{
+  "name": "Фокус жатвы",
+  "icon": "goety:reaping_focus",
+  "category": "goety:focuses/necromancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Эти жаждущие душ призраки не только полезны в битве, но и способны собирать энергию душ для своего владельца."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/reaping_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:reaping_focus": 1
+  }
+}

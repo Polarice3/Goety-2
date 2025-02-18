@@ -8,10 +8,7 @@ import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeleton
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.VanguardServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.BlackguardServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
-import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
-import com.Polarice3.Goety.common.entities.neutral.AbstractWraith;
-import com.Polarice3.Goety.common.entities.neutral.DrownedNecromancer;
-import com.Polarice3.Goety.common.entities.neutral.Wildfire;
+import com.Polarice3.Goety.common.entities.neutral.*;
 import com.Polarice3.Goety.common.magic.spells.necromancy.*;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModTags;
@@ -95,6 +92,9 @@ public class RitualRequirements extends RitualTypes{
                 }
                 return new SkeletonSpell().conditionsMet(serverLevel, castingPlayer);
             }
+            if (summon instanceof AbstractReaper){
+                return new ReaperSpell().conditionsMet(serverLevel, castingPlayer);
+            }
             if (summon instanceof AbstractWraith){
                 return new WraithSpell().conditionsMet(serverLevel, castingPlayer);
             }
@@ -108,6 +108,22 @@ public class RitualRequirements extends RitualTypes{
                     }
                 }
                 if (count >= SpellConfig.BoundIllagerLimit.get()){
+                    castingPlayer.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            if (summon instanceof AbstractBroodMother){
+                int count = 0;
+                for (Entity entity : serverLevel.getAllEntities()) {
+                    if (entity instanceof AbstractBroodMother servant) {
+                        if (servant.getTrueOwner() == castingPlayer) {
+                            ++count;
+                        }
+                    }
+                }
+                if (count >= SpellConfig.BroodMotherLimit.get()){
                     castingPlayer.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
                     return false;
                 } else {

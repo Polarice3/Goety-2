@@ -1,0 +1,28 @@
+{
+  "name": "夕闇のヤギ",
+  "icon": "minecraft:goat_horn",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "普通のヤギの暗い色をした凶暴な邪悪な獣は、主人の敵に体当たりしたり、角で串刺しにしたり、角を失った場合は噛み付いたりします。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "山にいるときに $(l:focuses/wild/hunting_focus)狩猟のフォーカス$() を使用するか、それを$(l:crafts/staff/wind_staff)風の杖$()で唱えるか、儀式(寿命に制限のない召喚ができます)を行うことで、夕闇のヤギを呼び出すことができます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_twilight_goat_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:twilight_goat",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "肉で右クリックすると回復します。"
+    }
+  ]
+}

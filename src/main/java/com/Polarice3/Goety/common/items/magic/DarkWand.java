@@ -736,7 +736,7 @@ public class DarkWand extends Item implements IWand {
             }
         });
 
-        private static HumanoidModel.ArmPose FLIGHT_POSE = HumanoidModel.ArmPose.create("GOETY_FLYING", false, (model, entity, arm) -> {
+        private static final HumanoidModel.ArmPose FLIGHT_POSE = HumanoidModel.ArmPose.create("GOETY_FLYING", false, (model, entity, arm) -> {
             float f5 = 1.0F;
             if (arm == HumanoidArm.RIGHT) {
                 model.rightArm.xRot = -MathHelper.modelDegrees(105);

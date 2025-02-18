@@ -24,6 +24,11 @@ import java.util.List;
 public class CycloneSpell extends Spell {
 
     @Override
+    public SpellStat defaultStats() {
+        return super.defaultStats().setDuration(600).setRadius(1.0D);
+    }
+
+    @Override
     public int defaultSoulCost() {
         return SpellConfig.CycloneCost.get();
     }
@@ -60,6 +65,10 @@ public class CycloneSpell extends Spell {
 
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
+        int potency = spellStat.getPotency();
+        int duration = spellStat.getDuration();
+        float velocity = spellStat.getVelocity();
+        double radius = spellStat.getRadius();
         Vec3 vector3d = caster.getViewVector( 1.0F);
         Vec3 vec3 = vector3d;
         LivingEntity livingEntity = this.getTarget(caster);
@@ -85,20 +94,24 @@ public class CycloneSpell extends Spell {
         if (livingEntity != null) {
             cyclone.setTarget(livingEntity);
         }
-        float size = 1.0F;
-        float damage = 0.0F;
         if (rightStaff(staff)){
-            size += 1.0F;
-            damage += 1.0F;
+            radius += 1.0F;
+            potency += 1;
         }
-        cyclone.setDamage(damage * (WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster) + 1));
-        cyclone.setTotalLife(600 * (WandUtil.getLevels(ModEnchantments.DURATION.get(), caster) + 1));
-        cyclone.setBoltSpeed(WandUtil.getLevels(ModEnchantments.VELOCITY.get(), caster));
-        cyclone.setSize(size + (WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster) / 10.0F));
+        if (WandUtil.enchantedFocus(caster)){
+            potency *= (WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster) + 1);
+            duration *= (WandUtil.getLevels(ModEnchantments.DURATION.get(), caster) + 1);
+            velocity += WandUtil.getLevels(ModEnchantments.VELOCITY.get(), caster);
+            radius += (WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster) / 10.0F);
+        }
+        cyclone.setDamage(potency);
+        cyclone.setTotalLife(duration);
+        cyclone.setBoltSpeed((int) velocity);
+        cyclone.setSize((float) (radius));
         cyclone.setPos(caster.getX() + vector3d.x / 2,
                 caster.getEyeY() - 0.2,
                 caster.getZ() + vector3d.z / 2);
         worldIn.addFreshEntity(cyclone);
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), CastingSound(), this.getSoundSource(), 1.0F, 1.0F);
+        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), this.CastingSound(), this.getSoundSource(), 1.0F, 1.0F);
     }
 }

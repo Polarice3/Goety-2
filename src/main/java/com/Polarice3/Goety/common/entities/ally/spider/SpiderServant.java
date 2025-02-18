@@ -1,9 +1,12 @@
 package com.Polarice3.Goety.common.entities.ally.spider;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
-import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.common.ritual.RitualRequirements;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.init.ModTags;
+import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.EffectsUtil;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
@@ -14,6 +17,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.StructureTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -53,7 +57,7 @@ public class SpiderServant extends Summoned implements PlayerRideable{
     private static final UUID DETECTION_MODIFIER_UUID = UUID.fromString("858f6b2f-73e3-45a0-8bef-bb31e0d55be4");
     public static final AttributeModifier DETECTION_MODIFIER = new AttributeModifier(DETECTION_MODIFIER_UUID, "Light Is Blinding", -1.0D, AttributeModifier.Operation.ADDITION);
 
-    public SpiderServant(EntityType<? extends Owned> type, Level worldIn) {
+    public SpiderServant(EntityType<? extends Summoned> type, Level worldIn) {
         super(type, worldIn);
     }
 
@@ -145,7 +149,7 @@ public class SpiderServant extends Summoned implements PlayerRideable{
     }
 
     public void makeStuckInBlock(BlockState p_33796_, Vec3 p_33797_) {
-        if (!p_33796_.is(Blocks.COBWEB)) {
+        if (!p_33796_.is(Blocks.COBWEB) && !p_33796_.is(Blocks.AIR)) {
             super.makeStuckInBlock(p_33796_, p_33797_);
         }
 
@@ -179,25 +183,47 @@ public class SpiderServant extends Summoned implements PlayerRideable{
         this.entityData.set(DATA_FLAGS_ID, b0);
     }
 
+    public boolean spawnWithEffects(){
+        return true;
+    }
+
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_33790_, DifficultyInstance p_33791_, MobSpawnType p_33792_, @Nullable SpawnGroupData p_33793_, @Nullable CompoundTag p_33794_) {
         p_33793_ = super.finalizeSpawn(p_33790_, p_33791_, p_33792_, p_33793_, p_33794_);
         RandomSource randomsource = p_33790_.getRandom();
-        if (p_33793_ == null) {
-            p_33793_ = new SpiderEffectsGroupData();
-            if (p_33790_.getDifficulty() == Difficulty.HARD && randomsource.nextFloat() < 0.1F * p_33791_.getSpecialMultiplier()) {
-                ((SpiderEffectsGroupData)p_33793_).setRandomEffect(randomsource);
+        if (this.spawnWithEffects()) {
+            if (p_33793_ == null) {
+                p_33793_ = new SpiderEffectsGroupData();
+                if (p_33790_.getDifficulty() == Difficulty.HARD && randomsource.nextFloat() < 0.1F * p_33791_.getSpecialMultiplier()) {
+                    ((SpiderEffectsGroupData) p_33793_).setRandomEffect(randomsource);
+                }
             }
-        }
 
-        if (p_33793_ instanceof SpiderEffectsGroupData) {
-            MobEffect mobeffect = ((SpiderEffectsGroupData)p_33793_).effect;
-            if (mobeffect != null) {
-                this.addEffect(new MobEffectInstance(mobeffect, EffectsUtil.infiniteEffect()));
+            if (p_33793_ instanceof SpiderEffectsGroupData) {
+                MobEffect mobeffect = ((SpiderEffectsGroupData) p_33793_).effect;
+                if (mobeffect != null) {
+                    this.addEffect(new MobEffectInstance(mobeffect, EffectsUtil.infiniteEffect()));
+                }
             }
         }
 
         return p_33793_;
+    }
+
+    @Nullable
+    @Override
+    public EntityType<?> getVariant(Level level, BlockPos blockPos) {
+        EntityType<?> entityType = ModEntityType.SPIDER_SERVANT.get();
+        if (level instanceof ServerLevel serverLevel) {
+            if (BlockFinder.findStructure(serverLevel, blockPos, ModTags.Structures.CRYPT)){
+                entityType = ModEntityType.BONE_SPIDER_SERVANT.get();
+            } else if (RitualRequirements.frostRitual(blockPos, level)){
+                entityType = ModEntityType.ICY_SPIDER_SERVANT.get();
+            } else if (BlockFinder.findStructure(serverLevel, blockPos, StructureTags.MINESHAFT)){
+                entityType = ModEntityType.CAVE_SPIDER_SERVANT.get();
+            }
+        }
+        return entityType;
     }
 
     protected float getStandingEyeHeight(Pose p_33799_, EntityDimensions p_33800_) {

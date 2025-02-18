@@ -38,8 +38,10 @@ public class ModCreativeTab {
                 output.accept(ModItems.TOTEM_OF_ROOTS.get().getEmptyTotem());
                 output.accept(ModItems.TOTEM_OF_ROOTS.get().getFilledTotem());
                 ModItems.ITEMS.getEntries().forEach(i -> {
-                    if (!ModItems.shouldSkipCreativeModTab(i.get())) {
-                        output.accept(i.get());
+                    if (i.isPresent()) {
+                        if (!ModItems.shouldSkipCreativeModTab(i.get())) {
+                            output.accept(i.get());
+                        }
                     }
                 });
                 parameters.holders().lookup(Registries.PAINTING_VARIANT).ifPresent((p_270026_) -> {
@@ -48,7 +50,9 @@ public class ModCreativeTab {
                     }, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
                 });
                 ModSpawnEggs.ITEMS.getEntries().forEach(i -> {
-                    output.accept(i.get());
+                    if (i.isPresent()) {
+                        output.accept(i.get());
+                    }
                 });
             }).build());
 

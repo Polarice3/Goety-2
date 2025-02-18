@@ -242,6 +242,7 @@ public class ModItems {
     public static final RegistryObject<Item> ROTTING_FOCUS = ITEMS.register("rotting_focus", () -> new MagicFocus(new ZombieSpell()));
     public static final RegistryObject<Item> OSSEOUS_FOCUS = ITEMS.register("osseous_focus", () -> new MagicFocus(new SkeletonSpell()));
     public static final RegistryObject<Item> GHOST_FIRE_FOCUS = ITEMS.register("ghost_fire_focus", () -> new MagicFocus(new IceBouquetSpell()));
+    public static final RegistryObject<Item> REAPING_FOCUS = ITEMS.register("reaping_focus", () -> new MagicFocus(new ReaperSpell()));
     public static final RegistryObject<Item> SPOOKY_FOCUS = ITEMS.register("spooky_focus", () -> new MagicFocus(new WraithSpell()));
     public static final RegistryObject<Item> PHANTASM_FOCUS = ITEMS.register("phantasm_focus", () -> new MagicFocus(new PhantomSpell()));
     public static final RegistryObject<Item> VANGUARD_FOCUS = ITEMS.register("vanguard_focus", () -> new MagicFocus(new VanguardSpell()));

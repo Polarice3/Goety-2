@@ -145,6 +145,12 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> PREACHER_CAST = create("preacher_cast");
     public static final RegistryObject<SoundEvent> PREACHER_DEATH = create("preacher_death");
 
+    public static final RegistryObject<SoundEvent> REAPER_AMBIENT = create("reaper_ambient");
+    public static final RegistryObject<SoundEvent> REAPER_HURT = create("reaper_hurt");
+    public static final RegistryObject<SoundEvent> REAPER_FLY = create("reaper_fly");
+    public static final RegistryObject<SoundEvent> REAPER_SWING = create("reaper_swing");
+    public static final RegistryObject<SoundEvent> REAPER_DEATH = create("reaper_death");
+
     public static final RegistryObject<SoundEvent> WRAITH_AMBIENT = create("wraith_ambient");
     public static final RegistryObject<SoundEvent> WRAITH_HURT = create("wraith_hurt");
     public static final RegistryObject<SoundEvent> WRAITH_FLY = create("wraith_fly");

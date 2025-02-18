@@ -263,6 +263,10 @@ public interface IOwned {
         }
     }
 
+    default boolean isPreventingPlayerRest(Player p_33036_) {
+        return this.isHostile();
+    }
+
     default void readOwnedData(CompoundTag compound){
         if (compound.hasUUID("Owner")) {
             this.setOwnerId(compound.getUUID("Owner"));

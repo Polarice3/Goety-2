@@ -1,0 +1,32 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:convert_tamed",
+  "activation_item": {
+    "item": "goety:savage_tooth"
+  },
+  "craftType": "animation",
+  "entity_to_convert": {
+    "tag": "goety:spiders",
+    "display_name": "entity.minecraft.spider"
+  },
+  "entity_to_convert_into": "goety:brood_mother_servant",
+  "soulCost": 5,
+  "duration": 10,
+  "ingredients": [
+    {
+      "tag": "forge:gems/lapis"
+    },
+    {
+      "item": "goety:venomous_fang"
+    },
+    {
+      "item": "goety:ectoplasm"
+    },
+    {
+      "item": "goety:occult_fabric"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

@@ -1174,7 +1174,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
                             if (Wight.this.attackTick == 20) {
                                 Wight.this.playSound(ModSounds.WIGHT_SWING.get(), Wight.this.getSoundVolume(), Wight.this.getVoicePitch() - 0.5F);
                                 if (Wight.this.level.getRandom().nextFloat() <= chance){
-                                    for (int i = 0; i <= 3; ++i) {
+                                    for (int i = 0; i <= 4; ++i) {
                                         QuakingSpell.surroundTremor(Wight.this, i, 3, 0.0F, false, (float) Wight.this.getAttributeValue(Attributes.ATTACK_DAMAGE), 0.1F);
                                     }
                                 }
@@ -1242,6 +1242,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
             for (Player player : this.mob.level.players()) {
                 if (this.lookAt == null) {
                     if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)
+                            && !MobUtil.areAllies(player, this.mob)
                             && player.distanceTo(this.mob) <= this.lookDistance) {
                         this.lookAt = player;
                     }
@@ -1258,6 +1259,8 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
                 return false;
             } else if (this.mob.distanceTo(this.lookAt) > this.lookDistance) {
                 return false;
+            } else if (MobUtil.areAllies(this.mob, this.lookAt)) {
+                return false;
             } else {
                 return EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(this.lookAt) && this.mob.getTarget() == null;
             }
@@ -1272,6 +1275,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
                 if (this.mob.level.players().size() > 1) {
                     for (Player player : this.mob.level.players().stream().filter(player -> player != this.lookAt).toList()) {
                         if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)
+                                && !MobUtil.areAllies(player, this.mob)
                                 && player.distanceTo(this.mob) <= this.lookDistance
                                 && SEHelper.getSoulAmountInt(player) > SEHelper.getSoulAmountInt(this.lookAt)) {
                             this.lookAt = player;
@@ -1302,7 +1306,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
             super(wight, Player.class, 10, false, false, predicate);
             this.wight = wight;
             this.startAggroTargetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector((livingEntity) -> {
-                return MobUtil.isDirectlyLooking(livingEntity, this.wight) || wight.closerThan(livingEntity, 4.0D) || wight.getTarget() == livingEntity;
+                return (MobUtil.isDirectlyLooking(livingEntity, this.wight) || wight.closerThan(livingEntity, 4.0D) || wight.getTarget() == livingEntity) && !MobUtil.areAllies(wight, livingEntity);
             });
         }
 

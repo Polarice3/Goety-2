@@ -27,7 +27,7 @@ public abstract class AbstractGolemServant extends Summoned {
     }
 
     public boolean canBeCollidedWith() {
-        return true;
+        return !this.isDeadOrDying();
     }
 
     protected void doPush(Entity p_28839_) {
@@ -40,7 +40,7 @@ public abstract class AbstractGolemServant extends Summoned {
 
     @Override
     public boolean isPushable() {
-        return false;
+        return !this.isDeadOrDying();
     }
 
     public boolean removeWhenFarAway(double p_27519_) {

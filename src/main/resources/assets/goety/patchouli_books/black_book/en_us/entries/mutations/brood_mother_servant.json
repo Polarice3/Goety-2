@@ -1,0 +1,28 @@
+{
+  "name": "Brood Mother",
+  "icon": "minecraft:cobweb",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With some reagents and dark magic, you've managed to transform a spider into a dreadful Brood Mother."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_spider_to_brood_mother"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:brood_mother_servant",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Not only are Brood Mothers make for powerful ride-able steeds, but they can shoot multiple web shots and lay spider eggs that will hatch into loyal spider servants. The resulting servant will spawn in different varieties depending on where it's egg is."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The arachnid can be healed by feeding it meat much like other spider servants, and can passively heal if their owner dons a Wild Robe."
+    }
+  ]
+}

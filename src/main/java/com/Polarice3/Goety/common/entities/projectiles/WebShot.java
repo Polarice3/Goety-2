@@ -3,14 +3,18 @@ package com.Polarice3.Goety.common.entities.projectiles;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -51,27 +55,33 @@ public class WebShot extends ThrowableProjectile {
 
     protected boolean canHitEntity(Entity pEntity) {
         if (this.getOwner() != null){
-            if (pEntity == this.getOwner()){
-                return false;
-            } else if (this.getOwner().isPassengerOfSameVehicle(pEntity)){
-                return false;
-            } else if (pEntity instanceof Projectile projectile && projectile.getOwner() == this.getOwner()){
-                return false;
-            } else if (this.getOwner() instanceof IOwned owned){
-                if (pEntity instanceof IOwned owned1){
-                    if (owned.getTrueOwner() == owned1.getTrueOwner()){
-                        return false;
-                    }
-                } else if (owned.getTrueOwner() == pEntity){
+            if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
+                return super.canHitEntity(pEntity);
+            } else {
+                if (MobUtil.areAllies(this.getOwner(), pEntity)){
                     return false;
+                }
+                if (this.getOwner() instanceof Enemy && pEntity instanceof Enemy){
+                    return false;
+                }
+                if (pEntity instanceof IOwned owned0 && this.getOwner() instanceof IOwned owned1){
+                    return !MobUtil.ownerStack(owned0, owned1);
                 }
             }
         }
-        return (!pEntity.isSpectator() && pEntity.isAlive() && pEntity.isPickable()) || this.getOwner() == null;
+        return super.canHitEntity(pEntity);
     }
 
     @Override
     protected void defineSynchedData() {
+    }
+
+    @Override
+    public void makeStuckInBlock(BlockState p_33796_, Vec3 p_33797_) {
+        if (!p_33796_.is(Blocks.COBWEB)) {
+            super.makeStuckInBlock(p_33796_, p_33797_);
+        }
+
     }
 
     @Override

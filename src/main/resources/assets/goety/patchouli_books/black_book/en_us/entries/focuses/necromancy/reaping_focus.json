@@ -1,0 +1,18 @@
+{
+  "name": "Reaping Focus",
+  "icon": "goety:reaping_focus",
+  "category": "goety:focuses/necromancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "These soul hungering apparitions are not only useful at mowing down multiple foes, but also gather soul energy for their necromantic master."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/reaping_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:reaping_focus": 1
+  }
+}

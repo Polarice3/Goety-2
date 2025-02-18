@@ -1,0 +1,16 @@
+{
+  "name": "リーパー",
+  "icon": "goety:spirit_fabric",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_reaper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "魂を渇望し、鎌を巧みに扱うフード付きの幽霊です。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:reaper"
+    }
+  ]
+}
