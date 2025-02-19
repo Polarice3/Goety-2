@@ -33,7 +33,7 @@ public class SGuardianAttackSoundPacket {
 
     public static void consume(SGuardianAttackSoundPacket packet, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            if (ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
+            /*if (ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
                 Minecraft minecraft = Minecraft.getInstance();
                 ClientLevel clientWorld = minecraft.level;
                 if (clientWorld != null) {
@@ -44,7 +44,7 @@ public class SGuardianAttackSoundPacket {
                         }
                     }
                 }
-            }
+            }*/
         });
         ctx.get().setPacketHandled(true);
     }
