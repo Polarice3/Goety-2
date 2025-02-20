@@ -38,8 +38,6 @@ public class ConfiguredFeatures {
         FeatureUtils.register(p_256171_, SAPLING_ROTTEN_TREE, Feature.TREE, createRotten().ignoreVines().build());
         FeatureUtils.register(p_256171_, SAPLING_FANCY_ROTTEN_TREE, Feature.TREE, createFancyRotten().build());
         FeatureUtils.register(p_256171_, WINDSWEPT_TREE_2, Feature.TREE, createWindswept2().build());
-        FeatureUtils.register(p_256171_, PINE_TREE, Feature.TREE, createPine().build());
-        FeatureUtils.register(p_256171_, MEGA_PINE_TREE, Feature.TREE, createMegaPine().build());
     }
 
     private static TreeConfiguration.TreeConfigurationBuilder createHaunted() {

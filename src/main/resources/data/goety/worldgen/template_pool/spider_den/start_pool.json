@@ -11,7 +11,7 @@
 
         "location": "goety:spider_den/spider_den",
 
-        "processors": "minecraft:mossify_70_percent",
+        "processors": "goety:spider_den_degrade",
 
         "projection": "rigid",
 

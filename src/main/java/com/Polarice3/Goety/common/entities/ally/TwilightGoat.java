@@ -314,7 +314,7 @@ public class TwilightGoat extends AnimalSummon implements ICharger {
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
-            if (itemstack.isEdible() && itemstack.getFoodProperties(this).isMeat() && this.getHealth() < this.getMaxHealth()) {
+            if (itemstack.isEdible() && itemstack.getFoodProperties(this) != null && this.getHealth() < this.getMaxHealth()) {
                 this.heal(2.0F);
                 if (!pPlayer.getAbilities().instabuild) {
                     itemstack.shrink(1);

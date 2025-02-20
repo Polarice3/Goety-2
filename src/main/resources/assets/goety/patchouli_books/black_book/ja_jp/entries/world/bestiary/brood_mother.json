@@ -1,5 +1,5 @@
 {
-  "name": "ブラッドマザー",
+  "name": "女王クモ",
   "icon": "minecraft:cobweb",
   "category": "goety:world/bestiary",
   "advancement": "goety:goety/kill_a_brood_mother",
@@ -15,7 +15,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "ブラッドマザーは標的を攻撃しようとしますが、もし自分の子供が戦いに加わった場合は、代わりに自分の子供に食事を与えるようにします。"
+      "text": "女王クモは標的を攻撃しようとしますが、もし自分の子供が戦いに加わった場合は、代わりに自分の子供に食事を与えるようにします。"
     }
   ]
 }

@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#goety:has_pine_tree",
+  "features": "goety:pine_tree",
+  "step": "vegetal_decoration"
+}

@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": "#goety:has_jade",
+  "biomes": "#goety:has_windswept_tree",
   "features": "goety:windswept_tree",
   "step": "vegetal_decoration"
 }

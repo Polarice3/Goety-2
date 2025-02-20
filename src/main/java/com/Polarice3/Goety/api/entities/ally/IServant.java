@@ -339,7 +339,7 @@ public interface IServant extends IOwned {
                                 healRate = MobsConfig.WaterMinionHealTime.get();
                                 healAmount = MobsConfig.WaterMinionHealAmount.get().floatValue();
                             }
-                            if (livingEntity.getMobType() == ModMobType.NATURAL && livingEntity.getMobType() == MobType.ARTHROPOD && MobsConfig.NaturalMinionHeal.get()){
+                            if ((livingEntity.getMobType() == ModMobType.NATURAL || livingEntity.getMobType() == MobType.ARTHROPOD) && MobsConfig.NaturalMinionHeal.get()){
                                 curio = CuriosFinder.hasWildRobe(owner);
                                 soulCost = MobsConfig.NaturalMinionHealCost.get();
                                 healRate = MobsConfig.NaturalMinionHealTime.get();

@@ -61,9 +61,8 @@ public class ModTradeUtil {
             this.priceMultiplier = 0.05F;
         }
 
-        public MerchantOffer getOffer(Entity p_219682_, RandomSource p_219683_) {
-            ItemStack itemstack = new ItemStack(this.item, this.cost);
-            return new MerchantOffer(new ItemStack(Items.EMERALD), itemstack, this.maxUses, this.villagerXp, this.priceMultiplier);
+        public MerchantOffer getOffer(Entity p_219699_, RandomSource p_219700_) {
+            return new MerchantOffer(new ItemStack(Items.EMERALD, this.cost), new ItemStack(this.item), this.maxUses, this.villagerXp, this.priceMultiplier);
         }
     }
 

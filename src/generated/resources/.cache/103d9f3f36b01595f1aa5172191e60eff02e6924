@@ -1,4 +1,4 @@
-// 1.20.1	2024-12-24T10:55:42.339042	Registries
+// 1.20.1	2025-02-19T20:20:19.9225365	Registries
 ee94e54a57be7587d413a72d7ff20c1ca4f97bb9 data/goety/damage_type/acid.json
 1c81619d690aa854535c8fad68b58aef03da65ab data/goety/damage_type/boiling.json
 0ce14aa03d8d6c87ee612550d2ae46968475cb6f data/goety/damage_type/bubble_stream.json
@@ -40,8 +40,5 @@ a1f3491c467f39025022c4b6adb8f9a3b39307e2 data/goety/trim_material/ecto.json
 32a21291d0ef486176c4ae5b212d78767535048c data/goety/trim_material/jade.json
 2ba76151d45d848f26008918bea8a19e19eda24b data/goety/worldgen/configured_feature/fancy_rotten_tree_sapling.json
 319b36173ec64d44c27285ae68827faa8b8b24c5 data/goety/worldgen/configured_feature/haunted_tree_sapling.json
-6e178d39186e2a03619edd25b8e3f1a039b01768 data/goety/worldgen/configured_feature/mega_pine_tree.json
-db0f75be8e9096a7757354d1a3a35d61c1f7a40e data/goety/worldgen/configured_feature/pine_tree.json
 0f0e9463f8fd249e316fb363c8829805196c07f4 data/goety/worldgen/configured_feature/rotten_tree_sapling.json
 41bffec1f1ff3840071a63191ebdaeb74c8802aa data/goety/worldgen/configured_feature/second_windswept_tree.json
-2746fc0d1cfc8c558b60814ad27b72b16c221fad data/goety/worldgen/placed_feature/pine_tree.json

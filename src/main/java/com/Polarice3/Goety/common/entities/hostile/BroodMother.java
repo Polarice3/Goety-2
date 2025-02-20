@@ -15,6 +15,8 @@ import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.level.Level;
@@ -31,6 +33,11 @@ public class BroodMother extends AbstractBroodMother implements Enemy {
         super(type, worldIn);
         this.bossInfo = new ModServerBossInfo(this, BossEvent.BossBarColor.RED, false, false);
         this.setHostile(true);
+    }
+
+    protected void registerGoals() {
+        super.registerGoals();
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
