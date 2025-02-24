@@ -438,6 +438,10 @@ public class Leapleaf extends Summoned{
         return (double)(this.getBbWidth() * 4.0F * this.getBbWidth() * 4.0F + enemy.getBbWidth());
     }
 
+    protected boolean shouldDropLoot() {
+        return !this.limitedLifespan && this.limitedLifeTicks <= 0;
+    }
+
     @Override
     public void handleEntityEvent(byte p_21375_) {
         if (p_21375_ == 5){

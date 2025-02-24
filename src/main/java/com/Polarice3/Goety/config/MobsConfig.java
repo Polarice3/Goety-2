@@ -108,7 +108,7 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> HolidaySkins;
 
-    public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadTeleport;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ServantTeleport;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VexTeleport;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ServantsAttackCreepers;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecroRobeUndead;
@@ -309,8 +309,6 @@ public class MobsConfig {
         BUILDER.pop();
         BUILDER.push("Servants");
             BUILDER.push("Undead Servants");
-            UndeadTeleport = BUILDER.comment("Whether Undead Servants can teleport to Players, Default: false")
-                    .define("undeadTeleport", false);
             NecroRobeUndead = BUILDER.comment("Whether Servants would naturally attack Undead mobs if owner wears a full Necro Set, Default: false")
                     .define("necroRobeUndead", false);
             UndeadMinionHeal = BUILDER.comment("Whether Undead Servants can heal if summoned while wearing Necro Cape, Default: true")
@@ -378,6 +376,8 @@ public class MobsConfig {
             WildfireSummonsLife = BUILDER.comment("Whether Wildfire's summons have limited lifespans, Default: true")
                     .define("wildfireSummonsLife", true);
             BUILDER.pop();
+        ServantTeleport = BUILDER.comment("Whether Servants can teleport to Players, Default: false")
+                .define("servantTeleport", false);
         RedstoneMonstrosityLeafBreak = BUILDER.comment("Whether Redstone Monstrosity breaks leaves and certain blocks if mob griefing is enabled, Default: true")
                 .define("redstoneMonstrosityLeafBreak", true);
         RedstoneCubeBlockFind = BUILDER.comment("Enable Redstone Cubes block detection mechanic, Default: true")

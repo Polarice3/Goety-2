@@ -426,7 +426,7 @@ public class Whisperer extends Summoned{
     }
 
     protected boolean shouldDropLoot() {
-        return !this.limitedLifespan;
+        return !this.limitedLifespan && this.limitedLifeTicks <= 0;
     }
 
     @Override

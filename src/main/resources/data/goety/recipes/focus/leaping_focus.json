@@ -1,0 +1,40 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:animation_core"
+  },
+  "craftType": "animation",
+  "soulCost": 1,
+  "duration": 10,
+  "research": "floral",
+  "ingredients": [
+    {
+      "item": "goety:corpse_blossom"
+    },
+    {
+      "item": "goety:overgrown_roots"
+    },
+    {
+      "item": "goety:overgrown_roots"
+    },
+    {
+      "item": "goety:soul_emerald"
+    },
+    {
+      "item": "goety:overgrown_roots"
+    },
+    {
+      "tag": "minecraft:leaves"
+    },
+    {
+      "item": "goety:overgrown_roots"
+    },
+    {
+      "item": "goety:mystic_core"
+    }
+  ],
+  "result": {
+    "item": "goety:leaping_focus"
+  }
+}

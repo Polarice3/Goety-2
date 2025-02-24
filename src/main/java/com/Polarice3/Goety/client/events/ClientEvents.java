@@ -998,6 +998,15 @@ public class ClientEvents {
                 }
             }
         }
+        if (ModKeybindings.keyBindings[13].isDown() && MINECRAFT.isWindowActive()){
+            if (MINECRAFT.player != null) {
+                if (LichdomHelper.isLich(MINECRAFT.player)) {
+                    if (LichdomHelper.isInLichMode(MINECRAFT.player)){
+                        MINECRAFT.player.level.playLocalSound(MINECRAFT.player.getX(), MINECRAFT.player.getY(), MINECRAFT.player.getZ(), ModSounds.LICH_LAUGH.get(), MINECRAFT.player.getSoundSource(), 2.0F, MINECRAFT.player.getVoicePitch(), false);
+                    }
+                }
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")

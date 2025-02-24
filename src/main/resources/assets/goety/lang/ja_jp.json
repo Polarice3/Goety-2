@@ -2570,5 +2570,8 @@
   "item.goety.brood_mother_servant_spawn_egg": "女王クモの従者のスポーンエッグ",
   "advancements.goety.kill_brood_mother.description": "8本足のブルードマザー、女王クモを倒す。",
   "item.goety.hostile_redstone_golem_spawn_egg": "Hostile Redstone Golem Spawn Egg",
-  "item.goety.hostile_redstone_monstrosity_spawn_egg": "Hostile Redstone Monstrosity Spawn Egg"
+  "item.goety.hostile_redstone_monstrosity_spawn_egg": "Hostile Redstone Monstrosity Spawn Egg",
+  "item.goety.leaping_focus": "Leaping Focus",
+  "item.goety.leaping_focus.info": "Summons Leapleaves. Cast crouching will summon the caster's servants towards them.",
+  "key.goety.lich.laugh": "Lich Laugh"
 }

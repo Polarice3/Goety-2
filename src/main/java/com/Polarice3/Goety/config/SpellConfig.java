@@ -374,6 +374,12 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WhisperSummonDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> WhisperLimit;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> LeapingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> LeapingDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> LeapingCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> LeapingSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> LeapleafLimit;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> ThunderboltCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ThunderboltDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> ThunderboltCoolDown;
@@ -521,7 +527,6 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> CorruptedBeamDamage;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CorruptionImmobile;
 
-    public static final ForgeConfigSpec.ConfigValue<Integer> LeapleafLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> SpiderLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> BroodMotherLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> NecromancerLimit;
@@ -1292,6 +1297,18 @@ public class SpellConfig {
             WhisperLimit = BUILDER.comment("Number of Whisperers that can exist around the player, Default: 4")
                     .defineInRange("whisperLimit", 4, 1, Integer.MAX_VALUE);
             BUILDER.pop();
+            BUILDER.push("Leaping Spell");
+            LeapingCost = BUILDER.comment("Leaping Spell Cost, Default: 32")
+                    .defineInRange("leapingCost", 32, 0, Integer.MAX_VALUE);
+            LeapingDuration = BUILDER.comment("Time to cast Leaping Spell, Default: 100")
+                    .defineInRange("leapingTime", 100, 0, 72000);
+            LeapingCoolDown = BUILDER.comment("Leaping Spell Cooldown, Default: 1200")
+                    .defineInRange("leapingCoolDown", 1200, 0, Integer.MAX_VALUE);
+            LeapingSummonDown = BUILDER.comment("Leaping Spell Summon Down, Default: 300")
+                    .defineInRange("leapingSummonDown", 300, 300, 72000);
+            LeapleafLimit = BUILDER.comment("Number of Leapleaves that an individual player can have in total, Default: 16")
+                    .defineInRange("leapleafLimit", 16, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
             BUILDER.push("Thunderbolt Spell");
             ThunderboltCost = BUILDER.comment("Thunderbolt Spell Cost, Default: 16")
                     .defineInRange("thunderboltCost", 16, 0, Integer.MAX_VALUE);
@@ -1598,8 +1615,6 @@ public class SpellConfig {
             BUILDER.pop();
         BUILDER.pop();
         BUILDER.push("Servant Limits");
-        LeapleafLimit = BUILDER.comment("Number of Leapleaves that an individual player can have in total, Default: 16")
-                .defineInRange("leapleafLimit", 16, 1, Integer.MAX_VALUE);
         SpiderLimit = BUILDER.comment("Number of Spider Servants that an individual player can have in total, Default: 32")
                 .defineInRange("spiderLimit", 32, 1, Integer.MAX_VALUE);
         BroodMotherLimit = BUILDER.comment("Number of Brood Mother Servants that an individual player can have in total, Default: 2")

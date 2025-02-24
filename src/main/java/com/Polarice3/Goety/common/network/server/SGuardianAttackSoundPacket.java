@@ -1,12 +1,7 @@
 package com.Polarice3.Goety.common.network.server;
 
-import com.Polarice3.Goety.client.audio.GuardianAttackSound;
-import com.Polarice3.Goety.common.entities.ally.GuardianServant;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
-import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;

@@ -1,0 +1,19 @@
+{
+  "name": "Leaping Focus",
+  "icon": "goety:leaping_focus",
+  "category": "goety:focuses/wild",
+  "advancement": "goety:goety/read_floral_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The spell summons forth an $(l:summons/leapleaves)Leapleaves$(), a powerful servant that can jump high and smash hard upon the foes of their summoner."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/leaping_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:leaping_focus": 1
+  }
+}

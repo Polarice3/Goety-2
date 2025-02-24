@@ -2627,5 +2627,10 @@
   "advancements.goety.craft_abyss_robe.title": "克拉肯再现",
   "advancements.goety.craft_abyss_robe.description": "深渊长袍可以加速游泳速度，并且降低深渊法术的灵魂能量消耗.",
   "advancements.goety.kill_brood_mother.title": "去年产卵至今",
-  "advancements.goety.kill_brood_mother.description": "击杀育母蜘蛛,——八足的蜘蛛族长。"
+  "advancements.goety.kill_brood_mother.description": "击杀育母蜘蛛,——八足的蜘蛛族长。",
+  "item.goety.hostile_redstone_golem_spawn_egg": "Hostile Redstone Golem Spawn Egg",
+  "item.goety.hostile_redstone_monstrosity_spawn_egg": "Hostile Redstone Monstrosity Spawn Egg",
+  "item.goety.leaping_focus": "Leaping Focus",
+  "item.goety.leaping_focus.info": "Summons Leapleaves. Cast crouching will summon the caster's servants towards them.",
+  "key.goety.lich.laugh": "Lich Laugh"
 }

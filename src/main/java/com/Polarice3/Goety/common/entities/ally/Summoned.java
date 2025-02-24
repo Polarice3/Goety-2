@@ -499,7 +499,14 @@ public class Summoned extends Owned implements IServant {
                 } else if (--this.timeToRecalcPath <= 0) {
                     this.timeToRecalcPath = 10;
                     if (!this.summonedEntity.isLeashed() && !this.summonedEntity.isPassenger()) {
-                        if (this.summonedEntity.distanceToSqr(this.owner) >= 144.0D && MobsConfig.UndeadTeleport.get()) {
+                        double range = this.owner instanceof Mob ? 32.0D : 16.0D;
+                        boolean flag = this.summonedEntity.distanceToSqr(this.owner) >= Mth.square(range);
+                        if (this.owner instanceof Mob){
+                            flag |= !this.summonedEntity.hasLineOfSight(this.owner) && this.summonedEntity.distanceToSqr(this.owner) >= Mth.square(8.0D);
+                        } else {
+                            flag &= MobsConfig.ServantTeleport.get();
+                        }
+                        if (flag) {
                             this.tryToTeleportNearEntity();
                         } else {
                             this.navigation.moveTo(this.owner, this.followSpeed);
@@ -635,7 +642,14 @@ public class Summoned extends Owned implements IServant {
                 this.pathedTargetY = this.owner.getY();
                 this.pathedTargetZ = this.owner.getZ();
                 this.ticksUntilNextPathRecalculation = 4 + this.summonedEntity.getRandom().nextInt(7);
-                if (d0 > 144.0D && MobsConfig.UndeadTeleport.get()){
+                double range = this.owner instanceof Mob ? 32.0D : 16.0D;
+                boolean flag = d0 > Mth.square(range);
+                if (this.owner instanceof Mob){
+                    flag |= !this.summonedEntity.hasLineOfSight(this.owner) && d0 >= Mth.square(8.0D);
+                } else {
+                    flag &= MobsConfig.ServantTeleport.get();
+                }
+                if (flag){
                     this.tryToTeleportNearEntity();
                 }
                 if (d0 > 1024.0D) {

@@ -637,6 +637,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.leaping_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:leaping_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.leeching_focus": {
       "conditions": {
         "items": [
@@ -1427,6 +1439,9 @@
     ],
     [
       "item.goety.whispering_focus"
+    ],
+    [
+      "item.goety.leaping_focus"
     ],
     [
       "item.goety.launch_focus"

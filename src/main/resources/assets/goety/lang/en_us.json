@@ -747,6 +747,8 @@
   "item.goety.entangling_focus.info": "Summons Entangle Vines on a target's feet or location. If the vines caught a target, they are immobilized in place.",
   "item.goety.whispering_focus": "Whispering Focus",
   "item.goety.whispering_focus.info": "Summons Whisperers. Cast crouching will summon the caster's servants towards them.",
+  "item.goety.leaping_focus": "Leaping Focus",
+  "item.goety.leaping_focus.info": "Summons Leapleaves. Cast crouching will summon the caster's servants towards them.",
   "item.goety.shocking_focus": "Shocking Focus",
   "item.goety.shocking_focus.info": "Shoots multiple electric currents at a non-allied target.",
   "item.goety.charge_focus": "Charge Focus",
@@ -1422,6 +1424,7 @@
   "key.goety.lich.lichForm": "Lich Form",
   "key.goety.lich.nightVision": "Lich Night Vision",
   "key.goety.lich.magnet": "Lich Magnet",
+  "key.goety.lich.laugh": "Lich Laugh",
 
   "key.goety.witch.category": "Goety Witch",
   "key.goety.witch.robe": "Open Witches Robe",

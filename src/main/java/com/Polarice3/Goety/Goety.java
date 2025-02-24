@@ -79,7 +79,6 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.brewing.BrewingRecipe;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -440,17 +439,17 @@ public class Goety {
     }
 
     private static void addBrewingRecipes(){
-        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModItems.SNAP_FUNGUS.get()), Ingredient.of(Items.LILY_OF_THE_VALLEY), new ItemStack(ModItems.BERSERK_FUNGUS.get())));
-        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModPotionUtil.setPotion(Potions.AWKWARD)), Ingredient.of(ModItems.SPIDER_EGG.get()), ModPotionUtil.setPotion(ModPotions.CLIMBING.get())));
-        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModPotionUtil.setSplashPotion(Potions.AWKWARD)), Ingredient.of(ModItems.SPIDER_EGG.get()), ModPotionUtil.setSplashPotion(ModPotions.CLIMBING.get())));
-        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModPotionUtil.setLingeringPotion(Potions.AWKWARD)), Ingredient.of(ModItems.SPIDER_EGG.get()), ModPotionUtil.setLingeringPotion(ModPotions.CLIMBING.get())));
-        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModPotionUtil.setPotion(ModPotions.CLIMBING.get())), Ingredient.of(Items.REDSTONE), ModPotionUtil.setPotion(ModPotions.LONG_CLIMBING.get())));
-        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModPotionUtil.setSplashPotion(ModPotions.CLIMBING.get())), Ingredient.of(Items.REDSTONE), ModPotionUtil.setSplashPotion(ModPotions.LONG_CLIMBING.get())));
-        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModPotionUtil.setLingeringPotion(ModPotions.CLIMBING.get())), Ingredient.of(Items.REDSTONE), ModPotionUtil.setLingeringPotion(ModPotions.LONG_CLIMBING.get())));
-        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModPotionUtil.setPotion(ModPotions.CLIMBING.get())), Ingredient.of(Items.GUNPOWDER), ModPotionUtil.setSplashPotion(ModPotions.CLIMBING.get())));
-        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModPotionUtil.setPotion(ModPotions.LONG_CLIMBING.get())), Ingredient.of(Items.GUNPOWDER), ModPotionUtil.setSplashPotion(ModPotions.LONG_CLIMBING.get())));
-        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModPotionUtil.setSplashPotion(ModPotions.CLIMBING.get())), Ingredient.of(Items.DRAGON_BREATH), ModPotionUtil.setLingeringPotion(ModPotions.CLIMBING.get())));
-        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModPotionUtil.setSplashPotion(ModPotions.LONG_CLIMBING.get())), Ingredient.of(Items.DRAGON_BREATH), ModPotionUtil.setLingeringPotion(ModPotions.LONG_CLIMBING.get())));
+        BrewingRecipeRegistry.addRecipe(new ModPotionUtil(ModItems.SNAP_FUNGUS.get().getDefaultInstance(), Ingredient.of(Items.LILY_OF_THE_VALLEY), new ItemStack(ModItems.BERSERK_FUNGUS.get())));
+        BrewingRecipeRegistry.addRecipe(new ModPotionUtil(ModPotionUtil.setPotion(Potions.AWKWARD), Ingredient.of(ModItems.SPIDER_EGG.get()), ModPotionUtil.setPotion(ModPotions.CLIMBING.get())));
+        BrewingRecipeRegistry.addRecipe(new ModPotionUtil(ModPotionUtil.setSplashPotion(Potions.AWKWARD), Ingredient.of(ModItems.SPIDER_EGG.get()), ModPotionUtil.setSplashPotion(ModPotions.CLIMBING.get())));
+        BrewingRecipeRegistry.addRecipe(new ModPotionUtil(ModPotionUtil.setSplashPotion(Potions.AWKWARD), Ingredient.of(ModItems.SPIDER_EGG.get()), ModPotionUtil.setLingeringPotion(ModPotions.CLIMBING.get())));
+        BrewingRecipeRegistry.addRecipe(new ModPotionUtil(ModPotionUtil.setPotion(ModPotions.CLIMBING.get()), Ingredient.of(Items.REDSTONE), ModPotionUtil.setPotion(ModPotions.LONG_CLIMBING.get())));
+        BrewingRecipeRegistry.addRecipe(new ModPotionUtil(ModPotionUtil.setSplashPotion(ModPotions.CLIMBING.get()), Ingredient.of(Items.REDSTONE), ModPotionUtil.setSplashPotion(ModPotions.LONG_CLIMBING.get())));
+        BrewingRecipeRegistry.addRecipe(new ModPotionUtil(ModPotionUtil.setLingeringPotion(ModPotions.CLIMBING.get()), Ingredient.of(Items.REDSTONE), ModPotionUtil.setLingeringPotion(ModPotions.LONG_CLIMBING.get())));
+        BrewingRecipeRegistry.addRecipe(new ModPotionUtil(ModPotionUtil.setPotion(ModPotions.CLIMBING.get()), Ingredient.of(Items.GUNPOWDER), ModPotionUtil.setSplashPotion(ModPotions.CLIMBING.get())));
+        BrewingRecipeRegistry.addRecipe(new ModPotionUtil(ModPotionUtil.setPotion(ModPotions.LONG_CLIMBING.get()), Ingredient.of(Items.GUNPOWDER), ModPotionUtil.setSplashPotion(ModPotions.LONG_CLIMBING.get())));
+        BrewingRecipeRegistry.addRecipe(new ModPotionUtil(ModPotionUtil.setSplashPotion(ModPotions.CLIMBING.get()), Ingredient.of(Items.DRAGON_BREATH), ModPotionUtil.setLingeringPotion(ModPotions.CLIMBING.get())));
+        BrewingRecipeRegistry.addRecipe(new ModPotionUtil(ModPotionUtil.setSplashPotion(ModPotions.LONG_CLIMBING.get()), Ingredient.of(Items.DRAGON_BREATH), ModPotionUtil.setLingeringPotion(ModPotions.LONG_CLIMBING.get())));
     }
 
     private void setupEntityAttributeCreation(final EntityAttributeCreationEvent event) {

@@ -2639,5 +2639,10 @@
   "advancements.goety.craft_abyss_robe.title": "Никто не водится со мной",
   "advancements.goety.craft_abyss_robe.description": "Глубоководные одежды увеличивают скорость плавания и снижают стоимость диких заклинаний",
   "advancements.goety.kill_brood_mother.title": "Мадам Паутина",
-  "advancements.goety.kill_brood_mother.description": "Одолейте паучью королеву, восьминого матриарха пауков."
+  "advancements.goety.kill_brood_mother.description": "Одолейте паучью королеву, восьминого матриарха пауков.",
+  "item.goety.hostile_redstone_golem_spawn_egg": "Hostile Redstone Golem Spawn Egg",
+  "item.goety.hostile_redstone_monstrosity_spawn_egg": "Hostile Redstone Monstrosity Spawn Egg",
+  "item.goety.leaping_focus": "Leaping Focus",
+  "item.goety.leaping_focus.info": "Summons Leapleaves. Cast crouching will summon the caster's servants towards them.",
+  "key.goety.lich.laugh": "Lich Laugh"
 }

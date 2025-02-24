@@ -5254,15 +5254,6 @@
       },
       {
         "name": "goety:lich/idle3"
-      },
-      {
-        "name": "goety:lich/laugh_long1"
-      },
-      {
-        "name": "goety:lich/laugh_long2"
-      },
-      {
-        "name": "goety:lich/laugh_long3"
       }
     ]
   },
@@ -5279,6 +5270,28 @@
       },
       {
         "name": "goety:lich/hurt4"
+      }
+    ]
+  },
+  "lich_laugh": {
+    "sounds": [
+      {
+        "name": "goety:lich/laugh_short1"
+      },
+      {
+        "name": "goety:lich/laugh_short2"
+      },
+      {
+        "name": "goety:lich/laugh_short3"
+      },
+      {
+        "name": "goety:lich/laugh_long1"
+      },
+      {
+        "name": "goety:lich/laugh_long2"
+      },
+      {
+        "name": "goety:lich/laugh_long3"
       }
     ]
   },
