@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.entities.hostile.ArmoredRavager;
 import com.Polarice3.Goety.common.entities.neutral.IRavager;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.RavagerArmorItem;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -109,10 +110,15 @@ public class ModRavager extends Summoned implements PlayerRideable, IAutoRideabl
                 .add(Attributes.MAX_HEALTH, 75.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.75D)
-                .add(Attributes.ATTACK_DAMAGE, 12.0D)
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.RavagerDamage.get())
                 .add(Attributes.ATTACK_KNOCKBACK, 1.5D)
-                .add(Attributes.ARMOR, 0.0D)
+                .add(Attributes.ARMOR, AttributesConfig.RavagerArmor.get())
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
+    }
+
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.RavagerArmor.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.RavagerDamage.get());
     }
 
     public void addAdditionalSaveData(CompoundTag p_33353_) {
@@ -627,11 +633,11 @@ public class ModRavager extends Summoned implements PlayerRideable, IAutoRideabl
 
     public void equipSaddle(boolean playSound) {
         if (playSound) {
-            this.level.playSound((Player) null, this, SoundEvents.HORSE_SADDLE, SoundSource.PLAYERS, 1.0F, 1.0F);
+            this.level.playSound(null, this, SoundEvents.HORSE_SADDLE, SoundSource.PLAYERS, 1.0F, 1.0F);
         }
         AttributeInstance attributeInstance = this.getAttribute(Attributes.MAX_HEALTH);
         if (attributeInstance != null) {
-            attributeInstance.setBaseValue(100.0D);
+            attributeInstance.setBaseValue(AttributesConfig.RavagerSaddleHealth.get());
         }
         this.setSaddle(true);
     }

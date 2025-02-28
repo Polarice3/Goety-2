@@ -263,7 +263,7 @@ public interface IOwned {
         }
     }
 
-    default boolean isPreventingPlayerRest(Player p_33036_) {
+    default boolean preventsSleep(Player p_33036_) {
         return this.isHostile();
     }
 

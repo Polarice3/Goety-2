@@ -3,7 +3,9 @@ package com.Polarice3.Goety.common.entities.ally.undead.zombie;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.ModRavager;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -49,10 +51,15 @@ public class ZombieRavager extends ModRavager {
                 .add(Attributes.MAX_HEALTH, 75.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.23D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.75D)
-                .add(Attributes.ATTACK_DAMAGE, 12.0D)
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.RavagerDamage.get())
                 .add(Attributes.ATTACK_KNOCKBACK, 1.5D)
-                .add(Attributes.ARMOR, 2.0D)
+                .add(Attributes.ARMOR, AttributesConfig.RavagerArmor.get() + 2.0D)
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
+    }
+
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.RavagerArmor.get() + 2.0D);
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.RavagerDamage.get());
     }
 
     protected void defineSynchedData() {

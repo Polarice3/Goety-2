@@ -1535,16 +1535,18 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void SleepEvents(PlayerSleepInBedEvent event){
-        if (!event.getEntity().isCreative()) {
-            double d0 = 8.0D;
-            double d1 = 5.0D;
-            Vec3 vec3 = Vec3.atBottomCenterOf(event.getPos());
-            List<LivingEntity> list = event.getEntity().level.getEntitiesOfClass(LivingEntity.class, new AABB(vec3.x() - d0, vec3.y() - d1, vec3.z() - d0, vec3.x() + d0, vec3.y() + d1, vec3.z() + d0), (p_9062_) -> {
-                return p_9062_ instanceof IOwned owned
-                        &&  owned.isPreventingPlayerRest(event.getEntity());
-            });
-            if (!list.isEmpty()) {
-                event.setResult(Player.BedSleepingProblem.NOT_SAFE);
+        if (event.getEntity() != null) {
+            if (!event.getEntity().isCreative()) {
+                double d0 = 8.0D;
+                double d1 = 5.0D;
+                Vec3 vec3 = Vec3.atBottomCenterOf(event.getPos());
+                List<LivingEntity> list = event.getEntity().level.getEntitiesOfClass(LivingEntity.class, new AABB(vec3.x() - d0, vec3.y() - d1, vec3.z() - d0, vec3.x() + d0, vec3.y() + d1, vec3.z() + d0), (p_9062_) -> {
+                    return p_9062_ instanceof IOwned owned
+                            && owned.preventsSleep(event.getEntity());
+                });
+                if (!list.isEmpty()) {
+                    event.setResult(Player.BedSleepingProblem.NOT_SAFE);
+                }
             }
         }
     }

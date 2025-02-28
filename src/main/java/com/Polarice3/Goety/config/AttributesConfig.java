@@ -213,6 +213,9 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> PoisonQuillVineHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> PoisonQuillVineArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> PoisonQuillVineDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> RavagerSaddleHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> RavagerArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> RavagerDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> IceGolemHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> IceGolemArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> IceGolemDamage;
@@ -793,9 +796,17 @@ public class AttributesConfig {
                 PoisonQuillVineHealth = BUILDER.comment("How much Max Health Poison-Quill Vines have, Default: 40.0")
                         .defineInRange("poisonQuillVineHealth", 40.0, 1.0, Double.MAX_VALUE);
                 PoisonQuillVineArmor = BUILDER.comment("How much natural Armor Poison-Quill Vines have, Default: 0.0")
-                        .defineInRange("quickGrowingVineArmor", 0.0, 0.0, Double.MAX_VALUE);
+                        .defineInRange("poisonQuillVineArmor", 0.0, 0.0, Double.MAX_VALUE);
                 PoisonQuillVineDamage = BUILDER.comment("How much damage Poison-Quill Vines' quills deals, Default: 2.5")
                         .defineInRange("poisonQuillVineDamage", 2.5, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Tamed Ravager");
+                RavagerSaddleHealth = BUILDER.comment("How much Max Health Tamed Ravagers have when saddled, Default: 100.0")
+                        .defineInRange("ravagerSaddleHealth", 100.0, 1.0, Double.MAX_VALUE);
+                RavagerArmor = BUILDER.comment("How much natural Armor Tamed Ravagers have, Default: 0.0")
+                        .defineInRange("ravagerArmor", 0.0, 0.0, Double.MAX_VALUE);
+                RavagerDamage = BUILDER.comment("How much damage Tamed Ravagers deals, Default: 12.0")
+                        .defineInRange("ravagerDamage", 12.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Ice Golem");
                 IceGolemHealth = BUILDER.comment("How much Max Health Ice Golems have, Default: 60.0")

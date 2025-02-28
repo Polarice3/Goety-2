@@ -2628,9 +2628,9 @@
   "advancements.goety.craft_abyss_robe.description": "深渊长袍可以加速游泳速度，并且降低深渊法术的灵魂能量消耗.",
   "advancements.goety.kill_brood_mother.title": "去年产卵至今",
   "advancements.goety.kill_brood_mother.description": "击杀育母蜘蛛,——八足的蜘蛛族长。",
-  "item.goety.hostile_redstone_golem_spawn_egg": "Hostile Redstone Golem Spawn Egg",
-  "item.goety.hostile_redstone_monstrosity_spawn_egg": "Hostile Redstone Monstrosity Spawn Egg",
-  "item.goety.leaping_focus": "Leaping Focus",
-  "item.goety.leaping_focus.info": "Summons Leapleaves. Cast crouching will summon the caster's servants towards them.",
-  "key.goety.lich.laugh": "Lich Laugh"
+  "item.goety.hostile_redstone_golem_spawn_egg": "敌对红石傀儡刷怪蛋",
+  "item.goety.hostile_redstone_monstrosity_spawn_egg": "敌对红石巨兽刷怪蛋",
+  "item.goety.leaping_focus": "腾叶聚晶",
+  "item.goety.leaping_focus.info": "召唤腾跃之叶，潜行施法会让仆从向召唤者靠近",
+  "key.goety.lich.laugh": "巫妖大笑"
 }
