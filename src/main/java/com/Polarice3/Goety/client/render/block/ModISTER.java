@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.client.render.block;
 
 import com.Polarice3.Goety.common.blocks.*;
+import com.Polarice3.Goety.common.blocks.entities.CryptChestBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.LoftyChestBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.ModChestBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -102,6 +103,8 @@ public class ModISTER extends BlockEntityWithoutLevelRenderer {
                 } else {
                     RedstoneMonstrosityHeadBlockEntityRenderer.renderItemSkull(pStack, null, 180.0F, pMatrixStack, pBuffer, pLight);
                 }
+            } else if (block instanceof CryptChestBlock) {
+                Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(new CryptChestBlockEntity(BlockPos.ZERO, block.defaultBlockState().setValue(CryptChestBlock.LOCKED, false)), pMatrixStack, pBuffer, pLight, pOverlay);
             } else if (block instanceof LoftyChestBlock) {
                 Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(new LoftyChestBlockEntity(BlockPos.ZERO, block.defaultBlockState()), pMatrixStack, pBuffer, pLight, pOverlay);
             } else if (block instanceof ModChestBlock) {

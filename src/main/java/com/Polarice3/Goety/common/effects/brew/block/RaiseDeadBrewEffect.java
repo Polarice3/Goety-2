@@ -3,19 +3,18 @@ package com.Polarice3.Goety.common.effects.brew.block;
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
-import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
-import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
-import com.Polarice3.Goety.common.magic.spells.necromancy.SkeletonSpell;
-import com.Polarice3.Goety.common.magic.spells.necromancy.ZombieSpell;
+import com.Polarice3.Goety.common.ritual.RitualRequirements;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -72,20 +71,23 @@ public class RaiseDeadBrewEffect extends BrewEffect {
                 summoned = ModEntityType.SKELETON_SERVANT.get().create(pLevel);
             }
             if (summoned != null) {
-                EntityType<?> entityType = summoned.getVariant(pLevel, pPos);
+                Player player = null;
+                if (pSource instanceof Player player1){
+                    player = player1;
+                }
+                EntityType<?> entityType = summoned.getVariant(player, pLevel, pPos);
                 if (entityType != null) {
-                    summoned = (Summoned) entityType.create(pLevel);
+                    Entity entity = entityType.create(pLevel);
+                    if (entity instanceof Summoned summoned1){
+                        summoned = summoned1;
+                    } else {
+                        summoned = null;
+                    }
                 }
                 if (summoned != null) {
                     if (pLevel instanceof ServerLevel serverLevel) {
-                        if (summoned instanceof ZombieServant) {
-                            if (!new ZombieSpell().conditionsMet(serverLevel, pSource)){
-                                return;
-                            }
-                        } else if (summoned instanceof AbstractSkeletonServant){
-                            if (!new SkeletonSpell().conditionsMet(serverLevel, pSource)){
-                                return;
-                            }
+                        if (!RitualRequirements.canSummon(serverLevel, player, entityType)){
+                            return;
                         }
                     }
                     summoned.setPos(Vec3.upFromBottomCenterOf(pPos, 1.0F));

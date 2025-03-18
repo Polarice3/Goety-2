@@ -30,6 +30,7 @@ import org.joml.Vector3f;
 public class MagmaBomb extends SpellThrowableProjectile {
     public float explosionPower = 3.0F;
     public int duration = 0;
+    public int defaultDuration = 0;
 
     public MagmaBomb(EntityType<? extends SpellThrowableProjectile> p_37466_, Level p_37467_) {
         super(p_37466_, p_37467_);
@@ -59,10 +60,19 @@ public class MagmaBomb extends SpellThrowableProjectile {
         return this.duration;
     }
 
+    public void setDefaultDuration(int duration) {
+        this.defaultDuration = duration;
+    }
+
+    public int getDefaultDuration() {
+        return this.defaultDuration;
+    }
+
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putFloat("ExplosionPower", this.getExplosionPower());
         pCompound.putInt("Duration",this.getDuration());
+        pCompound.putInt("DefaultDuration",this.getDefaultDuration());
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
@@ -72,6 +82,9 @@ public class MagmaBomb extends SpellThrowableProjectile {
         }
         if (pCompound.contains("Duration")){
             this.setDuration(pCompound.getInt("Duration"));
+        }
+        if (pCompound.contains("DefaultDuration")){
+            this.setDefaultDuration(pCompound.getInt("DefaultDuration"));
         }
     }
 
@@ -127,7 +140,8 @@ public class MagmaBomb extends SpellThrowableProjectile {
                         magmaCube.setSize(4, true);
                     }
                     magmaCube.moveTo(this.position());
-                    magmaCube.setLimitedLife(MobUtil.getSummonLifespan(this.level) * (this.getDuration() + 1));
+                    int i2 = this.getDefaultDuration() == 0 ? MobUtil.getSummonLifespan(this.level) : this.getDefaultDuration();
+                    magmaCube.setLimitedLife(i2 * (this.getDuration() + 1));
                     this.level.addFreshEntity(magmaCube);
                 }
             }

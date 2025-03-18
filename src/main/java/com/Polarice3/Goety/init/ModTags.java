@@ -130,6 +130,8 @@ public class ModTags {
         public static final TagKey<Biome> WRAITH_EXCLUDE_SPAWN = tag("mob_spawn/wraith_exclude");
         public static final TagKey<Biome> WEB_SPIDER_SPAWN = tag("mob_spawn/web_spider");
         public static final TagKey<Biome> WEB_SPIDER_EXCLUDE_SPAWN = tag("mob_spawn/web_spider_exclude");
+        public static final TagKey<Biome> ICY_SPIDER_SPAWN = tag("mob_spawn/icy_spider");
+        public static final TagKey<Biome> ICY_SPIDER_EXCLUDE_SPAWN = tag("mob_spawn/icy_spider_exclude");
         public static final TagKey<Biome> NECROMANCER_SPAWN = tag("mob_spawn/necromancer");
         public static final TagKey<Biome> NECROMANCER_EXCLUDE_SPAWN = tag("mob_spawn/necromancer_exclude");
         public static final TagKey<Biome> WARLOCK_SPAWN = tag("mob_spawn/warlock");
@@ -193,6 +195,7 @@ public class ModTags {
         public static final TagKey<Structure> CRYPT = tag("crypt");
         public static final TagKey<Structure> NECROMANCER_POWER = tag("necromancer_power");
         public static final TagKey<Structure> CAN_SUMMON_BRUTES = tag("can_summon_brutes");
+        public static final TagKey<Structure> CAN_SUMMON_WITHER_SKELETONS = tag("can_summon_wither_skeletons");
 
         private static TagKey<Structure> tag(String name) {
             return create(Goety.location(name));

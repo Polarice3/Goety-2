@@ -1,0 +1,17 @@
+{
+  "type": "goety:add_loot",
+  "chance": 0.025,
+  "replace": true,
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:archaeology/desert_pyramid"
+    },
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:archaeology/trail_ruins_rare"
+    }
+  ],
+  "count": 1,
+  "item": "goety:forbidden_piece"
+}

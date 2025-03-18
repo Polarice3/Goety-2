@@ -250,16 +250,28 @@ public class ServerParticleUtil {
     }
 
     public static void windParticle(ServerLevel serverLevel, ColorUtil color, float width, float height, int id, Vec3 vec3){
-        serverLevel.sendParticles(new WindParticleOption(color, width, height, id), vec3.x(), vec3.y(), vec3.z(), 1, 0.0D, 0.0D, 0.0D, 0.0F);
+        windParticle(serverLevel, color, width, height, 0, id, vec3);
+    }
+
+    public static void windParticle(ServerLevel serverLevel, ColorUtil color, float width, float height, int life, int id, Vec3 vec3){
+        serverLevel.sendParticles(new WindParticleOption(color, width, height, life, id), vec3.x(), vec3.y(), vec3.z(), 1, 0.0D, 0.0D, 0.0D, 0.0F);
     }
 
     public static void windShockwaveParticle(ServerLevel serverLevel, ColorUtil color, float width, float height, int id, Vec3 vec3){
         windShockwaveParticle(serverLevel, color, width, height, 0.25F, id, vec3);
     }
 
+    public static void windShockwaveParticle(ServerLevel serverLevel, ColorUtil color, float width, float height, int life, int id, Vec3 vec3){
+        windShockwaveParticle(serverLevel, color, width, height, 0.25F, life, id, vec3);
+    }
+
     public static void windShockwaveParticle(ServerLevel serverLevel, ColorUtil color, float width, float height, float increase, int id, Vec3 vec3){
+        windShockwaveParticle(serverLevel, color, width, height, increase, 0, id, vec3);
+    }
+
+    public static void windShockwaveParticle(ServerLevel serverLevel, ColorUtil color, float width, float height, float increase, int life, int id, Vec3 vec3){
         for (int i = 0; i < 8; ++i) {
-            serverLevel.sendParticles(new WindShockwaveParticle.Option(color, width, height, increase, i * 0.125F, id), vec3.x(), vec3.y(), vec3.z(), 1, 0.0D, 0.0D, 0.0D, 0.0F);
+            serverLevel.sendParticles(new WindShockwaveParticle.Option(color, width, height, increase, i * 0.125F, life, id), vec3.x(), vec3.y(), vec3.z(), 1, 0.0D, 0.0D, 0.0D, 0.0F);
         }
     }
 }

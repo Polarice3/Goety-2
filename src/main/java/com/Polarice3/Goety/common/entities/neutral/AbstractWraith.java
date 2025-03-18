@@ -11,6 +11,7 @@ import com.Polarice3.Goety.common.entities.hostile.Wraith;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
@@ -29,7 +30,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -120,6 +120,11 @@ public class AbstractWraith extends Summoned {
         this.fireCooldown = pCompound.getInt("fireCooldown");
         this.teleportTime2 = pCompound.getInt("teleportTime2");
         this.teleportCooldown = pCompound.getInt("teleportCooldown");
+    }
+
+    @Override
+    public int getSummonLimit(LivingEntity owner) {
+        return SpellConfig.WraithLimit.get();
     }
 
     protected boolean getWraithFlags(int mask) {
@@ -232,7 +237,7 @@ public class AbstractWraith extends Summoned {
     }
 
     public float attackRange(){
-        return this.getFloatFollowRange()/2.0F;
+        return this.getFloatFollowRange() / 2.0F;
     }
 
     @Override
@@ -412,7 +417,7 @@ public class AbstractWraith extends Summoned {
             if (this.getTarget().distanceToSqr(this) > Mth.square(this.attackRange())){
                 vector3d2 = this.getTarget().position();
             } else {
-                vector3d2 = LandRandomPos.getPos(this, 4, 4);
+                vector3d2 = LandRandomPos.getPos(this, 6, 6);
             }
             if (vector3d2 != null) {
                 Path path = this.getNavigation().createPath(vector3d2.x, vector3d2.y, vector3d2.z, 0);
@@ -431,12 +436,10 @@ public class AbstractWraith extends Summoned {
                     double d4 = this.getTarget().getY();
                     double d5 = this.getTarget().getZ() + (this.getRandom().nextDouble() - 0.5D) * this.getFollowRange();
                     BlockPos blockPos1 = BlockPos.containing(d3, d4, d5);
-                    if (!(this.level.canSeeSky(blockPos1) && this.level.isDay()
-                            && !(this.fireImmune() || this.hasEffect(MobEffects.FIRE_RESISTANCE)))) {
+                    if (MobUtil.isFireImmune(this) || !BlockFinder.hasSunlight(this.level, blockPos1)) {
                         /*Makes it so that the Wraith teleports to a position where they can see its target.*/
                         AbstractWraith wraith = new Wraith(ModEntityType.WRAITH.get(), this.level);
                         wraith.setPos(d3, d4, d5);
-                        wraith.getLookControl().setLookAt(this.getTarget(), 100.0F, 100.0F);
                         if (wraith.hasLineOfSight(this.getTarget())) {
                             if (this.randomTeleport(d3, d4, d5, false)) {
                                 this.teleportHits();

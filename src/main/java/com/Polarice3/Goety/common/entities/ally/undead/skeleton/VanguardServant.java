@@ -4,6 +4,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
@@ -103,6 +104,11 @@ public class VanguardServant extends AbstractSkeletonServant {
         super.addAdditionalSaveData(pCompound);
         pCompound.putBoolean("hasShield", this.hasShield());
         pCompound.putInt("ShieldHeath", this.getShieldHealth());
+    }
+
+    @Override
+    public int getSummonLimit(LivingEntity owner) {
+        return SpellConfig.VanguardLimit.get();
     }
 
     private boolean getVanguardFlag(int mask) {

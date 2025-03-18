@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.init;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.common.loot.AddItemLootModifier;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -24,6 +25,7 @@ public class ModLootModifier {
     public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> GLOBAL_LOOT_MODIFIER = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Goety.MOD_ID);
 
     public static final RegistryObject<Codec<InstantPickModifier>> INSTANT_PICK_MODIFIER = GLOBAL_LOOT_MODIFIER.register("instant_pick", InstantPickModifier.CODEC);
+    public static final RegistryObject<Codec<AddItemLootModifier>> ADD_LOOT_MODIFIER = GLOBAL_LOOT_MODIFIER.register("add_loot", AddItemLootModifier.CODEC);
 
     public static class InstantPickModifier extends LootModifier {
 

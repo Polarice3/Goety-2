@@ -749,6 +749,10 @@ public class BlockFinder {
         return false;
     }
 
+    public static boolean hasSunlight(Level level, BlockPos blockPos){
+        return level.canSeeSky(blockPos) && level.isDay();
+    }
+
     //Based from Bosses of Mass Destruction codes: https://github.com/CERBON-MODS/Bosses-of-Mass-Destruction-FORGE/blob/master/Common/src/main/java/com/cerbon/bosses_of_mass_destruction/util/BMDUtils.java#L28
     public static BlockPos findGroundBelow(Level level, BlockPos pos, Function<BlockPos, Boolean> isOpenBlock) {
         int bottomY = level.getMinBuildHeight();

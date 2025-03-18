@@ -6,8 +6,11 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.projectiles.ShieldDebris;
+import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.revive.BlazingHelm;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
@@ -37,6 +40,7 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -221,6 +225,11 @@ public class Wildfire extends Summoned {
 
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource p_217055_, DifficultyInstance p_217056_) {
+    }
+
+    @Override
+    public int getSummonLimit(LivingEntity owner) {
+        return SpellConfig.WildfireLimit.get();
     }
 
     @Nullable
@@ -443,6 +452,20 @@ public class Wildfire extends Summoned {
             }
             return super.hurt(source, amount);
         }
+    }
+
+    @Override
+    public void die(DamageSource pCause) {
+        if (this.getTrueOwner() != null && MobsConfig.WildfireBlazingHelm.get()){
+            ItemStack itemStack = new ItemStack(ModItems.BLAZING_HELM.get());
+            BlazingHelm.setOwnerName(this.getTrueOwner(), itemStack);
+            BlazingHelm.setSummon(this, itemStack);
+            ItemEntity itemEntity = this.spawnAtLocation(itemStack);
+            if (itemEntity != null){
+                itemEntity.setExtendedLifetime();
+            }
+        }
+        super.die(pCause);
     }
 
     public void aiStep() {

@@ -96,12 +96,12 @@ public class MiscCapHelper {
     }
 
     public static void doAmbientSoundTime(LivingEntity livingEntity){
-        getCapability(livingEntity).setAmbientSoundTime(getAmbientSoundTime(livingEntity) + 1);
+        getCapability(livingEntity).increaseAmbientSoundTime();
         MiscCapHelper.sendMiscUpdatePacket(livingEntity);
     }
 
-    public static void resetAmbientSoundTime(LivingEntity livingEntity, int interval) {
-        getCapability(livingEntity).setAmbientSoundTime(getAmbientSoundTime(livingEntity) - interval);
+    public static void setAmbientSoundTime(LivingEntity livingEntity, int interval) {
+        getCapability(livingEntity).setAmbientSoundTime(interval);
         MiscCapHelper.sendMiscUpdatePacket(livingEntity);
     }
 

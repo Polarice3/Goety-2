@@ -1,13 +1,18 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.common.blocks.CryptChestBlock;
+import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.PithosBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
@@ -119,6 +124,37 @@ public class PithosBlockEntity extends RandomizableContainerBlockEntity {
     public void unlock(){
         this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(PithosBlock.LOCKED, Boolean.FALSE), 3);
         this.playSound(SoundEvents.IRON_TRAPDOOR_OPEN, 1.0F);
+        int range = 24;
+        for (int i = -range; i < range; ++i){
+            for (int j = -range; j < range; ++j){
+                for (int k = -range; k < range; ++k){
+                    BlockPos blockPos = this.getBlockPos().offset(i, j, k);
+                    BlockState blockState = this.level.getBlockState(blockPos);
+                    if (blockState.is(ModBlocks.CRYPT_CHEST.get())){
+                        if (blockState.hasProperty(CryptChestBlock.LOCKED) && blockState.getValue(CryptChestBlock.LOCKED)) {
+                            this.level.setBlock(blockPos, blockState.setValue(CryptChestBlock.LOCKED, false), 3);
+                            if (this.level instanceof ServerLevel serverLevel){
+                                for (int i1 = 0; i1 < serverLevel.random.nextInt(10) + 10; ++i1) {
+                                    serverLevel.sendParticles(ModParticleTypes.SUMMON.get(), this.getRandomX(1.5D, serverLevel.random), this.getRandomY(serverLevel.random), this.getRandomZ(1.5D, serverLevel.random), 0, 0.0F, 0.0F, 0.0F, 1.0F);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public double getRandomX(double p_20209_, RandomSource randomSource) {
+        return this.getBlockPos().getX() + ((2.0D * randomSource.nextDouble() - 1.0D) * p_20209_);
+    }
+
+    public double getRandomY(RandomSource randomSource) {
+        return this.getBlockPos().getY() + (randomSource.nextDouble());
+    }
+
+    public double getRandomZ(double p_20263_, RandomSource randomSource) {
+        return this.getBlockPos().getZ() + ((2.0D * randomSource.nextDouble() - 1.0D) * p_20263_);
     }
 
     private void playSound(SoundEvent pSound, float pitch) {

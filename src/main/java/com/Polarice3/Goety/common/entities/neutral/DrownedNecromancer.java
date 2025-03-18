@@ -15,9 +15,10 @@ import com.Polarice3.Goety.common.entities.ally.undead.zombie.DrownedServant;
 import com.Polarice3.Goety.common.entities.projectiles.SpellHurtingProjectile;
 import com.Polarice3.Goety.common.entities.projectiles.SteamMissile;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.items.SoulJar;
+import com.Polarice3.Goety.common.items.revive.SoulJar;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
@@ -136,6 +137,11 @@ public class DrownedNecromancer extends AbstractNecromancer {
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("StormCoolDown", this.stormSpellCool);
         pCompound.putInt("RapidCoolDown", this.rapidShotCool);
+    }
+
+    @Override
+    public int getSummonLimit(LivingEntity owner) {
+        return SpellConfig.DrownedNecromancerLimit.get();
     }
 
     public void onSyncedDataUpdated(EntityDataAccessor<?> p_33609_) {
@@ -307,6 +313,11 @@ public class DrownedNecromancer extends AbstractNecromancer {
                 summoned = new WraithServant(ModEntityType.WRAITH_SERVANT.get(), this.level);
             }
         }
+        if (this.getSummonList().contains(ModEntityType.REAPER_SERVANT.get())) {
+            if (this.level.random.nextFloat() <= 0.05F) {
+                summoned = new WraithServant(ModEntityType.REAPER_SERVANT.get(), this.level);
+            }
+        }
         if (this.getSummonList().contains(ModEntityType.VANGUARD_SERVANT.get())){
             if (this.level.random.nextFloat() <= 0.15F) {
                 summoned = new VanguardServant(ModEntityType.VANGUARD_SERVANT.get(), this.level);
@@ -372,6 +383,13 @@ public class DrownedNecromancer extends AbstractNecromancer {
                     }
                     this.addSummon(ModEntityType.WRAITH_SERVANT.get());
                     this.playSound(ModSounds.DROWNED_NECROMANCER_AMBIENT.get(), 1.0F, 1.5F);
+                    return InteractionResult.SUCCESS;
+                } else if (/*this.getNecroLevel() > 0 && */!this.getSummonList().contains(ModEntityType.REAPER_SERVANT.get()) && item == ModItems.REAPING_FOCUS.get()){
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
+                    this.addSummon(ModEntityType.REAPER_SERVANT.get());
+                    this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 1.0F, this.getVoicePitch());
                     return InteractionResult.SUCCESS;
                 } else if (/*this.getNecroLevel() > 1 && */!this.getSummonList().contains(ModEntityType.VANGUARD_SERVANT.get()) && item == ModItems.VANGUARD_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {

@@ -77,6 +77,11 @@
       "type": "patchouli:text",
       "advancement": "goety:goety/read_bygone_scroll",
       "text": "После долгих поисков вы нашли способ призвать бывших обитателей крепости и подчинить их своей воле. Они накладывают иссушение в ближнем бою и стреляют огненными стрелами, если им дать лук."
+    },
+    {
+      "type": "goety:ritual",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "recipe": "goety:thrall/summon_wither_skeleton_thrall"
     }
   ]
 }

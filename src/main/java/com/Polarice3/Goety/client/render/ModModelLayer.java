@@ -144,6 +144,8 @@ public class ModModelLayer {
     public static final ModelLayerLocation HAUNTED_ARMOR_STAND = register("haunted_armor_stand");
     public static final ModelLayerLocation HAS_INNER = registerInnerArmor("haunted_armor_stand");
     public static final ModelLayerLocation HAS_OUTER = registerOuterArmor("haunted_armor_stand");
+    public static final ModelLayerLocation TOMB_HEAD = register("tomb_head");
+    public static final ModelLayerLocation TOMB_FOOT = register("tomb_foot");
     public static final ModelLayerLocation SMALL_PAINTING = register("small_painting");
     public static final ModelLayerLocation MEDIUM_PAINTING = register("medium_painting");
     public static final ModelLayerLocation LARGE_PAINTING = register("large_painting");

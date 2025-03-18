@@ -7,13 +7,14 @@ import com.Polarice3.Goety.common.entities.ai.ModMeleeAttackGoal;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.util.CameraShake;
-import com.Polarice3.Goety.common.items.HowlingSoul;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.magic.TaglockKit;
+import com.Polarice3.Goety.common.items.revive.HowlingSoul;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
@@ -179,6 +180,11 @@ public class BlackBeast extends Summoned{
         if (pCompound.contains("SummonCool")){
             this.summonCool = pCompound.getInt("SummonCool");
         }
+    }
+
+    @Override
+    public int getSummonLimit(LivingEntity owner) {
+        return SpellConfig.BlackBeastLimit.get();
     }
 
     public boolean isPretty(){
@@ -389,7 +395,7 @@ public class BlackBeast extends Summoned{
             if (this.getTrueOwner() != null && MobsConfig.BlackBeastHowlingSoul.get()){
                 ItemStack itemStack = new ItemStack(ModItems.HOWLING_SOUL.get());
                 HowlingSoul.setOwnerName(this.getTrueOwner(), itemStack);
-                HowlingSoul.setBlackBeast(this, itemStack);
+                HowlingSoul.setSummon(this, itemStack);
                 ItemEntity itemEntity = this.spawnAtLocation(itemStack);
                 if (itemEntity != null){
                     itemEntity.setExtendedLifetime();

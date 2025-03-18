@@ -33,6 +33,8 @@
     "LevelRendererMixin",
     "MinecraftMixin",
     "PlayerRendererAccessor",
-    "SpinAttackEffectLayerMixin"
+    "SpinAttackEffectLayerMixin",
+    "SpriteResourceLoaderMixin",
+    "SpriteResourceLoaderMixin$PalettedPermutationsAccessor"
   ]
 }

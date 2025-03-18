@@ -27,6 +27,6 @@
     }
   ],
   "extra_recipe_mappings": {
-    "goety:soul_jar{Drowned: 1b}": 5
+    "goety:soul_jar{Drowned: 1b}": 4
   }
 }

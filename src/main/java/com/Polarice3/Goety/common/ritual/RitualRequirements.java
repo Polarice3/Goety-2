@@ -1,16 +1,8 @@
 package com.Polarice3.Goety.common.ritual;
 
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.entities.RitualBlockEntity;
-import com.Polarice3.Goety.common.entities.ally.BlackBeast;
-import com.Polarice3.Goety.common.entities.ally.undead.bound.AbstractBoundIllager;
-import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
-import com.Polarice3.Goety.common.entities.ally.undead.skeleton.VanguardServant;
-import com.Polarice3.Goety.common.entities.ally.undead.zombie.BlackguardServant;
-import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
-import com.Polarice3.Goety.common.entities.neutral.*;
-import com.Polarice3.Goety.common.magic.spells.necromancy.*;
-import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -49,113 +41,16 @@ public class RitualRequirements extends RitualTypes{
     public static boolean canSummon(Level level, Player castingPlayer, EntityType<?> summonType){
         if (level instanceof ServerLevel serverLevel){
             Entity summon = summonType.create(level);
-            if (summon instanceof ZombieServant){
-                if (summon instanceof BlackguardServant){
-                    return new BlackguardSpell().conditionsMet(serverLevel, castingPlayer);
-                }
-                return new ZombieSpell().conditionsMet(serverLevel, castingPlayer);
-            }
-            if (summon instanceof AbstractSkeletonServant){
-                if (summon instanceof VanguardServant){
-                    return new VanguardSpell().conditionsMet(serverLevel, castingPlayer);
-                }
-                if (summon instanceof DrownedNecromancer){
-                    int count = 0;
-                    for (Entity entity : serverLevel.getAllEntities()) {
-                        if (entity instanceof DrownedNecromancer servant) {
-                            if (servant.getTrueOwner() == castingPlayer) {
-                                ++count;
-                            }
-                        }
-                    }
-                    if (count >= SpellConfig.DrownedNecromancerLimit.get()){
-                        castingPlayer.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
-                        return false;
-                    } else {
-                        return true;
-                    }
-                } else if (summon instanceof AbstractNecromancer){
-                    int count = 0;
-                    for (Entity entity : serverLevel.getAllEntities()) {
-                        if (entity instanceof AbstractNecromancer servant) {
-                            if (servant.getTrueOwner() == castingPlayer) {
-                                ++count;
-                            }
-                        }
-                    }
-                    if (count >= SpellConfig.NecromancerLimit.get()){
-                        castingPlayer.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
-                return new SkeletonSpell().conditionsMet(serverLevel, castingPlayer);
-            }
-            if (summon instanceof AbstractReaper){
-                return new ReaperSpell().conditionsMet(serverLevel, castingPlayer);
-            }
-            if (summon instanceof AbstractWraith){
-                return new WraithSpell().conditionsMet(serverLevel, castingPlayer);
-            }
-            if (summon instanceof AbstractBoundIllager){
+            if (summon instanceof IOwned owned){
                 int count = 0;
                 for (Entity entity : serverLevel.getAllEntities()) {
-                    if (entity instanceof AbstractBoundIllager servant) {
+                    if (entity instanceof IOwned servant) {
                         if (servant.getTrueOwner() == castingPlayer) {
                             ++count;
                         }
                     }
                 }
-                if (count >= SpellConfig.BoundIllagerLimit.get()){
-                    castingPlayer.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-            if (summon instanceof AbstractBroodMother){
-                int count = 0;
-                for (Entity entity : serverLevel.getAllEntities()) {
-                    if (entity instanceof AbstractBroodMother servant) {
-                        if (servant.getTrueOwner() == castingPlayer) {
-                            ++count;
-                        }
-                    }
-                }
-                if (count >= SpellConfig.BroodMotherLimit.get()){
-                    castingPlayer.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-            if (summon instanceof BlackBeast){
-                int count = 0;
-                for (Entity entity : serverLevel.getAllEntities()) {
-                    if (entity instanceof BlackBeast servant) {
-                        if (servant.getTrueOwner() == castingPlayer) {
-                            ++count;
-                        }
-                    }
-                }
-                if (count >= SpellConfig.BlackBeastLimit.get()){
-                    castingPlayer.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-            if (summon instanceof Wildfire){
-                int count = 0;
-                for (Entity entity : serverLevel.getAllEntities()) {
-                    if (entity instanceof Wildfire servant) {
-                        if (servant.getTrueOwner() == castingPlayer) {
-                            ++count;
-                        }
-                    }
-                }
-                if (count >= SpellConfig.WildfireLimit.get()){
+                if (count >= owned.getSummonLimit(castingPlayer)){
                     castingPlayer.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
                     return false;
                 } else {

@@ -1,4 +1,4 @@
-// 1.20.1	2024-11-24T14:19:42.3577756	Loot Tables
+// 1.20.1	2025-03-18T23:43:34.0202286	Loot Tables
 1173ad0aef6067156a1c3161e3fe16b8e10b3f92 data/goety/loot_tables/blocks/animator.json
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
@@ -42,6 +42,7 @@ f33596308aa85d938196cb90556f56e12a992043 data/goety/loot_tables/blocks/crypt_bri
 644c719ed73d2af5888c3a67434677a6078a657b data/goety/loot_tables/blocks/crypt_bricks_slab.json
 3e375db6b8e9a7ba5a3b812f648b7d362644887c data/goety/loot_tables/blocks/crypt_bricks_stairs.json
 904d9caab0aefe73c435ad1bebf7c0000a57aab6 data/goety/loot_tables/blocks/crypt_bricks_wall.json
+2eecb4d2fb709585b3d83353a45d373bc59a29e0 data/goety/loot_tables/blocks/crypt_chest.json
 de3365faf6ff9041ce6fc416b5e9b7be34deb13e data/goety/loot_tables/blocks/crypt_pillar.json
 3fac8351c31329071e209e3529683ceca33ae4ef data/goety/loot_tables/blocks/crypt_plinth.json
 d25b5a767dcb9451bef7a53ddab3b454abb8a3eb data/goety/loot_tables/blocks/crypt_stone.json

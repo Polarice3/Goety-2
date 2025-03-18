@@ -15,6 +15,7 @@ public interface IMisc {
     void decreaseShieldCool();
     int ambientSoundTime();
     void setAmbientSoundTime(int soundTime);
+    void increaseAmbientSoundTime();
     String customSpinTexture();
     void setCustomSpinTexture(String texture);
     int getClientTargetID();

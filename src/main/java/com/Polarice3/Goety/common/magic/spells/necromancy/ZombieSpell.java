@@ -87,7 +87,7 @@ public class ZombieSpell extends SummonSpell {
             for (int i = 0; i < caster.level.random.nextInt(35) + 10; ++i) {
                 worldIn.sendParticles(ParticleTypes.POOF, caster.getX(), caster.getEyeY(), caster.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
             }
-            worldIn.playSound((Player) null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.SUMMON_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
+            worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.SUMMON_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
         }
     }
 
@@ -136,7 +136,11 @@ public class ZombieSpell extends SummonSpell {
                         summonedentity = new ZombieVindicatorServant(ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), worldIn);
                     }
                 } else {
-                    entityType = summonedentity.getVariant(worldIn, blockPos);
+                    Player player = null;
+                    if (caster instanceof Player player1){
+                        player = player1;
+                    }
+                    entityType = summonedentity.getVariant(player, worldIn, blockPos);
                     if (entityType != null){
                         Entity entity = entityType.create(worldIn);
                         if (entity instanceof Summoned summoned){

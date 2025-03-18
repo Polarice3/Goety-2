@@ -1306,8 +1306,8 @@ public class SpellConfig {
                     .defineInRange("leapingCoolDown", 1200, 0, Integer.MAX_VALUE);
             LeapingSummonDown = BUILDER.comment("Leaping Spell Summon Down, Default: 300")
                     .defineInRange("leapingSummonDown", 300, 300, 72000);
-            LeapleafLimit = BUILDER.comment("Number of Leapleaves that an individual player can have in total, Default: 16")
-                    .defineInRange("leapleafLimit", 16, 1, Integer.MAX_VALUE);
+            LeapleafLimit = BUILDER.comment("Number of Leapleaves that an individual player can have in total, Default: 2")
+                    .defineInRange("leapleafLimit", 2, 1, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Thunderbolt Spell");
             ThunderboltCost = BUILDER.comment("Thunderbolt Spell Cost, Default: 16")

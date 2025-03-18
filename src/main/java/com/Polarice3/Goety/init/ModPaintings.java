@@ -36,6 +36,7 @@ public class ModPaintings {
     public static final RegistryObject<PaintingVariant> MANSION = PAINTING_VARIANTS.register("mansion", () -> new PaintingVariant(32, 32));
     public static final RegistryObject<PaintingVariant> RUBY = PAINTING_VARIANTS.register("ruby", () -> new PaintingVariant(32, 32));
     public static final RegistryObject<PaintingVariant> HOUND = PAINTING_VARIANTS.register("hound", () -> new PaintingVariant(32, 32));
+    public static final RegistryObject<PaintingVariant> KOGANUSAN = PAINTING_VARIANTS.register("koganusan", () -> new PaintingVariant(32, 32));
     public static final RegistryObject<PaintingVariant> WRAITH = PAINTING_VARIANTS.register("wraith", () -> new PaintingVariant(16, 16));
     public static final RegistryObject<PaintingVariant> BOBBY = PAINTING_VARIANTS.register("bobby", () -> new PaintingVariant(16, 16));
     public static final RegistryObject<PaintingVariant> HEART = PAINTING_VARIANTS.register("heart", () -> new PaintingVariant(16, 16));

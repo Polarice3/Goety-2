@@ -34,5 +34,9 @@ public class ModStructureTagsProvider extends TagsProvider<Structure> {
         this.tag(ModTags.Structures.CRYPT).add(ModStructures.CRYPT_KEY);
         this.tag(ModTags.Structures.NECROMANCER_POWER).addTag(ModTags.Structures.CRYPT).add(ModStructures.GRAVEYARD_KEY);
         this.tag(ModTags.Structures.CAN_SUMMON_BRUTES).add(BuiltinStructures.BASTION_REMNANT);
+        this.tag(ModTags.Structures.CAN_SUMMON_WITHER_SKELETONS)
+                .add(BuiltinStructures.FORTRESS)
+                .addOptional(new ResourceLocation("betterfortresses", "better_fortresses"))
+                .addOptionalTag(new ResourceLocation("morevillagers", "on_fortress_explorer_maps"));
     }
 }

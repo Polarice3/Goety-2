@@ -6237,6 +6237,33 @@
       }
     ]
   },
+  "stone_drag": {
+    "sounds": [
+      {
+        "name": "goety:block/stone_drag"
+      }
+    ]
+  },
+  "redstone_fire_projectile": {
+    "sounds": [
+      {
+        "name": "goety:redstone_golem/fire_projectile"
+      }
+    ]
+  },
+  "fire_projectile_fly": {
+    "sounds": [
+      {
+        "name": "goety:random/fire_projectile_fly1"
+      },
+      {
+        "name": "goety:random/fire_projectile_fly2"
+      },
+      {
+        "name": "goety:random/fire_projectile_fly3"
+      }
+    ]
+  },
   "scythe_swing": {
     "sounds": [
       {
@@ -6786,10 +6813,34 @@
       }
     ]
   },
+  "rm_theme": {
+    "sounds": [
+      {
+        "name": "goety:music/rm_theme",
+        "stream": true
+      }
+    ]
+  },
+  "rm_theme_disc": {
+    "sounds": [
+      {
+        "name": "goety:music/rm_theme_mono",
+        "stream": true
+      }
+    ]
+  },
   "boss_post": {
     "sounds": [
       {
         "name": "goety:music/boss_post",
+        "stream": true
+      }
+    ]
+  },
+  "boss_post_second": {
+    "sounds": [
+      {
+        "name": "goety:music/boss_post2",
         "stream": true
       }
     ]

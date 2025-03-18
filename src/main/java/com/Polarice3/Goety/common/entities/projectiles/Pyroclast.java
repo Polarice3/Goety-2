@@ -22,6 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.entity.PartEntity;
 import net.minecraftforge.network.NetworkHooks;
 
 public class Pyroclast extends ThrowableProjectile {
@@ -172,6 +173,8 @@ public class Pyroclast extends ThrowableProjectile {
             } else if (pEntity instanceof Projectile projectile && projectile.getOwner() == this.getOwner()){
                 return false;
             } else if (MobUtil.areAllies(pEntity, this.getOwner())){
+                return false;
+            } else if (pEntity instanceof PartEntity<?> partEntity && partEntity.getParent() == pEntity){
                 return false;
             } else if (this.getOwner() instanceof IOwned owned){
                 if (pEntity instanceof IOwned owned1){

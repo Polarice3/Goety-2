@@ -1173,7 +1173,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
                             float chance = MobUtil.healthIsHalved(Wight.this) ? 0.45F : 0.0F;
                             if (Wight.this.attackTick == 20) {
                                 Wight.this.playSound(ModSounds.WIGHT_SWING.get(), Wight.this.getSoundVolume(), Wight.this.getVoicePitch() - 0.5F);
-                                if (Wight.this.level.getRandom().nextFloat() <= chance){
+                                if (Wight.this.level.getRandom().nextFloat() <= chance && !Wight.this.isHallucination()){
                                     for (int i = 0; i <= 4; ++i) {
                                         QuakingSpell.surroundTremor(Wight.this, i, 3, 0.0F, false, (float) Wight.this.getAttributeValue(Attributes.ATTACK_DAMAGE), 0.1F);
                                     }

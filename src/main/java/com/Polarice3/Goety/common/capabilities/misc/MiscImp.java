@@ -82,6 +82,11 @@ public class MiscImp implements IMisc{
     }
 
     @Override
+    public void increaseAmbientSoundTime() {
+        this.ambientSoundTime++;
+    }
+
+    @Override
     @Nullable
     public String customSpinTexture() {
         return this.customSpinTexture;

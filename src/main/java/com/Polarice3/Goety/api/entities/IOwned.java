@@ -50,9 +50,14 @@ public interface IOwned {
     boolean isHostile();
 
     @Nullable
+    default EntityType<?> getVariant(@Nullable Player player, Level level, BlockPos blockPos){
+        return this.getVariant(level, blockPos);
+    }
+
+    @Nullable
     default EntityType<?> getVariant(Level level, BlockPos blockPos){
         return null;
-    };
+    }
 
     default LivingEntity getMasterOwner(){
         if (this.getTrueOwner() instanceof IOwned owned){
@@ -265,6 +270,10 @@ public interface IOwned {
 
     default boolean preventsSleep(Player p_33036_) {
         return this.isHostile();
+    }
+
+    default int getSummonLimit(LivingEntity owner){
+        return 64;
     }
 
     default void readOwnedData(CompoundTag compound){

@@ -20,12 +20,16 @@ public class WindParticle extends WindTrailParticle {
     public float rotateAge;
     public final Vec3 origin;
 
-    public WindParticle(ClientLevel world, double x, double y, double z, float red, float green, float blue, float width, float height, int ownerId) {
+    public WindParticle(ClientLevel world, double x, double y, double z, float red, float green, float blue, float width, float height, int life, int ownerId) {
         super(world, x, y, z, 0.0D, 0.0D, 0.0D, red, green, blue);
         this.ownerId = ownerId;
         this.isEntity = ownerId > 0;
         this.gravity = 0.0F;
-        this.lifetime = 20 + this.random.nextInt(20);
+        if (life <= 0){
+            this.lifetime = 20 + this.random.nextInt(20);
+        } else {
+            this.lifetime = life;
+        }
         this.initYRot = this.random.nextFloat() * 360.0F;
         this.rotateAge = (10.0F + this.random.nextFloat() * 10.0F) * (this.random.nextIntBetweenInclusive(-1, 1));
         this.width = width;
@@ -81,7 +85,7 @@ public class WindParticle extends WindTrailParticle {
         }
 
         public Particle createParticle(WindParticleOption typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            return new WindParticle(worldIn, x, y, z, typeIn.getRed(), typeIn.getGreen(), typeIn.getBlue(), typeIn.getWidth(), typeIn.getHeight(), typeIn.getOwnerId());
+            return new WindParticle(worldIn, x, y, z, typeIn.getRed(), typeIn.getGreen(), typeIn.getBlue(), typeIn.getWidth(), typeIn.getHeight(), typeIn.getLife(), typeIn.getOwnerId());
         }
     }
 }

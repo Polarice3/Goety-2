@@ -3,6 +3,7 @@ package com.Polarice3.Goety.init;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModSpawnEggs;
+import com.Polarice3.Goety.common.items.ServantSpawnEggs;
 import com.Polarice3.Goety.compat.patchouli.PatchouliIntegration;
 import com.Polarice3.Goety.compat.patchouli.PatchouliLoaded;
 import net.minecraft.core.Holder;
@@ -13,7 +14,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.decoration.Painting;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -25,9 +25,9 @@ public class ModCreativeTab {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Goety.MOD_ID);
 
     public static final RegistryObject<CreativeModeTab> TAB = CREATIVE_MODE_TABS.register(Goety.MOD_ID, () -> CreativeModeTab.builder()
-            .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> ModItems.TOTEM_OF_SOULS.get().getDefaultInstance())
             .title(Component.translatable("itemGroup.goety"))
+            .withSearchBar()
             .displayItems((parameters, output) -> {
                 if (PatchouliLoaded.PATCHOULI.isLoaded()){
                     output.accept(PatchouliIntegration.getBlackBook());
@@ -39,7 +39,7 @@ public class ModCreativeTab {
                 output.accept(ModItems.TOTEM_OF_ROOTS.get().getFilledTotem());
                 ModItems.ITEMS.getEntries().forEach(i -> {
                     if (i.isPresent()) {
-                        if (!ModItems.shouldSkipCreativeModTab(i.get())) {
+                        if (!ModItems.shouldSkipCreativeModTab(i.get()) && !ModItems.isFocus(i.get())) {
                             output.accept(i.get());
                         }
                     }
@@ -50,6 +50,30 @@ public class ModCreativeTab {
                     }, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
                 });
                 ModSpawnEggs.ITEMS.getEntries().forEach(i -> {
+                    if (i.isPresent()) {
+                        output.accept(i.get());
+                    }
+                });
+            }).build());
+
+    public static final RegistryObject<CreativeModeTab> FOCUS_TAB = CREATIVE_MODE_TABS.register(Goety.MOD_ID + "_focus", () -> CreativeModeTab.builder()
+            .icon(() -> ModItems.FOCUS_BAG.get().getDefaultInstance())
+            .title(Component.translatable("itemGroup.goety.focus"))
+            .displayItems((parameters, output) -> {
+                ModItems.ITEMS.getEntries().forEach(i -> {
+                    if (i.isPresent()) {
+                        if (ModItems.isFocus(i.get())) {
+                            output.accept(i.get());
+                        }
+                    }
+                });
+            }).build());
+
+    public static final RegistryObject<CreativeModeTab> SERVANT_TAB = CREATIVE_MODE_TABS.register(Goety.MOD_ID + "_servants", () -> CreativeModeTab.builder()
+            .icon(() -> ModItems.SOUL_JAR.get().getDefaultInstance())
+            .title(Component.translatable("itemGroup.goety.servant"))
+            .displayItems((parameters, output) -> {
+                ServantSpawnEggs.ITEMS.getEntries().forEach(i -> {
                     if (i.isPresent()) {
                         output.accept(i.get());
                     }

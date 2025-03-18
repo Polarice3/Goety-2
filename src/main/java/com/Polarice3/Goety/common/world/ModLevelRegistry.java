@@ -27,6 +27,9 @@ public class ModLevelRegistry {
             if (biome.is(ModTags.Biomes.WEB_SPIDER_SPAWN) && !biome.is(ModTags.Biomes.WEB_SPIDER_EXCLUDE_SPAWN) && MobsConfig.WebSpiderSpawnWeight.get() > 0){
                 builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.WEB_SPIDER.get(), MobsConfig.WebSpiderSpawnWeight.get(), 4, 4));
             }
+            if (biome.is(ModTags.Biomes.ICY_SPIDER_SPAWN) && !biome.is(ModTags.Biomes.ICY_SPIDER_EXCLUDE_SPAWN) && MobsConfig.IcySpiderSpawnWeight.get() > 0){
+                builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.ICY_SPIDER.get(), MobsConfig.IcySpiderSpawnWeight.get(), 4, 4));
+            }
             if (biome.is(ModTags.Biomes.NECROMANCER_SPAWN) && !biome.is(ModTags.Biomes.NECROMANCER_EXCLUDE_SPAWN) && MobsConfig.NecromancerSpawnWeight.get() > 0){
                 builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.NECROMANCER.get(), MobsConfig.NecromancerSpawnWeight.get(), 1, 1));
             }

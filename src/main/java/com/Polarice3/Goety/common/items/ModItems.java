@@ -21,6 +21,9 @@ import com.Polarice3.Goety.common.items.research.ExtraScroll;
 import com.Polarice3.Goety.common.items.research.ForbiddenScroll;
 import com.Polarice3.Goety.common.items.research.ResearchScroll;
 import com.Polarice3.Goety.common.items.research.Scroll;
+import com.Polarice3.Goety.common.items.revive.BlazingHelm;
+import com.Polarice3.Goety.common.items.revive.HowlingSoul;
+import com.Polarice3.Goety.common.items.revive.SoulJar;
 import com.Polarice3.Goety.common.magic.spells.*;
 import com.Polarice3.Goety.common.magic.spells.abyss.*;
 import com.Polarice3.Goety.common.magic.spells.frost.*;
@@ -89,6 +92,7 @@ public class ModItems {
     public static final RegistryObject<Item> GOLD_RAVAGER_ARMOR = ITEMS.register("gold_ravager_armor", () -> new RavagerArmorItem(11, "gold"));
     public static final RegistryObject<Item> DIAMOND_RAVAGER_ARMOR = ITEMS.register("diamond_ravager_armor", () -> new RavagerArmorItem(15, "diamond"));
     public static final RegistryObject<Item> NETHERITE_RAVAGER_ARMOR = ITEMS.register("netherite_ravager_armor", () -> new RavagerArmorItem(20, "netherite", new Item.Properties().stacksTo(1).fireResistant()));
+    public static final RegistryObject<Item> CRYPT_ARMOR_TRIM_SMITHING_TEMPLATE = ITEMS.register("crypt_armor_trim_smithing_template", () -> SmithingTemplateItem.createArmorTrimTemplate(Goety.location("crypt")));
     public static final RegistryObject<Item> WITHERED_MANUSCRIPT = ITEMS.register("withered_manuscript", () -> new Item(new Item.Properties().fireResistant()));
     public static final RegistryObject<Item> SHROUDED_BLUEPRINT = ITEMS.register("shrouded_blueprint", () -> new Item(new Item.Properties().fireResistant()));
     public static final RegistryObject<Item> FORBIDDEN_PIECE = ITEMS.register("forbidden_piece", ItemBase::new);
@@ -117,6 +121,7 @@ public class ModItems {
     public static final RegistryObject<Item> COMMAND_HORN = ITEMS.register("command_horn", CommandHorn::new);
     public static final RegistryObject<Item> SOUL_JAR = ITEMS.register("soul_jar", SoulJar::new);
     public static final RegistryObject<Item> HOWLING_SOUL = ITEMS.register("howling_soul", HowlingSoul::new);
+    public static final RegistryObject<Item> BLAZING_HELM = ITEMS.register("blazing_helm", BlazingHelm::new);
     public static final RegistryObject<Item> TAGLOCK_KIT = ITEMS.register("taglock_kit", TaglockKit::new);
     public static final RegistryObject<Item> WAYSTONE = ITEMS.register("waystone", WaystoneItem::new);
     public static final RegistryObject<Item> ARCA_COMPASS = ITEMS.register("arca_compass", ArcaCompassItem::new);
@@ -397,6 +402,7 @@ public class ModItems {
     public static final RegistryObject<Item> SOUL_POTTERY_SHERD = ITEMS.register("soul_pottery_sherd", ItemBase::new);
 
     //Discs
+    public static final RegistryObject<Item> MUSIC_DISC_RM = ITEMS.register("music_disc_rm", () -> new RecordItem(14, ModSounds.MUSIC_DISC_RM, (new Item.Properties()).stacksTo(1).rarity(Rarity.RARE),3200));
     public static final RegistryObject<Item> MUSIC_DISC_VIZIER = ITEMS.register("music_disc_vizier", () -> new RecordItem(14, ModSounds.MUSIC_DISC_VIZIER, (new Item.Properties()).stacksTo(1).rarity(Rarity.RARE), 1860));
     public static final RegistryObject<Item> MUSIC_DISC_APOSTLE = ITEMS.register("music_disc_apostle", () -> new RecordItem(15, ModSounds.MUSIC_DISC_APOSTLE, (new Item.Properties()).stacksTo(1).rarity(Rarity.RARE),3440));
 
@@ -412,6 +418,10 @@ public class ModItems {
 
     public static Item.Properties baseProperities(){
         return new Item.Properties();
+    }
+
+    public static boolean isFocus(Item item) {
+        return item instanceof MagicFocus;
     }
 
     public static boolean shouldSkipCreativeModTab(Item item) {

@@ -1303,6 +1303,8 @@ public class MobUtil {
             owner = owned.getTrueOwner();
         } else if (attacker instanceof OwnableEntity ownable){
             owner = ownable.getOwner();
+        } else if (attacker instanceof Projectile projectile && projectile.getOwner() instanceof LivingEntity livingEntity){
+            owner = livingEntity;
         }
         if (owner instanceof Enemy
                 || (owner instanceof IOwned owned && owned.isHostile())
@@ -1413,5 +1415,9 @@ public class MobUtil {
                 return amount;
             }
         }
+    }
+
+    public static boolean isFireImmune(LivingEntity livingEntity){
+        return livingEntity.hasEffect(MobEffects.FIRE_RESISTANCE) || livingEntity.fireImmune();
     }
 }

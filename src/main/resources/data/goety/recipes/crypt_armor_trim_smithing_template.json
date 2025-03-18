@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#S#",
+    "#C#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:diamond"
+    },
+    "C": {
+      "item": "goety:crypt_stone"
+    },
+    "S": {
+      "item": "goety:crypt_armor_trim_smithing_template"
+    }
+  },
+  "result": {
+    "item": "goety:crypt_armor_trim_smithing_template",
+    "count": 2
+  }
+}

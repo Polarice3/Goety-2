@@ -48,7 +48,7 @@ public class QuickGrowSeedItem extends Item {
                if (vine == null){
                   return InteractionResult.FAIL;
                }
-               EntityType<?> entityType = vine.getVariant(level, blockpos);
+               EntityType<?> entityType = vine.getVariant(p_40510_.getPlayer(), level, blockpos);
                if (entityType != null){
                   vine = (AbstractVine) entityType.create(level);
                }

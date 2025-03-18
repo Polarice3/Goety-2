@@ -1,4 +1,4 @@
-package com.Polarice3.Goety.common.items;
+package com.Polarice3.Goety.common.items.revive;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonServant;
@@ -12,12 +12,9 @@ import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
-import net.minecraft.ChatFormatting;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -30,19 +27,14 @@ import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.monster.Stray;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Objects;
 
-public class SoulJar extends Item {
+public class SoulJar extends ReviveServantItem {
     public static final String TAG_DROWNED = "Drowned";
 
     public SoulJar(){
@@ -75,9 +67,9 @@ public class SoulJar extends Item {
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
         Level level = player.getCommandSenderWorld();
 
-        if (getNecromancer(stack, level) != null) {
-            AbstractNecromancer necromancer = getNecromancer(stack, level);
-            if (necromancer != null) {
+        if (getSummon(stack, level) != null) {
+            Entity entity = getSummon(stack, level);
+            if (entity instanceof AbstractNecromancer necromancer) {
                 boolean flag;
                 if (necromancer instanceof DrownedNecromancer || isDrowned(stack)){
                     flag = target instanceof DrownedServant || target instanceof Drowned;
@@ -145,9 +137,6 @@ public class SoulJar extends Item {
             necromancer.save(entityTag);
             CompoundTag itemNBT = stack.getOrCreateTag();
             itemNBT.put("entity", entityTag);
-            if (necromancer instanceof DrownedNecromancer){
-                setDrowned(stack);
-            }
         }
     }
 
@@ -170,33 +159,5 @@ public class SoulJar extends Item {
         }
 
         return null;
-    }
-
-    public static void setOwnerName(@Nullable LivingEntity entity, ItemStack stack) {
-        CompoundTag entityTag = stack.getOrCreateTag();
-        if (entity != null) {
-            entityTag.putString("owner_name", entity.getDisplayName().getString());
-        }
-    }
-
-    @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        if (level != null && getNecromancer(stack, level) != null)  {
-            AbstractNecromancer necromancer = getNecromancer(stack, level);
-
-            if (necromancer == null) {
-                return;
-            }
-
-            if (stack.getTag() != null) {
-                if (stack.getTag().contains("owner_name")) {
-                    tooltip.add(Component.translatable("tooltip.goety.arcaPlayer").setStyle(Style.EMPTY.applyFormat((ChatFormatting.GRAY))).append(Component.literal("" + stack.getTag().getString("owner_name")).setStyle(Style.EMPTY.applyFormat((ChatFormatting.GRAY)))));
-                }
-            }
-
-            if (necromancer.getCustomName() != null) {
-                tooltip.add(Component.translatable("tooltip.goety.customName").setStyle(Style.EMPTY.applyFormat((ChatFormatting.GRAY))).append(Component.literal("").append(necromancer.getCustomName()).setStyle(Style.EMPTY.applyFormat((ChatFormatting.GRAY)))));
-            }
-        }
     }
 }

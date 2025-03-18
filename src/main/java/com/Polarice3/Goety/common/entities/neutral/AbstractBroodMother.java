@@ -11,6 +11,7 @@ import com.Polarice3.Goety.common.entities.projectiles.WebShot;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.CSetDeltaMovement;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -241,6 +242,11 @@ public class AbstractBroodMother extends SpiderServant implements IAutoRideable,
         if (pCompound.contains("AutoMode")) {
             this.setAutonomous(pCompound.getBoolean("AutoMode"));
         }
+    }
+
+    @Override
+    public int getSummonLimit(LivingEntity owner) {
+        return SpellConfig.BroodMotherLimit.get();
     }
 
     public int xpReward() {

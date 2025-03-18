@@ -1,5 +1,6 @@
-// 1.20.1	2024-12-09T12:27:51.5064845	Tags for minecraft:worldgen/structure mod id goety
+// 1.20.1	2025-03-02T10:12:42.0771107	Tags for minecraft:worldgen/structure mod id goety
 67de4047e1e3aab40c5318c5cb39d89e58e90fce data/goety/tags/worldgen/structure/can_summon_brutes.json
+448639158b3802aea2161cd49e2177dca92930df data/goety/tags/worldgen/structure/can_summon_wither_skeletons.json
 4e49d284b026b753d98b23c97286f7953a83cddf data/goety/tags/worldgen/structure/crone_spawns.json
 a63fe7c42e4a2d887ba98c43dcecb4f6f092723e data/goety/tags/worldgen/structure/crypt.json
 5148d72a22793c571d907ed933af8a9bcd510169 data/goety/tags/worldgen/structure/necromancer_power.json

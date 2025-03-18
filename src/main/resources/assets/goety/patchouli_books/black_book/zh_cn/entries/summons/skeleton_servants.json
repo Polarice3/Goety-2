@@ -76,6 +76,11 @@
       "type": "patchouli:text",
       "advancement": "goety:goety/read_bygone_scroll",
       "text": "经过大量研究，你找到了一种方法来召唤下界要塞的前居民，并将其与你的意志绑定。他们近战时会造成凋零效果，并在使用弓时射出带有火焰的箭."
+    },
+    {
+      "type": "goety:ritual",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "recipe": "goety:thrall/summon_wither_skeleton_thrall"
     }
   ]
 }

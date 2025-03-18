@@ -283,6 +283,10 @@ public class WandUtil {
     }
 
     public static void spawnIceBouquet(Level level, LivingEntity casterEntity, Vec3 targetPos, double xshift, double zshift, float damage, int duration) {
+        spawnIceBouquet(level, casterEntity, targetPos, xshift, zshift, damage, duration, false);
+    }
+
+    public static void spawnIceBouquet(Level level, LivingEntity casterEntity, Vec3 targetPos, double xshift, double zshift, float damage, int duration, boolean isCenter) {
         targetPos = targetPos.add(xshift, 0.5F, zshift);
         IceBouquet iceBouquet = ModEntityType.ICE_BOUQUET.get().create(level);
         if (iceBouquet != null) {
@@ -290,13 +294,14 @@ public class WandUtil {
             iceBouquet.setPos(targetPos.x(), targetPos.y(), targetPos.z());
             iceBouquet.setExtraDamage(damage);
             iceBouquet.addLifeSpan(duration);
+            iceBouquet.setCenter(isCenter);
             MobUtil.moveDownToGround(iceBouquet);
             level.addFreshEntity(iceBouquet);
         }
     }
 
     public static void spawnIceBouquet(Level world, Vec3 pPos, LivingEntity livingEntity, float damage, int duration){
-        spawnIceBouquet(world, livingEntity, pPos, 0, 0, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, 0, 0, damage, duration, true);
         spawnIceBouquet(world, livingEntity, pPos, 0, 1, damage, duration);
         spawnIceBouquet(world, livingEntity, pPos, 0, -1, damage, duration);
         spawnIceBouquet(world, livingEntity, pPos, 1, 0, damage, duration);
@@ -312,7 +317,7 @@ public class WandUtil {
     }
 
     public static void spawnCrossIceBouquet(Level world, Vec3 pPos, LivingEntity livingEntity, float damage, int duration){
-        spawnIceBouquet(world, livingEntity, pPos, 0, 0, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, 0, 0, damage, duration, true);
         spawnIceBouquet(world, livingEntity, pPos, 1, 0, damage, duration);
         spawnIceBouquet(world, livingEntity, pPos, -1, 0, damage, duration);
         spawnIceBouquet(world, livingEntity, pPos, 0, 1, damage, duration);
@@ -324,7 +329,7 @@ public class WandUtil {
     }
 
     public static void spawn4x4IceBouquet(Level world, Vec3 pPos, LivingEntity livingEntity, float damage, int duration){
-        spawnIceBouquet(world, livingEntity, pPos, 0, 0, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, 0, 0, damage, duration, true);
         int random = world.random.nextInt(4);
         if (random == 0){
             spawnIceBouquet(world, livingEntity, pPos, 0, 1, damage, duration);
@@ -500,7 +505,11 @@ public class WandUtil {
         Level level = casterEntity.level;
         AbstractMonolith monolith = wallEntityType.create(level);
         if (monolith != null) {
-            EntityType<?> entityType = monolith.getVariant(level, targetPos);
+            Player player = null;
+            if (casterEntity instanceof Player player1){
+                player = player1;
+            }
+            EntityType<?> entityType = monolith.getVariant(player, level, targetPos);
             if (entityType != null){
                 monolith = (AbstractMonolith) entityType.create(level);
             }
@@ -538,7 +547,11 @@ public class WandUtil {
         Level level = casterEntity.level;
         AbstractMonolith monolith = wallEntityType.create(level);
         if (monolith != null) {
-            EntityType<?> entityType = monolith.getVariant(level, targetPos);
+            Player player = null;
+            if (casterEntity instanceof Player player1){
+                player = player1;
+            }
+            EntityType<?> entityType = monolith.getVariant(player, level, targetPos);
             if (entityType != null){
                 monolith = (AbstractMonolith) entityType.create(level);
             }

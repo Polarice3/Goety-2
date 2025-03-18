@@ -829,7 +829,7 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
                 this.mob.playSound(SoundEvents.GENERIC_EXPLODE, this.mob.getSoundVolume() / 2.0F, 0.9F);
                 Vec3 vec3 = this.mob.getHorizontalLookAngle();
                 for (LivingEntity target : this.mob.level.getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().move(vec3.scale(5.0D)).inflate(MELEE_RANGE))) {
-                    if (target != this.mob && !target.isAlliedTo(this.mob) && !this.mob.isAlliedTo(target)) {
+                    if (!MobUtil.areAllies(this.mob, target)) {
                         this.hurtTarget(target);
                     }
                 }
@@ -837,8 +837,8 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
                 if (this.mob.level instanceof ServerLevel serverLevel){
                     ColorUtil colorUtil = new ColorUtil(0xff8200);
                     Vec3 vec31 = this.mob.position().add(vec3.scale(5.0D));
-                    ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 2, 0, -1, vec31.add(0.0D, 1.0D, 0.0D));
-                    ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 4, 0, -1, vec31.add(0.0D, 1.0D, 0.0D));
+                    ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 2, 0, 20, -1, vec31.add(0.0D, 1.0D, 0.0D));
+                    ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 4, 0, 20, -1, vec31.add(0.0D, 1.0D, 0.0D));
                     /*serverLevel.sendParticles(new ShockwaveParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 20, 0, true), vec31.x, this.mob.getY() + 0.25D, vec31.z, 0, 0.0D, 0.0D, 0.0D, 0);
                     serverLevel.sendParticles(new ShockwaveParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 10, 0, true), vec31.x, this.mob.getY() + 0.25D, vec31.z, 0, 0.0D, 0.0D, 0.0D, 0);*/
                 }

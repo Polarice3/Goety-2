@@ -244,11 +244,11 @@ public class Maverick extends Cultist{
                 }
                 this.setTarget(null);
             } else {
-                if (!livingEntity.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
+                if (!livingEntity.hasEffect(MobEffects.MOVEMENT_SLOWDOWN) && !livingEntity.hasEffect(MobEffects.MOVEMENT_SLOWDOWN) && livingEntity.canBeAffected(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN))) {
                     potion = Potions.SLOWNESS;
                 } else if (livingEntity.getHealth() >= 8.0F && !livingEntity.hasEffect(MobEffects.POISON) && livingEntity.canBeAffected(new MobEffectInstance(MobEffects.POISON))) {
                     potion = Potions.POISON;
-                } else if (!livingEntity.hasEffect(MobEffects.WEAKNESS) && this.random.nextFloat() < 0.25F) {
+                } else if (!livingEntity.hasEffect(MobEffects.WEAKNESS) && !livingEntity.hasEffect(MobEffects.WEAKNESS) && this.random.nextFloat() < 0.25F && livingEntity.canBeAffected(new MobEffectInstance(MobEffects.WEAKNESS))) {
                     potion = Potions.WEAKNESS;
                 } else if (livingEntity.isInvertedHealAndHarm()) {
                     potion = Potions.HEALING;

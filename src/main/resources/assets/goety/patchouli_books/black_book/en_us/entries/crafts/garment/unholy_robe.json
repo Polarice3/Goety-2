@@ -19,6 +19,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:unholy_hat"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Unholy Hat halves all incoming damage towards the wearer when within the Nether, as well as capping the configurable max amount of damage the wearer can take much like Apostles. The Unholy Robes grants resistance to hellfire damage."
     }
   ],
   "extra_recipe_mappings": {

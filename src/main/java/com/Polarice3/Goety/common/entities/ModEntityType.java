@@ -585,6 +585,11 @@ public class ModEntityType {
                     .sized(1.4F, 0.9F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<IcySpider>> ICY_SPIDER = register("icy_spider",
+            EntityType.Builder.of(IcySpider::new, MobCategory.MONSTER)
+                    .sized(1.4F, 0.9F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<BoneSpider>> BONE_SPIDER = register("bone_spider",
             EntityType.Builder.of(BoneSpider::new, MobCategory.MONSTER)
                     .sized(0.6F, 0.7F)

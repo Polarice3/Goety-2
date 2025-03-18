@@ -131,6 +131,10 @@ public class ModBlockEntities {
                     ModBlocks.TRAPPED_HAUNTED_CHEST.get(), ModBlocks.TRAPPED_ROTTEN_CHEST.get(),
                     ModBlocks.TRAPPED_WINDSWEPT_CHEST.get(), ModBlocks.TRAPPED_PINE_CHEST.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<CryptChestBlockEntity>> CRYPT_CHEST = BLOCK_ENTITY.register("crypt_chest",
+            () -> BlockEntityType.Builder.of(CryptChestBlockEntity::new,
+                    ModBlocks.CRYPT_CHEST.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<LoftyChestBlockEntity>> LOFTY_CHEST = BLOCK_ENTITY.register("lofty_chest",
             () -> BlockEntityType.Builder.of(LoftyChestBlockEntity::new,
                     ModBlocks.LOFTY_CHEST.get()).build(null));

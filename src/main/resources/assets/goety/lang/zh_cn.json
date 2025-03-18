@@ -2632,5 +2632,17 @@
   "item.goety.hostile_redstone_monstrosity_spawn_egg": "敌对红石巨兽刷怪蛋",
   "item.goety.leaping_focus": "腾叶聚晶",
   "item.goety.leaping_focus.info": "召唤腾跃之叶，潜行施法会让仆从向召唤者靠近",
-  "key.goety.lich.laugh": "巫妖大笑"
+  "key.goety.lich.laugh": "巫妖大笑",
+  "itemGroup.goety.focus": "诡厄巫法：聚晶",
+  "itemGroup.goety.servant": "诡厄巫法：仆从",
+  "entity.goety.icy_spider": "冰蜘蛛",
+  "item.goety.icy_spider_spawn_egg": "冰蜘蛛刷怪蛋",
+  "item.goety.blazing_helm": "燃烧之盔",
+  "item.goety.music_disc_rm": "音乐唱片",
+  "item.goety.music_disc_rm.desc": "Johan Johnson - Redstone Monstrosity",
+  "trim_pattern.goety.crypt": "墓穴锻造模板",
+  "block.goety.crypt_chest": "墓穴箱",
+  "tooltip.goety.servant.spawn_egg": "潜行使用会生成你自己的仆从.",
+  "painting.goety.koganusan.author": "Locus",
+  "painting.goety.koganusan.title": "Koganusan"
 }

@@ -21,6 +21,14 @@
     {
       "type": "patchouli:text",
       "text": "The master of blazes can be healed by right-clicking it with Blaze Powders or Rods, and can passively heal if their owner dons a Nether Robe, much like their lesser brethren. So intune to fire, they regenerate when standing on one and heal when struck by fiery attacks (with some... exceptions)."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:blazing_helm",
+      "text": "When extinguished, these fiery overlords will drop their helms which can elevate a Blaze to their level."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:blazing_helm": 4
+  }
 }

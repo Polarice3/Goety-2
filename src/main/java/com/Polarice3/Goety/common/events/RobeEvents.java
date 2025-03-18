@@ -32,6 +32,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -90,7 +91,7 @@ public class RobeEvents {
         }
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void HurtEvent(LivingHurtEvent event){
         LivingEntity victim = event.getEntity();
         if (CuriosFinder.hasFrostRobes(victim)){

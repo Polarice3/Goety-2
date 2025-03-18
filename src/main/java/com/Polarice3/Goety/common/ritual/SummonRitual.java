@@ -54,7 +54,7 @@ public class SummonRitual extends Ritual {
         if (entityType != null) {
             Entity entity = this.createSummonedEntity(entityType, world, blockPos, tileEntity, castingPlayer);
             if (entity instanceof IOwned owned){
-                EntityType<?> entityType1 = owned.getVariant(world, blockPos);
+                EntityType<?> entityType1 = owned.getVariant(castingPlayer, world, blockPos);
                 if (entityType1 != null) {
                     entity = this.createSummonedEntity(entityType1, world, blockPos, tileEntity, castingPlayer);
                 }

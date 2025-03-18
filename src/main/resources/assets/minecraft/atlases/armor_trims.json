@@ -34,7 +34,9 @@
                 "trims/models/armor/raiser",
                 "trims/models/armor/raiser_leggings",
                 "trims/models/armor/host",
-                "trims/models/armor/host_leggings"
+                "trims/models/armor/host_leggings",
+                "goety:trims/models/armor/crypt",
+                "goety:trims/models/armor/crypt_leggings"
             ],
             "palette_key": "trims/color_palettes/trim_palette",
             "permutations": {

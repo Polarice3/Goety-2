@@ -36,6 +36,7 @@ public class IceBouquet extends GroundProjectile {
     private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(IceBouquet.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SOUL_EATING = SynchedEntityData.defineId(IceBouquet.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> CONCENTRATE = SynchedEntityData.defineId(IceBouquet.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> CENTER = SynchedEntityData.defineId(IceBouquet.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Float> DATA_EXTRA_DAMAGE = SynchedEntityData.defineId(IceBouquet.class, EntityDataSerializers.FLOAT);
 
     public IceBouquet(EntityType<? extends Entity> p_i50170_1_, Level p_i50170_2_) {
@@ -72,6 +73,7 @@ public class IceBouquet extends GroundProjectile {
         this.entityData.define(DATA_TYPE_ID, 0);
         this.entityData.define(SOUL_EATING, false);
         this.entityData.define(CONCENTRATE, true);
+        this.entityData.define(CENTER, true);
         this.entityData.define(DATA_EXTRA_DAMAGE, 0.0F);
     }
 
@@ -99,6 +101,14 @@ public class IceBouquet extends GroundProjectile {
         this.entityData.set(CONCENTRATE, concentrate);
     }
 
+    public boolean isCenter(){
+        return this.entityData.get(CENTER);
+    }
+
+    public void setCenter(boolean center){
+        this.entityData.set(CENTER, center);
+    }
+
     public float getExtraDamage() {
         return this.entityData.get(DATA_EXTRA_DAMAGE);
     }
@@ -123,11 +133,17 @@ public class IceBouquet extends GroundProjectile {
     protected void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
         this.setAnimation(pCompound.getInt("Animation"));
+        if (pCompound.contains("TickCount")){
+            this.tickCount = pCompound.getInt("TickCount");
+        }
         if (pCompound.contains("soulEating")) {
             this.setSoulEating(pCompound.getBoolean("soulEating"));
         }
         if (pCompound.contains("concentrate")) {
             this.setConcentrate(pCompound.getBoolean("concentrate"));
+        }
+        if (pCompound.contains("Center")) {
+            this.setCenter(pCompound.getBoolean("Center"));
         }
         if (pCompound.contains("ExtraDamage")) {
             this.setExtraDamage(pCompound.getFloat("ExtraDamage"));
@@ -138,8 +154,10 @@ public class IceBouquet extends GroundProjectile {
     protected void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("Animation", this.getAnimation());
+        pCompound.putInt("TickCount", this.tickCount);
         pCompound.putBoolean("soulEating", this.isSoulEating());
         pCompound.putBoolean("concentrate", this.needsConcentrate());
+        pCompound.putBoolean("Center", this.isCenter());
         pCompound.putFloat("ExtraDamage", this.getExtraDamage());
     }
 
@@ -159,7 +177,9 @@ public class IceBouquet extends GroundProjectile {
                 } else {
                     this.setAnimation(13);
                 }
-                --this.lifeTicks;
+                if (this.tickCount > 0) {
+                    --this.lifeTicks;
+                }
                 if (this.tickCount >= 10) {
                     this.level.addParticle(new MagicSmokeParticle.Option(0xb8e5ff, 0x015687, 10 + this.level.getRandom().nextInt(10), 0.2F), this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
                     if (this.level.random.nextInt(24) == 0) {
@@ -176,12 +196,20 @@ public class IceBouquet extends GroundProjectile {
                 this.sentTrapEvent = true;
             }
 
-            if (!this.playSound) {
-                this.level.broadcastEntityEvent(this, (byte) 5);
-                this.playSound = true;
+            if (this.isCenter()) {
+                if (!this.playSound) {
+                    this.level.broadcastEntityEvent(this, (byte) 5);
+                    this.playSound = true;
+                }
             }
 
             if (this.tickCount >= 12){
+                if (!this.isCenter()){
+                    if (!this.playSound) {
+                        this.level.broadcastEntityEvent(this, (byte) 8);
+                        this.playSound = true;
+                    }
+                }
                 for(LivingEntity livingentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox())) {
                     this.dealDamageTo(livingentity);
                 }
@@ -227,7 +255,9 @@ public class IceBouquet extends GroundProjectile {
                 if (flag){
                     damage *= 2.0F;
                 }
-                target.hurt(this.damageSources().freeze(), damage);
+                if (target.hurt(this.damageSources().freeze(), damage)){
+                    target.invulnerableTime = 16;
+                }
             } else {
                 if (owner instanceof Mob mobOwner) {
                     if (mobOwner instanceof Enemy && target instanceof Enemy) {
@@ -260,6 +290,7 @@ public class IceBouquet extends GroundProjectile {
                     damage += this.getExtraDamage();
                 }
                 if (target.hurt(ModDamageSource.iceBouquet(this, owner), damage)){
+                    target.invulnerableTime = 16;
                     if (owner instanceof Player) {
                         if (this.isSoulEating()) {
                             SEHelper.increaseSouls((Player) owner, 1);
@@ -284,6 +315,12 @@ public class IceBouquet extends GroundProjectile {
         }
         if (pId == 7){
             this.lifeTicks = 14;
+        }
+        if (pId == 8){
+            if (!this.isSilent()) {
+                this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), ModSounds.REDSTONE_FIRE_PROJECTILE.get(), this.getSoundSource(), 0.3F, 1.3F, false);
+                this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), ModSounds.FIRE_PROJECTILE_FLY.get(), this.getSoundSource(), 0.3F, 1.3F, false);
+            }
         }
 
     }

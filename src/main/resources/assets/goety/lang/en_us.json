@@ -57,6 +57,8 @@
   "title.goety.crone.3" : "Aunt",
 
   "itemGroup.goety": "Goety",
+  "itemGroup.goety.focus": "Goety Focuses",
+  "itemGroup.goety.servant": "Goety Servants",
 
   "entity.goety.apostle":"Apostle",
   "entity.goety.obsidian_monolith":"Obsidian Monolith",
@@ -94,6 +96,7 @@
   "entity.goety.border_wraith":"Border Wraith",
   "entity.goety.crypt_slime":"Crypt Slime",
   "entity.goety.web_spider":"Web Spider",
+  "entity.goety.icy_spider":"Icy Spider",
   "entity.goety.bone_spider":"Bone Spider",
   "entity.goety.brood_mother":"Brood Mother",
   "entity.goety.necromancer":"Necromancer",
@@ -308,6 +311,7 @@
   "item.goety.border_wraith_spawn_egg": "Border Wraith Spawn Egg",
   "item.goety.crypt_slime_spawn_egg": "Crypt Slime Spawn Egg",
   "item.goety.web_spider_spawn_egg": "Web Spider Spawn Egg",
+  "item.goety.icy_spider_spawn_egg": "Icy Spider Spawn Egg",
   "item.goety.bone_spider_spawn_egg": "Bone Spider Spawn Egg",
   "item.goety.brood_mother_spawn_egg": "Brood Mother Spawn Egg",
   "item.goety.necromancer_spawn_egg": "Necromancer Spawn Egg",
@@ -522,6 +526,7 @@
   "item.goety.command_horn": "Commanding Horn",
   "item.goety.soul_jar": "Soul Jar",
   "item.goety.howling_soul": "Howling Soul",
+  "item.goety.blazing_helm": "Blazing Helm",
   "item.goety.refuse_bottle": "Bottle of Refuse",
 
   "item.goety.grimoire_of_grudges": "Grimoire of Grudges",
@@ -842,6 +847,8 @@
 
   "item.goety.pedestal_dummy": "Pedestal",
 
+  "item.goety.music_disc_rm": "Music Disc",
+  "item.goety.music_disc_rm.desc": "Johan Johnson - Redstone Monstrosity",
   "item.goety.music_disc_vizier": "Music Disc",
   "item.goety.music_disc_vizier.desc": "Peter Hont - Evoker",
   "item.goety.music_disc_apostle": "Music Disc",
@@ -852,6 +859,8 @@
   "item.minecraft.potion.effect.climbing": "Potion of Spider Climbing",
   "item.minecraft.splash_potion.effect.climbing": "Splash Potion of Spider Climbing",
   "item.minecraft.lingering_potion.effect.climbing": "Lingering Potion of Spider Climbing",
+
+  "trim_pattern.goety.crypt": "Crypt Armor Trim",
 
   "block.goety.awakened_emerald_block": "Block of Awakened Emerald",
   "block.goety.cursed_metal_block": "Block of Cursed Metal",
@@ -1207,6 +1216,7 @@
   "block.goety.haunted_jug": "Haunted Jug",
   "block.goety.pithos": "Pithos",
   "block.goety.crypt_urn": "Crypt Urn",
+  "block.goety.crypt_chest": "Crypt Chest",
   "block.goety.lofty_chest": "Lofty Chest",
   "block.goety.spider_mother_den": "Spider Mother Den",
   "block.goety.night_beacon": "Night Beacon",
@@ -1687,6 +1697,7 @@
   "tooltip.goety.focusBag.swap": "Swap",
   "tooltip.goety.focusBag.extract": "Extract",
   "tooltip.goety.focusBag.empty": "Empty",
+  "tooltip.goety.servant.spawn_egg": "Crouching causes spawned mob to be owned by user.",
 
   "painting.goety.apostle.author": "Unknown",
   "painting.goety.apostle.title": "Dark Lord",
@@ -1710,6 +1721,8 @@
   "painting.goety.hound.title": "Hound of Baskervilles",
   "painting.goety.knuckles.author": "Knuckles",
   "painting.goety.knuckles.title": "Knuckles",
+  "painting.goety.koganusan.author": "Locus",
+  "painting.goety.koganusan.title": "Koganusan",
   "painting.goety.ladies_of_the_wood.author": "Cd Projekt Red",
   "painting.goety.ladies_of_the_wood.title": "Ladies of the Wood",
   "painting.goety.lizardcalm.author": "Nathan Yaffe",

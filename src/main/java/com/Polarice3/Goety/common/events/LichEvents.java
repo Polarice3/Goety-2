@@ -53,30 +53,29 @@ public class LichEvents {
             player.resetStat(Stats.CUSTOM.get(Stats.TIME_SINCE_REST));
             boolean burn = MobUtil.isInSunlight(player) && !world.isRaining();
 
-            if (burn){
-                ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
-                if (!helmet.isEmpty()) {
-                    if (!player.isCreative()) {
-                        if (!player.hasEffect(MobEffects.FIRE_RESISTANCE) && !player.fireImmune()) {
-                            if (MainConfig.LichDamageHelmet.get()) {
-                                if (helmet.isDamageableItem()) {
-                                    helmet.setDamageValue(helmet.getDamageValue() + world.random.nextInt(2));
-                                    if (helmet.getDamageValue() >= helmet.getMaxDamage()) {
-                                        player.broadcastBreakEvent(EquipmentSlot.HEAD);
-                                        player.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+            if (!player.level.isClientSide) {
+                if (burn){
+                    ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
+                    if (!helmet.isEmpty()) {
+                        if (!player.isCreative()) {
+                            if (!MobUtil.isFireImmune(player)) {
+                                if (MainConfig.LichDamageHelmet.get()) {
+                                    if (helmet.isDamageableItem()) {
+                                        ItemHelper.hurtAndBreak(helmet, world.random.nextInt(2), player);
                                     }
                                 }
                             }
                         }
+                        burn = false;
                     }
-                    burn = false;
-                }
-                if (burn){
-                    if (!player.hasEffect(MobEffects.FIRE_RESISTANCE)){
-                        player.setSecondsOnFire(8);
+                    if (burn){
+                        if (!MobUtil.isFireImmune(player)){
+                            player.setSecondsOnFire(8);
+                        }
                     }
                 }
             }
+
             player.getActiveEffects().removeIf(effectInstance -> !EffectsUtil.canAffectLich(effectInstance, world));
             if (player.hasEffect(GoetyEffects.SOUL_HUNGER.get())){
                 if (SEHelper.getSoulsAmount(player, MainConfig.MaxSouls.get())){
@@ -121,7 +120,7 @@ public class LichEvents {
                         if (player.isAlive()) {
                             MiscCapHelper.doAmbientSoundTime(player);
                             if (MiscCapHelper.getAmbientSoundTime(player) > player.getRandom().nextInt(1000)) {
-                                MiscCapHelper.resetAmbientSoundTime(player, MathHelper.secondsToTicks(8));
+                                MiscCapHelper.setAmbientSoundTime(player, -MathHelper.secondsToTicks(4));
                                 player.playSound(ModSounds.LICH_AMBIENT.get(), 1.0F, player.getVoicePitch());
                             }
                         }
@@ -266,7 +265,7 @@ public class LichEvents {
                             if (event.getAmount() > 0.0F) {
                                 if (!player.level.isClientSide) {
                                     player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.LICH_HURT.get(), player.getSoundSource(), 1.0F, player.getVoicePitch());
-                                    MiscCapHelper.resetAmbientSoundTime(player, MathHelper.secondsToTicks(8));
+                                    MiscCapHelper.setAmbientSoundTime(player, -MathHelper.secondsToTicks(4));
                                 }
                             }
                         }

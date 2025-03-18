@@ -55,8 +55,8 @@ public class GravestoneBlockEntity extends TrainingBlockEntity {
             if (blockState.hasProperty(BlockStateProperties.WATERLOGGED) && blockState.getValue(BlockStateProperties.WATERLOGGED)){
                 this.setEntityType(ModEntityType.DROWNED_SERVANT.get());
                 this.markUpdated();
-            } else if (this.getTrainMob() != zombieServant.getVariant(serverLevel, blockPos.above())) {
-                this.setEntityType(zombieServant.getVariant(serverLevel, blockPos.above()));
+            } else if (this.getTrainMob() != zombieServant.getVariant(this.getPlayer(), serverLevel, blockPos.above())) {
+                this.setEntityType(zombieServant.getVariant(this.getPlayer(), serverLevel, blockPos.above()));
                 this.markUpdated();
             }
         }

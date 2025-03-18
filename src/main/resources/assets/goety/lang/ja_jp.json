@@ -482,7 +482,7 @@
   "item.goety.telekinesis_focus": "テレキネシスのフォーカス",
   "item.goety.telekinesis_focus.info": "術者からみて十字の位置にいるターゲットを浮遊させます。",
   "item.goety.launch_focus": "打ち上げのフォーカス",
-  "item.goety.launch_focus.info": "見ている方向にキャスターを発射します。",
+  "item.goety.launch_focus.info": "見ている方向に術者を発射します。",
   "item.goety.flying_focus": "飛行のフォーカス",
   "item.goety.flying_focus.info": "術者が見ている方向に飛行します。",
   "item.goety.cushion_focus": "クッションのフォーカス",
@@ -2573,5 +2573,17 @@
   "item.goety.hostile_redstone_monstrosity_spawn_egg": "Hostile Redstone Monstrosity Spawn Egg",
   "item.goety.leaping_focus": "Leaping Focus",
   "item.goety.leaping_focus.info": "Summons Leapleaves. Cast crouching will summon the caster's servants towards them.",
-  "key.goety.lich.laugh": "Lich Laugh"
+  "key.goety.lich.laugh": "Lich Laugh",
+  "itemGroup.goety.focus": "Goetyのフォーカス",
+  "itemGroup.goety.servant": "Goetyの従者",
+  "entity.goety.icy_spider": "氷のクモ",
+  "item.goety.icy_spider_spawn_egg": "氷のクモのスポーンエッグ",
+  "item.goety.blazing_helm": "ブレイジングヘルム",
+  "item.goety.music_disc_rm": "レコード",
+  "trim_pattern.goety.crypt": "クリプト風の装飾",
+  "block.goety.crypt_chest": "クリプトのチェスト",
+  "tooltip.goety.servant.spawn_egg": "しゃがんで使うと、スポーンしたモブがプレイヤーの所有物になります",
+  "item.goety.music_disc_rm.desc": "Johan Johnson - Redstone Monstrosity",
+  "painting.goety.koganusan.author": "Locus",
+  "painting.goety.koganusan.title": "Koganusan"
 }

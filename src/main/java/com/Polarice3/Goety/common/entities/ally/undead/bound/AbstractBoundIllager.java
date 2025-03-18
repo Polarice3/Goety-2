@@ -4,6 +4,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -59,6 +60,11 @@ public abstract class AbstractBoundIllager extends Summoned {
     public void addAdditionalSaveData(CompoundTag p_33734_) {
         super.addAdditionalSaveData(p_33734_);
         p_33734_.putInt("SpellTicks", this.spellCastingTickCount);
+    }
+
+    @Override
+    public int getSummonLimit(LivingEntity owner) {
+        return SpellConfig.BoundIllagerLimit.get();
     }
 
     protected PathNavigation createNavigation(Level pLevel) {

@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.client.audio;
 
 import com.Polarice3.Goety.client.events.ClientEvents;
-import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.client.Minecraft;
@@ -14,17 +13,23 @@ import net.minecraft.world.entity.Mob;
 
 public class BossLoopMusic extends AbstractTickableSoundInstance {
     protected final Mob mobEntity;
+    protected SoundEvent postBossMusic;
 
     public BossLoopMusic(SoundEvent soundEvent, Mob mobEntity) {
         this(soundEvent, mobEntity, 1.0F);
     }
 
     public BossLoopMusic(SoundEvent soundEvent, Mob mobEntity, float volume) {
+        this(soundEvent, ModSounds.BOSS_POST.get(), mobEntity, volume);
+    }
+
+    public BossLoopMusic(SoundEvent soundEvent, SoundEvent postBossMusic, Mob mobEntity, float volume) {
         super(soundEvent, SoundSource.RECORDS, SoundInstance.createUnseededRandom());
         this.mobEntity = mobEntity;
-        this.x = (double)((float)mobEntity.getX());
-        this.y = (double)((float)mobEntity.getY());
-        this.z = (double)((float)mobEntity.getZ());
+        this.postBossMusic = postBossMusic;
+        this.x = (float)mobEntity.getX();
+        this.y = (float)mobEntity.getY();
+        this.z = (float)mobEntity.getZ();
         this.looping = true;
         this.delay = 0;
         this.volume = volume;
@@ -45,11 +50,7 @@ public class BossLoopMusic extends AbstractTickableSoundInstance {
                     Minecraft minecraft = Minecraft.getInstance();
                     SoundManager soundHandler = minecraft.getSoundManager();
                     if (!this.isStopped()){
-                        if (this.mobEntity instanceof Apostle) {
-                            soundHandler.queueTickingSound(new PostBossMusic(ModSounds.APOSTLE_THEME_POST.get(), mobEntity));
-                        } else {
-                            soundHandler.queueTickingSound(new PostBossMusic(ModSounds.BOSS_POST.get(), mobEntity));
-                        }
+                        soundHandler.queueTickingSound(new PostBossMusic(this.postBossMusic, mobEntity));
                     }
                 }
             }

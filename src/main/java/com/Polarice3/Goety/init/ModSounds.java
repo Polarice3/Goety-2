@@ -533,6 +533,9 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SPELL_FAIL = create("spell_fail");
     public static final RegistryObject<SoundEvent> DOOM = create("doom");
     public static final RegistryObject<SoundEvent> DEAD_MOAN = create("dead_moan");
+    public static final RegistryObject<SoundEvent> STONE_DRAG = create("stone_drag");
+    public static final RegistryObject<SoundEvent> REDSTONE_FIRE_PROJECTILE = create("redstone_fire_projectile");
+    public static final RegistryObject<SoundEvent> FIRE_PROJECTILE_FLY = create("fire_projectile_fly");
     public static final RegistryObject<SoundEvent> SOUL_EAT = create("soul_eat");
 
     public static final RegistryObject<SoundEvent> NETHER_SPREAD = create("nether_spread");
@@ -598,11 +601,14 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> APOSTLE_THEME = create("apostle_theme");
     public static final RegistryObject<SoundEvent> APOSTLE_THEME_POST = create("apostle_theme_post");
     public static final RegistryObject<SoundEvent> VIZIER_THEME = create("vizier_theme");
+    public static final RegistryObject<SoundEvent> RM_THEME = create("rm_theme");
 
     public static final RegistryObject<SoundEvent> MUSIC_DISC_APOSTLE = create("apostle_theme_disc");
     public static final RegistryObject<SoundEvent> MUSIC_DISC_VIZIER = create("vizier_theme_disc");
+    public static final RegistryObject<SoundEvent> MUSIC_DISC_RM = create("rm_theme_disc");
 
     public static final RegistryObject<SoundEvent> BOSS_POST = create("boss_post");
+    public static final RegistryObject<SoundEvent> BOSS_POST_2 = create("boss_post_second");
 
     static RegistryObject<SoundEvent> create(String name) {
         SoundEvent event = SoundEvent.createVariableRangeEvent(Goety.location(name));

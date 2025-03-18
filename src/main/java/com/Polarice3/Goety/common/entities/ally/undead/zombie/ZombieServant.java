@@ -9,6 +9,7 @@ import com.Polarice3.Goety.compat.serene_seasons.SSeasonsIntegration;
 import com.Polarice3.Goety.compat.serene_seasons.SSeasonsLoaded;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -142,6 +143,11 @@ public class ZombieServant extends Summoned {
         if (pCompound.contains("DrownedConversionTime", 99) && pCompound.getInt("DrownedConversionTime") > -1) {
             this.startUnderWaterConversion(pCompound.getInt("DrownedConversionTime"));
         }
+    }
+
+    @Override
+    public int getSummonLimit(LivingEntity owner) {
+        return SpellConfig.ZombieLimit.get();
     }
 
     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {

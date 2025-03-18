@@ -24,6 +24,7 @@ import com.Polarice3.Goety.common.entities.ally.golem.SquallGolem;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.hostile.Wight;
+import com.Polarice3.Goety.common.entities.hostile.illagers.HostileRedstoneMonstrosity;
 import com.Polarice3.Goety.common.entities.hostile.servants.Inferno;
 import com.Polarice3.Goety.common.entities.neutral.ApostleShade;
 import com.Polarice3.Goety.common.entities.neutral.CarrionFly;
@@ -75,6 +76,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -113,13 +115,26 @@ public class ClientEvents {
             Minecraft minecraft = Minecraft.getInstance();
             SoundManager soundHandler = minecraft.getSoundManager();
             if (MainConfig.BossMusic.get()) {
-                if (entity instanceof Apostle && !((Apostle) entity).isNoAi()) {
-                    minecraft.getMusicManager().stopPlaying();
-                    minecraft.gui.setNowPlaying(Component.translatable("item.goety.music_disc_apostle.desc"));
-                }
-                if (entity instanceof Vizier && !((Vizier) entity).isNoAi()) {
-                    minecraft.getMusicManager().stopPlaying();
-                    minecraft.gui.setNowPlaying(Component.translatable("item.goety.music_disc_vizier.desc"));
+                boolean show = minecraft.options.getSoundSourceVolume(SoundSource.RECORDS) > 0.0F;
+                if (entity instanceof Mob mob && !mob.isNoAi()) {
+                    if (entity instanceof Apostle) {
+                        minecraft.getMusicManager().stopPlaying();
+                        if (show) {
+                            minecraft.gui.setNowPlaying(Component.translatable("item.goety.music_disc_apostle.desc"));
+                        }
+                    }
+                    if (entity instanceof Vizier) {
+                        minecraft.getMusicManager().stopPlaying();
+                        if (show) {
+                            minecraft.gui.setNowPlaying(Component.translatable("item.goety.music_disc_vizier.desc"));
+                        }
+                    }
+                    if (entity instanceof HostileRedstoneMonstrosity) {
+                        minecraft.getMusicManager().stopPlaying();
+                        if (show) {
+                            minecraft.gui.setNowPlaying(Component.translatable("item.goety.music_disc_rm.desc"));
+                        }
+                    }
                 }
             }
             if (entity instanceof CorruptedBeam){
@@ -242,11 +257,14 @@ public class ClientEvents {
                 }
             }
             if (MainConfig.BossMusic.get()) {
-                if (entity instanceof Apostle && !((Apostle) entity).isNoAi()) {
-                    playBossMusic(ModSounds.APOSTLE_THEME.get(), (Apostle) entity);
+                if (entity instanceof Apostle apostle && !apostle.isNoAi()) {
+                    playBossMusic(ModSounds.APOSTLE_THEME.get(), ModSounds.APOSTLE_THEME_POST.get(), apostle);
                 }
-                if (entity instanceof Vizier && !((Vizier) entity).isNoAi()) {
-                    playBossMusic(ModSounds.VIZIER_THEME.get(), (Vizier) entity);
+                if (entity instanceof Vizier vizier && !vizier.isNoAi()) {
+                    playBossMusic(ModSounds.VIZIER_THEME.get(), vizier);
+                }
+                if (entity instanceof HostileRedstoneMonstrosity rm && !rm.isNoAi()) {
+                    playBossMusic(ModSounds.RM_THEME.get(), ModSounds.BOSS_POST_2.get(), rm, 0.75F);
                 }
             }
         }
@@ -258,12 +276,20 @@ public class ClientEvents {
         playBossMusic(soundEvent, mob, 1.0F);
     }
 
+    public static void playBossMusic(SoundEvent soundEvent, SoundEvent postBossMusic, Mob mob){
+        playBossMusic(soundEvent, postBossMusic, mob, 1.0F);
+    }
+
     public static void playBossMusic(SoundEvent soundEvent, Mob mob, float volume){
+        playBossMusic(soundEvent, ModSounds.BOSS_POST.get(), mob, volume);
+    }
+
+    public static void playBossMusic(SoundEvent soundEvent, SoundEvent postBossMusic, Mob mob, float volume){
         if (MainConfig.BossMusic.get()) {
             Minecraft minecraft = Minecraft.getInstance();
             if (soundEvent != null && mob.isAlive()) {
                 if (BOSS_MUSIC == null) {
-                    BOSS_MUSIC = new BossLoopMusic(soundEvent, mob, volume);
+                    BOSS_MUSIC = new BossLoopMusic(soundEvent, postBossMusic, mob, volume);
                 }
             } else {
                 BOSS_MUSIC = null;

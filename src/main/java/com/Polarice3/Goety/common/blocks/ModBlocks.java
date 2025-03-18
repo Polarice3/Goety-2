@@ -149,6 +149,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> MARBLE_SOUL_BRAZIER = register("marble_soul_brazier", () -> new BrazierBlock(true));
     public static final RegistryObject<Block> SKULL_PILE = register("skull_pile", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).strength(2.0F).sound(SoundType.BONE_BLOCK).instrument(NoteBlockInstrument.BASEDRUM)), true, LootTableType.EMPTY);
     public static final RegistryObject<Block> CRYPT_URN = register("crypt_urn", UrnBlock::new, true, LootTableType.EMPTY);
+    public static final RegistryObject<CryptChestBlock> CRYPT_CHEST = isterRegister("crypt_chest", CryptChestBlock::new, LootTableType.EMPTY);
     public static final RegistryObject<LoftyChestBlock> LOFTY_CHEST = isterRegister("lofty_chest", () -> new LoftyChestBlock(Block.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASS).strength(5.0F, 3600000.0F).sound(SoundType.NETHER_BRICKS).lightLevel(light -> 6)), LootTableType.EMPTY);
     public static final RegistryObject<Block> SOUL_LIGHT_BLOCK = register("soul_light", SoulLightBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> GLOW_LIGHT_BLOCK = register("glow_light", GlowLightBlock::new, false, LootTableType.EMPTY);

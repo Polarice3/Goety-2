@@ -97,6 +97,11 @@ public class AbstractCairnNecromancer extends AbstractNecromancer{
                 summoned = new WraithServant(ModEntityType.WRAITH_SERVANT.get(), this.level);
             }
         }
+        if (this.getSummonList().contains(ModEntityType.REAPER_SERVANT.get())) {
+            if (this.level.random.nextFloat() <= 0.05F) {
+                summoned = new WraithServant(ModEntityType.REAPER_SERVANT.get(), this.level);
+            }
+        }
         if (this.getSummonList().contains(ModEntityType.VANGUARD_SERVANT.get())){
             if (this.level.random.nextFloat() <= 0.15F) {
                 summoned = new VanguardServant(ModEntityType.VANGUARD_SERVANT.get(), this.level);

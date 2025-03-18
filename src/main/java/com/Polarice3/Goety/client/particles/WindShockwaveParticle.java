@@ -20,8 +20,8 @@ import java.util.Locale;
 public class WindShockwaveParticle extends WindParticle{
     public float increase;
 
-    public WindShockwaveParticle(ClientLevel world, double x, double y, double z, float red, float green, float blue, float width, float height, float increase, float startRot, int ownerId) {
-        super(world, x, y, z, red, green, blue, width, height, ownerId);
+    public WindShockwaveParticle(ClientLevel world, double x, double y, double z, float red, float green, float blue, float width, float height, float increase, float startRot, int life, int ownerId) {
+        super(world, x, y, z, red, green, blue, width, height, life, ownerId);
         this.increase = increase;
         this.initYRot = startRot * 360.0F;
         this.rotateAge = (10.0F + startRot * 10.0F);
@@ -45,7 +45,7 @@ public class WindShockwaveParticle extends WindParticle{
         }
 
         public Particle createParticle(Option typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            return new WindShockwaveParticle(worldIn, x, y, z, typeIn.getRed(), typeIn.getGreen(), typeIn.getBlue(), typeIn.getWidth(), typeIn.getHeight(), typeIn.getIncrease(), typeIn.getStartYRot(), typeIn.getOwnerId());
+            return new WindShockwaveParticle(worldIn, x, y, z, typeIn.getRed(), typeIn.getGreen(), typeIn.getBlue(), typeIn.getWidth(), typeIn.getHeight(), typeIn.getIncrease(), typeIn.getStartYRot(), typeIn.getLife(), typeIn.getOwnerId());
         }
     }
 
@@ -58,6 +58,7 @@ public class WindShockwaveParticle extends WindParticle{
                 Codec.FLOAT.fieldOf("height").forGetter(d -> d.height),
                 Codec.FLOAT.fieldOf("increase").forGetter(d -> d.increase),
                 Codec.FLOAT.fieldOf("startYRot").forGetter(d -> d.startYRot),
+                Codec.INT.fieldOf("life").forGetter(d -> d.life),
                 Codec.INT.fieldOf("ownerId").forGetter(d -> d.ownerId)
         ).apply(instance, Option::new));
         public static final Deserializer<Option> DESERIALIZER = new Deserializer<Option>() {
@@ -77,12 +78,14 @@ public class WindShockwaveParticle extends WindParticle{
                 reader.expect(' ');
                 float startYRot = reader.readFloat();
                 reader.expect(' ');
+                int life = reader.readInt();
+                reader.expect(' ');
                 int ownerId = reader.readInt();
-                return new Option(red, green, blue, width, height, increase, startYRot, ownerId);
+                return new Option(red, green, blue, width, height, increase, startYRot, life, ownerId);
             }
 
             public Option fromNetwork(ParticleType<Option> particleTypeIn, FriendlyByteBuf buffer) {
-                return new Option(buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readInt());
+                return new Option(buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readInt(), buffer.readInt());
             }
         };
         private final float red;
@@ -92,6 +95,7 @@ public class WindShockwaveParticle extends WindParticle{
         private final float height;
         private final float increase;
         private final float startYRot;
+        private final int life;
         private final int ownerId;
 
         public Option(ColorUtil color, float width, float height, float increase, float startYRot, int ownerId) {
@@ -102,6 +106,19 @@ public class WindShockwaveParticle extends WindParticle{
             this.height = height;
             this.increase = increase;
             this.startYRot = startYRot;
+            this.life = 0;
+            this.ownerId = ownerId;
+        }
+
+        public Option(ColorUtil color, float width, float height, float increase, float startYRot, int life, int ownerId) {
+            this.red = color.red();
+            this.green = color.green();
+            this.blue = color.blue();
+            this.width = width;
+            this.height = height;
+            this.increase = increase;
+            this.startYRot = startYRot;
+            this.life = life;
             this.ownerId = ownerId;
         }
 
@@ -113,6 +130,19 @@ public class WindShockwaveParticle extends WindParticle{
             this.height = height;
             this.increase = increase;
             this.startYRot = startYRot;
+            this.life = 0;
+            this.ownerId = ownerId;
+        }
+
+        public Option(float red, float green, float blue, float width, float height, float increase, float startYRot, int life, int ownerId) {
+            this.red = red;
+            this.green = green;
+            this.blue = blue;
+            this.width = width;
+            this.height = height;
+            this.increase = increase;
+            this.startYRot = startYRot;
+            this.life = life;
             this.ownerId = ownerId;
         }
 
@@ -124,12 +154,13 @@ public class WindShockwaveParticle extends WindParticle{
             buffer.writeFloat(this.height);
             buffer.writeFloat(this.increase);
             buffer.writeFloat(this.startYRot);
+            buffer.writeInt(this.life);
             buffer.writeInt(this.ownerId);
         }
 
         public String writeToString() {
-            return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f %.2f %.2f %.2f %d",
-                    BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.red, this.green, this.blue, this.width, this.height, this.increase, this.startYRot, this.ownerId);
+            return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f %.2f %.2f %.2f %d %d",
+                    BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.red, this.green, this.blue, this.width, this.height, this.increase, this.startYRot, this.life, this.ownerId);
         }
 
         public ParticleType<Option> getType() {
@@ -162,6 +193,10 @@ public class WindShockwaveParticle extends WindParticle{
 
         public float getStartYRot() {
             return this.startYRot;
+        }
+
+        public int getLife() {
+            return this.life;
         }
 
         public int getOwnerId() {

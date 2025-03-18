@@ -121,6 +121,9 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
             return createSingleItemTableWithSilkTouch(p_124233_, Items.BONE, UniformGenerator.between(3.0F, 6.0F));
         });
         this.add(ModBlocks.CRYPT_URN.get(), createSilkTouchOnlyTable(ModBlocks.CRYPT_URN.get()));
+        this.add(ModBlocks.CRYPT_CHEST.get(), (p_124233_) -> {
+            return createSingleItemTableWithSilkTouch(p_124233_, ModBlocks.CRYPT_STONE_BLOCK.get(), UniformGenerator.between(2.0F, 4.0F));
+        });
         this.add(ModBlocks.LOFTY_CHEST.get(), (p_124233_) -> {
             return createSingleItemTableWithSilkTouch(p_124233_, Items.OBSIDIAN, UniformGenerator.between(2.0F, 4.0F));
         });

@@ -36,6 +36,7 @@ import com.Polarice3.Goety.common.inventory.ModSaveInventory;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModPotions;
 import com.Polarice3.Goety.common.items.ModSpawnEggs;
+import com.Polarice3.Goety.common.items.ServantSpawnEggs;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.ritual.ModRituals;
 import com.Polarice3.Goety.common.world.ModMobSpawnBiomeModifier;
@@ -172,6 +173,7 @@ public class Goety {
         ModBlocks.init();
         ModRecipeSerializer.init();
         ModSpawnEggs.init();
+        ServantSpawnEggs.init();
         GoetyEffects.init();
         ModPotions.init();
         ModPaintings.init();
@@ -473,6 +475,7 @@ public class Goety {
         event.put(ModEntityType.BORDER_WRAITH.get(), BorderWraith.setCustomAttributes().build());
         event.put(ModEntityType.CRYPT_SLIME.get(), CryptSlime.setCustomAttributes().build());
         event.put(ModEntityType.WEB_SPIDER.get(), WebSpider.setCustomAttributes().build());
+        event.put(ModEntityType.ICY_SPIDER.get(), IcySpider.setCustomAttributes().build());
         event.put(ModEntityType.BONE_SPIDER.get(), BoneSpider.setCustomAttributes().build());
         event.put(ModEntityType.BROOD_MOTHER.get(), AbstractBroodMother.setCustomAttributes().build());
         event.put(ModEntityType.NECROMANCER.get(), HostileNecromancer.setCustomAttributes().build());
@@ -594,6 +597,7 @@ public class Goety {
         event.register(ModEntityType.BORDER_WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.CRYPT_SLIME.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CryptSlime::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.WEB_SPIDER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(ModEntityType.ICY_SPIDER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.NECROMANCER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.CAIRN_NECROMANCER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.HAUNTED_ARMOR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);

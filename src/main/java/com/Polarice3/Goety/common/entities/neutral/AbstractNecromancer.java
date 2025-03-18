@@ -12,10 +12,11 @@ import com.Polarice3.Goety.common.entities.ally.undead.skeleton.VanguardServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.common.entities.projectiles.SoulBolt;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.items.SoulJar;
+import com.Polarice3.Goety.common.items.revive.SoulJar;
 import com.Polarice3.Goety.common.magic.spells.SoulBoltSpell;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
@@ -223,6 +224,11 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
     }
 
     @Override
+    public int getSummonLimit(LivingEntity owner) {
+        return SpellConfig.NecromancerLimit.get();
+    }
+
+    @Override
     public int xpReward() {
         return 20;
     }
@@ -363,7 +369,10 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         if (this.getTrueOwner() != null && MobsConfig.NecromancerSoulJar.get()){
             ItemStack itemStack = new ItemStack(ModItems.SOUL_JAR.get());
             SoulJar.setOwnerName(this.getTrueOwner(), itemStack);
-            SoulJar.setNecromancer(this, itemStack);
+            SoulJar.setSummon(this, itemStack);
+            if (this instanceof DrownedNecromancer){
+                SoulJar.setDrowned(itemStack);
+            }
             ItemEntity itemEntity = this.spawnAtLocation(itemStack);
             if (itemEntity != null){
                 itemEntity.setExtendedLifetime();
@@ -529,6 +538,13 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                     this.addSummon(ModEntityType.WRAITH_SERVANT.get());
                     this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 1.0F, this.getVoicePitch());
                     return InteractionResult.SUCCESS;
+                } else if (/*this.getNecroLevel() > 0 && */!this.getSummonList().contains(ModEntityType.REAPER_SERVANT.get()) && item == ModItems.REAPING_FOCUS.get()){
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
+                    this.addSummon(ModEntityType.REAPER_SERVANT.get());
+                    this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 1.0F, this.getVoicePitch());
+                    return InteractionResult.SUCCESS;
                 } else if (/*this.getNecroLevel() > 1 && */!this.getSummonList().contains(ModEntityType.VANGUARD_SERVANT.get()) && item == ModItems.VANGUARD_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
@@ -579,6 +595,11 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         if (this.getSummonList().contains(ModEntityType.WRAITH_SERVANT.get())) {
             if (this.level.random.nextFloat() <= 0.05F) {
                 summoned = new WraithServant(ModEntityType.WRAITH_SERVANT.get(), this.level);
+            }
+        }
+        if (this.getSummonList().contains(ModEntityType.REAPER_SERVANT.get())) {
+            if (this.level.random.nextFloat() <= 0.05F) {
+                summoned = new WraithServant(ModEntityType.REAPER_SERVANT.get(), this.level);
             }
         }
         if (this.getSummonList().contains(ModEntityType.VANGUARD_SERVANT.get())){

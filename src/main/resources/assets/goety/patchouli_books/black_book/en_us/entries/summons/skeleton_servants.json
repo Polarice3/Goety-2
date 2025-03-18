@@ -77,6 +77,11 @@
       "type": "patchouli:text",
       "advancement": "goety:goety/read_bygone_scroll",
       "text": "After much research, you've found a way to call forth a former inhabitant of the Fortress, and bind it to your will. They inflict Wither on melee and shoot fire arrows when given a bow."
+    },
+    {
+      "type": "goety:ritual",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "recipe": "goety:thrall/summon_wither_skeleton_thrall"
     }
   ]
 }

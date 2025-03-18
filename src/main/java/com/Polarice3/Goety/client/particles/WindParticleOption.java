@@ -19,6 +19,7 @@ public class WindParticleOption implements ParticleOptions {
             Codec.FLOAT.fieldOf("blue").forGetter(d -> d.blue),
             Codec.FLOAT.fieldOf("width").forGetter(d -> d.width),
             Codec.FLOAT.fieldOf("height").forGetter(d -> d.height),
+            Codec.INT.fieldOf("life").forGetter(d -> d.life),
             Codec.INT.fieldOf("ownerId").forGetter(d -> d.ownerId)
     ).apply(instance, WindParticleOption::new));
     public static final Deserializer<WindParticleOption> DESERIALIZER = new Deserializer<WindParticleOption>() {
@@ -34,12 +35,14 @@ public class WindParticleOption implements ParticleOptions {
             reader.expect(' ');
             float height = reader.readFloat();
             reader.expect(' ');
+            int life = reader.readInt();
+            reader.expect(' ');
             int ownerId = reader.readInt();
-            return new WindParticleOption(red, green, blue, width, height, ownerId);
+            return new WindParticleOption(red, green, blue, width, height, life, ownerId);
         }
 
         public WindParticleOption fromNetwork(ParticleType<WindParticleOption> particleTypeIn, FriendlyByteBuf buffer) {
-            return new WindParticleOption(buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readInt());
+            return new WindParticleOption(buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readInt(), buffer.readInt());
         }
     };
     private final float red;
@@ -47,6 +50,7 @@ public class WindParticleOption implements ParticleOptions {
     private final float blue;
     private final float width;
     private final float height;
+    private final int life;
     private final int ownerId;
 
     public WindParticleOption(ColorUtil color, float width, float height, int ownerId) {
@@ -55,6 +59,27 @@ public class WindParticleOption implements ParticleOptions {
         this.blue = color.blue();
         this.width = width;
         this.height = height;
+        this.life = 0;
+        this.ownerId = ownerId;
+    }
+
+    public WindParticleOption(ColorUtil color, float width, float height, int life, int ownerId) {
+        this.red = color.red();
+        this.green = color.green();
+        this.blue = color.blue();
+        this.width = width;
+        this.height = height;
+        this.life = life;
+        this.ownerId = ownerId;
+    }
+
+    public WindParticleOption(float red, float green, float blue, float width, float height, int life, int ownerId) {
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
+        this.width = width;
+        this.height = height;
+        this.life = life;
         this.ownerId = ownerId;
     }
 
@@ -64,6 +89,7 @@ public class WindParticleOption implements ParticleOptions {
         this.blue = blue;
         this.width = width;
         this.height = height;
+        this.life = 0;
         this.ownerId = ownerId;
     }
 
@@ -73,12 +99,13 @@ public class WindParticleOption implements ParticleOptions {
         buffer.writeFloat(this.blue);
         buffer.writeFloat(this.width);
         buffer.writeFloat(this.height);
+        buffer.writeInt(this.life);
         buffer.writeInt(this.ownerId);
     }
 
     public String writeToString() {
-        return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f %.2f %d",
-                BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.red, this.green, this.blue, this.width, this.height, this.ownerId);
+        return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f %.2f %d %d",
+                BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.red, this.green, this.blue, this.width, this.height, this.life, this.ownerId);
     }
 
     public ParticleType<WindParticleOption> getType() {
@@ -103,6 +130,10 @@ public class WindParticleOption implements ParticleOptions {
 
     public float getHeight() {
         return this.height;
+    }
+
+    public int getLife() {
+        return this.life;
     }
 
     public int getOwnerId() {

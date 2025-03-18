@@ -6,12 +6,16 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.CreatureBowAttackGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.projectiles.GhostArrow;
+import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.compat.serene_seasons.SSeasonsIntegration;
 import com.Polarice3.Goety.compat.serene_seasons.SSeasonsLoaded;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.SpellConfig;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.ItemHelper;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -135,6 +139,11 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
         }
     }
 
+    @Override
+    public int getSummonLimit(LivingEntity owner) {
+        return SpellConfig.SkeletonLimit.get();
+    }
+
     public void setItemSlot(EquipmentSlot pSlot, ItemStack pStack) {
         super.setItemSlot(pSlot, pStack);
         if (!this.level.isClientSide) {
@@ -176,13 +185,15 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
         this.arrowPower += arrowPower;
     }
 
-    public EntityType<?> getVariant(Level level, BlockPos blockPos){
+    public EntityType<?> getVariant(@Nullable Player player, Level level, BlockPos blockPos){
         EntityType<?> entityType = ModEntityType.SKELETON_SERVANT.get();
         if (level instanceof ServerLevel serverLevel) {
             if (level.getBiome(blockPos).is(Tags.Biomes.IS_COLD_OVERWORLD) && level.canSeeSky(blockPos)) {
                 entityType = ModEntityType.STRAY_SERVANT.get();
             } else if (BlockFinder.findStructure(serverLevel, blockPos, BuiltinStructures.PILLAGER_OUTPOST)) {
                 entityType = ModEntityType.SKELETON_PILLAGER_SERVANT.get();
+            } else if (player != null && BlockFinder.findStructure(serverLevel, blockPos, ModTags.Structures.CAN_SUMMON_WITHER_SKELETONS) && SEHelper.hasResearch(player, ResearchList.BYGONE)) {
+                entityType = ModEntityType.WITHER_SKELETON_SERVANT.get();
             } else if (level.getBiome(blockPos).is(BiomeTags.IS_JUNGLE) && level.random.nextBoolean()) {
                 entityType = ModEntityType.MOSSY_SKELETON_SERVANT.get();
             } else if (level.isWaterAt(blockPos)) {

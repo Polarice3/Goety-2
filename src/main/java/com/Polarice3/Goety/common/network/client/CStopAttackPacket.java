@@ -39,7 +39,7 @@ public class CStopAttackPacket {
                                 if (mob.getLastHurtByMob() != target){
                                     mob.setLastHurtByMob(target);
                                 }
-                                entity.playSound(ModSounds.ROAR_SPELL.get(), 1.0F, 2.0F);
+                                entity.playSound(ModSounds.ROAR_SPELL.get(), 0.5F, 2.0F);
                                 serverLevel.broadcastEntityEvent(entity, (byte) 20);
                             } else {
                                 if (mob.getTarget() != null) {

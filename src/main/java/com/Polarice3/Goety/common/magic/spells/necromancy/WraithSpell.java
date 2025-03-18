@@ -19,6 +19,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 
@@ -101,7 +102,11 @@ public class WraithSpell extends SummonSpell {
             }
             for (int i1 = 0; i1 < i; ++i1) {
                 AbstractWraith summonedentity = new AbstractWraith(ModEntityType.WRAITH_SERVANT.get(), worldIn);
-                EntityType<?> entityType1 = summonedentity.getVariant(worldIn, caster.blockPosition());
+                Player player = null;
+                if (caster instanceof Player player1){
+                    player = player1;
+                }
+                EntityType<?> entityType1 = summonedentity.getVariant(player, worldIn, caster.blockPosition());
                 if (entityType1 != null) {
                     Entity entity = entityType1.create(worldIn);
                     if (entity instanceof AbstractWraith wraith){

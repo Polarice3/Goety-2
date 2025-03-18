@@ -55,6 +55,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> ReaperSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> WebSpiderSpawnWeight;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IcySpiderSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> NecromancerSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> HereticSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaverickSpawnWeight;
@@ -123,6 +124,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> NetherMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSoulJar;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSummonsLife;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WildfireBlazingHelm;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WildfireSummonsLife;
     public static final ForgeConfigSpec.ConfigValue<Boolean> BlackBeastDayStrength;
     public static final ForgeConfigSpec.ConfigValue<Boolean> BlackBeastHowlingSoul;
@@ -373,6 +375,8 @@ public class MobsConfig {
                     .defineInRange("netherMinionHealTime", 1, 0, Integer.MAX_VALUE);
             NetherMinionHealAmount = BUILDER.comment("How much Health Nether Servants heal, numerically, Default: 1.0")
                     .defineInRange("netherMinionHealAmount", 1.0, 0.0, Double.MAX_VALUE);
+            WildfireBlazingHelm = BUILDER.comment("Whether owned Wildfires drop Blazing Helms, Default: true")
+                    .define("wildfireBlazingHelm", true);
             WildfireSummonsLife = BUILDER.comment("Whether Wildfire's summons have limited lifespans, Default: true")
                     .define("wildfireSummonsLife", true);
             BUILDER.pop();
@@ -614,6 +618,8 @@ public class MobsConfig {
                 .defineInRange("wraithSpawnWeight", 20, 0, Integer.MAX_VALUE);
         WebSpiderSpawnWeight = BUILDER.comment("Spawn Weight for Web Spiders, Default: 40")
                 .defineInRange("webSpiderSpawnWeight", 40, 0, Integer.MAX_VALUE);
+        IcySpiderSpawnWeight = BUILDER.comment("Spawn Weight for Icy Spiders, Default: 40")
+                .defineInRange("icySpiderSpawnWeight", 40, 0, Integer.MAX_VALUE);
         NecromancerSpawnWeight = BUILDER.comment("Spawn Weight for Necromancer, Default: 1")
                 .defineInRange("necromancerSpawnWeight", 1, 0, Integer.MAX_VALUE);
         HereticSpawnWeight = BUILDER.comment("Spawn Weight for Heretic, Default: 5")
