@@ -27,7 +27,8 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
 
     @Override
     protected void addTags(HolderLookup.Provider p_255894_) {
-        this.tag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(ModEntityType.WRAITH.get(),
+        this.tag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(
+                ModEntityType.WRAITH.get(),
                 ModEntityType.WRAITH_SERVANT.get(),
                 ModEntityType.BORDER_WRAITH.get(),
                 ModEntityType.BORDER_WRAITH_SERVANT.get(),
@@ -38,7 +39,9 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.ICY_SPIDER_SERVANT.get(),
                 ModEntityType.POLAR_BEAR_SERVANT.get(),
                 ModEntityType.BOUND_ICEOLOGER.get(),
+                ModEntityType.ICY_SPIDER.get(),
                 ModEntityType.CAIRN_NECROMANCER.get(),
+                ModEntityType.CAIRN_NECROMANCER_SERVANT.get(),
                 ModEntityType.WIGHT.get(),
                 ModEntityType.BONE_LORD.get(),
                 ModEntityType.SKULL_LORD.get(),
@@ -47,11 +50,13 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.ICE_GOLEM.get(),
                 ModEntityType.CRYOLOGER.get(),
                 ModEntityType.GLACIAL_WALL.get());
-        this.tag(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES).add(ModEntityType.BLAZE_SERVANT.get(),
+        this.tag(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES).add(
+                ModEntityType.BLAZE_SERVANT.get(),
                 ModEntityType.WILDFIRE.get(),
                 ModEntityType.INFERNO.get(),
                 ModEntityType.MAGMA_CUBE_SERVANT.get());
-        this.tag(EntityTypeTags.POWDER_SNOW_WALKABLE_MOBS).add(ModEntityType.WRAITH.get(),
+        this.tag(EntityTypeTags.POWDER_SNOW_WALKABLE_MOBS).add(
+                ModEntityType.WRAITH.get(),
                 ModEntityType.WRAITH_SERVANT.get(),
                 ModEntityType.BORDER_WRAITH.get(),
                 ModEntityType.BORDER_WRAITH_SERVANT.get(),
@@ -59,16 +64,49 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.REAPER_SERVANT.get(),
                 ModEntityType.ICY_SPIDER_SERVANT.get(),
                 ModEntityType.BOUND_ICEOLOGER.get(),
+                ModEntityType.ICY_SPIDER.get(),
                 ModEntityType.ICE_GOLEM.get(),
                 ModEntityType.CRYOLOGER.get(),
                 ModEntityType.GLACIAL_WALL.get());
         this.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE).add(
+                ModEntityType.WRAITH.get(),
+                ModEntityType.WRAITH_SERVANT.get(),
+                ModEntityType.BORDER_WRAITH.get(),
+                ModEntityType.BORDER_WRAITH_SERVANT.get(),
+                ModEntityType.REAPER.get(),
+                ModEntityType.REAPER_SERVANT.get(),
                 ModEntityType.INFERNO.get(),
                 ModEntityType.MAGMA_CUBE_SERVANT.get(),
+                ModEntityType.MINI_GHAST.get(),
+                ModEntityType.GHAST_SERVANT.get(),
+                ModEntityType.MALGHAST.get(),
+                ModEntityType.WILDFIRE.get(),
+                ModEntityType.CRYPT_SLIME.get(),
+                ModEntityType.CRYPT_SLIME_SERVANT.get(),
+                ModEntityType.PHANTOM_SERVANT.get(),
+                ModEntityType.BOUND_EVOKER.get(),
+                ModEntityType.BOUND_ICEOLOGER.get(),
+                ModEntityType.BLACK_BEAST.get(),
+                ModEntityType.LEAPLEAF.get(),
+                ModEntityType.WIGHT.get(),
                 ModEntityType.CARRION_MAGGOT.get(),
                 ModEntityType.CARRION_FLY.get(),
-                ModEntityType.STORM_CASTER.get());
-        this.tag(EntityTypeTags.RAIDERS).add(ModEntityType.ARMORED_RAVAGER.get(),
+                ModEntityType.BROOD_MOTHER.get(),
+                ModEntityType.BROOD_MOTHER_SERVANT.get(),
+                ModEntityType.STORM_CASTER.get(),
+                ModEntityType.ICE_GOLEM.get(),
+                ModEntityType.GRAVE_GOLEM.get(),
+                ModEntityType.HAUNT.get(),
+                ModEntityType.REDSTONE_GOLEM.get(),
+                ModEntityType.HOSTILE_REDSTONE_GOLEM.get(),
+                ModEntityType.REDSTONE_MONSTROSITY.get(),
+                ModEntityType.HOSTILE_REDSTONE_MONSTROSITY.get(),
+                ModEntityType.SKULL_LORD.get(),
+                ModEntityType.BONE_LORD.get(),
+                ModEntityType.APOSTLE.get(),
+                ModEntityType.VIZIER.get());
+        this.tag(EntityTypeTags.RAIDERS).add(
+                ModEntityType.ARMORED_RAVAGER.get(),
                 ModEntityType.WARLOCK.get(),
                 ModEntityType.MAVERICK.get(),
                 ModEntityType.HERETIC.get(),
@@ -89,10 +127,12 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.HOSTILE_REDSTONE_MONSTROSITY.get(),
                 ModEntityType.APOSTLE.get(),
                 ModEntityType.VIZIER.get());
-        this.tag(EntityTypeTags.ARROWS).add(ModEntityType.GHOST_ARROW.get(),
+        this.tag(EntityTypeTags.ARROWS).add(
+                ModEntityType.GHOST_ARROW.get(),
                 ModEntityType.RAIN_ARROW.get(),
                 ModEntityType.DEATH_ARROW.get());
-        this.tag(EntityTypeTags.IMPACT_PROJECTILES).add(ModEntityType.SOUL_BOLT.get(),
+        this.tag(EntityTypeTags.IMPACT_PROJECTILES).add(
+                ModEntityType.SOUL_BOLT.get(),
                 ModEntityType.STEAM_MISSILE.get(),
                 ModEntityType.WITHER_BOLT.get(),
                 ModEntityType.HELL_BOLT.get(),
@@ -109,7 +149,8 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.LAVABALL.get(),
                 ModEntityType.HAUNTED_SKULL_SHOT.get(),
                 ModEntityType.MOD_WITHER_SKULL.get());
-        this.tag(EntityTypeTags.FROG_FOOD).add(ModEntityType.SLIME_SERVANT.get(),
+        this.tag(EntityTypeTags.FROG_FOOD).add(
+                ModEntityType.SLIME_SERVANT.get(),
                 ModEntityType.MAGMA_CUBE_SERVANT.get(),
                 ModEntityType.CRYPT_SLIME_SERVANT.get(),
                 ModEntityType.TROPICAL_SLIME_SERVANT.get(),
