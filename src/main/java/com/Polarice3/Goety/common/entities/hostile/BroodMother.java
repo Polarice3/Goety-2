@@ -1,9 +1,9 @@
 package com.Polarice3.Goety.common.entities.hostile;
 
-import com.Polarice3.Goety.common.entities.ally.spider.SpiderServant;
 import com.Polarice3.Goety.common.entities.neutral.AbstractBroodMother;
 import com.Polarice3.Goety.common.network.ModServerBossInfo;
 import com.Polarice3.Goety.config.MainConfig;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -17,7 +17,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -26,10 +25,10 @@ import net.minecraftforge.common.Tags;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class BroodMother extends AbstractBroodMother implements Enemy {
+public class BroodMother extends AbstractBroodMother {
     private final ModServerBossInfo bossInfo;
 
-    public BroodMother(EntityType<? extends SpiderServant> type, Level worldIn) {
+    public BroodMother(EntityType<? extends AbstractBroodMother> type, Level worldIn) {
         super(type, worldIn);
         this.bossInfo = new ModServerBossInfo(this, BossEvent.BossBarColor.RED, false, false);
         this.setHostile(true);
@@ -98,7 +97,7 @@ public class BroodMother extends AbstractBroodMother implements Enemy {
 
         for (Mob mob : list){
             if (mob.getTarget() == null && this.getLastHurtByMob() != null && !(this.getLastHurtByMob() instanceof Spider) && !MobUtil.areAllies(this.getLastHurtByMob(), this)) {
-                if (mob instanceof Spider && !mob.getType().is(Tags.EntityTypes.BOSSES) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(this.getLastHurtByMob())) {
+                if (mob instanceof Spider && !mob.getType().is(ModTags.EntityTypes.MINI_BOSSES) && !mob.getType().is(Tags.EntityTypes.BOSSES) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(this.getLastHurtByMob())) {
                     mob.setTarget(this.getLastHurtByMob());
                 }
             }

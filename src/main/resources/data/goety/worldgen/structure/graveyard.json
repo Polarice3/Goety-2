@@ -8,25 +8,31 @@
       "spawns": [
         {
           "type": "goety:wraith",
-          "weight": 200,
+          "weight": 20,
+          "minCount": 1,
+          "maxCount": 1
+        },
+        {
+          "type": "goety:reaper",
+          "weight": 20,
           "minCount": 1,
           "maxCount": 1
         },
         {
           "type": "minecraft:zombie",
-          "weight": 100,
+          "weight": 10,
           "minCount": 1,
           "maxCount": 1
         },
         {
           "type": "minecraft:skeleton",
-          "weight": 100,
+          "weight": 10,
           "minCount": 1,
           "maxCount": 1
         },
         {
           "type": "goety:border_wraith",
-          "weight": 50,
+          "weight": 5,
           "minCount": 1,
           "maxCount": 1
         }

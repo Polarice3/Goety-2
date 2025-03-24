@@ -207,6 +207,9 @@ public class ModRavager extends Summoned implements PlayerRideable, IAutoRideabl
         if (!this.isNoAi()) {
             Entity entity = this.getFirstPassenger();
             if (entity instanceof Mob mob){
+                if (MobsConfig.ServantRideAutonomous.get()){
+                    return null;
+                }
                 return mob;
             } else if (entity instanceof LivingEntity
                     && !this.isAutonomous()) {

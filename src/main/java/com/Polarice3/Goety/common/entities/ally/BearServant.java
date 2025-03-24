@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -204,6 +205,9 @@ public class BearServant extends AnimalSummon implements PlayerRideable, IAutoRi
         if (!this.isNoAi()) {
             Entity entity = this.getFirstPassenger();
             if (entity instanceof Mob mob){
+                if (MobsConfig.ServantRideAutonomous.get()){
+                    return null;
+                }
                 return mob;
             } else if (entity instanceof LivingEntity
                     && !this.isAutonomous()) {

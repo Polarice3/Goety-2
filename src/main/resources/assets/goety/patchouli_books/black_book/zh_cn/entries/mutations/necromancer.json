@@ -3,11 +3,10 @@
   "icon": "goety:necro_cape",
   "category": "goety:mutations",
   "advancement": "goety:goety/unlock_necromancer",
-  "secret": true,
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "卷轴包含一些关于授予或召唤一些死灵智慧的秘辛，允许你从骷髅中创造和指挥死灵法师。"
+      "text": "该卷轴包含一些关于向专业的死灵法师解惑的专业知识，允许召唤者从骷髅中创建和命令死灵巫师。"
     },
     {
       "type": "goety:ritual",
@@ -15,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "死灵法师不仅仅可以召唤僵尸。如果你将死灵系的召唤聚晶给予它，它就可以召唤更多类型的仆从。有传言说，用一罐灵魂喂养它们会增强它们的力量。。。"
+      "text": "可以教导死灵法师召唤的不仅仅是僵尸。使用特定的死灵类聚晶右键点击，能让他们召唤更多类型的仆从。空手右键点击他们，死灵法师就会为你召唤亡灵仆从。他们的治疗方式与普通骷髅仆从相同。"
     },
     {
       "type": "patchouli:entity",
@@ -28,9 +27,14 @@
     {
       "type": "patchouli:entity",
       "entity": "goety:cairn_necromancer_servant"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:soul_jar",
+      "text": "如果一名死灵法师死亡，而你拥有一个$(l:crafts/empty_soul_jar)空灵魂罐$()，那么它会使他们的灵魂填充进去，当在一个骷髅身上右键点击这个魂罐时，将使用该骷髅作为新的躯体来复活死灵法师。还有传言说，用另一个死灵法师的魂罐来喂养他们会增强其力量..."
     }
   ],
   "extra_recipe_mappings": {
-    "goety:soul_jar": 2
+    "goety:soul_jar": 6
   }
 }

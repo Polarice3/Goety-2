@@ -6,7 +6,7 @@ import net.minecraft.core.particles.ParticleType;
 public class ReverseShockwaveParticleOption extends ShockwaveParticleOption {
 
    public ReverseShockwaveParticleOption(ColorUtil colorUtil) {
-      super(colorUtil.red, colorUtil.green, colorUtil.blue);
+      super(colorUtil);
    }
 
    public ReverseShockwaveParticleOption(ColorUtil colorUtil, float size) {
@@ -17,12 +17,12 @@ public class ReverseShockwaveParticleOption extends ShockwaveParticleOption {
       super(colorUtil.red, colorUtil.green, colorUtil.blue, originSize, size, 0, true);
    }
 
-   public ReverseShockwaveParticleOption(ColorUtil colorUtil, float size, int speed) {
-      super(colorUtil.red, colorUtil.green, colorUtil.blue, size, speed, true);
+   public ReverseShockwaveParticleOption(ColorUtil colorUtil, float originSize, float size, int speed) {
+      super(colorUtil.red, colorUtil.green, colorUtil.blue, originSize, size, speed, 30, true);
    }
 
-   public ReverseShockwaveParticleOption(ColorUtil colorUtil, float originSize, float size, int speed) {
-      super(colorUtil.red, colorUtil.green, colorUtil.blue, originSize, size, speed, true);
+   public ReverseShockwaveParticleOption(ColorUtil colorUtil, float originSize, float size, int speed, int life) {
+      super(colorUtil.red, colorUtil.green, colorUtil.blue, originSize, size, speed, life, true);
    }
 
    public ParticleType<ShockwaveParticleOption> getType() {

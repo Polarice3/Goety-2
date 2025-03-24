@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.ModMeleeAttackGoal;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.common.entities.projectiles.FlyingItem;
 import com.Polarice3.Goety.common.entities.util.CameraShake;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.magic.TaglockKit;
@@ -49,7 +50,6 @@ import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Turtle;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
@@ -396,10 +396,11 @@ public class BlackBeast extends Summoned{
                 ItemStack itemStack = new ItemStack(ModItems.HOWLING_SOUL.get());
                 HowlingSoul.setOwnerName(this.getTrueOwner(), itemStack);
                 HowlingSoul.setSummon(this, itemStack);
-                ItemEntity itemEntity = this.spawnAtLocation(itemStack);
-                if (itemEntity != null){
-                    itemEntity.setExtendedLifetime();
-                }
+                FlyingItem flyingItem = new FlyingItem(ModEntityType.FLYING_ITEM.get(), this.level, this.getX(), this.getY(), this.getZ());
+                flyingItem.setOwner(this.getTrueOwner());
+                flyingItem.setItem(itemStack);
+                flyingItem.setParticle(ModParticleTypes.TOTEM_EFFECT.get());
+                this.level.addFreshEntity(flyingItem);
             }
             this.remove(RemovalReason.KILLED);
             this.dropExperience();

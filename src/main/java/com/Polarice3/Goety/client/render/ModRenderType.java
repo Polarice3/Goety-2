@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.client.render;
 
+import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.init.ModShaders;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -41,7 +42,7 @@ public class ModRenderType {
     protected static final RenderStateShard.WriteMaskStateShard COLOR_WRITE = new RenderStateShard.WriteMaskStateShard(true, false);
     private static final Function<ResourceLocation, RenderType> WRAITH = Util.memoize((p_173253_) -> {
         RenderStateShard.TextureStateShard renderstateshard$texturestateshard = new RenderStateShard.TextureStateShard(p_173253_, false, false);
-        return RenderType.create("wraith", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, false, RenderType.CompositeState.builder().setShaderState(RENDERTYPE_EYES_SHADER).setTextureState(renderstateshard$texturestateshard).setTransparencyState(ADDITIVE_TRANSPARENCY).setCullState(NO_CULL).setOverlayState(OVERLAY).setWriteMaskState(COLOR_WRITE).createCompositeState(false));
+        return RenderType.create(source("wraith"), DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, false, RenderType.CompositeState.builder().setShaderState(RENDERTYPE_EYES_SHADER).setTextureState(renderstateshard$texturestateshard).setTransparencyState(ADDITIVE_TRANSPARENCY).setCullState(NO_CULL).setOverlayState(OVERLAY).setWriteMaskState(COLOR_WRITE).createCompositeState(false));
     });
 
     public static RenderType wraith(ResourceLocation p_110459_) {
@@ -67,7 +68,7 @@ public class ModRenderType {
 
     private static final Function<ResourceLocation, RenderType> BEACON_BEAM = Util.memoize((p_173253_) -> {
         RenderStateShard.TextureStateShard renderstateshard$texturestateshard = new RenderStateShard.TextureStateShard(p_173253_, false, false);
-        return RenderType.create("magic_beam",
+        return RenderType.create(source("magic_beam"),
                 DefaultVertexFormat.POSITION_COLOR_TEX, VertexFormat.Mode.QUADS, 256, false, false,
                 RenderType.CompositeState.builder().setTextureState(renderstateshard$texturestateshard)
                         .setLayeringState(VIEW_OFFSET_Z_LAYERING)
@@ -96,10 +97,10 @@ public class ModRenderType {
             .setShaderState(POSITION_COLOR_SHADER)
             .setTransparencyState(LIGHTNING_TRANSPARENCY)
             .createCompositeState(false);
-    public static final RenderType LIGHTNING = RenderType.create("lightning", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, 256, false, true, LIGHTNING_STATE);
+    public static final RenderType LIGHTNING = RenderType.create(source("lightning"), DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, 256, false, true, LIGHTNING_STATE);
     protected static final RenderStateShard.ShaderStateShard HOLE_SHADER = new RenderStateShard.ShaderStateShard(ModShaders::getHoleShader);
 
-    private static final RenderType HOLE = RenderType.create("hole",
+    private static final RenderType HOLE = RenderType.create(source("hole"),
             DefaultVertexFormat.POSITION,
             VertexFormat.Mode.QUADS,
             256,
@@ -123,16 +124,32 @@ public class ModRenderType {
     protected static final RenderStateShard.DepthTestStateShard LEQUAL_DEPTH_TEST = new RenderStateShard.DepthTestStateShard("<=", 515);
 
     public static RenderType getWaterStream(ResourceLocation resourceLocation) {
-        return RenderType.create("water_stream", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder().setShaderState(RENDERTYPE_ENERGY_SWIRL_SHADER).setTextureState(new RenderStateShard.TextureStateShard(resourceLocation, false, true)).setLightmapState(LIGHTMAP).setCullState(NO_CULL).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setDepthTestState(LEQUAL_DEPTH_TEST).createCompositeState(true));
+        return RenderType.create(source("water_stream"), DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder().setShaderState(RENDERTYPE_ENERGY_SWIRL_SHADER).setTextureState(new RenderStateShard.TextureStateShard(resourceLocation, false, true)).setLightmapState(LIGHTMAP).setCullState(NO_CULL).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setDepthTestState(LEQUAL_DEPTH_TEST).createCompositeState(true));
     }
 
     private static final Function<ResourceLocation, RenderType> ORB_CENTER = Util.memoize((p_286170_) -> {
         RenderStateShard.TextureStateShard renderstateshard$texturestateshard = new RenderStateShard.TextureStateShard(p_286170_, false, false);
-        return RenderType.create("orb_center", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder().setShaderState(RENDERTYPE_EYES_SHADER).setTextureState(renderstateshard$texturestateshard).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setWriteMaskState(COLOR_WRITE).createCompositeState(false));
+        return RenderType.create(source("orb_center"), DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder().setShaderState(RENDERTYPE_EYES_SHADER).setTextureState(renderstateshard$texturestateshard).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setWriteMaskState(COLOR_WRITE).createCompositeState(false));
     });
 
     public static RenderType orbCenter(ResourceLocation p_110489_) {
         return ORB_CENTER.apply(p_110489_);
     }
 
+    private static final Function<ResourceLocation, RenderType> EYES = Util.memoize(
+            resourceLocation -> {
+                RenderStateShard.TextureStateShard textureStateShard = new RenderStateShard.TextureStateShard(resourceLocation, false, false);
+                return RenderType.create(
+                        source("eyes"), DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 1536, false, true, RenderType.CompositeState.builder().setShaderState(RENDERTYPE_EYES_SHADER).setTextureState(textureStateShard).createCompositeState(false)
+                );
+            }
+    );
+
+    public static RenderType eyes(ResourceLocation p_110489_) {
+        return EYES.apply(p_110489_);
+    }
+
+    private static String source(String name) {
+        return Goety.MOD_ID + ":" + name;
+    }
 }

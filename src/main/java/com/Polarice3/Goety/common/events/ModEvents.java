@@ -910,6 +910,17 @@ public class ModEvents {
                         event.setCanceled(true);
                     }
                 }
+                if (!(mobAttacker instanceof Enemy)
+                        && target instanceof IOwned owned && owned instanceof Enemy && !owned.isHostile()
+                        && target instanceof Mob mob && mob.getTarget() != mobAttacker
+                        && !(mobAttacker instanceof OwnableEntity ownable && ownable.getOwner() != null && ((ownable.getOwner().getLastHurtByMob() == target) || (ownable.getOwner() instanceof Mob mob1 && mob1.getTarget() == target)))
+                        && mobAttacker.getLastHurtByMob() != target){
+                    if (event.getTargetType() == MOB_TARGET) {
+                        event.setNewTarget(null);
+                    } else {
+                        event.setCanceled(true);
+                    }
+                }
             }
         }
     }
@@ -1204,6 +1215,7 @@ public class ModEvents {
             if (killed instanceof AbstractIllager illager){
                 if (!illager.getType().getDescriptionId().contains("magispeller")
                         && !illager.getType().getDescriptionId().contains("faker")
+                        && !illager.getType().getDescriptionId().contains("freakager")
                         && !illager.getType().getDescriptionId().contains("spiritcaller")) {
                     for (Apostle apostle : world.getEntitiesOfClass(Apostle.class, illager.getBoundingBox().inflate(32))) {
                         if (apostle.hasLineOfSight(illager)) {

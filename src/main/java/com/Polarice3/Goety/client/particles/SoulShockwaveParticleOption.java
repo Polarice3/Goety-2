@@ -6,7 +6,7 @@ import net.minecraft.core.particles.ParticleType;
 public class SoulShockwaveParticleOption extends ShockwaveParticleOption {
 
    public SoulShockwaveParticleOption() {
-      super(new ColorUtil(0x2ac9cf).red, new ColorUtil(0x2ac9cf).green, new ColorUtil(0x2ac9cf).blue);
+      super(new ColorUtil(0x2ac9cf));
    }
 
    public ParticleType<ShockwaveParticleOption> getType() {

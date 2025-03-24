@@ -1,0 +1,29 @@
+{
+  "name": "凋灵死灵法师",
+  "icon": "goety:nether_staff",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/unlock_necromancer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你发现了一种比普通死灵法师更强大的变体，它浑身燃烧着下界之焰，从地面喷射出火焰束并使敌人凋零。与普通骷髅不同的是，这种仪式是在凋灵骷髅身上施展的。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_wither_skeleton_to_wither_necromancer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "和普通的死灵法师很相似的是，他们可以召唤的不仅仅有凋灵骷髅。使用特定的死灵类聚晶右键点击，能让他们召唤更多类型的仆从。空手右键点击他们，会让死灵法师为你召唤不死仆从。他们的治疗方式和普通凋灵骷髅仆从相同。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wither_necromancer_servant"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:soul_jar{Wither: 1b}",
+      "text": "如果一个凋灵死灵法师死亡，而你拥有一个$(l:crafts/empty_soul_jar)空灵魂罐$()，那么它会使他们的灵魂填充进去,当在一个凋灵骷髅身上右键点击这个灵魂罐时，将使用该凋灵骷髅作为新的躯体来复活凋零死灵法师。"
+    }
+  ]
+}

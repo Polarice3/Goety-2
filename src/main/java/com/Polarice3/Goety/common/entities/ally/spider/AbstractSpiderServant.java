@@ -547,9 +547,10 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
     public int getExperienceReward() {
         if (this.isHostile()) {
             this.xpReward = this.xpReward();
+            return super.getExperienceReward();
         }
 
-        return super.getExperienceReward();
+        return 0;
     }
 
     public int xpReward(){

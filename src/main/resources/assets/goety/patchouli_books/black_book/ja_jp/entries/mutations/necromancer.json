@@ -3,11 +3,10 @@
   "icon": "goety:necro_cape",
   "category": "goety:mutations",
   "advancement": "goety:goety/unlock_necromancer",
-  "secret": true,
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "この巻物には、長い間病んでいた人々に知性を与える、または呼び出すことに関する指示が含まれており、スケルトンからアンデッドのネクロマンサーを作成して指揮できるようになります。"
+      "text": "この巻物には、長い間病に苦しんでいる者に知性を与える、または呼び起こすための指示がいくつか含まれており、スケルトンからアンデッドのネクロマンサーを作成して命令することができます。"
     },
     {
       "type": "goety:ritual",
@@ -15,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "ネクロマンサーは、ゾンビ以外の召喚方法も教えることができます。 特定のネクロマンシー フォーカスを右クリックすると、より多くの種類のサーヴァントを召喚できます。 魂の入った壺を食べさせると力が増すという噂があるが…。"
+      "text": "ネクロマンサーにはゾンビ以外の召喚も教えることができます。対応している特定のネクロマンシーフォーカスで右クリックすると、より多くの種類の従者を召喚できます。何も持っていない手で右クリックすると、ネクロマンサーがアンデッドの従者を召喚します。アンデッドの従者は通常のスケルトンの従者と同じ方法で回復します。"
     },
     {
       "type": "patchouli:entity",
@@ -28,9 +27,14 @@
     {
       "type": "patchouli:entity",
       "entity": "goety:cairn_necromancer_servant"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:soul_jar",
+      "text": "ネクロマンサーが倒れた場合、$(l:crafts/empty_soul_jar)空のソウルの瓶$() があれば魂が瓶に満たされ、スケルトンを右クリックすると、そのスケルトンを新しい媒体として蘇生します。また、他のネクロマンサーにその瓶を与えると力が増すという噂もあります..."
     }
   ],
   "extra_recipe_mappings": {
-    "goety:soul_jar": 2
+    "goety:soul_jar": 6
   }
 }

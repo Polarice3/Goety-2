@@ -23,7 +23,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "goety:soul_jar{Drowned: 1b}",
-      "text": "Should a Drowned Necromancer fall, they will drop their special Soul Jar, which, when right-clicked on a Drowned, will revive them using said Drowned as their new body."
+      "text": "Should a Drowned Necromancer fall, having an $(l:crafts/empty_soul_jar)Empty Soul Jar$() will cause their soul to fill it, which, when right-clicked on a Drowned, will revive them using said Drowned as their new body."
     }
   ],
   "extra_recipe_mappings": {

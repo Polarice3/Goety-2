@@ -11,6 +11,7 @@ import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.CSetDeltaMovement;
 import com.Polarice3.Goety.common.network.client.CTramplerPacket;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.client.player.LocalPlayer;
@@ -209,6 +210,9 @@ public class AllyTrampler extends Summoned implements ICharger, IAutoRideable, P
         if (!this.isNoAi()) {
             Entity entity = this.getFirstPassenger();
             if (entity instanceof Mob mob){
+                if (MobsConfig.ServantRideAutonomous.get()){
+                    return null;
+                }
                 return mob;
             } else if (entity instanceof LivingEntity
                     && !this.isAutonomous()) {

@@ -179,6 +179,9 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
         if (!this.isNoAi()) {
             Entity entity = this.getFirstPassenger();
             if (entity instanceof Mob mob){
+                if (MobsConfig.ServantRideAutonomous.get()){
+                    return null;
+                }
                 return mob;
             } else if (entity instanceof LivingEntity
                     && !this.isAutonomous()) {

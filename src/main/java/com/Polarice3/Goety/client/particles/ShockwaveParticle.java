@@ -15,11 +15,11 @@ public class ShockwaveParticle extends GroundCircleParticle {
    private boolean fade;
    private final boolean reverse;
 
-   ShockwaveParticle(ClientLevel p_233976_, double p_233977_, double p_233978_, double p_233979_, float red, float green, float blue, boolean reverse) {
+   ShockwaveParticle(ClientLevel p_233976_, double p_233977_, double p_233978_, double p_233979_, float red, float green, float blue, int life, boolean reverse) {
       super(p_233976_, p_233977_, p_233978_, p_233979_, 0.0D, 0.0D, 0.0D);
       this.quadSize = 10.0F;
       this.originSize = this.quadSize * 2.0F;
-      this.lifetime = 30;
+      this.lifetime = life;
       this.gravity = 0.0F;
       this.xd = 0.0D;
       this.yd = 0.0D;
@@ -30,8 +30,8 @@ public class ShockwaveParticle extends GroundCircleParticle {
       this.reverse = reverse;
    }
 
-   ShockwaveParticle(ClientLevel p_233976_, double p_233977_, double p_233978_, double p_233979_, float red, float green, float blue){
-      this(p_233976_, p_233977_, p_233978_, p_233979_, red, green, blue, false);
+   ShockwaveParticle(ClientLevel p_233976_, double p_233977_, double p_233978_, double p_233979_, float red, float green, float blue, int life){
+      this(p_233976_, p_233977_, p_233978_, p_233979_, red, green, blue, life, false);
    }
 
    public float getQuadSize(float partialTicks) {
@@ -75,7 +75,7 @@ public class ShockwaveParticle extends GroundCircleParticle {
       }
 
       public Particle createParticle(ShockwaveParticleOption p_234019_, ClientLevel p_234020_, double p_234021_, double p_234022_, double p_234023_, double p_234024_, double p_234025_, double p_234026_) {
-         ShockwaveParticle shockwaveParticle = new ShockwaveParticle(p_234020_, p_234021_, p_234022_, p_234023_, p_234019_.getRed(), p_234019_.getGreen(), p_234019_.getBlue());
+         ShockwaveParticle shockwaveParticle = new ShockwaveParticle(p_234020_, p_234021_, p_234022_, p_234023_, p_234019_.getRed(), p_234019_.getGreen(), p_234019_.getBlue(), p_234019_.getLife());
          shockwaveParticle.speed = p_234019_.getSpeed();
          shockwaveParticle.fade = p_234019_.isFade();
          shockwaveParticle.originSize = p_234019_.getOriginSize();
@@ -94,7 +94,7 @@ public class ShockwaveParticle extends GroundCircleParticle {
       }
 
       public Particle createParticle(ShockwaveParticleOption p_234019_, ClientLevel p_234020_, double p_234021_, double p_234022_, double p_234023_, double p_234024_, double p_234025_, double p_234026_) {
-         ShockwaveParticle shockwaveParticle = new ShockwaveParticle(p_234020_, p_234021_, p_234022_, p_234023_, p_234019_.getRed(), p_234019_.getGreen(), p_234019_.getBlue(), true);
+         ShockwaveParticle shockwaveParticle = new ShockwaveParticle(p_234020_, p_234021_, p_234022_, p_234023_, p_234019_.getRed(), p_234019_.getGreen(), p_234019_.getBlue(), p_234019_.getLife(), true);
          shockwaveParticle.speed = p_234019_.getSpeed();
          shockwaveParticle.fade = p_234019_.isFade();
          shockwaveParticle.originSize = p_234019_.getOriginSize();

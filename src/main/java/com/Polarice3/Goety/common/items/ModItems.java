@@ -119,6 +119,7 @@ public class ModItems {
     public static final RegistryObject<Item> ILL_BOMB = ITEMS.register("ill_bomb", IllBombItem::new);
     public static final RegistryObject<Item> CRYPTIC_EYE = ITEMS.register("cryptic_eye", CrypticEyeItem::new);
     public static final RegistryObject<Item> COMMAND_HORN = ITEMS.register("command_horn", CommandHorn::new);
+    public static final RegistryObject<Item> EMPTY_SOUL_JAR = ITEMS.register("empty_soul_jar", ItemBase::new);
     public static final RegistryObject<Item> SOUL_JAR = ITEMS.register("soul_jar", SoulJar::new);
     public static final RegistryObject<Item> HOWLING_SOUL = ITEMS.register("howling_soul", HowlingSoul::new);
     public static final RegistryObject<Item> BLAZING_HELM = ITEMS.register("blazing_helm", BlazingHelm::new);

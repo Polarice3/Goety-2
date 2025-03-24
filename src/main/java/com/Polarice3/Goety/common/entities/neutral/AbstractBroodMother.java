@@ -6,11 +6,13 @@ import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.ModMeleeAttackGoal;
+import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.spider.SpiderServant;
 import com.Polarice3.Goety.common.entities.projectiles.WebShot;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.CSetDeltaMovement;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
@@ -23,6 +25,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
@@ -30,16 +33,21 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
@@ -49,7 +57,10 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
-public class AbstractBroodMother extends SpiderServant implements IAutoRideable, PlayerRideableJumping, RiderShieldingMount, RangedAttackMob {
+public class AbstractBroodMother extends Summoned implements IAutoRideable, PlayerRideableJumping, RiderShieldingMount, RangedAttackMob {
+    private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(AbstractBroodMother.class, EntityDataSerializers.BYTE);
+    private static final UUID DETECTION_MODIFIER_UUID = UUID.fromString("858f6b2f-73e3-45a0-8bef-bb31e0d55be4");
+    public static final AttributeModifier DETECTION_MODIFIER = new AttributeModifier(DETECTION_MODIFIER_UUID, "Light Is Blinding", -1.0D, AttributeModifier.Operation.ADDITION);
     private static final EntityDataAccessor<Integer> ATTACK_TYPE = SynchedEntityData.defineId(AbstractBroodMother.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(AbstractBroodMother.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> AUTO_MODE = SynchedEntityData.defineId(AbstractBroodMother.class, EntityDataSerializers.BOOLEAN);
@@ -89,7 +100,7 @@ public class AbstractBroodMother extends SpiderServant implements IAutoRideable,
     public AnimationState jumpAnimationState = new AnimationState();
     public AnimationState deathAnimationState = new AnimationState();
 
-    public AbstractBroodMother(EntityType<? extends SpiderServant> type, Level worldIn) {
+    public AbstractBroodMother(EntityType<? extends Summoned> type, Level worldIn) {
         super(type, worldIn);
     }
 
@@ -99,6 +110,11 @@ public class AbstractBroodMother extends SpiderServant implements IAutoRideable,
         this.goalSelector.addGoal(0, new ChargeGoal());
         this.goalSelector.addGoal(1, new BackOffGoal());
         this.goalSelector.addGoal(1, new SummonSpiders());
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 140.0F));
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Mob.class, 140.0F));
+        this.goalSelector.addGoal(5, new WanderGoal<>(this, 0.8D));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.attackGoal();
     }
 
     public void attackGoal(){
@@ -166,6 +182,7 @@ public class AbstractBroodMother extends SpiderServant implements IAutoRideable,
 
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(DATA_FLAGS_ID, (byte)0);
         this.entityData.define(ATTACK_TYPE, 0);
         this.entityData.define(ANIM_STATE, 0);
         this.entityData.define(AUTO_MODE, false);
@@ -244,6 +261,10 @@ public class AbstractBroodMother extends SpiderServant implements IAutoRideable,
         }
     }
 
+    public MobType getMobType() {
+        return MobType.ARTHROPOD;
+    }
+
     @Override
     public int getSummonLimit(LivingEntity owner) {
         return SpellConfig.BroodMotherLimit.get();
@@ -251,6 +272,22 @@ public class AbstractBroodMother extends SpiderServant implements IAutoRideable,
 
     public int xpReward() {
         return 20;
+    }
+
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.SPIDER_AMBIENT;
+    }
+
+    protected SoundEvent getHurtSound(DamageSource p_33814_) {
+        return SoundEvents.SPIDER_HURT;
+    }
+
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.SPIDER_DEATH;
+    }
+
+    protected void playStepSound(BlockPos p_33804_, BlockState p_33805_) {
+        this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
     }
 
     public void setAnimationState(String input) {
@@ -331,6 +368,9 @@ public class AbstractBroodMother extends SpiderServant implements IAutoRideable,
         if (!this.isNoAi()) {
             Entity entity = this.getFirstPassenger();
             if (entity instanceof Mob mob){
+                if (MobsConfig.ServantRideAutonomous.get()){
+                    return null;
+                }
                 return mob;
             } else if (entity instanceof LivingEntity livingEntity
                     && this.notClientAttacking()
@@ -352,7 +392,7 @@ public class AbstractBroodMother extends SpiderServant implements IAutoRideable,
 
     @Override
     public boolean canBeAffected(MobEffectInstance instance) {
-        if (instance.getEffect() == GoetyEffects.ACID_VENOM.get()) {
+        if (instance.getEffect() == GoetyEffects.ACID_VENOM.get() || instance.getEffect() == MobEffects.POISON) {
             net.minecraftforge.event.entity.living.MobEffectEvent.Applicable event = new net.minecraftforge.event.entity.living.MobEffectEvent.Applicable(this, instance);
             net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event);
             return event.getResult() == net.minecraftforge.eventbus.api.Event.Result.ALLOW;
@@ -391,7 +431,7 @@ public class AbstractBroodMother extends SpiderServant implements IAutoRideable,
 
     @Override
     public boolean isStaying() {
-        return super.isStaying() || (this.getFirstPassenger() instanceof IServant servant && servant.isStaying());
+        return super.isStaying() || (this.getControllingPassenger() instanceof IServant servant && servant.isStaying());
     }
 
     public int getAttackType() {
@@ -462,6 +502,24 @@ public class AbstractBroodMother extends SpiderServant implements IAutoRideable,
     @Override
     public void tick() {
         super.tick();
+        if (!this.level.isClientSide) {
+            this.setClimbing(this.horizontalCollision);
+            AttributeInstance modifiableattributeinstance = this.getAttribute(Attributes.FOLLOW_RANGE);
+            if (MobUtil.isInBrightLight(this)){
+                if (modifiableattributeinstance != null) {
+                    if (this.getAttribute(Attributes.FOLLOW_RANGE) != null) {
+                        modifiableattributeinstance.removeModifier(DETECTION_MODIFIER);
+                        modifiableattributeinstance.addTransientModifier(DETECTION_MODIFIER);
+                    }
+                }
+            } else {
+                if (modifiableattributeinstance != null) {
+                    if (modifiableattributeinstance.hasModifier(DETECTION_MODIFIER)) {
+                        modifiableattributeinstance.removeModifier(DETECTION_MODIFIER);
+                    }
+                }
+            }
+        }
         if (this.summonCooldown > 0) {
             --this.summonCooldown;
         }
@@ -648,6 +706,32 @@ public class AbstractBroodMother extends SpiderServant implements IAutoRideable,
         } else {
             this.hurt(this.damageSources().starve(), Float.MAX_VALUE);
         }
+    }
+
+    public boolean onClimbable() {
+        return this.isClimbing();
+    }
+
+    public boolean isClimbing() {
+        return (this.entityData.get(DATA_FLAGS_ID) & 1) != 0;
+    }
+
+    public void setClimbing(boolean p_33820_) {
+        byte b0 = this.entityData.get(DATA_FLAGS_ID);
+        if (p_33820_) {
+            b0 = (byte)(b0 | 1);
+        } else {
+            b0 = (byte)(b0 & -2);
+        }
+
+        this.entityData.set(DATA_FLAGS_ID, b0);
+    }
+
+    public void makeStuckInBlock(BlockState p_33796_, Vec3 p_33797_) {
+        if (!p_33796_.is(Blocks.COBWEB) && !p_33796_.is(Blocks.AIR)) {
+            super.makeStuckInBlock(p_33796_, p_33797_);
+        }
+
     }
 
     @Override

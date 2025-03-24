@@ -15,7 +15,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -79,7 +78,7 @@ public class ServantSpawnEggItem extends ForgeSpawnEggItem {
             EntityType<?> entitytype = this.getType(itemstack.getTag());
             Entity entity = entitytype.spawn(serverLevel, itemstack, p_43223_.getPlayer(), blockpos1, MobSpawnType.SPAWN_EGG, true, !Objects.equals(blockpos, blockpos1) && direction == Direction.UP);
             if (entity != null) {
-                if (player != null && entity instanceof IOwned owned && !(owned instanceof Enemy)){
+                if (player != null && entity instanceof IOwned owned && !owned.isHostile()){
                     if (player.isCrouching()){
                         owned.setTrueOwner(player);
                         if (owned instanceof Mob mob){
@@ -112,7 +111,7 @@ public class ServantSpawnEggItem extends ForgeSpawnEggItem {
                 if (entity == null) {
                     return InteractionResultHolder.pass(itemstack);
                 } else {
-                    if (entity instanceof IOwned owned && !(owned instanceof Enemy)){
+                    if (entity instanceof IOwned owned && !owned.isHostile()){
                         if (p_43226_.isCrouching()){
                             owned.setTrueOwner(p_43226_);
                             if (owned instanceof Mob mob){

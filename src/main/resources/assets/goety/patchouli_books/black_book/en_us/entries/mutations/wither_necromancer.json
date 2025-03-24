@@ -1,0 +1,29 @@
+{
+  "name": "Wither Necromancer",
+  "icon": "goety:nether_staff",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/unlock_necromancer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You've discovered a more powerful variant of regular Necromancers, one that burns with the fires of the Nether, shooting jets of flames from the ground and withers their foes. Rather than regular Skeletons, the ritual is performed on a Wither Skeleton instead."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_wither_skeleton_to_wither_necromancer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Much like regular Necromancers, they can be taught to summon more than just Wither Skeletons. Right-clicking with certain Necromancy Focuses allows them to summon more types of servants. Right-clicking on them with an empty hand will cause the Necromancer to summon Undead Servants for you. They are healed the same way as regular Wither Skeleton Servants."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wither_necromancer_servant"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:soul_jar{Wither: 1b}",
+      "text": "Should a Wither Necromancer fall, having an $(l:crafts/empty_soul_jar)Empty Soul Jar$() will cause their soul to fill it, which, when right-clicked on a Wither Skeleton, will revive them using said Wither Skeleton as their new body."
+    }
+  ]
+}

@@ -1,56 +1,48 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.ally.spider.AbstractSpiderServant;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
-public class Wartling extends Summoned {
-    private static final EntityDataAccessor<Byte> CLIMBING = SynchedEntityData.defineId(Wartling.class, EntityDataSerializers.BYTE);
+public class Wartling extends AbstractSpiderServant {
     private static final EntityDataAccessor<Boolean> MEGA = SynchedEntityData.defineId(Wartling.class, EntityDataSerializers.BOOLEAN);
     private int searchTime;
     private MobEffectInstance effect;
 
-    public Wartling(EntityType<? extends Summoned> p_33002_, Level p_33003_) {
+    public Wartling(EntityType<? extends Wartling> p_33002_, Level p_33003_) {
         super(p_33002_, p_33003_);
     }
 
     public void tick() {
         if (!this.level.isClientSide) {
             ServerLevel serverLevel = (ServerLevel) this.level;
-            this.setClimbing(this.horizontalCollision);
             if (this.getStoredEffect() != null){
                 int i = getColor(this.getStoredEffect());
                 if (i > 0) {
@@ -97,13 +89,8 @@ public class Wartling extends Summoned {
         return 1;
     }
 
-    protected PathNavigation createNavigation(Level worldIn) {
-        return new WallClimberNavigation(this, worldIn);
-    }
-
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(CLIMBING, (byte)0);
         this.entityData.define(MEGA, false);
     }
 
@@ -135,24 +122,8 @@ public class Wartling extends Summoned {
         super.onSyncedDataUpdated(p_33134_);
     }
 
-    protected SoundEvent getAmbientSound() {
-        return SoundEvents.SPIDER_AMBIENT;
-    }
-
     public float getVoicePitch() {
         return super.getVoicePitch() * 1.5F;
-    }
-
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.SPIDER_HURT;
-    }
-
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.SPIDER_DEATH;
-    }
-
-    protected void playStepSound(BlockPos pos, BlockState blockIn) {
-        this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
     }
 
     public boolean isMega(){
@@ -172,21 +143,6 @@ public class Wartling extends Summoned {
         }
     }
 
-    public boolean onClimbable() {
-        return this.isBesideClimbableBlock();
-    }
-
-    public void makeStuckInBlock(BlockState state, Vec3 motionMultiplierIn) {
-        if (!state.is(Blocks.COBWEB)) {
-            super.makeStuckInBlock(state, motionMultiplierIn);
-        }
-
-    }
-
-    public MobType getMobType() {
-        return MobType.ARTHROPOD;
-    }
-
     protected void pushEntities() {
     }
 
@@ -199,10 +155,6 @@ public class Wartling extends Summoned {
 
     public boolean canCollideWith(Entity p_20303_) {
         return p_20303_ != this.getTrueOwner();
-    }
-
-    public boolean canBeCollidedWith() {
-        return false;
     }
 
     @Override
@@ -273,11 +225,6 @@ public class Wartling extends Summoned {
     }
 
     public boolean canBeAffected(MobEffectInstance potionEffectIn) {
-        if (potionEffectIn.getEffect() == MobEffects.POISON) {
-            net.minecraftforge.event.entity.living.MobEffectEvent.Applicable event = new net.minecraftforge.event.entity.living.MobEffectEvent.Applicable(this, potionEffectIn);
-            net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event);
-            return event.getResult() == net.minecraftforge.eventbus.api.Event.Result.ALLOW;
-        }
         if (this.getStoredEffect() != null){
             return potionEffectIn.getEffect() != this.getStoredEffect().getEffect() && super.canBeAffected(potionEffectIn);
         }
@@ -317,21 +264,6 @@ public class Wartling extends Summoned {
                 return (int)f << 16 | (int)f1 << 8 | (int)f2;
             }
         }
-    }
-
-    public boolean isBesideClimbableBlock() {
-        return (this.entityData.get(CLIMBING) & 1) != 0;
-    }
-
-    public void setClimbing(boolean climbing) {
-        byte b0 = this.entityData.get(CLIMBING);
-        if (climbing) {
-            b0 = (byte)(b0 | 1);
-        } else {
-            b0 = (byte)(b0 & -2);
-        }
-
-        this.entityData.set(CLIMBING, b0);
     }
 
     public void handleEntityEvent(byte p_34138_) {

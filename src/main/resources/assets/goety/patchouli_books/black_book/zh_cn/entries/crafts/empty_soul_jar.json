@@ -1,0 +1,16 @@
+{
+  "name": "空灵魂罐",
+  "icon": "goety:empty_soul_jar",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/unlock_necromancer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "有了一些阴影石，你就能够制造一个罐子，这个罐子可以容纳某些仆从的灵魂，当用于某些实体时，可使其复活。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:empty_soul_jar"
+    }
+  ]
+}

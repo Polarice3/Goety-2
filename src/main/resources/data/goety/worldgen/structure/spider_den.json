@@ -8,19 +8,19 @@
       "spawns": [
         {
           "type": "minecraft:spider",
-          "weight": 200,
+          "weight": 20,
           "minCount": 1,
           "maxCount": 1
         },
         {
           "type": "minecraft:cave_spider",
-          "weight": 100,
+          "weight": 10,
           "minCount": 1,
           "maxCount": 1
         },
         {
           "type": "goety:web_spider",
-          "weight": 100,
+          "weight": 10,
           "minCount": 1,
           "maxCount": 1
         }

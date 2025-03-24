@@ -1,0 +1,29 @@
+{
+  "name": "ウィザーネクロマンサー",
+  "icon": "goety:nether_staff",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/unlock_necromancer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "通常のネクロマンサーのより強力な亜種を発見しました。ネザーの炎で燃え、地面から炎を噴射して敵を枯らす者です。通常のスケルトンではなく、ウィザースケルトンに対して儀式が行われます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_wither_skeleton_to_wither_necromancer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "通常のネクロマンサーと同様に、ウィザースケルトン以外の召喚方法も教えることができます。ある特定のネクロマンシーフォーカスで右クリックすると、より多くの種類の従者を召喚できます。何も持っていない手で右クリックすると、ネクロマンサーがアンデッドの従者を召喚します。アンデッドの従者は通常のウィザースケルトンの従者と同じ方法で回復します。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wither_necromancer_servant"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:soul_jar{Wither: 1b}",
+      "text": "ウィザーネクロマンサーが倒れた場合、$(l:crafts/empty_soul_jar)空のソウルの瓶$()があれば魂が満たされ、ウィザースケルトンを右クリックすると、そのウィザースケルトンを新しい媒体として復活します。"
+    }
+  ]
+}

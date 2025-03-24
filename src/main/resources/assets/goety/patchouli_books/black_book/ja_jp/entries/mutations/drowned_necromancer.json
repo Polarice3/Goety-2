@@ -1,0 +1,32 @@
+{
+  "name": "ドラウンドネクロマンサー",
+  "icon": "goety:abyss_staff",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/unlock_necromancer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "通常のネクロマンサーのより強力な亜種を発見しました。肉体を保持し、海上で大きな力を持ち、蒸気ミサイルの奔流を発射し、落下するトライデントを周囲に召喚します。スケルトンではなく、ドラウンドに対して儀式が行われます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_drowned_to_drowned_necromancer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "通常のネクロマンサーと同様に、彼らにドラウンド以外の召喚を教えることができます。ある特定のネクロマンシーフォーカスで右クリックすると、より多くの種類の従者を召喚できます。何も持っていない手で右クリックすると、ネクロマンサーがアンデッドの従者を召喚します。アンデッドの従者は通常のドラウンドの従者と同じ方法で回復します。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:drowned_necromancer_servant"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:soul_jar{Drowned: 1b}",
+      "text": "ドラウンドネクロマンサーが倒れた場合、$(l:crafts/empty_soul_jar)空のソウルの瓶$() があれば魂が瓶に満たされ、ドラウンドを右クリックすると、そのドラウンドを新しい媒体として蘇生します。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:soul_jar{Drowned: 1b}": 4
+  }
+}

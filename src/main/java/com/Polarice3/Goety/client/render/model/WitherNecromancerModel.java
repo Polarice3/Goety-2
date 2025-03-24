@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.client.render.animation.NecromancerAnimations;
-import com.Polarice3.Goety.common.entities.hostile.WitherNecromancer;
+import com.Polarice3.Goety.common.entities.neutral.AbstractWitherNecromancer;
 import com.Polarice3.Goety.utils.MathHelper;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -10,7 +10,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 
-public class WitherNecromancerModel<T extends WitherNecromancer> extends HierarchicalModel<T> {
+public class WitherNecromancerModel<T extends AbstractWitherNecromancer> extends HierarchicalModel<T> {
 	public final ModelPart root;
 	public final ModelPart skeleton;
 	public final ModelPart body;

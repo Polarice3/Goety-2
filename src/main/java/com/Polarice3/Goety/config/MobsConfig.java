@@ -89,7 +89,9 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> SpiderServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CaveSpiderServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WebSpiderServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> IcySpiderServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> BoneSpiderServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> BroodMotherOldTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> SlimeServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MagmaCubeServantTexture;
@@ -111,6 +113,7 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> ServantTeleport;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VexTeleport;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ServantRideAutonomous;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ServantsAttackCreepers;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecroRobeUndead;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VariousRobeWitch;
@@ -208,6 +211,8 @@ public class MobsConfig {
         BUILDER.push("Textures");
         HolidaySkins = BUILDER.comment("If certain mobs have a different texture during some holiday months, Default: true")
                 .define("holidaySkins", true);
+        BroodMotherOldTexture = BUILDER.comment("If Brood Mothers uses their old textures, Default: false")
+                .define("broodMotherOldTexture", false);
             BUILDER.push("Summoned Mobs");
                 BUILDER.push("Zombie Servants");
                 ZombieServantTexture = BUILDER.comment("If Zombie Servants have custom textures, Default: true")
@@ -272,6 +277,8 @@ public class MobsConfig {
                         .define("caveSpiderServantTexture", true);
                 WebSpiderServantTexture = BUILDER.comment("If Web Spiders Servants have different textures from hostile versions, Default: true")
                         .define("webSpiderServantTexture", true);
+                IcySpiderServantTexture = BUILDER.comment("If Icy Spiders Servants have different textures from hostile versions, Default: true")
+                        .define("icySpiderServantTexture", true);
                 BoneSpiderServantTexture = BUILDER.comment("If Bone Spiders Servants have custom textures, Default: true")
                         .define("boneSpiderServantTexture", true);
                 BUILDER.pop();
@@ -400,6 +407,8 @@ public class MobsConfig {
                 .define("variousRobeWitch", false);
         StayingServantChunkLoad = BUILDER.comment("Servants, when on staying mode, will load chunks around it, Default: true")
                 .define("stayingServantChunkLoad", true);
+        ServantRideAutonomous = BUILDER.comment("Whether certain servants being ridden by other servants will not be controlled by their rider., Default: false")
+                .define("servantRideAutonomous", false);
         MaxSlimeSize = BUILDER.comment("Maximum size Slime and Magma Cube Servants can obtain through Slime/Magma Block, Default: 4")
                 .defineInRange("maxSlimeSize", 4, 1, 127);
         RavagerRoarCooldown = BUILDER.comment("How many seconds it takes before Ravager can manually roar again, Default: 10")

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.client.render;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.ModSpiderModel;
 import com.Polarice3.Goety.common.entities.ally.spider.IcySpiderServant;
+import com.Polarice3.Goety.config.MobsConfig;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -14,6 +15,7 @@ import net.minecraft.world.entity.Entity;
 import javax.annotation.Nullable;
 
 public class IcySpiderServantRenderer<T extends IcySpiderServant> extends MobRenderer<T, ModSpiderModel<T>> {
+   private static final ResourceLocation HOSTILE_LOCATION = Goety.location("textures/entity/servants/spider/icy_spider.png");
    private static final ResourceLocation SPIDER_LOCATION = Goety.location("textures/entity/servants/spider/icy_spider_servant.png");
 
    public IcySpiderServantRenderer(EntityRendererProvider.Context p_173946_) {
@@ -38,6 +40,9 @@ public class IcySpiderServantRenderer<T extends IcySpiderServant> extends MobRen
    }
 
    public ResourceLocation getTextureLocation(IcySpiderServant p_113972_) {
+      if (p_113972_.isHostile() || !MobsConfig.IcySpiderServantTexture.get()){
+         return HOSTILE_LOCATION;
+      }
       return SPIDER_LOCATION;
    }
 

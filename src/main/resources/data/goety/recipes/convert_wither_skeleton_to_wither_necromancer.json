@@ -1,0 +1,39 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:convert_complete_tamed",
+  "activation_item": {
+    "item": "goety:necro_cape"
+  },
+  "craftType": "expert_nether",
+  "entity_to_convert": {
+    "tag": "goety:wither_skeletons",
+    "display_name": "entity.minecraft.wither_skeleton"
+  },
+  "entity_to_convert_into": "goety:wither_necromancer_servant",
+  "soulCost": 5,
+  "duration": 30,
+  "research": "buried",
+  "ingredients": [
+    {
+      "item": "goety:nether_staff"
+    },
+    {
+      "item": "goety:necro_crown"
+    },
+    {
+      "item": "goety:ectoplasm"
+    },
+    {
+      "item": "goety:flame_strike_focus"
+    },
+    {
+      "item": "minecraft:netherite_scrap"
+    },
+    {
+      "tag": "forge:storage_blocks/gold"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

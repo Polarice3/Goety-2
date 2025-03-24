@@ -3,9 +3,11 @@ package com.Polarice3.Goety.common.items.revive;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.StrayServant;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.WitherSkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.DrownedServant;
 import com.Polarice3.Goety.common.entities.neutral.AbstractCairnNecromancer;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
+import com.Polarice3.Goety.common.entities.neutral.AbstractWitherNecromancer;
 import com.Polarice3.Goety.common.entities.neutral.DrownedNecromancer;
 import com.Polarice3.Goety.common.ritual.RitualRequirements;
 import com.Polarice3.Goety.init.ModSounds;
@@ -26,6 +28,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.monster.Stray;
+import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
@@ -36,6 +39,7 @@ import java.util.Objects;
 
 public class SoulJar extends ReviveServantItem {
     public static final String TAG_DROWNED = "Drowned";
+    public static final String TAG_WITHER = "Wither";
 
     public SoulJar(){
         super(new Properties()
@@ -43,6 +47,11 @@ public class SoulJar extends ReviveServantItem {
                 .setNoRepair()
                 .stacksTo(1)
         );
+    }
+
+    @Override
+    public boolean isFireResistant() {
+        return isWither(this.getDefaultInstance());
     }
 
     @Override
@@ -56,6 +65,13 @@ public class SoulJar extends ReviveServantItem {
                     }
                 } else if (stack.getTag() != null && isDrowned(stack)) {
                     stack.getTag().remove(TAG_DROWNED);
+                }
+                if (livingEntity instanceof AbstractWitherNecromancer) {
+                    if (!isWither(stack)) {
+                        setWither(stack);
+                    }
+                } else if (stack.getTag() != null && isWither(stack)) {
+                    stack.getTag().remove(TAG_WITHER);
                 }
             } else if (stack.getTag() != null) {
                 stack.getTag().remove(TAG_DROWNED);
@@ -73,6 +89,8 @@ public class SoulJar extends ReviveServantItem {
                 boolean flag;
                 if (necromancer instanceof DrownedNecromancer || isDrowned(stack)){
                     flag = target instanceof DrownedServant || target instanceof Drowned;
+                } else if (necromancer instanceof AbstractWitherNecromancer || isWither(stack)){
+                    flag = target instanceof WitherSkeletonServant || target instanceof WitherSkeleton;
                 } else if (necromancer instanceof AbstractCairnNecromancer){
                     flag = target instanceof StrayServant || target instanceof Stray;
                 } else {
@@ -120,6 +138,16 @@ public class SoulJar extends ReviveServantItem {
     public static void setDrowned(ItemStack stack){
         CompoundTag compoundTag = stack.getOrCreateTag();
         compoundTag.putBoolean(TAG_DROWNED, true);
+    }
+
+    public static boolean isWither(ItemStack stack) {
+        CompoundTag compoundtag = stack.getTag();
+        return stack.getItem() instanceof SoulJar && compoundtag != null && compoundtag.contains(TAG_WITHER);
+    }
+
+    public static void setWither(ItemStack stack){
+        CompoundTag compoundTag = stack.getOrCreateTag();
+        compoundTag.putBoolean(TAG_WITHER, true);
     }
 
     public static void setNecromancer(AbstractNecromancer necromancer, ItemStack stack) {

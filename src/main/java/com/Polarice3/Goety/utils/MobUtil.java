@@ -1308,11 +1308,11 @@ public class MobUtil {
         }
         if (owner instanceof Enemy
                 || (owner instanceof IOwned owned && owned.isHostile())
-                || attacker instanceof Enemy
+                || (attacker instanceof Enemy && !(attacker instanceof IOwned))
                 || (attacker instanceof IOwned ownedAttacker && ownedAttacker.isHostile())){
             return target instanceof Player player && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player);
         } else {
-            return ((target instanceof Enemy || (target instanceof IOwned ownedTarget && ownedTarget.isHostile()))
+            return (((target instanceof Enemy && !(target instanceof IOwned)) || (target instanceof IOwned ownedTarget && ownedTarget.isHostile()))
                     && !((target.getMobType() == MobType.UNDEAD || target.getType().is(ModTags.EntityTypes.LICH_NEUTRAL)) && LichdomHelper.isLich(owner) && MainConfig.LichUndeadFriends.get())
                     && !(owner != null && ((CuriosFinder.hasNecroSet(owner) && CuriosFinder.validNecroUndead(target)) || (CuriosFinder.neutralNamelessSet(owner) && CuriosFinder.validNamelessUndead(target))) && !MobsConfig.NecroRobeUndead.get())
                     && !(MobUtil.isWitchType(target) && owner != null && CuriosFinder.isWitchFriendly(owner) && !MobsConfig.VariousRobeWitch.get())

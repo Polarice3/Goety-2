@@ -38,6 +38,7 @@ public class IceBouquet extends GroundProjectile {
     private static final EntityDataAccessor<Boolean> CONCENTRATE = SynchedEntityData.defineId(IceBouquet.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> CENTER = SynchedEntityData.defineId(IceBouquet.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Float> DATA_EXTRA_DAMAGE = SynchedEntityData.defineId(IceBouquet.class, EntityDataSerializers.FLOAT);
+    public boolean isDying;
 
     public IceBouquet(EntityType<? extends Entity> p_i50170_1_, Level p_i50170_2_) {
         super(p_i50170_1_, p_i50170_2_);
@@ -109,6 +110,14 @@ public class IceBouquet extends GroundProjectile {
         this.entityData.set(CENTER, center);
     }
 
+    public boolean isDying(){
+        return this.isDying;
+    }
+
+    public void setDying(boolean dying){
+        this.isDying = dying;
+    }
+
     public float getExtraDamage() {
         return this.entityData.get(DATA_EXTRA_DAMAGE);
     }
@@ -145,6 +154,9 @@ public class IceBouquet extends GroundProjectile {
         if (pCompound.contains("Center")) {
             this.setCenter(pCompound.getBoolean("Center"));
         }
+        if (pCompound.contains("Dying")) {
+            this.setDying(pCompound.getBoolean("Dying"));
+        }
         if (pCompound.contains("ExtraDamage")) {
             this.setExtraDamage(pCompound.getFloat("ExtraDamage"));
         }
@@ -158,6 +170,7 @@ public class IceBouquet extends GroundProjectile {
         pCompound.putBoolean("soulEating", this.isSoulEating());
         pCompound.putBoolean("concentrate", this.needsConcentrate());
         pCompound.putBoolean("Center", this.isCenter());
+        pCompound.putBoolean("Dying", this.isDying());
         pCompound.putFloat("ExtraDamage", this.getExtraDamage());
     }
 
@@ -177,7 +190,7 @@ public class IceBouquet extends GroundProjectile {
                 } else {
                     this.setAnimation(13);
                 }
-                if (this.tickCount > 0) {
+                if (this.lifeTicks <= 14) {
                     --this.lifeTicks;
                 }
                 if (this.tickCount >= 10) {
@@ -216,7 +229,11 @@ public class IceBouquet extends GroundProjectile {
             }
 
             if (this.tickCount > 0) {
-                if (--this.lifeTicks < 0) {
+                --this.lifeTicks;
+                if (this.lifeTicks <= 14) {
+                    this.level.broadcastEntityEvent(this, (byte) 7);
+                }
+                if (this.lifeTicks < 0) {
                     this.discard();
                 }
             }
@@ -314,7 +331,10 @@ public class IceBouquet extends GroundProjectile {
             }
         }
         if (pId == 7){
-            this.lifeTicks = 14;
+            if (!this.isDying()) {
+                this.lifeTicks = 14;
+                this.setDying(true);
+            }
         }
         if (pId == 8){
             if (!this.isSilent()) {

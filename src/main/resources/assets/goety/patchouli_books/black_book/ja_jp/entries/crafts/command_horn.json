@@ -1,0 +1,16 @@
+{
+  "name": "命令の角笛",
+  "icon": "goety:command_horn",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "命令の角笛を使用すると、16ブロック以内にいる従者の行動を「スタンバイ」と「フォロー」の間で変更できます。ブロックを右クリックすると、そのブロックに向かって移動させることもできます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:command_horn",
+      "text": "パトロール/巡回中、すでに指揮されている、または$(l:crafts/grimoire_of_grounding)接地のグリモワール$() の一部である従者は、角笛の影響を受けません。"
+    }
+  ]
+}

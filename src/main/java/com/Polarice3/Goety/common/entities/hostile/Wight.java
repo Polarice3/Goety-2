@@ -8,7 +8,7 @@ import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.neutral.CarrionMaggot;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.util.DelayedSummon;
-import com.Polarice3.Goety.common.magic.spells.geomancy.QuakingSpell;
+import com.Polarice3.Goety.common.entities.util.ModFallingBlock;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.ModServerBossInfo;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
@@ -28,10 +28,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -56,11 +59,14 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.PathNavigationRegion;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidType;
@@ -79,6 +85,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
     public static String WALK = "walk";
     public static String ATTACK = "attack";
     public static String SMASH = "smash";
+    public static String SUPER_SMASH = "super_smash";
     public static String UNLEASH = "unleash";
     public static String SUMMON = "summon";
     private final ModServerBossInfo bossInfo;
@@ -105,6 +112,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
     public AnimationState smashAnimationState = new AnimationState();
     public AnimationState unleashAnimationState = new AnimationState();
     public AnimationState summonAnimationState = new AnimationState();
+    public AnimationState superSmashAnimationState = new AnimationState();
 
     public Wight(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
@@ -264,6 +272,8 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
             return 4;
         } else if (Objects.equals(animation, "summon")){
             return 5;
+        } else if (Objects.equals(animation, "super_smash")){
+            return 6;
         } else {
             return 0;
         }
@@ -276,6 +286,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
         animationStates.add(this.smashAnimationState);
         animationStates.add(this.unleashAnimationState);
         animationStates.add(this.summonAnimationState);
+        animationStates.add(this.superSmashAnimationState);
         return animationStates;
     }
 
@@ -316,6 +327,10 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
                     case 5:
                         this.summonAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.summonAnimationState);
+                        break;
+                    case 6:
+                        this.superSmashAnimationState.start(this.tickCount);
+                        this.stopMostAnimation(this.superSmashAnimationState);
                         break;
                 }
             }
@@ -945,7 +960,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
                                 this.prevZ + (double)this.getBbWidth() * (2.0D * this.random.nextDouble() - 1.0D) * 0.5D,
                                 0, 0.0D, 0.0D, 0.0D, 0.5F);
                     }
-                    serverLevel.sendParticles(new TeleportInShockwaveParticleOption(4, 1), this.prevX, this.prevY + 0.5F, this.prevZ, 0, 0, 0, 0, 0.5F);
+                    serverLevel.sendParticles(new TeleportInShockwaveParticleOption(), this.prevX, this.prevY + 0.5F, this.prevZ, 0, 0, 0, 0, 0.5F);
                     if (!this.isHiding()){
                         this.teleportHit(serverLevel);
                     }
@@ -966,7 +981,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
         for (int i = 0; i < 16; ++i) {
             serverLevel.sendParticles(ParticleTypes.LARGE_SMOKE, this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0, 0.0D, 0.0D, 0.0D, 0.5F);
         }
-        serverLevel.sendParticles(new TeleportShockwaveParticleOption(), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
+        serverLevel.sendParticles(new TeleportShockwaveParticleOption(20), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
         if (!this.isSilent()) {
             this.playSound(ModSounds.WIGHT_TELEPORT.get(), 1.0F, 0.5F);
         }
@@ -1145,9 +1160,14 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
 
             Wight.this.getLookControl().setLookAt(livingentity, Wight.this.getMaxHeadYRot(), Wight.this.getMaxHeadXRot());
 
-            if (--this.delayCounter <= 0) {
-                this.delayCounter = 10;
-                Wight.this.getNavigation().moveTo(livingentity, this.moveSpeed);
+            if (Wight.this.getCurrentAnimation() != Wight.this.getAnimationState(SUPER_SMASH)) {
+                if (--this.delayCounter <= 0) {
+                    this.delayCounter = 10;
+                    Wight.this.getNavigation().moveTo(livingentity, this.moveSpeed);
+                }
+            } else {
+                Wight.this.getMoveControl().strafe(0.0F, 0.0F);
+                Wight.this.getNavigation().stop();
             }
 
             this.checkAndPerformAttack(livingentity, Wight.this.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ()));
@@ -1157,27 +1177,45 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
         protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr) {
             if (!Wight.this.isHiding()) {
                 boolean smash = Wight.this.random.nextBoolean();
+                float chance = MobUtil.healthIsHalved(Wight.this) ? 0.25F : 0.0F;
                 if (!Wight.this.isMeleeAttacking() && Wight.this.targetClose(enemy, distToEnemySqr)){
                     Wight.this.setMeleeAttacking(true);
-                    Wight.this.playSound(ModSounds.WIGHT_PRE_SWING.get(), Wight.this.getSoundVolume(), Wight.this.getVoicePitch());
-                    if (smash) {
+                    float pitch = 0.0F;
+                    if (Wight.this.level.getRandom().nextFloat() <= chance && !Wight.this.isHallucination()){
+                        Wight.this.setAnimationState(SUPER_SMASH);
+                        pitch = 0.5F;
+                    } else if (smash) {
                         Wight.this.setAnimationState(SMASH);
                     } else {
                         Wight.this.setAnimationState(ATTACK);
                     }
+                    Wight.this.playSound(ModSounds.WIGHT_PRE_SWING.get(), Wight.this.getSoundVolume(), Wight.this.getVoicePitch() - pitch);
                 }
                 if (Wight.this.isMeleeAttacking()) {
-                    if (Wight.this.attackTick < MathHelper.secondsToTicks(1.7F)) {
+                    float seconds = Wight.this.getCurrentAnimation() == Wight.this.getAnimationState(SUPER_SMASH) ? 2.05F : 1.7F;
+                    if (Wight.this.attackTick < MathHelper.secondsToTicks(seconds)) {
                         Wight.this.setYBodyRot(Wight.this.getYHeadRot());
-                        if (Wight.this.getCurrentAnimation() == Wight.this.getAnimationState(SMASH)) {
-                            float chance = MobUtil.healthIsHalved(Wight.this) ? 0.45F : 0.0F;
-                            if (Wight.this.attackTick == 20) {
+                        if (Wight.this.getCurrentAnimation() == Wight.this.getAnimationState(SUPER_SMASH)) {
+                            if (Wight.this.attackTick == 24) {
                                 Wight.this.playSound(ModSounds.WIGHT_SWING.get(), Wight.this.getSoundVolume(), Wight.this.getVoicePitch() - 0.5F);
-                                if (Wight.this.level.getRandom().nextFloat() <= chance && !Wight.this.isHallucination()){
-                                    for (int i = 0; i <= 4; ++i) {
-                                        QuakingSpell.surroundTremor(Wight.this, i, 3, 0.0F, false, (float) Wight.this.getAttributeValue(Attributes.ATTACK_DAMAGE), 0.1F);
+                                Difficulty difficulty = Wight.this.level.getDifficulty();
+                                int h = difficulty == Difficulty.HARD ? 8 : difficulty == Difficulty.NORMAL ? 6 : 4;
+                                for (int i = 0; i <= h; ++i) {
+                                    surroundTremor(Wight.this, i, 3, 0.0F, false, 0.1F);
+                                }
+                                Wight.this.level.playSound(null, Wight.this.blockPosition(), ModSounds.WALL_ERUPT.get(), SoundSource.PLAYERS, 1.0F, 0.8F + Wight.this.level.random.nextFloat() * 0.4F);
+                                Wight.this.level.playSound(null, Wight.this.blockPosition(), ModSounds.DIRT_DEBRIS.get(), SoundSource.PLAYERS, 1.0F, 0.8F + Wight.this.level.random.nextFloat() * 0.4F);
+                                Wight.this.level.playSound(null, Wight.this.blockPosition(), SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, 1.0F, 0.8F + Wight.this.level.random.nextFloat() * 0.4F);
+                                if (Wight.this.targetClose(enemy, distToEnemySqr)) {
+                                    Wight.this.doHurtTarget(enemy);
+                                    if (enemy instanceof Player player){
+                                        Wight.this.maybeDisableShield(player, new ItemStack(Items.IRON_AXE), player.isUsingItem() ? player.getUseItem() : ItemStack.EMPTY);
                                     }
                                 }
+                            }
+                        } else if (Wight.this.getCurrentAnimation() == Wight.this.getAnimationState(SMASH)) {
+                            if (Wight.this.attackTick == 20) {
+                                Wight.this.playSound(ModSounds.WIGHT_SWING.get(), Wight.this.getSoundVolume(), Wight.this.getVoicePitch() - 0.5F);
                                 if (Wight.this.targetClose(enemy, distToEnemySqr)) {
                                     Wight.this.doHurtTarget(enemy);
                                     if (enemy instanceof Player player){
@@ -1218,6 +1256,61 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
                     Wight.this.doHurtTarget(target);
                 }
             }
+        }
+
+        public static void surroundTremor(LivingEntity livingEntity, int distance, double topY, float side, boolean grab, float airborne) {
+            int hitY = Mth.floor(livingEntity.getBoundingBox().minY - 0.5D);
+            double spread = Math.PI * (double)2.0F;
+            int arcLen = Mth.ceil((double)distance * spread);
+            double minY = livingEntity.getY() - 1.0D;
+            double maxY = livingEntity.getY() + topY;
+
+            for(int i = 0; i < arcLen; ++i) {
+                double theta = ((double)i / ((double)arcLen - 1.0D) - 0.5D) * spread;
+                double vx = Math.cos(theta);
+                double vz = Math.sin(theta);
+                double px = livingEntity.getX() + vx * (double)distance + (double)side * Math.cos((double)(livingEntity.yBodyRot + 90.0F) * Math.PI / 180.0D);
+                double pz = livingEntity.getZ() + vz * (double)distance + (double)side * Math.sin((double)(livingEntity.yBodyRot + 90.0F) * Math.PI / 180.0D);
+                float factor = 1.0F - (float)distance / 12.0F;
+                int hitX = Mth.floor(px);
+                int hitZ = Mth.floor(pz);
+                BlockPos blockPos = new BlockPos(hitX, hitY, hitZ);
+
+                BlockState blockState;
+                for(blockState = livingEntity.level.getBlockState(blockPos); blockState.getRenderShape() != RenderShape.MODEL; blockState = livingEntity.level.getBlockState(blockPos)) {
+                    blockPos = blockPos.below();
+                }
+                BlockState blockAbove = livingEntity.level.getBlockState(blockPos.above());
+
+                if (blockState != Blocks.AIR.defaultBlockState() && !blockState.hasBlockEntity() && !blockAbove.blocksMotion()) {
+                    ModFallingBlock fallingBlock = new ModFallingBlock(livingEntity.level, Vec3.atCenterOf(blockPos.above()), blockState, (float) (0.2D + livingEntity.getRandom().nextGaussian() * 0.15D));
+                    livingEntity.level.addFreshEntity(fallingBlock);
+                }
+
+                AABB selection = new AABB(px - 0.5D, minY, pz - 0.5D, px + 0.5D, maxY, pz + 0.5D);
+                List<LivingEntity> entities = livingEntity.level.getEntitiesOfClass(LivingEntity.class, selection);
+                for (LivingEntity target : entities) {
+                    if (!MobUtil.areAllies(target, livingEntity) && target != livingEntity) {
+                        boolean flag = livingEntity.doHurtTarget(target);
+                        if (flag) {
+                            if (grab) {
+                                double magnitude = -4.0D;
+                                double x = vx * (double) (1.0F - factor) * magnitude;
+                                double y = 0.0D;
+                                if (target.onGround()) {
+                                    y += 0.15D;
+                                }
+
+                                double z = vz * (double) (1.0F - factor) * magnitude;
+                                MobUtil.push(target, x, y, z);
+                            } else {
+                                MobUtil.push(target, 0.0D, (double) (airborne * (float) distance) + livingEntity.getRandom().nextDouble() * 0.15D, 0.0D);
+                            }
+                        }
+                    }
+                }
+            }
+
         }
 
     }
@@ -1359,7 +1452,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
                 }
             } else {
                 if (this.target != null && !this.wight.isPassenger() && !this.wight.isMeleeAttacking()) {
-                    if (this.target.distanceToSqr(this.wight) > 256.0D && this.teleportTime++ >= this.adjustedTickDelay(MathHelper.secondsToTicks(3.5F)) && this.wight.teleportNearTo(this.target)) {
+                    if ((this.target.distanceToSqr(this.wight) > 256.0D || !this.wight.hasLineOfSight(this.target)) && this.teleportTime++ >= this.adjustedTickDelay(MathHelper.secondsToTicks(3.5F)) && this.wight.teleportNearTo(this.target)) {
                         this.teleportTime = 0;
                     }
                 }

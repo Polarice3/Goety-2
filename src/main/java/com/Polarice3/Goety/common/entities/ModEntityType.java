@@ -229,6 +229,12 @@ public class ModEntityType {
                     .clientTrackingRange(4)
                     .updateInterval(4));
 
+    public static final RegistryObject<EntityType<FlyingItem>> FLYING_ITEM = register("flying_item",
+            EntityType.Builder.<FlyingItem>of(FlyingItem::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .updateInterval(4));
+
     public static final RegistryObject<EntityType<ElectroOrb>> ELECTRO_ORB = register("electro_orb",
             EntityType.Builder.<ElectroOrb>of(ElectroOrb::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F)
@@ -702,6 +708,13 @@ public class ModEntityType {
     public static final RegistryObject<EntityType<DrownedNecromancer>> DROWNED_NECROMANCER_SERVANT = register("drowned_necromancer_servant",
             EntityType.Builder.of(DrownedNecromancer::new, MobCategory.MONSTER)
                     .sized(0.75F, 2.8875F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<WitherNecromancerServant>> WITHER_NECROMANCER_SERVANT = register("wither_necromancer_servant",
+            EntityType.Builder.of(WitherNecromancerServant::new, MobCategory.MONSTER)
+                    .sized(0.75F, 2.8875F)
+                    .fireImmune()
+                    .immuneTo(Blocks.WITHER_ROSE)
                     .clientTrackingRange(8));
 
     public static final RegistryObject<EntityType<VanguardServant>> VANGUARD_SERVANT = register("vanguard_servant",

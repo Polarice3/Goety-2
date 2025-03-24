@@ -792,6 +792,10 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             }
         }
 
+        if (pSource.is(DamageTypes.FELL_OUT_OF_WORLD) && pSource.getEntity() == null){
+            this.discard();
+        }
+
         if (pSource.is(DamageTypes.LIGHTNING_BOLT) || pSource.is(DamageTypes.FALL) || pSource.is(DamageTypes.IN_WALL)){
             return false;
         }
@@ -813,10 +817,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         }
 
         float trueAmount = this.isInNether() ? pAmount / 2 : pAmount;
-
-        if (pSource.is(DamageTypes.FELL_OUT_OF_WORLD) && pSource.getEntity() == null){
-            this.discard();
-        }
 
         if (this.getHitTimes() >= this.hitTimeTeleport()){
             trueAmount = trueAmount / 2;
@@ -1075,6 +1075,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
             if (!this.level.isClientSide){
                 this.resetHitTime();
+                this.resetCoolDown();
+                this.setSpellCycle(0);
                 if (this.level instanceof ServerLevel serverLevel){
                     ServerParticleUtil.windParticle(serverLevel, new ColorUtil(ChatFormatting.BLACK), 2.0F, 1.5F, this.getId(), this.position());
                     ServerParticleUtil.windParticle(serverLevel, new ColorUtil(ChatFormatting.BLACK), 4.0F, 0.5F, this.getId(), this.position());
@@ -1253,7 +1255,9 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         if (target == null){
             this.resetHitTime();
             for (Player player : this.level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(64), EntitySelector.NO_CREATIVE_OR_SPECTATOR)){
-                this.setTarget(player);
+                if (!MobUtil.areAllies(this, player)) {
+                    this.setTarget(player);
+                }
             }
             for (Mob mob : this.level.getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(this.getAttributeValue(Attributes.FOLLOW_RANGE)), EntitySelector.LIVING_ENTITY_STILL_ALIVE)){
                 if (mob.getTarget() == this && this.getTarget() == null){
@@ -1307,7 +1311,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             ++this.f;
             if (this.f % 2 == 0 && this.f < 10) {
                 for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4.0D), ALIVE)) {
-                    if (!(entity instanceof Cultist) && !(entity instanceof Witch) && !(entity instanceof IOwned && ((IOwned) entity).getTrueOwner() == this)) {
+                    if (!(entity instanceof Cultist) && !(entity instanceof Witch) && !MobUtil.areAllies(this, entity) && !(entity instanceof IOwned && ((IOwned) entity).getTrueOwner() == this)) {
                         entity.hurt(this.damageSources().mobAttack(this), AttributesConfig.ApostleMagicDamage.get().floatValue());
                         this.launch(entity, this);
                     }

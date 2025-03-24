@@ -6,15 +6,21 @@
   "overrides": [
     {
       "predicate": {
-        "drowned": 0.00000
+        "type": 0.00000
       },
       "model": "goety:item/soul_jar_regular"
     },
     {
       "predicate": {
-        "drowned": 1.00000
+        "type": 1.00000
       },
       "model": "goety:item/soul_jar_drowned"
+    },
+    {
+      "predicate": {
+        "type": 2.00000
+      },
+      "model": "goety:item/soul_jar_wither"
     }
   ]
 }

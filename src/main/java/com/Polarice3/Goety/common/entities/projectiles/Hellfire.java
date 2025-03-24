@@ -30,6 +30,7 @@ import javax.annotation.Nullable;
 
 public class Hellfire extends GroundProjectile {
     private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(Hellfire.class, EntityDataSerializers.INT);
+    public boolean isDying;
 
     public Hellfire(EntityType<? extends Entity> p_i50170_1_, Level p_i50170_2_) {
         super(p_i50170_1_, p_i50170_2_);
@@ -73,16 +74,28 @@ public class Hellfire extends GroundProjectile {
         this.entityData.set(DATA_TYPE_ID, pType);
     }
 
+    public boolean isDying(){
+        return this.isDying;
+    }
+
+    public void setDying(boolean dying){
+        this.isDying = dying;
+    }
+
     @Override
     protected void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
         this.setAnimation(pCompound.getInt("Animation"));
+        if (pCompound.contains("Dying")) {
+            this.setDying(pCompound.getBoolean("Dying"));
+        }
     }
 
     @Override
     protected void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("Animation", this.getAnimation());
+        pCompound.putBoolean("Dying", this.isDying());
     }
 
     public float getLightLevelDependentMagicValue() {
@@ -97,7 +110,9 @@ public class Hellfire extends GroundProjectile {
             } else {
                 this.setAnimation(0);
             }
-            --this.lifeTicks;
+            if (this.lifeTicks <= 26) {
+                --this.lifeTicks;
+            }
             this.level.addParticle(new MagicSmokeParticle.Option(0xcf7a06, 0xb13f00, 10 + this.level.getRandom().nextInt(10), 0.2F), this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
             if (this.level.random.nextInt(24) == 0) {
                 this.level.playLocalSound((double)this.blockPosition().getX() + 0.5D, (double)this.blockPosition().getY() + 0.5D, (double)this.blockPosition().getZ() + 0.5D, SoundEvents.FIRE_AMBIENT, SoundSource.BLOCKS, 1.0F + this.level.random.nextFloat(), this.level.random.nextFloat() * 0.7F + 0.3F, false);
@@ -113,7 +128,11 @@ public class Hellfire extends GroundProjectile {
                 }
             }
 
-            if (--this.lifeTicks < 0) {
+            --this.lifeTicks;
+            if (this.lifeTicks <= 26){
+                this.level.broadcastEntityEvent(this, (byte)7);
+            }
+            if (this.lifeTicks < 0) {
                 this.discard();
             }
 
@@ -178,7 +197,10 @@ public class Hellfire extends GroundProjectile {
             }
         }
         if (pId == 7){
-            this.lifeTicks = 26;
+            if (!this.isDying()) {
+                this.lifeTicks = 26;
+                this.setDying(true);
+            }
         }
 
     }

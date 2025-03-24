@@ -31,7 +31,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "goety:soul_jar",
-      "text": "Should a Necromancer fall, they will drop their Soul Jar, which, when right-clicked on a Skeleton, will revive them using said Skeleton as their new body. It's also rumored that feeding them with a jar of another necromancer will increase their power..."
+      "text": "Should a Necromancer fall, having an $(l:crafts/empty_soul_jar)Empty Soul Jar$() will cause their soul to fill it, which, when right-clicked on a Skeleton, will revive them using said Skeleton as their new body. It's also rumored that feeding them with a jar of another necromancer will increase their power..."
     }
   ],
   "extra_recipe_mappings": {

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " b ",
+    "b b",
+    "bbb"
+  ],
+  "key":
+  {
+    "b":
+    {
+      "item": "goety:shade_stone"
+    }
+  },
+  "result":
+  {
+    "item": "goety:empty_soul_jar",
+    "count": 1
+  }
+}

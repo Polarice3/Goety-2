@@ -1,0 +1,16 @@
+{
+  "name": "Empty Soul Jar",
+  "icon": "goety:empty_soul_jar",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/unlock_necromancer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With some Shade Stone, you're able to create a jar that can hold a soul of a certain Servants that, when used on certain entities, revives them."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:empty_soul_jar"
+    }
+  ]
+}

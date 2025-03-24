@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.spider.SpiderServant;
+import com.Polarice3.Goety.common.entities.neutral.AbstractBroodMother;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
@@ -95,7 +95,7 @@ public class SpiderWeb extends TangleEntity {
         if (this.getTarget() == null) {
             for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox())) {
                 if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)) {
-                    if (!MobUtil.areAllies(livingEntity, this.getOwner()) && !(livingEntity instanceof Spider) && !(livingEntity instanceof SpiderServant)) {
+                    if (!MobUtil.areAllies(livingEntity, this.getOwner()) && !(livingEntity instanceof Spider) && !(livingEntity instanceof AbstractBroodMother)) {
                         this.setTarget(livingEntity);
                     }
                 }

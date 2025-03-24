@@ -139,6 +139,7 @@ public class WightModel<T extends Wight> extends HierarchicalModel<T> {
 			}
 			this.animate(entity.unleashAnimationState, WightAnimations.UNLEASH, ageInTicks);
 			this.animate(entity.summonAnimationState, WightAnimations.SUMMON, ageInTicks);
+			this.animate(entity.superSmashAnimationState, WightAnimations.SUPER_SMASH, ageInTicks);
 		} else {
 			this.right_arm.xRot = Mth.cos(ageInTicks * 0.6662F) * 0.25F;
 			this.left_arm.xRot = -Mth.cos(ageInTicks * 0.6662F) * 0.25F;

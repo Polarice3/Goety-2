@@ -5,6 +5,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.ally.undead.ReaperServant;
 import com.Polarice3.Goety.common.entities.ally.undead.WraithServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonServant;
@@ -41,7 +42,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -52,10 +52,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Predicate;
 
 public abstract class AbstractNecromancer extends AbstractSkeletonServant implements RangedAttackMob {
@@ -366,16 +363,26 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
 
     @Override
     public void die(DamageSource pCause) {
-        if (this.getTrueOwner() != null && MobsConfig.NecromancerSoulJar.get()){
-            ItemStack itemStack = new ItemStack(ModItems.SOUL_JAR.get());
-            SoulJar.setOwnerName(this.getTrueOwner(), itemStack);
-            SoulJar.setSummon(this, itemStack);
-            if (this instanceof DrownedNecromancer){
-                SoulJar.setDrowned(itemStack);
-            }
-            ItemEntity itemEntity = this.spawnAtLocation(itemStack);
-            if (itemEntity != null){
-                itemEntity.setExtendedLifetime();
+        if (this.getTrueOwner() instanceof Player player && MobsConfig.NecromancerSoulJar.get()){
+            Optional<ItemStack> optional = player.getInventory().items.stream().filter(itemStack1 -> itemStack1.is(ModItems.EMPTY_SOUL_JAR.get())).findFirst();
+            if (optional.isPresent()){
+                ItemStack original = optional.get();
+                if (original.is(ModItems.EMPTY_SOUL_JAR.get())){
+                    if (!player.isCreative()){
+                        original.shrink(1);
+                    }
+                    ItemStack itemStack = new ItemStack(ModItems.SOUL_JAR.get());
+                    SoulJar.setOwnerName(this.getTrueOwner(), itemStack);
+                    SoulJar.setSummon(this, itemStack);
+                    if (this instanceof DrownedNecromancer){
+                        SoulJar.setDrowned(itemStack);
+                    } else if (this instanceof AbstractWitherNecromancer){
+                        SoulJar.setWither(itemStack);
+                    }
+                    if (!player.getInventory().add(itemStack)) {
+                        player.drop(itemStack, false, true);
+                    }
+                }
             }
         }
         super.die(pCause);
@@ -599,7 +606,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         }
         if (this.getSummonList().contains(ModEntityType.REAPER_SERVANT.get())) {
             if (this.level.random.nextFloat() <= 0.05F) {
-                summoned = new WraithServant(ModEntityType.REAPER_SERVANT.get(), this.level);
+                summoned = new ReaperServant(ModEntityType.REAPER_SERVANT.get(), this.level);
             }
         }
         if (this.getSummonList().contains(ModEntityType.VANGUARD_SERVANT.get())){

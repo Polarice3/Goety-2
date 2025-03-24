@@ -164,10 +164,8 @@
   "entity.goety.corrupted_beam": "腐敗のビーム",
 
   "entity.goety.boat": "ボート",
-  "entity.goety.chest_boat": "チェスト付きボート",
 
   "entity.goety.haunted_armor_stand": "幽霊の防具立て",
-  "entity.goety.haunted_painting": "幽霊の絵",
 
   "entity.goety.fire_blast_trap": "ファイアブラストラップ",
   "entity.goety.lightning_trap": "ライトニングトラップ",
@@ -220,7 +218,6 @@
   "item.goety.skull_lord_spawn_egg": "スカルロードのスポーンエッグ",
   "item.goety.ravaged_spawn_egg": "ラヴェイジドのスポーンエッグ",
   "item.goety.squall_golem_spawn_egg": "スコールゴーレムのスポーンエッグ",
-  "item.goety.redstone_golem_spawn_egg": "レッドストーンゴーレムのスポーンエッグ",
   "item.goety.grave_golem_spawn_egg": "グレイブゴーレムのスポーンエッグ",
   "item.goety.haunt_spawn_egg": "ハウントのスポーンエッグ",
   "item.goety.zpiglin_servant_spawn_egg": "ゾンビピグリンの従者のスポーンエッグ",
@@ -254,7 +251,6 @@
   "item.goety.frozen_blade": "フローズンブレード",
 
   "item.goety.eerie_pickaxe": "不気味なツルハシ",
-  "item.goety.rampaging_axe": "高揚する斧",
   "item.goety.graverobber_shovel": "墓荒らしのシャベル",
 
   "item.goety.dark_sword": "闇の剣",
@@ -327,16 +323,12 @@
   "item.goety.gas_brew": "魔女のガスブリュー",
 
   "item.goety.haunted_boat": "幽霊のボート",
-  "item.goety.haunted_chest_boat": "幽霊のチェスト付きボート",
 
   "item.goety.rotten_boat": "腐ったボート",
-  "item.goety.rotten_chest_boat": "腐ったチェスト付きボート",
 
   "item.goety.windswept_boat": "ウィンドスウェプトのボート",
-  "item.goety.windswept_chest_boat": "ウィンドスウェプトのチェスト付きボート",
 
   "item.goety.haunted_armor_stand": "幽霊の防具立て",
-  "item.goety.haunted_painting": "幽霊の絵",
 
   "item.goety.cursed_knight_helmet": "呪われた騎士のヘルメット",
   "item.goety.cursed_knight_chestplate": "呪われた騎士のチェストプレート",
@@ -704,7 +696,6 @@
   "block.goety.sculk_grower": "スカルクグロワー",
 
   "block.goety.snap_warts": "スナップウォート",
-  "block.goety.spider_nest": "スパイダーネスト",
 
   "block.goety.soul_light": "ソウルライト",
   "block.goety.glow_light": "グローライト",
@@ -720,9 +711,6 @@
 
   "block.goety.tall_skull": "背の高い頭蓋骨",
   "block.goety.wall_tall_skull": "背の高い頭蓋骨",
-
-  "block.goety.redstone_golem_skull": "レッドストーンゴーレムの頭",
-  "block.goety.wall_redstone_golem_skull": "レッドストーンゴーレムの頭",
 
   "effect.goety.summon_down": "召喚酔い",
   "effect.goety.sapped.description": "レベルごとに受けるダメージが20%増加します。",
@@ -994,7 +982,6 @@
   "info.goety.apostle.summon": "闇の存在があなたを襲う...",
 
   "filled_map.goety.blighted_shack": "荒廃した小屋の地図",
-  "filled_map.goety.crypt": "地下室の地図",
 
   "spell.goety.none": "§e無属性§e",
   "spell.goety.necromancy": "§2ネクロマンシー§2",
@@ -1834,7 +1821,6 @@
   "subtitle.goety.ice_chunk_drop": "氷の塊をドロップ",
   "advancements.goety.summon_redstone_monstrosity.title": "究極の戦争マシン",
   "advancements.goety.summon_redstone_monstrosity.description": "アニメーションコアを備えたレッドストーンの怪物を召喚する。",
-  "item.goety.redstone_monstrosity_spawn_egg": "レッドストーンの怪物のスポーンエッグ",
   "item.goety.redstone_cube_spawn_egg": "レッドストーンキューブのスポーンエッグ",
   "item.goety.spider_servant_spawn_egg": "クモの従者のスポーンエッグ",
   "item.goety.cave_spider_servant_spawn_egg": "洞窟クモの従者のスポーンエッグ",
@@ -2359,7 +2345,6 @@
   "entity.goety.sorcerer": "ソーサラー",
   "entity.goety.rain_arrow": "矢の雨",
   "item.goety.pure_unholy_blood": "純正な反神聖の血",
-  "item.goety.grimoire_of_grounding": "接地のグリモア",
   "item.goety.killing_focus": "諸刃のフォーカス",
   "item.goety.killing_focus.info": "ターゲットにボルトを発射し、ターゲットの現在の体力に相当するダメージを与えますが、そのダメージの25%を術者にも与えます。術者が死亡してしまうほどであれば、与えるダメージは少なくなります。",
   "item.goety.sensing_focus": "感覚のフォーカス",
@@ -2438,11 +2423,6 @@
   "advancements.goety.craft_haunted_mirror.description": "2つの幽霊の鏡が同じ軸上に配置されている場合、テレポートが可能になります。",
   "advancements.goety.craft_haunted_jug.title": "かなり喉が乾いた",
   "advancements.goety.craft_haunted_jug.description": "無限水源を提供します。",
-  "item.goety.zombie_villager_servant_spawn_egg": "Zombie Villager Servant Spawn Egg",
-  "item.goety.chilling_focus": "Chilling Focus",
-  "item.goety.chilling_focus.info": "Gives Chill Hide effect to caster, or an allied target while crouch casting, which increases armor points and cause attackers to get Freezing effect.",
-  "effect.goety.chill_hide": "Chill Hide",
-  "effect.goety.chill_hide.description": "Increases armor points by 3 per level. Entities attacking the affected gets Freezing effect.",
   "config.jade.plugin_goety.villager_profession": "村人の職業",
   "config.jade.plugin_goety.zombie_villager": "Zombie Villager Conversion",
   "tooltip.goety.blockPatrol": "パトロールモード",
@@ -2478,7 +2458,6 @@
   "item.goety.weakening_focus.info": "術者の周囲にいる味方以外のターゲットを弱体化させ、被ダメージを増加させます。",
   "advancements.goety.summon_phantom.title": "幻肢痛",
   "advancements.goety.summon_phantom.description": "ファントムの従者を召喚する。",
-  "item.goety.command_horn": "Commanding Horn",
   "subtitle.goety.skeleton_wolf_ambient": "Skeleton Wolf pants",
   "subtitle.goety.skeleton_wolf_hurt": "Skeleton Wolf hurts",
   "subtitle.goety.skeleton_wolf_growl": "Skeleton Wolf growls",
@@ -2532,15 +2511,12 @@
   "subtitle.goety.biomine_spawn": "Biomine spawns",
   "subtitle.goety.biomine_trigger": "Biomine triggers",
   "subtitle.goety.bubble_stream": "Blowing bubbles",
-  "entity.goety.carrion_fly": "Carrion Fly",
-  "item.goety.tropical_slime_servant_spawn_egg": "Tropical Slime Servant Spawn Egg",
   "effect.goety.summon_down.description": "呪文を唱えるにはより多くのソウルエネルギーが必要で、レベルが高いほどコストが増加します。新しく召喚されたモブは耐性低下と弱体化を獲得します。",
   "effect.goety.sapped": "耐性低下",
   "effect.goety.busted": "防御力低下",
   "entity.goety.necromancer": "ネクロマンサー",
   "entity.goety.tidal_surge": "Tidal Surge",
   "item.goety.necromancer_spawn_egg": "ネクロマンサーのスポーンエッグ",
-  "item.goety.carrion_fly_spawn_egg": "Carrion Fly Spawn Egg",
   "subtitle.goety.fly_loop": "Fly buzzes",
   "subtitle.goety.fly_hurt": "Fly hurts",
   "subtitle.goety.fly_death": "Fly dies",
@@ -2569,10 +2545,6 @@
   "item.goety.brood_mother_spawn_egg": "女王クモのスポーンエッグ",
   "item.goety.brood_mother_servant_spawn_egg": "女王クモの従者のスポーンエッグ",
   "advancements.goety.kill_brood_mother.description": "8本足のブルードマザー、女王クモを倒す。",
-  "item.goety.hostile_redstone_golem_spawn_egg": "Hostile Redstone Golem Spawn Egg",
-  "item.goety.hostile_redstone_monstrosity_spawn_egg": "Hostile Redstone Monstrosity Spawn Egg",
-  "item.goety.leaping_focus": "Leaping Focus",
-  "item.goety.leaping_focus.info": "Summons Leapleaves. Cast crouching will summon the caster's servants towards them.",
   "key.goety.lich.laugh": "Lich Laugh",
   "itemGroup.goety.focus": "Goetyのフォーカス",
   "itemGroup.goety.servant": "Goetyの従者",
@@ -2585,5 +2557,39 @@
   "tooltip.goety.servant.spawn_egg": "しゃがんで使うと、スポーンしたモブがプレイヤーの所有物になります",
   "item.goety.music_disc_rm.desc": "Johan Johnson - Redstone Monstrosity",
   "painting.goety.koganusan.author": "Locus",
-  "painting.goety.koganusan.title": "Koganusan"
+  "painting.goety.koganusan.title": "Koganusan",
+  "entity.goety.wither_necromancer_servant": "ウィザーネクロマンサー",
+  "entity.goety.flying_item": "飛んでいるアイテム",
+  "item.goety.wither_necromancer_servant_spawn_egg": "ウィザーネクロマンサーの従者",
+  "item.goety.empty_soul_jar": "空のソウルの瓶",
+  "item.goety.grimoire_of_grounding": "接地のグリモワール",
+  "item.goety.rampaging_axe": "ランページアックス",
+  "item.goety.haunted_painting": "幽霊の絵画",
+  "item.goety.haunted_chest_boat": "チェスト付きの幽霊のボート",
+  "item.goety.rotten_chest_boat": "チェスト付きの腐ったボート",
+  "item.goety.windswept_chest_boat": "チェスト付きのウィンドスウェプトのボート",
+  "item.goety.redstone_golem_spawn_egg": "レッドストーンゴーレムの従者のスポーンエッグ",
+  "item.goety.redstone_monstrosity_spawn_egg": "レッドストーンの怪物の従者のスポーンエッグ",
+
+  "block.goety.spider_nest": "スパイダーネスト(クモの巣)",
+  "block.goety.redstone_golem_skull": "レッドストーンゴーレムの頭蓋骨",
+  "block.goety.wall_redstone_golem_skull": "レッドストーンゴーレムの頭蓋骨",
+
+  "filled_map.goety.crypt": "クリプトの地図",
+
+  "entity.goety.chest_boat": "チェスト付きのボート",
+  "entity.goety.haunted_painting": "幽霊の絵画",
+  "item.goety.zombie_villager_servant_spawn_egg": "村人ゾンビの従者のスポーンエッグ",
+  "item.goety.chilling_focus": "チルハイドのフォーカス",
+  "item.goety.chilling_focus.info": "術者にチルハイド効果を与えます。しゃがんで唱えると味方ターゲットに与えます。チルハイドはアーマーポイントを増加させ、攻撃者に凍結効果を与えます。",
+  "effect.goety.chill_hide": "チルハイド",
+  "effect.goety.chill_hide.description": "レベルごとにアーマー ポイントが3増加します。影響を受けたエンティティを攻撃するエンティティは凍結効果を得ます。",
+  "item.goety.command_horn": "命令の角笛",
+  "item.goety.tropical_slime_servant_spawn_egg": "トロピカルスライムの従者のスポーンエッグ",
+  "item.goety.hostile_redstone_golem_spawn_egg": "レッドストーンゴーレムのスポーンエッグ",
+  "item.goety.hostile_redstone_monstrosity_spawn_egg": "レッドストーンの怪物のスポーンエッグ",
+  "item.goety.leaping_focus": "リープリーフのフォーカス",
+  "item.goety.leaping_focus.info": "リープリーフの従者を召喚します。しゃがむと、すでにいる従者がプレイヤーの元へ行きます。",
+  "entity.goety.carrion_fly": "腐ったハエ",
+  "item.goety.carrion_fly_spawn_egg": "腐ったハエのスポーンエッグ"
 }

@@ -62,7 +62,7 @@ public class BoneheadHammerItem extends HammerItem{
                 livingentity.level.playSound((Player) null, livingentity.getX(), livingentity.getY(), livingentity.getZ(), ModSounds.GRAVITY.get(), pPlayer.getSoundSource(), 1.0F, 1.0F);
                 MobUtil.pull(livingentity, vec3.x, vec3.y, vec3.z);
                 if (livingentity.level instanceof ServerLevel serverLevel) {
-                    serverLevel.sendParticles(new TeleportInShockwaveParticleOption(4, 1), livingentity.getX(), livingentity.getY() + 0.25F, livingentity.getZ(), 0, 0, 0, 0, 0.5F);
+                    serverLevel.sendParticles(new TeleportInShockwaveParticleOption(), livingentity.getX(), livingentity.getY() + 0.25F, livingentity.getZ(), 0, 0, 0, 0, 0.5F);
                 }
             }
         }

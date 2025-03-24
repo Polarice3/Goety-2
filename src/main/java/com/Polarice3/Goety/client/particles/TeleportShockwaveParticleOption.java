@@ -6,7 +6,11 @@ import net.minecraft.core.particles.ParticleType;
 public class TeleportShockwaveParticleOption extends ShockwaveParticleOption {
 
    public TeleportShockwaveParticleOption() {
-      super(new ColorUtil(0x9a62e7).red, new ColorUtil(0x9a62e7).green, new ColorUtil(0x9a62e7).blue);
+      super(new ColorUtil(0x9a62e7));
+   }
+
+   public TeleportShockwaveParticleOption(int life) {
+      super(new ColorUtil(0x9a62e7).red, new ColorUtil(0x9a62e7).green, new ColorUtil(0x9a62e7).blue, 20, 10, 0, life, true);
    }
 
    public ParticleType<ShockwaveParticleOption> getType() {

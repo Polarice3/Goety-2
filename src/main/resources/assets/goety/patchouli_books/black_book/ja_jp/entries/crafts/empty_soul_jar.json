@@ -1,0 +1,16 @@
+{
+  "name": "空のソウルの瓶",
+  "icon": "goety:empty_soul_jar",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/unlock_necromancer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "シェード ストーンを使用すると、特定の従者の魂を収容できる瓶を作成できます。この瓶を特定のエンティティに使用すると、その従者が復活します。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:empty_soul_jar"
+    }
+  ]
+}

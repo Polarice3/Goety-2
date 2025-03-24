@@ -2644,5 +2644,9 @@
   "block.goety.crypt_chest": "墓穴箱",
   "tooltip.goety.servant.spawn_egg": "潜行使用会生成你自己的仆从.",
   "painting.goety.koganusan.author": "Locus",
-  "painting.goety.koganusan.title": "Koganusan"
+  "painting.goety.koganusan.title": "Koganusan",
+  "entity.goety.wither_necromancer_servant": "凋灵死灵法师",
+  "entity.goety.flying_item": "飞行物品",
+  "item.goety.wither_necromancer_servant_spawn_egg": "凋灵死灵法师仆从刷怪蛋",
+  "item.goety.empty_soul_jar": "空灵魂罐"
 }
