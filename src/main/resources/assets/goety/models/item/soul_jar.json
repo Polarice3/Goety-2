@@ -21,6 +21,12 @@
         "type": 2.00000
       },
       "model": "goety:item/soul_jar_wither"
+    },
+    {
+      "predicate": {
+        "type": 3.00000
+      },
+      "model": "goety:item/soul_jar_cairn"
     }
   ]
 }

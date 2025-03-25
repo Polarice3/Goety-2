@@ -228,6 +228,11 @@ public class Wildfire extends Summoned {
     }
 
     @Override
+    public Predicate<Entity> summonPredicate() {
+        return entity -> entity instanceof Wildfire;
+    }
+
+    @Override
     public int getSummonLimit(LivingEntity owner) {
         return SpellConfig.WildfireLimit.get();
     }

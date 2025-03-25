@@ -38,6 +38,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.Objects;
 
 public class SoulJar extends ReviveServantItem {
+    public static final String TAG_CAIRN = "Cairn";
     public static final String TAG_DROWNED = "Drowned";
     public static final String TAG_WITHER = "Wither";
 
@@ -59,6 +60,13 @@ public class SoulJar extends ReviveServantItem {
         if (!worldIn.isClientSide) {
             LivingEntity livingEntity = getNecromancer(stack, worldIn);
             if (livingEntity != null) {
+                if (livingEntity instanceof AbstractCairnNecromancer) {
+                    if (!isCairn(stack)) {
+                        setCairn(stack);
+                    }
+                } else if (stack.getTag() != null && isCairn(stack)) {
+                    stack.getTag().remove(TAG_CAIRN);
+                }
                 if (livingEntity instanceof DrownedNecromancer) {
                     if (!isDrowned(stack)) {
                         setDrowned(stack);
@@ -74,7 +82,9 @@ public class SoulJar extends ReviveServantItem {
                     stack.getTag().remove(TAG_WITHER);
                 }
             } else if (stack.getTag() != null) {
+                stack.getTag().remove(TAG_CAIRN);
                 stack.getTag().remove(TAG_DROWNED);
+                stack.getTag().remove(TAG_WITHER);
             }
         }
         super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
@@ -91,7 +101,7 @@ public class SoulJar extends ReviveServantItem {
                     flag = target instanceof DrownedServant || target instanceof Drowned;
                 } else if (necromancer instanceof AbstractWitherNecromancer || isWither(stack)){
                     flag = target instanceof WitherSkeletonServant || target instanceof WitherSkeleton;
-                } else if (necromancer instanceof AbstractCairnNecromancer){
+                } else if (necromancer instanceof AbstractCairnNecromancer || isCairn(stack)){
                     flag = target instanceof StrayServant || target instanceof Stray;
                 } else {
                     flag = target instanceof SkeletonServant || target instanceof Skeleton;
@@ -128,6 +138,16 @@ public class SoulJar extends ReviveServantItem {
         }
 
         return super.interactLivingEntity(stack, player, target, hand);
+    }
+
+    public static boolean isCairn(ItemStack stack) {
+        CompoundTag compoundtag = stack.getTag();
+        return stack.getItem() instanceof SoulJar && compoundtag != null && compoundtag.contains(TAG_CAIRN);
+    }
+
+    public static void setCairn(ItemStack stack){
+        CompoundTag compoundTag = stack.getOrCreateTag();
+        compoundTag.putBoolean(TAG_CAIRN, true);
     }
 
     public static boolean isDrowned(ItemStack stack) {

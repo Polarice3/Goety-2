@@ -45,6 +45,8 @@ import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 
+import java.util.function.Predicate;
+
 public class AbstractWraith extends Summoned {
     private static final EntityDataAccessor<Boolean> DATA_INTERESTED_ID = SynchedEntityData.defineId(AbstractWraith.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Byte> FLAGS = SynchedEntityData.defineId(AbstractWraith.class, EntityDataSerializers.BYTE);
@@ -120,6 +122,11 @@ public class AbstractWraith extends Summoned {
         this.fireCooldown = pCompound.getInt("fireCooldown");
         this.teleportTime2 = pCompound.getInt("teleportTime2");
         this.teleportCooldown = pCompound.getInt("teleportCooldown");
+    }
+
+    @Override
+    public Predicate<Entity> summonPredicate() {
+        return entity -> entity instanceof AbstractWraith;
     }
 
     @Override

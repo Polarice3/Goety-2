@@ -140,6 +140,11 @@ public class DrownedNecromancer extends AbstractNecromancer {
     }
 
     @Override
+    public Predicate<Entity> summonPredicate() {
+        return entity -> entity instanceof DrownedNecromancer;
+    }
+
+    @Override
     public int getSummonLimit(LivingEntity owner) {
         return SpellConfig.DrownedNecromancerLimit.get();
     }

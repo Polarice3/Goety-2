@@ -44,6 +44,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class VanguardServant extends AbstractSkeletonServant {
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(VanguardServant.class, EntityDataSerializers.BYTE);
@@ -104,6 +105,11 @@ public class VanguardServant extends AbstractSkeletonServant {
         super.addAdditionalSaveData(pCompound);
         pCompound.putBoolean("hasShield", this.hasShield());
         pCompound.putInt("ShieldHeath", this.getShieldHealth());
+    }
+
+    @Override
+    public Predicate<Entity> summonPredicate() {
+        return entity -> entity instanceof VanguardServant;
     }
 
     @Override

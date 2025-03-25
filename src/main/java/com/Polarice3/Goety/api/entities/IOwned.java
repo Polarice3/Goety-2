@@ -27,6 +27,7 @@ import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 public interface IOwned {
 
@@ -270,6 +271,13 @@ public interface IOwned {
 
     default boolean preventsSleep(Player p_33036_) {
         return this.isHostile();
+    }
+
+    default Predicate<Entity> summonPredicate(){
+        if (this instanceof Mob mob){
+            return entity -> mob.getClass().isAssignableFrom(entity.getClass());
+        }
+        return entity -> entity instanceof IOwned;
     }
 
     default int getSummonLimit(LivingEntity owner){

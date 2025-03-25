@@ -266,6 +266,11 @@ public class AbstractBroodMother extends Summoned implements IAutoRideable, Play
     }
 
     @Override
+    public Predicate<Entity> summonPredicate() {
+        return entity -> entity instanceof AbstractBroodMother;
+    }
+
+    @Override
     public int getSummonLimit(LivingEntity owner) {
         return SpellConfig.BroodMotherLimit.get();
     }

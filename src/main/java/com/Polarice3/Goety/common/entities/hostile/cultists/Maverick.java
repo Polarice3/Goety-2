@@ -232,9 +232,9 @@ public class Maverick extends Cultist{
 
     @Override
     public boolean doHurtTarget(Entity p_21372_) {
-        boolean flag = super.doHurtTarget(p_21372_);
+        boolean flag = false;
         Potion potion = Potions.HARMING;
-        if (flag && p_21372_ instanceof LivingEntity livingEntity) {
+        if (p_21372_ instanceof LivingEntity livingEntity) {
             if (livingEntity instanceof Raider raider && this.hasActiveRaid() && raider.getTarget() != this) {
                 double attack = this.getAttributeValue(Attributes.ATTACK_DAMAGE);
                 if (livingEntity.getHealth() <= attack + 1.0D) {
@@ -258,11 +258,13 @@ public class Maverick extends Cultist{
             for (MobEffectInstance instance : potion.getEffects()){
                 if (instance.getEffect().isInstantenous()) {
                     instance.getEffect().applyInstantenousEffect(this, this, livingEntity, instance.getAmplifier(), 1.0D);
-                } else {
+                    flag = true;
+                } else if (super.doHurtTarget(p_21372_)) {
                     livingEntity.addEffect(new MobEffectInstance(instance));
+                    flag = true;
                 }
             }
-            if (!livingEntity.isSprinting()) {
+            if (flag && !livingEntity.isSprinting()) {
                 if (this.fleeTime <= 0) {
                     this.fleeTime = MathHelper.secondsToTicks(1);
                 }

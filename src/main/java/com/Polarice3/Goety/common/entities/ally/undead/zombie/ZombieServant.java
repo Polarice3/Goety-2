@@ -50,6 +50,7 @@ import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 public class ZombieServant extends Summoned {
     private static final UUID SPEED_MODIFIER_BABY_UUID = UUID.fromString("B9766B59-9566-4402-BC1F-2EE2A276D836");
@@ -143,6 +144,11 @@ public class ZombieServant extends Summoned {
         if (pCompound.contains("DrownedConversionTime", 99) && pCompound.getInt("DrownedConversionTime") > -1) {
             this.startUnderWaterConversion(pCompound.getInt("DrownedConversionTime"));
         }
+    }
+
+    @Override
+    public Predicate<Entity> summonPredicate() {
+        return entity -> entity instanceof ZombieServant;
     }
 
     @Override

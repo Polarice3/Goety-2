@@ -55,6 +55,7 @@ public class AbstractWitherNecromancer extends AbstractNecromancer{
 
     public void summonSpells(int priority){
         this.goalSelector.addGoal(priority + 1, new SummonServantSpell());
+        this.goalSelector.addGoal(priority + 2, new WitherSummonUndeadGoal());
         this.goalSelector.addGoal(priority, new SummonFirePillarsGoal());
         this.goalSelector.addGoal(priority, new SummonFireSurroundGoal());
     }
@@ -143,6 +144,11 @@ public class AbstractWitherNecromancer extends AbstractNecromancer{
 
     public boolean canBeAffected(MobEffectInstance p_34192_) {
         return p_34192_.getEffect() != MobEffects.WITHER && super.canBeAffected(p_34192_);
+    }
+
+    @Override
+    public void playLaughSound() {
+        this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 1.0F, 0.05F);
     }
 
     public Summoned getDefaultSummon(){
@@ -238,6 +244,13 @@ public class AbstractWitherNecromancer extends AbstractNecromancer{
         @Override
         protected NecromancerSpellType getNecromancerSpellType() {
             return NecromancerSpellType.ZOMBIE;
+        }
+    }
+
+    public class WitherSummonUndeadGoal extends SummonUndeadGoal {
+        @Override
+        public void playLaughSound() {
+            AbstractWitherNecromancer.this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, 0.05F);
         }
     }
 

@@ -221,6 +221,11 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
     }
 
     @Override
+    public Predicate<Entity> summonPredicate() {
+        return entity -> entity instanceof AbstractNecromancer;
+    }
+
+    @Override
     public int getSummonLimit(LivingEntity owner) {
         return SpellConfig.NecromancerLimit.get();
     }
@@ -374,7 +379,9 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                     ItemStack itemStack = new ItemStack(ModItems.SOUL_JAR.get());
                     SoulJar.setOwnerName(this.getTrueOwner(), itemStack);
                     SoulJar.setSummon(this, itemStack);
-                    if (this instanceof DrownedNecromancer){
+                    if (this instanceof AbstractCairnNecromancer){
+                        SoulJar.setCairn(itemStack);
+                    } else if (this instanceof DrownedNecromancer){
                         SoulJar.setDrowned(itemStack);
                     } else if (this instanceof AbstractWitherNecromancer){
                         SoulJar.setWither(itemStack);
@@ -505,7 +512,8 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                     if (this.idleSpellCool <= 0 && this.getSpellCooldown() <= 0){
                         this.setUndeadIdle(true);
                     } else {
-                        this.playSound(ModSounds.NECROMANCER_HURT.get());
+                        SoundEvent soundEvent = this.getHurtSound(this.damageSources().generic());
+                        this.playSound(Objects.requireNonNullElseGet(soundEvent, ModSounds.NECROMANCER_HURT));
                         this.level.broadcastEntityEvent(this, (byte) 9);
                     }
                     return InteractionResult.SUCCESS;
@@ -529,35 +537,35 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                         itemstack.shrink(1);
                     }
                     this.addSummon(ModEntityType.ZOMBIE_SERVANT.get());
-                    this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 1.0F, this.getVoicePitch());
+                    this.playLaughSound();
                     return InteractionResult.SUCCESS;
                 } else if (this.getSummonList().stream().noneMatch(entityType -> entityType.is(ModTags.EntityTypes.SKELETON_SERVANTS)) && item == ModItems.OSSEOUS_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
                     this.addSummon(ModEntityType.SKELETON_SERVANT.get());
-                    this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 1.0F, this.getVoicePitch());
+                    this.playLaughSound();
                     return InteractionResult.SUCCESS;
                 } else if (/*this.getNecroLevel() > 0 && */!this.getSummonList().contains(ModEntityType.WRAITH_SERVANT.get()) && item == ModItems.SPOOKY_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
                     this.addSummon(ModEntityType.WRAITH_SERVANT.get());
-                    this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 1.0F, this.getVoicePitch());
+                    this.playLaughSound();
                     return InteractionResult.SUCCESS;
                 } else if (/*this.getNecroLevel() > 0 && */!this.getSummonList().contains(ModEntityType.REAPER_SERVANT.get()) && item == ModItems.REAPING_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
                     this.addSummon(ModEntityType.REAPER_SERVANT.get());
-                    this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 1.0F, this.getVoicePitch());
+                    this.playLaughSound();
                     return InteractionResult.SUCCESS;
                 } else if (/*this.getNecroLevel() > 1 && */!this.getSummonList().contains(ModEntityType.VANGUARD_SERVANT.get()) && item == ModItems.VANGUARD_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
                     this.addSummon(ModEntityType.VANGUARD_SERVANT.get());
-                    this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 1.0F, this.getVoicePitch());
+                    this.playLaughSound();
                     return InteractionResult.SUCCESS;
                 } else if (item == ModItems.SOUL_JAR.get()){
                     if (!pPlayer.getAbilities().instabuild) {
@@ -575,12 +583,16 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                             serverLevel.sendParticles(ParticleTypes.SCULK_SOUL, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
                         }
                     }
-                    this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 1.0F, 0.5F);
+                    this.playLaughSound();
                     return InteractionResult.SUCCESS;
                 }
             }
         }
         return InteractionResult.PASS;
+    }
+
+    public void playLaughSound(){
+        this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 1.0F, 0.5F);
     }
 
     public Summoned getDefaultSummon(){
@@ -867,7 +879,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         public void tick() {
             --this.spellTime;
             if (this.spellTime == 0) {
-                AbstractNecromancer.this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, AbstractNecromancer.this.getVoicePitch());
+                this.playLaughSound();
                 AbstractNecromancer.this.setNecromancerSpellType(NecromancerSpellType.NONE);
                 int i = 2 + AbstractNecromancer.this.level.random.nextInt(4);
                 for (int i1 = 0; i1 < i; ++i1) {
@@ -926,6 +938,10 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                 }
             }
 
+        }
+
+        public void playLaughSound(){
+            AbstractNecromancer.this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, AbstractNecromancer.this.getVoicePitch());
         }
 
     }

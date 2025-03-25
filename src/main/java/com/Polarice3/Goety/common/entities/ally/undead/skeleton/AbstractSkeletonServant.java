@@ -52,6 +52,7 @@ import net.minecraftforge.common.Tags;
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
+import java.util.function.Predicate;
 
 public abstract class AbstractSkeletonServant extends Summoned implements RangedAttackMob {
     private final CreatureBowAttackGoal<AbstractSkeletonServant> bowGoal = new CreatureBowAttackGoal<>(this, 1.0D, 20, 15.0F);
@@ -137,6 +138,11 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
         if (pCompound.contains("arrowPower", 99)){
             pCompound.putDouble("arrowPower", this.arrowPower);
         }
+    }
+
+    @Override
+    public Predicate<Entity> summonPredicate() {
+        return entity -> entity instanceof AbstractSkeletonServant;
     }
 
     @Override

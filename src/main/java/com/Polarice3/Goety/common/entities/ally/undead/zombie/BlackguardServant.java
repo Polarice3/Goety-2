@@ -25,10 +25,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -45,6 +42,7 @@ import net.minecraftforge.common.Tags;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class BlackguardServant extends ZombieServant{
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(BlackguardServant.class, EntityDataSerializers.BYTE);
@@ -104,6 +102,11 @@ public class BlackguardServant extends ZombieServant{
         super.addAdditionalSaveData(pCompound);
         pCompound.putBoolean("hasShield", this.hasShield());
         pCompound.putInt("ShieldHeath", this.getShieldHealth());
+    }
+
+    @Override
+    public Predicate<Entity> summonPredicate() {
+        return entity -> entity instanceof BlackguardServant;
     }
 
     @Override

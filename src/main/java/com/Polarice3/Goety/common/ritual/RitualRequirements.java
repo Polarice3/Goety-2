@@ -43,10 +43,12 @@ public class RitualRequirements extends RitualTypes{
             Entity summon = summonType.create(level);
             if (summon instanceof IOwned owned){
                 int count = 0;
-                for (Entity entity : serverLevel.getAllEntities()) {
-                    if (entity instanceof IOwned servant) {
-                        if (servant.getTrueOwner() == castingPlayer) {
-                            ++count;
+                for (ServerLevel serverLevel1 : serverLevel.getServer().getAllLevels()) {
+                    for (Entity entity : serverLevel1.getAllEntities()) {
+                        if (entity instanceof IOwned servant && servant.summonPredicate().test(summon)) {
+                            if (servant.getTrueOwner() == castingPlayer) {
+                                ++count;
+                            }
                         }
                     }
                 }

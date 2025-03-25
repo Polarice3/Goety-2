@@ -105,7 +105,7 @@ public class ClientInitEvents {
         ItemProperties.register(ModItems.FLAME_CAPTURE.get(), new ResourceLocation("capture"),
                 (stack, world, living, seed) -> FlameCaptureItem.hasEntity(stack) ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.SOUL_JAR.get(), new ResourceLocation("type"),
-                (stack, world, living, seed) -> SoulJar.isDrowned(stack) ? 1.0F : SoulJar.isWither(stack) ? 2.0F : 0.0F);
+                (stack, world, living, seed) -> SoulJar.isDrowned(stack) ? 1.0F : SoulJar.isWither(stack) ? 2.0F : SoulJar.isCairn(stack) ? 3.0F : 0.0F);
         ItemProperties.register(ModItems.TAGLOCK_KIT.get(), new ResourceLocation("tagged"),
                 (stack, world, living, seed) -> TaglockKit.hasEntity(stack) ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.WAYSTONE.get(), new ResourceLocation("store"),

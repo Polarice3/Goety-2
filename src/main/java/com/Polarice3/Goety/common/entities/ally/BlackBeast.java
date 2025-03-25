@@ -69,6 +69,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public class BlackBeast extends Summoned{
     private static final EntityDataAccessor<Boolean> DATA_INTERESTED_ID = SynchedEntityData.defineId(BlackBeast.class, EntityDataSerializers.BOOLEAN);
@@ -180,6 +181,11 @@ public class BlackBeast extends Summoned{
         if (pCompound.contains("SummonCool")){
             this.summonCool = pCompound.getInt("SummonCool");
         }
+    }
+
+    @Override
+    public Predicate<Entity> summonPredicate() {
+        return entity -> entity instanceof BlackBeast;
     }
 
     @Override

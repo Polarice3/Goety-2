@@ -19,10 +19,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
@@ -35,6 +32,7 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.function.Predicate;
 
 public abstract class AbstractBoundIllager extends Summoned {
     private static final EntityDataAccessor<Byte> DATA_SPELL_CASTING_ID = SynchedEntityData.defineId(AbstractBoundIllager.class, EntityDataSerializers.BYTE);
@@ -60,6 +58,11 @@ public abstract class AbstractBoundIllager extends Summoned {
     public void addAdditionalSaveData(CompoundTag p_33734_) {
         super.addAdditionalSaveData(p_33734_);
         p_33734_.putInt("SpellTicks", this.spellCastingTickCount);
+    }
+
+    @Override
+    public Predicate<Entity> summonPredicate() {
+        return entity -> entity instanceof AbstractBoundIllager;
     }
 
     @Override

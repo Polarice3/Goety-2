@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 public class AbstractReaper extends Summoned {
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(AbstractReaper.class, EntityDataSerializers.BYTE);
@@ -105,6 +106,11 @@ public class AbstractReaper extends Summoned {
 
     public MobType getMobType() {
         return MobType.UNDEAD;
+    }
+
+    @Override
+    public Predicate<Entity> summonPredicate() {
+        return entity -> entity instanceof AbstractReaper;
     }
 
     @Override
