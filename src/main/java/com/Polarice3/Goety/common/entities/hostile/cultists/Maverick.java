@@ -256,7 +256,7 @@ public class Maverick extends Cultist{
             }
 
             for (MobEffectInstance instance : potion.getEffects()){
-                if (instance.getEffect().isInstantenous()) {
+                if (instance.getEffect().isInstantenous() && !livingEntity.isDamageSourceBlocked(this.damageSources().mobAttack(this))) {
                     instance.getEffect().applyInstantenousEffect(this, this, livingEntity, instance.getAmplifier(), 1.0D);
                     flag = true;
                 } else if (super.doHurtTarget(p_21372_)) {

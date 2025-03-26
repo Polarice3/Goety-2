@@ -242,8 +242,8 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        this.readOwnedData(compound);
-        this.readServantData(compound);
+        this.saveOwnedData(compound);
+        this.saveServantData(compound);
     }
 
     private boolean getFlag(int mask) {

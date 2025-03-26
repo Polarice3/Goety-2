@@ -394,7 +394,7 @@ public class DrownedNecromancer extends AbstractNecromancer {
                         itemstack.shrink(1);
                     }
                     this.addSummon(ModEntityType.REAPER_SERVANT.get());
-                    this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 1.0F, this.getVoicePitch());
+                    this.playSound(ModSounds.DROWNED_NECROMANCER_AMBIENT.get(), 1.0F, 1.5F);
                     return InteractionResult.SUCCESS;
                 } else if (/*this.getNecroLevel() > 1 && */!this.getSummonList().contains(ModEntityType.VANGUARD_SERVANT.get()) && item == ModItems.VANGUARD_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {

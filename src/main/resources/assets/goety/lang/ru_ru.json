@@ -2660,8 +2660,8 @@
   "item.goety.leaping_focus": "Фокус листьев",
   "item.goety.leaping_focus.info": "Призывает листопрыгов. Использование при приседании телепортирует их к вам.",
   "key.goety.lich.laugh": "Смех лича",
-  "entity.goety.wither_necromancer_servant": "Wither Necromancer",
-  "entity.goety.flying_item": "Flying Item",
-  "item.goety.wither_necromancer_servant_spawn_egg": "Wither Necromancer Servant Spawn Egg",
-  "item.goety.empty_soul_jar": "Empty Soul Jar"
+  "entity.goety.wither_necromancer_servant": "Визер-некромант-прислужник",
+  "entity.goety.flying_item": "Парящий предмет",
+  "item.goety.wither_necromancer_servant_spawn_egg": "Яйцо призыва визер-некроманта-прислужника",
+  "item.goety.empty_soul_jar": "Пустая банка душ"
 }

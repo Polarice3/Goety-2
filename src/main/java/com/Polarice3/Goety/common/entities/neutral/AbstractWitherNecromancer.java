@@ -11,25 +11,31 @@ import com.Polarice3.Goety.common.entities.ally.undead.skeleton.VanguardServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.WitherSkeletonServant;
 import com.Polarice3.Goety.common.entities.projectiles.WitherBolt;
 import com.Polarice3.Goety.common.entities.util.FirePillar;
+import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.revive.SoulJar;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
@@ -75,11 +81,6 @@ public class AbstractWitherNecromancer extends AbstractNecromancer{
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.WitherNecromancerArmor.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.FOLLOW_RANGE), AttributesConfig.WitherNecromancerFollowRange.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.NecromancerDamage.get());
-    }
-
-    public void readAdditionalSaveData(CompoundTag pCompound) {
-        super.readAdditionalSaveData(pCompound);
-        this.setConfigurableAttributes();
     }
 
     protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
@@ -183,6 +184,47 @@ public class AbstractWitherNecromancer extends AbstractNecromancer{
             }
         }
         return summoned;
+    }
+
+    public void setNecroLevel(int shot){
+        int i = Mth.clamp(shot, 0, 2);
+        this.entityData.set(LEVEL, i);
+        AttributeInstance attributeInstance = this.getAttribute(Attributes.MAX_HEALTH);
+        if (attributeInstance != null){
+            attributeInstance.setBaseValue(AttributesConfig.WitherNecromancerHealth.get() * Math.max(i * 1.25F, 1));
+        }
+        this.reapplyPosition();
+        this.refreshDimensions();
+    }
+
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        if (!this.level.isClientSide) {
+            ItemStack itemstack = pPlayer.getItemInHand(pHand);
+            if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
+                if (SoulJar.isWither(itemstack)){
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
+                    if (this.getNecroLevel() < 2) {
+                        this.setNecroLevel(this.getNecroLevel() + 1);
+                    }
+                    this.heal(AttributesConfig.WitherNecromancerHealth.get().floatValue());
+                    if (this.level instanceof ServerLevel serverLevel) {
+                        for (int i = 0; i < 7; ++i) {
+                            double d0 = this.random.nextGaussian() * 0.02D;
+                            double d1 = this.random.nextGaussian() * 0.02D;
+                            double d2 = this.random.nextGaussian() * 0.02D;
+                            serverLevel.sendParticles(ParticleTypes.SCULK_SOUL, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+                        }
+                    }
+                    this.playLaughSound();
+                    return InteractionResult.SUCCESS;
+                } else if (!itemstack.is(ModItems.SOUL_JAR.get())) {
+                    return super.mobInteract(pPlayer, pHand);
+                }
+            }
+        }
+        return InteractionResult.PASS;
     }
 
     public class SummonServantSpell extends SummoningSpellGoal {

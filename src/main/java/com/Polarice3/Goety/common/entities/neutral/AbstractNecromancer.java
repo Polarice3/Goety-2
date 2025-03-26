@@ -386,6 +386,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                     } else if (this instanceof AbstractWitherNecromancer){
                         SoulJar.setWither(itemStack);
                     }
+                    SEHelper.addCooldown(player, itemStack.getItem(), MathHelper.secondsToTicks(30));
                     if (!player.getInventory().add(itemStack)) {
                         player.drop(itemStack, false, true);
                     }
@@ -489,7 +490,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
     @Override
     public void performRangedAttack(@NotNull LivingEntity p_33317_, float p_33318_) {
         if (this.getNecroLevel() <= 0) {
-            new SoulBoltSpell().mobSpellResult(this, ItemStack.EMPTY);
+            new SoulBoltSpell().mobSpellResult(this, ModItems.NECRO_STAFF.get().getDefaultInstance());
         } else {
             for (int i = -this.getNecroLevel(); i <= this.getNecroLevel(); i++) {
                 Vec3 vector3d = this.getViewVector(1.0F);

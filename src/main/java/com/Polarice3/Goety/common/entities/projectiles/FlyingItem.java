@@ -2,6 +2,8 @@ package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
+import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.SEHelper;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.arguments.ParticleArgument;
@@ -30,6 +32,7 @@ import net.minecraft.world.phys.Vec3;
 public class FlyingItem extends SpellEntity implements ItemSupplier {
     private static final EntityDataAccessor<ItemStack> DATA_ITEM_STACK = SynchedEntityData.defineId(FlyingItem.class, EntityDataSerializers.ITEM_STACK);
     private static final EntityDataAccessor<ParticleOptions> DATA_PARTICLE = SynchedEntityData.defineId(FlyingItem.class, EntityDataSerializers.PARTICLE);
+    private int secondsCool;
     private int life;
 
     public FlyingItem(EntityType<? extends FlyingItem> p_36957_, Level p_36958_) {
@@ -77,6 +80,14 @@ public class FlyingItem extends SpellEntity implements ItemSupplier {
         this.getEntityData().set(DATA_PARTICLE, p_19725_);
     }
 
+    public int getSecondsCool(){
+        return this.secondsCool;
+    }
+
+    public void setSecondsCool(int cool){
+        this.secondsCool = cool;
+    }
+
     public boolean shouldRenderAtSqrDistance(double p_36966_) {
         double d0 = this.getBoundingBox().getSize() * 4.0D;
         if (Double.isNaN(d0)) {
@@ -120,6 +131,9 @@ public class FlyingItem extends SpellEntity implements ItemSupplier {
                         this.setDeltaMovement(motion);
                         if (this.getOwner().getBoundingBox().inflate(1.0F).intersects(this.getBoundingBox())){
                             if (this.getOwner() instanceof Player player){
+                                if (this.getSecondsCool() > 0){
+                                    SEHelper.addCooldown(player, this.getItem().getItem(), MathHelper.secondsToTicks(this.getSecondsCool()));
+                                }
                                 if (!player.getInventory().add(this.getItem())) {
                                     player.drop(this.getItem(), false, true);
                                 } else {
@@ -135,6 +149,9 @@ public class FlyingItem extends SpellEntity implements ItemSupplier {
                     }
                 } else {
                     if (this.getOwner() instanceof Player player){
+                        if (this.getSecondsCool() > 0){
+                            SEHelper.addCooldown(player, this.getItem().getItem(), MathHelper.secondsToTicks(this.getSecondsCool()));
+                        }
                         if (!player.getInventory().add(this.getItem())) {
                             player.drop(this.getItem(), false, true);
                         } else {
@@ -213,6 +230,7 @@ public class FlyingItem extends SpellEntity implements ItemSupplier {
             p_36975_.put("Item", itemstack.save(new CompoundTag()));
         }
         p_36975_.putInt("Life", this.life);
+        p_36975_.putInt("Cool", this.secondsCool);
     }
 
     public void readAdditionalSaveData(CompoundTag p_36970_) {
@@ -227,6 +245,9 @@ public class FlyingItem extends SpellEntity implements ItemSupplier {
         this.setItem(itemstack);
         if (p_36970_.contains("Life")){
             this.life = p_36970_.getInt("Life");
+        }
+        if (p_36970_.contains("Cool")){
+            this.secondsCool = p_36970_.getInt("Cool");
         }
     }
 

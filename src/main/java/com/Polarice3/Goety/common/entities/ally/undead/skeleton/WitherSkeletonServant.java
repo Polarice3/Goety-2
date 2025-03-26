@@ -1,7 +1,9 @@
 package com.Polarice3.Goety.common.entities.ally.undead.skeleton;
 
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.MobUtil;
+import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
@@ -12,11 +14,14 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+
+import javax.annotation.Nullable;
 
 public class WitherSkeletonServant extends AbstractSkeletonServant {
    public WitherSkeletonServant(EntityType<? extends WitherSkeletonServant> p_34166_, Level p_34167_) {
@@ -94,5 +99,9 @@ public class WitherSkeletonServant extends AbstractSkeletonServant {
 
    public boolean canBeAffected(MobEffectInstance p_34192_) {
       return p_34192_.getEffect() != MobEffects.WITHER && super.canBeAffected(p_34192_);
+   }
+
+   public EntityType<?> getVariant(@Nullable Player player, Level level, BlockPos blockPos) {
+      return ModEntityType.WITHER_SKELETON_SERVANT.get();
    }
 }

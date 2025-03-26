@@ -1,0 +1,16 @@
+{
+  "name": "Пустая банка душ",
+  "icon": "goety:empty_soul_jar",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/unlock_necromancer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "С помощью тенекамня можно создать банку для хранения душ некоторых прислужников, которая позволяет воскресить их путём её использования на определённых существах."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:empty_soul_jar"
+    }
+  ]
+}

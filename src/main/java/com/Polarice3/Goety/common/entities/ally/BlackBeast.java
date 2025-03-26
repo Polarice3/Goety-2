@@ -406,6 +406,7 @@ public class BlackBeast extends Summoned{
                 flyingItem.setOwner(this.getTrueOwner());
                 flyingItem.setItem(itemStack);
                 flyingItem.setParticle(ModParticleTypes.TOTEM_EFFECT.get());
+                flyingItem.setSecondsCool(30);
                 this.level.addFreshEntity(flyingItem);
             }
             this.remove(RemovalReason.KILLED);
