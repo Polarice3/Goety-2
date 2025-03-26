@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.neutral;
 import com.Polarice3.Goety.api.entities.IAutoRideable;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.magic.IWand;
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.ModMeleeAttackGoal;
@@ -45,9 +46,13 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
@@ -935,17 +940,42 @@ public class AbstractBroodMother extends Summoned implements IAutoRideable, Play
         this.level.addFreshEntity(webShot);
     }
 
+    public boolean isFood(ItemStack p_30440_) {
+        Item item = p_30440_.getItem();
+        return item.isEdible() && p_30440_.getFoodProperties(this).isMeat();
+    }
+
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-        if (!pPlayer.level.isClientSide) {
-            if (pPlayer == this.getTrueOwner()) {
-                if (!pPlayer.isCrouching()) {
-                    if (this.getFirstPassenger() != null && this.getFirstPassenger() != pPlayer){
-                        this.getFirstPassenger().stopRiding();
-                        return InteractionResult.SUCCESS;
-                    } else if (!(pPlayer.getItemInHand(pHand).getItem() instanceof IWand)){
-                        this.doPlayerRide(pPlayer);
-                        return InteractionResult.SUCCESS;
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
+        if (pPlayer == this.getTrueOwner()) {
+            if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
+                FoodProperties foodProperties = itemstack.getFoodProperties(this);
+                if (foodProperties != null){
+                    this.heal((float)foodProperties.getNutrition());
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
                     }
+
+                    this.gameEvent(GameEvent.EAT, this);
+                    this.eat(this.level, itemstack);
+                    if (this.level instanceof ServerLevel serverLevel) {
+                        for (int i = 0; i < 7; ++i) {
+                            double d0 = this.random.nextGaussian() * 0.02D;
+                            double d1 = this.random.nextGaussian() * 0.02D;
+                            double d2 = this.random.nextGaussian() * 0.02D;
+                            serverLevel.sendParticles(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+                        }
+                    }
+                    pPlayer.swing(pHand);
+                    return InteractionResult.SUCCESS;
+                }
+            } else if (!pPlayer.isCrouching()) {
+                if (this.getFirstPassenger() != null && this.getFirstPassenger() != pPlayer){
+                    this.getFirstPassenger().stopRiding();
+                    return InteractionResult.SUCCESS;
+                } else if (!(pPlayer.getItemInHand(pHand).getItem() instanceof IWand)){
+                    this.doPlayerRide(pPlayer);
+                    return InteractionResult.SUCCESS;
                 }
             }
         }

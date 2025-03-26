@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.entities.ai.ModLeaveWaterGoal;
 import com.Polarice3.Goety.common.entities.ai.path.GroundPathNavigatorFat;
 import com.Polarice3.Goety.common.entities.ai.path.ModWaterPathNavigation;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.ally.undead.ReaperServant;
 import com.Polarice3.Goety.common.entities.ally.undead.WraithServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SunkenSkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.VanguardServant;
@@ -320,7 +321,7 @@ public class DrownedNecromancer extends AbstractNecromancer {
         }
         if (this.getSummonList().contains(ModEntityType.REAPER_SERVANT.get())) {
             if (this.level.random.nextFloat() <= 0.05F) {
-                summoned = new WraithServant(ModEntityType.REAPER_SERVANT.get(), this.level);
+                summoned = new ReaperServant(ModEntityType.REAPER_SERVANT.get(), this.level);
             }
         }
         if (this.getSummonList().contains(ModEntityType.VANGUARD_SERVANT.get())){
