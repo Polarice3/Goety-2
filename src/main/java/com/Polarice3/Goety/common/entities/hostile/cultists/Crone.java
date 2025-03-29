@@ -407,11 +407,9 @@ public class Crone extends Cultist implements RangedAttackMob {
                         brewEffectInstance.add(new BrewEffectInstance(new TransposeBrewEffect()));
                     }
                 }
-            } else if (target.getHealth() >= 8.0F && (!target.hasEffect(MobEffects.POISON) || !target.hasEffect(GoetyEffects.SAPPED.get()))) {
+            } else if (target.getHealth() >= 8.0F && !target.hasEffect(MobEffects.POISON) && target.canBeAffected(new MobEffectInstance(MobEffects.POISON))) {
                 if (!target.hasEffect(MobEffects.POISON) && target.canBeAffected(new MobEffectInstance(MobEffects.POISON))){
                     mobEffectInstance.add(new MobEffectInstance(MobEffects.POISON, 900 / (amp + 1), amp));
-                } else {
-                    mobEffectInstance.add(new MobEffectInstance(GoetyEffects.SAPPED.get(), 1800 / (amp + 1), amp));
                 }
                 if (this.random.nextFloat() <= 0.25F && !this.hasEffect(GoetyEffects.FIERY_AURA.get()) && !target.hasEffect(GoetyEffects.FREEZING.get()) && !target.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)){
                     mobEffectInstance.add(new MobEffectInstance(GoetyEffects.FREEZING.get(), 900 / (amp + 1), amp));

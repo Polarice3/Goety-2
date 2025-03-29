@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GrappleSpell extends Spell {
+    public int trueCooldown = this.defaultSpellCooldown();
+
     @Override
     public int defaultSoulCost() {
         return SpellConfig.GrappleCost.get();
@@ -55,6 +57,10 @@ public class GrappleSpell extends Spell {
         return SpellConfig.GrappleCoolDown.get();
     }
 
+    public int spellCooldown(){
+        return this.trueCooldown;
+    }
+
     @Override
     public SpellType getSpellType() {
         return SpellType.WILD;
@@ -79,11 +85,13 @@ public class GrappleSpell extends Spell {
                 projectile.discard();
                 SEHelper.setGrappling(player, null);
                 worldIn.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FISHING_BOBBER_RETRIEVE, this.getSoundSource(), 1.0F, 0.4F / (worldIn.getRandom().nextFloat() * 0.4F + 0.8F));
+                this.trueCooldown = this.defaultSpellCooldown();
             } else {
                 VineHook vineHook = new VineHook(worldIn, player, 2.5F + velocity);
                 vineHook.setStaff(rightStaff(staff));
                 worldIn.addFreshEntity(vineHook);
                 worldIn.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FISHING_BOBBER_THROW, this.getSoundSource(), 0.5F, 0.4F / (worldIn.getRandom().nextFloat() * 0.4F + 0.8F));
+                this.trueCooldown = 0;
             }
         }
     }

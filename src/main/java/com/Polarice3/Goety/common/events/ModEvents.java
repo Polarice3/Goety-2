@@ -958,15 +958,29 @@ public class ModEvents {
 
         if (event.getSource() instanceof NoKnockBackDamageSource damageSource){
             if (damageSource.getOwner() != null) {
-                if (damageSource.getOwner() instanceof LivingEntity) {
+                if (damageSource.getOwner() instanceof LivingEntity && !damageSource.is(DamageTypeTags.NO_ANGER)) {
                     victim.setLastHurtByMob((LivingEntity) damageSource.getOwner());
                 }
-                if (damageSource.getOwner() instanceof Player) {
-                    victim.setLastHurtByPlayer((Player) damageSource.getOwner());
+                if (damageSource.getOwner() instanceof Player player) {
+                    victim.lastHurtByPlayer = player;
+                    victim.lastHurtByPlayerTime = 100;
                 }
                 if (damageSource.getOwner() instanceof ServerPlayer) {
                     CriteriaTriggers.PLAYER_HURT_ENTITY.trigger((ServerPlayer) damageSource.getOwner(), victim, event.getSource(), event.getAmount(), event.getAmount(), false);
                 }
+                if (damageSource.getOwner() instanceof IOwned owned){
+                    if (owned.getMasterOwner() instanceof Player player) {
+                        victim.lastHurtByPlayer = player;
+                        victim.lastHurtByPlayerTime = 100;
+                    }
+                }
+            }
+        }
+        
+        if (source instanceof IOwned owned){
+            if (owned.getMasterOwner() instanceof Player player) {
+                victim.lastHurtByPlayer = player;
+                victim.lastHurtByPlayerTime = 100;
             }
         }
 

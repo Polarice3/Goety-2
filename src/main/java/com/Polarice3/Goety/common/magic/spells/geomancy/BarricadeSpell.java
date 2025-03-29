@@ -107,6 +107,7 @@ public class BarricadeSpell extends Spell {
                 } else {
                     WandUtil.summonRandomPillarsTrap(caster, target, ModEntityType.TOTEMIC_WALL.get(), duration);
                 }
+                this.trueCooldown = this.defaultSpellCooldown();
             }
         } else if (rayTraceResult instanceof BlockHitResult){
             BlockPos blockPos = ((BlockHitResult) rayTraceResult).getBlockPos();
@@ -120,6 +121,7 @@ public class BarricadeSpell extends Spell {
                 }
             } else {
                 WandUtil.summonWallTrap(caster, blockPos, ModEntityType.TOTEMIC_WALL.get(), duration);
+                this.trueCooldown = this.defaultSpellCooldown();
             }
         }
     }
