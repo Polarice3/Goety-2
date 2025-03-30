@@ -531,6 +531,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> BroodMotherLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> NecromancerLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> DrownedNecromancerLimit;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WitherNecromancerLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> BoundIllagerLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> BlackBeastLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> WildfireLimit;
@@ -1623,6 +1624,8 @@ public class SpellConfig {
                 .defineInRange("necromancerLimit", 8, 1, Integer.MAX_VALUE);
         DrownedNecromancerLimit = BUILDER.comment("Number of Drowned Necromancer Servants that an individual player can have in total, Default: 2")
                 .defineInRange("drownedNecromancerLimit", 2, 1, Integer.MAX_VALUE);
+        WitherNecromancerLimit = BUILDER.comment("Number of Wither Necromancer Servants that an individual player can have in total, Default: 2")
+                .defineInRange("witherNecromancerLimit", 2, 1, Integer.MAX_VALUE);
         BoundIllagerLimit = BUILDER.comment("Number of Bound Illager Servants that an individual player can have in total, Default: 2")
                 .defineInRange("boundIllagerLimit", 2, 1, Integer.MAX_VALUE);
         BlackBeastLimit = BUILDER.comment("Number of Black Beast Servants that an individual player can have in total, Default: 2")

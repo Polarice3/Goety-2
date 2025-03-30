@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.items.magic;
 
+import com.Polarice3.Goety.common.entities.deco.HauntedArmorStand;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.client.resources.language.I18n;
@@ -11,6 +12,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -28,7 +30,7 @@ public class GrudgeGrimoire extends Item {
 
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
         if (!pTarget.level.isClientSide) {
-            if (pAttacker instanceof Player attacker) {
+            if (pAttacker instanceof Player attacker && !(pTarget instanceof ArmorStand || pTarget instanceof HauntedArmorStand)) {
                 if (MobUtil.isShifting(attacker)) {
                     if (SEHelper.addGrudgeEntityType(attacker, pTarget.getType())) {
                         if (SEHelper.getAllyEntityTypes(attacker).contains(pTarget.getType())){

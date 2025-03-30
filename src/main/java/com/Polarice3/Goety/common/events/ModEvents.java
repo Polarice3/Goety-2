@@ -25,6 +25,7 @@ import com.Polarice3.Goety.common.entities.ally.golem.IceGolem;
 import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
+import com.Polarice3.Goety.common.entities.deco.HauntedArmorStand;
 import com.Polarice3.Goety.common.entities.hostile.WitherNecromancer;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Heretic;
@@ -99,6 +100,7 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities;
 import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.npc.*;
@@ -891,6 +893,15 @@ public class ModEvents {
         LivingEntity target = event.getOriginalTarget();
         if (attacker instanceof Mob mobAttacker) {
             if (target != null) {
+                if (attacker instanceof IOwned){
+                    if (target instanceof ArmorStand || target instanceof HauntedArmorStand){
+                        if (event.getTargetType() == MOB_TARGET) {
+                            event.setNewTarget(null);
+                        } else {
+                            event.setCanceled(true);
+                        }
+                    }
+                }
                 if ((mobAttacker.getMobType() == MobType.UNDEAD && !(mobAttacker instanceof IOwned) && mobAttacker.getMaxHealth() < 100.0F) || mobAttacker instanceof Creeper) {
                     if (event.getNewTarget() instanceof Apostle) {
                         event.setCanceled(true);

@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.common.blocks.entities.GraveGolemSkullBlockEntity;
-import com.Polarice3.Goety.common.items.block.RedstoneGolemSkullItem;
+import com.Polarice3.Goety.common.items.block.GraveGolemSkullItem;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
@@ -55,14 +55,14 @@ public class WallGraveGolemSkullBlock extends BaseEntityBlock {
 
     public void setOwner(ItemStack itemStack, BlockEntity tileEntity){
         if (tileEntity instanceof GraveGolemSkullBlockEntity blockEntity){
-            RedstoneGolemSkullItem.setOwner(blockEntity.getPlayer(), itemStack);
+            GraveGolemSkullItem.setOwner(blockEntity.getPlayer(), itemStack);
         }
     }
 
     public void setModCustomName(ItemStack itemStack, BlockEntity tileEntity){
         if (tileEntity instanceof GraveGolemSkullBlockEntity blockEntity){
             if (blockEntity.getCustomName() != null && !blockEntity.getCustomName().isEmpty()) {
-                RedstoneGolemSkullItem.setCustomName(blockEntity.getCustomName(), itemStack);
+                GraveGolemSkullItem.setCustomName(blockEntity.getCustomName(), itemStack);
             }
         }
     }

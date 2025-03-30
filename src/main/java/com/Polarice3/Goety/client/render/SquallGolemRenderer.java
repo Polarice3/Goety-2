@@ -52,7 +52,7 @@ public class SquallGolemRenderer<T extends SquallGolem> extends MobRenderer<T, S
 
         @Override
         public RenderType renderType() {
-            return ModRenderType.eyes(GLOW);
+            return RenderType.eyes(GLOW);
         }
     }
 }

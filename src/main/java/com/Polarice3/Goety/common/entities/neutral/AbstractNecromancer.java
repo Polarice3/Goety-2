@@ -222,7 +222,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
 
     @Override
     public Predicate<Entity> summonPredicate() {
-        return entity -> entity instanceof AbstractNecromancer;
+        return entity -> entity instanceof AbstractNecromancer && !(entity instanceof DrownedNecromancer) && !(entity instanceof AbstractWitherNecromancer);
     }
 
     @Override

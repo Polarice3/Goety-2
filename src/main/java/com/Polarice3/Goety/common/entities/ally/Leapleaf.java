@@ -523,11 +523,9 @@ public class Leapleaf extends Summoned{
         @Override
         public void tick() {
             LivingEntity livingentity = Leapleaf.this.getTarget();
-            if (livingentity == null) {
-                return;
+            if (livingentity != null) {
+                MobUtil.instaLook(Leapleaf.this, livingentity);
             }
-
-            MobUtil.instaLook(Leapleaf.this, Leapleaf.this.getTarget());
 
             Leapleaf.this.getNavigation().stop();
             if (Leapleaf.this.attackTick == 1) {

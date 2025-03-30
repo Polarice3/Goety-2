@@ -22,7 +22,10 @@ public class WitherNecromancerRenderer extends MobRenderer<AbstractWitherNecroma
    }
 
    protected void scale(AbstractWitherNecromancer necromancer, PoseStack matrixStackIn, float partialTickTime) {
-      matrixStackIn.scale(1.45F, 1.45F, 1.45F);
+      float original = 1.45F;
+      float f1 = (float)necromancer.getNecroLevel();
+      float size = original + Math.max(f1 * 0.15F, 0);
+      matrixStackIn.scale(size, size, size);
    }
 
    public ResourceLocation getTextureLocation(AbstractWitherNecromancer p_115941_) {

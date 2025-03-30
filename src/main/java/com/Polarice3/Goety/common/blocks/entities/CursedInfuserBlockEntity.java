@@ -13,8 +13,11 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -74,7 +77,7 @@ public class CursedInfuserBlockEntity extends ModBlockEntity implements Clearabl
                         if (this.cookingProgress[i] >= this.cookingTime[i]) {
                             this.items.set(i, ItemStack.EMPTY);
                             BlockPos blockpos = this.getBlockPos();
-                            Containers.dropItemStack(this.level, blockpos.getX(), blockpos.getY(), blockpos.getZ(), itemstack1);
+                            dropItemStack(this.level, blockpos.getX(), blockpos.getY() + 0.5F, blockpos.getZ(), itemstack1);
                             this.level.playSound(null, this.getBlockPos(), SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
                             this.markUpdated();
                             this.cookingProgress[i] = 0;
@@ -82,6 +85,23 @@ public class CursedInfuserBlockEntity extends ModBlockEntity implements Clearabl
                     }
                 }
             }
+        }
+
+    }
+
+    public static void dropItemStack(Level level, double pX, double pY, double pZ, ItemStack stack) {
+        double d0 = EntityType.ITEM.getWidth();
+        double d1 = 1.0D - d0;
+        double d2 = d0 / 2.0D;
+        double d3 = Math.floor(pX) + level.random.nextDouble() * d1 + d2;
+        double d4 = Math.floor(pY) + level.random.nextDouble() * d1;
+        double d5 = Math.floor(pZ) + level.random.nextDouble() * d1 + d2;
+
+        while(!stack.isEmpty()) {
+            ItemEntity itementity = new ItemEntity(level, d3, d4, d5, stack.split(level.random.nextInt(21) + 10));
+            float f = 0.05F;
+            itementity.setDeltaMovement(0.0D, level.random.triangle(0.2D, 0.11485000171139836D), 0.0D);
+            level.addFreshEntity(itementity);
         }
 
     }

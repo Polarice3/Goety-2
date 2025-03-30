@@ -41,6 +41,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -201,7 +202,7 @@ public class VanguardServant extends AbstractSkeletonServant {
     }
 
     @Override
-    public EntityType<?> getVariant(Level level, BlockPos blockPos) {
+    public EntityType<?> getVariant(@Nullable Player player, Level level, BlockPos blockPos) {
         return ModEntityType.VANGUARD_SERVANT.get();
     }
 
