@@ -79,8 +79,8 @@ public class BoltingSpell extends Spell {
         caster.hasImpulse = true;
         caster.fallDistance = 0;
         TimedEvents.submitTask("goety:bolting", new BoltingDashTask(caster.getUUID(), worldIn, this.rightStaff(staff), potency));
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.HEAVY_WOOSH.get(), this.getSoundSource(), 3.0F, 1.0F);
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.REDSTONE_EXPLODE.get(), this.getSoundSource(), 3.0F, 1.0F);
+        this.playSound(worldIn, caster, ModSounds.HEAVY_WOOSH.get(), 3.0F, 1.0F);
+        this.playSound(worldIn, caster, ModSounds.REDSTONE_EXPLODE.get(), 3.0F, 1.0F);
     }
 
     public static class BoltingDashTask implements EventTask {

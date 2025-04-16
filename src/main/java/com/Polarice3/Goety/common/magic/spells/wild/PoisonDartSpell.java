@@ -74,6 +74,6 @@ public class PoisonDartSpell extends Spell {
             poisonQuill.setAqua(true);
         }
         worldIn.addFreshEntity(poisonQuill);
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.POISON_QUILL_VINE_SHOOT.get(), this.getSoundSource(), 1.0F, 1.0F);
+        this.playSound(worldIn, caster, ModSounds.POISON_QUILL_VINE_SHOOT.get(), 1.0F, this.projPitch(worldIn.getRandom()));
     }
 }

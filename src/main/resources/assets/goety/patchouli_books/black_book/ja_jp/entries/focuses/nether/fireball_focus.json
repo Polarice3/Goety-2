@@ -9,7 +9,7 @@
       "text": "ブレイズのパワーをあなたの指先で手に入れましょう。 ディスペンサーやファイアチャージを使用する必要はなくなり、あなたもディスペンサーになれます。"
     },
     {
-      "type": "goety:ritual",
+      "type": "patchouli:crafting",
       "recipe": "goety:focus/fireball_focus"
     }
   ]

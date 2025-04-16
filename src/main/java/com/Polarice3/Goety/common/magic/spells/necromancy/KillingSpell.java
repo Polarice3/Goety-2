@@ -97,8 +97,8 @@ public class KillingSpell extends Spell {
                         ServerParticleUtil.windParticle(worldIn, colorUtil, 1.0F, 0.0F, target.getId(), target.position());
                     }
                     ModNetwork.sendToALL(new SThunderBoltPacket(vec3, vec31, colorUtil, 10));
-                    worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.THUNDERBOLT.get(), this.getSoundSource(), 3.0F, 0.75F);
-                    worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.LIGHTNING_BOLT_IMPACT, this.getSoundSource(), 3.0F, 0.75F);
+                    this.playSound(worldIn, caster, ModSounds.THUNDERBOLT.get(), 3.0F, 0.75F);
+                    this.playSound(worldIn, caster, SoundEvents.LIGHTNING_BOLT_IMPACT, 3.0F, 0.75F);
                 }
             }
         }

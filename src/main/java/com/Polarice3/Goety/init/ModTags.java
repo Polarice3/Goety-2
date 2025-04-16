@@ -102,6 +102,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> HOLE_IMMUNE = tag("hole_immune");
         public static final TagKey<EntityType<?>> SUMMON_KILL = tag("summon_kill");
         public static final TagKey<EntityType<?>> MINI_BOSSES = tag("mini_bosses");
+        public static final TagKey<EntityType<?>> GLOBAL_MUSIC_BOSS = tag("global_music_boss");
         public static final TagKey<EntityType<?>> APOSTLE_OTHER_ALLIES = tag("apostle_other_allies");
         public static final TagKey<EntityType<?>> WITCH_SET_NEUTRAL = tag("witch_set_neutral");
         public static final TagKey<EntityType<?>> ABYSS_SET_NEUTRAL = tag("abyss_set_neutral");
@@ -110,6 +111,11 @@ public class ModTags {
         public static final TagKey<EntityType<?>> NETHER_SET_NEUTRAL = tag("nether_set_neutral");
         public static final TagKey<EntityType<?>> NECRO_SET_NEUTRAL = tag("necro_set_neutral");
         public static final TagKey<EntityType<?>> LICH_NEUTRAL = tag("lich_neutral");
+        public static final TagKey<EntityType<?>> ABYSS_HEAL = tag("abyss_heal");
+        public static final TagKey<EntityType<?>> FROST_HEAL = tag("frost_heal");
+        public static final TagKey<EntityType<?>> WILD_HEAL = tag("wild_heal");
+        public static final TagKey<EntityType<?>> NETHER_HEAL = tag("nether_heal");
+        public static final TagKey<EntityType<?>> NECRO_HEAL = tag("necro_heal");
 
         private static TagKey<EntityType<?>> tag(String name) {
             return create(Goety.location(name));
@@ -128,6 +134,8 @@ public class ModTags {
         public static final TagKey<Biome> REAPER_EXCLUDE_SPAWN = tag("mob_spawn/reaper_exclude");
         public static final TagKey<Biome> WRAITH_SPAWN = tag("mob_spawn/wraith");
         public static final TagKey<Biome> WRAITH_EXCLUDE_SPAWN = tag("mob_spawn/wraith_exclude");
+        public static final TagKey<Biome> MUCK_WRAITH_SPAWN = tag("mob_spawn/muck_wraith");
+        public static final TagKey<Biome> MUCK_WRAITH_EXCLUDE_SPAWN = tag("mob_spawn/muck_wraith_exclude");
         public static final TagKey<Biome> WEB_SPIDER_SPAWN = tag("mob_spawn/web_spider");
         public static final TagKey<Biome> WEB_SPIDER_EXCLUDE_SPAWN = tag("mob_spawn/web_spider_exclude");
         public static final TagKey<Biome> ICY_SPIDER_SPAWN = tag("mob_spawn/icy_spider");

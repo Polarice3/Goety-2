@@ -160,6 +160,16 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> WRAITH_TELEPORT = create("wraith_teleport");
     public static final RegistryObject<SoundEvent> WRAITH_DEATH = create("wraith_death");
 
+    public static final RegistryObject<SoundEvent> TOWER_WRAITH_AMBIENT = create("tower_wraith_ambient");
+    public static final RegistryObject<SoundEvent> TOWER_WRAITH_HURT = create("tower_wraith_hurt");
+    public static final RegistryObject<SoundEvent> TOWER_WRAITH_FLY = create("tower_wraith_fly");
+    public static final RegistryObject<SoundEvent> TOWER_WRAITH_ATTACK = create("tower_wraith_attack");
+    public static final RegistryObject<SoundEvent> TOWER_WRAITH_ACID = create("tower_wraith_acid");
+    public static final RegistryObject<SoundEvent> TOWER_WRAITH_ACID_VOCAL = create("tower_wraith_acid_vocal");
+    public static final RegistryObject<SoundEvent> TOWER_WRAITH_TELEPORT_IN = create("tower_wraith_teleport_in");
+    public static final RegistryObject<SoundEvent> TOWER_WRAITH_TELEPORT_OUT = create("tower_wraith_teleport_out");
+    public static final RegistryObject<SoundEvent> TOWER_WRAITH_DEATH = create("tower_wraith_death");
+
     public static final RegistryObject<SoundEvent> FROZEN_ZOMBIE_AMBIENT = create("frozen_zombie_ambient");
     public static final RegistryObject<SoundEvent> FROZEN_ZOMBIE_HURT = create("frozen_zombie_hurt");
     public static final RegistryObject<SoundEvent> FROZEN_ZOMBIE_SNOWBALL = create("frozen_zombie_snowball");

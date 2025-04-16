@@ -39,7 +39,10 @@ public class CycloneSpell extends Spell {
     }
 
     @Override
-    public SoundEvent CastingSound() {
+    public SoundEvent CastingSound(LivingEntity caster) {
+        if (CuriosFinder.hasUnholySet(caster)){
+            return ModSounds.APOSTLE_PREPARE_SPELL.get();
+        }
         return ModSounds.WIND.get();
     }
 
@@ -112,6 +115,6 @@ public class CycloneSpell extends Spell {
                 caster.getEyeY() - 0.2,
                 caster.getZ() + vector3d.z / 2);
         worldIn.addFreshEntity(cyclone);
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), this.CastingSound(), this.getSoundSource(), 1.0F, 1.0F);
+        this.playSound(worldIn, caster, 1.0F, 1.0F);
     }
 }

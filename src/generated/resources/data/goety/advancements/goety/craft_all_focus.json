@@ -133,6 +133,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.bombardment_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:bombardment_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.bouncy_bubble_focus": {
       "conditions": {
         "items": [
@@ -505,6 +517,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.guardian_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:guardian_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.hail_focus": {
       "conditions": {
         "items": [
@@ -703,6 +727,18 @@
           {
             "items": [
               "goety:mauling_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "item.goety.meteor_shower_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:meteor_shower_focus"
             ]
           }
         ]
@@ -1507,6 +1543,9 @@
       "item.goety.prisma_beam_focus"
     ],
     [
+      "item.goety.guardian_focus"
+    ],
+    [
       "item.goety.biomine_focus"
     ],
     [
@@ -1517,6 +1556,12 @@
     ],
     [
       "item.goety.lavaball_focus"
+    ],
+    [
+      "item.goety.bombardment_focus"
+    ],
+    [
+      "item.goety.meteor_shower_focus"
     ],
     [
       "item.goety.magma_bomb_focus"

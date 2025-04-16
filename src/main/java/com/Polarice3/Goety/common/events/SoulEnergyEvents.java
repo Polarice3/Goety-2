@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.events;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.items.magic.ITotem;
+import com.Polarice3.Goety.client.particles.LichShockwaveParticleOption;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.capabilities.soulenergy.ISoulEnergy;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
@@ -20,6 +21,7 @@ import com.Polarice3.Goety.common.network.server.TotemDeathPacket;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -348,21 +350,48 @@ public class SoulEnergyEvents {
                     if (MainConfig.ArcaUndying.get()) {
                         if (!player.level.isClientSide) {
                             if (LichdomHelper.isLich(player)) {
-                                SEHelper.teleportToArca(player);
-                                player.setHealth(1.0F);
-                                player.removeAllEffects();
-                                if (soulEnergy.getSoulEnergy() > MainConfig.MaxSouls.get()) {
-                                    player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100, 1));
-                                    player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 800, 0));
+                                if (MainConfig.LichNoSERemove.get()){
+                                    if (soulEnergy.getSoulEnergy() >= MainConfig.MaxSouls.get()){
+                                        SEHelper.teleportToArca(player);
+                                        player.setHealth(1.0F);
+                                        player.removeAllEffects();
+                                        player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100, 1));
+                                        player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 800, 0));
+                                        player.playSound(SoundEvents.WITHER_DEATH, 1.0F, 1.0F);
+                                        ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.WITHER_DEATH, 1.0F, 1.0F));
+                                        SEHelper.decreaseSESouls(player, MainConfig.MaxSouls.get());
+                                        SEHelper.sendSEUpdatePacket(player);
+                                        event.setCanceled(true);
+                                    } else {
+                                        if (MainConfig.LichModeSounds.get()) {
+                                            Vec3 vec3 = player.position();
+                                            player.level.playSound(null, vec3.x, vec3.y, vec3.z, ModSounds.LICH_DEATH.get(), player.getSoundSource(), 1.0F, player.getVoicePitch());
+                                        }
+                                        if (player.level instanceof ServerLevel serverLevel){
+                                            ColorUtil colorUtil = new ColorUtil(0x36e416);
+                                            serverLevel.sendParticles(new LichShockwaveParticleOption(colorUtil, 40, 20, 1, 100), player.getX(), player.getY() + 0.5F, player.getZ(), 0, 0, 0, 0, 0.5F);
+                                        }
+                                        if (LichdomHelper.isLich(player)) {
+                                            LichdomHelper.setLich(player, false);
+                                        }
+                                    }
                                 } else {
-                                    player.addEffect(new MobEffectInstance(GoetyEffects.SOUL_HUNGER.get(), MathHelper.minutesToTicks(2), 4, false, false));
+                                    SEHelper.teleportToArca(player);
+                                    player.setHealth(1.0F);
+                                    player.removeAllEffects();
+                                    if (soulEnergy.getSoulEnergy() >= MainConfig.MaxSouls.get()) {
+                                        player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100, 1));
+                                        player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 800, 0));
+                                    } else {
+                                        player.addEffect(new MobEffectInstance(GoetyEffects.SOUL_HUNGER.get(), MathHelper.minutesToTicks(2), 4, false, false));
+                                    }
+                                    player.playSound(SoundEvents.WITHER_DEATH, 1.0F, 1.0F);
+                                    ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.WITHER_DEATH, 1.0F, 1.0F));
+                                    SEHelper.decreaseSESouls(player, MainConfig.MaxSouls.get());
+                                    SEHelper.sendSEUpdatePacket(player);
+                                    event.setCanceled(true);
                                 }
-                                player.playSound(SoundEvents.WITHER_DEATH, 1.0F, 1.0F);
-                                ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.WITHER_DEATH, 1.0F, 1.0F));
-                                SEHelper.decreaseSESouls(player, MainConfig.MaxSouls.get());
-                                SEHelper.sendSEUpdatePacket(player);
-                                event.setCanceled(true);
-                            } else if (soulEnergy.getSoulEnergy() > MainConfig.MaxSouls.get()) {
+                            } else if (soulEnergy.getSoulEnergy() >= MainConfig.MaxSouls.get()) {
                                 SEHelper.teleportToArca(player);
                                 player.setHealth(1.0F);
                                 player.removeAllEffects();

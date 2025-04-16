@@ -213,6 +213,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> RISING_ENCHANT = PARTICLE_TYPES.register("rising_enchant",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> ROLLING_SPIRAL = PARTICLE_TYPES.register("rolling_spiral",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> ROLLING_ENCHANT = PARTICLE_TYPES.register("rolling_enchant",
             () -> new SimpleParticleType(false));
 
@@ -267,6 +270,14 @@ public class ModParticleTypes {
             });
 
     public static final RegistryObject<ParticleType<ShockwaveParticleOption>> REVERSE_SHOCKWAVE = PARTICLE_TYPES.register("reverse_shockwave",
+            () -> new ParticleType<>(false, ShockwaveParticleOption.DESERIALIZER) {
+                @Override
+                public Codec codec() {
+                    return ShockwaveParticleOption.CODEC;
+                }
+            });
+
+    public static final RegistryObject<ParticleType<ShockwaveParticleOption>> LICH_DEATH = PARTICLE_TYPES.register("lich_death",
             () -> new ParticleType<>(false, ShockwaveParticleOption.DESERIALIZER) {
                 @Override
                 public Codec codec() {

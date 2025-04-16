@@ -274,10 +274,12 @@ public class ScatterMine extends Entity {
         if (!this.level.isClientSide) {
             LivingEntity owner = null;
             float damage = SpellConfig.ScatterMineDamage.get().floatValue();
-            if (this.getOwner() instanceof Mob){
-                owner = this.getOwner();
-                if (this.getOwner().getAttribute(Attributes.ATTACK_DAMAGE) != null && this.getOwner().getAttributeValue(Attributes.ATTACK_DAMAGE) > 0.0F){
-                    damage = (float) (this.getOwner().getAttributeValue(Attributes.ATTACK_DAMAGE)/* / 1.666667F*/);
+            if (!this.isSpell()) {
+                if (this.getOwner() instanceof Mob) {
+                    owner = this.getOwner();
+                    if (this.getOwner().getAttribute(Attributes.ATTACK_DAMAGE) != null && this.getOwner().getAttributeValue(Attributes.ATTACK_DAMAGE) > 0.0F) {
+                        damage = (float) (this.getOwner().getAttributeValue(Attributes.ATTACK_DAMAGE)/* / 1.666667F*/);
+                    }
                 }
             }
             damage += this.getExtraDamage();

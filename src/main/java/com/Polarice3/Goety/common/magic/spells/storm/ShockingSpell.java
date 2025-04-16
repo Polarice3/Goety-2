@@ -132,11 +132,11 @@ public class ShockingSpell extends EverChargeSpell {
                         WandUtil.chainLightning(livingEntity, caster, range / 4.0D, chainDamage, true);
                     }
                 }
-                worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.ZAP.get(), this.getSoundSource(), 1.0F, 1.0F);
+                this.playSound(worldIn, caster, ModSounds.ZAP.get());
             } else {
                 BlockPos blockPos = rayTraceResult.getBlockPos();
                 ModNetwork.sendToALL(new SLightningPacket(vec3, new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ()), 5));
-                worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.ZAP.get(), this.getSoundSource(), 1.0F, 1.0F);
+                this.playSound(worldIn, caster, ModSounds.ZAP.get());
             }
         }
     }

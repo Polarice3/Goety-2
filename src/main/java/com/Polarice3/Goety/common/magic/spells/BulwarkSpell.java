@@ -73,6 +73,6 @@ public class BulwarkSpell extends Spell {
             MiscCapHelper.setShields(caster, amount);
             MiscCapHelper.setShieldTime(caster, duration);
         }
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.SHIELD_UP.get(), this.getSoundSource(), 3.0F, caster.getVoicePitch());
+        this.playSound(worldIn, caster, ModSounds.SHIELD_UP.get(), 3.0F, caster.getVoicePitch());
     }
 }

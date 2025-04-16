@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.player.Player;
@@ -127,6 +128,36 @@ public class MiscCapHelper {
         }
     }
 
+    public static int getMobTargetID(LivingEntity livingEntity){
+        return getCapability(livingEntity).getMobTargetID();
+    }
+
+    public static void setMobTargetID(LivingEntity livingEntity, int mob){
+        getCapability(livingEntity).setMobTargetID(mob);
+        MiscCapHelper.sendMiscUpdatePacket(livingEntity);
+    }
+
+    @Nullable
+    public static Entity getMobTarget(LivingEntity livingEntity){
+        return livingEntity.level.getEntity(getMobTargetID(livingEntity));
+    }
+
+    public static void setMobTarget(LivingEntity livingEntity, @Nullable Entity entity){
+        if (entity == null){
+            setMobTargetID(livingEntity, 0);
+        } else {
+            setMobTargetID(livingEntity, entity.getId());
+        }
+    }
+
+    public static void updateMobTarget(Mob mob){
+        if (!mob.level.isClientSide) {
+            if (getMobTarget(mob) != mob.getTarget()) {
+                setMobTarget(mob, mob.getTarget());
+            }
+        }
+    }
+
     @Nullable
     public static ResourceLocation getCustomSpinTexture(LivingEntity livingEntity){
         String string = getCapability(livingEntity).customSpinTexture();
@@ -156,6 +187,7 @@ public class MiscCapHelper {
         tag.putInt("shieldCool", misc.shieldCool());
         tag.putInt("ambientSoundTime", misc.ambientSoundTime());
         tag.putInt("clientTargetID", misc.getClientTargetID());
+        tag.putInt("mobTargetID", misc.getMobTargetID());
         tag.putString("customSpinTexture", misc.customSpinTexture());
         return tag;
     }
@@ -178,6 +210,9 @@ public class MiscCapHelper {
         }
         if (tag.contains("clientTargetID")){
             misc.setClientTargetID(tag.getInt("clientTargetID"));
+        }
+        if (tag.contains("mobTargetID")){
+            misc.setMobTargetID(tag.getInt("mobTargetID"));
         }
         if (tag.contains("customSpinTexture")) {
             misc.setCustomSpinTexture(tag.getString("customSpinTexture"));

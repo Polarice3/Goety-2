@@ -1,0 +1,18 @@
+{
+  "name": "流星雨聚晶",
+  "icon": "goety:meteor_shower_focus",
+  "category": "goety:focuses/nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "用下界的力量扭曲箭雨聚晶, 你可以呼唤流星雨降临世间，而不是普通的箭。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/meteor_shower_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:meteor_shower_focus": 1
+  }
+}

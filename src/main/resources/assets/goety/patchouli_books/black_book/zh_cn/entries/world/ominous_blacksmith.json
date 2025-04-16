@@ -1,0 +1,16 @@
+{
+  "name": "不祥铁匠铺",
+  "icon": "goety:highrock_bricks",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "有传言说，灾厄村民们在高耸入云的山顶上建造了铁匠铺，其中可能有着灾厄村民们的珍宝。"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/ominous_blacksmith.png"],
+      "border": true
+    }
+  ]
+}

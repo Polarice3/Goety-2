@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.compat.jade;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.api.entities.IOwned;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -38,9 +38,9 @@ public enum SummonLifespanProvider implements IEntityComponentProvider, IServerD
         int time = -1;
         boolean hasLifespan = false;
         Entity entity = accessor.getEntity();
-        if (entity instanceof Owned owned) {
-            time = owned.limitedLifeTicks;
-            hasLifespan = owned.limitedLifespan;
+        if (entity instanceof IOwned owned) {
+            time = owned.getLifespan();
+            hasLifespan = owned.hasLifespan();
         }
         if (time > 0) {
             tag.putInt("Lifespan", time);

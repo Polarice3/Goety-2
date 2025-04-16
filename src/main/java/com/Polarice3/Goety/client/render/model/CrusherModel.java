@@ -1,19 +1,25 @@
 package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.client.render.animation.CrusherAnimations;
+import com.Polarice3.Goety.client.render.layer.HierarchicalArmor;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Crusher;
+import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.phys.Vec3;
 
-public class CrusherModel<T extends Crusher> extends HierarchicalModel<T> implements HeadedModel {
+public class CrusherModel<T extends Crusher> extends HierarchicalModel<T> implements HeadedModel, HierarchicalArmor {
 	private final ModelPart root;
 	private final ModelPart head;
 	private final ModelPart body;
+	private final ModelPart clothes;
 	private final ModelPart right_leg;
 	private final ModelPart left_leg;
 	private final ModelPart right_arm;
@@ -23,6 +29,7 @@ public class CrusherModel<T extends Crusher> extends HierarchicalModel<T> implem
 		this.root = root;
 		this.head = root.getChild("head");
 		this.body = root.getChild("body");
+		this.clothes = this.body.getChild("clothes");
 		this.right_leg = root.getChild("right_leg");
 		this.left_leg = root.getChild("left_leg");
 		this.right_arm = root.getChild("right_arm");
@@ -37,8 +44,9 @@ public class CrusherModel<T extends Crusher> extends HierarchicalModel<T> implem
 
 		PartDefinition nose = head.addOrReplaceChild("nose", CubeListBuilder.create().texOffs(24, 0).addBox(-1.0F, -1.0F, -6.0F, 2.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -2.0F, 0.0F));
 
-		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 20).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 12.0F, 6.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 38).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 20.0F, 6.0F, new CubeDeformation(0.5F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 20).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 12.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+
+		PartDefinition clothes = body.addOrReplaceChild("clothes", CubeListBuilder.create().texOffs(0, 38).addBox(-4.0F, -24.0F, -3.0F, 8.0F, 20.0F, 6.0F, new CubeDeformation(0.5F)), PartPose.offset(0.0F, 24.0F, 0.0F));
 
 		PartDefinition right_leg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 22).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, 12.0F, 0.0F));
 
@@ -91,6 +99,9 @@ public class CrusherModel<T extends Crusher> extends HierarchicalModel<T> implem
 		}
 		this.animate(entity.idleAnimationState, CrusherAnimations.IDLE, ageInTicks);
 		this.animate(entity.attackAnimationState, CrusherAnimations.SMASH, ageInTicks);
+		boolean flag2 = entity.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof ArmorItem
+				|| entity.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ArmorItem;
+		this.clothes.visible = !flag2;
 	}
 
 	private void animateHeadLookTarget(float netHeadYaw, float headPitch) {
@@ -105,5 +116,53 @@ public class CrusherModel<T extends Crusher> extends HierarchicalModel<T> implem
 	@Override
 	public ModelPart root() {
 		return this.root;
+	}
+
+	@Override
+	public void translateToHead(ModelPart modelPart, PoseStack poseStack) {
+		modelPart.translateAndRotate(poseStack);
+		poseStack.translate(0, -0.1F, 0);
+	}
+
+	@Override
+	public void translateToChest(ModelPart modelPart, PoseStack poseStack) {
+		modelPart.translateAndRotate(poseStack);
+		poseStack.translate(0.0F, 0.0F, 0.0F);
+		poseStack.scale(1.05F, 1.05F, 1.05F);
+	}
+
+	@Override
+	public void translateToLeg(ModelPart modelPart, PoseStack poseStack) {
+		modelPart.translateAndRotate(poseStack);
+	}
+
+	@Override
+	public void translateToArms(ModelPart modelPart, PoseStack poseStack) {
+		modelPart.translateAndRotate(poseStack);
+		poseStack.scale(1.05F, 1.05F, 1.05F);
+	}
+
+	public Iterable<ModelPart> rightHandArmors() {
+		return ImmutableList.of(this.right_arm);
+	}
+
+	public Iterable<ModelPart> leftHandArmors() {
+		return ImmutableList.of(this.left_arm);
+	}
+
+	public Iterable<ModelPart> rightLegPartArmors() {
+		return ImmutableList.of(this.right_leg);
+	}
+
+	public Iterable<ModelPart> leftLegPartArmors() {
+		return ImmutableList.of(this.left_leg);
+	}
+
+	public Iterable<ModelPart> bodyPartArmors() {
+		return ImmutableList.of(this.body);
+	}
+
+	public Iterable<ModelPart> headPartArmors() {
+		return ImmutableList.of(this.head);
 	}
 }

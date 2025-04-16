@@ -49,7 +49,7 @@ public class EnderChestSpell extends Spell {
             player.openMenu(new SimpleMenuProvider((p_53124_, p_53125_, p_53126_) -> {
                 return ChestMenu.threeRows(p_53124_, p_53125_, playerenderchestcontainer);
             }, CONTAINER_TITLE));
-            worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), CastingSound(), this.getSoundSource(), 2.0F, 1.0F);
+            this.playSound(worldIn, caster, 2.0F, 1.0F);
         }
     }
 }

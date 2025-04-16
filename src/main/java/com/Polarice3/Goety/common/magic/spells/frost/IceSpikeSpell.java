@@ -71,6 +71,6 @@ public class IceSpikeSpell extends Spell {
         iceSpike.setOwner(caster);
         iceSpike.setExtraDamage(potency);
         worldIn.addFreshEntity(iceSpike);
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.ICE_SPIKE_CAST.get(), this.getSoundSource(), 1.0F, 1.0F);
+        this.playSound(worldIn, caster, ModSounds.ICE_SPIKE_CAST.get(), 1.0F, this.projPitch(worldIn.getRandom()));
     }
 }

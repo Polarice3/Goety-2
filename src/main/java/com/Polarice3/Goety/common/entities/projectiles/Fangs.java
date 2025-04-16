@@ -194,6 +194,7 @@ public class Fangs extends Entity {
     private void dealDamageTo(LivingEntity target) {
         LivingEntity livingentity = this.getOwner();
         float baseDamage = SpellConfig.FangDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        baseDamage += this.damage;
         if (target.isAlive() && !target.isInvulnerable() && target != livingentity) {
             if (livingentity == null) {
                 target.hurt(this.damageSources().magic(), baseDamage);
@@ -206,12 +207,12 @@ public class Fangs extends Entity {
                 }
                 if (livingentity instanceof Player player){
                     if (this.isTotemSpawned()){
-                        target.hurt(target.damageSources().indirectMagic(this, livingentity), baseDamage + this.damage);
+                        target.hurt(target.damageSources().indirectMagic(this, livingentity), baseDamage);
                         if (this.burning > 0){
                             target.setSecondsOnFire(5 * this.burning);
                         }
                     } else {
-                        if (target.hurt(this.damageSources().indirectMagic(this, livingentity), baseDamage + this.damage)){
+                        if (target.hurt(this.damageSources().indirectMagic(this, livingentity), baseDamage)){
                             int soulEater = Mth.clamp(this.getSoulEater(), 0, 10);
                             SEHelper.increaseSouls(player, SpellConfig.FangGainSouls.get() * soulEater);
                             if (this.burning > 0){

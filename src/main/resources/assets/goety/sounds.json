@@ -1929,6 +1929,152 @@
     ],
     "subtitle": "subtitle.goety.wraith_death"
   },
+  "tower_wraith_ambient": {
+    "sounds": [
+      {
+        "name": "goety:tower_wraith/idle1"
+      },
+      {
+        "name": "goety:tower_wraith/idle2"
+      },
+      {
+        "name": "goety:tower_wraith/idle3"
+      },
+      {
+        "name": "goety:tower_wraith/idle4"
+      },
+      {
+        "name": "goety:tower_wraith/idle5"
+      }
+    ],
+    "subtitle": "subtitle.goety.wraith_ambient"
+  },
+  "tower_wraith_hurt": {
+    "sounds": [
+      {
+        "name": "goety:tower_wraith/hurt1"
+      },
+      {
+        "name": "goety:tower_wraith/hurt2"
+      },
+      {
+        "name": "goety:tower_wraith/hurt3"
+      }
+    ],
+    "subtitle": "subtitle.goety.wraith_hurt"
+  },
+  "tower_wraith_fly": {
+    "sounds": [
+      {
+        "name": "goety:tower_wraith/fly1"
+      },
+      {
+        "name": "goety:tower_wraith/fly2"
+      },
+      {
+        "name": "goety:tower_wraith/fly3"
+      },
+      {
+        "name": "goety:tower_wraith/fly4"
+      },
+      {
+        "name": "goety:tower_wraith/fly5"
+      }
+    ],
+    "subtitle": "subtitle.goety.wraith_fly"
+  },
+  "tower_wraith_attack": {
+    "sounds": [
+      {
+        "name": "goety:tower_wraith/attack1"
+      },
+      {
+        "name": "goety:tower_wraith/attack2"
+      },
+      {
+        "name": "goety:tower_wraith/attack3"
+      },
+      {
+        "name": "goety:tower_wraith/attack4"
+      },
+      {
+        "name": "goety:tower_wraith/attack5"
+      }
+    ],
+    "subtitle": "subtitle.goety.wraith_attack"
+  },
+  "tower_wraith_acid": {
+    "sounds": [
+      {
+        "name": "goety:tower_wraith/acid1"
+      },
+      {
+        "name": "goety:tower_wraith/acid2"
+      },
+      {
+        "name": "goety:tower_wraith/acid3"
+      }
+    ],
+    "subtitle": "subtitle.goety.wraith_acid"
+  },
+  "tower_wraith_acid_vocal": {
+    "sounds": [
+      {
+        "name": "goety:tower_wraith/acid_vocal1"
+      },
+      {
+        "name": "goety:tower_wraith/acid_vocal2"
+      }
+    ]
+  },
+  "tower_wraith_teleport_in": {
+    "sounds": [
+      {
+        "name": "goety:tower_wraith/teleport_in1"
+      },
+      {
+        "name": "goety:tower_wraith/teleport_in2"
+      },
+      {
+        "name": "goety:tower_wraith/teleport_in3"
+      },
+      {
+        "name": "goety:tower_wraith/teleport_in4"
+      }
+    ],
+    "subtitle": "subtitle.goety.wraith_teleport"
+  },
+  "tower_wraith_teleport_out": {
+    "sounds": [
+      {
+        "name": "goety:tower_wraith/teleport_out1"
+      },
+      {
+        "name": "goety:tower_wraith/teleport_out2"
+      },
+      {
+        "name": "goety:tower_wraith/teleport_out3"
+      },
+      {
+        "name": "goety:tower_wraith/teleport_out4"
+      }
+    ],
+    "subtitle": "subtitle.goety.wraith_teleport"
+  },
+  "tower_wraith_death": {
+    "sounds": [
+      {
+        "name": "goety:tower_wraith/death1"
+      },
+      {
+        "name": "goety:tower_wraith/death2"
+      },
+      {
+        "name": "goety:tower_wraith/death3"
+      }
+    ],
+    "subtitle": "subtitle.goety.wraith_death"
+  },
   "frozen_zombie_ambient": {
     "sounds": [
       {

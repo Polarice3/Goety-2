@@ -83,7 +83,7 @@ public class SoulHealSpell extends Spell {
         }
         worldIn.sendParticles(new SoulShockwaveParticleOption(), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 0, 0, 0, 0, 0);
         healParticles(caster, worldIn);
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.SOUL_HEAL.get(), this.getSoundSource(), 1.0F, 1.0F);
+        this.playSound(worldIn, caster, ModSounds.SOUL_HEAL.get());
     }
 
     public void healParticles(LivingEntity livingEntity, ServerLevel worldIn){

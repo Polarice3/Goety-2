@@ -1,0 +1,19 @@
+{
+  "name": "Фокус бомбардировки",
+  "icon": "goety:bombardment_focus",
+  "category": "goety:focuses/nether",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Улучшенная версия обычного фокуса фаербола. Теперь вы можете стрелять градом фаерболов и взмывать вверх, как всполох."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/bombardment_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:bombardment_focus": 1
+  }
+}

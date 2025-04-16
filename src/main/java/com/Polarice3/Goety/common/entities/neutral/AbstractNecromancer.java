@@ -887,7 +887,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                     if (AbstractNecromancer.this.level instanceof ServerLevel serverLevel) {
                         Summoned summonedentity = AbstractNecromancer.this.getSummon();
                         if (AbstractNecromancer.this.summonVariants()) {
-                            EntityType<?> entityType = summonedentity.getVariant(serverLevel, AbstractNecromancer.this.blockPosition());
+                            EntityType<?> entityType = summonedentity.getVariant(null, serverLevel, AbstractNecromancer.this.blockPosition());
                             if (entityType != null && entityType.create(serverLevel) instanceof Summoned summoned) {
                                 summonedentity = summoned;
                             }

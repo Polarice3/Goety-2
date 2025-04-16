@@ -474,7 +474,7 @@ public class Sorcerer extends HuntingIllagerEntity {
                 Spell spell1 = this.spell.getSpell();
                 SpellStat spellStat = spell1.defaultStats();
                 if (this.spell.levelIncrease){
-                    spellStat.setPotency(Sorcerer.this.getLevels() - this.spell.minLevel);
+                    spellStat.setPotency(spellStat.getPotency() + (Sorcerer.this.getLevels() - this.spell.minLevel));
                 }
                 if (this.spell.throwingSpell()){
                     Sorcerer.this.level.broadcastEntityEvent(Sorcerer.this, (byte) 6);
@@ -510,7 +510,7 @@ public class Sorcerer extends HuntingIllagerEntity {
         @Nullable
         @Override
         protected SoundEvent getSpellPrepareSound() {
-            return this.spell.getSpell().CastingSound();
+            return this.spell.getSpell().CastingSound(Sorcerer.this);
         }
 
         @Override

@@ -12,6 +12,7 @@ import com.Polarice3.Goety.common.network.ModServerBossInfo;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.MiscCapHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
@@ -198,6 +199,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
             }
         }
         this.moveCloak();
+        MiscCapHelper.updateMobTarget(this);
         if (this.getTarget() == null){
             for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(32.0F), EntitySelector.NO_CREATIVE_OR_SPECTATOR)){
                 if ((livingEntity instanceof Player || livingEntity instanceof AbstractVillager || livingEntity instanceof IronGolem) && canAttack(livingEntity)){

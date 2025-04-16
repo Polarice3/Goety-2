@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "这些幽灵被你的意志召唤和约束，以至于他们自己的冰火不会伤害你或你的盟友."
+      "text": "这些幽灵被你的意志召唤和约束，以至于它们自己的冰火不会伤到你或你的盟友"
     },
     {
       "type": "patchouli:entity",
@@ -14,11 +14,25 @@
     },
     {
       "type": "patchouli:text",
-      "text": "人们可以通过使用$(l:focuses/necromancy/spooky_focus)骇人聚晶$(),或使用仪式来召唤一个幽灵仆从，后者拥有无限的存续时间。"
+      "text": "你可以通过使用$(l:focuses/necromancy/spooky_focus)骇人聚晶$()或一个仪式召唤一个幽灵仆从，后者拥有无限的存续时间"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_wraith_thrall"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "手持灵质右键你的幽灵仆从可以为其恢复血量"
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/kill_a_muck_wraith",
+      "entity": "goety:muck_wraith_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/kill_a_muck_wraith",
+      "text": "作为一种到处释放酸云的幽灵变种，它会在你试图在沼泽生物群系中召唤幽灵仆从时生成"
     },
     {
       "type": "patchouli:entity",
@@ -28,7 +42,7 @@
     {
       "type": "patchouli:text",
       "advancement": "goety:goety/kill_a_border_wraith",
-      "text": "作为幽灵的变种，这些喷冰的家伙们可以在$(l:world/crypts)墓穴$()中被你召唤出来。"
+      "text": "作为幽灵的变种，这些喷冰的家伙们可以在$(l:world/crypts)墓穴$()中被你召唤出来"
     }
   ]
 }

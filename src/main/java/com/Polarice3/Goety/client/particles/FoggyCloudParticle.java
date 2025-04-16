@@ -27,12 +27,12 @@ public class FoggyCloudParticle extends GroundCircleParticle{
         this.zd = zd + (Math.random() * 2.0D - 1.0D) * magnitude;
         double d0 = (Math.random() + Math.random() + 1.0D) * magnitude * 0.3F;
         double d1 = Math.sqrt(this.xd * this.xd + this.yd * this.yd + this.zd * this.zd);
-        this.xd = this.xd / d1 * d0 * magnitude;
+        this.xd = (this.xd / d1 * d0 * magnitude) * 2.0F;
         this.yd = this.yd / d1 * d0 * magnitude + magnitude * 0.25F;
-        this.zd = this.zd / d1 * d0 * magnitude;
+        this.zd = (this.zd / d1 * d0 * magnitude) * 2.0F;
 
-        this.quadSize = 1.5F * options.getSize();
-        this.lifetime = pLevel.random.nextIntBetweenInclusive(60, 120);
+        this.quadSize = options.getSize();
+        this.lifetime = pLevel.random.nextIntBetweenInclusive(40, 60);
         this.gravity = options.hasGravity() ? 0.1F : 0.0F;
         this.speed = options.getSpeed();
 
@@ -62,8 +62,8 @@ public class FoggyCloudParticle extends GroundCircleParticle{
                 this.yd -= 0.04D * (double) this.gravity;
             }
             this.move(this.xd, this.yd, this.zd);
-            this.yd *= 0.85F;
             this.xd *= 0.94F;
+            this.yd *= 0.85F;
             this.zd *= 0.94F;
         }
     }

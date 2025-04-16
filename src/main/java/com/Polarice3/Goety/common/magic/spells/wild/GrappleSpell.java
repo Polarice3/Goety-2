@@ -84,13 +84,14 @@ public class GrappleSpell extends Spell {
             if (projectile != null) {
                 projectile.discard();
                 SEHelper.setGrappling(player, null);
+                this.playSound(worldIn, player, SoundEvents.FISHING_BOBBER_RETRIEVE, 1.0F, 0.4F / (worldIn.getRandom().nextFloat() * 0.4F + 0.8F));
                 worldIn.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FISHING_BOBBER_RETRIEVE, this.getSoundSource(), 1.0F, 0.4F / (worldIn.getRandom().nextFloat() * 0.4F + 0.8F));
                 this.trueCooldown = this.defaultSpellCooldown();
             } else {
                 VineHook vineHook = new VineHook(worldIn, player, 2.5F + velocity);
                 vineHook.setStaff(rightStaff(staff));
                 worldIn.addFreshEntity(vineHook);
-                worldIn.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FISHING_BOBBER_THROW, this.getSoundSource(), 0.5F, 0.4F / (worldIn.getRandom().nextFloat() * 0.4F + 0.8F));
+                this.playSound(worldIn, player, SoundEvents.FISHING_BOBBER_THROW, 0.5F, 0.4F / (worldIn.getRandom().nextFloat() * 0.4F + 0.8F));
                 this.trueCooldown = 0;
             }
         }

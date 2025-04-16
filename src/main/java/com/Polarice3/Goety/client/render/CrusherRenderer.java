@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.client.render.layer.HierarchicalArmorLayer;
 import com.Polarice3.Goety.client.render.model.CrusherModel;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Crusher;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -16,6 +17,7 @@ public class CrusherRenderer<T extends Crusher> extends MobRenderer<T, CrusherMo
     public CrusherRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new CrusherModel<>(renderManagerIn.bakeLayer(ModModelLayer.CRUSHER)), 0.5F);
         this.addLayer(new CustomHeadLayer<>(this, renderManagerIn.getModelSet(), renderManagerIn.getItemInHandRenderer()));
+        this.addLayer(new HierarchicalArmorLayer<>(this, renderManagerIn));
     }
 
     protected void scale(T entity, PoseStack matrixStackIn, float partialTickTime) {

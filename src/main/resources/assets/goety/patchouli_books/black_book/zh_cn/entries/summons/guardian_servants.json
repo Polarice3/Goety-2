@@ -1,0 +1,27 @@
+{
+  "name": "守卫者仆从",
+  "icon": "minecraft:prismarine_bricks",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这些遵循生物力学的独特独眼巨怪从他们所守护的海洋神殿中被召唤出来，听从你的指挥。虽然它们不需要呼吸就能生存，但最好不要让它们在陆地上四处游荡."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:guardian_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你可以使用$(l:focuses/abyss/guardian_focus)守卫聚晶$()来召唤这些生物，或者通过仪式来召唤他们的永生版本。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_guardian_servant_thrall"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你可以手持一条鱼来右键治愈你的守卫者仆从。"
+    }
+  ]
+}

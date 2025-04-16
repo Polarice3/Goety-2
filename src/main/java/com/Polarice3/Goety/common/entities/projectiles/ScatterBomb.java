@@ -1,7 +1,9 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
+import com.Polarice3.Goety.client.particles.DustCloudParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.client.particles.VerticalCircleExplodeParticleOption;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.ColorUtil;
@@ -26,6 +28,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 
 public class ScatterBomb extends Projectile {
 
@@ -117,6 +120,9 @@ public class ScatterBomb extends Projectile {
                 ServerParticleUtil.addAuraParticles(serverLevel, ModParticleTypes.BIG_FIRE_GROUND.get(), this, 2.0F);
                 ColorUtil colorUtil = new ColorUtil(0xffe183);
                 serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 4.5F, 1), this.getX(), BlockFinder.moveDownToGround(this), this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                serverLevel.sendParticles(new VerticalCircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 4.5F, 1), this.getX(), BlockFinder.moveDownToGround(this) + 0.5F, this.getZ(), 1, 0, 0, 0, 0);
+                DustCloudParticleOption cloudParticleOptions = new DustCloudParticleOption(new Vector3f(Vec3.fromRGB24(0x814342).toVector3f()), 1.0F);
+                ServerParticleUtil.circularParticles(serverLevel, cloudParticleOptions, this.getX(), this.getY() + 0.25D, this.getZ(), 0, 0.14D, 0, 1.0F);
             }
             this.discard();
         }

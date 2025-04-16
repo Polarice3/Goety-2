@@ -36,6 +36,6 @@ public class SoulLightSpell extends Spell {
         soulLightEntity.setOwner(caster);
         soulLightEntity.shootFromRotation(caster, caster.getXRot(), caster.getYRot(), 0.0F, 1.5F, 1.0F);
         worldIn.addFreshEntity(soulLightEntity);
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), CastingSound(), this.getSoundSource(), 1.0F, 1.0F);
+        this.playSound(worldIn, caster, 1.0F, 1.0F);
     }
 }

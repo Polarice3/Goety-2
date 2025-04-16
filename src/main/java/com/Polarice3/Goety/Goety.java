@@ -314,7 +314,7 @@ public class Goety {
                     Level level = p_123461_.getLevel();
                     AbstractVine vine = ModEntityType.QUICK_GROWING_VINE.get().create(level);
                     if (vine != null){
-                        EntityType<?> entityType = vine.getVariant(level, blockpos);
+                        EntityType<?> entityType = vine.getVariant(null, level, blockpos);
                         if (entityType != null){
                             vine = (AbstractVine) entityType.create(level);
                         }
@@ -340,7 +340,7 @@ public class Goety {
                     Level level = p_123461_.getLevel();
                     AbstractVine vine = ModEntityType.POISON_QUILL_VINE.get().create(level);
                     if (vine != null){
-                        EntityType<?> entityType = vine.getVariant(level, blockpos);
+                        EntityType<?> entityType = vine.getVariant(null, level, blockpos);
                         if (entityType != null){
                             vine = (AbstractVine) entityType.create(level);
                         }
@@ -473,6 +473,7 @@ public class Goety {
         event.put(ModEntityType.REAPER.get(), Reaper.setCustomAttributes().build());
         event.put(ModEntityType.WRAITH.get(), Wraith.setCustomAttributes().build());
         event.put(ModEntityType.BORDER_WRAITH.get(), BorderWraith.setCustomAttributes().build());
+        event.put(ModEntityType.MUCK_WRAITH.get(), MuckWraith.setCustomAttributes().build());
         event.put(ModEntityType.CRYPT_SLIME.get(), CryptSlime.setCustomAttributes().build());
         event.put(ModEntityType.WEB_SPIDER.get(), WebSpider.setCustomAttributes().build());
         event.put(ModEntityType.ICY_SPIDER.get(), IcySpider.setCustomAttributes().build());
@@ -502,6 +503,7 @@ public class Goety {
         event.put(ModEntityType.REAPER_SERVANT.get(), ReaperServant.setCustomAttributes().build());
         event.put(ModEntityType.WRAITH_SERVANT.get(), WraithServant.setCustomAttributes().build());
         event.put(ModEntityType.BORDER_WRAITH_SERVANT.get(), BorderWraithServant.setCustomAttributes().build());
+        event.put(ModEntityType.MUCK_WRAITH_SERVANT.get(), MuckWraithServant.setCustomAttributes().build());
         event.put(ModEntityType.PHANTOM_SERVANT.get(), PhantomServant.setCustomAttributes().build());
         event.put(ModEntityType.VANGUARD_SERVANT.get(), VanguardServant.setCustomAttributes().build());
         event.put(ModEntityType.SKELETON_PILLAGER_SERVANT.get(), SkeletonPillagerServant.setCustomAttributes().build());
@@ -535,6 +537,7 @@ public class Goety {
         event.put(ModEntityType.HELLHOUND.get(), Hellhound.setCustomAttributes().build());
         event.put(ModEntityType.TWILIGHT_GOAT.get(), TwilightGoat.setCustomAttributes().build());
         event.put(ModEntityType.SNAPPER.get(), Snapper.setCustomAttributes().build());
+        event.put(ModEntityType.GUARDIAN_SERVANT.get(), GuardianServant.setCustomAttributes().build());
         event.put(ModEntityType.BEAR_SERVANT.get(), BearServant.setCustomAttributes().build());
         event.put(ModEntityType.POLAR_BEAR_SERVANT.get(), BearServant.setCustomAttributes().build());
         event.put(ModEntityType.HOGLIN_SERVANT.get(), HoglinServant.setCustomAttributes().build());
@@ -596,6 +599,7 @@ public class Goety {
         event.register(ModEntityType.REAPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.BORDER_WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(ModEntityType.MUCK_WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.CRYPT_SLIME.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CryptSlime::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.WEB_SPIDER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.ICY_SPIDER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);

@@ -24,6 +24,16 @@
       "type": "patchouli:text",
       "text": "Призраков-прислужников можно исцелять, нажав по ним ПКМ эктоплазмой."
     },
+	{
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/kill_a_muck_wraith",
+      "entity": "goety:muck_wraith_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/kill_a_muck_wraith",
+      "text": "Разновидность призраков, создающая кислотный газ и вызываемая в болоте."
+    },
     {
       "type": "patchouli:entity",
       "advancement": "goety:goety/kill_a_border_wraith",

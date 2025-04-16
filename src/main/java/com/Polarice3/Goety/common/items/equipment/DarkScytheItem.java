@@ -149,6 +149,7 @@ public class DarkScytheItem extends TieredItem implements Vanishable {
                 || enchantment.category == EnchantmentCategory.WEAPON
                 || enchantment.category == EnchantmentCategory.BREAKABLE
                 || enchantment.category == EnchantmentCategory.DIGGER
+                || enchantment.getDescriptionId().contains("vanillatweaks:siphon")
                 || enchantment == Enchantments.MOB_LOOTING
                 || enchantment == Enchantments.BLOCK_FORTUNE);
     }

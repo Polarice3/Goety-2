@@ -1,0 +1,27 @@
+{
+  "name": "ガーディアンの従者",
+  "icon": "minecraft:prismarine_bricks",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "これらのバイオメカニカルサイクロプスは、それぞれの海底神殿から召喚され、あなたの指揮下に入ります。彼らは生き残るために呼吸を必要としませんが、陸上で暴れ回るのは避けた方が良いでしょう。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:guardian_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:focuses/abyss/guardian_focus)ガーディアンのフォーカス$()を使用するか、儀式を通じて寿命に制限なく召喚することができます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_guardian_servant_thrall"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "魚で右クリックすると、回復することができます。"
+    }
+  ]
+}

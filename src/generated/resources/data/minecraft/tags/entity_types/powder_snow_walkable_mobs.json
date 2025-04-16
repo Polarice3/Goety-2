@@ -4,12 +4,16 @@
     "goety:wraith_servant",
     "goety:border_wraith",
     "goety:border_wraith_servant",
+    "goety:muck_wraith",
+    "goety:muck_wraith_servant",
     "goety:reaper",
     "goety:reaper_servant",
     "goety:icy_spider_servant",
     "goety:bound_iceologer",
     "goety:icy_spider",
     "goety:ice_golem",
+    "goety:crusher",
+    "goety:storm_caster",
     "goety:cryologer",
     "goety:glacial_wall"
   ]

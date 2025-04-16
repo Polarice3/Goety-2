@@ -17,6 +17,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.Tags;
 
 public class FireTornado extends AbstractCyclone {
 
@@ -42,6 +43,11 @@ public class FireTornado extends AbstractCyclone {
         }
         if (this.tickCount % 20 == 0){
             this.playSound(ModSounds.FIRE_TORNADO_AMBIENT.get(), 1.0F, 0.5F);
+        }
+        if (this.getTrueOwner() != null && this.getTrueOwner().getType().is(Tags.EntityTypes.BOSSES)){
+            if (this.getTrueOwner().isDeadOrDying()){
+                this.discard();
+            }
         }
     }
 

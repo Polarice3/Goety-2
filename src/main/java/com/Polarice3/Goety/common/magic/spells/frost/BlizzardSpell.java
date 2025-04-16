@@ -125,7 +125,7 @@ public class BlizzardSpell extends EverChargeSpell {
             arrow.setRain(true);
             arrow.shoot(vec31.x, vec31.y, vec31.z, velocity + (1.5F * worldIn.random.nextFloat()), randomness);
             if (worldIn.addFreshEntity(arrow)){
-                worldIn.playSound(null, arrow.getX(), arrow.getY(), arrow.getZ(), ModSounds.ICE_SPIKE_CAST.get(), this.getSoundSource(), 2.0F, 1.0F / (worldIn.getRandom().nextFloat() * 0.4F + 1.2F) + 0.5F);
+                this.playSound(worldIn, arrow, ModSounds.ICE_SPIKE_CAST.get(), 2.0F, 1.0F / (worldIn.getRandom().nextFloat() * 0.4F + 1.2F) + 0.5F);
             }
         }
     }

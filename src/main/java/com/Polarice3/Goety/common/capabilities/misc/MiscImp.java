@@ -9,6 +9,7 @@ public class MiscImp implements IMisc{
     private int shieldCool = 0;
     private int ambientSoundTime = 0;
     private int clientTargetID = 0;
+    private int mobTargetID = 0;
     private String customSpinTexture = "textures/entity/trident_riptide.png";
 
     @Override
@@ -105,5 +106,15 @@ public class MiscImp implements IMisc{
     @Override
     public void setClientTargetID(int id) {
         this.clientTargetID = id;
+    }
+
+    @Override
+    public int getMobTargetID() {
+        return this.mobTargetID;
+    }
+
+    @Override
+    public void setMobTargetID(int id) {
+        this.mobTargetID = id;
     }
 }

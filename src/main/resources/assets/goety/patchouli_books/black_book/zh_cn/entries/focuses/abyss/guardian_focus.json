@@ -1,0 +1,18 @@
+{
+  "name": "守卫聚晶",
+  "icon": "goety:guardian_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "不知何故，你能够创造一个咒语，召唤并约束你的神殿守护者."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/guardian_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:guardian_focus": 1
+  }
+}

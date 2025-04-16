@@ -5,7 +5,9 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.projectiles.HellBlast;
 import com.Polarice3.Goety.common.entities.projectiles.Lavaball;
 import com.Polarice3.Goety.common.magic.Spell;
+import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.WandUtil;
@@ -24,6 +26,11 @@ import java.util.List;
 public class LavaballSpell extends Spell {
 
     @Override
+    public SpellStat defaultStats() {
+        return super.defaultStats().setRadius(0.0D);
+    }
+
+    @Override
     public int defaultSoulCost() {
         return SpellConfig.LavaballCost.get();
     }
@@ -33,7 +40,10 @@ public class LavaballSpell extends Spell {
     }
 
     @Override
-    public SoundEvent CastingSound() {
+    public SoundEvent CastingSound(LivingEntity caster) {
+        if (CuriosFinder.hasUnholySet(caster)){
+            return ModSounds.APOSTLE_PREPARE_SPELL.get();
+        }
         return SoundEvents.EVOKER_PREPARE_ATTACK;
     }
 
@@ -62,9 +72,16 @@ public class LavaballSpell extends Spell {
     }
 
     @Override
-    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
+        int potency = spellStat.getPotency();
+        int burning = spellStat.getBurning();
+        float radius = (float) spellStat.getRadius();
+        if (WandUtil.enchantedFocus(caster)){
+            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
+            radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster) / 2.0F;
+        }
         Vec3 vector3d = caster.getViewVector( 1.0F);
-        float extraBlast = WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster) / 2.0F;
         AbstractHurtingProjectile fireballEntity = new Lavaball(worldIn,
                 caster.getX() + vector3d.x / 2,
                 caster.getEyeY() - 0.2,
@@ -89,13 +106,13 @@ public class LavaballSpell extends Spell {
             if (isShifting(caster)) {
                 lavaball.setDangerous(false);
             }
-            lavaball.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
-            lavaball.setFiery(WandUtil.getLevels(ModEnchantments.BURNING.get(), caster));
-            lavaball.setExplosionPower(lavaball.getExplosionPower() + extraBlast);
+            lavaball.setExtraDamage(potency);
+            lavaball.setFiery(burning);
+            lavaball.setExplosionPower(lavaball.getExplosionPower() + radius);
         } else if (fireballEntity instanceof HellBlast hellBlast){
-            hellBlast.setDamage(hellBlast.getDamage() + WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
-            hellBlast.setRadius(hellBlast.getRadius() + extraBlast);
-            hellBlast.setFiery(WandUtil.getLevels(ModEnchantments.BURNING.get(), caster));
+            hellBlast.setDamage(hellBlast.getDamage() + potency);
+            hellBlast.setRadius(hellBlast.getRadius() + radius);
+            hellBlast.setFiery(burning);
         }
         worldIn.addFreshEntity(fireballEntity);
         if (rightStaff(staff)) {
@@ -122,17 +139,17 @@ public class LavaballSpell extends Spell {
                     if (isShifting(caster)) {
                         lavaball.setDangerous(false);
                     }
-                    lavaball.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
-                    lavaball.setFiery(WandUtil.getLevels(ModEnchantments.BURNING.get(), caster));
-                    lavaball.setExplosionPower(lavaball.getExplosionPower() + extraBlast);
+                    lavaball.setExtraDamage(potency);
+                    lavaball.setFiery(burning);
+                    lavaball.setExplosionPower(lavaball.getExplosionPower() + radius);
                 } else if (fireballEntity1 instanceof HellBlast hellBlast){
-                    hellBlast.setDamage(hellBlast.getDamage() + WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
-                    hellBlast.setRadius(hellBlast.getRadius() + extraBlast);
-                    hellBlast.setFiery(WandUtil.getLevels(ModEnchantments.BURNING.get(), caster));
+                    hellBlast.setDamage(hellBlast.getDamage() + potency);
+                    hellBlast.setRadius(hellBlast.getRadius() + radius);
+                    hellBlast.setFiery(burning);
                 }
                 worldIn.addFreshEntity(fireballEntity1);
             }
         }
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.GHAST_SHOOT, this.getSoundSource(), 1.0F, 1.0F);
+        this.playSound(worldIn, caster, SoundEvents.GHAST_SHOOT, 2.0F, this.projPitch(worldIn.getRandom()));
     }
 }

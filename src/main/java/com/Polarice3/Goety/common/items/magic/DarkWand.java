@@ -8,7 +8,6 @@ import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.entities.neutral.AbstractVine;
 import com.Polarice3.Goety.common.events.GoetyEventFactory;
-import com.Polarice3.Goety.common.magic.spells.void_spells.RecallSpell;
 import com.Polarice3.Goety.common.magic.spells.wind.FlyingSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayEntitySoundPacket;
@@ -26,7 +25,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -347,7 +345,7 @@ public class DarkWand extends Item implements IWand {
         }
         int CastTime = stack.getUseDuration() - count;
         if (livingEntityIn.getUseItem() == stack && this.getSpell(stack) != null && this.isNotInstant(this.getSpell(stack))) {
-            SoundEvent soundevent = this.CastingSound(stack);
+            SoundEvent soundevent = this.CastingSound(stack, livingEntityIn);
             if (CastTime == 1 && soundevent != null) {
                 if (worldIn instanceof ServerLevel serverLevel) {
                     this.getSpell(stack).startSpell(serverLevel, livingEntityIn, stack);
@@ -357,21 +355,15 @@ public class DarkWand extends Item implements IWand {
             if (worldIn instanceof ServerLevel serverLevel) {
                 this.getSpell(stack).useSpell(serverLevel, livingEntityIn, stack, CastTime);
             }
-            if (this.getSpell(stack) instanceof RecallSpell){
-                for(int i = 0; i < 2; ++i) {
-                    worldIn.addParticle(ParticleTypes.PORTAL, livingEntityIn.getRandomX(0.5D), livingEntityIn.getRandomY() - 0.25D, livingEntityIn.getRandomZ(0.5D), (worldIn.random.nextDouble() - 0.5D) * 2.0D, -worldIn.random.nextDouble(), (worldIn.random.nextDouble() - 0.5D) * 2.0D);
-                }
-            } else {
-                if (this.getSpell(stack) instanceof IChargingSpell spell
-                        && spell.defaultCastUp() > 0){
-                    this.useParticles(worldIn, livingEntityIn, stack, this.getSpell(stack));
-                } else if (!(this.getSpell(stack) instanceof IChargingSpell)) {
-                    this.useParticles(worldIn, livingEntityIn, stack, this.getSpell(stack));
-                }
+            if (this.getSpell(stack) instanceof IChargingSpell spell
+                    && spell.castUp(livingEntityIn, stack) > 0){
+                this.useParticles(worldIn, livingEntityIn, stack, this.getSpell(stack));
+            } else if (!(this.getSpell(stack) instanceof IChargingSpell)) {
+                this.useParticles(worldIn, livingEntityIn, stack, this.getSpell(stack));
             }
             if (this.getSpell(stack) instanceof IChargingSpell spell) {
                 if (stack.getTag() != null) {
-                    if (CastTime >= spell.defaultCastUp() || spell.defaultCastUp() <= 0) {
+                    if (CastTime >= spell.castUp(livingEntityIn, stack) || spell.castUp(livingEntityIn, stack) <= 0) {
                         stack.getTag().putInt(COOL, stack.getTag().getInt(COOL) + 1);
                         if (stack.getTag().getInt(COOL) >= Cooldown(stack)) {
                             stack.getTag().putInt(COOL, 0);
@@ -543,9 +535,9 @@ public class DarkWand extends Item implements IWand {
     }
 
     @Nullable
-    public SoundEvent CastingSound(ItemStack stack) {
+    public SoundEvent CastingSound(ItemStack stack, LivingEntity caster) {
         if (this.getSpell(stack) != null) {
-            return this.getSpell(stack).CastingSound();
+            return this.getSpell(stack).CastingSound(caster);
         } else {
             return null;
         }

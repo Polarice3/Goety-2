@@ -49,7 +49,11 @@ public class QuakingSpell extends Spell {
 
     @Override
     public int castDuration(LivingEntity caster) {
-        return 72000;
+        int i = this.defaultStats().getRange();
+        if (WandUtil.enchantedFocus(caster)) {
+            i += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+        }
+        return i + this.defaultCastDuration();
     }
 
     @Override
@@ -95,19 +99,11 @@ public class QuakingSpell extends Spell {
                         tremor(caster, i, 3, -1.5F, damage, 0.1F);
                     }
                 }
-                if (castTime >= range + this.defaultCastDuration()){
-                    caster.stopUsingItem();
-                    this.stopSpell(worldIn, caster, staff, castTime);
-                }
             } else {
                 for (int i = 0; i <= radius; ++i) {
                     if (castTime == i + this.defaultCastDuration()) {
                         surroundTremor(caster, i, 3, 0.0F, false, damage, 0.1F);
                     }
-                }
-                if (castTime >= radius + this.defaultCastDuration()){
-                    caster.stopUsingItem();
-                    this.stopSpell(worldIn, caster, staff, castTime);
                 }
             }
         }
@@ -115,7 +111,7 @@ public class QuakingSpell extends Spell {
 
     @Override
     public void stopSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, int useTimeRemaining) {
-        if (useTimeRemaining > this.defaultCastDuration()){
+        if (useTimeRemaining <= this.defaultCastDuration()){
             if (caster instanceof Player player) {
                 SEHelper.addCooldown(player, ModItems.QUAKING_FOCUS.get(), this.spellCooldown());
                 SEHelper.sendSEUpdatePacket(player);

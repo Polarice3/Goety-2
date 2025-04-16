@@ -225,7 +225,7 @@ public class Summoned extends Owned implements IServant {
         }
         boolean flag = super.hurt(source, amount);
         if (flag){
-            this.noHealTime = MathHelper.secondsToTicks(MobsConfig.ServantHealHalt.get());
+            this.setNoHealTime(MathHelper.secondsToTicks(MobsConfig.ServantHealHalt.get()));
         }
         return flag;
     }

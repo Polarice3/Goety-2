@@ -83,6 +83,6 @@ public class ChillHideSpell extends Spell {
                 }
             }
         }
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.ICE_SPIKE_HIT.get(), this.getSoundSource(), 1.0F, 0.5F);
+        this.playSound(worldIn, caster, ModSounds.ICE_SPIKE_HIT.get(), 1.0F, 0.5F);
     }
 }

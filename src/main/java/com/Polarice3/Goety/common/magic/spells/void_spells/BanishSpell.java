@@ -67,7 +67,7 @@ public class BanishSpell extends TouchSpell {
             if (result.getEntity() instanceof LivingEntity living){
                 if (living.getMaxHealth() < SpellConfig.BanishMaxHealth.get()
                         && !MobUtil.hasEntityTypesConfig(SpellConfig.BanishBlackList.get(), living.getType())){
-                    worldIn.playSound((Player)null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.SPELL_FAIL.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+                    this.playSound(worldIn, caster, ModSounds.SPELL_FAIL.get(), 1.0F, 1.0F);
                     return false;
                 }
                 net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(living, caster.getX(), caster.getY(), caster.getZ());

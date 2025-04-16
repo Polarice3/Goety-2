@@ -595,6 +595,11 @@
         },
         {
           "type": "minecraft:item",
+          "name": "minecraft:allium",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:azure_bluet",
           "weight": 20
         },

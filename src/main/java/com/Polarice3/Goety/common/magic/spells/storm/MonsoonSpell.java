@@ -80,7 +80,7 @@ public class MonsoonSpell extends Spell {
             monsoonCloud.setLifeSpan(duration);
             monsoonCloud.setStaff(rightStaff(staff));
             worldIn.addFreshEntity(monsoonCloud);
-            worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.LIGHTNING_BOLT_THUNDER, this.getSoundSource(), 0.5F, 1.25F);
+            this.playSound(worldIn, caster, SoundEvents.LIGHTNING_BOLT_THUNDER, 0.5F, 1.25F);
         } else if (rayTraceResult instanceof BlockHitResult){
             BlockPos blockPos = ((BlockHitResult) rayTraceResult).getBlockPos();
             MonsoonCloud monsoonCloud = new MonsoonCloud(worldIn, caster, null);
@@ -90,7 +90,7 @@ public class MonsoonSpell extends Spell {
             monsoonCloud.setStaff(rightStaff(staff));
             monsoonCloud.setPos(blockPos.getX() + 0.5F, blockPos.getY() + 4, blockPos.getZ() + 0.5F);
             worldIn.addFreshEntity(monsoonCloud);
-            worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.LIGHTNING_BOLT_THUNDER, this.getSoundSource(), 0.5F, 1.25F);
+            this.playSound(worldIn, caster, SoundEvents.LIGHTNING_BOLT_THUNDER, 0.5F, 1.25F);
         }
     }
 }

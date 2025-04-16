@@ -122,7 +122,7 @@ public class ArrowRainSpell extends EverChargeSpell {
             }
             arrow.shoot(vec31.x, vec31.y, vec31.z, velocity + (1.5F * worldIn.random.nextFloat()), randomness);
             if (worldIn.addFreshEntity(arrow)){
-                worldIn.playSound(null, arrow.getX(), arrow.getY(), arrow.getZ(), SoundEvents.ARROW_SHOOT, this.getSoundSource(), 2.0F, 1.0F / (worldIn.getRandom().nextFloat() * 0.4F + 1.2F) + 0.5F);
+                this.playSound(worldIn, arrow, SoundEvents.ARROW_SHOOT, 2.0F, 1.0F / (worldIn.getRandom().nextFloat() * 0.4F + 1.2F) + 0.5F);
             }
         }
     }

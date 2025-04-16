@@ -76,6 +76,6 @@ public class BlossomSpell extends Spell {
         blast.setStaff(this.rightStaff(staff));
         blast.shootFromRotation(caster, caster.getXRot(), caster.getYRot(), 0.0F, spellStat.getVelocity() + velocity, 1.0F);
         worldIn.addFreshEntity(blast);
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.BLAST_FUNGUS_THROW.get(), this.getSoundSource(), 1.0F, 0.75F);
+        this.playSound(worldIn, caster, ModSounds.BLAST_FUNGUS_THROW.get(), 1.0F, 0.75F);
     }
 }

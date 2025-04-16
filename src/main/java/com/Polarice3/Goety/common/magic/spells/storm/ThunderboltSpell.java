@@ -77,7 +77,7 @@ public class ThunderboltSpell extends Spell {
         if (lightningRod.isPresent() && !rightStaff(staff)){
             BlockPos blockPos = lightningRod.get();
             ModNetwork.sendToALL(new SThunderBoltPacket(vec3, new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ()), 10));
-            worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.THUNDERBOLT.get(), this.getSoundSource(), 1.0F, 1.0F);
+            this.playSound(worldIn, caster, ModSounds.THUNDERBOLT.get());
         } else {
             LivingEntity livingEntity = null;
             if (target instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity parent){
@@ -102,11 +102,11 @@ public class ThunderboltSpell extends Spell {
                         WandUtil.chainLightning(livingEntity, caster, range / 4.0D, chainDamage);
                     }
                 }
-                worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.THUNDERBOLT.get(), this.getSoundSource(), 1.0F, 1.0F);
+                this.playSound(worldIn, caster, ModSounds.THUNDERBOLT.get());
             } else {
                 BlockPos blockPos = rayTraceResult.getBlockPos();
                 ModNetwork.sendToALL(new SThunderBoltPacket(vec3, new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ()), 10));
-                worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.THUNDERBOLT.get(), this.getSoundSource(), 1.0F, 1.0F);
+                this.playSound(worldIn, caster, ModSounds.THUNDERBOLT.get());
             }
         }
     }

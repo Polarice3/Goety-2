@@ -581,6 +581,11 @@ public class ModEntityType {
                     .sized(0.6F, 1.99F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<MuckWraith>> MUCK_WRAITH = register("muck_wraith",
+            EntityType.Builder.of(MuckWraith::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<CryptSlime>> CRYPT_SLIME = register("crypt_slime",
             EntityType.Builder.<CryptSlime>of(CryptSlime::new, MobCategory.MONSTER)
                     .sized(2.04F, 2.04F)
@@ -734,6 +739,11 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<BorderWraithServant>> BORDER_WRAITH_SERVANT = register("border_wraith_servant",
             EntityType.Builder.of(BorderWraithServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<MuckWraithServant>> MUCK_WRAITH_SERVANT = register("muck_wraith_servant",
+            EntityType.Builder.of(MuckWraithServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F)
                     .clientTrackingRange(8));
 
@@ -905,6 +915,11 @@ public class ModEntityType {
     public static final RegistryObject<EntityType<Snapper>> SNAPPER = register("snapper",
             EntityType.Builder.of(Snapper::new, MobCategory.MONSTER)
                     .sized(0.85F, 0.6F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<GuardianServant>> GUARDIAN_SERVANT = register("guardian_servant",
+            EntityType.Builder.of(GuardianServant::new, MobCategory.MONSTER)
+                    .sized(0.85F, 0.85F)
                     .clientTrackingRange(8));
 
     public static final RegistryObject<EntityType<BearServant>> BEAR_SERVANT = register("bear_servant",

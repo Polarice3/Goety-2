@@ -52,13 +52,32 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxSlimeSize;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WarlockSpawnWeight;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WarlockSpawnMinCount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WarlockSpawnMaxCount;
     public static final ForgeConfigSpec.ConfigValue<Integer> ReaperSpawnWeight;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ReaperSpawnMinCount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ReaperSpawnMaxCount;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithSpawnWeight;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WraithSpawnMinCount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WraithSpawnMaxCount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MuckWraithSpawnWeight;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MuckWraithSpawnMinCount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MuckWraithSpawnMaxCount;
     public static final ForgeConfigSpec.ConfigValue<Integer> WebSpiderSpawnWeight;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WebSpiderSpawnMinCount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WebSpiderSpawnMaxCount;
     public static final ForgeConfigSpec.ConfigValue<Integer> IcySpiderSpawnWeight;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IcySpiderSpawnMinCount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IcySpiderSpawnMaxCount;
     public static final ForgeConfigSpec.ConfigValue<Integer> NecromancerSpawnWeight;
+    public static final ForgeConfigSpec.ConfigValue<Integer> NecromancerSpawnMinCount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> NecromancerSpawnMaxCount;
     public static final ForgeConfigSpec.ConfigValue<Integer> HereticSpawnWeight;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HereticSpawnMinCount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HereticSpawnMaxCount;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaverickSpawnWeight;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MaverickSpawnMinCount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MaverickSpawnMaxCount;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> ZombieServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DrownedServantTexture;
@@ -96,6 +115,8 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> SlimeServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MagmaCubeServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CryptSlimeServantTexture;
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> GuardianServantTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> QuickGrowingVineTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PoisonQuillVineTexture;
@@ -181,7 +202,6 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> WightSpawn;
 
-    public static final ForgeConfigSpec.ConfigValue<Boolean> InterDimensionalMobs;
     public static final ForgeConfigSpec.ConfigValue<Boolean> TallSkullDrops;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WraithAggressiveTeleport;
 
@@ -290,6 +310,10 @@ public class MobsConfig {
                 CryptSlimeServantTexture = BUILDER.comment("If Crypt Slime Servants have custom textures, Default: true")
                         .define("cryptSlimeServantTexture", true);
                 BUILDER.pop();
+                BUILDER.push("Guardian Servants");
+                GuardianServantTexture = BUILDER.comment("If Guardian Servants have custom textures, Default: true")
+                        .define("guardianServantTexture", true);
+                BUILDER.pop();
                 BUILDER.push("Wild Servants");
                 QuickGrowingVineTexture = BUILDER.comment("If Quick Growing Vine servants have custom textures, Default: true")
                         .define("quickGrowingVineTexture", true);
@@ -326,7 +350,7 @@ public class MobsConfig {
                     .define("undeadServantSunlightBurn", true);
             UndeadServantSunlightHelmet = BUILDER.comment("Whether Undead Servants' helmet take damage when in Sunlight. Only takes effect if undeadServantSunlightBurn is enabled, Default: true")
                     .define("undeadServantSunlightHelmet", true);
-            NecromancerSoulJar = BUILDER.comment("Whether owned Necromancers drop Soul Jars, Default: true")
+            NecromancerSoulJar = BUILDER.comment("Whether owned Necromancers fills Empty Soul Jars, Default: true")
                     .define("necromancerSoulJar", true);
             NecromancerSummonsLife = BUILDER.comment("Whether Necromancer's summons have limited lifespans, Default: true")
                     .define("necromancerSummonsLife", true);
@@ -586,6 +610,88 @@ public class MobsConfig {
         TraderConvertMaverick = BUILDER.comment("Wandering Traders transforms into Mavericks when struck by lightning, Default: true")
                 .define("traderConvertMaverick", true);
         BUILDER.pop();
+        BUILDER.push("Spawning");
+            BUILDER.push("Wight");
+            WightSpawn = BUILDER.comment("Whether Wights can spawn near players that have a high amount of Soul Energy, Default: true")
+                    .define("wightSpawn", true);
+            WightSpawnFreq = BUILDER.comment("How many ticks it takes for Wights to spawn, Default: 24000")
+                    .defineInRange("wightSpawnFreq", 24000, 0, Integer.MAX_VALUE);
+            WightSpawnChance = BUILDER.comment("Spawn Chance for Wights spawning near the Player every Spawn Frequency, the lower the more likelier, Default: 10")
+                    .defineInRange("wightSpawnChance", 10, 0, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Warlock");
+            WarlockSpawnWeight = BUILDER.comment("Spawn Weight for Warlock, Default: 5")
+                    .defineInRange("warlockSpawnWeight", 5, 0, Integer.MAX_VALUE);
+            WarlockSpawnMinCount = BUILDER.comment("Spawn minimum group count for Warlock, Default: 1")
+                    .defineInRange("warlockSpawnMinCount", 1, 1, Integer.MAX_VALUE);
+            WarlockSpawnMaxCount = BUILDER.comment("Spawn maximum group count for Warlock, must be equal or higher than min count, Default: 1")
+                    .defineInRange("warlockSpawnMaxCount", 1, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Reaper");
+            ReaperSpawnWeight = BUILDER.comment("Spawn Weight for Reaper, Default: 10")
+                    .defineInRange("reaperSpawnWeight", 10, 0, Integer.MAX_VALUE);
+            ReaperSpawnMinCount = BUILDER.comment("Spawn minimum group count for Reaper, Default: 1")
+                    .defineInRange("reaperSpawnMinCount", 1, 1, Integer.MAX_VALUE);
+            ReaperSpawnMaxCount = BUILDER.comment("Spawn maximum group count for Reaper, must be equal or higher than min count, Default: 1")
+                    .defineInRange("reaperSpawnMaxCount", 1, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Wraith");
+            WraithSpawnWeight = BUILDER.comment("Spawn Weight for Wraith, Default: 20")
+                    .defineInRange("wraithSpawnWeight", 20, 0, Integer.MAX_VALUE);
+            WraithSpawnMinCount = BUILDER.comment("Spawn minimum group count for Wraith, Default: 1")
+                    .defineInRange("wraithSpawnMinCount", 1, 1, Integer.MAX_VALUE);
+            WraithSpawnMaxCount = BUILDER.comment("Spawn maximum group count for Wraith, must be equal or higher than min count, Default: 1")
+                    .defineInRange("wraithSpawnMaxCount", 1, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Muck Wraith");
+            MuckWraithSpawnWeight = BUILDER.comment("Spawn Weight for Muck Wraith, Default: 20")
+                    .defineInRange("muckWraithSpawnWeight", 20, 0, Integer.MAX_VALUE);
+            MuckWraithSpawnMinCount = BUILDER.comment("Spawn minimum group count for Muck Wraith, Default: 1")
+                    .defineInRange("muckWraithSpawnMinCount", 1, 1, Integer.MAX_VALUE);
+            MuckWraithSpawnMaxCount = BUILDER.comment("Spawn maximum group count for Muck Wraith, must be equal or higher than min count, Default: 1")
+                    .defineInRange("muckWraithSpawnMaxCount", 1, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Web Spider");
+            WebSpiderSpawnWeight = BUILDER.comment("Spawn Weight for Web Spiders, Default: 40")
+                    .defineInRange("webSpiderSpawnWeight", 40, 0, Integer.MAX_VALUE);
+            WebSpiderSpawnMinCount = BUILDER.comment("Spawn minimum group count for Web Spiders, Default: 4")
+                    .defineInRange("webSpiderSpawnMinCount", 4, 1, Integer.MAX_VALUE);
+            WebSpiderSpawnMaxCount = BUILDER.comment("Spawn maximum group count for Web Spiders, must be equal or higher than min count, Default: 4")
+                    .defineInRange("webSpiderSpawnMaxCount", 4, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Icy Spider");
+            IcySpiderSpawnWeight = BUILDER.comment("Spawn Weight for Icy Spiders, Default: 40")
+                    .defineInRange("icySpiderSpawnWeight", 40, 0, Integer.MAX_VALUE);
+            IcySpiderSpawnMinCount = BUILDER.comment("Spawn minimum group count for Icy Spiders, Default: 4")
+                    .defineInRange("icySpiderSpawnMinCount", 4, 1, Integer.MAX_VALUE);
+            IcySpiderSpawnMaxCount = BUILDER.comment("Spawn maximum group count for Icy Spiders, must be equal or higher than min count, Default: 4")
+                    .defineInRange("icySpiderSpawnMaxCount", 4, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Necromancer");
+            NecromancerSpawnWeight = BUILDER.comment("Spawn Weight for Necromancer, Default: 1")
+                    .defineInRange("necromancerSpawnWeight", 1, 0, Integer.MAX_VALUE);
+            NecromancerSpawnMinCount = BUILDER.comment("Spawn minimum group count for Necromancer, Default: 1")
+                    .defineInRange("necromancerSpawnMinCount", 1, 1, Integer.MAX_VALUE);
+            NecromancerSpawnMaxCount = BUILDER.comment("Spawn maximum group count for Necromancer, must be equal or higher than min count, Default: 1")
+                    .defineInRange("necromancerSpawnMaxCount", 1, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Heretic");
+            HereticSpawnWeight = BUILDER.comment("Spawn Weight for Heretic, Default: 5")
+                    .defineInRange("hereticSpawnWeight", 5, 0, Integer.MAX_VALUE);
+            HereticSpawnMinCount = BUILDER.comment("Spawn minimum group count for Heretic, Default: 1")
+                    .defineInRange("hereticSpawnMinCount", 1, 1, Integer.MAX_VALUE);
+            HereticSpawnMaxCount = BUILDER.comment("Spawn maximum group count for Heretic, must be equal or higher than min count, Default: 1")
+                    .defineInRange("hereticSpawnMaxCount", 1, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Maverick");
+            MaverickSpawnWeight = BUILDER.comment("Spawn Weight for Maverick, Default: 5")
+                    .defineInRange("maverickSpawnWeight", 5, 0, Integer.MAX_VALUE);
+            MaverickSpawnMinCount = BUILDER.comment("Spawn minimum group count for Maverick, Default: 1")
+                    .defineInRange("maverickSpawnMinCount", 1, 1, Integer.MAX_VALUE);
+            MaverickSpawnMaxCount = BUILDER.comment("Spawn maximum group count for Maverick, must be equal or higher than min count, Default: 1")
+                    .defineInRange("maverickSpawnMaxCount", 1, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
+        BUILDER.pop();
         BUILDER.push("Misc");
             BUILDER.push("Apostle");
             ApocalypseMode = BUILDER.comment("Apostle spreads Nether biomes, and Nether Meteors deals environmental damage and spread Nether biomes as well. WARNING: Causes lots of lag. Default: false")
@@ -611,30 +717,6 @@ public class MobsConfig {
             ObsidianMonolithBiome = BUILDER.comment("Whether unowned Obsidian Monoliths, empowered by Heretics, change Overworld biomes to Nether biomes, Default: true")
                     .define("obsidianMonolithBiome", true);
             BUILDER.pop();
-        WightSpawn = BUILDER.comment("Whether Wights can spawn near players that have a high amount of Soul Energy, Default: true")
-                .define("wightSpawn", true);
-        WightSpawnFreq = BUILDER.comment("How many ticks it takes for Wights to spawn, Default: 24000")
-                .defineInRange("wightSpawnFreq", 24000, 0, Integer.MAX_VALUE);
-        WightSpawnChance = BUILDER.comment("Spawn Chance for Wights spawning near the Player every Spawn Frequency, the lower the more likelier, Default: 10")
-                .defineInRange("wightSpawnChance", 10, 0, Integer.MAX_VALUE);
-        InterDimensionalMobs = BUILDER.comment("Whether Goety Mobs can spawn in Overworld-like modded dimensions, Default: false")
-                .define("interDimensionalMobs", false);
-        WarlockSpawnWeight = BUILDER.comment("Spawn Weight for Warlock, Default: 5")
-                .defineInRange("warlockSpawnWeight", 5, 0, Integer.MAX_VALUE);
-        ReaperSpawnWeight = BUILDER.comment("Spawn Weight for Reaper, Default: 10")
-                .defineInRange("reaperSpawnWeight", 10, 0, Integer.MAX_VALUE);
-        WraithSpawnWeight = BUILDER.comment("Spawn Weight for Wraith, Default: 20")
-                .defineInRange("wraithSpawnWeight", 20, 0, Integer.MAX_VALUE);
-        WebSpiderSpawnWeight = BUILDER.comment("Spawn Weight for Web Spiders, Default: 40")
-                .defineInRange("webSpiderSpawnWeight", 40, 0, Integer.MAX_VALUE);
-        IcySpiderSpawnWeight = BUILDER.comment("Spawn Weight for Icy Spiders, Default: 40")
-                .defineInRange("icySpiderSpawnWeight", 40, 0, Integer.MAX_VALUE);
-        NecromancerSpawnWeight = BUILDER.comment("Spawn Weight for Necromancer, Default: 1")
-                .defineInRange("necromancerSpawnWeight", 1, 0, Integer.MAX_VALUE);
-        HereticSpawnWeight = BUILDER.comment("Spawn Weight for Heretic, Default: 5")
-                .defineInRange("hereticSpawnWeight", 5, 0, Integer.MAX_VALUE);
-        MaverickSpawnWeight = BUILDER.comment("Spawn Weight for Maverick, Default: 5")
-                .defineInRange("maverickSpawnWeight", 5, 0, Integer.MAX_VALUE);
         TallSkullDrops = BUILDER.comment("Whether Mobs with Tall Heads(ie. Villagers, Illagers, etc.) will drop Tall Skulls, Default: true")
                 .define("tallSkullDrop", true);
         WraithAggressiveTeleport = BUILDER.comment("Whether Wraiths should teleport towards their targets if they can't see them instead of just teleporting away when they're near them, Default: true")

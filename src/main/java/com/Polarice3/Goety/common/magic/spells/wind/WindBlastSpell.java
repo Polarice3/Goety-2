@@ -128,6 +128,6 @@ public class WindBlastSpell extends Spell {
                 }
             }
         }
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.WIND_BLAST.get(), this.getSoundSource(), 3.0F, 1.0F);
+        this.playSound(worldIn, caster, ModSounds.WIND_BLAST.get(), 3.0F, 1.0F);
     }
 }

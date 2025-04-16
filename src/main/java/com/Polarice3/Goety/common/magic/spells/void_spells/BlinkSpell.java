@@ -86,7 +86,7 @@ public class BlinkSpell extends Spell {
                 BlockPos blockPos = BlockPos.containing(vec3);
                 enderTeleportEvent(caster, worldIn, blockPos);
                 worldIn.broadcastEntityEvent(caster, (byte) 46);
-                worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.ENDERMAN_TELEPORT, this.getSoundSource(), 2.0F, 1.0F);
+                this.playSound(worldIn, caster, SoundEvents.ENDERMAN_TELEPORT, 2.0F, 1.0F);
             } else {
                 for(int i = 0; i < 64; ++i) {
                     if (MobUtil.teleport(caster, range)){

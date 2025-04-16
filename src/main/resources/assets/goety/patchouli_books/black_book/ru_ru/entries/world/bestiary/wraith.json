@@ -19,6 +19,16 @@
       "title": "Эктоплазма",
       "text": "С призраков может выпасть эктоплазма. Она используется для создания некротургических артефактов и заклинаний."
     },
+	{
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/kill_a_muck_wraith",
+      "entity": "goety:muck_wraith"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/kill_a_muck_wraith",
+      "text": "Разновидность призраков, которая вместо того, чтобы вызывать ледяное пламя, обрушивает на своих врагов облака кислого газа."
+    },
     {
       "type": "patchouli:entity",
       "advancement": "goety:goety/kill_a_border_wraith",

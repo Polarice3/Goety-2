@@ -16,6 +16,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -183,11 +184,11 @@ public class QuickGrowingVine extends AbstractVine{
 
     @Nullable
     @Override
-    public EntityType<?> getVariant(Level level, BlockPos blockPos) {
+    public EntityType<?> getVariant(@Nullable Player player, Level level, BlockPos blockPos) {
         if (level.isWaterAt(blockPos) || level.isWaterAt(blockPos.above())){
             return ModEntityType.QUICK_GROWING_KELP.get();
         } else {
-            return super.getVariant(level, blockPos);
+            return super.getVariant(player, level, blockPos);
         }
     }
 

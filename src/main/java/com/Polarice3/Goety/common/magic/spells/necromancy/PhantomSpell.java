@@ -93,7 +93,7 @@ public class PhantomSpell extends SummonSpell {
             for (int i = 0; i < caster.level.random.nextInt(35) + 10; ++i) {
                 worldIn.sendParticles(ParticleTypes.POOF, caster.getX(), caster.getEyeY(), caster.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
             }
-            worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
+            this.playSound(worldIn, caster, SoundEvents.EVOKER_CAST_SPELL);
         }
     }
 

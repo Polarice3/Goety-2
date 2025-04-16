@@ -526,6 +526,7 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
                 this.setPose(Pose.STANDING);
             }
         }
+        MiscCapHelper.updateMobTarget(this);
         if (!this.level.isClientSide){
             if (this.isAlive() && !this.isActivating()) {
                 if (MobsConfig.RedstoneMonstrosityLeafBreak.get()) {

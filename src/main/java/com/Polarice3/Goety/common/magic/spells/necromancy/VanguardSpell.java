@@ -21,7 +21,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.Vec3;
@@ -91,7 +90,7 @@ public class VanguardSpell extends SummonSpell {
             for (int i = 0; i < caster.level.random.nextInt(35) + 10; ++i) {
                 worldIn.sendParticles(ModParticleTypes.LICH.get(), caster.getX(), caster.getEyeY(), caster.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
             }
-            worldIn.playSound((Player) null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.VANGUARD_SUMMON.get(), this.getSoundSource(), 1.0F, 1.0F);
+            this.playSound(worldIn, caster, ModSounds.VANGUARD_SUMMON.get());
         }
     }
 
@@ -133,8 +132,8 @@ public class VanguardSpell extends SummonSpell {
                         ColorUtil colorUtil = new ColorUtil(0xa7fc3e);
                         ServerParticleUtil.windShockwaveParticle(worldIn, colorUtil, 0.1F, 0.1F, 0.05F, -1, summonedentity.position());
                         worldIn.sendParticles(ModParticleTypes.LICH.get(), summonedentity.getX(), summonedentity.getY(), summonedentity.getZ(), 1, 0, 0, 0, 0.0F);
-                        worldIn.playSound((Player) null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.SOUL_EXPLODE.get(), this.getSoundSource(), 0.25F + (worldIn.random.nextFloat() / 2.0F), 1.0F);
-                        worldIn.playSound((Player) null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.ENDERMAN_TELEPORT, this.getSoundSource(), 0.25F + (worldIn.random.nextFloat() / 2.0F), 1.0F);
+                        this.playSound(worldIn, summonedentity, ModSounds.SOUL_EXPLODE.get(), 0.25F + (worldIn.random.nextFloat() / 2.0F), 1.0F);
+                        this.playSound(worldIn, summonedentity, SoundEvents.ENDERMAN_TELEPORT, 0.25F + (worldIn.random.nextFloat() / 2.0F), 1.0F);
                     }
                     this.summonAdvancement(caster, summonedentity);
                 }
@@ -162,7 +161,7 @@ public class VanguardSpell extends SummonSpell {
                 }
             }
             this.SummonDown(caster);
-            worldIn.playSound((Player) null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.VANGUARD_SUMMON.get(), this.getSoundSource(), 1.0F, 1.0F);
+            this.playSound(worldIn, caster, ModSounds.VANGUARD_SUMMON.get());
         }
     }
 }

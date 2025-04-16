@@ -166,6 +166,7 @@ public class HammerItem extends TieredItem implements Vanishable {
         return (enchantment.category == EnchantmentCategory.WEAPON
                 || enchantment.category == EnchantmentCategory.DIGGER
                 || enchantment == ModEnchantments.RADIUS.get()
+                || enchantment.getDescriptionId().contains("vanillatweaks:siphon")
                 || super.canApplyAtEnchantingTable(stack, enchantment))
                 && !(enchantment instanceof SweepingEdgeEnchantment);
     }

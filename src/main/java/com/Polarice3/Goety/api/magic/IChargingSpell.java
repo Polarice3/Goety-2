@@ -22,6 +22,14 @@ public interface IChargingSpell extends ISpell {
         return 0;
     }
 
+    default int castUp(LivingEntity caster, ItemStack staff){
+        if (ReduceCastTime(caster)){
+            return defaultCastUp() / 2;
+        } else {
+            return defaultCastUp();
+        }
+    }
+
     default int defaultSpellCooldown() {
         return 0;
     }

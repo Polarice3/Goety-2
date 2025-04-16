@@ -124,6 +124,20 @@ public class ClientInitEvents {
                 });
         ItemProperties.register(ModItems.HUNTERS_BOW.get(), new ResourceLocation("pulling")
                 , (stack, world, living, seed) -> living != null && living.isUsingItem() && living.getUseItem() == stack ? 1.0F : 0.0F);
+        /*ItemProperties.register(ModItems.REVOLVER_CROSSBOW.get(), new ResourceLocation("pull")
+                , (stack, world, living, seed) -> {
+            if (living == null) {
+                return 0.0F;
+            } else {
+                return RevolverCrossbowItem.isCharged(stack) ? 0.0F : (float)(stack.getUseDuration() - living.getUseItemRemainingTicks()) / (float)RevolverCrossbowItem.getChargeDuration(stack);
+            }
+        });
+        ItemProperties.register(ModItems.REVOLVER_CROSSBOW.get(), new ResourceLocation("pulling")
+                , (stack, world, living, seed) -> living != null && living.isUsingItem() && living.getUseItem() == stack && !RevolverCrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
+        ItemProperties.register(ModItems.REVOLVER_CROSSBOW.get(), new ResourceLocation("charged")
+                , (stack, world, living, seed) -> RevolverCrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
+        ItemProperties.register(ModItems.REVOLVER_CROSSBOW.get(), new ResourceLocation("firework")
+                , (stack, world, living, seed) -> RevolverCrossbowItem.isCharged(stack) && RevolverCrossbowItem.containsChargedProjectile(stack, Items.FIREWORK_ROCKET) ? 1.0F : 0.0F);*/
         ItemProperties.register(ModItems.CALL_FOCUS.get(), new ResourceLocation("active")
                 , (stack, world, living, seed) -> CallFocus.hasSummon(stack) ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.TROOP_FOCUS.get(), new ResourceLocation("active")
@@ -509,6 +523,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.REAPER.get(), ReaperRenderer::new);
         event.registerEntityRenderer(ModEntityType.WRAITH.get(), WraithRenderer::new);
         event.registerEntityRenderer(ModEntityType.BORDER_WRAITH.get(), BorderWraithRenderer::new);
+        event.registerEntityRenderer(ModEntityType.MUCK_WRAITH.get(), MuckWraithRenderer::new);
         event.registerEntityRenderer(ModEntityType.CRYPT_SLIME.get(), CryptSlimeRenderer::new);
         event.registerEntityRenderer(ModEntityType.WEB_SPIDER.get(), WebSpiderRenderer::new);
         event.registerEntityRenderer(ModEntityType.ICY_SPIDER.get(), IcySpiderRenderer::new);
@@ -538,6 +553,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.REAPER_SERVANT.get(), ReaperRenderer::new);
         event.registerEntityRenderer(ModEntityType.WRAITH_SERVANT.get(), WraithServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.BORDER_WRAITH_SERVANT.get(), BorderWraithServantRenderer::new);
+        event.registerEntityRenderer(ModEntityType.MUCK_WRAITH_SERVANT.get(), MuckWraithServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.PHANTOM_SERVANT.get(), PhantomServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.VANGUARD_SERVANT.get(), VanguardRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKELETON_PILLAGER_SERVANT.get(), SkeletonPillagerRenderer::new);
@@ -571,6 +587,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.HELLHOUND.get(), HellhoundRenderer::new);
         event.registerEntityRenderer(ModEntityType.TWILIGHT_GOAT.get(), TwilightGoatRenderer::new);
         event.registerEntityRenderer(ModEntityType.SNAPPER.get(), SnapperRenderer::new);
+        event.registerEntityRenderer(ModEntityType.GUARDIAN_SERVANT.get(), GuardianServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.BEAR_SERVANT.get(), BearServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.POLAR_BEAR_SERVANT.get(), BearServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.HOGLIN_SERVANT.get(), HoglinServantRenderer::new);
@@ -754,6 +771,7 @@ public class ClientInitEvents {
         event.registerSpriteSet(ModParticleTypes.AURA.get(), AuraParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.VERTICAL_CIRCLE_EXPLODE.get(), VerticalCircleExplodeParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.RISING_ENCHANT.get(), RisingRollingParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.ROLLING_SPIRAL.get(), RollingParticle.EnchantProvider::new);
         event.registerSpriteSet(ModParticleTypes.ROLLING_ENCHANT.get(), RollingParticle.EnchantProvider::new);
         event.registerSpriteSet(ModParticleTypes.FUNGUS_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
         event.registerSpecial(ModParticleTypes.FUNGUS_EXPLOSION_EMITTER.get(), new HugeFungusExplosionSeedParticle.Provider());
@@ -768,6 +786,7 @@ public class ClientInitEvents {
         event.registerSpriteSet(ModParticleTypes.DUST_CLOUD.get(), DustCloudParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.REVERSE_SHOCKWAVE.get(), ShockwaveParticle.ReverseProvider::new);
+        event.registerSpriteSet(ModParticleTypes.LICH_DEATH.get(), ShockwaveParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.CIRCLE_EXPLODE.get(), CircleExplodeParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.FOG_CLOUD.get(), FoggyCloudParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SOUL_HEAL.get(), RisingCircleParticle.Provider::new);

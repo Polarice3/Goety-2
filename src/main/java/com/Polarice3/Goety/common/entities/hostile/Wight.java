@@ -56,6 +56,7 @@ import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.PathNavigationRegion;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -63,10 +64,12 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.pathfinder.AmphibiousNodeEvaluator;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidType;
@@ -118,7 +121,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
         super(type, worldIn);
         this.bossInfo = new ModServerBossInfo(this, BossEvent.BossBarColor.PURPLE, false, false);
         this.setHostile(true);
-        this.waterNavigation = new WaterBoundPathNavigation(this, worldIn);
+        this.waterNavigation = new WightAquaticNavigation(this, worldIn);
         this.groundNavigation = new WightNavigation(this, worldIn);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL,0.0F);
@@ -602,7 +605,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
 
     public void updateSwimming() {
         if (!this.level.isClientSide) {
-            if (this.isInWater()) {
+            if (this.isEffectiveAi() && this.isInWater()) {
                 this.navigation = this.waterNavigation;
                 this.setSwimming(true);
             } else {
@@ -981,7 +984,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
         for (int i = 0; i < 16; ++i) {
             serverLevel.sendParticles(ParticleTypes.LARGE_SMOKE, this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0, 0.0D, 0.0D, 0.0D, 0.5F);
         }
-        serverLevel.sendParticles(new TeleportShockwaveParticleOption(20), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
+        serverLevel.sendParticles(new TeleportShockwaveParticleOption(10), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
         if (!this.isSilent()) {
             this.playSound(ModSounds.WIGHT_TELEPORT.get(), 1.0F, 0.5F);
         }
@@ -1112,6 +1115,35 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
             this.nodeEvaluator.setCanPassDoors(true);
             return new PathFinder(this.nodeEvaluator, p_33382_);
         }
+    }
+
+    static class WightAquaticNavigation extends WaterBoundPathNavigation {
+        public WightAquaticNavigation(Mob entitylivingIn, Level worldIn) {
+            super(entitylivingIn, worldIn);
+        }
+
+        protected PathFinder createPathFinder(int p_179679_1_) {
+            this.nodeEvaluator = new AmphibiousNodeEvaluator(true);
+            return new PathFinder(this.nodeEvaluator, p_179679_1_);
+        }
+
+        protected boolean canUpdatePath() {
+            return true;
+        }
+
+        protected Vec3 getTempMobPos() {
+            return new Vec3(this.mob.getX(), this.mob.getY(0.5), this.mob.getZ());
+        }
+
+        protected boolean canMoveDirectly(Vec3 posVec31, Vec3 posVec32, int sizeX, int sizeY, int sizeZ) {
+            Vec3 vector3d = new Vec3(posVec32.x, posVec32.y + (double)this.mob.getBbHeight() * 0.5, posVec32.z);
+            return this.level.clip(new ClipContext(posVec31, vector3d, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this.mob)).getType() == HitResult.Type.MISS;
+        }
+
+        public boolean isStableDestination(BlockPos pos) {
+            return !this.level.getBlockState(pos.below()).isAir();
+        }
+
     }
 
     static class WightNodeEvaluator extends WalkNodeEvaluator {
@@ -1393,7 +1425,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
         private int aggroTime;
         private int teleportTime;
         private final TargetingConditions startAggroTargetConditions;
-        private final TargetingConditions continueAggroTargetConditions = TargetingConditions.forCombat().ignoreLineOfSight();
+        private final TargetingConditions continueAggroTargetConditions = TargetingConditions.forCombat().ignoreInvisibilityTesting().ignoreLineOfSight();
 
         public WightLookForPlayerGoal(Wight wight, @Nullable Predicate<LivingEntity> predicate) {
             super(wight, Player.class, 10, false, false, predicate);

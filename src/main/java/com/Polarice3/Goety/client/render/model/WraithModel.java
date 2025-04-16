@@ -16,7 +16,9 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
     private final ModelPart Ghost;
     private final ModelPart head;
     private final ModelPart RightArm;
+    private final ModelPart RightBone;
     private final ModelPart LeftArm;
+    private final ModelPart LeftBone;
     private final ModelPart body;
     private final ModelPart robe;
 
@@ -25,7 +27,9 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
         this.Ghost = root.getChild("Ghost");
         this.head = this.Ghost.getChild("head");
         this.RightArm = this.Ghost.getChild("right_arm");
+        this.RightBone = this.RightArm.getChild("right_bone");
         this.LeftArm = this.Ghost.getChild("left_arm");
+        this.LeftBone = this.LeftArm.getChild("left_bone");
         this.body = this.Ghost.getChild("body");
         this.robe = this.body.getChild("robe");
     }
@@ -73,6 +77,7 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
             this.animate(wraith.attackAnimationState, WraithAnimations.ATTACK, pAgeInTicks);
             this.animate(wraith.breathingAnimationState, WraithAnimations.PUKE, pAgeInTicks);
             this.animate(wraith.postTeleportAnimationState, WraithAnimations.TELEPORT_OUT, pAgeInTicks);
+            this.animate(wraith.acidAnimationState, WraithAnimations.ACID, pAgeInTicks);
             if (!wraith.isFiring() && !wraith.isBreathing() && !wraith.isPostTeleporting()) {
                 if (wraith.isTeleporting()) {
                     float f7 = Mth.sin(((float) (wraith.teleportTime - 20) - wraith.teleportTime2) / 20.0F * (float) Math.PI * 0.25F);
@@ -82,6 +87,9 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
                     this.Ghost.y += (((float) Math.PI) * f7) * 5.0F;
                 } else {
                     float f = pAgeInTicks * 0.0025F;
+                    if (pEntity.walkAnimation.isMoving()){
+                        f *= 2.0F;
+                    }
                     this.Ghost.y = Mth.sin(f * 40.0F) + 24.0F;
                     float f4 = Math.min(pLimbSwingAmount / 0.3F, 1.0F);
                     this.robe.xRot = f4 * MathHelper.modelDegrees(40.0F);
@@ -92,10 +100,12 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
                     if (wraith.getLookControl().isLookingAtTarget()) {
                         degrees = 0.0F;
                     } else {
-                        degrees = MathHelper.modelDegrees(17.5F) - f5;
+                        degrees = MathHelper.modelDegrees(10.0F) - f5;
                     }
                     this.head.xRot = pHeadPitch * ((float) Math.PI / 180F) + degrees;
                     animateArms(this.LeftArm, this.RightArm, pLimbSwingAmount, pAgeInTicks);
+                    this.RightBone.xRot = -MathHelper.modelDegrees(12.5F);
+                    this.LeftBone.xRot = -MathHelper.modelDegrees(12.5F);
                 }
             } else if (wraith.isBreathing()){
                 this.Ghost.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
@@ -111,7 +121,7 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
         leftArm.zRot = -Math.min(attackTime / 0.9F, 1.0F);
         rightArm.yRot = -(0.1F - 0 * 0.6F);
         leftArm.yRot = 0.1F - 0 * 0.6F;
-        float f2 = -MathHelper.modelDegrees(45.0F);
+        float f2 = -MathHelper.modelDegrees(40.0F);
         rightArm.xRot = f2;
         leftArm.xRot = f2;
         AnimationUtils.bobArms(rightArm, leftArm, ageInTicks);

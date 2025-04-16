@@ -1,0 +1,27 @@
+{
+  "name": "Стражи-прислужники",
+  "icon": "minecraft:prismarine_bricks",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Эти подводные биомеханические циклопы призваны служить вам. Хотя для жизни им не нужно дышать, лучше не вызывать стражей на суше."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:guardian_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Можно вызвать этих существ с помощью $(l:focuses/abyss/guardian_focus)фокуса стражи$() или с помощью ритуала, который призывает стражей с неограниченным сроком жизни."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_guardian_servant_thrall"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Стражей-прислужников можно исцелять, нажав по ним ПКМ рыбой."
+    }
+  ]
+}

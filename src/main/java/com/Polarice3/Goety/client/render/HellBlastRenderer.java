@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.entities.projectiles.HellBlast;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -29,9 +30,12 @@ public class HellBlastRenderer extends EntityRenderer<HellBlast> {
       p_116487_.scale(-1.0F, -1.0F, 1.0F);
       float f = Mth.rotLerp(p_116486_, p_116484_.yRotO, p_116484_.getYRot());
       float f1 = Mth.lerp(p_116486_, p_116484_.xRotO, p_116484_.getXRot());
-      VertexConsumer vertexconsumer = p_116488_.getBuffer(ModRenderType.wraith(this.getTextureLocation(p_116484_)));
+      VertexConsumer vertexconsumer = p_116488_.getBuffer(RenderType.entityCutoutNoCull(this.getTextureLocation(p_116484_)));
       this.model.setupAnim(0.0F, f, f1);
       this.model.renderToBuffer(p_116487_, vertexconsumer, 15728640, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 0.5F);
+      VertexConsumer vertexconsumer2 = p_116488_.getBuffer(ModRenderType.wraith(this.getTextureLocation(p_116484_)));
+      this.model.setupAnim(0.0F, f, f1);
+      this.model.renderToBuffer(p_116487_, vertexconsumer2, 15728640, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 0.5F);
       p_116487_.popPose();
       super.render(p_116484_, p_116485_, p_116486_, p_116487_, p_116488_, p_116489_);
    }

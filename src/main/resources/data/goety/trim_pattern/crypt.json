@@ -1,7 +1,0 @@
-{
-  "asset_id": "goety:crypt",
-  "description": {
-    "translate": "trim_pattern.goety.crypt"
-  },
-  "template_item": "goety:crypt_armor_trim_smithing_template"
-}

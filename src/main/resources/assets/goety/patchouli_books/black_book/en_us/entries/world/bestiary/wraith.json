@@ -21,6 +21,16 @@
     },
     {
       "type": "patchouli:entity",
+      "advancement": "goety:goety/kill_a_muck_wraith",
+      "entity": "goety:muck_wraith"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/kill_a_muck_wraith",
+      "text": "A variant of the wraith, one that rather than summon freezing flames, summon clouds of acidic gas upon their foes."
+    },
+    {
+      "type": "patchouli:entity",
       "advancement": "goety:goety/kill_a_border_wraith",
       "entity": "goety:border_wraith"
     },

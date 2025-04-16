@@ -111,7 +111,7 @@ public class FireBlastSpell extends Spell {
                 }
             }
         };
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.GENERIC_EXPLODE, this.getSoundSource(), 2.0F, 1.0F);
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.HELL_BLAST_IMPACT.get(), this.getSoundSource(), 2.0F, 1.0F);
+        this.playSound(worldIn, caster, SoundEvents.GENERIC_EXPLODE, 2.0F, 1.0F);
+        this.playSound(worldIn, caster, ModSounds.HELL_BLAST_IMPACT.get(), 2.0F, 1.0F);
     }
 }

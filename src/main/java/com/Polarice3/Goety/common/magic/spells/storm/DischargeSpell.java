@@ -106,6 +106,6 @@ public class DischargeSpell extends Spell {
                 }
             }
         };
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.REDSTONE_EXPLODE.get(), this.getSoundSource(), 1.0F, 1.0F);
+        this.playSound(worldIn, caster, ModSounds.REDSTONE_EXPLODE.get(), 2.0F, 1.0F);
     }
 }

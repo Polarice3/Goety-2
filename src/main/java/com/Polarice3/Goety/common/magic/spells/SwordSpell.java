@@ -75,9 +75,9 @@ public class SwordSpell extends Spell {
             if (worldIn.addFreshEntity(swordProjectile) && MobUtil.validEntity(caster)){
                 ItemHelper.hurtAndBreak(sword, 10, caster);
             }
-            worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), CastingSound(), this.getSoundSource(), 1.0F, 1.0F);
+            this.playSound(worldIn, caster, 1.0F, 1.0F);
         } else {
-            worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.FIRE_EXTINGUISH, this.getSoundSource(), 1.0F, 1.0F);
+            this.playSound(worldIn, caster, SoundEvents.FIRE_EXTINGUISH, 1.0F, 1.0F);
         }
     }
 }

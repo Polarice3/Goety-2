@@ -22,7 +22,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 
@@ -88,7 +87,7 @@ public class HauntedSkullSpell extends SummonSpell {
             for (int i = 0; i < caster.level.random.nextInt(35) + 10; ++i) {
                 worldIn.sendParticles(ParticleTypes.POOF, caster.getX(), caster.getEyeY(), caster.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
             }
-            worldIn.playSound((Player) null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
+            this.playSound(worldIn, caster, SoundEvents.EVOKER_CAST_SPELL);
         }
     }
 
@@ -132,7 +131,7 @@ public class HauntedSkullSpell extends SummonSpell {
                 worldIn.addFreshEntity(summonedentity);
                 this.summonAdvancement(caster, summonedentity);
             }
-            worldIn.playSound((Player) null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
+            this.playSound(worldIn, caster, SoundEvents.EVOKER_CAST_SPELL);
         }
     }
 }

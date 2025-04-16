@@ -863,7 +863,7 @@ public class DrownedNecromancer extends AbstractNecromancer {
                     if (DrownedNecromancer.this.level instanceof ServerLevel serverLevel) {
                         Summoned summonedentity = DrownedNecromancer.this.getSummon();
                         if (DrownedNecromancer.this.summonVariants()) {
-                            EntityType<?> entityType = summonedentity.getVariant(serverLevel, DrownedNecromancer.this.blockPosition());
+                            EntityType<?> entityType = summonedentity.getVariant(null, serverLevel, DrownedNecromancer.this.blockPosition());
                             if (entityType != null && entityType.create(serverLevel) instanceof Summoned summoned) {
                                 summonedentity = summoned;
                             }

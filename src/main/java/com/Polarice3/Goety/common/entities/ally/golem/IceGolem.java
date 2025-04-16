@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.magic.spells.frost.FrostNovaSpell;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -42,6 +43,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 public class IceGolem extends AbstractGolemServant{
     private static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(IceGolem.class, EntityDataSerializers.INT);
@@ -107,6 +109,16 @@ public class IceGolem extends AbstractGolemServant{
     @Override
     protected SoundEvent getDeathSound() {
         return ModSounds.ICE_GOLEM_DEATH.get();
+    }
+
+    @Override
+    public Predicate<Entity> summonPredicate() {
+        return entity -> entity instanceof IceGolem;
+    }
+
+    @Override
+    public int getSummonLimit(LivingEntity owner) {
+        return SpellConfig.IceGolemLimit.get();
     }
 
     public void setAnimationState(String input) {

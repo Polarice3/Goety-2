@@ -1,0 +1,16 @@
+{
+  "name": "弾幕のフォーカス",
+  "icon": "goety:bombardment_focus",
+  "category": "goety:focuses/nether",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "控えめなファイアボール呪文のアップグレード版です。ファイアボールの弾幕を発射し、ブレイズのように飛び上がることができます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/bombardment_focus"
+    }
+  ]
+}

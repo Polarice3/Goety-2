@@ -71,7 +71,7 @@ public class SonicBoomSpell extends Spell {
                 worldIn.sendParticles(ParticleTypes.SONIC_BOOM, vec33.x, vec33.y, vec33.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
             }
 
-            worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.WARDEN_SONIC_BOOM, this.getSoundSource(), 3.0F, 1.0F);
+            this.playSound(worldIn, caster, SoundEvents.WARDEN_SONIC_BOOM, 3.0F, 1.0F);
             livingEntity.hurt(caster.damageSources().sonicBoom(caster), damage);
             double d1 = 0.5D * (1.0D - livingEntity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
             double d0 = 2.5D * (1.0D - livingEntity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
@@ -92,6 +92,6 @@ public class SonicBoomSpell extends Spell {
                 MobUtil.push(target1, d0 / d2 * 4.0D, 0.2D, d1 / d2 * 4.0D);
             }
         }
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.WARDEN_SONIC_BOOM, this.getSoundSource(), 3.0F, 1.0F);
+        this.playSound(worldIn, caster, SoundEvents.WARDEN_SONIC_BOOM, 3.0F, 1.0F);
     }
 }

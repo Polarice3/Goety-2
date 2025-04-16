@@ -80,6 +80,7 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
         return (enchantment.category == EnchantmentCategory.DIGGER
                 || enchantment.category == EnchantmentCategory.WEAPON
                 || enchantment.category == EnchantmentCategory.BREAKABLE
+                || enchantment.getDescriptionId().contains("vanillatweaks:siphon")
                 || enchantment == Enchantments.MOB_LOOTING) 
                 && !(enchantment instanceof SweepingEdgeEnchantment);
     }

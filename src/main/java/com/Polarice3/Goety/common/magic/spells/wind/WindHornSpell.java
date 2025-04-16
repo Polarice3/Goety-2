@@ -88,6 +88,6 @@ public class WindHornSpell extends Spell {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, MathHelper.secondsToTicks(duration), potency));
             }
         }
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.WIND_HORN.get(), this.getSoundSource(), 3.0F, 1.0F);
+        this.playSound(worldIn, caster, ModSounds.WIND_HORN.get(), 3.0F, 1.0F);
     }
 }

@@ -17,6 +17,8 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -41,9 +43,6 @@ public abstract class Spell implements ISpell {
     public abstract int defaultSoulCost();
 
     public abstract int defaultCastDuration();
-
-    @Nullable
-    public abstract SoundEvent CastingSound();
 
     public abstract int defaultSpellCooldown();
 
@@ -140,6 +139,10 @@ public abstract class Spell implements ISpell {
                 int range = 1;
                 ColorUtil colorUtil = new ColorUtil(ChatFormatting.AQUA);
                 ServerParticleUtil.gatheringParticles(new GatherTrailParticle.Option(colorUtil, caster.position().add(0, 2, 0)), caster, serverLevel, range);
+            } else if (this.getSpellType() == SpellType.NETHER){
+                int range = 1;
+                ColorUtil colorUtil = new ColorUtil(ChatFormatting.GOLD);
+                ServerParticleUtil.gatheringParticles(new GatherTrailParticle.Option(colorUtil, caster.position().add(0, 2, 0)), caster, serverLevel, range);
             } else if (this.getSpellType() == SpellType.NECROMANCY){
                 int range = 1;
                 ColorUtil colorUtil = new ColorUtil(0xffffff);
@@ -178,11 +181,22 @@ public abstract class Spell implements ISpell {
         return SoundSource.PLAYERS;
     }
 
-    public void playSound(ServerLevel serverLevel, LivingEntity caster, SoundEvent soundEvent){
-        this.playSound(serverLevel, caster, soundEvent, 1.0F, 1.0F);
+    public float projPitch(RandomSource source){
+        return (source.nextFloat() - source.nextFloat()) * 0.2F + 1.0F;
     }
 
-    public void playSound(ServerLevel serverLevel, LivingEntity caster, SoundEvent soundEvent, float volume, float pitch){
-        serverLevel.playSound(null, caster.getX(), caster.getY(), caster.getZ(), soundEvent, this.getSoundSource(), volume, pitch);
+    public void playSound(ServerLevel serverLevel, Entity entity, SoundEvent soundEvent){
+        this.playSound(serverLevel, entity, soundEvent, 1.0F, 1.0F);
+    }
+
+    public void playSound(ServerLevel serverLevel, Entity entity, SoundEvent soundEvent, float volume, float pitch){
+        serverLevel.playSound(null, entity.getX(), entity.getY(), entity.getZ(), soundEvent, this.getSoundSource(), volume, pitch);
+    }
+
+    public void playSound(ServerLevel serverLevel, LivingEntity caster, float volume, float pitch){
+        SoundEvent soundEvent = this.CastingSound(caster);
+        if (soundEvent != null){
+            this.playSound(serverLevel, caster, soundEvent, volume, pitch);
+        }
     }
 }

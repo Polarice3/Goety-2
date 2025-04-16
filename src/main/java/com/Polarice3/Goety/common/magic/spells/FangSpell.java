@@ -12,7 +12,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.HitResult;
@@ -118,7 +117,7 @@ public class FangSpell extends Spell {
                 }
             }
         }
-        worldIn.playSound((Player) null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
+        this.playSound(worldIn, caster, SoundEvents.EVOKER_CAST_SPELL);
     }
 
 }

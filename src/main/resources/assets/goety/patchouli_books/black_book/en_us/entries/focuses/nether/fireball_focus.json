@@ -9,11 +9,8 @@
       "text": "The power of the Blazes are now at your finger tip. No longer will you need to use a Dispenser and Fire Charges, now you can be the Dispenser!"
     },
     {
-      "type": "goety:ritual",
+      "type": "patchouli:crafting",
       "recipe": "goety:focus/fireball_focus"
     }
-  ],
-  "extra_recipe_mappings": {
-    "goety:fireball_focus": 1
-  }
+  ]
 }

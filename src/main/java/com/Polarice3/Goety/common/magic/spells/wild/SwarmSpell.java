@@ -109,7 +109,7 @@ public class SwarmSpell extends BreathingSpell {
                 }
             }
         }
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.INSECT_SWARM.get(), this.getSoundSource(), worldIn.random.nextFloat() * 0.5F, worldIn.random.nextFloat() * 0.5F);
+        this.playSound(worldIn, caster, ModSounds.INSECT_SWARM.get(), worldIn.random.nextFloat() * 0.5F, worldIn.random.nextFloat() * 0.5F);
     }
 
     @Override

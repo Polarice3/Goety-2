@@ -24,7 +24,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import org.jetbrains.annotations.Nullable;
@@ -94,7 +93,7 @@ public class WhisperSpell extends SummonSpell {
             for (int i = 0; i < caster.level.random.nextInt(35) + 10; ++i) {
                 worldIn.sendParticles(ParticleTypes.POOF, caster.getX(), caster.getEyeY(), caster.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
             }
-            worldIn.playSound((Player) null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.SUMMON_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
+            this.playSound(worldIn, caster, ModSounds.SUMMON_SPELL.get());
         }
     }
 
@@ -139,7 +138,7 @@ public class WhisperSpell extends SummonSpell {
                 this.summonAdvancement(caster, summonedentity);
             }
             this.SummonDown(caster);
-            worldIn.playSound((Player) null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.SUMMON_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
+            this.playSound(worldIn, caster, ModSounds.SUMMON_SPELL.get());
         }
     }
 }

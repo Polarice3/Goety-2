@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -55,6 +56,10 @@ public class BigSpellParticle extends TextureSheetParticle {
       Minecraft minecraft = Minecraft.getInstance();
       LocalPlayer localplayer = minecraft.player;
       return localplayer != null && localplayer.getEyePosition().distanceToSqr(this.x, this.y, this.z) <= 16.0D && minecraft.options.getCameraType().isFirstPerson();
+   }
+
+   protected int getLightColor(float p_107249_) {
+      return LightTexture.FULL_BLOCK;
    }
 
    public static class Provider implements ParticleProvider<SimpleParticleType> {

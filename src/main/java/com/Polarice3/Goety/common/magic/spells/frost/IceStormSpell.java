@@ -59,6 +59,16 @@ public class IceStormSpell extends Spell {
 
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
+        int potency = spellStat.getPotency();
+        int duration = spellStat.getDuration();
+        int range = spellStat.getRange();
+        float velocity = spellStat.getVelocity();
+        if (WandUtil.enchantedFocus(caster)){
+            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
+            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            velocity += WandUtil.getLevels(ModEnchantments.VELOCITY.get(), caster);
+        }
         Vec3 vector3d = caster.getViewVector( 1.0F);
         IceStorm iceStorm = new IceStorm(
                 caster.getX() + vector3d.x / 2,
@@ -67,17 +77,15 @@ public class IceStormSpell extends Spell {
                 vector3d.x,
                 vector3d.y,
                 vector3d.z, worldIn);
-        if (WandUtil.enchantedFocus(caster)){
-            iceStorm.setExtraDamage(spellStat.getPotency() + WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
-            iceStorm.setDuration(spellStat.getDuration() + WandUtil.getLevels(ModEnchantments.DURATION.get(), caster));
-            iceStorm.setRange(spellStat.getRange() + WandUtil.getLevels(ModEnchantments.RANGE.get(), caster));
-            iceStorm.setBoltSpeed((int) (spellStat.getVelocity() + WandUtil.getLevels(ModEnchantments.VELOCITY.get(), caster)));
-        }
+        iceStorm.setExtraDamage(potency);
+        iceStorm.setDuration(duration);
+        iceStorm.setRange(range);
+        iceStorm.setBoltSpeed((int) velocity);
         if (rightStaff(staff)){
             iceStorm.setSize(1.0F);
         }
         iceStorm.setOwner(caster);
         worldIn.addFreshEntity(iceStorm);
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.WIND_BLAST.get(), this.getSoundSource(), 1.0F, 0.75F);
+        this.playSound(worldIn, caster, ModSounds.WIND_BLAST.get(), 1.0F, 0.75F);
     }
 }

@@ -18,7 +18,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -34,10 +36,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -103,16 +107,30 @@ public class Crusher extends HuntingIllagerEntity{
         }
     }
 
+    @Nullable
     @Override
-    protected SoundEvent getCastingSoundEvent() {
-        return null;
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_34002_, DifficultyInstance p_34003_, MobSpawnType p_34004_, @javax.annotation.Nullable SpawnGroupData p_34005_, @javax.annotation.Nullable CompoundTag p_34006_) {
+        if (p_34003_.isHard()) {
+            RandomSource randomsource = p_34002_.getRandom();
+            this.populateDefaultEquipmentSlots(randomsource, p_34003_);
+            this.populateDefaultEquipmentEnchantments(randomsource, p_34003_);
+        }
+        return super.finalizeSpawn(p_34002_, p_34003_, p_34004_, p_34005_, p_34006_);
     }
 
     @Override
-    public void applyRaidBuffs(int p_37844_, boolean p_37845_) {
+    protected SoundEvent getCastingSoundEvent() {
+        return SoundEvents.EMPTY;
+    }
+
+    @Override
+    public void applyRaidBuffs(int wave, boolean noClue) {
         Raid raid = this.getCurrentRaid();
+        if (raid == null){
+            return;
+        }
         int i = 0;
-        if (p_37844_ > raid.getNumGroups(Difficulty.NORMAL)) {
+        if (wave > raid.getNumGroups(Difficulty.NORMAL)) {
             i = 1;
         }
 
@@ -338,14 +356,6 @@ public class Crusher extends HuntingIllagerEntity{
         return distToEnemySqr <= reach || this.getBoundingBox().intersects(enemy.getBoundingBox());
     }
 
-    public boolean doHurtTarget(Entity entityIn) {
-        if (!this.level.isClientSide && !this.isMeleeAttacking()) {
-            this.setMeleeAttacking(true);
-            this.level.broadcastEntityEvent(this, (byte) 8);
-        }
-        return true;
-    }
-
     @Override
     protected void dropCustomDeathLoot(DamageSource pSource, int pLooting, boolean pRecentlyHit) {
         super.dropCustomDeathLoot(pSource, pLooting, pRecentlyHit);
@@ -417,7 +427,10 @@ public class Crusher extends HuntingIllagerEntity{
         @Override
         protected void checkAndPerformAttack(@NotNull LivingEntity enemy, double distToEnemySqr) {
             if (Crusher.this.targetClose(enemy, distToEnemySqr)) {
-                Crusher.this.doHurtTarget(enemy);
+                if (!Crusher.this.isMeleeAttacking()) {
+                    Crusher.this.setMeleeAttacking(true);
+                    Crusher.this.level.broadcastEntityEvent(Crusher.this, (byte) 8);
+                }
             }
         }
 
@@ -475,7 +488,7 @@ public class Crusher extends HuntingIllagerEntity{
                         Crusher.this.getY(),
                         Crusher.this.getZ() + Crusher.this.getHorizontalLookAngle().z * 2, 3, 3, 3);
                 for (LivingEntity target : Crusher.this.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
-                    if (target != Crusher.this && !target.isAlliedTo(Crusher.this) && !Crusher.this.isAlliedTo(target)) {
+                    if (target != Crusher.this && !MobUtil.areAllies(Crusher.this, target)) {
                         this.hurtTarget(target);
                     }
                 }
@@ -495,19 +508,7 @@ public class Crusher extends HuntingIllagerEntity{
         }
 
         public void hurtTarget(Entity target) {
-            float f = (float)Crusher.this.getAttributeValue(Attributes.ATTACK_DAMAGE);
-            float f1 = (float)Crusher.this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
-            DamageSource damageSource = Crusher.this.isStorm() ? ModDamageSource.directShock(Crusher.this) : Crusher.this.damageSources().mobAttack(Crusher.this);
-            boolean flag = target.hurt(damageSource, f);
-            if (flag) {
-                if (f1 > 0.0F && target instanceof LivingEntity livingEntity) {
-                    livingEntity.knockback(f1 * 0.5F, Mth.sin(Crusher.this.getYRot() * ((float)Math.PI / 180F)), -Mth.cos(Crusher.this.getYRot() * ((float)Math.PI / 180F)));
-                    Crusher.this.setDeltaMovement(Crusher.this.getDeltaMovement().multiply(0.6D, 1.0D, 0.6D));
-                }
-
-                Crusher.this.doEnchantDamageEffects(Crusher.this, target);
-                Crusher.this.setLastHurtMob(target);
-            }
+            Crusher.this.doHurtTarget(target);
             if (Crusher.this.level instanceof ServerLevel serverLevel) {
                 if (Crusher.this.isStorm() && target instanceof LivingEntity livingEntity) {
                     BlockHitResult rayTraceResult = this.blockResult(serverLevel, Crusher.this, 16);

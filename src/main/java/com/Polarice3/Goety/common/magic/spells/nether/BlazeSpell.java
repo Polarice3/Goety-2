@@ -42,7 +42,10 @@ public class BlazeSpell extends SummonSpell {
         return SpellConfig.BlazeSummonDown.get();
     }
 
-    public SoundEvent CastingSound() {
+    public SoundEvent CastingSound(LivingEntity caster) {
+        if (CuriosFinder.hasUnholySet(caster)){
+            return ModSounds.APOSTLE_PREPARE_SUMMON.get();
+        }
         return ModSounds.PREPARE_SUMMON.get();
     }
 
@@ -127,7 +130,7 @@ public class BlazeSpell extends SummonSpell {
                 this.summonAdvancement(caster, blazeServant);
             }
             this.SummonDown(caster);
-            worldIn.playSound((Player) null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.SUMMON_SPELL_FIERY.get(), this.getSoundSource(), 1.0F, 1.0F);
+            this.playSound(worldIn, caster, ModSounds.SUMMON_SPELL_FIERY.get());
         }
     }
 }

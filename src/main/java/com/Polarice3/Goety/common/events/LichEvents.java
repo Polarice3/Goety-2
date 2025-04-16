@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.events;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.client.particles.LichShockwaveParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.compat.iron.IronAttributes;
 import com.Polarice3.Goety.compat.iron.IronLoaded;
@@ -294,11 +294,12 @@ public class LichEvents {
             if (LichdomHelper.isInLichMode(livingEntity)){
                 if (!event.isCanceled()){
                     if (MainConfig.LichModeSounds.get()) {
-                        livingEntity.playSound(ModSounds.LICH_DEATH.get(), 1.0F, livingEntity.getVoicePitch());
+                        Vec3 vec3 = livingEntity.position();
+                        livingEntity.level.playSound(null, vec3.x, vec3.y, vec3.z, ModSounds.LICH_DEATH.get(), livingEntity.getSoundSource(), 1.0F, livingEntity.getVoicePitch());
                     }
                     if (livingEntity.level instanceof ServerLevel serverLevel){
                         ColorUtil colorUtil = new ColorUtil(0x36e416);
-                        serverLevel.sendParticles(new ShockwaveParticleOption(0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 20, 0, true), livingEntity.getX(), livingEntity.getY() + 0.5F, livingEntity.getZ(), 0, 0, 0, 0, 0.5F);
+                        serverLevel.sendParticles(new LichShockwaveParticleOption(colorUtil, 40, 20, 1, 100), livingEntity.getX(), livingEntity.getY() + 0.5F, livingEntity.getZ(), 0, 0, 0, 0, 0.5F);
                     }
                 }
             }

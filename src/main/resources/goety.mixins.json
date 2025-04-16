@@ -32,9 +32,7 @@
     "GuiGraphicsMixin",
     "LevelRendererMixin",
     "MinecraftMixin",
-    "PalettedPermutationsAccessor",
     "PlayerRendererAccessor",
-    "SpinAttackEffectLayerMixin",
-    "SpriteResourceLoaderMixin"
+    "SpinAttackEffectLayerMixin"
   ]
 }

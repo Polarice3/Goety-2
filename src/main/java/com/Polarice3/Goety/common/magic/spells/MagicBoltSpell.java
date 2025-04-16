@@ -56,7 +56,7 @@ public class MagicBoltSpell extends Spell {
                 vector3d.z);
         soulBolt.setOwner(caster);
         worldIn.addFreshEntity(soulBolt);
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), CastingSound(), this.getSoundSource(), 1.0F, 1.0F);
+        this.playSound(worldIn, caster, 1.0F, 1.0F);
     }
 
 }

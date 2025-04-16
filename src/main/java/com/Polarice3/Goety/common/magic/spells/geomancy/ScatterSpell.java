@@ -63,6 +63,14 @@ public class ScatterSpell extends Spell {
 
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
+        int potency = spellStat.getPotency();
+        double radius = spellStat.getRadius();
+        int duration = spellStat.getDuration();
+        if (WandUtil.enchantedFocus(caster)){
+            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster) / 2.0F;
+            duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
+        }
         for (int i = 0; i < 3; ++i) {
             BlockPos blockPos = caster.blockPosition();
             blockPos = blockPos.offset(-4 + worldIn.random.nextInt(8), 0, -4 + worldIn.random.nextInt(8));
@@ -71,9 +79,9 @@ public class ScatterSpell extends Spell {
             Vec3 vec31 = Vec3.atBottomCenterOf(blockPos2);
             ScatterMine scatterMine = new ScatterMine(worldIn, caster, vec3);
             scatterMine.setIsSpell();
-            scatterMine.setExtraDamage(spellStat.getPotency() + WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
-            scatterMine.setExtraRadius((float) (spellStat.getRadius() + WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster) / 2.0F));
-            scatterMine.lifeTicks = MathHelper.secondsToTicks(spellStat.getDuration() + WandUtil.getLevels(ModEnchantments.DURATION.get(), caster));
+            scatterMine.setExtraDamage(potency);
+            scatterMine.setExtraRadius((float) radius);
+            scatterMine.lifeTicks = MathHelper.secondsToTicks(duration);
             if (!worldIn.getEntitiesOfClass(ScatterMine.class, new AABB(blockPos)).isEmpty()) {
                 scatterMine.setPos(vec31.x(), vec31.y(), vec31.z());
             }

@@ -19,6 +19,7 @@ import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.CursedCageBlockEntity;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.common.entities.ally.GuardianServant;
 import com.Polarice3.Goety.common.entities.ally.Leapleaf;
 import com.Polarice3.Goety.common.entities.ally.golem.SquallGolem;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
@@ -45,6 +46,7 @@ import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModKeybindings;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -76,7 +78,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -114,7 +115,7 @@ public class ClientEvents {
         if (event.getLevel() instanceof ClientLevel){
             Minecraft minecraft = Minecraft.getInstance();
             SoundManager soundHandler = minecraft.getSoundManager();
-            if (MainConfig.BossMusic.get()) {
+            /*if (MainConfig.BossMusic.get()) {
                 boolean show = minecraft.options.getSoundSourceVolume(SoundSource.RECORDS) > 0.0F;
                 if (entity instanceof Mob mob && !mob.isNoAi()) {
                     if (entity instanceof Apostle) {
@@ -136,7 +137,7 @@ public class ClientEvents {
                         }
                     }
                 }
-            }
+            }*/
             if (entity instanceof CorruptedBeam){
                 soundHandler.play(new LoopSound(ModSounds.CORRUPT_BEAM_LOOP.get(), entity));
                 soundHandler.play(new LoopSound(ModSounds.CORRUPT_BEAM_SOUL.get(), entity));
@@ -256,15 +257,27 @@ public class ClientEvents {
                     soundHandler.play(new SummonNoveltySound(leapleaf, ModSounds.LEAPLEAF_ALERT.get()));
                 }
             }
+            if (event.getEntity() instanceof GuardianServant guardianServant){
+                if (guardianServant.playAttackSound){
+                    soundHandler.play(new GuardianAttackSound(guardianServant));
+                    guardianServant.playAttackSound = false;
+                }
+            }
             if (MainConfig.BossMusic.get()) {
-                if (entity instanceof Apostle apostle && !apostle.isNoAi()) {
-                    playBossMusic(ModSounds.APOSTLE_THEME.get(), ModSounds.APOSTLE_THEME_POST.get(), apostle);
-                }
-                if (entity instanceof Vizier vizier && !vizier.isNoAi()) {
-                    playBossMusic(ModSounds.VIZIER_THEME.get(), vizier);
-                }
-                if (entity instanceof HostileRedstoneMonstrosity rm && !rm.isNoAi()) {
-                    playBossMusic(ModSounds.RM_THEME.get(), ModSounds.BOSS_POST_2.get(), rm, 0.75F);
+                if (entity instanceof LivingEntity livingEntity) {
+                    if ((MiscCapHelper.getMobTarget(livingEntity) instanceof Player)
+                    || (MiscCapHelper.getMobTarget(livingEntity) instanceof OwnableEntity ownable && ownable.getOwner() instanceof Player)
+                    || entity.getType().is(ModTags.EntityTypes.GLOBAL_MUSIC_BOSS)) {
+                        if (entity instanceof Apostle apostle && !apostle.isNoAi()) {
+                            playBossMusic(ModSounds.APOSTLE_THEME.get(), ModSounds.APOSTLE_THEME_POST.get(), apostle);
+                        }
+                        if (entity instanceof Vizier vizier && !vizier.isNoAi()) {
+                            playBossMusic(ModSounds.VIZIER_THEME.get(), vizier);
+                        }
+                        if (entity instanceof HostileRedstoneMonstrosity rm && !rm.isNoAi()) {
+                            playBossMusic(ModSounds.RM_THEME.get(), ModSounds.BOSS_POST_2.get(), rm, 0.75F);
+                        }
+                    }
                 }
             }
         }

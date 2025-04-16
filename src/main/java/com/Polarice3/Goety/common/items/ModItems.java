@@ -92,7 +92,6 @@ public class ModItems {
     public static final RegistryObject<Item> GOLD_RAVAGER_ARMOR = ITEMS.register("gold_ravager_armor", () -> new RavagerArmorItem(11, "gold"));
     public static final RegistryObject<Item> DIAMOND_RAVAGER_ARMOR = ITEMS.register("diamond_ravager_armor", () -> new RavagerArmorItem(15, "diamond"));
     public static final RegistryObject<Item> NETHERITE_RAVAGER_ARMOR = ITEMS.register("netherite_ravager_armor", () -> new RavagerArmorItem(20, "netherite", new Item.Properties().stacksTo(1).fireResistant()));
-    public static final RegistryObject<Item> CRYPT_ARMOR_TRIM_SMITHING_TEMPLATE = ITEMS.register("crypt_armor_trim_smithing_template", () -> SmithingTemplateItem.createArmorTrimTemplate(Goety.location("crypt")));
     public static final RegistryObject<Item> WITHERED_MANUSCRIPT = ITEMS.register("withered_manuscript", () -> new Item(new Item.Properties().fireResistant()));
     public static final RegistryObject<Item> SHROUDED_BLUEPRINT = ITEMS.register("shrouded_blueprint", () -> new Item(new Item.Properties().fireResistant()));
     public static final RegistryObject<Item> FORBIDDEN_PIECE = ITEMS.register("forbidden_piece", ItemBase::new);
@@ -317,12 +316,15 @@ public class ModItems {
     public static final RegistryObject<Item> STEAMING_FOCUS = ITEMS.register("steaming_focus", () -> new MagicFocus(new SteamSpell()));
     public static final RegistryObject<Item> TRIDENT_STORM_FOCUS = ITEMS.register("trident_storm_focus", () -> new MagicFocus(new TridentStormSpell()));
     public static final RegistryObject<Item> PRISMA_BEAM_FOCUS = ITEMS.register("prisma_beam_focus", () -> new MagicFocus(new PrismaBeamSpell()));
+    public static final RegistryObject<Item> GUARDIAN_FOCUS = ITEMS.register("guardian_focus", () -> new MagicFocus(new GuardianSpell()));
     public static final RegistryObject<Item> BIOMINE_FOCUS = ITEMS.register("biomine_focus", () -> new MagicFocus(new BioMineSpell()));
     public static final RegistryObject<Item> TIDAL_FOCUS = ITEMS.register("tidal_focus", () -> new MagicFocus(new TidalSpell()));
 
     ///Nether
     public static final RegistryObject<Item> FIREBALL_FOCUS = ITEMS.register("fireball_focus", () -> new MagicFocus(new FireballSpell()));
     public static final RegistryObject<Item> LAVABALL_FOCUS = ITEMS.register("lavaball_focus", () -> new MagicFocus(new LavaballSpell()));
+    public static final RegistryObject<Item> BOMBARDMENT_FOCUS = ITEMS.register("bombardment_focus", () -> new MagicFocus(new BombardmentSpell()));
+    public static final RegistryObject<Item> METEOR_SHOWER_FOCUS = ITEMS.register("meteor_shower_focus", () -> new MagicFocus(new MeteorShowerSpell()));
     public static final RegistryObject<Item> MAGMA_BOMB_FOCUS = ITEMS.register("magma_bomb_focus", () -> new MagicFocus(new MagmaSpell()));
     public static final RegistryObject<Item> FIRE_BLAST_FOCUS = ITEMS.register("fire_blast_focus", () -> new MagicFocus(new FireBlastSpell()));
     public static final RegistryObject<Item> FLAME_STRIKE_FOCUS = ITEMS.register("flame_strike_focus", () -> new MagicFocus(new FlameStrikeSpell()));
@@ -384,6 +386,7 @@ public class ModItems {
     public static final RegistryObject<Item> RAMPAGING_AXE = ITEMS.register("rampaging_axe", RampagingAxeItem::new);
     public static final RegistryObject<Item> GRAVEROBBER_SHOVEL = ITEMS.register("graverobber_shovel", GraverobberShovelItem::new);
     public static final RegistryObject<Item> HUNTERS_BOW = ITEMS.register("hunters_bow", HuntersBowItem::new);
+//    public static final RegistryObject<Item> REVOLVER_CROSSBOW = ITEMS.register("revolver_crossbow", RevolverCrossbowItem::new);
     public static final RegistryObject<Item> PHILOSOPHERS_MACE = ITEMS.register("philosophers_mace", PhilosophersMaceItem::new);
     public static final RegistryObject<Item> DARK_SWORD = ITEMS.register("dark_sword", ModToolItems.DarkSwordItem::new);
     public static final RegistryObject<Item> DARK_SHOVEL = ITEMS.register("dark_shovel", ModToolItems.DarkShovelItem::new);

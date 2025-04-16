@@ -98,6 +98,6 @@ public class WitherSkullSpell extends Spell {
                 worldIn.addFreshEntity(witherSkull1);
             }
         }
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), this.CastingSound(), this.getSoundSource(), 1.0F, (caster.getRandom().nextFloat() - caster.getRandom().nextFloat()) * 0.2F + 1.0F);
+        this.playSound(worldIn, caster, 2.0F, (caster.getRandom().nextFloat() - caster.getRandom().nextFloat()) * 0.2F + 1.0F);
     }
 }

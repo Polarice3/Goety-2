@@ -2647,5 +2647,19 @@
   "subtitle.goety.necromancer_hurt": "死灵法师：受伤",
   "subtitle.goety.necromancer_laugh": "死灵法师：大笑",
   "subtitle.goety.necromancer_step": "死灵法师：行走",
-  "subtitle.goety.necromancer_death": "死灵法师：死亡"
+  "subtitle.goety.necromancer_death": "死灵法师：死亡",
+  "entity.goety.muck_wraith": "秽灵",
+  "entity.goety.muck_wraith_servant": "秽灵仆从",
+  "item.goety.muck_wraith_spawn_egg": "秽灵刷怪蛋",
+  "item.goety.muck_wraith_servant_spawn_egg": "秽灵仆从刷怪蛋",
+  "subtitle.goety.wraith_acid": "酸液：喷溅",
+  "item.goety.bombardment_focus": "轰击聚晶",
+  "item.goety.bombardment_focus.info": "快速连续发射出几个小火球。还会使施法者缓缓地飘离地面。",
+  "entity.goety.guardian_servant": "守卫者仆从",
+  "item.goety.meteor_shower_focus": "流星雨聚晶",
+  "item.goety.meteor_shower_focus.info": "在施法者所看的地方上空召唤熔岩炸弹。",
+  "item.goety.guardian_focus": "守卫聚晶",
+  "item.goety.guardian_focus.info": "召唤守卫者仆从，潜行施法会将仆从传送到施法者的位置。",
+  "item.goety.guardian_servant_spawn_egg": "守卫者仆从刷怪蛋",
+  "filled_map.goety.ominous_blacksmith": "不祥探险家地图"
 }

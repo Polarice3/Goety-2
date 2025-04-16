@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.entities.ally;
 
 import com.Polarice3.Goety.common.entities.neutral.Owned;
-import com.Polarice3.Goety.common.network.ModNetwork;
-import com.Polarice3.Goety.common.network.server.SGuardianAttackSoundPacket;
+import com.Polarice3.Goety.config.SpellConfig;
+import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -34,6 +34,7 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.function.Predicate;
 
 public class GuardianServant extends Summoned{
     protected static final int ATTACK_TIME = 80;
@@ -48,6 +49,7 @@ public class GuardianServant extends Summoned{
     private LivingEntity clientSideCachedAttackTarget;
     private int clientSideAttackTime;
     private boolean clientSideTouchedGround;
+    public boolean playAttackSound;
     @Nullable
     protected RandomStrollGoal randomStrollGoal;
 
@@ -73,6 +75,11 @@ public class GuardianServant extends Summoned{
         movetowardsrestrictiongoal.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
     }
 
+    @Override
+    public void followGoal() {
+        this.goalSelector.addGoal(5, new FollowOwnerWaterGoal(this, 1.0D, 10.0F, 2.0F));
+    }
+
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
@@ -85,12 +92,32 @@ public class GuardianServant extends Summoned{
         return new WaterBoundPathNavigation(this, p_32846_);
     }
 
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_ID_MOVING, false);
+        this.entityData.define(DATA_ID_ATTACK_TARGET, 0);
+    }
+
     public boolean canBreatheUnderwater() {
         return true;
     }
 
     public MobType getMobType() {
         return MobType.WATER;
+    }
+
+    @Override
+    public Predicate<Entity> summonPredicate() {
+        return livingEntity -> livingEntity instanceof GuardianServant;
+    }
+
+    public int getSummonLimit(LivingEntity owner) {
+        return SpellConfig.GuardianLimit.get();
+    }
+
+    @Override
+    public boolean canUpdateMove() {
+        return true;
     }
 
     public boolean isMoving() {
@@ -316,6 +343,15 @@ public class GuardianServant extends Summoned{
 
     }
 
+    @Override
+    public void handleEntityEvent(byte p_21375_) {
+        if (p_21375_ == 4){
+            this.playAttackSound = true;
+        } else {
+            super.handleEntityEvent(p_21375_);
+        }
+    }
+
     static class GuardianAttackGoal extends Goal {
         private final GuardianServant guardian;
         private int attackTime;
@@ -370,7 +406,7 @@ public class GuardianServant extends Summoned{
                         this.guardian.setActiveAttackTarget(livingentity.getId());
                         if (!this.guardian.isSilent()) {
                             if (!this.guardian.level.isClientSide){
-                                ModNetwork.sentToTrackingEntityAndPlayer(this.guardian, new SGuardianAttackSoundPacket(this.guardian));
+                                this.guardian.level.broadcastEntityEvent(this.guardian, (byte) 4);
                             }
                         }
                     } else if (this.attackTime >= this.guardian.getAttackDuration()) {
@@ -384,8 +420,9 @@ public class GuardianServant extends Summoned{
                         }
 
                         livingentity.hurt(this.guardian.damageSources().indirectMagic(this.guardian, this.guardian), f);
-                        livingentity.hurt(this.guardian.damageSources().mobAttack(this.guardian), (float)this.guardian.getAttributeValue(Attributes.ATTACK_DAMAGE));
-                        this.guardian.setTarget((LivingEntity)null);
+                        DamageSource damageSource = this.guardian.getTrueOwner() != null ? ModDamageSource.summonAttack(this.guardian, this.guardian.getTrueOwner()) : this.guardian.damageSources().mobAttack(this.guardian);
+                        livingentity.hurt(damageSource, (float)this.guardian.getAttributeValue(Attributes.ATTACK_DAMAGE));
+                        this.guardian.setTarget(null);
                     }
 
                     super.tick();

@@ -5,7 +5,9 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.projectiles.HellBolt;
 import com.Polarice3.Goety.common.entities.projectiles.ModFireball;
 import com.Polarice3.Goety.common.magic.Spell;
+import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
@@ -36,7 +38,10 @@ public class FireballSpell extends Spell {
     }
 
     @Override
-    public SoundEvent CastingSound() {
+    public SoundEvent CastingSound(LivingEntity caster) {
+        if (CuriosFinder.hasUnholySet(caster)){
+            return ModSounds.HELL_BOLT_SHOOT.get();
+        }
         return SoundEvents.BLAZE_SHOOT;
     }
 
@@ -59,7 +64,13 @@ public class FireballSpell extends Spell {
     }
 
     @Override
-    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
+        int potency = spellStat.getPotency();
+        int burning = spellStat.getBurning();
+        if (WandUtil.enchantedFocus(caster)){
+            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
+        }
         Vec3 vector3d = caster.getViewVector( 1.0F);
         AbstractHurtingProjectile smallFireballEntity = new ModFireball(worldIn,
                 caster.getX() + vector3d.x / 2,
@@ -81,11 +92,11 @@ public class FireballSpell extends Spell {
             if (isShifting(caster)) {
                 fireball.setDangerous(false);
             }
-            fireball.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
-            fireball.setFiery(WandUtil.getLevels(ModEnchantments.BURNING.get(), caster));
+            fireball.setExtraDamage(potency);
+            fireball.setFiery(burning);
         } else if (smallFireballEntity instanceof HellBolt hellBolt){
-            hellBolt.setDamage(hellBolt.getDamage() + WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
-            hellBolt.setFiery(WandUtil.getLevels(ModEnchantments.BURNING.get(), caster));
+            hellBolt.setDamage(hellBolt.getDamage() + potency);
+            hellBolt.setFiery(burning);
         }
         worldIn.addFreshEntity(smallFireballEntity);
         if (rightStaff(staff)) {
@@ -110,15 +121,15 @@ public class FireballSpell extends Spell {
                     if (isShifting(caster)) {
                         fireball.setDangerous(false);
                     }
-                    fireball.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
-                    fireball.setFiery(WandUtil.getLevels(ModEnchantments.BURNING.get(), caster));
+                    fireball.setExtraDamage(potency);
+                    fireball.setFiery(burning);
                 } else if (smallFireballEntity2 instanceof HellBolt hellBolt){
-                    hellBolt.setDamage(hellBolt.getDamage() + WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
-                    hellBolt.setFiery(WandUtil.getLevels(ModEnchantments.BURNING.get(), caster));
+                    hellBolt.setDamage(hellBolt.getDamage() + potency);
+                    hellBolt.setFiery(burning);
                 }
                 worldIn.addFreshEntity(smallFireballEntity2);
             }
         }
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), CastingSound(), this.getSoundSource(), 1.0F, 1.0F);
+        this.playSound(worldIn, caster, 2.0F, this.projPitch(worldIn.getRandom()));
     }
 }

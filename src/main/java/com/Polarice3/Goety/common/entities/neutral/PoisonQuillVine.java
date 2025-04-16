@@ -236,11 +236,11 @@ public class PoisonQuillVine extends AbstractVine{
 
     @Nullable
     @Override
-    public EntityType<?> getVariant(Level level, BlockPos blockPos) {
+    public EntityType<?> getVariant(@Nullable Player player, Level level, BlockPos blockPos) {
         if (level.isWaterAt(blockPos) || level.isWaterAt(blockPos.above())){
             return ModEntityType.POISON_ANEMONE.get();
         } else {
-            return super.getVariant(level, blockPos);
+            return super.getVariant(player, level, blockPos);
         }
     }
 

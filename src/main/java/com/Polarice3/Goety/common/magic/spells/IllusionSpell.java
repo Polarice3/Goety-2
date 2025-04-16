@@ -111,7 +111,7 @@ public class IllusionSpell extends Spell {
         if (undead){
             soundEvent = ModSounds.LICH_TELEPORT_IN.get();
         }
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), soundEvent, this.getSoundSource(), 1.0F, 1.0F);
+        this.playSound(worldIn, caster, soundEvent);
         for (int i = 0; i < caster.level.random.nextInt(35) + 10; ++i) {
             worldIn.sendParticles(particleOptions, caster.getX(), caster.getEyeY(), caster.getZ(), 0, 0.0F, 0.0F, 0.0F, 0);
         }

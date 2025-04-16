@@ -20,6 +20,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -156,7 +157,7 @@ public class SpiderEgg extends Owned {
         if (this.level instanceof ServerLevel serverLevel) {
             SpiderServant spiderServant = ModEntityType.SPIDER_SERVANT.get().create(serverLevel);
             if (spiderServant != null) {
-                EntityType<?> entityType = spiderServant.getVariant(serverLevel, this.blockPosition());
+                EntityType<?> entityType = spiderServant.getVariant(this.getOwner() instanceof Player player ? player : null, serverLevel, this.blockPosition());
                 if (entityType != null) {
                     spiderServant = (SpiderServant) entityType.create(serverLevel);
                 }

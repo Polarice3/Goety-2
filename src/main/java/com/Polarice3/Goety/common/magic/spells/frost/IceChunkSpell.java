@@ -68,7 +68,7 @@ public class IceChunkSpell extends Spell {
             iceChunkEntity.setExtraDamage(potency);
             iceChunkEntity.setStaff(rightStaff(staff));
             worldIn.addFreshEntity(iceChunkEntity);
-            worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.ICE_CHUNK_SUMMON.get(), this.getSoundSource(), 1.0F, 1.0F);
+            this.playSound(worldIn, caster, ModSounds.ICE_CHUNK_SUMMON.get());
         } else if (rayTraceResult instanceof BlockHitResult){
             BlockPos blockPos = ((BlockHitResult) rayTraceResult).getBlockPos();
             IceChunk iceChunkEntity = new IceChunk(worldIn, caster, null);
@@ -76,7 +76,7 @@ public class IceChunkSpell extends Spell {
             iceChunkEntity.setPos(blockPos.getX() + 0.5F, blockPos.getY() + 4, blockPos.getZ() + 0.5F);
             iceChunkEntity.setStaff(rightStaff(staff));
             worldIn.addFreshEntity(iceChunkEntity);
-            worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.ICE_CHUNK_SUMMON.get(), this.getSoundSource(), 1.0F, 1.0F);
+            this.playSound(worldIn, caster, ModSounds.ICE_CHUNK_SUMMON.get());
         }
     }
 }

@@ -99,7 +99,7 @@ public class FrostNovaSpell extends Spell {
                 }
             }
         };
-        worldIn.playSound(null, spellTarget.getX(), spellTarget.getY(), spellTarget.getZ(), ModSounds.ICE_CHUNK_HIT.get(), this.getSoundSource(), 1.0F, 0.5F);
+        this.playSound(worldIn, spellTarget, ModSounds.ICE_CHUNK_HIT.get(), 1.0F, 0.5F);
     }
 
     private void createParticleBall(ServerLevel serverLevel, LivingEntity livingEntity, int radius) {

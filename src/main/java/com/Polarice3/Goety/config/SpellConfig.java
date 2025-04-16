@@ -138,6 +138,18 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> LavaballDamage;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LavaballGriefing;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> BombardmentCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BombardmentChargeUp;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BombardmentShots;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BombardmentDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BombardmentCoolDown;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> MeteorShowerCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MeteorShowerChargeUp;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MeteorShowerShots;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MeteorShowerDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MeteorShowerCoolDown;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> MagmaBombCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> MagmaBombDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> MagmaBombCoolDown;
@@ -428,6 +440,12 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> PrismaBeamDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> PrismaBeamCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> PrismaBeamDamage;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> GuardianCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GuardianDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GuardianCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GuardianSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GuardianLimit;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> BiomineCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> BiomineDuration;
@@ -825,6 +843,30 @@ public class SpellConfig {
                     .defineInRange("lavaballDamage", 6.0, 1.0, Double.MAX_VALUE);
             LavaballGriefing = BUILDER.comment("Enable Lavaball projectile griefing, Default: true")
                     .define("lavaballGriefing", true);
+            BUILDER.pop();
+            BUILDER.push("Bombardment Spell");
+            BombardmentCost = BUILDER.comment("Bombardment Spell Cost, Default: 8")
+                    .defineInRange("bombardmentCost", 8, 0, Integer.MAX_VALUE);
+            BombardmentChargeUp = BUILDER.comment("How many ticks the Bombardment Spell much charge before casting, Default: 60")
+                    .defineInRange("bombardmentChargeUp", 60, 0, Integer.MAX_VALUE);
+            BombardmentShots = BUILDER.comment("How many shots are allowed to be fired before spell ends, set 0 to allow spell to be cast indefinitely, Default: 6")
+                    .defineInRange("bombardmentShots", 6, 0, 72000);
+            BombardmentDuration = BUILDER.comment("Time to cast Bombardment Spell per second, Default: 6")
+                    .defineInRange("bombardmentTime", 6, 0, 72000);
+            BombardmentCoolDown = BUILDER.comment("Bombardment Spell Cooldown, Default: 100")
+                    .defineInRange("bombardmentCoolDown", 100, 0, 72000);
+            BUILDER.pop();
+            BUILDER.push("Meteor Shower Spell");
+            MeteorShowerCost = BUILDER.comment("Meteor Shower Spell Cost, Default: 64")
+                    .defineInRange("meteorShowerCost", 64, 0, Integer.MAX_VALUE);
+            MeteorShowerChargeUp = BUILDER.comment("How many ticks the Meteor Shower Spell much charge before casting, Default: 60")
+                    .defineInRange("meteorShowerChargeUp", 60, 0, Integer.MAX_VALUE);
+            MeteorShowerShots = BUILDER.comment("How many shots are allowed to be fired before spell ends, set 0 to allow spell to be cast indefinitely, Default: 20")
+                    .defineInRange("meteorShowerShots", 20, 0, 72000);
+            MeteorShowerDuration = BUILDER.comment("Time to cast Meteor Shower Spell per second, Default: 10")
+                    .defineInRange("meteorShowerTime", 10, 0, 72000);
+            MeteorShowerCoolDown = BUILDER.comment("Meteor Shower Spell Cooldown, Default: 400")
+                    .defineInRange("meteorShowerCoolDown", 400, 0, 72000);
             BUILDER.pop();
             BUILDER.push("Magma Bomb Spell");
             MagmaBombCost = BUILDER.comment("Magma Bomb Spell Cost, Default: 16")
@@ -1407,6 +1449,18 @@ public class SpellConfig {
                     .defineInRange("prismaBeamCoolDown", 20, 0, Integer.MAX_VALUE);
             PrismaBeamDamage = BUILDER.comment("How much base damage the spell deals, Default: 6.0")
                     .defineInRange("prismaBeamDamage", 6.0, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Guardian Spell");
+            GuardianCost = BUILDER.comment("Guardian Spell Cost, Default: 16")
+                    .defineInRange("guardianCost", 16, 0, Integer.MAX_VALUE);
+            GuardianDuration = BUILDER.comment("Time to cast Guardian Spell, Default: 20")
+                    .defineInRange("guardianTime", 20, 0, 72000);
+            GuardianCoolDown = BUILDER.comment("Guardian Spell Cooldown, Default: 600")
+                    .defineInRange("guardianCoolDown", 600, 0, Integer.MAX_VALUE);
+            GuardianSummonDown = BUILDER.comment("Guardian Spell Summon Down, Default: 150")
+                    .defineInRange("guardianSummonDown", 150, 0, 72000);
+            GuardianLimit = BUILDER.comment("Number of Guardian Servants that can exist around the player, Default: 8")
+                    .defineInRange("guardianLimit", 8, 1, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Biomine Spell");
             BiomineCost = BUILDER.comment("Biomine Spell Cost, Default: 16")

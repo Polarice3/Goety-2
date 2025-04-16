@@ -12,6 +12,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
@@ -170,6 +171,16 @@ public abstract class SpellEntity extends Entity implements OwnableEntity {
 
     public void setExtraDamage(float pDamage) {
         this.entityData.set(DATA_EXTRA_DAMAGE, pDamage);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.getOwner() != null && this.getOwner().getType().is(Tags.EntityTypes.BOSSES)){
+            if (this.getOwner().isDeadOrDying()){
+                this.discard();
+            }
+        }
     }
 
     @Override

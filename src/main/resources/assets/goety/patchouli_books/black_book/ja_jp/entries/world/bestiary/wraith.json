@@ -6,18 +6,28 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "ターゲットの足元に炎を召喚する神秘的な影。炎は熱いので、魂を凍らせます。また、テレポートする能力もありますが、ターゲットが近くにいる場合のみ使用できます。"
+      "text": "敵の足元に炎を召喚する神秘的な幽霊の総称です。炎は熱いので、魂を凍らせます。また、テレポートする能力もありますが、敵が近くにいる場合のみ使用できます。"
     },
     {
       "type": "patchouli:entity",
       "entity": "goety:wraith",
-      "text": "Despite their fiery powers, they are not immune to fire."
+      "text": "彼らは火の力を持っているにもかかわらず、火に対して耐性があるわけではありません。"
     },
     {
       "type": "patchouli:spotlight",
       "item": "goety:ectoplasm",
       "title": "Ectoplasm",
-      "text": "レイスはエクトプラズムを落とすチャンスがあります。 エクトプラズムは、ネクロトゥルジックのアーティファクトや呪文を作成するのに役立ちます。"
+      "text": "レイスはエクトプラズムを落とす可能性があります。エクトプラズムはネクロマンサーのアーティファクトや呪文を作成するのに役立ちます。"
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/kill_a_muck_wraith",
+      "entity": "goety:muck_wraith"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/kill_a_muck_wraith",
+      "text": "レイスの亜種であり、凍てつく炎を召喚するのではなく、敵に向かって酸毒ガスのもやを出します。"
     },
     {
       "type": "patchouli:entity",
@@ -27,7 +37,10 @@
     {
       "type": "patchouli:text",
       "advancement": "goety:goety/kill_a_border_wraith",
-      "text": "亡霊の変種であるこれらの幻影は、テレポート能力がなく、同種の幻影よりもアイスブーケを召喚する能力も少ない。しかし、対象が近くに来た場合、対象に氷の炎を吐きかける力がある。"
+      "text": "別のレイスの亜種であり、テレポート能力がなく、通常のレイスよりも、凍てつく炎を出す範囲が狭いです。しかし、敵が近くに来た場合、対象に氷の炎を吐きかける力があります。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:ectoplasm": 2
+  }
 }

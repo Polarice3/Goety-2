@@ -16,6 +16,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -105,6 +106,11 @@ public abstract class AbstractTrap extends Entity {
             if (this.level instanceof ServerLevel serverWorld) {
                 ParticleOptions iparticledata = this.getParticle();
                 ServerParticleUtil.circularParticles(serverWorld, iparticledata, this.getX(), this.getY(), this.getZ(), this.xSpeed, this.ySpeed, this.zSpeed, this.radius() / 2.0F);
+            }
+        }
+        if (this.getOwner() != null && this.getOwner().getType().is(Tags.EntityTypes.BOSSES)){
+            if (this.getOwner().isDeadOrDying()){
+                this.discard();
             }
         }
     }

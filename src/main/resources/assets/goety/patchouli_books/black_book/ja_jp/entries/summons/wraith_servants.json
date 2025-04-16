@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "これらの幽霊はあなたの意志によって呼び出され、拘束され、彼ら自身の氷の花束があなたやあなたの仲間に触れないようにします。"
+      "text": "これらの幽霊はあなたの意志によって呼び出され、拘束され、彼ら自身の凍えつく炎があなたやあなたの仲間に触れないようにします。"
     },
     {
       "type": "patchouli:entity",
@@ -14,11 +14,25 @@
     },
     {
       "type": "patchouli:text",
-      "text": "これらのクリーチャーは、$(l:focuses/necromancy/spooky_focus)不気味なフォーカス$() を使用するか、寿命に制限のないクリーチャーを召喚する儀式を通じて呼び出すことができます。"
+      "text": "これらのレイスは、$(l:focuses/necromancy/spooky_focus)レイスのフォーカス$() を使用するか、寿命に制限のないクリーチャーを召喚する儀式を通じて呼び出すことができます。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_wraith_thrall"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "レイスに右クリックでエクトプラズムを与えると回復します。"
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/kill_a_muck_wraith",
+      "entity": "goety:muck_wraith_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/kill_a_muck_wraith",
+      "text": "レイスの亜種である酸性ガスを出す幽霊は、沼地バイオーム内で召喚されると呼び出されます。"
     },
     {
       "type": "patchouli:entity",
@@ -28,7 +42,7 @@
     {
       "type": "patchouli:text",
       "advancement": "goety:goety/kill_a_border_wraith",
-      "text": "レイスの変種であるこれらの氷を吐く生き物は、$(l:world/crypts)地下室$() 内で召喚されたときに呼び出されます。"
+      "text": "レイスの亜種である氷を吐く幽霊は、$(l:world/crypts)クリプト$() 内で召喚されたときに呼び出されます。"
     }
   ]
 }

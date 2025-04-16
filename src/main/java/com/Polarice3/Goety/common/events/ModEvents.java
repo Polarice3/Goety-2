@@ -700,6 +700,7 @@ public class ModEvents {
                 if (mob.getAttribute(Attributes.FOLLOW_RANGE) != null){
                     followRange = mob.getAttributeValue(Attributes.FOLLOW_RANGE) * 2;
                 }
+//                MiscCapHelper.updateMobTarget(mob); Commented in case it causes lag
                 if (mob.getTarget() instanceof Apostle apostle){
                     if (apostle.obsidianInvul > 5){
                         for (ObsidianMonolith obsidianMonolith : mob.level.getEntitiesOfClass(ObsidianMonolith.class, mob.getBoundingBox().inflate(followRange, 8.0D, followRange))){
@@ -1159,9 +1160,6 @@ public class ModEvents {
                         if (armorItem.getMaterial() == ModArmorMaterials.BLACK_IRON
                                 || armorItem.getMaterial() == ModArmorMaterials.DARK) {
                             float reducedDamage = getReducedDamage(event, armorItem);
-                            if (reducedDamage > 0) {
-                                ItemHelper.hurtAndBreak(itemStack, (int) Math.max(1, reducedDamage), target);
-                            }
                             totalReduce += reducedDamage;
                         }
                     }
@@ -1519,6 +1517,7 @@ public class ModEvents {
         genericTrades.add(new ModTradeUtil.ItemsForEmeralds(ModItems.JADE.get(), 1, 64, 16));
         genericTrades.add(new ModTradeUtil.ItemsForEmeralds(ModBlocks.WINDSWEPT_SAPLING.get(), 5, 1, 8));
         genericTrades.add(new ModTradeUtil.ItemsForEmeralds(ModBlocks.PINE_SAPLING.get(), 5, 1, 8));
+        rareTrades.add(new ModTradeUtil.TreasureMapForEmeralds(8, ModStructureTags.OMINOUS_BLACKSMITH, "filled_map.goety.ominous_blacksmith", MapDecoration.Type.TARGET_X, 12, 10));
         rareTrades.add(new ModTradeUtil.TreasureMapForEmeralds(8, ModStructureTags.WIND_SHRINE, "filled_map.goety.wind_shrine", MapDecoration.Type.TARGET_X, 12, 10));
         rareTrades.add(new ModTradeUtil.TreasureMapForEmeralds(8, ModStructureTags.BLIGHTED_SHACK, "filled_map.goety.blighted_shack", MapDecoration.Type.MANSION, 12, 10));
     }

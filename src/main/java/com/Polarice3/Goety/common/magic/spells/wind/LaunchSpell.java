@@ -65,6 +65,6 @@ public class LaunchSpell extends Spell {
         caster.setDeltaMovement(vector3d.x * d0, vector3d.y * d0, vector3d.z * d0);
         caster.hasImpulse = true;
         caster.fallDistance = 0;
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), CastingSound(), this.getSoundSource(), 2.0F, 1.0F);
+        this.playSound(worldIn, caster, 2.0F, 1.0F);
     }
 }

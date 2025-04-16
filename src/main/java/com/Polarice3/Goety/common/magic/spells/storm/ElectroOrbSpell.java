@@ -62,7 +62,12 @@ public class ElectroOrbSpell extends Spell {
 
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){
-        int range = spellStat.getRange() + WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+        int potency = spellStat.getPotency();
+        int range = spellStat.getRange();
+        if (WandUtil.enchantedFocus(caster)){
+            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+        }
         LivingEntity livingEntity = this.getTarget(caster, range);
         ElectroOrb blast = new ElectroOrb(worldIn, caster, livingEntity);
         Vec3 vector3d;
@@ -77,12 +82,12 @@ public class ElectroOrbSpell extends Spell {
                     caster.getEyeY() - 0.2,
                     caster.getZ() + vector3d.z / 2);
         }
-        blast.setExtraDamage(spellStat.getPotency() + WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
+        blast.setExtraDamage(potency);
         blast.setStaff(this.rightStaff(staff));
         blast.shoot(vector3d.x,
                 vector3d.y,
                 vector3d.z, 0.66F, 3.0F);
         worldIn.addFreshEntity(blast);
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.SHOCK_CAST.get(), this.getSoundSource(), 1.0F, 1.0F);
+        this.playSound(worldIn, caster, ModSounds.SHOCK_CAST.get());
     }
 }

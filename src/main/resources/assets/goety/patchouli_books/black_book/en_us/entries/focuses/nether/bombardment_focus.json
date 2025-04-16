@@ -1,0 +1,20 @@
+{
+  "name": "Bombardment Focus",
+  "icon": "goety:bombardment_focus",
+  "category": "goety:focuses/nether",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "An upgraded version of the humble Fireball spell. Now, you can shoot a barrage of fireballs and fly up like the Blazes."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/bombardment_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Enchanting the focus with Duration will increase the number of volleys that you can shoot."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Ominous Blacksmiths",
+  "icon": "goety:highrock_bricks",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "There are rumors that tribes of Illagers have set up blacksmiths high atop of mountains, one that may contain a treasure of the Illagers."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/ominous_blacksmith.png"],
+      "border": true
+    }
+  ]
+}

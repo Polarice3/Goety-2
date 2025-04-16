@@ -89,6 +89,6 @@ public class CushionSpell extends Spell {
             cushion.setPos(blockPos.getX() + 0.5F, blockPos.getY() + 1.0F, blockPos.getZ() + 0.5F);
             worldIn.addFreshEntity(cushion);
         }
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
+        this.playSound(worldIn, caster, SoundEvents.EVOKER_CAST_SPELL);
     }
 }

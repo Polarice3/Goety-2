@@ -20,4 +20,6 @@ public interface IMisc {
     void setCustomSpinTexture(String texture);
     int getClientTargetID();
     void setClientTargetID(int id);
+    int getMobTargetID();
+    void setMobTargetID(int id);
 }

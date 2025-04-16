@@ -37,7 +37,7 @@ public class ChargeSpell extends TouchSpell {
     @Override
     public void touchResult(ServerLevel worldIn, LivingEntity caster, LivingEntity target) {
         if (!target.hasEffect(GoetyEffects.CHARGED.get())) {
-            worldIn.playSound(null, target.getX(), target.getY(), target.getZ(), CastingSound(), this.getSoundSource(), 1.0F, 0.5F);
+            this.playSound(worldIn, target, 1.0F, 0.5F);
             target.addEffect(new MobEffectInstance(GoetyEffects.CHARGED.get(), MathHelper.secondsToTicks(30), 0, false, false));
         } else {
             MobEffectInstance instance = target.getEffect(GoetyEffects.CHARGED.get());
@@ -45,7 +45,7 @@ public class ChargeSpell extends TouchSpell {
                 if (instance.getAmplifier() >= 1) {
                     target.hurt(ModDamageSource.directShock(caster), SpellConfig.ChargeDamage.get().floatValue());
                 } else {
-                    worldIn.playSound(null, target.getX(), target.getY(), target.getZ(), CastingSound(), this.getSoundSource(), 1.0F, 0.75F);
+                    this.playSound(worldIn, target, 1.0F, 0.75F);
                 }
                 EffectsUtil.amplifyEffect(target, GoetyEffects.CHARGED.get(), MathHelper.secondsToTicks(30), 3, false, false);
             }

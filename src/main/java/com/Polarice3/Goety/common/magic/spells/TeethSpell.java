@@ -119,7 +119,7 @@ public class TeethSpell extends Spell {
                 }
             }
         }
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
+        this.playSound(worldIn, caster, SoundEvents.EVOKER_CAST_SPELL);
     }
 
     public void surroundTeeth(LivingEntity livingEntity, BlockPos blockPos, float damage, boolean isStaff){

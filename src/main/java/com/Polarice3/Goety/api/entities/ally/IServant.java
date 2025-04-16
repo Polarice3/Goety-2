@@ -4,6 +4,7 @@ import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ally.golem.AbstractGolemServant;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModMobType;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -297,19 +298,26 @@ public interface IServant extends IOwned {
     default void healServant(LivingEntity livingEntity){
         if (this.getTrueOwner() != null){
             boolean crown = false;
-            if (livingEntity.getMobType() == ModMobType.FROST){
+            MobType mobType = livingEntity.getMobType();
+            EntityType<?> entityType = livingEntity.getType();
+            boolean frost = mobType == ModMobType.FROST || entityType.is(ModTags.EntityTypes.FROST_HEAL);
+            boolean wild = mobType == ModMobType.NATURAL || mobType == MobType.ARTHROPOD || entityType.is(ModTags.EntityTypes.WILD_HEAL);
+            boolean nether = mobType == ModMobType.NETHER || entityType.is(ModTags.EntityTypes.NETHER_HEAL);
+            boolean necromancy = mobType == MobType.UNDEAD || entityType.is(ModTags.EntityTypes.NECRO_HEAL);
+            boolean abyss = mobType == MobType.WATER || entityType.is(ModTags.EntityTypes.ABYSS_HEAL);
+            if (frost){
                 crown = CuriosFinder.hasFrostCrown(this.getTrueOwner());
             }
-            if (livingEntity.getMobType() == ModMobType.NATURAL || livingEntity.getMobType() == MobType.ARTHROPOD){
+            if (wild){
                 crown = CuriosFinder.hasWildCrown(this.getTrueOwner());
             }
-            if (livingEntity.getMobType() == ModMobType.NETHER){
+            if (nether){
                 crown = CuriosFinder.hasNetherCrown(this.getTrueOwner());
             }
-            if (livingEntity.getMobType() == MobType.UNDEAD){
+            if (necromancy){
                 crown = CuriosFinder.hasUndeadCrown(this.getTrueOwner());
             }
-            if (livingEntity.getMobType() == MobType.WATER){
+            if (abyss){
                 crown = CuriosFinder.hasAbyssCrown(this.getTrueOwner());
             }
             if (!crown){
@@ -327,31 +335,31 @@ public interface IServant extends IOwned {
                             int soulCost = 0;
                             int healRate = 0;
                             float healAmount = 0;
-                            if (livingEntity.getMobType() == MobType.UNDEAD && MobsConfig.UndeadMinionHeal.get()){
+                            if (necromancy && MobsConfig.UndeadMinionHeal.get()){
                                 curio = CuriosFinder.hasUndeadCape(owner);
                                 soulCost = MobsConfig.UndeadMinionHealCost.get();
                                 healRate = MobsConfig.UndeadMinionHealTime.get();
                                 healAmount = MobsConfig.UndeadMinionHealAmount.get().floatValue();
                             }
-                            if (livingEntity.getMobType() == MobType.WATER && MobsConfig.WaterMinionHeal.get()){
+                            if (abyss && MobsConfig.WaterMinionHeal.get()){
                                 curio = CuriosFinder.hasAbyssRobes(owner);
                                 soulCost = MobsConfig.WaterMinionHealCost.get();
                                 healRate = MobsConfig.WaterMinionHealTime.get();
                                 healAmount = MobsConfig.WaterMinionHealAmount.get().floatValue();
                             }
-                            if ((livingEntity.getMobType() == ModMobType.NATURAL || livingEntity.getMobType() == MobType.ARTHROPOD) && MobsConfig.NaturalMinionHeal.get()){
+                            if (wild && MobsConfig.NaturalMinionHeal.get()){
                                 curio = CuriosFinder.hasWildRobe(owner);
                                 soulCost = MobsConfig.NaturalMinionHealCost.get();
                                 healRate = MobsConfig.NaturalMinionHealTime.get();
                                 healAmount = MobsConfig.NaturalMinionHealAmount.get().floatValue();
                             }
-                            if (livingEntity.getMobType() == ModMobType.FROST && MobsConfig.FrostMinionHeal.get()){
+                            if (frost && MobsConfig.FrostMinionHeal.get()){
                                 curio = CuriosFinder.hasFrostRobes(owner);
                                 soulCost = MobsConfig.FrostMinionHealCost.get();
                                 healRate = MobsConfig.FrostMinionHealTime.get();
                                 healAmount = MobsConfig.FrostMinionHealAmount.get().floatValue();
                             }
-                            if (livingEntity.getMobType() == ModMobType.NETHER && MobsConfig.NetherMinionHeal.get()){
+                            if (nether && MobsConfig.NetherMinionHeal.get()){
                                 curio = CuriosFinder.hasNetherRobe(owner);
                                 soulCost = MobsConfig.NetherMinionHealCost.get();
                                 healRate = MobsConfig.NetherMinionHealTime.get();

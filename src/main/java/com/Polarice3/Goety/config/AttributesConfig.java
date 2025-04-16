@@ -381,8 +381,8 @@ public class AttributesConfig {
                         .defineInRange("crusherHealth", 24.0, 1.0, Double.MAX_VALUE);
                 CrusherArmor = BUILDER.comment("How much natural Armor Crushers have, Default: 0.0")
                         .defineInRange("crusherArmor", 0.0, 0.0, Double.MAX_VALUE);
-                CrusherDamage = BUILDER.comment("How much damage Crushers deals, Default: 10.0")
-                        .defineInRange("crusherDamage", 10.0, 1.0, Double.MAX_VALUE);
+                CrusherDamage = BUILDER.comment("How much damage Crushers deals, Default: 12.0")
+                        .defineInRange("crusherDamage", 12.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Storm Caster");
                 StormCasterHealth = BUILDER.comment("How much Max Health Storm Casters have, Default: 24.0")

@@ -9,11 +9,8 @@
       "text": "Сила всполохов теперь в ваших руках. Вам больше не нужно будет использовать раздатчик и огненные заряды, ведь вы сами можете стать раздатчиком!"
     },
     {
-      "type": "goety:ritual",
+      "type": "patchouli:crafting",
       "recipe": "goety:focus/fireball_focus"
     }
-  ],
-  "extra_recipe_mappings": {
-    "goety:fireball_focus": 1
-  }
+  ]
 }

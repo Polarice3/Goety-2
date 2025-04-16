@@ -80,8 +80,8 @@ public class SoulEnergyGui {
                     remain = WandUtil.getShots(minecraft.player);
                     useTime0 = remain / useDuration;
                     bar = 45;
-                } else if (spell.defaultCastUp() > 0) {
-                    useDuration = spell.defaultCastUp();
+                } else if (spell.castUp(minecraft.player, minecraft.player.getUseItem()) > 0) {
+                    useDuration = spell.castUp(minecraft.player, minecraft.player.getUseItem());
                     remain = minecraft.player.getUseItem().getUseDuration() - minecraft.player.getUseItemRemainingTicks();
                     useTime0 = remain / useDuration;
                 }

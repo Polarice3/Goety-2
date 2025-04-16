@@ -44,7 +44,9 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.common.Tags;
 
+import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
 public class AbstractWraith extends Summoned {
@@ -63,6 +65,7 @@ public class AbstractWraith extends Summoned {
     public AnimationState attackAnimationState = new AnimationState();
     public AnimationState postTeleportAnimationState = new AnimationState();
     public AnimationState breathingAnimationState = new AnimationState();
+    public AnimationState acidAnimationState = new AnimationState();
 
     public AbstractWraith(EntityType<? extends Summoned> p_i48553_1_, Level p_i48553_2_) {
         super(p_i48553_1_, p_i48553_2_);
@@ -293,7 +296,7 @@ public class AbstractWraith extends Summoned {
         if (this.postTeleportTime > 0){
             if (this.postTeleportTime == 36){
                 if (this.level instanceof ServerLevel serverLevel){
-                    serverLevel.sendParticles(new TeleportShockwaveParticleOption(20), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
+                    serverLevel.sendParticles(new TeleportShockwaveParticleOption(10), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
                 }
             }
             --this.postTeleportTime;
@@ -352,6 +355,16 @@ public class AbstractWraith extends Summoned {
             if (this.fireCooldown > 0){
                 --this.fireCooldown;
             }
+            if (this.fireTick > 10) {
+                ++this.fireTick;
+            }
+            if (this.fireTick > 54){
+                this.fireCooldown = 100;
+                this.fireTick = 0;
+                if (this.isFiring()){
+                    this.stopFiring();
+                }
+            }
             if (this.getTarget() != null && !this.isPostTeleporting()) {
                 if (!this.isFiring()){
                     this.getLookControl().setLookAt(this.getTarget(), 100.0F, this.getMaxHeadXRot());
@@ -359,7 +372,9 @@ public class AbstractWraith extends Summoned {
                 if (this.getSensing().hasLineOfSight(this.getTarget())) {
                     if ((this.fireCooldown <= 0 && !this.isTeleporting()
                             && this.getTarget().distanceToSqr(this) < Mth.square(this.attackRange())) || this.isFiring()) {
-                        ++this.fireTick;
+                        if (this.fireTick <= 10){
+                            ++this.fireTick;
+                        }
                         if (this.isFiring()){
                             this.getNavigation().stop();
                             double d2 = this.getTarget().getX() - this.getX();
@@ -377,12 +392,8 @@ public class AbstractWraith extends Summoned {
                         if (this.fireTick == 20) {
                             this.magicFire(this.getTarget());
                         }
-                        if (this.fireTick > 44){
-                            this.fireCooldown = 100;
-                            this.fireTick = 0;
-                        }
                     } else {
-                        if (this.fireTick > 0) {
+                        if (this.fireTick <= 10) {
                             this.fireTick = 0;
                         }
                         this.stopFiring();
@@ -390,8 +401,7 @@ public class AbstractWraith extends Summoned {
                         if (!event.isCanceled() && !this.isStaying() && this.getTarget().distanceToSqr(this) <= Mth.square(4.0F) && this.teleportCooldown <= 0 && !this.isPostTeleporting()) {
                             this.getNavigation().stop();
                             this.setIsTeleporting(true);
-                        } else {
-                            this.setIsTeleporting(false);
+                        } else if (!this.isTeleporting()) {
                             this.movement();
                         }
                     }
@@ -404,8 +414,10 @@ public class AbstractWraith extends Summoned {
                     }
                 }
             } else {
+                if (this.fireTick <= 10) {
+                    this.fireTick = 0;
+                }
                 this.setIsTeleporting(false);
-                this.stopFiring();
             }
         }
     }
@@ -502,7 +514,7 @@ public class AbstractWraith extends Summoned {
             this.level.broadcastEntityEvent(this, (byte) 4);
             this.level.broadcastEntityEvent(this, (byte) 100);
             if (this.level instanceof ServerLevel serverLevel){
-                serverLevel.sendParticles(new TeleportShockwaveParticleOption(20), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
+                serverLevel.sendParticles(new TeleportShockwaveParticleOption(10), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
             }
             if (!this.isSilent()) {
                 this.level.playSound((Player) null, this.getX(), this.getY(), this.getZ(), this.getAttackSound(), this.getSoundSource(), 1.0F, 1.0F);
@@ -561,7 +573,7 @@ public class AbstractWraith extends Summoned {
         if (pId == 102){
             this.setIsInterested(true);
             this.interestTime = 40;
-            this.playSound(ModSounds.WRAITH_AMBIENT.get(), 1.0F, 2.0F);
+            this.playSound(this.getAmbientSound() != null ? this.getAmbientSound() : ModSounds.WRAITH_AMBIENT.get(), 1.0F, 2.0F);
             this.addParticlesAroundSelf(ParticleTypes.HEART);
         }
     }
@@ -585,7 +597,7 @@ public class AbstractWraith extends Summoned {
         }
     }
 
-    public EntityType<?> getVariant(Level level, BlockPos blockPos){
+    public EntityType<?> getVariant(@Nullable Player player, Level level, BlockPos blockPos){
         EntityType<?> entityType;
         if (this.isHostile()){
             entityType = ModEntityType.WRAITH.get();
@@ -598,6 +610,12 @@ public class AbstractWraith extends Summoned {
                     entityType = ModEntityType.BORDER_WRAITH.get();
                 } else {
                     entityType = ModEntityType.BORDER_WRAITH_SERVANT.get();
+                }
+            } else if (level.getBiome(blockPos).is(Tags.Biomes.IS_SWAMP)){
+                if (this.isHostile()){
+                    entityType = ModEntityType.MUCK_WRAITH.get();
+                } else {
+                    entityType = ModEntityType.MUCK_WRAITH_SERVANT.get();
                 }
             }
         }

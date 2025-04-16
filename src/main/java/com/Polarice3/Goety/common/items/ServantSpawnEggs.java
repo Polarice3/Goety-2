@@ -81,6 +81,9 @@ public class ServantSpawnEggs {
     public static final RegistryObject<ServantSpawnEggItem> BORDER_WRAITH_SERVANT_SPAWN_EGG = ITEMS.register("border_wraith_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.BORDER_WRAITH_SERVANT, 0x18090f, 0x869696, egg()));
 
+    public static final RegistryObject<ServantSpawnEggItem> MUCK_WRAITH_SERVANT_SPAWN_EGG = ITEMS.register("muck_wraith_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.MUCK_WRAITH_SERVANT, 0x311c32, 0x869696, egg()));
+
     public static final RegistryObject<ServantSpawnEggItem> PHANTOM_SERVANT_SPAWN_EGG = ITEMS.register("phantom_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.PHANTOM_SERVANT, 0x881214, 0x7ef0fb, egg()));
 
@@ -149,6 +152,9 @@ public class ServantSpawnEggs {
 
     public static final RegistryObject<ServantSpawnEggItem> SNAPPER_SPAWN_EGG = ITEMS.register("snapper_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.SNAPPER, 0x141817, 0x481e00, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> GUARDIAN_SERVANT_SPAWN_EGG = ITEMS.register("guardian_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.GUARDIAN_SERVANT, 0x5aafa4, 0xff822f, egg()));
 
     public static final RegistryObject<ServantSpawnEggItem> BEAR_SERVANT_SPAWN_EGG = ITEMS.register("bear_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.BEAR_SERVANT, 0x3a281d, 0xfa2e14, egg()));

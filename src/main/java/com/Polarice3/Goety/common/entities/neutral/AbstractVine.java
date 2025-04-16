@@ -173,11 +173,8 @@ public abstract class AbstractVine extends AbstractMonolith{
 
     public boolean passableEntities(Entity collider){
         return collider instanceof LivingEntity livingEntity
-                && ((livingEntity == this.getMasterOwner()
-                && CuriosFinder.hasWildRobe(livingEntity))
-                || (this.getMasterOwner() != null
-                && CuriosFinder.hasWildRobe(this.getMasterOwner())
-                && MobUtil.areAllies(livingEntity, this.getMasterOwner())));
+                && CuriosFinder.hasWildRobe(livingEntity)
+                && MobUtil.areAllies(livingEntity, this);
     }
 
     public void aiStep() {

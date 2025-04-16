@@ -183,7 +183,8 @@ public class PotionEvents {
                 if (mobEffectInstance != null){
                     int a = mobEffectInstance.getAmplifier() + 1;
                     if (MobUtil.isPushed(livingEntity)) {
-                        if (livingEntity.getRandom().nextInt(100 - (a * 10)) == 0) {
+                        int max = Math.max(1, 100 - (a * 10));
+                        if (livingEntity.getRandom().nextInt(max) == 0) {
                             if (!livingEntity.level.isClientSide) {
                                 livingEntity.level.explode(livingEntity, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 3.0F + (a / 2.0F), Level.ExplosionInteraction.BLOCK);
                                 livingEntity.removeEffect(GoetyEffects.EXPLOSIVE.get());
@@ -279,7 +280,8 @@ public class PotionEvents {
             MobEffectInstance mobEffectInstance = victim.getEffect(GoetyEffects.EXPLOSIVE.get());
             if (mobEffectInstance != null){
                 int a = mobEffectInstance.getAmplifier() + 1;
-                if (victim.getRandom().nextInt(5 - a) == 0) {
+                int max = Math.max(1, 5 - a);
+                if (victim.getRandom().nextInt(max) == 0) {
                     if (!victim.level.isClientSide) {
                         victim.level.explode(victim, victim.getX(), victim.getY(), victim.getZ(), 3.0F + (a / 2.0F), Level.ExplosionInteraction.BLOCK);
                         victim.removeEffect(GoetyEffects.EXPLOSIVE.get());

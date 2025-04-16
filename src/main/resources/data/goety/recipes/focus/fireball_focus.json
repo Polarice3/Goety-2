@@ -1,26 +1,34 @@
 {
-  "type": "goety:ritual",
-  "ritual_type": "goety:craft",
-  "activation_item": {
-    "item": "goety:ignite_focus"
-  },
-  "craftType": "adept_nether",
-  "soulCost": 1,
-  "duration": 10,
-  "ingredients": [
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "bdg",
+    "cec",
+    "gdb"
+  ],
+  "key":
+  {
+    "b":
     {
       "tag": "forge:rods/blaze"
     },
+    "e":
     {
-      "item": "minecraft:tnt"
+      "item": "goety:ignite_focus"
     },
-    {
-      "item": "minecraft:dispenser"
-    },
+    "c":
     {
       "tag": "forge:storage_blocks/coal"
+    },
+    "g":
+    {
+      "tag": "forge:gunpowder"
+    },
+    "d":
+    {
+      "item": "minecraft:dispenser"
     }
-  ],
+  },
   "result": {
     "item": "goety:fireball_focus"
   }

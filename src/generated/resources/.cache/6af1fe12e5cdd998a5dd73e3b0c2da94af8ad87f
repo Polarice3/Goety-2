@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-22T09:59:21.810059	Item Models: goety
+// 1.20.1	2025-04-14T21:10:08.4055663	Item Models: goety
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/apostle_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/bear_servant_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/blackguard_servant_spawn_egg.json
@@ -30,6 +30,7 @@
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/frozen_zombie_servant_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/ghast_servant_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/grave_golem_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/guardian_servant_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/haunted_armor_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/haunted_skull_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/haunt_spawn_egg.json
@@ -53,6 +54,8 @@
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/minister_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/mini_ghast_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/mossy_skeleton_servant_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/muck_wraith_servant_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/muck_wraith_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/necromancer_servant_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/necromancer_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/obsidian_monolith_spawn_egg.json

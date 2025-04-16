@@ -82,10 +82,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.GameRules;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -383,19 +380,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         if (this.deathTime == 1){
             this.antiRegen = 0;
             this.antiRegenTotal = 0;
-            for (AbstractTrap trapEntity : this.level.getEntitiesOfClass(AbstractTrap.class, this.getBoundingBox().inflate(64))) {
-                if (trapEntity.getOwner() == this) {
-                    trapEntity.discard();
-                }
-            }
-            for (SpellEntity trapEntity : this.level.getEntitiesOfClass(SpellEntity.class, this.getBoundingBox().inflate(64))) {
-                if (trapEntity.getOwner() == this) {
-                    trapEntity.discard();
-                }
-            }
-            for (FireTornado fireTornadoEntity : this.level.getEntitiesOfClass(FireTornado.class, this.getBoundingBox().inflate(64))) {
-                fireTornadoEntity.discard();
-            }
             this.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
         }
         if (MobsConfig.FancierApostleDeath.get() || this.isInNether()) {
@@ -407,17 +391,16 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 if (this.deathTime > 20) {
                     this.move(MoverType.SELF, new Vec3(0.0D, 0.1D, 0.0D));
                 }
-                this.level.explode(this, this.getRandomX(1.0D), this.getRandomY(), this.getRandomZ(1.0D), 0.0F, Level.ExplosionInteraction.NONE);
+                ExplosionUtil.lootExplode(this.level, this, this.getRandomX(1.0D), this.getRandomY(), this.getRandomZ(1.0D), 0.0F, false, Explosion.BlockInteraction.KEEP, LootingExplosion.Mode.LOOT);
             } else if (this.deathTime != 200) {
                 this.move(MoverType.SELF, new Vec3(0.0D, 0.0D, 0.0D));
             }
             if (this.deathTime >= 200) {
                 this.move(MoverType.SELF, new Vec3(0.0D, -4.0D, 0.0D));
                 if (this.onGround() || this.getY() <= this.level.getMinBuildHeight()) {
-                    if (!this.level.isClientSide) {
-                        ServerLevel ServerLevel = (ServerLevel) this.level;
-                        if (ServerLevel.getLevelData().isThundering()) {
-                            ServerLevel.setWeatherParameters(6000, 0, false, false);
+                    if (this.level instanceof ServerLevel serverLevel) {
+                        if (serverLevel.getLevelData().isThundering()) {
+                            serverLevel.setWeatherParameters(6000, 0, false, false);
                         }
                         for (int k = 0; k < 200; ++k) {
                             float f2 = random.nextFloat() * 4.0F;
@@ -425,10 +408,10 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                             double d1 = Mth.cos(f1) * f2;
                             double d2 = 0.01D + random.nextDouble() * 0.5D;
                             double d3 = Mth.sin(f1) * f2;
-                            ServerLevel.sendParticles(ParticleTypes.LARGE_SMOKE, this.getX() + d1 * 0.1D, this.getY() + 0.3D, this.getZ() + d3 * 0.1D, 0, d1, d2, d3, 0.5F);
-                            ServerLevel.sendParticles(ParticleTypes.FLAME, this.getX() + d1 * 0.1D, this.getY() + 0.3D, this.getZ() + d3 * 0.1D, 0, d1, d2, d3, 0.5F);
+                            serverLevel.sendParticles(ParticleTypes.LARGE_SMOKE, this.getX() + d1 * 0.1D, this.getY() + 0.3D, this.getZ() + d3 * 0.1D, 0, d1, d2, d3, 0.5F);
+                            serverLevel.sendParticles(ParticleTypes.FLAME, this.getX() + d1 * 0.1D, this.getY() + 0.3D, this.getZ() + d3 * 0.1D, 0, d1, d2, d3, 0.5F);
                         }
-                        ServerLevel.sendParticles(ParticleTypes.EXPLOSION_EMITTER, this.getX(), this.getY(), this.getZ(), 0, 1.0F, 0.0F, 0.0F, 0.5F);
+                        serverLevel.sendParticles(ParticleTypes.EXPLOSION_EMITTER, this.getX(), this.getY(), this.getZ(), 0, 1.0F, 0.0F, 0.0F, 0.5F);
                     }
                     this.playSound(SoundEvents.GENERIC_EXPLODE, 4.0F, (1.0F + (this.level.random.nextFloat() - this.level.random.nextFloat()) * 0.2F) * 0.7F);
                     this.playSound(this.getTrueDeathSound(), 5.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);

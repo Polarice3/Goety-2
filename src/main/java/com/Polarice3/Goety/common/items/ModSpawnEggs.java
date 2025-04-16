@@ -114,6 +114,9 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> BORDER_WRAITH_SPAWN_EGG = ITEMS.register("border_wraith_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.BORDER_WRAITH, 0x341523, 0x869696, egg()));
 
+    public static final RegistryObject<ModSpawnEggItem> MUCK_WRAITH_SPAWN_EGG = ITEMS.register("muck_wraith_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.MUCK_WRAITH, 0x1e1220, 0x82d8f8, egg()));
+
     public static final RegistryObject<ModSpawnEggItem> CRYPT_SLIME_SPAWN_EGG = ITEMS.register("crypt_slime_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.CRYPT_SLIME, 0x22252a, 0x4d6577, egg()));
 

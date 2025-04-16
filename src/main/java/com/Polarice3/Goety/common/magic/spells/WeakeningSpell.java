@@ -89,6 +89,6 @@ public class WeakeningSpell extends Spell {
                 livingEntity.playSound(ModSounds.WEAKEN_CURSE.get());
             }
         }
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), this.CastingSound(), this.getSoundSource(), 2.0F, 1.0F);
+        this.playSound(worldIn, caster, 2.0F, 1.0F);
     }
 }

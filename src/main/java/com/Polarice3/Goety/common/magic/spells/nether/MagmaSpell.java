@@ -76,6 +76,7 @@ public class MagmaSpell extends Spell {
         blast.setStaff(this.rightStaff(staff));
         blast.shootFromRotation(caster, caster.getXRot(), caster.getYRot(), 0.0F, velocity, 1.0F);
         worldIn.addFreshEntity(blast);
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.CAST_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
+
+        this.playSound(worldIn, caster, ModSounds.CAST_SPELL.get());
     }
 }

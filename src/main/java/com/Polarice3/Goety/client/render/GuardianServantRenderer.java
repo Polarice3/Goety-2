@@ -1,7 +1,9 @@
 package com.Polarice3.Goety.client.render;
 
+import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.GuardianServantModel;
 import com.Polarice3.Goety.common.entities.ally.GuardianServant;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
@@ -23,6 +25,7 @@ import org.joml.Matrix4f;
 
 public class GuardianServantRenderer extends MobRenderer<GuardianServant, GuardianServantModel> {
    private static final ResourceLocation GUARDIAN_LOCATION = new ResourceLocation("textures/entity/guardian.png");
+   private static final ResourceLocation SERVANT_LOCATION = Goety.location("textures/entity/servants/guardian_servant.png");
    private static final ResourceLocation GUARDIAN_BEAM_LOCATION = new ResourceLocation("textures/entity/guardian_beam.png");
    private static final RenderType BEAM_RENDER_TYPE = RenderType.entityCutoutNoCull(GUARDIAN_BEAM_LOCATION);
 
@@ -136,6 +139,10 @@ public class GuardianServantRenderer extends MobRenderer<GuardianServant, Guardi
    }
 
    public ResourceLocation getTextureLocation(GuardianServant p_114827_) {
-      return GUARDIAN_LOCATION;
+      if (p_114827_.isHostile() || !MobsConfig.GuardianServantTexture.get()){
+         return GUARDIAN_LOCATION;
+      } else {
+         return SERVANT_LOCATION;
+      }
    }
 }

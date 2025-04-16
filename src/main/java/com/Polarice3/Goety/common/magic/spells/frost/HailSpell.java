@@ -82,7 +82,7 @@ public class HailSpell extends Spell {
                 hailCloud.setStaff(rightStaff(staff));
                 worldIn.addFreshEntity(hailCloud);
             }
-            worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.PLAYER_HURT_FREEZE, this.getSoundSource(), 1.0F, 1.0F);
+            this.playSound(worldIn, caster, SoundEvents.PLAYER_HURT_FREEZE);
         } else if (rayTraceResult instanceof BlockHitResult){
             BlockPos blockPos = ((BlockHitResult) rayTraceResult).getBlockPos();
             HailCloud hailCloud = new HailCloud(worldIn, caster, null);
@@ -92,7 +92,7 @@ public class HailSpell extends Spell {
             hailCloud.setStaff(rightStaff(staff));
             hailCloud.setPos(blockPos.getX() + 0.5F, blockPos.getY() + 4, blockPos.getZ() + 0.5F);
             worldIn.addFreshEntity(hailCloud);
-            worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.PLAYER_HURT_FREEZE, this.getSoundSource(), 1.0F, 1.0F);
+            this.playSound(worldIn, caster, SoundEvents.PLAYER_HURT_FREEZE);
         }
     }
 }

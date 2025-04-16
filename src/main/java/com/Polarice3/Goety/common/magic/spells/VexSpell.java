@@ -21,7 +21,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -98,7 +97,7 @@ public class VexSpell extends SummonSpell {
             for (int i = 0; i < caster.level.random.nextInt(35) + 10; ++i) {
                 worldIn.sendParticles(ParticleTypes.POOF, caster.getX(), caster.getEyeY(), caster.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
             }
-            worldIn.playSound((Player) null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
+            this.playSound(worldIn, caster, SoundEvents.EVOKER_CAST_SPELL);
         }
     }
 
@@ -140,7 +139,7 @@ public class VexSpell extends SummonSpell {
                 worldIn.addFreshEntity(vexentity);
                 this.summonAdvancement(caster, vexentity);
             }
-            worldIn.playSound((Player) null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
+            this.playSound(worldIn, caster, SoundEvents.EVOKER_CAST_SPELL);
             this.SummonDown(caster);
         }
     }

@@ -9,13 +9,14 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 
 public class RefuseBottleItem extends Item {
 
    public RefuseBottleItem() {
-      super((new Properties()).craftRemainder(Items.GLASS_BOTTLE).stacksTo(16));
+      super(new Properties().craftRemainder(Items.GLASS_BOTTLE).food(new FoodProperties.Builder().alwaysEat().build()).stacksTo(16));
    }
 
    public ItemStack finishUsingItem(ItemStack p_41348_, Level p_41349_, LivingEntity p_41350_) {
@@ -29,10 +30,9 @@ public class RefuseBottleItem extends Item {
       if (p_41348_.isEmpty()) {
          return new ItemStack(Items.GLASS_BOTTLE);
       } else {
-         if (p_41350_ instanceof Player && !((Player)p_41350_).getAbilities().instabuild) {
+         if (p_41350_ instanceof Player player && !player.getAbilities().instabuild) {
             ItemStack itemstack = new ItemStack(Items.GLASS_BOTTLE);
-            Player player = (Player)p_41350_;
-            if (!player.getInventory().add(itemstack)) {
+             if (!player.getInventory().add(itemstack)) {
                player.drop(itemstack, false);
             }
          }

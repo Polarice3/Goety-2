@@ -90,7 +90,7 @@ public class LeechingSpell extends EverChargeSpell {
                 if (this.rightStaff(staff)){
                     livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 60, 0));
                 }
-                worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.SOUL_EAT.get(), this.getSoundSource(), 1.0F, 1.0F);
+                this.playSound(worldIn, caster, ModSounds.SOUL_EAT.get());
             }
         }
     }

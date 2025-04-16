@@ -47,7 +47,10 @@ public class GhastSpell extends SummonSpell {
         return SpellConfig.GhastCoolDown.get();
     }
 
-    public SoundEvent CastingSound() {
+    public SoundEvent CastingSound(LivingEntity caster) {
+        if (CuriosFinder.hasUnholySet(caster)){
+            return ModSounds.APOSTLE_PREPARE_SUMMON.get();
+        }
         return ModSounds.PREPARE_SUMMON.get();
     }
 
