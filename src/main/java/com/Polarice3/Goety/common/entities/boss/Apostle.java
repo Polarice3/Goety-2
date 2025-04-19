@@ -1248,11 +1248,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 }
             }
         } else {
-            if (target instanceof IOwned owned && owned.getTrueOwner() != null){
-                if (this.canAttack(owned.getTrueOwner()) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(owned.getTrueOwner())) {
-                    this.setTarget(owned.getTrueOwner());
-                }
-            }
             if (this.tickCount % 100 == 0 && !this.isSettingUpSecond()){
                 if (!this.level.isClientSide){
                     if (this.isInNether()) {

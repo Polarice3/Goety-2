@@ -51,6 +51,7 @@ import com.Polarice3.Goety.common.items.equipment.DarkScytheItem;
 import com.Polarice3.Goety.common.items.equipment.DeathScytheItem;
 import com.Polarice3.Goety.common.items.equipment.HammerItem;
 import com.Polarice3.Goety.common.items.equipment.PhilosophersMaceItem;
+import com.Polarice3.Goety.common.items.magic.DarkStaff;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
@@ -660,6 +661,23 @@ public class ModEvents {
                 }
             }
         }
+
+        boolean staff = player.getOffhandItem().getItem() instanceof DarkStaff && ItemConfig.StaffOffhandBuff.get();
+
+        AttributeInstance attackDamage = player.getAttribute(Attributes.ATTACK_DAMAGE);
+
+        AttributeModifier attributemodifier3 = new AttributeModifier(UUID.fromString("6dc7952d-11a6-4bf4-954b-b527b35787c6"), "Dark Staff Proficiency", 0.25D, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        if (attackDamage != null){
+            if (staff){
+                if (!attackDamage.hasModifier(attributemodifier3)){
+                    attackDamage.addPermanentModifier(attributemodifier3);
+                }
+            } else {
+                if (attackDamage.hasModifier(attributemodifier3)){
+                    attackDamage.removeModifier(attributemodifier3);
+                }
+            }
+        }
         if (MobUtil.starAmuletActive(player)){
             player.getAbilities().flying &= player.isCreative();
         }
@@ -916,17 +934,6 @@ public class ModEvents {
                     }
                 }
                 if (mobAttacker instanceof Phantom && CuriosFinder.hasCurio(target, ModItems.FELINE_AMULET.get())){
-                    if (event.getTargetType() == MOB_TARGET) {
-                        event.setNewTarget(null);
-                    } else {
-                        event.setCanceled(true);
-                    }
-                }
-                if (!(mobAttacker instanceof Enemy)
-                        && target instanceof IOwned owned && owned instanceof Enemy && !owned.isHostile()
-                        && target instanceof Mob mob && mob.getTarget() != mobAttacker
-                        && !(mobAttacker instanceof OwnableEntity ownable && ownable.getOwner() != null && ((ownable.getOwner().getLastHurtByMob() == target) || (ownable.getOwner() instanceof Mob mob1 && mob1.getTarget() == target)))
-                        && mobAttacker.getLastHurtByMob() != target){
                     if (event.getTargetType() == MOB_TARGET) {
                         event.setNewTarget(null);
                     } else {

@@ -6,6 +6,8 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
 
+import java.awt.*;
+
 public class ColorUtil {
     public static ColorUtil WHITE = new ColorUtil(0xffffff);
     public static ColorUtil BLACK = new ColorUtil(0x000000);
@@ -36,9 +38,10 @@ public class ColorUtil {
     }
 
     public ColorUtil(int colorCode){
-        this.red = (colorCode >> 16 & 255) / 255F;
-        this.green = (colorCode >> 8 & 255) / 255F;
-        this.blue = (colorCode & 255) / 255F;
+        Color color = Color.decode(String.valueOf(colorCode));
+        this.red = color.getRed() / 255.0F;
+        this.green = color.getGreen() / 255.0F;
+        this.blue = color.getBlue() / 255.0F;
         this.alpha = 1.0F;
     }
 

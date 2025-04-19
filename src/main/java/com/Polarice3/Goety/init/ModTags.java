@@ -101,6 +101,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> SKELETON_SERVANTS = tag("skeleton_servants");
         public static final TagKey<EntityType<?>> HOLE_IMMUNE = tag("hole_immune");
         public static final TagKey<EntityType<?>> SUMMON_KILL = tag("summon_kill");
+        public static final TagKey<EntityType<?>> IGNORE_SERVANTS = tag("ignore_servants");
         public static final TagKey<EntityType<?>> MINI_BOSSES = tag("mini_bosses");
         public static final TagKey<EntityType<?>> GLOBAL_MUSIC_BOSS = tag("global_music_boss");
         public static final TagKey<EntityType<?>> APOSTLE_OTHER_ALLIES = tag("apostle_other_allies");

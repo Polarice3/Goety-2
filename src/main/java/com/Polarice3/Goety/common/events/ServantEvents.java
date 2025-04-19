@@ -9,14 +9,13 @@ import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.projectiles.ThrowableFungus;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.NoKnockBackDamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.OwnableEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.*;
@@ -35,7 +34,14 @@ public class ServantEvents {
     public static void LivingEffects(LivingEvent.LivingTickEvent event){
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity instanceof Mob mob){
-            if (mob.getTarget() instanceof IOwned){
+            if (mob.getTarget() instanceof IOwned owned){
+                if (mob.getType().is(ModTags.EntityTypes.IGNORE_SERVANTS)){
+                    if (owned.getTrueOwner() != null){
+                        if (mob.canAttack(owned.getTrueOwner()) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(owned.getTrueOwner())) {
+                            mob.setTarget(owned.getTrueOwner());
+                        }
+                    }
+                }
                 if (mob.getTarget().isDeadOrDying()){
                     mob.setTarget(null);
                 }
@@ -69,6 +75,17 @@ public class ServantEvents {
                             }
                         }
                     }
+                }
+            }
+            if (!(mobAttacker instanceof Enemy)
+                    && target instanceof IOwned owned && owned instanceof Enemy && !owned.isHostile()
+                    && target instanceof Mob mob && mob.getTarget() != mobAttacker
+                    && !(mobAttacker instanceof OwnableEntity ownable && ownable.getOwner() != null && ((ownable.getOwner().getLastHurtByMob() == target) || (ownable.getOwner() instanceof Mob mob1 && mob1.getTarget() == target)))
+                    && mobAttacker.getLastHurtByMob() != target){
+                if (event.getTargetType() == MOB_TARGET) {
+                    event.setNewTarget(null);
+                } else {
+                    event.setCanceled(true);
                 }
             }
         }

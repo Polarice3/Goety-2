@@ -180,6 +180,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ArmoredRavagerRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WarlockRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MaverickRaid;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> HereticRaid;
 
     public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> PikerRaidCount;
     public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> RipperRaidCount;
@@ -196,6 +197,7 @@ public class MobsConfig {
     public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> HostileRedstoneMonstrosityRaidCount;
     public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> WarlockRaidCount;
     public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> MaverickRaidCount;
+    public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> HereticRaidCount;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> CryologerIceChunk;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SorcererHPIncrease;
@@ -585,6 +587,14 @@ public class MobsConfig {
                         .worldRestart()
                         .defineList("maverickRaidCount",
                                 Arrays.asList(0, 1, 0, 1, 0, 0, 0, 1), (i) -> i instanceof Integer);
+                BUILDER.pop();
+                BUILDER.push("Heretic");
+                HereticRaid = BUILDER.comment("Whether Heretics appear in Raids, Default: true")
+                        .define("hereticRaid", true);
+                HereticRaidCount = BUILDER.comment("How many Heretics each wave", "Requires game restart", "Must have no more and no less than 8 integers")
+                        .worldRestart()
+                        .defineList("hereticRaidCount",
+                                Arrays.asList(0, 0, 0, 1, 0, 0, 2, 1), (i) -> i instanceof Integer);
                 BUILDER.pop();
             BUILDER.pop();
         CryologerIceChunk = BUILDER.comment("Whether Cryologers can summon Ice Chunks on Hard Difficulty, Default: false")

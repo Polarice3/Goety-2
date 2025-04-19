@@ -11,7 +11,7 @@
 
         "location": "goety:blighted_shack/basement",
 
-        "processors": "minecraft:empty",
+        "processors": "goety:no_waterlogging",
 
         "projection": "rigid",
 

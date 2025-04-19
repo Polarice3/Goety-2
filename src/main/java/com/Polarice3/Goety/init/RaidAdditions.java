@@ -20,6 +20,9 @@ public class RaidAdditions {
         if (MobsConfig.MaverickRaid.get()) {
             addWaves("GOETY_MAVERICK", ModEntityType.MAVERICK.get(), MobsConfig.MaverickRaidCount.get());
         }
+        if (MobsConfig.HereticRaid.get()) {
+            addWaves("GOETY_HERETIC", ModEntityType.HERETIC.get(), MobsConfig.HereticRaidCount.get());
+        }
         if (MobsConfig.IllagerRaid.get()) {
             if (MobsConfig.PikerRaid.get()) {
                 addWaves("GOETY_PIKER", ModEntityType.PIKER.get(), MobsConfig.PikerRaidCount.get());

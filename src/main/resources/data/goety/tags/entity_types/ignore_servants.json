@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "__comment": "mobs that will ignore servants and try directly attack their master if they have any.",
+  "values": [
+    "goety:apostle"
+  ]
+}
