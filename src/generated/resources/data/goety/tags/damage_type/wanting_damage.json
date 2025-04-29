@@ -6,6 +6,7 @@
     "#goety:frost_attacks",
     "#goety:shock_attacks",
     "#goety:water_attacks",
+    "minecraft:wither_skull",
     "goety:loot_explode",
     "goety:loot_explode_owned"
   ]
