@@ -64,7 +64,7 @@ public class GuardianServant extends Summoned{
     protected void registerGoals() {
         super.registerGoals();
         MoveTowardsRestrictionGoal movetowardsrestrictiongoal = new MoveTowardsRestrictionGoal(this, 1.0D);
-        this.randomStrollGoal = new WanderGoal<>(this, 1.0D, 80);
+        this.randomStrollGoal = new WaterWanderGoal<>(this);
         this.goalSelector.addGoal(4, new GuardianAttackGoal(this));
         this.goalSelector.addGoal(5, movetowardsrestrictiongoal);
         this.goalSelector.addGoal(7, this.randomStrollGoal);

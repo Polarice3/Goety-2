@@ -22,7 +22,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.entity.PartEntity;
 import net.minecraftforge.network.NetworkHooks;
 
 public class IceStorm extends SpellHurtingProjectile {
@@ -129,12 +128,7 @@ public class IceStorm extends SpellHurtingProjectile {
             }
             float baseDamage = SpellConfig.IceStormDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
             for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(1.0F), EntitySelector.NO_CREATIVE_OR_SPECTATOR)){
-                LivingEntity livingEntity = null;
-                if (entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity parent){
-                    livingEntity = parent;
-                } else if (entity instanceof LivingEntity living){
-                    livingEntity = living;
-                }
+                LivingEntity livingEntity = MobUtil.getLivingTarget(entity);
                 if (livingEntity != null) {
                     if (owner != null) {
                         if (!MobUtil.areAllies(owner, livingEntity) && livingEntity != owner) {

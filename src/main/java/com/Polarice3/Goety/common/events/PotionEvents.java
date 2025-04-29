@@ -88,7 +88,7 @@ public class PotionEvents {
         if (livingEntity != null){
             if (livingEntity.level instanceof ServerLevel serverLevel) {
                 if (livingEntity.hasEffect(GoetyEffects.ILLAGUE.get())) {
-                    EffectsEvents.Illague(serverLevel, livingEntity);
+                    EffectsUtil.Illague(serverLevel, livingEntity);
                 }
             }
             AttributeInstance armor = livingEntity.getAttribute(Attributes.ARMOR);
@@ -328,7 +328,7 @@ public class PotionEvents {
             float original = event.getAmount();
             if (effectInstance != null) {
                 int i = effectInstance.getAmplifier() + 1;
-                original += event.getAmount() * 0.2F * i;
+                original += event.getAmount() * (0.2F * i);
                 event.setAmount(original);
             }
         }
@@ -740,11 +740,6 @@ public class PotionEvents {
         }
         if (event.getEffectInstance().getEffect() == MobEffects.SLOW_FALLING){
             if (CuriosFinder.hasWindyRobes(event.getEntity())){
-                event.setResult(Event.Result.DENY);
-            }
-        }
-        if (event.getEffectInstance().getEffect() == GoetyEffects.STUNNED.get()){
-            if (event.getEntity().getType().is(Tags.EntityTypes.BOSSES) || event.getEntity().getType().is(ModTags.EntityTypes.MINI_BOSSES)){
                 event.setResult(Event.Result.DENY);
             }
         }

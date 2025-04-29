@@ -80,10 +80,11 @@ public class WindHornSpell extends Spell {
         ServerParticleUtil.windShockwaveParticle(worldIn, colorUtil, (float) radius, 0, -1, caster.position().add(0.0D, 1.0D, 0.0D));
         for (LivingEntity livingEntity : worldIn.getEntitiesOfClass(LivingEntity.class, caster.getBoundingBox().inflate(radius))){
             if (!MobUtil.areAllies(caster, livingEntity)) {
+                double power = 4.0D + potency;
                 double d0 = livingEntity.getX() - caster.getX();
                 double d1 = livingEntity.getZ() - caster.getZ();
                 double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);
-                MobUtil.push(livingEntity, d0 / d2 * 4.0D, 0.2D, d1 / d2 * 4.0D);
+                MobUtil.push(livingEntity, d0 / d2 * power, 0.2D, d1 / d2 * power);
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, MathHelper.secondsToTicks(duration), potency));
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, MathHelper.secondsToTicks(duration), potency));
             }

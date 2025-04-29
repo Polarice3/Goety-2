@@ -6,7 +6,6 @@ import com.Polarice3.Goety.common.entities.projectiles.NecroBolt;
 import com.Polarice3.Goety.common.entities.projectiles.SoulBolt;
 import com.Polarice3.Goety.common.entities.projectiles.SpellHurtingProjectile;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.items.magic.DarkStaff;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -79,9 +78,7 @@ public class SoulBoltSpell extends Spell {
             SoundUtil.playSoulBolt(caster);
         }
         if (soulBolt instanceof SoulBolt soulBolt1){
-            if (staff.getItem() instanceof DarkStaff darkStaff && darkStaff.getSpellType() == SpellType.NECROMANCY){
-                soulBolt1.setNecro(true);
-            }
+            soulBolt1.setNecro(this.typeStaff(staff, SpellType.NECROMANCY));
         }
         if (WandUtil.enchantedFocus(caster)){
             soulBolt.setExtraDamage(spellStat.getPotency() + WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));

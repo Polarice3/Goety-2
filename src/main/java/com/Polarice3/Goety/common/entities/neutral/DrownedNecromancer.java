@@ -12,6 +12,7 @@ import com.Polarice3.Goety.common.entities.ally.undead.ReaperServant;
 import com.Polarice3.Goety.common.entities.ally.undead.WraithServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SunkenSkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.VanguardServant;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.BlackguardServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.DrownedServant;
 import com.Polarice3.Goety.common.entities.projectiles.SpellHurtingProjectile;
 import com.Polarice3.Goety.common.entities.projectiles.SteamMissile;
@@ -329,6 +330,11 @@ public class DrownedNecromancer extends AbstractNecromancer {
                 summoned = new VanguardServant(ModEntityType.VANGUARD_SERVANT.get(), this.level);
             }
         }
+        if (this.getSummonList().contains(ModEntityType.BLACKGUARD_SERVANT.get())) {
+            if (this.level.random.nextFloat() <= 0.05F) {
+                summoned = new BlackguardServant(ModEntityType.BLACKGUARD_SERVANT.get(), this.level);
+            }
+        }
         return summoned;
     }
 
@@ -402,6 +408,13 @@ public class DrownedNecromancer extends AbstractNecromancer {
                         itemstack.shrink(1);
                     }
                     this.addSummon(ModEntityType.VANGUARD_SERVANT.get());
+                    this.playSound(ModSounds.DROWNED_NECROMANCER_AMBIENT.get(), 1.0F, 1.5F);
+                    return InteractionResult.SUCCESS;
+                } else if (/*this.getNecroLevel() > 1 && */!this.getSummonList().contains(ModEntityType.BLACKGUARD_SERVANT.get()) && item == ModItems.BLACKGUARD_FOCUS.get()){
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
+                    this.addSummon(ModEntityType.BLACKGUARD_SERVANT.get());
                     this.playSound(ModSounds.DROWNED_NECROMANCER_AMBIENT.get(), 1.0F, 1.5F);
                     return InteractionResult.SUCCESS;
                 } else if (SoulJar.isDrowned(itemstack)){

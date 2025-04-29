@@ -19,7 +19,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "If it has stored any locations, right-clicking on the crystal with an empty hand will show the positions it's connected to, shift-right clicking, however, will remove all positions from the crystal. Breaking the crystal will also remove all recorded locations."
+      "text": "If it has stored any locations, right-clicking on the crystal with an empty hand will show the positions it's connected to, shift-right clicking, however, will remove all positions from the crystal. Breaking the crystal will also remove all recorded locations. When active, it emits Redstone power."
     }
   ],
   "extra_recipe_mappings": {

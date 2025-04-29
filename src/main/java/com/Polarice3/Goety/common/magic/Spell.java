@@ -8,10 +8,7 @@ import com.Polarice3.Goety.client.particles.GatherTrailParticle;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.utils.ColorUtil;
-import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
-import com.Polarice3.Goety.utils.WandUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -29,7 +26,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.entity.PartEntity;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -96,12 +92,7 @@ public abstract class Spell implements ISpell {
         } else {
             HitResult hitResult = this.rayTrace(caster.level, caster, range, 3);
             if (hitResult instanceof EntityHitResult entityHitResult){
-                if (entityHitResult.getEntity() instanceof PartEntity<?> partEntity &&
-                        partEntity.getParent() instanceof LivingEntity living){
-                    return living;
-                } else if (entityHitResult.getEntity() instanceof LivingEntity living){
-                    return living;
-                }
+                return MobUtil.getLivingTarget(entityHitResult.getEntity());
             }
             return null;
         }

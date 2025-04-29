@@ -809,7 +809,7 @@ public class ModEvents {
                             }
                         }
                         if (MobsConfig.VillagerConvertHeretic.get()) {
-                            if (villager.getRandom().nextFloat() < 7.5E-4F && serverLevel.getDifficulty() != Difficulty.PEACEFUL) {
+                            if (villager.getRandom().nextFloat() < 7.5E-4F && villager.isSleeping() && serverLevel.getDifficulty() != Difficulty.PEACEFUL) {
                                 if (BlockFinder.findNetherPortal(serverLevel, villager.blockPosition(), 8).isPresent()){
                                     if (ForgeEventFactory.canLivingConvert(villager, ModEntityType.HERETIC.get(), (timer) -> {
                                     })) {
@@ -1060,9 +1060,15 @@ public class ModEvents {
                 }
             }
             if (MobsConfig.HellfireFireProtection.get()) {
-                int k = EnchantmentHelper.getDamageProtection(victim.getArmorSlots(), victim.damageSources().inFire());
+                int k = 0;
+                for (ItemStack itemStack : victim.getArmorSlots()){
+                    int i = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_PROTECTION, itemStack);
+                    if (i > 0){
+                        k += Enchantments.FIRE_PROTECTION.getDamageProtection(i, victim.damageSources().inFire());
+                    }
+                }
                 if (k > 0) {
-                    amount = CombatRules.getDamageAfterMagicAbsorb(amount, (float) k);
+                    amount = CombatRules.getDamageAfterMagicAbsorb(amount, (float) k / 2.0F);
                 }
             }
             event.setAmount(amount);
@@ -1174,6 +1180,7 @@ public class ModEvents {
             }
             if (totalReduce > 0) {
                 damageAmount -= totalReduce;
+                damageAmount = Math.max(0, damageAmount);
                 event.setAmount(damageAmount);
             }
             /*if (event.getSource().getEntity() instanceof Player attacker) {
@@ -1349,11 +1356,10 @@ public class ModEvents {
                                         looting = CuriosFinder.findRing(player).getEnchantmentLevel(ModEnchantments.WANTING.get());
                                     }
                                 }
-                                if (event.getLootingLevel() > looting){
-                                    looting = event.getLootingLevel();
-                                }
-                                if (ModDamageSource.wantingAttacks(damageSource)) {
-                                    event.setLootingLevel(looting);
+                                if (looting > event.getLootingLevel()) {
+                                    if (ModDamageSource.wantingAttacks(damageSource)) {
+                                        event.setLootingLevel(looting);
+                                    }
                                 }
                             }
                         }
@@ -1366,6 +1372,11 @@ public class ModEvents {
                                 }
                             }
                             if (looting > event.getLootingLevel()) {
+                                if (event.getDamageSource().getDirectEntity() != null){
+                                    if (event.getDamageSource().getDirectEntity().getType().is(ModTags.EntityTypes.WANTING_ENTITIES)){
+                                        event.setLootingLevel(looting);
+                                    }
+                                }
                                 if (ModDamageSource.wantingAttacks(event.getDamageSource())){
                                     event.setLootingLevel(looting);
                                 }
@@ -1557,6 +1568,19 @@ public class ModEvents {
                 }
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void ExplosionStartEvent(ExplosionEvent.Start event){
+        /*Explosion explosion = event.getExplosion();
+        if (explosion != null && !(explosion instanceof LootingExplosion)) {
+            if (explosion.getIndirectSourceEntity() instanceof Player player){
+                if (CuriosFinder.hasWanting(player)){
+                    ExplosionUtil.lootExplode(explosion.level, explosion.getExploder(), explosion.x, explosion.y, explosion.z, explosion.radius, explosion.fire, explosion.blockInteraction, LootingExplosion.Mode.LOOT);
+                    event.setCanceled(true);
+                }
+            }
+        }*/
     }
 
     @SubscribeEvent

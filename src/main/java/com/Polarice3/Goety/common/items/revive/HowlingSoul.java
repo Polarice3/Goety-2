@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.items.revive;
 
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.BlackBeast;
 import com.Polarice3.Goety.common.entities.ally.BlackWolf;
@@ -33,31 +34,36 @@ public class HowlingSoul extends ReviveServantItem {
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
         Level level = player.getCommandSenderWorld();
 
-        if (getSummon(stack, level) != null) {
-            Entity entity = getSummon(stack, level);
-            if (entity instanceof BlackBeast blackBeast) {
-                boolean flag = target instanceof BlackWolf;
-                if (flag) {
-                    if (blackBeast.getTrueOwner() == player) {
-                        if (RitualRequirements.canSummon(level, player, ModEntityType.BLACK_BEAST.get())) {
-                            blackBeast.setHealth(blackBeast.getMaxHealth());
-                            blackBeast.setPos(target.getX(), target.getY(), target.getZ());
-                            blackBeast.lookAt(EntityAnchorArgument.Anchor.EYES, player.position());
-                            if (level.addFreshEntity(blackBeast)) {
-                                blackBeast.spawnAnim();
-                                if (level instanceof ServerLevel serverLevel) {
-                                    for (int i = 0; i < 8; ++i) {
-                                        ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.SCULK_SOUL, blackBeast);
-                                        ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.POOF, blackBeast);
-                                    }
+        Entity entity;
+        if (getSummon(stack, level) != null){
+            entity = getSummon(stack, level);
+        } else {
+            entity = new BlackBeast(ModEntityType.BLACK_BEAST.get(), level);
+            IOwned owned = (IOwned) entity;
+            owned.setTrueOwner(player);
+        }
+        if (entity instanceof BlackBeast blackBeast) {
+            boolean flag = target instanceof BlackWolf;
+            if (flag) {
+                if (blackBeast.getTrueOwner() == player) {
+                    if (RitualRequirements.canSummon(level, player, ModEntityType.BLACK_BEAST.get())) {
+                        blackBeast.setHealth(blackBeast.getMaxHealth());
+                        blackBeast.setPos(target.getX(), target.getY(), target.getZ());
+                        blackBeast.lookAt(EntityAnchorArgument.Anchor.EYES, player.position());
+                        if (level.addFreshEntity(blackBeast)) {
+                            blackBeast.spawnAnim();
+                            if (level instanceof ServerLevel serverLevel) {
+                                for (int i = 0; i < 8; ++i) {
+                                    ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.SCULK_SOUL, blackBeast);
+                                    ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.POOF, blackBeast);
                                 }
-                                blackBeast.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 0.5F);
-                                blackBeast.playSound(ModSounds.BLACK_BEAST_ROAR.get(), 2.0F, 0.5F);
-                                target.discard();
-                                player.swing(hand);
-                                player.getCooldowns().addCooldown(ModItems.HOWLING_SOUL.get(), MathHelper.secondsToTicks(30));
-                                stack.shrink(1);
                             }
+                            blackBeast.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 0.5F);
+                            blackBeast.playSound(ModSounds.BLACK_BEAST_ROAR.get(), 2.0F, 0.5F);
+                            target.discard();
+                            player.swing(hand);
+                            player.getCooldowns().addCooldown(ModItems.HOWLING_SOUL.get(), MathHelper.secondsToTicks(30));
+                            stack.shrink(1);
                         }
                     }
                 }

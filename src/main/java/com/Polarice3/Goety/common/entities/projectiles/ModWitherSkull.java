@@ -49,6 +49,12 @@ public class ModWitherSkull extends WitherSkull {
       }
    }
 
+   public ModWitherSkull(Level p_37609_, LivingEntity p_37610_, double p_37611_, double p_37612_, double p_37613_) {
+      this(p_37610_.getX(), p_37610_.getY(), p_37610_.getZ(), p_37611_, p_37612_, p_37613_, p_37609_);
+      this.setOwner(p_37610_);
+      this.setRot(p_37610_.getYRot(), p_37610_.getXRot());
+   }
+
    @Override
    public EntityType<?> getType() {
       return ModEntityType.MOD_WITHER_SKULL.get();

@@ -1420,4 +1420,15 @@ public class MobUtil {
     public static boolean isFireImmune(LivingEntity livingEntity){
         return livingEntity.hasEffect(MobEffects.FIRE_RESISTANCE) || livingEntity.fireImmune();
     }
+
+    @Nullable
+    public static LivingEntity getLivingTarget(Entity target){
+        LivingEntity livingEntity = null;
+        if (target instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity living){
+            livingEntity = living;
+        } else if (target instanceof LivingEntity living){
+            livingEntity = living;
+        }
+        return livingEntity;
+    }
 }

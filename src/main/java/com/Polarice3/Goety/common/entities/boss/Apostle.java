@@ -85,6 +85,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.piston.MovingPistonBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
@@ -113,6 +114,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     private int damnedCoolDown;
     private int spellCycle;
     private int titleNumber;
+    private int stuckTime;
+    private Vec3 prevVecPos;
     private final Predicate<Entity> ALIVE = Entity::isAlive;
     private boolean roarParticles;
     private boolean fireArrows;
@@ -885,7 +888,34 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         }
     }
 
+    protected void escapeTeleport() {
+        if (!this.level.isClientSide() && this.isAlive() && !this.isSettingUpSecond() && !this.isCasting()) {
+            this.prevX = this.getX();
+            this.prevY = this.getY();
+            this.prevZ = this.getZ();
+            for(int i = 0; i < 128; ++i) {
+                double blockRange = 128.0D;
+                double d3 = this.getX() + (this.getRandom().nextDouble() - 0.5D) * blockRange;
+                double d4 = this.getY() + (this.getRandom().nextDouble() - 0.5D) * (blockRange / 2.0D);
+                double d5 = this.getZ() + (this.getRandom().nextDouble() - 0.5D) * blockRange;
+                if (this.randomTeleport(d3, d4, d5, false)) {
+                    this.stuckTime = 0;
+                    this.level.broadcastEntityEvent(this, (byte) 100);
+                    this.level.gameEvent(GameEvent.TELEPORT, this.position(), GameEvent.Context.of(this));
+                    if (!this.isSilent()) {
+                        this.level.playSound((Player) null, this.prevX, this.prevY, this.prevZ, ModSounds.APOSTLE_TELEPORT.get(), this.getSoundSource(), 1.0F, 1.0F);
+                        this.playSound(ModSounds.APOSTLE_TELEPORT.get(), 1.0F, 1.0F);
+                        this.level.playSound((Player) null, this.prevX, this.prevY, this.prevZ, ModSounds.ROAR_SPELL.get(), this.getSoundSource(), 3.0F, 0.25F);
+                    }
+                    this.resetHitTime();
+                    break;
+                }
+            }
+        }
+    }
+
     public void teleportHits(){
+        this.stuckTime = 0;
         this.level.broadcastEntityEvent(this, (byte) 100);
         this.level.gameEvent(GameEvent.TELEPORT, this.position(), GameEvent.Context.of(this));
         if (this.isSecondPhase()) {
@@ -1083,6 +1113,43 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 this.setSettingUpSecond(false);
                 this.setSecondPhase(true);
             }
+        } else {
+            if (this.tickCount % 10 == 0){
+                this.prevVecPos = this.position();
+            }
+            if (this.getTarget() != null && !this.isCasting()) {
+                if (this.tickCount % 40 == 0){
+                    if (this.getTarget().isVisuallyCrawling() && !this.getSensing().hasLineOfSight(this.getTarget())){
+                        FireBlastTrap fireBlastTrap = new FireBlastTrap(this.level, this.getTarget().getX(), this.getTarget().getY() + 0.25D, this.getTarget().getZ());
+                        fireBlastTrap.setOwner(this);
+                        fireBlastTrap.setAreaOfEffect(2.0F);
+                        this.level.addFreshEntity(fireBlastTrap);
+                    }
+                }
+                if (this.prevVecPos != null && this.prevVecPos.distanceTo(this.position()) <= 0.1D) {
+                    ++this.stuckTime;
+                } else {
+                    if (this.level.getBlockStates(this.getBoundingBox().inflate(1.0F)).anyMatch(blockState1 -> blockState1.getBlock() instanceof MovingPistonBlock)){
+                        this.stuckTime += 20;
+                        this.teleport();
+                    } else {
+                        if (this.stuckTime > 0){
+                            --this.stuckTime;
+                        }
+                    }
+                }
+                if (this.stuckTime > 50) {
+                    if (this.level instanceof ServerLevel serverLevel) {
+                        ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.LARGE_SMOKE, this);
+                    }
+                }
+                if (this.stuckTime >= 100){
+                    this.escapeTeleport();
+                    this.stuckTime = 0;
+                }
+            } else {
+                this.stuckTime = 0;
+            }
         }
         LivingEntity target = this.getTarget();
         if (this.getMainHandItem().isEmpty() && this.isAlive()){
@@ -1236,8 +1303,10 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             }
         }
         if (target == null){
-            this.resetHitTime();
-            for (Player player : this.level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(64), EntitySelector.NO_CREATIVE_OR_SPECTATOR)){
+            if (this.getHitTimes() > 0) {
+                this.resetHitTime();
+            }
+            for (Player player : this.level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(256), EntitySelector.NO_CREATIVE_OR_SPECTATOR)){
                 if (!MobUtil.areAllies(this, player)) {
                     this.setTarget(player);
                 }

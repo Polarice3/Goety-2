@@ -60,8 +60,7 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.PathNavigationRegion;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.AmphibiousNodeEvaluator;
@@ -72,6 +71,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
 
@@ -124,7 +124,11 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
         this.waterNavigation = new WightAquaticNavigation(this, worldIn);
         this.groundNavigation = new WightNavigation(this, worldIn);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL,0.0F);
+        this.setPathfindingMalus(BlockPathTypes.LEAVES,0);
+        this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL,0);
+        this.setPathfindingMalus(BlockPathTypes.DOOR_OPEN,0);
+        this.setPathfindingMalus(BlockPathTypes.DOOR_IRON_CLOSED,0);
+        this.setPathfindingMalus(BlockPathTypes.DOOR_WOOD_CLOSED,0);
     }
 
     protected void registerGoals() {
@@ -615,6 +619,49 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
         }
     }
 
+    public void breakBlocksAround() {
+        if (this.isDeadOrDying() || this.isHallucination() || !ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+            return;
+        }
+
+        for (BlockPos blockPos : BlockPos.withinManhattan(this.blockPosition().above(), 1, 1, 1)) {
+            BlockState blockState = this.level.getBlockState(blockPos);
+            if (blockState.isAir() || blockState.is(Blocks.LAVA) || blockState.is(Blocks.WATER)) {
+                continue;
+            }
+
+            Block block = blockState.getBlock();
+
+            if (blockPos.getX() == this.getBlockX() && blockPos.getZ() == this.getBlockZ() && this.blockPosition().getY() < blockPos.getY() && this.isClimbing()) {
+                if (!blockState.isAir() && blockState.getBlock() instanceof LeavesBlock) {
+                    this.level.destroyBlock(blockPos, false);
+                }
+            }
+
+            if (block instanceof TrapDoorBlock && blockState.hasProperty(TrapDoorBlock.OPEN)) {
+                if (blockPos.getY() > this.getBlockY()) {
+                    if (!blockState.getValue(TrapDoorBlock.OPEN)) {
+                        this.level.setBlockAndUpdate(blockPos, blockState.setValue(TrapDoorBlock.OPEN, true));
+                    }
+                } else {
+                    if (blockState.getValue(TrapDoorBlock.OPEN)) {
+                        this.level.setBlockAndUpdate(blockPos, blockState.setValue(TrapDoorBlock.OPEN, false));
+                    }
+                }
+                continue;
+            }
+
+            if (this.isClimbing()) {
+                continue;
+            }
+
+            if (block instanceof DoorBlock) {
+                this.level.destroyBlock(blockPos, true);
+                this.level.playLocalSound(blockPos, SoundEvents.ZOMBIE_BREAK_WOODEN_DOOR, SoundSource.BLOCKS, 2.0F, 1.0F, true);
+            }
+        }
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -654,6 +701,9 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
                 }
                 if (this.isMeleeAttacking()) {
                     ++this.attackTick;
+                }
+                if (this.getTarget() != null){
+                    this.breakBlocksAround();
                 }
                 if (this.level instanceof ServerLevel serverLevel) {
                     Vec3 vec3 = this.getDeltaMovement();

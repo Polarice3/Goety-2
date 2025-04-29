@@ -2,7 +2,6 @@ package com.Polarice3.Goety.common.magic.spells.necromancy;
 
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.VanguardServant;
@@ -16,8 +15,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
@@ -119,10 +116,7 @@ public class VanguardSpell extends SummonSpell {
                     MobUtil.moveDownToGround(summonedentity);
                     summonedentity.setPersistenceRequired();
                     summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
-                    if (potency > 0){
-                        int boost = Mth.clamp(potency - 1, 0, 10);
-                        summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), EffectsUtil.infiniteEffect(), boost, false, false));
-                    }
+                    this.buffSummon(caster, summonedentity, potency);
                     summonedentity.finalizeSpawn(worldIn, caster.level.getCurrentDifficultyAt(caster.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                     summonedentity.setYHeadRot(caster.getYHeadRot());
                     summonedentity.setYRot(caster.getYRot());
@@ -149,10 +143,7 @@ public class VanguardSpell extends SummonSpell {
                     MobUtil.moveDownToGround(summonedentity);
                     summonedentity.setPersistenceRequired();
                     summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
-                    if (potency > 0){
-                        int boost = Mth.clamp(potency - 1, 0, 10);
-                        summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), EffectsUtil.infiniteEffect(), boost, false, false));
-                    }
+                    this.buffSummon(caster, summonedentity, potency);
                     summonedentity.finalizeSpawn(worldIn, caster.level.getCurrentDifficultyAt(caster.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                     this.SummonSap(caster, summonedentity);
                     this.setTarget(caster, summonedentity);

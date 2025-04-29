@@ -17,7 +17,6 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.entity.PartEntity;
 import net.minecraftforge.network.NetworkHooks;
 
 public class Spike extends GroundProjectile {
@@ -117,12 +116,7 @@ public class Spike extends GroundProjectile {
             }
         } else if (--this.warmupDelayTicks < 0) {
             for(Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().move(0.0F, 0.2F, 0.0F).inflate(0.1F, 0.0F, 0.1F))) {
-                LivingEntity livingEntity = null;
-                if (entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity living){
-                    livingEntity = living;
-                } else if (entity instanceof LivingEntity living){
-                    livingEntity = living;
-                }
+                LivingEntity livingEntity = MobUtil.getLivingTarget(entity);
                 if (livingEntity != null) {
                     this.dealDamageTo(livingEntity);
                 }

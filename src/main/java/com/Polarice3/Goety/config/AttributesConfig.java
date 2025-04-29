@@ -101,6 +101,7 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> WitherNecromancerFollowRange;
     public static final ForgeConfigSpec.ConfigValue<Double> WitherNecromancerDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> HauntedArmorHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> HauntedArmorDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Double> ZombieServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> ZombieServantArmor;
@@ -463,6 +464,8 @@ public class AttributesConfig {
                 BUILDER.push("Haunted Armor");
                 HauntedArmorHealth = BUILDER.comment("How much Max Health Haunted Armor have, Default: 25.0")
                         .defineInRange("hauntedArmorHealth", 25.0, 1.0, Double.MAX_VALUE);
+                HauntedArmorDamage = BUILDER.comment("How much damage Haunted Armor deals, Default: 3.0")
+                        .defineInRange("hauntedArmorDamage", 3.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
             BUILDER.pop();
             BUILDER.push("Summoned Mobs");

@@ -60,7 +60,7 @@ public class ReaperRenderer<T extends AbstractReaper> extends MobRenderer<T, Rea
 
         @Override
         public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T wraith, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-            if (MobsConfig.WraithServantTexture.get() && !wraith.isHostile()) {
+            if (MobsConfig.ReaperServantTexture.get() && !wraith.isHostile()) {
                 coloredCutoutModelCopyLayerRender(this.getParentModel(), this.layerModel, TEXTURES, matrixStackIn, bufferIn, packedLightIn, wraith, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0F, 1.0F, 1.0F);
             }
         }

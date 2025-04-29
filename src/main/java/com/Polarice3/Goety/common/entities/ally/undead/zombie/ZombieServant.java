@@ -37,6 +37,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -154,6 +155,14 @@ public class ZombieServant extends Summoned {
     @Override
     public int getSummonLimit(LivingEntity owner) {
         return SpellConfig.ZombieLimit.get();
+    }
+
+    @Override
+    public boolean canRide(LivingEntity livingEntity) {
+        if (this.isBaby()){
+            return livingEntity instanceof Chicken chicken && !chicken.isBaby();
+        }
+        return super.canRide(livingEntity);
     }
 
     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {

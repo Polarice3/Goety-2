@@ -87,9 +87,6 @@ public class ElectroOrb extends SpellThrowableProjectile {
             float damage = SpellConfig.ElectroOrbDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get().floatValue();
             if (this.getOwner() != null) {
                 damageSource = ModDamageSource.indirectShock(this, this.getOwner());
-                /*if (this.getOwner() instanceof Mob mob && mob.getAttribute(Attributes.ATTACK_DAMAGE) != null) {
-                    damage = (float) mob.getAttributeValue(Attributes.ATTACK_DAMAGE);
-                }*/
             }
             damage += this.getExtraDamage();
             if (hitResult instanceof EntityHitResult result) {

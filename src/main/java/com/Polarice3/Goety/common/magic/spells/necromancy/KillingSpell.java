@@ -83,7 +83,7 @@ public class KillingSpell extends Spell {
             Vec3 vec31 = new Vec3(target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ());
             DamageSource damageSource = ModDamageSource.deathCurse(caster);
             float damage = target.getHealth();
-            float casterDamage = damage * 1.25F;
+            float casterDamage = damage * SpellConfig.KillingFeedback.get().floatValue();
             if (caster.getHealth() - MobUtil.hurtCalculation(caster, damageSource, casterDamage) <= 0.0F && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(caster)){
                 damage = caster.getHealth() - 1;
                 casterDamage = caster.getHealth() - 1;

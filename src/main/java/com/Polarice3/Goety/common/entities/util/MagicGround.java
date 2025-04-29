@@ -11,7 +11,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.entity.PartEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,12 +49,7 @@ public class MagicGround extends AbstractTrap{
         }
         List<LivingEntity> targets = new ArrayList<>();
         for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox())) {
-            LivingEntity livingEntity = null;
-            if (entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity living){
-                livingEntity = living;
-            } else if (entity instanceof LivingEntity living){
-                livingEntity = living;
-            }
+            LivingEntity livingEntity = MobUtil.getLivingTarget(entity);
             if (livingEntity != null) {
                 if (this.getOwner() != null) {
                     if (livingEntity != this.getOwner() && !MobUtil.areAllies(this.getOwner(), livingEntity)) {

@@ -176,7 +176,7 @@ public class FireBlastTrap extends Entity {
                             if (entity instanceof LivingEntity livingEntity) {
                                 livingEntity.addEffect(new MobEffectInstance(GoetyEffects.BURN_HEX.get(), 1200));
                             }
-                            entity.hurt(ModDamageSource.magicFireBreath(this, this.owner), AttributesConfig.ApostleMagicDamage.get().floatValue());
+                            entity.hurt(ModDamageSource.hellfire(this, this.owner), AttributesConfig.ApostleMagicDamage.get().floatValue());
                         } else {
                             if (this.owner != null){
                                 float damage = 5.0F;

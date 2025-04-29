@@ -24,6 +24,14 @@ public class HauntedArmorModel extends HumanoidModel<AbstractHauntedArmor> {
                     AnimationUtils.swingWeaponDown(this.rightArm, this.leftArm, entityIn, this.attackTime, ageInTicks);
                 }
             }
+            case CROSSBOW_CHARGE -> AnimationUtils.animateCrossbowCharge(this.rightArm, this.leftArm, entityIn, true);
+            case CROSSBOW_HOLD -> AnimationUtils.animateCrossbowHold(this.rightArm, this.leftArm, this.head, true);
+            case BOW -> {
+                this.rightArm.yRot = -0.1F + this.head.yRot;
+                this.leftArm.yRot = 0.1F + this.head.yRot + 0.4F;
+                this.rightArm.xRot = (-(float)Math.PI / 2F) + this.head.xRot;
+                this.leftArm.xRot = (-(float)Math.PI / 2F) + this.head.xRot;
+            }
             case GUARD -> {
                 this.body.xRot = MathHelper.modelDegrees(25.0F);
                 this.rightLeg.x = -3.0F;

@@ -5,7 +5,6 @@ import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.DustCloudParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.render.HellblastTextures;
-import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -41,6 +40,7 @@ public class HellBlast extends WaterHurtingProjectile {
     public static final EntityDataAccessor<Integer> DATA_FIERY = SynchedEntityData.defineId(HellBlast.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(HellBlast.class, EntityDataSerializers.FLOAT);
     public static final EntityDataAccessor<Float> DATA_DAMAGE = SynchedEntityData.defineId(HellBlast.class, EntityDataSerializers.FLOAT);
+    public static final EntityDataAccessor<Float> DATA_EXTRA_DAMAGE = SynchedEntityData.defineId(HellBlast.class, EntityDataSerializers.FLOAT);
 
     public HellBlast(EntityType<? extends HellBlast> p_i50160_1_, Level p_i50160_2_) {
         super(p_i50160_1_, p_i50160_2_);
@@ -57,7 +57,8 @@ public class HellBlast extends WaterHurtingProjectile {
 
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(DATA_DAMAGE, 5.0F);
+        this.entityData.define(DATA_DAMAGE, 6.0F);
+        this.entityData.define(DATA_EXTRA_DAMAGE, 0.0F);
         this.entityData.define(DATA_RADIUS, 1.5F);
         this.entityData.define(DATA_TYPE_ID, 0);
         this.entityData.define(DATA_FIERY, 0);
@@ -70,10 +71,14 @@ public class HellBlast extends WaterHurtingProjectile {
         } else {
             this.setAnimation(0);
         }
-        Entity entity = this.getOwner();
         if (this.tickCount >= MathHelper.secondsToTicks(10)){
             this.discard();
         }
+    }
+
+    @Override
+    public void trailParticle() {
+        Entity entity = this.getOwner();
         if (this.level.isClientSide || (entity == null || !entity.isRemoved()) && this.level.hasChunkAt(this.blockPosition())) {
             Vec3 vec3 = this.getDeltaMovement();
             double d0 = this.getX() - vec3.x;
@@ -91,6 +96,14 @@ public class HellBlast extends WaterHurtingProjectile {
 
     public void setDamage(float pDamage) {
         this.entityData.set(DATA_DAMAGE, pDamage);
+    }
+
+    public float getExtraDamage() {
+        return this.entityData.get(DATA_EXTRA_DAMAGE);
+    }
+
+    public void setExtraDamage(float extra) {
+        this.entityData.set(DATA_EXTRA_DAMAGE, extra);
     }
 
     public float getRadius() {
@@ -114,19 +127,18 @@ public class HellBlast extends WaterHurtingProjectile {
         if (!this.level.isClientSide) {
             Entity entity = pResult.getEntity();
             Entity entity1 = this.getOwner();
-            float enchantment = 0;
-            float damage = 6.0F;
-            if (entity1 instanceof Player player){
-                if (WandUtil.enchantedFocus(player)){
-                    enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
-                }
+            float damage = this.getDamage();
+            float enchantment = this.getExtraDamage();
+            int flaming = this.getFiery();
+            if (entity1 instanceof Player){
                 damage = SpellConfig.LavaballDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
-            } else if (entity1 instanceof LivingEntity) {
-                damage = this.getDamage();
             }
             entity.hurt(ModDamageSource.hellfire(this, entity1), damage + enchantment);
             if (entity1 instanceof LivingEntity) {
                 this.doEnchantDamageEffects((LivingEntity)entity1, entity);
+            }
+            if (flaming != 0){
+                entity.setSecondsOnFire(5 * flaming);
             }
         }
     }
@@ -215,6 +227,7 @@ public class HellBlast extends WaterHurtingProjectile {
         pCompound.putInt("Fiery", this.getFiery());
         pCompound.putFloat("Radius", this.getRadius());
         pCompound.putFloat("Damage", this.getDamage());
+        pCompound.putFloat("ExtraDamage", this.getExtraDamage());
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
@@ -228,6 +241,9 @@ public class HellBlast extends WaterHurtingProjectile {
         }
         if (pCompound.contains("Damage")) {
             this.setDamage(pCompound.getFloat("Damage"));
+        }
+        if (pCompound.contains("ExtraDamage", 99)) {
+            this.setExtraDamage(pCompound.getFloat("ExtraDamage"));
         }
     }
 

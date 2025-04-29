@@ -242,7 +242,7 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<BouncyBubble>> BOUNCY_BUBBLE = register("bouncy_bubble",
             EntityType.Builder.<BouncyBubble>of(BouncyBubble::new, MobCategory.MISC)
-                    .sized(1.0F, 1.0F)
+                    .sized(0.3125F, 0.3125F)
                     .clientTrackingRange(10)
                     .updateInterval(1)
                     .setUpdateInterval(1));
@@ -433,6 +433,11 @@ public class ModEntityType {
                     .sized(1.0F, 1.0F)
                     .clientTrackingRange(8)
                     .updateInterval(1));
+
+    public static final RegistryObject<EntityType<BeastHead>> BEAST_HEAD = register("beast_head",
+            EntityType.Builder.<BeastHead>of(BeastHead::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(20));
 
     public static final RegistryObject<EntityType<Volcano>> VOLCANO = register("volcano",
             EntityType.Builder.of(Volcano::new, MobCategory.MISC)

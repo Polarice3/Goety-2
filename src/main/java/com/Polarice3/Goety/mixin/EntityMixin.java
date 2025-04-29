@@ -52,6 +52,19 @@ public abstract class EntityMixin {
         if(other instanceof AbstractVine vine && vine.passableEntities((Entity)(Object)this)){
             cir.setReturnValue(false);
         }
+        if ((Entity) (Object) this instanceof LivingEntity livingEntity && livingEntity.hasEffect(GoetyEffects.TANGLED.get())) {
+            cir.setReturnValue(false);
+        }
+    }
+
+    @Inject(
+            method = {"push(DDD)V"},
+            at = @At(value = "HEAD"),
+            cancellable = true)
+    public void push(double p_20286_, double p_20287_, double p_20288_, CallbackInfo callbackInfo) {
+        if ((Entity) (Object) this instanceof LivingEntity livingEntity && livingEntity.hasEffect(GoetyEffects.TANGLED.get())) {
+            callbackInfo.cancel();
+        }
     }
 
     @Inject(method = "isSwimming", at = @At("HEAD"), cancellable = true)

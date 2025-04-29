@@ -18,7 +18,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.entity.PartEntity;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
@@ -89,12 +88,7 @@ public class TridentStorm extends CastSpellTrap{
                 List<LivingEntity> targets = new ArrayList<>();
                 AABB aabb = EntityType.TRIDENT.getAABB(this.position().x, this.position().y, this.position().z);
                 for (Entity entity : this.level.getEntitiesOfClass(Entity.class, aabb.inflate(0, 16, 0))) {
-                    LivingEntity livingEntity = null;
-                    if (entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity living){
-                        livingEntity = living;
-                    } else if (entity instanceof LivingEntity living){
-                        livingEntity = living;
-                    }
+                    LivingEntity livingEntity = MobUtil.getLivingTarget(entity);
                     if (livingEntity != null) {
                         if (this.getOwner() != null) {
                             if (livingEntity != this.getOwner() && !MobUtil.areAllies(this.getOwner(), livingEntity)) {

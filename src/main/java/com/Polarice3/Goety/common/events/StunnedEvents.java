@@ -4,18 +4,17 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SRemoveEffectPacket;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -79,6 +78,22 @@ public class StunnedEvents {
                 event.setNewTarget(null);
             } else {
                 event.setCanceled(true);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onKnockback(LivingKnockBackEvent event) {
+        if (event.getEntity().hasEffect(GoetyEffects.TANGLED.get())){
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public static void PotionApplicationEvents(MobEffectEvent.Applicable event){
+        if (event.getEffectInstance().getEffect() == GoetyEffects.STUNNED.get()){
+            if (event.getEntity().getType().is(ModTags.EntityTypes.UNSTUNNABLE)){
+                event.setResult(Event.Result.DENY);
             }
         }
     }

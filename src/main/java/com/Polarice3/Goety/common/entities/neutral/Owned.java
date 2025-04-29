@@ -383,6 +383,7 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         super.awardKillScore(entity, p_19954_, damageSource);
         if (this.getMasterOwner() instanceof ServerPlayer serverPlayer) {
             ModCriteriaTriggers.SERVANT_KILLED_ENTITY.trigger(serverPlayer, entity, damageSource);
+            serverPlayer.awardKillScore(entity, p_19954_, damageSource);
         }
     }
 

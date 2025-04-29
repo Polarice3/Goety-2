@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraftforge.entity.PartEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,15 +138,10 @@ public class FrostBreathSpell extends BreathingSpell {
                 }
             }
             for (Entity target : getBreathTarget(caster, range)) {
-                LivingEntity livingTarget = null;
-                if (target instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity parent){
-                    livingTarget = parent;
-                } else if (target instanceof LivingEntity living){
-                    livingTarget = living;
-                }
-                if (livingTarget != null) {
-                    if (livingTarget.hurt(ModDamageSource.frostBreath(caster, caster), damage)) {
-                        livingTarget.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), MathHelper.secondsToTicks(1) * duration));
+                LivingEntity livingEntity = MobUtil.getLivingTarget(target);
+                if (livingEntity != null) {
+                    if (livingEntity.hurt(ModDamageSource.frostBreath(caster, caster), damage)) {
+                        livingEntity.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), MathHelper.secondsToTicks(1) * duration));
                     }
                 }
             }

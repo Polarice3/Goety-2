@@ -79,6 +79,7 @@ public class AllyTrampler extends Summoned implements ICharger, IAutoRideable, P
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new TramplerChargeGoal(this));
         this.goalSelector.addGoal(4, new TramplerMeleeAttackGoal());
+        this.goalSelector.addGoal(5, new WanderGoal<>(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
     }

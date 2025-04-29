@@ -15,11 +15,11 @@
     },
     {
       "type": "patchouli:text",
-      "text": "On the plus side, most Undead creatures no longer attack you, you're most resistant to magic, you can never drown and you can stay in the Sunlight all day long as you're wearing a Helmet or have Fire Resistance! Being Undead also means that Potions of Harming heals you while Potions of Healing harms you the same way as your Undead brethren."
+      "text": "On the plus side, most Undead creatures no longer attack you, you can never drown and you can stay in the Sunlight all day long as you're wearing a Helmet or have Fire Resistance! Being Undead also means that Potions of Harming heals you while Potions of Healing harms you the same way as your Undead brethren."
     },
     {
       "type": "patchouli:text",
-      "text": "$(l:crafts/artifice/arca)Arca$() resurrections are initiated no matter the amount of Soul Energy is within it. However, should the number of Soul Energy be less that the usual number needed to revive you, you will be inflicted with a terrible Soul Hunger. The hunger will cause you to be weaker and slower, until your Soul Energy has reached the proper amount."
+      "text": "$(l:crafts/artifice/arca)Arca$() resurrections are initiated no matter the amount of Soul Energy is within it. However, should the number of Soul Energy be less that the usual number needed to revive you or that your Arca has been destroyed, you will lose your lichdom upon death."
     },
     {
       "type": "patchouli:text",

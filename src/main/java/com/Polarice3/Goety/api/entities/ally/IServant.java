@@ -4,13 +4,11 @@ import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ally.golem.AbstractGolemServant;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModMobType;
-import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.SEHelper;
+import com.Polarice3.Goety.utils.ServantUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
@@ -298,26 +296,19 @@ public interface IServant extends IOwned {
     default void healServant(LivingEntity livingEntity){
         if (this.getTrueOwner() != null){
             boolean crown = false;
-            MobType mobType = livingEntity.getMobType();
-            EntityType<?> entityType = livingEntity.getType();
-            boolean frost = mobType == ModMobType.FROST || entityType.is(ModTags.EntityTypes.FROST_HEAL);
-            boolean wild = mobType == ModMobType.NATURAL || mobType == MobType.ARTHROPOD || entityType.is(ModTags.EntityTypes.WILD_HEAL);
-            boolean nether = mobType == ModMobType.NETHER || entityType.is(ModTags.EntityTypes.NETHER_HEAL);
-            boolean necromancy = mobType == MobType.UNDEAD || entityType.is(ModTags.EntityTypes.NECRO_HEAL);
-            boolean abyss = mobType == MobType.WATER || entityType.is(ModTags.EntityTypes.ABYSS_HEAL);
-            if (frost){
+            if (ServantUtil.isFrostHeal(livingEntity)){
                 crown = CuriosFinder.hasFrostCrown(this.getTrueOwner());
             }
-            if (wild){
+            if (ServantUtil.isWildHeal(livingEntity)){
                 crown = CuriosFinder.hasWildCrown(this.getTrueOwner());
             }
-            if (nether){
+            if (ServantUtil.isNetherHeal(livingEntity)){
                 crown = CuriosFinder.hasNetherCrown(this.getTrueOwner());
             }
-            if (necromancy){
+            if (ServantUtil.isNecroHeal(livingEntity)){
                 crown = CuriosFinder.hasUndeadCrown(this.getTrueOwner());
             }
-            if (abyss){
+            if (ServantUtil.isAbyssHeal(livingEntity)){
                 crown = CuriosFinder.hasAbyssCrown(this.getTrueOwner());
             }
             if (!crown){
@@ -328,57 +319,8 @@ public interface IServant extends IOwned {
                 this.setHasLifespan(false);
             }
             if (!livingEntity.level.isClientSide) {
-                if (!livingEntity.isOnFire() && !livingEntity.isDeadOrDying() && (!this.hasLifespan() || this.getLifespan() > 20)) {
-                    if (livingEntity.getHealth() < livingEntity.getMaxHealth()){
-                        if (this.getTrueOwner() instanceof Player owner) {
-                            boolean curio = false;
-                            int soulCost = 0;
-                            int healRate = 0;
-                            float healAmount = 0;
-                            if (necromancy && MobsConfig.UndeadMinionHeal.get()){
-                                curio = CuriosFinder.hasUndeadCape(owner);
-                                soulCost = MobsConfig.UndeadMinionHealCost.get();
-                                healRate = MobsConfig.UndeadMinionHealTime.get();
-                                healAmount = MobsConfig.UndeadMinionHealAmount.get().floatValue();
-                            }
-                            if (abyss && MobsConfig.WaterMinionHeal.get()){
-                                curio = CuriosFinder.hasAbyssRobes(owner);
-                                soulCost = MobsConfig.WaterMinionHealCost.get();
-                                healRate = MobsConfig.WaterMinionHealTime.get();
-                                healAmount = MobsConfig.WaterMinionHealAmount.get().floatValue();
-                            }
-                            if (wild && MobsConfig.NaturalMinionHeal.get()){
-                                curio = CuriosFinder.hasWildRobe(owner);
-                                soulCost = MobsConfig.NaturalMinionHealCost.get();
-                                healRate = MobsConfig.NaturalMinionHealTime.get();
-                                healAmount = MobsConfig.NaturalMinionHealAmount.get().floatValue();
-                            }
-                            if (frost && MobsConfig.FrostMinionHeal.get()){
-                                curio = CuriosFinder.hasFrostRobes(owner);
-                                soulCost = MobsConfig.FrostMinionHealCost.get();
-                                healRate = MobsConfig.FrostMinionHealTime.get();
-                                healAmount = MobsConfig.FrostMinionHealAmount.get().floatValue();
-                            }
-                            if (nether && MobsConfig.NetherMinionHeal.get()){
-                                curio = CuriosFinder.hasNetherRobe(owner);
-                                soulCost = MobsConfig.NetherMinionHealCost.get();
-                                healRate = MobsConfig.NetherMinionHealTime.get();
-                                healAmount = MobsConfig.NetherMinionHealAmount.get().floatValue();
-                            }
-                            if (curio) {
-                                if (SEHelper.getSoulsAmount(owner, soulCost)) {
-                                    if (livingEntity.tickCount % (MathHelper.secondsToTicks(healRate) + 1) == 0) {
-                                        livingEntity.heal(healAmount);
-                                        Vec3 vector3d = livingEntity.getDeltaMovement();
-                                        if (livingEntity.level instanceof ServerLevel serverWorld) {
-                                            SEHelper.decreaseSouls(owner, soulCost);
-                                            serverWorld.sendParticles(ParticleTypes.SCULK_SOUL, livingEntity.getRandomX(0.5D), livingEntity.getRandomY(), livingEntity.getRandomZ(0.5D), 0, vector3d.x * -0.2D, 0.1D, vector3d.z * -0.2D, 0.5F);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                if (!this.hasLifespan() || this.getLifespan() > 20){
+                    ServantUtil.healServant(this.getTrueOwner(), livingEntity);
                 }
             }
         }

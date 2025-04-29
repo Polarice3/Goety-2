@@ -31,7 +31,9 @@ import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
+import net.minecraft.world.entity.ai.util.AirAndWaterRandomPos;
 import net.minecraft.world.entity.ai.util.GoalUtils;
+import net.minecraft.world.entity.ai.util.HoverRandomPos;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.Boat;
@@ -299,7 +301,7 @@ public class Summoned extends Owned implements IServant {
     }
 
     public boolean isStaying(){
-        return this.getFlag(2) && !this.isCommanded() && !this.isVehicle();
+        return this.getFlag(2) && !this.isCommanded() && this.getControllingPassenger() == null;
     }
 
     public void setStaying(boolean staying){
@@ -715,8 +717,8 @@ public class Summoned extends Owned implements IServant {
         public final T summonedEntity;
         protected final float probability;
 
-        public WanderGoal(T p_i47301_1_, double p_i47301_2_) {
-            this(p_i47301_1_, p_i47301_2_, 0.001F);
+        public WanderGoal(T entity, double speedModifier) {
+            this(entity, speedModifier, 0.001F);
         }
 
         public WanderGoal(T entity, double speedModifier, float probability) {
@@ -816,6 +818,25 @@ public class Summoned extends Owned implements IServant {
                 return (!Summoned.this.isStaying() && !Summoned.this.isCommanded()) || Summoned.this.getTrueOwner() == null;
             } else {
                 return false;
+            }
+        }
+    }
+
+    public static class HoverWanderGoal<T extends PathfinderMob & IServant> extends WanderGoal<T>{
+
+        public HoverWanderGoal(T entity, double speedModifier) {
+            super(entity, speedModifier);
+        }
+
+        @Nullable
+        protected Vec3 getPosition() {
+            if (this.summonedEntity.isPatrolling()){
+                return super.getPosition();
+            } else {
+                Vec3 vec3 = this.summonedEntity.getViewVector(0.0F);
+                int i = 8;
+                Vec3 vec31 = HoverRandomPos.getPos(this.summonedEntity, 8, 7, vec3.x, vec3.z, ((float)Math.PI / 2F), 3, 1);
+                return vec31 != null ? vec31 : AirAndWaterRandomPos.getPos(this.summonedEntity, 8, 4, -2, vec3.x, vec3.z, (double)((float)Math.PI / 2F));
             }
         }
     }

@@ -21,7 +21,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.entity.PartEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,19 +78,14 @@ public class ThunderboltSpell extends Spell {
             ModNetwork.sendToALL(new SThunderBoltPacket(vec3, new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ()), 10));
             this.playSound(worldIn, caster, ModSounds.THUNDERBOLT.get());
         } else {
-            LivingEntity livingEntity = null;
-            if (target instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity parent){
-                livingEntity = parent;
-            } else if (target instanceof LivingEntity target1 && !target1.isDeadOrDying()){
-                livingEntity = target1;
-            }
+            LivingEntity livingEntity = MobUtil.getLivingTarget(target);
             if (livingEntity != null && ForgeHooks.onLivingAttack(livingEntity, ModDamageSource.directShock(caster), damage)) {
-                Vec3 vec31 = new Vec3(target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ());
+                Vec3 vec31 = new Vec3(livingEntity.getX(), livingEntity.getY() + livingEntity.getBbHeight() / 2, livingEntity.getZ());
                 ModNetwork.sendToALL(new SThunderBoltPacket(vec3, vec31, 10));
-                if (target.hurt(ModDamageSource.directShock(caster), damage)){
+                if (livingEntity.hurt(ModDamageSource.directShock(caster), damage)){
                     float chance = rightStaff(staff) ? 0.25F : 0.05F;
                     float chainDamage = damage / 2.0F;
-                    if (worldIn.isThundering() && worldIn.isRainingAt(target.blockPosition())){
+                    if (worldIn.isThundering() && worldIn.isRainingAt(livingEntity.blockPosition())){
                         chance += 0.25F;
                         chainDamage = damage;
                     }

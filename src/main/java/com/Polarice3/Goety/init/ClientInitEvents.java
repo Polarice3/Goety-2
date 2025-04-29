@@ -283,6 +283,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.BEAR, BearServantModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SNAPPER, SnapperModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.BLACK_BEAST, BlackBeastModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.BEAST_HEAD, BeastHeadModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WHISPERER, WhispererModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.LEAPLEAF, LeapleafModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ICE_GOLEM, IceGolemModel::createBodyLayer);
@@ -496,6 +497,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.BIOMINE.get(), BioMineRenderer::new);
         event.registerEntityRenderer(ModEntityType.SPIDER_EGG.get(), SpiderEggRenderer::new);
         event.registerEntityRenderer(ModEntityType.INSECT_SWARM.get(), TrapRenderer::new);
+        event.registerEntityRenderer(ModEntityType.BEAST_HEAD.get(), BeastHeadRenderer::new);
         event.registerEntityRenderer(ModEntityType.VOLCANO.get(), VolcanoRenderer::new);
         event.registerEntityRenderer(ModEntityType.FIRE_TORNADO.get(), FireTornadoRenderer::new);
         event.registerEntityRenderer(ModEntityType.CYCLONE.get(), CycloneRenderer::new);
@@ -792,6 +794,7 @@ public class ClientInitEvents {
         event.registerSpriteSet(ModParticleTypes.SOUL_HEAL.get(), RisingCircleParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SCULK_BUBBLE.get(), SculkBubbleParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.WIND.get(), WindParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.WIND_BLOW.get(), WindBlowParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.WIND_SHOCKWAVE.get(), WindShockwaveParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.FAST_DUST.get(), FastFallDust.Provider::new);
         event.registerSpriteSet(ModParticleTypes.GATHER_TRAIL.get(), GatherTrailParticle.Provider::new);

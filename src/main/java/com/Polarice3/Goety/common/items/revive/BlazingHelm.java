@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.items.revive;
 
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.BlazeServant;
@@ -36,31 +37,36 @@ public class BlazingHelm extends ReviveServantItem{
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
         Level level = player.getCommandSenderWorld();
 
-        if (getSummon(stack, level) != null) {
-            Entity entity = getSummon(stack, level);
-            if (entity instanceof Wildfire wildfire) {
-                boolean flag = target instanceof BlazeServant || target instanceof Blaze;
-                if (flag) {
-                    if (wildfire.getTrueOwner() == player) {
-                        if (RitualRequirements.canSummon(level, player, ModEntityType.WILDFIRE.get())) {
-                            wildfire.setHealth(wildfire.getMaxHealth());
-                            wildfire.setPos(target.getX(), target.getY(), target.getZ());
-                            wildfire.lookAt(EntityAnchorArgument.Anchor.EYES, player.position());
-                            if (level.addFreshEntity(wildfire)) {
-                                wildfire.spawnAnim();
-                                if (level instanceof ServerLevel serverLevel) {
-                                    for (int i = 0; i < 8; ++i) {
-                                        ServerParticleUtil.addParticlesAroundSelf(serverLevel, ModParticleTypes.BIG_FIRE.get(), wildfire);
-                                        ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.SMOKE, wildfire);
-                                    }
+        Entity entity;
+        if (getSummon(stack, level) != null){
+            entity = getSummon(stack, level);
+        } else {
+            entity = new Wildfire(ModEntityType.WILDFIRE.get(), level);
+            IOwned owned = (IOwned) entity;
+            owned.setTrueOwner(player);
+        }
+        if (entity instanceof Wildfire wildfire) {
+            boolean flag = target instanceof BlazeServant || target instanceof Blaze;
+            if (flag) {
+                if (wildfire.getTrueOwner() == player) {
+                    if (RitualRequirements.canSummon(level, player, ModEntityType.WILDFIRE.get())) {
+                        wildfire.setHealth(wildfire.getMaxHealth());
+                        wildfire.setPos(target.getX(), target.getY(), target.getZ());
+                        wildfire.lookAt(EntityAnchorArgument.Anchor.EYES, player.position());
+                        if (level.addFreshEntity(wildfire)) {
+                            wildfire.spawnAnim();
+                            if (level instanceof ServerLevel serverLevel) {
+                                for (int i = 0; i < 8; ++i) {
+                                    ServerParticleUtil.addParticlesAroundSelf(serverLevel, ModParticleTypes.BIG_FIRE.get(), wildfire);
+                                    ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.SMOKE, wildfire);
                                 }
-                                wildfire.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 0.5F);
-                                wildfire.playSound(ModSounds.WILDFIRE_AMBIENT.get(), 2.0F, 0.5F);
-                                target.discard();
-                                player.swing(hand);
-                                player.getCooldowns().addCooldown(this, MathHelper.secondsToTicks(30));
-                                stack.shrink(1);
                             }
+                            wildfire.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 0.5F);
+                            wildfire.playSound(ModSounds.WILDFIRE_AMBIENT.get(), 2.0F, 0.5F);
+                            target.discard();
+                            player.swing(hand);
+                            player.getCooldowns().addCooldown(this, MathHelper.secondsToTicks(30));
+                            stack.shrink(1);
                         }
                     }
                 }

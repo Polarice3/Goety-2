@@ -4,6 +4,8 @@ import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.utils.ExplosionUtil;
+import com.Polarice3.Goety.utils.LootingExplosion;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.core.BlockPos;
@@ -14,6 +16,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -52,8 +55,8 @@ public class NetherMeteor extends ExplosiveProjectile {
         super.onHit(result);
         if (!this.level.isClientSide) {
             boolean flag = this.isDangerous();
-            Level.ExplosionInteraction mode = flag ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.NONE;
-            this.level.explode(this, this.getX(), this.getY(), this.getZ(), this.getExplosionPower(), flag, mode);
+            Explosion.BlockInteraction interaction = flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.KEEP;
+            ExplosionUtil.lootExplode(this.level, this, this.getX(), this.getY(), this.getZ(), this.getExplosionPower(), flag, interaction, LootingExplosion.Mode.LOOT);
             if (MobsConfig.ApocalypseMode.get() && flag){
                 if (this.getOwner() instanceof Apostle apostle){
                     apostle.netherSpreaderUtil.clear();
@@ -76,7 +79,7 @@ public class NetherMeteor extends ExplosiveProjectile {
         if (!this.level.isClientSide) {
             Entity entity = pResult.getEntity();
             Entity entity1 = this.getOwner();
-            entity.hurt(ModDamageSource.modFireball(this.getOwner(), this.level), this.getDamage() + this.getExtraDamage());
+            entity.hurt(ModDamageSource.hellfire(this, this.getOwner()), this.getDamage() + this.getExtraDamage());
             if (entity1 instanceof LivingEntity) {
                 this.doEnchantDamageEffects((LivingEntity)entity1, entity);
             }

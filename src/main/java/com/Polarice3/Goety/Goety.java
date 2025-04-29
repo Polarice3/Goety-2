@@ -561,6 +561,7 @@ public class Goety {
         event.put(ModEntityType.POISON_ANEMONE.get(), PoisonAnemone.setCustomAttributes().build());
         event.put(ModEntityType.SPIDER_EGG.get(), SpiderEgg.setCustomAttributes().build());
         event.put(ModEntityType.INSECT_SWARM.get(), InsectSwarm.setCustomAttributes().build());
+        event.put(ModEntityType.BEAST_HEAD.get(), BeastHead.setCustomAttributes().build());
         event.put(ModEntityType.VOLCANO.get(), Volcano.setCustomAttributes().build());
         event.put(ModEntityType.SORCERER.get(), Sorcerer.setCustomAttributes().build());
         event.put(ModEntityType.ENVIOKER.get(), Envioker.setCustomAttributes().build());

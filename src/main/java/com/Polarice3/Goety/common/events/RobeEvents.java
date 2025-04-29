@@ -14,7 +14,6 @@ import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.utils.*;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -28,7 +27,6 @@ import net.minecraft.world.entity.monster.MagmaCube;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -44,33 +42,18 @@ public class RobeEvents {
     @SubscribeEvent
     public static void LivingEffects(LivingEvent.LivingTickEvent event){
         LivingEntity livingEntity = event.getEntity();
-        if (MobsConfig.UndeadMinionHeal.get()) {
-            if (livingEntity != null) {
-                if (!livingEntity.level.isClientSide) {
+        if (livingEntity != null) {
+            if (!livingEntity.level.isClientSide) {
+                if (MobsConfig.CompatMinionHeal.get()) {
                     if (livingEntity instanceof OwnableEntity ownable && !(livingEntity instanceof IServant)) {
                         if (ownable.getOwnerUUID() != null) {
                             Player owner = livingEntity.level.getPlayerByUUID(ownable.getOwnerUUID());
-                            if (owner != null) {
-                                if (livingEntity.getMobType() == MobType.UNDEAD && livingEntity.getHealth() < livingEntity.getMaxHealth() && !livingEntity.isOnFire() && !livingEntity.isDeadOrDying()) {
-                                    if (CuriosFinder.hasUndeadCape(owner)) {
-                                        int SoulCost = MobsConfig.UndeadMinionHealCost.get();
-                                        if (SEHelper.getSoulsAmount(owner, SoulCost)) {
-                                            if (livingEntity.tickCount % MathHelper.secondsToTicks(MobsConfig.UndeadMinionHealTime.get()) == 0) {
-                                                livingEntity.heal(MobsConfig.UndeadMinionHealAmount.get().floatValue());
-                                                Vec3 vector3d = livingEntity.getDeltaMovement();
-                                                if (livingEntity.level instanceof ServerLevel serverWorld) {
-                                                    SEHelper.decreaseSouls(owner, SoulCost);
-                                                    serverWorld.sendParticles(ParticleTypes.SCULK_SOUL, livingEntity.getRandomX(0.5D), livingEntity.getRandomY(), livingEntity.getRandomZ(0.5D), 0, vector3d.x * -0.2D, 0.1D, vector3d.z * -0.2D, 0.5F);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                            if (owner != null && MiscCapHelper.getNoHealTime(livingEntity) <= 0) {
+                                ServantUtil.healServant(owner, livingEntity);
                             }
                         }
                     }
                 }
-
             }
         }
     }

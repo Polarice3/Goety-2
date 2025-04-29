@@ -5,19 +5,25 @@ import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ally.undead.HauntedSkull;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.FrozenZombieServant;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.projectiles.ThrowableFungus;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
-import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.ModDamageSource;
-import com.Polarice3.Goety.utils.NoKnockBackDamageSource;
+import com.Polarice3.Goety.utils.*;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -45,6 +51,12 @@ public class ServantEvents {
                 if (mob.getTarget().isDeadOrDying()){
                     mob.setTarget(null);
                 }
+            }
+        }
+        if (ServantUtil.notServantButOwned(livingEntity)){
+            int i = MiscCapHelper.getNoHealTime(livingEntity);
+            if (i > 0){
+                MiscCapHelper.setNoHealTime(livingEntity, i - 1);
             }
         }
     }
@@ -139,6 +151,9 @@ public class ServantEvents {
                 }
             }
         }
+        if (attacker instanceof FrozenZombieServant){
+            victim.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, MathHelper.secondsToTicks(3)));
+        }
     }
 
     @SubscribeEvent
@@ -155,12 +170,39 @@ public class ServantEvents {
     }
 
     @SubscribeEvent
+    public static void HurtEvent(LivingHurtEvent event){
+        LivingEntity target = event.getEntity();
+        if (MobsConfig.CompatMinionHeal.get()) {
+            if (ServantUtil.notServantButOwned(target) && !target.getType().is(ModTags.EntityTypes.NO_HEAL_SERVANTS)) {
+                MiscCapHelper.setNoHealTime(target, MathHelper.secondsToTicks(MobsConfig.ServantHealHalt.get()));
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void DamageEvent(LivingDamageEvent event){
         LivingEntity target = event.getEntity();
         if (event.getSource().getEntity() instanceof IOwned summonedEntity){
             if (summonedEntity.getTrueOwner() != null){
                 if (summonedEntity.getTrueOwner() == target){
                     event.setCanceled(true);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void ServantProjectileImpact(ProjectileImpactEvent event){
+        if (event.getProjectile().getOwner() instanceof FrozenZombieServant frozenZombieServant){
+            if (event.getRayTraceResult() instanceof EntityHitResult entityHitResult){
+                Entity entity = entityHitResult.getEntity();
+                if (MobUtil.areAllies(frozenZombieServant, entity)){
+                    event.setCanceled(true);
+                }
+            }
+            if (event.getProjectile() instanceof Snowball snowball){
+                if (event.getRayTraceResult().getType() != HitResult.Type.MISS){
+                    snowball.playSound(ModSounds.FROZEN_ZOMBIE_SNOWBALL.get());
                 }
             }
         }

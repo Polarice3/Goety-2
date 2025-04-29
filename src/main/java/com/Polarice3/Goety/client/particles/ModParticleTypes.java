@@ -333,6 +333,14 @@ public class ModParticleTypes {
                 }
             });
 
+    public static final RegistryObject<ParticleType<WindBlowParticle.Option>> WIND_BLOW = PARTICLE_TYPES.register("wind_blow",
+            () -> new ParticleType<>(false, WindBlowParticle.Option.DESERIALIZER) {
+                @Override
+                public Codec codec() {
+                    return WindBlowParticle.Option.CODEC;
+                }
+            });
+
     public static final RegistryObject<ParticleType<WindShockwaveParticle.Option>> WIND_SHOCKWAVE = PARTICLE_TYPES.register("wind_shockwave",
             () -> new ParticleType<>(false, WindShockwaveParticle.Option.DESERIALIZER) {
                 @Override

@@ -22,4 +22,6 @@ public interface IMisc {
     void setClientTargetID(int id);
     int getMobTargetID();
     void setMobTargetID(int id);
+    int getNoHealTime();
+    void setNoHealTime(int seconds);
 }

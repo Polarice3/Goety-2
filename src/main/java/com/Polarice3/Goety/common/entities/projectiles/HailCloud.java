@@ -18,7 +18,6 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.entity.PartEntity;
 
 public class HailCloud extends AbstractSpellCloud{
     public HailCloud(EntityType<?> p_19870_, Level p_19871_) {
@@ -49,12 +48,7 @@ public class HailCloud extends AbstractSpellCloud{
             if (this.isStaff()) {
                 if (this.getTarget() == null) {
                     for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(16.0F))) {
-                        LivingEntity livingEntity = null;
-                        if (entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity living){
-                            livingEntity = living;
-                        } else if (entity instanceof LivingEntity living){
-                            livingEntity = living;
-                        }
+                        LivingEntity livingEntity = MobUtil.getLivingTarget(entity);
                         if (livingEntity != null) {
                             if (MobUtil.ownedPredicate(this).test(livingEntity)){
                                 this.setTarget(livingEntity);

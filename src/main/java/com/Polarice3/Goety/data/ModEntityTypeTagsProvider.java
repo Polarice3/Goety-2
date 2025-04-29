@@ -163,6 +163,11 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.CRYPT_SLIME_SERVANT.get(),
                 ModEntityType.TROPICAL_SLIME_SERVANT.get(),
                 ModEntityType.CRYPT_SLIME.get());
+        this.tag(ModTags.EntityTypes.WANTING_ENTITIES).add(
+                EntityType.WITHER_SKULL,
+                EntityType.FIREBALL,
+                EntityType.SMALL_FIREBALL
+        );
 
         //Based on https://github.com/ochotonida/artifacts/blob/1.20.x/data/src/main/java/artifacts/data/providers/EntityTypeTags.java for max compat
         this.tag(ModTags.EntityTypes.CREEPERS).add(EntityType.CREEPER);

@@ -110,7 +110,7 @@ public class LavaballSpell extends Spell {
             lavaball.setFiery(burning);
             lavaball.setExplosionPower(lavaball.getExplosionPower() + radius);
         } else if (fireballEntity instanceof HellBlast hellBlast){
-            hellBlast.setDamage(hellBlast.getDamage() + potency);
+            hellBlast.setExtraDamage(potency);
             hellBlast.setRadius(hellBlast.getRadius() + radius);
             hellBlast.setFiery(burning);
         }
@@ -143,7 +143,7 @@ public class LavaballSpell extends Spell {
                     lavaball.setFiery(burning);
                     lavaball.setExplosionPower(lavaball.getExplosionPower() + radius);
                 } else if (fireballEntity1 instanceof HellBlast hellBlast){
-                    hellBlast.setDamage(hellBlast.getDamage() + potency);
+                    hellBlast.setExtraDamage(potency);
                     hellBlast.setRadius(hellBlast.getRadius() + radius);
                     hellBlast.setFiery(burning);
                 }

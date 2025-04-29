@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.magic.spells.wild;
 
 import com.Polarice3.Goety.api.magic.SpellType;
-import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
@@ -12,15 +11,12 @@ import com.Polarice3.Goety.common.magic.SummonSpell;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
-import com.Polarice3.Goety.utils.EffectsUtil;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.Mth;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
@@ -128,10 +124,7 @@ public class WhisperSpell extends SummonSpell {
                 summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
                 summonedentity.setPersistenceRequired();
                 summonedentity.finalizeSpawn(worldIn, caster.level.getCurrentDifficultyAt(caster.blockPosition()), MobSpawnType.MOB_SUMMONED,null,null);
-                if (potency > 0){
-                    int boost = Mth.clamp(potency - 1, 0, 10);
-                    summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), EffectsUtil.infiniteEffect(), boost, false, false));
-                }
+                this.buffSummon(caster, summonedentity, potency);
                 this.SummonSap(caster, summonedentity);
                 this.setTarget(caster, summonedentity);
                 worldIn.addFreshEntity(summonedentity);

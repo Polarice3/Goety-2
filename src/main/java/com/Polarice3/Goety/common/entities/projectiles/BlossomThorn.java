@@ -19,7 +19,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.entity.PartEntity;
 import net.minecraftforge.network.NetworkHooks;
 
 /**
@@ -95,12 +94,7 @@ public class BlossomThorn extends GroundProjectile {
                 this.level.broadcastEntityEvent(this, (byte)4);
                 this.sentTrapEvent = true;
                 for(Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(0.0F, 4.0F, 0.0F))) {
-                    LivingEntity livingEntity = null;
-                    if (entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity living){
-                        livingEntity = living;
-                    } else if (entity instanceof LivingEntity living){
-                        livingEntity = living;
-                    }
+                    LivingEntity livingEntity = MobUtil.getLivingTarget(entity);
                     if (livingEntity != null) {
                         this.dealDamageTo(livingEntity);
                     }

@@ -1,9 +1,8 @@
 package com.Polarice3.Goety.common.items.revive;
 
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonServant;
-import com.Polarice3.Goety.common.entities.ally.undead.skeleton.StrayServant;
-import com.Polarice3.Goety.common.entities.ally.undead.skeleton.WitherSkeletonServant;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.*;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.DrownedServant;
 import com.Polarice3.Goety.common.entities.neutral.AbstractCairnNecromancer;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
@@ -64,27 +63,15 @@ public class SoulJar extends ReviveServantItem {
                     if (!isCairn(stack)) {
                         setCairn(stack);
                     }
-                } else if (stack.getTag() != null && isCairn(stack)) {
-                    stack.getTag().remove(TAG_CAIRN);
-                }
-                if (livingEntity instanceof DrownedNecromancer) {
+                } else if (livingEntity instanceof DrownedNecromancer) {
                     if (!isDrowned(stack)) {
                         setDrowned(stack);
                     }
-                } else if (stack.getTag() != null && isDrowned(stack)) {
-                    stack.getTag().remove(TAG_DROWNED);
-                }
-                if (livingEntity instanceof AbstractWitherNecromancer) {
+                } else if (livingEntity instanceof AbstractWitherNecromancer) {
                     if (!isWither(stack)) {
                         setWither(stack);
                     }
-                } else if (stack.getTag() != null && isWither(stack)) {
-                    stack.getTag().remove(TAG_WITHER);
                 }
-            } else if (stack.getTag() != null) {
-                stack.getTag().remove(TAG_CAIRN);
-                stack.getTag().remove(TAG_DROWNED);
-                stack.getTag().remove(TAG_WITHER);
             }
         }
         super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
@@ -93,44 +80,56 @@ public class SoulJar extends ReviveServantItem {
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
         Level level = player.getCommandSenderWorld();
 
-        if (getSummon(stack, level) != null) {
-            Entity entity = getSummon(stack, level);
-            if (entity instanceof AbstractNecromancer necromancer) {
-                boolean flag;
-                if (necromancer instanceof DrownedNecromancer || isDrowned(stack)){
-                    flag = target instanceof DrownedServant || target instanceof Drowned;
-                } else if (necromancer instanceof AbstractWitherNecromancer || isWither(stack)){
-                    flag = target instanceof WitherSkeletonServant || target instanceof WitherSkeleton;
-                } else if (necromancer instanceof AbstractCairnNecromancer || isCairn(stack)){
-                    flag = target instanceof StrayServant || target instanceof Stray;
-                } else {
-                    flag = target instanceof SkeletonServant || target instanceof Skeleton;
-                }
-                if (flag) {
-                    if (necromancer.getTrueOwner() == player) {
-                        if (RitualRequirements.canSummon(level, player, ModEntityType.NECROMANCER_SERVANT.get())) {
-                            necromancer.setHealth(necromancer.getMaxHealth());
-                            necromancer.setPos(target.getX(), target.getY(), target.getZ());
-                            necromancer.lookAt(EntityAnchorArgument.Anchor.EYES, player.position());
-                            if (level.addFreshEntity(necromancer)) {
-                                necromancer.spawnAnim();
-                                if (level instanceof ServerLevel serverLevel) {
-                                    for (int i = 0; i < 8; ++i) {
-                                        ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.SCULK_SOUL, necromancer);
-                                        ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.POOF, necromancer);
-                                    }
+        Entity entity;
+        if (getSummon(stack, level) != null){
+            entity = getSummon(stack, level);
+        } else {
+            entity = new NecromancerServant(ModEntityType.NECROMANCER_SERVANT.get(), level);
+            if (isCairn(stack)){
+                entity = new CairnNecromancerServant(ModEntityType.CAIRN_NECROMANCER_SERVANT.get(), level);
+            } else if (isDrowned(stack)){
+                entity = new DrownedNecromancer(ModEntityType.DROWNED_NECROMANCER_SERVANT.get(), level);
+            } else if (isWither(stack)){
+                entity = new WitherNecromancerServant(ModEntityType.WITHER_NECROMANCER_SERVANT.get(), level);
+            }
+            IOwned owned = (IOwned) entity;
+            owned.setTrueOwner(player);
+        }
+        if (entity instanceof AbstractNecromancer necromancer) {
+            boolean flag;
+            if (necromancer instanceof DrownedNecromancer || isDrowned(stack)){
+                flag = target instanceof DrownedServant || target instanceof Drowned;
+            } else if (necromancer instanceof AbstractWitherNecromancer || isWither(stack)){
+                flag = target instanceof WitherSkeletonServant || target instanceof WitherSkeleton;
+            } else if (necromancer instanceof AbstractCairnNecromancer || isCairn(stack)){
+                flag = target instanceof StrayServant || target instanceof Stray;
+            } else {
+                flag = target instanceof SkeletonServant || target instanceof Skeleton;
+            }
+            if (flag) {
+                if (necromancer.getTrueOwner() == player) {
+                    if (RitualRequirements.canSummon(level, player, ModEntityType.NECROMANCER_SERVANT.get())) {
+                        necromancer.setHealth(necromancer.getMaxHealth());
+                        necromancer.setPos(target.getX(), target.getY(), target.getZ());
+                        necromancer.lookAt(EntityAnchorArgument.Anchor.EYES, player.position());
+                        if (level.addFreshEntity(necromancer)) {
+                            necromancer.spawnAnim();
+                            if (level instanceof ServerLevel serverLevel) {
+                                for (int i = 0; i < 8; ++i) {
+                                    ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.SCULK_SOUL, necromancer);
+                                    ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.POOF, necromancer);
                                 }
-                                necromancer.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 0.5F);
-                                if (necromancer instanceof DrownedNecromancer){
-                                    necromancer.playSound(ModSounds.DROWNED_NECROMANCER_AMBIENT.get(), 2.0F, 0.5F);
-                                } else {
-                                    necromancer.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, 0.5F);
-                                }
-                                target.discard();
-                                player.swing(hand);
-                                SEHelper.addCooldown(player, this, MathHelper.secondsToTicks(30));
-                                stack.shrink(1);
                             }
+                            necromancer.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 0.5F);
+                            if (necromancer instanceof DrownedNecromancer){
+                                necromancer.playSound(ModSounds.DROWNED_NECROMANCER_AMBIENT.get(), 2.0F, 0.5F);
+                            } else {
+                                necromancer.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, 0.5F);
+                            }
+                            target.discard();
+                            player.swing(hand);
+                            SEHelper.addCooldown(player, this, MathHelper.secondsToTicks(30));
+                            stack.shrink(1);
                         }
                     }
                 }

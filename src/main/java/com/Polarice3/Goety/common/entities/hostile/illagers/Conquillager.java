@@ -14,6 +14,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -24,6 +25,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.CrossbowAttackMob;
 import net.minecraft.world.entity.monster.PatrollingMonster;
@@ -42,6 +44,8 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.NodeEvaluator;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
 
@@ -258,15 +262,14 @@ public class Conquillager extends HuntingIllagerEntity implements CrossbowAttack
         return ModSounds.CONQUILLAGER_CELEBRATE.get();
     }
 
-    public class IllagerCrossbowGoal<T extends PathfinderMob & RangedAttackMob & CrossbowAttackMob> extends Goal {
+    //Improved codes based on @TeamAbnormal's codes: https://github.com/team-abnormals/savage-and-ravage/blob/1.20.x/src/main/java/com/teamabnormals/savage_and_ravage/common/entity/ai/goal/ImprovedCrossbowGoal.java
+    public static class IllagerCrossbowGoal<T extends PathfinderMob & RangedAttackMob & CrossbowAttackMob> extends Goal {
         private final T mob;
         private CrossbowState crossbowState = CrossbowState.UNCHARGED;
         private final double speedModifier;
         private final float attackRadiusSqr;
         private int seeTime;
         private int attackDelay;
-        private boolean strafingBackwards;
-        private int strafingTime = -1;
 
         public IllagerCrossbowGoal(T p_i50322_1_, double p_i50322_2_, float p_i50322_4_) {
             this.mob = p_i50322_1_;
@@ -306,7 +309,6 @@ public class Conquillager extends HuntingIllagerEntity implements CrossbowAttack
                 this.mob.setChargingCrossbow(false);
                 CrossbowItem.setCharged(this.mob.getUseItem(), false);
             }
-
         }
 
         public void tick() {
@@ -325,30 +327,27 @@ public class Conquillager extends HuntingIllagerEntity implements CrossbowAttack
                     --this.seeTime;
                 }
 
-                double d0 = this.mob.distanceToSqr(livingentity);
-                boolean flag2 = (d0 > (double)this.attackRadiusSqr || this.seeTime < 5) && this.attackDelay == 0;
-                if (d0 < (double)this.attackRadiusSqr && this.seeTime >= 20) {
+                double distanceSq = this.mob.distanceToSqr(livingentity);
+                double distance = Mth.sqrt((float) distanceSq);
+                if (distance <= 5.0F) {
+                    if (this.isWalkable()) {
+                        this.mob.getMoveControl().strafe(mob.isUsingItem() ? -0.5F : -3.0F, 0);
+                    }
+                }
+
+                ItemStack activeStack = this.mob.getUseItem();
+                boolean shouldMoveTowardsEnemy = ((distanceSq > (double) this.attackRadiusSqr) || this.seeTime < 5) && this.attackDelay == 0;
+                if (shouldMoveTowardsEnemy) {
+                    double speedChange = this.isCrossbowUncharged() ? this.speedModifier : this.speedModifier * 0.5D;
+                    this.mob.getNavigation().moveTo(livingentity, speedChange);
+                } else {
                     this.mob.getNavigation().stop();
-                    ++this.strafingTime;
-                } else {
-                    this.mob.getNavigation().moveTo(livingentity, this.speedModifier);
-                    this.strafingTime = -1;
-                }
-                if (this.strafingTime >= 20) {
-                    this.strafingTime = 0;
                 }
 
-                if (this.strafingTime > -1) {
-                    this.strafingBackwards = (d0 < (double)(this.attackRadiusSqr * 0.25F));
+                this.mob.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);
 
-                    this.mob.getMoveControl().strafe(this.strafingBackwards ? (float) -this.speedModifier : (float) this.speedModifier, 0.0F);
-                    this.mob.lookAt(livingentity, 30.0F, 30.0F);
-                } else {
-                    this.mob.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);
-                }
-
-                if (this.crossbowState == CrossbowState.UNCHARGED) {
-                    if (!flag2) {
+                if (this.crossbowState == CrossbowState.UNCHARGED && !CrossbowItem.isCharged(activeStack)) {
+                    if (flag) {
                         this.mob.startUsingItem(ProjectileUtil.getWeaponHoldingHand(this.mob, item -> item instanceof CrossbowItem));
                         this.crossbowState = CrossbowState.CHARGING;
                         this.mob.setChargingCrossbow(true);
@@ -359,11 +358,13 @@ public class Conquillager extends HuntingIllagerEntity implements CrossbowAttack
                     }
 
                     int i = this.mob.getTicksUsingItem();
-                    ItemStack itemstack = this.mob.getUseItem();
-                    if (i >= CrossbowItem.getChargeDuration(itemstack)) {
+                    if (i >= CrossbowItem.getChargeDuration(activeStack) || CrossbowItem.isCharged(activeStack)) {
                         this.mob.releaseUsingItem();
                         this.crossbowState = CrossbowState.CHARGED;
                         this.attackDelay = 20 + this.mob.getRandom().nextInt(20);
+                        if (this.mob.getOffhandItem().getItem() instanceof FireworkRocketItem) {
+                            this.mob.startUsingItem(InteractionHand.OFF_HAND);
+                        }
                         this.mob.setChargingCrossbow(false);
                     }
                 } else if (this.crossbowState == CrossbowState.CHARGED) {
@@ -373,12 +374,21 @@ public class Conquillager extends HuntingIllagerEntity implements CrossbowAttack
                     }
                 } else if (this.crossbowState == CrossbowState.READY_TO_ATTACK && flag && noRaiders) {
                     this.mob.performRangedAttack(livingentity, 1.0F);
-                    ItemStack itemstack1 = this.mob.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this.mob, item -> item instanceof CrossbowItem));
-                    CrossbowItem.setCharged(itemstack1, false);
+                    CrossbowItem.setCharged(this.mob.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this.mob, item -> item instanceof CrossbowItem)), false);
                     this.crossbowState = CrossbowState.UNCHARGED;
                 }
 
             }
+        }
+
+        private boolean isWalkable() {
+            PathNavigation pathnavigator = this.mob.getNavigation();
+            NodeEvaluator nodeprocessor = pathnavigator.getNodeEvaluator();
+            return nodeprocessor.getBlockPathType(this.mob.level(), Mth.floor(this.mob.getX() + 1.0D), Mth.floor(this.mob.getY()), Mth.floor(this.mob.getZ() + 1.0D)) == BlockPathTypes.WALKABLE;
+        }
+
+        private boolean isCrossbowUncharged() {
+            return this.crossbowState == CrossbowState.UNCHARGED;
         }
 
         enum CrossbowState {

@@ -111,6 +111,11 @@ public class FlyingItem extends SpellEntity implements ItemSupplier {
         double d3 = vec3.horizontalDistance();
         this.setXRot(lerpRotation(this.xRotO, (float)(Mth.atan2(vec3.y, d3) * (double)(180F / (float)Math.PI))));
         this.setYRot(lerpRotation(this.yRotO, (float)(Mth.atan2(vec3.x, vec3.z) * (double)(180F / (float)Math.PI))));
+        if (this.getOwner() != null){
+            double d4 = this.getOwner().getX() - this.getX();
+            double d5 = this.getOwner().getZ() - this.getZ();
+            this.setYRot(-((float) Mth.atan2(d4, d5)) * (180F / (float) Math.PI));
+        }
         if (!this.level.isClientSide) {
             ++this.life;
             if (this.life < 80){
@@ -172,7 +177,7 @@ public class FlyingItem extends SpellEntity implements ItemSupplier {
                 this.level.addParticle(ParticleTypes.BUBBLE, d0 - vec3.x * 0.25D, d1 - vec3.y * 0.25D, d2 - vec3.z * 0.25D, vec3.x, vec3.y, vec3.z);
             }
         } else {
-            this.level.addParticle(this.getParticle(), d0 - vec3.x * 0.25D + this.random.nextDouble() * 0.6D - 0.3D, d1 - vec3.y * 0.25D - 0.5D, d2 - vec3.z * 0.25D + this.random.nextDouble() * 0.6D - 0.3D, vec3.x, vec3.y, vec3.z);
+            this.level.addParticle(this.getParticle(), d0 - vec3.x * 0.25D + this.random.nextDouble() * 0.6D - 0.3D, d1 - vec3.y * 0.25D, d2 - vec3.z * 0.25D + this.random.nextDouble() * 0.6D - 0.3D, vec3.x, vec3.y, vec3.z);
         }
 
         if (!this.level.isClientSide) {

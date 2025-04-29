@@ -10,6 +10,7 @@ public class MiscImp implements IMisc{
     private int ambientSoundTime = 0;
     private int clientTargetID = 0;
     private int mobTargetID = 0;
+    private int noHealTime = 0;
     private String customSpinTexture = "textures/entity/trident_riptide.png";
 
     @Override
@@ -116,5 +117,15 @@ public class MiscImp implements IMisc{
     @Override
     public void setMobTargetID(int id) {
         this.mobTargetID = id;
+    }
+
+    @Override
+    public int getNoHealTime() {
+        return this.noHealTime;
+    }
+
+    @Override
+    public void setNoHealTime(int seconds) {
+        this.noHealTime = seconds;
     }
 }

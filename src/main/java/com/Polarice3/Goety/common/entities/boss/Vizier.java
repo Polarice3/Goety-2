@@ -678,6 +678,10 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     public void applyRaidBuffs(int wave, boolean p_213660_2_) {
     }
 
+    protected boolean canRide(Entity pEntity) {
+        return false;
+    }
+
     @Override
     public SoundEvent getCelebrateSound() {
         return ModSounds.VIZIER_CELEBRATE.get();

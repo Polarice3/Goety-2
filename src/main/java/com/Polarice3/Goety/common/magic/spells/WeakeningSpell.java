@@ -84,7 +84,7 @@ public class WeakeningSpell extends Spell {
         }
         for (LivingEntity livingEntity : worldIn.getEntitiesOfClass(LivingEntity.class, caster.getBoundingBox().inflate(radius))){
             if (!MobUtil.areAllies(caster, livingEntity)) {
-                livingEntity.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), MathHelper.secondsToTicks(duration), potency + 1));
+                livingEntity.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), MathHelper.secondsToTicks(duration), potency + 4));
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, MathHelper.secondsToTicks(duration), potency));
                 livingEntity.playSound(ModSounds.WEAKEN_CURSE.get());
             }

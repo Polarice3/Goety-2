@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "__comment": "entities that cannot get Goety's Stunned effect.",
+  "values": [
+    "#forge:bosses",
+    "#goety:mini_bosses",
+    "goety:brood_mother_servant",
+    "goety:wither_necromancer_servant",
+    "goety:redstone_golem",
+    "goety:redstone_monstrosity"
+  ]
+}

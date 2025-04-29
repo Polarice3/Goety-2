@@ -22,6 +22,9 @@
     },
     {
       "tag": "forge:ender_pearls"
+    },
+    {
+      "item": "goety:soul_ruby"
     }
   ],
   "result": {

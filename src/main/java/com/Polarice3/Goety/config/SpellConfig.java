@@ -90,6 +90,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> KillingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> KillingDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> KillingCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> KillingFeedback;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullDuration;
@@ -749,6 +750,8 @@ public class SpellConfig {
                     .defineInRange("killingTime", 60, 0, 72000);
             KillingCoolDown = BUILDER.comment("Killing Spell Cooldown, Default: 200")
                     .defineInRange("killingCoolDown", 200, 0, Integer.MAX_VALUE);
+            KillingFeedback = BUILDER.comment("How much damage percentage multiplier of the target's health is applied back to caster, Default: 1.25")
+                    .defineInRange("killingFeedback", 1.25, 0.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Skull Spell");
             HauntedSkullCost = BUILDER.comment("Skull Spell Cost, Default: 16")
@@ -803,8 +806,8 @@ public class SpellConfig {
                     .defineInRange("blazeLimit", 16, 1, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Feasting Spell");
-            FeastCost = BUILDER.comment("Feasting Spell Cost, Default: 8")
-                    .defineInRange("feastCost", 8, 0, Integer.MAX_VALUE);
+            FeastCost = BUILDER.comment("Feasting Spell Cost, Default: 16")
+                    .defineInRange("feastCost", 16, 0, Integer.MAX_VALUE);
             FeastChargeUp = BUILDER.comment("How many ticks the Feasting Spell much charge before casting, Default: 0")
                     .defineInRange("feastChargeUp", 0, 0, Integer.MAX_VALUE);
             FeastDuration = BUILDER.comment("Time to cast Feasting Spell per second, Default: 20")

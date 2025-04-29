@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.hostile.servants;
 
 import com.Polarice3.Goety.common.entities.neutral.SummonedFlying;
 import com.Polarice3.Goety.common.entities.projectiles.HellBlast;
+import com.Polarice3.Goety.common.entities.projectiles.Lavaball;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModSounds;
@@ -327,7 +328,10 @@ public class Malghast extends SummonedFlying {
                         fireballentity = new HellBlast(this.ghast, d2, d3, d4, world);
                         charge = -20;
                     } else {
-                        fireballentity = new LargeFireball(world, this.ghast, d2, d3, d4, power);
+                        fireballentity = new Lavaball(world, this.ghast, d2, d3, d4);
+                        if (fireballentity instanceof Lavaball lavaball){
+                            lavaball.setExplosionPower(power);
+                        }
                     }
                     double y = this.ghast.getY() <= livingentity.getEyeY() ? this.ghast.getY(0.5D) : this.ghast.getY();
                     fireballentity.setPos(this.ghast.getX() + vector3d.x * d1, y, fireballentity.getZ() + vector3d.z * d1);

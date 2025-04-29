@@ -132,6 +132,7 @@ public class ModDamageTypeTagsProvider extends TagsProvider<DamageType> {
                 .addTag(ModTags.DamageTypes.FROST_ATTACKS)
                 .addTag(ModTags.DamageTypes.SHOCK_ATTACKS)
                 .addTag(ModTags.DamageTypes.WATER_ATTACKS)
+                .add(DamageTypes.WITHER_SKULL)
                 .add(ModDamageSource.LOOT_EXPLODE,
                         ModDamageSource.LOOT_EXPLODE_OWNED);
     }

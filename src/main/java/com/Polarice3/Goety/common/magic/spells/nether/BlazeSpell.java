@@ -119,11 +119,7 @@ public class BlazeSpell extends SummonSpell {
                 blazeServant.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
                 blazeServant.setPersistenceRequired();
                 blazeServant.finalizeSpawn(worldIn, caster.level.getCurrentDifficultyAt(caster.blockPosition()), MobSpawnType.MOB_SUMMONED,null,null);
-                if (potency > 0){
-                    int boost = Mth.clamp(potency - 1, 0, 10);
-                    blazeServant.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), EffectsUtil.infiniteEffect(), boost, false, false));
-                    blazeServant.setFireBallDamage(blazeServant.getFireBallDamage() + potency);
-                }
+                this.buffSummon(caster, blazeServant, potency);
                 this.SummonSap(caster, blazeServant);
                 this.setTarget(caster, blazeServant);
                 worldIn.addFreshEntity(blazeServant);
@@ -131,6 +127,16 @@ public class BlazeSpell extends SummonSpell {
             }
             this.SummonDown(caster);
             this.playSound(worldIn, caster, ModSounds.SUMMON_SPELL_FIERY.get());
+        }
+    }
+
+    public void buffSummon(LivingEntity caster, LivingEntity summoned, int potency){
+        if (potency > 0 && !this.hasSummonDown(caster)){
+            int boost = Mth.clamp(potency - 1, 0, 10);
+            summoned.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), EffectsUtil.infiniteEffect(), boost, false, false));
+            if (summoned instanceof BlazeServant blazeServant){
+                blazeServant.setFireBallDamage(blazeServant.getFireBallDamage() + potency);
+            }
         }
     }
 }

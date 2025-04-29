@@ -94,6 +94,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> VanguardServantTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> WraithServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ReaperServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PhantomServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PhantomServantTranslucent;
 
@@ -146,6 +147,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> NaturalMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FrostMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NetherMinionHeal;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> CompatMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSoulJar;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSummonsLife;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WildfireBlazingHelm;
@@ -267,6 +269,10 @@ public class MobsConfig {
                 BUILDER.push("Wraith Servants");
                 WraithServantTexture = BUILDER.comment("If Wraith Servants have custom textures, Default: true")
                         .define("wraithServantTexture", true);
+                BUILDER.pop();
+                BUILDER.push("Reaper Servants");
+                ReaperServantTexture = BUILDER.comment("If Reaper Servants have custom textures, Default: true")
+                        .define("reaperServantTexture", true);
                 BUILDER.pop();
                 BUILDER.push("Phantom Servants");
                 PhantomServantTexture = BUILDER.comment("If Phantom Servants have custom textures, Default: true")
@@ -413,6 +419,8 @@ public class MobsConfig {
             WildfireSummonsLife = BUILDER.comment("Whether Wildfire's summons have limited lifespans, Default: true")
                     .define("wildfireSummonsLife", true);
             BUILDER.pop();
+        CompatMinionHeal = BUILDER.comment("Whether mobs owned by player outside of Goety Servants can heal while wearing appropriate robes, Default: true")
+                .define("compatMinionHeal", true);
         ServantTeleport = BUILDER.comment("Whether Servants can teleport to Players, Default: false")
                 .define("servantTeleport", false);
         RedstoneMonstrosityLeafBreak = BUILDER.comment("Whether Redstone Monstrosity breaks leaves and certain blocks if mob griefing is enabled, Default: true")

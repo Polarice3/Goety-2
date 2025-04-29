@@ -2,7 +2,9 @@ package com.Polarice3.Goety.common.blocks.entities;
 
 import com.Polarice3.Goety.api.blocks.entities.IWindPowered;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.client.particles.WindBlowParticle;
 import com.Polarice3.Goety.common.blocks.WindBlowerBlock;
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -54,6 +56,10 @@ public class WindBlowerBlockEntity extends BlockEntity {
                             double distance = new Vec3(this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ()).subtract(getCenterOf(this.getBlockPos())).multiply(direction).length() - 0.5F;
                             motion = motion.scale(power - (distance - 1.0F)).scale(0.5F);
                             this.level.addParticle(ModParticleTypes.FAN_CLOUD.get(), pos.x, pos.y, pos.z, motion.x, motion.y, motion.z);
+                            pos = pos.offsetRandom(this.level.getRandom(), 1.01F);
+                            int width = this.level.getRandom().nextIntBetweenInclusive(1, 4);
+                            float height = this.level.getRandom().nextFloat() * 0.5F;
+                            this.level.addParticle(new WindBlowParticle.Option(ColorUtil.WHITE, width, height), pos.x, pos.y, pos.z, motion.x, motion.y, motion.z);
                         }
                     }
                 }

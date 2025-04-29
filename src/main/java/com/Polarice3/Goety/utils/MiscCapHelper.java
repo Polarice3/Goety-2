@@ -158,6 +158,15 @@ public class MiscCapHelper {
         }
     }
 
+    public static int getNoHealTime(LivingEntity livingEntity){
+        return getCapability(livingEntity).getNoHealTime();
+    }
+
+    public static void setNoHealTime(LivingEntity livingEntity, int seconds){
+        getCapability(livingEntity).setNoHealTime(seconds);
+        MiscCapHelper.sendMiscUpdatePacket(livingEntity);
+    }
+
     @Nullable
     public static ResourceLocation getCustomSpinTexture(LivingEntity livingEntity){
         String string = getCapability(livingEntity).customSpinTexture();
@@ -188,6 +197,9 @@ public class MiscCapHelper {
         tag.putInt("ambientSoundTime", misc.ambientSoundTime());
         tag.putInt("clientTargetID", misc.getClientTargetID());
         tag.putInt("mobTargetID", misc.getMobTargetID());
+        if (misc.getNoHealTime() > 0) {
+            tag.putInt("noHealTime", misc.getNoHealTime());
+        }
         tag.putString("customSpinTexture", misc.customSpinTexture());
         return tag;
     }
@@ -213,6 +225,9 @@ public class MiscCapHelper {
         }
         if (tag.contains("mobTargetID")){
             misc.setMobTargetID(tag.getInt("mobTargetID"));
+        }
+        if (tag.contains("noHealTime")){
+            misc.setNoHealTime(tag.getInt("noHealTime"));
         }
         if (tag.contains("customSpinTexture")) {
             misc.setCustomSpinTexture(tag.getString("customSpinTexture"));

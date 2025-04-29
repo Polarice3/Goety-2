@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.magic.spells.geomancy;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.neutral.AbstractMonolith;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -14,6 +15,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -79,6 +81,10 @@ public class BarricadeSpell extends Spell {
         }
         HitResult rayTraceResult = this.rayTrace(worldIn, caster, range, 3);
         LivingEntity target = this.getTarget(caster, range);
+        EntityType<? extends AbstractMonolith> entityType = ModEntityType.TOTEMIC_WALL.get();
+        if (this.typeStaff(staff, SpellType.FROST)){
+            entityType = ModEntityType.GLACIAL_WALL.get();
+        }
         if (target != null){
             if (this.isShifting(caster)){
                 if (worldIn.random.nextFloat() <= chance){
@@ -101,11 +107,11 @@ public class BarricadeSpell extends Spell {
                         case WEST -> rowToRemove = WandUtil.CONFIG_1_WEST_ROW;
                         case EAST -> rowToRemove = WandUtil.CONFIG_1_EAST_ROW;
                     }
-                    WandUtil.summonSquareTrap(caster, target, ModEntityType.TOTEMIC_WALL.get(), rowToRemove, duration);
+                    WandUtil.summonSquareTrap(caster, target, entityType, rowToRemove, duration);
                 } else if (random == 1){
-                    WandUtil.summonWallTrap(caster, target, ModEntityType.TOTEMIC_WALL.get(), duration);
+                    WandUtil.summonWallTrap(caster, target, entityType, duration);
                 } else {
-                    WandUtil.summonRandomPillarsTrap(caster, target, ModEntityType.TOTEMIC_WALL.get(), duration);
+                    WandUtil.summonRandomPillarsTrap(caster, target, entityType, duration);
                 }
                 this.trueCooldown = this.defaultSpellCooldown();
             }
@@ -120,7 +126,7 @@ public class BarricadeSpell extends Spell {
                     this.trueCooldown += MathHelper.secondsToTicks(2);
                 }
             } else {
-                WandUtil.summonWallTrap(caster, blockPos, ModEntityType.TOTEMIC_WALL.get(), duration);
+                WandUtil.summonWallTrap(caster, blockPos, entityType, duration);
                 this.trueCooldown = this.defaultSpellCooldown();
             }
         }

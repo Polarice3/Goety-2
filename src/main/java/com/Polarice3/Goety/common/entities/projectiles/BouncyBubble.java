@@ -1,17 +1,13 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
-import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.GatherTrailParticle;
-import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.ColorUtil;
-import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.SpellExplosion;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -24,8 +20,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -103,50 +99,27 @@ public class BouncyBubble extends SpellHurtingProjectile{
     }
 
     @Override
-    protected float getInertia() {
-        return 0.6F + Math.min(this.boltSpeed, 0.4F);
-    }
-
-    @Override
     public void tick() {
         super.tick();
         if (this.tickCount >= 100) {
             this.explode();
         }
-
     }
 
     @Override
-    public float getGravity() {
-        if (!this.isInWater()){
-            return 0.03F;
-        } else {
-            return super.getGravity();
+    public void trailParticle() {
+        for (int j = 0; j < 3 + random.nextInt(2); ++j) {
+            this.level.addParticle(this.isInWaterOrBubble() ? ParticleTypes.BUBBLE_COLUMN_UP : ParticleTypes.FALLING_WATER, this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0, -0.1F, 0);
         }
     }
 
-    @Override
-    protected boolean canHitEntity(Entity pEntity) {
-        if (this.getOwner() != null){
-            if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
-                return super.canHitEntity(pEntity);
-            } else {
-                if (MobUtil.areAllies(this.getOwner(), pEntity)){
-                    return false;
-                }
-                if (this.getOwner() instanceof Enemy && pEntity instanceof Enemy){
-                    return false;
-                }
-                if (pEntity instanceof IOwned owned0 && this.getOwner() instanceof IOwned owned1){
-                    return !MobUtil.ownerStack(owned0, owned1);
-                }
-            }
+    public void travel() {
+        this.setPos(position().add(getDeltaMovement()));
+        ProjectileUtil.rotateTowardsMovement(this, 1);
+        if (!this.isNoGravity()) {
+            Vec3 vec3 = this.getDeltaMovement();
+            this.setDeltaMovement(vec3.x, vec3.y - (double) this.getGravity(), vec3.z);
         }
-        return super.canHitEntity(pEntity);
-    }
-
-    protected ParticleOptions getTrailParticle() {
-        return ModParticleTypes.NONE.get();
     }
 
     @Override
@@ -169,39 +142,32 @@ public class BouncyBubble extends SpellHurtingProjectile{
                 } else if (face.getAxis().isVertical()) {
                     motionY = -motionY;
                 }
-                this.setDeltaMovement(motionX, motionY, motionZ);
-                this.xPower = motionX;
-                this.yPower = motionY;
-                this.zPower = motionZ;
+                Vec3 vec31 = new Vec3(motionX, motionY, motionZ);
+                this.setDeltaMovement(vec31);
                 if (this.getBounceTimes() >= 6) {
                     this.explode();
                 } else {
-                    this.playSound(SoundEvents.PUFFER_FISH_BLOW_OUT, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+                    this.playSound(SoundEvents.GENERIC_SPLASH, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                     this.setBounceTimes(this.getBounceTimes() + 1);
                 }
             }
         } else if (raytraceresult$type == HitResult.Type.ENTITY) {
             Entity entity = ((EntityHitResult) result).getEntity();
             if (!this.level.isClientSide) {
-                if (canHitEntity(entity)) {
+                if (this.canHitEntity(entity)) {
                     if (this.getBounceTimes() >= 6) {
                         this.explode();
                     } else {
-                        Vec3 vec31 = entity.getLookAngle();
-                        this.setDeltaMovement(vec31.scale(0.1D));
-                        this.xPower = vec31.x * 0.1D;
-                        this.yPower = vec31.y * 0.1D;
-                        this.zPower = vec31.z * 0.1D;
-                        entity.hurt(ModDamageSource.indirectDrench(this, this.getOwner() == null ? this : this.getOwner()), this.damage + this.getExtraDamage());
-                        this.playSound(SoundEvents.PUFFER_FISH_BLOW_OUT, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-                        this.setBounceTimes(this.getBounceTimes() + 1);
+                        if (entity.hurt(ModDamageSource.indirectDrench(this, this.getOwner() == null ? this : this.getOwner()), this.damage + this.getExtraDamage())){
+                            this.setBounceTimes(this.getBounceTimes() + 1);
+                        }
                     }
                 }
             }
         }
     }
 
-    public void explode(){
+    public void explode() {
         if (!this.level.isClientSide) {
             Entity owner = this.getOwner();
             float radius = 1.0F + this.getSize();
@@ -216,9 +182,9 @@ public class BouncyBubble extends SpellHurtingProjectile{
                         }
                     }
                 }
-                for (int i = 0; i < 8; ++i){
+                for (int i = 0; i < 8; ++i) {
                     ColorUtil colorUtil = new ColorUtil(ChatFormatting.BLUE);
-                    if (this.isInWater()){
+                    if (this.isInWater()) {
                         colorUtil = new ColorUtil(ChatFormatting.AQUA);
                     }
                     Vec3 vector3d1 = this.position().offsetRandom(serverLevel.getRandom(), radius * 2.0F);
@@ -240,8 +206,13 @@ public class BouncyBubble extends SpellHurtingProjectile{
         return false;
     }
 
-    public boolean hurt(DamageSource p_37616_, float p_37617_) {
-        return false;
+    public boolean hurt(DamageSource source, float amount) {
+        if (this.isInvulnerableTo(source)){
+            return false;
+        } else {
+            this.explode();
+            return true;
+        }
     }
 
     protected boolean shouldBurn() {

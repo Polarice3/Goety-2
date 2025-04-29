@@ -114,7 +114,7 @@ public class GoetyEffects {
                             -1.0D, AttributeModifier.Operation.MULTIPLY_TOTAL));
 
     public static final RegistryObject<MobEffect> TANGLED = EFFECTS.register("tangled",
-            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0xffffff)
+            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0)
                     .addAttributeModifier(ForgeMod.SWIM_SPEED.get(), "862219f1-18f4-483a-94db-0d4c6c4fdef2",
                             -1.0D, AttributeModifier.Operation.MULTIPLY_TOTAL)
                     .addAttributeModifier(Attributes.MOVEMENT_SPEED, "8246d3de-e765-487d-adda-18a1deb3e4a9",

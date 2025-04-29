@@ -6,16 +6,16 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "作为女巫的近亲，这些邪教徒对准目标咆哮着亵神的咒语，在目标的脚下召唤出炎爆陷阱，从临近生灵的垂死气息中，召唤出下界之中的生物。"
+      "text": "作为女巫的近亲，这些异教徒对准目标咆哮着亵神的咒语，在目标脚下召唤出炎爆陷阱，从临近生灵的垂死气息中，召唤出下界生物"
     },
     {
       "type": "patchouli:entity",
       "entity": "goety:heretic",
-      "text": "They're resistant to magic much like their Witch cousins."
+      "text": "就像他们的女巫亲戚一样，他们也具有对魔法的抵抗力"
     },
     {
       "type": "patchouli:text",
-      "text": "如果村民靠近了一个激活的下界传送门，那么他们有概率转化成异教徒。"
+      "text": "如果一个村民在靠近被激活的下界传送门时睡觉，那么他就有概率转化为一名异教徒。"
     }
   ]
 }

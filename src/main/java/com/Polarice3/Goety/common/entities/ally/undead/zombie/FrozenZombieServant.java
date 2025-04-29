@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.entities.ally.undead.zombie;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -10,9 +9,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -21,17 +21,10 @@ import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.entity.ProjectileImpactEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import java.util.EnumSet;
 
-@Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class FrozenZombieServant extends ZombieServant implements RangedAttackMob {
     public int throwCooldown;
 
@@ -102,32 +95,6 @@ public class FrozenZombieServant extends ZombieServant implements RangedAttackMo
         this.playSound(SoundEvents.SNOWBALL_THROW, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(snowball);
         this.throwCooldown = MathHelper.secondsToTicks(3);
-    }
-
-    @SubscribeEvent
-    public static void FrozenAttack(LivingAttackEvent event){
-        LivingEntity victim = event.getEntity();
-        Entity attacker = event.getSource().getEntity();
-        if (attacker instanceof FrozenZombieServant){
-            victim.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, MathHelper.secondsToTicks(3)));
-        }
-    }
-
-    @SubscribeEvent
-    public static void SnowBallImpact(ProjectileImpactEvent event){
-        if (event.getProjectile().getOwner() instanceof FrozenZombieServant frozenZombieServant){
-            if (event.getRayTraceResult() instanceof EntityHitResult entityHitResult){
-                Entity entity = entityHitResult.getEntity();
-                if (MobUtil.areAllies(frozenZombieServant, entity)){
-                    event.setCanceled(true);
-                }
-            }
-            if (event.getProjectile() instanceof Snowball snowball){
-                if (event.getRayTraceResult().getType() != HitResult.Type.MISS){
-                    snowball.playSound(ModSounds.FROZEN_ZOMBIE_SNOWBALL.get());
-                }
-            }
-        }
     }
 
     static class ThrowSnowballGoal extends Goal{

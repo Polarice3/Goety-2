@@ -76,10 +76,14 @@ public class HellBolt extends WaterHurtingProjectile {
         } else {
             this.setAnimation(0);
         }
-        Entity entity = this.getOwner();
         if (this.tickCount >= MathHelper.secondsToTicks(10)){
             this.discard();
         }
+    }
+
+    @Override
+    public void trailParticle() {
+        Entity entity = this.getOwner();
         if (this.level.isClientSide || (entity == null || !entity.isRemoved()) && this.level.hasChunkAt(this.blockPosition())) {
             Vec3 vec3 = this.getDeltaMovement();
             double d0 = this.getX() - vec3.x;

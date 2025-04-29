@@ -21,7 +21,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.entity.PartEntity;
 
 public abstract class AbstractSpellCloud extends SpellEntity {
     private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(AbstractSpellCloud.class, EntityDataSerializers.FLOAT);
@@ -125,12 +124,7 @@ public abstract class AbstractSpellCloud extends SpellEntity {
                     AABB below = this.getBoundingBox().move(0, -16, 0).inflate(0, 16, 0);
 
                     for (Entity entity : this.level.getEntitiesOfClass(Entity.class, below)) {
-                        LivingEntity livingEntity = null;
-                        if (entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity living){
-                            livingEntity = living;
-                        } else if (entity instanceof LivingEntity living){
-                            livingEntity = living;
-                        }
+                        LivingEntity livingEntity = MobUtil.getLivingTarget(entity);
                         if (livingEntity != null) {
                             boolean flag = false;
                             if (this.getOwner() != null) {

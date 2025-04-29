@@ -507,12 +507,12 @@ public class BlockFinder {
         BlockPos.MutableBlockPos blockpos$mutable = blockPos.mutable();
         boolean flag = false;
         if (up){
-            while (blockpos$mutable.getY() < blockPos.getY() + distance && level.getBlockState(blockpos$mutable).getCollisionShape(level, blockpos$mutable ).isEmpty()){
+            while (blockpos$mutable.getY() < blockPos.getY() + distance && level.getBlockState(blockpos$mutable).getCollisionShape(level, blockpos$mutable).isEmpty()){
                 blockpos$mutable.move(Direction.UP);
                 flag = true;
             }
         } else {
-            while (blockpos$mutable.getY() > blockPos.getY() - distance && level.getBlockState(blockpos$mutable).getCollisionShape(level, blockpos$mutable ).isEmpty()){
+            while (blockpos$mutable.getY() > blockPos.getY() - distance && level.getBlockState(blockpos$mutable).getCollisionShape(level, blockpos$mutable).isEmpty()){
                 blockpos$mutable.move(Direction.DOWN);
                 flag = true;
             }

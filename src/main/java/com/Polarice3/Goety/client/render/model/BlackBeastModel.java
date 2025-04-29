@@ -178,7 +178,7 @@ public class BlackBeastModel<T extends BlackBeast> extends HierarchicalModel<T> 
 				this.animateWalk(BlackBeastAnimations.WALK, limbSwing, limbSwingAmount, 2.5F, 20.0F);
 			}
 		}
-		this.animate(entity.attackAnimationState, BlackBeastAnimations.ATTACK, ageInTicks);
+		this.animate(entity.attackAnimationState, entity.leftSwiped ? BlackBeastAnimations.ATTACK : BlackBeastAnimations.ATTACK2, ageInTicks);
 		this.animate(entity.roarAnimationState, BlackBeastAnimations.ROAR, ageInTicks);
 		this.animate(entity.sitAnimationState, BlackBeastAnimations.SIT, ageInTicks);
 		this.animate(entity.toSitAnimationState, BlackBeastAnimations.TO_SIT, ageInTicks);

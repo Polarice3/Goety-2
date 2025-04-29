@@ -564,7 +564,7 @@ public class WandUtil {
                 if (monolith instanceof AbstractVine vine) {
                     vine.setWarmup(delay);
                 }
-                if (potency > 0) {
+                if (potency > 0 && !casterEntity.hasEffect(GoetyEffects.SUMMON_DOWN.get())) {
                     monolith.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), EffectsUtil.infiniteEffect(), potency - 1, false, false));
                 }
                 if (target instanceof LivingEntity living) {

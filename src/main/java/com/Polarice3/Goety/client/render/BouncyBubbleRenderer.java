@@ -1,54 +1,42 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.client.render.model.SoulBoltModel;
 import com.Polarice3.Goety.common.entities.projectiles.BouncyBubble;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import org.joml.Matrix3f;
-import org.joml.Matrix4f;
+import net.minecraft.util.Mth;
 
 public class BouncyBubbleRenderer extends EntityRenderer<BouncyBubble> {
-   private static final ResourceLocation TEXTURE_LOCATION = Goety.location("textures/particle/big_bubble.png");
-   private static final RenderType RENDER_TYPE = RenderType.entityTranslucent(TEXTURE_LOCATION);
+   private static final ResourceLocation TEXTURE_LOCATION = Goety.location("textures/entity/projectiles/bouncy_bubble.png");
+   private final SoulBoltModel<BouncyBubble> model;
 
-   public BouncyBubbleRenderer(EntityRendererProvider.Context p_173962_) {
-      super(p_173962_);
+   public BouncyBubbleRenderer(EntityRendererProvider.Context p_174449_) {
+      super(p_174449_);
+      this.model = new SoulBoltModel<>(p_174449_.bakeLayer(ModModelLayer.SOUL_BOLT));
    }
 
-   protected int getBlockLightLevel(BouncyBubble p_114087_, BlockPos p_114088_) {
-      return 15;
+   public void render(BouncyBubble p_116484_, float p_116485_, float p_116486_, PoseStack p_116487_, MultiBufferSource p_116488_, int p_116489_) {
+      p_116487_.pushPose();
+      p_116487_.scale(-1.0F, -1.0F, 1.0F);
+      float size = 1.0F + p_116484_.getSize();
+      p_116487_.scale(size, size, size);
+      float f = Mth.rotLerp(p_116486_, p_116484_.yRotO, p_116484_.getYRot());
+      float f1 = Mth.lerp(p_116486_, p_116484_.xRotO, p_116484_.getXRot());
+      VertexConsumer vertexconsumer = p_116488_.getBuffer(RenderType.eyes(this.getTextureLocation(p_116484_)));
+      this.model.setupAnim(0.0F, f, f1);
+      this.model.renderToBuffer(p_116487_, vertexconsumer, 15728640, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 0.5F);
+      p_116487_.popPose();
+      super.render(p_116484_, p_116485_, p_116486_, p_116487_, p_116488_, p_116489_);
    }
 
-   public void render(BouncyBubble p_114080_, float p_114081_, float p_114082_, PoseStack p_114083_, MultiBufferSource p_114084_, int p_114085_) {
-      p_114083_.pushPose();
-      p_114083_.scale(2.0F, 2.0F, 2.0F);
-      p_114083_.mulPose(this.entityRenderDispatcher.cameraOrientation());
-      p_114083_.mulPose(Axis.YP.rotationDegrees(180.0F));
-      PoseStack.Pose posestack$pose = p_114083_.last();
-      Matrix4f matrix4f = posestack$pose.pose();
-      Matrix3f matrix3f = posestack$pose.normal();
-      VertexConsumer vertexconsumer = p_114084_.getBuffer(RENDER_TYPE);
-      vertex(vertexconsumer, matrix4f, matrix3f, p_114085_, 0.0F, 0, 0, 1);
-      vertex(vertexconsumer, matrix4f, matrix3f, p_114085_, 1.0F, 0, 1, 1);
-      vertex(vertexconsumer, matrix4f, matrix3f, p_114085_, 1.0F, 1, 1, 0);
-      vertex(vertexconsumer, matrix4f, matrix3f, p_114085_, 0.0F, 1, 0, 0);
-      p_114083_.popPose();
-      super.render(p_114080_, p_114081_, p_114082_, p_114083_, p_114084_, p_114085_);
-   }
-
-   private static void vertex(VertexConsumer p_254095_, Matrix4f p_254477_, Matrix3f p_253948_, int p_253829_, float p_253995_, int p_254031_, int p_253641_, int p_254243_) {
-      p_254095_.vertex(p_254477_, p_253995_ - 0.5F, (float)p_254031_ - 0.25F, 0.0F).color(255, 255, 255, 255).uv((float)p_253641_, (float)p_254243_).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(p_253829_).normal(p_253948_, 0.0F, 1.0F, 0.0F).endVertex();
-   }
-
-   public ResourceLocation getTextureLocation(BouncyBubble p_114078_) {
+   public ResourceLocation getTextureLocation(BouncyBubble p_116482_) {
       return TEXTURE_LOCATION;
    }
 }

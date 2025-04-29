@@ -178,6 +178,7 @@
   "entity.goety.biomine":"Biomine",
   "entity.goety.spider_egg":"Spider Egg",
 
+  "entity.goety.beast_head":"Beast Head",
   "entity.goety.volcano":"Volcano",
   "entity.goety.fire_pillar":"Fire Pillar",
 
@@ -249,6 +250,7 @@
   "entity.goety.cryptic_eye": "Cryptic Eye",
   "entity.goety.flying_item": "Flying Item",
   "entity.goety.electro_orb":"Electro Orb",
+  "entity.goety.bouncy_bubble":"Bouncy Bubble",
   "entity.goety.acid_pool":"Acid Pool",
   "entity.goety.ice_bouquet":"Ice Bouquet",
   "entity.goety.hellfire":"Hellfire",

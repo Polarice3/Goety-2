@@ -2,13 +2,17 @@ package com.Polarice3.Goety.common.magic;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.magic.ISummonSpell;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.CuriosFinder;
+import com.Polarice3.Goety.utils.EffectsUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -75,6 +79,13 @@ public abstract class SummonSpell extends Spell implements ISummonSpell {
     public void summonAdvancement(LivingEntity summoner, LivingEntity summoned){
         if(summoner instanceof ServerPlayer serverPlayer){
             CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, summoned);
+        }
+    }
+
+    public void buffSummon(LivingEntity caster, LivingEntity summoned, int potency){
+        if (potency > 0 && !this.hasSummonDown(caster)){
+            int boost = Mth.clamp(potency - 1, 0, 10);
+            summoned.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), EffectsUtil.infiniteEffect(), boost, false, false));
         }
     }
 

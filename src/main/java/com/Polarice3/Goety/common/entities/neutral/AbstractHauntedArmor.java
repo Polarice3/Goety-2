@@ -1,6 +1,8 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.common.entities.ai.BackawayCrossbowGoal;
+import com.Polarice3.Goety.common.entities.ai.CreatureBowAttackGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.AttributesConfig;
@@ -35,11 +37,13 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.monster.CrossbowAttackMob;
+import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.ShieldItem;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -49,23 +53,38 @@ import net.minecraftforge.common.ForgeMod;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.UUID;
+import java.util.function.Predicate;
 
-public abstract class AbstractHauntedArmor extends Summoned {
+public abstract class AbstractHauntedArmor extends Summoned implements CrossbowAttackMob, RangedAttackMob {
     private static final UUID SPEED_MODIFIER_HOSTILE_UUID = UUID.fromString("5CD17E52-A79A-43D3-A529-90FDE04B181E");
     private static final AttributeModifier SPEED_MODIFIER_HOSTILE = new AttributeModifier(SPEED_MODIFIER_HOSTILE_UUID, "Aggression Speed", 0.5D, AttributeModifier.Operation.MULTIPLY_BASE);
     private static final EntityDataAccessor<Byte> FLAGS = SynchedEntityData.defineId(AbstractHauntedArmor.class, EntityDataSerializers.BYTE);
+    private static final EntityDataAccessor<Boolean> DATA_CHARGING_STATE = SynchedEntityData.defineId(AbstractHauntedArmor.class, EntityDataSerializers.BOOLEAN);
+    private final CreatureBowAttackGoal<AbstractHauntedArmor> bowGoal = new CreatureBowAttackGoal<>(this, 1.0D, 20, 15.0F){
+        @Override
+        public boolean canUse() {
+            return super.canUse() && !AbstractHauntedArmor.this.isGuarding();
+        }
+    };
+    private final BackawayCrossbowGoal<AbstractHauntedArmor> crossBowGoal = new BackawayCrossbowGoal<>(this, 1.0D, 16.0F){
+        @Override
+        public boolean canUse() {
+            return super.canUse() && !AbstractHauntedArmor.this.isGuarding();
+        }
+    };
+    private final AttackGoal meleeGoal = new AttackGoal(this, 1.0D, false);
     private int blockTime;
     private int coolTime;
     private int breakShield;
 
     public AbstractHauntedArmor(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
+        this.reassessWeaponGoal();
     }
 
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new GuardingGoal(this, 0.75D, 20));
-        this.goalSelector.addGoal(2, new AttackGoal(this, 1.0D, false));
         this.goalSelector.addGoal(8, new WanderGoal<>(this, 1.0D, 10));
     }
 
@@ -79,17 +98,19 @@ public abstract class AbstractHauntedArmor extends Summoned {
                 .add(Attributes.MAX_HEALTH, AttributesConfig.HauntedArmorHealth.get())
                 .add(Attributes.FOLLOW_RANGE, 16.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.23D)
-                .add(Attributes.ATTACK_DAMAGE, 3.0D)
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.HauntedArmorDamage.get())
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.75D);
     }
 
     public void setConfigurableAttributes(){
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.HauntedArmorHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.HauntedArmorDamage.get());
     }
 
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(FLAGS, (byte)0);
+        this.entityData.define(DATA_CHARGING_STATE, false);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
@@ -100,6 +121,7 @@ public abstract class AbstractHauntedArmor extends Summoned {
         if (compound.contains("CoolTime")) {
             this.coolTime = compound.getInt("CoolTime");
         }
+        this.reassessWeaponGoal();
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -108,10 +130,39 @@ public abstract class AbstractHauntedArmor extends Summoned {
         compound.putInt("CoolTime", this.coolTime);
     }
 
+    public void reassessWeaponGoal() {
+        if (!this.level.isClientSide) {
+            this.goalSelector.removeGoal(this.meleeGoal);
+            this.goalSelector.removeGoal(this.bowGoal);
+            this.goalSelector.removeGoal(this.crossBowGoal);
+            ItemStack itemstack = this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, item -> item instanceof ProjectileWeaponItem));
+            if (itemstack.getItem() instanceof BowItem) {
+                int i = 20;
+
+                this.bowGoal.setMinAttackInterval(i);
+                this.goalSelector.addGoal(2, this.bowGoal);
+            } else if (itemstack.getItem() instanceof CrossbowItem){
+                this.goalSelector.addGoal(2, this.crossBowGoal);
+            } else {
+                this.goalSelector.addGoal(2, this.meleeGoal);
+            }
+
+        }
+    }
+
+    public void setItemSlot(EquipmentSlot pSlot, ItemStack pStack) {
+        super.setItemSlot(pSlot, pStack);
+        if (!this.level.isClientSide) {
+            this.reassessWeaponGoal();
+        }
+
+    }
+
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.populateDefaultEquipmentSlots(worldIn.getRandom(), worldIn.getCurrentDifficultyAt(this.blockPosition()));
         this.populateDefaultEquipmentEnchantments(worldIn.getRandom(), difficultyIn);
+        this.reassessWeaponGoal();
         return spawnDataIn;
     }
 
@@ -162,9 +213,66 @@ public abstract class AbstractHauntedArmor extends Summoned {
         return this.getFlags(1);
     }
 
+    public void performRangedAttack(LivingEntity pTarget, float pDistanceFactor) {
+        ItemStack itemstack = this.getProjectile(this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, item -> item instanceof BowItem)));
+        AbstractArrow abstractarrowentity = this.getArrow(itemstack, pDistanceFactor);
+        if (this.getMainHandItem().getItem() instanceof BowItem bowItem) {
+            abstractarrowentity = bowItem.customArrow(abstractarrowentity);
+        }
+        double d0 = pTarget.getX() - this.getX();
+        double d1 = pTarget.getY(0.3333333333333333D) - abstractarrowentity.getY();
+        double d2 = pTarget.getZ() - this.getZ();
+        double d3 = Mth.sqrt((float) (d0 * d0 + d2 * d2));
+        abstractarrowentity.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, (float)(14 - this.level.getDifficulty().getId() * 4));
+        this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+        this.level.addFreshEntity(abstractarrowentity);
+    }
+
+    protected AbstractArrow getArrow(ItemStack pArrowStack, float pDistanceFactor) {
+        return ProjectileUtil.getMobArrow(this, pArrowStack, pDistanceFactor);
+    }
+
+    public boolean canFireProjectileWeapon(ProjectileWeaponItem p_230280_1_) {
+        return p_230280_1_ instanceof BowItem || p_230280_1_ instanceof CrossbowItem;
+    }
+
+    public ItemStack getProjectile(ItemStack shootable) {
+        if (shootable.getItem() instanceof ProjectileWeaponItem) {
+            Predicate<ItemStack> predicate = ((ProjectileWeaponItem)shootable.getItem()).getSupportedHeldProjectiles();
+            ItemStack itemstack = ProjectileWeaponItem.getHeldProjectile(this, predicate);
+            return itemstack.isEmpty() ? new ItemStack(Items.ARROW) : itemstack;
+        } else {
+            return ItemStack.EMPTY;
+        }
+    }
+
+    @Override
+    public boolean isChargingCrossbow() {
+        return this.entityData.get(DATA_CHARGING_STATE);
+    }
+
+    public void setChargingCrossbow(boolean isCharging) {
+        this.entityData.set(DATA_CHARGING_STATE, isCharging);
+    }
+
+    @Override
+    public void shootCrossbowProjectile(LivingEntity p_230284_1_, ItemStack p_230284_2_, Projectile p_230284_3_, float p_230284_4_) {
+        this.shootCrossbowProjectile(this, p_230284_1_, p_230284_3_, p_230284_4_, 1.6F);
+    }
+
+    public void onCrossbowAttackPerformed() {
+        this.noActionTime = 0;
+    }
+
     public HauntedArmPose getArmPose() {
         if (this.isGuarding()){
             return HauntedArmPose.GUARD;
+        } else if (this.isChargingCrossbow()) {
+            return HauntedArmPose.CROSSBOW_CHARGE;
+        } else if (this.isAggressive() && this.isHolding(item -> item.getItem() instanceof CrossbowItem)) {
+            return HauntedArmPose.CROSSBOW_HOLD;
+        } else if (this.isAggressive() && this.isHolding(item -> item.getItem() instanceof BowItem)){
+            return HauntedArmPose.BOW;
         } else if (this.isAggressive()){
             return HauntedArmPose.ATTACK;
         } else {
@@ -450,6 +558,7 @@ public abstract class AbstractHauntedArmor extends Summoned {
         public boolean canUse() {
             return this.mob.getTarget() != null
                     && this.mob.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof ShieldItem
+                    && !this.mob.isHolding(itemstack -> itemstack.getItem() instanceof ProjectileWeaponItem)
                     && this.mob.coolTime <= 0;
         }
 
@@ -562,6 +671,16 @@ public abstract class AbstractHauntedArmor extends Summoned {
             return super.canUse() && !this.mob.isGuarding();
         }
 
+        public void stop() {
+            super.stop();
+            this.mob.setAggressive(false);
+        }
+
+        public void start() {
+            super.start();
+            this.mob.setAggressive(true);
+        }
+
         protected double getAttackReachSqr(LivingEntity p_25556_) {
             return (double)(this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 2.5F + p_25556_.getBbWidth());
         }
@@ -570,6 +689,9 @@ public abstract class AbstractHauntedArmor extends Summoned {
     public enum HauntedArmPose {
         IDLE,
         GUARD,
+        BOW,
+        CROSSBOW_HOLD,
+        CROSSBOW_CHARGE,
         ATTACK;
     }
 }

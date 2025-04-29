@@ -6,6 +6,10 @@
       "required": false
     },
     {
+      "id": "born_in_chaos_v1:missionary_raider",
+      "required": false
+    },
+    {
       "id": "alexscaves:licowitch",
       "required": false
     }

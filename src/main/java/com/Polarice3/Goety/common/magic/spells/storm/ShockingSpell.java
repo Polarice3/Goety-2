@@ -23,7 +23,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.entity.PartEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,23 +108,18 @@ public class ShockingSpell extends EverChargeSpell {
             ModNetwork.sendToALL(new SLightningPacket(vec3, new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ()), 5));
             worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.ZAP.get(), this.getSoundSource(), 1.0F, 1.0F);
         } else {
-            LivingEntity livingEntity = null;
-            if (target instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity parent){
-                livingEntity = parent;
-            } else if (target instanceof LivingEntity target1 && !target1.isDeadOrDying()){
-                livingEntity = target1;
-            }
+            LivingEntity livingEntity = MobUtil.getLivingTarget(target);
             if (livingEntity != null && ForgeHooks.onLivingAttack(livingEntity, ModDamageSource.directShock(caster), damage)) {
-                Vec3 vec31 = new Vec3(target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ());
+                Vec3 vec31 = new Vec3(livingEntity.getX(), livingEntity.getY() + livingEntity.getBbHeight() / 2, livingEntity.getZ());
                 ModNetwork.sendToALL(new SLightningPacket(vec3, vec31, 5));
-                if (target.hurt(ModDamageSource.directShock(caster), damage)){
+                if (livingEntity.hurt(ModDamageSource.directShock(caster), damage)){
                     float chainDamage = damage / 2.0F;
-                    if (worldIn.isThundering() && worldIn.isRainingAt(target.blockPosition())){
+                    if (worldIn.isThundering() && worldIn.isRainingAt(livingEntity.blockPosition())){
                         chainDamage = damage;
                     }
                     if (burning > 0){
                         if (worldIn.random.nextFloat() < 0.05F){
-                            target.setSecondsOnFire(5 * burning);
+                            livingEntity.setSecondsOnFire(5 * burning);
                         }
                     }
                     if (this.rightStaff(staff)){

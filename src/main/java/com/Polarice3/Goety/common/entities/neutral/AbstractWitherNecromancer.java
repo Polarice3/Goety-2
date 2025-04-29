@@ -9,6 +9,7 @@ import com.Polarice3.Goety.common.entities.ally.undead.ReaperServant;
 import com.Polarice3.Goety.common.entities.ally.undead.WraithServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.VanguardServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.WitherSkeletonServant;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.BlackguardServant;
 import com.Polarice3.Goety.common.entities.projectiles.WitherBolt;
 import com.Polarice3.Goety.common.entities.util.FirePillar;
 import com.Polarice3.Goety.common.items.ModItems;
@@ -192,6 +193,11 @@ public class AbstractWitherNecromancer extends AbstractNecromancer{
         if (this.getSummonList().contains(ModEntityType.VANGUARD_SERVANT.get())){
             if (this.level.random.nextFloat() <= 0.15F) {
                 summoned = new VanguardServant(ModEntityType.VANGUARD_SERVANT.get(), this.level);
+            }
+        }
+        if (this.getSummonList().contains(ModEntityType.BLACKGUARD_SERVANT.get())) {
+            if (this.level.random.nextFloat() <= 0.05F) {
+                summoned = new BlackguardServant(ModEntityType.BLACKGUARD_SERVANT.get(), this.level);
             }
         }
         return summoned;

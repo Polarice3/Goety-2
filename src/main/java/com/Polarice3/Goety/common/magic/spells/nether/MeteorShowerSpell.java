@@ -164,7 +164,7 @@ public class MeteorShowerSpell extends EverChargeSpell {
                 lavaball.setFiery(burning);
                 lavaball.setExplosionPower(lavaball.getExplosionPower() + radius);
             } else if (fireball instanceof HellBlast hellBlast){
-                hellBlast.setDamage(hellBlast.getDamage() + potency);
+                hellBlast.setExtraDamage(potency);
                 hellBlast.setRadius(hellBlast.getRadius() + radius);
                 hellBlast.setFiery(burning);
             }

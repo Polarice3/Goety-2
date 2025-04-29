@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.ModMeleeAttackGoal;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
+import com.Polarice3.Goety.common.entities.neutral.BeastHead;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.FlyingItem;
 import com.Polarice3.Goety.common.entities.util.CameraShake;
@@ -45,13 +46,13 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -60,6 +61,7 @@ import net.minecraft.world.level.PathNavigationRegion;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.Vec3;
@@ -83,6 +85,7 @@ public class BlackBeast extends Summoned{
     public static String TO_STAND = "to_stand";
     public static String SIT = "sit";
     public static String DEATH = "death";
+    public boolean leftSwiped = true;
     private float interestedAngle;
     private float interestedAngleO;
     private int invisibleCool;
@@ -90,10 +93,14 @@ public class BlackBeast extends Summoned{
     public int summonTick;
     private int summonCool;
     private int happyCool;
+    private int headTick;
+    private int pathFindTick;
     public int isSittingDown;
     public int isStandingUp;
     public int deathTime = 0;
     public float deathRotation = 0.0F;
+    @Nullable
+    public Path path;
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState attackAnimationState = new AnimationState();
     public AnimationState walkAnimationState = new AnimationState();
@@ -121,7 +128,6 @@ public class BlackBeast extends Summoned{
         this.goalSelector.addGoal(5, new WanderGoal<>(this, 0.8D));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(9, new BegGoal(this, 8.0F));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
     }
 
     @Override
@@ -165,6 +171,7 @@ public class BlackBeast extends Summoned{
         pCompound.putInt("InvisibleCool", this.invisibleCool);
         pCompound.putInt("SummonTick", this.summonTick);
         pCompound.putInt("SummonCool", this.summonCool);
+        pCompound.putInt("HeadTick", this.headTick);
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
@@ -180,6 +187,9 @@ public class BlackBeast extends Summoned{
         }
         if (pCompound.contains("SummonCool")){
             this.summonCool = pCompound.getInt("SummonCool");
+        }
+        if (pCompound.contains("HeadTick")){
+            this.headTick = pCompound.getInt("HeadTick");
         }
     }
 
@@ -209,7 +219,7 @@ public class BlackBeast extends Summoned{
 
     @Nullable
     public UUID getPreyId() {
-        return this.entityData.get(PREY_ID).orElse((UUID)null);
+        return this.entityData.get(PREY_ID).orElse(null);
     }
 
     public void setPreyId(@Nullable UUID p_184754_1_) {
@@ -426,6 +436,9 @@ public class BlackBeast extends Summoned{
     public void die(DamageSource p_21014_) {
         this.setAnimationState(DEATH);
         this.deathRotation = this.getYRot();
+        if (this.getPrey() != null){
+            this.setPrey(null);
+        }
         super.die(p_21014_);
     }
 
@@ -451,6 +464,16 @@ public class BlackBeast extends Summoned{
         return super.canBeAffected(pPotioneffect) && pPotioneffect.getEffect() != MobEffects.WITHER;
     }
 
+    @Nullable
+    public Path findPath(double x, double y, double z) {
+        return this.getNavigation().createPath(x, y, z, 0);
+    }
+
+    @Nullable
+    public Path findPath(Vec3 position) {
+        return this.findPath(position.x(), position.y(), position.z());
+    }
+
     public boolean hurt(DamageSource source, float amount) {
         if (source.is(DamageTypeTags.IS_FALL) || source.is(DamageTypeTags.IS_DROWNING)) {
             return false;
@@ -460,7 +483,7 @@ public class BlackBeast extends Summoned{
             return false;
         }
 
-        if (source.getEntity() instanceof Mob){
+        if (source.getEntity() instanceof Mob || source.getDirectEntity() instanceof AbstractArrow){
             amount = (amount + 1.0F) / 2.0F;
         }
 
@@ -485,16 +508,27 @@ public class BlackBeast extends Summoned{
             if (flag) {
                 this.attackTick = 10;
                 this.setAnimationState(ATTACK);
+                this.level.broadcastEntityEvent(this, (byte) 101);
                 this.playSound(ModSounds.BLACK_BEAST_CLAW.get(), this.getSoundVolume(), this.getVoicePitch());
                 if (entityIn instanceof LivingEntity target) {
                     if (!target.hasEffect(GoetyEffects.DOOM.get()) && !MobUtil.isInSunlightNoRain(this)) {
                         int debuffDuration = MathHelper.secondsToTicks(15);
+                        int regenAmp = 2;
+                        if (MobsConfig.BlackBeastDayStrength.get()) {
+                            if (this.level.dayTime() >= MathHelper.minecraftDayToTicks(50)) {
+                                regenAmp += 1;
+                            }
+
+                            if (this.level.dayTime() >= MathHelper.minecraftDayToTicks(100)) {
+                                regenAmp += 1;
+                            }
+                        }
                         this.playSound(ModSounds.BLACK_BEAST_ROAR.get(), this.getSoundVolume(), 0.25F);
 
                         target.addEffect(new MobEffectInstance(GoetyEffects.DOOM.get(), debuffDuration, 0, false, false), this);
                         target.addEffect(new MobEffectInstance(MobEffects.WITHER, debuffDuration, 1, false, false), this);
                         target.addEffect(new MobEffectInstance(GoetyEffects.CURSED.get(), debuffDuration, 0, false, false), this);
-                        this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, MathHelper.secondsToTicks(5), 2, false, false), this);
+                        this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, MathHelper.secondsToTicks(5), regenAmp, false, false), this);
                     }
                 }
             }
@@ -576,6 +610,18 @@ public class BlackBeast extends Summoned{
                 if (this.summonCool > 0) {
                     --this.summonCool;
                 }
+                if (this.pathFindTick > 0) {
+                    --this.pathFindTick;
+                }
+                if (this.getTarget() != null){
+                    if (this.pathFindTick <= 0){
+                        this.path = this.findPath(this.getTarget().position());
+                        this.pathFindTick = 10;
+                    }
+                    if (this.getTarget().getY() > this.getY() && !this.isWithinMeleeAttackRange(this.getTarget()) && (this.path == null || !this.path.canReach())) {
+                        this.beastHeadTick();
+                    }
+                }
                 if (this.summonTick > 0) {
                     this.getNavigation().stop();
                     --this.summonTick;
@@ -640,6 +686,37 @@ public class BlackBeast extends Summoned{
         } else {
             this.setPose(Pose.CROUCHING);
         }
+    }
+
+    public void beastHeadTick(){
+        ++this.headTick;
+        float lifePercent = this.getHealth() / this.getMaxHealth();
+        int i0 = (int) Mth.lerp(lifePercent, 40.0F, 80.0F);
+        int i1 = this.headTick / i0;
+        if (i1 >= 1) {
+            this.headTick = 0;
+            this.spawnBeastHead();
+        }
+    }
+
+    public void spawnBeastHead(){
+        if (this.getTarget() == null){
+            return;
+        }
+        BeastHead beastHead = new BeastHead(ModEntityType.BEAST_HEAD.get(), this.level, this.getTarget());
+        beastHead.setTrueOwner(this);
+        beastHead.setTarget(this.getTarget());
+        Vec3 vec3 = this.getTarget().position().offsetRandom(this.random, 8.0F);
+        for (int i = 0; i < 16; ++i){
+            if (this.getTarget().distanceToSqr(vec3) <= Mth.square(3.0F) || !MobUtil.canPositionBeSeen(this.level, this.getTarget(), vec3)){
+                vec3 = this.getTarget().position().offsetRandom(this.random, 8.0F);
+            } else {
+                break;
+            }
+        }
+        beastHead.moveTo(vec3);
+        MobUtil.instaLook(beastHead, this.getTarget());
+        this.level.addFreshEntity(beastHead);
     }
 
     public void teleportHits(){
@@ -789,6 +866,9 @@ public class BlackBeast extends Summoned{
                 if (this.isStaying()){
                     this.setStaying(false);
                 }
+                if (this.isPatrolling()){
+                    this.setBoundPos(null);
+                }
                 return InteractionResult.SUCCESS;
             } else if (pPlayer.getMainHandItem().isEmpty() && this.happyCool <= 0){
                 this.happyCool = 40;
@@ -802,7 +882,9 @@ public class BlackBeast extends Summoned{
     }
 
     public void handleEntityEvent(byte pId) {
-        if (pId == 102){
+        if (pId == 101){
+            this.leftSwiped = !this.leftSwiped;
+        } else if (pId == 102){
             this.happyCool = 40;
             this.playSound(SoundEvents.WOLF_AMBIENT, 1.0F, 0.5F);
             this.addParticlesAroundSelf(ParticleTypes.HEART);

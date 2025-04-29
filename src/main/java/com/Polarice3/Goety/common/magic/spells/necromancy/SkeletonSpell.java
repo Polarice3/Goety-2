@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.magic.spells.necromancy;
 
 import com.Polarice3.Goety.api.magic.SpellType;
-import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.*;
@@ -16,8 +15,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -156,10 +153,7 @@ public class SkeletonSpell extends SummonSpell {
                 summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
                 summonedentity.setArrowPower(potency);
                 summonedentity.finalizeSpawn(worldIn, caster.level.getCurrentDifficultyAt(caster.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-                if (potency > 0){
-                    int boost = Mth.clamp(potency - 1, 0, 10);
-                    summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), EffectsUtil.infiniteEffect(), boost, false, false));
-                }
+                this.buffSummon(caster, summonedentity, potency);
                 this.SummonSap(caster, summonedentity);
                 this.setTarget(caster, summonedentity);
                 if (worldIn.addFreshEntity(summonedentity)) {

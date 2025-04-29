@@ -39,7 +39,7 @@ public class BouncyBubbleSpell extends Spell {
     @Nullable
     @Override
     public SoundEvent CastingSound() {
-        return SoundEvents.PUFFER_FISH_BLOW_OUT;
+        return SoundEvents.GENERIC_SPLASH;
     }
 
     @Override
@@ -78,6 +78,7 @@ public class BouncyBubbleSpell extends Spell {
                 vector3d.x,
                 vector3d.y,
                 vector3d.z, worldIn);
+        bouncyBubble.shoot(vector3d);
         bouncyBubble.setOwner(caster);
         bouncyBubble.setExtraDamage(potency);
         bouncyBubble.setBoltSpeed(velocity);
@@ -91,6 +92,7 @@ public class BouncyBubbleSpell extends Spell {
                     vector3d.x,
                     vector3d.y,
                     vector3d.z, worldIn);
+            bouncyBubble2.shoot(vector3d);
             bouncyBubble2.setOwner(caster);
             bouncyBubble2.setExtraDamage(potency);
             bouncyBubble2.setBoltSpeed(velocity);

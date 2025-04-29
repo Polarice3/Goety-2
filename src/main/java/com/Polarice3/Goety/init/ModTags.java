@@ -99,9 +99,12 @@ public class ModTags {
         public static final TagKey<EntityType<?>> VILLAGERS = tag("villagers");
         public static final TagKey<EntityType<?>> ZOMBIE_SERVANTS = tag("zombie_servants");
         public static final TagKey<EntityType<?>> SKELETON_SERVANTS = tag("skeleton_servants");
+        public static final TagKey<EntityType<?>> NO_HEAL_SERVANTS = tag("no_heal_servants");
         public static final TagKey<EntityType<?>> HOLE_IMMUNE = tag("hole_immune");
+        public static final TagKey<EntityType<?>> WANTING_ENTITIES = tag("wanting_entities");
         public static final TagKey<EntityType<?>> SUMMON_KILL = tag("summon_kill");
         public static final TagKey<EntityType<?>> IGNORE_SERVANTS = tag("ignore_servants");
+        public static final TagKey<EntityType<?>> UNSTUNNABLE = tag("unstunnable");
         public static final TagKey<EntityType<?>> MINI_BOSSES = tag("mini_bosses");
         public static final TagKey<EntityType<?>> GLOBAL_MUSIC_BOSS = tag("global_music_boss");
         public static final TagKey<EntityType<?>> APOSTLE_OTHER_ALLIES = tag("apostle_other_allies");

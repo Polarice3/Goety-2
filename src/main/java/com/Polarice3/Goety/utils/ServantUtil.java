@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.utils;
 
+import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
@@ -7,6 +8,10 @@ import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieVillagerServant;
 import com.Polarice3.Goety.common.entities.hostile.BorderWraith;
 import com.Polarice3.Goety.common.entities.hostile.Wraith;
+import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.init.ModMobType;
+import com.Polarice3.Goety.init.ModTags;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.*;
@@ -14,6 +19,8 @@ import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.Vec3;
 
 public class ServantUtil {
 
@@ -120,6 +127,107 @@ public class ServantUtil {
                 net.minecraftforge.event.ForgeEventFactory.onLivingConvert(target, summoned);
                 if (!summoned.isSilent()) {
                     summoned.level.levelEvent(null, 1026, summoned.blockPosition(), 0);
+                }
+            }
+        }
+    }
+
+    public static boolean isFrostHeal(LivingEntity servant){
+        MobType mobType = servant.getMobType();
+        EntityType<?> entityType = servant.getType();
+        return mobType == ModMobType.FROST || entityType.is(ModTags.EntityTypes.FROST_HEAL);
+    }
+
+    public static boolean isWildHeal(LivingEntity servant){
+        MobType mobType = servant.getMobType();
+        EntityType<?> entityType = servant.getType();
+        return mobType == ModMobType.NATURAL || mobType == MobType.ARTHROPOD || entityType.is(ModTags.EntityTypes.WILD_HEAL);
+    }
+
+    public static boolean isNetherHeal(LivingEntity servant){
+        MobType mobType = servant.getMobType();
+        EntityType<?> entityType = servant.getType();
+        return mobType == ModMobType.NETHER || entityType.is(ModTags.EntityTypes.NETHER_HEAL);
+    }
+
+    public static boolean isNecroHeal(LivingEntity servant){
+        MobType mobType = servant.getMobType();
+        EntityType<?> entityType = servant.getType();
+        return mobType == MobType.UNDEAD || entityType.is(ModTags.EntityTypes.NECRO_HEAL);
+    }
+
+    public static boolean isAbyssHeal(LivingEntity servant){
+        MobType mobType = servant.getMobType();
+        EntityType<?> entityType = servant.getType();
+        return mobType == MobType.WATER || entityType.is(ModTags.EntityTypes.ABYSS_HEAL);
+    }
+
+    public static boolean isValidServantHeal(LivingEntity livingEntity){
+        return isFrostHeal(livingEntity) || isWildHeal(livingEntity) || isNecroHeal(livingEntity) || isNetherHeal(livingEntity) || isAbyssHeal(livingEntity);
+    }
+
+    public static boolean notServantButOwned(LivingEntity livingEntity){
+        return livingEntity instanceof OwnableEntity && !(livingEntity instanceof IServant) && isValidServantHeal(livingEntity);
+    }
+
+    public static void healServant(LivingEntity owner, LivingEntity servant){
+        if (owner instanceof Player player){
+            healServant(player, servant);
+        }
+    }
+
+    public static void healServant(Player owner, LivingEntity servant){
+        if (!servant.level.isClientSide) {
+            if (!servant.getType().is(ModTags.EntityTypes.NO_HEAL_SERVANTS)) {
+                if (!servant.isOnFire() && !servant.isDeadOrDying()) {
+                    if (servant.getHealth() < servant.getMaxHealth()) {
+                        boolean curio = false;
+                        int soulCost = 0;
+                        int healRate = 0;
+                        float healAmount = 0;
+                        if (isNecroHeal(servant) && MobsConfig.UndeadMinionHeal.get()) {
+                            curio = CuriosFinder.hasUndeadCape(owner);
+                            soulCost = MobsConfig.UndeadMinionHealCost.get();
+                            healRate = MobsConfig.UndeadMinionHealTime.get();
+                            healAmount = MobsConfig.UndeadMinionHealAmount.get().floatValue();
+                        }
+                        if (isAbyssHeal(servant) && MobsConfig.WaterMinionHeal.get()) {
+                            curio = CuriosFinder.hasAbyssRobes(owner);
+                            soulCost = MobsConfig.WaterMinionHealCost.get();
+                            healRate = MobsConfig.WaterMinionHealTime.get();
+                            healAmount = MobsConfig.WaterMinionHealAmount.get().floatValue();
+                        }
+                        if (isWildHeal(servant) && MobsConfig.NaturalMinionHeal.get()) {
+                            curio = CuriosFinder.hasWildRobe(owner);
+                            soulCost = MobsConfig.NaturalMinionHealCost.get();
+                            healRate = MobsConfig.NaturalMinionHealTime.get();
+                            healAmount = MobsConfig.NaturalMinionHealAmount.get().floatValue();
+                        }
+                        if (isFrostHeal(servant) && MobsConfig.FrostMinionHeal.get()) {
+                            curio = CuriosFinder.hasFrostRobes(owner);
+                            soulCost = MobsConfig.FrostMinionHealCost.get();
+                            healRate = MobsConfig.FrostMinionHealTime.get();
+                            healAmount = MobsConfig.FrostMinionHealAmount.get().floatValue();
+                        }
+                        if (isNetherHeal(servant) && MobsConfig.NetherMinionHeal.get()) {
+                            curio = CuriosFinder.hasNetherRobe(owner);
+                            soulCost = MobsConfig.NetherMinionHealCost.get();
+                            healRate = MobsConfig.NetherMinionHealTime.get();
+                            healAmount = MobsConfig.NetherMinionHealAmount.get().floatValue();
+                        }
+                        if (curio) {
+                            if (SEHelper.getSoulsAmount(owner, soulCost)) {
+                                if (servant.tickCount % (MathHelper.secondsToTicks(healRate) + 1) == 0) {
+                                    servant.heal(healAmount);
+                                    Vec3 vector3d = servant.getDeltaMovement();
+                                    if (servant.level instanceof ServerLevel serverWorld) {
+                                        SEHelper.decreaseSouls(owner, soulCost);
+                                        serverWorld.sendParticles(ParticleTypes.SCULK_SOUL, servant.getRandomX(0.5D), servant.getRandomY(), servant.getRandomZ(0.5D), 0, vector3d.x * -0.2D, 0.1D, vector3d.z * -0.2D, 0.5F);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
