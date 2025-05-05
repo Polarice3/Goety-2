@@ -1,0 +1,20 @@
+{
+  "name": "Capacidade",
+  "icon": "minecraft:crimson_fungus",
+  "category": "goety:brewing",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Uma poção pode conter mais efeitos que as comuns, mas precisa de capacidade suficiente! Exceder a capacidade resultará numa bagunça! Normalmente, uma poção simples suporta 4 ingredientes, mas há como aumentar isso!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Atenção! Os ingredientes devem ser adicionados NA ORDEM para aumentar a capacidade. E lembra-te: o primeiro ingrediente deve ser uma $(item)Verruga do Nether$()!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Ordem de Capacidade$()$(br)$(li)$(item)Fungo Carmesim$() - +2 $(li)$(item)Verrugas Rápidas$() - +2 $(li)$(item)Esmeralda Despertada$() - +2 $(li)$(item)Esmeralda Concentrada$() - +2 $(li)$(item)Rubi das Almas$() - +4"
+    }
+  ]
+}

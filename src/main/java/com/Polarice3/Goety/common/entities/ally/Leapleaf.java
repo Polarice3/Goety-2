@@ -291,7 +291,6 @@ public class Leapleaf extends Summoned{
 
     public void setCharging(boolean leap) {
         this.setFlag(1, leap);
-        this.chargeTick = 0;
     }
 
     public boolean isLeaping() {
@@ -656,7 +655,6 @@ public class Leapleaf extends Summoned{
             this.target = this.leapleaf.getTarget();
 
             return this.target != null
-                    && !this.leapleaf.isCharging()
                     && !this.leapleaf.isLeaping()
                     && this.leapleaf.coolTick <= 0
                     && this.leapleaf.onGround()
@@ -665,7 +663,7 @@ public class Leapleaf extends Summoned{
 
         @Override
         public boolean canContinueToUse() {
-            return this.leapleaf.isCharging() || this.leapleaf.isLeaping();
+            return this.target != null && (this.leapleaf.isCharging() || this.leapleaf.isLeaping());
         }
 
         @Override
@@ -674,13 +672,12 @@ public class Leapleaf extends Summoned{
                 MobUtil.instaLook(this.leapleaf, this.target);
             }
             this.leapleaf.setMeleeAttacking(false);
-            this.leapleaf.setCharging(true);
+            this.leapleaf.setCharging(!this.leapleaf.isCharging());
         }
 
         @Override
         public void stop() {
             super.stop();
-            this.leapleaf.setCharging(false);
             this.leapleaf.setLeaping(false);
             this.leapleaf.leapTick = 0;
         }
@@ -701,6 +698,7 @@ public class Leapleaf extends Summoned{
                 } else {
                     if (this.leapleaf.distanceTo(this.target) <= 6.5F){
                         this.leapleaf.setCharging(false);
+                        this.leapleaf.chargeTick = 0;
                         this.leapleaf.setAnimationState(LEAP);
                         this.leapleaf.playSound(ModSounds.LEAPLEAF_LEAP.get(), this.leapleaf.getSoundVolume(), this.leapleaf.getVoicePitch());
                         this.leapleaf.setLeaping(true);
@@ -750,8 +748,10 @@ public class Leapleaf extends Summoned{
                     for (int i = 0; i < 8; ++i) {
                         ServerParticleUtil.circularParticles(serverLevel, rightOption, xRight, this.leapleaf.getY() + 0.25D, zRight, 1.5F);
                     }
-                    ColorUtil colorUtil = new ColorUtil(leftState.getMapColor(serverLevel, leftPos).col);
-                    ColorUtil colorUtil1 = new ColorUtil(rightState.getMapColor(serverLevel, rightPos).col);
+                    int left = leftState.getMapColor(serverLevel, leftPos).col;
+                    int right = rightState.getMapColor(serverLevel, rightPos).col;
+                    ColorUtil colorUtil = left == 0 ? ColorUtil.WHITE : new ColorUtil(left);
+                    ColorUtil colorUtil1 = right == 0 ? ColorUtil.WHITE : new ColorUtil(right);
                     serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 5, 1), xLeft, BlockFinder.moveDownToGround(this.leapleaf), zLeft, 1, 0.0D, 0.0D, 0.0D, 0.0D);
                     serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil1.red(), colorUtil1.green(), colorUtil1.blue(), 5, 1), xRight, BlockFinder.moveDownToGround(this.leapleaf), zRight, 1, 0.0D, 0.0D, 0.0D, 0.0D);
                     BlockPos blockPos2 = BlockPos.containing(xLeft, this.leapleaf.getY() + 0.25D, zLeft);

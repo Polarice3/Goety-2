@@ -38,7 +38,7 @@ public class AcidPool extends AbstractTrap {
 
     public AcidPool(EntityType<?> entityTypeIn, Level worldIn) {
         super(entityTypeIn, worldIn);
-        this.setParticle(null);
+        this.setParticle(ModParticleTypes.NONE.get());
         this.setDuration(50);
     }
 
@@ -188,7 +188,7 @@ public class AcidPool extends AbstractTrap {
 
             if (this.sentSpikeEvent){
                 ++this.lifeTick;
-                if (this.getParticle() == null) {
+                if (this.getParticle() == null || this.getParticle() == ModParticleTypes.NONE.get()) {
                     if (this.tickCount % 5 == 0) {
                         serverLevel.sendParticles(new FoggyCloudParticleOption(new ColorUtil(this.getColor()), this.radius() / 2.0F, 1), this.getX(), this.getY() + 0.25D, this.getZ(), 1, 0, 0, 0, 0);
                     }

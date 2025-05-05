@@ -3,12 +3,14 @@ package com.Polarice3.Goety.common.entities.projectiles;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.AbstractBroodMother;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.level.Level;
 
@@ -91,18 +93,6 @@ public class SpiderWeb extends TangleEntity {
         super.onSyncedDataUpdated(accessor);
     }
 
-    public void findTarget(){
-        if (this.getTarget() == null) {
-            for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox())) {
-                if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)) {
-                    if (!MobUtil.areAllies(livingEntity, this.getOwner()) && !(livingEntity instanceof Spider) && !(livingEntity instanceof AbstractBroodMother)) {
-                        this.setTarget(livingEntity);
-                    }
-                }
-            }
-        }
-    }
-
     @Override
     public void burst() {
         this.setAnimationState("hold");
@@ -117,5 +107,14 @@ public class SpiderWeb extends TangleEntity {
     @Override
     public void burrow() {
         this.setAnimationState("burrow");
+    }
+
+    @Override
+    protected boolean canHitEntity(Entity pEntity) {
+        if (pEntity instanceof Spider || pEntity instanceof AbstractBroodMother) {
+            return false;
+        } else {
+            return super.canHitEntity(pEntity);
+        }
     }
 }

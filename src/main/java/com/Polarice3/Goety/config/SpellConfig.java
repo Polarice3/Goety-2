@@ -1088,10 +1088,10 @@ public class SpellConfig {
                     .defineInRange("frostNovaTime", 0, 0, 72000);
             FrostNovaCoolDown = BUILDER.comment("Frost Nova Spell Cooldown, Default: 100")
                     .defineInRange("frostNovaCoolDown", 100, 0, Integer.MAX_VALUE);
-            FrostNovaDamage = BUILDER.comment("How much base minimum damage Frost Nova Spell deals, Default: 3.0")
-                    .defineInRange("frostNovaMinDamage", 3.0, 1.0, Double.MAX_VALUE);
-            FrostNovaMaxDamage = BUILDER.comment("How much base maximum damage Frost Nova Spell deals, Default: 6.0")
-                    .defineInRange("frostNovaMaxDamage", 6.0, 2.0, Double.MAX_VALUE);
+            FrostNovaDamage = BUILDER.comment("How much base minimum damage Frost Nova Spell deals, Default: 5.0")
+                    .defineInRange("frostNovaMinDamage", 5.0, 1.0, Double.MAX_VALUE);
+            FrostNovaMaxDamage = BUILDER.comment("How much base maximum damage Frost Nova Spell deals, Default: 10.0")
+                    .defineInRange("frostNovaMaxDamage", 10.0, 2.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Frostborn Spell");
             FrostbornCost = BUILDER.comment("Frostborn Spell Cost, Default: 24")

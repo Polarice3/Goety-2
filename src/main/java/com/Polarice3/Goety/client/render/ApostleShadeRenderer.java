@@ -63,7 +63,7 @@ public class ApostleShadeRenderer extends CultistRenderer<ApostleShade>{
         public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
             super.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
             this.hat.visible = false;
-            this.halo1.zRot = entity.getSpin();
+            this.halo1.zRot = ageInTicks * 0.01F;
         }
     }
 }

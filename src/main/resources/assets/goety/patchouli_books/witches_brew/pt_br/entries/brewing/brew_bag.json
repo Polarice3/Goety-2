@@ -1,0 +1,17 @@
+{
+  "name": "Bolsa de Poções",
+  "icon": "goety:brew_bag",
+  "category": "goety:brewing",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Muitas poções para carregar? Faz uma Bolsa de Poções! (Só guarda poções arremessáveis!)"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:brew_bag",
+      "text": "Pressiona a tecla da Bolsa (Padrão: H) para abri-la, ou a tecla de Arremesso (Padrão: J) para lançar uma poção."
+    }
+  ]
+}

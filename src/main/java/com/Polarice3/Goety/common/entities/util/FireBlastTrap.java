@@ -3,7 +3,6 @@ package com.Polarice3.Goety.common.entities.util;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.ChatFormatting;
@@ -172,11 +171,11 @@ public class FireBlastTrap extends Entity {
                 }
                 if (!targets.isEmpty()){
                     for (Entity entity : targets) {
-                        if (this.owner instanceof Apostle || (this.owner != null && CuriosFinder.hasUnholySet(this.owner))) {
+                        if ((this.owner != null && CuriosFinder.hasUnholySet(this.owner))) {
                             if (entity instanceof LivingEntity livingEntity) {
                                 livingEntity.addEffect(new MobEffectInstance(GoetyEffects.BURN_HEX.get(), 1200));
                             }
-                            entity.hurt(ModDamageSource.hellfire(this, this.owner), AttributesConfig.ApostleMagicDamage.get().floatValue());
+                            entity.hurt(ModDamageSource.hellfire(this, this.owner), AttributesConfig.ApostleMagicDamage.get().floatValue() + this.getExtraDamage());
                         } else {
                             if (this.owner != null){
                                 float damage = 5.0F;

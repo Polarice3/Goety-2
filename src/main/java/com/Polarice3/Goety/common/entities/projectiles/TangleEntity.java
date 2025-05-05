@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.CSetDeltaMovement;
@@ -10,10 +11,8 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySelector;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
@@ -167,12 +166,12 @@ public abstract class TangleEntity extends Entity {
         if (this.getTarget() == null) {
             for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox())) {
                 if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)) {
-                    if (!MobUtil.areAllies(livingEntity, this.getOwner())) {
-                        if (livingEntity.isPassenger() && livingEntity.getVehicle() instanceof LivingEntity vehicle){
-                            this.setTarget(vehicle);
-                        } else {
-                            this.setTarget(livingEntity);
-                        }
+                    LivingEntity target = livingEntity;
+                    if (target.isPassenger() && target.getVehicle() instanceof LivingEntity vehicle){
+                        target = vehicle;
+                    }
+                    if (this.canHitEntity(target)) {
+                        this.setTarget(target);
                     }
                 }
             }
@@ -200,6 +199,25 @@ public abstract class TangleEntity extends Entity {
         } else {
             super.handleEntityEvent(pId);
         }
+    }
+
+    protected boolean canHitEntity(Entity pEntity) {
+        if (this.getOwner() != null){
+            if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
+                return true;
+            } else {
+                if (MobUtil.areAllies(this.getOwner(), pEntity)){
+                    return false;
+                }
+                if (this.getOwner() instanceof Enemy && pEntity instanceof Enemy){
+                    return false;
+                }
+                if (pEntity instanceof IOwned owned0 && this.getOwner() instanceof IOwned owned1){
+                    return !MobUtil.ownerStack(owned0, owned1);
+                }
+            }
+        }
+        return true;
     }
 
     @Override

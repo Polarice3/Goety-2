@@ -300,9 +300,7 @@ public class IceGolem extends AbstractGolemServant{
                 if (this.isSmashing()){
                     ++this.smashTick;
                     if (this.smashTick == 19){
-                        if (this.level instanceof ServerLevel serverLevel) {
-                            new FrostNovaSpell().SpellResult(serverLevel, this, ItemStack.EMPTY);
-                        }
+                        new FrostNovaSpell().mobSpellResult(this, ItemStack.EMPTY);
                     }
                     if (this.smashTick >= MathHelper.secondsToTicks(2.5F)){
                         this.attackCool = 10;

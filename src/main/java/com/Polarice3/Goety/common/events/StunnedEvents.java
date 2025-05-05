@@ -91,7 +91,8 @@ public class StunnedEvents {
 
     @SubscribeEvent
     public static void PotionApplicationEvents(MobEffectEvent.Applicable event){
-        if (event.getEffectInstance().getEffect() == GoetyEffects.STUNNED.get()){
+        if (event.getEffectInstance().getEffect() == GoetyEffects.STUNNED.get()
+                || event.getEffectInstance().getEffect().getDescriptionId().contains("born_in_chaos_v1:stun")){
             if (event.getEntity().getType().is(ModTags.EntityTypes.UNSTUNNABLE)){
                 event.setResult(Event.Result.DENY);
             }

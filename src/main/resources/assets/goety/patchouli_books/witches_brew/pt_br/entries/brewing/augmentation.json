@@ -1,0 +1,24 @@
+{
+  "name": "Aprimoramentos",
+  "icon": "minecraft:glowstone_dust",
+  "category": "goety:brewing",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Há muitas formas de aprimorar tua poção! Um novato sabe que Redstone aumenta duração e Pó de Pedra Luminosa aumenta poder, mas há mais! Como a capacidade, os ingredientes devem ser adicionados em ORDEM!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Duração$()$(br)$(li)$(item)Pó de Redstone$()$(li2)Custo Extra - x1.25 $(li)$(item)Bloco de Prismarinho$()$(li2)Custo Extra - x1.5 $(li)$(item)Flor de Chorus$()$(li2)Custo Extra - x2"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Amplificar Efeitos$()$(br)$(li)$(item)Pó de Pedra Luminosa$()$(li2)Custo Extra - x2 $(li)$(item)Vara de Blaze$()$(li2)Custo Extra - x2.5 $(li)$(item)Núcleo Místico$()$(li2)Custo Extra - x3"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Área de Efeito$()$(br)$(li)$(item)Carvão$()$(li2)Custo Extra - x1.25 $(li)$(item)Estrela de Fogo de Artifício$()$(li2)Custo Extra - x1.5 $(li)$(item)Caveira Alta$()$(li2)Custo Extra - x2"
+    }
+  ]
+}

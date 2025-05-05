@@ -1,0 +1,40 @@
+{
+  "name": "Passos do Preparo",
+  "icon": "minecraft:nether_wart",
+  "category": "goety:brewing",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Para começar verdadeiramente, deves adicionar um $(item)Verruga do Nether$() ao caldeirão fervente! Quando ele soltar faíscas roxas, podemos começar de verdade, nyehahahaha!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O processo segue esta ordem:$(br2)$()$(l)Capacidade -> Catalisador -> Aprimoramento -> Finalização!$()$(br2)Lembra-te destes passos, pestinha! Misturá-los arruinará tua poção! Agora deves estar a perguntar: 'Avó, o que significam estas palavras?' Cala a boca e eu te direi!"
+    },
+    {
+      "type": "patchouli:relations",
+      "entries": [
+        "goety:brewing/capacity",
+        "goety:brewing/catalysts",
+        "goety:brewing/augmentation"
+      ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Quando Capacidade, Catalisador e Aprimoramento estiverem adicionados, e teu caldeirão não soltar fumaça negra, tua poção está pronta para a Finalização! Clica com o botão direito no Caldeirão com a Concha antes de engarrafar!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Verifica se os teus Castiçais de Alma podem transferir energia suficiente (vê o Caldeirão agachado) antes de começar! O Caldeirão emitirá partículas quando estiver pronto para engarrafar!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Usa trajes de Bruxa ao engarrafar! Um Chapéu e Robe dão chance de poções extras! Segredo da Avó: Maçãs absorvem bem poções... lembras-te da Branca de Neve? Hehehehahaha!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O caldeirão deve estar cheio para usar um $(bold)kit taglock$() ou $(bold)pedra de waystone$()! Se não sabes o que são, azar! Esta Avó só fala de poções! Hahahahaha!"
+    }
+  ]
+}

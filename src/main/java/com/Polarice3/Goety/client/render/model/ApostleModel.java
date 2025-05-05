@@ -38,7 +38,7 @@ public class ApostleModel<T extends Apostle> extends CultistModel<T> {
         super.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         this.nose.visible = !entity.isSecondPhase();
         this.hat.visible = false;
-        this.halo1.zRot = entity.getSpin();
+        this.halo1.zRot = ageInTicks * 0.01F;
         this.hat2.visible = !(entity.isSecondPhase() && MobUtil.healthIsHalved(entity));
     }
 }

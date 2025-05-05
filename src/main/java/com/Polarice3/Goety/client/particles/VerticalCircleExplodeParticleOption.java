@@ -65,7 +65,7 @@ public class VerticalCircleExplodeParticleOption implements ParticleOptions {
         p_235956_.writeFloat(this.green);
         p_235956_.writeFloat(this.blue);
         p_235956_.writeFloat(this.size);
-        p_235956_.writeFloat(this.speed);
+        p_235956_.writeInt(this.speed);
     }
 
     public String writeToString() {

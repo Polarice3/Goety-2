@@ -101,6 +101,9 @@ public class BouncyBubble extends SpellHurtingProjectile{
     @Override
     public void tick() {
         super.tick();
+        if (!this.level.isLoaded(this.blockPosition())){
+            this.discard();
+        }
         if (this.tickCount >= 100) {
             this.explode();
         }
@@ -194,8 +197,8 @@ public class BouncyBubble extends SpellHurtingProjectile{
 
             this.playSound(SoundEvents.BUBBLE_COLUMN_BUBBLE_POP, 64.0F, 1.0F);
             this.playSound(SoundEvents.GENERIC_SPLASH, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-            this.discard();
         }
+        this.discard();
     }
 
     public boolean isOnFire() {
@@ -210,7 +213,9 @@ public class BouncyBubble extends SpellHurtingProjectile{
         if (this.isInvulnerableTo(source)){
             return false;
         } else {
-            this.explode();
+            if (!ModDamageSource.waterAttacks(source) && !(source.getDirectEntity() instanceof BouncyBubble)){
+                this.explode();
+            }
             return true;
         }
     }

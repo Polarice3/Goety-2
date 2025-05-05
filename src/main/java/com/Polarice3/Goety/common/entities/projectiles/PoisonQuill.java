@@ -157,6 +157,12 @@ public class PoisonQuill extends Arrow {
     @Override
     public void tick() {
         super.tick();
+        if (!this.level.isLoaded(this.blockPosition())){
+            this.discard();
+        }
+        if (this.tickCount >= 100) {
+            this.discard();
+        }
         if (!this.inGround) {
             Vec3 vec3 = this.getDeltaMovement();
             double d0 = this.getX() + vec3.x;

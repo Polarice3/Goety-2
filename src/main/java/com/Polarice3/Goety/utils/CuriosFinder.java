@@ -3,6 +3,7 @@ package com.Polarice3.Goety.utils;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
+import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.brew.ThrowableBrewItem;
@@ -178,7 +179,7 @@ public class CuriosFinder {
     }
 
     public static boolean hasUnholySet(LivingEntity livingEntity){
-        return hasUnholyRobe(livingEntity) && hasUnholyHat(livingEntity);
+        return (hasUnholyRobe(livingEntity) && hasUnholyHat(livingEntity)) || livingEntity instanceof Apostle;
     }
 
     public static boolean isWitchFriendly(LivingEntity livingEntity){

@@ -512,14 +512,26 @@ public class AbstractWraith extends Summoned {
         if (!this.isFiring()) {
             this.setIsFiring(true);
             this.level.broadcastEntityEvent(this, (byte) 4);
-            this.level.broadcastEntityEvent(this, (byte) 100);
+            this.firingParticles();
             if (this.level instanceof ServerLevel serverLevel){
                 serverLevel.sendParticles(new TeleportShockwaveParticleOption(10), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
             }
-            if (!this.isSilent()) {
-                this.level.playSound((Player) null, this.getX(), this.getY(), this.getZ(), this.getAttackSound(), this.getSoundSource(), 1.0F, 1.0F);
-                this.playSound(this.getAttackSound(), 1.0F, 1.0F);
-            }
+            this.playAttackSound();
+        }
+    }
+
+    public void firingParticles(){
+        this.level.broadcastEntityEvent(this, (byte) 100);
+    }
+
+    public void playAttackSound(){
+        if (!this.isSilent()) {
+            this.level.playSound(null, this.getX(), this.getY(), this.getZ(), this.getAttackSound(), this.getSoundSource(), 1.0F, 1.0F);
+            this.level.playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.WRAITH_FIRE.get(), this.getSoundSource(), 1.0F, 1.7F);
+            this.level.playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.WRAITH_FLY.get(), this.getSoundSource(), 0.4F, 1.094967F);
+            this.playSound(this.getAttackSound(), 1.0F, 1.0F);
+            this.playSound(ModSounds.WRAITH_FIRE.get(), 1.0F, 1.7F);
+            this.playSound(ModSounds.WRAITH_FLY.get(), 0.4F, 1.094967F);
         }
     }
 

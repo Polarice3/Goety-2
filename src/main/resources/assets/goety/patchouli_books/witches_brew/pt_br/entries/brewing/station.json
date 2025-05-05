@@ -1,0 +1,26 @@
+{
+  "name": "Estação de Trabalho",
+  "icon": "goety:witch_pole",
+  "category": "goety:brewing",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Podes melhorar tua estação para gastar menos energia! Primeiro, prepara poções num Pântano - é úmido e cheio de insetos deliciosos!"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:witch_pole",
+      "text": "Um Poste de Bruxa reduz a energia necessária quando colocado até 8 blocos do Caldeirão. Máximo de 3 Postes."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:cat{variant:all_black}",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Sabes porque temos gatos pretos? Além de companhia, um gato preto próximo ao Caldeirão dá 25% de chance de poções extras!"
+    }
+  ]
+}

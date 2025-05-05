@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.client.particles.TeleportShockwaveParticleOption;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.projectiles.AcidPool;
@@ -9,12 +8,12 @@ import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
 public class AbstractMuckWraith extends AbstractWraith {
@@ -55,18 +54,15 @@ public class AbstractMuckWraith extends AbstractWraith {
         return ModSounds.TOWER_WRAITH_ATTACK.get();
     }
 
-    public void startFiring(){
-        if (!this.isFiring()) {
-            this.setIsFiring(true);
-            this.level.broadcastEntityEvent(this, (byte) 4);
-            this.level.broadcastEntityEvent(this, (byte) 103);
-            if (this.level instanceof ServerLevel serverLevel){
-                serverLevel.sendParticles(new TeleportShockwaveParticleOption(10), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
-            }
-            if (!this.isSilent()) {
-                this.level.playSound(null, this.getX(), this.getY(), this.getZ(), this.getAttackSound(), this.getSoundSource(), 1.0F, 1.0F);
-                this.playSound(this.getAttackSound(), 1.0F, 1.0F);
-            }
+    @Override
+    public void firingParticles() {
+        this.level.broadcastEntityEvent(this, (byte) 103);
+    }
+
+    public void playAttackSound(){
+        if (!this.isSilent()) {
+            this.level.playSound((Player) null, this.getX(), this.getY(), this.getZ(), this.getAttackSound(), this.getSoundSource(), 1.0F, 1.0F);
+            this.playSound(this.getAttackSound(), 1.0F, 1.0F);
         }
     }
 

@@ -18,6 +18,8 @@ import com.Polarice3.Goety.common.entities.projectiles.*;
 import com.Polarice3.Goety.common.entities.util.*;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.UnholyBloodItem;
+import com.Polarice3.Goety.common.magic.SpellStat;
+import com.Polarice3.Goety.common.magic.spells.nether.FireBlastSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.ModServerBossInfo;
 import com.Polarice3.Goety.common.network.server.SApostleSmitePacket;
@@ -105,7 +107,6 @@ import java.util.UUID;
 import java.util.function.Predicate;
 
 public class Apostle extends SpellCastingCultist implements RangedAttackMob {
-    private int f;
     private int hitTimes;
     private int coolDown;
     private int tornadoCoolDown;
@@ -126,7 +127,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     private static final UUID SPEED_MODIFIER_MONOLITH_UUID = UUID.fromString("ba4294fc-8f77-44aa-89cc-96a28c263fa1");
     private static final AttributeModifier SPEED_MODIFIER_MONOLITH = new AttributeModifier(SPEED_MODIFIER_MONOLITH_UUID, "Monoliths speed penalty", -0.25D, AttributeModifier.Operation.ADDITION);
     protected static final EntityDataAccessor<Byte> BOSS_FLAGS = SynchedEntityData.defineId(Apostle.class, EntityDataSerializers.BYTE);
-    private static final EntityDataAccessor<Float> SPIN = SynchedEntityData.defineId(Apostle.class, EntityDataSerializers.FLOAT);
     private final ModServerBossInfo bossInfo;
     public Predicate<Owned> ZOMBIE_MINIONS = (owned) -> {
         return owned instanceof ZPiglinServant && owned.getTrueOwner() == this;
@@ -162,7 +162,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
         this.xpReward = 1000;
-        this.f = 0;
         this.coolDown = 100;
         this.spellCycle = 0;
         this.hitTimes = 0;
@@ -215,7 +214,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(BOSS_FLAGS, (byte)0);
-        this.entityData.define(SPIN, 0.0F);
     }
 
     private boolean getBossFlag(int mask) {
@@ -300,7 +298,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
-        pCompound.putInt("firing", this.f);
         pCompound.putInt("coolDown", this.coolDown);
         pCompound.putInt("tornadoCoolDown", this.tornadoCoolDown);
         pCompound.putInt("infernoCoolDown", this.infernoCoolDown);
@@ -321,7 +318,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
-        this.f = pCompound.getInt("firing");
         this.coolDown = pCompound.getInt("coolDown");
         this.tornadoCoolDown = pCompound.getInt("tornadoCoolDown");
         this.infernoCoolDown = pCompound.getInt("infernoCoolDown");
@@ -638,14 +634,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
     public boolean isMonolithPower(){
         return this.getBossFlag(8);
-    }
-
-    public void setSpin(float spin){
-        this.entityData.set(SPIN, spin);
-    }
-
-    public float getSpin(){
-        return this.entityData.get(SPIN);
     }
 
     protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficulty) {
@@ -1020,13 +1008,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             --this.obsidianInvul;
         }
         if (this.level.isClientSide){
-            if (this.isAlive()) {
-                if (this.getSpin() < 3.14F) {
-                    this.setSpin(this.getSpin() + 0.01F);
-                } else {
-                    this.setSpin(-3.14F);
-                }
-            }
             if (this.isSettingUpSecond()){
                 for(int i = 0; i < 40; ++i) {
                     double d0 = this.random.nextGaussian() * 0.2D;
@@ -1075,8 +1056,9 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             }
         }
         if (this.isSettingUpSecond()){
+            this.antiRegen = 0;
+            this.antiRegenTotal = 0;
             this.setFiring(false);
-            this.f = 0;
             if (this.tickCount % 5 == 0) {
                 this.heal(0.015625F * this.getMaxHealth());
             }
@@ -1126,7 +1108,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                         this.level.addFreshEntity(fireBlastTrap);
                     }
                 }
-                if (this.prevVecPos != null && this.prevVecPos.distanceTo(this.position()) <= 0.1D) {
+                if (this.isInWall() || (this.prevVecPos != null && this.prevVecPos.distanceTo(this.position()) <= 0.1D)) {
                     ++this.stuckTime;
                 } else {
                     if (this.level.getBlockStates(this.getBoundingBox().inflate(1.0F)).anyMatch(blockState1 -> blockState1.getBlock() instanceof MovingPistonBlock)){
@@ -1354,27 +1336,16 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 this.teleportTowards(target);
             }
         }
-        if (this.isFiring() && !this.isSettingUpSecond()) {
-            ++this.f;
-            if (this.f % 2 == 0 && this.f < 10) {
-                for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4.0D), ALIVE)) {
-                    if (!(entity instanceof Cultist) && !(entity instanceof Witch) && !MobUtil.areAllies(this, entity) && !(entity instanceof IOwned && ((IOwned) entity).getTrueOwner() == this)) {
-                        entity.hurt(this.damageSources().mobAttack(this), AttributesConfig.ApostleMagicDamage.get().floatValue());
-                        this.launch(entity, this);
-                    }
-                }
-                if (!this.level.isClientSide){
-                    this.serverRoarParticles();
-                }
-
-            }
-            if (this.f >= 10){
+        if (this.isFiring()) {
+            if (!this.isSettingUpSecond()){
+                FireBlastSpell spell = new FireBlastSpell();
+                SpellStat stat = spell.defaultStats();
+                spell.mobSpellResult(this, new ItemStack(ModItems.NETHER_STAFF.get()), stat.setRadius(stat.getRadius() + 1.0D));
                 if (this.teleportChance()) {
                     this.teleport();
                 }
-                this.setFiring(false);
-                this.f = 0;
             }
+            this.setFiring(false);
         }
         if (this.isInWater() || this.isInLava() || this.isInWall()){
             this.teleport();
@@ -2022,7 +1993,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             if (!apostle.isSecondPhase()){
                 apostle.setFiring(true);
                 apostle.coolDown = 0;
-                apostle.playSound(ModSounds.ROAR_SPELL.get(), 1.0F, 1.0F);
             } else {
                 FireBlastTrap fireBlastTrap = new FireBlastTrap(apostle.level, apostle.getX(), apostle.getY() + 0.25D, apostle.getZ());
                 fireBlastTrap.setOwner(apostle);

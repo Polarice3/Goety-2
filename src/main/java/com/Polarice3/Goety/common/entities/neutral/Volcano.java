@@ -107,6 +107,11 @@ public class Volcano extends AbstractMonolith{
         return Blocks.BLACKSTONE.defaultBlockState();
     }
 
+    @Override
+    public boolean isInvulnerable() {
+        return true;
+    }
+
     public boolean hurt(DamageSource pSource, float pAmount) {
         return pSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY);
     }

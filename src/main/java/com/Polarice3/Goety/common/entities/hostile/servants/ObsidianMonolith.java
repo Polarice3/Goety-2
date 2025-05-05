@@ -335,6 +335,11 @@ public class ObsidianMonolith extends AbstractMonolith implements Enemy {
         }
     }
 
+    @Override
+    public boolean canTarget() {
+        return true;
+    }
+
     public void aiStep() {
         super.aiStep();
         if (!this.isEmerging()){

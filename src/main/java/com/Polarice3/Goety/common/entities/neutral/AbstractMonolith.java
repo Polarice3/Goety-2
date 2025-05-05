@@ -151,6 +151,35 @@ public abstract class AbstractMonolith extends Owned{
         return false;
     }
 
+    public boolean canTarget(){
+        return false;
+    }
+
+    @Override
+    protected void pushEntities() {
+        if (this.isPushable()) {
+            super.pushEntities();
+        } else if (!this.level.isClientSide) {
+            List<Entity> list = this.level().getEntities(this, this.getBoundingBox().inflate(0.5D));
+            for (Entity entity : list) {
+                this.doPush(entity);
+            }
+        }
+    }
+
+    @Override
+    protected void doPush(Entity entityIn) {
+        if (!this.level.isClientSide) {
+            if (this.getTrueOwner() != null) {
+                if (entityIn instanceof Mob mob) {
+                    if (mob.getTarget() == this.getTrueOwner() && this.canBeSeenAsEnemy()) {
+                        mob.setTarget(this);
+                    }
+                }
+            }
+        }
+    }
+
     public void push(Entity entityIn) {
     }
 
@@ -191,6 +220,13 @@ public abstract class AbstractMonolith extends Owned{
                 }
 
             }
+        }
+    }
+
+    @Override
+    public void mobSense() {
+        if (this.canTarget()) {
+            super.mobSense();
         }
     }
 

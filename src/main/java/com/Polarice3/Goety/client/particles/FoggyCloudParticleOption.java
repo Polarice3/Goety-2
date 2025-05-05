@@ -89,7 +89,7 @@ public class FoggyCloudParticleOption implements ParticleOptions {
     }
 
     public String writeToString() {
-        return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f %.2f %.2f %s %s %s %s %s %s",
+        return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f %s %s",
                 BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.red, this.green, this.blue, this.size, this.speed, this.gravity);
     }
 

@@ -70,10 +70,12 @@ public class FireBlastSpell extends Spell {
         int radius = (int) spellStat.getRadius();
         float damage = SpellConfig.FireBlastDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
         float maxDamage = SpellConfig.FireBlastMaxDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        int burning = spellStat.getBurning();
         if (WandUtil.enchantedFocus(caster)){
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
             damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster) / 2.0F;
             maxDamage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster) / 2.0F;
+            burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
         }
         damage += spellStat.getPotency();
         maxDamage += spellStat.getPotency();
@@ -101,13 +103,16 @@ public class FireBlastSpell extends Spell {
             damageSource = ModDamageSource.hellfire(caster, caster);
         }
 
+        int finalBurning = burning;
         new SpellExplosion(worldIn, caster, damageSource, caster.blockPosition(), radius, trueDamage){
             @Override
             public void explodeHurt(Entity target, DamageSource damageSource, double x, double y, double z, double seen, float actualDamage) {
                 if (target instanceof LivingEntity target1){
                     super.explodeHurt(target, damageSource, x, y, z, seen, actualDamage);
-                    int i = WandUtil.getLevels(ModEnchantments.BURNING.get(), caster) + 1;
-                    target1.setSecondsOnFire(5 * i);
+                    if (!target.fireImmune()) {
+                        int i = finalBurning + 1;
+                        target1.setSecondsOnFire(5 * i);
+                    }
                 }
             }
         };

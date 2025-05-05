@@ -318,6 +318,11 @@ public class PoisonQuillVine extends AbstractVine{
     }
 
     @Override
+    public boolean canTarget() {
+        return true;
+    }
+
+    @Override
     public void aiStep() {
         super.aiStep();
         if (!this.level.isClientSide){

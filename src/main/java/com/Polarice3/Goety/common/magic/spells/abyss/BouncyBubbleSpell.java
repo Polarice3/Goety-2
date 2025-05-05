@@ -85,19 +85,21 @@ public class BouncyBubbleSpell extends Spell {
         bouncyBubble.setSize(radius);
         worldIn.addFreshEntity(bouncyBubble);
         if (rightStaff(staff)) {
-            BouncyBubble bouncyBubble2 = new BouncyBubble(
-                    caster.getX() + vector3d.x / 2 + worldIn.random.nextGaussian(),
-                    caster.getEyeY() - 0.2,
-                    caster.getZ() + vector3d.z / 2 + worldIn.random.nextGaussian(),
-                    vector3d.x,
-                    vector3d.y,
-                    vector3d.z, worldIn);
-            bouncyBubble2.shoot(vector3d);
-            bouncyBubble2.setOwner(caster);
-            bouncyBubble2.setExtraDamage(potency);
-            bouncyBubble2.setBoltSpeed(velocity);
-            bouncyBubble2.setSize(radius);
-            worldIn.addFreshEntity(bouncyBubble2);
+            for (int i = 0; i < 2; ++i) {
+                BouncyBubble bouncyBubble2 = new BouncyBubble(
+                        caster.getX() + vector3d.x / 2 + worldIn.random.nextGaussian(),
+                        caster.getEyeY() - 0.2,
+                        caster.getZ() + vector3d.z / 2 + worldIn.random.nextGaussian(),
+                        vector3d.x,
+                        vector3d.y,
+                        vector3d.z, worldIn);
+                bouncyBubble2.shoot(vector3d);
+                bouncyBubble2.setOwner(caster);
+                bouncyBubble2.setExtraDamage(potency);
+                bouncyBubble2.setBoltSpeed(velocity);
+                bouncyBubble2.setSize(radius);
+                worldIn.addFreshEntity(bouncyBubble2);
+            }
         }
     }
 }
