@@ -14,43 +14,37 @@
       "text": "#output",
       "centered": true,
       "x": -1,
-      "y": -1,
-      "text": "Efeito Gerado"
+      "y": -1
     },
     {
       "type": "patchouli:text",
       "text": "#capacityExtra",
       "x": 0,
-      "y": 40,
-      "text": "Capacidade Adicional: "
+      "y": 40
     },
     {
       "type": "patchouli:text",
       "text": "#soulCost",
       "x": 0,
-      "y": 50,
-      "text": "Custo de Alma: "
+      "y": 50
     },
     {
       "type": "patchouli:text",
       "text": "#duration",
       "x": 0,
-      "y": 60,
-      "text": "Duração do Efeito: "
+      "y": 60
     },
     {
       "type": "patchouli:text",
       "text": "#linger",
       "x": 0,
-      "y": 70,
-      "text": "Tempo Residual: "
+      "y": 70
     },
     {
       "type": "patchouli:text",
       "text": "#text",
       "x": 0,
-      "y": 80,
-      "text": "Descrição do Efeito: "
+      "y": 80
     }
   ]
 }
