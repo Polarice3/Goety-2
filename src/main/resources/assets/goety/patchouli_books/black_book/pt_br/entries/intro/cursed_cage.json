@@ -1,0 +1,23 @@
+{
+  "name": "Diversos",
+  "icon": "goety:cursed_cage",
+  "category": "goety:intro",
+  "sortnum": 7,
+  "priority": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Ao explorar as artes sombrias, você encontrará diversos artefatos mágicos que requerem Energia das Almas para funcionar. A Gaiola Amaldiçoada ajuda a canalizar essa energia para esses dispositivos, desde que contenha um Totem ou esteja conectada a um reservatório de Energia das Almas."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:cursed_cage"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Devorador de Almas",
+      "text": "Você também descobriu um novo encantamento: Devorador de Almas. Qualquer arma ou ferramenta com este encantamento aumentará a quantidade de Energia das Almas obtida ao matar criaturas."
+    }
+  ]
+}

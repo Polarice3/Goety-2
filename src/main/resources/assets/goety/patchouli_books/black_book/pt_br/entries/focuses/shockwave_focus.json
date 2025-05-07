@@ -1,0 +1,18 @@
+{
+  "name": "Foco de Onda de Choque",
+  "icon": "goety:shockwave_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com este foco causa uma explosão de Energia das Almas em sua posição, ferindo todas as criaturas próximas e arremessando-as para longe. A explosão causa dano mágico e não afeta o conjurador."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/shockwave_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shockwave_focus": 1
+  }
+}

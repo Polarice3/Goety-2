@@ -1,0 +1,22 @@
+{
+  "name": "Devastador Zumbi",
+  "icon": "minecraft:rotten_flesh",
+  "category": "goety:mutações",
+  "advancement": "goety:goety/ler_pergaminho_devastador",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Sabe o que é melhor que um Devastador comum? Um Devastador Morto-Vivo! Bem, mais ou menos. Assim como a maioria dos Mortos-Vivos, o Devastador Zumbi queimaria sob a luz do sol e não consegue nadar na água. Ele também é mais lento que sua contraparte viva, mas tem um pequeno aumento nos pontos de Armadura. No geral, uma montaria perfeita para um Necromante ou para quem odeia a luz do sol e ama cadáveres apodrecidos."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:transformar_devastador_em_zumbi"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:zombie_ravager",
+      "scale": 0.5
+    }
+  ]
+}

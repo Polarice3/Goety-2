@@ -1,0 +1,31 @@
+{
+  "name": "Túnica Selvagem",
+  "icon": "goety:wild_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A Túnica Selvagem permite que você canalize o poder da natureza com mais eficiência. Servos que cospem veneno, por exemplo, agora liberam Veneno Ácido, que afeta até os Mortos-Vivos. Além disso, a Túnica também concede imunidade a veneno e a esse veneno ácido!"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wild_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Criaturas nascidas da magia selvagem podem se curar lentamente usando a energia da alma de seu invocador, se ele estiver vestindo esta túnica."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wild_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Coroa Selvagem reduz pela metade o tempo de conjuração de feitiços selvagens e impede que seus servos selvagens desapareçam como Vexes."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:wild_robe": 1,
+    "goety:wild_crown": 2
+  }
+}

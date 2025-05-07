@@ -1,0 +1,18 @@
+{
+  "name": "Foco do Fogo Fantasma",
+  "icon": "goety:ghost_fire_focus",
+  "category": "goety:focuses/necromancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "As chamas dos mortos podem ser bastante arrepiantes. Com ectoplasmas, você conseguiu invocar as chamas frias dos mortos em um local ou aos pés de seus inimigos."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/ghost_fire_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ghost_fire_focus": 1
+  }
+}

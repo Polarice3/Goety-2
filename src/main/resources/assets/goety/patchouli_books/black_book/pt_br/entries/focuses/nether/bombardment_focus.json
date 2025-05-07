@@ -1,0 +1,20 @@
+{
+  "name": "Foco de Bombardeio",
+  "icon": "goety:bombardment_focus",
+  "category": "goety:focuses/nether",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Uma versão aprimorada do humilde feitiço de Bola de Fogo. Agora, você pode disparar uma rajada de bolas de fogo e voar como os Blazes."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/bombardment_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Encantar o foco com Duração aumentará o número de rajadas que você pode disparar."
+    }
+  ]
+}

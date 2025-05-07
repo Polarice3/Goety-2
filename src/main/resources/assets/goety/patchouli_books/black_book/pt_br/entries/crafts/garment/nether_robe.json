@@ -1,0 +1,30 @@
+{
+  "name": "Túnica do Nether",
+  "icon": "goety:nether_robe",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com o crescente conhecimento do Nether, você criou uma túnica que infunde o usuário com suas chamas. O usuário ganha resistência a ataques de fogo e se extingue mais rápido. A túnica também reduz o custo de feitiços do Nether e servos do Nether se regeneram usando a energia da alma do invocador."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nether_robe"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nether_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Coroa do Nether reduz pela metade o tempo de conjuração de feitiços do Nether e impede que servos do Nether morram como Vexes."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:nether_robe": 1,
+    "goety:nether_robe_warped": 1,
+    "goety:nether_crown": 2
+  }
+}

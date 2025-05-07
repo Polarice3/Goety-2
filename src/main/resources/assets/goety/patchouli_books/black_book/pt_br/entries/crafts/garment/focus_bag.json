@@ -1,0 +1,21 @@
+{
+  "name": "Bolsa de Foco",
+  "icon": "goety:focus_bag",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Você está tendo dificuldade para carregar múltiplos $(l:focuses)focos$() consigo. Felizmente, você conseguiu criar uma bolsa de couro para guardar vários focos que pode acessar facilmente, pressionando a tecla da Bolsa de Foco (Padrão: C) ou segurando uma varinha e pressionando a tecla do Círculo de Foco (Padrão: X), e pode usar na cintura."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus_bag",
+      "text": "A Bolsa de Foco pode guardar até 10 focos."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus_pack",
+      "text": "A Mochila de Foco pode guardar até 20 focos."
+    }
+  ]
+}

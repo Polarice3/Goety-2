@@ -1,0 +1,27 @@
+{
+  "name": "Jarro Assombrado",
+  "icon": "goety:haunted_jug",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/craft_dark_altar",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Às vezes, um feiticeiro das trevas precisa de mais do que apenas dois blocos de água para obter água infinita, algo mais compacto e manejável, talvez."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:haunted/haunted_jug"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O Jarro Assombrado contém um suprimento infinito de água que qualquer um pode recolher com baldes, garrafas e até tubos! No entanto, o que realmente torna este jarro especial é que, como o seu nome sugere, está assombrado com energias espirituais."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O jarro tentará encher qualquer recipiente válido próximo, como caldeirões, com água, e até apagará qualquer criatura que esteja em chamas perto dele."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:haunted_jug": 1
+  }
+}

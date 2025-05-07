@@ -1,0 +1,28 @@
+{
+  "name": "Tecidos Mágicos",
+  "icon": "goety:dark_fabric",
+  "category": "goety:intro",
+  "sortnum": 5,
+  "priority": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Lápis-Lazúli é essencial para a magia. Combinado com linhas, cria fios que canalizam magia melhor. Com corantes ou outros componentes, você produz tecidos especiais."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_fabric",
+      "recipe2": "goety:magic_fabric"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:occult_fabric",
+      "recipe2": "goety:spirit_fabric"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:gale_fabric",
+      "recipe2": "goety:chill_fabric"
+    }
+  ]
+}

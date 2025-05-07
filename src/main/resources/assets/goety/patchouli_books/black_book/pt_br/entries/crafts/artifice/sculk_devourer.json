@@ -1,0 +1,20 @@
+{
+  "name": "Devorador de Sculk",
+  "icon": "goety:sculk_devourer",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_sculk_catalyst",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O Catalisador de Sculk converte experiência em Sculk. Com ajustes, transformaste-o num coletor que converte experiência diretamente em Energia das Almas."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:sculk_devourer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A energia gerada equivale à experiência absorvida. Pode ser encantado com Raio (aumenta a área de absorção) e Devorador de Almas (aumenta a energia obtida)."
+    }
+  ]
+}

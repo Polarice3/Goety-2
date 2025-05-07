@@ -1,0 +1,18 @@
+{
+  "name": "Foco do Raio Veloz",
+  "icon": "goety:bolting_focus",
+  "category": "goety:focuses/storm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O feitiço cobre você com eletricidade e o impulsiona, como um tridente encantado com Maré Rápida, na direção em que você está olhando, eletrocutando qualquer criatura não aliada no caminho."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/bolting_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:bolting_focus": 1
+  }
+}

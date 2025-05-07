@@ -1,0 +1,18 @@
+{
+  "name": "Foco de Banquete",
+  "icon": "goety:feast_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com Pérolas do End e o Núcleo da Fome, você invoca Presas sob qualquer criatura próxima. Mais preciso que o Foco de Mordida, desde que o alvo não se mova."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/feast_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:feast_focus": 1
+  }
+}

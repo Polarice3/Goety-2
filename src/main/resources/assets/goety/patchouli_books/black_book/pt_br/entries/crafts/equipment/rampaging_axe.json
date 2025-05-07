@@ -1,0 +1,22 @@
+{
+  "name": "Machado Devastador",
+  "icon": "goety:rampaging_axe",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Um machado que tem fome tanto de Sangue quanto de Madeira. Ao matar uma criatura ou derrubar madeira, o usuário fica um pouco mais forte e suas mãos se movem mais rápido por 10 segundos. Matar ou cortar madeira continuamente amplifica o efeito. Se o usuário amplificar o efeito 5 vezes, o resultado é descrito como 'explosivo'."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:rampaging_axe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O machado pode ser reparado em uma bigorna com um $(l:intro/magical_components)Lingote de Metal Amaldiçoado$()."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:rampaging_axe": 1
+  }
+}

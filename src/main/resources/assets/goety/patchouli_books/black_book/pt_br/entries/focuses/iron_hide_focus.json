@@ -1,0 +1,15 @@
+{
+  "name": "Foco de Pele de Ferro",
+  "icon": "goety:iron_hide_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Este foco fortalece sua pele contra ataques físicos, aumentando temporariamente seus pontos de armadura."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/iron_hide_focus"
+    }
+  ]
+}

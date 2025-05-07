@@ -1,0 +1,22 @@
+{
+  "name": "Ritual da Forja",
+  "icon": "minecraft:anvil",
+  "category": "goety:rituais",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requisitos: $(li)1 Caldeirão cheio de Lava $(li)2 Fornalhas ou Altos-fornos $(li)1 Bigorna"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/forge_ritual.png"],
+      "border": true,
+      "text": "Um exemplo de como o ritual pode ser posicionado."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Criar uma Forja ao redor do Altar das Trevas permite que você crie certos itens e atualize seu arsenal mágico."
+    }
+  ]
+}

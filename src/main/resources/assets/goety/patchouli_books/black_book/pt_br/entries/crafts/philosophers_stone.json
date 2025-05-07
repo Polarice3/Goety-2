@@ -1,0 +1,20 @@
+{
+  "name": "Pedra Filosofal",
+  "icon": "goety:philosophers_stone",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/kill_a_apostle",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O Sangue de um Apóstolo permite a criação da mítica Pedra Filosofal. Com ela, pode-se duplicar ouro colocando esta pedra junto com um lingote de ouro. Fazer isso fará com que a pedra perca durabilidade, mas ela pode se reparar usando Energia das Almas."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:philosophers_stone"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:philosophers_stone": 1
+  }
+}

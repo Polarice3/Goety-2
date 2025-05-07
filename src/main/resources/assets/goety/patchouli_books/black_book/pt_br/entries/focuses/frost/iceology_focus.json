@@ -1,0 +1,18 @@
+{
+  "name": "Foco de Iceologia",
+  "icon": "goety:iceology_focus",
+  "category": "goety:focuses/frost",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Você aprendeu um ramo da Magia Illager chamado Iceologia. Com este foco, você pode invocar um bloco de gelo flutuante acima de um alvo que irá esmagá-lo após um curto período de tempo, atordoando-o por alguns segundos."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/iceology_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:iceology_focus": 1
+  }
+}

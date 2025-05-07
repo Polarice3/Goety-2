@@ -1,0 +1,22 @@
+{
+  "name": "Ritual de Geoturgia",
+  "icon": "minecraft:deepslate_bricks",
+  "category": "goety:rituals",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requisitos: $(li)Altar na altura 32 ou abaixo, não exposto ao céu $(br)$(l)OU$()$() $(li)1 Mesa de Ferraria $(li)8 Blocos de Ametista $(li)16 Blocos de Ardósia"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/geoturgy_ritual.png"],
+      "border": true,
+      "text": "Um exemplo de como o ritual pode ser posicionado."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Ao posicionar o Altar nas profundezas e cercá-lo com ardósia e ametistas, você poderá aproveitar a energia da terra para criar diversos tipos de joias e magias."
+    }
+  ]
+}

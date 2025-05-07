@@ -1,0 +1,18 @@
+{
+  "name": "Foco do Fantasma",
+  "icon": "goety:phantasm_focus",
+  "category": "goety:focuses/necromancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Fantasmas são seres peculiares, que transitam entre a realidade e o irreal, aparecendo apenas para os privados de sono. Com este foco, você pode invocá-los e subjugá-los à sua vontade."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/phantasm_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:phantasm_focus": 1
+  }
+}

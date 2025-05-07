@@ -1,0 +1,18 @@
+{
+  "name": "Foco do Chamado",
+  "icon": "goety:call_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Embora alguns focos possam convocar todos os servos associados a você, certos servos não têm essa capacidade ou você pode querer convocar um servo específico. O Foco do Chamado permite que você faça exatamente isso. Basta clicar com o botão esquerdo no servo para salvá-lo, permitindo que você o convocar ao usar o foco. Para remover o servo salvo, clique com o botão direito no ar enquanto agacha."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/call_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:call_focus": 1
+  }
+}

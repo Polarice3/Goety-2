@@ -1,0 +1,16 @@
+{
+  "name": "Foco de Dilaceração",
+  "icon": "goety:shredding_focus",
+  "category": "goety:focuses",
+  "advancement": "goety:goety/get_ruby",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Invoca uma fileira de espinhos mágicos reais à sua frente que causam dano constante, ignorando armadura (a menos que esteja encantada), a qualquer alvo atingido. Ao agachar, um círculo de espinhos é invocado ao seu redor."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/shredding_focus"
+    }
+  ]
+}

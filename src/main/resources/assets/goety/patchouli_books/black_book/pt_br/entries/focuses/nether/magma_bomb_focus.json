@@ -1,0 +1,19 @@
+{
+  "name": "Foco da Bomba de Magma",
+  "icon": "goety:magma_bomb_focus",
+  "category": "goety:focuses/nether",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Lendas antigas dos aldeões falam de criaturas gigantes semelhantes a hoglins que lançam Cubos de Magma em seus inimigos, causando devastação. Inspirado e com alguns ajustes, você criou um foco que dispara uma bola de magma que deixa uma explosão... e alguns Cubos de Magma leais no local do impacto."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/magma_bomb_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:magma_bomb_focus": 1
+  }
+}

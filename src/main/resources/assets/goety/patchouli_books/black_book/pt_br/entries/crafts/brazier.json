@@ -1,0 +1,53 @@
+{
+  "name": "Braseiros",
+  "icon": "goety:shade_brazier",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Só porque você é um mago das trevas não significa que não pode ser decorativo. Esses braseiros são uma maneira elegante de fornecer luz e queimar qualquer tolo que pisar neles quando acesos. Os braseiros também podem ser apagados clicando com o botão direito neles e reacesos da mesma maneira."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:shade/shade_brazier",
+      "recipe2": "goety:stone_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:deepslate_brazier",
+      "recipe2": "goety:brick_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:blackstone_brazier",
+      "recipe2": "goety:nether_brick_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:marble/marble_brazier"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Como tochas e fogueiras, esses braseiros também podem queimar com fogo de alma."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:shade/shade_soul_brazier",
+      "recipe2": "goety:stone_soul_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:deepslate_soul_brazier",
+      "recipe2": "goety:brick_soul_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:blackstone_soul_brazier",
+      "recipe2": "goety:nether_brick_soul_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:marble/marble_soul_brazier"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Teletransporte com Rituais",
+  "icon": "goety:waystone",
+  "category": "goety:rituals",
+  "priority": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com $(l:crafts/waystone)Pedras de Waypoint$(), você pode se teletransportar para outras áreas usando Rituais, desde que a área esteja na mesma dimensão."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:teleport_ritual"
+    }
+  ]
+}

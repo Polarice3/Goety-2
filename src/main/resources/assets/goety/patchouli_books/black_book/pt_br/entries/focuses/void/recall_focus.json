@@ -1,0 +1,18 @@
+{
+  "name": "Foco do Recurso",
+  "icon": "goety:recall_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O Foco do Recurso permite que o conjurador se teleporte de volta para um local salvo pelo foco. Para usar o foco, é necessário salvar um local clicando com o botão direito em uma $(l:crafts/artifice/arca)Arca$() pertencente ao conjurador, uma Cama ou um Âncora de Renascimento. Clicar com o botão direito enquanto agacha limpará qualquer local salvo."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/recall_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:recall_focus": 1
+  }
+}

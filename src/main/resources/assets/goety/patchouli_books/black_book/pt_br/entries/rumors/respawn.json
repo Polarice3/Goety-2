@@ -1,0 +1,17 @@
+{
+  "name": "Experiências com Âncoras",
+  "icon": "minecraft:respawn_anchor",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "As Âncoras de Renascimento podem trazer os mortos de volta ao Nether sem consequências catastróficas. Você se pergunta que outros poderes esses blocos têm..."
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/respawn_miniboss",
+      "text": "O que acontece se usar a âncora em um $(l)pilhado$() de um lorde das criptas ou um $(l)bola de cristal$() em seus $(l)locais originais$()?"
+    }
+  ]
+}

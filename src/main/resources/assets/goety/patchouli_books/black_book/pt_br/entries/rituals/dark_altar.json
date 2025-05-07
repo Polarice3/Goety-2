@@ -1,0 +1,42 @@
+{
+  "name": "Realizando Rituais",
+  "icon": "goety:dark_altar",
+  "category": "goety:rituais",
+  "sortnum": 0,
+  "priority": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O Altar das Trevas é o centro da maioria dos Rituais. Antes de tudo, o Altar deve ser colocado sobre uma $(l:intro/cursed_cage)Jaula Amaldiçoada$(), e a Jaula deve ter Energia das Almas para que o Altar funcione."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_altar",
+      "recipe2": "goety:pedestal"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Usando um Altar das Trevas, você pode criar um item específico ou invocar uma criatura, dependendo dos blocos e itens ao redor do Altar. Diferente de outras escolas de magia, esses blocos $(l)não$() precisam ser organizados em uma ordem específica para o ritual funcionar. O que importa é que certas quantidades de certos blocos estejam $(l)dentro$() do $(l)raio de 16 blocos$() do Altar. Clicar com o botão direito enquanto segura Shift e com a mão vazia no Altar das Trevas mostrará o alcance do ritual; clicar novamente o esconderá."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Para iniciar o ritual, você deve preencher os pedestais com os itens necessários $(l)antes$() de colocar o item do Altar. Durante o ritual, o Altar drenará Energia das Almas da Jaula, então certifique-se de que ela tenha energia suficiente antes de começar! Os Pedestais também podem ser usados para decoração."
+    },
+    {
+      "type": "patchouli:multiblock",
+      "multiblock": {
+        "pattern": [
+          [ "C" ],
+          [ "S" ],
+          [ "0" ]
+        ],
+        "mapping": {
+          "C": "goety:dark_altar",
+          "S": "goety:cursed_cage"
+        },
+        "symmetrical": true
+      },
+      "enable_visualize": false
+    }
+  ]
+}

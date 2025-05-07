@@ -1,0 +1,20 @@
+{
+  "name": "Soberano das Caveiras",
+  "icon": "minecraft:skeleton_skull",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_skull_lord",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Profanar e tentar abrir um jarro do grande túmulo liberta um senhor furioso que outrora governava a estrutura. Eles carregam um fragmento de magia sombria que não conseguiram completar em vida."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:skull_lord"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Para desgraça de caçadores de tesouros e magos, o mestre sombrio da Cripta permanece ligado ao mundo material para guardar seus tesouros. Suas caveiras são a fonte de poder e intelecto, protegidas quando reconstroem seus corpos esqueléticos."
+    }
+  ]
+}

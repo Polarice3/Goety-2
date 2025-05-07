@@ -1,0 +1,6 @@
+{
+  "name": "Tempestade",
+  "description": "O poder sobre as tempestades.",
+  "icon": "goety:lightning_focus",
+  "parent": "goety:focuses"
+}

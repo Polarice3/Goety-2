@@ -1,0 +1,40 @@
+{
+  "name": "A Arca",
+  "icon": "goety:arca",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Após alguma pesquisa, descobriste uma forma de criar uma versão mais poderosa e versátil da $(l:intro/cursed_cage)Gaiola Amaldiçoada$(). A Arca irá armazenar e distribuir a tua Energia das Almas, fazendo com que não precises mais de usar ou carregar um Totem das Almas."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:arca"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Arca é um dos blocos mais resistentes que já encontraste, com a preservação da água e Obsidiana extra, a sua resistência e Resistência a Explosões está além da maioria dos materiais, exceto o Bedrock."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Quando colocas uma Arca, a Arca irá reconhecer-te como o seu dono. Como dono, podes quebrar a tua Arca instantaneamente clicando com o botão direito nela enquanto agachado, o que é bastante útil considerando a sua dureza. Além disso, a Arca agora detém toda a Energia das Almas que o dono recolhe e usa, e irá substituir qualquer Totem das Almas que o Dono tenha."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Devido a isto, deves usar $(l:crafts/soul_transfer_gem)Gemas de Transferência$() para alimentar as tuas Gaiolas Amaldiçoadas, pois tentar encher um Totem com uma Arca pode ser um processo complicado."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/arca.png"],
+      "border": true,
+      "text": "As runas mostram qual Arca está a ser usada."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Só podes ter UMA Arca, colocar outra fará com que a nova Arca substitua a anterior. Se a Arca for quebrada, a Energia das Almas armazenada dentro dela irá evaporar lentamente, causando Fome das Almas, que te enfraquece e abranda, até que toda a Energia se esvaeça ou outra Arca seja colocada. Se houver múltiplas Arcas, clicar com o botão direito numa não usada com a mão vazia irá transferir qual Arca está a ser usada."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:arca": 1
+  }
+}

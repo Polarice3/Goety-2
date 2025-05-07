@@ -1,0 +1,20 @@
+{
+  "name": "Foice da Morte",
+  "icon": "goety:death_scythe",
+  "category": "goety:crafts/equipment",
+  "advancement": "goety:goety/kill_a_apostle",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A Foice da Morte é a mais poderosa de seu tipo, com lâminas tão afiadas que seus golpes não apenas podem atravessar o ar, atingindo alvos distantes, mas também tornam os alvos mais vulneráveis. Ela se repara usando a Energia das Almas do portador."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:death_scythe"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:death_scythe": 1
+  }
+}

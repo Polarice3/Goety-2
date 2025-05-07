@@ -1,0 +1,16 @@
+{
+  "name": "Cabana Amaldiçoada",
+  "icon": "goety:rotten_log",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Há rumores sobre cabanas velhas e apodrecidas. Dizem que bruxas antigas e poderosas vivem nessas moradias decadentes, estudando e preparando magias sombrias. Porém, ao encontrar essas cabanas, você não vê bruxas, mas uma bola de cristal peculiar... O que acontecerá se você a usar?"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/blighted_shack.png"],
+      "border": true
+    }
+  ]
+}

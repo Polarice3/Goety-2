@@ -1,0 +1,19 @@
+{
+  "name": "Foco da Caça",
+  "icon": "goety:hunting_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(l:summons/black_wolves)Lobos negros$() são cães sobrenaturais ou demoníacos mencionados no folclore, avistados por todo o Overworld. Com este foco, você pode invocá-los para auxílio. No topo de montanhas, você invocará $(l:summons/twilight_goats)bodes do crepúsculo$(), primos agressivos dos bodes comuns. Na água, você invocará $(l:summons/snappers)Snappers$(), criaturas ferozes semelhantes a piranhas que morderão seus inimigos."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/hunting_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Quando conjurado com um $(l:crafts/staff/wild_staff)Cajado Selvagem$(), mais lobos são invocados. Usar uma Túnica Selvagem os fortalecerá, fazendo com que suas garras e mordidas Amaldiçoem o alvo. Com um $(l:crafts/staff/wind_staff)Cajado do Vento$(), você invocará Bodes do Crepúsculo. Com um $(l:crafts/staff/abyss_staff)Cajado do Abismo$(), você invocará Snappers... até em terra. Snappers só se teleportarão para você se conjurados agachados na água."
+    }
+  ]
+}

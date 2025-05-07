@@ -1,0 +1,22 @@
+{
+  "name": "Sino de Gancho",
+  "icon": "goety:hook_bell",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Ao lidar com Raides, alguns dos Atacantes têm a tendência de cair em buracos, aparecer em lugares profundos no subsolo e assim por diante. Após muita pesquisa, conseguiste melhorar o Sino dos Aldeões para não só ter um raio de efeito muito maior, como também teleportar qualquer Atacante para a vizinhança do Sino se estiverem a mais de 16 blocos de distância dele!"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:hook_bell"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Infelizmente, o novo Sino de Gancho não responde a qualquer energia Redstone e só pode ser tocado, à mão ou por projéteis disparados, por seres como tu."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:hook_bell": 1
+  }
+}

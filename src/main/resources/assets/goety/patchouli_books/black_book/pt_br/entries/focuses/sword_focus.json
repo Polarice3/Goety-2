@@ -1,0 +1,18 @@
+{
+  "name": "Foco de Espada Mágica",
+  "icon": "goety:sword_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Assim como o Evocador e o Vizir, você pode lançar uma cópia de sua espada na direção que estiver mirando. Você deve ter uma espada na mão principal ou secundária para conjurar esta magia. O feitiço consome a durabilidade da espada. O Foco pode ser encantado com Velocidade para aumentar a velocidade da espada voadora."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/sword_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:sword_focus": 1
+  }
+}

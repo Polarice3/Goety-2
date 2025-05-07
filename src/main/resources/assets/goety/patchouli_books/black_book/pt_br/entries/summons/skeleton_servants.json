@@ -1,0 +1,87 @@
+{
+  "name": "Servos Esqueleto",
+  "icon": "minecraft:skeleton_skull",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Esqueletos são um pouco mais inteligentes e rápidos que seus primos apodrecidos, mas ainda são básicos em suas funções."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Os textos a seguir detalharão as variantes de esqueletos que um necromante pode invocar."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "É possível invocar essas criaturas usando um $(l:focuses/necromancy/osseous_focus)Foco Ósseo$(), ou através de um ritual que invoca um sem tempo de vida limitado."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_skeleton_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:skeleton_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Servos Esqueleto tentarão matar qualquer um que machucar você ou criaturas hostis próximas. Se invocados enquanto o invocador veste uma Capa Necro, suas flechas atravessam aliados."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:stray_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Tentar invocar um Servo Esqueleto em um tundra frio exposto ao céu, ou usando um $(l:crafts/frost_staff)Cajado Gélido$(), resultará em um Servo Errante."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:mossy_skeleton_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Em um bioma de Selva, pode-se ter a chance de invocar um Servo Esqueleto Musgoso, 100% se invocado com um $(l:crafts/staff/wild_staff)Cajado Selvagem$(). Suas flechas infligem Veneno, mas se o invocador vestir $(l:crafts/garment/wild_robe)Túnicas Selvagens$(), infligirão Veneno Ácido."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:sunken_skeleton_servant",
+      "scale": 0.95
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Sob o mar, os Esqueletos não apenas nadam, mas também usam bestas que lançam arpões, mais eficientes na água que flechas comuns."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:skeleton_pillager"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Lançar o feitiço em um Posto de Saqueador invocará um Saqueador Esqueleto leal, com mais vida que esqueletos comuns e portando uma besta."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Servos Esqueleto podem aceitar qualquer armadura, mas apenas Espadas/Arcos, podendo ser atacantes à distância ou corpo a corpo."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Curiosamente, o feitiço não pode invocar um Esqueleto Wither leal em uma Fortaleza do Nether. Esses esqueletos carbonizados parecem ter grande poder mágico e lealdade ao seu lar para serem invocados frivolamente..."
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "entity": "goety:wither_skeleton_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "text": "Após muita pesquisa, você descobriu como invocar um antigo habitante da Fortaleza e vinculá-lo à sua vontade. Eles infligem Wither em ataques corpo a corpo e lançam flechas de fogo quando equipados com arcos."
+    },
+    {
+      "type": "goety:ritual",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "recipe": "goety:thrall/summon_wither_skeleton_thrall"
+    }
+  ]
+}

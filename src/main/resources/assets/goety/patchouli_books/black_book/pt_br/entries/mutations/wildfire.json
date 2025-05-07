@@ -1,0 +1,34 @@
+{
+  "name": "Incêndio Florestal",
+  "icon": "minecraft:blaze_rod",
+  "category": "goety:mutações",
+  "advancement": "goety:goety/ler_pergaminho_antigo",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com alguns testes e estudos, você conseguiu recriar um dos maiores erros dos Nephilim, claro, sem toda a parte da traição."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:transformar_blazes_em_incendio_florestal"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wildfire",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O mestre dos blazes pode ser curado clicando nele com Pós ou Varas de Blaze, e também pode se curar passivamente se seu dono vestir uma Túnica do Nether, assim como seus irmãos menores. Tão sintonizados com o fogo, eles se regeneram quando estão em cima de um e se curam quando atingidos por ataques ígneos (com algumas... exceções)."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:blazing_helm",
+      "text": "Quando extintos, esses senhores do fogo deixam cair seus elmos, que podem elevar um Blaze ao seu nível."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:blazing_helm": 4
+  }
+}

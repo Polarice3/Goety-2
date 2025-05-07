@@ -1,0 +1,15 @@
+{
+  "name": "Foco de Dentes",
+  "icon": "goety:teeth_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Invoca um dente poderoso acima de um local, um alvo ou do conjurador (se agachado), que se choca contra o chão e invoca espinhos ao redor, lançando criaturas para o ar e reduzindo drasticamente sua velocidade por 5 segundos."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/teeth_focus"
+    }
+  ]
+}

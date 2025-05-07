@@ -1,0 +1,19 @@
+{
+  "name": "Minérios de Jade",
+  "icon": "goety:jade_ore",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O jade é um dos minérios mais difíceis de encontrar. Eles contêm o poder dos ventos e só são encontrados em lugares elevados, como os picos de montanhas."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/jade_ore.png"],
+      "border": true
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:jade_ore": 1
+  }
+}

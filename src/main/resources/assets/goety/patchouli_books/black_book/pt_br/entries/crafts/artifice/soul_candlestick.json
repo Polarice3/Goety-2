@@ -1,0 +1,16 @@
+{
+  "name": "Candelabro das Almas",
+  "icon": "goety:soul_candlestick",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Permite que dispositivos absorvam energia de múltiplas $(l:intro/cursed_cage)Jaulas Amaldiçoadas$() num raio de 8 blocos, acelerando processos."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:soul_candlestick",
+      "text": "Deve ser colocado sobre uma Jaula cheia."
+    }
+  ]
+}

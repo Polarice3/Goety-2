@@ -1,0 +1,18 @@
+{
+  "name": "Foco do Ciclone",
+  "icon": "goety:cyclone_focus",
+  "category": "goety:focuses/wind",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O foco envia um ciclone poderoso que puxa criaturas próximas e as arremessa. Conjurar com o Cajado do Vento fará com que o ciclone cause dano contínuo aos alvos presos nele."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/cyclone_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:cyclone_focus": 1
+  }
+}

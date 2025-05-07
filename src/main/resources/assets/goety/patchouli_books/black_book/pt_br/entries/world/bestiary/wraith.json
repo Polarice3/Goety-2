@@ -1,0 +1,46 @@
+{
+  "name": "Espectros",
+  "icon": "goety:ectoplasm",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_wraith",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Vultos que invocam chamas congelantes e teleportam-se quando ameaçados."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wraith",
+      "text": "Apesar de suas chamas, não são imunes ao fogo."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:ectoplasm",
+      "title": "Ectoplasma",
+      "text": "Usado em artefatos e feitiços necrotúrgicos."
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/kill_a_muck_wraith",
+      "entity": "goety:muck_wraith"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/kill_a_muck_wraith",
+      "text": "Variante que invoca nuvens de gás ácido."
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/kill_a_border_wraith",
+      "entity": "goety:border_wraith"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/kill_a_border_wraith",
+      "text": "Variante sem teleporte, mas com sopro de chamas congelantes."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ectoplasm": 2
+  }
+}

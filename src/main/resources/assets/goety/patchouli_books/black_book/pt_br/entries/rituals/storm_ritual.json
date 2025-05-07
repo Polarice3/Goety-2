@@ -1,0 +1,22 @@
+{
+  "name": "Ritual da Tempestade",
+  "icon": "minecraft:lightning_rod",
+  "category": "goety:rituals",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requisitos: $(li)Mesmo que o Ritual do Céu $(li)Altar deve estar exposto a uma Tempestade $(li)4 Para-raios $(li)20 Correntes $(li)12 Blocos de Cobre (qualquer tipo)"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/storm_ritual.png"],
+      "border": true,
+      "text": "Um exemplo de como o ritual pode ser posicionado."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O poder da tempestade fortalecerá suas habilidades mágicas como nenhuma outra coisa! Os Blocos de Cobre podem ser de qualquer tipo."
+    }
+  ]
+}

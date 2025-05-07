@@ -1,0 +1,20 @@
+{
+  "name": "Infusor Sombrio",
+  "icon": "goety:grim_infuser",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_haunting_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Uma versão melhorada do humilde $(l:intro/cursed_infuser)Infusor Amaldiçoado$(), que não só transforma Obsidiana em Pedra Cripta, como também aceita e infunde mais do que um item. Funciona da mesma maneira que o seu antecessor."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:grim_infuser"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:grim_infuser": 1
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Absorvedor de Almas",
+  "icon": "goety:soul_absorber",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_arca",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com a $(l:crafts/artifice/arca)Arca$(), criaste um dispositivo que transfere energia de Totens das Almas, Totens de Evokers e Areia das Almas para a Arca."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:soul_absorber"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:soul_absorber": 2
+  }
+}

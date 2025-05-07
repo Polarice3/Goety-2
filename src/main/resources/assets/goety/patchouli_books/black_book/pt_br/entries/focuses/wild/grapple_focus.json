@@ -1,0 +1,18 @@
+{
+  "name": "Foco do Gancho",
+  "icon": "goety:grapple_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Este foco permite que você dispare um gancho feito de vinhas e espinhos que se prenderá a qualquer superfície sólida que atingir, puxando você junto."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/grapple_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:grapple_focus": 1
+  }
+}

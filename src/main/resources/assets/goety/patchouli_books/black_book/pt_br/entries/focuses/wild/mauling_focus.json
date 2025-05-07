@@ -1,0 +1,20 @@
+{
+  "name": "Foco da Fera",
+  "icon": "goety:mauling_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Ursos são fortes, mas selvagens e agressivos. Com seus poderes sombrios, você pode invocar ursos leais a você até o fim. Quando conjurado com um $(l:crafts/staff/wild_staff)Cajado Selvagem$(), dois ursos são invocados. Usar uma Túnica Selvagem invocará versões mais fortes, cujas garras infligem o efeito Enfraquecido em suas vítimas."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/mauling_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "minecraft:story/enter_the_nether",
+      "text": "Ao conjurar este foco no Nether, em vez de um Urso, você invocará um Hoglin leal."
+    }
+  ]
+}

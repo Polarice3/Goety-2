@@ -1,0 +1,21 @@
+{
+  "name": "Atributos dos Servos",
+  "icon": "goety:zombie_servant_spawn_egg",
+  "category": "goety:summons",
+  "sortnum": 0,
+  "priority": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Servos invocados por rituais ou feitiços tendem a compartilhar alguns atributos. Para começar, eles atacam todas as criaturas hostis, não atacam uns aos outros se compartilharem o mesmo invocador, têm um tempo de vida limitado e um limite de quantos servos um invocador pode ter."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "No entanto, certos tipos de servos duram para sempre se seu invocador usar uma coroa associada e podem usar a Energia da Alma do invocador para se curar (desde que não estejam em chamas) se o invocador vestir a túnica associada ou, no caso de servos mortos-vivos, a Capa Necro. Servos mortos-vivos queimam à luz do sol se não estiverem usando um capacete."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Servos podem se teletransportar para seu invocador se ele estiver com o Foco equipado em sua varinha e lançar o feitiço enquanto agachado. Se o servo invocado não for um Vex, acertá-lo (ou, se configurado, clicar nele com o botão direito) com uma $(l:intro/dark_wand)Varinha$()/Cajado fará com que ele siga o invocador, vagueie pela área ou fique parado."
+    }
+  ]
+}

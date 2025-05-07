@@ -1,0 +1,15 @@
+{
+  "name": "Foco do Sopro Gélido",
+  "icon": "goety:frost_breath_focus",
+  "category": "goety:focuses/frost",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com um sopro congelante, as criaturas à sua frente tremerão até a morte."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/frost_breath_focus"
+    }
+  ]
+}

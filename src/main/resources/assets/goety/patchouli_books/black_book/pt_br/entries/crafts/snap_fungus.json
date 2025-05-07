@@ -1,0 +1,34 @@
+{
+  "name": "Fungo Estourado",
+  "icon": "goety:snap_warts",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Você descobriu um novo tipo de fungo que só cresce em Hastes Carmesim ou Distorcidas, chamado Fungo Estourado. Este fungo é uma bola cheia de toxinas que é impossível não arremessar para o alto. Ao atingir algo, eles explodem, com chance de deixar uma pequena nuvem de veneno. Curiosamente, a explosão não afeta quem arremessou nem seus servos."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:snap_warts"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:snap_fungus",
+      "text": "Parece que você só pode arremessar uma grande quantidade deles de cada vez. Por um lado, você pode jogar vários de uma vez, por outro, não poderá arremessar mais por alguns segundos."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:blast_fungus",
+      "text": "Você também descobriu como aumentar a potência dos fungos combinando 4 deles com uma Lágrima de Ghast. Estes fungos têm explosões com raio maior, mas não deixam mais nuvens de veneno."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:berserk_fungus",
+      "text": "Ao colocar Fungos Estourados com um Lírio do Vale em um Suporte de Poções, você criou o Fungo Frenético. Diferente dos outros dois fungos, este é arremessado como Bolas de Neve e Ovos, e concede Força, Velocidade e, infelizmente para seres como você, Náusea a quem for atingido."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:snap_fungus": 2,
+    "goety:berserk_fungus": 4
+  }
+}

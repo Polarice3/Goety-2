@@ -1,0 +1,25 @@
+{
+  "name": "Bigorna das Trevas",
+  "icon": "goety:dark_anvil",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/craft_dark_ingot",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "As bigornas podem ser muito irritantes de lidar. Não só podem partir-se, como também exigem muito, e têm um limite de, experiência que podem receber. Com Metal das Trevas, podes criar uma Bigorna muito melhor."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark/dark_anvil"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Bigorna das Trevas pode reparar-se a si mesma quando colocada em cima de uma $(l:intro/cursed_cage)Gaiola Amaldiçoada$(), onde irá ocasionalmente retirar uma grande quantidade de Energia das Almas dela para se reparar. Usar a Bigorna das Trevas não multiplica o custo de reparação do item por 2, mas irá adicionar 1. Em vez de te impedir de reparar/encantar itens se o custo de nível for muito alto, o custo permanecerá no limite de nível, permitindo que o item seja usado na bigorna independentemente."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:chipped_dark_anvil": 1,
+    "goety:damaged_dark_anvil": 1
+  }
+}

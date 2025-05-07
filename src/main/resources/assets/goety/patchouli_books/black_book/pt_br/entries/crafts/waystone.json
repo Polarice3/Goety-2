@@ -1,0 +1,20 @@
+{
+  "name": "Pedras-guia",
+  "icon": "goety:waystone",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Pedras-guia permitem vinculá-las a um local específico clicando com o botão direito em um bloco, o que pode ser usado para realizar vários tipos de magia negra nele, desde que o local esteja na mesma dimensão."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:waystone",
+      "text": "A pedra também marca o portador como seu dono quando usada."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Clicar com o botão direito em uma pedra-guia vinculada em certos servos fará com que eles patrulhem em direção e ao redor daquele local, entrando em modo de Patrulha, desde que o local esteja na mesma dimensão. Clicar com Shift + botão direito em uma pedra-guia vinculada apagará as informações armazenadas nela."
+    }
+  ]
+}

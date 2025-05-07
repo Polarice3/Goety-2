@@ -1,0 +1,24 @@
+{
+  "name": "Golems de Gelo",
+  "icon": "goety:ice_golem_spawn_egg",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Um golem feito de gelo glacial e neve, eles têm mais poder que Golems de Neve, mas menos que Golems de Ferro. Eles atacam espetando seus inimigos com mãos de gelo pontiagudas e, raramente, esmagam o chão para invocar uma $(l:focuses/frost/frost_nova_focus)explosão gélida$()."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:ice_golem"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:ice_golem",
+      "text": "Clique com o botão direito no Gelo Azul central com um Núcleo de Animação."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "É possível invocar essas criaturas usando um $(l:focuses/frost/frostborn_focus)Foco Gélido$(), ou um golem permanente com esta configuração. Eles podem ser curados clicando neles com Gelo, Gelo Compactado ou Gelo Azul."
+    }
+  ]
+}

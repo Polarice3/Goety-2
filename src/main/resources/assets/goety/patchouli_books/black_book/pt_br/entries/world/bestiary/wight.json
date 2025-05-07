@@ -1,0 +1,29 @@
+{
+  "name": "Wights",
+  "icon": "goety:shadow_essence",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_wight",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Entidades que surgem perto de seres com alta energia espiritual."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wight"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:shadow_essence",
+      "title": "Essência das Sombras",
+      "text": "Dropam essências que absorvem luz. Podem ser usadas em artefatos necrotúrgicos."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Acredita-se que sejam criações de um $(l:world/crypts)lugar sombrio e frio$()..."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shadow_essence": 2
+  }
+}

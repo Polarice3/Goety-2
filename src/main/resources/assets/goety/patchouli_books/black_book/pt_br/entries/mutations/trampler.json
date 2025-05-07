@@ -1,0 +1,26 @@
+{
+  "name": "Esmagador",
+  "icon": "minecraft:saddle",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Você descobriu como criar montarias violentas a partir de Illagers. Diferente de Devoradores, já nascem prontos para serem montados."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_pillager_to_trampler"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Como camelos, segurar o pulo carrega uma investida para atropelar inimigos."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:ally_trampler",
+      "scale": 0.5
+    }
+  ]
+}

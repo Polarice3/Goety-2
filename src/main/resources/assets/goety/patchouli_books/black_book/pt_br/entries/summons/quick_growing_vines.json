@@ -1,0 +1,47 @@
+{
+  "name": "Vinhas de Crescimento Rápido",
+  "icon": "minecraft:vine",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Essas vinhas grossas e sencientes podem bloquear o caminho de qualquer criatura que tentar passar."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:quick_growing_vine{ActiveTick:15,Animation:1}",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Quando invocadas ou plantadas na água, em vez de crescerem como vinhas, elas se tornam algas aquáticas."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:quick_growing_kelp{ActiveTick:15,Animation:1}",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Monstruosas e venenosas, essas criaturas florais atiram espinhos venenosos nos inimigos de seu mestre."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:poison_quill_vine{ActiveTick:15,Animation:1}",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Assim como seus primos simples, invocar essas plantas venenosas na água gera uma variante aquática, cujos espinhos não são afetados pela água."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:poison_anemone{ActiveTick:15,Animation:1}",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Essas plantas podem ser curadas com Farinha de Ossos. Se já estiverem totalmente curadas, têm chance de gerar uma nova semente."
+    }
+  ]
+}

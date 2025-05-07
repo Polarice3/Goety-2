@@ -1,0 +1,24 @@
+{
+  "name": "Foco do Ghast",
+  "icon": "goety:ghastly_focus",
+  "category": "goety:focuses/nether",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O foco permite que você invoque Ghasts em miniatura que, embora menos destrutivos, ainda são lançadores de fogo potentes."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/ghastly_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "text": "Usar uma Túnica do Nether ao lançar este feitiço invocará Servos Ghast em vez de Mini-Ghasts, embora em menor quantidade, mesmo quando conjurado com um Cajado do Nether."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ghastly_focus": 1
+  }
+}

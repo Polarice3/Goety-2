@@ -1,0 +1,20 @@
+{
+  "name": "Coguvaca",
+  "icon": "minecraft:red_mushroom",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com cogumelos vermelhos e uma vaca, você pode transformá-la em uma Coguvaca."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_cow_to_mooshroom"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:mooshroom",
+      "scale": 0.75
+    }
+  ]
+}

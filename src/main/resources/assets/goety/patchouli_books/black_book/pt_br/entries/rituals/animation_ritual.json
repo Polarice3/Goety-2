@@ -1,0 +1,22 @@
+{
+  "name": "Ritual de Animação",
+  "icon": "goety:animation_core",
+  "category": "goety:rituais",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requisitos: $(li)15 Escadas $(li)15 Trilhos $(li)1 Abóbora Tallada"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/animalis_ritual.png"],
+      "border": true,
+      "text": "Um exemplo de como o ritual pode ser posicionado."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Com seus estudos, você descobriu uma maneira de criar rituais que envolvem invocar e controlar criaturas. Os trilhos e escadas simbolizam movimento, e a abóbora simboliza vida, pois uma Abóbora Tallada é o que dá vida aos Golems de Neve e Ferro. Curiosamente, em suas pesquisas, você descobriu que, além de dar vida, as abóboras também têm uma propriedade mágica que impede os Endermans de ficarem furiosos se você olhar para eles enquanto as usa, e não porque você está enganando eles."
+    }
+  ]
+}

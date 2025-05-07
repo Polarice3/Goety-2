@@ -1,0 +1,18 @@
+{
+  "name": "Foco de Vexação",
+  "icon": "goety:vexing_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Através do Bestiário antigo e algumas anotações sobre os Allays, você encontrou os ingredientes necessários para invocar/criar seus próprios Vexes. Curiosamente, o Bestiário menciona Demônios e Imps no Nether. Interessante..."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/vexing_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:vexing_focus": 1
+  }
+}

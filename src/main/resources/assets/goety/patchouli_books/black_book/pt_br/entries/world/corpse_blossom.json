@@ -1,0 +1,19 @@
+{
+  "name": "Flores Cadavéricas",
+  "icon": "goety:corpse_blossom",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Uma planta fedorenta foi avistada — ou melhor, farejada — nas copas das selvas. Além do cheiro e da aparência peculiar, dizem que elas contêm as energias da selva."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/corpse_blossom.png"],
+      "border": true
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:corpse_blossom": 1
+  }
+}

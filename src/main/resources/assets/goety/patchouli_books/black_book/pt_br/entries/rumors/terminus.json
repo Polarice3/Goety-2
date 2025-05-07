@@ -1,0 +1,18 @@
+{
+  "name": "Máquinas Abomináveis",
+  "icon": "minecraft:end_stone",
+  "category": "goety:rumors",
+  "advancement": "goety:goety/read_warred_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Os pergaminhos de guerra mencionam uma variante poderosa, mais forte que os Golems de Redstone, criada e banida para uma terra perdida. Há registros de estudiosos sobre sua criação antes de serem destruídos, mas certamente algo ainda resta..."
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/get_shrouded_blueprint",
+      "text": "O pergaminho sugere que o design da criatura veio de um ser de $(l)O End$(), talvez os segredos estejam lá."
+    }
+  ]
+}

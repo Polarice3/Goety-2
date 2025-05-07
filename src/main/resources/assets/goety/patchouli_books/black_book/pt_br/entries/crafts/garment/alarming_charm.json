@@ -1,0 +1,19 @@
+{
+  "name": "Amuleto Alarmante",
+  "icon": "goety:alarming_charm",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/kill_a_envioker",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Ao caçá-lo, os Illagers sinalizam sua abordagem com fileiras de presas abaixo de você ou um Tormentor avançando. Com um amuleto que você criou, sua chegada será sinalizada para você."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:alarming_charm"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:alarming_charm": 1
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Foco de Corrupção",
+  "icon": "goety:corruption_focus",
+  "category": "goety:focuses",
+  "advancement": "goety:goety/gain_night_beacon",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O Farol Noturno possui tremendo poder. Ao alimentá-lo com Energia das Almas, você pode transformar seu feixe de escuridão em algo mais devastador!"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/corruption_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:corruption_focus": 1
+  }
+}

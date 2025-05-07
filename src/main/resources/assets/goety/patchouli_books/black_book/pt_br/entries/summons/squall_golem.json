@@ -1,0 +1,40 @@
+{
+  "name": "Golem de Vendaval",
+  "icon": "goety:jade_block",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_mistral_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Os santuários nos picos parecem guardar um projeto de golems movidos a vento. Esses golems são diferentes de outros de sua espécie, pois parecem requerer energia externa para funcionar."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:squall_golem",
+      "scale": 0.75
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:squall_golem",
+      "text": "Clique com o botão direito no Bloco de Jade central com um Núcleo de Animação."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Quando criado, o golem ficará inativo, imóvel e inexplicavelmente invulnerável. O golem requer energia de um bloco chamado $(l:goety:crafts/artifice/resonance_crystal)Cristal de Ressonância$() para funcionar."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:resonance_crystal",
+      "text": "Para ativar o golem, registre-o clicando com o cristal nele. Uma vez registrado, o $(l:goety:crafts/artifice/resonance_crystal)cristal$() deve ser energizado por um Soprador de Vento."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Quando energizado, o cristal ativará o golem. Se o cristal for quebrado ou desativado, o golem desligará.$(br2)O golem só pode Seguir ou Ficar Parado, não pode Vagar como outros servos. Se danificado, pode ser reparado com Jade ou Blocos de Jade."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Quando desativado, clicar no golem com a mão vazia o girará em sua direção."
+    }
+  ]
+}

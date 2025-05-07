@@ -1,0 +1,15 @@
+{
+  "name": "Foco de Ignição",
+  "icon": "goety:ignite_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com esta magia, clicar com o botão direito em um bloco ou em um alvo diretamente os incendeia, simples assim."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/ignite_focus"
+    }
+  ]
+}

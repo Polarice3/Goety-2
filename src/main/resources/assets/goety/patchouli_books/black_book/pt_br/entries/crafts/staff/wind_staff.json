@@ -1,0 +1,22 @@
+{
+  "name": "Cajado do Vento",
+  "icon": "goety:wind_staff",
+  "category": "goety:crafts/staff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Você ouviu histórias de um santuário e seu controle e experimentação com os ventos, e como eles podiam controlá-los até certo ponto através de seus cajados. Após pesquisas e experimentos, você descobriu uma forma de replicar seus cajados antigos."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wind_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O Cajado do Vento obviamente fortalece feitiços de Vento, concedendo maior controle sobre os próprios ventos."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:wind_staff": 1
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "Grimório de Rancor",
+  "icon": "goety:grimoire_of_grudges",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Às vezes, você sente um rancor intenso contra certa criatura, mas seus servos não a atacam sem provocação! Felizmente, você criou um livro terrível que, ao golpear essa criatura, a registra em suas páginas."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Qualquer criatura registrada neste grimório fará com que todos os seus servos se tornem automaticamente hostis contra ela. O grimório pode registrar múltiplas criaturas, desde Aldeões até mesmo seres como você! E mais: se seu rancor se estender a espécies inteiras, agachar-se e golpear a criatura fará com que toda a espécie seja registrada! Por exemplo, agachar e golpear um Aldeão fará seus servos atacarem TODOS os Aldeões."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:grimoire_of_grudges",
+      "text": "Clicar com o botão direito no ar mostra contra quem você guarda rancor. Shift + clique direito mostra as espécies."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Porém, se estiver de bom humor e quiser perdoar, basta clicar com o botão direito na criatura rancorosa (ou Shift + clique direito para espécies) para remover o registro do grimório. Até você golpeá-la novamente..."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Adicionar rancor a uma criatura ou espécie que está registrada no 'Grimório da Boa Vontade' removerá a boa vontade."
+    }
+  ]
+}

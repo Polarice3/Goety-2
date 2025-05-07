@@ -1,0 +1,18 @@
+{
+  "name": "Grama Proibida",
+  "icon": "goety:forbidden_grass",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/gain_fragment",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O Bloco de Grama Proibida invoca as criaturas da noite que vagueiam no bioma em que o bloco está localizado. As multidões aparecem mais rapidamente no bloco, mas geralmente seguem as regras de como aparecem, por exemplo, nível de luz. O bloco arderá à luz do sol e será incendiado por blocos adjacentes, o que o reverterá para terra."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:forbidden_grass",
+      "text": "O bloco cairá como sujidade se não for recolhido com o Toque de Seda."
+    }
+  ]
+}

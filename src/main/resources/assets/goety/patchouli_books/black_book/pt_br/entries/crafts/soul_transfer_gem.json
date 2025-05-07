@@ -1,0 +1,20 @@
+{
+  "name": "Gemas de Transferência",
+  "icon": "goety:soul_transfer",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(l:intro/cursed_cage)Gaiolas Amaldiçoadas$() são úteis, mas você está cansado de ficar colocando e removendo seu precioso totem delas."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:soul_transfer",
+      "text": "Felizmente, com o poder de Esmeraldas Ativadas, você encontrou uma maneira de transferir Energias da Alma de uma $(l:crafts/artifice/arca)Arca$() para uma $(l:intro/cursed_cage)Gaiola Amaldiçoada$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Basta clicar com o botão direito a Gema de Transferência na $(l:crafts/artifice/arca)Arca$() e ela ficará vinculada a ela e ao seu dono. Então, coloque a Gema de Transferência dentro da $(l:intro/cursed_cage)Gaiola Amaldiçoada$() e ela irá drenar Energia da Alma da $(l:crafts/artifice/arca)Arca$() quando estiver em uso."
+    }
+  ]
+}

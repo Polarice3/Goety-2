@@ -1,0 +1,40 @@
+{
+  "name": "Necromante",
+  "icon": "goety:necro_cape",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/unlock_necromancer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O pergaminho revela como conceder inteligência aos mortos, criando Necromantes a partir de Esqueletos."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_skeleton_to_necromancer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Use Focos para ensiná-lo a invocar diferentes servos. Clique com a mão vazia para invocações. Cura-se como servos esqueléticos."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:necromancer_servant"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_stray_to_cairn_necromancer"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:cairn_necromancer_servant"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:soul_jar",
+      "text": "Use um $(l:crafts/empty_soul_jar)Frascode Alma Vazio$() para revivê-lo em um Esqueleto. Alimentá-lo com almas de outros necromantes aumenta seu poder..."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:soul_jar": 6
+  }
+}

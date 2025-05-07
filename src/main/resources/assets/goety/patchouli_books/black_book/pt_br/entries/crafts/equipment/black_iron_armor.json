@@ -1,0 +1,37 @@
+{
+  "name": "Armadura de Ferro Negro",
+  "icon": "goety:black_iron_chestplate",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Os Lingotes de Metal Amaldiçoado parecem ter as mesmas propriedades dos Lingotes de Ferro comuns, tornando redundante a criação de uma armadura baseada neles. No entanto, com alguns ajustes, os lingotes podem ser usados para melhorar a Armadura de Ferro comum, transformando-a em algo superior."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Além de fornecer resistência, cada peça mitiga parcialmente danos mágicos, de fogo e explosivos. Cada peça também oferece um desconto no uso de Energia das Almas, seja para lançar feitiços, curar servos ou reparar certos itens. Infelizmente, não reduz o custo em crafts ou rituais. Usar a armadura permite que invocações concedam Energia das Almas ao matar criaturas."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:black_iron/black_iron_helmet"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:black_iron/black_iron_chestplate"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:black_iron/black_iron_leggings"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:black_iron/black_iron_boots"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:black_iron_helmet": 2,
+    "goety:black_iron_chestplate": 3,
+    "goety:black_iron_leggings": 4,
+    "goety:black_iron_boots": 5
+  }
+}

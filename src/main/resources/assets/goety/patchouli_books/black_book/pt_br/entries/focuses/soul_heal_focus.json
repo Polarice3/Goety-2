@@ -1,0 +1,18 @@
+{
+  "name": "Foco de Cura da Alma",
+  "icon": "goety:soul_heal_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Este foco permite curar ferimentos através da energia da alma. Porém, a quantidade de cura não é consistente, podendo variar entre uma grande porção ou apenas um pouco."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/soul_heal_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:soul_heal_focus": 1
+  }
+}

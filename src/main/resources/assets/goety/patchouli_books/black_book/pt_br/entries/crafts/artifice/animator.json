@@ -1,0 +1,27 @@
+{
+  "name": "Animador",
+  "icon": "goety:animator",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/craft_animation_core",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Convocar golems e construções usando um $(l:crafts/cores)Núcleo de Animação$() pode ser uma tarefa tediosa, especialmente quando feita constantemente. Após alguma pesquisa e experiências, conseguiste criar um dispositivo que pode animar golems por ti."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:animator"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O Animador não só precisa de ser colocado em cima de uma $(l:intro/cursed_cage)Gaiola Amaldiçoada$() cheia, como também requer um $(l:crafts/waystone)Waystone$() vinculado colocado dentro dele. Animar um golem ou construção requer energia das almas, com a quantidade dependendo da distância entre a localização vinculada e o Animador. A localização vinculada deve ser onde o convocador teria usado um Núcleo de Animação para invocar um golem. Um sinal de redstone é necessário para ativar a máquina, desde que ambos os requisitos sejam cumpridos."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O Waystone é colocado na máquina da mesma forma que os Totens são colocados nas Gaiolas Amaldiçoadas. Olhar para um Animador cheio enquanto agachado mostrará as coordenadas, o dono e o requisito de energia das almas. Clicar com o botão direito nele com a mão vazia e enquanto agachado irá visualizar a localização vinculada."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:animator": 1
+  }
+}

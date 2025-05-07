@@ -1,0 +1,17 @@
+{
+  "name": "Armadilha de Chama de Gelo",
+  "icon": "goety:ice_bouquet_trap",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/kill_a_wraith",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com o ectoplasma deixado por aqueles Wraiths, consegues aproveitar as suas chamas místicas num mecanismo que irá queimar qualquer criatura viva nele. As chamas parecem sugar Energia das Almas quando queimam a criatura acima, a Esmeralda Ativada permite que a energia seja transferida para quem colocou o bloco."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ice_bouquet_trap",
+      "text": "O mecanismo será ativado com um sinal de redstone. O fogo não magoa quem o colocou."
+    }
+  ]
+}

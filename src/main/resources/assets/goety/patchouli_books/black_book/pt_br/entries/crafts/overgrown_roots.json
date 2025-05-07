@@ -1,0 +1,15 @@
+{
+  "name": "Raízes Crescidas Demais",
+  "icon": "goety:overgrown_roots",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A maioria das raízes e flora na natureza são muito fracas e frágeis para certas partes da magia selvagem. Felizmente, você conseguiu desenvolver algumas raízes resistentes que podem suportar tais poderes mágicos."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:overgrown_roots"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Anel do Desejo",
+  "icon": "goety:ring_of_want",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O Anel do Desejo faz com que as criaturas soltem mais saque quando mortas por seus feitiços ou por criaturas invocadas por você. Para que o Anel funcione, você deve encantá-lo com o Encantamento do Desejo, que funciona de forma semelhante ao Saque."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ring_of_want"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Usar o Anel do Desejo com Desejo III ou mais fará com que suas Presas Mágicas tenham 25%% de chance (100%% se for um Jogador) de derrubar a cabeça/crânio de uma criatura."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ring_of_want": 1
+  }
+}

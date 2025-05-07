@@ -1,0 +1,21 @@
+{
+  "name": "Mães da Ninhada",
+  "icon": "minecraft:cobweb",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_brood_mother",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Aranhas gigantes que atacam quem ousa perturbar seus covis, com presas que envenenam até os mortos-vivos."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:brood_mother",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Elas atacam diretamente, mas se suas crias entrarem na luta, circulam o alvo, deixando os filhotes se banquetear."
+    }
+  ]
+}

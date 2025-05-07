@@ -1,0 +1,22 @@
+{
+  "name": "Anel da Força",
+  "icon": "goety:ring_of_force",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O feitiço de Telecinese é divertido, mas e se você quiser danificar quem está segurando sem precisar esmagá-lo no chão repetidamente?"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ring_of_force"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Lançar o feitiço com este anel faz a vítima perder o fôlego lentamente, sufocando até morrer ou você soltá-la."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ring_of_force": 1
+  }
+}

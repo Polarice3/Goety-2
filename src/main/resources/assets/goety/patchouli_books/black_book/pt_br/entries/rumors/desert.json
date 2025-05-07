@@ -1,0 +1,17 @@
+{
+  "name": "Saber nas Areias",
+  "icon": "minecraft:sand",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Enquanto aprimorava seus poderes Necromânticos, você ouviu algo. Há algo no Deserto que pode aumentar seu conhecimento, talvez dentro daquelas $(l)pirâmides$()?"
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/read_front_scroll",
+      "text": "Sussurros mencionam conhecimentos perdidos escondidos nas areias."
+    }
+  ]
+}

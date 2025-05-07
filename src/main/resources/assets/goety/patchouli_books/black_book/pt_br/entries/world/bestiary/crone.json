@@ -1,0 +1,26 @@
+{
+  "name": "Anciãs",
+  "icon": "goety:crone_hat",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_crone",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Bruxas mais velhas e sábias, porém ainda maliciosas, que criam poções muito mais poderosas que suas parentes menores. Seus chapéus ajudam a preparar poções extras."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:crone",
+      "scale": 0.5,
+      "text": "Causa dano ao ser atingida."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:crone_hat",
+      "text": "O chapéu de uma Anciã tem 25% de chance de não consumir poções e 10% de não gastar ingredientes de poções. Se usado com uma Veste de Bruxa, pode gerar até três poções extras (em vez de duas com um chapéu comum)."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:crone_hat": 2
+  }
+}

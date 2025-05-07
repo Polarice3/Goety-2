@@ -1,0 +1,20 @@
+{
+  "name": "Farol da Noite",
+  "icon": "goety:night_beacon",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/gain_night_beacon",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O Farol da Noite é um dispositivo antigo mencionado nas lendas dos Aldeões. Dizem que os Piglins o colocaram sobre um Portal do Nether, causando no Overworld uma noite perpétua."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Mas as lendas falam da sua destruição. Talvez o que obtiveste seja uma réplica deste dispositivo arcano, que, tal como as lendas antigas, pode trazer uma noite eterna ao mundo."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:night_beacon": 0
+  }
+}

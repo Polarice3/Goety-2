@@ -1,0 +1,40 @@
+{
+  "name": "Núcleos Mágicos",
+  "icon": "goety:empty_focus",
+  "category": "goety:crafts",
+  "priority": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Núcleos mágicos são usados para criar todos os tipos de feitiços e equipamentos e podem ser fabricados através de vários rituais."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:empty_focus",
+      "title": "Foco Vazio",
+      "text": "O $(l:intro/magical_components)Foco Vazio$() é o núcleo para todos os Focos mágicos."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:animation_core"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:hunger_core"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wind_core"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:mystic_core"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:animation_core": 2,
+    "goety:hunger_core": 3,
+    "goety:wind_core": 4,
+    "goety:mystic_core": 5
+  }
+}

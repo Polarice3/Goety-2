@@ -1,0 +1,22 @@
+{
+  "name": "Arco do Caçador",
+  "icon": "goety:hunters_bow",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Um arco adequado para caçar animais. Qualquer animal morto por uma flecha disparada deste arco deixará mais saque do que até mesmo uma arma com Saqueamento III."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:hunters_bow"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O arco pode ser reparado em uma bigorna quando combinado com qualquer outro arco."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:hunters_bow": 1
+  }
+}

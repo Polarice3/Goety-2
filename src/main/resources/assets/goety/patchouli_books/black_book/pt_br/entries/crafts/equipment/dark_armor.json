@@ -1,0 +1,39 @@
+{
+  "name": "Armadura Sombria",
+  "icon": "goety:dark_helmet",
+  "category": "goety:crafts/equipment",
+  "advancement": "goety:goety/craft_dark_ingot",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Embora o Metal Sombrio possa ser usado para fabricar ferramentas comuns, quando se trata de armaduras, parece exigir métodos mais... elaborados de fabricação. A armadura não se parece com as outras que você já criou, sendo mais elaborada e intimidante, mas ainda oferece proteção e resistência equivalentes ao Diamante, além de alguma resistência a empurrões."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Assim como o conjunto de Armadura de Ferro Negro, a armadura também oferece desconto no uso de Energia das Almas e mitiga levemente danos mágicos, de fogo e explosivos."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:dark/dark_helmet"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:dark/dark_chestplate"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:dark/dark_leggings"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:dark/dark_boots"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:dark_helmet": 2,
+    "goety:dark_chestplate": 3,
+    "goety:dark_leggings": 4,
+    "goety:dark_boots": 5
+  }
+}

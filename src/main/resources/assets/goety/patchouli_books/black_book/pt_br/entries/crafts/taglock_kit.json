@@ -1,0 +1,23 @@
+{
+  "name": "Kit Taglock",
+  "icon": "goety:taglock_kit",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Um kit taglock é usado para coletar taglocks de criaturas ou rivais. Taglocks são usados para criar uma ligação entre o alvo e a feitiçaria."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:taglock_kit"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Para coletar taglocks, basta clicar com o botão esquerdo no kit em um ser. Também é possível obter um taglock clicando com o botão direito em uma cama que foi usada por um ser como você. Por algum motivo, você não pode obter taglocks de Aldeões desta forma."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Atenção! Enquanto marcar uma criatura é simples, marcar um ser como você requer uma abordagem mais sorrateira, pois eles podem perceber sua tentativa fracassada!"
+    }
+  ]
+}

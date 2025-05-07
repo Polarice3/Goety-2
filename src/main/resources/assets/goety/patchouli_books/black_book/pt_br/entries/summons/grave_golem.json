@@ -1,0 +1,44 @@
+{
+  "name": "Golem de Tumba",
+  "icon": "goety:skull_pile",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_warred_and_haunting_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com os esquemas de uma antiga máquina de guerra e uma maneira de possuir armaduras, você começou a pensar. Após alguns testes, você descobriu uma maneira de criar o servo morto-vivo definitivo: O Golem de Tumba."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:grave_golem",
+      "scale": 0.75
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:grave_golem",
+      "text": "Clique com o botão direito na Pilha de Crânios central com um Núcleo de Animação."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Os tijolos de pedra podem ser substituídos por blocos similares, como tijolos de ardósia. O Golem possui várias habilidades, desde esmagar o chão com as mãos até lançar Crânios Assombrados e invocar Assombrações para ajudá-lo. O Golem pode ser comandado para seguir, vagar ou ficar parado através de uma varinha/cajado. Eles podem ser reparados clicando neles com Blocos de Ossos ou Ossos, mas também podem se regenerar se o invocador estiver usando uma Capa Necro."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Há também uma habilidade especial que o Golem possui: se seu invocador morrer dentro de 64 blocos de distância, seus itens e equipamentos serão absorvidos pelo Golem. O Golem brilhará em tons de vermelho-alaranjado para indicar que contém itens. Para recuperar os itens, o invocador precisa clicar nele com uma pá. Os itens também serão dropados se o Golem for morto. Claro, isso requer que o invocador realmente deixe cair seus itens ao morrer. (Sugerido por JoTurtleGuy21)"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:grave_golem_skull",
+      "text": "Se o Golem for derrotado ou desativado, ele deixará cair seu 'crânio'. O Crânio pode ser usado para reviver o Golem de forma mais barata. No entanto, o Crânio lembra seu criador original e mestre, e o Golem revivido só seguirá seus comandos."
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:grave_golem_revive",
+      "enable_visualize": false
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:grave_golem_skull": 6
+  }
+}

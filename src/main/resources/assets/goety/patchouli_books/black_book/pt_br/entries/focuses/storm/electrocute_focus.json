@@ -1,0 +1,15 @@
+{
+  "name": "Foco do Eletrocutar",
+  "icon": "goety:electrocute_focus",
+  "category": "goety:focuses/storm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O feitiço dispara uma bola de eletricidade que, quando conjurada mirando em uma entidade válida, segue o alvo antes de atingi-lo ou qualquer objeto sólido."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/electrocute_focus"
+    }
+  ]
+}

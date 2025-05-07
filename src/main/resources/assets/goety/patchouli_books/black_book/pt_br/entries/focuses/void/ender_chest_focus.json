@@ -1,0 +1,18 @@
+{
+  "name": "Foco do Baú do End",
+  "icon": "goety:ender_chest_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Um foco simples que, quando conjurado, permite que você acesse seu Baú do End diretamente da ponta de sua varinha."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/ender_chest_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ender_chest_focus": 1
+  }
+}

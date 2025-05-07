@@ -1,0 +1,18 @@
+{
+  "name": "Foco de Chuva de Flechas",
+  "icon": "goety:arrow_rain_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com o poder das almas, você conjura uma chuva de flechas sobre um local ou alvo."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/arrow_rain_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:arrow_rain_focus": 1
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Foco de Tremor",
+  "icon": "goety:quaking_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O conjurador invoca tremores à sua frente, causando dano e lançando criaturas não aliadas para o alto. Conjurar o feitiço agachado invoca tremores ao redor do conjurador."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/quaking_focus"
+    }
+  ]
+}

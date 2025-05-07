@@ -1,0 +1,23 @@
+{
+  "name": "Obelisco do Grito",
+  "icon": "goety:shriek_obelisk",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_sculk_catalyst",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com crânios de Illagers e um Shrieker do Deep Dark, criaste um Obelisco que afasta ataques dos Illagers."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:shriek_obelisk"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Deve ser colocado sobre uma Jaula Amaldiçoada cheia. Crânios Altos ao redor aumentam o raio de efeito."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shriek_obelisk": 1
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Foco da Morte",
+  "icon": "goety:killing_focus",
+  "category": "goety:focuses/necromancy",
+  "advancement": "goety:goety/kill_a_apostle",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O feitiço causa um dano igual à vida atual do alvo, mas também inflige 125% desse dano ao conjurador. Se o conjurador tiver vida suficiente para sobreviver, o alvo receberá o dano total; caso contrário, o dano será distribuído entre ambos, sem matar o conjurador."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/killing_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:killing_focus": 1
+  }
+}

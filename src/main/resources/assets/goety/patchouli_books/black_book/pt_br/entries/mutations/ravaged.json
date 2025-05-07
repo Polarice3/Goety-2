@@ -1,0 +1,26 @@
+{
+  "name": "Devastado",
+  "icon": "goety:savage_tooth",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Você descobriu como criar Devoradores. Aldeões são transformados em 'Devastados' e precisam consumir carne para virar Devoradores completos."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_villager_to_ravaged"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Alimente-os com Carne Podre ou ordene que matem aldeões/illagers. Aldeões dão mais carne. Após a transformação, uma sela especial os torna mais fortes."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:ravaged",
+      "scale": 0.75
+    }
+  ]
+}

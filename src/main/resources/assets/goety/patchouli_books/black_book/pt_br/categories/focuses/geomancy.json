@@ -1,0 +1,6 @@
+{
+  "name": "Geomancia",
+  "description": "O poder sobre a Terra.",
+  "icon": "goety:barricade_focus",
+  "parent": "goety:focuses"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Slimes das Criptas",
+  "icon": "goety:crypt_stone",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_crypt_slime",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "As Criptas emanam energias necróticas que ocasionalmente geram slimes feitos de ossos e ectoplasma."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:crypt_slime",
+      "text": "Seus ataques causam o efeito **Exaustão**."
+    }
+  ]
+}

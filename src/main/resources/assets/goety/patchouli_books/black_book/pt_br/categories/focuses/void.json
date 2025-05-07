@@ -1,0 +1,6 @@
+{
+  "name": "Vazio",
+  "description": "O poder sobre os vazios.",
+  "icon": "goety:ender_chest_focus",
+  "parent": "goety:focuses"
+}

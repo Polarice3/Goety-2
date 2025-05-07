@@ -1,0 +1,18 @@
+{
+  "name": "Cinto Rancoroso",
+  "icon": "goety:spiteful_belt",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Você criou um Cinto especializado em ferir seus atacantes ao receber dano. Embora não se desgaste como o Encantamento Espinhos faz com as armaduras, ele consome a Energia da Alma do usuário ao ativar. Pode ser encantado com Espinhos para aumentar o dano."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:spiteful_belt"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:spiteful_belt": 1
+  }
+}

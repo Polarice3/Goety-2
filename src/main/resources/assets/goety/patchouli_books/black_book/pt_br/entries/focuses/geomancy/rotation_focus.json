@@ -1,0 +1,15 @@
+{
+  "name": "Foco de Rotação",
+  "icon": "goety:rotation_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Um foco simples que rotaciona e altera a orientação e direção de um bloco."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/rotation_focus"
+    }
+  ]
+}

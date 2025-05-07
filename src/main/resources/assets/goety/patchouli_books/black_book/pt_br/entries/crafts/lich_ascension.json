@@ -1,0 +1,28 @@
+{
+  "name": "Ascensão para a Não-Morte",
+  "icon": "goety:undeath_potion",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_forbidden_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Você recriou com sucesso o pergaminho e finalmente desvendou seu segredo. A arte suprema da Necroturgia: descartar a mortalidade e caminhar como o rei dos mortos."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Para se tornar um Lich, você deve preparar uma Poção Necrotúrgica especial - a Poção da Transformação. Usando o sangue do Apóstolo, vários outros ingredientes e o sacrifício de um Aldeão, você poderá realizar um Ritual Necrotúrgico para preparar essa poção abominável. O ritual requer uma quantidade enorme de Energia das Almas, muito além do que um Totem de Almas normalmente armazena."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:undeath_potion"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Porém, não beba a poção imediatamente após criá-la! Ela deve ser consumida durante uma Lua Cheia. Você também precisará de uma $(l:crafts/artifice/arca)Arca$() para vincular sua alma a ela. Ao bebê-la, você morrerá, mas ressurgirá como uma criatura morta-viva se tudo correr bem. (Em modo Hardcore, certifique-se que seu Totem está cheio ou segure um Totem da Imortalidade na mão secundária!)"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:undeath_potion": 2
+  }
+}

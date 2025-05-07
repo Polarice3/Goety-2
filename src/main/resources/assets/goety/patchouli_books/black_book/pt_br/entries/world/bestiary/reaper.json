@@ -1,0 +1,16 @@
+{
+  "name": "Ceifadores",
+  "icon": "goety:spirit_fabric",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_reaper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Aparições encapuzadas, especialistas em empunhar foices com fome por almas."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:reaper"
+    }
+  ]
+}

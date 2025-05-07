@@ -1,0 +1,7 @@
+{
+  "name": "Cajados",
+  "description": "A forma de realizar feitiços para um Feiticeiro.",
+  "icon": "goety:necro_staff",
+  "parent": "goety:crafts",
+  "sortnum": 4
+}

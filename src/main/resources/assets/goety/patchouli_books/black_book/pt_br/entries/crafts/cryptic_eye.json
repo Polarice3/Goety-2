@@ -1,0 +1,17 @@
+{
+  "name": "Olho Enigmático",
+  "icon": "goety:cryptic_eye",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/kill_a_wight",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Essas essências deixadas por aquela $(l:world/bestiary/wight)criatura horrível$() parecem ressoar em direção a algo. Ao combiná-las com um Olho de Ender, você descobriu que, em vez de levar à Fortaleza mais próxima, elas levam a $(l:world/crypts)algum outro lugar$()."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:cryptic_eye",
+      "text": "Parece que usá-lo lançará uma cópia do olho em vez de consumi-lo completamente. No entanto, isso gasta durabilidade."
+    }
+  ]
+}

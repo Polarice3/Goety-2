@@ -1,0 +1,19 @@
+{
+  "name": "Servos Vex",
+  "icon": "minecraft:vex_spawn_egg",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Seu próprio grupo de Vexes. Esses Vexes agem como os Vexes de Evocadores, mas seguem você e atacam em seu nome."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:ally_vex"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Diferente de outros servos corpóreos, Vexes não vagueiam, não param de seguir você e não aceitam armas/armaduras, pois são grandes demais para eles."
+    }
+  ]
+}

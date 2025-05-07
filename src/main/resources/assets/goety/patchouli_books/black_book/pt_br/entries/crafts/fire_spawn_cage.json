@@ -1,0 +1,20 @@
+{
+  "name": "Gaiola de geração de fogo",
+  "icon": "goety:flame_capture",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A não ser que se construa uma base à volta de um Spawner de Monstros, pode ser bastante aborrecido andar para trás e para a frente do bloco. É pena que não se possa simplesmente pegar no dispositivo arcano e levá-lo para onde quer que se vá. A não ser que..."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:flame_capture",
+      "text": "A gaiola pode capturar o núcleo flamejante do Spawner, partindo o bloco no processo."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Uma vez que a gaiola captura o núcleo do Spawner, ela pode ser clicada com o botão direito do mouse em uma gaiola amaldiçoada vazia $(l:intro/cursed_cage)Cursed Cage$() onde ela irá convertê-la em uma cópia do Spawner original, tornando o processo de Infusão Amaldiçoada e Mob Farming mais conveniente! No entanto, ao fazer isso, o item será destruído no processo."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "name": "Ritual do Sabá",
+  "icon": "minecraft:crying_obsidian",
+  "category": "goety:rituals",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requisitos: $(li)8 Obsidiana Chorosa $(li)16 Obsidianas $(li)4 Fogueiras de Almas"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/sabbath_ritual.png"],
+      "border": true,
+      "text": "Um exemplo de como o ritual pode ser posicionado."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Você ouviu rumores sobre um ser poderoso que habita o Nether. Dizem que um grupo de cultistas do Nether encontrou um ser que chamaram de 'Apóstolo' em um círculo de Obsidiana, onde ele apareceu e lhes revelou segredos."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:summon_apostle2"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:summon_apostle"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Talvez, com algum truque, magia e um material de isca, você seja capaz de invocar um para seus próprios propósitos, mas não o invoque no Nether, onde eles são mais poderosos. (Equipamento recomendado: Armadura Encantada, Armas com Toque e Picareta com Eficiência)"
+    }
+  ]
+}

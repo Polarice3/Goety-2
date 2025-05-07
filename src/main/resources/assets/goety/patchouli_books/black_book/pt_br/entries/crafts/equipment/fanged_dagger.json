@@ -1,0 +1,19 @@
+{
+  "name": "Adaga Dentada",
+  "icon": "goety:fanged_dagger",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A Adaga Dentada pode não parecer impressionante, mas oferece alta velocidade de ataque comparada a espadas e envenena os alvos. Quando uma criatura é morta, o portador ganha mais Energia das Almas do que o normal."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:fanged_dagger"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A adaga pode ser reparada em uma bigorna com um $(l:intro/magical_components)Lingote de Metal Amaldiçoado$(). Adicionado a partir da sugestão de pantman687."
+    }
+  ]
+}

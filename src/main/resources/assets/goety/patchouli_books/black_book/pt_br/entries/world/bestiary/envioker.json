@@ -1,0 +1,16 @@
+{
+  "name": "Um Incidente Estranho",
+  "icon": "minecraft:totem_of_undying",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_envioker",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Durante seu dia, você foi atacado por um Illager solitário que parecia ser um Evocador. Mas este era muito mais poderoso e usava seu Totem ao máximo."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Parece que os Illagers odeiam que você tenha descoberto segredos que eles consideravam seus. Este Evocador estava furioso com sua rapidez. Quanto mais você avança nas artes sombrias, mais Illagers se irritarão."
+    }
+  ]
+}

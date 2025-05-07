@@ -1,0 +1,19 @@
+{
+  "name": "Anel do Dragão",
+  "icon": "goety:ring_of_the_dragon",
+  "category": "goety:crafts/garment",
+  "advancement": "minecraft:end/dragon_breath",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O Anel do Dragão fortalece os feitiços de sopro, $(l:focuses/fire_breath_focus)Fogo$() e $(l:focuses/frost/frost_breath_focus)Gélido$(), aumentando seu dano e afetando o terreno ao redor!"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ring_of_the_dragon"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ring_of_the_dragon": 1
+  }
+}

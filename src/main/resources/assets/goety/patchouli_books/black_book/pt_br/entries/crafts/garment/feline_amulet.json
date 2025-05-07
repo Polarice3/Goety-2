@@ -1,0 +1,18 @@
+{
+  "name": "Amuleto Felino",
+  "icon": "goety:feline_amulet",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O amuleto contém a essência de uma criatura felina, fazendo parecer que o usuário tem um gato consigo o tempo todo, afastando Creepers e Phantoms."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:feline_amulet"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:feline_amulet": 1
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Cubo de Redstone",
+  "icon": "minecraft:redstone_block",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Usando um $(l:crafts/cores)Núcleo de Animação$(), você pode animar um Bloco de Redstone em um servo leal. O Cubo é imune a chamas e lava e atacará qualquer inimigo que detectar."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:redstone_cube",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O cubo também possui uma habilidade útil para mineração. Clicar nele com um minério, metal ou bloco minerável enquanto agachado fará com que ele o detecte, brilhando em amarelo quando estiver próximo ao bloco registrado. Clique nele com a mão vazia enquanto agachado para cancelar o registro."
+    }
+  ]
+}

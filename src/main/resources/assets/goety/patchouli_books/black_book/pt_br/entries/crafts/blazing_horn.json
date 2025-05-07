@@ -1,0 +1,17 @@
+{
+  "name": "Chama Ardente",
+  "icon": "goety:blazing_horn",
+  "category": "goety:crafts",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Você ouviu rumores sobre poderosos magos que outrora vagavam pelas Fortalezas do Nether. Dizem que um encantamento específico poderia convocar um deles quando realizado dentro de tal fortaleza."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:blazing_horn",
+      "text": "Com um chifre de cabra e o poder do Nether, você pode replicar o encantamento para convocar um desses seres."
+    }
+  ]
+}

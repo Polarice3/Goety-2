@@ -1,0 +1,116 @@
+{
+  "name": "Caçadores Illagers",
+  "icon": "minecraft:crossbow",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_hunting_illagers",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Após matar vários Illagers que tentaram te eliminar por roubar seus conhecimentos, você documentou tipos nunca antes vistos."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Esses Illagers só perseguem quem descobre ou rouba seus segredos. Não são encontrados em Mansões ou Postos, e só participam de invasões se os alvos estiverem em vilas. São hierarquicamente altos o suficiente para comandar até Devastadores."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:envioker"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Um Evocador erudito que usa um Estilhaço de Rubi para amplificar suas magias. Seu Totem foi presenteado ou roubado."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:tormentor"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Resultado de experimentos entre Vex e Vindicadores, ficam invisíveis quando não estão atacando."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:sorcerer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Magos versáteis nas artes sombrias, mais imprevisíveis que outros Illagers feiticeiros. Os mais experientes adornam suas vestes com materiais preciosos."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:piker",
+      "scale": 0.95
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Soldados disciplinados, superiores a Pilhadores e com alcance maior que Vindicadores. Inspirados por pergaminhos do deserto."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:ripper",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Lobos criados por Illagers para perseguir alvos ou atacar inimigos. Variam em tamanho e raramente aparecem com reforços."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:trampler",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Montarias violentas, criadas como punição ou a partir dos mais fracos. Atropelam alvos mesmo sem cavaleiro."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:crusher"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Ferreiro-guerreiros que forjam em segredo ou patrulham áreas específicas. Seus martelos podem controlar raios."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:storm_caster"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Ex-Geomantes ou Invocadores de Vento que passaram a dominar raios. Saqueiam santuários elevados em busca de segredos."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:cryologer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Parentes dos Gelo-mantes, com mais truques que seus primos de magia única. Illagers acreditam que choram por admiração ao frio."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:preacher"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Raros como Encantadores, esses Illagers curam aliados feridos em vez de lutar diretamente."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:conquillager",
+      "scale": 0.95
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Aristocratas pestilentos que espalham doenças devastadoras. Preferem ataques à distância."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:inquillager"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Illagers treinados para caçar magos, imunes a feitiços. Usam espadas flamejantes e poções de Dano."
+    }
+  ]
+}

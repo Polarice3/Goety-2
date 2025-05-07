@@ -1,0 +1,19 @@
+{
+  "name": "Wartlings",
+  "icon": "minecraft:nether_wart",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Wartlings têm as mesmas propriedades que Aranhas, embora sejam menores e mais fracos. Um Wartling só existe por 9 segundos antes de morrer ou retornar ao usuário, desaparecendo e curando-o com a vida que tinha."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wartling"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Se o usuário tiver um efeito negativo, o próximo Wartling armazenará esse efeito, liberando uma nuvem dele ao morrer. O efeito não os afeta, e eles não podem ser afetados pelo mesmo efeito que armazenaram. Esses Wartlings não retornam ao usuário."
+    }
+  ]
+}

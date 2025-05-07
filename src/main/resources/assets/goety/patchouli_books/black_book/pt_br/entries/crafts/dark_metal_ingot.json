@@ -1,0 +1,38 @@
+{
+  "name": "Barras de Metal Sombrio",
+  "icon": "goety:dark_ingot",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/craft_necro_brazier",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Você conseguiu canalizar as energias do Deep Dark em um metal que se repara usando Energia das Almas. A quantidade de Energia das Almas necessária para criar uma barra é muito grande, mas você conseguiu mesmo assim. O metal parece ser tão resistente quanto diamantes e quase tão encantável quanto o ouro. Ele também parece retardar e enfraquecer qualquer criatura que for atingida por ele."
+    },
+    {
+      "type": "goety:brazier",
+      "recipe": "goety:dark/dark_ingot"
+    },
+    {
+      "type": "goety:brazier",
+      "recipe": "goety:dark/dark_ingot_2"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark/dark_sword",
+      "recipe2": "goety:dark/dark_pickaxe"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark/dark_axe",
+      "recipe2": "goety:dark/dark_shovel"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark/dark_hoe"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:dark_ingot": 1
+  }
+}

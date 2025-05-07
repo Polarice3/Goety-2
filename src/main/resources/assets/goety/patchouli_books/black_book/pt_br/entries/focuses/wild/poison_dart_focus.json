@@ -1,0 +1,15 @@
+{
+  "name": "Foco do Dardo Venenoso",
+  "icon": "goety:poison_dart_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Dispara um espinho venenoso na direção em que o conjurador está olhando. Criaturas atingidas pelo espinho serão envenenadas."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/poison_dart_focus"
+    }
+  ]
+}

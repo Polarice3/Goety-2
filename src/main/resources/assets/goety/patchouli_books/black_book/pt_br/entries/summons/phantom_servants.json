@@ -1,0 +1,24 @@
+{
+  "name": "Servos Fantasma",
+  "icon": "minecraft:phantom_membrane",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Embora os fantasmas geralmente apareçam para caçar os privados de sono, você encontrou uma maneira de amarrar essas criaturas ao seu serviço."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:phantom_servant",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Quando invocado usando uma Capa Necro, o fantasma resultante fica translúcido e ganha a habilidade de atravessar blocos! É possível invocar essas criaturas usando um $(l:focuses/necromancy/phantasm_focus)Foco de Fantasma$(), ou através de um ritual que invoca um sem tempo de vida limitado."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_phantom_servant_thrall"
+    }
+  ]
+}

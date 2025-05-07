@@ -1,0 +1,34 @@
+{
+  "name": "Ministros",
+  "icon": "goety:ominous_orb",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_minister",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Illagers de alto escalão, líderes de suas tribos. Notórios por saquear civilizações e usar habilidades de oratória para empoderar aliados ou zombar de inimigos."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:minister"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:ominous_orb",
+      "title": "Cajado do Ministro",
+      "text": "Inspirado ou roubado de um reino esquecido, seu orbe emana magia poderosa. Ministros bloqueiam golpes com o cajado, mas ele é menos durável que um escudo."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:ominous_shard",
+      "text": "Talvez seja possível roubar o orbe sem quebrá-lo, ou recriá-lo com os fragmentos."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous_orb"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ominous_shard": 2
+  }
+}

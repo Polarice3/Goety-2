@@ -1,0 +1,45 @@
+{
+  "name": "Golem de Redstone",
+  "icon": "minecraft:redstone_block",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_warred_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Ao explorar arquiteturas antigas, você encontrou um projeto de um poderoso Golem usado em guerras no passado. O Golem parece poderoso, mas requer um molde de Diamantes e Tijolos de Pedra para ser criado."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:redstone_golem",
+      "scale": 0.75
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:redstone_golem",
+      "text": "Clique com o botão direito no Bloco de Redstone central com um Núcleo de Animação."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Os Tijolos de Pedra podem ser substituídos por blocos similares, como Tijolos de Ardósia. O Golem resultante é superior aos Golems de Ferro, pois é mais forte e pode ser comandado para seguir, vagar ou ficar parado usando uma varinha/cajado. Eles podem ser reparados com Pó de Redstone ou Blocos de Redstone."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:diamond_mold_block",
+      "text": "Diamantes e pedras são usados para criar um molde poderoso."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:redstone_golem_skull",
+      "text": "Se o Golem for derrotado, ele deixará cair seu 'crânio'. O Crânio pode ser usado para revivê-lo de forma mais barata, mas o Golem revivido só obedecerá ao seu criador original."
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:redstone_golem_revive",
+      "enable_visualize": false
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:redstone_golem_skull": 6
+  }
+}

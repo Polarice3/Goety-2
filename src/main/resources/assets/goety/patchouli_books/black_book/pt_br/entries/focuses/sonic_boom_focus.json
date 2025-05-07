@@ -1,0 +1,20 @@
+{
+  "name": "Foco de Explosão Sônica",
+  "icon": "goety:sonic_boom_focus",
+  "category": "goety:focuses",
+  "advancement": "goety:goety/get_ruby",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com o poder do Rubi, você conseguiu replicar o poder do Explosão Sônica do Guardião, permitindo que você use sua habilidade contra outros!"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/sonic_boom_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:sonic_boom_focus": 1
+  }
+}

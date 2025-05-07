@@ -1,0 +1,42 @@
+{
+  "name": "Componentes Mágicos",
+  "icon": "goety:magic_emerald",
+  "category": "goety:intro",
+  "sortnum": 3,
+  "priority": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com seu Totem primitivo, você pode criar novos itens para artefatos mágicos. Mas talvez haja um método mais $(l:intro/cursed_infuser)econômico$()..."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:cursed_ingot_craft",
+      "recipe2": "goety:empty_focus_craft"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:shade/shade_stone_craft",
+      "recipe2": "goety:haunted/haunted_sapling_craft"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:savage_tooth_craft"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O Totem do Evocador tem Esmeraldas nos olhos. Você suspeita que elas são diferentes — será possível 'ativá-las'?"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:magic_emerald_craft",
+      "recipe2": "goety:soul_emerald"
+    },
+    {
+      "anchor": "totem",
+      "type": "patchouli:crafting",
+      "recipe": "goety:totem_of_souls",
+      "text": "Você criou uma réplica perfeita do Totem do Evocador. Este Totem armazena muito mais Energia das Almas que o Totem de Raízes."
+    }
+  ]
+}

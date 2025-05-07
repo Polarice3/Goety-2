@@ -1,0 +1,7 @@
+{
+  "name": "Artefactos",
+  "description": "Utilização e Manipulação da Energia da Alma.",
+  "icon": "goety:soul_absorber",
+  "parent": "goety:crafts",
+  "sortnum": 3
+}

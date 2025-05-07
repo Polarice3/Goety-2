@@ -1,0 +1,20 @@
+{
+  "name": "Cavalo Esquelético",
+  "icon": "minecraft:skeleton_horse_spawn_egg",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Apesar de ossudo, suporta montarias sem quebrar e pode andar debaixo d'água."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_skeleton_horse"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:skeleton_horse",
+      "scale": 0.75
+    }
+  ]
+}

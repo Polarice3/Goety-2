@@ -1,0 +1,15 @@
+{
+  "name": "Foco de Criação",
+  "icon": "goety:crafting_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Para quando você esquece ou não pode colocar uma mesa de crafting, ter uma à mão torna a criação mais conveniente!"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/crafting_focus"
+    }
+  ]
+}

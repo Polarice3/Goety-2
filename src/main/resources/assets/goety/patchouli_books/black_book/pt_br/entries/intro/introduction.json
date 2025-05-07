@@ -1,0 +1,21 @@
+{
+  "name": "Sobre as Artes Sombrias",
+  "icon": "minecraft:writable_book",
+  "category": "goety:intro",
+  "sortnum": 0,
+  "priority": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Seja por histórias ou experiências, você sempre se interessou pelo que chamam de 'Artes Sombrias'."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Essas artes diferem da magia comum, como encantamentos. Invocar criaturas, por exemplo, é considerado uma prática sombria — afinal, geralmente está associada a forças malignas."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Zumbis evocam reforços, Evocadores controlam Vexes, e os temíveis Spawners podem ser a chave para dominar essas magias. Se não os encontrar, haverá outros caminhos..."
+    }
+  ]
+}

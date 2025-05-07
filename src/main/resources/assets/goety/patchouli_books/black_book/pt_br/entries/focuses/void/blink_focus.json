@@ -1,0 +1,18 @@
+{
+  "name": "Foco do Piscar",
+  "icon": "goety:blink_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Este foco permite que você se teleporte para um local que está olhando, desde que esteja dentro do alcance."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/blink_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:blink_focus": 1
+  }
+}

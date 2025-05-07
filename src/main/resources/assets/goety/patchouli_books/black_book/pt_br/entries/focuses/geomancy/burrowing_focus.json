@@ -1,0 +1,19 @@
+{
+  "name": "Foco de Escavação",
+  "icon": "goety:burrowing_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Este foco dispara um feixe de energia mágica capaz de minerar rochas e pedras, com materiais mais resistentes exigindo mais tempo para serem minerados."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/burrowing_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O encantamento Potência aumenta a velocidade de mineração e, em níveis mais altos, permite que o feitiço mine blocos que exigem ferramentas de diamante ou netherita."
+    }
+  ]
+}

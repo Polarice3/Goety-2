@@ -1,0 +1,22 @@
+{
+  "name": "Foco da Tempestade de Tridentes",
+  "icon": "goety:trident_storm_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Os poderes das profundezas permitem que você conjure tridentes que caem ao seu redor, arremessando seus inimigos com relâmpagos canalizados."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/trident_storm_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/abyss_staff)Cajado do Abismo$() invoca mais tridentes ao seu redor com padrões mais elaborados."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:trident_storm_focus": 1
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Lápide das Sombras",
+  "icon": "goety:shade_gravestone",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Pedra das Sombras e metal amaldiçoado canalizam energias necróticas. Com o Foco da Podridão, criaste uma lápide que invoca Zombis Servos leais."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:shade/shade_gravestone"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Requer um Ferro em Pó para invocar um Zombi Servo. Clicar com uma Varinha define se invoca apenas com alvos próximos. Agachado, alterna entre patrulhar ou seguir o dono."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shade_gravestone": 1
+  }
+}

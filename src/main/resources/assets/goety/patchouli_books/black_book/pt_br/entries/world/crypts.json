@@ -1,0 +1,16 @@
+{
+  "name": "Criptas",
+  "icon": "goety:crypt_stone_chiseled",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Você ouviu falar de criptas ancestrais escavadas sob a terra, distorcendo a paisagem acima de suas estruturas profanas. Rumores sugerem que elas guardam grandes tesouros, segredos proibidos... e monstros horríveis."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/crypt.png"],
+      "border": true
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Amuleto do Mar",
+  "icon": "goety:sea_amulet",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O Amuleto do Mar concede o efeito Poder do Conduto ao usuário quando estiver submerso, consumindo suas cargas internas. Para recarregar o amuleto, o usuário deve estar a 8 blocos de um Conduto ativo debaixo d'água. O amuleto só concederá seu efeito se o usuário não o tiver ou quando o efeito anterior estiver a 5 segundos de expirar."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:sea_amulet"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:sea_amulet": 1
+  }
+}

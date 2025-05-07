@@ -1,0 +1,18 @@
+{
+  "name": "Foco de Ilusão",
+  "icon": "goety:illusion_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Estudar magias de Ilusão permite que você crie um Foco que conjura vários sósias para distrair criaturas hostis de atacá-lo. Os sósias não causam dano algum... a menos que você esteja vestindo um conjunto completo de Vestes Ilusórias, embora seu dano não seja significativo."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/illusion_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:illusion_focus": 1
+  }
+}

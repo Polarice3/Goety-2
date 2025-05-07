@@ -1,0 +1,24 @@
+{
+  "name": "Grimório de Enraizamento",
+  "icon": "goety:grimoire_of_grounding",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Por vezes, poderás querer que alguns dos teus servos, ou as suas subespécies por assim dizer, permaneçam no seu local quando os teleportares em massa ao conjurar o respetivo feitiço de invocação enquanto agachado, ou através de outros feitiços."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Quando se menciona o registo das suas subespécies, significa que, por exemplo, se adicionares Servos Zombie da Selva ao grimório, conjurar o Feitiço de Apodrecimento enquanto agachado invocará todas as variantes de Servos Zombie exceto os da Selva."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:grimoire_of_grounding",
+      "text": "Clicar com o botão direito no ar mostra quais servos estão enraizados. Clicar com Shift + botão direito mostra a espécie."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O Feitiço de Chamada ainda funciona mesmo que a invocação armazenada esteja registada no grimório. No caso do Feitiço de Tropa, apenas os indivíduos registados no grimório não serão teleportados. Este grimório adiciona e remove servos da mesma forma que outros grimórios fazem com criaturas."
+    }
+  ]
+}

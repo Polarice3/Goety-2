@@ -1,0 +1,33 @@
+{
+  "name": "Túnica Profana",
+  "icon": "goety:unholy_robe",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/kill_a_apostle",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Usando o sangue $(l)mais puro$() do emissário das trevas, $(l)que só pode ser obtido ao matá-los no Nether$(), você criou uma réplica de suas vestes. A Túnica concede imunidade ao fogo e aos Hexes de Queimadura, e tanto a túnica quanto o chapéu potencializam alguns feitiços com fogo do inferno."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:unholy_fabric"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:unholy_robe"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:unholy_hat"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O Chapéu Profano reduz pela metade todo o dano recebido no Nether, além de limitar o dano máximo que o usuário pode receber, assim como os Apóstolos. A Túnica Profana concede resistência a danos do fogo do inferno."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:unholy_fabric": 1,
+    "goety:unholy_robe": 2,
+    "goety:unholy_hat": 3
+  }
+}

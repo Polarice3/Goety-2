@@ -1,0 +1,18 @@
+{
+  "name": "Cinto do Viajante",
+  "icon": "goety:wayfarers_belt",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O Cinto do Viajante permite que o usuário se mova um pouco mais rápido e também suba um bloco sem pular. O Cinto também aumenta a altura do pulo e reduz pela metade o dano causado por quedas de lugares altos."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wayfarers_belt"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:wayfarers_belt": 1
+  }
+}

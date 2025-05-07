@@ -1,0 +1,16 @@
+{
+  "name": "Assembléias Negras",
+  "icon": "minecraft:obsidian",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Viajantes de todas as partes contam histórias sobre encontros com seres vestidos em mantos escuros, entoando cânticos diante de um monólito de obsidiana. Eles mencionam que a área ao redor os deixava inquietos..."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/black_assembly.png"],
+      "border": true
+    }
+  ]
+}

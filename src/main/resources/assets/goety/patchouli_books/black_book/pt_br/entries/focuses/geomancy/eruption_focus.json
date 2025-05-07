@@ -1,0 +1,18 @@
+{
+  "name": "Foco de Erupção",
+  "icon": "goety:eruption_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Este foco permite que você invoque um pequeno vulcão que irá expelir várias rochas piroclásticas para o céu, que cairão ao seu redor, explodindo e causando dano aos seus inimigos."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/eruption_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:eruption_focus": 1
+  }
+}

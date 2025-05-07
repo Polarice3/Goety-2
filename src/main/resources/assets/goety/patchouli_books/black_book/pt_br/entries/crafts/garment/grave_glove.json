@@ -1,0 +1,18 @@
+{
+  "name": "Luvas Fúnebres",
+  "icon": "goety:grave_glove",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Foices são divertidas, mas muito lentas para serem uma arma viável. Usando restos mortais e Necroturgia, você criou luvas que permitem empunhar Foices com mais eficiência, aumentando a velocidade de ataque em 50%."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:grave_glove"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:grave_glove": 1
+  }
+}

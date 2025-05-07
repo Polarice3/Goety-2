@@ -1,0 +1,25 @@
+{
+  "name": "Servos Vanguarda",
+  "icon": "goety:vanguard_servant_spawn_egg",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_front_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Esses guerreiros antigos já serviram um necromante que roubou um pedaço de magia negra. Suas alabardas atingem mais longe que a maioria das espadas e podem danificar múltiplos inimigos à frente. Seus escudos podem quebrar após um único golpe, mas absorverão completamente o dano."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:vanguard_servant",
+      "scale": 0.95
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Se estiverem sem escudo, clique neles com Tábuas de Madeira para devolver seu escudo quando não estiverem atacando.$(br)É possível invocar essas criaturas usando um $(l:focuses/necromancy/vanguard_focus)Foco de Vanguarda$(), ou através de um ritual que invoca um sem tempo de vida limitado."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_vanguard_thrall"
+    }
+  ]
+}

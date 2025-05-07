@@ -1,0 +1,19 @@
+{
+  "name": "Foco do Salto",
+  "icon": "goety:leaping_focus",
+  "category": "goety:focuses/wild",
+  "advancement": "goety:goety/read_floral_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O feitiço invoca um $(l:summons/leapleaves)Leapleaves$(), um servo poderoso que pode saltar alto e esmagar os inimigos de seu invocador."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/leaping_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:leaping_focus": 1
+  }
+}

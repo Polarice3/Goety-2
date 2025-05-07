@@ -1,0 +1,27 @@
+{
+  "name": "Cultivador de Sculk",
+  "icon": "goety:sculk_grower",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_sculk_catalyst",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Usando a energia do Sculk, criaste um dispositivo que acelera o crescimento de cultivos."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:sculk_grower"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Requer uma $(l:intro/cursed_cage)Jaula Amaldiçoada$() no topo. Absorve energia em massa para gerar 'Cargas', que aceleram cultivos num raio de 8x4x8 blocos."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Encantamentos de Raio aumentam o alcance. Sem Redstone, usa as Cargas restantes até esgotar."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:sculk_grower": 1
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Foco de Dardo da Alma",
+  "icon": "goety:soul_bolt_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com este foco, você é capaz de disparar rapidamente dardos de Energia das Almas contra seus inimigos, causando repulsão e dano mágico."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/soul_bolt_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_forbidden_scroll",
+      "text": "Conjurar esta magia com um $(l:crafts/staff/nameless_staff)Cajado Sem Nome$() fará com que sejam disparados Dardos Necros, que causam muito mais dano e podem atingir múltiplos alvos."
+    }
+  ]
+}

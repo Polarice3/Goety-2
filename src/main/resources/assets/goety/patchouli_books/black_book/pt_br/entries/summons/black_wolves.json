@@ -1,0 +1,45 @@
+{
+  "name": "Lobos Negros",
+  "icon": "minecraft:bone",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Considerados lendas, esses presságios da morte são reais e leais ao seu invocador."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "É possível invocar um lobo negro leal usando um $(l:focuses/wild/hunting_focus)Foco de Caça$(), ou através de um ritual que invoca um sem tempo de vida limitado."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_black_wolf_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:black_wolf",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Clicar com o botão direito em um Lobo Negro leal com carne irá curá-lo."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Invocar Lobos Negros de certas maneiras também pode resultar em variantes da criatura ou até mesmo outros tipos de cães."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:skeleton_wolf",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Uma versão morta-viva dos lobos comuns, embora, diferentemente deles, esses lobos possam emitir um uivo que aumenta o dano de seus aliados esqueletos. Eles são invocados ao lançar $(l:focuses/wild/hunting_focus)Feitiço de Caça$() com um $(l:crafts/staff/necro_staff)Cajado Necro$(), ou através de outro ritual."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_skeleton_wolf_thrall"
+    }
+  ]
+}

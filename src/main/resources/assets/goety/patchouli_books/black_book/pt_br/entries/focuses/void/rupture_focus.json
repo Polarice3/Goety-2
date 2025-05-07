@@ -1,0 +1,19 @@
+{
+  "name": "Foco da Ruptura",
+  "icon": "goety:rupture_focus",
+  "category": "goety:focuses/void",
+  "advancement": "minecraft:end/kill_dragon",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com energia vital suficiente, o foco abre uma fenda no mundo para o próprio vácuo, sugando todas as criaturas não aliadas próximas, causando dano a elas, antes de se fechar em uma enorme explosão."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/rupture_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:rupture_focus": 1
+  }
+}

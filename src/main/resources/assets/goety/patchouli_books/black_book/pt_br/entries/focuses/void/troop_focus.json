@@ -1,0 +1,18 @@
+{
+  "name": "Foco da Tropa",
+  "icon": "goety:troop_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Uma versão modificada do Foco do Chamado que, em vez de armazenar um servo individual, armazena a espécie e o tipo do servo, permitindo que você convoque todos os servos desse tipo."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/troop_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:troop_focus": 1
+  }
+}

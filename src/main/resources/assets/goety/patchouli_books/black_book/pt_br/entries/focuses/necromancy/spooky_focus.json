@@ -1,0 +1,18 @@
+{
+  "name": "Foco Assustador",
+  "icon": "goety:spooky_focus",
+  "category": "goety:focuses/necromancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Espectros não são exatamente as criaturas mortas-vivas mais comuns, só recentemente começaram a aparecer. Com alguns Tecidos Espirituais, você pode invocar e subjugar um ao seu comando."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/spooky_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:spooky_focus": 1
+  }
+}

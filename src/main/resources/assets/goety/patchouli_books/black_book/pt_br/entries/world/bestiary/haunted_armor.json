@@ -1,0 +1,37 @@
+{
+  "name": "Armaduras Assombradas",
+  "icon": "goety:cursed_knight_helmet",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_haunted_armor",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Guardas das Criptas, animados por magia necrotúrgica. Imunes a debuffs e fogo, mas vulneráveis a lava e ao encantamento Ruína."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:haunted_armor{ArmorItems:[{Count:1,id:\"goety:cursed_knight_boots\"},{Count:1,id:\"goety:cursed_knight_leggings\"},{Count:1,id:\"goety:cursed_knight_chestplate\"},{Count:1,id:\"goety:cursed_knight_helmet\"}]}",
+      "scale": 0.75,
+      "text": "Seus escudos podem ser desativados com um machado."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:fell_blade",
+      "title": "Lâmina Funesta",
+      "text": "Tem chance de reduzir pela metade a defesa do alvo. Pode ser reparada com Lingotes de Metal Amaldiçoado."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:cursed_knight_helmet",
+      "title": "Armadura do Cavaleiro Amaldiçoado",
+      "text": "Oferece resistência adicional e +4 de defesa quando o conjunto completo é equipado."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:fell_blade": 2,
+    "goety:cursed_knight_helmet": 3,
+    "goety:cursed_knight_chestplate": 3,
+    "goety:cursed_knight_leggings": 3,
+    "goety:cursed_knight_boots": 3
+  }
+}

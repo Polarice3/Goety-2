@@ -1,0 +1,21 @@
+{
+  "name": "Pergaminho Término",
+  "icon": "goety:terminus_scroll",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/get_shrouded_blueprint",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O diagrama tem algumas semelhanças com o Pergaminho da Guerra, fazendo você pensar que transcrevê-lo em um esquema legível requer algo de uma criação similar."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:terminus_scroll"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shrouded_blueprint": 0,
+    "goety:terminus_scroll": 1
+  }
+}

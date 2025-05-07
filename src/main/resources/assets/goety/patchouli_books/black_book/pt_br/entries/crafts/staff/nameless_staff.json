@@ -1,0 +1,29 @@
+{
+  "name": "Cajado Nameless",
+  "icon": "goety:nameless_staff",
+  "category": "goety:crafts/staff",
+  "advancement": "goety:goety/read_forbidden_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com os textos proibidos, você descobriu uma forma de canalizar o poder da noite, permitindo a criação de um cajado poderoso que lhe concede supremacia na necromancia."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:heart_of_the_night"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nameless_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:focuses/soul_bolt_focus)Projéteis de Alma$() lançados deste cajado se transformarão nos mais poderosos Projéteis Necros. Lançar o $(l:focuses/illusion_focus)Feitiço do Espelho$() enquanto estiver vestindo o $(l:crafts/garment/nameless_set)Conjunto Sem Nome$() fará com que eles disparem um único Projétil Necro no seu alvo."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:heart_of_the_night": 1,
+    "goety:nameless_staff": 2
+  }
+}

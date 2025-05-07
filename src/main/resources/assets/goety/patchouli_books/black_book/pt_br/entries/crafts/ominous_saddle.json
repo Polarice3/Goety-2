@@ -1,0 +1,20 @@
+{
+  "name": "Sela Ominosa",
+  "icon": "goety:ominous_saddle",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O $(l:mutations/ravaged)Devastador$() é uma besta poderosa, porém o que você possui está sem sua armadura prateada e sela. Com um pouco de $(l:intro/magical_components)Metal Amaldiçoado$(), você pode recriar a sela blindada. Clicar com o botão direito no pobre $(l:mutations/ravaged)Devastador$() desprotegido fará com que ele a equipe, tornando-o montável e mais forte."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_saddle"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ominous_saddle": 1
+  }
+}

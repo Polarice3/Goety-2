@@ -1,0 +1,18 @@
+{
+  "name": "Túnica do Vento",
+  "icon": "goety:wind_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A Túnica do Vento permite que você caia lentamente (ou não tão lentamente ao segurar Shift) e o torna imune a dano de queda. No entanto, a cada segundo que a túnica retarda sua queda, Energia da Alma é consumida. Vestir a Túnica também reduz pela metade o custo de Alma para Feitiços do Vento."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wind_robe"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:wind_robe": 1
+  }
+}

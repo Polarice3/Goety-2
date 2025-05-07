@@ -1,0 +1,23 @@
+{
+  "name": "Foco de Comando",
+  "icon": "goety:command_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Este foco permite comandar um servo para se mover para uma posição. Se usado em uma criatura, o servo irá até ela, e se for uma montaria, muitos servos podem montá-la."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/command_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Para usar, equipe-o em uma varinha/cajado. Clique em um servo para comandá-lo. Clique shift+botão direito no ar para liberar o servo."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O servo pode se mover mesmo no modo Ficar Parado. Para desmontar, clique shift+botão direito na montaria."
+    }
+  ]
+}

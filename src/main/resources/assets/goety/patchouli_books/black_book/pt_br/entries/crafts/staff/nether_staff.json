@@ -1,0 +1,20 @@
+{
+  "name": "Cajado do Nether",
+  "icon": "goety:nether_staff",
+  "category": "goety:crafts/staff",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Após aprender os poderes dos Necromantes do Wither, você conseguiu replicar o cajado deles, fortalecendo seus feitiços do Nether."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nether_staff"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:nether_staff": 1
+  }
+}

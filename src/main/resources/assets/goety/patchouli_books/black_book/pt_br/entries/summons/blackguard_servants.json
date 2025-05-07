@@ -1,0 +1,25 @@
+{
+  "name": "Servo Guarda Negra",
+  "icon": "goety:blackguard_servant_spawn_egg",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_front_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Baseado nos antigos vanguardistas, você criou uma variação zumbi que foca em intimidação e força bruta, em vez de refinamento. Vestindo armadura pesada e um clube espinhoso, esses horrores mortos-vivos trocam velocidade por força e poder."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:blackguard_servant",
+      "scale": 0.95
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Se estiverem sem escudo, clique com o botão direito neles com um lingote de ferro para devolver seu escudo quando não estiverem atacando.$(br)É possível invocar essas criaturas usando um $(l:focuses/necromancy/blackguard_focus)Foco de Guarda Negra$(), ou através de um ritual que invoca um sem tempo de vida limitado."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_blackguard_thrall"
+    }
+  ]
+}

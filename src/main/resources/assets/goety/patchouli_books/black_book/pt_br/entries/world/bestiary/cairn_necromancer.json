@@ -1,0 +1,17 @@
+{
+  "name": "Necromantes dos Cárnios",
+  "icon": "goety:crypt_stone",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_cairn_necromancer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Antigos oficiais ressuscitados para guardar as Criptas com seus servos mortos-vivos. Parecem ser descendentes dos Necromantes do deserto, mas usam o poder do gelo."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:cairn_necromancer",
+      "text": "Invoca Strays e lança Espinhos de Gelo."
+    }
+  ]
+}

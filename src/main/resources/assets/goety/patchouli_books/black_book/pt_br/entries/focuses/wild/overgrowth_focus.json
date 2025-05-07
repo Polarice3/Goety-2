@@ -1,0 +1,22 @@
+{
+  "name": "Foco do Crescimento Excessivo",
+  "icon": "goety:overgrowth_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com energia vital, você conjura vinhas imóveis poderosas para bloquear o caminho de seus alvos ou, se agachado, invoca uma vinha florida que dispara espinhos venenosos. Conjurar agachado enquanto mira em um alvo fará com que a vinha venenosa seja invocada próximo a você."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/overgrowth_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar na água invocará algas poderosas imóveis. A única diferença é estética e a necessidade de estar na água, embora os espinhos das algas venenosas não sejam afetados pela água. Usar uma $(l:crafts/garment/wild_robe)Túnica Selvagem$() permite que você passe pelas vinhas e algas."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:overgrowth_focus": 1
+  }
+}

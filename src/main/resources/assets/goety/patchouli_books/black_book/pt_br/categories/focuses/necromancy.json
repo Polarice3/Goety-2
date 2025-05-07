@@ -1,0 +1,6 @@
+{
+  "name": "Necromancia",
+  "description": "O poder sobre os mortos.",
+  "icon": "goety:rotting_focus",
+  "parent": "goety:focuses"
+}

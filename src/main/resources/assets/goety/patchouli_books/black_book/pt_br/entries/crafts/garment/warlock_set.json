@@ -1,0 +1,31 @@
+{
+  "name": "Conjunto do Bruxo",
+  "icon": "goety:warlock_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Bruxos são conhecidos por suas túnicas marrons com um belo cinto envolto nelas. Com um pouco de Lã Vermelha, alguns Ovos de Verruga e Fungus do Nether, você descobriu como fazer seu próprio Cinto de Bruxo, que faz com que usar um Ovo de Verruga não o prejudique mais."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:warlock_sash"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:warlock_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Túnica do Bruxo concede resistência a danos mágicos e 10%% de chance de não consumir Ovos de Verruga ou Fungos Estalantes, além de 25%% de chance de um Fungo Estalante adicional ser derrubado por Verrugas Estalantes maduras. O Cinto e a Túnica também aumentam a chance de Aranhas derrubarem Ovos de Aranha. Se o usuário tiver um efeito negativo, a vestimenta usará automaticamente qualquer Ovo de Verruga em seu inventário."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Assim como usar um Chapéu e Túnica de Bruxa, vestir a Túnica do Bruxo faz com que todas as Bruxas e Bruxos sejam neutros e possam ser barganhados."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:warlock_robe": 2,
+    "goety:warlock_robe_dark": 2
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Foco de Dardo Mágico",
+  "icon": "goety:magic_bolt_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Este foco permite que você dispare um dardo que amaldiçoa alvos e cria uma área nociva de magia negra no chão."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/magic_bolt_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:magic_bolt_focus": 1
+  }
+}

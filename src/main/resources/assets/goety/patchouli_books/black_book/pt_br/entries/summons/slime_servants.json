@@ -1,0 +1,41 @@
+{
+  "name": "Servos Slime",
+  "icon": "minecraft:slime_block",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com um $(l:crafts/cores)Núcleo de Animação$() em um Bloco de Slime ou lançando o feitiço de Slime, você pode conjurar um Servo Slime leal. Usar uma Slimeball o cura, mas um Bloco de Slime não só cura como também aumenta seu tamanho até certo ponto."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:slime_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Se um Bloco de Slime estiver cercado por água, o slime resultante será tropical, com peixes nadando dentro dele e se movendo melhor na água. Quando morto, criaturas próximas ganham oxigênio, dependendo do tamanho do slime."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:tropical_slime_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Slimes não são os únicos que podem ser animados. Usar um núcleo em um bloco de magma cria um Servo Magma Cube. Use Magma Cream para curá-lo e Blocos de Magma para aumentar seu tamanho."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:magma_cube_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/find_crypt",
+      "text": "Usar um $(l:crafts/cores)Núcleo de Animação$() em um Bloco de Slime ou lançar o feitiço de Slime dentro de uma Cripta invoca um Slime Ectoplasmático leal."
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/find_crypt",
+      "entity": "goety:crypt_slime_servant"
+    }
+  ]
+}

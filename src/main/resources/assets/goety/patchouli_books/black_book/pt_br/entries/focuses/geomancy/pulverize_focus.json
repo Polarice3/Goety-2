@@ -1,0 +1,15 @@
+{
+  "name": "Foco de Pulverização",
+  "icon": "goety:pulverize_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Equipar este foco em uma varinha ou cajado permite que você pulverize certos blocos em versões rachadas, ou em cascalho e depois em areia, ao clicar com o botão direito em um bloco."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/pulverize_focus"
+    }
+  ]
+}

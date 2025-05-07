@@ -1,0 +1,15 @@
+{
+  "name": "Foco de Espinho de Gelo",
+  "icon": "goety:ice_spike_focus",
+  "category": "goety:focuses/frost",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Dispara um espinho de gelo na direção em que o conjurador está olhando. Criaturas atingidas pelo espinho receberão o efeito de Congelamento por 1 a 3 segundos."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/ice_spike_focus"
+    }
+  ]
+}

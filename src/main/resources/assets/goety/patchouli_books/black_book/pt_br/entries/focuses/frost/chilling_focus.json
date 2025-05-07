@@ -1,0 +1,15 @@
+{
+  "name": "Foco Gélido",
+  "icon": "goety:chilling_focus",
+  "category": "goety:focuses/frost",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Este foco não apenas aumenta seus pontos de armadura, mas também faz com que qualquer criatura que o atacar em combate corpo a corpo congele. O feitiço também pode ser lançado em uma criatura aliada mirando nela enquanto conjura agachado."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/chilling_focus"
+    }
+  ]
+}

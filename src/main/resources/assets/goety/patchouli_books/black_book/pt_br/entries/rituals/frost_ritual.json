@@ -1,0 +1,22 @@
+{
+  "name": "Ritual de Gelo",
+  "icon": "minecraft:packed_ice",
+  "category": "goety:rituals",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requisitos: $(li)Altar localizado em um bioma com neve $(br)$(l)OU$()$() $(li)16 Blocos de Gelo de qualquer tipo $(li)8 Blocos de Neve $(li)4 Lâmpadas de Congelamento"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/frost_ritual.png"],
+      "border": true,
+      "text": "Um exemplo de como o ritual pode ser posicionado."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Ao cercar o Altar com tijolos e blocos congelantes, você pode usar o frio para criar diversos tipos de magia."
+    }
+  ]
+}

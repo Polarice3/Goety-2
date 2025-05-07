@@ -1,0 +1,21 @@
+{
+  "name": "Túnica das Trevas",
+  "icon": "goety:dark_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Evocadores usam túnicas tão elegantes que você se pergunta se são apenas para show ou têm algo especial. Usando Tecidos das Trevas e Mágicos, você replicou suas Túnicas, fez novas adições e descobriu que elas têm propriedades especiais."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_robe",
+      "text": "As Túnicas dos Evocadores ajudam a canalizar a magia com mais eficiência, reduzindo em 15% o custo de Alma para lançar feitiços."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_hat",
+      "text": "O Chapéu das Trevas ajuda a focar nos feitiços, reduzindo o tempo de conjuração."
+    }
+  ]
+}

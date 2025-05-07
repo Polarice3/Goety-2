@@ -1,0 +1,33 @@
+{
+  "name": "Conjunto de Bruxa",
+  "icon": "goety:witch_hat",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "As bruxas são conhecidas por seu visual elegante com seus chapéus enormes. Você descobriu como fazer seu próprio chapéu de bruxa com alguns Tecidos Sombrios e percebeu que usá-lo dá uma pequena chance de não consumir poções."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:witch_hat"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:witch_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Você também descobriu uma maneira de replicar os poderes de uma bruxa criando suas próprias Vestes de Bruxa. A veste funciona como um Suporte de Poções portátil (que pode ser aberto pressionando a tecla padrão: V ao vesti-la). Além disso, fornece resistência a ataques mágicos."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Usar o Chapéu de Bruxa junto com a Veste de Bruxa não só faz a veste preparar poções mais rápido, mas também torna Bruxas e Bruxos neutros em relação a quem as veste. Você também pode negociar com Bruxas e Bruxos clicando neles com uma Esmeralda, mas apenas se eles não estiverem agressivos ou segurando algo. Diferente dos Piglin brutos, os dois não pegam Esmeraldas jogadas no chão – você precisa entregá-las diretamente."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:witch_hat": 1,
+    "goety:witch_hat_hedge": 1,
+    "goety:witch_robe": 2,
+    "goety:witch_robe_hedge": 2
+  }
+}

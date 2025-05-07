@@ -1,0 +1,27 @@
+{
+  "name": "Servo Guardião",
+  "icon": "minecraft:prismarine_bricks",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Esses ciclopes biomecânicos são chamados de seus monumentos para servir sob seu comando. Embora não precisem respirar para sobreviver, é melhor não deixá-los se debater em terra firme."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:guardian_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "É possível invocar essas criaturas usando um $(l:focuses/abyss/guardian_focus)Foco de Guardião$(), ou através de um ritual que invoca um sem tempo de vida limitado."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_guardian_servant_thrall"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Guardianes podem ser curados clicando neles com peixes."
+    }
+  ]
+}

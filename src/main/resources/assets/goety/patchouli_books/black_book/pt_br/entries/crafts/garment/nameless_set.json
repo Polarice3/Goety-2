@@ -1,0 +1,29 @@
+{
+  "name": "Conjunto Nameless",
+  "icon": "goety:nameless_cape",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/read_forbidden_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Após descobrir os caminhos mais ocultos da necromancia, você criou um novo conjunto de roupas para mostrar seu domínio sobre as artes sombrias."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nameless_cape"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nameless_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O conjunto funciona como o antigo Conjunto Necromante, mas com melhorias, e não concede penalidades ao usuário sob a luz do sol."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:nameless_cape": 1,
+    "goety:nameless_crown": 2
+  }
+}

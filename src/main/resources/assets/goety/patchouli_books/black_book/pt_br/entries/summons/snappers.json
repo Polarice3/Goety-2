@@ -1,0 +1,28 @@
+{
+  "name": "Apanhadores",
+  "icon": "minecraft:cod",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Embora as piranhas sejam, na realidade, criaturas passivas e tímidas, esses horrores vivem de acordo com sua reputação agressiva."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "É possível invocar um Apanhador leal usando um $(l:focuses/wild/hunting_focus)Foco de Caça$() debaixo d'água ou um $(l:crafts/staff/abyss_staff)Cajado do Abismo$(), ou através de um ritual que invoca um sem tempo de vida limitado."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_snapper_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:snapper",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Clicar com o botão direito em um Apanhador leal com carne irá curá-lo."
+    }
+  ]
+}

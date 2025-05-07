@@ -1,0 +1,15 @@
+{
+  "name": "Foco do Choque",
+  "icon": "goety:shocking_focus",
+  "category": "goety:focuses/storm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O poder da eletricidade emana de você, eletrocutando qualquer criatura à sua frente. Quando não conjurado com um Cajado da Tempestade, a eletricidade será atraída pelo Para-raios mais próximo."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/shocking_focus"
+    }
+  ]
+}

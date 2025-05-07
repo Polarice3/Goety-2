@@ -1,0 +1,22 @@
+{
+  "name": "Varinha das Trevas",
+  "icon": "goety:dark_wand",
+  "category": "goety:intro",
+  "sortnum": 6,
+  "priority": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Seres mágicos, como Evocadores, lançam feitiços com gestos e palavras. Você descobriu uma forma mais simples: usando uma varinha."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_wand",
+      "text": "Com Tecidos Mágicos e Troncos Assombrados, você pode usar Energia das Almas para lançar feitiços."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A varinha requer um $(l:focuses)Foco$() para funcionar. Para inserir um Foco, pressione a tecla designada (Padrão: Z) e adicione-o pelo inventário. Muitos focos podem exigir uma $(l:crafts/garment/focus_bag)Bolsa de Focos$()."
+    }
+  ]
+}

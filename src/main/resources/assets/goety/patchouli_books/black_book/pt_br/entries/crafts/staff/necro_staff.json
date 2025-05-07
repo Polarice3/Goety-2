@@ -1,0 +1,22 @@
+{
+  "name": "Cajado Necro",
+  "icon": "goety:necro_staff",
+  "category": "goety:crafts/staff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Os Ectoplasmas deixados pelos Espectros lhe deram uma ideia. Com alguns $(l:intro/magical_components)Lingotes de Metal Amaldiçoado$(), você conseguiu aprimorar sua $(l:intro/dark_wand)Varinha$() e criar um Cajado digno de um Necromante."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:necro_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O Cajado Necro fortalece feitiços Necrotúrgicos, permitindo, por exemplo, invocar mais de um Servo Morto por conjuração."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:necro_staff": 1
+  }
+}

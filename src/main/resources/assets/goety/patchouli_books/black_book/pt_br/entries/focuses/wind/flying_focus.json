@@ -1,0 +1,19 @@
+{
+  "name": "Foco do Voo",
+  "icon": "goety:flying_focus",
+  "category": "goety:focuses/wind",
+  "advancement": "minecraft:end/elytra",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com o poder do dragão gracioso e o controle da Elytra, você refinou o Foco do Lançamento para voar adequadamente com sua varinha ou cajado (segurando o botão direito do mouse)."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/flying_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:flying_focus": 1
+  }
+}

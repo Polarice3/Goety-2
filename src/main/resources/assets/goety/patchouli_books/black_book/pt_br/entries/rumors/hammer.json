@@ -1,0 +1,17 @@
+{
+  "name": "Martelo do Chamado das Tempestades",
+  "icon": "minecraft:iron_ingot",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Há rumores sobre um martelo poderoso, obra de artesãos $(l)Illagers$(), que contém tempestades em seu interior."
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/get_stormlander",
+      "text": "Dizem que certos $(l)Illagers armados com martelos$() possuem essa arma (ou uma réplica), que só revela seu poder quando atingida por $(l)raios$()."
+    }
+  ]
+}

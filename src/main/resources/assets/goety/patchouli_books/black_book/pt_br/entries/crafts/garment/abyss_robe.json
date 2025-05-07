@@ -1,0 +1,31 @@
+{
+  "name": "Túnica do Abismo",
+  "icon": "goety:abyss_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A Túnica do Abismo permite que você canalize o poder dos oceanos com mais eficiência. Ela faz o usuário nadar mais rápido, reduz danos de afogamento e fornece um pouco de ar após sofrer dano."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:abyss_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Criaturas aquáticas leais se curarão lentamente usando a energia da alma de seu invocador, se ele estiver vestindo esta túnica."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:abyss_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Coroa do Abismo reduz pela metade o tempo de conjuração de feitiços do Abismo e impede que servos aquáticos morram como Vexes."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:abyss_robe": 1,
+    "goety:abyss_crown": 2
+  }
+}

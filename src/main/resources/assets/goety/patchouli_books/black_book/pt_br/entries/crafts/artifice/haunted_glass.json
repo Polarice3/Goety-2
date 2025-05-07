@@ -1,0 +1,25 @@
+{
+  "name": "Vidros Assombrados",
+  "icon": "goety:haunted_glass",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com ectoplasmas, criaste um vidro que só é intangível para ti e os teus companheiros, permitindo que todos passem por ele como se fosse ar. Criaturas e itens não conseguem passar, e o vidro pode ser tingido para impedir até a luz de passar."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:haunted_glass",
+      "recipe2": "goety:haunted_glass_tinted"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Também podes inverter a funcionalidade do vidro, fazendo com que tudo, exceto tu e os teus companheiros, consiga passar."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:haunted_glass_mob",
+      "recipe2": "goety:haunted_glass_mob_tinted"
+    }
+  ]
+}

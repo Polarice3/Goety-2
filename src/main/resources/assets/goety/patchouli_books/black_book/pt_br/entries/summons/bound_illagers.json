@@ -1,0 +1,40 @@
+{
+  "name": "Illagers Aprisionados",
+  "icon": "minecraft:totem_of_undying",
+  "category": "goety:summons",
+  "advancement": "goety:goety/kill_a_evoker",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Enquanto um Vindicador pode ser ressuscitado como um Zumbi, um Saqueador como um Esqueleto, para criar uma versão morta-viva adequada dos poderosos Evocadores e outros Illagers feiticeiros, é necessário uma abordagem mais... espiritual."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_evoker"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Diferente dos outros dois, os Evocadores Aprisionados podem flutuar e não são afetados pela gravidade. Apesar de sua aparência espiritual, eles não podem atravessar paredes e ainda podem ser feridos com armas convencionais."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_evoker"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_iceologer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Os Iceologistas Aprisionados são tão frios quanto em vida, mas, desta vez, seus Pedaços de Gelo caem na cabeça de outros, não na sua."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_iceologer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Essas almas aprisionadas podem ser curadas clicando nelas com Ectoplasma."
+    }
+  ]
+}

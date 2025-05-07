@@ -1,0 +1,18 @@
+{
+  "name": "Foco do Sanguessuga",
+  "icon": "goety:leeching_focus",
+  "category": "goety:focuses/necromancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Drenar a vida de seus inimigos é uma coisa, mas consumi-la é outra. O feitiço suga a vida de um alvo não aliado que o conjurador está mirando, ferindo-o e curando o conjurador na mesma quantidade."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/leeching_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:leeching_focus": 1
+  }
+}

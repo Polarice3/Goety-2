@@ -1,0 +1,22 @@
+{
+  "name": "Ritual das Profundezas",
+  "icon": "minecraft:prismarine_bricks",
+  "category": "goety:rituais",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requisitos: $(li)O Altar deve estar no bioma Oceano Profundo e abaixo do nível do mar $(br)$(l)OU$()$() $(li)4 Lampiões do Mar $(li)16 Blocos de Prismarinho de qualquer tipo $(li)16 Blocos de Granito de qualquer tipo $(br)O Altar deve estar submerso$()"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/deep_ritual.png"],
+      "border": true,
+      "text": "Um exemplo de como o ritual pode ser posicionado."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O poder do oceano flui através do Altar, permitindo que você aproveite as próprias marés para seus propósitos diabólicos."
+    }
+  ]
+}

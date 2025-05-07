@@ -1,0 +1,38 @@
+{
+  "name": "Servos Hoglin",
+  "icon": "minecraft:porkchop",
+  "advancement": "minecraft:story/enter_the_nether",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Hoglins são excelentes servos para lançar seus inimigos ao ar com suas presas poderosas. Também servem como uma boa montaria, sem necessidade de sela, por algum motivo, se você ignorar sua velocidade lenta."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Embora leais e corajosos, esses Hoglins ainda mantêm seu ódio por Fungos Distorcidos e Portais do Nether. Eles também se transformarão em zumbis fora do Nether, tornando-se Zoglins omnicidas e NÃO leais. É possível invocar um Hoglin leal usando um $(l:focuses/wild/mauling_focus)Foco de Embate$() enquanto estiver no Nether, ou através de um ritual que invoca ou converte um sem tempo de vida limitado."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_hoglin_servant_thrall"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_hoglin_to_hoglin_servant"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:hoglin_servant",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Clicar com o botão direito em um Servo Hoglin leal com Raízes Carmesim ou Videiras Chorosas irá curá-lo."
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "text": "Obter e vestir $(l:crafts/garment/nether_robe)Túnicas do Nether$() impedirá a zombificação de afetar seus Hoglins. Usar o $(l:focuses/wild/mauling_focus)Foco de Embate$() com um $(l:crafts/staff/nether_staff)Cajado do Nether$() os invocará em qualquer dimensão."
+    }
+  ]
+}

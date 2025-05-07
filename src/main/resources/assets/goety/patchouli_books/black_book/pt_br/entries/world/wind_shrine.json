@@ -1,0 +1,16 @@
+{
+  "name": "Santuários do Vento",
+  "icon": "goety:slate_patterned_marble",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Você ouviu falar de nômades que, viajando desde santuários elevados, erguem altares dedicados aos ventos nos picos das montanhas. Que tesouros podem estar guardados lá?"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/wind_shrine.png"],
+      "border": true
+    }
+  ]
+}

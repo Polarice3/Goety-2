@@ -1,0 +1,28 @@
+{
+  "name": "Mãe da Ninhada",
+  "icon": "minecraft:cobweb",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com reagentes e magia sombria, você transformou uma aranha em uma temível Mãe da Ninhada."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_spider_to_brood_mother"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:brood_mother_servant",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Além de serem montarias poderosas, elas disparam teias e botam ovos que eclodem em aranhas leais. O tipo de aranha varia conforme o local do ovo."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Cure-a com carne ou usando um Manto Selvagem."
+    }
+  ]
+}

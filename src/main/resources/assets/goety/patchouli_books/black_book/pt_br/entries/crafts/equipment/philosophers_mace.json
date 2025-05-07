@@ -1,0 +1,23 @@
+{
+  "name": "Maça do Filósofo",
+  "icon": "goety:philosophers_mace",
+  "category": "goety:crafts/equipment",
+  "advancement": "goety:goety/kill_a_apostle",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A Maça do Filósofo é a arma/ferramenta definitiva, pois não apenas esmaga inimigos em pedaços, mas também pode minerar blocos como uma picareta ou pá. Quando um alvo é atingido pela maça, ele ganha o efeito Toque de Ouro, fazendo com que solte Pepitas de Ouro ao morrer."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:philosophers_mace"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Netherite usado para forjar esta arma/ferramenta tornou a maça resistente ao fogo e impede que seja destruída no fogo ou lava."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:philosophers_mace": 1
+  }
+}

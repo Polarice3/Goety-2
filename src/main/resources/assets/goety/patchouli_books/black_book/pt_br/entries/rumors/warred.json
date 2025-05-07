@@ -1,0 +1,17 @@
+{
+  "name": "Tecnologia Ancestral",
+  "icon": "minecraft:redstone",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Há sussurros sobre máquinas de guerra ancestrais, feitas de pedra e redstone, usadas em $(l)estruturas antigas$() para defesa e ataque."
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/read_warred_scroll",
+      "text": "Dizem que essas máquinas monstruosas foram usadas em $(l)cidades antigas$() e $(l)fortalezas$() enterradas."
+    }
+  ]
+}

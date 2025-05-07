@@ -1,0 +1,19 @@
+{
+  "name": "Foco da Vanguarda",
+  "icon": "goety:vanguard_focus",
+  "category": "goety:focuses/necromancy",
+  "advancement": "goety:goety/read_front_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Você descobriu uma maneira de invocar guardiões leais do além-túmulo usando este foco. Você tem a sensação de que este feitiço foi roubado e reaproveitado de um antigo rei."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/vanguard_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:vanguard_focus": 1
+  }
+}

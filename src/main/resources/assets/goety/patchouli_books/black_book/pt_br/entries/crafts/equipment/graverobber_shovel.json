@@ -1,0 +1,22 @@
+{
+  "name": "Pá do Saqueador de Tumbas",
+  "icon": "goety:graverobber_shovel",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Uma pá adequada para coveiros e saqueadores de tumbas, ela quebra 2 blocos em vez de um ao cavar terra, permitindo que o usuário desenterre túmulos rapidamente. O nome se deve à chance de 10% de desenterrar restos mortais ao quebrar blocos como terra ou areia."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:graverobber_shovel"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A pá pode ser reparada em uma bigorna com um $(l:intro/magical_components)Lingote de Metal Amaldiçoado$()."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:graverobber_shovel": 1
+  }
+}

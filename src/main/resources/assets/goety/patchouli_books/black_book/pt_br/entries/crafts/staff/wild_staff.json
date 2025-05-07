@@ -1,0 +1,18 @@
+{
+  "name": "Cajado Selvagem",
+  "icon": "goety:wild_staff",
+  "category": "goety:crafts/staff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O mundo natural pode ser difícil de domar, mas com alguma magia negra e madeira, você criou um cajado que amplifica os poderes naturais e sobrenaturais dos feitiços Selvagens."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wild_staff"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:wild_staff": 1
+  }
+}

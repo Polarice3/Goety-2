@@ -1,0 +1,22 @@
+{
+  "name": "Ritual de Necroturgia",
+  "icon": "goety:rotting_focus",
+  "category": "goety:rituals",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requisitos: $(li)16 Lajes não de Madeira $(li)16 Blocos de Sculk $(li)8 Vasos com Plantas $(li)Deve ser realizado à Noite"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/necroturgy_ritual.png"],
+      "border": true,
+      "text": "Um exemplo de como o ritual pode ser posicionado."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O Sculk contém muita energia necrotúrgica. Ao construir Túmulos com eles, você descobriu uma maneira de coletar mais energias necrotúrgicas para usar em rituais."
+    }
+  ]
+}

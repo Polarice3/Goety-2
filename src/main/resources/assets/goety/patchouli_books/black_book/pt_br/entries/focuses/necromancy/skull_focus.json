@@ -1,0 +1,18 @@
+{
+  "name": "Foco da Caveira",
+  "icon": "goety:skull_focus",
+  "category": "goety:focuses/necromancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com este foco, você pode invocar caveiras assombradas por espíritos do além, que o seguirão e atacarão qualquer criatura hostil próxima, explodindo no impacto."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/skull_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:skull_focus": 1
+  }
+}

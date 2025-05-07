@@ -1,0 +1,23 @@
+{
+  "name": "Adaga Faminta",
+  "icon": "goety:hungry_dagger",
+  "category": "goety:crafts/equipment",
+  "advancement": "goety:goety/craft_necro_brazier",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Uma versão da Adaga Dentada que, embora não seja mais venenosa, cura o portador em 5% do dano causado. A porcentagem de roubo de vida aumenta com cada nível do encantamento Devorador de Almas."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:hungry_dagger"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A adaga pode ser reparada em uma bigorna com um $(l:crafts/dark_metal_ingot)Lingote de Metal Sombrio$(), mas também se auto-repara se o portador tiver Energia das Almas."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:hungry_dagger": 1
+  }
+}

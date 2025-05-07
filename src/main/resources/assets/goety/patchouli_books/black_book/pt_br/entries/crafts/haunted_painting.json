@@ -1,0 +1,15 @@
+{
+  "name": "Pintura Assombrada",
+  "icon": "goety:haunted_painting",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Ao combinar uma pintura comum com uma Tábua Assombrada, você pode criar Pinturas Assombradas. Apesar do nome, elas parecem ser apenas um novo conjunto de pinturas sem nada de extraordinário."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:haunted_painting"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Foco de Corrente de Bolhas",
+  "icon": "goety:bubble_stream_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Bolhas não são o que as pessoas preferem usar em combate, mas as bolhas criadas pela energia da alma podem varrer qualquer inimigo, especialmente os sensíveis à água! Infelizmente, essas bolhas também podem fornecer um pouco de oxigênio aos inimigos."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/bubble_stream_focus"
+    }
+  ]
+}

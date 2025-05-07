@@ -1,0 +1,19 @@
+{
+  "name": "Foco da Carga",
+  "icon": "goety:charge_focus",
+  "category": "goety:focuses/storm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Um feitiço que requer que o conjurador clique diretamente em um alvo vivo. Ao fazer isso, o alvo ficará Carregado e ganhará uma carga quando conjurado novamente. Nível 1 de Carga faz o alvo se mover e causar 10% mais dano. Nível 2 de Carga faz o alvo se mover 25% mais rápido, mas causar 25% menos dano. Adicionar outro nível faz o alvo sofrer dano e perder todas as cargas."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/charge_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Adicionado a partir da sugestão de pvzfan"
+    }
+  ]
+}

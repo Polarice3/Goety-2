@@ -1,0 +1,24 @@
+{
+  "name": "Gaiola Ardente",
+  "icon": "goety:blazing_cage",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Embora não consigas recriar os Spawners de Blaze encontrados nas Fortalezas, conseguiste descobrir uma forma de criar um simulacro que produz adequadamente um Blaze leal, embora com um custo."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:blazing_cage"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A gaiola requer que um Bloco de Magma seja adicionado, para invocar um Servo Blaze. Tal como o Ninho de Aranha, clicar com o botão direito no ninho com uma Varinha ou Cajado fará com que só invoque um servo se um alvo válido estiver próximo. Enquanto agachado, no entanto, irá alterar se o servo irá patrulhar o bloco ou seguir o dono."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:blazing_cage": 1
+  }
+}

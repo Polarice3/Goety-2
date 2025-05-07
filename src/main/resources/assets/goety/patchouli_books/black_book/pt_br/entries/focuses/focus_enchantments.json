@@ -1,0 +1,61 @@
+{
+  "name": "Encantamentos de Foco",
+  "icon": "minecraft:enchanting_table",
+  "category": "goety:focuses",
+  "sortnum": 0,
+  "priority": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Os focos possuem encantamentos especializados, mas nem todos os focos podem ser encantados ou aceitam todos os encantamentos. Muitos encantamentos são aplicáveis apenas a focos específicos. Focos encantados dobram a quantidade de Energia das Almas necessária para conjurar."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Potência",
+      "text": "Aumenta o dano de suas magias."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Duração",
+      "text": "Suas magias e invocações duram mais tempo."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Raio",
+      "text": "Aumenta o raio de suas magias, o que geralmente significa que magias explosivas têm um raio maior. Para certas magias, o raio permite que elas encontrem inimigos próximos com mais precisão."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Queima",
+      "text": "Suas magias incendeiam alvos ou aumentam o tempo que eles permanecem em chamas."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Alcance",
+      "text": "Suas magias atingem distâncias maiores. Pode chegar a até 10 níveis, com 1 bloco por nível. Um dos encantamentos mais comuns."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Absorção de Vida",
+      "text": "Suas magias absorvem vida dos alvos ao atingi-los. Muito raro e não é compatível com Potência."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Magnetizar",
+      "text": "Suas magias puxam imediatamente os blocos quebrados por elas para o seu inventário. Muito raro."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Velocidade",
+      "text": "Projéteis criados por suas magias se movem mais rápido."
+    }
+  ]
+}

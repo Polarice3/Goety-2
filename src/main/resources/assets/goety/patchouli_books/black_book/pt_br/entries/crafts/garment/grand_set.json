@@ -1,0 +1,37 @@
+{
+  "name": "Conjunto Grandioso",
+  "icon": "goety:grand_turban",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/get_ruby",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O Vizir tem túnicas elegantes e um turbante muito bonito. Com sua Rubi, você pode replicar essas vestes e obter algumas de suas habilidades especiais!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Você sente que pode muito bem! Já adotou o estilo do Evocador, por que não subir no mundo?"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:grand_turban"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Ao sofrer dano enquanto usa o Turbante, você terá 50% de chance, ou 100% se estiver com metade ou menos da vida máxima, de invocar um Irk leal que irá defendê-lo. Se usar o Feitiço Vexante agachado, ele matará seus Irks, curando um coração por cada um morto."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:grand_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A princípio, a Túnica parece ser apenas uma recoloração das Túnicas das Trevas, mas ao lançar um feitiço através de sua varinha, você descobrirá que isso concederá o escudo do Vizir, reduzindo pela metade todo dano recebido enquanto estiver conjurando."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:grand_turban": 2,
+    "goety:grand_robe": 4
+  }
+}

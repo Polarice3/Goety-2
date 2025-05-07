@@ -1,0 +1,33 @@
+{
+  "name": "Mini Ghasts",
+  "icon": "goety:mini_ghast_spawn_egg",
+  "category": "goety:summons",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Menores que seus equivalentes maiores, esses ghasts em miniatura não podem cuspir bombas de lava gigantes, mas sim pequenas bolas de fogo como os Blazes."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:mini_ghast",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "text": "Esses seres gigantes, mas frágeis, flutuam ao redor de seu invocador, cuspindo bombas de lava e mirando corretamente, ao contrário de seus equivalentes naturais."
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "entity": "goety:ghast_servant",
+      "scale": 0.5
+    },
+    {
+      "type": "goety:ritual",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "recipe": "goety:thrall/summon_ghast_servant_thrall"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "Tomé Infernal",
+  "icon": "goety:infernal_tome",
+  "category": "goety:crafts/equipment",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Hereges têm uma chance de deixar cair ou trocar um Tomé Infernal, que pode ser lido para replicar seus cantos infernais, mas queimará e causará náusea naqueles que não são dignos dos presentes do Nether ao fazê-lo..."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:infernal_tome"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O Tomé Infernal pode ser reparado com papel em uma bigorna (Não pergunte por que uma bigorna é usada para reparar livros...)."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:infernal_tome": 1
+  }
+}

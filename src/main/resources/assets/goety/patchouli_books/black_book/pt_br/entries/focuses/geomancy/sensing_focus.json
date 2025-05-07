@@ -1,0 +1,19 @@
+{
+  "name": "Foco de Sensoriamento",
+  "icon": "goety:sensing_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Este foco concede a você o Sensoriamento de Tremores, que faz com que qualquer criatura no chão brilhe para você. O efeito só funciona se você também estiver no chão."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/sensing_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O encantamento Potência aumenta o nível do efeito de Sensoriamento de Tremores, dobrando o raio por nível."
+    }
+  ]
+}

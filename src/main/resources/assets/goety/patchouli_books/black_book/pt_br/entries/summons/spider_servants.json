@@ -1,0 +1,64 @@
+{
+  "name": "Servos Aranha",
+  "icon": "minecraft:cobweb",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Criaturas simples, mas vorazes, esses artrópodes gigantes podem ser grandes aliados em combate, embora fiquem muito cegos sob luz forte."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Os textos a seguir detalharão as variantes de aranhas que um Ninho de Aranhas pode treinar."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:spider_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Aranha básica encontrada no escuro, leal apenas a você. Faz tudo que uma aranha pode."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:cave_spider_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Uma subespécie menor e venenosa de Aranhas. Vestir Túnicas Selvagens fará com que inflijam Veneno Ácido em vez de Veneno comum."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:web_spider_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Diferente de suas contrapartes brutas, Aranhas Tecedeiras não atacam imediatamente, mas lançam bolas de teia que, ao acertar, prendem o alvo, permitindo que elas avancem em alta velocidade."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:icy_spider_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Essas aranhas gélidas desaceleram seus alvos com cada mordida e andam na Neve em Pó sem problemas. Se o dono vestir uma Túnica Gélida, suas mordidas congelam o alvo."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bone_spider_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Uma aranha coberta de ossos que atira Estilhaços Ósseos à distância, só atacando corpo a corpo se o alvo estiver perto."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Cada aranha leal pode ser curada clicando nela com um pedaço de carne."
+    }
+  ]
+}

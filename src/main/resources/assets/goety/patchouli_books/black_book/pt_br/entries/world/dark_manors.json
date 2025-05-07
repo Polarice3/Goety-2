@@ -1,0 +1,16 @@
+{
+  "name": "Mansões Sombrias",
+  "icon": "minecraft:dark_oak_log",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Os Illagers são mais progressistas que seus primos pacíficos. Alguns construíram mansões fora de suas fortalezas para estudar o mundo e seus aspectos."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/dark_manor.png"],
+      "border": true
+    }
+  ]
+}

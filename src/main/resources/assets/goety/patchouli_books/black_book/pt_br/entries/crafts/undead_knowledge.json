@@ -1,0 +1,24 @@
+{
+  "name": "Pergaminho Estranho",
+  "icon": "goety:forbidden_piece",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/gain_fragment",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Os ecos dos mortos e os pensamentos remanescentes no Nether podem guardar segredos de um poder sombrio. Com o poder de fragmentos de eco e alguma necroturgia, você é capaz de criar um fragmento de um poder obscuro e sinistro."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:forbidden_piece"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:forbidden_fragment"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:forbidden_piece": 1
+  }
+}

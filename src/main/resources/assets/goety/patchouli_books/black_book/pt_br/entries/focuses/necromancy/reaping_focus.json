@@ -1,0 +1,18 @@
+{
+  "name": "Foco da Ceifa",
+  "icon": "goety:reaping_focus",
+  "category": "goety:focuses/necromancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Essas aparições famintas por almas não apenas são úteis para dizimar múltiplos inimigos, mas também coletam energia vital para seu mestre necromante."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/reaping_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:reaping_focus": 1
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Focos",
+  "description": "Os focos são usados para lançar feitiços quando inseridos numa Varinha ou num Cajado.",
+  "icon": "goety:dark_wand",
+  "sortnum": 2
+}

@@ -1,0 +1,41 @@
+{
+  "name": "Servos Urso",
+  "icon": "minecraft:salmon",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Leais e agressivos, esses ursos são excelentes servos para despedaçar seus inimigos. Também servem como uma boa montaria, sem necessidade de sela, se você ignorar sua velocidade lenta."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "É possível invocar um urso leal usando um $(l:focuses/wild/mauling_focus)Foco de Embate$(), ou através de um ritual que invoca um sem tempo de vida limitado."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bear_servant_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bear_servant",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Clicar com o botão direito em um Servo Urso leal com peixe irá curá-lo. Invocar um servo urso em um bioma frio ou com um $(l:crafts/staff/frost_staff)Cajado Gélido$() irá invocar um Servo Urso Polar."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:polar_bear_servant",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Outra maneira de obter um Servo Urso Polar é fazer com que um urso polar comum se submeta a você através de um ritual de conversão."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_polar_bear_to_polar_bear_servant"
+    }
+  ]
+}

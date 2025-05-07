@@ -1,0 +1,33 @@
+{
+  "name": "Foice Sombria",
+  "icon": "goety:dark_scythe",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A Foice Sombria é uma arma poderosa capaz de atingir múltiplos alvos por golpe. Além de causar grande dano, o portador ganha Energia das Almas a cada golpe. Se o medidor de recarga de ataque estiver cheio, a foice atingirá inimigos em um raio maior, embora leve um tempo considerável para recarregar, o que pode ser mitigado se o portador não estiver segurando nada na mão secundária."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:dark_scythe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A foice pode ser reparada em uma bigorna com um $(l:intro/magical_components)Lingote de Metal Amaldiçoado$(). Também pode ser usada como ferramenta para limpar grama ou colher plantações em uma área ampla, ou para coletar blocos de Sculk sem Toque Suave."
+    },
+    {
+      "type": "goety:ritual",
+      "advancement": "goety:goety/craft_necro_brazier",
+      "recipe": "goety:dark/dark_metal_scythe"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/craft_necro_brazier",
+      "text": "Uma versão aprimorada da Foice Sombria, possuindo as qualidades de outros equipamentos de $(l:crafts/dark_metal_ingot)Metal Sombrio$()."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:dark_scythe": 1,
+    "goety:dark_metal_scythe": 3
+  }
+}

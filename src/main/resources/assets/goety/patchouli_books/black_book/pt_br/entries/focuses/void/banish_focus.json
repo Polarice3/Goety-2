@@ -1,0 +1,18 @@
+{
+  "name": "Foco do Banimento",
+  "icon": "goety:banish_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Um feitiço que requer que o conjurador clique diretamente em um alvo vivo, que será teleportado para longe do conjurador. Perfeito para se livrar de certos inimigos ou incômodos!"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/banish_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:banish_focus": 1
+  }
+}

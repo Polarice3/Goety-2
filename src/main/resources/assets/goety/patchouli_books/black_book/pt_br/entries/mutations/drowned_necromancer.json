@@ -1,0 +1,32 @@
+{
+  "name": "Necromante Afogado",
+  "icon": "goety:abyss_staff",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/unlock_necromancer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Uma variante poderosa dos Necromantes, com controle sobre o oceano. Lança jatos de vapor e tridentes, e é criado a partir de Afogados."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_drowned_to_drowned_necromancer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Use Focos de Necromancia para ensiná-lo a invocar diferentes servos. Clique com a mão vazia para ordenar invocações. Cura-se como outros servos aquáticos."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:drowned_necromancer_servant"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:soul_jar{Drowned: 1b}",
+      "text": "Se morrer, um $(l:crafts/empty_soul_jar)Frasco de Alma Vazio$() capturará sua alma. Use-o em um Afogado para revivê-lo."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:soul_jar{Drowned: 1b}": 4
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "Mavericks",
+  "icon": "minecraft:iron_sword",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_maverick",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Mais agressivos que seus parentes, aplicam efeitos de poções através de suas lâminas, fugindo depois para beber poções de buff."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:maverick",
+      "text": "Resistentes a magia, como as Bruxas."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Viajantes errantes atingidos por raios se transformam em Mavericks."
+    }
+  ]
+}

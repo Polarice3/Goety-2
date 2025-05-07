@@ -1,0 +1,21 @@
+{
+  "name": "Pergaminho Sombrio",
+  "icon": "goety:dark_scroll",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/get_totem",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Você ouviu sussurros sobre um Illager de Alto Escalão e como eles ocasionalmente atendem ou respondem aos chamados de outros Illagers para dar ordens e conselhos. Você acredita que eles possuem algo muito poderoso que pode aumentar seus poderes mágicos."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_scroll",
+      "text": "Com o Totem do Evocador, você pode enganar um desses Illagers para atender ao seu chamado."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "(Equipamento Recomendado: Armadura Encantada)"
+    }
+  ]
+}

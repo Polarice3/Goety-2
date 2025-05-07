@@ -1,0 +1,22 @@
+{
+  "name": "Foco de Biomina",
+  "icon": "goety:biomine_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Este foco permite invocar biominas, estruturas ovóides que explodem em gás venenoso quando tocadas ou quando criaturas não aliadas se aproximam."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/biomine_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/abyss_staff)Cajado do Abismo$() invoca mais biominas."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:biomine_focus": 1
+  }
+}

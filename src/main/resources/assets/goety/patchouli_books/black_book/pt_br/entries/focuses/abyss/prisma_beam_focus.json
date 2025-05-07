@@ -1,0 +1,19 @@
+{
+  "name": "Foco do Raio de Prisma",
+  "icon": "goety:prisma_beam_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Esta magia replica o poder dos Guardiões do Monumento Oceânico, projetando um laser contra qualquer criatura não aliada que você estiver mirando diretamente. Infelizmente, assim como os Guardiões, o laser para quando o contato visual é interrompido."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/prisma_beam_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/abyss_staff)Cajado do Abismo$() aumenta o dano base do feitiço em um coração."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Foco da Corrente Ascendente",
+  "icon": "goety:updraft_focus",
+  "category": "goety:focuses/wind",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O Foco permite invocar uma forte rajada de ar em um local ou aos pés de criaturas que, após um segundo, as lançará para o alto, causando dano."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/updraft_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:updraft_focus": 1
+  }
+}

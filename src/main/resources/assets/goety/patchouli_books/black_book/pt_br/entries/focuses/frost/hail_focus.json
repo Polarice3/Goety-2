@@ -1,0 +1,18 @@
+{
+  "name": "Foco de Granizo",
+  "icon": "goety:hail_focus",
+  "category": "goety:focuses/frost",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Invoca uma nuvem de neve acima de um bloco ou criatura alvo, que lança neve congelante, causando dano leve e aplicando o efeito Congelamento por 5 segundos."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/hail_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:hail_focus": 1
+  }
+}

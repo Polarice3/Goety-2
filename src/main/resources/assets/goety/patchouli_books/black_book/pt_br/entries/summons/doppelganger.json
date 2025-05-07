@@ -1,0 +1,15 @@
+{
+  "name": "Doppelganger",
+  "icon": "minecraft:player_head",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Embora semelhantes aos clones conjurados pelos Ilusionistas, esses Doppelgangers desviam a atenção de criaturas hostis e desaparecem quando atingidos ou quando seu invocador é atingido."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Suas flechas não causam dano aos inimigos, e eles desaparecem após um certo tempo."
+    }
+  ]
+}

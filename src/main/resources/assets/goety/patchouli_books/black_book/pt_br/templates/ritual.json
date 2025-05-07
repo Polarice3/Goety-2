@@ -1,0 +1,227 @@
+{
+  "processor": "com.Polarice3.Goety.compat.patchouli.RitualRecipeProcessor",
+  "components": [
+    {
+      "type": "patchouli:text",
+      "text": "#craftType",
+      "x": 5,
+      "y": 0
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#entity_to_sacrifice",
+      "x": 5,
+      "y": 10
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#entity_to_convert",
+      "x": 5,
+      "y": 10
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#enchantment",
+      "x": 5,
+      "y": 10
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#entity_to_summon",
+      "x": 5,
+      "y": 120
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#entity_to_convert_into",
+      "x": 5,
+      "y": 120
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#xp_levels",
+      "x": 5,
+      "y": 120
+    },
+    {
+      "type": "patchouli:item",
+      "item": "goety:dark_altar",
+      "x": 40,
+      "y": 65
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#activation_item",
+      "x": 40,
+      "y": 50
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#pedestal5",
+      "x": 25,
+      "y": 30
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#pedestal1",
+      "x": 40,
+      "y": 30
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#pedestal9",
+      "x": 55,
+      "y": 30
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#ingredient5",
+      "x": 25,
+      "y": 25
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#ingredient1",
+      "x": 40,
+      "y": 25
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#ingredient9",
+      "x": 55,
+      "y": 25
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#pedestal6",
+      "x": 70,
+      "y": 45
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#pedestal2",
+      "x": 70,
+      "y": 65
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#pedestal10",
+      "x": 70,
+      "y": 85
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#ingredient6",
+      "x": 70,
+      "y": 40
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#ingredient2",
+      "x": 70,
+      "y": 60
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#ingredient10",
+      "x": 70,
+      "y": 80
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#pedestal7",
+      "x": 25,
+      "y": 100
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#pedestal3",
+      "x": 40,
+      "y": 100
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#pedestal11",
+      "x": 55,
+      "y": 100
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#ingredient7",
+      "x": 25,
+      "y": 95
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#ingredient3",
+      "x": 40,
+      "y": 95
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#ingredient11",
+      "x": 55,
+      "y": 95
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#pedestal8",
+      "x": 10,
+      "y": 45
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#pedestal4",
+      "x": 10,
+      "y": 65
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#pedestal12",
+      "x": 10,
+      "y": 85
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#ingredient8",
+      "x": 10,
+      "y": 40
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#ingredient4",
+      "x": 10,
+      "y": 60
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#ingredient12",
+      "x": 10,
+      "y": 80
+    },
+    {
+      "type": "patchouli:item",
+      "item": "goety:dark_altar",
+      "x": 95,
+      "y": 100
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#output",
+      "x": 95,
+      "y": 85
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#soulCost",
+      "x": 5,
+      "y": 130
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#duration",
+      "x": 5,
+      "y": 140
+    }
+  ]
+}

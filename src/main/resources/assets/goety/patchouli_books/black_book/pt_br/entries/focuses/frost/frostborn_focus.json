@@ -1,0 +1,18 @@
+{
+  "name": "Foco do Nascido do Gelo",
+  "icon": "goety:frostborn_focus",
+  "category": "goety:focuses/frost",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Este feitiço invoca um $(l:summons/ice_golems)Golem de Gelo$(), um servo poderoso que é resistente a dano de congelamento e pode raramente invocar uma explosão de gelo."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/frostborn_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:frostborn_focus": 1
+  }
+}

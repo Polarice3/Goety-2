@@ -1,0 +1,21 @@
+{
+  "name": "Bruxos",
+  "icon": "goety:snap_fungus",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_warlock",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Primos das Bruxas, atacam invocando Wartlings. Se o alvo se aproxima, lançam Fungos Explosivos."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:warlock",
+      "text": "Resistentes a magia, como as Bruxas."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Aldeões sob Blocos de Obsidiana Chorosa podem se transformar em Bruxos."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Amuleto do Escudo da Alma",
+  "icon": "goety:star_amulet",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O Amuleto do Escudo da Alma imita o escudo do Wither quando seu poder está fraco. Se o usuário estiver com metade ou menos de sua vida máxima, flechas serão repelidas. Se o usuário puder voar criativamente sem estar no Modo Criativo, ele ficará impedido de voar enquanto o escudo estiver ativo."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:star_amulet"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:star_amulet": 1
+  }
+}

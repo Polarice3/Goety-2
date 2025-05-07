@@ -1,0 +1,18 @@
+{
+  "name": "Foco da Chuva de Meteoros",
+  "icon": "goety:meteor_shower_focus",
+  "category": "goety:focuses/nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Infundindo o Foco da Chuva de Flechas com o poder do Nether, você invoca uma chuva de bombas de lava explosivas em vez de flechas."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/meteor_shower_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:meteor_shower_focus": 1
+  }
+}

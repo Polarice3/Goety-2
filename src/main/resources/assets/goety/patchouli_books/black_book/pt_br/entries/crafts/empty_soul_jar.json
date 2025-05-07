@@ -1,0 +1,16 @@
+{
+  "name": "Frasco de Alma Vazio",
+  "icon": "goety:empty_soul_jar",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/unlock_necromancer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com um pouco de Pedra das Sombras, você pode criar um frasco que pode conter a alma de certos Servos que, quando usado em certas entidades, as revive."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:empty_soul_jar"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Túnica Ilusória",
+  "icon": "goety:illusion_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Usando Tecidos Ocultos, você pode criar uma Túnica Ilusória que fica invisível quando você fica, tornando-o quase indetectável para criaturas e outros de sua espécie."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:illusion_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A túnica também fortalece o Feitiço do Espelho, fazendo com que os ataques de seus Doppelgangers causem dano real, embora não muito."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:illusion_robe_mirror": 1
+  }
+}

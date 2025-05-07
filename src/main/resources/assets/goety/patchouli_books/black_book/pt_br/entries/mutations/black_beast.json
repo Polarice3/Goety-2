@@ -1,0 +1,38 @@
+{
+  "name": "Fera Negra",
+  "icon": "minecraft:chain",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/read_haunting_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Ao possuir um Lobo Negro com um Espectro, você cria uma criatura poderosa e sobrenatural. Suas garras causam enfraquecimento, e podem invocar aparições de cabeças para atacar inimigos distantes."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_black_wolf_to_black_beast"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:black_beast",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A fera pode ser curada com carne, como lobos domesticados, ou passivamente se seu dono vestir um Manto Selvagem. Use um Kit Taglock com uma criatura marcada para fazê-la caçá-la."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:howling_soul",
+      "text": "Ao morrer, a fera se transforma em uma alma. Clique com ela em um Lobo Negro para possessão e mutação de volta à forma original."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Baseado no 'Nightmare Stalker' do mod 'Born In Chaos' por 'mongoose_artist'."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:howling_soul": 5
+  }
+}

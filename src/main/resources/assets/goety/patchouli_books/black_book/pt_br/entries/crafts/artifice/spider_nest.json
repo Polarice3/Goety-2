@@ -1,0 +1,36 @@
+{
+  "name": "Ninhos de Aranha",
+  "icon": "goety:spider_nest",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com um conjunto de Ovos de Aranha ao redor de um pedaço de carne crua, você pode criar um Ninho de Aranha. Clicar com o botão direito nele, ou usar um funil, com carne fará com que ele produza um $(l:summons/spider_servants)Servo de Aranha$() leal. Dependendo do ambiente, assim como $(l:rituals/dark_altar)Altares$(), o servo pode surgir como uma variante diferente de uma aranha comum."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:spider_nest",
+      "text": "Clicar com o botão direito no ninho com uma Varinha ou Cajado fará com que ele apenas gere um servo se um alvo válido estiver próximo. Agachando-se, no entanto, você pode alternar entre fazer o servo patrulhar o bloco ou seguir o dono."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos de Aranha da Caverna",
+      "text": "Requisitos: $(li)Ninho está localizado em uma Mina abandonada $(br)$(l)OU$()$() $(li)8 Podzol $(li)8 Cogumelos de qualquer tipo $(li)8 Pedra"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos de Aranha Tecedeira",
+      "text": "Requisitos: $(li)16 Folhas $(li)8 Teias de Aranha"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos de Aranha Gélidos",
+      "text": "Requisitos: $(li)Ninho está localizado em um bioma nevado $(br)$(l)OU$()$() $(li)16 Blocos de Gelo de qualquer tipo $(li)8 Blocos de Neve $(li)4 Lâmpadas Gélidas"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos de Aranha Ósseos",
+      "text": "Requisitos: $(li)Ninho está localizado em uma Cripta $(br)$(l)OU$()$() $(li)16 Blocos de Osso $(li)4 Pilhas de Crânios"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Descoberta na Selva",
+  "icon": "minecraft:jungle_wood",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Você ouviu falar de pergaminhos estranhos encontrados dentro de $(l)estruturas cobertas de musgo$() nas $(l)Selvas$(), pergaminhos que falam de rituais mágicos."
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/read_floral_scroll",
+      "text": "Dizem que esses pergaminhos estão em $(l)templos da selva$()."
+    }
+  ]
+}

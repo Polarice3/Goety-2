@@ -1,0 +1,30 @@
+{
+  "name": "Sussurradores",
+  "icon": "minecraft:vine",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_floral_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Apesar do nome, Sussurradores são criaturas barulhentas e estranhas que podem conjurar vinhas de crescimento rápido para bloquear o caminho do alvo, invocar duas Vinhas de Espinhos Venenosos e enredar raízes nas pernas do alvo."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:whisperer",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "É possível invocar essas criaturas usando um $(l:focuses/wild/whispering_focus)Foco de Sussurro$(), ou clicando com o botão direito nas Folhas de Selva centrais desta configuração com um Núcleo de Animação para uma versão sem tempo de vida limitado."
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:whisperer",
+      "text": "Clique com o botão direito no Bloco de Musgo com um Núcleo de Animação."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A criatura pode ser curada clicando nela com Farinha de Ossos."
+    }
+  ]
+}

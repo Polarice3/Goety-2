@@ -1,0 +1,18 @@
+{
+  "name": "Foco da Explosão de Fogo",
+  "icon": "goety:fire_blast_focus",
+  "category": "goety:focuses/nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Você emite uma explosão flamejante em sua posição, ferindo todas as criaturas próximas e incendiando-as. A explosão causa dano de fogo e não afeta o conjurador ou seus aliados."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/fire_blast_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:fire_blast_focus": 1
+  }
+}
