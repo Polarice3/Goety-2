@@ -314,17 +314,13 @@ public class Conquillager extends HuntingIllagerEntity implements CrossbowAttack
         public void tick() {
             LivingEntity livingentity = this.mob.getTarget();
             if (livingentity != null) {
-                boolean flag = this.mob.getSensing().hasLineOfSight(livingentity);
-                boolean flag1 = this.seeTime > 0;
+                boolean canSeeEnemy = this.mob.getSensing().hasLineOfSight(livingentity);
                 boolean noRaiders = livingentity.level.getEntitiesOfClass(Raider.class, livingentity.getBoundingBox().inflate(5.0D), (entity) -> entity != this.mob && this.mob.hasLineOfSight(entity) && !(entity instanceof Tormentor)).isEmpty();
-                if (flag != flag1) {
-                    this.seeTime = 0;
-                }
 
-                if (flag) {
+                if (canSeeEnemy) {
                     ++this.seeTime;
                 } else {
-                    --this.seeTime;
+                    this.seeTime = 0;
                 }
 
                 double distanceSq = this.mob.distanceToSqr(livingentity);
@@ -347,7 +343,7 @@ public class Conquillager extends HuntingIllagerEntity implements CrossbowAttack
                 this.mob.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);
 
                 if (this.crossbowState == CrossbowState.UNCHARGED && !CrossbowItem.isCharged(activeStack)) {
-                    if (flag) {
+                    if (canSeeEnemy) {
                         this.mob.startUsingItem(ProjectileUtil.getWeaponHoldingHand(this.mob, item -> item instanceof CrossbowItem));
                         this.crossbowState = CrossbowState.CHARGING;
                         this.mob.setChargingCrossbow(true);
@@ -372,7 +368,7 @@ public class Conquillager extends HuntingIllagerEntity implements CrossbowAttack
                     if (this.attackDelay == 0) {
                         this.crossbowState = CrossbowState.READY_TO_ATTACK;
                     }
-                } else if (this.crossbowState == CrossbowState.READY_TO_ATTACK && flag && noRaiders) {
+                } else if (this.crossbowState == CrossbowState.READY_TO_ATTACK && canSeeEnemy && noRaiders) {
                     this.mob.performRangedAttack(livingentity, 1.0F);
                     CrossbowItem.setCharged(this.mob.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this.mob, item -> item instanceof CrossbowItem)), false);
                     this.crossbowState = CrossbowState.UNCHARGED;

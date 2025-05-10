@@ -36,6 +36,14 @@
     {
       "id": "born_in_chaos_v1:thornshell_crab",
       "required": false
+    },
+    {
+      "id": "iceandfire:cockatrice",
+      "required": false
+    },
+    {
+      "id": "iceandfire:stymphalian_bird",
+      "required": false
     }
   ]
 }

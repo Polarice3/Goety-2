@@ -2619,5 +2619,7 @@
   "death.attack.goety.bubbleStream": "%1$s has been bubbled by %2$s",
   "death.attack.goety.bubbleStream.item": "%1$s has been bubbled by %2$s using %3$s",
   "death.attack.goety.lightning": "%1$s was struck by %2$s",
-  "death.attack.goety.lightning.item": "%1$s was struck by %2$s using %3$s"
+  "death.attack.goety.lightning.item": "%1$s was struck by %2$s using %3$s",
+  "entity.goety.beast_head": "Głowa Bestii",
+  "entity.goety.bouncy_bubble": "Odbijające Bombleki"
 }

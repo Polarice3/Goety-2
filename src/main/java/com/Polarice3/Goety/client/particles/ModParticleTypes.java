@@ -144,9 +144,6 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> BONE = PARTICLE_TYPES.register("bone",
             () -> new SimpleParticleType(false));
 
-    public static final RegistryObject<SimpleParticleType> LASER_POINT = PARTICLE_TYPES.register("laser_point",
-            () -> new SimpleParticleType(false));
-
     public static final RegistryObject<SimpleParticleType> LEECH = PARTICLE_TYPES.register("leech",
             () -> new SimpleParticleType(false));
 
@@ -240,7 +237,7 @@ public class ModParticleTypes {
     public static final RegistryObject<ParticleType<SparkleParticleOption>> SPARKLE = PARTICLE_TYPES.register("sparkle",
             () -> new ParticleType<>(false, SparkleParticleOption.DESERIALIZER) {
                 @Override
-                public Codec codec() {
+                public Codec<SparkleParticleOption> codec() {
                     return SparkleParticleOption.CODEC;
                 }
             });
@@ -248,7 +245,7 @@ public class ModParticleTypes {
     public static final RegistryObject<ParticleType<DustCloudParticleOption>> DUST_CLOUD = PARTICLE_TYPES.register("dust_cloud",
             () -> new ParticleType<>(false, DustCloudParticleOption.DESERIALIZER) {
                 @Override
-                public Codec codec() {
+                public Codec<DustCloudParticleOption> codec() {
                     return DustCloudParticleOption.CODEC;
                 }
             });
@@ -264,7 +261,7 @@ public class ModParticleTypes {
     public static final RegistryObject<ParticleType<ShockwaveParticleOption>> SHOCKWAVE = PARTICLE_TYPES.register("shockwave",
             () -> new ParticleType<>(false, ShockwaveParticleOption.DESERIALIZER) {
                 @Override
-                public Codec codec() {
+                public Codec<ShockwaveParticleOption> codec() {
                     return ShockwaveParticleOption.CODEC;
                 }
             });
@@ -272,7 +269,7 @@ public class ModParticleTypes {
     public static final RegistryObject<ParticleType<ShockwaveParticleOption>> REVERSE_SHOCKWAVE = PARTICLE_TYPES.register("reverse_shockwave",
             () -> new ParticleType<>(false, ShockwaveParticleOption.DESERIALIZER) {
                 @Override
-                public Codec codec() {
+                public Codec<ShockwaveParticleOption> codec() {
                     return ShockwaveParticleOption.CODEC;
                 }
             });
@@ -280,7 +277,7 @@ public class ModParticleTypes {
     public static final RegistryObject<ParticleType<ShockwaveParticleOption>> LICH_DEATH = PARTICLE_TYPES.register("lich_death",
             () -> new ParticleType<>(false, ShockwaveParticleOption.DESERIALIZER) {
                 @Override
-                public Codec codec() {
+                public Codec<ShockwaveParticleOption> codec() {
                     return ShockwaveParticleOption.CODEC;
                 }
             });
@@ -288,7 +285,7 @@ public class ModParticleTypes {
     public static final RegistryObject<ParticleType<CircleExplodeParticleOption>> CIRCLE_EXPLODE = PARTICLE_TYPES.register("circle_explode",
             () -> new ParticleType<>(false, CircleExplodeParticleOption.DESERIALIZER) {
                 @Override
-                public Codec codec() {
+                public Codec<CircleExplodeParticleOption> codec() {
                     return CircleExplodeParticleOption.CODEC;
                 }
             });
@@ -296,15 +293,15 @@ public class ModParticleTypes {
     public static final RegistryObject<ParticleType<FoggyCloudParticleOption>> FOG_CLOUD = PARTICLE_TYPES.register("fog_cloud",
             () -> new ParticleType<>(false, FoggyCloudParticleOption.DESERIALIZER) {
                 @Override
-                public Codec codec() {
+                public Codec<FoggyCloudParticleOption> codec() {
                     return FoggyCloudParticleOption.CODEC;
                 }
             });
 
     public static final RegistryObject<ParticleType<PulsatingCircleParticleOption>> MINE_PULSE = PARTICLE_TYPES.register("mine_pulse",
-            () -> new ParticleType(false, PulsatingCircleParticleOption.DESERIALIZER) {
+            () -> new ParticleType<>(false, PulsatingCircleParticleOption.DESERIALIZER) {
                 @Override
-                public Codec codec() {
+                public Codec<PulsatingCircleParticleOption> codec() {
                     return PulsatingCircleParticleOption.CODEC;
                 }
             });
@@ -312,7 +309,7 @@ public class ModParticleTypes {
     public static final RegistryObject<ParticleType<RisingCircleParticleOption>> SOUL_HEAL = PARTICLE_TYPES.register("soul_heal",
             () -> new ParticleType<>(false, RisingCircleParticleOption.DESERIALIZER) {
                 @Override
-                public Codec codec() {
+                public Codec<RisingCircleParticleOption> codec() {
                     return RisingCircleParticleOption.CODEC;
                 }
             });
@@ -320,7 +317,7 @@ public class ModParticleTypes {
     public static final RegistryObject<ParticleType<SculkBubbleParticleOption>> SCULK_BUBBLE = PARTICLE_TYPES.register("sculk_bubble",
             () -> new ParticleType<>(false, SculkBubbleParticleOption.DESERIALIZER) {
                 @Override
-                public Codec codec() {
+                public Codec<SculkBubbleParticleOption> codec() {
                     return SculkBubbleParticleOption.CODEC;
                 }
             });
@@ -328,7 +325,7 @@ public class ModParticleTypes {
     public static final RegistryObject<ParticleType<WindParticleOption>> WIND = PARTICLE_TYPES.register("wind",
             () -> new ParticleType<>(false, WindParticleOption.DESERIALIZER) {
                 @Override
-                public Codec codec() {
+                public Codec<WindParticleOption> codec() {
                     return WindParticleOption.CODEC;
                 }
             });
@@ -336,7 +333,7 @@ public class ModParticleTypes {
     public static final RegistryObject<ParticleType<WindBlowParticle.Option>> WIND_BLOW = PARTICLE_TYPES.register("wind_blow",
             () -> new ParticleType<>(false, WindBlowParticle.Option.DESERIALIZER) {
                 @Override
-                public Codec codec() {
+                public Codec<WindBlowParticle.Option> codec() {
                     return WindBlowParticle.Option.CODEC;
                 }
             });
@@ -344,7 +341,7 @@ public class ModParticleTypes {
     public static final RegistryObject<ParticleType<WindShockwaveParticle.Option>> WIND_SHOCKWAVE = PARTICLE_TYPES.register("wind_shockwave",
             () -> new ParticleType<>(false, WindShockwaveParticle.Option.DESERIALIZER) {
                 @Override
-                public Codec codec() {
+                public Codec<WindShockwaveParticle.Option> codec() {
                     return WindShockwaveParticle.Option.CODEC;
                 }
             });
@@ -352,7 +349,7 @@ public class ModParticleTypes {
     public static final RegistryObject<ParticleType<GatherTrailParticle.Option>> GATHER_TRAIL = PARTICLE_TYPES.register("gather_trail",
             () -> new ParticleType<>(false, GatherTrailParticle.Option.DESERIALIZER) {
                 @Override
-                public Codec codec() {
+                public Codec<GatherTrailParticle.Option> codec() {
                     return GatherTrailParticle.Option.CODEC;
                 }
             });
@@ -360,7 +357,7 @@ public class ModParticleTypes {
     public static final RegistryObject<ParticleType<AuraParticle.Option>> AURA = PARTICLE_TYPES.register("aura",
             () -> new ParticleType<>(false, AuraParticle.Option.DESERIALIZER) {
                 @Override
-                public Codec codec() {
+                public Codec<AuraParticle.Option> codec() {
                     return AuraParticle.Option.CODEC;
                 }
             });
@@ -368,7 +365,7 @@ public class ModParticleTypes {
     public static final RegistryObject<ParticleType<VerticalCircleExplodeParticleOption>> VERTICAL_CIRCLE_EXPLODE = PARTICLE_TYPES.register("vertical_circle_explode",
             () -> new ParticleType<>(false, VerticalCircleExplodeParticleOption.DESERIALIZER) {
                 @Override
-                public Codec codec() {
+                public Codec<VerticalCircleExplodeParticleOption> codec() {
                     return VerticalCircleExplodeParticleOption.CODEC;
                 }
             });
@@ -376,7 +373,7 @@ public class ModParticleTypes {
     public static final RegistryObject<ParticleType<AbsorbTrailParticleOption>> ABSORB_TRAIL = PARTICLE_TYPES.register("absorb_trail",
             () -> new ParticleType<>(false, AbsorbTrailParticleOption.DESERIALIZER) {
                 @Override
-                public Codec codec() {
+                public Codec<AbsorbTrailParticleOption> codec() {
                     return AbsorbTrailParticleOption.CODEC;
                 }
             });
@@ -384,7 +381,7 @@ public class ModParticleTypes {
     public static final RegistryObject<ParticleType<MagicSmokeParticle.Option>> MAGIC_SMOKE = PARTICLE_TYPES.register("magic_smoke",
             () -> new ParticleType<>(false, MagicSmokeParticle.Option.DESERIALIZER) {
                 @Override
-                public Codec codec() {
+                public Codec<MagicSmokeParticle.Option> codec() {
                     return MagicSmokeParticle.Option.CODEC;
                 }
             });

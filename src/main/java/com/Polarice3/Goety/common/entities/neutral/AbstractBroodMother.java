@@ -413,8 +413,8 @@ public class AbstractBroodMother extends Summoned implements IAutoRideable, Play
     @Override
     public boolean hurt(DamageSource source, float amount) {
         if (this.isVehicle()) {
-            if (source.getEntity() != null && this.getControllingPassenger() != null) {
-                if (source.getEntity() == this.getControllingPassenger()) {
+            if (source.getEntity() != null && this.getFirstPassenger() != null) {
+                if (source.getEntity() == this.getFirstPassenger() && MobUtil.areAllies(this, this.getFirstPassenger())) {
                     return false;
                 }
             }

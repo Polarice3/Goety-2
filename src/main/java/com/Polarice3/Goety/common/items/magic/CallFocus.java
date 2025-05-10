@@ -9,7 +9,6 @@ import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -21,7 +20,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -29,7 +27,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -96,52 +93,32 @@ public class CallFocus extends MagicFocus{
             LivingEntity livingEntity = getSummon(compoundTag);
             if (player.level instanceof ServerLevel serverLevel) {
                 if (livingEntity != null) {
-                    List<LivingEntity> list = new ArrayList<>();
-                    list.add(livingEntity);
-                    if (player.isShiftKeyDown() || player.isCrouching()) {
-                        for (Entity entity : serverLevel.getAllEntities()) {
-                            if (entity instanceof LivingEntity livingEntity1 && entity.getType() == livingEntity.getType()) {
-                                if (livingEntity1 instanceof OwnableEntity ownable){
-                                    if (ownable.getOwner() == player && !SEHelper.getGroundedEntities(player).contains(livingEntity1)){
-                                        list.add(livingEntity1);
-                                    }
-                                }
-                            }
-                        }
+                    if (livingEntity.isPassenger() && livingEntity.getVehicle() instanceof LivingEntity vehicle) {
+                        livingEntity = vehicle;
                     }
-                    for (LivingEntity livingEntity1 : list) {
-                        if (livingEntity1.isPassenger() && livingEntity1.getVehicle() instanceof LivingEntity vehicle) {
-                            livingEntity1 = vehicle;
-                        }
-                        if (!livingEntity1.isDeadOrDying()) {
-                            BlockPos blockPos = BlockFinder.SummonRadius(player.blockPosition(), livingEntity, serverLevel);
-                            if (player.isShiftKeyDown() || player.isCrouching()) {
-                                if (list.size() == 1) {
-                                    blockPos = player.blockPosition();
-                                }
+                    if (!livingEntity.isDeadOrDying()) {
+                        BlockPos blockPos = BlockFinder.SummonRadius(player.blockPosition(), livingEntity, serverLevel);
+                        if (livingEntity.level.dimension() == player.level.dimension()) {
+                            net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(livingEntity, blockPos.getX(), blockPos.getY(), blockPos.getZ());
+                            if (event.isCanceled()) {
+                                return;
                             }
-                            if (livingEntity1.level.dimension() == player.level.dimension()) {
-                                net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(livingEntity1, blockPos.getX(), blockPos.getY(), blockPos.getZ());
+                            livingEntity.teleportTo(event.getTargetX(), event.getTargetY(), event.getTargetZ());
+                            MobUtil.moveDownToGround(livingEntity);
+                            ModNetwork.sendToALL(new SPlayWorldSoundPacket(player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
+                            ModNetwork.sendToALL(new SPlayWorldSoundPacket(blockPos, SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
+                        } else if (player.getServer() != null) {
+                            ServerLevel serverWorld = player.getServer().getLevel(player.level.dimension());
+                            if (serverWorld != null) {
+                                Vec3 vec3 = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+                                net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(livingEntity, blockPos.getX(), blockPos.getY(), blockPos.getZ());
                                 if (event.isCanceled()) {
-                                    break;
+                                    return;
                                 }
-                                livingEntity1.teleportTo(event.getTargetX(), event.getTargetY(), event.getTargetZ());
-                                MobUtil.moveDownToGround(livingEntity1);
+                                livingEntity.changeDimension(serverWorld, new ArcaTeleporter(vec3));
+                                livingEntity.teleportTo(event.getTargetX(), event.getTargetY(), event.getTargetZ());
+                                MobUtil.moveDownToGround(livingEntity);
                                 ModNetwork.sendToALL(new SPlayWorldSoundPacket(player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
-                                ModNetwork.sendToALL(new SPlayWorldSoundPacket(blockPos, SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
-                            } else if (player.getServer() != null) {
-                                ServerLevel serverWorld = player.getServer().getLevel(player.level.dimension());
-                                if (serverWorld != null) {
-                                    Vec3 vec3 = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-                                    net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(livingEntity1, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-                                    if (event.isCanceled()) {
-                                        break;
-                                    }
-                                    livingEntity1.changeDimension(serverWorld, new ArcaTeleporter(vec3));
-                                    livingEntity1.teleportTo(event.getTargetX(), event.getTargetY(), event.getTargetZ());
-                                    MobUtil.moveDownToGround(livingEntity1);
-                                    ModNetwork.sendToALL(new SPlayWorldSoundPacket(player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
-                                }
                             }
                         }
                     }

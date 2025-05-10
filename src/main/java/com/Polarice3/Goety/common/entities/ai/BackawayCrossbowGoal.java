@@ -72,16 +72,12 @@ public class BackawayCrossbowGoal<T extends PathfinderMob & RangedAttackMob & Cr
     public void tick() {
         LivingEntity livingentity = this.mob.getTarget();
         if (livingentity != null) {
-            boolean flag = this.mob.getSensing().hasLineOfSight(livingentity);
-            boolean flag1 = this.seeTime > 0;
-            if (flag != flag1) {
-                this.seeTime = 0;
-            }
+            boolean canSeeEnemy = this.mob.getSensing().hasLineOfSight(livingentity);
 
-            if (flag) {
+            if (canSeeEnemy) {
                 ++this.seeTime;
             } else {
-                --this.seeTime;
+                this.seeTime = 0;
             }
 
             double distanceSq = this.mob.distanceToSqr(livingentity);
@@ -104,7 +100,7 @@ public class BackawayCrossbowGoal<T extends PathfinderMob & RangedAttackMob & Cr
             this.mob.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);
 
             if (this.crossbowState == CrossbowState.UNCHARGED && !CrossbowItem.isCharged(activeStack)) {
-                if (flag) {
+                if (canSeeEnemy) {
                     this.mob.startUsingItem(ProjectileUtil.getWeaponHoldingHand(this.mob, item -> item instanceof CrossbowItem));
                     this.crossbowState = CrossbowState.CHARGING;
                     this.mob.setChargingCrossbow(true);
@@ -129,7 +125,7 @@ public class BackawayCrossbowGoal<T extends PathfinderMob & RangedAttackMob & Cr
                 if (this.attackDelay == 0) {
                     this.crossbowState = CrossbowState.READY_TO_ATTACK;
                 }
-            } else if (this.crossbowState == CrossbowState.READY_TO_ATTACK && flag) {
+            } else if (this.crossbowState == CrossbowState.READY_TO_ATTACK && canSeeEnemy) {
                 this.mob.performRangedAttack(livingentity, 1.0F);
                 CrossbowItem.setCharged(this.mob.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this.mob, item -> item instanceof CrossbowItem)), false);
                 this.crossbowState = CrossbowState.UNCHARGED;
@@ -148,11 +144,17 @@ public class BackawayCrossbowGoal<T extends PathfinderMob & RangedAttackMob & Cr
     }
 
     private boolean hasFirework() {
-        if (this.mob.getOffhandItem().getItem() == Items.FIREWORK_ROCKET) return true;
-        else
+        if (this.mob.getProjectile(this.mob.getUseItem()).getItem() == Items.FIREWORK_ROCKET){
+            return true;
+        } else if (this.mob.getOffhandItem().getItem() == Items.FIREWORK_ROCKET) {
+            return true;
+        } else {
             for (ItemStack projectileStack : CrossbowHelper.getChargedProjectiles(this.mob.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this.mob, item -> item instanceof CrossbowItem)))) {
-                if (projectileStack.getItem() == Items.FIREWORK_ROCKET) return true;
+                if (projectileStack.getItem() == Items.FIREWORK_ROCKET) {
+                    return true;
+                }
             }
+        }
         return false;
     }
 

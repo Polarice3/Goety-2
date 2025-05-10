@@ -6,7 +6,6 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.utils.BlockFinder;
-import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.google.common.collect.Maps;
@@ -21,7 +20,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -39,11 +37,11 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 
-import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class ScytheSlash extends AbstractHurtingProjectile {
-    protected static final EntityDataAccessor<Optional<UUID>> OWNER_UNIQUE_ID = SynchedEntityData.defineId(ScytheSlash.class, EntityDataSerializers.OPTIONAL_UUID);
     private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(ScytheSlash.class, EntityDataSerializers.INT);
     public static final Map<Integer, ResourceLocation> TEXTURE_BY_TYPE = Util.make(Maps.newHashMap(), (map) -> {
         map.put(0, Goety.location("textures/entity/projectiles/scythe/scythe_0.png"));
@@ -58,13 +56,13 @@ public class ScytheSlash extends AbstractHurtingProjectile {
     private ItemStack weapon = new ItemStack(ModItems.DEATH_SCYTHE.get());
     private float damage;
     private int lifespan;
-    private int totallife;
+    private int totalLife;
 
     public ScytheSlash(EntityType<? extends AbstractHurtingProjectile> p_i50173_1_, Level p_i50173_2_) {
         super(p_i50173_1_, p_i50173_2_);
         this.damage = 7.5F;
         this.lifespan = 0;
-        this.totallife = 60;
+        this.totalLife = 60;
     }
 
     public ScytheSlash(ItemStack itemStack, Level world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
@@ -96,12 +94,12 @@ public class ScytheSlash extends AbstractHurtingProjectile {
         this.damage = damage;
     }
 
-    public int getTotallife() {
-        return totallife;
+    public int getTotalLife() {
+        return totalLife;
     }
 
-    public void setTotallife(int totallife) {
-        this.totallife = totallife;
+    public void setTotalLife(int totalLife) {
+        this.totalLife = totalLife;
     }
 
     public int getLifespan() {
@@ -113,26 +111,11 @@ public class ScytheSlash extends AbstractHurtingProjectile {
     }
 
     protected void defineSynchedData() {
-        this.entityData.define(OWNER_UNIQUE_ID, Optional.empty());
         this.entityData.define(DATA_TYPE_ID, 0);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        UUID uuid;
-        if (compound.hasUUID("Owner")) {
-            uuid = compound.getUUID("Owner");
-        } else {
-            String s = compound.getString("Owner");
-            uuid = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), s);
-        }
-
-        if (uuid != null) {
-            try {
-                this.setOwnerId(uuid);
-            } catch (Throwable ignored) {
-            }
-        }
         this.setAnimation(compound.getInt("Animation"));
 
         if (compound.contains("Damage")) {
@@ -142,43 +125,22 @@ public class ScytheSlash extends AbstractHurtingProjectile {
             this.setLifespan(compound.getInt("Lifespan"));
         }
         if (compound.contains("TotalLife")) {
-            this.setTotallife(compound.getInt("TotalLife"));
+            this.setTotalLife(compound.getInt("TotalLife"));
         }
 
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        if (this.getOwnerId() != null) {
-            compound.putUUID("Owner", this.getOwnerId());
-        }
         compound.putInt("Animation", this.getAnimation());
         compound.putFloat("Damage", this.getDamage());
         compound.putInt("Lifespan", this.getLifespan());
-        compound.putInt("TotalLife", this.getTotallife());
-    }
-
-    public LivingEntity getTrueOwner() {
-        try {
-            UUID uuid = this.getOwnerId();
-            return uuid == null ? null : EntityFinder.getLivingEntityByUuiD(uuid);
-        } catch (IllegalArgumentException illegalargumentexception) {
-            return null;
-        }
-    }
-
-    @Nullable
-    public UUID getOwnerId() {
-        return this.entityData.get(OWNER_UNIQUE_ID).orElse((UUID)null);
-    }
-
-    public void setOwnerId(@Nullable UUID p_184754_1_) {
-        this.entityData.set(OWNER_UNIQUE_ID, Optional.ofNullable(p_184754_1_));
+        compound.putInt("TotalLife", this.getTotalLife());
     }
 
     public void tick() {
         super.tick();
-        if (this.lifespan < getTotallife()){
+        if (this.lifespan < getTotalLife()){
             ++this.lifespan;
         } else {
             this.discard();
@@ -187,16 +149,6 @@ public class ScytheSlash extends AbstractHurtingProjectile {
             this.setAnimation(this.getAnimation() + 1);
         } else {
             this.setAnimation(0);
-        }
-        List<Entity> targets = new ArrayList<>();
-        for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(0.5F))) {
-            if (this.getTrueOwner() != null) {
-                if (entity != this.getTrueOwner() && !MobUtil.areAllies(entity, this.getTrueOwner()) && entity != this.getTrueOwner().getVehicle()) {
-                    targets.add(entity);
-                }
-            } else {
-                targets.add(entity);
-            }
         }
         if (ItemConfig.ScytheSlashBreaks.get()) {
             AABB aabb = this.getBoundingBox().inflate(0.2D);
@@ -212,29 +164,42 @@ public class ScytheSlash extends AbstractHurtingProjectile {
                 }
             }
         }
-        if (!targets.isEmpty()){
-            for (Entity entity: targets){
-                if (MobUtil.validEntity(entity)) {
-                    float f = this.getDamage();
-                    if (this.getTrueOwner() != null) {
-                        if (entity instanceof LivingEntity) {
-                            f += EnchantmentHelper.getDamageBonus(this.weapon, ((LivingEntity) entity).getMobType());
-                        }
-                        if (this.getTrueOwner() instanceof Player player) {
-                            boolean attack = entity.hurt(entity.damageSources().playerAttack(player), f);
-                            if (entity instanceof EnderDragon enderDragonEntity){
-                                attack = enderDragonEntity.hurt(entity.damageSources().playerAttack(player), f);
+        if (!this.level.isClientSide) {
+            List<Entity> targets = new ArrayList<>();
+            for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(0.5F))) {
+                if (this.getOwner() != null) {
+                    if (entity != this.getOwner() && !MobUtil.areAllies(entity, this.getOwner()) && entity != this.getOwner().getVehicle()) {
+                        targets.add(entity);
+                    }
+                } else {
+                    targets.add(entity);
+                }
+            }
+            if (!targets.isEmpty()) {
+                for (Entity entity : targets) {
+                    if (MobUtil.validEntity(entity)) {
+                        float f = this.getDamage();
+                        if (this.getOwner() != null) {
+                            if (entity instanceof LivingEntity) {
+                                f += EnchantmentHelper.getDamageBonus(this.weapon, ((LivingEntity) entity).getMobType());
                             }
-                            if (attack && entity instanceof LivingEntity) {
-                                int enchantment = this.weapon.getEnchantmentLevel(ModEnchantments.SOUL_EATER.get());
-                                int soulEater = Mth.clamp(enchantment + 1, 1, 10);
-                                SEHelper.increaseSouls(player, ItemConfig.DarkScytheSouls.get() * soulEater);
+                            if (this.getOwner() instanceof Player player) {
+                                boolean attack = entity.hurt(entity.damageSources().playerAttack(player), f);
+                                if (entity instanceof EnderDragon enderDragonEntity) {
+                                    attack = enderDragonEntity.hurt(entity.damageSources().playerAttack(player), f);
+                                }
+                                if (attack && entity instanceof LivingEntity) {
+                                    int enchantment = this.weapon.getEnchantmentLevel(ModEnchantments.SOUL_EATER.get());
+                                    int soulEater = Mth.clamp(enchantment + 1, 1, 10);
+                                    SEHelper.increaseSouls(player, ItemConfig.DarkScytheSouls.get() * soulEater);
+                                }
+                            } else {
+                                DamageSource damageSource = this.getOwner() instanceof LivingEntity livingEntity ? entity.damageSources().mobAttack(livingEntity) : entity.damageSources().thrown(this, this);
+                                entity.hurt(damageSource, f);
                             }
                         } else {
-                            entity.hurt(entity.damageSources().mobAttack(this.getTrueOwner()), f);
+                            entity.hurt(entity.damageSources().thrown(this, this), f);
                         }
-                    } else {
-                        entity.hurt(entity.damageSources().generic(), f);
                     }
                 }
             }

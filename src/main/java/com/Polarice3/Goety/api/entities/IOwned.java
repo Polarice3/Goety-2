@@ -105,6 +105,9 @@ public interface IOwned {
         return false;
     }
 
+    default void setFamiliar(){
+    }
+
     default boolean isFamiliar(){
         return false;
     }

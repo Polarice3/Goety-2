@@ -75,7 +75,7 @@ public class WindBlowParticle extends WindTrailParticle {
                 Codec.FLOAT.fieldOf("height").forGetter(d -> d.height),
                 Codec.INT.fieldOf("life").forGetter(d -> d.life)
         ).apply(instance, Option::new));
-        public static final Deserializer<Option> DESERIALIZER = new Deserializer<Option>() {
+        public static final Deserializer<Option> DESERIALIZER = new Deserializer<>() {
             public Option fromCommand(ParticleType<Option> particleTypeIn, StringReader reader) throws CommandSyntaxException {
                 reader.expect(' ');
                 float red = reader.readFloat();
@@ -143,7 +143,7 @@ public class WindBlowParticle extends WindTrailParticle {
             buffer.writeFloat(this.red);
             buffer.writeFloat(this.green);
             buffer.writeFloat(this.blue);
-            buffer.writeFloat(this.width);
+            buffer.writeInt(this.width);
             buffer.writeFloat(this.height);
             buffer.writeInt(this.life);
         }

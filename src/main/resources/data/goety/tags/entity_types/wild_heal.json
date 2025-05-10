@@ -2,6 +2,9 @@
   "replace": false,
   "__comment": "servants that heals and lose limited lifespan through Wild set.",
   "values": [
-
+    {
+      "id": "iceandfire:cockatrice",
+      "required": false
+    }
   ]
 }

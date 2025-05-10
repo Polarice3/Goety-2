@@ -1,5 +1,5 @@
 {
-  "name": "Fera Negra",
+  "name": "Czarna Bestia",
   "icon": "minecraft:chain",
   "category": "goety:mutations",
   "advancement": "goety:goety/read_haunting_scroll",
@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Ao possuir um Lobo Negro com um Espectro, você cria uma criatura poderosa e sobrenatural. Suas garras causam enfraquecimento, e podem invocar aparições de cabeças para atacar inimigos distantes."
+      "text": "Kiedy Widmo opęta Czarnego Wilka, rodzi się silna i nienaturalna bestia, zdolna do walki poprzez ataki pazurami, ale też jeśli wróg znajduje się daleko, przywołując swoją głowe w formie zjawy atakującą ich."
     },
     {
       "type": "goety:ritual",
@@ -20,16 +20,16 @@
     },
     {
       "type": "patchouli:text",
-      "text": "A fera pode ser curada com carne, como lobos domesticados, ou passivamente se seu dono vestir um Manto Selvagem. Use um Kit Taglock com uma criatura marcada para fazê-la caçá-la."
+      "text": "Bestia może być leczona mięsem, tak jak normalne wilki i regenruje się pasywnie jeśli właściciel ma Płaszcz Natury. Prawy przycisk używając Znacznika z oznaczoną istotą na nim, sprawi że besia zacznie polowanie na tą istotę i powróci tylko po udanym łowie."
     },
     {
       "type": "patchouli:spotlight",
       "item": "goety:howling_soul",
-      "text": "Ao morrer, a fera se transforma em uma alma. Clique com ela em um Lobo Negro para possessão e mutação de volta à forma original."
+      "text": "Po śmierci bestia pozostawia duszę, którą można użyc na Czarnym Wilku, bez znaczenia czy lojalnym czy nie, by zmutować go pod kontrolą originalnego właściciela."
     },
     {
       "type": "patchouli:text",
-      "text": "Baseado no 'Nightmare Stalker' do mod 'Born In Chaos' por 'mongoose_artist'."
+      "text": "Bazowane na 'Nightmare Stalker' z 'Born In Chaos' od 'mongoose_artist'."
     }
   ],
   "extra_recipe_mappings": {

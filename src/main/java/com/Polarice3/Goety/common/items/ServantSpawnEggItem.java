@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.items;
 
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.common.entities.ally.AnimalSummon;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,10 +12,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -29,15 +27,18 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class ServantSpawnEggItem extends ForgeSpawnEggItem {
 
@@ -45,7 +46,7 @@ public class ServantSpawnEggItem extends ForgeSpawnEggItem {
         super(Lazy.of(entityTypeSupplier), primaryColorIn, secondaryColorIn, builder);
     }
 
-    public InteractionResult useOn(UseOnContext p_43223_) {
+    public @NotNull InteractionResult useOn(UseOnContext p_43223_) {
         Level level = p_43223_.getLevel();
         Player player = p_43223_.getPlayer();
         if (!(level instanceof ServerLevel serverLevel)) {
@@ -94,7 +95,7 @@ public class ServantSpawnEggItem extends ForgeSpawnEggItem {
         }
     }
 
-    public InteractionResultHolder<ItemStack> use(Level p_43225_, Player p_43226_, InteractionHand p_43227_) {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level p_43225_, Player p_43226_, @NotNull InteractionHand p_43227_) {
         ItemStack itemstack = p_43226_.getItemInHand(p_43227_);
         BlockHitResult blockhitresult = getPlayerPOVHitResult(p_43225_, p_43226_, ClipContext.Fluid.SOURCE_ONLY);
         if (blockhitresult.getType() != HitResult.Type.BLOCK) {
@@ -129,6 +130,50 @@ public class ServantSpawnEggItem extends ForgeSpawnEggItem {
                 }
             } else {
                 return InteractionResultHolder.fail(itemstack);
+            }
+        }
+    }
+
+    public @NotNull Optional<Mob> spawnOffspringFromSpawnEgg(@NotNull Player player, @NotNull Mob targetMob, @NotNull EntityType<? extends Mob> entityType, @NotNull ServerLevel serverLevel, @NotNull Vec3 vec3, ItemStack itemStack) {
+        if (!this.spawnsEntity(itemStack.getTag(), entityType)) {
+            return Optional.empty();
+        } else {
+            Mob mob;
+            if (targetMob instanceof AgeableMob ageableMob) {
+                mob = ageableMob.getBreedOffspring(serverLevel, ageableMob);
+            } else if (targetMob instanceof AnimalSummon animalSummon) {
+                mob = animalSummon.getBreedOffspring(serverLevel, animalSummon);
+            } else {
+                mob = entityType.create(serverLevel);
+            }
+
+            if (mob == null) {
+                return Optional.empty();
+            } else {
+                mob.setBaby(true);
+                if (!mob.isBaby()) {
+                    return Optional.empty();
+                } else {
+                    if (mob instanceof IOwned owned && !owned.isHostile()) {
+                        if (targetMob instanceof IOwned owned1 && !owned1.isHostile()) {
+                            if (owned1.getTrueOwner() != null){
+                                owned.setTrueOwner(owned1.getTrueOwner());
+                            }
+                        }
+                    }
+
+                    mob.moveTo(vec3.x(), vec3.y(), vec3.z(), 0.0F, 0.0F);
+                    serverLevel.addFreshEntityWithPassengers(mob);
+                    if (itemStack.hasCustomHoverName()) {
+                        mob.setCustomName(itemStack.getHoverName());
+                    }
+
+                    if (!player.getAbilities().instabuild) {
+                        itemStack.shrink(1);
+                    }
+
+                    return Optional.of(mob);
+                }
             }
         }
     }

@@ -46,9 +46,9 @@ public class DeathScytheItem extends DarkScytheItem implements ISoulRepair {
                         vector3d.x,
                         vector3d.y,
                         vector3d.z);
-                scytheSlash.setOwnerId(pPlayer.getUUID());
+                scytheSlash.setOwner(pPlayer);
                 scytheSlash.setDamage(getInitialDamage());
-                scytheSlash.setTotallife(300);
+                scytheSlash.setTotalLife(300);
                 pLevel.addFreshEntity(scytheSlash);
             }
         }

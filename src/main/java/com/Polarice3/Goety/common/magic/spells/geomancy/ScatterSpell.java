@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.SoundUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -86,7 +87,7 @@ public class ScatterSpell extends Spell {
                 scatterMine.setPos(vec31.x(), vec31.y(), vec31.z());
             }
             if (worldIn.addFreshEntity(scatterMine)) {
-                scatterMine.playSound(ModSounds.REDSTONE_GOLEM_MINE_SPAWN.get());
+                SoundUtil.playRedstoneMineLoad(scatterMine);
             }
         }
     }

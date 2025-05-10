@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.events;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
+import com.Polarice3.Goety.common.advancements.ModCriteriaTriggers;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ally.undead.HauntedSkull;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.FrozenZombieServant;
@@ -13,6 +14,7 @@ import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -186,6 +188,19 @@ public class ServantEvents {
             if (summonedEntity.getTrueOwner() != null){
                 if (summonedEntity.getTrueOwner() == target){
                     event.setCanceled(true);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void DeathEvent(LivingDeathEvent event){
+        LivingEntity killed = event.getEntity();
+        Entity killer = event.getSource().getEntity();
+        if (!killed.isRemoved()){
+            if (killer instanceof IOwned owned){
+                if (owned.getMasterOwner() instanceof ServerPlayer serverPlayer) {
+                    ModCriteriaTriggers.SERVANT_KILLED_ENTITY.trigger(serverPlayer, killed, event.getSource());
                 }
             }
         }

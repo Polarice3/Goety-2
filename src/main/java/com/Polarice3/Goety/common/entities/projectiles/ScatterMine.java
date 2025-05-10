@@ -154,7 +154,7 @@ public class ScatterMine extends Entity {
 
     public void handleEntityEvent(byte id) {
         if (id == 4) {
-            this.level.addParticle(ModParticleTypes.ELECTRIC.get(), this.getRandomX(1.0D), this.getRandomY(), this.getRandomZ(1.0D), -0.05D + this.random.nextDouble() * 0.05D, -0.05D + this.random.nextDouble() * 0.05D, -0.05D + this.random.nextDouble() * 0.05D);
+            this.level.addParticle(ModParticleTypes.BIG_ELECTRIC.get(), this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), -0.05D + this.random.nextDouble() * 0.05D, -0.05D + this.random.nextDouble() * 0.05D, -0.05D + this.random.nextDouble() * 0.05D);
         } else if (id == 5){
             for(int i = 0; i < 20; ++i) {
                 double d0 = this.random.nextGaussian() * 0.02D;

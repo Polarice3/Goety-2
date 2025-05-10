@@ -3976,13 +3976,24 @@
     ],
     "subtitle": "subtitle.goety.redstone_golem_growl"
   },
-  "redstone_golem_mine_spawn": {
+  "redstone_golem_electric_sparks": {
     "sounds": [
       {
-        "name": "goety:redstone_golem/mine_spawn"
+        "name": "goety:redstone_golem/sparks1"
+      },
+      {
+        "name": "goety:redstone_golem/sparks2"
+      },
+      {
+        "name": "goety:redstone_golem/sparks3"
+      },
+      {
+        "name": "goety:redstone_golem/sparks4"
+      },
+      {
+        "name": "goety:redstone_golem/sparks5"
       }
-    ],
-    "subtitle": "subtitle.goety.redstone_golem_mine_spawn"
+    ]
   },
   "redstone_golem_step": {
     "sounds": [

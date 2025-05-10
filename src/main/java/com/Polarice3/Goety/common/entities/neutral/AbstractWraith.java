@@ -7,7 +7,6 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.FloatSwimGoal;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
-import com.Polarice3.Goety.common.entities.hostile.Wraith;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
@@ -16,6 +15,7 @@ import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.SoundUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -397,8 +397,7 @@ public class AbstractWraith extends Summoned {
                             this.fireTick = 0;
                         }
                         this.stopFiring();
-                        net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(this, this.getX(), this.getY(), this.getZ());
-                        if (!event.isCanceled() && !this.isStaying() && this.getTarget().distanceToSqr(this) <= Mth.square(4.0F) && this.teleportCooldown <= 0 && !this.isPostTeleporting()) {
+                        if (this.canTeleport() && this.getTarget().distanceToSqr(this) <= Mth.square(4.0F)) {
                             this.getNavigation().stop();
                             this.setIsTeleporting(true);
                         } else if (!this.isTeleporting()) {
@@ -407,7 +406,7 @@ public class AbstractWraith extends Summoned {
                     }
                 } else {
                     if (MobsConfig.WraithAggressiveTeleport.get()) {
-                        if (!this.isStaying() && this.teleportCooldown <= 0 && !this.isPostTeleporting()) {
+                        if (this.canTeleport()) {
                             this.getNavigation().stop();
                             this.setIsTeleporting(true);
                         }
@@ -447,6 +446,11 @@ public class AbstractWraith extends Summoned {
         }
     }
 
+    public boolean canTeleport(){
+        net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(this, this.getX(), this.getY(), this.getZ());
+        return !event.isCanceled() && !this.isStaying() && this.teleportCooldown <= 0 && !this.isPostTeleporting();
+    }
+
     protected void teleport() {
         if (!this.level.isClientSide() && this.isAlive() && this.getTarget() != null) {
             if (this.getSensing().hasLineOfSight(this.getTarget())) {
@@ -456,20 +460,17 @@ public class AbstractWraith extends Summoned {
                     double d5 = this.getTarget().getZ() + (this.getRandom().nextDouble() - 0.5D) * this.getFollowRange();
                     BlockPos blockPos1 = BlockPos.containing(d3, d4, d5);
                     if (MobUtil.isFireImmune(this) || !BlockFinder.hasSunlight(this.level, blockPos1)) {
-                        /*Makes it so that the Wraith teleports to a position where they can see its target.*/
-                        AbstractWraith wraith = new Wraith(ModEntityType.WRAITH.get(), this.level);
-                        wraith.setPos(d3, d4, d5);
-                        if (wraith.hasLineOfSight(this.getTarget())) {
+                        if (BlockFinder.canSeeBlock(this.getTarget(), blockPos1)) {
                             if (this.randomTeleport(d3, d4, d5, false)) {
                                 this.teleportHits();
                                 this.setIsTeleporting(false);
-                                wraith.discard();
                                 MobUtil.instaLook(this, this.getTarget());
                                 break;
                             }
-                        } else {
-                            wraith.discard();
                         }
+                    } else if (i == 127){
+                        this.setIsTeleporting(false);
+                        break;
                     }
                 }
             } else {
@@ -525,14 +526,7 @@ public class AbstractWraith extends Summoned {
     }
 
     public void playAttackSound(){
-        if (!this.isSilent()) {
-            this.level.playSound(null, this.getX(), this.getY(), this.getZ(), this.getAttackSound(), this.getSoundSource(), 1.0F, 1.0F);
-            this.level.playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.WRAITH_FIRE.get(), this.getSoundSource(), 1.0F, 1.7F);
-            this.level.playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.WRAITH_FLY.get(), this.getSoundSource(), 0.4F, 1.094967F);
-            this.playSound(this.getAttackSound(), 1.0F, 1.0F);
-            this.playSound(ModSounds.WRAITH_FIRE.get(), 1.0F, 1.7F);
-            this.playSound(ModSounds.WRAITH_FLY.get(), 0.4F, 1.094967F);
-        }
+        SoundUtil.playWraithAttack(this);
     }
 
     public void stopFiring(){

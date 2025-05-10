@@ -342,7 +342,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_ATTACK = create("redstone_golem_attack");
     public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_CHEST = create("redstone_golem_chest");
     public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_GROWL = create("redstone_golem_growl");
-    public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_MINE_SPAWN = create("redstone_golem_mine_spawn");
+    public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_ELECTRIC_SPARKS = create("redstone_golem_electric_sparks");
     public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_STEP = create("redstone_golem_step");
     public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_DEATH = create("redstone_golem_death");
 

@@ -4,7 +4,6 @@ import com.Polarice3.Goety.api.entities.ICustomAttributes;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.common.advancements.ModCriteriaTriggers;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
@@ -583,21 +582,17 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
     }
 
     @Override
+    public boolean isPreventingPlayerRest(Player p_33036_) {
+        return this.isHostile();
+    }
+
+    @Override
     protected boolean shouldDespawnInPeaceful() {
         return this.isHostile();
     }
 
     public boolean removeWhenFarAway(double p_27519_) {
         return this.isHostile();
-    }
-
-    @Override
-    public void awardKillScore(Entity entity, int p_19954_, DamageSource damageSource) {
-        super.awardKillScore(entity, p_19954_, damageSource);
-        if (this.getMasterOwner() instanceof ServerPlayer serverPlayer) {
-            ModCriteriaTriggers.SERVANT_KILLED_ENTITY.trigger(serverPlayer, entity, damageSource);
-            serverPlayer.awardKillScore(entity, p_19954_, damageSource);
-        }
     }
 
     public boolean isFood(ItemStack p_30440_) {

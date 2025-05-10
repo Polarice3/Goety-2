@@ -223,6 +223,13 @@ public interface IServant extends IOwned {
                 return owned.getTrueOwner() == this.getTrueOwner();
             }
         }
+        if (livingEntity instanceof IServant servant && this instanceof LivingEntity rider){
+            return servant.canBeRidden(rider);
+        }
+        return false;
+    }
+
+    default boolean canBeRidden(LivingEntity livingEntity){
         return false;
     }
 

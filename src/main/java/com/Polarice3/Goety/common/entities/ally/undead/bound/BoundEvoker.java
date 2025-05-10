@@ -155,6 +155,9 @@ public class BoundEvoker extends AbstractBoundIllager{
 
         protected void performSpellCasting() {
             LivingEntity livingentity = BoundEvoker.this.getTarget();
+            if (livingentity == null){
+                return;
+            }
             double d0 = Math.min(livingentity.getY(), BoundEvoker.this.getY());
             double d1 = Math.max(livingentity.getY(), BoundEvoker.this.getY()) + 1.0D;
             float f = (float) Mth.atan2(livingentity.getZ() - BoundEvoker.this.getZ(), livingentity.getX() - BoundEvoker.this.getX());
@@ -171,8 +174,7 @@ public class BoundEvoker extends AbstractBoundIllager{
             } else {
                 for(int l = 0; l < 16; ++l) {
                     double d2 = 1.25D * (double)(l + 1);
-                    int j = 1 * l;
-                    this.createSpellEntity(BoundEvoker.this.getX() + (double)Mth.cos(f) * d2, BoundEvoker.this.getZ() + (double)Mth.sin(f) * d2, d0, d1, f, j);
+                    this.createSpellEntity(BoundEvoker.this.getX() + (double)Mth.cos(f) * d2, BoundEvoker.this.getZ() + (double)Mth.sin(f) * d2, d0, d1, f, l);
                 }
             }
 
@@ -254,12 +256,14 @@ public class BoundEvoker extends AbstractBoundIllager{
             for(int i = 0; i < 3; ++i) {
                 BlockPos blockpos = BoundEvoker.this.blockPosition().offset(-2 + BoundEvoker.this.random.nextInt(5), 1, -2 + BoundEvoker.this.random.nextInt(5));
                 AllyVex vex = ModEntityType.ALLY_VEX.get().create(BoundEvoker.this.level);
-                vex.moveTo(blockpos, 0.0F, 0.0F);
-                vex.finalizeSpawn(serverlevel, BoundEvoker.this.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData)null, (CompoundTag)null);
-                vex.setTrueOwner(BoundEvoker.this);
-                vex.setBoundOrigin(blockpos);
-                vex.setLimitedLife(20 * (30 + BoundEvoker.this.random.nextInt(90)));
-                serverlevel.addFreshEntityWithPassengers(vex);
+                if (vex != null) {
+                    vex.moveTo(blockpos, 0.0F, 0.0F);
+                    vex.finalizeSpawn(serverlevel, BoundEvoker.this.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
+                    vex.setTrueOwner(BoundEvoker.this);
+                    vex.setBoundOrigin(blockpos);
+                    vex.setLimitedLife(20 * (30 + BoundEvoker.this.random.nextInt(90)));
+                    serverlevel.addFreshEntityWithPassengers(vex);
+                }
             }
 
         }

@@ -11,6 +11,7 @@ import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.SoundUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -490,7 +491,7 @@ public class HostileRedstoneGolem extends HostileGolem {
                                 }
                                 if (this.level.addFreshEntity(scatterMine)) {
                                     if (this.level.random.nextBoolean()) {
-                                        scatterMine.playSound(ModSounds.REDSTONE_GOLEM_MINE_SPAWN.get());
+                                        SoundUtil.playRedstoneMineLoad(scatterMine);
                                     }
                                     --this.mineCount;
                                 }

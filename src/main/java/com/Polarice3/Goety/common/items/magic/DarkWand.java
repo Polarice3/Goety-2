@@ -453,6 +453,15 @@ public class DarkWand extends Item implements IWand {
                 }
             }
             return InteractionResultHolder.sidedSuccess(itemstack, worldIn.isClientSide());
+        } else if (focus.getItem() instanceof CallFocus && playerIn.isCrouching()){
+            if (CallFocus.hasSummon(focus) && focus.getTag() != null){
+                focus.getTag().remove(CallFocus.TAG_ENTITY);
+                playerIn.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
+                if (!worldIn.isClientSide) {
+                    ModNetwork.sendTo(playerIn, new SPlayEntitySoundPacket(playerIn.getUUID(), SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
+                }
+            }
+            return InteractionResultHolder.sidedSuccess(itemstack, worldIn.isClientSide());
         } else if (this.getSpell(itemstack) != null) {
             if (this.cannotCast(playerIn, itemstack)){
                 return InteractionResultHolder.pass(itemstack);
@@ -580,8 +589,7 @@ public class DarkWand extends Item implements IWand {
     }
 
     public void MagicResults(ItemStack stack, Level worldIn, LivingEntity caster) {
-        Player playerEntity = (Player) caster;
-        if (this.getSpell(stack) != null) {
+        if (this.getSpell(stack) != null && caster instanceof Player playerEntity) {
             ISpell spell = GoetyEventFactory.onCastSpell(caster, this.getSpell(stack));
             if (spell != null) {
                 if (!worldIn.isClientSide) {

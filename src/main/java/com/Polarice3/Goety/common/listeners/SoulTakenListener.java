@@ -50,7 +50,7 @@ public class SoulTakenListener extends SimpleJsonResourceReloadListener {
                     boolean flag = false;
                     if (dataType.entityType != null) {
                         EntityType<?> entityType = ForgeRegistries.ENTITY_TYPES.getValue(dataType.entityType);
-                        if (entityType != null) {
+                        if (entityType != null && entityType != EntityType.PIG) {
                             flag = victim.getType() == entityType;
                         }
                     } else if (dataType.entityTag != null) {

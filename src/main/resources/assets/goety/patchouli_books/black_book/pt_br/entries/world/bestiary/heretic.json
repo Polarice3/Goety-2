@@ -1,21 +1,21 @@
 {
-  "name": "Hereges",
+  "name": "Heretycy",
   "icon": "goety:infernal_tome",
   "category": "goety:world/bestiary",
   "advancement": "goety:goety/kill_a_heretic",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Primos das Bruxas, esses fanáticos gritam cânticos profanos, invocando explosões de fogo sob os pés do alvo e criaturas do Nether a partir do último suspiro de vítimas próximas."
+      "text": "Kuzyni Wiedźm, ci nadgorliwi wyznawcy krzyczą bezbożne pieśni na swoich wrogów, przywołując płomienie pod ich stopami. Są w stanie zamienić umierające stworzenia w okolicy w istoty z Netheru."
     },
     {
       "type": "patchouli:entity",
       "entity": "goety:heretic",
-      "text": "Resistentes a magia, como as Bruxas."
+      "text": "Są bardzo odporni na magię."
     },
     {
       "type": "patchouli:text",
-      "text": "Aldeões que dormem perto de um Portal do Nether ativo podem se transformar em Hereges."
+      "text": "Jeśli Wieśniak będzie spał koło aktywnego Portalu do Netheru to jest szansa na przemianę w Heretyka."
     }
   ]
 }

@@ -13,7 +13,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
 public class AbstractMuckWraith extends AbstractWraith {
@@ -61,8 +60,7 @@ public class AbstractMuckWraith extends AbstractWraith {
 
     public void playAttackSound(){
         if (!this.isSilent()) {
-            this.level.playSound((Player) null, this.getX(), this.getY(), this.getZ(), this.getAttackSound(), this.getSoundSource(), 1.0F, 1.0F);
-            this.playSound(this.getAttackSound(), 1.0F, 1.0F);
+            this.level.playSound(null, this.getX(), this.getY(), this.getZ(), this.getAttackSound(), this.getSoundSource(), 1.0F, 1.0F);
         }
     }
 
@@ -72,7 +70,7 @@ public class AbstractMuckWraith extends AbstractWraith {
         acidPool.setWarmupColor(0xfdd4fb);
         acidPool.setPos(livingEntity.position());
         acidPool.setRadius(2.0F);
-        acidPool.setDamage((float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
+        acidPool.setDamage((float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) * 2.0F);
         acidPool.setWarmupDelayTicks(MathHelper.secondsToTicks(0.7F));
         acidPool.setDuration(MathHelper.secondsToTicks(1.8F));
         acidPool.setOwner(this);
