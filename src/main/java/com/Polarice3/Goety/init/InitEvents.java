@@ -62,7 +62,7 @@ public class InitEvents {
 
     @SubscribeEvent
     public static void registerListeners(AddReloadListenerEvent event) {
-        event.addListener(new IllagerAssaultListener());
-        event.addListener(new SoulTakenListener());
+        event.addListener(new IllagerAssaultListener(event.getConditionContext()));
+        event.addListener(new SoulTakenListener(event.getConditionContext()));
     }
 }

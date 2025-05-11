@@ -75,6 +75,7 @@ public class ModItems {
     public static final RegistryObject<Item> SPIDER_EGG = ITEMS.register("spider_egg", ItemBase::new);
     public static final RegistryObject<Item> WARPED_WARTFUL_EGG = ITEMS.register("warped_wartful_egg", ItemBase::new);
     public static final RegistryObject<Item> VENOMOUS_FANG = ITEMS.register("venomous_fang", ItemBase::new);
+//    public static final RegistryObject<Item> REAPER_SILK = ITEMS.register("reaper_silk", ItemBase::new);
     public static final RegistryObject<Item> RAGING_MATTER = ITEMS.register("raging_matter", ItemBase::new);
     public static final RegistryObject<Item> ICE_CUBE = ITEMS.register("ice_cube", ItemBase::new);
     public static final RegistryObject<Item> SOUL_RUBY = ITEMS.register("soul_ruby", ItemBase::new);

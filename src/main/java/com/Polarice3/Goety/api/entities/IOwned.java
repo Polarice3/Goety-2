@@ -94,6 +94,10 @@ public interface IOwned {
         return 0;
     }
 
+    default boolean isLimitedLife(){
+        return this.getLifespan() > 0;
+    }
+
     default void setNatural(boolean natural){
     }
 
@@ -109,6 +113,10 @@ public interface IOwned {
     }
 
     default boolean isFamiliar(){
+        return false;
+    }
+
+    default boolean canBeFamiliar(){
         return false;
     }
 
@@ -202,7 +210,7 @@ public interface IOwned {
                 this.mobSense();
                 if (this.hasLifespan()) {
                     this.setLifespan(this.getLifespan() - 1);
-                    if (this.getLifespan() <= 0) {
+                    if (this.getLifespan() <= 1) {
                         this.lifeSpanDamage();
                     }
                 }
@@ -324,7 +332,7 @@ public interface IOwned {
         if (this.isNatural()){
             compound.putBoolean("isNatural", this.isNatural());
         }
-        if (this.hasLifespan()) {
+        if (this.isLimitedLife()) {
             compound.putInt("LifeTicks", this.getLifespan());
         }
     }

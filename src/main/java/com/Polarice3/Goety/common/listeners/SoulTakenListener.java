@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.listeners;
 
+import com.Polarice3.Goety.Goety;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -11,6 +12,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -20,9 +23,11 @@ import java.util.Map;
 public class SoulTakenListener extends SimpleJsonResourceReloadListener {
     public static Map<ResourceLocation, SoulTakenDataType> ENTITY_LIST = new HashMap<>();
     private static final Gson GSON = (new GsonBuilder()).create();
+    private final ICondition.IContext context;
 
-    public SoulTakenListener() {
+    public SoulTakenListener(ICondition.IContext context) {
         super(GSON, "soul_taken");
+        this.context = context;
     }
 
     @Override
@@ -31,6 +36,10 @@ public class SoulTakenListener extends SimpleJsonResourceReloadListener {
         for (int i = 0; i < objectIn.size(); i++) {
             ResourceLocation location = (ResourceLocation) objectIn.keySet().toArray()[i];
             JsonObject object = objectIn.get(location).getAsJsonObject();
+            if (!CraftingHelper.processConditions(object, "conditions", this.context)){
+                Goety.LOGGER.debug("Skipping loading soul taken entry {} as it's conditions were not met", location);
+                return;
+            }
             ResourceLocation entityType = null;
             ResourceLocation entityTag = null;
             if (object.has("entity_type")){

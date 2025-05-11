@@ -1,8 +1,8 @@
 {
   "name": "Incêndio Florestal",
   "icon": "minecraft:blaze_rod",
-  "category": "goety:mutações",
-  "advancement": "goety:goety/ler_pergaminho_antigo",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/read_bygone_scroll",
   "secret": true,
   "pages": [
     {

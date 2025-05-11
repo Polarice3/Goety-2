@@ -1,7 +1,7 @@
 {
   "name": "Ritual de Animação",
   "icon": "goety:animation_core",
-  "category": "goety:rituais",
+  "category": "goety:rituals",
   "sortnum": 1,
   "pages": [
     {

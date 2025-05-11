@@ -459,7 +459,7 @@ public class MobsConfig {
             IllagerAssaultSpawnFreq = BUILDER.comment("How many ticks it takes for Illager Assaults to spawn, Default: 12000")
                     .defineInRange("illagerAssaultSpawnFreq", 12000, 0, Integer.MAX_VALUE);
             IllagerAssaultSpawnChance = BUILDER.comment("Spawn Chance for Illagers Hunting the Player every Spawn Frequency, the lower the more likelier, Default: 5")
-                    .defineInRange("illagerAssaultSpawnChance", 5, 0, Integer.MAX_VALUE);
+                    .defineInRange("illagerAssaultSpawnChance", 5, 1, Integer.MAX_VALUE);
             IllagerAssaultSEThreshold = BUILDER.comment("How much Soul Energy the Player has is required for Special Illagers to spawn, Default: 2500")
                     .defineInRange("illagerAssaultThreshold", 2500, 0, Integer.MAX_VALUE);
             IllagerAssaultSELimit = BUILDER.comment("The maximum amount of Soul Energy the Player has that is taken consideration for the Assaults, Default: 30000")
@@ -623,7 +623,7 @@ public class MobsConfig {
                 .defineInRange("villagerHateSpells", 0, 0, Integer.MAX_VALUE);
         VillagerConvertWarlock = BUILDER.comment("Villagers have a chance of converting into Warlocks if they're underneath a Block of Crying Obsidian, Default: true")
                 .define("villagerConvertToWarlock", true);
-        VillagerConvertHeretic = BUILDER.comment("Villagers have a chance of converting into Heretics if they're near an active Nether Portal, Default: false")
+        VillagerConvertHeretic = BUILDER.comment("Villagers have a chance of converting into Heretics if they're sleeping near an active Nether Portal, Default: false")
                 .define("villagerConvertToHeretic", false);
         TraderConvertMaverick = BUILDER.comment("Wandering Traders transforms into Mavericks when struck by lightning, Default: true")
                 .define("traderConvertMaverick", true);
@@ -635,7 +635,7 @@ public class MobsConfig {
             WightSpawnFreq = BUILDER.comment("How many ticks it takes for Wights to spawn, Default: 24000")
                     .defineInRange("wightSpawnFreq", 24000, 0, Integer.MAX_VALUE);
             WightSpawnChance = BUILDER.comment("Spawn Chance for Wights spawning near the Player every Spawn Frequency, the lower the more likelier, Default: 10")
-                    .defineInRange("wightSpawnChance", 10, 0, Integer.MAX_VALUE);
+                    .defineInRange("wightSpawnChance", 10, 1, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Warlock");
             WarlockSpawnWeight = BUILDER.comment("Spawn Weight for Warlock, Default: 5")

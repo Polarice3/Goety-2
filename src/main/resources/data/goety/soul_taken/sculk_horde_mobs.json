@@ -1,4 +1,10 @@
 {
   "tag": "sculkhorde:sculk_entity",
-  "soul_amount": 20
+  "soul_amount": 20,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "sculkhorde"
+    }
+  ]
 }

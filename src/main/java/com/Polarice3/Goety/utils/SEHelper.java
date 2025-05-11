@@ -689,8 +689,12 @@ public class SEHelper {
 
     public static boolean increaseAirJumpCount(Player player){
         MobEffectInstance instance = player.getEffect(GoetyEffects.FROG_LEG.get());
+        int jumps = 0;
         if (instance != null) {
-            if (getAirJumpCooldown(player) <= 0 && getAirJumps(player) < (instance.getAmplifier() + 1)) {
+            jumps += instance.getAmplifier() + 1;
+        }
+        if (jumps > 0){
+            if (getAirJumpCooldown(player) <= 0 && getAirJumps(player) < jumps) {
                 setAirJumps(player, getAirJumps(player) + 1);
                 setAirJumpCooldown(player, 4);
                 SEHelper.sendSEUpdatePacket(player);

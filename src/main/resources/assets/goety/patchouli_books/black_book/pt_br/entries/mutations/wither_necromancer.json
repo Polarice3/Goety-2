@@ -1,8 +1,8 @@
 {
   "name": "Necromante do Wither",
   "icon": "goety:nether_staff",
-  "category": "goety:mutações",
-  "advancement": "goety:goety/desbloquear_necromante",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/unlock_necromancer",
   "pages": [
     {
       "type": "patchouli:text",

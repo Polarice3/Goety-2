@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.listeners;
 
+import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.events.IllagerSpawner;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -9,6 +10,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashMap;
@@ -17,9 +20,11 @@ import java.util.Map;
 public class IllagerAssaultListener extends SimpleJsonResourceReloadListener {
     public static Map<ResourceLocation, IllagerSpawner.IllagerDataType> ILLAGER_LIST = new HashMap<>();
     private static final Gson GSON = (new GsonBuilder()).create();
+    private final ICondition.IContext context;
 
-    public IllagerAssaultListener() {
+    public IllagerAssaultListener(ICondition.IContext context) {
         super(GSON, "illager_assault");
+        this.context = context;
     }
 
     @Override
@@ -28,6 +33,10 @@ public class IllagerAssaultListener extends SimpleJsonResourceReloadListener {
         for (int i = 0; i < objectIn.size(); i++) {
             ResourceLocation location = (ResourceLocation) objectIn.keySet().toArray()[i];
             JsonObject object = objectIn.get(location).getAsJsonObject();
+            if (!CraftingHelper.processConditions(object, "conditions", this.context)){
+                Goety.LOGGER.debug("Skipping loading illager entry {} as it's conditions were not met", location);
+                return;
+            }
             String name = object.getAsJsonPrimitive("entity_type").getAsString();
             ResourceLocation resourceLocation = new ResourceLocation(name);
             JsonObject data = object.getAsJsonObject("registry");

@@ -1,7 +1,7 @@
 {
   "name": "Realizando Rituais",
   "icon": "goety:dark_altar",
-  "category": "goety:rituais",
+  "category": "goety:rituals",
   "sortnum": 0,
   "priority": true,
   "pages": [

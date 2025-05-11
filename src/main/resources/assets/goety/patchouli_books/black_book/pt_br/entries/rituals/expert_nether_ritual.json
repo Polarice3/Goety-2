@@ -1,7 +1,7 @@
 {
   "name": "Ritual do Nether para Especialistas",
   "icon": "minecraft:nether_bricks",
-  "category": "goety:rituais",
+  "category": "goety:rituals",
   "advancement": "minecraft:story/enter_the_nether",
   "sortnum": 7,
   "pages": [

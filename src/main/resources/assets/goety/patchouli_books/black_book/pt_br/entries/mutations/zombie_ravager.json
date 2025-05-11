@@ -1,7 +1,7 @@
 {
   "name": "Devastador Zumbi",
   "icon": "minecraft:rotten_flesh",
-  "category": "goety:mutações",
+  "category": "goety:mutations",
   "advancement": "goety:goety/ler_pergaminho_devastador",
   "secret": true,
   "pages": [

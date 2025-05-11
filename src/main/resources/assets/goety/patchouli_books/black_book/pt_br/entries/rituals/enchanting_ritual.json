@@ -1,7 +1,7 @@
 {
   "name": "Encantando com Rituais",
   "icon": "minecraft:enchanted_book",
-  "category": "goety:rituais",
+  "category": "goety:rituals",
   "priority": true,
   "pages": [
     {

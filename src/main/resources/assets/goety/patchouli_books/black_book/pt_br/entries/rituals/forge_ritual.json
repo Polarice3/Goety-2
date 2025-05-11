@@ -1,7 +1,7 @@
 {
   "name": "Ritual da Forja",
   "icon": "minecraft:anvil",
-  "category": "goety:rituais",
+  "category": "goety:rituals",
   "sortnum": 4,
   "pages": [
     {

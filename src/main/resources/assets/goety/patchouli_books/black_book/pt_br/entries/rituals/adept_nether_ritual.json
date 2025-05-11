@@ -1,7 +1,7 @@
 {
   "name": "Ritual do Nether para Adeptos",
   "icon": "minecraft:blackstone",
-  "category": "goety:rituais",
+  "category": "goety:rituals",
   "advancement": "minecraft:story/enter_the_nether",
   "sortnum": 6,
   "pages": [
