@@ -15,6 +15,7 @@
     "goety:crypt_tiles_wall",
     "goety:crypt_plinth",
     "goety:crypt_pillar",
-    "goety:crypt_bookshelf"
+    "goety:crypt_bookshelf",
+    "goety:crypt_chest"
   ]
 }

@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Doppelganger;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.Spell;
+import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SSetPlayerOwnerPacket;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -49,7 +50,7 @@ public class IllusionSpell extends Spell {
         return new ColorUtil(0.3F, 0.3F, 0.8F);
     }
 
-    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
         for (Entity entity : worldIn.getAllEntities()) {
             if (entity instanceof Doppelganger doppelganger) {
                 if (doppelganger.getTrueOwner() == caster && doppelganger.tickCount > 10) {

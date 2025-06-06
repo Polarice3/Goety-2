@@ -246,14 +246,14 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
 
     @Override
     public void updateMoveMode(Player player) {
-        if (!this.isStaying() && !this.isPatrolling()){
+        if (!this.isStaying() && !this.isGuardingArea()){
             this.setBoundPos(null);
             this.setStaying(true);
             player.displayClientMessage(Component.translatable("info.goety.servant.staying", this.getDisplayName()), true);
-        } else if (!this.isPatrolling()){
+        } else if (!this.isGuardingArea()){
             this.setBoundPos(this.blockPosition());
             this.setStaying(false);
-            player.displayClientMessage(Component.translatable("info.goety.servant.patrol", this.getDisplayName()), true);
+            player.displayClientMessage(Component.translatable("info.goety.servant.guard", this.getDisplayName()), true);
         } else {
             this.setBoundPos(null);
             this.setStaying(false);
@@ -535,11 +535,6 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
 
     public double getAttackReachSqr(LivingEntity enemy) {
         return (double)(this.getBbWidth() * 6.0F + enemy.getBbWidth()) + 1.0D;
-    }
-
-    public boolean targetClose(LivingEntity enemy, double distToEnemySqr){
-        double reach = this.getAttackReachSqr(enemy);
-        return distToEnemySqr <= reach || this.getBoundingBox().intersects(enemy.getBoundingBox());
     }
 
     public boolean doHurtTarget(Entity entityIn) {

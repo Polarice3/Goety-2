@@ -115,7 +115,7 @@ public class AnimatorBlockEntity extends BlockEntity implements IWaystoneBlock, 
 
     public void setItem(ItemStack stack) {
         this.item = stack;
-        this.setChanged();
+        this.markUpdated();
     }
 
     public Player getOwner(){
@@ -193,14 +193,11 @@ public class AnimatorBlockEntity extends BlockEntity implements IWaystoneBlock, 
 
     public void setShowBlock(boolean showBlock){
         this.showBlock = showBlock;
-        this.setChanged();
-        this.markNetworkDirty();
+        this.markUpdated();
     }
 
     public void markNetworkDirty() {
-        if (this.level != null) {
-            this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 2);
-        }
+
     }
 
     @Override
@@ -238,7 +235,9 @@ public class AnimatorBlockEntity extends BlockEntity implements IWaystoneBlock, 
 
     public void markUpdated() {
         this.setChanged();
-        this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
+        if (this.level != null) {
+            this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3);
+        }
     }
 
     @Override

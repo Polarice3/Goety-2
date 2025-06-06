@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "goety:block/creeper_totem/top",
+    "down": "goety:block/creeper_totem/bottom",
+    "up": "goety:block/creeper_totem/north_2",
+    "west": "goety:block/creeper_totem/west_1",
+    "east": "goety:block/creeper_totem/east_1",
+    "north": "goety:block/creeper_totem/north_1",
+    "south": "goety:block/creeper_totem/south_1"
+  }
+}

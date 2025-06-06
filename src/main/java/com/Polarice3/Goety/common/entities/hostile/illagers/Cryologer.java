@@ -33,7 +33,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -277,20 +276,6 @@ public class Cryologer extends HuntingIllagerEntity implements IBreathing {
                     }
                 }
             }
-        }
-    }
-
-    public boolean isAlliedTo(Entity pEntity) {
-        if (pEntity == this) {
-            return true;
-        } else if (super.isAlliedTo(pEntity)) {
-            return true;
-        } else if (pEntity instanceof Vex vex && vex.getOwner() != null) {
-            return this.isAlliedTo(vex.getOwner());
-        } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.ILLAGER) {
-            return this.getTeam() == null && pEntity.getTeam() == null;
-        } else {
-            return false;
         }
     }
 

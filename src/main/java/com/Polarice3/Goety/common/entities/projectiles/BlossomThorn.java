@@ -114,10 +114,7 @@ public class BlossomThorn extends GroundProjectile {
         if (target.isAlive() && !target.isInvulnerable() && MobUtil.validEntity(target) && target != livingentity) {
             boolean flag;
             if (livingentity != null) {
-                if (target.isAlliedTo(livingentity)) {
-                    return;
-                }
-                if (livingentity.isAlliedTo(target)) {
+                if (MobUtil.areAllies(livingentity, target)){
                     return;
                 }
                 flag = target.hurt(this.damageSources().thorns(livingentity), baseDamage + this.getExtraDamage());

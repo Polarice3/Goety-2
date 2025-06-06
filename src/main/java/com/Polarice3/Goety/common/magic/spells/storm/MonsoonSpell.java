@@ -73,6 +73,9 @@ public class MonsoonSpell extends Spell {
         }
         HitResult rayTraceResult = this.rayTrace(worldIn, caster, range, radius);
         LivingEntity target = this.getTarget(caster, range);
+        if (rightStaff(staff)) {
+            radius += 1.0D;
+        }
         if (target != null){
             MonsoonCloud monsoonCloud = new MonsoonCloud(worldIn, caster, (LivingEntity) target);
             monsoonCloud.setExtraDamage(potency);

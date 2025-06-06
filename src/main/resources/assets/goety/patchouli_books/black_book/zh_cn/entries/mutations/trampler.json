@@ -21,6 +21,10 @@
       "type": "patchouli:entity",
       "entity": "goety:ally_trampler",
       "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "践踏者可以成为$(l:goety:mutations/illager_servants)袭击队伍$()的一员，但它不能被设定为队长。"
     }
   ]
 }

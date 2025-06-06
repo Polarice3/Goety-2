@@ -1,10 +1,15 @@
 package com.Polarice3.Goety.common.magic.spells.void_spells;
 
+import com.Polarice3.Goety.api.entities.ally.IServant;
+import com.Polarice3.Goety.api.magic.ITouchSpell;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.items.magic.RecallFocus;
 import com.Polarice3.Goety.common.magic.Spell;
+import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -15,7 +20,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class RecallSpell extends Spell {
+public class RecallSpell extends Spell implements ITouchSpell {
     @Override
     public int defaultSoulCost() {
         return SpellConfig.RecallCost.get();
@@ -66,7 +71,31 @@ public class RecallSpell extends Spell {
         }
     }
 
-    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff){
+    @Override
+    public void touchResult(ServerLevel worldIn, LivingEntity caster, LivingEntity target, SpellStat spellStat) {
+        if (caster instanceof ServerPlayer player) {
+            if (RecallFocus.isValid(worldIn, WandUtil.findFocus(player))) {
+                if (MobUtil.getOwner(target) != null){
+                    if (MobUtil.getOwner(target) == caster){
+                        if (target instanceof IServant servant) {
+                            BlockPos blockPos = RecallFocus.getRecallBlockPos(WandUtil.findFocus(player));
+                            servant.setWandering(false);
+                            if (blockPos != null) {
+                                servant.setStaying(false);
+                                servant.setBoundPos(blockPos);
+                            } else {
+                                servant.setStaying(true);
+                                servant.setBoundPos(null);
+                            }
+                        }
+                        RecallFocus.recall(target, WandUtil.findFocus(player));
+                    }
+                }
+            }
+        }
+    }
+
+    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){
         if (caster instanceof ServerPlayer player) {
             if (RecallFocus.isValid(worldIn, WandUtil.findFocus(player))) {
                 RecallFocus.recall(player, WandUtil.findFocus(player));

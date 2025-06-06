@@ -26,6 +26,10 @@
     {
       "type": "patchouli:text",
       "text": "Os Tijolos de Pedra podem ser substituídos por blocos similares, como Tijolos de Ardósia, para o molde. A Monstruosidade é talvez um dos seres mais fortes que você já criou, seu poder inigualável por outros servos. Eles podem ser reparados clicando neles com Blocos de Redstone."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Monstruosidades de Redstone podem fazer parte de um $(l:goety:mutations/illager_servants)grupo de ataque$(), embora não possam ser líderes."
     }
   ],
   "extra_recipe_mappings": {

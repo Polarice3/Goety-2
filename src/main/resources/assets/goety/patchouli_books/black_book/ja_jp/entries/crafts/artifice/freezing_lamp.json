@@ -1,0 +1,15 @@
+{
+  "name": "フリージングランプ",
+  "icon": "goety:freezing_lamp",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "終わりのない霜を帯びたレッドストーンのランプです。周囲の空間をゆっくりと凍らせます。電源を入れるとランプは消え、動作を停止します。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:freezing_lamp"
+    }
+  ]
+}

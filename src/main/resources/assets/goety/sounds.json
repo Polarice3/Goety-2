@@ -952,13 +952,13 @@
   "sorcerer_ambient": {
     "sounds": [
       {
-        "name": "goety:sorcerer/idle1"
+        "name": "goety:enchanter/idle1"
       },
       {
-        "name": "goety:sorcerer/idle2"
+        "name": "goety:enchanter/idle2"
       },
       {
-        "name": "goety:sorcerer/idle3"
+        "name": "goety:enchanter/idle3"
       }
     ],
     "subtitle": "subtitle.goety.sorcerer_ambient"
@@ -966,13 +966,13 @@
   "sorcerer_hurt": {
     "sounds": [
       {
-        "name": "goety:sorcerer/hurt1"
+        "name": "goety:enchanter/hurt1"
       },
       {
-        "name": "goety:sorcerer/hurt2"
+        "name": "goety:enchanter/hurt2"
       },
       {
-        "name": "goety:sorcerer/hurt3"
+        "name": "goety:enchanter/hurt3"
       }
     ],
     "subtitle": "subtitle.goety.sorcerer_hurt"
@@ -980,13 +980,13 @@
   "sorcerer_death": {
     "sounds": [
       {
-        "name": "goety:sorcerer/death1"
+        "name": "goety:enchanter/death1"
       },
       {
-        "name": "goety:sorcerer/death2"
+        "name": "goety:enchanter/death2"
       },
       {
-        "name": "goety:sorcerer/death3"
+        "name": "goety:enchanter/death3"
       }
     ],
     "subtitle": "subtitle.goety.sorcerer_death"
@@ -1407,19 +1407,19 @@
   "storm_caster_ambient": {
     "sounds": [
       {
-        "name": "goety:storm_caster/idle1",
+        "name": "goety:wind_caller/idle1",
         "pitch": 1.25
       },
       {
-        "name": "goety:storm_caster/idle2",
+        "name": "goety:wind_caller/idle2",
         "pitch": 1.25
       },
       {
-        "name": "goety:storm_caster/idle3",
+        "name": "goety:wind_caller/idle3",
         "pitch": 1.25
       },
       {
-        "name": "goety:storm_caster/idle4",
+        "name": "goety:wind_caller/idle4",
         "pitch": 1.25
       }
     ],
@@ -1428,19 +1428,19 @@
   "storm_caster_hurt": {
     "sounds": [
       {
-        "name": "goety:storm_caster/hurt1",
+        "name": "goety:wind_caller/hurt1",
         "pitch": 1.25
       },
       {
-        "name": "goety:storm_caster/hurt2",
+        "name": "goety:wind_caller/hurt2",
         "pitch": 1.25
       },
       {
-        "name": "goety:storm_caster/hurt3",
+        "name": "goety:wind_caller/hurt3",
         "pitch": 1.25
       },
       {
-        "name": "goety:storm_caster/hurt4",
+        "name": "goety:wind_caller/hurt4",
         "pitch": 1.25
       }
     ],
@@ -1449,15 +1449,15 @@
   "storm_caster_monsoon": {
     "sounds": [
       {
-        "name": "goety:storm_caster/monsoon1",
+        "name": "goety:wind_caller/lift1",
         "pitch": 1.25
       },
       {
-        "name": "goety:storm_caster/monsoon2",
+        "name": "goety:wind_caller/lift2",
         "pitch": 1.25
       },
       {
-        "name": "goety:storm_caster/monsoon3",
+        "name": "goety:wind_caller/lift3",
         "pitch": 1.25
       }
     ],
@@ -1466,15 +1466,15 @@
   "storm_caster_discharge": {
     "sounds": [
       {
-        "name": "goety:storm_caster/discharge1",
+        "name": "goety:wind_caller/blast1",
         "pitch": 1.25
       },
       {
-        "name": "goety:storm_caster/discharge2",
+        "name": "goety:wind_caller/blast2",
         "pitch": 1.25
       },
       {
-        "name": "goety:storm_caster/discharge3",
+        "name": "goety:wind_caller/blast3",
         "pitch": 1.25
       }
     ],
@@ -1483,7 +1483,7 @@
   "storm_caster_celebrate": {
     "sounds": [
       {
-        "name": "goety:storm_caster/idle1",
+        "name": "goety:wind_caller/idle1",
         "pitch": 1.5
       }
     ],
@@ -1492,19 +1492,19 @@
   "storm_caster_death": {
     "sounds": [
       {
-        "name": "goety:storm_caster/death1",
+        "name": "goety:wind_caller/death1",
         "pitch": 1.25
       },
       {
-        "name": "goety:storm_caster/death2",
+        "name": "goety:wind_caller/death2",
         "pitch": 1.25
       },
       {
-        "name": "goety:storm_caster/death3",
+        "name": "goety:wind_caller/death3",
         "pitch": 1.25
       },
       {
-        "name": "goety:storm_caster/death4",
+        "name": "goety:wind_caller/death4",
         "pitch": 1.25
       }
     ],
@@ -3034,6 +3034,82 @@
     ],
     "subtitle": "subtitle.goety.bone_spider_death"
   },
+  "geomancer_ambient": {
+    "sounds": [
+      {
+        "name": "goety:geomancer/idle1"
+      },
+      {
+        "name": "goety:geomancer/idle2"
+      },
+      {
+        "name": "goety:geomancer/idle3"
+      },
+      {
+        "name": "goety:geomancer/idle4"
+      },
+      {
+        "name": "goety:geomancer/idle5"
+      },
+      {
+        "name": "goety:geomancer/idle6"
+      }
+    ],
+    "subtitle": "subtitle.goety.geomancer_ambient"
+  },
+  "geomancer_hurt": {
+    "sounds": [
+      {
+        "name": "goety:geomancer/hurt1"
+      },
+      {
+        "name": "goety:geomancer/hurt2"
+      },
+      {
+        "name": "goety:geomancer/hurt3"
+      },
+      {
+        "name": "goety:geomancer/hurt4"
+      }
+    ],
+    "subtitle": "subtitle.goety.geomancer_hurt"
+  },
+  "geomancer_pre_attack": {
+    "sounds": [
+      {
+        "name": "goety:geomancer/pre_attack1"
+      },
+      {
+        "name": "goety:geomancer/pre_attack2"
+      }
+    ],
+    "subtitle": "subtitle.goety.geomancer_pre_attack"
+  },
+  "geomancer_attack": {
+    "sounds": [
+      {
+        "name": "goety:geomancer/attack1"
+      },
+      {
+        "name": "goety:geomancer/attack2"
+      }
+    ],
+    "subtitle": "subtitle.goety.geomancer_attack"
+  },
+  "geomancer_death": {
+    "sounds": [
+      {
+        "name": "goety:geomancer/death1"
+      },
+      {
+        "name": "goety:geomancer/death2"
+      },
+      {
+        "name": "goety:geomancer/death3"
+      }
+    ],
+    "subtitle": "subtitle.goety.geomancer_death"
+  },
   "iceologer_ambient": {
     "sounds": [
       {
@@ -3089,6 +3165,85 @@
       }
     ],
     "subtitle": "subtitle.goety.iceologer_death"
+  },
+  "wind_caller_ambient": {
+    "sounds": [
+      {
+        "name": "goety:wind_caller/idle1"
+      },
+      {
+        "name": "goety:wind_caller/idle2"
+      },
+      {
+        "name": "goety:wind_caller/idle3"
+      },
+      {
+        "name": "goety:wind_caller/idle4"
+      }
+    ],
+    "subtitle": "subtitle.goety.wind_caller_ambient"
+  },
+  "wind_caller_hurt": {
+    "sounds": [
+      {
+        "name": "goety:wind_caller/hurt1"
+      },
+      {
+        "name": "goety:wind_caller/hurt2"
+      },
+      {
+        "name": "goety:wind_caller/hurt3"
+      },
+      {
+        "name": "goety:wind_caller/hurt4"
+      }
+    ],
+    "subtitle": "subtitle.goety.wind_caller_hurt"
+  },
+  "wind_caller_blast": {
+    "sounds": [
+      {
+        "name": "goety:wind_caller/blast1"
+      },
+      {
+        "name": "goety:wind_caller/blast2"
+      },
+      {
+        "name": "goety:wind_caller/blast3"
+      }
+    ],
+    "subtitle": "subtitle.goety.wind_caller_blast"
+  },
+  "wind_caller_updraft": {
+    "sounds": [
+      {
+        "name": "goety:wind_caller/lift1"
+      },
+      {
+        "name": "goety:wind_caller/lift2"
+      },
+      {
+        "name": "goety:wind_caller/lift3"
+      }
+    ],
+    "subtitle": "subtitle.goety.wind_caller_updraft"
+  },
+  "wind_caller_death": {
+    "sounds": [
+      {
+        "name": "goety:wind_caller/death1"
+      },
+      {
+        "name": "goety:wind_caller/death2"
+      },
+      {
+        "name": "goety:wind_caller/death3"
+      },
+      {
+        "name": "goety:wind_caller/death4"
+      }
+    ],
+    "subtitle": "subtitle.goety.wind_caller_death"
   },
   "skeleton_wolf_ambient": {
     "sounds": [

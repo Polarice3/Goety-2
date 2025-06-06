@@ -241,6 +241,7 @@ public class ModItems {
     public static final RegistryObject<Item> ARROW_RAIN_FOCUS = ITEMS.register("arrow_rain_focus", () -> new MagicFocus(new ArrowRainSpell()));
     public static final RegistryObject<Item> TELEKINESIS_FOCUS = ITEMS.register("telekinesis_focus", () -> new MagicFocus(new TelekinesisSpell()));
     public static final RegistryObject<Item> COMMAND_FOCUS = ITEMS.register("command_focus", CommandFocus::new);
+    public static final RegistryObject<Item> ORDER_FOCUS = ITEMS.register("order_focus", OrderFocus::new);
     public static final RegistryObject<Item> SONIC_BOOM_FOCUS = ITEMS.register("sonic_boom_focus", () -> new MagicFocus(new SonicBoomSpell()));
     public static final RegistryObject<Item> CORRUPTION_FOCUS = ITEMS.register("corruption_focus", () -> new MagicFocus(new CorruptedBeamSpell()));
 
@@ -419,6 +420,8 @@ public class ModItems {
     public static final RegistryObject<DummyItem> JEI_DUMMY_REQUIRE_SACRIFICE = ITEMS.register(
             "jei_dummy/sacrifice", () -> new DummyItem(new Item.Properties()));
     public static final RegistryObject<Item> BONE_SHARD = ITEMS.register("bone_shard",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> COOKING_LADLE = ITEMS.register("cooking_ladle",
             () -> new Item(new Item.Properties()));
 
     public static Item.Properties baseProperities(){

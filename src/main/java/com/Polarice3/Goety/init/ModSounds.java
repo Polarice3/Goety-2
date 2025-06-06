@@ -265,10 +265,22 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> BONE_SPIDER_STEP = create("bone_spider_step");
     public static final RegistryObject<SoundEvent> BONE_SPIDER_DEATH = create("bone_spider_death");
 
+    public static final RegistryObject<SoundEvent> GEOMANCER_AMBIENT = create("geomancer_ambient");
+    public static final RegistryObject<SoundEvent> GEOMANCER_HURT = create("geomancer_hurt");
+    public static final RegistryObject<SoundEvent> GEOMANCER_PRE_ATTACK = create("geomancer_pre_attack");
+    public static final RegistryObject<SoundEvent> GEOMANCER_ATTACK = create("geomancer_attack");
+    public static final RegistryObject<SoundEvent> GEOMANCER_DEATH = create("geomancer_death");
+
     public static final RegistryObject<SoundEvent> ICEOLOGER_AMBIENT = create("iceologer_ambient");
     public static final RegistryObject<SoundEvent> ICEOLOGER_HURT = create("iceologer_hurt");
     public static final RegistryObject<SoundEvent> ICEOLOGER_ATTACK = create("iceologer_attack");
     public static final RegistryObject<SoundEvent> ICEOLOGER_DEATH = create("iceologer_death");
+
+    public static final RegistryObject<SoundEvent> WIND_CALLER_AMBIENT = create("wind_caller_ambient");
+    public static final RegistryObject<SoundEvent> WIND_CALLER_HURT = create("wind_caller_hurt");
+    public static final RegistryObject<SoundEvent> WIND_CALLER_BLAST = create("wind_caller_blast");
+    public static final RegistryObject<SoundEvent> WIND_CALLER_UPDRAFT = create("wind_caller_updraft");
+    public static final RegistryObject<SoundEvent> WIND_CALLER_DEATH = create("wind_caller_death");
 
     public static final RegistryObject<SoundEvent> SKELETON_WOLF_AMBIENT = create("skeleton_wolf_ambient");
     public static final RegistryObject<SoundEvent> SKELETON_WOLF_HURT = create("skeleton_wolf_hurt");

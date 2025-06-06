@@ -31,6 +31,10 @@
       "type": "multiblock",
       "multiblock_id": "goety:redstone_golem_revive",
       "enable_visualize": false
+    },
+    {
+      "type": "patchouli:text",
+      "text": "红石傀儡可以成为$(l:goety:mutations/illager_servants)袭击队伍$()的一员，但它不能被设定为队长。"
     }
   ]
 }

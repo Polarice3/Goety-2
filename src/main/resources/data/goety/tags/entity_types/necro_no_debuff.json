@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "__comment": "servants and other owned mobs that don't get massive debuff if owner wears Necro/Nameless set.",
+  "values": [
+    "#forge:spirit",
+    "#forge:golems"
+  ]
+}

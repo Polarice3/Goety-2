@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/recall_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The spell also allows the caster to teleport their servant to the stored location, where they will stand by if they are able, by right-clicking on them."
     }
   ],
   "extra_recipe_mappings": {

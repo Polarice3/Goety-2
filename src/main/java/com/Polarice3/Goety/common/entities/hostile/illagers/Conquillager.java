@@ -185,16 +185,6 @@ public class Conquillager extends HuntingIllagerEntity implements CrossbowAttack
         }
     }
 
-    public boolean isAlliedTo(Entity pEntity) {
-        if (super.isAlliedTo(pEntity)) {
-            return true;
-        } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.ILLAGER) {
-            return this.getTeam() == null && pEntity.getTeam() == null;
-        } else {
-            return false;
-        }
-    }
-
     protected SoundEvent getAmbientSound() {
         return ModSounds.CONQUILLAGER_AMBIENT.get();
     }

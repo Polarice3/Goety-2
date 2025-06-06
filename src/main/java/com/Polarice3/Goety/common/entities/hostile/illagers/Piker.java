@@ -195,16 +195,6 @@ public class Piker extends HuntingIllagerEntity{
         return spawnGroupData;
     }
 
-    public boolean isAlliedTo(Entity pEntity) {
-        if (super.isAlliedTo(pEntity)) {
-            return true;
-        } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.ILLAGER) {
-            return this.getTeam() == null && pEntity.getTeam() == null;
-        } else {
-            return false;
-        }
-    }
-
     public boolean doHurtTarget(Entity p_21372_) {
         float f = (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
         float f1 = (float)this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
@@ -234,9 +224,9 @@ public class Piker extends HuntingIllagerEntity{
     protected double getAttackReachSqr(LivingEntity enemy) {
         if (this.getVehicle() instanceof Ravager) {
             float f = this.getVehicle().getBbWidth() - 0.1F;
-            return (double)(f * 2.0F * f * 2.0F + enemy.getBbWidth());
+            return f * 2.0F * f * 2.0F + enemy.getBbWidth();
         }
-        return (double)(this.getBbWidth() * 5.0F * this.getBbWidth() * 5.0F + enemy.getBbWidth());
+        return this.getBbWidth() * 5.0F * this.getBbWidth() * 5.0F + enemy.getBbWidth();
     }
 
     public boolean targetClose(LivingEntity enemy, double distToEnemySqr){
@@ -364,7 +354,7 @@ public class Piker extends HuntingIllagerEntity{
                             Piker.this.playSound(ModSounds.PIKER_PIKE.get(), Piker.this.getSoundVolume(), Piker.this.getVoicePitch());
                             for (Entity entity : getTargets(Piker.this.level, Piker.this, 3)){
                                 if (entity instanceof LivingEntity living){
-                                    if (!living.isAlliedTo(Piker.this) && !Piker.this.isAlliedTo(living) && living != livingentity && (!(livingentity instanceof ArmorStand) || !((ArmorStand)livingentity).isMarker()) && Piker.this.canAttack(livingentity)){
+                                    if (!MobUtil.areAllies(Piker.this, living) && living != livingentity && (!(livingentity instanceof ArmorStand) || !((ArmorStand)livingentity).isMarker()) && Piker.this.canAttack(livingentity)){
                                         Piker.this.doHurtTarget(living);
                                     }
                                 }

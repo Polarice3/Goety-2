@@ -1,9 +1,7 @@
 package com.Polarice3.Goety.client.render.model;
 
-import com.Polarice3.Goety.client.render.animation.BoundIllagerAnimations;
 import com.Polarice3.Goety.client.render.layer.HierarchicalArmor;
 import com.Polarice3.Goety.common.entities.ally.undead.bound.AbstractBoundIllager;
-import com.Polarice3.Goety.common.entities.ally.undead.bound.BoundIceologer;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -97,14 +95,15 @@ public class BoundIllagerAnimatedModel<T extends AbstractBoundIllager> extends H
 		this.cape.xRot = MathHelper.modelDegrees(10.0F) + Mth.abs(Mth.cos(limbSwing * 0.6662F) * 0.7F * limbSwingAmount / f);
         this.LeftArm.yRot = 0.0F;
         this.LeftArm.zRot = 0.0F;
-		if (entity instanceof BoundIceologer boundIceologer){
-			this.animate(boundIceologer.chunkAnimationState, BoundIllagerAnimations.CHUNK, ageInTicks);
-		}
         AbstractBoundIllager.BoundArmPose armPose = entity.getArmPose();
 		boolean flag = armPose == AbstractBoundIllager.BoundArmPose.CROSSED;
 		this.arms.visible = flag;
 		this.LeftArm.visible = !flag;
 		this.RightArm.visible = !flag;
+		if (flag) {
+			this.RightArm.xRot = -0.75F;
+			this.LeftArm.xRot = -0.75F;
+		}
 	}
 
 	@Override

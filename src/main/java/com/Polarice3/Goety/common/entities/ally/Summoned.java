@@ -23,6 +23,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -60,11 +61,13 @@ public class Summoned extends Owned implements IServant {
     public LivingEntity commandPosEntity;
     public BlockPos commandPos;
     public BlockPos boundPos;
+    public String boundDim = Level.OVERWORLD.location().toString();
     public int commandTick;
     public int killChance;
     public int noHealTime;
+    public long ticketTime = 0;
 
-    protected Summoned(EntityType<? extends Owned> type, Level worldIn) {
+    public Summoned(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
     }
 
@@ -113,6 +116,21 @@ public class Summoned extends Owned implements IServant {
         this.servantTick();
     }
 
+    @Override
+    public long getTicketTime() {
+        return this.ticketTime;
+    }
+
+    @Override
+    public void setTicketTime(long ticketTime) {
+        this.ticketTime = ticketTime;
+    }
+
+    @Override
+    public long decreaseTicketTime() {
+        return --this.ticketTime;
+    }
+
     protected boolean isSunSensitive() {
         return false;
     }
@@ -128,9 +146,9 @@ public class Summoned extends Owned implements IServant {
     }
 
     public void setTarget(@Nullable LivingEntity p_21544_) {
-        if (this.isPatrolling()){
+        if (this.isGuardingArea()){
             if (p_21544_ != null) {
-                if (p_21544_.distanceToSqr(this.vec3BoundPos()) <= Mth.square(PATROL_RANGE)) {
+                if (p_21544_.distanceToSqr(this.vec3BoundPos()) <= Mth.square(GUARDING_RANGE)) {
                     this.normalSetTarget(p_21544_);
                 }
             } else {
@@ -178,27 +196,37 @@ public class Summoned extends Owned implements IServant {
 
     public void populateDefaultArmor(RandomSource randomSource, DifficultyInstance difficulty) {
         if (this.canSpawnArmor()){
-            for(EquipmentSlot equipmentslot : EquipmentSlot.values()) {
-                if (equipmentslot.getType() == EquipmentSlot.Type.ARMOR) {
-                    int i = randomSource.nextInt(2);
-                    if (randomSource.nextFloat() < 0.095F) {
-                        ++i;
-                    }
+            this.spawnArmor(randomSource);
+        }
+    }
 
-                    if (randomSource.nextFloat() < 0.095F) {
-                        ++i;
-                    }
+    public void spawnArmor(RandomSource randomSource) {
+        for(EquipmentSlot equipmentslot : EquipmentSlot.values()) {
+            if (equipmentslot.getType() == EquipmentSlot.Type.ARMOR) {
+                int i = randomSource.nextInt(2);
+                float baseChance = 0.095F;
+                if (this.getTrueOwner() != null) {
+                    baseChance += (float) this.getTrueOwner().getAttributeValue(Attributes.LUCK) * 0.05F;
+                }
+                baseChance = Math.min(baseChance, 0.5F);
 
-                    if (randomSource.nextFloat() < 0.095F) {
-                        ++i;
-                    }
-                    ItemStack itemstack = this.getItemBySlot(equipmentslot);
-                    if (itemstack.isEmpty()) {
-                        Item item = getEquipmentForSlot(equipmentslot, i);
-                        if (item != null) {
-                            this.setItemSlot(equipmentslot, new ItemStack(item));
-                            this.setDropChance(equipmentslot, 0.0F);
-                        }
+                if (randomSource.nextFloat() < baseChance) {
+                    ++i;
+                }
+
+                if (randomSource.nextFloat() < baseChance) {
+                    ++i;
+                }
+
+                if (randomSource.nextFloat() < baseChance) {
+                    ++i;
+                }
+                ItemStack itemstack = this.getItemBySlot(equipmentslot);
+                if (itemstack.isEmpty()) {
+                    Item item = getEquipmentForSlot(equipmentslot, i);
+                    if (item != null) {
+                        this.setItemSlot(equipmentslot, new ItemStack(item));
+                        this.setDropChance(equipmentslot, 0.0F);
                     }
                 }
             }
@@ -386,6 +414,16 @@ public class Summoned extends Owned implements IServant {
 
     public void setBoundPos(BlockPos blockPos){
         this.boundPos = blockPos;
+        this.setBoundDim(this.level.dimension());
+    }
+
+    @Override
+    public String getBoundDim() {
+        return this.boundDim;
+    }
+
+    public void setBoundDim(String string) {
+        this.boundDim = string;
     }
 
     public void dropEquipment(EquipmentSlot equipmentSlot, ItemStack stack){
@@ -426,15 +464,40 @@ public class Summoned extends Owned implements IServant {
         this.kill();
     }
 
+    @Override
+    public void push(Entity p_21294_) {
+        if (!this.level.isClientSide) {
+            if (!this.isStaying()) {
+                super.push(p_21294_);
+            }
+        }
+    }
+
+    protected void doPush(Entity p_20971_) {
+        if (!this.level.isClientSide) {
+            if (!this.isStaying()) {
+                super.doPush(p_20971_);
+            }
+        }
+    }
+
+    public boolean canCollideWith(Entity p_20303_) {
+        if (!this.isStaying()){
+            return super.canCollideWith(p_20303_);
+        } else {
+            return false;
+        }
+    }
+
     public static class FollowOwnerGoal<T extends Mob & IServant> extends Goal {
-        private final T summonedEntity;
-        private LivingEntity owner;
-        private final LevelReader level;
+        public final T summonedEntity;
+        public LivingEntity owner;
+        public final LevelReader level;
         private final double followSpeed;
         private final PathNavigation navigation;
         private int timeToRecalcPath;
-        private final float stopDistance;
-        private final float startDistance;
+        public final float stopDistance;
+        public final float startDistance;
         private float oldWaterCost;
 
         public FollowOwnerGoal(T summonedEntity, double speed, float startDistance, float stopDistance) {
@@ -741,19 +804,46 @@ public class Summoned extends Owned implements IServant {
 
         @Nullable
         protected Vec3 getPosition() {
-            if (this.summonedEntity.isPatrolling()){
+            if (this.summonedEntity.isGuardingArea()){
                 return randomBoundPos();
             } else if (this.mob.isInWaterOrBubble()) {
-                Vec3 vec3 = LandRandomPos.getPos(this.mob, 15, 7);
-                return vec3 == null ? super.getPosition() : vec3;
+                Vec3 vec3 = this.landRandomPos(15, 7);
+                return vec3 == null ? this.defaultRandomPos() : vec3;
             } else {
-                return this.mob.getRandom().nextFloat() >= this.probability ? LandRandomPos.getPos(this.mob, 10, 7) : super.getPosition();
+                return this.mob.getRandom().nextFloat() >= this.probability ? this.landRandomPos(10, 7) : this.defaultRandomPos();
             }
+        }
+
+        public Vec3 defaultRandomPos(){
+            return super.getPosition();
+        }
+
+        @Nullable
+        public Vec3 landRandomPos(int xz, int y){
+            if (this.summonedEntity.getTrueOwner() != null
+                    && this.summonedEntity.isFollowing()){
+                Vec3 vec3 = null;
+
+                for (int i = 0; i < 10; ++i){
+                    BlockPos blockPos = this.summonedEntity.getTrueOwner().blockPosition()
+                            .offset(this.summonedEntity.getRandom().nextIntBetweenInclusive(-xz, xz),
+                                    this.summonedEntity.getRandom().nextIntBetweenInclusive(-y, y),
+                                    this.summonedEntity.getRandom().nextIntBetweenInclusive(-xz, xz));
+                    BlockPos blockPos1 = LandRandomPos.movePosUpOutOfSolid(this.summonedEntity, blockPos);
+                    if (blockPos1 != null){
+                        vec3 = Vec3.atBottomCenterOf(blockPos1);
+                        break;
+                    }
+                }
+
+                return vec3;
+            }
+            return LandRandomPos.getPos(this.mob, xz, y);
         }
 
         public Vec3 randomBoundPos(){
             Vec3 vec3 = null;
-            int range = PATROL_RANGE / 2;
+            int range = GUARDING_RANGE / 2;
 
             for (int i = 0; i < 10; ++i){
                 BlockPos blockPos = this.summonedEntity.getBoundPos()
@@ -781,7 +871,7 @@ public class Summoned extends Owned implements IServant {
 
         @Nullable
         protected Vec3 getPosition() {
-            if (this.summonedEntity.isPatrolling()){
+            if (this.summonedEntity.isGuardingArea()){
                 return randomBoundPos();
             }
             return super.getPosition();
@@ -789,7 +879,7 @@ public class Summoned extends Owned implements IServant {
 
         public Vec3 randomBoundPos(){
             Vec3 vec3 = null;
-            int range = PATROL_RANGE / 2;
+            int range = GUARDING_RANGE / 2;
 
             for (int i = 0; i < 10; ++i){
                 BlockPos blockPos = this.summonedEntity.getBoundPos()
@@ -830,7 +920,7 @@ public class Summoned extends Owned implements IServant {
 
         @Nullable
         protected Vec3 getPosition() {
-            if (this.summonedEntity.isPatrolling()){
+            if (this.summonedEntity.isGuardingArea()){
                 return super.getPosition();
             } else {
                 Vec3 vec3 = this.summonedEntity.getViewVector(0.0F);

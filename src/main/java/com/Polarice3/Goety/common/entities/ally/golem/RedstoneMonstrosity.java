@@ -70,7 +70,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerRideable, IAutoRideable, IRM {
+public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRideable, IAutoRideable, IRM {
     private static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(RedstoneMonstrosity.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(RedstoneMonstrosity.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Boolean> AUTO_MODE = SynchedEntityData.defineId(RedstoneMonstrosity.class, EntityDataSerializers.BOOLEAN);
@@ -128,7 +128,7 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
         this.goalSelector.addGoal(2, new MeleeGoal(this));
         this.goalSelector.addGoal(3, new BelchGoal(this));
         this.goalSelector.addGoal(5, new AttackGoal(this, 1.2D));
-        this.goalSelector.addGoal(8, new WanderGoal<>(this, 1.0D, 10));
+        this.goalSelector.addGoal(8, new RaiderWanderGoal<>(this, 1.0D, 10));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
     }
@@ -473,6 +473,11 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
         }
         this.isStandingUp = 0;
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+    }
+
+    @Override
+    public SoundEvent getCelebrateSound() {
+        return ModSounds.REDSTONE_MONSTROSITY_AMBIENT.get();
     }
 
     public boolean canAnimateMove(){

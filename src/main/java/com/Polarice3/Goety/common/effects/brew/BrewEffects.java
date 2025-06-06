@@ -85,7 +85,7 @@ public class BrewEffects {
         this.register(new PotionBrewEffect(MobEffects.NIGHT_VISION, BrewConfig.NightVisionCost.get(), 3600), Items.GOLDEN_CARROT);
         this.register(new PotionBrewEffect(MobEffects.POISON, BrewConfig.PoisonCost.get(), 900), Items.SPIDER_EYE);
         this.register(new PotionBrewEffect(MobEffects.REGENERATION, BrewConfig.RegenerationCost.get(), 900), Items.GHAST_TEAR);
-        this.register(new PotionBrewEffect(MobEffects.DAMAGE_RESISTANCE, BrewConfig.ResistanceCost.get(), 2, 1800), Items.SCUTE);
+        this.register(new PotionBrewEffect(MobEffects.DAMAGE_RESISTANCE, BrewConfig.ResistanceCost.get(), 4, 1800), Items.SCUTE);
         this.register(new PotionBrewEffect(MobEffects.SLOW_FALLING, BrewConfig.SlowFallingCost.get(), 1800), Items.PHANTOM_MEMBRANE);
         this.register(new PotionBrewEffect(MobEffects.MOVEMENT_SLOWDOWN, BrewConfig.SlownessCost.get(), 1800), Items.CHAIN);
         this.register(new PotionBrewEffect(MobEffects.MOVEMENT_SPEED, BrewConfig.SpeedCost.get(), 3600), Items.SUGAR);

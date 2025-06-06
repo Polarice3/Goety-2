@@ -163,7 +163,7 @@ public class IllBomb extends ThrowableProjectile {
 
     @Override
     protected boolean canHitEntity(Entity pEntity) {
-        if (this.getOwner() != null && (this.getOwner().isAlliedTo(pEntity) || pEntity.isAlliedTo(this.getOwner()))){
+        if (this.getOwner() != null && MobUtil.areAllies(this.getOwner(), pEntity)){
             return false;
         } else {
             return super.canHitEntity(pEntity);

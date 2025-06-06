@@ -1,0 +1,57 @@
+{
+  "name": "Pira Amaldiçoada",
+  "icon": "goety:ominous_pyre",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A pira inspira $(l:goety:mutations/illager_servants)Neollagers$() leais a treinarem. Para fazer um Neollager treinar em uma pira, basta $(l:goety:focuses/command_focus)Comandar$() / $(l:goety:focuses/order_focus)Ordenar$() que eles o façam. Se 'illagerServantAutoTrain' estiver ativado, basta tê-los próximos a uma. Dependendo do ambiente, assim como $(l:rituals/dark_altar)Altares$(), a pira permitirá que o Neollager treine para se tornar um subtipo específico de Illager. Cada pira pode treinar até 8 Illagers treináveis."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_pyre"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Pillager",
+      "text": "$(o)Observação: Neollagers treinam mais rápido para se tornarem Servos Pillager$()$(br)Requisitos: $(li)Neollager $(li)2 Blocos de Feno/Alvo $(li)2 Abóboras Talhadas $(li)16 Cercas de Madeira $(li)20 Lãs"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Vindicador",
+      "text": "Requisitos: $(li)Neollager $(li)1 Estandarte $(li)64 Tábuas de Madeira $(li)60 Blocos de Tijolos $(li)10 Muros $(li)10 Cercas $(li)2 Fornalhas $(li)1 Bancada de Trabalho"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Vindicador Chef",
+      "text": "Requisitos: $(li)Servo Vindicador $(li)4 Defumadoras/Fornalhas $(li)16 Barris $(li)2 Bolos"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Evocador",
+      "text": "Requisitos: $(li)Neollager Mágico $(li)32 Estantes de Livros/Poder de Encantamento $(li)16 Velas Acesas $(li)4 Cabeças $(li)4 Vasos com Plantas $(li)4 Aglomerados de Ametista $(li)4 Blocos de Esmeralda Despertos $(li)1 Atril"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Geomancer",
+      "text": "Requisitos: $(li)Neollager Mágico $(li)16 Blocos de Ametista $(li)64 Blocos de Ardósia $(li)16 $(l:goety:crafts/creeper_totem)Totens de Creeper$()"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Iceologista",
+      "text": "Requisitos: $(li)Neollager Mágico $(li)16 Gelo Azul $(li)64 Blocos de Neve $(li)4 $(l:goety:crafts/artifice/freezing_lamp)Lâmpadas Glaciais$()"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Chamador do Vento",
+      "text": "Requisitos: $(li)Neollager Mágico $(li)64 Blocos de Mármore $(li)32 Blocos de Jade $(li)4 Blocos de Ouro Rebaixados"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Para impedir que continuem treinando, remova a Pira ou mova-os para mais de 10 blocos de distância dela. Se um Illager em treinamento estiver perto de Illagers do tipo que está treinando para se tornar, ele treinará mais rápido."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ominous_pyre": 1
+  }
+}

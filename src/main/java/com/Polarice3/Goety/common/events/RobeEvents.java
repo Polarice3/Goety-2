@@ -1,18 +1,20 @@
 package com.Polarice3.Goety.common.events;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.api.entities.IGolem;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.SnapWartsBlock;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.AllyIrk;
+import com.Polarice3.Goety.common.entities.ally.illager.AllyIrk;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.world.structures.ModStructureTags;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
@@ -21,6 +23,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.monster.MagmaCube;
@@ -50,6 +53,37 @@ public class RobeEvents {
                             Player owner = livingEntity.level.getPlayerByUUID(ownable.getOwnerUUID());
                             if (owner != null && MiscCapHelper.getNoHealTime(livingEntity) <= 0) {
                                 ServantUtil.healServant(owner, livingEntity);
+                            }
+                        }
+                    }
+                }
+                if (MobsConfig.NecroSetDebuff.get() || MobsConfig.NamelessSetDebuff.get()) {
+                    if (MobUtil.getOwner(livingEntity) != null){
+                        if (livingEntity.getMobType() != MobType.UNDEAD
+                                && !(livingEntity instanceof AbstractGolem)
+                                && !(livingEntity instanceof IGolem)
+                                && !livingEntity.getType().is(ModTags.EntityTypes.NECRO_NO_DEBUFF)) {
+                            boolean flag = false;
+                            int amp = 0;
+                            if (MobsConfig.NecroSetDebuff.get()) {
+                                if (CuriosFinder.hasNecroCrown(MobUtil.getOwner(livingEntity)) || CuriosFinder.hasNecroCape(MobUtil.getOwner(livingEntity))) {
+                                    if (CuriosFinder.hasNecroSet(MobUtil.getOwner(livingEntity))) {
+                                        amp += 2;
+                                    }
+                                    flag = true;
+                                }
+                            }
+                            if (MobsConfig.NamelessSetDebuff.get()) {
+                                if (CuriosFinder.hasNamelessCrown(MobUtil.getOwner(livingEntity)) || CuriosFinder.hasNamelessCrown(MobUtil.getOwner(livingEntity))) {
+                                    if (CuriosFinder.hasNamelessSet(MobUtil.getOwner(livingEntity))) {
+                                        amp += 2;
+                                    }
+                                    flag = true;
+                                }
+                            }
+                            if (flag) {
+                                livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 1 + amp));
+                                livingEntity.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), 20, 2 + amp));
                             }
                         }
                     }
@@ -177,14 +211,14 @@ public class RobeEvents {
                 Entity direct1 = direct;
                 if (source instanceof LivingEntity living1) {
                     source1 = living1;
-                } else if (source instanceof OwnableEntity ownable && ownable.getOwner() != null) {
-                    source1 = ownable.getOwner();
+                } else if (MobUtil.getOwner(source) != null) {
+                    source1 = MobUtil.getOwner(source);
                 }
                 if (event.getSource() instanceof NoKnockBackDamageSource damageSource){
                     if (damageSource.getOwner() instanceof LivingEntity living1) {
                         source1 = living1;
-                    } else if (damageSource.getOwner() instanceof OwnableEntity ownable && ownable.getOwner() != null) {
-                        source1 = ownable.getOwner();
+                    } else if (MobUtil.getOwner(damageSource.getOwner()) != null) {
+                        source1 = MobUtil.getOwner(damageSource.getOwner());
                     }
                     direct1 = damageSource.getDirectEntity();
                 }

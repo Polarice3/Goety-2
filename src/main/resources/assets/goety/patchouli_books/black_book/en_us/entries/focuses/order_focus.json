@@ -1,0 +1,18 @@
+{
+  "name": "Order Focus",
+  "icon": "goety:order_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A modified Command Focus that can stores up to 8 servants for you to command with."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/order_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:order_focus": 1
+  }
+}

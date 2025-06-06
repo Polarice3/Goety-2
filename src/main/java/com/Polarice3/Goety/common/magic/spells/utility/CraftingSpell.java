@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.magic.spells.utility;
 
 import com.Polarice3.Goety.client.inventory.container.CraftingFocusMenu;
 import com.Polarice3.Goety.common.magic.Spell;
+import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -36,7 +37,7 @@ public class CraftingSpell extends Spell {
     }
 
     @Override
-    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
         if (caster instanceof Player player){
             player.openMenu(new SimpleMenuProvider((p_52229_, p_52230_, p_52231_) -> {
                 return new CraftingFocusMenu(p_52229_, p_52230_, ContainerLevelAccess.create(worldIn, caster.blockPosition()));

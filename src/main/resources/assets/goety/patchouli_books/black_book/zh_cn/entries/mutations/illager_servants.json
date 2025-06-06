@@ -1,0 +1,141 @@
+{
+  "name": "新刌民",
+  "icon": "goety:magic_emerald",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在了解更多灾厄村民的历史后，你知道了他们如何自一场远古的战争中走出，那场战争中，他们的祖先拿起武器奋勇反抗，而你已经构思并得出了一种能够唤醒村民们心中那暴力倾向的方法......当然，还伴随着奴役"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_villager_to_neollager"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:neollager"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "虽然你设法让村民转化为了新刌民，但那般仇恨必须要在学习之后才会深入人心，灾厄村民最初并不会使用斧头砍人或用弩射箭，你必须设置一个$(l:goety:crafts/artifice/ominous_pyre)合适的训练场$()来让他们成长，如果一名玩家拥有$(l:goety:mutations/illager_servants#banner)已注册的个人旗帜$()，你可以把已注册的旗帜（不能是后文提及的复制品）给予一位新刌民，然后在他身边放一个织布机，他就会给你制作该旗帜的复制品；此外，幼年的新刌民做这些的速度会更快"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:neollager{Magic: 1b}"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "话虽如此，并不是每个新刌民都是平等的，只有那些生来就有魔法天赋与资质的人才有希望成为一名法师，他们身上穿着的紫色长袍很方便地标记出了他们"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:pillager_servant{HandItems:[{Count:1,id:\"minecraft:crossbow\"},{}]}"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "虽然装备了原理复杂的弩，但他们的战斗方式依旧很简单，幸运的是，你的仆从知道当目标靠近时该如何后退拉扯"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:vindicator_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这些蛮兵是你麾下最致命的灾厄村民之一，他的斧头可以破盾，并造成大量伤害，如果你还想让他们乖乖听令，你就不该把他们命名为“Johnny”"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:vindicator_chef_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "一类被赋予专职的卫道士，他们会收集生肉，然后在附近的熔炉或烟熏炉中烹饪他们携带的食物"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:evoker_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "黑魔法的初学者，尽管依旧只会两个咒语，但至少表现力还是不错，在战斗中，他们喜欢到处奔跑以避免迫近的攻击"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:geomancer_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "凭借操控大地的力量，这些衣衫不整的施法者可以从地面上升起图腾柱，以阻碍敌人前进或炸毁他们"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:iceologer_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "他们会使用令人感到不寒而栗的冰魔法砸敌人的头"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wind_caller_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "天空之主！这些有大把头发的萨满可以把敌人抛向天空，或是用风把他们吹走."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:red_bed",
+      "title": "喂食、治愈与繁殖",
+      "text": "你可以直接把食物给予新刌民，或是扔给他们，当他们受伤或想要繁殖时，他们会吃下这些食物来恢复血量；如果新刌民在血量已满、且不处于战斗状态或跟随模式下的同时周围有一张可以触及的床，这些食物就可以让他们相互繁殖（就像村民一样），并诞下一名幼年新刌民"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "当某名新刌民物品栏中持有的食物过多时，他们会把食物扔给其他持有较少食物的新村民；他们通常可以接受的食物有蔬菜、熟肉、水果和腐肉，当然，腐肉不是他们自己吃的，而是用于喂食$(l:goety:mutations/ravaged)劫掠兽或蹂躏者$()的，此外，你还可以主动给予你的灾厄村民们盔甲和同类型的武器"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:black_banner",
+      "anchor": "banner",
+      "title": "注册个人旗帜",
+      "text": "虽然灾厄村民有自己的灾厄旗帜能用，但用自己的旗帜来宣扬你的统治即有趣又有用，在这之前，你需要先注册你的个人旗帜：只需要放置一面旗帜，然后使用法杖或魔杖右键这面旗帜即可（前提是你的法杖上没有装备诸如$(l:goety:focuses/geomancy/pulverize_focus)瓦解聚晶$()这类施法后能够破坏方块的聚晶）"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:pillager_servant{HandItems:[{Count:1,id:\"minecraft:crossbow\"},{}], ArmorItems:[{},{},{},{Count:1,id:\"minecraft:black_banner\"}]}",
+      "scale": 0.5,
+      "text": "像掠夺者仆从这样的灾厄村民就可以成为队长"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "当一名灾厄村民仆从被右键给予你的$(l:goety:mutations/illager_servants#banner)个人旗帜$()时，他们就会被任命为队长，使用$(l:goety:focuses/command_focus)命令聚晶$()或$(l:goety:focuses/order_focus)敕令聚晶$()来命令你的灾厄村民或其它灾厄村民相关的生物（例如劫掠兽），此外，其他灾厄村民会优先跟随他们的队长而不是跟随你，你可以更改他们的行为模式以阻止他们跟随队长，或是空手右键队长来卸下他装备的旗帜"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "用标记好生物的巫毒娃娃右键灾厄村民队长，他会和周围所有跟着自己的灾厄村民/无主的灾厄村民仆从在队长被杀死或主人召回之前持续追捕你标记的生物，如果巡逻队中有袭击者没有跟随灾厄村民，那他们会开始跟随自己原来的主人"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:waystone",
+      "anchor": "raid",
+      "title": "发动袭击",
+      "text": "当然，在主手持有一个存储了村庄位置的指路石的情况下，手持山羊角右键点击灾厄村民队长，即可让你的灾厄村民对村庄发动袭击，攻击所有成年村民，这与巫毒娃娃类似。灾厄村民队长还会吸引附近的袭击者加入他们。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "如果他们袭击成功，他们会回到主人身边并扔下战利品，因为灾厄村民杀死村民后可以获得额外的绿宝石或其它物品，如果灾厄村民仆从的主人把村民记录进了$(l:goety:crafts/grimoire_of_goodwill)亲善之书$()，那灾厄村民将不会发动袭击。如果想停止你的袭击，要么把村民记录进$(l:goety:crafts/grimoire_of_goodwill)亲善之书$()，要么就在$(l)主手或副手持有旗帜的情况下同时按下键位，命令停火$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "所有灾厄村民仆从都会在自己杀死目标后收集掉落物，并在靠近主人或远离战斗时把这些物品扔给主人，除非那些掉落物是他们可以接受并食用的食物"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:chest",
+      "title": "箱子交互",
+      "text": "手持指路石右键一个灾厄村民，如果该指路石存储的坐标指定了一个未注册过的箱子，那么这名灾厄村民会将这个箱子注册为一个有效的容器，他们靠近会从里面拿取食物。如果这名灾厄村民已经被任命为队长，他的追随者也会将这个箱子注册为有效的容器。"
+    }
+  ]
+}

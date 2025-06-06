@@ -5,6 +5,7 @@
   "minVersion": "0.8",
   "refmap": "goety.refmap.json",
   "mixins": [
+    "AbstractArrowMixin",
     "ApplyBonusCountMixin",
     "ArrowItemMixin",
     "EnchantRandomlyFunctionMixin",
@@ -31,6 +32,7 @@
     "EntityRenderersMixin",
     "GuiGraphicsMixin",
     "LevelRendererMixin",
+    "LivingEntityRendererMixin",
     "MinecraftMixin",
     "PlayerRendererAccessor",
     "SpinAttackEffectLayerMixin"

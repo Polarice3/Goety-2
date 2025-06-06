@@ -4,10 +4,12 @@ import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.magic.ISummonSpell;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.config.SpellConfig;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.EffectsUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -74,7 +76,24 @@ public abstract class SummonSpell extends Spell implements ISummonSpell {
         }
     }
 
-    public abstract void commonResult(ServerLevel worldIn, LivingEntity caster);
+    @Override
+    public void commonResult(ServerLevel worldIn, LivingEntity caster) {
+        if (isShifting(caster)) {
+            for (Entity entity : worldIn.getAllEntities()) {
+                if (entity instanceof LivingEntity livingEntity && this.summonPredicate().test(livingEntity)) {
+                    this.teleportServants(caster, entity);
+                }
+            }
+            this.commonResultHit(worldIn, caster);
+        }
+    }
+
+    public void commonResultHit(ServerLevel worldIn, LivingEntity caster){
+        for (int i = 0; i < caster.level.random.nextInt(35) + 10; ++i) {
+            worldIn.sendParticles(ParticleTypes.POOF, caster.getX(), caster.getEyeY(), caster.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
+        }
+        this.playSound(worldIn, caster, ModSounds.SUMMON_SPELL.get());
+    }
 
     public void summonAdvancement(LivingEntity summoner, LivingEntity summoned){
         if(summoner instanceof ServerPlayer serverPlayer){

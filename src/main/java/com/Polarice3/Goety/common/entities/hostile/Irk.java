@@ -1,8 +1,11 @@
 package com.Polarice3.Goety.common.entities.hostile;
 
-import com.Polarice3.Goety.common.entities.ally.AllyIrk;
+import com.Polarice3.Goety.common.entities.ally.illager.AllyIrk;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.monster.Enemy;
@@ -37,17 +40,7 @@ public class Irk extends AllyIrk implements Enemy {
         }
     }
 
-    public boolean isAlliedTo(Entity entityIn) {
-        if (entityIn == this) {
-            return true;
-        } else if (super.isAlliedTo(entityIn)) {
-            return true;
-        } else if (entityIn instanceof Irk) {
-            return this.getTeam() == null && entityIn.getTeam() == null;
-        } else if (entityIn instanceof LivingEntity && ((LivingEntity)entityIn).getMobType() == MobType.ILLAGER) {
-            return this.getTeam() == null && entityIn.getTeam() == null;
-        } else {
-            return false;
-        }
+    public boolean isAlliedTo(Entity pEntity) {
+        return MobUtil.illagerAllies(this, pEntity);
     }
 }

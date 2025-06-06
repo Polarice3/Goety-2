@@ -76,8 +76,4 @@ public class VoidRiftSpell extends Spell {
         voidRift.setExtraDamage(spellStat.getPotency() + WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
         worldIn.addFreshEntity(voidRift);
     }
-
-    @Override
-    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff){
-    }
 }

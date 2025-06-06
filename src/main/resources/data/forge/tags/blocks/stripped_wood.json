@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "goety:stripped_haunted_wood",
+    "goety:stripped_rotten_wood",
+    "goety:stripped_windswept_wood",
+    "goety:stripped_pine_wood"
+  ]
+}

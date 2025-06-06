@@ -72,21 +72,6 @@
             {
               "function": "minecraft:set_potion",
               "id": "minecraft:harming"
-            },
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 0.0,
-                "max": 0.0,
-                "type": "minecraft:uniform"
-              }
-            },
-            {
-              "function": "minecraft:looting_enchant",
-              "count": {
-                "min": 0.0,
-                "max": 1.0
-              }
             }
           ],
           "name": "minecraft:splash_potion"
@@ -95,6 +80,19 @@
       "conditions": [
         {
           "condition": "minecraft:killed_by_player"
+        },
+        {
+          "condition": "minecraft:match_tool",
+          "predicate": {
+            "enchantments": [
+              {
+                "enchantment": "minecraft:looting",
+                "levels": {
+                  "min": 1
+                }
+              }
+            ]
+          }
         }
       ]
     }

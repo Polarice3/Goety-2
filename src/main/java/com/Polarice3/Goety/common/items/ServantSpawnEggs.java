@@ -204,6 +204,30 @@ public class ServantSpawnEggs {
     public static final RegistryObject<ServantSpawnEggItem> ZPIGLIN_BRUTE_SERVANT_SPAWN_EGG = ITEMS.register("zpiglin_brute_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.ZPIGLIN_BRUTE_SERVANT, 0x1c1c1c, 0xf5da2a, egg()));
 
+    public static final RegistryObject<ServantSpawnEggItem> NEOLLAGER_SPAWN_EGG = ITEMS.register("neollager_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.NEOLLAGER, 0x281e11, 0x464234, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> PILLAGER_SERVANT_SPAWN_EGG = ITEMS.register("pillager_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.PILLAGER_SERVANT, 0x341c22, 0xadbebe, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> VINDICATOR_SERVANT_SPAWN_EGG = ITEMS.register("vindicator_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.VINDICATOR_SERVANT, 0x959b9b, 0x32494e, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> VINDICATOR_CHEF_SERVANT_SPAWN_EGG = ITEMS.register("vindicator_chef_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.VINDICATOR_CHEF_SERVANT, 0xe0dfdb, 0x896727, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> EVOKER_SERVANT_SPAWN_EGG = ITEMS.register("evoker_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.EVOKER_SERVANT, 0x959b9b, 0x0f1119, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> GEOMANCER_SERVANT_SPAWN_EGG = ITEMS.register("geomancer_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.GEOMANCER_SERVANT, 0x342817, 0xcdb7d8, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> ICEOLOGER_SERVANT_SPAWN_EGG = ITEMS.register("iceologer_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.ICEOLOGER_SERVANT, 0x022c5b, 0xb6c1ca, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> WIND_CALLER_SERVANT_SPAWN_EGG = ITEMS.register("wind_caller_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.WIND_CALLER_SERVANT, 0x4e7377, 0x78977f, egg()));
+
     public static final RegistryObject<ServantSpawnEggItem> QUICK_GROWING_VINE_SPAWN_EGG = ITEMS.register("quick_growing_vine_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.QUICK_GROWING_VINE, 0x6b8f34, 0x8efb83, egg()));
 

@@ -4,6 +4,7 @@ import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.CreatureBowAttackGoal;
+import com.Polarice3.Goety.common.entities.ai.ModMeleeAttackGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.projectiles.GhostArrow;
 import com.Polarice3.Goety.common.research.ResearchList;
@@ -33,7 +34,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.monster.CrossbowAttackMob;
 import net.minecraft.world.entity.monster.RangedAttackMob;
@@ -56,7 +56,7 @@ import java.util.function.Predicate;
 
 public abstract class AbstractSkeletonServant extends Summoned implements RangedAttackMob {
     private final CreatureBowAttackGoal<AbstractSkeletonServant> bowGoal = new CreatureBowAttackGoal<>(this, 1.0D, 20, 15.0F);
-    public final MeleeAttackGoal meleeGoal = new MeleeAttackGoal(this, 1.2D, false) {
+    public final ModMeleeAttackGoal meleeGoal = new ModMeleeAttackGoal(this, 1.2D, false) {
 
         public void stop() {
             super.stop();
@@ -129,13 +129,13 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
-        this.setArrowPower(pCompound.getInt("arrowPower"));
+        this.arrowPower = pCompound.getInt("arrowPower");
         this.reassessWeaponGoal();
     }
 
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
-        if (pCompound.contains("arrowPower", 99)){
+        if (pCompound.contains("arrowPower")){
             pCompound.putDouble("arrowPower", this.arrowPower);
         }
     }
@@ -313,7 +313,7 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
             if (!(pPlayer.getOffhandItem().getItem() instanceof IWand)) {
                 if (item instanceof SwordItem) {
                     this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
-                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copy());
+                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
                     this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
                     this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
                     for (int i = 0; i < 7; ++i) {
@@ -329,7 +329,7 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
                 }
                 if (item instanceof BowItem) {
                     this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
-                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copy());
+                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
                     this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
                     this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
                     for (int i = 0; i < 7; ++i) {
@@ -346,7 +346,7 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
                 if (this instanceof CrossbowAttackMob){
                     if (item instanceof CrossbowItem) {
                         this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
-                        this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copy());
+                        this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
                         this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
                         this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
                         for (int i = 0; i < 7; ++i) {
@@ -369,22 +369,22 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
                 ItemStack boots = this.getItemBySlot(EquipmentSlot.FEET);
                 this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
                 if (armor.getType() == ArmorItem.Type.HELMET) {
-                    this.setItemSlot(EquipmentSlot.HEAD, itemstack.copy());
+                    this.setItemSlot(EquipmentSlot.HEAD, itemstack.copyWithCount(1));
                     this.dropEquipment(EquipmentSlot.HEAD, helmet);
                     this.setGuaranteedDrop(EquipmentSlot.HEAD);
                 }
                 if (armor.getType() == ArmorItem.Type.CHESTPLATE) {
-                    this.setItemSlot(EquipmentSlot.CHEST, itemstack.copy());
+                    this.setItemSlot(EquipmentSlot.CHEST, itemstack.copyWithCount(1));
                     this.dropEquipment(EquipmentSlot.CHEST, chestplate);
                     this.setGuaranteedDrop(EquipmentSlot.CHEST);
                 }
                 if (armor.getType() == ArmorItem.Type.LEGGINGS) {
-                    this.setItemSlot(EquipmentSlot.LEGS, itemstack.copy());
+                    this.setItemSlot(EquipmentSlot.LEGS, itemstack.copyWithCount(1));
                     this.dropEquipment(EquipmentSlot.LEGS, legging);
                     this.setGuaranteedDrop(EquipmentSlot.LEGS);
                 }
                 if (armor.getType() == ArmorItem.Type.BOOTS) {
-                    this.setItemSlot(EquipmentSlot.FEET, itemstack.copy());
+                    this.setItemSlot(EquipmentSlot.FEET, itemstack.copyWithCount(1));
                     this.dropEquipment(EquipmentSlot.FEET, boots);
                     this.setGuaranteedDrop(EquipmentSlot.FEET);
                 }

@@ -12,7 +12,9 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
@@ -173,16 +175,6 @@ public class Preacher extends HuntingIllagerEntity{
 
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
         return ModSounds.PREACHER_HURT.get();
-    }
-
-    public boolean isAlliedTo(Entity pEntity) {
-        if (super.isAlliedTo(pEntity)) {
-            return true;
-        } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.ILLAGER) {
-            return this.getTeam() == null && pEntity.getTeam() == null;
-        } else {
-            return false;
-        }
     }
 
     @Override

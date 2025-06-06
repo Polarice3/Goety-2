@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:ring_of_the_forge"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "如果'illagerServantTrainArmor',被启用 穿戴锻造之戒可以让新训练的刌民自带盔甲。"
     }
   ],
   "extra_recipe_mappings": {

@@ -20,6 +20,10 @@
     {
       "type": "patchouli:entity",
       "entity": "goety:ravaged"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ラヴェジャーは$(l:goety:mutations/illager_servants)レイダー$()の一員になることはできますが、リーダーになることはできません。"
     }
   ]
 }

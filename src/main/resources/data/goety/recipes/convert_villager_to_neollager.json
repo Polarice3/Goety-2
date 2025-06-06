@@ -1,0 +1,29 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:convert_tamed",
+  "activation_item": {
+    "item": "goety:rampaging_axe"
+  },
+  "craftType": "magic",
+  "entity_to_convert": {
+    "tag": "goety:villagers",
+    "display_name": "entity.minecraft.villager"
+  },
+  "entity_to_convert_into": "goety:neollager",
+  "soulCost": 5,
+  "duration": 30,
+  "ingredients": [
+    {
+      "tag": "forge:storage_blocks/lapis"
+    },
+    {
+      "item": "goety:soul_emerald"
+    },
+    {
+      "item": "minecraft:phantom_membrane"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

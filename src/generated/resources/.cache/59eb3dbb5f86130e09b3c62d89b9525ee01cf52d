@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-18T23:43:34.0202286	Loot Tables
+// 1.20.1	2025-05-22T14:08:58.2720945	Loot Tables
 1173ad0aef6067156a1c3161e3fe16b8e10b3f92 data/goety/loot_tables/blocks/animator.json
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
@@ -37,6 +37,7 @@ c11b407641104062acf4322a13c794b82fc184f7 data/goety/loot_tables/blocks/crag_tile
 d5533c6e5c3d140f81205aa388eabe73688bf693 data/goety/loot_tables/blocks/crag_tile_slab.json
 972422cf23413a37399d7922807c4784bfe27ac3 data/goety/loot_tables/blocks/crag_tile_stairs.json
 258b3054804e2bb55132ca670520911787e487e8 data/goety/loot_tables/blocks/crag_tile_wall.json
+c2950b9fc2a2cd69f264eec84a1e0c31db1678bb data/goety/loot_tables/blocks/creeper_totem.json
 fde1f631badfc5d4a64dc97d5466ceaa30ccabbb data/goety/loot_tables/blocks/crypt_bookshelf.json
 f33596308aa85d938196cb90556f56e12a992043 data/goety/loot_tables/blocks/crypt_bricks.json
 644c719ed73d2af5888c3a67434677a6078a657b data/goety/loot_tables/blocks/crypt_bricks_slab.json
@@ -138,6 +139,7 @@ a901fcf95254ba2d43c08a5a85a272fce6e3b4e4 data/goety/loot_tables/blocks/necro_bra
 716f022f8494b148737f6cc945184f75a06817e7 data/goety/loot_tables/blocks/nether_brick_brazier.json
 57bfd17faa7ef7dbdea7ea54c012486b7b4e558c data/goety/loot_tables/blocks/nether_brick_soul_brazier.json
 88be6bde1c5fd19959b22b967b5c98055b2e7345 data/goety/loot_tables/blocks/night_beacon.json
+b188955f239411ac17890b502e0e0800defcb528 data/goety/loot_tables/blocks/ominous_pyre.json
 ec98e9058454d9383106d94d6458c5bf96f43e0a data/goety/loot_tables/blocks/overgrown_roots.json
 d63d99e6db7c22b9e7823b01d26e0959ae1e2775 data/goety/loot_tables/blocks/pedestal.json
 1a48c9d9713e7067ab66610927f1d745285c442e data/goety/loot_tables/blocks/pine_bookshelf.json

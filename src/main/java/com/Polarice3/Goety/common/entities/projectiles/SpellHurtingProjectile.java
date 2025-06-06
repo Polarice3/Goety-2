@@ -73,7 +73,7 @@ public abstract class SpellHurtingProjectile extends WaterHurtingProjectile {
             if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
                 return super.canHitEntity(pEntity);
             } else {
-                if(MobUtil.areAllies(this.getOwner(), pEntity)){
+                if (MobUtil.areAllies(this.getOwner(), pEntity)){
                     return false;
                 }
                 if (this.getOwner() instanceof Enemy && pEntity instanceof Enemy){

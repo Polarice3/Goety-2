@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.effects.brew;
 
 import com.Polarice3.Goety.common.entities.ally.AnimalSummon;
+import com.Polarice3.Goety.common.entities.ally.illager.AbstractIllagerServant;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -33,6 +34,11 @@ public class FertilityBrewEffect extends BrewEffect {
             if (pTarget instanceof AnimalSummon animal){
                 if (animal.getAge() > 0){
                     animal.setAge(0);
+                }
+            }
+            if (pTarget instanceof AbstractIllagerServant servant){
+                if (servant.getBreedCool() > 0){
+                    servant.setBreedCool(0);
                 }
             }
         }

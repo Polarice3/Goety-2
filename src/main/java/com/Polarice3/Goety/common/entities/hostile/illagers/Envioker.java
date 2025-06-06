@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.hostile.illagers;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.ai.ModMeleeAttackGoal;
 import com.Polarice3.Goety.common.entities.projectiles.SwordProjectile;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -19,11 +20,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.monster.Ravager;
-import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.EvokerFangs;
 import net.minecraft.world.entity.raid.Raid;
@@ -121,20 +119,6 @@ public class Envioker extends HuntingIllagerEntity {
             return IllagerArmPose.ATTACKING;
         } else {
             return this.isCelebrating() ? IllagerArmPose.CELEBRATING : IllagerArmPose.CROSSED;
-        }
-    }
-
-    public boolean isAlliedTo(Entity pEntity) {
-        if (pEntity == this) {
-            return true;
-        } else if (super.isAlliedTo(pEntity)) {
-            return true;
-        } else if (pEntity instanceof Vex) {
-            return ((Vex) pEntity).getOwner() != null && this.isAlliedTo(((Vex)pEntity).getOwner());
-        } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.ILLAGER) {
-            return this.getTeam() == null && pEntity.getTeam() == null;
-        } else {
-            return false;
         }
     }
 
@@ -382,7 +366,7 @@ public class Envioker extends HuntingIllagerEntity {
         }
     }
 
-    class AttackGoal extends MeleeAttackGoal {
+    class AttackGoal extends ModMeleeAttackGoal {
         public AttackGoal(Envioker p_i50577_2_) {
             super(p_i50577_2_, 1.0D, false);
         }
@@ -390,15 +374,6 @@ public class Envioker extends HuntingIllagerEntity {
         @Override
         public boolean canUse() {
             return !Envioker.this.isMagic() && Envioker.this.getTarget() != null;
-        }
-
-        protected double getAttackReachSqr(LivingEntity pAttackTarget) {
-            if (this.mob.getVehicle() instanceof Ravager) {
-                float f = this.mob.getVehicle().getBbWidth() - 0.1F;
-                return (double)(f * 2.0F * f * 2.0F + pAttackTarget.getBbWidth());
-            } else {
-                return super.getAttackReachSqr(pAttackTarget);
-            }
         }
     }
 

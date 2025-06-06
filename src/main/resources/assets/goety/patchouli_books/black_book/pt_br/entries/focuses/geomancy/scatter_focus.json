@@ -8,11 +8,8 @@
       "text": "O foco conjura minas ao redor do conjurador, que se armam após um segundo e explodem, sem causar destruição, quando um alvo não aliado se aproxima delas."
     },
     {
-      "type": "goety:ritual",
+      "type": "patchouli:crafting",
       "recipe": "goety:focus/scatter_focus"
     }
-  ],
-  "extra_recipe_mappings": {
-    "goety:scatter_focus": 1
-  }
+  ]
 }

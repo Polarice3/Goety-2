@@ -2,7 +2,7 @@ package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.MinionModel;
-import com.Polarice3.Goety.common.entities.ally.AllyVex;
+import com.Polarice3.Goety.common.entities.ally.illager.AllyVex;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.EntityModelSet;

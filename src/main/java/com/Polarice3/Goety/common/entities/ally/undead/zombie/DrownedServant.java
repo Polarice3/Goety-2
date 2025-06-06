@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.ally.undead.zombie;
 
+import com.Polarice3.Goety.common.entities.ai.path.ModWaterPathNavigation;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.ItemHelper;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -19,7 +20,6 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.projectile.ThrownTrident;
@@ -33,7 +33,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class DrownedServant extends ZombieServant implements RangedAttackMob {
     private boolean searchingForLand;
-    protected final WaterBoundPathNavigation waterNavigation;
+    protected final ModWaterPathNavigation waterNavigation;
     protected final GroundPathNavigation groundNavigation;
 
     public DrownedServant(EntityType<? extends ZombieServant> type, Level worldIn) {
@@ -41,18 +41,22 @@ public class DrownedServant extends ZombieServant implements RangedAttackMob {
         this.setMaxUpStep(1.0F);
         this.moveControl = new MoveHelperController(this);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.waterNavigation = new WaterBoundPathNavigation(this, worldIn);
+        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+        this.waterNavigation = new ModWaterPathNavigation(this, worldIn);
         this.groundNavigation = new GroundPathNavigation(this, worldIn);
     }
 
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new GoToWaterGoal(this, 1.0D));
-        this.goalSelector.addGoal(1, new FollowOwnerWaterGoal(this, 1.0D, 10.0F, 2.0F));
         this.goalSelector.addGoal(2, new TridentAttackGoal(this, 1.0D, 40, 10.0F));
         this.goalSelector.addGoal(5, new GoToBeachGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new SwimUpGoal(this, 1.0D, this.level.getSeaLevel()));
         this.goalSelector.addGoal(7, new WaterWanderGoal<>(this));
+    }
+
+    public void followGoal(){
+        this.goalSelector.addGoal(5, new FollowOwnerWaterGoal(this, 1.0D, 10.0F, 2.0F));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -118,7 +122,7 @@ public class DrownedServant extends ZombieServant implements RangedAttackMob {
         } else if (this.getTarget() != null && this.getTarget().isInWater()) {
             return true;
         } else {
-            return this.getTrueOwner() != null && this.getTrueOwner().isInWater();
+            return this.getTrueOwner() != null && this.isFollowing() && (this.getTrueOwner().isInWater() || (this.isInWater() && this.getTrueOwner().getY() > this.getY()));
         }
     }
 
@@ -144,6 +148,10 @@ public class DrownedServant extends ZombieServant implements RangedAttackMob {
             }
         }
 
+    }
+
+    public boolean isVisuallySwimming() {
+        return this.isSwimming();
     }
 
     protected boolean closeToNextPos() {
@@ -184,18 +192,12 @@ public class DrownedServant extends ZombieServant implements RangedAttackMob {
         }
 
         public boolean canUse() {
-            if (this.drowned.getTrueOwner() != null){
-                if (this.drowned.getTrueOwner().isUnderWater()){
+            if (this.drowned.getTrueOwner() != null) {
+                if (this.drowned.isFollowing()) {
                     return false;
                 }
-            } else if (this.drowned.level.isDay()) {
-                return false;
             }
-            return super.canUse() && this.drowned.isInWater() && this.drowned.getY() >= (double)(this.drowned.level.getSeaLevel() - 3);
-        }
-
-        public boolean canContinueToUse() {
-            return super.canContinueToUse();
+            return super.canUse() && !this.drowned.level().isDay() && this.drowned.isInWater() && this.drowned.getY() >= (double)(this.drowned.level().getSeaLevel() - 3);
         }
 
         protected boolean isValidTarget(LevelReader pLevel, BlockPos pPos) {
@@ -226,9 +228,9 @@ public class DrownedServant extends ZombieServant implements RangedAttackMob {
             LivingEntity livingentity = this.drowned.getTarget();
             LivingEntity owner = this.drowned.getTrueOwner();
             if (this.drowned.wantsToSwim() && this.drowned.isInWater()) {
-                if ((livingentity != null && livingentity.getY() > this.drowned.getY()) || this.drowned.searchingForLand) {
-                    this.drowned.setDeltaMovement(this.drowned.getDeltaMovement().add(0.0D, 0.002D, 0.0D));
-                } else if (owner != null && owner.getY() > this.drowned.getY()){
+                if ((livingentity != null && livingentity.getY() > this.drowned.getY())
+                        || this.drowned.searchingForLand
+                        || (owner != null && owner.getY() > this.drowned.getY() && this.drowned.isFollowing())) {
                     this.drowned.setDeltaMovement(this.drowned.getDeltaMovement().add(0.0D, 0.002D, 0.0D));
                 }
 
@@ -273,14 +275,12 @@ public class DrownedServant extends ZombieServant implements RangedAttackMob {
         }
 
         public boolean canUse() {
-            if (this.drowned.getTrueOwner() != null){
-                if (this.drowned.getTrueOwner().isUnderWater()){
+            if (this.drowned.getTrueOwner() != null) {
+                if (this.drowned.isFollowing()) {
                     return false;
                 }
-            } else if (this.drowned.level.isDay()) {
-                return false;
             }
-            return this.drowned.isInWater() && this.drowned.getY() < (double)(this.seaLevel - 2);
+            return !this.drowned.level().isDay() && this.drowned.isInWater() && this.drowned.getY() < (double)(this.seaLevel - 2);
         }
 
         public boolean canContinueToUse() {

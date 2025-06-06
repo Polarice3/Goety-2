@@ -206,6 +206,10 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
         return 3.0F;
     }
 
+    public boolean isAlliedTo(Entity pEntity) {
+        return MobUtil.illagerAllies(this, pEntity);
+    }
+
     public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return new ClientboundAddEntityPacket(this, this.hasPose(Pose.EMERGING) ? 1 : 0);
     }

@@ -16,7 +16,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.ItemStack;
@@ -79,18 +78,11 @@ public class GuardianSpell extends SummonSpell {
     }
 
     @Override
-    public void commonResult(ServerLevel worldIn, LivingEntity caster) {
-        if (isShifting(caster)) {
-            for (Entity entity : worldIn.getAllEntities()) {
-                if (entity instanceof GuardianServant) {
-                    this.teleportServants(caster, entity);
-                }
-            }
-            for (int i = 0; i < caster.level.random.nextInt(35) + 10; ++i) {
-                worldIn.sendParticles(ParticleTypes.POOF, caster.getX(), caster.getEyeY(), caster.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
-            }
-            this.playSound(worldIn, caster, ModSounds.DROWNED_NECROMANCER_SUMMON.get());
+    public void commonResultHit(ServerLevel worldIn, LivingEntity caster) {
+        for (int i = 0; i < caster.level.random.nextInt(35) + 10; ++i) {
+            worldIn.sendParticles(ParticleTypes.POOF, caster.getX(), caster.getEyeY(), caster.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
         }
+        this.playSound(worldIn, caster, ModSounds.DROWNED_NECROMANCER_SUMMON.get());
     }
 
     @Override

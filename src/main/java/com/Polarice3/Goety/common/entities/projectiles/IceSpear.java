@@ -91,12 +91,10 @@ public class IceSpear extends IceSpike {
             }
             Entity entity1 = this.getOwner();
             boolean flag;
+            baseDamage += this.getExtraDamage();
             if (entity1 instanceof LivingEntity livingentity) {
                 if (!entity.isAlive() && this.piercedAndKilledEntities != null) {
                     this.piercedAndKilledEntities.add(livingentity);
-                }
-                if (WandUtil.enchantedFocus(livingentity)){
-                    baseDamage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), livingentity);
                 }
                 flag = entity.hurt(ModDamageSource.iceSpike(this, livingentity), baseDamage);
                 if (flag) {

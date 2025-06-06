@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.items.magic;
 
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.common.events.ArcaTeleporter;
 import com.Polarice3.Goety.common.magic.spells.void_spells.TroopSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
@@ -22,7 +23,6 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -90,8 +90,8 @@ public class TroopFocus extends MagicFocus{
                     if (entityType != null){
                         for (Entity entity : serverLevel.getAllEntities()) {
                             if (entity instanceof LivingEntity livingEntity1 && entity.getType() == entityType) {
-                                if (livingEntity1 instanceof OwnableEntity ownable){
-                                    if (ownable.getOwner() == player && !SEHelper.getGroundedEntities(player).contains(livingEntity1)){
+                                if (MobUtil.getOwner(livingEntity1) != null){
+                                    if (MobUtil.getOwner(livingEntity1) == player && !SEHelper.getGroundedEntities(player).contains(livingEntity1)){
                                         list.add(livingEntity1);
                                     }
                                 }
@@ -101,7 +101,9 @@ public class TroopFocus extends MagicFocus{
                 }
                 if (!list.isEmpty()) {
                     for (LivingEntity livingEntity1 : list) {
+                        LivingEntity original = null;
                         if (livingEntity1.isPassenger() && livingEntity1.getVehicle() instanceof LivingEntity vehicle) {
+                            original = livingEntity1;
                             livingEntity1 = vehicle;
                         }
                         if (!livingEntity1.isDeadOrDying()) {
@@ -120,6 +122,12 @@ public class TroopFocus extends MagicFocus{
                                 MobUtil.moveDownToGround(livingEntity1);
                                 ModNetwork.sendToALL(new SPlayWorldSoundPacket(player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
                                 ModNetwork.sendToALL(new SPlayWorldSoundPacket(blockPos, SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
+                                if (original instanceof IServant servant){
+                                    servant.setFollowing();
+                                }
+                                if (livingEntity1 instanceof IServant servant){
+                                    servant.setFollowing();
+                                }
                             } else if (player.getServer() != null) {
                                 ServerLevel serverWorld = player.getServer().getLevel(player.level.dimension());
                                 if (serverWorld != null) {
@@ -132,6 +140,12 @@ public class TroopFocus extends MagicFocus{
                                     livingEntity1.teleportTo(event.getTargetX(), event.getTargetY(), event.getTargetZ());
                                     MobUtil.moveDownToGround(livingEntity1);
                                     ModNetwork.sendToALL(new SPlayWorldSoundPacket(player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
+                                    if (original instanceof IServant servant){
+                                        servant.setFollowing();
+                                    }
+                                    if (livingEntity1 instanceof IServant servant){
+                                        servant.setFollowing();
+                                    }
                                 }
                             }
                         }

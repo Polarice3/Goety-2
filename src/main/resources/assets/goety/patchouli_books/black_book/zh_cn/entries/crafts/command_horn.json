@@ -5,12 +5,12 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "命令呼号允许你将半径16格内所有的仆从切换为待命或跟随模式，你也可以右键单击一个方块，让仆从们向着该方块所在的位置移动"
+      "text": "命令呼号允许你将半径16格内所有的仆从切换为待命或跟随模式，你也可以右键单击一个方块，让仆从向着该方块所在的位置移动"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:command_horn",
-      "text": "巡逻模式下的仆从、已经被命令聚晶指定的仆从、或是与 $(l:crafts/grimoire_of_grounding)坚守之书$() 绑定的仆从不会听从命令呼号的指挥"
+      "text": "处于警戒模式下护卫某一区域的仆从、已经被命令聚晶绑定的仆从、或是与$(l:crafts/grimoire_of_grounding)坚守之书$()绑定的仆从不会听从命令呼号的指挥"
     }
   ]
 }

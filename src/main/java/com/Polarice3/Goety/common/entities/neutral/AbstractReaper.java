@@ -412,7 +412,7 @@ public class AbstractReaper extends Summoned {
 
         @Nullable
         protected Vec3 getPosition() {
-            if (this.summonedEntity.isPatrolling()){
+            if (this.summonedEntity.isGuardingArea()){
                 return randomBoundPos();
             } else {
                 return this.getFlyingPosition();

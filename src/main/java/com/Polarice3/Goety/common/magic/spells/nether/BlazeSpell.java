@@ -12,15 +12,12 @@ import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 
@@ -75,20 +72,6 @@ public class BlazeSpell extends SummonSpell {
     @Override
     public int summonLimit() {
         return SpellConfig.BlazeLimit.get();
-    }
-
-    public void commonResult(ServerLevel worldIn, LivingEntity caster){
-        if (isShifting(caster)) {
-            for (Entity entity : worldIn.getAllEntities()) {
-                if (entity instanceof BlazeServant) {
-                    this.teleportServants(caster, entity);
-                }
-            }
-            for (int i = 0; i < caster.level.random.nextInt(35) + 10; ++i) {
-                worldIn.sendParticles(ParticleTypes.POOF, caster.getX(), caster.getEyeY(), caster.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
-            }
-            worldIn.playSound((Player) null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.SUMMON_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
-        }
     }
 
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {

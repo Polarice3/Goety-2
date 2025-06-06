@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.ally.undead.skeleton;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.neutral.IRavager;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -329,7 +330,11 @@ public class VanguardServant extends AbstractSkeletonServant {
     }
 
     protected double getAttackReachSqr(LivingEntity enemy) {
-        return (double)(this.getBbWidth() * 6.0F * this.getBbWidth() * 6.0F + enemy.getBbWidth());
+        if (this.getVehicle() instanceof IRavager) {
+            float f = this.getVehicle().getBbWidth() - 0.1F;
+            return f * 2.0F * f * 2.0F + enemy.getBbWidth();
+        }
+        return this.getBbWidth() * 6.0F * this.getBbWidth() * 6.0F + enemy.getBbWidth();
     }
 
     public boolean targetClose(LivingEntity enemy, double distToEnemySqr){

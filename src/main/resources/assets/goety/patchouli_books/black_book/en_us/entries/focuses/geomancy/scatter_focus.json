@@ -8,11 +8,8 @@
       "text": "The focus conjures up mines around the caster, where they will prime after a second and explode, non-destructively, when a non-allied target steps near them."
     },
     {
-      "type": "goety:ritual",
+      "type": "patchouli:crafting",
       "recipe": "goety:focus/scatter_focus"
     }
-  ],
-  "extra_recipe_mappings": {
-    "goety:scatter_focus": 1
-  }
+  ]
 }

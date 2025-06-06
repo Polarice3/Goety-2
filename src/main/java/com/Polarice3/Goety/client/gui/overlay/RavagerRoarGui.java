@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.gui.overlay;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.common.entities.ally.ModRavager;
+import com.Polarice3.Goety.common.entities.neutral.IRavager;
 import com.Polarice3.Goety.config.MainConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -13,19 +13,23 @@ public class RavagerRoarGui {
     private static final Minecraft minecraft = Minecraft.getInstance();
 
     public static boolean shouldDisplayBar(){
-        return minecraft.player != null && minecraft.player.getVehicle() instanceof ModRavager ravager && ravager.getRoarCool() > 0;
+        return minecraft.player != null && minecraft.player.getVehicle() instanceof IRavager ravager && ravager.getRoarCool() > 0;
     }
 
     public static void drawHUD(ForgeGui gui, GuiGraphics guiGraphics, float partialTicks, int screenWidth, int screenHeight) {
         if(!shouldDisplayBar()) {
             return;
         }
+        if (minecraft.player == null){
+            return;
+        }
         int i = (screenWidth/2) + (MainConfig.SoulGuiHorizontal.get());
         int RoarCool = 0;
-        if (minecraft.player.getVehicle() instanceof ModRavager ravager){
+        int RoarCoolTotal = 1;
+        if (minecraft.player.getVehicle() instanceof IRavager ravager){
             RoarCool = ravager.getRoarCool();
+            RoarCoolTotal = ravager.getRoarCoolMax();
         }
-        int RoarCoolTotal = ModRavager.getRoarCoolMax();
         int roarLength = 80;
         roarLength *= (RoarCool / (double)RoarCoolTotal);
         int height = screenHeight + (MainConfig.SoulGuiVertical.get() - 20);

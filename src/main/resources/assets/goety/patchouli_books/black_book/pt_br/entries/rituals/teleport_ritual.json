@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Com $(l:crafts/waystone)Pedras de Waypoint$(), você pode se teletransportar para outras áreas usando Rituais, desde que a área esteja na mesma dimensão."
+      "text": "Com $(l:crafts/waystone)Pedras da Orientação$(), você pode se teletransportar para outras áreas usando Rituais, desde que a área esteja na mesma dimensão."
     },
     {
       "type": "goety:ritual",

@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.ai;
 
+import com.Polarice3.Goety.common.entities.neutral.IRavager;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
@@ -165,7 +166,16 @@ public class ModMeleeAttackGoal extends Goal {
       return this.adjustedTickDelay(20);
    }
 
-   protected double getAttackReachSqr(LivingEntity p_25556_) {
-      return this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 2.0F + p_25556_.getBbWidth();
+   protected double getAttackReachSqr(LivingEntity target) {
+      if (this.mob.getVehicle() instanceof IRavager) {
+         float f = this.mob.getVehicle().getBbWidth() - 0.1F;
+         return f * 2.0F * f * 2.0F + target.getBbWidth();
+      } else {
+         return this.defaultAttackReachSqr(target);
+      }
+   }
+
+   protected double defaultAttackReachSqr(LivingEntity target) {
+      return this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 2.0F + target.getBbWidth();
    }
 }

@@ -1,0 +1,57 @@
+{
+  "name": "不吉な炎の台",
+  "icon": "goety:ominous_pyre",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "不吉な火葬場は、忠実な$(l:goety:mutations/illager_servants)ネオラジャー$()に訓練を促します。ネオラジャーを火葬場で訓練させるには、$(l:goety:focuses/command_focus)命令$() / $(l:goety:focuses/order_focus)体制$()の魔法で火葬場まで連れて行きます。illagerServantAutoTrainが有効になっている場合は、ネオラジャーを火葬場の近くに置くだけです。$(l:rituals/dark_altar)儀式$()と同様に、周囲の環境に応じてネオラジャーは特定のイリジャーへと訓練することができます。1つの火葬場で訓練できる訓練可能なイリジャーは最大8体です。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_pyre"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "ピリジャーの従者",
+      "text": "必要: $(li)2 干し草/ターゲット ブロック $(li)2 くりぬかれたカボチャ $(li)16 木の柵 $(li)20 羊毛"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "ヴィンディケーターの従者",
+      "text": "必要: $(li)1 旗 $(li)64 板材 $(li)60 あらゆるレンガブロック $(li)10 塀 $(li)10 柵 $(li)2 かまど $(li)1 作業台"
+    },
+	{
+      "type": "patchouli:text",
+      "title": "ヴィンディケーターシェフの従者",
+      "text": "必要: $(li)ヴィンディケーターの従者 $(li)4 燻製器 $(li)2 かまど $(li)2 ケーキ"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "エヴォーカーの従者",
+      "text": "必要: $(li)魔法ネオラジャー $(li)32 本棚/エンチャントパワー $(li)16 灯ったろうそく $(li)4 頭 $(li)4 植えられた植木鉢 $(li)4 アメジストの塊 $(li)4 覚醒したエメラルドブロック $(li)1 書見台"
+    },
+	{
+      "type": "patchouli:text",
+      "title": "ジオマンサーの従者",
+      "text": "必要: $(li)魔法ネオラジャー $(li)4 芽生えたアメジスト $(li)64 深層岩ブロック $(li)16 $(l:goety:crafts/creeper_totem)クリーパートーテム$()"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "アイソロジャーの従者",
+      "text": "必要: $(li)魔法ネオラジャー $(li)16 青い氷 $(li)48 雪ブロック $(li)16 粉雪 $(li)4 $(l:goety:crafts/artifice/freezing_lamp)フリージングランプ$()"
+    },
+	{
+      "type": "patchouli:text",
+      "title": "ウィンドコーラーの従者",
+      "text": "必要: $(li)魔法ネオラジャー $(li)64 大理石系ブロック $(li)32 翡翠系ブロック $(li)4 インデントされた金系ブロック"
+    },
+	{
+      "type": "patchouli:text",
+      "text": "トレーニングを中止するには、火の台を壊すか、火の台から10ブロック以上離れた場所に、対象を移動させます。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ominous_pyre": 1
+  }
+}

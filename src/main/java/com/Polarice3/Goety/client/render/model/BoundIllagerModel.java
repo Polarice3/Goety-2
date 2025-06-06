@@ -135,6 +135,13 @@ public class BoundIllagerModel<T extends AbstractBoundIllager> extends HumanoidM
             this.leftArm.xRot = Mth.cos(ageInTicks * 0.6662F) * 0.05F;
             this.leftArm.zRot = -2.3561945F;
             this.leftArm.yRot = 0.0F;
+        } else if (boundArmPose == AbstractBoundIllager.BoundArmPose.CROSSED && this.arms.visible) {
+            this.rightArm.xRot = -0.75F;
+            this.rightArm.zRot = 0.0F;
+            this.rightArm.yRot = 0.0F;
+            this.leftArm.xRot = -0.75F;
+            this.leftArm.zRot = 0.0F;
+            this.leftArm.yRot = 0.0F;
         }
 
         boolean flag = boundArmPose == AbstractBoundIllager.BoundArmPose.CROSSED;

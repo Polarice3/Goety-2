@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.blocks.entities;
 import com.Polarice3.Goety.client.particles.PortalShockwaveParticleOption;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.ModTicketTypes;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
@@ -35,6 +36,7 @@ public class NightBeaconBlockEntity extends BlockEntity {
     private boolean hasPortal;
     private boolean isActive;
     private int lastCheckY;
+    public long ticketTime = 0;
 
     public NightBeaconBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
         super(ModBlockEntities.NIGHT_BEACON.get(), p_155229_, p_155230_);
@@ -43,11 +45,9 @@ public class NightBeaconBlockEntity extends BlockEntity {
     public static void tick(Level p_155108_, BlockPos p_155109_, BlockState p_155110_, NightBeaconBlockEntity p_155111_) {
         if (p_155108_ instanceof ServerLevel world) {
             ChunkPos chunkPos = world.getChunkAt(p_155109_).getPos();
-            if (!world.getForcedChunks().contains(chunkPos.toLong())) {
-                world.setChunkForced(chunkPos.x, chunkPos.z, true);
-                if (!world.isLoaded(p_155109_)) {
-                    world.getChunkAt(p_155109_).setLoaded(true);
-                }
+            if (--p_155111_.ticketTime <= 0L) {
+                world.getChunkSource().addRegionTicket(ModTicketTypes.BLOCK, chunkPos, 2, p_155109_);
+                p_155111_.ticketTime = ModTicketTypes.BLOCK.timeout() - 1L;
             }
         }
         int i = p_155109_.getX();

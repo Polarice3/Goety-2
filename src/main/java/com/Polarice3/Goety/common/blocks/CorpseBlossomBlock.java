@@ -2,12 +2,17 @@ package com.Polarice3.Goety.common.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -19,7 +24,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class CorpseBlossomBlock extends Block implements SimpleWaterloggedBlock {
+public class CorpseBlossomBlock extends Block implements SimpleWaterloggedBlock, BonemealableBlock {
     private static final VoxelShape TOP_SHAPE = Block.box(2.0D, 13.0D, 2.0D, 14.0D, 16.0D, 14.0D);
     private static final VoxelShape BOTTOM_SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 3.0D, 14.0D);
     public static final DirectionProperty VERTICAL_FACING = DirectionProperty.create("facing", Direction.Plane.VERTICAL);
@@ -79,6 +84,18 @@ public class CorpseBlossomBlock extends Block implements SimpleWaterloggedBlock 
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_54663_) {
         p_54663_.add(VERTICAL_FACING, WATERLOGGED);
+    }
+
+    public boolean isValidBonemealTarget(LevelReader p_256234_, BlockPos p_57304_, BlockState p_57305_, boolean p_57306_) {
+        return true;
+    }
+
+    public boolean isBonemealSuccess(Level p_222573_, RandomSource p_222574_, BlockPos p_222575_, BlockState p_222576_) {
+        return true;
+    }
+
+    public void performBonemeal(ServerLevel p_222568_, RandomSource p_222569_, BlockPos p_222570_, BlockState p_222571_) {
+        popResource(p_222568_, p_222570_, new ItemStack(this));
     }
 
 }

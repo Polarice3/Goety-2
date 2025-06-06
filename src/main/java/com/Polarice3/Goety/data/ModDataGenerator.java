@@ -27,6 +27,7 @@ public class ModDataGenerator {
         generator.addProvider(event.includeServer(), new ModCraftingProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new ModBlockStateProvider(generator.getPackOutput(), event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new ModItemModelProvider(generator.getPackOutput(), event.getExistingFileHelper()));
+        generator.addProvider(event.includeServer(), new ModWeaponAttributesProvider(generator.getPackOutput(), event.getExistingFileHelper()));
         generator.addProvider(event.includeServer(), new ModAtlasProvider(generator.getPackOutput(), event.getExistingFileHelper()));
         DatapackBuiltinEntriesProvider datapackProvider = new ModRegisteryDataProvider(generator.getPackOutput(), provider);
         CompletableFuture<HolderLookup.Provider> lookupProvider = datapackProvider.getRegistryProvider();

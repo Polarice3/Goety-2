@@ -81,6 +81,25 @@ public class WaystoneItem extends ItemBase {
     }
 
     @Nullable
+    public static BlockPos getBlockPos(ItemStack itemStack){
+        GlobalPos globalPos = getPosition(itemStack);
+        if (globalPos != null){
+            return globalPos.pos();
+        } else {
+            return null;
+        }
+    }
+
+    @Nullable
+    public static BlockEntity getBlockEntity(ItemStack itemStack, Level level) {
+        BlockPos blockPos = getBlockPos(itemStack);
+        if (blockPos == null) {
+            return null;
+        }
+        return level.getBlockEntity(blockPos);
+    }
+
+    @Nullable
     public static Direction getDirection(ItemStack itemStack) {
         if (itemStack.isEmpty()
                 || itemStack.getTag() == null
@@ -145,7 +164,7 @@ public class WaystoneItem extends ItemBase {
                                 owned.setBoundPos(globalPos.pos());
                                 owned.setWandering(false);
                                 owned.setStaying(false);
-                                player.displayClientMessage(Component.translatable("info.goety.servant.patrol", entity.getDisplayName()), true);
+                                player.displayClientMessage(Component.translatable("info.goety.servant.guard", entity.getDisplayName()), true);
                                 player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
                                 ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
                                 return InteractionResult.SUCCESS;

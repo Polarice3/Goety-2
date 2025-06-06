@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.ally.golem;
 
+import com.Polarice3.Goety.api.entities.IGolem;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
@@ -9,7 +10,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 
-public abstract class AbstractGolemServant extends Summoned {
+public abstract class AbstractGolemServant extends Summoned implements IGolem {
     public AbstractGolemServant(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
     }
@@ -49,13 +50,6 @@ public abstract class AbstractGolemServant extends Summoned {
 
     public boolean canAnimateMove(){
         return !this.isImmobile();
-    }
-
-    public abstract double getAttackReachSqr(LivingEntity enemy);
-
-    public boolean targetClose(LivingEntity enemy, double distToEnemySqr){
-        double reach = this.getAttackReachSqr(enemy);
-        return distToEnemySqr <= reach || this.getBoundingBox().intersects(enemy.getBoundingBox());
     }
 
     @Override

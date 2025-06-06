@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.magic.spells.storm;
 
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.magic.TouchSpell;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -35,7 +36,7 @@ public class ChargeSpell extends TouchSpell {
     }
 
     @Override
-    public void touchResult(ServerLevel worldIn, LivingEntity caster, LivingEntity target) {
+    public void touchResult(ServerLevel worldIn, LivingEntity caster, LivingEntity target, SpellStat spellStat) {
         if (!target.hasEffect(GoetyEffects.CHARGED.get())) {
             this.playSound(worldIn, target, 1.0F, 0.5F);
             target.addEffect(new MobEffectInstance(GoetyEffects.CHARGED.get(), MathHelper.secondsToTicks(30), 0, false, false));

@@ -1,0 +1,15 @@
+{
+  "name": "Леденящая лампа",
+  "icon": "goety:freezing_lamp",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Редстоуновая лампа, пропитанная вечным холодом, который медленно замораживает пространство вокруг себя. При активации лампа выключается и перестает работать."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:freezing_lamp"
+    }
+  ]
+}

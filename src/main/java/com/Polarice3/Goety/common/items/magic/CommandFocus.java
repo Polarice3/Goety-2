@@ -24,6 +24,7 @@ import java.util.UUID;
 
 public class CommandFocus extends MagicFocus{
     public static final String TAG_ENTITY = "Servant";
+    public static final String TAG_ENTITY_CLIENT = "ServantClient";
 
     public CommandFocus() {
         super(new CommandSpell());
@@ -36,6 +37,7 @@ public class CommandFocus extends MagicFocus{
                 LivingEntity livingEntity = getServant(stack.getTag());
                 if (livingEntity == null || livingEntity.isDeadOrDying()){
                     stack.getTag().remove(TAG_ENTITY);
+                    stack.getTag().remove(TAG_ENTITY_CLIENT);
                 }
             }
         }
@@ -72,6 +74,7 @@ public class CommandFocus extends MagicFocus{
             if (itemstack.getItem() instanceof CommandFocus){
                 if (hasServant(itemstack) && itemstack.getTag() != null){
                     itemstack.getTag().remove(TAG_ENTITY);
+                    itemstack.getTag().remove(TAG_ENTITY_CLIENT);
                 }
             }
             return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
@@ -93,6 +96,7 @@ public class CommandFocus extends MagicFocus{
         if (compoundTag != null) {
             if (livingEntity != null) {
                 compoundTag.putUUID(TAG_ENTITY, livingEntity.getUUID());
+                compoundTag.putInt(TAG_ENTITY_CLIENT, livingEntity.getId());
             }
         }
     }
@@ -115,18 +119,35 @@ public class CommandFocus extends MagicFocus{
         return null;
     }
 
+    public static LivingEntity getServantClient(Level level, ItemStack stack) {
+        CompoundTag compoundtag = stack.getTag();
+        if (compoundtag != null) {
+            return getServantClient(level, compoundtag);
+        } else {
+            return null;
+        }
+    }
+
+    public static LivingEntity getServantClient(Level level, CompoundTag compoundTag){
+        boolean flag = compoundTag.contains(TAG_ENTITY_CLIENT);
+        if (flag){
+            return level.getEntity(compoundTag.getInt(TAG_ENTITY_CLIENT)) instanceof LivingEntity livingEntity ? livingEntity : null;
+        }
+        return null;
+    }
+
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        addCommandText(stack, tooltip);
+        addCommandText(worldIn, stack, tooltip);
     }
 
-    public static void addCommandText(ItemStack stack, List<Component> tooltip){
+    public static void addCommandText(Level level, ItemStack stack, List<Component> tooltip){
         if (stack.getTag() != null) {
             if (hasServant(stack)) {
                 tooltip.add(Component.translatable("info.goety.focus.noServant"));
             } else {
-                LivingEntity livingEntity = getServant(stack.getTag());
+                LivingEntity livingEntity = getServantClient(level, stack.getTag());
                 if (livingEntity != null){
                     tooltip.add(Component.translatable("info.goety.focus.servant").append(" ")
                             .append(livingEntity.getCustomName() != null ? livingEntity.getCustomName() : livingEntity.getDisplayName())

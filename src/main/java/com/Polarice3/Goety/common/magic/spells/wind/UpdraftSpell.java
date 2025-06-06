@@ -23,6 +23,11 @@ import java.util.List;
 
 public class UpdraftSpell extends Spell {
 
+    @Override
+    public SpellStat defaultStats() {
+        return super.defaultStats().setRadius(1.0D);
+    }
+
     public int defaultSoulCost() {
         return SpellConfig.UpdraftCost.get();
     }
@@ -56,10 +61,11 @@ public class UpdraftSpell extends Spell {
 
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){
         int range = spellStat.getRange();
+        double radius = spellStat.getRadius();
         if (rightStaff(staff)){
             range *= 2;
+            radius += 0.5D;
         }
-        double radius = spellStat.getRadius();
         float damage = SpellConfig.UpdraftBlastDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
         if (WandUtil.enchantedFocus(caster)) {
             range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
@@ -71,6 +77,7 @@ public class UpdraftSpell extends Spell {
         LivingEntity target = this.getTarget(caster, range);
         if (target != null){
             UpdraftBlast updraftBlast = new UpdraftBlast(ModEntityType.UPDRAFT_BLAST.get(), worldIn);
+            updraftBlast.setOwner(caster);
             updraftBlast.setDamage(damage);
             updraftBlast.setAreaOfEffect((float) radius);
             updraftBlast.setPos(target.position());
@@ -78,6 +85,7 @@ public class UpdraftSpell extends Spell {
         } else if (rayTraceResult instanceof BlockHitResult){
             BlockPos blockPos = ((BlockHitResult) rayTraceResult).getBlockPos();
             UpdraftBlast updraftBlast = new UpdraftBlast(ModEntityType.UPDRAFT_BLAST.get(), worldIn);
+            updraftBlast.setOwner(caster);
             updraftBlast.setDamage(damage);
             updraftBlast.setAreaOfEffect((float) radius);
             updraftBlast.setPos(blockPos.getX() + 0.5F, blockPos.getY() + 1.0F, blockPos.getZ() + 0.5F);

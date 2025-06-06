@@ -1,5 +1,5 @@
 {
-  "name": "Gratulacje zostania Liczem",
+  "name": "Parabéns por te tornares um Lich",
   "icon": "minecraft:skeleton_skull",
   "category": "goety:intro",
   "advancement": "goety:goety/become_lich",
@@ -7,23 +7,23 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Udało ci sie odrodzić ponownie jako ostateczna forma Nieumarłego. Posiadasz teraz siły i słabości Nieumarłych. Twój głód nie  idzie już w dół lub w góre. Leczysz zranienia używając Energii Dusz(Chyba że się palisz)."
+      "text": "Conseguiste renascer como a forma definitiva de Morto-Vivo. Possuis agora as forças e fraquezas dos Mortos-Vivos. A tua fome já não diminui ou aumenta. Curas ferimentos usando Energia das Almas (a menos que estejas a arder)."
     },
     {
       "type": "patchouli:text",
-      "text": "Nie możesz być Zatruty, Głodny, Najedzony oraz Regeneracja nie działa na ciebie. Dokonasz samozapłonu w świetle słońca chyba że masz coś na głowie, oraz Pogromca Nieumarłych zadaje ci więcej obrażeń. Ponadto Wieśniacy nienawidzą cie, chyba że wielokrotnie odmnieniłeś ich z bycia Zombie."
+      "text": "Não podes ser Envenenado, Faminto, Saciado e a Regeneração não funciona em ti. Entrarás em combustão espontânea à luz do sol a menos que tenhas algo na cabeça, e os Destruidores de Mortos-Vivos causam-te mais dano. Além disso, os Aldeões odeiam-te, a menos que os tenhas curado múltiplas vezes de serem Zombies."
     },
     {
       "type": "patchouli:text",
-      "text": "Patrząc na pozytywy, większość Nieumarłych nie atakują cię, nie możesz się utopić i tak długo jak masz Hełm albo Odporność na Ogień możesz pozostać w Słońcu cały dzień! Mikstury Krzywdy leczą cię a Mikstury Leczenia zadają ci obrażenia."
+      "text": "Olhando para o lado positivo, a maioria dos Mortos-Vivos não te ataca, não podes afogar-te e desde que tenhas um Capacete ou Resistência ao Fogo podes permanecer ao Sol o dia inteiro! Poções de Dano curam-te e Poções de Cura causam-te dano."
     },
     {
       "type": "patchouli:text",
-      "text": "$(l:crafts/artifice/arca)Arca$() Zmartwychstanie zawsze się stanie, nawet jeśli nie masz wystarczająco Energii Dusz. Jeżeli Arka jest zniszczona i umrzesz, to przestaniesz być liczem."
+      "text": "$(l:crafts/artifice/arca)Arca$() A Ressurreição ocorrerá sempre, mesmo que não tenhas Energia das Almas suficiente. Se a Arca for destruída e morreres, deixarás de ser um Lich."
     },
     {
       "type": "patchouli:text",
-      "text": "Możesz ponownie przybrać forme z czasów kiedy żyłeś klikając Lich Form Key (Domyślnie: N). Forma ta jest tylko wizualna." 
+      "text": "Podes reassumir a forma dos teus tempos de vivo pressionando a Tecla de Forma de Lich (Predefinição: N). Esta forma é apenas visual."
     }
   ]
 }

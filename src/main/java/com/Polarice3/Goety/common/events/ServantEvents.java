@@ -4,7 +4,10 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.common.advancements.ModCriteriaTriggers;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
+import com.Polarice3.Goety.common.entities.ally.illager.AbstractIllagerServant;
+import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
 import com.Polarice3.Goety.common.entities.ally.undead.HauntedSkull;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.FrozenZombieServant;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
@@ -18,13 +21,22 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.gossip.GossipType;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.npc.AbstractVillager;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.event.entity.EntityTravelToDimensionEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -32,6 +44,9 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static net.minecraftforge.event.entity.living.LivingChangeTargetEvent.LivingTargetType.MOB_TARGET;
 
@@ -174,9 +189,56 @@ public class ServantEvents {
     @SubscribeEvent
     public static void HurtEvent(LivingHurtEvent event){
         LivingEntity target = event.getEntity();
+        Entity attacker = event.getSource().getEntity();
         if (MobsConfig.CompatMinionHeal.get()) {
             if (ServantUtil.notServantButOwned(target) && !target.getType().is(ModTags.EntityTypes.NO_HEAL_SERVANTS)) {
                 MiscCapHelper.setNoHealTime(target, MathHelper.secondsToTicks(MobsConfig.ServantHealHalt.get()));
+            }
+        }
+        if (attacker instanceof RaiderServant raider) {
+            if (raider.isRaiding()) {
+                if (raider.getTrueOwner() instanceof Player player) {
+                    if (target instanceof Villager villager) {
+                        if (villager.getPlayerReputation(player) > -200) {
+                            villager.getGossips().add(player.getUUID(), GossipType.MAJOR_NEGATIVE, 25);
+                        }
+                    }
+                }
+            }
+        }
+        if (attacker instanceof Mob mob) {
+            if (mob.getType().getDescriptionId().contains("nightmare_stalker")) {
+                if (MobsConfig.CompatNightmareStalker.get()) {
+                    if (target instanceof IOwned) {
+                        if (target.hasEffect(MobEffects.WITHER)) {
+                            MobEffectInstance instance = target.getEffect(MobEffects.WITHER);
+                            if (instance != null) {
+                                if (instance.getAmplifier() >= 2) {
+                                    if (!target.level.isClientSide) {
+                                        EffectsUtil.deamplifyEffect(target, MobEffects.WITHER, 2, 200);
+                                    }
+                                }
+                            }
+                        }
+                        if (mob.hasEffect(MobEffects.REGENERATION)) {
+                            MobEffectInstance instance = mob.getEffect(MobEffects.REGENERATION);
+                            if (instance != null) {
+                                if (instance.getAmplifier() >= 2) {
+                                    if (!mob.level.isClientSide) {
+                                        EffectsUtil.deamplifyEffect(mob, MobEffects.REGENERATION, 2, 60);
+                                        mob.addEffect(new MobEffectInstance(GoetyEffects.CURSED.get(), 60, 0, false, false));
+                                    }
+                                }
+                            }
+                        }
+                        if (mob.hasEffect(MobEffects.DAMAGE_BOOST)) {
+                            if (!mob.level.isClientSide) {
+                                mob.removeEffect(MobEffects.DAMAGE_BOOST);
+                            }
+                            event.setAmount((float) mob.getAttributeBaseValue(Attributes.ATTACK_DAMAGE));
+                        }
+                    }
+                }
             }
         }
     }
@@ -202,6 +264,68 @@ public class ServantEvents {
                 if (owned.getMasterOwner() instanceof ServerPlayer serverPlayer) {
                     ModCriteriaTriggers.SERVANT_KILLED_ENTITY.trigger(serverPlayer, killed, event.getSource());
                 }
+            } else if (killed.getLastHurtByMob() instanceof IOwned owned) {
+                if (owned.getMasterOwner() instanceof ServerPlayer serverPlayer) {
+                    ModCriteriaTriggers.SERVANT_KILLED_ENTITY.trigger(serverPlayer, killed, event.getSource());
+                }
+            }
+        }
+        AbstractIllagerServant illager = null;
+        if (killer instanceof AbstractIllagerServant servant) {
+            illager = servant;
+        } else if (MobUtil.getOwner(killer) instanceof AbstractIllagerServant servant) {
+            illager = servant;
+        }
+        if (illager != null) {
+            if (illager.level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
+                if (killed instanceof AbstractVillager villager) {
+                    int emeralds = illager.level.getRandom().nextIntBetweenInclusive(1, 3);
+                    if (villager instanceof Villager villager1 && MobsConfig.IllagerServantLootVillagers.get()) {
+                        emeralds += villager1.getVillagerData().getLevel() - 1;
+                    } else if (villager instanceof WanderingTrader && MobsConfig.IllagerServantLootTraders.get()) {
+                        emeralds *= 2;
+                    } else {
+                        emeralds = 0;
+                    }
+                    if (emeralds > 0) {
+                        List<ItemStack> list = new ArrayList<>();
+                        for (MerchantOffer offer : villager.getOffers()) {
+                            if (!offer.isOutOfStock()) {
+                                ItemStack itemStack = offer.assemble();
+                                if (!itemStack.isEmpty()) {
+                                    if (itemStack.isStackable()) {
+                                        itemStack.setCount(offer.getMaxUses() - offer.getUses());
+                                    }
+                                    list.add(itemStack);
+                                }
+                            }
+                        }
+                        if (!list.isEmpty()) {
+                            for (ItemStack itemStack : list) {
+                                if (illager.getInventory().canAddItem(itemStack)) {
+                                    illager.getInventory().addItem(itemStack);
+                                } else {
+                                    villager.spawnAtLocation(itemStack);
+                                }
+                            }
+                        }
+                        ItemStack itemStack = new ItemStack(Items.EMERALD, emeralds);
+                        if (illager.getInventory().canAddItem(itemStack)) {
+                            illager.getInventory().addItem(itemStack);
+                        } else {
+                            villager.spawnAtLocation(itemStack);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void ChangeDimensions(EntityTravelToDimensionEvent event) {
+        if (event.getEntity() instanceof IServant servant) {
+            if (event.getDimension() != null) {
+                servant.setBoundPos(null);
             }
         }
     }
@@ -228,23 +352,21 @@ public class ServantEvents {
         if (event.getExplosion() != null) {
             if (event.getExplosion().getIndirectSourceEntity() != null) {
                 if (event.getExplosion().getIndirectSourceEntity() instanceof Apostle) {
-                    event.getAffectedEntities().removeIf(entity -> (entity instanceof IOwned && ((IOwned) entity).getTrueOwner() instanceof Apostle) || (entity == event.getExplosion().getIndirectSourceEntity()));
+                    event.getAffectedEntities().removeIf(entity -> (MobUtil.getOwner(entity) instanceof Apostle) || (entity == event.getExplosion().getIndirectSourceEntity()));
                 }
                 if (event.getExplosion().getIndirectSourceEntity() instanceof IOwned sourceMob) {
                     if (sourceMob.getTrueOwner() instanceof Apostle) {
-                        event.getAffectedEntities().removeIf(entity -> (entity instanceof IOwned && ((IOwned) entity).getTrueOwner() instanceof Apostle) || entity == sourceMob.getTrueOwner());
+                        event.getAffectedEntities().removeIf(entity -> (MobUtil.getOwner(entity) instanceof Apostle) || entity == sourceMob.getTrueOwner());
                     }
                     if (sourceMob instanceof HauntedSkull){
                         event.getAffectedEntities().removeIf(entity ->
-                                (entity instanceof IOwned && ((IOwned) entity).getTrueOwner() == sourceMob.getTrueOwner()
-                                        || entity instanceof OwnableEntity && ((OwnableEntity) entity).getOwner() == sourceMob.getTrueOwner()
+                                (MobUtil.getOwner(entity) != null && MobUtil.getOwner(entity) == sourceMob.getTrueOwner()
                                         || entity == sourceMob.getTrueOwner()));
                     }
                 }
                 if (event.getExplosion().getExploder() instanceof ThrowableFungus fungus){
                     event.getAffectedEntities().removeIf(entity ->
-                            (entity instanceof IOwned && ((IOwned) entity).getTrueOwner() == fungus.getOwner()
-                                    || entity instanceof OwnableEntity && ((OwnableEntity) entity).getOwner() == fungus.getOwner()
+                            (MobUtil.getOwner(entity) != null && MobUtil.getOwner(entity) == fungus.getOwner()
                                     || entity instanceof AbstractHorse && fungus.getOwner() != null &&  ((AbstractHorse) entity).getOwnerUUID() == fungus.getOwner().getUUID()
                                     || entity == fungus.getOwner()
                                     || entity instanceof ThrowableFungus));
@@ -293,6 +415,54 @@ public class ServantEvents {
                                         event.setLootingLevel(looting);
                                     }
                                 }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void DropEvents(LivingDropsEvent event){
+        if (event.getEntity() != null) {
+            LivingEntity victim = event.getEntity();
+            if (!victim.level.isClientSide) {
+                if (victim instanceof Mob) {
+                    if (MobsConfig.IllagerServantCollectLoot.get()){
+                        AbstractIllagerServant servant = null;
+                        if (victim.getLastHurtByMob() instanceof IOwned minion){
+                            if (minion.getTrueOwner() instanceof AbstractIllagerServant servant1) {
+                                servant = servant1;
+                            }
+                        } else {
+                            if (event.getSource() instanceof NoKnockBackDamageSource source) {
+                                if (source.getOwner() instanceof IOwned minion) {
+                                    if (minion.getTrueOwner() instanceof AbstractIllagerServant servant1) {
+                                        servant = servant1;
+                                    }
+                                }
+                            } else if (event.getSource().getEntity() instanceof IOwned minion) {
+                                if (minion.getTrueOwner() instanceof AbstractIllagerServant servant1) {
+                                    servant = servant1;
+                                }
+                            }
+                        }
+                        if (victim.getLastHurtByMob() instanceof AbstractIllagerServant servant1) {
+                            servant = servant1;
+                        } else {
+                            if (event.getSource() instanceof NoKnockBackDamageSource source) {
+                                if (source.getOwner() instanceof AbstractIllagerServant servant1) {
+                                    servant = servant1;
+                                }
+                            } else if (event.getSource().getEntity() instanceof AbstractIllagerServant servant1) {
+                                servant = servant1;
+                            }
+                        }
+                        if (servant != null){
+                            if (servant.getTrueOwner() != null) {
+                                servant.addDrops(event.getDrops());
+                                event.getDrops().clear();
                             }
                         }
                     }

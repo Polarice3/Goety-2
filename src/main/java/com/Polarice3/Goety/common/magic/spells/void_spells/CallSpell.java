@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.magic.spells.void_spells;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.items.magic.CallFocus;
 import com.Polarice3.Goety.common.magic.Spell;
+import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.WandUtil;
@@ -51,7 +52,7 @@ public class CallSpell extends Spell {
     }
 
     @Override
-    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
         if (caster instanceof ServerPlayer player) {
             if (!CallFocus.hasSummon(WandUtil.findFocus(player))){
                 player.displayClientMessage(Component.translatable("info.goety.focus.noSummon"), true);

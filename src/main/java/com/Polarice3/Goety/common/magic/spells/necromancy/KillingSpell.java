@@ -4,6 +4,7 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.client.particles.GatherTrailParticle;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.Spell;
+import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SThunderBoltPacket;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -66,7 +67,7 @@ public class KillingSpell extends Spell {
     }
 
     @Override
-    public void useSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, int castTime) {
+    public void useSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, int castTime, SpellStat spellStat) {
         LivingEntity target = this.getTarget(caster);
         if (target != null){
             ColorUtil colorUtil = new ColorUtil(0xd91516);
@@ -75,7 +76,7 @@ public class KillingSpell extends Spell {
     }
 
     @Override
-    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
         Vec3 vec3 = caster.getEyePosition();
         LivingEntity target = this.getTarget(caster);
         if (target != null){

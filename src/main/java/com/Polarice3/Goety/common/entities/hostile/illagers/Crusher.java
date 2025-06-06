@@ -29,7 +29,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.Item;
@@ -301,20 +300,6 @@ public class Crusher extends HuntingIllagerEntity{
 
     public boolean isMoving() {
         return this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
-    }
-
-    public boolean isAlliedTo(Entity pEntity) {
-        if (pEntity == this) {
-            return true;
-        } else if (super.isAlliedTo(pEntity)) {
-            return true;
-        } else if (pEntity instanceof Vex vex && vex.getOwner() != null) {
-            return this.isAlliedTo(vex.getOwner());
-        } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.ILLAGER) {
-            return this.getTeam() == null && pEntity.getTeam() == null;
-        } else {
-            return false;
-        }
     }
 
     public boolean canPickUpLoot() {

@@ -757,6 +757,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.order_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:order_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.osseous_focus": {
       "conditions": {
         "items": [
@@ -1355,6 +1367,9 @@
     ],
     [
       "item.goety.command_focus"
+    ],
+    [
+      "item.goety.order_focus"
     ],
     [
       "item.goety.sonic_boom_focus"

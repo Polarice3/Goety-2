@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.items;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ally.AnimalSummon;
+import com.Polarice3.Goety.common.entities.ally.illager.AbstractIllagerServant;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -143,6 +144,8 @@ public class ServantSpawnEggItem extends ForgeSpawnEggItem {
                 mob = ageableMob.getBreedOffspring(serverLevel, ageableMob);
             } else if (targetMob instanceof AnimalSummon animalSummon) {
                 mob = animalSummon.getBreedOffspring(serverLevel, animalSummon);
+            } else if (targetMob instanceof AbstractIllagerServant illager) {
+                mob = illager.getBreedOffspring(serverLevel, illager);
             } else {
                 mob = entityType.create(serverLevel);
             }

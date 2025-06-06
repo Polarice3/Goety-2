@@ -13,7 +13,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec SPEC;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> RavagerRoarCooldown;
-    public static final ForgeConfigSpec.ConfigValue<Integer> ServantPatrolRange;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ServantGuardingRange;
     public static final ForgeConfigSpec.ConfigValue<Integer> ServantHealHalt;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> UndeadMinionHealCost;
@@ -36,6 +36,9 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> NetherMinionHealCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> NetherMinionHealTime;
     public static final ForgeConfigSpec.ConfigValue<Double> NetherMinionHealAmount;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> IllagerServantTrainTime;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IllagerServantMaxMentors;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnFreq;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnChance;
@@ -105,6 +108,12 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> WildfireTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> VexTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PillagerServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> VindicatorServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> EvokerServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> GeomancerServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> IceologerServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WindCallerServantTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> SpiderServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CaveSpiderServantTexture;
@@ -138,6 +147,8 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ServantRideAutonomous;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ServantsAttackCreepers;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecroRobeUndead;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> NecroSetDebuff;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> NamelessSetDebuff;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VariousRobeWitch;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ServantsMasterImmune;
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerAttackCancel;
@@ -148,6 +159,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> FrostMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NetherMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CompatMinionHeal;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> CompatNightmareStalker;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSoulJar;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSummonsLife;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WildfireBlazingHelm;
@@ -203,6 +215,16 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> CryologerIceChunk;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SorcererHPIncrease;
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerServantAutoTrain;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerServantAllBreed;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerServantLootVillagers;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerServantLootTraders;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerServantPickUpDrops;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerServantCollectLoot;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerServantAllOpenDoors;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerServantGhostArrows;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerServantTrainArmor;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> WightSpawn;
 
@@ -297,6 +319,20 @@ public class MobsConfig {
                 BUILDER.push("Vexes");
                 VexTexture = BUILDER.comment("If Vexes have custom textures, Default: true")
                         .define("vexTexture", true);
+                BUILDER.pop();
+                BUILDER.push("Illager Servants");
+                PillagerServantTexture = BUILDER.comment("If Pillager Servants have custom textures, Default: true")
+                        .define("pillagerServantTexture", true);
+                VindicatorServantTexture = BUILDER.comment("If Vindicator Servants have custom textures, Default: true")
+                        .define("vindicatorServantTexture", true);
+                EvokerServantTexture = BUILDER.comment("If Evoker Servants have custom textures, Default: true")
+                        .define("evokerServantTexture", true);
+                GeomancerServantTexture = BUILDER.comment("If Geomancer Servants have custom textures, Default: true")
+                        .define("geomancerServantTexture", true);
+                IceologerServantTexture = BUILDER.comment("If Iceologer Servants have custom textures, Default: true")
+                        .define("iceologerServantTexture", true);
+                WindCallerServantTexture = BUILDER.comment("If Wind Caller Servants have custom textures, Default: true")
+                        .define("windCallerServantTexture", true);
                 BUILDER.pop();
                 BUILDER.push("Spider Servants");
                 SpiderServantTexture = BUILDER.comment("If Spiders Servants have custom textures, Default: true")
@@ -419,8 +455,38 @@ public class MobsConfig {
             WildfireSummonsLife = BUILDER.comment("Whether Wildfire's summons have limited lifespans, Default: true")
                     .define("wildfireSummonsLife", true);
             BUILDER.pop();
+            BUILDER.push("Illager Servants");
+            IllagerServantTrainTime = BUILDER.comment("How long does it take for Illagers to fully train, count in seconds, Default: 1200")
+                    .defineInRange("illagerServantTrainTime", 1200, 0, Integer.MAX_VALUE);
+            IllagerServantMaxMentors = BUILDER.comment("How many trained Illagers can reduce training time for training Illagers, Default: 2")
+                    .defineInRange("illagerServantMaxMentors", 2, 0, Integer.MAX_VALUE);
+            IllagerServantAutoTrain = BUILDER.comment("Whether eligible Illagers will automatically train just by being near an active Ominous Pyre, instead of having been commanded to it, Default: false")
+                    .define("illagerServantAutoTrain", false);
+            IllagerServantAllBreed = BUILDER.comment("Whether every Illager Servant type can breed or only Neollagers can, Default: true")
+                    .define("illagerServantAllBreed", true);
+            IllagerServantLootVillagers = BUILDER.comment("Whether Illagers will gain loot based on current offers by killing Villagers, Default: true")
+                    .define("illagerServantLootVillagers", true);
+            IllagerServantLootTraders = BUILDER.comment("Whether Illagers will gain loot based on current offers by killing Wandering Traders, Default: true")
+                    .define("illagerServantLootTraders", true);
+            IllagerServantPickUpDrops = BUILDER.comment("Whether Illagers will take certain items from the ground, Default: true")
+                    .define("illagerServantPickUpDrops", true);
+            IllagerServantCollectLoot = BUILDER.comment("Whether Illagers will instantly store drops from their kills into their inventory, before throwing them back to their owner or store them in bounded chest, Default: true")
+                    .define("illagerServantCollectLoot", true);
+            IllagerServantAllOpenDoors = BUILDER.comment("Whether every Illagers can open doors when raiding instead of just Vindicators, Default: true")
+                    .define("illagerServantAllOpenDoors", true);
+            IllagerServantGhostArrows = BUILDER.comment("Whether Illagers shoot arrows that pass through allied mobs, Default: true")
+                    .define("illagerServantGhostArrows", true);
+            IllagerServantTrainArmor = BUILDER.comment("Whether Neollagers gain armor after training if their owner wears Ring of the Forge, Default: true")
+                    .define("illagerServantTrainArmor", true);
+            BUILDER.pop();
+        NecroSetDebuff = BUILDER.comment("Whether wearing Necro Crown and/or Necro Cape gives massive debuffs to non-undead servant, Default: false")
+                .define("necroSetDebuff", false);
+        NamelessSetDebuff = BUILDER.comment("Whether wearing Nameless Crown and/or Nameless Cape gives massive debuffs to non-undead servant, Default: false")
+                .define("namelessSetDebuff", false);
         CompatMinionHeal = BUILDER.comment("Whether mobs owned by player outside of Goety Servants can heal while wearing appropriate robes, Default: true")
                 .define("compatMinionHeal", true);
+        CompatNightmareStalker = BUILDER.comment("Whether Nightmare Stalker from Born In Chaos mod no longer gain massive buffs when fighting certain Goety mobs, Default: true")
+                .define("compatNightmareStalker", true);
         ServantTeleport = BUILDER.comment("Whether Servants can teleport to Players, Default: false")
                 .define("servantTeleport", false);
         RedstoneMonstrosityLeafBreak = BUILDER.comment("Whether Redstone Monstrosity breaks leaves and certain blocks if mob griefing is enabled, Default: true")
@@ -447,8 +513,8 @@ public class MobsConfig {
                 .defineInRange("maxSlimeSize", 4, 1, 127);
         RavagerRoarCooldown = BUILDER.comment("How many seconds it takes before Ravager can manually roar again, Default: 10")
                 .defineInRange("ravagerRoarCooldown", 10, 0, Integer.MAX_VALUE);
-        ServantPatrolRange = BUILDER.comment("How far servants can patrol from their patrol location, Default: 16")
-                .defineInRange("servantPatrolRange", 16, 2, Integer.MAX_VALUE);
+        ServantGuardingRange = BUILDER.comment("How far servants can guard from their guarding location, Default: 16")
+                .defineInRange("servantGuardingRange", 16, 2, Integer.MAX_VALUE);
         ServantHealHalt = BUILDER.comment("How many seconds a servant can't heal through Soul Energy after being injured, Default: 5")
                 .defineInRange("servantHealHalt", 5, 0, Integer.MAX_VALUE);
         BUILDER.pop();

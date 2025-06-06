@@ -1,5 +1,5 @@
 {
-  "name": "Necromante do Wither",
+  "name": "Wither Necromante",
   "icon": "goety:nether_staff",
   "category": "goety:mutations",
   "advancement": "goety:goety/unlock_necromancer",
@@ -23,7 +23,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "goety:soul_jar{Wither: 1b}",
-      "text": "Se um Necromante do Wither cair, ter um $(l:crafts/empty_soul_jar)Jarra de Alma Vazia$() fará com que sua alma a preencha, e, ao clicar em um Esqueleto do Wither, ele será revivido usando o Esqueleto como um novo corpo."
+      "text": "Se um Wither Necromante cair, ter um $(l:crafts/empty_soul_jar)Jarra de Alma Vazia$() fará com que sua alma a preencha, e, ao clicar em um Esqueleto do Wither, ele será revivido usando o Esqueleto como um novo corpo."
     }
   ]
 }

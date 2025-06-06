@@ -15,7 +15,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "The cage requires a Magma Block to be added, in order to call forth a Blaze Servant. Much like the Spider Nest, right-clicking the nest with a Wand or Staff will make it so that it will only spawn a servant if a valid target is near it. While crouching, however, it will change whether the servant will spawn patrolling the block or following the owner."
+      "text": "The cage requires a Magma Block to be added, in order to call forth a Blaze Servant. Much like the Spider Nest, right-clicking the nest with a Wand or Staff will make it so that it will only spawn a servant if a valid target is near it. While crouching, however, it will change whether the servant will spawn guarding the block or following the owner."
     }
   ],
   "extra_recipe_mappings": {

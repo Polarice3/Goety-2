@@ -144,16 +144,16 @@ public class ZombieVillagerServant extends ZombieServant implements InventoryCar
         return this.isNatural();
     }
 
-    public InteractionResult mobInteract(Player p_34394_, InteractionHand p_34395_) {
-        ItemStack itemstack = p_34394_.getItemInHand(p_34395_);
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
         if (!this.level.isClientSide) {
             if (this.canConvert() && itemstack.is(Items.GOLDEN_APPLE)) {
                 if (this.hasEffect(MobEffects.WEAKNESS)) {
-                    if (!p_34394_.getAbilities().instabuild) {
+                    if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
 
-                    this.startConverting(p_34394_.getUUID(), this.random.nextInt(2401) + 3600);
+                    this.startConverting(pPlayer.getUUID(), this.random.nextInt(2401) + 3600);
 
                     return InteractionResult.SUCCESS;
                 } else {
@@ -161,7 +161,7 @@ public class ZombieVillagerServant extends ZombieServant implements InventoryCar
                 }
             }
         }
-        return super.mobInteract(p_34394_, p_34395_);
+        return super.mobInteract(pPlayer, pHand);
     }
 
     protected boolean convertsInWater() {

@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.network.client;
 
-import com.Polarice3.Goety.common.entities.ally.ModRavager;
+import com.Polarice3.Goety.common.entities.neutral.IRavager;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
@@ -20,7 +20,7 @@ public class CRavagerRoarPacket {
             ServerPlayer playerEntity = ctx.get().getSender();
 
             if (playerEntity != null) {
-                if (playerEntity.getVehicle() instanceof ModRavager ravager){
+                if (playerEntity.getVehicle() instanceof IRavager ravager){
                     ravager.forceRoar();
                 }
             }

@@ -34,7 +34,10 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -536,10 +539,10 @@ public class PotionEvents {
     public static void changeTarget(LivingChangeTargetEvent event){
         LivingEntity target = event.getOriginalTarget();
         if (target != null) {
+            LivingEntity owner = MobUtil.getOwner(event.getEntity());
             if (target.hasEffect(GoetyEffects.SHADOW_WALK.get())
             && !event.getEntity().getType().is(Tags.EntityTypes.BOSSES)
-            && !(event.getEntity() instanceof OwnableEntity ownable &&
-                    ownable.getOwner() != null && ownable.getOwner().getType().is(Tags.EntityTypes.BOSSES))) {
+                    && !(owner != null && owner.getType().is(Tags.EntityTypes.BOSSES))) {
                 if (event.getTargetType() == MOB_TARGET) {
                     event.setNewTarget(null);
                 } else {

@@ -17,7 +17,7 @@ public interface ITrainingBlock extends IOwnedBlock{
         return false;
     }
 
-    default boolean isPatrolling(){
+    default boolean isGuarding(){
         return true;
     }
 

@@ -2,9 +2,7 @@ package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.ColorUtil;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -17,6 +15,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
@@ -103,9 +102,11 @@ public class TotemicBomb extends AbstractMonolith{
             if (this.level instanceof ServerLevel serverLevel){
                 ColorUtil colorUtil = new ColorUtil(0xff8905);
                 serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, this.explosionPower * 2, 1), this.getX(), this.getY(), this.getZ(), 0, 0.0D, 0.0D, 0.0D, 0);
+                serverLevel.sendParticles(ParticleTypes.EXPLOSION_EMITTER, this.getX(), this.getY(), this.getZ(), 0, 1.0F, 0.0F, 0.0F, 0.5F);
             }
             this.dead = true;
-            this.level.explode(this, this.getX(), this.getY(), this.getZ(), this.explosionPower, Level.ExplosionInteraction.NONE);
+            LootingExplosion.Mode lootMode = CuriosFinder.hasWanting(this.getOwner()) ? LootingExplosion.Mode.LOOT : LootingExplosion.Mode.REGULAR;
+            ExplosionUtil.lootExplode(this.level, this, this.getX(), this.getY(), this.getZ(), this.explosionPower, false, Explosion.BlockInteraction.KEEP, lootMode);
             this.discard();
         }
     }

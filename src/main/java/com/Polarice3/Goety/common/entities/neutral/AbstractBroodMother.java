@@ -162,8 +162,8 @@ public class AbstractBroodMother extends Summoned implements IAutoRideable, Play
             }
 
             @Override
-            protected double getAttackReachSqr(LivingEntity entity) {
-                return this.mob.getBbWidth() * 1.25D * this.mob.getBbWidth() * 1.25D + entity.getBbWidth();
+            protected double getAttackReachSqr(LivingEntity target) {
+                return this.mob.getBbWidth() * 1.25D * this.mob.getBbWidth() * 1.25D + target.getBbWidth();
             }
         });
     }

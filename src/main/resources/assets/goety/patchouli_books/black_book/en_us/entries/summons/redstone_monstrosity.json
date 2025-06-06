@@ -26,6 +26,10 @@
     {
       "type": "patchouli:text",
       "text": "The Stone Bricks can be substituted with other similar blocks such as Deepslate Bricks for the mold. The Monstrosity is perhaps one of the strongest beings you have created, its power unmatched by other servants. They can be repaired by right-clicking on them with Redstone Blocks."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Redstone Monstrosities can be part of a $(l:goety:mutations/illager_servants)raiding party$(), though they cannot be leaders."
     }
   ],
   "extra_recipe_mappings": {

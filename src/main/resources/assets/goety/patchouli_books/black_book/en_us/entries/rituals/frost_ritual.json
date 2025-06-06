@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Requirements: $(li)Altar is located in a snowing biome $(br)$(l)OR$()$() $(li)16 Ice Blocks of any type $(li)8 Snow Blocks $(li)4 Freezing Lamps"
+      "text": "Requirements: $(li)Altar is located in a snowing biome $(br)$(l)OR$()$() $(li)16 Ice Blocks of any type $(li)8 Snow Blocks $(li)4 $(l:goety:crafts/artifice/freezing_lamp)Freezing Lamps$()"
     },
     {
       "type": "patchouli:image",

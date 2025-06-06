@@ -618,11 +618,6 @@ public class GraveGolem extends AbstractGolemServant {
         return (double)(this.getBbWidth() * 6.0F + enemy.getBbWidth()) + 1.0D;
     }
 
-    public boolean targetClose(LivingEntity enemy, double distToEnemySqr){
-        double reach = this.getAttackReachSqr(enemy);
-        return distToEnemySqr <= reach || this.getBoundingBox().intersects(enemy.getBoundingBox());
-    }
-
     public boolean targetClose(LivingEntity enemy){
         return targetClose(enemy, this.distanceToSqr(enemy.getX(), enemy.getY(), enemy.getZ()));
     }

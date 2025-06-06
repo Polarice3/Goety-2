@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.ally.undead.skeleton;
 
 import com.Polarice3.Goety.common.entities.ai.CreatureCrossbowAttackGoal;
+import com.Polarice3.Goety.common.entities.ai.path.ModWaterPathNavigation;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.projectiles.Harpoon;
 import com.Polarice3.Goety.config.AttributesConfig;
@@ -23,8 +24,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.monster.CrossbowAttackMob;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -48,14 +49,15 @@ public class SunkenSkeletonServant extends AbstractSkeletonServant implements Cr
     private final CreatureCrossbowAttackGoal<SunkenSkeletonServant> crossbowAttackGoal = new CreatureCrossbowAttackGoal<>(this, 1.0D, 8.0F);
     private static final EntityDataAccessor<Boolean> IS_CHARGING_CROSSBOW = SynchedEntityData.defineId(SunkenSkeletonServant.class, EntityDataSerializers.BOOLEAN);
     private boolean searchingForLand;
-    protected final WaterBoundPathNavigation waterNavigation;
+    protected final ModWaterPathNavigation waterNavigation;
     protected final GroundPathNavigation groundNavigation;
 
     public SunkenSkeletonServant(EntityType<? extends Summoned> type, Level worldIn) {
         super(type, worldIn);
         this.moveControl = new MoveHelperController(this);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.waterNavigation = new WaterBoundPathNavigation(this, worldIn);
+        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+        this.waterNavigation = new ModWaterPathNavigation(this, worldIn);
         this.groundNavigation = new GroundPathNavigation(this, worldIn);
     }
 
@@ -67,9 +69,13 @@ public class SunkenSkeletonServant extends AbstractSkeletonServant implements Cr
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new GoToWaterGoal(this, 1.0D));
-        this.goalSelector.addGoal(1, new FollowOwnerWaterGoal(this, 1.0D, 10.0F, 2.0F));
+        this.goalSelector.addGoal(5, new GoToBeachGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new SwimUpGoal(this, 1.0D, this.level.getSeaLevel()));
         this.goalSelector.addGoal(7, new WaterWanderGoal<>(this));
+    }
+
+    public void followGoal(){
+        this.goalSelector.addGoal(5, new FollowOwnerWaterGoal(this, 1.0D, 10.0F, 2.0F));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -137,11 +143,15 @@ public class SunkenSkeletonServant extends AbstractSkeletonServant implements Cr
     private boolean wantsToSwim() {
         if (this.searchingForLand) {
             return true;
-        } else if (this.getTarget() != null) {
-            return this.getTarget().isInWater();
+        } else if (this.getTarget() != null && this.getTarget().isInWater()) {
+            return true;
         } else {
-            return this.getTrueOwner() != null && this.getTrueOwner().isInWater();
+            return this.getTrueOwner() != null && this.isFollowing() && (this.getTrueOwner().isInWater() || (this.isInWater() && this.getTrueOwner().getY() > this.getY()));
         }
+    }
+
+    public boolean isVisuallySwimming() {
+        return this.isSwimming();
     }
 
     public void travel(@NotNull Vec3 pTravelVector) {
@@ -262,9 +272,9 @@ public class SunkenSkeletonServant extends AbstractSkeletonServant implements Cr
             LivingEntity livingentity = this.skeletonServant.getTarget();
             LivingEntity owner = this.skeletonServant.getTrueOwner();
             if (this.skeletonServant.wantsToSwim() && this.skeletonServant.isInWater()) {
-                if (livingentity != null && livingentity.getY() > this.skeletonServant.getY() || this.skeletonServant.searchingForLand) {
-                    this.skeletonServant.setDeltaMovement(this.skeletonServant.getDeltaMovement().add(0.0D, 0.002D, 0.0D));
-                } else if (owner != null && owner.getY() > this.skeletonServant.getY()){
+                if ((livingentity != null && livingentity.getY() > this.skeletonServant.getY())
+                        || this.skeletonServant.searchingForLand
+                        || (owner != null && owner.getY() > this.skeletonServant.getY() && this.skeletonServant.isFollowing())) {
                     this.skeletonServant.setDeltaMovement(this.skeletonServant.getDeltaMovement().add(0.0D, 0.002D, 0.0D));
                 }
 
@@ -296,6 +306,39 @@ public class SunkenSkeletonServant extends AbstractSkeletonServant implements Cr
         }
     }
 
+    static class GoToBeachGoal extends MoveToBlockGoal {
+        private final SunkenSkeletonServant skeleton;
+
+        public GoToBeachGoal(SunkenSkeletonServant p_i48911_1_, double p_i48911_2_) {
+            super(p_i48911_1_, p_i48911_2_, 8, 2);
+            this.skeleton = p_i48911_1_;
+        }
+
+        public boolean canUse() {
+            if (this.skeleton.getTrueOwner() != null) {
+                if (this.skeleton.isFollowing()) {
+                    return false;
+                }
+            }
+            return super.canUse() && !this.skeleton.level().isDay() && this.skeleton.isInWater() && this.skeleton.getY() >= (double)(this.skeleton.level().getSeaLevel() - 3);
+        }
+
+        protected boolean isValidTarget(LevelReader pLevel, BlockPos pPos) {
+            BlockPos blockpos = pPos.above();
+            return pLevel.isEmptyBlock(blockpos) && pLevel.isEmptyBlock(blockpos.above()) && pLevel.getBlockState(pPos).entityCanStandOn(pLevel, pPos, this.skeleton);
+        }
+
+        public void start() {
+            this.skeleton.setSearchingForLand(false);
+            this.skeleton.navigation = this.skeleton.groundNavigation;
+            super.start();
+        }
+
+        public void stop() {
+            super.stop();
+        }
+    }
+
     static class SwimUpGoal extends Goal {
         private final SunkenSkeletonServant skeleton;
         private final double speedModifier;
@@ -309,14 +352,12 @@ public class SunkenSkeletonServant extends AbstractSkeletonServant implements Cr
         }
 
         public boolean canUse() {
-            if (this.skeleton.getTrueOwner() != null){
-                if (this.skeleton.getTrueOwner().isUnderWater()){
+            if (this.skeleton.getTrueOwner() != null) {
+                if (this.skeleton.isFollowing()) {
                     return false;
                 }
-            } else if (this.skeleton.level.isDay()) {
-                return false;
             }
-            return this.skeleton.isInWater() && this.skeleton.getY() < (double)(this.seaLevel - 2);
+            return !this.skeleton.level().isDay() && this.skeleton.isInWater() && this.skeleton.getY() < (double)(this.seaLevel - 2);
         }
 
         public boolean canContinueToUse() {

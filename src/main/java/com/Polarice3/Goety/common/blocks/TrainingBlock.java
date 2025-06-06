@@ -53,7 +53,7 @@ public abstract class TrainingBlock extends BaseEntityBlock {
                 if (!pPlayer.isCrouching()) {
                     blockEntity.setSensorSensitive(!blockEntity.isSensorSensitive());
                 } else {
-                    blockEntity.setPatrolling(!blockEntity.isPatrolling());
+                    blockEntity.setGuarding(!blockEntity.isGuarding());
                 }
                 pLevel.playSound(null, pPos, ModSounds.SUMMON_SPELL_FIERY.get(), SoundSource.BLOCKS, 0.25F, 2.0F);
                 pLevel.playSound(null, pPos, ModSounds.CAST_SPELL.get(), SoundSource.BLOCKS, 0.25F, 2.0F);

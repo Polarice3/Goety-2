@@ -2,6 +2,7 @@ package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.client.render.animation.CrusherAnimations;
 import com.Polarice3.Goety.client.render.layer.HierarchicalArmor;
+import com.Polarice3.Goety.common.entities.ally.illager.CrusherServant;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Crusher;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -12,10 +13,11 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.phys.Vec3;
 
-public class CrusherModel<T extends Crusher> extends HierarchicalModel<T> implements HeadedModel, HierarchicalArmor {
+public class CrusherModel<T extends Mob> extends HierarchicalModel<T> implements HeadedModel, HierarchicalArmor {
 	private final ModelPart root;
 	private final ModelPart head;
 	private final ModelPart body;
@@ -94,11 +96,21 @@ public class CrusherModel<T extends Crusher> extends HierarchicalModel<T> implem
 			this.left_leg.yRot = (-(float)Math.PI / 10F);
 			this.left_leg.zRot = -0.07853982F;
 		} else {
-			this.animate(entity.walkAnimationState, CrusherAnimations.WALK, ageInTicks, groundSpeed * 25);
-			this.animate(entity.runAnimationState, CrusherAnimations.RUN, ageInTicks, groundSpeed * 8);
+			if (entity instanceof Crusher crusher) {
+				this.animate(crusher.walkAnimationState, CrusherAnimations.WALK, ageInTicks, groundSpeed * 25);
+				this.animate(crusher.runAnimationState, CrusherAnimations.RUN, ageInTicks, groundSpeed * 8);
+			} else if (entity instanceof CrusherServant servant) {
+				this.animate(servant.walkAnimationState, CrusherAnimations.WALK, ageInTicks, groundSpeed * 25);
+				this.animate(servant.runAnimationState, CrusherAnimations.RUN, ageInTicks, groundSpeed * 8);
+			}
 		}
-		this.animate(entity.idleAnimationState, CrusherAnimations.IDLE, ageInTicks);
-		this.animate(entity.attackAnimationState, CrusherAnimations.SMASH, ageInTicks);
+		if (entity instanceof Crusher crusher) {
+			this.animate(crusher.idleAnimationState, CrusherAnimations.IDLE, ageInTicks);
+			this.animate(crusher.attackAnimationState, CrusherAnimations.SMASH, ageInTicks);
+		} else if (entity instanceof CrusherServant servant) {
+			this.animate(servant.idleAnimationState, CrusherAnimations.IDLE, ageInTicks);
+			this.animate(servant.attackAnimationState, CrusherAnimations.SMASH, ageInTicks);
+		}
 		boolean flag2 = entity.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof ArmorItem
 				|| entity.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ArmorItem;
 		this.clothes.visible = !flag2;

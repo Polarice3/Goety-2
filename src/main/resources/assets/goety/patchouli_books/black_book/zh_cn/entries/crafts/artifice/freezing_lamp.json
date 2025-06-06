@@ -1,0 +1,15 @@
+{
+  "name": "极寒冰灯",
+  "icon": "goety:freezing_lamp",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "被注入无尽冰霜的红石灯，可以缓慢在周围区域上覆雪或覆冰，接收红石信号后会被关闭"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:freezing_lamp"
+    }
+  ]
+}

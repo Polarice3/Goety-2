@@ -1,12 +1,12 @@
 package com.Polarice3.Goety.common.events;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.client.particles.LichShockwaveParticleOption;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.capabilities.soulenergy.ISoulEnergy;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
 import com.Polarice3.Goety.common.entities.hostile.Wight;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.entities.projectiles.VineHook;
@@ -279,24 +279,19 @@ public class SoulEnergyEvents {
                 }
             }
 
-            if (killer instanceof IOwned slayer){
-                LivingEntity owner = slayer.getTrueOwner();
-                if (owner != null){
-                    if (owner instanceof IOwned ownedOwner){
-                        if (ownedOwner.getTrueOwner() instanceof Player player){
-                            if (CuriosFinder.hasDarkRobe(player) || CuriosFinder.hasUndeadSet(player) || ItemHelper.armorSet(owner, ModArmorMaterials.BLACK_IRON) || ItemHelper.armorSet(player, ModArmorMaterials.DARK)) {
-                                if (!(player instanceof FakePlayer)) {
-                                    SEHelper.handleKill(player, victim, event.getSource());
-                                }
-                            }
-                        }
-                    }
-                    if (owner instanceof Player) {
-                        if (CuriosFinder.hasDarkRobe(owner) || CuriosFinder.hasUndeadSet(owner) || ItemHelper.armorSet(owner, ModArmorMaterials.BLACK_IRON) || ItemHelper.armorSet(owner, ModArmorMaterials.DARK)) {
-                            Player playerEntity = (Player) owner;
-                            if (!(playerEntity instanceof FakePlayer)) {
-                                SEHelper.handleKill(playerEntity, victim, event.getSource());
-                            }
+            LivingEntity owner = MobUtil.getOwner(killer);
+            if (owner != null){
+                Player player = null;
+                if (MobUtil.getOwner(owner) instanceof Player player1){
+                    player = player1;
+                }
+                if (owner instanceof Player playerEntity) {
+                    player = playerEntity;
+                }
+                if (player != null) {
+                    if (CuriosFinder.hasDarkRobe(player) || CuriosFinder.hasUndeadSet(player) || ItemHelper.armorSet(owner, ModArmorMaterials.BLACK_IRON) || ItemHelper.armorSet(player, ModArmorMaterials.DARK) || killer instanceof RaiderServant) {
+                        if (!(player instanceof FakePlayer)) {
+                            SEHelper.handleKill(player, victim, event.getSource());
                         }
                     }
                 }

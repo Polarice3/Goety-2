@@ -20,6 +20,10 @@
     {
       "type": "patchouli:entity",
       "entity": "goety:ravaged"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "成长至最大阶段的劫掠兽可以成为$(l:goety:mutations/illager_servants)袭击队伍$()的一员, 但它不能被设定为队长。"
     }
   ]
 }

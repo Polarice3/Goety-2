@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.client.events;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.api.blocks.entities.IBarrack;
 import com.Polarice3.Goety.api.blocks.entities.IOwnedBlock;
 import com.Polarice3.Goety.api.blocks.entities.ITrainingBlock;
 import com.Polarice3.Goety.api.blocks.entities.IWaystoneBlock;
@@ -22,6 +23,7 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ally.GuardianServant;
 import com.Polarice3.Goety.common.entities.ally.Leapleaf;
 import com.Polarice3.Goety.common.entities.ally.golem.SquallGolem;
+import com.Polarice3.Goety.common.entities.ally.illager.WindCallerServant;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.hostile.Wight;
@@ -150,6 +152,9 @@ public class ClientEvents {
             }
             if (entity instanceof Wildfire){
                 soundHandler.play(new LoopSound(ModSounds.WILDFIRE_LOOP.get(), entity));
+            }
+            if (entity instanceof WindCallerServant){
+                soundHandler.play(new LoopSound(ModSounds.FLIGHT.get(), 1.0F, 1.3F, entity));
             }
             if (entity instanceof InsectSwarm){
                 soundHandler.play(new LoopSound(ModSounds.INSECT_SWARM.get(), entity));
@@ -463,8 +468,8 @@ public class ClientEvents {
                                 poseStack.translate((float) (width / 2), (float) (height - 100), 0.0F);
                                 RenderSystem.enableBlend();
                                 RenderSystem.defaultBlendFunc();
-                                String mode = Component.translatable("tooltip.goety.blockPatrol").getString();
-                                if (!trainingBlock.isPatrolling()){
+                                String mode = Component.translatable("tooltip.goety.blockGuard").getString();
+                                if (!trainingBlock.isGuarding()){
                                     mode = Component.translatable("tooltip.goety.blockFollow").getString();
                                 }
                                 int length = fontRenderer.width(mode);
@@ -511,6 +516,36 @@ public class ClientEvents {
                                 event.getGuiGraphics().blit(Goety.location("textures/gui/train_bar.png"), ((width - 64) / 2), (height - 86), 0, 16, train, 16, 64, 32);
                                 poseStack.popPose();
                             }
+                        } else if (blockEntity instanceof IBarrack barrack){
+                            poseStack.pushPose();
+                            poseStack.translate((float)(width / 2), (float)(height - 58), 0.0F);
+                            RenderSystem.enableBlend();
+                            RenderSystem.defaultBlendFunc();
+                            String s = Component.translatable("tooltip.goety.blockOwner").getString() + ownedBlock.getPlayer().getDisplayName().getString();
+                            int l = fontRenderer.width(s);
+                            event.getGuiGraphics().drawString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
+                            RenderSystem.disableBlend();
+                            poseStack.popPose();
+
+                            poseStack.pushPose();
+                            poseStack.translate((float) (width / 2), (float) (height - 68), 0.0F);
+                            RenderSystem.enableBlend();
+                            RenderSystem.defaultBlendFunc();
+                            String s1 = Component.translatable("tooltip.goety.blockTrainType").getString() + Component.translatable(barrack.getCurrentMob()).getString();
+                            int l1 = fontRenderer.width(s1);
+                            event.getGuiGraphics().drawString(fontRenderer, s1, (-l1 / 2), -4, 0xFFFFFF);
+                            RenderSystem.disableBlend();
+                            poseStack.popPose();
+
+                            poseStack.pushPose();
+                            poseStack.translate((float)(width / 2), (float)(height - 78), 0.0F);
+                            RenderSystem.enableBlend();
+                            RenderSystem.defaultBlendFunc();
+                            String s2 = Component.translatable("tooltip.goety.brew.capacity").getString() + barrack.getCurrentAmount() + "/" + barrack.trainLimit();
+                            int l2 = fontRenderer.width(s2);
+                            event.getGuiGraphics().drawString(fontRenderer, s2, (-l2 / 2), -4, 0xFFFFFF);
+                            RenderSystem.disableBlend();
+                            poseStack.popPose();
                         } else if ((player.isShiftKeyDown() || player.isCrouching()) && ownedBlock.getPlayer() != null){
                             poseStack.pushPose();
                             poseStack.translate((float)(width / 2), (float)(height - 68), 0.0F);

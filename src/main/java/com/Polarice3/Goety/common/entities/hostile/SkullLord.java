@@ -968,7 +968,7 @@ public class SkullLord extends Monster implements ICustomAttributes {
                         ServerParticleUtil.addParticlesAroundMiddleSelf(serverLevel, ModParticleTypes.BIG_ELECTRIC.get(), skullLord);
                     }
                     if (this.electroTime <= 60 && this.electroTime % 10 == 0){
-                        new ElectroOrbSpell().SpellResult(serverLevel, skullLord, ItemStack.EMPTY);
+                        new ElectroOrbSpell().mobSpellResult(skullLord, ItemStack.EMPTY);
                     }
                 }
             }
@@ -1049,7 +1049,7 @@ public class SkullLord extends Monster implements ICustomAttributes {
                     skullLord.yBodyRot = skullLord.getYRot();
                     ServerParticleUtil.gatheringParticles(ModParticleTypes.LASER_GATHER.get(), skullLord, serverLevel);
                     if (this.shockWave == 10){
-                        new ShockwaveSpell().SpellResult(serverLevel, skullLord, ItemStack.EMPTY);
+                        new ShockwaveSpell().mobSpellResult(skullLord, ItemStack.EMPTY);
                     }
                 }
             }

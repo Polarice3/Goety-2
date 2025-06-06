@@ -48,6 +48,7 @@ import net.minecraft.world.entity.npc.VillagerDataHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.raid.Raider;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TieredItem;
@@ -664,6 +665,25 @@ public class SEHelper {
         SEHelper.sendSEUpdatePacket(player);
     }
 
+    public static DyeColor getBannerBaseColor(Player player) {
+        return getCapability(player).bannerBaseColor();
+    }
+
+    public static void setBannerBaseColor(Player player, DyeColor dyeColor){
+        getCapability(player).setBannerBaseColor(dyeColor);
+        SEHelper.sendSEUpdatePacket(player);
+    }
+
+    @Nullable
+    public static ListTag getBannerPattern(Player player) {
+        return getCapability(player).bannerPattern();
+    }
+
+    public static void setBannerPattern(Player player, @Nullable ListTag listTag) {
+        getCapability(player).setBannerPattern(listTag);
+        SEHelper.sendSEUpdatePacket(player);
+    }
+
     //Air Jumps codes based on Zepalesque's codes: https://github.com/Zepalesque/The-Aether-Redux/blob/1.20.1/src/main/java/net/zepalesque/redux/capability/player/ReduxPlayerCapability.java
     public static int getTicksInAir(Player player){
         return getCapability(player).getTicksInAir();
@@ -836,6 +856,11 @@ public class SEHelper {
             ResourceLocation.CODEC.encodeStart(NbtOps.INSTANCE, soulEnergy.getArcaBlockDimension().location()).resultOrPartial(Goety.LOGGER::error).ifPresent(
                     (p_241148_1_) -> tag.put("dimension", p_241148_1_));
         }
+        tag.putInt("BannerBaseColor", soulEnergy.bannerBaseColor().getId());
+        ListTag banner = soulEnergy.bannerPattern();
+        if (banner != null) {
+            tag.put("BannerPattern", banner);
+        }
         if (soulEnergy.getMiningPos() != null) {
             tag.putInt("miningPosX", soulEnergy.getMiningPos().getX());
             tag.putInt("miningPosY", soulEnergy.getMiningPos().getY());
@@ -959,6 +984,12 @@ public class SEHelper {
         soulEnergy.setBottling(tag.getInt("bottling"));
         soulEnergy.setWarding(tag.getInt("warding"));
         soulEnergy.setMaxWarding(tag.getInt("maxWarding"));
+        if (tag.contains("BannerBaseColor")) {
+            soulEnergy.setBannerBaseColor(DyeColor.byId(tag.getInt("BannerBaseColor")));
+        }
+        if (tag.contains("BannerPattern")){
+            soulEnergy.setBannerPattern(tag.getList("BannerPattern", 10));
+        }
         soulEnergy.setTicksInAir(tag.getInt("airTick"));
         soulEnergy.setAirJumps(tag.getInt("airJumps"));
         soulEnergy.setAirJumpCooldown(tag.getInt("airJumpCoolDown"));

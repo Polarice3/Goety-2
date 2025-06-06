@@ -135,8 +135,4 @@ public class FlameStrikeSpell extends Spell {
             }
         }
     }
-
-    @Override
-    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff){
-    }
 }

@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Right-clicking a bound waystone on certain servants will cause them to patrol towards and around that location, putting them into Patrolling mode, so long as the location is in the same dimension. Shift-right clicking a bound waystone will erase the information it has stored within itself."
+      "text": "Right-clicking a bound waystone on certain servants will cause them to start guarding around that location, putting them into Guarding mode, so long as the location is in the same dimension. Shift-right clicking a bound waystone will erase the information it has stored within itself."
     }
   ]
 }

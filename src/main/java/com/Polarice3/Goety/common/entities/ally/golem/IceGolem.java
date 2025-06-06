@@ -326,12 +326,7 @@ public class IceGolem extends AbstractGolemServant{
 
     @Override
     public double getAttackReachSqr(LivingEntity enemy) {
-        return (double)(this.getBbWidth() * 2.0F * this.getBbWidth() * 2.0F + enemy.getBbWidth());
-    }
-
-    public boolean targetClose(LivingEntity enemy, double distToEnemySqr){
-        double reach = this.getAttackReachSqr(enemy);
-        return distToEnemySqr <= reach || this.getBoundingBox().intersects(enemy.getBoundingBox());
+        return this.getBbWidth() * 2.0F * this.getBbWidth() * 2.0F + enemy.getBbWidth();
     }
 
     public InteractionResult mobInteract(Player pPlayer, InteractionHand p_230254_2_) {

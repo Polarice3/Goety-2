@@ -19,9 +19,10 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.TargetHostileOwnedGoal;
 import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
-import com.Polarice3.Goety.common.entities.ally.ModRavager;
-import com.Polarice3.Goety.common.entities.ally.Ravaged;
 import com.Polarice3.Goety.common.entities.ally.golem.IceGolem;
+import com.Polarice3.Goety.common.entities.ally.illager.ModRavager;
+import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
+import com.Polarice3.Goety.common.entities.ally.illager.Ravaged;
 import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
@@ -222,6 +223,16 @@ public class ModEvents {
                 .ifPresent(soulEnergy -> {
                     for (EntityType<?> entityType : capability3.allyTypeList()){
                         soulEnergy.addAllyType(entityType);
+                    }
+                });
+        player.getCapability(SEProvider.CAPABILITY)
+                .ifPresent(soulEnergy -> {
+                    soulEnergy.setBannerBaseColor(capability3.bannerBaseColor());
+                });
+        player.getCapability(SEProvider.CAPABILITY)
+                .ifPresent(soulEnergy -> {
+                    if (capability3.bannerPattern() != null) {
+                        soulEnergy.setBannerPattern(capability3.bannerPattern());
                     }
                 });
         player.getCapability(SEProvider.CAPABILITY)
@@ -713,6 +724,9 @@ public class ModEvents {
             if (MiscCapHelper.getShieldCool(livingEntity) > 0){
                 MiscCapHelper.decreaseShieldCool(livingEntity);
             }
+            if (MiscCapHelper.getShakeTime(livingEntity) > 0) {
+                MiscCapHelper.setShakeTime(livingEntity, MiscCapHelper.getShakeTime(livingEntity) - 1);
+            }
             if (livingEntity instanceof Mob mob){
                 double followRange = 32.0D;
                 if (mob.getAttribute(Attributes.FOLLOW_RANGE) != null){
@@ -753,8 +767,15 @@ public class ModEvents {
                     Optional<LivingEntity> avoidIllager = Optional.empty();
                     NearestVisibleLivingEntities nearestvisiblelivingentities = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES).orElse(NearestVisibleLivingEntities.empty());
                     for (LivingEntity livingentity : nearestvisiblelivingentities.findAll((p_186157_) -> true)) {
-                        if (livingentity instanceof HuntingIllagerEntity) {
+                        if (livingentity instanceof HuntingIllagerEntity){
                             avoidIllager = Optional.of(livingentity);
+                        } else if (livingentity instanceof RaiderServant servant) {
+                            if (servant.isRaiding() || servant.isHostile()) {
+                                avoidIllager = Optional.of(livingentity);
+                                if (servant.isRaiding()) {
+                                    brain.setMemory(MemoryModuleType.HEARD_BELL_TIME, villager.level.getGameTime());
+                                }
+                            }
                         }
                     }
                     if (avoidIllager.isPresent()) {
@@ -964,7 +985,7 @@ public class ModEvents {
                 Player player = null;
                 if (source instanceof Player player1) {
                     player = player1;
-                } else if (source instanceof OwnableEntity ownable && ownable.getOwner() instanceof Player player1) {
+                } else if (MobUtil.getOwner(source) instanceof Player player1) {
                     player = player1;
                 }
                 if (player != null) {
@@ -1339,6 +1360,7 @@ public class ModEvents {
             MiscCapHelper.setFreezing(killed, 0);
             MiscCapHelper.setShields(killed, 0);
             MiscCapHelper.setShieldTime(killed, 0);
+            MiscCapHelper.setShakeTime(killed, 0);
         }
     }
 

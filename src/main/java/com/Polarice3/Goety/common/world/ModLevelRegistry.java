@@ -9,7 +9,9 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraftforge.common.world.ModifiableBiomeInfo;
+import net.minecraftforge.common.world.ModifiableStructureInfo;
 
 public class ModLevelRegistry {
 
@@ -61,5 +63,11 @@ public class ModLevelRegistry {
 
     public static boolean containsName(ResourceKey<Biome> biomeResourceKey, String string){
         return biomeResourceKey.registry().getNamespace().contains(string);
+    }
+
+    public static void addStructureSpawns(Holder<Structure> structure, ModifiableStructureInfo.StructureInfo.Builder builder) {
+        if (structure.is(ModTags.Structures.NECROMANCER_SPAWN) && MobsConfig.NecromancerSpawnWeight.get() > 0) {
+            builder.getStructureSettings().getOrAddSpawnOverrides(MobCategory.MONSTER).addSpawn(new MobSpawnSettings.SpawnerData(ModEntityType.NECROMANCER.get(), MobsConfig.NecromancerSpawnWeight.get(), MobsConfig.NecromancerSpawnMinCount.get(), MobsConfig.NecromancerSpawnMaxCount.get()));
+        }
     }
 }

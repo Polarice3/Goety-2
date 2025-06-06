@@ -1,0 +1,57 @@
+{
+  "name": "Ominous Pyre",
+  "icon": "goety:ominous_pyre",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The pyre inspires loyal $(l:goety:mutations/illager_servants)Neollagers$() to train themselves. To have the Neollager train at a pyre, simply $(l:goety:focuses/command_focus)Command$() / $(l:goety:focuses/order_focus)Order$() them to it. If 'illagerServantAutoTrain' is enabled, simply have them near one. Depending on its surroundings, much like $(l:rituals/dark_altar)Altars$(), will allow the Neollager to train into a specific Illager subtype. Each pyre can only train up to 8 Trainable Illagers."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_pyre"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Pillager Servants",
+      "text": "$(o)Note: Neollagers are quicker to train into Pillager Servants$()$(br)Requirements: $(li)Neollager $(li)2 Hay/Target Blocks $(li)2 Carved Pumpkins $(li)16 Wooden Fences $(li)20 Wools"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Vindicator Servants",
+      "text": "Requirements: $(li)Neollager $(li)1 Banner $(li)64 Wooden Planks $(li)60 Bricks Blocks Any $(li)10 Walls $(li)10 Fences $(li)2 Furnaces $(li)1 Crafting Table"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Vindicator Chef Servants",
+      "text": "Requirements: $(li)Vindicator Servant $(li)4 Smokers/Furnaces $(li)16 Barrels $(li)2 Cakes"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Evoker Servants",
+      "text": "Requirements: $(li)Magic Neollager $(li)32 Bookshelves/Enchant Power $(li)16 Lit Candles $(li)4 Heads $(li)4 Filled Flower Pots $(li)4 Amethyst Clusters $(li)4 Blocks of Awakened Emerald $(li)1 Lectern"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Geomancer Servants",
+      "text": "Requirements: $(li)Magic Neollager $(li)16 Blocks of Amethysts $(li)64 Deepslate Blocks $(li)16 $(l:goety:crafts/creeper_totem)Creeper Totems$()"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Iceologer Servants",
+      "text": "Requirements: $(li)Magic Neollager $(li)16 Blue Ice $(li)64 Snow Blocks $(li)4 $(l:goety:crafts/artifice/freezing_lamp)Freezing Lamps$()"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Wind Caller Servants",
+      "text": "Requirements: $(li)Magic Neollager $(li)64 Marble Blocks $(li)32 Jade Blocks $(li)4 Indented Gold Blocks"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "To stop them from training, either remove the Pyre or move them more than 10 blocks away from it. If a training Illager is near Illagers they're training to become, they will train faster."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ominous_pyre": 1
+  }
+}

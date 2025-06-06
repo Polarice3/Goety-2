@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.items.magic;
 
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.common.events.ArcaTeleporter;
 import com.Polarice3.Goety.common.magic.spells.void_spells.CallSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
@@ -93,7 +94,9 @@ public class CallFocus extends MagicFocus{
             LivingEntity livingEntity = getSummon(compoundTag);
             if (player.level instanceof ServerLevel serverLevel) {
                 if (livingEntity != null) {
+                    LivingEntity original = null;
                     if (livingEntity.isPassenger() && livingEntity.getVehicle() instanceof LivingEntity vehicle) {
+                        original = livingEntity;
                         livingEntity = vehicle;
                     }
                     if (!livingEntity.isDeadOrDying()) {
@@ -107,6 +110,12 @@ public class CallFocus extends MagicFocus{
                             MobUtil.moveDownToGround(livingEntity);
                             ModNetwork.sendToALL(new SPlayWorldSoundPacket(player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
                             ModNetwork.sendToALL(new SPlayWorldSoundPacket(blockPos, SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
+                            if (original instanceof IServant servant){
+                                servant.setFollowing();
+                            }
+                            if (livingEntity instanceof IServant servant){
+                                servant.setFollowing();
+                            }
                         } else if (player.getServer() != null) {
                             ServerLevel serverWorld = player.getServer().getLevel(player.level.dimension());
                             if (serverWorld != null) {
@@ -119,6 +128,12 @@ public class CallFocus extends MagicFocus{
                                 livingEntity.teleportTo(event.getTargetX(), event.getTargetY(), event.getTargetZ());
                                 MobUtil.moveDownToGround(livingEntity);
                                 ModNetwork.sendToALL(new SPlayWorldSoundPacket(player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
+                                if (original instanceof IServant servant){
+                                    servant.setFollowing();
+                                }
+                                if (livingEntity instanceof IServant servant){
+                                    servant.setFollowing();
+                                }
                             }
                         }
                     }

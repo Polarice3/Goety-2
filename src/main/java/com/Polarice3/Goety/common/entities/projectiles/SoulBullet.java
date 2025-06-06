@@ -1,7 +1,9 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -9,8 +11,11 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -56,11 +61,25 @@ public class SoulBullet extends AbstractHurtingProjectile {
     }
 
     protected boolean canHitEntity(Entity pEntity) {
-        if (this.getOwner() != null && this.getOwner().isAlliedTo(pEntity)){
-            return false;
-        } else {
-            return super.canHitEntity(pEntity);
+        if (this.getOwner() != null){
+            if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
+                return super.canHitEntity(pEntity);
+            } else {
+                if (MobUtil.areAllies(this.getOwner(), pEntity)){
+                    return false;
+                }
+                if (this.getOwner() instanceof Enemy && pEntity instanceof Enemy){
+                    return false;
+                }
+                if (pEntity instanceof Projectile projectile && projectile.getOwner() == this.getOwner()){
+                    return false;
+                }
+                if (pEntity instanceof IOwned owned0 && this.getOwner() instanceof IOwned owned1){
+                    return !MobUtil.ownerStack(owned0, owned1);
+                }
+            }
         }
+        return super.canHitEntity(pEntity);
     }
 
     public boolean isOnFire() {

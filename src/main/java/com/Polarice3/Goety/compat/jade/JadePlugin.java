@@ -4,6 +4,9 @@ import com.Polarice3.Goety.common.blocks.*;
 import com.Polarice3.Goety.common.blocks.entities.OwnedBlockEntity;
 import com.Polarice3.Goety.common.entities.ally.AnimalSummon;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.ally.illager.AbstractIllagerServant;
+import com.Polarice3.Goety.common.entities.ally.illager.Neollager;
+import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
 import com.Polarice3.Goety.common.entities.ally.spider.AbstractSpiderServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieVillagerServant;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
@@ -27,10 +30,15 @@ public class JadePlugin implements IWailaPlugin {
         registration.registerEntityDataProvider(SummonLifespanProvider.INSTANCE, Owned.class);
         registration.registerEntityDataProvider(SummonLifespanProvider.INSTANCE, AbstractSpiderServant.class);
         registration.registerEntityDataProvider(SummonBreedProvider.INSTANCE, AnimalSummon.class);
+        registration.registerEntityDataProvider(SummonBreedProvider.INSTANCE, AbstractIllagerServant.class);
         registration.registerEntityDataProvider(SummonGrowthProvider.INSTANCE, AnimalSummon.class);
+        registration.registerEntityDataProvider(SummonGrowthProvider.INSTANCE, Neollager.class);
+        registration.registerEntityDataProvider(RaiderLeaderProvider.INSTANCE, RaiderServant.class);
         registration.registerEntityDataProvider(ServantModeProvider.INSTANCE, Summoned.class);
         registration.registerEntityDataProvider(ServantModeProvider.INSTANCE, AbstractSpiderServant.class);
+        registration.registerEntityDataProvider(TrainableProvider.INSTANCE, Owned.class);
         registration.registerEntityDataProvider(ZVServantProvider.INSTANCE, ZombieVillagerServant.class);
+        registration.registerEntityDataProvider(TrainToProvider.INSTANCE, Neollager.class);
 
         registration.registerBlockDataProvider(BlockOwnerProvider.INSTANCE, OwnedBlockEntity.class);
     }
@@ -42,11 +50,16 @@ public class JadePlugin implements IWailaPlugin {
         registration.registerEntityComponent(SummonLifespanProvider.INSTANCE, Owned.class);
         registration.registerEntityComponent(SummonLifespanProvider.INSTANCE, AbstractSpiderServant.class);
         registration.registerEntityComponent(MobBreedingProvider.INSTANCE, AnimalSummon.class);
+        registration.registerEntityComponent(MobBreedingProvider.INSTANCE, AbstractIllagerServant.class);
         registration.registerEntityComponent(MobGrowthProvider.INSTANCE, AnimalSummon.class);
+        registration.registerEntityComponent(MobGrowthProvider.INSTANCE, Neollager.class);
+        registration.registerEntityComponent(RaiderLeaderProvider.INSTANCE, RaiderServant.class);
         registration.registerEntityComponent(ServantModeProvider.INSTANCE, Summoned.class);
         registration.registerEntityComponent(ServantModeProvider.INSTANCE, AbstractSpiderServant.class);
+        registration.registerEntityComponent(TrainableProvider.INSTANCE, Owned.class);
         registration.registerEntityComponent(ModProfessionProvider.INSTANCE, ZombieVillagerServant.class);
         registration.registerEntityComponent(ZVServantProvider.INSTANCE, ZombieVillagerServant.class);
+        registration.registerEntityComponent(TrainToProvider.INSTANCE, Neollager.class);
 
         registration.registerBlockComponent(SoulEnergyProvider.INSTANCE, ArcaBlock.class);
         registration.registerBlockComponent(SoulEnergyProvider.INSTANCE, CursedCageBlock.class);
@@ -54,5 +67,6 @@ public class JadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(BlockOwnerProvider.INSTANCE, IceBouquetTrapBlock.class);
         registration.registerBlockComponent(BlockOwnerProvider.INSTANCE, SculkDevourerBlock.class);
         registration.registerBlockComponent(BlockOwnerProvider.INSTANCE, TrainingBlock.class);
+        registration.registerBlockComponent(BlockOwnerProvider.INSTANCE, BarracksBlock.class);
     }
 }

@@ -7,6 +7,7 @@ import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -44,7 +45,12 @@ public interface IOwned {
     default void setOwnerClientId(int id) {
     }
 
-    void setTrueOwner(@Nullable LivingEntity livingEntity);
+    default void setTrueOwner(@Nullable LivingEntity livingEntity){
+        if (livingEntity != null) {
+            this.setOwnerId(livingEntity.getUUID());
+            this.setOwnerClientId(livingEntity.getId());
+        }
+    }
 
     void setHostile(boolean hostile);
 
@@ -120,6 +126,10 @@ public interface IOwned {
         return false;
     }
 
+    default void onCeaseFire(ServerPlayer player){
+
+    }
+
     default void checkHostility() {
         if (this instanceof Entity entity) {
             if (!entity.level.isClientSide) {
@@ -169,6 +179,7 @@ public interface IOwned {
                     }
                 }
                 if (this.getTrueOwner() != null) {
+                    this.ownerCheck();
                     if (this.getTrueOwner() instanceof Mob mobOwner) {
                         if (mobOwner.getTarget() != null && mob.getTarget() == null) {
                             mob.setTarget(mobOwner.getTarget());
@@ -212,6 +223,25 @@ public interface IOwned {
                     this.setLifespan(this.getLifespan() - 1);
                     if (this.getLifespan() <= 1) {
                         this.lifeSpanDamage();
+                    }
+                }
+            }
+        }
+    }
+
+    default void ownerCheck(){
+        if (this instanceof Mob mob){
+            if (!mob.level.isClientSide) {
+                if (this.getTrueOwner() != null) {
+                    if (this.getTrueOwner().tickCount < 20) {
+                        Entity entity = mob.level.getEntity(this.getOwnerClientId());
+                        if (entity instanceof LivingEntity livingEntity) {
+                            if (livingEntity != this.getTrueOwner()) {
+                                this.setOwnerClientId(this.getTrueOwner().getId());
+                            }
+                        } else {
+                            this.setOwnerClientId(this.getTrueOwner().getId());
+                        }
                     }
                 }
             }

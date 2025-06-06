@@ -1,0 +1,55 @@
+package com.Polarice3.Goety.common.entities.ally.golem;
+
+import com.Polarice3.Goety.api.entities.IGolem;
+import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
+import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
+import com.Polarice3.Goety.common.entities.neutral.Owned;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+
+public abstract class RaiderGolemServant extends RaiderServant implements IGolem {
+    public RaiderGolemServant(EntityType<? extends Owned> type, Level worldIn) {
+        super(type, worldIn);
+    }
+
+    public boolean causeFallDamage(float p_148711_, float p_148712_, DamageSource p_148713_) {
+        return false;
+    }
+
+    public int getAmbientSoundInterval() {
+        return 120;
+    }
+
+    protected int decreaseAirSupply(int p_28882_) {
+        return p_28882_;
+    }
+
+    public boolean canBeCollidedWith() {
+        return !this.isDeadOrDying();
+    }
+
+    protected void doPush(Entity p_28839_) {
+        if (p_28839_ instanceof LivingEntity livingEntity && SummonTargetGoal.predicate(this).test(livingEntity) && this.getRandom().nextInt(20) == 0) {
+            this.setTarget(livingEntity);
+        }
+
+        super.doPush(p_28839_);
+    }
+
+    @Override
+    public boolean isPushable() {
+        return !this.isDeadOrDying();
+    }
+
+    public boolean removeWhenFarAway(double p_27519_) {
+        return false;
+    }
+
+    public boolean canAnimateMove(){
+        return !this.isImmobile();
+    }
+
+}

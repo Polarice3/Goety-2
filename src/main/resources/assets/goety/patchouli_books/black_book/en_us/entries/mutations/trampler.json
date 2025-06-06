@@ -21,6 +21,10 @@
       "type": "patchouli:entity",
       "entity": "goety:ally_trampler",
       "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Tramplers can be part of a $(l:goety:mutations/illager_servants)raiding party$(), though they cannot be leaders."
     }
   ]
 }

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.neutral;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ai.BackawayCrossbowGoal;
 import com.Polarice3.Goety.common.entities.ai.CreatureBowAttackGoal;
+import com.Polarice3.Goety.common.entities.ai.ModMeleeAttackGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.AttributesConfig;
@@ -36,7 +37,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.monster.CrossbowAttackMob;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
@@ -53,7 +53,6 @@ import net.minecraftforge.common.ForgeMod;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.UUID;
-import java.util.function.Predicate;
 
 public abstract class AbstractHauntedArmor extends Summoned implements CrossbowAttackMob, RangedAttackMob {
     private static final UUID SPEED_MODIFIER_HOSTILE_UUID = UUID.fromString("5CD17E52-A79A-43D3-A529-90FDE04B181E");
@@ -234,16 +233,6 @@ public abstract class AbstractHauntedArmor extends Summoned implements CrossbowA
 
     public boolean canFireProjectileWeapon(ProjectileWeaponItem p_230280_1_) {
         return p_230280_1_ instanceof BowItem || p_230280_1_ instanceof CrossbowItem;
-    }
-
-    public ItemStack getProjectile(ItemStack shootable) {
-        if (shootable.getItem() instanceof ProjectileWeaponItem) {
-            Predicate<ItemStack> predicate = ((ProjectileWeaponItem)shootable.getItem()).getSupportedHeldProjectiles();
-            ItemStack itemstack = ProjectileWeaponItem.getHeldProjectile(this, predicate);
-            return itemstack.isEmpty() ? new ItemStack(Items.ARROW) : itemstack;
-        } else {
-            return ItemStack.EMPTY;
-        }
     }
 
     @Override
@@ -658,7 +647,7 @@ public abstract class AbstractHauntedArmor extends Summoned implements CrossbowA
         }
     }
 
-    public static class AttackGoal extends MeleeAttackGoal{
+    public static class AttackGoal extends ModMeleeAttackGoal {
         private final AbstractHauntedArmor mob;
 
         public AttackGoal(AbstractHauntedArmor p_25552_, double speed, boolean needSight) {
@@ -681,8 +670,8 @@ public abstract class AbstractHauntedArmor extends Summoned implements CrossbowA
             this.mob.setAggressive(true);
         }
 
-        protected double getAttackReachSqr(LivingEntity p_25556_) {
-            return (double)(this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 2.5F + p_25556_.getBbWidth());
+        protected double defaultAttackReachSqr(LivingEntity target) {
+            return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 2.5F + target.getBbWidth();
         }
     }
 

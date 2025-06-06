@@ -88,7 +88,6 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.piston.MovingPistonBlock;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
@@ -96,7 +95,6 @@ import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.ForgeEventFactory;
 import org.jetbrains.annotations.NotNull;
@@ -116,11 +114,13 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     private int spellCycle;
     private int titleNumber;
     private int stuckTime;
+    private int lastKilledPlayer;
     private Vec3 prevVecPos;
     private final Predicate<Entity> ALIVE = Entity::isAlive;
     private boolean roarParticles;
     private boolean fireArrows;
     private boolean regen;
+    private boolean killedPlayer;
     private MobEffect arrowEffect;
     private static final UUID SPEED_MODIFIER_CASTING_UUID = UUID.fromString("5CD17E52-A79A-43D3-A529-90FDE04B181E");
     private static final AttributeModifier SPEED_MODIFIER_CASTING = new AttributeModifier(SPEED_MODIFIER_CASTING_UUID, "Casting speed penalty", -1.0D, AttributeModifier.Operation.ADDITION);
@@ -1288,9 +1288,20 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             if (this.getHitTimes() > 0) {
                 this.resetHitTime();
             }
-            for (Player player : this.level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(256), EntitySelector.NO_CREATIVE_OR_SPECTATOR)){
-                if (!MobUtil.areAllies(this, player)) {
-                    this.setTarget(player);
+            boolean flag = false;
+            if (this.killedPlayer){
+                --this.lastKilledPlayer;
+                if (this.lastKilledPlayer == 0) {
+                    this.remove(RemovalReason.DISCARDED);
+                }
+            } else {
+                flag = true;
+            }
+            if (flag) {
+                for (Player player : this.level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(256), EntitySelector.NO_CREATIVE_OR_SPECTATOR)) {
+                    if (!MobUtil.areAllies(this, player)) {
+                        this.setTarget(player);
+                    }
                 }
             }
             for (Mob mob : this.level.getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(this.getAttributeValue(Attributes.FOLLOW_RANGE)), EntitySelector.LIVING_ENTITY_STILL_ALIVE)){
@@ -1299,6 +1310,10 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 }
             }
         } else {
+            if (this.killedPlayer){
+                this.killedPlayer = false;
+                this.lastKilledPlayer = 200;
+            }
             if (this.tickCount % 100 == 0 && !this.isSettingUpSecond()){
                 if (!this.level.isClientSide){
                     if (this.isInNether()) {
@@ -1376,25 +1391,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
     public boolean hasLineOfSight(Entity p_149755_) {
         return !this.isSettingUpSecond() && super.hasLineOfSight(p_149755_);
-    }
-
-    private void serverRoarParticles(){
-        ServerLevel ServerLevel = (ServerLevel) this.level;
-        ServerLevel.sendParticles(ParticleTypes.FLASH, this.getX(), this.getY(), this.getZ(), 1, 0, 0, 0, 0);
-        Vec3 vector3d = this.getBoundingBox().getCenter();
-        for(int i = 0; i < 40; ++i) {
-            double d0 = this.random.nextGaussian() * 0.2D;
-            double d1 = this.random.nextGaussian() * 0.2D;
-            double d2 = this.random.nextGaussian() * 0.2D;
-            ServerLevel.sendParticles(ParticleTypes.POOF, vector3d.x, vector3d.y, vector3d.z, 0, d0, d1, d2, 0.5F);
-        }
-    }
-
-    private void launch(Entity p_213688_1_, LivingEntity livingEntity) {
-        double d0 = p_213688_1_.getX() - livingEntity.getX();
-        double d1 = p_213688_1_.getZ() - livingEntity.getZ();
-        double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);
-        MobUtil.push(p_213688_1_, d0 / d2 * 6.0D, 0.4D, d1 / d2 * 6.0D);
     }
 
     private void barrier(Entity p_213688_1_, LivingEntity livingEntity) {
@@ -1482,6 +1478,15 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         }
     }
 
+    @Override
+    public boolean killedEntity(ServerLevel p_216988_, LivingEntity p_216989_) {
+        if (p_216989_ instanceof Player){
+            this.killedPlayer = true;
+            this.lastKilledPlayer = 200;
+        }
+        return super.killedEntity(p_216988_, p_216989_);
+    }
+
     public boolean teleportChance(){
         return this.level.random.nextFloat() <= 0.25F;
     }
@@ -1500,38 +1505,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         }
         this.resetCoolDown();
         this.setSpellCycle(0);
-    }
-
-    public void spawnBlasts(LivingEntity livingEntity, double pPosX, double pPosZ, double PPPosY, double pOPosY) {
-        BlockPos blockpos = BlockPos.containing(pPosX, pOPosY, pPosZ);
-        boolean flag = false;
-        double d0 = 0.0D;
-
-        do {
-            BlockPos blockpos1 = blockpos.below();
-            BlockState blockstate = livingEntity.level.getBlockState(blockpos1);
-            if (blockstate.isFaceSturdy(livingEntity.level, blockpos1, Direction.UP)) {
-                if (!livingEntity.level.isEmptyBlock(blockpos)) {
-                    BlockState blockstate1 = livingEntity.level.getBlockState(blockpos);
-                    VoxelShape voxelshape = blockstate1.getCollisionShape(livingEntity.level, blockpos);
-                    if (!voxelshape.isEmpty()) {
-                        d0 = voxelshape.max(Direction.Axis.Y);
-                    }
-                }
-
-                flag = true;
-                break;
-            }
-
-            blockpos = blockpos.below();
-        } while(blockpos.getY() >= Mth.floor(PPPosY) - 1);
-
-        if (flag) {
-            FireBlastTrap fireBlastTrap = new FireBlastTrap(livingEntity.level, pPosX, (double)blockpos.getY() + d0, pPosZ);
-            fireBlastTrap.setOwner(livingEntity);
-            livingEntity.level.addFreshEntity(fireBlastTrap);
-        }
-
     }
 
     class CastingSpellGoal extends CastingASpellGoal {

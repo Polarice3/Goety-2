@@ -162,6 +162,27 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> BoundIceologerHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> BoundIceologerArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> BoundIceologerFollowRange;
+    public static final ForgeConfigSpec.ConfigValue<Double> NeollagerHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> NeollagerArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> PillagerServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> PillagerServantArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> PillagerServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> PillagerServantRangeDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> VindicatorServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> VindicatorServantArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> VindicatorServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> EvokerServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> EvokerServantArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> EvokerServantFollowRange;
+    public static final ForgeConfigSpec.ConfigValue<Double> GeomancerServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> GeomancerServantArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> GeomancerServantFollowRange;
+    public static final ForgeConfigSpec.ConfigValue<Double> IceologerServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> IceologerServantArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> IceologerServantFollowRange;
+    public static final ForgeConfigSpec.ConfigValue<Double> WindCallerServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> WindCallerServantArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> WindCallerServantFollowRange;
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedVexHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedVexDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> MiniGhastHealth;
@@ -636,6 +657,62 @@ public class AttributesConfig {
                         .defineInRange("boundIceologerArmor", 0.0, 0.0, Double.MAX_VALUE);
                 BoundIceologerFollowRange = BUILDER.comment("How much following/detection range Bound Iceologers have, Default: 12.0")
                         .defineInRange("boundIceologerFollowRange", 12.0, 0.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Neollager");
+                NeollagerHealth = BUILDER.comment("How much Max Health Neollagers have, Default: 20.0")
+                        .defineInRange("neollagerHealth", 20.0, 1.0, Double.MAX_VALUE);
+                NeollagerArmor = BUILDER.comment("How much natural Armor Neollagers have, Default: 0.0")
+                        .defineInRange("neollagerArmor", 0.0, 0.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Pillager Servant");
+                PillagerServantHealth = BUILDER.comment("How much Max Health Pillager Servants have, Default: 24.0")
+                        .defineInRange("pillagerServantHealth", 24.0, 1.0, Double.MAX_VALUE);
+                PillagerServantArmor = BUILDER.comment("How much natural Armor Pillager Servants have, Default: 0.0")
+                        .defineInRange("pillagerServantArmor", 0.0, 0.0, Double.MAX_VALUE);
+                PillagerServantDamage = BUILDER.comment("How much damage Pillager Servants deals, Default: 5.0")
+                        .defineInRange("pillagerServantDamage", 5.0, 1.0, Double.MAX_VALUE);
+                PillagerServantRangeDamage = BUILDER.comment("How much extra damage Pillager Servants range attack deals, Default: 0.0")
+                        .defineInRange("pillagerServantRangeDamage", 0.0, 0.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Vindicator Servant");
+                VindicatorServantHealth = BUILDER.comment("How much Max Health Vindicator Servants have, Default: 24.0")
+                        .defineInRange("vindicatorServantHealth", 24.0, 1.0, Double.MAX_VALUE);
+                VindicatorServantArmor = BUILDER.comment("How much natural armor points Vindicator Servants have, Default: 0.0")
+                        .defineInRange("vindicatorServantArmor", 0.0, 0.0, Double.MAX_VALUE);
+                VindicatorServantDamage = BUILDER.comment("How much damage Vindicator Servants deals, Default: 5.0")
+                        .defineInRange("vindicatorServantDamage", 5.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Evoker Servant");
+                EvokerServantHealth = BUILDER.comment("How much Max Health Evoker Servants have, Default: 24.0")
+                        .defineInRange("evokerServantHealth", 24.0, 1.0, Double.MAX_VALUE);
+                EvokerServantArmor = BUILDER.comment("How much natural Armor Evoker Servants have, Default: 0.0")
+                        .defineInRange("evokerServantArmor", 0.0, 0.0, Double.MAX_VALUE);
+                EvokerServantFollowRange = BUILDER.comment("How much following/detection range Evoker Servants have, Default: 12.0")
+                        .defineInRange("evokerServantFollowRange", 12.0, 0.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Geomancer Servant");
+                GeomancerServantHealth = BUILDER.comment("How much Max Health Geomancer Servants have, Default: 18.0")
+                        .defineInRange("geomancerServantHealth", 18.0, 1.0, Double.MAX_VALUE);
+                GeomancerServantArmor = BUILDER.comment("How much natural Armor Geomancer Servants have, Default: 0.0")
+                        .defineInRange("geomancerServantArmor", 0.0, 0.0, Double.MAX_VALUE);
+                GeomancerServantFollowRange = BUILDER.comment("How much following/detection range Geomancer Servants have, Default: 12.0")
+                        .defineInRange("geomancerServantFollowRange", 12.0, 0.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Iceologer Servant");
+                IceologerServantHealth = BUILDER.comment("How much Max Health Iceologer Servants have, Default: 20.0")
+                        .defineInRange("iceologerServantHealth", 20.0, 1.0, Double.MAX_VALUE);
+                IceologerServantArmor = BUILDER.comment("How much natural Armor Iceologer Servants have, Default: 0.0")
+                        .defineInRange("iceologerServantArmor", 0.0, 0.0, Double.MAX_VALUE);
+                IceologerServantFollowRange = BUILDER.comment("How much following/detection range Iceologer Servants have, Default: 15.0")
+                        .defineInRange("iceologerServantFollowRange", 15.0, 0.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Wind Caller Servant");
+                WindCallerServantHealth = BUILDER.comment("How much Max Health Wind Caller Servants have, Default: 24.0")
+                        .defineInRange("windCallerServantHealth", 24.0, 1.0, Double.MAX_VALUE);
+                WindCallerServantArmor = BUILDER.comment("How much natural Armor Wind Caller Servants have, Default: 0.0")
+                        .defineInRange("windCallerServantArmor", 0.0, 0.0, Double.MAX_VALUE);
+                WindCallerServantFollowRange = BUILDER.comment("How much following/detection range Wind Caller Servants have, Default: 35.0")
+                        .defineInRange("windCallerServantFollowRange", 35.0, 0.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Vex");
                 SummonedVexHealth = BUILDER.comment("How much Max Health Summoned Vexes have, Default: 14.0")

@@ -1,0 +1,141 @@
+{
+  "name": "Illager Servants",
+  "icon": "goety:magic_emerald",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "After learning more on the Illagers, how they came about from an ancient struggle where their Villager ancestors took up arms to defend themselves, you've conceived and found a way to introduce violence within the hearts of the Villagers... along with servitude."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_villager_to_neollager"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:neollager"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "While you've managed to turn the pacifistic Villager towards violence, such hatred must be learned. The Illagers don't instantly know how to shoot their crossbows and chop with axes from the get go. To make a proper Illager, one must set up a $(l:goety:crafts/artifice/ominous_pyre)proper training ground$() for them to grow. If one has a $(l:goety:mutations/illager_servants#banner)registered banner$(), giving a Neollager any banner that's not already a replica and having a Loom near them will have them work to make a replicated banner. Baby Neollagers are quicker to train."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:neollager{Magic: 1b}"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "That being said, not all Illagers are made equal. Only those born with the talent for magic can hope to become a spellcaster, whom are conveniently marked by their purple robes."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:pillager_servant{HandItems:[{Count:1,id:\"minecraft:crossbow\"},{}]}"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "While armed with the sophisticated crossbow, these Illagers are quite simple in their approach to combat. Fortunately your servants knows how to back off when their target goes near them."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:vindicator_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "One of the most deadliest Illagers now under your command, these brutes can disable shields with their axes and deal a ton of damage as well. You probably shouldn't name them 'Johnny' if you wish to keep them obedient."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:vindicator_chef_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A specialized Vindicator that can collect uncooked meat and will cook the food in their inventory at a nearby Smoker or Furnace."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:evoker_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A practitioner of the dark arts, though one that's limited to only two spells, spells they perform quite well though. Combat-wise they love to run around in order to avoid getting stabbed."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:geomancer_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "With the ability to manipulate the very ground, these ragged spellcasters can raise stone pillars out of the ground to either hinder their enemy's path or to blow them up."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:iceologer_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These chilling conjurers of ice will smash their foes' head with their Ice Chunks."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wind_caller_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Masters of the skies, these big haired shamans can fling their foes to the sky or blast them away with the wind."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:red_bed",
+      "title": "Food, Breed & Heal",
+      "text": "The Illagers can be given certain types of food directly or throwing it at them, which they would eat to regenerate health when hurt or to breed. If fully healed, not in combat, not in following mode and with a reachable bed nearby, the food can be used to help them breed with one another, much like Villagers, which would result in a baby Neollager."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Having an excess amount of food in their inventory will cause them to share some food other Illagers with less food. The food they can take are either cooked meat, vegetables, fruits and Rotten Flesh, though they don't eat the latter, but use it to feed $(l:goety:mutations/ravaged)Ravaged or injured Ravagers$(). They can also be given armor to wear and associated weapons to equip."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:black_banner",
+      "anchor": "banner",
+      "title": "Personal Banner",
+      "text": "While the Illagers have their own ominous banner, it would be both fun and useful to have your own banner that signifies your rule. To register your own personal banner, simply place down a banner and right click it with a Wand or Staff that doesn't have a Block based spell (ie, $(l:goety:focuses/geomancy/pulverize_focus)Pulverize$())."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:pillager_servant{HandItems:[{Count:1,id:\"minecraft:crossbow\"},{}], ArmorItems:[{},{},{},{Count:1,id:\"minecraft:black_banner\"}]}",
+      "scale": 0.5,
+      "text": "Illagers like Pillager Servants can be made a leader."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If an Illager were given your $(l:goety:mutations/illager_servants#banner)personal banner$(), they will become a leader. Using a $(l:goety:focuses/command_focus)Command$() / $(l:goety:focuses/order_focus)Order$() Focus and commanding Illagers and certain other raiding servants, like tamed Ravagers, onto a leading Illager will cause them to follow them instead of you. Updating their movement stance will stop them from following the leading Illager. Right-clicking on the leading Illager with an empty hand will cause them to drop their banner."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Right-clicking on a leading Illager with a Taglock Kit, that has a Tagged creature on it, will cause them, and nearby raiding servants that are following the Illager, or not have a leader, to hunt said creature down before returning to their master once they slay their query. If the hunting party contains raiders that weren't following any Illager, they will start to follow the leader they came with."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:waystone",
+      "anchor": "raid",
+      "title": "Raiding",
+      "text": "Right-clicking on a leading Illager with a Waystone, that stored a position located in a chunk-loaded Village, with a Goat Horn offhand, will cause them to perform a raid on the Village, attacking all non-baby Villagers. Much like with the taglock, the leader will cause nearby leaderless raiders to join them."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If their raid is successful, they will return to their master and will drop off loot, as Illagers gain Emeralds and other loot when killing Villagers. They will not perform a raid if their master has stored Villagers as a whole as $(l:goety:crafts/grimoire_of_goodwill)allies$(). To stop your raid, either register Villagers as your $(l:goety:crafts/grimoire_of_goodwill)allies$() or press Ceasefire key $(l)while holding a banner on main or offhand$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "All Illagers will collect any loot from their kills and will throw them at their master when they're near them and away from combat, unless the loot is a valid food for them to eat."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:chest",
+      "title": "Chest Interaction",
+      "text": "Right clicking on an Illager with a Waystone that leads to an unlocked Chest will cause them to register the chest as a valid container to take food from it, or store excess food and loot, when they are nearby. If the Illager is a leader, their followers will register the same chest as well."
+    }
+  ]
+}

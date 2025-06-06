@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.client.render.model;
 
-import com.Polarice3.Goety.common.entities.ally.AllyTrampler;
+import com.Polarice3.Goety.common.entities.ally.illager.AllyTrampler;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Trampler;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.HierarchicalModel;

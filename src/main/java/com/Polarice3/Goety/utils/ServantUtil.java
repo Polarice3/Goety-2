@@ -3,6 +3,8 @@ package com.Polarice3.Goety.utils;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.ally.illager.PillagerServant;
+import com.Polarice3.Goety.common.entities.ally.illager.VindicatorServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieVillagerServant;
@@ -100,9 +102,9 @@ public class ServantUtil {
             summoned = target.convertTo(ModEntityType.ZPIGLIN_SERVANT.get(), keepLoot);
         } else if (target instanceof Villager){
             summoned = target.convertTo(ModEntityType.ZOMBIE_VILLAGER_SERVANT.get(), keepLoot);
-        } else if (target instanceof Vindicator){
+        } else if (target instanceof Vindicator || target instanceof VindicatorServant){
             summoned = target.convertTo(ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), keepLoot);
-        } else if (target instanceof Pillager){
+        } else if (target instanceof Pillager || target instanceof PillagerServant){
             summoned = target.convertTo(ModEntityType.SKELETON_PILLAGER_SERVANT.get(), keepLoot);
         }
 

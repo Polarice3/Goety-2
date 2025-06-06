@@ -1,8 +1,9 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.hostile.Irk;
 import com.Polarice3.Goety.utils.ItemHelper;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.Util;
 import net.minecraft.core.particles.ParticleTypes;
@@ -19,10 +20,11 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.monster.AbstractIllager;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ItemSupplier;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -158,13 +160,25 @@ public class SwordProjectile extends AbstractArrow implements ItemSupplier {
     }
 
     protected boolean canHitEntity(Entity pEntity) {
-        if (this.getOwner() != null && this.getOwner().isAlliedTo(pEntity)){
-            return false;
-        } else if (pEntity instanceof Irk && this.getOwner() instanceof AbstractIllager){
-            return false;
-        } else {
-            return super.canHitEntity(pEntity);
+        if (this.getOwner() != null){
+            if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
+                return super.canHitEntity(pEntity);
+            } else {
+                if (MobUtil.areAllies(this.getOwner(), pEntity)){
+                    return false;
+                }
+                if (this.getOwner() instanceof Enemy && pEntity instanceof Enemy){
+                    return false;
+                }
+                if (pEntity instanceof Projectile projectile && projectile.getOwner() == this.getOwner()){
+                    return false;
+                }
+                if (pEntity instanceof IOwned owned0 && this.getOwner() instanceof IOwned owned1){
+                    return !MobUtil.ownerStack(owned0, owned1);
+                }
+            }
         }
+        return super.canHitEntity(pEntity);
     }
 
     protected boolean tryPickup(Player p_150196_) {

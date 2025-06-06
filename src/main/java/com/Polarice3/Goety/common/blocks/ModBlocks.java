@@ -69,6 +69,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> SPIDER_NEST = register("spider_nest", SpiderNestBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> SHADE_GRAVESTONE = register("shade_gravestone", GravestoneBlock::new);
     public static final RegistryObject<Block> BLAZING_CAGE = register("blazing_cage", BlazingCageBlock::new);
+    public static final RegistryObject<Block> OMINOUS_PYRE = register("ominous_pyre", OminousPyreBlock::new);
     public static final RegistryObject<Block> FORBIDDEN_GRASS = register("forbidden_grass", ForbiddenGrassBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> HOOK_BELL = register("hook_bell", HookBellBlock::new);
     public static final RegistryObject<Block> SHRIEKING_OBELISK = register("shriek_obelisk", ShriekObeliskBlock::new);
@@ -162,6 +163,9 @@ public class ModBlocks {
                     .strength(50.0F, 1200.0F)
                     .sound(SoundType.METAL)
                     .isRedstoneConductor(ModBlocks::never)));
+
+    public static final RegistryObject<Block> CREEPER_TOTEM = register("creeper_totem", () ->
+            new ToweringBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
 
     public static final RegistryObject<Block> JADE_ORE = register("jade_ore", StoneOreBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> JADE_TILES = register("jade_tiles", JadeStoneBlock::new);

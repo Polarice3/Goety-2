@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.client.render.model;
 
-import com.Polarice3.Goety.common.entities.ally.ModRavager;
+import com.Polarice3.Goety.common.entities.ally.illager.ModRavager;
 import com.Polarice3.Goety.common.entities.hostile.ArmoredRavager;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;

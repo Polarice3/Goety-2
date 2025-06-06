@@ -128,7 +128,7 @@ public class ViciousTooth extends Entity {
         float damage = SpellConfig.ViciousToothDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
         damage += this.extraDamage;
         if (livingEntity != null) {
-            if ((this.getOwner() != null && !livingEntity.isAlliedTo(this.getOwner()) && !this.getOwner().isAlliedTo(livingEntity)) || this.getOwner() == null) {
+            if ((this.getOwner() != null && !MobUtil.areAllies(this.getOwner(), livingEntity)) || this.getOwner() == null) {
                 livingEntity.hurt(damageSources().indirectMagic(this, this.getOwner()), damage);
             }
         }

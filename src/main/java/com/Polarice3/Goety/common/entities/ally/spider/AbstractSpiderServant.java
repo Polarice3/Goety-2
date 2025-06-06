@@ -65,9 +65,11 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
     public LivingEntity commandPosEntity;
     public BlockPos commandPos;
     public BlockPos boundPos;
+    public String boundDim = Level.OVERWORLD.location().toString();
     public int commandTick;
     public int killChance;
     public int noHealTime;
+    public long ticketTime = 0;
 
     public AbstractSpiderServant(EntityType<? extends Spider> p_33786_, Level p_33787_) {
         super(p_33786_, p_33787_);
@@ -124,6 +126,21 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
         super.tick();
         this.ownedTick();
         this.servantTick();
+    }
+
+    @Override
+    public long getTicketTime() {
+        return this.ticketTime;
+    }
+
+    @Override
+    public void setTicketTime(long ticketTime) {
+        this.ticketTime = ticketTime;
+    }
+
+    @Override
+    public long decreaseTicketTime() {
+        return --this.ticketTime;
     }
 
     @Override
@@ -345,10 +362,20 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
 
     public void setBoundPos(BlockPos blockPos){
         this.boundPos = blockPos;
+        this.setBoundDim(this.level.dimension());
     }
 
     public Vec3 vec3BoundPos(){
         return Vec3.atBottomCenterOf(this.boundPos);
+    }
+
+    @Override
+    public String getBoundDim() {
+        return this.boundDim;
+    }
+
+    public void setBoundDim(String string) {
+        this.boundDim = string;
     }
 
     public void dropEquipment(EquipmentSlot equipmentSlot, ItemStack stack){
@@ -509,13 +536,6 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
 
     public void setOwnerClientId(int id){
         this.entityData.set(OWNER_CLIENT_ID, id);
-    }
-
-    public void setTrueOwner(@Nullable LivingEntity livingEntity){
-        if (livingEntity != null) {
-            this.setOwnerId(livingEntity.getUUID());
-            this.setOwnerClientId(livingEntity.getId());
-        }
     }
 
     public void setHostile(boolean hostile){

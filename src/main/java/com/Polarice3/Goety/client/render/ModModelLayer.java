@@ -50,6 +50,11 @@ public class ModModelLayer {
     public static final ModelLayerLocation BOUND_ILLAGER_ANIMATED = register("bound_illager_animated");
     public static final ModelLayerLocation DAMNED = register("damned");
     public static final ModelLayerLocation DAMNED_HUMAN = register("damned_human");
+    public static final ModelLayerLocation ILLAGER_SERVANT = register("illager_servant");
+    public static final ModelLayerLocation VINDICATOR_CHEF = register("vindicator_chef");
+    public static final ModelLayerLocation GEOMANCER = register("geomancer");
+    public static final ModelLayerLocation ICEOLOGER = register("iceologer");
+    public static final ModelLayerLocation WIND_CALLER = register("wind_caller");
     public static final ModelLayerLocation RAVAGED = register("ravaged");
     public static final ModelLayerLocation RAVAGER = register("ravager");
     public static final ModelLayerLocation RAVAGER_ARMOR = register("ravager_armor");

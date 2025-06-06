@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.entities.hostile.servants;
 
 import com.Polarice3.Goety.common.entities.boss.Vizier;
-import com.Polarice3.Goety.common.entities.hostile.Irk;
 import com.Polarice3.Goety.common.entities.projectiles.SwordProjectile;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -236,17 +235,7 @@ public class VizierClone extends SpellcasterIllager {
     }
 
     public boolean isAlliedTo(Entity pEntity) {
-        if (pEntity == this) {
-            return true;
-        } else if (super.isAlliedTo(pEntity)) {
-            return true;
-        } else if (pEntity instanceof Irk irk && irk.getTrueOwner() != null) {
-            return this.isAlliedTo(irk.getTrueOwner());
-        } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.ILLAGER) {
-            return this.getTeam() == null && pEntity.getTeam() == null;
-        } else {
-            return false;
-        }
+        return MobUtil.illagerAllies(this, pEntity);
     }
 
     @Nullable

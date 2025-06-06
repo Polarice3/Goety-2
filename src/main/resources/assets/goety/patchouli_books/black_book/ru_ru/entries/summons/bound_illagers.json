@@ -35,6 +35,10 @@
     {
       "type": "patchouli:text",
       "text": "Подчинённых злодеян можно исцелять, нажав по ним ПКМ эктоплазмой."
-	}
+	},
+    {
+      "type": "patchouli:text",
+      "text": "Поскольку они сохраняют свои умственные способности, то могут нести ваш $(l:goety:mutations/illager_servants#banner)личный флаг$() и возглавлять ваших $(l:goety:mutations/illager_servants)злодеян-прислужников$()."
+    }
   ]
 }

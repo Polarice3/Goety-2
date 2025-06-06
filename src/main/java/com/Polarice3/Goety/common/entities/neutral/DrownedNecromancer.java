@@ -44,7 +44,6 @@ import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -67,7 +66,7 @@ public class DrownedNecromancer extends AbstractNecromancer {
     private boolean searchingForLand;
     protected int stormSpellCool;
     protected int rapidShotCool;
-    protected final WaterBoundPathNavigation waterNavigation;
+    protected final ModWaterPathNavigation waterNavigation;
     protected final GroundPathNavigation groundNavigation;
     public static String STORM = "storm";
     public static String RAPID = "rapid";
@@ -79,6 +78,7 @@ public class DrownedNecromancer extends AbstractNecromancer {
         this.setMaxUpStep(1.25F);
         this.moveControl = new MoveHelperController(this, 2.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
         this.waterNavigation = new ModWaterPathNavigation(this, level);
         this.groundNavigation = new GroundPathNavigatorFat(this, level);
     }
@@ -86,12 +86,15 @@ public class DrownedNecromancer extends AbstractNecromancer {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new GoToWaterGoal(this, 1.0D));
-        this.goalSelector.addGoal(1, new FollowOwnerWaterGoal(this, 1.0D, 10.0F, 2.0F));
         this.goalSelector.addGoal(4, new ModLeaveWaterGoal<>(this));
         this.goalSelector.addGoal(5, new GoToBeachGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new SwimUpGoal(this, 1.0D, this.level.getSeaLevel()));
         this.goalSelector.addGoal(7, new WaterWanderGoal<>(this));
         this.goalSelector.addGoal(8, new MoveToTarget());
+    }
+
+    public void followGoal(){
+        this.goalSelector.addGoal(5, new FollowOwnerWaterGoal(this, 1.0D, 10.0F, 2.0F));
     }
 
     public void projectileGoal(int priority){
@@ -226,7 +229,7 @@ public class DrownedNecromancer extends AbstractNecromancer {
         } else if (this.getTarget() != null && this.getTarget().isInWater()) {
             return true;
         } else {
-            return this.getTrueOwner() != null && this.getTrueOwner().isInWater();
+            return this.getTrueOwner() != null && this.isFollowing() && (this.getTrueOwner().isInWater() || (this.isInWater() && this.getTrueOwner().getY() > this.getY()));
         }
     }
 
@@ -455,9 +458,9 @@ public class DrownedNecromancer extends AbstractNecromancer {
             LivingEntity livingentity = this.drowned.getTarget();
             LivingEntity owner = this.drowned.getTrueOwner();
             if (this.drowned.wantsToSwim() && this.drowned.isInWater()) {
-                if ((livingentity != null && livingentity.getY() > this.drowned.getY()) || this.drowned.searchingForLand) {
-                    this.drowned.setDeltaMovement(this.drowned.getDeltaMovement().add(0.0D, 0.002D, 0.0D));
-                } else if (owner != null && owner.getY() > this.drowned.getY()){
+                if ((livingentity != null && livingentity.getY() > this.drowned.getY())
+                        || this.drowned.searchingForLand
+                        || (owner != null && owner.getY() > this.drowned.getY() && this.drowned.isFollowing())) {
                     this.drowned.setDeltaMovement(this.drowned.getDeltaMovement().add(0.0D, 0.002D, 0.0D));
                 }
 
@@ -498,14 +501,12 @@ public class DrownedNecromancer extends AbstractNecromancer {
         }
 
         public boolean canUse() {
-            if (this.drowned.getTrueOwner() != null){
-                if (this.drowned.getTrueOwner().isUnderWater()){
+            if (this.drowned.getTrueOwner() != null) {
+                if (this.drowned.isFollowing()) {
                     return false;
                 }
-            } else if (this.drowned.level.isDay()) {
-                return false;
             }
-            return super.canUse() && this.drowned.isInWater() && this.drowned.getY() >= (double)(this.drowned.level.getSeaLevel() - 3);
+            return super.canUse() && !this.drowned.level().isDay() && this.drowned.isInWater() && this.drowned.getY() >= (double)(this.drowned.level().getSeaLevel() - 3);
         }
 
         public boolean canContinueToUse() {
@@ -541,14 +542,12 @@ public class DrownedNecromancer extends AbstractNecromancer {
         }
 
         public boolean canUse() {
-            if (this.drowned.getTrueOwner() != null){
-                if (this.drowned.getTrueOwner().isUnderWater()){
+            if (this.drowned.getTrueOwner() != null) {
+                if (this.drowned.isFollowing()) {
                     return false;
                 }
-            } else if (this.drowned.level.isDay()) {
-                return false;
             }
-            return this.drowned.isInWater() && this.drowned.getY() < (double)(this.seaLevel - 2);
+            return !this.drowned.level().isDay() && this.drowned.isInWater() && this.drowned.getY() < (double)(this.seaLevel - 2);
         }
 
         public boolean canContinueToUse() {

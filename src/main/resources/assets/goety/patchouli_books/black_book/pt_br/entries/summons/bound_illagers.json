@@ -1,12 +1,12 @@
 {
-  "name": "Illagers Aprisionados",
+  "name": "Illagers Vinculados",
   "icon": "minecraft:totem_of_undying",
   "category": "goety:summons",
   "advancement": "goety:goety/kill_a_evoker",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Enquanto um Vindicador pode ser ressuscitado como um Zumbi, um Saqueador como um Esqueleto, para criar uma versão morta-viva adequada dos poderosos Evocadores e outros Illagers feiticeiros, é necessário uma abordagem mais... espiritual."
+      "text": "Embora um Vindicador possa ser ressuscitado como Zombie, um Pillager como Esqueleto, para criar verdadeiramente uma versão morta-viva dos poderosos Evocadores e outros feiticeiros Illager, é necessário ser mais... espiritual na sua busca."
     },
     {
       "type": "patchouli:entity",
@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Diferente dos outros dois, os Evocadores Aprisionados podem flutuar e não são afetados pela gravidade. Apesar de sua aparência espiritual, eles não podem atravessar paredes e ainda podem ser feridos com armas convencionais."
+      "text": "Ao contrário dos outros dois, os Evocadores Vinculados podem flutuar acima do solo e não são afetados pela gravidade. Apesar do seu aspeto espiritual, não podem atravessar paredes e ainda podem ser feridos com armas convencionais."
     },
     {
       "type": "goety:ritual",
@@ -26,7 +26,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Os Iceologistas Aprisionados são tão frios quanto em vida, mas, desta vez, seus Pedaços de Gelo caem na cabeça de outros, não na sua."
+      "text": "Os Iceologistas Vinculados são tão frios como em vida, mas desta vez os seus Pedaços de Gelo caem na cabeça de outra pessoa em vez da tua."
     },
     {
       "type": "goety:ritual",
@@ -34,7 +34,11 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Essas almas aprisionadas podem ser curadas clicando nelas com Ectoplasma."
+      "text": "Estas almas vinculadas podem ser curadas ao clicar nelas com Ectoplasma."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Como ainda retêm as suas faculdades mentais, estas almas podem receber a tua $(l:goety:mutations/illager_servants#banner)bandeira pessoal$() e liderar os teus $(l:goety:mutations/illager_servants)servos Illager$() também."
     }
   ]
 }

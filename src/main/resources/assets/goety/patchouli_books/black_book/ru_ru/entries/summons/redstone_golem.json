@@ -37,6 +37,10 @@
       "type": "multiblock",
       "multiblock_id": "goety:redstone_golem_revive",
       "enable_visualize": false
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Редстоуновые големы могут быть частью $(l:goety:mutations/illager_servants)рейдерского отряда$(), но не могут быть его лидерами."
     }
   ],
   "extra_recipe_mappings": {

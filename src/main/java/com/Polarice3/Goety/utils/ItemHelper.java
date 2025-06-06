@@ -8,6 +8,9 @@ import com.Polarice3.Goety.config.ItemConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -21,6 +24,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
@@ -279,5 +283,34 @@ public class ItemHelper {
         } else {
             tooltip.add(getShiftInfoTooltip());
         }
+    }
+
+    public static boolean sameBanner(ItemStack banner1, ItemStack banner2){
+        if (banner1.getItem() instanceof BannerItem && banner2.getItem() instanceof BannerItem) {
+            CompoundTag compoundtag1 = BlockItem.getBlockEntityData(banner1);
+            CompoundTag compoundtag2 = BlockItem.getBlockEntityData(banner2);
+            if (compoundtag1 != null && compoundtag2 != null) {
+                if (compoundtag1.contains("Patterns") && compoundtag2.contains("Patterns")) {
+                    ListTag listtag1 = compoundtag1.getList("Patterns", 10);
+                    ListTag listtag2 = compoundtag2.getList("Patterns", 10);
+                    if (listtag1.size() == listtag2.size()) {
+                        int i = 0;
+                        for (int j = 0; j < listtag1.size(); ++j){
+                            CompoundTag compoundtag3 = listtag1.getCompound(i);
+                            CompoundTag compoundtag4 = listtag2.getCompound(i);
+                            Holder<BannerPattern> holder1 = BannerPattern.byHash(compoundtag3.getString("Pattern"));
+                            Holder<BannerPattern> holder2 = BannerPattern.byHash(compoundtag4.getString("Pattern"));
+                            if (holder1 != null && holder2 != null) {
+                                if (holder1.get().getHashname().equals(holder2.get().getHashname())){
+                                    ++i;
+                                }
+                            }
+                        }
+                        return i == listtag1.size();
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -195,14 +196,14 @@ public class Fangs extends Entity {
         LivingEntity livingentity = this.getOwner();
         float baseDamage = SpellConfig.FangDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
         baseDamage += this.damage;
-        if (target.isAlive() && !target.isInvulnerable() && target != livingentity) {
+        if (target.isAlive() && !target.isInvulnerable()) {
             if (livingentity == null) {
                 target.hurt(this.damageSources().magic(), baseDamage);
             } else {
-                if (target.isAlliedTo(livingentity)){
+                if (target == livingentity){
                     return;
                 }
-                if (livingentity.isAlliedTo(target)) {
+                if (MobUtil.areAllies(target, livingentity)){
                     return;
                 }
                 if (livingentity instanceof Player player){

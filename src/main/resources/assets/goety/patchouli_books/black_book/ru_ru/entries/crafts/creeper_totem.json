@@ -1,0 +1,15 @@
+{
+  "name": "Тотемы крипера",
+  "icon": "goety:creeper_totem",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Декоративные блоки, изменяющие текстуру при установке друг на друга."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:creeper_totem"
+    }
+  ]
+}

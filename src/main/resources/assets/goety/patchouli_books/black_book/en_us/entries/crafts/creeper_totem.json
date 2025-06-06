@@ -1,0 +1,15 @@
+{
+  "name": "Creeper Totems",
+  "icon": "goety:creeper_totem",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A decorative block that changes textures when placed on one another."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:creeper_totem"
+    }
+  ]
+}

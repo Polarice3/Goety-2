@@ -47,8 +47,8 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
     public int updateVariant;
     public boolean showArea;
     public boolean sensorSensitive;
-    public boolean patrolling = true;
-    public boolean guarding;
+    public boolean guarding = true;
+    public boolean grounding;
     public boolean reachedLimit;
     public ItemStack itemStack = ItemStack.EMPTY;
     public CompoundTag entityToSpawn = new CompoundTag();
@@ -119,7 +119,7 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
                                             ForgeEventFactory.onFinalizeSpawn(mob, serverLevel, serverLevel.getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null, null);
                                         }
                                         if (entity instanceof IServant servant){
-                                            if (this.isPatrolling()) {
+                                            if (this.isGuarding()) {
                                                 servant.setBoundPos(blockPos);
                                             } else {
                                                 servant.setBoundPos(null);
@@ -343,11 +343,11 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
         if (tag.contains("sensorSensitive")) {
             this.sensorSensitive = tag.getBoolean("sensorSensitive");
         }
-        if (tag.contains("patrolling")) {
-            this.patrolling = tag.getBoolean("patrolling");
+        if (tag.contains("guardArea") || tag.contains("patrolling")) {
+            this.guarding = tag.getBoolean("guardArea");
         }
-        if (tag.contains("guarding")) {
-            this.guarding = tag.getBoolean("guarding");
+        if (tag.contains("grounding") || tag.contains("guarding")) {
+            this.grounding = tag.getBoolean("grounding");
         }
         if (tag.contains("reachedLimit")) {
             this.reachedLimit = tag.getBoolean("reachedLimit");
@@ -363,8 +363,8 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
         tag1.put("EntityToSpawn", this.entityToSpawn);
         tag1.putBoolean("showArea", this.showArea);
         tag1.putBoolean("sensorSensitive", this.sensorSensitive);
-        tag1.putBoolean("patrolling", this.patrolling);
-        tag1.putBoolean("guarding", this.guarding);
+        tag1.putBoolean("guardArea", this.guarding);
+        tag1.putBoolean("grounding", this.grounding);
         tag1.putBoolean("reachedLimit", this.reachedLimit);
         return tag1;
     }
@@ -387,21 +387,21 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
         this.markUpdated();
     }
 
-    public boolean isPatrolling(){
-        return this.patrolling;
+    public boolean isGuarding(){
+        return this.guarding;
     }
 
-    public void setPatrolling(boolean patrolling){
-        this.patrolling = patrolling;
+    public void setGuarding(boolean guarding){
+        this.guarding = guarding;
         this.markUpdated();
     }
 
     public boolean isGrounding(){
-        return this.guarding;
+        return this.grounding;
     }
 
     public void setGrounding(boolean guarding){
-        this.guarding = guarding;
+        this.grounding = guarding;
         this.markUpdated();
     }
 

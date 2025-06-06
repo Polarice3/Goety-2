@@ -88,6 +88,9 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<BlazingCageBlockEntity>> BLAZING_CAGE = BLOCK_ENTITY.register("blazing_cage",
             () -> BlockEntityType.Builder.of(BlazingCageBlockEntity::new, ModBlocks.BLAZING_CAGE.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<OminousPyreBlockEntity>> OMINOUS_PYRE = BLOCK_ENTITY.register("ominous_pyre",
+            () -> BlockEntityType.Builder.of(OminousPyreBlockEntity::new, ModBlocks.OMINOUS_PYRE.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<PithosBlockEntity>> PITHOS = BLOCK_ENTITY.register("pithos",
             () -> BlockEntityType.Builder.of(PithosBlockEntity::new, ModBlocks.PITHOS.get()).build(null));
 

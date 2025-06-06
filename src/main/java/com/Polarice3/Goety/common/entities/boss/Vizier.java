@@ -549,17 +549,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     }
 
     public boolean isAlliedTo(Entity pEntity) {
-        if (pEntity == this) {
-            return true;
-        } else if (super.isAlliedTo(pEntity)) {
-            return true;
-        } else if (pEntity instanceof Irk irk && irk.getTrueOwner() != null) {
-            return this.isAlliedTo(irk.getTrueOwner());
-        } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.ILLAGER) {
-            return this.getTeam() == null && pEntity.getTeam() == null;
-        } else {
-            return false;
-        }
+        return MobUtil.illagerAllies(this, pEntity);
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {

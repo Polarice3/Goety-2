@@ -351,7 +351,7 @@ public class RedstoneCube extends AbstractGolemServant{
 
     @Override
     public double getAttackReachSqr(LivingEntity enemy) {
-        return (double)(this.getBbWidth() * 2.0F * this.getBbWidth() * 2.0F + enemy.getBbWidth());
+        return this.getBbWidth() * 2.0F * this.getBbWidth() * 2.0F + enemy.getBbWidth();
     }
 
     @Override
@@ -380,7 +380,7 @@ public class RedstoneCube extends AbstractGolemServant{
                             && !blockItem.getBlock().defaultBlockState().is(ModTags.Blocks.REDSTONE_CUBE_EXEMPT)
                             && this.getMainHandItem().getItem() != item){
                         this.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 1.25F);
-                        this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copy());
+                        this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
                         this.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
                         EntityFinder.sendEntityUpdatePacket(pPlayer, this);
                         return InteractionResult.SUCCESS;

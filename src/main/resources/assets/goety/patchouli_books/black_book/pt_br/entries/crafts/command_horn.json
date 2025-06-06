@@ -1,16 +1,16 @@
 {
-  "name": "Chifre de Comando",
+  "name": "Trompa de Comando",
   "icon": "goety:command_horn",
   "category": "goety:crafts",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "O Chifre de Comando permite que você altere as posturas de movimento de seus servos, que estão dentro de 16 blocos de você, entre 'Em Espera' e 'Seguindo'. Você também pode clicar com o botão direito em um bloco para fazê-los se moverem em direção a ele."
+      "text": "Muda o modo de movimento dos servos (16 blocos) entre 'Esperar' e 'Seguir'. Clique em um bloco para movê-los até ele."
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:command_horn",
-      "text": "Servos que estão 'Patrulhando', já comandados ou parte de um $(l:crafts/grimoire_of_grounding)Grimório de Aterramento$() não são afetados pelo chifre."
+      "text": "Não afeta servos em Modo de Guarda ou vinculados a um $(l:crafts/grimoire_of_grounding)Grimório de Grounding$()."
     }
   ]
 }

@@ -21,6 +21,10 @@
       "type": "patchouli:entity",
       "entity": "goety:ravaged",
       "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Fully grown Ravagers can be part of a $(l:goety:mutations/illager_servants)raiding party$(), though they cannot be leaders."
     }
   ]
 }

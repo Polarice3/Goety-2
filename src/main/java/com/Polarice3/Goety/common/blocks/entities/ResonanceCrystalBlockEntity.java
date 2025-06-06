@@ -6,10 +6,7 @@ import com.Polarice3.Goety.common.blocks.ResonanceCrystalBlock;
 import com.Polarice3.Goety.common.entities.ally.golem.SquallGolem;
 import com.Polarice3.Goety.common.items.block.ResonanceBlockItem;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.ColorUtil;
-import com.Polarice3.Goety.utils.EntityFinder;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -36,6 +33,7 @@ public class ResonanceCrystalBlockEntity extends ModBlockEntity implements IWind
     public int active;
     private boolean isOn;
     public boolean showBlock;
+    public long ticketTime = 0;
 
     public ResonanceCrystalBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
         super(ModBlockEntities.RESONANCE_CRYSTAL.get(), p_155229_, p_155230_);
@@ -57,11 +55,9 @@ public class ResonanceCrystalBlockEntity extends ModBlockEntity implements IWind
                 }
                 if (this.level instanceof ServerLevel world) {
                     ChunkPos chunkPos = this.level.getChunkAt(this.worldPosition).getPos();
-                    if (!world.getForcedChunks().contains(chunkPos.toLong())) {
-                        world.setChunkForced(chunkPos.x, chunkPos.z, true);
-                        if (!world.isLoaded(this.worldPosition)) {
-                            world.getChunkAt(this.worldPosition).setLoaded(true);
-                        }
+                    if (--this.ticketTime <= 0L) {
+                        world.getChunkSource().addRegionTicket(ModTicketTypes.BLOCK, chunkPos, 2, this.worldPosition);
+                        this.ticketTime = ModTicketTypes.BLOCK.timeout() - 1L;
                     }
                     BlockPos blockPos = this.getBlockPos();
                     ServerParticleUtil.gatheringBlockParticles(ModParticleTypes.RESONANCE_GATHER.get(), blockPos, world);

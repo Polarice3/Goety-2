@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.hostile.illagers;
 
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.spells.storm.DischargeSpell;
@@ -9,11 +10,11 @@ import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SLightningPacket;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -24,15 +25,18 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -42,10 +46,13 @@ import java.util.Objects;
 public class StormCaster extends HuntingIllagerEntity{
     private static final EntityDataAccessor<Byte> IS_CASTING_SPELL = SynchedEntityData.defineId(StormCaster.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(StormCaster.class, EntityDataSerializers.INT);
+    public static String IDLE = "idle";
+    public static String SHOCK = "shock";
+    public static String CLOUD = "cloud";
+    public static String DISCHARGE = "discharge";
     protected int castingTime;
     public static ItemStack STAFF = new ItemStack(ModItems.STORM_STAFF.get());
     public AnimationState idleAnimationState = new AnimationState();
-    public AnimationState walkAnimationState = new AnimationState();
     public AnimationState shockAnimationState = new AnimationState();
     public AnimationState cloudAnimationState = new AnimationState();
     public AnimationState dischargeAnimationState = new AnimationState();
@@ -61,17 +68,19 @@ public class StormCaster extends HuntingIllagerEntity{
         this.goalSelector.addGoal(1, new DischargeSpellGoal());
         this.goalSelector.addGoal(2, new MonsoonSpellGoal());
         this.goalSelector.addGoal(3, new ShockGoal());
-        this.goalSelector.addGoal(4, new AvoidTargetGoal<>(this, LivingEntity.class, 8.0F, 0.6D, 1.0D){
+        this.goalSelector.addGoal(4, new AvoidTargetGoal<>(this, LivingEntity.class, 3.0F, 1.0D, 1.6D){
             @Override
             public boolean canUse() {
-                return super.canUse() && StormCaster.this.getCurrentAnimation() < 3;
+                return super.canUse() && !StormCaster.this.isAttacking();
             }
         });
+        this.goalSelector.addGoal(5, new MoveToTargetGoal());
     }
 
     public static AttributeSupplier.Builder setCustomAttributes(){
         return Mob.createMobAttributes()
                 .add(Attributes.FOLLOW_RANGE, 16.0D)
+                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0D)
                 .add(Attributes.MAX_HEALTH, AttributesConfig.StormCasterHealth.get())
                 .add(Attributes.ARMOR, AttributesConfig.StormCasterArmor.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.35D)
@@ -109,16 +118,14 @@ public class StormCaster extends HuntingIllagerEntity{
     }
 
     public int getAnimationState(String animation) {
-        if (Objects.equals(animation, "idle")){
+        if (Objects.equals(animation, IDLE)){
             return 1;
-        } else if (Objects.equals(animation, "walk")){
+        } else if (Objects.equals(animation, SHOCK)){
             return 2;
-        } else if (Objects.equals(animation, "shock")){
+        } else if (Objects.equals(animation, CLOUD)){
             return 3;
-        } else if (Objects.equals(animation, "cloud")){
+        } else if (Objects.equals(animation, DISCHARGE)){
             return 4;
-        } else if (Objects.equals(animation, "discharge")){
-            return 5;
         } else {
             return 0;
         }
@@ -127,7 +134,6 @@ public class StormCaster extends HuntingIllagerEntity{
     public List<AnimationState> getAllAnimations(){
         List<AnimationState> list = new ArrayList<>();
         list.add(this.idleAnimationState);
-        list.add(this.walkAnimationState);
         list.add(this.shockAnimationState);
         list.add(this.cloudAnimationState);
         list.add(this.dischargeAnimationState);
@@ -157,18 +163,14 @@ public class StormCaster extends HuntingIllagerEntity{
                         this.stopMostAnimation(this.idleAnimationState);
                         break;
                     case 2:
-                        this.walkAnimationState.startIfStopped(this.tickCount);
-                        this.stopMostAnimation(this.walkAnimationState);
-                        break;
-                    case 3:
                         this.shockAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.shockAnimationState);
                         break;
-                    case 4:
+                    case 3:
                         this.cloudAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.cloudAnimationState);
                         break;
-                    case 5:
+                    case 4:
                         this.dischargeAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.dischargeAnimationState);
                         break;
@@ -217,10 +219,6 @@ public class StormCaster extends HuntingIllagerEntity{
     protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
     }
 
-    public boolean isMoving() {
-        return this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
-    }
-
     protected float getDamageAfterMagicAbsorb(DamageSource p_34149_, float p_34150_) {
         p_34150_ = super.getDamageAfterMagicAbsorb(p_34149_, p_34150_);
         if (p_34149_.getEntity() == this) {
@@ -246,25 +244,25 @@ public class StormCaster extends HuntingIllagerEntity{
     protected void checkFallDamage(double p_20809_, boolean p_20810_, BlockState p_20811_, BlockPos p_20812_) {
     }
 
+    public boolean isAttacking(){
+        return this.getCurrentAnimation() == this.getAnimationState(SHOCK) || this.getCurrentAnimation() == this.getAnimationState(CLOUD) || this.getCurrentAnimation() == this.getAnimationState(DISCHARGE);
+    }
+
     @Override
     public void tick() {
         super.tick();
         if (this.level.isClientSide){
-            if (this.isAlive()){
-                if (this.getCurrentAnimation() < 3) {
-                    if (this.isMoving()) {
-                        this.setAnimationState("walk");
-                    } else {
-                        this.setAnimationState("idle");
-                    }
-                }
-            }
+            this.idleAnimationState.animateWhen(!this.isAttacking() && !this.walkAnimation.isMoving(), this.tickCount);
         } else if (this.level instanceof ServerLevel serverLevel){
-            ServerParticleUtil.circularParticles(serverLevel, ParticleTypes.CLOUD, this, 1.0F);
-            if (serverLevel.random.nextInt(20) == 0){
-                Vec3 vec3 = Vec3.atCenterOf(this.blockPosition());
-                Vec3 vec31 = vec3.add(this.random.nextDouble(), 1.0D, this.random.nextDouble());
-                ModNetwork.sendToALL(new SLightningPacket(vec3, vec31, 2));
+            if (this.isAlive()) {
+                ServerParticleUtil.windParticle(serverLevel, ColorUtil.WHITE, 0.5F + serverLevel.random.nextFloat() * 0.5F, 0.0F, this.getId(), this.position());
+                ColorUtil colorUtil = new ColorUtil(0x8d837d);
+                ServerParticleUtil.circularParticles(serverLevel, ModParticleTypes.STATION_CULT_SPELL.get(), this, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 0.5F);
+                if (serverLevel.random.nextInt(20) == 0){
+                    Vec3 vec3 = Vec3.atCenterOf(this.blockPosition());
+                    Vec3 vec31 = vec3.add(this.random.nextDouble(), 1.0D, this.random.nextDouble());
+                    ModNetwork.sendToALL(new SLightningPacket(vec3, vec31, 2));
+                }
             }
         }
     }
@@ -275,20 +273,6 @@ public class StormCaster extends HuntingIllagerEntity{
         Vec3 vector3d = this.getDeltaMovement();
         if (!this.onGround() && vector3d.y < 0.0D && !this.isNoGravity()) {
             this.setDeltaMovement(vector3d.multiply(1.0D, 0.6D, 1.0D));
-        }
-    }
-
-    public boolean isAlliedTo(Entity pEntity) {
-        if (pEntity == this) {
-            return true;
-        } else if (super.isAlliedTo(pEntity)) {
-            return true;
-        } else if (pEntity instanceof Vex vex && vex.getOwner() != null) {
-            return this.isAlliedTo(vex.getOwner());
-        } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.ILLAGER) {
-            return this.getTeam() == null && pEntity.getTeam() == null;
-        } else {
-            return false;
         }
     }
 
@@ -314,7 +298,10 @@ public class StormCaster extends HuntingIllagerEntity{
         @Override
         public boolean canUse() {
             LivingEntity livingentity = StormCaster.this.getTarget();
-            if (livingentity != null && livingentity.isAlive() && StormCaster.this.hasLineOfSight(livingentity)) {
+            if (livingentity != null
+                    && livingentity.isAlive()
+                    && StormCaster.this.hasLineOfSight(livingentity)
+                    && StormCaster.this.distanceTo(livingentity) <= 8.0D) {
                 if (StormCaster.this.isCastingSpell()) {
                     return false;
                 } else {
@@ -327,7 +314,11 @@ public class StormCaster extends HuntingIllagerEntity{
 
         public boolean canContinueToUse() {
             LivingEntity livingentity = StormCaster.this.getTarget();
-            return livingentity != null && livingentity.isAlive() && StormCaster.this.hasLineOfSight(livingentity) && this.shockTime > 0;
+            return livingentity != null
+                    && livingentity.isAlive()
+                    && StormCaster.this.hasLineOfSight(livingentity)
+                    && StormCaster.this.distanceTo(livingentity) <= 8.0D
+                    && this.shockTime > 0;
         }
 
         @Override
@@ -343,7 +334,7 @@ public class StormCaster extends HuntingIllagerEntity{
                 StormCaster.this.getLookControl().setLookAt(livingentity, (float)StormCaster.this.getMaxHeadYRot(), (float)StormCaster.this.getMaxHeadXRot());
             }
             StormCaster.this.navigation.stop();
-            StormCaster.this.setAnimationState("shock");
+            StormCaster.this.setAnimationState(SHOCK);
             this.nextAttackTickCount = StormCaster.this.tickCount + 100;
             this.shockTime = 30;
         }
@@ -351,7 +342,7 @@ public class StormCaster extends HuntingIllagerEntity{
         @Override
         public void stop() {
             super.stop();
-            StormCaster.this.setAnimationState("idle");
+            StormCaster.this.setAnimationState(IDLE);
             this.shockTime = 0;
         }
 
@@ -386,7 +377,7 @@ public class StormCaster extends HuntingIllagerEntity{
         public void stop() {
             super.stop();
             StormCaster.this.setIsCastingSpell(0);
-            StormCaster.this.setAnimationState("idle");
+            StormCaster.this.setAnimationState(IDLE);
         }
 
         public void tick() {
@@ -403,7 +394,7 @@ public class StormCaster extends HuntingIllagerEntity{
 
         public boolean canUse() {
             LivingEntity livingentity = StormCaster.this.getTarget();
-            if (livingentity != null && livingentity.distanceTo(StormCaster.this) <= 16.0F && livingentity.isAlive() && StormCaster.this.getCurrentAnimation() != StormCaster.this.getAnimationState("shock")) {
+            if (livingentity != null && livingentity.distanceTo(StormCaster.this) <= 16.0F && livingentity.isAlive() && StormCaster.this.getCurrentAnimation() != StormCaster.this.getAnimationState(SHOCK)) {
                 if (StormCaster.this.isCastingSpell()) {
                     return false;
                 } else {
@@ -432,7 +423,7 @@ public class StormCaster extends HuntingIllagerEntity{
         @Override
         public void stop() {
             super.stop();
-            StormCaster.this.setAnimationState("idle");
+            StormCaster.this.setAnimationState(IDLE);
         }
 
         public void tick() {
@@ -467,7 +458,7 @@ public class StormCaster extends HuntingIllagerEntity{
 
         public void start() {
             super.start();
-            StormCaster.this.setAnimationState("cloud");
+            StormCaster.this.setAnimationState(CLOUD);
         }
 
         @Override
@@ -503,7 +494,7 @@ public class StormCaster extends HuntingIllagerEntity{
 
         public void start() {
             super.start();
-            StormCaster.this.setAnimationState("discharge");
+            StormCaster.this.setAnimationState(DISCHARGE);
         }
 
         @Override
@@ -531,6 +522,45 @@ public class StormCaster extends HuntingIllagerEntity{
 
         protected int getCastWarmupTime() {
             return 10;
+        }
+    }
+
+    class MoveToTargetGoal extends Goal {
+        @Nullable
+        private LivingEntity target;
+
+        @Override
+        public boolean canUse() {
+            LivingEntity livingentity = StormCaster.this.getTarget();
+            if (StormCaster.this.isAttacking()){
+                return false;
+            } else if (livingentity != null && livingentity.isAlive()) {
+                this.target = livingentity;
+                return this.target.distanceTo(StormCaster.this) > 13.0D;
+            } else {
+                return false;
+            }
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return this.target != null && this.target.isAlive() && this.target.distanceTo(StormCaster.this) > 6.0D && !StormCaster.this.isAttacking();
+        }
+
+        @Override
+        public void stop() {
+            StormCaster.this.getNavigation().stop();
+        }
+
+        public void tick() {
+            if (this.target != null) {
+                StormCaster.this.getNavigation().moveTo(this.target, 1.1F);
+            }
+        }
+
+        @Override
+        public boolean requiresUpdateEveryTick() {
+            return true;
         }
     }
 }

@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.entities.ally.undead.bound;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
-import com.Polarice3.Goety.common.entities.ally.AllyVex;
+import com.Polarice3.Goety.common.entities.ally.illager.AllyVex;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.config.AttributesConfig;
@@ -48,7 +48,7 @@ public class BoundEvoker extends AbstractBoundIllager{
         this.goalSelector.addGoal(4, new EvokerSummonSpellGoal());
         this.goalSelector.addGoal(5, new EvokerAttackSpellGoal());
         this.goalSelector.addGoal(6, new EvokerWololoSpellGoal());
-        this.goalSelector.addGoal(8, new WanderGoal<>(this, 0.6D));
+        this.goalSelector.addGoal(8, new RaiderWanderGoal<>(this, 0.6D));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
     }
@@ -82,6 +82,10 @@ public class BoundEvoker extends AbstractBoundIllager{
 
     protected void customServerAiStep() {
         super.customServerAiStep();
+    }
+
+    public SoundEvent getCelebrateSound() {
+        return SoundEvents.EVOKER_CELEBRATE;
     }
 
     protected SoundEvent getAmbientSound() {

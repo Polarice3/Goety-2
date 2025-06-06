@@ -1,15 +1,22 @@
 {
-  "name": "リコールフォーカス",
+  "name": "リコールのフォーカス",
   "icon": "goety:recall_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/void",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "リコールフォーカスを使用すると、キャスターはフォーカスによって保存された場所にテレポートして戻ることができます。 フォーカスを使用するには、キャスターが所有する $(l:crafts/artifice/arca)アルカ$()、ベッド、またはリスポーン アンカーのいずれかを右クリックして位置を保存する必要があります。 Shift キーを押しながらフォーカスを右クリックすると、保存された場所がクリアされます。"
+      "text": "リコールのフォーカスを唱えると、術者はフォーカスによって保存された場所へテレポートすることができます。術者が所有する$(l:crafts/artifice/arca)アルカ$()、ベッド、リスポーンアンカーのいずれかをフォーカスで右クリックして、場所を保存しておく必要があります。フォーカスをShiftキーを押しながら右クリックすると、保存された場所が消去されます。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/recall_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "この呪文により、術者は右クリックすることで、保存した場所に従者をテレポートさせることもできます。テレポートに成功すると、従者はその場所で待機します。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:recall_focus": 1
+  }
 }

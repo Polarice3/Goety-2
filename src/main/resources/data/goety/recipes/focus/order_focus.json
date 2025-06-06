@@ -1,0 +1,27 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:command_focus"
+  },
+  "craftType": "magic",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "minecraft:note_block"
+    },
+    {
+      "item": "goety:waystone"
+    },
+    {
+      "item": "goety:waystone"
+    },
+    {
+      "item": "minecraft:note_block"
+    }
+  ],
+  "result": {
+    "item": "goety:order_focus"
+  }
+}

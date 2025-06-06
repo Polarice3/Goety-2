@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "minecraft:pillager",
-    "goety:piker"
+    "goety:piker",
+    "goety:pillager_servant"
   ]
 }

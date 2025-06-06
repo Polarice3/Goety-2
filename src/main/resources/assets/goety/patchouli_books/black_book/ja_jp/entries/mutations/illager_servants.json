@@ -1,0 +1,131 @@
+{
+  "name": "イリジャーの従者",
+  "icon": "goety:magic_emerald",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "イリジャーについて、そして彼らの祖先である村人が自らを守るために、武器を取って彼らがどのようにして生まれたのかを学んだ後、あなたは村人の心に暴力と隷属をもたらす方法を思いつきました。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_villager_to_neollager"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:neollager"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "平和主義の村人を、暴力的へと転向させることに成功したとしても、そのような憎しみは習得する必要があります。イリジャーは、最初からクロスボウの射撃や斧での倒し方を習得できるわけではありません。真のイリジャーを作るには、成長のための$(l:goety:crafts/artifice/ominous_pyre)訓練場$()を用意する必要があります。$(l:goety:mutations/illager_servants#banner)登録済みの旗$()がある場合、複製ではない旗をネオラジャーに与え、近くに機織り機があれば、複製の旗を作る作業が始まります。ベビーネオラージャーは訓練が早いです。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:neollager{Magic: 1b}"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "とはいえ、すべてのイリジャーが平等というわけではない。魔法の才能を持って生まれた者だけが、魔法使いとなる希望を持つことができる。彼らは都合よく紫色のローブをまとっている。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:pillager_servant{HandItems:[{Count:1,id:\"minecraft:crossbow\"},{}]}"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "洗練されたクロスボウを装備しているにもかかわらず、イリジャーの戦闘スタイルは実にシンプルです。幸いにも、あなたの従者は標的が近づいたら後退する方法を心得ています。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:vindicator_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "指揮下にある最も凶悪なイリジャーの一人。斧で盾を無効化し、大量のダメージを与える。従順にさせたいなら、「Johnny」という名前は避けた方が良いだろう。"
+    },
+	    {
+      "type": "patchouli:entity",
+      "entity": "goety:vindicator_chef_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "未調理の肉を集め、インベントリ内の食べ物を近くの燻製器やかまどで調理できる、特殊なヴィンディケーターです。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:evoker_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "闇の魔術の使い手だが、使える呪文は2つに限られている。しかし、呪文の使い手としてはかなり優秀です。戦闘に関しては、刺されないように走り回るのが好きなようだ。"
+    },
+	{
+      "type": "patchouli:entity",
+      "entity": "goety:geomancer_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "地面そのものを操作する能力を持つ、ぼろぼろの服を着た魔法使いは、地面から石の柱を立てて敵の進路を妨害したり、敵を爆破したりすることができます。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:iceologer_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "これらの冷たい氷の魔術師は、氷の塊で敵の頭を粉砕します。"
+    },
+	{
+      "type": "patchouli:entity",
+      "entity": "goety:wind_caller_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "空の支配者であるこの大きな髪の魔術師は、敵を上空に投げ飛ばしたり、風で吹き飛ばしたりすることができます。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:red_bed",
+      "title": "食事・繁殖・回復",
+      "text": "イリジャーは、直接食べ物を与えたり投げたりすることで、体力を回復したり繁殖したりすることができます。完全に回復し、戦闘中ではなく、フォローモードではなく、近くにベッドがある場合は、食べ物を使って村人のように互いに繁殖し、ネオラジャーの赤ちゃんが生まれます。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "インベントリに食料を過剰に保有していると、食料の少ない他のイリジャーに食料を投げつけます。持ち帰ることができる食料は、調理済みの肉、野菜、果物、腐った肉。腐った肉は食べませんが、$(l:goety:mutations/ravaged)ラヴェイジドや傷ついたラヴェジャー$()に与えます。また、装備用の鎧や武器を装備させることもできます。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:black_banner",
+      "anchor": "旗",
+      "title": "個人的な旗",
+      "text": "イリジャーは独自の不吉な旗を持っていますが、自分の支配を示す独自の旗を持つのも楽しく、また便利でしょう。独自の旗を登録するには、旗を置き、ブロック系フォーカスの無い杖（できない例：$(l:goety:focuses/geomancy/pulverize_focus)粉砕のフォーカス$()）で右クリックするだけです。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:pillager_servant{HandItems:[{Count:1,id:\"minecraft:crossbow\"},{}], ArmorItems:[{},{},{},{Count:1,id:\"minecraft:black_banner\"}]}",
+      "scale": 0.5,
+      "text": "ピリジャーの従者のようなイリジャーはリーダーにすることができます。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "イリジャーにあなたの$(l:goety:mutations/illager_servants#banner)個人的な旗$()を与えると、リーダーになります。$(l:goety:focuses/command_focus)コマンド/命令$() / $(l:goety:focuses/order_focus)体制$()のフォーカスを使用して、イリジャーや、飼い慣らしたラヴェジャーなどの特定の襲撃の従者にリーダーのイリジャーに命令すると、彼らはあなたではなく彼らにフォローするようになります。行動の状態を更新すると、彼らはリーダーのイリジャーに従うのをやめます。何も持っていない手でリーダーのイリジャーを右クリックすると、彼らは旗を落とします。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "タグロックキットを装備し、タグ付きのクリーチャーを登録してリーダーのイリジャーを右クリックすると、そのイリジャーと、そのイリジャーをフォローしている、あるいはリーダーを持たない近くの襲撃者らが、そのクリーチャーを狩ってから主人の元へ戻ります。襲撃隊に、どのイリジャーにも従っていなかった襲撃者が含まれている場合、彼らは一緒に来たリーダーを追跡し始めます。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:waystone",
+      "anchor": "レイド",
+      "title": "襲撃",
+      "text": "村に位置を記録したウェイストーンを、リーダーのイリジャーを右クリックすると、そのイリジャーは村を「襲撃」し、子供以外の村人を全員攻撃します。タグロックと同様に、リーダーは近くのリーダーのいない襲撃者を仲間に加えます。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "襲撃が成功すると、イリジャーは主人の元へ戻り、戦利品を落とします。イリジャーは村人を倒すとエメラルドなどの戦利品を獲得します。主人が村人をまとめて$(l:goety:crafts/grimoire_of_goodwill)仲間$()に登録している場合は、襲撃を行いません。襲撃を中止するには、村人を$(l:goety:crafts/grimoire_of_goodwill)仲間$()に登録するか、メインハンドまたはオフハンドに旗を持った状態で停戦キー$(l)を押します。$()。"
+    }
+  ]
+}

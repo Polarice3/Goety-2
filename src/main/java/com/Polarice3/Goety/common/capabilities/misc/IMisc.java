@@ -24,4 +24,6 @@ public interface IMisc {
     void setMobTargetID(int id);
     int getNoHealTime();
     void setNoHealTime(int seconds);
+    int getShakeTime();
+    void setShakeTime(int ticks);
 }

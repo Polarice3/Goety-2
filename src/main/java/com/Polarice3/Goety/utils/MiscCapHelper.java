@@ -167,6 +167,15 @@ public class MiscCapHelper {
         MiscCapHelper.sendMiscUpdatePacket(livingEntity);
     }
 
+    public static int getShakeTime(LivingEntity livingEntity){
+        return getCapability(livingEntity).getShakeTime();
+    }
+
+    public static void setShakeTime(LivingEntity livingEntity, int ticks){
+        getCapability(livingEntity).setShakeTime(ticks);
+        MiscCapHelper.sendMiscUpdatePacket(livingEntity);
+    }
+
     @Nullable
     public static ResourceLocation getCustomSpinTexture(LivingEntity livingEntity){
         String string = getCapability(livingEntity).customSpinTexture();
@@ -200,6 +209,7 @@ public class MiscCapHelper {
         if (misc.getNoHealTime() > 0) {
             tag.putInt("noHealTime", misc.getNoHealTime());
         }
+        tag.putInt("shakeTime", misc.getShakeTime());
         tag.putString("customSpinTexture", misc.customSpinTexture());
         return tag;
     }
@@ -228,6 +238,9 @@ public class MiscCapHelper {
         }
         if (tag.contains("noHealTime")){
             misc.setNoHealTime(tag.getInt("noHealTime"));
+        }
+        if (tag.contains("shakeTime")){
+            misc.setShakeTime(tag.getInt("shakeTime"));
         }
         if (tag.contains("customSpinTexture")) {
             misc.setCustomSpinTexture(tag.getString("customSpinTexture"));

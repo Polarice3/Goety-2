@@ -9,8 +9,9 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Mob;
 
-public class CryologerModel<T extends Cryologer> extends HierarchicalModel<T> implements HeadedModel {
+public class CryologerModel<T extends Mob> extends HierarchicalModel<T> implements HeadedModel {
 	private final ModelPart root;
 	private final ModelPart head;
 	private final ModelPart body;
@@ -118,19 +119,21 @@ public class CryologerModel<T extends Cryologer> extends HierarchicalModel<T> im
 			f = 1.0F;
 		}
 		this.cape.xRot = MathHelper.modelDegrees(10.0F) + Mth.abs(Mth.cos(limbSwing * 0.6662F) * 0.7F * limbSwingAmount / f);
-		this.animate(entity.idleAnimationState, CryologerAnimations.IDLE, ageInTicks);
-		this.animate(entity.breathAnimationState, CryologerAnimations.BREATH, ageInTicks);
-		this.animate(entity.cloudAnimationState, CryologerAnimations.HAIL, ageInTicks);
-		this.animate(entity.wallAnimationState, CryologerAnimations.WALL, ageInTicks);
-		this.animate(entity.chunkAnimationState, CryologerAnimations.CHUNK, ageInTicks);
-		if (entity.getCurrentAnimation() == entity.getAnimationState("idle")){
-			this.arms.visible = true;
-			this.right_arm.visible = false;
-			this.left_arm.visible = false;
-		} else {
-			this.arms.visible = false;
-			this.right_arm.visible = true;
-			this.left_arm.visible = true;
+		if (entity instanceof Cryologer cryologer) {
+			this.animate(cryologer.idleAnimationState, CryologerAnimations.IDLE, ageInTicks);
+			this.animate(cryologer.breathAnimationState, CryologerAnimations.BREATH, ageInTicks);
+			this.animate(cryologer.cloudAnimationState, CryologerAnimations.HAIL, ageInTicks);
+			this.animate(cryologer.wallAnimationState, CryologerAnimations.WALL, ageInTicks);
+			this.animate(cryologer.chunkAnimationState, CryologerAnimations.CHUNK, ageInTicks);
+			if (cryologer.getCurrentAnimation() == cryologer.getAnimationState("idle")) {
+				this.arms.visible = true;
+				this.right_arm.visible = false;
+				this.left_arm.visible = false;
+			} else {
+				this.arms.visible = false;
+				this.right_arm.visible = true;
+				this.left_arm.visible = true;
+			}
 		}
 	}
 

@@ -31,6 +31,10 @@
       "type": "multiblock",
       "multiblock_id": "goety:redstone_golem_revive",
       "enable_visualize": false
+    },
+    {
+      "type": "patchouli:text",
+      "text": "レッドストーンゴーレムは$(l:goety:mutations/illager_servants)レイダー$()の一員になることはできますが、リーダーになることはできません。"
     }
   ]
 }

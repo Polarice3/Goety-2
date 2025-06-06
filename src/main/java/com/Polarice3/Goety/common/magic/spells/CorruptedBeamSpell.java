@@ -4,6 +4,7 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
 import com.Polarice3.Goety.common.magic.EverChargeSpell;
+import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.server.level.ServerLevel;
@@ -49,7 +50,7 @@ public class CorruptedBeamSpell extends EverChargeSpell {
         return list;
     }
 
-    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff){
+    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){
         List<CorruptedBeam> entities = worldIn.getEntitiesOfClass(CorruptedBeam.class, caster.getBoundingBox().inflate(2.0F),
                 corruptedBeam -> corruptedBeam.getOwner() == caster);
         Vec3 vector3d = caster.getViewVector( 1.0F);

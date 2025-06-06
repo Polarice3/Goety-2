@@ -37,7 +37,7 @@ public class CommandHorn extends Item {
             for (LivingEntity livingEntity : serverlevel.getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(16.0F))){
                 if (livingEntity instanceof IServant servant){
                     if (servant.getTrueOwner() == player){
-                        if (!servant.isPatrolling()
+                        if (!servant.isGuardingArea()
                                 && !servant.isCommanded()
                                 && servant.canUpdateMove()
                                 && servant.canStay()
@@ -76,7 +76,7 @@ public class CommandHorn extends Item {
                     for (LivingEntity livingEntity : serverlevel.getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(16.0F))){
                         if (livingEntity instanceof IServant servant){
                             if (servant.getTrueOwner() == player){
-                                if (!servant.isPatrolling()
+                                if (!servant.isGuardingArea()
                                         && !servant.isCommanded()
                                         && servant.canBeCommanded()
                                         && servant.canUpdateMove()

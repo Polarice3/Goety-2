@@ -404,7 +404,7 @@ public abstract class AnimalSummon extends Summoned{
         }
 
         public boolean canContinueToUse() {
-            return this.partner.isAlive() && this.partner.isInLove() && this.loveTime < 60;
+            return this.partner != null && this.partner.isAlive() && this.partner.isInLove() && this.loveTime < 60;
         }
 
         public void stop() {

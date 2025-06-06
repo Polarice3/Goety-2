@@ -34,7 +34,6 @@ import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -235,17 +234,7 @@ public class HostileRedstoneGolem extends HostileGolem {
     }
 
     public boolean isAlliedTo(Entity pEntity) {
-        if (pEntity == this) {
-            return true;
-        } else if (super.isAlliedTo(pEntity)) {
-            return true;
-        } else if (pEntity instanceof Vex vex && vex.getOwner() != null) {
-            return this.isAlliedTo(vex.getOwner());
-        } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.ILLAGER) {
-            return this.getTeam() == null && pEntity.getTeam() == null;
-        } else {
-            return false;
-        }
+        return MobUtil.illagerAllies(this, pEntity);
     }
 
     public void setCustomName(@Nullable Component name) {
@@ -529,11 +518,6 @@ public class HostileRedstoneGolem extends HostileGolem {
 
     public double getAttackReachSqr(LivingEntity enemy) {
         return (double)(this.getBbWidth() * 6.0F + enemy.getBbWidth()) + 1.0D;
-    }
-
-    public boolean targetClose(LivingEntity enemy, double distToEnemySqr){
-        double reach = this.getAttackReachSqr(enemy);
-        return distToEnemySqr <= reach || HostileRedstoneGolem.this.getBoundingBox().intersects(enemy.getBoundingBox());
     }
 
     public boolean doHurtTarget(Entity entityIn) {

@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:ring_of_the_forge"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "「illagerServantTrainArmor」が有効な場合、この指輪を装備すると、新しく訓練されたイリジャーは鎧を獲得します。"
     }
   ],
   "extra_recipe_mappings": {

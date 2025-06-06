@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "goety:cursed_metal_block"
+    "goety:cursed_metal_block",
+    "goety:ominous_pyre",
+    "goety:creeper_totem"
   ]
 }

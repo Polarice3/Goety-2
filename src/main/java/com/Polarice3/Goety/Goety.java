@@ -14,6 +14,7 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.*;
 import com.Polarice3.Goety.common.entities.ally.golem.*;
+import com.Polarice3.Goety.common.entities.ally.illager.*;
 import com.Polarice3.Goety.common.entities.ally.spider.*;
 import com.Polarice3.Goety.common.entities.ally.undead.*;
 import com.Polarice3.Goety.common.entities.ally.undead.bound.BoundEvoker;
@@ -40,6 +41,7 @@ import com.Polarice3.Goety.common.items.ServantSpawnEggs;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.ritual.ModRituals;
 import com.Polarice3.Goety.common.world.ModMobSpawnBiomeModifier;
+import com.Polarice3.Goety.common.world.ModMobSpawnStructureModifier;
 import com.Polarice3.Goety.common.world.placements.ModPlacementType;
 import com.Polarice3.Goety.common.world.processors.ModProcessors;
 import com.Polarice3.Goety.common.world.structures.ModStructureTypes;
@@ -82,6 +84,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.world.BiomeModifier;
+import net.minecraftforge.common.world.StructureModifier;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -119,6 +122,7 @@ public class Goety {
     public static final String MOD_ID = "goety";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static ModProxy PROXY = DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+    public static SidedInit SIDED_INIT = DistExecutor.unsafeRunForDist(() -> ClientSideInit::new, () -> SidedInit::new);
 
     public static ResourceLocation location(String path) {
         return new ResourceLocation(MOD_ID, path);
@@ -167,6 +171,9 @@ public class Goety {
         final DeferredRegister<Codec<? extends BiomeModifier>> biomeModifiers = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, Goety.MOD_ID);
         biomeModifiers.register(modEventBus);
         biomeModifiers.register("mob_spawns", ModMobSpawnBiomeModifier::makeCodec);
+        final DeferredRegister<Codec<? extends StructureModifier>> structureModifiers = DeferredRegister.create(ForgeRegistries.Keys.STRUCTURE_MODIFIER_SERIALIZERS, Goety.MOD_ID);
+        structureModifiers.register(modEventBus);
+        structureModifiers.register("mob_structure_spawns", ModMobSpawnStructureModifier::makeCodec);
 
         MinecraftForge.EVENT_BUS.register(this);
         ModItems.init();
@@ -180,6 +187,7 @@ public class Goety {
         ModPotPatterns.init();
         ModSounds.init();
         ModCriteriaTriggers.init();
+        SIDED_INIT.init();
     }
 
     public static Path getOrCreateDirectory(Path dirPath, String dirLabel) {
@@ -527,6 +535,14 @@ public class Goety {
         event.put(ModEntityType.ICY_SPIDER_SERVANT.get(), IcySpiderServant.setCustomAttributes().build());
         event.put(ModEntityType.BONE_SPIDER_SERVANT.get(), BoneSpiderServant.setCustomAttributes().build());
         event.put(ModEntityType.BROOD_MOTHER_SERVANT.get(), AbstractBroodMother.setCustomAttributes().build());
+        event.put(ModEntityType.NEOLLAGER.get(), Neollager.setCustomAttributes().build());
+        event.put(ModEntityType.PILLAGER_SERVANT.get(), PillagerServant.setCustomAttributes().build());
+        event.put(ModEntityType.VINDICATOR_SERVANT.get(), VindicatorServant.setCustomAttributes().build());
+        event.put(ModEntityType.VINDICATOR_CHEF_SERVANT.get(), VindicatorChefServant.setCustomAttributes().build());
+        event.put(ModEntityType.EVOKER_SERVANT.get(), EvokerServant.setCustomAttributes().build());
+        event.put(ModEntityType.GEOMANCER_SERVANT.get(), GeomancerServant.setCustomAttributes().build());
+        event.put(ModEntityType.ICEOLOGER_SERVANT.get(), IceologerServant.setCustomAttributes().build());
+        event.put(ModEntityType.WIND_CALLER_SERVANT.get(), WindCallerServant.setCustomAttributes().build());
         event.put(ModEntityType.ALLY_TRAMPLER.get(), AllyTrampler.setCustomAttributes().build());
         event.put(ModEntityType.RAVAGED.get(), Ravaged.setCustomAttributes().build());
         event.put(ModEntityType.MOD_RAVAGER.get(), ModRavager.setCustomAttributes().build());

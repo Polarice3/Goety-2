@@ -1,5 +1,5 @@
 {
-  "name": "Czarna Bestia",
+  "name": "Besta Negra",
   "icon": "minecraft:chain",
   "category": "goety:mutations",
   "advancement": "goety:goety/read_haunting_scroll",
@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Kiedy Widmo opęta Czarnego Wilka, rodzi się silna i nienaturalna bestia, zdolna do walki poprzez ataki pazurami, ale też jeśli wróg znajduje się daleko, przywołując swoją głowe w formie zjawy atakującą ich."
+      "text": "Quando um Espectro possuir um Lobo Negro, nasce uma besta forte e sobrenatural, capaz de lutar com ataques de garras, mas também, se o inimigo estiver longe, invocando a sua cabeça em forma de aparição para os atacar."
     },
     {
       "type": "goety:ritual",
@@ -20,16 +20,16 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Bestia może być leczona mięsem, tak jak normalne wilki i regenruje się pasywnie jeśli właściciel ma Płaszcz Natury. Prawy przycisk używając Znacznika z oznaczoną istotą na nim, sprawi że besia zacznie polowanie na tą istotę i powróci tylko po udanym łowie."
+      "text": "A Besta pode ser curada com carne, tal como os lobos normais, e regenera-se passivamente se o dono tiver um Manto da Natureza. Clicar com o botão direito usando um Marcador com uma criatura marcada fará com que a besta comece a caçar essa criatura e só regresse após uma caça bem-sucedida."
     },
     {
       "type": "patchouli:spotlight",
       "item": "goety:howling_soul",
-      "text": "Po śmierci bestia pozostawia duszę, którą można użyc na Czarnym Wilku, bez znaczenia czy lojalnym czy nie, by zmutować go pod kontrolą originalnego właściciela."
+      "text": "Após a morte, a besta deixa para trás uma alma, que pode ser usada num Lobo Negro, seja ele leal ou não, para o mutar sob o controlo do dono original."
     },
     {
       "type": "patchouli:text",
-      "text": "Bazowane na 'Nightmare Stalker' z 'Born In Chaos' od 'mongoose_artist'."
+      "text": "Baseado no 'Nightmare Stalker' de 'Born In Chaos' por 'mongoose_artist'."
     }
   ],
   "extra_recipe_mappings": {

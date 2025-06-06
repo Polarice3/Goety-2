@@ -43,7 +43,6 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.monster.RangedAttackMob;
-import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
@@ -219,20 +218,6 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
         animationStates.add(this.speechAnimationState);
         animationStates.add(this.deathAnimationState);
         return animationStates;
-    }
-
-    public boolean isAlliedTo(Entity pEntity) {
-        if (pEntity == this) {
-            return true;
-        } else if (super.isAlliedTo(pEntity)) {
-            return true;
-        } else if (pEntity instanceof Vex vex && vex.getOwner() != null) {
-            return this.isAlliedTo(vex.getOwner());
-        } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.ILLAGER) {
-            return this.getTeam() == null && pEntity.getTeam() == null;
-        } else {
-            return false;
-        }
     }
 
     protected SoundEvent getAmbientSound() {
@@ -425,7 +410,17 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
             ServerParticleUtil.addAuraParticles(serverLevel, ParticleTypes.ENCHANT, this, 8.0F);
             for (LivingEntity living : serverLevel.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(8.0F, 4.0F, 8.0F))) {
                 if (living.getMobType() == MobType.ILLAGER && living != this) {
-                    living.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 20, 0, false, false));
+                    boolean flag = false;
+                    if (living instanceof Mob mob){
+                        if (mob.getTarget() != this){
+                            flag = true;
+                        }
+                    } else {
+                        flag = true;
+                    }
+                    if (flag) {
+                        living.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 20, 0, false, false));
+                    }
                 }
             }
             if (this.coolDown > 0){

@@ -42,6 +42,7 @@ public class CStopAttackPacket {
                                 entity.playSound(ModSounds.ROAR_SPELL.get(), 0.5F, 2.0F);
                                 serverLevel.broadcastEntityEvent(entity, (byte) 20);
                             } else {
+                                owned.onCeaseFire(playerEntity);
                                 if (mob.getTarget() != null) {
                                     mob.setTarget(null);
                                     if (mob.getLastHurtByMob() != null){

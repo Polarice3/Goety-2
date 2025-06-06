@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.hostile.illagers;
 
+import com.Polarice3.Goety.api.entities.IGolem;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -10,7 +11,7 @@ import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.level.Level;
 
-public abstract class HostileGolem extends Raider {
+public abstract class HostileGolem extends Raider implements IGolem {
     public HostileGolem(EntityType<? extends Raider> type, Level worldIn) {
         super(type, worldIn);
     }
@@ -61,14 +62,7 @@ public abstract class HostileGolem extends Raider {
         return false;
     }
 
-    public abstract double getAttackReachSqr(LivingEntity enemy);
-
     public boolean canAttack(LivingEntity p_186270_) {
         return (!(p_186270_ instanceof AbstractVillager) || !p_186270_.isBaby()) && super.canAttack(p_186270_);
-    }
-
-    public boolean targetClose(LivingEntity enemy, double distToEnemySqr){
-        double reach = this.getAttackReachSqr(enemy);
-        return distToEnemySqr <= reach || this.getBoundingBox().intersects(enemy.getBoundingBox());
     }
 }

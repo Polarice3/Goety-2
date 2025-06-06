@@ -15,12 +15,12 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -90,35 +90,35 @@ public class RecallFocus extends MagicFocus{
         return InteractionResultHolder.pass(itemstack);
     }
 
-    public static boolean recall(ServerPlayer player, ItemStack stack){
+    public static boolean recall(LivingEntity livingEntity, ItemStack stack){
         if (hasRecall(stack) && stack.getTag() != null) {
             if (getDimension(stack.getTag()).isPresent() && getRecallBlockPos(stack.getTag()) != null) {
                 BlockPos blockPos = getRecallBlockPos(stack.getTag());
                 if (blockPos != null) {
-                    if (getDimension(stack.getTag()).get() == player.level.dimension()) {
-                        Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityType.PLAYER, player.level, blockPos);
+                    if (getDimension(stack.getTag()).get() == livingEntity.level.dimension()) {
+                        Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityType.PLAYER, livingEntity.level, blockPos);
                         if (optional.isPresent()) {
-                            net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(player, optional.get().x, optional.get().y, optional.get().z);
+                            net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(livingEntity, optional.get().x, optional.get().y, optional.get().z);
                             if (event.isCanceled()) {
                                 return false;
                             }
-                            player.teleportTo(event.getTargetX(), event.getTargetY(), event.getTargetZ());
-                            ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SPlayWorldSoundPacket(BlockPos.containing(player.xo, player.yo, player.zo), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
+                            livingEntity.teleportTo(event.getTargetX(), event.getTargetY(), event.getTargetZ());
+                            ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SPlayWorldSoundPacket(BlockPos.containing(livingEntity.xo, livingEntity.yo, livingEntity.zo), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
                             ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SPlayWorldSoundPacket(BlockPos.containing(optional.get()), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
                             return true;
                         }
                     } else {
-                        if (player.getServer() != null) {
-                            ServerLevel serverWorld = player.getServer().getLevel(getDimension(stack.getTag()).get());
+                        if (livingEntity.getServer() != null) {
+                            ServerLevel serverWorld = livingEntity.getServer().getLevel(getDimension(stack.getTag()).get());
                             if (serverWorld != null) {
                                 Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityType.PLAYER, serverWorld, blockPos);
                                 if (optional.isPresent()) {
-                                    net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(player, optional.get().x, optional.get().y, optional.get().z);
+                                    net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(livingEntity, optional.get().x, optional.get().y, optional.get().z);
                                     if (event.isCanceled()) {
                                         return false;
                                     }
-                                    player.changeDimension(serverWorld, new ArcaTeleporter(optional.get()));
-                                    player.teleportTo(event.getTargetX(), event.getTargetY(), event.getTargetZ());
+                                    livingEntity.changeDimension(serverWorld, new ArcaTeleporter(optional.get()));
+                                    livingEntity.teleportTo(event.getTargetX(), event.getTargetY(), event.getTargetZ());
                                     return true;
                                 }
                             }
@@ -133,6 +133,14 @@ public class RecallFocus extends MagicFocus{
     public static boolean hasRecall(ItemStack p_40737_) {
         CompoundTag compoundtag = p_40737_.getTag();
         return compoundtag != null && (compoundtag.contains(TAG_DIMENSION) || compoundtag.contains(TAG_POS));
+    }
+
+    @Nullable
+    public static BlockPos getRecallBlockPos(ItemStack itemStack) {
+        if (itemStack.getTag() != null) {
+            return getRecallBlockPos(itemStack.getTag());
+        }
+        return null;
     }
 
     public static BlockPos getRecallBlockPos(CompoundTag compoundTag){

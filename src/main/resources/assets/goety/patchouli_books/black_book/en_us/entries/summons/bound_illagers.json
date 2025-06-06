@@ -35,6 +35,10 @@
     {
       "type": "patchouli:text",
       "text": "These bound souls can be healed by right-clicking on them with Ectoplasm."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "As they still retain their mental faculties, these souls can be given your $(l:goety:mutations/illager_servants#banner)personal banner$() and lead your $(l:goety:mutations/illager_servants)Illager servants$() as well."
     }
   ]
 }

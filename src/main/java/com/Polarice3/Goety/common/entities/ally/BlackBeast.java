@@ -665,7 +665,7 @@ public class BlackBeast extends Summoned{
                         }
                     }
                     if (this.getTrueOwner() != null) {
-                        if (this.getPrey().isDeadOrDying()) {
+                        if (MobUtil.areAllies(this.getPrey(), this.getTrueOwner()) || this.getPrey().isDeadOrDying()) {
                             if (this.getTrueOwner().distanceTo(this) > 32.0D
                                     && MobUtil.sameDimension(this, this.getTrueOwner())) {
                                 this.teleportTowards(this.getTrueOwner());
@@ -866,7 +866,7 @@ public class BlackBeast extends Summoned{
                 if (this.isStaying()){
                     this.setStaying(false);
                 }
-                if (this.isPatrolling()){
+                if (this.isGuardingArea()){
                     this.setBoundPos(null);
                 }
                 return InteractionResult.SUCCESS;

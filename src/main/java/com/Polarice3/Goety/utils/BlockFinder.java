@@ -67,6 +67,13 @@ public class BlockFinder {
         return (blockState.is(BlockTags.CROPS) || blockState.getBlock() instanceof BushBlock) && !(blockState.getBlock() instanceof StemBlock);
     }
 
+    public static boolean samePos(BlockPos blockPos1, BlockPos blockPos2){
+        if (blockPos1 == null || blockPos2 == null){
+            return false;
+        }
+        return blockPos1.getX() == blockPos2.getX() && blockPos1.getY() == blockPos2.getY() && blockPos1.getZ() == blockPos2.getZ();
+    }
+
     public static double moveDownToGround(Entity entity) {
         HitResult rayTrace = rayTrace(entity);
         if (rayTrace.getType() == HitResult.Type.BLOCK) {
@@ -751,6 +758,75 @@ public class BlockFinder {
 
     public static boolean hasSunlight(Level level, BlockPos blockPos){
         return level.canSeeSky(blockPos) && level.isDay();
+    }
+
+    public static boolean getNearbyLitCandles(Level pLevel, BlockPos pPos, int range, int totalCount) {
+        return getNearbyLitCandles(pLevel, pPos, range, range, range, totalCount);
+    }
+
+    public static boolean getNearbyLitCandles(Level pLevel, BlockPos pPos, int xRange, int yRange, int zRange, int totalCount) {
+        int currentCount = 0;
+
+        for (int i = -xRange; i <= xRange; ++i) {
+            for (int j = -yRange; j <= yRange; ++j) {
+                for (int k = -zRange; k <= zRange; ++k) {
+                    BlockPos blockpos1 = pPos.offset(i, j, k);
+                    BlockState blockstate = pLevel.getBlockState(blockpos1);
+                    if (blockstate.is(BlockTags.CANDLES)
+                            && blockstate.hasProperty(CandleBlock.LIT)
+                            && blockstate.getValue(CandleBlock.LIT)
+                            && blockstate.hasProperty(CandleBlock.CANDLES)){
+                        currentCount += blockstate.getValue(CandleBlock.CANDLES);
+                    }
+                }
+            }
+        }
+
+        return currentCount >= totalCount;
+    }
+
+    public static boolean getNearbyBlocks(Level pLevel, BlockPos pPos, Predicate<BlockState> pPredicate, int range, int totalCount) {
+        return getNearbyBlocks(pLevel, pPos, pPredicate, range, range, range, totalCount);
+    }
+
+    public static boolean getNearbyBlocks(Level pLevel, BlockPos pPos, Predicate<BlockState> pPredicate, int xRange, int yRange, int zRange, int totalCount) {
+        int currentCount = 0;
+
+        for (int i = -xRange; i <= xRange; ++i) {
+            for (int j = -yRange; j <= yRange; ++j) {
+                for (int k = -zRange; k <= zRange; ++k) {
+                    BlockPos blockpos1 = pPos.offset(i, j, k);
+                    BlockState blockstate = pLevel.getBlockState(blockpos1);
+                    if (pPredicate.test(blockstate)){
+                        ++currentCount;
+                    }
+                }
+            }
+        }
+
+        return currentCount >= totalCount;
+    }
+
+    public static boolean getNearbyEnchantPower(Level pLevel, BlockPos pPos, int range, int enchantPower) {
+        return getNearbyEnchantPower(pLevel, pPos, range, range, range, enchantPower);
+    }
+
+    public static boolean getNearbyEnchantPower(Level pLevel, BlockPos pPos, int xRange, int yRange, int zRange, int enchantPower) {
+        int currentCount = 0;
+
+        for (int i = -xRange; i <= xRange; ++i) {
+            for (int j = -yRange; j <= yRange; ++j) {
+                for (int k = -zRange; k <= zRange; ++k) {
+                    BlockPos blockpos1 = pPos.offset(i, j, k);
+                    BlockState blockstate = pLevel.getBlockState(blockpos1);
+                    if (blockstate.getEnchantPowerBonus(pLevel, blockpos1) > 0) {
+                        currentCount += (int) blockstate.getEnchantPowerBonus(pLevel, blockpos1);
+                    }
+                }
+            }
+        }
+
+        return currentCount >= enchantPower;
     }
 
     //Based from Bosses of Mass Destruction codes: https://github.com/CERBON-MODS/Bosses-of-Mass-Destruction-FORGE/blob/master/Common/src/main/java/com/cerbon/bosses_of_mass_destruction/util/BMDUtils.java#L28

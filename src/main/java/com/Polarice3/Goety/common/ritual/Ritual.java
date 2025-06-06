@@ -4,10 +4,7 @@ import com.Polarice3.Goety.common.blocks.entities.DarkAltarBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.PedestalBlockEntity;
 import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.ItemHelper;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -115,12 +112,11 @@ public abstract class Ritual {
                        Player castingPlayer, ItemStack activationItem,
                        List<Ingredient> remainingAdditionalIngredients, int time, int totalTime) {
         if (tileEntity.getConvertEntity != null){
-            tileEntity.getConvertEntity.setTicksFrozen(140);
-            if (tileEntity.getConvertEntity.tickCount % 19 == 0) {
+            MiscCapHelper.setShakeTime(tileEntity.getConvertEntity, 20);
+            if (tileEntity.getConvertEntity.tickCount % 20 == 0) {
                 if (world instanceof ServerLevel serverLevel){
                     ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.ENCHANT, tileEntity.getConvertEntity);
                 }
-                tileEntity.getConvertEntity.tickCount -= 9;
             }
         }
 

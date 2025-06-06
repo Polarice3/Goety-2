@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.hostile.illagers;
 
+import com.Polarice3.Goety.common.entities.ai.ModMeleeAttackGoal;
 import com.Polarice3.Goety.common.magic.spells.SoulHealSpell;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -19,10 +20,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.monster.Ravager;
-import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.entity.raid.Raid;
@@ -177,20 +175,6 @@ public class Inquillager extends HuntingIllagerEntity{
         }
     }
 
-    public boolean isAlliedTo(Entity pEntity) {
-        if (pEntity == this) {
-            return true;
-        } else if (super.isAlliedTo(pEntity)) {
-            return true;
-        } else if (pEntity instanceof Vex vex && vex.getOwner() != null) {
-            return this.isAlliedTo(vex.getOwner());
-        } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.ILLAGER) {
-            return this.getTeam() == null && pEntity.getTeam() == null;
-        } else {
-            return false;
-        }
-    }
-
     protected SoundEvent getAmbientSound() {
         return ModSounds.INQUILLAGER_AMBIENT.get();
     }
@@ -264,8 +248,8 @@ public class Inquillager extends HuntingIllagerEntity{
         }
 
         protected void performSpellCasting() {
-            if (Inquillager.this.level instanceof ServerLevel serverLevel) {
-                new SoulHealSpell().SpellResult(serverLevel, Inquillager.this, ItemStack.EMPTY);
+            if (Inquillager.this.level instanceof ServerLevel) {
+                new SoulHealSpell().mobSpellResult(Inquillager.this, ItemStack.EMPTY);
                 if (Inquillager.this.getHealTimes() > 3){
                     Inquillager.this.setHealTimes(0);
                     Inquillager.this.setCoolDown(1000);
@@ -350,18 +334,9 @@ public class Inquillager extends HuntingIllagerEntity{
         }
     }
 
-    class AttackGoal extends MeleeAttackGoal {
+    static class AttackGoal extends ModMeleeAttackGoal {
         public AttackGoal(Inquillager p_i50577_2_) {
             super(p_i50577_2_, 1.0D, false);
-        }
-
-        protected double getAttackReachSqr(LivingEntity pAttackTarget) {
-            if (this.mob.getVehicle() instanceof Ravager) {
-                float f = this.mob.getVehicle().getBbWidth() - 0.1F;
-                return (double)(f * 2.0F * f * 2.0F + pAttackTarget.getBbWidth());
-            } else {
-                return super.getAttackReachSqr(pAttackTarget);
-            }
         }
     }
 }

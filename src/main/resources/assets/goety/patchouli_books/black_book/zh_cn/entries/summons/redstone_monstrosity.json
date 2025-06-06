@@ -25,6 +25,10 @@
     {
       "type": "patchouli:text",
       "text": "石砖可以用其他类似的方块代替，如深板岩砖。巨兽也许是你创造的最强大的生物之一，它的力量是其他仆从绝对无法比拟的。你可以用红石块来修复它。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "红石巨兽可以成为$(l:goety:mutations/illager_servants)袭击队伍$()的一员，但它不能被设定为队长。"
     }
   ]
 }

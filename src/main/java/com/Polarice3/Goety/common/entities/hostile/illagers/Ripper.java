@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.hostile.illagers;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.FollowMobClassGoal;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -358,13 +359,7 @@ public class Ripper extends Raider {
     }
 
     public boolean isAlliedTo(Entity pEntity) {
-        if (super.isAlliedTo(pEntity)) {
-            return true;
-        } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.ILLAGER) {
-            return this.getTeam() == null && pEntity.getTeam() == null;
-        } else {
-            return false;
-        }
+        return MobUtil.illagerAllies(this, pEntity);
     }
 
     public boolean hurt(DamageSource p_34288_, float p_34289_) {

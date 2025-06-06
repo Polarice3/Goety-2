@@ -87,10 +87,14 @@ public class EffectsUtil {
     }
 
     public static void deamplifyEffect(LivingEntity infected, MobEffect effect, int duration){
-        deamplifyEffect(infected, effect, duration, false, true);
+        deamplifyEffect(infected, effect, 1, duration, false, true);
     }
 
-    public static void deamplifyEffect(LivingEntity infected, MobEffect effect, int duration, boolean pAmbient, boolean pVisible){
+    public static void deamplifyEffect(LivingEntity infected, MobEffect effect, int deamp, int duration){
+        deamplifyEffect(infected, effect, deamp, duration, false, true);
+    }
+
+    public static void deamplifyEffect(LivingEntity infected, MobEffect effect, int deamp, int duration, boolean pAmbient, boolean pVisible){
         MobEffectInstance MobEffectInstance1 = infected.getEffect(effect);
         int i = 0;
         if (MobEffectInstance1 != null) {

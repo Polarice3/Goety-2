@@ -1,20 +1,20 @@
 {
-  "name": "Pedras-guia",
+  "name": "Pedras da Orientação",
   "icon": "goety:waystone",
   "category": "goety:crafts",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Pedras-guia permitem vinculá-las a um local específico clicando com o botão direito em um bloco, o que pode ser usado para realizar vários tipos de magia negra nele, desde que o local esteja na mesma dimensão."
+      "text": "Pedras da Orientação podem ser vinculadas a um local clicando em um bloco. Usadas para magias sombrias (no mesmo dimensão)."
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:waystone",
-      "text": "A pedra também marca o portador como seu dono quando usada."
+      "text": "A pedra marca quem a usar como seu dono."
     },
     {
       "type": "patchouli:text",
-      "text": "Clicar com o botão direito em uma pedra-guia vinculada em certos servos fará com que eles patrulhem em direção e ao redor daquele local, entrando em modo de Patrulha, desde que o local esteja na mesma dimensão. Clicar com Shift + botão direito em uma pedra-guia vinculada apagará as informações armazenadas nela."
+      "text": "Clique em servos com uma Orientação vinculada para fazê-los guardar o local (Modo de Guarda). Shift + clique para apagar a localização."
     }
   ]
 }

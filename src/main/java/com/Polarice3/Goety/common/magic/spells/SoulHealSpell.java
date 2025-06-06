@@ -7,12 +7,12 @@ import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 
@@ -73,8 +73,8 @@ public class SoulHealSpell extends Spell {
         caster.heal(heal);
         if (radius > 0) {
             for (LivingEntity livingEntity : worldIn.getEntitiesOfClass(LivingEntity.class, caster.getBoundingBox().inflate(8.0D * radius))) {
-                if (livingEntity instanceof OwnableEntity owned) {
-                    if (owned.getOwner() == caster) {
+                if (MobUtil.getOwner(livingEntity) != null) {
+                    if (MobUtil.getOwner(livingEntity) == caster) {
                         livingEntity.heal(heal);
                         healParticles(livingEntity, worldIn);
                     }

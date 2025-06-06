@@ -3,9 +3,11 @@ package com.Polarice3.Goety.common.capabilities.soulenergy;
 import com.Polarice3.Goety.common.research.Research;
 import com.Polarice3.Goety.config.MainConfig;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
@@ -32,6 +34,8 @@ public class SEImp implements ISoulEnergy{
     private int bottling = 0;
     private int warding = 0;
     private int maxWarding = 0;
+    private DyeColor bannerBaseColor = DyeColor.WHITE;
+    private ListTag bannerPattern;
     private int ticksInAir = 0;
     private int airJumps = 0;
     private int airJumpCooldown = 0;
@@ -296,6 +300,27 @@ public class SEImp implements ISoulEnergy{
     @Override
     public void setMaxWarding(int warding) {
         this.maxWarding = warding;
+    }
+
+    @Override
+    public DyeColor bannerBaseColor() {
+        return this.bannerBaseColor;
+    }
+
+    @Override
+    public void setBannerBaseColor(DyeColor dyeColor) {
+        this.bannerBaseColor = dyeColor;
+    }
+
+    @Override
+    @Nullable
+    public ListTag bannerPattern() {
+        return this.bannerPattern;
+    }
+
+    @Override
+    public void setBannerPattern(@Nullable ListTag listTag) {
+        this.bannerPattern = listTag;
     }
 
     @Override

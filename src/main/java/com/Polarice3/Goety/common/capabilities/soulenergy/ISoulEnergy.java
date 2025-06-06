@@ -2,9 +2,11 @@ package com.Polarice3.Goety.common.capabilities.soulenergy;
 
 import com.Polarice3.Goety.common.research.Research;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
@@ -64,6 +66,11 @@ public interface ISoulEnergy {
     int maxWarding();
     void setWarding(int warding);
     void setMaxWarding(int warding);
+    DyeColor bannerBaseColor();
+    void setBannerBaseColor(DyeColor dyeColor);
+    @Nullable
+    ListTag bannerPattern();
+    void setBannerPattern(@Nullable ListTag listTag);
     int getTicksInAir();
     int getAirJumps();
     int getAirJumpCooldown();

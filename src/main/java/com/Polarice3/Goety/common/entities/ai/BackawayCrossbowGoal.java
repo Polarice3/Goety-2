@@ -69,6 +69,10 @@ public class BackawayCrossbowGoal<T extends PathfinderMob & RangedAttackMob & Cr
 
     }
 
+    public boolean requiresUpdateEveryTick() {
+        return true;
+    }
+
     public void tick() {
         LivingEntity livingentity = this.mob.getTarget();
         if (livingentity != null) {
@@ -89,7 +93,8 @@ public class BackawayCrossbowGoal<T extends PathfinderMob & RangedAttackMob & Cr
             }
 
             ItemStack activeStack = this.mob.getUseItem();
-            boolean shouldMoveTowardsEnemy = ((distanceSq > (double) this.attackRadiusSqr) || this.seeTime < 5) && this.attackDelay == 0;
+            boolean isCloseToAttack = distanceSq <= (double) this.attackRadiusSqr;
+            boolean shouldMoveTowardsEnemy = (!isCloseToAttack || this.seeTime < 5);
             if (shouldMoveTowardsEnemy) {
                 double speedChange = this.isCrossbowUncharged() ? this.speedModifier : this.speedModifier * 0.5D;
                 this.mob.getNavigation().moveTo(livingentity, speedChange);

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "level=0": {
+      "model": "goety:block/creeper_totem/0"
+    },
+    "level=1": {
+      "model": "goety:block/creeper_totem/1"
+    },
+    "level=2": {
+      "model": "goety:block/creeper_totem/2"
+    },
+    "level=3": {
+      "model": "goety:block/creeper_totem/3"
+    }
+  }
+}

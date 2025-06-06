@@ -81,7 +81,13 @@ public class CuriosFinder {
     }
 
     public static boolean hasWanting(Entity entity){
-        if (entity instanceof Player player){
+        Player player = null;
+        if (entity instanceof Player player1){
+            player = player1;
+        } else if (MobUtil.getOwner(entity) instanceof Player player1) {
+            player = player1;
+        }
+        if (player != null) {
             if (CuriosFinder.findRing(player).getItem() == ModItems.RING_OF_WANT.get()){
                 if (CuriosFinder.findRing(player).isEnchanted()){
                     float wanting = EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.WANTING.get(), CuriosFinder.findRing(player));
@@ -194,19 +200,24 @@ public class CuriosFinder {
                 && hasWitchRobe(livingEntity);
     }
 
+    public static boolean hasNecroCrown(LivingEntity livingEntity){
+        return CuriosFinder.hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof NecroGarbs.NecroCrownItem crownItem && !crownItem.isNameless);
+    }
+
+    public static boolean hasNecroCape(LivingEntity livingEntity){
+        return CuriosFinder.hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof NecroGarbs.NecroCapeItem capeItem && !capeItem.isNameless);
+    }
+
     public static boolean neutralNecroCrown(LivingEntity livingEntity){
-        return CuriosFinder.hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof NecroGarbs.NecroCrownItem crownItem && !crownItem.isNameless)
-                && ItemConfig.NecroSetUndeadNeutral.get();
+        return hasNecroCrown(livingEntity) && ItemConfig.NecroSetUndeadNeutral.get();
     }
 
     public static boolean neutralNecroCape(LivingEntity livingEntity){
-        return CuriosFinder.hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof NecroGarbs.NecroCapeItem capeItem && !capeItem.isNameless)
-                && ItemConfig.NecroSetUndeadNeutral.get();
+        return hasNecroCape(livingEntity) && ItemConfig.NecroSetUndeadNeutral.get();
     }
 
     public static boolean hasNecroSet(LivingEntity livingEntity){
-        return CuriosFinder.hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof NecroGarbs.NecroCrownItem crownItem && !crownItem.isNameless)
-                && CuriosFinder.hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof NecroGarbs.NecroCapeItem capeItem && !capeItem.isNameless);
+        return hasNecroCrown(livingEntity) && hasNecroCape(livingEntity);
     }
 
     public static boolean neutralNecroSet(LivingEntity livingEntity){
@@ -217,19 +228,24 @@ public class CuriosFinder {
         return (livingEntity.getMobType() == MobType.UNDEAD || livingEntity.getType().is(ModTags.EntityTypes.NECRO_SET_NEUTRAL)) && livingEntity.getMaxHealth() <= ItemConfig.NecroSetUndeadNeutralHealth.get() && !(livingEntity instanceof IOwned && !(livingEntity instanceof Enemy));
     }
 
+    public static boolean hasNamelessCrown(LivingEntity livingEntity){
+        return CuriosFinder.hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof NecroGarbs.NecroCrownItem crownItem && crownItem.isNameless);
+    }
+
+    public static boolean hasNamelessCape(LivingEntity livingEntity){
+        return CuriosFinder.hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof NecroGarbs.NecroCapeItem capeItem && capeItem.isNameless);
+    }
+
     public static boolean neutralNamelessCrown(LivingEntity livingEntity){
-        return CuriosFinder.hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof NecroGarbs.NecroCrownItem crownItem && crownItem.isNameless)
-                && ItemConfig.NamelessSetUndeadNeutral.get();
+        return hasNamelessCrown(livingEntity) && ItemConfig.NamelessSetUndeadNeutral.get();
     }
 
     public static boolean neutralNamelessCape(LivingEntity livingEntity){
-        return CuriosFinder.hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof NecroGarbs.NecroCapeItem capeItem && capeItem.isNameless)
-                && ItemConfig.NamelessSetUndeadNeutral.get();
+        return hasNamelessCape(livingEntity) && ItemConfig.NamelessSetUndeadNeutral.get();
     }
 
     public static boolean hasNamelessSet(LivingEntity livingEntity){
-        return CuriosFinder.hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof NecroGarbs.NecroCrownItem crownItem && crownItem.isNameless)
-                && CuriosFinder.hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof NecroGarbs.NecroCapeItem capeItem && capeItem.isNameless);
+        return hasNamelessCrown(livingEntity) && hasNamelessCape(livingEntity);
     }
 
     public static boolean neutralNamelessSet(LivingEntity livingEntity){

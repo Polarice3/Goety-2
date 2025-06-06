@@ -19,7 +19,6 @@ import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -33,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class Wavewhisperer extends Whisperer{
     private boolean searchingForLand;
-    protected final WaterBoundPathNavigation waterNavigation;
+    protected final ModWaterPathNavigation waterNavigation;
     protected final GroundPathNavigation groundNavigation;
 
     public Wavewhisperer(EntityType<? extends Owned> type, Level worldIn) {
@@ -41,6 +40,7 @@ public class Wavewhisperer extends Whisperer{
         this.setMaxUpStep(1.25F);
         this.moveControl = new MoveHelperController(this);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
         this.waterNavigation = new ModWaterPathNavigation(this, worldIn);
         this.groundNavigation = new GroundPathNavigatorFat(this, worldIn);
     }
@@ -49,16 +49,17 @@ public class Wavewhisperer extends Whisperer{
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new GoToWaterGoal(this, 1.0F));
-        this.goalSelector.addGoal(1, new FollowOwnerWaterGoal(this, 1.0D, 10.0F, 2.0F));
         this.goalSelector.addGoal(4, new ModLeaveWaterGoal<>(this));
-        this.goalSelector.addGoal(5, new GoToBeachGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new SwimUpGoal(this, 1.0D, this.level.getSeaLevel()));
         this.goalSelector.addGoal(8, new WaterWanderGoal<>(this){
             @Override
             public boolean canUse() {
                 return super.canUse() && Wavewhisperer.this.getTarget() == null;
             }
         });
+    }
+
+    public void followGoal(){
+        this.goalSelector.addGoal(5, new FollowOwnerWaterGoal(this, 1.0D, 10.0F, 2.0F));
     }
 
     protected void handleAirSupply(int p_30344_) {
@@ -86,7 +87,7 @@ public class Wavewhisperer extends Whisperer{
         } else if (this.getTarget() != null && this.getTarget().isInWater()) {
             return true;
         } else {
-            return this.getTrueOwner() != null && this.getTrueOwner().isInWater();
+            return this.getTrueOwner() != null && this.isFollowing() && (this.getTrueOwner().isInWater() || (this.isInWater() && this.getTrueOwner().getY() > this.getY()));
         }
     }
 
@@ -143,9 +144,9 @@ public class Wavewhisperer extends Whisperer{
             LivingEntity livingentity = this.wavewhisperer.getTarget();
             LivingEntity owner = this.wavewhisperer.getTrueOwner();
             if (this.wavewhisperer.wantsToSwim() && this.wavewhisperer.isInWater()) {
-                if (livingentity != null && livingentity.getY() > this.wavewhisperer.getY() || this.wavewhisperer.searchingForLand) {
-                    this.wavewhisperer.setDeltaMovement(this.wavewhisperer.getDeltaMovement().add(0.0D, 0.002D, 0.0D));
-                } else if (owner != null && owner.getY() > this.wavewhisperer.getY()){
+                if ((livingentity != null && livingentity.getY() > this.wavewhisperer.getY())
+                        || this.wavewhisperer.searchingForLand
+                        || (owner != null && owner.getY() > this.wavewhisperer.getY() && this.wavewhisperer.isFollowing())) {
                     this.wavewhisperer.setDeltaMovement(this.wavewhisperer.getDeltaMovement().add(0.0D, 0.002D, 0.0D));
                 }
 
@@ -249,12 +250,10 @@ public class Wavewhisperer extends Whisperer{
         }
 
         public boolean canUse() {
-            if (this.whisperer.getTrueOwner() != null){
-                if (this.whisperer.getTrueOwner().isUnderWater()){
+            if (this.whisperer.getTrueOwner() != null) {
+                if (this.whisperer.isFollowing()) {
                     return false;
                 }
-            } else {
-                return false;
             }
             return this.whisperer.isInWater() && this.whisperer.getY() < (double)(this.seaLevel - 2);
         }
@@ -295,12 +294,10 @@ public class Wavewhisperer extends Whisperer{
         }
 
         public boolean canUse() {
-            if (this.wavewhisperer.getTrueOwner() != null){
-                if (this.wavewhisperer.getTrueOwner().isUnderWater()){
+            if (this.wavewhisperer.getTrueOwner() != null) {
+                if (this.wavewhisperer.isFollowing()) {
                     return false;
                 }
-            } else {
-                return false;
             }
             return super.canUse() && this.wavewhisperer.isInWater() && this.wavewhisperer.getY() >= (double)(this.wavewhisperer.level.getSeaLevel() - 3);
         }

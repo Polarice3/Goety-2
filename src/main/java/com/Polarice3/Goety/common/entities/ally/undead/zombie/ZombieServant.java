@@ -344,8 +344,8 @@ public class ZombieServant extends Summoned {
 
     }
 
-    public InteractionResult mobInteract(Player pPlayer, InteractionHand p_230254_2_) {
-        ItemStack itemstack = pPlayer.getItemInHand(p_230254_2_);
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
         Item item = itemstack.getItem();
         ItemStack itemstack2 = this.getMainHandItem();
         if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
@@ -368,7 +368,7 @@ public class ZombieServant extends Summoned {
             if (!(pPlayer.getOffhandItem().getItem() instanceof IWand)) {
                 if (item instanceof SwordItem) {
                     this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
-                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copy());
+                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
                     this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
                     this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
                     for (int i = 0; i < 7; ++i) {
@@ -384,7 +384,7 @@ public class ZombieServant extends Summoned {
                 }
                 if (item instanceof AxeItem) {
                     this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
-                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copy());
+                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
                     this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
                     this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
                     for (int i = 0; i < 7; ++i) {
@@ -400,7 +400,7 @@ public class ZombieServant extends Summoned {
                 }
                 if (item instanceof TridentItem && this instanceof DrownedServant) {
                     this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
-                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copy());
+                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
                     this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
                     this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
                     for (int i = 0; i < 7; ++i) {
@@ -422,22 +422,22 @@ public class ZombieServant extends Summoned {
                 ItemStack boots = this.getItemBySlot(EquipmentSlot.FEET);
                 this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
                 if (armor.getType() == ArmorItem.Type.HELMET) {
-                    this.setItemSlot(EquipmentSlot.HEAD, itemstack.copy());
+                    this.setItemSlot(EquipmentSlot.HEAD, itemstack.copyWithCount(1));
                     this.dropEquipment(EquipmentSlot.HEAD, helmet);
                     this.setGuaranteedDrop(EquipmentSlot.HEAD);
                 }
                 if (armor.getType() == ArmorItem.Type.CHESTPLATE) {
-                    this.setItemSlot(EquipmentSlot.CHEST, itemstack.copy());
+                    this.setItemSlot(EquipmentSlot.CHEST, itemstack.copyWithCount(1));
                     this.dropEquipment(EquipmentSlot.CHEST, chestplate);
                     this.setGuaranteedDrop(EquipmentSlot.CHEST);
                 }
                 if (armor.getType() == ArmorItem.Type.LEGGINGS) {
-                    this.setItemSlot(EquipmentSlot.LEGS, itemstack.copy());
+                    this.setItemSlot(EquipmentSlot.LEGS, itemstack.copyWithCount(1));
                     this.dropEquipment(EquipmentSlot.LEGS, legging);
                     this.setGuaranteedDrop(EquipmentSlot.LEGS);
                 }
                 if (armor.getType() == ArmorItem.Type.BOOTS) {
-                    this.setItemSlot(EquipmentSlot.FEET, itemstack.copy());
+                    this.setItemSlot(EquipmentSlot.FEET, itemstack.copyWithCount(1));
                     this.dropEquipment(EquipmentSlot.FEET, boots);
                     this.setGuaranteedDrop(EquipmentSlot.FEET);
                 }
@@ -453,6 +453,6 @@ public class ZombieServant extends Summoned {
                 return InteractionResult.SUCCESS;
             }
         }
-        return super.mobInteract(pPlayer, p_230254_2_);
+        return super.mobInteract(pPlayer, pHand);
     }
 }

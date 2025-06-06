@@ -286,7 +286,7 @@ public class PhantomServant extends SummonedFlying {
         }
 
         public void stop() {
-            if (PhantomServant.this.isPatrolling()){
+            if (PhantomServant.this.isGuardingArea()){
                 PhantomServant.this.anchorPoint = PhantomServant.this.getBoundPos();
             } else {
                 PhantomServant.this.anchorPoint = PhantomServant.this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, PhantomServant.this.anchorPoint).above(10 + PhantomServant.this.random.nextInt(20));
@@ -309,8 +309,8 @@ public class PhantomServant extends SummonedFlying {
         private void setAnchorAboveTarget() {
             if (PhantomServant.this.getTarget() != null) {
                 boolean flag = true;
-                if (PhantomServant.this.isPatrolling() && PhantomServant.this.getBoundPos() != null){
-                    if (PhantomServant.this.getTarget().distanceToSqr(PhantomServant.this.vec3BoundPos()) > Mth.square(PATROL_RANGE)){
+                if (PhantomServant.this.isGuardingArea() && PhantomServant.this.getBoundPos() != null){
+                    if (PhantomServant.this.getTarget().distanceToSqr(PhantomServant.this.vec3BoundPos()) > Mth.square(GUARDING_RANGE)){
                         PhantomServant.this.anchorPoint = PhantomServant.this.getBoundPos();
                         flag = false;
                     }
@@ -349,7 +349,7 @@ public class PhantomServant extends SummonedFlying {
         }
 
         public void stop() {
-            if (PhantomServant.this.isPatrolling()){
+            if (PhantomServant.this.isGuardingArea()){
                 PhantomServant.this.anchorPoint = PhantomServant.this.getBoundPos();
             } else {
                 PhantomServant.this.anchorPoint = PhantomServant.this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, PhantomServant.this.anchorPoint).above(10 + PhantomServant.this.random.nextInt(20));
@@ -420,7 +420,7 @@ public class PhantomServant extends SummonedFlying {
         }
 
         private void selectNext() {
-            if (PhantomServant.this.isPatrolling() && PhantomServant.this.getBoundPos() != null){
+            if (PhantomServant.this.isGuardingArea() && PhantomServant.this.getBoundPos() != null){
                 PhantomServant.this.anchorPoint = PhantomServant.this.getBoundPos();
             } else if (BlockPos.ZERO.equals(PhantomServant.this.anchorPoint)) {
                 PhantomServant.this.anchorPoint = PhantomServant.this.blockPosition();

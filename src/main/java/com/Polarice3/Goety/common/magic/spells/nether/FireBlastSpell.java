@@ -18,7 +18,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 
@@ -94,8 +93,8 @@ public class FireBlastSpell extends Spell {
         if (CuriosFinder.hasNetherRobe(caster)){
             damageSource = ModDamageSource.magicFireBreath(caster, caster);
         }
-        if (caster instanceof OwnableEntity ownable && ownable.getOwner() != null){
-            if (CuriosFinder.hasNetherRobe(ownable.getOwner())){
+        if (MobUtil.getOwner(caster) != null){
+            if (CuriosFinder.hasNetherRobe(MobUtil.getOwner(caster))){
                 damageSource = ModDamageSource.magicFireBreath(caster, caster);
             }
         }

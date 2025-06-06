@@ -55,7 +55,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.stream.Stream;
 
-public class RedstoneGolem extends AbstractGolemServant {
+public class RedstoneGolem extends RaiderGolemServant {
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(RedstoneGolem.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(RedstoneGolem.class, EntityDataSerializers.INT);
     public static String ACTIVATE = "activate";
@@ -108,7 +108,7 @@ public class RedstoneGolem extends AbstractGolemServant {
         this.goalSelector.addGoal(1, new SummonMinesGoal());
         this.goalSelector.addGoal(2, new MeleeGoal());
         this.goalSelector.addGoal(5, new AttackGoal(1.2D));
-        this.goalSelector.addGoal(8, new WanderGoal<>(this, 1.0D, 10));
+        this.goalSelector.addGoal(8, new RaiderWanderGoal<>(this, 1.0D, 10));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
     }
@@ -278,6 +278,11 @@ public class RedstoneGolem extends AbstractGolemServant {
 
     public boolean canAnimateMove(){
         return super.canAnimateMove() && this.getCurrentAnimation() == this.getAnimationState(IDLE);
+    }
+
+    @Override
+    public SoundEvent getCelebrateSound() {
+        return ModSounds.REDSTONE_GOLEM_AMBIENT.get();
     }
 
     @Nullable
@@ -558,6 +563,10 @@ public class RedstoneGolem extends AbstractGolemServant {
                                 }
                             }
                         }
+                    } else {
+                        if (this.getCurrentAnimation() == this.getAnimationState(SUMMON)){
+                            this.setAnimationState(IDLE);
+                        }
                     }
                 }
             }
@@ -594,11 +603,6 @@ public class RedstoneGolem extends AbstractGolemServant {
 
     public double getAttackReachSqr(LivingEntity enemy) {
         return (double)(this.getBbWidth() * 6.0F + enemy.getBbWidth()) + 1.0D;
-    }
-
-    public boolean targetClose(LivingEntity enemy, double distToEnemySqr){
-        double reach = this.getAttackReachSqr(enemy);
-        return distToEnemySqr <= reach || RedstoneGolem.this.getBoundingBox().intersects(enemy.getBoundingBox());
     }
 
     public boolean doHurtTarget(Entity entityIn) {

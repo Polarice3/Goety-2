@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:ring_of_the_forge"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Se 'illagerServantTrainArmor' estiver habilitado, usar este anel fará com que Illagers recém-treinados ganhem armadura."
     }
   ],
   "extra_recipe_mappings": {

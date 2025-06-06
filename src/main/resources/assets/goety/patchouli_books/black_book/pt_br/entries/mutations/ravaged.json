@@ -21,6 +21,10 @@
       "type": "patchouli:entity",
       "entity": "goety:ravaged",
       "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Ravagers adultos podem fazer parte de um $(l:goety:mutations/illager_servants)grupo de ataque$(), embora não possam ser líderes."
     }
   ]
 }

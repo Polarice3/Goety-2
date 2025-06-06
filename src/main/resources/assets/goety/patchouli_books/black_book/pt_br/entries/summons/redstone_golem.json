@@ -37,6 +37,10 @@
       "type": "multiblock",
       "multiblock_id": "goety:redstone_golem_revive",
       "enable_visualize": false
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Golems de Redstone podem fazer parte de um $(l:goety:mutations/illager_servants)grupo de ataque$(), embora não possam ser líderes."
     }
   ],
   "extra_recipe_mappings": {

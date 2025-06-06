@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class ZombieVindicatorRenderer extends HumanoidMobRenderer<AbstractZombieVindicator, VillagerServantModel<AbstractZombieVindicator>> {
     protected static final ResourceLocation TEXTURE = Goety.location("textures/entity/servants/zombie/zombie_vindicator.png");
+    protected static final ResourceLocation HOSTILE = Goety.location("textures/entity/servants/zombie/zombie_vindicator_hostile.png");
 
     public ZombieVindicatorRenderer(EntityRendererProvider.Context entityRendererManager) {
         super(entityRendererManager, new VillagerServantModel<>(entityRendererManager.bakeLayer(ModModelLayer.ZOMBIE_VILLAGER_SERVANT)),0.5F);
@@ -26,6 +27,9 @@ public class ZombieVindicatorRenderer extends HumanoidMobRenderer<AbstractZombie
     }
 
     public ResourceLocation getTextureLocation(AbstractZombieVindicator entity) {
+        if (entity.isHostile()) {
+            return HOSTILE;
+        }
         return TEXTURE;
     }
 }

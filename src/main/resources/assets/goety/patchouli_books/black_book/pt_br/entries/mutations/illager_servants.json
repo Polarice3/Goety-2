@@ -1,0 +1,141 @@
+{
+  "name": "Servos Illagers",
+  "icon": "goety:magic_emerald",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Após aprender mais sobre os Illagers, como eles surgiram de uma luta antiga em que seus ancestrais Aldeões pegaram em armas para se defender, você concebeu e encontrou uma maneira de introduzir violência nos corações dos Aldeões... junto com servidão."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_villager_to_neollager"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:neollager"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Embora você tenha conseguido transformar um Aldeão pacífico em violento, tal ódio deve ser aprendido. Os Illagers não sabem instantaneamente como atirar com bestas ou cortar com machados desde o início. Para criar um Illager adequado, é preciso montar um $(l:goety:crafts/artifice/ominous_pyre)local de treinamento apropriado$() para que eles possam crescer. Se você tiver um $(l:goety:mutations/illager_servants#banner)estandarte registrado$(), dar a um Neollager qualquer estandarte que não seja uma réplica e ter um tear próximo fará com que eles trabalhem para criar um estandarte replicado. Neollagers bebês são mais rápidos para treinar."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:neollager{Magic: 1b}"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Dito isso, nem todos os Illagers são iguais. Apenas aqueles nascidos com talento para magia podem esperar se tornar feiticeiros, que são convenientemente marcados por suas vestes roxas."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:pillager_servant{HandItems:[{Count:1,id:\"minecraft:crossbow\"},{}]}"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Armados com a sofisticada besta, esses Illagers são bastante simples em sua abordagem ao combate. Felizmente, seus servos sabem recuar quando seu alvo se aproxima deles."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:vindicator_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Um dos Illagers mais mortíferos agora sob seu comando, esses brutos podem desativar escudos com seus machados e causar muito dano também. Você provavelmente não vai querer nomeá-los de 'Johnny' se gosta da sua obediência."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:vindicator_chef_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Um Vindicador especializado que pode coletar carne crua e cozinhar os alimentos em seu inventário em um defumador ou forno próximo."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:evoker_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Um praticante das artes sombrias, embora limitado a apenas dois feitiços, que ele executa muito bem. Em combate, eles adoram correr para evitar serem esfaqueados."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:geomancer_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Com a capacidade de manipular o próprio solo, esses feiticeiros 'Bem vestidos' que podem erguer pilares de pedra do chão para obstruir o caminho do inimigo ou explodi-los."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:iceologer_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Esses conjuradores bem frios esmagarão a cabeça de seus inimigos com seus Pedaços de Gelo."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wind_caller_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Mestres dos céus, esses xamãs de cabelos grandes podem arremessar seus inimigos para o alto ou empurrá-los com o vento."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:red_bed",
+      "title": "Comida, Reprodução e Cura",
+      "text": "Os Illagers podem receber certos tipos de comida diretamente ou por arremesso, que eles comerão para regenerar saúde quando feridos ou para se reproduzir. Se estiverem totalmente curados, não estiverem em combate, não estiverem no modo de seguir e com uma cama acessível próxima, a comida pode ser usada para ajudá-los a se reproduzir, assim como os Aldeões, resultando em um Neollager bebê."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Ter um excesso de comida em seu inventário fará com que eles compartilhem com outros Illagers que têm menos comida. Os alimentos que eles podem pegar são carnes cozidas, vegetais, frutas e Carne Podre, embora não comam a última, mas a usem para alimentar $(l:goety:mutations/ravaged)Devastadores feridos ou Devastados$(). Eles também podem receber armaduras para vestir e armas associadas para equipar."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:black_banner",
+      "anchor": "banner",
+      "title": "Estandarte Pessoal",
+      "text": "Embora os Illagers tenham seu próprio estandarte ameaçador, seria divertido e útil ter seu próprio estandarte que simbolize seu domínio. Para registrar seu estandarte pessoal, basta colocar um estandarte e clicar nele com uma Varinha ou Cajado que não tenha um feitiço baseado em bloco (por exemplo, $(l:goety:focuses/geomancy/pulverize_focus)Pulverizar$())."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:pillager_servant{HandItems:[{Count:1,id:\"minecraft:crossbow\"},{}], ArmorItems:[{},{},{},{Count:1,id:\"minecraft:black_banner\"}]}",
+      "scale": 0.5,
+      "text": "Illagers como Servos Pillager podem se tornar líderes."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Se um Illager receber seu $(l:goety:mutations/illager_servants#banner)estandarte pessoal$(), ele se tornará um líder. Usando um $(l:goety:focuses/command_focus)Feitiço de Comando$() / $(l:goety:focuses/order_focus)Ordem$() e comandando Illagers e outros servos de ataque, como Devastadores domesticados, para seguir um Illager líder, fará com que eles sigam o líder em vez de você. Atualizar sua postura de movimento fará com que parem de seguir o Illager líder. Clicar com o botão direito no Illager líder com a mão vazia fará com que ele solte o estandarte."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Clicar com o botão direito em um Illager líder com um Kit Taglock, que tenha uma criatura marcada, fará com que ele, e servos de ataque próximos que estejam seguindo o Illager ou não tenham um líder, cacem a criatura marcada antes de retornar ao seu mestre após matá-la. Se o grupo de caça incluir atacantes que não estavam seguindo nenhum Illager, eles começarão a seguir o líder com quem vieram."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:waystone",
+      "anchor": "raid",
+      "title": "Ataques",
+      "text": "Clicar com o botão direito em um Illager líder com uma Pedra da Orientação, que armazena uma posição em uma Aldeia com chunk carregado, e com um Chifre de Cabra na mão secundária, fará com que eles realizem um ataque à Aldeia, atacando todos os Aldeões não bebês. Assim como com o Taglock, o líder fará com que atacantes próximos sem líder se juntem a eles."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Se o ataque for bem-sucedido, eles retornarão ao seu mestre e deixarão saques, já que Illagers ganham Esmeraldas e outros itens ao matar Aldeões. Eles não realizarão um ataque se seu mestre tiver registrado Aldeões como $(l:goety:crafts/grimoire_of_goodwill)aliados$(). Para interromper seu ataque, registre Aldeões como $(l:goety:crafts/grimoire_of_goodwill)aliados$() ou pressione a tecla de Cessar-fogo $(l)enquanto segura um estandarte na mão principal ou secundária$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Todos os Illagers coletarão quaisquer saques de suas mortes e os jogarão em seu mestre quando estiverem próximos e fora de combate, a menos que o saque seja um alimento válido para eles comerem."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:chest",
+      "title": "Interação com Baú",
+      "text": "Clicar com o botão direito em um Illager com uma Pedra da Orientação que leve a um Baú destrancado fará com que ele registre o baú como um contêiner válido para pegar comida ou armazenar excesso de comida e saques, quando estiverem próximos. Se o Illager for um líder, seus seguidores também registrarão o mesmo baú."
+    }
+  ]
+}

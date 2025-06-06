@@ -1,5 +1,5 @@
 {
-  "name": "Esmagador",
+  "name": "Pisoteador",
   "icon": "minecraft:saddle",
   "category": "goety:mutations",
   "advancement": "goety:goety/read_ravaging_scroll",
@@ -21,6 +21,10 @@
       "type": "patchouli:entity",
       "entity": "goety:ally_trampler",
       "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Pisoteador podem fazer parte de um $(l:goety:mutations/illager_servants)grupo de ataque$(), embora não possam ser líderes."
     }
   ]
 }

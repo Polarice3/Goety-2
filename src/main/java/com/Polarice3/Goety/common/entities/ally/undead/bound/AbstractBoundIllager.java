@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.ally.undead.bound;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -25,6 +25,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -34,7 +35,7 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.function.Predicate;
 
-public abstract class AbstractBoundIllager extends Summoned {
+public abstract class AbstractBoundIllager extends RaiderServant {
     private static final EntityDataAccessor<Byte> DATA_SPELL_CASTING_ID = SynchedEntityData.defineId(AbstractBoundIllager.class, EntityDataSerializers.BYTE);
     protected int spellCastingTickCount;
     private BoundSpell currentSpell = BoundSpell.NONE;
@@ -68,6 +69,10 @@ public abstract class AbstractBoundIllager extends Summoned {
     @Override
     public int getSummonLimit(LivingEntity owner) {
         return SpellConfig.BoundIllagerLimit.get();
+    }
+
+    public boolean canBeLeader(){
+        return true;
     }
 
     protected PathNavigation createNavigation(Level pLevel) {
@@ -210,6 +215,31 @@ public abstract class AbstractBoundIllager extends Summoned {
                         }
                     }
                     pPlayer.swing(pHand);
+                    return InteractionResult.SUCCESS;
+                }
+                if (itemstack.getItem() instanceof ArmorItem armor) {
+                    ItemStack helmet = this.getItemBySlot(EquipmentSlot.HEAD);
+                    ItemStack chestplate = this.getItemBySlot(EquipmentSlot.CHEST);
+                    this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
+                    if (armor.getType() == ArmorItem.Type.HELMET) {
+                        this.setItemSlot(EquipmentSlot.HEAD, itemstack.copyWithCount(1));
+                        this.dropEquipment(EquipmentSlot.HEAD, helmet);
+                        this.setGuaranteedDrop(EquipmentSlot.HEAD);
+                    }
+                    if (armor.getType() == ArmorItem.Type.CHESTPLATE) {
+                        this.setItemSlot(EquipmentSlot.CHEST, itemstack.copyWithCount(1));
+                        this.dropEquipment(EquipmentSlot.CHEST, chestplate);
+                        this.setGuaranteedDrop(EquipmentSlot.CHEST);
+                    }
+                    for (int i = 0; i < 7; ++i) {
+                        double d0 = this.random.nextGaussian() * 0.02D;
+                        double d1 = this.random.nextGaussian() * 0.02D;
+                        double d2 = this.random.nextGaussian() * 0.02D;
+                        this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
+                    }
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
                     return InteractionResult.SUCCESS;
                 }
             }

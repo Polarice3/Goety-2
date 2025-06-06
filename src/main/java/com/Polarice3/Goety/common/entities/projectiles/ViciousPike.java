@@ -110,10 +110,7 @@ public class ViciousPike extends Entity {
         float baseDamage = SpellConfig.FangDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
         if (target.isAlive() && !target.isInvulnerable() && MobUtil.validEntity(target) && target != livingentity) {
             if (livingentity != null) {
-                if (target.isAlliedTo(livingentity)) {
-                    return;
-                }
-                if (livingentity.isAlliedTo(target)) {
+                if (MobUtil.areAllies(livingentity, target)) {
                     return;
                 }
                 target.hurt(damageSources().indirectMagic(this, livingentity), baseDamage);

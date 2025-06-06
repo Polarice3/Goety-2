@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:desert_pyramid",
+    "minecraft:stronghold",
+    {
+      "id": "integrated_stronghold:stronghold",
+      "required": false
+    },
+    {
+      "id": "betterstrongholds:stronghold",
+      "required": false
+    }
+  ]
+}

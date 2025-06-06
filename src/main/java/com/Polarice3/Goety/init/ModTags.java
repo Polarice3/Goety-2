@@ -58,6 +58,7 @@ public class ModTags {
 
         public static final TagKey<Item> WANDS = tag("wands");
         public static final TagKey<Item> STAFFS = tag("staffs");
+        public static final TagKey<Item> TOTEMS = tag("totems");
         public static final TagKey<Item> ROBES = tag("robes");
         public static final TagKey<Item> CAPES = tag("capes");
         public static final TagKey<Item> CROWNS = tag("crowns");
@@ -120,6 +121,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> WILD_HEAL = tag("wild_heal");
         public static final TagKey<EntityType<?>> NETHER_HEAL = tag("nether_heal");
         public static final TagKey<EntityType<?>> NECRO_HEAL = tag("necro_heal");
+        public static final TagKey<EntityType<?>> NECRO_NO_DEBUFF = tag("necro_no_debuff");
 
         private static TagKey<EntityType<?>> tag(String name) {
             return create(Goety.location(name));
@@ -208,6 +210,7 @@ public class ModTags {
         public static final TagKey<Structure> NECROMANCER_POWER = tag("necromancer_power");
         public static final TagKey<Structure> CAN_SUMMON_BRUTES = tag("can_summon_brutes");
         public static final TagKey<Structure> CAN_SUMMON_WITHER_SKELETONS = tag("can_summon_wither_skeletons");
+        public static final TagKey<Structure> NECROMANCER_SPAWN = tag("mob_spawn/necromancer");
 
         private static TagKey<Structure> tag(String name) {
             return create(Goety.location(name));

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.magic.spells;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.projectiles.MagicBolt;
 import com.Polarice3.Goety.common.magic.Spell;
+import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.server.level.ServerLevel;
@@ -45,7 +46,7 @@ public class MagicBoltSpell extends Spell {
         return list;
     }
 
-    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff){
+    public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){
         Vec3 vector3d = caster.getViewVector( 1.0F);
         MagicBolt soulBolt = new MagicBolt(worldIn,
                 caster.getX() + vector3d.x / 2,

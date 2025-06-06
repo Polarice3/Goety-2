@@ -13,7 +13,10 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
@@ -113,8 +116,8 @@ public class FirePillar extends CastSpellTrap{
                             if (CuriosFinder.hasNetherRobe(this.getOwner())){
                                 damageSource = ModDamageSource.magicFireBreath(this, this.getOwner());
                             }
-                            if (this.getOwner() instanceof OwnableEntity ownable && ownable.getOwner() != null){
-                                if (CuriosFinder.hasNetherRobe(ownable.getOwner())){
+                            if (MobUtil.getOwner(livingEntity) != null){
+                                if (CuriosFinder.hasNetherRobe(MobUtil.getOwner(livingEntity))){
                                     damageSource = ModDamageSource.magicFireBreath(this, this.getOwner());
                                 }
                             }

@@ -1,0 +1,15 @@
+{
+  "name": "Lâmpada Glacial",
+  "icon": "goety:freezing_lamp",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Uma Lâmpada de Redstone infundida com gelo eterno, que congela lentamente a área ao seu redor. Quando energizada, a lâmpada desliga e para de funcionar."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:freezing_lamp"
+    }
+  ]
+}

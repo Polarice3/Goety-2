@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "sgs",
+    "gsg",
+    "sgs"
+  ],
+  "key":
+  {
+    "s":
+    {
+      "tag": "forge:stone"
+    },
+    "g":
+    {
+      "tag": "forge:gunpowder"
+    }
+  },
+  "result":
+  {
+    "item": "goety:creeper_totem",
+    "count": 4
+  }
+}

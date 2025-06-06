@@ -2,7 +2,6 @@ package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.common.blocks.entities.GravestoneBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.ModBlockEntities;
-import com.Polarice3.Goety.common.blocks.entities.SpiderNestBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -78,6 +77,6 @@ public class GravestoneBlock extends TrainingBlock implements SimpleWaterloggedB
 
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152755_, BlockState p_152756_, BlockEntityType<T> p_152757_) {
-        return createTickerHelper(p_152757_, ModBlockEntities.SHADE_GRAVESTONE.get(), p_152755_.isClientSide ? SpiderNestBlockEntity::clientTick : SpiderNestBlockEntity::serverTick);
+        return createTickerHelper(p_152757_, ModBlockEntities.SHADE_GRAVESTONE.get(), p_152755_.isClientSide ? GravestoneBlockEntity::clientTick : GravestoneBlockEntity::serverTick);
     }
 }

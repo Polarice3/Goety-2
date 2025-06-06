@@ -8,11 +8,8 @@
       "text": "Фокус создаёт вокруг вас мины, которые взрываются через секунду после приближения к ним жертвы."
     },
     {
-      "type": "goety:ritual",
+      "type": "patchouli:crafting",
       "recipe": "goety:focus/scatter_focus"
     }
-  ],
-  "extra_recipe_mappings": {
-    "goety:scatter_focus": 1
-  }
+  ]
 }

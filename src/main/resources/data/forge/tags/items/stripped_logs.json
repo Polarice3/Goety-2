@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "goety:stripped_haunted_log",
+    "goety:stripped_rotten_log",
+    "goety:stripped_windswept_log",
+    "goety:stripped_pine_log"
+  ]
+}

@@ -1,9 +1,8 @@
 package com.Polarice3.Goety.common.entities.ai;
 
 import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 
-public class NeutralZombieAttackGoal extends MeleeAttackGoal {
+public class NeutralZombieAttackGoal extends ModMeleeAttackGoal {
     private final PathfinderMob zombie;
     private int raiseArmTicks;
 

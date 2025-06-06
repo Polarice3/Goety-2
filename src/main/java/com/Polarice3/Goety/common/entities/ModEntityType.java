@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ally.*;
 import com.Polarice3.Goety.common.entities.ally.golem.*;
+import com.Polarice3.Goety.common.entities.ally.illager.*;
 import com.Polarice3.Goety.common.entities.ally.spider.*;
 import com.Polarice3.Goety.common.entities.ally.undead.*;
 import com.Polarice3.Goety.common.entities.ally.undead.bound.BoundEvoker;
@@ -868,6 +869,54 @@ public class ModEntityType {
             EntityType.Builder.of(BroodMotherServant::new, MobCategory.MONSTER)
                     .sized(3.2F, 1.8F)
                     .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<Neollager>> NEOLLAGER = register("neollager",
+            EntityType.Builder.of(Neollager::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<PillagerServant>> PILLAGER_SERVANT = register("pillager_servant",
+            EntityType.Builder.of(PillagerServant::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<VindicatorServant>> VINDICATOR_SERVANT = register("vindicator_servant",
+            EntityType.Builder.of(VindicatorServant::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<VindicatorChefServant>> VINDICATOR_CHEF_SERVANT = register("vindicator_chef_servant",
+            EntityType.Builder.of(VindicatorChefServant::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<EvokerServant>> EVOKER_SERVANT = register("evoker_servant",
+            EntityType.Builder.of(EvokerServant::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<GeomancerServant>> GEOMANCER_SERVANT = register("geomancer_servant",
+            EntityType.Builder.of(GeomancerServant::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<IceologerServant>> ICEOLOGER_SERVANT = register("iceologer_servant",
+            EntityType.Builder.of(IceologerServant::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<WindCallerServant>> WIND_CALLER_SERVANT = register("wind_caller_servant",
+            EntityType.Builder.of(WindCallerServant::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(10));
 
     public static final RegistryObject<EntityType<AllyTrampler>> ALLY_TRAMPLER = register("ally_trampler",
             EntityType.Builder.of(AllyTrampler::new, MobCategory.MONSTER)

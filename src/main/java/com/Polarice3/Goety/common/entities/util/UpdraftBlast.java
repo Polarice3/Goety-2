@@ -134,7 +134,7 @@ public class UpdraftBlast extends Entity {
             }
         }
         if (this.tickCount == 1){
-            this.playSound(ModSounds.UPDRAFT_BLAST.get(), 1.0F, 1.0F);
+            this.playSound(ModSounds.UPDRAFT_BLAST.get(), 0.9F, 1.5F);
         }
         if (this.tickCount > 20){
             this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.25D, 0.0D));

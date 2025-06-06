@@ -4,6 +4,7 @@ import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.hostile.Irk;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Heretic;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Maverick;
@@ -136,6 +137,29 @@ public class MobUtil {
                     || (entity1 instanceof Player player1 && entity instanceof LivingEntity living1
                     && (SEHelper.getAllyEntities(player1).contains(living1)
                     || SEHelper.getAllyEntityTypes(player1).contains(living1.getType())));
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean illagerAllies(Entity self, Entity target){
+        if (target == self) {
+            return true;
+        } else if (target.getTeam() != null && self.isAlliedTo(target.getTeam())) {
+            return true;
+        } else if (target instanceof Vex vex && vex.getOwner() != null) {
+            return self.isAlliedTo(vex.getOwner());
+        } else if (target instanceof Irk irk && irk.getTrueOwner() != null) {
+            return self.isAlliedTo(irk.getTrueOwner());
+        } else if (target instanceof LivingEntity livingEntity && livingEntity.getMobType() == MobType.ILLAGER) {
+            if (livingEntity instanceof IOwned owned){
+                if (owned.getTrueOwner() != null){
+                    return self.isAlliedTo(owned.getTrueOwner());
+                } else if (!owned.isHostile()){
+                    return livingEntity.isAlliedTo(self);
+                }
+            }
+            return self.getTeam() == null && target.getTeam() == null;
         } else {
             return false;
         }
@@ -1299,10 +1323,8 @@ public class MobUtil {
 
     public static boolean isOwnedTargetable(Entity attacker, LivingEntity target){
         LivingEntity owner = null;
-        if (attacker instanceof IOwned owned){
-            owner = owned.getTrueOwner();
-        } else if (attacker instanceof OwnableEntity ownable){
-            owner = ownable.getOwner();
+        if (MobUtil.getOwner(attacker) != null){
+            owner = MobUtil.getOwner(attacker);
         } else if (attacker instanceof Projectile projectile && projectile.getOwner() instanceof LivingEntity livingEntity){
             owner = livingEntity;
         }
@@ -1311,6 +1333,8 @@ public class MobUtil {
                 || (attacker instanceof Enemy && !(attacker instanceof IOwned))
                 || (attacker instanceof IOwned ownedAttacker && ownedAttacker.isHostile())){
             return target instanceof Player player && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player);
+        } else if (target instanceof NeutralMob neutralMob) {
+            return (owner != null && neutralMob.getTarget() == owner) || (neutralMob.getTarget() == attacker);
         } else {
             return (((target instanceof Enemy && !(target instanceof IOwned)) || (target instanceof IOwned ownedTarget && ownedTarget.isHostile()))
                     && !((target.getMobType() == MobType.UNDEAD || target.getType().is(ModTags.EntityTypes.LICH_NEUTRAL)) && LichdomHelper.isLich(owner) && MainConfig.LichUndeadFriends.get())
@@ -1321,7 +1345,6 @@ public class MobUtil {
                     && !(CuriosFinder.validNetherMob(target) && owner != null && CuriosFinder.neutralNetherSet(owner))
                     && !(target.getMobType() == MobType.ARTHROPOD && owner != null && CuriosFinder.hasWarlockRobe(owner))
                     && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.ServantsAttackCreepers.get())
-                    && !(target instanceof NeutralMob neutralMob && ((owner != null && neutralMob.getTarget() != owner) || neutralMob.getTarget() != attacker))
                     && !(target instanceof AbstractPiglin piglin && ((owner != null && piglin.getTarget() != owner) || piglin.getTarget() != attacker))
                     && !(target instanceof IOwned ownedTarget && (owner != null && ownedTarget.getTrueOwner() == owner))
                     || (owner instanceof Player player
@@ -1430,5 +1453,15 @@ public class MobUtil {
             livingEntity = living;
         }
         return livingEntity;
+    }
+
+    @Nullable
+    public static LivingEntity getOwner(Entity owned) {
+        if (owned instanceof IOwned owned1) {
+            return owned1.getTrueOwner();
+        } else if (owned instanceof OwnableEntity ownable) {
+            return ownable.getOwner();
+        }
+        return null;
     }
 }

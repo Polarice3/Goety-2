@@ -92,6 +92,11 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
 
     }
 
+    @Override
+    public boolean isPersistenceRequired() {
+        return super.isPersistenceRequired() || this.getTrueOwner() != null;
+    }
+
     public boolean doHurtTarget(Entity entity) {
         if (this.getTrueOwner() != null) {
             float f = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
@@ -228,11 +233,15 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
     }
 
     @Nullable
+    @SuppressWarnings("deprecation")
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
         this.checkHostility();
         if (pReason != MobSpawnType.MOB_SUMMONED && this.getTrueOwner() == null){
             this.setNatural(true);
+        }
+        if (this.getTrueOwner() instanceof Player) {
+            this.setPersistenceRequired();
         }
         return pSpawnData;
     }
@@ -283,13 +292,6 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
 
     public void setOwnerClientId(int id){
         this.entityData.set(OWNER_CLIENT_ID, id);
-    }
-
-    public void setTrueOwner(@Nullable LivingEntity livingEntity){
-        if (livingEntity != null) {
-            this.setOwnerId(livingEntity.getUUID());
-            this.setOwnerClientId(livingEntity.getId());
-        }
     }
 
     public void setHostile(boolean hostile){

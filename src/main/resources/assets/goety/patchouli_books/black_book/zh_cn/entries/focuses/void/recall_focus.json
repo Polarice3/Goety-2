@@ -1,15 +1,22 @@
 {
   "name": "回溯聚晶",
   "icon": "goety:recall_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/void",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "回溯聚晶允许施法者传送回聚晶保存的位置。要使用焦点，它需要通过右键单击使用者拥有的灵魂方舟、床或重生锚来保存位置。按住Shift键并右键单击聚晶将清除任何保存的位置。"
+      "text": "回溯聚晶允许施法者传送回聚晶保存的位置，当然，使用者需要先使用携带该聚晶的法杖右键自己拥有的床、重生锚或灵魂方舟来保存位置，用携带该聚晶的法杖在按住Shift的同时右键任意区域时可以移除你保存的位置"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/recall_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你还可以使用携带该聚晶的法杖右键自己的仆从，将他传送到你保存的位置，如果可以的话，你的仆从将在那里待命"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:recall_focus": 1
+  }
 }

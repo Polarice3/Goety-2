@@ -10,7 +10,7 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:command_horn",
-      "text": "Servants that are Patrolling, already commanded or part of a $(l:crafts/grimoire_of_grounding)Grimoire of Grounding$() are unaffected by the horn."
+      "text": "Servants that are Guarding an area, already commanded or part of a $(l:crafts/grimoire_of_grounding)Grimoire of Grounding$() are unaffected by the horn."
     }
   ]
 }
