@@ -15,9 +15,12 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -129,6 +132,27 @@ public class VindicatorChefServant extends VindicatorServant{
                 .map(smeltingRecipe -> smeltingRecipe.getResultItem(level.registryAccess()))
                 .filter(itemStack -> !itemStack.isEmpty())
                 .orElse(ItemStack.EMPTY);
+    }
+
+    @Override
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
+            if (this.countFoodPointsInInventory() != 0) {
+                if (pHand == InteractionHand.MAIN_HAND && pPlayer.getMainHandItem().isEmpty() && (pPlayer.isShiftKeyDown() || pPlayer.isCrouching())) {
+                    Optional<ItemStack> optional = this.itemsInInv(this::canEat).stream().findFirst();
+                    if (optional.isPresent()) {
+                        pPlayer.setItemInHand(pHand, optional.get().copyAndClear());
+                        this.getInventory().setChanged();
+                        if (this.getAmbientSound() != null) {
+                            this.playSound(this.getAmbientSound(), 1.0F, 1.25F);
+                        }
+                        this.level.playSound(pPlayer, pPlayer, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 1.0F, 1.0F);
+                        return InteractionResult.SUCCESS;
+                    }
+                }
+            }
+        }
+        return super.mobInteract(pPlayer, pHand);
     }
 
     public static class CookingGoal extends Goal {
@@ -343,16 +367,6 @@ public class VindicatorChefServant extends VindicatorServant{
                 return false;
             }
             return super.canUse();
-        }
-
-        protected boolean findNearestBlock() {
-            if (this.illager.getChestPos() != null) {
-                this.blockPos = this.illager.getChestPos();
-                if (this.blockPos != null){
-                    return this.illager.distanceToSqr(this.blockPos.getX() + 0.5F, this.blockPos.getY() + 0.5F, this.blockPos.getZ() + 0.5F) <= Mth.square(this.searchRange);
-                }
-            }
-            return false;
         }
 
         @Override

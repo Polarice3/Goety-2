@@ -121,6 +121,7 @@ public class ArrowRainSpell extends EverChargeSpell {
                 arrow.setSecondsOnFire(100);
             }
             arrow.shoot(vec31.x, vec31.y, vec31.z, velocity + (1.5F * worldIn.random.nextFloat()), randomness);
+            arrow.setBaseDamage(arrow.getBaseDamage() + SpellConfig.ArrowRainExtraDamage.get());
             if (worldIn.addFreshEntity(arrow)){
                 this.playSound(worldIn, arrow, SoundEvents.ARROW_SHOOT, 2.0F, 1.0F / (worldIn.getRandom().nextFloat() * 0.4F + 1.2F) + 0.5F);
             }

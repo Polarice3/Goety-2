@@ -65,9 +65,15 @@ public class SoulEnergyEvents {
         if (event.phase == TickEvent.Phase.END) {
             SEHelper.getFocusCoolDown(player).tick(player, world);
             if (player.onGround()){
-                SEHelper.setTicksInAir(player, 0);
-                SEHelper.setAirJumps(player, 0);
-                SEHelper.setAirJumpCooldown(player, 0);
+                if (SEHelper.getTicksInAir(player) > 0) {
+                    SEHelper.setTicksInAir(player, 0);
+                }
+                if (SEHelper.getAirJumps(player) > 0) {
+                    SEHelper.setAirJumps(player, 0);
+                }
+                if (SEHelper.getAirJumpCooldown(player) > 0) {
+                    SEHelper.setAirJumpCooldown(player, 0);
+                }
             } else {
                 SEHelper.setTicksInAir(player, SEHelper.getTicksInAir(player) + 1);
             }
@@ -164,8 +170,7 @@ public class SoulEnergyEvents {
                 return (entity instanceof Mob mob && (!mob.isAlive() || mob.isRemoved())) || entity == null;
             });
         }
-        int s = soulEnergy.getSoulEnergy();
-        if (s < 0){
+        if (soulEnergy.getSoulEnergy() < 0){
             soulEnergy.setSoulEnergy(0);
         }
         if (soulEnergy.getGrappling() instanceof VineHook vineHook && vineHook.isAttached()) {

@@ -1,0 +1,15 @@
+{
+  "entity_type": "savage_and_ravage:executioner",
+  "registry": {
+    "threshold_times": 2.5,
+    "max": 3,
+    "extra": 1,
+    "chance": 0.25
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "savage_and_ravage"
+    }
+  ]
+}

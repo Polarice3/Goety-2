@@ -34,7 +34,7 @@
     {
       "type": "patchouli:text",
       "title": "地卜师仆从",
-      "text": "需求：$(li)必须是有魔法资质的新刌民 $(li)4颗被放置的紫水晶 $(li)64个深板岩及其变种 $(li)16个$(l:goety:crafts/creeper_totem)苦力怕图腾$()"
+      "text": "需求：$(li)必须是有魔法资质的新刌民 $(li)16个紫水晶块 $(li)64个深板岩及其变种 $(li)16个$(l:goety:crafts/creeper_totem)苦力怕图腾$()"
     },
     {
       "type": "patchouli:text",

@@ -20,6 +20,8 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -60,6 +62,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.scores.Team;
 import net.minecraftforge.event.ForgeEventFactory;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -177,6 +180,16 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
             //To allow Illagers to hurt other vanilla/modded Illagers
             return new DummyTeam();
         }
+    }
+
+    public @NotNull Component getDisplayName() {
+        return formatNameForTeam(this.getTeam(), this.getName()).withStyle((p_185975_) -> {
+            return p_185975_.withHoverEvent(this.createHoverEvent()).withInsertion(this.getStringUUID());
+        });
+    }
+
+    public static MutableComponent formatNameForTeam(@Nullable Team p_83349_, Component p_83350_) {
+        return p_83349_ == null || p_83349_ instanceof DummyTeam ? p_83350_.copy() : p_83349_.getFormattedName(p_83350_);
     }
 
     @Override
@@ -466,14 +479,14 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
         this.digestFood(12);
     }
 
-    private int countFoodPointsInInventory() {
+    public int countFoodPointsInInventory() {
         SimpleContainer simplecontainer = this.getInventory();
         return this.getFoodPoints().entrySet().stream().mapToInt((entry) -> {
             return simplecontainer.countItem(entry.getKey()) * entry.getValue();
         }).sum();
     }
 
-    private int countFoodInInventory() {
+    public int countFoodInInventory() {
         SimpleContainer simplecontainer = this.getInventory();
         return this.getFoodPoints().keySet().stream().mapToInt(simplecontainer::countItem).sum();
     }
@@ -915,7 +928,7 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
 
         @Override
         public boolean canUse() {
-            if (this.illager.hasExcessFood() && this.illager.canPickUpLoot()) {
+            if (this.illager.hasExcessFood()) {
                 return super.canUse();
             }
             return false;

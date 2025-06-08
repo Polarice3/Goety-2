@@ -36,16 +36,6 @@ public class IllagerLootFoodChestGoal extends IllagerChestGoal {
         return super.canUse();
     }
 
-    protected boolean findNearestBlock() {
-        if (this.illager.getChestPos() != null) {
-            this.blockPos = this.illager.getChestPos();
-            if (this.blockPos != null){
-                return this.illager.distanceToSqr(this.blockPos.getX() + 0.5F, this.blockPos.getY() + 0.5F, this.blockPos.getZ() + 0.5F) <= Mth.square(this.searchRange);
-            }
-        }
-        return false;
-    }
-
     @Override
     public void chestInteract(Container container) {
         for (ItemStack itemStack : this.getItems(container)) {

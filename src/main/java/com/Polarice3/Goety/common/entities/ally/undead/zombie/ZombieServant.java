@@ -160,7 +160,9 @@ public class ZombieServant extends Summoned {
     @Override
     public boolean canRide(LivingEntity livingEntity) {
         if (this.isBaby()){
-            return livingEntity instanceof Chicken chicken && !chicken.isBaby();
+            if (livingEntity instanceof Chicken chicken) {
+                return !chicken.isBaby();
+            }
         }
         return super.canRide(livingEntity);
     }

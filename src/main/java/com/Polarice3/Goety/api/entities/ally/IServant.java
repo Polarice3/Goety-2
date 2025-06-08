@@ -30,9 +30,6 @@ import javax.annotation.Nullable;
 public interface IServant extends IOwned {
     int GUARDING_RANGE = MobsConfig.ServantGuardingRange.get();
 
-    @Deprecated(forRemoval = true)
-    int PATROL_RANGE = GUARDING_RANGE;
-
     boolean isWandering();
 
     void setWandering(boolean wandering);
@@ -49,11 +46,6 @@ public interface IServant extends IOwned {
         return true;
     }
 
-    @Deprecated(forRemoval = true)
-    default boolean isPatrolling(){
-        return this.isGuardingArea();
-    }
-
     default boolean isGuardingArea(){
         if (this instanceof Entity entity) {
             if (entity.level.dimension() != this.getBoundLevel()){
@@ -61,11 +53,6 @@ public interface IServant extends IOwned {
             }
         }
         return this.getBoundPos() != null;
-    }
-
-    @Deprecated(forRemoval = true)
-    default boolean canPatrol(){
-        return this.canGuardArea();
     }
 
     default boolean canGuardArea(){
@@ -243,11 +230,6 @@ public interface IServant extends IOwned {
 
     }
 
-    @Deprecated(forRemoval = true)
-    default boolean isSunSensitive2() {
-        return this.servantSunBurn();
-    }
-
     default boolean servantSunBurn() {
         return false;
     }
@@ -357,11 +339,6 @@ public interface IServant extends IOwned {
                 }
             }
         }
-    }
-
-    @Deprecated(forRemoval = true)
-    default void healServant(LivingEntity livingEntity){
-        this.healServant();
     }
 
     default void healServant(){

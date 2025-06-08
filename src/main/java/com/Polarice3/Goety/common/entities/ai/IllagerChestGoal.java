@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.ai;
 
 import com.Polarice3.Goety.common.entities.ally.illager.AbstractIllagerServant;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.item.ItemStack;
@@ -63,6 +64,24 @@ public abstract class IllagerChestGoal extends MoveToBlockGoal {
             return false;
         }
         return this.findNearestBlock();
+    }
+
+    public boolean canContinueToUse() {
+        return super.canContinueToUse() && this.canUse();
+    }
+
+    protected boolean baseNearestBlock() {
+        return super.findNearestBlock();
+    }
+
+    protected boolean findNearestBlock() {
+        if (this.illager.getChestPos() != null) {
+            this.blockPos = this.illager.getChestPos();
+            if (this.blockPos != null){
+                return this.illager.distanceToSqr(this.blockPos.getX() + 0.5F, this.blockPos.getY() + 0.5F, this.blockPos.getZ() + 0.5F) <= Mth.square(this.searchRange);
+            }
+        }
+        return false;
     }
 
     public boolean isChestRaidable(LevelReader world, BlockPos pos) {

@@ -106,20 +106,25 @@ public interface ITrainable {
                     if (mob.level.getBlockEntity(this.getTrainPos().get()) instanceof IBarrack barrack){
                         range = barrack.getRange();
                     }
-                    if (mob.distanceToSqr(this.vec3TrainPos()) > Mth.square(range + 2)){
-                        if (mob.level instanceof ServerLevel serverLevel) {
-                            ServerParticleUtil.addParticlesAroundMiddleSelf(serverLevel, ParticleTypes.ANGRY_VILLAGER, mob);
-                        }
-                        this.setTrainPos(null);
-                    }
-                    if (mob instanceof IServant owned) {
-                        if (!owned.isFollowing() && !owned.isStaying()) {
-                            if (!owned.isCommanded() && mob.distanceToSqr(this.vec3TrainPos()) >= Mth.square(range)) {
-                                mob.setTarget(null);
-                                BlockPos blockPos = this.getTrainPos().get();
-                                mob.getNavigation().moveTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), 1.0F);
+                    try {
+                        if (this.vec3TrainPos() != null) {
+                            if (mob.distanceToSqr(this.vec3TrainPos()) > Mth.square(range + 2)) {
+                                if (mob.level instanceof ServerLevel serverLevel) {
+                                    ServerParticleUtil.addParticlesAroundMiddleSelf(serverLevel, ParticleTypes.ANGRY_VILLAGER, mob);
+                                }
+                                this.setTrainPos(null);
+                            }
+                            if (mob instanceof IServant owned) {
+                                if (!owned.isFollowing() && !owned.isStaying()) {
+                                    if (!owned.isCommanded() && mob.distanceToSqr(this.vec3TrainPos()) >= Mth.square(range)) {
+                                        mob.setTarget(null);
+                                        BlockPos blockPos = this.getTrainPos().get();
+                                        mob.getNavigation().moveTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), 1.0F);
+                                    }
+                                }
                             }
                         }
+                    } catch (NullPointerException ignored) {
                     }
                 }
                 if (this.getStoredTrainPos().isPresent()) {

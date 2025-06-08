@@ -455,6 +455,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> TidalCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> TidalDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> TidalCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> TidalBaseDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> CallCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> CallDuration;
@@ -529,6 +530,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> ArrowRainChargeUp;
     public static final ForgeConfigSpec.ConfigValue<Integer> ArrowRainDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> ArrowRainCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> ArrowRainExtraDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> TelekinesisCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> TelekinesisChargeUp;
@@ -1480,6 +1482,8 @@ public class SpellConfig {
                     .defineInRange("tidalTime", 20, 0, 72000);
             TidalCoolDown = BUILDER.comment("Tidal Spell Cooldown, Default: 60")
                     .defineInRange("tidalCoolDown", 60, 0, Integer.MAX_VALUE);
+            TidalBaseDamage = BUILDER.comment("How much base damage the spell deals, Default: 1.0")
+                    .defineInRange("tidalBaseDamage", 1.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Call Spell");
             CallCost = BUILDER.comment("Call Spell Cost, Default: 16")
@@ -1646,6 +1650,8 @@ public class SpellConfig {
                     .defineInRange("arrowRainTime", 100, 0, 72000);
             ArrowRainCoolDown = BUILDER.comment("Arrow Rain Spell Cooldown, Default: 400")
                     .defineInRange("arrowRainCoolDown", 400, 0, 72000);
+            ArrowRainExtraDamage = BUILDER.comment("How much extra damage the arrows deals, Default: 0.0")
+                    .defineInRange("arrowRainDamage", 0.0, 0.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Sonic Boom Spell");
             SonicBoomCost = BUILDER.comment("Sonic Boom Spell Cost, Default: 16")

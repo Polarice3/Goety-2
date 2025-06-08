@@ -130,7 +130,9 @@ public class LichEvents {
             if (player.isAlive()){
                 if (!player.level.isClientSide) {
                     if (LichdomHelper.nightVision(player) && MainConfig.LichNightVision.get()) {
-                        player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, -1, 0, false, false, false));
+                        if (!player.hasEffect(MobEffects.NIGHT_VISION)) {
+                            player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, -1, 0, false, false, false));
+                        }
                     } else {
                         if (player.hasEffect(MobEffects.NIGHT_VISION)) {
                             player.removeEffect(MobEffects.NIGHT_VISION);
@@ -142,8 +144,12 @@ public class LichEvents {
                 LichdomHelper.setSmited(player, LichdomHelper.smited(player) - 1);
             }
         } else {
-            LichdomHelper.setLichMode(player, false);
-            LichdomHelper.setNightVision(player, false);
+            if (LichdomHelper.isInLichMode(player)) {
+                LichdomHelper.setLichMode(player, false);
+            }
+            if (LichdomHelper.nightVision(player)) {
+                LichdomHelper.setNightVision(player, false);
+            }
         }
 
         if (IronLoaded.IRON_SPELLBOOKS.isLoaded()){

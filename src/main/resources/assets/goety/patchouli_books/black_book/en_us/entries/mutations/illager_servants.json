@@ -50,7 +50,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "A specialized Vindicator that can collect uncooked meat and will cook the food in their inventory at a nearby Smoker or Furnace."
+      "text": "A specialized Vindicator that can collect uncooked meat and will cook the food in their inventory at a nearby Smoker or Furnace. Shift-right click with an empty hand on them will give you their first food in their inventory."
     },
     {
       "type": "patchouli:entity",
