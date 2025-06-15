@@ -122,16 +122,8 @@ public abstract class AbstractWave extends SpellEntity {
     public void tick() {
         super.tick();
         this.prevSlamProgress = this.slamProgress;
-        if (this.getWaitingTicks() > 0) {
-            if (!this.level.isClientSide) {
-                this.setWaitingTicks(this.getWaitingTicks() - 1);
-            }
-            this.setInvisible(true);
+        if (this.isWaitingTick()) {
             return;
-        } else {
-            if (this.isInvisible()){
-                this.setInvisible(false);
-            }
         }
         if (this.isSlamming() && this.slamProgress < 10.0F) {
             this.slamProgress += 1.0F;
@@ -170,6 +162,21 @@ public abstract class AbstractWave extends SpellEntity {
             this.setSlamming(true);
         }
         this.activeWaveTicks++;
+    }
+
+    public boolean isWaitingTick() {
+        if (this.getWaitingTicks() > 0) {
+            if (!this.level.isClientSide) {
+                this.setWaitingTicks(this.getWaitingTicks() - 1);
+            }
+            this.setInvisible(true);
+            return true;
+        } else {
+            if (this.isInvisible()){
+                this.setInvisible(false);
+            }
+            return false;
+        }
     }
 
     public void attackEntities(float scale){

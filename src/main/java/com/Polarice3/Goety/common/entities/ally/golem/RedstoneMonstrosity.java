@@ -1283,7 +1283,7 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
     /**
      * Based on @lgh877's codes:<a href="https://github.com/lgh877/CrimsonStevesMoreMobs/blob/master/src/main/java/net/mcreator/crimson_steves_mobs/SlowRotMoveControl.java">...</a>
      */
-    public static class SlowRotMoveControl extends MoveControl {
+    public static class SlowRotMoveControl extends MobUtil.noSpinControl {
         public SlowRotMoveControl(Mob mob) {
             super(mob);
         }

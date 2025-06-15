@@ -44,6 +44,7 @@ public class RedstoneMonstrosityHeadBlock extends BaseEntityBlock {
     private BlockPattern redstoneMonstrosityBase;
     @Nullable
     private BlockPattern redstoneMonstrosityFull;
+
     public RedstoneMonstrosityHeadBlock() {
         super(Properties.of()
                 .strength(1.0F)
@@ -173,14 +174,15 @@ public class RedstoneMonstrosityHeadBlock extends BaseEntityBlock {
     }
 
     public boolean canSpawnGolem(LevelReader p_51382_, BlockPos p_51383_) {
-        return /*this.getOrCreateRedstoneMonstrosityBase().find(p_51382_, p_51383_) != null*/ false;
+        return this.getOrCreateRedstoneMonstrosityBase().find(p_51382_, p_51383_) != null;
     }
 
     private BlockPattern getOrCreateRedstoneMonstrosityBase() {
         if (this.redstoneMonstrosityBase == null) {
             this.redstoneMonstrosityBase = BlockPatternBuilder.start()
-                    .aisle("~~~ ~~~", "#######", "#######", "~#####~", "~~DDD~~")
+                    .aisle("~~~ ~~~", "###H###", "#######", "~#####~", "~~DDD~~")
                     .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.REDSTONE_BLOCK)))
+                    .where('H', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.REINFORCED_REDSTONE_BLOCK.get())))
                     .where('D', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.DIAMOND_MOLD_BLOCK.get())))
                     .where('~', (p_284869_) -> {
                         return p_284869_.getState().isAir();
@@ -193,10 +195,11 @@ public class RedstoneMonstrosityHeadBlock extends BaseEntityBlock {
     private BlockPattern getOrCreateRedstoneMonstrosityFull() {
         if (this.redstoneMonstrosityFull == null) {
             this.redstoneMonstrosityFull = BlockPatternBuilder.start()
-                    .aisle("~~~^~~~", "#######", "#######", "~#####~", "~~DDD~~")
+                    .aisle("~~~^~~~", "###H###", "#######", "~#####~", "~~DDD~~")
                     .where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.REDSTONE_MONSTROSITY_HEAD_BLOCK.get())
                             .or(BlockStatePredicate.forBlock(ModBlocks.WALL_REDSTONE_MONSTROSITY_HEAD_BLOCK.get()))))
                     .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.REDSTONE_BLOCK)))
+                    .where('H', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.REINFORCED_REDSTONE_BLOCK.get())))
                     .where('D', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.DIAMOND_MOLD_BLOCK.get())))
                     .where('~', (p_284869_) -> {
                         return p_284869_.getState().isAir();

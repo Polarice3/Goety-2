@@ -1,0 +1,16 @@
+{
+  "name": "Зловещие кузницы",
+  "icon": "goety:highrock_bricks",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Ходят слухи, что высоко в горах злодеяне построили кузницы, в которых, возможно, хранятся их сокровища."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/ominous_blacksmith.png"],
+      "border": true
+    }
+  ]
+}

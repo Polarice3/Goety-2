@@ -3,10 +3,13 @@ package com.Polarice3.Goety.common.entities.ally.illager;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
+import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.config.AttributesConfig;
-import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -21,18 +24,24 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EvokerServant extends SpellcasterIllagerServant{
     @Nullable
     private Sheep wololoTarget;
+    @Nullable
+    private Villager ravageTarget;
+    private int ravageCool;
 
     public EvokerServant(EntityType<? extends EvokerServant> p_32627_, Level p_32628_) {
         super(p_32627_, p_32628_);
@@ -46,6 +55,7 @@ public class EvokerServant extends SpellcasterIllagerServant{
         this.goalSelector.addGoal(4, new EvokerSummonSpellGoal());
         this.goalSelector.addGoal(5, new EvokerAttackSpellGoal());
         this.goalSelector.addGoal(6, new EvokerWololoSpellGoal());
+        this.goalSelector.addGoal(6, new EvokerRavagingSpellGoal());
         this.goalSelector.addGoal(8, new RaiderWanderGoal<>(this, 0.6D));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
@@ -63,6 +73,18 @@ public class EvokerServant extends SpellcasterIllagerServant{
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.EvokerServantHealth.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.EvokerServantArmor.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.FOLLOW_RANGE), AttributesConfig.EvokerServantFollowRange.get());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.ravageCool = compound.getInt("RavageCool");
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("RavageCool", this.ravageCool);
     }
 
     @Override
@@ -93,6 +115,23 @@ public class EvokerServant extends SpellcasterIllagerServant{
     @Nullable
     Sheep getWololoTarget() {
         return this.wololoTarget;
+    }
+
+    void setRavageTarget(@Nullable Villager p_32635_) {
+        this.ravageTarget = p_32635_;
+    }
+
+    @Nullable
+    Villager getRavageTarget() {
+        return this.ravageTarget;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.ravageCool > 0) {
+            --this.ravageCool;
+        }
     }
 
     protected SoundEvent getCastingSoundEvent() {
@@ -308,6 +347,171 @@ public class EvokerServant extends SpellcasterIllagerServant{
 
         protected IllagerServantSpell getSpell() {
             return IllagerServantSpell.WOLOLO;
+        }
+    }
+
+    public class EvokerRavagingSpellGoal extends SpellcasterUseSpellGoal {
+        private final TargetingConditions ravageTargeting = TargetingConditions.forNonCombat().range(16.0D).selector((p_32710_) -> {
+            return true;
+        });
+
+        public boolean canUse() {
+            if (!EvokerServant.this.isLeader()) {
+                return false;
+            } else if (EvokerServant.this.getTarget() != null) {
+                return false;
+            } else if (EvokerServant.this.isCastingSpell()) {
+                return false;
+            } else if (EvokerServant.this.tickCount < this.nextAttackTickCount) {
+                return false;
+            } else if (EvokerServant.this.ravageCool > 0) {
+                return false;
+            } else if (EvokerServant.this.getNearbyCompanions().isEmpty()) {
+                return false;
+            } else if (this.otherEvokers().size() < 2) {
+                return false;
+            } else {
+                if (EvokerServant.this.getTrueOwner() instanceof Player player) {
+                    if (!SEHelper.hasResearch(player, ResearchList.RAVAGING)){
+                        return false;
+                    } else if (SEHelper.getGrudgeEntityTypes(player).contains(EntityType.VILLAGER)) {
+                        List<Villager> list = EvokerServant.this.level.getNearbyEntities(Villager.class, this.ravageTargeting, EvokerServant.this, EvokerServant.this.getBoundingBox().inflate(16.0D, 4.0D, 16.0D));
+                        if (list.isEmpty()) {
+                            return false;
+                        } else {
+                            EvokerServant.this.setRavageTarget(list.get(EvokerServant.this.random.nextInt(list.size())));
+                            return true;
+                        }
+                    } else if (EvokerServant.this.getCommandPosEntity() instanceof Villager villager && villager.distanceTo(EvokerServant.this) <= 16.0D) {
+                        EvokerServant.this.setRavageTarget(villager);
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        public boolean canContinueToUse() {
+            return EvokerServant.this.getRavageTarget() != null
+                    && EvokerServant.this.getRavageTarget().isAlive()
+                    && this.otherEvokers().size() >= 2
+                    && EvokerServant.this.getTarget() == null
+                    && this.attackWarmupDelay > 0;
+        }
+
+        @Override
+        public void tick() {
+            super.tick();
+            Villager villager = EvokerServant.this.getRavageTarget();
+            if (villager != null && villager.isAlive()) {
+                MobUtil.instaLook(EvokerServant.this, villager);
+                MiscCapHelper.setShakeTime(villager, 20);
+                villager.setLastHurtByMob(EvokerServant.this);
+                villager.getNavigation().stop();
+                villager.getMoveControl().strafe(0.0F, 0.0F);
+                if (villager.tickCount % 20 == 0) {
+                    if (villager.level instanceof ServerLevel serverLevel){
+                        ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.ENCHANT, villager);
+                    }
+                }
+                Vec3 offset = new Vec3(2, 0, 0);
+                Vec3 at = this.groundOf(villager.position().add(offset));
+                EvokerServant.this.getNavigation().moveTo(at.x, at.y, at.z, 0.75F);
+                for (int i = 0; i < this.otherEvokers().size(); ++i) {
+                    EvokerServant evokerServant = this.otherEvokers().get(i);
+                    float f = (float) (i + 1) / (this.otherEvokers().size() + 1);
+                    Vec3 offset2 = new Vec3(2, 0, 0).yRot(f * ((float) Math.PI * 2F));
+                    Vec3 at2 = this.groundOf(villager.position().add(offset2));
+                    evokerServant.getNavigation().moveTo(at2.x, at2.y, at2.z, 0.75F);
+                    MobUtil.instaLook(evokerServant, villager);
+                    evokerServant.setIsCastingSpell(IllagerServantSpell.RAVAGING);
+                    evokerServant.spellCastingTickCount = 20;
+                }
+            }
+        }
+
+        public void stop() {
+            super.stop();
+            this.attackWarmupDelay = 0;
+            EvokerServant.this.spellCastingTickCount = 0;
+            EvokerServant.this.setIsCastingSpell(IllagerServantSpell.NONE);
+            EvokerServant.this.setRavageTarget(null);
+        }
+
+        private Vec3 groundOf(Vec3 in) {
+            BlockPos origin = BlockPos.containing(in);
+            BlockPos.MutableBlockPos blockPos = origin.mutable();
+            while (!EvokerServant.this.level.isEmptyBlock(blockPos) && blockPos.getY() < EvokerServant.this.level.getMaxBuildHeight()) {
+                blockPos.move(0, 1, 0);
+            }
+            while (EvokerServant.this.level.isEmptyBlock(blockPos.below()) && blockPos.getY() > EvokerServant.this.level.getMinBuildHeight()) {
+                blockPos.move(0, -1, 0);
+            }
+            return new Vec3(in.x, blockPos.getY(), in.z);
+        }
+
+        protected void performSpellCasting() {
+            Villager villager = EvokerServant.this.getRavageTarget();
+            if (villager != null && villager.isAlive()) {
+                Player player = null;
+                if (EvokerServant.this.getTrueOwner() instanceof Player player1) {
+                    player = player1;
+                }
+                Entity entity = MobUtil.convertTo(villager, ModEntityType.RAVAGED.get(), true, player);
+                if (entity instanceof Mob mob){
+                    mob.setYHeadRot(villager.getYHeadRot());
+                    mob.setYRot(villager.getYRot());
+                    mob.spawnAnim();
+                }
+                EvokerServant.this.ravageCool = MathHelper.secondsToTicks(MobsConfig.EvokerServantRavagedCooldown.get());
+                for (EvokerServant evokerServant : this.otherEvokers()) {
+                    evokerServant.ravageCool = MathHelper.secondsToTicks(MobsConfig.EvokerServantRavagedCooldown.get());
+                }
+            }
+
+        }
+
+        public List<EvokerServant> otherEvokers() {
+            List<EvokerServant> servants = new ArrayList<>();
+            for (RaiderServant raider : EvokerServant.this.getNearbyCompanions()) {
+                if (raider instanceof EvokerServant evokerServant) {
+                    if (evokerServant.ravageCool <= 0
+                            && evokerServant.getTarget() == null
+                            && (!evokerServant.isCastingSpell()
+                            || evokerServant.getCurrentSpell() == IllagerServantSpell.RAVAGING)) {
+                        servants.add(evokerServant);
+                    }
+                }
+            }
+            return servants;
+        }
+
+        @Override
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
+        protected int getCastWarmupTime() {
+            return MathHelper.secondsToTicks(30);
+        }
+
+        protected int getCastingTime() {
+            return MathHelper.secondsToTicks(31);
+        }
+
+        protected int getCastingInterval() {
+            return 140;
+        }
+
+        protected SoundEvent getSpellPrepareSound() {
+            return SoundEvents.EVOKER_PREPARE_WOLOLO;
+        }
+
+        protected IllagerServantSpell getSpell() {
+            return IllagerServantSpell.RAVAGING;
         }
     }
 }

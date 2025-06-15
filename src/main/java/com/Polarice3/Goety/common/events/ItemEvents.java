@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.events;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
@@ -20,6 +21,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Explosion;
@@ -125,6 +127,15 @@ public class ItemEvents {
             if (SEHelper.getFocusCoolDown(event.getEntity()).isOnCooldown(event.getItemStack().getItem())){
                 event.setCanceled(true);
                 event.setCancellationResult(InteractionResult.FAIL);
+            }
+        }
+        if (event.getItemStack().getItem() instanceof IWand) {
+            if (event.getTarget() instanceof Villager villager) {
+                InteractionResult result = event.getItemStack().interactLivingEntity(event.getEntity(), villager, event.getHand());
+                if (result.consumesAction()) {
+                    event.setCanceled(true);
+                    event.setCancellationResult(InteractionResult.SUCCESS);
+                }
             }
         }
     }

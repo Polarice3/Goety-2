@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.ai;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
+import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -12,10 +13,10 @@ import java.util.function.Predicate;
 
 public class TargetHostileOwnedGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
 
-    public TargetHostileOwnedGoal(Mob golem, Class<T> pClass) {
-        super(golem, pClass, 5, false, false, predicate());
-        if (golem instanceof IronGolem ironGolem){
-            this.targetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(ironGolemPredicate(ironGolem));
+    public TargetHostileOwnedGoal(Mob mob, Class<T> pClass) {
+        super(mob, pClass, 5, false, false, predicate());
+        if (mob.getType().is(ModTags.EntityTypes.VILLAGE_GUARDS)){
+            this.targetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(villageGuardPredicate(mob));
         }
     }
 
@@ -25,9 +26,9 @@ public class TargetHostileOwnedGoal<T extends LivingEntity> extends NearestAttac
                         && owned.isHostile();
     }
 
-    public static Predicate<LivingEntity> ironGolemPredicate(IronGolem golem){
+    public static Predicate<LivingEntity> villageGuardPredicate(Mob mob){
         return (entity) ->
                 entity instanceof IOwned owned
-                        && (owned.isHostile() || (!golem.isPlayerCreated() && owned instanceof RaiderServant raider && raider.isRaiding()));
+                        && (owned.isHostile() || (!(mob instanceof IronGolem golem && golem.isPlayerCreated()) && owned instanceof RaiderServant raider && raider.isRaiding()));
     }
 }

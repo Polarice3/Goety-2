@@ -9,6 +9,7 @@ import com.Polarice3.Goety.common.items.WaystoneItem;
 import com.Polarice3.Goety.common.items.magic.TaglockKit;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import com.google.common.collect.Lists;
 import net.minecraft.ChatFormatting;
@@ -134,7 +135,8 @@ public abstract class RaiderServant extends Summoned {
 
     @Override
     public void targetSelectGoal() {
-        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, false, livingEntity -> this.isRaiding() && !livingEntity.isBaby()));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, false, livingEntity -> this.isRaiding() && !livingEntity.isBaby()));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Mob.class, false, livingEntity -> this.isRaiding() && !livingEntity.isBaby() && livingEntity.getType().is(ModTags.EntityTypes.VILLAGE_GUARDS)));
         super.targetSelectGoal();
     }
 

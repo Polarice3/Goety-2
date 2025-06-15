@@ -18,7 +18,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -84,7 +83,7 @@ public class BlinkSpell extends Spell {
             if (!this.isShifting(caster)) {
                 Vec3 vec3 = findTeleportLocation(worldIn, caster, 32 + range);
                 BlockPos blockPos = BlockPos.containing(vec3);
-                enderTeleportEvent(caster, worldIn, blockPos);
+                enderTeleportEvent(caster, blockPos, this.rightStaff(staff));
                 worldIn.broadcastEntityEvent(caster, (byte) 46);
                 this.playSound(worldIn, caster, SoundEvents.ENDERMAN_TELEPORT, 2.0F, 1.0F);
             } else {
@@ -122,8 +121,12 @@ public class BlinkSpell extends Spell {
 
     }
 
-    public static void enderTeleportEvent(LivingEntity player, Level world, BlockPos target) {
-        net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(player, target.getX(), BlockFinder.moveBlockDownToGround(world, target), target.getZ());
+    public static void enderTeleportEvent(LivingEntity player, BlockPos target, boolean staff) {
+        BlockPos blockPos = target;
+        if (!staff) {
+            blockPos = BlockFinder.SummonPosition(player, target);
+        }
+        net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(player, blockPos.getX(), blockPos.getY(), blockPos.getZ());
         if (!event.isCanceled()) {
             player.teleportTo(event.getTargetX(), event.getTargetY(), event.getTargetZ());
             player.resetFallDistance();

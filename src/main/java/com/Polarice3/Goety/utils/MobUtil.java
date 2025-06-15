@@ -427,6 +427,25 @@ public class MobUtil {
         }
     }
 
+    //Based on @iron431's fix: https://github.com/iron431/irons-spells-n-spellbooks/blob/1.20.1/src/main/java/io/redspace/ironsspellbooks/entity/mobs/keeper/KeeperEntity.java
+    public static class noSpinControl extends MoveControl {
+
+        public noSpinControl(Mob mob) {
+            super(mob);
+        }
+
+        @Override
+        protected float rotlerp(float pSourceAngle, float pTargetAngle, float pMaximumChange) {
+            double d0 = this.wantedX - this.mob.getX();
+            double d1 = this.wantedZ - this.mob.getZ();
+            if (d0 * d0 + d1 * d1 < 0.5F) {
+                return pSourceAngle;
+            } else {
+                return super.rotlerp(pSourceAngle, pTargetAngle, pMaximumChange * 0.25F);
+            }
+        }
+    }
+
     public static boolean isInRain(Entity pEntity){
         BlockPos blockpos = pEntity.blockPosition();
         return pEntity.level.isRainingAt(blockpos) || pEntity.level.isRainingAt(BlockPos.containing((double)blockpos.getX(), pEntity.getBoundingBox().maxY, (double)blockpos.getZ()));

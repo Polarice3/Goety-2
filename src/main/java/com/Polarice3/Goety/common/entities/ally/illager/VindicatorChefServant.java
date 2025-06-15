@@ -60,7 +60,7 @@ public class VindicatorChefServant extends VindicatorServant{
 
     public void chestGoal() {
         super.chestGoal();
-        this.goalSelector.addGoal(6, new LootUncookedFoodGoal(this, 16));
+        this.goalSelector.addGoal(6, new LootUncookedFoodGoal(this));
     }
 
     protected void defineSynchedData() {
@@ -336,8 +336,8 @@ public class VindicatorChefServant extends VindicatorServant{
 
     public static class LootUncookedFoodGoal extends IllagerChestGoal {
 
-        public LootUncookedFoodGoal(AbstractIllagerServant illager, int range) {
-            super(illager, range);
+        public LootUncookedFoodGoal(AbstractIllagerServant illager) {
+            super(illager);
             this.chestPredicate = itemStack ->
                     illager.level instanceof ServerLevel serverLevel
                     && canCook(itemStack, serverLevel).isEdible();

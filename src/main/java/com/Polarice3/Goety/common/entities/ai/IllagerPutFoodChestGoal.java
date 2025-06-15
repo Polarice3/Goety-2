@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.entities.ai;
 
 import com.Polarice3.Goety.common.entities.ally.illager.AbstractIllagerServant;
-import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 
@@ -11,6 +10,12 @@ public class IllagerPutFoodChestGoal extends IllagerChestGoal {
 
     public IllagerPutFoodChestGoal(AbstractIllagerServant illager, int range) {
         super(illager, range);
+        this.predicate = ItemStack::isEdible;
+        this.chestPredicate = itemStack -> true;
+    }
+
+    public IllagerPutFoodChestGoal(AbstractIllagerServant illager) {
+        super(illager);
         this.predicate = ItemStack::isEdible;
         this.chestPredicate = itemStack -> true;
     }

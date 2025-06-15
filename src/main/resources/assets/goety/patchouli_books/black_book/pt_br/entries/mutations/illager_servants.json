@@ -33,7 +33,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Armados com a sofisticada besta, esses Illagers são bastante simples em sua abordagem ao combate. Felizmente, seus servos sabem recuar quando seu alvo se aproxima deles."
+      "text": "Armados com a sofisticada besta, esses Saqueadores são bastante simples em sua abordagem ao combate. Felizmente, seus servos sabem recuar quando seu alvo se aproxima deles."
     },
     {
       "type": "patchouli:entity",
@@ -41,7 +41,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Um dos Illagers mais mortíferos agora sob seu comando, esses brutos podem desativar escudos com seus machados e causar muito dano também. Você provavelmente não vai querer nomeá-los de 'Johnny' se gosta da sua obediência."
+      "text": "Um dos Illagers mais mortíferos agora sob seu comando, esses Vingadores podem desativar escudos com seus machados e causar muito dano também. Você provavelmente não vai querer nomeá-los de 'Johnny' se gosta da sua obediência."
     },
     {
       "type": "patchouli:entity",
@@ -50,7 +50,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Um Vindicador especializado que pode coletar carne crua e cozinhar os alimentos em seu inventário em um defumador ou forno próximo."
+      "text": "Um Vingador especializado que pode coletar carne crua e cozinhar os alimentos em seu inventário em um defumador ou forno próximo. Clicar com Shift + botão direito com a mão vazia neles lhe dará o primeiro alimento em seu inventário."
     },
     {
       "type": "patchouli:entity",
@@ -58,7 +58,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Um praticante das artes sombrias, embora limitado a apenas dois feitiços, que ele executa muito bem. Em combate, eles adoram correr para evitar serem esfaqueados."
+      "text": "Um praticante das artes sombrias, embora limitado a apenas dois feitiços, que ele executa muito bem. Em combate, eles adoram correr para evitar serem esfaqueados. Se seu mestre aprendeu $(l:rumors/ravaging)os caminhos da devastação$(), eles podem transformar um Aldeão em um Devastado, o que requer $(l:goety:focuses/command_focus)comandar$() um Invocador $(l:goety:mutations/illager_servants#banner)líder$() para um, ou um próximo se os Aldeões como um todo forem $(l:goety:crafts/grimoire_of_grudges)alvo de rancor$(), enquanto também tiver dois Invocadores por perto."
     },
     {
       "type": "patchouli:entity",
@@ -66,7 +66,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Com a capacidade de manipular o próprio solo, esses feiticeiros 'Bem vestidos' que podem erguer pilares de pedra do chão para obstruir o caminho do inimigo ou explodi-los."
+      "text": "Com a capacidade de manipular o próprio solo, esses feiticeiros 'Bem vestidos' podem erguer pilares de pedra do chão para obstruir o caminho do inimigo ou explodi-los."
     },
     {
       "type": "patchouli:entity",
@@ -74,7 +74,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Esses conjuradores bem frios esmagarão a cabeça de seus inimigos com seus Pedaços de Gelo."
+      "text": "Esses conjuradores gélidos esmagarão a cabeça de seus inimigos com seus Pedaços de Gelo."
     },
     {
       "type": "patchouli:entity",
@@ -104,9 +104,10 @@
     },
     {
       "type": "patchouli:entity",
+      "name": "Líder Illager",
       "entity": "goety:pillager_servant{HandItems:[{Count:1,id:\"minecraft:crossbow\"},{}], ArmorItems:[{},{},{},{Count:1,id:\"minecraft:black_banner\"}]}",
       "scale": 0.5,
-      "text": "Illagers como Servos Pillager podem se tornar líderes."
+      "text": "Illagers como Saqueadores podem se tornar líderes."
     },
     {
       "type": "patchouli:text",

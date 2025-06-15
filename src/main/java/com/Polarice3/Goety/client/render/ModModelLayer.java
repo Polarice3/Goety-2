@@ -17,6 +17,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation VICIOUS_TOOTH = register("vicious_tooth");
     public static final ModelLayerLocation VICIOUS_PIKE = register("vicious_pike");
     public static final ModelLayerLocation BEAST_HEAD = register("beast_head");
+    public static final ModelLayerLocation EARTH_FIST = register("earth_fist");
     public static final ModelLayerLocation SOUL_BOLT = register("soul_bolt");
     public static final ModelLayerLocation SHIELD_DEBRIS = register("shield_debris");
     public static final ModelLayerLocation HELL_BLAST = register("hell_blast");

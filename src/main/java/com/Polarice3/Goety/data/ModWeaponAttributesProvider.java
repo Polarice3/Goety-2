@@ -48,15 +48,14 @@ public class ModWeaponAttributesProvider implements DataProvider {
         Collection<Item> items = new ArrayList<>();
         ModItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(item ->
         {
-            if (item instanceof DarkWand && item != ModItems.ABYSS_STAFF.get()) {
+            if (item instanceof DarkWand) {
                 items.add(item);
             }
         });
 
         for (Item item : items) {
-            this.addData(item, "bettercombat:spear");
+            this.addData(item, "bettercombat:trident");
         }
-        this.addData(ModItems.ABYSS_STAFF.get(), "bettercombat:trident");
     }
 
     @Override

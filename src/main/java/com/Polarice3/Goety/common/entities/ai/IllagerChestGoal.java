@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.ai;
 
 import com.Polarice3.Goety.common.entities.ally.illager.AbstractIllagerServant;
+import com.Polarice3.Goety.config.MobsConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
@@ -36,6 +37,10 @@ public abstract class IllagerChestGoal extends MoveToBlockGoal {
         super(illager, 0.75F, range);
         this.illager = illager;
         this.searchRange = range;
+    }
+
+    public IllagerChestGoal(AbstractIllagerServant illager) {
+        this(illager, MobsConfig.IllagerServantChestRange.get());
     }
 
     public ItemStack getItem(){

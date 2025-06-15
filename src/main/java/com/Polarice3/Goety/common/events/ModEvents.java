@@ -17,6 +17,7 @@ import com.Polarice3.Goety.common.capabilities.soulenergy.SEProvider;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.ai.DefendVillagerGoal;
 import com.Polarice3.Goety.common.entities.ai.TargetHostileOwnedGoal;
 import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
 import com.Polarice3.Goety.common.entities.ally.golem.IceGolem;
@@ -275,19 +276,22 @@ public class ModEvents {
     public static void onEntityJoinWorld(EntityJoinLevelEvent event) {
         Entity entity = event.getEntity();
         Level world = event.getLevel();
-        if (entity instanceof LivingEntity livingEntity && !world.isClientSide()) {
+        if (entity instanceof LivingEntity && !world.isClientSide()) {
             if (entity instanceof Player player) {
                 SEHelper.sendSEUpdatePacket(player);
                 LichdomHelper.sendLichUpdatePacket(player);
             }
-            if (entity instanceof Witch witch){
-                witch.goalSelector.addGoal(1, new WitchBarterGoal(witch));
-            }
-            if (entity instanceof AbstractGolem golemEntity && !(entity instanceof Enemy)){
-                golemEntity.targetSelector.addGoal(3, new TargetHostileOwnedGoal<>(golemEntity, Owned.class));
-            }
-            if (entity instanceof PathfinderMob creeper && creeper.getType().is(ModTags.EntityTypes.CREEPERS)){
-                creeper.goalSelector.addGoal(3, new AvoidEntityGoal<>(creeper, Player.class, (target) -> target != null && CuriosFinder.hasCurio(target, ModItems.FELINE_AMULET.get()), 6.0F, 1.0D, 1.2D, EntitySelector.NO_SPECTATORS::test));
+            if (entity instanceof Mob mob) {
+                if (entity instanceof Witch witch) {
+                    witch.goalSelector.addGoal(1, new WitchBarterGoal(witch));
+                }
+                if ((entity instanceof AbstractGolem && !(entity instanceof Enemy)) || (mob.getType().is(ModTags.EntityTypes.VILLAGE_GUARDS))) {
+                    mob.targetSelector.addGoal(3, new TargetHostileOwnedGoal<>(mob, Owned.class));
+                    mob.targetSelector.addGoal(3, new DefendVillagerGoal(mob));
+                }
+                if (entity instanceof PathfinderMob creeper && creeper.getType().is(ModTags.EntityTypes.CREEPERS)) {
+                    creeper.goalSelector.addGoal(3, new AvoidEntityGoal<>(creeper, Player.class, (target) -> target != null && CuriosFinder.hasCurio(target, ModItems.FELINE_AMULET.get()), 6.0F, 1.0D, 1.2D, EntitySelector.NO_SPECTATORS::test));
+                }
             }
         }
         if (MainConfig.BetterDragonFireball.get()) {

@@ -98,6 +98,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> CREEPERS = tag("creepers");
         public static final TagKey<EntityType<?>> ENDERMEN = tag("endermen");
         public static final TagKey<EntityType<?>> VILLAGERS = tag("villagers");
+        public static final TagKey<EntityType<?>> VILLAGE_GUARDS = tag("village_guards");
         public static final TagKey<EntityType<?>> ZOMBIE_SERVANTS = tag("zombie_servants");
         public static final TagKey<EntityType<?>> SKELETON_SERVANTS = tag("skeleton_servants");
         public static final TagKey<EntityType<?>> NO_HEAL_SERVANTS = tag("no_heal_servants");
@@ -108,6 +109,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> UNSTUNNABLE = tag("unstunnable");
         public static final TagKey<EntityType<?>> MINI_BOSSES = tag("mini_bosses");
         public static final TagKey<EntityType<?>> GLOBAL_MUSIC_BOSS = tag("global_music_boss");
+        public static final TagKey<EntityType<?>> BIC_SHIELDED_MOBS = tag("bic_shielded_mobs");
         public static final TagKey<EntityType<?>> APOSTLE_OTHER_ALLIES = tag("apostle_other_allies");
         public static final TagKey<EntityType<?>> WITCH_SET_NEUTRAL = tag("witch_set_neutral");
         public static final TagKey<EntityType<?>> ABYSS_SET_NEUTRAL = tag("abyss_set_neutral");

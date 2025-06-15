@@ -17,7 +17,13 @@ import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -30,6 +36,7 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Snowball;
+import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
@@ -44,6 +51,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -143,6 +151,29 @@ public class ServantEvents {
             if (MobsConfig.ServantsMasterImmune.get()){
                 if (owned.getTrueOwner() == victim){
                     event.setCanceled(true);
+                }
+            }
+            if (attacker instanceof Mob mob) {
+                if (mob.getMainHandItem().getItem() instanceof AxeItem) {
+                    if (victim.getType().is(ModTags.EntityTypes.BIC_SHIELDED_MOBS)) {
+                        MobEffect mobEffect = ForgeRegistries.MOB_EFFECTS.getValue(new ResourceLocation("born_in_chaos_v1", "block_break"));
+                        if (mobEffect != null) {
+                            victim.addEffect(new MobEffectInstance(mobEffect, 120, 0, false, false));
+                            if (!victim.level.isClientSide()) {
+                                victim.level.playSound(null, victim.getX(), victim.getY(), victim.getZ(), SoundEvents.ZOMBIE_BREAK_WOODEN_DOOR, SoundSource.NEUTRAL, 0.2F, 1.0F);
+                            } else {
+                                victim.level.playLocalSound(victim.getX(), victim.getY(), victim.getZ(), SoundEvents.ZOMBIE_BREAK_WOODEN_DOOR, SoundSource.NEUTRAL, 0.2F, 1.0F, false);
+                            }
+
+                            if (victim.level instanceof ServerLevel serverLevel) {
+                                serverLevel.sendParticles(ParticleTypes.CRIT, victim.getX(), victim.getY(), victim.getZ(), 9, 0.6, 1.0, 0.6, 0.6);
+                            }
+
+                            if (victim.hasEffect(MobEffects.DAMAGE_RESISTANCE)) {
+                                victim.removeEffect(MobEffects.DAMAGE_RESISTANCE);
+                            }
+                        }
+                    }
                 }
             }
         }

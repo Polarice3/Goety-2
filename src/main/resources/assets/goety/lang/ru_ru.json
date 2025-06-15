@@ -2736,5 +2736,11 @@
   "info.goety.servant.guard": "%s охраняет",
   "filled_map.goety.ominous_blacksmith": "Ominous Blacksmith Explorer Map",
   "tooltip.goety.blockGuard": "Режим охраны",
-  "jade.goety.movement.guard": "Охранять"
+  "jade.goety.movement.guard": "Охранять",
+  "entity.goety.vindicator_chef_servant": "Поборник-кулинар-прислужник",
+  "item.goety.vindicator_chef_servant_spawn_egg": "Яйцо призыва поборника-кулинара-прислужника",
+  "advancements.goety.convert_neollager.title": "Мы живём в обществе",
+  "advancements.goety.convert_neollager.description": "Превратите крестьянина в новодеянина",
+  "advancements.goety.servant_raid_victory.title": "Ой, что-то мы засиделись, братцы",
+  "advancements.goety.servant_raid_victory.description": "Заставьте прислужников провести успешный рейд на деревню"
 }

@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Seu próprio grupo de Vexes. Esses Vexes agem como os Vexes de Evocadores, mas seguem você e atacam em seu nome."
+      "text": "Seu próprio grupo de Vexes. Esses Vexes agem como os Vexes de Invocadores, mas seguem você e atacam em seu nome."
     },
     {
       "type": "patchouli:entity",

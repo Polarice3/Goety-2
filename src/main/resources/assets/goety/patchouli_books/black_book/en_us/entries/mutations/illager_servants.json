@@ -58,7 +58,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "A practitioner of the dark arts, though one that's limited to only two spells, spells they perform quite well though. Combat-wise they love to run around in order to avoid getting stabbed."
+      "text": "A practitioner of the dark arts, though one that's limited to only two spells, spells they perform quite well though. Combat-wise they love to run around in order to avoid getting stabbed. If their master learned $(l:rumors/ravaging)the ways of ravaging$(), they are able to transform a Villager into a Ravaged which requires $(l:goety:focuses/command_focus)commanding$() a $(l:goety:mutations/illager_servants#banner)leading$() Evoker to one, or one nearby if Villagers as a whole are $(l:goety:crafts/grimoire_of_grudges)grudged against$(), while also having two Evokers nearby."
     },
     {
       "type": "patchouli:entity",
@@ -104,6 +104,7 @@
     },
     {
       "type": "patchouli:entity",
+      "name": "Illager Leader",
       "entity": "goety:pillager_servant{HandItems:[{Count:1,id:\"minecraft:crossbow\"},{}], ArmorItems:[{},{},{},{Count:1,id:\"minecraft:black_banner\"}]}",
       "scale": 0.5,
       "text": "Illagers like Pillager Servants can be made a leader."

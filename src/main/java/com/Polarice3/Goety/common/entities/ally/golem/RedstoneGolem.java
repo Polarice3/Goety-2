@@ -101,6 +101,7 @@ public class RedstoneGolem extends RaiderGolemServant {
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
+        this.moveControl = new MobUtil.noSpinControl(this);
     }
 
     protected void registerGoals() {

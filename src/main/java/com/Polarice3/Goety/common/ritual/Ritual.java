@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.ritual;
 import com.Polarice3.Goety.common.blocks.entities.DarkAltarBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.PedestalBlockEntity;
 import com.Polarice3.Goety.common.crafting.RitualRecipe;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
@@ -34,11 +35,11 @@ import java.util.Optional;
  */
 public abstract class Ritual {
 
-    public static final int RANGE = 8;
+    public static final int RANGE = MainConfig.RitualRange.get();
 
-    public static final int PEDESTAL_RANGE = 8;
+    public static final int PEDESTAL_RANGE = MainConfig.RitualRange.get();
 
-    public static final int SACRIFICE_DETECTION_RANGE = 8;
+    public static final int SACRIFICE_DETECTION_RANGE = MainConfig.RitualRange.get();
 
     public RitualRecipe recipe;
 

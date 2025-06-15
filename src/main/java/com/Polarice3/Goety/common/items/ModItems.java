@@ -437,6 +437,7 @@ public class ModItems {
                 || item == JEI_DUMMY_REQUIRE_SACRIFICE.get()
                 || item == PEDESTAL_DUMMY.get()
                 || item == BONE_SHARD.get()
+                || item == COOKING_LADLE.get()
                 || item instanceof TotemOfSouls
                 || item instanceof BrewItem;
     }

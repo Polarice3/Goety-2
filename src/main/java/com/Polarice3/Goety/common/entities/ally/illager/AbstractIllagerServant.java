@@ -38,6 +38,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.OpenDoorGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -100,8 +101,14 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
 
     public void targetSelectGoal(){
         super.targetSelectGoal();
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, false, livingEntity -> this.isHostile() && !livingEntity.isBaby()).setUnseenMemoryTicks(300));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, IronGolem.class, false, livingEntity -> this.isHostile()));
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, RaiderServant.class){
+            @Override
+            public boolean canUse() {
+                return super.canUse() && (AbstractIllagerServant.this.isHostile() || AbstractIllagerServant.this.isNatural());
+            }
+        }).setAlertOthers());
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, false, livingEntity -> this.isHostile() && !livingEntity.isBaby()).setUnseenMemoryTicks(300));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, false, livingEntity -> this.isHostile()));
     }
 
     public void throwGoal() {
@@ -112,9 +119,9 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
     }
 
     public void chestGoal() {
-        this.goalSelector.addGoal(2, new IllagerPutFoodChestGoal(this, 16));
-        this.goalSelector.addGoal(4, new IllagerPutLootChestGoal(this, 16));
-        this.goalSelector.addGoal(7, new IllagerLootFoodChestGoal(this, 16));
+        this.goalSelector.addGoal(2, new IllagerPutFoodChestGoal(this));
+        this.goalSelector.addGoal(4, new IllagerPutLootChestGoal(this));
+        this.goalSelector.addGoal(7, new IllagerLootFoodChestGoal(this));
     }
 
     protected void defineSynchedData() {

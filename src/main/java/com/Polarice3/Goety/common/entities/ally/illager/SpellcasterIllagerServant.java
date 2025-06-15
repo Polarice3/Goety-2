@@ -82,14 +82,16 @@ public abstract class SpellcasterIllagerServant extends AbstractIllagerServant{
     public void spellParticles(){
         if (this.level.isClientSide && this.isCastingSpell()) {
             IllagerServantSpell spell = this.getCurrentSpell();
-            double d0 = spell.spellColor[0];
-            double d1 = spell.spellColor[1];
-            double d2 = spell.spellColor[2];
-            float f = this.yBodyRot * ((float)Math.PI / 180F) + Mth.cos((float)this.tickCount * 0.6662F) * 0.25F;
-            float f1 = Mth.cos(f);
-            float f2 = Mth.sin(f);
-            this.level.addParticle(ParticleTypes.ENTITY_EFFECT, this.getX() + (double)f1 * 0.6D, this.getY() + 1.8D, this.getZ() + (double)f2 * 0.6D, d0, d1, d2);
-            this.level.addParticle(ParticleTypes.ENTITY_EFFECT, this.getX() - (double)f1 * 0.6D, this.getY() + 1.8D, this.getZ() - (double)f2 * 0.6D, d0, d1, d2);
+            if (spell != IllagerServantSpell.NONE) {
+                double d0 = spell.spellColor[0];
+                double d1 = spell.spellColor[1];
+                double d2 = spell.spellColor[2];
+                float f = this.yBodyRot * ((float) Math.PI / 180F) + Mth.cos((float) this.tickCount * 0.6662F) * 0.25F;
+                float f1 = Mth.cos(f);
+                float f2 = Mth.sin(f);
+                this.level.addParticle(ParticleTypes.ENTITY_EFFECT, this.getX() + (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() + (double) f2 * 0.6D, d0, d1, d2);
+                this.level.addParticle(ParticleTypes.ENTITY_EFFECT, this.getX() - (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() - (double) f2 * 0.6D, d0, d1, d2);
+            }
         }
     }
 
@@ -99,13 +101,14 @@ public abstract class SpellcasterIllagerServant extends AbstractIllagerServant{
 
     protected abstract SoundEvent getCastingSoundEvent();
 
-    protected static enum IllagerServantSpell {
+    public enum IllagerServantSpell {
         NONE(0, 0.0D, 0.0D, 0.0D),
         SUMMON_VEX(1, 0.7D, 0.7D, 0.8D),
         FANGS(2, 0.4D, 0.3D, 0.35D),
         WOLOLO(3, 0.7D, 0.5D, 0.2D),
         DISAPPEAR(4, 0.3D, 0.3D, 0.8D),
-        BLINDNESS(5, 0.1D, 0.1D, 0.2D);
+        BLINDNESS(5, 0.1D, 0.1D, 0.2D),
+        RAVAGING(6, 96.0D / 255.0D, 95.0D / 255.0D, 90.0D / 255.0D);
 
         private static final IntFunction<IllagerServantSpell> BY_ID = ByIdMap.continuous((p_263091_) -> {
             return p_263091_.id;
@@ -113,7 +116,7 @@ public abstract class SpellcasterIllagerServant extends AbstractIllagerServant{
         final int id;
         final double[] spellColor;
 
-        private IllagerServantSpell(int p_33754_, double p_33755_, double p_33756_, double p_33757_) {
+        IllagerServantSpell(int p_33754_, double p_33755_, double p_33756_, double p_33757_) {
             this.id = p_33754_;
             this.spellColor = new double[]{p_33755_, p_33756_, p_33757_};
         }

@@ -40,7 +40,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
-import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -1110,7 +1109,7 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
     /**
      * Based on @lgh877's codes:<a href="https://github.com/lgh877/CrimsonStevesMoreMobs/blob/master/src/main/java/net/mcreator/crimson_steves_mobs/SlowRotMoveControl.java">...</a>
      */
-    public static class SlowRotMoveControl extends MoveControl {
+    public static class SlowRotMoveControl extends MobUtil.noSpinControl {
         public SlowRotMoveControl(Mob mob) {
             super(mob);
         }

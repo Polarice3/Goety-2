@@ -17,7 +17,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "虽然你设法让村民转化为了新刌民，但那般仇恨必须要在学习之后才会深入人心，灾厄村民最初并不会使用斧头砍人或用弩射箭，你必须设置一个$(l:goety:crafts/artifice/ominous_pyre)合适的训练场$()来让他们成长，如果一名玩家拥有$(l:goety:mutations/illager_servants#banner)已注册的个人旗帜$()，你可以把已注册的旗帜（不能是后文提及的复制品）给予一位新刌民，然后在他身边放一个织布机，他就会给你制作该旗帜的复制品；此外，幼年的新刌民做这些的速度会更快"
+      "text": "虽然你设法让村民转化为了新刌民，但那般仇恨必须要在学习之后才会深入人心，灾厄村民最初并不会使用斧头砍人或用弩射箭，你必须设置一个$(l:goety:crafts/artifice/ominous_pyre)合适的训练场$()来让他们成长，如果一名玩家拥有$(l:goety:mutations/illager_servants#banner)已注册的个人旗帜$()，你可以把已注册的旗帜（不能是后文提及的复制品）给予一位新刌民，然后在他身边放一个织布机，他就会给你制作该旗帜的复制品；此外，幼年的新刌民也能参与训练且训练速度更快"
     },
     {
       "type": "patchouli:entity",
@@ -50,7 +50,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "一类被赋予专职的卫道士，他们会收集生肉，然后在附近的熔炉或烟熏炉中烹饪他们携带的食物"
+      "text": "一类被赋予专职的卫道士，他们会收集生肉，然后在附近的熔炉或烟熏炉中烹饪他们携带的食物，Shift+右键点击你的卫道士厨师就能让他把自己物品栏第一格的食物扔给你"
     },
     {
       "type": "patchouli:entity",
@@ -58,7 +58,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "黑魔法的初学者，尽管依旧只会两个咒语，但至少表现力还是不错，在战斗中，他们喜欢到处奔跑以避免迫近的攻击"
+      "text": "黑魔法的初学者，尽管依旧只会两个咒语，但至少表现力还是不错，在战斗中，他们喜欢到处奔跑以避免迫近的攻击。如果他们的主人阅读过 $(l:rumors/ravaging)劫掠卷轴$()，那他们就可以把村民变成蹂躏者，这需要你用$(l:goety:focuses/command_focus)命令聚晶$()把一名唤魔者$(l:goety:mutations/illager_servants#banner)队长$()引导到村民旁边，或是在村民被记录进$(l:goety:crafts/grimoire_of_grudges)怨恨之书$()的情况下，让村民旁边至少存在两名唤魔者仆从"
     },
     {
       "type": "patchouli:entity",

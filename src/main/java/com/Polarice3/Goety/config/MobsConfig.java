@@ -39,6 +39,8 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerServantTrainTime;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerServantMaxMentors;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IllagerServantChestRange;
+    public static final ForgeConfigSpec.ConfigValue<Integer> EvokerServantRavagedCooldown;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnFreq;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnChance;
@@ -460,6 +462,10 @@ public class MobsConfig {
                     .defineInRange("illagerServantTrainTime", 1200, 0, Integer.MAX_VALUE);
             IllagerServantMaxMentors = BUILDER.comment("How many trained Illagers can reduce training time for training Illagers, Default: 2")
                     .defineInRange("illagerServantMaxMentors", 2, 0, Integer.MAX_VALUE);
+            IllagerServantChestRange = BUILDER.comment("How many blocks from their registered chest trained Illagers will attempt to start using it, Default: 16")
+                    .defineInRange("illagerServantChestRange", 16, 4, Integer.MAX_VALUE);
+            EvokerServantRavagedCooldown = BUILDER.comment("How long the cooldown for turning Villagers into Ravaged for Evokers, count in seconds, Default: 1200")
+                    .defineInRange("evokerServantRavagedCooldown", 1200, 0, Integer.MAX_VALUE);
             IllagerServantAutoTrain = BUILDER.comment("Whether eligible Illagers will automatically train just by being near an active Ominous Pyre, instead of having been commanded to it, Default: false")
                     .define("illagerServantAutoTrain", false);
             IllagerServantAllBreed = BUILDER.comment("Whether every Illager Servant type can breed or only Neollagers can, Default: true")

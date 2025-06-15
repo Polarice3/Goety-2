@@ -279,6 +279,12 @@ public class ModEntityType {
                     .clientTrackingRange(10)
                     .updateInterval(1));
 
+    public static final RegistryObject<EntityType<EarthFist>> EARTH_FIST = register("earth_fist",
+            EntityType.Builder.<EarthFist>of(EarthFist::new, MobCategory.MISC)
+                    .sized(1.5F, 2.0F)
+                    .clientTrackingRange(10)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<BlossomThorn>> BLOSSOM_THORN = register("blossom_thorn",
             EntityType.Builder.<BlossomThorn>of(BlossomThorn::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F)
