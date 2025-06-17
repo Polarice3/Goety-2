@@ -5,12 +5,14 @@ import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieRavager;
 import com.Polarice3.Goety.common.entities.hostile.ArmoredRavager;
 import com.Polarice3.Goety.common.entities.neutral.IRavager;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.RavagerArmorItem;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
@@ -23,7 +25,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -36,6 +37,8 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.AbstractVillager;
@@ -47,7 +50,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -93,8 +95,14 @@ public class ModRavager extends RaiderServant implements PlayerRideable, IAutoRi
 
     public void targetSelectGoal(){
         super.targetSelectGoal();
-        this.targetSelector.addGoal(1, new NaturalAttackGoal<>(this, AbstractVillager.class));
-        this.targetSelector.addGoal(1, new NaturalAttackGoal<>(this, IronGolem.class));
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, RaiderServant.class){
+            @Override
+            public boolean canUse() {
+                return super.canUse() && (ModRavager.this.isHostile() || ModRavager.this.isNatural());
+            }
+        }).setAlertOthers());
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, false, livingEntity -> this.isHostile() && !livingEntity.isBaby()).setUnseenMemoryTicks(300));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, false, livingEntity -> this.isHostile()));
     }
 
     protected void updateControlFlags() {
@@ -167,15 +175,6 @@ public class ModRavager extends RaiderServant implements PlayerRideable, IAutoRi
                 this.setArmorEquipment(ItemStack.of(armorItem), false);
             }
         }
-    }
-
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
-        pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
-        if (this.isNatural()){
-            this.setHostile(true);
-        }
-        return pSpawnData;
     }
 
     public boolean canSpawnArmor(){
@@ -572,6 +571,29 @@ public class ModRavager extends RaiderServant implements PlayerRideable, IAutoRi
     @Override
     public boolean canUpdateMove() {
         return !(this.getControllingPassenger() instanceof Mob);
+    }
+
+    @Override
+    public void die(DamageSource pCause) {
+        if (!this.level.isClientSide) {
+            if (this.getTrueOwner() != null) {
+                if (CuriosFinder.hasNamelessSet(this.getTrueOwner())){
+                    ZombieRavager servant = this.convertTo(ModEntityType.ZOMBIE_RAVAGER.get(), true);
+                    if (servant != null) {
+                        servant.setTrueOwner(this.getTrueOwner());
+                        if (this.hasSaddle()) {
+                            servant.equipSaddle(false);
+                        }
+                        servant.updateArmor();
+                        net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, servant);
+                        if (!this.isSilent()) {
+                            this.level.levelEvent((Player)null, 1026, this.blockPosition(), 0);
+                        }
+                    }
+                }
+            }
+        }
+        super.die(pCause);
     }
 
     @Override

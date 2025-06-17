@@ -302,7 +302,7 @@ public class Neollager extends AbstractIllagerServant {
                         return InteractionResult.SUCCESS;
                     }
                 }
-            } else if (pPlayer.getMainHandItem().isEmpty() && this.getMainHandItem().is(ItemTags.BANNERS)){
+            } else if (pPlayer.getMainHandItem().isEmpty() && pPlayer.isShiftKeyDown() && this.getMainHandItem().is(ItemTags.BANNERS)){
                 ItemStack helmet = this.getItemBySlot(EquipmentSlot.MAINHAND);
                 this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
                 this.dropEquipment(EquipmentSlot.MAINHAND, helmet);

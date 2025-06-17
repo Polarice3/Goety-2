@@ -10,13 +10,13 @@ public class IllagerPutFoodChestGoal extends IllagerChestGoal {
 
     public IllagerPutFoodChestGoal(AbstractIllagerServant illager, int range) {
         super(illager, range);
-        this.predicate = ItemStack::isEdible;
+        this.predicate = illager::canEat;
         this.chestPredicate = itemStack -> true;
     }
 
     public IllagerPutFoodChestGoal(AbstractIllagerServant illager) {
         super(illager);
-        this.predicate = ItemStack::isEdible;
+        this.predicate = illager::canEat;
         this.chestPredicate = itemStack -> true;
     }
 
@@ -35,6 +35,9 @@ public class IllagerPutFoodChestGoal extends IllagerChestGoal {
                 }
             }
         }
+        if (!this.canStore()) {
+            return false;
+        }
         if (!this.illager.hasExcessFood()) {
             return false;
         }
@@ -46,8 +49,7 @@ public class IllagerPutFoodChestGoal extends IllagerChestGoal {
         return super.canUse();
     }
 
-    @Override
-    public void chestInteract(Container container) {
+    public boolean canStore() {
         Optional<ItemStack> optional = this.illager.itemsInInv(this.predicate).stream().findFirst();
         if (optional.isPresent()) {
             ItemStack itemStack = optional.get();
@@ -59,29 +61,50 @@ public class IllagerPutFoodChestGoal extends IllagerChestGoal {
             if (itemStack.getCount() > 24) {
                 h = itemStack.getCount() - 24;
             }
-            itemStack = itemStack.split(h);
-            for (int i = 0; i < container.getContainerSize(); ++i) {
-                ItemStack containerItem = container.getItem(i);
-                if (!itemStack.isEmpty()) {
+            return h > 0;
+        }
+        return false;
+    }
+
+    @Override
+    public void chestInteract(Container container) {
+        Optional<ItemStack> optional = this.illager.itemsInInv(this.predicate).stream().findFirst();
+        ItemStack itemStack0 = ItemStack.EMPTY;
+        if (optional.isPresent()) {
+            ItemStack itemStack = optional.get();
+            int h = 0;
+            if (itemStack.getCount() > itemStack.getMaxStackSize() / 2) {
+                h = itemStack.getCount() / 2;
+            }
+
+            if (itemStack.getCount() > 24) {
+                h = itemStack.getCount() - 24;
+            }
+            if (h > 0) {
+                itemStack0 = itemStack.split(h);
+            }
+            if (!itemStack0.isEmpty()) {
+                for (int i = 0; i < container.getContainerSize(); ++i) {
+                    ItemStack containerItem = container.getItem(i);
                     if (containerItem.isEmpty()) {
-                        container.setItem(i, itemStack.copyAndClear());
+                        container.setItem(i, itemStack0.copyAndClear());
                         container.setChanged();
                         return;
-                    } else if (containerItem.getItem() == itemStack.getItem()) {
+                    } else if (containerItem.getItem() == itemStack0.getItem()) {
                         final int j = Math.min(container.getMaxStackSize(), containerItem.getMaxStackSize());
-                        final int k = Math.min(itemStack.getCount(), j - containerItem.getCount());
+                        final int k = Math.min(itemStack0.getCount(), j - containerItem.getCount());
                         if (k > 0) {
                             int l = 0;
                             while (l < k && containerItem.getCount() < containerItem.getMaxStackSize()) {
                                 ++l;
                                 containerItem.grow(1);
-                                itemStack.shrink(1);
+                                itemStack0.shrink(1);
                             }
 
                             if (l >= k || containerItem.getCount() == containerItem.getMaxStackSize()) {
-                                if (!itemStack.isEmpty()) {
-                                    if (this.illager.getInventory().canAddItem(itemStack)) {
-                                        this.illager.getInventory().addItem(itemStack);
+                                if (!itemStack0.isEmpty()) {
+                                    if (this.illager.getInventory().canAddItem(itemStack0)) {
+                                        this.illager.getInventory().addItem(itemStack0);
                                     }
                                 }
                             }

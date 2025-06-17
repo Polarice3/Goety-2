@@ -8,7 +8,9 @@ import com.Polarice3.Goety.common.entities.ally.illager.AbstractIllagerServant;
 import com.Polarice3.Goety.common.entities.ally.illager.Neollager;
 import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
 import com.Polarice3.Goety.common.entities.ally.spider.AbstractSpiderServant;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieRavager;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieVillagerServant;
+import com.Polarice3.Goety.common.entities.neutral.AbstractZombieVindicator;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.SpellEntity;
 import snownee.jade.addon.vanilla.MobBreedingProvider;
@@ -37,7 +39,9 @@ public class JadePlugin implements IWailaPlugin {
         registration.registerEntityDataProvider(ServantModeProvider.INSTANCE, Summoned.class);
         registration.registerEntityDataProvider(ServantModeProvider.INSTANCE, AbstractSpiderServant.class);
         registration.registerEntityDataProvider(TrainableProvider.INSTANCE, Owned.class);
-        registration.registerEntityDataProvider(ZVServantProvider.INSTANCE, ZombieVillagerServant.class);
+        registration.registerEntityDataProvider(ZConvertServantProvider.INSTANCE, ZombieVillagerServant.class);
+        registration.registerEntityDataProvider(ZConvertServantProvider.INSTANCE, AbstractZombieVindicator.class);
+        registration.registerEntityDataProvider(ZConvertServantProvider.INSTANCE, ZombieRavager.class);
         registration.registerEntityDataProvider(TrainToProvider.INSTANCE, Neollager.class);
 
         registration.registerBlockDataProvider(BlockOwnerProvider.INSTANCE, OwnedBlockEntity.class);
@@ -58,7 +62,9 @@ public class JadePlugin implements IWailaPlugin {
         registration.registerEntityComponent(ServantModeProvider.INSTANCE, AbstractSpiderServant.class);
         registration.registerEntityComponent(TrainableProvider.INSTANCE, Owned.class);
         registration.registerEntityComponent(ModProfessionProvider.INSTANCE, ZombieVillagerServant.class);
-        registration.registerEntityComponent(ZVServantProvider.INSTANCE, ZombieVillagerServant.class);
+        registration.registerEntityComponent(ZConvertServantProvider.INSTANCE, ZombieVillagerServant.class);
+        registration.registerEntityComponent(ZConvertServantProvider.INSTANCE, AbstractZombieVindicator.class);
+        registration.registerEntityComponent(ZConvertServantProvider.INSTANCE, ZombieRavager.class);
         registration.registerEntityComponent(TrainToProvider.INSTANCE, Neollager.class);
 
         registration.registerBlockComponent(SoulEnergyProvider.INSTANCE, ArcaBlock.class);

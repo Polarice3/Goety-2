@@ -43,6 +43,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation HERETIC = register("heretic");
     public static final ModelLayerLocation MAVERICK = register("maverick");
     public static final ModelLayerLocation CRONE = register("crone");
+    public static final ModelLayerLocation MOD_WITCH = register("mod_witch");
     public static final ModelLayerLocation APOSTLE = register("apostle");
     public static final ModelLayerLocation APOSTLE_SHADE = register("apostle_shade");
     public static final ModelLayerLocation ZOMBIE_VILLAGER_SERVANT = register("zombie_villager_servant");

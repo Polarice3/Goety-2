@@ -58,7 +58,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "黑魔法的初学者，尽管依旧只会两个咒语，但至少表现力还是不错，在战斗中，他们喜欢到处奔跑以避免迫近的攻击。如果他们的主人阅读过 $(l:rumors/ravaging)劫掠卷轴$()，那他们就可以把村民变成蹂躏者，这需要你用$(l:goety:focuses/command_focus)命令聚晶$()把一名唤魔者$(l:goety:mutations/illager_servants#banner)队长$()引导到村民旁边，或是在村民被记录进$(l:goety:crafts/grimoire_of_grudges)怨恨之书$()的情况下，让村民旁边至少存在两名唤魔者仆从"
+      "text": "黑魔法的初学者，尽管依旧只会两个咒语，但至少表现力还是不错，在战斗中，他们喜欢到处奔跑以避免迫近的攻击。如果他们的主人阅读过$(l:rumors/ravaging)劫掠卷轴$()，那他们就可以把村民变成蹂躏者，这需要你用$(l:goety:focuses/command_focus)命令聚晶$()把一名唤魔者$(l:goety:mutations/illager_servants#banner)队长$()和另外两名不是队长的唤魔者仆从引导到村民旁边，或是在村民被记录进$(l:goety:crafts/grimoire_of_grudges)怨恨之书$()的情况下把前述共三名仆从引导过去"
     },
     {
       "type": "patchouli:entity",

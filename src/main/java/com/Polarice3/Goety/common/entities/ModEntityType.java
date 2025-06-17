@@ -950,6 +950,12 @@ public class ModEntityType {
                     .sized(1.95F, 2.2F)
                     .clientTrackingRange(10));
 
+    public static final RegistryObject<EntityType<WitchServant>> WITCH_SERVANT = register("witch_servant",
+            EntityType.Builder.of(WitchServant::new, MobCategory.MONSTER)
+                    .noSummon() //Frick you.
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<BlackWolf>> BLACK_WOLF = register("black_wolf",
             EntityType.Builder.of(BlackWolf::new, MobCategory.MONSTER)
                     .sized(0.6F, 0.85F)
@@ -1309,6 +1315,14 @@ public class ModEntityType {
                     .fireImmune()
                     .noSummon()
                     .sized(2.0F, 0.5F)
+                    .clientTrackingRange(10)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<RaidBossSummon>> RAID_BOSS_SUMMON = register("raid_boss_summon",
+            EntityType.Builder.of(RaidBossSummon::new, MobCategory.MISC)
+                    .fireImmune()
+                    .noSummon()
+                    .sized(0.0F, 0.0F)
                     .clientTrackingRange(10)
                     .updateInterval(1));
 

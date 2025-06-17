@@ -2718,5 +2718,14 @@
   "subtitle.goety.wind_caller_updraft": "Wind Caller cast spell",
   "subtitle.goety.wind_caller_death": "Wind Caller dies",
   "config.jade.plugin_goety.train_to": "Mob Training",
-  "config.jade.plugin_goety.train_to_desc": "Displays what the mob is training to become."
+  "config.jade.plugin_goety.train_to_desc": "Displays what the mob is training to become.",
+  "entity.goety.vindicator_chef_servant": "Vindicator Chef Servant",
+  "entity.goety.earth_fist": "Earth Fist",
+  "item.goety.vindicator_chef_servant_spawn_egg": "Vindicator Chef Servant Spawn Egg",
+  "painting.goety.glacial_flower.author": "Polarice",
+  "painting.goety.glacial_flower.title": "Glacial Flower",
+  "advancements.goety.convert_neollager.title": "We Live in a Society",
+  "advancements.goety.convert_neollager.description": "Convert a Villager to a Neollager.",
+  "advancements.goety.servant_raid_victory.title": "Raiding Party",
+  "advancements.goety.servant_raid_victory.description": "Have servants successfully raid a village."
 }

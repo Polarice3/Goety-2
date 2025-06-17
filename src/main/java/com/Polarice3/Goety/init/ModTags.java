@@ -109,6 +109,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> UNSTUNNABLE = tag("unstunnable");
         public static final TagKey<EntityType<?>> MINI_BOSSES = tag("mini_bosses");
         public static final TagKey<EntityType<?>> GLOBAL_MUSIC_BOSS = tag("global_music_boss");
+        public static final TagKey<EntityType<?>> RAID_BOSS = tag("raid_boss");
         public static final TagKey<EntityType<?>> BIC_SHIELDED_MOBS = tag("bic_shielded_mobs");
         public static final TagKey<EntityType<?>> APOSTLE_OTHER_ALLIES = tag("apostle_other_allies");
         public static final TagKey<EntityType<?>> WITCH_SET_NEUTRAL = tag("witch_set_neutral");

@@ -58,7 +58,11 @@ public class RaidAdditions {
                 addWaves("GOETY_HOSTILE_RED_GOLEM", ModEntityType.HOSTILE_REDSTONE_GOLEM.get(), MobsConfig.HostileRedstoneGolemRaidCount.get());
             }
             if (MobsConfig.HostileRedstoneMonstrosityRaid.get()){
-                addWaves("GOETY_HOSTILE_RED_MONSTER", ModEntityType.HOSTILE_REDSTONE_MONSTROSITY.get(), MobsConfig.HostileRedstoneMonstrosityRaidCount.get());
+                EntityType<? extends Raider> entityType = ModEntityType.HOSTILE_REDSTONE_MONSTROSITY.get();
+                if (MobsConfig.HRMSpawnNoRaiders.get()) {
+                    entityType = ModEntityType.RAID_BOSS_SUMMON.get();
+                }
+                addWaves("GOETY_HOSTILE_RED_MONSTER", entityType, MobsConfig.HostileRedstoneMonstrosityRaidCount.get());
             }
             if (MobsConfig.MinisterRaid.get()) {
                 addWaves("GOETY_MINISTER", ModEntityType.MINISTER.get(), MobsConfig.MinisterRaidCount.get());

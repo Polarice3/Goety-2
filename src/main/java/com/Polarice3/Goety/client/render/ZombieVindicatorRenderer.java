@@ -26,6 +26,10 @@ public class ZombieVindicatorRenderer extends HumanoidMobRenderer<AbstractZombie
         matrixStackIn.scale(0.9375F, 0.9375F, 0.9375F);
     }
 
+    protected boolean isShaking(AbstractZombieVindicator p_116561_) {
+        return super.isShaking(p_116561_) || p_116561_.isConverting();
+    }
+
     public ResourceLocation getTextureLocation(AbstractZombieVindicator entity) {
         if (entity.isHostile()) {
             return HOSTILE;

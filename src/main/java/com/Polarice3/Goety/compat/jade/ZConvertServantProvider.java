@@ -1,7 +1,9 @@
 package com.Polarice3.Goety.compat.jade;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieRavager;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieVillagerServant;
+import com.Polarice3.Goety.common.entities.neutral.AbstractZombieVindicator;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -12,10 +14,10 @@ import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
 import snownee.jade.api.theme.IThemeHelper;
 
-public enum ZVServantProvider implements IEntityComponentProvider, IServerDataProvider<EntityAccessor> {
+public enum ZConvertServantProvider implements IEntityComponentProvider, IServerDataProvider<EntityAccessor> {
     INSTANCE;
 
-    private ZVServantProvider() {
+    private ZConvertServantProvider() {
     }
 
     public void appendTooltip(ITooltip tooltip, EntityAccessor accessor, IPluginConfig config) {
@@ -29,9 +31,16 @@ public enum ZVServantProvider implements IEntityComponentProvider, IServerDataPr
     }
 
     public void appendServerData(CompoundTag tag, EntityAccessor accessor) {
-        ZombieVillagerServant entity = (ZombieVillagerServant)accessor.getEntity();
-        if (entity.villagerConversionTime > 0) {
-            tag.putInt("ConversionTime", entity.villagerConversionTime);
+        int conversionTime = 0;
+        if (accessor.getEntity() instanceof ZombieVillagerServant servant) {
+            conversionTime = servant.villagerConversionTime;
+        } else if (accessor.getEntity() instanceof AbstractZombieVindicator zombie) {
+            conversionTime = zombie.villagerConversionTime;
+        } else if (accessor.getEntity() instanceof ZombieRavager ravager) {
+            conversionTime = ravager.villagerConversionTime;
+        }
+        if (conversionTime > 0) {
+            tag.putInt("ConversionTime", conversionTime);
         }
 
     }

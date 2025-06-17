@@ -38,7 +38,7 @@ import java.util.UUID;
 
 public class ZombieRavager extends ModRavager {
     private static final EntityDataAccessor<Boolean> DATA_CONVERTING_ID = SynchedEntityData.defineId(ZombieRavager.class, EntityDataSerializers.BOOLEAN);
-    private int villagerConversionTime;
+    public int villagerConversionTime;
     @Nullable
     private UUID conversionStarter;
     
@@ -213,13 +213,13 @@ public class ZombieRavager extends ModRavager {
     private void finishConversion(ServerLevel p_34399_) {
         ModRavager modRavager = this.convertTo(ModEntityType.MOD_RAVAGER.get(), false);
         if (modRavager != null) {
-            modRavager.finalizeSpawn(p_34399_, p_34399_.getCurrentDifficultyAt(modRavager.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
             if (this.conversionStarter != null) {
                 Player player = p_34399_.getPlayerByUUID(this.conversionStarter);
                 if (player instanceof ServerPlayer) {
                     modRavager.setTrueOwner(player);
                 }
             }
+            modRavager.finalizeSpawn(p_34399_, p_34399_.getCurrentDifficultyAt(modRavager.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
 
             if (this.hasSaddle()) {
                 modRavager.equipSaddle(false);

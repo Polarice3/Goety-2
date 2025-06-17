@@ -2742,5 +2742,8 @@
   "advancements.goety.convert_neollager.title": "Мы живём в обществе",
   "advancements.goety.convert_neollager.description": "Превратите крестьянина в новодеянина",
   "advancements.goety.servant_raid_victory.title": "Ой, что-то мы засиделись, братцы",
-  "advancements.goety.servant_raid_victory.description": "Заставьте прислужников провести успешный рейд на деревню"
+  "advancements.goety.servant_raid_victory.description": "Заставьте прислужников провести успешный рейд на деревню",
+  "entity.goety.earth_fist": "Earth Fist",
+  "painting.goety.glacial_flower.author": "Polarice",
+  "painting.goety.glacial_flower.title": "Glacial Flower"
 }

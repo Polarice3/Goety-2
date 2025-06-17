@@ -193,6 +193,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> MinisterRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> HostileRedstoneGolemRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> HostileRedstoneMonstrosityRaid;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> HRMSpawnNoRaiders;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ArmoredRavagerRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WarlockRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MaverickRaid;
@@ -647,6 +648,9 @@ public class MobsConfig {
                 BUILDER.push("Hostile Redstone Monstrosity");
                 HostileRedstoneMonstrosityRaid = BUILDER.comment("Whether Hostile Redstone Monstrosities appear in Raids, Default: false")
                         .define("hostileRedstoneMonstrosityRaid", false);
+                HRMSpawnNoRaiders = BUILDER.comment("Whether Hostile Redstone Monstrosities only appear when all other non-boss raiders are defeated", "Requires game restart", "Default: true")
+                        .worldRestart()
+                        .define("hRMSpawnNoRaiders", true);
                 HostileRedstoneMonstrosityRaidCount = BUILDER.comment("How many Hostile Redstone Monstrosities each wave", "Requires game restart", "Must have no more and no less than 8 integers")
                         .worldRestart()
                         .defineList("hostileRedstoneMonstrosityRaidCount",

@@ -571,7 +571,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxVelocityLevel;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerHitCommand;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerHitKill;
+    public static final ForgeConfigSpec.ConfigValue<Integer> OwnerHitKill;
     public static final ForgeConfigSpec.ConfigValue<Boolean> EnvironmentalCost;
     public static final ForgeConfigSpec.ConfigValue<Boolean> EnchantMultiCost;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SummonDown;
@@ -587,8 +587,8 @@ public class SpellConfig {
                 .defineInRange("spellDamageMultiplier", 1, 1, Integer.MAX_VALUE);
         OwnerHitCommand = BUILDER.comment("Whether Servants change navigation modes by hitting them, put false to make them change by right-clicking on them, Default: true")
                 .define("ownerHitCommand", true);
-        OwnerHitKill = BUILDER.comment("Whether Servants are killed/dismissed by hitting them while crouching, put false to make them change by right-clicking on them while crouching, Default: true")
-                .define("ownerHitKill", true);
+        OwnerHitKill = BUILDER.comment("Whether Servants are killed/dismissed by hitting them while crouching with a wand or staff, put 1 to make them change by right-clicking on them while crouching, put 2 to disable it, Default: 0")
+                .defineInRange("ownerHitKill", 0, 0, 2);
         EnvironmentalCost = BUILDER.comment("Spells have their soul cost reduced or increased depending on the surroundings around the caster, Default: true")
                 .define("environmentalCost", true);
         EnchantMultiCost = BUILDER.comment("Spells cost double soul cost if enchanted, Default: true")

@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "goety:apostle",
+    "goety:hostile_redstone_monstrosity",
+    "goety:vizier",
+    {
+      "id": "#illageandspillage:illager_bosses",
+      "required": false
+    }
+  ]
+}

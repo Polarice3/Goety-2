@@ -2788,5 +2788,7 @@
   "advancements.goety.convert_neollager.description": "Converter um Aldeão em um Neollager.",
   "advancements.goety.servant_raid_victory.title": "Grupo de Ataque",
   "advancements.goety.servant_raid_victory.description": "Faça com que servos ataquem uma aldeia com sucesso.",
-  "entity.goety.earth_fist": "Earth Fist"
+  "entity.goety.earth_fist": "Earth Fist",
+  "painting.goety.glacial_flower.author": "Polarice",
+  "painting.goety.glacial_flower.title": "Glacial Flower"
 }

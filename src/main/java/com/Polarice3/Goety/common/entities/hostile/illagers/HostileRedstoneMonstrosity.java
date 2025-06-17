@@ -6,7 +6,6 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.golem.RedstoneCube;
-import com.Polarice3.Goety.common.entities.neutral.AbstractHauntedArmor;
 import com.Polarice3.Goety.common.entities.projectiles.ScatterBomb;
 import com.Polarice3.Goety.common.entities.util.CameraShake;
 import com.Polarice3.Goety.common.entities.util.SummonCircleVariant;
@@ -81,7 +80,7 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
     public static String BELCH = "belch";
     public static String DEATH = "death";
     public static float SUMMON_SECONDS_TIME = 4.7F;
-    public static double MELEE_RANGE = 8.0D;
+    public static double MELEE_RANGE = 4.0D;
     private int activateTick;
     public int attackTick;
     public int summonTick;
@@ -118,10 +117,10 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new SummonGoal(this));
-        this.goalSelector.addGoal(2, new MeleeGoal(this));
-        this.goalSelector.addGoal(3, new BelchGoal(this));
-        this.goalSelector.addGoal(5, new AttackGoal(this, 1.2D));
+        this.goalSelector.addGoal(0, new SummonGoal(this));
+        this.goalSelector.addGoal(1, new MeleeGoal(this));
+        this.goalSelector.addGoal(2, new BelchGoal(this));
+        this.goalSelector.addGoal(3, new AttackGoal(this, 1.2D));
         this.goalSelector.addGoal(8, new RandomStrollGoal(this, 0.6D));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
@@ -586,8 +585,9 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
                             serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 3, 1), this.getXLeft(), BlockFinder.moveDownToGround(this), this.getZLeft(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                             serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 3, 1), this.getXRight(), BlockFinder.moveDownToGround(this), this.getZRight(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                             this.playSound(ModSounds.REDSTONE_MONSTROSITY_BELCH.get(), this.getSoundVolume(), 0.7F);
-                            for (LivingEntity target : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(7.0D))) {
-                                if (target != this && !target.isAlliedTo(this) && !this.isAlliedTo(target)) {
+                            AABB aabb = new AABB(this.blockPosition());
+                            for (LivingEntity target : this.level.getEntitiesOfClass(LivingEntity.class, aabb.inflate(MELEE_RANGE))) {
+                                if (target != this && !MobUtil.areAllies(this, target)) {
                                     if (target.hurt(this.damageSources().mobAttack(this), 2.0F)){
                                         float f1 = 2.0F;
                                         if (target.getBoundingBox().getSize() > this.getBoundingBox().getSize()){
@@ -832,7 +832,8 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
                 this.mob.playSound(ModSounds.REDSTONE_MONSTROSITY_SMASH.get(), this.mob.getSoundVolume() * 2.0F, 0.2F);
                 this.mob.playSound(SoundEvents.GENERIC_EXPLODE, this.mob.getSoundVolume() / 2.0F, 0.9F);
                 Vec3 vec3 = this.mob.getHorizontalLookAngle();
-                for (LivingEntity target : this.mob.level.getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().move(vec3.scale(5.0D)).inflate(MELEE_RANGE))) {
+                AABB aabb = new AABB(this.mob.blockPosition());
+                for (LivingEntity target : this.mob.level.getEntitiesOfClass(LivingEntity.class, aabb.move(vec3.scale(5.0D)).inflate(MELEE_RANGE))) {
                     if (!MobUtil.areAllies(this.mob, target)) {
                         this.hurtTarget(target);
                     }
@@ -843,8 +844,6 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
                     Vec3 vec31 = this.mob.position().add(vec3.scale(5.0D));
                     ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 2, 0, 20, -1, vec31.add(0.0D, 1.0D, 0.0D));
                     ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 4, 0, 20, -1, vec31.add(0.0D, 1.0D, 0.0D));
-                    /*serverLevel.sendParticles(new ShockwaveParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 20, 0, true), vec31.x, this.mob.getY() + 0.25D, vec31.z, 0, 0.0D, 0.0D, 0.0D, 0);
-                    serverLevel.sendParticles(new ShockwaveParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 10, 0, true), vec31.x, this.mob.getY() + 0.25D, vec31.z, 0, 0.0D, 0.0D, 0.0D, 0);*/
                 }
             }
         }
@@ -872,8 +871,8 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
             }
             if (target instanceof Player player && player.isBlocking()) {
                 player.disableShield(true);
-            } else if (target instanceof AbstractHauntedArmor hauntedArmor && hauntedArmor.isBlocking()){
-                hauntedArmor.disableShield(true);
+            } else {
+                MobUtil.disableShield(target);
             }
         }
 

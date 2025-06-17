@@ -11,5 +11,6 @@ public class ModCriteriaTriggers {
 
     public static void init() {
         CriteriaTriggers.register(SERVANT_KILLED_ENTITY);
+        CriteriaTriggers.register(SERVANT_RAID_VICTORY);
     }
 }

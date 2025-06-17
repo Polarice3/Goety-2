@@ -133,7 +133,7 @@ public class GeomancerModel<T extends LivingEntity> extends HierarchicalModel<T>
 		this.illager.translateAndRotate(poseStack);
 		this.upperBody.translateAndRotate(poseStack);
 		modelPart.translateAndRotate(poseStack);
-		poseStack.translate(0, -0.1F, 0);
+		poseStack.translate(0.0F, 0.0F, 0.0F);
 	}
 
 	@Override

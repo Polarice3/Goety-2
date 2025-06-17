@@ -94,9 +94,9 @@ public class HostileRedstoneGolem extends HostileGolem {
 
     public void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new SummonMinesGoal());
-        this.goalSelector.addGoal(2, new MeleeGoal());
-        this.goalSelector.addGoal(5, new AttackGoal(1.2D));
+        this.goalSelector.addGoal(0, new SummonMinesGoal());
+        this.goalSelector.addGoal(1, new MeleeGoal());
+        this.goalSelector.addGoal(2, new AttackGoal(1.2D));
         this.goalSelector.addGoal(8, new RandomStrollGoal(this, 0.6D));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));

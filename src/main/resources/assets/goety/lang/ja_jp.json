@@ -2660,5 +2660,8 @@
   "advancements.goety.servant_raid_victory.title": "襲撃パーティー！",
   "advancements.goety.servant_raid_victory.description": "従者に村を襲撃させる。",
   "item.goety.command_focus": "命令のフォーカス",
-  "advancements.goety.craft_command_focus.description": "命令のフォーカスを作成する"
+  "advancements.goety.craft_command_focus.description": "命令のフォーカスを作成する",
+  "entity.goety.earth_fist": "Earth Fist",
+  "painting.goety.glacial_flower.author": "Polarice",
+  "painting.goety.glacial_flower.title": "Glacial Flower"
 }

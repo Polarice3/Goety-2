@@ -184,7 +184,7 @@ public class DarkWand extends Item implements IWand {
                 if (!flag){
                     if (owned instanceof IServant summonedEntity) {
                         if (player.isShiftKeyDown() || player.isCrouching()) {
-                            if (SpellConfig.OwnerHitKill.get()) {
+                            if (SpellConfig.OwnerHitKill.get() == 0) {
                                 summonedEntity.tryKill(player);
                                 flag = true;
                             }
@@ -198,7 +198,7 @@ public class DarkWand extends Item implements IWand {
                         }
                     } else if (owned instanceof AbstractVine vine){
                         if (player.isShiftKeyDown() || player.isCrouching()) {
-                            if (SpellConfig.OwnerHitKill.get()) {
+                            if (SpellConfig.OwnerHitKill.get() == 0) {
                                 vine.kill();
                                 flag = true;
                             }
@@ -248,7 +248,7 @@ public class DarkWand extends Item implements IWand {
             if (owned.getTrueOwner() == player || (owned.getTrueOwner() instanceof IOwned owned1 && owned1.getTrueOwner() == player)) {
                 if (owned instanceof IServant summonedEntity) {
                     if (player.isShiftKeyDown() || player.isCrouching()) {
-                        if (!SpellConfig.OwnerHitKill.get()) {
+                        if (SpellConfig.OwnerHitKill.get() == 1) {
                             summonedEntity.tryKill(player);
                             return InteractionResult.SUCCESS;
                         }
@@ -262,7 +262,7 @@ public class DarkWand extends Item implements IWand {
                     }
                 } else if (owned instanceof AbstractVine vine) {
                     if (player.isShiftKeyDown() || player.isCrouching()) {
-                        if (!SpellConfig.OwnerHitKill.get()) {
+                        if (SpellConfig.OwnerHitKill.get() == 1) {
                             vine.kill();
                             return InteractionResult.SUCCESS;
                         }

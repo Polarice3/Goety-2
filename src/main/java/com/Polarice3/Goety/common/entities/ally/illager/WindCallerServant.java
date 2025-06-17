@@ -261,7 +261,7 @@ public class WindCallerServant extends SpellcasterIllagerServant{
 
         @Override
         public boolean canContinueToUse() {
-            return this.spellTick <= MathHelper.secondsToTicks(2.55F);
+            return this.spellTick <= MathHelper.secondsToTicks(2.55F) && this.windCaller.getTarget() != null;
         }
 
         public void start() {
@@ -325,7 +325,7 @@ public class WindCallerServant extends SpellcasterIllagerServant{
 
         @Override
         public boolean canContinueToUse() {
-            return this.spellTick <= MathHelper.secondsToTicks(3.25F);
+            return this.spellTick <= MathHelper.secondsToTicks(3.25F) && this.windCaller.getTarget() != null;
         }
 
         public void start() {

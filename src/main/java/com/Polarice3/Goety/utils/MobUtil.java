@@ -9,6 +9,7 @@ import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Heretic;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Maverick;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
+import com.Polarice3.Goety.common.entities.neutral.AbstractHauntedArmor;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
 import com.Polarice3.Goety.common.entities.projectiles.SnapFungus;
@@ -20,6 +21,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -29,6 +31,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.FluidTags;
@@ -40,6 +43,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.CombatRules;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -1482,5 +1486,31 @@ public class MobUtil {
             return ownable.getOwner();
         }
         return null;
+    }
+
+    public static void disableShield(Entity target) {
+        if (target instanceof AbstractHauntedArmor hauntedArmor && hauntedArmor.isBlocking()){
+            hauntedArmor.disableShield(true);
+        } else if (target.getType().is(ModTags.EntityTypes.BIC_SHIELDED_MOBS) && target instanceof LivingEntity target1) {
+            MobEffect mobEffect = ForgeRegistries.MOB_EFFECTS.getValue(new ResourceLocation("born_in_chaos_v1", "block_break"));
+            if (mobEffect != null) {
+                if (!target1.hasEffect(mobEffect)) {
+                    target1.addEffect(new MobEffectInstance(mobEffect, 120, 0, false, false));
+                    if (!target.level.isClientSide()) {
+                        target.level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundEvents.ZOMBIE_BREAK_WOODEN_DOOR, SoundSource.NEUTRAL, 0.2F, 1.0F);
+                    } else {
+                        target.level.playLocalSound(target.getX(), target.getY(), target.getZ(), SoundEvents.ZOMBIE_BREAK_WOODEN_DOOR, SoundSource.NEUTRAL, 0.2F, 1.0F, false);
+                    }
+
+                    if (target.level instanceof ServerLevel serverLevel) {
+                        serverLevel.sendParticles(ParticleTypes.CRIT, target.getX(), target.getY(), target.getZ(), 9, 0.6, 1.0, 0.6, 0.6);
+                    }
+
+                    if (target1.hasEffect(MobEffects.DAMAGE_RESISTANCE)) {
+                        target1.removeEffect(MobEffects.DAMAGE_RESISTANCE);
+                    }
+                }
+            }
+        }
     }
 }

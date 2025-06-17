@@ -8,7 +8,6 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
-import com.Polarice3.Goety.common.entities.neutral.AbstractHauntedArmor;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.ScatterBomb;
 import com.Polarice3.Goety.common.entities.util.CameraShake;
@@ -85,7 +84,7 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
     public static String BELCH = "belch";
     public static String DEATH = "death";
     public static float SUMMON_SECONDS_TIME = 4.7F;
-    public static double MELEE_RANGE = 8.0D;
+    public static double MELEE_RANGE = 4.0D;
     private int activateTick;
     public int attackTick;
     public int summonTick;
@@ -709,9 +708,11 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
                             serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 3, 1), this.getXLeft(), BlockFinder.moveDownToGround(this), this.getZLeft(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                             serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 3, 1), this.getXRight(), BlockFinder.moveDownToGround(this), this.getZRight(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                             this.playSound(ModSounds.REDSTONE_MONSTROSITY_BELCH.get(), this.getSoundVolume(), 0.7F);
-                            for (LivingEntity target : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(7.0D))) {
-                                if (target != this && !target.isAlliedTo(this) && !this.isAlliedTo(target)) {
-                                    if (target.hurt(this.damageSources().mobAttack(this), 2.0F)){
+                            AABB aabb = new AABB(this.blockPosition());
+                            for (LivingEntity target : this.level.getEntitiesOfClass(LivingEntity.class, aabb.inflate(MELEE_RANGE))) {
+                                if (target != this && !MobUtil.areAllies(this, target)) {
+                                    DamageSource damageSource = this.getTrueOwner() != null ? ModDamageSource.summonAttack(this, this.getTrueOwner()) : this.damageSources().mobAttack(this);
+                                    if (target.hurt(damageSource, 2.0F)){
                                         float f1 = 2.0F;
                                         if (target.getBoundingBox().getSize() > this.getBoundingBox().getSize()){
                                             target.knockback((double)(f1 * 0.5F), (double) Mth.sin(this.getYRot() * ((float)Math.PI / 180F)), (double)(-Mth.cos(this.getYRot() * ((float)Math.PI / 180F))));
@@ -1005,7 +1006,8 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
                 this.mob.playSound(ModSounds.REDSTONE_MONSTROSITY_SMASH.get(), this.mob.getSoundVolume() * 2.0F, 0.2F);
                 this.mob.playSound(SoundEvents.GENERIC_EXPLODE, this.mob.getSoundVolume() / 2.0F, 0.9F);
                 Vec3 vec3 = this.mob.getHorizontalLookAngle();
-                for (LivingEntity target : this.mob.level.getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().move(vec3.scale(5.0D)).inflate(MELEE_RANGE))) {
+                AABB aabb = new AABB(this.mob.blockPosition());
+                for (LivingEntity target : this.mob.level.getEntitiesOfClass(LivingEntity.class, aabb.move(vec3.scale(5.0D)).inflate(MELEE_RANGE))) {
                     if (!MobUtil.areAllies(this.mob, target)) {
                         this.hurtTarget(target);
                     }
@@ -1016,8 +1018,6 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
                     Vec3 vec31 = this.mob.position().add(vec3.scale(5.0D));
                     ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 2, 0, 20, -1, vec31.add(0.0D, 1.0D, 0.0D));
                     ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 4, 0, 20, -1, vec31.add(0.0D, 1.0D, 0.0D));
-                    /*serverLevel.sendParticles(new ShockwaveParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 20, 0, true), vec31.x, this.mob.getY() + 0.25D, vec31.z, 0, 0.0D, 0.0D, 0.0D, 0);
-                    serverLevel.sendParticles(new ShockwaveParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 10, 0, true), vec31.x, this.mob.getY() + 0.25D, vec31.z, 0, 0.0D, 0.0D, 0.0D, 0);*/
                 }
             }
         }
@@ -1046,8 +1046,8 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
             }
             if (target instanceof Player player && player.isBlocking()) {
                 player.disableShield(true);
-            } else if (target instanceof AbstractHauntedArmor hauntedArmor && hauntedArmor.isBlocking()){
-                hauntedArmor.disableShield(true);
+            } else {
+                MobUtil.disableShield(target);
             }
         }
 
