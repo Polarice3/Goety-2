@@ -50,32 +50,32 @@ public class CrusherModel<T extends Mob> extends HierarchicalModel<T> implements
 
 		PartDefinition clothes = body.addOrReplaceChild("clothes", CubeListBuilder.create().texOffs(0, 38).addBox(-4.0F, -24.0F, -3.0F, 8.0F, 20.0F, 6.0F, new CubeDeformation(0.5F)), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		PartDefinition right_leg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 22).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, 12.0F, 0.0F));
+		PartDefinition right_leg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 22).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.0F, 12.0F, 0.0F, 0.0611F, 0.384F, 0.1396F));
 
-		PartDefinition left_leg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 22).mirror().addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(2.0F, 12.0F, 0.0F));
+		PartDefinition left_leg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 22).mirror().addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(2.0F, 12.0F, 0.0F, -0.1309F, -0.1309F, 0.0F));
 
-		PartDefinition right_arm = partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(40, 46).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 2.0F, 0.0F));
+		PartDefinition right_arm = partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(40, 46).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-5.0F, 2.0F, 0.0F, -1.526F, -0.5664F, 1.5249F));
 
 		PartDefinition hammer = right_arm.addOrReplaceChild("hammer", CubeListBuilder.create(), PartPose.offsetAndRotation(-2.0F, 8.0F, -6.0F, 1.5708F, 0.7854F, 1.5708F));
 
 		PartDefinition handle = hammer.addOrReplaceChild("handle", CubeListBuilder.create().texOffs(58, 3).addBox(-7.0F, 5.25F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
-		.texOffs(58, 19).addBox(-6.0F, 4.25F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
-		.texOffs(58, 22).addBox(-5.0F, 3.25F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
-		.texOffs(58, 25).addBox(-4.0F, 2.25F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
-		.texOffs(58, 25).addBox(-3.0F, 1.25F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
-		.texOffs(58, 0).addBox(-2.0F, 0.25F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
-		.texOffs(58, 0).addBox(-1.0F, -0.75F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
-		.texOffs(58, 0).addBox(0.0F, -1.75F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
-		.texOffs(58, 0).addBox(1.0F, -2.75F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
-		.texOffs(58, 0).addBox(1.0F, -2.75F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
-		.texOffs(58, 0).addBox(2.0F, -3.75F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
-		.texOffs(58, 0).addBox(3.0F, -4.75F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.0F, 1.0F, 0.0F));
+				.texOffs(58, 19).addBox(-6.0F, 4.25F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(58, 22).addBox(-5.0F, 3.25F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(58, 25).addBox(-4.0F, 2.25F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(58, 25).addBox(-3.0F, 1.25F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(58, 0).addBox(-2.0F, 0.25F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(58, 0).addBox(-1.0F, -0.75F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(58, 0).addBox(0.0F, -1.75F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(58, 0).addBox(1.0F, -2.75F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(58, 0).addBox(1.0F, -2.75F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(58, 0).addBox(2.0F, -3.75F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(58, 0).addBox(3.0F, -4.75F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.0F, 1.0F, 0.0F));
 
 		PartDefinition head2 = hammer.addOrReplaceChild("head2", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		PartDefinition cube_r1 = head2.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(36, 0).addBox(-3.5F, -5.5F, -3.5F, 7.0F, 12.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.5F, -5.0F, 0.5F, 0.0F, 0.0F, -0.7854F));
 
-		PartDefinition left_arm = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 46).mirror().addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(5.0F, 2.0F, 0.0F));
+		PartDefinition left_arm = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 46).mirror().addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(5.0F, 2.0F, 0.0F, -0.6545F, 0.0F, 0.0F));
 
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
@@ -86,8 +86,6 @@ public class CrusherModel<T extends Mob> extends HierarchicalModel<T> implements
 		if (!entity.isDeadOrDying()){
 			this.animateHeadLookTarget(netHeadYaw, headPitch);
 		}
-		Vec3 velocity = entity.getDeltaMovement();
-		float groundSpeed = Mth.sqrt((float) ((velocity.x * velocity.x) + (velocity.z * velocity.z)));
 		if (this.riding){
 			this.right_leg.xRot = -1.4137167F;
 			this.right_leg.yRot = ((float)Math.PI / 10F);
@@ -97,11 +95,9 @@ public class CrusherModel<T extends Mob> extends HierarchicalModel<T> implements
 			this.left_leg.zRot = -0.07853982F;
 		} else {
 			if (entity instanceof Crusher crusher) {
-				this.animate(crusher.walkAnimationState, CrusherAnimations.WALK, ageInTicks, groundSpeed * 25);
-				this.animate(crusher.runAnimationState, CrusherAnimations.RUN, ageInTicks, groundSpeed * 8);
+				this.animateWalk(crusher.isRunning ? CrusherAnimations.RUN : CrusherAnimations.WALK, limbSwing, limbSwingAmount, crusher.isRunning ? 1.0F : 2.5F, 20.0F);
 			} else if (entity instanceof CrusherServant servant) {
-				this.animate(servant.walkAnimationState, CrusherAnimations.WALK, ageInTicks, groundSpeed * 25);
-				this.animate(servant.runAnimationState, CrusherAnimations.RUN, ageInTicks, groundSpeed * 8);
+				this.animateWalk(servant.isRunning ? CrusherAnimations.RUN : CrusherAnimations.WALK, limbSwing, limbSwingAmount, servant.isRunning ? 1.0F : 2.5F, 20.0F);
 			}
 		}
 		if (entity instanceof Crusher crusher) {

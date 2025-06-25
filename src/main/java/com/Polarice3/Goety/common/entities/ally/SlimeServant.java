@@ -344,7 +344,7 @@ public class SlimeServant extends Summoned{
     protected void dealDamage(LivingEntity p_33638_) {
         if (this.isAlive()) {
             int i = this.getSize();
-            if (this.distanceToSqr(p_33638_) < 0.6D * (double)i * 0.6D * (double)i && this.hasLineOfSight(p_33638_) && p_33638_.hurt(this.damageSources().mobAttack(this), this.getAttackDamage())) {
+            if (this.distanceToSqr(p_33638_) < 0.6D * (double)i * 0.6D * (double)i && this.hasLineOfSight(p_33638_) && p_33638_.hurt(this.getServantAttack(), this.getAttackDamage())) {
                 this.playSound(this.getAttackSound(), 1.0F, this.getVoicePitch());
                 this.doEnchantDamageEffects(this, p_33638_);
             }

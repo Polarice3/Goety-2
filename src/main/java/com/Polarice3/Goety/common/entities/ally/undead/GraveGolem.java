@@ -809,8 +809,7 @@ public class GraveGolem extends AbstractGolemServant {
                 f += (livingEntity.getMaxHealth() * 0.08F);
             }
 
-            DamageSource damageSource = GraveGolem.this.getTrueOwner() != null ? ModDamageSource.summonAttack(GraveGolem.this, GraveGolem.this.getTrueOwner()) : GraveGolem.this.damageSources().mobAttack(GraveGolem.this);
-            boolean flag = target.hurt(damageSource, f);
+            boolean flag = target.hurt(GraveGolem.this.getServantAttack(), f);
             if (flag) {
                 if (f1 > 0.0F && target instanceof LivingEntity livingEntity) {
                     if (livingEntity.getBoundingBox().getSize() > GraveGolem.this.getBoundingBox().getSize()){

@@ -20,7 +20,7 @@ import org.joml.Matrix4f;
 import java.util.Arrays;
 
 /**
- * Based on AbstractTrailParticle code from L_Ender's Cataclysm:<a href="https://github.com/PandaLunatique/L_Ender-s-Cataclysm/blob/1142477a2f4159ce4f75a194c682000ded1369d5/src/main/java/com/github/L_Ender/cataclysm/client/particle/AbstractTrailParticle.java">...</a>;
+ * Based on AbstractTrailParticle code from L_Ender's Cataclysm:<a href="https://github.com/lender544/new1.20.1/blob/master/src/main/java/com/github/L_Ender/cataclysm/client/particle/AbstractTrailParticle.java">...</a>;
  */
 public abstract class WindTrailParticle extends Particle {
     private static final ResourceLocation TEXTURE = Goety.location("textures/particle/trail.png");

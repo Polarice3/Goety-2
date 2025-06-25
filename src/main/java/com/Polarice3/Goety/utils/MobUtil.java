@@ -1513,4 +1513,8 @@ public class MobUtil {
             }
         }
     }
+
+    public static <T extends LivingEntity & IServant> DamageSource getServantAttack(T servant) {
+        return servant.getTrueOwner() != null ? ModDamageSource.summonAttack(servant, servant.getTrueOwner()) : servant.damageSources().mobAttack(servant);
+    }
 }

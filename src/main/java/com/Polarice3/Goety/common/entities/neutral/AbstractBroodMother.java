@@ -684,7 +684,6 @@ public class AbstractBroodMother extends Summoned implements IAutoRideable, Play
     }
 
     public void areaAttack(){
-        DamageSource damageSource = this.getTrueOwner() != null ? ModDamageSource.summonAttack(this, this.getTrueOwner()) : this.damageSources().mobAttack(this);
         for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(16.0D),
                 living -> !MobUtil.areAllies(living, this) && living.isAlive())){
             double xPower = this.getX() - livingEntity.getX();
@@ -692,7 +691,7 @@ public class AbstractBroodMother extends Summoned implements IAutoRideable, Play
             double zPower = this.getZ() - livingEntity.getZ();
             double distance = Math.sqrt(xPower * xPower + yPower * yPower + zPower * zPower);
             if (this.distanceToSqr(livingEntity) < 9.0D) {
-                if (livingEntity.hurt(damageSource, (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
+                if (livingEntity.hurt(this.getServantAttack(), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
                     this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, 1.0F);
                     livingEntity.hurtMarked = true;
                     if (!livingEntity.hasEffect(GoetyEffects.TANGLED.get())) {

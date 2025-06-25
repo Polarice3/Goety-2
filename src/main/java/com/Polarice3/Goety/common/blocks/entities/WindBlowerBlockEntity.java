@@ -4,6 +4,7 @@ import com.Polarice3.Goety.api.blocks.entities.IWindPowered;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.WindBlowParticle;
 import com.Polarice3.Goety.common.blocks.WindBlowerBlock;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
@@ -15,6 +16,7 @@ import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -120,7 +122,7 @@ public class WindBlowerBlockEntity extends BlockEntity {
             Direction facing = state.getValue(WindBlowerBlock.FACING);
             List<Entity> list = this.level.getEntitiesOfClass(Entity.class, getAABB(), EntitySelector.NO_CREATIVE_OR_SPECTATOR);
             for (Entity entity : list) {
-                if (entity != null) {
+                if ((entity instanceof LivingEntity || entity instanceof AbstractArrow) && !entity.getType().is(ModTags.EntityTypes.UNBLOWABLE_ENTITIES)) {
                     Vec3 vec3d = entity.getDeltaMovement();
                     double y = vec3d.y;
                     if (facing.getAxis().isHorizontal()) {

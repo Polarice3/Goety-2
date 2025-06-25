@@ -41,9 +41,8 @@ public class CrusherServant extends AbstractIllagerServant {
     private static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(CrusherServant.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> STORM = SynchedEntityData.defineId(CrusherServant.class, EntityDataSerializers.BOOLEAN);
     public int attackTick;
+    public boolean isRunning = false;
     public AnimationState idleAnimationState = new AnimationState();
-    public AnimationState walkAnimationState = new AnimationState();
-    public AnimationState runAnimationState = new AnimationState();
     public AnimationState attackAnimationState = new AnimationState();
 
     public CrusherServant(EntityType<? extends Owned> type, Level worldIn) {
@@ -97,12 +96,8 @@ public class CrusherServant extends AbstractIllagerServant {
     public int getAnimationState(String animation) {
         if (Objects.equals(animation, "idle")){
             return 1;
-        } else if (Objects.equals(animation, "walk")){
-            return 2;
-        } else if (Objects.equals(animation, "run")){
-            return 3;
         } else if (Objects.equals(animation, "attack")){
-            return 4;
+            return 2;
         } else {
             return 0;
         }
@@ -111,8 +106,6 @@ public class CrusherServant extends AbstractIllagerServant {
     public List<AnimationState> getAllAnimations(){
         List<AnimationState> animationStates = new ArrayList<>();
         animationStates.add(this.idleAnimationState);
-        animationStates.add(this.walkAnimationState);
-        animationStates.add(this.runAnimationState);
         animationStates.add(this.attackAnimationState);
         return animationStates;
     }
@@ -146,14 +139,6 @@ public class CrusherServant extends AbstractIllagerServant {
                         this.stopMostAnimation(this.idleAnimationState);
                         break;
                     case 2:
-                        this.walkAnimationState.startIfStopped(this.tickCount);
-                        this.stopMostAnimation(this.walkAnimationState);
-                        break;
-                    case 3:
-                        this.runAnimationState.start(this.tickCount);
-                        this.stopMostAnimation(this.runAnimationState);
-                        break;
-                    case 4:
                         this.attackAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.attackAnimationState);
                         break;
@@ -177,15 +162,8 @@ public class CrusherServant extends AbstractIllagerServant {
         if (this.level.isClientSide){
             if (this.isAlive()){
                 if (this.getCurrentAnimation() != this.getAnimationState("attack")) {
-                    if (!this.isMoving()) {
-                        this.setAnimationState("idle");
-                    } else {
-                        if (!this.isAggressive()) {
-                            this.setAnimationState("walk");
-                        } else {
-                            this.setAnimationState("run");
-                        }
-                    }
+                    this.setAnimationState("idle");
+                    this.isRunning = this.isAggressive();
                 }
             }
         }

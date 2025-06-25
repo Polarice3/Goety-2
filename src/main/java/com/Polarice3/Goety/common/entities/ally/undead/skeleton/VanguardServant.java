@@ -315,8 +315,7 @@ public class VanguardServant extends AbstractSkeletonServant {
             p_21372_.setSecondsOnFire(i * 4);
         }
 
-        DamageSource damageSource = this.getTrueOwner() != null ? ModDamageSource.summonAttack(this, this.getTrueOwner()) : this.damageSources().mobAttack(this);
-        boolean flag = p_21372_.hurt(damageSource, f);
+        boolean flag = p_21372_.hurt(this.getServantAttack(), f);
         if (flag) {
             if (f1 > 0.0F && p_21372_ instanceof LivingEntity living) {
                 living.knockback((double)(f1 * 0.5F), (double)Mth.sin(this.getYRot() * ((float)Math.PI / 180F)), (double)(-Mth.cos(this.getYRot() * ((float)Math.PI / 180F))));

@@ -401,7 +401,7 @@ public class ModRavager extends RaiderServant implements PlayerRideable, IAutoRi
         if (this.isAlive()) {
             for(LivingEntity livingentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4.0D), NO_RAVAGER_AND_ALIVE)) {
                 if (!MobUtil.areAllies(this, livingentity)) {
-                    livingentity.hurt(this.damageSources().mobAttack(this), 6.0F);
+                    livingentity.hurt(this.getServantAttack(), 6.0F);
                 }
 
                 this.strongKnockback(livingentity);

@@ -210,28 +210,13 @@ public interface ISpell {
         return defaultSpellCooldown();
     }
 
-    @Deprecated(forRemoval = true)
-    default void startSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff) {
-        this.startSpell(worldIn, caster, staff, this.defaultStats());
-    }
-
     default void startSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
-    }
-
-    @Deprecated(forRemoval = true)
-    default void useSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, int castTime) {
-        this.useSpell(worldIn, caster, staff, castTime, this.defaultStats());
     }
 
     default void useSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, int castTime, SpellStat spellStat) {
     }
 
     default void stopSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, int useTimeRemaining) {
-    }
-
-    @Deprecated(forRemoval = true)
-    default void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff){
-        SpellResult(worldIn, caster, staff, this.defaultStats());
     }
 
     default void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){

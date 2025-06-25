@@ -782,8 +782,7 @@ public class RedstoneGolem extends RaiderGolemServant {
             float f = (float)RedstoneGolem.this.getAttributeValue(Attributes.ATTACK_DAMAGE);
             float f1 = (float)RedstoneGolem.this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
 
-            DamageSource damageSource = RedstoneGolem.this.getTrueOwner() != null ? ModDamageSource.summonAttack(RedstoneGolem.this, RedstoneGolem.this.getTrueOwner()) : RedstoneGolem.this.damageSources().mobAttack(RedstoneGolem.this);
-            boolean flag = target.hurt(damageSource, f);
+            boolean flag = target.hurt(RedstoneGolem.this.getServantAttack(), f);
             if (flag) {
                 if (f1 > 0.0F && target instanceof LivingEntity livingEntity) {
                     if (livingEntity.getBoundingBox().getSize() > RedstoneGolem.this.getBoundingBox().getSize()){

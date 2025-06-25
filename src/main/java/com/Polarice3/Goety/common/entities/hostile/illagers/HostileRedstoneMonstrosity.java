@@ -80,7 +80,7 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
     public static String BELCH = "belch";
     public static String DEATH = "death";
     public static float SUMMON_SECONDS_TIME = 4.7F;
-    public static double MELEE_RANGE = 4.0D;
+    public static double MELEE_RANGE = 8.0D;
     private int activateTick;
     public int attackTick;
     public int summonTick;
@@ -586,7 +586,7 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
                             serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 3, 1), this.getXRight(), BlockFinder.moveDownToGround(this), this.getZRight(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                             this.playSound(ModSounds.REDSTONE_MONSTROSITY_BELCH.get(), this.getSoundVolume(), 0.7F);
                             AABB aabb = new AABB(this.blockPosition());
-                            for (LivingEntity target : this.level.getEntitiesOfClass(LivingEntity.class, aabb.inflate(MELEE_RANGE))) {
+                            for (LivingEntity target : this.level.getEntitiesOfClass(LivingEntity.class, aabb.inflate(MELEE_RANGE / 2.0F))) {
                                 if (target != this && !MobUtil.areAllies(this, target)) {
                                     if (target.hurt(this.damageSources().mobAttack(this), 2.0F)){
                                         float f1 = 2.0F;

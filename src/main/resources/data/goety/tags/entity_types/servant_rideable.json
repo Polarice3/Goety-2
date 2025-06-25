@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "__comment": "entities that aren't rideable but can still be owned by players that servants can ride (controlling however...)",
+  "values": [
+  ]
+}

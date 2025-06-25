@@ -162,7 +162,7 @@ public class MainConfig {
                         (itemRaw) -> itemRaw instanceof String);
         EnableNightBeacon = BUILDER.comment("Whether Night Beacons are allowed to function, turning Daytime to Midnight so long as it's activated, Default: true")
                 .define("enableNightBeacon", true);
-        RitualRange = BUILDER.comment("How big of a range Dark Altars can count blocks to make a ritual and detect sacrifices/conversion victims, Default: 16")
+        RitualRange = BUILDER.comment("How big of a range Dark Altars can count blocks to make a ritual and detect sacrifices/conversion victims, Default: 8")
                 .defineInRange("ritualRange", 8, 1, Integer.MAX_VALUE);
         RitualEnchants = BUILDER.comment("Whether enchanting through Rituals are enabled, Default: true")
                 .define("ritualEnchants", true);

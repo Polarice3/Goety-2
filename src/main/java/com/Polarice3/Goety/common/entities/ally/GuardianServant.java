@@ -457,8 +457,7 @@ public class GuardianServant extends Summoned{
                         }
 
                         livingentity.hurt(this.guardian.damageSources().indirectMagic(this.guardian, this.guardian), f);
-                        DamageSource damageSource = this.guardian.getTrueOwner() != null ? ModDamageSource.summonAttack(this.guardian, this.guardian.getTrueOwner()) : this.guardian.damageSources().mobAttack(this.guardian);
-                        livingentity.hurt(damageSource, (float)this.guardian.getAttributeValue(Attributes.ATTACK_DAMAGE));
+                        livingentity.hurt(this.guardian.getServantAttack(), (float)this.guardian.getAttributeValue(Attributes.ATTACK_DAMAGE));
                         this.guardian.setTarget(null);
                     }
 

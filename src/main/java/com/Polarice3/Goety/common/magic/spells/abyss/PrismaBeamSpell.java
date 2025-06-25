@@ -59,7 +59,7 @@ public class PrismaBeamSpell extends Spell {
     }
 
     @Override
-    public void useSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, int castTime) {
+    public void useSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, int castTime, SpellStat spellStat) {
         LivingEntity target = this.getTarget(caster);
         if (target != null) {
             MiscCapHelper.setClientTarget(caster, target);

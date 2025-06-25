@@ -10,6 +10,7 @@ import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.ItemHelper;
 import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -73,13 +74,17 @@ public class Summoned extends Owned implements IServant {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.targetRetaliateGoal();
         this.followGoal();
         this.targetSelectGoal();
     }
 
     public void followGoal(){
         this.goalSelector.addGoal(5, new FollowOwnerGoal<>(this, 1.0D, 10.0F, 2.0F));
+    }
+
+    public void targetRetaliateGoal() {
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
     }
 
     public void targetSelectGoal(){
@@ -489,6 +494,10 @@ public class Summoned extends Owned implements IServant {
         }
     }
 
+    public DamageSource getServantAttack(){
+        return MobUtil.getServantAttack(this);
+    }
+
     public static class FollowOwnerGoal<T extends Mob & IServant> extends Goal {
         public final T summonedEntity;
         public LivingEntity owner;
@@ -865,7 +874,15 @@ public class Summoned extends Owned implements IServant {
         private final T summonedEntity;
 
         public WaterWanderGoal(T entity) {
-            super(entity, 1.0D);
+            this(entity, 1.0D);
+        }
+
+        public WaterWanderGoal(T entity, double speedModifier) {
+            this(entity, speedModifier, 120);
+        }
+
+        public WaterWanderGoal(T entity, double speedModifier, int interval) {
+            super(entity, speedModifier, interval, false);
             this.summonedEntity = entity;
         }
 

@@ -75,7 +75,7 @@ public class CryptSlimeServant extends SlimeServant{
     protected void dealDamage(LivingEntity livingEntity) {
         if (this.isAlive()) {
             int i = this.getSize();
-            if (this.distanceToSqr(livingEntity) < 0.6D * (double)i * 0.6D * (double)i && this.hasLineOfSight(livingEntity) && livingEntity.hurt(this.damageSources().mobAttack(this), this.getAttackDamage())) {
+            if (this.distanceToSqr(livingEntity) < 0.6D * (double)i * 0.6D * (double)i && this.hasLineOfSight(livingEntity) && livingEntity.hurt(this.getServantAttack(), this.getAttackDamage())) {
                 this.playSound(SoundEvents.SLIME_ATTACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 this.doEnchantDamageEffects(this, livingEntity);
                 livingEntity.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), 60, this.getSize()));

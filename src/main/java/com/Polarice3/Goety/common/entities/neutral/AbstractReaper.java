@@ -552,11 +552,10 @@ public class AbstractReaper extends Summoned {
             float f3 = 1.0F + SweepingEdgeEnchantment.getSweepingDamageRatio(3) * f;
             int j = EnchantmentHelper.getFireAspect(reaper);
             double area = 2.0D;
-            DamageSource damageSource = this.reaper.getTrueOwner() != null ? ModDamageSource.summonAttack(this.reaper, this.reaper.getTrueOwner()) : this.reaper.damageSources().mobAttack(this.reaper);
             for (LivingEntity livingentity : reaper.level.getEntitiesOfClass(LivingEntity.class, this.reaper.getBoundingBox().move(this.getHorizontalLookAngle().scale(2.0D)).inflate(area, area, area))) {
                 if (livingentity != reaper && !MobUtil.areAllies(reaper, livingentity) && (!(livingentity instanceof ArmorStand) || !((ArmorStand) livingentity).isMarker()) && reaper.distanceToSqr(livingentity) < 16.0D && livingentity != reaper.getVehicle()) {
                     livingentity.knockback(0.4F, (double) Mth.sin(reaper.getYRot() * ((float) Math.PI / 180F)), (double) (-Mth.cos(reaper.getYRot() * ((float) Math.PI / 180F))));
-                    if (livingentity.hurt(damageSource, f3)) {
+                    if (livingentity.hurt(this.reaper.getServantAttack(), f3)) {
                         if (j > 0) {
                             livingentity.setSecondsOnFire(j * 4);
                         }

@@ -4,6 +4,7 @@ import com.Polarice3.Goety.api.entities.IGolem;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModMobType;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
@@ -247,10 +248,15 @@ public interface IServant extends IOwned {
         return false;
     }
 
+    //Wanna rename this to not mix up with vanilla lol.
+    default boolean isAbleToRide(LivingEntity livingEntity) {
+        return this.canRide(livingEntity);
+    }
+
     default boolean canRide(LivingEntity livingEntity){
         if (!(this instanceof PlayerRideable)
                 && !(this instanceof IGolem)
-                && livingEntity instanceof PlayerRideable
+                && (livingEntity instanceof PlayerRideable || livingEntity.getType().is(ModTags.EntityTypes.SERVANT_RIDEABLE))
                 && livingEntity.getFirstPassenger() == null){
             if (livingEntity instanceof AbstractHorse horse){
                 return horse.isTamed();
@@ -421,7 +427,7 @@ public interface IServant extends IOwned {
                             owned.getControlledVehicle() != null ? owned.getControlledVehicle().getBbWidth() + 1.0D : owned.getBbWidth() + 1.0D)){
                         if (this.getCommandPosEntity() != null &&
                                 owned.getBoundingBox().inflate(1.25D).intersects(this.getCommandPosEntity().getBoundingBox())){
-                            if (this.canRide(this.getCommandPosEntity())) {
+                            if (this.isAbleToRide(this.getCommandPosEntity())) {
                                 if (owned.startRiding(this.getCommandPosEntity())) {
                                     if (this.getTrueOwner() instanceof Player player){
                                         player.displayClientMessage(Component.translatable("info.goety.servant.dismount"), true);

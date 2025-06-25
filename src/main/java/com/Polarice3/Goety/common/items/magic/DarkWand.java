@@ -457,7 +457,7 @@ public class DarkWand extends Item implements IWand {
     public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int useTimeRemaining) {
         if (level instanceof ServerLevel serverLevel) {
             if (this.getSpell(stack) != null) {
-                this.getSpell(stack).stopSpell(serverLevel, livingEntity, stack, useTimeRemaining);
+                this.getSpell(stack).stopSpell(serverLevel, livingEntity, stack, useTimeRemaining); //will be removed
                 if (livingEntity instanceof Player player) {
                     if (this.getSpell(stack) instanceof IChargingSpell spell) {
                         if (spell.shotsNumber(player, stack) > 0) {

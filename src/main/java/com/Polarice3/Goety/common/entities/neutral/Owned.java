@@ -56,6 +56,10 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
 
     protected void registerGoals() {
         super.registerGoals();
+        this.ownerHurtGoals();
+    }
+
+    public void ownerHurtGoals() {
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal<>(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal<>(this));
     }

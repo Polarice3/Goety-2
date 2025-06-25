@@ -9,7 +9,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Based on StormParticle code from L_Ender's Cataclysm:<a href="https://github.com/PandaLunatique/L_Ender-s-Cataclysm/blob/1142477a2f4159ce4f75a194c682000ded1369d5/src/main/java/com/github/L_Ender/cataclysm/client/particle/StormParticle.java">...</a>;
+ * Based on StormParticle code from L_Ender's Cataclysm:<a href="https://github.com/lender544/new1.20.1/blob/master/src/main/java/com/github/L_Ender/cataclysm/client/particle/StormParticle.java">...</a>;
  */
 public class WindParticle extends WindTrailParticle {
     public final int ownerId;

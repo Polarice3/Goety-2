@@ -107,14 +107,6 @@ public class RenderBlockUtils {
         return LightTexture.pack(Math.max(blockLight, glow), Math.max(skyLight, glow));
     }
 
-    @Deprecated
-    public static int getColorARGB(FluidStack fluidStack, float fluidScale) {
-        if (fluidStack.isEmpty()) {
-            return -1;
-        }
-        return getColorARGB(fluidStack);
-    }
-
     public static int getColorARGB(FluidStack fluidStack) {
         if (fluidStack.isEmpty()) {
             return -1;
@@ -231,17 +223,6 @@ public class RenderBlockUtils {
         matrix.popPose();
         RenderSystem.disableDepthTest();
         buffer.endBatch(BlockRenderType.SOLID_COLOUR);
-    }
-
-    /**
-     * Create your own PoseStack and view perspective and use the method that does not depend on forge events
-     */
-    @Deprecated
-    public static void renderColourCubes(RenderLevelStageEvent evt, Map<BlockPos, ColorUtil> coords, float alpha) {
-        PoseStack matrix = evt.getPoseStack();
-        Vec3 view = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
-        float scale = 1.01F;
-        renderColourCubes(matrix, view, coords, scale, alpha);
     }
 
     /**

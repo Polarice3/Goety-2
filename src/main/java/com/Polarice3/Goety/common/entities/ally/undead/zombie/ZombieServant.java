@@ -73,6 +73,10 @@ public class ZombieServant extends Summoned {
     protected void registerGoals() {
         super.registerGoals();
         this.attackGoal();
+        this.addBehaviourGoals();
+    }
+
+    protected void addBehaviourGoals() {
         this.goalSelector.addGoal(8, new WanderGoal<>(this, 1.0D, 10));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
@@ -158,13 +162,13 @@ public class ZombieServant extends Summoned {
     }
 
     @Override
-    public boolean canRide(LivingEntity livingEntity) {
+    public boolean isAbleToRide(LivingEntity livingEntity) {
         if (this.isBaby()){
             if (livingEntity instanceof Chicken chicken) {
                 return !chicken.isBaby();
             }
         }
-        return super.canRide(livingEntity);
+        return super.isAbleToRide(livingEntity);
     }
 
     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
