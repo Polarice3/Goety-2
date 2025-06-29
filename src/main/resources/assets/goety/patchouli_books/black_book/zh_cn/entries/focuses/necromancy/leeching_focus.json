@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/leeching_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/necro_staff)死灵魔杖$()施法时还可以额外对目标施加虚弱效果"
     }
   ],
   "extra_recipe_mappings": {

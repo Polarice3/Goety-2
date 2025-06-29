@@ -1402,8 +1402,7 @@
   "info.goety.necro_crown": "Nieumarłe sługi pozostaną.",
   "info.goety.necro_crown_cast": "Zmniejsza czas rzucania dla nekromantycznych zaklęć.",
   "info.goety.necro_crown_weakness": "Daje Słabość gdy noszone w słońcu.",
-  "info.goety.amethyst_necklace": "+20% szansy na przywołanie czterech Totemicznych Bomb rzucając zaklęcie Barykady.",
-  "info.goety.amethyst_necklace_discount": "Zmniejsza koszt geomantycznych zaklęć.",
+  "info.goety.amethyst_necklace": "Zmniejsza koszt geomantycznych zaklęć.",
   "info.goety.dark_robe": "Redukuje koszt dusz wszystkich zaklęć o 15%.",
   "info.goety.grand_robe": "Zmniejsza o połowę nadchodzące ataki podczas rzucania zaklęć różdżką lub kosturem.",
   "info.goety.necro_cape": "Pozwala nieumarłym sługom leczyć się używając energii dusz.",
@@ -2645,7 +2644,6 @@
   "item.goety.pillager_servant_spawn_egg": "Pillager Servant Spawn Egg",
   "item.goety.vindicator_servant_spawn_egg": "Vindicator Servant Spawn Egg",
   "item.goety.evoker_servant_spawn_egg": "Evoker Servant Spawn Egg",
-  "item.goety.reaper_silk": "Reaper Silk",
   "item.goety.empty_soul_jar": "Empty Soul Jar",
   "item.goety.blazing_helm": "Blazing Helm",
   "item.goety.reaping_focus": "Reaping Focus",
@@ -2727,5 +2725,12 @@
   "advancements.goety.convert_neollager.title": "We Live in a Society",
   "advancements.goety.convert_neollager.description": "Convert a Villager to a Neollager.",
   "advancements.goety.servant_raid_victory.title": "Raiding Party",
-  "advancements.goety.servant_raid_victory.description": "Have servants successfully raid a village."
+  "advancements.goety.servant_raid_victory.description": "Have servants successfully raid a village.",
+  "entity.goety.crusher_servant": "Crusher Servant",
+  "entity.goety.storm_caster_servant": "Storm Caster Servant",
+  "item.goety.crusher_servant_spawn_egg": "Crusher Servant Spawn Egg",
+  "item.goety.storm_caster_servant_spawn_egg": "Storm Caster Servant Spawn Egg",
+  "item.goety.geo_staff": "Geo Staff",
+  "item.goety.grave_dust": "Grave Dust",
+  "item.goety.ring_of_thirst": "Ring of Thirst"
 }

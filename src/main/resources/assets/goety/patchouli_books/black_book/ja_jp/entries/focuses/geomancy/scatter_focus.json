@@ -1,0 +1,19 @@
+{
+  "name": "散乱のフォーカス",
+  "icon": "goety:scatter_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この呪文により、術者の周囲に地雷が出現します。地雷は1秒後に着火し、味方以外のターゲットが近くに来ると、地形破壊することなく爆発します。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/scatter_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/geo_staff)地の杖$()の場合は呪文の詠唱方法が変わります。通常は3つの散弾地雷を瞬時に召喚しますが、地の杖の場合は周囲に最大14個の地雷が出現するまで呪文を継続的に唱える必要があります。"
+    }
+  ]
+}

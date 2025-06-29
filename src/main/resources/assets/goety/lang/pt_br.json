@@ -1591,8 +1591,7 @@
   "info.goety.necro_crown": "Servos mortos-vivos persistem.",
   "info.goety.necro_crown_cast": "Reduz o tempo de conjuração de feitiços de necromancia pela metade.",
   "info.goety.necro_crown_weakness": "Concede Fraqueza quando usado à luz do sol.",
-  "info.goety.amethyst_necklace": "+20% de chance de invocar quatro Bombas Totémicas ao conjurar o feitiço Barricada.",
-  "info.goety.amethyst_necklace_discount": "Reduz o custo de alma de feitiços de geomania pela metade.",
+  "info.goety.amethyst_necklace": "Reduz o custo de alma de feitiços de geomania pela metade.",
   "info.goety.dark_robe": "Reduz o custo de alma de todos os feitiços em 15%.",
   "info.goety.grand_robe": "Reduz o dano recebido pela metade ao conjurar com varinha ou cajado.",
   "info.goety.necro_cape": "Permite que servos mortos-vivos curem usando energia de alma.",
@@ -2737,7 +2736,6 @@
   "item.goety.pillager_servant_spawn_egg": "Ovo de Servo Saqueador",
   "item.goety.vindicator_servant_spawn_egg": "Ovo de Servo Vingador",
   "item.goety.evoker_servant_spawn_egg": "Ovo de Servo Invocador",
-  "item.goety.reaper_silk": "Seda do Ceifador",
   "block.goety.ominous_pyre": "Pira Sinistra",
   "tooltip.goety.blockTrainType": "Tipo de Treino: ",
   "jade.goety.training": "Tempo de Treino: %s / %s",
@@ -2790,5 +2788,12 @@
   "advancements.goety.servant_raid_victory.description": "Faça com que servos ataquem uma aldeia com sucesso.",
   "entity.goety.earth_fist": "Earth Fist",
   "painting.goety.glacial_flower.author": "Polarice",
-  "painting.goety.glacial_flower.title": "Glacial Flower"
+  "painting.goety.glacial_flower.title": "Glacial Flower",
+  "entity.goety.crusher_servant": "Crusher Servant",
+  "entity.goety.storm_caster_servant": "Storm Caster Servant",
+  "item.goety.crusher_servant_spawn_egg": "Crusher Servant Spawn Egg",
+  "item.goety.storm_caster_servant_spawn_egg": "Storm Caster Servant Spawn Egg",
+  "item.goety.geo_staff": "Geo Staff",
+  "item.goety.grave_dust": "Grave Dust",
+  "item.goety.ring_of_thirst": "Ring of Thirst"
 }

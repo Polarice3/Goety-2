@@ -1,7 +1,7 @@
 {
   "name": "骨质聚晶",
   "icon": "goety:osseous_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/necromancy",
   "pages": [
     {
       "type": "patchouli:text",
@@ -10,6 +10,13 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/osseous_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/necro_staff)死灵魔杖$()施法时，一次可以召唤更多骷髅"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:osseous_focus": 1
+  }
 }

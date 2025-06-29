@@ -36,6 +36,8 @@ public class ModItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
                 ModItems.WILD_STAFF.get(),
                 ModItems.WIND_STAFF.get(),
                 ModItems.STORM_STAFF.get(),
+                ModItems.GEO_STAFF.get(),
+                ModItems.ABYSS_STAFF.get(),
                 ModItems.NETHER_STAFF.get()).replace(false);
         this.tag(ModTags.Items.ROBES).add(ModItems.DARK_ROBE.get(),
                 ModItems.GRAND_ROBE.get(),

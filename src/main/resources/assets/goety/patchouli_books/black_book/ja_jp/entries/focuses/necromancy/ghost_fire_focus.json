@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "死者の炎は非常に恐ろしい。エクトプラズムを使えば、特定の場所や敵の足元に死者の冷たい炎を呼び出すことができるようだ。"
+      "text": "死者の炎は非常に恐ろしいです。エクトプラズムを使えば、特定の場所や敵の足元に死者の冷たい炎を呼び出すことができるらしい..."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/ghost_fire_focus"
+    },
+	{
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/necro_staff)ネクロの杖$()で唱えると、2x2ではなく3x3ブロックと、でより多くの氷の炎を召喚できます。"
     }
   ],
   "extra_recipe_mappings": {

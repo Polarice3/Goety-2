@@ -1,0 +1,22 @@
+{
+  "name": "地卜魔杖",
+  "icon": "goety:geo_staff",
+  "category": "goety:crafts/staff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "虽然地卜师只用一根简单的木棍就可以驱动他们的占卜类法术，但你知道你可以你用周边的紫水晶做一根更好的魔杖"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:geo_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "地卜法杖可以强化几种占卜法术，为这片大地赋予更多力量！"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:wind_staff": 1
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Geo Staff",
+  "icon": "goety:geo_staff",
+  "category": "goety:crafts/staff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "While Geomancers use simple wooden canes to power their geomancy, you've know you can do better with the Amethysts you have lying around."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:geo_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Geo Staff empowers up several Geomancy spells, granting more power over the very earth itself!"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:wind_staff": 1
+  }
+}

@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/iceology_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/frost_staff)Frost Staff$() will decrease hovering time for Ice Chunks."
     }
   ],
   "extra_recipe_mappings": {

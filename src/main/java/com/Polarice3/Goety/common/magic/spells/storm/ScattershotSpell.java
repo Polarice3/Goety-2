@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.magic.spells.storm;
 
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.common.entities.projectiles.ElectroOrb;
+import com.Polarice3.Goety.common.entities.projectiles.MiniElectroOrb;
 import com.Polarice3.Goety.common.magic.EverChargeSpell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -14,7 +14,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,66 +22,69 @@ public class ScattershotSpell extends EverChargeSpell {
 
     @Override
     public int defaultSoulCost() {
-        return SpellConfig.ArrowRainCost.get();
+        return SpellConfig.BombardmentCost.get();
     }
 
     @Override
     public int defaultCastUp() {
-        return SpellConfig.ArrowRainChargeUp.get();
+        return SpellConfig.BombardmentChargeUp.get();
     }
 
     @Override
-    public int shotsNumber() {
-        return SpellConfig.ArrowRainDuration.get();
+    public int Cooldown() {
+        return SpellConfig.BombardmentDuration.get();
+    }
+
+    @Override
+    public int shotsNumber(LivingEntity caster, ItemStack staff) {
+        int i = 0;
+        if (WandUtil.enchantedFocus(caster)) {
+            i += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
+        }
+        return SpellConfig.BombardmentShots.get() + (i * 3);
     }
 
     @Override
     public int defaultSpellCooldown() {
-        return SpellConfig.ArrowRainCoolDown.get();
+        return SpellConfig.BombardmentCoolDown.get();
     }
 
-    @Nullable
     @Override
     public SoundEvent CastingSound() {
-        return ModSounds.APOSTLE_PREPARE_SPELL.get();
+        return ModSounds.PREPARE_SPELL.get();
     }
 
     @Override
     public SpellType getSpellType() {
-        return SpellType.STORM;
+        return SpellType.NETHER;
     }
 
     @Override
     public List<Enchantment> acceptedEnchantments() {
         List<Enchantment> list = new ArrayList<>();
         list.add(ModEnchantments.POTENCY.get());
-        list.add(ModEnchantments.RANGE.get());
         return list;
     }
 
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){
-        int range = spellStat.getRange() + WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
-        LivingEntity livingEntity = this.getTarget(caster, range);
-        ElectroOrb blast = new ElectroOrb(worldIn, caster, livingEntity);
-        Vec3 vector3d;
-        if (livingEntity != null){
-            vector3d = livingEntity.position().add(livingEntity.getDeltaMovement().multiply(10.0F, 10.0F, 10.0F)).subtract(livingEntity.position()).normalize();
-            blast.setPos(blast.getX() + vector3d.x,
-                    caster.getEyeY() - 0.2,
-                    blast.getZ() + vector3d.z);
-        } else {
-            vector3d = caster.getViewVector( 1.0F);
-            blast.setPos(caster.getX() + vector3d.x / 2,
-                    caster.getEyeY() - 0.2,
-                    caster.getZ() + vector3d.z / 2);
+        int potency = spellStat.getPotency();
+        if (WandUtil.enchantedFocus(caster)){
+            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
         }
-        blast.setExtraDamage(spellStat.getPotency() + WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
-        blast.setStaff(this.rightStaff(staff));
-        blast.shoot(vector3d.x,
+        Vec3 vector3d = caster.getViewVector( 1.0F);
+        MiniElectroOrb orb = new MiniElectroOrb(
+                caster.getX() + vector3d.x / 2,
+                caster.getEyeY() - 0.5F,
+                caster.getZ() + vector3d.z / 2,
+                vector3d.x,
                 vector3d.y,
-                vector3d.z, 0.66F, 3.0F);
-        worldIn.addFreshEntity(blast);
-        this.playSound(worldIn, caster, ModSounds.SHOCK_CAST.get());
+                vector3d.z,
+                worldIn);
+        orb.setOwner(caster);
+        orb.setExtraDamage(potency);
+        orb.setStaff(rightStaff(staff));
+        worldIn.addFreshEntity(orb);
+        this.playSound(worldIn, caster, ModSounds.SHOCK_CAST.get(), 1.0F, this.projPitch(worldIn.getRandom()));
     }
 }

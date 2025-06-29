@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/blossoming_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/wild_staff)Wild Staff$() increases the radius."
     }
   ],
   "extra_recipe_mappings": {

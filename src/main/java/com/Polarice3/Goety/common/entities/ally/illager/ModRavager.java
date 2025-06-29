@@ -576,7 +576,7 @@ public class ModRavager extends RaiderServant implements PlayerRideable, IAutoRi
     @Override
     public void die(DamageSource pCause) {
         if (!this.level.isClientSide) {
-            if (this.getTrueOwner() != null) {
+            if (this.getTrueOwner() != null && this.getMobType() != MobType.UNDEAD) {
                 if (CuriosFinder.hasNamelessSet(this.getTrueOwner())){
                     ZombieRavager servant = this.convertTo(ModEntityType.ZOMBIE_RAVAGER.get(), true);
                     if (servant != null) {

@@ -1,0 +1,22 @@
+{
+  "name": "身震いのフォーカス",
+  "icon": "goety:trembling_focus",
+  "category": "goety:focuses/wind",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この呪文は術者の周囲に円形の風を放ちます。味方以外のエンティティを一定距離押し戻し、一時的に速度を低下させます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/trembling_focus"
+    },
+	{
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/wind_staff)風の杖$()で唱えると、効果範囲を拡大します。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:trembling_focus": 1
+  }
+}

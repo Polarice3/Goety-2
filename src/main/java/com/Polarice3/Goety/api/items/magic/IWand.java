@@ -63,10 +63,14 @@ public interface IWand extends IForgeItem {
     }
 
     default boolean cannotCast(LivingEntity livingEntity, ItemStack stack){
+        return this.cannotCast(livingEntity, stack, this.getSpell(stack));
+    }
+
+    default boolean cannotCast(LivingEntity livingEntity, ItemStack stack, ISpell spell){
         boolean flag = false;
         if (livingEntity.level instanceof ServerLevel serverLevel){
-            if (this.getSpell(stack) != null){
-                if (!this.getSpell(stack).conditionsMet(serverLevel, livingEntity)){
+            if (spell != null){
+                if (!spell.conditionsMet(serverLevel, livingEntity)){
                     flag = true;
                 }
             }
@@ -84,8 +88,13 @@ public interface IWand extends IForgeItem {
         return false;
     }
 
+    @Deprecated()
     default boolean isNotInstant(ISpell spells){
-        return spells != null && spells.defaultCastDuration() > 0;
+        return this.isNotInstant(spells, null, ItemStack.EMPTY);
+    }
+
+    default boolean isNotInstant(ISpell spells, @Nullable LivingEntity caster, ItemStack staff){
+        return spells != null && (caster != null ? spells.castDuration(caster, staff) > 0 : spells.defaultCastDuration() > 0);
     }
 
     default boolean notTouch(ISpell spells){

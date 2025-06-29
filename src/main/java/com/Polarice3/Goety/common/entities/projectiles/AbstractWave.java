@@ -36,6 +36,8 @@ public abstract class AbstractWave extends SpellEntity {
     private double lyd;
     private double lzd;
     public int activeWaveTicks;
+    public boolean isShrink = false;
+    public int shrinking = 40;
 
     public AbstractWave(EntityType p_19870_, Level p_19871_) {
         super(p_19870_, p_19871_);
@@ -128,8 +130,11 @@ public abstract class AbstractWave extends SpellEntity {
         if (this.isSlamming() && this.slamProgress < 10.0F) {
             this.slamProgress += 1.0F;
         }
-        if (this.isSlamming() && this.slamProgress == 10.0F) {
-            this.discard();
+        if (this.isSlamming() && this.slamProgress >= 10.0F) {
+            this.isShrink = true;
+        }
+        if (this.isShrink) {
+            this.shrinkingTick();
         }
         if (!this.isNoGravity() && !this.isInWaterOrBubble()) {
             this.setDeltaMovement(this.getDeltaMovement().add(0.0D, (double) -0.04F, 0.0D));
@@ -179,6 +184,14 @@ public abstract class AbstractWave extends SpellEntity {
         }
     }
 
+    public void shrinkingTick() {
+        if (this.getWaveScale() <= 0.0F) {
+            this.discard();
+        } else {
+            this.setWaveScale(this.getWaveScale() - 0.1F);
+        }
+    }
+
     public void attackEntities(float scale){
     }
 
@@ -191,7 +204,7 @@ public abstract class AbstractWave extends SpellEntity {
 
     @Override
     public EntityDimensions getDimensions(Pose pose) {
-        float newDim = (this.getWaveScale() - 1.0F) * 2.0F;
+        float newDim = Math.max((this.getWaveScale() - 1.0F) * 2.0F, 0.0F);
         return super.getDimensions(pose)
                 .scale(this.getWaveScale() + newDim,
                         this.getWaveScale() + newDim);

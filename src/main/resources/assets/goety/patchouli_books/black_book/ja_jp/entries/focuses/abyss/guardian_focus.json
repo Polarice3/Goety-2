@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/guardian_focus"
+    },
+	{
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/abyss_staff)深淵の杖$()で唱えると、2体召喚できます。"
     }
   ],
   "extra_recipe_mappings": {

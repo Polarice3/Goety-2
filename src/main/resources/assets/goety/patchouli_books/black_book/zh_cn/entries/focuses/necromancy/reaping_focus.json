@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "这些渴望灵魂的幽灵们不仅可用于消灭敌人，还能为它们的亡灵巫师主人收集灵魂能量。"
+      "text": "这些渴望灵魂的幽灵们不仅可用于消灭敌人，还能为它们的死灵法师主人收集灵魂能量"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/reaping_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/necro_staff)死灵魔杖$()施法时，一次可以召唤更多收割者"
     }
   ],
   "extra_recipe_mappings": {

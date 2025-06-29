@@ -27,7 +27,7 @@ public class TridentStormSpell extends Spell {
         return 100;
     }
 
-    public int castDuration(LivingEntity caster) {
+    public int castDuration(LivingEntity caster, ItemStack staff) {
         return this.defaultCastDuration();
     }
 

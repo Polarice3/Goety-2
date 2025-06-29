@@ -1,0 +1,22 @@
+{
+  "name": "地の杖",
+  "icon": "goety:geo_staff",
+  "category": "goety:crafts/staff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ジオマンサーは地質系呪文のパワーを高めるために単純な木の杖を使用しますが、あなたは家にあるアメジストを使う方がよいことを知っています。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:geo_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "地の杖はいくつかのジオマンシー呪文を強化し、地球そのものに対するさらなる力を与えます。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:wind_staff": 1
+  }
+}

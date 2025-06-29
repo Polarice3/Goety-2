@@ -11,6 +11,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/lavaball_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/nether_staff)Nether Staff$() will shoot two extra lava bombs."
     }
   ],
   "extra_recipe_mappings": {

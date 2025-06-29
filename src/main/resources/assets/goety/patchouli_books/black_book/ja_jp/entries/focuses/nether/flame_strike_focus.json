@@ -1,15 +1,23 @@
 {
-  "name": "フレイミングストライクのフォーカス",
+  "name": "フレイムストライクのフォーカス",
   "icon": "goety:flame_strike_focus",
   "category": "goety:focuses/nether",
+  "advancement": "minecraft:story/enter_the_nether",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "ネザーの力により、炎の柱を召喚して、自分を囲んだり、有効なターゲットを直接見ている敵を囲んだりすることができます。"
+      "text": "ネザーの力により、自分を囲む炎の柱、または有効なターゲットである敵を直接見ている時に別の出し方で炎の柱を召喚することができます。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/flame_strike_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/nether_staff)ネザーの杖$()で唱えると、炎の柱の半径が2倍になります。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:flame_strike_focus": 1
+  }
 }

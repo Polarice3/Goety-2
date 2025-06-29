@@ -54,6 +54,15 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:crusher_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这类灾厄村民在文明中通常是为其他灾厄村民锻造武器的存在，但他也会使用强力的大锤粉碎敌人"
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:evoker_servant"
     },
     {
@@ -86,6 +95,15 @@
       "text": "天空之主！这些有大把头发的萨满可以把敌人抛向天空，或是用风把他们吹走."
     },
     {
+      "type": "patchouli:entity",
+      "entity": "goety:storm_caster_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "无论他们是在寻找宝藏还是在守卫宝藏，这些灾厄村民都能唤起无情的雷电把敌人电成灰"
+    },
+    {
       "type": "patchouli:spotlight",
       "item": "minecraft:red_bed",
       "title": "喂食、治愈与繁殖",
@@ -104,6 +122,7 @@
     },
     {
       "type": "patchouli:entity",
+      "name": "灾厄村民队长",
       "entity": "goety:pillager_servant{HandItems:[{Count:1,id:\"minecraft:crossbow\"},{}], ArmorItems:[{},{},{},{Count:1,id:\"minecraft:black_banner\"}]}",
       "scale": 0.5,
       "text": "像掠夺者仆从这样的灾厄村民就可以成为队长"

@@ -10,6 +10,10 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/quaking_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/geo_staff)地卜魔杖$()施法时，地震波会沿弧形展开并禁用格挡中的盾牌，潜行时施法可以提升作用半径"
     }
   ]
 }

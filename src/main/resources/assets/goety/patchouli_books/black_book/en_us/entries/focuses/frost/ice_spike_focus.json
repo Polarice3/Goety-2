@@ -10,6 +10,10 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/ice_spike_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/frost_staff)Frost Staff$() will shoot an Ice Spear, a larger variant that pierces through enemies, instead."
     }
   ]
 }

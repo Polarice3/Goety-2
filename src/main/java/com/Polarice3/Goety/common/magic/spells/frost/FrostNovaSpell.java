@@ -90,12 +90,18 @@ public class FrostNovaSpell extends Spell {
         worldIn.sendParticles(new ShockwaveParticleOption(0, (float) (radius * 2), 1), spellTarget.getX(), spellTarget.getY() + 0.5F, spellTarget.getZ(), 0, 0, 0, 0, 0);
         float trueDamage = Mth.clamp(damage + worldIn.random.nextInt((int) (maxDamage - damage)), damage, maxDamage);
         int finalDuration = duration;
+        int amp = 0;
+        if (rightStaff(staff)) {
+            amp += 1;
+            radius += 0.5F;
+        }
+        int finalAmp = amp;
         new SpellExplosion(worldIn, caster, ModDamageSource.directFreeze(caster), spellTarget.blockPosition(), (float) radius, trueDamage){
             @Override
             public void explodeHurt(Entity target, DamageSource damageSource, double x, double y, double z, double seen, float actualDamage) {
                 if (target instanceof LivingEntity target1 && !MobUtil.areAllies(caster, target1) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target1)){
                     super.explodeHurt(target, damageSource, x, y, z, seen, actualDamage);
-                    target1.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), MathHelper.secondsToTicks(5) * finalDuration));
+                    target1.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), MathHelper.secondsToTicks(5) * finalDuration, finalAmp));
                 }
             }
         };

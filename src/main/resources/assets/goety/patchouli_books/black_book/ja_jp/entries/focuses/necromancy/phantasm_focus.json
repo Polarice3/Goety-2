@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/phantasm_focus"
+    },
+	{
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/necro_staff)ネクロの杖$()で唱えると、一度に召喚されるファントムの数が増えます。"
     }
   ],
   "extra_recipe_mappings": {

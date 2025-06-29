@@ -1,5 +1,5 @@
 {
-  "name": "岩浆爆破聚晶",
+  "name": "岩浆炸弹聚晶",
   "icon": "goety:magma_bomb_focus",
   "category": "goety:focuses/nether",
   "advancement": "minecraft:story/enter_the_nether",
@@ -11,6 +11,13 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/magma_bomb_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/nether_staff)下界魔杖$()施法可以增加爆炸半径."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:magma_bomb_focus": 1
+  }
 }

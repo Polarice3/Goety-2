@@ -103,7 +103,11 @@ public class FireBlastSpell extends Spell {
         }
 
         int finalBurning = burning;
-        new SpellExplosion(worldIn, caster, damageSource, caster.blockPosition(), radius, trueDamage){
+        float increase = 0.0F;
+        if (rightStaff(staff)) {
+            increase = 0.5F;
+        }
+        new SpellExplosion(worldIn, caster, damageSource, caster.blockPosition(), radius + increase, trueDamage){
             @Override
             public void explodeHurt(Entity target, DamageSource damageSource, double x, double y, double z, double seen, float actualDamage) {
                 if (target instanceof LivingEntity target1){

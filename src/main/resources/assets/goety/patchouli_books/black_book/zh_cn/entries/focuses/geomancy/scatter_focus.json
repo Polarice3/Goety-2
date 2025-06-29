@@ -10,6 +10,10 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/scatter_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/geo_staff)地卜魔杖$()承载该聚晶时，该聚晶的施法方式会改变，施法者必须长按以持续施法，直到施法者周围生成的红石地雷数量达到14颗，而不是和此前一样立刻召唤3颗红石地雷"
     }
   ]
 }

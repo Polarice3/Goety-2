@@ -11,6 +11,10 @@
       "type": "patchouli:crafting",
       "recipe": "goety:focus/wind_blast_focus",
       "text": "When cast by different staffs, the wind blast might give additional effects to targets."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/wind_staff)Wind Staff$() increases knockback distance."
     }
   ]
 }

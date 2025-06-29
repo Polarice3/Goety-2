@@ -1,15 +1,19 @@
 {
   "name": "冰刺聚晶",
   "icon": "goety:ice_spike_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/frost",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "朝施法者的前方射出一道冰刺。被刺击的生物将在1到3秒内被冻结."
+      "text": "朝施法者的前方射出一道冰刺，被刺击的生物将在1到3秒内被冻结."
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/ice_spike_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/frost_staff)霜冻魔杖$()施法时，发射的冰刺会转化为一支更大、且可以穿透敌人的冰矛"
     }
   ]
 }

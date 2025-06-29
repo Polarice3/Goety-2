@@ -32,6 +32,7 @@ import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 public class ItemHelper {
@@ -312,5 +313,22 @@ public class ItemHelper {
             }
         }
         return false;
+    }
+
+    public static int repairPlayerItems(Player p_147093_, int experience) {
+        Map.Entry<EquipmentSlot, ItemStack> entry = EnchantmentHelper.getRandomItemWith(Enchantments.MENDING, p_147093_, ItemStack::isDamaged);
+        if (entry != null) {
+            ItemStack itemstack = entry.getValue();
+            int i = Math.min((int) (experience * itemstack.getXpRepairRatio()), itemstack.getDamageValue());
+            itemstack.setDamageValue(itemstack.getDamageValue() - i);
+            int j = experience - durabilityToXp(i);
+            return j > 0 ? repairPlayerItems(p_147093_, j) : 0;
+        } else {
+            return experience;
+        }
+    }
+
+    private static int durabilityToXp(int p_20794_) {
+        return p_20794_ / 2;
     }
 }

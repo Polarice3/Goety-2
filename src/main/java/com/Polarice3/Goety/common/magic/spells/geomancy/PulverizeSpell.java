@@ -63,10 +63,13 @@ public class PulverizeSpell extends BlockSpell {
     }
 
     @Override
-    public void blockResult(ServerLevel worldIn, LivingEntity caster, BlockPos target) {
+    public void blockResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, BlockPos target) {
         int radius = 0;
         if (WandUtil.enchantedFocus(caster)){
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
+        }
+        if (this.rightStaff(staff)) {
+            radius += 1;
         }
         if (radius > 0) {
             for (BlockPos blockPos : BlockFinder.multiBlockBreak(caster, target, radius, radius, radius)) {

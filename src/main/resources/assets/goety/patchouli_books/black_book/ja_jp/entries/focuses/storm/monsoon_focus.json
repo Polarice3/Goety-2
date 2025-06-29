@@ -1,15 +1,22 @@
 {
   "name": "モンスーンのフォーカス",
   "icon": "goety:monsoon_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/storm",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "ターゲットのブロックまたはモブの上空に嵐の雲を召喚し、そこに雨が降り、近くの非味方モブに定期的に落雷を発射します。"
+      "text": "対象のブロックまたはクリーチャーの上空に嵐の雲を召喚し、雨を降らせ、定期的に近くの非同盟のクリーチャーに雷を撃ちます。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/monsoon_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/storm_staff)嵐の杖$()で唱えると、雲のサイズが大きくなり、雷が連鎖的に感電を引き起こすようになります。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:monsoon_focus": 1
+  }
 }

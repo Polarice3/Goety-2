@@ -10,6 +10,10 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/bubble_stream_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/abyss_staff)Abyss Staff$() will cause the bubbles to put out fires."
     }
   ]
 }

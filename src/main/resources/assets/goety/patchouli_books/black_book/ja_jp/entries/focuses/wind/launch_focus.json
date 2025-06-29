@@ -1,15 +1,22 @@
 {
-  "name": "ローンチのフォーカス",
+  "name": "打ち上げのフォーカス",
   "icon": "goety:launch_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/wind",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "いくつかのいじくりと実験の結果、あなたは空中に推進する呪文を作成することができ、粗雑ではあるが効果的な方法で飛行できるようになりました。"
+      "text": "何度か試行錯誤を繰り返した結果、あなたは空中に飛び上がる呪文を編み出すことに成功し、粗雑ながらも効果的な飛行が可能になりました。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/launch_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/wind_staff)風の杖$()で唱えると、あなたをさらに前進させます。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:launch_focus": 1
+  }
 }

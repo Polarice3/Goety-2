@@ -12,6 +12,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/wither_skull_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/nether_staff)Nether Staff$() shoots two more wither skulls."
     }
   ],
   "extra_recipe_mappings": {

@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/ghost_fire_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/necro_staff)死灵魔杖$()施法时，召唤的冰之火范围升至3*3格，而不是2*2格"
     }
   ],
   "extra_recipe_mappings": {

@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/fire_blast_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/nether_staff)ネザーの杖$()で唱えると、爆発範囲が少し増加します。"
     }
   ],
   "extra_recipe_mappings": {

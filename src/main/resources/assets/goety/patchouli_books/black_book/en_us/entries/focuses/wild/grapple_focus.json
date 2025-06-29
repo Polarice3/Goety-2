@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/grapple_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/wild_staff)Wild Staff$() allows the hook to shoot further and negates fall damage when attached to a grappling hook."
     }
   ],
   "extra_recipe_mappings": {

@@ -42,7 +42,12 @@ public interface ISpell {
 
     int defaultSoulCost();
 
+    @Deprecated(forRemoval = true)
     default int soulCost(LivingEntity caster){
+        return ISpell.this.soulCost(caster, ItemStack.EMPTY);
+    }
+
+    default int soulCost(LivingEntity caster, ItemStack staff){
         return SoulCalculation(caster);
     }
 
@@ -178,7 +183,12 @@ public interface ISpell {
 
     int defaultCastDuration();
 
+    @Deprecated(forRemoval = true)
     default int castDuration(LivingEntity caster){
+        return ISpell.this.castDuration(caster, ItemStack.EMPTY);
+    }
+
+    default int castDuration(LivingEntity caster, ItemStack staff){
         if (ReduceCastTime(caster)){
             return defaultCastDuration() / 2;
         } else {
@@ -216,7 +226,12 @@ public interface ISpell {
     default void useSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, int castTime, SpellStat spellStat) {
     }
 
+    @Deprecated(forRemoval = true)
     default void stopSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, int useTimeRemaining) {
+        stopSpell(worldIn, caster, staff, ItemStack.EMPTY, this.castDuration(caster, staff) - useTimeRemaining, this.defaultStats());
+    }
+
+    default void stopSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, ItemStack focus, int castTime, SpellStat spellStat) {
     }
 
     default void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){

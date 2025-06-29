@@ -49,7 +49,10 @@ public class DarkScytheItem extends TieredItem implements Vanishable {
         return initialDamage;
     }
 
-    public boolean getMineBlocks(BlockState pState){
+    public boolean getMineBlocks(Level pLevel, BlockState pState, BlockPos pPos){
+        if (pState.getDestroySpeed(pLevel, pPos) <= -1.0F) {
+            return false;
+        }
         return pState.is(BlockTags.MINEABLE_WITH_HOE) || BlockFinder.isScytheBreak(pState);
     }
 
@@ -68,14 +71,14 @@ public class DarkScytheItem extends TieredItem implements Vanishable {
 
     public boolean mineBlock(ItemStack pStack, Level pLevel, BlockState pState, BlockPos pPos, LivingEntity pEntityLiving) {
         if (pState.getDestroySpeed(pLevel, pPos) != 0.0F) {
-            pStack.hurtAndBreak(this.getMineBlocks(pState) ? 1 : 2, pEntityLiving, (p_220044_0_) ->
+            pStack.hurtAndBreak(this.getMineBlocks(pLevel, pState, pPos) ? 1 : 2, pEntityLiving, (p_220044_0_) ->
                     p_220044_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }
-        if (this.getMineBlocks(pState)){
+        if (this.getMineBlocks(pLevel, pState, pPos)){
             pLevel.playSound((Player) null, pPos.getX(), pPos.getY(), pPos.getZ(), ModSounds.SCYTHE_HIT.get(), pEntityLiving.getSoundSource(), 1.0F, 1.0F);
             for (BlockPos blockPos : BlockFinder.multiBlockBreak(pEntityLiving, pPos, 2, 2, 2)){
                 BlockState blockstate = pLevel.getBlockState(blockPos);
-                if (this.getMineBlocks(blockstate)){
+                if (this.getMineBlocks(pLevel, blockstate, blockPos)){
                     if (BlockFinder.breakBlock(pLevel, blockPos, pStack, pEntityLiving)){
                         if (blockstate.getDestroySpeed(pLevel, blockPos) != 0) {
                             pStack.hurtAndBreak(1, pEntityLiving, (p_220044_0_)

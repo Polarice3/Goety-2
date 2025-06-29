@@ -11,6 +11,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/flame_strike_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/nether_staff)Nether Staff$() will double the radius of fire pillars."
     }
   ],
   "extra_recipe_mappings": {

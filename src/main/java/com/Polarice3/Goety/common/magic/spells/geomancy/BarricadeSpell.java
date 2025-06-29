@@ -76,7 +76,7 @@ public class BarricadeSpell extends Spell {
             potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
         }
-        if (GeoPower(caster)){
+        if (this.rightStaff(staff)){
             chance += 0.2F;
         }
         HitResult rayTraceResult = this.rayTrace(worldIn, caster, range, 3);

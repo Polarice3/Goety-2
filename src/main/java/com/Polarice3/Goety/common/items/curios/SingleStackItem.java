@@ -75,7 +75,6 @@ public class SingleStackItem extends Item implements ICurioItem {
         if (stack.getItem() instanceof SingleStackItem) {
             if (stack.is(ModItems.AMETHYST_NECKLACE.get())) {
                 tooltip.add(Component.translatable("info.goety.amethyst_necklace").withStyle(main));
-                tooltip.add(Component.translatable("info.goety.amethyst_necklace_discount").withStyle(secondary));
             }
             if (stack.getItem() instanceof WitchHatItem) {
                 tooltip.add(Component.translatable("info.goety.witch_hat").withStyle(main));

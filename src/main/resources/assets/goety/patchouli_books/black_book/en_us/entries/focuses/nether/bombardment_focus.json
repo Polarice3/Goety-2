@@ -15,6 +15,10 @@
     {
       "type": "patchouli:text",
       "text": "Enchanting the focus with Duration will increase the number of volleys that you can shoot."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/nether_staff)Nether Staff$() will cause you to shoot two more fireballs per volley."
     }
   ]
 }

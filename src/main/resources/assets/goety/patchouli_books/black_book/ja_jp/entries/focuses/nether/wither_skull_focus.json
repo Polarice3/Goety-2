@@ -1,17 +1,24 @@
 {
-  "name": "ウィザースカルフォーカス",
+  "name": "ウィザースカルのフォーカス",
   "icon": "goety:wither_skull_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/nether",
   "advancement": "goety:goety/kill_a_apostle",
   "secret": true,
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "ネザーの使者の不浄な血により、スカル フォーカスをアップグレードしてウィザーの頭蓋骨を再現できるようになります。 その破壊的な能力に注意してください！"
+      "text": "ネザーの使者の血は、スカルのフォーカスをアップグレードしてウィザーの頭蓋骨を再現することを可能にします！ただし、その破壊力にはご注意ください！"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/wither_skull_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/nether_staff)ネザーの杖$()で唱えると、さらに2つのウィザースカルを撃ちます。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:wither_skull_focus": 1
+  }
 }

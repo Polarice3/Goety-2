@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "该聚晶允许你发射一个电球，当你使用该聚晶时看向一个实体时，它会在击中目标或任何固体物块之前跟随目标。"
+      "text": "该聚晶允许你发射一个电球，当你使用该聚晶时看向一个实体时，它会在击中目标或任何固体物块之前跟随目标."
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/electrocute_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/storm_staff)闪电魔杖$()施法，可以发射带电能量球，更高概率触发痉挛效果，并在命中后引发雷爆，对多个目标造成伤害."
     }
   ]
 }

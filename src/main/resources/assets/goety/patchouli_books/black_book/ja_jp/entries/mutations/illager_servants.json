@@ -43,10 +43,19 @@
       "type": "patchouli:text",
       "text": "指揮下にある最も凶悪なイリジャーの一人。斧で盾を無効化し、大量のダメージを与える。従順にさせたいなら、「Johnny」という名前は避けた方が良いだろう。"
     },
-	    {
+	{
       "type": "patchouli:entity",
       "entity": "goety:vindicator_chef_servant",
       "scale": 0.75
+    },
+	{
+      "type": "patchouli:entity",
+      "entity": "goety:crusher_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "これらのイリジャーは通常、他のイリジャーのために武器を鍛造しますが、強力なハンマーで敵を粉砕することもできます。"
     },
     {
       "type": "patchouli:text",
@@ -84,6 +93,15 @@
     {
       "type": "patchouli:text",
       "text": "空の支配者であるこの大きな髪の魔術師は、敵を上空に投げ飛ばしたり、風で吹き飛ばしたりすることができます。"
+    },
+	{
+      "type": "patchouli:entity",
+      "entity": "goety:storm_caster_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "宝物を探しているときも、宝物を守っているときも、これらのイリジャーは容赦なく敵を感電させて灰にします。"
     },
     {
       "type": "patchouli:spotlight",

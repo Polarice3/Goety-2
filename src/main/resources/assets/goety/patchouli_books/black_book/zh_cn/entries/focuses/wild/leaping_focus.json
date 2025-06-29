@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "这个法术能召唤一个$(l:summons/leapleaves)腾跃之叶$()，它是一个强而有力的仆从，能在高高跃起后猛烈地砸向你的敌人"
+      "text": "这个法术能召唤一个$(l:summons/leapleaves)腾跃之叶$()，它是一个强而有力的仆从，能在高高跃起后猛烈地砸向你的敌人."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/leaping_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/wild_staff)荒野魔杖$()施法会有概率多召唤一个腾跃之叶。"
     }
   ],
   "extra_recipe_mappings": {

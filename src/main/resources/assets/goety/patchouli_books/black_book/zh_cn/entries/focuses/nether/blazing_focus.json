@@ -12,6 +12,13 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/blazing_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/nether_staff)下界魔杖$()施法时，一次可以召唤更多烈焰人"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:blazing_focus": 1
+  }
 }

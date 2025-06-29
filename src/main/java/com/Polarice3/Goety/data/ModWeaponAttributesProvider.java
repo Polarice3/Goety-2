@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.data;
 
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.magic.DarkStaff;
 import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonObject;
@@ -45,17 +46,14 @@ public class ModWeaponAttributesProvider implements DataProvider {
     }
 
     private void addNewData() {
-        Collection<Item> items = new ArrayList<>();
         ModItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(item ->
         {
-            if (item instanceof DarkWand) {
-                items.add(item);
+            if (item instanceof DarkStaff) {
+                this.addData(item, "bettercombat:trident");
+            } else if (item instanceof DarkWand) {
+                this.addData(item, "bettercombat:wand");
             }
         });
-
-        for (Item item : items) {
-            this.addData(item, "bettercombat:trident");
-        }
     }
 
     @Override

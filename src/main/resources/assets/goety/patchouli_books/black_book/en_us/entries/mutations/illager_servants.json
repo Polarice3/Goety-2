@@ -54,6 +54,15 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:crusher_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These Illagers are usually the ones that forge weapons for other Illagers, but they can also smash apart their foes with their mighty hammer."
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:evoker_servant"
     },
     {
@@ -84,6 +93,15 @@
     {
       "type": "patchouli:text",
       "text": "Masters of the skies, these big haired shamans can fling their foes to the sky or blast them away with the wind."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:storm_caster_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Whether they're hunting treasures or keeping them safe, these illagers will mercilessly electrocute their enemies to cinders."
     },
     {
       "type": "patchouli:spotlight",

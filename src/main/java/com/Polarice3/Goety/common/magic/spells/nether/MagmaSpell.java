@@ -67,7 +67,7 @@ public class MagmaSpell extends Spell {
         float velocity = spellStat.getVelocity() + WandUtil.getLevels(ModEnchantments.VELOCITY.get(), caster) / 3.0F;
         float extraBlast = WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster) / 2.0F;
         if (this.rightStaff(staff)){
-            radius = 4.0F;
+            radius += 1.0F;
         }
         MagmaBomb blast = new MagmaBomb(caster, worldIn);
         blast.setExtraDamage(spellStat.getPotency() + WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));

@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/launch_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/wind_staff)Wind Staff$() launches you further."
     }
   ],
   "extra_recipe_mappings": {

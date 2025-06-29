@@ -11,6 +11,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/blackguard_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/necro_staff)死灵魔杖$()施法时，一次可以召唤更多暗卫仆从"
     }
   ],
   "extra_recipe_mappings": {

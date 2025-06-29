@@ -11,6 +11,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/leaping_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/wild_staff)Wild Staff$() will have a chance of summoning an additional leapleaf."
     }
   ],
   "extra_recipe_mappings": {

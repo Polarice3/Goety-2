@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "该聚晶允许玩家抛射出一颗充满荒野能量的荆棘之球，在球的落地范围内会长出几根荆棘伤害敌人"
+      "text": "该咒语释放出一团荆棘般狂野的能量球，击中区域将生长出多根剧毒荆棘impact."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/blossoming_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/wild_staff)荒野魔杖$()施法可以增加法术半径."
     }
   ],
   "extra_recipe_mappings": {

@@ -1,17 +1,24 @@
 {
   "name": "凋灵聚晶",
   "icon": "goety:wither_skull_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/nether",
   "advancement": "goety:goety/kill_a_apostle",
   "secret": true,
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "下界使徒的不洁之血扭曲了原本的聚晶，现在它有着毁灭和终结的渴望"
+      "text": "下界使徒的不洁之血扭曲了原本的聚晶，现在它有着毁灭和终结的渴望!"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/wither_skull_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/nether_staff)下界魔杖$()施法可以一次发射三发凋零骷髅头."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:wither_skull_focus": 1
+  }
 }

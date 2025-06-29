@@ -12,6 +12,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/blazing_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/nether_staff)Nether Staff$() summons more blazes at once."
     }
   ],
   "extra_recipe_mappings": {

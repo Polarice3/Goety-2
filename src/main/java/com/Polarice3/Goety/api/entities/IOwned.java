@@ -325,6 +325,9 @@ public interface IOwned {
         return 64;
     }
 
+    default void uncreditedKill(LivingEntity target){
+    }
+
     default void readOwnedData(CompoundTag compound){
         if (compound.hasUUID("Owner")) {
             this.setOwnerId(compound.getUUID("Owner"));

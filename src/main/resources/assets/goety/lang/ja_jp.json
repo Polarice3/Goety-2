@@ -442,7 +442,6 @@
   "item.goety.hail_focus.info": "場所またはターゲットの上に雲を召喚し、その下にある味方以外のターゲットに凍結ダメージを与えます。",
   "item.goety.updraft_focus": "上昇気流のフォーカス",
   "item.goety.updraft_focus.info": "場所またはターゲットに風を呼び起こし、一定時間後にターゲットを空中に打ち上げ、ダメージを与えます。",
-  "item.goety.wind_blast_focus": "暴風のフォーカス",
   "item.goety.wind_blast_focus.info": "目の前に風を起こします。ターゲットにダメージを与えませんが、ノックバックさせます。",
   "item.goety.shocking_focus": "ショッキングのフォーカス",
   "item.goety.shocking_focus.info": "味方以外のターゲットに電流を発射します。",
@@ -916,8 +915,7 @@
   "info.goety.witch_hat": "魔女のローブでの醸造スタンドを高速化します。",
   "info.goety.necro_crown": "アンデッドの従者は持続します。",
   "info.goety.necro_crown_cast": "ネクロマンシー呪文の詠唱時間が半分になります。",
-  "info.goety.amethyst_necklace": "バリケード呪文を唱える際にトーテミックボムを4つ召喚する確率 +20%。",
-  "info.goety.amethyst_necklace_discount": "ジオマンシー呪文のソウルコストが半分になります。",
+  "info.goety.amethyst_necklace": "ジオマンシー呪文のソウルコストが半分になります。",
   "info.goety.dark_robe": "すべての呪文のソウルコストが半分になります。",
   "info.goety.necro_cape": "アンデッドの従者がソウルエネルギーを使って回復できるようにします。",
   "info.goety.necro_cape_power": "特定の新しく召喚されたアンデッドの従者は追加の能力を獲得します。",
@@ -2663,5 +2661,13 @@
   "advancements.goety.craft_command_focus.description": "命令のフォーカスを作成する",
   "entity.goety.earth_fist": "Earth Fist",
   "painting.goety.glacial_flower.author": "Polarice",
-  "painting.goety.glacial_flower.title": "Glacial Flower"
+  "painting.goety.glacial_flower.title": "Glacial Flower",
+  "entity.goety.crusher_servant": "Crusher Servant",
+  "entity.goety.storm_caster_servant": "Storm Caster Servant",
+  "item.goety.crusher_servant_spawn_egg": "Crusher Servant Spawn Egg",
+  "item.goety.storm_caster_servant_spawn_egg": "Storm Caster Servant Spawn Egg",
+  "item.goety.geo_staff": "Geo Staff",
+  "item.goety.grave_dust": "墓の塵",
+  "item.goety.ring_of_thirst": "Ring of Thirst",
+  "item.goety.wind_blast_focus": "突風のフォーカス"
 }

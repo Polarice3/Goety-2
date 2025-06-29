@@ -6,6 +6,8 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.effects.brew.BrewEffectInstance;
 import com.Polarice3.Goety.common.entities.util.DragonBreathCloud;
+import com.Polarice3.Goety.common.events.spell.CastMagicEvent;
+import com.Polarice3.Goety.common.events.spell.CastingMagicEvent;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.spells.void_spells.EndWalkSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
@@ -585,6 +587,18 @@ public class PotionEvents {
         if (!(event.getItem().getItem() instanceof IWand)) {
             if (event.getEntity().hasEffect(GoetyEffects.SHADOW_WALK.get())) {
                 event.getEntity().removeEffect(GoetyEffects.SHADOW_WALK.get());
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onCastingSpell(CastingMagicEvent event){
+        if (!(event.getSpell() instanceof EndWalkSpell)){
+            if (event.castingTime() > 20 || event.castingTime() >= event.getSpell().castDuration(event.getEntity(), event.getUseItem())) {
+                if (event.getEntity().hasEffect(GoetyEffects.SHADOW_WALK.get())) {
+                    event.getEntity().removeEffect(GoetyEffects.SHADOW_WALK.get());
+                    event.setCanceled(true);
+                }
             }
         }
     }

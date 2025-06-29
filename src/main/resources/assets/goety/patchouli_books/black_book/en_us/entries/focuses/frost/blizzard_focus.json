@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/blizzard_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/frost_staff)Frost Staff$() will rain ice spears, larger and piercing version of ice spikes, instead."
     }
   ],
   "extra_recipe_mappings": {

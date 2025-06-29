@@ -1,15 +1,20 @@
 {
-  "name": "ウィンドブラストフォーカス",
+  "name": "突風のフォーカス",
   "icon": "goety:wind_blast_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/wind",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "ウィンドブラストフォーカスを使用すると、目の前に風を起こし、視線内の生き物をノックバックできます。 残念ながら、爆発はダメージを与えませんが、明らかに短い距離からクリーチャーを棚から投げ落とすことができます。"
+      "text": "このフォーカスは、目の前に突風を発生させ、視界内のクリーチャーを吹き飛ばします。残念ながらこの突風はダメ​​ージを与えませんが、確かに短い距離からクリーチャーを崖から突き落とすことができます。"
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:focus/wind_blast_focus"
+      "recipe": "goety:focus/wind_blast_focus",
+      "text": "異なる杖で発動した場合、突風はターゲットに追加の効果を与える可能性があります。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/wind_staff)風の杖$()で唱えると、ノックバック距離を増加します。"
     }
   ]
 }

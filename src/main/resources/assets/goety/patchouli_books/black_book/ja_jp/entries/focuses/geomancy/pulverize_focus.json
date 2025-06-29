@@ -1,15 +1,19 @@
 {
   "name": "粉砕のフォーカス",
   "icon": "goety:pulverize_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/geomancy",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "ワンドまたはスタッフにこのフォーカスを装備すると、ブロックを右クリックして、特定のブロックをひびの入ったバージョンに粉砕したり、砂利にしてから砂にすることができます。"
+      "text": "このフォーカスを杖に入れて、ブロックを右クリックすると、特定のブロックをひびの入ったブロックに粉砕したり、砂利に粉砕してから砂に粉砕したりできるようになります。"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/pulverize_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/geo_staff)地の杖$()で唱えると、エンチャントされていない3x3ブロックを粉砕します。"
     }
   ]
 }

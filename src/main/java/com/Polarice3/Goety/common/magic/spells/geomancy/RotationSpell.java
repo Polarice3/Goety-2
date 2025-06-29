@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.ChestBlock;
@@ -47,7 +48,7 @@ public class RotationSpell extends BlockSpell {
     }
 
     @Override
-    public void blockResult(ServerLevel worldIn, LivingEntity caster, BlockPos target) {
+    public void blockResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, BlockPos target) {
         worldIn.playSound(null, target, ModSounds.TOCK.get(), this.getSoundSource(), 1.0F, 1.0F);
     }
 

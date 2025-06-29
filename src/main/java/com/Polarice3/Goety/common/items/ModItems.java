@@ -75,7 +75,7 @@ public class ModItems {
     public static final RegistryObject<Item> SPIDER_EGG = ITEMS.register("spider_egg", ItemBase::new);
     public static final RegistryObject<Item> WARPED_WARTFUL_EGG = ITEMS.register("warped_wartful_egg", ItemBase::new);
     public static final RegistryObject<Item> VENOMOUS_FANG = ITEMS.register("venomous_fang", ItemBase::new);
-//    public static final RegistryObject<Item> REAPER_SILK = ITEMS.register("reaper_silk", ItemBase::new);
+    public static final RegistryObject<Item> GRAVE_DUST = ITEMS.register("grave_dust", ItemBase::new);
     public static final RegistryObject<Item> RAGING_MATTER = ITEMS.register("raging_matter", ItemBase::new);
     public static final RegistryObject<Item> ICE_CUBE = ITEMS.register("ice_cube", ItemBase::new);
     public static final RegistryObject<Item> SOUL_RUBY = ITEMS.register("soul_ruby", ItemBase::new);
@@ -170,6 +170,7 @@ public class ModItems {
     public static final RegistryObject<Item> FOCUS_PACK = ITEMS.register("focus_pack", FocusPack::new);
     public static final RegistryObject<Item> BREW_BAG = ITEMS.register("brew_bag", BrewBag::new);
     public static final RegistryObject<SingleStackItem> RING_OF_WANT = ITEMS.register("ring_of_want", RingItem::new);
+    public static final RegistryObject<SingleStackItem> RING_OF_THIRST = ITEMS.register("ring_of_thirst", RingItem::new);
     public static final RegistryObject<SingleStackItem> RING_OF_FORCE = ITEMS.register("ring_of_force", RingItem::new);
     public static final RegistryObject<SingleStackItem> RING_OF_THE_FORGE = ITEMS.register("ring_of_the_forge", RingItem::new);
     public static final RegistryObject<SingleStackItem> RING_OF_THE_DRAGON = ITEMS.register("ring_of_the_dragon", RingItem::new);
@@ -370,6 +371,7 @@ public class ModItems {
     public static final RegistryObject<Item> DARK_WAND = ITEMS.register("dark_wand", DarkWand::new);
     public static final RegistryObject<Item> OMINOUS_STAFF = ITEMS.register("ominous_staff", () -> new DarkStaff(ItemConfig.OminousStaffDamage.get(), SpellType.ILL));
     public static final RegistryObject<Item> NECRO_STAFF = ITEMS.register("necro_staff", () -> new DarkStaff(ItemConfig.NecroStaffDamage.get(), SpellType.NECROMANCY));
+    public static final RegistryObject<Item> GEO_STAFF = ITEMS.register("geo_staff", () -> new DarkStaff(ItemConfig.GeoStaffDamage.get(), SpellType.GEOMANCY));
     public static final RegistryObject<Item> WIND_STAFF = ITEMS.register("wind_staff", () -> new DarkStaff(ItemConfig.WindStaffDamage.get(), SpellType.WIND));
     public static final RegistryObject<Item> STORM_STAFF = ITEMS.register("storm_staff", () -> new DarkStaff(ItemConfig.StormStaffDamage.get(), SpellType.STORM));
     public static final RegistryObject<Item> FROST_STAFF = ITEMS.register("frost_staff", () -> new DarkStaff(ItemConfig.FrostStaffDamage.get(), SpellType.FROST));

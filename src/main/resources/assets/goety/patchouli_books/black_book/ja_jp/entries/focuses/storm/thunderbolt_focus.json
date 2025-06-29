@@ -1,15 +1,19 @@
 {
-  "name": "サンダーボルトフォーカス",
+  "name": "サンダーボルトのフォーカス",
   "icon": "goety:thunderbolt_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/storm",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "複数の電気スパークの代わりに、より大きなダメージを与える 1 つの大きなスパークを発射します。 風の杖からキャストされていない場合、サンダーボルトは避雷針の影響を受けます。嵐の杖を使用せずに避雷針が近くにある場合、避雷針に落ちます"
+      "text": "複数の電撃を放つ代わりに、より大きなダメージを与える大きな電撃を一つ放ちます。$(l:crafts/staff/storm_staff)嵐の杖$()で唱えていない場合、雷撃は避雷針の影響を受けます。"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/thunderbolt_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/storm_staff)嵐の杖$()で唱えると、連鎖的な雷撃効果も与え、さらに、けいれん効果を与える可能性が高くなります。"
     }
   ]
 }

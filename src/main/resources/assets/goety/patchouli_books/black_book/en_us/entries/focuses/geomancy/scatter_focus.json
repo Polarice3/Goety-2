@@ -10,6 +10,10 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/scatter_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/geo_staff)Geo Staff$() changes how the spell is cast. Instead of, by default, instantly summoning three scatter mines, the caster must continuously cast the spell until up to fourteen mines has spawned around them."
     }
   ]
 }

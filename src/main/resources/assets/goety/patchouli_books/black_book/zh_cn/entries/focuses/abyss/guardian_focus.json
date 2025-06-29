@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/guardian_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/abyss_staff)深渊魔杖$()施法时可以一次召唤两名守卫者仆从"
     }
   ],
   "extra_recipe_mappings": {

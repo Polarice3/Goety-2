@@ -11,6 +11,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/blackguard_focus"
+    },
+	{
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/necro_staff)ネクロの杖$()で唱えると、一度に召喚されるブラックガードの数が増えます。"
     }
   ],
   "extra_recipe_mappings": {

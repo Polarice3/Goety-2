@@ -1,11 +1,15 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.BlockFinder;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -133,6 +137,15 @@ public class CarrionFly extends Summoned {
                 this.noPhysics = true;
             }
         }
+        if (!this.level.isClientSide) {
+            if (this.getTrueOwner() != null) {
+                if (this.getTrueOwner() instanceof Mob mobOwner) {
+                    if (mobOwner.isRemoved() || mobOwner.isDeadOrDying()) {
+                        this.lifeSpanDamage();
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -162,6 +175,26 @@ public class CarrionFly extends Summoned {
             } else {
                 health.setBaseValue(8.0D);
                 attack.setBaseValue(2.0D);
+            }
+        }
+    }
+
+    @Override
+    public void uncreditedKill(LivingEntity target) {
+        if (!MobUtil.areAllies(this, target)) {
+            int random = this.getRandom().nextIntBetweenInclusive(1, 3);
+            for (int i = 0; i < random; ++i) {
+                CarrionMaggot carrionMaggot = new CarrionMaggot(ModEntityType.CARRION_MAGGOT.get(), this.level);
+                carrionMaggot.setTrueOwner(this.getTrueOwner() != null ? this.getTrueOwner() : this);
+                BlockPos blockPos = BlockFinder.SummonRadius(target.blockPosition(), carrionMaggot, this.level, 3);
+                carrionMaggot.moveTo(blockPos.getCenter());
+                if (this.level instanceof ServerLevel serverLevel) {
+                    carrionMaggot.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(carrionMaggot.blockPosition()), MobSpawnType.BREEDING, null, null);
+                }
+                carrionMaggot.setNatural(this.isNatural());
+                carrionMaggot.setHostile(this.isHostile());
+                carrionMaggot.setUpgraded(this.isUpgraded());
+                this.level.addFreshEntity(carrionMaggot);
             }
         }
     }

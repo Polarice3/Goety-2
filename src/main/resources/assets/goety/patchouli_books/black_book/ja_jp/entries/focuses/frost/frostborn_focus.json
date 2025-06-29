@@ -1,15 +1,22 @@
 {
-  "name": "Frostborn Focus",
+  "name": "フロストボーンのフォーカス",
   "icon": "goety:frostborn_focus",
   "category": "goety:focuses/frost",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The spell summons forth an $(l:summons/ice_golems)Ice Golem$(), a powerful servant that's resistant to freeze damage and can rarely summon an explosion of frost.."
+      "text": "$(l:summons/ice_golems)アイスゴーレム$()召喚する呪文です。凍結ダメージに耐性があり、稀に氷の爆発を引き起こす強力な従者です。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/frostborn_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/frost_staff)氷の杖$()で唱えると、追加のゴーレムを召喚する可能性があります。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:frostborn_focus": 1
+  }
 }

@@ -28,6 +28,11 @@
     },
     {
       "type": "patchouli:text",
+      "title": "Crusher Servants",
+      "text": "Requirements: $(li)Neollager $(li)64 Wooden Planks $(li)64 Bricks Blocks Any $(li)8 Fences $(li)8 Blast Furnaces $(li)2 Lava Cauldrons $(li)2 Water Cauldrons $(li)4 Anvils"
+    },
+    {
+      "type": "patchouli:text",
       "title": "Evoker Servants",
       "text": "Requirements: $(li)Magic Neollager $(li)32 Bookshelves/Enchant Power $(li)16 Lit Candles $(li)4 Heads $(li)4 Filled Flower Pots $(li)4 Amethyst Clusters $(li)4 Blocks of Awakened Emerald $(li)1 Lectern"
     },
@@ -45,6 +50,11 @@
       "type": "patchouli:text",
       "title": "Wind Caller Servants",
       "text": "Requirements: $(li)Magic Neollager $(li)64 Marble Blocks $(li)32 Jade Blocks $(li)4 Indented Gold Blocks"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Storm Caster Servants",
+      "text": "Requirements: $(li)Geomancer or Wind Caller $(li)Pyre must be exposed to Thunderstorm $(li)32 Copper Blocks Any $(li)64 Bricks Blocks Any $(li)4 Lightning Rods"
     },
     {
       "type": "patchouli:text",

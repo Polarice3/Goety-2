@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "你会在你的位置上布设炎爆陷阱，它可以伤害附近的所有生物并点燃它们。炎爆会造成火灾伤害，不会伤害施法者或其友军。"
+      "text": "你会在你的位置上布设炎爆陷阱，它可以伤害附近的所有生物并点燃它们。炎爆会造成火焰伤害，不会伤害施法者或其友军。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/fire_blast_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/nether_staff)下界魔杖$()施法时，爆炸范围会小幅度提升"
     }
   ],
   "extra_recipe_mappings": {

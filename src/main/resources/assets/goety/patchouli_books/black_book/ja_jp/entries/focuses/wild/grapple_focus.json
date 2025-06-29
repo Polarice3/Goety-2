@@ -5,11 +5,18 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "このフォーカスにより、ツタとトゲでできたグラップリング フックを発射できるようになります。このフックは、着地したあらゆる固い表面に張り付いて、プレイヤーを引き寄せます。"
+      "text": "このフォーカスにより、ツタとトゲでできたフックショットを撃つことができ、それが着地したあらゆる固い表面に引っ掛かり、プレイヤーを引き寄せます。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/grapple_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/wild_staff)野生の杖$()で唱えると、フックの射程が長くなり、フックに取り付けている間は落下ダメージが無効化されます。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:grapple_focus": 1
+  }
 }

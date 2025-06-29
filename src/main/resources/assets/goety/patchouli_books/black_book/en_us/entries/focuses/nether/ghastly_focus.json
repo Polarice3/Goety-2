@@ -14,6 +14,10 @@
     },
     {
       "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/nether_staff)Nether Staff$() summons more ghasts at once."
+    },
+    {
+      "type": "patchouli:text",
       "advancement": "goety:goety/read_bygone_scroll",
       "text": "Wearing a Nether Robes will casting this spell will summon forth Ghast Servants instead of Mini-Ghasts, though in smaller amounts even when cast with Nether Staff."
     }

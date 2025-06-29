@@ -71,9 +71,9 @@ public class HammerItem extends TieredItem implements Vanishable {
     }
 
     public void smash(ItemStack pStack, LivingEntity pTarget, Player player){
-        player.level.playSound((Player) null, player.getX(), player.getY(), player.getZ(), ModSounds.HAMMER_SWING.get(), player.getSoundSource(), 1.0F, 1.0F);
+        player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.HAMMER_SWING.get(), player.getSoundSource(), 1.0F, 1.0F);
         if (pTarget.onGround()) {
-            player.level.playSound((Player) null, pTarget.getX(), pTarget.getY(), pTarget.getZ(), ModSounds.DIRT_DEBRIS.get(), player.getSoundSource(), 1.0F, 1.0F);
+            player.level.playSound(null, pTarget.getX(), pTarget.getY(), pTarget.getZ(), ModSounds.DIRT_DEBRIS.get(), player.getSoundSource(), 1.0F, 1.0F);
         }
         if (player.level instanceof ServerLevel serverLevel){
             BlockPos blockPos = BlockPos.containing(pTarget.getX(), pTarget.getY() - 1.0F, pTarget.getZ());
@@ -105,8 +105,9 @@ public class HammerItem extends TieredItem implements Vanishable {
         return super.useOn(p_41427_);
     }
 
-    public boolean getMineBlocks(BlockState pState){
-        return pState.is(BlockTags.MINEABLE_WITH_PICKAXE);
+    public boolean getMineBlocks(Level pLevel, BlockState pState, BlockPos pPos){
+        return pState.is(BlockTags.MINEABLE_WITH_PICKAXE)
+                && pState.getDestroySpeed(pLevel, pPos) > -1.0F;
     }
 
     public float getDestroySpeed(ItemStack pStack, BlockState pState) {
@@ -115,14 +116,14 @@ public class HammerItem extends TieredItem implements Vanishable {
 
     public boolean mineBlock(ItemStack pStack, Level pLevel, BlockState pState, BlockPos pPos, LivingEntity pEntityLiving) {
         if (pState.getDestroySpeed(pLevel, pPos) != 0.0F) {
-            pStack.hurtAndBreak(this.getMineBlocks(pState) ? 1 : 2, pEntityLiving, (p_220044_0_) ->
+            pStack.hurtAndBreak(this.getMineBlocks(pLevel, pState, pPos) ? 1 : 2, pEntityLiving, (p_220044_0_) ->
                     p_220044_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }
-        if (this.getMineBlocks(pState)){
+        if (this.getMineBlocks(pLevel, pState, pPos)){
             pLevel.playSound((Player) null, pPos.getX(), pPos.getY(), pPos.getZ(), ModSounds.DIRT_DEBRIS.get(), pEntityLiving.getSoundSource(), 1.0F, 1.0F);
             for (BlockPos blockPos : BlockFinder.multiBlockBreak(pEntityLiving, pPos, 1, 1, 1)){
                 BlockState blockstate = pLevel.getBlockState(blockPos);
-                if (this.getMineBlocks(blockstate)){
+                if (this.getMineBlocks(pLevel, blockstate, blockPos)){
                     if (BlockFinder.breakBlock(pLevel, blockPos, pStack, pEntityLiving)){
                         if (blockstate.getDestroySpeed(pLevel, blockPos) != 0) {
                             pStack.hurtAndBreak(1, pEntityLiving, (p_220044_0_)

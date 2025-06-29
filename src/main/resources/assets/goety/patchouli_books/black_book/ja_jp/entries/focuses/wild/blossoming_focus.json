@@ -1,0 +1,22 @@
+{
+  "name": "開花のフォーカス",
+  "icon": "goety:blossoming_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この呪文は、野生のエネルギーである棘の弾を発射し、その衝撃領域の周囲にいくつかの有毒な棘を呼び起こします。。開花と言っても、歯のフォーカスのように刺す感じが近いです。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/blossoming_focus"
+    },
+	{
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/wild_staff)野生の杖$()で唱えると、範囲が増加します。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:blossoming_focus": 1
+  }
+}

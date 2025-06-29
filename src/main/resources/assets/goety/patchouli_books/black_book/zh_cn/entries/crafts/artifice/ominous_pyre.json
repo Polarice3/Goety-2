@@ -24,12 +24,17 @@
     {
       "type": "patchouli:text",
       "title": "卫道士厨师仆从",
-      "text": "需求：$(li)1名卫道士仆从 $(li)4个烟熏炉 $(li)16个木桶 $(li)2个熔炉 $(li)2块蛋糕"
+      "text": "需求：$(li)1名卫道士仆从 $(li)4个烟熏炉或熔炉 $(li)16个木桶 $(li)2个熔炉 $(li)2块蛋糕"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "粉碎者仆从",
+      "text": "需求：$(li)新刌民 $(li)64个木板 $(li)60个任意种类的砖块 $(li)10个木栅栏 $(li)8个高炉 $(li)2个装满熔岩（岩浆）的炼药锅 $(li)2个装满水的炼药锅 $(li)4个铁砧"
     },
     {
       "type": "patchouli:text",
       "title": "唤魔者仆从",
-      "text": "需求： $(li)必须是有魔法资质的新刌民 $(li)32个书架/附魔能力与前者等同的方块 $(li)16根点燃的蜡烛 $(li)4个头颅 $(li)4个非空的花盆 $(li)4块紫水晶簇 $(li)4个觉醒绿宝石块 $(li)1个讲台"
+      "text": "需求：$(li)必须是有魔法资质的新刌民 $(li)32个书架/附魔能力与前者等同的方块 $(li)16根点燃的蜡烛 $(li)4个头颅 $(li)4个非空的花盆 $(li)4块紫水晶簇 $(li)4个觉醒绿宝石块 $(li)1个讲台"
     },
     {
       "type": "patchouli:text",
@@ -39,12 +44,17 @@
     {
       "type": "patchouli:text",
       "title": "冰术士仆从",
-      "text": "求：$(li)必须是有魔法资质的新刌民 $(li)16个蓝冰 $(li)64个雪块 $(li)4盏$(l:goety:crafts/artifice/freezing_lamp)极寒冰灯$()"
+      "text": "需求：$(li)必须是有魔法资质的新刌民 $(li)16个蓝冰 $(li)64个雪块 $(li)4盏$(l:goety:crafts/artifice/freezing_lamp)极寒冰灯$()"
     },
     {
       "type": "patchouli:text",
       "title": "唤风者仆从",
       "text": "需求：$(li)必须是有魔法资质的新刌民 $(li)64个大理石及其变种 $(li)32个玉瓷砖及其变种 $(li)4个平滑金块"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "暴风术士仆从",
+      "text": "需求：$(li)1名地卜师或唤风者仆从 $(li)火盆必须暴露在雷雨天气中 $(li)32个铜块及其变种 $(li)64个砖块及其变种 $(li)4根避雷针"
     },
     {
       "type": "patchouli:text",

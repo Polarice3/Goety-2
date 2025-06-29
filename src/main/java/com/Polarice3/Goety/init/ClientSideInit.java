@@ -92,6 +92,7 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.SPELL_SQUARE.get(), SpellSquareParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.TRAIL.get(), TrailParticle.MobProvider::new);
         event.registerSpriteSet(ModParticleTypes.SUMMON_TRAIL.get(), SummonTrailParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.DROPLET.get(), DropParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.GO.get(), SoulExplodeParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.STOP.get(), SoulExplodeParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SPARKLE.get(), SparkleParticle.Provider::new);

@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/ghost_fire_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/necro_staff)Necro Staff$() summons more icy flames in a 3x3 grid instead of 2x2."
     }
   ],
   "extra_recipe_mappings": {

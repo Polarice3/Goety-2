@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "goety:item/reaper_silk"
+    "layer0": "goety:item/grave_dust"
   }
 }

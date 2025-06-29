@@ -10,6 +10,10 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/bubble_stream_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/abyss_staff)深渊魔杖$()施法时，喷射的气泡柱可以灭火"
     }
   ]
 }

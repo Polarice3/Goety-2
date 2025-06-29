@@ -1,16 +1,23 @@
 {
-  "name": "ヴァンガードフォーカス",
+  "name": "ヴァンガードのフォーカス",
   "icon": "goety:vanguard_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/necromancy",
   "advancement": "goety:goety/read_front_scroll",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "このフォーカスを使用して、墓の向こうから忠実な衛兵を召喚する方法を発見しました。 この呪文は古代の王から盗まれて再利用されたような気がします。"
+      "text": "このフォーカスを使って、墓場から忠実な護衛を召喚する方法を発見しました。この呪文は古代の王から盗まれ、再利用された可能性があります。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/vanguard_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/necro_staff)ネクロの杖$()で唱えると、一度に召喚されるヴァンガードの数が増えます。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:vanguard_focus": 1
+  }
 }

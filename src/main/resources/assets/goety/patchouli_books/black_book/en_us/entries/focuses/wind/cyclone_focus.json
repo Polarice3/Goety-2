@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The focus sends forth a powerful cyclone pulling in any nearby creatures and throwing them around. Casting with the Wind Staff will cause the cyclone to constantly deal a small amount of damage to targets caught in it."
+      "text": "The focus sends forth a powerful cyclone pulling in any nearby creatures and throwing them around. Casting with the $(l:crafts/staff/wind_staff)Wind Staff$() will cause the cyclone to constantly deal a small amount of damage to targets caught in it."
     },
     {
       "type": "goety:ritual",

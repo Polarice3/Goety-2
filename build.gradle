@@ -102,6 +102,13 @@ repositories {
         }
     }
     maven {
+        name = "Modrinth Maven"
+        url = "https://api.modrinth.com/maven"
+        content {
+            includeGroup "maven.modrinth"
+        }
+    }
+    maven {
         name = "Curios"
         url = "https://maven.theillusivec4.top"
     }
@@ -151,7 +158,7 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:worldedit-225608:4586218")
     runtimeOnly fg.deobf("curse.maven:mob-battle-mod-268746:4748521")
     runtimeOnly fg.deobf("curse.maven:lionfish-api-1001614:5922047")
-    runtimeOnly fg.deobf("curse.maven:lendercataclysm-551586:6418841")
+    runtimeOnly fg.deobf("maven.modrinth:l_enders-cataclysm:QHJDhxzx")
     runtimeOnly fg.deobf("curse.maven:retro-damage-indicators-1003431:5268035")
     runtimeOnly fg.deobf("curse.maven:kiwi-303657:4688568")
     runtimeOnly fg.deobf("curse.maven:wiki-zoomer-383277:4576732")

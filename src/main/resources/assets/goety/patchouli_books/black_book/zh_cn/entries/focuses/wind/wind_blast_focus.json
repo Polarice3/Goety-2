@@ -1,7 +1,7 @@
 {
   "name": "风爆聚晶",
   "icon": "goety:wind_blast_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/wind",
   "pages": [
     {
       "type": "patchouli:text",
@@ -9,7 +9,12 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:focus/wind_blast_focus"
+      "recipe": "goety:focus/wind_blast_focus",
+      "text": "当使用不同的魔杖施法时，风爆也会给予敌对生物额外的效果"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/wind_staff)烈风魔杖$()施法可以增加击退距离。"
     }
   ]
 }

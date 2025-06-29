@@ -38,17 +38,17 @@ public class SoulTakenListener extends SimpleJsonResourceReloadListener {
             JsonObject object = objectIn.get(location).getAsJsonObject();
             if (!CraftingHelper.processConditions(object, "conditions", this.context)){
                 Goety.LOGGER.debug("Skipping loading soul taken entry {} as it's conditions were not met", location);
-                return;
+            } else {
+                ResourceLocation entityType = null;
+                ResourceLocation entityTag = null;
+                if (object.has("entity_type")){
+                    entityType = new ResourceLocation(object.getAsJsonPrimitive("entity_type").getAsString());
+                } else if (object.has("tag")){
+                    entityTag = new ResourceLocation(object.getAsJsonPrimitive("tag").getAsString());
+                }
+                int soulAmount = object.getAsJsonPrimitive("soul_amount").getAsInt();
+                ENTITY_LIST.put(location, new SoulTakenDataType(entityType, entityTag, soulAmount));
             }
-            ResourceLocation entityType = null;
-            ResourceLocation entityTag = null;
-            if (object.has("entity_type")){
-                entityType = new ResourceLocation(object.getAsJsonPrimitive("entity_type").getAsString());
-            } else if (object.has("tag")){
-                entityTag = new ResourceLocation(object.getAsJsonPrimitive("tag").getAsString());
-            }
-            int soulAmount = object.getAsJsonPrimitive("soul_amount").getAsInt();
-            ENTITY_LIST.put(location, new SoulTakenDataType(entityType, entityTag, soulAmount));
         }
     }
 

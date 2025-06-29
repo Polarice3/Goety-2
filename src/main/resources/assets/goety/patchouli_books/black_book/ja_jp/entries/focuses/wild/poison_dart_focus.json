@@ -10,6 +10,10 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/poison_dart_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/wild_staff)野生の杖$()で唱えると、複数のターゲットを貫通する羽根を発射します。"
     }
   ]
 }

@@ -1,4 +1,5 @@
 {
+  "replace": false,
   "values": [
     "goety:graverobber_shovel",
     "goety:dark_shovel"

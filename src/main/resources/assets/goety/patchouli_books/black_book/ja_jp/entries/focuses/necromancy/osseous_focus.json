@@ -1,15 +1,22 @@
 {
-  "name": "骨密度のフォーカス",
+  "name": "スケルトンのフォーカス",
   "icon": "goety:osseous_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/necromancy",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "シールドを持ち歩く忍耐力のない人にとって、スケルトンは非常に迷惑な存在になる可能性があります。 これで、あなたは自分を召喚し、他のものを糸巻きに変えるように命令する力を手に入れました。"
+      "text": "盾を持ち歩く忍耐力のない人にとって、スケルトンは実に厄介な存在です。しかし今、スケルトンを召喚し、命令して他のスケルトンを針山に変えることができるようになりました。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/osseous_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/necro_staff)ネクロの杖$()で唱えると、一度に召喚されるスケルトンの数が増えます。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:osseous_focus": 1
+  }
 }

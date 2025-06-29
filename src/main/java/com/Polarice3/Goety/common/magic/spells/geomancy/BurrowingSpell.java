@@ -101,11 +101,11 @@ public class BurrowingSpell extends EverChargeSpell {
     }
 
     @Override
-    public void stopSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, int useTimeRemaining) {
+    public void stopSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, ItemStack focus, int castTime, SpellStat spellStat) {
         if (caster instanceof Player player){
             resetMiningProgress(worldIn, player);
         }
-        super.stopSpell(worldIn, caster, staff, useTimeRemaining);
+        super.stopSpell(worldIn, caster, staff, focus, castTime, spellStat);
     }
 
     @Override

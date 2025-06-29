@@ -1,15 +1,22 @@
 {
-  "name": "Frost Nova Focus",
+  "name": "フロストノヴァのフォーカス",
   "icon": "goety:frost_nova_focus",
   "category": "goety:focuses/frost",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "You unleash an explosion of frost at your position, or at a target's position while crouching, hurting all nearby creatures and freezing them. The explosion deals freeze damage and does not harm the caster."
+      "text": "自分の位置、またはしゃがんでいる間は対象の位置に氷の爆発を放ち、周囲のすべてのクリーチャーにダメージを与え、凍結させます。爆発は凍結ダメージを与えますが、術者自身にはダメージを与えません。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/frost_nova_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/frost_staff)氷の杖$()で唱えると、爆発半径が少し拡大し、ターゲットが少し早く凍結するようになります。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:frost_nova_focus": 1
+  }
 }

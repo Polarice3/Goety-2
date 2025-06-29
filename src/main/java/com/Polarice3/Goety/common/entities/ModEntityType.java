@@ -241,6 +241,11 @@ public class ModEntityType {
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(10));
 
+    public static final RegistryObject<EntityType<MiniElectroOrb>> MINI_ELECTRO_ORB = register("mini_electro_orb",
+            EntityType.Builder.<MiniElectroOrb>of(MiniElectroOrb::new, MobCategory.MISC)
+                    .sized(0.3125F, 0.3125F)
+                    .clientTrackingRange(10));
+
     public static final RegistryObject<EntityType<BouncyBubble>> BOUNCY_BUBBLE = register("bouncy_bubble",
             EntityType.Builder.<BouncyBubble>of(BouncyBubble::new, MobCategory.MISC)
                     .sized(0.3125F, 0.3125F)
@@ -900,6 +905,12 @@ public class ModEntityType {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(10));
 
+    public static final RegistryObject<EntityType<CrusherServant>> CRUSHER_SERVANT = register("crusher_servant",
+            EntityType.Builder.of(CrusherServant::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(10));
+
     public static final RegistryObject<EntityType<EvokerServant>> EVOKER_SERVANT = register("evoker_servant",
             EntityType.Builder.of(EvokerServant::new, MobCategory.MONSTER)
                     .canSpawnFarFromPlayer()
@@ -923,6 +934,12 @@ public class ModEntityType {
                     .canSpawnFarFromPlayer()
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<StormCasterServant>> STORM_CASTER_SERVANT = register("storm_caster_servant",
+            EntityType.Builder.of(StormCasterServant::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
 
     public static final RegistryObject<EntityType<AllyTrampler>> ALLY_TRAMPLER = register("ally_trampler",
             EntityType.Builder.of(AllyTrampler::new, MobCategory.MONSTER)

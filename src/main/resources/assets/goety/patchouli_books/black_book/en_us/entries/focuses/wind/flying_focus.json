@@ -11,6 +11,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/flying_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/wind_staff)Wind Staff$() will make you fly faster."
     }
   ],
   "extra_recipe_mappings": {

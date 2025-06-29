@@ -1107,42 +1107,6 @@ public class ModEvents {
                 }
             }
         }
-        if (event.getAmount() > 0.0F) {
-            if (event.getSource().getDirectEntity() instanceof LivingEntity livingAttacker) {
-                if (ModDamageSource.physicalAttacks(event.getSource())) {
-                    ItemHelper.setItemEffect(livingAttacker.getMainHandItem(), victim);
-                    if (livingAttacker.getMainHandItem().getItem() instanceof TieredItem weapon) {
-                        if (weapon instanceof DarkScytheItem) {
-                            victim.playSound(ModSounds.SCYTHE_HIT_MEATY.get());
-                        }
-                        if (weapon instanceof DeathScytheItem) {
-                            if (!victim.hasEffect(GoetyEffects.SAPPED.get())) {
-                                victim.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), 100));
-                                victim.playSound(SoundEvents.SHIELD_BREAK, 2.0F, 1.0F);
-                            } else {
-                                if (victim.level.random.nextFloat() <= 0.2F) {
-                                    EffectsUtil.amplifyEffect(victim, GoetyEffects.SAPPED.get(), 100);
-                                    victim.playSound(SoundEvents.SHIELD_BREAK, 2.0F, 1.0F);
-                                } else {
-                                    EffectsUtil.resetDuration(victim, GoetyEffects.SAPPED.get(), 100);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        if (victim instanceof Player player) {
-            if (CuriosFinder.hasCurio(victim, ModItems.SPITEFUL_BELT.get())) {
-                int a = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.THORNS, CuriosFinder.findCurio(victim, ModItems.SPITEFUL_BELT.get()));
-                if (SEHelper.getSoulsAmount(player, ItemConfig.SpitefulBeltUseAmount.get() * (a + 1))) {
-                    if (!event.getSource().is(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !event.getSource().is(DamageTypes.THORNS) && event.getSource().getEntity() instanceof LivingEntity livingentity && livingentity != victim) {
-                        livingentity.hurt(livingentity.damageSources().thorns(victim), 2.0F + a);
-                        SEHelper.decreaseSouls(player, ItemConfig.SpitefulBeltUseAmount.get() * (a + 1));
-                    }
-                }
-            }
-        }
     }
 
     @SubscribeEvent
@@ -1365,6 +1329,21 @@ public class ModEvents {
             MiscCapHelper.setShields(killed, 0);
             MiscCapHelper.setShieldTime(killed, 0);
             MiscCapHelper.setShakeTime(killed, 0);
+        }
+    }
+
+    @SubscribeEvent
+    public static void ExperienceEvents(LivingExperienceDropEvent event){
+        Player player = event.getAttackingPlayer();
+        int exp = event.getDroppedExperience();
+        if (player != null) {
+            if (CuriosFinder.hasCurio(player, ModItems.RING_OF_THIRST.get())) {
+                int i = ItemHelper.repairPlayerItems(player, exp);
+                if (i > 0) {
+                    player.giveExperiencePoints(i);
+                }
+                event.setCanceled(true);
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.client.render.layer.HierarchicalArmorLayer;
 import com.Polarice3.Goety.client.render.model.StormCasterModel;
 import com.Polarice3.Goety.common.entities.hostile.illagers.StormCaster;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -14,7 +15,7 @@ public class StormCasterRenderer<T extends StormCaster> extends MobRenderer<T, S
 
     public StormCasterRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new StormCasterModel<>(renderManagerIn.bakeLayer(ModModelLayer.STORM_CASTER)), 0.5F);
-        this.addLayer(new CustomHeadLayer<>(this, renderManagerIn.getModelSet(), renderManagerIn.getItemInHandRenderer()));
+        this.addLayer(new HierarchicalArmorLayer<>(this, renderManagerIn));
     }
 
     protected void scale(T entity, PoseStack matrixStackIn, float partialTickTime) {

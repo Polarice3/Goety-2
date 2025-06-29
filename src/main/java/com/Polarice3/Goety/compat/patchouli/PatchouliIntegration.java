@@ -30,6 +30,7 @@ public class PatchouliIntegration implements ICompatable {
         PatchouliAPI.get().registerMultiblock(Goety.location("grave_golem"), GRAVE_GOLEM.get());
         PatchouliAPI.get().registerMultiblock(Goety.location("grave_golem_revive"), GRAVE_GOLEM_REVIVE.get());
         PatchouliAPI.get().registerMultiblock(Goety.location("redstone_monstrosity"), REDSTONE_MONSTROSITY.get());
+        PatchouliAPI.get().registerMultiblock(Goety.location("so_example"), SO_EXAMPLE.get());
     }
 
     public static ItemStack getBlackBook(){
@@ -356,6 +357,49 @@ public class PatchouliIntegration implements ICompatable {
                 'C', redstoneCore,
                 'S', stoneMold,
                 '0', stoneMold
+        );
+    });
+
+    public static final Supplier<IMultiblock> SO_EXAMPLE = Suppliers.memoize(() -> {
+        IStateMatcher obelisk = PatchouliAPI.get().predicateMatcher(ModBlocks.SHRIEKING_OBELISK.get(),
+                state -> state.is(ModBlocks.SHRIEKING_OBELISK.get()));
+        IStateMatcher cage = PatchouliAPI.get().predicateMatcher(ModBlocks.CURSED_CAGE_BLOCK.get(),
+                state -> state.is(ModBlocks.CURSED_CAGE_BLOCK.get()));
+        IStateMatcher filler = PatchouliAPI.get().predicateMatcher(Blocks.COBBLESTONE,
+                state -> state.is(Blocks.COBBLESTONE));
+        IStateMatcher skull = PatchouliAPI.get().predicateMatcher(ModBlocks.TALL_SKULL_BLOCK.get(),
+                state -> state.is(ModBlocks.TALL_SKULL_BLOCK.get()));
+        IStateMatcher air = PatchouliAPI.get().predicateMatcher(Blocks.AIR,
+                state -> state.is(Blocks.AIR));
+        return PatchouliAPI.get().makeMultiblock(
+                new String[][] {
+                        {
+                                "_____",
+                                "_____",
+                                "__O__",
+                                "_____",
+                                "_____"
+                        },
+                        {
+                                "_____",
+                                "_SSS_",
+                                "_SCS_",
+                                "_SSS_",
+                                "_____"
+                        },
+                        {
+                                "SSSSS",
+                                "SFFFS",
+                                "SF0FS",
+                                "SFFFS",
+                                "SSSSS"
+                        }
+                },
+                'O', obelisk,
+                'C', cage,
+                'S', skull,
+                'F', filler,
+                '0', air
         );
     });
 }

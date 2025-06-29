@@ -2,9 +2,11 @@ package com.Polarice3.Goety.common.entities.ally.undead.skeleton;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ally.AnimalSummon;
+import com.Polarice3.Goety.common.entities.neutral.DrownedNecromancer;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
@@ -511,13 +513,15 @@ public class SkeletonWolf extends AnimalSummon {
                     if (livingEntity != this.wolf){
                         boolean flag = false;
                         if (this.wolf.isHostile()){
-                            if (livingEntity instanceof AbstractSkeleton || livingEntity.getType().is(EntityTypeTags.SKELETONS)){
+                            if (livingEntity instanceof AbstractSkeleton){
                                 flag = true;
                             }
                         }
-                        if (livingEntity instanceof AbstractSkeletonServant || livingEntity instanceof SkeletonWolf){
-                            if (MobUtil.areAllies(this.wolf, livingEntity)){
-                                flag = true;
+                        if (livingEntity instanceof AbstractSkeletonServant || livingEntity instanceof SkeletonWolf || livingEntity.getType().is(ModTags.EntityTypes.SKELETON_WOLF_BUFF)){
+                            if (!(livingEntity instanceof DrownedNecromancer)) {
+                                if (MobUtil.areAllies(this.wolf, livingEntity)) {
+                                    flag = true;
+                                }
                             }
                         }
                         if (flag){

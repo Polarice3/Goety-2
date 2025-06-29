@@ -6,11 +6,19 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "一个升级版的火球聚晶。现在，你可以发射一连串的火球并且像烈焰人一样飞起来。."
+      "text": "一个升级版的火球聚晶。现在，你可以发射一连串的火球并且像烈焰人一样飞起来。"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/bombardment_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "给这个聚晶附魔持久可以间接提升你施法时发射的火球数量"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/nether_staff)下界魔杖$()施法时，你每次悬浮射击都能发射两颗火球"
     }
   ]
 }

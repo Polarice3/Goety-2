@@ -1,0 +1,19 @@
+{
+  "name": "チルハイドのフォーカス",
+  "icon": "goety:chilling_focus",
+  "category": "goety:focuses/frost",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この呪文はアーマーポイントを増加させるだけでなく、近接攻撃してくる敵を凍結状態にします。また、しゃがんで味方クリーチャーを見ながら唱えることで、そのクリーチャーにもこの呪文を唱えることができます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/chilling_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/frost_staff)氷の杖$()で唱えると、術者またはターゲットの周囲の近くの味方に効果を適用します。"
+    }
+  ]
+}

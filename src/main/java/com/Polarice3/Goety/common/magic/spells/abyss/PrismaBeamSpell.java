@@ -63,7 +63,7 @@ public class PrismaBeamSpell extends Spell {
         LivingEntity target = this.getTarget(caster);
         if (target != null) {
             MiscCapHelper.setClientTarget(caster, target);
-            double d5 = ((double) castTime / this.castDuration(caster));
+            double d5 = ((double) castTime / this.castDuration(caster, staff));
             double d0 = target.getX() - caster.getX();
             double d1 = target.getY(0.5D) - caster.getEyeY();
             double d2 = target.getZ() - caster.getZ();
@@ -81,8 +81,8 @@ public class PrismaBeamSpell extends Spell {
     }
 
     @Override
-    public void stopSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, int useTimeRemaining) {
-        super.stopSpell(worldIn, caster, staff, useTimeRemaining);
+    public void stopSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, ItemStack focus, int castTime, SpellStat spellStat) {
+        super.stopSpell(worldIn, caster, staff, focus, castTime, spellStat);
         MiscCapHelper.setClientTarget(caster, null);
     }
 

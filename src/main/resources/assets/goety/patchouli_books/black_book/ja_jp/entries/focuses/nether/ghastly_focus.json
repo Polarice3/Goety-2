@@ -1,12 +1,12 @@
 {
-  "name": "凄惨なフォーカス",
+  "name": "ガストのフォーカス",
   "icon": "goety:ghastly_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/nether",
   "advancement": "minecraft:story/enter_the_nether",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "フォーカスを使用すると、破壊力は低いものの、依然として強力な火を噴く小型のガストを呼び出すことができます。"
+      "text": "このフォーカスにより、破壊力は劣るものの、強力な火を噴く小型のガストを召喚できるようになります。"
     },
     {
       "type": "goety:ritual",
@@ -14,8 +14,12 @@
     },
     {
       "type": "patchouli:text",
+      "text": "$(l:crafts/staff/nether_staff)ネザーの杖$()で唱えると、一度に召喚されるミニガストの数が増えます。"
+    },
+    {
+      "type": "patchouli:text",
       "advancement": "goety:goety/read_bygone_scroll",
-      "text": "ネザーのローブを着用してこの呪文を唱えると、ミニガストの代わりにガストの従者が召喚されますが、ネザースタッフで唱えた場合でも召喚される数は少なくなります。"
+      "text": "ネザーのローブを着用してこの呪文を唱えると、ミニガストの代わりに通常のガストがの従者召喚されますが、ネザーの杖で唱えた場合でも召喚される数は少なくなります。"
     }
   ],
   "extra_recipe_mappings": {

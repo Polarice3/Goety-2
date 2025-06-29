@@ -1,7 +1,7 @@
 {
   "name": "抓钩聚晶",
   "icon": "goety:grapple_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/wild",
   "pages": [
     {
       "type": "patchouli:text",
@@ -10,6 +10,13 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/grapple_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/wild_staff)荒野魔杖$()施法时，会让抓钩飞行速度更快，并且避免你在抓钩拉动你时导致的摔伤，"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:grapple_focus": 1
+  }
 }

@@ -22,19 +22,21 @@ public class PruningBlockEffect extends BrewEffect {
     public void applyBlockEffect(Level pLevel, BlockPos pPos, LivingEntity pSource, int pAmplifier, int pAreaOfEffect) {
         for (BlockPos blockPos : this.getCubePos(pPos, pAreaOfEffect + 2)) {
             if (pLevel.getBlockState(blockPos).getBlock() instanceof LeavesBlock || pLevel.getBlockState(blockPos).is(BlockTags.LEAVES) || pLevel.getBlockState(blockPos).getBlock() instanceof WebBlock){
-                if (pAmplifier > 0){
-                    if (pLevel.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS) && !pLevel.restoringBlockSnapshots) {
-                        ItemStack itemStack = new ItemStack(pLevel.getBlockState(blockPos).getBlock().asItem());
-                        double d0 = (double) (pLevel.random.nextFloat() * 0.5F) + 0.25D;
-                        double d1 = (double) (pLevel.random.nextFloat() * 0.5F) + 0.25D;
-                        double d2 = (double) (pLevel.random.nextFloat() * 0.5F) + 0.25D;
-                        ItemEntity itementity = new ItemEntity(pLevel, (double) blockPos.getX() + d0, (double) blockPos.getY() + d1, (double) blockPos.getZ() + d2, itemStack);
-                        itementity.setDefaultPickUpDelay();
-                        pLevel.addFreshEntity(itementity);
+                if (pLevel.getBlockState(blockPos).canEntityDestroy(pLevel, blockPos, pSource)) {
+                    if (pAmplifier > 0) {
+                        if (pLevel.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS) && !pLevel.restoringBlockSnapshots) {
+                            ItemStack itemStack = new ItemStack(pLevel.getBlockState(blockPos).getBlock().asItem());
+                            double d0 = (double) (pLevel.random.nextFloat() * 0.5F) + 0.25D;
+                            double d1 = (double) (pLevel.random.nextFloat() * 0.5F) + 0.25D;
+                            double d2 = (double) (pLevel.random.nextFloat() * 0.5F) + 0.25D;
+                            ItemEntity itementity = new ItemEntity(pLevel, (double) blockPos.getX() + d0, (double) blockPos.getY() + d1, (double) blockPos.getZ() + d2, itemStack);
+                            itementity.setDefaultPickUpDelay();
+                            pLevel.addFreshEntity(itementity);
+                        }
+                        pLevel.setBlockAndUpdate(blockPos, Blocks.AIR.defaultBlockState());
+                    } else {
+                        pLevel.destroyBlock(blockPos, true, pSource);
                     }
-                    pLevel.setBlockAndUpdate(blockPos, Blocks.AIR.defaultBlockState());
-                } else {
-                    pLevel.destroyBlock(blockPos, true, pSource);
                 }
             }
         }

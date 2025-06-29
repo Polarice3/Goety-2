@@ -1,15 +1,19 @@
 {
-  "name": "アイススパイクフォーカス",
+  "name": "アイススパイクのフォーカス",
   "icon": "goety:ice_spike_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/frost",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "術者の視線に向かって氷のスパイクを発射する。 スパイクに当たったクリーチャーは 1 ～ 3 秒間凍結状態になります。"
+      "text": "術者の視線に向かってアイススパイクを発射します。当たったクリーチャーは1～3秒間凍結状態になります。"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/ice_spike_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/frost_staff)氷の杖$()で唱えると、代わりに敵を貫通する大型のアイススピアを発射します。"
     }
   ]
 }

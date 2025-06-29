@@ -1,15 +1,19 @@
 {
   "name": "瓦解聚晶",
   "icon": "goety:pulverize_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/geomancy",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "在魔杖上装备这个聚晶时，你右键点击某个方块，会将某些方块粉碎成裂纹状态，进一步会被粉碎成砾石，直至变成沙子。"
+      "text": "在魔杖上装备这个聚晶时，你右键点击某个方块，会将某些方块粉碎成裂纹状态，进一步会被粉碎成沙砾，直至变成沙子。"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/pulverize_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/geo_staff)地卜魔杖$()施法时，一次可以作用于3*3格内未被施法过的方块"
     }
   ]
 }

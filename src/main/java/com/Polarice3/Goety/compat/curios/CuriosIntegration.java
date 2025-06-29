@@ -12,14 +12,15 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotTypeMessage;
 
 import java.util.Map;
 
+@SuppressWarnings("all")
 public class CuriosIntegration implements ICompatable {
 
     private static final Map<Item, String> TYPES = ImmutableMap.<Item, String>builder()
             .put(ModItems.RING_OF_WANT.get(), "ring")
+            .put(ModItems.RING_OF_THIRST.get(), "ring")
             .put(ModItems.RING_OF_FORCE.get(), "ring")
             .put(ModItems.RING_OF_THE_FORGE.get(), "ring")
             .put(ModItems.RING_OF_THE_DRAGON.get(), "ring")
@@ -79,7 +80,7 @@ public class CuriosIntegration implements ICompatable {
     }
 
     private void sendImc(InterModEnqueueEvent event) {
-        TYPES.values().stream().distinct().forEach(t -> InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder(t).build()));
+        TYPES.values().stream().distinct().forEach(t -> InterModComms.sendTo("curios", top.theillusivec4.curios.api.SlotTypeMessage.REGISTER_TYPE, () -> new top.theillusivec4.curios.api.SlotTypeMessage.Builder(t).build()));
     }
 
     private void registerCapabilities(RegisterCapabilitiesEvent event) {

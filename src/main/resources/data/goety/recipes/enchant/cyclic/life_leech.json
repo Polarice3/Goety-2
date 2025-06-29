@@ -18,6 +18,9 @@
     },
     {
       "tag": "forge:gems/lapis"
+    },
+    {
+      "item": "minecraft:beetroot_soup"
     }
   ],
   "result": {

@@ -1,15 +1,22 @@
 {
-  "name": "氷学フォーカス",
+  "name": "アイスチャンクのフォーカス",
   "icon": "goety:iceology_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/frost",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "あなたは邪悪な村人の魔法使いの氷の邪悪な魔術と呼ばれる分野を学びました。 この焦点を合わせると、ターゲットの上に浮遊する氷の塊を召喚し、少しの時間後にターゲットに衝突して、ターゲットを数秒間気絶させることができます。"
+      "text": "イリジャーの魔法の一分野、「氷学」/「アイソロジー」です。この魔法を習得すると、対象の頭上にアイスチャンクを召喚し、一定時間後にその氷塊を敵に叩きつけ、数秒間スタンさせることができます。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/iceology_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/frost_staff)氷の杖$()で唱えると、アイスチャンクのホバリング時間が短縮されます。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:iceology_focus": 1
+  }
 }

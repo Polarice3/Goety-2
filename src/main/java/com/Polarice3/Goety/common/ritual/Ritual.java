@@ -89,10 +89,10 @@ public abstract class Ritual {
 
     public void finish(Level world, BlockPos darkAltarPos, DarkAltarBlockEntity tileEntity,
                        Player castingPlayer, ItemStack activationItem) {
-        if (tileEntity.getCurrentRitualRecipe().getCraftType().contains("forge")){
+        if (tileEntity.getCurrentRitualRecipe().getCraftType().contains(RitualTypes.FORGE)){
             world.playSound(null, darkAltarPos, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
         }
-        if (tileEntity.getCurrentRitualRecipe().getCraftType().contains("storm")){
+        if (tileEntity.getCurrentRitualRecipe().getCraftType().contains(RitualTypes.STORM)){
             LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, world);
             lightningBolt.setVisualOnly(true);
             lightningBolt.setPos(Vec3.atCenterOf(darkAltarPos));

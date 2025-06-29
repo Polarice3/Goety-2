@@ -1,16 +1,23 @@
 {
-  "name": "フライトフォーカス",
+  "name": "飛行のフォーカス",
   "icon": "goety:flying_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/wind",
   "advancement": "minecraft:end/elytra",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "優雅なドラゴンの力とエリトラのコントロールを使って、(マウスの右ボタンを押したままにすることで) 杖や杖の中を適切に飛行できるように、発射フォーカスを改良することができました。"
+      "text": "優雅なドラゴンの力とエリトラのコントロールにより、打ち上げのフォーカスを改良して、杖を通して適切に飛行できるようになりました（マウスの右ボタンを押したままにします）。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/flying_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/wind_staff)風の杖$()で唱えると、飛行速度が増加します。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:flying_focus": 1
+  }
 }

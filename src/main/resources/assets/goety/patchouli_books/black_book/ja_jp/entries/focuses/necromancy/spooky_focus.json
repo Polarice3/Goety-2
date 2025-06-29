@@ -1,15 +1,22 @@
 {
-  "name": "不気味なフォーカス",
+  "name": "レイスのフォーカス",
   "icon": "goety:spooky_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/necromancy",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "レイスはアンデッドの生き物の中で最も一般的なわけではありませんが、出現し始めたのは最近になってからです。 いくつかの魂の布を使用すると、魂の布を召喚してコマンドにバインドすることができます。"
+      "text": "レイスはアンデッドの中でもそこまで一般的な存在ではなく、近年になってようやく姿を現し始めた。魂の生地を使えば、レイスを召喚し、自分の命令に従わせることができる。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/spooky_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/necro_staff)ネクロの杖$()で唱えると、一度に召喚されるレイスの数が増えます。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:spooky_focus": 1
+  }
 }

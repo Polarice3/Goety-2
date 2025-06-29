@@ -11,6 +11,10 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/fireball_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/nether_staff)Nether Staff$() will shoot two extra fireballs."
     }
   ]
 }

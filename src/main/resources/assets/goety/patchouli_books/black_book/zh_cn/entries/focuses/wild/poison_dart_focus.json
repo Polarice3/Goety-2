@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "在你的面前射出一根毒刺。被其击中的生物会中毒。"
+      "text": "在你的面前射出一根毒刺。被其击中的生物会中毒."
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/poison_dart_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/wild_staff)荒野魔杖$()施法可以射出一发能够穿透敌人的毒镖。"
     }
   ]
 }

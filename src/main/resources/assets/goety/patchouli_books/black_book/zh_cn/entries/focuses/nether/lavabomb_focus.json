@@ -1,7 +1,7 @@
 {
   "name": "熔岩炸弹聚晶",
   "icon": "goety:lavaball_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/nether",
   "advancement": "minecraft:story/enter_the_nether",
   "pages": [
     {
@@ -11,6 +11,13 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/lavaball_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/nether_staff)下界魔杖$()施法可以一次发射三发熔岩炸弹."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:lavaball_focus": 1
+  }
 }

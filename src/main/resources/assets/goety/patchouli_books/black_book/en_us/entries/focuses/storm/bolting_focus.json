@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/bolting_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/storm_staff)Storm Staff$() increases AoE, chance of inflicting Spasms and deal chain lightning effect."
     }
   ],
   "extra_recipe_mappings": {

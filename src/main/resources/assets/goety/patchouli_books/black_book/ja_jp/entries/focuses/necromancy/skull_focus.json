@@ -1,15 +1,22 @@
 {
-  "name": "スカルフォーカス",
+  "name": "スカルのフォーカス",
   "icon": "goety:skull_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/necromancy",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "この焦点を合わせると、幽霊に取り憑かれたスカルを向こうから呼び出すことができます。スカルはあなたを追いかけ、近くの敵対的な暴徒に突撃し、衝撃で爆発します。"
+      "text": "このフォーカスにより、あなたをフォローして、近くの敵対的な暴徒に突撃し、衝撃で爆発する、あの世からの霊にとりつかれた頭蓋骨を召喚することができます。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/skull_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/necro_staff)ネクロの杖$()で唱えると、一度に召喚されるホーンテッドスカルの数が増えます。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:skull_focus": 1
+  }
 }

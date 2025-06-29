@@ -78,19 +78,19 @@ public class RitualRequirements extends RitualTypes{
     }
 
     public static boolean geoturgyRitual(BlockPos pPos, Level pLevel){
-        return (!pLevel.canSeeSky(pPos) && pPos.getY() <= 32) || getStructures("geoturgy", pPos, pLevel);
+        return (!pLevel.canSeeSky(pPos) && pPos.getY() <= 32) || getStructures(GEOTURGY, pPos, pLevel);
     }
 
     public static boolean frostRitual(BlockPos pPos, Level pLevel){
-        return pLevel.getBiome(pPos).get().coldEnoughToSnow(pPos) || getStructures("frost", pPos, pLevel);
+        return pLevel.getBiome(pPos).get().coldEnoughToSnow(pPos) || getStructures(FROST, pPos, pLevel);
     }
 
     public static boolean skyRitual(RitualBlockEntity pTileEntity, Level pLevel, BlockPos pPos){
-        return pPos.getY() >= 128 || pLevel.getBiome(pPos).is(biomeResourceKey -> biomeResourceKey.registry().getNamespace().contains("aether")) || getStructures("sky", pPos, pTileEntity.getLevel());
+        return pPos.getY() >= 128 || pLevel.getBiome(pPos).is(biomeResourceKey -> biomeResourceKey.registry().getNamespace().contains("aether")) || getStructures(SKY, pPos, pTileEntity.getLevel());
     }
 
     public static boolean deepRitual(RitualBlockEntity pTileEntity, Level pLevel, BlockPos pPos){
-        return ((pPos.getY() <= pLevel.getSeaLevel() && pLevel.getBiome(pPos).is(BiomeTags.IS_DEEP_OCEAN)) || getStructures("deep", pPos, pTileEntity.getLevel())) && pTileEntity.getBlockState().hasProperty(BlockStateProperties.WATERLOGGED) && pTileEntity.getBlockState().getValue(BlockStateProperties.WATERLOGGED);
+        return ((pPos.getY() <= pLevel.getSeaLevel() && pLevel.getBiome(pPos).is(BiomeTags.IS_DEEP_OCEAN)) || getStructures(DEEP, pPos, pTileEntity.getLevel())) && pTileEntity.getBlockState().hasProperty(BlockStateProperties.WATERLOGGED) && pTileEntity.getBlockState().getValue(BlockStateProperties.WATERLOGGED);
     }
 
     public static boolean getStructures(String craftType, BlockPos pPos, Level pLevel){

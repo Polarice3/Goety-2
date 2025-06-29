@@ -31,6 +31,12 @@
           "maxCount": 1
         },
         {
+          "type": "goety:reaper",
+          "weight": 5,
+          "minCount": 1,
+          "maxCount": 1
+        },
+        {
           "type": "goety:border_wraith",
           "weight": 5,
           "minCount": 1,

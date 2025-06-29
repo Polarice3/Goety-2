@@ -1,15 +1,22 @@
 {
   "name": "季风聚晶",
   "icon": "goety:monsoon_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/storm",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "在目标方块或生物上方召唤风暴云，它会在生物头顶下雨，并定期向附近的任何非盟友生物发射雷电。"
+      "text": "在目标方块或生物上方召唤风暴云，它会在生物头顶下雨，并定期向附近的任何非盟友生物发射雷电、"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/monsoon_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/storm_staff)风暴魔杖$()施法可以扩大雷云范围，并使其中落雷附带连锁闪电效果。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:monsoon_focus": 1
+  }
 }

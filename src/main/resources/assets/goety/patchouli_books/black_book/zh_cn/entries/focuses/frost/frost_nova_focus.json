@@ -1,15 +1,22 @@
 {
   "name": "霜冻新星聚晶",
   "icon": "goety:frost_nova_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/frost",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "该聚晶允许玩家所在的位置在释放霜冻爆炸，伤害附近的所有生物并给予他们冰冻buff。爆炸会造成冰冻伤害，不会伤害施法者。若玩家潜行施法，则会在其瞄准的位置释放霜冻爆炸。"
+      "text": "该聚晶允许玩家所在的位置在释放霜冻爆炸，伤害附近的所有生物并给予他们冰冻效果。爆炸会造成冰冻伤害，不会伤害施法者。若玩家潜行施法，则会在其瞄准的位置释放霜冻爆炸。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/frost_nova_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/frost_staff)霜冻法杖$()施法时，会小幅度提升爆炸半径，使目标更快冻结"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:frost_nova_focus": 1
+  }
 }

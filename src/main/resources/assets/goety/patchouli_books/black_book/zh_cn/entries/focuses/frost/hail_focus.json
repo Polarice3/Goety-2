@@ -1,7 +1,7 @@
 {
   "name": "冰雹聚晶",
   "icon": "goety:hail_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/frost",
   "pages": [
     {
       "type": "patchouli:text",
@@ -10,6 +10,13 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/hail_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/frost_staff)霜冻魔杖$()施法时，召唤的雪云会自动锁定并跟随附近的有效目标"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:hail_focus": 1
+  }
 }

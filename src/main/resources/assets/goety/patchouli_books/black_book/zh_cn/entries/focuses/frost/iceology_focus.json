@@ -1,15 +1,22 @@
 {
   "name": "冰川聚晶",
   "icon": "goety:iceology_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/frost",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "你已经学会了灾厄魔法的一个分支：冰川。有了这个聚晶，你就可以在目标上方召唤出一块漂浮的冰，然后在一小段时间后将其砸向目标，冻结目标几秒钟。"
+      "text": "你已经学会了灾厄魔法的一个分支：冰川。有了这个聚晶，你就可以在目标上方召唤出一块漂浮的冰，然后在一小段时间后将其砸向目标，眩晕目标几秒钟。"    
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/iceology_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/frost_staff)霜冻魔杖$()施法会减少冰块悬浮在天上的时间"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:iceology_focus": 1
+  }
 }

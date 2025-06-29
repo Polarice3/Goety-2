@@ -1,15 +1,19 @@
 {
-  "name": "Electrocute Focus",
+  "name": "感電のフォーカス",
   "icon": "goety:electrocute_focus",
   "category": "goety:focuses/storm",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The spell shoots a ball of electricity that, when casted looking at a valid entity, follows their target before hitting them or any solid object."
+      "text": "この呪文は有効な存在を見つめながら発動すると、ターゲットまたは任意の固体に当たる前まで、ターゲットを追跡する電気の球を発射します。"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/electrocute_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/storm_staff)嵐の杖$()で唱えると、けいれん効果を与える確率を高くし、電気的に爆発する可能性が高い電気球を発射し、複数のターゲットにダメージを与えます。"
     }
   ]
 }

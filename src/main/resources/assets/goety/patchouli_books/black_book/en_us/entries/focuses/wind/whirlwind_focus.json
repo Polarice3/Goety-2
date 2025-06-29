@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "This focus allows the user to surround themselves with a barrier of wind which pushes back all nearby creatures and potentially deflects projectiles. The powerful winds created by this spell also allows the caster to hover in place as it is cast. When cast with the Wind Staff, the winds will deflect projectiles more efficiently and the caster floats even higher."
+      "text": "This focus allows the user to surround themselves with a barrier of wind which pushes back all nearby creatures and potentially deflects projectiles. The powerful winds created by this spell also allows the caster to hover in place as it is cast. When cast with the $(l:crafts/staff/wind_staff)Wind Staff$(), the winds will deflect projectiles more efficiently and the caster floats even higher."
     },
     {
       "type": "goety:ritual",

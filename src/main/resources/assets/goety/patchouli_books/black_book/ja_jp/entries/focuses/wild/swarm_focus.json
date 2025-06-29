@@ -1,15 +1,19 @@
 {
-  "name": "群れのフォーカス",
+  "name": "蚊柱のフォーカス",
   "icon": "goety:swarm_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/wild",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "あなたはターゲットに昆虫の噴出を召喚して呼び出し、ダメージを与えます。死亡すると、忠実な昆虫の群れが死体から立ち上がり、独立して他のターゲットを攻撃します。"
+      "text": "対象に昆虫の群れを召喚してダメージを与え、死亡時に忠実な昆虫の群れが死体から出現して、独立し他の対象を攻撃します。蚊よりも強いです。"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/swarm_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/wild_staff)野生の杖$()で唱えると、対象を毒状態にできます。"
     }
   ]
 }

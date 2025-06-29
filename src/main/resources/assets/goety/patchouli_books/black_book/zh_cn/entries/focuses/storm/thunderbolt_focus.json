@@ -1,15 +1,19 @@
 {
   "name": "雷霆聚晶",
   "icon": "goety:thunderbolt_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/storm",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "该聚晶并不会让你发射一个连锁的闪电，而是一个更强大的闪电。如果释放魔法时使用的不是风之魔杖时，雷电会受到避雷针的影响。"
+      "text": "该聚晶并不会让你发射一个连锁的闪电，而是一个更强大的闪电,当你不是使用$(l:crafts/staff/storm_staff)风暴魔杖$()施法,雷电则会受到避雷针的影响."
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/thunderbolt_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/storm_staff)风暴魔杖$()施法还将附加连锁闪电效果，并显著提升触发痉挛效果的几率。"
     }
   ]
 }

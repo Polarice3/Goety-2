@@ -58,7 +58,7 @@ public class IgniteSpell extends BlockSpell implements ITouchSpell {
     }
 
     @Override
-    public void blockResult(ServerLevel worldIn, LivingEntity caster, BlockPos target, Direction direction) {
+    public void blockResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, BlockPos target, Direction direction) {
     }
 
     @Override

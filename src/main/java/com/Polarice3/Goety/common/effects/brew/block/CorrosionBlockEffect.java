@@ -30,7 +30,10 @@ public class CorrosionBlockEffect extends BrewEffect {
         if (pLevel instanceof ServerLevel serverLevel) {
             for (BlockPos blockPos : this.getSpherePos(pPos, pAreaOfEffect + 3)) {
                 BlockState state = serverLevel.getBlockState(blockPos);
-                if (!state.is(BlockTags.WITHER_IMMUNE) && !state.hasBlockEntity() && state.getDestroySpeed(serverLevel, blockPos) != -1.0F){
+                if (!state.is(BlockTags.WITHER_IMMUNE)
+                        && !state.hasBlockEntity()
+                        && state.canEntityDestroy(pLevel, blockPos, pSource)
+                        && state.getDestroySpeed(serverLevel, blockPos) != -1.0F){
                     serverLevel.destroyBlock(blockPos, state.is(Tags.Blocks.OBSIDIAN));
                 }
                 for (LivingEntity livingEntity : pLevel.getEntitiesOfClass(LivingEntity.class, new AABB(blockPos))){

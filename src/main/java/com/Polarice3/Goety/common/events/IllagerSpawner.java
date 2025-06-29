@@ -149,15 +149,14 @@ public class IllagerSpawner {
             return false;
         } else {
             Entity entity = entityType.create(worldIn);
-            if (!(entity instanceof PathfinderMob)){
+            if (!(entity instanceof PathfinderMob illager)){
                 return false;
             } else if (!NaturalSpawner.isValidEmptySpawnBlock(worldIn, pos, blockstate, blockstate.getFluidState(), entityType)) {
                 return false;
             } else if (!PatrollingMonster.checkPatrollingMonsterSpawnRules(EntityType.RAVAGER, worldIn, MobSpawnType.PATROL, pos, random)) {
                 return false;
             } else {
-                PathfinderMob illager = (PathfinderMob) entity;
-                illager.setPos((double) pos.getX(), (double) pos.getY(), (double) pos.getZ());
+                illager.setPos(pos.getX(), pos.getY(), pos.getZ());
                 ForgeEventFactory.onFinalizeSpawn(illager, worldIn, worldIn.getCurrentDifficultyAt(pos), MobSpawnType.PATROL, null, null);
                 illager.goalSelector.addGoal(0, new HuntDownPlayerGoal<>(illager));
                 if (illager instanceof HuntingIllagerEntity huntingIllager){
@@ -178,7 +177,7 @@ public class IllagerSpawner {
                         if (entityType1 != null){
                             Entity entity1 = entityType1.create(worldIn);
                             if (entity1 instanceof PathfinderMob mount) {
-                                mount.setPos((double) pos.getX(), (double) pos.getY(), (double) pos.getZ());
+                                mount.setPos(pos.getX(), pos.getY(), pos.getZ());
                                 ForgeEventFactory.onFinalizeSpawn(mount, worldIn, worldIn.getCurrentDifficultyAt(pos), MobSpawnType.PATROL, null, null);
                                 illager.startRiding(mount);
                                 if (CuriosFinder.hasCurio(player, ModItems.ALARMING_CHARM.get())){

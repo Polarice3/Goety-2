@@ -94,7 +94,7 @@ public class TidalSpell extends Spell {
                 TidalSurge tidalSurge = new TidalSurge(worldIn, caster);
                 tidalSurge.setPos(caster.getX(), y, caster.getZ());
                 tidalSurge.setLifespan(lifespan + duration);
-                tidalSurge.setWaveScale(tidalSurge.getWaveScale() + potency);
+                tidalSurge.setWaveScale(tidalSurge.getWaveScale() + (potency / 2.0F));
                 tidalSurge.setYRot(-(float) (Mth.atan2(vec3.x, vec3.z) * (double) (180F / (float) Math.PI)) + (i * 10));
                 worldIn.addFreshEntity(tidalSurge);
             }

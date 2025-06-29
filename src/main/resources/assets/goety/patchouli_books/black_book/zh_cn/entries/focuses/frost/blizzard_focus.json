@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/blizzard_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/frost_staff)霜冻魔杖$()施法时，坠下的将会是更大、更锋利的冰矛"
     }
   ],
   "extra_recipe_mappings": {

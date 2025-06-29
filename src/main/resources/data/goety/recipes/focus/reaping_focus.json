@@ -9,7 +9,7 @@
   "duration": 10,
   "ingredients": [
     {
-      "tag": "minecraft:soul_fire_base_blocks"
+      "item": "goety:grave_dust"
     },
     {
       "item": "goety:spirit_fabric"

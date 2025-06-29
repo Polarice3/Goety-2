@@ -2,6 +2,7 @@
   "name": "Teleporting With Rituals",
   "icon": "goety:waystone",
   "category": "goety:rituals",
+  "sortnum": 2,
   "priority": true,
   "pages": [
     {

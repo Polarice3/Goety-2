@@ -35,26 +35,26 @@ public class IllagerAssaultListener extends SimpleJsonResourceReloadListener {
             JsonObject object = objectIn.get(location).getAsJsonObject();
             if (!CraftingHelper.processConditions(object, "conditions", this.context)){
                 Goety.LOGGER.debug("Skipping loading illager entry {} as it's conditions were not met", location);
-                return;
-            }
-            String name = object.getAsJsonPrimitive("entity_type").getAsString();
-            ResourceLocation resourceLocation = new ResourceLocation(name);
-            JsonObject data = object.getAsJsonObject("registry");
-            float thresholdTimes = data.getAsJsonPrimitive("threshold_times").getAsFloat();
-            int max = data.getAsJsonPrimitive("max").getAsInt();
-            int extra = data.getAsJsonPrimitive("extra").getAsInt();
-            float chance = data.getAsJsonPrimitive("chance").getAsFloat();
-            JsonObject data2 = data.getAsJsonObject("riding");
-            ResourceLocation resourceLocation1 = null;
-            float chance2 = 0.0F;
-            if (data2 != null) {
-                resourceLocation1 = new ResourceLocation(data2.getAsJsonPrimitive("mount_type").getAsString());
-                if (!ForgeRegistries.ENTITY_TYPES.containsKey(resourceLocation1)) {
-                    resourceLocation1 = null;
+            } else {
+                String name = object.getAsJsonPrimitive("entity_type").getAsString();
+                ResourceLocation resourceLocation = new ResourceLocation(name);
+                JsonObject data = object.getAsJsonObject("registry");
+                float thresholdTimes = data.getAsJsonPrimitive("threshold_times").getAsFloat();
+                int max = data.getAsJsonPrimitive("max").getAsInt();
+                int extra = data.getAsJsonPrimitive("extra").getAsInt();
+                float chance = data.getAsJsonPrimitive("chance").getAsFloat();
+                JsonObject data2 = data.getAsJsonObject("riding");
+                ResourceLocation resourceLocation1 = null;
+                float chance2 = 0.0F;
+                if (data2 != null) {
+                    resourceLocation1 = new ResourceLocation(data2.getAsJsonPrimitive("mount_type").getAsString());
+                    if (!ForgeRegistries.ENTITY_TYPES.containsKey(resourceLocation1)) {
+                        resourceLocation1 = null;
+                    }
+                    chance2 = data2.getAsJsonPrimitive("ride_chance").getAsFloat();
                 }
-                chance2 = data2.getAsJsonPrimitive("ride_chance").getAsFloat();
+                ILLAGER_LIST.put(location, new IllagerSpawner.IllagerDataType(resourceLocation, thresholdTimes, max, extra, chance, resourceLocation1, chance2));
             }
-            ILLAGER_LIST.put(location, new IllagerSpawner.IllagerDataType(resourceLocation, thresholdTimes, max, extra, chance, resourceLocation1, chance2));
         }
     }
 }

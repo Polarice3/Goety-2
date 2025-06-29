@@ -1,7 +1,7 @@
 {
   "name": "上升气流聚晶",
   "icon": "goety:updraft_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/wind",
   "pages": [
     {
       "type": "patchouli:text",
@@ -10,6 +10,13 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/updraft_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/wind_staff)烈风魔杖$()施法时可以扩大影响范围。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:updraft_focus": 1
+  }
 }

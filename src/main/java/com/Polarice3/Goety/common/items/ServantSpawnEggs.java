@@ -216,6 +216,9 @@ public class ServantSpawnEggs {
     public static final RegistryObject<ServantSpawnEggItem> VINDICATOR_CHEF_SERVANT_SPAWN_EGG = ITEMS.register("vindicator_chef_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.VINDICATOR_CHEF_SERVANT, 0xe0dfdb, 0x896727, egg()));
 
+    public static final RegistryObject<ServantSpawnEggItem> CRUSHER_SERVANT_SPAWN_EGG = ITEMS.register("crusher_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.CRUSHER_SERVANT, 0x362a23, 0xcfb16c, egg()));
+
     public static final RegistryObject<ServantSpawnEggItem> EVOKER_SERVANT_SPAWN_EGG = ITEMS.register("evoker_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.EVOKER_SERVANT, 0x959b9b, 0x0f1119, egg()));
 
@@ -227,6 +230,9 @@ public class ServantSpawnEggs {
 
     public static final RegistryObject<ServantSpawnEggItem> WIND_CALLER_SERVANT_SPAWN_EGG = ITEMS.register("wind_caller_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.WIND_CALLER_SERVANT, 0x4e7377, 0x78977f, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> STORM_CASTER_SERVANT_SPAWN_EGG = ITEMS.register("storm_caster_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.STORM_CASTER_SERVANT, 0x994c29, 0x00548c, egg()));
 
     public static final RegistryObject<ServantSpawnEggItem> QUICK_GROWING_VINE_SPAWN_EGG = ITEMS.register("quick_growing_vine_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.QUICK_GROWING_VINE, 0x6b8f34, 0x8efb83, egg()));

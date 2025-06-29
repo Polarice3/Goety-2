@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "这个法术会让你充满电荷并且进行冲刺，就像一把被激流附魔的三叉戟一样，朝着你所看的方向前进，并且会电击任何靠近你的非友方生物。"
+      "text": "这个法术会让你充满电荷并且进行冲刺，就像一把被激流附魔的三叉戟一样，朝着你所看的方向前进，并且会电击任何靠近你的非友方生物."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/bolting_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/storm_staff)风暴魔杖施法$()可以增加伤害范围, 有一定几率引发痉挛效果，并触发连锁闪电攻击."
     }
   ],
   "extra_recipe_mappings": {

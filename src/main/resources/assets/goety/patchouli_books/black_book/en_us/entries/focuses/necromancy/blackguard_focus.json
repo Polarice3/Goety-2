@@ -11,6 +11,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/blackguard_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/necro_staff)Necro Staff$() summons more blackguards at once."
     }
   ],
   "extra_recipe_mappings": {

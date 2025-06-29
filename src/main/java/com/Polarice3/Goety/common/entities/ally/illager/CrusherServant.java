@@ -71,6 +71,13 @@ public class CrusherServant extends AbstractIllagerServant {
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.CrusherDamage.get());
     }
 
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_FLAGS_ID, (byte)0);
+        this.entityData.define(ANIM_STATE, 0);
+        this.entityData.define(STORM, false);
+    }
+
     @Override
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);

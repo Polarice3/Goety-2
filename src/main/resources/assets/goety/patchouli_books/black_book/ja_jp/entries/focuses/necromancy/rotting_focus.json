@@ -1,15 +1,22 @@
 {
-  "name": "腐りし者のフォーカス",
+  "name": "ゾンビのフォーカス",
   "icon": "goety:rotting_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/necromancy",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "ネクロタージーへの真の第一歩は、ゾンビを召喚して命令することです。 ゾンビには複数のバリエーションがあり、フォーカスを使用すると、呪文が唱えられる場所や環境に応じてバリエーションを呼び出すことができます。"
+      "text": "ネクロマンシーへの真の第一歩は、ゾンビを召喚し、命令することです。ゾンビには複数の亜種が存在し、呪文を唱える場所や環境に応じて、異なる亜種を召喚することができます。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/rotting_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/necro_staff)ネクロの杖$()で唱えると、一度に召喚されるゾンビの数が増えます。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:rotting_focus": 1
+  }
 }

@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/leeching_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/necro_staff)Necro Staff$() will give Weakness effect to target."
     }
   ],
   "extra_recipe_mappings": {

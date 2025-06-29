@@ -23,11 +23,13 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ally.GuardianServant;
 import com.Polarice3.Goety.common.entities.ally.Leapleaf;
 import com.Polarice3.Goety.common.entities.ally.golem.SquallGolem;
+import com.Polarice3.Goety.common.entities.ally.illager.StormCasterServant;
 import com.Polarice3.Goety.common.entities.ally.illager.WindCallerServant;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.hostile.Wight;
 import com.Polarice3.Goety.common.entities.hostile.illagers.HostileRedstoneMonstrosity;
+import com.Polarice3.Goety.common.entities.hostile.illagers.StormCaster;
 import com.Polarice3.Goety.common.entities.hostile.servants.Inferno;
 import com.Polarice3.Goety.common.entities.neutral.ApostleShade;
 import com.Polarice3.Goety.common.entities.neutral.CarrionFly;
@@ -153,7 +155,7 @@ public class ClientEvents {
             if (entity instanceof Wildfire){
                 soundHandler.play(new LoopSound(ModSounds.WILDFIRE_LOOP.get(), entity));
             }
-            if (entity instanceof WindCallerServant){
+            if (entity instanceof WindCallerServant || entity instanceof StormCaster || entity instanceof StormCasterServant){
                 soundHandler.play(new LoopSound(ModSounds.FLIGHT.get(), 1.0F, 1.3F, entity));
             }
             if (entity instanceof InsectSwarm){

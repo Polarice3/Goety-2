@@ -10,6 +10,10 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/updraft_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/wind_staff)Wind Staff$() increases the area of effect."
     }
   ],
   "extra_recipe_mappings": {

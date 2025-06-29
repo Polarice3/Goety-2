@@ -1464,8 +1464,7 @@
   "info.goety.necro_crown": "Прислужники-нежить не будут исчезать.",
   "info.goety.necro_crown_cast": "Сокращает время использования некро-заклинаний вдвое.",
   "info.goety.necro_crown_weakness": "При солнечном свете накладывает слабость.",
-  "info.goety.amethyst_necklace": "+20% шанса вызова четырёх тотемных бомб при использовании фокуса баррикад.",
-  "info.goety.amethyst_necklace_discount": "Сокращает стоимость геомантических заклинаний вдвое.",
+  "info.goety.amethyst_necklace": "Сокращает стоимость геомантических заклинаний вдвое.",
   "info.goety.dark_robe": "Уменьшает стоимость всех заклинаний на 15%.",
   "info.goety.grand_robe": "Уменьшает урон, который вам наносят во время использования заклинаний, вдвое.",
   "info.goety.necro_cape": "Позволяет прислужникам-нежити исцеляться, используя энергию душ.",
@@ -2686,7 +2685,6 @@
   "item.goety.pillager_servant_spawn_egg": "Яйцо призыва разбойника-прислужника",
   "item.goety.vindicator_servant_spawn_egg": "Яйцо призыва поборника-прислужника",
   "item.goety.evoker_servant_spawn_egg": "Яйцо призыва заклинателя-прислужника",
-  "item.goety.reaper_silk": "Шёлк жнеца",
   "block.goety.ominous_pyre": "Зловещий костёр",
   "tooltip.goety.blockTrainType": "Вид тренировки: ",
   "jade.goety.training": "Время тренировки: %s/%s",
@@ -2745,5 +2743,12 @@
   "advancements.goety.servant_raid_victory.description": "Заставьте прислужников провести успешный рейд на деревню",
   "entity.goety.earth_fist": "Earth Fist",
   "painting.goety.glacial_flower.author": "Polarice",
-  "painting.goety.glacial_flower.title": "Glacial Flower"
+  "painting.goety.glacial_flower.title": "Glacial Flower",
+  "entity.goety.crusher_servant": "Crusher Servant",
+  "entity.goety.storm_caster_servant": "Storm Caster Servant",
+  "item.goety.crusher_servant_spawn_egg": "Crusher Servant Spawn Egg",
+  "item.goety.storm_caster_servant_spawn_egg": "Storm Caster Servant Spawn Egg",
+  "item.goety.geo_staff": "Geo Staff",
+  "item.goety.grave_dust": "Grave Dust",
+  "item.goety.ring_of_thirst": "Ring of Thirst"
 }

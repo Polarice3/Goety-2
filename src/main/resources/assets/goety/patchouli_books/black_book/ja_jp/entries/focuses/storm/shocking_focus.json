@@ -1,15 +1,19 @@
 {
   "name": "ショッキングのフォーカス",
   "icon": "goety:shocking_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/storm",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "あなたから電気の力が飛び出し、目の前の生き物を驚かせます。 ストームスタッフからキャストされていない場合、電気は最も近い避雷針に向かって流れます。"
+      "text": "あなたから電気の力が発射され、目の前にいるあらゆる生き物に衝撃を与えます。$(l:crafts/staff/storm_staff)嵐の杖$()から唱えられていない場合は、電気は最も近い避雷針に向かって流れます。"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/shocking_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/storm_staff)嵐の杖$()で唱えると、連鎖的な雷撃効果も与え、さらに、けいれん効果を与える可能性が高くなります。"
     }
   ]
 }

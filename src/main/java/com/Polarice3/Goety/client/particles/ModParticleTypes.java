@@ -198,6 +198,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> SPELL_CLOUD = PARTICLE_TYPES.register("spell_cloud",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> DROPLET = PARTICLE_TYPES.register("droplet",
+            () -> new SimpleParticleType(true));
+
     public static final RegistryObject<SimpleParticleType> GO = PARTICLE_TYPES.register("go",
             () -> new SimpleParticleType(true));
 

@@ -15,6 +15,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -63,7 +64,7 @@ public class TunnelSpell extends BlockSpell {
     }
 
     @Override
-    public void blockResult(ServerLevel worldIn, LivingEntity caster, BlockPos target, Direction direction) {
+    public void blockResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, BlockPos target, Direction direction) {
         BlockHitResult blockHitResult = MobUtil.rayTrace(caster, 8, false);
         BlockPos blockPos = new BlockPos(blockHitResult.getBlockPos());
         int totalDistance = SpellConfig.TunnelDefaultDistance.get();

@@ -291,14 +291,17 @@ public class ServantEvents {
         LivingEntity killed = event.getEntity();
         Entity killer = event.getSource().getEntity();
         if (!killed.isRemoved()){
-            if (killer instanceof IOwned owned){
+            IOwned owned = null;
+            if (killer instanceof IOwned owned1){
+                owned = owned1;
+            } else if (killed.getLastHurtByMob() instanceof IOwned owned1) {
+                owned = owned1;
+            }
+            if (owned != null) {
                 if (owned.getMasterOwner() instanceof ServerPlayer serverPlayer) {
                     ModCriteriaTriggers.SERVANT_KILLED_ENTITY.trigger(serverPlayer, killed, event.getSource());
                 }
-            } else if (killed.getLastHurtByMob() instanceof IOwned owned) {
-                if (owned.getMasterOwner() instanceof ServerPlayer serverPlayer) {
-                    ModCriteriaTriggers.SERVANT_KILLED_ENTITY.trigger(serverPlayer, killed, event.getSource());
-                }
+                owned.uncreditedKill(killed);
             }
         }
         AbstractIllagerServant illager = null;

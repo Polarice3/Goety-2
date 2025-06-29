@@ -29,6 +29,7 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> StaffOffhandBuff;
     public static final ForgeConfigSpec.ConfigValue<Double> OminousStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> NecroStaffDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> GeoStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> WindStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> StormStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> FrostStaffDamage;
@@ -218,6 +219,8 @@ public class ItemConfig {
                     .defineInRange("ominousStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
             NecroStaffDamage = BUILDER.comment("How much base damage Necro Staffs deals, Default: 4.0")
                     .defineInRange("necroStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
+            GeoStaffDamage = BUILDER.comment("How much base damage Geo Staffs deals, Default: 4.0")
+                    .defineInRange("geoStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
             WindStaffDamage = BUILDER.comment("How much base damage Wind Staffs deals, Default: 4.0")
                     .defineInRange("windStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
             StormStaffDamage = BUILDER.comment("How much base damage Storm Staffs deals, Default: 4.0")

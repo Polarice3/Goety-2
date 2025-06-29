@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "用下界的力量扭曲箭雨聚晶, 你可以呼唤流星雨降临世间，而不是普通的箭。"
+      "text": "用下界的力量扭曲箭雨聚晶, 你可以呼唤流星雨降临世间，而不是普通的箭."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/meteor_shower_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/nether_staff)下界魔杖$()施法可以增加从天空中坠落的流星数量."
     }
   ],
   "extra_recipe_mappings": {

@@ -22,7 +22,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "$(bold)長引く$()$(br)$(li)$(item)垂れ根$()$(li2)コストの増加 - x1.25 $(li)$(item)レッドストーンダスト$()$(li2)コストの増加 - x1.25 $(li)$(item)Spore Blossom$()$(li2)コストの増加 - x1.25"
+      "text": "$(bold)長引く$()$(br)$(li)$(item)垂れ根$()$(li2)コストの増加 - x1.25 $(li)$(item)大きなドリップリーフ$()$(li2)コストの増加 - x1.25 $(li)$(item)胞子の花$()$(li2)コストの増加 - x1.25"
     },
     {
       "type": "patchouli:text",

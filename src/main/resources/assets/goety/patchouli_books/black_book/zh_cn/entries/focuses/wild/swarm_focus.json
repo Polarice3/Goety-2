@@ -1,7 +1,7 @@
 {
   "name": "虫群聚晶",
   "icon": "goety:swarm_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/wild",
   "pages": [
     {
       "type": "patchouli:text",
@@ -10,6 +10,10 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/swarm_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/wild_staff)荒野魔杖$()施法会给予目标中毒效果."
     }
   ]
 }

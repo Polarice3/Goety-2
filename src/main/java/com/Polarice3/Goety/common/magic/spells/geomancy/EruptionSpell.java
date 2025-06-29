@@ -18,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,6 +98,21 @@ public class EruptionSpell extends Spell {
             volcano.setPotency(potency);
             volcano.setFlaming(burning);
             worldIn.addFreshEntity(volcano);
+        }
+        if (this.rightStaff(staff)) {
+            for (int i = 0; i < 2; ++i) {
+                blockPos = blockPos.offset(-4 + worldIn.random.nextInt(8), 0, -4 + worldIn.random.nextInt(8));
+                Vec3 vec3 = Vec3.atBottomCenterOf(blockPos);
+                Volcano volcano2 = new Volcano(ModEntityType.VOLCANO.get(), worldIn);
+                volcano2.setTrueOwner(caster);
+                volcano2.setPos(vec3.x(), vec3.y(), vec3.z());
+                volcano2.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null, null);
+                volcano2.setExplosionPower(volcano2.getExplosionPower() + (radius / 2.0F));
+                volcano2.setLifeSpan(6 * duration);
+                volcano2.setPotency(potency);
+                volcano2.setFlaming(burning);
+                worldIn.addFreshEntity(volcano2);
+            }
         }
     }
 }

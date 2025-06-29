@@ -1,15 +1,19 @@
 {
-  "name": "震えるフォーカス",
+  "name": "地響きのフォーカス",
   "icon": "goety:quaking_focus",
   "category": "goety:focuses/geomancy",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "術者は目の前に震えを召喚し、味方以外のクリーチャーを傷つけ、空中に投げ飛ばします。しゃがんだ状態で呪文を唱えると、代わりに術者の周囲に震えが召喚されます。"
+      "text": "術者の前方に地響きを発生させ、味方以外のクリーチャーにダメージを与え、空中に吹き飛ばします。しゃがんだ状態で呪文を唱えると、代わりに術者の周囲に地響きを発生させます。"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/quaking_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/geo_staff)地の杖$()で唱えると、弧を描くように地響きを発生させ、盾を解除します。しゃがんだ状態で発動した場合は範囲が増大します。"
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "name": "爆发聚晶",
   "icon": "goety:eruption_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/geomancy",
   "pages": [
     {
       "type": "patchouli:text",
@@ -10,6 +10,13 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/eruption_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/geo_staff)地卜魔杖$()施法时，一次召唤可以生成三座小火山"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:eruption_focus": 1
+  }
 }
