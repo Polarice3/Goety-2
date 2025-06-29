@@ -25,7 +25,9 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -53,6 +55,9 @@ public class CrusherServant extends AbstractIllagerServant {
         super.registerGoals();
         this.goalSelector.addGoal(1, new MeleeGoal());
         this.goalSelector.addGoal(4, new AttackGoal(1.0D));
+        this.goalSelector.addGoal(8, new RaiderWanderGoal<>(this, 0.6D));
+        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 15.0F, 1.0F));
+        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 15.0F));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {

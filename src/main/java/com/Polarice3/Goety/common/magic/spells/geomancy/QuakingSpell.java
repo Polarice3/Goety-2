@@ -102,9 +102,9 @@ public class QuakingSpell extends Spell {
                             int d = (i + 2) - 2;
                             int d2 = (i + 2) - 3;
                             float ds = (float) (d + d2) / 2;
-                            arcTremor(caster, 0.4F, d, 6, 0.9F, 0, 1.4F, 80, damage);
-                            arcTremor(caster, 0.4F, d2, 6, 0.9F, 0, 1.4F, 80, damage);
-                            tremorSound(caster, ds, 1.4F);
+                            arcTremor(caster, 0.35F, d, 5, 1.05F, -2.0F, 0, 80, damage);
+                            arcTremor(caster, 0.35F, d2, 5, 1.05F, -2.0F, 0, 80, damage);
+                            tremorSound(caster, ds, 0);
                         } else {
                             tremor(caster, i, 3, 0.0F, damage, 0.1F);
                             tremor(caster, i, 3, 1.5F, damage, 0.1F);
@@ -239,19 +239,19 @@ public class QuakingSpell extends Spell {
 
     //Based on @l_ender's codes: https://github.com/lender544/new1.20.1/blob/master/src/main/java/com/github/L_Ender/cataclysm/entity/InternalAnimationMonster/IABossMonsters/Ancient_Remnant/Ancient_Remnant_Entity.java#L1037
     public void arcTremor(LivingEntity caster, float spreadarc, int distance, int height, float mxy, float vec, float math, int shieldbreakticks, float damage) {
-        double perpFacing = caster.yBodyRot * (Math.PI / 180);
+        double perpFacing = caster.getYRot() * (Math.PI / 180);
         double facingAngle = perpFacing + Math.PI / 2;
         int hitY = Mth.floor(caster.getBoundingBox().minY - 0.5);
         double spread = Math.PI * spreadarc;
         int arcLen = Mth.ceil(distance * spread);
-        float f = Mth.cos(caster.yBodyRot * ((float)Math.PI / 180F)) ;
-        float f1 = Mth.sin(caster.yBodyRot * ((float)Math.PI / 180F)) ;
+        float f = Mth.cos(caster.getYRot() * ((float)Math.PI / 180F)) ;
+        float f1 = Mth.sin(caster.getYRot() * ((float)Math.PI / 180F)) ;
         for (int i = 0; i < arcLen; i++) {
             double theta = (i / (arcLen - 1.0) - 0.5) * spread + facingAngle;
             double vx = Math.cos(theta);
             double vz = Math.sin(theta);
-            double px = caster.getX() + vx * distance + vec * Math.cos((caster.yBodyRot + 90) * Math.PI / 180) + f * math;
-            double pz = caster.getZ() + vz * distance + vec * Math.sin((caster.yBodyRot + 90) * Math.PI / 180) + f1 * math;
+            double px = caster.getX() + vx * distance + vec * Math.cos((caster.getYRot() + 90) * Math.PI / 180) + f * math;
+            double pz = caster.getZ() + vz * distance + vec * Math.sin((caster.getYRot() + 90) * Math.PI / 180) + f1 * math;
             float factor = 1 - distance / (float) 12;
             int hitX = Mth.floor(px);
             int hitZ = Mth.floor(pz);
@@ -327,12 +327,12 @@ public class QuakingSpell extends Spell {
     }
 
     private void tremorSound(LivingEntity livingEntity, float distance, float math) {
-        double theta = (livingEntity.yBodyRot) * (Math.PI / 180);
+        double theta = (livingEntity.getYRot()) * (Math.PI / 180);
         theta += Math.PI / 2;
         double vecX = Math.cos(theta);
         double vecZ = Math.sin(theta);
-        float f = Mth.cos(livingEntity.yBodyRot * ((float)Math.PI / 180F)) ;
-        float f1 = Mth.sin(livingEntity.yBodyRot * ((float)Math.PI / 180F)) ;
+        float f = Mth.cos(livingEntity.getYRot() * ((float)Math.PI / 180F)) ;
+        float f1 = Mth.sin(livingEntity.getYRot() * ((float)Math.PI / 180F)) ;
         livingEntity.level.playSound(null, livingEntity.getX() + distance * vecX + f * math, livingEntity.getY(), livingEntity.getZ() + distance * vecZ + f1 * math, ModSounds.WALL_ERUPT.get(), SoundSource.PLAYERS, 1.0F, 0.8F + livingEntity.level.random.nextFloat() * 0.4F);
         livingEntity.level.playSound(null, livingEntity.getX() + distance * vecX + f * math, livingEntity.getY(), livingEntity.getZ() + distance * vecZ + f1 * math, ModSounds.DIRT_DEBRIS.get(), SoundSource.PLAYERS, 1.0F, 0.8F + livingEntity.level.random.nextFloat() * 0.4F);
         livingEntity.level.playSound(null, livingEntity.getX() + distance * vecX + f * math, livingEntity.getY(), livingEntity.getZ() + distance * vecZ + f1 * math, SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, 1.0F, 0.8F + livingEntity.level.random.nextFloat() * 0.4F);

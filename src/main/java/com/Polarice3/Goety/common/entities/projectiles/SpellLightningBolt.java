@@ -353,7 +353,7 @@ public class SpellLightningBolt extends LightningBolt {
             if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
                 return pEntity.isAlive();
             } else {
-                if(MobUtil.areAllies(this.getOwner(), pEntity)){
+                if (MobUtil.areAllies(this.getOwner(), pEntity)){
                     return false;
                 }
                 if (this.getOwner() instanceof Enemy && pEntity instanceof Enemy){
