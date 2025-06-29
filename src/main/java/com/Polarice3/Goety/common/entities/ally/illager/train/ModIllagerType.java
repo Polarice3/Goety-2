@@ -26,7 +26,7 @@ public class ModIllagerType implements ITrainIllager {
         EntityType<?> entityType = this.getIllager(level, blockPos, range);
         if (entityType == ModEntityType.STORM_CASTER_SERVANT.get()) {
             return mob.getType() == ModEntityType.GEOMANCER_SERVANT.get() || mob.getType() == ModEntityType.WIND_CALLER_SERVANT.get();
-        } else if (entityType == ModEntityType.VINDICATOR_CHEF_SERVANT.get() || entityType == ModEntityType.CRUSHER_SERVANT.get()) {
+        } else if (entityType == ModEntityType.VINDICATOR_CHEF_SERVANT.get()) {
             return mob.getType() == ModEntityType.VINDICATOR_SERVANT.get();
         } else {
             return mob instanceof Neollager;
