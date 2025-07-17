@@ -795,6 +795,11 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         if (this.getHitTimes() >= this.hitTimeTeleport()){
             trueAmount = trueAmount / 2;
             this.teleport();
+        } else if (pSource.getEntity() == null) {
+            trueAmount = trueAmount / 2;
+            if (this.level.getRandom().nextBoolean()) {
+                this.teleport();
+            }
         }
 
         if (!this.level.getNearbyPlayers(TargetingConditions.forCombat().selector(MobUtil.NO_CREATIVE_OR_SPECTATOR), this, this.getBoundingBox().inflate(32)).isEmpty()){
@@ -1372,7 +1377,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             }
             this.setFiring(false);
         }
-        if (this.isInWater() || this.isInLava() || this.isInWall()){
+        if (this.isInWater() || this.isInLava() || this.isInFluidType() || this.isInWall()){
             this.teleport();
         }
         if (this.isInNether()){

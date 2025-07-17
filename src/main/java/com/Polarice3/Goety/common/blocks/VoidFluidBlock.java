@@ -27,9 +27,7 @@ public class VoidFluidBlock extends LiquidBlock {
     }
 
     public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
-        if (pEntity instanceof LivingEntity livingEntity
-                && !CuriosFinder.hasVoidRobe(livingEntity)
-                && !livingEntity.getType().is(ModTags.EntityTypes.VOID_TOUCHED_IMMUNE)) {
+        if (pEntity instanceof LivingEntity livingEntity) {
             BlockFinder.voidedEffect(pLevel, livingEntity);
         }
     }

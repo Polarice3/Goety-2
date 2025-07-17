@@ -1,8 +1,10 @@
 package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.common.blocks.entities.ShriekObeliskBlockEntity;
+import com.Polarice3.Goety.common.blocks.fluids.ModFluids;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.init.ModTags;
 import com.mojang.authlib.GameProfile;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -54,6 +56,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.UsernameCache;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.FakePlayerFactory;
@@ -870,21 +873,48 @@ public class BlockFinder {
         return level.getBlockState(blockPos).getCollisionShape(level, blockPos).isEmpty();
     }
 
+    public static void voidedEffect(Level pLevel, BlockState pState, Entity pEntity) {
+        if (pEntity instanceof LivingEntity livingEntity
+                && !CuriosFinder.hasVoidRobe(livingEntity)
+                && !livingEntity.getType().is(ModTags.EntityTypes.VOID_TOUCHED_IMMUNE)
+                && livingEntity.canBeAffected(new MobEffectInstance(GoetyEffects.VOID_TOUCHED.get()))) {
+            livingEntity.makeStuckInBlock(pState, new Vec3(0.8D, 1.0D, 0.8D));
+            voidedEffect(pLevel, livingEntity);
+        }
+    }
+
     public static void voidedEffect(Level pLevel, LivingEntity pEntity) {
-        if (!pLevel.isClientSide) {
-            MobEffectInstance instance = pEntity.getEffect(GoetyEffects.VOID_TOUCHED.get());
-            if (instance == null) {
-                if (pEntity.hurt(ModDamageSource.getDamageSource(pLevel, ModDamageSource.VOIDED), pEntity.getMaxHealth() * 0.05F)){
-                    pEntity.addEffect(new MobEffectInstance(GoetyEffects.VOID_TOUCHED.get(), MathHelper.secondsToTicks(3), 2, false, true));
+        if (!CuriosFinder.hasVoidRobe(pEntity)
+                && !pEntity.getType().is(ModTags.EntityTypes.VOID_TOUCHED_IMMUNE)
+                && pEntity.canBeAffected(new MobEffectInstance(GoetyEffects.VOID_TOUCHED.get()))) {
+            if (!pLevel.isClientSide) {
+                MobEffectInstance instance = pEntity.getEffect(GoetyEffects.VOID_TOUCHED.get());
+                float damage = pEntity.getMaxHealth() * 0.05F;
+                boolean flag = pEntity.getType().is(Tags.EntityTypes.BOSSES) || pEntity.getType().is(ModTags.EntityTypes.MINI_BOSSES) || pEntity.getMaxHealth() >= 200.0D;
+                if (flag) {
+                    damage = 1.0F;
                 }
-            } else {
-                if (pEntity.tickCount % 20 == 0) {
-                    if (pEntity.hurt(ModDamageSource.getDamageSource(pLevel, ModDamageSource.VOIDED), pEntity.getMaxHealth() * 0.05F)){
-                        EffectsUtil.increaseEffect(pEntity, GoetyEffects.VOID_TOUCHED.get(), 9, false, true);
+                if (instance == null) {
+                    if (pEntity.hurt(ModDamageSource.getDamageSource(pLevel, ModDamageSource.VOIDED), damage)){
+                        pEntity.addEffect(new MobEffectInstance(GoetyEffects.VOID_TOUCHED.get(), MathHelper.secondsToTicks(3), flag ? 0 : 2, false, true));
+                    }
+                } else {
+                    if (pEntity.tickCount % 20 == 0) {
+                        if (pEntity.hurt(ModDamageSource.getDamageSource(pLevel, ModDamageSource.VOIDED), damage)){
+                            if (!flag) {
+                                EffectsUtil.increaseEffect(pEntity, GoetyEffects.VOID_TOUCHED.get(), 9, false, true);
+                            } else {
+                                pEntity.addEffect(new MobEffectInstance(GoetyEffects.VOID_TOUCHED.get(), MathHelper.secondsToTicks(3), 0, false, true));
+                            }
+                        }
                     }
                 }
             }
         }
+    }
+
+    public static boolean isInVoid(Entity entity) {
+        return entity.tickCount > 1 && entity.getFluidTypeHeight(ModFluids.VOID_FLUID_TYPE.get()) > 0.0D;
     }
 
     //Based on ChainsawTask by @Shadows-of-Fire: https://github.com/Shadows-of-Fire/Apotheosis/blob/1.20/src/main/java/dev/shadowsoffire/apotheosis/ench/enchantments/masterwork/ChainsawEnchant.java

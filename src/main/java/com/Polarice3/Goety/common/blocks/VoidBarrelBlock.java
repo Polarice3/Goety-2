@@ -3,10 +3,8 @@ package com.Polarice3.Goety.common.blocks;
 import com.Polarice3.Goety.client.particles.AoEParticleOption;
 import com.Polarice3.Goety.common.blocks.entities.VoidBarrelBlockEntity;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.ColorUtil;
-import com.Polarice3.Goety.utils.CuriosFinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -142,12 +140,7 @@ public class VoidBarrelBlock extends BaseEntityBlock {
     @Override
     public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
         if (pState.getValue(HALF) == DoubleBlockHalf.UPPER && pState.getValue(LIT)) {
-            if (pEntity instanceof LivingEntity livingEntity
-                    && !CuriosFinder.hasVoidRobe(livingEntity)
-                    && !livingEntity.getType().is(ModTags.EntityTypes.VOID_TOUCHED_IMMUNE)) {
-                livingEntity.makeStuckInBlock(pState, new Vec3(0.8D, 1.0D, 0.8D));
-                BlockFinder.voidedEffect(pLevel, livingEntity);
-            }
+            BlockFinder.voidedEffect(pLevel, pState, pEntity);
         }
     }
 
