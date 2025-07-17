@@ -9,6 +9,9 @@
     "goety:compacted_pine_slab",
     "goety:steep_slab",
     "goety:steep_wood_slab",
-    "goety:sky_wood_slab"
+    "goety:sky_wood_slab",
+    "goety:chorus_slab",
+    "goety:chorus_wood_slab",
+    "goety:corrupt_chorus_slab"
   ]
 }

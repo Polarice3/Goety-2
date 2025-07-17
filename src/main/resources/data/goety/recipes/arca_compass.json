@@ -1,27 +1,33 @@
 {
-  "type": "goety:ritual",
-  "ritual_type": "goety:craft",
-  "activation_item": {
-    "item": "minecraft:recovery_compass"
-  },
-  "craftType": "forge",
-  "soulCost": 1,
-  "duration": 30,
-  "ingredients": [
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " o ",
+    "ere",
+    " n "
+  ],
+  "key":
+  {
+    "r":
     {
-      "item": "goety:hunger_core"
+      "item": "minecraft:recovery_compass"
     },
+    "o":
+    {
+      "tag": "forge:obsidian"
+    },
+    "e":
     {
       "tag": "forge:ender_pearls"
     },
+    "n":
     {
       "tag": "forge:ingots/netherite"
-    },
-    {
-      "tag": "forge:obsidian"
     }
-  ],
-  "result": {
-    "item": "goety:arca_compass"
+  },
+  "result":
+  {
+    "item": "goety:arca_compass",
+    "count": 1
   }
 }

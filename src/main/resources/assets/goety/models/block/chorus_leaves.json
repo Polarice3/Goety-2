@@ -1,0 +1,7 @@
+{
+  "parent": "goety:block/template_mcd_leaves",
+  "textures": {
+    "leaves": "goety:block/chorus_leaves",
+    "outer": "goety:block/chorus_leaves_outer"
+  }
+}

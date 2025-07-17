@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/corrupt_chorus_slab"
+    },
+    "type=double": {
+      "model": "goety:block/corrupt_chorus_planks"
+    },
+    "type=top": {
+      "model": "goety:block/corrupt_chorus_slab_top"
+    }
+  }
+}

@@ -5,6 +5,7 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
+import com.Polarice3.Goety.common.entities.neutral.ender.AbstractEnderling;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.brew.ThrowableBrewItem;
 import com.Polarice3.Goety.common.items.curios.*;
@@ -17,10 +18,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.monster.Blaze;
-import net.minecraft.world.entity.monster.Enemy;
-import net.minecraft.world.entity.monster.Ghast;
-import net.minecraft.world.entity.monster.MagmaCube;
+import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -129,6 +127,31 @@ public class CuriosFinder {
                 || livingEntity instanceof Animal
                 || livingEntity.getType().is(ModTags.EntityTypes.WILD_SET_NEUTRAL))
                 && livingEntity.getMaxHealth() <= ItemConfig.WildSetMobNeutralHealth.get()
+                && !(livingEntity instanceof IOwned && !(livingEntity instanceof Enemy));
+    }
+
+    public static boolean hasVoidRobe(LivingEntity livingEntity){
+        return hasCurio(livingEntity, (itemStack -> itemStack.getItem() instanceof VoidRobeItem));
+    }
+
+    public static boolean hasVoidCrown(LivingEntity livingEntity){
+        return hasCurio(livingEntity, item -> item.getItem() instanceof MagicCrownItem crownItem && crownItem.spellType == SpellType.VOID);
+    }
+
+    public static boolean hasVoidSet(LivingEntity livingEntity){
+        return hasVoidRobe(livingEntity)
+                && hasVoidCrown(livingEntity);
+    }
+
+    public static boolean neutralVoidSet(LivingEntity livingEntity){
+        return hasVoidSet(livingEntity) && ItemConfig.VoidSetMobNeutral.get();
+    }
+
+    public static boolean validVoidMob(LivingEntity livingEntity){
+        return (livingEntity instanceof AbstractEnderling
+                || livingEntity instanceof EnderMan
+                || livingEntity.getType().is(ModTags.EntityTypes.VOID_SET_NEUTRAL))
+                && livingEntity.getMaxHealth() <= ItemConfig.VoidSetMobNeutralHealth.get()
                 && !(livingEntity instanceof IOwned && !(livingEntity instanceof Enemy));
     }
 

@@ -8,6 +8,7 @@ import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -76,6 +77,8 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
                 this.add(block, bl -> createSinglePropConditionTable(bl, BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER));
             } else if (block instanceof LampBlock) {
                 this.add(block, bl -> createSinglePropConditionTable(bl, LampBlock.HALF, DoubleBlockHalf.LOWER));
+            } else if (block instanceof PurpurLampBlock) {
+                this.add(block, bl -> createSinglePropConditionTable(bl, PurpurLampBlock.HALF, DoubleBlockHalf.LOWER));
             } else {
                 this.dropSelf(block);
             }
@@ -90,6 +93,7 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
         this.dropPottedContents(ModBlocks.POTTED_ROTTEN_SAPLING.get());
         this.dropPottedContents(ModBlocks.POTTED_WINDSWEPT_SAPLING.get());
         this.dropPottedContents(ModBlocks.POTTED_PINE_SAPLING.get());
+        this.dropPottedContents(ModBlocks.POTTED_CHORUS_SAPLING.get());
         this.add(ModBlocks.JADE_ORE.get(), (p_124076_) -> {
             return createOreDrop(p_124076_, ModItems.JADE.get());
         });
@@ -114,6 +118,15 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
         this.add(ModBlocks.PINE_BOOKSHELF.get(), (p_124233_) -> {
             return createSingleItemTableWithSilkTouch(p_124233_, Items.BOOK, ConstantValue.exactly(3.0F));
         });
+        this.add(ModBlocks.CHORUS_LEAVES.get(), (p_124094_) -> {
+            return createLeavesDrops(p_124094_, ModBlocks.CHORUS_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
+        });
+        this.add(ModBlocks.CHORUS_BOOKSHELF.get(), (p_124233_) -> {
+            return createSingleItemTableWithSilkTouch(p_124233_, Items.BOOK, ConstantValue.exactly(3.0F));
+        });
+        this.add(ModBlocks.CORRUPT_CHORUS_BOOKSHELF.get(), (p_124233_) -> {
+            return createSingleItemTableWithSilkTouch(p_124233_, Items.BOOK, ConstantValue.exactly(3.0F));
+        });
         this.add(ModBlocks.CRYPT_BOOKSHELF.get(), (p_124233_) -> {
             return createSingleItemTableWithSilkTouch(p_124233_, Items.BOOK, ConstantValue.exactly(3.0F));
         });
@@ -127,6 +140,8 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
         this.add(ModBlocks.LOFTY_CHEST.get(), (p_124233_) -> {
             return createSingleItemTableWithSilkTouch(p_124233_, Items.OBSIDIAN, UniformGenerator.between(2.0F, 4.0F));
         });
+        this.add(ModBlocks.VOID_BARREL.get(), this::createVoidBarrelConditionTable);
+        this.dropOther(ModBlocks.VOID_CAULDRON.get(), Blocks.CAULDRON.asItem());
     }
 
     protected LootTable.Builder createRottenLeavesDrops(Block p_124264_, Block p_124265_, float... p_124266_) {
@@ -139,5 +154,9 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
 
     protected LootTable.Builder createOreDrop(Block p_124140_, Item p_124141_) {
         return createSilkTouchDispatchTable(p_124140_, applyExplosionDecay(p_124140_, LootItem.lootTableItem(p_124141_).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
+    }
+
+    protected <T extends Comparable<T> & StringRepresentable> LootTable.Builder createVoidBarrelConditionTable(Block p_252154_) {
+        return LootTable.lootTable().withPool(this.applyExplosionCondition(p_252154_, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(p_252154_).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(p_252154_).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER).hasProperty(BlockStateProperties.LIT, false))))));
     }
 }

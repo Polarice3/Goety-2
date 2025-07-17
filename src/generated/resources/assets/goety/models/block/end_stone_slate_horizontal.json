@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "goety:block/end_stone_slate_top",
+    "side": "goety:block/end_stone_slate"
+  }
+}

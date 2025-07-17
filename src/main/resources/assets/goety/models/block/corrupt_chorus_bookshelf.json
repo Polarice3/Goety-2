@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "goety:block/corrupt_chorus_planks",
+    "side": "goety:block/corrupt_chorus_bookshelf"
+  }
+}

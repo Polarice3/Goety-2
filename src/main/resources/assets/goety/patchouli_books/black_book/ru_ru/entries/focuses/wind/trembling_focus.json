@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/trembling_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/wind_staff)ветряного посоха$() увеличивает радиус действия."
     }
   ],
   "extra_recipe_mappings": {

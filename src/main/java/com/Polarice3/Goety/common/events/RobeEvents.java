@@ -233,6 +233,20 @@ public class RobeEvents {
                     }
                 }
             }
+            if (ItemConfig.VoidRobeTeleportChance.get() > 0) {
+                if (CuriosFinder.hasVoidRobe(victim)) {
+                    if (!victim.isInvulnerableTo(event.getSource()) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(victim)) {
+                        float chance = ItemConfig.VoidRobeTeleportChance.get() / 100.0F;
+                        if (victim.getRandom().nextFloat() <= chance) {
+                            if (MobUtil.teleport(victim)){
+                                if (ItemConfig.VoidRobeTeleportDamageCancel.get()) {
+                                    event.setCanceled(true);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         if (source instanceof MagmaCube magmaCube){
@@ -331,6 +345,19 @@ public class RobeEvents {
                                 event.setNewTarget(null);
                             } else {
                                 event.setCanceled(true);
+                            }
+                        }
+                    }
+                    if (CuriosFinder.neutralVoidSet(target)) {
+                        if (CuriosFinder.validVoidMob(mobAttacker)) {
+                            if (mobAttacker.getLastHurtByMob() != target) {
+                                if (event.getTargetType() == MOB_TARGET) {
+                                    event.setNewTarget(null);
+                                } else {
+                                    event.setCanceled(true);
+                                }
+                            } else {
+                                mobAttacker.setLastHurtByMob(target);
                             }
                         }
                     }
@@ -436,6 +463,16 @@ public class RobeEvents {
                     }
                 }
             }
+            if (ItemConfig.VoidSetMobNeutral.get()) {
+                if (CuriosFinder.validVoidMob(looker)) {
+                    if (CuriosFinder.hasVoidCrown(entity)) {
+                        event.modifyVisibility(0.5);
+                    }
+                    if (CuriosFinder.hasVoidRobe(looker)) {
+                        event.modifyVisibility(0.5);
+                    }
+                }
+            }
             if (CuriosFinder.hasIllusionRobe(entity)){
                 if (entity.isInvisible()){
                     event.modifyVisibility(0.0);
@@ -466,6 +503,11 @@ public class RobeEvents {
         if (event.getEffectInstance().getEffect() == MobEffects.POISON
                 || event.getEffectInstance().getEffect() == GoetyEffects.ACID_VENOM.get()) {
             if (CuriosFinder.hasWildRobe(event.getEntity())) {
+                event.setResult(Event.Result.DENY);
+            }
+        }
+        if (event.getEffectInstance().getEffect() == GoetyEffects.VOID_TOUCHED.get()) {
+            if (CuriosFinder.hasVoidRobe(event.getEntity())) {
                 event.setResult(Event.Result.DENY);
             }
         }

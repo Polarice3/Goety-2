@@ -1,15 +1,19 @@
 {
-  "name": "Foco do Fogo Fantasma",
+  "name": "Foco de Fogo Fantasma",
   "icon": "goety:ghost_fire_focus",
   "category": "goety:focuses/necromancy",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "As chamas dos mortos podem ser bastante arrepiantes. Com ectoplasmas, você conseguiu invocar as chamas frias dos mortos em um local ou aos pés de seus inimigos."
+      "text": "As chamas dos mortos podem ser bastante gélidas. Com ectoplasmas, você consegue invocar as chamas frias dos mortos em um local ou aos pés dos seus inimigos."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/ghost_fire_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/necro_staff)Cajado Necro$() invoca mais chamas gélidas em uma área 3x3 em vez de 2x2."
     }
   ],
   "extra_recipe_mappings": {

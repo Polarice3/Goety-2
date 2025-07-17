@@ -502,12 +502,12 @@ public class Summoned extends Owned implements IServant {
         public final T summonedEntity;
         public LivingEntity owner;
         public final LevelReader level;
-        private final double followSpeed;
-        private final PathNavigation navigation;
-        private int timeToRecalcPath;
+        public final double followSpeed;
+        public final PathNavigation navigation;
+        public int timeToRecalcPath;
         public final float stopDistance;
         public final float startDistance;
-        private float oldWaterCost;
+        public float oldWaterCost;
 
         public FollowOwnerGoal(T summonedEntity, double speed, float startDistance, float stopDistance) {
             this.summonedEntity = summonedEntity;
@@ -578,7 +578,7 @@ public class Summoned extends Owned implements IServant {
                         if (this.owner instanceof Mob){
                             flag |= !this.summonedEntity.hasLineOfSight(this.owner) && this.summonedEntity.distanceToSqr(this.owner) >= Mth.square(8.0D);
                         } else {
-                            flag &= MobsConfig.ServantTeleport.get();
+                            flag &= this.canTeleport();
                         }
                         if (flag) {
                             this.tryToTeleportNearEntity();
@@ -590,7 +590,11 @@ public class Summoned extends Owned implements IServant {
             }
         }
 
-        private void tryToTeleportNearEntity() {
+        protected boolean canTeleport() {
+            return MobsConfig.ServantTeleport.get();
+        }
+
+        protected void tryToTeleportNearEntity() {
             BlockPos blockpos = this.owner.blockPosition();
 
             for(int i = 0; i < 10; ++i) {
@@ -605,7 +609,7 @@ public class Summoned extends Owned implements IServant {
 
         }
 
-        private boolean tryToTeleportToLocation(int x, int y, int z) {
+        protected boolean tryToTeleportToLocation(int x, int y, int z) {
             if (Math.abs((double)x - this.owner.getX()) < 2.0D && Math.abs((double)z - this.owner.getZ()) < 2.0D) {
                 return false;
             } else if (!this.isTeleportFriendlyBlock(new BlockPos(x, y, z))) {
@@ -617,7 +621,7 @@ public class Summoned extends Owned implements IServant {
             }
         }
 
-        private boolean isTeleportFriendlyBlock(BlockPos pos) {
+        protected boolean isTeleportFriendlyBlock(BlockPos pos) {
             BlockPathTypes pathnodetype = WalkNodeEvaluator.getBlockPathTypeStatic(this.level, pos.mutable());
             if (pathnodetype != BlockPathTypes.WALKABLE) {
                 return false;
@@ -632,7 +636,7 @@ public class Summoned extends Owned implements IServant {
             }
         }
 
-        private int getRandomNumber(int min, int max) {
+        protected int getRandomNumber(int min, int max) {
             return this.summonedEntity.getRandom().nextInt(max - min + 1) + min;
         }
     }

@@ -10,6 +10,10 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/ice_spike_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/frost_staff)морозного посоха$() позволит стрелять ледяными копьями, которые пробивают врагов насквозь."
     }
   ]
 }

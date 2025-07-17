@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#spartanweaponry:battleaxes",
+      "required": false
+    }
+  ]
+}

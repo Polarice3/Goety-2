@@ -62,7 +62,7 @@ public class IgniteSpell extends BlockSpell implements ITouchSpell {
     }
 
     @Override
-    public void touchResult(ServerLevel worldIn, LivingEntity caster, LivingEntity target, SpellStat spellStat) {
+    public void touchResult(ServerLevel worldIn, LivingEntity caster, LivingEntity target, ItemStack staff, SpellStat spellStat) {
         this.playSound(worldIn, target, SoundEvents.FIRECHARGE_USE);
         target.setSecondsOnFire(SpellConfig.IgniteFireSeconds.get() + spellStat.getBurning() + WandUtil.getLevels(ModEnchantments.BURNING.get(), caster));
     }

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "goety:block/end_rock_top",
+    "bottom": "goety:block/end_rock_top",
+    "side": "goety:block/end_rock"
+  }
+}

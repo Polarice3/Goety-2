@@ -47,7 +47,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class AbstractWitherNecromancer extends AbstractNecromancer{
+public class AbstractWitherNecromancer extends AbstractNecromancer {
 
     public AbstractWitherNecromancer(EntityType<? extends AbstractNecromancer> type, Level level) {
         super(type, level);

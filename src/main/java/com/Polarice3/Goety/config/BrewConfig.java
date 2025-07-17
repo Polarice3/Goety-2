@@ -47,6 +47,7 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> EnderFluxCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FlameHandsCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> VenomousHandsCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VoidTouchedCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FreezingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> GoldTouchedCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> NyctophobiaCost;
@@ -165,6 +166,8 @@ public class BrewConfig {
                 .defineInRange("flameHandsCost", 25, 1, Integer.MAX_VALUE);
         VenomousHandsCost = BUILDER.comment("Venomous Hands Soul Cost, Default: 25")
                 .defineInRange("venomousHandsCost", 25, 1, Integer.MAX_VALUE);
+        VoidTouchedCost = BUILDER.comment("Void Touched Soul Cost, Default: 25")
+                .defineInRange("voidTouchedCost", 25, 1, Integer.MAX_VALUE);
         FreezingCost = BUILDER.comment("Freezing Soul Cost, Default: 25")
                 .defineInRange("freezingCost", 25, 1, Integer.MAX_VALUE);
         GoldTouchedCost = BUILDER.comment("Gold Touched Soul Cost, Default: 10")

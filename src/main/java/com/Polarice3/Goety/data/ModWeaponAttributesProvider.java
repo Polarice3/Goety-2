@@ -17,8 +17,6 @@ import net.minecraftforge.registries.RegistryObject;
 import org.apache.commons.compress.utils.Lists;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;

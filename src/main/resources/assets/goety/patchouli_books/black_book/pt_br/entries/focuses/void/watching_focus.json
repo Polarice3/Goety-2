@@ -1,0 +1,22 @@
+{
+  "name": "Foco da Vigília",
+  "icon": "goety:watching_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Você sente este foco olhando para você. Com ele, você invoca $(l:summons/enderling_servants#watchling)uma massa humanóide de olhos e escuridão$()."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/watching_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/void_staff)Cajado do Vácuo$() invoca mais observadores de uma vez."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:watching_focus": 1
+  }
+}

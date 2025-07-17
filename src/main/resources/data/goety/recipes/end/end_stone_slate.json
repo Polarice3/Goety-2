@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "F": {
+      "item": "goety:smooth_end_stone"
+    },
+    "S": {
+      "item": "goety:end_soil"
+    }
+  },
+  "pattern": [
+    "FS",
+    "SF"
+  ],
+  "result": {
+    "count": 4,
+    "item": "goety:end_stone_slate"
+  }
+}

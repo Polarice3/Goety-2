@@ -110,6 +110,10 @@ public class Trampler extends Raider implements ICharger, ICustomAttributes {
         this.setConfigurableAttributes();
     }
 
+    protected float getWaterSlowDown() {
+        return 0.98F;
+    }
+
     public int getMaxHeadYRot() {
         return 45;
     }

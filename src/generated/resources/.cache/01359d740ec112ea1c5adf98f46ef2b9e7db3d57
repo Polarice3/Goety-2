@@ -1,18 +1,18 @@
-// 1.20.1	2025-04-29T14:19:11.8060459	Tags for minecraft:damage_type mod id goety
+// 1.20.1	2025-07-06T20:24:08.9190742	Tags for minecraft:damage_type mod id goety
 b2da2a60d0d4b7ba4e063d51d35cd08c791ce55c data/goety/tags/damage_type/fire_attacks.json
 38584b458b732e8d201211fbf087f88e743f37d1 data/goety/tags/damage_type/frost_attacks.json
 bfdb3673ac7c784ebc1d0512c7d5110d20489949 data/goety/tags/damage_type/hellfire.json
 16f96d5d6f1ae97b69c5cf6d585a488f058e3243 data/goety/tags/damage_type/magic_fire.json
-d971ab7e7ff0b12cbd8cbd49c0bdfa2f9a0f037d data/goety/tags/damage_type/no_knockback.json
+0571fd29dd1349a2c18506550defe98b107730f9 data/goety/tags/damage_type/no_knockback.json
 71807fbc8a72e1178e3e57c9b9f6312904f66805 data/goety/tags/damage_type/physical.json
 082bc08bb64b91203d166c67a75d29c717aa9bea data/goety/tags/damage_type/shock_attacks.json
 fedba5319eb84cd84cca61f3e7c089f9dfca9339 data/goety/tags/damage_type/wanting_damage.json
 33d3e3c76df1fbcdfb1ee0698431a829ec09ef86 data/goety/tags/damage_type/water_attacks.json
-e37f4c011458efa60d6a1d08afde01b72a16feeb data/minecraft/tags/damage_type/bypasses_armor.json
-45bd31380beeeacc2b228c26991ec336266f046d data/minecraft/tags/damage_type/bypasses_effects.json
-45bd31380beeeacc2b228c26991ec336266f046d data/minecraft/tags/damage_type/bypasses_enchantments.json
-45bd31380beeeacc2b228c26991ec336266f046d data/minecraft/tags/damage_type/bypasses_resistance.json
-cb85161ea2fb59ce280e25eac9c057912b1c2516 data/minecraft/tags/damage_type/bypasses_shield.json
+2aff65660c426562d157899b16e8fc2a11223c84 data/minecraft/tags/damage_type/bypasses_armor.json
+2bf1fd543a6c4821be8c014087de2c5fa41f12ad data/minecraft/tags/damage_type/bypasses_effects.json
+2bf1fd543a6c4821be8c014087de2c5fa41f12ad data/minecraft/tags/damage_type/bypasses_enchantments.json
+2bf1fd543a6c4821be8c014087de2c5fa41f12ad data/minecraft/tags/damage_type/bypasses_resistance.json
+7d268eda89a77a708c494738af37b79203e93081 data/minecraft/tags/damage_type/bypasses_shield.json
 f183160a6b3101a9832abbf5143d6d07c25e6c4b data/minecraft/tags/damage_type/is_explosion.json
 44cac629124d5921ca0e9cf2d7c0420ad4b38f7b data/minecraft/tags/damage_type/is_fire.json
 01cce596397b6b0103aacd48a7c3065767e9fec6 data/minecraft/tags/damage_type/is_freezing.json

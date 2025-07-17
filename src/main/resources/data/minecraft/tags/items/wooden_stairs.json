@@ -6,6 +6,9 @@
     "goety:windswept_stairs",
     "goety:pine_stairs",
     "goety:steep_stairs",
-    "goety:sky_wood_stairs"
+    "goety:sky_wood_stairs",
+    "goety:chorus_stairs",
+    "goety:chorus_wood_stairs",
+    "goety:corrupt_chorus_stairs"
   ]
 }

@@ -200,6 +200,8 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
             itemStack = new ItemStack(Items.NETHER_BRICKS);
         } else if (recipe.getCraftType().contains(RitualTypes.SABBATH)){
             itemStack = new ItemStack(Items.CRYING_OBSIDIAN);
+        } else if (recipe.getCraftType().contains(RitualTypes.END)) {
+            itemStack = new ItemStack(ModBlocks.VOID_BLOCK.get());
         } else if (recipe.getCraftType().contains(RitualTypes.SKY)){
             itemStack = new ItemStack(ModBlocks.MARBLE_BLOCK.get());
         } else if (recipe.getCraftType().contains(RitualTypes.STORM)){

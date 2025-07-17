@@ -1,16 +1,20 @@
 {
-  "name": "Foco do Voo",
+  "name": "Foco de Voo",
   "icon": "goety:flying_focus",
   "category": "goety:focuses/wind",
   "advancement": "minecraft:end/elytra",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Com o poder do dragão gracioso e o controle da Elytra, você refinou o Foco do Lançamento para voar adequadamente com sua varinha ou cajado (segurando o botão direito do mouse)."
+      "text": "Com o poder da graciosa dragão e o controle da Elytra, você refinou o Foco de Lançamento para permitir que você voe adequadamente com sua varinha ou cajado (segurando o botão direito do mouse)."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/flying_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/wind_staff)Cajado do Vento$() faz você voar mais rápido."
     }
   ],
   "extra_recipe_mappings": {

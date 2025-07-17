@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "O feitiço emite uma explosão circular de vento ao redor do conjurador, empurrando criaturas não aliadas para longe e desacelerando-as brevemente."
+      "text": "O feitiço emite uma rajada de vento circular ao redor do conjurador, empurrando criaturas não aliadas para trás e desacelerando-as brevemente."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/trembling_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/wind_staff)Cajado do Vento$() aumenta a área de efeito."
     }
   ],
   "extra_recipe_mappings": {

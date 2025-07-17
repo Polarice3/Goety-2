@@ -5,6 +5,8 @@
     "goety:rotten_fence",
     "goety:windswept_fence",
     "goety:pine_fence",
-    "goety:steep_fence"
+    "goety:steep_fence",
+    "goety:chorus_fence",
+    "goety:corrupt_chorus_fence"
   ]
 }

@@ -72,7 +72,7 @@ public class RecallSpell extends Spell implements ITouchSpell {
     }
 
     @Override
-    public void touchResult(ServerLevel worldIn, LivingEntity caster, LivingEntity target, SpellStat spellStat) {
+    public void touchResult(ServerLevel worldIn, LivingEntity caster, LivingEntity target, ItemStack staff, SpellStat spellStat) {
         if (caster instanceof ServerPlayer player) {
             if (RecallFocus.isValid(worldIn, WandUtil.findFocus(player))) {
                 if (MobUtil.getOwner(target) != null){

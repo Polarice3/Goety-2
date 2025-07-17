@@ -7,7 +7,6 @@ import com.Polarice3.Goety.common.entities.hostile.illagers.StormCaster;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class StormCasterRenderer<T extends StormCaster> extends MobRenderer<T, StormCasterModel<T>> {

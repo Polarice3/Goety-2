@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 
 public class CursedKnightArmor extends ArmorItem {
     public CursedKnightArmor(ArmorItem.Type p_40387_) {
-        super(ModArmorMaterials.CURSED_KNIGHT, p_40387_, ModItems.baseProperities());
+        super(ModArmorMaterials.CURSED_KNIGHT, p_40387_, ModItems.baseProperties());
     }
 
     public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {

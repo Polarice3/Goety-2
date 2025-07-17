@@ -1,0 +1,23 @@
+{
+  "name": "決裂のフォーカス",
+  "icon": "goety:rupture_focus",
+  "category": "goety:focuses/void",
+  "advancement": "minecraft:end/kill_dragon",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "十分なソウルエネルギーがあれば、世界の中に奈落への裂け目を開き、近くにいる味方以外の生き物すべてをその方向に吸い込み、吸い込まれたときにダメージを与え、その後大爆発を起こして閉じます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/rupture_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/void_staff)ヴォイドの杖$()で唱えると、裂け目の爆発はヴォイドタッチド効果を伴います。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:rupture_focus": 1
+  }
+}

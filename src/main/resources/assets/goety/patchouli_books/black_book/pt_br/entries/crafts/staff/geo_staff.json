@@ -1,0 +1,22 @@
+{
+  "name": "Cajado Geomântico",
+  "icon": "goety:geo_staff",
+  "category": "goety:crafts/staff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Enquanto os Geomantes usam bastões de madeira simples para alimentar sua geomancia, você sabe que pode fazer melhor com as ametistas que tem por aí."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:geo_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O Cajado Geomântico potencializa vários feitiços de Geomancia, concedendo mais poder sobre a própria terra!"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:wind_staff": 1
+  }
+}

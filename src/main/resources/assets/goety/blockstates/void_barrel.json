@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "triggered=false,lit=false,half=upper": {
+      "model": "goety:block/void_barrel_top"
+    },
+    "triggered=false,lit=false,half=lower": {
+      "model": "goety:block/void_barrel_bottom"
+    },
+    "triggered=true,lit=false,half=upper": {
+      "model": "goety:block/void_barrel_top"
+    },
+    "triggered=true,lit=false,half=lower": {
+      "model": "goety:block/void_barrel_bottom"
+    },
+    "triggered=false,lit=true,half=upper": {
+      "model": "goety:block/empty"
+    },
+    "triggered=false,lit=true,half=lower": {
+      "model": "goety:block/void_barrel_exploded"
+    },
+    "triggered=true,lit=true,half=upper": {
+      "model": "goety:block/empty"
+    },
+    "triggered=true,lit=true,half=lower": {
+      "model": "goety:block/void_barrel_exploded"
+    }
+  }
+}

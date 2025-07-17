@@ -13,6 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
 public class ChargeSpell extends TouchSpell {
     @Override
@@ -36,7 +37,7 @@ public class ChargeSpell extends TouchSpell {
     }
 
     @Override
-    public void touchResult(ServerLevel worldIn, LivingEntity caster, LivingEntity target, SpellStat spellStat) {
+    public void touchResult(ServerLevel worldIn, LivingEntity caster, LivingEntity target, ItemStack staff, SpellStat spellStat) {
         if (!target.hasEffect(GoetyEffects.CHARGED.get())) {
             this.playSound(worldIn, target, 1.0F, 0.5F);
             target.addEffect(new MobEffectInstance(GoetyEffects.CHARGED.get(), MathHelper.secondsToTicks(30), 0, false, false));

@@ -1,4 +1,4 @@
-// 1.20.1	2025-06-27T00:23:27.6069797	Goety Better Combat Weapon Attributes Provider
+// 1.20.1	2025-07-08T18:37:04.0404623	Goety Better Combat Weapon Attributes Provider
 41295fa35bde07796d3a2358c5746060c05cdf46 data/goety/weapon_attributes/abyss_staff.json
 42182a48ea3bed59c9e2d21fc98364c722b388a0 data/goety/weapon_attributes/dark_wand.json
 41295fa35bde07796d3a2358c5746060c05cdf46 data/goety/weapon_attributes/frost_staff.json
@@ -8,5 +8,6 @@
 41295fa35bde07796d3a2358c5746060c05cdf46 data/goety/weapon_attributes/nether_staff.json
 41295fa35bde07796d3a2358c5746060c05cdf46 data/goety/weapon_attributes/ominous_staff.json
 41295fa35bde07796d3a2358c5746060c05cdf46 data/goety/weapon_attributes/storm_staff.json
+41295fa35bde07796d3a2358c5746060c05cdf46 data/goety/weapon_attributes/void_staff.json
 41295fa35bde07796d3a2358c5746060c05cdf46 data/goety/weapon_attributes/wild_staff.json
 41295fa35bde07796d3a2358c5746060c05cdf46 data/goety/weapon_attributes/wind_staff.json

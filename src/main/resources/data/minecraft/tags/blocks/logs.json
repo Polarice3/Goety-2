@@ -5,6 +5,8 @@
     "#goety:rotten_logs",
     "#goety:windswept_logs",
     "#goety:pine_logs",
+    "#goety:chorus_logs",
+    "#goety:corrupt_chorus_logs",
     "goety:steep_wood"
   ]
 }

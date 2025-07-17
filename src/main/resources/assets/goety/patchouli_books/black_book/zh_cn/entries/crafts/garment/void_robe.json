@@ -1,0 +1,27 @@
+{
+  "name": "虚空长袍",
+  "icon": "goety:void_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "虚空法袍赋予穿戴者末地之力：可概率性瞬移闪避攻击、免疫虚空之蚀、自由穿越虚空方块，并降低虚空系法术消耗."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:void_robe"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:void_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "虚空王冠可使虚空系法术吟唱时间减半，阻止部分虚空仆从消亡，并让穿戴者能够凝视末影人而不激怒它们。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:void_robe": 1,
+    "goety:void_crown": 2
+  }
+}

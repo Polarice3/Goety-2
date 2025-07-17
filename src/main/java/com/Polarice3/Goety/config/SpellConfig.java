@@ -497,6 +497,24 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> RuptureCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> RuptureDamage;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> WatchlingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WatchlingDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WatchlingCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WatchlingSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WatchlingLimit;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlastlingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlastlingDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlastlingCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlastlingSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlastlingLimit;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> SnarelingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SnarelingDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SnarelingCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SnarelingSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SnarelingLimit;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> CraftingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> CraftingDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> CraftingCoolDown;
@@ -1569,6 +1587,42 @@ public class SpellConfig {
                     .defineInRange("ruptureCoolDown", 6000, 0, Integer.MAX_VALUE);
             RuptureDamage = BUILDER.comment("How much base damage the Void Rift deals, Default: 2.0")
                     .defineInRange("ruptureDamage", 2.0, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Watching Spell");
+            WatchlingCost = BUILDER.comment("Watching Spell Cost, Default: 20")
+                    .defineInRange("watchlingCost", 20, 0, Integer.MAX_VALUE);
+            WatchlingDuration = BUILDER.comment("Time to cast Watching Spell, Default: 40")
+                    .defineInRange("watchlingTime", 40, 0, 72000);
+            WatchlingCoolDown = BUILDER.comment("Watching Spell Cooldown, Default: 200")
+                    .defineInRange("watchlingCoolDown", 200, 0, Integer.MAX_VALUE);
+            WatchlingSummonDown = BUILDER.comment("Watching Spell Summon Down, Default: 120")
+                    .defineInRange("watchlingSummonDown", 120, 0, 72000);
+            WatchlingLimit = BUILDER.comment("Number of Watchling Servants that can a player can have, Default: 32")
+                    .defineInRange("watchlingLimit", 32, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Blasting Spell");
+            BlastlingCost = BUILDER.comment("Blasting Spell Cost, Default: 32")
+                    .defineInRange("blastlingCost", 32, 0, Integer.MAX_VALUE);
+            BlastlingDuration = BUILDER.comment("Time to cast Blasting Spell, Default: 60")
+                    .defineInRange("blastlingTime", 60, 0, 72000);
+            BlastlingCoolDown = BUILDER.comment("Blasting Spell Cooldown, Default: 200")
+                    .defineInRange("blastlingCoolDown", 200, 0, Integer.MAX_VALUE);
+            BlastlingSummonDown = BUILDER.comment("Blasting Spell Summon Down, Default: 120")
+                    .defineInRange("blastlingSummonDown", 120, 0, 72000);
+            BlastlingLimit = BUILDER.comment("Number of Blastling Servants that an individual player can have in total, Default: 32")
+                    .defineInRange("blastlingLimit", 32, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Snaring Spell");
+            SnarelingCost = BUILDER.comment("Snaring Spell Cost, Default: 24")
+                    .defineInRange("snarelingCost", 24, 0, Integer.MAX_VALUE);
+            SnarelingDuration = BUILDER.comment("Time to cast Snaring Spell, Default: 40")
+                    .defineInRange("snarelingTime", 40, 0, 72000);
+            SnarelingCoolDown = BUILDER.comment("Snaring Spell Cooldown, Default: 200")
+                    .defineInRange("snarelingCoolDown", 200, 0, Integer.MAX_VALUE);
+            SnarelingSummonDown = BUILDER.comment("Snaring Spell Summon Down, Default: 120")
+                    .defineInRange("snarelingSummonDown", 120, 0, 72000);
+            SnarelingLimit = BUILDER.comment("Number of Snareling Servants that an individual player can have in total, Default: 32")
+                    .defineInRange("snarelingLimit", 32, 1, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Crafting Spell");
             CraftingCost = BUILDER.comment("Crafting Spell Cost, Default: 2")

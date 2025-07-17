@@ -50,6 +50,7 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.XP_TAKE.get(), FlameParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.CULT_SPELL.get(), SpellParticle.MobProvider::new);
         event.registerSpriteSet(ModParticleTypes.BIG_CULT_SPELL.get(), BigSpellParticle.MobProvider::new);
+        event.registerSpriteSet(ModParticleTypes.SMALL_STATION_CULT_SPELL.get(), FireParticle.SmallerColorProvider::new);
         event.registerSpriteSet(ModParticleTypes.STATION_CULT_SPELL.get(), FireParticle.ColorProvider::new);
         event.registerSpriteSet(ModParticleTypes.CONFUSED.get(), HeartParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.WRAITH.get(), WraithParticle.Provider::new);
@@ -77,6 +78,8 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.ELECTRIC_EXPLODE.get(), ElectricExplosionParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.FAN_CLOUD.get(), FanCloudParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.REDSTONE_DEBRIS.get(), FootprintParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.GOO_STAIN.get(), StainGroundParticle.GlowProvider::new);
+        event.registerSpriteSet(ModParticleTypes.CHORUS_LEAVES.get(), FallingLeavesParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.MAGIC_BOLT.get(), RollingParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.NECRO_BOLT.get(), RollingParticle.QuickProvider::new);
         event.registerSpriteSet(ModParticleTypes.STUN.get(), RollingParticle.Provider::new);
@@ -90,6 +93,7 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.SOUL_EXPLODE.get(), SoulExplodeParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SUMMON.get(), SummonParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SPELL_SQUARE.get(), SpellSquareParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.SMALL_SPELL_SQUARE.get(), SpellSquareParticle.SmallProvider::new);
         event.registerSpriteSet(ModParticleTypes.TRAIL.get(), TrailParticle.MobProvider::new);
         event.registerSpriteSet(ModParticleTypes.SUMMON_TRAIL.get(), SummonTrailParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.DROPLET.get(), DropParticle.Provider::new);
@@ -101,6 +105,7 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.REVERSE_SHOCKWAVE.get(), ShockwaveParticle.ReverseProvider::new);
         event.registerSpriteSet(ModParticleTypes.LICH_DEATH.get(), ShockwaveParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.CIRCLE_EXPLODE.get(), CircleExplodeParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.AOE_INDICATOR.get(), AoEParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.FOG_CLOUD.get(), FoggyCloudParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SOUL_HEAL.get(), RisingCircleParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SCULK_BUBBLE.get(), SculkBubbleParticle.Provider::new);
@@ -111,6 +116,7 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.GATHER_TRAIL.get(), GatherTrailParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.ABSORB_TRAIL.get(), AbsorbTrailParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.MAGIC_SMOKE.get(), MagicSmokeParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.FOLLOW_CULT_SPELL.get(), FollowFireParticle.Provider::new);
         event.registerSpecial(ModParticleTypes.WATER_STREAM.get(), new WaterStreamParticle.Provider());
         event.registerSpriteSet(ModParticleTypes.BLOSSOM_THORN_INDICATOR.get(),
                 spriteSet -> new GeometricParticle.Provider(spriteSet,

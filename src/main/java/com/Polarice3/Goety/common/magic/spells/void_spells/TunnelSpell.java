@@ -83,11 +83,11 @@ public class TunnelSpell extends BlockSpell {
             }
             blockPos = blockPos.relative(direction.getOpposite());
         }
-        createHole(worldIn, blockHitResult.getBlockPos(), direction, (byte)Math.round((float)(totalDistance + 1)), SpellConfig.TunnelDefaultLifespan.get() + (extraLife * 20));
+        createHole(worldIn, blockHitResult.getBlockPos(), direction, (byte)Math.round((float)(totalDistance + 1)), this.rightStaff(staff), SpellConfig.TunnelDefaultLifespan.get() + (extraLife * 20));
         this.playSound(worldIn, caster, ModSounds.CAST_SPELL.get());
     }
 
-    public static boolean createHole(Level world, BlockPos blockPos, Direction direction, int count, int lifespan) {
+    public static boolean createHole(Level world, BlockPos blockPos, Direction direction, int count, boolean staff, int lifespan) {
         BlockState blockState = world.getBlockState(blockPos);
         if (!world.isClientSide && world.getBlockEntity(blockPos) == null
                 && !blockState.is(ModTags.Blocks.TUNNEL_BLACKLIST)
@@ -97,7 +97,7 @@ public class TunnelSpell extends BlockSpell {
             if (world.setBlockAndUpdate(blockPos, ModBlocks.HOLE.get().defaultBlockState())) {
                 HoleBlockEntity newHole = (HoleBlockEntity)world.getBlockEntity(blockPos);
                 if (newHole != null) {
-                    newHole.setStats(blockState, lifespan, count, direction);
+                    newHole.setStats(blockState, lifespan, count, staff ? 5 : 3, direction);
                     return true;
                 }
             }

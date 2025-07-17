@@ -1,15 +1,19 @@
 {
-  "name": "Foco de Explosão Gélida",
+  "name": "Foco de Nova Gélida",
   "icon": "goety:frost_nova_focus",
   "category": "goety:focuses/frost",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Você libera uma explosão de gelo em sua posição, ou na posição de um alvo enquanto agachado, danificando todas as criaturas próximas e congelando-as. A explosão causa dano de congelamento e não prejudica o conjurador."
+      "text": "Você libera uma explosão de gelo na sua posição, ou na posição de um alvo se estiver agachado, danificando e congelando todas as criaturas próximas. A explosão causa dano de congelamento e não afeta o conjurador."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/frost_nova_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/frost_staff)Cajado Gélido$() aumenta um pouco o raio da explosão e faz os alvos congelarem mais rápido."
     }
   ],
   "extra_recipe_mappings": {

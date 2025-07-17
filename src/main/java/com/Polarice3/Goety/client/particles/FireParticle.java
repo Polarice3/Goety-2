@@ -116,6 +116,21 @@ public class FireParticle extends TextureSheetParticle {
       }
    }
 
+   public static class SmallerColorProvider implements ParticleProvider<SimpleParticleType> {
+      private final SpriteSet sprite;
+
+      public SmallerColorProvider(SpriteSet p_106827_) {
+         this.sprite = p_106827_;
+      }
+
+      public Particle createParticle(SimpleParticleType p_106838_, ClientLevel p_106839_, double p_106840_, double p_106841_, double p_106842_, double p_106843_, double p_106844_, double p_106845_) {
+         FireParticle flameparticle = new FireParticle(p_106839_, p_106840_, p_106841_, p_106842_, 0.0D, 0.0D, 0.0D, this.sprite);
+         flameparticle.quadSize /= 2.0F;
+         flameparticle.setColor((float) p_106843_, (float) p_106844_, (float) p_106845_);
+         return flameparticle;
+      }
+   }
+
    public static class DragonProvider implements ParticleProvider<SimpleParticleType> {
       private final SpriteSet sprite;
 

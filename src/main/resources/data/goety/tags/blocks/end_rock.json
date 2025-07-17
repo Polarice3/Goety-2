@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "goety:end_rock",
+    "goety:end_rock_slab",
+    "goety:end_rock_bricks",
+    "goety:end_rock_brick_slab",
+    "goety:end_rock_brick_wall",
+    "goety:end_rock_brick_fence",
+    "goety:end_rock_chiseled"
+  ]
+}

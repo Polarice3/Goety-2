@@ -1,15 +1,22 @@
 {
   "name": "放電のフォーカス",
   "icon": "goety:discharge_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/storm",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "あなたは自分の位置で電気の爆発を放ち、近くのすべての生き物を傷つけ、ショックを与えます。 爆発は衝撃ダメージを与えますが、術者にはダメージを与えません。"
+      "text": "術者は自身の位置に電撃の爆発を放ち、近くのすべてのクリーチャーにダメージと けいれん効果 を与えます。爆発は雷ダメージを与えますが、術者自身にはダメージを与えません。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/discharge_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/storm_staff)嵐の杖$()で唱えると、けいれん効果を発生させる可能性が高まり、連鎖的な雷効果を与えます。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:discharge_focus": 1
+  }
 }

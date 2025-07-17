@@ -11,6 +11,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/whispering_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/wild_staff)дикого посоха$() позволяет создавать дополнительного шептуна."
     }
   ],
   "extra_recipe_mappings": {

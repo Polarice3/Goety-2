@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "W#W",
+    "W#W"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "goety:smooth_end_stone_slab"
+    },
+    "W":
+    {
+      "item": "goety:smooth_end_stone"
+    }
+  },
+  "result":
+  {
+    "item": "goety:smooth_end_stone_fence",
+    "count": 3
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Blasting Focus",
+  "icon": "goety:blasting_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Despite the name, the focus doesn't blast anything. However, it does summon forth $(l:summons/enderling_servants#blastling)creatures that blasts volleys of hard hitting goop$()."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/blasting_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/void_staff)Void Staff$() summons more blastlings at once."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:blasting_focus": 1
+  }
+}

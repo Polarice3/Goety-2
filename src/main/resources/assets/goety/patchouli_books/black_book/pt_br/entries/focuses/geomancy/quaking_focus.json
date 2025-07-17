@@ -1,15 +1,19 @@
 {
-  "name": "Foco de Tremor",
+  "name": "Foco do Terremoto",
   "icon": "goety:quaking_focus",
   "category": "goety:focuses/geomancy",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "O conjurador invoca tremores à sua frente, causando dano e lançando criaturas não aliadas para o alto. Conjurar o feitiço agachado invoca tremores ao redor do conjurador."
+      "text": "O conjurador invoca tremores à sua frente, causando dano e lançando criaturas não aliadas para o alto. Conjurar agachado invoca tremores ao redor do conjurador."
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/quaking_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/geo_staff)Cajado Geo$() invoca tremores em um arco que também desativa escudos. Agachar aumenta o raio."
     }
   ]
 }

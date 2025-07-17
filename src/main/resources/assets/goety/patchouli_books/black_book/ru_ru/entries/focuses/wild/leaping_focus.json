@@ -1,19 +1,23 @@
 {
-   "name": "Фокус листьев",
-   "icon": "goety:leaping_focus",
-   "category": "goety:focuses/wild",
-   "advancement": "goety:goety/read_floral_scroll",
-   "pages": [
-     {
-       "type": "patchouli:text",
-       "text": "Призывает $(l:summons/leapleaves)листопрыгов$(), могучих прислужников, которые могут высоко подпрыгивать и наносить сокрушительные удары по врагам."
-     },
-     {
-       "type": "goety:ritual",
-       "recipe": "goety:focus/leaping_focus"
-     }
-   ],
-   "extra_recipe_mappings": {
-     "goety:leaping_focus": 1
-   }
- }
+  "name": "Фокус листьев",
+  "icon": "goety:leaping_focus",
+  "category": "goety:focuses/wild",
+  "advancement": "goety:goety/read_floral_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Призывает $(l:summons/leapleaves)листопрыгов$(), могучих прислужников, которые могут высоко подпрыгивать и наносить сокрушительные удары по врагам."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/leaping_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/wild_staff)дикого посоха$() даёт шанс на создание дополнительного голема."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:leaping_focus": 1
+  }
+}

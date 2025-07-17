@@ -1,0 +1,22 @@
+{
+  "name": "Watching Focus",
+  "icon": "goety:watching_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You feel this focus gazing back at you. With it, you'll summon forth a creature of the End, a $(l:summons/enderling_servants#watchling)grotesque humanoid mass of eyes and darkness$()."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/watching_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/void_staff)Void Staff$() summons more watchlings at once."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:watching_focus": 1
+  }
+}

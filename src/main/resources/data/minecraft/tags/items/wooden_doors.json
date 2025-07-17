@@ -4,6 +4,8 @@
     "goety:haunted_door",
     "goety:rotten_door",
     "goety:windswept_door",
-    "goety:pine_door"
+    "goety:pine_door",
+    "goety:chorus_door",
+    "goety:corrupt_chorus_door"
   ]
 }

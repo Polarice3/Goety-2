@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Com energia vital suficiente, o foco abre uma fenda no mundo para o próprio vácuo, sugando todas as criaturas não aliadas próximas, causando dano a elas, antes de se fechar em uma enorme explosão."
+      "text": "Com energia suficiente, o foco abre uma fenda no mundo para o vácuo, sugando criaturas próximas e causando dano antes de explodir."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/rupture_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/void_staff)Cajado do Vácuo$() faz a explosão aplicar Tocado pelo Vácuo."
     }
   ],
   "extra_recipe_mappings": {

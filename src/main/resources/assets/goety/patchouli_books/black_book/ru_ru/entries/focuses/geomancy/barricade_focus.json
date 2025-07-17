@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/barricade_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/geo_staff)гео-посоха$() увеличивает шанс создания четырёх тотемных бомб вместо одной."
     }
   ],
   "extra_recipe_mappings": {

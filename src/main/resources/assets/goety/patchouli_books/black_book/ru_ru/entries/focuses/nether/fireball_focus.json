@@ -11,6 +11,13 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/fireball_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/nether_staff)незерского посоха$() позволяет выпускать на два фаербола больше."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:fireball_focus": 1
+  }
 }

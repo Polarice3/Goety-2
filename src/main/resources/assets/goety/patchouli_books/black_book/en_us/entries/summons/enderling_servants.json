@@ -1,0 +1,59 @@
+{
+  "name": "Enderling Servants",
+  "icon": "minecraft:ender_pearl",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Sub-species to Enderman, these odd creatures are far more sustainable to being bound to their summoner than their nigh impossible to control cousin."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "All Enderlings are capable of teleportation, but unlike the Enderman, they don't teleport as often and some of them would disappear from combat for a couple of seconds to confuse their foes. They are also vulnerable to water."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_watchling_thrall"
+    },
+    {
+      "anchor": "watchling",
+      "type": "patchouli:entity",
+      "entity": "goety:watchling_servant",
+      "text": "Unfortunately, the book is incapable of showing their eyes properly for some arcane reason."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Watchling Servants are simple brutes that attack by teleporting in front of their enemy and swinging their arms at them. They can either be summoned through a ritual or casting with a $(l:focuses/void/watching_focus)Watching Focus$()."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_blastling_thrall"
+    },
+    {
+      "anchor": "blastling",
+      "type": "patchouli:entity",
+      "entity": "goety:blastling_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Blastling Servants are the toughest enderling health-wise, and attack by shooting a volley of hot goo at their enemies, though they would temporarily run or teleport away if a foe gets close to them. They can either be summoned through a ritual or casting with a $(l:focuses/void/blasting_focus)Blasting Focus$()."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_snareling_thrall"
+    },
+    {
+      "anchor": "snareling",
+      "type": "patchouli:entity",
+      "entity": "goety:snareling_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Snareling Servants are odd yet devious. They would first attempt at shooting their Snareling Goop at their foe, which would ensnare them for a time when hit, then they would either teleport or run towards their foe and attack them with their arms. They would temporarily try to run or teleport away if a foe gets close to them, if they're not ensnared. They can either be summoned through a ritual or casting with a $(l:focuses/void/snaring_focus)Snaring Focus$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "They can be healed by feeding them Chorus Fruits or wearing $(l:crafts/garment/void_robe)Void Robes with soul energy$()."
+    }
+  ]
+}

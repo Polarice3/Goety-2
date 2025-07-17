@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "bark",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "goety:corrupt_chorus_log"
+    }
+  },
+  "result": {
+    "item": "goety:corrupt_chorus_wood",
+    "count": 3
+  }
+}

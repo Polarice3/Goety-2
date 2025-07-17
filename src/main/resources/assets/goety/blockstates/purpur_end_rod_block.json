@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "connected_east=false,connected_north=false,connected_south=false,connected_west=false": { "model": "goety:block/purpur_end_rod_block/solo"},
+    "connected_east=false,connected_north=true,connected_south=false,connected_west=false": { "model": "goety:block/purpur_end_rod_block/north"},
+    "connected_east=false,connected_north=false,connected_south=true,connected_west=false": { "model": "goety:block/purpur_end_rod_block/south"},
+    "connected_east=false,connected_north=false,connected_south=false,connected_west=true": { "model": "goety:block/purpur_end_rod_block/west"},
+    "connected_east=true,connected_north=false,connected_south=false,connected_west=false": { "model": "goety:block/purpur_end_rod_block/east"},
+    "connected_east=true,connected_north=true,connected_south=false,connected_west=false": { "model": "goety:block/purpur_end_rod_block/east_north"},
+    "connected_east=true,connected_north=false,connected_south=true,connected_west=false": { "model": "goety:block/purpur_end_rod_block/east_south"},
+    "connected_east=false,connected_north=true,connected_south=false,connected_west=true": { "model": "goety:block/purpur_end_rod_block/west_north"},
+    "connected_east=false,connected_north=false,connected_south=true,connected_west=true": { "model": "goety:block/purpur_end_rod_block/west_south"},
+    "connected_east=true,connected_north=false,connected_south=false,connected_west=true": { "model": "goety:block/purpur_end_rod_block/between"},
+    "connected_east=false,connected_north=true,connected_south=true,connected_west=false": { "model": "goety:block/purpur_end_rod_block/between"},
+    "connected_east=false,connected_north=true,connected_south=true,connected_west=true": { "model": "goety:block/purpur_end_rod_block/between"},
+    "connected_east=true,connected_north=true,connected_south=true,connected_west=false": { "model": "goety:block/purpur_end_rod_block/between"},
+    "connected_east=true,connected_north=false,connected_south=true,connected_west=true": { "model": "goety:block/purpur_end_rod_block/between"},
+    "connected_east=true,connected_north=true,connected_south=false,connected_west=true": { "model": "goety:block/purpur_end_rod_block/between"},
+    "connected_east=true,connected_north=true,connected_south=true,connected_west=true": { "model": "goety:block/purpur_end_rod_block/solo"}
+  }
+}

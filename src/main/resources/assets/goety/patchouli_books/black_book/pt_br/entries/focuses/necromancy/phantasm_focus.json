@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Fantasmas são seres peculiares, que transitam entre a realidade e o irreal, aparecendo apenas para os privados de sono. Com este foco, você pode invocá-los e subjugá-los à sua vontade."
+      "text": "Phantoms são criaturas bastante peculiares, seres que voam entre a realidade e a irrealidade, aparecendo apenas para os privados de sono. Com este foco, você pode invocá-los e subjugá-los à sua vontade."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/phantasm_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/necro_staff)Cajado Necro$() invoca mais Phantoms de uma vez."
     }
   ],
   "extra_recipe_mappings": {

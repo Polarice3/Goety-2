@@ -240,4 +240,21 @@ public class EffectsUtil {
             }
         }
     }
+
+    public static void increaseEffect(LivingEntity infected, MobEffect effect, int maxAmp, boolean pAmbient, boolean pVisible){
+        MobEffectInstance instance = infected.getEffect(effect);
+        int i = 1;
+        int d = MathHelper.secondsToTicks(1);
+        if (instance != null) {
+            i += instance.getAmplifier();
+            d = MathHelper.secondsToTicks(i);
+        } else {
+            --i;
+            --d;
+        }
+
+        i = Mth.clamp(i, 0, maxAmp);
+        MobEffectInstance MobEffectInstance = new MobEffectInstance(effect, d, i, pAmbient, pVisible);
+        infected.addEffect(MobEffectInstance);
+    }
 }

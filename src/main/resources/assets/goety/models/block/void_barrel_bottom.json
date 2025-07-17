@@ -1,0 +1,113 @@
+{
+	"texture_size": [64, 64],
+	"textures": {
+		"particle": "goety:block/void_barrel"
+	},
+	"loader": "forge:composite",
+	"children": {
+		"barrel" : {
+			"textures": {
+				"0": "goety:block/void_barrel",
+				"1": "goety:block/void_barrel_top"
+			},
+			"render_type": "minecraft:translucent",
+			"elements" : [
+				{
+					"name": "bone",
+					"from": [-0.5, 0.1, -0.5],
+					"to": [16.5, 16.1, -0.5],
+					"rotation": {"angle": 0, "axis": "y", "origin": [8, 0.1, 8]},
+					"faces": {
+						"north": {"uv": [0, 5.5, 8.5, 13.5], "texture": "#0"},
+						"east": {"uv": [16, 0, 16, 0], "texture": "#0"},
+						"south": {"uv": [0, 5.5, 8.5, 13.5], "texture": "#0"},
+						"west": {"uv": [16, 0, 16, 0], "texture": "#0"},
+						"up": {"uv": [16, 0, 16, 0], "texture": "#0"},
+						"down": {"uv": [16, 0, 16, 0], "texture": "#0"}
+					}
+				},
+				{
+					"name": "bone",
+					"from": [-0.5, 0.1, 16.5],
+					"to": [16.5, 16.1, 16.5],
+					"rotation": {"angle": 0, "axis": "y", "origin": [8, 13.6, 16.5]},
+					"faces": {
+						"north": {"uv": [0, 5.5, 8.5, 13.5], "texture": "#0"},
+						"east": {"uv": [16, 0, 16, 0], "texture": "#0"},
+						"south": {"uv": [0, 5.5, 8.5, 13.5], "texture": "#0"},
+						"west": {"uv": [16, 0, 16, 0], "texture": "#0"},
+						"up": {"uv": [16, 0, 16, 0], "texture": "#0"},
+						"down": {"uv": [16, 0, 16, 0], "texture": "#0"}
+					}
+				},
+				{
+					"name": "bone",
+					"from": [-0.5, 0.1, -0.5],
+					"to": [-0.5, 16.1, 16.5],
+					"rotation": {"angle": 0, "axis": "y", "origin": [-0.5, 13.6, 8]},
+					"faces": {
+						"north": {"uv": [16, 0, 16, 0], "texture": "#0"},
+						"east": {"uv": [0, 5.5, 8.5, 13.5], "texture": "#0"},
+						"south": {"uv": [16, 0, 16, 0], "texture": "#0"},
+						"west": {"uv": [0, 5.5, 8.5, 13.5], "texture": "#0"},
+						"up": {"uv": [16, 0, 16, 0], "rotation": 90, "texture": "#0"},
+						"down": {"uv": [16, 0, 16, 0], "rotation": 270, "texture": "#0"}
+					}
+				},
+				{
+					"name": "bone",
+					"from": [16.5, 0.1, -0.5],
+					"to": [16.5, 16.1, 16.5],
+					"rotation": {"angle": 0, "axis": "y", "origin": [16.5, 13.6, 8]},
+					"faces": {
+						"north": {"uv": [16, 0, 16, 0], "texture": "#0"},
+						"east": {"uv": [0, 5.5, 8.5, 13.5], "texture": "#0"},
+						"south": {"uv": [16, 0, 16, 0], "texture": "#0"},
+						"west": {"uv": [0, 5.5, 8.5, 13.5], "texture": "#0"},
+						"up": {"uv": [16, 0, 16, 0], "rotation": 90, "texture": "#0"},
+						"down": {"uv": [16, 0, 16, 0], "rotation": 270, "texture": "#0"}
+					}
+				},
+				{
+					"name": "top",
+					"from": [-0.5, 0.1, -0.5],
+					"to": [16.5, 0.1, 16.5],
+					"rotation": {"angle": 0, "axis": "y", "origin": [8, 0.1, 8]},
+					"faces": {
+						"north": {"uv": [16, 0, 16, 0], "texture": "#1"},
+						"east": {"uv": [15.75, 0, 15.75, 0], "texture": "#1"},
+						"south": {"uv": [16, 0, 16, 0], "texture": "#1"},
+						"west": {"uv": [15.75, 0, 15.75, 0], "texture": "#1"},
+						"up": {"uv": [16, 0, 0, 16], "rotation": 90, "texture": "#1"},
+						"down": {"uv": [0, 0, 16, 16], "rotation": 270, "texture": "#1"}
+					}
+				}
+			]
+		},
+		"liquid" : {
+			"textures": {
+				"2": "goety:block/void_barrel_liquid"
+			},
+			"elements": [
+				{
+					"name": "liquid",
+					"from": [0.5, 1.1, 0.5],
+					"to": [15.5, 17.1, 15.5],
+					"rotation": {"angle": 0, "axis": "y", "origin": [8, 0.1, 8]},
+					"faces": {
+						"north": {"uv": [0, 0, 16, 16], "texture": "#2"},
+						"east": {"uv": [0, 0, 16, 16], "texture": "#2"},
+						"south": {"uv": [0, 0, 16, 16], "texture": "#2"},
+						"west": {"uv": [0, 0, 16, 16], "texture": "#2"},
+						"up": {"uv": [0, 0, 16, 16], "texture": "#2"},
+						"down": {"uv": [0, 0, 16, 16], "texture": "#2"}
+					}
+				}
+			]
+		}
+	},
+	"item_render_order": [
+		"barrel",
+		"liquid"
+	]
+}

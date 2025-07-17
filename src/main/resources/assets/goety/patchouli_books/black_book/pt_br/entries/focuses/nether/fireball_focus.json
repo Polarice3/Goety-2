@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "O poder dos Blazes agora está na ponta dos seus dedos. Você não precisará mais usar um Dispensador e Cargas de Fogo, agora você pode ser o Dispensador!"
+      "text": "O poder dos Blazes agora está na ponta dos seus dedos. Você não precisará mais de um Dispensador e Cargas de Fogo, agora você pode ser o Dispensador!"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/fireball_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/nether_staff)Cajado do Nether$() dispara duas bolas de fogo extras."
     }
   ]
 }

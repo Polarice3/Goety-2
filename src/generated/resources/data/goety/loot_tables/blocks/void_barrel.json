@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "goety:void_barrel",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "half": "lower",
+                "lit": "false"
+              }
+            }
+          ],
+          "name": "goety:void_barrel"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "goety:blocks/void_barrel"
+}

@@ -88,7 +88,7 @@ public class FrostNovaSpell extends Spell {
         }
         this.createParticleBall(worldIn, spellTarget, (int) radius);
         worldIn.sendParticles(new ShockwaveParticleOption(0, (float) (radius * 2), 1), spellTarget.getX(), spellTarget.getY() + 0.5F, spellTarget.getZ(), 0, 0, 0, 0, 0);
-        float trueDamage = Mth.clamp(damage + worldIn.random.nextInt((int) (maxDamage - damage)), damage, maxDamage);
+        float trueDamage = Mth.clamp(damage + RandomUtil.nextInt(worldIn.getRandom(), (int) (maxDamage - damage)), damage, maxDamage);
         int finalDuration = duration;
         int amp = 0;
         if (rightStaff(staff)) {

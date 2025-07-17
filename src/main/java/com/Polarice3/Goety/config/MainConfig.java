@@ -234,8 +234,8 @@ public class MainConfig {
                 .define("lichSmite", true);
         LichArcaRemove = BUILDER.comment("Whether players lose their lichdom if their Arca is removed, Default: true")
                 .define("lichArcaRemove", true);
-        LichNoSERemove = BUILDER.comment("Whether players lose their lichdom if they don't have enough Soul Energy to revive, Default: true")
-                .define("lichNoSERemove", true);
+        LichNoSERemove = BUILDER.comment("Whether players lose their lichdom if they don't have enough Soul Energy to revive, Default: false")
+                .define("lichNoSERemove", false);
         LichHealCost = BUILDER.comment("How much Soul Energy is cost to heal the Player per configured second if they've become a Lich, Default: 5")
                 .defineInRange("lichHealCost", 5, 0, Integer.MAX_VALUE);
         LichHealSeconds = BUILDER.comment("How many seconds until Lich Players heals using Soul Energy, Default: 1")

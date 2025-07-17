@@ -274,7 +274,7 @@ public class DarkWand extends Item implements IWand {
         if (this.getSpell(stack) instanceof ITouchSpell touchSpells){
             if (this.canCastTouch(stack, player.level, player)) {
                 if (player.level instanceof ServerLevel serverLevel) {
-                    touchSpells.touchResult(serverLevel, player, target, touchSpells.defaultStats());
+                    touchSpells.touchResult(serverLevel, player, target, stack, touchSpells.defaultStats());
                 }
                 return InteractionResult.SUCCESS;
             }

@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Amethysts are powerful conduits to Geomantic magic. By crafting and wearing this necklace, not only does it reduce Soul Cost of Geomantic spells by half, but also give higher chance of spawning more Totemic Bombs when casting the Barricade Spell."
+      "text": "Amethysts are powerful conduits to Geomantic magic. By crafting and wearing this necklace, it reduces the Soul Cost of Geomantic spells by half."
     },
     {
       "type": "patchouli:crafting",

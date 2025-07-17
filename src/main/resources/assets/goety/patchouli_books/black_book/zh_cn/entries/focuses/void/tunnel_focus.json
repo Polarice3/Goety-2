@@ -1,15 +1,22 @@
 {
-  "name": "隧道聚晶",
+  "name": "隧穿聚晶",
   "icon": "goety:tunnel_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/void",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "在墙壁或地板上使用这种聚晶将创建一个很长的空灵隧道。隧道只会存在很短的时间，不能穿过某些方块。"
+      "text": "将此聚晶对准墙壁或地面使用，可创造一条通往另一侧的空灵隧道。隧道仅会短暂开启，且无法穿透特定类型的方块。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/tunnel_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/void_staff)虚空魔杖$()施法会创造一条5x5的隧道。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:tunnel_focus": 1
+  }
 }

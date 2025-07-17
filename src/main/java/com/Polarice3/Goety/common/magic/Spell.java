@@ -10,6 +10,8 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -113,6 +115,12 @@ public abstract class Spell implements ISpell {
                 if (caster.tickCount % 5 == 0) {
                     ServerParticleUtil.addParticlesAroundMiddleSelf(serverLevel, ParticleTypes.SNOWFLAKE, caster);
                 }
+            } else if (this.getSpellType() == SpellType.GEOMANCY) {
+                BlockPos blockPos = BlockPos.containing(caster.getX(), caster.getY() - 1.0F, caster.getZ());
+                BlockParticleOption option = new BlockParticleOption(ParticleTypes.BLOCK, serverLevel.getBlockState(blockPos));
+                for (int i = 0; i < 8; ++i) {
+                    ServerParticleUtil.circularParticles(serverLevel, option, caster.getX(), caster.getY() + 0.25D, caster.getZ(), 1.0F);
+                }
             } else if (this.getSpellType() == SpellType.WIND) {
                 if (caster.tickCount % 5 == 0) {
                     ColorUtil colorUtil = new ColorUtil(0x458c88);
@@ -130,6 +138,13 @@ public abstract class Spell implements ISpell {
                 int range = 1;
                 ColorUtil colorUtil = new ColorUtil(ChatFormatting.AQUA);
                 ServerParticleUtil.gatheringParticles(new GatherTrailParticle.Option(colorUtil, caster.position().add(0, 2, 0)), caster, serverLevel, range);
+            } else if (this.getSpellType() == SpellType.VOID){
+                int range = 1;
+                ColorUtil colorUtil = new ColorUtil(ChatFormatting.DARK_PURPLE);
+                ServerParticleUtil.gatheringParticles(new GatherTrailParticle.Option(colorUtil, caster.position().add(0, 2, 0)), caster, serverLevel, range);
+                for(int i = 0; i < 2; ++i) {
+                    serverLevel.sendParticles(ParticleTypes.PORTAL, caster.getRandomX(0.5D), caster.getRandomY() - 0.25D, caster.getRandomZ(0.5D), 0, (worldIn.getRandom().nextDouble() - 0.5D) * 2.0D, -worldIn.getRandom().nextDouble(), (worldIn.getRandom().nextDouble() - 0.5D) * 2.0D, 1.0D);
+                }
             } else if (this.getSpellType() == SpellType.NETHER){
                 int range = 1;
                 ColorUtil colorUtil = new ColorUtil(ChatFormatting.GOLD);

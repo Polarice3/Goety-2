@@ -120,8 +120,11 @@ public class ServantSpawnEggs {
     public static final RegistryObject<ServantSpawnEggItem> TROPICAL_SLIME_SERVANT_SPAWN_EGG = ITEMS.register("tropical_slime_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.TROPICAL_SLIME_SERVANT, 0x0e696e, 0x4bc536, egg()));
 
+    public static final RegistryObject<ServantSpawnEggItem> WARTLING_SPAWN_EGG = ITEMS.register("wartling_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.WARTLING, 0x16100b, 0xb32e2e, egg()));
+
     public static final RegistryObject<ServantSpawnEggItem> SPIDER_SERVANT_SPAWN_EGG = ITEMS.register("spider_servant_spawn_egg",
-            () -> new ServantSpawnEggItem(ModEntityType.SPIDER_SERVANT, 0x0a0a0a, 11013646, egg()));
+            () -> new ServantSpawnEggItem(ModEntityType.SPIDER_SERVANT, 0x0a0a0a, 0xb32e2e, egg()));
 
     public static final RegistryObject<ServantSpawnEggItem> CAVE_SPIDER_SERVANT_SPAWN_EGG = ITEMS.register("cave_spider_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.CAVE_SPIDER_SERVANT, 0x052d32, 11013646, egg()));
@@ -203,6 +206,15 @@ public class ServantSpawnEggs {
 
     public static final RegistryObject<ServantSpawnEggItem> ZPIGLIN_BRUTE_SERVANT_SPAWN_EGG = ITEMS.register("zpiglin_brute_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.ZPIGLIN_BRUTE_SERVANT, 0x1c1c1c, 0xf5da2a, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> WATCHLING_SERVANT_SPAWN_EGG = ITEMS.register("watchling_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.WATCHLING_SERVANT, 1447446, 0xe079fa, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> BLASTLING_SERVANT_SPAWN_EGG = ITEMS.register("blastling_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.BLASTLING_SERVANT, 1447446, 0xae00d5, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> SNARELING_SERVANT_SPAWN_EGG = ITEMS.register("snareling_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.SNARELING_SERVANT, 1447446, 0xd4dd4f, egg()));
 
     public static final RegistryObject<ServantSpawnEggItem> NEOLLAGER_SPAWN_EGG = ITEMS.register("neollager_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.NEOLLAGER, 0x281e11, 0x464234, egg()));

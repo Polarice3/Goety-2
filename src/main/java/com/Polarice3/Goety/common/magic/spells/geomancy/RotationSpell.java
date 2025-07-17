@@ -48,7 +48,7 @@ public class RotationSpell extends BlockSpell {
     }
 
     @Override
-    public void blockResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, BlockPos target) {
+    public void blockResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, BlockPos target, Direction direction) {
         worldIn.playSound(null, target, ModSounds.TOCK.get(), this.getSoundSource(), 1.0F, 1.0F);
     }
 

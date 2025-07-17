@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "O poder da eletricidade emana de você, eletrocutando qualquer criatura à sua frente. Quando não conjurado com um Cajado da Tempestade, a eletricidade será atraída pelo Para-raios mais próximo."
+      "text": "O poder da eletricidade dispara de você, eletrocutando qualquer criatura à sua frente. Quando não conjurado com $(l:crafts/staff/storm_staff)Cajado da Tempestade$(), a eletricidade será atraída pelo Para-raio mais próximo."
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/shocking_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/storm_staff)Cajado da Tempestade$() também causa um efeito de corrente elétrica e aumenta a chance de infligir o efeito de Espasmos."
     }
   ]
 }

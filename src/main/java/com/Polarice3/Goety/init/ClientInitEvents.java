@@ -295,6 +295,9 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.HAUNT, HauntModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.REDSTONE_MONSTROSITY, RedstoneMonstrosityModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.REDSTONE_CUBE, RedstoneCubeModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.WATCHLING, WatchlingModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.BLASTLING, BlastlingModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.SNARELING, SnarelingModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ZPIGLIN_SERVANT, ZPiglinModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MALGHAST, ModGhastModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.INFERNO, InfernoModel::createBodyLayer);
@@ -418,6 +421,7 @@ public class ClientInitEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.HOLE.get(), HoleBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.PART_LIQUID.get(), ModBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.NIGHT_BEACON.get(), NightBeaconRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.VOID_BARREL.get(), ModBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.TALL_SKULL.get(), TallSkullBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.REDSTONE_GOLEM_SKULL.get(), RedstoneGolemSkullBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.GRAVE_GOLEM_SKULL.get(), GraveGolemSkullBlockEntityRenderer::new);
@@ -484,6 +488,8 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.MAGMA_BOMB.get(), MagmaBombRenderer::new);
         event.registerEntityRenderer(ModEntityType.BLOSSOM_BALL.get(), BlossomBallRenderer::new);
         event.registerEntityRenderer(ModEntityType.WEB_SHOT.get(), WebShotRenderer::new);
+        event.registerEntityRenderer(ModEntityType.SNARELING_SHOT.get(), SnarelingShotRenderer::new);
+        event.registerEntityRenderer(ModEntityType.ENDER_GOO.get(), EnderGooRenderer::new);
         event.registerEntityRenderer(ModEntityType.TRIDENT_STORM.get(), TridentStormRenderer::new);
         event.registerEntityRenderer(ModEntityType.DELAYED_SUMMON.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.SUMMON_CIRCLE.get(), SummonCircleRenderer::new);
@@ -492,6 +498,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.RAID_BOSS_SUMMON.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.ENTANGLE_VINES.get(), EntangleVinesRenderer::new);
         event.registerEntityRenderer(ModEntityType.SPIDER_WEB.get(), SpiderWebRenderer::new);
+        event.registerEntityRenderer(ModEntityType.SNARELING_GOOP.get(), SnarelingGoopRenderer::new);
         event.registerEntityRenderer(ModEntityType.OBSIDIAN_MONOLITH.get(), ObsidianMonolithRenderer::new);
         event.registerEntityRenderer(ModEntityType.TOTEMIC_WALL.get(), TotemicWallRenderer::new);
         event.registerEntityRenderer(ModEntityType.TOTEMIC_BOMB.get(), TotemicBombRenderer::new);
@@ -621,6 +628,9 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.HAUNT.get(), HauntRenderer::new);
         event.registerEntityRenderer(ModEntityType.REDSTONE_MONSTROSITY.get(), RedstoneMonstrosityRenderer::new);
         event.registerEntityRenderer(ModEntityType.REDSTONE_CUBE.get(), RedstoneCubeRenderer::new);
+        event.registerEntityRenderer(ModEntityType.WATCHLING_SERVANT.get(), WatchlingRenderer::new);
+        event.registerEntityRenderer(ModEntityType.BLASTLING_SERVANT.get(), BlastlingRenderer::new);
+        event.registerEntityRenderer(ModEntityType.SNARELING_SERVANT.get(), SnarelingRenderer::new);
         event.registerEntityRenderer(ModEntityType.SORCERER.get(), SorcererRenderer::new);
         event.registerEntityRenderer(ModEntityType.ENVIOKER.get(), EnviokerRenderer::new);
         event.registerEntityRenderer(ModEntityType.TORMENTOR.get(), TormentorRenderer::new);
@@ -704,7 +714,10 @@ public class ClientInitEvents {
     @SubscribeEvent
     public static void modelBake(ModelEvent.ModifyBakingResult event) {
         List<Map.Entry<ResourceLocation, BakedModel>> models =  event.getModels().entrySet().stream()
-                .filter(entry -> entry.getKey().getNamespace().equals(Goety.MOD_ID) && entry.getKey().getPath().contains("leaves") && !entry.getKey().getPath().contains("dark")).toList();
+                .filter(entry -> entry.getKey().getNamespace().equals(Goety.MOD_ID) && entry.getKey().getPath().contains("leaves")
+                        && !entry.getKey().getPath().contains("dark")
+                        && !entry.getKey().getPath().contains("mcd")
+                        && !entry.getKey().getPath().contains("chorus")).toList();
 
         models.forEach(entry -> event.getModels().put(entry.getKey(), new BakedLeavesModel(entry.getValue())));
     }

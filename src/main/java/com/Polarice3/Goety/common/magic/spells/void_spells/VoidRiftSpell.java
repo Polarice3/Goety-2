@@ -72,6 +72,7 @@ public class VoidRiftSpell extends Spell {
         voidRift.setOwner(caster);
         voidRift.setDuration(duration);
         voidRift.setWarmUp(warmUp);
+        voidRift.setStaff(rightStaff(staff));
         voidRift.setSize((float) (spellStat.getRadius() + WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster)));
         voidRift.setExtraDamage(spellStat.getPotency() + WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
         worldIn.addFreshEntity(voidRift);

@@ -1,0 +1,22 @@
+{
+  "name": "ウォッチリングのフォーカス",
+  "icon": "goety:watching_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "このフォーカスがあなたを見つめ返しているのを感じる。それを使って、あなたは終末の生き物、$(l:summons/enderling_servants#watchling)目と闇でできたグロテスクな人型の塊$()を召喚する。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/watching_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/void_staff)ヴォイドの杖$()で唱えると、一度に召喚されるウォッチリングの量が増えます。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:watching_focus": 1
+  }
+}

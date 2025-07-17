@@ -318,6 +318,8 @@ public interface ISpell {
             return CuriosFinder.hasWildCrown(caster) || CuriosFinder.hasMagicHat(caster);
         } else if (this.getSpellType() == SpellType.ABYSS){
             return CuriosFinder.hasAbyssCrown(caster) || CuriosFinder.hasMagicHat(caster);
+        } else if (this.getSpellType() == SpellType.VOID){
+            return CuriosFinder.hasVoidCrown(caster) || CuriosFinder.hasMagicHat(caster);
         } else if (this.getSpellType() == SpellType.NETHER){
             return CuriosFinder.hasNetherCrown(caster) || CuriosFinder.hasMagicHat(caster);
         } else if (this.getSpellType() == SpellType.NECROMANCY){
@@ -377,6 +379,6 @@ public interface ISpell {
     }
 
     default boolean VoidSoulDiscount(LivingEntity caster){
-        return false;
+        return CuriosFinder.hasVoidRobe(caster);
     }
 }

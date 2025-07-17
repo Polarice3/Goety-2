@@ -3,7 +3,6 @@ package com.Polarice3.Goety.common.blocks.entities;
 import com.Polarice3.Goety.api.blocks.entities.IBarrack;
 import com.Polarice3.Goety.api.entities.ITrainable;
 import com.Polarice3.Goety.init.ModTags;
-import com.Polarice3.Goety.utils.EntityFinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -65,7 +64,7 @@ public abstract class BarracksBlockEntity extends OwnedBlockEntity implements Ga
                         List<UUID> toRemove = new ArrayList<>();
                         for (UUID uuid : blockEntity.uuids) {
                             if (uuid != null) {
-                                Entity entity = EntityFinder.getEntityByUuiD(uuid);
+                                Entity entity = serverLevel.getEntity(uuid);
                                 if (entity instanceof Mob mob && mob instanceof ITrainable) {
                                     if (!mob.isRemoved()) {
                                         if (!blockEntity.trainingMobs.contains(mob)) {

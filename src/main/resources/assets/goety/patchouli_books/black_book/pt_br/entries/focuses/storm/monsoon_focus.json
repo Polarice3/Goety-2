@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Invoca uma nuvem de tempestade acima de um bloco ou criatura alvo, onde choverá e periodicamente lançará raios em qualquer criatura não aliada próxima."
+      "text": "Invoca uma nuvem de tempestade acima de um bloco ou criatura alvo, onde choverá e periodicamente disparará trovões em criaturas não aliadas próximas."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/monsoon_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/storm_staff)Cajado da Tempestade$() aumenta o tamanho das nuvens e faz seus trovões causarem corrente elétrica."
     }
   ],
   "extra_recipe_mappings": {

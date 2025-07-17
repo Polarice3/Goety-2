@@ -1,0 +1,22 @@
+{
+  "name": "End Ritual",
+  "icon": "goety:void_block",
+  "category": "goety:rituals",
+  "sortnum": 8,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requirements: $(li)Be in the End $(li)16 Void Blocks $(li)64 End Stone Bricks $(li)32 Purpur Blocks Any"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/end_ritual.png"],
+      "border": true,
+      "text": "An example of how the ritual can be placed."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The concentrated essence of the Void helps channel the powers of the end of all things into making arcane rituals."
+    }
+  ]
+}

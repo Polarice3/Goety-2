@@ -1,0 +1,46 @@
+{
+  "name": "Blocos e Líquido do Vácuo",
+  "icon": "goety:void_block",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Você ouviu falar de blocos e líquidos interessantes encontrados no End que são prejudiciais àqueles que pisam neles, a menos que sejam criaturas do End..."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:void_bottle",
+      "text": "Para obter uma Garrafa do Vácuo, use uma Garrafa de Vidro vazia abaixo da altura mínima de construção da dimensão: -64 Y no Mundo superior, 0 no Nether e no End. É mais fácil no End, pois não há Bedrock ou por outro nome Rocha Mãe bloqueando o Vácuo."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:void_block",
+      "recipe2": "goety:void_bucket"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Blocos e Líquido do Vácuo causam dano igual a 5%% da vida máxima por segundo e aplicam o efeito Tocado pelo Vácuo. Endermans, Endermites e Enderlings são imunes, mas curiosamente, Shulkers não."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:void_barrel"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O Barril do Vácuo é um bloco volátil que explode ao ser ativado, liberando vácuo. Para ativá-lo, clique nele, use redstone ou atire um projétil."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O Líquido do Vácuo pode criar blocos decorativos ao interagir com Água ou Lava. Derramar Água no Líquido do Vácuo o transforma em Bloco do Vácuo."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:end_soil",
+      "text": "Quando Água fluindo encontra Vácuo fluindo, cria-se Solo do End. Flores de Chorus podem crescer nele, e com Lava fluindo e Gelo Azul adjacente, cria-se Obsidiana renovável."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:void_bottle": 1,
+    "goety:end_soil": 11
+  }
+}

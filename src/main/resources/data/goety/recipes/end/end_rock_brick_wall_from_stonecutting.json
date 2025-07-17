@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "goety:end_rock_bricks"
+  },
+  "result": "goety:end_rock_brick_wall",
+  "count": 1
+}

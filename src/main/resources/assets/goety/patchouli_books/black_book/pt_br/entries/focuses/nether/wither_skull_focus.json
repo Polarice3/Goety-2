@@ -7,11 +7,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "O sangue profano do emissário do Nether permite que você aprimore seu Foco da Caveira para replicar as caveiras do Wither! Cuidado com suas habilidades destrutivas!"
+      "text": "O sangue profano do emissário do Nether permite aprimorar seu Foco da Caveira para replicar as caveiras do Wither! Cuidado com suas habilidades destrutivas!"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/wither_skull_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/nether_staff)Cajado do Nether$() dispara mais duas caveiras do Wither."
     }
   ],
   "extra_recipe_mappings": {

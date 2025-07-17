@@ -366,6 +366,9 @@ public interface IServant extends IOwned {
                 if (ServantUtil.isAbyssHeal(self)) {
                     crown = CuriosFinder.hasAbyssCrown(this.getTrueOwner());
                 }
+                if (ServantUtil.isVoidHeal(self)) {
+                    crown = CuriosFinder.hasVoidCrown(this.getTrueOwner());
+                }
                 if (!crown) {
                     if (this.getLifespan() > 0) {
                         this.setHasLifespan(true);

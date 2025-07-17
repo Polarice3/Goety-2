@@ -9,15 +9,12 @@
       "text": "Fighting a foe with their own Arca can be a real struggle, for finding it can take a lot of time and guesswork. Fortunately, you've devised a way to locate your foe's Arca with a specialized compass."
     },
     {
-      "type": "goety:ritual",
+      "type": "patchouli:crafting",
       "recipe": "goety:arca_compass"
     },
     {
       "type": "patchouli:text",
       "text": "Killing your foe while holding the compass on either hands will cause it to bind towards the player. If the player moves, places down or bind with an Arca, the compass will automatically point to its location."
     }
-  ],
-  "extra_recipe_mappings": {
-    "goety:arca_compass": 1
-  }
+  ]
 }

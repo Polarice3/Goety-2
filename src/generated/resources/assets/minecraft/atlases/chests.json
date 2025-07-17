@@ -95,6 +95,54 @@
     {
       "type": "minecraft:single",
       "resource": "goety:entity/chest/pine/trapped_right"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/chorus/normal"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/chorus/normal_left"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/chorus/normal_right"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/chorus/trapped"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/chorus/trapped_left"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/chorus/trapped_right"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/corrupt_chorus/normal"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/corrupt_chorus/normal_left"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/corrupt_chorus/normal_right"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/corrupt_chorus/trapped"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/corrupt_chorus/trapped_left"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/corrupt_chorus/trapped_right"
     }
   ]
 }

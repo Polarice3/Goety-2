@@ -132,9 +132,13 @@ public class BurrowingSpell extends EverChargeSpell {
             hardness = 1;
         }
 
+        if (this.rightStaff(staff)) {
+            potency += 1;
+        }
+
         if (caster instanceof Player player) {
             if (canMineBlock(worldIn, player, blockPos, blockState)) {
-                int miningLevel = 1 + WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
+                int miningLevel = 1 + potency;
                 Tier tier = miningLevel < 3 ? Tiers.IRON : miningLevel == 3 ? Tiers.DIAMOND : Tiers.NETHERITE;
                 if (!TierSortingRegistry.isCorrectTierForDrops(tier, blockState)){
                     hardness = blockState.getDestroySpeed(worldIn, blockPos) * 5;

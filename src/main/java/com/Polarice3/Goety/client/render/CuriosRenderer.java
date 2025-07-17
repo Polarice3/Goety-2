@@ -22,6 +22,7 @@ public class CuriosRenderer {
         CuriosRendererRegistry.register(ModItems.FROST_CROWN.get(), () -> new WearRenderer(render("frost_crown.png"), new DarkHatModel(bakeLayer(ModModelLayer.IRON_CROWN))));
         CuriosRendererRegistry.register(ModItems.WILD_CROWN.get(), () -> new WearRenderer(render("wild_crown.png"), new DarkHatModel(bakeLayer(ModModelLayer.IRON_CROWN))));
         CuriosRendererRegistry.register(ModItems.ABYSS_CROWN.get(), () -> new WearRenderer(render("abyss_crown.png"), new DarkHatModel(bakeLayer(ModModelLayer.IRON_CROWN))));
+        CuriosRendererRegistry.register(ModItems.VOID_CROWN.get(), () -> new WearRenderer(render("void_crown.png"), new DarkHatModel(bakeLayer(ModModelLayer.IRON_CROWN))));
         CuriosRendererRegistry.register(ModItems.NETHER_CROWN.get(), () -> new WearRenderer(render("nether_crown.png"), new DarkHatModel(bakeLayer(ModModelLayer.IRON_CROWN))));
         CuriosRendererRegistry.register(ModItems.WITCH_HAT.get(), () -> new WearRenderer(render("witch_hat.png"), new WitchHatModel(bakeLayer(ModModelLayer.WITCH_HAT))));
         CuriosRendererRegistry.register(ModItems.WITCH_HAT_HEDGE.get(), () -> new WearRenderer(render("witch_hat_hedge.png"), new WitchHatModel(bakeLayer(ModModelLayer.WITCH_HAT))));
@@ -37,6 +38,7 @@ public class CuriosRenderer {
         CuriosRendererRegistry.register(ModItems.STORM_ROBE.get(), () -> new WearRenderer(render("storm_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
         CuriosRendererRegistry.register(ModItems.WILD_ROBE.get(), () -> new WearRenderer(render("wild_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
         CuriosRendererRegistry.register(ModItems.ABYSS_ROBE.get(), () -> new WearRenderer(render("abyss_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
+        CuriosRendererRegistry.register(ModItems.VOID_ROBE.get(), () -> new WearRenderer(render("void_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
         CuriosRendererRegistry.register(ModItems.NECRO_CROWN.get(), () -> new WearRenderer(render("necro_cape.png"), new NecroCapeModel<>(bakeLayer(ModModelLayer.NECRO_CROWN))));
         CuriosRendererRegistry.register(ModItems.NECRO_CAPE.get(), () -> new WearRenderer(render("necro_cape.png"), new NecroCapeModel<>(bakeLayer(ModModelLayer.NECRO_CAPE))));
         CuriosRendererRegistry.register(ModItems.NAMELESS_CROWN.get(), () -> new WearRenderer(render("nameless_cape.png"), new NecroCapeModel<>(bakeLayer(ModModelLayer.NAMELESS_CROWN))));

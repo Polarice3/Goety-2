@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/phantasm_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/necro_staff)некро-посоха$() позволяет вызывать больше фантомов."
     }
   ],
   "extra_recipe_mappings": {

@@ -54,6 +54,15 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:crusher_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Эти злодеяне обычно куют оружие для своих товарищей, но также могут уничтожать врагов своим великим молотом."
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:evoker_servant"
     },
     {
@@ -86,6 +95,15 @@
       "text": "Повелевая небесами, эти пышноволосые шаманы могут подбрасывать своих врагов в воздух или отталкивать порывами ветра."
     },
     {
+      "type": "patchouli:entity",
+      "entity": "goety:storm_caster_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Охотясь за сокровищами или охраняя их, эти злодеяне безжалостно испепеляют врагов электрическим током."
+    },
+    {
       "type": "patchouli:spotlight",
       "item": "minecraft:red_bed",
       "title": "Еда, размножение и исцеление",
@@ -104,6 +122,7 @@
     },
     {
       "type": "patchouli:entity",
+      "name": "Злодеянин-лидер",
       "entity": "goety:pillager_servant{HandItems:[{Count:1,id:\"minecraft:crossbow\"},{}], ArmorItems:[{},{},{},{Count:1,id:\"minecraft:black_banner\"}]}",
       "scale": 0.5,
       "text": "Злодеяне, вроде разбойников-прислужников, могут быть лидерами."

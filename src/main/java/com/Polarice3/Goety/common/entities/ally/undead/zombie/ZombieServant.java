@@ -10,6 +10,7 @@ import com.Polarice3.Goety.compat.serene_seasons.SSeasonsLoaded;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.config.SpellConfig;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -169,6 +170,17 @@ public class ZombieServant extends Summoned {
             }
         }
         return super.isAbleToRide(livingEntity);
+    }
+
+    public boolean startRiding(Entity p_19966_, boolean p_19967_) {
+        if (this.isBaby()) {
+            if (p_19966_ instanceof Chicken) {
+                if (this.getRandom().nextFloat() <= 0.25F) {
+                    this.playSound(ModSounds.JOKE.get(), 1.0F, 1.0F);
+                }
+            }
+        }
+        return super.startRiding(p_19966_, p_19967_);
     }
 
     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {

@@ -103,6 +103,9 @@ public class GoetyEffects {
     public static final RegistryObject<MobEffect> ELECTRIFIED = EFFECTS.register("electrified",
             ElectrifiedEffect::new);
 
+    public static final RegistryObject<MobEffect> VOID_TOUCHED = EFFECTS.register("void_touched",
+            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0));
+
     public static final RegistryObject<MobEffect> TREMOR_SENSE = EFFECTS.register("tremor_sense",
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0));
 

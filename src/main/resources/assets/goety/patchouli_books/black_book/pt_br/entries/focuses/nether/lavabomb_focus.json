@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Você pode sentir o poder do Nether tomando conta de você. Diferente dos Ghasts, você não chora. Afinal, é uma boa dor. Suas Bombas de Lava não causam dano ambiental quando conjuradas agachado."
+      "text": "Você sente o poder do Nether tomando conta de você. Diferente dos Ghasts, você não chora. Afinal, é uma dor boa. Suas Bombas de Lava não causam dano ambiental quando conjuradas agachado."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/lavaball_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/nether_staff)Cajado do Nether$() dispara mais duas bombas de lava."
     }
   ],
   "extra_recipe_mappings": {

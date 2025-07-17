@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Você libera uma explosão de eletricidade em sua posição, ferindo todas as criaturas próximas e eletrocutando-as. A explosão causa dano elétrico e não afeta o conjurador."
+      "text": "Você libera uma explosão de eletricidade na sua posição, danificando e eletrocutando todas as criaturas próximas. A explosão causa dano elétrico e não afeta o conjurador."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/discharge_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/storm_staff)Cajado da Tempestade$() aumenta a chance de infligir Espasmos e causa um efeito de corrente elétrica."
     }
   ],
   "extra_recipe_mappings": {

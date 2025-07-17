@@ -10,6 +10,10 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/quaking_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/geo_staff)гео-посоха$() позволит вызывать по форме дуги землетрясение, которое отключает щиты. Использование при приседании увеличивает радиус дуги."
     }
   ]
 }

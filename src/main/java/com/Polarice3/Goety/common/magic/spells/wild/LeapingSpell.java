@@ -84,7 +84,7 @@ public class LeapingSpell extends SummonSpell {
         if (!isShifting(caster)) {
             int i = 1;
             if (rightStaff(staff)){
-                i = 1 + caster.level.random.nextInt(1);
+                i += caster.getRandom().nextBoolean() ? 1 : 0;
             }
             for (int i1 = 0; i1 < i; ++i1) {
                 Leapleaf summonedentity = new Leapleaf(ModEntityType.LEAPLEAF.get(), worldIn);

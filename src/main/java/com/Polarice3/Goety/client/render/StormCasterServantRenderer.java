@@ -4,7 +4,6 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.layer.HierarchicalArmorLayer;
 import com.Polarice3.Goety.client.render.model.StormCasterModel;
 import com.Polarice3.Goety.common.entities.ally.illager.StormCasterServant;
-import com.Polarice3.Goety.common.entities.hostile.illagers.StormCaster;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

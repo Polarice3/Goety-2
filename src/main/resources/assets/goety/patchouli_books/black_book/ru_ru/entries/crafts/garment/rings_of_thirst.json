@@ -1,0 +1,18 @@
+{
+  "name": "Кольцо жажды",
+  "icon": "goety:ring_of_thirst",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Жуткая кирка может пригодиться для сбора опыта, но иногда даже её недостаточно. Обладатель этого кольца немедленно собирает опыт, полученный при убийстве существа (им или его прислужником)."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ring_of_thirst"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ring_of_thirst": 1
+  }
+}

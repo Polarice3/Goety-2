@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Usar este foco em uma parede ou chão criará um túnel etéreo que leva para o outro lado. Os túneis permanecem abertos apenas por um curto período e não podem atravessar certos blocos."
+      "text": "Usar este foco em uma parede ou chão cria um túnel etéreo para o outro lado. Túneis duram pouco e não atravessam certos blocos."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/tunnel_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/void_staff)Cajado do Vácuo$() aumenta o tamanho do túnel de 3x3 para 5x5."
     }
   ],
   "extra_recipe_mappings": {

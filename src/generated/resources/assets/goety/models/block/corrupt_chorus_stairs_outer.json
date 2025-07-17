@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "goety:block/corrupt_chorus_planks",
+    "side": "goety:block/corrupt_chorus_planks",
+    "top": "goety:block/corrupt_chorus_planks"
+  }
+}

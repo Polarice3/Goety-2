@@ -1,15 +1,22 @@
 {
-  "name": "トンネルフォーカス",
+  "name": "トンネルのフォーカス",
   "icon": "goety:tunnel_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/void",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "このフォーカスを壁や床に使用すると、反対側につながる幻想的なトンネルが作成されます。 トンネルは短時間しか開かず、特定のブロックを通過することはできません。"
+      "text": "このフォーカスを壁や床に使用すると、向こう側へ続く霊気のある3x3のトンネルが生成されます。トンネルは短時間のみ開き、特定のブロックは貫通できません。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/tunnel_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/void_staff)ヴォイドの杖$()で唱えると、トンネルのサイズが5x5になります。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:tunnel_focus": 1
+  }
 }

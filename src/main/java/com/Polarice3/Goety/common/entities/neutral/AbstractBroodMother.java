@@ -19,7 +19,6 @@ import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -171,7 +170,7 @@ public class AbstractBroodMother extends Summoned implements IAutoRideable, Play
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.BroodMotherHealth.get())
-                .add(Attributes.MOVEMENT_SPEED, 0.3F)
+                .add(Attributes.MOVEMENT_SPEED, 0.35F)
                 .add(Attributes.ARMOR, AttributesConfig.BroodMotherArmor.get())
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.BroodMotherDamage.get())
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
@@ -777,6 +776,25 @@ public class AbstractBroodMother extends Summoned implements IAutoRideable, Play
             player.setYRot(this.getYRot());
             player.setXRot(this.getXRot());
             player.startRiding(this);
+        }
+    }
+
+    protected float getRiddenSpeed(Player p_278241_) {
+        float f = p_278241_.isSprinting() ? 0.1F : 0.0F;
+        return (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) + f;
+    }
+
+    protected Vec3 getRiddenInput(Player p_278278_, Vec3 p_275506_) {
+        if ((this.onGround() && this.playerJumpPendingScale == 0.0F)) {
+            return Vec3.ZERO;
+        } else {
+            float f = p_278278_.xxa * 0.5F;
+            float f1 = p_278278_.zza;
+            if (f1 <= 0.0F) {
+                f1 *= 0.25F;
+            }
+
+            return new Vec3((double)f, 0.0D, (double)f1);
         }
     }
 

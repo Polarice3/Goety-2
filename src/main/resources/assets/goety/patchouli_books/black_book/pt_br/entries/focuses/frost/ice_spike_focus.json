@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Dispara um espinho de gelo na direção em que o conjurador está olhando. Criaturas atingidas pelo espinho receberão o efeito de Congelamento por 1 a 3 segundos."
+      "text": "Dispara um espinho de gelo na direção em que o conjurador está olhando. Criaturas atingidas pelo espinho recebem Congelamento por 1 a 3 segundos."
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/ice_spike_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/frost_staff)Cajado Gélido$() dispara uma Lança de Gelo, uma variante maior que atravessa inimigos."
     }
   ]
 }

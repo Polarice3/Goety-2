@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "O pergaminho revela como conceder inteligência aos mortos, criando Necromantes a partir de Esqueletos."
+      "text": "O pergaminho ensina a conceder inteligência aos mortos, permitindo criar e comandar Necromantes a partir de Esqueletos."
     },
     {
       "type": "goety:ritual",
@@ -14,24 +14,16 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Use Focos para ensiná-lo a invocar diferentes servos. Clique com a mão vazia para invocações. Cura-se como servos esqueléticos."
+      "text": "Necromantes podem aprender a invocar mais que Zumbis. Clique com Focos de Necromancia neles para ensinar novos servos."
     },
     {
-      "type": "patchouli:entity",
-      "entity": "goety:necromancer_servant"
-    },
-    {
-      "type": "goety:ritual",
-      "recipe": "goety:convert_stray_to_cairn_necromancer"
-    },
-    {
-      "type": "patchouli:entity",
-      "entity": "goety:cairn_necromancer_servant"
+      "type": "patchouli:text",
+      "text": "Eles só aceitam focos que invocam criaturas que não podem invocar. Aceitam Foco da Pudridão, Foco Ósseo, Foco Assustador, Foco da Ceifa, Foco da Vanguarda e Foco da Retaguarda."
     },
     {
       "type": "patchouli:spotlight",
       "item": "goety:soul_jar",
-      "text": "Use um $(l:crafts/empty_soul_jar)Frascode Alma Vazio$() para revivê-lo em um Esqueleto. Alimentá-lo com almas de outros necromantes aumenta seu poder..."
+      "text": "Se um Necromante morrer, um $(l:crafts/empty_soul_jar)Jarra de Alma Vazia$() capturará sua alma. Clique em um Esqueleto para revivê-lo. Alimentá-lo com a alma de outro Necromante aumenta seu poder..."
     }
   ],
   "extra_recipe_mappings": {

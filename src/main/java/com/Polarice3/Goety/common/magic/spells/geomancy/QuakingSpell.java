@@ -218,15 +218,6 @@ public class QuakingSpell extends Spell {
                             if (target.isDamageSourceBlocked(livingEntity.damageSources().mobAttack(target))) {
                                 MobUtil.disableShield(target);
                             }
-                            /*double magnitude = -4.0D;
-                            double x = vx * (double) (1.0F - factor) * magnitude;
-                            double y = 0.0D;
-                            if (target.onGround()) {
-                                y += 0.15D;
-                            }
-
-                            double z = vz * (double) (1.0F - factor) * magnitude;
-                            MobUtil.push(target, x, y, z);*/
                         } else {
                             MobUtil.push(target, 0.0D, (double) (airborne * (float) distance) + livingEntity.getRandom().nextDouble() * 0.15D, 0.0D);
                         }
@@ -252,7 +243,6 @@ public class QuakingSpell extends Spell {
             double vz = Math.sin(theta);
             double px = caster.getX() + vx * distance + vec * Math.cos((caster.getYRot() + 90) * Math.PI / 180) + f * math;
             double pz = caster.getZ() + vz * distance + vec * Math.sin((caster.getYRot() + 90) * Math.PI / 180) + f1 * math;
-            float factor = 1 - distance / (float) 12;
             int hitX = Mth.floor(px);
             int hitZ = Mth.floor(pz);
             BlockPos pos = new BlockPos(hitX, hitY + height, hitZ);
@@ -271,13 +261,13 @@ public class QuakingSpell extends Spell {
                 block = Blocks.AIR.defaultBlockState();
             }
             if (!caster.level.isClientSide) {
-                spawnBlocks(caster, hitX, hitY + height, hitZ, (int) (caster.getY() - height), block, px, pz, mxy, vx, vz, factor, shieldbreakticks, damage);
+                spawnBlocks(caster, hitX, hitY + height, hitZ, (int) (caster.getY() - height), block, px, pz, mxy, distance, shieldbreakticks, damage);
             }
         }
     }
 
 
-    private void spawnBlocks(LivingEntity caster, int hitX, int hitY, int hitZ, int lowestYCheck, BlockState blockState, double px, double pz, float mxy, double vx, double vz, float factor, int shieldbreakticks, float damage) {
+    private void spawnBlocks(LivingEntity caster, int hitX, int hitY, int hitZ, int lowestYCheck, BlockState blockState, double px, double pz, float mxy, float distance, int shieldbreakticks, float damage) {
         BlockPos blockpos = new BlockPos(hitX, hitY, hitZ);
         double d0 = 0.0D;
 
@@ -312,14 +302,7 @@ public class QuakingSpell extends Spell {
                     MobUtil.disableShield(entity);
                 }
                 if (flag) {
-                    double magnitude = -4;
-                    double x = vx * (1 - factor) * magnitude;
-                    double y = 0;
-                    if (entity.onGround()) {
-                        y += 0.15;
-                    }
-                    double z = vz * (1 - factor) * magnitude;
-                    MobUtil.push(entity, x, y, z);
+                    MobUtil.push(entity, 0.0D, (double) (0.1F * distance) + entity.getRandom().nextDouble() * 0.15D, 0.0D);
                 }
             }
         }

@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "O foco permite que você invoque Ghasts em miniatura que, embora menos destrutivos, ainda são lançadores de fogo potentes."
+      "text": "O foco permite invocar Ghasts em miniatura que, embora menos destrutivos, ainda são potentes lançadores de fogo."
     },
     {
       "type": "goety:ritual",
@@ -14,8 +14,12 @@
     },
     {
       "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/nether_staff)Cajado do Nether$() invoca mais Ghasts de uma vez."
+    },
+    {
+      "type": "patchouli:text",
       "advancement": "goety:goety/read_bygone_scroll",
-      "text": "Usar uma Túnica do Nether ao lançar este feitiço invocará Servos Ghast em vez de Mini-Ghasts, embora em menor quantidade, mesmo quando conjurado com um Cajado do Nether."
+      "text": "Usar uma Túnica do Nether ao conjurar este feitiço invoca Servos Ghast em vez de Mini-Ghasts, embora em menor quantidade, mesmo quando conjurado com o Cajado do Nether."
     }
   ],
   "extra_recipe_mappings": {

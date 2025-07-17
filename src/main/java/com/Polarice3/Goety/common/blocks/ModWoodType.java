@@ -12,4 +12,8 @@ public class ModWoodType {
             WoodType.register(new WoodType(Goety.location("windswept").toString(), ModBlockSetType.WINDSWEPT));
     public static final WoodType PINE =
             WoodType.register(new WoodType(Goety.location("pine").toString(), ModBlockSetType.PINE));
+    public static final WoodType CHORUS =
+            WoodType.register(new WoodType(Goety.location("chorus").toString(), ModBlockSetType.CHORUS));
+    public static final WoodType CORRUPT_CHORUS =
+            WoodType.register(new WoodType(Goety.location("corrupt_chorus").toString(), ModBlockSetType.CORRUPT_CHORUS));
 }

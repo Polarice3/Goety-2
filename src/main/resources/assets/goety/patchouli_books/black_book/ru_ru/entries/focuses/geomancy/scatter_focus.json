@@ -10,6 +10,10 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/scatter_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/geo_staff)гео-посоха$() изменит применение фокуса. Вместо того, чтобы мгновенно создавать три мины, он начнёт вызывать их по одной, но быстрее и вплоть до 14 штук."
     }
   ],
   "extra_recipe_mappings": {

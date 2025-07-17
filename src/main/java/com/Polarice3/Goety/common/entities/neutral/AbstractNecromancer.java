@@ -64,7 +64,6 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
     public static int INITIAL_LEVEL = 0;
     public static int MAX_LEVEL = 2;
     public static String IDLE = "idle";
-    public static String WALK = "walk";
     public static String ATTACK = "attack";
     public static String SUMMON = "summon";
     public static String SPELL_ANIM = "spell";
@@ -140,24 +139,17 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
             if (this.level.isClientSide) {
                 switch (this.entityData.get(ANIM_STATE)) {
                     case 0:
+                        this.stopAllAnimations();
                         break;
                     case 1:
-                        this.idleAnimationState.startIfStopped(this.tickCount);
-                        this.stopMostAnimation(this.idleAnimationState);
-                        break;
-                    case 2:
-                        this.walkAnimationState.startIfStopped(this.tickCount);
-                        this.stopMostAnimation(this.walkAnimationState);
-                        break;
-                    case 3:
                         this.attackAnimationState.startIfStopped(this.tickCount);
                         this.stopMostAnimation(this.attackAnimationState);
                         break;
-                    case 4:
+                    case 2:
                         this.summonAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.summonAnimationState);
                         break;
-                    case 5:
+                    case 3:
                         this.spellAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.spellAnimationState);
                         break;
@@ -406,16 +398,12 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
     }
 
     public int getAnimationState(String animation) {
-        if (Objects.equals(animation, "idle")){
+        if (Objects.equals(animation, "attack")){
             return 1;
-        } else if (Objects.equals(animation, "walk")){
-            return 2;
-        } else if (Objects.equals(animation, "attack")){
-            return 3;
         } else if (Objects.equals(animation, "summon")){
-            return 4;
+            return 2;
         } else if (Objects.equals(animation, "spell")){
-            return 5;
+            return 3;
         } else {
             return 0;
         }
@@ -424,7 +412,6 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
     public List<AnimationState> getAnimations(){
         List<AnimationState> animationStates = new ArrayList<>();
         animationStates.add(this.idleAnimationState);
-        animationStates.add(this.walkAnimationState);
         animationStates.add(this.attackAnimationState);
         animationStates.add(this.summonAnimationState);
         animationStates.add(this.spellAnimationState);
@@ -449,6 +436,10 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         }
     }
 
+    public boolean isIdleOrNoAnimation() {
+        return this.getCurrentAnimation() == this.getAnimationState(IDLE) || this.getCurrentAnimation() == 0;
+    }
+
     public void tick() {
         super.tick();
         if (this.spellCooldown > 0) {
@@ -466,13 +457,10 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                     this.spellCastParticles();
                 }
             }
+            this.idleAnimationState.animateWhen(!this.walkAnimation.isMoving() && this.isIdleOrNoAnimation(), this.tickCount);
         } else {
             if (!this.isShooting() && !this.isSpellCasting()) {
-                if (!this.isMoving()) {
-                    this.setAnimationState(IDLE);
-                } else {
-                    this.setAnimationState(WALK);
-                }
+                this.setAnimationState(0);
             }
         }
     }

@@ -25,6 +25,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
         builtinEntity(ModBlocks.WINDSWEPT_WALL_HANGING_SIGN.get(), "goety:block/stripped_windswept_log");
         builtinEntity(ModBlocks.PINE_HANGING_SIGN.get(), "goety:block/stripped_pine_log");
         builtinEntity(ModBlocks.PINE_WALL_HANGING_SIGN.get(), "goety:block/stripped_pine_log");
+        builtinEntity(ModBlocks.CHORUS_HANGING_SIGN.get(), "goety:block/chorus_log");
+        builtinEntity(ModBlocks.CHORUS_WALL_HANGING_SIGN.get(), "goety:block/chorus_log");
+        builtinEntity(ModBlocks.CORRUPT_CHORUS_HANGING_SIGN.get(), "goety:block/corrupt_chorus_log");
+        builtinEntity(ModBlocks.CORRUPT_CHORUS_WALL_HANGING_SIGN.get(), "goety:block/corrupt_chorus_log");
 
         simpleBlockWithItem(ModBlocks.DIAMOND_MOLD_BLOCK.get());
 
@@ -40,56 +44,91 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(ModBlocks.CHISELED_SILTSTONE_BLOCK.get());
         simpleBlockWithItem(ModBlocks.CHISELED_SILTSTONE_BRICKS_BLOCK.get());
 
+        simpleBlockWithItem(ModBlocks.END_BASALT_BRICKS.get());
+
+        simpleBlockWithItem(ModBlocks.END_ROCK_CHISELED.get());
+
+        simpleBlockWithItem(ModBlocks.CHISELED_END_STONE_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.CHISELED_END_STONE_BRICKS_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.END_STONE_TILES_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.SMOOTH_END_STONE_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.END_ROD_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.END_LAMP_BLOCK.get());
+
         buttonBlockWithItem((ButtonBlock) ModBlocks.HAUNTED_BUTTON.get(), Goety.location("block/haunted_planks"));
         buttonBlockWithItem((ButtonBlock) ModBlocks.ROTTEN_BUTTON.get(), Goety.location("block/rotten_planks"));
         buttonBlockWithItem((ButtonBlock) ModBlocks.WINDSWEPT_BUTTON.get(), Goety.location("block/windswept_planks"));
         buttonBlockWithItem((ButtonBlock) ModBlocks.PINE_BUTTON.get(), Goety.location("block/pine_planks"));
         buttonBlockWithItem((ButtonBlock) ModBlocks.STEEP_BUTTON.get(), Goety.location("block/steep_planks"));
+        buttonBlockWithItem((ButtonBlock) ModBlocks.CHORUS_BUTTON.get(), Goety.location("block/chorus_planks"));
+        buttonBlockWithItem((ButtonBlock) ModBlocks.CORRUPT_CHORUS_BUTTON.get(), Goety.location("block/corrupt_chorus_planks"));
 
         doorBlockWithRenderType((DoorBlock) ModBlocks.HAUNTED_DOOR.get(), Goety.location("block/haunted_door_bottom"), Goety.location("block/haunted_door_top"), "cutout");
         doorBlockWithRenderType((DoorBlock) ModBlocks.ROTTEN_DOOR.get(), Goety.location("block/rotten_door_bottom"), Goety.location("block/rotten_door_top"), "cutout");
         doorBlockWithRenderType((DoorBlock) ModBlocks.WINDSWEPT_DOOR.get(), Goety.location("block/windswept_door_bottom"), Goety.location("block/windswept_door_top"), "cutout");
         doorBlockWithRenderType((DoorBlock) ModBlocks.PINE_DOOR.get(), Goety.location("block/pine_door_bottom"), Goety.location("block/pine_door_top"), "cutout");
+        doorBlockWithRenderType((DoorBlock) ModBlocks.CHORUS_DOOR.get(), Goety.location("block/chorus_door_bottom"), Goety.location("block/chorus_door_top"), "cutout");
+        doorBlockWithRenderType((DoorBlock) ModBlocks.CORRUPT_CHORUS_DOOR.get(), Goety.location("block/corrupt_chorus_door_bottom"), Goety.location("block/corrupt_chorus_door_top"), "cutout");
 
         fenceGateWithItem((FenceGateBlock) ModBlocks.HAUNTED_FENCE_GATE.get(), Goety.location("block/haunted_planks"));
         fenceGateWithItem((FenceGateBlock) ModBlocks.ROTTEN_FENCE_GATE.get(), Goety.location("block/rotten_planks"));
         fenceGateWithItem((FenceGateBlock) ModBlocks.WINDSWEPT_FENCE_GATE.get(), Goety.location("block/windswept_planks"));
         fenceGateWithItem((FenceGateBlock) ModBlocks.PINE_FENCE_GATE.get(), Goety.location("block/pine_planks"));
         fenceGateWithItem((FenceGateBlock) ModBlocks.STEEP_FENCE_GATE.get(), Goety.location("block/steep_planks"));
+        fenceGateWithItem((FenceGateBlock) ModBlocks.CHORUS_FENCE_GATE.get(), Goety.location("block/chorus_planks"));
+        fenceGateWithItem((FenceGateBlock) ModBlocks.CORRUPT_CHORUS_FENCE_GATE.get(), Goety.location("block/corrupt_chorus_planks"));
 
         fenceBlockWithItem((FenceBlock) ModBlocks.HAUNTED_FENCE.get(), Goety.location("block/haunted_planks"));
         fenceBlockWithItem((FenceBlock) ModBlocks.ROTTEN_FENCE.get(), Goety.location("block/rotten_planks"));
         fenceBlockWithItem((FenceBlock) ModBlocks.WINDSWEPT_FENCE.get(), Goety.location("block/windswept_planks"));
         fenceBlockWithItem((FenceBlock) ModBlocks.PINE_FENCE.get(), Goety.location("block/pine_planks"));
         fenceBlockWithItem((FenceBlock) ModBlocks.STEEP_FENCE.get(), Goety.location("block/steep_planks"));
+        fenceBlockWithItem((FenceBlock) ModBlocks.CHORUS_FENCE.get(), Goety.location("block/chorus_planks"));
+        fenceBlockWithItem((FenceBlock) ModBlocks.CORRUPT_CHORUS_FENCE.get(), Goety.location("block/corrupt_chorus_planks"));
         fenceBlockWithItem((FenceBlock) ModBlocks.CRAGROCKS_FENCE.get(), Goety.location("block/cragrocks"));
+
+        fenceBlockWithItem((FenceBlock) ModBlocks.END_ROCK_BRICK_FENCE.get(), Goety.location("block/end_rock_bricks"));
+        fenceBlockWithItem((FenceBlock) ModBlocks.SMOOTH_END_STONE_FENCE.get(), Goety.location("block/smooth_end_stone"));
 
         logBlockWithItem((RotatedPillarBlock) ModBlocks.HAUNTED_LOG.get());
         logBlockWithItem((RotatedPillarBlock) ModBlocks.ROTTEN_LOG.get());
         logBlockWithItem((RotatedPillarBlock) ModBlocks.WINDSWEPT_LOG.get());
         logBlockWithItem((RotatedPillarBlock) ModBlocks.PINE_LOG.get());
+        logBlockWithItem((RotatedPillarBlock) ModBlocks.CHORUS_LOG.get());
+        logBlockWithItem((RotatedPillarBlock) ModBlocks.CORRUPT_CHORUS_LOG.get());
 
         logBlockWithItem((RotatedPillarBlock) ModBlocks.STRIPPED_HAUNTED_LOG.get());
         logBlockWithItem((RotatedPillarBlock) ModBlocks.STRIPPED_ROTTEN_LOG.get());
         logBlockWithItem((RotatedPillarBlock) ModBlocks.STRIPPED_WINDSWEPT_LOG.get());
         logBlockWithItem((RotatedPillarBlock) ModBlocks.STRIPPED_PINE_LOG.get());
 
+        logBlockWithItem((RotatedPillarBlock) ModBlocks.END_BASALT.get());
+        logBlockWithItem((RotatedPillarBlock) ModBlocks.END_STONE_SLATE_BLOCK.get());
+        logBlockWithItem((RotatedPillarBlock) ModBlocks.END_STONE_PILLAR_BLOCK.get());
+        logBlockWithItem((RotatedPillarBlock) ModBlocks.CHORUS_END_STONE_PILLAR_BLOCK.get());
+
         columnBlockWithItem((RotatedPillarBlock) ModBlocks.HAUNTED_WOOD.get(), Goety.location("block/haunted_log"));
         columnBlockWithItem((RotatedPillarBlock) ModBlocks.ROTTEN_WOOD.get(), Goety.location("block/rotten_log"));
         columnBlockWithItem((RotatedPillarBlock) ModBlocks.WINDSWEPT_WOOD.get(), Goety.location("block/windswept_log"));
         columnBlockWithItem((RotatedPillarBlock) ModBlocks.PINE_WOOD.get(), Goety.location("block/pine_log"));
         columnBlockWithItem((RotatedPillarBlock) ModBlocks.STEEP_WOOD.get(), Goety.location("block/steep_log"));
+        columnBlockWithItem((RotatedPillarBlock) ModBlocks.CHORUS_WOOD.get(), Goety.location("block/chorus_log"));
+        columnBlockWithItem((RotatedPillarBlock) ModBlocks.CORRUPT_CHORUS_WOOD.get(), Goety.location("block/corrupt_chorus_log"));
 
         columnBlockWithItem((RotatedPillarBlock) ModBlocks.STRIPPED_HAUNTED_WOOD.get(), Goety.location("block/stripped_haunted_log"));
         columnBlockWithItem((RotatedPillarBlock) ModBlocks.STRIPPED_ROTTEN_WOOD.get(), Goety.location("block/stripped_rotten_log"));
         columnBlockWithItem((RotatedPillarBlock) ModBlocks.STRIPPED_WINDSWEPT_WOOD.get(), Goety.location("block/stripped_windswept_log"));
         columnBlockWithItem((RotatedPillarBlock) ModBlocks.STRIPPED_PINE_WOOD.get(), Goety.location("block/stripped_pine_log"));
 
+        columnBlockWithItem((RotatedPillarBlock) ModBlocks.END_ROCK_BRICKS.get(), Goety.location("block/end_rock_bricks"));
+
         pressurePlateWithItem((PressurePlateBlock) ModBlocks.HAUNTED_PRESSURE_PLATE.get(), Goety.location("block/haunted_planks"));
         pressurePlateWithItem((PressurePlateBlock) ModBlocks.ROTTEN_PRESSURE_PLATE.get(), Goety.location("block/rotten_planks"));
         pressurePlateWithItem((PressurePlateBlock) ModBlocks.WINDSWEPT_PRESSURE_PLATE.get(), Goety.location("block/windswept_planks"));
         pressurePlateWithItem((PressurePlateBlock) ModBlocks.PINE_PRESSURE_PLATE.get(), Goety.location("block/pine_planks"));
         pressurePlateWithItem((PressurePlateBlock) ModBlocks.STEEP_PRESSURE_PLATE.get(), Goety.location("block/steep_planks"));
+        pressurePlateWithItem((PressurePlateBlock) ModBlocks.CHORUS_PRESSURE_PLATE.get(), Goety.location("block/chorus_planks"));
+        pressurePlateWithItem((PressurePlateBlock) ModBlocks.CORRUPT_CHORUS_PRESSURE_PLATE.get(), Goety.location("block/corrupt_chorus_planks"));
 
         slabBlockWithItem((SlabBlock) ModBlocks.HAUNTED_SLAB.get(), Goety.location("block/haunted_planks"));
         slabBlockWithItem((SlabBlock) ModBlocks.ROTTEN_SLAB.get(), Goety.location("block/rotten_planks"));
@@ -100,6 +139,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
         slabBlockWithItem((SlabBlock) ModBlocks.STEEP_SLAB.get(), Goety.location("block/steep_planks"));
         slabBlockWithItem((SlabBlock) ModBlocks.STEEP_WOOD_SLAB.get(), Goety.location("block/steep_wood"), Goety.location("block/steep_log"));
         slabBlockWithItem((SlabBlock) ModBlocks.SKY_WOOD_SLAB.get(), Goety.location("block/sky_wood_planks"));
+        slabBlockWithItem((SlabBlock) ModBlocks.CHORUS_SLAB.get(), Goety.location("block/chorus_planks"));
+        slabBlockWithItem((SlabBlock) ModBlocks.CHORUS_WOOD_SLAB.get(), Goety.location("block/chorus_wood"), Goety.location("block/chorus_log"), Goety.location("block/chorus_log"));
+        slabBlockWithItem((SlabBlock) ModBlocks.CORRUPT_CHORUS_SLAB.get(), Goety.location("block/corrupt_chorus_planks"));
 
         slabBlockWithItem((SlabBlock) ModBlocks.CRACKED_MARBLE_SLAB.get(), Goety.location("block/cracked_marble"));
         slabBlockWithItem((SlabBlock) ModBlocks.SMOOTH_MARBLE_SLAB.get(), Goety.location("block/marble"));
@@ -121,12 +163,25 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         slabBlockWithItem((SlabBlock) ModBlocks.SNOW_BRICK_SLAB.get(), Goety.location("block/snow_bricks"));
 
+        slabBlockWithItem((SlabBlock) ModBlocks.END_BASALT_SLAB.get(), Goety.location("block/end_basalt"), Goety.location("block/end_basalt"), Goety.location("block/end_basalt_top"));
+
+        slabBlockWithItem((SlabBlock) ModBlocks.END_BASALT_BRICK_SLAB.get(), Goety.location("block/end_basalt_bricks"));
+
+        slabBlockWithItem((SlabBlock) ModBlocks.END_ROCK_SLAB.get(), Goety.location("block/end_rock"), Goety.location("block/end_rock"), Goety.location("block/end_rock_top"));
+        slabBlockWithItem((SlabBlock) ModBlocks.END_ROCK_BRICK_SLAB.get(), Goety.location("block/end_rock_bricks"));
+
+        slabBlockWithItem((SlabBlock) ModBlocks.END_STONE_TILE_SLAB.get(), Goety.location("block/end_stone_tiles"));
+        slabBlockWithItem((SlabBlock) ModBlocks.SMOOTH_END_STONE_SLAB.get(), Goety.location("block/smooth_end_stone"));
+
         stairsBlockWithItem((StairBlock) ModBlocks.HAUNTED_STAIRS.get(), Goety.location("block/haunted_planks"));
         stairsBlockWithItem((StairBlock) ModBlocks.ROTTEN_STAIRS.get(), Goety.location("block/rotten_planks"));
         stairsBlockWithItem((StairBlock) ModBlocks.WINDSWEPT_STAIRS.get(), Goety.location("block/windswept_planks"));
         stairsBlockWithItem((StairBlock) ModBlocks.PINE_STAIRS.get(), Goety.location("block/pine_planks"));
         stairsBlockWithItem((StairBlock) ModBlocks.STEEP_STAIRS.get(), Goety.location("block/steep_planks"));
         stairsBlockWithItem((StairBlock) ModBlocks.SKY_WOOD_STAIRS.get(), Goety.location("block/sky_wood_planks"));
+        stairsBlockWithItem((StairBlock) ModBlocks.CHORUS_STAIRS.get(), Goety.location("block/chorus_planks"));
+        stairsBlockWithItem((StairBlock) ModBlocks.CHORUS_WOOD_STAIRS.get(), Goety.location("block/chorus_log"));
+        stairsBlockWithItem((StairBlock) ModBlocks.CORRUPT_CHORUS_STAIRS.get(), Goety.location("block/corrupt_chorus_planks"));
 
         stairsBlockWithItem((StairBlock) ModBlocks.MARBLE_STAIRS_BLOCK.get(), Goety.location("block/marble"));
         stairsBlockWithItem((StairBlock) ModBlocks.SLATE_MARBLE_STAIRS_BLOCK.get(), Goety.location("block/slate_marble"));
@@ -147,10 +202,18 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         stairsBlockWithItem((StairBlock) ModBlocks.SNOW_BRICK_STAIRS_BLOCK.get(), Goety.location("block/snow_bricks"));
 
+        stairsBlockWithItem((StairBlock) ModBlocks.END_BASALT_STAIRS.get(), Goety.location("block/end_basalt"));
+
+        stairsBlockWithItem((StairBlock) ModBlocks.END_BASALT_BRICK_STAIRS.get(), Goety.location("block/end_basalt_bricks"));
+        stairsBlockWithItem((StairBlock) ModBlocks.END_STONE_TILE_STAIRS_BLOCK.get(), Goety.location("block/end_stone_tiles"));
+        stairsBlockWithItem((StairBlock) ModBlocks.SMOOTH_END_STONE_STAIRS_BLOCK.get(), Goety.location("block/smooth_end_stone"));
+
         trapdoorBlock((TrapDoorBlock) ModBlocks.HAUNTED_TRAPDOOR.get(), Goety.location("block/haunted_trapdoor"), true);
         trapdoorBlockWithRenderType((TrapDoorBlock) ModBlocks.ROTTEN_TRAPDOOR.get(), Goety.location("block/rotten_trapdoor"), true, "cutout");
         trapdoorBlockWithRenderType((TrapDoorBlock) ModBlocks.WINDSWEPT_TRAPDOOR.get(), Goety.location("block/windswept_trapdoor"), false, "cutout");
         trapdoorBlockWithRenderType((TrapDoorBlock) ModBlocks.PINE_TRAPDOOR.get(), Goety.location("block/pine_trapdoor"), false, "cutout");
+        trapdoorBlockWithRenderType((TrapDoorBlock) ModBlocks.CHORUS_TRAPDOOR.get(), Goety.location("block/chorus_trapdoor"), false, "cutout");
+        trapdoorBlockWithRenderType((TrapDoorBlock) ModBlocks.CORRUPT_CHORUS_TRAPDOOR.get(), Goety.location("block/corrupt_chorus_trapdoor"), false, "cutout");
 
         wallBlockWithItem((WallBlock) ModBlocks.CRAGROCKS_WALL_BLOCK.get(), Goety.location("block/cragrocks"));
         wallBlockWithItem((WallBlock) ModBlocks.CRAG_TILE_WALL_BLOCK.get(), Goety.location("block/crag_tiles"));
@@ -169,6 +232,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
         wallBlockWithItem((WallBlock) ModBlocks.INDENTED_GOLD_WALL_BLOCK.get(), Goety.location("block/indented_gold"));
 
         wallBlockWithItem((WallBlock) ModBlocks.SNOW_BRICK_WALL_BLOCK.get(), Goety.location("block/snow_bricks"));
+
+        wallBlockWithItem((WallBlock) ModBlocks.END_ROCK_BRICK_WALL_BLOCK.get(), Goety.location("block/end_rock_bricks"));
+        wallBlockWithItem((WallBlock) ModBlocks.SMOOTH_END_STONE_WALL_BLOCK.get(), Goety.location("block/smooth_end_stone"));
+
+        wallBlockWithItem((WallBlock) ModBlocks.PURPUR_WALL.get(), new ResourceLocation("block/purpur_block"));
 
         wallBlockWithItem((WallBlock) ModBlocks.STEEP_WALL_BLOCK.get(), Goety.location("block/steep_log"));
         wallBlockWithItem((WallBlock) ModBlocks.STUDDED_STEEP_WALL_BLOCK.get(), Goety.location("block/studded_steep_log"));
@@ -193,8 +261,18 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockItem(block, models().slab(baseName, texture, texture, texture));
     }
 
+    public void slabBlockWithItem(SlabBlock block, ResourceLocation doubleSlab, ResourceLocation side, ResourceLocation top){
+        slabBlock(block, doubleSlab, side, top);
+        String baseName = key(block).toString();
+        simpleBlockItem(block, models().slab(baseName, side, top, top));
+    }
+
     public void slabBlock(SlabBlock block, ResourceLocation texture) {
         slabBlock(block, texture, texture, texture, texture);
+    }
+
+    public void slabBlock(SlabBlock block, ResourceLocation doubleSlab, ResourceLocation side, ResourceLocation top) {
+        slabBlock(block, doubleSlab, side, top, top);
     }
 
     public void stairsBlockWithItem(StairBlock block, ResourceLocation texture) {

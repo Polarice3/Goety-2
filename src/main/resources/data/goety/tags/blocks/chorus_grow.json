@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "goety:end_basalt",
+    "goety:end_rock",
+    "goety:end_soil",
+    "goety:smooth_end_stone",
+    "goety:end_stone_slate"
+  ]
+}

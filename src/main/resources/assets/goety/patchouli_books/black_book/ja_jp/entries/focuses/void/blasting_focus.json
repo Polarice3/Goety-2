@@ -1,0 +1,22 @@
+{
+  "name": "ブラストリングのフォーカス",
+  "icon": "goety:blasting_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "このフォーカスは何かを爆発させるわけではありません。ただし、$(l:summons/enderling_servants#blastling)強力な粘液を多くに発射するクリーチャー$()を召喚します。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/blasting_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/void_staff)ヴォイドの杖$()で唱えると、一度に召喚されるブラストリングの量が増えます。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:blasting_focus": 1
+  }
+}

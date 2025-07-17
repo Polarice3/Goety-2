@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "O feitiço invoca um $(l:summons/leapleaves)Leapleaves$(), um servo poderoso que pode saltar alto e esmagar os inimigos de seu invocador."
+      "text": "O feitiço invoca um $(l:summons/leapleaves)Leapleaf$(), um servo poderoso que pode pular alto e esmagar os inimigos de seu invocador."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/leaping_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/wild_staff)Cajado Selvagem$() tem uma chance de invocar um leapleaf adicional."
     }
   ],
   "extra_recipe_mappings": {

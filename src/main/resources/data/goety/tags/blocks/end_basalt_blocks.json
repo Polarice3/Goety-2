@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "goety:end_basalt",
+    "goety:end_basalt_stairs",
+    "goety:end_basalt_slab",
+    "goety:end_basalt_bricks",
+    "goety:end_basalt_brick_stairs",
+    "goety:end_basalt_brick_slab"
+  ]
+}

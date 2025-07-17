@@ -1,5 +1,5 @@
 {
-  "name": "Foco do Dardo Venenoso",
+  "name": "Foco de Dardo Venenoso",
   "icon": "goety:poison_dart_focus",
   "category": "goety:focuses/wild",
   "pages": [
@@ -10,6 +10,10 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/poison_dart_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/wild_staff)Cajado Selvagem$() dispara um espinho que atravessa múltiplos alvos."
     }
   ]
 }

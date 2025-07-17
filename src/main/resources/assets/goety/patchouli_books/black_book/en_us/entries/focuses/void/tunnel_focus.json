@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/tunnel_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/void_staff)Void Staff$() increases the tunnel size from 3x3 to 5x5."
     }
   ],
   "extra_recipe_mappings": {

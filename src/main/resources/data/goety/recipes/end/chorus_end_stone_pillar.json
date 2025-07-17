@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PCP",
+    "C C",
+    "PCP"
+  ],
+  "key": {
+    "P": {
+      "item": "goety:end_stone_pillar"
+    },
+    "C": {
+      "item": "goety:chorus_wood"
+    }
+  },
+  "result": {
+    "item": "goety:chorus_end_stone_pillar",
+    "count": 4
+  }
+}

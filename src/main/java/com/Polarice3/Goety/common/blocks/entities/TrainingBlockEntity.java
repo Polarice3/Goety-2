@@ -181,6 +181,7 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
                             && !(MobUtil.isWitchType(target) && this.getTrueOwner() != null && CuriosFinder.isWitchFriendly(this.getTrueOwner()))
                             && !(CuriosFinder.validFrostMob(target) && this.getTrueOwner() != null && CuriosFinder.neutralFrostSet(this.getTrueOwner()))
                             && !(CuriosFinder.validWildMob(target) && this.getTrueOwner() != null && CuriosFinder.neutralWildSet(this.getTrueOwner()))
+                            && !(CuriosFinder.validVoidMob(target) && this.getTrueOwner() != null && CuriosFinder.neutralVoidSet(this.getTrueOwner()))
                             && !(CuriosFinder.validNetherMob(target) && this.getTrueOwner() != null && CuriosFinder.neutralNetherSet(this.getTrueOwner()))
                             && !(target.getMobType() == MobType.ARTHROPOD && this.getTrueOwner() != null && CuriosFinder.hasWarlockRobe(this.getTrueOwner()))
                             && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.ServantsAttackCreepers.get())

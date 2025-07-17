@@ -69,6 +69,7 @@ public class RitualRequirements extends RitualTypes{
             case GEOTURGY -> geoturgyRitual(pPos, pLevel);
             case NECROTURGY -> RitualRequirements.getStructures(craftType, pPos, pLevel) && pLevel.getSkyDarken() >= 4 && pLevel.dimensionType().hasSkyLight();
             case ADEPT_NETHER, EXPERT_NETHER -> RitualRequirements.getStructures(craftType, pPos, pLevel) && (pLevel.dimensionType().ultraWarm() || pLevel.getBiome(pPos).is(BiomeTags.IS_NETHER));
+            case END -> RitualRequirements.getStructures(craftType, pPos, pLevel) && (pLevel.dimension() == Level.END || pLevel.getBiome(pPos).is(BiomeTags.IS_END));
             case FROST -> frostRitual(pPos, pLevel);
             case SKY -> skyRitual(pTileEntity, pLevel, pPos);
             case STORM -> RitualRequirements.getStructures(craftType, pPos, pLevel) && skyRitual(pTileEntity, pLevel, pPos) && pLevel.isThundering() && pLevel.canSeeSky(pPos.above());
@@ -86,7 +87,7 @@ public class RitualRequirements extends RitualTypes{
     }
 
     public static boolean skyRitual(RitualBlockEntity pTileEntity, Level pLevel, BlockPos pPos){
-        return pPos.getY() >= 128 || pLevel.getBiome(pPos).is(biomeResourceKey -> biomeResourceKey.registry().getNamespace().contains("aether")) || getStructures(SKY, pPos, pTileEntity.getLevel());
+        return pPos.getY() >= 128 || pLevel.dimension().location().toString().contains("aether") || getStructures(SKY, pPos, pTileEntity.getLevel());
     }
 
     public static boolean deepRitual(RitualBlockEntity pTileEntity, Level pLevel, BlockPos pPos){
@@ -223,6 +224,20 @@ public class RitualRequirements extends RitualTypes{
                                 ++secondCount;
                             }
                             if (blockstate.getBlock() == Blocks.NETHER_WART) {
+                                ++thirdCount;
+                            }
+                        }
+                        case END -> {
+                            totalFirst = 16;
+                            totalSecond = 64;
+                            totalThird = 32;
+                            if (blockstate.getBlock() == ModBlocks.VOID_BLOCK.get()) {
+                                ++firstCount;
+                            }
+                            if (blockstate.is(ModTags.Blocks.END_STONE) || blockstate.is(Blocks.END_STONE_BRICKS)) {
+                                ++secondCount;
+                            }
+                            if (blockstate.getBlock().getDescriptionId().contains("purpur")) {
                                 ++thirdCount;
                             }
                         }

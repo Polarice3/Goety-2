@@ -1,0 +1,22 @@
+{
+  "name": "Foco da Armadilha",
+  "icon": "goety:snaring_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Este foco parece pegajoso ao toque, mas não secreta gosma. O mesmo não pode ser dito da criatura que ele invoca: $(l:summons/enderling_servants#snareling)uma caricatura humana com braços longos e uma bolsa luminosa$()."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/snaring_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/void_staff)Cajado do Vácuo$() invoca mais rosnados de uma vez."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:snaring_focus": 1
+  }
+}

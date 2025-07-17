@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.hostile;
 
+import com.Polarice3.Goety.api.entities.IHiding;
 import com.Polarice3.Goety.client.particles.TeleportInShockwaveParticleOption;
 import com.Polarice3.Goety.client.particles.TeleportShockwaveParticleOption;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
@@ -79,7 +80,7 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
-public class Wight extends Summoned implements Enemy, NeutralMob {
+public class Wight extends Summoned implements Enemy, NeutralMob, IHiding {
     private static final EntityDataAccessor<Boolean> IS_CLONE = SynchedEntityData.defineId(Wight.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_HIDE = SynchedEntityData.defineId(Wight.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Wight.class, EntityDataSerializers.BYTE);

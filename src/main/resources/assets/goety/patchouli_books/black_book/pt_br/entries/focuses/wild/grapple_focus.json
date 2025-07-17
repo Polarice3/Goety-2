@@ -1,15 +1,19 @@
 {
-  "name": "Foco do Gancho",
+  "name": "Foco de Gancho",
   "icon": "goety:grapple_focus",
   "category": "goety:focuses/wild",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Este foco permite que você dispare um gancho feito de vinhas e espinhos que se prenderá a qualquer superfície sólida que atingir, puxando você junto."
+      "text": "Este foco permite disparar um gancho feito de vinhas e espinhos que se prende a qualquer superfície sólida, puxando você em sua direção."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/grapple_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/wild_staff)Cajado Selvagem$() permite que o gancho seja disparado mais longe e neutraliza dano de queda quando preso a um gancho."
     }
   ],
   "extra_recipe_mappings": {

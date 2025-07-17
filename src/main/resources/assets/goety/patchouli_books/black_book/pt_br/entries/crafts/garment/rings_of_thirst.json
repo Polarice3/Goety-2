@@ -1,0 +1,18 @@
+{
+  "name": "Anel da Sede",
+  "icon": "goety:ring_of_thirst",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A Picareta Assustadora pode ser útil para coletar Orbes de Experiência, mas há momentos em que até essa habilidade não é suficiente. Com este anel, a experiência é imediatamente concedida ao usuário se for obtida ao matar uma criatura, pessoalmente ou através de um servo."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ring_of_thirst"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ring_of_thirst": 1
+  }
+}

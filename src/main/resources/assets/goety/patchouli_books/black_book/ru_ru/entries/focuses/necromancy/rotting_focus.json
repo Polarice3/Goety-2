@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/rotting_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/necro_staff)некро-посоха$() позволяет вызывать больше зомби."
     }
   ],
   "extra_recipe_mappings": {

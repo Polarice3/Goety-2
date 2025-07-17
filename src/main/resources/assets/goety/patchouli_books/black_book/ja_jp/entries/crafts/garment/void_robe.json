@@ -1,0 +1,27 @@
+{
+  "name": "ヴォイドのローブ",
+  "icon": "goety:void_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ヴォイドのローブは着用者にエンドの力を授けます。着用者はテレポートによる攻撃回避の機会を得るほか、ヴォイドタッチドを受けなくなり、虚空ブロックを自由に通過できるようになります。また、ローブを着用することでヴォイド呪文のソウルコストも半減されます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:void_robe"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:void_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ヴォイドの冠は、ヴォイド呪文の詠唱時間を半分に短縮し、ヴェックスなど、特定のヴォイドの従者が死滅するのを防ぎます。また、着用者はエンダーマンを刺激することなく見つめることができます。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:void_robe": 1,
+    "goety:void_crown": 2
+  }
+}

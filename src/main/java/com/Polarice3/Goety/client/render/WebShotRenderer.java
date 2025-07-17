@@ -5,7 +5,6 @@ import com.Polarice3.Goety.client.render.model.WebShotModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -36,7 +35,7 @@ public class WebShotRenderer<T extends Projectile> extends EntityRenderer<T> {
         pPoseStack.mulPose(Axis.YP.rotationDegrees(yRot));
         pPoseStack.mulPose(Axis.XP.rotationDegrees(xRot));
         VertexConsumer consumer = pBuffer.getBuffer(RenderType.entityCutoutNoCull(getTextureLocation(pEntity)));
-        this.model.renderToBuffer(pPoseStack, consumer, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 0.5F);
+        this.model.renderToBuffer(pPoseStack, consumer, pPackedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 0.5F);
         pPoseStack.popPose();
 
         super.render(pEntity, pYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight);

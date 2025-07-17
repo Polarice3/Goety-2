@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RGR",
+    "G G",
+    "RGR"
+  ],
+  "key": {
+    "G": {
+      "item": "goety:end_rod_block"
+    },
+    "R": {
+      "item": "minecraft:purpur_block"
+    }
+  },
+  "result": {
+    "item": "goety:purpur_end_rod_block",
+    "count": 4
+  }
+}

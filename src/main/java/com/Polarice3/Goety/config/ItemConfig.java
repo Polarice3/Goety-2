@@ -24,6 +24,8 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WarlockRobeResistance;
     public static final ForgeConfigSpec.ConfigValue<Integer> FrostRobeResistance;
     public static final ForgeConfigSpec.ConfigValue<Integer> StormRobeResistance;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VoidRobeWaterSapped;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VoidRobeTeleportChance;
     public static final ForgeConfigSpec.ConfigValue<Integer> NetherRobeResistance;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> StaffOffhandBuff;
@@ -35,6 +37,7 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> FrostStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> WildStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> AbyssStaffDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> VoidStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> NetherStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> NamelessStaffDamage;
 
@@ -108,6 +111,8 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> RobeCape;
     public static final ForgeConfigSpec.ConfigValue<Boolean> AbyssSetMobNeutral;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FrostSetMobNeutral;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> VoidSetMobNeutral;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> VoidRobeTeleportDamageCancel;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WildSetMobNeutral;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NetherSetMobNeutral;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecroSetUndeadNeutral;
@@ -127,6 +132,7 @@ public class ItemConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Double> AbyssSetMobNeutralHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> FrostSetMobNeutralHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> VoidSetMobNeutralHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> WildSetMobNeutralHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> NetherSetMobNeutralHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> NecroSetUndeadNeutralHealth;
@@ -171,6 +177,16 @@ public class ItemConfig {
                     .define("frostSetMobNeutral", true);
             FrostSetMobNeutralHealth = BUILDER.comment("If 'frostSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
                     .defineInRange("frostSetMobNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
+            VoidSetMobNeutral = BUILDER.comment("Whether wearing both Void Robe and Crown will cause certain mobs to be neutral, Default: true")
+                    .define("voidSetMobNeutral", true);
+            VoidRobeTeleportChance = BUILDER.comment("Determines the chance of Void Robes wearers can teleport away from incoming attacks, set to 0 to disable, Default: 5")
+                    .defineInRange("voidRobeTeleportChance", 5, 0, 100);
+            VoidRobeTeleportDamageCancel = BUILDER.comment("If 'voidRobeTeleport' is enabled, teleporting cancels incoming damage, Default: true")
+                    .define("voidRobeTeleportDamageCancel", true);
+            VoidRobeWaterSapped = BUILDER.comment("Determines what level of Sapped is applied while wearing Void Robes in rain or water, set to 0 to disable, Default: 2")
+                    .defineInRange("voidRobeWaterSapped", 2, 0, 10);
+            VoidSetMobNeutralHealth = BUILDER.comment("If 'voidSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
+                    .defineInRange("voidSetMobNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
             WildSetMobNeutral = BUILDER.comment("Whether wearing both Wild Robe and Crown will cause certain mobs to be neutral, Default: true")
                     .define("wildSetMobNeutral", true);
             WildSetMobNeutralHealth = BUILDER.comment("If 'wildSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
@@ -231,6 +247,8 @@ public class ItemConfig {
                     .defineInRange("wildStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
             AbyssStaffDamage = BUILDER.comment("How much base damage Abyss Staffs deals, Default: 9.0")
                     .defineInRange("abyssStaffDamage", 9.0, 1.0, Double.MAX_VALUE);
+            VoidStaffDamage = BUILDER.comment("How much base damage Void Staffs deals, Default: 4.0")
+                    .defineInRange("voidStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
             NetherStaffDamage = BUILDER.comment("How much base damage Nether Staffs deals, Default: 4.0")
                     .defineInRange("netherStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
             NamelessStaffDamage = BUILDER.comment("How much base damage Nameless Staffs deals, Default: 6.0")

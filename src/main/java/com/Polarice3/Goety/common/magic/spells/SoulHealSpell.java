@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.RandomUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -69,7 +70,7 @@ public class SoulHealSpell extends Spell {
             potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
         }
-        float heal = worldIn.random.nextInt(SpellConfig.SoulHealAmount.get() * Math.max(1, potency)) + 1.0F;
+        float heal = RandomUtil.nextInt(worldIn.getRandom(), SpellConfig.SoulHealAmount.get() * Math.max(1, potency)) + 1.0F;
         caster.heal(heal);
         if (radius > 0) {
             for (LivingEntity livingEntity : worldIn.getEntitiesOfClass(LivingEntity.class, caster.getBoundingBox().inflate(8.0D * radius))) {

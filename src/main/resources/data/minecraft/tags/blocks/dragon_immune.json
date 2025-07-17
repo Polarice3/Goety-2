@@ -1,8 +1,15 @@
 {
   "replace": false,
   "values": [
+    "#goety:void_blocks",
+    "#goety:end_basalt_blocks",
+    "#goety:end_rock",
+    "#goety:end_stone",
+    "#goety:chorus_wood_blocks",
     "goety:arca",
     "goety:lofty_chest",
+    "goety:end_soil",
+    "goety:chorus_sapling",
     "goety:reinforced_redstone_block"
   ]
 }

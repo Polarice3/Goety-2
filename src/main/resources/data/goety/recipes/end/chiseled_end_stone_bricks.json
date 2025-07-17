@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "goety:chiseled_end_stone"
+    }
+  },
+  "result": {
+    "item": "goety:chiseled_end_stone_bricks"
+  }
+}

@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Com o poder deste foco, você pode perturbar seus inimigos invocando uma fileira, um quadrado ou paredes totêmicas posicionadas aleatoriamente à frente deles, ou, se agachado durante a conjuração, invocar uma ou múltiplas Bombas Totêmicas ao redor deles. Se não estiver agachado, sempre invoca uma fileira de Paredes Totêmicas se não estiver mirando em um inimigo."
+      "text": "Com o poder do foco, você pode incomodar seus inimigos invocando uma fileira, quadrado ou paredes totêmicas aleatórias à frente deles, ou, se agachar enquanto conjura, invocar uma ou várias bombas totêmicas ao seu redor. Se não estiver agachado, sempre invoca uma fileira de paredes totêmicas se não mirar em um inimigo."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/barricade_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/geo_staff)Cajado Geo$() aumenta a chance de invocar quatro bombas totêmicas em vez de uma."
     }
   ],
   "extra_recipe_mappings": {

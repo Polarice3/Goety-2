@@ -9,7 +9,9 @@ import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeleton
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieVillagerServant;
 import com.Polarice3.Goety.common.entities.hostile.BorderWraith;
+import com.Polarice3.Goety.common.entities.hostile.MuckWraith;
 import com.Polarice3.Goety.common.entities.hostile.Wraith;
+import com.Polarice3.Goety.common.entities.neutral.ender.AbstractEnderling;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModTags;
@@ -96,6 +98,8 @@ public class ServantUtil {
             summoned = target.convertTo(ModEntityType.WRAITH_SERVANT.get(), keepLoot);
         } else if (target instanceof BorderWraith){
             summoned = target.convertTo(ModEntityType.BORDER_WRAITH_SERVANT.get(), keepLoot);
+        } else if (target instanceof MuckWraith){
+            summoned = target.convertTo(ModEntityType.MUCK_WRAITH_SERVANT.get(), keepLoot);
         } else if (target instanceof PiglinBrute){
             summoned = target.convertTo(ModEntityType.ZPIGLIN_BRUTE_SERVANT.get(), keepLoot);
         } else if (target instanceof AbstractPiglin){
@@ -164,8 +168,13 @@ public class ServantUtil {
         return mobType == MobType.WATER || entityType.is(ModTags.EntityTypes.ABYSS_HEAL);
     }
 
+    public static boolean isVoidHeal(LivingEntity servant){
+        EntityType<?> entityType = servant.getType();
+        return servant instanceof AbstractEnderling || entityType.is(ModTags.EntityTypes.VOID_HEAL);
+    }
+
     public static boolean isValidServantHeal(LivingEntity livingEntity){
-        return isFrostHeal(livingEntity) || isWildHeal(livingEntity) || isNecroHeal(livingEntity) || isNetherHeal(livingEntity) || isAbyssHeal(livingEntity);
+        return isFrostHeal(livingEntity) || isWildHeal(livingEntity) || isNecroHeal(livingEntity) || isNetherHeal(livingEntity) || isAbyssHeal(livingEntity) || isVoidHeal(livingEntity);
     }
 
     public static boolean notServantButOwned(LivingEntity livingEntity){
@@ -216,6 +225,12 @@ public class ServantUtil {
                             soulCost = MobsConfig.NetherMinionHealCost.get();
                             healRate = MobsConfig.NetherMinionHealTime.get();
                             healAmount = MobsConfig.NetherMinionHealAmount.get().floatValue();
+                        }
+                        if (isVoidHeal(servant) && MobsConfig.VoidMinionHeal.get()) {
+                            curio = CuriosFinder.hasVoidRobe(owner);
+                            soulCost = MobsConfig.VoidMinionHealCost.get();
+                            healRate = MobsConfig.VoidMinionHealTime.get();
+                            healAmount = MobsConfig.VoidMinionHealAmount.get().floatValue();
                         }
                         if (curio) {
                             if (SEHelper.getSoulsAmount(owner, soulCost)) {

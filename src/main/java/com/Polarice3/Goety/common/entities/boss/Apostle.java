@@ -841,16 +841,23 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             this.prevY = this.getY();
             this.prevZ = this.getZ();
             for(int i = 0; i < 128; ++i) {
+                boolean flag = true;
                 double d3 = this.getX() + (this.getRandom().nextDouble() - 0.5D) * 32.0D;
                 double d4 = this.getY();
                 if (this.getTarget() != null){
                     d4 = this.getTarget().getY();
                 }
                 double d5 = this.getZ() + (this.getRandom().nextDouble() - 0.5D) * 32.0D;
-                if (this.randomTeleport(d3, d4, d5, false)) {
-                    this.teleportHits();
-                    this.resetHitTime();
-                    break;
+                BlockPos blockPos = BlockPos.containing(d3, d4, d5);
+                if (this.getTarget() != null && i < 64) {
+                    flag = BlockFinder.canSeeBlock(this.getTarget(), blockPos);
+                }
+                if (flag) {
+                    if (this.randomTeleport(d3, d4, d5, false)) {
+                        this.teleportHits();
+                        this.resetHitTime();
+                        break;
+                    }
                 }
             }
         }
@@ -868,9 +875,12 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 double d1 = this.getX() + (this.random.nextDouble() - 0.5D) * 8.0D - vector3d.x * d0;
                 double d2 = this.getY() + (double)(this.random.nextInt(16) - 8) - vector3d.y * d0;
                 double d3 = this.getZ() + (this.random.nextDouble() - 0.5D) * 8.0D - vector3d.z * d0;
-                if (this.randomTeleport(d1, d2, d3, false)) {
-                    this.teleportHits();
-                    break;
+                BlockPos blockPos1 = BlockPos.containing(d1, d2, d3);
+                if (BlockFinder.canSeeBlock(entity, blockPos1)) {
+                    if (this.randomTeleport(d1, d2, d3, false)) {
+                        this.teleportHits();
+                        break;
+                    }
                 }
             }
         }

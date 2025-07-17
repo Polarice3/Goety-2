@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "O poder do Nether permite que você invoque pilares de chamas que podem cercar você ou, se mirar diretamente em um alvo válido, seu inimigo."
+      "text": "O poder do Nether permite invocar pilares de chamas que podem cercar você ou, se mirar diretamente em um alvo válido, seu inimigo."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/flame_strike_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/nether_staff)Cajado do Nether$() dobra o raio dos pilares de fogo."
     }
   ],
   "extra_recipe_mappings": {

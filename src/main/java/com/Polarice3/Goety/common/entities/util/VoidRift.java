@@ -2,15 +2,13 @@ package com.Polarice3.Goety.common.entities.util;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayLoopSoundPacket;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.ColorUtil;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
-import com.Polarice3.Goety.utils.SpellExplosion;
+import com.Polarice3.Goety.utils.*;
 import com.google.common.collect.Maps;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -24,6 +22,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Endermite;
@@ -253,7 +253,17 @@ public class VoidRift extends CastSpellTrap {
                         ServerParticleUtil.createParticleBall(ParticleTypes.DRAGON_BREATH, this.getX(), this.getY() + 0.5D, this.getZ(), serverLevel,  8 + (int) this.getSize());
                         this.playSound(SoundEvents.RESPAWN_ANCHOR_DEPLETE.get(), 5.0F, 0.5F);
                         this.playSound(SoundEvents.GENERIC_EXPLODE, 5.0F, 0.5F);
-                        new SpellExplosion(this.level, this.getOwner() != null ? this.getOwner() : this, this.damageSources().indirectMagic(this, this.getOwner()), this.blockPosition(), range / 4, 0.0F);
+                        new SpellExplosion(this.level, this.getOwner() != null ? this.getOwner() : this, this.damageSources().indirectMagic(this, this.getOwner()), this.blockPosition(), range / 4, 0.0F) {
+                            @Override
+                            public void explodeHurt(Entity target, DamageSource damageSource, double x, double y, double z, double seen, float actualDamage) {
+                                super.explodeHurt(target, damageSource, x, y, z, seen, actualDamage);
+                                if (VoidRift.this.isStaff()) {
+                                    if (target instanceof LivingEntity livingEntity) {
+                                        livingEntity.addEffect(new MobEffectInstance(GoetyEffects.VOID_TOUCHED.get(), MathHelper.secondsToTicks(3), 2, false, true));
+                                    }
+                                }
+                            }
+                        };
                     }
                     this.discard();
                 }

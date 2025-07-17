@@ -1,6 +1,9 @@
 package com.Polarice3.Goety.common.items.curios;
 
 import com.Polarice3.Goety.api.magic.SpellType;
+import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 public class MagicCrownItem extends SingleStackItem {
     public SpellType spellType;
@@ -16,5 +19,10 @@ public class MagicCrownItem extends SingleStackItem {
 
     public SpellType getSpellType() {
         return this.spellType;
+    }
+
+    @Override
+    public boolean isEnderMask(ItemStack stack, Player player, EnderMan endermanEntity) {
+        return this.spellType == SpellType.VOID;
     }
 }

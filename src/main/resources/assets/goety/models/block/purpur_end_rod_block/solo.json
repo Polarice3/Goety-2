@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "goety:block/purpur_end_rod_block/solo",
+    "down": "goety:block/purpur_end_rod_block/top",
+    "up": "goety:block/purpur_end_rod_block/top",
+    "north": "goety:block/purpur_end_rod_block/solo",
+    "south": "goety:block/purpur_end_rod_block/solo",
+    "west": "goety:block/purpur_end_rod_block/solo",
+    "east": "goety:block/purpur_end_rod_block/solo"
+  },
+  "render_type": "cutout"
+}

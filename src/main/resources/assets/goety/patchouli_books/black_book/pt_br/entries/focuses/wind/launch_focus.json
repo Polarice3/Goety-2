@@ -1,15 +1,19 @@
 {
-  "name": "Foco do Lançamento",
+  "name": "Foco de Lançamento",
   "icon": "goety:launch_focus",
   "category": "goety:focuses/wind",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Após alguns ajustes e experimentos, você criou um feitiço que o impulsiona para o ar, permitindo voar de maneira rudimentar, mas eficaz."
+      "text": "Após alguns ajustes e experimentos, você conseguiu criar um feitiço que o lança para o alto, permitindo que você voe de maneira rudimentar, porém eficaz."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/launch_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/wind_staff)Cajado do Vento$() lança você mais longe."
     }
   ],
   "extra_recipe_mappings": {

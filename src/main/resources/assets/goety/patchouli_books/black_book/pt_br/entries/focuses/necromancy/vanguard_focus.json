@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Você descobriu uma maneira de invocar guardiões leais do além-túmulo usando este foco. Você tem a sensação de que este feitiço foi roubado e reaproveitado de um antigo rei."
+      "text": "Você descobriu uma maneira de invocar guardas leais do além-túmulo usando este foco. Você tem a sensação de que este feitiço foi roubado e reaproveitado de um antigo rei."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/vanguard_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/necro_staff)Cajado Necro$() invoca mais vanguardas de uma vez."
     }
   ],
   "extra_recipe_mappings": {

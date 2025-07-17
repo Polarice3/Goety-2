@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.common.blocks.entities.ShriekObeliskBlockEntity;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.mojang.authlib.GameProfile;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -20,6 +21,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -866,6 +868,23 @@ public class BlockFinder {
 
     public static boolean isPassableBlock(Level level, BlockPos blockPos){
         return level.getBlockState(blockPos).getCollisionShape(level, blockPos).isEmpty();
+    }
+
+    public static void voidedEffect(Level pLevel, LivingEntity pEntity) {
+        if (!pLevel.isClientSide) {
+            MobEffectInstance instance = pEntity.getEffect(GoetyEffects.VOID_TOUCHED.get());
+            if (instance == null) {
+                if (pEntity.hurt(ModDamageSource.getDamageSource(pLevel, ModDamageSource.VOIDED), pEntity.getMaxHealth() * 0.05F)){
+                    pEntity.addEffect(new MobEffectInstance(GoetyEffects.VOID_TOUCHED.get(), MathHelper.secondsToTicks(3), 2, false, true));
+                }
+            } else {
+                if (pEntity.tickCount % 20 == 0) {
+                    if (pEntity.hurt(ModDamageSource.getDamageSource(pLevel, ModDamageSource.VOIDED), pEntity.getMaxHealth() * 0.05F)){
+                        EffectsUtil.increaseEffect(pEntity, GoetyEffects.VOID_TOUCHED.get(), 9, false, true);
+                    }
+                }
+            }
+        }
     }
 
     //Based on ChainsawTask by @Shadows-of-Fire: https://github.com/Shadows-of-Fire/Apotheosis/blob/1.20/src/main/java/dev/shadowsoffire/apotheosis/ench/enchantments/masterwork/ChainsawEnchant.java

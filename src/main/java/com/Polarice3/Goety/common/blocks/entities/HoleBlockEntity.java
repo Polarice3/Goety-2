@@ -8,6 +8,7 @@ import com.Polarice3.Goety.utils.MathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -15,23 +16,29 @@ public class HoleBlockEntity extends SaveBlockEntity{
     public int life = 0;
     public int lifespan = 120;
     public int count = 0;
+    public int radius = 3;
     public Direction direction = null;
 
     public HoleBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
         super(ModBlockEntities.HOLE.get(), p_155229_, p_155230_);
     }
 
-    public void setStats(BlockState oldBlock, int initLife, int lifespan, int count, Direction direction){
+    public void setStats(BlockState oldBlock, int initLife, int lifespan, int count, int radius, Direction direction){
         this.oldBlock = oldBlock;
         this.life = initLife;
         this.lifespan = lifespan;
         this.count = count;
         this.direction = direction;
+        this.radius = radius;
         this.setChanged();
     }
 
+    public void setStats(BlockState oldBlock, int lifespan, int count, int radius, Direction direction){
+        this.setStats(oldBlock, 0, lifespan, count, radius, direction);
+    }
+
     public void setStats(BlockState oldBlock, int lifespan, int count, Direction direction){
-        this.setStats(oldBlock, 0, lifespan, count, direction);
+        this.setStats(oldBlock, lifespan, count, 3, direction);
     }
 
     public void tick() {
@@ -45,31 +52,32 @@ public class HoleBlockEntity extends SaveBlockEntity{
         }
         if (!this.level.isClientSide) {
             if (this.life == 0 && this.count > 1 && this.direction != null) {
+                int j = this.radius >> 1;
                 switch (this.direction.getAxis()) {
                     case Y -> {
-                        for (int i = 0; i < 9; ++i) {
-                            if (i / 3 != 1 || i % 3 != 1) {
-                                TunnelSpell.createHole(this.level, this.getBlockPos().offset(-1 + i / 3, 0, -1 + i % 3), null, 1, this.lifespan);
+                        for (int i = 0; i < Mth.square(this.radius); ++i) {
+                            if (i / this.radius != j || i % this.radius != j) {
+                                TunnelSpell.createHole(this.level, this.getBlockPos().offset(-j + i / this.radius, 0, -j + i % this.radius), null, 1, this.radius >= 5, this.lifespan);
                             }
                         }
                     }
                     case Z -> {
-                        for (int i = 0; i < 9; ++i) {
-                            if (i / 3 != 1 || i % 3 != 1) {
-                                TunnelSpell.createHole(this.level, this.getBlockPos().offset(-1 + i / 3, -1 + i % 3, 0), null, 1, this.lifespan);
+                        for (int i = 0; i < Mth.square(this.radius); ++i) {
+                            if (i / this.radius != j || i % this.radius != j) {
+                                TunnelSpell.createHole(this.level, this.getBlockPos().offset(-j + i / this.radius, -j + i % this.radius, 0), null, 1, this.radius >= 5, this.lifespan);
                             }
                         }
                     }
                     case X -> {
-                        for (int i = 0; i < 9; ++i) {
-                            if (i / 3 != 1 || i % 3 != 1) {
-                                TunnelSpell.createHole(this.level, this.getBlockPos().offset(0, -1 + i / 3, -1 + i % 3), null, 1, this.lifespan);
+                        for (int i = 0; i < Mth.square(this.radius); ++i) {
+                            if (i / this.radius != j || i % this.radius != j) {
+                                TunnelSpell.createHole(this.level, this.getBlockPos().offset(0, -j + i / this.radius, -j + i % this.radius), null, 1, this.radius >= 5, this.lifespan);
                             }
                         }
                     }
                 }
                 if (this.count > 2) {
-                    if (!TunnelSpell.createHole(this.level, this.getBlockPos().relative(this.direction.getOpposite()), this.direction, this.count - 1, this.lifespan)) {
+                    if (!TunnelSpell.createHole(this.level, this.getBlockPos().relative(this.direction.getOpposite()), this.direction, this.count - 1, this.radius >= 5, this.lifespan)) {
                         this.count = 0;
                     }
                 }
@@ -166,6 +174,9 @@ public class HoleBlockEntity extends SaveBlockEntity{
         if (compoundTag.contains("Count")) {
             this.count = compoundTag.getInt("Count");
         }
+        if (compoundTag.contains("Radius")) {
+            this.radius = compoundTag.getInt("Radius");
+        }
         if (compoundTag.contains("Direction")){
             int ordinal = compoundTag.getInt("Direction");
             if (ordinal > 0 && ordinal < Direction.values().length + 1){
@@ -182,6 +193,7 @@ public class HoleBlockEntity extends SaveBlockEntity{
         compoundTag.putInt("Life", this.life);
         compoundTag.putInt("Lifespan", this.lifespan);
         compoundTag.putInt("Count", this.count);
+        compoundTag.putInt("Radius", this.radius);
         int ordinalInt = -1;
         if (this.direction != null){
             ordinalInt = this.direction.ordinal();

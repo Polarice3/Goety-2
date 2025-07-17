@@ -25,7 +25,7 @@ import java.util.function.Consumer;
 
 public class BlackIronArmor extends ArmorItem implements ISoulDiscount {
     public BlackIronArmor(ArmorItem.Type p_40387_) {
-        super(ModArmorMaterials.BLACK_IRON, p_40387_, ModItems.baseProperities());
+        super(ModArmorMaterials.BLACK_IRON, p_40387_, ModItems.baseProperties());
     }
 
     @Override

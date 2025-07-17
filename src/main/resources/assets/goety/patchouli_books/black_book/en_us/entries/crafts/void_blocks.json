@@ -1,0 +1,85 @@
+{
+  "name": "Void Blocks & Liquid",
+  "icon": "goety:void_block",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You've heard of interesting blocks and liquids found in the End that are harmful to those that thread upon them, unless they are spawns of the End themselves..."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:void_bottle",
+      "text": "To obtain a Bottle of Void, you must use an empty Glass Bottle below the dimension's minimum build height, -64 Y for the Overworld, 0 for both the Nether and the End, though one can say it's easier to obtain in the End as it has no Bedrock blocking the Void."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:void_block",
+      "recipe2": "goety:void_bucket"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Both Void Blocks and Liquid will inflict damage that's equal to 5%% of max health per second, while also giving and amplifying Void Touched effect to creatures that move through them. Enderman, Endermites and Enderlings are immune to the effects, but not Shulkers strangely enough."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:void_barrel"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Void Barrel is a volatile block that will unleash an explosion of void when set off, breaking itself in the process. To set the barrel off, either right-click on it, activate it with redstone or shoot a projectile at it."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Liquid Void can also create decorative blocks when interacted with either Water or Lava. Pouring Water on source Liquid Void will turn it into Void Block."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_basalt_slab",
+      "recipe2": "goety:end/end_basalt_stairs"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_basalt_bricks",
+      "recipe2": "goety:end/end_basalt_brick_slab"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_basalt_brick_stairs"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_rock_slab",
+      "recipe2": "goety:end/end_rock_bricks"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_rock_brick_slab",
+      "recipe2": "goety:end/end_rock_brick_wall"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_rock_brick_fence",
+      "recipe2": "goety:end/end_rock_chiseled"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:end_soil",
+      "text": "When a flowing water meets flowing void, it creates End Soil. Not only can Chorus Flowers grow on them, but having lava flow onto it with Blue Ice adjacent will create renewable Obsidian."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:chorus/chorus_sapling",
+      "text": "One can also create a sapling from the void, which provides a new set of wood-like blocks that are not burnable. They can only be planted on End Soil."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:chorus_sapling",
+      "text": "Growing 4 Chorus Saplings in a 2x2 area will create a gigantic Chorus Tree that has Corrupted Chorus Logs, which also provide another set of wood-like blocks, or Liquid Void within itself."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:void_bottle": 1,
+    "goety:end_soil": 11
+  }
+}

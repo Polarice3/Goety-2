@@ -119,29 +119,6 @@ public class ClientEvents {
         if (event.getLevel() instanceof ClientLevel){
             Minecraft minecraft = Minecraft.getInstance();
             SoundManager soundHandler = minecraft.getSoundManager();
-            /*if (MainConfig.BossMusic.get()) {
-                boolean show = minecraft.options.getSoundSourceVolume(SoundSource.RECORDS) > 0.0F;
-                if (entity instanceof Mob mob && !mob.isNoAi()) {
-                    if (entity instanceof Apostle) {
-                        minecraft.getMusicManager().stopPlaying();
-                        if (show) {
-                            minecraft.gui.setNowPlaying(Component.translatable("item.goety.music_disc_apostle.desc"));
-                        }
-                    }
-                    if (entity instanceof Vizier) {
-                        minecraft.getMusicManager().stopPlaying();
-                        if (show) {
-                            minecraft.gui.setNowPlaying(Component.translatable("item.goety.music_disc_vizier.desc"));
-                        }
-                    }
-                    if (entity instanceof HostileRedstoneMonstrosity) {
-                        minecraft.getMusicManager().stopPlaying();
-                        if (show) {
-                            minecraft.gui.setNowPlaying(Component.translatable("item.goety.music_disc_rm.desc"));
-                        }
-                    }
-                }
-            }*/
             if (entity instanceof CorruptedBeam){
                 soundHandler.play(new LoopSound(ModSounds.CORRUPT_BEAM_LOOP.get(), entity));
                 soundHandler.play(new LoopSound(ModSounds.CORRUPT_BEAM_SOUL.get(), entity));
@@ -407,7 +384,7 @@ public class ClientEvents {
         Minecraft minecraft = Minecraft.getInstance();
         final Player player = minecraft.player;
 
-        if (player != null) {
+        if (player != null && event.getOverlay().id().equals(VanillaGuiOverlay.CROSSHAIR.id())) {
             HitResult hitResult = minecraft.hitResult;
             Font fontRenderer = minecraft.font;
             PoseStack poseStack = event.getGuiGraphics().pose();

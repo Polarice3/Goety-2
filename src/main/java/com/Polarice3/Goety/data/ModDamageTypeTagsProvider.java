@@ -33,6 +33,7 @@ public class ModDamageTypeTagsProvider extends TagsProvider<DamageType> {
                         ModDamageSource.SPIKE,
                         ModDamageSource.MAGIC_BOLT,
                         ModDamageSource.CHOKE,
+                        ModDamageSource.VOIDED,
                         ModDamageSource.DEATH);
         this.tag(DamageTypeTags.BYPASSES_SHIELD)
                 .add(ModDamageSource.ICE_BOUQUET,
@@ -42,13 +43,17 @@ public class ModDamageTypeTagsProvider extends TagsProvider<DamageType> {
                         ModDamageSource.SOUL_LEECH,
                         ModDamageSource.LIFE_LEECH,
                         ModDamageSource.CHOKE,
+                        ModDamageSource.VOIDED,
                         ModDamageSource.DEATH);
         this.tag(DamageTypeTags.BYPASSES_ENCHANTMENTS)
-                .add(ModDamageSource.DOOM);
+                .add(ModDamageSource.DOOM,
+                        ModDamageSource.VOIDED);
         this.tag(DamageTypeTags.BYPASSES_RESISTANCE)
-                .add(ModDamageSource.DOOM);
+                .add(ModDamageSource.DOOM,
+                        ModDamageSource.VOIDED);
         this.tag(DamageTypeTags.BYPASSES_EFFECTS)
-                .add(ModDamageSource.DOOM);
+                .add(ModDamageSource.DOOM,
+                        ModDamageSource.VOIDED);
         this.tag(DamageTypeTags.IS_PROJECTILE)
                 .add(ModDamageSource.ICE_SPIKE,
                         ModDamageSource.NO_OWNER_MAGIC_FIREBALL,
@@ -88,6 +93,7 @@ public class ModDamageTypeTagsProvider extends TagsProvider<DamageType> {
                         ModDamageSource.LIFE_LEECH,
                         ModDamageSource.CHOKE,
                         ModDamageSource.SWARM,
+                        ModDamageSource.VOIDED,
                         ModDamageSource.DEATH);
         this.tag(ModTags.DamageTypes.PHYSICAL)
                 .add(DamageTypes.PLAYER_ATTACK,

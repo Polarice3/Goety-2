@@ -1,0 +1,22 @@
+{
+  "name": "エンドの儀式",
+  "icon": "goety:void_block",
+  "category": "goety:rituals",
+  "sortnum": 8,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "必要: $(li)ジ・エンドにあること$(li)16 虚空ブロック(Goety)(li)64 エンドストーンレンガ $(li)32 あらゆるプルプァブロック"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/end_ritual.png"],
+      "border": true,
+      "text": "儀式をどのように配置するかの例"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "虚空の濃縮されたエッセンスは、すべてのもののエンドの力を神秘的な儀式に導くのに役立ちます。"
+    }
+  ]
+}

@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Essas aparições famintas por almas não apenas são úteis para dizimar múltiplos inimigos, mas também coletam energia vital para seu mestre necromante."
+      "text": "Essas aparições famintas por almas não só são úteis para derrubar múltiplos inimigos, mas também coletam energia vital para seu mestre necromante."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/reaping_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/necro_staff)Cajado Necro$() invoca mais ceifadores de uma vez."
     }
   ],
   "extra_recipe_mappings": {

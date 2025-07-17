@@ -73,6 +73,9 @@ public class ModModelLayer {
     public static final ModelLayerLocation HAUNT = register("haunt");
     public static final ModelLayerLocation REDSTONE_MONSTROSITY = register("redstone_monstrosity");
     public static final ModelLayerLocation REDSTONE_CUBE = register("redstone_cube");
+    public static final ModelLayerLocation WATCHLING = register("watchling");
+    public static final ModelLayerLocation BLASTLING = register("blastling");
+    public static final ModelLayerLocation SNARELING = register("snareling");
     public static final ModelLayerLocation ZPIGLIN_SERVANT = register("zpiglin_servant");
     public static final ModelLayerLocation MALGHAST = register("malghast");
     public static final ModelLayerLocation INFERNO = register("inferno");

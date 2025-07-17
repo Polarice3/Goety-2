@@ -1,0 +1,22 @@
+{
+  "name": "终末仪式",
+  "icon": "goety:void_block",
+  "category": "goety:rituals",
+  "sortnum": 8,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "需求: $(li)必须要在末地 $(li)16个虚空方块 $(li)64个末地石砖 $(li)32任意类型的紫珀方块。"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/end_ritual.png"],
+      "border": true,
+      "text": "一个仪式摆放的例子。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "虚空精华的凝练之力，可将万物终结的能量转化为施展奥秘仪式的源泉。"
+    }
+  ]
+}

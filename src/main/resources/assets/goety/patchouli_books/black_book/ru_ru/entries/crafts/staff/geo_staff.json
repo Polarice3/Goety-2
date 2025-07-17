@@ -1,0 +1,22 @@
+{
+  "name": "Гео-посох",
+  "icon": "goety:geo_staff",
+  "category": "goety:crafts/staff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "В то время как геоманты используют простые деревянные трости в своих ритуалах, вы знаете, что можете улучшить их аметистами."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:geo_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Гео-посох усиливает геомантические заклинания, даруя власть над самой землей!"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:wind_staff": 1
+  }
+}

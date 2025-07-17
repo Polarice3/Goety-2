@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "De alguma forma, você conseguiu criar um feitiço que invoca e subjuga os guardiões dos monumentos sob seu comando."
+      "text": "De alguma forma, você conseguiu criar um feitiço que invoca e vincula os guardiões dos monumentos sob seu comando."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/guardian_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/abyss_staff)Cajado Abissal$() invoca dois guardiões de uma vez."
     }
   ],
   "extra_recipe_mappings": {

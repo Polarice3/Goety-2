@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/meteor_shower_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/nether_staff)Cajado do Nether$() aumenta o número de bombas de lava caindo do céu."
     }
   ],
   "extra_recipe_mappings": {

@@ -13,7 +13,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -23,9 +27,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BannerPattern;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
@@ -330,5 +338,44 @@ public class ItemHelper {
 
     private static int durabilityToXp(int p_20794_) {
         return p_20794_ / 2;
+    }
+
+    public static InteractionResultHolder<ItemStack> getVoidBottle(Player player, Level world, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+
+        if (stack.isEmpty() || !stack.is(Items.GLASS_BOTTLE)) {
+            return InteractionResultHolder.pass(stack);
+        }
+
+        BlockHitResult result = getPlayerPOVHitResult(world, player, ClipContext.Fluid.ANY);
+
+        if (result.getLocation().y <= world.getMinBuildHeight()) {
+            if (!world.isClientSide) {
+                ItemStack enderAir = new ItemStack(ModItems.VOID_BOTTLE.get());
+                player.getInventory().placeItemBackInInventory(enderAir);
+                stack.shrink(1);
+                world.playSound(null, player.blockPosition(), SoundEvents.ITEM_PICKUP, SoundSource.NEUTRAL, 0.5F, 1.0F);
+                world.gameEvent(player, GameEvent.FLUID_PICKUP, player.position());
+            }
+
+            return InteractionResultHolder.sidedSuccess(stack, world.isClientSide());
+        }
+
+        return InteractionResultHolder.pass(stack);
+    }
+
+    protected static BlockHitResult getPlayerPOVHitResult(Level p_41436_, Player p_41437_, ClipContext.Fluid p_41438_) {
+        float f = p_41437_.getXRot();
+        float f1 = p_41437_.getYRot();
+        Vec3 vec3 = p_41437_.getEyePosition();
+        float f2 = Mth.cos(-f1 * ((float)Math.PI / 180F) - (float)Math.PI);
+        float f3 = Mth.sin(-f1 * ((float)Math.PI / 180F) - (float)Math.PI);
+        float f4 = -Mth.cos(-f * ((float)Math.PI / 180F));
+        float f5 = Mth.sin(-f * ((float)Math.PI / 180F));
+        float f6 = f3 * f4;
+        float f7 = f2 * f4;
+        double d0 = p_41437_.getBlockReach();
+        Vec3 vec31 = vec3.add((double)f6 * d0, (double)f5 * d0, (double)f7 * d0);
+        return p_41436_.clip(new ClipContext(vec3, vec31, ClipContext.Block.OUTLINE, p_41438_, p_41437_));
     }
 }

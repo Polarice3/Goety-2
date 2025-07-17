@@ -15,6 +15,10 @@
     {
       "type": "patchouli:text",
       "text": "Encantar o foco com Duração aumentará o número de rajadas que você pode disparar."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/nether_staff)Cajado do Nether$() faz você disparar mais duas bolas de fogo por rajada."
     }
   ]
 }

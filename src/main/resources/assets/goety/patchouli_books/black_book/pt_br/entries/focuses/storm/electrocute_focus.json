@@ -1,15 +1,19 @@
 {
-  "name": "Foco do Eletrocutar",
+  "name": "Foco da Eletrocussão",
   "icon": "goety:electrocute_focus",
   "category": "goety:focuses/storm",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "O feitiço dispara uma bola de eletricidade que, quando conjurada mirando em uma entidade válida, segue o alvo antes de atingi-lo ou qualquer objeto sólido."
+      "text": "O feitiço dispara uma bola de eletricidade que, quando conjurada mirando em uma entidade válida, segue seu alvo antes de atingi-lo ou qualquer objeto sólido."
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/electrocute_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/storm_staff)Cajado da Tempestade$() dispara orbes elétricos que têm maior chance de infligir Espasmos e explodir eletricamente, causando dano a múltiplos alvos."
     }
   ]
 }

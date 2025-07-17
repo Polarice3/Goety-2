@@ -2,6 +2,9 @@ package com.Polarice3.Goety.common.entities;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ally.*;
+import com.Polarice3.Goety.common.entities.ally.ender.BlastlingServant;
+import com.Polarice3.Goety.common.entities.ally.ender.SnarelingServant;
+import com.Polarice3.Goety.common.entities.ally.ender.WatchlingServant;
 import com.Polarice3.Goety.common.entities.ally.golem.*;
 import com.Polarice3.Goety.common.entities.ally.illager.*;
 import com.Polarice3.Goety.common.entities.ally.spider.*;
@@ -365,6 +368,18 @@ public class ModEntityType {
                     .clientTrackingRange(8)
                     .updateInterval(1));
 
+    public static final RegistryObject<EntityType<SnarelingShot>> SNARELING_SHOT = register("snareling_shot",
+            EntityType.Builder.<SnarelingShot>of(SnarelingShot::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<EnderGoo>> ENDER_GOO = register("ender_goo",
+            EntityType.Builder.<EnderGoo>of(EnderGoo::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<EntangleVines>> ENTANGLE_VINES = register("entangle_vines",
             EntityType.Builder.<EntangleVines>of(EntangleVines::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F)
@@ -373,6 +388,12 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<SpiderWeb>> SPIDER_WEB = register("spider_web",
             EntityType.Builder.<SpiderWeb>of(SpiderWeb::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<SnarelingGoop>> SNARELING_GOOP = register("snareling_goop",
+            EntityType.Builder.<SnarelingGoop>of(SnarelingGoop::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(8)
                     .updateInterval(1));
@@ -1079,6 +1100,21 @@ public class ModEntityType {
                     .fireImmune()
                     .sized(1.0F, 1.0F)
                     .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<WatchlingServant>> WATCHLING_SERVANT = register("watchling_servant",
+            EntityType.Builder.of(WatchlingServant::new, MobCategory.MONSTER)
+                    .sized(0.8F, 2.6F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<BlastlingServant>> BLASTLING_SERVANT = register("blastling_servant",
+            EntityType.Builder.of(BlastlingServant::new, MobCategory.MONSTER)
+                    .sized(1.2F, 2.6F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<SnarelingServant>> SNARELING_SERVANT = register("snareling_servant",
+            EntityType.Builder.of(SnarelingServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 2.6F)
+                    .clientTrackingRange(8));
 
     public static final RegistryObject<EntityType<Sorcerer>> SORCERER = register("sorcerer",
             EntityType.Builder.of(Sorcerer::new, MobCategory.MONSTER)

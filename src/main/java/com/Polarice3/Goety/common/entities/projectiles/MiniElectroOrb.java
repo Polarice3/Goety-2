@@ -69,14 +69,12 @@ public class MiniElectroOrb extends SpellHurtingProjectile{
             if (hitResult instanceof EntityHitResult result) {
                 Entity entity = result.getEntity();
                 entity.hurt(damageSource, damage);
-                if (this.isStaff()) {
-                    float chance = 0.05F;
-                    if (this.level.isThundering() && this.level.isRainingAt(entity.blockPosition())) {
-                        chance += 0.25F;
-                    }
-                    if (entity instanceof LivingEntity livingEntity && this.level.random.nextFloat() <= chance) {
-                        livingEntity.addEffect(new MobEffectInstance(GoetyEffects.SPASMS.get(), MathHelper.secondsToTicks(5)));
-                    }
+                float chance = this.isStaff() ? 0.25F : 0.05F;
+                if (this.level.isThundering() && this.level.isRainingAt(entity.blockPosition())) {
+                    chance += 0.25F;
+                }
+                if (entity instanceof LivingEntity livingEntity && this.level.random.nextFloat() <= chance) {
+                    livingEntity.addEffect(new MobEffectInstance(GoetyEffects.SPASMS.get(), MathHelper.secondsToTicks(5)));
                 }
             }
             this.playSound(ModSounds.THUNDERBOLT.get(), 1.0F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);

@@ -1,11 +1,11 @@
 {
-  "name": "紫水晶项链",
+  "name": "紫水晶吊坠",
   "icon": "goety:amethyst_necklace",
   "category": "goety:crafts/garment",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "紫水晶是占卜魔法的强大媒介。通过制作和佩戴这条项链，不仅可以将占卜法术的灵魂消耗降低一半，而且在施放障碍法术时也有更高的几率产生更多图腾炸弹。"
+      "text": "紫水晶是占卜魔法的强力媒介。制作并佩戴此项链后，可将占卜法术的灵魂消耗减半。"
     },
     {
       "type": "patchouli:crafting",

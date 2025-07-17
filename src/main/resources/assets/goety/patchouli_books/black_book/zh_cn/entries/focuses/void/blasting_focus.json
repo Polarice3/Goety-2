@@ -1,0 +1,22 @@
+{
+  "name": "爆裂聚晶",
+  "icon": "goety:blasting_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "不要被该聚晶的名字迷惑，该聚晶实则不会直接发射任何攻击。然而，它能够召唤$(l:summons/enderling_servants#blastling)可喷射高伤害粘液弹的末影仆从$()。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/blasting_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/void_staff)虚空魔杖$()施法可以一次召唤出更多的爆破灵。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:blasting_focus": 1
+  }
+}

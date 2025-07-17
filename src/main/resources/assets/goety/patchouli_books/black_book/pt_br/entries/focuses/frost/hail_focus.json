@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Invoca uma nuvem de neve acima de um bloco ou criatura alvo, que lança neve congelante, causando dano leve e aplicando o efeito Congelamento por 5 segundos."
+      "text": "Invoca uma nuvem de neve acima de um bloco ou criatura alvo, onde irá chover neve congelante, causando pequeno dano e aplicando Congelamento por 5 segundos."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/hail_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/frost_staff)Cajado Gélido$() faz a nuvem de granizo seguir um alvo válido."
     }
   ],
   "extra_recipe_mappings": {

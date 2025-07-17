@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "只要有足够的灵魂能量，你就可以在这世界中打开一个虚空之外的裂缝，将附近的所有非友方生物吸入其中，持续对被吸入的生物造成伤害，裂缝最终会在一场巨大的爆炸中关闭"
+      "text": "当积蓄足够的灵魂能量后，该聚晶将在现世撕开一道通往虚空本源的裂隙，将范围内所有非友方单位牵引至裂隙中心，并在牵引过程中持续造成伤害，最终以一场剧烈爆炸闭合裂隙。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/rupture_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/void_staff)虚空魔杖$()施法会在裂隙爆炸时给予生物虚空之蚀效果。"
     }
   ],
   "extra_recipe_mappings": {

@@ -14,7 +14,15 @@
     },
     {
       "type": "patchouli:text",
-      "text": "The Necromancers can be taught to summon more than just Zombies. Right-clicking with certain Necromancy Focuses allows them to summon more types of servants. Right-clicking on them with an empty hand will cause the Necromancer to summon Undead Servants for you. They are healed the same way as regular Skeleton Servants."
+      "text": "The Necromancers can be taught to summon more than just Zombies. Right-clicking with certain Necromancy Focuses allows them to summon more types of servants."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "They will only accept focuses that summons an undead creature they can't already summon themselves. They can accept Rotting Focus, Osseous Focus, Spooky Focus, Reaping Focus, Vanguard Focus and Blackguard Focus."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Right-clicking on them with an empty hand will cause the Necromancer to summon Undead Servants for you. They are healed the same way as regular Skeleton Servants."
     },
     {
       "type": "patchouli:entity",

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " g ",
+    "gbg",
+    " g "
+  ],
+  "key":
+  {
+    "b":
+    {
+      "item": "minecraft:chorus_flower"
+    },
+    "g":
+    {
+      "item": "goety:void_bottle"
+    }
+  },
+  "result":
+  {
+    "item": "goety:chorus_sapling",
+    "count": 1
+  }
+}

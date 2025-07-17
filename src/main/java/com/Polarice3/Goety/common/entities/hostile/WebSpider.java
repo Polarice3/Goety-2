@@ -5,14 +5,16 @@ import com.Polarice3.Goety.common.entities.ally.spider.SpiderServant;
 import com.Polarice3.Goety.common.entities.projectiles.WebShot;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -25,13 +27,16 @@ import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.UUID;
 
 public class WebSpider extends Spider implements RangedAttackMob {
     private static final EntityDataAccessor<Boolean> WEB_SHOOTING = SynchedEntityData.defineId(WebSpider.class, EntityDataSerializers.BOOLEAN);
+    public static AttributeModifier SHOOT_SPEED_MODIFIER = new AttributeModifier(UUID.fromString("b255663a-e3e3-4660-9ce2-1c76c5f98e72"), "Shooting speed penalty", -1.0D, AttributeModifier.Operation.ADDITION);
+    public boolean isFleeing;
+    public boolean stopMoving;
 
     public WebSpider(EntityType<? extends Spider> type, Level worldIn) {
         super(type, worldIn);
@@ -75,7 +80,6 @@ public class WebSpider extends Spider implements RangedAttackMob {
     }
 
     public void setWebShooting(boolean webShooting) {
-        this.playSound(ModSounds.SPIDER_CALL.get(), this.getSoundVolume(), this.getVoicePitch());
         this.entityData.set(WEB_SHOOTING, webShooting);
     }
 
@@ -84,25 +88,43 @@ public class WebSpider extends Spider implements RangedAttackMob {
     }
 
     @Override
-    protected @NotNull ResourceLocation getDefaultLootTable() {
-        return EntityType.SPIDER.getDefaultLootTable();
-    }
-
-    @Override
     public void tick() {
         super.tick();
         if (!this.level.isClientSide){
             if (this.getTarget() != null){
                 if (!this.isWebShooting()){
+                    this.stopMoving = false;
                     if (!this.getTarget().hasEffect(GoetyEffects.TANGLED.get())) {
                         if (this.distanceTo(this.getTarget()) <= 5.0F) {
+                            this.isFleeing = true;
                             Vec3 vec3 = DefaultRandomPos.getPosAway(this, 7, 5, this.getTarget().position());
                             if (vec3 != null) {
                                 this.getNavigation().moveTo(vec3.x, vec3.y, vec3.z, 1.25F);
                             }
+                        } else {
+                            this.isFleeing = false;
                         }
                     } else {
+                        this.isFleeing = false;
                         this.setClimbing(false);
+                    }
+                } else {
+                    this.isFleeing = false;
+                }
+            } else {
+                this.isFleeing = false;
+                this.stopMoving = false;
+            }
+            AttributeInstance modifiableattributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
+            if (this.stopMoving) {
+                if (modifiableattributeinstance != null) {
+                    modifiableattributeinstance.removeModifier(SHOOT_SPEED_MODIFIER);
+                    modifiableattributeinstance.addTransientModifier(SHOOT_SPEED_MODIFIER);
+                }
+            } else {
+                if (modifiableattributeinstance != null) {
+                    if (modifiableattributeinstance.hasModifier(SHOOT_SPEED_MODIFIER)) {
+                        modifiableattributeinstance.removeModifier(SHOOT_SPEED_MODIFIER);
                     }
                 }
             }
@@ -143,7 +165,9 @@ public class WebSpider extends Spider implements RangedAttackMob {
         @Override
         public boolean canUse() {
             LivingEntity livingentity = this.mob.getTarget();
-            if (livingentity != null && livingentity.isAlive()) {
+            if (livingentity != null
+                    && livingentity.isAlive()
+                    && !this.mob.isFleeing) {
                 this.target = livingentity;
                 return !livingentity.hasEffect(GoetyEffects.TANGLED.get())
                         && this.mob.distanceTo(livingentity) > 4.0F;
@@ -163,6 +187,7 @@ public class WebSpider extends Spider implements RangedAttackMob {
         public void stop() {
             this.target = null;
             this.attackTime = -1;
+            this.mob.stopMoving = false;
             this.mob.setWebShooting(false);
         }
 
@@ -177,12 +202,18 @@ public class WebSpider extends Spider implements RangedAttackMob {
 
                 if (this.mob.distanceTo(this.target) <= this.attackRadius) {
                     this.mob.getNavigation().stop();
+                    if (!this.mob.stopMoving) {
+                        this.mob.playSound(ModSounds.SPIDER_CALL.get(), this.mob.getSoundVolume(), this.mob.getVoicePitch());
+                    }
+                    this.mob.stopMoving = true;
                 } else {
                     this.mob.getNavigation().moveTo(this.target, this.speedModifier);
+                    this.mob.stopMoving = false;
                 }
 
-                this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
-                if (--this.attackTime == 0) {
+                MobUtil.instaLook(this.mob, this.target);
+                --this.attackTime;
+                if (this.attackTime == this.attackInterval - MathHelper.secondsToTicks(0.75F)) {
                     if (!flag) {
                         return;
                     }
@@ -190,8 +221,7 @@ public class WebSpider extends Spider implements RangedAttackMob {
                     float f = (float) Math.sqrt(d0) / this.attackRadius;
                     float f1 = Mth.clamp(f, 0.1F, 1.0F);
                     this.mob.performRangedAttack(this.target, f1);
-                    this.attackTime = this.attackInterval;
-                } else if (this.attackTime < 0) {
+                } else if (this.attackTime <= 0) {
                     this.attackTime = this.attackInterval;
                 }
             }

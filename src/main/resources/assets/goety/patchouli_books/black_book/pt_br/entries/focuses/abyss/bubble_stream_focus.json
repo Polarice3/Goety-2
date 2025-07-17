@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Bolhas não são o que as pessoas preferem usar em combate, mas as bolhas criadas pela energia da alma podem varrer qualquer inimigo, especialmente os sensíveis à água! Infelizmente, essas bolhas também podem fornecer um pouco de oxigênio aos inimigos."
+      "text": "Bolhas não são exatamente o que as pessoas preferem usar em combate, mas as bolhas sopradas pela energia da alma varrerão qualquer inimigo, especialmente os sensíveis à água! Infelizmente, essas bolhas também podem fornecer um pouco de oxigênio aos inimigos."
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/bubble_stream_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/abyss_staff)Cajado Abissal$() faz as bolhas apagarem fogos."
     }
   ]
 }

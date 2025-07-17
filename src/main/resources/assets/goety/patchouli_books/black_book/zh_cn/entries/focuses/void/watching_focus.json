@@ -1,0 +1,22 @@
+{
+  "name": "看守聚晶",
+  "icon": "goety:watching_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你能感受到这个聚晶正在凝视着你。借助它的力量，你将召唤出来自末地的怪物，一个$(l:summons/enderling_servants#watchling)由无数眼球与黑暗凝聚而成的畸形人形生物$()。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/watching_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/void_staff)虚空魔杖$()施法可以一次召唤出更多的看守灵。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:watching_focus": 1
+  }
+}

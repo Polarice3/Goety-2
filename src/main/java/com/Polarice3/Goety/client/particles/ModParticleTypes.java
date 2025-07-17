@@ -78,6 +78,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> BIG_CULT_SPELL = PARTICLE_TYPES.register("big_cult_spell",
             () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> SMALL_STATION_CULT_SPELL = PARTICLE_TYPES.register("small_station_cult_spell",
+            () -> new SimpleParticleType(true));
+
     public static final RegistryObject<SimpleParticleType> STATION_CULT_SPELL = PARTICLE_TYPES.register("station_cult_spell",
             () -> new SimpleParticleType(true));
 
@@ -189,6 +192,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> SPELL_SQUARE = PARTICLE_TYPES.register("spell_square",
             () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> SMALL_SPELL_SQUARE = PARTICLE_TYPES.register("small_spell_square",
+            () -> new SimpleParticleType(true));
+
     public static final RegistryObject<SimpleParticleType> TRAIL = PARTICLE_TYPES.register("trail",
             () -> new SimpleParticleType(true));
 
@@ -233,6 +239,12 @@ public class ModParticleTypes {
 
     public static final RegistryObject<SimpleParticleType> REDSTONE_DEBRIS = PARTICLE_TYPES.register("redstone_debris",
             () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> GOO_STAIN = PARTICLE_TYPES.register("goo_stain",
+            () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> CHORUS_LEAVES = PARTICLE_TYPES.register("chorus_leaves",
+            () -> new SimpleParticleType(true));
 
     public static final RegistryObject<SimpleParticleType> WATER_STREAM = PARTICLE_TYPES.register("water_stream",
             () -> new SimpleParticleType(true));
@@ -293,6 +305,14 @@ public class ModParticleTypes {
                 @Override
                 public Codec<CircleExplodeParticleOption> codec() {
                     return CircleExplodeParticleOption.CODEC;
+                }
+            });
+
+    public static final RegistryObject<ParticleType<AoEParticleOption>> AOE_INDICATOR = PARTICLE_TYPES.register("aoe_indicator",
+            () -> new ParticleType<>(false, AoEParticleOption.DESERIALIZER) {
+                @Override
+                public Codec<AoEParticleOption> codec() {
+                    return AoEParticleOption.CODEC;
                 }
             });
 
@@ -389,6 +409,13 @@ public class ModParticleTypes {
                 @Override
                 public Codec<MagicSmokeParticle.Option> codec() {
                     return MagicSmokeParticle.Option.CODEC;
+                }
+            });
+    public static final RegistryObject<ParticleType<FollowFireParticle.Option>> FOLLOW_CULT_SPELL = PARTICLE_TYPES.register("follow_cult_spell",
+            () -> new ParticleType<>(false, FollowFireParticle.Option.DESERIALIZER) {
+                @Override
+                public Codec<FollowFireParticle.Option> codec() {
+                    return FollowFireParticle.Option.CODEC;
                 }
             });
 }

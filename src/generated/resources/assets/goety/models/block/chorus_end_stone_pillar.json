@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "goety:block/chorus_end_stone_pillar_top",
+    "side": "goety:block/chorus_end_stone_pillar"
+  }
+}

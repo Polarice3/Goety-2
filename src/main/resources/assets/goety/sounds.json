@@ -4613,6 +4613,398 @@
     ],
     "subtitle": "subtitle.goety.redstone_cube_attack"
   },
+  "watchling_ambient": {
+    "sounds": [
+      {
+        "name": "goety:watchling/idle1"
+      },
+      {
+        "name": "goety:watchling/idle2"
+      },
+      {
+        "name": "goety:watchling/idle3"
+      },
+      {
+        "name": "goety:watchling/idle4"
+      }
+    ],
+    "subtitle": "subtitle.goety.watchling_ambient"
+  },
+  "watchling_hurt": {
+    "sounds": [
+      {
+        "name": "goety:watchling/hurt1"
+      },
+      {
+        "name": "goety:watchling/hurt2"
+      },
+      {
+        "name": "goety:watchling/hurt3"
+      },
+      {
+        "name": "goety:watchling/hurt4"
+      },
+      {
+        "name": "goety:watchling/hurt5"
+      },
+      {
+        "name": "goety:watchling/hurt6"
+      }
+    ],
+    "subtitle": "subtitle.goety.watchling_hurt"
+  },
+  "watchling_attack": {
+    "sounds": [
+      {
+        "name": "goety:watchling/attack1"
+      },
+      {
+        "name": "goety:watchling/attack2"
+      },
+      {
+        "name": "goety:watchling/attack3"
+      },
+      {
+        "name": "goety:watchling/attack4"
+      },
+      {
+        "name": "goety:watchling/attack5"
+      },
+      {
+        "name": "goety:watchling/attack6"
+      }
+    ],
+    "subtitle": "subtitle.goety.watchling_attack"
+  },
+  "watchling_smash": {
+    "sounds": [
+      {
+        "name": "goety:watchling/smash1"
+      },
+      {
+        "name": "goety:watchling/smash2"
+      },
+      {
+        "name": "goety:watchling/smash3"
+      },
+      {
+        "name": "goety:watchling/smash4"
+      },
+      {
+        "name": "goety:watchling/smash5"
+      },
+      {
+        "name": "goety:watchling/smash6"
+      }
+    ],
+    "subtitle": "subtitle.goety.watchling_attack"
+  },
+  "watchling_step": {
+    "sounds": [
+      {
+        "name": "goety:watchling/step1"
+      },
+      {
+        "name": "goety:watchling/step2"
+      },
+      {
+        "name": "goety:watchling/step3"
+      },
+      {
+        "name": "goety:watchling/step4"
+      },
+      {
+        "name": "goety:watchling/step5"
+      }
+    ],
+    "subtitle": "subtitle.goety.watchling_step"
+  },
+  "watchling_death": {
+    "sounds": [
+      {
+        "name": "goety:watchling/death1"
+      },
+      {
+        "name": "goety:watchling/death2"
+      },
+      {
+        "name": "goety:watchling/death3"
+      },
+      {
+        "name": "goety:watchling/death4"
+      },
+      {
+        "name": "goety:watchling/death5"
+      }
+    ],
+    "subtitle": "subtitle.goety.watchling_death"
+  },
+  "blastling_ambient": {
+    "sounds": [
+      {
+        "name": "goety:blastling/idle1"
+      },
+      {
+        "name": "goety:blastling/idle2"
+      },
+      {
+        "name": "goety:blastling/idle3"
+      },
+      {
+        "name": "goety:blastling/idle4"
+      }
+    ],
+    "subtitle": "subtitle.goety.blastling_ambient"
+  },
+  "blastling_hurt": {
+    "sounds": [
+      {
+        "name": "goety:blastling/hurt1"
+      },
+      {
+        "name": "goety:blastling/hurt2"
+      },
+      {
+        "name": "goety:blastling/hurt3"
+      },
+      {
+        "name": "goety:blastling/hurt4"
+      },
+      {
+        "name": "goety:blastling/hurt5"
+      },
+      {
+        "name": "goety:blastling/hurt6"
+      }
+    ],
+    "subtitle": "subtitle.goety.blastling_hurt"
+  },
+  "blastling_pre_attack": {
+    "sounds": [
+      {
+        "name": "goety:blastling/pre_attack1"
+      },
+      {
+        "name": "goety:blastling/pre_attack2"
+      },
+      {
+        "name": "goety:blastling/pre_attack3"
+      },
+      {
+        "name": "goety:blastling/pre_attack4"
+      },
+      {
+        "name": "goety:blastling/pre_attack5"
+      },
+      {
+        "name": "goety:blastling/pre_attack6"
+      }
+    ],
+    "subtitle": "subtitle.goety.blastling_pre_attack"
+  },
+  "blastling_shoot": {
+    "sounds": [
+      {
+        "name": "goety:blastling/shoot1"
+      },
+      {
+        "name": "goety:blastling/shoot2"
+      },
+      {
+        "name": "goety:blastling/shoot3"
+      },
+      {
+        "name": "goety:blastling/shoot4"
+      }
+    ],
+    "subtitle": "subtitle.goety.blastling_shoot"
+  },
+  "blastling_step": {
+    "sounds": [
+      {
+        "name": "goety:blastling/step1"
+      },
+      {
+        "name": "goety:blastling/step2"
+      },
+      {
+        "name": "goety:blastling/step3"
+      },
+      {
+        "name": "goety:blastling/step4"
+      }
+    ],
+    "subtitle": "subtitle.goety.blastling_step"
+  },
+  "blastling_death": {
+    "sounds": [
+      {
+        "name": "goety:blastling/death1"
+      },
+      {
+        "name": "goety:blastling/death2"
+      },
+      {
+        "name": "goety:blastling/death3"
+      },
+      {
+        "name": "goety:blastling/death4"
+      },
+      {
+        "name": "goety:blastling/death5"
+      },
+      {
+        "name": "goety:blastling/death6"
+      }
+    ],
+    "subtitle": "subtitle.goety.blastling_death"
+  },
+  "snareling_ambient": {
+    "sounds": [
+      {
+        "name": "goety:snareling/idle1"
+      },
+      {
+        "name": "goety:snareling/idle2"
+      },
+      {
+        "name": "goety:snareling/idle3"
+      },
+      {
+        "name": "goety:snareling/idle4"
+      }
+    ],
+    "subtitle": "subtitle.goety.snareling_ambient"
+  },
+  "snareling_hurt": {
+    "sounds": [
+      {
+        "name": "goety:snareling/hurt1"
+      },
+      {
+        "name": "goety:snareling/hurt2"
+      },
+      {
+        "name": "goety:snareling/hurt3"
+      },
+      {
+        "name": "goety:snareling/hurt4"
+      },
+      {
+        "name": "goety:snareling/hurt5"
+      },
+      {
+        "name": "goety:snareling/hurt6"
+      }
+    ],
+    "subtitle": "subtitle.goety.snareling_hurt"
+  },
+  "snareling_ambient_swing": {
+    "sounds": [
+      {
+        "name": "goety:snareling/idle_swing1"
+      },
+      {
+        "name": "goety:snareling/idle_swing2"
+      },
+      {
+        "name": "goety:snareling/idle_swing3"
+      }
+    ]
+  },
+  "snareling_shoot": {
+    "sounds": [
+      {
+        "name": "goety:snareling/shoot1"
+      },
+      {
+        "name": "goety:snareling/shoot2"
+      },
+      {
+        "name": "goety:snareling/shoot3"
+      },
+      {
+        "name": "goety:snareling/shoot4"
+      }
+    ],
+    "subtitle": "subtitle.goety.snareling_shoot"
+  },
+  "snareling_melee": {
+    "sounds": [
+      {
+        "name": "goety:snareling/melee1"
+      },
+      {
+        "name": "goety:snareling/melee2"
+      },
+      {
+        "name": "goety:snareling/melee3"
+      },
+      {
+        "name": "goety:snareling/melee4"
+      },
+      {
+        "name": "goety:snareling/melee5"
+      },
+      {
+        "name": "goety:snareling/melee6"
+      }
+    ]
+  },
+  "snareling_melee_vocal": {
+    "sounds": [
+      {
+        "name": "goety:snareling/melee_vocal1"
+      },
+      {
+        "name": "goety:snareling/melee_vocal2"
+      },
+      {
+        "name": "goety:snareling/melee_vocal3"
+      }
+    ],
+    "subtitle": "subtitle.goety.snareling_melee"
+  },
+  "snareling_step": {
+    "sounds": [
+      {
+        "name": "goety:snareling/step1"
+      },
+      {
+        "name": "goety:snareling/step2"
+      },
+      {
+        "name": "goety:snareling/step3"
+      },
+      {
+        "name": "goety:snareling/step4"
+      },
+      {
+        "name": "goety:snareling/step5"
+      },
+      {
+        "name": "goety:snareling/step6"
+      }
+    ],
+    "subtitle": "subtitle.goety.snareling_step"
+  },
+  "snareling_death": {
+    "sounds": [
+      {
+        "name": "goety:snareling/death1"
+      },
+      {
+        "name": "goety:snareling/death2"
+      },
+      {
+        "name": "goety:snareling/death3"
+      },
+      {
+        "name": "goety:snareling/death4"
+      }
+    ],
+    "subtitle": "subtitle.goety.snareling_death"
+  },
   "vizier_ambient": {
     "sounds": [
       {
@@ -5541,6 +5933,40 @@
     ],
     "subtitle": "subtitle.goety.spider_web"
   },
+  "enderling_teleport_in": {
+    "sounds": [
+      {
+        "name": "goety:enderling/teleport_in1"
+      },
+      {
+        "name": "goety:enderling/teleport_in2"
+      },
+      {
+        "name": "goety:enderling/teleport_in3"
+      },
+      {
+        "name": "goety:enderling/teleport_in4"
+      }
+    ],
+    "subtitle": "subtitle.goety.enderling_teleport_in"
+  },
+  "enderling_teleport_out": {
+    "sounds": [
+      {
+        "name": "goety:enderling/teleport_out1"
+      },
+      {
+        "name": "goety:enderling/teleport_out2"
+      },
+      {
+        "name": "goety:enderling/teleport_out3"
+      },
+      {
+        "name": "goety:enderling/teleport_out4"
+      }
+    ],
+    "subtitle": "subtitle.goety.enderling_teleport_out"
+  },
   "void_rift_open": {
     "sounds": [
       {
@@ -6152,6 +6578,40 @@
     ],
     "subtitle": "subtitle.goety.bolt_impact"
   },
+  "ender_goo_impact": {
+    "sounds": [
+      {
+        "name": "goety:blastling/impact1"
+      },
+      {
+        "name": "goety:blastling/impact2"
+      },
+      {
+        "name": "goety:blastling/impact3"
+      },
+      {
+        "name": "goety:blastling/impact4"
+      }
+    ],
+    "subtitle": "subtitle.goety.goo_impact"
+  },
+  "snareling_goo_impact": {
+    "sounds": [
+      {
+        "name": "goety:snareling/impact1"
+      },
+      {
+        "name": "goety:snareling/impact2"
+      },
+      {
+        "name": "goety:snareling/impact3"
+      },
+      {
+        "name": "goety:snareling/impact4"
+      }
+    ],
+    "subtitle": "subtitle.goety.goo_impact"
+  },
   "cast_steam": {
     "sounds": [
       {
@@ -6573,6 +7033,64 @@
       },
       {
         "name": "goety:random/fire_projectile_fly3"
+      }
+    ]
+  },
+  "joke": {
+    "sounds": [
+      {
+        "name": "goety:random/joke"
+      }
+    ]
+  },
+  "void_touched_activate": {
+    "sounds": [
+      {
+        "name": "goety:random/void_touched_activate1"
+      },
+      {
+        "name": "goety:random/void_touched_activate2"
+      },
+      {
+        "name": "goety:random/void_touched_activate3"
+      },
+      {
+        "name": "goety:random/void_touched_activate4"
+      },
+      {
+        "name": "goety:random/void_touched_activate5"
+      }
+    ]
+  },
+  "void_touched_deactivate": {
+    "sounds": [
+      {
+        "name": "goety:random/void_touched_deactivate1"
+      },
+      {
+        "name": "goety:random/void_touched_deactivate2"
+      },
+      {
+        "name": "goety:random/void_touched_deactivate3"
+      },
+      {
+        "name": "goety:random/void_touched_deactivate4"
+      }
+    ]
+  },
+  "void_touched_loop": {
+    "sounds": [
+      {
+        "name": "goety:random/void_touched_loop1"
+      },
+      {
+        "name": "goety:random/void_touched_loop2"
+      },
+      {
+        "name": "goety:random/void_touched_loop3"
+      },
+      {
+        "name": "goety:random/void_touched_loop4"
       }
     ]
   },
@@ -7084,6 +7602,48 @@
       }
     ],
     "subtitle": "subtitle.goety.urn_break"
+  },
+  "void_flame_loop": {
+    "sounds": [
+      {
+        "name": "goety:block/void_flame_loop"
+      }
+    ]
+  },
+  "void_flame": {
+    "sounds": [
+      {
+        "name": "goety:block/void_flame1"
+      },
+      {
+        "name": "goety:block/void_flame2"
+      },
+      {
+        "name": "goety:block/void_flame3"
+      },
+      {
+        "name": "goety:block/void_flame4"
+      },
+      {
+        "name": "goety:block/void_flame5"
+      },
+      {
+        "name": "goety:block/void_flame6"
+      }
+    ]
+  },
+  "void_barrel_activate": {
+    "sounds": [
+      {
+        "name": "goety:block/void_barrel_activate1"
+      },
+      {
+        "name": "goety:block/void_barrel_activate2"
+      },
+      {
+        "name": "goety:block/void_barrel_activate3"
+      }
+    ]
   },
   "apostle_theme": {
     "sounds": [

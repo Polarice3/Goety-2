@@ -1,0 +1,18 @@
+{
+  "name": "Void Staff",
+  "icon": "goety:void_staff",
+  "category": "goety:crafts/staff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With the void and the End whirling around this eldritch staff, your Void Spells become more greater."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:void_staff"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:void_staff": 1
+  }
+}

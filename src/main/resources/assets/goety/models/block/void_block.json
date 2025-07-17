@@ -1,0 +1,7 @@
+{
+	"parent": "block/cube_all",
+	"textures": {
+		"all": "goety:block/void_block"
+	},
+	"render_type": "cutout"
+}

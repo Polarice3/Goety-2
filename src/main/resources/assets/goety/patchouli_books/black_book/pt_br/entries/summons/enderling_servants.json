@@ -1,0 +1,33 @@
+{
+  "name": "Servos Enderlings",
+  "icon": "minecraft:ender_pearl",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Subespécies dos Endermans, essas criaturas são mais controláveis do que seus primos quase incontroláveis."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Todos os Enderlings podem se teletransportar, mas menos frequentemente que Endermans. Alguns desaparecem em combate para confundir inimigos. São vulneráveis à água."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_watchling_thrall"
+    },
+    {
+      "anchor": "watchling",
+      "type": "patchouli:entity",
+      "entity": "goety:watchling_servant",
+      "text": "O livro não consegue mostrar seus olhos corretamente por algum motivo arcano."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Observadores são brutos que atacam com golpes. Podem ser invocados por ritual ou com $(l:focuses/void/watching_focus)Foco da Vigília$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Podem ser curados com Frutas do Coro ou usando $(l:crafts/garment/void_robe)Túnica do Vácuo$() com energia de alma."
+    }
+  ]
+}

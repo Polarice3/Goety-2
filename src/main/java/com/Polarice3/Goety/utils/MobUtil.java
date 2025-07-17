@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.entities.ally.IAquaServant;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
@@ -447,6 +448,52 @@ public class MobUtil {
             } else {
                 return super.rotlerp(pSourceAngle, pTargetAngle, pMaximumChange * 0.25F);
             }
+        }
+    }
+
+    static class MoveHelperController<T extends Mob & IAquaServant> extends MoveControl {
+        private final T drowned;
+
+        public MoveHelperController(T p_i48909_1_) {
+            super(p_i48909_1_);
+            this.drowned = p_i48909_1_;
+        }
+
+        public void tick() {
+            LivingEntity livingentity = this.drowned.getTarget();
+            LivingEntity owner = this.drowned.getTrueOwner();
+            if (this.drowned.wantsToSwim() && this.drowned.isInWater()) {
+                if ((livingentity != null && livingentity.getY() > this.drowned.getY())
+                        || this.drowned.isSearchingForLand()
+                        || (owner != null && owner.getY() > this.drowned.getY() && this.drowned.isFollowing())) {
+                    this.drowned.setDeltaMovement(this.drowned.getDeltaMovement().add(0.0D, 0.002D, 0.0D));
+                }
+
+                if (this.operation != Operation.MOVE_TO || this.drowned.getNavigation().isDone()) {
+                    this.drowned.setSpeed(0.0F);
+                    return;
+                }
+
+                double d0 = this.wantedX - this.drowned.getX();
+                double d1 = this.wantedY - this.drowned.getY();
+                double d2 = this.wantedZ - this.drowned.getZ();
+                double d3 = Mth.sqrt((float) (d0 * d0 + d1 * d1 + d2 * d2));
+                d1 = d1 / d3;
+                float f = (float)(Mth.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
+                this.drowned.setYRot(this.rotlerp(this.drowned.getYRot(), f, 90.0F));
+                this.drowned.setYBodyRot(this.drowned.getYRot());
+                float f1 = (float)(this.speedModifier * this.drowned.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                float f2 = Mth.lerp(0.125F, this.drowned.getSpeed(), f1);
+                this.drowned.setSpeed(f2);
+                this.drowned.setDeltaMovement(this.drowned.getDeltaMovement().add((double)f2 * d0 * 0.005D, (double)f2 * d1 * 0.1D, (double)f2 * d2 * 0.005D));
+            } else {
+                if (!this.drowned.onGround()) {
+                    this.drowned.setDeltaMovement(this.drowned.getDeltaMovement().add(0.0D, -0.008D, 0.0D));
+                }
+
+                super.tick();
+            }
+
         }
     }
 
@@ -1365,6 +1412,7 @@ public class MobUtil {
                     && !(MobUtil.isWitchType(target) && owner != null && CuriosFinder.isWitchFriendly(owner) && !MobsConfig.VariousRobeWitch.get())
                     && !(CuriosFinder.validFrostMob(target) && owner != null && CuriosFinder.neutralFrostSet(owner))
                     && !(CuriosFinder.validWildMob(target) && owner != null && CuriosFinder.neutralWildSet(owner))
+                    && !(CuriosFinder.validVoidMob(target) && owner != null && CuriosFinder.neutralVoidSet(owner))
                     && !(CuriosFinder.validNetherMob(target) && owner != null && CuriosFinder.neutralNetherSet(owner))
                     && !(target.getMobType() == MobType.ARTHROPOD && owner != null && CuriosFinder.hasWarlockRobe(owner))
                     && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.ServantsAttackCreepers.get())

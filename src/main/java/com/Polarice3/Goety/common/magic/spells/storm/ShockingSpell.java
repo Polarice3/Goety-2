@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.magic.spells.storm;
 
 import com.Polarice3.Goety.api.magic.SpellType;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.EverChargeSpell;
 import com.Polarice3.Goety.common.magic.SpellStat;
@@ -8,13 +9,11 @@ import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SLightningPacket;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.BlockFinder;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModDamageSource;
-import com.Polarice3.Goety.utils.WandUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -113,9 +112,14 @@ public class ShockingSpell extends EverChargeSpell {
                 Vec3 vec31 = new Vec3(livingEntity.getX(), livingEntity.getY() + livingEntity.getBbHeight() / 2, livingEntity.getZ());
                 ModNetwork.sendToALL(new SLightningPacket(vec3, vec31, 5));
                 if (livingEntity.hurt(ModDamageSource.directShock(caster), damage)){
+                    float chance = rightStaff(staff) ? 0.25F : 0.05F;
                     float chainDamage = damage / 2.0F;
                     if (worldIn.isThundering() && worldIn.isRainingAt(livingEntity.blockPosition())){
+                        chance += 0.25F;
                         chainDamage = damage;
+                    }
+                    if (worldIn.random.nextFloat() <= chance){
+                        livingEntity.addEffect(new MobEffectInstance(GoetyEffects.SPASMS.get(), MathHelper.secondsToTicks(5)));
                     }
                     if (burning > 0){
                         if (worldIn.random.nextFloat() < 0.05F){

@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "goety:chiseled_end_stone",
+    "goety:chiseled_end_stone_bricks",
+    "goety:end_stone_tiles",
+    "goety:end_stone_tile_slab",
+    "goety:end_stone_tile_stairs",
+    "goety:smooth_end_stone",
+    "goety:smooth_end_stone_slab",
+    "goety:smooth_end_stone_stairs",
+    "goety:smooth_end_stone_wall",
+    "goety:smooth_end_stone_fence",
+    "goety:end_stone_slate",
+    "goety:end_stone_pillar",
+    "goety:chorus_end_stone_pillar"
+  ]
+}

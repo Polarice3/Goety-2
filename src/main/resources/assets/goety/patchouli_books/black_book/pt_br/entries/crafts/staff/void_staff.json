@@ -1,0 +1,18 @@
+{
+  "name": "Cajado do Vácuo",
+  "icon": "goety:void_staff",
+  "category": "goety:crafts/staff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com o vácuo e o End girando em torno deste cajado eldritch, seus feitiços do Vácuo se tornam mais poderosos."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:void_staff"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:void_staff": 1
+  }
+}

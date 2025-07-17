@@ -4,6 +4,8 @@
     "goety:haunted_sign",
     "goety:rotten_sign",
     "goety:windswept_sign",
-    "goety:pine_sign"
+    "goety:pine_sign",
+    "goety:chorus_sign",
+    "goety:corrupt_chorus_sign"
   ]
 }

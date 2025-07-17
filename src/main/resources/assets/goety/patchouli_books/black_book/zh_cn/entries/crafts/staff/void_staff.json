@@ -1,0 +1,18 @@
+{
+  "name": "虚空魔杖",
+  "icon": "goety:void_staff",
+  "category": "goety:crafts/staff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这柄诡秘法杖萦绕着虚空与末地的混沌能量，可大幅强化你的虚空法术力量。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:void_staff"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:void_staff": 1
+  }
+}

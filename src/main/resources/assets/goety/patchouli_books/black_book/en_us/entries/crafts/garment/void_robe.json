@@ -1,0 +1,27 @@
+{
+  "name": "Void Robes",
+  "icon": "goety:void_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Void Robes imbues the wearer the power of the End. Wearers will have the chance of dodge attacks through teleportation, be immune to Void Touched and can move through Void Blocks freely. The Robes also makes Void Spells cheaper."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:void_robe"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:void_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Void Crown reduce the amount of time to cast Void spells by half and keeps certain void servants from dying off like Vexes. It also allows the wearer to gaze into Endermen without aggravating them."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:void_robe": 1,
+    "goety:void_crown": 2
+  }
+}

@@ -12,6 +12,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/blazing_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/nether_staff)незерского посоха$() позволяет вызывать больше всполохов."
     }
   ],
   "extra_recipe_mappings": {

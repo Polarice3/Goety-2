@@ -106,6 +106,9 @@
     "goety:blink_focus",
     "goety:banish_focus",
     "goety:tunnel_focus",
-    "goety:rupture_focus"
+    "goety:rupture_focus",
+    "goety:watching_focus",
+    "goety:blasting_focus",
+    "goety:snaring_focus"
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "name": "Foco de Tempestade de Gelo",
+  "name": "Foco da Tempestade de Gelo",
   "icon": "goety:ice_storm_focus",
   "category": "goety:focuses/frost",
   "pages": [
@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/ice_storm_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/frost_staff)Cajado Gélido$() aumenta o tamanho inicial da tempestade de gelo."
     }
   ],
   "extra_recipe_mappings": {

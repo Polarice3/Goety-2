@@ -1,0 +1,22 @@
+{
+  "name": "スネアリングのフォーカス",
+  "icon": "goety:snaring_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "このフォーカスは触るとベタベタするが、実際には分泌物は一切出ていないようだ。しかし、それが召喚する生き物は$(l:summons/enderling_servants#snareling)長い腕、胸に顎、そして光る背嚢を持つ、ひょろ長い人間の似顔絵のような$()ものである。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/snaring_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/void_staff)ヴォイドの杖$()で唱えると、一度に召喚されるスネアリングの量が増えます。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:snaring_focus": 1
+  }
+}

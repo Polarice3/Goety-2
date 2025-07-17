@@ -238,6 +238,15 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> RavagerSaddleHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> RavagerArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> RavagerDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> WatchlingHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> WatchlingArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> WatchlingDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> BlastlingHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> BlastlingArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> BlastlingDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> SnarelingHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> SnarelingArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> SnarelingDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> IceGolemHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> IceGolemArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> IceGolemDamage;
@@ -887,6 +896,30 @@ public class AttributesConfig {
                         .defineInRange("ravagerArmor", 0.0, 0.0, Double.MAX_VALUE);
                 RavagerDamage = BUILDER.comment("How much damage Tamed Ravagers deals, Default: 12.0")
                         .defineInRange("ravagerDamage", 12.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Watchling Servant");
+                WatchlingHealth = BUILDER.comment("How much Max Health Watchling Servants have, Default: 24.0")
+                        .defineInRange("watchlingHealth", 24.0, 1.0, Double.MAX_VALUE);
+                WatchlingArmor = BUILDER.comment("How much natural Armor Watchling Servants  have, Default: 0.0")
+                        .defineInRange("watchlingArmor", 0.0, 0.0, Double.MAX_VALUE);
+                WatchlingDamage = BUILDER.comment("How much damage Watchling Servants deals, Default: 5.0")
+                        .defineInRange("watchlingDamage", 5.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Blastling Servant");
+                BlastlingHealth = BUILDER.comment("How much Max Health Blastling Servants have, Default: 32.0")
+                        .defineInRange("blastlingHealth", 32.0, 1.0, Double.MAX_VALUE);
+                BlastlingArmor = BUILDER.comment("How much natural Armor Blastling Servants  have, Default: 0.0")
+                        .defineInRange("blastlingArmor", 0.0, 0.0, Double.MAX_VALUE);
+                BlastlingDamage = BUILDER.comment("How much damage Blastling Servants deals, Default: 3.0")
+                        .defineInRange("blastlingDamage", 3.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Snareling Servant");
+                SnarelingHealth = BUILDER.comment("How much Max Health Snareling Servants have, Default: 20.0")
+                        .defineInRange("snarelingHealth", 20.0, 1.0, Double.MAX_VALUE);
+                SnarelingArmor = BUILDER.comment("How much natural Armor Snareling Servants  have, Default: 0.0")
+                        .defineInRange("snarelingArmor", 0.0, 0.0, Double.MAX_VALUE);
+                SnarelingDamage = BUILDER.comment("How much damage Snareling Servants deals, Default: 2.0")
+                        .defineInRange("snarelingDamage", 2.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Ice Golem");
                 IceGolemHealth = BUILDER.comment("How much Max Health Ice Golems have, Default: 60.0")

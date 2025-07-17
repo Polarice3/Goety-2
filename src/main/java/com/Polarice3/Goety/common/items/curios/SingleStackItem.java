@@ -113,6 +113,10 @@ public class SingleStackItem extends Item implements ICurioItem {
                 tooltip.add(Component.translatable("info.goety.abyss_crown").withStyle(main));
                 tooltip.add(Component.translatable("info.goety.abyss_crown_cast").withStyle(secondary));
             }
+            if (stack.is(ModItems.VOID_CROWN.get())){
+                tooltip.add(Component.translatable("info.goety.void_crown").withStyle(main));
+                tooltip.add(Component.translatable("info.goety.void_crown_cast").withStyle(secondary));
+            }
             if (stack.is(ModItems.NETHER_CROWN.get())){
                 tooltip.add(Component.translatable("info.goety.nether_crown").withStyle(main));
                 tooltip.add(Component.translatable("info.goety.nether_crown_cast").withStyle(secondary));
@@ -164,6 +168,10 @@ public class SingleStackItem extends Item implements ICurioItem {
             if (stack.getItem() instanceof AbyssRobeItem) {
                 tooltip.add(Component.translatable("info.goety.abyss_robe").withStyle(main));
                 tooltip.add(Component.translatable("info.goety.abyss_robe_discount").withStyle(secondary));
+            }
+            if (stack.getItem() instanceof VoidRobeItem) {
+                tooltip.add(Component.translatable("info.goety.void_robe", ItemConfig.VoidRobeTeleportChance.get()).withStyle(main));
+                tooltip.add(Component.translatable("info.goety.void_robe_discount").withStyle(secondary));
             }
             if (stack.getItem() instanceof WitchRobeItem) {
                 tooltip.add(Component.translatable("info.goety.witch_robe_brew", ModKeybindings.keyBindings[3].getTranslatedKeyMessage().getString()).withStyle(main));

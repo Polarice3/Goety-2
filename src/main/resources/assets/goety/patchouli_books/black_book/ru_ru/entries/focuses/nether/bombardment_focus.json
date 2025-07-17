@@ -11,6 +11,17 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/bombardment_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Чары «период» увеличивают количество залпов."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/nether_staff)незерского посоха$() позволяет выпускать больше снарядов за залп."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:bombardment_focus": 1
+  }
 }

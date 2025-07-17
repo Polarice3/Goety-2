@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/grapple_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/wild_staff)дикого посоха$() увеличивает длину крюка и позволяет вам игнорировать урон от падения, пока он прикреплён."
     }
   ],
   "extra_recipe_mappings": {

@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.events;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.items.magic.IWand;
+import com.Polarice3.Goety.client.particles.FollowFireParticle;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.effects.brew.BrewEffectInstance;
@@ -11,6 +12,7 @@ import com.Polarice3.Goety.common.events.spell.CastingMagicEvent;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.spells.void_spells.EndWalkSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SPlayEffectLoopSoundPacket;
 import com.Polarice3.Goety.common.network.server.SPlayEntitySoundPacket;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
 import com.Polarice3.Goety.config.ItemConfig;
@@ -94,6 +96,12 @@ public class PotionEvents {
             if (livingEntity.level instanceof ServerLevel serverLevel) {
                 if (livingEntity.hasEffect(GoetyEffects.ILLAGUE.get())) {
                     EffectsUtil.Illague(serverLevel, livingEntity);
+                }
+                if (livingEntity.hasEffect(GoetyEffects.VOID_TOUCHED.get())) {
+                    if (livingEntity.tickCount % 10 == 0) {
+                        ColorUtil colorUtil = new ColorUtil(0x7f0075);
+                        serverLevel.sendParticles(new FollowFireParticle.Option(livingEntity.getId()), livingEntity.getX(), livingEntity.getY() + (livingEntity.getBbHeight() / 2.0F), livingEntity.getZ(), 0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.0F);
+                    }
                 }
             }
             AttributeInstance armor = livingEntity.getAttribute(Attributes.ARMOR);
@@ -335,6 +343,19 @@ public class PotionEvents {
                 int i = effectInstance.getAmplifier() + 1;
                 original += event.getAmount() * (0.2F * i);
                 event.setAmount(original);
+            }
+        }
+
+        if (target.hasEffect(GoetyEffects.VOID_TOUCHED.get())){
+            if (!event.getSource().is(ModDamageSource.VOIDED)) {
+                MobEffectInstance effectInstance = target.getEffect(GoetyEffects.VOID_TOUCHED.get());
+                float original = event.getAmount();
+                if (effectInstance != null) {
+                    int i = effectInstance.getAmplifier() + 2;
+                    original *= i;
+                    target.removeEffect(GoetyEffects.VOID_TOUCHED.get());
+                    event.setAmount(original);
+                }
             }
         }
 
@@ -775,6 +796,11 @@ public class PotionEvents {
                 event.setResult(Event.Result.DENY);
             }
         }
+        if (event.getEffectInstance().getEffect() == GoetyEffects.VOID_TOUCHED.get()){
+            if (event.getEntity().getType().is(ModTags.EntityTypes.VOID_TOUCHED_IMMUNE)) {
+                event.setResult(Event.Result.DENY);
+            }
+        }
     }
 
     @SubscribeEvent
@@ -795,6 +821,14 @@ public class PotionEvents {
         if (effect == GoetyEffects.ENDER_GROUND.get()){
             if (effected.hasEffect(GoetyEffects.SHADOW_WALK.get())){
                 effected.removeEffect(GoetyEffects.SHADOW_WALK.get());
+            }
+        }
+        if (effect == GoetyEffects.VOID_TOUCHED.get()){
+            if (!effected.hasEffect(GoetyEffects.VOID_TOUCHED.get())) {
+                if (effected.level instanceof ServerLevel) {
+                    ModNetwork.sentToTrackingEntityAndPlayer(effected, new SPlayWorldSoundPacket(effected.blockPosition(), ModSounds.VOID_TOUCHED_ACTIVATE.get(), 1.0F, 1.0F));
+                    ModNetwork.sentToTrackingEntityAndPlayer(effected, new SPlayEffectLoopSoundPacket(effected, ModSounds.VOID_TOUCHED_LOOP.get(), effect, 1.0F, 1.0F));
+                }
             }
         }
         if (effect == GoetyEffects.SENSE_LOSS.get()){
@@ -830,6 +864,11 @@ public class PotionEvents {
                         mob.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
                     }
                 }
+                if (event.getEffect() == GoetyEffects.VOID_TOUCHED.get()){
+                    if (effected.level instanceof ServerLevel) {
+                        ModNetwork.sentToTrackingEntityAndPlayer(effected, new SPlayWorldSoundPacket(effected.blockPosition(), ModSounds.VOID_TOUCHED_DEACTIVATE.get(), 1.0F, 1.0F));
+                    }
+                }
             }
         }
     }
@@ -852,6 +891,12 @@ public class PotionEvents {
                     if (effected.getHealth() <= effected.getMaxHealth() * doom) {
                         effected.hurt(ModDamageSource.getDamageSource(effected.level, ModDamageSource.DOOM), effected.getMaxHealth() * 20);
                     }
+                }
+            }
+
+            if (mobEffectInstance.getEffect() == GoetyEffects.VOID_TOUCHED.get()){
+                if (effected.level instanceof ServerLevel) {
+                    ModNetwork.sentToTrackingEntityAndPlayer(effected, new SPlayWorldSoundPacket(effected.blockPosition(), ModSounds.VOID_TOUCHED_DEACTIVATE.get(), 1.0F, 1.0F));
                 }
             }
         }

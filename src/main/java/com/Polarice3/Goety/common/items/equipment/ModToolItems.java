@@ -9,7 +9,7 @@ public class ModToolItems {
     public static class DarkSwordItem extends SwordItem{
 
         public DarkSwordItem() {
-            super(ModTiers.DARK, 3, -2.4F, ModItems.baseProperities());
+            super(ModTiers.DARK, 3, -2.4F, ModItems.baseProperties());
         }
 
         @Override
@@ -21,7 +21,7 @@ public class ModToolItems {
     public static class DarkShovelItem extends ShovelItem{
 
         public DarkShovelItem() {
-            super(ModTiers.DARK, 1.5F, -3.0F, ModItems.baseProperities());
+            super(ModTiers.DARK, 1.5F, -3.0F, ModItems.baseProperties());
         }
 
         @Override
@@ -33,7 +33,7 @@ public class ModToolItems {
     public static class DarkPickaxeItem extends PickaxeItem{
 
         public DarkPickaxeItem() {
-            super(ModTiers.DARK, 1, -2.8F, ModItems.baseProperities());
+            super(ModTiers.DARK, 1, -2.8F, ModItems.baseProperties());
         }
 
         @Override
@@ -45,7 +45,7 @@ public class ModToolItems {
     public static class DarkAxeItem extends AxeItem{
 
         public DarkAxeItem() {
-            super(ModTiers.DARK, 5.0F, -3.0F, ModItems.baseProperities());
+            super(ModTiers.DARK, 5.0F, -3.0F, ModItems.baseProperties());
         }
 
         @Override
@@ -57,7 +57,7 @@ public class ModToolItems {
     public static class DarkHoeItem extends HoeItem{
 
         public DarkHoeItem() {
-            super(ModTiers.DARK, -3, 0.0F, ModItems.baseProperities());
+            super(ModTiers.DARK, -3, 0.0F, ModItems.baseProperties());
         }
 
         @Override

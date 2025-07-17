@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "W#W",
+    "W#W"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "goety:end_rock_brick_slab"
+    },
+    "W":
+    {
+      "item": "goety:end_rock_bricks"
+    }
+  },
+  "result":
+  {
+    "item": "goety:end_rock_brick_fence",
+    "count": 3
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "name": "末影仆从们",
+  "icon": "minecraft:ender_pearl",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "作为末影人的亚种，这些奇异生物远比它们那几乎无法被操控的表亲更易与召唤者建立羁绊。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "所有末影裔都具备瞬移能力，但与末影人不同的是：它们的瞬移频率较低，且部分个体会在战斗中短暂消失数秒以迷惑敌人。此外，它们同样惧水。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_watchling_thrall"
+    },
+    {
+      "anchor": "watchling",
+      "type": "patchouli:entity",
+      "entity": "goety:watchling_servant",
+      "text": "遗憾的是，由于某种奥术层面的原因，这本典籍无法准确显现它们的眼睛。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "看守灵仆从是纯粹的近战仆从，会瞬移至敌人面前挥臂攻击。它们可通过仪式召唤，或使用$(l:focuses/void/watching_focus)看守聚晶$()直接召唤。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_blastling_thrall"
+    },
+    {
+      "anchor": "blastling",
+      "type": "patchouli:entity",
+      "entity": "goety:blastling_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "爆裂灵仆从是末影仆从们中生命值最高的存在，会向敌人喷射高温粘液弹幕，但当敌人近身时会暂时瞬移逃离。它们可通过仪式召唤，或使用$(l:focuses/void/blasting_focus)爆裂聚晶$()直接召唤。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_snareling_thrall"
+    },
+    {
+      "anchor": "snareling",
+      "type": "patchouli:entity",
+      "entity": "goety:snareling_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "迷惑灵仆从诡异而狡诈。它们会先向敌人喷射粘液进行禁锢，命中后便瞬移或奔袭至目标处挥臂攻击。若未成功禁锢且敌人近身，则会暂时撤退。它们可通过仪式召唤，或使用$(l:focuses/void/snaring_focus)迷惑聚晶$()直接召唤。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你可以喂食紫颂果或者穿戴$(l:crafts/garment/void_robe)虚空长袍并使用灵魂能量$()来治愈它们。"
+    }
+  ]
+}

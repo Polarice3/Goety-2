@@ -11,11 +11,9 @@ import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.phys.Vec3;
 
 public class CrusherModel<T extends Mob> extends HierarchicalModel<T> implements HeadedModel, HierarchicalArmor {
 	private final ModelPart root;

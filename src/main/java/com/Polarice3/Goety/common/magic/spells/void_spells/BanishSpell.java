@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.magic.TouchSpell;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.RandomUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -15,7 +16,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Fox;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.EntityHitResult;
@@ -80,7 +81,7 @@ public class BanishSpell extends TouchSpell {
     }
 
     @Override
-    public void touchResult(ServerLevel worldIn, LivingEntity caster, LivingEntity target, SpellStat spellStat) {
+    public void touchResult(ServerLevel worldIn, LivingEntity caster, LivingEntity target, ItemStack staff, SpellStat spellStat) {
         double d0 = target.getX();
         double d1 = target.getY();
         double d2 = target.getZ();
@@ -88,22 +89,28 @@ public class BanishSpell extends TouchSpell {
         if (WandUtil.enchantedFocus(caster)) {
             range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
         }
+        if (rightStaff(staff)) {
+            range *= 2;
+        }
 
         for(int i = 0; i < range; ++i) {
             double d3 = target.getX() + (target.getRandom().nextDouble() - 0.5D) * range;
-            double d4 = Mth.clamp(target.getY() + (double)(target.getRandom().nextInt(range) - (range / 2)), (double)worldIn.getMinBuildHeight(), (double)(worldIn.getMinBuildHeight() + worldIn.getLogicalHeight() - 1));
+            double d4 = Mth.clamp(target.getY() + (double)(RandomUtil.nextInt(target.getRandom(), range) - (range / 2)), (double)worldIn.getMinBuildHeight(), (double)(worldIn.getMinBuildHeight() + worldIn.getLogicalHeight() - 1));
             double d5 = target.getZ() + (target.getRandom().nextDouble() - 0.5D) * range;
             if (target.isPassenger()) {
                 target.stopRiding();
             }
 
-            Vec3 vec3 = target.position();
-            worldIn.gameEvent(GameEvent.TELEPORT, vec3, GameEvent.Context.of(target));
-            if (target.randomTeleport(d3, d4, d5, true)) {
-                SoundEvent soundevent = target instanceof Fox ? SoundEvents.FOX_TELEPORT : SoundEvents.CHORUS_FRUIT_TELEPORT;
-                worldIn.playSound((Player)null, d0, d1, d2, soundevent, SoundSource.PLAYERS, 1.0F, 1.0F);
-                target.playSound(soundevent, 1.0F, 1.0F);
-                break;
+            Vec3 vec3 = new Vec3(d3, d4, d5);
+
+            if (caster.distanceToSqr(vec3) > (range / 4.0D)) {
+                if (target.randomTeleport(d3, d4, d5, true)) {
+                    worldIn.gameEvent(GameEvent.TELEPORT, vec3, GameEvent.Context.of(target));
+                    SoundEvent soundevent = target instanceof Fox ? SoundEvents.FOX_TELEPORT : SoundEvents.CHORUS_FRUIT_TELEPORT;
+                    worldIn.playSound(null, d0, d1, d2, soundevent, SoundSource.PLAYERS, 1.0F, 1.0F);
+                    target.playSound(soundevent, 1.0F, 1.0F);
+                    break;
+                }
             }
         }
     }

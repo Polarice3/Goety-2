@@ -8,11 +8,15 @@ import com.Polarice3.Goety.common.advancements.ModCriteriaTriggers;
 import com.Polarice3.Goety.common.blocks.*;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.ModBlockEntities;
+import com.Polarice3.Goety.common.blocks.fluids.ModFluids;
 import com.Polarice3.Goety.common.crafting.ModRecipeSerializer;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.*;
+import com.Polarice3.Goety.common.entities.ally.ender.BlastlingServant;
+import com.Polarice3.Goety.common.entities.ally.ender.SnarelingServant;
+import com.Polarice3.Goety.common.entities.ally.ender.WatchlingServant;
 import com.Polarice3.Goety.common.entities.ally.golem.*;
 import com.Polarice3.Goety.common.entities.ally.illager.*;
 import com.Polarice3.Goety.common.entities.ally.spider.*;
@@ -42,6 +46,8 @@ import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.ritual.ModRituals;
 import com.Polarice3.Goety.common.world.ModMobSpawnBiomeModifier;
 import com.Polarice3.Goety.common.world.ModMobSpawnStructureModifier;
+import com.Polarice3.Goety.common.world.features.ModFeatures;
+import com.Polarice3.Goety.common.world.features.trees.trunkplacers.ModTrunkPlacerTypes;
 import com.Polarice3.Goety.common.world.placements.ModPlacementType;
 import com.Polarice3.Goety.common.world.processors.ModProcessors;
 import com.Polarice3.Goety.common.world.structures.ModStructureTypes;
@@ -69,10 +75,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -81,6 +84,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
@@ -135,6 +139,8 @@ public class Goety {
 
         ModBlockEntities.BLOCK_ENTITY.register(modEventBus);
         ModEntityType.ENTITY_TYPE.register(modEventBus);
+        ModFeatures.FEATURES.register(modEventBus);
+        ModTrunkPlacerTypes.TRUNK_PLACER_TYPES.register(modEventBus);
         ModParticleTypes.PARTICLE_TYPES.register(modEventBus);
         ModContainerType.CONTAINER_TYPE.register(modEventBus);
         ModEnchantments.ENCHANTMENTS.register(modEventBus);
@@ -180,6 +186,7 @@ public class Goety {
         MinecraftForge.EVENT_BUS.register(this);
         ModItems.init();
         ModBlocks.init();
+        ModFluids.init();
         ModRecipeSerializer.init();
         ModSpawnEggs.init();
         ServantSpawnEggs.init();
@@ -221,6 +228,7 @@ public class Goety {
 
         OtherModCompat.setup(event);
         event.enqueueWork(() -> {
+            ModCauldronInteraction.init();
             DispenserBlock.registerBehavior(ModBlocks.TALL_SKULL_ITEM.get(), new OptionalDispenseItemBehavior() {
                 protected ItemStack execute(BlockSource source, ItemStack stack) {
                     this.setSuccess(ArmorItem.dispenseArmor(source, stack));
@@ -387,6 +395,21 @@ public class Goety {
                     return p_123462_;
                 }
             });
+            DispenserBlock.registerBehavior(ModItems.VOID_BUCKET.get(), new DefaultDispenseItemBehavior() {
+                private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
+
+                public ItemStack execute(BlockSource p_123561_, ItemStack p_123562_) {
+                    DispensibleContainerItem dispensiblecontaineritem = (DispensibleContainerItem)p_123562_.getItem();
+                    BlockPos blockpos = p_123561_.getPos().relative(p_123561_.getBlockState().getValue(DispenserBlock.FACING));
+                    Level level = p_123561_.getLevel();
+                    if (dispensiblecontaineritem.emptyContents((Player)null, level, blockpos, (BlockHitResult)null, p_123562_)) {
+                        dispensiblecontaineritem.checkExtraContent((Player)null, level, p_123562_, blockpos);
+                        return new ItemStack(Items.BUCKET);
+                    } else {
+                        return this.defaultDispenseItemBehavior.dispense(p_123561_, p_123562_);
+                    }
+                }
+            });
             ModDispenserRegister.registerAlternativeDispenseBehavior(new ModDispenserRegister.AlternativeDispenseBehavior(
                     Goety.MOD_ID, Items.WATER_BUCKET,
                     (blockSource, itemStack) -> blockSource.getLevel().getBlockState(ModDispenserRegister.offsetPos(blockSource)).is(ModBlocks.BREWING_CAULDRON.get()),
@@ -465,6 +488,7 @@ public class Goety {
     private void finalLoad(FMLLoadCompleteEvent event){
         event.enqueueWork(() -> {
             ModDispenserRegister.getSortedAlternativeDispenseBehaviors().forEach(ModDispenserRegister.AlternativeDispenseBehavior::register);
+            ModFluids.interactionInit();
         });
     }
 
@@ -591,6 +615,9 @@ public class Goety {
         event.put(ModEntityType.HAUNT.get(), Haunt.setCustomAttributes().build());
         event.put(ModEntityType.REDSTONE_MONSTROSITY.get(), RedstoneMonstrosity.setCustomAttributes().build());
         event.put(ModEntityType.REDSTONE_CUBE.get(), RedstoneCube.setCustomAttributes().build());
+        event.put(ModEntityType.WATCHLING_SERVANT.get(), WatchlingServant.setCustomAttributes().build());
+        event.put(ModEntityType.BLASTLING_SERVANT.get(), BlastlingServant.setCustomAttributes().build());
+        event.put(ModEntityType.SNARELING_SERVANT.get(), SnarelingServant.setCustomAttributes().build());
         event.put(ModEntityType.TOTEMIC_WALL.get(), TotemicWall.setCustomAttributes().build());
         event.put(ModEntityType.TOTEMIC_BOMB.get(), TotemicBomb.setCustomAttributes().build());
         event.put(ModEntityType.GLACIAL_WALL.get(), GlacialWall.setCustomAttributes().build());

@@ -6,6 +6,10 @@
     "goety:rotten_chest",
     "goety:trapped_rotten_chest",
     "goety:windswept_chest",
-    "goety:trapped_windswept_chest"
+    "goety:trapped_windswept_chest",
+    "goety:chorus_chest",
+    "goety:trapped_chorus_chest",
+    "goety:corrupt_chorus_chest",
+    "goety:trapped_corrupt_chorus_chest"
   ]
 }

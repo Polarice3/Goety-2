@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/blossoming_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/wild_staff)дикого посоха$() увеличивает радиус действия."
     }
   ],
   "extra_recipe_mappings": {

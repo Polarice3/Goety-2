@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.common.entities.projectiles.ElectroOrb;
 import com.Polarice3.Goety.common.entities.projectiles.MiniElectroOrb;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

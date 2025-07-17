@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Equipar este foco em uma varinha ou cajado permite que você pulverize certos blocos em versões rachadas, ou em cascalho e depois em areia, ao clicar com o botão direito em um bloco."
+      "text": "Equipar este foco em uma varinha ou cajado permite pulverizar certos blocos em versões rachadas, ou em cascalho e depois em areia, ao clicar com o botão direito em um bloco."
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/pulverize_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/geo_staff)Cajado Geo$() pulveriza blocos em uma área 3x3 sem encantamentos."
     }
   ]
 }

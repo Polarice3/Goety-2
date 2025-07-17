@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Este foco permite que você invoque um pequeno vulcão que irá expelir várias rochas piroclásticas para o céu, que cairão ao seu redor, explodindo e causando dano aos seus inimigos."
+      "text": "O foco permite invocar um pequeno vulcão que lança várias rochas piroclásticas ao céu, que caem ao seu redor, explodindo e causando dano aos inimigos."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/eruption_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/geo_staff)Cajado Geo$() invoca três pequenos vulcões em vez de um."
     }
   ],
   "extra_recipe_mappings": {

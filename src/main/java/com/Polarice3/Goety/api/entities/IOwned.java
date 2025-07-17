@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -278,26 +279,36 @@ public interface IOwned {
     }
 
     default void teleportTowards(Entity entity) {
+        this.teleportTowards(entity, 16.0D);
+    }
+
+    default void teleportTowards(Entity entity, double range) {
         if (this instanceof LivingEntity owned) {
             if (!owned.level.isClientSide() && owned.isAlive()) {
                 for (int i = 0; i < 128; ++i) {
                     Vec3 vector3d = new Vec3(owned.getX() - entity.getX(), owned.getY(0.5D) - entity.getEyeY(), owned.getZ() - entity.getZ());
                     vector3d = vector3d.normalize();
-                    double d0 = 16.0D;
-                    double d1 = owned.getX() + (owned.getRandom().nextDouble() - 0.5D) * 8.0D - vector3d.x * d0;
-                    double d2 = owned.getY() + (double) (owned.getRandom().nextInt(16) - 8) - vector3d.y * d0;
-                    double d3 = owned.getZ() + (owned.getRandom().nextDouble() - 0.5D) * 8.0D - vector3d.z * d0;
+                    double d1 = owned.getX() + (owned.getRandom().nextDouble() - 0.5D) * (range / 2.0D) - vector3d.x * range;
+                    double d2 = owned.getY() + (owned.getRandom().nextInt(Mth.floor(range)) - (range / 2.0D)) - vector3d.y * range;
+                    double d3 = owned.getZ() + (owned.getRandom().nextDouble() - 0.5D) * (range / 2.0D) - vector3d.z * range;
                     net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(owned, d1, d2, d3);
                     if (event.isCanceled()) {
                         break;
                     }
-                    if (owned.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), false)) {
+                    if (this.ownedTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ())) {
                         this.teleportHits();
                         break;
                     }
                 }
             }
         }
+    }
+
+    default boolean ownedTeleport(double x, double y, double z) {
+        if (this instanceof LivingEntity owned) {
+            return owned.randomTeleport(x, y, z, false);
+        }
+        return false;
     }
 
     default void teleportHits(){

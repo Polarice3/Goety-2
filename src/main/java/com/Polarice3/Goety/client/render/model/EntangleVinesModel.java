@@ -2,6 +2,7 @@ package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.client.render.animation.EntangleVinesAnimations;
 import com.Polarice3.Goety.common.entities.projectiles.EntangleVines;
+import com.Polarice3.Goety.common.entities.projectiles.SnarelingGoop;
 import com.Polarice3.Goety.common.entities.projectiles.SpiderWeb;
 import com.Polarice3.Goety.common.entities.projectiles.TangleEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -110,6 +111,9 @@ public class EntangleVinesModel<T extends TangleEntity> extends HierarchicalMode
 			this.animate(entangleVines.burstAnimationState, EntangleVinesAnimations.BURST, ageInTicks);
 			this.animate(entangleVines.burrowAnimationState, EntangleVinesAnimations.BURROW, ageInTicks);
 		} else if (entity instanceof SpiderWeb spiderWeb){
+			this.animate(spiderWeb.holdAnimationState, EntangleVinesAnimations.HOLD, ageInTicks);
+			this.animate(spiderWeb.burrowAnimationState, EntangleVinesAnimations.BURROW, ageInTicks);
+		} else if (entity instanceof SnarelingGoop spiderWeb){
 			this.animate(spiderWeb.holdAnimationState, EntangleVinesAnimations.HOLD, ageInTicks);
 			this.animate(spiderWeb.burrowAnimationState, EntangleVinesAnimations.BURROW, ageInTicks);
 		}

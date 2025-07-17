@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/end_rock_slab"
+    },
+    "type=double": {
+      "model": "goety:block/end_rock"
+    },
+    "type=top": {
+      "model": "goety:block/end_rock_slab_top"
+    }
+  }
+}

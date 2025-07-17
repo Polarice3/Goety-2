@@ -1,15 +1,19 @@
 {
-  "name": "Foco de Dispersão",
+  "name": "Foco de Minas Espalhadas",
   "icon": "goety:scatter_focus",
   "category": "goety:focuses/geomancy",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "O foco conjura minas ao redor do conjurador, que se armam após um segundo e explodem, sem causar destruição, quando um alvo não aliado se aproxima delas."
+      "text": "O foco conjura minas ao redor do conjurador, que se armam após um segundo e explodem, sem destruir blocos, quando um alvo não aliado se aproxima."
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/scatter_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/geo_staff)Cajado Geo$() altera o feitiço. Em vez de invocar três minas instantaneamente, o conjurador deve conjurar continuamente até que até catorze minas sejam spawnadas ao seu redor."
     }
   ]
 }

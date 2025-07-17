@@ -1,15 +1,19 @@
 {
-  "name": "Foco da Corrente Ascendente",
+  "name": "Foco de Corrente Ascendente",
   "icon": "goety:updraft_focus",
   "category": "goety:focuses/wind",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "O Foco permite invocar uma forte rajada de ar em um local ou aos pés de criaturas que, após um segundo, as lançará para o alto, causando dano."
+      "text": "O Foco permite invocar uma poderosa rajada de ar em um local ou aos pés de criaturas que, após um segundo, as lançará para o alto, causando dano."
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/updraft_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/wind_staff)Cajado do Vento$() aumenta a área de efeito."
     }
   ],
   "extra_recipe_mappings": {

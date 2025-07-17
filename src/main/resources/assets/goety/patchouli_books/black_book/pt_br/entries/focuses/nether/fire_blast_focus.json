@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Você emite uma explosão flamejante em sua posição, ferindo todas as criaturas próximas e incendiando-as. A explosão causa dano de fogo e não afeta o conjurador ou seus aliados."
+      "text": "Você emite uma explosão flamejante na sua posição, danificando e queimando todas as criaturas próximas. A explosão causa dano de fogo e não afeta o conjurador ou seus aliados."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/fire_blast_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/nether_staff)Cajado do Nether$() aumenta um pouco o alcance da explosão."
     }
   ],
   "extra_recipe_mappings": {

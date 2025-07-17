@@ -39,6 +39,7 @@ public class GoetyJeiPlugin implements IModPlugin {
         registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), RitualTypes.SABBATH));
         registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), RitualTypes.ADEPT_NETHER));
         registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), RitualTypes.EXPERT_NETHER));
+        registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), RitualTypes.END));
         registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), RitualTypes.FROST));
         registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), RitualTypes.SKY));
         registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), RitualTypes.STORM));
@@ -64,6 +65,7 @@ public class GoetyJeiPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(Blocks.CRYING_OBSIDIAN), JeiRecipeTypes.getRitual(RitualTypes.SABBATH));
         registration.addRecipeCatalyst(new ItemStack(Blocks.BLACKSTONE), JeiRecipeTypes.getRitual(RitualTypes.ADEPT_NETHER));
         registration.addRecipeCatalyst(new ItemStack(Blocks.NETHER_BRICKS), JeiRecipeTypes.getRitual(RitualTypes.EXPERT_NETHER));
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.VOID_BLOCK.get()), JeiRecipeTypes.getRitual(RitualTypes.END));
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.FREEZING_LAMP.get()), JeiRecipeTypes.getRitual(RitualTypes.FROST));
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.MARBLE_BLOCK.get()), JeiRecipeTypes.getRitual(RitualTypes.SKY));
         registration.addRecipeCatalyst(new ItemStack(Blocks.LIGHTNING_ROD), JeiRecipeTypes.getRitual(RitualTypes.STORM));
@@ -90,6 +92,7 @@ public class GoetyJeiPlugin implements IModPlugin {
         this.registerRitualType(registration, recipeManager, RitualTypes.SABBATH);
         this.registerRitualType(registration, recipeManager, RitualTypes.ADEPT_NETHER);
         this.registerRitualType(registration, recipeManager, RitualTypes.EXPERT_NETHER);
+        this.registerRitualType(registration, recipeManager, RitualTypes.END);
         this.registerRitualType(registration, recipeManager, RitualTypes.FROST);
         this.registerRitualType(registration, recipeManager, RitualTypes.SKY);
         this.registerRitualType(registration, recipeManager, RitualTypes.STORM);

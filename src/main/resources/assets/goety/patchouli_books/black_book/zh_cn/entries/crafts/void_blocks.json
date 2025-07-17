@@ -1,0 +1,85 @@
+{
+  "name": "虚空方块和流体",
+  "icon": "goety:void_block",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "末地中潜藏着诸多危险的方块与液体，唯有本土生灵方可安然涉足，凡外来者踏足其上皆会受阻..."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:void_bottle",
+      "text": "要获取虚空之瓶，需在主世界Y轴-64层、下界或末地Y轴0层以下使用空玻璃瓶右键。不过相较而言，末地获取更为容易，毕竟那里的虚空触手可及。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:void_block",
+      "recipe2": "goety:void_bucket"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "虚空块与液态虚空每秒造成相当于生命上限5%的伤害，同时会对穿越其中的生物施加并强化“虚空之蚀”效果。末影人、末影螨与末影螨对此免疫，但诡异的是，潜影贝却无法幸免。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:void_barrel"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "虚空容器是一种不稳定的方块，被触发时会释放虚空爆炸并自毁。可通过右键点击、红石激活或投射物射击来引爆它。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "液态虚空与水或岩浆接触时可形成装饰性方块。将水倒在液态虚空源上会将其转化为虚空块。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_basalt_slab",
+      "recipe2": "goety:end/end_basalt_stairs"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_basalt_bricks",
+      "recipe2": "goety:end/end_basalt_brick_slab"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_basalt_brick_stairs"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_rock_slab",
+      "recipe2": "goety:end/end_rock_bricks"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_rock_brick_slab",
+      "recipe2": "goety:end/end_rock_brick_wall"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_rock_brick_fence",
+      "recipe2": "goety:end/end_rock_chiseled"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:end_soil",
+      "text": "当流动的水与流动的虚空液体相遇时，会生成末地壤。这种方块不仅能种植紫颂花，若在其周边放置蓝冰并引导岩浆触碰，还可再生黑曜石。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:chorus/chorus_sapling",
+      "text": "你还可以在虚空中培育一种新的树苗，它能提供一类新的、不易燃的木质方块，这种树苗只能种植在末地壤上"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:chorus_sapling",
+      "text": "在一个2*2格的空间内种植4颗紫颂树苗，那它会长成一颗巨大的紫颂树，其树干内部含有腐烂的紫颂原木，内部空隙还可能含有液态虚空，当然，这种原木也可以制成一类新的木质方块，"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:void_bottle": 1,
+    "goety:end_soil": 11
+  }
+}

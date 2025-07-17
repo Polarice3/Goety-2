@@ -1,0 +1,27 @@
+{
+  "name": "Túnica do Vácuo",
+  "icon": "goety:void_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A Túnica do Vácuo concede ao usuário o poder do End. Os usuários terão a chance de desviar de ataques através de teletransporte, serão imunes ao efeito Tocado pelo Vácuo e poderão se mover livremente por Blocos do Vácuo. A Túnica também reduz o custo de feitiços do Vácuo."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:void_robe"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:void_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Coroa do Vácuo reduz o tempo de conjuração de feitiços do Vácuo pela metade e impede que certos servos do vácuo, como Vexes, desapareçam. Também permite ao usuário olhar para Endermans sem irritá-los."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:void_robe": 1,
+    "goety:void_crown": 2
+  }
+}

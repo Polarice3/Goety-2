@@ -1,15 +1,19 @@
 {
-  "name": "Foco da Putrefação",
+  "name": "Foco da Decomposição",
   "icon": "goety:rotting_focus",
   "category": "goety:focuses/necromancy",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "O primeiro passo verdadeiro da Necroturgia é invocar e comandar um zumbi. Zumbis vêm em várias variantes, e este foco permite invocar uma variante dependendo do local e ambiente onde o feitiço é lançado."
+      "text": "O verdadeiro primeiro passo da Necroturgia é invocar e comandar um Zumbi. Zumbis vêm em várias variantes, e o foco permite invocar uma variante dependendo do local e ambiente onde o feitiço é conjurado."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/rotting_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/necro_staff)Cajado Necro$() invoca mais zumbis de uma vez."
     }
   ],
   "extra_recipe_mappings": {

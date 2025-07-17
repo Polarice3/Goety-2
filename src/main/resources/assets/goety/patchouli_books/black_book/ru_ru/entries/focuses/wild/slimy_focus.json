@@ -1,0 +1,22 @@
+{
+  "name": "Фокус слизи",
+  "icon": "goety:slimy_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Создаёт вам $(l:summons/slime_servants)слизня-прислужника$(), который будет исполнять ваши приказы."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/slimy_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/wild_staff)дикого посоха$() позволит призывать больше слизней-прислужников. Использование $(l:crafts/staff/abyss_staff)глубоководного посоха$() создаст тропического слизня, $(l:crafts/staff/nether_staff)незерского посоха$() — магмовый куб, $(l:crafts/staff/necro_staff)некро-посоха$() — склепного слизня."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:slimy_focus": 1
+  }
+}

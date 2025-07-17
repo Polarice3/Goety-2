@@ -9,7 +9,7 @@
       "text": "控えめなファイアボール呪文のアップグレード版です。ファイアボールの弾幕を発射し、ブレイズのように飛び上がることができます。"
     },
     {
-      "type": "goety:ritual",
+      "type": "patchouli:crafting",
       "recipe": "goety:focus/bombardment_focus"
     },
     {
@@ -20,8 +20,5 @@
       "type": "patchouli:text",
       "text": "$(l:crafts/staff/nether_staff)ネザーの杖$()で唱えると、一斉射撃ごとに2つの火の玉をさらに発射することになります。"
     }
-  ],
-  "extra_recipe_mappings": {
-    "goety:bombardment_focus": 1
-  }
+  ]
 }

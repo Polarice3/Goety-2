@@ -1,0 +1,85 @@
+{
+  "name": "虚空ブロック・液体",
+  "icon": "goety:void_block",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "エンドには興味深いブロックや液体があますが、その上を歩くとエンドの産物でない限り有害だと聞いたことがあるでしょう..."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:void_bottle",
+      "text": "虚空の瓶を入手するには、次元の最小建築高度以下で空のガラス瓶を使用する必要があります。この高さは、オーバーワールドの場合はY -64、ネザーとエンドの場合はY 0です。ただし、エンドでは奈落が岩盤で塞がれていない分、入手しやすいと言えます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:void_block",
+      "recipe2": "goety:void_bucket"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "虚空ブロックと液体はどちらも、毎秒最大体力の5%に相当するダメージを与え、さらにその上を通過するクリーチャーにヴォイドタッチド効果を与え、増幅させます。エンダーマン、エンダーマイト、エンダーリングはこれらの効果を受けませんが、不思議なことにシュルカーは受けます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:void_barrel"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "虚空の樽はヴォイドの爆発を引き起こし、同時に破壊される不安定なブロックです。樽を爆発させるには、右クリックするか、レッドストーンで起動するか、発射物を撃ち込む必要があります。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "液体の虚空は、水または溶岩と相互作用することで装飾ブロックを作成することができます。液体の虚空に水を注ぐと、虚空ブロックに変換されます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_basalt_slab",
+      "recipe2": "goety:end/end_basalt_stairs"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_basalt_bricks",
+      "recipe2": "goety:end/end_basalt_brick_slab"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_basalt_brick_stairs"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_rock_slab",
+      "recipe2": "goety:end/end_rock_bricks"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_rock_brick_slab",
+      "recipe2": "goety:end/end_rock_brick_wall"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_rock_brick_fence",
+      "recipe2": "goety:end/end_rock_chiseled"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:end_soil",
+      "text": "水が虚空の液体と出会うと、エンドソイルが生成されます。コーラスフラワーを生やせるだけでなく、青い氷に隣接した溶岩流を流すと、再生可能な黒曜石が生成されます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:chorus/chorus_sapling",
+      "text": "虚空から苗木を作ることもできます。苗木は燃えない、木のようなブロックを新たに生み出します。苗木はエンドソイルにのみ植えることができます。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:chorus_sapling",
+      "text": "2x2のエリアに4本のコーラス苗木を育てると、巨大なコーラスツリーが作成されます。このツリーには、別の木のようなブロックのセット、またはそれ自体の中に虚空の液体を提供する、腐敗したコーラスの原木が含まれます。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:void_bottle": 1,
+    "goety:end_soil": 11
+  }
+}

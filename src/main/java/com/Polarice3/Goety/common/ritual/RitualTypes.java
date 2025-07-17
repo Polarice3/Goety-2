@@ -10,6 +10,7 @@ public class RitualTypes {
     public final static String SABBATH = "sabbath";
     public final static String ADEPT_NETHER = "adept_nether";
     public final static String EXPERT_NETHER = "expert_nether";
+    public final static String END = "end";
     public final static String FROST = "frost";
     public final static String SKY = "sky";
     public final static String STORM = "storm";

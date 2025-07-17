@@ -1,0 +1,22 @@
+{
+  "name": "迷惑聚晶",
+  "icon": "goety:snaring_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "该聚晶触感黏腻，却不会分泌任何黏液物质——但其召唤的$(l:summons/enderling_servants#snareling)畸形人形生物则截然不同：它长臂乱舞，胸裂巨口，背部还鼓胀着发光的囊泡$()。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/snaring_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/void_staff)虚空魔杖$()施法会一次召唤出更多的迷惑灵。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:snaring_focus": 1
+  }
+}

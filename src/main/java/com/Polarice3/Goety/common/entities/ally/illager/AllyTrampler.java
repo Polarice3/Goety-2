@@ -120,6 +120,10 @@ public class AllyTrampler extends RaiderServant implements ICharger, IAutoRideab
         }
     }
 
+    protected float getWaterSlowDown() {
+        return 0.98F;
+    }
+
     public void setAutonomous(boolean autonomous) {
         this.entityData.set(AUTO_MODE, autonomous);
         if (autonomous) {

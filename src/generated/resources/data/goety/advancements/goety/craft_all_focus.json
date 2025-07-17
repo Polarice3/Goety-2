@@ -73,6 +73,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.blasting_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:blasting_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.blazing_focus": {
       "conditions": {
         "items": [
@@ -997,6 +1009,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.snaring_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:snaring_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.sonic_boom_focus": {
       "conditions": {
         "items": [
@@ -1219,6 +1243,18 @@
           {
             "items": [
               "goety:vexing_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "item.goety.watching_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:watching_focus"
             ]
           }
         ]
@@ -1622,6 +1658,15 @@
     ],
     [
       "item.goety.rupture_focus"
+    ],
+    [
+      "item.goety.watching_focus"
+    ],
+    [
+      "item.goety.blasting_focus"
+    ],
+    [
+      "item.goety.snaring_focus"
     ]
   ],
   "rewards": {

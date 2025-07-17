@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 import java.util.UUID;
 
 public abstract class AbstractTrap extends Entity {
-    private int duration = 600;
+    private int duration = 100;
     public LivingEntity owner;
     private UUID ownerUniqueId;
     private static final EntityDataAccessor<ParticleOptions> DATA_PARTICLE = SynchedEntityData.defineId(AbstractTrap.class, EntityDataSerializers.PARTICLE);

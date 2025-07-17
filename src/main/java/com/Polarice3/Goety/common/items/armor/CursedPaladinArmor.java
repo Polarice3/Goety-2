@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 
 public class CursedPaladinArmor extends ArmorItem {
     public CursedPaladinArmor(ArmorItem.Type p_40387_) {
-        super(ModArmorMaterials.CURSED_PALADIN, p_40387_, ModItems.baseProperities());
+        super(ModArmorMaterials.CURSED_PALADIN, p_40387_, ModItems.baseProperties());
     }
 
     public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {

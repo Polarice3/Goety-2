@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Com este foco, você pode invocar caveiras assombradas por espíritos do além, que o seguirão e atacarão qualquer criatura hostil próxima, explodindo no impacto."
+      "text": "Com este foco, você pode invocar Caveiras assombradas por espíritos do além que o seguirão e atacarão qualquer criatura hostil próxima, explodindo no impacto."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/skull_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/necro_staff)Cajado Necro$() invoca mais caveiras de uma vez."
     }
   ],
   "extra_recipe_mappings": {

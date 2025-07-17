@@ -37,6 +37,10 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> NetherMinionHealTime;
     public static final ForgeConfigSpec.ConfigValue<Double> NetherMinionHealAmount;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> VoidMinionHealCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VoidMinionHealTime;
+    public static final ForgeConfigSpec.ConfigValue<Double> VoidMinionHealAmount;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerServantTrainTime;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerServantMaxMentors;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerServantChestRange;
@@ -135,6 +139,10 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> WhispererTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LeapleafTexture;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WatchlingServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> BlastlingServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SnarelingServantTexture;
+
     public static final ForgeConfigSpec.ConfigValue<Boolean> SquallGolemTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemCrack;
@@ -160,6 +168,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> NaturalMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FrostMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NetherMinionHeal;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> VoidMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CompatMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CompatNightmareStalker;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSoulJar;
@@ -371,6 +380,14 @@ public class MobsConfig {
                 LeapleafTexture = BUILDER.comment("If Leapleaf Servants have custom textures, Default: true")
                         .define("leapleafTexture", true);
                 BUILDER.pop();
+                BUILDER.push("Void Servants");
+                WatchlingServantTexture = BUILDER.comment("If Watchling servants have custom textures, Default: true")
+                        .define("watchlingServantTexture", true);
+                BlastlingServantTexture = BUILDER.comment("If Blastling servants have custom textures, Default: true")
+                        .define("blastlingServantTexture", true);
+                SnarelingServantTexture = BUILDER.comment("If Snareling Servants have custom textures, Default: true")
+                        .define("snarelingServantTexture", true);
+                BUILDER.pop();
                 BUILDER.push("Squall Golem");
                 SquallGolemTexture = BUILDER.comment("If Squall Golems have custom textures, Default: true")
                         .define("squallGolemTexture", true);
@@ -457,6 +474,16 @@ public class MobsConfig {
                     .define("wildfireBlazingHelm", true);
             WildfireSummonsLife = BUILDER.comment("Whether Wildfire's summons have limited lifespans, Default: true")
                     .define("wildfireSummonsLife", true);
+            BUILDER.pop();
+            BUILDER.push("Void Servants");
+            VoidMinionHeal = BUILDER.comment("Whether Void Servants can heal if summoned while wearing Nether Robe, Default: true")
+                    .define("voidMinionHeal", true);
+            VoidMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for a Void Servant to heal, Default: 1")
+                    .defineInRange("voidMinionHealCost", 1, 0, Integer.MAX_VALUE);
+            VoidMinionHealTime = BUILDER.comment("How frequent Void Servants heal, count seconds, Default: 1")
+                    .defineInRange("voidMinionHealTime", 1, 0, Integer.MAX_VALUE);
+            VoidMinionHealAmount = BUILDER.comment("How much Health Void Servants heal, numerically, Default: 1.0")
+                    .defineInRange("voidMinionHealAmount", 1.0, 0.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Illager Servants");
             IllagerServantTrainTime = BUILDER.comment("How long does it take for Illagers to fully train, count in seconds, Default: 1200")

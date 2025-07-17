@@ -11,6 +11,8 @@
     "#goety:silt_blocks",
     "#goety:indented_gold_blocks",
     "#goety:snow_bricks",
+    "#goety:end_basalt_blocks",
+    "#goety:end_rock",
     "#goety:dark_metal_blocks",
     "#goety:brazier",
     "goety:cursed_infuser",
@@ -33,6 +35,8 @@
     "goety:ominous_pyre",
     "goety:lofty_chest",
     "goety:creeper_totem",
+    "goety:purpur_lamp",
+    "goety:purpur_wall",
     "goety:diamond_mold_block",
     "goety:reinforced_redstone_block"
   ]

@@ -1,0 +1,23 @@
+
+{
+  "name": "Ritual do End",
+  "icon": "goety:void_block",
+  "category": "goety:rituals",
+  "sortnum": 8,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requisitos: $(li)Estar no End $(li)16 Blocos do Vácuo $(li)64 Tijolos de Pedra do End $(li)32 Blocos de Púrpura"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/end_ritual.png"],
+      "border": true,
+      "text": "Exemplo de como o ritual pode ser montado."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A essência concentrada do Vácuo canaliza o poder do fim de todas as coisas para realizar rituais arcanos."
+    }
+  ]
+}

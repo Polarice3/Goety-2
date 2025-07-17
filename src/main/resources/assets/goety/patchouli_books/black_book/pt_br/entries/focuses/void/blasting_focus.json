@@ -1,0 +1,22 @@
+{
+  "name": "Foco Explosivo",
+  "icon": "goety:blasting_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Apesar do nome, o foco não explode nada. Em vez disso, invoca $(l:summons/enderling_servants#blastling)criaturas que disparam rajadas de gosma poderosa$()."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/blasting_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/void_staff)Cajado do Vácuo$() invoca mais explosivos de uma vez."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:blasting_focus": 1
+  }
+}

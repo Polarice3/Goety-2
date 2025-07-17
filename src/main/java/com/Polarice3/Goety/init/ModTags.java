@@ -37,12 +37,14 @@ public class ModTags {
         public static final TagKey<Block> MARBLE_BLOCKS = tag("marble_blocks");
         public static final TagKey<Block> INDENTED_GOLD_BLOCKS = tag("indented_gold_blocks");
         public static final TagKey<Block> JADE_BLOCKS = tag("jade_blocks");
+        public static final TagKey<Block> END_STONE = tag("end_stone");
         public static final TagKey<Block> PHILOSOPHERS_MACE_HARD = tag("philosophers_mace_hard");
         public static final TagKey<Block> RECALL_BLOCKS = tag("recall_blocks");
         public static final TagKey<Block> DARK_ANVILS = tag("dark_anvils");
         public static final TagKey<Block> TUNNEL_BLACKLIST = tag("tunnel_blacklist");
         public static final TagKey<Block> NETHER_SPREAD = tag("nether_spread");
         public static final TagKey<Block> NETHER_SPREAD_REPLACEABLE = tag("nether_spread_replaceable");
+        public static final TagKey<Block> CHORUS_GROW = tag("chorus_grow");
         public static final TagKey<Block> REDSTONE_CUBE_DETECT = tag("redstone_cube_detect");
         public static final TagKey<Block> REDSTONE_CUBE_EXEMPT = tag("redstone_cube_exempt");
         public static final TagKey<Block> MONSTROSITY_BREAKS = tag("monstrosity_breaks");
@@ -63,6 +65,7 @@ public class ModTags {
         public static final TagKey<Item> CAPES = tag("capes");
         public static final TagKey<Item> CROWNS = tag("crowns");
         public static final TagKey<Item> FOCUSES = tag("focuses");
+        public static final TagKey<Item> VINDICATOR_WEAPONS = tag("vindicator_weapons");
         public static final TagKey<Item> BREWABLE_FOOD = tag("brewable_food");
         public static final TagKey<Item> GRAVE_GLOVE_BOOST = tag("grave_glove_boost");
         public static final TagKey<Item> THRASH_GLOVE_BOOST = tag("thrash_glove_boost");
@@ -103,6 +106,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> SKELETON_SERVANTS = tag("skeleton_servants");
         public static final TagKey<EntityType<?>> NO_HEAL_SERVANTS = tag("no_heal_servants");
         public static final TagKey<EntityType<?>> HOLE_IMMUNE = tag("hole_immune");
+        public static final TagKey<EntityType<?>> VOID_TOUCHED_IMMUNE = tag("void_touched_immune");
         public static final TagKey<EntityType<?>> WANTING_ENTITIES = tag("wanting_entities");
         public static final TagKey<EntityType<?>> SUMMON_KILL = tag("summon_kill");
         public static final TagKey<EntityType<?>> IGNORE_SERVANTS = tag("ignore_servants");
@@ -120,12 +124,14 @@ public class ModTags {
         public static final TagKey<EntityType<?>> FROST_SET_NEUTRAL = tag("frost_set_neutral");
         public static final TagKey<EntityType<?>> WILD_SET_NEUTRAL = tag("wild_set_neutral");
         public static final TagKey<EntityType<?>> NETHER_SET_NEUTRAL = tag("nether_set_neutral");
+        public static final TagKey<EntityType<?>> VOID_SET_NEUTRAL = tag("void_set_neutral");
         public static final TagKey<EntityType<?>> NECRO_SET_NEUTRAL = tag("necro_set_neutral");
         public static final TagKey<EntityType<?>> LICH_NEUTRAL = tag("lich_neutral");
         public static final TagKey<EntityType<?>> ABYSS_HEAL = tag("abyss_heal");
         public static final TagKey<EntityType<?>> FROST_HEAL = tag("frost_heal");
         public static final TagKey<EntityType<?>> WILD_HEAL = tag("wild_heal");
         public static final TagKey<EntityType<?>> NETHER_HEAL = tag("nether_heal");
+        public static final TagKey<EntityType<?>> VOID_HEAL = tag("void_heal");
         public static final TagKey<EntityType<?>> NECRO_HEAL = tag("necro_heal");
         public static final TagKey<EntityType<?>> NECRO_NO_DEBUFF = tag("necro_no_debuff");
 

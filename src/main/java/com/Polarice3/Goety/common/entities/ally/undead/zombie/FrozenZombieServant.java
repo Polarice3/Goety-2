@@ -87,7 +87,7 @@ public class FrozenZombieServant extends ZombieServant implements RangedAttackMo
         Snowball snowball = new Snowball(this.level, this);
         Vec3 vec3 = p_33317_.getDeltaMovement();
         double d0 = p_33317_.getX() + vec3.x - this.getX();
-        double d1 = p_33317_.getEyeY() - (double)1.1F - this.getY();
+        double d1 = p_33317_.getY() + vec3.y  - this.getEyeY();
         double d2 = p_33317_.getZ() + vec3.z - this.getZ();
         double d3 = Math.sqrt(d0 * d0 + d2 * d2);
         snowball.setXRot(snowball.getXRot() - -20.0F);

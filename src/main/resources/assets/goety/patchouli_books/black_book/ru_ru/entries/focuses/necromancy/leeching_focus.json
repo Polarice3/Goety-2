@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/leeching_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/necro_staff)некро-посоха$() накладывает на жертву слабость."
     }
   ],
   "extra_recipe_mappings": {

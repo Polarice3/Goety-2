@@ -29,9 +29,9 @@ public class MagicSmokeParticle extends TextureSheetParticle {
         this.friction = 0.96F;
         this.gravity = -0.1F;
         this.speedUpWhenYMotionIsBlocked = true;
-        this.xd = (this.random.nextDouble() * 2 - 1) / 10;
-        this.yd = 0.1D + this.random.nextDouble() / 10;
-        this.zd = (this.random.nextDouble() * 2 - 1) / 10;
+        this.xd = xd == 0.0D ? (this.random.nextDouble() * 2 - 1) / 10 : xd;
+        this.yd = yd == 0.0D ? 0.1D + this.random.nextDouble() / 10 : yd;
+        this.zd = zd == 0.0D ? (this.random.nextDouble() * 2 - 1) / 10 : zd;
         this.xd *= 0.5F;
         this.zd *= 0.5F;
         this.colorFrom = colorFrom;
