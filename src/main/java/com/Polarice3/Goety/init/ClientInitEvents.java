@@ -91,56 +91,56 @@ public class ClientInitEvents {
             Sheets.addWoodType(ModWoodType.ROTTEN);
             Sheets.addWoodType(ModWoodType.WINDSWEPT);
             Sheets.addWoodType(ModWoodType.PINE);
-        });
 
-        ItemProperties.register(ModItems.TOTEM_OF_SOULS.get(), new ResourceLocation("souls"),
-                (stack, world, living, seed) -> ((float) ITotem.currentSouls(stack)) / ITotem.maximumSouls(stack));
-        ItemProperties.register(ModItems.TOTEM_OF_SOULS.get(), new ResourceLocation("activated"),
-                (stack, world, living, seed) -> TotemOfSouls.isActivated(stack) ? 1.0F : 0.0F);
-        ItemProperties.register(ModItems.FLAME_CAPTURE.get(), new ResourceLocation("capture"),
-                (stack, world, living, seed) -> FlameCaptureItem.hasEntity(stack) ? 1.0F : 0.0F);
-        ItemProperties.register(ModItems.SOUL_JAR.get(), new ResourceLocation("type"),
-                (stack, world, living, seed) -> SoulJar.isDrowned(stack) ? 1.0F : SoulJar.isWither(stack) ? 2.0F : SoulJar.isCairn(stack) ? 3.0F : 0.0F);
-        ItemProperties.register(ModItems.TAGLOCK_KIT.get(), new ResourceLocation("tagged"),
-                (stack, world, living, seed) -> TaglockKit.hasEntity(stack) ? 1.0F : 0.0F);
-        ItemProperties.register(ModItems.WAYSTONE.get(), new ResourceLocation("store"),
-                (stack, world, living, seed) -> WaystoneItem.hasBlock(stack) ? 1.0F : 0.0F);
-        ItemProperties.register(ModItems.ARCA_COMPASS.get(), new ResourceLocation("angle")
-                , new CompassItemPropertyFunction((p_234992_, p_234993_, p_234994_) -> {
-                    return ArcaCompassItem.getArcaPosition(p_234993_.getOrCreateTag());
-                }));
-        ItemProperties.register(ModItems.HUNTERS_BOW.get(), new ResourceLocation("pull"),
-                (stack, world, living, seed) -> {
-                    if (living == null) {
-                        return 0.0F;
-                    } else {
-                        return living.getUseItem() != stack ? 0.0F : (float)(stack.getUseDuration() - living.getUseItemRemainingTicks()) / 20;
-                    }
-                });
-        ItemProperties.register(ModItems.HUNTERS_BOW.get(), new ResourceLocation("pulling")
-                , (stack, world, living, seed) -> living != null && living.isUsingItem() && living.getUseItem() == stack ? 1.0F : 0.0F);
-        /*ItemProperties.register(ModItems.REVOLVER_CROSSBOW.get(), new ResourceLocation("pull")
-                , (stack, world, living, seed) -> {
-            if (living == null) {
-                return 0.0F;
-            } else {
-                return RevolverCrossbowItem.isCharged(stack) ? 0.0F : (float)(stack.getUseDuration() - living.getUseItemRemainingTicks()) / (float)RevolverCrossbowItem.getChargeDuration(stack);
-            }
+            ItemProperties.register(ModItems.TOTEM_OF_SOULS.get(), new ResourceLocation("souls"),
+                    (stack, world, living, seed) -> ((float) ITotem.currentSouls(stack)) / ITotem.maximumSouls(stack));
+            ItemProperties.register(ModItems.TOTEM_OF_SOULS.get(), new ResourceLocation("activated"),
+                    (stack, world, living, seed) -> TotemOfSouls.isActivated(stack) ? 1.0F : 0.0F);
+            ItemProperties.register(ModItems.FLAME_CAPTURE.get(), new ResourceLocation("capture"),
+                    (stack, world, living, seed) -> FlameCaptureItem.hasEntity(stack) ? 1.0F : 0.0F);
+            ItemProperties.register(ModItems.SOUL_JAR.get(), new ResourceLocation("type"),
+                    (stack, world, living, seed) -> SoulJar.isDrowned(stack) ? 1.0F : SoulJar.isWither(stack) ? 2.0F : SoulJar.isCairn(stack) ? 3.0F : 0.0F);
+            ItemProperties.register(ModItems.TAGLOCK_KIT.get(), new ResourceLocation("tagged"),
+                    (stack, world, living, seed) -> TaglockKit.hasEntity(stack) ? 1.0F : 0.0F);
+            ItemProperties.register(ModItems.WAYSTONE.get(), new ResourceLocation("store"),
+                    (stack, world, living, seed) -> WaystoneItem.hasBlock(stack) ? 1.0F : 0.0F);
+            ItemProperties.register(ModItems.ARCA_COMPASS.get(), new ResourceLocation("angle")
+                    , new CompassItemPropertyFunction((p_234992_, p_234993_, p_234994_) -> {
+                        return ArcaCompassItem.getArcaPosition(p_234993_.getOrCreateTag());
+                    }));
+            ItemProperties.register(ModItems.HUNTERS_BOW.get(), new ResourceLocation("pull"),
+                    (stack, world, living, seed) -> {
+                        if (living == null) {
+                            return 0.0F;
+                        } else {
+                            return living.getUseItem() != stack ? 0.0F : (float)(stack.getUseDuration() - living.getUseItemRemainingTicks()) / 20;
+                        }
+                    });
+            ItemProperties.register(ModItems.HUNTERS_BOW.get(), new ResourceLocation("pulling")
+                    , (stack, world, living, seed) -> living != null && living.isUsingItem() && living.getUseItem() == stack ? 1.0F : 0.0F);
+            /*ItemProperties.register(ModItems.REVOLVER_CROSSBOW.get(), new ResourceLocation("pull")
+                    , (stack, world, living, seed) -> {
+                if (living == null) {
+                    return 0.0F;
+                } else {
+                    return RevolverCrossbowItem.isCharged(stack) ? 0.0F : (float)(stack.getUseDuration() - living.getUseItemRemainingTicks()) / (float)RevolverCrossbowItem.getChargeDuration(stack);
+                }
+            });
+            ItemProperties.register(ModItems.REVOLVER_CROSSBOW.get(), new ResourceLocation("pulling")
+                    , (stack, world, living, seed) -> living != null && living.isUsingItem() && living.getUseItem() == stack && !RevolverCrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
+            ItemProperties.register(ModItems.REVOLVER_CROSSBOW.get(), new ResourceLocation("charged")
+                    , (stack, world, living, seed) -> RevolverCrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
+            ItemProperties.register(ModItems.REVOLVER_CROSSBOW.get(), new ResourceLocation("firework")
+                    , (stack, world, living, seed) -> RevolverCrossbowItem.isCharged(stack) && RevolverCrossbowItem.containsChargedProjectile(stack, Items.FIREWORK_ROCKET) ? 1.0F : 0.0F);*/
+            ItemProperties.register(ModItems.CALL_FOCUS.get(), new ResourceLocation("active")
+                    , (stack, world, living, seed) -> CallFocus.hasSummon(stack) ? 1.0F : 0.0F);
+            ItemProperties.register(ModItems.TROOP_FOCUS.get(), new ResourceLocation("active")
+                    , (stack, world, living, seed) -> TroopFocus.hasSummonType(stack) ? 1.0F : 0.0F);
+            ItemProperties.register(ModItems.RECALL_FOCUS.get(), new ResourceLocation("active")
+                    , (stack, world, living, seed) -> RecallFocus.hasRecall(stack) ? 1.0F : 0.0F);
+            ItemProperties.register(ModItems.INFERNAL_TOME.get(), new ResourceLocation("active")
+                    , (stack, world, living, seed) -> living != null && living.isUsingItem() && (living.getUseItem() == stack || InfernalTome.isChanting(stack)) ? 1.0F : 0.0F);
         });
-        ItemProperties.register(ModItems.REVOLVER_CROSSBOW.get(), new ResourceLocation("pulling")
-                , (stack, world, living, seed) -> living != null && living.isUsingItem() && living.getUseItem() == stack && !RevolverCrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
-        ItemProperties.register(ModItems.REVOLVER_CROSSBOW.get(), new ResourceLocation("charged")
-                , (stack, world, living, seed) -> RevolverCrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
-        ItemProperties.register(ModItems.REVOLVER_CROSSBOW.get(), new ResourceLocation("firework")
-                , (stack, world, living, seed) -> RevolverCrossbowItem.isCharged(stack) && RevolverCrossbowItem.containsChargedProjectile(stack, Items.FIREWORK_ROCKET) ? 1.0F : 0.0F);*/
-        ItemProperties.register(ModItems.CALL_FOCUS.get(), new ResourceLocation("active")
-                , (stack, world, living, seed) -> CallFocus.hasSummon(stack) ? 1.0F : 0.0F);
-        ItemProperties.register(ModItems.TROOP_FOCUS.get(), new ResourceLocation("active")
-                , (stack, world, living, seed) -> TroopFocus.hasSummonType(stack) ? 1.0F : 0.0F);
-        ItemProperties.register(ModItems.RECALL_FOCUS.get(), new ResourceLocation("active")
-                , (stack, world, living, seed) -> RecallFocus.hasRecall(stack) ? 1.0F : 0.0F);
-        ItemProperties.register(ModItems.INFERNAL_TOME.get(), new ResourceLocation("active")
-                , (stack, world, living, seed) -> living != null && living.isUsingItem() && (living.getUseItem() == stack || InfernalTome.isChanting(stack)) ? 1.0F : 0.0F);
 
         copyOldArtIfMissing();
     }
