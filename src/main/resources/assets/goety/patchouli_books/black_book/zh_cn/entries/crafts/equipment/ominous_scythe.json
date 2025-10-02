@@ -13,7 +13,21 @@
     },
     {
       "type": "patchouli:text",
-      "text": "镰刀可以在铁砧上用 $(l:intro/magical_components)诅咒金属锭$()修复，但是别忘记了，它本质依然是把大镰刀，也可以用作清除杂草或大面积收割作物的工具，它甚至可以不用精准采集直接采集到幽匿块。"
+      "text": "镰刀可以在铁砧上$(l:intro/magical_components)诅咒金属锭$()修复。它也可以用作清除大面积杂草或收割作物的工具，或者在没有精准采集的情况下收集幽匿方块。"
+    },
+    {
+      "type": "goety:ritual",
+      "advancement": "goety:goety/craft_necro_brazier",
+      "recipe": "goety:dark/dark_metal_scythe"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/craft_necro_brazier",
+      "text": "不详镰刀的升级版, 具有和其他$(l:crafts/dark_alloy_ingot)黑暗合金$()工具想等的等级。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:dark_scythe": 1,
+    "goety:dark_metal_scythe": 3
+  }
 }

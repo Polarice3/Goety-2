@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.effects.brew.block;
 
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
 import com.Polarice3.Goety.common.magic.spells.geomancy.PulverizeSpell;
+import com.Polarice3.Goety.config.BrewConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -10,7 +11,7 @@ import net.minecraft.world.level.Level;
 
 public class PulverizeBlockEffect extends BrewEffect {
     public PulverizeBlockEffect() {
-        super("pulverize", 25, 2, MobEffectCategory.NEUTRAL, 0xbae633);
+        super("pulverize", BrewConfig.PulverizeCost.get(), 2, MobEffectCategory.NEUTRAL, 0xbae633);
     }
 
     @Override

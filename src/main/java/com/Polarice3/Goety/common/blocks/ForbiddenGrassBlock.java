@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.lighting.BlockLightEngine;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraftforge.common.ForgeMod;
 
 import javax.annotation.Nullable;
 
@@ -33,7 +34,7 @@ public class ForbiddenGrassBlock extends SnowyDirtBlock implements EntityBlock {
         BlockState blockstate = pLevelReader.getBlockState(blockpos);
         if (blockstate.is(Blocks.SNOW) && blockstate.getValue(SnowLayerBlock.LAYERS) == 1) {
             return true;
-        } else if (blockstate.getFluidState().getAmount() == 8) {
+        } else if (blockstate.getFluidState().getAmount() == 8 && blockstate.getFluidState().getType().getFluidType() != ForgeMod.WATER_TYPE.get()) {
             return false;
         } else {
             int i = BlockLightEngine.getLightBlockInto(pLevelReader, pState, pPos, blockstate, blockpos, Direction.UP, blockstate.getLightBlock(pLevelReader, blockpos));

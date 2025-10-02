@@ -10,6 +10,10 @@
     "goety:lofty_chest",
     "goety:end_soil",
     "goety:chorus_sapling",
-    "goety:reinforced_redstone_block"
+    "goety:reinforced_redstone_block",
+    "goety:void_spawner",
+    "goety:void_vault",
+    "goety:void_frame",
+    "goety:void_shrine"
   ]
 }

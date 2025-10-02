@@ -1,0 +1,33 @@
+{
+  "name": "末影守望者",
+  "icon": "goety:void_shrine",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_an_ender_keeper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "一个末地的强大实体，被召唤来守护维度和虚空的秘密。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:ender_keeper",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "该生物娴熟驾驭剑术与虚空魔法，会用其巨大的虚空之刃刺穿敌人，并召唤追踪目标的虚空法球。它的所有攻击都会施加虚空侵蚀效果。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "面对末影守望者最忌近身缠斗。善用$(l:goety:focuses/wind/launch_focus)发射$()与$(l:goety:focuses/wild/grapple_focus)抓钩$()等位移法术周旋。特别注意：当你召唤仆从助战时，守护者会将所有邻近生物扯至身前，汲取生命充盈自身，随后引爆吞噬一切的虚空能量。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:shrouded_blueprint",
+      "text": "当它终于被杀死时，末影神龛将会揭示它的宝藏，一个神秘的蓝图......在黑暗魔法的帮助下，它将揭示其内容."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shrouded_blueprint": 4
+  }
+}

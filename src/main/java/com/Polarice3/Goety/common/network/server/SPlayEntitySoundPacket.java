@@ -1,14 +1,15 @@
 package com.Polarice3.Goety.common.network.server;
 
+import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.utils.EntityFinder;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
-import net.minecraftforge.network.NetworkDirection;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Supplier;
 
@@ -38,13 +39,12 @@ public class SPlayEntitySoundPacket {
 
     public static void consume(SPlayEntitySoundPacket packet, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            if (ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
-                ClientLevel clientWorld = Minecraft.getInstance().level;
-                if (clientWorld != null) {
-                    Entity entity = EntityFinder.getEntityByUuiDGlobal(packet.entity).get();
-                    if (entity != null) {
-                        clientWorld.playLocalSound(entity.blockPosition(), packet.soundEvent, entity.getSoundSource(), packet.volume, packet.pitch, false);
-                    }
+            Level level = Goety.PROXY.getLevel();
+            if (level instanceof ClientLevel clientWorld) {
+                Optional<? extends Entity> optionalEntity = EntityFinder.getEntityByUuiDGlobal(packet.entity);
+                if (optionalEntity.isPresent()){
+                    Entity entity = optionalEntity.get();
+                    clientWorld.playLocalSound(entity.blockPosition(), packet.soundEvent, entity.getSoundSource(), packet.volume, packet.pitch, false);
                 }
             }
         });

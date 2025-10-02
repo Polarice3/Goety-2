@@ -1,0 +1,23 @@
+{
+  "name": "Ominous Staff",
+  "icon": "goety:ominous_staff",
+  "category": "goety:crafts/staff",
+  "advancement": "goety:goety/kill_a_minister",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "After killing those high ranking $(l:world/bestiary/minister)illagers$(), you've managed to procure their powerful orb and use it to make a replica of their staff."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Ominous Staff powers up certain magical spells. Vexing, Biting, Feasting, Shredding, Sword and Teeth spells to be precise. Casting Rotting and Osseous spells summons undead illagers instead."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ominous_staff": 1
+  }
+}

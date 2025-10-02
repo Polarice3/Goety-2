@@ -17,10 +17,10 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -29,9 +29,9 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 public class VexSpell extends SummonSpell {
-    private final TargetingConditions vexCountTargeting = TargetingConditions.DEFAULT.range(16.0D).ignoreInvisibilityTesting();
 
     public int defaultSoulCost() {
         return SpellConfig.VexCost.get();
@@ -73,11 +73,13 @@ public class VexSpell extends SummonSpell {
     }
 
     @Override
-    public boolean conditionsMet(ServerLevel worldIn, LivingEntity caster) {
-        if (caster instanceof Mob){
-            return SpellConfig.WandVexLimit.get() > this.VexLimit(caster);
-        }
-        return super.conditionsMet(worldIn, caster);
+    public int summonLimit() {
+        return SpellConfig.VexLimit.get();
+    }
+
+    @Override
+    public Predicate<LivingEntity> summonPredicate() {
+        return livingEntity -> livingEntity instanceof AllyVex;
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity caster){
@@ -121,13 +123,7 @@ public class VexSpell extends SummonSpell {
                 vexentity.moveTo(blockpos, 0.0F, 0.0F);
                 vexentity.finalizeSpawn(worldIn, caster.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                 vexentity.setBoundOrigin(blockpos);
-                int limit = rightStaff(staff) ? SpellConfig.StaffVexLimit.get() : SpellConfig.WandVexLimit.get();
-                if (limit > VexLimit(caster)) {
-                    vexentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
-                } else {
-                    vexentity.setLimitedLife(1);
-                    vexentity.addEffect(new MobEffectInstance(MobEffects.WITHER, 800, 1));
-                }
+                vexentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
                 if (potency > 0) {
                     Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(vexentity.getMainHandItem());
                     map.putIfAbsent(Enchantments.SHARPNESS, potency);
@@ -142,9 +138,5 @@ public class VexSpell extends SummonSpell {
             this.playSound(worldIn, caster, SoundEvents.EVOKER_CAST_SPELL);
             this.SummonDown(caster);
         }
-    }
-
-    public int VexLimit(LivingEntity entityLiving){
-        return entityLiving.level.getNearbyEntities(AllyVex.class, this.vexCountTargeting, entityLiving, entityLiving.getBoundingBox().inflate(16.0D)).size();
     }
 }

@@ -25,6 +25,11 @@ import java.util.List;
 public class ChillHideSpell extends Spell {
 
     @Override
+    public SpellStat defaultStats() {
+        return super.defaultStats().setDuration(1);
+    }
+
+    @Override
     public int defaultSoulCost() {
         return SpellConfig.ChillingCost.get();
     }
@@ -70,16 +75,16 @@ public class ChillHideSpell extends Spell {
         AABB aabb = caster.getBoundingBox().inflate(4.0D);
         if (isShifting(caster) && target != null){
             if (MobUtil.areAllies(target, caster)){
-                target.addEffect(new MobEffectInstance(GoetyEffects.CHILL_HIDE.get(), MathHelper.secondsToTicks(45 + duration), potency));
+                target.addEffect(new MobEffectInstance(GoetyEffects.CHILL_HIDE.get(), MathHelper.secondsToTicks(45 * duration), potency));
                 aabb = target.getBoundingBox().inflate(4.0D);
             }
         } else {
-            caster.addEffect(new MobEffectInstance(GoetyEffects.CHILL_HIDE.get(), MathHelper.secondsToTicks(45 + duration), potency));
+            caster.addEffect(new MobEffectInstance(GoetyEffects.CHILL_HIDE.get(), MathHelper.secondsToTicks(45 * duration), potency));
         }
         if (this.rightStaff(staff)){
             for (LivingEntity livingEntity : worldIn.getEntitiesOfClass(LivingEntity.class, aabb)) {
                 if (MobUtil.areAllies(livingEntity, caster) && livingEntity != caster) {
-                    livingEntity.addEffect(new MobEffectInstance(GoetyEffects.CHILL_HIDE.get(), MathHelper.secondsToTicks(45 + duration), potency));
+                    livingEntity.addEffect(new MobEffectInstance(GoetyEffects.CHILL_HIDE.get(), MathHelper.secondsToTicks(45 * duration), potency));
                 }
             }
         }

@@ -9,6 +9,7 @@ import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.compat.serene_seasons.SSeasonsIntegration;
 import com.Polarice3.Goety.compat.serene_seasons.SSeasonsLoaded;
 import com.Polarice3.Goety.config.SpellConfig;
+import com.Polarice3.Goety.init.ModAttributes;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.ColorUtil;
@@ -42,17 +43,12 @@ public interface ISpell {
 
     int defaultSoulCost();
 
-    @Deprecated(forRemoval = true)
-    default int soulCost(LivingEntity caster){
-        return ISpell.this.soulCost(caster, ItemStack.EMPTY);
-    }
-
     default int soulCost(LivingEntity caster, ItemStack staff){
         return SoulCalculation(caster);
     }
 
     default int SoulCalculation(LivingEntity caster){
-        int cost = defaultSoulCost() * SoulCostUp(caster);
+        float cost = defaultSoulCost() * SoulCostUp(caster);
         BlockPos blockPos = caster.blockPosition();
         Level level = caster.level;
         Holder<Biome> biomeHolder = level.getBiome(blockPos);
@@ -178,22 +174,19 @@ public interface ISpell {
                 }
             }
         }
-        return cost;
+        cost *= (float) ModAttributes.getSoulDiscount(caster);
+        return (int) cost;
     }
 
     int defaultCastDuration();
 
-    @Deprecated(forRemoval = true)
-    default int castDuration(LivingEntity caster){
-        return ISpell.this.castDuration(caster, ItemStack.EMPTY);
-    }
-
     default int castDuration(LivingEntity caster, ItemStack staff){
+        double duration = defaultCastDuration();
         if (ReduceCastTime(caster)){
-            return defaultCastDuration() / 2;
-        } else {
-            return defaultCastDuration();
+            duration /= 2;
         }
+        duration *= ModAttributes.getCastingSpeed(caster);
+        return (int) duration;
     }
 
     @Nullable
@@ -216,19 +209,19 @@ public interface ISpell {
 
     int defaultSpellCooldown();
 
+    @Deprecated
     default int spellCooldown(){
         return defaultSpellCooldown();
+    }
+
+    default int spellCooldown(LivingEntity caster){
+        return (int) (defaultSpellCooldown() * ModAttributes.getCooldownDiscount(caster));
     }
 
     default void startSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
     }
 
     default void useSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, int castTime, SpellStat spellStat) {
-    }
-
-    @Deprecated(forRemoval = true)
-    default void stopSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, int useTimeRemaining) {
-        stopSpell(worldIn, caster, staff, ItemStack.EMPTY, this.castDuration(caster, staff) - useTimeRemaining, this.defaultStats());
     }
 
     default void stopSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, ItemStack focus, int castTime, SpellStat spellStat) {
@@ -336,7 +329,7 @@ public interface ISpell {
 
     default int SoulCostUp(LivingEntity caster){
         MobEffectInstance mobEffectInstance = summonDownEffect(caster);
-        if (mobEffectInstance != null){
+        if (mobEffectInstance != null && this instanceof ISummonSpell){
             return mobEffectInstance.getAmplifier() + 2;
         }
         return 1;

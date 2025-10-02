@@ -68,11 +68,11 @@ public class WallGraveGolemSkullBlock extends BaseEntityBlock {
     }
 
     public void playerDestroy(Level pLevel, Player pPlayer, BlockPos pPos, BlockState pState, @Nullable BlockEntity pTe, ItemStack pStack) {
-        ModBlocks.REDSTONE_GOLEM_SKULL_BLOCK.get().playerDestroy(pLevel, pPlayer, pPos, pState, pTe, pStack);
+        ModBlocks.GRAVE_GOLEM_SKULL_BLOCK.get().playerDestroy(pLevel, pPlayer, pPos, pState, pTe, pStack);
     }
 
     public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
-        ModBlocks.REDSTONE_GOLEM_SKULL_BLOCK.get().setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
+        ModBlocks.GRAVE_GOLEM_SKULL_BLOCK.get().setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
     }
 
     public String getDescriptionId() {

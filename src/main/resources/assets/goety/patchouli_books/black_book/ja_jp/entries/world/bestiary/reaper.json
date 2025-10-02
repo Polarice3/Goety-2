@@ -11,6 +11,15 @@
     {
       "type": "patchouli:entity",
       "entity": "goety:reaper"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:grave_dust",
+      "title": "リーパーは、ネクロマンシー系の作成に役立つグレイブダストをドロップする可能性があります。",
+      "text": ""
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:grave_dust": 2
+  }
 }

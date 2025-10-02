@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#S",
+    "S#"
+  ],
+  "key": {
+    "#": {
+      "item": "goety:windswept_plank_wall"
+    },
+    "S":
+    {
+      "item": "minecraft:snowball"
+    }
+  },
+  "result": {
+    "item": "goety:snowy_windswept_plank_wall",
+    "count": 2
+  }
+}

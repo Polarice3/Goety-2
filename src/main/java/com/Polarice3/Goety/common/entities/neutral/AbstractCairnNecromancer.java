@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.entities.ally.undead.ReaperServant;
 import com.Polarice3.Goety.common.entities.ally.undead.WraithServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonServant;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.StrayServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.VanguardServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.BlackguardServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
@@ -91,7 +92,7 @@ public class AbstractCairnNecromancer extends AbstractNecromancer{
         }
         if (this.getSummonList().stream().anyMatch(entityType -> entityType.is(ModTags.EntityTypes.SKELETON_SERVANTS))) {
             if (this.level.random.nextBoolean()) {
-                summoned = new SkeletonServant(ModEntityType.STRAY_SERVANT.get(), this.level);
+                summoned = new StrayServant(ModEntityType.STRAY_SERVANT.get(), this.level);
             }
         }
         if (this.getSummonList().contains(ModEntityType.WRAITH_SERVANT.get())) {
@@ -125,7 +126,7 @@ public class AbstractCairnNecromancer extends AbstractNecromancer{
     public class SummonServantSpell extends SummoningSpellGoal {
 
         public boolean canUse() {
-            Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof IOwned owned && owned.getTrueOwner() instanceof AbstractNecromancer;
+            Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof IOwned owned && owned.getTrueOwner() == AbstractCairnNecromancer.this;
             int i = AbstractCairnNecromancer.this.level.getEntitiesOfClass(LivingEntity.class, AbstractCairnNecromancer.this.getBoundingBox().inflate(64.0D, 16.0D, 64.0D)
                     , predicate).size();
             return super.canUse() && i < 6;

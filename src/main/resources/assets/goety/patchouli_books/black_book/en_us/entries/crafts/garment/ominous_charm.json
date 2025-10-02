@@ -1,0 +1,23 @@
+{
+  "name": "Ominous Charm",
+  "icon": "goety:ominous_charm",
+  "category": "goety:crafts/garment",
+  "advancement": "minecraft:adventure/voluntary_exile",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "When killing a Patrol Captain, you'll always get cursed with Bad Omen, which can be useful at times, but annoying and detrimental as well. After some research, you've devise a charm that absorbs the dying curse of the captain, sparing you the effect, even if the charm has reached level 5 its maximum level."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Not only that, if you currently have the Bad Omen on you, right-clicking with the charm, or pressing the Activate Curio key if equipped, will absorb it. Should you wish to be afflicted with Bad Omen within the charm, simply right-click with it, or press the Activate Curio key if equipped, if you don't currently have the effect on."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_charm"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ominous_charm": 1
+  }
+}

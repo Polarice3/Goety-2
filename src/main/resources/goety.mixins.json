@@ -11,6 +11,7 @@
     "BaseFireBlockMixin",
     "ChorusFlowerBlockMixin",
     "ChorusPlantBlockMixin",
+    "EnchantmentMixin",
     "EnchantRandomlyFunctionMixin",
     "EnderDragonMixin",
     "EntityMixin",
@@ -20,11 +21,13 @@
     "ItemEntityMixin",
     "LivingEntityMixin",
     "MobAccessor",
+    "RaiderMixin",
     "RaidMixin",
     "SensorMixin",
     "SlimePredicateMixin",
     "StructureProcessorAccessor",
-    "StructureTemplateMixin"
+    "StructureTemplateMixin",
+    "VillagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

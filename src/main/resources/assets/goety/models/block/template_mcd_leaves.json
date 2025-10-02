@@ -6,7 +6,7 @@
 		"2": "#leaves",
 		"particle": "#leaves"
 	},
-	"render_type": "cutout_mipped",
+	"render_type": "cutout",
 	"elements": [
 		{
 			"from": [0, 0, 0],

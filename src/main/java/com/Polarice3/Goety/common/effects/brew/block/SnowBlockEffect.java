@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.effects.brew.block;
 
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
+import com.Polarice3.Goety.config.BrewConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -15,7 +16,7 @@ import javax.annotation.Nullable;
 
 public class SnowBlockEffect extends BrewEffect {
     public SnowBlockEffect() {
-        super("snow", MobEffectCategory.NEUTRAL, 0xffffff);
+        super("snow", BrewConfig.SnowyCost.get(), MobEffectCategory.NEUTRAL, 0xffffff);
     }
 
     @Override

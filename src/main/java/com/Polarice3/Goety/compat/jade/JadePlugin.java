@@ -36,6 +36,7 @@ public class JadePlugin implements IWailaPlugin {
         registration.registerEntityDataProvider(SummonGrowthProvider.INSTANCE, AnimalSummon.class);
         registration.registerEntityDataProvider(SummonGrowthProvider.INSTANCE, Neollager.class);
         registration.registerEntityDataProvider(RaiderLeaderProvider.INSTANCE, RaiderServant.class);
+        registration.registerEntityDataProvider(RaiderCaptureProvider.INSTANCE, RaiderServant.class);
         registration.registerEntityDataProvider(ServantModeProvider.INSTANCE, Summoned.class);
         registration.registerEntityDataProvider(ServantModeProvider.INSTANCE, AbstractSpiderServant.class);
         registration.registerEntityDataProvider(TrainableProvider.INSTANCE, Owned.class);
@@ -58,6 +59,7 @@ public class JadePlugin implements IWailaPlugin {
         registration.registerEntityComponent(MobGrowthProvider.INSTANCE, AnimalSummon.class);
         registration.registerEntityComponent(MobGrowthProvider.INSTANCE, Neollager.class);
         registration.registerEntityComponent(RaiderLeaderProvider.INSTANCE, RaiderServant.class);
+        registration.registerEntityComponent(RaiderCaptureProvider.INSTANCE, RaiderServant.class);
         registration.registerEntityComponent(ServantModeProvider.INSTANCE, Summoned.class);
         registration.registerEntityComponent(ServantModeProvider.INSTANCE, AbstractSpiderServant.class);
         registration.registerEntityComponent(TrainableProvider.INSTANCE, Owned.class);

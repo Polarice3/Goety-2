@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.effects.brew.block;
 
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
+import com.Polarice3.Goety.config.BrewConfig;
 import com.Polarice3.Goety.utils.BlockFinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -11,7 +12,7 @@ import net.minecraft.world.level.block.LeavesBlock;
 
 public class LeafShellBlockEffect extends BrewEffect {
     public LeafShellBlockEffect() {
-        super("leaf_shell", MobEffectCategory.NEUTRAL, 0x286240);
+        super("leaf_shell", BrewConfig.LeafShellCost.get(), MobEffectCategory.NEUTRAL, 0x286240);
     }
 
     @Override

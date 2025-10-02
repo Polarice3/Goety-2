@@ -1,0 +1,6 @@
+{
+	"parent": "goety:block/template_idol_top",
+	"textures": {
+		"idol": "goety:block/ominous_idol_active"
+	}
+}

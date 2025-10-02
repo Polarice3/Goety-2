@@ -180,7 +180,7 @@ public class RedstoneMonstrosityHeadBlock extends BaseEntityBlock {
     private BlockPattern getOrCreateRedstoneMonstrosityBase() {
         if (this.redstoneMonstrosityBase == null) {
             this.redstoneMonstrosityBase = BlockPatternBuilder.start()
-                    .aisle("~~~ ~~~", "###H###", "#######", "~#####~", "~~DDD~~")
+                    .aisle("~~~ ~~~", "D#####D", "###H###", "~#####~", "~##D##~")
                     .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.REDSTONE_BLOCK)))
                     .where('H', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.REINFORCED_REDSTONE_BLOCK.get())))
                     .where('D', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.DIAMOND_MOLD_BLOCK.get())))
@@ -195,7 +195,7 @@ public class RedstoneMonstrosityHeadBlock extends BaseEntityBlock {
     private BlockPattern getOrCreateRedstoneMonstrosityFull() {
         if (this.redstoneMonstrosityFull == null) {
             this.redstoneMonstrosityFull = BlockPatternBuilder.start()
-                    .aisle("~~~^~~~", "###H###", "#######", "~#####~", "~~DDD~~")
+                    .aisle("~~~^~~~", "D#####D", "###H###", "~#####~", "~##D##~")
                     .where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.REDSTONE_MONSTROSITY_HEAD_BLOCK.get())
                             .or(BlockStatePredicate.forBlock(ModBlocks.WALL_REDSTONE_MONSTROSITY_HEAD_BLOCK.get()))))
                     .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.REDSTONE_BLOCK)))

@@ -6,11 +6,11 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "あなたのビールに効果を与える触媒がここにあります。 お気づきかもしれませんが、これらの効果の中には馴染みのないものもあり、それらの効果のほとんどは古き良き魔女の醸造に限定されています。"
+      "text": "醸造物に効果を与える触媒を紹介するよ！気づいたかもしれないけど、これらの効果の中には馴染みのないものがあって、ほとんどは古き良き大釜醸造特有のものです！"
     },
     {
       "type": "patchouli:text",
-      "text": "でも心配しないでください。 今日は気分がいいので、おばあちゃんが彼らの一部が何をしているのか説明します！ ああ、これらの効果の中には 1 つ以上の容量を必要とするものもあるため、作成する際にはそれも注意する必要があります。 ふははは！"
+      "text": "でもご心配なく！今日は気分がいいので、おばあちゃんがいくつか効果を説明するわ！触媒がスポーンエッグなら、そのエッグから生まれたものを大釜で煮るだけよ！あ、あと、効果の中には1以上の容量を使うものもあるから、醸造の時はそれも注意して！ハハハ！"
     },
     {
       "type": "goety:catalyst",
@@ -19,22 +19,22 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.arrowmantic",
-      "text": "あの矢印は確かに迷惑です！ ここ！ 今度は、その矢があなたをいらいらさせるでしょう！ ハハハッハッハ！"
+      "text": "あの矢は本当にうっとうしい！ほら！今度はあなたがあの矢にイライラさせられるわよ！ハハハハ！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.bats",
-      "text": "私のかわいいものを飛ばしてください！ 飛んで敵の顔を食べましょう！"
+      "text": "可愛い子たちよ、飛んでいきなさい！飛んで敵の顔を食べなさい！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.bees",
-      "text": "ブンブンブンブンと音を立て、飛び交うゴロゴロと音を立て、敵を刺す!"
+      "text": "ブンブンという音、ゴロゴロという音、飛んでくる音、私の敵を刺して！私のつま先を甘くする！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.blind_jump",
-      "text": "影響を受けた人をランダムな場所にテレポートします。 レベルが高いほど、より遠くまでテレポートできます。"
+      "text": "効果を受けた対象をランダムな場所へテレポートします。レベルが上がるほど、より遠くまでテレポートできます！"
     },
     {
       "type": "goety:catalyst",
@@ -42,13 +42,18 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.bottling",
+      "text": "より上手に醸造できるように醸造して、より上手に醸造しましょう!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.brew_dye",
-      "text": "ビールの色を、投入した染料に変えます。 ただし注意してください！ 触媒や染料を追加すると色が変わります！"
+      "text": "投入した染料に応じて、ブリューの色が変化します！だけど、他の触媒や染料を追加すると色が変わるので注意してください！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.chop_tree",
-      "text": "石の斧で、ビールをキャストしました！ 木を見たら、それは私が切った木だ！"
+      "text": "石の斧で、私はブリューを唱える！木が見えた、そしてそれは私が切り出す木材だ！"
     },
     {
       "type": "goety:catalyst",
@@ -57,22 +62,22 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.combust",
-      "text": "火をつけろ！ ハハハハハ!"
+      "text": "燃えろ！アハハハハ！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.corpse_eater",
-      "text": "敵の断末魔の叫び声と広がりをお楽しみください。"
+      "text": "敵を倒した時の、最期を堪能したいと思ったことはない？今ならそれができます！しかもおいしい！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.corrosion",
-      "text": "それらのブロックが見えますか? もう（黒曜石でない限り）それはありません! あなたの鎧を見てみると、もう少しダメージがあるかもしれないと思います! ハハハッハッハ！"
+      "text": "あのブロックが見えますか？もう見えません（黒曜石なら別ですが）！鎧が見えますが、もう少しダメージがあってもよかったと思います！ハハハハ！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.cursed",
-      "text": "あなたに呪いがかかっています！ あなたに癒しはありません！ 私はあなたと韻を踏んだだけです！ 何をするつもりですか？"
+      "text": "呪いをかけてやる！治癒は無し！君と韻を踏んだだけなのに！どうするつもり？"
     },
     {
       "type": "goety:catalyst",
@@ -80,38 +85,53 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.deflective",
+      "text": "発射物をブロックする？撃ち返しなよ！"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.drought",
-      "text": "水が多すぎる！ このビールには水はありません！"
+      "text": "水が多すぎます！このブリューで水がなくなります！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.ender_ground",
-      "text": "エンダーマンに斬られたり水をかけられても消えないように教えます!"
+      "text": "エンダーマンに、斬られたり水しぶきを浴びても消えないように教えよう！"
+    },
+    {
+      "type": "goety:sacrifice",
+      "recipe": "effect.goety.ender_flux",
+      "text": "猫が驚くと飛び上がって天井を引っ掻くという昔話、ご存知ですか？でも、もし猫が全く違う場所に飛び移って、顔にナイフを突きつけられたらどうなるでしょうか？"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.evil_eye",
-      "text": "悪魔の輝きはあらゆる人々を魅了し、パーティーに最適です!"
+      "text": "悪魔の輝きはあらゆるモブを魅了し、パーティーに最適です!地獄絵図だ！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.explode",
+      "text": "あそこに家が見えますか？じゃーん！穴があいてるよ！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.explosive",
-      "text": "この効果でモブを傷つけるのは注意してください、ガタースナイプ！ 最後に聞いたのですが、彼らは爆発的な気性を持っているのかもしれません！ ハハハッハッハ！"
+      "text": "この効果でクリーチャーを傷つける時は気を付けろよ、ガタースナイプめ！最近聞いた話だと、奴らはとんでもなく気が荒いらしいぞ！ハハハハ！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.extinguish",
-      "text": "ああ…炎が消えてしまった…"
+      "text": "あぁ…炎が消えた…"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.fertility",
-      "text": "感じていないってどういう意味ですか？ 繁殖に行きましょう！ おばあちゃんは新しい革ブーツを必要としています。"
+      "text": "気が進まないってどういうこと？早く繁殖しなさい！おばあちゃんには新しい革のブーツが必要だわ！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.fiery_aura",
-      "text": "私に近づきすぎないでください！ 私はあなたには暑すぎます！"
+      "text": "私に近づかないで！私はあなたにとって熱すぎるわ！"
     },
     {
       "type": "goety:catalyst",
@@ -119,47 +139,57 @@
     },{
       "type": "goety:catalyst",
       "recipe": "effect.goety.fire_trail",
-      "text": "私のホットブーツを扱えるなら、できれば私を捕まえてください!"
+      "text": "私の熱いブーツを扱えるなら、私を捕まえて！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.flammable",
-      "text": "火はいつもよりずっと激しいです！ まるで草でできているかのようです。"
+      "text": "炎ダメージがいつもよりずっとひどい！まるで草でできているみたい！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.flame_hands",
-      "text": "この手に話しかければ燃え上がるよ！"
+      "text": "この手に話しかけると燃え上がるよ！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.flaying",
-      "text": "動物の皮膚、羽毛、羊毛を引き裂きます。 肉や肉は残りますが、大丈夫だとは思わないでください。 ははは！"
+      "text": "動物の皮、羽、毛を剥ぎ取ります！肉は残りますが、大丈夫とは思えませんよ！ハハハ！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.flimsy",
+      "text": "最も頑強な愚か者さえも風に屈服させる！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.flood",
-      "text": "水が少なすぎる！ このビールには水が入ります！"
+      "text": "水が少なすぎる！この飲み物なら水が出るよ！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.fortunate",
-      "text": "ああ！ ビールを飲むときにエンチャントが必要な人はいないでしょう！ おばあちゃんは追加のダイヤモンドが必要なのですが、ラピスがなくなってしまいました。"
+      "text": "ふん！ブリューがあるならエンチャントなんていらない！おばあちゃんはダイヤモンドが足りないのに、ラピスラズリがもうない！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.freeze",
-      "text": "時々、おばあちゃんは、おばあちゃんが作った凍った池の沼地でスケートをしたいと思っています。"
+      "text": "時々おばあちゃんは、魔女が作った凍った池の沼でスケートをしたいと思うよ！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.freezing",
-      "text": "やあ、子供たちよ！ 雪だるまになりたいですか? ハハハハハ！"
+      "text": "雪だるまにならない？アハハハ！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.frog_leg",
+      "text": "空中からもジャンプできるのに、なぜ地面からジャンプするのでしょうか?"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.frosty_aura",
-      "text": "私に近づきすぎないでください！ 私はあなたには寒すぎます!"
+      "text": "あまり近づかないで！寒すぎるから！"
     },
     {
       "type": "goety:catalyst",
@@ -168,27 +198,32 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.gold_touched",
-      "text": "完全に金ではありませんが、間違いなく彼らを死に至らしめます。"
+      "text": "完全に金色ではありませんが、確かに死んでしまいます!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.gravity_pulse",
+      "text": "おい、恥ずかしがらないで！この手は自分を殴ったりしないぞ！こっちに来て！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.grow_cactus",
-      "text": "我が家の砂浜に緑色の染料がやって来ました！"
+      "text": "我が家のビーチに緑の染料を持ってきました！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.grow_cave_vines",
-      "text": "緑豊かな洞窟の蔓を自分の洞窟に吊るすととてもきれいになります。 残念ながら、これらの蔓は光りません。"
+      "text": "緑豊かな洞窟のつるを自分の洞窟に吊るすと、すごく綺麗になるんだけど！残念ながら、このつるは光らないの！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.growth",
-      "text": "ハーブの成長が遅いときのために！ おばあちゃんは、あなたたち全員に骨粉を与えるつもりはありません！"
+      "text": "ハーブがなかなか育たない時のために！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.grow_tree",
-      "text": "木々に囲まれていない魔女とは何ですか？ 触媒はどんな苗木でも構いません！"
+      "text": "木々に囲まれていない魔女なんて、何なのでしょう？どんな苗木でも触媒として使えます！"
     },
     {
       "type": "goety:catalyst",
@@ -197,7 +232,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.harvest",
-      "text": "バケツの水で種が割れる！ このビールがあれば、地面はその恵みを保持します。"
+      "text": "バケツの水で種を砕く！この飲み物で、地面に栄養が残ります！"
     },
     {
       "type": "goety:catalyst",
@@ -210,12 +245,17 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.infest",
-      "text": "特定の石や石レンガに愛らしいシルバーフィッシュが寄生するようにします!"
+      "text": "特定の石や石レンガに愛らしシルバーフィッシュが大量発生！"
+    },
+    {
+      "type": "goety:sacrifice",
+      "recipe": "effect.goety.infest",
+      "text": "周囲にシルバーフィッシュのついた石がない場合は、大釜でシルバーフィッシュを煮てください！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.insight",
-      "text": "私はもっと賢くなっています！"
+      "text": "私は天才に！"
     },
     {
       "type": "goety:catalyst",
@@ -236,12 +276,17 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.launch",
-      "text": "Up, Up and Away!"
+      "text": "上に！上に！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.leaf_shell",
-      "text": "マッチに火をつけたほうがいいです！ この葉っぱは手で割るのは簡単ではありません。"
+      "text": "マッチに火をつけろ！あの葉っぱは手で簡単には折れないぞ！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.leeching",
+      "text": "拳や棒で悪党を殴れば、その最大体力のほんの一部が回復するよ！"
     },
     {
       "type": "goety:catalyst",
@@ -250,7 +295,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.love",
-      "text": "繁殖の時間です！"
+      "text": "繁殖タイム！"
     },
     {
       "type": "goety:catalyst",
@@ -259,7 +304,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.mossify",
-      "text": "おばあちゃんは時々ラッシュを洞窟から連れ出す必要があります! 苔むした丸石やレンガも！"
+      "text": "おばあちゃんは時々、洞窟から緑豊かなものを持ってきてくれるといいな！あと、苔むした丸石とレンガも！"
     },
     {
       "type": "goety:catalyst",
@@ -276,17 +321,27 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.nyctophobia",
-      "text": "常夜灯を手に入れましょう！ きっと必要になるでしょう！"
+      "text": "みんな、夜のライトを持ってきて！絶対必要になるよ！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.part_lava",
-      "text": "ストライダーを持ってくるのを忘れた。どこかに行くには溶岩湖を分けなければならないようだ！"
+      "text": "ストライダーを連れてくるのを忘れた！溶岩湖をかき分けてどこかへ行かなきゃいけないみたい！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.part_water",
-      "text": "糸紡ぎの刃を家に残してきたので、この海をどうやって渡ればいいのでしょうか? ああ、ビールを持ってきてよかった!"
+      "text": "糸紡ぎの刃を家に置いてきちゃった。さて、どうやって海を渡るんだろう？ああ、ブリューを持ってきてよかった！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.photosynthesis",
+      "text": "愛しい人たち、太陽の光を浴びて！あの火の玉をよく見て！きっと目がくらまないわよ！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.plunge",
+      "text": "おばあちゃんのクッキーをたくさん食べているみたいですね！さあ、もっと食べて！"
     },
     {
       "type": "goety:catalyst",
@@ -295,36 +350,56 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.pressure",
-      "text": "シューシュー音を立てて歩いている低木は不安でいっぱいです。 この影響で事態はさらに悪化します。 ふふはは！"
+      "text": "みんなが変な目で見てる気がする？痛くなくてよかった！でも痛くないかな？ハハハハ！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.pruning",
-      "text": "浮いている落ち葉を私の敷地から追い出してください！"
+      "text": "あの忌々しい浮遊葉を私の敷地から取り除いてください!"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.pulverize",
-      "text": "石から丸石、砂利、砂まで！ 石炭を持ってきて、グラスを作ってください！"
+      "text": "石から丸石、砂利から砂へ！石炭を持ってきてグラスを作って！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.purify_buff",
-      "text": "あの子供たちたちから有害でない影響をすべて取り除きます!"
+      "text": "あの忌々しい子供たちから、「無害」な影響をすべて取り除きます!"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.purify_debuff",
-      "text": "あの子供たちたちからのあらゆる有害な影響を取り除きます！"
+      "text": "あの忌々しい子供たちから、「有害」な影響をすべて取り除きます!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.radiance",
+      "text": "おばあちゃんの秘密！古いサンダルで野郎を叩くと、若返った気分になることがあるの！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.raise_dead",
-      "text": "眠い頭は起きてください! おばあちゃんはこれらすべてのバッグを自分で運ぶことができません!"
+      "text": "眠い頭を目覚めさせて！おばあちゃん一人ではこんなにたくさんの荷物を運べないよ！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.rallying",
+      "text": "あの野郎どもが近くにいるときは、もっと激しく殴らせてください!"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.regeneration"
+    },
+    {
+      "type": "goety:sacrifice",
+      "recipe": "effect.minecraft.regeneration",
+      "text": "魔女が人をシチューにする話がどこから来たのか疑問に思ったことはありませんか？ヘヘハハハ！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.repulsive",
+      "text": "何？おばあちゃんのことを知ろうと努力したのに、私の香水が気に入らないなんて？"
     },
     {
       "type": "goety:catalyst",
@@ -333,7 +408,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.sapped",
-      "text": "あなたの顔が柔らかくなっただけで、私の拳はより硬く感じられます。"
+      "text": "あなたの顔が柔らかいからこそ、私の拳はより硬く感じるのです！"
     },
     {
       "type": "goety:catalyst",
@@ -342,12 +417,17 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.save_effects",
-      "text": "Echoey Shards を食べてアイデアを得ました! 牛乳を飲んでも効果が持続し、どうやら死亡した？ あの青いコンパスのような、不死身の人間たちにとっては役に立つに違いない！"
+      "text": "エコーのかけらを食べて思いついたんだ！ミルクを飲んでも効果が持続するし、どうやら死んでも効果は続くらしい？あの青いコンパスみたいな、あの忌々しい不死属性のやつらには便利だろうな！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.shear",
-      "text": "私の腕は羊の毛を刈るには年を取りすぎています。 私のビールは、おばあちゃんにぴったりです!"
+      "text": "羊の毛刈りなんて、もう腕が歳を取りすぎたから無理！おばあちゃんの代わりに、ブリューでやるわ！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.shielding",
+      "text": "どうやらおばあちゃんの近くにいると、打撃の痛みが少し和らぐようです！"
     },
     {
       "type": "goety:catalyst",
@@ -360,11 +440,21 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.snow",
-      "text": "おばあちゃんが雪で遊びたいときに！"
+      "text": "おばあちゃんが雪の中で遊びたい気分のときにこれ！"
+    },
+    {
+      "type": "goety:sacrifice",
+      "recipe": "effect.goety.snow_skin",
+      "text": "雪だるまになりたい？！まずは雪だるまをゆでてみよう！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.speed"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.storms_wrath",
+      "text": "それは雲からの怒りか、それとも稲妻そのものからの愛か。いずれにせよ、新しいヘアスタイルを手に入れましょう！"
     },
     {
       "type": "goety:catalyst",
@@ -373,32 +463,42 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.strip",
-      "text": "いや、私はあなたの服を破くほど傲慢ではありません！ あなたの鎧だけを！ 私の醸造がより高いレベルの*ウィンク*であれば、それらのほとんどを剥がすことができます。"
+      "text": "ああ、いや、あなたの服を剥ぎ取るほど潔癖じゃないわ！鎧だけは剥ぎ取るわ！私の錬金術のレベルがもっと高ければ、ほとんど全部剥ぎ取れるわよ！フフフ！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.sun_allergy",
-      "text": "やあ、子供たち！ スケルトンになりたいですか？ それともゾンビ？ それともファントム？ または..."
+      "text": "やあ、みんな！スケルトンになりたい？ゾンビになりたい？それともファントムになりたい？それとも…"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.sweet_thorns",
-      "text": "おばあちゃんはスイートベリーパイを作りたいのですが、私の足は疲れていてタイガには行けません。 ああ、それなら自分でベリーブッシュを作ればいいんだ！"
+      "text": "おばあちゃんはスイートベリーパイを作りたいみたいだけど、私の足はもう疲れすぎてタイガまで行けない。じゃあ、自分でベリーブッシュ作っちゃおう！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.swift_swim",
+      "text": "私のようなおばあちゃんが水の中で素早く逃げ出せるとは誰も思わないわ！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.swirling",
+      "text": "この効果を持つ誰かに集団で襲いかからないようにしてください。そうしないと、誰かが顔を殴ったときに、あなたも切り刻まれてしまいます！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.thorn_trap",
-      "text": "君は囲まれているぞ、ガキ！ 顔がトゲだらけにならない限り、歩くのをやめるべきです。 ハハハッハッハ！"
+      "text": "包囲されてるぞ、坊や！顔に棘が刺さらないなら、歩くのをやめろ！ハハハハ！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.transpose",
-      "text": "アイテムを含むあらゆる種類のエンティティを、ビールが水揚げされた場所または飲まれた場所に集めます!"
+      "text": "アイテムを含むあらゆるエンティティを、醸造物が着陸した場所や飲まれた場所に集めます。はい。"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.tripping",
-      "text": "子供の歩く場所には気をつけてください！ つまずいて、あらぬ方向に飛ばされてしまう可能性があります。 レベルが高くなると、常につまずいてしまいます。"
+      "text": "子供たち、歩く場所に気をつけて！つまずいて、思いもよらぬ方向に飛ばされてしまうかも！レベルが高すぎると、しょっちゅうつまずいてしまうよ！"
     },
     {
       "type": "goety:catalyst",
@@ -407,7 +507,12 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.venomous_hands",
-      "text": "私の手は蜘蛛でできています！ ハハハッハッハ！"
+      "text": "私の手はケイブスパイダーだ！アハハハハ！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.void_touched",
+      "text": "奈落と触れ合え、坊や！他のものに触れられないように気を付けろ！"
     },
     {
       "type": "goety:catalyst",
@@ -420,12 +525,12 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.webbed",
-      "text": "あのクモは確かに仕事が早いですね！ とはいえ、彼らは固い土地ではなく、ビールが生き物に当たったときにのみ巣を作るようですが..."
+      "text": "あのクモ、本当に動きが速い！でも、地面ではなく、生き物に薬が当たった時にだけ巣を張るみたいだけど…"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.wild_rage",
-      "text": "憎しみをあなたを通して流れさせてください！"
+      "text": "憎しみをあなたを通して流しましょう！"
     },
     {
       "type": "goety:catalyst",

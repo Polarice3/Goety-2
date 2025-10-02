@@ -10,10 +10,10 @@ import net.minecraft.world.level.block.Block;
 import javax.annotation.Nullable;
 
 public class TallSkullItem extends StandingAndWallBlockItem {
+
     public TallSkullItem(Block pStandingBlock, Block pWallBlock, Properties pProperties) {
         super(pStandingBlock, pWallBlock, pProperties, Direction.DOWN);
     }
-
 
     @Override
     public boolean canEquip(ItemStack stack, EquipmentSlot armorType, Entity entity) {

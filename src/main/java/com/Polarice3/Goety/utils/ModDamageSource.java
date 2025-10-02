@@ -57,6 +57,7 @@ public class ModDamageSource extends DamageSource {
     public static ResourceKey<DamageType> CHOKE = create("choke");
     public static ResourceKey<DamageType> SWARM = create("swarm");
     public static ResourceKey<DamageType> VOIDED = create("voided");
+    public static ResourceKey<DamageType> DISMISSED = create("dismissed");
     public static ResourceKey<DamageType> DOOM = create("doom");
     public static ResourceKey<DamageType> DEATH = create("death");
 
@@ -333,6 +334,7 @@ public class ModDamageSource extends DamageSource {
         context.register(CHOKE, new DamageType("goety.choke", 0.0F));
         context.register(SWARM, new DamageType("goety.swarm", 0.0F));
         context.register(VOIDED, new DamageType("goety.voided", 0.0F));
+        context.register(DISMISSED, new DamageType("goety.dismissed", 0.0F));
         context.register(DOOM, new DamageType("goety.doom", 0.0F));
         context.register(DEATH, new DamageType("goety.death", 0.0F));
     }

@@ -1,8 +1,9 @@
 {
   "replace": false,
   "values": [
-    "goety:watchling_servant",
-    "goety:blastling_servant",
-    "goety:snareling_servant"
+    "goety:watchling",
+    "goety:blastling",
+    "goety:snareling",
+    "#goety:enderling_servants"
   ]
 }

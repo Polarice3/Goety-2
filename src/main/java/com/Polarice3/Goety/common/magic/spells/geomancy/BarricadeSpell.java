@@ -48,7 +48,7 @@ public class BarricadeSpell extends Spell {
         return SoundEvents.EVOKER_PREPARE_ATTACK;
     }
 
-    public int spellCooldown(){
+    public int spellCooldown(LivingEntity caster){
         return this.trueCooldown;
     }
 

@@ -48,6 +48,9 @@ public class ModLootTables {
     public static final ResourceLocation CRONE_BARTER = register("gameplay/crone_bartering");
 
     public static final ResourceLocation TREASURE_POUCH = register("gameplay/treasure_pouch");
+    public static final ResourceLocation VOID_SPAWNER_LOOT = register("gameplay/void_spawner_loot");
+    public static final ResourceLocation VOID_SPAWNER_KEY = register("gameplay/void_spawner_key");
+    public static final ResourceLocation VOID_VAULT_REWARD = register("gameplay/void_vault_reward");
 
     private static ResourceLocation register(String pId) {
         return register(Goety.location(pId));

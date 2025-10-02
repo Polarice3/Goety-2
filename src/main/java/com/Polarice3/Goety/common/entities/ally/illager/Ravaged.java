@@ -61,9 +61,6 @@ public class Ravaged extends RaiderServant {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.applyEntityAI();
     }
 
@@ -72,6 +69,13 @@ public class Ravaged extends RaiderServant {
         this.goalSelector.addGoal(2, new LeapAtTargetGoal(this, 0.6F));
         this.goalSelector.addGoal(3, new FeedGoal());
         this.targetSelector.addGoal(4, new VillagerAttackGoal<>(this));
+    }
+
+    @Override
+    public void miscGoal() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -306,7 +310,7 @@ public class Ravaged extends RaiderServant {
 
     public boolean killedEntity(ServerLevel p_219160_, LivingEntity p_219161_) {
         boolean flag = super.killedEntity(p_219160_, p_219161_);
-        if (p_219161_ instanceof AbstractVillager){
+        if (p_219161_ instanceof AbstractVillager || p_219161_ instanceof Prisoner){
             this.cannibalize(this.random.nextInt(5) + 1);
         }
         if ((p_219161_ instanceof Raider || p_219161_ instanceof RaiderServant) && !(p_219161_ instanceof IGolem)){

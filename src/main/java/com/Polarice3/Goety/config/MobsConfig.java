@@ -81,6 +81,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> NecromancerSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> NecromancerSpawnMinCount;
     public static final ForgeConfigSpec.ConfigValue<Integer> NecromancerSpawnMaxCount;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSpawnStructure;
     public static final ForgeConfigSpec.ConfigValue<Integer> HereticSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> HereticSpawnMinCount;
     public static final ForgeConfigSpec.ConfigValue<Integer> HereticSpawnMaxCount;
@@ -115,11 +116,16 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> VexTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PillagerServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PikerServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VindicatorServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> MountaineerServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> CrusherServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> EvokerServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> GeomancerServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> IceologerServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> CryologerServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WindCallerServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> StormCasterServantTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> SpiderServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CaveSpiderServantTexture;
@@ -335,16 +341,26 @@ public class MobsConfig {
                 BUILDER.push("Illager Servants");
                 PillagerServantTexture = BUILDER.comment("If Pillager Servants have custom textures, Default: true")
                         .define("pillagerServantTexture", true);
+                PikerServantTexture = BUILDER.comment("If Piker Servants have custom textures, Default: true")
+                        .define("pikerServantTexture", true);
                 VindicatorServantTexture = BUILDER.comment("If Vindicator Servants have custom textures, Default: true")
                         .define("vindicatorServantTexture", true);
+                MountaineerServantTexture = BUILDER.comment("If Mountaineer Servants have custom textures, Default: true")
+                        .define("mountaineerServantTexture", true);
+                CrusherServantTexture = BUILDER.comment("If Crusher Servants have custom textures, Default: true")
+                        .define("crusherServantTexture", true);
                 EvokerServantTexture = BUILDER.comment("If Evoker Servants have custom textures, Default: true")
                         .define("evokerServantTexture", true);
                 GeomancerServantTexture = BUILDER.comment("If Geomancer Servants have custom textures, Default: true")
                         .define("geomancerServantTexture", true);
                 IceologerServantTexture = BUILDER.comment("If Iceologer Servants have custom textures, Default: true")
                         .define("iceologerServantTexture", true);
+                CryologerServantTexture = BUILDER.comment("If Cryologer Servants have custom textures, Default: true")
+                        .define("cryologerServantTexture", true);
                 WindCallerServantTexture = BUILDER.comment("If Wind Caller Servants have custom textures, Default: true")
                         .define("windCallerServantTexture", true);
+                StormCasterServantTexture = BUILDER.comment("If Storm Caster Servants have custom textures, Default: true")
+                        .define("stormCasterServantTexture", true);
                 BUILDER.pop();
                 BUILDER.push("Spider Servants");
                 SpiderServantTexture = BUILDER.comment("If Spiders Servants have custom textures, Default: true")
@@ -795,6 +811,8 @@ public class MobsConfig {
                     .defineInRange("necromancerSpawnMinCount", 1, 1, Integer.MAX_VALUE);
             NecromancerSpawnMaxCount = BUILDER.comment("Spawn maximum group count for Necromancer, must be equal or higher than min count, Default: 1")
                     .defineInRange("necromancerSpawnMaxCount", 1, 1, Integer.MAX_VALUE);
+            NecromancerSpawnStructure = BUILDER.comment("Whether Necromancers can be part of structure spawn pools. Default: false")
+                    .define("necromancerSpawnStructure", false);
             BUILDER.pop();
             BUILDER.push("Heretic");
             HereticSpawnWeight = BUILDER.comment("Spawn Weight for Heretic, Default: 5")

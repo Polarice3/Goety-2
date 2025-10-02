@@ -16,7 +16,7 @@ public class WarlockGarmentItem extends SingleStackItem{
     public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
         if (!worldIn.isClientSide) {
             if (entityIn instanceof Player player) {
-                if (CuriosFinder.hasCurio(player, itemStack -> itemStack == stack)) {
+                if (CuriosFinder.hasCurio(player, this)) {
                     if (player.tickCount % 60 == 0) {
                         if (!ItemHelper.findItem(player, ModItems.WARTFUL_EGG.get()).isEmpty()) {
                             ItemStack itemStack = ItemHelper.findItem(player, ModItems.WARTFUL_EGG.get());

@@ -25,6 +25,9 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -95,6 +98,12 @@ public class WaystoneItem extends ItemBase {
         BlockPos blockPos = getBlockPos(itemStack);
         if (blockPos == null) {
             return null;
+        }
+        BlockState blockState = level.getBlockState(blockPos);
+        if (blockState.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF)) {
+            if (level.getBlockEntity(blockPos) == null && blockState.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
+                return level.getBlockEntity(blockPos.below());
+            }
         }
         return level.getBlockEntity(blockPos);
     }

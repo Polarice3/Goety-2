@@ -15,6 +15,8 @@ import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
 import com.Polarice3.Goety.common.entities.projectiles.SnapFungus;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SInstaLookPacket;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModTags;
@@ -61,6 +63,7 @@ import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.DyeColor;
@@ -91,6 +94,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class MobUtil {
@@ -300,6 +304,14 @@ public class MobUtil {
         push(pEntity, -pX, -pY, -pZ, reduction);
     }
 
+    public static void push(Entity pEntity, Vec3 vec3) {
+        push(pEntity, vec3, 1.0D);
+    }
+
+    public static void push(Entity pEntity, Vec3 vec3, double reduction) {
+        push(pEntity, vec3.x, vec3.y, vec3.z, reduction);
+    }
+
     public static void push(Entity pEntity, double pX, double pY, double pZ) {
         push(pEntity, pX, pY, pZ, 1.0D);
     }
@@ -346,6 +358,18 @@ public class MobUtil {
         }
         pEntity.setDeltaMovement(pX, pY, pZ);
         pEntity.hasImpulse = true;
+    }
+
+    public static void drag(Entity pEntity, double pX, double pY, double pZ){
+        pEntity.hurtMarked = true;
+        double resist = 0.0D;
+        if (pEntity instanceof LivingEntity living && living.getAttribute(Attributes.KNOCKBACK_RESISTANCE) != null) {
+            resist = living.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
+        }
+        double resist1 = Math.max(0.0D, 1.0D - resist);
+        Vec3 vec3 = new Vec3(pX, pY, pZ).scale(resist1);
+        pEntity.setDeltaMovement(vec3);
+        pEntity.lerpMotion(vec3.x, vec3.y, vec3.z);
     }
 
     public static int getSummonLifespan(Level world){
@@ -1014,16 +1038,24 @@ public class MobUtil {
         mob.getLookControl().setLookAt(vec3.x, vec3.y, vec3.z, 200.0F, mob.getMaxHeadXRot());
         double d2 = vec3.x - mob.getX();
         double d1 = vec3.z - mob.getZ();
-        mob.setYRot(-((float) Mth.atan2(d2, d1)) * (180F / (float) Math.PI));
-        mob.yBodyRot = mob.getYRot();
+        float rotate = -((float) Mth.atan2(d2, d1)) * (180F / (float) Math.PI);
+        mob.setYRot(rotate);
+        mob.yBodyRot = rotate;
+        mob.yHeadRot = rotate;
     }
 
     public static void instaLook(Mob looker, Entity target){
-        looker.getLookControl().setLookAt(target, 200.0F, looker.getMaxHeadXRot());
-        double d2 = target.getX() - looker.getX();
-        double d1 = target.getZ() - looker.getZ();
-        looker.setYRot(-((float) Mth.atan2(d2, d1)) * (180F / (float) Math.PI));
-        looker.yBodyRot = looker.getYRot();
+        instaLook(looker, target, false);
+    }
+
+    public static void instaLook(Mob looker, Entity target, boolean clientSent){
+        looker.lookAt(target, 100.0F, 100.0F);
+        instaLook(looker, target.position());
+        if (clientSent) {
+            if (!looker.level.isClientSide) {
+                ModNetwork.sendToALL(new SInstaLookPacket(looker, target));
+            }
+        }
     }
 
     public static void rotateTo(Mob looker, LivingEntity target){
@@ -1108,10 +1140,14 @@ public class MobUtil {
     }
 
     public static void disableShield(LivingEntity livingEntity, int ticks) {
-        if (livingEntity instanceof Player player && player.isBlocking()) {
-            player.getCooldowns().addCooldown(player.getUseItem().getItem(), ticks);
-            player.stopUsingItem();
-            player.level.broadcastEntityEvent(player, (byte)30);
+        if (livingEntity instanceof Player player) {
+            if (player.isBlocking() && !player.level.isClientSide) {
+                player.getCooldowns().addCooldown(player.getUseItem().getItem(), ticks);
+                player.stopUsingItem();
+                player.level.broadcastEntityEvent(player, (byte) 30);
+            }
+        } else {
+            MobUtil.disableShield(livingEntity);
         }
     }
 
@@ -1559,10 +1595,104 @@ public class MobUtil {
                     }
                 }
             }
+        } else if (target instanceof Player player) {
+            disableShield(player, 100);
         }
     }
 
     public static <T extends LivingEntity & IServant> DamageSource getServantAttack(T servant) {
         return servant.getTrueOwner() != null ? ModDamageSource.summonAttack(servant, servant.getTrueOwner()) : servant.damageSources().mobAttack(servant);
     }
+
+    public static void deflectProjectile(Projectile projectile, Entity shooter, LivingEntity victim) {
+        if (shooter != null) {
+            projectile.hasImpulse = true;
+            Vec3 deltaMovement = projectile.getDeltaMovement();
+            projectile.setPos(projectile.getX() + deltaMovement.x, projectile.getY() + deltaMovement.y, projectile.getZ() + deltaMovement.z);
+            projectile.setOwner(victim);
+            if (projectile instanceof AbstractHurtingProjectile projectile1) {
+                projectile1.hurtMarked = true;
+                double d1 = shooter.getX() - victim.getX();
+                double d2 = shooter.getY(0.5D) - victim.getY(0.5D);
+                double d3 = shooter.getZ() - victim.getZ();
+                Vec3 vec3 = new Vec3(d1, d2, d3);
+                projectile1.setDeltaMovement(vec3);
+                projectile1.xPower = vec3.x * 0.1D;
+                projectile1.yPower = vec3.y * 0.1D;
+                projectile1.zPower = vec3.z * 0.1D;
+            } else {
+                float speed = Mth.sqrt((float) (deltaMovement.x * deltaMovement.x + deltaMovement.y * deltaMovement.y + deltaMovement.z * deltaMovement.z));
+                speed = speed < 1.0E-4F ? 0.0F : speed;
+                double d0 = shooter.getX() - victim.getX();
+                double d1 = shooter.getY(0.3333333333333333D) - (victim.getEyeY() - (double) 0.1F);
+                double d2 = shooter.getZ() - victim.getZ();
+                double d3 = Mth.sqrt((float) (d0 * d0 + d2 * d2));
+                projectile.shoot(d0, d1 + d3 * (double) 0.2F, d2, speed, (float) (14 - victim.level.getDifficulty().getId() * 4));
+            }
+        }
+    }
+
+    /*
+     * Stolen from @L_Ender's codes.
+     * From Here:
+     */
+    public static double calculateRange(LivingEntity livingEntity, DamageSource source) {
+        return source.getEntity() != null ? livingEntity.distanceToSqr(source.getEntity()) : -1;
+    }
+
+    public static List<LivingEntity> getEntityLivingBaseNearby(LivingEntity livingEntity, double distanceX, double distanceY, double distanceZ, double radius) {
+        return getEntitiesNearby(livingEntity, LivingEntity.class, distanceX, distanceY, distanceZ, radius);
+    }
+
+    public static  <T extends Entity> List<T> getEntitiesNearby(LivingEntity livingEntity, Class<T> entityClass, double dX, double dY, double dZ, double r) {
+        return livingEntity.level.getEntitiesOfClass(entityClass, livingEntity.getBoundingBox().inflate(dX, dY, dZ), e -> e != livingEntity && livingEntity.distanceTo(e) <= r + e.getBbWidth() / 2.0F && e.getY() <= livingEntity.getY() + dY);
+    }
+
+    public static void areaAttack(LivingEntity attacker, float range, float height, float arc, float damage, float hpDamage, int shieldBreak, DamageSource damageSource, boolean knockback) {
+        areaAttack(attacker, range, height, arc, damage, hpDamage, shieldBreak, damageSource, knockback, null);
+    }
+
+    public static void areaAttack(LivingEntity attacker, float range, float height, float arc, float damage, float hpDamage, int shieldBreak, DamageSource damageSource, boolean knockback, @Nullable Consumer<Entity> attackEffect) {
+        List<LivingEntity> entitiesHit = getEntityLivingBaseNearby(attacker, range, height, range, range);
+        if (!attacker.level.isClientSide) {
+            for (LivingEntity entityHit : entitiesHit) {
+                float entityRelativeAngle = getRelativeAngle(attacker, entityHit);
+                float entityHitDistance = (float) Math.sqrt((entityHit.getZ() - attacker.getZ()) * (entityHit.getZ() - attacker.getZ()) + (entityHit.getX() - attacker.getX()) * (entityHit.getX() - attacker.getX()));
+                if (entityHitDistance <= range && (entityRelativeAngle <= arc / 2 && entityRelativeAngle >= -arc / 2) || (entityRelativeAngle >= 360 - arc / 2 || entityRelativeAngle <= -360 + arc / 2)) {
+                    if (!areAllies(attacker, entityHit)) {
+                        boolean flag = entityHit.hurt(damageSource, damage + (entityHit.getMaxHealth() * hpDamage));
+                        if (entityHit.isDamageSourceBlocked(damageSource) && shieldBreak > 0) {
+                            disableShield(entityHit, shieldBreak);
+                        }
+                        if (flag) {
+                            double d0 = entityHit.getX() - attacker.getX();
+                            double d1 = entityHit.getZ() - attacker.getZ();
+                            double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);
+                            if (knockback) {
+                                entityHit.push(d0 / d2 * 2.5D, 0.18D, d1 / d2 * 2.2D);
+                            }
+                            if (attackEffect != null) {
+                                attackEffect.accept(entityHit);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public static float getRelativeAngle(LivingEntity attacker, LivingEntity entityHit) {
+        float entityHitAngle = (float) ((Math.atan2(entityHit.getZ() - attacker.getZ(), entityHit.getX() - attacker.getX()) * (180 / Math.PI) - 90) % 360);
+        float entityAttackingAngle = attacker.yBodyRot % 360;
+        if (entityHitAngle < 0) {
+            entityHitAngle += 360;
+        }
+        if (entityAttackingAngle < 0) {
+            entityAttackingAngle += 360;
+        }
+        return entityHitAngle - entityAttackingAngle;
+    }
+    /*
+      To Here
+     */
 }

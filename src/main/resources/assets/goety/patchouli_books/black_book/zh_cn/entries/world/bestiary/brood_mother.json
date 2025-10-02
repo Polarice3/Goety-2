@@ -1,12 +1,12 @@
 {
   "name": "育母蜘蛛",
-  "icon": "minecraft:cobweb",
+  "icon": "goety:spider_mother_den",
   "category": "goety:world/bestiary",
   "advancement": "goety:goety/kill_a_brood_mother",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "巨大的蜘蛛会攻击那些胆敢扰乱它们巢穴的家伙，它们的毒牙甚至能毒杀亡灵生物。"
+      "text": "巨大的蜘蛛会攻击那些胆敢打扰其巢穴的人，其毒牙甚至能毒害亡灵生物。"
     },
     {
       "type": "patchouli:entity",
@@ -15,7 +15,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "这些生物会试图直接攻击它们的目标，但如果它们的幼崽加入战斗，它们就会转而围在目标周围，让幼崽享用美餐。"
+      "text": "这些生物会尝试直接攻击它们的目标，但如果它们的孩子加入战斗，它们就会绕着目标转，让它们的孩子吃掉它们的食物。"
     }
   ]
 }

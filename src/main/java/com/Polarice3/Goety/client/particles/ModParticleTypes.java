@@ -138,6 +138,15 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> DRAGON_FLAME_DROP = PARTICLE_TYPES.register("dragon_flame_drop",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> END_FIRE = PARTICLE_TYPES.register("end_fire",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> END_FIRE_DROP = PARTICLE_TYPES.register("end_fire_drop",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> SMALL_END_FIRE = PARTICLE_TYPES.register("small_end_fire",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> FROST = PARTICLE_TYPES.register("frost",
             () -> new SimpleParticleType(false));
 
@@ -187,6 +196,12 @@ public class ModParticleTypes {
             () -> new SimpleParticleType(true));
 
     public static final RegistryObject<SimpleParticleType> SUMMON = PARTICLE_TYPES.register("summon",
+            () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> VOID_SPAWNER_DETECTION = PARTICLE_TYPES.register("void_spawner_detection",
+            () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> VOID_VAULT_CONNECT = PARTICLE_TYPES.register("void_vault_connect",
             () -> new SimpleParticleType(true));
 
     public static final RegistryObject<SimpleParticleType> SPELL_SQUARE = PARTICLE_TYPES.register("spell_square",
@@ -388,6 +403,14 @@ public class ModParticleTypes {
                 }
             });
 
+    public static final RegistryObject<ParticleType<GroundAuraParticle.Option>> GROUND_AURA = PARTICLE_TYPES.register("ground_aura",
+            () -> new ParticleType<>(false, GroundAuraParticle.Option.DESERIALIZER) {
+                @Override
+                public Codec<GroundAuraParticle.Option> codec() {
+                    return GroundAuraParticle.Option.CODEC;
+                }
+            });
+
     public static final RegistryObject<ParticleType<VerticalCircleExplodeParticleOption>> VERTICAL_CIRCLE_EXPLODE = PARTICLE_TYPES.register("vertical_circle_explode",
             () -> new ParticleType<>(false, VerticalCircleExplodeParticleOption.DESERIALIZER) {
                 @Override
@@ -411,6 +434,15 @@ public class ModParticleTypes {
                     return MagicSmokeParticle.Option.CODEC;
                 }
             });
+
+    public static final RegistryObject<ParticleType<MagicAshSmokeParticle.Option>> MAGIC_ASH_SMOKE = PARTICLE_TYPES.register("magic_ash_smoke",
+            () -> new ParticleType<>(false, MagicAshSmokeParticle.Option.DESERIALIZER) {
+                @Override
+                public Codec<MagicAshSmokeParticle.Option> codec() {
+                    return MagicAshSmokeParticle.Option.CODEC;
+                }
+            });
+
     public static final RegistryObject<ParticleType<FollowFireParticle.Option>> FOLLOW_CULT_SPELL = PARTICLE_TYPES.register("follow_cult_spell",
             () -> new ParticleType<>(false, FollowFireParticle.Option.DESERIALIZER) {
                 @Override

@@ -7,11 +7,13 @@ import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.WorldlyContainer;
@@ -126,6 +128,9 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
                                             }
                                             servant.setWandering(false);
                                             servant.setStaying(false);
+                                        }
+                                        if (this.getTrueOwner() instanceof ServerPlayer serverPlayer) {
+                                            CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, entity);
                                         }
                                         blockEntity.playSpawnSound();
                                         serverLevel.addFreshEntityWithPassengers(entity);

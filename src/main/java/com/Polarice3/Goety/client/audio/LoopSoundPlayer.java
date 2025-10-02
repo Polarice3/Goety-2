@@ -17,4 +17,9 @@ public class LoopSoundPlayer {
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.getSoundManager().play(new EffectLoopSound(soundEvent, volume, pitch, mobEffect, entity));
     }
+
+    public static void playFollowSound(Entity entity, SoundEvent soundEvent, float volume, float pitch, boolean loop) {
+        Minecraft minecraft = Minecraft.getInstance();
+        minecraft.getSoundManager().play(new FollowSound(entity, soundEvent, volume, pitch, loop));
+    }
 }

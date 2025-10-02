@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/cobbled_end_stone_slab"
+    },
+    "type=double": {
+      "model": "goety:block/cobbled_end_stone"
+    },
+    "type=top": {
+      "model": "goety:block/cobbled_end_stone_slab_top"
+    }
+  }
+}

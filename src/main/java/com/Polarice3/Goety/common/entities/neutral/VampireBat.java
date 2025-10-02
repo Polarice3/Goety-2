@@ -7,7 +7,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -48,34 +47,11 @@ public class VampireBat extends Bat implements IOwned {
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        UUID uuid;
         if (compound.hasUUID("Owner")) {
-            uuid = compound.getUUID("Owner");
-        } else {
-            String s = compound.getString("Owner");
-            uuid = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), s);
+            this.setOwnerId(compound.getUUID("Owner"));
         }
-
-        if (uuid != null) {
-            try {
-                this.setOwnerId(uuid);
-            } catch (Throwable ignored) {
-            }
-        }
-
-        UUID uuid2;
         if (compound.hasUUID("Target")) {
-            uuid2 = compound.getUUID("Target");
-        } else {
-            String s = compound.getString("Target");
-            uuid2 = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), s);
-        }
-
-        if (uuid2 != null) {
-            try {
-                this.setTargetId(uuid2);
-            } catch (Throwable ignored) {
-            }
+            this.setTargetId(compound.getUUID("Target"));
         }
     }
 

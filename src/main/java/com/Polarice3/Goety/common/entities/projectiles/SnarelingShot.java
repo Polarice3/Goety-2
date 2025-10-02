@@ -24,7 +24,11 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
+
 public class SnarelingShot extends ThrowableProjectile {
+    private final Vec3[] trailPositions = new Vec3[64];
+    private int trailPointer = -1;
 
     public SnarelingShot(EntityType<? extends ThrowableProjectile> p_37466_, Level p_37467_) {
         super(p_37466_, p_37467_);
@@ -49,6 +53,14 @@ public class SnarelingShot extends ThrowableProjectile {
         for (int i = 0; i < 2; ++i) {
             this.level.addParticle(ModParticleTypes.GOO_STAIN.get(), d0 + (this.random.nextGaussian() / 2), d1 + 0.5D + (this.random.nextGaussian() / 2), d2 + (this.random.nextGaussian() / 2), colorUtil.red(), colorUtil.green(), colorUtil.blue());
         }
+        Vec3 trailAt = this.position().add(0, this.getBbHeight() / 2F, 0);
+        if (this.trailPointer == -1) {
+            Arrays.fill(trailPositions, trailAt);
+        }
+        if (++this.trailPointer == this.trailPositions.length) {
+            this.trailPointer = 0;
+        }
+        this.trailPositions[this.trailPointer] = trailAt;
     }
 
     protected void onHit(HitResult pResult) {
@@ -92,6 +104,24 @@ public class SnarelingShot extends ThrowableProjectile {
             }
         }
         return super.canHitEntity(pEntity);
+    }
+
+    /**
+     * Ripped Trail effect from @AlexModGuy: <a href="https://github.com/AlexModGuy/AlexsCaves/blob/main/src/main/java/com/github/alexmodguy/alexscaves/server/entity/item/WaterBoltEntity.java">...</a>
+     */
+    public Vec3 getTrailPosition(int pointer, float partialTick) {
+        if (this.isRemoved()) {
+            partialTick = 1.0F;
+        }
+        int i = this.trailPointer - pointer & 63;
+        int j = this.trailPointer - pointer - 1 & 63;
+        Vec3 d0 = this.trailPositions[j];
+        Vec3 d1 = this.trailPositions[i].subtract(d0);
+        return d0.add(d1.scale(partialTick));
+    }
+
+    public boolean hasTrail() {
+        return this.trailPointer != -1;
     }
 
     @Override

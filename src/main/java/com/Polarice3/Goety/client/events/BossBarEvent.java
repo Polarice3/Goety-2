@@ -3,6 +3,7 @@ package com.Polarice3.Goety.client.events;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.entities.IRM;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
+import com.Polarice3.Goety.common.entities.boss.EnderKeeper;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.config.MainConfig;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -20,9 +21,10 @@ import java.util.UUID;
 
 public class BossBarEvent {
 
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Goety.MOD_ID, "textures/gui/boss_bar.png");
-    protected static final ResourceLocation BOSS_BAR_1 = new ResourceLocation(Goety.MOD_ID, "textures/gui/boss_bar_1.png");
-    protected static final ResourceLocation MINI_BOSS_BAR = new ResourceLocation(Goety.MOD_ID, "textures/gui/miniboss_bar.png");
+    protected static final ResourceLocation TEXTURE = Goety.location("textures/gui/boss_bar.png");
+    protected static final ResourceLocation BOSS_HURT = Goety.location("textures/gui/boss_bar_hurt.png");
+    protected static final ResourceLocation BOSS_BAR_1 = Goety.location("textures/gui/boss_bar_1.png");
+    protected static final ResourceLocation MINI_BOSS_BAR = Goety.location("textures/gui/miniboss_bar.png");
     public static Map<UUID, Mob> BOSS_BARS = new HashMap<>();
 
     @SubscribeEvent
@@ -67,10 +69,10 @@ public class BossBarEvent {
             if (i > 0) {
                 guiGraphics.blit(BOSS_BAR_1, pX2, pY2, offset, 0, i, 8, 364, 64);
                 if (pEntity.hurtTime >= 5) {
-                    damage = 32 + pEntity.getRandom().nextInt(pEntity.hurtTime);
                     shake = pEntity.getRandom().nextInt(pEntity.hurtTime);
-                    RenderSystem.setShaderTexture(0, TEXTURE);
-                    guiGraphics.blit(TEXTURE, pX2, pY2, shake, damage, i, 8, 256, 256);
+                    damage = pEntity.getRandom().nextInt(pEntity.hurtTime);
+                    RenderSystem.setShaderTexture(0, BOSS_HURT);
+                    guiGraphics.blit(BOSS_HURT, pX2, pY2, shake, damage, i, 8, 256, 256);
                 }
                 if (apostleEntity.isSmited()){
                     float smite = 1.0F - ((float) apostleEntity.getAntiRegen() / apostleEntity.getAntiRegenTotal());
@@ -85,22 +87,32 @@ public class BossBarEvent {
             if (i > 0) {
                 guiGraphics.blit(BOSS_BAR_1, pX2, pY2, offset, 8, i, 8, 364, 64);
                 if (pEntity.hurtTime >= 5) {
-                    damage = 64 + pEntity.getRandom().nextInt(pEntity.hurtTime);
                     shake = pEntity.getRandom().nextInt(pEntity.hurtTime);
-                    guiGraphics.blit(TEXTURE, pX2, pY2, shake, damage, i, 8, 256, 256);
+                    damage = 16 + pEntity.getRandom().nextInt(pEntity.hurtTime);
+                    guiGraphics.blit(BOSS_HURT, pX2, pY2, shake, damage, i, 8, 256, 256);
                 }
             }
-            guiGraphics.blit(TEXTURE, pX, pY, 0, 48, 200, 16, 256, 256);
+            guiGraphics.blit(TEXTURE, pX, pY, 0, 32, 200, 16, 256, 256);
         } else if (pEntity instanceof IRM) {
             if (i > 0) {
                 guiGraphics.blit(BOSS_BAR_1, pX2, pY2, offset, 24, i, 8, 364, 64);
                 if (pEntity.hurtTime >= 5) {
-                    int damage = 96 + pEntity.getRandom().nextInt(pEntity.hurtTime);
                     int shake = pEntity.getRandom().nextInt(pEntity.hurtTime);
-                    guiGraphics.blit(TEXTURE, pX2, pY2, shake, damage, i, 8, 256, 256);
+                    int damage = 32 + pEntity.getRandom().nextInt(pEntity.hurtTime);
+                    guiGraphics.blit(BOSS_HURT, pX2, pY2, shake, damage, i, 8, 256, 256);
                 }
             }
-            guiGraphics.blit(TEXTURE, pX, pY, 0, 80, 200, 16, 256, 256);
+            guiGraphics.blit(TEXTURE, pX, pY, 0, 48, 200, 16, 256, 256);
+        } else if (pEntity instanceof EnderKeeper) {
+            if (i > 0) {
+                guiGraphics.blit(BOSS_BAR_1, pX2, pY2, offset, 32, i, 8, 364, 64);
+                if (pEntity.hurtTime >= 5) {
+                    int shake = pEntity.getRandom().nextInt(pEntity.hurtTime);
+                    int damage = 48 + pEntity.getRandom().nextInt(pEntity.hurtTime);
+                    guiGraphics.blit(BOSS_HURT, pX2, pY2, shake, damage, i, 8, 256, 256);
+                }
+            }
+            guiGraphics.blit(TEXTURE, pX, pY, 0, 64, 200, 16, 256, 256);
         } else {
             drawMiniBossBar(guiGraphics, pX, pY, pEntity);
         }

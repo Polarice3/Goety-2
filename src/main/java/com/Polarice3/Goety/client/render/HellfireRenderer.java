@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.client.render;
 
+import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.IceBouquetModel;
 import com.Polarice3.Goety.common.entities.projectiles.Hellfire;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -42,6 +43,6 @@ public class HellfireRenderer extends EntityRenderer<Hellfire> {
     }
 
     public ResourceLocation getTextureLocation(Hellfire entity) {
-        return entity.getResourceLocation();
+        return Goety.location("textures/entity/projectiles/hellfire/" + entity.level.getGameTime() % 31 + ".png");
     }
 }

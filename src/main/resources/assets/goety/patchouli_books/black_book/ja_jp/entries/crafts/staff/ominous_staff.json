@@ -1,0 +1,23 @@
+{
+  "name": "邪悪な杖",
+  "icon": "goety:ominous_staff",
+  "category": "goety:crafts/staff",
+  "advancement": "goety:goety/kill_a_minister",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "高位の$(l:world/bestiary/minister)イリジャー$()を殺した後、強力なオーブを入手し、それを使って杖のレプリカを作成しました。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "邪悪な杖は特定の魔法呪文を強化します。具体的には、ヴェックス、牙、追尾牙、細断、魔法の剣、歯の各呪文です。また、ゾンビとスケルトンの呪文を唱えると、代わりにアンデッドのイリジャーを召喚します。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ominous_staff": 1
+  }
+}

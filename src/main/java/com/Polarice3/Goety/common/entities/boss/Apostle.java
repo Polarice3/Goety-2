@@ -822,7 +822,9 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)){
             amount = Math.min(amount, AttributesConfig.ApostleDamageCap.get().floatValue());
         }
-        super.actuallyHurt(source, amount);
+        if (this.moddedInvul <= 0 && this.obsidianInvul <= 0){
+            super.actuallyHurt(source, amount);
+        }
     }
 
     public void heal(float p_21116_) {
@@ -1369,7 +1371,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         if (this.isFiring()) {
             if (!this.isSettingUpSecond()){
                 FireBlastSpell spell = new FireBlastSpell();
-                SpellStat stat = spell.defaultStats();
+                SpellStat stat = WandUtil.getStats(this, spell);
                 spell.mobSpellResult(this, new ItemStack(ModItems.NETHER_STAFF.get()), stat.setRadius(stat.getRadius() + 1.0D));
                 if (this.teleportChance()) {
                     this.teleport();

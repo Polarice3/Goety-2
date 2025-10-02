@@ -252,7 +252,7 @@ public class SkullLord extends Monster implements ICustomAttributes {
                 this.setTarget(null);
             }
         } else {
-            for (Player player : this.level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(4), EntitySelector.NO_CREATIVE_OR_SPECTATOR)){
+            for (Player player : this.level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(8), EntitySelector.NO_CREATIVE_OR_SPECTATOR)){
                 this.setTarget(player);
             }
             if (this.getPithos() != null) {
@@ -471,12 +471,14 @@ public class SkullLord extends Monster implements ICustomAttributes {
             float f14 = (this.random.nextFloat() - 0.5F);
             this.level.addParticle(ParticleTypes.EXPLOSION, this.getX() + (double)f11, this.getY() + 2.0D + (double)f13, this.getZ() + (double)f14, 0.0D, 0.0D, 0.0D);
         }
-        if (this.getBoneLord() != null){
-            this.getBoneLord().die(cause);
-        }
-        if (this.getPithos() != null){
-            if (this.getPithos() instanceof PithosBlockEntity pithosTile){
-                pithosTile.unlock();
+        if (!this.level.isClientSide) {
+            if (this.getBoneLord() != null){
+                this.getBoneLord().die(cause);
+            }
+            if (this.getPithos() != null){
+                if (this.getPithos() instanceof PithosBlockEntity pithosTile){
+                    pithosTile.unlock();
+                }
             }
         }
     }
@@ -484,13 +486,15 @@ public class SkullLord extends Monster implements ICustomAttributes {
     @Override
     public void onRemovedFromWorld() {
         super.onRemovedFromWorld();
-        if (this.getBoneLord() != null){
-            this.getBoneLord().discard();
-        }
-        if (!this.isDespawn()) {
-            if (this.getPithos() != null) {
-                if (this.getPithos() instanceof PithosBlockEntity pithosTile) {
-                    pithosTile.unlock();
+        if (!this.level.isClientSide) {
+            if (this.getBoneLord() != null){
+                this.getBoneLord().discard();
+            }
+            if (!this.isDespawn()) {
+                if (this.getPithos() != null) {
+                    if (this.getPithos() instanceof PithosBlockEntity pithosTile) {
+                        pithosTile.unlock();
+                    }
                 }
             }
         }

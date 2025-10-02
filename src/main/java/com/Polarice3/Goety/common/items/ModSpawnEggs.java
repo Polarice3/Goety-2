@@ -144,6 +144,21 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> HAUNTED_ARMOR_SPAWN_EGG = ITEMS.register("haunted_armor_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.HAUNTED_ARMOR, 0x1e1827, 0x233e4a, egg()));
 
+    public static final RegistryObject<ModSpawnEggItem> WATCHLING_SPAWN_EGG = ITEMS.register("watchling_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.WATCHLING, 1447446, 0xe079fa, egg()));
+
+    public static final RegistryObject<ModSpawnEggItem> BLASTLING_SPAWN_EGG = ITEMS.register("blastling_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.BLASTLING, 1447446, 0xae00d5, egg()));
+
+    public static final RegistryObject<ModSpawnEggItem> SNARELING_SPAWN_EGG = ITEMS.register("snareling_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.SNARELING, 1447446, 0xd4dd4f, egg()));
+
+    public static final RegistryObject<ModSpawnEggItem> ENDERSENT_SPAWN_EGG = ITEMS.register("endersent_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.ENDERSENT, 1447446, 0x88c35a, egg()));
+
+    public static final RegistryObject<ModSpawnEggItem> ENDER_KEEPER_SPAWN_EGG = ITEMS.register("ender_keeper_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.ENDER_KEEPER, 0x390c46, 0xb4d2b4, egg()));
+
     public static Item.Properties egg(){
         return new Item.Properties();
     }

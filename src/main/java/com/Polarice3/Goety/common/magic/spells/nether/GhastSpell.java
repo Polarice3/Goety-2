@@ -16,7 +16,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
@@ -74,19 +73,6 @@ public class GhastSpell extends SummonSpell {
         list.add(ModEnchantments.POTENCY.get());
         list.add(ModEnchantments.DURATION.get());
         return list;
-    }
-
-    public void commonResult(ServerLevel worldIn, LivingEntity caster){
-        if (isShifting(caster)) {
-            for (Entity entity : worldIn.getAllEntities()) {
-                if (entity instanceof Malghast malghast) {
-                    if (malghast.getTrueOwner() == caster && malghast.limitedLifeTicks > 0) {
-                        malghast.lifeSpanDamage();
-                    }
-                }
-            }
-            this.commonResultHit(worldIn, caster);
-        }
     }
 
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {

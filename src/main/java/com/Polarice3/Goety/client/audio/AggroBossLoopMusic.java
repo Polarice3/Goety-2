@@ -42,7 +42,7 @@ public class AggroBossLoopMusic extends AbstractTickableSoundInstance {
                     Minecraft minecraft = Minecraft.getInstance();
                     SoundManager soundHandler = minecraft.getSoundManager();
                     if (!this.isStopped()){
-                        soundHandler.queueTickingSound(new PostBossMusic(ModSounds.BOSS_POST.get(), mobEntity));
+                        soundHandler.queueTickingSound(new PostBossMusic(ModSounds.BOSS_POST.get(), mobEntity, this.volume, this.pitch));
                     }
                 }
             }

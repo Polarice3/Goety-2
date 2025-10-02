@@ -42,9 +42,11 @@ public class NecroGarbs extends SingleStackItem {
             if (!worldIn.isClientSide) {
                 if (entityIn instanceof LivingEntity livingEntity) {
                     if (ItemConfig.NecroCrownWeakness.get()) {
-                        if (CuriosFinder.hasCurio(livingEntity, item -> item.getItem() instanceof NecroGarbs.NecroCrownItem crownItem && !crownItem.isNameless)) {
-                            if (MobUtil.isInSunlightNoRain(livingEntity)) {
-                                livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0, false, false));
+                        if (!this.isNameless) {
+                            if (CuriosFinder.hasCurio(livingEntity, this)) {
+                                if (MobUtil.isInSunlightNoRain(livingEntity)) {
+                                    livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0, false, false));
+                                }
                             }
                         }
                     }
@@ -65,9 +67,11 @@ public class NecroGarbs extends SingleStackItem {
             if (!worldIn.isClientSide) {
                 if (entityIn instanceof LivingEntity livingEntity) {
                     if (ItemConfig.NecroCapeHunger.get()) {
-                        if (CuriosFinder.hasCurio(livingEntity, item -> item.getItem() instanceof NecroGarbs.NecroCapeItem capeItem && !capeItem.isNameless)) {
-                            if (MobUtil.isInSunlightNoRain(livingEntity)) {
-                                livingEntity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 100, 2, false, false));
+                        if (!this.isNameless) {
+                            if (CuriosFinder.hasCurio(livingEntity, this)) {
+                                if (MobUtil.isInSunlightNoRain(livingEntity)) {
+                                    livingEntity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 100, 2, false, false));
+                                }
                             }
                         }
                     }

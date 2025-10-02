@@ -613,6 +613,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.illuminate_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:illuminate_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.illusion_focus": {
       "conditions": {
         "items": [
@@ -1376,6 +1388,9 @@
     ],
     [
       "item.goety.glow_light_focus"
+    ],
+    [
+      "item.goety.illuminate_focus"
     ],
     [
       "item.goety.crafting_focus"

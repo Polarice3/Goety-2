@@ -52,6 +52,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(ModBlocks.CHISELED_END_STONE_BRICKS_BLOCK.get());
         simpleBlockWithItem(ModBlocks.END_STONE_TILES_BLOCK.get());
         simpleBlockWithItem(ModBlocks.SMOOTH_END_STONE_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.COBBLED_END_STONE_BLOCK.get());
         simpleBlockWithItem(ModBlocks.END_ROD_BLOCK.get());
         simpleBlockWithItem(ModBlocks.END_LAMP_BLOCK.get());
 
@@ -172,6 +173,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         slabBlockWithItem((SlabBlock) ModBlocks.END_STONE_TILE_SLAB.get(), Goety.location("block/end_stone_tiles"));
         slabBlockWithItem((SlabBlock) ModBlocks.SMOOTH_END_STONE_SLAB.get(), Goety.location("block/smooth_end_stone"));
+        slabBlockWithItem((SlabBlock) ModBlocks.COBBLED_END_STONE_SLAB.get(), Goety.location("block/cobbled_end_stone"));
 
         stairsBlockWithItem((StairBlock) ModBlocks.HAUNTED_STAIRS.get(), Goety.location("block/haunted_planks"));
         stairsBlockWithItem((StairBlock) ModBlocks.ROTTEN_STAIRS.get(), Goety.location("block/rotten_planks"));
@@ -207,6 +209,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         stairsBlockWithItem((StairBlock) ModBlocks.END_BASALT_BRICK_STAIRS.get(), Goety.location("block/end_basalt_bricks"));
         stairsBlockWithItem((StairBlock) ModBlocks.END_STONE_TILE_STAIRS_BLOCK.get(), Goety.location("block/end_stone_tiles"));
         stairsBlockWithItem((StairBlock) ModBlocks.SMOOTH_END_STONE_STAIRS_BLOCK.get(), Goety.location("block/smooth_end_stone"));
+        stairsBlockWithItem((StairBlock) ModBlocks.COBBLED_END_STONE_STAIRS_BLOCK.get(), Goety.location("block/cobbled_end_stone"));
 
         trapdoorBlock((TrapDoorBlock) ModBlocks.HAUNTED_TRAPDOOR.get(), Goety.location("block/haunted_trapdoor"), true);
         trapdoorBlockWithRenderType((TrapDoorBlock) ModBlocks.ROTTEN_TRAPDOOR.get(), Goety.location("block/rotten_trapdoor"), true, "cutout");
@@ -235,8 +238,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         wallBlockWithItem((WallBlock) ModBlocks.END_ROCK_BRICK_WALL_BLOCK.get(), Goety.location("block/end_rock_bricks"));
         wallBlockWithItem((WallBlock) ModBlocks.SMOOTH_END_STONE_WALL_BLOCK.get(), Goety.location("block/smooth_end_stone"));
+        wallBlockWithItem((WallBlock) ModBlocks.COBBLED_END_STONE_WALL_BLOCK.get(), Goety.location("block/cobbled_end_stone"));
 
         wallBlockWithItem((WallBlock) ModBlocks.PURPUR_WALL.get(), new ResourceLocation("block/purpur_block"));
+
+        wallBlockWithItem((WallBlock) ModBlocks.WINDSWEPT_PLANK_WALL_BLOCK.get(), Goety.location("block/windswept_plank_wall"));
+        wallBlockWithItem((WallBlock) ModBlocks.SNOWY_WINDSWEPT_PLANK_WALL_BLOCK.get(), Goety.location("block/snowy_windswept_plank_wall"));
 
         wallBlockWithItem((WallBlock) ModBlocks.STEEP_WALL_BLOCK.get(), Goety.location("block/steep_log"));
         wallBlockWithItem((WallBlock) ModBlocks.STUDDED_STEEP_WALL_BLOCK.get(), Goety.location("block/studded_steep_log"));

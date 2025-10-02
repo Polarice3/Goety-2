@@ -320,7 +320,10 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
     }
 
     public boolean canBeAffected(MobEffectInstance pPotioneffect) {
-        return pPotioneffect.getEffect() != GoetyEffects.GOLD_TOUCHED.get() && super.canBeAffected(pPotioneffect);
+        if (this.getTrueOwner() != null) {
+            return pPotioneffect.getEffect() != GoetyEffects.GOLD_TOUCHED.get() && super.canBeAffected(pPotioneffect);
+        }
+        return super.canBeAffected(pPotioneffect);
     }
 
     public int getExperienceReward() {

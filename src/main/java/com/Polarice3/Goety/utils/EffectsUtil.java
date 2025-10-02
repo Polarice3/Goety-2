@@ -2,6 +2,7 @@ package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
 import com.Polarice3.Goety.config.MobsConfig;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
@@ -186,7 +187,7 @@ public class EffectsUtil {
             int amplifier = illague.getAmplifier();
             if (MobsConfig.IllagueSpread.get()) {
                 for (LivingEntity livingEntity : level.getEntitiesOfClass(LivingEntity.class, infected.getBoundingBox().inflate(8.0D))) {
-                    if (!(livingEntity instanceof PatrollingMonster) && livingEntity.getMobType() != MobType.UNDEAD && !livingEntity.hasEffect(GoetyEffects.ILLAGUE.get())) {
+                    if (!(livingEntity instanceof PatrollingMonster) && !(livingEntity instanceof RaiderServant) && livingEntity.getMobType() != MobType.UNDEAD && !livingEntity.hasEffect(GoetyEffects.ILLAGUE.get())) {
                         if (livingEntity.tickCount % 100 == 0 && livingEntity.getRandom().nextInt(20) == 0) {
                             if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)){
                                 livingEntity.addEffect(new MobEffectInstance(GoetyEffects.ILLAGUE.get(), duration / 2, amplifier, false, false));

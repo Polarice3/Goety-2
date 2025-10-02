@@ -1,0 +1,26 @@
+{
+  "name": "末影遣使",
+  "icon": "goety:void_frame",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_an_endersent",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这些实体的力量远超你所遇见过的大多数生物，它们那对重锤般的手臂不容小觑。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:endersent",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "据记载，它们通常守护着某物——无论是具体物件还是特定的区域。当与末影之眼融合时，它们似乎能获得更强的力量与某些特殊能力。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:void_shard",
+      "text": "附魔末影遣使不但会掉落末影之眼，还会留下虚空碎片。这些碎片可在虚空神龛上发挥作用。"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "冰斧",
+  "icon": "goety:iron_ice_axe",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text":"这些镐形斧虽无法像真斧那样破坏盾牌或剥离树皮，但它们能高效的采集冰块并助你攀越障碍。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:iron_ice_axe",
+      "recipe2": "goety:diamond_ice_axe"
+    }
+  ]
+}

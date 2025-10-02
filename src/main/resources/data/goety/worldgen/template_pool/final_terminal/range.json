@@ -1,0 +1,34 @@
+{
+  "name": "goety:final_terminal/range",
+
+  "fallback": "goety:final_terminal/range",
+
+  "elements": [
+    {
+      "weight": 10,
+      "element": {
+
+        "location": "goety:final_terminal/spawners/blastling",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+
+        "location": "goety:final_terminal/spawners/snareling",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

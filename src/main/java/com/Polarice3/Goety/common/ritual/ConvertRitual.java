@@ -8,10 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -51,6 +48,12 @@ public class ConvertRitual extends Ritual {
             Entity entity = MobUtil.convertTo(tileEntity.getConvertEntity, entityType, true, this.newEquip, this.tame ? castingPlayer : null);
             if (entity instanceof Mob mob){
                 mob.spawnAnim();
+            }
+            if (this.recipe.getCraftType().contains(RitualTypes.STORM)) {
+                LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, world);
+                lightningBolt.setVisualOnly(true);
+                lightningBolt.setPos(entity.position());
+                world.addFreshEntity(lightningBolt);
             }
             if (castingPlayer instanceof ServerPlayer serverPlayer){
                 CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, entity);

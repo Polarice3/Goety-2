@@ -1,0 +1,33 @@
+{
+  "name": "エンダーキーパー",
+  "icon": "goety:void_shrine",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_an_ender_keeper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "次元と虚空の秘密を守るために召喚された、エンドの強力な存在。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:ender_keeper",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "この存在は剣技と虚空魔法の両方に熟達しており、巨大な刃で敵を貫き、ヴォイドオーブを召喚して標的へと放ちます。その刃と攻撃は、敵にヴォイドタッチドを与えます。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "エンダーキーパーから離れるには、$(l:goety:focuses/wind/launch_focus)打ち上げ$()や$(l:goety:focuses/wild/grapple_focus)グラップル$()などの移動呪文を使って距離を置くのが最善です。従者を召喚してこの敵と対峙させる際は、エンダーキーパーの攻撃の一つが近くのクリーチャーを引き寄せ、体力を​​吸収した後、虚空の爆発を放つため、警戒が必要です。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:shrouded_blueprint",
+      "text": "殺されると、彼らが呼び出された聖堂はその宝物、神秘的な設計図を明らかにします...それは闇の魔法の助けを借りてその内容を明らかにするものです。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shrouded_blueprint": 4
+  }
+}

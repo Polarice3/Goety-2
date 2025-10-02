@@ -1,0 +1,18 @@
+{
+  "structures": [
+    {
+      "structure": "goety:final_terminal",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 246808642,
+    "spacing": 120,
+    "separation": 40,
+    "super_exclusion_zone": {
+      "chunk_count": 10,
+      "other_set": "#goety:final_terminal_avoid"
+    },
+    "type": "minecraft:random_spread"
+  }
+}

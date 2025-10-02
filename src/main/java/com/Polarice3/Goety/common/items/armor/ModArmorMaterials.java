@@ -66,7 +66,7 @@ public enum ModArmorMaterials implements ArmorMaterial {
             SoundEvents.ARMOR_EQUIP_NETHERITE,
             ItemConfig.DarkArmorToughness.get().floatValue(),
             ItemConfig.DarkArmorKnockResist.get().floatValue(), () -> {
-        return Ingredient.of(ModItems.DARK_METAL_INGOT.get());
+        return Ingredient.of(ModItems.DARK_ALLOY_INGOT.get());
     });
 
     private static final int[] HEALTH_PER_SLOT = new int[]{13, 15, 16, 11};

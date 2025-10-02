@@ -2,230 +2,191 @@
   "type": "minecraft:chest",
   "pools": [
     {
-      "rolls": 4.0,
+      "rolls": 3,
       "bonus_rolls": 0.0,
       "entries": [
         {
-          "type": "minecraft:empty",
-          "weight": 25
+          "type": "minecraft:item",
+          "name": "minecraft:redstone"
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{Potion:\"minecraft:water\"}"
-            }
-          ],
-          "name": "minecraft:potion",
-          "weight": 75
+          "name": "minecraft:glass_bottle"
         },
         {
           "type": "minecraft:item",
+          "name": "minecraft:glowstone_dust"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:sugar"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gunpowder"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:phantom_membrane"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:glistering_melon_slice"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:rabbit_foot"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:fermented_spider_eye"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:spider_eye"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:golden_carrot"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:magma_cream"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:pufferfish"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:ghast_tear"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "bonus_rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick",
           "functions": [
             {
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 6.0,
-                "min": 1.0
+                "max": 2.0,
+                "min": 0.0
               },
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:glass_bottle",
-          "weight": 75
+          "weight": 2
         },
         {
           "type": "minecraft:item",
+          "name": "minecraft:glowstone_dust",
           "functions": [
             {
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 5.0,
-                "min": 1.0
+                "max": 2.0,
+                "min": 0.0
               },
               "function": "minecraft:set_count"
             }
-          ],
+          ]
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:sugar",
-          "weight": 75
-        },
-        {
-          "type": "minecraft:item",
           "functions": [
             {
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
+                "max": 2.0,
+                "min": 0.0
               },
               "function": "minecraft:set_count"
             }
-          ],
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:redstone",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 0.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:spider_eye",
-          "weight": 75
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:ghast_tear",
-          "weight": 75
-        },
-        {
-          "type": "minecraft:item",
           "functions": [
             {
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
                 "max": 2.0,
-                "min": 1.0
+                "min": 0.0
               },
               "function": "minecraft:set_count"
             }
-          ],
-          "name": "minecraft:magma_cream",
-          "weight": 75
+          ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:fermented_spider_eye",
-          "weight": 75
-        },
-        {
-          "type": "minecraft:item",
+          "name": "minecraft:glass_bottle",
           "functions": [
             {
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
                 "max": 2.0,
-                "min": 1.0
+                "min": 0.0
               },
               "function": "minecraft:set_count"
             }
-          ],
-          "name": "minecraft:glistering_melon_slice",
-          "weight": 75
+          ]
         },
         {
           "type": "minecraft:item",
+          "name": "minecraft:gunpowder",
           "functions": [
             {
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
+                "max": 2.0,
+                "min": 0.0
               },
               "function": "minecraft:set_count"
             }
-          ],
-          "name": "minecraft:blaze_powder",
-          "weight": 25
-        }
-      ]
-    },
-    {
-      "rolls": 2.0,
-      "bonus_rolls": 0.0,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{Potion:\"minecraft:swiftness\"}"
-            }
-          ],
-          "name": "minecraft:potion"
+          ]
         },
         {
           "type": "minecraft:item",
+          "name": "minecraft:scute",
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{Potion:\"minecraft:healing\"}"
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
             }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{Potion:\"minecraft:fire_resistance\"}"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{Potion:\"minecraft:harming\"}"
-            }
-          ],
-          "name": "minecraft:potion"
-        }
-      ]
-    },
-    {
-      "rolls": 1.0,
-      "bonus_rolls": 0.0,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{Potion:\"minecraft:healing\"}"
-            }
-          ],
-          "name": "minecraft:splash_potion",
-          "weight": 75
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{Potion:\"minecraft:strong_harming\"}"
-            }
-          ],
-          "name": "minecraft:splash_potion",
-          "weight": 75
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{Potion:\"minecraft:strong_swiftness\"}"
-            }
-          ],
-          "name": "minecraft:potion",
-          "weight": 75
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{Potion:\"minecraft:strong_regeneration\"}"
-            }
-          ],
-          "name": "minecraft:potion",
-          "weight": 75
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:ender_pearl",
-          "weight": 25
+          ]
         }
       ]
     }

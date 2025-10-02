@@ -343,7 +343,7 @@ public class ItemHelper {
     public static InteractionResultHolder<ItemStack> getVoidBottle(Player player, Level world, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
-        if (stack.isEmpty() || !stack.is(Items.GLASS_BOTTLE)) {
+        if (stack.isEmpty() || !stack.is(Items.GLASS_BOTTLE) || world.dimension().location().toString().contains("aether")) {
             return InteractionResultHolder.pass(stack);
         }
 

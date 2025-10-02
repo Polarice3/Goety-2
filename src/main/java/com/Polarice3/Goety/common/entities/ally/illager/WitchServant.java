@@ -60,7 +60,6 @@ public class WitchServant extends RaiderServant implements RangedAttackMob {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(2, new ModRangedAttackGoal<>(this, 1.0D, 60, 10.0F){
             public boolean canUse() {
                 LivingEntity livingentity = WitchServant.this.getShootTarget();
@@ -72,15 +71,20 @@ public class WitchServant extends RaiderServant implements RangedAttackMob {
                 }
             }
         });
-        this.goalSelector.addGoal(2, new RaiderWanderGoal<>(this, 1.0D));
-        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
     }
 
     @Override
     public void targetSelectGoal() {
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this, RaiderServant.class));
         this.targetSelector.addGoal(1, new SummonTargetGoal(this));
+    }
+
+    @Override
+    public void miscGoal() {
+        this.goalSelector.addGoal(1, new FloatGoal(this));
+        this.goalSelector.addGoal(2, new RaiderWanderGoal<>(this, 1.0D));
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
     }
 
     protected void defineSynchedData() {

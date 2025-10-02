@@ -15,16 +15,17 @@ import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.ExtraCodecs;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 
 import java.util.Locale;
 
 public class MagicSmokeParticle extends TextureSheetParticle {
-    public Timer timer = new Timer(20.0F, 0);
+    public Timer timer;
     public int colorFrom;
     public int colorTo;
 
-    public MagicSmokeParticle(ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd, int colorFrom, int colorTo, float size) {
+    public MagicSmokeParticle(ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd, int colorFrom, int colorTo, int duration, float size) {
         super(clientLevel, x, y, z, xd, yd, zd);
         this.friction = 0.96F;
         this.gravity = -0.1F;
@@ -34,11 +35,15 @@ public class MagicSmokeParticle extends TextureSheetParticle {
         this.zd = zd == 0.0D ? (this.random.nextDouble() * 2 - 1) / 10 : zd;
         this.xd *= 0.5F;
         this.zd *= 0.5F;
+        ColorUtil colorUtil = new ColorUtil(colorFrom);
+        this.rCol = colorUtil.red();
+        this.gCol = colorUtil.green();
+        this.bCol = colorUtil.blue();
         this.colorFrom = colorFrom;
         this.colorTo = colorTo;
         this.quadSize = size;
-        this.lifetime = (int)((double)8 / ((double)clientLevel.random.nextFloat() * 0.8D + 0.2D) * (double)0.3F);
-        this.lifetime = Math.max(this.lifetime, 1);
+        this.lifetime = duration;
+        this.timer = new Timer(duration + 1, 0);
         this.hasPhysics = true;
     }
 
@@ -52,12 +57,36 @@ public class MagicSmokeParticle extends TextureSheetParticle {
 
     @Override
     public void tick() {
-        super.tick();
-        this.timer.advanceTime(Util.getMillis());
-        int newColor = ColorUtil.ARGB.lerp(this.timer.partialTick, this.colorFrom, this.colorTo);
-        this.rCol = (float)ColorUtil.ARGB.red(newColor) / 255.0F;
-        this.gCol = (float)ColorUtil.ARGB.green(newColor) / 255.0F;
-        this.bCol = (float)ColorUtil.ARGB.blue(newColor) / 255.0F;
+        this.xo = this.x;
+        this.yo = this.y;
+        this.zo = this.z;
+        ++this.age;
+        if (this.age >= this.lifetime) {
+            this.remove();
+        } else {
+            this.yd -= 0.04D * (double)this.gravity;
+            this.move(this.xd, this.yd, this.zd);
+            if (this.speedUpWhenYMotionIsBlocked && this.y == this.yo) {
+                this.xd *= 1.1D;
+                this.zd *= 1.1D;
+            }
+
+            this.xd *= (double)this.friction;
+            this.yd *= (double)this.friction;
+            this.zd *= (double)this.friction;
+            if (this.onGround) {
+                this.xd *= (double)0.7F;
+                this.zd *= (double)0.7F;
+            }
+
+            this.timer.advanceTime(Util.getMillis());
+            float lerp = (this.age + this.timer.partialTick) / this.lifetime;
+            int newColor = FastColor.ARGB32.lerp(lerp, this.colorFrom, this.colorTo);
+            ColorUtil colorUtil = new ColorUtil(newColor);
+            this.rCol = colorUtil.red();
+            this.gCol = colorUtil.green();
+            this.bCol = colorUtil.blue();
+        }
     }
 
     @Override
@@ -73,19 +102,18 @@ public class MagicSmokeParticle extends TextureSheetParticle {
         }
 
         public Particle createParticle(Option option, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MagicSmokeParticle trailParticle = new MagicSmokeParticle(clientLevel, d, e, f, g, h, i, option.colorFrom(), option.colorTo(), option.size());
+            MagicSmokeParticle trailParticle = new MagicSmokeParticle(clientLevel, d, e, f, g, h, i, option.getColorFrom(), option.getColorTo(), option.getDuration(), option.getSize());
             trailParticle.pickSprite(this.sprite);
-            trailParticle.setLifetime(option.duration());
             return trailParticle;
         }
     }
 
-    public record Option(int colorFrom, int colorTo, int duration, float size) implements ParticleOptions {
+    public static class Option implements ParticleOptions {
         public static final Codec<Option> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                Codec.INT.fieldOf("colorFrom").forGetter(Option::colorFrom),
-                Codec.INT.fieldOf("colorTo").forGetter(Option::colorTo),
-                ExtraCodecs.POSITIVE_INT.fieldOf("duration").forGetter(Option::duration),
-                Codec.FLOAT.fieldOf("size").forGetter(Option::size)
+                Codec.INT.fieldOf("colorFrom").forGetter(Option::getColorFrom),
+                Codec.INT.fieldOf("colorTo").forGetter(Option::getColorTo),
+                ExtraCodecs.POSITIVE_INT.fieldOf("duration").forGetter(Option::getDuration),
+                Codec.FLOAT.fieldOf("size").forGetter(Option::getSize)
         ).apply(instance, Option::new));
 
         public static final ParticleOptions.Deserializer<Option> DESERIALIZER = new ParticleOptions.Deserializer<>() {
@@ -105,6 +133,17 @@ public class MagicSmokeParticle extends TextureSheetParticle {
                 return new Option(p_235965_.readInt(), p_235965_.readInt(), p_235965_.readInt(), p_235965_.readFloat());
             }
         };
+        public int colorFrom;
+        public int colorTo;
+        public int duration;
+        public float size;
+
+        public Option(int colorFrom, int colorTo, int duration, float size){
+            this.colorFrom = colorFrom;
+            this.colorTo = colorTo;
+            this.duration = duration;
+            this.size = size;
+        }
 
         public ParticleType<Option> getType() {
             return ModParticleTypes.MAGIC_SMOKE.get();
@@ -112,16 +151,32 @@ public class MagicSmokeParticle extends TextureSheetParticle {
 
         @Override
         public void writeToNetwork(FriendlyByteBuf p_123732_) {
-            p_123732_.writeInt(this.colorFrom());
-            p_123732_.writeInt(this.colorTo());
-            p_123732_.writeInt(this.duration());
-            p_123732_.writeFloat(this.size());
+            p_123732_.writeInt(this.getColorFrom());
+            p_123732_.writeInt(this.getColorTo());
+            p_123732_.writeInt(this.getDuration());
+            p_123732_.writeFloat(this.getSize());
         }
 
         @Override
         public String writeToString() {
             return String.format(Locale.ROOT, "%s %s %s %s %.2f",
                     BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.colorFrom, this.colorTo, this.duration, this.size);
+        }
+
+        public int getColorFrom() {
+            return this.colorFrom;
+        }
+
+        public int getColorTo() {
+            return this.colorTo;
+        }
+
+        public int getDuration() {
+            return this.duration;
+        }
+
+        public float getSize() {
+            return this.size;
         }
     }
 }

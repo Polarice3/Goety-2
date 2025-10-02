@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "goety:drowned_necromancer_servant",
+    "goety:wither_necromancer_servant",
+    "goety:wildfire",
+    "goety:brood_mother_servant",
+    "goety:black_beast",
+    "goety:redstone_golem",
+    "goety:grave_golem",
+    "goety:redstone_monstrosity"
+  ]
+}

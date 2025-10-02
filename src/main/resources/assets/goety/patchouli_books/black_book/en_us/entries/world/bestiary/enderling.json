@@ -1,0 +1,41 @@
+{
+  "name": "Enderlings",
+  "icon": "minecraft:ender_pearl",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_an_enderling",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Consisting of varied subspecies of Enderman, these odd creatures appear to defend something from the End, and are more hostile than their main counterpart."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "While they share many traits, such as vulnerability to water, they appear to be more tolerant towards Endermites, and teleport less frequently. Some might disappear for a time after teleporting, before reappearing to confuse their foes."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:watchling",
+      "text": "Unfortunately, the book is incapable of showing their eyes properly for some arcane reason."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Accounted as being the creepiest looking, Watchlings are noted to prefer defending their home in simple ways, namely smashing and swinging at their foes with their big arms."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:blastling"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The most resilient of Enderlings, these fiery entities shoot volleys of hot goo at their foes, though if a foe gets close to them or get hurt by them, they would stop their attack and temporarily run or teleport away."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:snareling"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Similar to Web Spiders, these creatures will attempt to trap their foes in their web-like goop before attacking them with their pinwheel like arms. Unlike their brethren, these strange beings won't disappear for a time when teleporting, preferring to teleport away in an instant."
+    }
+  ]
+}

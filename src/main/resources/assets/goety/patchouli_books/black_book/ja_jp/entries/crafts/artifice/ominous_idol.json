@@ -1,0 +1,27 @@
+{
+  "name": "不吉な偶像",
+  "icon": "goety:ominous_idol",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/kill_a_evoker",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "バウンドされたイリジャーやそれに類する従者たちの命を救うことができる不吉な像。(バウンド方法は後述)"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_idol"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "偶像にバウンドした者は、主人が杖で解放しない限り、死ぬのではなく、死の淵で偶像へとテレポートします。ただし、その場合は重傷を負い、マインクラフトの一日の間は蘇生できず、十分に回復するまで5分間動けなくなります。ソウルエネルギーのために呪われた檻を下に置く必要があります。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "従者を偶像に結びつけるには、ウェイストーンを偶像の位置(土台)にセットし、そのウェイストーンで従者を右クリックする必要があります。偶像は最大16体の従者（デフォルト）までしか収容できず、それ以上は収容できません。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ominous_idol": 1
+  }
+}

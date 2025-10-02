@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "goety:cobbled_end_stone"
+  },
+  "result": "goety:end_stone_slate"
+}

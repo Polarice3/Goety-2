@@ -1,0 +1,21 @@
+{
+  "name": "goety:final_terminal/main_arena",
+
+  "fallback": "goety:final_terminal/main_arena",
+
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+
+        "location": "goety:final_terminal/main_arena",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

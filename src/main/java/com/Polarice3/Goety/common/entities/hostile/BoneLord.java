@@ -11,7 +11,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
@@ -215,19 +214,8 @@ public class BoneLord extends AbstractSkeleton implements ICustomAttributes {
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
-        UUID uuid;
         if (pCompound.hasUUID("skullLord")) {
-            uuid = pCompound.getUUID("skullLord");
-        } else {
-            String s = pCompound.getString("skullLord");
-            uuid = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), s);
-        }
-
-        if (uuid != null) {
-            try {
-                this.setSkullLordUUID(uuid);
-            } catch (Throwable ignored) {
-            }
+            this.setSkullLordUUID(pCompound.getUUID("skullLord"));
         }
         if (pCompound.contains("SkullLordClient")){
             this.setSkullLordClientId(pCompound.getInt("SkullLordClient"));

@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.magic.spells.nether;
 
 import com.Polarice3.Goety.api.magic.SpellType;
-import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
 import com.Polarice3.Goety.client.particles.VerticalCircleExplodeParticleOption;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
@@ -10,7 +9,6 @@ import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
-import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -78,12 +76,6 @@ public class FireBlastSpell extends Spell {
         }
         damage += spellStat.getPotency();
         maxDamage += spellStat.getPotency();
-        for (int i = -radius; i < radius; ++i){
-            for (int k = -radius; k < radius; ++k){
-                BlockPos blockPos = caster.blockPosition().offset(i, 0, k);
-                worldIn.sendParticles(ModParticleTypes.BIG_FIRE.get(), blockPos.getX(), blockPos.getY() + 0.5F, blockPos.getZ(), 0, 0, 0.04D, 0, 0.5F);
-            }
-        }
         ColorUtil colorUtil = new ColorUtil(0xdd9c16);
         worldIn.sendParticles(new ShockwaveParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue()), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 0, 0, 0, 0, 0);
         worldIn.sendParticles(new VerticalCircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius, 1), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 1, 0, 0, 0, 0);

@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.effects;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.config.BrewConfig;
+import com.Polarice3.Goety.utils.ModUUIDUtil;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -106,8 +107,23 @@ public class GoetyEffects {
     public static final RegistryObject<MobEffect> VOID_TOUCHED = EFFECTS.register("void_touched",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0));
 
+    public static final RegistryObject<MobEffect> IMPAIRED = EFFECTS.register("impaired",
+            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0));
+
     public static final RegistryObject<MobEffect> TREMOR_SENSE = EFFECTS.register("tremor_sense",
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0));
+
+    public static final RegistryObject<MobEffect> WOUNDED = EFFECTS.register("wounded",
+            () -> new BrewMobEffect(MobEffectCategory.HARMFUL, 0, false));
+
+    public static final RegistryObject<MobEffect> CRIPPLED = EFFECTS.register("crippled",
+            () -> new BrewMobEffect(MobEffectCategory.HARMFUL, 0, false)
+                    .addAttributeModifier(Attributes.MOVEMENT_SPEED, ModUUIDUtil.uuidString("effect.goety.crippled.movement_speed"),
+                            -0.75D, AttributeModifier.Operation.MULTIPLY_TOTAL)
+                    .addAttributeModifier(Attributes.ATTACK_SPEED, ModUUIDUtil.uuidString("effect.goety.crippled.attack_speed"),
+                            -0.5D, AttributeModifier.Operation.MULTIPLY_TOTAL)
+                    .addAttributeModifier(Attributes.ATTACK_DAMAGE, ModUUIDUtil.uuidString("effect.goety.crippled.attack_damage"),
+                            -0.5D, AttributeModifier.Operation.MULTIPLY_TOTAL));
 
     public static final RegistryObject<MobEffect> STUNNED = EFFECTS.register("stunned",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0xffbc2e)
@@ -210,8 +226,42 @@ public class GoetyEffects {
     public static final RegistryObject<MobEffect> FORTUNATE = EFFECTS.register("fortunate",
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x4aedd9));
 
+    public static final RegistryObject<MobEffect> ALTRUISTIC = EFFECTS.register("altruistic",
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0xa10000));
+
+    public static final RegistryObject<MobEffect> RADIANCE = EFFECTS.register("radiance",
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0xffbc2e));
+
+    public static final RegistryObject<MobEffect> LEECHING = EFFECTS.register("leeching",
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x690000));
+
+    public static final RegistryObject<MobEffect> SHIELDING = EFFECTS.register("shielding",
+            () -> new AuraEffect(MobEffectCategory.BENEFICIAL, 0xb3bec0));
+
+    public static final RegistryObject<MobEffect> SHIELDED = EFFECTS.register("shielded",
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x939d9e));
+
+    public static final RegistryObject<MobEffect> RALLYING = EFFECTS.register("rallying",
+            () -> new AuraEffect(MobEffectCategory.BENEFICIAL, 0xff8609)
+                    .addAttributeModifier(Attributes.ATTACK_DAMAGE, ModUUIDUtil.uuidString("effect.goety.rallying.attack"),
+                            0.1D, AttributeModifier.Operation.MULTIPLY_TOTAL));
+
+    public static final RegistryObject<MobEffect> RALLIED = EFFECTS.register("rallied",
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0xf65500)
+                    .addAttributeModifier(Attributes.ATTACK_DAMAGE, ModUUIDUtil.uuidString("effect.goety.rallied.attack"),
+                            0.1D, AttributeModifier.Operation.MULTIPLY_TOTAL));
+
+    public static final RegistryObject<MobEffect> DEFLECTIVE = EFFECTS.register("deflective",
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0xa575a5));
+
+    public static final RegistryObject<MobEffect> SWIRLING = EFFECTS.register("swirling",
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0xffffff));
+
     public static final RegistryObject<MobEffect> SAVE_EFFECTS = EFFECTS.register("save_effects",
             () -> new GoetyBaseEffect(MobEffectCategory.NEUTRAL, 0x4f446b));
+
+    public static final RegistryObject<MobEffect> GRAVITY_PULSE = EFFECTS.register("gravity_pulse",
+            () -> new GoetyBaseEffect(MobEffectCategory.NEUTRAL, 0x580c56));
 
     public static final RegistryObject<MobEffect> WILD_RAGE = EFFECTS.register("wild_rage",
             () -> new GoetyBaseEffect(MobEffectCategory.NEUTRAL, 0xa8311c));

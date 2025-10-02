@@ -5,19 +5,20 @@ import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.common.advancements.ModCriteriaTriggers;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
-import com.Polarice3.Goety.common.enchantments.ModEnchantments;
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.illager.AbstractIllagerServant;
+import com.Polarice3.Goety.common.entities.ally.illager.Prisoner;
 import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
 import com.Polarice3.Goety.common.entities.ally.undead.HauntedSkull;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.FrozenZombieServant;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.projectiles.ThrowableFungus;
-import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -70,6 +71,7 @@ public class ServantEvents {
                 if (mob.getType().is(ModTags.EntityTypes.IGNORE_SERVANTS)){
                     if (owned.getTrueOwner() != null){
                         if (mob.canAttack(owned.getTrueOwner()) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(owned.getTrueOwner())) {
+                            mob.setLastHurtByMob(owned.getTrueOwner());
                             mob.setTarget(owned.getTrueOwner());
                         }
                     }
@@ -98,6 +100,16 @@ public class ServantEvents {
                         && owned.getTrueOwner() == target
                         && !(mobAttacker instanceof Apostle)){
                     event.setNewTarget(mobAttacker.getLastHurtByMob());
+                }
+            }
+            if (target instanceof OwnableEntity ownable) {
+                if (attacker.getType().is(ModTags.EntityTypes.IGNORE_SERVANTS)) {
+                    if (ownable.getOwner() != null) {
+                        if (attacker.canAttack(ownable.getOwner()) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(ownable.getOwner())) {
+                            attacker.setLastHurtByMob(ownable.getOwner());
+                            event.setNewTarget(ownable.getOwner());
+                        }
+                    }
                 }
             }
             if (attacker instanceof IOwned owned && owned.getMasterOwner() instanceof Player){
@@ -305,38 +317,69 @@ public class ServantEvents {
                 owned.uncreditedKill(killed);
             }
         }
-        AbstractIllagerServant illager = null;
-        if (killer instanceof AbstractIllagerServant servant) {
-            illager = servant;
-        } else if (MobUtil.getOwner(killer) instanceof AbstractIllagerServant servant) {
-            illager = servant;
+        RaiderServant raider = null;
+        if (killer instanceof RaiderServant servant) {
+            raider = servant;
+        } else if (MobUtil.getOwner(killer) instanceof RaiderServant servant) {
+            raider = servant;
         }
-        if (illager != null) {
-            if (illager.level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
-                if (killed instanceof AbstractVillager villager) {
-                    int emeralds = illager.level.getRandom().nextIntBetweenInclusive(1, 3);
-                    if (villager instanceof Villager villager1 && MobsConfig.IllagerServantLootVillagers.get()) {
-                        emeralds += villager1.getVillagerData().getLevel() - 1;
-                    } else if (villager instanceof WanderingTrader && MobsConfig.IllagerServantLootTraders.get()) {
-                        emeralds *= 2;
-                    } else {
-                        emeralds = 0;
-                    }
-                    if (emeralds > 0) {
-                        List<ItemStack> list = new ArrayList<>();
-                        for (MerchantOffer offer : villager.getOffers()) {
-                            if (!offer.isOutOfStock()) {
-                                ItemStack itemStack = offer.assemble();
-                                if (!itemStack.isEmpty()) {
-                                    if (itemStack.isStackable()) {
-                                        itemStack.setCount(offer.getMaxUses() - offer.getUses());
-                                    }
-                                    list.add(itemStack);
+        if (raider != null) {
+            if (!raider.level.isClientSide) {
+                if (raider.isCapturing()) {
+                    if (raider.getLeader() != null) {
+                        if (killed instanceof AbstractVillager villager) {
+                            Prisoner prisoner = villager.convertTo(ModEntityType.PRISONER.get(), true);
+                            if (prisoner != null) {
+                                if (villager instanceof Villager villager1) {
+                                    prisoner.setVillagerData(villager1.getVillagerData());
+                                    prisoner.setGossips(villager1.getGossips().store(NbtOps.INSTANCE));
+                                }
+                                prisoner.setTradeOffers(villager.getOffers().createTag());
+                                prisoner.setVillagerXp(villager.getVillagerXp());
+                                prisoner.setIsTrader(villager instanceof WanderingTrader);
+                                prisoner.setTrueOwner(raider.getTrueOwner());
+                                prisoner.setLeader(raider.getLeader());
+                                net.minecraftforge.event.ForgeEventFactory.onLivingConvert(villager, prisoner);
+                                if (!prisoner.isSilent()) {
+                                    prisoner.playSound(SoundEvents.IRON_TRAPDOOR_CLOSE);
                                 }
                             }
                         }
-                        if (!list.isEmpty()) {
-                            for (ItemStack itemStack : list) {
+                    }
+                } else if (raider instanceof AbstractIllagerServant illager) {
+                    if (illager.level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
+                        if (killed instanceof AbstractVillager villager) {
+                            int emeralds = illager.level.getRandom().nextIntBetweenInclusive(1, 3);
+                            if (villager instanceof Villager villager1 && MobsConfig.IllagerServantLootVillagers.get()) {
+                                emeralds += villager1.getVillagerData().getLevel() - 1;
+                            } else if (villager instanceof WanderingTrader && MobsConfig.IllagerServantLootTraders.get()) {
+                                emeralds *= 2;
+                            } else {
+                                emeralds = 0;
+                            }
+                            if (emeralds > 0) {
+                                List<ItemStack> list = new ArrayList<>();
+                                for (MerchantOffer offer : villager.getOffers()) {
+                                    if (!offer.isOutOfStock()) {
+                                        ItemStack itemStack = offer.assemble();
+                                        if (!itemStack.isEmpty()) {
+                                            if (itemStack.isStackable()) {
+                                                itemStack.setCount(offer.getMaxUses() - offer.getUses());
+                                            }
+                                            list.add(itemStack);
+                                        }
+                                    }
+                                }
+                                if (!list.isEmpty()) {
+                                    for (ItemStack itemStack : list) {
+                                        if (illager.getInventory().canAddItem(itemStack)) {
+                                            illager.getInventory().addItem(itemStack);
+                                        } else {
+                                            villager.spawnAtLocation(itemStack);
+                                        }
+                                    }
+                                }
+                                ItemStack itemStack = new ItemStack(Items.EMERALD, emeralds);
                                 if (illager.getInventory().canAddItem(itemStack)) {
                                     illager.getInventory().addItem(itemStack);
                                 } else {
@@ -344,13 +387,16 @@ public class ServantEvents {
                                 }
                             }
                         }
-                        ItemStack itemStack = new ItemStack(Items.EMERALD, emeralds);
-                        if (illager.getInventory().canAddItem(itemStack)) {
-                            illager.getInventory().addItem(itemStack);
-                        } else {
-                            villager.spawnAtLocation(itemStack);
-                        }
                     }
+                }
+            }
+        }
+
+        if (killed instanceof IOwned owned) {
+            if (!killed.level.isClientSide) {
+                if (owned.canRevive(event.getSource())) {
+                    owned.reviveOwned();
+                    event.setCanceled(true);
                 }
             }
         }
@@ -405,54 +451,6 @@ public class ServantEvents {
                                     || entity instanceof AbstractHorse && fungus.getOwner() != null &&  ((AbstractHorse) entity).getOwnerUUID() == fungus.getOwner().getUUID()
                                     || entity == fungus.getOwner()
                                     || entity instanceof ThrowableFungus));
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void ServantLoot(LootingLevelEvent event){
-        if (event.getDamageSource() != null) {
-            if (event.getEntity() != null) {
-                if (!event.getEntity().level.isClientSide) {
-                    int looting = 0;
-                    if (event.getDamageSource() instanceof NoKnockBackDamageSource damageSource){
-                        if (damageSource.getOwner() != null){
-                            if (damageSource.getOwner() instanceof IOwned ownedEntity && ownedEntity instanceof LivingEntity) {
-                                if (ownedEntity.getTrueOwner() instanceof Player player) {
-                                    if (CuriosFinder.findRing(player).getItem() == ModItems.RING_OF_WANT.get()) {
-                                        if (CuriosFinder.findRing(player).isEnchanted()) {
-                                            looting = CuriosFinder.findRing(player).getEnchantmentLevel(ModEnchantments.WANTING.get());
-                                        }
-                                    }
-                                    if (looting > event.getLootingLevel()) {
-                                        if (ModDamageSource.wantingAttacks(damageSource)) {
-                                            event.setLootingLevel(looting);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    if (event.getDamageSource().getEntity() != null) {
-                        if (event.getDamageSource().getEntity() instanceof IOwned ownedEntity) {
-                            if (ownedEntity instanceof LivingEntity) {
-                                if (ownedEntity.getTrueOwner() instanceof Player player) {
-                                    if (CuriosFinder.findRing(player).getItem() == ModItems.RING_OF_WANT.get()) {
-                                        if (CuriosFinder.findRing(player).isEnchanted()) {
-                                            looting = CuriosFinder.findRing(player).getEnchantmentLevel(ModEnchantments.WANTING.get());
-                                        }
-                                    }
-                                    if (looting > event.getLootingLevel()) {
-                                        event.setLootingLevel(looting);
-                                    }
-                                    if (event.getDamageSource().is(ModDamageSource.LOOT_EXPLODE) || event.getDamageSource().is(ModDamageSource.LOOT_EXPLODE_OWNED)){
-                                        event.setLootingLevel(looting);
-                                    }
-                                }
-                            }
-                        }
-                    }
                 }
             }
         }

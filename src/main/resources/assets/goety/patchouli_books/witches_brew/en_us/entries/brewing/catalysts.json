@@ -85,6 +85,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.deflective",
+      "text": "Why block a projectile when you can have said projectile shoot back at the shooter!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.drought",
       "text": "Too much water! With this brew, there will be no water!"
     },
@@ -197,6 +202,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.gravity_pulse",
+      "text": "Hey, don't be shy! These hands aren't gonna punch themselves! Get over here!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.grow_cactus",
       "text": "Bringing the green dye to the sandy beaches of my home!"
     },
@@ -272,6 +282,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.leaf_shell",
       "text": "Better light those matches! Those leaves aren't so easy to break by hand!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.leeching",
+      "text": "Hitting a ruffian with your fist or stick will heal you a tiny percent of their max health."
     },
     {
       "type": "goety:catalyst",
@@ -359,8 +374,18 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.radiance",
+      "text": "Here's a secret from Ol' Granny! Sometimes I feel younger after smacking a brat with my old sandal!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.raise_dead",
       "text": "Wake up sleepy heads! Granny can't carry all these bags herself!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.rallying",
+      "text": "Get those brats to hit harder when you're near them!"
     },
     {
       "type": "goety:catalyst",
@@ -398,6 +423,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.shear",
       "text": "My arms are too old to be shearing those Sheeps! My brews will do it for Ol' Granny!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.shielding",
+      "text": "It seems being near Ol'Granny makes those hits a bit less painful!"
     },
     {
       "type": "goety:catalyst",
@@ -452,6 +482,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.swirling",
+      "text": "Better not gang up on someone with this effect, else you'll get sliced up as they punch someone's face!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.thorn_trap",
       "text": "You're surrounded brat! You should stop walking unless you get a face full of thorns! Hahahaha!"
     },
@@ -473,6 +508,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.venomous_hands",
       "text": "My hands are made of Spiders! Hahahaha!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.void_touched",
+      "text": "Get in touch with the void, brat! Make sure you don't get touched by anything else!"
     },
     {
       "type": "goety:catalyst",

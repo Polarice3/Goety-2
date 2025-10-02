@@ -145,7 +145,7 @@ public class SoulEnergyEvents {
                 SEHelper.sendSEUpdatePacket(player);
             }
         }
-        if (!world.isClientSide) {
+        if (world instanceof ServerLevel) {
             if (soulEnergy.getCameraUUID() != null){
                 Entity entity = EntityFinder.getEntityByUuiD(soulEnergy.getCameraUUID());
                 if (entity == null || !entity.isAlive()
@@ -157,17 +157,11 @@ public class SoulEnergyEvents {
             }
             soulEnergy.grudgeList().removeIf(uuid -> {
                 Entity entity = EntityFinder.getLivingEntityByUuiD(uuid);
-                if ((entity == null || entity instanceof Player) && world.getServer() != null){
-                    return world.getServer().getPlayerList().getPlayer(uuid) == null;
-                }
-                return (entity instanceof Mob mob && (!mob.isAlive() || mob.isRemoved())) || entity == null;
+                return (entity instanceof Mob mob && (!mob.isAlive() || mob.isRemoved()));
             });
             soulEnergy.allyList().removeIf(uuid -> {
                 Entity entity = EntityFinder.getLivingEntityByUuiD(uuid);
-                if ((entity == null || entity instanceof Player) && world.getServer() != null){
-                      return world.getServer().getPlayerList().getPlayer(uuid) == null;
-                }
-                return (entity instanceof Mob mob && (!mob.isAlive() || mob.isRemoved())) || entity == null;
+                return (entity instanceof Mob mob && (!mob.isAlive() || mob.isRemoved()));
             });
         }
         if (soulEnergy.getSoulEnergy() < 0){

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "goety:watchling_servant",
+    "goety:blastling_servant",
+    "goety:snareling_servant"
+  ]
+}

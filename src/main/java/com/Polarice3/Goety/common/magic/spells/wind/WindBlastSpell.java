@@ -11,6 +11,7 @@ import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -118,7 +119,7 @@ public class WindBlastSpell extends Spell {
         List<Entity> entities = caster.level.getEntities(caster, caster.getBoundingBox().inflate(1.0D).expandTowards(rangeVec));
         for (Entity entity : entities){
             if (caster.hasLineOfSight(entity)){
-                if (!MobUtil.areAllies(entity, caster)) {
+                if (!MobUtil.areAllies(entity, caster) && !entity.getType().is(ModTags.EntityTypes.UNBLOWABLE_ENTITIES)) {
                     MobUtil.knockBack(entity, caster, 2.0D * knock, 0.2D * knock, 2.0D * knock);
                     if (entity instanceof LivingEntity living) {
                         if (typeStaff(staff, SpellType.FROST)) {

@@ -13,9 +13,11 @@ import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.entities.projectiles.IceBouquet;
 import com.Polarice3.Goety.common.entities.projectiles.Spike;
 import com.Polarice3.Goety.common.entities.util.TridentStorm;
+import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SLightningPacket;
 import com.Polarice3.Goety.common.network.server.SThunderBoltPacket;
+import com.Polarice3.Goety.init.ModAttributes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -138,6 +140,16 @@ public class WandUtil {
         } else {
             return 0;
         }
+    }
+
+    public static SpellStat getStats(LivingEntity livingEntity, ISpell spell) {
+        return spell.defaultStats()
+                .increasePotency(ModAttributes.getPotency(livingEntity, spell))
+                .increaseDuration(ModAttributes.getDuration(livingEntity))
+                .increaseRange(ModAttributes.getRange(livingEntity))
+                .increaseRadius(ModAttributes.getRadius(livingEntity))
+                .increaseBurning(ModAttributes.getBurning(livingEntity))
+                .increaseVelocity(ModAttributes.getVelocity(livingEntity));
     }
 
     public static void chainLightning(LivingEntity pTarget, @Nullable LivingEntity pAttacker, double range, float damage){

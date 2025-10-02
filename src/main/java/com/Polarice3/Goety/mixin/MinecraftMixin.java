@@ -1,6 +1,8 @@
 package com.Polarice3.Goety.mixin;
 
+import com.Polarice3.Goety.common.blocks.entities.OminousIdolBlockEntity;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
 import com.Polarice3.Goety.common.items.magic.CommandFocus;
 import com.Polarice3.Goety.common.items.magic.OrderFocus;
 import com.Polarice3.Goety.utils.WandUtil;
@@ -9,6 +11,9 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,7 +30,8 @@ public class MinecraftMixin {
 
     @Inject(method = "shouldEntityAppearGlowing", at = @At(value = "HEAD"), cancellable = true)
     public void shouldEntityAppearGlowing(Entity pEntity, CallbackInfoReturnable<Boolean> cir) {
-        LocalPlayer player = Minecraft.getInstance().player;
+        Minecraft minecraft = Minecraft.getInstance();
+        LocalPlayer player = minecraft.player;
         if (player != null) {
             if (player.hasEffect(GoetyEffects.TREMOR_SENSE.get())
                     && pEntity instanceof LivingEntity livingEntity
@@ -50,6 +56,23 @@ public class MinecraftMixin {
                     if (!list.isEmpty()) {
                         if (list.contains(livingEntity)) {
                             cir.setReturnValue(true);
+                        }
+                    }
+                }
+                if (pEntity instanceof RaiderServant servant) {
+                    if (servant.canLinkToIdol()) {
+                        if (player.isCrouching() || player.isShiftKeyDown()) {
+                            HitResult hitResult = minecraft.hitResult;
+                            if (minecraft.level != null) {
+                                if (hitResult instanceof BlockHitResult blockRayTraceResult) {
+                                    BlockEntity blockEntity = minecraft.level.getBlockEntity(blockRayTraceResult.getBlockPos());
+                                    if (blockEntity instanceof OminousIdolBlockEntity idolBlock) {
+                                        if (idolBlock.getIds().contains(servant.getId())) {
+                                            cir.setReturnValue(true);
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }

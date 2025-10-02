@@ -71,6 +71,9 @@ public class BlinkSpell extends Spell {
         if (WandUtil.enchantedFocus(caster)) {
             range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
         }
+        if (rightStaff(staff)) {
+            range *= 2;
+        }
         EntityHitResult hitResult = this.entityResult(worldIn, caster, range, 3);
         if (hitResult != null){
             Entity entity = hitResult.getEntity();
@@ -83,7 +86,7 @@ public class BlinkSpell extends Spell {
             if (!this.isShifting(caster)) {
                 Vec3 vec3 = findTeleportLocation(worldIn, caster, 32 + range);
                 BlockPos blockPos = BlockPos.containing(vec3);
-                enderTeleportEvent(caster, blockPos, this.rightStaff(staff));
+                enderTeleportEvent(caster, blockPos);
                 worldIn.broadcastEntityEvent(caster, (byte) 46);
                 this.playSound(worldIn, caster, SoundEvents.ENDERMAN_TELEPORT, 2.0F, 1.0F);
             } else {
@@ -121,11 +124,8 @@ public class BlinkSpell extends Spell {
 
     }
 
-    public static void enderTeleportEvent(LivingEntity player, BlockPos target, boolean staff) {
-        BlockPos blockPos = target;
-        if (!staff) {
-            blockPos = BlockFinder.SummonPosition(player, target);
-        }
+    public static void enderTeleportEvent(LivingEntity player, BlockPos target) {
+        BlockPos blockPos = BlockFinder.SummonPosition(player, target);
         net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(player, blockPos.getX(), blockPos.getY(), blockPos.getZ());
         if (!event.isCanceled()) {
             player.teleportTo(event.getTargetX(), event.getTargetY(), event.getTargetZ());

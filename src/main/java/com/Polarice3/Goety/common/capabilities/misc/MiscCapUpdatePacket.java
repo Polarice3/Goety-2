@@ -1,12 +1,13 @@
 package com.Polarice3.Goety.common.capabilities.misc;
 
+import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.utils.MiscCapHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -24,7 +25,7 @@ public class MiscCapUpdatePacket {
     public MiscCapUpdatePacket(LivingEntity living) {
         this.entityID = living.getId();
         living.getCapability(MiscProvider.CAPABILITY, null).ifPresent((misc) -> {
-            this.tag = (CompoundTag) MiscCapHelper.save(new CompoundTag(), misc);
+            this.tag = MiscCapHelper.save(new CompoundTag(), misc);
         });
     }
 
@@ -40,8 +41,8 @@ public class MiscCapUpdatePacket {
     public static void consume(MiscCapUpdatePacket packet, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             if (ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
-                ClientLevel clientLevel = Minecraft.getInstance().level;
-                if (clientLevel != null) {
+                Level level = Goety.PROXY.getLevel();
+                if (level instanceof ClientLevel clientLevel) {
                     Entity entity = clientLevel.getEntity(packet.entityID);
                     if (entity != null) {
                         entity.getCapability(MiscProvider.CAPABILITY).ifPresent((misc) -> {

@@ -138,6 +138,11 @@ public abstract class WindTrailParticle extends Particle {
         return d0.add(d1.scale(partialTick));
     }
 
+    @Override
+    public boolean shouldCull() {
+        return false;
+    }
+
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.CUSTOM;
     }

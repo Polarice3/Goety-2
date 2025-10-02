@@ -10,7 +10,7 @@ import net.minecraft.world.entity.Mob;
 public class PostBossMusic extends AbstractTickableSoundInstance {
     protected final Mob mobEntity;
 
-    public PostBossMusic(SoundEvent soundEvent, Mob mobEntity) {
+    public PostBossMusic(SoundEvent soundEvent, Mob mobEntity, float volume, float pitch) {
         super(soundEvent, SoundSource.RECORDS, SoundInstance.createUnseededRandom());
         this.mobEntity = mobEntity;
         this.x = (double)((float)mobEntity.getX());
@@ -18,7 +18,8 @@ public class PostBossMusic extends AbstractTickableSoundInstance {
         this.z = (double)((float)mobEntity.getZ());
         this.looping = false;
         this.delay = 0;
-        this.volume = 1.0F;
+        this.volume = volume;
+        this.pitch = pitch;
     }
 
     @Override

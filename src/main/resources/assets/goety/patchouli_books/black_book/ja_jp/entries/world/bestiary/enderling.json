@@ -1,0 +1,41 @@
+{
+  "name": "エンダーリング",
+  "icon": "minecraft:ender_pearl",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_an_enderling",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "エンダーマンのさまざまな亜種からなるこれらの奇妙な生き物は、エンドから何かを守っているようで、エンダーマンよりも敵対的です。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "水に弱いなど多くの共通点があるものの、エンダーマイトに対してはより寛容で、テレポートの頻度も低いようです。テレポート後、しばらく姿を消したあと、再び現れて敵を混乱させる個体もいます。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:watchling",
+      "text": "残念ながら、この本では、何らかの不可解な理由により、彼らの目を適切に表示することができません。ええ、シャイなんでしょう。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "最も不気味な見た目をしているとされるウォッチリングは、敵を大きな腕で叩き壊したり振り回したりするという単純な方法で自分の住処を守ることを好むと言われています。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:blastling"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "エンダーリングの中で最も耐久力のあるこの炎の存在は、敵に向かって熱い粘液を一斉に発射しますが、敵が近づいたり、それによってダメージを受けたりした場合は、攻撃を中止し、一時的に逃走するかテレポートして逃げます。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:snareling"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ウェブクモと同様に、これらの生物は敵を網状の粘液で捕らえ、風車のような腕で攻撃します。ウェブクモとは異なり、これらの奇妙な生物はテレポート時に一時的に姿を消すことはなく、瞬時にテレポートして逃げ去ります。"
+    }
+  ]
+}

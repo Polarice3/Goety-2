@@ -1,0 +1,26 @@
+{
+  "name": "Endersent",
+  "icon": "goety:void_frame",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_an_endersent",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "These entities' strength surpasses most creatures you have encountered, as their hammer like arms are not to be trifled with."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:endersent",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Most recounting of them seems to have them guard something, whether it be an object or an area. It appears they gain strength and abilities when bonded with an Eye of Ender."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:void_shard",
+      "text": "Not only will an Enchanted Endersent drop its eye, but will also drop a Void Shard, which can be used on a Void Shrine."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Final Terminal",
+  "icon": "goety:void_spawner",
+  "category": "goety:world",
+  "advancement": "minecraft:story/enter_the_end",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Within the End, lies a structure that holds various treasures and secrets. It is rumored to be guarded by subspecies of Endermen, Enderlings."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Going through the structure, one can come across Void Keys and arenas containing Void Frames. Using said keys on the frames will summon forth a powerful creature, that drops a Void Shard when slain. The structure also contains vaults that can be opened with the keys."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "On top of the terminal lies a Void Shrine. It requires four Void Shards to be inserted before a powerful warrior is summoned. Defeating the warrior will cause an object to appear, placed on the Void Shrine, that can give a monstrous secret."
+    }
+  ]
+}

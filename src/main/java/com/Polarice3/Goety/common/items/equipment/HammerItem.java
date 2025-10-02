@@ -93,7 +93,7 @@ public class HammerItem extends TieredItem implements Vanishable {
         Player player = p_41427_.getPlayer();
         BlockState blockstate = level.getBlockState(blockpos);
         if (player != null) {
-            ItemStack itemStack = player.getUseItem();
+            ItemStack itemStack = p_41427_.getItemInHand();
             if (blockstate.is(Tags.Blocks.STORAGE_BLOCKS_IRON)) {
                 itemStack.hurtAndBreak(5, player, (p_220045_0_) ->
                         p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));

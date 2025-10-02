@@ -42,7 +42,7 @@ public class SeaAmuletItem extends SingleStackItem{
                 } else if (this.getConduitChargesAmount(stack) < 0){
                     this.setConduitCharges(stack, 0);
                 }
-                if (CuriosFinder.hasCurio(player, itemStack -> itemStack == stack)){
+                if (CuriosFinder.hasCurio(player, this)){
                     if (player.isUnderWater()) {
                         BlockEntity blockEntity = BlockFinder.findBlockEntity(BlockEntityType.CONDUIT, worldIn, player.blockPosition(), 8);
                         if (blockEntity instanceof ConduitBlockEntity blockEntity1) {

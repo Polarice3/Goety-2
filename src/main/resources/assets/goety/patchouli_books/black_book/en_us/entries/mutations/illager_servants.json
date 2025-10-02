@@ -37,6 +37,14 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:piker_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These highly trained and disciplined Illagers are capable of stabbing targets further from their position."
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:vindicator_servant"
     },
     {
@@ -51,6 +59,14 @@
     {
       "type": "patchouli:text",
       "text": "A specialized Vindicator that can collect uncooked meat and will cook the food in their inventory at a nearby Smoker or Furnace. Shift-right click with an empty hand on them will give you their first food in their inventory."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:mountaineer_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These mountain climbers are a bit more sturdier than their vindictive cousins, both in health and their resistance on being blown away by wind."
     },
     {
       "type": "patchouli:entity",
@@ -149,6 +165,17 @@
     {
       "type": "patchouli:text",
       "text": "All Illagers will collect any loot from their kills and will throw them at their master when they're near them and away from combat, unless the loot is a valid food for them to eat."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:chain",
+      "anchor": "capture",
+      "title": "Capturing",
+      "text": "Right-clicking on a Raider with a Chain will cause them to enter Capturing Mode where, rather than killing Villagers, they will turn them into Prisoners that will follow their captor and can be commanded by you. Right-clicking on the Capturing raider with an Axe will stop them from being in Capturing Mode."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Much like everything else, all raiders will enter Capturing Mode if their leader is in that mode. In Raids, if all surviving Villagers are Prisoners, the raid is considered a success. To free a Prisoner, right-click on them while crouching. Prisoners can also be freed if they have taken enough damage while away from their captor or owner. There's a chance that certain Villagers don't end up being captured and can potentially die like usual."
     },
     {
       "type": "patchouli:spotlight",

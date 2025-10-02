@@ -10,6 +10,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -25,13 +26,19 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.Objects;
 import java.util.UUID;
 
 public class WebSpiderServant extends SpiderServant implements RangedAttackMob {
     private static final EntityDataAccessor<Boolean> WEB_SHOOTING = SynchedEntityData.defineId(WebSpiderServant.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(WebSpiderServant.class, EntityDataSerializers.INT);
     public static AttributeModifier SHOOT_SPEED_MODIFIER = new AttributeModifier(UUID.fromString("fb1bebf4-834b-49d6-9ac6-ddd64dd93332"), "Shooting speed penalty", -1.0D, AttributeModifier.Operation.ADDITION);
+    public static String IDLE = "idle";
+    public static String SHOOT = "shoot";
     public boolean isFleeing;
     public boolean stopMoving;
+    public int shootAnim;
+    public AnimationState shootAnimationState = new AnimationState();
 
     public WebSpiderServant(EntityType<? extends SpiderServant> type, Level worldIn) {
         super(type, worldIn);
@@ -67,6 +74,7 @@ public class WebSpiderServant extends SpiderServant implements RangedAttackMob {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(WEB_SHOOTING, false);
+        this.entityData.define(ANIM_STATE, 0);
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -78,6 +86,41 @@ public class WebSpiderServant extends SpiderServant implements RangedAttackMob {
     public void setConfigurableAttributes() {
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.WebSpiderServantHealth.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.WebSpiderServantDamage.get());
+    }
+
+    public void setAnimationState(String input) {
+        this.setAnimationState(this.getAnimationState(input));
+    }
+
+    public void setAnimationState(int id) {
+        this.entityData.set(ANIM_STATE, id);
+    }
+
+    public int getAnimationState(String animation) {
+        if (Objects.equals(animation, SHOOT)){
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public int getCurrentAnimation(){
+        return this.entityData.get(ANIM_STATE);
+    }
+
+    public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
+        if (ANIM_STATE.equals(accessor)) {
+            if (this.level.isClientSide){
+                switch (this.entityData.get(ANIM_STATE)){
+                    case 0:
+                        this.shootAnimationState.stop();
+                        break;
+                    case 1:
+                        this.shootAnimationState.start(this.tickCount);
+                        break;
+                }
+            }
+        }
     }
 
     public void setWebShooting(boolean webShooting) {
@@ -128,6 +171,11 @@ public class WebSpiderServant extends SpiderServant implements RangedAttackMob {
                         modifiableattributeinstance.removeModifier(SHOOT_SPEED_MODIFIER);
                     }
                 }
+            }
+            if (this.shootAnim > 0) {
+                --this.shootAnim;
+            } else {
+                this.setAnimationState(IDLE);
             }
         }
     }
@@ -190,6 +238,7 @@ public class WebSpiderServant extends SpiderServant implements RangedAttackMob {
             this.attackTime = -1;
             this.mob.stopMoving = false;
             this.mob.setWebShooting(false);
+            this.mob.setAnimationState(IDLE);
         }
 
         public boolean requiresUpdateEveryTick() {
@@ -219,6 +268,9 @@ public class WebSpiderServant extends SpiderServant implements RangedAttackMob {
                         return;
                     }
 
+                    this.mob.setAnimationState(SHOOT);
+                    this.mob.shootAnim = MathHelper.secondsToTicks(0.56F) + 5;
+                } else if (this.attackTime == this.attackInterval - MathHelper.secondsToTicks(0.75F + 0.36F)) {
                     float f = (float) Math.sqrt(d0) / this.attackRadius;
                     float f1 = Mth.clamp(f, 0.1F, 1.0F);
                     this.mob.performRangedAttack(this.target, f1);

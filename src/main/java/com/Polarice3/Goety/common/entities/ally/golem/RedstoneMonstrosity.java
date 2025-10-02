@@ -12,6 +12,7 @@ import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.ScatterBomb;
 import com.Polarice3.Goety.common.entities.util.CameraShake;
 import com.Polarice3.Goety.common.entities.util.SummonCircleVariant;
+import com.Polarice3.Goety.common.items.block.RedstoneMonstrosityHeadItem;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -45,6 +46,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -127,6 +129,9 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
         this.goalSelector.addGoal(2, new MeleeGoal(this));
         this.goalSelector.addGoal(3, new BelchGoal(this));
         this.goalSelector.addGoal(5, new AttackGoal(this, 1.2D));
+    }
+
+    public void miscGoal() {
         this.goalSelector.addGoal(8, new RaiderWanderGoal<>(this, 1.0D, 10));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
@@ -567,6 +572,17 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
         ++this.deathTime;
         if (this.deathTime >= MathHelper.secondsToTicks(5)) {
             this.spawnAnim();
+            if (this.getTrueOwner() != null){
+                ItemStack itemStack = new ItemStack(ModBlocks.REDSTONE_MONSTROSITY_HEAD_BLOCK.get());
+                RedstoneMonstrosityHeadItem.setOwner(this.getTrueOwner(), itemStack);
+                if (this.getCustomName() != null){
+                    RedstoneMonstrosityHeadItem.setCustomName(this.getCustomName().getString(), itemStack);
+                }
+                ItemEntity itemEntity = this.spawnAtLocation(itemStack);
+                if (itemEntity != null){
+                    itemEntity.setExtendedLifetime();
+                }
+            }
             this.remove(RemovalReason.KILLED);
         }
         this.hurtTime = 1;

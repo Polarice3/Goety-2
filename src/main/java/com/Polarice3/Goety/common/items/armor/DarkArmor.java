@@ -40,7 +40,7 @@ public class DarkArmor extends ArmorItem implements ISoulRepair, ISoulDiscount {
         }
     }
 
-    public int getSoulDiscount(EquipmentSlot equipmentSlot){
+    public int getSoulDiscount(EquipmentSlot equipmentSlot, ItemStack itemStack){
         return 5;
     }
 
@@ -80,6 +80,9 @@ public class DarkArmor extends ArmorItem implements ISoulRepair, ISoulDiscount {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(this.soulDiscountTooltip(stack));
+        int discount = this.getSoulDiscount(LivingEntity.getEquipmentSlotForItem(stack), stack);
+        if (discount > 0) {
+            tooltip.add(this.soulDiscountTooltip(stack));
+        }
     }
 }

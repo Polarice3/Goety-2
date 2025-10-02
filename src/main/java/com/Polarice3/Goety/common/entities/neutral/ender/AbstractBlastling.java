@@ -10,7 +10,6 @@ import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -25,7 +24,6 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -204,7 +202,7 @@ public class AbstractBlastling extends AbstractEnderling implements RangedAttack
     }
 
     @Override
-    protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
+    public void stepSound() {
         this.playSound(ModSounds.BLASTLING_STEP.get(), 0.15F, 1.0F);
     }
 
@@ -222,7 +220,7 @@ public class AbstractBlastling extends AbstractEnderling implements RangedAttack
                 ColorUtil colorUtil = new ColorUtil(0xf169e9);
                 Vec3 vec3 = this.getHorizontalLookAngle();
                 if (this.tickCount % 2 == 0) {
-                    this.level.addParticle(new MagicSmokeParticle.Option(0xae00bc, 0xae00bc, 10 + this.level.getRandom().nextInt(10), 0.35F), this.getX() + (vec3.x / 2.0D), this.getEyeY() + 0.35F, this.getZ() + (vec3.z / 2.0D), 0.0D, 0.01D, 0.0D);
+                    this.level.addParticle(new MagicSmokeParticle.Option(0xf4cdf6, 0xae00bc, 10 + this.level.getRandom().nextInt(10), 0.35F), this.getX() + (vec3.x / 2.0D), this.getEyeY() + 0.35F, this.getZ() + (vec3.z / 2.0D), 0.0D, 0.01D, 0.0D);
                     this.level.addParticle(ModParticleTypes.SMALL_STATION_CULT_SPELL.get(), this.getX() + (vec3.x / 2.0D), this.getEyeY() + 0.35F, this.getZ() + (vec3.z / 2.0D), colorUtil.red(), colorUtil.green(), colorUtil.blue());
                 }
             }
@@ -266,10 +264,12 @@ public class AbstractBlastling extends AbstractEnderling implements RangedAttack
             }
 
             if (this.teleportCool <= 0) {
-                if (!this.isHiding()) {
-                    if (this.getTarget() != null && this.postAttackTick <= 0) {
-                        if (this.getTarget().distanceTo(this) <= 10.0F) {
-                            this.startHide();
+                if (!this.isStaying()) {
+                    if (!this.isHiding()) {
+                        if (this.getTarget() != null && this.postAttackTick <= 0) {
+                            if (this.getTarget().distanceTo(this) <= 10.0F) {
+                                this.startHide();
+                            }
                         }
                     }
                 }
@@ -283,9 +283,12 @@ public class AbstractBlastling extends AbstractEnderling implements RangedAttack
 
     @Override
     public void teleportAfterHiding() {
-        if (this.teleport(28.0D)) {
-            this.teleportCool = MathHelper.secondsToTicks(20);
+        if (this.getTarget() != null) {
+            this.teleportAway(this.getTarget(), 28.0D);
+        } else {
+            this.teleport(28.0D);
         }
+        this.teleportCool = MathHelper.secondsToTicks(20);
     }
 
     @Override

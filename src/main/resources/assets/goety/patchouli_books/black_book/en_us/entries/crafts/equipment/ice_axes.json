@@ -1,0 +1,16 @@
+{
+  "name": "Ice Axes",
+  "icon": "goety:iron_ice_axe",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "These pickaxe looking axes are useful at collecting ice and pushing you up over obstacles, though they lack the shield-disabling and wood-stripping abilities of true axes."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:iron_ice_axe",
+      "recipe2": "goety:diamond_ice_axe"
+    }
+  ]
+}

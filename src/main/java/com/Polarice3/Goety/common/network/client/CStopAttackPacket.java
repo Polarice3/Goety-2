@@ -40,7 +40,7 @@ public class CStopAttackPacket {
                                     mob.setLastHurtByMob(target);
                                 }
                                 entity.playSound(ModSounds.ROAR_SPELL.get(), 0.5F, 2.0F);
-                                serverLevel.broadcastEntityEvent(entity, (byte) 20);
+                                owned.onStopAttack();
                             } else {
                                 owned.onCeaseFire(playerEntity);
                                 if (mob.getTarget() != null) {
@@ -49,7 +49,7 @@ public class CStopAttackPacket {
                                         mob.setLastHurtByMob(null);
                                     }
                                     entity.playSound(ModSounds.CAST_SPELL.get(), 1.0F, 1.0F);
-                                    serverLevel.broadcastEntityEvent(entity, (byte) 20);
+                                    owned.onStopAttack();
                                 }
                             }
                         }

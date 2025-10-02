@@ -53,6 +53,30 @@ public class SpellStat {
         return spellStat;
     }
 
+    public SpellStat increasePotency(int increase) {
+        return this.setPotency(this.getPotency() + increase);
+    }
+
+    public SpellStat increaseDuration(int increase) {
+        return this.setDuration(this.getDuration() + increase);
+    }
+
+    public SpellStat increaseRange(int increase) {
+        return this.setRange(this.getRange() + increase);
+    }
+
+    public SpellStat increaseRadius(double increase) {
+        return this.setRadius(this.getRadius() + increase);
+    }
+
+    public SpellStat increaseBurning(int increase) {
+        return this.setBurning(this.getBurning() + increase);
+    }
+
+    public SpellStat increaseVelocity(float increase) {
+        return this.setVelocity(this.getVelocity() + increase);
+    }
+
     public int getPotency() {
         return this.potency;
     }

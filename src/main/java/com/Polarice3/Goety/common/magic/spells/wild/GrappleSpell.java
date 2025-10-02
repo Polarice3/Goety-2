@@ -57,7 +57,7 @@ public class GrappleSpell extends Spell {
         return SpellConfig.GrappleCoolDown.get();
     }
 
-    public int spellCooldown(){
+    public int spellCooldown(LivingEntity caster){
         return this.trueCooldown;
     }
 

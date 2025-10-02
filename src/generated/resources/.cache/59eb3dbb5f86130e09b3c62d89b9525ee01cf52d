@@ -1,4 +1,4 @@
-// 1.20.1	2025-07-17T10:27:17.0117105	Loot Tables
+// 1.20.1	2025-09-03T17:59:18.3292972	Loot Tables
 1173ad0aef6067156a1c3161e3fe16b8e10b3f92 data/goety/loot_tables/blocks/animator.json
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
@@ -35,6 +35,9 @@ e9b6abf64e9f311e43c571bc640ee1374a772366 data/goety/loot_tables/blocks/chorus_pr
 5f2f54224b05d1a5273f7521bb36beba6afb9378 data/goety/loot_tables/blocks/chorus_wood.json
 a41bcda8ea427b91015f4ecbe472abe19e82f0ce data/goety/loot_tables/blocks/chorus_wood_slab.json
 97dd1d21869f241d86b4ac5f73529d4e2397951a data/goety/loot_tables/blocks/chorus_wood_stairs.json
+3324f5cca012d9cf3d1c5e861da913ca7b21bb1d data/goety/loot_tables/blocks/cobbled_end_stone_slab.json
+8d56433439399e38c2818642310e00694b8f8696 data/goety/loot_tables/blocks/cobbled_end_stone_stairs.json
+196d581d5a1a3421797cd4372d69eb22c6eee26b data/goety/loot_tables/blocks/cobbled_end_stone_wall.json
 cc01ad4957763ebe5e46430be933667d1722cbeb data/goety/loot_tables/blocks/compacted_pine_planks.json
 a2455fbebe7914c93904e1e9b9076f99fff50264 data/goety/loot_tables/blocks/compacted_pine_slab.json
 ed4b42cde835c580cccafb85a0afaeb07af5021e data/goety/loot_tables/blocks/compacted_windswept_planks.json
@@ -126,7 +129,7 @@ ba674b9affb48f017f5f217cfb20542e99a193d7 data/goety/loot_tables/blocks/end_rock_
 ab3a37ea025d25d52f0b06cbd06b20fe61df1fb5 data/goety/loot_tables/blocks/end_rod_block.json
 d03be0f8134d208cca54c61acc0cf33f3bb34f29 data/goety/loot_tables/blocks/end_soil.json
 8fae7af44d41b89ace3aac5db705b0b94082d1cb data/goety/loot_tables/blocks/end_stone_pillar.json
-69411458a0382f24e373a7f6b31fcc1d1092ef7a data/goety/loot_tables/blocks/end_stone_slate.json
+d2792244a14bbbbe5eff9436f2d41e0c91ee0d10 data/goety/loot_tables/blocks/end_stone_slate.json
 0cfd3877be7af921b46179559834fc72753ba05c data/goety/loot_tables/blocks/end_stone_tiles.json
 c8b80ae5c1a1d2aaee536364bc014698a2b2639e data/goety/loot_tables/blocks/end_stone_tile_slab.json
 5ffd8d6fdd0f47352c217cf998e0d25029ad6606 data/goety/loot_tables/blocks/end_stone_tile_stairs.json
@@ -169,6 +172,7 @@ e7668871f3c553a2f1a9e0e91f26c053ad92d830 data/goety/loot_tables/blocks/highrock.
 6810b3f91146dae942101f06e03ac321f15c2f06 data/goety/loot_tables/blocks/highrock_brick_slab.json
 381f12d18b5f6a1f9dd5d86a06bfb5fef6d811f3 data/goety/loot_tables/blocks/highrock_brick_stairs.json
 49fd37291e53cab5f93a2b5b61e2a31c6091a815 data/goety/loot_tables/blocks/highrock_brick_wall.json
+6706040b3a43aa97f5869f2a189ac26cf12e4b92 data/goety/loot_tables/blocks/highrock_indented_bricks.json
 814da33ece0cc84215555c083725573105a8a3dc data/goety/loot_tables/blocks/highrock_slab.json
 9b7b330870cee8ac90851ee6cbebbc721575a3fa data/goety/loot_tables/blocks/highrock_stairs.json
 34cf9535b1a373525135fb1bca0992802098ffea data/goety/loot_tables/blocks/highrock_wall.json
@@ -329,6 +333,7 @@ c5ae07312ebea48e01d6413950723aaf49ec476e data/goety/loot_tables/blocks/snowy_hig
 a07823f20508311fccacc5607cd1ed8bf0b17939 data/goety/loot_tables/blocks/snowy_jade_stairs.json
 75bd0ac1470ded904f4de77a08a2369f4fd670e8 data/goety/loot_tables/blocks/snowy_jade_tiles.json
 6265a495033aedd0628bb229c96009c96b5ebe9b data/goety/loot_tables/blocks/snowy_siltstone_pillar.json
+cc41fe7362ab60f68b2529d808d4d551826da5f8 data/goety/loot_tables/blocks/snowy_windswept_plank_wall.json
 dee9459228773892e22c775d5ecf35116b3ff930 data/goety/loot_tables/blocks/snow_bricks.json
 ef2f746e18ba09dac357ca81e50466988f46722d data/goety/loot_tables/blocks/snow_brick_slab.json
 040fbcea8d727b12bc724cac62c6746f6d9cd2f7 data/goety/loot_tables/blocks/snow_brick_stairs.json
@@ -382,9 +387,11 @@ e5ba5dabdbdc1258c5692a326b0ec3ba377834ab data/goety/loot_tables/blocks/windswept
 28c5f4cd30504b28079a9ed45778f54d228044aa data/goety/loot_tables/blocks/windswept_fence.json
 fb6f1c8d7603b2fd3ef916445ab567097419e316 data/goety/loot_tables/blocks/windswept_fence_gate.json
 e429ea8b7900f0e8bfffb98afbb9eb77b3642b1a data/goety/loot_tables/blocks/windswept_hanging_sign.json
+8c6899ab9fa9a608b2124c9ad2ff9206992f207c data/goety/loot_tables/blocks/windswept_lamp.json
 5e9ccccb5002360bdbc430c87d985662b264d2cb data/goety/loot_tables/blocks/windswept_leaves.json
 a286a999e10e07dac5a29bf5e4912ee6f9ecdd86 data/goety/loot_tables/blocks/windswept_log.json
 bd31379ec7466e29961351138a6b1084d1bb4582 data/goety/loot_tables/blocks/windswept_planks.json
+ab2b001ad8e6c8493fc91900491ea0ecb259bfde data/goety/loot_tables/blocks/windswept_plank_wall.json
 d434e37e5dcb25cd6d7d9ad3da0bfa0f82d3bc7a data/goety/loot_tables/blocks/windswept_pressure_plate.json
 8d7ea717c7901c08478fd53d866263b7ef9dbb6a data/goety/loot_tables/blocks/windswept_sapling.json
 b52cf3a1421fb8c54925686602219848d843e59c data/goety/loot_tables/blocks/windswept_sign.json

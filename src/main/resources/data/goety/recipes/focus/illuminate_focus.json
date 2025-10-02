@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "gsg",
+    "efe",
+    "gsg"
+  ],
+  "key":
+  {
+    "f":
+    {
+      "item": "goety:glow_light_focus"
+    },
+    "e":
+    {
+      "tag": "forge:ender_pearls"
+    },
+    "s":
+    {
+      "tag": "forge:slimeballs"
+    },
+    "g":
+    {
+      "item": "minecraft:glowstone"
+    }
+  },
+  "result":
+  {
+    "item": "goety:illuminate_focus",
+    "count": 1
+  }
+}

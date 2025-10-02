@@ -1,0 +1,23 @@
+{
+  "name": "不吉なチャーム",
+  "icon": "goety:ominous_charm",
+  "category": "goety:crafts/garment",
+  "advancement": "minecraft:adventure/voluntary_exile",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "パトロール隊長を倒すと必ず「不吉な予感」の呪いを受けます。これはたまに役に立つこともありますが、厄介で有害でしょう。研究を重ねた結果、隊長の死に際の呪いを吸収するチャームを考案しました。このチャームはレベル5に達していても効果がありません。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "それだけでなく、現在「不吉な予感」をすでに持っている場合、チャームを右クリックするか、装備している場合は「Curioをアクティブ」キーを押すことで、「不吉な予感」を吸収できます。チャームで「不吉な予感」に悩まされたい場合は、チャームを右クリックするか、装備している場合は「Curioをアクティブ」キーを押して、現在その吸収がオンになっていないことを確認してください。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_charm"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ominous_charm": 1
+  }
+}

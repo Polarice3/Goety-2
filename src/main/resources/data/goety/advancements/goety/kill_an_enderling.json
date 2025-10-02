@@ -1,0 +1,54 @@
+{
+  "parent": "goety:goety/root",
+  "criteria": {
+    "watch": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "type": "goety:watchling"
+            },
+            "entity": "this"
+          }
+        ]
+      }
+    },
+    "blast": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "type": "goety:blastling"
+            },
+            "entity": "this"
+          }
+        ]
+      }
+    },
+    "snare": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "type": "goety:snareling"
+            },
+            "entity": "this"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "watch",
+      "blast",
+      "snare"
+    ]
+  ]
+}

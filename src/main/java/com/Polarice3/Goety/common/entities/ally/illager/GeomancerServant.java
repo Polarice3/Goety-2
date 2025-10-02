@@ -47,9 +47,12 @@ public class GeomancerServant extends SpellcasterIllagerServant{
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new AvoidTargetGoal<>(this, LivingEntity.class, 8.0F, 1.0D, 1.0D));
         this.goalSelector.addGoal(4, new GeomancyGoal(this));
+    }
+
+    public void miscGoal() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(8, new RaiderWanderGoal<>(this, 0.6D));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));

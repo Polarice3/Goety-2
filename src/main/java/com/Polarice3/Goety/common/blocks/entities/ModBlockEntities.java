@@ -91,11 +91,26 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<OminousPyreBlockEntity>> OMINOUS_PYRE = BLOCK_ENTITY.register("ominous_pyre",
             () -> BlockEntityType.Builder.of(OminousPyreBlockEntity::new, ModBlocks.OMINOUS_PYRE.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<OminousIdolBlockEntity>> OMINOUS_IDOL = BLOCK_ENTITY.register("ominous_idol",
+            () -> BlockEntityType.Builder.of(OminousIdolBlockEntity::new, ModBlocks.OMINOUS_IDOL.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<PithosBlockEntity>> PITHOS = BLOCK_ENTITY.register("pithos",
             () -> BlockEntityType.Builder.of(PithosBlockEntity::new, ModBlocks.PITHOS.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<SpiderMotherDenBlockEntity>> SPIDER_MOTHER_DEN = BLOCK_ENTITY.register("spider_mother_den",
             () -> BlockEntityType.Builder.of(SpiderMotherDenBlockEntity::new, ModBlocks.SPIDER_MOTHER_DEN.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<VoidSpawnerBlockEntity>> VOID_SPAWNER = BLOCK_ENTITY.register("void_spawner",
+            () -> BlockEntityType.Builder.of(VoidSpawnerBlockEntity::new, ModBlocks.VOID_SPAWNER.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<VoidVaultBlockEntity>> VOID_VAULT = BLOCK_ENTITY.register("void_vault",
+            () -> BlockEntityType.Builder.of(VoidVaultBlockEntity::new, ModBlocks.VOID_VAULT.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<VoidFrameBlockEntity>> VOID_FRAME = BLOCK_ENTITY.register("void_frame",
+            () -> BlockEntityType.Builder.of(VoidFrameBlockEntity::new, ModBlocks.VOID_FRAME.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<VoidShrineBlockEntity>> VOID_SHRINE = BLOCK_ENTITY.register("void_shrine",
+            () -> BlockEntityType.Builder.of(VoidShrineBlockEntity::new, ModBlocks.VOID_SHRINE.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<UrnBlockEntity>> CRYPT_URN = BLOCK_ENTITY.register("crypt_urn",
             () -> BlockEntityType.Builder.of(UrnBlockEntity::new, ModBlocks.CRYPT_URN.get()).build(null));

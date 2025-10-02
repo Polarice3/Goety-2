@@ -456,12 +456,36 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
         return true;
     }
 
-    public void removeItem(){
+    public void removeItem() {
+        this.removeItem(null);
+    }
+
+    public void removeItem(@Nullable LivingEntity livingEntity){
         IItemHandler handler = this.itemStackHandler.orElseThrow(RuntimeException::new);
         ItemStack itemStack = handler.getStackInSlot(0);
         if (itemStack != ItemStack.EMPTY){
-            Containers.dropItemStack(this.level, this.worldPosition.getX(), this.worldPosition.getY() + 1.0F, this.worldPosition.getZ(),
-                    handler.extractItem(0, itemStack.getCount(), false));
+            boolean flag = false;
+            ItemStack itemStack1 = handler.extractItem(0, itemStack.getCount(), false);
+            if (livingEntity != null) {
+                if (livingEntity.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
+                    livingEntity.setItemInHand(InteractionHand.MAIN_HAND, itemStack1);
+                } else if (livingEntity instanceof Player player){
+                    if (!player.addItem(itemStack1)) {
+                        flag = true;
+                    }
+                } else {
+                    flag = true;
+                }
+                if (!flag) {
+                    livingEntity.level.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), SoundEvents.ITEM_PICKUP, livingEntity.getSoundSource(), 1.0F, 1.0F);
+                }
+            } else {
+                flag = true;
+            }
+            if (flag) {
+                Containers.dropItemStack(this.level, this.worldPosition.getX(), this.worldPosition.getY() + 1.0F, this.worldPosition.getZ(),
+                        itemStack1);
+            }
         }
         this.currentRitualRecipe = null;
         this.castingPlayerId = null;

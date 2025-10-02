@@ -45,7 +45,7 @@ public abstract class Spell implements ISpell {
     public abstract int defaultSpellCooldown();
 
     public void mobSpellResult(LivingEntity caster, ItemStack staff){
-        mobSpellResult(caster, staff, this.defaultStats());
+        mobSpellResult(caster, staff, WandUtil.getStats(caster, this));
     }
 
     public void mobSpellResult(LivingEntity caster, ItemStack staff, SpellStat spellStat){

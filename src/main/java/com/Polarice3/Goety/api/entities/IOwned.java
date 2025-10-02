@@ -5,15 +5,19 @@ import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ServantUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -129,6 +133,14 @@ public interface IOwned {
 
     default void onCeaseFire(ServerPlayer player){
 
+    }
+
+    default void onStopAttack() {
+        if (this instanceof Entity entity) {
+            if (entity.level instanceof ServerLevel serverLevel) {
+                serverLevel.broadcastEntityEvent(entity, (byte) 20);
+            }
+        }
     }
 
     default void checkHostility() {
@@ -258,11 +270,27 @@ public interface IOwned {
                             if (owned.getTarget() instanceof Animal animal) {
                                 animal.setLastHurtByMob(owned);
                             } else if (mob.getTarget() == null || mob.getTarget().isDeadOrDying()) {
-                                mob.setTarget(owned);
+                                LivingEntity target = owned;
+                                if (mob.getType().is(ModTags.EntityTypes.IGNORE_SERVANTS)) {
+                                    if (this.getTrueOwner() != null) {
+                                        if (mob.canAttack(this.getTrueOwner()) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(mob)) {
+                                            target = this.getTrueOwner();
+                                        }
+                                    }
+                                }
+                                mob.setTarget(target);
                             }
                             if (!mob.getBrain().isActive(Activity.FIGHT) && !(mob instanceof Warden)) {
-                                mob.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, owned.getUUID(), 600L);
-                                mob.getBrain().setMemoryWithExpiry(MemoryModuleType.ATTACK_TARGET, owned, 600L);
+                                LivingEntity target = owned;
+                                if (mob.getType().is(ModTags.EntityTypes.IGNORE_SERVANTS)) {
+                                    if (this.getTrueOwner() != null) {
+                                        if (mob.canAttack(this.getTrueOwner()) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(mob)) {
+                                            target = this.getTrueOwner();
+                                        }
+                                    }
+                                }
+                                mob.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, target.getUUID(), 600L);
+                                mob.getBrain().setMemoryWithExpiry(MemoryModuleType.ATTACK_TARGET, target, 600L);
                             }
                         }
                     }
@@ -304,6 +332,10 @@ public interface IOwned {
         }
     }
 
+    default boolean ownedTeleport(Vec3 vec3) {
+        return this.ownedTeleport(vec3.x, vec3.y, vec3.z);
+    }
+
     default boolean ownedTeleport(double x, double y, double z) {
         if (this instanceof LivingEntity owned) {
             return owned.randomTeleport(x, y, z, false);
@@ -339,6 +371,54 @@ public interface IOwned {
     default void uncreditedKill(LivingEntity target){
     }
 
+    default boolean canRevive(DamageSource damageSource) {
+        return false;
+    }
+
+    default void reviveOwned() {
+        ServantUtil.teleportToRevive(this);
+        if (this instanceof LivingEntity living) {
+            living.setHealth(1.0F);
+            living.removeAllEffects();
+        }
+    }
+
+    @Nullable
+    default BlockPos getRevivePos(){
+        return null;
+    }
+
+    @Nullable
+    default Vec3 vec3RevivePos(){
+        if (this.getRevivePos() != null) {
+            return Vec3.atBottomCenterOf(this.getRevivePos());
+        }
+        return null;
+    }
+
+    default void setRevivePos(BlockPos blockPos){
+        if (this instanceof Entity entity) {
+            this.setReviveDim(entity.level.dimension());
+        }
+    }
+
+    default ResourceKey<Level> getReviveLevel() {
+        ResourceLocation resourcelocation = new ResourceLocation(this.getReviveDim());
+        return ResourceKey.create(Registries.DIMENSION, resourcelocation);
+    }
+
+    default String getReviveDim(){
+        return Level.OVERWORLD.location().toString();
+    }
+
+    default void setReviveDim(ResourceKey<Level> resourceKey) {
+        this.setReviveDim(resourceKey.location().toString());
+    }
+
+    default void setReviveDim(String string) {
+
+    }
+
     default void readOwnedData(CompoundTag compound){
         if (compound.hasUUID("Owner")) {
             this.setOwnerId(compound.getUUID("Owner"));
@@ -361,6 +441,16 @@ public interface IOwned {
         if (compound.contains("LifeTicks")) {
             this.setLimitedLife(compound.getInt("LifeTicks"));
         }
+        if (compound.contains("RevivePos")){
+            this.setRevivePos(NbtUtils.readBlockPos(compound.getCompound("RevivePos")));
+            if (compound.contains("ReviveDim")){
+                this.setReviveDim(compound.getString("ReviveDim"));
+            } else {
+                if (this instanceof Entity entity) {
+                    this.setReviveDim(entity.level.dimension());
+                }
+            }
+        }
     }
 
     default void saveOwnedData(CompoundTag compound){
@@ -378,6 +468,10 @@ public interface IOwned {
         }
         if (this.isLimitedLife()) {
             compound.putInt("LifeTicks", this.getLifespan());
+        }
+        if (this.getRevivePos() != null){
+            compound.put("RevivePos", NbtUtils.writeBlockPos(this.getRevivePos()));
+            compound.putString("ReviveDim", this.getReviveDim());
         }
     }
 }

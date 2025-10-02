@@ -49,7 +49,7 @@ public class EntanglingSpell extends Spell {
 
     @Override
     public int defaultSpellCooldown() {
-        return SpellConfig.EntanglingDuration.get();
+        return SpellConfig.EntanglingCoolDown.get();
     }
 
     @Override
@@ -77,8 +77,8 @@ public class EntanglingSpell extends Spell {
             List<LivingEntity> list = worldIn.getEntitiesOfClass(LivingEntity.class, (new AABB(i, j, k, i, j - 4, k)).inflate(16));
             if (!list.isEmpty()) {
                 for (LivingEntity entity : list) {
-                    if (amount < 8) {
-                        if (entity != caster && !MobUtil.areAllies(entity, caster)) {
+                    if (amount < SpellConfig.EntanglingStaffAmount.get()) {
+                        if (entity != caster && !MobUtil.areAllies(entity, caster) && entity.getMaxHealth() <= 100.0F) {
                             EntangleVines entangleVines = new EntangleVines(worldIn, caster, entity);
                             entangleVines.setLifeSpan(entangleVines.getLifeSpan() + MathHelper.secondsToTicks(duration));
                             if (CuriosFinder.hasWildRobe(caster)){

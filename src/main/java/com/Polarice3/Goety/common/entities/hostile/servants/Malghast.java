@@ -289,6 +289,10 @@ public class Malghast extends SummonedFlying {
             this.ghast.setCharging(false);
         }
 
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
         public void tick() {
             LivingEntity livingentity = this.ghast.getTarget();
             float d0 = 64.0F;
@@ -356,6 +360,10 @@ public class Malghast extends SummonedFlying {
         }
 
         public boolean canUse() {
+            return true;
+        }
+
+        public boolean requiresUpdateEveryTick() {
             return true;
         }
 
@@ -453,6 +461,12 @@ public class Malghast extends SummonedFlying {
             BlockPos blockPos = null;
             if (this.ghast.getBoundPos() != null){
                 blockPos = this.ghast.getBoundPos();
+                if (this.ghast.getTarget() != null){
+                    BlockPos blockPos1 = this.ghast.getTarget().blockPosition().above(4);
+                    if (this.ghast.isWithinGuard(blockPos1)) {
+                        blockPos = blockPos1;
+                    }
+                }
             } else if (this.ghast.getTrueOwner() != null && this.ghast.isFollowing()){
                 blockPos = this.ghast.getTrueOwner().blockPosition().above(4);
             } else if (this.ghast.getTarget() != null){
@@ -461,7 +475,7 @@ public class Malghast extends SummonedFlying {
 
             if (blockPos != null) {
                 if (this.ghast.distanceToSqr(Vec3.atCenterOf(blockPos)) < Mth.square(distance)) {
-                    Vec3 vector3d = Vec3.atCenterOf(blockPos);
+                    Vec3 vector3d = Vec3.atCenterOf(blockPos).subtract(this.ghast.position()).normalize();
                     double X = this.ghast.getX() + vector3d.x * distance + (random.nextFloat() * 2.0F - 1.0F) * distance;
                     double Y = this.ghast.getY() + vector3d.y * distance + (random.nextFloat() * 2.0F - 1.0F) * distance;
                     double Z = this.ghast.getZ() + vector3d.z * distance + (random.nextFloat() * 2.0F - 1.0F) * distance;

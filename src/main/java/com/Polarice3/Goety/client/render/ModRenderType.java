@@ -136,14 +136,10 @@ public class ModRenderType {
         return ORB_CENTER.apply(p_110489_);
     }
 
-    private static final Function<ResourceLocation, RenderType> EYES = Util.memoize(
-            resourceLocation -> {
-                RenderStateShard.TextureStateShard textureStateShard = new RenderStateShard.TextureStateShard(resourceLocation, false, false);
-                return RenderType.create(
-                        source("eyes"), DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 1536, false, true, RenderType.CompositeState.builder().setShaderState(RENDERTYPE_EYES_SHADER).setTextureState(textureStateShard).createCompositeState(false)
-                );
-            }
-    );
+    private static final Function<ResourceLocation, RenderType> EYES = Util.memoize((p_286170_) -> {
+        RenderStateShard.TextureStateShard renderstateshard$texturestateshard = new RenderStateShard.TextureStateShard(p_286170_, false, false);
+        return RenderType.create(source("eyes"), DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder().setShaderState(RENDERTYPE_EYES_SHADER).setTextureState(renderstateshard$texturestateshard).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setWriteMaskState(COLOR_WRITE).createCompositeState(false));
+    });
 
     public static RenderType eyes(ResourceLocation p_110489_) {
         return EYES.apply(p_110489_);

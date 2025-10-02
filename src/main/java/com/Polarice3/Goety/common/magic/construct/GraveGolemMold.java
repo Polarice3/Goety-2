@@ -58,7 +58,7 @@ public class GraveGolemMold implements IMold {
             new BlockPos(1, -1, -2),
             new BlockPos(-1, -1, -2)
     );
-    private static final List<BlockPos> DARK_METAL_LOCATIONS = ImmutableList.of(
+    private static final List<BlockPos> DARK_ALLOY_LOCATIONS = ImmutableList.of(
             new BlockPos(-3, 0, 3),
             new BlockPos(3, 0, 3),
             new BlockPos(3, 0, -3),
@@ -164,9 +164,9 @@ public class GraveGolemMold implements IMold {
 
     private static List<BlockPos> checkDarkMetals(Level level, BlockPos blockPos){
         List<BlockPos> invalid = new ArrayList<>();
-        for (BlockPos blockPos1 : DARK_METAL_LOCATIONS){
+        for (BlockPos blockPos1 : DARK_ALLOY_LOCATIONS){
             BlockPos blockPos2 = blockPos.offset(blockPos1);
-            if (!level.getBlockState(blockPos2).is(ModBlocks.DARK_METAL_BLOCK.get())){
+            if (!level.getBlockState(blockPos2).is(ModBlocks.DARK_ALLOY_BLOCK.get())){
                 invalid.add(blockPos1);
             }
         }

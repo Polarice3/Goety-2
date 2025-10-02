@@ -28,13 +28,14 @@ public interface ISummonSpell extends ISpell{
                 MobEffectInstance effectinstance = owner.getEffect(GoetyEffects.SUMMON_DOWN.get());
                 if (effectinstance != null) {
                     summonedEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, EffectsUtil.infiniteEffect(), effectinstance.getAmplifier()));
-                    summonedEntity.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), EffectsUtil.infiniteEffect(), effectinstance.getAmplifier()));
+                    summonedEntity.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), EffectsUtil.infiniteEffect(), effectinstance.getAmplifier() + 4));
                 }
                 for (ItemStack itemStack : summonedEntity.getAllSlots()){
                     if (itemStack.isDamageableItem()){
                         itemStack.setDamageValue(itemStack.getMaxDamage() - summonedEntity.getRandom().nextInt(1 + summonedEntity.getRandom().nextInt(Math.max(itemStack.getMaxDamage() - 3, 1))));
                     }
                 }
+                summonedEntity.setHealth(summonedEntity.getMaxHealth() / 2.0F);
             }
         }
     }

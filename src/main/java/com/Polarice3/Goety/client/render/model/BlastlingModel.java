@@ -52,7 +52,10 @@ public class BlastlingModel<T extends AbstractBlastling> extends HierarchicalMod
 
 		PartDefinition cube_r4 = top.addOrReplaceChild("cube_r4", CubeListBuilder.create().texOffs(80, 0).addBox(-8.0F, 0.0F, 0.0F, 16.0F, 0.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 3.1416F, 0.0F));
 
-		PartDefinition eyes = head.addOrReplaceChild("eyes", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition main_eyes = head.addOrReplaceChild("main_eyes", CubeListBuilder.create().texOffs(0, 1).addBox(-4.0F, -0.5F, 0.0F, 3.0F, 1.0F, 0.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 1).addBox(1.0F, -0.5F, 0.0F, 3.0F, 1.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -3.5F, -6.025F));
+
+		PartDefinition eyes = main_eyes.addOrReplaceChild("eyes", CubeListBuilder.create(), PartPose.offset(0.0F, 3.5F, 6.025F));
 
 		PartDefinition right_eye = eyes.addOrReplaceChild("right_eye", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -4.0F, -6.05F, 1.0F, 1.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 

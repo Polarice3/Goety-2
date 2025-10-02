@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_stairs",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "goety:chorus_wood"
+    }
+  },
+  "result": {
+    "item": "goety:chorus_wood_stairs",
+    "count": 4
+  }
+}

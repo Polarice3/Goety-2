@@ -6,7 +6,6 @@ import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -19,7 +18,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -32,7 +30,7 @@ public class AbstractWatchling extends AbstractEnderling {
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(AbstractWatchling.class, EntityDataSerializers.BYTE);
     public static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(AbstractWatchling.class, EntityDataSerializers.INT);
     private static final UUID SMASH_ATTACK_MODIFIER_UUID = UUID.fromString("b872b3d4-b0f4-4d1d-a0f4-80706dc0d252");
-    private static final AttributeModifier SMASH_ATTACK_MODIFIER = new AttributeModifier(SMASH_ATTACK_MODIFIER_UUID, "Smash Attack Bonus", 1.65D, AttributeModifier.Operation.MULTIPLY_TOTAL);
+    private static final AttributeModifier SMASH_ATTACK_MODIFIER = new AttributeModifier(SMASH_ATTACK_MODIFIER_UUID, "Smash Attack Bonus", 0.65D, AttributeModifier.Operation.MULTIPLY_TOTAL);
     public static String IDLE = "idle";
     public static String ATTACK = "attack";
     public static String SMASH = "smash";
@@ -206,7 +204,7 @@ public class AbstractWatchling extends AbstractEnderling {
     }
 
     @Override
-    protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
+    public void stepSound() {
         this.playSound(ModSounds.WATCHLING_STEP.get(), 0.15F, 1.0F);
     }
 
@@ -220,7 +218,7 @@ public class AbstractWatchling extends AbstractEnderling {
     public void tick() {
         super.tick();
         if (this.level.isClientSide) {
-            this.blinkAnimationState.startIfStopped(this.tickCount);
+            this.blinkAnimationState.animateWhen(!this.isDeadOrDying(), this.tickCount);
             this.idleAnimationState.animateWhen(!this.walkAnimation.isMoving() && this.getCurrentAnimation() == 0, this.tickCount);
         }
     }
@@ -240,7 +238,7 @@ public class AbstractWatchling extends AbstractEnderling {
                 this.setAggressive(this.getTarget() != null);
                 if (this.isMeleeAttacking()) {
                     ++this.attackTick;
-                } else {
+                } else if (this.isAttacking()) {
                     this.setAnimationState(IDLE);
                 }
                 AttributeInstance instance = this.getAttribute(Attributes.ATTACK_DAMAGE);
@@ -257,14 +255,20 @@ public class AbstractWatchling extends AbstractEnderling {
                     }
                 }
                 if (this.teleportCool <= 0) {
-                    if (!this.isHiding()) {
-                        if (this.getTarget() != null) {
-                            this.startHide();
+                    if (!this.isStaying()) {
+                        if (!this.isHiding()) {
+                            if (this.getTarget() != null) {
+                                this.startHide();
+                            }
                         }
                     }
                 }
             }
         }
+    }
+
+    public boolean isAttacking() {
+        return this.getCurrentAnimation() == this.getAnimationState(ATTACK) || this.getCurrentAnimation() == this.getAnimationState(SMASH);
     }
 
     public int getHidingDuration() {
@@ -273,6 +277,8 @@ public class AbstractWatchling extends AbstractEnderling {
 
     public void startHide() {
         ++this.preHidingTime;
+        this.getNavigation().stop();
+        this.getMoveControl().strafe(0.0F, 0.0F);
         this.setAnimationState(TELEPORT_OUT);
         if (this.preHidingTime >= 10) {
             super.startHide();

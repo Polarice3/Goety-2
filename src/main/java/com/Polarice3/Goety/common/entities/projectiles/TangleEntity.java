@@ -4,6 +4,8 @@ import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.CSetDeltaMovement;
+import com.Polarice3.Goety.common.network.server.SRepositionPacket;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -146,7 +148,7 @@ public abstract class TangleEntity extends Entity {
         if (this.activeTick == 1){
             this.burst();
         } else {
-            if (this.activeTick < 20){
+            if (this.activeTick < 5){
                 this.findTarget();
             }
             if (this.activeTick < this.lifeSpan) {
@@ -179,11 +181,21 @@ public abstract class TangleEntity extends Entity {
     }
 
     public void tangleTarget(){
-        if (this.getTarget() != null && this.getTarget().isAlive()){
+        if (this.getTarget() != null
+                && this.getTarget().isAlive()
+                && !this.getTarget().getType().is(ModTags.EntityTypes.UNTANGLEABLE)
+                && this.getTarget().getMaxHealth() <= 100.0F
+                && this.getTarget().canBeAffected(new MobEffectInstance(GoetyEffects.TANGLED.get()))){
             this.getTarget().setPos(this.position());
             this.getTarget().setDeltaMovement(Vec3.ZERO);
+            this.getTarget().move(MoverType.SELF, Vec3.ZERO);
+            this.getTarget().moveRelative(0.0F, Vec3.ZERO);
             if (this.level.isClientSide){
                 ModNetwork.sendToServer(new CSetDeltaMovement(this.getTarget().getId(), 0.0D, 0.0D, 0.0D));
+            } else {
+                if (this.activeTick < 10){
+                    ModNetwork.sentToTrackingEntityAndPlayer(this.getTarget(), new SRepositionPacket(this.getTarget().getId(), this.position().x, this.position().y, this.position().z));
+                }
             }
             this.getTarget().addEffect(new MobEffectInstance(GoetyEffects.TANGLED.get(), 2, 0, false, false, false));
         }

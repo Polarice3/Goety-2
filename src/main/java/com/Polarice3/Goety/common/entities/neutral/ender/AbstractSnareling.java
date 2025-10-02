@@ -3,12 +3,13 @@ package com.Polarice3.Goety.common.entities.neutral.ender;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.SnarelingShot;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SRepositionPacket;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -24,7 +25,6 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -204,7 +204,7 @@ public class AbstractSnareling extends AbstractEnderling implements RangedAttack
     }
 
     @Override
-    protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
+    public void stepSound() {
         this.playSound(ModSounds.SNARELING_STEP.get(), 0.15F, 1.0F);
     }
 
@@ -263,11 +263,13 @@ public class AbstractSnareling extends AbstractEnderling implements RangedAttack
                         }
                     }
                     if (this.teleportCool <= 0) {
-                        if (this.getTarget() != null) {
-                            if (this.getTarget().distanceTo(this) <= 3.5F) {
-                                int random = this.getRandom().nextIntBetweenInclusive(8, 12) * 2;
-                                if (this.teleport(random)) {
-                                    this.teleportCool = MathHelper.secondsToTicks(6);
+                        if (!this.isStaying()) {
+                            if (this.getTarget() != null) {
+                                if (this.getTarget().distanceTo(this) <= 3.5F) {
+                                    int random = this.getRandom().nextIntBetweenInclusive(8, 12) * 2;
+                                    if (this.teleportAway(this.getTarget(), random)) {
+                                        this.teleportCool = MathHelper.secondsToTicks(6);
+                                    }
                                 }
                             }
                         }
@@ -296,7 +298,7 @@ public class AbstractSnareling extends AbstractEnderling implements RangedAttack
         double d2 = p_33317_.getZ() + vec3.z - this.getZ();
         double d3 = Math.sqrt(d0 * d0 + d2 * d2);
         snowball.setXRot(snowball.getXRot() - -20.0F);
-        snowball.shoot(d0, d1 + d3 * 0.2D, d2, 0.75F, 8.0F);
+        snowball.shoot(d0, d1 + d3 * 0.2D, d2, 0.95F, 8.0F);
         this.level.addFreshEntity(snowball);
     }
 
@@ -360,7 +362,7 @@ public class AbstractSnareling extends AbstractEnderling implements RangedAttack
 
                 this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
                 --this.attackTime;
-                if (this.attackTime == 20) {
+                if (this.attackTime == MathHelper.secondsToTicks(0.8F)) {
                     this.mob.setWebShooting(true);
                     this.mob.setAnimationState(SHOOT);
                     this.mob.postShootTick = 46;
@@ -435,6 +437,9 @@ public class AbstractSnareling extends AbstractEnderling implements RangedAttack
                 Vec3 vec3 = enemy.position().offsetRandom(AbstractSnareling.this.getRandom(), 2.0F);
                 if (AbstractSnareling.this.teleportCool <= 0) {
                     if (AbstractSnareling.this.randomTeleport(vec3.x, vec3.y, vec3.z, true)) {
+                        if (!AbstractSnareling.this.level.isClientSide) {
+                            ModNetwork.sendToALL(new SRepositionPacket(AbstractSnareling.this.getId(), AbstractSnareling.this.getX(), AbstractSnareling.this.getY(), AbstractSnareling.this.getZ()));
+                        }
                         AbstractSnareling.this.teleportCool = MathHelper.secondsToTicks(6);
                     } else {
                         AbstractSnareling.this.getNavigation().moveTo(enemy, 1.2D);

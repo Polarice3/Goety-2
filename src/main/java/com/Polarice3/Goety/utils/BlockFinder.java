@@ -101,14 +101,17 @@ public class BlockFinder {
         return entity.level.clip(new ClipContext(startPos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity));
     }
 
-    public static boolean canSeeBlock(Entity looker, BlockPos location) {
+    public static boolean canSeeBlock(Entity looker, Vec3 vec31) {
         Vec3 vec3 = new Vec3(looker.getX(), looker.getEyeY(), looker.getZ());
-        Vec3 vec31 = Vec3.atBottomCenterOf(location);
         if (vec31.distanceTo(vec3) > 128.0D) {
             return false;
         } else {
             return looker.level.clip(new ClipContext(vec3, vec31, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, looker)).getType() == HitResult.Type.MISS;
         }
+    }
+
+    public static boolean canSeeBlock(Entity looker, BlockPos location) {
+        return canSeeBlock(looker, Vec3.atBottomCenterOf(location));
     }
 
     public static double distanceFromGround(Entity entity){
@@ -253,6 +256,38 @@ public class BlockFinder {
             return blockpos;
         } else {
             return BlockPos.containing(x, d3, z);
+        }
+    }
+
+    public static Vec3 SummonPosition(Entity entity, Vec3 vec3){
+        double d3 = vec3.y;
+        boolean flag = false;
+        Vec3 vec31 = new Vec3(vec3.x, vec3.y, vec3.z);
+        Level level = entity.level;
+        if (level.isLoaded(BlockPos.containing(vec31))) {
+            boolean flag1 = false;
+
+            while(!flag1 && vec31.y > level.getMinBuildHeight()) {
+                BlockPos blockpos1 = BlockPos.containing(vec31).below();
+                BlockState blockstate = level.getBlockState(blockpos1);
+                if (blockstate.blocksMotion()) {
+                    flag1 = true;
+                } else {
+                    --d3;
+                    vec31 = blockpos1.getCenter();
+                }
+            }
+
+            if (flag1) {
+                if (level.noCollision(entity) && !level.containsAnyLiquid(entity.getBoundingBox())) {
+                    flag = true;
+                }
+            }
+        }
+        if (!flag) {
+            return vec31;
+        } else {
+            return new Vec3(vec3.x, d3, vec3.z);
         }
     }
 
@@ -885,26 +920,27 @@ public class BlockFinder {
 
     public static void voidedEffect(Level pLevel, LivingEntity pEntity) {
         if (!CuriosFinder.hasVoidRobe(pEntity)
-                && !pEntity.getType().is(ModTags.EntityTypes.VOID_TOUCHED_IMMUNE)
-                && pEntity.canBeAffected(new MobEffectInstance(GoetyEffects.VOID_TOUCHED.get()))) {
-            if (!pLevel.isClientSide) {
-                MobEffectInstance instance = pEntity.getEffect(GoetyEffects.VOID_TOUCHED.get());
-                float damage = pEntity.getMaxHealth() * 0.05F;
-                boolean flag = pEntity.getType().is(Tags.EntityTypes.BOSSES) || pEntity.getType().is(ModTags.EntityTypes.MINI_BOSSES) || pEntity.getMaxHealth() >= 200.0D;
-                if (flag) {
-                    damage = 1.0F;
-                }
-                if (instance == null) {
-                    if (pEntity.hurt(ModDamageSource.getDamageSource(pLevel, ModDamageSource.VOIDED), damage)){
-                        pEntity.addEffect(new MobEffectInstance(GoetyEffects.VOID_TOUCHED.get(), MathHelper.secondsToTicks(3), flag ? 0 : 2, false, true));
+                && !pEntity.getType().is(ModTags.EntityTypes.VOID_TOUCHED_IMMUNE)) {
+            if (pEntity.canBeAffected(new MobEffectInstance(GoetyEffects.VOID_TOUCHED.get()))) {
+                if (!pLevel.isClientSide) {
+                    MobEffectInstance instance = pEntity.getEffect(GoetyEffects.VOID_TOUCHED.get());
+                    float damage = pEntity.getMaxHealth() * 0.05F;
+                    boolean flag = pEntity.getType().is(Tags.EntityTypes.BOSSES) || pEntity.getType().is(ModTags.EntityTypes.MINI_BOSSES) || pEntity.getMaxHealth() >= 200.0D;
+                    if (flag) {
+                        damage = 1.0F;
                     }
-                } else {
-                    if (pEntity.tickCount % 20 == 0) {
-                        if (pEntity.hurt(ModDamageSource.getDamageSource(pLevel, ModDamageSource.VOIDED), damage)){
-                            if (!flag) {
-                                EffectsUtil.increaseEffect(pEntity, GoetyEffects.VOID_TOUCHED.get(), 9, false, true);
-                            } else {
-                                pEntity.addEffect(new MobEffectInstance(GoetyEffects.VOID_TOUCHED.get(), MathHelper.secondsToTicks(3), 0, false, true));
+                    if (instance == null) {
+                        if (pEntity.hurt(ModDamageSource.getDamageSource(pLevel, ModDamageSource.VOIDED), damage)) {
+                            pEntity.addEffect(new MobEffectInstance(GoetyEffects.VOID_TOUCHED.get(), MathHelper.secondsToTicks(3), flag ? 0 : 2, false, true));
+                        }
+                    } else {
+                        if (pEntity.tickCount % 20 == 0) {
+                            if (pEntity.hurt(ModDamageSource.getDamageSource(pLevel, ModDamageSource.VOIDED), damage)) {
+                                if (!flag) {
+                                    EffectsUtil.increaseEffect(pEntity, GoetyEffects.VOID_TOUCHED.get(), 9, false, true);
+                                } else {
+                                    pEntity.addEffect(new MobEffectInstance(GoetyEffects.VOID_TOUCHED.get(), MathHelper.secondsToTicks(3), 0, false, true));
+                                }
                             }
                         }
                     }
@@ -915,6 +951,38 @@ public class BlockFinder {
 
     public static boolean isInVoid(Entity entity) {
         return entity.tickCount > 1 && entity.getFluidTypeHeight(ModFluids.VOID_FLUID_TYPE.get()) > 0.0D;
+    }
+
+    public static boolean canTeleportTo(LivingEntity entity, double x, double y, double z) {
+        double d3 = y;
+        boolean flag = false;
+        BlockPos blockpos = BlockPos.containing(x, y, z);
+        Level level = entity.level();
+        if (level.hasChunkAt(blockpos)) {
+            boolean flag1 = false;
+
+            while(!flag1 && blockpos.getY() > level.getMinBuildHeight()) {
+                BlockPos blockpos1 = blockpos.below();
+                BlockState blockstate = level.getBlockState(blockpos1);
+                if (blockstate.blocksMotion()) {
+                    flag1 = true;
+                } else {
+                    --d3;
+                    blockpos = blockpos1;
+                }
+            }
+
+            if (flag1) {
+                AABB aabb = entity.getBoundingBox().move(x, d3, z);
+                net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(entity, x, d3, z);
+                if (event.isCanceled()) return false;
+                if (level.noCollision(aabb) && !level.containsAnyLiquid(aabb)) {
+                    flag = true;
+                }
+            }
+        }
+
+        return flag;
     }
 
     //Based on ChainsawTask by @Shadows-of-Fire: https://github.com/Shadows-of-Fire/Apotheosis/blob/1.20/src/main/java/dev/shadowsoffire/apotheosis/ench/enchantments/masterwork/ChainsawEnchant.java

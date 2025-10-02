@@ -225,6 +225,10 @@ public class SingleStackItem extends Item implements ICurioItem {
             if (stack.is(ModItems.ALARMING_CHARM.get())) {
                 tooltip.add(Component.translatable("info.goety.alarming_charm").withStyle(secondary));
             }
+            if (stack.is(ModItems.OMINOUS_CHARM.get())) {
+                tooltip.add(Component.translatable("info.goety.ominous_charm", ModKeybindings.keyBindings[14].getTranslatedKeyMessage().getString()).withStyle(secondary));
+                tooltip.add(Component.translatable("info.goety.ominous_charm.level").withStyle(ChatFormatting.DARK_AQUA).append(Component.literal(" " + OminousCharmItem.getOmenAmount(stack))));
+            }
         }
     }
 }

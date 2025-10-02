@@ -6,7 +6,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -40,18 +39,8 @@ public abstract class OwnedBlockEntity extends BlockEntity implements IOwnedBloc
     }
 
     public void readNetwork(CompoundTag tag) {
-        UUID uuid;
         if (tag.hasUUID("Owner")) {
-            uuid = tag.getUUID("Owner");
-        } else {
-            String s = tag.getString("Owner");
-            uuid = OldUsersConverter.convertMobOwnerIfNecessary(this.level.getServer(), s);
-        }
-        if (uuid != null) {
-            try {
-                this.setOwnerUUID(uuid);
-            } catch (Throwable ignored) {
-            }
+            this.setOwnerUUID(tag.getUUID("Owner"));
         }
         if (tag.contains("OwnerID")){
             this.setOwnerId(tag.getInt("OwnerID"));

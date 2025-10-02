@@ -14,6 +14,7 @@
     "goety:ghast_servant",
     "goety:malghast",
     "goety:wildfire",
+    "goety:endersent",
     "goety:crypt_slime",
     "goety:crypt_slime_servant",
     "goety:phantom_servant",
@@ -38,6 +39,7 @@
     "goety:skull_lord",
     "goety:bone_lord",
     "goety:apostle",
+    "goety:ender_keeper",
     "goety:vizier"
   ]
 }

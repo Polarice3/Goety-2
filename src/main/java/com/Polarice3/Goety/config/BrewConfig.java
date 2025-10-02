@@ -50,6 +50,7 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> VoidTouchedCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FreezingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> GoldTouchedCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GravityPulseCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> NyctophobiaCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SnowSkinCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SappedCost;
@@ -60,12 +61,16 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> RepulsiveCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> PhotosynthesisCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SwiftSwimCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SwirlingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ArrowmanticCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> BottlingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FlammableCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FlimsyCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FortunateCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> InsightCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> LeechingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> RallyingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> RadianceCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ExplosiveCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FieryAuraCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FrostyAuraCost;
@@ -73,7 +78,47 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> FireTrailCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> PlungeCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> CursedCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> DeflectiveCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ShieldingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SaveEffectsCost;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> BatBurstCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BeesCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlindJumpCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ChopTreeCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CombustCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CorrosionCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> DroughtCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ExplodeCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ExtinguishCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FertilityCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FlayingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FloodingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FreezeCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GrowthCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GrowCactusCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GrowCaveVinesCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GrowTreeCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HarvestCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> InfestCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> LaunchCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> LeafShellCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> LoveCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MossifyCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PartLavaCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PartWaterCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PulverizeCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PurifyDebuffsCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PurifyBuffsCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PruningCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> RaiseDeadCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ShearCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SnowyCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> StripArmorCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SweetThornsCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ThornTrapCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> TransposeCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WebbedCost;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> BottlingLevelReq;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxBottlingLevel;
@@ -152,6 +197,7 @@ public class BrewConfig {
                 .defineInRange("witherCost", 25, 1, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Modded Soul Cost");
+        BUILDER.push("Status Effects");
         ClimbingCost = BUILDER.comment("Climbing Soul Cost, Default: 25")
                 .defineInRange("climbingCost", 25, 1, Integer.MAX_VALUE);
         CorpseEaterCost = BUILDER.comment("Corpse Eater Soul Cost, Default: 100")
@@ -172,6 +218,8 @@ public class BrewConfig {
                 .defineInRange("freezingCost", 25, 1, Integer.MAX_VALUE);
         GoldTouchedCost = BUILDER.comment("Gold Touched Soul Cost, Default: 10")
                 .defineInRange("goldTouchedCost", 10, 1, Integer.MAX_VALUE);
+        GravityPulseCost = BUILDER.comment("Gravity Pulse Soul Cost, Default: 50")
+                .defineInRange("gravityPulseCost", 50, 1, Integer.MAX_VALUE);
         NyctophobiaCost = BUILDER.comment("Nyctophobia Soul Cost, Default: 50")
                 .defineInRange("nyctophobiaCost", 50, 1, Integer.MAX_VALUE);
         SnowSkinCost = BUILDER.comment("Snow Skin Soul Cost, Default: 50")
@@ -192,6 +240,8 @@ public class BrewConfig {
                 .defineInRange("photosynthesisCost", 25, 1, Integer.MAX_VALUE);
         SwiftSwimCost = BUILDER.comment("Swift Swim Soul Cost, Default: 25")
                 .defineInRange("swiftSwimCost", 25, 1, Integer.MAX_VALUE);
+        SwirlingCost = BUILDER.comment("Swirling Soul Cost, Default: 50")
+                .defineInRange("swirlingCost", 50, 1, Integer.MAX_VALUE);
         ArrowmanticCost = BUILDER.comment("Arrowmantic Soul Cost, Default: 50")
                 .defineInRange("arrowmanticCost", 50, 1, Integer.MAX_VALUE);
         BottlingCost = BUILDER.comment("Bottling Soul Cost, Default: 50")
@@ -204,6 +254,12 @@ public class BrewConfig {
                 .defineInRange("fortunateCost", 100, 1, Integer.MAX_VALUE);
         InsightCost = BUILDER.comment("Insight Soul Cost, Default: 50")
                 .defineInRange("insightCost", 50, 1, Integer.MAX_VALUE);
+        LeechingCost = BUILDER.comment("Leeching Soul Cost, Default: 50")
+                .defineInRange("leechingCost", 50, 1, Integer.MAX_VALUE);
+        RallyingCost = BUILDER.comment("Rallying Soul Cost, Default: 50")
+                .defineInRange("rallyingCost", 50, 1, Integer.MAX_VALUE);
+        RadianceCost = BUILDER.comment("Radiance Soul Cost, Default: 50")
+                .defineInRange("radianceCost", 50, 1, Integer.MAX_VALUE);
         ExplosiveCost = BUILDER.comment("Explosive Soul Cost, Default: 50")
                 .defineInRange("explosiveCost", 50, 1, Integer.MAX_VALUE);
         FieryAuraCost = BUILDER.comment("Fiery Aura Soul Cost, Default: 50")
@@ -218,8 +274,89 @@ public class BrewConfig {
                 .defineInRange("plungeCost", 50, 1, Integer.MAX_VALUE);
         CursedCost = BUILDER.comment("Cursed Soul Cost, Default: 50")
                 .defineInRange("cursedCost", 50, 1, Integer.MAX_VALUE);
+        DeflectiveCost = BUILDER.comment("Deflective Soul Cost, Default: 50")
+                .defineInRange("deflectiveCost", 50, 1, Integer.MAX_VALUE);
+        ShieldingCost = BUILDER.comment("Shielding Soul Cost, Default: 50")
+                .defineInRange("shieldingCost", 50, 1, Integer.MAX_VALUE);
         SaveEffectsCost = BUILDER.comment("Save Effects Soul Cost, Default: 50")
                 .defineInRange("saveEffectsCost", 50, 1, Integer.MAX_VALUE);
+        BUILDER.pop();
+        BUILDER.push("Block/Other Effects");
+        BatBurstCost = BUILDER.comment("Bat Burst Soul Cost, Default: 100")
+                .defineInRange("batBurstCost", 100, 1, Integer.MAX_VALUE);
+        BeesCost = BUILDER.comment("BEEEEES Soul Cost, Default: 50")
+                .defineInRange("beesCost", 50, 1, Integer.MAX_VALUE);
+        BlindJumpCost = BUILDER.comment("Blind Jump Soul Cost, Default: 10")
+                .defineInRange("blindJumpCost", 10, 1, Integer.MAX_VALUE);
+        ChopTreeCost = BUILDER.comment("Chop Tree Soul Cost, Default: 25")
+                .defineInRange("chopTreeCost", 25, 1, Integer.MAX_VALUE);
+        CombustCost = BUILDER.comment("Combust Soul Cost, Default: 100")
+                .defineInRange("combustCost", 100, 1, Integer.MAX_VALUE);
+        CorrosionCost = BUILDER.comment("Corrosion Soul Cost, Default: 25")
+                .defineInRange("corrosionCost", 25, 1, Integer.MAX_VALUE);
+        DroughtCost = BUILDER.comment("Drought Soul Cost, Default: 25")
+                .defineInRange("droughtCost", 25, 1, Integer.MAX_VALUE);
+        ExplodeCost = BUILDER.comment("Explode Soul Cost, Default: 100")
+                .defineInRange("explodeCost", 100, 1, Integer.MAX_VALUE);
+        ExtinguishCost = BUILDER.comment("Extinguish Soul Cost, Default: 25")
+                .defineInRange("extinguishCost", 25, 1, Integer.MAX_VALUE);
+        FertilityCost = BUILDER.comment("Fertility Soul Cost, Default: 25")
+                .defineInRange("fertilityCost", 25, 1, Integer.MAX_VALUE);
+        FlayingCost = BUILDER.comment("Flaying Soul Cost, Default: 25")
+                .defineInRange("flayingCost", 25, 1, Integer.MAX_VALUE);
+        FloodingCost = BUILDER.comment("Flooding Soul Cost, Default: 100")
+                .defineInRange("floodingCost", 100, 1, Integer.MAX_VALUE);
+        FreezeCost = BUILDER.comment("Freeze Soul Cost, Default: 10")
+                .defineInRange("freezeCost", 10, 1, Integer.MAX_VALUE);
+        GrowthCost = BUILDER.comment("Growth Soul Cost, Default: 50")
+                .defineInRange("growthCost", 50, 1, Integer.MAX_VALUE);
+        GrowCactusCost = BUILDER.comment("Grow Cactus Soul Cost, Default: 10")
+                .defineInRange("growCactusCost", 10, 1, Integer.MAX_VALUE);
+        GrowCaveVinesCost = BUILDER.comment("Grow Cave Vines Soul Cost, Default: 10")
+                .defineInRange("growCaveVinesCost", 10, 1, Integer.MAX_VALUE);
+        GrowTreeCost = BUILDER.comment("Grow Tree Soul Cost, Default: 25")
+                .defineInRange("growTreeCost", 25, 1, Integer.MAX_VALUE);
+        HarvestCost = BUILDER.comment("Harvest Soul Cost, Default: 25")
+                .defineInRange("harvestCost", 25, 1, Integer.MAX_VALUE);
+        InfestCost = BUILDER.comment("Infest Soul Cost, Default: 25")
+                .defineInRange("infestCost", 25, 1, Integer.MAX_VALUE);
+        LaunchCost = BUILDER.comment("Launch Soul Cost, Default: 25")
+                .defineInRange("launchCost", 25, 1, Integer.MAX_VALUE);
+        LeafShellCost = BUILDER.comment("Leaf Shell Soul Cost, Default: 25")
+                .defineInRange("leafShellCost", 25, 1, Integer.MAX_VALUE);
+        LoveCost = BUILDER.comment("Love Soul Cost, Default: 10")
+                .defineInRange("loveCost", 10, 1, Integer.MAX_VALUE);
+        MossifyCost = BUILDER.comment("Mossify Soul Cost, Default: 25")
+                .defineInRange("mossifyCost", 25, 1, Integer.MAX_VALUE);
+        PartLavaCost = BUILDER.comment("Part Lava Soul Cost, Default: 25")
+                .defineInRange("partLavaCost", 25, 1, Integer.MAX_VALUE);
+        PartWaterCost = BUILDER.comment("Part Water Soul Cost, Default: 25")
+                .defineInRange("partWaterCost", 25, 1, Integer.MAX_VALUE);
+        PulverizeCost = BUILDER.comment("Pulverize Soul Cost, Default: 25")
+                .defineInRange("pulverizeCost", 25, 1, Integer.MAX_VALUE);
+        PurifyDebuffsCost = BUILDER.comment("Purify Debuffs Soul Cost, Default: 50")
+                .defineInRange("purifyDebuffsCost", 50, 1, Integer.MAX_VALUE);
+        PurifyBuffsCost = BUILDER.comment("Purify Buffs Soul Cost, Default: 50")
+                .defineInRange("purifyBuffsCost", 50, 1, Integer.MAX_VALUE);
+        PruningCost = BUILDER.comment("Pruning Soul Cost, Default: 10")
+                .defineInRange("pruningCost", 10, 1, Integer.MAX_VALUE);
+        RaiseDeadCost = BUILDER.comment("Raise Dead Soul Cost, Default: 50")
+                .defineInRange("raiseDeadCost", 50, 1, Integer.MAX_VALUE);
+        ShearCost = BUILDER.comment("Shear Soul Cost, Default: 10")
+                .defineInRange("shearCost", 10, 1, Integer.MAX_VALUE);
+        SnowyCost = BUILDER.comment("Snowy Soul Cost, Default: 25")
+                .defineInRange("snowyCost", 25, 1, Integer.MAX_VALUE);
+        StripArmorCost = BUILDER.comment("Strip Armor Soul Cost, Default: 100")
+                .defineInRange("stripArmorCost", 100, 1, Integer.MAX_VALUE);
+        SweetThornsCost = BUILDER.comment("Sweet Thorns Soul Cost, Default: 25")
+                .defineInRange("sweetThornsCost", 25, 1, Integer.MAX_VALUE);
+        ThornTrapCost = BUILDER.comment("Thorn Trap Soul Cost, Default: 50")
+                .defineInRange("thornTrapCost", 50, 1, Integer.MAX_VALUE);
+        TransposeCost = BUILDER.comment("Transpose Soul Cost, Default: 25")
+                .defineInRange("transposeCost", 25, 1, Integer.MAX_VALUE);
+        WebbedCost = BUILDER.comment("Webbed Soul Cost, Default: 50")
+                .defineInRange("webbedCost", 50, 1, Integer.MAX_VALUE);
+        BUILDER.pop();
         BUILDER.pop();
         BUILDER.push("Curable");
         PressureCurable = BUILDER.comment("Whether Pressure is curable via Milk or Wartful Egg, Default: false")

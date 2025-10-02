@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "goety:item/diamond_ice_axe"
+  }
+}

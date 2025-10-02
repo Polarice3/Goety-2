@@ -1,10 +1,11 @@
 package com.Polarice3.Goety.compat.jei;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.api.ritual.IRitualType;
+import com.Polarice3.Goety.api.ritual.RitualType;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.crafting.*;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.ritual.RitualTypes;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.helpers.IJeiHelpers;
@@ -18,7 +19,6 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.level.block.Blocks;
 
 import java.util.List;
 import java.util.Objects;
@@ -31,7 +31,10 @@ public class GoetyJeiPlugin implements IModPlugin {
         jeiHelper = registration.getJeiHelpers();
         registration.addRecipeCategories(new CursedInfuserCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), ""));
-        registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), RitualTypes.ANIMATION));
+        for (IRitualType ritualType : RitualType.getAllRitualType()) {
+            registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), ritualType.getName()));
+        }
+        /*registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), RitualTypes.ANIMATION));
         registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), RitualTypes.NECROTURGY));
         registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), RitualTypes.FORGE));
         registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), RitualTypes.GEOTURGY));
@@ -43,7 +46,7 @@ public class GoetyJeiPlugin implements IModPlugin {
         registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), RitualTypes.FROST));
         registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), RitualTypes.SKY));
         registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), RitualTypes.STORM));
-        registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), RitualTypes.DEEP));
+        registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), RitualTypes.DEEP));*/
         registration.addRecipeCategories(new ModBrazierCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new PulverizeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new WitchBrewCategory(registration.getJeiHelpers().getGuiHelper()));
@@ -55,7 +58,10 @@ public class GoetyJeiPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.GRIM_INFUSER.get()), JeiRecipeTypes.CURSED_INFUSER);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.DARK_ALTAR.get()), JeiRecipeTypes.RITUAL);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.PEDESTAL.get()), JeiRecipeTypes.RITUAL);
-        registration.addRecipeCatalyst(new ItemStack(ModItems.ANIMATION_CORE.get()), JeiRecipeTypes.getRitual(RitualTypes.ANIMATION));
+        for (IRitualType ritualType : RitualType.getAllRitualType()) {
+            registration.addRecipeCatalyst(ritualType.getJeiIcon(), JeiRecipeTypes.getRitual(ritualType.getName()));
+        }
+        /*registration.addRecipeCatalyst(new ItemStack(ModItems.ANIMATION_CORE.get()), JeiRecipeTypes.getRitual(RitualTypes.ANIMATION));
         registration.addRecipeCatalyst(new ItemStack(Blocks.SCULK), JeiRecipeTypes.getRitual(RitualTypes.NECROTURGY));
         registration.addRecipeCatalyst(new ItemStack(Blocks.ANVIL), JeiRecipeTypes.getRitual(RitualTypes.FORGE));
         registration.addRecipeCatalyst(new ItemStack(Blocks.CHIPPED_ANVIL), JeiRecipeTypes.getRitual(RitualTypes.FORGE));
@@ -69,7 +75,7 @@ public class GoetyJeiPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.FREEZING_LAMP.get()), JeiRecipeTypes.getRitual(RitualTypes.FROST));
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.MARBLE_BLOCK.get()), JeiRecipeTypes.getRitual(RitualTypes.SKY));
         registration.addRecipeCatalyst(new ItemStack(Blocks.LIGHTNING_ROD), JeiRecipeTypes.getRitual(RitualTypes.STORM));
-        registration.addRecipeCatalyst(new ItemStack(Blocks.PRISMARINE_BRICKS), JeiRecipeTypes.getRitual(RitualTypes.DEEP));
+        registration.addRecipeCatalyst(new ItemStack(Blocks.PRISMARINE_BRICKS), JeiRecipeTypes.getRitual(RitualTypes.DEEP));*/
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.NECRO_BRAZIER.get()), JeiRecipeTypes.BRAZIER);
         registration.addRecipeCatalyst(new ItemStack(ModItems.PULVERIZE_FOCUS.get()), JeiRecipeTypes.PULVERIZE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.BREWING_CAULDRON.get()), JeiRecipeTypes.BREWING);
@@ -84,7 +90,10 @@ public class GoetyJeiPlugin implements IModPlugin {
         registration.addRecipes(JeiRecipeTypes.CURSED_INFUSER, cursedRecipes);
         List<RitualRecipe> ritualRecipes = recipeManager.getAllRecipesFor(ModRecipeSerializer.RITUAL_TYPE.get());
         registration.addRecipes(JeiRecipeTypes.RITUAL, ritualRecipes);
-        this.registerRitualType(registration, recipeManager, RitualTypes.ANIMATION);
+        for (IRitualType ritualType : RitualType.getAllRitualType()) {
+            this.registerRitualType(registration, recipeManager, ritualType.getName());
+        }
+        /*this.registerRitualType(registration, recipeManager, RitualTypes.ANIMATION);
         this.registerRitualType(registration, recipeManager, RitualTypes.NECROTURGY);
         this.registerRitualType(registration, recipeManager, RitualTypes.FORGE);
         this.registerRitualType(registration, recipeManager, RitualTypes.GEOTURGY);
@@ -96,7 +105,7 @@ public class GoetyJeiPlugin implements IModPlugin {
         this.registerRitualType(registration, recipeManager, RitualTypes.FROST);
         this.registerRitualType(registration, recipeManager, RitualTypes.SKY);
         this.registerRitualType(registration, recipeManager, RitualTypes.STORM);
-        this.registerRitualType(registration, recipeManager, RitualTypes.DEEP);
+        this.registerRitualType(registration, recipeManager, RitualTypes.DEEP);*/
         List<BrazierRecipe> brazierRecipes = recipeManager.getAllRecipesFor(ModRecipeSerializer.BRAZIER_TYPE.get());
         registration.addRecipes(JeiRecipeTypes.BRAZIER, brazierRecipes);
         List<PulverizeRecipe> pulverizeRecipes = recipeManager.getAllRecipesFor(ModRecipeSerializer.PULVERIZE_TYPE.get());

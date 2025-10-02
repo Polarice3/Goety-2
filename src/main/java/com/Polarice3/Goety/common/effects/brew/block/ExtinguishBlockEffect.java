@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.effects.brew.block;
 
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
+import com.Polarice3.Goety.config.BrewConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -17,7 +18,7 @@ import javax.annotation.Nullable;
 
 public class ExtinguishBlockEffect extends BrewEffect {
     public ExtinguishBlockEffect() {
-        super("extinguish", MobEffectCategory.BENEFICIAL, 0xfff5c6);
+        super("extinguish", BrewConfig.ExtinguishCost.get(), MobEffectCategory.BENEFICIAL, 0xfff5c6);
     }
 
     @Override

@@ -3,11 +3,11 @@ package com.Polarice3.Goety.client.render.layer;
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
-import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
@@ -21,8 +21,8 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -44,15 +44,12 @@ public class HierarchicalArmorLayer<T extends LivingEntity, M extends EntityMode
     private static final Map<String, ResourceLocation> ARMOR_TEXTURE_RES_MAP = Maps.newHashMap();
     private final HumanoidModel defaultBipedModel;
     private final HumanoidModel innerModel;
-    private RenderLayerParent<T, M> renderer;
+    private final RenderLayerParent<T, M> renderer;
     private final TextureAtlas armorTrimAtlas;
+    private final EntityRendererProvider.Context context;
 
     public HierarchicalArmorLayer(RenderLayerParent<T, M> render, EntityRendererProvider.Context context) {
         this(render, context, ModelLayers.ZOMBIE_VILLAGER_OUTER_ARMOR, ModelLayers.ZOMBIE_VILLAGER_INNER_ARMOR);
-    }
-
-    public HierarchicalArmorLayer(RenderLayerParent<T, M> render, EntityModelSet modelSet, ModelManager modelManager) {
-        this(render, modelSet, modelManager, ModelLayers.ZOMBIE_VILLAGER_OUTER_ARMOR, ModelLayers.ZOMBIE_VILLAGER_INNER_ARMOR);
     }
 
     public HierarchicalArmorLayer(RenderLayerParent<T, M> render, EntityRendererProvider.Context context, ModelLayerLocation outerArmor, ModelLayerLocation innerArmor) {
@@ -60,15 +57,8 @@ public class HierarchicalArmorLayer<T extends LivingEntity, M extends EntityMode
         this.defaultBipedModel = new HumanoidModel(context.bakeLayer(outerArmor));
         this.innerModel = new HumanoidModel(context.bakeLayer(innerArmor));
         this.renderer = render;
+        this.context = context;
         this.armorTrimAtlas = context.getModelManager().getAtlas(Sheets.ARMOR_TRIMS_SHEET);
-    }
-
-    public HierarchicalArmorLayer(RenderLayerParent<T, M> render, EntityModelSet modelSet, ModelManager modelManager, ModelLayerLocation outerArmor, ModelLayerLocation innerArmor) {
-        super(render);
-        this.defaultBipedModel = new HumanoidModel(modelSet.bakeLayer(outerArmor));
-        this.innerModel = new HumanoidModel(modelSet.bakeLayer(innerArmor));
-        this.renderer = render;
-        this.armorTrimAtlas = modelManager.getAtlas(Sheets.ARMOR_TRIMS_SHEET);
     }
 
     public static ResourceLocation getArmorResource(Entity entity, ItemStack stack, EquipmentSlot slot, @Nullable String type) {
@@ -90,8 +80,7 @@ public class HierarchicalArmorLayer<T extends LivingEntity, M extends EntityMode
         {
             matrixStackIn.pushPose();
             ItemStack headItem = entity.getItemBySlot(EquipmentSlot.HEAD);
-            if (headItem.getItem() instanceof ArmorItem) {
-                ArmorItem armoritem = (ArmorItem) headItem.getItem();
+            if (headItem.getItem() instanceof ArmorItem armoritem) {
                 if (headItem.canEquip(EquipmentSlot.HEAD, entity)) {
                     HumanoidModel a = defaultBipedModel;
                     a = getArmorModelHook(entity, headItem, EquipmentSlot.HEAD, a);
@@ -111,21 +100,28 @@ public class HierarchicalArmorLayer<T extends LivingEntity, M extends EntityMode
                     }
                 }
             } else {
-                renderer.getModel().headPartArmors().forEach(part -> {
-                    this.renderer.getModel().translateToHead(part, matrixStackIn);
-                    matrixStackIn.mulPose((new Quaternionf()).rotateX((float) Math.PI));
-                    matrixStackIn.mulPose((new Quaternionf()).rotateY((float) Math.PI));
-                    matrixStackIn.scale(0.625F, 0.625F, 0.625F);
-                    Minecraft.getInstance().getItemRenderer().renderStatic(headItem, ItemDisplayContext.HEAD, packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn, entity.level(), 0);
-                });
+                if (headItem.is(ItemTags.BANNERS)) {
+                    this.renderer.getModel().headPartArmors().forEach(part -> {
+                        this.renderer.getModel().translateToHead(part, matrixStackIn);
+                        translateToHead(matrixStackIn);
+                        this.context.getItemInHandRenderer().renderItem(entity, headItem, ItemDisplayContext.HEAD, false, matrixStackIn, bufferIn, packedLightIn);
+                    });
+                } else {
+                    this.renderer.getModel().headPartArmors().forEach(part -> {
+                        this.renderer.getModel().translateToHead(part, matrixStackIn);
+                        matrixStackIn.mulPose((new Quaternionf()).rotateX((float) Math.PI));
+                        matrixStackIn.mulPose((new Quaternionf()).rotateY((float) Math.PI));
+                        matrixStackIn.scale(0.625F, 0.625F, 0.625F);
+                        Minecraft.getInstance().getItemRenderer().renderStatic(headItem, ItemDisplayContext.HEAD, packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn, entity.level(), 0);
+                    });
+                }
             }
             matrixStackIn.popPose();
         }
         {
             matrixStackIn.pushPose();
             ItemStack chestItem = entity.getItemBySlot(EquipmentSlot.CHEST);
-            if (chestItem.getItem() instanceof ArmorItem) {
-                ArmorItem armoritem = (ArmorItem) chestItem.getItem();
+            if (chestItem.getItem() instanceof ArmorItem armoritem) {
                 if (armoritem.getEquipmentSlot() == EquipmentSlot.CHEST) {
                     HumanoidModel a = defaultBipedModel;
                     a = getArmorModelHook(entity, chestItem, EquipmentSlot.CHEST, a);
@@ -152,8 +148,7 @@ public class HierarchicalArmorLayer<T extends LivingEntity, M extends EntityMode
         {
             matrixStackIn.pushPose();
             ItemStack legItem = entity.getItemBySlot(EquipmentSlot.LEGS);
-            if (legItem.getItem() instanceof ArmorItem) {
-                ArmorItem armoritem = (ArmorItem) legItem.getItem();
+            if (legItem.getItem() instanceof ArmorItem armoritem) {
                 if (armoritem.getEquipmentSlot() == EquipmentSlot.LEGS) {
                     HumanoidModel a = this.innerModel;
                     a = getArmorModelHook(entity, legItem, EquipmentSlot.LEGS, a);
@@ -180,8 +175,7 @@ public class HierarchicalArmorLayer<T extends LivingEntity, M extends EntityMode
         {
             matrixStackIn.pushPose();
             ItemStack feetItem = entity.getItemBySlot(EquipmentSlot.FEET);
-            if (feetItem.getItem() instanceof ArmorItem) {
-                ArmorItem armoritem = (ArmorItem) feetItem.getItem();
+            if (feetItem.getItem() instanceof ArmorItem armoritem) {
                 if (armoritem.getEquipmentSlot() == EquipmentSlot.FEET) {
                     HumanoidModel a = defaultBipedModel;
                     a = getArmorModelHook(entity, feetItem, EquipmentSlot.FEET, a);
@@ -214,6 +208,13 @@ public class HierarchicalArmorLayer<T extends LivingEntity, M extends EntityMode
 
     private HumanoidModel getArmorModel(EquipmentSlot p_117079_) {
         return (usesInnerModel(p_117079_) ? this.innerModel : this.defaultBipedModel);
+    }
+
+    public static void translateToHead(PoseStack p_174484_) {
+        float f = 0.625F;
+        p_174484_.translate(0.0F, -0.25F, 0.0F);
+        p_174484_.mulPose(Axis.YP.rotationDegrees(180.0F));
+        p_174484_.scale(f, -f, -f);
     }
 
     private void renderTrim(ModelPart part, ArmorMaterial armorMaterial, PoseStack poseStack, MultiBufferSource pBuffer, int packedLight, ArmorTrim armorTrim, boolean glintIn, boolean innerModel, float red, float green, float blue) {

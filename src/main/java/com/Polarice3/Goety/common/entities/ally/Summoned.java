@@ -7,16 +7,14 @@ import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModMobType;
-import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.ItemHelper;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
@@ -171,12 +169,7 @@ public class Summoned extends Owned implements IServant {
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
-        if (pReason == MobSpawnType.MOB_SUMMONED && this.getTrueOwner() != null && this.getMobType() == MobType.UNDEAD){
-            for (int i = 0; i < pLevel.getLevel().random.nextInt(10) + 10; ++i) {
-                pLevel.getLevel().sendParticles(ModParticleTypes.SUMMON.get(), this.getRandomX(1.5D), this.getRandomY(), this.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
-            }
-            pLevel.getLevel().sendParticles(ModParticleTypes.SOUL_EXPLODE.get(), this.getX(), this.getY(), this.getZ(), 0, 0, 2.0D, 0, 1.0F);
-        }
+        this.summonParticles(pLevel.getLevel(), pReason);
         if (this.getTrueOwner() != null){
             this.spawnUpgraded();
         }
@@ -184,6 +177,17 @@ public class Summoned extends Owned implements IServant {
         this.setStaying(false);
         this.setBoundPos(null);
         return pSpawnData;
+    }
+
+    public void summonParticles(ServerLevel pLevel, MobSpawnType pReason) {
+        if (pReason == MobSpawnType.MOB_SUMMONED && this.getTrueOwner() != null){
+            for (int i = 0; i < pLevel.random.nextInt(10) + 10; ++i) {
+                pLevel.sendParticles(ModParticleTypes.SUMMON.get(), this.getRandomX(1.5D), this.getRandomY(), this.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
+            }
+            if (this.getMobType() == MobType.UNDEAD) {
+                pLevel.sendParticles(ModParticleTypes.SOUL_EXPLODE.get(), this.getX(), this.getY(), this.getZ(), 0, 0, 2.0D, 0, 1.0F);
+            }
+        }
     }
 
     public boolean canSpawnArmor(){
@@ -466,7 +470,7 @@ public class Summoned extends Owned implements IServant {
     }
 
     public void tryKill(Player player){
-        this.kill();
+        this.hurt(ModDamageSource.getDamageSource(this.level, ModDamageSource.DISMISSED), Float.MAX_VALUE);
     }
 
     @Override

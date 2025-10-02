@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.effects.brew.block;
 
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
+import com.Polarice3.Goety.config.BrewConfig;
 import com.Polarice3.Goety.utils.BlockFinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
@@ -15,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class MossifyBlockEffect extends BrewEffect {
     public MossifyBlockEffect() {
-        super("mossify", MobEffectCategory.NEUTRAL, 0x647233);
+        super("mossify", BrewConfig.MossifyCost.get(), MobEffectCategory.NEUTRAL, 0x647233);
     }
 
     @Override

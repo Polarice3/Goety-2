@@ -1,0 +1,49 @@
+package com.Polarice3.Goety.common.items;
+
+import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.common.blocks.VoidFrameBlock;
+import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.hostile.ender.Endersent;
+import com.Polarice3.Goety.common.entities.util.SummonCircleBoss;
+import com.Polarice3.Goety.init.ModSounds;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+
+public class VoidKeyItem extends ItemBase{
+
+    public InteractionResult useOn(UseOnContext p_41182_) {
+        Level level = p_41182_.getLevel();
+        BlockPos blockPos = p_41182_.getClickedPos();
+        BlockState blockstate = level.getBlockState(blockPos);
+        if (blockstate.is(ModBlocks.VOID_FRAME.get()) && blockstate.getValue(VoidFrameBlock.LOCKED)) {
+            if (level.isClientSide) {
+                return InteractionResult.SUCCESS;
+            } else if (level instanceof ServerLevel serverLevel){
+                BlockState blockState2 = blockstate.setValue(VoidFrameBlock.LOCKED, false);
+                level.setBlock(blockPos, blockState2, 2);
+                level.updateNeighbourForOutputSignal(blockPos, ModBlocks.VOID_FRAME.get());
+                p_41182_.getItemInHand().shrink(1);
+                serverLevel.playSound(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), ModSounds.VOID_FRAME_UNLOCK.get(), SoundSource.BLOCKS, 2.0F, 1.0F);
+                Vec3 vec3 = blockPos.above().getCenter();
+                Endersent endersent = new Endersent(ModEntityType.ENDERSENT.get(), serverLevel);
+                endersent.setEyeType(blockState2.getValue(VoidFrameBlock.TYPE) + 1);
+                endersent.setPos(vec3);
+                endersent.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null, null);
+                endersent.setVoidFramePos(blockPos);
+                endersent.setPersistenceRequired();
+                SummonCircleBoss circleBoss = new SummonCircleBoss(level, vec3, endersent);
+                serverLevel.addFreshEntity(circleBoss);
+
+                return InteractionResult.CONSUME;
+            }
+        }
+        return InteractionResult.PASS;
+    }
+}

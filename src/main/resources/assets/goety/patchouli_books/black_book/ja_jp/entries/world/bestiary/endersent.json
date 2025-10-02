@@ -1,0 +1,26 @@
+{
+  "name": "エンダーセント",
+  "icon": "goety:void_frame",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_an_endersent",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "これらの存在の強さは、あなたがこれまで遭遇したほとんどの生き物より強力で、そのハンマーのような腕は侮れません。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:endersent",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "彼らの物語の多くは、物体や場所など、何かを守るためのものだとされているようです。エンダーアイと結びつくことで、パワーを得るようです。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:void_shard",
+      "text": "エンチャントされたエンダーセントは目を落とすだけでなく、虚空の聖堂で使用できる虚空の欠片も落とします。"
+    }
+  ]
+}

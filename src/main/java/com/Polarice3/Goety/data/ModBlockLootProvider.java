@@ -88,6 +88,7 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
         this.add(ModBlocks.SNAP_WARTS.get(), createSnapWartDrops(ModBlocks.SNAP_WARTS.get(), ModItems.SNAP_FUNGUS.get(), ModBlocks.SNAP_WARTS_ITEM.get(), lootbuilder, lootbuilder1));
         this.add(ModBlocks.FORBIDDEN_GRASS.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, Blocks.DIRT));
         this.add(ModBlocks.SPIDER_NEST.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, Items.STRING, UniformGenerator.between(4.0F, 8.0F)));
+        this.add(ModBlocks.END_STONE_SLATE_BLOCK.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, ModBlocks.COBBLED_END_STONE_BLOCK.get()));
         this.dropWhenSilkTouch(ModBlocks.SCULK_RELAY.get());
         this.dropPottedContents(ModBlocks.POTTED_HAUNTED_SAPLING.get());
         this.dropPottedContents(ModBlocks.POTTED_ROTTEN_SAPLING.get());

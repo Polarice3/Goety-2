@@ -1,0 +1,40 @@
+{
+  "name": "変わったクモ達",
+  "icon": "minecraft:cobweb",
+  "category": "goety:world/bestiary",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "最近、他のモンスターのように特定のエリアや全体的に暗闇の中に奇妙なクモが出現していることに気付きました。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:web_spider",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "他よりも多くの巣を作る臆病なクモ。標的に向かって巣を発射し、捕まった敵のみ攻撃する。標的が近づくと、クモは逃げようとする。絶えず巣を作るため、無傷のクモの巣を落とすこともある。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:icy_spider",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "寒冷バイオームに出現するクモ。噛まれるとストレイの矢のように移動速度低下効果を付与する。また、粉雪の影響を受けない。"
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/kill_a_bone_spider",
+      "entity": "goety:bone_spider",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/kill_a_bone_spider",
+      "text": "クリプトに現れる、骨で覆われたこのクモは、遠くから骨の破片を発射し、ターゲットが近くにいる場合は噛みついて攻撃します。"
+    }
+  ]
+}

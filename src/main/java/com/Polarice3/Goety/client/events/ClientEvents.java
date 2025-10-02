@@ -5,6 +5,7 @@ import com.Polarice3.Goety.api.blocks.entities.IBarrack;
 import com.Polarice3.Goety.api.blocks.entities.IOwnedBlock;
 import com.Polarice3.Goety.api.blocks.entities.ITrainingBlock;
 import com.Polarice3.Goety.api.blocks.entities.IWaystoneBlock;
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.api.magic.ISpell;
 import com.Polarice3.Goety.client.audio.*;
@@ -19,6 +20,7 @@ import com.Polarice3.Goety.client.render.model.LichModeModel;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.CursedCageBlockEntity;
+import com.Polarice3.Goety.common.blocks.entities.OminousIdolBlockEntity;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ally.GuardianServant;
 import com.Polarice3.Goety.common.entities.ally.Leapleaf;
@@ -26,8 +28,10 @@ import com.Polarice3.Goety.common.entities.ally.golem.SquallGolem;
 import com.Polarice3.Goety.common.entities.ally.illager.StormCasterServant;
 import com.Polarice3.Goety.common.entities.ally.illager.WindCallerServant;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
+import com.Polarice3.Goety.common.entities.boss.EnderKeeper;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.hostile.Wight;
+import com.Polarice3.Goety.common.entities.hostile.ender.Endersent;
 import com.Polarice3.Goety.common.entities.hostile.illagers.HostileRedstoneMonstrosity;
 import com.Polarice3.Goety.common.entities.hostile.illagers.StormCaster;
 import com.Polarice3.Goety.common.entities.hostile.servants.Inferno;
@@ -66,6 +70,8 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.Input;
 import net.minecraft.client.player.LocalPlayer;
@@ -79,6 +85,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ServerboundInteractPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -88,9 +95,11 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
@@ -101,6 +110,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
@@ -259,7 +269,13 @@ public class ClientEvents {
                             playBossMusic(ModSounds.VIZIER_THEME.get(), vizier);
                         }
                         if (entity instanceof HostileRedstoneMonstrosity rm && !rm.isNoAi()) {
-                            playBossMusic(ModSounds.RM_THEME.get(), ModSounds.BOSS_POST_2.get(), rm, 0.75F);
+                            playBossMusic(ModSounds.RM_THEME.get(), ModSounds.BOSS_POST_2.get(), rm, 0.75F, 1.0F);
+                        }
+                        if (entity instanceof EnderKeeper enderKeeper && !enderKeeper.isNoAi()) {
+                            playBossMusic(ModSounds.ENDER_KEEPER_THEME.get(), ModSounds.ENDER_KEEPER_THEME_POST.get(), enderKeeper, 0.75F, 0.825F);
+                        }
+                        if (entity instanceof Endersent endersent && !endersent.isNoAi()) {
+                            playBossMusic(ModSounds.ENDERMAN_THEME_PRE.get(), ModSounds.ARENA_END.get(), endersent, 0.75F, 1.0F);
                         }
                     }
                 }
@@ -270,23 +286,23 @@ public class ClientEvents {
     public static AbstractTickableSoundInstance BOSS_MUSIC;
 
     public static void playBossMusic(SoundEvent soundEvent, Mob mob){
-        playBossMusic(soundEvent, mob, 1.0F);
+        playBossMusic(soundEvent, mob, 1.0F, 1.0F);
     }
 
     public static void playBossMusic(SoundEvent soundEvent, SoundEvent postBossMusic, Mob mob){
-        playBossMusic(soundEvent, postBossMusic, mob, 1.0F);
+        playBossMusic(soundEvent, postBossMusic, mob, 1.0F, 1.0F);
     }
 
-    public static void playBossMusic(SoundEvent soundEvent, Mob mob, float volume){
-        playBossMusic(soundEvent, ModSounds.BOSS_POST.get(), mob, volume);
+    public static void playBossMusic(SoundEvent soundEvent, Mob mob, float volume, float pitch){
+        playBossMusic(soundEvent, ModSounds.BOSS_POST.get(), mob, volume, pitch);
     }
 
-    public static void playBossMusic(SoundEvent soundEvent, SoundEvent postBossMusic, Mob mob, float volume){
+    public static void playBossMusic(SoundEvent soundEvent, SoundEvent postBossMusic, Mob mob, float volume, float pitch){
         if (MainConfig.BossMusic.get()) {
             Minecraft minecraft = Minecraft.getInstance();
             if (soundEvent != null && mob.isAlive()) {
                 if (BOSS_MUSIC == null) {
-                    BOSS_MUSIC = new BossLoopMusic(soundEvent, postBossMusic, mob, volume);
+                    BOSS_MUSIC = new BossLoopMusic(soundEvent, postBossMusic, mob, volume, pitch);
                 }
             } else {
                 BOSS_MUSIC = null;
@@ -420,121 +436,144 @@ public class ClientEvents {
                             }
                         }
                     } else if (blockEntity instanceof IOwnedBlock ownedBlock && ownedBlock.getPlayer() != null && ownedBlock.screenView()){
-                        if (blockEntity instanceof ITrainingBlock trainingBlock){
-                            poseStack.pushPose();
-                            poseStack.translate((float)(width / 2), (float)(height - 58), 0.0F);
-                            RenderSystem.enableBlend();
-                            RenderSystem.defaultBlendFunc();
-                            String s = Component.translatable("tooltip.goety.blockOwner").getString() + ownedBlock.getPlayer().getDisplayName().getString();
-                            int l = fontRenderer.width(s);
-                            event.getGuiGraphics().drawString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
-                            RenderSystem.disableBlend();
-                            poseStack.popPose();
-
-                            if (trainingBlock.getPlayer() == player) {
-                                if (trainingBlock.reachedLimit()) {
-                                    poseStack.pushPose();
-                                    poseStack.translate((float) (width / 2), (float) (height - 116), 0.0F);
-                                    RenderSystem.enableBlend();
-                                    RenderSystem.defaultBlendFunc();
-                                    String s0 = Component.translatable("info.goety.summon.limit").getString();
-                                    int l0 = fontRenderer.width(s0);
-                                    event.getGuiGraphics().drawString(fontRenderer, s0, (-l0 / 2), -4, 0xFFFFFF);
-                                    RenderSystem.disableBlend();
-                                    poseStack.popPose();
-                                }
+                        Player owner = ownedBlock.getPlayer();
+                        if (owner != null) {
+                            if (blockEntity instanceof ITrainingBlock trainingBlock) {
                                 poseStack.pushPose();
-                                poseStack.translate((float) (width / 2), (float) (height - 100), 0.0F);
+                                poseStack.translate((float) (width / 2), (float) (height - 58), 0.0F);
                                 RenderSystem.enableBlend();
                                 RenderSystem.defaultBlendFunc();
-                                String mode = Component.translatable("tooltip.goety.blockGuard").getString();
-                                if (!trainingBlock.isGuarding()){
-                                    mode = Component.translatable("tooltip.goety.blockFollow").getString();
-                                }
-                                int length = fontRenderer.width(mode);
-                                event.getGuiGraphics().drawString(fontRenderer, mode, (-length / 2), -4, 0xFFFFFF);
+                                String s = Component.translatable("tooltip.goety.blockOwner").getString() + owner.getDisplayName().getString();
+                                int l = fontRenderer.width(s);
+                                event.getGuiGraphics().drawString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
                                 RenderSystem.disableBlend();
                                 poseStack.popPose();
-                                if (trainingBlock.isSensorSensitive()) {
-                                    poseStack.pushPose();
-                                    poseStack.translate((float) (width / 2), (float) (height - 90), 0.0F);
-                                    RenderSystem.enableBlend();
-                                    RenderSystem.defaultBlendFunc();
-                                    String s0 = Component.translatable("tooltip.goety.blockSense").getString();
-                                    int l0 = fontRenderer.width(s0);
-                                    event.getGuiGraphics().drawString(fontRenderer, s0, (-l0 / 2), -4, 0xFFFFFF);
-                                    RenderSystem.disableBlend();
-                                    poseStack.popPose();
-                                }
-                                if (trainingBlock.isGrounding()) {
-                                    poseStack.pushPose();
-                                    poseStack.translate((float) (width / 2), (float) (height - 46), 0.0F);
-                                    RenderSystem.enableBlend();
-                                    RenderSystem.defaultBlendFunc();
-                                    String s0 = Component.translatable("tooltip.goety.blockGrounded").getString();
-                                    int l0 = fontRenderer.width(s0);
-                                    event.getGuiGraphics().drawString(fontRenderer, s0, (-l0 / 2), -4, 0xFFFFFF);
-                                    RenderSystem.disableBlend();
-                                    poseStack.popPose();
-                                }
 
+                                if (owner == player) {
+                                    if (trainingBlock.reachedLimit()) {
+                                        poseStack.pushPose();
+                                        poseStack.translate((float) (width / 2), (float) (height - 116), 0.0F);
+                                        RenderSystem.enableBlend();
+                                        RenderSystem.defaultBlendFunc();
+                                        String s0 = Component.translatable("info.goety.summon.limit").getString();
+                                        int l0 = fontRenderer.width(s0);
+                                        event.getGuiGraphics().drawString(fontRenderer, s0, (-l0 / 2), -4, 0xFFFFFF);
+                                        RenderSystem.disableBlend();
+                                        poseStack.popPose();
+                                    }
+                                    poseStack.pushPose();
+                                    poseStack.translate((float) (width / 2), (float) (height - 100), 0.0F);
+                                    RenderSystem.enableBlend();
+                                    RenderSystem.defaultBlendFunc();
+                                    String mode = Component.translatable("tooltip.goety.blockGuard").getString();
+                                    if (!trainingBlock.isGuarding()) {
+                                        mode = Component.translatable("tooltip.goety.blockFollow").getString();
+                                    }
+                                    int length = fontRenderer.width(mode);
+                                    event.getGuiGraphics().drawString(fontRenderer, mode, (-length / 2), -4, 0xFFFFFF);
+                                    RenderSystem.disableBlend();
+                                    poseStack.popPose();
+                                    if (trainingBlock.isSensorSensitive()) {
+                                        poseStack.pushPose();
+                                        poseStack.translate((float) (width / 2), (float) (height - 90), 0.0F);
+                                        RenderSystem.enableBlend();
+                                        RenderSystem.defaultBlendFunc();
+                                        String s0 = Component.translatable("tooltip.goety.blockSense").getString();
+                                        int l0 = fontRenderer.width(s0);
+                                        event.getGuiGraphics().drawString(fontRenderer, s0, (-l0 / 2), -4, 0xFFFFFF);
+                                        RenderSystem.disableBlend();
+                                        poseStack.popPose();
+                                    }
+                                    if (trainingBlock.isGrounding()) {
+                                        poseStack.pushPose();
+                                        poseStack.translate((float) (width / 2), (float) (height - 46), 0.0F);
+                                        RenderSystem.enableBlend();
+                                        RenderSystem.defaultBlendFunc();
+                                        String s0 = Component.translatable("tooltip.goety.blockGrounded").getString();
+                                        int l0 = fontRenderer.width(s0);
+                                        event.getGuiGraphics().drawString(fontRenderer, s0, (-l0 / 2), -4, 0xFFFFFF);
+                                        RenderSystem.disableBlend();
+                                        poseStack.popPose();
+                                    }
+
+                                    poseStack.pushPose();
+                                    poseStack.translate((float) (width / 2), (float) (height - 68), 0.0F);
+                                    RenderSystem.enableBlend();
+                                    RenderSystem.defaultBlendFunc();
+                                    String s1 = Component.translatable("tooltip.goety.blockTrain").getString() + trainingBlock.amountTrainLeft() + "/" + trainingBlock.maxTrainAmount() + " " + trainingBlock.getTrainMob().getDescription().getString();
+                                    int l1 = fontRenderer.width(s1);
+                                    event.getGuiGraphics().drawString(fontRenderer, s1, (-l1 / 2), -4, 0xFFFFFF);
+                                    RenderSystem.disableBlend();
+                                    poseStack.popPose();
+
+                                    poseStack.pushPose();
+                                    int train = 64;
+                                    train *= ((double) trainingBlock.getTrainingTime() / trainingBlock.getMaxTrainTime());
+                                    event.getGuiGraphics().blit(Goety.location("textures/gui/train_bar.png"), ((width - 64) / 2), (height - 86), 0, 0, 64, 16, 64, 32);
+                                    event.getGuiGraphics().blit(Goety.location("textures/gui/train_bar.png"), ((width - 64) / 2), (height - 86), 0, 16, train, 16, 64, 32);
+                                    poseStack.popPose();
+                                }
+                            } else if (blockEntity instanceof IBarrack barrack) {
                                 poseStack.pushPose();
-                                poseStack.translate((float)(width / 2), (float)(height - 68), 0.0F);
+                                poseStack.translate((float) (width / 2), (float) (height - 58), 0.0F);
                                 RenderSystem.enableBlend();
                                 RenderSystem.defaultBlendFunc();
-                                String s1 = Component.translatable("tooltip.goety.blockTrain").getString() + trainingBlock.amountTrainLeft() + "/" + trainingBlock.maxTrainAmount() + " " + trainingBlock.getTrainMob().getDescription().getString();
+                                String s = Component.translatable("tooltip.goety.blockOwner").getString() + owner.getDisplayName().getString();
+                                int l = fontRenderer.width(s);
+                                event.getGuiGraphics().drawString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
+                                RenderSystem.disableBlend();
+                                poseStack.popPose();
+
+                                poseStack.pushPose();
+                                poseStack.translate((float) (width / 2), (float) (height - 68), 0.0F);
+                                RenderSystem.enableBlend();
+                                RenderSystem.defaultBlendFunc();
+                                String s1 = Component.translatable("tooltip.goety.blockTrainType").getString() + Component.translatable(barrack.getCurrentMob()).getString();
                                 int l1 = fontRenderer.width(s1);
                                 event.getGuiGraphics().drawString(fontRenderer, s1, (-l1 / 2), -4, 0xFFFFFF);
                                 RenderSystem.disableBlend();
                                 poseStack.popPose();
 
                                 poseStack.pushPose();
-                                int train = 64;
-                                train *= ((double) trainingBlock.getTrainingTime() / trainingBlock.getMaxTrainTime());
-                                event.getGuiGraphics().blit(Goety.location("textures/gui/train_bar.png"), ((width - 64) / 2), (height - 86), 0, 0, 64, 16, 64, 32);
-                                event.getGuiGraphics().blit(Goety.location("textures/gui/train_bar.png"), ((width - 64) / 2), (height - 86), 0, 16, train, 16, 64, 32);
+                                poseStack.translate((float) (width / 2), (float) (height - 78), 0.0F);
+                                RenderSystem.enableBlend();
+                                RenderSystem.defaultBlendFunc();
+                                String s2 = Component.translatable("tooltip.goety.brew.capacity").getString() + barrack.getCurrentAmount() + "/" + barrack.trainLimit();
+                                int l2 = fontRenderer.width(s2);
+                                event.getGuiGraphics().drawString(fontRenderer, s2, (-l2 / 2), -4, 0xFFFFFF);
+                                RenderSystem.disableBlend();
+                                poseStack.popPose();
+                            } else if (blockEntity instanceof OminousIdolBlockEntity idol) {
+                                poseStack.pushPose();
+                                poseStack.translate((float) (width / 2), (float) (height - 58), 0.0F);
+                                RenderSystem.enableBlend();
+                                RenderSystem.defaultBlendFunc();
+                                String s = Component.translatable("tooltip.goety.blockOwner").getString() + owner.getDisplayName().getString();
+                                int l = fontRenderer.width(s);
+                                event.getGuiGraphics().drawString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
+                                RenderSystem.disableBlend();
+                                poseStack.popPose();
+
+                                poseStack.pushPose();
+                                poseStack.translate((float) (width / 2), (float) (height - 68), 0.0F);
+                                RenderSystem.enableBlend();
+                                RenderSystem.defaultBlendFunc();
+                                String s2 = Component.translatable("tooltip.goety.idol.count").getString() + idol.getClientCount() + "/" + MainConfig.OminousIdolLimit.get();
+                                int l2 = fontRenderer.width(s2);
+                                event.getGuiGraphics().drawString(fontRenderer, s2, (-l2 / 2), -4, 0xFFFFFF);
+                                RenderSystem.disableBlend();
+                                poseStack.popPose();
+                            } else if ((player.isShiftKeyDown() || player.isCrouching()) && ownedBlock.getPlayer() != null) {
+                                poseStack.pushPose();
+                                poseStack.translate((float) (width / 2), (float) (height - 68), 0.0F);
+                                RenderSystem.enableBlend();
+                                RenderSystem.defaultBlendFunc();
+                                String s = Component.translatable("tooltip.goety.blockOwner").getString() + owner.getDisplayName().getString();
+                                int l = fontRenderer.width(s);
+                                event.getGuiGraphics().drawString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
+                                RenderSystem.disableBlend();
                                 poseStack.popPose();
                             }
-                        } else if (blockEntity instanceof IBarrack barrack){
-                            poseStack.pushPose();
-                            poseStack.translate((float)(width / 2), (float)(height - 58), 0.0F);
-                            RenderSystem.enableBlend();
-                            RenderSystem.defaultBlendFunc();
-                            String s = Component.translatable("tooltip.goety.blockOwner").getString() + ownedBlock.getPlayer().getDisplayName().getString();
-                            int l = fontRenderer.width(s);
-                            event.getGuiGraphics().drawString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
-                            RenderSystem.disableBlend();
-                            poseStack.popPose();
-
-                            poseStack.pushPose();
-                            poseStack.translate((float) (width / 2), (float) (height - 68), 0.0F);
-                            RenderSystem.enableBlend();
-                            RenderSystem.defaultBlendFunc();
-                            String s1 = Component.translatable("tooltip.goety.blockTrainType").getString() + Component.translatable(barrack.getCurrentMob()).getString();
-                            int l1 = fontRenderer.width(s1);
-                            event.getGuiGraphics().drawString(fontRenderer, s1, (-l1 / 2), -4, 0xFFFFFF);
-                            RenderSystem.disableBlend();
-                            poseStack.popPose();
-
-                            poseStack.pushPose();
-                            poseStack.translate((float)(width / 2), (float)(height - 78), 0.0F);
-                            RenderSystem.enableBlend();
-                            RenderSystem.defaultBlendFunc();
-                            String s2 = Component.translatable("tooltip.goety.brew.capacity").getString() + barrack.getCurrentAmount() + "/" + barrack.trainLimit();
-                            int l2 = fontRenderer.width(s2);
-                            event.getGuiGraphics().drawString(fontRenderer, s2, (-l2 / 2), -4, 0xFFFFFF);
-                            RenderSystem.disableBlend();
-                            poseStack.popPose();
-                        } else if ((player.isShiftKeyDown() || player.isCrouching()) && ownedBlock.getPlayer() != null){
-                            poseStack.pushPose();
-                            poseStack.translate((float)(width / 2), (float)(height - 68), 0.0F);
-                            RenderSystem.enableBlend();
-                            RenderSystem.defaultBlendFunc();
-                            String s = Component.translatable("tooltip.goety.blockOwner").getString() + ownedBlock.getPlayer().getDisplayName().getString();
-                            int l = fontRenderer.width(s);
-                            event.getGuiGraphics().drawString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
-                            RenderSystem.disableBlend();
-                            poseStack.popPose();
                         }
                     } else if (blockEntity instanceof CursedCageBlockEntity cageBlockEntity){
                         if (player.isShiftKeyDown() || player.isCrouching() && !cageBlockEntity.getItem().isEmpty()){
@@ -1056,6 +1095,34 @@ public class ClientEvents {
                 if (LichdomHelper.isLich(MINECRAFT.player)) {
                     if (LichdomHelper.isInLichMode(MINECRAFT.player)){
                         MINECRAFT.player.level.playLocalSound(MINECRAFT.player.getX(), MINECRAFT.player.getY(), MINECRAFT.player.getZ(), ModSounds.LICH_LAUGH.get(), MINECRAFT.player.getSoundSource(), 2.0F, MINECRAFT.player.getVoicePitch(), false);
+                    }
+                }
+            }
+        }
+        if (ModKeybindings.keyBindings[14].isDown() && MINECRAFT.isWindowActive()){
+            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CActivateCurioKeyPacket());
+        }
+    }
+
+    //Domestication Innovation work-a-round
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void InteractionKeyEvent(InputEvent.InteractionKeyMappingTriggered event) {
+        Player player = Minecraft.getInstance().player;
+        if (player != null) {
+            if (event.isAttack()
+                    && Minecraft.getInstance().hitResult instanceof EntityHitResult result
+                    && result.getEntity() instanceof IOwned owned
+                    && owned.getTrueOwner() == player) {
+                MultiPlayerGameMode gameMode = Minecraft.getInstance().gameMode;
+                ClientPacketListener listener = Minecraft.getInstance().getConnection();
+                if (gameMode != null && listener != null) {
+                    ItemStack stack = player.getMainHandItem();
+                    if (stack.getItem().onLeftClickEntity(stack, player, result.getEntity())) {
+                        listener.send(ServerboundInteractPacket.createAttackPacket(result.getEntity(), player.isShiftKeyDown()));
+                        if (gameMode.getPlayerMode() != GameType.SPECTATOR) {
+                            player.attack(result.getEntity());
+                        }
+                        event.setCanceled(true);
                     }
                 }
             }

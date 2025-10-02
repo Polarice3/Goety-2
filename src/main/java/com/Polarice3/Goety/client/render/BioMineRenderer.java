@@ -36,11 +36,11 @@ public class BioMineRenderer<T extends BioMine> extends LayeredEntityRenderer<T,
 
     @Override
     public ResourceLocation getTextureLocation(T entity) {
-        return entity.getResourceLocation();
+        return Goety.location("textures/entity/projectiles/biomine/" + entity.level.getGameTime() % 19 + ".png");
     }
 
     public static class GlowLayer<T extends BioMine, M extends BioMineModel<T>> extends RenderLayer<T, M> {
-        private static final ResourceLocation TEXTURE = Goety.location("textures/entity/projectiles/biomine/biomine_glow.png");
+        private static final ResourceLocation TEXTURE = Goety.location("textures/entity/projectiles/biomine/glow.png");
         protected M model;
 
         public GlowLayer(RenderLayerParent<T, M> p_116967_, M model) {

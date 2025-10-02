@@ -67,7 +67,7 @@ public class DarkAltarBlock extends BaseEntityBlock implements IForgeBlock, Simp
                 IItemHandler handler = darkAltarTile.itemStackHandler.orElseThrow(RuntimeException::new);
                 ItemStack itemStack = handler.getStackInSlot(0);
                 if (!itemStack.isEmpty()){
-                    darkAltarTile.removeItem();
+                    darkAltarTile.removeItem(player);
                     return InteractionResult.SUCCESS;
                 } else if (!player.getItemInHand(hand).isEmpty()){
                     return darkAltarTile.activate(world, pos, player, hand,

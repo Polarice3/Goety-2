@@ -3,6 +3,7 @@
   "values": [
     "minecraft:villager",
     "minecraft:wandering_trader",
+    "goety:prisoner",
     {
       "id": "guardvillagers:guard",
       "required": false

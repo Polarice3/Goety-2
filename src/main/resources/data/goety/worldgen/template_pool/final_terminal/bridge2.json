@@ -1,0 +1,21 @@
+{
+  "name": "goety:final_terminal/bridge2",
+
+  "fallback": "goety:final_terminal/bridge2",
+
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+
+        "location": "goety:final_terminal/bridge2",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

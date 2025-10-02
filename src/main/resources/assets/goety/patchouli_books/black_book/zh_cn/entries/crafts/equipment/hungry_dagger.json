@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "尖牙匕首的另一版，虽然不再具备毒性，但它能为持有者回复其造成伤害的5%。生命偷取的百分比随着噬魂的魔咒等级而增加。"
+      "text": "尖牙匕首的变种，虽然不再有毒，但能为持有者恢复其所造成伤害的5%%的生命值。噬魂附魔等级越高，吸血百分比就越高。"
     },
     {
       "type": "goety:ritual",
@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "匕首可以在铁砧上使用$(l:crafts/dark_metal_ingot)黑暗金属锭$()来修复，它也可以自己使用灵魂能量来修复。"
+      "text": "匕首可以在铁砧上使用$(l:crafts/dark_metal_ingot)黑暗合金锭$()来修复，它也可以自己使用灵魂能量来修复。"
     }
   ],
   "extra_recipe_mappings": {

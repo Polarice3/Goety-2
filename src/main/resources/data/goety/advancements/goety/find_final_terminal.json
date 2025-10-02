@@ -1,0 +1,41 @@
+{
+  "parent": "goety:goety/root",
+  "criteria": {
+    "final_terminal": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "goety:final_terminal"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.goety.find_final_terminal.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "goety:void_spawner"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.goety.find_final_terminal.title"
+    }
+  },
+  "requirements": [
+    [
+      "final_terminal"
+    ]
+  ]
+}

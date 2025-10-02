@@ -53,16 +53,20 @@ public class SnarelingModel<T extends AbstractSnareling> extends HierarchicalMod
 		PartDefinition body = snareling.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offsetAndRotation(1.5F, -24.0F, -3.45F, -0.2182F, 0.0F, 0.0349F));
 
 		PartDefinition upper = body.addOrReplaceChild("upper", CubeListBuilder.create().texOffs(0, 15).addBox(-5.5F, -12.0F, -5.45F, 11.0F, 12.0F, 8.0F, new CubeDeformation(0.0F))
-		.texOffs(38, 14).addBox(-5.5F, -12.0F, -5.45F, 11.0F, 12.0F, 8.0F, new CubeDeformation(-0.01F))
-		.texOffs(32, 0).addBox(-4.5F, -11.0F, 2.55F, 9.0F, 9.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.5F, 0.0F, 3.45F));
+				.texOffs(38, 14).addBox(-5.5F, -12.0F, -5.45F, 11.0F, 12.0F, 8.0F, new CubeDeformation(-0.01F)), PartPose.offset(-1.5F, 0.0F, 3.45F));
+
+		PartDefinition sack = upper.addOrReplaceChild("sack", CubeListBuilder.create().texOffs(32, 0).addBox(-4.5F, -4.5F, 0.5F, 9.0F, 9.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -6.5F, 2.05F));
 
 		PartDefinition mouth = upper.addOrReplaceChild("mouth", CubeListBuilder.create(), PartPose.offset(1.5F, 0.0F, -3.45F));
 
-		PartDefinition top = mouth.addOrReplaceChild("top", CubeListBuilder.create().texOffs(38, 34).addBox(-4.5F, -1.5F, 0.0F, 9.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.5F, -8.0F, -2.1F));
+		PartDefinition top = mouth.addOrReplaceChild("top", CubeListBuilder.create().texOffs(38, 34).addBox(-4.5F, -1.5F, 0.0F, 9.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.5F, -7.75F, -2.025F));
 
-		PartDefinition bottom = mouth.addOrReplaceChild("bottom", CubeListBuilder.create().texOffs(38, 37).addBox(-4.5F, -1.5F, 0.0F, 9.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.5F, -4.5F, -2.1F));
+		PartDefinition bottom = mouth.addOrReplaceChild("bottom", CubeListBuilder.create().texOffs(38, 37).addBox(-4.5F, -1.5F, 0.0F, 9.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.5F, -4.25F, -2.025F));
 
 		PartDefinition head = upper.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.5F, -8.0F, -3.5F, 9.0F, 8.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -12.0F, -0.95F, -0.0436F, 0.0F, 0.0F));
+
+		PartDefinition eyes = head.addOrReplaceChild("eyes", CubeListBuilder.create().texOffs(0, 0).addBox(-4.5F, -0.5F, 0.0F, 3.0F, 1.0F, 0.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 0).addBox(1.5F, -0.5F, 0.0F, 3.0F, 1.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -4.5F, -3.6F));
 
 		PartDefinition right_arm = body.addOrReplaceChild("right_arm", CubeListBuilder.create(), PartPose.offsetAndRotation(-7.0F, -11.0F, 2.0F, 0.2182F, 0.0F, -0.0349F));
 

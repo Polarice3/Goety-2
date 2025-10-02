@@ -60,7 +60,7 @@ public class CursedCageBlock extends BaseEntityBlock implements IForgeBlock {
 
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (pHand == InteractionHand.MAIN_HAND && pState.getValue(POWERED) && pPlayer.getMainHandItem().isEmpty()) {
-            this.dropItem(pLevel, pPos);
+            this.dropItem(pLevel, pPos, pPlayer);
             pState = pState.setValue(POWERED, Boolean.FALSE);
             pLevel.setBlock(pPos, pState, 2);
             return InteractionResult.sidedSuccess(pLevel.isClientSide);
@@ -78,24 +78,36 @@ public class CursedCageBlock extends BaseEntityBlock implements IForgeBlock {
         }
     }
 
-    public void dropItem(Level pLevel, BlockPos pPos) {
+    public void dropItem(Level pLevel, BlockPos pPos, @Nullable Player player) {
         if (!pLevel.isClientSide) {
             BlockEntity tileentity = pLevel.getBlockEntity(pPos);
-            if (tileentity instanceof CursedCageBlockEntity) {
-                CursedCageBlockEntity cageTileEntity = (CursedCageBlockEntity)tileentity;
+            if (tileentity instanceof CursedCageBlockEntity cageTileEntity) {
                 ItemStack itemstack = cageTileEntity.getItem();
                 if (!itemstack.isEmpty()) {
+                    ItemStack itemstack1 = itemstack.copy();
                     pLevel.levelEvent(1010, pPos, 0);
                     cageTileEntity.clearContent();
-                    float f = 0.7F;
-                    double d0 = (double)(pLevel.random.nextFloat() * f) + (double)0.15F;
-                    double d1 = (double)(pLevel.random.nextFloat() * f) + (double)0.060000002F + 0.6D;
-                    double d2 = (double)(pLevel.random.nextFloat() * f) + (double)0.15F;
-                    ItemStack itemstack1 = itemstack.copy();
-                    ItemEntity itementity = new ItemEntity(pLevel, (double)pPos.getX() + d0, (double)pPos.getY() + d1, (double)pPos.getZ() + d2, itemstack1);
-                    itementity.setDefaultPickUpDelay();
-                    if (pLevel.addFreshEntity(itementity)){
-                        pLevel.playSound(null, pPos, SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    boolean flag = false;
+                    if (player != null) {
+                        if (player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
+                            player.setItemInHand(InteractionHand.MAIN_HAND, itemstack1);
+                            pLevel.playSound(null, pPos, SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        } else if (!player.addItem(itemstack1)){
+                            flag = true;
+                        }
+                    } else {
+                        flag = true;
+                    }
+                    if (flag) {
+                        float f = 0.7F;
+                        double d0 = (double)(pLevel.random.nextFloat() * f) + (double)0.15F;
+                        double d1 = (double)(pLevel.random.nextFloat() * f) + (double)0.060000002F + 0.6D;
+                        double d2 = (double)(pLevel.random.nextFloat() * f) + (double)0.15F;
+                        ItemEntity itementity = new ItemEntity(pLevel, (double)pPos.getX() + d0, (double)pPos.getY() + d1, (double)pPos.getZ() + d2, itemstack1);
+                        itementity.setDefaultPickUpDelay();
+                        if (pLevel.addFreshEntity(itementity)){
+                            pLevel.playSound(null, pPos, SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        }
                     }
                 }
             }
@@ -104,7 +116,7 @@ public class CursedCageBlock extends BaseEntityBlock implements IForgeBlock {
 
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
-            this.dropItem(pLevel, pPos);
+            this.dropItem(pLevel, pPos, null);
             super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
         }
     }

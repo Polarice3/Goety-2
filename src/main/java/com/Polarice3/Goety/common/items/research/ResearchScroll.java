@@ -57,6 +57,7 @@ public abstract class ResearchScroll extends Item {
                     return InteractionResultHolder.consume(playerIn.getItemInHand(handIn));
                 }
             } else {
+                CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) playerIn, itemstack);
                 playerIn.displayClientMessage(Component.translatable("info.goety.research.already"), true);
             }
         }

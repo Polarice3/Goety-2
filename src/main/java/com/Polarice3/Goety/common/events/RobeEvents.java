@@ -233,14 +233,16 @@ public class RobeEvents {
                     }
                 }
             }
-            if (ItemConfig.VoidRobeTeleportChance.get() > 0) {
-                if (CuriosFinder.hasVoidRobe(victim)) {
-                    if (!victim.isInvulnerableTo(event.getSource()) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(victim)) {
-                        float chance = ItemConfig.VoidRobeTeleportChance.get() / 100.0F;
-                        if (victim.getRandom().nextFloat() <= chance) {
-                            if (MobUtil.teleport(victim)){
-                                if (ItemConfig.VoidRobeTeleportDamageCancel.get()) {
-                                    event.setCanceled(true);
+            if (event.getAmount() > 0.0F) {
+                if (ItemConfig.VoidRobeTeleportChance.get() > 0) {
+                    if (CuriosFinder.hasVoidRobe(victim)) {
+                        if (!victim.isInvulnerableTo(event.getSource()) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(victim)) {
+                            float chance = ItemConfig.VoidRobeTeleportChance.get() / 100.0F;
+                            if (victim.getRandom().nextFloat() <= chance) {
+                                if (MobUtil.teleport(victim)) {
+                                    if (ItemConfig.VoidRobeTeleportDamageCancel.get()) {
+                                        event.setCanceled(true);
+                                    }
                                 }
                             }
                         }
@@ -396,7 +398,7 @@ public class RobeEvents {
     public static void VisibilityEvent(LivingEvent.LivingVisibilityEvent event){
         LivingEntity entity = event.getEntity();
         if (event.getLookingEntity() instanceof LivingEntity looker && entity instanceof Player) {
-            boolean undead = CuriosFinder.validNecroUndead(looker);
+            /*boolean undead = CuriosFinder.validNecroUndead(looker);
             if (entity.level instanceof ServerLevel serverLevel){
                 if (MobsConfig.HostileCryptUndead.get()) {
                     if (BlockFinder.findStructure(serverLevel, entity.blockPosition(), ModStructureTags.NECRO_HOSTILE)
@@ -472,9 +474,9 @@ public class RobeEvents {
                         event.modifyVisibility(0.5);
                     }
                 }
-            }
-            if (CuriosFinder.hasIllusionRobe(entity)){
-                if (entity.isInvisible()){
+            }*/
+            if (entity.isInvisible()){
+                if (CuriosFinder.hasCurio(entity, ModItems.ILLUSION_ROBE.get())){
                     event.modifyVisibility(0.0);
                 }
             }

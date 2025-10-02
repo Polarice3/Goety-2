@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.effects.brew.block;
 
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
+import com.Polarice3.Goety.config.BrewConfig;
 import com.Polarice3.Goety.utils.BlockFinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -18,7 +19,7 @@ public class GrowTreeBlockEffect extends BrewEffect {
     public AbstractTreeGrower treeGrower;
 
     public GrowTreeBlockEffect(Block block, AbstractTreeGrower treeGrower) {
-        super(block.getDescriptionId(), MobEffectCategory.NEUTRAL, 0x5a3f1e, true);
+        super(block.getDescriptionId(), BrewConfig.GrowTreeCost.get(), 0, MobEffectCategory.NEUTRAL, 0x5a3f1e, true);
         this.block = block;
         this.treeGrower = treeGrower;
     }

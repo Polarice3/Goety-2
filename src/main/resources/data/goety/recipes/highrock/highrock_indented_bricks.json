@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "goety:highrock_bricks"
+  },
+  "result": "goety:highrock_indented_bricks"
+}

@@ -1,0 +1,23 @@
+{
+  "name": "不祥之杖",
+  "icon": "goety:ominous_staff",
+  "category": "goety:crafts/staff",
+  "advancement": "goety:goety/kill_a_minister",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在你杀死了那些高级$(l:world/bestiary/minister)灾厄村民$()之后，你成功获取了他们强大的球体并用它来制作他们法杖的复制品。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "不祥之杖可以增强某些魔法。确切地说是所有灾厄系魔法。施放腐烂和骨质聚晶则会召唤亡灵灾厄村民。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ominous_staff": 1
+  }
+}

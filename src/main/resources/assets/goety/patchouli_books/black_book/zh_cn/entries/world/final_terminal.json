@@ -1,0 +1,20 @@
+{
+  "name": "终末永狱",
+  "icon": "goety:void_spawner",
+  "category": "goety:world",
+  "advancement": "minecraft:story/enter_the_end",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在末地之中，隐藏着一座蕴藏着各种宝藏和秘密的建筑。据传，它由末影人的亚种——末影灵守护。."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "穿过这座建筑，你会遇到虚空钥匙和包含虚空框架的竞技场。用钥匙打开框架会召唤出一个强大的生物，杀死它后会掉落一块虚空碎片。该建筑还包含可以用钥匙打开的金库。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "终端顶部有一座虚空神龛。需要插入四块虚空碎片才能召唤一位强大的战士。击败战士后，虚空神龛上会出现一个物品，用以揭示一个可怕的秘密。"
+    }
+  ]
+}

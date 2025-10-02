@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.effects.brew;
 
+import com.Polarice3.Goety.config.BrewConfig;
 import com.Polarice3.Goety.utils.ItemHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.world.damagesource.DamageSource;
@@ -17,7 +18,7 @@ import javax.annotation.Nullable;
 
 public class FlayingBrewEffect extends BrewEffect {
     public FlayingBrewEffect() {
-        super("flaying", MobEffectCategory.BENEFICIAL, 0x9e492a);
+        super("flaying", BrewConfig.FlayingCost.get(), MobEffectCategory.BENEFICIAL, 0x9e492a);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.blocks.fluids;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -78,6 +79,11 @@ public class VoidFluidType extends FluidType {
     public void setItemMovement(ItemEntity entity) {
         Vec3 vec3 = entity.getDeltaMovement();
         entity.setDeltaMovement(vec3.x * (double)0.95F, vec3.y + (double)(vec3.y < (double)0.06F ? 5.0E-4F : 0.0F), vec3.z * (double)0.95F);
+    }
+
+    @Override
+    public boolean canPushEntity(Entity entity) {
+        return !entity.getType().is(ModTags.EntityTypes.VOID_TOUCHED_IMMUNE);
     }
 
     @Override

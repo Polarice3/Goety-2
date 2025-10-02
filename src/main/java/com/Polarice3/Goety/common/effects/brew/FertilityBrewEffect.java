@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.effects.brew;
 
 import com.Polarice3.Goety.common.entities.ally.AnimalSummon;
 import com.Polarice3.Goety.common.entities.ally.illager.AbstractIllagerServant;
+import com.Polarice3.Goety.config.BrewConfig;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -11,7 +12,7 @@ import javax.annotation.Nullable;
 
 public class FertilityBrewEffect extends BrewEffect {
     public FertilityBrewEffect() {
-        super("fertility", MobEffectCategory.BENEFICIAL, 0x515151);
+        super("fertility", BrewConfig.FertilityCost.get(), MobEffectCategory.BENEFICIAL, 0x515151);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.effects.brew.block;
 
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
+import com.Polarice3.Goety.config.BrewConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -20,7 +21,7 @@ import javax.annotation.Nullable;
 
 public class DroughtBlockEffect extends BrewEffect {
     public DroughtBlockEffect() {
-        super("drought", MobEffectCategory.NEUTRAL, 0x9d8f39);
+        super("drought", BrewConfig.DroughtCost.get(), MobEffectCategory.NEUTRAL, 0x9d8f39);
     }
 
     @Override

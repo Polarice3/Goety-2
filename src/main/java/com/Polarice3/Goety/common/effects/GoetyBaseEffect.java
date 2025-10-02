@@ -2,8 +2,10 @@ package com.Polarice3.Goety.common.effects;
 
 import com.Polarice3.Goety.client.particles.AuraParticle;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -123,7 +125,7 @@ public class GoetyBaseEffect extends MobEffect {
                 float f = 2.0F + amplify;
                 ServerParticleUtil.addAuraParticles(serverLevel, ParticleTypes.FLAME, livingEntity, f);
                 for (LivingEntity living : world.getEntitiesOfClass(LivingEntity.class, livingEntity.getBoundingBox().inflate(f))) {
-                    if (!living.isOnFire() && !living.fireImmune() && MobUtil.validEntity(living) && living != livingEntity) {
+                    if (!living.isOnFire() && !living.hasEffect(MobEffects.FIRE_RESISTANCE) && !living.fireImmune() && !MobUtil.areAllies(livingEntity, living) && MobUtil.validEntity(living) && living != livingEntity) {
                         ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.FLAME, living);
                         ModNetwork.sendToALL(new SPlayWorldSoundPacket(livingEntity.blockPosition(), SoundEvents.FIRECHARGE_USE, 1.0F, 0.75F));
                         living.setSecondsOnFire(5 * (amplify + 1));
@@ -136,7 +138,7 @@ public class GoetyBaseEffect extends MobEffect {
                 float f = 2.0F + amplify;
                 ServerParticleUtil.addAuraParticles(serverLevel, ParticleTypes.SNOWFLAKE, livingEntity, f);
                 for (LivingEntity living : world.getEntitiesOfClass(LivingEntity.class, livingEntity.getBoundingBox().inflate(f))) {
-                    if (!living.isFreezing() && living.canFreeze() && MobUtil.validEntity(living) && living != livingEntity) {
+                    if (!living.isFreezing() && living.canFreeze() && !MobUtil.areAllies(livingEntity, living) && MobUtil.validEntity(living) && living != livingEntity) {
                         ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.SNOWFLAKE, living);
                         ModNetwork.sendToALL(new SPlayWorldSoundPacket(livingEntity.blockPosition(), SoundEvents.PLAYER_HURT_FREEZE, 1.0F, 0.75F));
                         living.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), 100, amplify));
@@ -165,6 +167,24 @@ public class GoetyBaseEffect extends MobEffect {
                 }
             }
         }
+        if (this == GoetyEffects.GRAVITY_PULSE.get()) {
+            if (livingEntity.tickCount % MathHelper.secondsToTicks(10) == 0) {
+                if (world instanceof ServerLevel serverLevel) {
+                    double area = Mth.square(livingEntity.getBoundingBox().getSize()) * 2.0F;
+                    area *= ((amplify / 2.0D) + 1.0D);
+                    ColorUtil colorUtil = new ColorUtil(0x9a62e7);
+                    serverLevel.sendParticles(new ShockwaveParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), (float) area, 1, true), livingEntity.getX(), livingEntity.getY() + 0.25F, livingEntity.getZ(), 0, 0, 0, 0, 0.5F);
+                    for (LivingEntity target : livingEntity.level.getEntitiesOfClass(LivingEntity.class, livingEntity.getBoundingBox().inflate(area))) {
+                        if (target != livingEntity && !MobUtil.areAllies(livingEntity, target) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target) && target != livingEntity.getVehicle()) {
+                            Vec3 vec3 = target.position().subtract(livingEntity.position());
+                            vec3 = vec3.scale(2.0D).normalize();
+                            target.level.playSound(null, target.getX(), target.getY(), target.getZ(), ModSounds.GRAVITY.get(), livingEntity.getSoundSource(), 0.65F, 0.9F + (livingEntity.getRandom().nextFloat() * 0.4F));
+                            MobUtil.pull(target, vec3.x, vec3.y, vec3.z);
+                        }
+                    }
+                }
+            }
+        }
         if (this == GoetyEffects.PLUNGE.get()){
             if (!livingEntity.hasEffect(MobEffects.LEVITATION)){
                 if (MobUtil.validEntity(livingEntity)) {
@@ -178,6 +198,18 @@ public class GoetyBaseEffect extends MobEffect {
                     }
                     livingEntity.setSwimming(false);
                 }
+            }
+        }
+        if (this == GoetyEffects.WOUNDED.get()) {
+            if (livingEntity.tickCount % 10 == 0) {
+                if (world instanceof ServerLevel serverLevel) {
+                    ServerParticleUtil.addParticlesAroundMiddleSelf(serverLevel, ParticleTypes.CRIT, livingEntity);
+                }
+            }
+        }
+        if (this == GoetyEffects.CRIPPLED.get()) {
+            if (livingEntity.getHealth() >= livingEntity.getMaxHealth() * 0.75F) {
+                livingEntity.removeEffect(GoetyEffects.CRIPPLED.get());
             }
         }
         if (this == GoetyEffects.STUNNED.get()){

@@ -6,6 +6,8 @@
     "#goety:enderlings",
     "minecraft:endermite",
     "minecraft:ender_dragon",
+    "goety:endersent",
+    "goety:ender_keeper",
     {
       "id": "cataclysm:ender_golem",
       "required": false

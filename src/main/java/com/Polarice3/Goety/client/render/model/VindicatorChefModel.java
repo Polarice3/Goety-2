@@ -3,8 +3,10 @@ package com.Polarice3.Goety.client.render.model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
 public class VindicatorChefModel<T extends LivingEntity> extends IllagerServantModel<T> {
 	private final ModelPart chef_hat;
@@ -35,6 +37,7 @@ public class VindicatorChefModel<T extends LivingEntity> extends IllagerServantM
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		super.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-		this.chef_hat.visible = entity.getItemBySlot(EquipmentSlot.HEAD).isEmpty();
+		ItemStack headItem = entity.getItemBySlot(EquipmentSlot.HEAD);
+		this.chef_hat.visible = headItem.isEmpty() || headItem.is(ItemTags.BANNERS);
 	}
 }

@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.effects.brew;
 
+import com.Polarice3.Goety.config.BrewConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -13,7 +14,7 @@ import net.minecraft.world.phys.AABB;
 
 public class TransposeBrewEffect extends BrewEffect{
     public TransposeBrewEffect() {
-        super("transpose", MobEffectCategory.BENEFICIAL, 0x2b0178);
+        super("transpose", BrewConfig.TransposeCost.get(), MobEffectCategory.BENEFICIAL, 0x2b0178);
     }
 
     @Override

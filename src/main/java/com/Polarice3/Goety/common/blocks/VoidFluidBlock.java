@@ -1,9 +1,7 @@
 package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.common.blocks.fluids.ModFluids;
-import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
-import com.Polarice3.Goety.utils.CuriosFinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,6 +18,7 @@ public class VoidFluidBlock extends LiquidBlock {
                 .noCollission()
                 .strength(100.0F)
                 .emissiveRendering((state, world, pos) -> true)
+                .lightLevel((state) -> 1)
                 .noLootTable()
                 .replaceable()
                 .liquid()

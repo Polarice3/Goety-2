@@ -52,7 +52,8 @@ public class VoidBarrelBlock extends BaseEntityBlock {
 
     public VoidBarrelBlock() {
         super(Properties.of()
-                .emissiveRendering(ModBlocks::always)
+                .emissiveRendering((state, world, pos) -> true)
+                .lightLevel((state) -> 1)
                 .mapColor(MapColor.COLOR_PURPLE)
                 .strength(3.0F, 1200.0F)
                 .noOcclusion()

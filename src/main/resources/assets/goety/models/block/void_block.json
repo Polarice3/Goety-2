@@ -1,7 +1,39 @@
 {
-	"parent": "block/cube_all",
+	"parent": "block/block",
 	"textures": {
-		"all": "goety:block/void_block"
+		"all": "goety:block/void_block",
+		"particle": "goety:block/void_block"
 	},
+	"elements": [
+		{   "from": [ 0, 0, 0 ],
+			"to": [ 16, 16, 16 ],
+			"faces": {
+				"down":  { "texture": "#all", "cullface": "down", "forge_data": {
+					"block_light": 15,
+					"sky_light": 15
+				} },
+				"up":    { "texture": "#all", "cullface": "up", "forge_data": {
+					"block_light": 15,
+					"sky_light": 15
+				} },
+				"north": { "texture": "#all", "cullface": "north", "forge_data": {
+					"block_light": 15,
+					"sky_light": 15
+				} },
+				"south": { "texture": "#all", "cullface": "south", "forge_data": {
+					"block_light": 15,
+					"sky_light": 15
+				} },
+				"west":  { "texture": "#all", "cullface": "west", "forge_data": {
+					"block_light": 15,
+					"sky_light": 15
+				} },
+				"east":  { "texture": "#all", "cullface": "east", "forge_data": {
+					"block_light": 15,
+					"sky_light": 15
+				} }
+			}
+		}
+	],
 	"render_type": "cutout"
 }

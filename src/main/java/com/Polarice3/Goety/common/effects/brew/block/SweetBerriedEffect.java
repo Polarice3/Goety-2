@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.effects.brew.block;
 
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
+import com.Polarice3.Goety.config.BrewConfig;
 import com.Polarice3.Goety.utils.BlockFinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -11,7 +12,7 @@ import net.minecraft.world.level.block.SweetBerryBushBlock;
 
 public class SweetBerriedEffect extends BrewEffect {
     public SweetBerriedEffect() {
-        super("sweet_thorns", MobEffectCategory.HARMFUL, 0x286240);
+        super("sweet_thorns", BrewConfig.SweetThornsCost.get(), MobEffectCategory.HARMFUL, 0x286240);
     }
 
     @Override

@@ -32,10 +32,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -67,7 +64,6 @@ public class StormCasterServant extends AbstractIllagerServant {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new CastingSpellGoal());
         this.goalSelector.addGoal(1, new DischargeSpellGoal());
         this.goalSelector.addGoal(2, new MonsoonSpellGoal());
@@ -79,9 +75,6 @@ public class StormCasterServant extends AbstractIllagerServant {
             }
         });
         this.goalSelector.addGoal(5, new MoveToTargetGoal());
-        this.goalSelector.addGoal(8, new RaiderWanderGoal<>(this, 0.6D));
-        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 15.0F, 1.0F));
-        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 15.0F));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes(){

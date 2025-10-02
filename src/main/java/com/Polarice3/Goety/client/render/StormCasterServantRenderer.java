@@ -26,7 +26,7 @@ public class StormCasterServantRenderer<T extends StormCasterServant> extends Mo
 
     @Override
     public ResourceLocation getTextureLocation(T entity) {
-        if (entity.isHostile() || !MobsConfig.WindCallerServantTexture.get()){
+        if (entity.isHostile() || !MobsConfig.StormCasterServantTexture.get()){
             return ORIGINAL;
         } else {
             return TEXTURE;

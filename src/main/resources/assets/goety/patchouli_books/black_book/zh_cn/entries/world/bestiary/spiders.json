@@ -1,0 +1,40 @@
+{
+  "name": "陌生的蜘蛛们",
+  "icon": "minecraft:cobweb",
+  "category": "goety:world/bestiary",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你注意到最近周围出现了一些奇怪的蜘蛛，无论是在某些区域还是在黑暗中，就像其他怪物一样."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:web_spider",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这样的蜘蛛比其他蜘蛛种类产出的蛛丝更多，这些胆小的蛛形纲动物会向目标射出蛛丝，只有目标被抓住时才会发起攻击。如果目标靠近它们，蜘蛛就会试图逃跑。它们持续产出的蛛丝会掉落完整的蛛网。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:icy_spider",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这些是会出现在寒冷生物群系的蜘蛛，它们的叮咬会造成缓慢效果，类似于流浪者的箭。它们可以行走，并且不惧细雪。"
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/kill_a_bone_spider",
+      "entity": "goety:bone_spider",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/kill_a_bone_spider",
+      "text": "这些覆盖着骨头的蜘蛛出现在墓穴中，它们会从远处射出骨头碎片，如果目标靠近，它们会用自己的嘴进行攻击."
+    }
+  ]
+}

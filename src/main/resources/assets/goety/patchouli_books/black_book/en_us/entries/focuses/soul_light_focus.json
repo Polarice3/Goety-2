@@ -11,6 +11,15 @@
       "type": "patchouli:crafting",
       "recipe": "goety:focus/soul_light_focus",
       "recipe2": "goety:focus/glow_light_focus"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:illuminate_focus",
+      "text": "While throwing light around is well and good, there are times where you wish to light up entire caverns and rooms. With this focus, you're able to summon glow lights, and replace soul lights with them, around the area as you cast."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/illuminate_focus"
     }
   ]
 }

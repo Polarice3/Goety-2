@@ -3034,6 +3034,88 @@
     ],
     "subtitle": "subtitle.goety.bone_spider_death"
   },
+  "mountaineer_ambient": {
+    "sounds": [
+      {
+        "name": "goety:mountaineer/idle1"
+      },
+      {
+        "name": "goety:mountaineer/idle2"
+      },
+      {
+        "name": "goety:mountaineer/idle3"
+      },
+      {
+        "name": "goety:mountaineer/idle4"
+      }
+    ],
+    "subtitle": "subtitle.goety.mountaineer_ambient"
+  },
+  "mountaineer_hurt": {
+    "sounds": [
+      {
+        "name": "goety:mountaineer/hurt1"
+      },
+      {
+        "name": "goety:mountaineer/hurt2"
+      },
+      {
+        "name": "goety:mountaineer/hurt3"
+      },
+      {
+        "name": "goety:mountaineer/hurt4"
+      },
+      {
+        "name": "goety:mountaineer/hurt5"
+      }
+    ],
+    "subtitle": "subtitle.goety.mountaineer_hurt"
+  },
+  "mountaineer_attack": {
+    "sounds": [
+      {
+        "name": "goety:mountaineer/attack1"
+      },
+      {
+        "name": "goety:mountaineer/attack2"
+      },
+      {
+        "name": "goety:mountaineer/attack3"
+      },
+      {
+        "name": "goety:mountaineer/attack4"
+      }
+    ],
+    "subtitle": "subtitle.goety.mountaineer_attack"
+  },
+  "mountaineer_celebrate": {
+    "sounds": [
+      {
+        "name": "goety:mountaineer/idle1"
+      },
+      {
+        "name": "goety:mountaineer/idle2"
+      }
+    ],
+    "subtitle": "subtitle.goety.mountaineer_celebrate"
+  },
+  "mountaineer_death": {
+    "sounds": [
+      {
+        "name": "goety:mountaineer/death1"
+      },
+      {
+        "name": "goety:mountaineer/death2"
+      },
+      {
+        "name": "goety:mountaineer/death3"
+      },
+      {
+        "name": "goety:mountaineer/death4"
+      }
+    ],
+    "subtitle": "subtitle.goety.mountaineer_death"
+  },
   "geomancer_ambient": {
     "sounds": [
       {
@@ -5005,6 +5087,202 @@
     ],
     "subtitle": "subtitle.goety.snareling_death"
   },
+  "endersent_ambient": {
+    "sounds": [
+      {
+        "name": "goety:endersent/idle1"
+      },
+      {
+        "name": "goety:endersent/idle2"
+      },
+      {
+        "name": "goety:endersent/idle3"
+      },
+      {
+        "name": "goety:endersent/idle4"
+      }
+    ],
+    "subtitle": "subtitle.goety.endersent_ambient"
+  },
+  "endersent_hurt": {
+    "sounds": [
+      {
+        "name": "goety:endersent/hurt1"
+      },
+      {
+        "name": "goety:endersent/hurt2"
+      },
+      {
+        "name": "goety:endersent/hurt3"
+      },
+      {
+        "name": "goety:endersent/hurt4"
+      },
+      {
+        "name": "goety:endersent/hurt5"
+      },
+      {
+        "name": "goety:endersent/hurt6"
+      },
+      {
+        "name": "goety:endersent/hurt7"
+      },
+      {
+        "name": "goety:endersent/hurt8"
+      }
+    ],
+    "subtitle": "subtitle.goety.endersent_hurt"
+  },
+  "endersent_ambient_smash": {
+    "sounds": [
+      {
+        "name": "goety:endersent/idle_smash1"
+      },
+      {
+        "name": "goety:endersent/idle_smash2"
+      },
+      {
+        "name": "goety:endersent/idle_smash3"
+      },
+      {
+        "name": "goety:endersent/idle_smash4"
+      }
+    ],
+    "subtitle": "subtitle.goety.endersent_ambient_smash"
+  },
+  "endersent_attack": {
+    "sounds": [
+      {
+        "name": "goety:endersent/attack1"
+      },
+      {
+        "name": "goety:endersent/attack2"
+      },
+      {
+        "name": "goety:endersent/attack3"
+      },
+      {
+        "name": "goety:endersent/attack4"
+      }
+    ],
+    "subtitle": "subtitle.goety.endersent_attack"
+  },
+  "endersent_swing": {
+    "sounds": [
+      {
+        "name": "goety:endersent/swing1"
+      },
+      {
+        "name": "goety:endersent/swing2"
+      },
+      {
+        "name": "goety:endersent/swing3"
+      },
+      {
+        "name": "goety:endersent/swing4"
+      }
+    ],
+    "subtitle": "subtitle.goety.endersent_swing"
+  },
+  "endersent_teleport_smash": {
+    "sounds": [
+      {
+        "name": "goety:endersent/teleport_smash1"
+      },
+      {
+        "name": "goety:endersent/teleport_smash2"
+      },
+      {
+        "name": "goety:endersent/teleport_smash3"
+      },
+      {
+        "name": "goety:endersent/teleport_smash4"
+      }
+    ],
+    "subtitle": "subtitle.goety.endersent_teleport_smash"
+  },
+  "endersent_deadly_escape": {
+    "sounds": [
+      {
+        "name": "goety:endersent/deadly_escape1"
+      },
+      {
+        "name": "goety:endersent/deadly_escape2"
+      },
+      {
+        "name": "goety:endersent/deadly_escape3"
+      },
+      {
+        "name": "goety:endersent/deadly_escape4"
+      }
+    ],
+    "subtitle": "subtitle.goety.endersent_deadly_escape"
+  },
+  "endersent_step": {
+    "sounds": [
+      {
+        "name": "goety:endersent/step1"
+      },
+      {
+        "name": "goety:endersent/step2"
+      },
+      {
+        "name": "goety:endersent/step3"
+      },
+      {
+        "name": "goety:endersent/step4"
+      },
+      {
+        "name": "goety:endersent/step5"
+      },
+      {
+        "name": "goety:endersent/step6"
+      }
+    ],
+    "subtitle": "subtitle.goety.endersent_step"
+  },
+  "endersent_death": {
+    "sounds": [
+      {
+        "name": "goety:endersent/death1"
+      },
+      {
+        "name": "goety:endersent/death2"
+      },
+      {
+        "name": "goety:endersent/death3"
+      }
+    ],
+    "subtitle": "subtitle.goety.endersent_death"
+  },
+  "ender_keeper_hurt": {
+    "sounds": [
+      {
+        "name": "goety:ender_keeper/hurt1"
+      },
+      {
+        "name": "goety:ender_keeper/hurt2"
+      },
+      {
+        "name": "goety:ender_keeper/hurt3"
+      }
+    ],
+    "subtitle": "subtitle.goety.ender_keeper_hurt"
+  },
+  "ender_keeper_death": {
+    "sounds": [
+      {
+        "name": "goety:ender_keeper/death1"
+      },
+      {
+        "name": "goety:ender_keeper/death2"
+      },
+      {
+        "name": "goety:ender_keeper/death3"
+      }
+    ],
+    "subtitle": "subtitle.goety.ender_keeper_death"
+  },
   "vizier_ambient": {
     "sounds": [
       {
@@ -5967,6 +6245,30 @@
     ],
     "subtitle": "subtitle.goety.enderling_teleport_out"
   },
+  "vhoe_charge": {
+    "sounds": [
+      {
+        "name": "goety:vhoe/charge1"
+      },
+      {
+        "name": "goety:vhoe/charge2"
+      }
+    ],
+    "subtitle": "subtitle.goety.vhoe_charge"
+  },
+  "vhoe_pinwheel": {
+    "sounds": [
+      {
+        "name": "goety:vhoe/pinwheel1"
+      },
+      {
+        "name": "goety:vhoe/pinwheel2"
+      },
+      {
+        "name": "goety:vhoe/pinwheel3"
+      }
+    ]
+  },
   "void_rift_open": {
     "sounds": [
       {
@@ -6738,6 +7040,28 @@
     ],
     "subtitle": "subtitle.goety.fire_tornado_ambient"
   },
+  "radiance_wave": {
+    "sounds": [
+      {
+        "name": "goety:random/radiance_wave1"
+      },
+      {
+        "name": "goety:random/radiance_wave2"
+      }
+    ],
+    "subtitle": "subtitle.goety.heal_spell"
+  },
+  "leeching": {
+    "sounds": [
+      {
+        "name": "goety:random/leeching1"
+      },
+      {
+        "name": "goety:random/leeching2"
+      }
+    ],
+    "subtitle": "subtitle.goety.leeching"
+  },
   "heal_spell": {
     "sounds": [
       {
@@ -7036,6 +7360,32 @@
       }
     ]
   },
+  "teleport_orb_throw": {
+    "sounds": [
+      {
+        "name": "goety:random/teleport_orb_throw"
+      }
+    ]
+  },
+  "swirlings": {
+    "sounds": [
+      {
+        "name": "goety:random/swirlings1"
+      },
+      {
+        "name": "goety:random/swirlings2"
+      },
+      {
+        "name": "goety:random/swirlings3"
+      },
+      {
+        "name": "goety:random/swirlings4"
+      },
+      {
+        "name": "goety:random/swirlings5"
+      }
+    ]
+  },
   "joke": {
     "sounds": [
       {
@@ -7208,6 +7558,48 @@
     ],
     "subtitle": "subtitle.goety.hammer_impact"
   },
+  "obsidian_claymore_swing": {
+    "sounds": [
+      {
+        "name": "goety:item/obsidian_claymore_combo1_1"
+      },
+      {
+        "name": "goety:item/obsidian_claymore_combo1_2"
+      },
+      {
+        "name": "goety:item/obsidian_claymore_combo1_3"
+      }
+    ],
+    "subtitle": "subtitle.goety.claymore_swing"
+  },
+  "obsidian_claymore_smash": {
+    "sounds": [
+      {
+        "name": "goety:item/obsidian_claymore_combo2_1"
+      },
+      {
+        "name": "goety:item/obsidian_claymore_combo2_2"
+      },
+      {
+        "name": "goety:item/obsidian_claymore_combo2_3"
+      }
+    ],
+    "subtitle": "subtitle.goety.claymore_smash"
+  },
+  "obsidian_claymore_windup": {
+    "sounds": [
+      {
+        "name": "goety:item/obsidian_claymore_windup1"
+      },
+      {
+        "name": "goety:item/obsidian_claymore_windup2"
+      },
+      {
+        "name": "goety:item/obsidian_claymore_windup3"
+      }
+    ],
+    "subtitle": "subtitle.goety.claymore_windup"
+  },
   "harpoon_impact": {
     "sounds": [
       {
@@ -7308,6 +7700,16 @@
       }
     ],
     "subtitle": "subtitle.goety.blast_fungus_explode"
+  },
+  "fungus_explosion": {
+    "sounds": [
+      {
+        "name": "goety:random/fungus_explosion1"
+      },
+      {
+        "name": "goety:random/fungus_explosion2"
+      }
+    ]
   },
   "focus_pick": {
     "sounds": [
@@ -7645,6 +8047,168 @@
       }
     ]
   },
+  "void_spawner_ambient": {
+    "sounds": [
+      {
+        "name": "goety:end_fire/fire1"
+      },
+      {
+        "name": "goety:end_fire/fire2"
+      },
+      {
+        "name": "goety:end_fire/fire3"
+      },
+      {
+        "name": "goety:end_fire/fire4"
+      },
+      {
+        "name": "goety:end_fire/fire5"
+      }
+    ],
+    "subtitle": "subtitle.goety.void_spawner_ambient"
+  },
+  "void_spawner_detect_player": {
+    "sounds": [
+      {
+        "name": "goety:end_pillar/power_up1"
+      },
+      {
+        "name": "goety:end_pillar/power_up2"
+      },
+      {
+        "name": "goety:end_pillar/power_up3"
+      }
+    ],
+    "subtitle": "subtitle.goety.void_spawner_detect_player"
+  },
+  "void_spawner_open_shutter": {
+    "sounds": [
+      {
+        "name": "goety:trial_spawner/open_shutter"
+      }
+    ],
+    "subtitle": "subtitle.goety.void_spawner_open_shutter"
+  },
+  "void_spawner_close_shutter": {
+    "sounds": [
+      {
+        "name": "goety:trial_spawner/close_shutter"
+      }
+    ],
+    "subtitle": "subtitle.goety.void_spawner_close_shutter"
+  },
+  "void_spawner_eject_item": {
+    "sounds": [
+      {
+        "name": "goety:trial_spawner/eject_item"
+      }
+    ],
+    "subtitle": "subtitle.goety.void_spawner_eject_item"
+  },
+  "void_vault_ambient": {
+    "sounds": [
+      {
+        "name": "goety:fortune_flower/flower1"
+      },
+      {
+        "name": "goety:fortune_flower/flower2"
+      },
+      {
+        "name": "goety:fortune_flower/flower3"
+      }
+    ],
+    "subtitle": "subtitle.goety.void_vault_ambient"
+  },
+  "void_vault_activate": {
+    "sounds": [
+      {
+        "name": "goety:end_pillar/enter1"
+      },
+      {
+        "name": "goety:end_pillar/enter2"
+      },
+      {
+        "name": "goety:end_pillar/enter3"
+      }
+    ],
+    "subtitle": "subtitle.goety.void_vault_activate"
+  },
+  "void_vault_deactivate": {
+    "sounds": [
+      {
+        "name": "goety:end_pillar/exit1"
+      },
+      {
+        "name": "goety:end_pillar/exit2"
+      },
+      {
+        "name": "goety:end_pillar/exit3"
+      }
+    ],
+    "subtitle": "subtitle.goety.void_vault_deactivate"
+  },
+  "void_vault_open_shutter": {
+    "sounds": [
+      {
+        "name": "goety:vault/open_shutter"
+      }
+    ],
+    "subtitle": "subtitle.goety.void_vault_open_shutter"
+  },
+  "void_vault_close_shutter": {
+    "sounds": [
+      {
+        "name": "goety:trial_spawner/close_shutter"
+      }
+    ],
+    "subtitle": "subtitle.goety.void_vault_close_shutter"
+  },
+  "void_vault_eject_item": {
+    "sounds": [
+      {
+        "name": "goety:vault/eject1"
+      },
+      {
+        "name": "goety:vault/eject2"
+      },
+      {
+        "name": "goety:vault/eject3"
+      }
+    ],
+    "subtitle": "subtitle.goety.void_vault_eject_item"
+  },
+  "void_vault_insert": {
+    "sounds": [
+      {
+        "name": "goety:vault/insert"
+      }
+    ],
+    "subtitle": "subtitle.goety.void_vault_insert"
+  },
+  "void_vault_insert_fail": {
+    "sounds": [
+      {
+        "name": "goety:vault/insert_fail"
+      }
+    ],
+    "subtitle": "subtitle.goety.void_vault_insert_fail"
+  },
+  "void_vault_reject": {
+    "sounds": [
+      {
+        "name": "goety:vault/reject_rewarded_player"
+      }
+    ],
+    "subtitle": "subtitle.goety.void_vault_reject"
+  },
+  "void_frame_unlock": {
+    "sounds": [
+      {
+        "name": "goety:vault/insert"
+      }
+    ],
+    "subtitle": "subtitle.goety.void_frame_unlock"
+  },
   "apostle_theme": {
     "sounds": [
       {
@@ -7701,6 +8265,54 @@
       }
     ]
   },
+  "ender_keeper_theme": {
+    "sounds": [
+      {
+        "name": "goety:music/ender_keeper_theme",
+        "stream": true
+      }
+    ]
+  },
+  "ender_keeper_theme_post": {
+    "sounds": [
+      {
+        "name": "goety:music/ender_keeper_theme_post",
+        "stream": true
+      }
+    ]
+  },
+  "ender_keeper_theme_disc": {
+    "sounds": [
+      {
+        "name": "goety:music/ender_keeper_theme_disc",
+        "stream": true
+      }
+    ]
+  },
+  "enderman_theme_pre": {
+    "sounds": [
+      {
+        "name": "goety:music/enderman_theme_pre",
+        "stream": true
+      }
+    ]
+  },
+  "enderman_theme": {
+    "sounds": [
+      {
+        "name": "goety:music/enderman_theme",
+        "stream": true
+      }
+    ]
+  },
+  "enderman_theme_disc": {
+    "sounds": [
+      {
+        "name": "goety:music/enderman_theme_disc",
+        "stream": true
+      }
+    ]
+  },
   "boss_post": {
     "sounds": [
       {
@@ -7713,6 +8325,14 @@
     "sounds": [
       {
         "name": "goety:music/boss_post2",
+        "stream": true
+      }
+    ]
+  },
+  "arena_end": {
+    "sounds": [
+      {
+        "name": "goety:music/arena_end",
         "stream": true
       }
     ]

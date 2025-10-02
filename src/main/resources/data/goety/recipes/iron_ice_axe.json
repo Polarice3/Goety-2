@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " ic",
+    " si",
+    "s  "
+  ],
+  "key":
+  {
+    "i":
+    {
+      "tag": "forge:ingots/iron"
+    },
+    "c":
+    {
+      "item": "goety:cursed_ingot"
+    },
+    "s":
+    {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result":
+  {
+    "item": "goety:iron_ice_axe"
+  }
+}

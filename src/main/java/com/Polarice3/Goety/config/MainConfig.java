@@ -44,6 +44,8 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SculkGrowerCharge;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShriekObeliskCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> AnimatorCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> OminousIdolReviveCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> OminousIdolLimit;
     public static final ForgeConfigSpec.ConfigValue<Double> SoulMenderSeconds;
     public static final ForgeConfigSpec.ConfigValue<Double> LichHealAmount;
     public static final ForgeConfigSpec.ConfigValue<Double> LichPowerfulFoesHealth;
@@ -66,7 +68,6 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShowNum;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> BetterDragonFireball;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> CataclysmLootCompat;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RobesIronResist;
     public static final ForgeConfigSpec.ConfigValue<Boolean> IronBuff;
 
@@ -80,6 +81,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> SculkGrowerContinue;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SculkGrowerPotency;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShriekObeliskRaid;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> OminousIdolRevive;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PithosRespawn;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CrystalBallRespawn;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> HookBellBlackList;
@@ -147,8 +149,6 @@ public class MainConfig {
         BUILDER.push("Mod Compatibility");
         BetterDragonFireball = BUILDER.comment("If enabled, Ender Dragon's Fireballs will leave clouds that damages even undead and will not hit itself. Default: false")
                 .define("betterDragonFireball", false);
-        CataclysmLootCompat = BUILDER.comment("If L_Ender Cataclysm is installed, certain loots are modified and change between this and the latter mod. Default: true")
-                .define("cataclysmLootCompat", true);
         RobesIronResist = BUILDER.comment("If Iron's Spells and Spellbooks is installed, certain robes provides Spell resistances. Default: true")
                 .define("robesIronResist", true);
         IronBuff = BUILDER.comment("If Iron's Spells and Spellbooks is installed, certain curios provides Spell buffs. Default: true")
@@ -198,6 +198,12 @@ public class MainConfig {
                 .define("ShriekObeliskRaid", true);
         AnimatorCost = BUILDER.comment("The amount of Soul Energy used to power the Animator per block distance, Default: 10")
                 .defineInRange("animatorCost", 10, 0, Integer.MAX_VALUE);
+        OminousIdolRevive = BUILDER.comment("Whether Ominous Idols can revive Illager Servants, Default: true")
+                .define("ominousIdolRevive", true);
+        OminousIdolReviveCost = BUILDER.comment("The amount of Soul Energy required to revive an Illager Servant, Default: 500")
+                .defineInRange("ominousIdolReviveCost", 500, 0, Integer.MAX_VALUE);
+        OminousIdolLimit = BUILDER.comment("The amount of Illager Servants an Ominous Idol can register to revive, Default: 16")
+                .defineInRange("ominousIdolLimit", 16, 0, Integer.MAX_VALUE);
         PithosRespawn = BUILDER.comment("Allow looted Pithos to regenerate Loot and spawn Skull Lord again when right-clicked with respawn_boss tagged item, Default: true")
                 .define("pithosRespawn", true);
         CrystalBallRespawn = BUILDER.comment("Allow used Crystal Balls to spawn Crones again when right-clicked with respawn_boss tagged item, Default: true")

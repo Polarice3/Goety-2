@@ -8,9 +8,21 @@ import net.minecraft.world.item.ItemStack;
 
 public interface ISoulDiscount {
 
-    int getSoulDiscount(EquipmentSlot equipmentSlot);
+    @Deprecated
+    default int getSoulDiscount(EquipmentSlot equipmentSlot) {
+        return 0;
+    }
+
+    default int getSoulDiscount(EquipmentSlot equipmentSlot, ItemStack itemStack) {
+        return 0;
+    }
 
     default Component soulDiscountTooltip(ItemStack itemStack){
-        return Component.literal(String.valueOf(this.getSoulDiscount(LivingEntity.getEquipmentSlotForItem(itemStack)))).append("% ").append(Component.translatable("info.goety.armor.discount")).withStyle(ChatFormatting.DARK_AQUA);
+        int discount = this.getSoulDiscount(LivingEntity.getEquipmentSlotForItem(itemStack), itemStack);
+        if (discount > 0) {
+            return Component.literal(String.valueOf(this.getSoulDiscount(LivingEntity.getEquipmentSlotForItem(itemStack), itemStack))).append("% ").append(Component.translatable("info.goety.armor.discount")).withStyle(ChatFormatting.DARK_AQUA);
+        } else {
+            return Component.empty();
+        }
     }
 }

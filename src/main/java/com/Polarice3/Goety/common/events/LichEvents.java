@@ -83,7 +83,7 @@ public class LichEvents {
                 }
             }
             if (MainConfig.LichSoulHeal.get()) {
-                if (!player.isOnFire() && LichdomHelper.smited(player) <= 0) {
+                if (!(player.isOnFire() && !MobUtil.isFireImmune(player)) && LichdomHelper.smited(player) <= 0) {
                     if (player.getHealth() < player.getMaxHealth()) {
                         if (player.tickCount % (MathHelper.secondsToTicks(MainConfig.LichHealSeconds.get()) + 1) == 0 && SEHelper.getSoulsAmount(player, MainConfig.LichHealCost.get())) {
                             player.heal(MainConfig.LichHealAmount.get().floatValue());

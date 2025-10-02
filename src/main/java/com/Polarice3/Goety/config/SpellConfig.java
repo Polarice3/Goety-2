@@ -19,8 +19,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> VexDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> VexCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> VexSummonDown;
-    public static final ForgeConfigSpec.ConfigValue<Integer> WandVexLimit;
-    public static final ForgeConfigSpec.ConfigValue<Integer> StaffVexLimit;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VexLimit;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> FangCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FangDuration;
@@ -237,6 +236,11 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> GlowLightDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> GlowLightCoolDown;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> IlluminateCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IlluminateChargeUp;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IlluminateDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IlluminateMinLightLevel;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> IceChunkCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> IceChunkDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> IceChunkCoolDown;
@@ -380,6 +384,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> EntanglingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> EntanglingDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> EntanglingCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> EntanglingStaffAmount;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WhisperCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> WhisperDuration;
@@ -628,10 +633,8 @@ public class SpellConfig {
                     .defineInRange("vexCoolDown", 340, 0, Integer.MAX_VALUE);
             VexSummonDown = BUILDER.comment("Vexing Spell Summon Down, Default: 340")
                     .defineInRange("vexSummonDown", 340, 0, 72000);
-            WandVexLimit = BUILDER.comment("Number of Vex Servants that can be spawn with a wand, without instantly dying, around the player, Default: 8")
-                    .defineInRange("wandVexLimit", 8, 1, Integer.MAX_VALUE);
-            StaffVexLimit = BUILDER.comment("Number of Vex Servants that can be spawn with a staff, without instantly dying, around the player, Default: 16")
-                    .defineInRange("staffVexLimit", 16, 1, Integer.MAX_VALUE);
+            VexLimit = BUILDER.comment("Number of Vex Servants that an individual player can have in total, Default: 8")
+                    .defineInRange("vexLimit", 8, 1, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Biting Spell && Magic Fangs");
             FangCost = BUILDER.comment("Biting Spell Cost, Default: 8")
@@ -1063,6 +1066,16 @@ public class SpellConfig {
             GlowLightCoolDown = BUILDER.comment("Glow Light Spell Cooldown, Default: 10")
                     .defineInRange("glowLightCoolDown", 10, 0, Integer.MAX_VALUE);
             BUILDER.pop();
+            BUILDER.push("Illuminate Spell");
+            IlluminateCost = BUILDER.comment("Illuminate Spell Cost, Default: 4")
+                    .defineInRange("illuminateCost", 4, 0, Integer.MAX_VALUE);
+            IlluminateChargeUp = BUILDER.comment("How many ticks the Illuminate Spell much charge before casting, Default: 0")
+                    .defineInRange("illuminateChargeUp", 0, 0, Integer.MAX_VALUE);
+            IlluminateDuration = BUILDER.comment("Time to cast Illuminate Spell per second, Default: 5")
+                    .defineInRange("illuminateTime", 5, 0, 72000);
+            IlluminateMinLightLevel = BUILDER.comment("Minimum block light level below which the spell attempts to light up, Default: 5")
+                    .defineInRange("illuminateMinLightLevel", 5, 0, 15);
+            BUILDER.pop();
             BUILDER.push("Iceology Spell");
             IceChunkCost = BUILDER.comment("Iceology Spell Cost, Default: 16")
                     .defineInRange("iceChunkCost", 16, 0, Integer.MAX_VALUE);
@@ -1350,6 +1363,8 @@ public class SpellConfig {
                     .defineInRange("entanglingTime", 50, 0, 72000);
             EntanglingCoolDown = BUILDER.comment("Entangling Spell Cooldown, Default: 400")
                     .defineInRange("entanglingCoolDown", 400, 0, Integer.MAX_VALUE);
+            EntanglingStaffAmount = BUILDER.comment("Maximum amount of targets that can be entangled when cast using Wild Staff, Default: 8")
+                    .defineInRange("entanglingStaffAmount", 8, 1, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Whispering Spell");
             WhisperCost = BUILDER.comment("Whispering Spell Cost, Default: 16")
@@ -1593,8 +1608,8 @@ public class SpellConfig {
                     .defineInRange("watchlingCost", 20, 0, Integer.MAX_VALUE);
             WatchlingDuration = BUILDER.comment("Time to cast Watching Spell, Default: 40")
                     .defineInRange("watchlingTime", 40, 0, 72000);
-            WatchlingCoolDown = BUILDER.comment("Watching Spell Cooldown, Default: 200")
-                    .defineInRange("watchlingCoolDown", 200, 0, Integer.MAX_VALUE);
+            WatchlingCoolDown = BUILDER.comment("Watching Spell Cooldown, Default: 300")
+                    .defineInRange("watchlingCoolDown", 300, 0, Integer.MAX_VALUE);
             WatchlingSummonDown = BUILDER.comment("Watching Spell Summon Down, Default: 120")
                     .defineInRange("watchlingSummonDown", 120, 0, 72000);
             WatchlingLimit = BUILDER.comment("Number of Watchling Servants that can a player can have, Default: 32")
@@ -1605,8 +1620,8 @@ public class SpellConfig {
                     .defineInRange("blastlingCost", 32, 0, Integer.MAX_VALUE);
             BlastlingDuration = BUILDER.comment("Time to cast Blasting Spell, Default: 60")
                     .defineInRange("blastlingTime", 60, 0, 72000);
-            BlastlingCoolDown = BUILDER.comment("Blasting Spell Cooldown, Default: 200")
-                    .defineInRange("blastlingCoolDown", 200, 0, Integer.MAX_VALUE);
+            BlastlingCoolDown = BUILDER.comment("Blasting Spell Cooldown, Default: 400")
+                    .defineInRange("blastlingCoolDown", 400, 0, Integer.MAX_VALUE);
             BlastlingSummonDown = BUILDER.comment("Blasting Spell Summon Down, Default: 120")
                     .defineInRange("blastlingSummonDown", 120, 0, 72000);
             BlastlingLimit = BUILDER.comment("Number of Blastling Servants that an individual player can have in total, Default: 32")
@@ -1617,8 +1632,8 @@ public class SpellConfig {
                     .defineInRange("snarelingCost", 24, 0, Integer.MAX_VALUE);
             SnarelingDuration = BUILDER.comment("Time to cast Snaring Spell, Default: 40")
                     .defineInRange("snarelingTime", 40, 0, 72000);
-            SnarelingCoolDown = BUILDER.comment("Snaring Spell Cooldown, Default: 200")
-                    .defineInRange("snarelingCoolDown", 200, 0, Integer.MAX_VALUE);
+            SnarelingCoolDown = BUILDER.comment("Snaring Spell Cooldown, Default: 350")
+                    .defineInRange("snarelingCoolDown", 350, 0, Integer.MAX_VALUE);
             SnarelingSummonDown = BUILDER.comment("Snaring Spell Summon Down, Default: 120")
                     .defineInRange("snarelingSummonDown", 120, 0, 72000);
             SnarelingLimit = BUILDER.comment("Number of Snareling Servants that an individual player can have in total, Default: 32")

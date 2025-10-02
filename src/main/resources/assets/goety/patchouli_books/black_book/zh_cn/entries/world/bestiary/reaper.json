@@ -6,11 +6,20 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "戴着兜帽的幽灵，擅使镰刀且对灵魂充满渴望。"
+      "text": "渴望灵魂而善用镰刀的兜帽幽灵。."
     },
     {
       "type": "patchouli:entity",
       "entity": "goety:reaper"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:grave_dust",
+      "title": "Grave Dust",
+      "text": "收割者有概率掉落墓灰，这对制作某些与灵魂相关的物品很有用。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:grave_dust": 2
+  }
 }

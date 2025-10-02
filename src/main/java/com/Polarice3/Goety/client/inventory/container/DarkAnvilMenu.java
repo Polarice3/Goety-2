@@ -93,7 +93,7 @@ public class DarkAnvilMenu extends ItemCombinerMenu {
                     p_150479_.removeBlock(p_150480_, false);
                     for (int i = 0; i < 12; ++i) {
                         if (player.level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS) && !player.level.restoringBlockSnapshots) {
-                            ItemStack itemStack = new ItemStack(ModItems.DARK_METAL_INGOT.get());
+                            ItemStack itemStack = new ItemStack(ModItems.DARK_ALLOY_INGOT.get());
                             double d0 = (double) (player.level.random.nextFloat() * 0.5F) + 0.25D;
                             double d1 = (double) (player.level.random.nextFloat() * 0.5F) + 0.25D;
                             double d2 = (double) (player.level.random.nextFloat() * 0.5F) + 0.25D;

@@ -6,11 +6,11 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "以下是给您的药剂带来效果的催化剂！正如你可能已经注意到的，其中一些效果是不熟悉的，大多数效果都是好的女巫酿造独有的!"
+      "text": "以下是给你们这些新手女巫药剂带来效果的催化剂！正如你可能已经注意到的，其中一些效果是不熟悉的，大多数效果都是好的女巫酿造独有的!"
     },
     {
       "type": "patchouli:text",
-      "text": "但别担心！奥奶奶会解释他们中的一些人是怎么做的，因为我今天感觉很好！如果催化剂是一个刷怪蛋，这意味着你必须在你的大锅里煮掉从蛋里生出来的任何东西！哦，其中一些效果占据了多余一个容量槽，所以在酿造时要注意另一件事！哈哈哈！"
+      "text": "但别担心小笨蛋！奥奶奶会解释他们中的一些人是怎么做的，因为我今天感觉很好！如果催化剂是一个刷怪蛋，这意味着你必须在你的大锅里煮掉从蛋里生出来的任何东西！哦，其中一些效果占据了多余一个容量计，所以在酿造时要注意另一件事！哈哈哈！"
     },
     {
       "type": "goety:catalyst",
@@ -34,7 +34,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.blind_jump",
-      "text": "将有此效果的人传送到随机位置！等级越高，可以将他们传送到更远的地方!"
+      "text": "将有此效果的人传送到任何位置！如果效果等级越高，那他们就要找回家的路了!"
     },
     {
       "type": "goety:catalyst",
@@ -43,12 +43,12 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.bottling",
-      "text": "你甚至可以酿造一个能让你药酿技艺更好的药酿！"
+      "text": "一个合格的女巫甚至可以酿造一个能让自己药酿技艺更好的药酿！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.brew_dye",
-      "text": "将药剂的颜色更改为您加入的任何染料！不过要小心！如果添加其他催化剂或染料，颜色会发生变化!"
+      "text": "将药剂的颜色更改为你加入的任何染料！不过要小心！如果添加其他催化剂或染料，颜色会发生变化!"
     },
     {
       "type": "goety:catalyst",
@@ -66,22 +66,27 @@
     },
     {
       "type": "goety:catalyst",
-      "recipe": "effect.goety.corrosion",
-      "text": "看到那些方块了吗？它们不存在啦 (除了那些黑曜石)！我看到你的盔甲了，我想它可能会很讨厌这样的感觉！哈哈哈哈！"
+      "recipe": "effect.goety.corpse_eater",
+      "text": "可曾想过尽情享用猎物最后的吐息？现在就可以了！而且味道还不错！"
     },
     {
       "type": "goety:catalyst",
-      "recipe": "effect.goety.corpse_eater",
-      "text": "尽情享受你死党垂死的尖叫和呼吸——我指的是你的死敌！"
+      "recipe": "effect.goety.corrosion",
+      "text": "看到那些方块了吗？嘭！它们不存在啦 (除了那些黑曜石)！我看到你的盔甲了，我想它可能会很讨厌这样的感觉！哈哈哈哈！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.cursed",
-      "text": "一个诅咒赠与你！没有治愈恢复你！我刚把u和u押韵了！你要做什么?"
+      "text": "咒恨入汝病骨枯！无医无药亦无佑！字字咒语连双汝！汝之终末早已无。"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.darkness"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.deflective",
+      "text": "奶奶讨厌那些朝她扔石子的小孩！但是有了这个魔药，现在要讨厌的是那些小孩了。哇哈哈哈哈！"
     },
     {
       "type": "goety:catalyst",
@@ -91,7 +96,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.ender_ground",
-      "text": "教导那些末影人在被砍伤或泼溅时不要瞬移!"
+      "text": "教那些末影人别乱跑!如果你要砍他们或者泼他们。"
     },
     {
       "type": "goety:sacrifice",
@@ -101,7 +106,12 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.evil_eye",
-      "text": "邪恶的光芒吸引着各种各样的人，非常适合举办派对！"
+      "text": "邪恶的目光吸引着各种各样的人，非常适合举办派对!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.explode",
+      "text": "瞧见那屋没有？咻——啪！现在亮堂多了!"
     },
     {
       "type": "goety:catalyst",
@@ -111,12 +121,12 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.extinguish",
-      "text": "啊...没火了..."
+      "text": "啊...没火了...没火了可不就死了吗。"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.fertility",
-      "text": "你说动物不想繁殖是什么意思？去给奶奶喂牛！奶奶需要一双新皮靴!"
+      "text": "你说感觉没用是什么意思？这药是给牛用的，你这小笨蛋！奶奶需要一双新皮靴!"
     },
     {
       "type": "goety:catalyst",
@@ -134,7 +144,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.flammable",
-      "text": "大火比平时痛得多！你就像是草垛一样!"
+      "text": "大火比平时痛得多！你就像是小草一样!"
     },
     {
       "type": "goety:catalyst",
@@ -149,27 +159,32 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.flimsy",
-      "text": "让最坚强的人也屈服于风!"
+      "text": "让最顽固的笨蛋也屈服于风!"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.flood",
-      "text": "水太少了，但是在这个药剂的帮助下，这里将会闹洪灾!哈哈哈!"
+      "text": "水太少了，但是在这个药剂的帮助下，这里将会变成亚特兰蒂斯!哈哈哈!"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.fortunate",
-      "text": "啊！当你有药酿的时候，谁需要附魔！奥奶奶需要一些额外的钻石，而她已经为青金石而筋疲力尽了。"
+      "text": "呸！附魔算个啥？奶奶这锅咕嘟冒泡的汤顶它十个咒！兜里亮晶晶的石头子儿快交出来，不然老婆子的青金石罐子，可是见底儿喽！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.freeze",
-      "text": "有些时候奥奶奶想在他们的沼泽地里，在他们自制的冰冻池塘里滑冰!"
+      "text": "有些时候奥奶奶想在她们的沼泽地里，在她们自制的冰冻池塘里滑冰!"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.freezing",
-      "text": "嘿，孩子们！想成为雪人吗？呵呵哈哈!"
+      "text": "嘿，孩子们！堆雪人有什么意思，让我把你变成雪人吧！呵呵哈哈!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.frog_leg",
+      "text": "当你可以从天上再跳一步时候，谁还会想在地上跳起来。"
     },
     {
       "type": "goety:catalyst",
@@ -184,6 +199,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.gold_touched",
       "text": "虽然不是纯粹的黄金，但他们确实会让他们死去!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.gravity_pulse",
+      "text": "嗬嗬，躲什么躲！奶奶这锅滚汤还缺佐料，自个儿蹦进来正好！"
     },
     {
       "type": "goety:catalyst",
@@ -223,14 +243,14 @@
       "recipe": "effect.minecraft.hunger"
     },
     {
-      "type": "goety:sacrifice",
-      "recipe": "effect.goety.infest",
-      "text": "如果你周围没有任何被侵蚀的石头，就在你的大锅炖鱼汤！虽然它可能比较硌牙...."
-    },
-    {
       "type": "goety:catalyst",
       "recipe": "effect.goety.infest",
       "text": "让石头和石砖被侵蚀!这才有古老建筑的风格!哈哈哈!"
+    },
+    {
+      "type": "goety:sacrifice",
+      "recipe": "effect.goety.infest",
+      "text": "如果你周围没有任何被侵蚀的石头，就在你的大锅炖鱼汤！虽然它可能比较硌牙...."
     },
     {
       "type": "goety:catalyst",
@@ -256,12 +276,17 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.launch",
-      "text": "向着更高的天空迸发!"
+      "text": "飞起来!"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.leaf_shell",
       "text": "最好点燃那些火柴！那些叶子不是那么容易用手折断的!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.leeching",
+      "text": "抡起棍子揍流氓，偷他血气补你伤~嘿嘿，这可比喝药快当！."
     },
     {
       "type": "goety:catalyst",
@@ -301,22 +326,22 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.part_lava",
-      "text": "我的炽足兽被偷了！那么我得让这些岩浆主动让开了！"
+      "text": "我的炽足兽被偷了！那么我得让这些岩浆主动让开了!"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.part_water",
-      "text": "奶奶的旋转飞刃落在了家里，那么我该如何穿越这片大海！哦，还好我带了药酿！"
+      "text": "奶奶的旋转飞刃落在了家里，奶奶要给摩西发信息了!"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.photosynthesis",
-      "text": "沐浴在阳光下，亲爱的！好好看看那个火球！我相信你不会被闪瞎的！"
+      "text": "享受阳光吧亲爱的！好好看看那个火球！我相信你不会被闪瞎的!"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.plunge",
-      "text": "你说你不饿了是什么意思！给，再来一口！"
+      "text": "你说你不饿了是什么意思！给，再来一口!"
     },
     {
       "type": "goety:catalyst",
@@ -325,7 +350,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.pressure",
-      "text": "那些行走、发出嘶嘶声的迷彩服充满了焦虑！这种效果会让它变得更糟！呵呵哈!"
+      "text": "觉着满世界的眼珠子都黏你身上啦？幸好目光杀不死人——但是等奶奶的锅咕嘟熟了嘛..."
     },
     {
       "type": "goety:catalyst",
@@ -335,22 +360,32 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.pulverize",
-      "text": "石头到鹅卵石到砂砾再到沙子！给我拿些煤，奶奶要做一副眼镜！"
+      "text": "石头到鹅卵石到砂砾再到沙子！给我拿些炭，奶奶要做一副眼镜!"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.purify_buff",
-      "text": "消除那些倒霉的孩子的所有无害效果!"
+      "text": "孩子们快过来，现在你不会再健康美满了!"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.purify_debuff",
-      "text": "消除那些倒霉的孩子的所有有害效果!"
+      "text": "孩子们快过来，现在你不会再疾病缠身了!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.radiance",
+      "text": "老婆子说个窍门你记牢，抄起旧拖鞋揍熊孩子，嗖啪两下准能年轻三巡!"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.raise_dead",
-      "text": "睡眼惺忪的你们快醒醒吧！奶奶一个人拿不动这么多袋子！"
+      "text": "小懒虫快起床！奶奶一个人拿不动这么多袋子!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.rallying",
+      "text": "想让手底下的小崽子下黑手更狠？凑近些！再近些！保准他们捶人捶得嗷嗷疼！"
     },
     {
       "type": "goety:catalyst",
@@ -359,12 +394,12 @@
     {
       "type": "goety:sacrifice",
       "recipe": "effect.minecraft.regeneration",
-      "text": "有没有想明白过女巫让人炖菜的故事是从哪里来的？！呵呵哈哈!"
+      "text": "可曾琢磨过女巫炖人汤的典故打哪儿来？咯咯...呵呵呵..."
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.repulsive",
-      "text": "什么？你竟然不知道我们奥奶奶用的香水的牌子？！"
+      "text": "什么？你竟然不知道我们奥奶奶用的香水的牌子?!"
     },
     {
       "type": "goety:catalyst",
@@ -382,12 +417,17 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.save_effects",
-      "text": "吃了那些回响碎片就有了这个想法！即使喝了一些牛奶，效果也会持续，而且针对类型居然是死亡？对那些可恨的不朽存在也有用，比如蓝色指南针！"
+      "text": "啃了几块回响碎片就蹦出这妙计，就算灌了牛奶也洗不掉这咒力！保不齐蹬腿嗝屁了还黏着你？正合那些不死佬的意——比如那个总指路的蓝汪汪玩意儿！咯咯咯…"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.shear",
       "text": "我的胳膊太老了，剪不动那些羊毛！但没有关系，药剂会为奶奶料理好的!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.shielding",
+      "text": "嘿嘿…闻见没？这止疼的圣饼！"
     },
     {
       "type": "goety:catalyst",
@@ -423,27 +463,37 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.strip",
-      "text": "哦，不，我还不够拘谨，扯不掉你的衣服！只是你的盔甲！如果我的药剂浓度更高，我甚至可以把皮都撕下来*老巫婆眨眼*."
+      "text": "哦，不，奶奶还是太拘谨了！扯不掉你的衣服！只是你的盔甲！如果我的药剂浓度更高，我甚至可以把皮都撕下来*老巫婆眨眼*。"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.sun_allergy",
-      "text": "嘿，孩子们！你想成为骷髅吗？还是僵尸？还是幻翼？还是...."
+      "text": "嘿，孩子们！你想当骷髅吗？还是僵尸？还是幻翼？还是...."
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.sweet_thorns",
-      "text": "奶奶想做甜浆果派，但我可怜的腿太累了，不能去针叶林。嗯，那就让浆果自己来吧!"
+      "text": "奶奶想做甜浆果派，但我可怜的腿太累了，不能去针叶林。嗯，那就让浆果自己来吧！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.swift_swim",
+      "text": "奶奶是老了没法游的很快，但是奶奶的药不老！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.swirling",
+      "text": "可别扎堆儿招惹带这咒印的憨货！小心他捶别人脸的时候顺带把你削成火腿片！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.thorn_trap",
-      "text": "你被包围了，小淘气！你应该停止行走，除非你想让你的脸上长满刺！哈哈哈哈!"
+      "text": "你被包围了，小淘气！现在别再跑啦，除非你想让你的脸上长满刺！哈哈哈哈!"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.transpose",
-      "text": "将包括物品在内的各种实体聚集到药剂落地或饮用的位置!"
+      "text": "甭管是活物死物瓶瓶罐罐，只要药汤一泼地，全得嗖嗖往下窜！"
     },
     {
       "type": "goety:catalyst",
@@ -461,6 +511,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.void_touched",
+      "text": "Get in touch with the void, brat! Make sure you don't get touched by anything else!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.minecraft.water_breathing"
     },
     {
@@ -470,7 +525,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.webbed",
-      "text": "那些蜘蛛真快！尽管它们似乎只有在药剂碰到生物时才会结网，而不是在坚实的土地上..."
+      "text": "那些蜘蛛真快！尽管它们似乎只有在药剂碰到生物时才会结网，而不是在坚实的地上..."
     },
     {
       "type": "goety:catalyst",

@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Requirements: $(li)Be in the End $(li)16 Void Blocks $(li)64 End Stone Bricks $(li)32 Purpur Blocks Any"
+      "text": "Requirements: $(li)Be in the End $(li)16 Void Blocks $(li)64 End Stone Variants $(li)32 Purpur Blocks Any"
     },
     {
       "type": "patchouli:image",

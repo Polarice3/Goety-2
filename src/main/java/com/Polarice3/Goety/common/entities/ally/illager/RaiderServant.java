@@ -2,13 +2,17 @@ package com.Polarice3.Goety.common.entities.ally.illager;
 
 import com.Polarice3.Goety.api.entities.ITrainable;
 import com.Polarice3.Goety.common.advancements.ModCriteriaTriggers;
+import com.Polarice3.Goety.common.blocks.entities.OminousIdolBlockEntity;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.ally.undead.bound.AbstractBoundIllager;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.WaystoneItem;
 import com.Polarice3.Goety.common.items.magic.TaglockKit;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import com.google.common.collect.Lists;
@@ -38,8 +42,11 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
@@ -56,6 +63,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.block.BannerBlock;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
@@ -66,11 +74,15 @@ import java.util.stream.Stream;
 
 public abstract class RaiderServant extends Summoned {
     protected static final EntityDataAccessor<Boolean> IS_CELEBRATING = SynchedEntityData.defineId(RaiderServant.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Boolean> CAPTURE_MODE = SynchedEntityData.defineId(RaiderServant.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Optional<UUID>> MARKED_ID = SynchedEntityData.defineId(RaiderServant.class, EntityDataSerializers.OPTIONAL_UUID);
     protected static final EntityDataAccessor<Optional<UUID>> LEADER_ID = SynchedEntityData.defineId(RaiderServant.class, EntityDataSerializers.OPTIONAL_UUID);
     protected static final EntityDataAccessor<Integer> LEADER_CLIENT_ID = SynchedEntityData.defineId(RaiderServant.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Optional<BlockPos>> RAID_POS = SynchedEntityData.defineId(RaiderServant.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
     protected static final EntityDataAccessor<String> RAID_DIM = SynchedEntityData.defineId(RaiderServant.class, EntityDataSerializers.STRING);
+    @Nullable
+    public BlockPos revivePos;
+    public String reviveDim = Level.OVERWORLD.location().toString();
     private int celebrationTime;
     private int raidTime;
     private boolean missionComplete = false;
@@ -82,6 +94,7 @@ public abstract class RaiderServant extends Summoned {
     @Override
     protected void registerGoals() {
         super.registerGoals();
+        this.miscGoal();
         this.goalSelector.addGoal(1, new ObtainLeaderBannerGoal<>(this));
         this.goalSelector.addGoal(3, new PathfindToRaidGoal<>(this));
         this.goalSelector.addGoal(4, new RaiderMoveThroughVillageGoal(this, 1.05D, 1));
@@ -140,9 +153,17 @@ public abstract class RaiderServant extends Summoned {
         super.targetSelectGoal();
     }
 
+    public void miscGoal() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(8, new RaiderWanderGoal<>(this, 0.6D));
+        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 15.0F, 1.0F));
+        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 15.0F));
+    }
+
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(IS_CELEBRATING, false);
+        this.entityData.define(CAPTURE_MODE, false);
         this.entityData.define(MARKED_ID, Optional.empty());
         this.entityData.define(LEADER_ID, Optional.empty());
         this.entityData.define(LEADER_CLIENT_ID, -1);
@@ -168,6 +189,7 @@ public abstract class RaiderServant extends Summoned {
         compound.putInt("CelebrationTime", this.celebrationTime);
         compound.putInt("RaidTime", this.raidTime);
         compound.putBoolean("MissionComplete", this.missionComplete);
+        compound.putBoolean("Capturing", this.isCapturing());
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
@@ -193,6 +215,9 @@ public abstract class RaiderServant extends Summoned {
         }
         if (compound.contains("MissionComplete")) {
             this.missionComplete = compound.getBoolean("MissionComplete");
+        }
+        if (compound.contains("Capturing")) {
+            this.setCaptureMode(compound.getBoolean("Capturing"));
         }
     }
 
@@ -300,6 +325,14 @@ public abstract class RaiderServant extends Summoned {
 
     public boolean isRaiding() {
         return this.getRaidPos() != null;
+    }
+
+    public void setCaptureMode(boolean captureMode) {
+        this.entityData.set(CAPTURE_MODE, captureMode);
+    }
+
+    public boolean isCapturing() {
+        return this.entityData.get(CAPTURE_MODE);
     }
 
     public double getMyRidingOffset() {
@@ -465,15 +498,35 @@ public abstract class RaiderServant extends Summoned {
                             this.setLeaderClientId(this.getLeader().getId());
                         }
                     }
-                    if (this.getLeader().getMarked() != null && this.getLeader().getMarked() != this.getMarked()) {
-                        this.setMarked(this.getLeader().getMarked());
+                    if (this.canLinkToIdol()) {
+                        if (this.getLeader().getIdol() != null) {
+                            OminousIdolBlockEntity idol = this.getLeader().getIdol();
+                            if (idol != null) {
+                                if (this.getIdol() == null || this.getIdol() != idol) {
+                                    if (idol.getIllagers().size() < MainConfig.OminousIdolLimit.get()) {
+                                        if (this.getIdol() != null) {
+                                            this.getIdol().removeIllager(this);
+                                        }
+                                        idol.addIllager(this);
+                                    }
+                                }
+                            }
+                        }
                     }
-                    if (this.getLeader().getRaidPos() != null && !BlockFinder.samePos(this.getLeader().getRaidPos(), this.getRaidPos())) {
-                        this.setRaidPos(this.getLeader().getRaidPos());
-                    } else if (this.getLeader().getTarget() != null && this.getTarget() == null) {
-                        this.setTarget(this.getLeader().getTarget());
+                    if (!(this instanceof ITrainable trainable && !trainable.isTraining())) {
+                        if (this.getLeader().getMarked() != null && this.getLeader().getMarked() != this.getMarked()) {
+                            this.setMarked(this.getLeader().getMarked());
+                        }
+                        if (this.getLeader().getRaidPos() != null && !BlockFinder.samePos(this.getLeader().getRaidPos(), this.getRaidPos())) {
+                            this.setRaidPos(this.getLeader().getRaidPos());
+                        } else if (this.getLeader().getTarget() != null && this.getTarget() == null) {
+                            this.setTarget(this.getLeader().getTarget());
+                        }
                     }
+                    this.setCaptureMode(this.getLeader().isCapturing());
                 }
+            } else if (this.isCapturing() && !this.isLeader()) {
+                this.setCaptureMode(false);
             }
             this.markedTick();
             this.raidTick();
@@ -482,47 +535,53 @@ public abstract class RaiderServant extends Summoned {
 
     public void markedTick(){
         if (this.getMarked() != null) {
-            if (this.getTarget() == null) {
-                if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(this.getMarked())
-                        && MobUtil.sameDimension(this, this.getMarked())
-                        && this.level.isLoaded(this.getMarked().blockPosition())) {
-                    this.setTarget(this.getMarked());
-                    if (this.getControlledVehicle() instanceof Mob mob) {
-                        mob.setTarget(this.getMarked());
+            try {
+                if (this.getTarget() == null) {
+                    if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(this.getMarked())
+                            && MobUtil.sameDimension(this, this.getMarked())
+                            && this.level.isLoaded(this.getMarked().blockPosition())) {
+                        this.setTarget(this.getMarked());
+                        if (this.getControlledVehicle() instanceof Mob mob) {
+                            mob.setTarget(this.getMarked());
+                        }
+                    }
+                } else if (this.getTarget() == this.getMarked()){
+                    if (this.getTarget().distanceTo(this) > 64.0D
+                            && MobUtil.sameDimension(this, this.getMarked())){
+                        this.teleportTowards(this.getMarked());
                     }
                 }
-            } else if (this.getTarget() == this.getMarked()){
-                if (this.getTarget().distanceTo(this) > 64.0D
-                        && MobUtil.sameDimension(this, this.getMarked())){
-                    this.teleportTowards(this.getMarked());
-                }
-            }
-            if (this.getTrueOwner() != null) {
-                if (MobUtil.areAllies(this.getMarked(), this.getTrueOwner())) {
-                    if (this.getTrueOwner().distanceTo(this) > 32.0D
-                            && MobUtil.sameDimension(this, this.getTrueOwner())) {
-                        this.teleportTowards(this.getTrueOwner());
-                    }
-                    if (this.getMarked() != null){
-                        this.setMarked(null);
-                    }
-                }
-            }
-            if (this.getMarked().isDeadOrDying()) {
-                this.celebrationTime = 600;
-                this.missionComplete = true;
-                if (this.getMarked() != null){
-                    this.setMarked(null);
-                }
-            } else {
-                if (this.isLeader()) {
-                    for (RaiderServant servant : this.getNearbyCompanions()) {
-                        if (servant.getLeader() == null && servant.getMarked() == this.getMarked()) {
-                            servant.setLeader(this);
-                            servant.setFollowing();
+                if (this.getTrueOwner() != null) {
+                    if (MobUtil.areAllies(this.getMarked(), this.getTrueOwner())) {
+                        if (this.getTrueOwner().distanceTo(this) > 32.0D
+                                && MobUtil.sameDimension(this, this.getTrueOwner())) {
+                            this.teleportTowards(this.getTrueOwner());
+                        }
+                        if (this.getMarked() != null){
+                            this.setMarked(null);
                         }
                     }
                 }
+                if (this.getMarked().isDeadOrDying()) {
+                    this.celebrationTime = 600;
+                    this.missionComplete = true;
+                    if (this.getMarked() != null){
+                        this.setMarked(null);
+                    }
+                } else {
+                    if (this.isLeader()) {
+                        for (RaiderServant servant : this.getNearbyCompanions()) {
+                            if (servant.getLeader() == null && servant.getMarked() == this.getMarked()) {
+                                servant.setLeader(this);
+                                servant.setFollowing();
+                            }
+                        }
+                    }
+                }
+            } catch (NullPointerException exception) {
+                this.celebrationTime = 600;
+                this.missionComplete = true;
+                this.setMarked(null);
             }
         }
     }
@@ -679,6 +738,97 @@ public abstract class RaiderServant extends Summoned {
         return convert;
     }
 
+    @Nullable
+    public OminousIdolBlockEntity getIdol() {
+        if (this.getServer() != null) {
+            if (this.revivePos != null) {
+                for (Level level1 : this.getServer().getAllLevels()) {
+                    if (level1.dimension() == this.getReviveLevel()) {
+                        BlockEntity blockEntity = this.level.getBlockEntity(this.revivePos);
+                        if (blockEntity instanceof OminousIdolBlockEntity idol) {
+                            if (idol.getTrueOwner() == this.getTrueOwner()) {
+                                return idol;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void tryKill(Player player) {
+        if (this.killChance <= 0 && this.getIdol() != null){
+            this.warnKill(player);
+        } else {
+            super.tryKill(player);
+        }
+    }
+
+    @Override
+    public boolean canRevive(DamageSource damageSource) {
+        if (!damageSource.is(ModDamageSource.DISMISSED)) {
+            if (MainConfig.OminousIdolRevive.get()) {
+                if (!this.hasEffect(GoetyEffects.WOUNDED.get())) {
+                    if (this.getIdol() != null) {
+                        if (this.getIdol().getSoulEnergy() >= MainConfig.OminousIdolReviveCost.get()) {
+                            return this.getIdol().getIllagers().contains(this);
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void reviveOwned() {
+        if (this.isLeader()) {
+            this.spawnAtLocation(this.getItemBySlot(EquipmentSlot.HEAD));
+            this.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+        }
+        super.reviveOwned();
+        this.setTarget(null);
+        this.setMarked(null);
+        this.setRaidPos(null);
+        this.level.broadcastEntityEvent(this, (byte) 35);
+        this.addEffect(new MobEffectInstance(GoetyEffects.WOUNDED.get(), MathHelper.minecraftDayToTicks(1)));
+        this.addEffect(new MobEffectInstance(GoetyEffects.CRIPPLED.get(), MathHelper.minutesToTicks(5)));
+        if (this.getIdol() != null) {
+            this.getIdol().siphonSoulEnergy(MainConfig.OminousIdolReviveCost.get());
+        }
+    }
+
+    @Nullable
+    @Override
+    public BlockPos getRevivePos() {
+        return this.revivePos;
+    }
+
+    @Override
+    public void setRevivePos(BlockPos revivePos) {
+        this.revivePos = revivePos;
+    }
+
+    @Override
+    public String getReviveDim() {
+        return this.reviveDim;
+    }
+
+    @Override
+    public void setReviveDim(String reviveDim) {
+        this.reviveDim = reviveDim;
+    }
+
+    public boolean canLinkToIdol() {
+        return this instanceof AbstractIllagerServant
+                || this instanceof AbstractBoundIllager
+                || this instanceof WitchServant
+                || this instanceof AllyTrampler
+                || this instanceof ModRavager;
+    }
+
     public List<RaiderServant> getNearbyCompanions() {
         return this.level.getEntitiesOfClass(RaiderServant.class, this.getBoundingBox().inflate(8.0D), (illager) ->
                 illager != this && illager.getTrueOwner() == this.getTrueOwner() && illager.canJoinPatrol() && (illager.getLeader() == null || illager.getLeader() == this));
@@ -815,11 +965,62 @@ public abstract class RaiderServant extends Summoned {
                     }
                 }
                 return InteractionResult.CONSUME;
+            } else if (pPlayer.getMainHandItem().is(Items.CHAIN)
+                    && !this.isCapturing()
+                    && this.isLeader()){
+                if (!this.level.isClientSide) {
+                    this.setCaptureMode(true);
+                    this.playSound(SoundEvents.CHAIN_PLACE, 1.0F, 1.0F);
+                }
+
+                return InteractionResult.SUCCESS;
+            } else if (pPlayer.getMainHandItem().is(ItemTags.AXES)
+                    && this.isCapturing()
+                    && this.isLeader()){
+                if (!this.level.isClientSide) {
+                    this.setCaptureMode(false);
+                    this.playSound(SoundEvents.CHAIN_BREAK, 1.0F, 0.5F);
+                }
+
+                return InteractionResult.SUCCESS;
             } else if (pPlayer.getMainHandItem().isEmpty() && this.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof BannerItem){
                 ItemStack helmet = this.getItemBySlot(EquipmentSlot.HEAD);
                 this.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
                 this.dropEquipment(EquipmentSlot.HEAD, helmet);
                 return InteractionResult.SUCCESS;
+            } else if (this.canLinkToIdol()) {
+                return this.linkToIdol(pPlayer, pHand);
+            }
+        }
+        return super.mobInteract(pPlayer, pHand);
+    }
+
+    public InteractionResult linkToIdol(Player pPlayer, InteractionHand pHand) {
+        if (pPlayer.getMainHandItem().is(ModItems.WAYSTONE.get())) {
+            if (WaystoneItem.isSameDimension(this, pPlayer.getMainHandItem())) {
+                if (WaystoneItem.getBlockEntity(pPlayer.getMainHandItem(), this.level) instanceof OminousIdolBlockEntity idol
+                        && idol.getTrueOwner() == this.getTrueOwner()
+                        && idol.getIllagers().size() < MainConfig.OminousIdolLimit.get()) {
+                    if (!this.level.isClientSide) {
+                        BlockPos blockPos = idol.getBlockPos();
+                        if (this.getIdol() != null) {
+                            this.getIdol().removeIllager(this);
+                        }
+                        idol.addIllager(this);
+                        this.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
+                        if (this.level instanceof ServerLevel serverLevel) {
+                            for (int i = 0; i < 7; ++i) {
+                                double d0 = this.random.nextGaussian() * 0.02D;
+                                double d1 = this.random.nextGaussian() * 0.02D;
+                                double d2 = this.random.nextGaussian() * 0.02D;
+                                serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+                            }
+                        }
+                        this.setRevivePos(blockPos);
+                        this.setReviveDim(this.level.dimension());
+                        return InteractionResult.SUCCESS;
+                    }
+                }
             }
         }
         return super.mobInteract(pPlayer, pHand);

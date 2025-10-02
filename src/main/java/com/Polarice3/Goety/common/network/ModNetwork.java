@@ -65,10 +65,12 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), CMultiJumpPacket.class, CMultiJumpPacket::encode, CMultiJumpPacket::decode, CMultiJumpPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CSetDeltaMovement.class, CSetDeltaMovement::encode, CSetDeltaMovement::decode, CSetDeltaMovement::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CTramplerPacket.class, CTramplerPacket::encode, CTramplerPacket::decode, CTramplerPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
+        INSTANCE.registerMessage(nextID(), CActivateCurioKeyPacket.class, CActivateCurioKeyPacket::encode, CActivateCurioKeyPacket::decode, CActivateCurioKeyPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), TotemDeathPacket.class, TotemDeathPacket::encode, TotemDeathPacket::decode, TotemDeathPacket::consume);
         INSTANCE.registerMessage(nextID(), SPlayPlayerSoundPacket.class, SPlayPlayerSoundPacket::encode, SPlayPlayerSoundPacket::decode, SPlayPlayerSoundPacket::consume);
         INSTANCE.registerMessage(nextID(), SPlayWorldSoundPacket.class, SPlayWorldSoundPacket::encode, SPlayWorldSoundPacket::decode, SPlayWorldSoundPacket::consume);
         INSTANCE.registerMessage(nextID(), SPlayEntitySoundPacket.class, SPlayEntitySoundPacket::encode, SPlayEntitySoundPacket::decode, SPlayEntitySoundPacket::consume);
+        INSTANCE.registerMessage(nextID(), SPlayFollowSoundPacket.class, SPlayFollowSoundPacket::encode, SPlayFollowSoundPacket::decode, SPlayFollowSoundPacket::consume);
         INSTANCE.registerMessage(nextID(), SPlayLoopSoundPacket.class, SPlayLoopSoundPacket::encode, SPlayLoopSoundPacket::decode, SPlayLoopSoundPacket::consume);
         INSTANCE.registerMessage(nextID(), SPlayEffectLoopSoundPacket.class, SPlayEffectLoopSoundPacket::encode, SPlayEffectLoopSoundPacket::decode, SPlayEffectLoopSoundPacket::consume);
         INSTANCE.registerMessage(nextID(), SFungusExplosionPacket.class, SFungusExplosionPacket::encode, SFungusExplosionPacket::decode, SFungusExplosionPacket::consume);
@@ -86,6 +88,8 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), SRemoveEffectPacket.class, SRemoveEffectPacket::encode, SRemoveEffectPacket::decode, SRemoveEffectPacket::consume);
         INSTANCE.registerMessage(nextID(), SPurifyEffectPacket.class, SPurifyEffectPacket::encode, SPurifyEffectPacket::decode, SPurifyEffectPacket::consume);
         INSTANCE.registerMessage(nextID(), SPlayerRotationPacket.class, SPlayerRotationPacket::encode, SPlayerRotationPacket::decode, SPlayerRotationPacket::consume);
+        INSTANCE.registerMessage(nextID(), SRepositionPacket.class, SRepositionPacket::encode, SRepositionPacket::decode, SRepositionPacket::consume);
+        INSTANCE.registerMessage(nextID(), SInstaLookPacket.class, SInstaLookPacket::encode, SInstaLookPacket::decode, SInstaLookPacket::consume);
         INSTANCE.registerMessage(nextID(), WBUpdatePacket.class, WBUpdatePacket::encode, WBUpdatePacket::decode, WBUpdatePacket::consume);
     }
 

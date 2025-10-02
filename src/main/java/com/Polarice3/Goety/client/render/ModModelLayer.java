@@ -21,6 +21,8 @@ public class ModModelLayer {
     public static final ModelLayerLocation SOUL_BOLT = register("soul_bolt");
     public static final ModelLayerLocation SHIELD_DEBRIS = register("shield_debris");
     public static final ModelLayerLocation HELL_BLAST = register("hell_blast");
+    public static final ModelLayerLocation VOID_SHOCK = register("void_shock");
+    public static final ModelLayerLocation VOID_SHOCK_BOMB = register("void_shock_bomb");
     public static final ModelLayerLocation SCATTER_MINE = register("scatter_mine");
     public static final ModelLayerLocation BLAST_FUNGUS = register("blast_fungus");
     public static final ModelLayerLocation WEB_SHOT = register("web_shot");
@@ -54,6 +56,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation DAMNED_HUMAN = register("damned_human");
     public static final ModelLayerLocation ILLAGER_SERVANT = register("illager_servant");
     public static final ModelLayerLocation VINDICATOR_CHEF = register("vindicator_chef");
+    public static final ModelLayerLocation MOUNTAINEER = register("mountaineer");
     public static final ModelLayerLocation GEOMANCER = register("geomancer");
     public static final ModelLayerLocation ICEOLOGER = register("iceologer");
     public static final ModelLayerLocation WIND_CALLER = register("wind_caller");
@@ -76,6 +79,8 @@ public class ModModelLayer {
     public static final ModelLayerLocation WATCHLING = register("watchling");
     public static final ModelLayerLocation BLASTLING = register("blastling");
     public static final ModelLayerLocation SNARELING = register("snareling");
+    public static final ModelLayerLocation ENDERSENT = register("endersent");
+    public static final ModelLayerLocation ENDER_KEEPER = register("ender_keeper");
     public static final ModelLayerLocation ZPIGLIN_SERVANT = register("zpiglin_servant");
     public static final ModelLayerLocation MALGHAST = register("malghast");
     public static final ModelLayerLocation INFERNO = register("inferno");
@@ -86,6 +91,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation TROPICAL_SLIME_INNER = register("tropical_slime_inner");
     public static final ModelLayerLocation MOD_SPIDER = register("mod_spider");
     public static final ModelLayerLocation ICY_SPIDER = register("icy_spider");
+    public static final ModelLayerLocation WEB_SPIDER = register("web_spider");
     public static final ModelLayerLocation BROOD_MOTHER = register("brood_mother");
     public static final ModelLayerLocation SPECTER = register("specter");
     public static final ModelLayerLocation REAPER = register("reaper");

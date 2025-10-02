@@ -22,7 +22,7 @@ public class ModTrimMaterials {
 
     public static void bootstrap(BootstapContext<TrimMaterial> context) {
         register(context, CURSED, ModItems.CURSED_METAL_INGOT.get(), Style.EMPTY.withColor(0x1c303a), 0.9F);
-        register(context, DARK, ModItems.DARK_METAL_INGOT.get(), Style.EMPTY.withColor(0x1f1f1f), 0.3F);
+        register(context, DARK, ModItems.DARK_ALLOY_INGOT.get(), Style.EMPTY.withColor(0x1f1f1f), 0.3F);
         register(context, ECTO, ModItems.ECTOPLASM.get(), Style.EMPTY.withColor(0x00c2d6), 0.8F);
         register(context, JADE, ModItems.JADE.get(), Style.EMPTY.withColor(0x00fa68), 0.7F);
     }

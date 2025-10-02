@@ -3,7 +3,6 @@ package com.Polarice3.Goety.common.entities.projectiles;
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.VerticalCircleExplodeParticleOption;
-import com.Polarice3.Goety.client.render.BioMineTextures;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.ColorUtil;
@@ -11,10 +10,6 @@ import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -25,7 +20,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class BioMine extends SpellEntity {
-    private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(BioMine.class, EntityDataSerializers.INT);
     public float extraRadius = 0.0F;
     public int extraDuration = 0;
     public int lifeTicks = MathHelper.secondsToTicks(5);
@@ -34,27 +28,8 @@ public class BioMine extends SpellEntity {
         super(p_19870_, p_19871_);
     }
 
-    public ResourceLocation getResourceLocation() {
-        return BioMineTextures.TEXTURES.getOrDefault(this.getAnimation(), BioMineTextures.TEXTURES.get(0));
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_TYPE_ID, 0);
-    }
-
-    public int getAnimation() {
-        return this.entityData.get(DATA_TYPE_ID);
-    }
-
-    public void setAnimation(int pType) {
-        this.entityData.set(DATA_TYPE_ID, pType);
-    }
-
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
-        this.setAnimation(pCompound.getInt("Animation"));
         if (pCompound.contains("LifeTicks")){
             this.lifeTicks = pCompound.getInt("LifeTicks");
         }
@@ -71,7 +46,6 @@ public class BioMine extends SpellEntity {
 
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
-        pCompound.putInt("Animation", this.getAnimation());
         pCompound.putInt("LifeTicks", this.lifeTicks);
         pCompound.putInt("Duration", this.extraDuration);
         pCompound.putInt("CurrentTicks", this.tickCount);
@@ -117,15 +91,6 @@ public class BioMine extends SpellEntity {
     public void tick() {
         super.tick();
         --this.lifeTicks;
-        if (this.level.isClientSide){
-            if (this.tickCount % 2 == 0) {
-                if (this.getAnimation() < BioMineTextures.TEXTURES.size()){
-                    this.setAnimation(this.getAnimation() + 1);
-                } else {
-                    this.setAnimation(0);
-                }
-            }
-        }
         if (!this.level.isClientSide) {
             if (this.lifeTicks <= 0 && this.level.getRandom().nextInt(8) == 0){
                 this.trigger();

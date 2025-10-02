@@ -205,7 +205,7 @@ public class OrderFocus extends MagicFocus{
         if (compoundTag != null && compoundTag.contains(SERVANT_LIST)){
             ListTag list = compoundTag.getList(SERVANT_LIST, 8);
             for(int i = 0; i < list.size(); ++i) {
-                Entity entity = EntityFinder.getEntityByUuiD(UUID.fromString(list.getString(i)));
+                Entity entity = EntityFinder.getLivingEntityByUuiD(UUID.fromString(list.getString(i)));
                 if (entity instanceof LivingEntity livingEntity){
                     servants.add(livingEntity);
                 }

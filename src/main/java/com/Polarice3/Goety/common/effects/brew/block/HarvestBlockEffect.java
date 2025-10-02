@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.effects.brew.block;
 
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
+import com.Polarice3.Goety.config.BrewConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -22,7 +23,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class HarvestBlockEffect extends BrewEffect {
     public HarvestBlockEffect() {
-        super("harvest", MobEffectCategory.NEUTRAL, 0x67a124);
+        super("harvest", BrewConfig.HarvestCost.get(), MobEffectCategory.NEUTRAL, 0x67a124);
     }
 
     @Override

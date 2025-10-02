@@ -1,0 +1,21 @@
+{
+  "name": "goety:final_terminal/tower3",
+
+  "fallback": "goety:final_terminal/tower3",
+
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+
+        "location": "goety:final_terminal/tower3",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

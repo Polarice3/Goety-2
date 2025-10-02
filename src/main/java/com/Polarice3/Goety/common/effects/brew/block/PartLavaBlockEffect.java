@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.effects.brew.block;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.entities.PartLiquidBlockEntity;
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
+import com.Polarice3.Goety.config.BrewConfig;
 import com.Polarice3.Goety.utils.MathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
@@ -13,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class PartLavaBlockEffect extends BrewEffect {
     public PartLavaBlockEffect() {
-        super("part_lava", MobEffectCategory.NEUTRAL, 0xe3c877);
+        super("part_lava", BrewConfig.PartLavaCost.get(), MobEffectCategory.NEUTRAL, 0xe3c877);
         this.duration = MathHelper.secondsToTicks(30);
     }
 

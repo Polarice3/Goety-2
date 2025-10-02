@@ -1,11 +1,12 @@
 package com.Polarice3.Goety.common.capabilities.witchbarter;
 
-import net.minecraft.client.Minecraft;
+import com.Polarice3.Goety.Goety;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -39,8 +40,8 @@ public class WBUpdatePacket {
     public static void consume(WBUpdatePacket packet, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             if (ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
-                ClientLevel clientLevel = Minecraft.getInstance().level;
-                if (clientLevel != null) {
+                Level level = Goety.PROXY.getLevel();
+                if (level instanceof ClientLevel clientLevel) {
                     Entity entity = clientLevel.getEntity(packet.witchId);
                     if (entity != null) {
                         entity.getCapability(WitchBarterProvider.CAPABILITY).ifPresent((barter) -> {

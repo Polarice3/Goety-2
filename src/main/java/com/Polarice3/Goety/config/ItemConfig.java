@@ -78,6 +78,7 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> CursedKnightEnchantability;
     public static final ForgeConfigSpec.ConfigValue<Double> CursedKnightToughness;
     public static final ForgeConfigSpec.ConfigValue<Double> CursedKnightKnockResist;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> CursedKnightPersist;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> CursedPaladinDurability;
     public static final ForgeConfigSpec.ConfigValue<Integer> CursedPaladinFeet;
@@ -87,6 +88,7 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> CursedPaladinEnchantability;
     public static final ForgeConfigSpec.ConfigValue<Double> CursedPaladinToughness;
     public static final ForgeConfigSpec.ConfigValue<Double> CursedPaladinKnockResist;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> CursedPaladinPersist;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> BlackIronDurability;
     public static final ForgeConfigSpec.ConfigValue<Integer> BlackIronFeet;
@@ -96,6 +98,7 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> BlackIronEnchantability;
     public static final ForgeConfigSpec.ConfigValue<Double> BlackIronToughness;
     public static final ForgeConfigSpec.ConfigValue<Double> BlackIronKnockResist;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> BlackIronPersist;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> DarkArmorDurability;
     public static final ForgeConfigSpec.ConfigValue<Integer> DarkArmorFeet;
@@ -335,6 +338,8 @@ public class ItemConfig {
                     .defineInRange("cursedKnightToughness", 0.5, 0.0, Double.MAX_VALUE);
             CursedKnightKnockResist = BUILDER.comment("Define how much knockback resistance each armor piece provides, Default: 0.0")
                     .defineInRange("cursedKnightKnockResist", 0.0, 0.0, Double.MAX_VALUE);
+            CursedKnightPersist = BUILDER.comment("Whether armor pieces don't break but no longer provide armor, Default: true")
+                    .define("cursedKnightPersist", true);
             BUILDER.pop();
             BUILDER.push("Cursed Paladin Armor");
                 BUILDER.push("Armor Points");
@@ -355,6 +360,8 @@ public class ItemConfig {
                     .defineInRange("cursedPaladinToughness", 1.0, 0.0, Double.MAX_VALUE);
             CursedPaladinKnockResist = BUILDER.comment("Define how much knockback resistance each armor piece provides, Default: 0.0")
                     .defineInRange("cursedPaladinKnockResist", 0.0, 0.0, Double.MAX_VALUE);
+            CursedPaladinPersist = BUILDER.comment("Whether armor pieces don't break but no longer provide armor, Default: true")
+                    .define("cursedPaladinPersist", true);
             BUILDER.pop();
             BUILDER.push("Black Iron Armor");
                 BUILDER.push("Armor Points");
@@ -375,6 +382,8 @@ public class ItemConfig {
                     .defineInRange("blackIronToughness", 2.0, 0.0, Double.MAX_VALUE);
             BlackIronKnockResist = BUILDER.comment("Define how much knockback resistance each armor piece provides, Default: 0.0")
                     .defineInRange("blackIronKnockResist", 0.0, 0.0, Double.MAX_VALUE);
+            BlackIronPersist = BUILDER.comment("Whether armor pieces don't break but no longer provide armor, Default: true")
+                    .define("blackIronPersist", true);
             BUILDER.pop();
             BUILDER.push("Dark Armor");
                 BUILDER.push("Armor Points");

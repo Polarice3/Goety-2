@@ -1,0 +1,27 @@
+{
+  "name": "不祥神像",
+  "icon": "goety:ominous_idol",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/kill_a_evoker",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "一座邪恶的雕像，可以拯救与之相关的劫掠者和类似生物的生命."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_idol"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "被神像绑定的仆从不会死亡，而是会在濒死时传送回神像，除非他们的主人用魔杖将他们解散。然而，他们会被强行神陨，无法再在一天之内复活，并且会被缚骨5分钟，直到他们完全康复。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "要将你的仆从绑定到神像上，只需使用指路石，将其绑定到神像上，然后右键点击你的仆从即可。神像最多可容纳16名仆从（默认），超过 16 名后将无法再容纳更多仆从。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ominous_idol": 1
+  }
+}

@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.client.render.animation.PikerAnimations;
+import com.Polarice3.Goety.common.entities.ally.illager.PikerServant;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Piker;
 import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.HierarchicalModel;
@@ -8,9 +9,10 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.phys.Vec3;
 
-public class PikerModel<T extends Piker> extends HierarchicalModel<T> implements HeadedModel {
+public class PikerModel<T extends Mob> extends HierarchicalModel<T> implements HeadedModel {
 	private final ModelPart root;
 	private final ModelPart illager;
 	private final ModelPart head;
@@ -102,38 +104,73 @@ public class PikerModel<T extends Piker> extends HierarchicalModel<T> implements
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		if (!entity.isDeadOrDying()){
-			this.animateHeadLookTarget(netHeadYaw, headPitch);
-			if (entity.isMeleeAttacking()) {
-				this.animateWalk(limbSwing, limbSwingAmount);
+		if (entity instanceof Piker piker) {
+			if (!piker.isDeadOrDying()){
+				this.animateHeadLookTarget(netHeadYaw, headPitch);
+				if (piker.isMeleeAttacking()) {
+					this.animateWalk(limbSwing, limbSwingAmount);
+				}
 			}
-		}
-		Vec3 velocity = entity.getDeltaMovement();
-		float groundSpeed = Mth.sqrt((float) ((velocity.x * velocity.x) + (velocity.z * velocity.z)));
-		if (entity.aggressiveMode){
-			this.animate(entity.idleAnimationState, PikerAnimations.IDLE, ageInTicks);
-		} else {
-			this.animate(entity.idleAnimationState, PikerAnimations.IDLE_PASSIVE, ageInTicks);
-		}
-		if (this.riding){
-			this.rightLeg.xRot = -1.4137167F;
-			this.rightLeg.yRot = ((float)Math.PI / 10F);
-			this.rightLeg.zRot = 0.07853982F;
-			this.leftLeg.xRot = -1.4137167F;
-			this.leftLeg.yRot = (-(float)Math.PI / 10F);
-			this.leftLeg.zRot = -0.07853982F;
-		} else {
-			if (entity.aggressiveMode){
-				this.animate(entity.walkAnimationState, PikerAnimations.WALK, ageInTicks, groundSpeed * 10);
+			Vec3 velocity = piker.getDeltaMovement();
+			float groundSpeed = Mth.sqrt((float) ((velocity.x * velocity.x) + (velocity.z * velocity.z)));
+			if (piker.aggressiveMode){
+				this.animate(piker.idleAnimationState, PikerAnimations.IDLE, ageInTicks);
 			} else {
-				this.animate(entity.walkAnimationState, PikerAnimations.WALK_PASSIVE, ageInTicks);
-				this.leftArm.xRot = Mth.cos(limbSwing * 0.6662F) * 2.0F * limbSwingAmount * 0.5F;
-				this.leftArm.yRot = 0.0F;
-				this.leftArm.zRot = 0.0F;
-				this.animateWalk(limbSwing, limbSwingAmount);
+				this.animate(piker.idleAnimationState, PikerAnimations.IDLE_PASSIVE, ageInTicks);
 			}
+			if (this.riding){
+				this.rightLeg.xRot = -1.4137167F;
+				this.rightLeg.yRot = ((float)Math.PI / 10F);
+				this.rightLeg.zRot = 0.07853982F;
+				this.leftLeg.xRot = -1.4137167F;
+				this.leftLeg.yRot = (-(float)Math.PI / 10F);
+				this.leftLeg.zRot = -0.07853982F;
+			} else {
+				if (piker.aggressiveMode){
+					this.animate(piker.walkAnimationState, PikerAnimations.WALK, ageInTicks, groundSpeed * 10);
+				} else {
+					this.animate(piker.walkAnimationState, PikerAnimations.WALK_PASSIVE, ageInTicks);
+					this.leftArm.xRot = Mth.cos(limbSwing * 0.6662F) * 2.0F * limbSwingAmount * 0.5F;
+					this.leftArm.yRot = 0.0F;
+					this.leftArm.zRot = 0.0F;
+					this.animateWalk(limbSwing, limbSwingAmount);
+				}
+			}
+			this.animate(piker.attackAnimationState, PikerAnimations.ATTACK, ageInTicks);
+		} else if (entity instanceof PikerServant piker) {
+			if (!piker.isDeadOrDying()){
+				this.animateHeadLookTarget(netHeadYaw, headPitch);
+				if (piker.isMeleeAttacking()) {
+					this.animateWalk(limbSwing, limbSwingAmount);
+				}
+			}
+			Vec3 velocity = piker.getDeltaMovement();
+			float groundSpeed = Mth.sqrt((float) ((velocity.x * velocity.x) + (velocity.z * velocity.z)));
+			if (piker.aggressiveMode){
+				this.animate(piker.idleAnimationState, PikerAnimations.IDLE, ageInTicks);
+			} else {
+				this.animate(piker.idleAnimationState, PikerAnimations.IDLE_PASSIVE, ageInTicks);
+			}
+			if (this.riding){
+				this.rightLeg.xRot = -1.4137167F;
+				this.rightLeg.yRot = ((float)Math.PI / 10F);
+				this.rightLeg.zRot = 0.07853982F;
+				this.leftLeg.xRot = -1.4137167F;
+				this.leftLeg.yRot = (-(float)Math.PI / 10F);
+				this.leftLeg.zRot = -0.07853982F;
+			} else {
+				if (piker.aggressiveMode){
+					this.animate(piker.walkAnimationState, PikerAnimations.WALK, ageInTicks, groundSpeed * 10);
+				} else {
+					this.animate(piker.walkAnimationState, PikerAnimations.WALK_PASSIVE, ageInTicks);
+					this.leftArm.xRot = Mth.cos(limbSwing * 0.6662F) * 2.0F * limbSwingAmount * 0.5F;
+					this.leftArm.yRot = 0.0F;
+					this.leftArm.zRot = 0.0F;
+					this.animateWalk(limbSwing, limbSwingAmount);
+				}
+			}
+			this.animate(piker.attackAnimationState, PikerAnimations.ATTACK, ageInTicks);
 		}
-		this.animate(entity.attackAnimationState, PikerAnimations.ATTACK, ageInTicks);
 	}
 
 	private void animateHeadLookTarget(float netHeadYaw, float headPitch) {

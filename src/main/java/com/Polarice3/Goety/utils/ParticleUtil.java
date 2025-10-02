@@ -5,6 +5,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.ParticleStatus;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 
@@ -44,5 +47,28 @@ public class ParticleUtil {
         }
 
         return particlestatus;
+    }
+
+    public static void circularParticles(Level level, ParticleOptions particleOptions, Entity entity, float radius){
+        circularParticles(level, particleOptions, entity.getX(), entity.getY(), entity.getZ(), radius);
+    }
+
+    public static void circularParticles(Level level, ParticleOptions particleOptions, Entity entity, double xSpeed, double ySpeed, double zSpeed, float radius){
+        circularParticles(level, particleOptions, entity.getX(), entity.getY(), entity.getZ(), xSpeed, ySpeed, zSpeed, radius);
+    }
+
+    public static void circularParticles(Level level, ParticleOptions particleOptions, double x, double y, double z, float radius){
+        circularParticles(level, particleOptions, x, y, z, 0, 0, 0, radius);
+    }
+
+    public static void circularParticles(Level level, ParticleOptions particleOptions, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, float radius){
+        float f5 = (float) Math.PI * radius * radius;
+        for (int k1 = 0; (float) k1 < f5; ++k1) {
+            float f6 = level.getRandom().nextFloat() * ((float) Math.PI * 2F);
+            float f7 = Mth.sqrt(level.getRandom().nextFloat()) * radius;
+            float f8 = Mth.cos(f6) * f7;
+            float f9 = Mth.sin(f6) * f7;
+            level.addParticle(particleOptions, x + (double) f8, y, z + (double) f9, xSpeed, ySpeed, zSpeed);
+        }
     }
 }

@@ -15,7 +15,8 @@ public class VoidBlock extends Block {
     public VoidBlock() {
         super(Properties.of()
                 .noCollission()
-                .emissiveRendering(ModBlocks::always)
+                .emissiveRendering((state, world, pos) -> true)
+                .lightLevel((state) -> 1)
                 .mapColor(MapColor.COLOR_PURPLE)
                 .strength(3.0F, 1200.0F)
                 .sound(SoundType.HONEY_BLOCK));

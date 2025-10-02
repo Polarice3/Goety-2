@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "__comment": "entities that cannot be Tangled.",
+  "values": [
+    "#forge:bosses",
+    "#goety:mini_bosses",
+    "#goety:powerful_servants"
+  ]
+}

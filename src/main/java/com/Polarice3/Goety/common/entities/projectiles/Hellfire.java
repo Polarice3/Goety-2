@@ -2,7 +2,6 @@ package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.MagicSmokeParticle;
-import com.Polarice3.Goety.client.render.HellfireTextures;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -14,7 +13,6 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
@@ -29,7 +27,7 @@ import net.minecraftforge.network.NetworkHooks;
 import javax.annotation.Nullable;
 
 public class Hellfire extends GroundProjectile {
-    private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(Hellfire.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Float> DATA_EXTRA_DAMAGE = SynchedEntityData.defineId(Hellfire.class, EntityDataSerializers.FLOAT);
     public boolean isDying;
 
     public Hellfire(EntityType<? extends Entity> p_i50170_1_, Level p_i50170_2_) {
@@ -56,22 +54,10 @@ public class Hellfire extends GroundProjectile {
         this.setPos(vector3d.x(), vector3d.y(), vector3d.z());
     }
 
-    public ResourceLocation getResourceLocation() {
-        return HellfireTextures.TEXTURES.getOrDefault(this.getAnimation(), HellfireTextures.TEXTURES.get(0));
-    }
-
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(DATA_TYPE_ID, 0);
-    }
-
-    public int getAnimation() {
-        return this.entityData.get(DATA_TYPE_ID);
-    }
-
-    public void setAnimation(int pType) {
-        this.entityData.set(DATA_TYPE_ID, pType);
+        this.entityData.define(DATA_EXTRA_DAMAGE, 0.0F);
     }
 
     public boolean isDying(){
@@ -82,20 +68,30 @@ public class Hellfire extends GroundProjectile {
         this.isDying = dying;
     }
 
+    public float getExtraDamage() {
+        return this.entityData.get(DATA_EXTRA_DAMAGE);
+    }
+
+    public void setExtraDamage(float pDamage) {
+        this.entityData.set(DATA_EXTRA_DAMAGE, pDamage);
+    }
+
     @Override
     protected void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
-        this.setAnimation(pCompound.getInt("Animation"));
         if (pCompound.contains("Dying")) {
             this.setDying(pCompound.getBoolean("Dying"));
+        }
+        if (pCompound.contains("ExtraDamage")) {
+            this.setExtraDamage(pCompound.getFloat("ExtraDamage"));
         }
     }
 
     @Override
     protected void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
-        pCompound.putInt("Animation", this.getAnimation());
         pCompound.putBoolean("Dying", this.isDying());
+        pCompound.putFloat("ExtraDamage", this.getExtraDamage());
     }
 
     public float getLightLevelDependentMagicValue() {
@@ -105,11 +101,6 @@ public class Hellfire extends GroundProjectile {
     public void tick() {
         super.tick();
         if (this.level.isClientSide) {
-            if (this.getAnimation() < HellfireTextures.TEXTURES.size()){
-                this.setAnimation(this.getAnimation() + 1);
-            } else {
-                this.setAnimation(0);
-            }
             if (this.lifeTicks <= 26) {
                 --this.lifeTicks;
             }
@@ -147,6 +138,7 @@ public class Hellfire extends GroundProjectile {
     public void dealDamageTo(LivingEntity target) {
         LivingEntity owner = this.getOwner();
         float damage = 2.0F;
+        damage += this.getExtraDamage();
         if (target.isAlive() && !target.isInvulnerable()) {
             if (owner == null) {
                 if (target.hurt(ModDamageSource.getDamageSource(this.level, ModDamageSource.HELLFIRE), damage) && !target.fireImmune()) {
@@ -183,7 +175,7 @@ public class Hellfire extends GroundProjectile {
     public float getAnimationProgress(float pPartialTicks) {
         if (this.lifeTicks <= 24) {
             int i = this.lifeTicks;
-            return 1.0F - ((24.0F - i) / 24.0F);
+            return Math.max(1.0F - ((24.0F - i) / 24.0F), 0.0F);
         } else {
             return 1.0F;
         }

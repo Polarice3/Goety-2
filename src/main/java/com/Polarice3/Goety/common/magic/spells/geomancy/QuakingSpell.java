@@ -126,7 +126,7 @@ public class QuakingSpell extends Spell {
     public void stopSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, ItemStack focus, int castTime, SpellStat spellStat) {
         if (castTime > this.defaultCastDuration()){
             if (caster instanceof Player player && !focus.isEmpty()) {
-                SEHelper.addCooldown(player, focus.getItem(), this.spellCooldown());
+                SEHelper.addCooldown(player, focus.getItem(), this.spellCooldown(caster));
                 SEHelper.sendSEUpdatePacket(player);
             }
         }
@@ -215,7 +215,7 @@ public class QuakingSpell extends Spell {
                     boolean flag = target.hurt(livingEntity.damageSources().mobAttack(livingEntity), damage);
                     if (flag) {
                         if (grab) {
-                            if (target.isDamageSourceBlocked(livingEntity.damageSources().mobAttack(target))) {
+                            if (target.isDamageSourceBlocked(livingEntity.damageSources().mobAttack(livingEntity))) {
                                 MobUtil.disableShield(target);
                             }
                         } else {

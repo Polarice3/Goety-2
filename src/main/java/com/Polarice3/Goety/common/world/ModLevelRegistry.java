@@ -66,7 +66,7 @@ public class ModLevelRegistry {
     }
 
     public static void addStructureSpawns(Holder<Structure> structure, ModifiableStructureInfo.StructureInfo.Builder builder) {
-        if (structure.is(ModTags.Structures.NECROMANCER_SPAWN) && MobsConfig.NecromancerSpawnWeight.get() > 0) {
+        if (MobsConfig.NecromancerSpawnStructure.get() && structure.is(ModTags.Structures.NECROMANCER_SPAWN) && MobsConfig.NecromancerSpawnWeight.get() > 0) {
             builder.getStructureSettings().getOrAddSpawnOverrides(MobCategory.MONSTER).addSpawn(new MobSpawnSettings.SpawnerData(ModEntityType.NECROMANCER.get(), MobsConfig.NecromancerSpawnWeight.get(), MobsConfig.NecromancerSpawnMinCount.get(), MobsConfig.NecromancerSpawnMaxCount.get()));
         }
     }

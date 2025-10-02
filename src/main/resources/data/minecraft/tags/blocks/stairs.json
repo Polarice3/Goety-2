@@ -27,6 +27,7 @@
     "goety:indented_gold_stairs",
     "goety:snow_brick_stairs",
     "goety:end_stone_tile_stairs",
-    "goety:smooth_end_stone_stairs"
+    "goety:smooth_end_stone_stairs",
+    "goety:cobbled_end_stone_stairs"
   ]
 }

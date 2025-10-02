@@ -1,0 +1,8 @@
+{
+  "parent": "goety:block/cube_bottom_top_inner_faces",
+  "textures": {
+    "bottom": "goety:block/void_spawner/void_spawner_bottom",
+    "side": "goety:block/void_spawner/void_spawner_side_active",
+    "top": "goety:block/void_spawner/void_spawner_top_active"
+  }
+}

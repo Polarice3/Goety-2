@@ -4,6 +4,8 @@ import com.Polarice3.Goety.common.entities.ai.MinionFollowGoal;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Minion;
 import com.Polarice3.Goety.common.entities.projectiles.SoulBullet;
+import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
@@ -69,8 +71,13 @@ public class AllyIrk extends Minion {
 
     public static AttributeSupplier.Builder setCustomAttributes(){
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 12.0D)
-                .add(Attributes.ATTACK_DAMAGE, 4.0D);
+                .add(Attributes.MAX_HEALTH, AttributesConfig.SummonedIrkHealth.get())
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.SummonedIrkDamage.get());
+    }
+
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.SummonedIrkHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.SummonedIrkDamage.get());
     }
 
     public void die(DamageSource cause) {

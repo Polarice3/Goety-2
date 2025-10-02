@@ -41,6 +41,7 @@ public class ForbiddenScroll extends ResearchScroll {
                     return InteractionResultHolder.consume(playerIn.getItemInHand(handIn));
                 }
             } else {
+                CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) playerIn, itemstack);
                 playerIn.displayClientMessage(Component.translatable("info.goety.research.already"), true);
             }
         }

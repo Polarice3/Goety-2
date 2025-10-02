@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.RandomUtil;
 import com.Polarice3.Goety.utils.WandUtil;
@@ -88,8 +89,9 @@ public class SoulHealSpell extends Spell {
     }
 
     public void healParticles(LivingEntity livingEntity, ServerLevel worldIn){
-        worldIn.sendParticles(new RisingCircleParticleOption(0), livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 0, 0, 0, 0, 0);
-        worldIn.sendParticles(new RisingCircleParticleOption(5), livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 0, 0, 0, 0, 0);
-        worldIn.sendParticles(new RisingCircleParticleOption(10), livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 0, 0, 0, 0, 0);
+        ColorUtil colorUtil = new ColorUtil(0x2ac9cf);
+        worldIn.sendParticles(new RisingCircleParticleOption(0), livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.0F);
+        worldIn.sendParticles(new RisingCircleParticleOption(5), livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.0F);
+        worldIn.sendParticles(new RisingCircleParticleOption(10), livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.0F);
     }
 }

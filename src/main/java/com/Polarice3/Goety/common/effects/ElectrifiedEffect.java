@@ -32,10 +32,10 @@ public class ElectrifiedEffect extends GoetyBaseEffect {
                     flag = living.getRandom().nextBoolean();
                 }
                 if (flag) {
-                    worldIn.sendParticles(ModParticleTypes.BIG_ELECTRIC.get(), living.getRandomX(0.5D), living.getRandomY(), living.getRandomZ(0.5D), 1, 0.0D, 0.5D, 0.0D, 0);
+                    worldIn.sendParticles(ModParticleTypes.SPELL_ELECTRIC.get(), living.getRandomX(0.5D), living.getRandomY(), living.getRandomZ(0.5D), 1, 0.0D, 0.5D, 0.0D, 0);
                 }
                 if (living.tickCount % 80 == 0) {
-                    List<Entity> list = living.level.getEntities(living, living.getBoundingBox().inflate(8.0D), selected -> selected instanceof LivingEntity selected2 && living.hasLineOfSight(selected2) && MobUtil.isOwnedTargetable(living, selected2));
+                    List<Entity> list = living.level.getEntities(living, living.getBoundingBox().inflate(4.0D), selected -> selected instanceof LivingEntity selected2 && living.hasLineOfSight(selected2) && MobUtil.isOwnedTargetable(living, selected2));
                     Vec3 vec3 = living.getEyePosition();
                     Iterator<Entity> iterator = list.iterator();
                     int i = 0;
@@ -52,6 +52,7 @@ public class ElectrifiedEffect extends GoetyBaseEffect {
                                 if (worldIn.random.nextFloat() <= chance) {
                                     target.addEffect(new MobEffectInstance(GoetyEffects.SPASMS.get(), MathHelper.secondsToTicks(5)));
                                 }
+                                target.knockback(2.0F, living.getX() - target.getX(), living.getZ() - target.getZ());
                             }
                             worldIn.playSound(null, living.getX(), living.getY(), living.getZ(), ModSounds.ZAP.get(), living.getSoundSource(), 1.0F, 1.0F);
                             ++i;

@@ -7,7 +7,6 @@ import com.Polarice3.Goety.common.entities.hostile.illagers.Crusher;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class CrusherRenderer<T extends Crusher> extends MobRenderer<T, CrusherModel<T>> {
@@ -16,7 +15,6 @@ public class CrusherRenderer<T extends Crusher> extends MobRenderer<T, CrusherMo
 
     public CrusherRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new CrusherModel<>(renderManagerIn.bakeLayer(ModModelLayer.CRUSHER)), 0.5F);
-        this.addLayer(new CustomHeadLayer<>(this, renderManagerIn.getModelSet(), renderManagerIn.getItemInHandRenderer()));
         this.addLayer(new HierarchicalArmorLayer<>(this, renderManagerIn));
     }
 

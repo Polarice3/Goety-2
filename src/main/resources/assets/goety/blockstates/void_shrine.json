@@ -1,0 +1,14 @@
+{
+  "variants": {
+    "charges=0,triggered=false": { "model": "goety:block/void_shrine" },
+    "charges=1,triggered=false": { "model": "goety:block/void_shrine_charge1" },
+    "charges=2,triggered=false": { "model": "goety:block/void_shrine_charge2" },
+    "charges=3,triggered=false": { "model": "goety:block/void_shrine_charge3" },
+    "charges=4,triggered=false": { "model": "goety:block/void_shrine_charge4" },
+    "charges=0,triggered=true": { "model": "goety:block/void_shrine" },
+    "charges=1,triggered=true": { "model": "goety:block/void_shrine_charge1" },
+    "charges=2,triggered=true": { "model": "goety:block/void_shrine_charge2" },
+    "charges=3,triggered=true": { "model": "goety:block/void_shrine_charge3" },
+    "charges=4,triggered=true": { "model": "goety:block/void_shrine_charge4" }
+  }
+}

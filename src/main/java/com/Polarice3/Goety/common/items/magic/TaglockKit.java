@@ -35,6 +35,7 @@ import java.util.UUID;
 
 public class TaglockKit extends Item {
     public static final String TAG_ENTITY = "Tagged";
+    public static final String TAG_PLAYER_NAME = "TaggedPlayerName";
 
     public TaglockKit() {
         super(new Properties()
@@ -47,7 +48,10 @@ public class TaglockKit extends Item {
         if (!worldIn.isClientSide) {
             if (stack.getTag() != null){
                 LivingEntity livingEntity = getEntity(stack.getTag());
-                if (livingEntity == null || livingEntity.isDeadOrDying()){
+                if (livingEntity != null && livingEntity.isDeadOrDying()){
+                    stack.getTag().remove(TAG_ENTITY);
+                    stack.getTag().remove(TAG_PLAYER_NAME);
+                } else if (livingEntity == null && !stack.getTag().contains(TAG_PLAYER_NAME)) {
                     stack.getTag().remove(TAG_ENTITY);
                 }
             }
@@ -83,7 +87,7 @@ public class TaglockKit extends Item {
                 }
             }
         }
-        return super.onLeftClickEntity(stack, player, entity);
+        return !hasEntity(stack);
     }
 
     @Override
@@ -106,8 +110,13 @@ public class TaglockKit extends Item {
         ItemStack itemstack = player.getItemInHand(hand);
         if (player.isShiftKeyDown() || player.isCrouching()){
             if (itemstack.getItem() instanceof TaglockKit){
-                if (hasEntity(itemstack) && itemstack.getTag() != null){
-                    itemstack.getTag().remove(TAG_ENTITY);
+                if (itemstack.getTag() != null){
+                    if (hasEntity(itemstack)) {
+                        itemstack.getTag().remove(TAG_ENTITY);
+                    }
+                    if (hasPlayerName(itemstack)) {
+                        itemstack.getTag().remove(TAG_PLAYER_NAME);
+                    }
                 }
             }
             return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
@@ -168,6 +177,11 @@ public class TaglockKit extends Item {
         return compoundtag != null && stack.getTag().contains(TAG_ENTITY);
     }
 
+    public static boolean hasPlayerName(ItemStack stack) {
+        CompoundTag compoundtag = stack.getTag();
+        return compoundtag != null && stack.getTag().contains(TAG_PLAYER_NAME);
+    }
+
     public static void removeEntity(ItemStack stack){
         CompoundTag compoundtag = stack.getTag();
         if (hasEntity(stack) && compoundtag != null){
@@ -192,6 +206,9 @@ public class TaglockKit extends Item {
         if (compoundTag != null) {
             if (livingEntity != null) {
                 compoundTag.putUUID(TAG_ENTITY, livingEntity.getUUID());
+                if (livingEntity instanceof Player player1) {
+                    compoundTag.putString(TAG_PLAYER_NAME, player1.getDisplayName().getString());
+                }
             }
         }
     }
@@ -303,7 +320,15 @@ public class TaglockKit extends Item {
                     tooltip.add(Component.translatable("info.goety.taglock.tagged").append(" ")
                             .append(livingEntity.getCustomName() != null ? livingEntity.getCustomName() : livingEntity.getDisplayName())
                             .withStyle(ChatFormatting.GRAY));
+                } else if (hasPlayerName(stack)) {
+                    tooltip.add(Component.translatable("info.goety.taglock.tagged").append(" ")
+                            .append(stack.getTag().getString(TAG_PLAYER_NAME))
+                            .withStyle(ChatFormatting.GRAY));
                 }
+            } else if (hasPlayerName(stack)) {
+                tooltip.add(Component.translatable("info.goety.taglock.tagged").append(" ")
+                        .append(stack.getTag().getString(TAG_PLAYER_NAME))
+                        .withStyle(ChatFormatting.GRAY));
             }
         }
     }

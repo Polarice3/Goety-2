@@ -25,6 +25,10 @@ public class ReverseShockwaveParticleOption extends ShockwaveParticleOption {
       super(colorUtil.red, colorUtil.green, colorUtil.blue, originSize, size, speed, life, true);
    }
 
+   public ReverseShockwaveParticleOption(ColorUtil colorUtil, float originSize, float size, int speed, boolean fade) {
+      super(colorUtil.red, colorUtil.green, colorUtil.blue, originSize, size, speed, fade);
+   }
+
    public ParticleType<ShockwaveParticleOption> getType() {
       return ModParticleTypes.REVERSE_SHOCKWAVE.get();
    }

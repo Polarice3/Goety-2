@@ -25,6 +25,12 @@ public class ItemBase extends Item {
             if (stack.is(ModItems.OMINOUS_SADDLE.get())) {
                 tooltip.add(Component.translatable("info.goety.ominous_saddle").withStyle(main));
             }
+            if (stack.is(ModItems.VOID_KEY.get())) {
+                tooltip.add(Component.translatable("info.goety.void_key").withStyle(main));
+            }
+            if (stack.is(ModItems.VOID_SHARD.get())) {
+                tooltip.add(Component.translatable("info.goety.void_shard").withStyle(main));
+            }
         }
     }
 }

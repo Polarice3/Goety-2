@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "ddd",
+    "ded",
+    "ddd"
+  ],
+  "key":
+  {
+    "d":
+    {
+      "item": "goety:void_bottle"
+    },
+    "e":
+    {
+      "item": "minecraft:ender_eye"
+    }
+  },
+  "result":
+  {
+    "item": "goety:void_eye",
+    "count": 1
+  }
+}

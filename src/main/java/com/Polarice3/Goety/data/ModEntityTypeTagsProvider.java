@@ -40,6 +40,7 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.STRAY_SERVANT.get(),
                 ModEntityType.ICY_SPIDER_SERVANT.get(),
                 ModEntityType.ICEOLOGER_SERVANT.get(),
+                ModEntityType.CRYOLOGER_SERVANT.get(),
                 ModEntityType.POLAR_BEAR_SERVANT.get(),
                 ModEntityType.BOUND_ICEOLOGER.get(),
                 ModEntityType.ICY_SPIDER.get(),
@@ -68,7 +69,9 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.REAPER.get(),
                 ModEntityType.REAPER_SERVANT.get(),
                 ModEntityType.ICY_SPIDER_SERVANT.get(),
+                ModEntityType.MOUNTAINEER_SERVANT.get(),
                 ModEntityType.ICEOLOGER_SERVANT.get(),
+                ModEntityType.CRYOLOGER_SERVANT.get(),
                 ModEntityType.BOUND_ICEOLOGER.get(),
                 ModEntityType.ICY_SPIDER.get(),
                 ModEntityType.ICE_GOLEM.get(),
@@ -91,6 +94,7 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.GHAST_SERVANT.get(),
                 ModEntityType.MALGHAST.get(),
                 ModEntityType.WILDFIRE.get(),
+                ModEntityType.ENDERSENT.get(),
                 ModEntityType.CRYPT_SLIME.get(),
                 ModEntityType.CRYPT_SLIME_SERVANT.get(),
                 ModEntityType.PHANTOM_SERVANT.get(),
@@ -115,6 +119,7 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.SKULL_LORD.get(),
                 ModEntityType.BONE_LORD.get(),
                 ModEntityType.APOSTLE.get(),
+                ModEntityType.ENDER_KEEPER.get(),
                 ModEntityType.VIZIER.get());
         this.tag(EntityTypeTags.RAIDERS).add(
                 ModEntityType.ARMORED_RAVAGER.get(),

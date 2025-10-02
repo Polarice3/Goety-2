@@ -1,0 +1,17 @@
+{
+  "name": "Eye of the Void",
+  "icon": "goety:void_eye",
+  "category": "goety:crafts",
+  "advancement": "minecraft:story/enter_the_end",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You don't know what compels you, but you've decided to cover an Eye of Ender with the essence of the Void, which ends up making a special eye that leads to $(l:world/final_terminal)a place of power$()."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:void_eye",
+      "text": "It appears that using it will throw a copy of the eye instead of using it fully. However, it takes up durability when doing so."
+    }
+  ]
+}

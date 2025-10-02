@@ -1,0 +1,41 @@
+{
+  "name": "末影灵们",
+  "icon": "minecraft:ender_pearl",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_an_enderling",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这些奇怪的生物由末影人的不同亚种组成，它们似乎在保护末地中的某些东西，并且比它们遍布更广的表亲更具敌意。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "虽然它们有很多共同点，比如怕水，但它们似乎对末影螨的耐受性更强，传送频率也更低。有些末影灵在传送后可能会消失一段时间，然后再次出现迷惑敌人。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:watchling",
+      "text": "不幸的是，由于某些神秘的原因，这本书无法正确地展示他们的眼睛。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "看守灵被认为是最令人毛骨悚然的，他们喜欢用简单的方式来保卫自己的家园，即用他们的大手臂猛击和挥动敌人。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:blastling"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这些火热的实体是末影灵中最有韧性的，它们向敌人发射一连串热粘液，但如果敌人靠近它们或被它们伤害，它们就会停止攻击并暂时逃跑或传送走开。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:snareling"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "与织网蜘蛛类似，这些生物会试图用它们像网一样的黏糊物困住敌人，然后用风车般的手臂攻击他们。与它们的同类不同，这些奇怪的生物在传送时不会暂时消失，而是会立即传送离开。"
+    }
+  ]
+}

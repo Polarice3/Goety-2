@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "goety:phobia",
+    "goety:ice_bouquet",
+    "goety:acid",
+    "goety:spike",
+    "goety:magic_bolt",
+    "goety:wind_blast",
+    "goety:soul_leech",
+    "goety:life_leech"
+  ]
+}

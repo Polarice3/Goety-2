@@ -1,0 +1,40 @@
+{
+  "name": "Strange Spiders",
+  "icon": "minecraft:cobweb",
+  "category": "goety:world/bestiary",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You've noticed that some strange spiders have been appearing around lately, whether in certain areas or in general darkness like other monsters."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:web_spider",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Spiders that produces more webs than other variants, these cowardly arachnids will shoot their webs at their target, only attacking when caught. If their target goes near them, the spider will attempt to flee. Their constant web production causes them to drop intact Cobwebs."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:icy_spider",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Spiders that appear in cold biomes, their bites gives Slowness much like a Stray's arrow. They can walk on and are immune to Powder Snow."
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/kill_a_bone_spider",
+      "entity": "goety:bone_spider",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/kill_a_bone_spider",
+      "text": "Appearing in Crypts, these bone covered arachnids shoot Bone Shards from afar and will attack with their bites if their target is near."
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.utils;
 
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
@@ -12,9 +13,11 @@ import com.Polarice3.Goety.common.entities.hostile.BorderWraith;
 import com.Polarice3.Goety.common.entities.hostile.MuckWraith;
 import com.Polarice3.Goety.common.entities.hostile.Wraith;
 import com.Polarice3.Goety.common.entities.neutral.ender.AbstractEnderling;
+import com.Polarice3.Goety.common.events.ArcaTeleporter;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModTags;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
@@ -24,7 +27,10 @@ import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.RespawnAnchorBlock;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.Optional;
 
 public class ServantUtil {
 
@@ -248,5 +254,48 @@ public class ServantUtil {
                 }
             }
         }
+    }
+
+    public static boolean teleportToRevive(IOwned owned){
+        if (owned instanceof LivingEntity livingOwned) {
+            BlockPos blockPos = owned.getRevivePos();
+            if (blockPos != null) {
+                BlockPos blockPos1 = BlockPos.containing(blockPos.getX() + 0.5F, blockPos.getY() + 0.5F, blockPos.getZ() + 0.5F);
+                if (owned.getReviveLevel() == livingOwned.level.dimension()) {
+                    Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(livingOwned.getType(), livingOwned.level, blockPos1);
+                    if (optional.isPresent()) {
+                        Vec3 vec3 = optional.get();
+                        if (livingOwned.level.getWorldBorder().isWithinBounds(vec3.x, vec3.y, vec3.z)) {
+                            livingOwned.teleportTo(vec3.x, vec3.y, vec3.z);
+                        } else {
+                            BlockPos blockPos2 = livingOwned.level.getSharedSpawnPos();
+                            livingOwned.teleportTo(blockPos2.getX(), blockPos2.getY(), blockPos2.getZ());
+                        }
+                        return true;
+                    }
+                } else {
+                    if (owned.getReviveLevel() != null) {
+                        if (livingOwned.getServer() != null) {
+                            ServerLevel serverWorld = livingOwned.getServer().getLevel(owned.getReviveLevel());
+                            if (serverWorld != null) {
+                                Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityType.PLAYER, serverWorld, blockPos1);
+                                if (optional.isPresent()) {
+                                    Vec3 vec3 = optional.get();
+                                    livingOwned.changeDimension(serverWorld, new ArcaTeleporter(optional.get()));
+                                    if (serverWorld.getWorldBorder().isWithinBounds(vec3.x, vec3.y, vec3.z)) {
+                                        livingOwned.teleportTo(vec3.x, vec3.y, vec3.z);
+                                    } else {
+                                        BlockPos blockPos2 = serverWorld.getSharedSpawnPos();
+                                        livingOwned.teleportTo(blockPos2.getX(), blockPos2.getY(), blockPos2.getZ());
+                                    }
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

@@ -28,14 +28,14 @@ public class BossLoopMusic extends AbstractTickableSoundInstance {
     protected SoundEvent postBossMusic;
 
     public BossLoopMusic(SoundEvent soundEvent, Mob mobEntity) {
-        this(soundEvent, mobEntity, 1.0F);
+        this(soundEvent, mobEntity, 1.0F, 1.0F);
     }
 
-    public BossLoopMusic(SoundEvent soundEvent, Mob mobEntity, float volume) {
-        this(soundEvent, ModSounds.BOSS_POST.get(), mobEntity, volume);
+    public BossLoopMusic(SoundEvent soundEvent, Mob mobEntity, float volume, float pitch) {
+        this(soundEvent, ModSounds.BOSS_POST.get(), mobEntity, volume, pitch);
     }
 
-    public BossLoopMusic(SoundEvent soundEvent, SoundEvent postBossMusic, Mob mobEntity, float volume) {
+    public BossLoopMusic(SoundEvent soundEvent, SoundEvent postBossMusic, Mob mobEntity, float volume, float pitch) {
         super(soundEvent, SoundSource.RECORDS, SoundInstance.createUnseededRandom());
         this.mobEntity = mobEntity;
         this.postBossMusic = postBossMusic;
@@ -48,6 +48,7 @@ public class BossLoopMusic extends AbstractTickableSoundInstance {
         this.volumeControl.setTimer(20);
         this.volume = this.volumeControl.getAnimationFraction();
         this.trueVolume = volume;
+        this.pitch = pitch;
         this.timeUntilFade = 80;
     }
 
@@ -70,7 +71,7 @@ public class BossLoopMusic extends AbstractTickableSoundInstance {
                     Minecraft minecraft = Minecraft.getInstance();
                     SoundManager soundHandler = minecraft.getSoundManager();
                     if (!this.isStopped()){
-                        soundHandler.queueTickingSound(new PostBossMusic(this.postBossMusic, mobEntity));
+                        soundHandler.queueTickingSound(new PostBossMusic(this.postBossMusic, mobEntity, this.trueVolume, this.pitch));
                     }
                 }
             }

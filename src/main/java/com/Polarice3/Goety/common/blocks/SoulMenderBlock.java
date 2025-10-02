@@ -4,6 +4,8 @@ import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.blocks.entities.SoulMenderBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
@@ -65,8 +67,14 @@ public class SoulMenderBlock extends BaseEntityBlock implements SimpleWaterlogge
                 return InteractionResult.CONSUME;
             }
             if (itemstack.isEmpty() || itemstack == blockEntity.getItem(0)){
-                if (!blockEntity.getItem(0).isEmpty()){
-                    dropItemStack(pLevel, pPlayer.blockPosition(), blockEntity.getItem(0));
+                ItemStack repaired = blockEntity.getItem(0);
+                if (!repaired.isEmpty()){
+                    if (itemstack.isEmpty()) {
+                        pPlayer.setItemInHand(pHand, repaired);
+                        pLevel.playSound(null, pPos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    } else if (!pPlayer.addItem(repaired)) {
+                        dropItemStack(pLevel, pPlayer.blockPosition(), repaired);
+                    }
                     blockEntity.removeItem(0, 1);
                     return InteractionResult.SUCCESS;
                 }

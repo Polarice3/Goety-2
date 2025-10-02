@@ -1,0 +1,33 @@
+{
+  "name": "Ender Keeper",
+  "icon": "goety:void_shrine",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_an_ender_keeper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A powerful entity of The End, called to guard the secrets of the dimension and the void."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:ender_keeper",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The being holds mastery over both swordsmanship and void magic, piercing their enormous blade through their foes and summoning orbs of void magic that shoots towards their targets. Their blade and attacks inflicts Void Touched."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "It's best to stay clear of the Ender Keeper, through using mobility spells such as $(l:goety:focuses/wind/launch_focus)Launch$() or $(l:goety:focuses/wild/grapple_focus)Grapple$() to move away. Be vigilant when calling upon Servants to face this foe, for one of its attacks will drag nearby creatures towards itself, absorbing their health, before letting loose an explosion of void."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:shrouded_blueprint",
+      "text": "When slain, the shrine from which they are called from will reveal its treasure, a mysterious blueprint... one that with the help of dark magic will reveal its contents."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shrouded_blueprint": 4
+  }
+}

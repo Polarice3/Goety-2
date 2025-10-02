@@ -1,4 +1,4 @@
-// 1.20.1	2025-07-16T17:08:16.8559099	Registries
+// 1.20.1	2025-09-28T14:49:14.4852932	Registries
 ee94e54a57be7587d413a72d7ff20c1ca4f97bb9 data/goety/damage_type/acid.json
 1c81619d690aa854535c8fad68b58aef03da65ab data/goety/damage_type/boiling.json
 0ce14aa03d8d6c87ee612550d2ae46968475cb6f data/goety/damage_type/bubble_stream.json
@@ -7,6 +7,7 @@ ee94e54a57be7587d413a72d7ff20c1ca4f97bb9 data/goety/damage_type/acid.json
 a2ea2f084b1a8235f3b0188854be30d88b2ffc12 data/goety/damage_type/direct_drench.json
 564a695e0c8fec48db39c5750c199f12645b4e43 data/goety/damage_type/direct_freeze.json
 bc278868e02ced496ad91c969737876aed8862ee data/goety/damage_type/direct_shock.json
+42516234eb19a6802cdaf2e3a0bc647fe52aed9b data/goety/damage_type/dismissed.json
 b45a76fb8f874e5078a34cdf5a9fe675544ddb93 data/goety/damage_type/doom.json
 c94c9d032f15f3dd5b83c00e5a6d87466d5701b1 data/goety/damage_type/drench.json
 7ec7c63d33e38e3aea9083b6fc4853268a50c767 data/goety/damage_type/fire_breath.json

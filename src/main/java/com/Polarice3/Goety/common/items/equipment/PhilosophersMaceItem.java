@@ -72,7 +72,7 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
         }
     }
 
-    public int getEnchantmentValue() {
+    public int getEnchantmentValue(ItemStack stack) {
         return ItemConfig.PhilosophersMaceEnchantability.get();
     }
 
@@ -97,7 +97,7 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
     }
 
     public boolean isValidRepairItem(ItemStack pToRepair, ItemStack pRepair) {
-        return pRepair.getItem() == ModItems.DARK_METAL_INGOT.get();
+        return pRepair.getItem() == ModItems.DARK_ALLOY_INGOT.get();
     }
 
 }

@@ -28,7 +28,7 @@ public class PendantOfHungerItem extends SingleStackItem {
             if (!stack.hasTag()) {
                 stack.setTag(new CompoundTag());
                 stack.getOrCreateTag().putInt(ROTTEN_FLESH, 0);
-            } else if (CuriosFinder.hasCurio(player, itemStack -> itemStack == stack)){
+            } else if (CuriosFinder.hasCurio(player, this)){
                 if (getRottenFleshAmount(stack) < ItemConfig.PendantOfHungerLimit.get()) {
                     if (!ItemHelper.findItem(player, Items.ROTTEN_FLESH).isEmpty()) {
                         increaseRottenFlesh(stack);

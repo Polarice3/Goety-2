@@ -1,6 +1,8 @@
 package com.Polarice3.Goety.common.ritual;
 
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.ritual.IRitualType;
+import com.Polarice3.Goety.api.ritual.RitualType;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.entities.RitualBlockEntity;
 import com.Polarice3.Goety.init.ModTags;
@@ -21,7 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 
-public class RitualRequirements extends RitualTypes{
+public class RitualRequirements extends RitualTypes {
 
     public static final int RANGE = Ritual.RANGE;
 
@@ -64,7 +66,12 @@ public class RitualRequirements extends RitualTypes{
     }
 
     public static boolean getProperStructure(String craftType, RitualBlockEntity pTileEntity, BlockPos pPos, Level pLevel){
-        return switch (craftType) {
+        IRitualType ritualType = RitualType.getRitualType(craftType);
+        if (ritualType != null) {
+            return ritualType.getRequirement(pTileEntity, pPos, pLevel);
+        }
+        return false;
+        /*return switch (craftType) {
             case ANIMATION, FORGE, MAGIC, SABBATH -> RitualRequirements.getStructures(craftType, pPos, pLevel);
             case GEOTURGY -> geoturgyRitual(pPos, pLevel);
             case NECROTURGY -> RitualRequirements.getStructures(craftType, pPos, pLevel) && pLevel.getSkyDarken() >= 4 && pLevel.dimensionType().hasSkyLight();
@@ -75,7 +82,7 @@ public class RitualRequirements extends RitualTypes{
             case STORM -> RitualRequirements.getStructures(craftType, pPos, pLevel) && skyRitual(pTileEntity, pLevel, pPos) && pLevel.isThundering() && pLevel.canSeeSky(pPos.above());
             case DEEP -> deepRitual(pTileEntity, pLevel, pPos);
             default -> false;
-        };
+        };*/
     }
 
     public static boolean geoturgyRitual(BlockPos pPos, Level pLevel){

@@ -12,8 +12,10 @@ import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
 public class StormCasterModel<T extends LivingEntity> extends HierarchicalModel<T> implements HeadedModel, HierarchicalArmor {
 	private final ModelPart root;
@@ -177,7 +179,8 @@ public class StormCasterModel<T extends LivingEntity> extends HierarchicalModel<
 				this.animateWalk(StormCasterAnimations.MOVE, limbSwing, limbSwingAmount, 2.5F, 20.0F);
 			}
 		}
-		this.hair.visible = entity.getItemBySlot(EquipmentSlot.HEAD).isEmpty();
+		ItemStack headItem = entity.getItemBySlot(EquipmentSlot.HEAD);
+		this.hair.visible = headItem.isEmpty() || headItem.is(ItemTags.BANNERS);
 	}
 
 	@Override
@@ -202,7 +205,7 @@ public class StormCasterModel<T extends LivingEntity> extends HierarchicalModel<
 		this.illager.translateAndRotate(poseStack);
 		this.upperBody.translateAndRotate(poseStack);
 		modelPart.translateAndRotate(poseStack);
-		poseStack.translate(0, -0.1F, 0);
+		poseStack.translate(0, 0.0F, 0);
 	}
 
 	@Override

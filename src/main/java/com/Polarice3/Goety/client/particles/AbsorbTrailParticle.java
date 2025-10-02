@@ -46,6 +46,11 @@ public class AbsorbTrailParticle extends TextureSheetParticle {
         return LightTexture.FULL_BRIGHT;
     }
 
+    @Override
+    public boolean shouldCull() {
+        return false;
+    }
+
     public static class Provider implements ParticleProvider<AbsorbTrailParticleOption> {
         private final SpriteSet sprite;
 

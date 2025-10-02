@@ -4,10 +4,10 @@ import com.Polarice3.Goety.api.entities.IHiding;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SRepositionPacket;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.ColorUtil;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -22,9 +22,12 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.item.Item;
@@ -34,12 +37,14 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.RespawnAnchorBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
+import java.util.Optional;
 
 public abstract class AbstractEnderling extends Summoned implements IHiding {
     private static final EntityDataAccessor<Boolean> DATA_HIDE = SynchedEntityData.defineId(AbstractEnderling.class, EntityDataSerializers.BOOLEAN);
@@ -58,6 +63,16 @@ public abstract class AbstractEnderling extends Summoned implements IHiding {
     protected void registerGoals() {
         super.registerGoals();
         this.addBehaviourGoals();
+    }
+
+    public void targetRetaliateGoal() {
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this, AbstractEnderling.class){
+            protected void alertOther(Mob other, LivingEntity target) {
+                if (this.mob.isAlliedTo(other)) {
+                    other.setTarget(target);
+                }
+            }
+        }.setAlertOthers());
     }
 
     @Override
@@ -113,6 +128,20 @@ public abstract class AbstractEnderling extends Summoned implements IHiding {
     }
 
     @Override
+    public boolean isAlliedTo(Entity entityIn) {
+        if (this.getTrueOwner() == null) {
+            if (entityIn instanceof EnderMan){
+                return this.getTeam() == null && entityIn.getTeam() == null;
+            } else if (entityIn instanceof AbstractEnderling enderling){
+                if (this.getTeam() == null && entityIn.getTeam() == null) {
+                    return (this.isHostile() && enderling.isHostile()) || (!this.isHostile() && !enderling.isHostile());
+                }
+            }
+        }
+        return super.isAlliedTo(entityIn);
+    }
+
+    @Override
     public boolean canUpdateMove() {
         return true;
     }
@@ -152,6 +181,16 @@ public abstract class AbstractEnderling extends Summoned implements IHiding {
     }
 
     @Override
+    public boolean isSpectator() {
+        return super.isSpectator() || this.isHiding();
+    }
+
+    @Override
+    public boolean isPickable() {
+        return super.isPickable() && !this.isHiding();
+    }
+
+    @Override
     public boolean isInvisibleTo(Player p_20178_) {
         if (this.isHiding()){
             return true;
@@ -183,6 +222,23 @@ public abstract class AbstractEnderling extends Summoned implements IHiding {
     }
 
     @Override
+    public void playAmbientSound() {
+        if (!this.isHiding()) {
+            super.playAmbientSound();
+        }
+    }
+
+    @Override
+    protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
+        if (!this.isHiding()) {
+            this.stepSound();
+        }
+    }
+
+    public void stepSound() {
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (this.teleportCool > 0) {
@@ -195,19 +251,32 @@ public abstract class AbstractEnderling extends Summoned implements IHiding {
         if (this.mobHurtTime > 0) {
             --this.mobHurtTime;
         }
-        if (this.level instanceof ServerLevel) {
-            if (!this.isHiding()) {
-                this.hidingTime = 0;
-            } else {
-                ++this.hidingTime;
-                this.getNavigation().stop();
-                if (this.hidingTime >= this.getHidingDuration()) {
-                    this.stopHide();
-                    this.teleportAfterHiding();
+        if (!this.level.isClientSide) {
+            this.hidingTick();
+        }
+    }
+
+    public void hidingTick() {
+        if (!this.isHiding()) {
+            this.hidingTime = 0;
+            if (this.level instanceof ServerLevel serverLevel) {
+                if (this.isGuardingArea()) {
+                    if (this.distanceToSqr(this.vec3BoundPos()) > Mth.square(GUARDING_RANGE)) {
+                        Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(this.getType(), serverLevel, this.getBoundPos());
+                        optional.ifPresent(this::ownedTeleport);
+                    }
                 }
             }
+        } else {
+            ++this.hidingTime;
+            this.getNavigation().stop();
+            this.getMoveControl().strafe(0.0F, 0.0F);
+            if (this.hidingTime >= this.getHidingDuration() || this.shouldStopHiding()) {
+                this.stopHide();
+                this.teleportAfterHiding();
+                this.refreshDimensions();
+            }
         }
-
     }
 
     public void startHide() {
@@ -216,6 +285,7 @@ public abstract class AbstractEnderling extends Summoned implements IHiding {
         }
         this.setHide(true);
         this.level.broadcastEntityEvent(this, (byte) 4);
+        this.refreshDimensions();
     }
 
     public void stopHide() {
@@ -225,6 +295,10 @@ public abstract class AbstractEnderling extends Summoned implements IHiding {
 
     public int getHidingDuration() {
         return 0;
+    }
+
+    public boolean shouldStopHiding(){
+        return false;
     }
 
     public void teleportAfterHiding() {
@@ -244,26 +318,38 @@ public abstract class AbstractEnderling extends Summoned implements IHiding {
         if (this.isInvulnerableTo(source)) {
             return false;
         } else {
-            if (source.getEntity() instanceof LivingEntity || source.is(DamageTypeTags.IS_PROJECTILE)) {
+            if (source.getEntity() instanceof LivingEntity
+                    || source.is(DamageTypeTags.IS_PROJECTILE)) {
                 this.mobHurtTime = 10;
             }
             boolean flag = source.getDirectEntity() instanceof ThrownPotion;
             boolean flag1 = flag && this.hurtWithCleanWater(source, (ThrownPotion)source.getDirectEntity(), amount);
 
-            if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && !this.isHiding()) {
-                if (flag1 || !(source.getEntity() instanceof LivingEntity)) {
-                    if (this.teleportCool <= 0) {
-                        for (int i = 0; i < 64; ++i) {
-                            if (this.teleport()) {
-                                this.teleportCool = MathHelper.secondsToTicks(10);
-                                return true;
-                            }
-                        }
+            if (!this.isHiding()) {
+                if (flag1
+                        || source.is(DamageTypeTags.IS_DROWNING)
+                        || source.is(DamageTypes.IN_WALL)) {
+                    if (this.teleportHurt()) {
+                        return true;
                     }
                 }
             }
         }
         return super.hurt(source, amount);
+    }
+
+    public boolean teleportHurt() {
+        if (!this.isStaying()) {
+            if (this.teleportCool <= 0) {
+                for (int i = 0; i < 64; ++i) {
+                    if (this.teleport()) {
+                        this.teleportCool = MathHelper.secondsToTicks(10);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     private boolean hurtWithCleanWater(DamageSource p_186273_, ThrownPotion p_186274_, float p_186275_) {
@@ -281,7 +367,7 @@ public abstract class AbstractEnderling extends Summoned implements IHiding {
     protected boolean teleport(double range) {
         if (!this.level.isClientSide() && this.isAlive()) {
             double d0 = this.getX() + (this.random.nextDouble() - 0.5D) * range;
-            double d1 = this.getY() + (this.random.nextInt(Mth.floor(range)) - (range / 2.0D));
+            double d1 = this.getY() + (RandomUtil.nextInt(this.random, Mth.floor(range)) - (range / 2.0D));
             double d2 = this.getZ() + (this.random.nextDouble() - 0.5D) * range;
             return this.ownedTeleport(d0, d1, d2);
         } else {
@@ -305,6 +391,9 @@ public abstract class AbstractEnderling extends Summoned implements IHiding {
             Vec3 vec3 = this.position();
             boolean flag2 = this.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), false);
             if (flag2) {
+                if (!this.level.isClientSide) {
+                    ModNetwork.sendToALL(new SRepositionPacket(this.getId(), this.getX(), this.getY(), this.getZ()));
+                }
                 this.level.gameEvent(GameEvent.TELEPORT, vec3, GameEvent.Context.of(this));
                 if (this.getHidingDuration() > 0) {
                     this.teleportIn();
@@ -325,29 +414,106 @@ public abstract class AbstractEnderling extends Summoned implements IHiding {
                 this.teleportIn();
                 return;
             }
-            for (int i = 0; i < 128; ++i) {
-                Vec3 vector3d = new Vec3(this.getX() - entity.getX(), this.getY(0.5D) - entity.getEyeY(), this.getZ() - entity.getZ());
-                vector3d = vector3d.normalize();
-                double d1 = this.getX() + (this.getRandom().nextDouble() - 0.5D) * (range / 2.0D) - vector3d.x * range;
-                double d2 = this.getY() + (this.getRandom().nextInt(Mth.floor(range)) - (range / 2.0D)) - vector3d.y * range;
-                double d3 = this.getZ() + (this.getRandom().nextDouble() - 0.5D) * (range / 2.0D) - vector3d.z * range;
-                net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(this, d1, d2, d3);
-                if (event.isCanceled()) {
-                    break;
-                }
-                Vec3 vec3 = this.position();
-                if (this.ownedTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ())) {
-                    this.level.gameEvent(GameEvent.TELEPORT, vec3, GameEvent.Context.of(this));
-                    MobUtil.instaLook(this, entity);
-                    if (this.getHidingDuration() > 0) {
-                        this.teleportIn();
-                    } else {
-                        this.teleportHits();
+            try {
+                for (int i = 0; i < 128; ++i) {
+                    Vec3 vector3d = new Vec3(this.getX() - entity.getX(), this.getY(0.5D) - entity.getEyeY(), this.getZ() - entity.getZ());
+                    vector3d = vector3d.normalize();
+                    double d1 = this.getX() + (this.getRandom().nextDouble() - 0.5D) * (range / 2.0D) - vector3d.x * range;
+                    double d2 = this.getY() + (RandomUtil.nextInt(this.getRandom(), Mth.floor(range)) - (range / 2.0D)) - vector3d.y * range;
+                    double d3 = this.getZ() + (this.getRandom().nextDouble() - 0.5D) * (range / 2.0D) - vector3d.z * range;
+                    net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(this, d1, d2, d3);
+                    if (event.isCanceled()) {
+                        if (this.getHidingDuration() > 0) {
+                            this.teleportIn();
+                        } else {
+                            this.teleportHits();
+                        }
+                        break;
                     }
-                    break;
+                    boolean flag = true;
+                    boolean teleport = false;
+                    if (this.getTarget() != null) {
+                        if (!BlockFinder.canSeeBlock(this.getTarget(), new Vec3(event.getTargetX(), event.getTargetY(), event.getTargetZ()))) {
+                            flag = false;
+                        }
+                    }
+                    if (this.isGuardingArea()) {
+                        if (this.getSpawnType() == MobSpawnType.SPAWNER) {
+                            if (!BlockFinder.canSeeBlock(this, this.vec3BoundPos())) {
+                                flag = false;
+                            }
+                        }
+                    }
+                    if (flag) {
+                        teleport = this.ownedTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ());
+                    }
+                    if (teleport) {
+                        MobUtil.instaLook(this, entity);
+                        break;
+                    } else if (i == 127) {
+                        MobUtil.instaLook(this, entity);
+                        if (this.getHidingDuration() > 0) {
+                            this.teleportIn();
+                        } else {
+                            this.teleportHits();
+                        }
+                        break;
+                    }
                 }
+            } catch (NullPointerException exception) {
+                this.teleportIn();
             }
         }
+    }
+
+    protected boolean teleportAway(Entity entity, double range) {
+        if (!this.level.isClientSide() && this.isAlive()) {
+            if (entity == null) {
+                this.teleportIn();
+                return false;
+            }
+            boolean spawner = false;
+            if (this.isGuardingArea()) {
+                if (this.getSpawnType() == MobSpawnType.SPAWNER) {
+                    spawner = true;
+                    range /= 2.0F;
+                }
+            }
+            try {
+                for (int i = 0; i < 128; ++i) {
+                    double d0 = entity.getX() + (this.random.nextDouble() - 0.5D) * range;
+                    double d1 = entity.getY() + (RandomUtil.nextInt(this.random, Mth.floor(range)) - (range / 2.0D));
+                    double d2 = entity.getZ() + (this.random.nextDouble() - 0.5D) * range;
+                    Vec3 vec3 = new Vec3(d0, d1, d2);
+                    boolean flag = vec3.distanceTo(entity.position()) >= range;
+                    if (this.getTarget() != null) {
+                        if (!BlockFinder.canSeeBlock(this.getTarget(), vec3)) {
+                            flag = false;
+                        }
+                    }
+                    if (spawner) {
+                        if (!BlockFinder.canSeeBlock(this, this.vec3BoundPos())) {
+                            flag = false;
+                            if (i >= 120) {
+                                if (this.level instanceof ServerLevel serverLevel) {
+                                    Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(this.getType(), serverLevel, this.getBoundPos());
+                                    if (optional.isPresent()) {
+                                        return this.ownedTeleport(optional.get());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if ((flag) || i == 127) {
+                        return this.ownedTeleport(vec3.x, vec3.y, vec3.z);
+                    }
+                }
+            } catch (NullPointerException exception) {
+                this.teleportIn();
+                return false;
+            }
+        }
+        return false;
     }
 
     @Override

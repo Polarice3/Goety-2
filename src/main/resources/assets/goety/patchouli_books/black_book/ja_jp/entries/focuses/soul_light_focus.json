@@ -1,16 +1,25 @@
 {
-  "name": "ソウルライトのフォーカス",
+  "name": "灯火のフォーカス",
   "icon": "goety:soul_light_focus",
   "category": "goety:focuses",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "ソウルエネルギーのボルトをブロックに発射することで、魔法の光源を作ることができます。 最初は、光はトーチほど強力ではありませんが、ピグリンを追い払いますが、グロウストーンとネザーラックを使用すると、光はより明るく輝きます。 また、クリーチャーが当たった場合も光ります。"
+      "text": "ブロックにソウルエネルギーの弾を撃つことで、魔法の光源を作ることができます。最初は松明ほど強くはありませんが、ピグリンを追い払うことはできます。グロウストーンとネザーラックを使えば、光はさらに明るくなります。また、光が当たると生き物を発光させることもできます。"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/soul_light_focus",
       "recipe2": "goety:focus/glow_light_focus"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:illuminate_focus",
+      "text": "周囲に光を放つのは良いことですが、洞窟や部屋全体を照らしたい時もあります。イルミネートのフォーカスを使えば、詠唱時に周囲に光る光を召喚し、灯火をそれらに置き換えることができます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/illuminate_focus"
     }
   ]
 }

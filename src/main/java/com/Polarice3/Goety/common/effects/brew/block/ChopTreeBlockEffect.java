@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.effects.brew.block;
 
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
 import com.Polarice3.Goety.common.events.TimedEvents;
+import com.Polarice3.Goety.config.BrewConfig;
 import com.Polarice3.Goety.utils.BlockFinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -17,7 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class ChopTreeBlockEffect extends BrewEffect {
     public ChopTreeBlockEffect() {
-        super("chop_tree", MobEffectCategory.NEUTRAL, 0x6a5227);
+        super("chop_tree", BrewConfig.ChopTreeCost.get(), MobEffectCategory.NEUTRAL, 0x6a5227);
     }
 
     @Override

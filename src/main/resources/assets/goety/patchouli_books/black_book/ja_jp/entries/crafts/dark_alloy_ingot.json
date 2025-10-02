@@ -1,0 +1,38 @@
+{
+  "name": "ダークメタルインゴット",
+  "icon": "goety:dark_ingot",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/craft_necro_brazier",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "やった！深い闇のエネルギーを、ソウルエネルギーで自己修復する合金へと変換することに成功した。インゴット1個を作るのに必要な魂のエネルギーは膨大だが、それでも君はやり遂げた。この金属はダイヤモンドと同等の強度を持ち、金とほぼ同等の魔法をかけられるようだ。また、命中した生物の動きを遅くし、弱らせる効果もあるようだ。"
+    },
+    {
+      "type": "goety:brazier",
+      "recipe": "goety:dark/dark_ingot"
+    },
+    {
+      "type": "goety:brazier",
+      "recipe": "goety:dark/dark_ingot_2"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark/dark_sword",
+      "recipe2": "goety:dark/dark_pickaxe"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark/dark_axe",
+      "recipe2": "goety:dark/dark_shovel"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark/dark_hoe"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:dark_ingot": 1
+  }
+}

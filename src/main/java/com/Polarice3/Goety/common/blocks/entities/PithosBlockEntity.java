@@ -92,6 +92,9 @@ public class PithosBlockEntity extends RandomizableContainerBlockEntity {
     }
 
     public void startOpen(Player p_58616_) {
+        if (this.getLevel() == null) {
+            return;
+        }
         if (!this.remove && !p_58616_.isSpectator()) {
             this.openersCounter.incrementOpeners(p_58616_, this.getLevel(), this.getBlockPos(), this.getBlockState());
         }
@@ -99,6 +102,9 @@ public class PithosBlockEntity extends RandomizableContainerBlockEntity {
     }
 
     public void stopOpen(Player p_58614_) {
+        if (this.getLevel() == null) {
+            return;
+        }
         if (!this.remove && !p_58614_.isSpectator()) {
             this.openersCounter.decrementOpeners(p_58614_, this.getLevel(), this.getBlockPos(), this.getBlockState());
         }
@@ -106,6 +112,9 @@ public class PithosBlockEntity extends RandomizableContainerBlockEntity {
     }
 
     public void recheckOpen() {
+        if (this.getLevel() == null) {
+            return;
+        }
         if (!this.remove) {
             this.openersCounter.recheckOpeners(this.getLevel(), this.getBlockPos(), this.getBlockState());
         }
@@ -113,29 +122,40 @@ public class PithosBlockEntity extends RandomizableContainerBlockEntity {
     }
 
     private void updateBlockState(BlockState pState, boolean pOpen) {
+        if (this.level == null) {
+            return;
+        }
         this.level.setBlock(this.getBlockPos(), pState.setValue(PithosBlock.OPEN, pOpen), 3);
     }
 
     public void lock(){
+        if (this.level == null) {
+            return;
+        }
         this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(PithosBlock.TRIGGERED, Boolean.FALSE), 3);
         this.playSound(SoundEvents.IRON_TRAPDOOR_CLOSE, 1.0F);
     }
 
     public void unlock(){
-        this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(PithosBlock.LOCKED, Boolean.FALSE), 3);
-        this.playSound(SoundEvents.IRON_TRAPDOOR_OPEN, 1.0F);
-        int range = 24;
-        for (int i = -range; i < range; ++i){
-            for (int j = -range; j < range; ++j){
-                for (int k = -range; k < range; ++k){
-                    BlockPos blockPos = this.getBlockPos().offset(i, j, k);
-                    BlockState blockState = this.level.getBlockState(blockPos);
-                    if (blockState.is(ModBlocks.CRYPT_CHEST.get())){
-                        if (blockState.hasProperty(CryptChestBlock.LOCKED) && blockState.getValue(CryptChestBlock.LOCKED)) {
-                            this.level.setBlock(blockPos, blockState.setValue(CryptChestBlock.LOCKED, false), 3);
-                            if (this.level instanceof ServerLevel serverLevel){
-                                for (int i1 = 0; i1 < serverLevel.random.nextInt(10) + 10; ++i1) {
-                                    serverLevel.sendParticles(ModParticleTypes.SUMMON.get(), this.getRandomX(1.5D, serverLevel.random), this.getRandomY(serverLevel.random), this.getRandomZ(1.5D, serverLevel.random), 0, 0.0F, 0.0F, 0.0F, 1.0F);
+        if (this.level == null) {
+            return;
+        }
+        if (this.getBlockState().getValue(PithosBlock.LOCKED)){
+            this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(PithosBlock.LOCKED, Boolean.FALSE), 3);
+            this.playSound(SoundEvents.IRON_TRAPDOOR_OPEN, 1.0F);
+            int range = 24;
+            for (int i = -range; i < range; ++i){
+                for (int j = -range; j < range; ++j){
+                    for (int k = -range; k < range; ++k){
+                        BlockPos blockPos = this.getBlockPos().offset(i, j, k);
+                        BlockState blockState = this.level.getBlockState(blockPos);
+                        if (blockState.is(ModBlocks.CRYPT_CHEST.get())){
+                            if (blockState.hasProperty(CryptChestBlock.LOCKED) && blockState.getValue(CryptChestBlock.LOCKED)) {
+                                this.level.setBlock(blockPos, blockState.setValue(CryptChestBlock.LOCKED, false), 3);
+                                if (this.level instanceof ServerLevel serverLevel){
+                                    for (int i1 = 0; i1 < serverLevel.random.nextInt(10) + 10; ++i1) {
+                                        serverLevel.sendParticles(ModParticleTypes.SUMMON.get(), this.getRandomX(1.5D, serverLevel.random), this.getRandomY(serverLevel.random), this.getRandomZ(1.5D, serverLevel.random), 0, 0.0F, 0.0F, 0.0F, 1.0F);
+                                    }
                                 }
                             }
                         }
@@ -158,6 +178,9 @@ public class PithosBlockEntity extends RandomizableContainerBlockEntity {
     }
 
     private void playSound(SoundEvent pSound, float pitch) {
+        if (this.level == null) {
+            return;
+        }
         double d0 = (double)this.worldPosition.getX() + 0.5D;
         double d1 = (double)this.worldPosition.getY() + 0.5D;
         double d2 = (double)this.worldPosition.getZ() + 0.5D;

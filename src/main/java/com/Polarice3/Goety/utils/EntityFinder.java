@@ -69,7 +69,10 @@ public class EntityFinder {
     public static Entity getEntityByUuiD(MinecraftServer server, UUID uuid){
         if (uuid != null && server != null) {
             for (ServerLevel world : server.getAllLevels()) {
-                return world.getEntity(uuid);
+                Entity entity = world.getEntity(uuid);
+                if (entity != null) {
+                    return world.getEntity(uuid);
+                }
             }
         }
         return null;

@@ -13,6 +13,7 @@ import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.WaystoneItem;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.utils.*;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
@@ -61,6 +62,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.Path;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.scores.Team;
 import net.minecraftforge.event.ForgeEventFactory;
 import org.jetbrains.annotations.NotNull;
@@ -350,6 +352,16 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
                         if (!itemstack.isEmpty()) {
                             Integer integer = this.getFoodPoints().get(itemstack.getItem());
                             if (integer != null) {
+                                FoodProperties foodProperties = itemstack.getFoodProperties(this);
+                                if (foodProperties != null) {
+                                    if (!foodProperties.getEffects().isEmpty()) {
+                                        for(Pair<MobEffectInstance, Float> pair : foodProperties.getEffects()) {
+                                            if (pair.getFirst() != null && this.getRandom().nextFloat() < pair.getSecond()) {
+                                                this.addEffect(new MobEffectInstance(pair.getFirst()));
+                                            }
+                                        }
+                                    }
+                                }
                                 if (!BrewUtils.isEmpty(itemstack)){
                                     if (!PotionUtils.getMobEffects(itemstack).isEmpty()) {
                                         for (MobEffectInstance instance : PotionUtils.getMobEffects(itemstack)) {
@@ -551,6 +563,16 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
 
     }
 
+    public @NotNull Vec3 getLeashOffset() {
+        return new Vec3(0.0D, 0.6F * this.getEyeHeight(), (double)(this.getBbWidth() * 0.4F));
+    }
+
+    public Vec3 getRopeHoldPosition(float p_35318_) {
+        float f = Mth.lerp(p_35318_, this.yBodyRotO, this.yBodyRot) * ((float)Math.PI / 180F);
+        Vec3 vec3 = new Vec3(0.0D, this.getBoundingBox().getYsize() - 1.0D, 0.2D);
+        return this.getPosition(p_35318_).add(vec3.yRot(-f));
+    }
+
     protected void pickUpItem(ItemEntity itemEntity) {
         ItemStack itemstack = itemEntity.getItem();
         boolean flag = (this.getMarked() != null || this.isRaiding()) && !this.isLeader();
@@ -590,6 +612,12 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
             neollager.setTrueOwner(this.getTrueOwner());
         }
         ForgeEventFactory.onFinalizeSpawn(neollager, serverLevel, serverLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.BREEDING, null, null);
+        if (illager.isGuardingArea()) {
+            neollager.setBoundPos(illager.getBoundPos());
+            neollager.setBoundDim(illager.getBoundLevel());
+        }
+        neollager.setWandering(illager.isWandering());
+        neollager.setStaying(illager.isStaying());
         return neollager;
     }
 
@@ -768,37 +796,37 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
                     itemstack.shrink(1);
                 }
                 return InteractionResult.SUCCESS;
-            } else if (pPlayer.getMainHandItem().is(ModItems.WAYSTONE.get())
-                    && WaystoneItem.getBlockEntity(pPlayer.getMainHandItem(), this.level) instanceof ChestBlockEntity chestBlock
-                    && chestBlock.canOpen(pPlayer)
-                    && WaystoneItem.isSameDimension(this, pPlayer.getMainHandItem())){
-                if (!this.level.isClientSide) {
-                    BlockPos blockPos = WaystoneItem.getBlockPos(pPlayer.getMainHandItem());
-                    if (blockPos != null) {
-                        this.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
-                        if (this.level instanceof ServerLevel serverLevel) {
-                            for (int i = 0; i < 7; ++i) {
-                                double d0 = this.random.nextGaussian() * 0.02D;
-                                double d1 = this.random.nextGaussian() * 0.02D;
-                                double d2 = this.random.nextGaussian() * 0.02D;
-                                serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
-                            }
-                        }
-                        this.setChestPos(blockPos);
-                        this.setChestDim(this.level.dimension());
-                        if (this.isLeader()) {
-                            for (RaiderServant servant : this.getNearbyCompanions()) {
-                                if (servant instanceof AbstractIllagerServant servant1) {
-                                    servant1.setChestPos(blockPos);
-                                    servant1.setChestDim(this.level.dimension());
+            } else if (pPlayer.getMainHandItem().is(ModItems.WAYSTONE.get())) {
+                if (WaystoneItem.isSameDimension(this, pPlayer.getMainHandItem())) {
+                    if (WaystoneItem.getBlockEntity(pPlayer.getMainHandItem(), this.level) instanceof ChestBlockEntity chestBlock && chestBlock.canOpen(pPlayer)) {
+                        if (!this.level.isClientSide) {
+                            BlockPos blockPos = WaystoneItem.getBlockPos(pPlayer.getMainHandItem());
+                            if (blockPos != null) {
+                                this.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
+                                if (this.level instanceof ServerLevel serverLevel) {
+                                    for (int i = 0; i < 7; ++i) {
+                                        double d0 = this.random.nextGaussian() * 0.02D;
+                                        double d1 = this.random.nextGaussian() * 0.02D;
+                                        double d2 = this.random.nextGaussian() * 0.02D;
+                                        serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+                                    }
                                 }
+                                this.setChestPos(blockPos);
+                                this.setChestDim(this.level.dimension());
+                                if (this.isLeader()) {
+                                    for (RaiderServant servant : this.getNearbyCompanions()) {
+                                        if (servant instanceof AbstractIllagerServant servant1) {
+                                            servant1.setChestPos(blockPos);
+                                            servant1.setChestDim(this.level.dimension());
+                                        }
+                                    }
+                                }
+                                return InteractionResult.SUCCESS;
                             }
+                            return InteractionResult.FAIL;
                         }
-                        return InteractionResult.SUCCESS;
                     }
-                    return InteractionResult.FAIL;
                 }
-                return InteractionResult.CONSUME;
             }
         }
         return super.mobInteract(pPlayer, pHand);
@@ -913,6 +941,11 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
                     && !itemStack.isEmpty();
             this.targetPredicate = livingEntity -> illager.getTrueOwner() != null
                     && livingEntity == illager.getTrueOwner();
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse();
         }
 
         @Nullable

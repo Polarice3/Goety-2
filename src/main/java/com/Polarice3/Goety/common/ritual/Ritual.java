@@ -1,5 +1,7 @@
 package com.Polarice3.Goety.common.ritual;
 
+import com.Polarice3.Goety.api.ritual.IRitualType;
+import com.Polarice3.Goety.api.ritual.RitualType;
 import com.Polarice3.Goety.common.blocks.entities.DarkAltarBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.PedestalBlockEntity;
 import com.Polarice3.Goety.common.crafting.RitualRecipe;
@@ -14,7 +16,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
@@ -23,7 +27,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -89,7 +92,12 @@ public abstract class Ritual {
 
     public void finish(Level world, BlockPos darkAltarPos, DarkAltarBlockEntity tileEntity,
                        Player castingPlayer, ItemStack activationItem) {
-        if (tileEntity.getCurrentRitualRecipe().getCraftType().contains(RitualTypes.FORGE)){
+        for (IRitualType ritualType : RitualType.getAllRitualType()) {
+            if (tileEntity.getCurrentRitualRecipe().getCraftType().contains(ritualType.getName())) {
+                ritualType.onFinishRitual(world, darkAltarPos, tileEntity, castingPlayer, activationItem);
+            }
+        }
+        /*if (tileEntity.getCurrentRitualRecipe().getCraftType().contains(RitualTypes.FORGE)){
             world.playSound(null, darkAltarPos, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
         }
         if (tileEntity.getCurrentRitualRecipe().getCraftType().contains(RitualTypes.STORM)){
@@ -98,6 +106,7 @@ public abstract class Ritual {
             lightningBolt.setPos(Vec3.atCenterOf(darkAltarPos));
             world.addFreshEntity(lightningBolt);
         }
+        */
         if (tileEntity.getCurrentRitualRecipe().getRitual() instanceof EnchantItemRitual){
             world.playSound(null, darkAltarPos, SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
         }

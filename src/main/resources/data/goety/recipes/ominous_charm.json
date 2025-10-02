@@ -1,0 +1,24 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:cursed_ingot"
+  },
+  "craftType": "geoturgy",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "tag": "minecraft:soul_fire_base_blocks"
+    },
+    {
+      "tag": "forge:gems/emerald"
+    },
+    {
+      "item": "minecraft:sculk_catalyst"
+    }
+  ],
+  "result": {
+    "item": "goety:ominous_charm"
+  }
+}

@@ -170,6 +170,9 @@ public class CarrionMaggot extends Summoned {
       return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
    }
 
+   public void summonParticles(ServerLevel pLevel, MobSpawnType pReason) {
+   }
+
    @Override
    public boolean hurt(DamageSource source, float amount) {
       if (this.isPassenger()){

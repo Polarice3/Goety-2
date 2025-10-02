@@ -1,13 +1,14 @@
 package com.Polarice3.Goety.compat.jei;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.api.ritual.IRitualType;
+import com.Polarice3.Goety.api.ritual.RitualType;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.research.ResearchScroll;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.common.ritual.EnchantItemRitual;
-import com.Polarice3.Goety.common.ritual.RitualTypes;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -30,7 +31,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -186,7 +186,12 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
 
     public ItemStack getTypeIcon(RitualRecipe recipe){
         ItemStack itemStack = new ItemStack(Items.OBSIDIAN);
-        if (recipe.getCraftType().contains(RitualTypes.ANIMATION)){
+        for (IRitualType ritualType : RitualType.getAllRitualType()) {
+            if (recipe.getCraftType().equals(ritualType.getName())) {
+                itemStack = ritualType.getJeiIcon();
+            }
+        }
+        /*if (recipe.getCraftType().contains(RitualTypes.ANIMATION)){
             itemStack = new ItemStack(ModItems.ANIMATION_CORE.get());
         } else if (recipe.getCraftType().contains(RitualTypes.NECROTURGY)){
             itemStack = new ItemStack(Items.SCULK);
@@ -212,7 +217,7 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
             itemStack = new ItemStack(ModBlocks.FREEZING_LAMP.get());
         } else if (recipe.getCraftType().contains(RitualTypes.DEEP)) {
             itemStack = new ItemStack(Blocks.PRISMARINE_BRICKS);
-        }
+        }*/
         return itemStack;
     }
 

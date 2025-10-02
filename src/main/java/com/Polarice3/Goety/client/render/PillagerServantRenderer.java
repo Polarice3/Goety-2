@@ -8,7 +8,6 @@ import com.Polarice3.Goety.config.MobsConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
@@ -18,7 +17,6 @@ public class PillagerServantRenderer<T extends PillagerServant> extends MobRende
 
     public PillagerServantRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new IllagerServantModel<>(renderManagerIn.bakeLayer(ModModelLayer.ILLAGER_SERVANT)), 0.5F);
-        this.addLayer(new CustomHeadLayer<>(this, renderManagerIn.getModelSet(), renderManagerIn.getItemInHandRenderer()));
         this.addLayer(new HierarchicalArmorLayer<>(this, renderManagerIn));
         this.addLayer(new ItemInHandLayer<>(this, renderManagerIn.getItemInHandRenderer()));
     }

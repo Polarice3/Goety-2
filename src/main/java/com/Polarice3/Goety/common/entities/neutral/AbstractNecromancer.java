@@ -361,6 +361,11 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
 
     @Override
     public void die(DamageSource pCause) {
+        this.soulJar();
+        super.die(pCause);
+    }
+
+    public void soulJar() {
         if (this.getTrueOwner() instanceof Player player && MobsConfig.NecromancerSoulJar.get()){
             Optional<ItemStack> optional = player.getInventory().items.stream().filter(itemStack1 -> itemStack1.is(ModItems.EMPTY_SOUL_JAR.get())).findFirst();
             if (optional.isPresent()){
@@ -386,7 +391,6 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                 }
             }
         }
-        super.die(pCause);
     }
 
     public void setAnimationState(String input) {
@@ -760,7 +764,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
     public class SummonZombieSpell extends SummoningSpellGoal {
 
         public boolean canUse() {
-            Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof IOwned owned && owned.getTrueOwner() instanceof AbstractNecromancer;
+            Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof IOwned owned && owned.getTrueOwner() == AbstractNecromancer.this;
             int i = AbstractNecromancer.this.level.getEntitiesOfClass(LivingEntity.class, AbstractNecromancer.this.getBoundingBox().inflate(64.0D, 16.0D, 64.0D)
             , predicate).size();
             return super.canUse() && i < 7;
@@ -768,7 +772,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
 
         protected void castSpell(){
             if (AbstractNecromancer.this.level instanceof ServerLevel serverLevel) {
-                Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof IOwned owned && owned.getTrueOwner() instanceof AbstractNecromancer;
+                Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof IOwned owned && owned.getTrueOwner() == AbstractNecromancer.this;
                 int i = AbstractNecromancer.this.level.getEntitiesOfClass(LivingEntity.class, AbstractNecromancer.this.getBoundingBox().inflate(64.0D, 16.0D, 64.0D)
                         , predicate).size();
                 if (i < 7) {

@@ -1,0 +1,12 @@
+{
+	"replace": false,
+	"values": [
+		"#goety:enderlings",
+		"#goety:golems",
+		"#goety:mini_bosses",
+		"#goety:powerful_servants",
+		"goety:guardian_servant",
+		"goety:zpiglin_servant",
+		"goety:zpiglin_brute_servant"
+	]
+}

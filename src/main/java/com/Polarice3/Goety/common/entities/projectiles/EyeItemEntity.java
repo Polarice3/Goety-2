@@ -9,6 +9,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -53,6 +54,11 @@ public class EyeItemEntity extends SpellEntity implements ItemSupplier {
    public ItemStack getItem() {
       ItemStack itemstack = this.getItemRaw();
       return itemstack.isEmpty() ? new ItemStack(Items.ENDER_EYE) : itemstack;
+   }
+
+   @Override
+   protected Component getTypeName() {
+      return this.getItem().getHoverName();
    }
 
    protected void defineSynchedData() {

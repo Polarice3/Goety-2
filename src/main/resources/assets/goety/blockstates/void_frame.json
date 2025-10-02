@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "locked=true,facing=east": {
+      "model": "goety:block/void_frame_locked",
+      "y": 270
+    },
+    "locked=true,facing=north": {
+      "model": "goety:block/void_frame_locked",
+      "y": 180
+    },
+    "locked=true,facing=south": {
+      "model": "goety:block/void_frame_locked"
+    },
+    "locked=true,facing=west": {
+      "model": "goety:block/void_frame_locked",
+      "y": 90
+    },
+    "locked=false,facing=east": {
+      "model": "goety:block/void_frame",
+      "y": 270
+    },
+    "locked=false,facing=north": {
+      "model": "goety:block/void_frame",
+      "y": 180
+    },
+    "locked=false,facing=south": {
+      "model": "goety:block/void_frame"
+    },
+    "locked=false,facing=west": {
+      "model": "goety:block/void_frame",
+      "y": 90
+    }
+  }
+}

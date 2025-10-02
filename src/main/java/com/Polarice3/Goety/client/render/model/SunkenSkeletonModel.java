@@ -91,7 +91,7 @@ public class SunkenSkeletonModel<T extends Owned> extends HumanoidModel<T> {
          this.posingRightArm(pEntity);
          this.posingLeftArm(pEntity);
       }
-      if (this.swimAmount > 0.0F) {
+      if (this.swimAmount > 0.0F && !pEntity.isAggressive()) {
          this.rightArm.xRot = this.rotlerpRad(this.swimAmount, this.rightArm.xRot, -2.5132742F) + this.swimAmount * 0.35F * Mth.sin(0.1F * pAgeInTicks);
          this.leftArm.xRot = this.rotlerpRad(this.swimAmount, this.leftArm.xRot, -2.5132742F) - this.swimAmount * 0.35F * Mth.sin(0.1F * pAgeInTicks);
          this.rightArm.zRot = this.rotlerpRad(this.swimAmount, this.rightArm.zRot, -0.15F);

@@ -25,6 +25,7 @@ import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -420,7 +421,7 @@ public class Sorcerer extends HuntingIllagerEntity {
                 --this.chargeTicks;
                 if (this.chargeTicks <= 0) {
                     Spell spell1 = this.spell.getSpell();
-                    SpellStat spellStat = spell1.defaultStats();
+                    SpellStat spellStat = WandUtil.getStats(Sorcerer.this, spell1);
                     if (this.spell.levelIncrease){
                         spellStat.setPotency(Sorcerer.this.getLevels() - this.spell.minLevel);
                     }
@@ -457,7 +458,7 @@ public class Sorcerer extends HuntingIllagerEntity {
         protected void performSpellCasting() {
             if (Sorcerer.this.getTarget() != null){
                 Spell spell1 = this.spell.getSpell();
-                SpellStat spellStat = spell1.defaultStats();
+                SpellStat spellStat = WandUtil.getStats(Sorcerer.this, spell1);
                 if (this.spell.levelIncrease){
                     spellStat.setPotency(spellStat.getPotency() + (Sorcerer.this.getLevels() - this.spell.minLevel));
                 }

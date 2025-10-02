@@ -1,9 +1,9 @@
 package com.Polarice3.Goety.common.network.server;
 
+import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.utils.BrewUtils;
 import com.Polarice3.Goety.utils.ParticleUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.core.BlockPos;
@@ -14,6 +14,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -45,8 +46,8 @@ public class SAddBrewParticlesPacket {
 
     public static void consume(SAddBrewParticlesPacket packet, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            ClientLevel clientWorld = Minecraft.getInstance().level;
-            if (clientWorld != null){
+            Level level = Goety.PROXY.getLevel();
+            if (level instanceof ClientLevel clientWorld) {
                 int area = BrewUtils.getAreaOfEffect(packet.itemStack) + 4;
                 Vec3 vec3 = Vec3.atBottomCenterOf(packet.blockPos);
 

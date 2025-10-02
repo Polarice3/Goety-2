@@ -8,10 +8,12 @@ import com.Polarice3.Goety.common.entities.hostile.servants.VizierClone;
 import com.Polarice3.Goety.common.entities.projectiles.Spike;
 import com.Polarice3.Goety.common.entities.projectiles.SwordProjectile;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.curios.OminousCharmItem;
 import com.Polarice3.Goety.common.network.ModServerBossInfo;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MiscCapHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
@@ -312,11 +314,12 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     public static AttributeSupplier.Builder setCustomAttributes(){
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.VizierHealth.get())
-                .add(Attributes.ATTACK_DAMAGE, 5.0D);
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.VizierDamage.get());
     }
 
     public void setConfigurableAttributes(){
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.VizierHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.VizierDamage.get());
     }
 
     protected void defineSynchedData() {
@@ -450,7 +453,12 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
             if (cause.getEntity() instanceof Player player){
                 MobEffectInstance effectinstance = new MobEffectInstance(MobEffects.BAD_OMEN, 120000, 4, false, false, true);
                 if (!this.level.getGameRules().getBoolean(GameRules.RULE_DISABLE_RAIDS)) {
-                    player.addEffect(effectinstance);
+                    ItemStack itemStack = CuriosFinder.findCurioInAll(player, ModItems.OMINOUS_CHARM.get());
+                    if (itemStack.is(ModItems.OMINOUS_CHARM.get())) {
+                        OminousCharmItem.increaseOmenLevel(itemStack, 5);
+                    } else if (!player.hasEffect(MobEffects.BAD_OMEN)) {
+                        player.addEffect(effectinstance);
+                    }
                 }
             }
         }
@@ -498,7 +506,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
             return false;
         }
         if (livingEntity != null){
-            if (pSource.getEntity() instanceof Irk){
+            if (pSource.getEntity() instanceof Irk irk && irk.getTarget() != this){
                 return false;
             } else {
                 if (!MobsConfig.VizierMinion.get()) {

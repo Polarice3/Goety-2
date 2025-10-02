@@ -171,6 +171,9 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> VindicatorServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> VindicatorServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> VindicatorServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> MountaineerServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> MountaineerServantArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> MountaineerServantDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> EvokerServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> EvokerServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> EvokerServantFollowRange;
@@ -185,6 +188,8 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> WindCallerServantFollowRange;
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedVexHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedVexDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> SummonedIrkHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> SummonedIrkDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> MiniGhastHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> MiniGhastDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> GhastServantHealth;
@@ -247,6 +252,9 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> SnarelingHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SnarelingArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> SnarelingDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> EndersentHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> EndersentArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> EndersentDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> IceGolemHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> IceGolemArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> IceGolemDamage;
@@ -293,13 +301,20 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> ApostleArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> ApostleToughness;
     public static final ForgeConfigSpec.ConfigValue<Double> ApostleMagicDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> EnderKeeperHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> EnderKeeperArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> EnderKeeperDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> EnderKeeperHPPercentDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> EnderKeeperHurtRange;
     public static final ForgeConfigSpec.ConfigValue<Double> VizierHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> VizierDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> CroneHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> MinisterHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> MinisterDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Double> ApostleDamageCap;
     public static final ForgeConfigSpec.ConfigValue<Double> VizierDamageCap;
+    public static final ForgeConfigSpec.ConfigValue<Double> EnderKeeperDamageCap;
     public static final ForgeConfigSpec.ConfigValue<Integer> ApostleBowDamage;
 
     static {
@@ -691,6 +706,14 @@ public class AttributesConfig {
                 VindicatorServantDamage = BUILDER.comment("How much damage Vindicator Servants deals, Default: 5.0")
                         .defineInRange("vindicatorServantDamage", 5.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
+                BUILDER.push("Mountaineer Servant");
+                MountaineerServantHealth = BUILDER.comment("How much Max Health Mountaineer Servants have, Default: 28.0")
+                        .defineInRange("mountaineerServantHealth", 28.0, 1.0, Double.MAX_VALUE);
+                MountaineerServantArmor = BUILDER.comment("How much natural armor points Mountaineer Servants have, Default: 0.0")
+                        .defineInRange("mountaineerServantArmor", 0.0, 0.0, Double.MAX_VALUE);
+                MountaineerServantDamage = BUILDER.comment("How much damage Mountaineer Servants deals, Default: 5.0")
+                        .defineInRange("mountaineerServantDamage", 5.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
                 BUILDER.push("Evoker Servant");
                 EvokerServantHealth = BUILDER.comment("How much Max Health Evoker Servants have, Default: 24.0")
                         .defineInRange("evokerServantHealth", 24.0, 1.0, Double.MAX_VALUE);
@@ -728,6 +751,12 @@ public class AttributesConfig {
                         .defineInRange("summonedVexHealth", 14.0, 1.0, Double.MAX_VALUE);
                 SummonedVexDamage = BUILDER.comment("How much damage Summoned Vexes deals, Default: 4.0")
                         .defineInRange("summonedVexDamage", 4.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Irk");
+                SummonedIrkHealth = BUILDER.comment("How much Max Health Irks have, Default: 12.0")
+                        .defineInRange("summonedIrkHealth", 12.0, 1.0, Double.MAX_VALUE);
+                SummonedIrkDamage = BUILDER.comment("How much damage Irks deals, Default: 4.0")
+                        .defineInRange("summonedIrkDamage", 4.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Mini-Ghast");
                 MiniGhastHealth = BUILDER.comment("How much Max Health Mini-Ghasts have, Default: 5.0")
@@ -897,28 +926,28 @@ public class AttributesConfig {
                 RavagerDamage = BUILDER.comment("How much damage Tamed Ravagers deals, Default: 12.0")
                         .defineInRange("ravagerDamage", 12.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
-                BUILDER.push("Watchling Servant");
-                WatchlingHealth = BUILDER.comment("How much Max Health Watchling Servants have, Default: 24.0")
+                BUILDER.push("Watchling");
+                WatchlingHealth = BUILDER.comment("How much Max Health Watchlings have, Default: 24.0")
                         .defineInRange("watchlingHealth", 24.0, 1.0, Double.MAX_VALUE);
-                WatchlingArmor = BUILDER.comment("How much natural Armor Watchling Servants  have, Default: 0.0")
+                WatchlingArmor = BUILDER.comment("How much natural Armor Watchlings have, Default: 0.0")
                         .defineInRange("watchlingArmor", 0.0, 0.0, Double.MAX_VALUE);
-                WatchlingDamage = BUILDER.comment("How much damage Watchling Servants deals, Default: 5.0")
+                WatchlingDamage = BUILDER.comment("How much damage Watchlings deals, Default: 5.0")
                         .defineInRange("watchlingDamage", 5.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
-                BUILDER.push("Blastling Servant");
-                BlastlingHealth = BUILDER.comment("How much Max Health Blastling Servants have, Default: 32.0")
+                BUILDER.push("Blastling");
+                BlastlingHealth = BUILDER.comment("How much Max Health Blastlings have, Default: 32.0")
                         .defineInRange("blastlingHealth", 32.0, 1.0, Double.MAX_VALUE);
-                BlastlingArmor = BUILDER.comment("How much natural Armor Blastling Servants  have, Default: 0.0")
+                BlastlingArmor = BUILDER.comment("How much natural Armor Blastlings have, Default: 0.0")
                         .defineInRange("blastlingArmor", 0.0, 0.0, Double.MAX_VALUE);
-                BlastlingDamage = BUILDER.comment("How much damage Blastling Servants deals, Default: 3.0")
+                BlastlingDamage = BUILDER.comment("How much damage Blastlings deals, Default: 3.0")
                         .defineInRange("blastlingDamage", 3.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
-                BUILDER.push("Snareling Servant");
-                SnarelingHealth = BUILDER.comment("How much Max Health Snareling Servants have, Default: 20.0")
+                BUILDER.push("Snareling");
+                SnarelingHealth = BUILDER.comment("How much Max Health Snarelings have, Default: 20.0")
                         .defineInRange("snarelingHealth", 20.0, 1.0, Double.MAX_VALUE);
-                SnarelingArmor = BUILDER.comment("How much natural Armor Snareling Servants  have, Default: 0.0")
+                SnarelingArmor = BUILDER.comment("How much natural Armor Snarelings have, Default: 0.0")
                         .defineInRange("snarelingArmor", 0.0, 0.0, Double.MAX_VALUE);
-                SnarelingDamage = BUILDER.comment("How much damage Snareling Servants deals, Default: 2.0")
+                SnarelingDamage = BUILDER.comment("How much damage Snarelings deals, Default: 2.0")
                         .defineInRange("snarelingDamage", 2.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Ice Golem");
@@ -1015,6 +1044,14 @@ public class AttributesConfig {
                 WightSoulHeal = BUILDER.comment("How much health Wights can heal up per Soul Energy absorption, Default: 10")
                         .defineInRange("wightSoulHeal", 10, 0, Integer.MAX_VALUE);
                 BUILDER.pop();
+                BUILDER.push("Endersent");
+                EndersentHealth = BUILDER.comment("How much Max Health Endersents have, Default: 200.0")
+                        .defineInRange("endersentHealth", 200.0, 1.0, Double.MAX_VALUE);
+                EndersentArmor = BUILDER.comment("How much natural Armor Points Endersents have, Default: 0.0")
+                        .defineInRange("endersentArmor", 0.0, 0.0, Double.MAX_VALUE);
+                EndersentDamage = BUILDER.comment("How much damage Endersents deals, Default: 14.0")
+                        .defineInRange("endersentDamage", 14.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
                 BUILDER.push("Skull Lord");
                 SkullLordHealth = BUILDER.comment("How much Max Health Skull Lord have, Default: 150.0")
                         .defineInRange("skullLordHealth", 150.0, 1.0, Double.MAX_VALUE);
@@ -1030,8 +1067,24 @@ public class AttributesConfig {
                 BUILDER.push("Vizier");
                 VizierHealth = BUILDER.comment("How much Max Health Viziers have, Default: 300.0")
                         .defineInRange("vizierHealth", 300.0, 100.0, Double.MAX_VALUE);
+                VizierDamage = BUILDER.comment("How much damage Viziers deals without weapons, Default: 5.0")
+                        .defineInRange("vizierDamage", 5.0, 1.0, Double.MAX_VALUE);
                 VizierDamageCap = BUILDER.comment("The maximum amount of damage a Vizier can attain per hit, Default: 20.0")
                         .defineInRange("vizierDamageCap", 20.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Ender Keeper");
+                EnderKeeperHealth = BUILDER.comment("How much Max Health Ender Keeper have, Default: 320.0")
+                        .defineInRange("enderKeeperHealth", 320.0, 100.0, Double.MAX_VALUE);
+                EnderKeeperArmor = BUILDER.comment("How much natural Armor Points Ender Keepers have, Default: 10.0")
+                        .defineInRange("enderKeeperArmor", 10.0, 0.0, Double.MAX_VALUE);
+                EnderKeeperDamageCap = BUILDER.comment("The maximum amount of damage an Ender Keeper can attain per hit, Default: 20.0")
+                        .defineInRange("enderKeeperDamageCap", 20.0, 1.0, Double.MAX_VALUE);
+                EnderKeeperDamage = BUILDER.comment("How much damage Ender Keeper deals, Default: 14.0")
+                        .defineInRange("enderKeeperDamage", 14.0, 1.0, Double.MAX_VALUE);
+                EnderKeeperHPPercentDamage = BUILDER.comment("Ender Keepers attack HP percent damage, Default: 0.05")
+                        .defineInRange("enderKeeperHPPercentDamage", 0.05, 0.0, 1.0);
+                EnderKeeperHurtRange = BUILDER.comment("How many blocks or distance away an attack can be from Ender Keeper to damage them, Default: 12.0")
+                        .defineInRange("enderKeeperHurtRange", 12.0, 6.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Apostle");
                 ApostleHealth = BUILDER.comment("How much Max Health Apostles have, Default: 320.0")

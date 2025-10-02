@@ -18,7 +18,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModTags {
 
-    public static void init () {
+    public static void init() {
         Blocks.init();
         Items.init();
         Paintings.init();
@@ -111,6 +111,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> SUMMON_KILL = tag("summon_kill");
         public static final TagKey<EntityType<?>> IGNORE_SERVANTS = tag("ignore_servants");
         public static final TagKey<EntityType<?>> UNSTUNNABLE = tag("unstunnable");
+        public static final TagKey<EntityType<?>> UNTANGLEABLE = tag("untangleable");
         public static final TagKey<EntityType<?>> UNBLOWABLE_ENTITIES = tag("unblowable_entities");
         public static final TagKey<EntityType<?>> SKELETON_WOLF_BUFF = tag("skeleton_wolf_buff");
         public static final TagKey<EntityType<?>> SERVANT_RIDEABLE = tag("servant_rideable");

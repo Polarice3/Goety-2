@@ -7,16 +7,17 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "古代、君主は未知の理由で追放される前に、外部の力の指導を受けて、レッドストーン ゴーレムよりも強力で恐ろしい強力な武器を作り上げました。 ただし、作成プロセスはおそらく極秘に記録されており、この恐ろしい怪物を再現できるようになっています。"
+      "text": "太古の昔、ある君主が外界の力の導きによって、レッドストーンゴーレムよりも強力で恐ろしい強力な兵器を造り上げました。しかし、道の理由によりその兵器を追放しました。しかし、その製作過程はおそらく秘密裏に記録されており、この恐ろしい怪物を再現することが可能となっています。"
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:redstone_monstrosity"
+      "entity": "goety:redstone_monstrosity",
+      "scale": 0.75
     },
     {
       "type": "multiblock",
       "multiblock_id": "goety:redstone_monstrosity",
-      "text": "中央のアニメーション コアを備えた強化レッドストーン ブロックを右クリックします。"
+      "text": "中央の強化レッドストーンブロックをアニメーションコアで右クリックします。"
     },
     {
       "type": "goety:ritual",
@@ -24,11 +25,24 @@
     },
     {
       "type": "patchouli:text",
-      "text": "石レンガは、型用の深層岩レンガなどの他の同様のブロックで置き換えることができます。 モンストロシティはおそらくあなたが作成した最も強力な存在の 1 つであり、その力は他の従者に匹敵しません。 レッドストーンブロックを右クリックすると修復できます。"
+      "text": "石レンガは、深層岩のレンガなどの類似ブロックで代用できます。この怪物はおそらくあなたが創造した中で最も強力な存在の一つであり、その力は他の従者とは比べものになりません。怪物はレッドストーンブロックで右クリックすることで回復できます。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:redstone_monstrosity_head",
+      "text": "怪物が戦闘や指揮から離脱した場合、頭を落とします。頭を使えば、より安価な方法で怪物を蘇生させることができます。ただし、頭は元の創造主と主人を覚えており、蘇生した怪物は彼らの命令にのみ従います。"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:redstone_monstrosity_revive",
+      "enable_visualize": false
     },
     {
       "type": "patchouli:text",
-      "text": "レッドストーンの怪物は$(l:goety:mutations/illager_servants)レイダー$()の一員になることはできますが、リーダーになることはできません。"
+      "text": "怪物は$(l:goety:mutations/illager_servants)襲撃隊$()の一員になることはできますが、リーダーになることはできません。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:reinforced_redstone_block": 3
+  }
 }

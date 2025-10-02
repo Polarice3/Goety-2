@@ -268,7 +268,13 @@ public class GoetyCommand {
                                 })
                                 .then(Commands.argument("targets", EntityArgument.players()).executes((p_198435_0_) -> {
                                     return heal(p_198435_0_.getSource(), EntityArgument.getPlayers(p_198435_0_, "targets"));
-                                })))));
+                                })))
+                        .then(Commands.literal("set_damage")
+                                .then(Commands.argument("targets", EntityArgument.players())
+                                        .then(Commands.argument("amount", IntegerArgumentType.integer()).executes((p_198445_0_) -> {
+                                            return damageItem(p_198445_0_.getSource(), EntityArgument.getPlayers(p_198445_0_, "targets"), IntegerArgumentType.getInteger(p_198445_0_, "amount"));
+                                        }))))
+                        ));
     }
 
     private static int addSoulEnergy(CommandSourceStack pSource, Collection<? extends ServerPlayer> pTargets, int pAmount) {
@@ -748,6 +754,33 @@ public class GoetyCommand {
             }
         }
         return i0;
+    }
+
+    private static int damageItem(CommandSourceStack pSource, Collection<? extends ServerPlayer> pTargets, int damage) {
+        int i = 0;
+        for(ServerPlayer serverPlayer : pTargets) {
+            if (!serverPlayer.getMainHandItem().isEmpty()){
+                ItemStack itemStack = serverPlayer.getMainHandItem();
+                if (itemStack.isDamageableItem()){
+                    if (damage > itemStack.getMaxDamage() - 1) {
+                        damage = itemStack.getMaxDamage() - 1;
+                    }
+                    serverPlayer.getMainHandItem().setDamageValue(damage);
+                    ++i;
+                }
+            }
+        }
+
+        if (i == 0){
+            pSource.sendFailure(Component.translatable("commands.goety.misc.damage.held.failure"));
+        } else {
+            if (pTargets.size() == 1) {
+                pSource.sendSuccess(() -> Component.translatable("commands.goety.misc.damage.held.success.single", pTargets.iterator().next().getDisplayName(), pTargets.iterator().next().getMainHandItem().getDisplayName()), true);
+            } else {
+                pSource.sendSuccess(() -> Component.translatable("commands.goety.misc.damage.held.success.multiple", pTargets.size()), true);
+            }
+        }
+        return i;
     }
 
     private static int heal(CommandSourceStack pSource, Collection<? extends ServerPlayer> pTargets) {

@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:end_cities",
+    {
+      "id": "cataclysm:ruined_citadel",
+      "required": false
+    },
+    {
+      "id": "bosses_of_mass_destruction:obsidilith_arena",
+      "required": false
+    },
+    {
+      "id": "legendary_monsters:ancient_tower_remains",
+      "required": false
+    },
+    {
+      "id": "legendary_monsters:shulker_tower",
+      "required": false
+    }
+  ]
+}

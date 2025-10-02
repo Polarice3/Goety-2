@@ -1,0 +1,17 @@
+{
+  "name": "虚空のアイ",
+  "icon": "goety:void_eye",
+  "category": "goety:crafts",
+  "advancement": "minecraft:story/enter_the_end",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "何があなたをそうさせたのかは分かりませんが、あなたはエンダーアイを虚空のエッセンスで覆うことを決意しました。その結果、$(l:world/final_terminal)エンドのターミナル$()につながる特別なアイが作られました。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:void_eye",
+      "text": "使用すると、アイを完全に使用するのではなく、コピーしたアイを投げるようです。ただし、その際に耐久を消費します。"
+    }
+  ]
+}

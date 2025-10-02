@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.capabilities.soulenergy.*;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.ally.illager.Prisoner;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Ripper;
 import com.Polarice3.Goety.common.entities.util.SurveyEye;
 import com.Polarice3.Goety.common.events.ArcaTeleporter;
@@ -84,9 +85,16 @@ public class SEHelper {
 
     public static void setSoulsAmount(Player player, int souls){
         if (SEHelper.getSEActive(player)){
+            if (SEHelper.getSESouls(player) + souls > MainConfig.MaxArcaSouls.get()) {
+                souls = MainConfig.MaxArcaSouls.get();
+            }
             SEHelper.setSESouls(player, souls);
             SEHelper.sendSEUpdatePacket(player);
         } else if (!TotemFinder.FindTotem(player).isEmpty()){
+            ItemStack itemStack = TotemFinder.FindTotem(player);
+            if (ITotem.currentSouls(itemStack) + souls > ITotem.maximumSouls(itemStack)) {
+                souls = ITotem.maximumSouls(itemStack);
+            }
             ITotem.setSoulsamount(TotemFinder.FindTotem(player), souls);
         }
     }
@@ -184,7 +192,8 @@ public class SEHelper {
                 } else if (victim instanceof VillagerDataHolder
                         || victim instanceof ReputationEventHandler
                         || victim instanceof Npc
-                        || victim instanceof Merchant) {
+                        || victim instanceof Merchant
+                        || victim instanceof Prisoner) {
                     return MainConfig.VillagerSouls.get();
                 } else if (victim instanceof AbstractPiglin) {
                     return MainConfig.PiglinSouls.get();
@@ -249,7 +258,7 @@ public class SEHelper {
         float init = 1.0F;
         for (ItemStack itemStack : living.getArmorSlots()){
             if (itemStack.getItem() instanceof ISoulDiscount soulDiscount){
-                init -= (soulDiscount.getSoulDiscount(LivingEntity.getEquipmentSlotForItem(itemStack)) / 100.0F);
+                init -= (soulDiscount.getSoulDiscount(LivingEntity.getEquipmentSlotForItem(itemStack), itemStack) / 100.0F);
             }
         }
 
@@ -316,23 +325,37 @@ public class SEHelper {
     public static boolean teleportToArca(Player player){
         ISoulEnergy soulEnergy = SEHelper.getCapability(player);
         BlockPos blockPos = SEHelper.getArcaBlock(player);
-        BlockPos blockPos1 = BlockPos.containing(blockPos.getX() + 0.5F, blockPos.getY() + 0.5F, blockPos.getZ() + 0.5F);
-        if (soulEnergy.getArcaBlockDimension() == player.level.dimension()) {
-            Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityType.PLAYER, player.level, blockPos1);
-            if (optional.isPresent()) {
-                player.teleportTo(optional.get().x, optional.get().y, optional.get().z);
-                return true;
-            }
-        } else {
-            if (soulEnergy.getArcaBlockDimension() != null) {
-                if (player.getServer() != null) {
-                    ServerLevel serverWorld = player.getServer().getLevel(soulEnergy.getArcaBlockDimension());
-                    if (serverWorld != null) {
-                        Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityType.PLAYER, serverWorld, blockPos1);
-                        if (optional.isPresent()) {
-                            player.changeDimension(serverWorld, new ArcaTeleporter(optional.get()));
-                            player.teleportTo(optional.get().x, optional.get().y, optional.get().z);
-                            return true;
+        if (blockPos != null) {
+            BlockPos blockPos1 = BlockPos.containing(blockPos.getX() + 0.5F, blockPos.getY() + 0.5F, blockPos.getZ() + 0.5F);
+            if (soulEnergy.getArcaBlockDimension() == player.level.dimension()) {
+                Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityType.PLAYER, player.level, blockPos1);
+                if (optional.isPresent()) {
+                    Vec3 vec3 = optional.get();
+                    if (player.level.getWorldBorder().isWithinBounds(vec3.x, vec3.y, vec3.z)) {
+                        player.teleportTo(vec3.x, vec3.y, vec3.z);
+                    } else {
+                        BlockPos blockPos2 = player.level.getSharedSpawnPos();
+                        player.teleportTo(blockPos2.getX(), blockPos2.getY(), blockPos2.getZ());
+                    }
+                    return true;
+                }
+            } else {
+                if (soulEnergy.getArcaBlockDimension() != null) {
+                    if (player.getServer() != null) {
+                        ServerLevel serverWorld = player.getServer().getLevel(soulEnergy.getArcaBlockDimension());
+                        if (serverWorld != null) {
+                            Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityType.PLAYER, serverWorld, blockPos1);
+                            if (optional.isPresent()) {
+                                Vec3 vec3 = optional.get();
+                                player.changeDimension(serverWorld, new ArcaTeleporter(optional.get()));
+                                if (serverWorld.getWorldBorder().isWithinBounds(vec3.x, vec3.y, vec3.z)) {
+                                    player.teleportTo(vec3.x, vec3.y, vec3.z);
+                                } else {
+                                    BlockPos blockPos2 = serverWorld.getSharedSpawnPos();
+                                    player.teleportTo(blockPos2.getX(), blockPos2.getY(), blockPos2.getZ());
+                                }
+                                return true;
+                            }
                         }
                     }
                 }

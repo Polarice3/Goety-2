@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "goety:cobbled_end_stone"
+  },
+  "result": "goety:cobbled_end_stone_wall",
+  "count": 1
+}

@@ -12,6 +12,7 @@ import com.Polarice3.Goety.common.items.curios.*;
 import com.Polarice3.Goety.common.items.handler.BrewBagItemHandler;
 import com.Polarice3.Goety.compat.curios.CuriosLoaded;
 import com.Polarice3.Goety.config.ItemConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.world.entity.Entity;
@@ -33,7 +34,7 @@ public class CuriosFinder {
 
     public static ItemStack findCurio(LivingEntity livingEntity, Predicate<ItemStack> filter){
         ItemStack foundStack = ItemStack.EMPTY;
-        if (livingEntity != null) {
+        if (livingEntity instanceof Player) {
             if (CuriosLoaded.CURIOS.isLoaded()) {
                 Optional<SlotResult> slotResult = CuriosApi.getCuriosInventory(livingEntity).map(inv -> inv.findFirstCurio(filter))
                         .orElse(Optional.empty());
@@ -56,7 +57,7 @@ public class CuriosFinder {
 
     public static ItemStack findCurio(LivingEntity livingEntity, Item item){
         ItemStack foundStack = ItemStack.EMPTY;
-        if (livingEntity != null) {
+        if (livingEntity instanceof Player) {
             if (CuriosLoaded.CURIOS.isLoaded()) {
                 Optional<SlotResult> slotResult = CuriosApi.getCuriosInventory(livingEntity).map(inv -> inv.findFirstCurio(item))
                         .orElse(Optional.empty());
@@ -66,6 +67,30 @@ public class CuriosFinder {
             }
         }
 
+        return foundStack;
+    }
+
+    public static ItemStack findCurioInAll(Player playerEntity, Item item){
+        ItemStack foundStack = ItemStack.EMPTY;
+        if (CuriosLoaded.CURIOS.isLoaded()) {
+            Optional<SlotResult> slotResult = CuriosApi.getCuriosInventory(playerEntity).map(inv -> inv.findFirstCurio(item))
+                    .orElse(Optional.empty());
+            if (slotResult.isPresent()) {
+                foundStack = slotResult.get().stack();
+            }
+        }
+
+        if (playerEntity.getOffhandItem().is(item)){
+            foundStack = playerEntity.getOffhandItem();
+        } else {
+            for (int i = 0; i <= 9; i++) {
+                ItemStack itemStack = playerEntity.getInventory().getItem(i);
+                if (!itemStack.isEmpty() && itemStack.is(item)) {
+                    foundStack = itemStack;
+                    break;
+                }
+            }
+        }
         return foundStack;
     }
 
@@ -281,7 +306,7 @@ public class CuriosFinder {
 
     public static boolean hasUndeadCrown(LivingEntity livingEntity){
         return CuriosFinder.hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof NecroGarbs.NecroCrownItem)
-                || livingEntity instanceof AbstractNecromancer;
+                || (livingEntity instanceof AbstractNecromancer && MobsConfig.NecromancerSummonsLife.get());
     }
 
     public static boolean hasUndeadCape(LivingEntity livingEntity){

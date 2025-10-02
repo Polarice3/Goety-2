@@ -28,6 +28,16 @@
       "text": "The Stone Bricks can be substituted with other similar blocks such as Deepslate Bricks for the mold. The Monstrosity is perhaps one of the strongest beings you have created, its power unmatched by other servants. They can be repaired by right-clicking on them with Redstone Blocks."
     },
     {
+      "type": "patchouli:spotlight",
+      "item": "goety:redstone_monstrosity_head",
+      "text": "Should the Monstrosity fell from battle or command, they will drop their head. The Head can be used to revive the Monstrosity in a cheaper manner. However, the Head remembers it's original creator and master and the revived Monstrosity will only follow their commands."
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:redstone_monstrosity_revive",
+      "enable_visualize": false
+    },
+    {
       "type": "patchouli:text",
       "text": "Redstone Monstrosities can be part of a $(l:goety:mutations/illager_servants)raiding party$(), though they cannot be leaders."
     }

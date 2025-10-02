@@ -127,7 +127,7 @@ public class CrusherModel<T extends Mob> extends HierarchicalModel<T> implements
 	@Override
 	public void translateToHead(ModelPart modelPart, PoseStack poseStack) {
 		modelPart.translateAndRotate(poseStack);
-		poseStack.translate(0, -0.1F, 0);
+		poseStack.translate(0, 0.0F, 0);
 	}
 
 	@Override

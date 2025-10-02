@@ -15,15 +15,18 @@ import org.joml.Quaternionf;
 public class RisingCircleParticle extends GroundCircleParticle {
     private int delay;
 
-    public RisingCircleParticle(ClientLevel p_233976_, double p_233977_, double p_233978_, double p_233979_, int p_233980_) {
-        super(p_233976_, p_233977_, p_233978_, p_233979_, 0.0D, 0.0D, 0.0D);
+    public RisingCircleParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, int delay) {
+        super(pLevel, pX, pY, pZ, 0.0D, 0.0D, 0.0D);
         this.quadSize = 1.0F;
-        this.delay = p_233980_;
+        this.delay = delay;
         this.lifetime = 15;
         this.gravity = 0.0F;
         this.xd = 0.0D;
         this.yd = 0.25D;
         this.zd = 0.0D;
+        this.rCol = (float) pXSpeed;
+        this.gCol = (float) pYSpeed;
+        this.bCol = (float) pZSpeed;
     }
 
     public void render(VertexConsumer p_233985_, Camera p_233986_, float p_233987_) {
@@ -61,8 +64,8 @@ public class RisingCircleParticle extends GroundCircleParticle {
             this.sprite = p_234008_;
         }
 
-        public Particle createParticle(RisingCircleParticleOption p_234019_, ClientLevel p_234020_, double p_234021_, double p_234022_, double p_234023_, double p_234024_, double p_234025_, double p_234026_) {
-            RisingCircleParticle shriekparticle = new RisingCircleParticle(p_234020_, p_234021_, p_234022_, p_234023_, p_234019_.getDelay());
+        public Particle createParticle(RisingCircleParticleOption pOption, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
+            RisingCircleParticle shriekparticle = new RisingCircleParticle(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed, pOption.getDelay());
             shriekparticle.pickSprite(this.sprite);
             shriekparticle.setAlpha(1.0F);
             return shriekparticle;

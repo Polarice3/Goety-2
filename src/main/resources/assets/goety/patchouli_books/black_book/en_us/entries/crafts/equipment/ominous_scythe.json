@@ -23,7 +23,7 @@
     {
       "type": "patchouli:text",
       "advancement": "goety:goety/craft_necro_brazier",
-      "text": "An upgraded version of the Ominous Scythe, possessing the qualities of other $(l:crafts/dark_metal_ingot)Dark Metal$() equipment."
+      "text": "An upgraded version of the Ominous Scythe, possessing the qualities of other $(l:crafts/dark_alloy_ingot)Dark Alloy$() equipment."
     }
   ],
   "extra_recipe_mappings": {

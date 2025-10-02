@@ -1,0 +1,21 @@
+{
+  "name": "goety:final_terminal/vault_west",
+
+  "fallback": "goety:final_terminal/vault_west",
+
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+
+        "location": "goety:final_terminal/vault_west",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

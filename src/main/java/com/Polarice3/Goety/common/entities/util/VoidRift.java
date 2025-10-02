@@ -258,8 +258,10 @@ public class VoidRift extends CastSpellTrap {
                             public void explodeHurt(Entity target, DamageSource damageSource, double x, double y, double z, double seen, float actualDamage) {
                                 super.explodeHurt(target, damageSource, x, y, z, seen, actualDamage);
                                 if (VoidRift.this.isStaff()) {
-                                    if (target instanceof LivingEntity livingEntity) {
-                                        livingEntity.addEffect(new MobEffectInstance(GoetyEffects.VOID_TOUCHED.get(), MathHelper.secondsToTicks(3), 2, false, true));
+                                    if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target)) {
+                                        if (target instanceof LivingEntity livingEntity) {
+                                            livingEntity.addEffect(new MobEffectInstance(GoetyEffects.VOID_TOUCHED.get(), MathHelper.secondsToTicks(3), 2, false, true));
+                                        }
                                     }
                                 }
                             }

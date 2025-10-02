@@ -18,6 +18,11 @@
     },
     {
       "type": "patchouli:text",
+      "title": "Piker Servants",
+      "text": "$(o)Note: Owner must have read $(l:goety:rumors/desert)Front Scroll$()$()$(br)Requirements: $(li)Neollager $(li)2 Grindstone $(li)2 Smithing Tables $(li)16 Wooden Fences $(li)32 Logs $(li)4 Barrels $(li)4 Beds $(li)2 Anvils"
+    },
+    {
+      "type": "patchouli:text",
       "title": "Vindicator Servants",
       "text": "Requirements: $(li)Neollager $(li)1 Banner $(li)64 Wooden Planks $(li)60 Bricks Blocks Any $(li)10 Walls $(li)10 Fences $(li)2 Furnaces $(li)1 Crafting Table"
     },
@@ -25,6 +30,11 @@
       "type": "patchouli:text",
       "title": "Vindicator Chef Servants",
       "text": "Requirements: $(li)Vindicator Servant $(li)4 Smokers/Furnaces $(li)16 Barrels $(li)2 Cakes"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Mountaineer Servants",
+      "text": "Requirements: $(li)Vindicator Servant $(li)Pyre must be in snowing biomes $(li)16 Wooden Fences $(li)20 Wools $(li)8 Barrels $(li)4 Powered Wind Blowers"
     },
     {
       "type": "patchouli:text",
@@ -45,6 +55,11 @@
       "type": "patchouli:text",
       "title": "Iceologer Servants",
       "text": "Requirements: $(li)Magic Neollager $(li)16 Blue Ice $(li)64 Snow Blocks $(li)4 $(l:goety:crafts/artifice/freezing_lamp)Freezing Lamps$()"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Cryologer Servants",
+      "text": "Requirements: $(li)Iceologer Servant $(li)Pyre must be in snowing biomes $(li)16 Bookshelves/Enchant Power $(li)32 Powdered Snow $(li)16 $(l:goety:crafts/creeper_totem)Creeper Totems$()"
     },
     {
       "type": "patchouli:text",

@@ -81,16 +81,7 @@ public class ModRavager extends RaiderServant implements PlayerRideable, IAutoRi
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new FloatGoal(this){
-            @Override
-            public boolean canUse() {
-                return super.canUse() && ModRavager.this.getMobType() != MobType.UNDEAD;
-            }
-        });
         this.goalSelector.addGoal(4, new RavagerMeleeAttackGoal());
-        this.goalSelector.addGoal(5, new RaiderWanderGoal<>(this, 0.4D));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
     }
 
     public void targetSelectGoal(){
@@ -103,6 +94,18 @@ public class ModRavager extends RaiderServant implements PlayerRideable, IAutoRi
         }).setAlertOthers());
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, false, livingEntity -> this.isHostile() && !livingEntity.isBaby()).setUnseenMemoryTicks(300));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, false, livingEntity -> this.isHostile()));
+    }
+
+    public void miscGoal() {
+        this.goalSelector.addGoal(0, new FloatGoal(this){
+            @Override
+            public boolean canUse() {
+                return super.canUse() && ModRavager.this.getMobType() != MobType.UNDEAD;
+            }
+        });
+        this.goalSelector.addGoal(5, new RaiderWanderGoal<>(this, 0.4D));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
     }
 
     protected void updateControlFlags() {

@@ -1,11 +1,12 @@
 package com.Polarice3.Goety.common.network.server;
 
-import net.minecraft.client.Minecraft;
+import com.Polarice3.Goety.Goety;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -31,8 +32,8 @@ public class SPurifyEffectPacket {
 
     public static void consume(SPurifyEffectPacket packet, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            ClientLevel clientWorld = Minecraft.getInstance().level;
-            if (clientWorld != null) {
+            Level level = Goety.PROXY.getLevel();
+            if (level instanceof ClientLevel clientWorld) {
                 Entity entity = clientWorld.getEntity(packet.mob);
                 if (entity instanceof LivingEntity livingEntity) {
                     for (MobEffect mobEffect : ForgeRegistries.MOB_EFFECTS){

@@ -1,0 +1,17 @@
+{
+  "name": "虚空之眼",
+  "icon": "goety:void_eye",
+  "category": "goety:crafts",
+  "advancement": "minecraft:story/enter_the_end",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "不知受何驱使，你决定用虚空精华包裹末影之眼，最终制成了一颗能通往$(l:world/final_terminal)力量圣殿$()的特殊之眼。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:void_eye",
+      "text": "使用时会掷出眼睛的复制体而非消耗本体，但每次使用都会损耗其耐久度。"
+    }
+  ]
+}

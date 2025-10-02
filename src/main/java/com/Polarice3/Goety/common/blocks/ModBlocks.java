@@ -67,6 +67,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> SHADE_GRAVESTONE = register("shade_gravestone", GravestoneBlock::new);
     public static final RegistryObject<Block> BLAZING_CAGE = register("blazing_cage", BlazingCageBlock::new);
     public static final RegistryObject<Block> OMINOUS_PYRE = register("ominous_pyre", OminousPyreBlock::new);
+    public static final RegistryObject<Block> OMINOUS_IDOL = register("ominous_idol", OminousIdolBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> FORBIDDEN_GRASS = register("forbidden_grass", ForbiddenGrassBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> HOOK_BELL = register("hook_bell", HookBellBlock::new);
     public static final RegistryObject<Block> SHRIEKING_OBELISK = register("shriek_obelisk", ShriekObeliskBlock::new);
@@ -101,6 +102,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> PART_LIQUID = register("part_liquid", PartLiquidBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> PITHOS = register("pithos", PithosBlock::new);
     public static final RegistryObject<Block> SPIDER_MOTHER_DEN = register("spider_mother_den", SpiderMotherDenBlock::new, true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> VOID_SPAWNER = register("void_spawner", VoidSpawnerBlock::new, true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> VOID_VAULT = register("void_vault", VoidVaultBlock::new, true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> VOID_FRAME = register("void_frame", VoidFrameBlock::new, true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> VOID_SHRINE = register("void_shrine", VoidShrineBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> NIGHT_BEACON = register("night_beacon", NightBeaconBlock::new, false);
     public static final RegistryObject<Block> TALL_SKULL_BLOCK = register("tall_skull", TallSkullBlock::new, false);
     public static final RegistryObject<Block> WALL_TALL_SKULL_BLOCK = register("wall_tall_skull", WallTallSkullBlock::new, false, LootTableType.EMPTY);
@@ -122,7 +127,7 @@ public class ModBlocks {
             .strength(5.0F, 6.0F)
             .sound(SoundType.METAL)));
     public static final RegistryObject<Block> CURSED_METAL_BLOCK = register("cursed_metal_block", CursedMetalBlock::new);
-    public static final RegistryObject<Block> DARK_METAL_BLOCK = register("dark_metal_block", DarkMetalBlock::new);
+    public static final RegistryObject<Block> DARK_ALLOY_BLOCK = register("dark_metal_block", DarkMetalBlock::new);
 
     public static final RegistryObject<Block> HAUNTED_GLASS = register("haunted_glass", () -> new HauntedGlassBlock(glassProperties(), true, false));
     public static final RegistryObject<Block> TINTED_HAUNTED_GLASS = register("haunted_glass_tinted", () -> new HauntedGlassBlock(tintedGlassProperties(), true, true));
@@ -168,7 +173,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> VOID_FLAME = register("void_flame", VoidFlameBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<LiquidBlock> VOID_FLUID = register("void_fluid", VoidFluidBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> VOID_BARREL = register("void_barrel", VoidBarrelBlock::new, true, LootTableType.EMPTY);
-    public static final RegistryObject<Block> VOID_CAULDRON = register("void_cauldron", () -> new VoidCauldronBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON).emissiveRendering(ModBlocks::always)), false, LootTableType.EMPTY);
+    public static final RegistryObject<Block> VOID_CAULDRON = register("void_cauldron", () -> new VoidCauldronBlock(
+            BlockBehaviour.Properties.copy(Blocks.CAULDRON)
+            .emissiveRendering((state, world, pos) -> true)
+            .lightLevel((state) -> 1)), false, LootTableType.EMPTY);
 
     public static final RegistryObject<Block> END_BASALT = register("end_basalt",
             () -> new RotatedPillarBlock(BlockBehaviour.Properties.of()
@@ -380,6 +388,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> WINDSWEPT_SAPLING = register("windswept_sapling", () -> sapling(new WindsweptTree()));
     public static final RegistryObject<Block> POTTED_WINDSWEPT_SAPLING = register("potted_windswept_sapling", () ->
             new FlowerPotBlock(() -> (FlowerPotBlock) ForgeRegistries.BLOCKS.getDelegateOrThrow(Blocks.FLOWER_POT).get(), ModBlocks.WINDSWEPT_SAPLING, Block.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion().instabreak()), false, LootTableType.EMPTY);
+    public static final RegistryObject<Block> WINDSWEPT_PLANK_WALL_BLOCK = registerWalls("windswept_plank_wall", WINDSWEPT_PLANKS);
+    public static final RegistryObject<Block> SNOWY_WINDSWEPT_PLANK_WALL_BLOCK = registerWalls("snowy_windswept_plank_wall", WINDSWEPT_PLANKS);
+    public static final RegistryObject<Block> WINDSWEPT_LAMP = register("windswept_lamp",
+            () -> new LampBlock(Block.Properties.copy(WINDSWEPT_PLANKS.get())));
 
     //Pine
     public static final RegistryObject<Block> PINE_PLANKS = register("pine_planks",
@@ -618,6 +630,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> HIGHROCK_BLOCK = register("highrock", HighrockBlock::new);
     public static final RegistryObject<Block> POLISHED_HIGHROCK_BLOCK = register("polished_highrock", HighrockBlock::new);
     public static final RegistryObject<Block> HIGHROCK_BRICKS_BLOCK = register("highrock_bricks", HighrockBlock::new);
+    public static final RegistryObject<Block> HIGHROCK_INDENTED_BRICKS_BLOCK = register("highrock_indented_bricks", HighrockBlock::new);
     public static final RegistryObject<Block> SNOWY_HIGHROCK_BRICKS_BLOCK = register("snowy_highrock_bricks", HighrockBlock::new);
     public static final RegistryObject<Block> GOLD_INDENTED_HIGHROCK_BRICKS_BLOCK = register("gold_indented_highrock_bricks", HighrockBlock::new);
     public static final RegistryObject<Block> GOLD_CHISELED_HIGHROCK_BRICKS_BLOCK = register("gold_chiseled_highrock_bricks", HighrockBlock::new);
@@ -641,6 +654,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> END_STONE_TILES_BLOCK = register("end_stone_tiles", EndStoneBlock::new);
     public static final RegistryObject<Block> SMOOTH_END_STONE_BLOCK = register("smooth_end_stone", EndStoneBlock::new);
     public static final RegistryObject<Block> END_STONE_SLATE_BLOCK = register("end_stone_slate", () -> new RotatedPillarBlock(EndStoneProperties()));
+    public static final RegistryObject<Block> COBBLED_END_STONE_BLOCK = register("cobbled_end_stone", EndStoneBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> END_STONE_PILLAR_BLOCK = register("end_stone_pillar", () -> new RotatedPillarBlock(EndStoneProperties()));
     public static final RegistryObject<Block> CHORUS_END_STONE_PILLAR_BLOCK = register("chorus_end_stone_pillar", () -> new RotatedPillarBlock(EndStoneProperties()));
     public static final RegistryObject<Block> END_ROD_BLOCK = register("end_rod_block", () -> new Block(BlockBehaviour.Properties.of()
@@ -724,6 +738,8 @@ public class ModBlocks {
             END_STONE_TILES_BLOCK);
     public static final RegistryObject<Block> SMOOTH_END_STONE_SLAB = registerSlabs("smooth_end_stone_slab",
             SMOOTH_END_STONE_BLOCK);
+    public static final RegistryObject<Block> COBBLED_END_STONE_SLAB = registerSlabs("cobbled_end_stone_slab",
+            COBBLED_END_STONE_BLOCK);
 
     //Stairs
     public static final RegistryObject<Block> SHADE_STONE_STAIRS_BLOCK = registerStairs("shade_stone_stairs", SHADE_STONE_BLOCK);
@@ -761,6 +777,7 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> END_STONE_TILE_STAIRS_BLOCK = registerStairs("end_stone_tile_stairs", END_STONE_TILES_BLOCK);
     public static final RegistryObject<Block> SMOOTH_END_STONE_STAIRS_BLOCK = registerStairs("smooth_end_stone_stairs", SMOOTH_END_STONE_BLOCK);
+    public static final RegistryObject<Block> COBBLED_END_STONE_STAIRS_BLOCK = registerStairs("cobbled_end_stone_stairs", COBBLED_END_STONE_BLOCK);
 
     //Walls
     public static final RegistryObject<Block> SHADE_BRICK_WALL_BLOCK = registerWalls("shade_bricks_wall", SHADE_BRICK_BLOCK);
@@ -796,6 +813,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> SNOW_BRICK_WALL_BLOCK = registerWalls("snow_brick_wall", SNOW_BRICKS_BLOCK);
 
     public static final RegistryObject<Block> SMOOTH_END_STONE_WALL_BLOCK = registerWalls("smooth_end_stone_wall", SMOOTH_END_STONE_BLOCK);
+    public static final RegistryObject<Block> COBBLED_END_STONE_WALL_BLOCK = registerWalls("cobbled_end_stone_wall", COBBLED_END_STONE_BLOCK);
+
     public static final RegistryObject<Block> SMOOTH_END_STONE_FENCE = register("smooth_end_stone_fence",
             () -> new FenceBlock(Block.Properties.copy(SMOOTH_END_STONE_BLOCK.get())));
 
@@ -814,6 +833,8 @@ public class ModBlocks {
             () -> new ItemNameBlockItem(ModBlocks.SNAP_WARTS.get(), (new Item.Properties())));
     public static final RegistryObject<Item> RESONANCE_CRYSTAL_ITEM = ModItems.ITEMS.register("resonance_crystal",
             ResonanceBlockItem::new);
+    public static final RegistryObject<Item> OMINOUS_IDOL_ITEM = ModItems.ITEMS.register("ominous_idol",
+            OminousIdolBlockItem::new);
     public static final RegistryObject<Item> HAUNTED_JUG_ITEM = ModItems.ITEMS.register("haunted_jug",
             HauntedJugItem::new);
     public static final RegistryObject<Item> NIGHT_BEACON_ITEM = ModItems.ITEMS.register("night_beacon",

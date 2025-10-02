@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.utils;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.Vec3;
@@ -135,19 +136,15 @@ public class ColorUtil {
         }
 
         public static int lerp(float partialTick, int colorFrom, int colorTo) {
-            int alpha = Mth.lerpInt(partialTick, alpha(colorFrom), alpha(colorTo));
-            int red = Mth.lerpInt(partialTick, red(colorFrom), red(colorTo));
-            int green = Mth.lerpInt(partialTick, green(colorFrom), green(colorTo));
-            int blue = Mth.lerpInt(partialTick, blue(colorFrom), blue(colorTo));
-            return color(alpha, red, green, blue);
+            return FastColor.ARGB32.lerp(partialTick, colorFrom, colorTo);
         }
 
         public static int opaque(int color) {
-            return color | 0xFF000000;
+            return FastColor.ABGR32.opaque(color);
         }
 
         public static int transparent(int color) {
-            return color & 16777215;
+            return FastColor.ABGR32.transparent(color);
         }
 
         public static int color(int alpha, int color) {

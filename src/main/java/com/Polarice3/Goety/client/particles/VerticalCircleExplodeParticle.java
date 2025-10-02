@@ -47,6 +47,11 @@ public class VerticalCircleExplodeParticle extends TextureSheetParticle {
       return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
    }
 
+   @Override
+   public boolean shouldCull() {
+      return false;
+   }
+
    public static class Provider implements ParticleProvider<VerticalCircleExplodeParticleOption> {
       private final SpriteSet sprite;
 

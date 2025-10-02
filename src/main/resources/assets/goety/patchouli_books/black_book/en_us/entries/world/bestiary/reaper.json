@@ -11,6 +11,15 @@
     {
       "type": "patchouli:entity",
       "entity": "goety:reaper"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:grave_dust",
+      "title": "Grave Dust",
+      "text": "Reapers have a chance of dropping Grave Dusts, which are useful for crafting certain necromantic objects."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:grave_dust": 2
+  }
 }

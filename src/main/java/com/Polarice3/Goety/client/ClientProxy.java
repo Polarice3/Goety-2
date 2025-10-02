@@ -15,12 +15,20 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nullable;
 import java.util.UUID;
 
 public class ClientProxy implements ModProxy {
+    @Nullable
     @Override
     public Player getPlayer() {
         return Minecraft.getInstance().player;
+    }
+
+    @Nullable
+    @Override
+    public Level getLevel() {
+        return Minecraft.getInstance().level;
     }
 
     @Override
@@ -56,7 +64,7 @@ public class ClientProxy implements ModProxy {
         if (Minecraft.getInstance().level == null){
             return;
         }
-        LightningEffect.INSTANCE.add(Minecraft.getInstance().level, new LightningParticleOptions(LightningParticleOptions.BoltRenderInfo.thunderBolt(new ColorUtil(100, 100, 220, 1.0F)).noise(1.0F, 0.001F), vectorStart, vectorEnd, lifespan).size(0.5F), ClientEvents.PARTIAL_TICK);
+        LightningEffect.INSTANCE.add(Minecraft.getInstance().level, new LightningParticleOptions(LightningParticleOptions.BoltRenderInfo.thunderBolt(colorUtil).noise(1.0F, 0.001F), vectorStart, vectorEnd, lifespan).size(0.5F), ClientEvents.PARTIAL_TICK);
     }
 
     public void spawnSoulExplosion(Level level, BlockPos blockPos, int radius){
