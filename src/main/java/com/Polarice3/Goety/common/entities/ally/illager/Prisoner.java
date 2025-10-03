@@ -149,6 +149,21 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder {
     }
 
     @Override
+    public void tick() {
+        super.tick();
+        if (!this.level.isClientSide) {
+            if (this.getTrueOwner() instanceof RaiderServant raider) {
+                if (raider.getLeader() != null && this.getLeader() != raider.getLeader()) {
+                    this.setLeader(raider.getLeader());
+                    if (raider.getLeader().getTrueOwner() != null) {
+                        this.setTrueOwner(raider.getLeader().getTrueOwner());
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
     public VillagerData getVillagerData() {
         return this.entityData.get(DATA_VILLAGER_DATA);
     }

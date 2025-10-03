@@ -525,8 +525,6 @@ public abstract class RaiderServant extends Summoned {
                     }
                     this.setCaptureMode(this.getLeader().isCapturing());
                 }
-            } else if (this.isCapturing() && !this.isLeader()) {
-                this.setCaptureMode(false);
             }
             this.markedTick();
             this.raidTick();
@@ -967,7 +965,7 @@ public abstract class RaiderServant extends Summoned {
                 return InteractionResult.CONSUME;
             } else if (pPlayer.getMainHandItem().is(Items.CHAIN)
                     && !this.isCapturing()
-                    && this.isLeader()){
+                    && !this.isFollower()){
                 if (!this.level.isClientSide) {
                     this.setCaptureMode(true);
                     this.playSound(SoundEvents.CHAIN_PLACE, 1.0F, 1.0F);
@@ -976,7 +974,7 @@ public abstract class RaiderServant extends Summoned {
                 return InteractionResult.SUCCESS;
             } else if (pPlayer.getMainHandItem().is(ItemTags.AXES)
                     && this.isCapturing()
-                    && this.isLeader()){
+                    && !this.isFollower()){
                 if (!this.level.isClientSide) {
                     this.setCaptureMode(false);
                     this.playSound(SoundEvents.CHAIN_BREAK, 1.0F, 0.5F);

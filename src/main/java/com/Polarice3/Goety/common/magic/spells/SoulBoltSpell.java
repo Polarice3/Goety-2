@@ -57,6 +57,12 @@ public class SoulBoltSpell extends Spell {
 
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
+        int potency = spellStat.getPotency();
+        float velocity = spellStat.getVelocity();
+        if (WandUtil.enchantedFocus(caster)){
+            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            velocity += WandUtil.getLevels(ModEnchantments.VELOCITY.get(), caster);
+        }
         Vec3 vector3d = caster.getViewVector( 1.0F);
         SpellHurtingProjectile soulBolt = new SoulBolt(
                 caster.getX() + vector3d.x / 2,
@@ -80,10 +86,8 @@ public class SoulBoltSpell extends Spell {
         if (soulBolt instanceof SoulBolt soulBolt1){
             soulBolt1.setNecro(this.typeStaff(staff, SpellType.NECROMANCY));
         }
-        if (WandUtil.enchantedFocus(caster)){
-            soulBolt.setExtraDamage(spellStat.getPotency() + WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
-            soulBolt.setBoltSpeed((int) (spellStat.getVelocity() + WandUtil.getLevels(ModEnchantments.VELOCITY.get(), caster)));
-        }
+        soulBolt.setExtraDamage(potency);
+        soulBolt.setBoltSpeed((int) velocity);
         soulBolt.setOwner(caster);
         worldIn.addFreshEntity(soulBolt);
     }

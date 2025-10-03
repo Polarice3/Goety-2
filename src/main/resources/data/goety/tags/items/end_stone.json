@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "goety:big_end_stone_bricks",
+    "goety:messy_end_stone_bricks",
     "goety:chiseled_end_stone",
     "goety:chiseled_end_stone_bricks",
     "goety:end_stone_tiles",

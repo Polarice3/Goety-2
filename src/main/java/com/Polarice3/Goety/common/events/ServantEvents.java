@@ -326,23 +326,31 @@ public class ServantEvents {
         if (raider != null) {
             if (!raider.level.isClientSide) {
                 if (raider.isCapturing()) {
+                    RaiderServant leader = null;
                     if (raider.getLeader() != null) {
-                        if (killed instanceof AbstractVillager villager) {
-                            Prisoner prisoner = villager.convertTo(ModEntityType.PRISONER.get(), true);
-                            if (prisoner != null) {
-                                if (villager instanceof Villager villager1) {
-                                    prisoner.setVillagerData(villager1.getVillagerData());
-                                    prisoner.setGossips(villager1.getGossips().store(NbtOps.INSTANCE));
-                                }
-                                prisoner.setTradeOffers(villager.getOffers().createTag());
-                                prisoner.setVillagerXp(villager.getVillagerXp());
-                                prisoner.setIsTrader(villager instanceof WanderingTrader);
+                        leader = raider.getLeader();
+                    } else if (raider.isLeader()) {
+                        leader = raider;
+                    }
+                    if (killed instanceof AbstractVillager villager) {
+                        Prisoner prisoner = villager.convertTo(ModEntityType.PRISONER.get(), true);
+                        if (prisoner != null) {
+                            if (villager instanceof Villager villager1) {
+                                prisoner.setVillagerData(villager1.getVillagerData());
+                                prisoner.setGossips(villager1.getGossips().store(NbtOps.INSTANCE));
+                            }
+                            prisoner.setTradeOffers(villager.getOffers().createTag());
+                            prisoner.setVillagerXp(villager.getVillagerXp());
+                            prisoner.setIsTrader(villager instanceof WanderingTrader);
+                            if (leader != null) {
                                 prisoner.setTrueOwner(raider.getTrueOwner());
-                                prisoner.setLeader(raider.getLeader());
-                                net.minecraftforge.event.ForgeEventFactory.onLivingConvert(villager, prisoner);
-                                if (!prisoner.isSilent()) {
-                                    prisoner.playSound(SoundEvents.IRON_TRAPDOOR_CLOSE);
-                                }
+                                prisoner.setLeader(leader);
+                            } else {
+                                prisoner.setTrueOwner(raider);
+                            }
+                            net.minecraftforge.event.ForgeEventFactory.onLivingConvert(villager, prisoner);
+                            if (!prisoner.isSilent()) {
+                                prisoner.playSound(SoundEvents.IRON_TRAPDOOR_CLOSE);
                             }
                         }
                     }

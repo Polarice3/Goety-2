@@ -24,6 +24,8 @@ public class ModDamageTypeTagsProvider extends TagsProvider<DamageType> {
     }
 
     protected void addTags(HolderLookup.Provider provider) {
+        this.tag(DamageTypeTags.BYPASSES_INVULNERABILITY)
+                .add(ModDamageSource.DISMISSED);
         this.tag(DamageTypeTags.BYPASSES_ARMOR)
                 .add(ModDamageSource.PHOBIA,
                         ModDamageSource.DOOM,

@@ -38,6 +38,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(ModBlocks.SNOWY_CRAG_BRICKS_BLOCK.get());
         simpleBlockWithItem(ModBlocks.SILT_STUDDED_CRAG_TILES_BLOCK.get());
 
+        simpleBlockWithItem(ModBlocks.SMOOTH_SILTSTONE_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.COBBLED_SILTSTONE_BLOCK.get());
         simpleBlockWithItem(ModBlocks.SILTSTONE_BRICKS_BLOCK.get());
         simpleBlockWithItem(ModBlocks.SILTSTONE_TILES_BLOCK.get());
         simpleBlockWithItem(ModBlocks.SILTSTONE_PAVEMENT_BLOCK.get());
@@ -45,9 +47,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(ModBlocks.CHISELED_SILTSTONE_BRICKS_BLOCK.get());
 
         simpleBlockWithItem(ModBlocks.END_BASALT_BRICKS.get());
+        simpleBlockWithItem(ModBlocks.SMOOTH_END_BASALT_BRICKS.get());
 
         simpleBlockWithItem(ModBlocks.END_ROCK_CHISELED.get());
 
+        simpleBlockWithItem(ModBlocks.BIG_END_STONE_BRICKS_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.MESSY_END_STONE_BRICKS_BLOCK.get());
         simpleBlockWithItem(ModBlocks.CHISELED_END_STONE_BLOCK.get());
         simpleBlockWithItem(ModBlocks.CHISELED_END_STONE_BRICKS_BLOCK.get());
         simpleBlockWithItem(ModBlocks.END_STONE_TILES_BLOCK.get());
@@ -158,6 +163,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         slabBlockWithItem((SlabBlock) ModBlocks.HIGHROCK_BRICK_SLAB.get(), Goety.location("block/highrock_bricks"));
 
         slabBlockWithItem((SlabBlock) ModBlocks.SILTSTONE_SLAB.get(), Goety.location("block/siltstone"));
+        slabBlockWithItem((SlabBlock) ModBlocks.SMOOTH_SILTSTONE_SLAB.get(), Goety.location("block/smooth_siltstone"));
+        slabBlockWithItem((SlabBlock) ModBlocks.COBBLED_SILTSTONE_SLAB.get(), Goety.location("block/cobbled_siltstone"));
         slabBlockWithItem((SlabBlock) ModBlocks.SILTSTONE_BRICK_SLAB.get(), Goety.location("block/siltstone_bricks"));
         slabBlockWithItem((SlabBlock) ModBlocks.SILTSTONE_TILE_SLAB.get(), Goety.location("block/siltstone_tiles"));
         slabBlockWithItem((SlabBlock) ModBlocks.SILTSTONE_PAVEMENT_SLAB.get(), Goety.location("block/siltstone_pavement"));
@@ -198,6 +205,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         stairsBlockWithItem((StairBlock) ModBlocks.HIGHROCK_BRICK_STAIRS.get(), Goety.location("block/highrock_bricks"));
 
         stairsBlockWithItem((StairBlock) ModBlocks.SILTSTONE_STAIRS.get(), Goety.location("block/siltstone"));
+        stairsBlockWithItem((StairBlock) ModBlocks.SMOOTH_SILTSTONE_STAIRS.get(), Goety.location("block/smooth_siltstone"));
+        stairsBlockWithItem((StairBlock) ModBlocks.COBBLED_SILTSTONE_STAIRS.get(), Goety.location("block/cobbled_siltstone"));
         stairsBlockWithItem((StairBlock) ModBlocks.SILTSTONE_BRICK_STAIRS.get(), Goety.location("block/siltstone_bricks"));
         stairsBlockWithItem((StairBlock) ModBlocks.SILTSTONE_TILE_STAIRS.get(), Goety.location("block/siltstone_tiles"));
         stairsBlockWithItem((StairBlock) ModBlocks.SILTSTONE_PAVEMENT_STAIRS.get(), Goety.location("block/siltstone_pavement"));
@@ -228,6 +237,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         wallBlockWithItem((WallBlock) ModBlocks.HIGHROCK_BRICK_WALL_BLOCK.get(), Goety.location("block/highrock_bricks"));
 
         wallBlockWithItem((WallBlock) ModBlocks.SILTSTONE_WALL_BLOCK.get(), Goety.location("block/siltstone"));
+        wallBlockWithItem((WallBlock) ModBlocks.SMOOTH_SILTSTONE_WALL_BLOCK.get(), Goety.location("block/smooth_siltstone"));
+        wallBlockWithItem((WallBlock) ModBlocks.COBBLED_SILTSTONE_WALL_BLOCK.get(), Goety.location("block/cobbled_siltstone"));
         wallBlockWithItem((WallBlock) ModBlocks.SILTSTONE_TILE_WALL_BLOCK.get(), Goety.location("block/siltstone_tiles"));
         wallBlockWithItem((WallBlock) ModBlocks.SILTSTONE_BRICK_WALL_BLOCK.get(), Goety.location("block/siltstone_bricks"));
         wallBlockWithItem((WallBlock) ModBlocks.SILTSTONE_PAVEMENT_WALL_BLOCK.get(), Goety.location("block/siltstone_pavement"));

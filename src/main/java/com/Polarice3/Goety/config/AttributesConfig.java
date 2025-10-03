@@ -186,6 +186,9 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> WindCallerServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> WindCallerServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> WindCallerServantFollowRange;
+    public static final ForgeConfigSpec.ConfigValue<Double> WitchServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> WitchServantArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> WitchServantFollowRange;
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedVexHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedVexDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedIrkHealth;
@@ -745,6 +748,14 @@ public class AttributesConfig {
                         .defineInRange("windCallerServantArmor", 0.0, 0.0, Double.MAX_VALUE);
                 WindCallerServantFollowRange = BUILDER.comment("How much following/detection range Wind Caller Servants have, Default: 35.0")
                         .defineInRange("windCallerServantFollowRange", 35.0, 0.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Witch Servant");
+                WitchServantHealth = BUILDER.comment("How much Max Health Witch Servants have, Default: 26.0")
+                        .defineInRange("witchServantHealth", 26.0, 1.0, Double.MAX_VALUE);
+                WitchServantArmor = BUILDER.comment("How much natural Armor Witch Servants have, Default: 0.0")
+                        .defineInRange("witchServantArmor", 0.0, 0.0, Double.MAX_VALUE);
+                WitchServantFollowRange = BUILDER.comment("How much following/detection range Witch Servants have, Default: 16.0")
+                        .defineInRange("witchServantFollowRange", 16.0, 0.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Vex");
                 SummonedVexHealth = BUILDER.comment("How much Max Health Summoned Vexes have, Default: 14.0")

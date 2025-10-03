@@ -1102,20 +1102,35 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
                         this.outwardTremor(l, 0.0F, damage);
                         this.outwardTremor(l, 0.5F, damage);
                         this.outwardTremor(l, -0.5F, damage);
-                        this.outwardTremor(l, 1.5F, damage);
-                        this.outwardTremor(l, -1.5F, damage);
-                        this.outwardTremor(l, 2.5F, damage);
-                        this.outwardTremor(l, -2.5F, damage);
-                        this.outwardTremor(l, 3.5F, damage);
-                        this.outwardTremor(l, -3.5F, damage);
-                        this.outwardTremor(l, 4.5F, damage);
-                        this.outwardTremor(l, -4.5F, damage);
-                        this.outwardTremor(l, 5.5F, damage);
-                        this.outwardTremor(l, -5.5F, damage);
-                        this.outwardTremor(l, 6.5F, damage);
-                        this.outwardTremor(l, -6.5F, damage);
-                        this.outwardTremor(l, 7.5F, damage);
-                        this.outwardTremor(l, -7.5F, damage);
+                        if (l >= 1) {
+                            this.outwardTremor(l, 1.5F, damage);
+                            this.outwardTremor(l, -1.5F, damage);
+                        }
+                        if (l >= 2) {
+                            this.outwardTremor(l, 2.5F, damage);
+                            this.outwardTremor(l, -2.5F, damage);
+                        }
+                        if (l >= 3) {
+                            this.outwardTremor(l, 3.5F, damage);
+                            this.outwardTremor(l, -3.5F, damage);
+                        }
+                        if (l >= 4) {
+                            this.outwardTremor(l, 4.5F, damage);
+                            this.outwardTremor(l, -4.5F, damage);
+                        }
+                        if (l >= 5) {
+                            this.outwardTremor(l, 5.5F, damage);
+                            this.outwardTremor(l, -5.5F, damage);
+                        }
+                        if (l >= 6) {
+                            this.outwardTremor(l, 6.5F, damage);
+                            this.outwardTremor(l, -6.5F, damage);
+                        }
+                        if (l >= 7) {
+                            this.outwardTremor(l, 7.5F, damage);
+                            this.outwardTremor(l, -7.5F, damage);
+                        }
+
                     }
                 }
             }
@@ -1131,7 +1146,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
                     if (this.attackTick == 15 || this.attackTick == 21 || this.attackTick == 27 || this.attackTick == 33 || this.attackTick == 39 || this.attackTick == 45 || this.attackTick == 51) {
                         this.areaAttack(6.5F, 6, 120, damage, 60, false);
                         VoidSlash voidSlash = new VoidSlash(this.level, this);
-                        voidSlash.setPos(this.getEyePosition().add(0.0D, -0.25D, 0.0D));
+                        voidSlash.setPos(this.getEyePosition());
                         voidSlash.slash(this.getLookAngle(), 1.0F);
                         voidSlash.setDamage(damage);
                         this.level.addFreshEntity(voidSlash);
@@ -1594,6 +1609,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
             this.teleportIn();
         }
         super.stopHide();
+        this.refreshDimensions();
     }
 
     public boolean ownedTeleport(double x, double y, double z) {

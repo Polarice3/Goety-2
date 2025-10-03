@@ -12,8 +12,12 @@ import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -28,7 +32,9 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 
-public class MagicBolt extends AbstractHurtingProjectile {
+public class MagicBolt extends SpellHurtingProjectile {
+    public static final EntityDataAccessor<Integer> DATA_EXTRA_DURATION = SynchedEntityData.defineId(MagicBolt.class, EntityDataSerializers.INT);
+
     public MagicBolt(EntityType<? extends MagicBolt> p_i50147_1_, Level p_i50147_2_) {
         super(p_i50147_1_, p_i50147_2_);
     }
@@ -39,6 +45,31 @@ public class MagicBolt extends AbstractHurtingProjectile {
 
     public MagicBolt(Level p_i1795_1_, double p_i1795_2_, double p_i1795_4_, double p_i1795_6_, double p_i1795_8_, double p_i1795_10_, double p_i1795_12_) {
         super(ModEntityType.MAGIC_BOLT.get(), p_i1795_2_, p_i1795_4_, p_i1795_6_, p_i1795_8_, p_i1795_10_, p_i1795_12_, p_i1795_1_);
+    }
+
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_EXTRA_DURATION, 0);
+    }
+
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        if (compound.contains("ExtraDuration")) {
+            this.setExtraDuration(compound.getInt("ExtraDuration"));
+        }
+    }
+
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("ExtraDuration", this.getExtraDuration());
+    }
+
+    public int getExtraDuration() {
+        return this.entityData.get(DATA_EXTRA_DURATION);
+    }
+
+    public void setExtraDuration(int duration) {
+        this.entityData.set(DATA_EXTRA_DURATION, duration);
     }
 
     @Override
@@ -67,9 +98,8 @@ public class MagicBolt extends AbstractHurtingProjectile {
         if (livingentity != null) {
             if (livingentity instanceof Mob mob && mob.getAttribute(Attributes.ATTACK_DAMAGE) != null){
                 damage = (float) mob.getAttributeValue(Attributes.ATTACK_DAMAGE);
-            } else if (WandUtil.enchantedFocus(livingentity)){
-                damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), livingentity);
             }
+            damage += this.getExtraDamage();
             flag = target.hurt(ModDamageSource.magicBolt(this, livingentity), damage);
             if (flag) {
                 this.doEnchantDamageEffects(livingentity, target);
@@ -82,9 +112,7 @@ public class MagicBolt extends AbstractHurtingProjectile {
         if (flag){
             if (target instanceof LivingEntity livingTarget){
                 if (livingentity != null) {
-                    if (WandUtil.enchantedFocus(livingentity)) {
-                        duration *= WandUtil.getLevels(ModEnchantments.DURATION.get(), livingentity) + 1;
-                    }
+                    duration *= this.getExtraDuration() + 1;
                 }
                 livingTarget.addEffect(new MobEffectInstance(GoetyEffects.CURSED.get(), duration));
             }
@@ -136,9 +164,7 @@ public class MagicBolt extends AbstractHurtingProjectile {
         }
         if (this.getOwner() != null && this.getOwner() instanceof LivingEntity living){
             magicGround.setOwner(living);
-            if (WandUtil.enchantedFocus(living)){
-                duration *= WandUtil.getLevels(ModEnchantments.DURATION.get(), living) + 1;
-            }
+            duration *= this.getExtraDuration() + 1;
         }
         magicGround.setDuration(duration);
         MobUtil.moveDownToGround(magicGround);

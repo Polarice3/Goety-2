@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
@@ -47,6 +48,12 @@ public class MagicBoltSpell extends Spell {
     }
 
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){
+        int potency = spellStat.getPotency();
+        int duration = spellStat.getDuration();
+        if (WandUtil.enchantedFocus(caster)){
+            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
+        }
         Vec3 vector3d = caster.getViewVector( 1.0F);
         MagicBolt soulBolt = new MagicBolt(worldIn,
                 caster.getX() + vector3d.x / 2,
@@ -56,6 +63,8 @@ public class MagicBoltSpell extends Spell {
                 vector3d.y,
                 vector3d.z);
         soulBolt.setOwner(caster);
+        soulBolt.setExtraDamage(potency);
+        soulBolt.setExtraDuration(duration);
         worldIn.addFreshEntity(soulBolt);
         this.playSound(worldIn, caster, 1.0F, 1.0F);
     }

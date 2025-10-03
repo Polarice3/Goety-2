@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.ally.illager;
 import com.Polarice3.Goety.common.entities.ai.ModRangedAttackGoal;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -122,8 +123,16 @@ public class WitchServant extends RaiderServant implements RangedAttackMob {
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 26.0D)
+                .add(Attributes.MAX_HEALTH, AttributesConfig.WitchServantHealth.get())
+                .add(Attributes.FOLLOW_RANGE, AttributesConfig.WitchServantFollowRange.get())
+                .add(Attributes.ARMOR, AttributesConfig.WitchServantArmor.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.25D);
+    }
+
+    public void setConfigurableAttributes() {
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.WitchServantHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.WitchServantArmor.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.FOLLOW_RANGE), AttributesConfig.WitchServantFollowRange.get());
     }
 
     public void aiStep() {
@@ -248,6 +257,9 @@ public class WitchServant extends RaiderServant implements RangedAttackMob {
             double d2 = target.getZ() + vec3.z - this.getZ();
             double d3 = Math.sqrt(d0 * d0 + d2 * d2);
             Potion potion = Potions.HARMING;
+            if (target.isInvertedHealAndHarm()) {
+                potion = Potions.HEALING;
+            }
             if (this.isAlliedTarget(target) && this.getTarget() != target) {
                 if (target.getHealth() <= 4.0F) {
                     potion = Potions.HEALING;
@@ -258,7 +270,7 @@ public class WitchServant extends RaiderServant implements RangedAttackMob {
                 this.setShootTarget(null);
             } else if (d3 >= 8.0D && !target.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
                 potion = Potions.SLOWNESS;
-            } else if (target.getHealth() >= 8.0F && !target.hasEffect(MobEffects.POISON)) {
+            } else if (target.getHealth() >= 8.0F && target.canBeAffected(new MobEffectInstance(MobEffects.POISON)) && !target.hasEffect(MobEffects.POISON)) {
                 potion = Potions.POISON;
             } else if (d3 <= 3.0D && !target.hasEffect(MobEffects.WEAKNESS) && this.random.nextFloat() < 0.25F) {
                 potion = Potions.WEAKNESS;

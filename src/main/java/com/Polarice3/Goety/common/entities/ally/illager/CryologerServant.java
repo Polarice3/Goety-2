@@ -555,7 +555,9 @@ public class CryologerServant extends SpellcasterIllagerServant implements IBrea
 
         @Override
         public boolean canUse() {
-            return super.canUse() && CryologerServant.this.level.getDifficulty() == Difficulty.HARD && MobsConfig.CryologerIceChunk.get();
+            return super.canUse()
+                    && CryologerServant.this.level.getDifficulty() == Difficulty.HARD
+                    && MobsConfig.CryologerIceChunk.get();
         }
 
         public void start() {
@@ -577,17 +579,17 @@ public class CryologerServant extends SpellcasterIllagerServant implements IBrea
 
         @Override
         protected int getCastWarmupTime() {
-            return 50;
+            return 66;
         }
 
         @Override
         protected int getCastingTime() {
-            return 50;
+            return 66;
         }
 
         @Override
         protected int getCastingInterval() {
-            return 100;
+            return 120;
         }
 
         @Nullable

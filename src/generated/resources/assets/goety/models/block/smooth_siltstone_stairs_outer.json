@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "goety:block/smooth_siltstone",
+    "side": "goety:block/smooth_siltstone",
+    "top": "goety:block/smooth_siltstone"
+  }
+}

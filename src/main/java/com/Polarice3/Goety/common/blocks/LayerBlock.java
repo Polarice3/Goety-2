@@ -29,7 +29,7 @@ public class LayerBlock extends Block {
 
     public LayerBlock(BlockBehaviour.Properties p_56585_) {
         super(p_56585_);
-        this.registerDefaultState(this.stateDefinition.any().setValue(LAYERS, Integer.valueOf(1)));
+        this.registerDefaultState(this.stateDefinition.any().setValue(LAYERS, 1));
     }
 
     public boolean isPathfindable(BlockState p_56592_, BlockGetter p_56593_, BlockPos p_56594_, PathComputationType p_56595_) {
@@ -66,13 +66,7 @@ public class LayerBlock extends Block {
 
     public boolean canSurvive(BlockState p_56602_, LevelReader p_56603_, BlockPos p_56604_) {
         BlockState blockstate = p_56603_.getBlockState(p_56604_.below());
-        if (blockstate.is(BlockTags.SNOW_LAYER_CANNOT_SURVIVE_ON)) {
-            return false;
-        } else if (blockstate.is(BlockTags.SNOW_LAYER_CAN_SURVIVE_ON)) {
-            return true;
-        } else {
-            return Block.isFaceFull(blockstate.getCollisionShape(p_56603_, p_56604_.below()), Direction.UP) || blockstate.is(this) && blockstate.getValue(LAYERS) == 8;
-        }
+        return Block.isFaceFull(blockstate.getCollisionShape(p_56603_, p_56604_.below()), Direction.UP) || blockstate.is(this) && blockstate.getValue(LAYERS) == 8;
     }
 
     public BlockState updateShape(BlockState p_56606_, Direction p_56607_, BlockState p_56608_, LevelAccessor p_56609_, BlockPos p_56610_, BlockPos p_56611_) {

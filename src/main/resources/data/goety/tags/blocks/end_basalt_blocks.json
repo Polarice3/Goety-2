@@ -6,6 +6,7 @@
     "goety:end_basalt_slab",
     "goety:end_basalt_bricks",
     "goety:end_basalt_brick_stairs",
-    "goety:end_basalt_brick_slab"
+    "goety:end_basalt_brick_slab",
+    "goety:smooth_end_basalt_bricks"
   ]
 }

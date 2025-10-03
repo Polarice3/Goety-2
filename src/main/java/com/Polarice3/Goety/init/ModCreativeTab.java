@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.init;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModSpawnEggs;
 import com.Polarice3.Goety.common.items.ServantSpawnEggs;
@@ -13,6 +14,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.decoration.Painting;
 import net.minecraft.world.entity.decoration.PaintingVariant;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.DeferredRegister;
@@ -39,7 +41,7 @@ public class ModCreativeTab {
                 output.accept(ModItems.TOTEM_OF_ROOTS.get().getFilledTotem());
                 ModItems.ITEMS.getEntries().forEach(i -> {
                     if (i.isPresent()) {
-                        if (!ModItems.shouldSkipCreativeModTab(i.get()) && !ModItems.isFocus(i.get())) {
+                        if (!ModItems.shouldSkipCreativeModTab(i.get()) && !(i.get() instanceof BlockItem) && !ModItems.isFocus(i.get())) {
                             output.accept(i.get());
                         }
                     }
@@ -52,6 +54,20 @@ public class ModCreativeTab {
                 ModSpawnEggs.ITEMS.getEntries().forEach(i -> {
                     if (i.isPresent()) {
                         output.accept(i.get());
+                    }
+                });
+            }).build());
+
+    public static final RegistryObject<CreativeModeTab> BLOCK_TAB = CREATIVE_MODE_TABS.register(Goety.MOD_ID + "_block", () -> CreativeModeTab.builder()
+            .icon(() -> ModBlocks.SHADE_STONE_CHISELED_BLOCK.get().asItem().getDefaultInstance())
+            .title(Component.translatable("itemGroup.goety.block"))
+            .withSearchBar()
+            .displayItems((parameters, output) -> {
+                ModItems.ITEMS.getEntries().forEach(i -> {
+                    if (i.isPresent()) {
+                        if (i.get() instanceof BlockItem) {
+                            output.accept(i.get());
+                        }
                     }
                 });
             }).build());

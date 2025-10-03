@@ -1,0 +1,20 @@
+{
+  "name": "Witch Servant",
+  "icon": "goety:occult_fabric",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "While turning Villagers into Witches is a well known science, you wondered how to make Witch that serves you. Fortunately some Soul Energy, and a lot of Emeralds and a Mystic Core, allows one to make a loyal Witch."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_villager_to_witch"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:witch_servant",
+      "scale": 0.75
+    }
+  ]
+}

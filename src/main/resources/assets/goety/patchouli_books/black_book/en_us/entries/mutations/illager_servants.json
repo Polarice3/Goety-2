@@ -103,6 +103,14 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:cryologer_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Ever-crying, these priests of the cold can breath out frost, summon frozen walls to hinder their foes and summon clouds of hail above them."
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:wind_caller_servant",
       "scale": 0.75
     },
@@ -138,25 +146,25 @@
     },
     {
       "type": "patchouli:entity",
-      "name": "Illager Leader",
+      "name": "Illager Captain",
       "entity": "goety:pillager_servant{HandItems:[{Count:1,id:\"minecraft:crossbow\"},{}], ArmorItems:[{},{},{},{Count:1,id:\"minecraft:black_banner\"}]}",
       "scale": 0.5,
-      "text": "Illagers like Pillager Servants can be made a leader."
+      "text": "Illagers like Pillager Servants can be made a captain."
     },
     {
       "type": "patchouli:text",
-      "text": "If an Illager were given your $(l:goety:mutations/illager_servants#banner)personal banner$(), they will become a leader. Using a $(l:goety:focuses/command_focus)Command$() / $(l:goety:focuses/order_focus)Order$() Focus and commanding Illagers and certain other raiding servants, like tamed Ravagers, onto a leading Illager will cause them to follow them instead of you. Updating their movement stance will stop them from following the leading Illager. Right-clicking on the leading Illager with an empty hand will cause them to drop their banner."
+      "text": "If an Illager were given your $(l:goety:mutations/illager_servants#banner)personal banner$(), they will become a captain. Using a $(l:goety:focuses/command_focus)Command$() / $(l:goety:focuses/order_focus)Order$() Focus and commanding Illagers and certain other raiding servants, like tamed Ravagers, onto a leading Illager will cause them to follow them instead of you. Updating their movement stance will stop them from following the leading Illager. Right-clicking on the captain with an empty hand will cause them to drop their banner."
     },
     {
       "type": "patchouli:text",
-      "text": "Right-clicking on a leading Illager with a Taglock Kit, that has a Tagged creature on it, will cause them, and nearby raiding servants that are following the Illager, or not have a leader, to hunt said creature down before returning to their master once they slay their query. If the hunting party contains raiders that weren't following any Illager, they will start to follow the leader they came with."
+      "text": "Right-clicking on a captain with a Taglock Kit, that has a Tagged creature on it, will cause them, and nearby raiding servants that are following the Illager, or not have a captain, to hunt said creature down before returning to their master once they slay their query. If the hunting party contains raiders that weren't following any Illager, they will start to follow the captain they came with."
     },
     {
       "type": "patchouli:spotlight",
       "item": "goety:waystone",
       "anchor": "raid",
       "title": "Raiding",
-      "text": "Right-clicking on a leading Illager with a Waystone, that stored a position located in a chunk-loaded Village, with a Goat Horn offhand, will cause them to perform a raid on the Village, attacking all non-baby Villagers. Much like with the taglock, the leader will cause nearby leaderless raiders to join them."
+      "text": "Right-clicking on an Illager captain with a Waystone, that stored a position located in a chunk-loaded Village, with a Goat Horn offhand, will cause them to perform a raid on the Village, attacking all non-baby Villagers. Much like with the taglock, the captain will cause nearby leaderless raiders to join them."
     },
     {
       "type": "patchouli:text",
@@ -175,7 +183,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Much like everything else, all raiders will enter Capturing Mode if their leader is in that mode. In Raids, if all surviving Villagers are Prisoners, the raid is considered a success. To free a Prisoner, right-click on them while crouching. Prisoners can also be freed if they have taken enough damage while away from their captor or owner. There's a chance that certain Villagers don't end up being captured and can potentially die like usual."
+      "text": "Much like everything else, all raiders will enter Capturing Mode if their captain is in that mode. In Raids, if all surviving Villagers are Prisoners, the raid is considered a success. To free a Prisoner, right-click on them while crouching. Prisoners can also be freed if they have taken enough damage while away from their captor or owner. There's a chance that certain Villagers don't end up being captured and can potentially die like usual."
     },
     {
       "type": "patchouli:spotlight",

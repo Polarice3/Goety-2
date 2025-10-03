@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "layers=1": {
+      "model": "goety:block/end_soil_debris/height2"
+    },
+    "layers=2": {
+      "model": "goety:block/end_soil_debris/height4"
+    },
+    "layers=3": {
+      "model": "goety:block/end_soil_debris/height6"
+    },
+    "layers=4": {
+      "model": "goety:block/end_soil_debris/height8"
+    },
+    "layers=5": {
+      "model": "goety:block/end_soil_debris/height10"
+    },
+    "layers=6": {
+      "model": "goety:block/end_soil_debris/height12"
+    },
+    "layers=7": {
+      "model": "goety:block/end_soil_debris/height14"
+    },
+    "layers=8": {
+      "model": "goety:block/end_soil"
+    }
+  }
+}

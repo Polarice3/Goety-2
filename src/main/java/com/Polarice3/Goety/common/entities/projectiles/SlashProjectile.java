@@ -201,8 +201,10 @@ public abstract class SlashProjectile extends Projectile {
     @Override
     protected void onHitBlock(BlockHitResult hitResult) {
         super.onHitBlock(hitResult);
-        if (!this.level.isClientSide) {
-            this.discard();
+        if (!this.level.getBlockState(hitResult.getBlockPos()).getCollisionShape(this.level, hitResult.getBlockPos()).isEmpty()) {
+            if (!this.level.isClientSide) {
+                this.discard();
+            }
         }
     }
 

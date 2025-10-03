@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "$$",
+    "##"
+  ],
+  "key": {
+    "$": {
+      "item": "minecraft:end_stone_bricks"
+    },
+    "#": {
+      "item": "minecraft:end_stone_brick_slab"
+    }
+  },
+  "result": {
+    "item": "goety:big_end_stone_bricks",
+    "count": 3
+  }
+}
