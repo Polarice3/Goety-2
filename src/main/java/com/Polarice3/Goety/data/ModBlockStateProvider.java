@@ -47,19 +47,27 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(ModBlocks.CHISELED_SILTSTONE_BRICKS_BLOCK.get());
 
         simpleBlockWithItem(ModBlocks.END_BASALT_BRICKS.get());
+        simpleBlockWithItem(ModBlocks.SOILED_END_BASALT_BRICKS.get());
         simpleBlockWithItem(ModBlocks.SMOOTH_END_BASALT_BRICKS.get());
 
         simpleBlockWithItem(ModBlocks.END_ROCK_CHISELED.get());
+        simpleBlockWithItem(ModBlocks.SOILED_END_ROCK_CHISELED.get());
 
         simpleBlockWithItem(ModBlocks.BIG_END_STONE_BRICKS_BLOCK.get());
         simpleBlockWithItem(ModBlocks.MESSY_END_STONE_BRICKS_BLOCK.get());
         simpleBlockWithItem(ModBlocks.CHISELED_END_STONE_BLOCK.get());
         simpleBlockWithItem(ModBlocks.CHISELED_END_STONE_BRICKS_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.SOILED_END_STONE_BRICKS_SLIGHT_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.SOILED_END_STONE_BRICKS_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.SOILED_END_STONE_BRICKS_HEAVY_BLOCK.get());
         simpleBlockWithItem(ModBlocks.END_STONE_TILES_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.SOILED_END_STONE_TILES_BLOCK.get());
         simpleBlockWithItem(ModBlocks.SMOOTH_END_STONE_BLOCK.get());
         simpleBlockWithItem(ModBlocks.COBBLED_END_STONE_BLOCK.get());
         simpleBlockWithItem(ModBlocks.END_ROD_BLOCK.get());
         simpleBlockWithItem(ModBlocks.END_LAMP_BLOCK.get());
+
+        simpleBlockWithItem(ModBlocks.SOILED_PURPUR_BLOCK.get());
 
         buttonBlockWithItem((ButtonBlock) ModBlocks.HAUNTED_BUTTON.get(), Goety.location("block/haunted_planks"));
         buttonBlockWithItem((ButtonBlock) ModBlocks.ROTTEN_BUTTON.get(), Goety.location("block/rotten_planks"));
@@ -96,6 +104,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
         fenceBlockWithItem((FenceBlock) ModBlocks.END_ROCK_BRICK_FENCE.get(), Goety.location("block/end_rock_bricks"));
         fenceBlockWithItem((FenceBlock) ModBlocks.SMOOTH_END_STONE_FENCE.get(), Goety.location("block/smooth_end_stone"));
 
+        sideBottomTopBlock(ModBlocks.TOP_SOILED_END_BASALT.get(), Goety.location("block/end_soil"), Goety.location("block/top_soiled_end_basalt"), Goety.location("block/end_basalt_top"));
+        sideBottomTopBlock(ModBlocks.BOTTOM_SOILED_END_BASALT.get(), Goety.location("block/end_basalt_top"), Goety.location("block/bottom_soiled_end_basalt"), Goety.location("block/end_soil"));
+        sideBottomTopBlock(ModBlocks.END_ROCK_SLATE.get(), Goety.location("block/end_rock_top"), Goety.location("block/end_rock_slate"), Goety.location("block/end_stone_slate_top"));
+        sideBottomTopBlock(ModBlocks.END_STONE_SLATE_ROCK.get(), Goety.location("block/end_stone_slate_top"), Goety.location("block/end_stone_slate_rock"), Goety.location("block/end_rock_top"));
+
         logBlockWithItem((RotatedPillarBlock) ModBlocks.HAUNTED_LOG.get());
         logBlockWithItem((RotatedPillarBlock) ModBlocks.ROTTEN_LOG.get());
         logBlockWithItem((RotatedPillarBlock) ModBlocks.WINDSWEPT_LOG.get());
@@ -127,6 +140,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         columnBlockWithItem((RotatedPillarBlock) ModBlocks.STRIPPED_PINE_WOOD.get(), Goety.location("block/stripped_pine_log"));
 
         columnBlockWithItem((RotatedPillarBlock) ModBlocks.END_ROCK_BRICKS.get(), Goety.location("block/end_rock_bricks"));
+        columnBlockWithItem((RotatedPillarBlock) ModBlocks.SOILED_END_ROCK_BRICKS.get(), Goety.location("block/soiled_end_rock_bricks"));
 
         pressurePlateWithItem((PressurePlateBlock) ModBlocks.HAUNTED_PRESSURE_PLATE.get(), Goety.location("block/haunted_planks"));
         pressurePlateWithItem((PressurePlateBlock) ModBlocks.ROTTEN_PRESSURE_PLATE.get(), Goety.location("block/rotten_planks"));
@@ -308,6 +322,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
     public ModelFile buttonBlockInventory(ButtonBlock block, ResourceLocation texture){
         String baseName = key(block).toString();
         return models().buttonInventory(baseName + "_inventory", texture);
+    }
+
+    public void sideBottomTopBlock(Block block, ResourceLocation top, ResourceLocation side, ResourceLocation bottom){
+        String baseName = key(block).toString();
+        models().cube(baseName, bottom, top, side, side, side, side).texture("particle", side);
+        simpleBlockWithItem(block, models().cube(baseName, bottom, top, side, side, side, side).texture("particle", side));
     }
 
     public void logBlockWithItem(RotatedPillarBlock block){

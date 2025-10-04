@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "goety:block/soiled_end_rock_bricks",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "goety:block/soiled_end_rock_bricks"
+    },
+    "axis=z": {
+      "model": "goety:block/soiled_end_rock_bricks",
+      "x": 90
+    }
+  }
+}

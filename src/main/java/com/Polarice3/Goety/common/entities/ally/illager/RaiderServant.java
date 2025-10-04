@@ -513,7 +513,7 @@ public abstract class RaiderServant extends Summoned {
                             }
                         }
                     }
-                    if (!(this instanceof ITrainable trainable && !trainable.isTraining())) {
+                    if (!(this instanceof ITrainable trainable && trainable.isTraining())) {
                         if (this.getLeader().getMarked() != null && this.getLeader().getMarked() != this.getMarked()) {
                             this.setMarked(this.getLeader().getMarked());
                         }

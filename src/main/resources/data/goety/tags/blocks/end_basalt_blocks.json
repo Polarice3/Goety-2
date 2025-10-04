@@ -4,9 +4,14 @@
     "goety:end_basalt",
     "goety:end_basalt_stairs",
     "goety:end_basalt_slab",
+    "goety:soiled_end_basalt_slight",
+    "goety:soiled_end_basalt",
+    "goety:top_soiled_end_basalt",
+    "goety:bottom_soiled_end_basalt",
     "goety:end_basalt_bricks",
     "goety:end_basalt_brick_stairs",
     "goety:end_basalt_brick_slab",
+    "goety:soiled_end_basalt_bricks",
     "goety:smooth_end_basalt_bricks"
   ]
 }

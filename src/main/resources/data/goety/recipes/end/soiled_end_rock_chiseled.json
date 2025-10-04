@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "goety:end_rock_chiseled"
+    },
+    {
+      "item": "goety:end_soil"
+    }
+  ],
+  "result": {
+    "item": "goety:soiled_end_rock_chiseled"
+  }
+}

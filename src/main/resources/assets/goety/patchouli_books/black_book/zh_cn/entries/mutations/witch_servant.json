@@ -1,0 +1,20 @@
+{
+  "name": "女巫仆从",
+  "icon": "goety:occult_fabric",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "虽然把村民变成女巫的黑科技已经被众所周知，但你还想知道如何让变出来的女巫为你服务，幸运的是，一些灵魂能量、神秘核心和大量绿宝石足够把一个村民变成忠诚于你的女巫"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_villager_to_witch"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:witch_servant",
+      "scale": 0.75
+    }
+  ]
+}

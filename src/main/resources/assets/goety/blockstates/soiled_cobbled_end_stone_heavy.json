@@ -1,0 +1,78 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "goety:block/soiled_cobbled_end_stone_heavy"
+      },
+      {
+        "model": "goety:block/soiled_cobbled_end_stone_heavy",
+        "x": 90
+      },
+      {
+        "model": "goety:block/soiled_cobbled_end_stone_heavy",
+        "x": 180
+      },
+      {
+        "model": "goety:block/soiled_cobbled_end_stone_heavy",
+        "x": 270
+      },
+      {
+        "model": "goety:block/soiled_cobbled_end_stone_heavy",
+        "y": 90
+      },
+      {
+        "model": "goety:block/soiled_cobbled_end_stone_heavy",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "goety:block/soiled_cobbled_end_stone_heavy",
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "goety:block/soiled_cobbled_end_stone_heavy",
+        "x": 270,
+        "y": 90
+      },
+      {
+        "model": "goety:block/soiled_cobbled_end_stone_heavy",
+        "y": 180
+      },
+      {
+        "model": "goety:block/soiled_cobbled_end_stone_heavy",
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "goety:block/soiled_cobbled_end_stone_heavy",
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "goety:block/soiled_cobbled_end_stone_heavy",
+        "x": 270,
+        "y": 180
+      },
+      {
+        "model": "goety:block/soiled_cobbled_end_stone_heavy",
+        "y": 270
+      },
+      {
+        "model": "goety:block/soiled_cobbled_end_stone_heavy",
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "goety:block/soiled_cobbled_end_stone_heavy",
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "goety:block/soiled_cobbled_end_stone_heavy",
+        "x": 270,
+        "y": 270
+      }
+    ]
+  }
+}

@@ -1393,20 +1393,29 @@
   "block.goety.end_basalt": "End Basalt",
   "block.goety.end_basalt_slab": "End Basalt Slab",
   "block.goety.end_basalt_stairs": "End Basalt Stairs",
+  "block.goety.soiled_end_basalt_slight": "Slight Soiled End Basalt",
+  "block.goety.soiled_end_basalt": "Soiled End Basalt",
+  "block.goety.top_soiled_end_basalt": "Top Soiled End Basalt",
+  "block.goety.bottom_soiled_end_basalt": "Bottom Soiled End Basalt",
 
   "block.goety.end_basalt_bricks": "End Basalt Bricks",
   "block.goety.end_basalt_brick_slab": "End Basalt Brick Slab",
   "block.goety.end_basalt_brick_stairs": "End Basalt Brick Stairs",
+  "block.goety.soiled_end_basalt_bricks": "Soiled End Basalt Bricks",
   "block.goety.smooth_end_basalt_bricks": "Smooth End Basalt Bricks",
 
   "block.goety.end_rock": "End Rock",
   "block.goety.end_rock_slab": "End Rock Slab",
+  "block.goety.soiled_end_rock": "Soiled End Rock",
+  "block.goety.end_rock_slate": "Slated End Rock",
   "block.goety.end_rock_bricks": "End Rock Bricks",
   "block.goety.end_rock_brick_slab": "End Rock Brick Slab",
   "block.goety.end_rock_brick_wall": "End Rock Brick Wall",
   "block.goety.end_rock_brick_fence": "End Rock Brick Fence",
+  "block.goety.soiled_end_rock_bricks": "Soiled End Rock Bricks",
 
   "block.goety.end_rock_chiseled": "Chiseled End Rock",
+  "block.goety.soiled_end_rock_chiseled": "Soiled Chiseled End Rock",
 
   "block.goety.big_end_stone_bricks": "Big End Stone Bricks",
   "block.goety.messy_end_stone_bricks": "Messy End Stone Bricks",
@@ -1414,9 +1423,14 @@
   "block.goety.chiseled_end_stone": "Chiseled End Stone",
   "block.goety.chiseled_end_stone_bricks": "Chiseled End Stone Bricks",
 
+  "block.goety.soiled_end_stone_bricks_slight": "Slight Soiled End Stone Bricks",
+  "block.goety.soiled_end_stone_bricks": "Soiled End Stone Bricks",
+  "block.goety.soiled_end_stone_bricks_heavy": "Heavy Soiled End Stone Bricks",
+
   "block.goety.end_stone_tiles": "End Stone Tiles",
   "block.goety.end_stone_tile_slab": "End Stone Tile Slab",
   "block.goety.end_stone_tile_stairs": "End Stone Tile Stairs",
+  "block.goety.soiled_end_stone_tiles": "Soiled End Stone Tiles",
 
   "block.goety.smooth_end_stone": "Smooth End Stone",
   "block.goety.smooth_end_stone_slab": "Smooth End Stone Slab",
@@ -1425,11 +1439,15 @@
   "block.goety.smooth_end_stone_fence": "Smooth End Stone Fence",
 
   "block.goety.end_stone_slate": "End Stone Slate",
+  "block.goety.end_stone_slate_rock": "Rocked End Stone Slate",
 
   "block.goety.cobbled_end_stone": "Cobbled End Stone",
   "block.goety.cobbled_end_stone_slab": "Cobbled End Stone Slab",
   "block.goety.cobbled_end_stone_stairs": "Cobbled End Stone Stairs",
   "block.goety.cobbled_end_stone_wall": "Cobbled End Stone Wall",
+  "block.goety.soiled_cobbled_end_stone_slight": "Slight Soiled Cobbled End Stone",
+  "block.goety.soiled_cobbled_end_stone": "Soiled Cobbled End Stone",
+  "block.goety.soiled_cobbled_end_stone_heavy": "Heavy Soiled Cobbled End Stone",
 
   "block.goety.end_stone_pillar": "End Stone Pillar",
 
@@ -1441,6 +1459,7 @@
   "block.goety.purpur_lamp": "Purpur Lamp",
   "block.goety.purpur_wall": "Purpur Wall",
   "block.goety.purpur_end_rod_block": "Purpur End Rod Block",
+  "block.goety.soiled_purpur_block": "Soiled Purpur Block",
 
   "block.goety.end_soil": "End Soil",
   "block.goety.end_soil_debris": "End Soil Debris",

@@ -1,0 +1,23 @@
+{
+  "name": "不祥护符",
+  "icon": "goety:ominous_charm",
+  "category": "goety:crafts/garment",
+  "advancement": "minecraft:adventure/voluntary_exile",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "杀死巡逻队队长时，你总是会获得不祥之兆，虽然它有时很有用，但它有时却很烦人和有害，经过一些研究，你设计了一个可以吸收这一来自队长的诅咒的视频，即使不祥之兆已经达到最高等级5，也不会对你产生影响"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "不仅如此，如果你身上已经获得了不祥之兆，手持该饰品右键或按下相应快捷键，就会让饰品吸收掉你拥有的不祥之兆，等你身上没有不祥之兆，但你却想获得不祥之兆的时候，只需要再次手持该饰品右键或按下相应快捷键，里面的不祥之兆就会重新转移到你身上"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_charm"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ominous_charm": 1
+  }
+}

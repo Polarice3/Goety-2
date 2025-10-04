@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "goety:top_soiled_end_basalt"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "goety:blocks/top_soiled_end_basalt"
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " m ",
+    "mlm",
+    " m "
+  ],
+  "key":
+  {
+    "m":
+    {
+      "item": "goety:end_basalt"
+    },
+    "l":
+    {
+      "item": "goety:end_soil"
+    }
+  },
+  "result":
+  {
+    "item": "goety:soiled_end_basalt",
+    "count": 4
+  }
+}

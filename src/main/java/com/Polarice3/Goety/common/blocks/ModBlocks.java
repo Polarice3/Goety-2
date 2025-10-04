@@ -186,6 +186,14 @@ public class ModBlocks {
                     .sound(SoundType.BASALT)));
     public static final RegistryObject<Block> END_BASALT_STAIRS = registerStairs("end_basalt_stairs", END_BASALT);
     public static final RegistryObject<Block> END_BASALT_SLAB = registerSlabs("end_basalt_slab", END_BASALT);
+    public static final RegistryObject<Block> SOILED_END_BASALT_SLIGHT = register("soiled_end_basalt_slight",
+            () -> new Block(BlockBehaviour.Properties.copy(END_BASALT.get())));
+    public static final RegistryObject<Block> SOILED_END_BASALT = register("soiled_end_basalt",
+            () -> new Block(BlockBehaviour.Properties.copy(END_BASALT.get())));
+    public static final RegistryObject<Block> TOP_SOILED_END_BASALT = register("top_soiled_end_basalt",
+            () -> new Block(BlockBehaviour.Properties.copy(END_BASALT.get()).mapColor(MapColor.COLOR_GRAY)));
+    public static final RegistryObject<Block> BOTTOM_SOILED_END_BASALT = register("bottom_soiled_end_basalt",
+            () -> new Block(BlockBehaviour.Properties.copy(END_BASALT.get())));
 
     public static final RegistryObject<Block> END_BASALT_BRICKS = register("end_basalt_bricks",
             () -> new Block(BlockBehaviour.Properties.of()
@@ -195,6 +203,8 @@ public class ModBlocks {
                     .sound(SoundType.NETHER_BRICKS)));
     public static final RegistryObject<Block> END_BASALT_BRICK_STAIRS = registerStairs("end_basalt_brick_stairs", END_BASALT_BRICKS);
     public static final RegistryObject<Block> END_BASALT_BRICK_SLAB = registerSlabs("end_basalt_brick_slab", END_BASALT_BRICKS);
+    public static final RegistryObject<Block> SOILED_END_BASALT_BRICKS = register("soiled_end_basalt_bricks",
+            () -> new Block(BlockBehaviour.Properties.copy(END_BASALT_BRICKS.get())));
 
     public static final RegistryObject<Block> SMOOTH_END_BASALT_BRICKS = register("smooth_end_basalt_bricks",
             () -> new Block(BlockBehaviour.Properties.copy(END_BASALT_BRICKS.get())));
@@ -205,6 +215,10 @@ public class ModBlocks {
                     .strength(3.0F, 9.0F)
                     .sound(SoundType.STONE)));
     public static final RegistryObject<Block> END_ROCK_SLAB = registerSlabs("end_rock_slab", END_ROCK);
+    public static final RegistryObject<Block> SOILED_END_ROCK = register("soiled_end_rock",
+            () -> new Block(BlockBehaviour.Properties.copy(END_ROCK.get())));
+    public static final RegistryObject<Block> END_ROCK_SLATE = register("end_rock_slate",
+            () -> new Block(BlockBehaviour.Properties.copy(END_ROCK.get())));
 
     public static final RegistryObject<Block> END_ROCK_BRICKS = register("end_rock_bricks",
             () -> new RotatedPillarBlock(BlockBehaviour.Properties.of()
@@ -215,12 +229,16 @@ public class ModBlocks {
     public static final RegistryObject<Block> END_ROCK_BRICK_WALL_BLOCK = registerWalls("end_rock_brick_wall", END_ROCK_BRICKS);
     public static final RegistryObject<Block> END_ROCK_BRICK_FENCE = register("end_rock_brick_fence",
             () -> new FenceBlock(Block.Properties.copy(END_ROCK_BRICKS.get())));
+    public static final RegistryObject<Block> SOILED_END_ROCK_BRICKS = register("soiled_end_rock_bricks",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(END_ROCK_BRICKS.get())));
 
     public static final RegistryObject<Block> END_ROCK_CHISELED = register("end_rock_chiseled",
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_GREEN)
                     .strength(3.0F, 9.0F)
                     .sound(SoundType.STONE)));
+    public static final RegistryObject<Block> SOILED_END_ROCK_CHISELED = register("soiled_end_rock_chiseled",
+            () -> new Block(BlockBehaviour.Properties.copy(END_ROCK_CHISELED.get())));
 
     public static final RegistryObject<Block> END_SOIL = register("end_soil",
             () -> new Block(BlockBehaviour.Properties.of()
@@ -659,10 +677,18 @@ public class ModBlocks {
     public static final RegistryObject<Block> MESSY_END_STONE_BRICKS_BLOCK = register("messy_end_stone_bricks", EndStoneBlock::new);
     public static final RegistryObject<Block> CHISELED_END_STONE_BLOCK = register("chiseled_end_stone", EndStoneBlock::new);
     public static final RegistryObject<Block> CHISELED_END_STONE_BRICKS_BLOCK = register("chiseled_end_stone_bricks", EndStoneBlock::new);
+    public static final RegistryObject<Block> SOILED_END_STONE_BRICKS_SLIGHT_BLOCK = register("soiled_end_stone_bricks_slight", EndStoneBlock::new);
+    public static final RegistryObject<Block> SOILED_END_STONE_BRICKS_BLOCK = register("soiled_end_stone_bricks", EndStoneBlock::new);
+    public static final RegistryObject<Block> SOILED_END_STONE_BRICKS_HEAVY_BLOCK = register("soiled_end_stone_bricks_heavy", () -> new Block(EndStoneProperties().mapColor(MapColor.COLOR_GRAY)));
     public static final RegistryObject<Block> END_STONE_TILES_BLOCK = register("end_stone_tiles", EndStoneBlock::new);
+    public static final RegistryObject<Block> SOILED_END_STONE_TILES_BLOCK = register("soiled_end_stone_tiles", EndStoneBlock::new);
     public static final RegistryObject<Block> SMOOTH_END_STONE_BLOCK = register("smooth_end_stone", EndStoneBlock::new);
-    public static final RegistryObject<Block> END_STONE_SLATE_BLOCK = register("end_stone_slate", () -> new RotatedPillarBlock(EndStoneProperties()));
-    public static final RegistryObject<Block> COBBLED_END_STONE_BLOCK = register("cobbled_end_stone", EndStoneBlock::new, true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> END_STONE_SLATE_BLOCK = register("end_stone_slate", () -> new RotatedPillarBlock(EndStoneProperties()), true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> END_STONE_SLATE_ROCK = register("end_stone_slate_rock", EndStoneBlock::new);
+    public static final RegistryObject<Block> COBBLED_END_STONE_BLOCK = register("cobbled_end_stone", EndStoneBlock::new);
+    public static final RegistryObject<Block> SOILED_COBBLED_END_STONE_SLIGHT_BLOCK = register("soiled_cobbled_end_stone_slight", EndStoneBlock::new);
+    public static final RegistryObject<Block> SOILED_COBBLED_END_STONE_BLOCK = register("soiled_cobbled_end_stone", EndStoneBlock::new);
+    public static final RegistryObject<Block> SOILED_COBBLED_END_STONE_HEAVY_BLOCK = register("soiled_cobbled_end_stone_heavy", () -> new Block(EndStoneProperties().mapColor(MapColor.COLOR_GRAY)));
     public static final RegistryObject<Block> END_STONE_PILLAR_BLOCK = register("end_stone_pillar", () -> new RotatedPillarBlock(EndStoneProperties()));
     public static final RegistryObject<Block> CHORUS_END_STONE_PILLAR_BLOCK = register("chorus_end_stone_pillar", () -> new RotatedPillarBlock(EndStoneProperties()));
     public static final RegistryObject<Block> END_ROD_BLOCK = register("end_rod_block", () -> new Block(BlockBehaviour.Properties.of()
@@ -680,6 +706,7 @@ public class ModBlocks {
             .isValidSpawn(ModBlocks::always)));
 
     //Purpur
+    public static final RegistryObject<Block> SOILED_PURPUR_BLOCK = register("soiled_purpur_block", () -> new Block(Block.Properties.copy(Blocks.PURPUR_BLOCK)));
     public static final RegistryObject<Block> PURPUR_LAMP_BLOCK = register("purpur_lamp", () -> new PurpurLampBlock(Block.Properties.copy(Blocks.PURPUR_BLOCK)));
     public static final RegistryObject<Block> PURPUR_END_ROD_BLOCK = register("purpur_end_rod_block", () -> new PurpurEndRodBlock(BlockBehaviour.Properties.copy(Blocks.PURPUR_BLOCK)
             .lightLevel((state) -> 14)));

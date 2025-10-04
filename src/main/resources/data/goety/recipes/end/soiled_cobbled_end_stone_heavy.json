@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "lml",
+    "m m",
+    "lml"
+  ],
+  "key":
+  {
+    "m":
+    {
+      "item": "goety:cobbled_end_stone"
+    },
+    "l":
+    {
+      "item": "goety:end_soil"
+    }
+  },
+  "result":
+  {
+    "item": "goety:soiled_cobbled_end_stone_heavy",
+    "count": 4
+  }
+}

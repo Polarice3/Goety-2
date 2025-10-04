@@ -103,6 +103,14 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:cryologer_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这些寒冷的教士总是泪流满面，他们可以释放寒霜，召唤冰川墙来阻挡敌人，还可以在他们上方召唤冰雹云"
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:wind_caller_servant",
       "scale": 0.75
     },
@@ -161,6 +169,10 @@
     {
       "type": "patchouli:text",
       "text": "如果他们袭击成功，他们会回到主人身边并扔下战利品，因为灾厄村民杀死村民后可以获得额外的绿宝石或其它物品，如果灾厄村民仆从的主人把村民记录进了$(l:goety:crafts/grimoire_of_goodwill)亲善之书$()，那灾厄村民将不会发动袭击。如果想停止你的袭击，要么把村民记录进$(l:goety:crafts/grimoire_of_goodwill)亲善之书$()，要么就在$(l)主手或副手持有旗帜的情况下同时按下键位，命令停火$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "每种灾厄村民仆从都会在杀死生物后把任何掉落物收集起来，并在他们远离战斗时靠近主人，并把掉落物扔给他们的主人，除非掉落物是灾厄村民仆从可以吃的有效食物"
     },
     {
       "type": "patchouli:spotlight",
