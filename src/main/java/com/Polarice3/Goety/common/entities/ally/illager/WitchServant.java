@@ -265,10 +265,14 @@ public class WitchServant extends RaiderServant implements RangedAttackMob {
                 potion = Potions.HEALING;
             }
             if (this.isAlliedTarget(target) && this.getTarget() != target) {
-                if (target.getHealth() <= 4.0F) {
-                    potion = Potions.HEALING;
+                if (target.isInvertedHealAndHarm()) {
+                    potion = Potions.HARMING;
                 } else {
-                    potion = Potions.REGENERATION;
+                    if (target.getHealth() <= 4.0F) {
+                        potion = Potions.HEALING;
+                    } else {
+                        potion = Potions.REGENERATION;
+                    }
                 }
 
                 this.setShootTarget(null);
