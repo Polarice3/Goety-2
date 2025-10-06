@@ -1,0 +1,23 @@
+{
+  "name": "Amuleto Sinistro",
+  "icon": "goety:ominous_charm",
+  "category": "goety:crafts/garment",
+  "advancement": "minecraft:adventure/voluntary_exile",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Ao matar um Capitão de Patrulha, você sempre ficará amaldiçoado com Mau Presságio, o que pode ser útil às vezes, mas também irritante e prejudicial. Após algumas pesquisas, você criou um amuleto que absorve a maldição agonizante do capitão, poupando você do efeito, mesmo que o amuleto tenha atingido o nível 5, seu nível máximo."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Não apenas isso, se você atualmente tiver o Mau Presságio em você, clicar com o botão direito com o amuleto, ou pressionar a tecla Ativar Curio se estiver equipado, irá absorvê-lo. Se você desejar ser afetado pelo Mau Presságio dentro do amuleto, simplesmente clique com o botão direito com ele, ou pressione a tecla Ativar Curio se estiver equipado, se você não tiver o efeito atualmente."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_charm"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ominous_charm": 1
+  }
+}

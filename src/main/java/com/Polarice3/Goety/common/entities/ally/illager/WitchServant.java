@@ -2,8 +2,11 @@ package com.Polarice3.Goety.common.entities.ally.illager;
 
 import com.Polarice3.Goety.common.entities.ai.ModRangedAttackGoal;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
+import com.Polarice3.Goety.common.entities.ai.WitchServantBarterGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.init.ModTags;
+import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -61,6 +64,7 @@ public class WitchServant extends RaiderServant implements RangedAttackMob {
 
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(1, new WitchServantBarterGoal(this));
         this.goalSelector.addGoal(2, new ModRangedAttackGoal<>(this, 1.0D, 60, 10.0F){
             public boolean canUse() {
                 LivingEntity livingentity = WitchServant.this.getShootTarget();
@@ -295,7 +299,25 @@ public class WitchServant extends RaiderServant implements RangedAttackMob {
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         Item item = itemstack.getItem();
-        if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
+        boolean isOwner = this.getTrueOwner() != null && pPlayer == this.getTrueOwner();
+        boolean isAlly = ((this.getTrueOwner() != null && MobUtil.areAllies(this.getTrueOwner(), pPlayer)) || this.getTrueOwner() == null) && CuriosFinder.isWitchFriendly(pPlayer);
+        if (this.getMainHandItem().isEmpty() && pHand == InteractionHand.MAIN_HAND && itemstack.is(ModTags.Items.WITCH_CURRENCY)) {
+            if (isOwner || isAlly) {
+                if (!this.isAggressive()) {
+                    this.playSound(this.getCelebrateSound());
+                    ItemStack itemstack1;
+                    if (pPlayer.isCreative()) {
+                        itemstack1 = itemstack;
+                    } else {
+                        itemstack1 = itemstack.split(1);
+                    }
+                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
+                    this.setTrader(pPlayer);
+                    return InteractionResult.SUCCESS;
+                }
+            }
+        }
+        if (isOwner) {
             if (item instanceof ArmorItem armor) {
                 ItemStack helmet = this.getItemBySlot(EquipmentSlot.HEAD);
                 ItemStack chestplate = this.getItemBySlot(EquipmentSlot.CHEST);

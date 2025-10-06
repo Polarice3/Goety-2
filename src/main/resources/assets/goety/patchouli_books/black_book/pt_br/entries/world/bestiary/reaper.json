@@ -6,11 +6,20 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Aparições encapuzadas, especialistas em empunhar foices com fome por almas."
+      "text": "Aparições encapuzadas que são proficientes em empunhar foices com uma fome por almas."
     },
     {
       "type": "patchouli:entity",
       "entity": "goety:reaper"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:grave_dust",
+      "title": "Pó de Tumba",
+      "text": "Ceifadores têm uma chance de dropar Pó de Tumba, que é útil para fabricar certos objetos necromânticos."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:grave_dust": 2
+  }
 }

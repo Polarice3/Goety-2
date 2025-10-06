@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Nos tempos antigos, um monarca criou uma arma poderosa, mais forte e aterrorizante que os Golems de Redstone, com a orientação de uma força externa, antes de bani-la por razões desconhecidas. No entanto, o processo de criação foi registrado, talvez em segredo, permitindo que você replique essa terrível monstruosidade."
+      "text": "Nos tempos antigos, um monarca forjou uma arma poderosa, mais forte e aterrorizante que os Golems de Redstone, com a orientação de uma força externa, antes de bani-la por razões desconhecidas. No entanto, o processo de criação foi registrado, talvez em segredo, permitindo que você replique esta aterrorizante monstruosidade."
     },
     {
       "type": "patchouli:entity",
@@ -25,7 +25,17 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Os Tijolos de Pedra podem ser substituídos por blocos similares, como Tijolos de Ardósia, para o molde. A Monstruosidade é talvez um dos seres mais fortes que você já criou, seu poder inigualável por outros servos. Eles podem ser reparados clicando neles com Blocos de Redstone."
+      "text": "Os Tijolos de Pedra podem ser substituídos por outros blocos similares, como Tijolos de Ardósia para o molde. A Monstruosidade é talvez um dos seres mais fortes que você já criou, seu poder é incomparável por outros servos. Elas podem ser reparadas clicando com o botão direito nelas com Blocos de Redstone."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:redstone_monstrosity_head",
+      "text": "Se a Monstruosidade for derrotada em batalha ou por comando, ela deixará cair sua cabeça. A Cabeça pode ser usada para reviver a Monstruosidade de uma maneira mais barata. No entanto, a Cabeça se lembra de seu criador e mestre original e a Monstruosidade revivida só seguirá os comandos deles."
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:redstone_monstrosity_revive",
+      "enable_visualize": false
     },
     {
       "type": "patchouli:text",

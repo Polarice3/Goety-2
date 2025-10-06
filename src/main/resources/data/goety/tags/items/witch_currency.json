@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#forge:gems/emerald"
+    "#forge:gems/emerald",
+    "#goety:witch_better_currency"
   ]
 }

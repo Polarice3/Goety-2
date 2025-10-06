@@ -83,6 +83,7 @@ public abstract class RaiderServant extends Summoned {
     @Nullable
     public BlockPos revivePos;
     public String reviveDim = Level.OVERWORLD.location().toString();
+    public int traderId;
     private int celebrationTime;
     private int raidTime;
     private boolean missionComplete = false;
@@ -125,6 +126,8 @@ public abstract class RaiderServant extends Summoned {
                     } else if (!RaiderServant.this.isFollowing() || RaiderServant.this.isCommanded()) {
                         return false;
                     } else if (RaiderServant.this.getTarget() != null) {
+                        return false;
+                    } else if (RaiderServant.this.isWoundedOrCrippled()) {
                         return false;
                     } else {
                         this.owner = livingentity;
@@ -188,6 +191,7 @@ public abstract class RaiderServant extends Summoned {
         }
         compound.putInt("CelebrationTime", this.celebrationTime);
         compound.putInt("RaidTime", this.raidTime);
+        compound.putInt("TraderId", this.traderId);
         compound.putBoolean("MissionComplete", this.missionComplete);
         compound.putBoolean("Capturing", this.isCapturing());
     }
@@ -212,6 +216,9 @@ public abstract class RaiderServant extends Summoned {
         }
         if (compound.contains("RaidTime")) {
             this.raidTime = compound.getInt("RaidTime");
+        }
+        if (compound.contains("TraderId")) {
+            this.traderId = compound.getInt("TraderId");
         }
         if (compound.contains("MissionComplete")) {
             this.missionComplete = compound.getBoolean("MissionComplete");
@@ -295,6 +302,31 @@ public abstract class RaiderServant extends Summoned {
 
     public boolean isFollower(){
         return this.getLeader() != null;
+    }
+
+    public int getTraderId(){
+        return this.traderId;
+    }
+
+    public void setTraderId(int id) {
+        this.traderId = id;
+    }
+
+    @Nullable
+    public LivingEntity getTrader() {
+        Entity entity = this.level.getEntity(this.getTraderId());
+        if (entity instanceof LivingEntity livingEntity) {
+            return livingEntity;
+        }
+        return null;
+    }
+
+    public void setTrader(LivingEntity livingEntity) {
+        if (livingEntity != null) {
+            this.setTraderId(livingEntity.getId());
+        } else {
+            this.setTraderId(-1);
+        }
     }
 
     @Nullable
@@ -513,7 +545,8 @@ public abstract class RaiderServant extends Summoned {
                             }
                         }
                     }
-                    if (!(this instanceof ITrainable trainable && trainable.isTraining())) {
+                    if (!(this instanceof ITrainable trainable && trainable.isTraining())
+                            && !this.isWoundedOrCrippled()) {
                         if (this.getLeader().getMarked() != null && this.getLeader().getMarked() != this.getMarked()) {
                             this.setMarked(this.getLeader().getMarked());
                         }
@@ -694,7 +727,20 @@ public abstract class RaiderServant extends Summoned {
         if (this.getTrueOwner() instanceof Player player && SEHelper.isGrounded(player, this)) {
             return false;
         }
+        if (this.isWoundedOrCrippled()) {
+            return false;
+        }
         return this.canBeFollower();
+    }
+
+    public boolean isWoundedOrCrippled() {
+        if (this.hasEffect(GoetyEffects.CRIPPLED.get())) {
+            return true;
+        }
+        if (this.hasEffect(GoetyEffects.WOUNDED.get())) {
+            return this.getIdol() != null;
+        }
+        return false;
     }
 
     public ItemStack getBannerPatternInstance() {
@@ -981,6 +1027,12 @@ public abstract class RaiderServant extends Summoned {
                 }
 
                 return InteractionResult.SUCCESS;
+            } else if (pPlayer.getMainHandItem().isEmpty() && this.isLeader() && !this.getBindPrisoners().isEmpty()){
+                for (Prisoner prisoner : this.getBindPrisoners()) {
+                    prisoner.setLeader(this);
+                }
+                this.playSound(SoundEvents.CHAIN_PLACE, 1.0F, 1.0F);
+                return InteractionResult.SUCCESS;
             } else if (pPlayer.getMainHandItem().isEmpty() && this.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof BannerItem){
                 ItemStack helmet = this.getItemBySlot(EquipmentSlot.HEAD);
                 this.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
@@ -991,6 +1043,10 @@ public abstract class RaiderServant extends Summoned {
             }
         }
         return super.mobInteract(pPlayer, pHand);
+    }
+
+    public List<Prisoner> getBindPrisoners() {
+        return this.level.getEntitiesOfClass(Prisoner.class, this.getBoundingBox().inflate(10.0D), prisoner -> prisoner.isFollowing() && prisoner.getMasterOwner() == this.getMasterOwner());
     }
 
     public InteractionResult linkToIdol(Player pPlayer, InteractionHand pHand) {

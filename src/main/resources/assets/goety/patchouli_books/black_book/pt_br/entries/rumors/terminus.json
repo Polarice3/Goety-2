@@ -7,12 +7,12 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Os pergaminhos de guerra mencionam uma variante poderosa, mais forte que os Golems de Redstone, criada e banida para uma terra perdida. Há registros de estudiosos sobre sua criação antes de serem destruídos, mas certamente algo ainda resta..."
+      "text": "Dos pergaminhos de guerra, há menção de uma variante poderosa, mais forte até que os Golems de Redstone, que foi criada e banida para uma terra perdida. Também é mencionado como alguns estudiosos registraram como essa besta foi feita antes de serem destruídos, mas certamente ainda resta algum registro..."
     },
     {
       "type": "patchouli:quest",
       "trigger": "goety:goety/get_shrouded_blueprint",
-      "text": "O pergaminho sugere que o design da criatura veio de um ser de $(l)O End$(), talvez os segredos estejam lá."
+      "text": "O pergaminho menciona que o design da besta pode ter vindo de um ser de $(l)O End$(), e seus segredos estão dentro de um $(l)terminal de poder$()."
     }
   ]
 }

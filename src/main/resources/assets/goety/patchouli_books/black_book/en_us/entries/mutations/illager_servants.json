@@ -183,7 +183,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Much like everything else, all raiders will enter Capturing Mode if their captain is in that mode. In Raids, if all surviving Villagers are Prisoners, the raid is considered a success. To free a Prisoner, right-click on them while crouching. Prisoners can also be freed if they have taken enough damage while away from their captor or owner. There's a chance that certain Villagers don't end up being captured and can potentially die like usual."
+      "text": "Much like everything else, all raiders will enter Capturing Mode if their captain is in that mode. In Raids, if all surviving Villagers are Prisoners, the raid is considered a success. The Prisoner can be chained to you if you right-click on them, and can be chained to a captain by right-clicking on them with an empty hand. To free a Prisoner, right-click on them while crouching. Prisoners can also be freed if they have taken enough damage while away from their captor or owner. There's a chance that certain Villagers don't end up being captured and can potentially die like usual."
     },
     {
       "type": "patchouli:spotlight",

@@ -84,7 +84,7 @@ public class PrisonerRenderer extends MobRenderer<Prisoner, VillagerModel<Prison
       if (entity == null) {
          entity = p_115455_.getTrueOwner();
       }
-      if (entity != null && entity.distanceTo(p_115455_) <= 32.0F) {
+      if (entity != null && entity.distanceTo(p_115455_) <= 32.0F && p_115455_.isFollowing()) {
          this.renderChain(p_115455_, p_115457_, p_115458_, p_115459_, entity);
       }
    }

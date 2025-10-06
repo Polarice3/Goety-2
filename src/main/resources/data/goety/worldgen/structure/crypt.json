@@ -1,5 +1,5 @@
 {
-  "type": "goety:bigger_jigsaw",
+  "type": "goety:crypt",
   "biomes": "#goety:has_structure/crypt",
   "step": "surface_structures",
   "spawn_overrides": {
@@ -59,9 +59,9 @@
   },
   "start_pool": "goety:crypt/start_pool",
   "size": 30,
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "bury",
   "start_height": {
-    "absolute": 0
+    "absolute": -34
   },
   "project_start_to_heightmap": "WORLD_SURFACE_WG",
   "max_distance_from_center": 1000

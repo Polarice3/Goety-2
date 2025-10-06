@@ -124,11 +124,11 @@ public class MountaineerServant extends AbstractIllagerServant {
         return ModSounds.MOUNTAINEER_CELEBRATE.get();
     }
 
-    @Override
+    /*@Override
     public void swing(InteractionHand pHand) {
         super.swing(pHand);
         this.playSound(ModSounds.MOUNTAINEER_ATTACK.get());
-    }
+    }*/
 
     public boolean isClimbing() {
         return (this.entityData.get(DATA_FLAGS_ID) & 1) != 0;

@@ -1,0 +1,26 @@
+{
+  "name": "Endersent",
+  "icon": "goety:void_frame",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_an_endersent",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A força destas entidades supera a maioria das criaturas que você encontrou, pois seus braços em forma de martelo não são para serem brincados."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:endersent",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A maioria dos relatos sobre eles parece tê-los guardando algo, seja um objeto ou uma área. Parece que eles ganham força e habilidades quando ligados a um Olho do Ender."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:void_shard",
+      "text": "Não só um Endersent Encantado dropará seu olho, mas também dropará um Fragmento do Vazio, que pode ser usado em um Santuário do Vazio."
+    }
+  ]
+}

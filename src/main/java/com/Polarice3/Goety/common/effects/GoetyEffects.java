@@ -258,7 +258,7 @@ public class GoetyEffects {
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0xffffff));
 
     public static final RegistryObject<MobEffect> SAVE_EFFECTS = EFFECTS.register("save_effects",
-            () -> new GoetyBaseEffect(MobEffectCategory.NEUTRAL, 0x4f446b));
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x4f446b));
 
     public static final RegistryObject<MobEffect> GRAVITY_PULSE = EFFECTS.register("gravity_pulse",
             () -> new GoetyBaseEffect(MobEffectCategory.NEUTRAL, 0x580c56));

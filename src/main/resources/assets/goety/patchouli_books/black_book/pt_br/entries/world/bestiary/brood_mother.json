@@ -1,12 +1,12 @@
 {
   "name": "Mães da Ninhada",
-  "icon": "minecraft:cobweb",
+  "icon": "goety:spider_mother_den",
   "category": "goety:world/bestiary",
   "advancement": "goety:goety/kill_a_brood_mother",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Aranhas gigantes que atacam quem ousa perturbar seus covis, com presas que envenenam até os mortos-vivos."
+      "text": "Aranhas gigantescas que atacam aqueles que ousam mexer com seus ninhos, com presas que envenenam até os mortos-vivos."
     },
     {
       "type": "patchouli:entity",
@@ -15,7 +15,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Elas atacam diretamente, mas se suas crias entrarem na luta, circulam o alvo, deixando os filhotes se banquetear."
+      "text": "Essas criaturas tentarão atacar diretamente seu alvo, mas se seus filhos se juntarem à luta, elas circularão em volta deles, deixando seus filhos fazerem a refeição."
     }
   ]
 }

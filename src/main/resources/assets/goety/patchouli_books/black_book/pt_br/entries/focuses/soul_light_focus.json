@@ -1,16 +1,25 @@
 {
-  "name": "Foco de Luz da Alma",
+  "name": "Foco da Luz da Alma",
   "icon": "goety:soul_light_focus",
   "category": "goety:focuses",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Você pode criar uma fonte de luz mágica disparando um dardo de Energia da Alma em um bloco. Inicialmente, a luz não é tão forte quanto uma tocha, mas afasta Piglins. Com glowstone e netherrack, sua luz brilha mais intensamente. Também ilumina criaturas atingidas."
+      "text": "Você é capaz de criar uma fonte de luz mágica atirando um raio de Energia da Alma em um Bloco. No início, a luz não é tão forte quanto uma Tocha, mas afasta os Piglins. Porém, com um pouco de pedra-luminosa e netherrack, sua luz brilha mais forte. Ela também ilumina uma criatura se for atingida por ela."
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/soul_light_focus",
       "recipe2": "goety:focus/glow_light_focus"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:illuminate_focus",
+      "text": "Embora lançar luz seja bom e útil, há momentos em que você deseja iluminar cavernas e salas inteiras. Com este foco, você é capaz de invocar luzes brilhantes, e substituir luzes da alma por elas, ao redor da área enquanto conjura."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/illuminate_focus"
     }
   ]
 }

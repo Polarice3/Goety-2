@@ -7,11 +7,11 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Embora o Metal Sombrio possa ser usado para fabricar ferramentas comuns, quando se trata de armaduras, parece exigir métodos mais... elaborados de fabricação. A armadura não se parece com as outras que você já criou, sendo mais elaborada e intimidante, mas ainda oferece proteção e resistência equivalentes ao Diamante, além de alguma resistência a empurrões."
+      "text": "Embora a Liga Sombria possa ser usada para fabricar ferramentas comuns, quando se trata de armaduras, ela parece exigir maneiras mais... elaboradas de fabricá-las. A armadura não se parece em nada com as outras que você fabricou, parecendo mais elaborada, porém intimidadora, mas ainda fornece proteção e resistência no nível do Diamante, além de alguma resistência a repulsão."
     },
     {
       "type": "patchouli:text",
-      "text": "Assim como o conjunto de Armadura de Ferro Negro, a armadura também oferece desconto no uso de Energia das Almas e mitiga levemente danos mágicos, de fogo e explosivos."
+      "text": "Assim como o conjunto de Armadura de Ferro Negro, a armadura também fornece desconto em Energia de Alma, mas também mitiga levemente danos mágicos, de fogo e explosivos."
     },
     {
       "type": "goety:ritual",

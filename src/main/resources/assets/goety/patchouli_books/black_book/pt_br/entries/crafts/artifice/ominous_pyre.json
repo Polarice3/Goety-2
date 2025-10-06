@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "A pira inspira $(l:goety:mutations/illager_servants)Neollagers$() leais a treinarem. Para fazer um Neollager treinar em uma pira, simplesmente $(l:goety:focuses/command_focus)Comande$() ou $(l:goety:focuses/order_focus)Ordene$() que ele vá até ela. Se 'illagerServantAutoTrain' estiver ativado, basta mantê-los próximos a uma pira. Dependendo do ambiente, assim como $(l:rituals/dark_altar)Altares$(), a pira permitirá que o Neollager se treine em um subtipo específico de Illager. Cada pira pode treinar até 8 Illagers Treináveis."
+      "text": "A pira inspira $(l:goety:mutations/illager_servants)Neollagers$() leais a treinarem. Para fazer o Neollager treinar em uma pira, simplesmente $(l:goety:focuses/command_focus)Comande$() / $(l:goety:focuses/order_focus)Ordene$() ele para isso. Se 'illagerServantAutoTrain' estiver ativado, simplesmente tenha-os perto de uma. Dependendo de seus arredores, assim como $(l:rituals/dark_altar)Altares$(), permitirá que o Neollager treine para um subtipo específico de Illager. Cada pira pode treinar apenas até 8 Illagers Treináveis."
     },
     {
       "type": "goety:ritual",
@@ -14,51 +14,66 @@
     {
       "type": "patchouli:text",
       "title": "Servos Saqueadores",
-      "text": "$(o)Observação: Neollagers treinam mais rapidamente para se tornarem Servos Saqueadores$()$(br)Requisitos: $(li)Neollager $(li)2 blocos de Feno/Alvo $(li)2 Abóboras Esculpidas $(li)16 Cercas de Madeira $(li)20 Lãs"
+      "text": "$(o)Nota: Neollagers treinam mais rapidamente para Servos Pillager$()$(br)Requisitos: $(li)Neollager $(li)2 Blocos de Feno/Alvo $(li)2 Abóboras Esculpidas $(li)16 Cercas de Madeira $(li)20 Lãs"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Lanceiros",
+      "text": "$(o)Nota: O proprietário deve ter lido o $(l:goety:rumors/desert)Pergaminho da Frente$()$()$(br)Requisitos: $(li)Neollager $(li)2 Rebolos $(li)2 Bancadas de Ferraria $(li)16 Cercas de Madeira $(li)32 Troncos $(li)4 Barris $(li)4 Camas $(li)2 Bigornas"
     },
     {
       "type": "patchouli:text",
       "title": "Servos Vingadores",
-      "text": "Requisitos: $(li)Neollager $(li)1 Estandarte $(li)64 Tábuas de Madeira $(li)60 Blocos de Tijolos $(li)10 Muros $(li)10 Cercas $(li)2 Fornalhas $(li)1 Mesa de Trabalho"
+      "text": "Requisitos: $(li)Neollager $(li)1 Estandarte $(li)64 Tábuas de Madeira $(li)60 Blocos de Tijolos (Qualquer) $(li)10 Muros $(li)10 Cercas $(li)2 Fornalhas $(li)1 Bancada de Trabalho"
     },
     {
       "type": "patchouli:text",
-      "title": "Servos Vingadores Chefes",
-      "text": "Requisitos: $(li)Servo Vingador $(li)4 Defumadores/Fornalhas $(li)16 Barris $(li)2 Bolos"
+      "title": "Servos Vingadores Chef",
+      "text": "Requisitos: $(li)Servo Vindicator $(li)4 Defumadores/Fornalhas $(li)16 Barris $(li)2 Bolos"
     },
     {
       "type": "patchouli:text",
-      "title": "Servos Esmagadores",
-      "text": "Requisitos: $(li)Neollager $(li)64 Tábuas de Madeira $(li)64 Blocos de Tijolos $(li)8 Cercas $(li)8 Altos-fornos $(li)2 Caldeirões de Lava $(li)2 Caldeirões de Água $(li)4 Bigornas"
+      "title": "Servos Montanhês",
+      "text": "Requisitos: $(li)Servo Vindicator $(li)A pira deve estar em biomas com neve $(li)16 Cercas de Madeira $(li)20 Lãs $(li)8 Barris $(li)4 Ventiladores Energizados"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Esmagador",
+      "text": "Requisitos: $(li)Neollager $(li)64 Tábuas de Madeira $(li)64 Blocos de Tijolos (Qualquer) $(li)8 Cercas $(li)8 Altos-fornos $(li)2 Caldeirões de Lava $(li)2 Caldeirões de Água $(li)4 Bigornas"
     },
     {
       "type": "patchouli:text",
       "title": "Servos Invocadores",
-      "text": "Requisitos: $(li)Neollager Mágico $(li)32 Estantes de Livros/Poder de Encantamento $(li)16 Velas Acesas $(li)4 Cabeças $(li)4 Vasos com Plantas $(li)4 Aglomerados de Ametista $(li)4 Blocos de Esmeralda Despertos $(li)1 Atril"
+      "text": "Requisitos: $(li)Neollager Mágico $(li)32 Estantes de Livros/Poder de Encantamento $(li)16 Velas Acesas $(li)4 Cabeças $(li)4 Vasos com Plantas $(li)4 Aglomerados de Ametista $(li)4 Blocos de Esmeralda Despertada $(li)1 Atril"
     },
     {
       "type": "patchouli:text",
       "title": "Servos Geomancer",
-      "text": "Requisitos: $(li)Neollager Mágico $(li)16 Blocos de Ametista $(li)64 Blocos de Ardósia Profunda $(li)16 $(l:goety:crafts/creeper_totem)Totens de Creeper$()"
+      "text": "Requisitos: $(li)Neollager Mágico $(li)16 Blocos de Ametistas $(li)64 Blocos de Ardósia $(li)16 $(l:goety:crafts/creeper_totem)Totens de Creeper$()"
     },
     {
       "type": "patchouli:text",
-      "title": "Servos Iceologer",
-      "text": "Requisitos: $(li)Neollager Mágico $(li)16 Gelo Azul $(li)64 Blocos de Neve $(li)4 $(l:goety:crafts/artifice/freezing_lamp)Lâmpadas de Congelamento$()"
+      "title": "Servos Iceologeres",
+      "text": "Requisitos: $(li)Neollager Mágico $(li)16 Gelo Azul $(li)64 Blocos de Neve $(li)4 $(l:goety:crafts/artifice/freezing_lamp)Lâmpadas Congelantes$()"
     },
     {
       "type": "patchouli:text",
-      "title": "Servos Chamadores do Vento",
+      "title": "Servos Criologistas",
+      "text": "Requisitos: $(li)Servo Iceologer $(li)A pira deve estar em biomas com neve $(li)16 Estantes de Livros/Poder de Encantamento $(li)32 Neve Pulverulenta $(li)16 $(l:goety:crafts/creeper_totem)Totens de Creeper$()"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Xamã",
       "text": "Requisitos: $(li)Neollager Mágico $(li)64 Blocos de Mármore $(li)32 Blocos de Jade $(li)4 Blocos de Ouro Rebaixados"
     },
     {
       "type": "patchouli:text",
-      "title": "Servos Conjuradores de Tempestade",
-      "text": "Requisitos: $(li)Geomante ou Invocador do Vento $(li)A pira deve estar exposta a uma Tempestade $(li)32 Blocos de Cobre $(li)64 Blocos de Tijolos $(li)4 Para-raios"
+      "title": "Servos Conjurador de Tempestades",
+      "text": "Requisitos: $(li)Geomancer ou Xamã $(li)A pira deve estar exposta a uma Tempestade $(li)32 Blocos de Cobre (Qualquer) $(li)64 Blocos de Tijolos (Qualquer) $(li)4 Para-raios"
     },
     {
       "type": "patchouli:text",
-      "text": "Para impedir o treinamento, remova a pira ou afaste-os mais de 10 blocos dela. Se um Illager em treinamento estiver perto de outros Illagers do tipo que está se tornando, ele treinará mais rapidamente."
+      "text": "Para impedi-los de treinar, remova a Pira ou mova-os para mais de 10 blocos de distância dela. Se um Illager em treinamento estiver perto de Illagers para os quais está treinando para se tornar, ele treinará mais rápido."
     }
   ],
   "extra_recipe_mappings": {

@@ -1,5 +1,5 @@
 {
-  "name": "Barras de Metal Sombrio",
+  "name": "Ligas Sombrias",
   "icon": "goety:dark_ingot",
   "category": "goety:crafts",
   "advancement": "goety:goety/craft_necro_brazier",
@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Você conseguiu canalizar as energias do Deep Dark em um metal que se repara usando Energia das Almas. A quantidade de Energia das Almas necessária para criar uma barra é muito grande, mas você conseguiu mesmo assim. O metal parece ser tão resistente quanto diamantes e quase tão encantável quanto o ouro. Ele também parece retardar e enfraquecer qualquer criatura que for atingida por ele."
+      "text": "Você conseguiu canalizar as energias das Profundezas sombrias em um metal que se repara usando Energia de Alma. A quantidade de Energia de Alma necessária para criar um lingote é muito substancial, mas você conseguiu mesmo assim. O metal parece ser um material tão resistente quanto os Diamantes e quase tão encantável quanto o Ouro. Ele também parece desacelerar e enfraquecer qualquer criatura que for atingida por ele."
     },
     {
       "type": "goety:brazier",

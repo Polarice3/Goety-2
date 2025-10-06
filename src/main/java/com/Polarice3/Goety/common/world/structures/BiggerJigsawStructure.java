@@ -34,14 +34,14 @@ public class BiggerJigsawStructure extends Structure {
             return p_227642_.maxDistanceFromCenter;
         })).apply(p_227640_, BiggerJigsawStructure::new);
     }).flatXmap(verifyRange(), verifyRange()).codec();
-    private final Holder<StructureTemplatePool> startPool;
-    private final Optional<ResourceLocation> startJigsawName;
-    private final int maxDepth;
-    private final HeightProvider startHeight;
-    private final Optional<Heightmap.Types> projectStartToHeightmap;
-    private final int maxDistanceFromCenter;
+    public final Holder<StructureTemplatePool> startPool;
+    public final Optional<ResourceLocation> startJigsawName;
+    public final int maxDepth;
+    public final HeightProvider startHeight;
+    public final Optional<Heightmap.Types> projectStartToHeightmap;
+    public final int maxDistanceFromCenter;
 
-    private static Function<BiggerJigsawStructure, DataResult<BiggerJigsawStructure>> verifyRange() {
+    public static Function<BiggerJigsawStructure, DataResult<BiggerJigsawStructure>> verifyRange() {
         return (p_227638_) -> {
             byte b0;
             switch (p_227638_.terrainAdaptation()) {

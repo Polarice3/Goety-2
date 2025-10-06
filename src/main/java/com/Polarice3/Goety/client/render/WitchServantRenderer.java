@@ -37,6 +37,11 @@ public class WitchServantRenderer extends MobRenderer<WitchServant, ModWitchMode
       super.render(p_116412_, p_116413_, p_116414_, p_116415_, p_116416_, p_116417_);
    }
 
+   protected void scale(WitchServant p_116419_, PoseStack p_116420_, float p_116421_) {
+      float f = 0.9375F;
+      p_116420_.scale(0.9375F, 0.9375F, 0.9375F);
+   }
+
    public ResourceLocation getTextureLocation(WitchServant p_116410_) {
       if (p_116410_.isHostile()) {
          return ORIGINAL;

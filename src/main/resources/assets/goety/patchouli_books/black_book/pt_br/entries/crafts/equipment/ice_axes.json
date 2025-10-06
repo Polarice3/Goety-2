@@ -1,0 +1,16 @@
+{
+  "name": "Machados de Gelo",
+  "icon": "goety:iron_ice_axe",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Estes machados com aparência de picaretas são úteis para coletar gelo e empurrá-lo para cima sobre obstáculos, embora faltem as habilidades de desativar escudos e descascar madeira dos machados verdadeiros."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:iron_ice_axe",
+      "recipe2": "goety:diamond_ice_axe"
+    }
+  ]
+}

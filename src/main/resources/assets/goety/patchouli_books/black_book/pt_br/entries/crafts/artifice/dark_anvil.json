@@ -1,5 +1,5 @@
 {
-  "name": "Bigorna das Trevas",
+  "name": "Bigorna Sombria",
   "icon": "goety:dark_anvil",
   "category": "goety:crafts/artifice",
   "advancement": "goety:goety/craft_dark_ingot",
@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "As bigornas podem ser muito irritantes de lidar. Não só podem partir-se, como também exigem muito, e têm um limite de, experiência que podem receber. Com Metal das Trevas, podes criar uma Bigorna muito melhor."
+      "text": "Bigornas podem ser muito chatas de lidar. Não só podem quebrar, como também exigem muita experiência e têm um limite de experiência que podem aceitar. Com a Liga Sombria, você é capaz de criar uma Bigorna muito melhor."
     },
     {
       "type": "patchouli:crafting",
@@ -15,7 +15,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "A Bigorna das Trevas pode reparar-se a si mesma quando colocada em cima de uma $(l:intro/cursed_cage)Gaiola Amaldiçoada$(), onde irá ocasionalmente retirar uma grande quantidade de Energia das Almas dela para se reparar. Usar a Bigorna das Trevas não multiplica o custo de reparação do item por 2, mas irá adicionar 1. Em vez de te impedir de reparar/encantar itens se o custo de nível for muito alto, o custo permanecerá no limite de nível, permitindo que o item seja usado na bigorna independentemente."
+      "text": "A Bigorna Sombria pode se reparar quando colocada em cima de uma $(l:intro/cursed_cage)Jaula Amaldiçoada$(), onde raramente consumirá uma grande quantidade de Energia de Alma dela para se consertar. Usar a Bigorna Sombria não multiplica o custo de reparo do item por 2, mas adiciona 1. Em vez de impedir você de reparar/encantar itens se o custo de nível for muito alto, o custo permanecerá no limite de nível, permitindo que o item seja usado na bigorna de qualquer maneira."
     }
   ],
   "extra_recipe_mappings": {

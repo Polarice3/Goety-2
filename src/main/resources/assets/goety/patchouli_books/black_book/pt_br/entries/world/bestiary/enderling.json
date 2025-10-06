@@ -1,0 +1,41 @@
+{
+  "name": "Enderlings",
+  "icon": "minecraft:ender_pearl",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_an_enderling",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Consistindo de várias subespécies de Enderman, essas criaturas estranhas parecem defender algo do End, e são mais hostis do que sua contraparte principal."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Embora compartilhem muitas características, como vulnerabilidade à água, elas parecem ser mais tolerantes com os Endermites e se teletransportam com menos frequência. Algumas podem desaparecer por um tempo após se teletransportarem, antes de reaparecerem para confundir seus inimigos."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:watchling",
+      "text": "Infelizmente, o livro é incapaz de mostrar os olhos deles adequadamente por alguma razão arcana."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Relatados como os de aparência mais assustadora, os Observadores são conhecidos por preferir defender seu lar de maneiras simples, nomeadamente esmagando e balançando seus braços grandes contra seus inimigos."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:blastling"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Os mais resistentes dos Enderlings, estas entidades flamejantes disparam rajadas de gosma quente em seus inimigos, embora se um inimigo se aproximar delas ou for ferido por elas, elas interrompem seu ataque e temporariamente fogem ou se teletransportam para longe."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:snareling"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Semelhante às Aranhas Tecedeiras, estas criaturas tentarão prender seus inimigos em sua gosma semelhante a teia antes de atacá-los com seus braços em forma de catavento. Ao contrário de seus irmãos, estes seres estranhos não desaparecem por um tempo ao se teletransportar, preferindo se teletransportar instantaneamente."
+    }
+  ]
+}

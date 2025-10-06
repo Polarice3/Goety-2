@@ -1,0 +1,17 @@
+{
+  "name": "Olho do Vácuo",
+  "icon": "goety:void_eye",
+  "category": "goety:crafts",
+  "advancement": "minecraft:story/enter_the_end",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Você não sabe o que o motiva, mas decidiu cobrir um Olho do Ender com a essência do Vácuo, acabando por fazer um olho especial que leva a $(l:world/final_terminal)um lugar de poder$()."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:void_eye",
+      "text": "Parece que usá-lo lançará uma cópia do olho em vez de consumi-lo completamente. No entanto, ele gasta durabilidade ao fazer isso."
+    }
+  ]
+}

@@ -54,7 +54,7 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder {
 
     @Override
     public void followGoal() {
-        this.goalSelector.addGoal(6, new FollowOwnerGoal<>(this, 0.6D, 10.0F, 2.0F){
+        this.goalSelector.addGoal(6, new FollowOwnerGoal<>(this, 0.6D, 6.0F, 2.0F){
             @Override
             public boolean canUse() {
                 if (Prisoner.this.getLeader() != null){
@@ -158,6 +158,16 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder {
                     if (raider.getLeader().getTrueOwner() != null) {
                         this.setTrueOwner(raider.getLeader().getTrueOwner());
                     }
+                }
+            }
+            if (this.getLeader() == null && this.getMasterOwner() != null && this.isFollowing()) {
+                float f = this.distanceTo(this.getMasterOwner());
+                if (f > 6.0F) {
+                    double d0 = (this.getMasterOwner().getX() - this.getX()) / (double)f;
+                    double d1 = (this.getMasterOwner().getY() - this.getY()) / (double)f;
+                    double d2 = (this.getMasterOwner().getZ() - this.getZ()) / (double)f;
+                    this.setDeltaMovement(this.getDeltaMovement().add(Math.copySign(d0 * d0 * 0.4D, d0), Math.copySign(d1 * d1 * 0.4D, d1), Math.copySign(d2 * d2 * 0.4D, d2)));
+                    this.checkSlowFallDistance();
                 }
             }
         }
@@ -342,6 +352,12 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder {
         if (pPlayer.isCrouching()) {
             this.unshackle(pPlayer);
             return InteractionResult.SUCCESS;
+        } else if (this.getMasterOwner() != null && this.getMasterOwner() == pPlayer) {
+            if (this.getLeader() != null) {
+                this.setLeader(null);
+                this.setFollowing();
+                return InteractionResult.SUCCESS;
+            }
         }
         return InteractionResult.PASS;
     }

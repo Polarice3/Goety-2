@@ -10,4 +10,6 @@ public class ModStructureTypes {
     public static final DeferredRegister<StructureType<?>> STRUCTURE_TYPE = DeferredRegister.create(Registries.STRUCTURE_TYPE, Goety.MOD_ID);
 
     public static RegistryObject<StructureType<BiggerJigsawStructure>> BIGGER_JIGSAW_STRUCTURE = STRUCTURE_TYPE.register("bigger_jigsaw", () -> () -> BiggerJigsawStructure.CODEC);
+    public static RegistryObject<StructureType<CryptStructure>> CRYPT_STRUCTURE = STRUCTURE_TYPE.register("crypt", () -> () -> CryptStructure.CODEC);
+
 }

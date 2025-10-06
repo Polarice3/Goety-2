@@ -1,0 +1,33 @@
+{
+  "name": "Guardião do Ender",
+  "icon": "goety:void_shrine",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_an_ender_keeper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Uma entidade poderosa do End, convocada para guardar os segredos da dimensão e do vácuo."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:ender_keeper",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O ser domina tanto a esgrima quanto a magia do vácuo, perfurando sua lâmina enorme através de seus inimigos e invocando orbes de magia do vácuo que disparam em direção a seus alvos. Sua lâmina e ataques infligem Toque do Vácuo."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "É melhor manter distância do Guardião do Ender, usando feitiços de mobilidade como $(l:goety:focuses/wind/launch_focus)Lançar$() ou $(l:goety:focuses/wild/grapple_focus)Gancho$() para se afastar. Seja vigilante ao convocar Servos para enfrentar este inimigo, pois um de seus ataques arrastará criaturas próximas para si, absorvendo sua saúde, antes de soltar uma explosão do vácuo."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:shrouded_blueprint",
+      "text": "Quando morto, o santuário de onde são convocados revelará seu tesouro, uma planta misteriosa... que com a ajuda da magia sombria revelará seu conteúdo."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shrouded_blueprint": 4
+  }
+}

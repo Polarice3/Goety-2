@@ -1,0 +1,23 @@
+{
+  "name": "Cajado Sinistro",
+  "icon": "goety:ominous_staff",
+  "category": "goety:crafts/staff",
+  "advancement": "goety:goety/kill_a_minister",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Depois de matar aqueles $(l:world/bestiary/minister)illagers$() de alto escalão, você conseguiu obter seu orbe poderoso e usá-lo para fazer uma réplica de seu cajado."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O Cajado Sinistro fortalece certos feitiços mágicos. Especificamente, os feitiços Vex, Presas, Banquete, Destruição, Espada Mágica e Dentes. Lançar feitiços Putrefação e Ósseo invoca illagers mortos-vivos."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ominous_staff": 1
+  }
+}

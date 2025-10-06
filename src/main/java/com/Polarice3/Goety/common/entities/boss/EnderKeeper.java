@@ -1095,6 +1095,8 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
                     CameraShake.cameraShake(this.level, this.position(), 15.0F, 0.1F, 0, 10);
                     this.areaAttack(6.5F, 8, 100, damage, 100, false);
                     this.playSound(ModSounds.OBSIDIAN_CLAYMORE_SMASH.get(), 3.0F, this.getVoicePitch() * 0.5F);
+                    this.playSound(SoundEvents.GENERIC_EXPLODE, 3.0F, this.getVoicePitch() * 0.5F);
+                    this.playSound(SoundEvents.TOTEM_USE, 3.0F, this.getVoicePitch() * 0.5F);
                 }
                 for (int i = 56; i < 66; ++i) {
                     if (this.attackTick == i) {
@@ -1171,7 +1173,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
                         int width = serverLevel.getRandom().nextIntBetweenInclusive(1, 4);
                         float height = serverLevel.getRandom().nextFloat() * 0.5F;
                         Vec3 vec3 = this.getEyePosition().offsetRandom(serverLevel.getRandom(), 2.0F);
-                        Vec3 angle = this.getLookAngle();
+                        Vec3 angle = this.getLookAngle().multiply(-1.0D, 1.0D, -1.0D);
                         serverLevel.sendParticles(new WindBlowParticle.Option(new ColorUtil(ChatFormatting.LIGHT_PURPLE), width, height), vec3.x, vec3.y, vec3.z, 0, angle.x, angle.y, angle.z, 1.0F);
                     }
                     for (LivingEntity entityHit : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.2D))) {

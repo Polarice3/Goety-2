@@ -1,0 +1,27 @@
+{
+  "name": "Ídolo Sinistro",
+  "icon": "goety:ominous_idol",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/kill_a_evoker",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Uma estátua sinistra que pode salvar as vidas de illagers e outros similares que estão ligados a ela."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_idol"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Em vez de morrer, aqueles ligados ao ídolo serão teleportados de volta para ele à beira da morte, a menos que seja por seu mestre dispensá-los com uma Varinha/Cajado. No entanto, eles ficarão gravemente feridos, incapazes de serem revividos por um dia no Minecraft, e ficarão incapacitados por 5 minutos até que estejam suficientemente curados."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Para vincular seu servo ao ídolo, simplesmente use uma Pedra da Orientação, vincule-a à estátua e clique com o botão direito no seu servo com ela. O ídolo só pode conter até 16 servos (por padrão) e não aceitará mais depois disso."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ominous_idol": 1
+  }
+}

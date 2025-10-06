@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Uma versão da Adaga Dentada que, embora não seja mais venenosa, cura o portador em 5% do dano causado. A porcentagem de roubo de vida aumenta com cada nível do encantamento Devorador de Almas."
+      "text": "Uma versão da Adaga com Presas que, embora não seja mais venenosa, curará o portador em 5%% do dano causado por ela. A porcentagem de roubo de vida aumenta com cada nível de encantamento Devorador de Almas."
     },
     {
       "type": "goety:ritual",
@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "A adaga pode ser reparada em uma bigorna com um $(l:crafts/dark_metal_ingot)Lingote de Metal Sombrio$(), mas também se auto-repara se o portador tiver Energia das Almas."
+      "text": "A adaga pode ser reparada em uma bigorna com um $(l:crafts/dark_alloy_ingot)Lingote de Liga Sombria$(), embora ela se repare sozinha se o portador tiver Energia de Alma."
     }
   ],
   "extra_recipe_mappings": {
