@@ -84,6 +84,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> STATION_CULT_SPELL = PARTICLE_TYPES.register("station_cult_spell",
             () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> MUD_GAS = PARTICLE_TYPES.register("mud_gas",
+            () -> new SimpleParticleType(true));
+
     public static final RegistryObject<SimpleParticleType> LICH = PARTICLE_TYPES.register("lich",
             () -> new SimpleParticleType(true));
 
@@ -259,6 +262,9 @@ public class ModParticleTypes {
             () -> new SimpleParticleType(true));
 
     public static final RegistryObject<SimpleParticleType> CHORUS_LEAVES = PARTICLE_TYPES.register("chorus_leaves",
+            () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> CHORUS_BLOSSOM_LEAVES = PARTICLE_TYPES.register("chorus_blossom_leaves",
             () -> new SimpleParticleType(true));
 
     public static final RegistryObject<SimpleParticleType> WATER_STREAM = PARTICLE_TYPES.register("water_stream",

@@ -4,6 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.items.ISoulRepair;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
+import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.items.ModItems;
@@ -21,10 +22,14 @@ import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -43,10 +48,15 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.*;
@@ -312,6 +322,53 @@ public class ItemEvents {
                 if (entity instanceof LivingEntity living && !MobUtil.areAllies(entity, event.getEntity())) {
                     event.getEntity().lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3(living.getX(), living.getEyeY(), living.getZ()));
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void PlayerInteractBlockEvents(PlayerInteractEvent.RightClickBlock event){
+        Player player = event.getEntity();
+        Level level = event.getLevel();
+        BlockHitResult blockHitResult = event.getHitVec();
+        BlockPos blockPos = blockHitResult.getBlockPos();
+        BlockState blockState = level.getBlockState(blockPos);
+        ItemStack itemStack = event.getItemStack();
+        if (PotionUtils.getPotion(itemStack) == Potions.WATER){
+            if (event.getFace() != Direction.DOWN && blockState.is(ModBlocks.END_SOIL.get())) {
+                level.playSound(null, blockPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 1.0F, 1.0F);
+                player.setItemInHand(event.getHand(), ItemUtils.createFilledResult(itemStack, player, new ItemStack(Items.GLASS_BOTTLE)));
+                player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
+                if (!level.isClientSide) {
+                    ServerLevel serverlevel = (ServerLevel)level;
+
+                    for(int i = 0; i < 5; ++i) {
+                        serverlevel.sendParticles(ParticleTypes.SPLASH, (double)blockPos.getX() + level.random.nextDouble(), (double)(blockPos.getY() + 1), (double)blockPos.getZ() + level.random.nextDouble(), 1, 0.0D, 0.0D, 0.0D, 1.0D);
+                    }
+                }
+
+                level.playSound(null, blockPos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.gameEvent(null, GameEvent.FLUID_PLACE, blockPos);
+                level.setBlockAndUpdate(blockPos, ModBlocks.END_MUD.get().defaultBlockState());
+                event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide));
+            }
+        } else if (itemStack.is(Items.GLASS_BOTTLE)) {
+            if (event.getFace() != Direction.DOWN && blockState.is(ModBlocks.END_MUD.get())) {
+                level.playSound(null, blockPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 1.0F, 1.0F);
+                player.setItemInHand(event.getHand(), ItemUtils.createFilledResult(itemStack, player, new ItemStack(ModItems.END_MUD_BOTTLE.get())));
+                player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
+                if (!level.isClientSide) {
+                    ServerLevel serverlevel = (ServerLevel)level;
+
+                    for(int i = 0; i < 5; ++i) {
+                        serverlevel.sendParticles(ParticleTypes.SPLASH, (double)blockPos.getX() + level.random.nextDouble(), (double)(blockPos.getY() + 1), (double)blockPos.getZ() + level.random.nextDouble(), 1, 0.0D, 0.0D, 0.0D, 1.0D);
+                    }
+                }
+
+                level.playSound(null, blockPos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.gameEvent(null, GameEvent.FLUID_PLACE, blockPos);
+                level.setBlockAndUpdate(blockPos, ModBlocks.END_SOIL.get().defaultBlockState());
+                event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide));
             }
         }
     }

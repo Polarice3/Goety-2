@@ -1,0 +1,78 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "goety:block/grown_end_rock"
+      },
+      {
+        "model": "goety:block/grown_end_rock",
+        "x": 90
+      },
+      {
+        "model": "goety:block/grown_end_rock",
+        "x": 180
+      },
+      {
+        "model": "goety:block/grown_end_rock",
+        "x": 270
+      },
+      {
+        "model": "goety:block/grown_end_rock",
+        "y": 90
+      },
+      {
+        "model": "goety:block/grown_end_rock",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "goety:block/grown_end_rock",
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "goety:block/grown_end_rock",
+        "x": 270,
+        "y": 90
+      },
+      {
+        "model": "goety:block/grown_end_rock",
+        "y": 180
+      },
+      {
+        "model": "goety:block/grown_end_rock",
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "goety:block/grown_end_rock",
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "goety:block/grown_end_rock",
+        "x": 270,
+        "y": 180
+      },
+      {
+        "model": "goety:block/grown_end_rock",
+        "y": 270
+      },
+      {
+        "model": "goety:block/grown_end_rock",
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "goety:block/grown_end_rock",
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "goety:block/grown_end_rock",
+        "x": 270,
+        "y": 270
+      }
+    ]
+  }
+}

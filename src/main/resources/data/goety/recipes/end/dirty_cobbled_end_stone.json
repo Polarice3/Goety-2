@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " m ",
+    "mlm",
+    " m "
+  ],
+  "key":
+  {
+    "m":
+    {
+      "item": "goety:cobbled_end_stone"
+    },
+    "l":
+    {
+      "item": "goety:end_dirt"
+    }
+  },
+  "result":
+  {
+    "item": "goety:dirty_cobbled_end_stone",
+    "count": 4
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "parent": "block/block",
+  "loader": "forge:composite",
+  "textures": {
+    "particle": "goety:block/end_growth_block"
+  },
+  "item_render_order": [
+    "block",
+    "emission"
+  ],
+  "children": {
+    "block": {
+      "parent": "minecraft:block/cube_bottom_top",
+      "textures": {
+        "top": "goety:block/end_growth_block_top",
+        "bottom": "goety:block/end_rock_top",
+        "side": "goety:block/end_growth_block"
+      }
+    },
+    "emission": {
+      "parent": "block/block",
+      "textures": {
+        "top": "goety:block/end_growth_block_top",
+        "bottom": "goety:block/end_rock_top",
+        "side": "goety:block/end_growth_block_glow"
+      },
+      "render_type": "minecraft:cutout",
+      "elements": [
+        {
+          "from": [ 0, 0, 0 ],
+          "to": [ 16, 16, 16 ],
+          "faces": {
+            "down":  {
+              "uv": [ 0, 0, 16, 16 ],
+              "texture": "#bottom",
+              "cullface": "down"
+            },
+            "up":    {
+              "uv": [ 0, 0, 16, 16 ],
+              "texture": "#top",
+              "cullface": "up",
+              "forge_data": {
+                "block_light": 15,
+                "sky_light": 15
+              },
+              "tintindex": 0 },
+            "north": {
+              "uv": [ 0, 0, 16, 16 ],
+              "texture": "#side",
+              "cullface": "north",
+              "forge_data": {
+                "block_light": 15,
+                "sky_light": 15
+              }
+            },
+            "south": {
+              "uv": [ 0, 0, 16, 16 ],
+              "texture": "#side",
+              "cullface": "south",
+              "forge_data": {
+                "block_light": 15,
+                "sky_light": 15
+              }
+            },
+            "west":  {
+              "uv": [ 0, 0, 16, 16 ],
+              "texture": "#side",
+              "cullface": "west",
+              "forge_data": {
+                "block_light": 15,
+                "sky_light": 15
+              }
+            },
+            "east":  {
+              "uv": [ 0, 0, 16, 16 ],
+              "texture": "#side",
+              "cullface": "east",
+              "forge_data": {
+                "block_light": 15,
+                "sky_light": 15
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

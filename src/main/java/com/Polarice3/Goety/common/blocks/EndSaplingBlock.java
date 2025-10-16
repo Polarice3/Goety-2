@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.blocks;
 
+import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
@@ -13,11 +14,11 @@ public class EndSaplingBlock extends SaplingBlock {
         super(p_55978_, p_55979_);
     }
 
-    protected boolean mayPlaceOn(BlockState p_51042_, BlockGetter p_51043_, BlockPos p_51044_) {
-        return p_51042_.is(ModBlocks.END_SOIL.get());
+    protected boolean mayPlaceOn(BlockState state, BlockGetter world, BlockPos pos) {
+        return state.is(ModTags.Blocks.CHORUS_SAPLING_GROW);
     }
 
     public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, IPlantable plantable) {
-        return state.is(ModBlocks.END_SOIL.get());
+        return state.is(ModTags.Blocks.CHORUS_SAPLING_GROW);
     }
 }

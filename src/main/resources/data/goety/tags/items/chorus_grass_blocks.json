@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "goety:grassy_end_basalt",
+    "goety:grassy_end_rock",
+    "goety:grassy_end_rock_bricks",
+    "goety:grassy_end_stone_bricks",
+    "goety:grassy_end_stone_bricks_heavy",
+    "goety:grassy_end_stone_tiles",
+    "goety:grassy_smooth_end_stone",
+    "goety:grassy_smooth_end_stone_heavy",
+    "goety:grassy_cobbled_end_stone",
+    "goety:grassy_purpur_block",
+    "goety:chorus_grass_block",
+    "goety:chorus_grass_block_slab",
+    "goety:chorus_grass_slab",
+    "goety:cobbled_chorus_grass_block"
+  ]
+}

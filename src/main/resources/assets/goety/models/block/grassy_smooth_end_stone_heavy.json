@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "goety:block/grassy_smooth_end_stone_heavy"
+  }
+}

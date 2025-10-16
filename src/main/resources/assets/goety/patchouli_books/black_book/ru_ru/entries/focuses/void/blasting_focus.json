@@ -1,0 +1,22 @@
+{
+  "name": "Фокус эндер-взрыва",
+  "icon": "goety:blasting_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Несмотря на название, никакие взрывы этот фокус не создаёт. Он вызывает $(l:summons/enderling_servants#blastling)существ, стреляющих залпами раскалённой слизи$()."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/blasting_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/void_staff)пустотного посоха$() позволит призывать больше эндервзрывов."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:blasting_focus": 1
+  }
+}

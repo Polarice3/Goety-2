@@ -877,6 +877,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.razor_wind_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:razor_wind_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.reaping_focus": {
       "conditions": {
         "items": [
@@ -1565,6 +1577,9 @@
     ],
     [
       "item.goety.wind_blast_focus"
+    ],
+    [
+      "item.goety.razor_wind_focus"
     ],
     [
       "item.goety.trembling_focus"

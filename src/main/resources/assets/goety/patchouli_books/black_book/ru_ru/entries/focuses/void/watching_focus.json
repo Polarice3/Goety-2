@@ -1,0 +1,22 @@
+{
+  "name": "Фокус эндер-взгляда",
+  "icon": "goety:watching_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вы чувствуете, как этот фокус смотрит вам в душу. С его помощью вызываются обитатели Энда, $(l:summons/enderling_servants#watchling)нелепые человекоподобные создания, состоящие только из очей и темноты$()."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/watching_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/void_staff)пустотного посоха$() позволит призывать больше эндерглядов."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:watching_focus": 1
+  }
+}

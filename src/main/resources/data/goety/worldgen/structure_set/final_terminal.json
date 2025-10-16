@@ -7,12 +7,13 @@
   ],
   "placement": {
     "salt": 246808642,
-    "spacing": 120,
+    "spacing": 60,
     "separation": 40,
+    "spread_type": "triangular",
     "super_exclusion_zone": {
       "chunk_count": 10,
       "other_set": "#goety:final_terminal_avoid"
     },
-    "type": "minecraft:random_spread"
+    "type": "goety:minor_random_spread"
   }
 }

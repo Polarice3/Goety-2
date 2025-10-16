@@ -1,0 +1,18 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "goety:crag_tiles"
+    },
+    {
+      "item": "goety:crag_bricks"
+    },
+    {
+      "item": "goety:snowy_crag_bricks"
+    },
+    {
+      "item": "goety:cracked_crag_pavement"
+    }
+  ],
+  "block_result": "goety:cragrocks"
+}

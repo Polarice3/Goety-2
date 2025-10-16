@@ -22,7 +22,7 @@
       "entity": "goety:ravaged",
       "scale": 0.75
     },
-    {
+	{
       "type": "patchouli:text",
       "text": "Полностью выросшие разорители могут быть частью $(l:goety:mutations/illager_servants)рейдерского отряда$(), но не могут быть его лидерами."
     }

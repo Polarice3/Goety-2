@@ -1,0 +1,18 @@
+{
+  "name": "Пустотный посох",
+  "icon": "goety:void_staff",
+  "category": "goety:crafts/staff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Эссенция пустоты и Энда обвивает этот загадочный посох, увеличивая силу пустотных заклинаний."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:void_staff"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:void_staff": 1
+  }
+}

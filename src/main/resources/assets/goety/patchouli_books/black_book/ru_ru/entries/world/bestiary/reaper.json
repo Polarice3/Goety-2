@@ -11,6 +11,15 @@
     {
       "type": "patchouli:entity",
       "entity": "goety:reaper"
+    },
+	{
+      "type": "patchouli:spotlight",
+      "item": "goety:grave_dust",
+      "title": "Могильная пыль",
+      "text": "Иногда из жнецов выпадает могильная пыль, используемая для создания определённых некромантических предметов."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:grave_dust": 2
+  }
 }

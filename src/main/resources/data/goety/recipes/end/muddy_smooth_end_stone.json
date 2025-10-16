@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "goety:smooth_end_stone"
+    },
+    {
+      "item": "goety:end_mud"
+    }
+  ],
+  "result": {
+    "item": "goety:muddy_smooth_end_stone"
+  }
+}

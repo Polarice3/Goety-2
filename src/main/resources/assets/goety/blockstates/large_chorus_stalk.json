@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "goety:block/large_chorus_stalk_bottom"
+    },
+    "half=upper": {
+      "model": "goety:block/large_chorus_stalk_top"
+    }
+  }
+}

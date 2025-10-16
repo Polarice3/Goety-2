@@ -1,0 +1,59 @@
+{
+  "name": "Эндервиды-прислужники",
+  "icon": "minecraft:ender_pearl",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Эти странные подвиды эндерменов гораздо лучше подчиняются, нежели их непокорный предок."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Все эндервиды способны к телепортации, но, в отличие от эндерменов, перемещаются не так часто и при этом могут исчезать на несколько секунд, чтобы сбить противника с толку. Имеют уязвимость к воде."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_watchling_thrall"
+    },
+    {
+      "anchor": "watchling",
+      "type": "patchouli:entity",
+      "entity": "goety:watchling_servant",
+      "text": "К сожалению, по какой-то загадочной причине книга не может точно изобразить их глаза."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Эндергляды — это незатейливые существа, которые телепортируются и атакуют в ближнем бою. Их можно вызвать с помощью ритуала или $(l:focuses/void/watching_focus)фокуса эндер-взгляда$()."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_blastling_thrall"
+    },
+    {
+      "anchor": "blastling",
+      "type": "patchouli:entity",
+      "entity": "goety:blastling_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Эндервзрывы — это самые выносливые эндервиды, которые атакуют, стреляя в противников раскалённой слизью. Они могут отступить, если враг приблизится. Их можно вызвать с помощью ритуала или $(l:focuses/void/blasting_focus)фокуса эндер-взрыва$()."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_snareling_thrall"
+    },
+    {
+      "anchor": "snareling",
+      "type": "patchouli:entity",
+      "entity": "goety:snareling_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Эндерплёвы — странные и коварные существа. Сперва они пытаются обездвижить врага ловчей сетью из слизи, а затем либо телепортируются, либо бегут навстречу врагу и атакуют своими руками. Они могут отступить, если враг приблизится необездвиженный противник. Их можно вызвать с помощью ритуала или $(l:focuses/void/snaring_focus)фокуса эндер-плевка$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Их можно исцелять путём кормления плодами хоруса или ношения $(l:crafts/garment/void_robe)пустотной мантии$()."
+    }
+  ]
+}

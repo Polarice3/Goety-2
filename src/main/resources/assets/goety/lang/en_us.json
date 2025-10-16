@@ -344,6 +344,7 @@
   "entity.goety.fire_tornado":"Flaming Tornado",
   "entity.goety.cyclone":"Cyclone",
   "entity.goety.tidal_surge":"Tidal Surge",
+  "entity.goety.razor_wind": "Razor Wind",
   "entity.goety.void_slash": "Void Slash",
   "entity.goety.falling_block":"Falling Block",
   "entity.goety.corrupted_beam":"Beam of Corruption",
@@ -642,6 +643,7 @@
   "item.goety.blast_fungus": "Blast Fungus",
   "item.goety.berserk_fungus": "Berserk Fungus",
   "item.goety.wartful_egg": "Wartful Egg",
+  "item.goety.chorus_growth": "Chorus Growth",
   "item.goety.quick_growing_seed": "Quick Growing Seed",
   "item.goety.poison_quill_seed": "Poison Quill Seed",
   "item.goety.ill_bomb": "Ill Bomb",
@@ -656,6 +658,9 @@
 
   "item.goety.void_bottle": "Bottle of Void",
   "item.goety.void_bucket": "Bucket of Liquid Void",
+
+  "item.goety.end_mud_bottle": "Bottle of End Mud",
+  "item.goety.end_mud_bucket": "Bucket of Liquid End Mud",
 
   "item.goety.grimoire_of_grudges": "Grimoire of Grudges",
   "item.goety.grimoire_of_goodwill": "Grimoire of Goodwill",
@@ -872,6 +877,8 @@
   "item.goety.updraft_focus.info": "Summons a cloud of wind on a location or target that, after a time, shoots any target up in the air, damaging them.",
   "item.goety.wind_blast_focus": "Wind Blast Focus",
   "item.goety.wind_blast_focus.info": "Shoots a blast of wind that deals no damage to targets, but will knock them back.",
+  "item.goety.razor_wind_focus": "Razor Wind Focus",
+  "item.goety.razor_wind_focus.info": "Shoots a powerful slash of wind in front of the caster.",
   "item.goety.trembling_focus": "Trembling Focus",
   "item.goety.trembling_focus.info": "Pushes non-allied entities away from the caster and slows them briefly.",
   "item.goety.swarm_focus": "Swarm Focus",
@@ -1339,6 +1346,7 @@
   "block.goety.chorus_planks": "Chorus Planks",
   "block.goety.thatched_chorus_planks": "Thatched Chorus Planks",
   "block.goety.chorus_leaves": "Chorus Leaves",
+  "block.goety.chorus_vine": "Chorus Vine",
   "block.goety.chorus_door": "Chorus Door",
   "block.goety.chorus_fence": "Chorus Fence",
   "block.goety.chorus_fence_gate": "Chorus Fence Gate",
@@ -1378,6 +1386,10 @@
   "block.goety.corrupt_chorus_chest": "Corrupted Chorus Chest",
   "block.goety.trapped_corrupt_chorus_chest": "Corrupted Trapped Chorus Chest",
 
+  "block.goety.chorus_blossom_leaves": "Chorus Blossom Leaves",
+  "block.goety.chorus_blossom_vines": "Chorus Blossom Vines",
+  "block.goety.chorus_blossom_vines_pruned": "Pruned Chorus Blossom Vines",
+
   "block.goety.cursed_bars": "Cursed Metal Bars",
 
   "block.goety.haunted_glass": "Haunted Glass",
@@ -1397,6 +1409,8 @@
   "block.goety.soiled_end_basalt": "Soiled End Basalt",
   "block.goety.top_soiled_end_basalt": "Top Soiled End Basalt",
   "block.goety.bottom_soiled_end_basalt": "Bottom Soiled End Basalt",
+  "block.goety.grassy_end_basalt": "Grassy End Basalt",
+  "block.goety.dirty_end_basalt": "Dirty End Basalt",
 
   "block.goety.end_basalt_bricks": "End Basalt Bricks",
   "block.goety.end_basalt_brick_slab": "End Basalt Brick Slab",
@@ -1407,12 +1421,16 @@
   "block.goety.end_rock": "End Rock",
   "block.goety.end_rock_slab": "End Rock Slab",
   "block.goety.soiled_end_rock": "Soiled End Rock",
+  "block.goety.grassy_end_rock": "Grassy End Rock",
+  "block.goety.grown_end_rock": "Grown End Rock",
+  "block.goety.dirty_end_rock": "Dirty End Rock",
   "block.goety.end_rock_slate": "Slated End Rock",
   "block.goety.end_rock_bricks": "End Rock Bricks",
   "block.goety.end_rock_brick_slab": "End Rock Brick Slab",
   "block.goety.end_rock_brick_wall": "End Rock Brick Wall",
   "block.goety.end_rock_brick_fence": "End Rock Brick Fence",
   "block.goety.soiled_end_rock_bricks": "Soiled End Rock Bricks",
+  "block.goety.grassy_end_rock_bricks": "Grassy End Rock Bricks",
 
   "block.goety.end_rock_chiseled": "Chiseled End Rock",
   "block.goety.soiled_end_rock_chiseled": "Soiled Chiseled End Rock",
@@ -1426,17 +1444,24 @@
   "block.goety.soiled_end_stone_bricks_slight": "Slight Soiled End Stone Bricks",
   "block.goety.soiled_end_stone_bricks": "Soiled End Stone Bricks",
   "block.goety.soiled_end_stone_bricks_heavy": "Heavy Soiled End Stone Bricks",
+  "block.goety.grassy_end_stone_bricks": "Grassy End Stone Bricks",
+  "block.goety.grassy_end_stone_bricks_heavy": "Heavy Grassy End Stone Bricks",
 
   "block.goety.end_stone_tiles": "End Stone Tiles",
   "block.goety.end_stone_tile_slab": "End Stone Tile Slab",
   "block.goety.end_stone_tile_stairs": "End Stone Tile Stairs",
   "block.goety.soiled_end_stone_tiles": "Soiled End Stone Tiles",
+  "block.goety.grassy_end_stone_tiles": "Grassy End Stone Tiles",
 
   "block.goety.smooth_end_stone": "Smooth End Stone",
   "block.goety.smooth_end_stone_slab": "Smooth End Stone Slab",
   "block.goety.smooth_end_stone_stairs": "Smooth End Stone Stairs",
   "block.goety.smooth_end_stone_wall": "Smooth End Stone Wall",
   "block.goety.smooth_end_stone_fence": "Smooth End Stone Fence",
+
+  "block.goety.muddy_smooth_end_stone": "Muddy Smooth End Stone",
+  "block.goety.grassy_smooth_end_stone": "Grassy Smooth End Stone",
+  "block.goety.grassy_smooth_end_stone_heavy": "Heavy Grassy Smooth End Stone",
 
   "block.goety.end_stone_slate": "End Stone Slate",
   "block.goety.end_stone_slate_rock": "Rocked End Stone Slate",
@@ -1448,10 +1473,26 @@
   "block.goety.soiled_cobbled_end_stone_slight": "Slight Soiled Cobbled End Stone",
   "block.goety.soiled_cobbled_end_stone": "Soiled Cobbled End Stone",
   "block.goety.soiled_cobbled_end_stone_heavy": "Heavy Soiled Cobbled End Stone",
+  "block.goety.grassy_cobbled_end_stone": "Grassy Cobbled End Stone",
+  "block.goety.grown_cobbled_end_stone": "Grown Cobbled End Stone",
+  "block.goety.dirty_cobbled_end_stone": "Dirty Cobbled End Stone",
+  "block.goety.dirty_cobbled_end_stone_heavy": "Heavy Dirty Cobbled End Stone",
 
   "block.goety.end_stone_pillar": "End Stone Pillar",
 
   "block.goety.chorus_end_stone_pillar": "Chorus End Stone Pillar",
+
+  "block.goety.chorus_grass_block": "Chorus Grass Block",
+  "block.goety.chorus_grass_block_slab": "Chorus Grass Block Slab",
+  "block.goety.cobbled_chorus_grass_block": "Cobbled Chorus Grass Block",
+
+  "block.goety.chorus_grass_slab": "Chorus Grass Slab",
+
+  "block.goety.end_growth_block": "End Growth Block",
+  "block.goety.end_growth_vines": "End Growth Vines",
+  "block.goety.end_growth_vines_plant": "End Growth Vines",
+
+  "block.goety.end_stone_slab": "End Stone Slab",
 
   "block.goety.end_rod_block": "End Rod Block",
   "block.goety.end_lamp": "End Lamp",
@@ -1460,11 +1501,21 @@
   "block.goety.purpur_wall": "Purpur Wall",
   "block.goety.purpur_end_rod_block": "Purpur End Rod Block",
   "block.goety.soiled_purpur_block": "Soiled Purpur Block",
+  "block.goety.grassy_purpur_block": "Grassy Purpur Block",
 
   "block.goety.end_soil": "End Soil",
   "block.goety.end_soil_debris": "End Soil Debris",
 
+  "block.goety.end_mud": "End Mud",
+  "block.goety.end_mud_slab": "End Mud Slab",
+  "block.goety.end_mud_cauldron": "End Mud Cauldron",
+
+  "block.goety.end_dirt": "End Dirt",
+  "block.goety.end_dirt_slab": "End Dirt Slab",
+  "block.goety.soiled_end_dirt": "Soiled End Dirt",
+
   "block.goety.void_fluid": "Liquid Void",
+  "block.goety.end_mud_fluid": "Liquid End Mud",
 
   "block.goety.freezing_lamp": "Freezing Lamp",
   "block.goety.shriek_obelisk": "Shrieking Obelisk",
@@ -1499,6 +1550,23 @@
   "block.goety.sculk_grower": "Sculk Grower",
 
   "block.goety.snap_warts": "Snap Warts",
+
+  "block.goety.chorus_sprout": "Chorus Sprout",
+  "block.goety.chorus_stalk": "Chorus Stalk",
+  "block.goety.large_chorus_stalk": "Large Chorus Stalk",
+  "block.goety.potted_chorus_stalk": "Potted Chorus Stalk",
+
+  "block.goety.end_grass_sprout": "End Grass Sprout",
+  "block.goety.end_grass": "End Grass",
+  "block.goety.tall_end_grass": "Tall End Grass",
+
+  "block.goety.chorus_tall_grass": "Chorus Tall Grass",
+
+  "block.goety.chorus_fern_sprout": "Chorus Fern Sprout",
+  "block.goety.chorus_fern": "Chorus Fern",
+  "block.goety.large_chorus_fern": "Large Chorus Fern",
+  "block.goety.potted_chorus_fern": "Potted Chorus Fern",
+
   "block.goety.spider_nest": "Spider Nest",
   "block.goety.shade_gravestone": "Shade Gravestone",
   "block.goety.blazing_cage": "Blazing Cage",

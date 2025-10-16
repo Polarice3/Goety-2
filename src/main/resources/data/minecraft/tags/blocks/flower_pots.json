@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "goety:potted_chorus_stalk",
+    "goety:potted_chorus_fern",
     "goety:potted_haunted_sapling",
     "goety:potted_rotten_sapling",
     "goety:potted_windswept_sapling",

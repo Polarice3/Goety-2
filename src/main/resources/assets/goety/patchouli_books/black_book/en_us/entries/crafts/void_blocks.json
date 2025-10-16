@@ -14,8 +14,12 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:void_block",
-      "recipe2": "goety:void_bucket"
+      "recipe": "goety:void_block"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:void_bucket",
+      "text": "To obtain a Bucket of Liquid Void, fill a Cauldron with Bottles of Void and use a Bucket on it."
     },
     {
       "type": "patchouli:text",
@@ -65,7 +69,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "goety:end_soil",
-      "text": "When a flowing water meets flowing void, it creates End Soil. Not only can Chorus Flowers grow on them, but having lava flow onto it with Blue Ice adjacent will create renewable Obsidian."
+      "text": "When a flowing water meets flowing void, it creates End Soil. Not only can Chorus Flowers grow on them, but having lava flow onto it with Blue Ice adjacent will create renewable Obsidian. Bone mealing on it will create some plants that seems to be related to Chorus Plants."
     },
     {
       "type": "patchouli:crafting",
@@ -76,10 +80,63 @@
       "type": "patchouli:spotlight",
       "item": "goety:chorus_sapling",
       "text": "Growing 4 Chorus Saplings in a 2x2 area will create a gigantic Chorus Tree that has Corrupted Chorus Logs, which also provide another set of wood-like blocks, or Liquid Void within itself."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:chorus/chorus_growth",
+      "text": "You've discovered a way to make an ecosystem using this growth. It can be used to create, or right-clicked on certain end-related blocks, to create foliage."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:chorus/chorus_grass_block",
+      "recipe2": "goety:chorus/chorus_grass_block2"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:chorus/chorus_grass_block_slab",
+      "recipe2": "goety:chorus/chorus_grass_slab"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:chorus/cobbled_chorus_grass_block"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:bone_meal",
+      "text": "Bone mealing these blocks will grow Chorus Ferns and Chorus Tall Grass on top of them. Chorus Grass Blocks can spread to adjacent Smooth End Stones."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_growth_block",
+      "text": "You've also discovered another type of foliage that can be introduced in the End, one that looks fleshy and seems to grow vines, when applied bone meal, similar to Twisting Vines of the Nether. End Growth Blocks can spread to adjacent End Rocks."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_dirt",
+      "text": "Applying Void directly to dirt seems to make it purple and untillable by hoe, but it can grow some Chorus Stalks when bone mealed and be used as terrain decoration. It can spread to other dirt."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:chorus_blossom_leaves",
+      "text": "Chorus Saplings can be planted on both End Growth Blocks and End Dirt but, when fully grown, instead of having yellow leaves, they grow leaves that look more like Chorus Flowers."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:end_mud",
+      "text": "Applying a Water Bottle on an End Soil will turn it into End Mud. Using a Glass Bottle on it will turn it back to End Soil, but will give you End Mud Bottle, which can filled into a Cauldron to make a Cauldron of End Mud."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:end_mud_bucket",
+      "text": "Filling a Bucket with the content of a full cauldron will give a Bucket of Liquid End Mud, which functions similar to Water, except it does not damage beings of The End and spreads a bit slowly."
     }
   ],
   "extra_recipe_mappings": {
     "goety:void_bottle": 1,
-    "goety:end_soil": 11
+    "goety:void_bucket": 3,
+    "goety:end_soil": 11,
+    "goety:chorus_blossom_leaves": 21,
+    "goety:end_mud_bottle": 22,
+    "goety:end_mud_bucket": 23
   }
 }

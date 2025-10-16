@@ -23,11 +23,22 @@ import javax.annotation.Nullable;
 public class LayerBlock extends Block {
     public static final int MAX_HEIGHT = 8;
     public static final IntegerProperty LAYERS = BlockStateProperties.LAYERS;
-    protected static final VoxelShape[] SHAPE_BY_LAYER = new VoxelShape[]{Shapes.empty(), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 6.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 10.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)};
+    protected static final VoxelShape[] SHAPE_BY_LAYER = new VoxelShape[]{
+            Shapes.empty(),
+            Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D),
+            Block.box(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D),
+            Block.box(0.0D, 0.0D, 0.0D, 16.0D, 6.0D, 16.0D),
+            Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D),
+            Block.box(0.0D, 0.0D, 0.0D, 16.0D, 10.0D, 16.0D),
+            Block.box(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D),
+            Block.box(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D),
+            Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)};
     public static final int HEIGHT_IMPASSABLE = 5;
+    public boolean fullCollision = false;
 
-    public LayerBlock(BlockBehaviour.Properties p_56585_) {
+    public LayerBlock(BlockBehaviour.Properties p_56585_, boolean fullCollision) {
         super(p_56585_);
+        this.fullCollision = fullCollision;
         this.registerDefaultState(this.stateDefinition.any().setValue(LAYERS, 1));
     }
 
@@ -44,6 +55,9 @@ public class LayerBlock extends Block {
     }
 
     public VoxelShape getCollisionShape(BlockState p_56625_, BlockGetter p_56626_, BlockPos p_56627_, CollisionContext p_56628_) {
+        if (this.fullCollision) {
+            return SHAPE_BY_LAYER[p_56625_.getValue(LAYERS)];
+        }
         return SHAPE_BY_LAYER[p_56625_.getValue(LAYERS) - 1];
     }
 

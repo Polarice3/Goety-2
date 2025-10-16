@@ -1,0 +1,22 @@
+{
+  "name": "Razor Wind Focus",
+  "icon": "goety:razor_wind_focus",
+  "category": "goety:focuses/wind",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The focus hones the wind into a thin, sharp blade, shooting out to slice any non-allied creature in its path at high speed."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/razor_wind_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/wind_staff)Wind Staff$() increases the initial width of the blade."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:razor_wind_focus": 1
+  }
+}

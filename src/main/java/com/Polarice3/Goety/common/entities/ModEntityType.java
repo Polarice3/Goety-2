@@ -527,6 +527,11 @@ public class ModEntityType {
                     .setShouldReceiveVelocityUpdates(true)
                     .updateInterval(1));
 
+    public static final RegistryObject<EntityType<RazorWind>> RAZOR_WIND = register("razor_wind",
+            EntityType.Builder.<RazorWind>of(RazorWind::new, MobCategory.MISC)
+                    .sized(2.0F, 0.5F)
+                    .clientTrackingRange(64));
+
     public static final RegistryObject<EntityType<VoidSlash>> VOID_SLASH = register("void_slash",
             EntityType.Builder.<VoidSlash>of(VoidSlash::new, MobCategory.MISC)
                     .sized(2.0F, 0.5F)

@@ -1,0 +1,23 @@
+{
+  "name": "Зловещий посох",
+  "icon": "goety:ominous_staff",
+  "category": "goety:crafts/staff",
+  "advancement": "goety:goety/kill_a_minister",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Расправившись с высокопоставленными $(l:world/bestiary/minister)злодеянами$(), вы смогли заполучить могущественую сферу и использовать её для создания точной копии их посоха."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Зловещий посох усиливает некоторые магические заклинания, а именно: фокус вреда, фокус зуба, фокус магического меча, фокус прожорства, фокус укуса и фокус шинкования. Использование фокусов кости и гниения позволит создавать злодеян-нежить."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ominous_staff": 1
+  }
+}

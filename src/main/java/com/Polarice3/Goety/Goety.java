@@ -461,6 +461,8 @@ public class Goety {
             AxeItem.STRIPPABLES.put(ModBlocks.WINDSWEPT_WOOD.get(), ModBlocks.STRIPPED_WINDSWEPT_WOOD.get());
             AxeItem.STRIPPABLES.put(ModBlocks.PINE_LOG.get(), ModBlocks.STRIPPED_PINE_LOG.get());
             AxeItem.STRIPPABLES.put(ModBlocks.PINE_WOOD.get(), ModBlocks.STRIPPED_PINE_WOOD.get());
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.CHORUS_STALK.getId(), ModBlocks.POTTED_CHORUS_STALK);
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.CHORUS_FERN.getId(), ModBlocks.POTTED_CHORUS_FERN);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.HAUNTED_SAPLING.getId(), ModBlocks.POTTED_HAUNTED_SAPLING);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.ROTTEN_SAPLING.getId(), ModBlocks.POTTED_ROTTEN_SAPLING);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.WINDSWEPT_SAPLING.getId(), ModBlocks.POTTED_WINDSWEPT_SAPLING);
@@ -489,6 +491,36 @@ public class Goety {
                     }
                 }
             }
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.END_GROWTH_VINES.get().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.HAUNTED_SAPLING.get().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.WINDSWEPT_SAPLING.get().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.PINE_SAPLING.get().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.WINDSWEPT_LEAVES.get().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.PINE_LEAVES.get().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_VINE.get().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_BLOSSOM_VINES_PRUNED.get().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModItems.SNAP_FUNGUS.get(), 0.65F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.ROTTEN_SAPLING.get().asItem(), 0.65F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_SAPLING.get().asItem(), 0.65F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_SPROUT.get().asItem(), 0.65F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.END_GRASS_SPROUT.get().asItem(), 0.65F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_FERN_SPROUT.get().asItem(), 0.65F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.ROTTEN_LEAVES.get().asItem(), 0.65F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_LEAVES.get().asItem(), 0.65F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_BLOSSOM_LEAVES.get().asItem(), 0.65F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_STALK.get().asItem(), 0.85F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.END_GRASS.get().asItem(), 0.85F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_TALL_GRASS.get().asItem(), 0.85F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_FERN.get().asItem(), 0.85F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.LARGE_CHORUS_STALK.get().asItem(), 1.0F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.TALL_END_GRASS.get().asItem(), 1.0F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.LARGE_CHORUS_FERN.get().asItem(), 1.0F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_BLOSSOM_VINES.get().asItem(), 0.65F);
+            ComposterBlock.COMPOSTABLES.put(ModItems.CHORUS_GROWTH.get(), 1.0F);
+            ComposterBlock.COMPOSTABLES.put(ModItems.BLAST_FUNGUS.get(), 1.0F);
+            ComposterBlock.COMPOSTABLES.put(ModItems.BERSERK_FUNGUS.get(), 1.0F);
+            ComposterBlock.COMPOSTABLES.put(ModItems.QUICK_GROWING_SEED.get(), 1.0F);
+            ComposterBlock.COMPOSTABLES.put(ModItems.POISON_QUILL_SEED.get(), 1.0F);
         });
     }
 

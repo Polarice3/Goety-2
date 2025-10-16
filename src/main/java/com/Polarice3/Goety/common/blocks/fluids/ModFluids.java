@@ -26,6 +26,10 @@ public class ModFluids {
     public static final RegistryObject<FlowingFluid> VOID_FLUID_SOURCE = FLUIDS.register("void", VoidFluid.Source::new);
     public static final RegistryObject<FlowingFluid> VOID_FLUID_FLOWING = FLUIDS.register("void_flowing", VoidFluid.Flowing::new);
 
+    public static final RegistryObject<FluidType> END_MUD_FLUID_TYPE = FLUID_TYPES.register("end_mud", EndMudFluidType::new);
+    public static final RegistryObject<FlowingFluid> END_MUD_FLUID_SOURCE = FLUIDS.register("end_mud", EndMudFluid.Source::new);
+    public static final RegistryObject<FlowingFluid> END_MUD_FLUID_FLOWING = FLUIDS.register("end_mud_flowing", EndMudFluid.Flowing::new);
+
     public static void interactionInit() {
         // Water -> Void = Void Block (Source Void) / End Soil (Flowing Void)
         FluidInteractionRegistry.addInteraction(VOID_FLUID_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
@@ -35,6 +39,18 @@ public class ModFluids {
 
         // Void -> Water = End Rock (Source Water) / End Soil (Flowing Water)
         FluidInteractionRegistry.addInteraction(ForgeMod.WATER_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
+                VOID_FLUID_TYPE.get(),
+                fluidState -> fluidState.isSource() ? ModBlocks.END_ROCK.get().defaultBlockState() : ModBlocks.END_SOIL.get().defaultBlockState()
+        ));
+
+        // Mud -> Void = Void Block (Source Void) / End Soil (Flowing Void)
+        FluidInteractionRegistry.addInteraction(VOID_FLUID_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
+                END_MUD_FLUID_TYPE.get(),
+                fluidState -> fluidState.isSource() ? ModBlocks.VOID_BLOCK.get().defaultBlockState() : ModBlocks.END_SOIL.get().defaultBlockState()
+        ));
+
+        // Void -> Mud = End Rock (Source Water) / End Soil (Flowing Water)
+        FluidInteractionRegistry.addInteraction(END_MUD_FLUID_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
                 VOID_FLUID_TYPE.get(),
                 fluidState -> fluidState.isSource() ? ModBlocks.END_ROCK.get().defaultBlockState() : ModBlocks.END_SOIL.get().defaultBlockState()
         ));
@@ -49,6 +65,30 @@ public class ModFluids {
         FluidInteractionRegistry.addInteraction(ForgeMod.LAVA_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
                 VOID_FLUID_TYPE.get(),
                 fluidState -> ModBlocks.END_BASALT.get().defaultBlockState()
+        ));
+
+        // Mud -> Water = End Mud
+        FluidInteractionRegistry.addInteraction(END_MUD_FLUID_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
+                ForgeMod.WATER_TYPE.get(),
+                fluidState -> ModBlocks.END_MUD.get().defaultBlockState()
+        ));
+
+        // Water -> Mud = End Mud
+        FluidInteractionRegistry.addInteraction(ForgeMod.WATER_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
+                END_MUD_FLUID_TYPE.get(),
+                fluidState -> ModBlocks.END_MUD.get().defaultBlockState()
+        ));
+
+        // Mud -> Lava = Obsidian (Source Lava) / End Stone (Flowing Lava)
+        FluidInteractionRegistry.addInteraction(END_MUD_FLUID_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
+                ForgeMod.LAVA_TYPE.get(),
+                fluidState -> fluidState.isSource() ? Blocks.OBSIDIAN.defaultBlockState() : Blocks.END_STONE.defaultBlockState()
+        ));
+
+        // Lava -> Mud = End Stone Slate (Source Mud) / End Stone (Flowing Mud)
+        FluidInteractionRegistry.addInteraction(ForgeMod.LAVA_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
+                END_MUD_FLUID_TYPE.get(),
+                fluidState -> fluidState.isSource() ? ModBlocks.END_STONE_SLATE_BLOCK.get().defaultBlockState() : Blocks.END_STONE.defaultBlockState()
         ));
 
         FluidInteractionRegistry.addInteraction(ForgeMod.LAVA_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(

@@ -3,6 +3,8 @@
   "values": [
     "goety:forbidden_grass",
     "goety:end_soil",
-    "goety:end_soil_debris"
+    "goety:end_soil_debris",
+    "goety:end_mud",
+    "goety:end_mud_slab"
   ]
 }

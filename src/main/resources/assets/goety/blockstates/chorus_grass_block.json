@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "goety:block/chorus_grass_block"
+      },
+      {
+        "model": "goety:block/chorus_grass_block",
+        "y": 90
+      },
+      {
+        "model": "goety:block/chorus_grass_block",
+        "y": 180
+      },
+      {
+        "model": "goety:block/chorus_grass_block",
+        "y": 270
+      }
+    ]
+  }
+}

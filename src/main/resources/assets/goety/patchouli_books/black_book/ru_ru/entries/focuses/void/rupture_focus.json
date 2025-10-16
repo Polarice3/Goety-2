@@ -11,6 +11,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/rupture_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/void_staff)пустотного посоха$() позволит взрыву накладывать эффект пустотного касания."
     }
   ],
   "extra_recipe_mappings": {

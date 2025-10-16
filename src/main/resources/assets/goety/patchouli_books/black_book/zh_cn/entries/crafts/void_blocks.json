@@ -1,25 +1,29 @@
 {
-  "name": "虚空方块和流体",
+  "name": "虚空方块与液体",
   "icon": "goety:void_block",
   "category": "goety:crafts",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "末地中潜藏着诸多危险的方块与液体，唯有本土生灵方可安然涉足，凡外来者踏足其上皆会受阻..."
+      "text": "你曾听闻末地中存在着某些奇特的方块与液体，它们对踏足其上的生灵有害——除非这些生灵本就源自末地……"
     },
     {
       "type": "patchouli:spotlight",
       "item": "goety:void_bottle",
-      "text": "要获取虚空之瓶，需在主世界Y轴-64层、下界或末地Y轴0层以下使用空玻璃瓶右键。不过相较而言，末地获取更为容易，毕竟那里的虚空触手可及。"
+      "text": "若要获取虚空瓶，你必须在维度最低建造高度以下使用空玻璃瓶。主世界为Y=-64，下界与末地皆为0。不过可以说在末地获取更为容易，因为那里没有维度的壁垒去阻挡虚空。"
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:void_block",
-      "recipe2": "goety:void_bucket"
+      "recipe": "goety:void_block"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:void_bucket",
+      "text": "若要获取液态虚空桶，你需要先用虚空瓶填满一个炼药锅，再对其使用桶。"
     },
     {
       "type": "patchouli:text",
-      "text": "虚空块与液态虚空每秒造成相当于生命上限5%%的伤害，同时会对穿越其中的生物施加并强化“虚空之蚀”效果。末影人、末影螨、所有变种的末影灵对此免疫，但诡异的是，潜影贝却无法幸免。"
+      "text": "虚空方块与液体皆会造成等同于生命上限5%%的每秒伤害，同时还会赋予并增强穿行其中生物的'虚空之蚀'效果。末影人、末影螨与末影灵们对此效果免疫，但奇怪的是，潜影贝却并非如此。"
     },
     {
       "type": "patchouli:crafting",
@@ -27,11 +31,11 @@
     },
     {
       "type": "patchouli:text",
-      "text": "虚空容器是一种不稳定的方块，被触发时会释放虚空爆炸并自毁。可通过右键点击、红石激活或投射物射击来引爆它。"
+      "text": "虚空桶是一种不稳定的方块，被触发时会释放出虚空爆炸，并在此过程中自行损毁。要引爆此桶，可对其右键点击、用红石激活，或向其发射抛射物。"
     },
     {
       "type": "patchouli:text",
-      "text": "液态虚空与水或岩浆接触时可形成装饰性方块。将水倒在液态虚空源上会将其转化为虚空块。"
+      "text": "当液态虚空与水或熔岩相互作用时，亦可生成装饰性方块。将水倾倒在液态虚空源块上会将其转化为虚空方块。"
     },
     {
       "type": "patchouli:crafting",
@@ -65,21 +69,74 @@
     {
       "type": "patchouli:spotlight",
       "item": "goety:end_soil",
-      "text": "当流动的水与流动的虚空液体相遇时，会生成末地壤。这种方块不仅能种植紫颂花，若在其周边放置蓝冰并引导岩浆触碰，还可再生黑曜石。"
+      "text": "当流动的水与流动的虚空相遇，便会生成末地壤土。紫颂花不仅能生长于其上，若有熔岩流至其上且毗邻蓝冰，更能生成可再生的黑曜石。对其使用骨粉则会催生一些似乎与紫颂植物相关的植株。"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:chorus/chorus_sapling",
-      "text": "你还可以在虚空中培育一种新的树苗，它能提供一类新的、不易燃的木质方块，这种树苗只能种植在末地壤上"
+      "text": "亦可从虚空中制得树苗，从而获得一类不可燃烧的类木质方块。它们仅能种植于末地壤土之上。"
     },
     {
       "type": "patchouli:spotlight",
       "item": "goety:chorus_sapling",
-      "text": "在一个2*2格的空间内种植4颗紫颂树苗，那它会长成一颗巨大的紫颂树，其树干内部含有腐烂的紫颂原木，内部空隙还可能含有液态虚空，当然，这种原木也可以制成一类新的木质方块，"
+      "text": "将4株紫颂树苗以2x2的格局种植，将会长成一棵参天紫颂巨树，其内含腐化紫颂原木——这提供了另一套类木质方块，或是树体内部的液态虚空。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:chorus/chorus_growth",
+      "text": "你已发现利用此生长物构建生态体系之法。它可用于创造植被，或对某些末地相关的方块右键使用以生成绿叶装饰。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:chorus/chorus_grass_block",
+      "recipe2": "goety:chorus/chorus_grass_block2"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:chorus/chorus_grass_block_slab",
+      "recipe2": "goety:chorus/chorus_grass_slab"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:chorus/cobbled_chorus_grass_block"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:bone_meal",
+      "text": "对这些方块使用骨粉，会在其顶部催生出紫颂蕨与高株紫颂草。紫颂草方块能向邻近的光滑末地石蔓延。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_growth_block",
+      "text": "你还发现了另一种可引入末地的植被，其形貌似血肉，施用骨粉后会生长出藤蔓，与下界的缠怨藤颇为相似。末地生长方块能向邻近的末地岩蔓延。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_dirt",
+      "text": "将虚空直接作用于泥土，似乎会使其泛紫且无法用锄耕犁，但施用骨粉后可生长出一些紫颂茎秆，并能用作地形装饰。它可向其他泥土蔓延。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:chorus_blossom_leaves",
+      "text": "紫颂树苗虽可种植于末地生长方块与末地泥土上，但待其完全长成，所生并非黄叶，而是形似紫颂花的叶片。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:end_mud",
+      "text": "对末地壤土使用水瓶会将其转化为末地污泥。对其使用玻璃瓶则可将其复转为末地壤土，但同时会给予你末地泥沼瓶，此瓶可注入炼药锅以制得一锅末地泥沼。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:end_mud_bucket",
+      "text": "用桶盛取满锅的泥沼，将得到一桶液态末地污泥。其功能与水相似，唯其不会伤害末地住民，且流动略为迟缓。"
     }
   ],
   "extra_recipe_mappings": {
     "goety:void_bottle": 1,
-    "goety:end_soil": 11
+    "goety:void_bucket": 3,
+    "goety:end_soil": 11,
+    "goety:chorus_blossom_leaves": 21,
+    "goety:end_mud_bottle": 22,
+    "goety:end_mud_bucket": 23
   }
 }

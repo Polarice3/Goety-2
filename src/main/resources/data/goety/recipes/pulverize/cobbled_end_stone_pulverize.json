@@ -1,0 +1,9 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "goety:end_stone_slate"
+    }
+  ],
+  "block_result": "goety:cobbled_end_stone"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Око пустоты",
+  "icon": "goety:void_eye",
+  "category": "goety:crafts",
+  "advancement": "minecraft:story/enter_the_end",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Непонятно, что ваc на это сподвигло, но вы решили покрыть око Эндера пустотной эссенцией, в результате чего получилось особое око, ведущее к $(l:world/final_terminal)месту силы$()."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:void_eye",
+      "text": "Похоже, что при его использовании вылетает копия ока, а не оно само. Изначальное око только тратит прочность."
+    }
+  ]
+}

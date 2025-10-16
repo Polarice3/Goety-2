@@ -1,0 +1,42 @@
+{
+  "type": "goety:end_vegetation",
+  "config": {
+    "spread_height": 1,
+    "spread_width": 3,
+    "state_provider": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "goety:end_grass_sprout"
+          },
+          "weight": 40
+        },
+        {
+          "data": {
+            "Name": "minecraft:cave_air"
+          },
+          "weight": 25
+        },
+        {
+          "data": {
+            "Name": "goety:end_grass"
+          },
+          "weight": 15
+        },
+        {
+          "data": {
+            "Name": "goety:tall_end_grass"
+          },
+          "weight": 15
+        },
+        {
+          "data": {
+            "Name": "goety:chorus_tall_grass"
+          },
+          "weight": 5
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "goety:chorus_sprout",
+    "goety:chorus_stalk",
+    "goety:large_chorus_stalk",
+    "goety:end_grass_sprout",
+    "goety:end_grass",
+    "goety:tall_end_grass",
+    "goety:chorus_tall_grass",
+    "goety:chorus_fern_sprout",
+    "goety:chorus_fern",
+    "goety:large_chorus_fern",
+    "goety:chorus_vine",
+    "goety:chorus_blossom_vines",
+    "goety:chorus_blossom_vines_pruned",
+    "goety:end_growth_vines"
+  ]
+}

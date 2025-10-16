@@ -1,0 +1,22 @@
+{
+  "name": "レーザーウィンドのフォーカス",
+  "icon": "goety:razor_wind_focus",
+  "category": "goety:focuses/wind",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "このフォーカスでは、風が薄く鋭い刃に変わり、味方以外の生き物を高速で切り裂くように発射されます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/razor_wind_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/wind_staff)風の杖$()で唱えると、刃の初期幅を広げます。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:razor_wind_focus": 1
+  }
+}

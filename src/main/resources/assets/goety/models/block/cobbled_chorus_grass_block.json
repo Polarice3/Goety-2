@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "goety:block/chorus_grass_block_slab_top"
+  }
+}

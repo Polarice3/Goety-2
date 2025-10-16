@@ -11,6 +11,15 @@
       "type": "patchouli:crafting",
       "recipe": "goety:focus/soul_light_focus",
       "recipe2": "goety:focus/glow_light_focus"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:illuminate_focus",
+      "text": "Разбрасывать искры света — это, конечно, хорошо, но иногда хочется осветить целые пещеры и комнаты. С помощью этого фокуса вы можете создавать вокруг себя свет и заменять им свет душ."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/illuminate_focus"
     }
   ]
 }

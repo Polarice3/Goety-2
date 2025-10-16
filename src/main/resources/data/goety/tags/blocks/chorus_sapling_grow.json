@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "goety:chorus_grass_block",
+    "goety:end_growth_block",
+    "goety:end_soil",
+    "goety:end_dirt"
+  ]
+}

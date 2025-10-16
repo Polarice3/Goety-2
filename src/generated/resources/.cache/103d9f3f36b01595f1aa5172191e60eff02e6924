@@ -1,4 +1,4 @@
-// 1.20.1	2025-09-28T14:49:14.4852932	Registries
+// 1.20.1	2025-10-13T18:57:52.2338203	Registries
 ee94e54a57be7587d413a72d7ff20c1ca4f97bb9 data/goety/damage_type/acid.json
 1c81619d690aa854535c8fad68b58aef03da65ab data/goety/damage_type/boiling.json
 0ce14aa03d8d6c87ee612550d2ae46968475cb6f data/goety/damage_type/bubble_stream.json
@@ -40,9 +40,12 @@ a2fe9a17e3c9cf0894ea4d3740b12e40ed2bae40 data/goety/damage_type/wind_blast.json
 394ecdf7e3c39dc06a6f557ef8e81b2b894300f8 data/goety/trim_material/dark.json
 a1f3491c467f39025022c4b6adb8f9a3b39307e2 data/goety/trim_material/ecto.json
 32a21291d0ef486176c4ae5b212d78767535048c data/goety/trim_material/jade.json
+1d97dacf180e29aa9223bb817c3c7bd154dec96e data/goety/worldgen/configured_feature/chorus_blossom_tree.json
 a0b75ac6d0dbba110246d9bb7874860737e6a7db data/goety/worldgen/configured_feature/chorus_tree.json
 2ba76151d45d848f26008918bea8a19e19eda24b data/goety/worldgen/configured_feature/fancy_rotten_tree_sapling.json
 319b36173ec64d44c27285ae68827faa8b8b24c5 data/goety/worldgen/configured_feature/haunted_tree_sapling.json
+45c6f38353890854558d601134608866d168b288 data/goety/worldgen/configured_feature/mega_chorus_blossom_tree.json
+f27b4df8c65c6a001a65699e8ccd96eecd811e80 data/goety/worldgen/configured_feature/mega_chorus_blossom_void_tree.json
 b3221d45823cd3fac798eb147bb4ad7bd5f91e83 data/goety/worldgen/configured_feature/mega_chorus_tree.json
 4c148efe27623cc869b6cdb495470b032f8935b5 data/goety/worldgen/configured_feature/mega_chorus_void_tree.json
 0f0e9463f8fd249e316fb363c8829805196c07f4 data/goety/worldgen/configured_feature/rotten_tree_sapling.json

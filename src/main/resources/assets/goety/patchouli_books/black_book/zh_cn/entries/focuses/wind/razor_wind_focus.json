@@ -1,0 +1,22 @@
+{
+  "name": "风刃聚晶",
+  "icon": "goety:razor_wind_focus",
+  "category": "goety:focuses/wind",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "该聚晶能将风磨成薄而锋利的刀刃，高速射出，切割路径上的任何敌方生物."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/razor_wind_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "持有$(l:crafts/staff/wind_staff)烈风魔杖$()施法可以拓宽风刃的宽度。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:razor_wind_focus": 1
+  }
+}

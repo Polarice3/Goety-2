@@ -11,5 +11,6 @@ public class ModStructureTypes {
 
     public static RegistryObject<StructureType<BiggerJigsawStructure>> BIGGER_JIGSAW_STRUCTURE = STRUCTURE_TYPE.register("bigger_jigsaw", () -> () -> BiggerJigsawStructure.CODEC);
     public static RegistryObject<StructureType<CryptStructure>> CRYPT_STRUCTURE = STRUCTURE_TYPE.register("crypt", () -> () -> CryptStructure.CODEC);
+    public static RegistryObject<StructureType<FinalTerminalStructure>> FINAL_TERMINAL_STRUCTURE = STRUCTURE_TYPE.register("final_terminal", () -> () -> FinalTerminalStructure.CODEC);
 
 }

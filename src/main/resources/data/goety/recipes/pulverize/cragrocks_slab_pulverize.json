@@ -1,0 +1,18 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "goety:crag_tile_slab"
+    },
+    {
+      "item": "goety:crag_brick_slab"
+    },
+    {
+      "item": "goety:snowy_crag_brick_slab"
+    },
+    {
+      "item": "goety:cracked_crag_pavement_slab"
+    }
+  ],
+  "block_result": "goety:cragrocks_slab"
+}

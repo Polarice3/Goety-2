@@ -1,0 +1,78 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "goety:block/dirty_cobbled_end_stone"
+      },
+      {
+        "model": "goety:block/dirty_cobbled_end_stone",
+        "x": 90
+      },
+      {
+        "model": "goety:block/dirty_cobbled_end_stone",
+        "x": 180
+      },
+      {
+        "model": "goety:block/dirty_cobbled_end_stone",
+        "x": 270
+      },
+      {
+        "model": "goety:block/dirty_cobbled_end_stone",
+        "y": 90
+      },
+      {
+        "model": "goety:block/dirty_cobbled_end_stone",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "goety:block/dirty_cobbled_end_stone",
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "goety:block/dirty_cobbled_end_stone",
+        "x": 270,
+        "y": 90
+      },
+      {
+        "model": "goety:block/dirty_cobbled_end_stone",
+        "y": 180
+      },
+      {
+        "model": "goety:block/dirty_cobbled_end_stone",
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "goety:block/dirty_cobbled_end_stone",
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "goety:block/dirty_cobbled_end_stone",
+        "x": 270,
+        "y": 180
+      },
+      {
+        "model": "goety:block/dirty_cobbled_end_stone",
+        "y": 270
+      },
+      {
+        "model": "goety:block/dirty_cobbled_end_stone",
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "goety:block/dirty_cobbled_end_stone",
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "goety:block/dirty_cobbled_end_stone",
+        "x": 270,
+        "y": 270
+      }
+    ]
+  }
+}

@@ -9,6 +9,7 @@
     "ApplyBonusCountMixin",
     "ArrowItemMixin",
     "BaseFireBlockMixin",
+    "BlockPlaceContextMixin",
     "ChorusFlowerBlockMixin",
     "ChorusPlantBlockMixin",
     "EnchantmentMixin",

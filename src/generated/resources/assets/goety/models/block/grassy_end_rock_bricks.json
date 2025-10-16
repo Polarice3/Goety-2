@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "goety:block/grassy_end_rock_bricks",
+    "side": "goety:block/grassy_end_rock_bricks"
+  }
+}

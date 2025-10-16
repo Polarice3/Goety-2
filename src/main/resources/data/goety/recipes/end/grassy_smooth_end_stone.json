@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "goety:smooth_end_stone"
+    },
+    {
+      "item": "goety:chorus_growth"
+    }
+  ],
+  "result": {
+    "item": "goety:grassy_smooth_end_stone"
+  }
+}

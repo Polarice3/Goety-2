@@ -52,6 +52,7 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.BIG_CULT_SPELL.get(), BigSpellParticle.MobProvider::new);
         event.registerSpriteSet(ModParticleTypes.SMALL_STATION_CULT_SPELL.get(), FireParticle.SmallerColorProvider::new);
         event.registerSpriteSet(ModParticleTypes.STATION_CULT_SPELL.get(), FireParticle.ColorProvider::new);
+        event.registerSpriteSet(ModParticleTypes.MUD_GAS.get(), MudGasParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.CONFUSED.get(), HeartParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.WRAITH.get(), WraithParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.WRAITH_BURST.get(), WraithParticle.Provider::new);
@@ -83,6 +84,7 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.REDSTONE_DEBRIS.get(), FootprintParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.GOO_STAIN.get(), StainGroundParticle.GlowProvider::new);
         event.registerSpriteSet(ModParticleTypes.CHORUS_LEAVES.get(), FallingLeavesParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.CHORUS_BLOSSOM_LEAVES.get(), FallingLeavesParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.MAGIC_BOLT.get(), RollingParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.NECRO_BOLT.get(), RollingParticle.QuickProvider::new);
         event.registerSpriteSet(ModParticleTypes.STUN.get(), RollingParticle.Provider::new);

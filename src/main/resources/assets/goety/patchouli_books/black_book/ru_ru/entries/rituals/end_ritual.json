@@ -1,0 +1,22 @@
+{
+  "name": "Ритуал Энда",
+  "icon": "goety:void_block",
+  "category": "goety:rituals",
+  "sortnum": 8,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Требования: $(li)Нахождение в Энде $(li)16 пустотных блоков $(li)64 эндерняковых кирпича $(li)32 пурпуровых блока"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/end_ritual.png"],
+      "border": true,
+      "text": "Пример того, как можно провести ритуал."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Концентрированная эссенция пустоты помогает направить силы Энда на совершение тёмных ритуалов."
+    }
+  ]
+}

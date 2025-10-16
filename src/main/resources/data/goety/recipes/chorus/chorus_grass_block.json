@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "goety:smooth_end_stone"
+    },
+    {
+      "item": "goety:chorus_growth"
+    },
+    {
+      "item": "minecraft:bone_meal"
+    },
+    {
+      "item": "goety:end_soil_debris"
+    }
+  ],
+  "result": {
+    "item": "goety:chorus_grass_block"
+  }
+}

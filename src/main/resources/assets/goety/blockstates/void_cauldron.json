@@ -1,5 +1,13 @@
 {
   "variants": {
-    "": { "model": "goety:block/void_cauldron" }
+    "level=1": {
+      "model": "goety:block/void_cauldron_level1"
+    },
+    "level=2": {
+      "model": "goety:block/void_cauldron_level2"
+    },
+    "level=3": {
+      "model": "goety:block/void_cauldron_full"
+    }
   }
 }

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " m ",
+    "mlm",
+    " m "
+  ],
+  "key":
+  {
+    "m":
+    {
+      "item": "goety:end_rock"
+    },
+    "l":
+    {
+      "item": "goety:end_dirt"
+    }
+  },
+  "result":
+  {
+    "item": "goety:dirty_end_rock",
+    "count": 4
+  }
+}

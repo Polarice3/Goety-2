@@ -87,9 +87,11 @@ public class VoidLightningTrap extends AbstractTrap {
                     serverLevel.sendParticles(new GatherTrailParticle.Option(colorUtil, vector3d1), this.getX(), this.getY(), this.getZ(), 0, 0.0F, 0.0F, 0.0F, 0.5F);
                 }
                 for (int i = 0; i < 16; ++i) {
-                    Vec3 vec3 = this.position();
-                    Vec3 vec31 = vec3.add(this.level.getRandom().nextDouble(), 1.0D, this.level.getRandom().nextDouble());
-                    ModNetwork.sendToALL(new SLightningPacket(vec3, vec31, colorUtil2, 8));
+                    Vec3 vec3 = this.position().add(0.0D, 1.0D, 0.0D);
+                    int random1 = this.level.getRandom().nextIntBetweenInclusive(-4, 4);
+                    int random2 = this.level.getRandom().nextIntBetweenInclusive(-4, 4);
+                    Vec3 vec31 = vec3.add(this.level.getRandom().nextDouble() * random1, this.level.getRandom().nextDouble(), this.level.getRandom().nextDouble() * random2);
+                    ModNetwork.sendToALL(new SLightningPacket(vec3, vec31, colorUtil2, 12));
                 }
                 if (this.level.getRandom().nextBoolean()) {
                     if (this.getOwner() != null) {

@@ -38,6 +38,8 @@ public class ModTags {
         public static final TagKey<Block> INDENTED_GOLD_BLOCKS = tag("indented_gold_blocks");
         public static final TagKey<Block> JADE_BLOCKS = tag("jade_blocks");
         public static final TagKey<Block> END_STONE = tag("end_stone");
+        public static final TagKey<Block> CHORUS_GRASS_BLOCKS = tag("chorus_grass_blocks");
+        public static final TagKey<Block> END_SOIL_BLOCKS = tag("end_soil_blocks");
         public static final TagKey<Block> PHILOSOPHERS_MACE_HARD = tag("philosophers_mace_hard");
         public static final TagKey<Block> RECALL_BLOCKS = tag("recall_blocks");
         public static final TagKey<Block> DARK_ANVILS = tag("dark_anvils");
@@ -45,6 +47,10 @@ public class ModTags {
         public static final TagKey<Block> NETHER_SPREAD = tag("nether_spread");
         public static final TagKey<Block> NETHER_SPREAD_REPLACEABLE = tag("nether_spread_replaceable");
         public static final TagKey<Block> CHORUS_GROW = tag("chorus_grow");
+        public static final TagKey<Block> END_PLANTABLES = tag("end_plantables");
+        public static final TagKey<Block> END_GROWTH_BLOCKS = tag("end_growth_blocks");
+        public static final TagKey<Block> CHORUS_SAPLING_GROW = tag("chorus_sapling_grow");
+        public static final TagKey<Block> CHORUS_BLOSSOM_GROW = tag("chorus_blossom_grow");
         public static final TagKey<Block> REDSTONE_CUBE_DETECT = tag("redstone_cube_detect");
         public static final TagKey<Block> REDSTONE_CUBE_EXEMPT = tag("redstone_cube_exempt");
         public static final TagKey<Block> MONSTROSITY_BREAKS = tag("monstrosity_breaks");

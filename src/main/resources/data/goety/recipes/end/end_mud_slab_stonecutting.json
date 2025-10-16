@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "goety:end_mud"
+  },
+  "result": "goety:end_mud_slab"
+}

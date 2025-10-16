@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "goety:soiled_end_basalt_slight",
+    "goety:soiled_end_basalt",
+    "goety:top_soiled_end_basalt",
+    "goety:soiled_end_basalt_bricks",
+    "goety:soiled_end_rock",
+    "goety:soiled_end_rock_bricks",
+    "goety:soiled_end_rock_chiseled",
+    "goety:soiled_end_stone_bricks_slight",
+    "goety:soiled_end_stone_bricks",
+    "goety:soiled_end_stone_bricks_heavy",
+    "goety:soiled_end_stone_tiles",
+    "goety:end_soil",
+    "goety:end_soil_debris",
+    "goety:soiled_end_dirt",
+    "goety:soiled_cobbled_end_stone_slight",
+    "goety:soiled_cobbled_end_stone",
+    "goety:soiled_cobbled_end_stone_heavy",
+    "goety:soiled_purpur_block"
+  ]
+}

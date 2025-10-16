@@ -108,6 +108,9 @@ public class ModItems {
     public static final RegistryObject<Item> VOID_BOTTLE = ITEMS.register("void_bottle", VoidBottleItem::new);
     public static final RegistryObject<Item> VOID_BUCKET = ITEMS.register("void_bucket", () -> new BucketItem(ModFluids.VOID_FLUID_SOURCE, (new Item.Properties()).craftRemainder(Items.BUCKET).stacksTo(1)));
 
+    public static final RegistryObject<Item> END_MUD_BOTTLE = ITEMS.register("end_mud_bottle", () -> new Item(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE)));
+    public static final RegistryObject<Item> END_MUD_BUCKET = ITEMS.register("end_mud_bucket", () -> new BucketItem(ModFluids.END_MUD_FLUID_SOURCE, (new Item.Properties()).craftRemainder(Items.BUCKET).stacksTo(1)));
+
     public static final RegistryObject<Item> PHILOSOPHERS_STONE = ITEMS.register("philosophers_stone", PhilosophersStone::new);
     public static final RegistryObject<Item> DARK_SCROLL = ITEMS.register("dark_scroll", DarkScrollItem::new);
     public static final RegistryObject<Item> BLAZING_HORN = ITEMS.register("blazing_horn", BlazingHornItem::new);
@@ -120,6 +123,7 @@ public class ModItems {
     public static final RegistryObject<Item> BLAST_FUNGUS = ITEMS.register("blast_fungus", BlastFungusItem::new);
     public static final RegistryObject<Item> BERSERK_FUNGUS = ITEMS.register("berserk_fungus", BerserkFungusItem::new);
     public static final RegistryObject<Item> WARTFUL_EGG = ITEMS.register("wartful_egg", WartlingEggItem::new);
+    public static final RegistryObject<Item> CHORUS_GROWTH = ITEMS.register("chorus_growth", ChorusGrowthItem::new);
     public static final RegistryObject<Item> QUICK_GROWING_SEED = ITEMS.register("quick_growing_seed", () -> new QuickGrowSeedItem(false));
     public static final RegistryObject<Item> POISON_QUILL_SEED = ITEMS.register("poison_quill_seed", () -> new QuickGrowSeedItem(true));
     public static final RegistryObject<Item> REFUSE_BOTTLE = ITEMS.register("refuse_bottle", RefuseBottleItem::new);
@@ -319,6 +323,7 @@ public class ModItems {
     public static final RegistryObject<Item> CYCLONE_FOCUS = ITEMS.register("cyclone_focus", () -> new MagicFocus(new CycloneSpell()));
     public static final RegistryObject<Item> UPDRAFT_FOCUS = ITEMS.register("updraft_focus", () -> new MagicFocus(new UpdraftSpell()));
     public static final RegistryObject<Item> WIND_BLAST_FOCUS = ITEMS.register("wind_blast_focus", () -> new MagicFocus(new WindBlastSpell()));
+    public static final RegistryObject<Item> RAZOR_WIND_FOCUS = ITEMS.register("razor_wind_focus", () -> new MagicFocus(new RazorWindSpell()));
     public static final RegistryObject<Item> TREMBLING_FOCUS = ITEMS.register("trembling_focus", () -> new MagicFocus(new WindHornSpell()));
 
     ///Storm

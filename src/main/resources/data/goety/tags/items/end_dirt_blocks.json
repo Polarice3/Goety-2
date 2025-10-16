@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "goety:end_dirt",
+    "goety:end_dirt_slab",
+    "goety:dirty_cobbled_end_stone",
+    "goety:dirty_cobbled_end_stone_heavy",
+    "goety:dirty_end_basalt",
+    "goety:dirty_end_rock"
+  ]
+}

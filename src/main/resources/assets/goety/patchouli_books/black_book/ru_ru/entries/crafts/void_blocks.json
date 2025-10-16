@@ -1,0 +1,85 @@
+{
+  "name": "Пустотные блоки и жидкости",
+  "icon": "goety:void_block",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вы узнали об интересных блоках и жидкостях, обнаруженных в Энде. Они наносят урон всем, кто не принадлежит к их измерению..."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:void_bottle",
+      "text": "Чтобы зачерпнуть бутылочку пустоты, необходимо использовать бутылочку на блоке, находящемся ниже минимальной высоты строительства (-64 по Y для обычного мира, 0 по Y для Незера и Энда). Легче всего пустоту добывать в Энде, поскольку там нет толстого слоя бедрока."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:void_block",
+      "recipe2": "goety:void_bucket"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Как пустотные блоки, так и пустотная жидкость наносят урон, равный 5% от максимального здоровья в секунду, а также накладывают и усиливают эффект пустотного касания. Эндермены, эндермиты и эндервиды невосприимчивы к этому воздействию, в отличие от, как ни странно, шалкеров."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:void_barrel"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Пустотная бочка — это взрывоопасный блок, который при активации взрывается пустотным взрывом. Чтобы активировать бочку, нажмите по ней ПКМ, подайте на неё редстоуновый сигнал или попадите в неё снарядом."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Пустотная жидкость также может создавать декоративные блоки при взаимодействии с водой или лавой. Если источник пустотной жидкости залить водой, то он превратится в пустотный блок."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_basalt_slab",
+      "recipe2": "goety:end/end_basalt_stairs"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_basalt_bricks",
+      "recipe2": "goety:end/end_basalt_brick_slab"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_basalt_brick_stairs"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_rock_slab",
+      "recipe2": "goety:end/end_rock_bricks"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_rock_brick_slab",
+      "recipe2": "goety:end/end_rock_brick_wall"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_rock_brick_fence",
+      "recipe2": "goety:end/end_rock_chiseled"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:end_soil",
+      "text": "Когда текущая вода сливается с текущей пустотой, образуется почва Энда. На ней можно выращивать хорус. Если поверх почвы разлить лаву и разместить рядом синий лёд, получится возобновляемый источник обсидиана."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:chorus/chorus_sapling",
+      "text": "Также можно изготовить саженец, необходимый в создании новых негорючих древесных блоков. Его можно сажать только на почву Энда."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:chorus_sapling",
+      "text": "Если посадить 4 саженца хоруса в квадрате 2 на 2, то вырастет гигантское дерево хоруса, содержащее жидкую пустоту или искажённые хорусовые бревна, из которых создаётся ещё один набор древесных блоков."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:void_bottle": 1,
+    "goety:end_soil": 11
+  }
+}

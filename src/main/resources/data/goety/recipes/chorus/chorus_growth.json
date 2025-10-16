@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LB",
+    "BL"
+  ],
+  "key": {
+    "L": {
+      "item": "goety:chorus_leaves"
+    },
+    "B": {
+      "item": "minecraft:bone_meal"
+    }
+  },
+  "result": {
+    "item": "goety:chorus_growth",
+    "count": 4
+  }
+}

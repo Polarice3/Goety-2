@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " s ",
+    "scs",
+    " s "
+  ],
+  "key":
+  {
+    "c":
+    {
+      "item": "goety:cobbled_end_stone"
+    },
+    "s":
+    {
+      "item": "goety:chorus_growth"
+    }
+  },
+  "result": {
+    "item": "goety:cobbled_chorus_grass_block"
+  }
+}

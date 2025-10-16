@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:end_stones",
+    "#goety:end_stone",
+    "goety:end_growth_block",
+    "goety:end_dirt",
+    "goety:end_mud"
+  ]
+}

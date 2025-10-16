@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "goety:block/chorus_blossom_vines"
+  },
+  "render_type": "cutout"
+}

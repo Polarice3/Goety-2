@@ -1493,9 +1493,18 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
             int hitZ = Mth.floor(pz);
             BlockPos blockPos = new BlockPos(hitX, hitY, hitZ);
 
-            BlockState blockState;
-            for(blockState = this.level.getBlockState(blockPos); blockState.getRenderShape() != RenderShape.MODEL; blockState = this.level.getBlockState(blockPos)) {
+            BlockState blockState = level().getBlockState(blockPos);
+            int maxDepth = 30;
+            for (int depthCount = 0; depthCount < maxDepth; depthCount++) {
+                if (blockState.getRenderShape() == RenderShape.MODEL) {
+                    break;
+                }
                 blockPos = blockPos.below();
+                blockState = level().getBlockState(blockPos);
+            }
+
+            if (blockState.getRenderShape() != RenderShape.MODEL) {
+                blockState = Blocks.AIR.defaultBlockState();
             }
             BlockState blockAbove = this.level.getBlockState(blockPos.above());
 

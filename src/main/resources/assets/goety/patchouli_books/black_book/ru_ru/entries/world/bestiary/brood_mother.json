@@ -1,6 +1,6 @@
 {
   "name": "Паучьи королевы",
-  "icon": "minecraft:cobweb",
+  "icon": "goety:spider_mother_den",
   "category": "goety:world/bestiary",
   "advancement": "goety:goety/kill_a_brood_mother",
   "pages": [

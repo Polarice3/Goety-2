@@ -126,7 +126,7 @@
               "function": "minecraft:explosion_decay"
             }
           ],
-          "name": "minecraft:stick"
+          "name": "goety:chorus_vine"
         }
       ],
       "rolls": 1.0

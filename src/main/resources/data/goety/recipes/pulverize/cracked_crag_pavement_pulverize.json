@@ -1,0 +1,9 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "goety:crag_pavement"
+    }
+  ],
+  "block_result": "goety:cracked_crag_pavement"
+}

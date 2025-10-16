@@ -2,9 +2,24 @@
   "replace": false,
   "values": [
     "goety:end_basalt",
+    "goety:soiled_end_basalt_slight",
+    "goety:soiled_end_basalt",
+    "goety:top_soiled_end_basalt",
+    "goety:bottom_soiled_end_basalt",
     "goety:end_rock",
+    "goety:soiled_end_rock",
+    "goety:end_rock_slate",
     "goety:end_soil",
     "goety:smooth_end_stone",
-    "goety:end_stone_slate"
+    "goety:muddy_smooth_end_stone",
+    "goety:grassy_smooth_end_stone",
+    "goety:grassy_smooth_end_stone_heavy",
+    "goety:cobbled_end_stone",
+    "goety:soiled_cobbled_end_stone_slight",
+    "goety:soiled_cobbled_end_stone",
+    "goety:soiled_cobbled_end_stone_heavy",
+    "goety:end_stone_slate",
+    "goety:chorus_grass_block",
+    "goety:chorus_grass_block_slab"
   ]
 }

@@ -119,6 +119,33 @@ public class ModBlocks {
     //Plants
     public static final RegistryObject<Block> SNAP_WARTS = register("snap_warts", SnapWartsBlock::new, false, LootTableType.EMPTY);
 
+    public static final RegistryObject<Block> CHORUS_SPROUT = register("chorus_sprout", ChorusSproutBlock::new);
+    public static final RegistryObject<Block> CHORUS_STALK = register("chorus_stalk", ChorusStalkBlock::new);
+    public static final RegistryObject<Block> LARGE_CHORUS_STALK = register("large_chorus_stalk", LargeChorusStalkBlock::new);
+
+    public static final RegistryObject<Block> END_GRASS_SPROUT = register("end_grass_sprout", EndGrassBlock::new, true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> END_GRASS = register("end_grass", EndGrassBlock::new, true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> TALL_END_GRASS = register("tall_end_grass", TallEndGrassBlock::new, true, LootTableType.EMPTY);
+
+    public static final RegistryObject<Block> CHORUS_TALL_GRASS = register("chorus_tall_grass",
+            () -> new EndPlantBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_YELLOW)
+                    .replaceable()
+                    .noCollission()
+                    .instabreak()
+                    .sound(SoundType.GRASS)
+                    .offsetType(BlockBehaviour.OffsetType.XYZ)
+                    .pushReaction(PushReaction.DESTROY)), true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> CHORUS_FERN_SPROUT = register("chorus_fern_sprout", ChorusFernBlock::new, true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> CHORUS_FERN = register("chorus_fern", ChorusFernBlock::new, true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> LARGE_CHORUS_FERN = register("large_chorus_fern", LargeChorusFernBlock::new, true, LootTableType.EMPTY);
+
+    public static final RegistryObject<Block> POTTED_CHORUS_STALK = register("potted_chorus_stalk", () ->
+            new FlowerPotBlock(() -> (FlowerPotBlock) ForgeRegistries.BLOCKS.getDelegateOrThrow(Blocks.FLOWER_POT).get(), ModBlocks.CHORUS_STALK, Block.Properties.of().pushReaction(PushReaction.DESTROY).lightLevel(l -> 4).noOcclusion().instabreak()), false, LootTableType.EMPTY);
+
+    public static final RegistryObject<Block> POTTED_CHORUS_FERN = register("potted_chorus_fern", () ->
+            new FlowerPotBlock(() -> (FlowerPotBlock) ForgeRegistries.BLOCKS.getDelegateOrThrow(Blocks.FLOWER_POT).get(), ModBlocks.CHORUS_FERN, Block.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion().instabreak()), false, LootTableType.EMPTY);
+
     //Deco
     public static final RegistryObject<Block> AWAKENED_EMERALD_BLOCK = register("awakened_emerald_block", () -> new Block(BlockBehaviour.Properties.of()
             .mapColor(MapColor.EMERALD)
@@ -194,6 +221,10 @@ public class ModBlocks {
             () -> new Block(BlockBehaviour.Properties.copy(END_BASALT.get()).mapColor(MapColor.COLOR_GRAY)));
     public static final RegistryObject<Block> BOTTOM_SOILED_END_BASALT = register("bottom_soiled_end_basalt",
             () -> new Block(BlockBehaviour.Properties.copy(END_BASALT.get())));
+    public static final RegistryObject<Block> GRASSY_END_BASALT = register("grassy_end_basalt",
+            () -> new Block(BlockBehaviour.Properties.copy(END_BASALT.get())));
+    public static final RegistryObject<Block> DIRTY_END_BASALT = register("dirty_end_basalt",
+            () -> new Block(BlockBehaviour.Properties.copy(END_BASALT.get())));
 
     public static final RegistryObject<Block> END_BASALT_BRICKS = register("end_basalt_bricks",
             () -> new Block(BlockBehaviour.Properties.of()
@@ -217,6 +248,13 @@ public class ModBlocks {
     public static final RegistryObject<Block> END_ROCK_SLAB = registerSlabs("end_rock_slab", END_ROCK);
     public static final RegistryObject<Block> SOILED_END_ROCK = register("soiled_end_rock",
             () -> new Block(BlockBehaviour.Properties.copy(END_ROCK.get())));
+    public static final RegistryObject<Block> GRASSY_END_ROCK = register("grassy_end_rock",
+            () -> new Block(BlockBehaviour.Properties.copy(END_ROCK.get())));
+    public static final RegistryObject<Block> GROWN_END_ROCK = register("grown_end_rock",
+            () -> new Block(BlockBehaviour.Properties.copy(END_ROCK.get())));
+    public static final RegistryObject<Block> DIRTY_END_ROCK = register("dirty_end_rock",
+            () -> new Block(BlockBehaviour.Properties.copy(END_ROCK.get())));
+
     public static final RegistryObject<Block> END_ROCK_SLATE = register("end_rock_slate",
             () -> new Block(BlockBehaviour.Properties.copy(END_ROCK.get())));
 
@@ -231,6 +269,8 @@ public class ModBlocks {
             () -> new FenceBlock(Block.Properties.copy(END_ROCK_BRICKS.get())));
     public static final RegistryObject<Block> SOILED_END_ROCK_BRICKS = register("soiled_end_rock_bricks",
             () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(END_ROCK_BRICKS.get())));
+    public static final RegistryObject<Block> GRASSY_END_ROCK_BRICKS = register("grassy_end_rock_bricks",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(END_ROCK_BRICKS.get())));
 
     public static final RegistryObject<Block> END_ROCK_CHISELED = register("end_rock_chiseled",
             () -> new Block(BlockBehaviour.Properties.of()
@@ -240,12 +280,33 @@ public class ModBlocks {
     public static final RegistryObject<Block> SOILED_END_ROCK_CHISELED = register("soiled_end_rock_chiseled",
             () -> new Block(BlockBehaviour.Properties.copy(END_ROCK_CHISELED.get())));
 
-    public static final RegistryObject<Block> END_SOIL = register("end_soil",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.COLOR_GRAY)
+    public static final RegistryObject<Block> END_GROWTH_BLOCK = register("end_growth_block", EndGrowthBlock::new);
+    public static final RegistryObject<Block> END_GROWTH_VINES = register("end_growth_vines", () -> new EndGrowthVinesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).randomTicks().noCollission().instabreak().sound(SoundType.TWISTING_VINES).pushReaction(PushReaction.DESTROY)), true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> END_GROWTH_VINES_PLANT = register("end_growth_vines_plant", () -> new EndGrowthVinesPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).randomTicks().noCollission().instabreak().sound(SoundType.TWISTING_VINES).pushReaction(PushReaction.DESTROY)), false, LootTableType.EMPTY);
+
+    public static final RegistryObject<Block> END_SOIL = register("end_soil", EndSoilBlock::new);
+    public static final RegistryObject<Block> END_SOIL_DEBRIS = register("end_soil_debris", () -> new LayerBlock(BlockBehaviour.Properties.copy(END_SOIL.get()), true));
+
+    public static final RegistryObject<Block> END_MUD = register("end_mud",
+            () -> new EndBonemealableBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_LIGHT_GRAY)
                     .strength(1.25F)
-                    .sound(SoundType.SOUL_SOIL)));
-    public static final RegistryObject<Block> END_SOIL_DEBRIS = register("end_soil_debris", () -> new LayerBlock(BlockBehaviour.Properties.copy(END_SOIL.get())));
+                    .sound(SoundType.MUD)));
+    public static final RegistryObject<Block> END_MUD_SLAB = registerSlabs("end_mud_slab",
+            END_MUD);
+    public static final RegistryObject<LiquidBlock> END_MUD_FLUID = register("end_mud_fluid", EndMudFluidBlock::new, false, LootTableType.EMPTY);
+    public static final RegistryObject<Block> END_MUD_CAULDRON = register("end_mud_cauldron", () -> new EndMudCauldronBlock(
+            BlockBehaviour.Properties.copy(Blocks.CAULDRON)), false, LootTableType.EMPTY);
+
+    public static final RegistryObject<Block> END_DIRT = register("end_dirt",
+            () -> new EndBonemealableBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_PURPLE)
+                    .strength(1.25F)
+                    .sound(SoundType.GRAVEL)));
+    public static final RegistryObject<Block> END_DIRT_SLAB = registerSlabs("end_dirt_slab",
+            END_DIRT);
+    public static final RegistryObject<Block> SOILED_END_DIRT = register("soiled_end_dirt",
+            () -> new Block(BlockBehaviour.Properties.copy(END_DIRT.get())));
 
     public static final RegistryObject<Block> JADE_ORE = register("jade_ore", StoneOreBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> JADE_TILES = register("jade_tiles", JadeStoneBlock::new);
@@ -518,6 +579,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> CHORUS_WOOD_SLAB = registerSlabs("chorus_wood_slab",
             CHORUS_WOOD);
     public static final RegistryObject<Block> CHORUS_LEAVES = register("chorus_leaves", () -> new ChorusLeavesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).strength(0.2F).randomTicks().sound(SoundType.CHERRY_LEAVES).noOcclusion().isValidSpawn(ModBlocks::ocelotOrParrot).isSuffocating(ModBlocks::never).isViewBlocking(ModBlocks::never).pushReaction(PushReaction.DESTROY).isRedstoneConductor(ModBlocks::never)), true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> CHORUS_VINE = register("chorus_vine", ChorusVineBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> CHORUS_PRESSURE_PLATE = register("chorus_pressure_plate",
             () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of().mapColor(CHORUS_PLANKS.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY), ModBlockSetType.CHORUS));
     public static final RegistryObject<Block> CHORUS_TRAPDOOR = register("chorus_trapdoor",
@@ -584,6 +646,9 @@ public class ModBlocks {
             () -> new ModHangingSignBlock(BlockBehaviour.Properties.of().mapColor(CORRUPT_CHORUS_LOG.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F), ModWoodType.CORRUPT_CHORUS), false);
     public static final RegistryObject<Block> CORRUPT_CHORUS_WALL_HANGING_SIGN = register("corrupt_chorus_wall_hanging_sign",
             () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(CORRUPT_CHORUS_LOG.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).lootFrom(CORRUPT_CHORUS_HANGING_SIGN), ModWoodType.CORRUPT_CHORUS), false);
+    public static final RegistryObject<Block> CHORUS_BLOSSOM_LEAVES = register("chorus_blossom_leaves", () -> new ChorusLeavesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).strength(0.2F).randomTicks().sound(SoundType.CHERRY_LEAVES).noOcclusion().isValidSpawn(ModBlocks::ocelotOrParrot).isSuffocating(ModBlocks::never).isViewBlocking(ModBlocks::never).pushReaction(PushReaction.DESTROY).isRedstoneConductor(ModBlocks::never)), true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> CHORUS_BLOSSOM_VINES = register("chorus_blossom_vines", () -> new ReedBlock(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).randomTicks().noCollission().instabreak().sound(SoundType.CHERRY_LEAVES).pushReaction(PushReaction.DESTROY)));
+    public static final RegistryObject<Block> CHORUS_BLOSSOM_VINES_PRUNED = register("chorus_blossom_vines_pruned", () -> new ReedBlock(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).randomTicks().noCollission().instabreak().sound(SoundType.CHERRY_LEAVES).pushReaction(PushReaction.DESTROY)));
 
     //Shade Stones
     public static final RegistryObject<Block> SHADE_STONE_BLOCK = register("shade_stone", ShadeStoneBlock::new);
@@ -680,17 +745,31 @@ public class ModBlocks {
     public static final RegistryObject<Block> SOILED_END_STONE_BRICKS_SLIGHT_BLOCK = register("soiled_end_stone_bricks_slight", EndStoneBlock::new);
     public static final RegistryObject<Block> SOILED_END_STONE_BRICKS_BLOCK = register("soiled_end_stone_bricks", EndStoneBlock::new);
     public static final RegistryObject<Block> SOILED_END_STONE_BRICKS_HEAVY_BLOCK = register("soiled_end_stone_bricks_heavy", () -> new Block(EndStoneProperties().mapColor(MapColor.COLOR_GRAY)));
+    public static final RegistryObject<Block> GRASSY_END_STONE_BRICKS_BLOCK = register("grassy_end_stone_bricks", EndStoneBlock::new);
+    public static final RegistryObject<Block> GRASSY_END_STONE_BRICKS_HEAVY_BLOCK = register("grassy_end_stone_bricks_heavy", () -> new Block(EndStoneProperties().mapColor(MapColor.COLOR_ORANGE)));
     public static final RegistryObject<Block> END_STONE_TILES_BLOCK = register("end_stone_tiles", EndStoneBlock::new);
     public static final RegistryObject<Block> SOILED_END_STONE_TILES_BLOCK = register("soiled_end_stone_tiles", EndStoneBlock::new);
+    public static final RegistryObject<Block> GRASSY_END_STONE_TILES_BLOCK = register("grassy_end_stone_tiles", EndStoneBlock::new);
     public static final RegistryObject<Block> SMOOTH_END_STONE_BLOCK = register("smooth_end_stone", EndStoneBlock::new);
+    public static final RegistryObject<Block> MUDDY_SMOOTH_END_STONE_BLOCK = register("muddy_smooth_end_stone", EndStoneBlock::new);
+    public static final RegistryObject<Block> GRASSY_SMOOTH_END_STONE_BLOCK = register("grassy_smooth_end_stone", EndStoneBlock::new);
+    public static final RegistryObject<Block> GRASSY_SMOOTH_END_STONE_HEAVY_BLOCK = register("grassy_smooth_end_stone_heavy", () -> new Block(EndStoneProperties().mapColor(MapColor.COLOR_ORANGE)));
     public static final RegistryObject<Block> END_STONE_SLATE_BLOCK = register("end_stone_slate", () -> new RotatedPillarBlock(EndStoneProperties()), true, LootTableType.EMPTY);
     public static final RegistryObject<Block> END_STONE_SLATE_ROCK = register("end_stone_slate_rock", EndStoneBlock::new);
     public static final RegistryObject<Block> COBBLED_END_STONE_BLOCK = register("cobbled_end_stone", EndStoneBlock::new);
     public static final RegistryObject<Block> SOILED_COBBLED_END_STONE_SLIGHT_BLOCK = register("soiled_cobbled_end_stone_slight", EndStoneBlock::new);
     public static final RegistryObject<Block> SOILED_COBBLED_END_STONE_BLOCK = register("soiled_cobbled_end_stone", EndStoneBlock::new);
     public static final RegistryObject<Block> SOILED_COBBLED_END_STONE_HEAVY_BLOCK = register("soiled_cobbled_end_stone_heavy", () -> new Block(EndStoneProperties().mapColor(MapColor.COLOR_GRAY)));
+    public static final RegistryObject<Block> GRASSY_COBBLED_END_STONE_BLOCK = register("grassy_cobbled_end_stone", EndStoneBlock::new);
+    public static final RegistryObject<Block> GROWN_COBBLED_END_STONE_BLOCK = register("grown_cobbled_end_stone", EndStoneBlock::new);
+    public static final RegistryObject<Block> DIRTY_COBBLED_END_STONE_BLOCK = register("dirty_cobbled_end_stone", EndStoneBlock::new);
+    public static final RegistryObject<Block> DIRTY_COBBLED_END_STONE_HEAVY_BLOCK = register("dirty_cobbled_end_stone_heavy", EndStoneBlock::new);
     public static final RegistryObject<Block> END_STONE_PILLAR_BLOCK = register("end_stone_pillar", () -> new RotatedPillarBlock(EndStoneProperties()));
     public static final RegistryObject<Block> CHORUS_END_STONE_PILLAR_BLOCK = register("chorus_end_stone_pillar", () -> new RotatedPillarBlock(EndStoneProperties()));
+    public static final RegistryObject<Block> CHORUS_GRASS_BLOCK = register("chorus_grass_block", ChorusGrassBlock::new);
+    public static final RegistryObject<Block> COBBLED_CHORUS_GRASS_BLOCK = register("cobbled_chorus_grass_block", () -> new Block(EndStoneProperties().mapColor(MapColor.COLOR_ORANGE)));
+
+    //End Lights
     public static final RegistryObject<Block> END_ROD_BLOCK = register("end_rod_block", () -> new Block(BlockBehaviour.Properties.of()
             .lightLevel((state) -> 14)
             .sound(SoundType.WOOD)
@@ -707,6 +786,7 @@ public class ModBlocks {
 
     //Purpur
     public static final RegistryObject<Block> SOILED_PURPUR_BLOCK = register("soiled_purpur_block", () -> new Block(Block.Properties.copy(Blocks.PURPUR_BLOCK)));
+    public static final RegistryObject<Block> GRASSY_PURPUR_BLOCK = register("grassy_purpur_block", () -> new Block(Block.Properties.copy(Blocks.PURPUR_BLOCK)));
     public static final RegistryObject<Block> PURPUR_LAMP_BLOCK = register("purpur_lamp", () -> new PurpurLampBlock(Block.Properties.copy(Blocks.PURPUR_BLOCK)));
     public static final RegistryObject<Block> PURPUR_END_ROD_BLOCK = register("purpur_end_rod_block", () -> new PurpurEndRodBlock(BlockBehaviour.Properties.copy(Blocks.PURPUR_BLOCK)
             .lightLevel((state) -> 14)));
@@ -773,12 +853,23 @@ public class ModBlocks {
     public static final RegistryObject<Block> SNOW_BRICK_SLAB = registerSlabs("snow_brick_slab",
             SNOW_BRICKS_BLOCK);
 
+    public static final RegistryObject<Block> END_STONE_SLAB = registerSlabs("end_stone_slab",
+            Blocks.END_STONE);
     public static final RegistryObject<Block> END_STONE_TILE_SLAB = registerSlabs("end_stone_tile_slab",
             END_STONE_TILES_BLOCK);
     public static final RegistryObject<Block> SMOOTH_END_STONE_SLAB = registerSlabs("smooth_end_stone_slab",
             SMOOTH_END_STONE_BLOCK);
     public static final RegistryObject<Block> COBBLED_END_STONE_SLAB = registerSlabs("cobbled_end_stone_slab",
             COBBLED_END_STONE_BLOCK);
+    public static final RegistryObject<Block> CHORUS_GRASS_BLOCK_SLAB = registerSlabs("chorus_grass_block_slab",
+            CHORUS_GRASS_BLOCK);
+    public static final RegistryObject<Block> CHORUS_GRASS_SLAB = register("chorus_grass_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.of()
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(0.6F)
+                    .sound(SoundType.GRASS)
+                    .mapColor(MapColor.COLOR_ORANGE)));
 
     //Stairs
     public static final RegistryObject<Block> SHADE_STONE_STAIRS_BLOCK = registerStairs("shade_stone_stairs", SHADE_STONE_BLOCK);
@@ -989,6 +1080,10 @@ public class ModBlocks {
 
     public static <T extends Block> RegistryObject<Block> registerCryptSlabs(final String string){
         return register(string, () -> new SlabBlock(CryptStoneProperties()), true);
+    }
+
+    public static <T extends Block> RegistryObject<Block> registerSlabs(final String string, final Block block){
+        return register(string, () -> new SlabBlock(Block.Properties.copy(block)), true);
     }
 
     public static <T extends Block> RegistryObject<Block> registerSlabs(final String string, final RegistryObject<T> block){

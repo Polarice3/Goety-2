@@ -13,10 +13,7 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DoorBlock;
-import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -47,6 +44,7 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
     private static final LootItemCondition.Builder HAS_SHEARS_OR_SILK_TOUCH = HAS_SHEARS.or(HAS_SILK_TOUCH);
     private static final LootItemCondition.Builder HAS_NO_SHEARS_OR_SILK_TOUCH = HAS_SHEARS_OR_SILK_TOUCH.invert();
     private static final float[] NORMAL_LEAVES_SAPLING_CHANCES = new float[]{0.05F, 0.0625F, 0.083333336F, 0.1F};
+    private static final float[] NORMAL_LEAVES_STICK_CHANCES = new float[]{0.02F, 0.022222223F, 0.025F, 0.033333335F, 0.1F};
 
     public ModBlockLootProvider() {
         super(Set.of(), FeatureFlags.REGISTRY.allFlags());
@@ -73,7 +71,7 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
                 this.add(block, createDoorTable(block));
             } else if (block instanceof SlabBlock){
                 this.add(block, createSlabItemTable(block));
-            } else if (block instanceof WitchPoleBlock || block instanceof HauntedMirrorBlock) {
+            } else if (block instanceof WitchPoleBlock || block instanceof HauntedMirrorBlock || block instanceof DoublePlantBlock) {
                 this.add(block, bl -> createSinglePropConditionTable(bl, BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER));
             } else if (block instanceof LampBlock) {
                 this.add(block, bl -> createSinglePropConditionTable(bl, LampBlock.HALF, DoubleBlockHalf.LOWER));
@@ -91,6 +89,8 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
         this.add(ModBlocks.SMOOTH_SILTSTONE_BLOCK.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, ModBlocks.COBBLED_SILTSTONE_BLOCK.get()));
         this.add(ModBlocks.END_STONE_SLATE_BLOCK.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, ModBlocks.COBBLED_END_STONE_BLOCK.get()));
         this.dropWhenSilkTouch(ModBlocks.SCULK_RELAY.get());
+        this.dropPottedContents(ModBlocks.POTTED_CHORUS_STALK.get());
+        this.dropPottedContents(ModBlocks.POTTED_CHORUS_FERN.get());
         this.dropPottedContents(ModBlocks.POTTED_HAUNTED_SAPLING.get());
         this.dropPottedContents(ModBlocks.POTTED_ROTTEN_SAPLING.get());
         this.dropPottedContents(ModBlocks.POTTED_WINDSWEPT_SAPLING.get());
@@ -121,7 +121,10 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
             return createSingleItemTableWithSilkTouch(p_124233_, Items.BOOK, ConstantValue.exactly(3.0F));
         });
         this.add(ModBlocks.CHORUS_LEAVES.get(), (p_124094_) -> {
-            return createLeavesDrops(p_124094_, ModBlocks.CHORUS_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
+            return createChorusLeavesDrops(p_124094_, ModBlocks.CHORUS_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
+        });
+        this.add(ModBlocks.CHORUS_BLOSSOM_LEAVES.get(), (p_124094_) -> {
+            return createLeavesDrops(p_124094_, ModBlocks.CHORUS_BLOSSOM_VINES.get(), NORMAL_LEAVES_STICK_CHANCES);
         });
         this.add(ModBlocks.CHORUS_BOOKSHELF.get(), (p_124233_) -> {
             return createSingleItemTableWithSilkTouch(p_124233_, Items.BOOK, ConstantValue.exactly(3.0F));
@@ -142,12 +145,42 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
         this.add(ModBlocks.LOFTY_CHEST.get(), (p_124233_) -> {
             return createSingleItemTableWithSilkTouch(p_124233_, Items.OBSIDIAN, UniformGenerator.between(2.0F, 4.0F));
         });
+        this.add(ModBlocks.CHORUS_VINE.get(), (p_124233_) -> {
+            return createShearsOnlyDrop(ModBlocks.CHORUS_VINE.get());
+        });
+        this.add(ModBlocks.END_GRASS_SPROUT.get(), (p_124233_) -> {
+            return createShearsOnlyDrop(ModBlocks.END_GRASS_SPROUT.get());
+        });
+        this.add(ModBlocks.END_GRASS.get(), (p_124233_) -> {
+            return createShearsOnlyDrop(ModBlocks.END_GRASS.get());
+        });
+        this.add(ModBlocks.TALL_END_GRASS.get(), (p_124233_) -> {
+            return createShearsOnlyDrop(ModBlocks.TALL_END_GRASS.get());
+        });
+        this.add(ModBlocks.CHORUS_TALL_GRASS.get(), (p_124233_) -> {
+            return createShearsOnlyDrop(ModBlocks.CHORUS_TALL_GRASS.get());
+        });
+        this.add(ModBlocks.CHORUS_FERN_SPROUT.get(), (p_124233_) -> {
+            return createShearsOnlyDrop(ModBlocks.CHORUS_FERN_SPROUT.get());
+        });
+        this.add(ModBlocks.CHORUS_FERN.get(), (p_124233_) -> {
+            return createShearsOnlyDrop(ModBlocks.CHORUS_FERN.get());
+        });
+        this.add(ModBlocks.LARGE_CHORUS_FERN.get(), (p_124233_) -> {
+            return createDoublePlantShearsDrop(ModBlocks.LARGE_CHORUS_FERN.get());
+        });
+        this.addNetherVinesDropTable(ModBlocks.END_GROWTH_VINES.get(), ModBlocks.END_GROWTH_VINES_PLANT.get());
         this.add(ModBlocks.VOID_BARREL.get(), this::createVoidBarrelConditionTable);
         this.dropOther(ModBlocks.VOID_CAULDRON.get(), Blocks.CAULDRON.asItem());
+        this.dropOther(ModBlocks.END_MUD_CAULDRON.get(), Blocks.CAULDRON.asItem());
     }
 
     protected LootTable.Builder createRottenLeavesDrops(Block p_124264_, Block p_124265_, float... p_124266_) {
         return createLeavesDrops(p_124264_, p_124265_, p_124266_).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(HAS_NO_SHEARS_OR_SILK_TOUCH).add(applyExplosionCondition(p_124264_, LootItem.lootTableItem(Items.ROTTEN_FLESH)).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))));
+    }
+
+    protected LootTable.Builder createChorusLeavesDrops(Block p_250088_, Block p_250731_, float... p_248949_) {
+        return createSilkTouchOrShearsDispatchTable(p_250088_, this.applyExplosionCondition(p_250088_, LootItem.lootTableItem(p_250731_)).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, p_248949_))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(HAS_NO_SHEARS_OR_SILK_TOUCH).add(this.applyExplosionDecay(p_250088_, LootItem.lootTableItem(ModBlocks.CHORUS_VINE.get().asItem()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, NORMAL_LEAVES_STICK_CHANCES))));
     }
 
     protected LootTable.Builder createSnapWartDrops(Block block, Item drop, Item drop1, LootItemCondition.Builder builder, LootItemCondition.Builder builder1) {

@@ -21,6 +21,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.luck"
     },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.explode",
+      "text": "Видишь домик? Ахалай-махалай — и от него остались только щепки!"
+    },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.explosive",
@@ -84,6 +89,16 @@
       "recipe": "effect.goety.harvest",
       "text": "Ведро воды разрушает семена! А с этим варевом останется целина!"
     },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.swirling",
+      "text": "В драку с такими лучше не ввязываться, а не то тебя порубят, даже если будут лупить другого!"
+    },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.plunge",
+      "text": "Похоже, ты объелся бабулиного печенья! Вот, возьми ещё!"
+    },
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.slowness"
@@ -96,7 +111,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.mossify",
-      "text": "Бабуле иногда нужно забирать мох из его пещер! А ещё нужны замшелые булыжники и кирпичи!"
+      "text": "Бабуле иногда нужно забирать мох из своих пещер! А ещё нужны замшелые булыжники и кирпичи!"
     },
     {
       "type": "goety:catalyst",
@@ -108,20 +123,35 @@
       "recipe": "effect.goety.infest",
       "text": "Благодаря этому вареву некоторые камни и кирпичи кишат очаровательными чешуйницами!"
     },
+	{
+      "type": "goety:sacrifice",
+      "recipe": "effect.goety.infest",
+      "text": "Ежели нужен заражённый камень, утопи в котле чешуйницу!"
+    },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.snow",
       "text": "На случай, когда бабуля хочет поиграть в снегу!"
     },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.shielding",
+      "text": "Стой рядом со мной — и будет не так больно!"
+    },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.gold_touched",
-      "text": "Может они и не стали золотые, но точно рассыпаются в золото!"
+      "text": "Может, они и не стали золотыми, но точно рассыпаются в золото!"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.pulverize",
-      "text": "Камень в булыжник во гравий в песок! Дайте мне уголь, и будет стекло!"
+      "text": "Камень в булыжник во гравий в песок! Дайте мне уголь — и будет стекло!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.repulsive",
+      "text": "Чего? Духов бабулиных никогда не нюхал?!"
     },
     {
       "type": "goety:catalyst",
@@ -139,7 +169,12 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.corrosion",
-      "text": "Видишь эти блоки? А их нет (если это не обсидиан)! Смотря на твою броню, я думаю, что она слишком уж неповреждённая! Ха-ха-ха-ха!"
+      "text": "Видишь эти блоки? А их нет (если это не обсидиан)! Смотря на твою броню, я думаю, что она слишком уж не повреждённая! Ха-ха-ха-ха!"
+    },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.leeching",
+      "text": "Побей негодяев кулаком или посохом, чтобы восстановить частичку максимального здоровья."
     },
     {
       "type": "goety:catalyst",
@@ -149,6 +184,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.leaf_shell",
       "text": "Готовьте спички! Эти листья не так-то просто сломать руками!"
+    },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.radiance",
+      "text": "Поведаю тебе один секретик! Как следует отпинать врагов — залог здоровья!"
     },
     {
       "type": "goety:catalyst",
@@ -227,7 +267,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.freezing",
-      "text": "Эй, детишки! Хотите СТАТЬ ЧАСТЬЮ снеговика? Хе-хе-ха-ха-ха!"
+      "text": "Эй, детишки! Хотите СТАТЬ снеговиком? Хе-хе-ха-ха-ха!"
     },
     {
       "type": "goety:catalyst",
@@ -243,6 +283,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.poison"
     },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.deflective",
+      "text": "Зачем тебе щит, когда можно отражать снаряды обратно во врагов?"
+    },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.climbing"
@@ -255,6 +300,11 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.slow_falling"
+    },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.swift_swim",
+      "text": "Кому придёт в голову, что бабуля так лихо плавает?"
     },
     {
       "type": "goety:catalyst",
@@ -289,6 +339,11 @@
       "recipe": "effect.goety.growth",
       "text": "На случай, когда мои посевы недостаточно быстро растут! Бабулиной костной муки на всех не хватит!"
     },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.gravity_pulse",
+      "text": "А ну, не стесняйся! У бабули чешутся кулачки! Подходи!"
+    },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.cursed",
@@ -302,6 +357,11 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.jump_boost"
+    },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.void_touched",
+      "text": "Чтоб тебе пусто было, сопляк! Это тебя не касается! А что касается — то будет больнее!"
     },
     {
       "type": "goety:catalyst",
@@ -322,10 +382,20 @@
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.regeneration"
     },
+	{
+      "type": "goety:sacrifice",
+      "recipe": "effect.minecraft.regeneration",
+      "text": "Думаешь, откуда взялись сказочки про ведьм-людедов?! Хе-хе-ха-ха-ха!"
+    },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.chop_tree",
-      "text": "Сварила я варево из топора! Коль я вижу дерево — рубки пора!"
+      "text": "Сварила я варево из топора! Коль вижу я дерево — рубки пора!"
+    },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.corpse_eater",
+      "text": "Мечтал полакомиться своими противниками? Это варево для тебя! Полезно и питательно!"
     },
     {
       "type": "goety:catalyst",
@@ -334,7 +404,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.pressure",
-      "text": "Эти ходячие шипящие кусты полны страха! С этим эффектом будет ещё ХУЖЕ! Хе-хе-ха-ха!"
+      "text": "Как-то странно на тебя смотрят, да? Ладно, что тебе не больно... или больно? Хе-хе-ха-ха!"
     },
     {
       "type": "goety:catalyst",
@@ -361,6 +431,11 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.blindness"
+    },
+	{
+      "type": "goety:sacrifice",
+      "recipe": "effect.goety.snow_skin",
+      "text": "Хотите СТАТЬ снеговиком? Сперва утопите его в котле!"
     },
     {
       "type": "goety:catalyst",
@@ -389,6 +464,11 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.haste"
+    },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.rallying",
+      "text": "Поднимай боевой дух у товарищей вокруг!"
     },
     {
       "type": "goety:catalyst",
@@ -426,6 +506,16 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.mining_fatigue"
+    },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.photosynthesis",
+      "text": "Грейтесь на солнышке, дорогуши! Полюбуйтесь на этот огненный шар! Уверена, вы не ослепнете!"
+    },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.flimsy",
+      "text": "Даже самые здоровые амбалы станут легче пушинки!"
     },
     {
       "type": "goety:catalyst",

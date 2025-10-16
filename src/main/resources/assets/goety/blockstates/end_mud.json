@@ -1,0 +1,78 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "goety:block/end_mud"
+      },
+      {
+        "model": "goety:block/end_mud",
+        "x": 90
+      },
+      {
+        "model": "goety:block/end_mud",
+        "x": 180
+      },
+      {
+        "model": "goety:block/end_mud",
+        "x": 270
+      },
+      {
+        "model": "goety:block/end_mud",
+        "y": 90
+      },
+      {
+        "model": "goety:block/end_mud",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "goety:block/end_mud",
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "goety:block/end_mud",
+        "x": 270,
+        "y": 90
+      },
+      {
+        "model": "goety:block/end_mud",
+        "y": 180
+      },
+      {
+        "model": "goety:block/end_mud",
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "goety:block/end_mud",
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "goety:block/end_mud",
+        "x": 270,
+        "y": 180
+      },
+      {
+        "model": "goety:block/end_mud",
+        "y": 270
+      },
+      {
+        "model": "goety:block/end_mud",
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "goety:block/end_mud",
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "goety:block/end_mud",
+        "x": 270,
+        "y": 270
+      }
+    ]
+  }
+}

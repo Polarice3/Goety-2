@@ -19,4 +19,11 @@ public class ModSoundTypes {
             () -> SoundEvents.METAL_HIT,
             () -> SoundEvents.ZOMBIE_ATTACK_IRON_DOOR);
 
+    public static final SoundType CHORUS_GRASS = new ForgeSoundType(1.0F, 1.0F,
+            () -> SoundEvents.STONE_BREAK,
+            () -> SoundEvents.GRASS_STEP,
+            () -> SoundEvents.STONE_PLACE,
+            () -> SoundEvents.STONE_HIT,
+            () -> SoundEvents.GRASS_FALL);
+
 }

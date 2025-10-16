@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "goety:end_rock"
+    },
+    {
+      "item": "minecraft:bubble_coral"
+    },
+    {
+      "item": "minecraft:bone_meal"
+    },
+    {
+      "item": "goety:end_soil_debris"
+    }
+  ],
+  "result": {
+    "item": "goety:end_growth_block"
+  }
+}

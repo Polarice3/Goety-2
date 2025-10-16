@@ -1,0 +1,15 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "goety:crag_tile_wall"
+    },
+    {
+      "item": "goety:crag_brick_wall"
+    },
+    {
+      "item": "goety:snowy_crag_brick_wall"
+    }
+  ],
+  "block_result": "goety:cragrocks_wall"
+}

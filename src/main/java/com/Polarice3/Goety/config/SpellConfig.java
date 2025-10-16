@@ -335,6 +335,11 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastCoolDown;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> RazorWindCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> RazorWindDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> RazorWindCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> RazorWindDamage;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> TremblingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> TremblingDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> TremblingCoolDown;
@@ -1263,6 +1268,16 @@ public class SpellConfig {
                     .defineInRange("windBlastTime", 0, 0, 72000);
             WindBlastCoolDown = BUILDER.comment("Wind Blast Spell Cooldown, Default: 60")
                     .defineInRange("windBlastCoolDown", 60, 0, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Razor Wind Spell");
+            RazorWindCost = BUILDER.comment("Razor Wind Spell Cost, Default: 24")
+                    .defineInRange("razorWindCost", 24, 0, Integer.MAX_VALUE);
+            RazorWindDuration = BUILDER.comment("Time to cast Razor Wind Spell, Default: 0")
+                    .defineInRange("razorWindDuration", 0, 0, 72000);
+            RazorWindCoolDown = BUILDER.comment("Razor Wind Spell Cooldown, Default: 60")
+                    .defineInRange("razorWindCoolDown", 60, 0, Integer.MAX_VALUE);
+            RazorWindDamage = BUILDER.comment("How much base damage Razor Winds deals, Default: 6.0")
+                    .defineInRange("razorWindDamage", 6.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Trembling Spell");
             TremblingCost = BUILDER.comment("Trembling Spell Cost, Default: 8")

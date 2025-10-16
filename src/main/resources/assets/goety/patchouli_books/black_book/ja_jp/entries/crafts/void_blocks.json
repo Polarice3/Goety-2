@@ -1,5 +1,5 @@
 {
-  "name": "虚空ブロック・液体",
+  "name": "エンドのブロック・液体",
   "icon": "goety:void_block",
   "category": "goety:crafts",
   "pages": [
@@ -70,16 +70,69 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:chorus/chorus_sapling",
-      "text": "虚空から苗木を作ることもできます。苗木は燃えない、木のようなブロックを新たに生み出します。苗木はエンドソイルにのみ植えることができます。"
+      "text": "虚空から苗木を作ることもできます。苗木は燃えない、木のようなブロックを新たに生み出します。苗木はエンドソイルなど(後述)に植えることができます。"
     },
     {
       "type": "patchouli:spotlight",
       "item": "goety:chorus_sapling",
       "text": "2x2のエリアに4本のコーラス苗木を育てると、巨大なコーラスツリーが作成されます。このツリーには、別の木のようなブロックのセット、またはそれ自体の中に虚空の液体を提供する、腐敗したコーラスの原木が含まれます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:chorus/chorus_growth",
+      "text": "このアイテムを利用して生態系を作る方法を発見しました。これを使って、あるいはエンド関連の特定のブロックを右クリックして、葉っぱを作ることができます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:chorus/chorus_grass_block",
+      "recipe2": "goety:chorus/chorus_grass_block2"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:chorus/chorus_grass_block_slab",
+      "recipe2": "goety:chorus/chorus_grass_slab"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:chorus/cobbled_chorus_grass_block"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:bone_meal",
+      "text": "これらのブロックに骨粉を使用すると、その上にコーラスシダとコーラス草が生えます。コーラス草ブロックは隣接する滑らかなエンドストーンに広がります。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_growth_block",
+      "text": "エンドに出現する別の種類の葉っぱも発見しました。肉厚で、骨粉を使うとツルが生えるように見えます。ネザーのねじれたツタに似ています。エンドグロースブロックは隣接するエンドロックに広がります。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:end/end_dirt",
+      "text": "土に直接虚空を使うと紫色になり、くわで耕作できなくなるようですが、骨粉を使うとコーラスの茎が生え、地形の装飾として使用できます。また、他の土にも拡散する可能性があります。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:chorus_blossom_leaves",
+      "text": "コーラス苗木はエンドグロースブロックとエンド土の両方に植えることができますが、完全に成長すると、黄色い葉ではなく、コーラスフラワーに似た葉が生えます。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:end_mud",
+      "text": "エンドソイルに水入りの瓶を使用すると、エンド泥に変化します。ガラス瓶を使用すると、エンドソイルに戻り、エンド泥入りの瓶が手に入ります。これを大釜に注ぐと、エンド泥の大釜を作ることができます。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:end_mud_bucket",
+      "text": "大釜をエンド泥で満たせば、バケツを使うことでエンド泥のバケツが得られます。これは水と同様に機能しますが、エンドの生き物にダメージを与えず、ゆっくりと広がります。"
     }
   ],
   "extra_recipe_mappings": {
     "goety:void_bottle": 1,
-    "goety:end_soil": 11
+    "goety:void_bucket": 3,
+    "goety:end_soil": 11,
+    "goety:chorus_blossom_leaves": 21,
+    "goety:end_mud_bottle": 22,
+    "goety:end_mud_bucket": 23
   }
 }

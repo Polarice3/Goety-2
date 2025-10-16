@@ -1,0 +1,22 @@
+{
+  "name": "Фокус эндер-плевка",
+  "icon": "goety:snaring_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "На ощупь фокус кажется липким, но не выделяет никакой слизи. Слизь выделяет вызываемое им существо, $(l:summons/enderling_servants#snareling)неуклюжая пародия на человека с длинными руками, пастью в области грудной клетки и светящимся мешком на спине$()."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/snaring_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/void_staff)пустотного посоха$() позволит призывать больше эндерплёвов."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:snaring_focus": 1
+  }
+}

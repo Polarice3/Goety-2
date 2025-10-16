@@ -1,0 +1,26 @@
+{
+  "parent": "block/block",
+  "loader": "forge:composite",
+  "textures": {
+    "particle": "goety:block/large_chorus_fern_top"
+  },
+  "item_render_order": [
+    "block",
+    "emission"
+  ],
+  "children": {
+    "block": {
+      "parent": "block/cross",
+      "textures": {
+        "cross": "goety:block/large_chorus_fern_top"
+      },
+      "render_type": "cutout"
+    },
+    "emission": {
+      "parent": "goety:block/glow_cross",
+      "textures": {
+        "cross": "goety:block/large_chorus_fern_top_glow"
+      }
+    }
+  }
+}

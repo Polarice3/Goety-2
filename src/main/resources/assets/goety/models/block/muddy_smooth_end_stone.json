@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "goety:block/muddy_smooth_end_stone"
+  }
+}

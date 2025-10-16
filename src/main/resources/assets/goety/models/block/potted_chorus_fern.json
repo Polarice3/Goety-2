@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/flower_pot_cross",
+  "textures": {
+    "plant": "goety:block/chorus_fern"
+  },
+  "render_type": "cutout"
+}

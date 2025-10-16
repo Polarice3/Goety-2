@@ -533,6 +533,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.FIRE_TORNADO.get(), FireTornadoRenderer::new);
         event.registerEntityRenderer(ModEntityType.CYCLONE.get(), CycloneRenderer::new);
         event.registerEntityRenderer(ModEntityType.TIDAL_SURGE.get(), TidalSurgeRenderer::new);
+        event.registerEntityRenderer(ModEntityType.RAZOR_WIND.get(), RazorWindRenderer::new);
         event.registerEntityRenderer(ModEntityType.VOID_SLASH.get(), VoidSlashRenderer::new);
         event.registerEntityRenderer(ModEntityType.FALLING_BLOCK.get(), ModFallingBlockRenderer::new);
         event.registerEntityRenderer(ModEntityType.BREW_EFFECT_GAS.get(), BrewGasRenderer::new);

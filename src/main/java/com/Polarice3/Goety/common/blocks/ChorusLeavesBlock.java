@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.blocks;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -21,7 +22,11 @@ public class ChorusLeavesBlock extends LeavesBlock {
             BlockPos blockpos = p_273218_.below();
             BlockState blockstate = p_272837_.getBlockState(blockpos);
             if (!isFaceFull(blockstate.getCollisionShape(p_272837_, blockpos), Direction.UP)) {
-                ParticleUtils.spawnParticleBelow(p_272837_, p_273218_, p_273360_, ModParticleTypes.CHORUS_LEAVES.get());
+                ParticleOptions options = ModParticleTypes.CHORUS_LEAVES.get();
+                if (p_272714_.is(ModBlocks.CHORUS_BLOSSOM_LEAVES.get())) {
+                    options = ModParticleTypes.CHORUS_BLOSSOM_LEAVES.get();
+                }
+                ParticleUtils.spawnParticleBelow(p_272837_, p_273218_, p_273360_, options);
             }
         }
     }

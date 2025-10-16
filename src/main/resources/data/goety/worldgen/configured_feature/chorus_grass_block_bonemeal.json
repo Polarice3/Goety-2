@@ -1,0 +1,36 @@
+{
+  "type": "goety:end_vegetation",
+  "config": {
+    "spread_height": 1,
+    "spread_width": 3,
+    "state_provider": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "goety:chorus_tall_grass"
+          },
+          "weight": 45
+        },
+        {
+          "data": {
+            "Name": "goety:chorus_fern_sprout"
+          },
+          "weight": 35
+        },
+        {
+          "data": {
+            "Name": "goety:chorus_fern"
+          },
+          "weight": 15
+        },
+        {
+          "data": {
+            "Name": "goety:chorus_sapling"
+          },
+          "weight": 5
+        }
+      ]
+    }
+  }
+}

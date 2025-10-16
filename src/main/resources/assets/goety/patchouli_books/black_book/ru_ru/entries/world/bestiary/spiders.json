@@ -1,0 +1,40 @@
+{
+  "name": "Странные пауки",
+  "icon": "minecraft:cobweb",
+  "category": "goety:world/bestiary",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вы заметили, что вместе с обычными монстрами вокруг стали появляться какие-то странные пауки."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:web_spider",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Эти трусливые паучки мастерски плетут паутину и стреляют ей в противника, нападая только тогда, когда обездвижат его. Если противник приблизится, паук попытается отступить. Из-за их постоянного плетения из них выпадает паутина."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:icy_spider",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Эти пауки, обитающие в холодных биомах, обладают укусом, который замедляет противника, подобно стрелам зимогора. Они могут ползать по рыхлому снегу и невосприимчивы к оледенению."
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/kill_a_bone_spider",
+      "entity": "goety:bone_spider",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/kill_a_bone_spider",
+      "text": "Эти окостенелые пауки, обитающие в склепах, могут стрелять костяными осколками и кусаться в ближнем бою."
+    }
+  ]
+}

@@ -23,7 +23,7 @@
     {
       "type": "patchouli:text",
       "advancement": "goety:goety/craft_necro_brazier",
-      "text": "Модернизированная версия зловещей косы, обладающая качествами других инструментов из $(l:crafts/dark_metal_ingot)тёмного металла$()."
+      "text": "Модернизированная версия зловещей косы, обладающая качествами других инструментов из $(l:crafts/dark_alloy_ingot)тёмного сплава$()."
     }
   ],
   "extra_recipe_mappings": {

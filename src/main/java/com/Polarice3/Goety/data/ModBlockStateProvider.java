@@ -6,6 +6,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -53,6 +54,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(ModBlocks.END_ROCK_CHISELED.get());
         simpleBlockWithItem(ModBlocks.SOILED_END_ROCK_CHISELED.get());
 
+        simpleBlockWithItem(ModBlocks.END_DIRT.get());
+        simpleBlockWithItem(ModBlocks.SOILED_END_DIRT.get());
+
         simpleBlockWithItem(ModBlocks.BIG_END_STONE_BRICKS_BLOCK.get());
         simpleBlockWithItem(ModBlocks.MESSY_END_STONE_BRICKS_BLOCK.get());
         simpleBlockWithItem(ModBlocks.CHISELED_END_STONE_BLOCK.get());
@@ -60,14 +64,28 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(ModBlocks.SOILED_END_STONE_BRICKS_SLIGHT_BLOCK.get());
         simpleBlockWithItem(ModBlocks.SOILED_END_STONE_BRICKS_BLOCK.get());
         simpleBlockWithItem(ModBlocks.SOILED_END_STONE_BRICKS_HEAVY_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.GRASSY_END_STONE_BRICKS_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.GRASSY_END_STONE_BRICKS_HEAVY_BLOCK.get());
         simpleBlockWithItem(ModBlocks.END_STONE_TILES_BLOCK.get());
         simpleBlockWithItem(ModBlocks.SOILED_END_STONE_TILES_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.GRASSY_END_STONE_TILES_BLOCK.get());
         simpleBlockWithItem(ModBlocks.SMOOTH_END_STONE_BLOCK.get());
         simpleBlockWithItem(ModBlocks.COBBLED_END_STONE_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.GRASSY_COBBLED_END_STONE_BLOCK.get());
         simpleBlockWithItem(ModBlocks.END_ROD_BLOCK.get());
         simpleBlockWithItem(ModBlocks.END_LAMP_BLOCK.get());
 
         simpleBlockWithItem(ModBlocks.SOILED_PURPUR_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.GRASSY_PURPUR_BLOCK.get());
+
+        crossBlockWithItem(ModBlocks.CHORUS_SPROUT.get());
+        crossBlockWithItem(ModBlocks.CHORUS_STALK.get());
+
+        crossBlockWithItem(ModBlocks.END_GRASS_SPROUT.get());
+        crossBlockWithItem(ModBlocks.END_GRASS.get());
+
+        crossBlockWithItem(ModBlocks.CHORUS_TALL_GRASS.get());
+        crossBlockWithItem(ModBlocks.CHORUS_FERN_SPROUT.get());
 
         buttonBlockWithItem((ButtonBlock) ModBlocks.HAUNTED_BUTTON.get(), Goety.location("block/haunted_planks"));
         buttonBlockWithItem((ButtonBlock) ModBlocks.ROTTEN_BUTTON.get(), Goety.location("block/rotten_planks"));
@@ -141,6 +159,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         columnBlockWithItem((RotatedPillarBlock) ModBlocks.END_ROCK_BRICKS.get(), Goety.location("block/end_rock_bricks"));
         columnBlockWithItem((RotatedPillarBlock) ModBlocks.SOILED_END_ROCK_BRICKS.get(), Goety.location("block/soiled_end_rock_bricks"));
+        columnBlockWithItem((RotatedPillarBlock) ModBlocks.GRASSY_END_ROCK_BRICKS.get(), Goety.location("block/grassy_end_rock_bricks"));
 
         pressurePlateWithItem((PressurePlateBlock) ModBlocks.HAUNTED_PRESSURE_PLATE.get(), Goety.location("block/haunted_planks"));
         pressurePlateWithItem((PressurePlateBlock) ModBlocks.ROTTEN_PRESSURE_PLATE.get(), Goety.location("block/rotten_planks"));
@@ -185,6 +204,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         slabBlockWithItem((SlabBlock) ModBlocks.SNOW_BRICK_SLAB.get(), Goety.location("block/snow_bricks"));
 
+        slabBlockWithItem((SlabBlock) ModBlocks.END_MUD_SLAB.get(), Goety.location("block/end_mud"));
+
+        slabBlockWithItem((SlabBlock) ModBlocks.END_DIRT_SLAB.get(), Goety.location("block/end_dirt"));
+
         slabBlockWithItem((SlabBlock) ModBlocks.END_BASALT_SLAB.get(), Goety.location("block/end_basalt"), Goety.location("block/end_basalt"), Goety.location("block/end_basalt_top"));
 
         slabBlockWithItem((SlabBlock) ModBlocks.END_BASALT_BRICK_SLAB.get(), Goety.location("block/end_basalt_bricks"));
@@ -192,6 +215,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         slabBlockWithItem((SlabBlock) ModBlocks.END_ROCK_SLAB.get(), Goety.location("block/end_rock"), Goety.location("block/end_rock"), Goety.location("block/end_rock_top"));
         slabBlockWithItem((SlabBlock) ModBlocks.END_ROCK_BRICK_SLAB.get(), Goety.location("block/end_rock_bricks"));
 
+        slabBlockWithItem((SlabBlock) ModBlocks.END_STONE_SLAB.get(), new ResourceLocation("block/end_stone"));
         slabBlockWithItem((SlabBlock) ModBlocks.END_STONE_TILE_SLAB.get(), Goety.location("block/end_stone_tiles"));
         slabBlockWithItem((SlabBlock) ModBlocks.SMOOTH_END_STONE_SLAB.get(), Goety.location("block/smooth_end_stone"));
         slabBlockWithItem((SlabBlock) ModBlocks.COBBLED_END_STONE_SLAB.get(), Goety.location("block/cobbled_end_stone"));
@@ -404,6 +428,21 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlock(b, models().getBuilder(name(b))
                 .parent(new ModelFile.UncheckedModelFile("builtin/entity"))
                 .texture("particle", particle));
+    }
+
+    public ModelFile cross(Block block) {
+        return models().cross(name(block), blockTexture(block)).renderType("cutout");
+    }
+
+    public ItemModelBuilder generatedItem(Block block) {
+        return itemModels().getBuilder(key(block).getPath())
+                .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", blockTexture(block));
+    }
+
+    protected void crossBlockWithItem(Block block) {
+        simpleBlock(block, cross(block));
+        generatedItem(block);
     }
 
     private ResourceLocation extend(ResourceLocation rl, String suffix) {
