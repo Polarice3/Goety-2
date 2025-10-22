@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.entities.HoleBlockEntity;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.BlockSpell;
+import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
@@ -26,6 +27,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TunnelSpell extends BlockSpell {
+
+    @Override
+    public SpellStat defaultStats() {
+        return super.defaultStats().setRange(SpellConfig.TunnelDefaultDistance.get());
+    }
 
     @Override
     public int defaultSoulCost() {
@@ -57,18 +63,18 @@ public class TunnelSpell extends BlockSpell {
     }
 
     @Override
-    public boolean rightBlock(ServerLevel worldIn, LivingEntity caster, BlockPos target, Direction direction) {
+    public boolean rightBlock(ServerLevel worldIn, LivingEntity caster, BlockPos target, Direction direction, SpellStat spellStat) {
         BlockState blockState = worldIn.getBlockState(target);
         BlockState blockState2 = worldIn.getBlockState(target.relative(direction));
         return !blockState.hasBlockEntity() && blockState2.getBlock() != ModBlocks.HOLE.get() && !blockState.is(ModTags.Blocks.TUNNEL_BLACKLIST) && blockState.getDestroySpeed(worldIn, target) != -1.0F;
     }
 
     @Override
-    public void blockResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, BlockPos target, Direction direction) {
+    public void blockResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, BlockPos target, Direction direction, SpellStat spellStat) {
         BlockHitResult blockHitResult = MobUtil.rayTrace(caster, 8, false);
         BlockPos blockPos = new BlockPos(blockHitResult.getBlockPos());
-        int totalDistance = SpellConfig.TunnelDefaultDistance.get();
-        int extraLife = 0;
+        int totalDistance = spellStat.getRange();
+        int extraLife = spellStat.getDuration();
         if (WandUtil.enchantedFocus(caster)) {
             totalDistance += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
             extraLife += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);

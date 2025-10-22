@@ -26,6 +26,8 @@
     "goety:slate_marble_slab",
     "goety:marble_stairs",
     "goety:slate_marble_stairs",
+    "goety:dark_altar_marble",
+    "goety:pedestal_marble",
     "goety:marble_wind_blower"
   ]
 }

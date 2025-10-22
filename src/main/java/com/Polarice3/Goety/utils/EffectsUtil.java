@@ -186,12 +186,10 @@ public class EffectsUtil {
             int duration = illague.getDuration() + 1;
             int amplifier = illague.getAmplifier();
             if (MobsConfig.IllagueSpread.get()) {
-                for (LivingEntity livingEntity : level.getEntitiesOfClass(LivingEntity.class, infected.getBoundingBox().inflate(8.0D))) {
-                    if (!(livingEntity instanceof PatrollingMonster) && !(livingEntity instanceof RaiderServant) && livingEntity.getMobType() != MobType.UNDEAD && !livingEntity.hasEffect(GoetyEffects.ILLAGUE.get())) {
+                for (LivingEntity livingEntity : level.getEntitiesOfClass(LivingEntity.class, infected.getBoundingBox().inflate(8.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR)) {
+                    if (livingEntity.isAlive() && !(livingEntity instanceof PatrollingMonster) && !(livingEntity instanceof RaiderServant) && livingEntity.getMobType() != MobType.UNDEAD && !livingEntity.hasEffect(GoetyEffects.ILLAGUE.get())) {
                         if (livingEntity.tickCount % 100 == 0 && livingEntity.getRandom().nextInt(20) == 0) {
-                            if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)){
-                                livingEntity.addEffect(new MobEffectInstance(GoetyEffects.ILLAGUE.get(), duration / 2, amplifier, false, false));
-                            }
+                            livingEntity.addEffect(new MobEffectInstance(GoetyEffects.ILLAGUE.get(), duration / 2, amplifier, false, false));
                         }
                     }
                 }

@@ -23,10 +23,16 @@ public class ModBlockEntities {
             () -> BlockEntityType.Builder.of(CursedCageBlockEntity::new, ModBlocks.CURSED_CAGE_BLOCK.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<DarkAltarBlockEntity>> DARK_ALTAR = BLOCK_ENTITY.register("dark_altar",
-            () -> BlockEntityType.Builder.of(DarkAltarBlockEntity::new, ModBlocks.DARK_ALTAR.get()).build(null));
+            () -> BlockEntityType.Builder.of(DarkAltarBlockEntity::new,
+                    ModBlocks.DARK_ALTAR.get(), ModBlocks.DARK_ALTAR_STONE.get(), ModBlocks.DARK_ALTAR_DEEPSLATE.get(),
+                    ModBlocks.DARK_ALTAR_NETHER_BRICK.get(), ModBlocks.DARK_ALTAR_BLACKSTONE.get(), ModBlocks.DARK_ALTAR_END_STONE.get(),
+                    ModBlocks.DARK_ALTAR_HIGHROCK.get(), ModBlocks.DARK_ALTAR_MARBLE.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<PedestalBlockEntity>> PEDESTAL = BLOCK_ENTITY.register("pedestal",
-            () -> BlockEntityType.Builder.of(PedestalBlockEntity::new, ModBlocks.PEDESTAL.get()).build(null));
+            () -> BlockEntityType.Builder.of(PedestalBlockEntity::new,
+                    ModBlocks.PEDESTAL.get(), ModBlocks.PEDESTAL_STONE.get(), ModBlocks.PEDESTAL_DEEPSLATE.get(),
+                    ModBlocks.PEDESTAL_NETHER_BRICK.get(), ModBlocks.PEDESTAL_BLACKSTONE.get(), ModBlocks.PEDESTAL_END_STONE.get(),
+                    ModBlocks.PEDESTAL_HIGHROCK.get(), ModBlocks.PEDESTAL_MARBLE.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<SoulAbsorberBlockEntity>> SOUL_ABSORBER = BLOCK_ENTITY.register("soul_absorber",
             () -> BlockEntityType.Builder.of(SoulAbsorberBlockEntity::new, ModBlocks.SOUL_ABSORBER.get()).build(null));
@@ -66,6 +72,9 @@ public class ModBlockEntities {
 
     public static final RegistryObject<BlockEntityType<AnimatorBlockEntity>> ANIMATOR = BLOCK_ENTITY.register("animator",
             () -> BlockEntityType.Builder.of(AnimatorBlockEntity::new, ModBlocks.ANIMATOR.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<BlackCrystalBlockEntity>> BLACK_CRYSTAL = BLOCK_ENTITY.register("black_crystal",
+            () -> BlockEntityType.Builder.of(BlackCrystalBlockEntity::new, ModBlocks.BLACK_CRYSTAL.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<SoulCandlestickBlockEntity>> SOUL_CANDLESTICK = BLOCK_ENTITY.register("soul_candlestick",
             () -> BlockEntityType.Builder.of(SoulCandlestickBlockEntity::new, ModBlocks.SOUL_CANDLESTICK.get()).build(null));

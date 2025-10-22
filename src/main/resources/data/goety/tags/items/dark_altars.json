@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "goety:dark_altar",
+    "goety:dark_altar_stone",
+    "goety:dark_altar_deepslate",
+    "goety:dark_altar_nether_brick",
+    "goety:dark_altar_blackstone",
+    "goety:dark_altar_end_stone",
+    "goety:dark_altar_highrock",
+    "goety:dark_altar_marble"
+  ]
+}

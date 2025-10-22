@@ -16,12 +16,10 @@
   "conditions": [
     {
       "type": "forge:not",
-      "values": [
-        {
-          "type": "forge:mod_loaded",
-          "modid": "cataclysm"
-        }
-      ]
+      "values": {
+        "type": "forge:mod_loaded",
+        "modid": "cataclysm"
+      }
     }
   ]
 }

@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "lit=true": { "model": "goety:block/dark_altar_nether_brick_activated" },
+    "lit=false": { "model": "goety:block/dark_altar_nether_brick" }
+  }
+}

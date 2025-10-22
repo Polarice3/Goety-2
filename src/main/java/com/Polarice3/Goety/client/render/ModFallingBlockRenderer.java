@@ -26,8 +26,7 @@ public class ModFallingBlockRenderer extends EntityRenderer<ModFallingBlock> {
         if (entityIn.getMode() == ModFallingBlock.FallingBlockMode.MOBILE) {
             matrixStackIn.mulPose((new Quaternionf()).setAngleAxis(0, Mth.lerp(partialTicks, entityIn.yRotO, entityIn.getYRot()), 0, 0));
             matrixStackIn.mulPose((new Quaternionf()).setAngleAxis(Mth.lerp(partialTicks, entityIn.xRotO, entityIn.getXRot()), 0, 0, 0));
-        }
-        else {
+        } else {
             matrixStackIn.translate(0, Mth.lerp(partialTicks, entityIn.prevAnimY, entityIn.animY), 0);
             matrixStackIn.translate(0, -1, 0);
         }

@@ -18,7 +18,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "To bind you servant to the idol, simply use a Waystone, have it bound to the statue, and right click your servant with it. The idol can only hold up to 16 servants (by default) and will not accept more after."
+      "text": "To bind your servant to the idol, simply use a Waystone, have it bound to the statue, and right click your servant with it. The idol can only hold up to 16 servants (by default) and will not accept more after. Much like other artifices, the idol requires Soul Energy to function, which it gets by placing it on top of a filled $(l:intro/cursed_cage)Cursed Cage$()."
     }
   ],
   "extra_recipe_mappings": {

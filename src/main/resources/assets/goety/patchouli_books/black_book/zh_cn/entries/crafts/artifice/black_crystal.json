@@ -1,0 +1,19 @@
+{
+  "name": "黑暗水晶",
+  "icon": "goety:black_crystal",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/kill_a_wight",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "一块灵魂饥渴的水晶，放置后可自动与你建立联结，并会汲取附近非友方单位的灵魂能量，对其持续造成伤害直至目标生命垂危。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:black_crystal"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:black_crystal": 1
+  }
+}

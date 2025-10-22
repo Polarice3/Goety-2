@@ -14,6 +14,10 @@
     {
       "type": "patchouli:text",
       "text": "The Potency enchantment increases the speed of mining and on higher levels allows the spell to mine blocks that require diamond or netherite tools."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/geo_staff)Geo Staff$() will cause the spell to mine in a 3x3 area, so long as the blocks are mine-able with pickaxe or shovel."
     }
   ]
 }

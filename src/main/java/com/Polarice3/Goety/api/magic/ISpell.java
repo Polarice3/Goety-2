@@ -14,6 +14,7 @@ import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.CuriosFinder;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleOptions;
@@ -233,7 +234,7 @@ public interface ISpell {
     SpellType getSpellType();
 
     default boolean conditionsMet(ServerLevel worldIn, LivingEntity caster){
-        return conditionsMet(worldIn, caster, this.defaultStats());
+        return conditionsMet(worldIn, caster, WandUtil.getStats(caster, this));
     }
 
     default boolean conditionsMet(ServerLevel worldIn, LivingEntity caster, SpellStat spellStat){

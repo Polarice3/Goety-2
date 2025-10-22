@@ -1,0 +1,19 @@
+{
+  "name": "ブラッククリスタル",
+  "icon": "goety:black_crystal",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/kill_a_wight",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "設置すると、魂に飢えたクリスタルがあなたにリンクし、あなたの仲間でない近くの存在からソウルエネルギーを吸い取ろうとし、それらの体力が低下するまでダメージを与えます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:black_crystal"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:black_crystal": 1
+  }
+}

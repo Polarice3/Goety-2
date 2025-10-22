@@ -52,7 +52,21 @@ public class ModBlocks {
     public static final RegistryObject<Block> GRIM_INFUSER = register("grim_infuser", GrimInfuserBlock::new);
     public static final RegistryObject<Block> CURSED_CAGE_BLOCK = register("cursed_cage", CursedCageBlock::new);
     public static final RegistryObject<Block> DARK_ALTAR = register("dark_altar", DarkAltarBlock::new);
+    public static final RegistryObject<Block> DARK_ALTAR_STONE = register("dark_altar_stone", () -> new DarkAltarBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS).noOcclusion()));
+    public static final RegistryObject<Block> DARK_ALTAR_DEEPSLATE = register("dark_altar_deepslate", () -> new DarkAltarBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICKS).noOcclusion()));
+    public static final RegistryObject<Block> DARK_ALTAR_NETHER_BRICK = register("dark_altar_nether_brick", () -> new DarkAltarBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_BRICKS).noOcclusion()));
+    public static final RegistryObject<Block> DARK_ALTAR_BLACKSTONE = register("dark_altar_blackstone", () -> new DarkAltarBlock(BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE_BRICKS).noOcclusion()));
+    public static final RegistryObject<Block> DARK_ALTAR_END_STONE = register("dark_altar_end_stone", () -> new DarkAltarBlock(BlockBehaviour.Properties.copy(Blocks.END_STONE_BRICKS).noOcclusion()));
+    public static final RegistryObject<Block> DARK_ALTAR_HIGHROCK = register("dark_altar_highrock", () -> new DarkAltarBlock(HighrockProperties().noOcclusion()));
+    public static final RegistryObject<Block> DARK_ALTAR_MARBLE = register("dark_altar_marble", () -> new DarkAltarBlock(MarbleProperties().noOcclusion()));
     public static final RegistryObject<Block> PEDESTAL = register("pedestal", PedestalBlock::new);
+    public static final RegistryObject<Block> PEDESTAL_STONE = register("pedestal_stone", () -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS).noOcclusion()));
+    public static final RegistryObject<Block> PEDESTAL_DEEPSLATE = register("pedestal_deepslate", () -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICKS).noOcclusion()));
+    public static final RegistryObject<Block> PEDESTAL_NETHER_BRICK = register("pedestal_nether_brick", () -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_BRICKS).noOcclusion()));
+    public static final RegistryObject<Block> PEDESTAL_BLACKSTONE = register("pedestal_blackstone", () -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE_BRICKS).noOcclusion()));
+    public static final RegistryObject<Block> PEDESTAL_END_STONE = register("pedestal_end_stone", () -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.END_STONE_BRICKS).noOcclusion()));
+    public static final RegistryObject<Block> PEDESTAL_HIGHROCK = register("pedestal_highrock", () -> new PedestalBlock(HighrockProperties().noOcclusion()));
+    public static final RegistryObject<Block> PEDESTAL_MARBLE = register("pedestal_marble", () -> new PedestalBlock(MarbleProperties().noOcclusion()));
     public static final RegistryObject<Block> SOUL_ABSORBER = register("soul_absorber", SoulAbsorberBlock::new);
     public static final RegistryObject<Block> SOUL_MENDER = register("soul_mender", SoulMenderBlock::new);
     public static final RegistryObject<Block> ICE_BOUQUET_TRAP = register("ice_bouquet_trap", IceBouquetTrapBlock::new);
@@ -73,6 +87,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> SHRIEKING_OBELISK = register("shriek_obelisk", ShriekObeliskBlock::new);
     public static final RegistryObject<Block> NECRO_BRAZIER = register("necro_brazier", NecroBrazierBlock::new);
     public static final RegistryObject<Block> ANIMATOR = register("animator", AnimatorBlock::new);
+    public static final RegistryObject<Block> BLACK_CRYSTAL = register("black_crystal", BlackCrystalBlock::new, false);
     public static final RegistryObject<Block> DARK_ANVIL = register("dark_anvil", DarkAnvilBlock::new);
     public static final RegistryObject<Block> CHIPPED_DARK_ANVIL = register("chipped_dark_anvil", DarkAnvilBlock::new);
     public static final RegistryObject<Block> DAMAGED_DARK_ANVIL = register("damaged_dark_anvil", DarkAnvilBlock::new);
@@ -971,6 +986,8 @@ public class ModBlocks {
             OminousIdolBlockItem::new);
     public static final RegistryObject<Item> HAUNTED_JUG_ITEM = ModItems.ITEMS.register("haunted_jug",
             HauntedJugItem::new);
+    public static final RegistryObject<Item> BLACK_CRYSTAL_ITEM = ModItems.ITEMS.register("black_crystal",
+            BlackCrystalItem::new);
     public static final RegistryObject<Item> NIGHT_BEACON_ITEM = ModItems.ITEMS.register("night_beacon",
             () -> new BlockItem(ModBlocks.NIGHT_BEACON.get(), (new Item.Properties().fireResistant())));
     public static final RegistryObject<Item> HAUNTED_SIGN_ITEM = ModItems.ITEMS.register("haunted_sign",

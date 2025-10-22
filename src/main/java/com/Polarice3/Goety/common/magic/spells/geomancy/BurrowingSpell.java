@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.magic.EverChargeSpell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
@@ -15,6 +16,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffectUtil;
@@ -171,56 +173,18 @@ public class BurrowingSpell extends EverChargeSpell {
                     } else if (fortune > 0){
                         tempTool.enchant(Enchantments.BLOCK_FORTUNE, fortune);
                     }
-                    BlockEvent.BreakEvent breakEvent = fixForgeEventBreakBlock(blockState, player, worldIn, blockPos, silk, fortune);
-                    MinecraftForge.EVENT_BUS.post(breakEvent);
-                    if (breakEvent.isCanceled()) {
-                        return;
-                    }
 
-                    if (TierSortingRegistry.isCorrectTierForDrops(tier, blockState)){
-                        List<ItemStack> drops = Block.getDrops(blockState, worldIn, blockPos, null, player, tempTool);
-
-                        int exp = blockState.getExpDrop(worldIn, worldIn.random, blockPos, fortune, silk);
-                        boolean magnetMode = WandUtil.getLevels(ModEnchantments.MAGNET.get(), caster) > 0;
-                        for (ItemStack drop : drops) {
-                            if (drop != null) {
-                                if (burning > 0){
-                                    Optional<SmeltingRecipe> optional = worldIn.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(drop.copy()), worldIn);
-                                    if (optional.isPresent()){
-                                        ItemStack smeltedItemStack = optional.get().getResultItem(worldIn.registryAccess()).copy();
-                                        if (!smeltedItemStack.isEmpty()){
-                                            drop = ItemHandlerHelper.copyStackWithSize(smeltedItemStack, drop.getCount() * smeltedItemStack.getCount());
-                                        }
-                                    }
-                                }
-                                if (magnetMode) {
-                                    int wasPickedUp = ForgeEventFactory.onItemPickup(new ItemEntity(worldIn, blockPos.getX(), blockPos.getY(), blockPos.getZ(), drop), player);
-                                    if (wasPickedUp == 0) {
-                                        if (!player.addItem(drop)) {
-                                            Block.popResource(worldIn, blockPos, drop);
-                                        }
-                                    }
-                                } else {
-                                    Block.popResource(worldIn, blockPos, drop);
+                    this.breakBlocks(worldIn, blockState, blockPos, player, soundtype, silk, fortune, burning, tempTool, tier);
+                    if (!player.isCrouching() && this.rightStaff(staff)) {
+                        for (BlockPos blockPos1 : BlockFinder.multiBlockBreak(player, blockPos, 1, 1, 1)) {
+                            if (!BlockFinder.samePos(blockPos, blockPos1)) {
+                                BlockState blockState1 = worldIn.getBlockState(blockPos1);
+                                if (canMineBlock(worldIn, player, blockPos1, blockState1) && (blockState1.is(BlockTags.MINEABLE_WITH_AXE) || blockState1.is(BlockTags.MINEABLE_WITH_SHOVEL))) {
+                                    this.breakBlocks(worldIn, blockState1, blockPos1, player, soundtype, 0, 0, burning, tempTool, tier);
                                 }
                             }
                         }
-                        if (magnetMode) {
-                            if (exp > 0) {
-                                player.giveExperiencePoints(exp);
-                            }
-                        } else {
-                            if (exp > 0) {
-                                blockState.getBlock().popExperience(worldIn, blockPos, exp);
-                            }
-                        }
                     }
-
-                    worldIn.playSound(null, blockPos, soundtype.getBreakSound(), SoundSource.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
-
-                    worldIn.removeBlockEntity(blockPos);
-                    worldIn.levelEvent(2001, blockPos, Block.getId(blockState));
-                    worldIn.setBlockAndUpdate(blockPos, Blocks.AIR.defaultBlockState());
 
                     // Add to the break stats
                     player.awardStat(Stats.BLOCK_MINED.get(blockState.getBlock()));
@@ -230,6 +194,60 @@ public class BurrowingSpell extends EverChargeSpell {
                 }
             }
         }
+    }
+
+
+    public void breakBlocks(ServerLevel serverLevel, BlockState blockState, BlockPos blockPos, Player player, SoundType soundtype, int silk, int fortune, int burning, ItemStack tempTool, Tier tier) {
+        BlockEvent.BreakEvent breakEvent = fixForgeEventBreakBlock(blockState, player, serverLevel, blockPos, silk, fortune);
+        MinecraftForge.EVENT_BUS.post(breakEvent);
+        if (breakEvent.isCanceled()) {
+            return;
+        }
+
+        if (TierSortingRegistry.isCorrectTierForDrops(tier, blockState)){
+            List<ItemStack> drops = Block.getDrops(blockState, serverLevel, blockPos, null, player, tempTool);
+
+            int exp = blockState.getExpDrop(serverLevel, serverLevel.getRandom(), blockPos, fortune, silk);
+            boolean magnetMode = WandUtil.getLevels(ModEnchantments.MAGNET.get(), player) > 0;
+            for (ItemStack drop : drops) {
+                if (drop != null) {
+                    if (burning > 0){
+                        Optional<SmeltingRecipe> optional = serverLevel.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(drop.copy()), serverLevel);
+                        if (optional.isPresent()){
+                            ItemStack smeltedItemStack = optional.get().getResultItem(serverLevel.registryAccess()).copy();
+                            if (!smeltedItemStack.isEmpty()){
+                                drop = ItemHandlerHelper.copyStackWithSize(smeltedItemStack, drop.getCount() * smeltedItemStack.getCount());
+                            }
+                        }
+                    }
+                    if (magnetMode) {
+                        int wasPickedUp = ForgeEventFactory.onItemPickup(new ItemEntity(serverLevel, blockPos.getX(), blockPos.getY(), blockPos.getZ(), drop), player);
+                        if (wasPickedUp == 0) {
+                            if (!player.addItem(drop)) {
+                                Block.popResource(serverLevel, blockPos, drop);
+                            }
+                        }
+                    } else {
+                        Block.popResource(serverLevel, blockPos, drop);
+                    }
+                }
+            }
+            if (magnetMode) {
+                if (exp > 0) {
+                    player.giveExperiencePoints(exp);
+                }
+            } else {
+                if (exp > 0) {
+                    blockState.getBlock().popExperience(serverLevel, blockPos, exp);
+                }
+            }
+        }
+
+        serverLevel.playSound(null, blockPos, soundtype.getBreakSound(), SoundSource.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
+
+        serverLevel.removeBlockEntity(blockPos);
+        serverLevel.levelEvent(2001, blockPos, Block.getId(blockState));
+        serverLevel.setBlockAndUpdate(blockPos, Blocks.AIR.defaultBlockState());
     }
 
     public static void resetMiningProgress(Level level, Player player){

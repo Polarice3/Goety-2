@@ -14,6 +14,7 @@ public class ModBlockLayer {
     public static final ModelLayerLocation GRAVE_GOLEM_SKULL = register("grave_golem_skull");
     public static final ModelLayerLocation REDSTONE_MONSTROSITY_HEAD = register("redstone_monstrosity_head");
     public static final ModelLayerLocation LOFTY_CHEST = register("lofty_chest");
+    public static final ModelLayerLocation BLACK_CRYSTAL = register("black_crystal");
 
     private static ModelLayerLocation register(String p_171294_) {
         return register(p_171294_, "main");

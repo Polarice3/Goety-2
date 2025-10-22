@@ -1,0 +1,19 @@
+{
+  "name": "撼地聚晶",
+  "icon": "goety:earth_punch_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "该聚晶允许你从目标位置下方的地面召唤出一个拳头，对敌方实体造成伤害并且可以让它们飞起来！"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/earth_punch_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/geo_staff)占卜魔杖$()施法将会向附近的敌人召唤更多的拳头。"
+    }
+  ]
+}

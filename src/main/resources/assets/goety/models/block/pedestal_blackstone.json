@@ -1,0 +1,6 @@
+{
+	"parent": "goety:block/template_pedestal",
+	"textures": {
+		"pedestal": "goety:block/pedestal_blackstone"
+	}
+}

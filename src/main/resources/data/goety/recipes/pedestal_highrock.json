@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "lll",
+    " s ",
+    "lll"
+  ],
+  "key":
+  {
+    "l":
+    {
+      "item": "goety:highrock_brick_slab"
+    },
+    "s":
+    {
+      "item": "goety:highrock_bricks"
+    }
+  },
+  "result":
+  {
+    "item": "goety:pedestal_highrock",
+    "count": 1
+  }
+}

@@ -284,6 +284,7 @@ public class ModItems {
     ///Geomancy
     public static final RegistryObject<Item> BARRICADE_FOCUS = ITEMS.register("barricade_focus", () -> new MagicFocus(new BarricadeSpell()));
     public static final RegistryObject<Item> QUAKING_FOCUS = ITEMS.register("quaking_focus", () -> new MagicFocus(new QuakingSpell()));
+    public static final RegistryObject<Item> EARTH_PUNCH_FOCUS = ITEMS.register("earth_punch_focus", () -> new MagicFocus(new EarthFistSpell()));
     public static final RegistryObject<Item> PULVERIZE_FOCUS = ITEMS.register("pulverize_focus", () -> new MagicFocus(new PulverizeSpell()));
     public static final RegistryObject<Item> ROTATION_FOCUS = ITEMS.register("rotation_focus", () -> new MagicFocus(new RotationSpell()));
     public static final RegistryObject<Item> BURROWING_FOCUS = ITEMS.register("burrowing_focus", () -> new MagicFocus(new BurrowingSpell()));

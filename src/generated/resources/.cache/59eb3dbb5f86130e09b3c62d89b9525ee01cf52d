@@ -1,4 +1,4 @@
-// 1.20.1	2025-10-16T09:23:28.0614051	Loot Tables
+// 1.20.1	2025-10-18T20:44:47.7515652	Loot Tables
 1173ad0aef6067156a1c3161e3fe16b8e10b3f92 data/goety/loot_tables/blocks/animator.json
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
@@ -6,6 +6,7 @@ f7a819c3aef0dda1fe38d098a114b70570eec26b data/goety/loot_tables/blocks/awakened_
 8066e7656418914758c52c5328596b496ce40613 data/goety/loot_tables/blocks/big_end_stone_bricks.json
 330ed12a082d7045673da814668f67aa50b4696f data/goety/loot_tables/blocks/blackstone_brazier.json
 963860e1cbde011734bcf03642ae4951cb8fec9e data/goety/loot_tables/blocks/blackstone_soul_brazier.json
+0c69b3f8261def8b2b0ac44cdf882b10060ebb83 data/goety/loot_tables/blocks/black_crystal.json
 04cd388890b092bacff2afbbe7b2dd48d3fae225 data/goety/loot_tables/blocks/blazing_cage.json
 06ae05ce40127f471f9957c87285473b8a0734e8 data/goety/loot_tables/blocks/bottom_soiled_end_basalt.json
 914d54d2df0b738691c21b3792e79c30b1a39c0c data/goety/loot_tables/blocks/brick_brazier.json
@@ -126,6 +127,13 @@ fff865226994e4c1c81dafb7d5896bfc42cfb570 data/goety/loot_tables/blocks/cursed_ba
 9d43f24b21c8a8ddcca45cf237874f58a5274ed4 data/goety/loot_tables/blocks/cursed_metal_block.json
 7ad9e3c7fa11abc21b594b40f690e33129f9577d data/goety/loot_tables/blocks/damaged_dark_anvil.json
 8199d52a96609b3d3436a488323a2a3cad26b94b data/goety/loot_tables/blocks/dark_altar.json
+a7c513170e7f0de8bfebbc835026c0f3ecbba18a data/goety/loot_tables/blocks/dark_altar_blackstone.json
+8999e73ea460195513274c67798bb259f0fdd89e data/goety/loot_tables/blocks/dark_altar_deepslate.json
+19d5c2b54a3e205d4f804d3a67071d13f618a09e data/goety/loot_tables/blocks/dark_altar_end_stone.json
+4c1d84862ea17028978cbf556aa76b4a92497604 data/goety/loot_tables/blocks/dark_altar_highrock.json
+6025d3174dca6253e74e0651065080243de994d5 data/goety/loot_tables/blocks/dark_altar_marble.json
+5e55506aa4fbb1180be3c377cf3c4300907616b2 data/goety/loot_tables/blocks/dark_altar_nether_brick.json
+9d638ffc84216e5942f3a3cac9b7c5322d282d4e data/goety/loot_tables/blocks/dark_altar_stone.json
 1dce3ee34c7ffc16eafa858de1657a383c026667 data/goety/loot_tables/blocks/dark_anvil.json
 ed30b0bdc50c587cc9376c3dc35a6728c0130f5f data/goety/loot_tables/blocks/dark_metal_block.json
 d96970541510b1dcbf0c98c17655b736c5d90010 data/goety/loot_tables/blocks/dark_pressure_plate.json
@@ -258,6 +266,13 @@ a901fcf95254ba2d43c08a5a85a272fce6e3b4e4 data/goety/loot_tables/blocks/necro_bra
 b188955f239411ac17890b502e0e0800defcb528 data/goety/loot_tables/blocks/ominous_pyre.json
 ec98e9058454d9383106d94d6458c5bf96f43e0a data/goety/loot_tables/blocks/overgrown_roots.json
 d63d99e6db7c22b9e7823b01d26e0959ae1e2775 data/goety/loot_tables/blocks/pedestal.json
+495122b39b07cfc4a3c318087d0e0371fb26533f data/goety/loot_tables/blocks/pedestal_blackstone.json
+833c43b19a6516ed9c2a9c417bdd3638bf42c9d4 data/goety/loot_tables/blocks/pedestal_deepslate.json
+611470f2fa5893fdcb1b25214382035be8b46dfa data/goety/loot_tables/blocks/pedestal_end_stone.json
+f262fbb5ea92b549faab1e43d810aa421dee7097 data/goety/loot_tables/blocks/pedestal_highrock.json
+b0f778bd3e6abdf0d8fbfc4de98037d97bbca0bb data/goety/loot_tables/blocks/pedestal_marble.json
+6995b33054d46ee8b591f50bcc5678d4608bfeab data/goety/loot_tables/blocks/pedestal_nether_brick.json
+a9d1a7d2d43058db3023a32e9cafed39240ea11f data/goety/loot_tables/blocks/pedestal_stone.json
 1a48c9d9713e7067ab66610927f1d745285c442e data/goety/loot_tables/blocks/pine_bookshelf.json
 744fcc1bea03ca37e186c97932d96638b8d1fa84 data/goety/loot_tables/blocks/pine_button.json
 31ae2f793a68620b50912e652df1d04e51d49ff3 data/goety/loot_tables/blocks/pine_chest.json

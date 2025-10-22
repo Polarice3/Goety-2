@@ -45,9 +45,11 @@ public class DarkAltarBlock extends BaseEntityBlock implements IForgeBlock, Simp
     public static final BooleanProperty OCCUPIED = BlockStateProperties.OCCUPIED;
 
     public DarkAltarBlock() {
-        super(ModBlocks.ShadeStoneProperties()
-                .noOcclusion()
-        );
+        this(ModBlocks.ShadeStoneProperties().noOcclusion());
+    }
+
+    public DarkAltarBlock(Properties properties) {
+        super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.FALSE).setValue(LIT, Boolean.FALSE).setValue(OCCUPIED, Boolean.FALSE));
     }
 

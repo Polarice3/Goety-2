@@ -1,6 +1,25 @@
 {
 	"parent": "goety:block/template_altar",
+	"loader": "forge:composite",
 	"textures": {
-		"altar": "goety:block/dark_altar_activated"
+		"particle": "goety:block/dark_altar"
+	},
+	"item_render_order": [
+		"base",
+		"eyes"
+	],
+	"children": {
+		"base": {
+			"parent": "goety:block/template_altar",
+			"textures": {
+				"altar": "goety:block/dark_altar"
+			}
+		},
+		"eyes": {
+			"parent": "goety:block/template_altar",
+			"textures": {
+				"altar": "goety:block/dark_altar_activated"
+			}
+		}
 	}
 }

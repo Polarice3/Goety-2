@@ -19,6 +19,8 @@
     "goety:highrock_wall",
     "goety:polished_highrock_wall",
     "goety:highrock_brick_wall",
-    "goety:snowy_highrock_brick_wall"
+    "goety:snowy_highrock_brick_wall",
+    "goety:dark_altar_highrock",
+    "goety:pedestal_highrock"
   ]
 }

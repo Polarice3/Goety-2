@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "t t",
+    "scs"
+  ],
+  "key":
+  {
+    "t":
+    {
+      "item": "goety:magic_emerald"
+    },
+    "s":
+    {
+      "item": "minecraft:deepslate_bricks"
+    },
+    "c":
+    {
+      "tag": "goety:pedestals"
+    }
+  },
+  "result":
+  {
+    "item": "goety:dark_altar_deepslate",
+    "count": 1
+  }
+}

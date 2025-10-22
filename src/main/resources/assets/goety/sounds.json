@@ -8209,6 +8209,40 @@
     ],
     "subtitle": "subtitle.goety.void_frame_unlock"
   },
+  "creeper_pillar_on": {
+    "sounds": [
+      {
+        "name": "goety:creeper_pillar/on"
+      }
+    ]
+  },
+  "creeper_pillar_off": {
+    "sounds": [
+      {
+        "name": "goety:creeper_pillar/off"
+      }
+    ]
+  },
+  "creeper_pillar_loop": {
+    "sounds": [
+      {
+        "name": "goety:creeper_pillar/loop"
+      }
+    ]
+  },
+  "jungle_pillar_burst": {
+    "sounds": [
+      {
+        "name": "goety:jungle_pillar/burst1"
+      },
+      {
+        "name": "goety:jungle_pillar/burst2"
+      },
+      {
+        "name": "goety:jungle_pillar/burst3"
+      }
+    ]
+  },
   "apostle_theme": {
     "sounds": [
       {

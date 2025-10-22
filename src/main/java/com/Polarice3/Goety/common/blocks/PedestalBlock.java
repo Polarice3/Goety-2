@@ -48,9 +48,11 @@ public class PedestalBlock extends BaseEntityBlock implements IForgeBlock, Simpl
     public static final BooleanProperty OCCUPIED = BlockStateProperties.OCCUPIED;
 
     public PedestalBlock() {
-        super(ModBlocks.ShadeStoneProperties()
-                .noOcclusion()
-        );
+        this(ModBlocks.ShadeStoneProperties().noOcclusion());
+    }
+
+    public PedestalBlock(Properties properties) {
+        super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.FALSE).setValue(OCCUPIED, Boolean.FALSE));
     }
 

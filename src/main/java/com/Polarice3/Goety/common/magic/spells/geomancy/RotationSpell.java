@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.magic.spells.geomancy;
 
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.magic.BlockSpell;
+import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.core.BlockPos;
@@ -43,12 +44,12 @@ public class RotationSpell extends BlockSpell {
     }
 
     @Override
-    public boolean rightBlock(ServerLevel worldIn, LivingEntity caster, BlockPos target, Direction direction) {
+    public boolean rightBlock(ServerLevel worldIn, LivingEntity caster, BlockPos target, Direction direction, SpellStat spellStat) {
         return blockCanRotate(worldIn, target, direction);
     }
 
     @Override
-    public void blockResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, BlockPos target, Direction direction) {
+    public void blockResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, BlockPos target, Direction direction, SpellStat spellStat) {
         worldIn.playSound(null, target, ModSounds.TOCK.get(), this.getSoundSource(), 1.0F, 1.0F);
     }
 

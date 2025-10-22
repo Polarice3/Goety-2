@@ -41,6 +41,8 @@
     "goety:chorus_grass_block",
     "goety:chorus_grass_block_slab",
     "goety:cobbled_chorus_grass_block",
-    "goety:end_stone_slab"
+    "goety:end_stone_slab",
+    "goety:dark_altar_end_stone",
+    "goety:pedestal_end_stone"
   ]
 }

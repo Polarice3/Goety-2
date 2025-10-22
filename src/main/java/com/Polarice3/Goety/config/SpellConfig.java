@@ -281,6 +281,11 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> QuakingCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> QuakingDamage;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> EarthFistCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> EarthFistDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> EarthFistCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> EarthFistDamage;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> PulverizeCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> PulverizeCoolDown;
 
@@ -1160,6 +1165,16 @@ public class SpellConfig {
                     .defineInRange("quakingCoolDown", 100, 0, Integer.MAX_VALUE);
             QuakingDamage = BUILDER.comment("How much base damage Quaking Spell deals, Default: 4.0")
                     .defineInRange("quakingDamage", 4.0, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Quaking Spell");
+            EarthFistCost = BUILDER.comment("Earth Fist Spell Cost, Default: 8")
+                    .defineInRange("earthFistCost", 8, 0, Integer.MAX_VALUE);
+            EarthFistDuration = BUILDER.comment("Time to cast Earth Fist Spell, Default: 0")
+                    .defineInRange("earthFistTime", 0, 0, 72000);
+            EarthFistCoolDown = BUILDER.comment("Earth Fist Spell Cooldown, Default: 100")
+                    .defineInRange("earthFistCoolDown", 60, 0, Integer.MAX_VALUE);
+            EarthFistDamage = BUILDER.comment("How much base damage Earth Fists deals, Default: 6.0")
+                    .defineInRange("earthFistDamage", 6.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Pulverize Spell");
             PulverizeCost = BUILDER.comment("Pulverize Spell Cost, Default: 16")

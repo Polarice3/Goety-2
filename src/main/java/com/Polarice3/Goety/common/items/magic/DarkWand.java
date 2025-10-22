@@ -139,8 +139,8 @@ public class DarkWand extends Item implements IWand {
 
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
         boolean flag = false;
-        if (!player.level.isClientSide) {
-            if (entity instanceof LivingEntity target && target instanceof IOwned owned && (owned.getTrueOwner() == player || (owned.getTrueOwner() instanceof IOwned owned1 && owned1.getTrueOwner() == player))) {
+        if (entity instanceof LivingEntity target && target instanceof IOwned owned && (owned.getTrueOwner() == player || (owned.getTrueOwner() instanceof IOwned owned1 && owned1.getTrueOwner() == player))) {
+            if (!player.level.isClientSide) {
                 if (IWand.getFocus(stack).getItem() instanceof CallFocus && !CallFocus.hasSummon(IWand.getFocus(stack))) {
                     CompoundTag compoundTag = new CompoundTag();
                     if (IWand.getFocus(stack).hasTag()) {
@@ -204,8 +204,9 @@ public class DarkWand extends Item implements IWand {
                     }
                 }
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Nonnull
@@ -366,9 +367,9 @@ public class DarkWand extends Item implements IWand {
                 ISpell spell2 = GoetyEventFactory.onBlockBasedSpell(player.level, blockpos, player.level.getBlockState(blockpos), blockSpell0, pContext.getClickedFace(), player);
                 if (spell2 instanceof IBlockSpell blockSpell) {
                     if (player.level instanceof ServerLevel serverLevel) {
-                        if (blockSpell.rightBlock(serverLevel, player, blockpos, pContext.getClickedFace())) {
+                        if (blockSpell.rightBlock(serverLevel, player, blockpos, pContext.getClickedFace(), WandUtil.getStats(player, blockSpell))) {
                             if (this.canCastTouch(stack, level, player)) {
-                                blockSpell.blockResult(serverLevel, player, stack, blockpos, pContext.getClickedFace());
+                                blockSpell.blockResult(serverLevel, player, stack, blockpos, pContext.getClickedFace(), WandUtil.getStats(player, blockSpell));
                             }
                             return InteractionResult.SUCCESS;
                         }

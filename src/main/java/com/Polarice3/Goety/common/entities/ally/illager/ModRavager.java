@@ -244,7 +244,8 @@ public class ModRavager extends RaiderServant implements PlayerRideable, IAutoRi
     public void setArmorEquipment(ItemStack armor, boolean sound) {
         if (!this.level.isClientSide) {
             this.setItemSlot(EquipmentSlot.CHEST, armor);
-            this.setDropChance(EquipmentSlot.CHEST, 0.0F);
+            float chance = MobsConfig.PlayerRavagerArmorDrop.get() ? 2.0F : 0.0F;
+            this.setDropChance(EquipmentSlot.CHEST, chance);
             this.updateArmor();
             if (sound) {
                 this.playSound(SoundEvents.HORSE_ARMOR, 0.5F, 1.0F);

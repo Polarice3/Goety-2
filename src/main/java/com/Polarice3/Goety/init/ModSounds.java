@@ -702,6 +702,12 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> VOID_FRAME_UNLOCK = create("void_frame_unlock");
 
+    public static final RegistryObject<SoundEvent> CREEPER_PILLAR_ON = create("creeper_pillar_on");
+    public static final RegistryObject<SoundEvent> CREEPER_PILLAR_OFF = create("creeper_pillar_off");
+    public static final RegistryObject<SoundEvent> CREEPER_PILLAR_LOOP = create("creeper_pillar_loop");
+
+    public static final RegistryObject<SoundEvent> JUNGLE_PILLAR_BURST = create("jungle_pillar_burst");
+
     public static final RegistryObject<SoundEvent> FIRE_TORNADO_AMBIENT = create("fire_tornado_ambient");
 
     public static final RegistryObject<SoundEvent> APOSTLE_SHADE = create("apostle_shade");

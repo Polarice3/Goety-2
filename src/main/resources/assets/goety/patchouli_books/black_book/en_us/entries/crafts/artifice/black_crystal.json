@@ -1,0 +1,19 @@
+{
+  "name": "Black Crystal",
+  "icon": "goety:black_crystal",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/kill_a_wight",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A soul-hungering crystal that, when placed down, will link itself to you and will attempt to suck in soul energy from any nearby entity, that's not allied to you, damaging them until they are at low health."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:black_crystal"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:black_crystal": 1
+  }
+}

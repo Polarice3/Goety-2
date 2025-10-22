@@ -1,0 +1,39 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "tag": "forge:storage_blocks/amethyst"
+  },
+  "craftType": "forge",
+  "soulCost": 5,
+  "duration": 30,
+  "ingredients": [
+    {
+      "item": "goety:sculk_devourer"
+    },
+    {
+      "item": "goety:shadow_essence"
+    },
+    {
+      "tag": "forge:obsidian"
+    },
+    {
+      "item": "goety:shadow_essence"
+    },
+    {
+      "tag": "minecraft:soul_fire_base_blocks"
+    },
+    {
+      "item": "goety:shadow_essence"
+    },
+    {
+      "item": "goety:hunger_core"
+    },
+    {
+      "item": "goety:shadow_essence"
+    }
+  ],
+  "result": {
+    "item": "goety:black_crystal"
+  }
+}

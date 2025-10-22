@@ -456,4 +456,12 @@ public class ModParticleTypes {
                     return FollowFireParticle.Option.CODEC;
                 }
             });
+
+    public static final RegistryObject<ParticleType<SpirallingParticleOption>> SPIRALLING = PARTICLE_TYPES.register("spiralling",
+            () -> new ParticleType<>(false, SpirallingParticleOption.DESERIALIZER) {
+                @Override
+                public Codec<SpirallingParticleOption> codec() {
+                    return SpirallingParticleOption.CODEC;
+                }
+            });
 }

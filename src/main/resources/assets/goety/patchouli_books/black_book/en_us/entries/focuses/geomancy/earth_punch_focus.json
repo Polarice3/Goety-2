@@ -1,0 +1,19 @@
+{
+  "name": "Earth's Punch Focus",
+  "icon": "goety:earth_punch_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The focus conjures a fist from the earth beneath a target or a position, dealing damage to non-allied entities and punching them up in the air."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/earth_punch_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/geo_staff)Geo Staff$() will conjure multiple fists to nearby enemies."
+    }
+  ]
+}

@@ -79,16 +79,19 @@ public class LeechingSpell extends EverChargeSpell {
             range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
         }
         potency += spellStat.getPotency();
-        LivingEntity livingEntity = this.getTarget(caster, range);
-        if (livingEntity != null){
+        LivingEntity target = this.getTarget(caster, range);
+        if (target != null){
             ColorUtil colorUtil = new ColorUtil(ChatFormatting.DARK_RED);
-            Vec3 vector3d = new Vec3(livingEntity.getRandomX(1.0F), livingEntity.getRandomY(), livingEntity.getRandomZ(1.0F));
-            Vec3 vector3d1 = new Vec3(caster.getRandomX(1.0F), caster.getEyeY(), caster.getRandomZ(1.0F));
-            worldIn.sendParticles(new GatherTrailParticle.Option(colorUtil, vector3d1), vector3d.x, vector3d.y, vector3d.z, 0, 0.0F, 0.0F, 0.0F, 0.5F);
-            worldIn.sendParticles(new AbsorbTrailParticleOption(vector3d1, 11141120, 10), vector3d.x, vector3d.y, vector3d.z, 1, 0.0, 0.0, 0.0, 0.0);
-            if (livingEntity.hurt(ModDamageSource.lifeLeech(caster, caster), potency)) {
+            Vec3 targetVec = new Vec3(target.getX(), target.getY() + (target.getBbHeight() / 2.0F), target.getZ());
+            Vec3 casterVec = new Vec3(caster.getRandomX(1.0F), caster.getEyeY(), caster.getRandomZ(1.0F));
+            worldIn.sendParticles(new GatherTrailParticle.Option(colorUtil, casterVec), targetVec.x, targetVec.y, targetVec.z, 0, 0.0F, 0.0F, 0.0F, 0.5F);
+            for (int i = 0; i < 8; ++i) {
+                targetVec = new Vec3(target.getRandomX(1.0F), target.getRandomY(), target.getRandomZ(1.0F));
+                worldIn.sendParticles(new AbsorbTrailParticleOption(casterVec, 11141120, 10), targetVec.x, targetVec.y, targetVec.z, 1, 0.0, 0.0, 0.0, 0.0);
+            }
+            if (target.hurt(ModDamageSource.lifeLeech(caster, caster), potency)) {
                 if (this.rightStaff(staff)){
-                    livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 60, 0));
+                    target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 60, 0));
                 }
                 this.playSound(worldIn, caster, ModSounds.SOUL_EAT.get());
             }

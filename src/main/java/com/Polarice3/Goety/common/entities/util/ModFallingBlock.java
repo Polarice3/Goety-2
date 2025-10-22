@@ -1,6 +1,9 @@
 package com.Polarice3.Goety.common.entities.util;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.utils.ServerParticleUtil;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -10,6 +13,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
@@ -29,7 +33,6 @@ public class ModFallingBlock extends Entity {
     public static float GRAVITY = 0.1F;
     private static final EntityDataAccessor<Optional<BlockState>> BLOCK_STATE = SynchedEntityData.defineId(ModFallingBlock.class, EntityDataSerializers.OPTIONAL_BLOCK_STATE);
     private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(ModFallingBlock.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> TICKS_EXISTED = SynchedEntityData.defineId(ModFallingBlock.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<String> MODE = SynchedEntityData.defineId(ModFallingBlock.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<Float> POP_UP_LEVEL = SynchedEntityData.defineId(ModFallingBlock.class, EntityDataSerializers.FLOAT);
     public double prevMotionX, prevMotionY, prevMotionZ;
@@ -73,7 +76,6 @@ public class ModFallingBlock extends Entity {
     protected void defineSynchedData() {
         this.entityData.define(BLOCK_STATE, Optional.of(Blocks.DIRT.defaultBlockState()));
         this.entityData.define(DURATION, 70);
-        this.entityData.define(TICKS_EXISTED, 0);
         this.entityData.define(MODE, FallingBlockMode.MOBILE.toString());
         this.entityData.define(POP_UP_LEVEL, 1.0F);
     }
@@ -108,7 +110,7 @@ public class ModFallingBlock extends Entity {
         if (this.getDeltaMovement().x() > 0.0D || this.getDeltaMovement().z() > 0.0D) {
             this.setYRot((float) ((180.0F / Math.PI) * Math.atan2(getDeltaMovement().x(), getDeltaMovement().z())));
         }
-        this.setXRot(getXRot() + random.nextFloat() * 360.0F);
+        this.setXRot(getXRot() + this.random.nextFloat() * 360.0F);
         super.onAddedToWorld();
     }
 
@@ -129,10 +131,16 @@ public class ModFallingBlock extends Entity {
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.98D));
 
-            if (this.onGround() && this.getTicksExisted() > this.getDuration()) {
+            if (this.onGround() && this.tickCount > this.getDuration()) {
+                if (this.level instanceof ServerLevel serverLevel) {
+                    ServerParticleUtil.addParticlesAroundMiddleSelf(serverLevel, new BlockParticleOption(ParticleTypes.BLOCK, this.getBlock()), this);
+                }
                 this.discard();
             }
-            if (this.getTicksExisted() > 300) {
+            if (this.tickCount > 300) {
+                if (this.level instanceof ServerLevel serverLevel) {
+                    ServerParticleUtil.addParticlesAroundMiddleSelf(serverLevel, new BlockParticleOption(ParticleTypes.BLOCK, this.getBlock()), this);
+                }
                 this.discard();
             }
         }
@@ -145,7 +153,10 @@ public class ModFallingBlock extends Entity {
             }
             this.move(MoverType.SELF, this.getDeltaMovement());
 
-            if (this.getTicksExisted() > this.getDuration()) {
+            if (this.tickCount > this.getDuration()) {
+                if (this.level instanceof ServerLevel serverLevel) {
+                    ServerParticleUtil.addParticlesAroundMiddleSelf(serverLevel, new BlockParticleOption(ParticleTypes.BLOCK, this.getBlock()), this);
+                }
                 this.discard();
             }
         } else {
@@ -173,14 +184,6 @@ public class ModFallingBlock extends Entity {
 
     public void setDuration(int duration) {
         this.entityData.set(DURATION, duration);
-    }
-
-    public int getTicksExisted() {
-        return this.entityData.get(TICKS_EXISTED);
-    }
-
-    public void setTicksExisted(int ticksExisted) {
-        this.entityData.set(TICKS_EXISTED, ticksExisted);
     }
 
     public FallingBlockMode getMode() {

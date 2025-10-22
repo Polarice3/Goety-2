@@ -4,7 +4,7 @@
   "activation_item": {
     "item": "goety:sculk_converter"
   },
-  "craftType": "magic",
+  "craftType": "forge",
   "soulCost": 1,
   "duration": 10,
   "ingredients": [

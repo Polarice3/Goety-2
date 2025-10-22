@@ -7,7 +7,9 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
@@ -71,6 +73,30 @@ public class CameraShake extends Entity {
         compound.putInt("Duration", this.getDuration());
         compound.putInt("Fade", this.getFadeDuration());
         compound.putInt("TickAmount", this.tickCount);
+    }
+
+    @Override
+    public boolean isInvisible() {
+        return true;
+    }
+
+    @Override
+    public boolean isInvisibleTo(Player p_20178_) {
+        return true;
+    }
+
+    public boolean displayFireAnimation() {
+        return false;
+    }
+
+    @Override
+    public boolean isInvulnerable() {
+        return true;
+    }
+
+    @Override
+    public boolean isInvulnerableTo(DamageSource p_20122_) {
+        return !p_20122_.is(DamageTypeTags.BYPASSES_INVULNERABILITY);
     }
 
     public float getShakeAmount(Player player, float delta) {

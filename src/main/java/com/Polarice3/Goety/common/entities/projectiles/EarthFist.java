@@ -106,12 +106,12 @@ public class EarthFist extends SpellEntity {
 
     private void dealDamageTo(LivingEntity target) {
         LivingEntity livingentity = this.getOwner();
-        float baseDamage = SpellConfig.FangDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        float baseDamage = SpellConfig.EarthFistDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
         baseDamage += this.getExtraDamage();
         if (target.isAlive() && !target.isInvulnerable()) {
             boolean hurt;
             if (livingentity == null) {
-                hurt = target.hurt(this.damageSources().magic(), baseDamage);
+                hurt = target.hurt(this.damageSources().mobProjectile(this, null), baseDamage);
             } else {
                 if (target == livingentity){
                     return;
@@ -119,10 +119,12 @@ public class EarthFist extends SpellEntity {
                 if (MobUtil.areAllies(target, livingentity)){
                     return;
                 }
-                hurt = target.hurt(this.damageSources().indirectMagic(this, livingentity), baseDamage);
+                hurt = target.hurt(this.damageSources().mobProjectile(this, livingentity), baseDamage);
             }
             if (hurt) {
                 MobUtil.push(target, 0, 1, 0);
+            } else {
+                target.move(MoverType.SHULKER_BOX, new Vec3(0, this.getBbHeight(), 0));
             }
         }
     }

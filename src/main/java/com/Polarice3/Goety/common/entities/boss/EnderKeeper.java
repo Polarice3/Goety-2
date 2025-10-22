@@ -1299,10 +1299,13 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
                                 if (livingEntity.hurt(this.damageSources().indirectMagic(this, this), lifeSteal)) {
                                     if (this.level instanceof ServerLevel serverLevel) {
                                         ColorUtil colorUtil = new ColorUtil(ChatFormatting.DARK_PURPLE);
-                                        Vec3 vec3 = new Vec3(livingEntity.getRandomX(1.0F), livingEntity.getRandomY(), livingEntity.getRandomZ(1.0F));
+                                        Vec3 vec3 = new Vec3(livingEntity.getX(), livingEntity.getY() + (livingEntity.getBbHeight() / 2.0F), livingEntity.getZ());
                                         Vec3 vector3d1 = new Vec3(this.getRandomX(1.0F), this.getEyeY(), this.getRandomZ(1.0F));
                                         serverLevel.sendParticles(new GatherTrailParticle.Option(colorUtil, vector3d1), vec3.x, vec3.y, vec3.z, 0, 0.0F, 0.0F, 0.0F, 0.5F);
-                                        serverLevel.sendParticles(new AbsorbTrailParticleOption(vector3d1, 11141290, 10), vec3.x, vec3.y, vec3.z, 1, 0.0, 0.0, 0.0, 0.0);
+                                        for (int i = 0; i < 8; ++i){
+                                            vec3 = new Vec3(livingEntity.getRandomX(1.0F), livingEntity.getRandomY(), livingEntity.getRandomZ(1.0F));
+                                            serverLevel.sendParticles(new AbsorbTrailParticleOption(vector3d1, 11141290, 10), vec3.x, vec3.y, vec3.z, 1, 0.0, 0.0, 0.0, 0.0);
+                                        }
                                     }
                                     this.heal(lifeSteal);
                                     this.playSound(ModSounds.SOUL_EAT.get(), 2.0F, 1.0F);

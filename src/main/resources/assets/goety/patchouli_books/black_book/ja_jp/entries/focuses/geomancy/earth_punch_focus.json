@@ -1,0 +1,19 @@
+{
+  "name": "地球拳のフォーカス",
+  "icon": "goety:earth_punch_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ターゲットまたは位置の下の地面から拳を召喚し、味方以外の存在にダメージを与え、空中に打ち上げます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/earth_punch_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/geo_staff)地の杖$()で唱えると、近くの敵に複数の拳を召喚します。"
+    }
+  ]
+}

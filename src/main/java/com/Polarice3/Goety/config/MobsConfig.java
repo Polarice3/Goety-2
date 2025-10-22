@@ -268,6 +268,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> HellfireFireProtection;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneMonstrosityLeafBreak;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneCubeBlockFind;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PlayerRavagerArmorDrop;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> HostileCryptUndead;
 
@@ -563,6 +564,8 @@ public class MobsConfig {
                 .defineInRange("maxSlimeSize", 4, 1, 127);
         RavagerRoarCooldown = BUILDER.comment("How many seconds it takes before Ravager can manually roar again, Default: 10")
                 .defineInRange("ravagerRoarCooldown", 10, 0, Integer.MAX_VALUE);
+        PlayerRavagerArmorDrop = BUILDER.comment("Whether armored Ravagers owned by players will drop their armor, Default: true")
+                .define("playerRavagerArmorDrop", true);
         ServantGuardingRange = BUILDER.comment("How far servants can guard from their guarding location, Default: 16")
                 .defineInRange("servantGuardingRange", 16, 2, Integer.MAX_VALUE);
         ServantHealHalt = BUILDER.comment("How many seconds a servant can't heal through Soul Energy after being injured, Default: 5")

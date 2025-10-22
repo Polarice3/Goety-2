@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "sps",
+    "fef",
+    "sgs"
+  ],
+  "key":
+  {
+    "e":
+    {
+      "item": "goety:empty_focus"
+    },
+    "f":
+    {
+      "tag": "forge:stone"
+    },
+    "p":
+    {
+      "item": "minecraft:piston"
+    },
+    "g":
+    {
+      "tag": "forge:gunpowder"
+    },
+    "s":
+    {
+      "item": "goety:magic_emerald"
+    }
+  },
+  "result": {
+    "item": "goety:earth_punch_focus"
+  }
+}

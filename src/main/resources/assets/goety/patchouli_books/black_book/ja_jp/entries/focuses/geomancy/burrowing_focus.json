@@ -1,0 +1,23 @@
+{
+  "name": "採掘のフォーカス",
+  "icon": "goety:burrowing_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この呪文は魔法のエネルギービームを発射し、採掘により時間を要する硬い素材、岩や石そのものを採掘することができます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/burrowing_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "効力のエンチャントは採掘の速度を向上させ、より高いレベルでは、ダイヤモンド・ネザライトの道具を必要とするブロックを呪文で採掘できるようになります。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/geo_staff)地の杖$()で唱えると、ブロックがツルハシまたはシャベルで採掘可能である限り、3x3 の領域で採掘を実行します。"
+    }
+  ]
+}

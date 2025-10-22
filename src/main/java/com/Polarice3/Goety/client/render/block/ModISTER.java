@@ -1,6 +1,8 @@
 package com.Polarice3.Goety.client.render.block;
 
+import com.Polarice3.Goety.client.events.ClientEvents;
 import com.Polarice3.Goety.common.blocks.*;
+import com.Polarice3.Goety.common.blocks.entities.BlackCrystalBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.CryptChestBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.LoftyChestBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.ModChestBlockEntity;
@@ -10,6 +12,7 @@ import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -106,6 +109,11 @@ public class ModISTER extends BlockEntityWithoutLevelRenderer {
 
                 } else {
                     RedstoneMonstrosityHeadBlockEntityRenderer.renderItemSkull(pStack, null, 180.0F, pMatrixStack, pBuffer, pLight);
+                }
+            } else if (block instanceof BlackCrystalBlock) {
+                BlockEntityRenderer<?> renderer = Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(new BlackCrystalBlockEntity(BlockPos.ZERO, block.defaultBlockState()));
+                if (renderer instanceof BlackCrystalRenderer crystalBlockRenderer) {
+                    crystalBlockRenderer.render(null, ClientEvents.PARTIAL_TICK, pMatrixStack, pBuffer, pLight, pOverlay);
                 }
             } else if (block instanceof CryptChestBlock) {
                 Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(new CryptChestBlockEntity(BlockPos.ZERO, block.defaultBlockState().setValue(CryptChestBlock.LOCKED, false)), pMatrixStack, pBuffer, pLight, pOverlay);
