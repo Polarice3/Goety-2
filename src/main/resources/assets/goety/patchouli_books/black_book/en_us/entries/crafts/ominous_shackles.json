@@ -1,0 +1,16 @@
+{
+  "name": "Ominous Shackles",
+  "icon": "goety:ominous_shackles",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Villagers can hard to wrangle, with the common technique of putting them in a boat makes one look silly when riding on land. With these shackles, you won't be having trouble moving them that much."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous_shackles",
+      "text": "Using these on Villagers or Wandering Traders will turn them into $(l:mutations/prisoners)Prisoners$()."
+    }
+  ]
+}

@@ -757,7 +757,7 @@ public class AbstractBroodMother extends Summoned implements IAutoRideable, Play
                     i = 30;
                 }
 
-                livingEntity.addEffect(new MobEffectInstance(GoetyEffects.ACID_VENOM.get(), i * 20, 0), this);
+                livingEntity.addEffect(new MobEffectInstance(GoetyEffects.ACID_VENOM.get(), i * 20, 1), this);
             }
             this.playSound(ModSounds.SPIDER_BITE.get(), this.getSoundVolume(), this.getVoicePitch() + 0.25F);
             return true;

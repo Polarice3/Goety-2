@@ -164,7 +164,7 @@
       "item": "goety:waystone",
       "anchor": "raid",
       "title": "Raiding",
-      "text": "Right-clicking on an Illager captain with a Waystone, that stored a position located in a chunk-loaded Village, with a Goat Horn offhand, will cause them to perform a raid on the Village, attacking all non-baby Villagers. Much like with the taglock, the captain will cause nearby leaderless raiders to join them."
+      "text": "Right-clicking on an Illager captain with a Waystone, that stored a position located in a chunk-loaded Village, with a Goat, or Raiding, Horn offhand, will cause them to perform a raid on the Village, attacking all non-baby Villagers. Much like with the taglock, the captain will cause nearby leaderless raiders to join them."
     },
     {
       "type": "patchouli:text",
@@ -176,20 +176,29 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "minecraft:chain",
+      "item": "goety:ominous_shackles",
       "anchor": "capture",
       "title": "Capturing",
-      "text": "Right-clicking on a Raider with a Chain will cause them to enter Capturing Mode where, rather than killing Villagers, they will turn them into Prisoners that will follow their captor and can be commanded by you. Right-clicking on the Capturing raider with an Axe will stop them from being in Capturing Mode."
+      "text": "Right-clicking on a Raider with an Ominous Shackles will cause them to enter Capturing Mode where, rather than killing Villagers, they will turn them into $(l:goety:mutations/prisoners)Prisoners$() that will follow their captor and can be commanded by you. Right-clicking on the Capturing raider with an Axe will stop them from being in Capturing Mode."
     },
     {
       "type": "patchouli:text",
-      "text": "Much like everything else, all raiders will enter Capturing Mode if their captain is in that mode. In Raids, if all surviving Villagers are Prisoners, the raid is considered a success. The Prisoner can be chained to you if you right-click on them, and can be chained to a captain by right-clicking on them with an empty hand. To free a Prisoner, right-click on them while crouching. Prisoners can also be freed if they have taken enough damage while away from their captor or owner. There's a chance that certain Villagers don't end up being captured and can potentially die like usual."
+      "text": "Much like everything else, all raiders will enter Capturing Mode if their captain is in that mode. In Raids, if all surviving Villagers are Prisoners, the raid is considered a success. The Prisoner can be chained to you if you right-click on them, and can be chained to a captain by right-clicking on them with an empty hand. There's a chance that certain Villagers don't end up being captured and can potentially die like usual."
     },
     {
       "type": "patchouli:spotlight",
       "item": "minecraft:chest",
       "title": "Chest Interaction",
       "text": "Right clicking on an Illager with a Waystone that leads to an unlocked Chest will cause them to register the chest as a valid container to take food from it, or store excess food and loot, when they are nearby. If the Illager is a leader, their followers will register the same chest as well."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:raiding_chest",
+      "text": "An Illager can also register another chest aside from regular ones. When registered to this, Illagers will try to deposit any loot they have in this above their other chest and will not take items from it."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Illagers can be given armor (if config is set to true) and can be given a Totem of Undying so long as their offhand is empty."
     }
   ]
 }

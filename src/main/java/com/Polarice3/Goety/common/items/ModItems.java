@@ -42,6 +42,7 @@ import com.Polarice3.Goety.common.magic.spells.wind.*;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -62,6 +63,7 @@ public class ModItems {
     //Basic
     public static final RegistryObject<Item> SPENT_TOTEM = ITEMS.register("spent_totem", ItemBase::new);
     public static final RegistryObject<Item> CURSED_METAL_INGOT = ITEMS.register("cursed_ingot", ItemBase::new);
+    public static final RegistryObject<Item> PALE_STEEL_INGOT = ITEMS.register("pale_steel_ingot", ItemBase::new);
     public static final RegistryObject<Item> DARK_ALLOY_INGOT = ITEMS.register("dark_ingot", ItemBase::new);
     public static final RegistryObject<Item> ECTOPLASM = ITEMS.register("ectoplasm", ItemBase::new);
     public static final RegistryObject<Item> SHADOW_ESSENCE = ITEMS.register("shadow_essence", ItemBase::new);
@@ -128,9 +130,12 @@ public class ModItems {
     public static final RegistryObject<Item> POISON_QUILL_SEED = ITEMS.register("poison_quill_seed", () -> new QuickGrowSeedItem(true));
     public static final RegistryObject<Item> REFUSE_BOTTLE = ITEMS.register("refuse_bottle", RefuseBottleItem::new);
     public static final RegistryObject<Item> ILL_BOMB = ITEMS.register("ill_bomb", IllBombItem::new);
+    public static final RegistryObject<Item> OMINOUS_SHACKLES = ITEMS.register("ominous_shackles", OminousShacklesItem::new);
     public static final RegistryObject<Item> CRYPTIC_EYE = ITEMS.register("cryptic_eye", CrypticEyeItem::new);
     public static final RegistryObject<Item> VOIDED_EYE = ITEMS.register("void_eye", VoidEyeItem::new);
     public static final RegistryObject<Item> COMMAND_HORN = ITEMS.register("command_horn", CommandHorn::new);
+    public static final RegistryObject<Item> RAIDING_HORN = ITEMS.register("raiding_horn", RaidingHorn::new);
+    public static final RegistryObject<Item> ESOTERIC_TESSERACT = ITEMS.register("esoteric_tesseract", EsotericTesseract::new);
     public static final RegistryObject<Item> EMPTY_SOUL_JAR = ITEMS.register("empty_soul_jar", ItemBase::new);
     public static final RegistryObject<Item> SOUL_JAR = ITEMS.register("soul_jar", SoulJar::new);
     public static final RegistryObject<Item> HOWLING_SOUL = ITEMS.register("howling_soul", HowlingSoul::new);
@@ -182,6 +187,10 @@ public class ModItems {
 
     public static final RegistryObject<Item> HAUNTED_ARMOR_STAND = ITEMS.register("haunted_armor_stand", HauntedArmorStandItem::new);
     public static final RegistryObject<Item> HAUNTED_PAINTING = ITEMS.register("haunted_painting", HauntedPaintingItem::new);
+
+    public static final RegistryObject<Item> CROSS_BANNER_PATTERN = ITEMS.register("cross_banner_pattern", () -> new BannerPatternItem(ModTags.BannerPatterns.PATTERN_ITEM_CROSS, (new Item.Properties()).stacksTo(1)));
+    public static final RegistryObject<Item> GALE_BANNER_PATTERN = ITEMS.register("gale_banner_pattern", () -> new BannerPatternItem(ModTags.BannerPatterns.PATTERN_ITEM_GALE, (new Item.Properties()).stacksTo(1)));
+    public static final RegistryObject<Item> MOON_BANNER_PATTERN = ITEMS.register("moon_banner_pattern", () -> new BannerPatternItem(ModTags.BannerPatterns.PATTERN_ITEM_MOON, (new Item.Properties()).stacksTo(1)));
 
     //Curios
     public static final RegistryObject<Item> FOCUS_BAG = ITEMS.register("focus_bag", FocusBag::new);
@@ -336,6 +345,7 @@ public class ModItems {
     public static final RegistryObject<Item> DISCHARGE_FOCUS = ITEMS.register("discharge_focus", () -> new MagicFocus(new DischargeSpell()));
     public static final RegistryObject<Item> BOLTING_FOCUS = ITEMS.register("bolting_focus", () -> new MagicFocus(new BoltingSpell()));
     public static final RegistryObject<Item> LIGHTNING_FOCUS = ITEMS.register("lightning_focus", () -> new MagicFocus(new LightningSpell()));
+    public static final RegistryObject<Item> THUNDERSTORM_FOCUS = ITEMS.register("thunderstorm_focus", () -> new MagicFocus(new ThunderstormSpell()));
 
     //Abyss
     public static final RegistryObject<Item> BUBBLE_STREAM_FOCUS = ITEMS.register("bubble_stream_focus", () -> new MagicFocus(new BubbleStreamSpell()));

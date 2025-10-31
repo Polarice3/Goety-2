@@ -3,6 +3,8 @@ package com.Polarice3.Goety.common.magic.spells.wind;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.projectiles.RazorWind;
+import com.Polarice3.Goety.common.entities.projectiles.SlashProjectile;
+import com.Polarice3.Goety.common.entities.projectiles.VoidSlash;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -67,7 +69,10 @@ public class RazorWindSpell extends Spell {
             damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
         }
         damage += spellStat.getPotency();
-        RazorWind razorWind = new RazorWind(worldIn, caster);
+        SlashProjectile razorWind = new RazorWind(worldIn, caster);
+        if (this.typeStaff(staff, SpellType.VOID)) {
+            razorWind = new VoidSlash(worldIn, caster);
+        }
         razorWind.setPos(caster.getEyePosition());
         razorWind.slash(caster.getLookAngle(), 2.0F);
         razorWind.setRadius(0.3F + radius);

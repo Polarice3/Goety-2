@@ -1,0 +1,15 @@
+{
+  "name": "Raiding Horn",
+  "icon": "goety:raiding_horn",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The horn allows you to cause your $(l:mutations/illager_servants#raid)Raiders$() to start raiding the village you're in when used."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:raiding_horn"
+    }
+  ]
+}

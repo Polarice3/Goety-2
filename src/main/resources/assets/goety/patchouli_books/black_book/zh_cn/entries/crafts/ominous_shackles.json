@@ -1,0 +1,16 @@
+{
+  "name": "不祥镣铐",
+  "icon": "goety:ominous_shackles",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "村民们很难吵起来，而把他们放在船上运输这种常见方法，如果是在陆地上做会显得人很傻。但有了这些镣铐，你移动它们就不会那么困难了。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous_shackles",
+      "text": "对村民或流浪商人使用镣铐会将其转化为$(l:mutations/prisoners)囚犯$()."
+    }
+  ]
+}

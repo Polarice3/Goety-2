@@ -1,0 +1,36 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:lightning_focus"
+  },
+  "craftType": "storm",
+  "soulCost": 5,
+  "duration": 10,
+  "ingredients": [
+    {
+      "tag": "forge:storage_blocks/redstone"
+    },
+    {
+      "tag": "forge:tools/tridents"
+    },
+    {
+      "tag": "forge:storage_blocks/copper"
+    },
+    {
+      "tag": "forge:storage_blocks/lapis"
+    },
+    {
+      "tag": "forge:storage_blocks/copper"
+    },
+    {
+      "item": "goety:lightning_focus"
+    },
+    {
+      "tag": "forge:storage_blocks/redstone"
+    }
+  ],
+  "result": {
+    "item": "goety:thunderstorm_focus"
+  }
+}

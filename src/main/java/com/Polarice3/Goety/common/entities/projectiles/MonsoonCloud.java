@@ -81,7 +81,7 @@ public class MonsoonCloud extends AbstractSpellCloud{
                                 chance += 0.25F;
                                 chainDamage = damage;
                             }
-                            if (serverLevel.random.nextFloat() <= chance){
+                            if (serverLevel.getRandom().nextFloat() <= chance){
                                 livingEntity.addEffect(new MobEffectInstance(GoetyEffects.SPASMS.get(), MathHelper.secondsToTicks(5)));
                             }
                             if (this.staff){

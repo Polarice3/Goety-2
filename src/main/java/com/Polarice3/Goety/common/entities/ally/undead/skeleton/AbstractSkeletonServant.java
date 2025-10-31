@@ -13,10 +13,7 @@ import com.Polarice3.Goety.compat.serene_seasons.SSeasonsLoaded;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModTags;
-import com.Polarice3.Goety.utils.BlockFinder;
-import com.Polarice3.Goety.utils.ItemHelper;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.SEHelper;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -293,8 +290,8 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
         return this.isFullyFrozen();
     }
 
-    public InteractionResult mobInteract(Player pPlayer, InteractionHand p_230254_2_) {
-        ItemStack itemstack = pPlayer.getItemInHand(p_230254_2_);
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
         Item item = itemstack.getItem();
         ItemStack itemstack2 = this.getMainHandItem();
         if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
@@ -366,44 +363,8 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
                     }
                 }
             }
-            if (item instanceof ArmorItem armor) {
-                ItemStack helmet = this.getItemBySlot(EquipmentSlot.HEAD);
-                ItemStack chestplate = this.getItemBySlot(EquipmentSlot.CHEST);
-                ItemStack legging = this.getItemBySlot(EquipmentSlot.LEGS);
-                ItemStack boots = this.getItemBySlot(EquipmentSlot.FEET);
-                this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
-                if (armor.getType() == ArmorItem.Type.HELMET) {
-                    this.setItemSlot(EquipmentSlot.HEAD, itemstack.copyWithCount(1));
-                    this.dropEquipment(EquipmentSlot.HEAD, helmet);
-                    this.setGuaranteedDrop(EquipmentSlot.HEAD);
-                }
-                if (armor.getType() == ArmorItem.Type.CHESTPLATE) {
-                    this.setItemSlot(EquipmentSlot.CHEST, itemstack.copyWithCount(1));
-                    this.dropEquipment(EquipmentSlot.CHEST, chestplate);
-                    this.setGuaranteedDrop(EquipmentSlot.CHEST);
-                }
-                if (armor.getType() == ArmorItem.Type.LEGGINGS) {
-                    this.setItemSlot(EquipmentSlot.LEGS, itemstack.copyWithCount(1));
-                    this.dropEquipment(EquipmentSlot.LEGS, legging);
-                    this.setGuaranteedDrop(EquipmentSlot.LEGS);
-                }
-                if (armor.getType() == ArmorItem.Type.BOOTS) {
-                    this.setItemSlot(EquipmentSlot.FEET, itemstack.copyWithCount(1));
-                    this.dropEquipment(EquipmentSlot.FEET, boots);
-                    this.setGuaranteedDrop(EquipmentSlot.FEET);
-                }
-                for (int i = 0; i < 7; ++i) {
-                    double d0 = this.random.nextGaussian() * 0.02D;
-                    double d1 = this.random.nextGaussian() * 0.02D;
-                    double d2 = this.random.nextGaussian() * 0.02D;
-                    this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
-                }
-                if (!pPlayer.getAbilities().instabuild) {
-                    itemstack.shrink(1);
-                }
-                return InteractionResult.SUCCESS;
-            }
+            return ServantUtil.equipServantArmor(pPlayer, this, itemstack, super.mobInteract(pPlayer, pHand));
         }
-        return super.mobInteract(pPlayer, p_230254_2_);
+        return super.mobInteract(pPlayer, pHand);
     }
 }

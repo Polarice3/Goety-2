@@ -1,0 +1,22 @@
+{
+  "name": "Thunderstorm Focus",
+  "icon": "goety:thunderstorm_focus",
+  "category": "goety:focuses/storm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The focus allows you to cover the landscape with lightning bolts from the heavens."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/thunderstorm_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/storm_staff)Storm Staff$() summon more lightning."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:thunderstorm_focus": 1
+  }
+}

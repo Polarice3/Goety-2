@@ -6,43 +6,13 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.Optional;
 
-public class IllagerPutLootChestGoal extends IllagerChestGoal {
+public class IllagerPutLootChestGoal<T extends AbstractIllagerServant> extends IllagerStoreChestGoal<T> {
 
-    public IllagerPutLootChestGoal(AbstractIllagerServant illager, int range) {
-        super(illager, range);
-        this.predicate = itemStack -> !illager.validFood(itemStack)
-                && !itemStack.isEmpty();
-        this.chestPredicate = itemStack -> true;
-    }
-
-    public IllagerPutLootChestGoal(AbstractIllagerServant illager) {
+    public IllagerPutLootChestGoal(T illager) {
         super(illager);
         this.predicate = itemStack -> !illager.validFood(itemStack)
                 && !itemStack.isEmpty();
         this.chestPredicate = itemStack -> true;
-    }
-
-    @Override
-    public boolean canUse() {
-        if (this.illager.getChestPos() == null) {
-            return false;
-        }
-        if (this.illager.getChestLevel() != this.illager.level.dimension()) {
-            return false;
-        }
-        if (this.illager.getBoundPos() != null){
-            if (this.illager.getChestPos() != null){
-                if (!this.illager.isWithinGuard(this.illager.getChestPos())){
-                    return false;
-                }
-            }
-        }
-        if (this.getChest(this.illager.level, this.illager.getChestPos()) == null) {
-            return false;
-        } else if (this.isFull(this.getItem(), this.illager.level, this.illager.getChestPos())) {
-            return false;
-        }
-        return super.canUse();
     }
 
     @Override

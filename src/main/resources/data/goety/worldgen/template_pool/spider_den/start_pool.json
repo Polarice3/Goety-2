@@ -9,9 +9,9 @@
       "weight": 1,
       "element": {
 
-        "location": "goety:spider_den/spider_den",
+        "location": "goety:spider_den/entrance",
 
-        "processors": "goety:spider_den_degrade",
+        "processors": "goety:no_waterlogging",
 
         "projection": "rigid",
 

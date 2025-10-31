@@ -9,22 +9,16 @@
   "duration": 10,
   "ingredients": [
     {
+      "tag": "forge:tools/tridents"
+    },
+    {
       "tag": "forge:storage_blocks/lapis"
     },
     {
-      "tag": "forge:tools/tridents"
-    },
-    {
       "tag": "forge:storage_blocks/copper"
     },
     {
-      "tag": "forge:tools/tridents"
-    },
-    {
       "tag": "forge:storage_blocks/copper"
-    },
-    {
-      "tag": "forge:tools/tridents"
     },
     {
       "tag": "forge:storage_blocks/lapis"

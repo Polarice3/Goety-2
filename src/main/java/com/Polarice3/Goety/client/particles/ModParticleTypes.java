@@ -237,6 +237,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> MAGIC_BOLT = PARTICLE_TYPES.register("magic_bolt",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> RISING_SPIRAL = PARTICLE_TYPES.register("rising_spiral",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> RISING_ENCHANT = PARTICLE_TYPES.register("rising_enchant",
             () -> new SimpleParticleType(false));
 

@@ -1,0 +1,22 @@
+{
+  "name": "goety:spider_den/first_burrow",
+
+  "fallback": "minecraft:empty",
+
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:spider_den/first_burrow",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

@@ -6,15 +6,9 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.Optional;
 
-public class IllagerPutFoodChestGoal extends IllagerChestGoal {
+public class IllagerPutFoodChestGoal<T extends AbstractIllagerServant> extends IllagerChestGoal<T> {
 
-    public IllagerPutFoodChestGoal(AbstractIllagerServant illager, int range) {
-        super(illager, range);
-        this.predicate = illager::canEat;
-        this.chestPredicate = itemStack -> true;
-    }
-
-    public IllagerPutFoodChestGoal(AbstractIllagerServant illager) {
+    public IllagerPutFoodChestGoal(T illager) {
         super(illager);
         this.predicate = illager::canEat;
         this.chestPredicate = itemStack -> true;

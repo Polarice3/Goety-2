@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.ally.illager;
 
 import com.Polarice3.Goety.api.entities.ITrainable;
+import com.Polarice3.Goety.api.entities.ally.illager.ILooter;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.entities.OminousPyreBlockEntity;
 import com.Polarice3.Goety.common.effects.brew.BrewEffectInstance;
@@ -12,22 +13,19 @@ import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.WaystoneItem;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -71,7 +69,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
-public abstract class AbstractIllagerServant extends RaiderServant implements ITrainable, InventoryCarrier {
+public abstract class AbstractIllagerServant extends RaiderServant implements ITrainable, ILooter {
     protected static final EntityDataAccessor<String> CURRENT_TRAIN = SynchedEntityData.defineId(AbstractIllagerServant.class, EntityDataSerializers.STRING);
     protected static final EntityDataAccessor<Optional<BlockPos>> TRAIN_POS = SynchedEntityData.defineId(AbstractIllagerServant.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
     protected static final EntityDataAccessor<Optional<BlockPos>> STORED_TRAIN_POS = SynchedEntityData.defineId(AbstractIllagerServant.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
@@ -86,6 +84,9 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
     @Nullable
     public BlockPos chestPos;
     public String chestDim = Level.OVERWORLD.location().toString();
+    @Nullable
+    public BlockPos dumpChestPos;
+    public String dumpChestDim = Level.OVERWORLD.location().toString();
     private final SimpleContainer inventory = new SimpleContainer(8);
 
     public AbstractIllagerServant(EntityType<? extends Owned> type, Level worldIn) {
@@ -121,9 +122,9 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
     }
 
     public void chestGoal() {
-        this.goalSelector.addGoal(2, new IllagerPutFoodChestGoal(this));
-        this.goalSelector.addGoal(4, new IllagerPutLootChestGoal(this));
-        this.goalSelector.addGoal(7, new IllagerLootFoodChestGoal(this));
+        this.goalSelector.addGoal(2, new IllagerPutFoodChestGoal<>(this));
+        this.goalSelector.addGoal(4, new IllagerPutLootChestGoal<>(this));
+        this.goalSelector.addGoal(7, new IllagerLootFoodChestGoal<>(this));
     }
 
     protected void defineSynchedData() {
@@ -138,10 +139,7 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
         compound.putInt("BreedCool", this.breedCool);
         compound.putInt("EatCool", this.eatCool);
         compound.putInt("EatenFoodLevel", this.eatenFoodLevel);
-        if (this.getChestPos() != null) {
-            compound.put("ChestPos", NbtUtils.writeBlockPos(this.getChestPos()));
-            compound.putString("ChestDim", this.getChestDim());
-        }
+        this.saveLooterData(compound);
         this.saveTrainableData(compound);
         this.writeInventoryToTag(compound);
     }
@@ -157,12 +155,7 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
         if (compound.contains("EatenFoodLevel")) {
             this.eatenFoodLevel = compound.getInt("EatenFoodLevel");
         }
-        if (compound.contains("ChestPos")){
-            this.setChestPos(NbtUtils.readBlockPos(compound.getCompound("ChestPos")));
-            if (compound.contains("ChestDim")){
-                this.setChestDim(compound.getString("ChestDim"));
-            }
-        }
+        this.readLooterData(compound);
         this.readTrainableData(compound);
         this.readInventoryFromTag(compound);
     }
@@ -311,6 +304,12 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
     public void tick() {
         super.tick();
         if (this.getLeader() instanceof AbstractIllagerServant servant) {
+            if (!BlockFinder.samePos(this.getDumpChestPos(), servant.getDumpChestPos())) {
+                this.setDumpChestPos(servant.getDumpChestPos());
+                if (servant.getDumpChestLevel() != null) {
+                    this.setDumpChestDim(servant.getDumpChestLevel());
+                }
+            }
             if (!BlockFinder.samePos(this.getChestPos(), servant.getChestPos())) {
                 this.setChestPos(servant.getChestPos());
                 if (servant.getChestLevel() != null) {
@@ -411,6 +410,17 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
         return list;
     }
 
+    public boolean inventoryFull() {
+        int i = 0;
+        for (int j = 0; j < this.getInventory().getContainerSize(); ++j) {
+            ItemStack itemStack = this.getInventory().getItem(j);
+            if (itemStack.isEmpty()) {
+                ++i;
+            }
+        }
+        return i == 0;
+    }
+
     public int getBreedCool(){
         return this.breedCool;
     }
@@ -445,11 +455,6 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
         this.chestPos = chestPos;
     }
 
-    public ResourceKey<Level> getChestLevel() {
-        ResourceLocation resourcelocation = new ResourceLocation(this.getChestDim());
-        return ResourceKey.create(Registries.DIMENSION, resourcelocation);
-    }
-
     public String getChestDim() {
         return this.chestDim;
     }
@@ -458,8 +463,21 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
         this.chestDim = string;
     }
 
-    public void setChestDim(ResourceKey<Level> resourceKey) {
-        this.setChestDim(resourceKey.location().toString());
+    @Nullable
+    public BlockPos getDumpChestPos() {
+        return this.dumpChestPos;
+    }
+
+    public void setDumpChestPos(@Nullable BlockPos chestPos) {
+        this.dumpChestPos = chestPos;
+    }
+
+    public String getDumpChestDim() {
+        return this.dumpChestDim;
+    }
+
+    public void setDumpChestDim(String string) {
+        this.dumpChestDim = string;
     }
 
     private boolean hungry() {
@@ -760,42 +778,8 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
                     }
                     return InteractionResult.SUCCESS;
                 }
-            } else if (item instanceof ArmorItem armor) {
-                ItemStack helmet = this.getItemBySlot(EquipmentSlot.HEAD);
-                ItemStack chestplate = this.getItemBySlot(EquipmentSlot.CHEST);
-                ItemStack legging = this.getItemBySlot(EquipmentSlot.LEGS);
-                ItemStack boots = this.getItemBySlot(EquipmentSlot.FEET);
-                this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
-                if (armor.getType() == ArmorItem.Type.HELMET) {
-                    this.setItemSlot(EquipmentSlot.HEAD, itemstack.copyWithCount(1));
-                    this.dropEquipment(EquipmentSlot.HEAD, helmet);
-                    this.setGuaranteedDrop(EquipmentSlot.HEAD);
-                }
-                if (armor.getType() == ArmorItem.Type.CHESTPLATE) {
-                    this.setItemSlot(EquipmentSlot.CHEST, itemstack.copyWithCount(1));
-                    this.dropEquipment(EquipmentSlot.CHEST, chestplate);
-                    this.setGuaranteedDrop(EquipmentSlot.CHEST);
-                }
-                if (armor.getType() == ArmorItem.Type.LEGGINGS) {
-                    this.setItemSlot(EquipmentSlot.LEGS, itemstack.copyWithCount(1));
-                    this.dropEquipment(EquipmentSlot.LEGS, legging);
-                    this.setGuaranteedDrop(EquipmentSlot.LEGS);
-                }
-                if (armor.getType() == ArmorItem.Type.BOOTS) {
-                    this.setItemSlot(EquipmentSlot.FEET, itemstack.copyWithCount(1));
-                    this.dropEquipment(EquipmentSlot.FEET, boots);
-                    this.setGuaranteedDrop(EquipmentSlot.FEET);
-                }
-                for (int i = 0; i < 7; ++i) {
-                    double d0 = this.random.nextGaussian() * 0.02D;
-                    double d1 = this.random.nextGaussian() * 0.02D;
-                    double d2 = this.random.nextGaussian() * 0.02D;
-                    this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
-                }
-                if (!pPlayer.getAbilities().instabuild) {
-                    itemstack.shrink(1);
-                }
-                return InteractionResult.SUCCESS;
+            } else if (item instanceof ArmorItem) {
+                return ServantUtil.equipServantArmor(pPlayer, this, itemstack, super.mobInteract(pPlayer, pHand));
             } else if (pPlayer.getMainHandItem().is(ModItems.WAYSTONE.get())) {
                 if (WaystoneItem.isSameDimension(this, pPlayer.getMainHandItem())) {
                     if (WaystoneItem.getBlockEntity(pPlayer.getMainHandItem(), this.level) instanceof ChestBlockEntity chestBlock && chestBlock.canOpen(pPlayer)) {
@@ -811,13 +795,23 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
                                         serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
                                     }
                                 }
-                                this.setChestPos(blockPos);
-                                this.setChestDim(this.level.dimension());
+                                if (chestBlock.getBlockState().is(ModTags.Blocks.RAIDING_CHESTS)) {
+                                    this.setDumpChestPos(blockPos);
+                                    this.setDumpChestDim(this.level.dimension());
+                                } else {
+                                    this.setChestPos(blockPos);
+                                    this.setChestDim(this.level.dimension());
+                                }
                                 if (this.isLeader()) {
                                     for (RaiderServant servant : this.getNearbyCompanions()) {
                                         if (servant instanceof AbstractIllagerServant servant1) {
-                                            servant1.setChestPos(blockPos);
-                                            servant1.setChestDim(this.level.dimension());
+                                            if (chestBlock.getBlockState().is(ModTags.Blocks.RAIDING_CHESTS)) {
+                                                servant1.setDumpChestPos(blockPos);
+                                                servant1.setDumpChestDim(this.level.dimension());
+                                            } else {
+                                                servant1.setChestPos(blockPos);
+                                                servant1.setChestDim(this.level.dimension());
+                                            }
                                         }
                                     }
                                 }
@@ -827,6 +821,30 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
                         }
                     }
                 }
+            } else if (itemstack.is(Items.TOTEM_OF_UNDYING) && this.getOffhandItem().isEmpty()) {
+                this.setItemSlot(EquipmentSlot.OFFHAND, itemstack.copyWithCount(1));
+                if (!pPlayer.getAbilities().instabuild) {
+                    itemstack.shrink(1);
+                }
+                if (this.getCelebrateSound() != null) {
+                    this.playSound(this.getCelebrateSound(), 1.0F, 1.0F);
+                }
+                this.playSound(SoundEvents.ITEM_PICKUP, 1.0F, 1.0F);
+                if (this.level instanceof ServerLevel serverLevel) {
+                    for (int i = 0; i < 7; ++i) {
+                        double d0 = this.random.nextGaussian() * 0.02D;
+                        double d1 = this.random.nextGaussian() * 0.02D;
+                        double d2 = this.random.nextGaussian() * 0.02D;
+                        serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+                    }
+                }
+                return InteractionResult.SUCCESS;
+            } else if (itemstack.is(Items.STICK) && this.getOffhandItem().is(Items.TOTEM_OF_UNDYING)) {
+                ItemStack totem = this.getOffhandItem();
+                this.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
+                this.dropEquipment(EquipmentSlot.OFFHAND, totem);
+                this.playSound(SoundEvents.BUNDLE_DROP_CONTENTS, 1.0F, 1.0F);
+                return InteractionResult.SUCCESS;
             }
         }
         return super.mobInteract(pPlayer, pHand);

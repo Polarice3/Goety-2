@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "__comment": "ownable entities that takes up 4 spaces in Esoteric Tesseracts",
+  "values": [
+    "goety:drowned_necromancer_servant",
+    "goety:wither_necromancer_servant",
+    "goety:redstone_golem",
+    "goety:grave_golem"
+  ]
+}

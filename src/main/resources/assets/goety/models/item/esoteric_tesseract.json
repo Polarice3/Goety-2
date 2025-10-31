@@ -1,0 +1,17 @@
+{
+	"parent": "goety:item/esoteric_tesseract_active",
+	"overrides": [
+		{
+			"predicate": {
+				"active": 0.00000
+			},
+			"model": "goety:item/esoteric_tesseract_inactive"
+		},
+		{
+			"predicate": {
+				"active": 1.00000
+			},
+			"model": "goety:item/esoteric_tesseract_active"
+		}
+	]
+}

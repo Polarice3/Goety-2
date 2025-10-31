@@ -44,10 +44,7 @@ import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.BiConsumer;
 
 public class Heretic extends Cultist {
@@ -55,7 +52,7 @@ public class Heretic extends Cultist {
     private static final EntityDataAccessor<Boolean> CASTING = SynchedEntityData.defineId(Heretic.class, EntityDataSerializers.BOOLEAN);
     private final DynamicGameEventListener<GameEventListener> gameEventListener;
     private ObsidianMonolith monolith;
-    public List<Vec3> revivePos = new ArrayList<>();
+    public List<Vec3> convokePos = new ArrayList<>();
     public int chantCoolDown;
     public int chantTimes;
     public int castCoolDown;
@@ -83,7 +80,7 @@ public class Heretic extends Cultist {
                     if (p_282184_ == GameEvent.ENTITY_DIE) {
                         Entity sourceEntity = p_283014_.sourceEntity();
                         if (sourceEntity instanceof Mob mob && !(mob instanceof IOwned) && !(mob instanceof Heretic)) {
-                            Heretic.this.getRevivePos().add(mob.position());
+                            Heretic.this.getConvokePos().add(mob.position());
                             return true;
                         }
                     }
@@ -129,16 +126,16 @@ public class Heretic extends Cultist {
         pCompound.putInt("ChantCoolDown", this.getChantCoolDown());
         pCompound.putInt("ChantTimes", this.getChantTimes());
         pCompound.putInt("CastCoolDown", this.getCastCoolDown());
-        if (!this.getRevivePos().isEmpty()) {
+        if (!this.getConvokePos().isEmpty()) {
             ListTag listTag = new ListTag();
-            for (Vec3 vec3 : this.getRevivePos()) {
+            for (Vec3 vec3 : this.getConvokePos()) {
                 CompoundTag tag = new CompoundTag();
                 tag.putDouble("PosX", vec3.x);
                 tag.putDouble("PosY", vec3.y);
                 tag.putDouble("PosZ", vec3.z);
                 listTag.add(tag);
             }
-            pCompound.put("RevivePos", listTag);
+            pCompound.put("ConvokePos", listTag);
         }
     }
 
@@ -153,12 +150,12 @@ public class Heretic extends Cultist {
         if (pCompound.contains("CastCoolDown")) {
             this.setCastCoolDown(pCompound.getInt("CastCoolDown"));
         }
-        if (pCompound.contains("RevivePos")) {
-            ListTag listTag = pCompound.getList("RevivePos", 10);
+        if (pCompound.contains("ConvokePos")) {
+            ListTag listTag = pCompound.getList("ConvokePos", 10);
             for (int i = 0; i < listTag.size(); ++i) {
                 CompoundTag tag = listTag.getCompound(i);
                 Vec3 vec3 = new Vec3(tag.getDouble("PosX"), tag.getDouble("PosY"), tag.getDouble("PosZ"));
-                this.getRevivePos().add(vec3);
+                this.getConvokePos().add(vec3);
             }
         }
     }
@@ -219,8 +216,8 @@ public class Heretic extends Cultist {
         this.castCoolDown = castCoolDown;
     }
 
-    public List<Vec3> getRevivePos() {
-        return this.revivePos;
+    public List<Vec3> getConvokePos() {
+        return this.convokePos;
     }
 
     public void setMonolith(@Nullable ObsidianMonolith monolith) {
@@ -451,7 +448,7 @@ public class Heretic extends Cultist {
         @Override
         public boolean canUse() {
             LivingEntity target = this.heretic.getTarget();
-            return target != null && target.isAlive() && !this.heretic.getRevivePos().isEmpty() && this.heretic.getCastCoolDown() <= 0;
+            return target != null && target.isAlive() && !this.heretic.getConvokePos().isEmpty() && this.heretic.getCastCoolDown() <= 0;
         }
 
         @Override
@@ -481,8 +478,8 @@ public class Heretic extends Cultist {
 
         public void findTargetPos(){
             double hitDist = 0.0D;
-            if (!this.heretic.getRevivePos().isEmpty()) {
-                for (Vec3 vec31 : this.heretic.getRevivePos()) {
+            if (!this.heretic.getConvokePos().isEmpty()) {
+                for (Vec3 vec31 : this.heretic.getConvokePos()) {
                     if (this.heretic.getNavigation().isStableDestination(BlockPos.containing(vec31))) {
                         Optional<Vec3> interceptPos = this.heretic.getBoundingBox().clip(vec31, vec31.add(1.0D, 1.0D, 1.0D));
                         if (this.heretic.getBoundingBox().inflate(this.heretic.getAttributeValue(Attributes.FOLLOW_RANGE)).contains(vec31)) {
@@ -499,6 +496,21 @@ public class Heretic extends Cultist {
                             }
                         }
                     }
+                }
+                try {
+                    if (this.targetPos != null) {
+                        try {
+                            for (Heretic heretic1 : this.heretic.level.getEntitiesOfClass(Heretic.class, this.heretic.getBoundingBox().inflate(this.heretic.getAttributeValue(Attributes.FOLLOW_RANGE)))){
+                                if (heretic1 != this.heretic) {
+                                    if (!heretic1.getConvokePos().isEmpty()) {
+                                        heretic1.getConvokePos().remove(this.targetPos);
+                                    }
+                                }
+                            }
+                        } catch (ConcurrentModificationException ignored) {
+                        }
+                    }
+                } catch (NullPointerException ignored) {
                 }
             } else {
                 this.targetPos = null;
@@ -544,7 +556,7 @@ public class Heretic extends Cultist {
                         summon.setLimitedLife(MathHelper.minecraftDayToTicks(5));
                         if (this.heretic.level.addFreshEntity(summon)){
                             summon.playSound(ModSounds.SUMMON_SPELL_FIERY.get(), 1.0F, 1.0F);
-                            this.heretic.getRevivePos().remove(this.targetPos);
+                            this.heretic.getConvokePos().remove(this.targetPos);
                             this.heretic.setCastCoolDown(100);
                         }
                     }

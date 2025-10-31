@@ -1,0 +1,20 @@
+{
+  "name": "苍白金属锭",
+  "icon": "goety:pale_steel_ingot",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你对掠夺者肩甲和腰带上、劫掠兽的战甲上使用的金属感到困惑。那是白银吗？是铂金？还是颜色奇怪的铁？或是褪色的钻石？经过一番测试与“交涉”，你发现从某种角度而言，这些材质竟然全都包括"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "有银制的、有铂金的，有些只是染色铁等等，而它们在你眼里看来，有时就像是一类东西，你决定重新创造一种最寻常的灾厄金属，因为你可能找不到银和铂、或是觉得它们太昂贵，不适合用于黑魔法"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:pale_steel_ingot",
+      "recipe2": "goety:pale_steel_block"
+    }
+  ]
+}

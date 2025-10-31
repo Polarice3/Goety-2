@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
 import com.Polarice3.Goety.api.items.magic.ITotem;
-import com.Polarice3.Goety.common.blocks.DarkAltarBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.common.blocks.SoulMenderBlock;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.MathHelper;
 import net.minecraft.core.BlockPos;
@@ -48,7 +48,7 @@ public class SoulMenderBlockEntity extends ModBlockEntity implements Clearable, 
                     this.work();
                 }
             }
-            this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(DarkAltarBlock.LIT, flag), 3);
+            this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(SoulMenderBlock.LIT, flag), 3);
         }
     }
 

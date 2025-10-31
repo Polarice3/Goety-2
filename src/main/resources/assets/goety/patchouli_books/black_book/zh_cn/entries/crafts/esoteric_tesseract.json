@@ -1,0 +1,26 @@
+{
+  "name": "奥术方匣",
+  "icon": "goety:esoteric_tesseract",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你越来越厌倦了仆从们迷路找不到你，以及在远处使用召集聚晶和军团聚晶召唤他们，你迫切地希望你能把仆从们放进口袋里，这样你就可以随时随地释放他们。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "经过无数天的研究和实验，你创造了一个符合你意愿的神奇方匣。通过左键单击你的一个仆从，它会立即收起他们。持续按住右键会逐渐地将你的仆从中释放出来，但会消耗耐久度，破损后的方匣在被修复前无法使用，可以用末影珍珠在铁砧上修复。它可以容纳多个仆从，并且不会被火和熔岩烧毁。当被丢出时，它会损坏并释放其中的所有仆从。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:esoteric_tesseract"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "在存放某些类型的仆从时，有一些条件需要注意。某些仆从会占据奥术方匣中的多个空间，这取决于它们的体型（以及是否被正确标记）。有限寿命的仆从在被存放在超维仆从匣中时，其寿命也将会停止减少。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:esoteric_tesseract": 2
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "oco"
+  ],
+  "key": {
+    "o": {
+      "tag": "forge:ingots/silver"
+    },
+    "c": {
+      "item": "minecraft:chain"
+    }
+  },
+  "result": {
+    "item": "goety:ominous_shackles"
+  },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "tag": "forge:ingots/silver",
+        "type": "forge:tag_empty"
+      }
+    }
+  ]
+}

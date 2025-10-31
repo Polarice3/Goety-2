@@ -46,6 +46,9 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerServantChestRange;
     public static final ForgeConfigSpec.ConfigValue<Integer> EvokerServantRavagedCooldown;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> PrisonerMiningSwings;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PrisonerMiningRange;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnFreq;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnChance;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSEThreshold;
@@ -243,6 +246,11 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerServantAllOpenDoors;
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerServantGhostArrows;
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerServantTrainArmor;
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerMining;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerMiningBreakBlocks;
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> RaiderServantWearArmor;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> WightSpawn;
 
@@ -527,8 +535,18 @@ public class MobsConfig {
                     .define("illagerServantAllOpenDoors", true);
             IllagerServantGhostArrows = BUILDER.comment("Whether Illagers shoot arrows that pass through allied mobs, Default: true")
                     .define("illagerServantGhostArrows", true);
-            IllagerServantTrainArmor = BUILDER.comment("Whether Neollagers gain armor after training if their owner wears Ring of the Forge, Default: true")
+            IllagerServantTrainArmor = BUILDER.comment("Whether Neollagers gain armor after training if their owner wears Ring of the Forge, if 'illagerServantWearArmor' is enabled, Default: true")
                     .define("illagerServantTrainArmor", true);
+            BUILDER.pop();
+            BUILDER.push("Prisoners");
+            PrisonerMining = BUILDER.comment("Whether Prisoners can mine ores when given a Pickaxe, Default: true")
+                    .define("prisonerMining", true);
+            PrisonerMiningBreakBlocks = BUILDER.comment("Whether Prisoners break ore blocks when mining, Default: false")
+                    .define("prisonerMiningBreakBlocks", false);
+            PrisonerMiningSwings = BUILDER.comment("How many times a Prisoner has to swing their pickaxe before collecting drops when mining, Default: 5")
+                    .defineInRange("prisonerMiningSwings", 5, 0, Integer.MAX_VALUE);
+            PrisonerMiningRange = BUILDER.comment("How far Prisoners can scan for ores and mine it, in blocks, Default: 4")
+                    .defineInRange("prisonerMiningRange", 4, 1, Integer.MAX_VALUE);
             BUILDER.pop();
         NecroSetDebuff = BUILDER.comment("Whether wearing Necro Crown and/or Necro Cape gives massive debuffs to non-undead servant, Default: false")
                 .define("necroSetDebuff", false);
@@ -566,6 +584,8 @@ public class MobsConfig {
                 .defineInRange("ravagerRoarCooldown", 10, 0, Integer.MAX_VALUE);
         PlayerRavagerArmorDrop = BUILDER.comment("Whether armored Ravagers owned by players will drop their armor, Default: true")
                 .define("playerRavagerArmorDrop", true);
+        RaiderServantWearArmor = BUILDER.comment("Whether armor wearing Raider Servants can be equipped with Armor, Default: true")
+                .define("raiderServantWearArmor", true);
         ServantGuardingRange = BUILDER.comment("How far servants can guard from their guarding location, Default: 16")
                 .defineInRange("servantGuardingRange", 16, 2, Integer.MAX_VALUE);
         ServantHealHalt = BUILDER.comment("How many seconds a servant can't heal through Soul Energy after being injured, Default: 5")

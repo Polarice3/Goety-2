@@ -191,33 +191,6 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
                 itemStack = ritualType.getJeiIcon();
             }
         }
-        /*if (recipe.getCraftType().contains(RitualTypes.ANIMATION)){
-            itemStack = new ItemStack(ModItems.ANIMATION_CORE.get());
-        } else if (recipe.getCraftType().contains(RitualTypes.NECROTURGY)){
-            itemStack = new ItemStack(Items.SCULK);
-        } else if (recipe.getCraftType().contains(RitualTypes.FORGE)){
-            itemStack = new ItemStack(Items.ANVIL);
-        } else if (recipe.getCraftType().contains(RitualTypes.MAGIC)){
-            itemStack = new ItemStack(Items.ENCHANTING_TABLE);
-        } else if (recipe.getCraftType().contains(RitualTypes.ADEPT_NETHER)){
-            itemStack = new ItemStack(Items.BLACKSTONE);
-        } else if (recipe.getCraftType().contains(RitualTypes.EXPERT_NETHER)){
-            itemStack = new ItemStack(Items.NETHER_BRICKS);
-        } else if (recipe.getCraftType().contains(RitualTypes.SABBATH)){
-            itemStack = new ItemStack(Items.CRYING_OBSIDIAN);
-        } else if (recipe.getCraftType().contains(RitualTypes.END)) {
-            itemStack = new ItemStack(ModBlocks.VOID_BLOCK.get());
-        } else if (recipe.getCraftType().contains(RitualTypes.SKY)){
-            itemStack = new ItemStack(ModBlocks.MARBLE_BLOCK.get());
-        } else if (recipe.getCraftType().contains(RitualTypes.STORM)){
-            itemStack = new ItemStack(Items.LIGHTNING_ROD);
-        } else if (recipe.getCraftType().contains(RitualTypes.GEOTURGY)) {
-            itemStack = new ItemStack(Items.AMETHYST_BLOCK);
-        } else if (recipe.getCraftType().contains(RitualTypes.FROST)) {
-            itemStack = new ItemStack(ModBlocks.FREEZING_LAMP.get());
-        } else if (recipe.getCraftType().contains(RitualTypes.DEEP)) {
-            itemStack = new ItemStack(Blocks.PRISMARINE_BRICKS);
-        }*/
         return itemStack;
     }
 

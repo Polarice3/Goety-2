@@ -24,6 +24,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -953,6 +954,43 @@ public class Summoned extends Owned implements IServant {
                 Vec3 vec31 = HoverRandomPos.getPos(this.summonedEntity, 8, 7, vec3.x, vec3.z, ((float)Math.PI / 2F), 3, 1);
                 return vec31 != null ? vec31 : AirAndWaterRandomPos.getPos(this.summonedEntity, 8, 4, -2, vec3.x, vec3.z, (double)((float)Math.PI / 2F));
             }
+        }
+    }
+
+    public static class ReturnToGuardPos<T extends PathfinderMob & IServant> extends MoveToBlockGoal {
+        protected final T servant;
+        public int range;
+
+        public ReturnToGuardPos(T servant, double speed, int range) {
+            super(servant, speed, range);
+            this.servant = servant;
+            this.range = range;
+        }
+
+        @Override
+        public boolean canUse() {
+            if (this.servant.isGuardingArea()) {
+                if (super.canUse()) {
+                    return this.servant.distanceToSqr(this.servant.vec3BoundPos()) > Mth.square(this.range);
+                }
+            }
+            return false;
+        }
+
+        protected boolean findNearestBlock() {
+            if (this.servant.isGuardingArea()) {
+                this.blockPos = this.servant.getBoundPos();
+                return this.blockPos != null;
+            }
+            return false;
+        }
+
+        @Override
+        protected boolean isValidTarget(LevelReader p_25619_, BlockPos p_25620_) {
+            if (this.servant.isGuardingArea()) {
+                return BlockFinder.samePos(this.servant.getBoundPos(), p_25620_);
+            }
+            return false;
         }
     }
 

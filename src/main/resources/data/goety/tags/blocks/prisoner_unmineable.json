@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "__comment": "blocks that Prisoners cannot mine",
+  "values": [
+  ]
+}

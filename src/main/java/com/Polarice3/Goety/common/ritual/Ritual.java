@@ -97,16 +97,6 @@ public abstract class Ritual {
                 ritualType.onFinishRitual(world, darkAltarPos, tileEntity, castingPlayer, activationItem);
             }
         }
-        /*if (tileEntity.getCurrentRitualRecipe().getCraftType().contains(RitualTypes.FORGE)){
-            world.playSound(null, darkAltarPos, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
-        }
-        if (tileEntity.getCurrentRitualRecipe().getCraftType().contains(RitualTypes.STORM)){
-            LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, world);
-            lightningBolt.setVisualOnly(true);
-            lightningBolt.setPos(Vec3.atCenterOf(darkAltarPos));
-            world.addFreshEntity(lightningBolt);
-        }
-        */
         if (tileEntity.getCurrentRitualRecipe().getRitual() instanceof EnchantItemRitual){
             world.playSound(null, darkAltarPos, SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
         }

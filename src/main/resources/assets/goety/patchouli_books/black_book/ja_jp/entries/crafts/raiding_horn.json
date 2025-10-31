@@ -1,0 +1,15 @@
+{
+  "name": "襲撃の角笛",
+  "icon": "goety:raiding_horn",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この角笛を使用すると、$(l:mutations/illager_servants#raid)襲撃者$()があなたのいる村を襲撃し始めるようになります。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:raiding_horn"
+    }
+  ]
+}

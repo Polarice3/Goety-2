@@ -1351,6 +1351,13 @@ public class ModEntityType {
                     .clientTrackingRange(10)
                     .updateInterval(Integer.MAX_VALUE));
 
+    public static final RegistryObject<EntityType<MagicLightningTrap>> MAGIC_LIGHTNING_TRAP = register("magic_lightning_trap",
+            EntityType.Builder.<MagicLightningTrap>of(MagicLightningTrap::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(1.0F, 0.5F)
+                    .clientTrackingRange(10)
+                    .updateInterval(Integer.MAX_VALUE));
+
     public static final RegistryObject<EntityType<VoidLightningTrap>> VOID_LIGHTNING_TRAP = register("void_lightning_trap",
             EntityType.Builder.<VoidLightningTrap>of(VoidLightningTrap::new, MobCategory.MISC)
                     .fireImmune()

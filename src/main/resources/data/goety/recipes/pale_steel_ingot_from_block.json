@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "goety:pale_steel_block"
+    }
+  ],
+  "result":
+  {
+    "item": "goety:pale_steel_ingot",
+    "count": 9
+  }
+}

@@ -509,6 +509,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SPIDER_SPIT = create("spider_spit");
     public static final RegistryObject<SoundEvent> SPIDER_WEB = create("spider_web");
 
+    public static final RegistryObject<SoundEvent> VILLAGER_CHOP = create("villager_chop");
+
     public static final RegistryObject<SoundEvent> ENDERLING_TELEPORT_IN = create("enderling_teleport_in");
     public static final RegistryObject<SoundEvent> ENDERLING_TELEPORT_OUT = create("enderling_teleport_out");
 

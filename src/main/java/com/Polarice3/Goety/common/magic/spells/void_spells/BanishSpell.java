@@ -22,7 +22,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeMod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +62,7 @@ public class BanishSpell extends TouchSpell {
 
     @Override
     public boolean conditionsMet(ServerLevel worldIn, LivingEntity caster) {
-        HitResult hitResult = caster.pick(caster.getAttributeValue(ForgeMod.ENTITY_REACH.get()), 1.0F, false);
+        HitResult hitResult = this.entityResult(worldIn, caster, 3, 3.0F);
         if (hitResult instanceof EntityHitResult result){
             if (result.getEntity() instanceof LivingEntity living){
                 if (living.getMaxHealth() < SpellConfig.BanishMaxHealth.get()

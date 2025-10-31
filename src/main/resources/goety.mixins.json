@@ -22,6 +22,7 @@
     "ItemEntityMixin",
     "LivingEntityMixin",
     "MobAccessor",
+    "PlayerMixin",
     "RaiderMixin",
     "RaidMixin",
     "SensorMixin",

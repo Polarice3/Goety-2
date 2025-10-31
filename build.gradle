@@ -151,6 +151,7 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:illager-invasion-891324:6192869")
     runtimeOnly fg.deobf("curse.maven:citadel-331936:6702068")
     runtimeOnly fg.deobf("curse.maven:domestication-innovation-591149:4911955")
+    runtimeOnly fg.deobf("curse.maven:huge-structure-blocks-474114:4803547")
 }
 
 tasks.named('jar', Jar).configure {

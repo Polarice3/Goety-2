@@ -35,6 +35,8 @@ public class ModChestRenderer<T extends ModChestBlockEntity> extends ChestRender
         builder.put(ModBlocks.TRAPPED_CHORUS_CHEST.get(), trappedMaterial("chorus"));
         builder.put(ModBlocks.CORRUPT_CHORUS_CHEST.get(), chestMaterial("corrupt_chorus"));
         builder.put(ModBlocks.TRAPPED_CORRUPT_CHORUS_CHEST.get(), trappedMaterial("corrupt_chorus"));
+        builder.put(ModBlocks.RAIDING_CHEST.get(), chestMaterial("raiding"));
+        builder.put(ModBlocks.TRAPPED_RAIDING_CHEST.get(), trappedMaterial("raiding"));
         MATERIALS = builder.build();
     }
 

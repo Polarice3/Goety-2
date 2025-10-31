@@ -4,6 +4,7 @@ import com.Polarice3.Goety.client.particles.MagicSmokeParticle;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.utils.MathHelper;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -14,12 +15,36 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 
 public class VoidSlash extends SlashProjectile{
+    public int voidLevel = 2;
+
     public VoidSlash(EntityType<? extends SlashProjectile> entityType, Level level) {
         super(entityType, level);
     }
 
     public VoidSlash(Level levelIn, LivingEntity shooter) {
         super(ModEntityType.VOID_SLASH.get(), levelIn, shooter);
+    }
+
+    @Override
+    protected void readAdditionalSaveData(CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
+        if (pCompound.contains("VoidLevel")) {
+            this.setVoidLevel(pCompound.getInt("VoidLevel"));
+        }
+    }
+
+    @Override
+    protected void addAdditionalSaveData(CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+        pCompound.putInt("VoidLevel", this.getVoidLevel());
+    }
+
+    public void setVoidLevel(int voidLevel) {
+        this.voidLevel = voidLevel;
+    }
+
+    public int getVoidLevel() {
+        return this.voidLevel;
     }
 
     public void spawnParticles() {
@@ -52,7 +77,7 @@ public class VoidSlash extends SlashProjectile{
         }
         if (entity.hurt(damageSource, this.getDamage())) {
             if (entity instanceof LivingEntity livingEntity && !livingEntity.hasEffect(GoetyEffects.VOID_TOUCHED.get())) {
-                livingEntity.addEffect(new MobEffectInstance(GoetyEffects.VOID_TOUCHED.get(), MathHelper.secondsToTicks(3), 2, false, true));
+                livingEntity.addEffect(new MobEffectInstance(GoetyEffects.VOID_TOUCHED.get(), MathHelper.secondsToTicks(3), this.getVoidLevel() - 1, false, true));
             }
         }
     }

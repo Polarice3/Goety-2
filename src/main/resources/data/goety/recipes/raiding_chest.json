@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "goety:pale_steel_ingot"
+    },
+    {
+      "tag": "forge:chests/wooden"
+    }
+  ],
+  "result": {
+    "item": "goety:raiding_chest"
+  }
+}

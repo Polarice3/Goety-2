@@ -5,6 +5,8 @@ import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.illager.PillagerServant;
+import com.Polarice3.Goety.common.entities.ally.illager.Prisoner;
+import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
 import com.Polarice3.Goety.common.entities.ally.illager.VindicatorServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
@@ -21,12 +23,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.RespawnAnchorBlock;
 import net.minecraft.world.phys.Vec3;
 
@@ -110,7 +116,7 @@ public class ServantUtil {
             summoned = target.convertTo(ModEntityType.ZPIGLIN_BRUTE_SERVANT.get(), keepLoot);
         } else if (target instanceof AbstractPiglin){
             summoned = target.convertTo(ModEntityType.ZPIGLIN_SERVANT.get(), keepLoot);
-        } else if (target instanceof Villager){
+        } else if (target instanceof Villager || target instanceof Prisoner){
             summoned = target.convertTo(ModEntityType.ZOMBIE_VILLAGER_SERVANT.get(), keepLoot);
         } else if (target instanceof Vindicator || target instanceof VindicatorServant){
             summoned = target.convertTo(ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), keepLoot);
@@ -130,11 +136,22 @@ public class ServantUtil {
                 if (owner != null) {
                     summoned.setTrueOwner(owner);
                 }
-                if (target instanceof Villager villager && summoned instanceof ZombieVillagerServant servant){
-                    servant.setVillagerData(villager.getVillagerData());
-                    servant.setGossips(villager.getGossips().store(NbtOps.INSTANCE));
-                    servant.setTradeOffers(villager.getOffers().createTag());
-                    servant.setVillagerXp(villager.getVillagerXp());
+                if (summoned instanceof ZombieVillagerServant servant) {
+                    if (target instanceof Villager villager) {
+                        servant.setVillagerData(villager.getVillagerData());
+                        servant.setGossips(villager.getGossips().store(NbtOps.INSTANCE));
+                        servant.setTradeOffers(villager.getOffers().createTag());
+                        servant.setVillagerXp(villager.getVillagerXp());
+                    } else if (target instanceof Prisoner prisoner) {
+                        servant.setVillagerData(prisoner.getVillagerData());
+                        if (prisoner.getGossips() != null) {
+                            servant.setGossips(prisoner.getGossips());
+                        }
+                        if (prisoner.getOffers() != null) {
+                            servant.setTradeOffers(prisoner.getOffers());
+                        }
+                        servant.setVillagerXp(prisoner.getVillagerXp());
+                    }
                 }
                 net.minecraftforge.event.ForgeEventFactory.onLivingConvert(target, summoned);
                 if (!summoned.isSilent()) {
@@ -298,4 +315,68 @@ public class ServantUtil {
         }
         return false;
     }
+
+    public static InteractionResult equipServantArmor(Player player, Summoned summoned, ItemStack itemStack, InteractionResult failResult) {
+        ItemStack helmet = summoned.getItemBySlot(EquipmentSlot.HEAD);
+        ItemStack chestplate = summoned.getItemBySlot(EquipmentSlot.CHEST);
+        ItemStack legging = summoned.getItemBySlot(EquipmentSlot.LEGS);
+        ItemStack boots = summoned.getItemBySlot(EquipmentSlot.FEET);
+        if (itemStack.getItem() instanceof ArmorItem armor) {
+            if (MobsConfig.RaiderServantWearArmor.get() || !(summoned instanceof RaiderServant)) {
+                summoned.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
+                if (armor.getType() == ArmorItem.Type.HELMET) {
+                    summoned.setItemSlot(EquipmentSlot.HEAD, itemStack.copyWithCount(1));
+                    summoned.dropEquipment(EquipmentSlot.HEAD, helmet);
+                    summoned.setGuaranteedDrop(EquipmentSlot.HEAD);
+                }
+                if (armor.getType() == ArmorItem.Type.CHESTPLATE) {
+                    summoned.setItemSlot(EquipmentSlot.CHEST, itemStack.copyWithCount(1));
+                    summoned.dropEquipment(EquipmentSlot.CHEST, chestplate);
+                    summoned.setGuaranteedDrop(EquipmentSlot.CHEST);
+                }
+                if (armor.getType() == ArmorItem.Type.LEGGINGS) {
+                    summoned.setItemSlot(EquipmentSlot.LEGS, itemStack.copyWithCount(1));
+                    summoned.dropEquipment(EquipmentSlot.LEGS, legging);
+                    summoned.setGuaranteedDrop(EquipmentSlot.LEGS);
+                }
+                if (armor.getType() == ArmorItem.Type.BOOTS) {
+                    summoned.setItemSlot(EquipmentSlot.FEET, itemStack.copyWithCount(1));
+                    summoned.dropEquipment(EquipmentSlot.FEET, boots);
+                    summoned.setGuaranteedDrop(EquipmentSlot.FEET);
+                }
+                for (int i = 0; i < 7; ++i) {
+                    double d0 = summoned.getRandom().nextGaussian() * 0.02D;
+                    double d1 = summoned.getRandom().nextGaussian() * 0.02D;
+                    double d2 = summoned.getRandom().nextGaussian() * 0.02D;
+                    summoned.level.addParticle(ParticleTypes.HAPPY_VILLAGER, summoned.getRandomX(1.0D), summoned.getRandomY() + 0.5D, summoned.getRandomZ(1.0D), d0, d1, d2);
+                }
+                if (!player.getAbilities().instabuild) {
+                    itemStack.shrink(1);
+                }
+                return InteractionResult.SUCCESS;
+            }
+        }
+        return failResult;
+    }
+
+    public static EquipmentSlot getClickedSlot(Mob mob, Vec3 vec3) {
+        EquipmentSlot equipmentslot = EquipmentSlot.MAINHAND;
+        boolean flag = mob.isBaby();
+        double d0 = flag ? vec3.y * 2.0D : vec3.y;
+        EquipmentSlot equipmentslot1 = EquipmentSlot.FEET;
+        if (d0 >= 0.1D && d0 < 0.1D + (flag ? 0.8D : 0.45D) && mob.hasItemInSlot(equipmentslot1)) {
+            equipmentslot = EquipmentSlot.FEET;
+        } else if (d0 >= 0.9D + (flag ? 0.3D : 0.0D) && d0 < 0.9D + (flag ? 1.0D : 0.7D) && mob.hasItemInSlot(EquipmentSlot.CHEST)) {
+            equipmentslot = EquipmentSlot.CHEST;
+        } else if (d0 >= 0.4D && d0 < 0.4D + (flag ? 1.0D : 0.8D) && mob.hasItemInSlot(EquipmentSlot.LEGS)) {
+            equipmentslot = EquipmentSlot.LEGS;
+        } else if (d0 >= 1.6D && mob.hasItemInSlot(EquipmentSlot.HEAD)) {
+            equipmentslot = EquipmentSlot.HEAD;
+        } else if (!mob.hasItemInSlot(EquipmentSlot.MAINHAND) && mob.hasItemInSlot(EquipmentSlot.OFFHAND)) {
+            equipmentslot = EquipmentSlot.OFFHAND;
+        }
+
+        return equipmentslot;
+    }
+
 }

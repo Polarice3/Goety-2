@@ -1,0 +1,45 @@
+{
+  "name": "Prisoners",
+  "icon": "goety:ominous_shackles",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Not really a mutation unless one considers being chained and captured to fall under the concept."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:prisoner"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Prisoners that follow mobs will follow them like any other servants, but when directly following you, as seen by them being chained to you, they will follow much like they're tied by a lead. Prisoners, when on 'Guarding' mode, will not wander around the area like other servants, but will stay put but are still able to move to interact with certain objects."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "To free a Prisoner, right-click on them while crouching. Prisoners can also be freed if they have taken enough damage while away from their captor or owner."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_pickaxe",
+      "anchor": "mining",
+      "title": "Prisoner Mines",
+      "text": "Right-clicking on a Prisoner with a Pickaxe of any kind allows them to enter Mining Mode. First, they must be near ores, then they must not be in Following mode in order for them to start mining."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Prisoners will collect ore drops once in a while, but will stop mining once either their pickaxe wore out, or their inventory is full. They will either give their mined goods to an Illager or, if bounded to a chest, place them in it. Right-clicking on them with an empty hand while they're mining will cause them to face towards you, and angle they will face when they start to mine again if they stopped before. Right-click on them with a Stick to make them drop their pickaxe."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:chest",
+      "title": "Chest Interaction",
+      "text": "Right clicking on a Prisoner with a Waystone that leads to an unlocked Chest will cause them to register the chest as a valid container to store their drops. If the chest, they're bounded to, have pickaxes, and a Servant or their Master is nearby, they will take it if they're not holding anything."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:raiding_chest",
+      "text": "A Prisoner can also register another chest aside from regular ones. When registered to this, Prisoners will try to deposit any loot they have in this above their other chest and will not take items from it."
+    }
+  ]
+}

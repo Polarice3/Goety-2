@@ -65,6 +65,7 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), CMultiJumpPacket.class, CMultiJumpPacket::encode, CMultiJumpPacket::decode, CMultiJumpPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CSetDeltaMovement.class, CSetDeltaMovement::encode, CSetDeltaMovement::decode, CSetDeltaMovement::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CTramplerPacket.class, CTramplerPacket::encode, CTramplerPacket::decode, CTramplerPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
+        INSTANCE.registerMessage(nextID(), CPrisonerMinePacket.class, CPrisonerMinePacket::encode, CPrisonerMinePacket::decode, CPrisonerMinePacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CActivateCurioKeyPacket.class, CActivateCurioKeyPacket::encode, CActivateCurioKeyPacket::decode, CActivateCurioKeyPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), TotemDeathPacket.class, TotemDeathPacket::encode, TotemDeathPacket::decode, TotemDeathPacket::consume);
         INSTANCE.registerMessage(nextID(), SPlayPlayerSoundPacket.class, SPlayPlayerSoundPacket::encode, SPlayPlayerSoundPacket::decode, SPlayPlayerSoundPacket::consume);

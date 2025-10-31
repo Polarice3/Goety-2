@@ -201,6 +201,7 @@ public class Goety {
         ModPotions.init();
         ModPaintings.init();
         ModPotPatterns.init();
+        ModBanners.init();
         ModSounds.init();
         ModCriteriaTriggers.init();
         SIDED_INIT.init();

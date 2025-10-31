@@ -124,6 +124,9 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<UrnBlockEntity>> CRYPT_URN = BLOCK_ENTITY.register("crypt_urn",
             () -> BlockEntityType.Builder.of(UrnBlockEntity::new, ModBlocks.CRYPT_URN.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<SpiderSacBlockEntity>> SPIDER_SAC = BLOCK_ENTITY.register("spider_sac",
+            () -> BlockEntityType.Builder.of(SpiderSacBlockEntity::new, ModBlocks.SPIDER_SAC.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<HoleBlockEntity>> HOLE = BLOCK_ENTITY.register("hole",
             () -> BlockEntityType.Builder.of(HoleBlockEntity::new, ModBlocks.HOLE.get()).build(null));
 
@@ -155,13 +158,15 @@ public class ModBlockEntities {
             () -> BlockEntityType.Builder.of(ModChestBlockEntity::new,
                     ModBlocks.HAUNTED_CHEST.get(), ModBlocks.ROTTEN_CHEST.get(),
                     ModBlocks.WINDSWEPT_CHEST.get(), ModBlocks.PINE_CHEST.get(),
-                    ModBlocks.CHORUS_CHEST.get(), ModBlocks.CORRUPT_CHORUS_CHEST.get()).build(null));
+                    ModBlocks.CHORUS_CHEST.get(), ModBlocks.CORRUPT_CHORUS_CHEST.get(),
+                    ModBlocks.RAIDING_CHEST.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<ModTrappedChestBlockEntity>> MOD_TRAPPED_CHEST = BLOCK_ENTITY.register("trapped_chest",
             () -> BlockEntityType.Builder.of(ModTrappedChestBlockEntity::new,
                     ModBlocks.TRAPPED_HAUNTED_CHEST.get(), ModBlocks.TRAPPED_ROTTEN_CHEST.get(),
                     ModBlocks.TRAPPED_WINDSWEPT_CHEST.get(), ModBlocks.TRAPPED_PINE_CHEST.get(),
-                    ModBlocks.TRAPPED_CHORUS_CHEST.get(), ModBlocks.TRAPPED_CORRUPT_CHORUS_CHEST.get()).build(null));
+                    ModBlocks.TRAPPED_CHORUS_CHEST.get(), ModBlocks.TRAPPED_CORRUPT_CHORUS_CHEST.get(),
+                    ModBlocks.TRAPPED_RAIDING_CHEST.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<CryptChestBlockEntity>> CRYPT_CHEST = BLOCK_ENTITY.register("crypt_chest",
             () -> BlockEntityType.Builder.of(CryptChestBlockEntity::new,

@@ -442,6 +442,8 @@ public interface IServant extends IOwned {
                         if (this.isGuardingArea()){
                             this.setBoundPos(this.getCommandPos());
                         }
+                        owned.getNavigation().stop();
+                        owned.getMoveControl().strafe(0.0F, 0.0F);
                         owned.moveTo(this.getCommandPos(), owned.getYRot(), owned.getXRot());
                         this.setCommandPos(null);
                     }

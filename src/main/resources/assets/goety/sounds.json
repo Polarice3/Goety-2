@@ -6211,6 +6211,17 @@
     ],
     "subtitle": "subtitle.goety.spider_web"
   },
+  "villager_chop": {
+    "sounds": [
+      {
+        "name": "goety:villager/chop1"
+      },
+      {
+        "name": "goety:villager/chop2"
+      }
+    ],
+    "subtitle": "subtitle.goety.villager_chop"
+  },
   "enderling_teleport_in": {
     "sounds": [
       {

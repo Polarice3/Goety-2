@@ -1,0 +1,16 @@
+{
+  "name": "クモの巣窟",
+  "icon": "goety:spider_sac",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "巨大な木々が空洞になっていてクモがわんさかいるという伝説や噂があり、その木々は古い廃鉱山の上に植えられているかもしれない、という噂もあった..."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/spider_den.png"],
+      "border": true
+    }
+  ]
+}

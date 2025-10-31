@@ -277,7 +277,7 @@ public class Neollager extends AbstractIllagerServant {
     public <T extends Mob> T convertTo(EntityType<T> p_21407_, boolean p_21408_) {
         T convert = super.convertTo(p_21407_, p_21408_);
         if (convert instanceof AbstractIllagerServant servant) {
-            if (MobsConfig.IllagerServantTrainArmor.get()) {
+            if (MobsConfig.IllagerServantTrainArmor.get() && MobsConfig.RaiderServantWearArmor.get()) {
                 if (this.getTrueOwner() != null && CuriosFinder.hasCurio(this.getTrueOwner(), ModItems.RING_OF_THE_FORGE.get())) {
                     servant.spawnArmor(this.getTrueOwner().getRandom());
                 }

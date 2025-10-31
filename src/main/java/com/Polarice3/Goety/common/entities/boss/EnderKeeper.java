@@ -1149,6 +1149,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
                         this.areaAttack(6.5F, 6, 120, damage, 60, false);
                         VoidSlash voidSlash = new VoidSlash(this.level, this);
                         voidSlash.setPos(this.getEyePosition());
+                        voidSlash.setVoidLevel(3);
                         voidSlash.slash(this.getLookAngle(), 1.0F);
                         voidSlash.setDamage(damage);
                         this.level.addFreshEntity(voidSlash);
@@ -1250,6 +1251,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
                         VoidLightningTrap trap = new VoidLightningTrap(this.level, vec3.x, vec3.y, vec3.z);
                         trap.setOwner(this);
                         trap.setDuration(40);
+                        trap.setDamage(damage);
                         if (!this.level.getEntitiesOfClass(VoidLightningTrap.class, new AABB(blockPos1)).isEmpty()) {
                             trap.setPos(vec32.x(), vec32.y(), vec32.z());
                         }

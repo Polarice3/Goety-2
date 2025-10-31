@@ -12,6 +12,7 @@ import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -22,6 +23,7 @@ public class ModTags {
         Blocks.init();
         Items.init();
         Paintings.init();
+        BannerPatterns.init();
         EntityTypes.init();
         Biomes.init();
         GameEvents.init();
@@ -42,6 +44,7 @@ public class ModTags {
         public static final TagKey<Block> END_SOIL_BLOCKS = tag("end_soil_blocks");
         public static final TagKey<Block> PHILOSOPHERS_MACE_HARD = tag("philosophers_mace_hard");
         public static final TagKey<Block> RECALL_BLOCKS = tag("recall_blocks");
+        public static final TagKey<Block> RAIDING_CHESTS = tag("raiding_chests");
         public static final TagKey<Block> DARK_ANVILS = tag("dark_anvils");
         public static final TagKey<Block> TUNNEL_BLACKLIST = tag("tunnel_blacklist");
         public static final TagKey<Block> NETHER_SPREAD = tag("nether_spread");
@@ -53,6 +56,8 @@ public class ModTags {
         public static final TagKey<Block> CHORUS_BLOSSOM_GROW = tag("chorus_blossom_grow");
         public static final TagKey<Block> REDSTONE_CUBE_DETECT = tag("redstone_cube_detect");
         public static final TagKey<Block> REDSTONE_CUBE_EXEMPT = tag("redstone_cube_exempt");
+        public static final TagKey<Block> PRISONER_MINEABLE = tag("prisoner_mineable");
+        public static final TagKey<Block> PRISONER_UNMINEABLE = tag("prisoner_unmineable");
         public static final TagKey<Block> MONSTROSITY_BREAKS = tag("monstrosity_breaks");
 
         private static TagKey<Block> tag(String name)
@@ -101,16 +106,37 @@ public class ModTags {
         }
     }
 
+    public static class BannerPatterns {
+        private static void init(){}
+
+        public static final TagKey<BannerPattern> PATTERN_ITEM_CROSS = tag("pattern_item/cross");
+        public static final TagKey<BannerPattern> PATTERN_ITEM_GALE = tag("pattern_item/gale");
+        public static final TagKey<BannerPattern> PATTERN_ITEM_MOON = tag("pattern_item/moon");
+
+        private static TagKey<BannerPattern> tag(String name) {
+            return create(Goety.location(name));
+        }
+
+        private static TagKey<BannerPattern> create(ResourceLocation p_215874_) {
+            return TagKey.create(Registries.BANNER_PATTERN, p_215874_);
+        }
+    }
+
     public static class EntityTypes {
         private static void init(){}
 
         public static final TagKey<EntityType<?>> CREEPERS = tag("creepers");
         public static final TagKey<EntityType<?>> ENDERMEN = tag("endermen");
         public static final TagKey<EntityType<?>> VILLAGERS = tag("villagers");
+        public static final TagKey<EntityType<?>> SERVANTS = tag("servants");
         public static final TagKey<EntityType<?>> VILLAGE_GUARDS = tag("village_guards");
         public static final TagKey<EntityType<?>> ZOMBIE_SERVANTS = tag("zombie_servants");
         public static final TagKey<EntityType<?>> SKELETON_SERVANTS = tag("skeleton_servants");
         public static final TagKey<EntityType<?>> NO_HEAL_SERVANTS = tag("no_heal_servants");
+        public static final TagKey<EntityType<?>> POWERFUL_SERVANTS = tag("powerful_servants");
+        public static final TagKey<EntityType<?>> TESSERACT_SMALL = tag("tesseract_small");
+        public static final TagKey<EntityType<?>> TESSERACT_MEDIUM = tag("tesseract_medium");
+        public static final TagKey<EntityType<?>> TESSERACT_LARGE = tag("tesseract_large");
         public static final TagKey<EntityType<?>> HOLE_IMMUNE = tag("hole_immune");
         public static final TagKey<EntityType<?>> VOID_TOUCHED_IMMUNE = tag("void_touched_immune");
         public static final TagKey<EntityType<?>> WANTING_ENTITIES = tag("wanting_entities");

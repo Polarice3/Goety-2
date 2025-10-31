@@ -5,6 +5,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.NeutralZombieAttackGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.ally.illager.Prisoner;
 import com.Polarice3.Goety.compat.serene_seasons.SSeasonsIntegration;
 import com.Polarice3.Goety.compat.serene_seasons.SSeasonsLoaded;
 import com.Polarice3.Goety.config.AttributesConfig;
@@ -327,8 +328,8 @@ public class ZombieServant extends Summoned {
             if (random <= 0.5F) {
                 ServantUtil.convertZombies(killedEntity, this.getTrueOwner(), false);
             }
-            if (killedEntity instanceof Villager villager){
-                ServantUtil.infect(villager, this.getTrueOwner(), true, true);
+            if (killedEntity instanceof Mob mob && (killedEntity instanceof Villager || killedEntity instanceof Prisoner)){
+                ServantUtil.infect(mob, this.getTrueOwner(), true, true);
             }
         }
         return flag;
@@ -433,43 +434,7 @@ public class ZombieServant extends Summoned {
                     return InteractionResult.SUCCESS;
                 }
             }
-            if (item instanceof ArmorItem armor) {
-                ItemStack helmet = this.getItemBySlot(EquipmentSlot.HEAD);
-                ItemStack chestplate = this.getItemBySlot(EquipmentSlot.CHEST);
-                ItemStack legging = this.getItemBySlot(EquipmentSlot.LEGS);
-                ItemStack boots = this.getItemBySlot(EquipmentSlot.FEET);
-                this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
-                if (armor.getType() == ArmorItem.Type.HELMET) {
-                    this.setItemSlot(EquipmentSlot.HEAD, itemstack.copyWithCount(1));
-                    this.dropEquipment(EquipmentSlot.HEAD, helmet);
-                    this.setGuaranteedDrop(EquipmentSlot.HEAD);
-                }
-                if (armor.getType() == ArmorItem.Type.CHESTPLATE) {
-                    this.setItemSlot(EquipmentSlot.CHEST, itemstack.copyWithCount(1));
-                    this.dropEquipment(EquipmentSlot.CHEST, chestplate);
-                    this.setGuaranteedDrop(EquipmentSlot.CHEST);
-                }
-                if (armor.getType() == ArmorItem.Type.LEGGINGS) {
-                    this.setItemSlot(EquipmentSlot.LEGS, itemstack.copyWithCount(1));
-                    this.dropEquipment(EquipmentSlot.LEGS, legging);
-                    this.setGuaranteedDrop(EquipmentSlot.LEGS);
-                }
-                if (armor.getType() == ArmorItem.Type.BOOTS) {
-                    this.setItemSlot(EquipmentSlot.FEET, itemstack.copyWithCount(1));
-                    this.dropEquipment(EquipmentSlot.FEET, boots);
-                    this.setGuaranteedDrop(EquipmentSlot.FEET);
-                }
-                for (int i = 0; i < 7; ++i) {
-                    double d0 = this.random.nextGaussian() * 0.02D;
-                    double d1 = this.random.nextGaussian() * 0.02D;
-                    double d2 = this.random.nextGaussian() * 0.02D;
-                    this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
-                }
-                if (!pPlayer.getAbilities().instabuild) {
-                    itemstack.shrink(1);
-                }
-                return InteractionResult.SUCCESS;
-            }
+            return ServantUtil.equipServantArmor(pPlayer, this, itemstack, super.mobInteract(pPlayer, pHand));
         }
         return super.mobInteract(pPlayer, pHand);
     }

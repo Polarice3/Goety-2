@@ -60,6 +60,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation GEOMANCER = register("geomancer");
     public static final ModelLayerLocation ICEOLOGER = register("iceologer");
     public static final ModelLayerLocation WIND_CALLER = register("wind_caller");
+    public static final ModelLayerLocation PRISONER = register("prisoner");
     public static final ModelLayerLocation RAVAGED = register("ravaged");
     public static final ModelLayerLocation RAVAGER = register("ravager");
     public static final ModelLayerLocation RAVAGER_ARMOR = register("ravager_armor");

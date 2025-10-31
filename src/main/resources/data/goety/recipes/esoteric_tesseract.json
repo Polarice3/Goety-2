@@ -1,0 +1,27 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:flame_capture"
+  },
+  "craftType": "forge",
+  "soulCost": 10,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "minecraft:respawn_anchor"
+    },
+    {
+      "item": "goety:troop_focus"
+    },
+    {
+      "item": "goety:recall_focus"
+    },
+    {
+      "tag": "forge:obsidian"
+    }
+  ],
+  "result": {
+    "item": "goety:esoteric_tesseract"
+  }
+}

@@ -258,6 +258,9 @@ public class ServantSpawnEggs {
     public static final RegistryObject<ServantSpawnEggItem> WITCH_SERVANT_SPAWN_EGG = ITEMS.register("witch_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.WITCH_SERVANT, 0x1d0b2f, 0x4f5f3a, egg()));
 
+    public static final RegistryObject<ServantSpawnEggItem> PRISONER_SPAWN_EGG = ITEMS.register("prisoner_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.PRISONER, 0x71544d, 0x2d4a49, egg()));
+
     public static final RegistryObject<ServantSpawnEggItem> RAVAGED_SPAWN_EGG = ITEMS.register("ravaged_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.RAVAGED, 0x102322, 0x757470, egg()));
 

@@ -11,8 +11,9 @@ import org.jetbrains.annotations.Nullable;
 public class RisingRollingParticle extends RisingParticle {
     private final SpriteSet sprites;
     private final float rotSpeed;
+    public boolean spiral = false;
 
-    protected RisingRollingParticle(ClientLevel p_106800_, double p_106801_, double p_106802_, double p_106803_, SpriteSet p_107724_) {
+    public RisingRollingParticle(ClientLevel p_106800_, double p_106801_, double p_106802_, double p_106803_, SpriteSet p_107724_) {
         super(p_106800_, p_106801_, p_106802_, p_106803_, 0.0D, 0.25D, 0.0D);
         this.hasPhysics = false;
         this.scale(1.0F);
@@ -28,7 +29,15 @@ public class RisingRollingParticle extends RisingParticle {
     }
 
     public void render(VertexConsumer p_233985_, Camera p_233986_, float p_233987_) {
-        this.alpha = 1.0F - Mth.clamp(((float) this.age + p_233987_) / (float) this.lifetime, 0.0F, 1.0F);
+        if (this.spiral) {
+            if (this.age >= this.lifetime / 2) {
+                this.alpha = Mth.clamp(this.alpha - 0.025F, 0.0F, 1.0F);
+            } else {
+                this.alpha = 1.0F;
+            }
+        } else {
+            this.alpha = 1.0F - Mth.clamp(((float) this.age + p_233987_) / (float) this.lifetime, 0.0F, 1.0F);
+        }
         super.render(p_233985_, p_233986_, p_233987_);
     }
 
@@ -56,6 +65,25 @@ public class RisingRollingParticle extends RisingParticle {
         public Particle createParticle(SimpleParticleType p_107421_, ClientLevel p_107422_, double p_107423_, double p_107424_, double p_107425_, double p_107426_, double p_107427_, double p_107428_) {
             Particle particle = new RisingRollingParticle(p_107422_, p_107423_, p_107424_, p_107425_, this.sprite);
             particle.setColor((float) p_107426_, (float) p_107427_, (float) p_107428_);
+            return particle;
+        }
+    }
+
+    public static class SpiralProvider implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet sprite;
+
+        public SpiralProvider(SpriteSet p_106884_) {
+            this.sprite = p_106884_;
+        }
+
+        @Nullable
+        @Override
+        public Particle createParticle(SimpleParticleType p_107421_, ClientLevel p_107422_, double p_107423_, double p_107424_, double p_107425_, double p_107426_, double p_107427_, double p_107428_) {
+            RisingRollingParticle particle = new RisingRollingParticle(p_107422_, p_107423_, p_107424_, p_107425_, this.sprite);
+            particle.setColor((float) p_107426_, (float) p_107427_, (float) p_107428_);
+            particle.spiral = true;
+            particle.quadSize = 0.25F;
+            particle.yd = particle.yd * (double)0.01F + 0.025F;
             return particle;
         }
     }

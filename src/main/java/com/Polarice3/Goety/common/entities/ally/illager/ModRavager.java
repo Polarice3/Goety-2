@@ -103,8 +103,8 @@ public class ModRavager extends RaiderServant implements PlayerRideable, IAutoRi
                 return super.canUse() && ModRavager.this.getMobType() != MobType.UNDEAD;
             }
         });
-        this.goalSelector.addGoal(5, new RaiderWanderGoal<>(this, 0.4D));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(8, new RaiderWanderGoal<>(this, 0.4D));
+        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
     }
 

@@ -15,16 +15,10 @@
       "item": "goety:magic_emerald"
     },
     {
-      "tag": "forge:gems/lapis"
+      "item": "goety:pale_steel_ingot"
     },
     {
-      "tag": "forge:gems/lapis"
-    },
-    {
-      "item": "goety:cursed_ingot"
-    },
-    {
-      "item": "goety:cursed_ingot"
+      "item": "goety:pale_steel_ingot"
     }
   ],
   "result": {

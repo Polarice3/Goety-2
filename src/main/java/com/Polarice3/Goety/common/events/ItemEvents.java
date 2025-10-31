@@ -43,7 +43,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -469,13 +468,14 @@ public class ItemEvents {
 
     @SubscribeEvent
     public static void InteractEntityEvents(PlayerInteractEvent.EntityInteract event){
-        if (event.getItemStack().getItem() instanceof ReviveServantItem){
+        Item item = event.getItemStack().getItem();
+        if (item instanceof ReviveServantItem){
             if (SEHelper.getFocusCoolDown(event.getEntity()).isOnCooldown(event.getItemStack().getItem())){
                 event.setCanceled(true);
                 event.setCancellationResult(InteractionResult.FAIL);
             }
         }
-        if (event.getItemStack().getItem() instanceof IWand) {
+        /*if (item instanceof IWand || item instanceof GoodwillGrimoire || item instanceof GrudgeGrimoire) {
             if (event.getTarget() instanceof Villager villager) {
                 InteractionResult result = event.getItemStack().interactLivingEntity(event.getEntity(), villager, event.getHand());
                 if (result.consumesAction()) {
@@ -483,7 +483,7 @@ public class ItemEvents {
                     event.setCancellationResult(InteractionResult.SUCCESS);
                 }
             }
-        }
+        }*/
     }
 
     @SubscribeEvent

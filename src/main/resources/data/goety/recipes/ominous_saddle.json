@@ -10,16 +10,13 @@
   "research": "ravaging",
   "ingredients": [
     {
-      "item": "goety:cursed_metal_block"
+      "item": "goety:pale_steel_block"
     },
     {
       "item": "minecraft:chain"
     },
     {
       "item": "minecraft:chain"
-    },
-    {
-      "tag": "forge:storage_blocks/lapis"
     },
     {
       "item": "minecraft:chain"

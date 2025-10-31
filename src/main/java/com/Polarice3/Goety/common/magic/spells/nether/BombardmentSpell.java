@@ -42,7 +42,7 @@ public class BombardmentSpell extends EverChargeSpell {
 
     @Override
     public int shotsNumber(LivingEntity caster, ItemStack staff) {
-        int i = 0;
+        int i = WandUtil.getStats(caster, this).getDuration();
         if (WandUtil.enchantedFocus(caster)) {
             i += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
         }

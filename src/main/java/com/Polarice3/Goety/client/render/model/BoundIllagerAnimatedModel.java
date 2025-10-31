@@ -127,7 +127,7 @@ public class BoundIllagerAnimatedModel<T extends AbstractBoundIllager> extends H
 		this.illager.translateAndRotate(poseStack);
 		this.body.translateAndRotate(poseStack);
 		modelPart.translateAndRotate(poseStack);
-		poseStack.translate(0, -0.1F, 0);
+		poseStack.translate(0, 0.0F, 0);
 	}
 
 	@Override

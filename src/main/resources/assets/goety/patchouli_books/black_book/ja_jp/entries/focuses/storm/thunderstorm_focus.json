@@ -1,0 +1,22 @@
+{
+  "name": "サンダーストームのフォーカス",
+  "icon": "goety:thunderstorm_focus",
+  "category": "goety:focuses/storm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "フォーカスにより、天からの稲妻で風景を覆うことができます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/thunderstorm_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/storm_staff)嵐の杖$()で唱えると、雷が増えます。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:thunderstorm_focus": 1
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "不吉な手錠",
+  "icon": "goety:ominous_shackles",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "村人たちをまとめるのはなかなか大変です。よくあるやり方では、ボートに乗せて陸にのぼる...これは滑稽に見えてしまいます。これがあれば、彼らを移動させるのにそれほど苦労することはありません。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous_shackles",
+      "text": "これらを村人や行商人に使用すると、$(l:mutations/prisoners)村人囚人$()に変わります。"
+    }
+  ]
+}

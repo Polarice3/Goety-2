@@ -511,4 +511,11 @@ public class ServantEvents {
             }
         }
     }
+
+    @SubscribeEvent
+    public static void onTotemUse(LivingUseTotemEvent event) {
+        if (event.getSource().is(ModDamageSource.DISMISSED)) {
+            event.setCanceled(true);
+        }
+    }
 }

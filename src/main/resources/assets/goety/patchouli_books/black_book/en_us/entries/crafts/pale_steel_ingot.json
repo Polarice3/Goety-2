@@ -1,0 +1,20 @@
+{
+  "name": "Pale Steel Ingots",
+  "icon": "goety:pale_steel_ingot",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You've been confused over the metal found on the shoulderpads and belt of Pillagers and the armor of Ravagers. Are they Silver? Platinum? Odd colored Iron? Desaturated Diamond? After some testing and 'negotiating' you've discovered that it's, in a way, all of them."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Some are silver, some are platinum, some are just colored iron and so on. They just look and, in some cases, act the same to you. You've decided to recreate the most common type of the illager metal as silver and platinum might not be available, or probably too valuable, to use for dark purposes."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:pale_steel_ingot",
+      "recipe2": "goety:pale_steel_block"
+    }
+  ]
+}

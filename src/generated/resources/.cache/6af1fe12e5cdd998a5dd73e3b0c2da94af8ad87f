@@ -1,4 +1,4 @@
-// 1.20.1	2025-10-02T22:49:03.3254569	Item Models: goety
+// 1.20.1	2025-10-27T15:05:02.4244803	Item Models: goety
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/apostle_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/bear_servant_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/blackguard_servant_spawn_egg.json
@@ -78,6 +78,7 @@
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/poison_quill_vine_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/polar_bear_servant_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/preacher_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/prisoner_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/quick_growing_kelp_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/quick_growing_vine_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/ravaged_spawn_egg.json

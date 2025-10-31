@@ -71,18 +71,6 @@ public class RitualRequirements extends RitualTypes {
             return ritualType.getRequirement(pTileEntity, pPos, pLevel);
         }
         return false;
-        /*return switch (craftType) {
-            case ANIMATION, FORGE, MAGIC, SABBATH -> RitualRequirements.getStructures(craftType, pPos, pLevel);
-            case GEOTURGY -> geoturgyRitual(pPos, pLevel);
-            case NECROTURGY -> RitualRequirements.getStructures(craftType, pPos, pLevel) && pLevel.getSkyDarken() >= 4 && pLevel.dimensionType().hasSkyLight();
-            case ADEPT_NETHER, EXPERT_NETHER -> RitualRequirements.getStructures(craftType, pPos, pLevel) && (pLevel.dimensionType().ultraWarm() || pLevel.getBiome(pPos).is(BiomeTags.IS_NETHER));
-            case END -> RitualRequirements.getStructures(craftType, pPos, pLevel) && (pLevel.dimension() == Level.END || pLevel.getBiome(pPos).is(BiomeTags.IS_END));
-            case FROST -> frostRitual(pPos, pLevel);
-            case SKY -> skyRitual(pTileEntity, pLevel, pPos);
-            case STORM -> RitualRequirements.getStructures(craftType, pPos, pLevel) && skyRitual(pTileEntity, pLevel, pPos) && pLevel.isThundering() && pLevel.canSeeSky(pPos.above());
-            case DEEP -> deepRitual(pTileEntity, pLevel, pPos);
-            default -> false;
-        };*/
     }
 
     public static boolean geoturgyRitual(BlockPos pPos, Level pLevel){

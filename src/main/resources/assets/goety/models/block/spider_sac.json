@@ -1,0 +1,94 @@
+{
+    "parent": "minecraft:block/block",
+    "loader": "forge:composite",
+    "textures": {
+        "particle": "goety:block/spider_sac"
+    },
+    "item_render_order": [
+        "nest",
+        "emission"
+    ],
+    "children": {
+        "nest": {
+            "parent": "block/block",
+            "ambientocclusion": false,
+            "textures": {
+                "particle": "goety:block/spider_sac",
+                "bottom": "goety:block/spider_sac_bottom",
+                "top": "goety:block/spider_sac_top",
+                "side": "goety:block/spider_sac"
+            },
+            "elements": [
+                {   "from": [ 0, 0, 0 ],
+                    "to": [ 16, 16, 16 ],
+                    "faces": {
+                        "down": { "uv": [ 0, 0, 16, 16 ], "texture": "#bottom", "cullface": "down" },
+                        "up":   { "uv": [ 0, 0, 16, 16 ], "texture": "#top", "cullface": "up" }
+                    }
+                },
+                {   "from": [ 0, 0, 1 ],
+                    "to": [ 16, 16, 15 ],
+                    "faces": {
+                        "north": { "uv": [ 0, 0, 16, 16 ], "texture": "#side" },
+                        "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#side" }
+                    }
+                },
+                {   "from": [ 1, 0, 0 ],
+                    "to": [ 15, 16, 16 ],
+                    "faces": {
+                        "west": { "uv": [ 0, 0, 16, 16 ], "texture": "#side" },
+                        "east": { "uv": [ 0, 0, 16, 16 ], "texture": "#side" }
+                    }
+                }
+            ],
+            "render_type": "cutout"
+        },
+        "emission": {
+            "parent": "block/block",
+            "ambientocclusion": false,
+            "textures": {
+                "particle": "goety:block/spider_sac_emission",
+                "top": "goety:block/spider_sac_top_emission",
+                "side": "goety:block/spider_sac_emission"
+            },
+            "elements": [
+                {   "from": [ 0, 0, 0 ],
+                    "to": [ 16, 16, 16 ],
+                    "faces": {
+                        "up":   { "uv": [ 0, 0, 16, 16 ], "texture": "#top", "cullface": "up", "forge_data": {
+                            "block_light": 15,
+                            "sky_light": 15
+                        } }
+                    }
+                },
+                {   "from": [ 0, 0, 1 ],
+                    "to": [ 16, 16, 15 ],
+                    "faces": {
+                        "north": { "uv": [ 0, 0, 16, 16 ], "texture": "#side", "forge_data": {
+                            "block_light": 15,
+                            "sky_light": 15
+                        } },
+                        "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#side", "forge_data": {
+                            "block_light": 15,
+                            "sky_light": 15
+                        } }
+                    }
+                },
+                {   "from": [ 1, 0, 0 ],
+                    "to": [ 15, 16, 16 ],
+                    "faces": {
+                        "west": { "uv": [ 0, 0, 16, 16 ], "texture": "#side", "forge_data": {
+                            "block_light": 15,
+                            "sky_light": 15
+                        } },
+                        "east": { "uv": [ 0, 0, 16, 16 ], "texture": "#side", "forge_data": {
+                            "block_light": 15,
+                            "sky_light": 15
+                        } }
+                    }
+                }
+            ],
+            "render_type": "cutout"
+        }
+    }
+}

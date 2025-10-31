@@ -4,14 +4,9 @@ import com.Polarice3.Goety.common.entities.ally.illager.AbstractIllagerServant;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 
-public class IllagerLootFoodChestGoal extends IllagerChestGoal {
+public class IllagerLootFoodChestGoal<T extends AbstractIllagerServant> extends IllagerChestGoal<T> {
 
-    public IllagerLootFoodChestGoal(AbstractIllagerServant illager, int range) {
-        super(illager, range);
-        this.chestPredicate = illager::validFood;
-    }
-
-    public IllagerLootFoodChestGoal(AbstractIllagerServant illager) {
+    public IllagerLootFoodChestGoal(T illager) {
         super(illager);
         this.chestPredicate = illager::validFood;
     }

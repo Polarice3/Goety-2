@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.ai;
 
-import com.Polarice3.Goety.common.entities.ally.illager.AbstractIllagerServant;
+import com.Polarice3.Goety.api.entities.ally.illager.ILooter;
+import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
 import com.Polarice3.Goety.config.MobsConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
@@ -26,20 +27,20 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public abstract class IllagerChestGoal extends MoveToBlockGoal {
-    public final AbstractIllagerServant illager;
+public abstract class IllagerChestGoal<T extends RaiderServant & ILooter> extends MoveToBlockGoal {
+    public T illager;
     public boolean hasOpenedChest = false;
-    public final int searchRange;
+    public int searchRange;
     public Predicate<ItemStack> predicate = itemStack -> true;
     public Predicate<ItemStack> chestPredicate = itemStack -> false;
 
-    public IllagerChestGoal(AbstractIllagerServant illager, int range) {
+    public IllagerChestGoal(T illager, int range) {
         super(illager, 0.75F, range);
         this.illager = illager;
         this.searchRange = range;
     }
 
-    public IllagerChestGoal(AbstractIllagerServant illager) {
+    public IllagerChestGoal(T illager) {
         this(illager, MobsConfig.IllagerServantChestRange.get());
     }
 
@@ -176,7 +177,7 @@ public abstract class IllagerChestGoal extends MoveToBlockGoal {
         super.tick();
         if(this.blockPos == null){
             this.stop();
-        }else {
+        } else {
             Container chest = this.getChest(this.illager.level, this.blockPos);
             if (chest != null) {
                 double distance = this.illager.distanceToSqr(this.blockPos.getX() + 0.5F, this.blockPos.getY() + 0.5F, this.blockPos.getZ() + 0.5F);

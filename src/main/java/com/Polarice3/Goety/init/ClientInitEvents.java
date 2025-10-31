@@ -1,6 +1,8 @@
 package com.Polarice3.Goety.init;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.api.items.IPersist;
+import com.Polarice3.Goety.api.items.IPersistDecorator;
 import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.client.events.BossBarEvent;
 import com.Polarice3.Goety.client.gui.overlay.CurrentFocusGui;
@@ -51,6 +53,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -62,6 +65,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.io.File;
@@ -143,6 +147,8 @@ public class ClientInitEvents {
                     , (stack, world, living, seed) -> living != null && living.isUsingItem() && (living.getUseItem() == stack || InfernalTome.isChanting(stack)) ? 1.0F : 0.0F);
             ItemProperties.register(ModItems.OMINOUS_CHARM.get(), new ResourceLocation("active")
                     , (stack, world, living, seed) -> OminousCharmItem.hasOmen(stack) ? 1.0F : 0.0F);
+            ItemProperties.register(ModItems.ESOTERIC_TESSERACT.get(), new ResourceLocation("active")
+                    , (stack, world, living, seed) -> EsotericTesseract.getServantsInTesseract(stack) > 0 ? 1.0F : 0.0F);
         });
 
         copyOldArtIfMissing();
@@ -285,6 +291,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.GEOMANCER, GeomancerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ICEOLOGER, IceologerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WIND_CALLER, WindCallerModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.PRISONER, PrisonerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.RAVAGED, RavagedModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.RAVAGER, ModRavagerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.RAVAGER_ARMOR, ModRavagerModel::createArmorLayer);
@@ -691,6 +698,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.FIRE_RAIN_TRAP.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.FIRE_TORNADO_TRAP.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.LIGHTNING_TRAP.get(), TrapRenderer::new);
+        event.registerEntityRenderer(ModEntityType.MAGIC_LIGHTNING_TRAP.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.VOID_LIGHTNING_TRAP.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.UPDRAFT_BLAST.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.CUSHION.get(), TrapRenderer::new);
@@ -768,5 +776,14 @@ public class ClientInitEvents {
         event.registerRecipeCategoryFinder(ModRecipeSerializer.BRAZIER_TYPE.get(), recipe -> RecipeBookCategories.UNKNOWN);
         event.registerRecipeCategoryFinder(ModRecipeSerializer.BREWING_TYPE.get(), recipe -> RecipeBookCategories.UNKNOWN);
         event.registerRecipeCategoryFinder(ModRecipeSerializer.PULVERIZE_TYPE.get(), recipe -> RecipeBookCategories.UNKNOWN);
+    }
+
+    @SubscribeEvent
+    public static void registerItemDecorators(RegisterItemDecorationsEvent event) {
+        for (Item item : ForgeRegistries.ITEMS.getValues()) {
+            if (item instanceof IPersist) {
+                event.register(item, new IPersistDecorator());
+            }
+        }
     }
 }

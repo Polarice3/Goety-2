@@ -66,10 +66,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.raid.Raid;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.FireworkRocketItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.biome.Biome;
@@ -1004,6 +1001,17 @@ public class MobUtil {
         return false;
     }
 
+    public static boolean isInSunlightNoChance(LivingEntity livingEntity){
+        if (livingEntity.level.isDay() && !livingEntity.level.isClientSide) {
+            float f = livingEntity.getLightLevelDependentMagicValue();
+            BlockPos blockpos = BlockPos.containing(livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ());
+            boolean flag = livingEntity.isInWaterRainOrBubble() || livingEntity.isInPowderSnow || livingEntity.wasInPowderSnow;
+            return f > 0.5F && !flag && livingEntity.level().canSeeSky(blockpos);
+        }
+
+        return false;
+    }
+
     public static boolean isInSunlightNoRain(LivingEntity livingEntity){
         return isInSunlight(livingEntity) && !livingEntity.level.isRaining();
     }
@@ -1545,6 +1553,61 @@ public class MobUtil {
                 return amount;
             }
         }
+    }
+
+    public static boolean doHurtTarget(Mob mob, Entity target, DamageSource damageSource) {
+        float f = (float)mob.getAttributeValue(Attributes.ATTACK_DAMAGE);
+        if (target instanceof LivingEntity livingEntity) {
+            f += EnchantmentHelper.getDamageBonus(mob.getMainHandItem(), livingEntity.getMobType());
+        }
+
+        int i = EnchantmentHelper.getFireAspect(mob);
+        if (i > 0) {
+            target.setSecondsOnFire(i * 4);
+        }
+        return doHurtTarget(mob, target, damageSource, f);
+    }
+
+    public static boolean doHurtTarget(Mob mob, Entity target, DamageSource damageSource, float damage) {
+        boolean flag = target.hurt(damageSource, damage);
+        if (flag) {
+            postHurtTarget(mob, target);
+        }
+
+        return flag;
+    }
+
+    public static void postHurtTarget(Mob mob, Entity target) {
+        float f1 = (float)mob.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
+        if (target instanceof LivingEntity) {
+            f1 += (float)EnchantmentHelper.getKnockbackBonus(mob);
+        }
+        postHurtTarget(mob, target, f1);
+    }
+
+    public static void postHurtTarget(Mob mob, Entity target, float knockback) {
+        if (knockback > 0.0F && target instanceof LivingEntity livingEntity) {
+            livingEntity.knockback((double)(knockback * 0.5F), (double)Mth.sin(mob.getYRot() * ((float)Math.PI / 180F)), (double)(-Mth.cos(mob.getYRot() * ((float)Math.PI / 180F))));
+            mob.setDeltaMovement(mob.getDeltaMovement().multiply(0.6D, 1.0D, 0.6D));
+        }
+
+        if (target instanceof Player player) {
+            maybeDisableShield(mob, player, mob.getMainHandItem(), player.isUsingItem() ? player.getUseItem() : ItemStack.EMPTY);
+        }
+
+        mob.doEnchantDamageEffects(mob, target);
+        mob.setLastHurtMob(target);
+    }
+
+    private static void maybeDisableShield(LivingEntity attacker, Player player, ItemStack mainItem, ItemStack shield) {
+        if (!mainItem.isEmpty() && !shield.isEmpty() && mainItem.getItem() instanceof AxeItem && shield.is(Items.SHIELD)) {
+            float f = 0.25F + (float)EnchantmentHelper.getBlockEfficiency(attacker) * 0.05F;
+            if (attacker.getRandom().nextFloat() < f) {
+                player.getCooldowns().addCooldown(Items.SHIELD, 100);
+                attacker.level.broadcastEntityEvent(player, (byte)30);
+            }
+        }
+
     }
 
     public static boolean isFireImmune(LivingEntity livingEntity){

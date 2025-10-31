@@ -438,6 +438,11 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> LightningDamage;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> ThunderstormCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ThunderstormDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ThunderstormCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> ThunderstormDamage;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> BouncyBubbleCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> BouncyBubbleDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> BouncyBubbleCoolDown;
@@ -511,6 +516,11 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> RuptureDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> RuptureCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> RuptureDamage;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> VoidShockCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VoidShockDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VoidShockCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> VoidShockDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WatchlingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> WatchlingDuration;
@@ -1480,6 +1490,16 @@ public class SpellConfig {
             LightningDamage = BUILDER.comment("How much base damage Lightning from the spell deals, Default: 5.0")
                     .defineInRange("lightningDamage", 5.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
+            BUILDER.push("Thunderstorm Spell");
+            ThunderstormCost = BUILDER.comment("Thunderstorm Spell Cost, Default: 64")
+                    .defineInRange("thunderstormCost", 64, 0, Integer.MAX_VALUE);
+            ThunderstormDuration = BUILDER.comment("Time to cast Thunderstorm Spell, Default: 60")
+                    .defineInRange("thunderstormTime", 60, 0, 72000);
+            ThunderstormCoolDown = BUILDER.comment("Thunderstorm Spell Cooldown, Default: 300")
+                    .defineInRange("thunderstormCoolDown", 300, 0, Integer.MAX_VALUE);
+            ThunderstormDamage = BUILDER.comment("How much base damage Thunderstorm deals, Default: 5.0")
+                    .defineInRange("thunderstormDamage", 5.0, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
             BUILDER.push("Bouncy Bubble Spell");
             BouncyBubbleCost = BUILDER.comment("Bouncy Bubble Spell Cost, Default: 8")
                     .defineInRange("bouncyBubbleCost", 8, 0, Integer.MAX_VALUE);
@@ -1632,6 +1652,16 @@ public class SpellConfig {
                     .defineInRange("ruptureCoolDown", 6000, 0, Integer.MAX_VALUE);
             RuptureDamage = BUILDER.comment("How much base damage the Void Rift deals, Default: 2.0")
                     .defineInRange("ruptureDamage", 2.0, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Void Shock Spell(NYI)");
+            VoidShockCost = BUILDER.comment("Void Shock Spell Cost, Default: 32")
+                    .defineInRange("voidShockCost", 32, 0, Integer.MAX_VALUE);
+            VoidShockDuration = BUILDER.comment("Time to cast Void Shock Spell, Default: 35")
+                    .defineInRange("voidShockDuration", 35, 0, 72000);
+            VoidShockCoolDown = BUILDER.comment("Void Shock Spell Cooldown, Default: 100")
+                    .defineInRange("voidShockCoolDown", 100, 0, Integer.MAX_VALUE);
+            VoidShockDamage = BUILDER.comment("How much base damage the Void Shocks deals, Default: 6.0")
+                    .defineInRange("voidShockDamage", 6.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Watching Spell");
             WatchlingCost = BUILDER.comment("Watching Spell Cost, Default: 20")

@@ -85,6 +85,7 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.gossip.GossipType;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities;
@@ -280,6 +281,15 @@ public class ModEvents {
                 }
                 if (entity instanceof PathfinderMob creeper && creeper.getType().is(ModTags.EntityTypes.CREEPERS)) {
                     creeper.goalSelector.addGoal(3, new AvoidEntityGoal<>(creeper, Player.class, (target) -> target != null && CuriosFinder.hasCurio(target, ModItems.FELINE_AMULET.get()), 6.0F, 1.0D, 1.2D, EntitySelector.NO_SPECTATORS::test));
+                }
+                if (entity instanceof Zombie zombie) {
+                    boolean villagerHater = zombie.targetSelector
+                            .getAvailableGoals()
+                            .stream()
+                            .anyMatch(goal -> goal.getGoal() instanceof NearestAttackableTargetGoal<?> targetGoal && targetGoal.targetType == AbstractVillager.class);
+                    if (villagerHater) {
+                        zombie.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(zombie, Prisoner.class, false));
+                    }
                 }
             }
         }

@@ -1,0 +1,22 @@
+{
+  "name": "goety:spider_den/boss_hallway_main",
+
+  "fallback": "minecraft:empty",
+
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:spider_den/boss_hallway_main",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

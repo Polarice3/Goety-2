@@ -1,4 +1,4 @@
-// 1.20.1	2025-10-18T20:44:47.7515652	Loot Tables
+// 1.20.1	2025-10-29T20:14:07.1495193	Loot Tables
 1173ad0aef6067156a1c3161e3fe16b8e10b3f92 data/goety/loot_tables/blocks/animator.json
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
@@ -265,6 +265,7 @@ a901fcf95254ba2d43c08a5a85a272fce6e3b4e4 data/goety/loot_tables/blocks/necro_bra
 88be6bde1c5fd19959b22b967b5c98055b2e7345 data/goety/loot_tables/blocks/night_beacon.json
 b188955f239411ac17890b502e0e0800defcb528 data/goety/loot_tables/blocks/ominous_pyre.json
 ec98e9058454d9383106d94d6458c5bf96f43e0a data/goety/loot_tables/blocks/overgrown_roots.json
+32ad29add5ed44a41365237bab103c3861f3d238 data/goety/loot_tables/blocks/pale_steel_block.json
 d63d99e6db7c22b9e7823b01d26e0959ae1e2775 data/goety/loot_tables/blocks/pedestal.json
 495122b39b07cfc4a3c318087d0e0371fb26533f data/goety/loot_tables/blocks/pedestal_blackstone.json
 833c43b19a6516ed9c2a9c417bdd3638bf42c9d4 data/goety/loot_tables/blocks/pedestal_deepslate.json
@@ -305,6 +306,7 @@ c468779d162d8a26eb85483a773867d11a61e230 data/goety/loot_tables/blocks/potted_wi
 3e98cb81f68fc38b8e7d4b7af22b3d3989fea238 data/goety/loot_tables/blocks/purpur_end_rod_block.json
 3a40a9c727ff116f5b9507ec2e65c8461b1aae2e data/goety/loot_tables/blocks/purpur_lamp.json
 3c77d61ca288ee0e976d44a4d7c9a170c94736a4 data/goety/loot_tables/blocks/purpur_wall.json
+f62d0219c47fa8acceb119d84f7b949b3c1af017 data/goety/loot_tables/blocks/raiding_chest.json
 908936209e6e501fc11cbad56c4bf86dd4683f06 data/goety/loot_tables/blocks/reinforced_redstone_block.json
 51701dbf3fffec637ed5f9e3dafcbe7156d6bb31 data/goety/loot_tables/blocks/rimmed_steep_wall.json
 49e2a988e8bc9db9e08b3ad46d481c5f97fd80da data/goety/loot_tables/blocks/rimmed_steep_wood.json
@@ -433,6 +435,7 @@ bdaf9ba64dcda028fa21f72734c91b68fb7f1b92 data/goety/loot_tables/blocks/soul_abso
 8d80a4e001db3a4b3e9a92ebc2a25bdc5c7b509d data/goety/loot_tables/blocks/soul_candlestick.json
 6ca3d5e430f9add1eacecee22d8a8279ece7f563 data/goety/loot_tables/blocks/soul_mender.json
 f8eabfed51cad1c6c6f2daa67b7656e7ce159d97 data/goety/loot_tables/blocks/spider_nest.json
+73ede15d013b410ef027312910b0cb493b4e85d2 data/goety/loot_tables/blocks/spider_sac.json
 df10ec65b87fd13961f3927ed6743a75df63dafd data/goety/loot_tables/blocks/steep_button.json
 530b227f657ebb1d694f2a549c829aa3e9500c55 data/goety/loot_tables/blocks/steep_fence.json
 1ceedd4a4d93a3b250ea01c7f1af743071c6ba2d data/goety/loot_tables/blocks/steep_fence_gate.json
@@ -466,6 +469,7 @@ e002fbc400e749dd46968a36a56e02481bcac7ec data/goety/loot_tables/blocks/thatched_
 7f685cdfb474d6ba8fda2b190d4d5a1ede06c3c6 data/goety/loot_tables/blocks/trapped_corrupt_chorus_chest.json
 6deac63f672db371f0644bdd561cbf5961f34440 data/goety/loot_tables/blocks/trapped_haunted_chest.json
 fb885df8390d6bf669dee4482939068facff7141 data/goety/loot_tables/blocks/trapped_pine_chest.json
+cf04c38642786e3e8569b35646cebcbbaae56ded data/goety/loot_tables/blocks/trapped_raiding_chest.json
 e78b39fc5624c4cbf9f6be9003b7f148e648fd9a data/goety/loot_tables/blocks/trapped_rotten_chest.json
 a102435d92bd289f567ec5b1c2a81d77867593f4 data/goety/loot_tables/blocks/trapped_windswept_chest.json
 695141863c209aa0a5a7be13609c903d5f6b0cbb data/goety/loot_tables/blocks/void_barrel.json

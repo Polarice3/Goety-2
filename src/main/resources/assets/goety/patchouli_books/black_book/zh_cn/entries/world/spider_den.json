@@ -1,0 +1,16 @@
+{
+  "name": "巨蛛巢穴",
+  "icon": "goety:spider_sac",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "有传说或留言中提到，一颗被掏空的巨树中满是蜘蛛，这个巨树下方可能连接着一个旧矿井"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/spider_den.png"],
+      "border": true
+    }
+  ]
+}

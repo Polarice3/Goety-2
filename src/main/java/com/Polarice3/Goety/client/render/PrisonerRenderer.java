@@ -1,13 +1,14 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.client.render.model.PrisonerModel;
 import com.Polarice3.Goety.common.entities.ally.illager.Prisoner;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.VillagerModel;
+import com.mojang.math.Axis;
 import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.model.geom.ModelLayers;
+import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -15,7 +16,6 @@ import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
-import net.minecraft.client.renderer.entity.layers.CrossedArmsItemLayer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.layers.VillagerProfessionLayer;
@@ -23,17 +23,21 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
-public class PrisonerRenderer extends MobRenderer<Prisoner, VillagerModel<Prisoner>> {
+public class PrisonerRenderer extends MobRenderer<Prisoner, PrisonerModel<Prisoner>> {
    private static final ResourceLocation VILLAGER_BASE_SKIN = new ResourceLocation("textures/entity/villager/villager.png");
    private static final ResourceLocation TRADER = new ResourceLocation("textures/entity/wandering_trader.png");
    private static final ResourceLocation CHAIN = Goety.location("textures/entity/servants/prisoner_chain.png");
 
    public PrisonerRenderer(EntityRendererProvider.Context p_174437_) {
-      super(p_174437_, new VillagerModel<>(p_174437_.bakeLayer(ModelLayers.VILLAGER)), 0.5F);
+      super(p_174437_, new PrisonerModel<>(p_174437_.bakeLayer(ModModelLayer.PRISONER)), 0.5F);
       this.addLayer(new CustomHeadLayer<>(this, p_174437_.getModelSet(), p_174437_.getItemInHandRenderer()));
       this.addLayer(new VillagerProfessionLayer<>(this, p_174437_.getResourceManager(), "villager"){
          @Override
@@ -44,7 +48,7 @@ public class PrisonerRenderer extends MobRenderer<Prisoner, VillagerModel<Prison
          }
       });
       this.addLayer(new ShacklesLayer<>(this, p_174437_.getModelSet()));
-      this.addLayer(new CrossedArmsItemLayer<>(this, p_174437_.getItemInHandRenderer()));
+      this.addLayer(new PrisonerArmsItemLayer<>(this, p_174437_.getItemInHandRenderer()));
    }
 
    public ResourceLocation getTextureLocation(Prisoner p_116312_) {
@@ -84,7 +88,7 @@ public class PrisonerRenderer extends MobRenderer<Prisoner, VillagerModel<Prison
       if (entity == null) {
          entity = p_115455_.getTrueOwner();
       }
-      if (entity != null && entity.distanceTo(p_115455_) <= 32.0F && p_115455_.isFollowing()) {
+      if (entity != null && p_115455_.isChained && entity.distanceTo(p_115455_) <= 32.0F) {
          this.renderChain(p_115455_, p_115457_, p_115458_, p_115459_, entity);
       }
    }
@@ -144,19 +148,39 @@ public class PrisonerRenderer extends MobRenderer<Prisoner, VillagerModel<Prison
       p_174308_.vertex(p_254405_, f5 + p_174319_, f6 + p_174317_ - p_174318_, f7 - p_174320_).color(f2, f3, f4, 1.0F).uv2(k).endVertex();
    }
 
-   public static class ShacklesLayer<T extends Prisoner, M extends VillagerModel<T>> extends RenderLayer<T, M> {
+   public static class ShacklesLayer<T extends Prisoner, M extends PrisonerModel<T>> extends RenderLayer<T, M> {
       private static final ResourceLocation SHACKLES = Goety.location("textures/entity/servants/prisoner_shackles.png");
-      private final VillagerModel<T> layerModel;
+      private final PrisonerModel<T> layerModel;
 
       public ShacklesLayer(RenderLayerParent<T, M> p_i50919_1_, EntityModelSet p_174555_) {
          super(p_i50919_1_);
-         this.layerModel = new VillagerModel<>(p_174555_.bakeLayer(ModelLayers.VILLAGER));
+         this.layerModel = new PrisonerModel<>(p_174555_.bakeLayer(ModModelLayer.PRISONER));
       }
 
       public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
          if (!entitylivingbaseIn.isInvisible()) {
             coloredCutoutModelCopyLayerRender(this.getParentModel(), this.layerModel, SHACKLES, matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0F, 1.0F, 1.0F);
          }
+      }
+   }
+
+   public static class PrisonerArmsItemLayer<T extends LivingEntity, M extends PrisonerModel<T>> extends RenderLayer<T, M> {
+      private final ItemInHandRenderer itemInHandRenderer;
+
+      public PrisonerArmsItemLayer(RenderLayerParent<T, M> p_234818_, ItemInHandRenderer p_234819_) {
+         super(p_234818_);
+         this.itemInHandRenderer = p_234819_;
+      }
+
+      public void render(PoseStack p_116699_, MultiBufferSource p_116700_, int p_116701_, T p_116702_, float p_116703_, float p_116704_, float p_116705_, float p_116706_, float p_116707_, float p_116708_) {
+         p_116699_.pushPose();
+         this.getParentModel().translateToHand(p_116699_);
+         p_116699_.mulPose(Axis.XP.rotationDegrees(-90.0F));
+         p_116699_.mulPose(Axis.YP.rotationDegrees(180.0F));
+         p_116699_.translate(0.0F, 0.0F, -0.125F);
+         ItemStack itemstack = p_116702_.getItemBySlot(EquipmentSlot.MAINHAND);
+         this.itemInHandRenderer.renderItem(p_116702_, itemstack, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, false, p_116699_, p_116700_, p_116701_);
+         p_116699_.popPose();
       }
    }
 }

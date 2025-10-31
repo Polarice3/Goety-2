@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "goety:cursed_metal_block",
+    "goety:pale_steel_block",
+    "goety:dark_metal_block"
+  ]
+}

@@ -67,16 +67,18 @@ public class SoulMenderBlock extends BaseEntityBlock implements SimpleWaterlogge
                 return InteractionResult.CONSUME;
             }
             if (itemstack.isEmpty() || itemstack == blockEntity.getItem(0)){
-                ItemStack repaired = blockEntity.getItem(0);
-                if (!repaired.isEmpty()){
-                    if (itemstack.isEmpty()) {
-                        pPlayer.setItemInHand(pHand, repaired);
-                        pLevel.playSound(null, pPos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1.0F, 1.0F);
-                    } else if (!pPlayer.addItem(repaired)) {
-                        dropItemStack(pLevel, pPlayer.blockPosition(), repaired);
+                if (!pLevel.isClientSide) {
+                    ItemStack repaired = blockEntity.getItem(0).copyAndClear();
+                    if (!repaired.isEmpty()) {
+                        if (itemstack.isEmpty()) {
+                            pPlayer.setItemInHand(pHand, repaired);
+                            pLevel.playSound(null, pPos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        } else if (!pPlayer.addItem(repaired)) {
+                            dropItemStack(pLevel, pPlayer.blockPosition(), repaired);
+                        }
+                        blockEntity.markUpdated();
+                        return InteractionResult.SUCCESS;
                     }
-                    blockEntity.removeItem(0, 1);
-                    return InteractionResult.SUCCESS;
                 }
                 return InteractionResult.CONSUME;
             }

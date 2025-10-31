@@ -313,6 +313,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.earth_punch_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:earth_punch_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.electrocute_focus": {
       "conditions": {
         "items": [
@@ -1177,6 +1189,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.thunderstorm_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:thunderstorm_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.tidal_focus": {
       "conditions": {
         "items": [
@@ -1480,6 +1504,9 @@
       "item.goety.quaking_focus"
     ],
     [
+      "item.goety.earth_punch_focus"
+    ],
+    [
       "item.goety.pulverize_focus"
     ],
     [
@@ -1607,6 +1634,9 @@
     ],
     [
       "item.goety.lightning_focus"
+    ],
+    [
+      "item.goety.thunderstorm_focus"
     ],
     [
       "item.goety.bubble_stream_focus"

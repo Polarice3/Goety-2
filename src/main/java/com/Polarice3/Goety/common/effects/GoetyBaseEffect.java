@@ -95,7 +95,7 @@ public class GoetyBaseEffect extends MobEffect {
             }
         }
         if (this == GoetyEffects.PHOTOSYNTHESIS.get()){
-            if (MobUtil.isInSunlight(livingEntity)) {
+            if (MobUtil.isInSunlightNoChance(livingEntity)) {
                 if (livingEntity.getHealth() < livingEntity.getMaxHealth()) {
                     livingEntity.heal(1.0F);
                 }

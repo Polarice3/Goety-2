@@ -1,0 +1,22 @@
+{
+  "name": "雷暴聚晶",
+  "icon": "goety:thunderstorm_focus",
+  "category": "goety:focuses/storm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "该聚晶允许玩家牵引天堂之怒，进而笼罩一片区域。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/thunderstorm_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "持有$(l:crafts/staff/storm_staff)风暴魔杖$()施法时，会召唤更多落雷。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:thunderstorm_focus": 1
+  }
+}

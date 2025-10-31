@@ -6,6 +6,7 @@ import com.Polarice3.Goety.client.particles.DustCloudParticleOption;
 import com.Polarice3.Goety.client.particles.VerticalCircleExplodeParticleOption;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
@@ -38,7 +39,7 @@ public class VoidShock extends SpellEntity {
     public double yPower;
     public double zPower;
     public double badMath = 1.0D;
-    public float baseDamage = 6.0F;
+    public float baseDamage = SpellConfig.VoidShockDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get().floatValue();
     public int life;
     public int initTime = MathHelper.secondsToTicks(2);
     private Vec3[] trailPositions;

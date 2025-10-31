@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "__comment": "blocks that Prisoners can mine",
+  "values": [
+    "#forge:ores"
+  ]
+}

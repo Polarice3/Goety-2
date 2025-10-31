@@ -19,6 +19,8 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WindRobeSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> ItemsRepairAmount;
     public static final ForgeConfigSpec.ConfigValue<Integer> SpitefulBeltUseAmount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> TesseractCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> TesseractDurability;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WitchRobeResistance;
     public static final ForgeConfigSpec.ConfigValue<Integer> WarlockRobeResistance;
@@ -153,6 +155,10 @@ public class ItemConfig {
                 .defineInRange("itemsRepairSouls", 5, 1, Integer.MAX_VALUE);
         FireSpawnCage = BUILDER.comment("Fire Spawn Cage are enabled, Default: true")
                 .define("fireSpawnCage", true);
+        TesseractCapacity = BUILDER.comment("How many servants an Esoteric Tesseract can contain, Default: 16")
+                .defineInRange("tesseractCapacity", 16, 1, Integer.MAX_VALUE);
+        TesseractDurability = BUILDER.comment("How many uses before Tesseract is disabled, Default: 16")
+                .defineInRange("tesseractDurability", 16, 1, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Curios");
             BUILDER.push("Robes");

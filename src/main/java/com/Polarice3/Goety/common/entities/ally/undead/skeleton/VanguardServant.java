@@ -339,8 +339,8 @@ public class VanguardServant extends AbstractSkeletonServant {
         return distToEnemySqr <= this.getAttackReachSqr(enemy) || this.getBoundingBox().intersects(enemy.getBoundingBox());
     }
 
-    public InteractionResult mobInteract(Player pPlayer, InteractionHand p_230254_2_) {
-        ItemStack itemstack = pPlayer.getItemInHand(p_230254_2_);
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
         Item item = itemstack.getItem();
         if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
             if (item == Items.BONE && this.getHealth() < this.getMaxHealth()) {

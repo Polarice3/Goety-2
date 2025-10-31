@@ -143,6 +143,30 @@
     {
       "type": "minecraft:single",
       "resource": "goety:entity/chest/corrupt_chorus/trapped_right"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/raiding/normal"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/raiding/normal_left"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/raiding/normal_right"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/raiding/trapped"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/raiding/trapped_left"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/raiding/trapped_right"
     }
   ]
 }

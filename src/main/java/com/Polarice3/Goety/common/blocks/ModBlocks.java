@@ -82,6 +82,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> BLAZING_CAGE = register("blazing_cage", BlazingCageBlock::new);
     public static final RegistryObject<Block> OMINOUS_PYRE = register("ominous_pyre", OminousPyreBlock::new);
     public static final RegistryObject<Block> OMINOUS_IDOL = register("ominous_idol", OminousIdolBlock::new, false, LootTableType.EMPTY);
+    public static final RegistryObject<ModChestBlock> RAIDING_CHEST = isterRegister("raiding_chest", () -> new ModChestBlock(Block.Properties.of().instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD)));
+    public static final RegistryObject<ModTrappedChestBlock> TRAPPED_RAIDING_CHEST = isterRegister("trapped_raiding_chest", () -> new ModTrappedChestBlock(Block.Properties.of().instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> FORBIDDEN_GRASS = register("forbidden_grass", ForbiddenGrassBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> HOOK_BELL = register("hook_bell", HookBellBlock::new);
     public static final RegistryObject<Block> SHRIEKING_OBELISK = register("shriek_obelisk", ShriekObeliskBlock::new);
@@ -169,6 +171,7 @@ public class ModBlocks {
             .strength(5.0F, 6.0F)
             .sound(SoundType.METAL)));
     public static final RegistryObject<Block> CURSED_METAL_BLOCK = register("cursed_metal_block", CursedMetalBlock::new);
+    public static final RegistryObject<Block> PALE_STEEL_BLOCK = register("pale_steel_block", PaleSteelBlock::new);
     public static final RegistryObject<Block> DARK_ALLOY_BLOCK = register("dark_metal_block", DarkMetalBlock::new);
 
     public static final RegistryObject<Block> HAUNTED_GLASS = register("haunted_glass", () -> new HauntedGlassBlock(glassProperties(), true, false));
@@ -196,6 +199,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> CRYPT_URN = register("crypt_urn", UrnBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<CryptChestBlock> CRYPT_CHEST = isterRegister("crypt_chest", CryptChestBlock::new, LootTableType.EMPTY);
     public static final RegistryObject<LoftyChestBlock> LOFTY_CHEST = isterRegister("lofty_chest", () -> new LoftyChestBlock(Block.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASS).strength(5.0F, 3600000.0F).sound(SoundType.NETHER_BRICKS).lightLevel(light -> 6)), LootTableType.EMPTY);
+    public static final RegistryObject<Block> SPIDER_SAC = register("spider_sac", SpiderSacBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> SOUL_LIGHT_BLOCK = register("soul_light", SoulLightBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> GLOW_LIGHT_BLOCK = register("glow_light", GlowLightBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> DIAMOND_MOLD_BLOCK = register("diamond_mold_block", () ->
@@ -1223,6 +1227,19 @@ public class ModBlocks {
     public static class CursedMetalBlock extends Block {
 
         public CursedMetalBlock() {
+            super(Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .instrument(NoteBlockInstrument.IRON_XYLOPHONE)
+                    .strength(5.0F, 6.0F)
+                    .sound(SoundType.METAL)
+                    .requiresCorrectToolForDrops()
+            );
+        }
+    }
+
+    public static class PaleSteelBlock extends Block {
+
+        public PaleSteelBlock() {
             super(Properties.of()
                     .mapColor(MapColor.METAL)
                     .instrument(NoteBlockInstrument.IRON_XYLOPHONE)

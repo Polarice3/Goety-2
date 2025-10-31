@@ -13,6 +13,7 @@ import com.Polarice3.Goety.common.items.magic.TaglockKit;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.config.MainConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import com.google.common.collect.Lists;
@@ -39,6 +40,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -865,6 +867,12 @@ public abstract class RaiderServant extends Summoned {
         this.reviveDim = reviveDim;
     }
 
+    public void spawnArmor(RandomSource randomSource){
+        if (MobsConfig.RaiderServantWearArmor.get()) {
+            super.spawnArmor(randomSource);
+        }
+    }
+
     public boolean canLinkToIdol() {
         return this instanceof AbstractIllagerServant
                 || this instanceof AbstractBoundIllager
@@ -943,7 +951,7 @@ public abstract class RaiderServant extends Summoned {
             } else if (pPlayer.getMainHandItem().is(ModItems.WAYSTONE.get())
                     && WaystoneItem.hasBlock(pPlayer.getMainHandItem())
                     && WaystoneItem.isSameDimension(this, pPlayer.getMainHandItem())
-                    && pPlayer.getOffhandItem().is(Items.GOAT_HORN)
+                    && (pPlayer.getOffhandItem().is(Items.GOAT_HORN) || pPlayer.getOffhandItem().is(ModItems.RAIDING_HORN.get()))
                     && !SEHelper.getFocusCoolDown(pPlayer).isOnCooldown(ModItems.WAYSTONE.get())
                     && this.isLeader()){
                 if (this.level instanceof ServerLevel serverLevel) {
@@ -1009,7 +1017,7 @@ public abstract class RaiderServant extends Summoned {
                     }
                 }
                 return InteractionResult.CONSUME;
-            } else if (pPlayer.getMainHandItem().is(Items.CHAIN)
+            } else if (pPlayer.getMainHandItem().is(ModItems.OMINOUS_SHACKLES.get())
                     && !this.isCapturing()
                     && !this.isFollower()){
                 if (!this.level.isClientSide) {

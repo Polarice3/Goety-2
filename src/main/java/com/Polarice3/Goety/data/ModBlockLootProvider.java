@@ -145,6 +145,9 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
         this.add(ModBlocks.LOFTY_CHEST.get(), (p_124233_) -> {
             return createSingleItemTableWithSilkTouch(p_124233_, Items.OBSIDIAN, UniformGenerator.between(2.0F, 4.0F));
         });
+        this.add(ModBlocks.SPIDER_SAC.get(), (p_124233_) -> {
+            return createSingleItemTableWithSilkTouch(p_124233_, Items.STRING, UniformGenerator.between(2.0F, 4.0F));
+        });
         this.add(ModBlocks.CHORUS_VINE.get(), (p_124233_) -> {
             return createShearsOnlyDrop(ModBlocks.CHORUS_VINE.get());
         });
