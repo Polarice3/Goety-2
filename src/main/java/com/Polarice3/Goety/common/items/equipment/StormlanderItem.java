@@ -129,6 +129,6 @@ public class StormlanderItem extends HammerItem{
 
     @Override
     public boolean isValidRepairItem(ItemStack pToRepair, ItemStack pRepair) {
-        return pRepair.getItem() == ModItems.CURSED_METAL_INGOT.get();
+        return pRepair.getItem() == ModItems.PALE_STEEL_INGOT.get();
     }
 }

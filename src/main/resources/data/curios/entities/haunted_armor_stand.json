@@ -1,4 +1,6 @@
 {
   "entities": ["goety:haunted_armor_stand"],
-  "slots": ["curio"]
+  "slots": [
+    "curios"
+  ]
 }

@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.items;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.illager.Prisoner;
+import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
@@ -10,9 +11,11 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.gossip.GossipType;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.WanderingTrader;
@@ -34,7 +37,7 @@ public class OminousShacklesItem extends Item {
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
         Level level = player.getCommandSenderWorld();
         if (!level.isClientSide) {
-            if (target instanceof AbstractVillager villager) {
+            if (target instanceof AbstractVillager villager && !villager.isBaby()) {
                 Prisoner prisoner = villager.convertTo(ModEntityType.PRISONER.get(), true);
                 if (prisoner != null) {
                     if (villager instanceof Villager villager1) {
@@ -49,12 +52,23 @@ public class OminousShacklesItem extends Item {
                     if (!prisoner.isSilent()) {
                         prisoner.playSound(SoundEvents.IRON_TRAPDOOR_CLOSE);
                     }
-                    for (Villager villager1 : level.getEntitiesOfClass(Villager.class, player.getBoundingBox().inflate(16.0D))) {
-                        Brain<?> brain = villager1.getBrain();
-                        Player player1 = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER).orElse(null);
-                        if (player1 != null && player1 == player) {
-                            if (villager1.getPlayerReputation(player) > -200) {
-                                villager1.getGossips().add(player.getUUID(), GossipType.MAJOR_NEGATIVE, 25);
+                    for (Mob mob : level.getEntitiesOfClass(Mob.class, player.getBoundingBox().inflate(16.0D))) {
+                        if (mob instanceof Villager villager1) {
+                            Brain<?> brain = villager1.getBrain();
+                            Player player1 = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER).orElse(null);
+                            if (player1 != null && player1 == player) {
+                                if (villager1.getPlayerReputation(player) > -200) {
+                                    villager1.getGossips().add(player.getUUID(), GossipType.MAJOR_NEGATIVE, 25);
+                                }
+                            }
+                        }
+                        if (mob.getType().is(ModTags.EntityTypes.VILLAGE_GUARDS)) {
+                            if (mob instanceof IronGolem ironGolem) {
+                                if (!ironGolem.isPlayerCreated()) {
+                                    ironGolem.setTarget(player);
+                                }
+                            } else {
+                                mob.setTarget(player);
                             }
                         }
                     }

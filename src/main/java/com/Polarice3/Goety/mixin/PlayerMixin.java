@@ -6,8 +6,8 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
-import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -30,7 +30,7 @@ public abstract class PlayerMixin extends LivingEntity {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
         if (entity instanceof LivingEntity livingEntity) {
-            if (livingEntity instanceof Villager || livingEntity instanceof AbstractChestedHorse) {
+            if (livingEntity instanceof AbstractVillager || livingEntity instanceof AbstractHorse) {
                 if (itemstack.getDescriptionId().contains(Goety.MOD_ID)) {
                     InteractionResult result = itemstack.interactLivingEntity(player, livingEntity, hand);
                     if (result.consumesAction()) {

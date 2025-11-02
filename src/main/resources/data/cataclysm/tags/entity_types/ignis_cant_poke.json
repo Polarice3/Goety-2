@@ -1,8 +1,7 @@
 {
   "replace": false,
   "values": [
-    "goety:apostle",
-    "goety:vizier",
+    "#goety:bosses",
     "goety:slime_servant",
     "goety:magma_cube_servant",
     "goety:crypt_slime_servant",

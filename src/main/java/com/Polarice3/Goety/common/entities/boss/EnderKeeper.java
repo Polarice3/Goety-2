@@ -106,6 +106,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
     public int slicingCool = 0;
     public int groundPoundSize = 6;
     public int shakeSword = 0;
+    public int moddedInvul = 0;
     public int deathTime;
     public float deathRotation = 0.0F;
     private BlockPos lastSafePosition;
@@ -564,6 +565,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
         compound.putInt("GroundPoundCool", this.groundPoundCool);
         compound.putInt("BackAwayCool", this.backAwayCool);
         compound.putInt("SlicingCool", this.slicingCool);
+        compound.putInt("ModdedInvul", this.moddedInvul);
     }
 
     @Override
@@ -602,6 +604,9 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
         if (compound.contains("SlicingCool")) {
             this.slicingCool = compound.getInt("SlicingCool");
         }
+        if (compound.contains("ModdedInvul")) {
+            this.moddedInvul = compound.getInt("ModdedInvul");
+        }
     }
 
     @Nullable
@@ -631,17 +636,22 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
                 damage *= 0.5F;
             }
         }
+        if (this.moddedInvul > 0){
+            return false;
+        }
         return super.hurt(source, damage);
     }
 
     protected void actuallyHurt(DamageSource source, float amount) {
-        if (source.is(DamageTypeTags.BYPASSES_COOLDOWN) || (source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && source.getEntity() != null)) {
-            this.invulnerableTime = 20;
-        }
         if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)){
             amount = Math.min(amount, AttributesConfig.EnderKeeperDamageCap.get().floatValue());
         }
-        super.actuallyHurt(source, amount);
+        if (this.moddedInvul <= 0){
+            super.actuallyHurt(source, amount);
+            if (source.getEntity() != null) {
+                this.moddedInvul = 15;
+            }
+        }
     }
 
     public void setAnimationState(String input) {
@@ -1034,6 +1044,9 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
         }
         if (this.slicingCool > 0) {
             --this.slicingCool;
+        }
+        if (this.moddedInvul > 0){
+            --this.moddedInvul;
         }
 
         if (!this.level.isClientSide) {

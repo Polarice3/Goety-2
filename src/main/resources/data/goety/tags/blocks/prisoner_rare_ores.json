@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "__comment": "blocks that Prisoners would rarely mine from",
+  "values": [
+    "#forge:ores/diamond",
+    "#forge:ores/netherite_scrap"
+  ]
+}

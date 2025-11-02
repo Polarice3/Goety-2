@@ -198,7 +198,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Illagers can be given armor (if config is set to true) and can be given a Totem of Undying so long as their offhand is empty."
+      "text": "Illagers can be given armor (if config is set to true) and can be given a Totem of Undying so long as their offhand is empty. Right-clicking on them with a Stick will cause them to drop their Totem from their Offhand."
     }
   ]
 }

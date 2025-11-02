@@ -1,0 +1,16 @@
+{
+  "name": "Covil da Aranha",
+  "icon": "goety:spider_sac",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Havia lendas e rumores sobre grandes árvores que são ocos e infestados com aranhas, e que podem ter sido plantadas em cima de uma velha mina abandonada..."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/spider_den.png"],
+      "border": true
+    }
+  ]
+}

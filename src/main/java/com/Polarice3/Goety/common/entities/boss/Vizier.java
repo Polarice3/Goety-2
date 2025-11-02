@@ -95,6 +95,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     public double zCloak;
     public boolean flyWarn;
     public boolean spawnClones;
+    public int moddedInvul = 0;
     public int airBound;
     public int deathTime = 0;
     public AnimationState introAnimationState = new AnimationState();
@@ -147,6 +148,11 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
         this.noPhysics = false;
         this.setNoGravity(true);
         this.oBob = this.bob;
+
+        if (this.moddedInvul > 0){
+            --this.moddedInvul;
+        }
+
         float f = Math.min(0.1F, Mth.sqrt((float) getHorizontalDistanceSqr(this.getDeltaMovement())));
 
         this.bob += (f - this.bob) * 0.4F;
@@ -185,9 +191,9 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
         if (this.getCasting() >= 300){
             this.setCasting(0);
         }
-        int i = Vizier.this.level.getEntitiesOfClass(Irk.class, Vizier.this.getBoundingBox().inflate(64)).size();
+        int i = this.level.getEntitiesOfClass(Irk.class, this.getBoundingBox().inflate(64)).size();
         if (MobsConfig.VizierMinion.get()){
-            i = Vizier.this.level.getEntitiesOfClass(Vex.class, Vizier.this.getBoundingBox().inflate(64)).size();
+            i = this.level.getEntitiesOfClass(Vex.class, this.getBoundingBox().inflate(64)).size();
         }
         if (this.getCastTimes() == 1){
             if (i >= 2){
@@ -534,6 +540,10 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
             }
         }
 
+        if (this.moddedInvul > 0){
+            return false;
+        }
+
         if (this.isSpellcasting() && !pSource.is(DamageTypes.FELL_OUT_OF_WORLD)){
             return super.hurt(pSource, pAmount / 2);
         } else {
@@ -542,13 +552,15 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     }
 
     protected void actuallyHurt(DamageSource source, float amount) {
-        if (source.is(DamageTypeTags.BYPASSES_COOLDOWN) || (source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && source.getEntity() != null)) {
-            this.invulnerableTime = 20;
-        }
         if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)){
-            amount = Math.min(amount, AttributesConfig.VizierDamageCap.get().floatValue());
+            amount = Math.min(amount, AttributesConfig.EnderKeeperDamageCap.get().floatValue());
         }
-        super.actuallyHurt(source, amount);
+        if (this.moddedInvul <= 0){
+            super.actuallyHurt(source, amount);
+            if (source.getEntity() != null) {
+                this.moddedInvul = 15;
+            }
+        }
     }
 
     @Override
@@ -565,6 +577,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
         compound.putInt("Confused", this.getInvulnerableTicks());
         compound.putInt("Casting", this.getCasting());
         compound.putInt("CastTimes", this.getCastTimes());
+        compound.putInt("ModdedInvul", this.moddedInvul);
         compound.putBoolean("FlyWarn", this.flyWarn);
         compound.putBoolean("SpawnClones", this.spawnClones);
     }
@@ -574,6 +587,9 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
         this.setInvulnerableTicks(compound.getInt("Confused"));
         this.setCasting(compound.getInt("Casting"));
         this.setCastTimes(compound.getInt("CastTimes"));
+        if (compound.contains("ModdedInvul")) {
+            this.moddedInvul = compound.getInt("ModdedInvul");
+        }
         this.flyWarn = compound.getBoolean("FlyWarn");
         if (compound.contains("SpawnClones")){
             this.spawnClones = compound.getBoolean("SpawnClones");

@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.items.equipment;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModTiers;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -159,5 +160,10 @@ public class DarkScytheItem extends TieredItem implements Vanishable {
 
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
         return equipmentSlot == EquipmentSlot.MAINHAND ? this.scytheAttributes : super.getDefaultAttributeModifiers(equipmentSlot);
+    }
+
+    @Override
+    public boolean isValidRepairItem(ItemStack pToRepair, ItemStack pRepair) {
+        return pRepair.getItem() == ModItems.PALE_STEEL_INGOT.get() || super.isValidRepairItem(pToRepair, pRepair);
     }
 }

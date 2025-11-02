@@ -676,6 +676,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> SHADE_STONE_BRICK_BLOCK = register("shade_stone_bricks", ShadeStoneBlock::new);
     public static final RegistryObject<Block> SHADE_BRICK_BLOCK = register("shade_bricks", ShadeStoneBlock::new);
     public static final RegistryObject<Block> SHADE_TILES_BLOCK = register("shade_tiles", ShadeStoneBlock::new);
+    public static final RegistryObject<Block> SHADE_PILLAR_BLOCK = register("shade_pillar", () -> pillar(ShadeStoneProperties()));
+    public static final RegistryObject<Block> SHADE_GLASS_BLOCK = register("shade_glass", () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
 
     //Crypt
     public static final RegistryObject<Block> CRYPT_STONE_BLOCK = register("crypt_stone", CryptStoneBlock::new);
@@ -980,6 +982,7 @@ public class ModBlocks {
                     .strength(5.0F, 6.0F)
                     .sound(SoundType.METAL)
                     .noOcclusion()));
+    public static final RegistryObject<Block> SHADE_GLASS_PANE = register("shade_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.copy(Blocks.GLASS_PANE)));
 
     //Custom Items
     public static final RegistryObject<Item> SNAP_WARTS_ITEM = ModItems.ITEMS.register("snap_warts",

@@ -16,7 +16,7 @@
   },
   "parent": "goety:goety/craft_totem",
   "criteria": {
-    "dark_altar": {
+    "1": {
       "conditions": {
         "items": [
           {
@@ -27,11 +27,102 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
+    },
+    "2": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:dark_altar_stone"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "3": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:dark_altar_deepslate"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "4": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:dark_altar_nether_brick"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "5": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:dark_altar_blackstone"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "6": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:dark_altar_end_stone"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "7": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:dark_altar_highrock"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "8": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:dark_altar_marble"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "requirements": [
     [
-      "dark_altar"
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
     ]
   ]
 }

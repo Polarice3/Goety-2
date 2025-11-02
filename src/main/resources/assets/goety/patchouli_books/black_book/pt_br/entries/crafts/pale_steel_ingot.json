@@ -1,0 +1,20 @@
+{
+  "name": "Barras de Aço Pálido",
+  "icon": "goety:pale_steel_ingot",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Você ficou confuso sobre o metal encontrado nas ombreiras e cinto dos Saqueadores e na armadura dos Devastadores. É Prata? Platina? Ferro de cor estranha? Diamante dessaturado? Após alguns testes e 'negociações', você descobriu que é, de certa forma, todos eles."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Alguns são prata, alguns são platina, alguns são apenas ferro colorido e assim por diante. Eles apenas parecem e, em alguns casos, agem da mesma forma para você. Você decidiu recriar o tipo mais comum do metal dos illagers, já que prata e platina podem não estar disponíveis, ou provavelmente sejam muito valiosos, para usar em propósitos sombrios."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:pale_steel_ingot",
+      "recipe2": "goety:pale_steel_block"
+    }
+  ]
+}

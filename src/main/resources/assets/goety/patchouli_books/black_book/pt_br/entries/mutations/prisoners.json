@@ -1,0 +1,45 @@
+{
+  "name": "Prisioneiros",
+  "icon": "goety:ominous_shackles",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Não é realmente uma mutação, a menos que se considere ser acorrentado e capturado como parte do conceito."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:prisoner"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Prisioneiros que seguem mobs os seguirão como qualquer outro servo, mas quando seguindo você diretamente, como visto por estarem acorrentados a você, eles seguirão muito como se estivessem amarrados por uma corda. Prisioneiros, quando no modo 'Guardando', não vagarão pela área como outros servos, mas ficarão parados, embora ainda possam se mover para interagir com certos objetos."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Para libertar um Prisioneiro, clique com o botão direito nele enquanto agachado. Prisioneiros também podem ser libertados se sofrerem dano suficiente enquanto longe de seu captor ou dono."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_pickaxe",
+      "anchor": "mining",
+      "title": "Minas de Prisioneiros",
+      "text": "Clicar com o botão direito em um Prisioneiro com uma Picareta de qualquer tipo permite que ele entre no Modo de Mineração. Primeiro, eles devem estar perto de minérios, e então não devem estar no modo de Seguir para começarem a minerar."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Prisioneiros coletarão gotas de minério de vez em quando, mas pararão de minerar uma vez que sua picareta se esgote ou seu inventário esteja cheio. Eles entregarão os bens minerados para um Illager ou, se vinculados a um baú, os colocarão nele."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:chest",
+      "title": "Interação com Baú",
+      "text": "Clicar com o botão direito em um Prisioneiro com uma Pedra da Orientação que leve a um Baú destrancado fará com que eles registrem o baú como um contêiner válido para armazenar seus saques. Se o baú ao qual estão vinculados tiver picaretas, e um servo ou seu mestre estiver por perto, eles a pegarão se não estiverem segurando nada."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:raiding_chest",
+      "text": "Um Prisioneiro também pode registrar outro baú além dos comuns. Quando registrado neste, os Prisioneiros tentarão depositar qualquer pilhagem que tenham nele, acima de seu outro baú, e não tirarão itens dele."
+    }
+  ]
+}

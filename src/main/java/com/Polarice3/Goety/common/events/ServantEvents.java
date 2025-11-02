@@ -332,7 +332,7 @@ public class ServantEvents {
                     } else if (raider.isLeader()) {
                         leader = raider;
                     }
-                    if (killed instanceof AbstractVillager villager) {
+                    if (killed instanceof AbstractVillager villager && !villager.isBaby()) {
                         Prisoner prisoner = villager.convertTo(ModEntityType.PRISONER.get(), true);
                         if (prisoner != null) {
                             if (villager instanceof Villager villager1) {

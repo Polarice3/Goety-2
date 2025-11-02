@@ -816,14 +816,14 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     }
 
     protected void actuallyHurt(DamageSource source, float amount) {
-        if (source.is(DamageTypeTags.BYPASSES_COOLDOWN) || (source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && source.getEntity() != null)) {
-            this.moddedInvul = 20;
-        }
         if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)){
-            amount = Math.min(amount, AttributesConfig.ApostleDamageCap.get().floatValue());
+            amount = Math.min(amount, AttributesConfig.EnderKeeperDamageCap.get().floatValue());
         }
-        if (this.moddedInvul <= 0 && this.obsidianInvul <= 0){
+        if (this.moddedInvul <= 0){
             super.actuallyHurt(source, amount);
+            if (source.getEntity() != null) {
+                this.moddedInvul = 15;
+            }
         }
     }
 

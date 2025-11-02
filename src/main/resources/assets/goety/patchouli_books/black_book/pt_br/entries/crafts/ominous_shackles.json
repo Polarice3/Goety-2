@@ -1,0 +1,16 @@
+{
+  "name": "Algemas Sinistras",
+  "icon": "goety:ominous_shackles",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Aldeões podem ser difíceis de controlar, e a técnica comum de colocá-los em um barco faz você parecer bobo ao andar na terra. Com estas algemas, você não terá tanta dificuldade para movê-los."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous_shackles",
+      "text": "Usar isto em Aldeões ou Vendedores Ambulantes os transformará em $(l:mutations/prisoners)Prisioneiros$()."
+    }
+  ]
+}

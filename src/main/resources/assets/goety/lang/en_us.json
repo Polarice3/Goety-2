@@ -1080,6 +1080,9 @@
   "block.goety.shade_tiles": "Shade Tiles",
   "block.goety.shade_tiles_slab": "Shade Tiles Slab",
   "block.goety.shade_tiles_stairs": "Shade Tiles Stairs",
+  "block.goety.shade_pillar": "Shade Pillar",
+  "block.goety.shade_glass": "Shade Glass",
+  "block.goety.shade_glass_pane": "Shade Glass Pane",
 
   "block.goety.crypt_stone": "Crypt Stone",
   "block.goety.crypt_stone_slab": "Crypt Stone Slab",

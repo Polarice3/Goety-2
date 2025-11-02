@@ -58,6 +58,7 @@ public class ModTags {
         public static final TagKey<Block> REDSTONE_CUBE_EXEMPT = tag("redstone_cube_exempt");
         public static final TagKey<Block> PRISONER_MINEABLE = tag("prisoner_mineable");
         public static final TagKey<Block> PRISONER_UNMINEABLE = tag("prisoner_unmineable");
+        public static final TagKey<Block> PRISONER_RARE_ORES = tag("prisoner_rare_ores");
         public static final TagKey<Block> MONSTROSITY_BREAKS = tag("monstrosity_breaks");
 
         private static TagKey<Block> tag(String name)

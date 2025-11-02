@@ -91,6 +91,7 @@ public class WindBlowerBlockEntity extends BlockEntity {
                 BlockState state2 = this.level.getBlockState(blockPos);
                 if (this.level.getBlockEntity(blockPos) instanceof IWindPowered windPowered){
                     windPowered.activate(20);
+                    windPowered.setWindPower(distance);
                 }
                 if (state2.getBlock() instanceof BaseFireBlock && !this.level.getBlockState(blockPos.below()).isFireSource(this.level, blockPos.below(), Direction.UP)){
                     this.level.removeBlock(blockPos, false);

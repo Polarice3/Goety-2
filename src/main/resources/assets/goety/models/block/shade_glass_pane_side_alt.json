@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/template_glass_pane_side_alt",
+  "textures": {
+    "edge": "goety:block/shade_glass_pane_top",
+    "pane": "goety:block/shade_glass"
+  },
+  "render_type": "cutout_mipped"
+}

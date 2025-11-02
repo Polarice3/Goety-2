@@ -13,13 +13,12 @@ import com.Polarice3.Goety.common.network.client.CPrisonerMinePacket;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
-import com.Polarice3.Goety.utils.ColorUtil;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.Polarice3.Goety.utils.*;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -419,29 +418,62 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
                 }
                 if (this.getMainHandItem().is(ItemTags.PICKAXES) && this.getMainHandItem().getItem() instanceof PickaxeItem pickaxe) {
                     List<BlockPos> blockPosList = new ArrayList<>();
+                    List<BlockPos> rareList = new ArrayList<>();
                     int range = MobsConfig.PrisonerMiningRange.get();
                     for (int i = -range; i < range; ++i) {
                         for (int j = -range; j < range; ++j) {
                             for (int k = -range; k < range; ++k) {
                                 BlockPos blockPos = this.blockPosition().offset(i, j, k);
                                 BlockState blockState = serverLevel.getBlockState(blockPos);
-                                if (blockState.is(ModTags.Blocks.PRISONER_MINEABLE) && !blockState.is(ModTags.Blocks.PRISONER_UNMINEABLE)) {
-                                    blockPosList.add(blockPos);
+                                boolean hasSight = true;
+                                if (MobsConfig.PrisonerMiningSeeBlocks.get()) {
+                                    hasSight = false;
+                                    for (Direction direction : Direction.values()) {
+                                        hasSight = BlockFinder.canSeeBlock(this, blockPos.relative(direction));
+                                        if (hasSight) {
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (hasSight) {
+                                    if (blockState.is(ModTags.Blocks.PRISONER_MINEABLE) && !blockState.is(ModTags.Blocks.PRISONER_UNMINEABLE)) {
+                                        blockPosList.add(blockPos);
+                                        if (blockState.is(ModTags.Blocks.PRISONER_RARE_ORES)) {
+                                            rareList.add(blockPos);
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                     if (!blockPosList.isEmpty()) {
                         if (this.mineTimes >= MobsConfig.PrisonerMiningSwings.get()) {
-                            BlockPos blockPos = blockPosList.get(serverLevel.getRandom().nextInt(blockPosList.size()));
-                            BlockState blockState = serverLevel.getBlockState(blockPos);
-                            if (TierSortingRegistry.isCorrectTierForDrops(pickaxe.getTier(), blockState)) {
-                                for (ItemStack itemStack : Block.getDrops(blockState, serverLevel, blockPos, this.level.getBlockEntity(blockPos), this, this.getMainHandItem())) {
-                                    this.getInventory().addItem(itemStack);
+                            BlockPos blockPos = blockPosList.get(RandomUtil.nextInt(serverLevel.getRandom(), blockPosList.size()));
+                            if (!rareList.isEmpty()) {
+                                if (rareList.contains(blockPos)) {
+                                    if (RandomUtil.nextInt(serverLevel.getRandom(), MobsConfig.PrisonerMiningRareChance.get()) == 0) {
+                                        if (blockPosList.size() > 1) {
+                                            BlockPos temp = blockPos;
+                                            while (rareList.contains(temp)) {
+                                                temp = blockPosList.get(RandomUtil.nextInt(serverLevel.getRandom(), blockPosList.size()));
+                                            }
+                                            blockPos = temp;
+                                        } else {
+                                            blockPos = null;
+                                        }
+                                    }
                                 }
                             }
-                            if (MobsConfig.PrisonerMiningBreakBlocks.get()) {
-                                serverLevel.destroyBlock(blockPos, false, this);
+                            if (blockPos != null) {
+                                BlockState blockState = serverLevel.getBlockState(blockPos);
+                                if (TierSortingRegistry.isCorrectTierForDrops(pickaxe.getTier(), blockState)) {
+                                    for (ItemStack itemStack : Block.getDrops(blockState, serverLevel, blockPos, this.level.getBlockEntity(blockPos), this, this.getMainHandItem())) {
+                                        this.getInventory().addItem(itemStack);
+                                    }
+                                }
+                                if (MobsConfig.PrisonerMiningBreakBlocks.get()) {
+                                    serverLevel.destroyBlock(blockPos, false, this);
+                                }
                             }
                             this.mineTimes = 0;
                         }
@@ -579,19 +611,29 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        if (source.getEntity() != null) {
-            boolean flag = this.getLeader() == null || this.distanceTo(this.getLeader()) > 8.0D;
-            if (this.getMasterOwner() == null || this.distanceTo(this.getMasterOwner()) > 8.0D) {
-                flag = true;
-            }
-            if (flag) {
-                if ((this.getHealth() - amount) > 0.0F) {
-                    if (this.level.getRandom().nextFloat() <= (amount / this.getHealth())) {
-                        Player player = null;
-                        if (source.getEntity() instanceof Player player1) {
-                            player = player1;
+        if (MobsConfig.PrisonerUnshackleDamage.get()) {
+            if (source.getEntity() != null) {
+                boolean flag = false;
+                LivingEntity owner = this.getLeader();
+                if (this.getLeader() == null || this.getLeader().distanceTo(this) >= 8.0D) {
+                    owner = this.getMasterOwner();
+                }
+                if (owner != null) {
+                    if (!MobUtil.areAllies(source.getEntity(), owner)) {
+                        if (this.distanceTo(owner) >= 8.0D) {
+                            flag = true;
                         }
-                        this.unshackle(player);
+                    }
+                }
+                if (flag) {
+                    if ((this.getHealth() - amount) > 0.0F) {
+                        if (this.level.getRandom().nextFloat() <= (amount / this.getHealth())) {
+                            Player player = null;
+                            if (source.getEntity() instanceof Player player1) {
+                                player = player1;
+                            }
+                            this.unshackle(player);
+                        }
                     }
                 }
             }
@@ -656,22 +698,26 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
                     villager.setLastHurtByMob(this.getMasterOwner());
                 }
             }
-            ServerParticleUtil.addParticlesAroundMiddleSelf(serverLevel, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.CHAIN.defaultBlockState()), villager);
-            villager.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(villager.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
-            villager.setHealth(this.getHealth());
             if (player != null) {
+                ItemStack offhand = ItemStack.EMPTY;
                 if (this.getOffhandItem().is(ModItems.OMINOUS_SHACKLES.get())) {
-                    if (player == this.getMasterOwner()) {
-                        this.getOffhandItem().shrink(1);
-                        ItemStack itemStack = new ItemStack(ModItems.OMINOUS_SHACKLES.get());
+                    offhand = this.getOffhandItem().copyAndClear();
+                } else if (villager.getOffhandItem().is(ModItems.OMINOUS_SHACKLES.get())) {
+                    offhand = villager.getOffhandItem().copyAndClear();
+                }
+                if (!offhand.isEmpty()) {
+                    if (player == this.getMasterOwner() || player == this.getTrueOwner()) {
                         if (player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
-                            player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
-                        } else if (!player.addItem(itemStack)) {
-                            this.spawnAtLocation(itemStack);
+                            player.setItemInHand(InteractionHand.MAIN_HAND, offhand);
+                        } else if (!player.addItem(offhand)) {
+                            this.spawnAtLocation(offhand);
                         }
                     }
                 }
             }
+            ServerParticleUtil.addParticlesAroundMiddleSelf(serverLevel, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.CHAIN.defaultBlockState()), villager);
+            villager.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(villager.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+            villager.setHealth(this.getHealth());
             net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, villager);
         }
     }
@@ -801,7 +847,13 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
             }
             if (this.prisoner.isGuardingArea()) {
                 if (this.prisoner.distanceToSqr(this.prisoner.vec3BoundPos()) <= Mth.square(2.0D)) {
-                    this.prisoner.moveTo(this.prisoner.getBoundPos(), this.prisoner.getYRot(), this.prisoner.getXRot());
+                    BlockPos blockPos = this.prisoner.getBoundPos();
+                    if (!BlockFinder.isPassableBlock(this.prisoner.level, blockPos)) {
+                        blockPos = blockPos.above();
+                    }
+                    if (BlockFinder.isPassableBlock(this.prisoner.level, blockPos)) {
+                        this.prisoner.moveTo(blockPos, this.prisoner.getYRot(), this.prisoner.getXRot());
+                    }
                 }
             }
         }

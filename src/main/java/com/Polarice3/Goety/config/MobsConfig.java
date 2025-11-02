@@ -48,6 +48,7 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Integer> PrisonerMiningSwings;
     public static final ForgeConfigSpec.ConfigValue<Integer> PrisonerMiningRange;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PrisonerMiningRareChance;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnFreq;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnChance;
@@ -248,7 +249,9 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerServantTrainArmor;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerMining;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerMiningSeeBlocks;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerMiningBreakBlocks;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerUnshackleDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> RaiderServantWearArmor;
 
@@ -541,12 +544,18 @@ public class MobsConfig {
             BUILDER.push("Prisoners");
             PrisonerMining = BUILDER.comment("Whether Prisoners can mine ores when given a Pickaxe, Default: true")
                     .define("prisonerMining", true);
+            PrisonerMiningSeeBlocks = BUILDER.comment("Whether Prisoners can only mine ores they have on line of sight, Default: true")
+                    .define("prisonerMiningSeeBlocks", true);
             PrisonerMiningBreakBlocks = BUILDER.comment("Whether Prisoners break ore blocks when mining, Default: false")
                     .define("prisonerMiningBreakBlocks", false);
             PrisonerMiningSwings = BUILDER.comment("How many times a Prisoner has to swing their pickaxe before collecting drops when mining, Default: 5")
                     .defineInRange("prisonerMiningSwings", 5, 0, Integer.MAX_VALUE);
             PrisonerMiningRange = BUILDER.comment("How far Prisoners can scan for ores and mine it, in blocks, Default: 4")
-                    .defineInRange("prisonerMiningRange", 4, 1, Integer.MAX_VALUE);
+                    .defineInRange("prisonerMiningRange", 4, 1, 64);
+            PrisonerMiningRareChance = BUILDER.comment("What are the chances of Prisoners successfully mining a rare ore (ie, Diamonds), the lower the number, the more likely, Default: 10")
+                    .defineInRange("prisonerMiningRareChance", 10, 1, Integer.MAX_VALUE);
+            PrisonerUnshackleDamage = BUILDER.comment("Whether Prisoners unshackles after taking enough damage away from their owner and or captain, Default: true")
+                    .define("prisonerUnshackleDamage", true);
             BUILDER.pop();
         NecroSetDebuff = BUILDER.comment("Whether wearing Necro Crown and/or Necro Cape gives massive debuffs to non-undead servant, Default: false")
                 .define("necroSetDebuff", false);

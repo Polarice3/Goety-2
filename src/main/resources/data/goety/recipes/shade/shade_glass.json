@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "G#G",
+    "GGG"
+  ],
+  "key": {
+    "#": {
+      "tag": "goety:shade_stone"
+    },
+    "G": {
+      "tag": "forge:glass"
+    }
+  },
+  "result": {
+    "item": "goety:shade_glass",
+    "count": 8
+  }
+}

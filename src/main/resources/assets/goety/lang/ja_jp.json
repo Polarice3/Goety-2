@@ -3161,5 +3161,8 @@
   "block.minecraft.banner.goety.moon.purple": "紫色の月",
   "block.minecraft.banner.goety.moon.red": "赤色の月",
   "block.minecraft.banner.goety.moon.white": "白色の月",
-  "block.minecraft.banner.goety.moon.yellow": "黄色の月"
+  "block.minecraft.banner.goety.moon.yellow": "黄色の月",
+  "block.goety.shade_pillar": "シェードの柱",
+  "block.goety.shade_glass": "シェードのガラス",
+  "block.goety.shade_glass_pane": "シェードのガラス板"
 }
