@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.network.client;
 
 import com.Polarice3.Goety.common.entities.ally.illager.Prisoner;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.utils.ItemHelper;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -31,7 +32,7 @@ public class CPrisonerMinePacket {
             if (playerEntity != null) {
                 Entity entity = playerEntity.level.getEntity(packet.mob);
                 if (entity instanceof Prisoner prisoner) {
-                    ItemHelper.hurtAndBreak(prisoner.getMainHandItem(), 1, prisoner);
+                    ItemHelper.hurtAndBreak(prisoner.getMainHandItem(), MobsConfig.PrisonerMiningDurability.get(), prisoner);
                     prisoner.mineTimes += 1;
                 }
             }

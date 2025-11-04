@@ -69,6 +69,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -1026,7 +1027,7 @@ public abstract class RaiderServant extends Summoned {
                 }
 
                 return InteractionResult.SUCCESS;
-            } else if (pPlayer.getMainHandItem().is(ItemTags.AXES)
+            } else if (pPlayer.getMainHandItem().is(Tags.Items.SHEARS)
                     && this.isCapturing()
                     && !this.isFollower()){
                 if (!this.level.isClientSide) {

@@ -179,7 +179,7 @@
       "item": "goety:ominous_shackles",
       "anchor": "capture",
       "title": "Capturando",
-      "text": "Clicar com o botão direito em um Saqueador com Algemas Sinistras fará com que ele entre no Modo de Captura onde, em vez de matar Aldeões, eles os transformarão em $(l:goety:mutations/prisoners)Prisioneiros$() que seguirão seu captor e podem ser comandados por você. Clicar com o botão direito no saqueador em Captura com um Machado fará com que ele pare de estar no Modo de Captura."
+      "text": "Clicar com o botão direito em um Saqueador com Algemas Sinistras fará com que ele entre no Modo de Captura onde, em vez de matar Aldeões, eles os transformarão em $(l:goety:mutations/prisoners)Prisioneiros$() que seguirão seu captor e podem ser comandados por você. Clicar com o botão direito no saqueador em Captura com um Tesouras fará com que ele pare de estar no Modo de Captura."
     },
     {
       "type": "patchouli:text",

@@ -553,12 +553,12 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
 
     protected void actuallyHurt(DamageSource source, float amount) {
         if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)){
-            amount = Math.min(amount, AttributesConfig.EnderKeeperDamageCap.get().floatValue());
+            amount = Math.min(amount, AttributesConfig.VizierDamageCap.get().floatValue());
         }
         if (this.moddedInvul <= 0){
             super.actuallyHurt(source, amount);
             if (source.getEntity() != null) {
-                this.moddedInvul = 15;
+                this.moddedInvul = MobsConfig.BossInvulnerabilityTime.get();
             }
         }
     }

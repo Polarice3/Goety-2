@@ -21,32 +21,39 @@ public abstract class IllagerStoreChestGoal<T extends RaiderServant & ILooter> e
 
     @Override
     public boolean canUse() {
-        if (this.illager.getDumpChestPos() == null) {
-            return false;
-        } else if (this.illager.getChestPos() == null) {
-            return false;
+        if (this.hasDumpChest() || this.hasRegularChest()) {
+            return super.canUse();
         }
-        if (this.illager.getDumpChestLevel() != this.illager.level.dimension()) {
-            return false;
-        } else if (this.illager.getChestLevel() != this.illager.level.dimension()) {
-            return false;
-        }
-        if (this.illager.getBoundPos() != null){
-            if (this.illager.getDumpChestPos() != null && !this.illager.isWithinGuard(this.illager.getDumpChestPos())){
-                return false;
-            } else if (this.illager.getChestPos() != null && !this.illager.isWithinGuard(this.illager.getChestPos())){
-                return false;
+        return false;
+    }
+
+    public boolean hasDumpChest() {
+        if (this.illager.getDumpChestPos() != null) {
+            if (this.illager.getDumpChestLevel() == this.illager.level.dimension()) {
+                boolean flag = true;
+                if (this.illager.getBoundPos() != null){
+                    flag = this.illager.isWithinGuard(this.illager.getDumpChestPos());
+                }
+                if (flag) {
+                    return this.getChest(this.illager.level, this.illager.getDumpChestPos()) != null && !this.isFull(this.getItem(), this.illager.level, this.illager.getDumpChestPos());
+                }
             }
         }
-        if (this.getChest(this.illager.level, this.illager.getDumpChestPos()) == null) {
-            return false;
-        } else if (this.isFull(this.getItem(), this.illager.level, this.illager.getDumpChestPos())) {
-            return false;
-        } else if (this.getChest(this.illager.level, this.illager.getChestPos()) == null) {
-            return false;
-        } else if (this.isFull(this.getItem(), this.illager.level, this.illager.getChestPos())) {
-            return false;
+        return false;
+    }
+
+    public boolean hasRegularChest() {
+        if (this.illager.getChestPos() != null) {
+            if (this.illager.getChestLevel() == this.illager.level.dimension()) {
+                boolean flag = true;
+                if (this.illager.getBoundPos() != null){
+                    flag = this.illager.isWithinGuard(this.illager.getChestPos());
+                }
+                if (flag) {
+                    return this.getChest(this.illager.level, this.illager.getChestPos()) != null && !this.isFull(this.getItem(), this.illager.level, this.illager.getChestPos());
+                }
+            }
         }
-        return super.canUse();
+        return false;
     }
 }

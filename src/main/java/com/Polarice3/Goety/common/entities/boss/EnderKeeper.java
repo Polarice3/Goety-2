@@ -18,6 +18,7 @@ import com.Polarice3.Goety.common.network.server.SPlayFollowSoundPacket;
 import com.Polarice3.Goety.common.network.server.SRepositionPacket;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MainConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.ChatFormatting;
@@ -649,7 +650,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
         if (this.moddedInvul <= 0){
             super.actuallyHurt(source, amount);
             if (source.getEntity() != null) {
-                this.moddedInvul = 15;
+                this.moddedInvul = MobsConfig.BossInvulnerabilityTime.get();
             }
         }
     }

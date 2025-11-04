@@ -179,7 +179,7 @@
       "item": "goety:ominous_shackles",
       "anchor": "capture",
       "title": "Capturing",
-      "text": "Right-clicking on a Raider with an Ominous Shackles will cause them to enter Capturing Mode where, rather than killing Villagers, they will turn them into $(l:goety:mutations/prisoners)Prisoners$() that will follow their captor and can be commanded by you. Right-clicking on the Capturing raider with an Axe will stop them from being in Capturing Mode."
+      "text": "Right-clicking on a Raider with an Ominous Shackles will cause them to enter Capturing Mode where, rather than killing Villagers, they will turn them into $(l:goety:mutations/prisoners)Prisoners$() that will follow their captor and can be commanded by you. Right-clicking on the Capturing raider with Shears will stop them from being in Capturing Mode."
     },
     {
       "type": "patchouli:text",

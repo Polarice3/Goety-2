@@ -1058,7 +1058,7 @@ public class MobUtil {
 
     public static void instaLook(Mob looker, Entity target, boolean clientSent){
         looker.lookAt(target, 100.0F, 100.0F);
-        instaLook(looker, target.position());
+        instaLook(looker, target.getEyePosition());
         if (clientSent) {
             if (!looker.level.isClientSide) {
                 ModNetwork.sendToALL(new SInstaLookPacket(looker, target));

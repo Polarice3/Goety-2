@@ -822,7 +822,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         if (this.moddedInvul <= 0){
             super.actuallyHurt(source, amount);
             if (source.getEntity() != null) {
-                this.moddedInvul = 15;
+                this.moddedInvul = MobsConfig.BossInvulnerabilityTime.get();
             }
         }
     }

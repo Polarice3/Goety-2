@@ -62,6 +62,7 @@ public class ObsidianMonolith extends AbstractMonolith implements Enemy {
     protected static final EntityDataAccessor<Float> DATA_PROGRESS = SynchedEntityData.defineId(ObsidianMonolith.class, EntityDataSerializers.FLOAT);
     protected static final EntityDataAccessor<Integer> DATA_LEVEL = SynchedEntityData.defineId(ObsidianMonolith.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> DATA_LEVELING = SynchedEntityData.defineId(ObsidianMonolith.class, EntityDataSerializers.INT);
+    public int startUp;
     public int empowered;
     public int shieldTime;
     public int destroyBlocksTick;
@@ -99,6 +100,7 @@ public class ObsidianMonolith extends AbstractMonolith implements Enemy {
         super.addAdditionalSaveData(p_31485_);
         p_31485_.putBoolean("ShouldSpawnHeretics", this.shouldSpawnHeretics);
         p_31485_.putFloat("SpreaderProgress", this.getSpreaderProgress());
+        p_31485_.putInt("StartUp", this.getStartUp());
         p_31485_.putInt("SpreaderLevel", this.getSpreaderLevel());
         p_31485_.putInt("SpreaderLeveling", this.getSpreaderLeveling());
     }
@@ -111,6 +113,9 @@ public class ObsidianMonolith extends AbstractMonolith implements Enemy {
         }
         if (p_31474_.contains("SpreaderProgress")) {
             this.setSpreaderProgress(p_31474_.getFloat("SpreaderProgress"));
+        }
+        if (p_31474_.contains("StartUp")) {
+            this.setStartUp(p_31474_.getInt("StartUp"));
         }
         if (p_31474_.contains("SpreaderLevel")) {
             this.setSpreaderLevel(p_31474_.getInt("SpreaderLevel"));
@@ -415,7 +420,6 @@ public class ObsidianMonolith extends AbstractMonolith implements Enemy {
                     int j = this.getCrackiness() == Crackiness.NONE ? difficulty[0] : this.getCrackiness() == Crackiness.LOW ? difficulty[1] : this.getCrackiness() == Crackiness.MEDIUM ? difficulty[2] : 1;
                     if (this.tickCount % time == 0 && i < j && this.level.random.nextFloat() <= 0.25F && !apostle.isSettingUpSecond()) {
                         if (!this.level.isClientSide) {
-                            ServerLevel ServerLevel = (ServerLevel) this.level;
                             RandomSource r = this.level.random;
                             int numbers = apostle.isSecondPhase() ? 4 : 2;
                             for (ZombifiedPiglin zombifiedPiglin : this.level.getEntitiesOfClass(ZombifiedPiglin.class, this.getBoundingBox().inflate(16))) {
@@ -552,39 +556,55 @@ public class ObsidianMonolith extends AbstractMonolith implements Enemy {
         }
     }
 
+    public boolean startSpreading() {
+        return this.startUp >= MathHelper.minecraftDayToTicks(MobsConfig.ObsidianMonolithStartUpTime.get());
+    }
+
     public void spreadNether(){
         if (this.level instanceof ServerLevel serverLevel) {
             int activeHeretics = this.level.getEntitiesOfClass(Heretic.class, this.getBoundingBox().inflate(10.0D), living -> living.isAlive() && living.isCasting() && living.getMonolith() == this).size();
             if (this.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.ObsidianMonolithSpread.get() && this.level.dimension() != Level.NETHER) {
-                this.netherSpreaderUtil.updateCursors(this.level, this.blockPosition().below(), this.random, true);
+                if (this.startSpreading()) {
+                    this.netherSpreaderUtil.updateCursors(this.level, this.blockPosition().below(), this.random, true);
 
-                if (this.getSpreaderLeveling() >= 100) {
-                    this.setSpreaderLeveling(0);
-                    if (this.getSpreaderLevel() < 9) {
-                        this.setSpreaderLevel(this.getSpreaderLevel() + 1);
-                    }
-                }
-
-                if (this.getSpreaderProgress() >= 1.0F) {
-                    this.setSpreaderProgress(0.0F);
-                    this.setSpreaderLeveling(this.getSpreaderLeveling() + 1);
-                    this.netherSpreaderUtil.clear();
-                    for (int i = 0; i < 5; i++) {
-                        int range = this.getSpreaderLevel();
-                        BlockPos blockPos = this.blockPosition().below();
-                        if (range > 0) {
-                            int x = serverLevel.getRandom().nextInt(-range, range);
-                            int y = serverLevel.getRandom().nextInt(-range, range / 2);
-                            int z = serverLevel.getRandom().nextInt(-range, range);
-                            blockPos = this.blockPosition().below().offset(x, y, z);
+                    if (this.getSpreaderLeveling() >= 100) {
+                        this.setSpreaderLeveling(0);
+                        if (this.getSpreaderLevel() < 9) {
+                            this.setSpreaderLevel(this.getSpreaderLevel() + 1);
                         }
-                        this.netherSpreaderUtil.addCursors(blockPos, 10);
+                    }
+
+                    if (this.getSpreaderProgress() >= 1.0F) {
+                        this.setSpreaderProgress(0.0F);
+                        this.setSpreaderLeveling(this.getSpreaderLeveling() + 1);
+                        this.netherSpreaderUtil.clear();
+                        for (int i = 0; i < 5; i++) {
+                            int range = this.getSpreaderLevel();
+                            BlockPos blockPos = this.blockPosition().below();
+                            if (range > 0) {
+                                int x = serverLevel.getRandom().nextInt(-range, range);
+                                int y = serverLevel.getRandom().nextInt(-range, range / 2);
+                                int z = serverLevel.getRandom().nextInt(-range, range);
+                                blockPos = this.blockPosition().below().offset(x, y, z);
+                            }
+                            this.netherSpreaderUtil.addCursors(blockPos, 10);
+                        }
+                    } else {
+                        this.setSpreaderProgress(this.getSpreaderProgress() + (0.005F * (activeHeretics + 1)));
                     }
                 } else {
-                    this.setSpreaderProgress(this.getSpreaderProgress() + (0.005F * (activeHeretics + 1)));
+                    ++this.startUp;
                 }
             }
         }
+    }
+
+    public int getStartUp() {
+        return this.startUp;
+    }
+
+    public void setStartUp(int startUp) {
+        this.startUp = startUp;
     }
 
     public Map<Difficulty, Integer[]> difficultyIntegerMap(){

@@ -48,6 +48,8 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Integer> PrisonerMiningSwings;
     public static final ForgeConfigSpec.ConfigValue<Integer> PrisonerMiningRange;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PrisonerMiningDurability;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PrisonerMiningChance;
     public static final ForgeConfigSpec.ConfigValue<Integer> PrisonerMiningRareChance;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnFreq;
@@ -59,6 +61,8 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WightSpawnFreq;
     public static final ForgeConfigSpec.ConfigValue<Integer> WightSpawnChance;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> ObsidianMonolithStartUpTime;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> VillagerHateSpells;
 
@@ -92,6 +96,8 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> MaverickSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaverickSpawnMinCount;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaverickSpawnMaxCount;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> BossInvulnerabilityTime;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> ZombieServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DrownedServantTexture;
@@ -252,6 +258,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerMiningSeeBlocks;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerMiningBreakBlocks;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerUnshackleDamage;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerPickUpPickaxe;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> RaiderServantWearArmor;
 
@@ -552,10 +559,16 @@ public class MobsConfig {
                     .defineInRange("prisonerMiningSwings", 5, 0, Integer.MAX_VALUE);
             PrisonerMiningRange = BUILDER.comment("How far Prisoners can scan for ores and mine it, in blocks, Default: 4")
                     .defineInRange("prisonerMiningRange", 4, 1, 64);
-            PrisonerMiningRareChance = BUILDER.comment("What are the chances of Prisoners successfully mining a rare ore (ie, Diamonds), the lower the number, the more likely, Default: 10")
-                    .defineInRange("prisonerMiningRareChance", 10, 1, Integer.MAX_VALUE);
+            PrisonerMiningDurability = BUILDER.comment("How much durability is used up on Prisoner's pickaxe after swinging, Default: 1")
+                    .defineInRange("prisonerMiningDurability", 1, 0, Integer.MAX_VALUE);
+            PrisonerMiningChance = BUILDER.comment("What are the chances of Prisoners successfully mining a block, the lower the number, the more likely, setting to 0 will cause Prisoners to always get the drop, Default: 0")
+                    .defineInRange("prisonerMiningChance", 0, 0, Integer.MAX_VALUE);
+            PrisonerMiningRareChance = BUILDER.comment("What are the chances of Prisoners successfully mining a rare ore (ie, Diamonds), the lower the number, the more likely, setting to 0 will cause Prisoners to always get the drop, Default: 10")
+                    .defineInRange("prisonerMiningRareChance", 10, 0, Integer.MAX_VALUE);
             PrisonerUnshackleDamage = BUILDER.comment("Whether Prisoners unshackles after taking enough damage away from their owner and or captain, Default: true")
                     .define("prisonerUnshackleDamage", true);
+            PrisonerPickUpPickaxe = BUILDER.comment("Whether Prisoners can pick up Pickaxes that are dropped near them and mobGriefing is true, Default: true")
+                    .define("prisonerPickUpPickaxe", true);
             BUILDER.pop();
         NecroSetDebuff = BUILDER.comment("Whether wearing Necro Crown and/or Necro Cape gives massive debuffs to non-undead servant, Default: false")
                 .define("necroSetDebuff", false);
@@ -887,7 +900,11 @@ public class MobsConfig {
                     .define("obsidianMonolithSpread", true);
             ObsidianMonolithBiome = BUILDER.comment("Whether unowned Obsidian Monoliths, empowered by Heretics, change Overworld biomes to Nether biomes, Default: true")
                     .define("obsidianMonolithBiome", true);
+            ObsidianMonolithStartUpTime = BUILDER.comment("How many Minecraft days, since spawning in, until unowned Obsidian Monoliths start spreading, Default: 3")
+                    .defineInRange("obsidianMonolithStartUpTime", 3, 1, Integer.MAX_VALUE);
             BUILDER.pop();
+        BossInvulnerabilityTime = BUILDER.comment("How long invulnerability, Default: 15")
+                .defineInRange("bossInvulnerabilityTime", 15, 0, Integer.MAX_VALUE);
         TallSkullDrops = BUILDER.comment("Whether Mobs with Tall Heads(ie. Villagers, Illagers, etc.) will drop Tall Skulls, Default: true")
                 .define("tallSkullDrop", true);
         WraithAggressiveTeleport = BUILDER.comment("Whether Wraiths should teleport towards their targets if they can't see them instead of just teleporting away when they're near them, Default: true")

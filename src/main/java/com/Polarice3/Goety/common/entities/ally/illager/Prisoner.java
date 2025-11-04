@@ -449,9 +449,11 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
                     if (!blockPosList.isEmpty()) {
                         if (this.mineTimes >= MobsConfig.PrisonerMiningSwings.get()) {
                             BlockPos blockPos = blockPosList.get(RandomUtil.nextInt(serverLevel.getRandom(), blockPosList.size()));
+                            boolean isRare = false;
                             if (!rareList.isEmpty()) {
                                 if (rareList.contains(blockPos)) {
-                                    if (RandomUtil.nextInt(serverLevel.getRandom(), MobsConfig.PrisonerMiningRareChance.get()) == 0) {
+                                    isRare = true;
+                                    if (MobsConfig.PrisonerMiningRareChance.get() != 0 && RandomUtil.nextInt(serverLevel.getRandom(), MobsConfig.PrisonerMiningRareChance.get()) != 0) {
                                         if (blockPosList.size() > 1) {
                                             BlockPos temp = blockPos;
                                             while (rareList.contains(temp)) {
@@ -462,6 +464,11 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
                                             blockPos = null;
                                         }
                                     }
+                                }
+                            }
+                            if (!isRare) {
+                                if (MobsConfig.PrisonerMiningChance.get() != 0 && RandomUtil.nextInt(serverLevel.getRandom(), MobsConfig.PrisonerMiningChance.get()) != 0) {
+                                    blockPos = null;
                                 }
                             }
                             if (blockPos != null) {
@@ -610,6 +617,15 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
     }
 
     @Override
+    public boolean canPickUpLoot() {
+        return true;
+    }
+
+    public boolean wantsToPickUp(ItemStack itemStack) {
+        return MobsConfig.PrisonerPickUpPickaxe.get() && itemStack.is(ItemTags.PICKAXES);
+    }
+
+    @Override
     public boolean hurt(DamageSource source, float amount) {
         if (MobsConfig.PrisonerUnshackleDamage.get()) {
             if (source.getEntity() != null) {
@@ -644,9 +660,11 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
     public void unshackle(@Nullable Player player) {
         if (this.level instanceof ServerLevel serverLevel) {
             serverLevel.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.CHAIN_BREAK, this.getSoundSource(), 1.0F, 2.0F);
-            AbstractVillager villager = this.convertTo(EntityType.VILLAGER, true);
+            AbstractVillager villager;
             if (this.isTrader()) {
                 villager = this.convertTo(EntityType.WANDERING_TRADER, true);
+            } else {
+                villager = this.convertTo(EntityType.VILLAGER, true);
             }
             if (villager == null) {
                 return;
@@ -784,6 +802,10 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
                 this.setLeader(null);
                 this.setFollowing();
                 return InteractionResult.SUCCESS;
+            } else if (this.getTrueOwner() instanceof OwnableEntity ownable && ownable.getOwner() == pPlayer) {
+                this.setTrueOwner(pPlayer);
+                this.setFollowing();
+                return InteractionResult.SUCCESS;
             }
         }
         return InteractionResult.PASS;
@@ -823,7 +845,7 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
                             && !this.prisoner.isCommanded()
                             && this.prisoner.noBlockTick <= 0
                             && this.prisoner.getTarget() == null
-                            && this.prisoner.lastHurt <= 0;
+                            && this.prisoner.hurtTime <= 0;
                 }
             }
             return false;
