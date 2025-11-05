@@ -739,15 +739,21 @@ public class ModBlocks {
     public static final RegistryObject<Block> POLISHED_HIGHROCK_BLOCK = register("polished_highrock", HighrockBlock::new);
     public static final RegistryObject<Block> HIGHROCK_BRICKS_BLOCK = register("highrock_bricks", HighrockBlock::new);
     public static final RegistryObject<Block> HIGHROCK_INDENTED_BRICKS_BLOCK = register("highrock_indented_bricks", HighrockBlock::new);
+    public static final RegistryObject<Block> SNOWY_HIGHROCK_BRICKS_SLIGHT_BLOCK = register("snowy_highrock_bricks_slight", HighrockBlock::new);
     public static final RegistryObject<Block> SNOWY_HIGHROCK_BRICKS_BLOCK = register("snowy_highrock_bricks", HighrockBlock::new);
     public static final RegistryObject<Block> GOLD_INDENTED_HIGHROCK_BRICKS_BLOCK = register("gold_indented_highrock_bricks", HighrockBlock::new);
     public static final RegistryObject<Block> GOLD_CHISELED_HIGHROCK_BRICKS_BLOCK = register("gold_chiseled_highrock_bricks", HighrockBlock::new);
 
     //Siltstone
     public static final RegistryObject<Block> SILTSTONE_BLOCK = register("siltstone", SiltstoneBlock::new);
+    public static final RegistryObject<Block> SNOWY_SILTSTONE_SLIGHT_BLOCK = register("snowy_siltstone_slight", SiltstoneBlock::new);
+    public static final RegistryObject<Block> SNOWY_SILTSTONE_BLOCK = register("snowy_siltstone", SiltstoneBlock::new);
     public static final RegistryObject<Block> SMOOTH_SILTSTONE_BLOCK = register("smooth_siltstone", SiltstoneBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> COBBLED_SILTSTONE_BLOCK = register("cobbled_siltstone", SiltstoneBlock::new);
+    public static final RegistryObject<Block> SNOWY_COBBLED_SILTSTONE_BLOCK = register("snowy_cobbled_siltstone", SiltstoneBlock::new);
     public static final RegistryObject<Block> SILTSTONE_BRICKS_BLOCK = register("siltstone_bricks", SiltstoneBlock::new);
+    public static final RegistryObject<Block> SNOWY_SILTSTONE_BRICKS_SLIGHT_BLOCK = register("snowy_siltstone_bricks_slight", SiltstoneBlock::new);
+    public static final RegistryObject<Block> SNOWY_SILTSTONE_BRICKS_BLOCK = register("snowy_siltstone_bricks", SiltstoneBlock::new);
     public static final RegistryObject<Block> SILTSTONE_TILES_BLOCK = register("siltstone_tiles", SiltstoneBlock::new);
     public static final RegistryObject<Block> SILTSTONE_PAVEMENT_BLOCK = register("siltstone_pavement", SiltstoneBlock::new);
     public static final RegistryObject<Block> CHISELED_SILTSTONE_BLOCK = register("chiseled_siltstone", SiltstoneBlock::new);
@@ -852,6 +858,8 @@ public class ModBlocks {
             POLISHED_HIGHROCK_BLOCK);
     public static final RegistryObject<Block> HIGHROCK_BRICK_SLAB = registerSlabs("highrock_brick_slab",
             HIGHROCK_BRICKS_BLOCK);
+    public static final RegistryObject<Block> SNOWY_HIGHROCK_BRICK_SLIGHT_SLAB = registerSlabs("snowy_highrock_brick_slight_slab",
+            SNOWY_HIGHROCK_BRICKS_SLIGHT_BLOCK);
     public static final RegistryObject<Block> SNOWY_HIGHROCK_BRICK_SLAB = registerSlabs("snowy_highrock_brick_slab",
             SNOWY_HIGHROCK_BRICKS_BLOCK);
 
@@ -861,8 +869,14 @@ public class ModBlocks {
             SMOOTH_SILTSTONE_BLOCK);
     public static final RegistryObject<Block> COBBLED_SILTSTONE_SLAB = registerSlabs("cobbled_siltstone_slab",
             COBBLED_SILTSTONE_BLOCK);
+    public static final RegistryObject<Block> SNOWY_COBBLED_SILTSTONE_SLAB = registerSlabs("snowy_cobbled_siltstone_slab",
+            SNOWY_COBBLED_SILTSTONE_BLOCK);
     public static final RegistryObject<Block> SILTSTONE_BRICK_SLAB = registerSlabs("siltstone_brick_slab",
             SILTSTONE_BRICKS_BLOCK);
+    public static final RegistryObject<Block> SNOWY_SILTSTONE_BRICK_SLIGHT_SLAB = registerSlabs("snowy_siltstone_brick_slight_slab",
+            SNOWY_SILTSTONE_BRICKS_SLIGHT_BLOCK);
+    public static final RegistryObject<Block> SNOWY_SILTSTONE_BRICK_SLAB = registerSlabs("snowy_siltstone_brick_slab",
+            SNOWY_SILTSTONE_BRICKS_BLOCK);
     public static final RegistryObject<Block> SILTSTONE_TILE_SLAB = registerSlabs("siltstone_tile_slab",
             SILTSTONE_TILES_BLOCK);
     public static final RegistryObject<Block> SILTSTONE_PAVEMENT_SLAB = registerSlabs("siltstone_pavement_slab",
@@ -915,13 +929,17 @@ public class ModBlocks {
     public static final RegistryObject<Block> HIGHROCK_STAIRS = registerStairs("highrock_stairs", HIGHROCK_BLOCK);
     public static final RegistryObject<Block> POLISHED_HIGHROCK_STAIRS = registerStairs("polished_highrock_stairs", POLISHED_HIGHROCK_BLOCK);
     public static final RegistryObject<Block> HIGHROCK_BRICK_STAIRS = registerStairs("highrock_brick_stairs", HIGHROCK_BRICKS_BLOCK);
+    public static final RegistryObject<Block> SNOWY_HIGHROCK_BRICK_SLIGHT_STAIRS = registerStairs("snowy_highrock_brick_slight_stairs", SNOWY_HIGHROCK_BRICKS_SLIGHT_BLOCK);
     public static final RegistryObject<Block> SNOWY_HIGHROCK_BRICK_STAIRS = registerStairs("snowy_highrock_brick_stairs", SNOWY_HIGHROCK_BRICKS_BLOCK);
 
     public static final RegistryObject<Block> SILTSTONE_STAIRS = registerStairs("siltstone_stairs", SILTSTONE_BLOCK);
     public static final RegistryObject<Block> SMOOTH_SILTSTONE_STAIRS = registerStairs("smooth_siltstone_stairs", SMOOTH_SILTSTONE_BLOCK);
     public static final RegistryObject<Block> COBBLED_SILTSTONE_STAIRS = registerStairs("cobbled_siltstone_stairs", COBBLED_SILTSTONE_BLOCK);
+    public static final RegistryObject<Block> SNOWY_COBBLED_SILTSTONE_STAIRS = registerStairs("snowy_cobbled_siltstone_stairs", SNOWY_COBBLED_SILTSTONE_BLOCK);
     public static final RegistryObject<Block> SILTSTONE_TILE_STAIRS = registerStairs("siltstone_tile_stairs", SILTSTONE_TILES_BLOCK);
     public static final RegistryObject<Block> SILTSTONE_BRICK_STAIRS = registerStairs("siltstone_brick_stairs", SILTSTONE_BRICKS_BLOCK);
+    public static final RegistryObject<Block> SNOWY_SILTSTONE_BRICK_SLIGHT_STAIRS = registerStairs("snowy_siltstone_brick_slight_stairs", SNOWY_SILTSTONE_BRICKS_SLIGHT_BLOCK);
+    public static final RegistryObject<Block> SNOWY_SILTSTONE_BRICK_STAIRS = registerStairs("snowy_siltstone_brick_stairs", SNOWY_SILTSTONE_BRICKS_BLOCK);
     public static final RegistryObject<Block> SILTSTONE_PAVEMENT_STAIRS = registerStairs("siltstone_pavement_stairs", SILTSTONE_PAVEMENT_BLOCK);
 
     public static final RegistryObject<Block> INDENTED_GOLD_STAIRS_BLOCK = registerStairs("indented_gold_stairs", INDENTED_GOLD_BLOCK);
@@ -951,12 +969,16 @@ public class ModBlocks {
     public static final RegistryObject<Block> HIGHROCK_WALL_BLOCK = registerWalls("highrock_wall", HIGHROCK_BLOCK);
     public static final RegistryObject<Block> POLISHED_HIGHROCK_WALL_BLOCK = registerWalls("polished_highrock_wall", POLISHED_HIGHROCK_BLOCK);
     public static final RegistryObject<Block> HIGHROCK_BRICK_WALL_BLOCK = registerWalls("highrock_brick_wall", HIGHROCK_BRICKS_BLOCK);
+    public static final RegistryObject<Block> SNOWY_HIGHROCK_BRICK_SLIGHT_WALL_BLOCK = registerWalls("snowy_highrock_brick_slight_wall", SNOWY_HIGHROCK_BRICKS_SLIGHT_BLOCK);
     public static final RegistryObject<Block> SNOWY_HIGHROCK_BRICK_WALL_BLOCK = registerWalls("snowy_highrock_brick_wall", SNOWY_HIGHROCK_BRICKS_BLOCK);
 
     public static final RegistryObject<Block> SILTSTONE_WALL_BLOCK = registerWalls("siltstone_wall", SILTSTONE_BLOCK);
     public static final RegistryObject<Block> SMOOTH_SILTSTONE_WALL_BLOCK = registerWalls("smooth_siltstone_wall", SMOOTH_SILTSTONE_BLOCK);
     public static final RegistryObject<Block> COBBLED_SILTSTONE_WALL_BLOCK = registerWalls("cobbled_siltstone_wall", COBBLED_SILTSTONE_BLOCK);
+    public static final RegistryObject<Block> SNOWY_COBBLED_SILTSTONE_WALL_BLOCK = registerWalls("snowy_cobbled_siltstone_wall", SNOWY_COBBLED_SILTSTONE_BLOCK);
     public static final RegistryObject<Block> SILTSTONE_BRICK_WALL_BLOCK = registerWalls("siltstone_brick_wall", SILTSTONE_BRICKS_BLOCK);
+    public static final RegistryObject<Block> SNOWY_SILTSTONE_BRICK_SLIGHT_WALL_BLOCK = registerWalls("snowy_siltstone_brick_slight_wall", SNOWY_SILTSTONE_BRICKS_SLIGHT_BLOCK);
+    public static final RegistryObject<Block> SNOWY_SILTSTONE_BRICK_WALL_BLOCK = registerWalls("snowy_siltstone_brick_wall", SNOWY_SILTSTONE_BRICKS_BLOCK);
     public static final RegistryObject<Block> SILTSTONE_TILE_WALL_BLOCK = registerWalls("siltstone_tile_wall", SILTSTONE_TILES_BLOCK);
     public static final RegistryObject<Block> SILTSTONE_PAVEMENT_WALL_BLOCK = registerWalls("siltstone_pavement_wall", SILTSTONE_PAVEMENT_BLOCK);
 

@@ -61,7 +61,7 @@ public class SeaAmuletItem extends SingleStackItem{
                             MobEffectInstance mobEffectInstance = player.getEffect(MobEffects.CONDUIT_POWER);
                             flag = mobEffectInstance != null && mobEffectInstance.getDuration() < duration;
                         }
-                        if (flag && this.getConduitChargesAmount(stack) > 0 && MobUtil.playerValidity(player, true)) {
+                        if (flag && this.getConduitChargesAmount(stack) > 0 && MobUtil.validNonLich(player)) {
                             this.decreaseConduitCharges(stack);
                             if (!worldIn.isClientSide){
                                 if (player instanceof ServerPlayer serverPlayer){

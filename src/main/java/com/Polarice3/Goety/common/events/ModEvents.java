@@ -17,6 +17,7 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.DefendVillagerGoal;
+import com.Polarice3.Goety.common.entities.ai.FreePrisonerGoal;
 import com.Polarice3.Goety.common.entities.ai.TargetHostileOwnedGoal;
 import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
 import com.Polarice3.Goety.common.entities.ally.golem.IceGolem;
@@ -89,7 +90,6 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.gossip.GossipType;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities;
-import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -275,7 +275,8 @@ public class ModEvents {
                 if (entity instanceof Witch witch) {
                     witch.goalSelector.addGoal(1, new WitchBarterGoal(witch));
                 }
-                if ((entity instanceof AbstractGolem && !(entity instanceof Enemy)) || (mob.getType().is(ModTags.EntityTypes.VILLAGE_GUARDS))) {
+                if (mob.getType().is(ModTags.EntityTypes.VILLAGE_GUARDS)) {
+                    mob.goalSelector.addGoal(1, new FreePrisonerGoal(mob));
                     mob.targetSelector.addGoal(3, new TargetHostileOwnedGoal<>(mob, Owned.class));
                     mob.targetSelector.addGoal(3, new DefendVillagerGoal(mob));
                 }

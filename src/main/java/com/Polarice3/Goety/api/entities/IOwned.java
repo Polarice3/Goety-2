@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.api.entities;
 
+import com.Polarice3.Goety.api.blocks.entities.IOwnedBlock;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.config.MobsConfig;
@@ -55,6 +56,20 @@ public interface IOwned {
             this.setOwnerId(livingEntity.getUUID());
             this.setOwnerClientId(livingEntity.getId());
         }
+    }
+
+    default void copyTrueOwner(IOwned owned){
+        if (owned.getOwnerId() != null) {
+            this.setOwnerId(owned.getOwnerId());
+        }
+        this.setOwnerClientId(owned.getOwnerClientId());
+    }
+
+    default void copyTrueOwner(IOwnedBlock owned){
+        if (owned.getOwnerUUID() != null) {
+            this.setOwnerId(owned.getOwnerUUID());
+        }
+        this.setOwnerClientId(owned.getOwnerId());
     }
 
     void setHostile(boolean hostile);

@@ -76,7 +76,10 @@ public class ModCraftingProvider extends RecipeProvider {
         slabBlock(consumer, "silt/siltstone", ModBlocks.SILTSTONE_BLOCK, ModBlocks.SILTSTONE_SLAB);
         slabBlock(consumer, "silt/smooth_siltstone", ModBlocks.SMOOTH_SILTSTONE_BLOCK, ModBlocks.SMOOTH_SILTSTONE_SLAB);
         slabBlock(consumer, "silt/cobbled_siltstone", ModBlocks.COBBLED_SILTSTONE_BLOCK, ModBlocks.COBBLED_SILTSTONE_SLAB);
+        slabBlock(consumer, "silt/snowy_cobbled_siltstone", ModBlocks.SNOWY_COBBLED_SILTSTONE_BLOCK, ModBlocks.SNOWY_COBBLED_SILTSTONE_SLAB);
         slabBlock(consumer, "silt/siltstone_bricks", ModBlocks.SILTSTONE_BRICKS_BLOCK, ModBlocks.SILTSTONE_BRICK_SLAB);
+        slabBlock(consumer, "silt/snowy_siltstone_bricks_slight", ModBlocks.SNOWY_SILTSTONE_BRICKS_SLIGHT_BLOCK, ModBlocks.SNOWY_SILTSTONE_BRICK_SLIGHT_SLAB);
+        slabBlock(consumer, "silt/snowy_siltstone_bricks", ModBlocks.SNOWY_SILTSTONE_BRICKS_BLOCK, ModBlocks.SNOWY_SILTSTONE_BRICK_SLAB);
         slabBlock(consumer, "silt/siltstone_tiles", ModBlocks.SILTSTONE_TILES_BLOCK, ModBlocks.SILTSTONE_TILE_SLAB);
         slabBlock(consumer, "silt/siltstone_pavement", ModBlocks.SILTSTONE_PAVEMENT_BLOCK, ModBlocks.SILTSTONE_PAVEMENT_SLAB);
 
@@ -88,7 +91,10 @@ public class ModCraftingProvider extends RecipeProvider {
         stairsBlock(consumer, "silt/siltstone", ModBlocks.SILTSTONE_BLOCK, ModBlocks.SILTSTONE_STAIRS);
         stairsBlock(consumer, "silt/smooth_siltstone", ModBlocks.SMOOTH_SILTSTONE_BLOCK, ModBlocks.SMOOTH_SILTSTONE_STAIRS);
         stairsBlock(consumer, "silt/cobbled_siltstone", ModBlocks.COBBLED_SILTSTONE_BLOCK, ModBlocks.COBBLED_SILTSTONE_STAIRS);
+        stairsBlock(consumer, "silt/snowy_cobbled_siltstone", ModBlocks.SNOWY_COBBLED_SILTSTONE_BLOCK, ModBlocks.SNOWY_COBBLED_SILTSTONE_STAIRS);
         stairsBlock(consumer, "silt/siltstone_bricks", ModBlocks.SILTSTONE_BRICKS_BLOCK, ModBlocks.SILTSTONE_BRICK_STAIRS);
+        stairsBlock(consumer, "silt/snowy_siltstone_bricks_slight", ModBlocks.SNOWY_SILTSTONE_BRICKS_SLIGHT_BLOCK, ModBlocks.SNOWY_SILTSTONE_BRICK_SLIGHT_STAIRS);
+        stairsBlock(consumer, "silt/snowy_siltstone_bricks", ModBlocks.SNOWY_SILTSTONE_BRICKS_BLOCK, ModBlocks.SNOWY_SILTSTONE_BRICK_STAIRS);
         stairsBlock(consumer, "silt/siltstone_tiles", ModBlocks.SILTSTONE_TILES_BLOCK, ModBlocks.SILTSTONE_TILE_STAIRS);
         stairsBlock(consumer, "silt/siltstone_pavement", ModBlocks.SILTSTONE_PAVEMENT_BLOCK, ModBlocks.SILTSTONE_PAVEMENT_STAIRS);
 
@@ -99,7 +105,10 @@ public class ModCraftingProvider extends RecipeProvider {
         wallBlock(consumer, "silt/siltstone", ModBlocks.SILTSTONE_BLOCK, ModBlocks.SILTSTONE_WALL_BLOCK);
         wallBlock(consumer, "silt/smooth_siltstone", ModBlocks.SMOOTH_SILTSTONE_BLOCK, ModBlocks.SMOOTH_SILTSTONE_WALL_BLOCK);
         wallBlock(consumer, "silt/cobbled_siltstone", ModBlocks.COBBLED_SILTSTONE_BLOCK, ModBlocks.COBBLED_SILTSTONE_WALL_BLOCK);
+        wallBlock(consumer, "silt/snowy_cobbled_siltstone", ModBlocks.SNOWY_COBBLED_SILTSTONE_BLOCK, ModBlocks.SNOWY_COBBLED_SILTSTONE_WALL_BLOCK);
         wallBlock(consumer, "silt/siltstone_bricks", ModBlocks.SILTSTONE_BRICKS_BLOCK, ModBlocks.SILTSTONE_BRICK_WALL_BLOCK);
+        wallBlock(consumer, "silt/snowy_siltstone_bricks_slight", ModBlocks.SNOWY_SILTSTONE_BRICKS_SLIGHT_BLOCK, ModBlocks.SNOWY_SILTSTONE_BRICK_SLIGHT_WALL_BLOCK);
+        wallBlock(consumer, "silt/snowy_siltstone_bricks", ModBlocks.SNOWY_SILTSTONE_BRICKS_BLOCK, ModBlocks.SNOWY_SILTSTONE_BRICK_WALL_BLOCK);
         wallBlock(consumer, "silt/siltstone_tiles", ModBlocks.SILTSTONE_TILES_BLOCK, ModBlocks.SILTSTONE_TILE_WALL_BLOCK);
         wallBlock(consumer, "silt/siltstone_pavement", ModBlocks.SILTSTONE_PAVEMENT_BLOCK, ModBlocks.SILTSTONE_PAVEMENT_WALL_BLOCK);
 
@@ -148,6 +157,10 @@ public class ModCraftingProvider extends RecipeProvider {
 
         stoneCutting(consumer, "silt", ModBlocks.COBBLED_SILTSTONE_SLAB, ModBlocks.COBBLED_SILTSTONE_SLAB, 2);
 
+        stoneCutting(consumer, "silt", ModBlocks.SNOWY_COBBLED_SILTSTONE_BLOCK, ModBlocks.SNOWY_COBBLED_SILTSTONE_SLAB, 2);
+        stoneCutting(consumer, "silt", ModBlocks.SNOWY_SILTSTONE_BRICKS_SLIGHT_BLOCK, ModBlocks.SNOWY_SILTSTONE_BRICK_SLIGHT_SLAB, 2);
+        stoneCutting(consumer, "silt", ModBlocks.SNOWY_SILTSTONE_BRICKS_BLOCK, ModBlocks.SNOWY_SILTSTONE_BRICK_SLAB, 2);
+
         stoneCutting(consumer, "silt", ModBlocks.SILTSTONE_BLOCK, ModBlocks.SILTSTONE_STAIRS);
         stoneCutting(consumer, "silt", ModBlocks.SILTSTONE_BLOCK, ModBlocks.SMOOTH_SILTSTONE_STAIRS);
         stoneCutting(consumer, "silt", ModBlocks.SILTSTONE_BLOCK, ModBlocks.SILTSTONE_BRICK_STAIRS);
@@ -166,6 +179,10 @@ public class ModCraftingProvider extends RecipeProvider {
 
         stoneCutting(consumer, "silt", ModBlocks.COBBLED_SILTSTONE_BLOCK, ModBlocks.COBBLED_SILTSTONE_STAIRS);
 
+        stoneCutting(consumer, "silt", ModBlocks.SNOWY_COBBLED_SILTSTONE_BLOCK, ModBlocks.SNOWY_COBBLED_SILTSTONE_STAIRS);
+        stoneCutting(consumer, "silt", ModBlocks.SNOWY_SILTSTONE_BRICKS_SLIGHT_BLOCK, ModBlocks.SNOWY_SILTSTONE_BRICK_SLIGHT_STAIRS);
+        stoneCutting(consumer, "silt", ModBlocks.SNOWY_SILTSTONE_BRICKS_BLOCK, ModBlocks.SNOWY_SILTSTONE_BRICK_STAIRS);
+
         stoneCutting(consumer, "silt", ModBlocks.SILTSTONE_BLOCK, ModBlocks.SILTSTONE_WALL_BLOCK);
         stoneCutting(consumer, "silt", ModBlocks.SILTSTONE_BLOCK, ModBlocks.SMOOTH_SILTSTONE_WALL_BLOCK);
         stoneCutting(consumer, "silt", ModBlocks.SILTSTONE_BLOCK, ModBlocks.SILTSTONE_BRICK_WALL_BLOCK);
@@ -183,6 +200,10 @@ public class ModCraftingProvider extends RecipeProvider {
         stoneCutting(consumer, "silt", ModBlocks.SILTSTONE_PAVEMENT_BLOCK, ModBlocks.SILTSTONE_PAVEMENT_WALL_BLOCK);
 
         stoneCutting(consumer, "silt", ModBlocks.COBBLED_SILTSTONE_BLOCK, ModBlocks.COBBLED_SILTSTONE_WALL_BLOCK);
+
+        stoneCutting(consumer, "silt", ModBlocks.SNOWY_COBBLED_SILTSTONE_BLOCK, ModBlocks.SNOWY_COBBLED_SILTSTONE_WALL_BLOCK);
+        stoneCutting(consumer, "silt", ModBlocks.SNOWY_SILTSTONE_BRICKS_SLIGHT_BLOCK, ModBlocks.SNOWY_SILTSTONE_BRICK_SLIGHT_WALL_BLOCK);
+        stoneCutting(consumer, "silt", ModBlocks.SNOWY_SILTSTONE_BRICKS_BLOCK, ModBlocks.SNOWY_SILTSTONE_BRICK_WALL_BLOCK);
 
         stoneCutting(consumer, "silt", ModBlocks.SILTSTONE_BLOCK, ModBlocks.CHISELED_SILTSTONE_BLOCK);
         stoneCutting(consumer, "silt", ModBlocks.SMOOTH_SILTSTONE_BLOCK, ModBlocks.CHISELED_SILTSTONE_BLOCK);

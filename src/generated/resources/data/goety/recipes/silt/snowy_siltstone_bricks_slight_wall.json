@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "goety:snowy_siltstone_bricks_slight"
+    }
+  },
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "result": {
+    "count": 6,
+    "item": "goety:snowy_siltstone_brick_slight_wall"
+  },
+  "show_notification": true
+}

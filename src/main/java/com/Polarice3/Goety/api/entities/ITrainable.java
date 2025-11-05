@@ -181,13 +181,11 @@ public interface ITrainable {
                 Mob converted = mob.convertTo(entityType, true);
                 if (converted != null){
                     if (mob instanceof IOwned ownable && converted instanceof IOwned ownable1){
-                        if (ownable.getTrueOwner() != null){
-                            ownable1.setTrueOwner(ownable.getTrueOwner());
-                            if (ownable.getTrueOwner() instanceof Player player) {
-                                if (SEHelper.isGrounded(player, mob)){
-                                    SEHelper.removeGroundedEntity(player, mob);
-                                    SEHelper.addGroundedEntity(player, converted);
-                                }
+                        ownable1.copyTrueOwner(ownable);
+                        if (ownable.getTrueOwner() instanceof Player player) {
+                            if (SEHelper.isGrounded(player, mob)){
+                                SEHelper.removeGroundedEntity(player, mob);
+                                SEHelper.addGroundedEntity(player, converted);
                             }
                         }
                     }

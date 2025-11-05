@@ -116,7 +116,7 @@ public class ServantUtil {
             summoned = target.convertTo(ModEntityType.ZPIGLIN_BRUTE_SERVANT.get(), keepLoot);
         } else if (target instanceof AbstractPiglin){
             summoned = target.convertTo(ModEntityType.ZPIGLIN_SERVANT.get(), keepLoot);
-        } else if (target instanceof Villager || target instanceof Prisoner){
+        } else if (target instanceof Villager || target instanceof Prisoner || target.getType().getDescriptionId().contains("entity.guardvillagers.guard")){
             summoned = target.convertTo(ModEntityType.ZOMBIE_VILLAGER_SERVANT.get(), keepLoot);
         } else if (target instanceof Vindicator || target instanceof VindicatorServant){
             summoned = target.convertTo(ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), keepLoot);

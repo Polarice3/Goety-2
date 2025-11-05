@@ -4,6 +4,7 @@
   "values": [
     "#forge:bosses",
     "#goety:mini_bosses",
-    "#goety:powerful_servants"
+    "#goety:powerful_servants",
+    "goety:squall_golem"
   ]
 }

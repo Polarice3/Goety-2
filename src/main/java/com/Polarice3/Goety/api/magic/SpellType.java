@@ -15,14 +15,20 @@ public enum SpellType implements net.minecraftforge.common.IExtensibleEnum {
     WILD("wild"),
     VOID("void");
 
+    private final String baseName;
     private final Component name;
 
     SpellType(String name){
+        this.baseName = name;
         this.name = Component.translatable("spell.goety." + name);
     }
 
     public static SpellType create(String name, String translation){
         throw new IllegalStateException("Enum not extended");
+    }
+
+    public String getBaseName() {
+        return baseName;
     }
 
     public Component getName(){

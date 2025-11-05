@@ -3,12 +3,14 @@ package com.Polarice3.Goety.common.items;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.illager.Prisoner;
 import com.Polarice3.Goety.init.ModTags;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -63,12 +65,14 @@ public class OminousShacklesItem extends Item {
                             }
                         }
                         if (mob.getType().is(ModTags.EntityTypes.VILLAGE_GUARDS)) {
-                            if (mob instanceof IronGolem ironGolem) {
-                                if (!ironGolem.isPlayerCreated()) {
-                                    ironGolem.setTarget(player);
+                            if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player) && !MobUtil.areAllies(mob, player)) {
+                                if (mob instanceof IronGolem ironGolem) {
+                                    if (!ironGolem.isPlayerCreated()) {
+                                        ironGolem.setTarget(player);
+                                    }
+                                } else {
+                                    mob.setTarget(player);
                                 }
-                            } else {
-                                mob.setTarget(player);
                             }
                         }
                     }

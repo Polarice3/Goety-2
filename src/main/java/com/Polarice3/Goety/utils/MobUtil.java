@@ -111,27 +111,8 @@ public class MobUtil {
         return EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity) && entity.isAttackable();
     }
 
-    public static boolean playerValidity(Player player, boolean isNotLich){
-        if (!player.isCreative() && !player.isSpectator()) {
-            if (isNotLich) {
-                return !LichdomHelper.isLich(player);
-            } else {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean undeadAndLich(LivingEntity pLivingEntity){
-        if (pLivingEntity.isInvertedHealAndHarm() || pLivingEntity.getMobType() == MobType.UNDEAD) {
-            return true;
-        } else {
-            if (pLivingEntity instanceof Player player){
-                return LichdomHelper.isLich(player);
-            } else {
-                return false;
-            }
-        }
+    public static boolean validNonLich(Player player){
+        return validEntity(player) && !LichdomHelper.isLich(player);
     }
 
     public static boolean areAllies(@Nullable Entity entity, @Nullable Entity entity1){
@@ -267,7 +248,7 @@ public class MobUtil {
         double resist = knocked instanceof LivingEntity livingEntity ? livingEntity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE) : 0.0D;
         double resist1 = Math.max(0.0D, 1.0D - resist);
         if (knocked instanceof Player player) {
-            if (MobUtil.playerValidity(player, false)) {
+            if (MobUtil.validEntity(player)) {
                 player.hurtMarked = true;
                 if (!player.level.isClientSide){
                     player.setOnGround(false);
@@ -315,7 +296,7 @@ public class MobUtil {
 
     public static void push(Entity pEntity, double pX, double pY, double pZ, double reduction) {
         if (pEntity instanceof Player player) {
-            if (MobUtil.playerValidity(player, false)) {
+            if (MobUtil.validEntity(player)) {
                 player.hurtMarked = true;
                 if (!player.level.isClientSide){
                     player.setOnGround(false);
@@ -333,7 +314,7 @@ public class MobUtil {
 
     public static void forcePush(Entity pEntity, double pX, double pY, double pZ) {
         if (pEntity instanceof Player player) {
-            if (MobUtil.playerValidity(player, false)) {
+            if (MobUtil.validEntity(player)) {
                 player.hurtMarked = true;
                 if (!player.level.isClientSide){
                     player.setOnGround(false);
@@ -346,7 +327,7 @@ public class MobUtil {
 
     public static void twister(Entity pEntity, double pX, double pY, double pZ){
         if (pEntity instanceof Player player) {
-            if (MobUtil.playerValidity(player, false)) {
+            if (MobUtil.validEntity(player)) {
                 player.hurtMarked = true;
                 if (!player.level.isClientSide){
                     player.setOnGround(false);

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "goety:snowy_cobbled_siltstone"
+  },
+  "result": "goety:snowy_cobbled_siltstone_slab"
+}

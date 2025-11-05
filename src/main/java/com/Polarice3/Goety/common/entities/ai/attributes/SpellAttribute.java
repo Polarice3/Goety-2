@@ -12,7 +12,7 @@ public class SpellAttribute extends RangedAttribute {
     }
 
     public static SpellAttribute potency(SpellType spellType, double p_22311_, double p_22312_, double p_22313_){
-        return new SpellAttribute(spellType, "attribute.name.goety." + spellType.getName().getString() + "_potency", p_22311_, p_22312_, p_22313_);
+        return new SpellAttribute(spellType, "attribute.name.goety." + spellType.getBaseName() + "_potency", p_22311_, p_22312_, p_22313_);
     }
 
     public SpellType getSpellType() {

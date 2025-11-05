@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "mmm",
+    "mlm",
+    "mmm"
+  ],
+  "key":
+  {
+    "m":
+    {
+      "item": "goety:siltstone_bricks"
+    },
+    "l":
+    {
+      "item": "minecraft:snow_block"
+    }
+  },
+  "result":
+  {
+    "item": "goety:snowy_siltstone_bricks_slight",
+    "count": 8
+  }
+}

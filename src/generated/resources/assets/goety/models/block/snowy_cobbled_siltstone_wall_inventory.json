@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "goety:block/snowy_cobbled_siltstone"
+  }
+}

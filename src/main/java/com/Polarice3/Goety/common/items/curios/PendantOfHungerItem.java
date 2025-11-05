@@ -36,7 +36,7 @@ public class PendantOfHungerItem extends SingleStackItem {
                     }
                 }
                 if (getRottenFleshAmount(stack) > 0) {
-                    if (MobUtil.playerValidity(player, true)) {
+                    if (MobUtil.validNonLich(player)) {
                         player.addEffect(new MobEffectInstance(MobEffects.HUNGER, 600, 0, false, false));
                         if (player.getFoodData().needsFood()) {
                             player.eat(player.level, new ItemStack(Items.ROTTEN_FLESH));

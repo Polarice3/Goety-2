@@ -108,8 +108,8 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
                                     if (entity != null) {
                                         entity.moveTo((double)blockpos.getX() + 0.5D, (double)blockpos.getY(), (double)blockpos.getZ() + 0.5D, Mth.wrapDegrees(serverLevel.random.nextFloat() * 360.0F), 0.0F);
                                         level.gameEvent(entity, GameEvent.ENTITY_PLACE, blockpos);
-                                        if (entity instanceof IOwned owned && blockEntity.getTrueOwner() != null) {
-                                            owned.setTrueOwner(blockEntity.getTrueOwner());
+                                        if (entity instanceof IOwned owned) {
+                                            owned.copyTrueOwner(this);
                                             if (owned instanceof LivingEntity living && blockEntity.isGrounding() && blockEntity.getTrueOwner() instanceof Player player){
                                                 SEHelper.addGroundedEntity(player, living);
                                             }

@@ -1,0 +1,78 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "goety:block/snowy_siltstone_slight"
+      },
+      {
+        "model": "goety:block/snowy_siltstone_slight",
+        "x": 90
+      },
+      {
+        "model": "goety:block/snowy_siltstone_slight",
+        "x": 180
+      },
+      {
+        "model": "goety:block/snowy_siltstone_slight",
+        "x": 270
+      },
+      {
+        "model": "goety:block/snowy_siltstone_slight",
+        "y": 90
+      },
+      {
+        "model": "goety:block/snowy_siltstone_slight",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "goety:block/snowy_siltstone_slight",
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "goety:block/snowy_siltstone_slight",
+        "x": 270,
+        "y": 90
+      },
+      {
+        "model": "goety:block/snowy_siltstone_slight",
+        "y": 180
+      },
+      {
+        "model": "goety:block/snowy_siltstone_slight",
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "goety:block/snowy_siltstone_slight",
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "goety:block/snowy_siltstone_slight",
+        "x": 270,
+        "y": 180
+      },
+      {
+        "model": "goety:block/snowy_siltstone_slight",
+        "y": 270
+      },
+      {
+        "model": "goety:block/snowy_siltstone_slight",
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "goety:block/snowy_siltstone_slight",
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "goety:block/snowy_siltstone_slight",
+        "x": 270,
+        "y": 270
+      }
+    ]
+  }
+}
