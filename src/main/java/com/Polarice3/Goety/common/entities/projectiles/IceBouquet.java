@@ -43,7 +43,7 @@ public class IceBouquet extends GroundProjectile {
     public IceBouquet(EntityType<? extends Entity> p_i50170_1_, Level p_i50170_2_) {
         super(p_i50170_1_, p_i50170_2_);
         this.setYRot(0.0F);
-        this.lifeTicks = 80;
+        this.lifeTicks = 100;
     }
 
     public IceBouquet(Level world, double pPosX, double pPosY, double pPosZ, @Nullable LivingEntity owner) {

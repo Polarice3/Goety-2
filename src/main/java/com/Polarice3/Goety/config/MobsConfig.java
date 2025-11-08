@@ -192,6 +192,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> WildfireBlazingHelm;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WildfireSummonsLife;
     public static final ForgeConfigSpec.ConfigValue<Boolean> BlackBeastDayStrength;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> BlackBeastChunkLoad;
     public static final ForgeConfigSpec.ConfigValue<Boolean> BlackBeastHowlingSoul;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHate;
@@ -253,6 +254,8 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerServantAllOpenDoors;
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerServantGhostArrows;
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerServantTrainArmor;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerServantChunkLoadMark;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerServantChunkLoadRaid;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerMining;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerMiningSeeBlocks;
@@ -268,6 +271,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> WraithAggressiveTeleport;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> StayingServantChunkLoad;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> GuardingServantChunkLoad;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadServantSunlightBurn;
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadServantSunlightHelmet;
@@ -483,6 +487,8 @@ public class MobsConfig {
                     .defineInRange("naturalMinionHealAmount", 1.0, 0.0, Double.MAX_VALUE);
             BlackBeastDayStrength = BUILDER.comment("Whether Black Beasts gain buffs if total game time has gone long enough, Default: true")
                     .define("blackBeastDayStrength", true);
+            BlackBeastChunkLoad = BUILDER.comment("Whether Black Beasts chunk load areas around themselves and their target when hunting down with Taglock Kit, Default: true")
+                    .define("blackBeastChunkLoad", true);
             BlackBeastHowlingSoul = BUILDER.comment("Whether owned Black Beasts drop Howling Soul, Default: true")
                     .define("blackBeastHowlingSoul", true);
             BUILDER.pop();
@@ -547,6 +553,10 @@ public class MobsConfig {
                     .define("illagerServantGhostArrows", true);
             IllagerServantTrainArmor = BUILDER.comment("Whether Neollagers gain armor after training if their owner wears Ring of the Forge, if 'illagerServantWearArmor' is enabled, Default: true")
                     .define("illagerServantTrainArmor", true);
+            IllagerServantChunkLoadMark = BUILDER.comment("Whether Illagers chunk load areas around themselves and their target when hunting down with Taglock Kit, Default: true")
+                    .define("illagerServantChunkLoadMark", true);
+            IllagerServantChunkLoadRaid = BUILDER.comment("Whether Illagers chunk load areas around themselves and their raid position when raiding, Default: true")
+                    .define("illagerServantChunkLoadRaid", true);
             BUILDER.pop();
             BUILDER.push("Prisoners");
             PrisonerMining = BUILDER.comment("Whether Prisoners can mine ores when given a Pickaxe, Default: true")
@@ -598,6 +608,8 @@ public class MobsConfig {
                 .define("variousRobeWitch", false);
         StayingServantChunkLoad = BUILDER.comment("Servants, when on staying mode, will load chunks around it, Default: true")
                 .define("stayingServantChunkLoad", true);
+        GuardingServantChunkLoad = BUILDER.comment("Servants, when on guarding mode, will load chunks around it, Default: true")
+                .define("guardingServantChunkLoad", true);
         ServantRideAutonomous = BUILDER.comment("Whether certain servants being ridden by other servants will not be controlled by their rider., Default: false")
                 .define("servantRideAutonomous", false);
         MaxSlimeSize = BUILDER.comment("Maximum size Slime and Magma Cube Servants can obtain through Slime/Magma Block, Default: 4")

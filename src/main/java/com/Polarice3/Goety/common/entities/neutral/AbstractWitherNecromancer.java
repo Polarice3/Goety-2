@@ -294,12 +294,6 @@ public class AbstractWitherNecromancer extends AbstractNecromancer {
             return 200;
         }
 
-        @Nullable
-        @Override
-        protected SoundEvent getSpellPrepareSound() {
-            return ModSounds.PREPARE_SUMMON.get();
-        }
-
         @Override
         protected NecromancerSpellType getNecromancerSpellType() {
             return NecromancerSpellType.ZOMBIE;

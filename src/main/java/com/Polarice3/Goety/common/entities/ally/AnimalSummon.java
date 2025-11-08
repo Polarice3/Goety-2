@@ -333,9 +333,7 @@ public abstract class AnimalSummon extends Summoned{
         if (ageablemob != null) {
             ageablemob.setBaby(true);
             ageablemob.moveTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
-            if (this.getTrueOwner() != null) {
-                ageablemob.setTrueOwner(this.getTrueOwner());
-            }
+            ageablemob.copyTrueOwner(this);
             this.finalizeSpawnChildFromBreeding(p_27564_, p_27565_, ageablemob);
             p_27564_.addFreshEntityWithPassengers(ageablemob);
         }

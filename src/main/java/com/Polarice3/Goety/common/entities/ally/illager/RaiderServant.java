@@ -504,6 +504,20 @@ public abstract class RaiderServant extends Summoned {
     }
 
     @Override
+    public boolean shouldChunkLoad() {
+        boolean flag = super.shouldChunkLoad();
+        if (!flag) {
+            if (this.getMarked() != null) {
+                flag = MobsConfig.IllagerServantChunkLoadMark.get();
+            }
+            if (this.isRaiding()) {
+                flag = MobsConfig.IllagerServantChunkLoadRaid.get();
+            }
+        }
+        return flag;
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (!this.level.isClientSide) {
@@ -603,6 +617,7 @@ public abstract class RaiderServant extends Summoned {
                         this.setMarked(null);
                     }
                 } else {
+                    this.chunkLoadTarget(this.getMarked().blockPosition());
                     if (this.isLeader()) {
                         for (RaiderServant servant : this.getNearbyCompanions()) {
                             if (servant.getLeader() == null && servant.getMarked() == this.getMarked()) {
@@ -645,6 +660,9 @@ public abstract class RaiderServant extends Summoned {
                     }
                 }
                 ++this.raidTime;
+
+                this.chunkLoadTarget(this.getRaidPos());
+
                 if (this.raidTime >= 48000){
                     this.setRaidPos(null);
                     if (this.getTrueOwner() != null

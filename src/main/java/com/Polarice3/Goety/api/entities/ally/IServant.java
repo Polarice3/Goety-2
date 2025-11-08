@@ -280,10 +280,8 @@ public interface IServant extends IOwned {
             if (this.getKillChance() > 0){
                 this.setKillChance(this.getKillChance() - 1);
             }
-            if (MobsConfig.StayingServantChunkLoad.get()) {
-                if (owned.isAlive()) {
-                    this.chunkLoad();
-                }
+            if (owned.isAlive()) {
+                this.chunkLoad();
             }
             this.commandMode();
             if (this.isWandering() || this.isGuardingArea()){
@@ -326,10 +324,20 @@ public interface IServant extends IOwned {
         return ticket;
     }
 
+    default boolean shouldChunkLoad(){
+        if (this.isStaying()) {
+            return MobsConfig.StayingServantChunkLoad.get();
+        }
+        if (this.isGuardingArea()) {
+            return MobsConfig.GuardingServantChunkLoad.get();
+        }
+        return false;
+    }
+
     default void chunkLoad() {
         if (this instanceof Mob owned){
             if (owned.level instanceof ServerLevel serverLevel) {
-                if (this.isStaying()) {
+                if (this.shouldChunkLoad()) {
                     if (this.getTrueOwner() instanceof Player) {
                         int i = SectionPos.blockToSectionCoord(owned.position().x());
                         int j = SectionPos.blockToSectionCoord(owned.position().z());
@@ -342,6 +350,25 @@ public interface IServant extends IOwned {
                     }
                 } else if (this.getTicketTime() > 0) {
                     this.setTicketTime(0);
+                }
+            }
+        }
+    }
+
+    default void chunkLoadTarget(BlockPos blockPos) {
+        if (blockPos != null) {
+            if (this instanceof Mob owned) {
+                if (owned.level instanceof ServerLevel serverLevel) {
+                    if (this.shouldChunkLoad()) {
+                        if (this.getTrueOwner() instanceof Player) {
+                            int i = SectionPos.blockToSectionCoord(blockPos.getX());
+                            int j = SectionPos.blockToSectionCoord(blockPos.getZ());
+                            if (this.getTicketTime() <= 0 || i != SectionPos.blockToSectionCoord(blockPos.getX()) || j != SectionPos.blockToSectionCoord(blockPos.getZ())) {
+                                serverLevel.getChunkSource().addRegionTicket(ModTicketTypes.SERVANT, owned.chunkPosition(), 2, owned.blockPosition());
+                                serverLevel.resetEmptyTime();
+                            }
+                        }
+                    }
                 }
             }
         }

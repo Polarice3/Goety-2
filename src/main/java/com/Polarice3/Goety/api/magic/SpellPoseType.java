@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.api.magic;
 
+@Deprecated(forRemoval = true)
 public enum SpellPoseType implements net.minecraftforge.common.IExtensibleEnum {
     DEFAULT("GOETY_SPELL"),
     FLYING("GOETY_FLYING");

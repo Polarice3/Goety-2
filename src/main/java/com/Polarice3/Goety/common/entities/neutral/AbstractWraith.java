@@ -93,7 +93,7 @@ public class AbstractWraith extends Summoned {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.WraithHealth.get())
                 .add(Attributes.ARMOR, AttributesConfig.WraithArmor.get())
-                .add(Attributes.FOLLOW_RANGE, 32.0D)
+                .add(Attributes.FOLLOW_RANGE, 16.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
                 .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F)
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.WraithDamage.get());
@@ -238,16 +238,18 @@ public class AbstractWraith extends Summoned {
         return false;
     }
 
+    @Deprecated
     public double getFollowRange(){
         return this.getAttributeValue(Attributes.FOLLOW_RANGE);
     }
 
+    @Deprecated
     public float getFloatFollowRange(){
         return (float) this.getFollowRange();
     }
 
     public float attackRange(){
-        return this.getFloatFollowRange() / 2.0F;
+        return 12.0F;
     }
 
     @Override
@@ -359,7 +361,7 @@ public class AbstractWraith extends Summoned {
                 ++this.fireTick;
             }
             if (this.fireTick > 54){
-                this.fireCooldown = 100;
+                this.fireCooldown = 80;
                 this.fireTick = 0;
                 if (this.isFiring()){
                     this.stopFiring();
@@ -455,9 +457,9 @@ public class AbstractWraith extends Summoned {
         if (!this.level.isClientSide() && this.isAlive() && this.getTarget() != null) {
             if (this.getSensing().hasLineOfSight(this.getTarget())) {
                 for (int i = 0; i < 128; ++i) {
-                    double d3 = this.getTarget().getX() + (this.getRandom().nextDouble() - 0.5D) * this.getFollowRange();
+                    double d3 = this.getTarget().getX() + (this.getRandom().nextDouble() - 0.5D) * 20.0F;
                     double d4 = this.getTarget().getY();
-                    double d5 = this.getTarget().getZ() + (this.getRandom().nextDouble() - 0.5D) * this.getFollowRange();
+                    double d5 = this.getTarget().getZ() + (this.getRandom().nextDouble() - 0.5D) * 20.0F;
                     BlockPos blockPos1 = BlockPos.containing(d3, d4, d5);
                     if (MobUtil.isFireImmune(this) || !BlockFinder.hasSunlight(this.level, blockPos1)) {
                         if (BlockFinder.canSeeBlock(this.getTarget(), blockPos1)) {

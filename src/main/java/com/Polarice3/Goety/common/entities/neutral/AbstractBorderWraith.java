@@ -61,7 +61,7 @@ public class AbstractBorderWraith extends AbstractWraith implements IBreathing {
                 ++this.fireTick;
             }
             if (this.fireTick > 54){
-                this.fireCooldown = 100;
+                this.fireCooldown = 80;
                 this.fireTick = 0;
                 if (this.isFiring()){
                     this.stopFiring();

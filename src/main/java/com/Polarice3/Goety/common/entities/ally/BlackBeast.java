@@ -538,6 +538,17 @@ public class BlackBeast extends Summoned{
     }
 
     @Override
+    public boolean shouldChunkLoad() {
+        boolean flag = super.shouldChunkLoad();
+        if (!flag) {
+            if (this.getPrey() != null) {
+                flag = MobsConfig.BlackBeastChunkLoad.get();
+            }
+        }
+        return flag;
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (this.isDeadOrDying()){
@@ -664,6 +675,7 @@ public class BlackBeast extends Summoned{
                             this.teleportTowards(this.getPrey());
                         }
                     }
+                    this.chunkLoadTarget(this.getPrey().blockPosition());
                     if (this.getTrueOwner() != null) {
                         if (MobUtil.areAllies(this.getPrey(), this.getTrueOwner()) || this.getPrey().isDeadOrDying()) {
                             if (this.getTrueOwner().distanceTo(this) > 32.0D

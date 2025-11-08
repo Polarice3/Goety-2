@@ -92,9 +92,11 @@ public abstract class Ritual {
 
     public void finish(Level world, BlockPos darkAltarPos, DarkAltarBlockEntity tileEntity,
                        Player castingPlayer, ItemStack activationItem) {
-        for (IRitualType ritualType : RitualType.getAllRitualType()) {
-            if (tileEntity.getCurrentRitualRecipe().getCraftType().contains(ritualType.getName())) {
-                ritualType.onFinishRitual(world, darkAltarPos, tileEntity, castingPlayer, activationItem);
+        if (tileEntity.getCurrentRitualRecipe() != null && tileEntity.getCurrentRitualRecipe().getCraftType() != null) {
+            for (IRitualType ritualType : RitualType.getAllRitualType()) {
+                if (tileEntity.getCurrentRitualRecipe().getCraftType().contains(ritualType.getName())) {
+                    ritualType.onFinishRitual(world, darkAltarPos, tileEntity, castingPlayer, activationItem);
+                }
             }
         }
         if (tileEntity.getCurrentRitualRecipe().getRitual() instanceof EnchantItemRitual){

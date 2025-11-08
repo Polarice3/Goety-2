@@ -708,9 +708,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         public void start() {
             this.spellTime = this.getCastingTime();
             AbstractNecromancer.this.setSpellCooldown(this.getCastingInterval());
-            if (this.getSpellPrepareSound() != null) {
-                AbstractNecromancer.this.playSound(this.getSpellPrepareSound(), 1.0F, 1.0F);
-            }
+            this.playPrepareSound();
             AbstractNecromancer.this.setAnimationState(SUMMON);
             AbstractNecromancer.this.setSpellCasting(true);
             AbstractNecromancer.this.setNecromancerSpellType(this.getNecromancerSpellType());
@@ -746,8 +744,15 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
             return 100;
         };
 
+        @Deprecated
         @Nullable
-        protected abstract SoundEvent getSpellPrepareSound();
+        protected SoundEvent getSpellPrepareSound() {
+            return ModSounds.PREPARE_SUMMON.get();
+        }
+
+        public void playPrepareSound() {
+            AbstractNecromancer.this.playSound(ModSounds.PREPARE_SUMMON.get(), 0.85F, 0.9F);
+        }
 
         @Nullable
         protected SoundEvent getCastSound(){
@@ -832,12 +837,6 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
             return null;
         }
 
-        @Nullable
-        @Override
-        protected SoundEvent getSpellPrepareSound() {
-            return ModSounds.PREPARE_SUMMON.get();
-        }
-
         @Override
         protected NecromancerSpellType getNecromancerSpellType() {
             return NecromancerSpellType.ZOMBIE;
@@ -869,7 +868,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         public void start() {
             this.spellTime = 29;
             AbstractNecromancer.this.setSpellCooldown(100);
-            AbstractNecromancer.this.playSound(ModSounds.PREPARE_SUMMON.get(), 1.0F, 1.0F);
+            AbstractNecromancer.this.playSound(ModSounds.PREPARE_SUMMON.get(), 0.85F, 1.0F);
             AbstractNecromancer.this.setSpellCasting(true);
             AbstractNecromancer.this.setNecromancerSpellType(NecromancerSpellType.ZOMBIE);
             AbstractNecromancer.this.setAnimationState(SPELL_ANIM);

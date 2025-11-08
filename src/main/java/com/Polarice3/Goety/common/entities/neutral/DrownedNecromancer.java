@@ -625,10 +625,9 @@ public class DrownedNecromancer extends AbstractNecromancer {
             return MathHelper.secondsToTicks(1.8F);
         }
 
-        @Nullable
         @Override
-        protected SoundEvent getSpellPrepareSound() {
-            return ModSounds.DROWNED_NECROMANCER_PREPARE.get();
+        public void playPrepareSound() {
+            DrownedNecromancer.this.playSound(ModSounds.DROWNED_NECROMANCER_PREPARE.get(), 1.0F, 1.0F);
         }
 
         @Override

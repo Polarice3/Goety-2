@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.utils;
 
-import com.Polarice3.Goety.common.entities.neutral.AbstractWraith;
 import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -40,10 +39,7 @@ public class SoundUtil {
 
     public static void playWraithAttack(LivingEntity livingEntity){
         if (!livingEntity.isSilent()){
-            float volume = 16.0F;
-            if (livingEntity instanceof AbstractWraith wraith){
-                volume = wraith.attackRange();
-            }
+            float volume = 2.0F;
             livingEntity.level.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), ModSounds.WRAITH_ATTACK.get(), livingEntity.getSoundSource(), volume, 1.0F);
             livingEntity.level.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), ModSounds.WRAITH_FIRE.get(), livingEntity.getSoundSource(), volume, 1.7F);
             livingEntity.level.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), ModSounds.WRAITH_FLY.get(), livingEntity.getSoundSource(), 0.4F * volume, 1.094967F);

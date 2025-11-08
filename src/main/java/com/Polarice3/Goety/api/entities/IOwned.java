@@ -61,15 +61,15 @@ public interface IOwned {
     default void copyTrueOwner(IOwned owned){
         if (owned.getOwnerId() != null) {
             this.setOwnerId(owned.getOwnerId());
+            this.setOwnerClientId(owned.getOwnerClientId());
         }
-        this.setOwnerClientId(owned.getOwnerClientId());
     }
 
     default void copyTrueOwner(IOwnedBlock owned){
         if (owned.getOwnerUUID() != null) {
             this.setOwnerId(owned.getOwnerUUID());
+            this.setOwnerClientId(owned.getOwnerId());
         }
-        this.setOwnerClientId(owned.getOwnerId());
     }
 
     void setHostile(boolean hostile);
@@ -284,7 +284,7 @@ public interface IOwned {
                         if (owned.getTarget() instanceof Mob mob && !(mob instanceof Guardian)) {
                             if (owned.getTarget() instanceof Animal animal) {
                                 animal.setLastHurtByMob(owned);
-                            } else if (mob.getTarget() == null || mob.getTarget().isDeadOrDying()) {
+                            } else if (mob.getTarget() == null) {
                                 LivingEntity target = owned;
                                 if (mob.getType().is(ModTags.EntityTypes.IGNORE_SERVANTS)) {
                                     if (this.getTrueOwner() != null) {

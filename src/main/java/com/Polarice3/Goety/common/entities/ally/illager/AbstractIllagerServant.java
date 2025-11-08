@@ -626,9 +626,7 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
     @Nullable
     public AbstractIllagerServant getBreedOffspring(ServerLevel serverLevel, AbstractIllagerServant illager) {
         Neollager neollager = new Neollager(ModEntityType.NEOLLAGER.get(), serverLevel);
-        if (this.getTrueOwner() != null){
-            neollager.setTrueOwner(this.getTrueOwner());
-        }
+        neollager.copyTrueOwner(this);
         ForgeEventFactory.onFinalizeSpawn(neollager, serverLevel, serverLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.BREEDING, null, null);
         if (illager.isGuardingArea()) {
             neollager.setBoundPos(illager.getBoundPos());

@@ -267,17 +267,6 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
         return i >= 0 && i < this.inventory.getContainerSize() ? SlotAccess.forContainer(this.inventory, i) : super.getSlot(p_149995_);
     }
 
-    public boolean inventoryFull() {
-        int i = 0;
-        for (int j = 0; j < this.getInventory().getContainerSize(); ++j) {
-            ItemStack itemStack = this.getInventory().getItem(j);
-            if (itemStack.isEmpty()) {
-                ++i;
-            }
-        }
-        return i == 0;
-    }
-
     @Nullable
     public BlockPos getChestPos() {
         return this.chestPos;
@@ -517,6 +506,7 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
                                 }
                             }
                             this.mineTimes = 0;
+                            this.updateList = 5;
                         }
                     } else {
                         this.noBlockTick = 100;
