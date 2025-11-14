@@ -1,0 +1,16 @@
+{
+  "name": "Sorcerous Keeps",
+  "icon": "goety:crag_bricks",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "While Illagers tend to stick to one side of magic, there are rumors that some of them seek to master all of them and hold themselves into specialize keeps... along with some prisoners."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/sorcerous_keep.png"],
+      "border": true
+    }
+  ]
+}

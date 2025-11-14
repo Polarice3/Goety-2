@@ -141,16 +141,16 @@ public class FireBreathSpell extends BreathingSpell {
     }
 
     @Override
-    public void showWandBreath(LivingEntity entityLiving) {
-        int range = 0;
+    public void showWandBreath(LivingEntity entityLiving, SpellStat spellStat) {
+        int range = spellStat.getRange();
         if (WandUtil.enchantedFocus(entityLiving)){
             range = WandUtil.getLevels(ModEnchantments.RANGE.get(), entityLiving);
         }
 
         if (!CuriosFinder.hasCurio(entityLiving, ModItems.RING_OF_THE_DRAGON.get())) {
-            this.breathAttack(ParticleTypes.SOUL_FIRE_FLAME, entityLiving, 0.3F + ((double) range / 10), 5);
+            this.dragonBreathAttack(ModParticleTypes.SMALL_DRAGON_FLAME.get(), entityLiving, 10, ((double) range / 10) * 0.5D, 1.0D);
         } else {
-            this.dragonBreathAttack(ModParticleTypes.DRAGON_FLAME.get(), entityLiving, 0.3F + ((double) range / 10));
+            this.dragonBreathAttack(ModParticleTypes.DRAGON_FLAME.get(), entityLiving, ((double) range / 10) * 0.5D);
         }
     }
 }

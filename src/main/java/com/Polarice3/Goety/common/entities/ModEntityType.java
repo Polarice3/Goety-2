@@ -992,6 +992,12 @@ public class ModEntityType {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<SignalerServant>> SIGNALER_SERVANT = register("signaler_servant",
+            EntityType.Builder.of(SignalerServant::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<VindicatorServant>> VINDICATOR_SERVANT = register("vindicator_servant",
             EntityType.Builder.of(VindicatorServant::new, MobCategory.MONSTER)
                     .canSpawnFarFromPlayer()
@@ -1080,6 +1086,11 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<WitchServant>> WITCH_SERVANT = register("witch_servant",
             EntityType.Builder.of(WitchServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<MaverickServant>> MAVERICK_SERVANT = register("maverick_servant",
+            EntityType.Builder.of(MaverickServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 

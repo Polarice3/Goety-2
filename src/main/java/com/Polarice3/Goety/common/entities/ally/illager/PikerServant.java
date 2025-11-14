@@ -197,7 +197,7 @@ public class PikerServant extends AbstractIllagerServant{
     }
 
     public boolean targetClose(LivingEntity enemy, double distToEnemySqr){
-        return distToEnemySqr <= this.getAttackReachSqr(enemy) || this.getBoundingBox().intersects(enemy.getBoundingBox());
+        return (distToEnemySqr <= this.getAttackReachSqr(enemy) || this.getBoundingBox().intersects(enemy.getBoundingBox())) && this.hasLineOfSight(enemy);
     }
 
     protected void populateDefaultEquipmentSlots(RandomSource p_217055_, DifficultyInstance p_217056_) {
@@ -326,7 +326,7 @@ public class PikerServant extends AbstractIllagerServant{
                         if (PikerServant.this.doHurtTarget(livingentity)){
                             PikerServant.this.playSound(ModSounds.PIKER_PIKE.get(), PikerServant.this.getSoundVolume(), PikerServant.this.getVoicePitch());
                             for (Entity entity : getTargets(PikerServant.this.level, PikerServant.this, 3)){
-                                if (entity instanceof LivingEntity living){
+                                if (entity instanceof LivingEntity living && PikerServant.this.hasLineOfSight(living)){
                                     if (!MobUtil.areAllies(PikerServant.this, living) && living != livingentity && (!(livingentity instanceof ArmorStand) || !((ArmorStand)livingentity).isMarker()) && PikerServant.this.canAttack(livingentity)){
                                         PikerServant.this.doHurtTarget(living);
                                     }

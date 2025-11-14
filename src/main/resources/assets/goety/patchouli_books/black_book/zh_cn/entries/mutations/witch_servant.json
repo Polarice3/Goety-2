@@ -1,6 +1,6 @@
 {
   "name": "女巫仆从",
-  "icon": "goety:occult_fabric",
+  "icon": "goety:witch_hat",
   "category": "goety:mutations",
   "pages": [
     {
@@ -15,6 +15,10 @@
       "type": "patchouli:entity",
       "entity": "goety:witch_servant",
       "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你也可以通过给你自己的女巫仆从一块绿宝石来直接与她交易，这个过程不需要你穿戴女巫套等相关服装。你也可以与其他玩家的女巫仆从进行交易，前提是你与她的主人处于同一阵营，并且你依旧需要穿戴正确的服装（比如女巫套）"
     }
   ]
 }

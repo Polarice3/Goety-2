@@ -132,6 +132,12 @@ public class WindBlastSpell extends Spell {
                             }
                             living.addEffect(new MobEffectInstance(mobEffect, MathHelper.secondsToTicks(5)));
                         }
+                        if (typeStaff(staff, SpellType.STORM)) {
+                            living.addEffect(new MobEffectInstance(GoetyEffects.SPASMS.get(), MathHelper.secondsToTicks(5)));
+                        }
+                        if (typeStaff(staff, SpellType.VOID)) {
+                            living.addEffect(new MobEffectInstance(GoetyEffects.VOID_TOUCHED.get(), MathHelper.secondsToTicks(5)));
+                        }
                         if (typeStaff(staff, SpellType.NETHER)) {
                             living.setSecondsOnFire(5);
                         }

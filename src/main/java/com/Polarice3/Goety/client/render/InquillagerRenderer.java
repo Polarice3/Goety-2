@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.client.render;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.InquillagerModel;
 import com.Polarice3.Goety.client.render.model.VillagerArmorModel;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Inquillager;
@@ -16,7 +15,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class InquillagerRenderer<T extends Inquillager> extends MobRenderer<T, InquillagerModel<T>> {
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Goety.MOD_ID, "textures/entity/illagers/inquillager.png");
 
     public InquillagerRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new InquillagerModel<>(renderManagerIn.bakeLayer(ModModelLayer.INQUILLAGER)), 0.5F);
@@ -48,6 +46,6 @@ public class InquillagerRenderer<T extends Inquillager> extends MobRenderer<T, I
 
     @Override
     public ResourceLocation getTextureLocation(T entity) {
-        return TEXTURE;
+        return entity.getResourceLocation();
     }
 }

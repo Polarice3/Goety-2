@@ -19,7 +19,12 @@
     {
       "type": "patchouli:text",
       "title": "长矛兵仆从",
-      "text": "$(o)注: 所有者必须阅读过$(l:goety:rumors/desert)先锋卷轴$()$()$(br)需求: $(li)新刌民 $(li)2 个砂轮 $(li)2 个锻造台 $(li)16 个木栅栏 $(li)32 个原木 $(li)4 个木桶 $(li)4 张床 $(li)2 个铁砧"
+      "text": "$(o)注: 所有者必须阅读过$(l:goety:rumors/desert)先锋卷轴$()$()$(br)需求: $(li)新刌民 $(li)2个砂轮 $(li)2个锻造台 $(li)16个木栅栏 $(li)32个原木 $(li)4个木桶 $(li)4张床 $(li)2个铁砧"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "传令兵仆从",
+      "text": "需求：$(li)新刌民 $(li)2个营火 $(li)4张床 $(li)4个木桶"
     },
     {
       "type": "patchouli:text",
@@ -39,7 +44,7 @@
     {
       "type": "patchouli:text",
       "title": "粉碎者仆从",
-      "text": "需求：$(li)新刌民 $(li)64个木板 $(li)64个任意种类的砖块 $(li)10个木栅栏 $(li)8个高炉 $(li)2个装满熔岩（岩浆）的炼药锅 $(li)2个装满水的炼药锅 $(li)4个铁砧"
+      "text": "需求：$(li)新刌民 $(li)64个木板 $(li)64个任意种类的砖块 $(li)8个木栅栏 $(li)8个高炉 $(li)2个装满熔岩（岩浆）的炼药锅 $(li)2个装满水的炼药锅 $(li)4个铁砧"
     },
     {
       "type": "patchouli:text",
@@ -59,7 +64,7 @@
     {
       "type": "patchouli:text",
       "title": "泣术士仆从",
-      "text": "需求: $(li)冰术士仆从 $(li)火炬必须在可降雪的群戏 $(li)16 个书架/同等附魔效力 $(li)32 个细雪 $(li)16 $(l:goety:crafts/creeper_totem)苦力怕图腾$()"
+      "text": "需求: $(li)冰术士仆从 $(li)火炬必须在可降雪的群戏 $(li)16个书架/同等附魔效力 $(li)32个细雪 $(li)16$(l:goety:crafts/creeper_totem)苦力怕图腾$()"
     },
     {
       "type": "patchouli:text",

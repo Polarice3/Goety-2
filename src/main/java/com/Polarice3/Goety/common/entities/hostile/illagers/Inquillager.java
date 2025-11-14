@@ -1,12 +1,19 @@
 package com.Polarice3.Goety.common.entities.hostile.illagers;
 
+import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ai.ModMeleeAttackGoal;
 import com.Polarice3.Goety.common.magic.spells.SoulHealSpell;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.RandomUtil;
 import com.google.common.collect.Maps;
+import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -42,6 +49,12 @@ import javax.annotation.Nullable;
 import java.util.Map;
 
 public class Inquillager extends HuntingIllagerEntity{
+    private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(Inquillager.class, EntityDataSerializers.INT);
+    public static final Map<Integer, ResourceLocation> TEXTURE_BY_TYPE = Util.make(Maps.newHashMap(), (map) -> {
+        map.put(0, Goety.location("textures/entity/illagers/inquillager/inquillager.png"));
+        map.put(1, Goety.location("textures/entity/illagers/inquillager/inquillager_2.png"));
+        map.put(2, Goety.location("textures/entity/illagers/inquillager/inquillager_3.png"));
+    });
     public int coolDown;
     public int healTimes;
 
@@ -50,6 +63,10 @@ public class Inquillager extends HuntingIllagerEntity{
         this.xpReward = 20;
         this.coolDown = 0;
         this.healTimes = 0;
+    }
+
+    public ResourceLocation getResourceLocation() {
+        return TEXTURE_BY_TYPE.getOrDefault(this.getOutfitType(), TEXTURE_BY_TYPE.get(0));
     }
 
     protected void registerGoals() {
@@ -76,20 +93,42 @@ public class Inquillager extends HuntingIllagerEntity{
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.InquillagerDamage.get());
     }
 
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(DATA_TYPE_ID, 0);
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
         this.coolDown = pCompound.getInt("Cooldown");
         this.healTimes = pCompound.getInt("HealTimes");
+        if (pCompound.contains("Outfit")){
+            this.setOutfitType(pCompound.getInt("Outfit"));
+        }
     }
 
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("Cooldown", this.coolDown);
         pCompound.putInt("HealTimes", this.healTimes);
+        pCompound.putInt("Outfit", this.getOutfitType());
+    }
+
+    public int getOutfitType() {
+        return this.entityData.get(DATA_TYPE_ID);
+    }
+
+    public void setOutfitType(int pType) {
+        if (pType < 0 || pType >= this.OutfitTypeNumber() + 1) {
+            pType = this.random.nextInt(this.OutfitTypeNumber());
+        }
+
+        this.entityData.set(DATA_TYPE_ID, pType);
+    }
+
+    public int OutfitTypeNumber(){
+        return TEXTURE_BY_TYPE.size();
     }
 
     @Override
@@ -136,6 +175,7 @@ public class Inquillager extends HuntingIllagerEntity{
         RandomSource randomSource = pLevel.getRandom();
         this.populateDefaultEquipmentSlots(randomSource, pDifficulty);
         this.populateDefaultEquipmentEnchantments(randomSource, pDifficulty);
+        this.setOutfitType(RandomUtil.nextInt(pLevel.getRandom(), this.OutfitTypeNumber()));
         return ilivingentitydata;
     }
 

@@ -1,0 +1,16 @@
+{
+  "name": "魔法の砦",
+  "icon": "goety:crag_bricks",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "イリジャーは魔法の一つの側面に固執する傾向がありますが、彼らの中にはすべての魔法を習得しようとし、囚人とともに専門の砦に留まろうとする者もいるという噂があります。"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/sorcerous_keep.png"],
+      "border": true
+    }
+  ]
+}

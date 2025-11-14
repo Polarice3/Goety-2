@@ -630,6 +630,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.NEOLLAGER.get(), NeollagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.PILLAGER_SERVANT.get(), PillagerServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.PIKER_SERVANT.get(), PikerServantRenderer::new);
+        event.registerEntityRenderer(ModEntityType.SIGNALER_SERVANT.get(), SignalerServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.VINDICATOR_SERVANT.get(), VindicatorServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.VINDICATOR_CHEF_SERVANT.get(), VindicatorChefServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.MOUNTAINEER_SERVANT.get(), MountaineerServantRenderer::new);
@@ -646,6 +647,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.ARMORED_RAVAGER.get(), ModRavagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.ZOMBIE_RAVAGER.get(), ZombieRavagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.WITCH_SERVANT.get(), WitchServantRenderer::new);
+        event.registerEntityRenderer(ModEntityType.MAVERICK_SERVANT.get(), MaverickServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.BLACK_WOLF.get(), BlackWolfRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKELETON_WOLF.get(), SkeletonWolfRenderer::new);
         event.registerEntityRenderer(ModEntityType.HELLHOUND.get(), HellhoundRenderer::new);
@@ -756,7 +758,6 @@ public class ClientInitEvents {
         List<Map.Entry<ResourceLocation, BakedModel>> models =  event.getModels().entrySet().stream()
                 .filter(entry -> entry.getKey().getNamespace().equals(Goety.MOD_ID)
                         && entry.getKey().getPath().contains("leaves")
-                        && !entry.getKey().getPath().contains("dark")
                         && !entry.getKey().getPath().contains("mcd")
                         && !entry.getKey().getPath().contains("chorus")).toList();
 

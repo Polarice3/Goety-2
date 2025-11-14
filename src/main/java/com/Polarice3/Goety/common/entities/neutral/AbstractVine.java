@@ -28,6 +28,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
@@ -101,6 +102,20 @@ public abstract class AbstractVine extends AbstractMonolith{
 
     public boolean canHaveEffects(){
         return true;
+    }
+
+    @Override
+    public void kill() {
+        if (this.activeTick < 1) {
+            if (this.level instanceof ServerLevel serverLevel) {
+                ServerParticleUtil.blockBreakParticles(this.getParticles(), BlockPos.containing(this.position()), this.getState(), serverLevel);
+                SoundType soundType = this.getState().getSoundType();
+                serverLevel.playSound(null, this.getX(), this.getY(), this.getZ(), soundType.getBreakSound(), this.getSoundSource(), soundType.getVolume(), soundType.getPitch());
+            }
+            this.discard();
+        } else {
+            super.kill();
+        }
     }
 
     @Override

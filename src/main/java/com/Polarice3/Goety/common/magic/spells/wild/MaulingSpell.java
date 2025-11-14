@@ -70,7 +70,7 @@ public class MaulingSpell extends SummonSpell {
 
     @Override
     public Predicate<LivingEntity> summonPredicate() {
-        return livingEntity -> livingEntity instanceof BearServant;
+        return livingEntity -> livingEntity instanceof BearServant || livingEntity instanceof HoglinServant;
     }
 
     @Override

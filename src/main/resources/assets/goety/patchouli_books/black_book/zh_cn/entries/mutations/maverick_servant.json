@@ -1,0 +1,24 @@
+{
+  "name": "独行者仆从",
+  "icon": "minecraft:iron_sword",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "最近你发现被闪电劈中的流浪商人会产生一些变化，于是你开始思考，能不能像制作女巫仆从一样，再制作一个独行者仆从，而一段时间后，你发现一些灵魂能量、觉醒绿宝石和神秘核心就可以把这个“流浪拴绳”变成一个忠诚的独行者仆从"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_trader_to_maverick"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:maverick_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你也可以通过给你自己的独行者仆从一块绿宝石来直接与他交易，这个过程不需要你穿戴女巫套等相关服装。你也可以与其他玩家的独行者仆从进行交易，前提是你与他的主人处于同一阵营，并且你依旧需要穿戴正确的服装（比如女巫套）"
+    }
+  ]
+}

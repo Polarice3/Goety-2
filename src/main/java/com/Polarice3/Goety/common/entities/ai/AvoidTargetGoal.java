@@ -21,6 +21,11 @@ public class AvoidTargetGoal<T extends LivingEntity> extends AvoidEntityGoal<T> 
         return new AvoidTargetGoal<>(pathfinderMob, LivingEntity.class, radius, minSpeed, maxSpeed);
     }
 
+    @Override
+    public boolean canContinueToUse() {
+        return super.canContinueToUse() && this.toAvoid != null && this.toAvoid.distanceTo(this.mob) < this.maxDist;
+    }
+
     public void stop() {
         super.stop();
         this.pathNav.stop();
@@ -45,6 +50,11 @@ public class AvoidTargetGoal<T extends LivingEntity> extends AvoidEntityGoal<T> 
 
         public static AvoidRadiusGoal<LivingEntity> newGoalTwo(PathfinderMob pathfinderMob, float avoidStart, int maxDist, double minSpeed, double maxSpeed){
             return new AvoidRadiusGoal<>(pathfinderMob, LivingEntity.class, livingEntity -> true, avoidStart, maxDist, maxDist, minSpeed, maxSpeed, livingEntity -> pathfinderMob.getTarget() == livingEntity || MobUtil.isOwnedTargetable(pathfinderMob, livingEntity));
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && this.toAvoid != null && this.toAvoid.distanceTo(this.mob) < this.maxDist;
         }
 
         public void stop() {

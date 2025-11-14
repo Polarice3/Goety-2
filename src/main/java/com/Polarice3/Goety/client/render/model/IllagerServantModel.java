@@ -10,10 +10,13 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.InstrumentItem;
+import net.minecraft.world.item.SpyglassItem;
 
 public class IllagerServantModel<T extends LivingEntity> extends HierarchicalModel<T> implements ArmedModel, HeadedModel, HierarchicalArmor {
     public final ModelPart root;
@@ -163,6 +166,13 @@ public class IllagerServantModel<T extends LivingEntity> extends HierarchicalMod
             this.arms.visible = flag;
             this.LeftArm.visible = !flag;
             this.RightArm.visible = !flag;
+            if (entityIn.getMainArm() == HumanoidArm.RIGHT) {
+                this.useItemRight(InteractionHand.MAIN_HAND, entityIn);
+                this.useItemLeft(InteractionHand.OFF_HAND, entityIn);
+            } else if (entityIn.getMainArm() == HumanoidArm.LEFT) {
+                this.useItemLeft(InteractionHand.MAIN_HAND, entityIn);
+                this.useItemRight(InteractionHand.OFF_HAND, entityIn);
+            }
         }
         boolean flag2 = entityIn.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof ArmorItem
                 || entityIn.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ArmorItem;
@@ -198,6 +208,30 @@ public class IllagerServantModel<T extends LivingEntity> extends HierarchicalMod
         super.copyPropertiesTo(p_102873_);
         p_102873_.leftArmPose = this.leftArmPose;
         p_102873_.rightArmPose = this.rightArmPose;
+    }
+
+    public void useItemRight(InteractionHand hand, T entityIn) {
+        if (entityIn.getUsedItemHand() == hand) {
+            if (entityIn.getUseItem().getItem() instanceof SpyglassItem) {
+                this.RightArm.xRot = Mth.clamp(this.head.xRot - 1.9198622F - (entityIn.isCrouching() ? 0.2617994F : 0.0F), -2.4F, 3.3F);
+                this.RightArm.yRot = this.head.yRot - 0.2617994F;
+            } else if (entityIn.getUseItem().getItem() instanceof InstrumentItem) {
+                this.RightArm.xRot = Mth.clamp(this.head.xRot, -1.2F, 1.2F) - 1.4835298F;
+                this.RightArm.yRot = this.head.yRot - ((float)Math.PI / 6F);
+            }
+        }
+    }
+
+    public void useItemLeft(InteractionHand hand, T entityIn) {
+        if (entityIn.getUsedItemHand() == hand) {
+            if (entityIn.getUseItem().getItem() instanceof SpyglassItem) {
+                this.LeftArm.xRot = Mth.clamp(this.head.xRot - 1.9198622F - (entityIn.isCrouching() ? 0.2617994F : 0.0F), -2.4F, 3.3F);
+                this.LeftArm.yRot = this.head.yRot + 0.2617994F;
+            } else if (entityIn.getUseItem().getItem() instanceof InstrumentItem) {
+                this.LeftArm.xRot = Mth.clamp(this.head.xRot, -1.2F, 1.2F) - 1.4835298F;
+                this.LeftArm.yRot = this.head.yRot + ((float)Math.PI / 6F);
+            }
+        }
     }
 
     @Override

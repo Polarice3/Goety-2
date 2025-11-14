@@ -62,6 +62,8 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
     private final NearestAttackableTargetGoal<Player> targetGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);
     public boolean limitedLifespan;
     public int limitedLifeTicks;
+    @Nullable
+    private LivingEntity priorityTarget;
     public LivingEntity commandPosEntity;
     public BlockPos commandPos;
     public BlockPos boundPos;
@@ -376,6 +378,40 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
 
     public void setBoundDim(String string) {
         this.boundDim = string;
+    }
+
+    public void setTarget(@Nullable LivingEntity target) {
+        if (this.isGuardingArea()){
+            if (target != null) {
+                if (target.distanceToSqr(this.vec3BoundPos()) <= Mth.square(GUARDING_RANGE)) {
+                    this.overrideSetTarget(target);
+                }
+            } else {
+                this.overrideSetTarget(null);
+            }
+        } else {
+            this.overrideSetTarget(target);
+        }
+    }
+
+    public void overrideSetTarget(@Nullable LivingEntity target){
+        super.setTarget(target);
+    }
+
+    @Nullable
+    public LivingEntity getPriorityTarget() {
+        return this.priorityTarget;
+    }
+
+    @Override
+    public void setPriorityTarget(@Nullable LivingEntity priorityTarget) {
+        this.overrideSetTarget(priorityTarget);
+        this.priorityTarget = priorityTarget;
+    }
+
+    @Deprecated
+    public void normalSetTarget(@Nullable LivingEntity target) {
+        this.overrideSetTarget(target);
     }
 
     public void dropEquipment(EquipmentSlot equipmentSlot, ItemStack stack){

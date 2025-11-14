@@ -336,7 +336,7 @@ public class VanguardServant extends AbstractSkeletonServant {
     }
 
     public boolean targetClose(LivingEntity enemy, double distToEnemySqr){
-        return distToEnemySqr <= this.getAttackReachSqr(enemy) || this.getBoundingBox().intersects(enemy.getBoundingBox());
+        return (distToEnemySqr <= this.getAttackReachSqr(enemy) || this.getBoundingBox().intersects(enemy.getBoundingBox())) && this.hasLineOfSight(enemy);
     }
 
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
@@ -468,7 +468,7 @@ public class VanguardServant extends AbstractSkeletonServant {
                         if (VanguardServant.this.doHurtTarget(livingentity)){
                             VanguardServant.this.playSound(ModSounds.VANGUARD_SPEAR.get());
                             for (Entity entity : getTargets(VanguardServant.this.level, VanguardServant.this, 3)){
-                                if (entity instanceof LivingEntity living){
+                                if (entity instanceof LivingEntity living && VanguardServant.this.hasLineOfSight(living)){
                                     if (!living.isAlliedTo(VanguardServant.this) && !VanguardServant.this.isAlliedTo(living) && living != livingentity && (!(livingentity instanceof ArmorStand) || !((ArmorStand)livingentity).isMarker()) && VanguardServant.this.canAttack(livingentity)){
                                         VanguardServant.this.doHurtTarget(living);
                                     }

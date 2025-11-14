@@ -73,7 +73,7 @@ public class SorcererRenderer<T extends Sorcerer> extends MobRenderer<T, Sorcere
 
         public void render(PoseStack p_116983_, MultiBufferSource p_116984_, int p_116985_, T p_116986_, float p_116987_, float p_116988_, float p_116989_, float p_116990_, float p_116991_, float p_116992_) {
             if (!p_116986_.isInvisible()) {
-                ResourceLocation resourcelocation2 = LEVEL_LOCATIONS.get(Mth.clamp(p_116986_.getLevels(), 1, LEVEL_LOCATIONS.size()));
+                ResourceLocation resourcelocation2 = LEVEL_LOCATIONS.get(Mth.clamp(p_116986_.getSorcererLevel(), 1, LEVEL_LOCATIONS.size()));
                 renderColoredCutoutModel(this.getParentModel(), resourcelocation2, p_116983_, p_116984_, p_116985_, p_116986_, 1.0F, 1.0F, 1.0F);
             }
         }

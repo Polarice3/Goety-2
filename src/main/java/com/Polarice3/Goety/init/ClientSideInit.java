@@ -67,8 +67,10 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.NECRO_FIRE_DROP.get(), FireParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SMALL_NECRO_FIRE.get(), FireParticle.SmallProvider::new);
         event.registerSpriteSet(ModParticleTypes.NECRO_FLAME.get(), FlameParticle.Provider::new);
-        event.registerSpriteSet(ModParticleTypes.DRAGON_FLAME.get(), FireParticle.DragonProvider::new);
+        event.registerSpriteSet(ModParticleTypes.DRAGON_FLAME.get(), DragonFlameParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.DRAGON_FLAME_DROP.get(), FireParticle.EmberProvider::new);
+        event.registerSpriteSet(ModParticleTypes.SMALL_DRAGON_FLAME.get(), DragonFlameParticle.SmallProvider::new);
+        event.registerSpriteSet(ModParticleTypes.SMALL_DRAGON_FLAME_GROUND.get(), FireParticle.SmallProvider::new);
         event.registerSpriteSet(ModParticleTypes.END_FIRE.get(), FireParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.END_FIRE_DROP.get(), FireParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SMALL_END_FIRE.get(), FireParticle.SmallProvider::new);
@@ -116,6 +118,7 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.AOE_INDICATOR.get(), AoEParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.FOG_CLOUD.get(), FoggyCloudParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SOUL_HEAL.get(), RisingCircleParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.MOD_SHRIEK.get(), ModShriekParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SCULK_BUBBLE.get(), SculkBubbleParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.WIND.get(), WindParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.WIND_BLOW.get(), WindBlowParticle.Provider::new);

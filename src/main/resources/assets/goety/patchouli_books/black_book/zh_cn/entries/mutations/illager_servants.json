@@ -45,6 +45,14 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:signaler_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "虽然他们因为不会魔法或其它战斗技能而常被其他灾厄村民回避，但他们在侦查远处威胁方面有着重要作用，当它们待在高处、吹响号角时，附近大范围内的处于警戒模式的仆从都会出击，传令兵认为的威胁包括：敌对的玩家、最大血量上限高于自身两倍的生物，或是成群的敌人，成群敌人的判定依据是敌人类型的构成和敌人拥有的最大血量上限是否高于自身两倍"
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:vindicator_servant"
     },
     {
@@ -146,7 +154,7 @@
     },
     {
       "type": "patchouli:entity",
-      "name": "灾厄村民队长",
+      "name": "Illager Captain",
       "entity": "goety:pillager_servant{HandItems:[{Count:1,id:\"minecraft:crossbow\"},{}], ArmorItems:[{},{},{},{Count:1,id:\"minecraft:black_banner\"}]}",
       "scale": 0.5,
       "text": "像掠夺者仆从这样的灾厄村民就可以成为队长"

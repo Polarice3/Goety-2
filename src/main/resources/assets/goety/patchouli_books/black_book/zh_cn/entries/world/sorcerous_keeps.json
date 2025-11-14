@@ -1,0 +1,16 @@
+{
+  "name": "巫师堡垒",
+  "icon": "goety:crag_bricks",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "虽然灾厄村民大多倾向于只学会一种学派的魔法，但有传言称，一部分灾厄村民试图掌握所有魔法，专门在某处地方闭关修炼......据说里面还关押了一些囚犯"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/sorcerous_keep.png"],
+      "border": true
+    }
+  ]
+}

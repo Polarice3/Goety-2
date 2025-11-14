@@ -3113,7 +3113,6 @@
   "item.goety.gale_banner_pattern": "旗の模様",
   "item.goety.gale_banner_pattern.desc": "疾風",
   "item.goety.moon_banner_pattern": "旗の模様",
-  "item.goety.moon_banner_pattern.desc": "の月",
   "block.minecraft.banner.goety.cross.black": "黒色の十字",
   "block.minecraft.banner.goety.cross.blue": "青色の十字",
   "block.minecraft.banner.goety.cross.brown": "茶色の十字",
@@ -3182,5 +3181,10 @@
   "block.goety.snowy_siltstone_bricks": "Snowy Siltstone Bricks",
   "block.goety.snowy_siltstone_brick_slab": "Snowy Siltstone Brick Slab",
   "block.goety.snowy_siltstone_brick_stairs": "Snowy Siltstone Brick Stairs",
-  "block.goety.snowy_siltstone_brick_wall": "Snowy Siltstone Brick Wall"
+  "block.goety.snowy_siltstone_brick_wall": "Snowy Siltstone Brick Wall",
+  "item.goety.moon_banner_pattern.desc": "月",
+  "entity.goety.signaler_servant": "シグナラーの従者",
+  "entity.goety.maverick_servant": "マーヴェリックの従者",
+  "item.goety.signaler_servant_spawn_egg": "シグナラーの従者のスポーンエッグ",
+  "item.goety.maverick_servant_spawn_egg": "マーヴェリックの従者のスポーンエッグ"
 }

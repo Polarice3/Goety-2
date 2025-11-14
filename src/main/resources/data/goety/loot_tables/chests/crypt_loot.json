@@ -281,6 +281,22 @@
               "function": "minecraft:set_count"
             }
           ],
+          "name": "goety:grave_dust",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 0.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
           "name": "goety:ectoplasm",
           "weight": 5
         }

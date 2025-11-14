@@ -3,6 +3,7 @@
   "values": [
     "minecraft:pillager",
     "goety:piker",
-    "goety:pillager_servant"
+    "goety:pillager_servant",
+    "goety:piker_servant"
   ]
 }

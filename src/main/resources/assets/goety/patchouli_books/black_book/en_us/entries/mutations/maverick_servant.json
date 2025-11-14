@@ -1,0 +1,24 @@
+{
+  "name": "Maverick Servant",
+  "icon": "minecraft:iron_sword",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Lately, Wandering Traders seems to transform when shot with Lightning, you began pondering if you can make a servant out of Mavericks much like you did with Witches. After a while, you discovered that some Soul Energy, a Magic Emerald and a Mystic Core can turn a bumbling trader into a loyal Maverick."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_trader_to_maverick"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:maverick_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "You're also able to trade with your Maverick Servant by giving them an Emerald, without needing to wear appropriate attire to do so. You can also trade with other Maverick Servants, provided you're allied to their master, if they have one, and wearing the appropriate attire."
+    }
+  ]
+}

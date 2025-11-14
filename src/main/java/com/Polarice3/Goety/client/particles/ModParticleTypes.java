@@ -141,6 +141,12 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> DRAGON_FLAME_DROP = PARTICLE_TYPES.register("dragon_flame_drop",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> SMALL_DRAGON_FLAME = PARTICLE_TYPES.register("small_dragon_flame",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> SMALL_DRAGON_FLAME_GROUND = PARTICLE_TYPES.register("small_dragon_flame_ground",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> END_FIRE = PARTICLE_TYPES.register("end_fire",
             () -> new SimpleParticleType(false));
 
@@ -361,6 +367,14 @@ public class ModParticleTypes {
                 @Override
                 public Codec<RisingCircleParticleOption> codec() {
                     return RisingCircleParticleOption.CODEC;
+                }
+            });
+
+    public static final RegistryObject<ParticleType<ModShriekParticleOption>> MOD_SHRIEK = PARTICLE_TYPES.register("mod_shriek",
+            () -> new ParticleType<>(false, ModShriekParticleOption.DESERIALIZER) {
+                @Override
+                public Codec<ModShriekParticleOption> codec() {
+                    return ModShriekParticleOption.CODEC;
                 }
             });
 

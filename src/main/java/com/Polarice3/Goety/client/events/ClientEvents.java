@@ -655,36 +655,39 @@ public class ClientEvents {
         }
         Minecraft minecraft = Minecraft.getInstance();
         Player player = minecraft.player;
-        List<AbstractClientPlayer> players = minecraft.level.players();
-        if (player != null) {
-            Level world = player.level;
-            ItemStack stack = player.getMainHandItem();
-            Map<BlockPos, ColorUtil> renderCubes = new HashMap<>();
-            if (stack.getItem() instanceof WaystoneItem) {
-                if (stack.getTag() != null) {
-                    GlobalPos loc = WaystoneItem.getPosition(stack);
-                    if (loc != null) {
-                        if (loc.dimension() == world.dimension()) {
-                            renderCubes.put(loc.pos(), new ColorUtil(ChatFormatting.GOLD));
+        Level level = minecraft.level;
+        if (level != null) {
+            List<AbstractClientPlayer> players = minecraft.level.players();
+            if (player != null) {
+                Level world = player.level;
+                ItemStack stack = player.getMainHandItem();
+                Map<BlockPos, ColorUtil> renderCubes = new HashMap<>();
+                if (stack.getItem() instanceof WaystoneItem) {
+                    if (stack.getTag() != null) {
+                        GlobalPos loc = WaystoneItem.getPosition(stack);
+                        if (loc != null) {
+                            if (loc.dimension() == world.dimension()) {
+                                renderCubes.put(loc.pos(), new ColorUtil(ChatFormatting.GOLD));
+                            }
                         }
                     }
                 }
-            }
-            if (!renderCubes.keySet().isEmpty()) {
-                PoseStack matrix = event.getPoseStack();
-                Vec3 view = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
-                RenderBlockUtils.renderColourCubes(matrix, view, renderCubes, 1.0F, 1.0F);
-            }
-            for (Player player1 : players) {
-                if (player1.distanceToSqr(player) > 500.0F) {
-                    continue;
+                if (!renderCubes.keySet().isEmpty()) {
+                    PoseStack matrix = event.getPoseStack();
+                    Vec3 view = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
+                    RenderBlockUtils.renderColourCubes(matrix, view, renderCubes, 1.0F, 1.0F);
                 }
+                for (Player player1 : players) {
+                    if (player1.distanceToSqr(player) > 500.0F) {
+                        continue;
+                    }
 
-                if (player1.isUsingItem()) {
-                    if (WandUtil.getSpell(player1) instanceof BurrowingSpell) {
-                        BurrowingLaserRenderer.renderLaser(event, player1, Minecraft.getInstance().getFrameTime());
-                    } else if (WandUtil.getSpell(player1) instanceof PrismaBeamSpell){
-                        GuardianLaserRenderer.renderLaser(event, player1, Minecraft.getInstance().getFrameTime());
+                    if (player1.isUsingItem()) {
+                        if (WandUtil.getSpell(player1) instanceof BurrowingSpell) {
+                            BurrowingLaserRenderer.renderLaser(event, player1, Minecraft.getInstance().getFrameTime());
+                        } else if (WandUtil.getSpell(player1) instanceof PrismaBeamSpell) {
+                            GuardianLaserRenderer.renderLaser(event, player1, Minecraft.getInstance().getFrameTime());
+                        }
                     }
                 }
             }

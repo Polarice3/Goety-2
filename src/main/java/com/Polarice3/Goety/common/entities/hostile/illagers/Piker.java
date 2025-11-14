@@ -230,7 +230,7 @@ public class Piker extends HuntingIllagerEntity{
     }
 
     public boolean targetClose(LivingEntity enemy, double distToEnemySqr){
-        return distToEnemySqr <= this.getAttackReachSqr(enemy) || this.getBoundingBox().intersects(enemy.getBoundingBox());
+        return (distToEnemySqr <= this.getAttackReachSqr(enemy) || this.getBoundingBox().intersects(enemy.getBoundingBox())) && this.hasLineOfSight(enemy);
     }
 
     public boolean canPickUpLoot() {
@@ -353,7 +353,7 @@ public class Piker extends HuntingIllagerEntity{
                         if (Piker.this.doHurtTarget(livingentity)){
                             Piker.this.playSound(ModSounds.PIKER_PIKE.get(), Piker.this.getSoundVolume(), Piker.this.getVoicePitch());
                             for (Entity entity : getTargets(Piker.this.level, Piker.this, 3)){
-                                if (entity instanceof LivingEntity living){
+                                if (entity instanceof LivingEntity living && Piker.this.hasLineOfSight(living)){
                                     if (!MobUtil.areAllies(Piker.this, living) && living != livingentity && (!(livingentity instanceof ArmorStand) || !((ArmorStand)livingentity).isMarker()) && Piker.this.canAttack(livingentity)){
                                         Piker.this.doHurtTarget(living);
                                     }

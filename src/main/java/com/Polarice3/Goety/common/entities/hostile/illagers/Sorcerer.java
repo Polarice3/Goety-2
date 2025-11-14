@@ -98,20 +98,23 @@ public class Sorcerer extends HuntingIllagerEntity {
         this.entityData.define(LEVEL, 1);
     }
 
-    public void readAdditionalSaveData(CompoundTag p_33732_) {
-        super.readAdditionalSaveData(p_33732_);
-        if (p_33732_.contains("Level")){
-            boolean heal = !p_33732_.getBoolean("HasSpawned");
-            this.setLevels(p_33732_.getInt("Level"), heal);
+    public void readAdditionalSaveData(CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
+        if (pCompound.contains("SorcererLevel")){
+            boolean heal = !pCompound.getBoolean("HasSpawned");
+            this.setSorcererLevel(pCompound.getInt("SorcererLevel"), heal);
+        } else if (pCompound.contains("Level")){
+            boolean heal = !pCompound.getBoolean("HasSpawned");
+            this.setSorcererLevel(pCompound.getInt("Level"), heal);
         }
-        this.castingTime = p_33732_.getInt("SorcererSpellTicks");
+        this.castingTime = pCompound.getInt("SorcererSpellTicks");
     }
 
-    public void addAdditionalSaveData(CompoundTag p_33734_) {
-        super.addAdditionalSaveData(p_33734_);
-        p_33734_.putInt("Level", this.getLevels());
-        p_33734_.putInt("SorcererSpellTicks", this.castingTime);
-        p_33734_.putBoolean("HasSpawned", this.hasSpawned);
+    public void addAdditionalSaveData(CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+        pCompound.putInt("SorcererLevel", this.getSorcererLevel());
+        pCompound.putInt("SorcererSpellTicks", this.castingTime);
+        pCompound.putBoolean("HasSpawned", this.hasSpawned);
     }
 
     public AbstractIllager.IllagerArmPose getArmPose() {
@@ -162,16 +165,18 @@ public class Sorcerer extends HuntingIllagerEntity {
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_37856_, DifficultyInstance p_37857_, MobSpawnType p_37858_, @Nullable SpawnGroupData p_37859_, @Nullable CompoundTag p_37860_) {
         SpawnGroupData data = super.finalizeSpawn(p_37856_, p_37857_, p_37858_, p_37859_, p_37860_);
-        this.setLevels(1 + p_37856_.getRandom().nextInt(1 + (int) p_37857_.getEffectiveDifficulty()), true);
+        if (p_37858_ != MobSpawnType.STRUCTURE) {
+            this.setSorcererLevel(1 + p_37856_.getRandom().nextInt(1 + (int) p_37857_.getEffectiveDifficulty()), true);
+        }
         return data;
     }
 
     @Override
-    public void heal(float p_21116_) {
-        if (this.getLevels() >= 2){
-            p_21116_ *= 1.5F;
+    public void heal(float amount) {
+        if (this.getSorcererLevel() >= 2){
+            amount *= 1.5F;
         }
-        super.heal(p_21116_);
+        super.heal(amount);
     }
 
     protected void customServerAiStep() {
@@ -204,11 +209,11 @@ public class Sorcerer extends HuntingIllagerEntity {
         return this.castingTime;
     }
 
-    public int getLevels(){
+    public int getSorcererLevel(){
         return this.entityData.get(LEVEL);
     }
 
-    public void setLevels(int level, boolean heal) {
+    public void setSorcererLevel(int level, boolean heal) {
         int i = Mth.clamp(level, 1, 5);
         this.entityData.set(LEVEL, i);
         if (MobsConfig.SorcererHPIncrease.get()) {
@@ -247,11 +252,11 @@ public class Sorcerer extends HuntingIllagerEntity {
         Raid raid = this.getCurrentRaid();
         if (raid != null) {
             if (pWave >= raid.getNumGroups(Difficulty.EASY)) {
-                this.setLevels(this.getLevels() + 1, true);
+                this.setSorcererLevel(this.getSorcererLevel() + 1, true);
             } else if (pWave >= raid.getNumGroups(Difficulty.NORMAL)) {
-                this.setLevels(this.getLevels() + 2, true);
+                this.setSorcererLevel(this.getSorcererLevel() + 2, true);
             } else if (pWave > raid.getNumGroups(Difficulty.HARD)) {
-                this.setLevels(5, true);
+                this.setSorcererLevel(5, true);
             }
 
         }
@@ -259,11 +264,11 @@ public class Sorcerer extends HuntingIllagerEntity {
 
     public void upgradeAssault(int sePercent){
         if (sePercent >= 75) {
-            this.setLevels(this.getLevels() + 3, true);
+            this.setSorcererLevel(this.getSorcererLevel() + 3, true);
         } else if (sePercent >= 50){
-            this.setLevels(this.getLevels() + 2, true);
+            this.setSorcererLevel(this.getSorcererLevel() + 2, true);
         } else if (sePercent >= 25){
-            this.setLevels(this.getLevels() + 1, true);
+            this.setSorcererLevel(this.getSorcererLevel() + 1, true);
         }
     }
 
@@ -389,7 +394,7 @@ public class Sorcerer extends HuntingIllagerEntity {
         public boolean canUse() {
             List<SorcererSpell> spells = new ArrayList<>();
             for (SorcererSpell spell1 : SorcererSpell.values()){
-                if (Sorcerer.this.getLevels() >= spell1.minLevel && Sorcerer.this.getLevels() <= spell1.maxLevel) {
+                if (Sorcerer.this.getSorcererLevel() >= spell1.minLevel && Sorcerer.this.getSorcererLevel() <= spell1.maxLevel) {
                     if (spell1.getSpell().conditionsMet(Sorcerer.this.level, Sorcerer.this)) {
                         if (Sorcerer.this.spellCoolDown[spell1.trueId] <= 0) {
                             if (spell1.getSpell() instanceof SummonSpell && !Sorcerer.this.hasEffect(GoetyEffects.SUMMON_DOWN.get())) {
@@ -423,14 +428,14 @@ public class Sorcerer extends HuntingIllagerEntity {
                     Spell spell1 = this.spell.getSpell();
                     SpellStat spellStat = WandUtil.getStats(Sorcerer.this, spell1);
                     if (this.spell.levelIncrease){
-                        spellStat.setPotency(Sorcerer.this.getLevels() - this.spell.minLevel);
+                        spellStat.setPotency(Sorcerer.this.getSorcererLevel() - this.spell.minLevel);
                     }
-                    spell1.mobSpellResult(Sorcerer.this, Sorcerer.this.getLevels() >= this.spell.upgradeStaff.getB() ? this.spell.upgradeStaff.getA() : ItemStack.EMPTY, spellStat);
+                    spell1.mobSpellResult(Sorcerer.this, Sorcerer.this.getSorcererLevel() >= this.spell.upgradeStaff.getB() ? this.spell.upgradeStaff.getA() : ItemStack.EMPTY, spellStat);
                     if (this.spell.getSpell() instanceof IBreathingSpell breathingSpell) {
                         if (Sorcerer.this.getTarget() != null) {
                             MobUtil.instaLook(Sorcerer.this, Sorcerer.this.getTarget());
                         }
-                        breathingSpell.showWandBreath(Sorcerer.this);
+                        breathingSpell.showWandBreath(Sorcerer.this, WandUtil.getStats(Sorcerer.this, breathingSpell));
                     }
                 }
                 Sorcerer.this.level.broadcastEntityEvent(Sorcerer.this, (byte) 4);
@@ -460,14 +465,14 @@ public class Sorcerer extends HuntingIllagerEntity {
                 Spell spell1 = this.spell.getSpell();
                 SpellStat spellStat = WandUtil.getStats(Sorcerer.this, spell1);
                 if (this.spell.levelIncrease){
-                    spellStat.setPotency(spellStat.getPotency() + (Sorcerer.this.getLevels() - this.spell.minLevel));
+                    spellStat.setPotency(spellStat.getPotency() + (Sorcerer.this.getSorcererLevel() - this.spell.minLevel));
                 }
                 if (this.spell.throwingSpell()){
                     Sorcerer.this.level.broadcastEntityEvent(Sorcerer.this, (byte) 6);
                 } else {
                     Sorcerer.this.level.broadcastEntityEvent(Sorcerer.this, (byte) 7);
                 }
-                spell1.mobSpellResult(Sorcerer.this, Sorcerer.this.getLevels() >= this.spell.upgradeStaff.getB() ? this.spell.upgradeStaff.getA() : ItemStack.EMPTY, spellStat);
+                spell1.mobSpellResult(Sorcerer.this, Sorcerer.this.getSorcererLevel() >= this.spell.upgradeStaff.getB() ? this.spell.upgradeStaff.getA() : ItemStack.EMPTY, spellStat);
             }
         }
 

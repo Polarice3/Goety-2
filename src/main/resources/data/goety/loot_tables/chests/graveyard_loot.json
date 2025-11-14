@@ -118,6 +118,22 @@
         },
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "goety:grave_dust",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:saddle",
           "weight": 20
         },

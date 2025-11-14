@@ -58,6 +58,8 @@ import java.util.function.Predicate;
 public class Summoned extends Owned implements IServant {
     protected static final EntityDataAccessor<Byte> SUMMONED_FLAGS = SynchedEntityData.defineId(Summoned.class, EntityDataSerializers.BYTE);
     protected static final EntityDataAccessor<Byte> UPGRADE_FLAGS = SynchedEntityData.defineId(Summoned.class, EntityDataSerializers.BYTE);
+    @Nullable
+    private LivingEntity priorityTarget;
     public LivingEntity commandPosEntity;
     public BlockPos commandPos;
     public BlockPos boundPos;
@@ -149,22 +151,39 @@ public class Summoned extends Owned implements IServant {
         return this.isSunBurnTick();
     }
 
-    public void setTarget(@Nullable LivingEntity p_21544_) {
+    public void setTarget(@Nullable LivingEntity target) {
         if (this.isGuardingArea()){
-            if (p_21544_ != null) {
-                if (p_21544_.distanceToSqr(this.vec3BoundPos()) <= Mth.square(GUARDING_RANGE)) {
-                    this.normalSetTarget(p_21544_);
+            if (target != null) {
+                if (target.distanceToSqr(this.vec3BoundPos()) <= Mth.square(GUARDING_RANGE)) {
+                    this.overrideSetTarget(target);
                 }
             } else {
-                this.normalSetTarget(null);
+                this.overrideSetTarget(null);
             }
         } else {
-            this.normalSetTarget(p_21544_);
+            this.overrideSetTarget(target);
         }
     }
 
-    public void normalSetTarget(@Nullable LivingEntity p_21544_){
-        super.setTarget(p_21544_);
+    public void overrideSetTarget(@Nullable LivingEntity target){
+        super.setTarget(target);
+    }
+
+    @Override
+    @Nullable
+    public LivingEntity getPriorityTarget() {
+        return this.priorityTarget;
+    }
+
+    @Override
+    public void setPriorityTarget(@Nullable LivingEntity priorityTarget) {
+        this.overrideSetTarget(priorityTarget);
+        this.priorityTarget = priorityTarget;
+    }
+
+    @Deprecated
+    public void normalSetTarget(@Nullable LivingEntity target) {
+        this.overrideSetTarget(target);
     }
 
     @Nullable

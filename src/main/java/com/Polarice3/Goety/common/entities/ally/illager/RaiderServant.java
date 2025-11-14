@@ -286,6 +286,7 @@ public abstract class RaiderServant extends Summoned {
         if (livingEntity != null && livingEntity != this) {
             this.setLeaderId(livingEntity.getUUID());
             this.setLeaderClientId(livingEntity.getId());
+            this.getNavigation().stop();
         } else {
             this.setLeaderId(null);
             this.setLeaderClientId(-1);
@@ -513,6 +514,9 @@ public abstract class RaiderServant extends Summoned {
             if (this.isRaiding()) {
                 flag = MobsConfig.IllagerServantChunkLoadRaid.get();
             }
+            if (this.isCelebrating()) {
+                flag = MobsConfig.IllagerServantChunkLoadMark.get() || MobsConfig.IllagerServantChunkLoadRaid.get();
+            }
         }
         return flag;
     }
@@ -569,7 +573,7 @@ public abstract class RaiderServant extends Summoned {
                         }
                         if (this.getLeader().getRaidPos() != null && !BlockFinder.samePos(this.getLeader().getRaidPos(), this.getRaidPos())) {
                             this.setRaidPos(this.getLeader().getRaidPos());
-                        } else if (this.getLeader().getTarget() != null && this.getTarget() == null) {
+                        } else if (this.getLeader().getTarget() != null && this.getPriorityTarget() == null && this.getTarget() == null) {
                             this.setTarget(this.getLeader().getTarget());
                         }
                     }

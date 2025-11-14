@@ -45,6 +45,14 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:signaler_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Though shunned by others for their lack of magic or martial skills, these Illagers are highly useful for spotting incoming threats from afar, especially when perched high up, and sounding a horn that causes Guarding servants in a large radius around themselves, to attack it. These threats are either a hostile Player, a hostile mob with twice the amount of max health as the Signaler or a horde of enemies, the size of which depending on what comprises them and whether they have a higher max health than the Signaler."
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:vindicator_servant"
     },
     {

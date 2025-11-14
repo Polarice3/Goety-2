@@ -20,41 +20,66 @@ import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.UseAnim;
 
 public class InquillagerModel<T extends AbstractIllager> extends HumanoidModel<T> {
-	public final ModelPart clothes;
-	public final ModelPart arms;
+	private final ModelPart hat;
+	private final ModelPart hat2;
+	private final ModelPart clothes;
+	private final ModelPart arms;
+    private final ModelPart right_cloth;
+    private final ModelPart left_cloth;
 
 	public InquillagerModel(ModelPart root) {
 		super(root);
+		this.hat = this.head.getChild("hat");
+		this.hat2 = this.head.getChild("hat2");
 		this.clothes = root.getChild("clothes");
 		this.arms = root.getChild("arms");
+		this.right_cloth = this.rightArm.getChild("right_cloth");
+		this.left_cloth = this.leftArm.getChild("left_cloth");
 	}
 
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 20).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 12.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 10.0F, 8.0F, new CubeDeformation(0.0F))
+				.texOffs(32, 0).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 10.0F, 8.0F, new CubeDeformation(0.5F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		partdefinition.addOrReplaceChild("clothes", CubeListBuilder.create().texOffs(0, 38).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 18.0F, 6.0F, new CubeDeformation(0.5F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-
-		PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 10.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		partdefinition.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
 
 		PartDefinition nose = head.addOrReplaceChild("nose", CubeListBuilder.create().texOffs(24, 0).addBox(-1.0F, -1.0F, -6.0F, 2.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -2.0F, 0.0F));
 
-		PartDefinition hat = partdefinition.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(0, 64).addBox(-8.0F, -8.0F, -8.0F, 16.0F, 1.0F, 16.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 81).addBox(-5.0F, -11.0F, -5.0F, 10.0F, 3.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition hat = head.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(0, 64).addBox(-8.0F, -8.2F, -8.0F, 16.0F, 1.0F, 16.0F, new CubeDeformation(0.1F))
+				.texOffs(0, 81).addBox(-5.0F, -12.2F, -5.0F, 10.0F, 4.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+
+		PartDefinition hat2 = head.addOrReplaceChild("hat2", CubeListBuilder.create().texOffs(18, 106).addBox(-5.0F, -12.0F, -5.0F, 10.0F, 4.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.0F, 0.0F));
+
+		PartDefinition rightbeard = head.addOrReplaceChild("rightbeard", CubeListBuilder.create().texOffs(0, 0).addBox(-1.55F, -0.85F, -1.25F, 3.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.0F, -3.0F, -3.0F, 0.0F, 0.0F, -0.0873F));
+
+		PartDefinition leftbeard = head.addOrReplaceChild("leftbeard", CubeListBuilder.create().texOffs(0, 0).mirror().addBox(-0.45F, -0.85F, -1.25F, 3.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(1.0F, -3.0F, -3.0F, 0.0F, 0.0F, 0.0873F));
+
+		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 20).addBox(-4.0F, -7.5F, -3.0F, 8.0F, 12.0F, 6.0F, new CubeDeformation(0.0F))
+				.texOffs(28, 38).addBox(-1.0F, -7.25F, -3.75F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.2F))
+				.texOffs(28, 41).addBox(-1.5F, -7.0F, -3.25F, 3.0F, 7.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 7.5F, 0.0F));
+
+		PartDefinition clothes = partdefinition.addOrReplaceChild("clothes", CubeListBuilder.create().texOffs(0, 38).addBox(-4.0F, -24.0F, -3.0F, 8.0F, 20.0F, 6.0F, new CubeDeformation(0.35F)), PartPose.offset(0.0F, 24.0F, 0.0F));
 
 		PartDefinition arms = partdefinition.addOrReplaceChild("arms", CubeListBuilder.create().texOffs(44, 22).addBox(-8.0F, -2.0F, -2.0F, 4.0F, 8.0F, 4.0F, new CubeDeformation(0.0F))
-		.texOffs(44, 22).addBox(4.0F, -2.0F, -2.0F, 4.0F, 8.0F, 4.0F, new CubeDeformation(0.0F))
-		.texOffs(40, 38).addBox(-4.0F, 2.0F, -2.0F, 8.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 2.0F, 0.0F));
+				.texOffs(44, 22).mirror().addBox(4.0F, -2.0F, -2.0F, 4.0F, 8.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
+				.texOffs(40, 38).addBox(-4.0F, 2.0F, -2.0F, 8.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 2.0F, 0.0F));
 
-		PartDefinition leg0 = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 22).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, 12.0F, 0.0F));
+		PartDefinition right_arm = partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(48, 46).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 2.0F, 0.0F));
 
-		PartDefinition leg1 = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 22).mirror().addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(2.0F, 12.0F, 0.0F));
+		PartDefinition right_cloth = right_arm.addOrReplaceChild("right_cloth", CubeListBuilder.create().texOffs(32, 46).addBox(-8.0F, -24.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.25F)), PartPose.offset(5.0F, 22.0F, 0.0F));
 
-		PartDefinition RightArm = partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(40, 46).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 2.0F, 0.0F));
+		PartDefinition left_arm = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(48, 46).mirror().addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(5.0F, 2.0F, 0.0F));
 
-		PartDefinition LeftArm = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 46).mirror().addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(5.0F, 2.0F, 0.0F));
+		PartDefinition left_cloth = left_arm.addOrReplaceChild("left_cloth", CubeListBuilder.create().texOffs(32, 46).mirror().addBox(4.0F, -24.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.25F)).mirror(false), PartPose.offset(-5.0F, 22.0F, 0.0F));
+
+		PartDefinition cape = left_cloth.addOrReplaceChild("cape", CubeListBuilder.create().texOffs(0, 95).addBox(-2.5F, 0.5F, -2.0F, 5.0F, 20.0F, 4.0F, new CubeDeformation(0.25F)), PartPose.offset(6.0F, -25.0F, 1.5F));
+
+		PartDefinition right_leg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 22).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, 12.0F, 0.0F));
+
+		PartDefinition left_leg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 22).mirror().addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(2.0F, 12.0F, 0.0F));
 
 		return LayerDefinition.create(meshdefinition, 64, 128);
 	}
@@ -68,8 +93,6 @@ public class InquillagerModel<T extends AbstractIllager> extends HumanoidModel<T
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
 		this.head.xRot = headPitch * ((float)Math.PI / 180F);
-		this.hat.yRot = netHeadYaw * ((float)Math.PI / 180F);
-		this.hat.xRot = headPitch * ((float)Math.PI / 180F);
 		this.arms.z = -1.0F;
 		this.arms.xRot = -0.75F;
 		if (this.riding) {
@@ -141,11 +164,14 @@ public class InquillagerModel<T extends AbstractIllager> extends HumanoidModel<T
 		this.arms.visible = flag;
 		this.leftArm.visible = !flag;
 		this.rightArm.visible = !flag;
-		boolean flag2 = entity.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof ArmorItem
-				|| entity.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ArmorItem;
+		boolean flag1 = entity.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof ArmorItem;
+		boolean flag2 = flag1 || entity.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ArmorItem;
 		this.clothes.visible = !flag2;
+		this.right_cloth.visible = !flag1;
+		this.left_cloth.visible = !flag1;
 		boolean flag3 = entity.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof ArmorItem;
 		this.hat.visible = !flag3;
+		this.hat2.visible = !flag3;
 	}
 
 	public boolean isAggressive(T entityIn) {

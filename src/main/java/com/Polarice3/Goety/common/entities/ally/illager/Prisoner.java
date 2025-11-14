@@ -5,7 +5,6 @@ import com.Polarice3.Goety.api.entities.ally.illager.ILooter;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ai.IllagerChestGoal;
 import com.Polarice3.Goety.common.entities.ai.IllagerStoreChestGoal;
-import com.Polarice3.Goety.common.entities.hostile.cultists.Heretic;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.WaystoneItem;

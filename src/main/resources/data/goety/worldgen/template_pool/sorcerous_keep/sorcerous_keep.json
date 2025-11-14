@@ -1,0 +1,22 @@
+{
+  "name": "goety:sorcerous_keep/sorcerous_keep",
+
+  "fallback": "minecraft:empty",
+
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:sorcerous_keep/sorcerous_keep",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

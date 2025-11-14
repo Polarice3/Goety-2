@@ -56,6 +56,10 @@ public class ModIllagerType implements ITrainIllager {
                 && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof BarrelBlock, range, 4)
                 && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof AnvilBlock, range, 2)) {
             return ModEntityType.PIKER_SERVANT.get();
+        } else if (BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof CampfireBlock, range, 2)
+                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof BedBlock, range, 4)
+                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof BarrelBlock, range, 4)) {
+            return ModEntityType.SIGNALER_SERVANT.get();
         } else if (BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(BlockTags.BANNERS), range, 1)
                 && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(BlockTags.PLANKS), range, 64)
                 && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock().getDescriptionId().contains("bricks"), range, 60)
@@ -86,8 +90,8 @@ public class ModIllagerType implements ITrainIllager {
                 && BlockFinder.getNearbyLitCandles(level, blockPos, range, 16)
                 && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(Blocks.LECTERN), range, 1)
                 && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(ModBlocks.AWAKENED_EMERALD_BLOCK.get()), range, 4)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof AbstractSkullBlock, range, 4)
                 && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof AmethystClusterBlock, range, 4)
+                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof AbstractSkullBlock, range, 4)
                 && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof FlowerPotBlock flowerPotBlock && flowerPotBlock.getContent() != Blocks.AIR, range, 4)) {
             return ModEntityType.EVOKER_SERVANT.get();
         } else if (BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(Tags.Blocks.STORAGE_BLOCKS_AMETHYST), range, 16)

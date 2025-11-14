@@ -5,6 +5,7 @@ import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.api.magic.*;
+import com.Polarice3.Goety.common.blocks.BrewCauldronBlock;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.entities.neutral.AbstractVine;
@@ -388,21 +389,22 @@ public class DarkWand extends Item implements IWand {
                         }
                     }
                 }
+            } else if (level.getBlockState(blockpos).getBlock() instanceof BrewCauldronBlock) {
+                if (!level.isClientSide) {
+                    if (level.getBlockEntity(blockpos) instanceof BrewCauldronBlockEntity cauldronBlock) {
+                        if (MobUtil.isShifting(player)) {
+                            if (stack.getItem() instanceof IWand){
+                                cauldronBlock.fullReset();
+                                level.playSound(null, blockpos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
+                                level.playSound(null, blockpos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 1.0F);
+                                return InteractionResult.SUCCESS;
+                            }
+                        }
+                    }
+                }
             } else if (!level.getBlockState(blockpos).isAir()){
                 if (!level.isClientSide){
                     return level.getBlockState(blockpos).use(level, player, hand, new BlockHitResult(pContext.getClickLocation(), pContext.getClickedFace(), pContext.getClickedPos(), pContext.isInside()));
-                }
-            }
-            if (!level.isClientSide) {
-                if (level.getBlockEntity(blockpos) instanceof BrewCauldronBlockEntity cauldronBlock) {
-                    if (MobUtil.isShifting(player)) {
-                        if (stack.getItem() instanceof IWand){
-                            cauldronBlock.fullReset();
-                            level.playSound(null, blockpos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
-                            level.playSound(null, blockpos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 1.0F);
-                            return InteractionResult.SUCCESS;
-                        }
-                    }
                 }
             }
         }
@@ -754,11 +756,11 @@ public class DarkWand extends Item implements IWand {
             if (worldIn.isClientSide) {
                 if (playerEntity.isCreative()) {
                     if (spell instanceof IBreathingSpell breathingSpells) {
-                        breathingSpells.showWandBreath(caster);
+                        breathingSpells.showWandBreath(caster, WandUtil.getStats(caster, spell));
                     }
                 } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(caster, stack))) {
                     if (spell instanceof IBreathingSpell breathingSpells) {
-                        breathingSpells.showWandBreath(caster);
+                        breathingSpells.showWandBreath(caster, WandUtil.getStats(caster, spell));
                     }
                 } else {
                     this.failParticles(worldIn, caster);

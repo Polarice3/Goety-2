@@ -180,8 +180,8 @@ public class PhantomServant extends SummonedFlying {
         return super.finalizeSpawn(p_33126_, p_33127_, p_33128_, p_33129_, p_33130_);
     }
 
-    public void setTarget(@Nullable LivingEntity p_21544_) {
-        this.normalSetTarget(p_21544_);
+    public void setTarget(@Nullable LivingEntity target) {
+        this.overrideSetTarget(target);
     }
 
     public void readAdditionalSaveData(CompoundTag p_33132_) {

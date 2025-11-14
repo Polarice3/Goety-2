@@ -1,0 +1,24 @@
+{
+  "name": "ウィッチの従者",
+  "icon": "goety:witch_hat",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "村人をウィッチに変える方法はよく知られていますが、自分に仕えるウィッチをどうやって作ればいいのか疑問に思ったことはありませんか？幸いなことに、ソウルエネルギーとたくさんのエメラルド、そしてミスティックコアがあれば、忠実なウィッチを作ることができます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_villager_to_witch"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:witch_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ウィッチの従者にエメラルドを渡すことで、適切な服装をしなくても取引を行うことができます。また、他のウィッチの従者とも取引可能です。ただし、その従者に主がいる場合、その主と同盟を結び、適切な服装をしていれば可能です。"
+    }
+  ]
+}

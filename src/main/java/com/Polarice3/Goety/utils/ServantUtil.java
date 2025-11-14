@@ -32,7 +32,9 @@ import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.RespawnAnchorBlock;
 import net.minecraft.world.phys.Vec3;
 
@@ -224,32 +226,27 @@ public class ServantUtil {
                             soulCost = MobsConfig.UndeadMinionHealCost.get();
                             healRate = MobsConfig.UndeadMinionHealTime.get();
                             healAmount = MobsConfig.UndeadMinionHealAmount.get().floatValue();
-                        }
-                        if (isAbyssHeal(servant) && MobsConfig.WaterMinionHeal.get()) {
+                        } else if (isAbyssHeal(servant) && MobsConfig.WaterMinionHeal.get()) {
                             curio = CuriosFinder.hasAbyssRobes(owner);
                             soulCost = MobsConfig.WaterMinionHealCost.get();
                             healRate = MobsConfig.WaterMinionHealTime.get();
                             healAmount = MobsConfig.WaterMinionHealAmount.get().floatValue();
-                        }
-                        if (isWildHeal(servant) && MobsConfig.NaturalMinionHeal.get()) {
+                        } else if (isWildHeal(servant) && MobsConfig.NaturalMinionHeal.get()) {
                             curio = CuriosFinder.hasWildRobe(owner);
                             soulCost = MobsConfig.NaturalMinionHealCost.get();
                             healRate = MobsConfig.NaturalMinionHealTime.get();
                             healAmount = MobsConfig.NaturalMinionHealAmount.get().floatValue();
-                        }
-                        if (isFrostHeal(servant) && MobsConfig.FrostMinionHeal.get()) {
+                        } else if (isFrostHeal(servant) && MobsConfig.FrostMinionHeal.get()) {
                             curio = CuriosFinder.hasFrostRobes(owner);
                             soulCost = MobsConfig.FrostMinionHealCost.get();
                             healRate = MobsConfig.FrostMinionHealTime.get();
                             healAmount = MobsConfig.FrostMinionHealAmount.get().floatValue();
-                        }
-                        if (isNetherHeal(servant) && MobsConfig.NetherMinionHeal.get()) {
+                        } else if (isNetherHeal(servant) && MobsConfig.NetherMinionHeal.get()) {
                             curio = CuriosFinder.hasNetherRobe(owner);
                             soulCost = MobsConfig.NetherMinionHealCost.get();
                             healRate = MobsConfig.NetherMinionHealTime.get();
                             healAmount = MobsConfig.NetherMinionHealAmount.get().floatValue();
-                        }
-                        if (isVoidHeal(servant) && MobsConfig.VoidMinionHeal.get()) {
+                        } else if (isVoidHeal(servant) && MobsConfig.VoidMinionHeal.get()) {
                             curio = CuriosFinder.hasVoidRobe(owner);
                             soulCost = MobsConfig.VoidMinionHealCost.get();
                             healRate = MobsConfig.VoidMinionHealTime.get();
@@ -355,6 +352,15 @@ public class ServantUtil {
                 }
                 return InteractionResult.SUCCESS;
             }
+        } else if (itemStack.is(Items.CARVED_PUMPKIN) && MobsConfig.ServantsCanWearPumpkin.get()) {
+            summoned.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
+            summoned.setItemSlot(EquipmentSlot.HEAD, itemStack.copyWithCount(1));
+            summoned.dropEquipment(EquipmentSlot.HEAD, helmet);
+            summoned.setGuaranteedDrop(EquipmentSlot.HEAD);
+            if (!player.getAbilities().instabuild) {
+                itemStack.shrink(1);
+            }
+            return InteractionResult.SUCCESS;
         }
         return failResult;
     }

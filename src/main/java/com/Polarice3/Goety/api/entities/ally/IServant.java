@@ -23,6 +23,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -97,6 +98,18 @@ public interface IServant extends IOwned {
         } else {
             return this.getBoundPos().distSqr(p_21445_) < Mth.square(GUARDING_RANGE);
         }
+    }
+
+    @Nullable
+    default LivingEntity getPriorityTarget() {
+        return null;
+    }
+
+    default void setPriorityTarget(@Nullable LivingEntity target) {
+        this.overrideSetTarget(target);
+    }
+
+    default void overrideSetTarget(@Nullable LivingEntity target) {
     }
 
     default void setFollowing(){
@@ -248,12 +261,7 @@ public interface IServant extends IOwned {
         return false;
     }
 
-    //Wanna rename this to not mix up with vanilla lol.
     default boolean isAbleToRide(LivingEntity livingEntity) {
-        return this.canRide(livingEntity);
-    }
-
-    default boolean canRide(LivingEntity livingEntity){
         if (!(this instanceof PlayerRideable)
                 && !(this instanceof IGolem)
                 && (livingEntity instanceof PlayerRideable || livingEntity.getType().is(ModTags.EntityTypes.SERVANT_RIDEABLE))
@@ -268,6 +276,11 @@ public interface IServant extends IOwned {
             return servant.canBeRidden(rider);
         }
         return false;
+    }
+
+    @Deprecated
+    default boolean canRide(LivingEntity livingEntity){
+        return this.isAbleToRide(livingEntity);
     }
 
     default boolean canBeRidden(LivingEntity livingEntity){
@@ -291,7 +304,7 @@ public interface IServant extends IOwned {
             }
             if (this.isGuardingArea()){
                 if (owned.getTarget() != null){
-                    if (owned.getTarget().distanceToSqr(this.vec3BoundPos()) > Mth.square(GUARDING_RANGE * 2)){
+                    if (owned.getTarget() != this.getPriorityTarget() && owned.getTarget().distanceToSqr(this.vec3BoundPos()) > Mth.square(GUARDING_RANGE * 2)){
                         owned.setTarget(null);
                         if (!this.isCommanded()){
                             owned.getNavigation().moveTo(this.getBoundPos().getX(), this.getBoundPos().getY(), this.getBoundPos().getZ(), 1.0F);
@@ -299,6 +312,11 @@ public interface IServant extends IOwned {
                     }
                 } else if (!this.isCommanded() && owned.distanceToSqr(this.vec3BoundPos()) > Mth.square(GUARDING_RANGE)){
                     owned.getNavigation().moveTo(this.getBoundPos().getX(), this.getBoundPos().getY(), this.getBoundPos().getZ(), 1.0F);
+                }
+            }
+            if (this.getPriorityTarget() != null) {
+                if (!this.getPriorityTarget().isAlive()) {
+                    this.setPriorityTarget(null);
                 }
             }
             if (this.getNoHealTime() <= 0){
@@ -331,6 +349,9 @@ public interface IServant extends IOwned {
         if (this.isGuardingArea()) {
             return MobsConfig.GuardingServantChunkLoad.get();
         }
+        if (this.isFollowing()) {
+            return MobsConfig.FollowingServantChunkLoad.get();
+        }
         return false;
     }
 
@@ -355,6 +376,15 @@ public interface IServant extends IOwned {
         }
     }
 
+    default void forceChunkLoadSelf() {
+        if (this instanceof Mob owned){
+            if (owned.level instanceof ServerLevel serverLevel) {
+                serverLevel.getChunkSource().addRegionTicket(ModTicketTypes.SERVANT, owned.chunkPosition(), 2, owned.blockPosition());
+                serverLevel.resetEmptyTime();
+            }
+        }
+    }
+
     default void chunkLoadTarget(BlockPos blockPos) {
         if (blockPos != null) {
             if (this instanceof Mob owned) {
@@ -364,7 +394,7 @@ public interface IServant extends IOwned {
                             int i = SectionPos.blockToSectionCoord(blockPos.getX());
                             int j = SectionPos.blockToSectionCoord(blockPos.getZ());
                             if (this.getTicketTime() <= 0 || i != SectionPos.blockToSectionCoord(blockPos.getX()) || j != SectionPos.blockToSectionCoord(blockPos.getZ())) {
-                                serverLevel.getChunkSource().addRegionTicket(ModTicketTypes.SERVANT, owned.chunkPosition(), 2, owned.blockPosition());
+                                serverLevel.getChunkSource().addRegionTicket(ModTicketTypes.SERVANT, new ChunkPos(blockPos), 9, blockPos);
                                 serverLevel.resetEmptyTime();
                             }
                         }

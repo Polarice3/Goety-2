@@ -141,7 +141,7 @@ public class BubbleStreamSpell extends BreathingSpell {
     }
 
     @Override
-    public void showWandBreath(LivingEntity entityLiving) {
+    public void showWandBreath(LivingEntity entityLiving, SpellStat spellStat) {
         int range = 0;
         if (entityLiving instanceof Player player){
             if (WandUtil.enchantedFocus(player)){

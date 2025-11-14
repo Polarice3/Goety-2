@@ -137,6 +137,9 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> WindCallerServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> StormCasterServantTexture;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WitchServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> MaverickServantTexture;
+
     public static final ForgeConfigSpec.ConfigValue<Boolean> SpiderServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CaveSpiderServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WebSpiderServantTexture;
@@ -172,6 +175,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> VexTeleport;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ServantRideAutonomous;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ServantsAttackCreepers;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ServantsCanWearPumpkin;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecroRobeUndead;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecroSetDebuff;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NamelessSetDebuff;
@@ -272,6 +276,7 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> StayingServantChunkLoad;
     public static final ForgeConfigSpec.ConfigValue<Boolean> GuardingServantChunkLoad;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> FollowingServantChunkLoad;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadServantSunlightBurn;
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadServantSunlightHelmet;
@@ -384,6 +389,12 @@ public class MobsConfig {
                         .define("windCallerServantTexture", true);
                 StormCasterServantTexture = BUILDER.comment("If Storm Caster Servants have custom textures, Default: true")
                         .define("stormCasterServantTexture", true);
+                BUILDER.pop();
+                BUILDER.push("Raider Servants");
+                WitchServantTexture = BUILDER.comment("If Witch Servants have custom textures, Default: true")
+                        .define("witchServantTexture", true);
+                MaverickServantTexture = BUILDER.comment("If Maverick Servants have custom textures, Default: true")
+                        .define("maverickServantTexture", true);
                 BUILDER.pop();
                 BUILDER.push("Spider Servants");
                 SpiderServantTexture = BUILDER.comment("If Spiders Servants have custom textures, Default: true")
@@ -610,6 +621,10 @@ public class MobsConfig {
                 .define("stayingServantChunkLoad", true);
         GuardingServantChunkLoad = BUILDER.comment("Servants, when on guarding mode, will load chunks around it, Default: true")
                 .define("guardingServantChunkLoad", true);
+        FollowingServantChunkLoad = BUILDER.comment("Servants, when on following mode, will load chunks around it, Default: true")
+                .define("followingServantChunkLoad", true);
+        ServantsCanWearPumpkin = BUILDER.comment("Whether Servants be equipped with Carved Pumpkins, which would allow Servants to not be affected by sunlight, Default: false")
+                .define("servantsCanWearPumpkin", false);
         ServantRideAutonomous = BUILDER.comment("Whether certain servants being ridden by other servants will not be controlled by their rider., Default: false")
                 .define("servantRideAutonomous", false);
         MaxSlimeSize = BUILDER.comment("Maximum size Slime and Magma Cube Servants can obtain through Slime/Magma Block, Default: 4")

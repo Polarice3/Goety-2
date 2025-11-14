@@ -540,6 +540,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> THUNDER_STRIKE_FAST = create("thunder_strike_fast");
 
     public static final RegistryObject<SoundEvent> TOCK = create("tock");
+    public static final RegistryObject<SoundEvent> INTRUDER_ALERT = create("intruder_alert");
 
     public static final RegistryObject<SoundEvent> ROAR_SPELL = create("roar_spell");
     public static final RegistryObject<SoundEvent> FIRE_BREATH_START = create("fire_breath_start");

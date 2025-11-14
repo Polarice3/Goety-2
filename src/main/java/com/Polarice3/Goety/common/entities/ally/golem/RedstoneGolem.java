@@ -627,11 +627,11 @@ public class RedstoneGolem extends RaiderGolemServant {
     }
 
     @Override
-    public void setTarget(@Nullable LivingEntity p_21544_) {
-        if (!(p_21544_ instanceof Player) && p_21544_ != null && this.getTarget() != p_21544_ && this.summonCool <= 0){
+    public void setTarget(@Nullable LivingEntity target) {
+        if (!(target instanceof Player) && target != null && this.getTarget() != target && this.summonCool <= 0){
             this.summonCool = MathHelper.secondsToTicks(SUMMON_SECONDS_TIME);
         }
-        super.setTarget(p_21544_);
+        super.setTarget(target);
     }
 
     public InteractionResult mobInteract(Player pPlayer, InteractionHand p_230254_2_) {

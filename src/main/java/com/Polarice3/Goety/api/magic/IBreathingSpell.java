@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.api.magic;
 
+import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
@@ -31,7 +32,14 @@ public interface IBreathingSpell extends IChargingSpell{
         return MobUtil.getTargets(livingEntity.level, livingEntity, range, 3.0D);
     }
 
-    void showWandBreath(LivingEntity entityLiving);
+    @Deprecated
+    default void showWandBreath(LivingEntity entityLiving) {
+
+    }
+
+    default void showWandBreath(LivingEntity caster, SpellStat spellStat) {
+
+    }
 
     default void breathAttack(ParticleOptions particleOptions, LivingEntity entityLiving, double pVelocity, double pSpread){
         this.breathAttack(particleOptions, entityLiving, false, 2, pVelocity, pSpread);
@@ -79,6 +87,10 @@ public interface IBreathingSpell extends IChargingSpell{
     }
 
     default void dragonBreathAttack(ParticleOptions particleOptions, LivingEntity entityLiving, int pParticleAmount, double pVelocity){
+        this.dragonBreathAttack(particleOptions, entityLiving, pParticleAmount, pVelocity, 0.5D);
+    }
+
+    default void dragonBreathAttack(ParticleOptions particleOptions, LivingEntity entityLiving, int pParticleAmount, double pVelocity, double angle){
         Vec3 look = entityLiving.getLookAngle();
 
         double dist = 0.9D;
@@ -93,7 +105,6 @@ public interface IBreathingSpell extends IChargingSpell{
             double dy = entityLiving.getRandom().nextDouble() * 2.0D * offset - offset;
             double dz = entityLiving.getRandom().nextDouble() * 2.0D * offset - offset;
 
-            double angle = 0.5D;
             Vec3 randomVec = new Vec3(entityLiving.getRandom().nextDouble() * 2.0D * angle - angle, entityLiving.getRandom().nextDouble() * 2.0D * angle - angle, entityLiving.getRandom().nextDouble() * 2.0D * angle - angle).normalize();
             Vec3 result = (look.normalize().scale(3.0D).add(randomVec)).normalize().scale(velocity);
             if (entityLiving.level instanceof ServerLevel serverLevel){

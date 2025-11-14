@@ -23,6 +23,11 @@
     },
     {
       "type": "patchouli:text",
+      "title": "Signaler Servants",
+      "text": "Requirements: $(li)Neollager $(li)2 Campfires $(li)4 Beds $(li)4 Barrels"
+    },
+    {
+      "type": "patchouli:text",
       "title": "Vindicator Servants",
       "text": "Requirements: $(li)Neollager $(li)1 Banner $(li)64 Wooden Planks $(li)60 Bricks Blocks Any $(li)10 Walls $(li)10 Fences $(li)2 Furnaces $(li)1 Crafting Table"
     },

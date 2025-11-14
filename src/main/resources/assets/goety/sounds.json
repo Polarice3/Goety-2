@@ -6477,6 +6477,13 @@
       }
     ]
   },
+  "intruder_alert": {
+    "sounds": [
+      {
+        "name": "goety:fifo_alarm/alarm2"
+      }
+    ]
+  },
   "roar_spell": {
     "sounds": [
       {

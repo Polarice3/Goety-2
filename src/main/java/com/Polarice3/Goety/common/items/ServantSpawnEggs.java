@@ -225,6 +225,9 @@ public class ServantSpawnEggs {
     public static final RegistryObject<ServantSpawnEggItem> PIKER_SERVANT_SPAWN_EGG = ITEMS.register("piker_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.PIKER_SERVANT, 0x341610, 0xc7cece, egg()));
 
+    public static final RegistryObject<ServantSpawnEggItem> SIGNALER_SERVANT_SPAWN_EGG = ITEMS.register("signaler_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.SIGNALER_SERVANT, 0x32663c, 0x525858, egg()));
+
     public static final RegistryObject<ServantSpawnEggItem> VINDICATOR_SERVANT_SPAWN_EGG = ITEMS.register("vindicator_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.VINDICATOR_SERVANT, 0x959b9b, 0x32494e, egg()));
 
@@ -257,6 +260,9 @@ public class ServantSpawnEggs {
 
     public static final RegistryObject<ServantSpawnEggItem> WITCH_SERVANT_SPAWN_EGG = ITEMS.register("witch_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.WITCH_SERVANT, 0x1d0b2f, 0x4f5f3a, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> MAVERICK_SERVANT_SPAWN_EGG = ITEMS.register("maverick_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.MAVERICK_SERVANT, 0x92a7cd, 0x1a2524, egg()));
 
     public static final RegistryObject<ServantSpawnEggItem> PRISONER_SPAWN_EGG = ITEMS.register("prisoner_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.PRISONER, 0x71544d, 0x2d4a49, egg()));

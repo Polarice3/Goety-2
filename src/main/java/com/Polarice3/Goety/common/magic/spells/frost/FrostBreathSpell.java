@@ -150,7 +150,7 @@ public class FrostBreathSpell extends BreathingSpell {
     }
 
     @Override
-    public void showWandBreath(LivingEntity entityLiving) {
+    public void showWandBreath(LivingEntity entityLiving, SpellStat spellStat) {
         int range = 0;
         if (WandUtil.enchantedFocus(entityLiving)){
             range = WandUtil.getLevels(ModEnchantments.RANGE.get(), entityLiving);

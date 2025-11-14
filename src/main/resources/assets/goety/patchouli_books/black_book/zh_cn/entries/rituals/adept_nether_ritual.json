@@ -13,7 +13,7 @@
       "type": "patchouli:image",
       "images": ["goety:textures/gui/entries/adept_nether.png"],
       "border": true,
-      "text": "An example of how the ritual can be placed."
+      "text": "一个怎么摆放仪式的例子."
     },
     {
       "type": "patchouli:text",

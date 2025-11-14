@@ -5,6 +5,7 @@ import com.Polarice3.Goety.client.render.model.ModWitchModel;
 import com.Polarice3.Goety.client.render.model.VillagerArmorModel;
 import com.Polarice3.Goety.common.entities.ally.illager.WitchServant;
 import com.Polarice3.Goety.common.items.brew.BrewItem;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.ItemInHandRenderer;
@@ -43,7 +44,7 @@ public class WitchServantRenderer extends MobRenderer<WitchServant, ModWitchMode
    }
 
    public ResourceLocation getTextureLocation(WitchServant p_116410_) {
-      if (p_116410_.isHostile()) {
+      if (p_116410_.isHostile() || !MobsConfig.WitchServantTexture.get()) {
          return ORIGINAL;
       }
       return WITCH_LOCATION;

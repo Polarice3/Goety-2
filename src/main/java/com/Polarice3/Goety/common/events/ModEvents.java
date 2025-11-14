@@ -21,10 +21,7 @@ import com.Polarice3.Goety.common.entities.ai.FreePrisonerGoal;
 import com.Polarice3.Goety.common.entities.ai.TargetHostileOwnedGoal;
 import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
 import com.Polarice3.Goety.common.entities.ally.golem.IceGolem;
-import com.Polarice3.Goety.common.entities.ally.illager.ModRavager;
-import com.Polarice3.Goety.common.entities.ally.illager.Prisoner;
-import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
-import com.Polarice3.Goety.common.entities.ally.illager.Ravaged;
+import com.Polarice3.Goety.common.entities.ally.illager.*;
 import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
@@ -1369,12 +1366,13 @@ public class ModEvents {
         Level level = entity.level;
         if (level instanceof ServerLevel serverLevel) {
             if (entity instanceof WanderingTrader trader) {
-                if (MobsConfig.TraderConvertMaverick.get()) {
-                    if (serverLevel.getDifficulty() != Difficulty.PEACEFUL && net.minecraftforge.event.ForgeEventFactory.canLivingConvert(trader, ModEntityType.MAVERICK.get(), (timer) -> {
-                    })) {
-                        Maverick maverick = ModEntityType.MAVERICK.get().create(serverLevel);
+                boolean hasConverted = false;
+                if (event.getLightning().getCause() != null) {
+                    if (CuriosFinder.hasUnholySet(event.getLightning().getCause())) {
+                        MaverickServant maverick = ModEntityType.MAVERICK_SERVANT.get().create(serverLevel);
                         if (maverick != null) {
                             maverick.moveTo(trader.getX(), trader.getY(), trader.getZ(), trader.getYRot(), trader.getXRot());
+                            maverick.setTrueOwner(event.getLightning().getCause());
                             maverick.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(maverick.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
                             maverick.setNoAi(trader.isNoAi());
                             if (trader.hasCustomName()) {
@@ -1385,7 +1383,30 @@ public class ModEvents {
                             maverick.setPersistenceRequired();
                             net.minecraftforge.event.ForgeEventFactory.onLivingConvert(trader, maverick);
                             serverLevel.addFreshEntityWithPassengers(maverick);
+                            hasConverted = true;
                             trader.discard();
+                        }
+                    }
+                }
+                if (!hasConverted) {
+                    if (MobsConfig.TraderConvertMaverick.get()) {
+                        if (serverLevel.getDifficulty() != Difficulty.PEACEFUL && net.minecraftforge.event.ForgeEventFactory.canLivingConvert(trader, ModEntityType.MAVERICK.get(), (timer) -> {
+                        })) {
+                            Maverick maverick = ModEntityType.MAVERICK.get().create(serverLevel);
+                            if (maverick != null) {
+                                maverick.moveTo(trader.getX(), trader.getY(), trader.getZ(), trader.getYRot(), trader.getXRot());
+                                maverick.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(maverick.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+                                maverick.setNoAi(trader.isNoAi());
+                                if (trader.hasCustomName()) {
+                                    maverick.setCustomName(trader.getCustomName());
+                                    maverick.setCustomNameVisible(trader.isCustomNameVisible());
+                                }
+
+                                maverick.setPersistenceRequired();
+                                net.minecraftforge.event.ForgeEventFactory.onLivingConvert(trader, maverick);
+                                serverLevel.addFreshEntityWithPassengers(maverick);
+                                trader.discard();
+                            }
                         }
                     }
                 }

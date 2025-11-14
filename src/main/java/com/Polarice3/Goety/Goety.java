@@ -628,6 +628,7 @@ public class Goety {
         event.put(ModEntityType.NEOLLAGER.get(), Neollager.setCustomAttributes().build());
         event.put(ModEntityType.PILLAGER_SERVANT.get(), PillagerServant.setCustomAttributes().build());
         event.put(ModEntityType.PIKER_SERVANT.get(), PikerServant.setCustomAttributes().build());
+        event.put(ModEntityType.SIGNALER_SERVANT.get(), SignalerServant.setCustomAttributes().build());
         event.put(ModEntityType.VINDICATOR_SERVANT.get(), VindicatorServant.setCustomAttributes().build());
         event.put(ModEntityType.VINDICATOR_CHEF_SERVANT.get(), VindicatorChefServant.setCustomAttributes().build());
         event.put(ModEntityType.MOUNTAINEER_SERVANT.get(), MountaineerServant.setCustomAttributes().build());
@@ -644,6 +645,7 @@ public class Goety {
         event.put(ModEntityType.ARMORED_RAVAGER.get(), Ravager.createAttributes().build());
         event.put(ModEntityType.ZOMBIE_RAVAGER.get(), ZombieRavager.setCustomAttributes().build());
         event.put(ModEntityType.WITCH_SERVANT.get(), WitchServant.setCustomAttributes().build());
+        event.put(ModEntityType.MAVERICK_SERVANT.get(), MaverickServant.setCustomAttributes().build());
         event.put(ModEntityType.BLACK_WOLF.get(), BlackWolf.setCustomAttributes().build());
         event.put(ModEntityType.SKELETON_WOLF.get(), SkeletonWolf.setCustomAttributes().build());
         event.put(ModEntityType.HELLHOUND.get(), Hellhound.setCustomAttributes().build());

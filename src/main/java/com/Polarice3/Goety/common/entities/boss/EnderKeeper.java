@@ -1468,8 +1468,8 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
         }
     }
 
-    public void setTarget(@Nullable LivingEntity p_21544_) {
-        this.normalSetTarget(p_21544_);
+    public void setTarget(@Nullable LivingEntity target) {
+        this.overrideSetTarget(target);
     }
 
     @Override
