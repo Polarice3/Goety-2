@@ -1,4 +1,4 @@
-// 1.20.1	2025-11-04T17:35:34.8249505	Loot Tables
+// 1.20.1	2025-11-14T22:10:09.6474398	Loot Tables
 1173ad0aef6067156a1c3161e3fe16b8e10b3f92 data/goety/loot_tables/blocks/animator.json
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
@@ -6,7 +6,6 @@ f7a819c3aef0dda1fe38d098a114b70570eec26b data/goety/loot_tables/blocks/awakened_
 8066e7656418914758c52c5328596b496ce40613 data/goety/loot_tables/blocks/big_end_stone_bricks.json
 330ed12a082d7045673da814668f67aa50b4696f data/goety/loot_tables/blocks/blackstone_brazier.json
 963860e1cbde011734bcf03642ae4951cb8fec9e data/goety/loot_tables/blocks/blackstone_soul_brazier.json
-0c69b3f8261def8b2b0ac44cdf882b10060ebb83 data/goety/loot_tables/blocks/black_crystal.json
 04cd388890b092bacff2afbbe7b2dd48d3fae225 data/goety/loot_tables/blocks/blazing_cage.json
 06ae05ce40127f471f9957c87285473b8a0734e8 data/goety/loot_tables/blocks/bottom_soiled_end_basalt.json
 914d54d2df0b738691c21b3792e79c30b1a39c0c data/goety/loot_tables/blocks/brick_brazier.json

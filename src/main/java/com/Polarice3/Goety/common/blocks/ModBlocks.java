@@ -89,7 +89,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> SHRIEKING_OBELISK = register("shriek_obelisk", ShriekObeliskBlock::new);
     public static final RegistryObject<Block> NECRO_BRAZIER = register("necro_brazier", NecroBrazierBlock::new);
     public static final RegistryObject<Block> ANIMATOR = register("animator", AnimatorBlock::new);
-    public static final RegistryObject<Block> BLACK_CRYSTAL = register("black_crystal", BlackCrystalBlock::new, false);
+    public static final RegistryObject<Block> BLACK_CRYSTAL = register("black_crystal", BlackCrystalBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> DARK_ANVIL = register("dark_anvil", DarkAnvilBlock::new);
     public static final RegistryObject<Block> CHIPPED_DARK_ANVIL = register("chipped_dark_anvil", DarkAnvilBlock::new);
     public static final RegistryObject<Block> DAMAGED_DARK_ANVIL = register("damaged_dark_anvil", DarkAnvilBlock::new);
