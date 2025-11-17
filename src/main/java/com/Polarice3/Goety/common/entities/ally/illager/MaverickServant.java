@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.ally.illager;
 
+import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
@@ -8,10 +9,7 @@ import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
-import com.Polarice3.Goety.utils.ColorUtil;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModLootTables;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -25,6 +23,7 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -39,8 +38,10 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
@@ -352,6 +353,52 @@ public class MaverickServant extends CultistServant{
         }
 
         return damage;
+    }
+
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
+        Item item = itemstack.getItem();
+        ItemStack itemstack2 = this.getMainHandItem();
+        boolean isOwner = this.getTrueOwner() != null && pPlayer == this.getTrueOwner();
+        boolean isAlly = ((this.getTrueOwner() != null && MobUtil.areAllies(this.getTrueOwner(), pPlayer)) || this.getTrueOwner() == null) && CuriosFinder.isWitchFriendly(pPlayer);
+        if (this.getMainHandItem().isEmpty() && pHand == InteractionHand.MAIN_HAND && itemstack.is(ModTags.Items.WITCH_CURRENCY)) {
+            if (isOwner || isAlly) {
+                if (!this.isAggressive()) {
+                    this.playSound(this.getCelebrateSound());
+                    ItemStack itemstack1;
+                    if (pPlayer.isCreative()) {
+                        itemstack1 = itemstack;
+                    } else {
+                        itemstack1 = itemstack.split(1);
+                    }
+                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
+                    this.setTrader(pPlayer);
+                    return InteractionResult.SUCCESS;
+                }
+            }
+        }
+        if (isOwner) {
+            if (!(pPlayer.getOffhandItem().getItem() instanceof IWand)) {
+                if (item instanceof SwordItem) {
+                    this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
+                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
+                    this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
+                    this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
+                    for (int i = 0; i < 7; ++i) {
+                        double d0 = this.random.nextGaussian() * 0.02D;
+                        double d1 = this.random.nextGaussian() * 0.02D;
+                        double d2 = this.random.nextGaussian() * 0.02D;
+                        this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
+                    }
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
+                    return InteractionResult.SUCCESS;
+                }
+            }
+            return ServantUtil.equipServantArmor(pPlayer, this, itemstack, super.mobInteract(pPlayer, pHand));
+        }
+        return super.mobInteract(pPlayer, pHand);
     }
 
     public void handleEntityEvent(byte p_34138_) {

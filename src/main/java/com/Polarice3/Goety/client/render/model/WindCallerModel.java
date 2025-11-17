@@ -2,6 +2,7 @@ package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.client.render.layer.HierarchicalArmor;
 import com.Polarice3.Goety.common.entities.ally.illager.WindCallerServant;
+import com.Polarice3.Goety.common.entities.ally.undead.bound.BoundWindCaller;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -133,6 +134,14 @@ public class WindCallerModel<T extends LivingEntity> extends HierarchicalModel<T
 		this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
 		this.head.xRot = headPitch * ((float) Math.PI / 180F) - MathHelper.modelDegrees(5);
 		if (entity instanceof WindCallerServant servant) {
+			this.animate(servant.idleAnimationState, IDLE, ageInTicks);
+			this.animate(servant.blastAnimationState, BLAST, ageInTicks);
+			this.animate(servant.updraftAnimationState, UPDRAFT, ageInTicks);
+			if (!servant.isAttacking()){
+				this.animateWalk(MOVE, limbSwing, limbSwingAmount, 2.5F, 20.0F);
+			}
+		}
+		if (entity instanceof BoundWindCaller servant) {
 			this.animate(servant.idleAnimationState, IDLE, ageInTicks);
 			this.animate(servant.blastAnimationState, BLAST, ageInTicks);
 			this.animate(servant.updraftAnimationState, UPDRAFT, ageInTicks);

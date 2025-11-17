@@ -1,0 +1,16 @@
+{
+  "name": "Логово пауков",
+  "icon": "goety:spider_sac",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Ходят легенды о больших деревьях, полых внутри и кишащих пауками, и о том, что они, возможно, были посажены на месте старой заброшенной шахты..."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/spider_den.png"],
+      "border": true
+    }
+  ]
+}

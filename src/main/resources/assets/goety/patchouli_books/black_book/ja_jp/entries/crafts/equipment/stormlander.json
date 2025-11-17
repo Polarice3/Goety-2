@@ -7,11 +7,11 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "荒れ狂う嵐の力に魅了されたストームランダーは、邪悪な村人の宝物です。"
+      "text": "猛烈な嵐の力を秘めたストームランダーは、イリジャーたちの宝物です。"
     },
     {
       "type": "patchouli:text",
-      "text": "日常的なものと同じ機能を実行できます。 ハンマーは $(l:intro/magical_components)呪われた鉄インゴット$() を使って金床で修理できます。"
+      "text": "通常のハンマーと同じ機能を持ちます。このハンマーは、金床で$(l:crafts/pale_steel_ingot)ペールスチールインゴット$()を使うことで修理できます。"
     }
   ],
   "extra_recipe_mappings": {

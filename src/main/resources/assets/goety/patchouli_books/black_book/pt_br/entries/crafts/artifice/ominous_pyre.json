@@ -23,6 +23,11 @@
     },
     {
       "type": "patchouli:text",
+      "title": "Servos Sinalizadores",
+      "text": "Requisitos: $(li)Neollager $(li)2 Fogueiras $(li)4 Camas $(li)4 Barris"
+    },
+    {
+      "type": "patchouli:text",
       "title": "Servos Vingadores",
       "text": "Requisitos: $(li)Neollager $(li)1 Estandarte $(li)64 Tábuas de Madeira $(li)60 Blocos de Tijolos (Qualquer) $(li)10 Muros $(li)10 Cercas $(li)2 Fornalhas $(li)1 Bancada de Trabalho"
     },

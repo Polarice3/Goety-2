@@ -25,7 +25,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Vindicator;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -148,31 +147,6 @@ public class AbstractZombieVindicator extends ZombieServant {
             super.populateDefaultEquipmentSlots(p_219149_, p_219150_);
         }
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
-    }
-
-    public boolean killedEntity(ServerLevel world, LivingEntity killedEntity) {
-        boolean flag = super.killedEntity(world, killedEntity);
-        float random = this.level.random.nextFloat();
-        if (this.isUpgraded()){
-            if (killedEntity instanceof Vindicator vindicator){
-                if (random <= 0.5F && net.minecraftforge.event.ForgeEventFactory.canLivingConvert(killedEntity, ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), (timer) -> {})) {
-                    EntityType<? extends Mob> entityType = (EntityType<? extends Mob>) this.getType();
-                    AbstractZombieVindicator zombieVindicator = (AbstractZombieVindicator) vindicator.convertTo(entityType, false);
-                    if (zombieVindicator != null) {
-                        zombieVindicator.finalizeSpawn(world, level.getCurrentDifficultyAt(zombieVindicator.blockPosition()), MobSpawnType.CONVERSION, null, null);
-                        zombieVindicator.setLimitedLife(10 * (15 + this.level.random.nextInt(45)));
-                        if (this.getTrueOwner() != null){
-                            zombieVindicator.setTrueOwner(this.getTrueOwner());
-                        }
-                        net.minecraftforge.event.ForgeEventFactory.onLivingConvert(killedEntity, zombieVindicator);
-                        if (!this.isSilent()) {
-                            world.levelEvent((Player) null, 1026, this.blockPosition(), 0);
-                        }
-                    }
-                }
-            }
-        }
-        return flag;
     }
 
     public boolean isConverting() {

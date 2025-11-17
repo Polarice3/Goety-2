@@ -47,7 +47,7 @@ public class SpiderSacBlockEntity extends RandomizableContainerBlockEntity {
     }
 
     protected Component getDefaultName() {
-        return Component.translatable("container.goety.wild_spider_nest");
+        return Component.translatable("container.goety.spider_sac");
     }
 
     @Override

@@ -56,6 +56,7 @@ import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.npc.AbstractVillager;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BannerItem;
 import net.minecraft.world.item.BlockItem;
@@ -68,6 +69,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
@@ -655,7 +657,7 @@ public abstract class RaiderServant extends Summoned {
                     this.moveRaidCenterToNearbyVillageSection();
                 }
 
-                if (!serverLevel.isVillage(this.getRaidPos())) {
+                if (!serverLevel.isVillage(this.getRaidPos()) || this.getRaidVillagers().isEmpty()) {
                     this.celebrationTime = 600;
                     this.missionComplete = true;
                     this.setRaidPos(null);
@@ -738,6 +740,17 @@ public abstract class RaiderServant extends Summoned {
                 })).ifPresent(this::setRaidPos);
             }
         }
+    }
+
+    private List<Villager> getRaidVillagers() {
+        List<Villager> list = new ArrayList<>();
+        if (this.level instanceof ServerLevel serverLevel) {
+            if (this.getRaidPos() != null) {
+                AABB aabb = new AABB(this.getRaidPos()).inflate(16.0D);
+                list = serverLevel.getEntitiesOfClass(Villager.class, aabb, villager -> !villager.isBaby());
+            }
+        }
+        return list;
     }
 
     public boolean canBeLeader(){

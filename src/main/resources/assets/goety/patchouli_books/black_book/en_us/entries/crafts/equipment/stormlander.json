@@ -11,7 +11,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "It can perform the same functionalities as it's mundane counterpart. The hammer can be repaired on an anvil with a $(l:intro/magical_components)Cursed Metal Ingot$()."
+      "text": "It can perform the same functionalities as it's mundane counterpart. The hammer can be repaired on an anvil with a $(l:crafts/pale_steel_ingot)Pale Steel Ingot$()."
     }
   ],
   "extra_recipe_mappings": {

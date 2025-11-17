@@ -1,0 +1,77 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " # ",
+    "#$#",
+    " # "
+  ],
+  "key":
+  {
+    "#":
+    {
+      "tag": "forge:ingots/brick"
+    },
+    "$":
+    {
+      "item": "minecraft:emerald_block"
+    }
+  },
+  "result":
+  {
+    "item": "goety:stash_urn",
+    "nbt": {
+      "BlockEntityTag": {
+        "id": "goety:crypt_urn",
+        "Items": [
+          {
+            "Slot": 0,
+            "id": "minecraft:emerald",
+            "Count": 1
+          },
+          {
+            "Slot": 1,
+            "id": "minecraft:emerald",
+            "Count": 1
+          },
+          {
+            "Slot": 2,
+            "id": "minecraft:emerald",
+            "Count": 1
+          },
+          {
+            "Slot": 3,
+            "id": "minecraft:emerald",
+            "Count": 1
+          },
+          {
+            "Slot": 4,
+            "id": "minecraft:emerald",
+            "Count": 1
+          },
+          {
+            "Slot": 5,
+            "id": "minecraft:emerald",
+            "Count": 1
+          },
+          {
+            "Slot": 6,
+            "id": "minecraft:emerald",
+            "Count": 1
+          },
+          {
+            "Slot": 7,
+            "id": "minecraft:emerald",
+            "Count": 1
+          },
+          {
+            "Slot": 8,
+            "id": "minecraft:emerald",
+            "Count": 1
+          }
+        ]
+      }
+    },
+    "count": 1
+  }
+}

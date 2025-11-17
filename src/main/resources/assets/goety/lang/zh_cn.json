@@ -3243,5 +3243,6 @@
   "item.goety.signaler_servant_spawn_egg": "传令兵仆从刷怪蛋",
   "item.goety.maverick_servant_spawn_egg": "独行者仆从刷怪蛋",
   "info.goety.wild_robe_discount": "荒野法术的灵魂消耗减半",
-  "info.goety.wild_robe": "穿戴者对毒物和酸液免疫， 允许荒野仆从使用灵魂能量进行治疗"
+  "info.goety.wild_robe": "穿戴者对毒物和酸液免疫， 允许荒野仆从使用灵魂能量进行治疗",
+  "block.goety.stash_urn": "Stash Urn"
 }

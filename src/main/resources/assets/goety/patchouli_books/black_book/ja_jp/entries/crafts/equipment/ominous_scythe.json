@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "大鎌は、金床で$(l:intro/magical_components)呪われた鉄インゴット$()を使って修理できます。また、広い範囲の草刈りや作物の収穫、シルクタッチがなくてもスカルクブロックを集める道具としても使えます。"
+      "text": "大鎌は、金床で$(l:intro/magical_components)呪われた鉄インゴット$()か$(l:crafts/pale_steel_ingot)ペールスチールインゴット$()を使って修理できます。また、広い範囲の草刈りや作物の収穫、シルクタッチがなくてもスカルクブロックを集める道具としても使えます。"
     },
     {
       "type": "goety:ritual",

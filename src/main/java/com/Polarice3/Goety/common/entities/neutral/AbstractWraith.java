@@ -298,7 +298,7 @@ public class AbstractWraith extends Summoned {
         if (this.postTeleportTime > 0){
             if (this.postTeleportTime == 36){
                 if (this.level instanceof ServerLevel serverLevel){
-                    serverLevel.sendParticles(new TeleportShockwaveParticleOption(10), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
+                    serverLevel.sendParticles(new TeleportShockwaveParticleOption(8, 4, 10), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
                 }
             }
             --this.postTeleportTime;
@@ -517,7 +517,7 @@ public class AbstractWraith extends Summoned {
             this.level.broadcastEntityEvent(this, (byte) 4);
             this.firingParticles();
             if (this.level instanceof ServerLevel serverLevel){
-                serverLevel.sendParticles(new TeleportShockwaveParticleOption(10), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
+                serverLevel.sendParticles(new TeleportShockwaveParticleOption(8, 4, 10), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
             }
             this.playAttackSound();
         }

@@ -1,0 +1,16 @@
+{
+  "name": "Stash Urn",
+  "icon": "goety:stash_urn",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A simple urn that holds emeralds within itself, that can even break apart and reveal its content when shot with a projectile."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:stash_urn",
+      "recipe2": "goety:stash_urn2"
+    }
+  ]
+}

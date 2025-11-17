@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.ally.illager.train;
 
 import com.Polarice3.Goety.api.entities.ally.illager.ITrainIllager;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.common.blocks.StashUrnBlock;
 import com.Polarice3.Goety.common.blocks.WindBlowerBlock;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.illager.Neollager;
@@ -89,8 +90,8 @@ public class ModIllagerType implements ITrainIllager {
         } else if (BlockFinder.getNearbyEnchantPower(level, blockPos, range, 32)
                 && BlockFinder.getNearbyLitCandles(level, blockPos, range, 16)
                 && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(Blocks.LECTERN), range, 1)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(ModBlocks.AWAKENED_EMERALD_BLOCK.get()), range, 4)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof AmethystClusterBlock, range, 4)
+                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof StashUrnBlock, range, 4)
+                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(BlockTags.BANNERS), range, 2)
                 && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof AbstractSkullBlock, range, 4)
                 && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof FlowerPotBlock flowerPotBlock && flowerPotBlock.getContent() != Blocks.AIR, range, 4)) {
             return ModEntityType.EVOKER_SERVANT.get();

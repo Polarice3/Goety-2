@@ -9,8 +9,7 @@ import com.Polarice3.Goety.common.entities.ally.golem.*;
 import com.Polarice3.Goety.common.entities.ally.illager.*;
 import com.Polarice3.Goety.common.entities.ally.spider.*;
 import com.Polarice3.Goety.common.entities.ally.undead.*;
-import com.Polarice3.Goety.common.entities.ally.undead.bound.BoundEvoker;
-import com.Polarice3.Goety.common.entities.ally.undead.bound.BoundIceologer;
+import com.Polarice3.Goety.common.entities.ally.undead.bound.*;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.*;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.*;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
@@ -871,10 +870,30 @@ public class ModEntityType {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<BoundGeomancer>> BOUND_GEOMANCER = register("bound_geomancer",
+            EntityType.Builder.of(BoundGeomancer::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(10));
+
     public static final RegistryObject<EntityType<BoundIceologer>> BOUND_ICEOLOGER = register("bound_iceologer",
             EntityType.Builder.of(BoundIceologer::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<BoundCryologer>> BOUND_CRYOLOGER = register("bound_cryologer",
+            EntityType.Builder.of(BoundCryologer::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<BoundWindCaller>> BOUND_WIND_CALLER = register("bound_wind_caller",
+            EntityType.Builder.of(BoundWindCaller::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<BoundStormCaster>> BOUND_STORM_CASTER = register("bound_storm_caster",
+            EntityType.Builder.of(BoundStormCaster::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(10));
 
     public static final RegistryObject<EntityType<HauntedArmorServant>> HAUNTED_ARMOR_SERVANT = register("haunted_armor_servant",
             EntityType.Builder.of(HauntedArmorServant::new, MobCategory.MONSTER)

@@ -1,0 +1,16 @@
+{
+  "name": "Fortalezas dos Feiticeiros",
+  "icon": "goety:crag_bricks",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Enquanto os Illagers tendem a ficar de um lado da magia, há rumores de que alguns deles buscam dominar todas elas e se manterem em fortalezas especializadas... junto com alguns prisioneiros."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/sorcerous_keep.png"],
+      "border": true
+    }
+  ]
+}

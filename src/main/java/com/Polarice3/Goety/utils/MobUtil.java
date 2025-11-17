@@ -1429,7 +1429,10 @@ public class MobUtil {
                 || (attacker instanceof IOwned ownedAttacker && ownedAttacker.isHostile())){
             return target instanceof Player player && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player);
         } else if (target instanceof NeutralMob neutralMob) {
-            return (owner != null && neutralMob.getTarget() == owner) || (neutralMob.getTarget() == attacker);
+            return (owner instanceof Player player
+                    && ((!SEHelper.getGrudgeEntities(player).isEmpty() && SEHelper.getGrudgeEntities(player).contains(target))
+                    || (!SEHelper.getGrudgeEntityTypes(player).isEmpty() && SEHelper.getGrudgeEntityTypes(player).contains(target.getType()))))
+                    || (owner != null && neutralMob.getTarget() == owner) || (neutralMob.getTarget() == attacker);
         } else {
             return (((target instanceof Enemy && !(target instanceof IOwned)) || (target instanceof IOwned ownedTarget && ownedTarget.isHostile()))
                     && !((target.getMobType() == MobType.UNDEAD || target.getType().is(ModTags.EntityTypes.LICH_NEUTRAL)) && LichdomHelper.isLich(owner) && MainConfig.LichUndeadFriends.get())

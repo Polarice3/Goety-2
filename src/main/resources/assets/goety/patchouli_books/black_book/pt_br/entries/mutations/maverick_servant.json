@@ -1,0 +1,24 @@
+{
+  "name": "Servo Maverick",
+  "icon": "minecraft:iron_sword",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Ultimamente, os Vendedores Ambulantes parecem se transformar quando atingidos por um Raio, você começou a se perguntar se pode fazer um servo dos Mavericks assim como fez com as Bruxas. Depois de um tempo, você descobriu que alguma Energia das Almas, uma Esmeralda Mágica e um Núcleo Místico podem transformar um comerciante desajeitado em um Maverick leal."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_trader_to_maverick"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:maverick_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Você também é capaz de negociar com seu Servo Maverick dando-lhe uma Esmeralda, sem precisar vestir roupas apropriadas para fazê-lo. Você também pode negociar com outros Servos Maverick, desde que seja aliado de seu mestre, se eles tiverem um, e vestindo as roupas apropriadas."
+    }
+  ]
+}

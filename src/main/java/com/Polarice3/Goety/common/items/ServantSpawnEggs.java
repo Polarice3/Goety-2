@@ -90,8 +90,20 @@ public class ServantSpawnEggs {
     public static final RegistryObject<ServantSpawnEggItem> BOUND_EVOKER_SPAWN_EGG = ITEMS.register("bound_evoker_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.BOUND_EVOKER, 0x5a6363, 0x363636, egg()));
 
+    public static final RegistryObject<ServantSpawnEggItem> BOUND_GEOMANCER_SPAWN_EGG = ITEMS.register("bound_geomancer_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.BOUND_GEOMANCER, 0x45394c, 0x363636, egg()));
+
     public static final RegistryObject<ServantSpawnEggItem> BOUND_ICEOLOGER_SPAWN_EGG = ITEMS.register("bound_iceologer_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.BOUND_ICEOLOGER, 0x466470, 0x363636, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> BOUND_CRYOLOGER_SPAWN_EGG = ITEMS.register("bound_cryologer_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.BOUND_CRYOLOGER, 0x8da7b5, 0x363636, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> BOUND_WIND_CALLER_SPAWN_EGG = ITEMS.register("bound_wind_caller_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.BOUND_WIND_CALLER, 0x2d413f, 0x363636, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> BOUND_STORM_CASTER_SPAWN_EGG = ITEMS.register("bound_storm_caster_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.BOUND_STORM_CASTER, 0x736849, 0x363636, egg()));
 
     public static final RegistryObject<ServantSpawnEggItem> HAUNTED_SKULL_SPAWN_EGG = ITEMS.register("haunted_skull_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.HAUNTED_SKULL, 0x8fe2e3, 0x505050, egg()));

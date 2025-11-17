@@ -25,10 +25,10 @@ public class MagicSmokeParticle extends TextureSheetParticle {
     public int colorFrom;
     public int colorTo;
 
-    public MagicSmokeParticle(ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd, int colorFrom, int colorTo, int duration, float size) {
+    public MagicSmokeParticle(ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd, int colorFrom, int colorTo, int duration, float size, float gravity) {
         super(clientLevel, x, y, z, xd, yd, zd);
         this.friction = 0.96F;
-        this.gravity = -0.1F;
+        this.gravity = gravity;
         this.speedUpWhenYMotionIsBlocked = true;
         this.xd = xd == 0.0D ? (this.random.nextDouble() * 2 - 1) / 10 : xd;
         this.yd = yd == 0.0D ? 0.1D + this.random.nextDouble() / 10 : yd;
@@ -102,7 +102,7 @@ public class MagicSmokeParticle extends TextureSheetParticle {
         }
 
         public Particle createParticle(Option option, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MagicSmokeParticle trailParticle = new MagicSmokeParticle(clientLevel, d, e, f, g, h, i, option.getColorFrom(), option.getColorTo(), option.getDuration(), option.getSize());
+            MagicSmokeParticle trailParticle = new MagicSmokeParticle(clientLevel, d, e, f, g, h, i, option.getColorFrom(), option.getColorTo(), option.getDuration(), option.getSize(), option.getGravity());
             trailParticle.pickSprite(this.sprite);
             return trailParticle;
         }
@@ -113,7 +113,8 @@ public class MagicSmokeParticle extends TextureSheetParticle {
                 Codec.INT.fieldOf("colorFrom").forGetter(Option::getColorFrom),
                 Codec.INT.fieldOf("colorTo").forGetter(Option::getColorTo),
                 ExtraCodecs.POSITIVE_INT.fieldOf("duration").forGetter(Option::getDuration),
-                Codec.FLOAT.fieldOf("size").forGetter(Option::getSize)
+                Codec.FLOAT.fieldOf("size").forGetter(Option::getSize),
+                Codec.FLOAT.fieldOf("gravity").forGetter(Option::getGravity)
         ).apply(instance, Option::new));
 
         public static final ParticleOptions.Deserializer<Option> DESERIALIZER = new ParticleOptions.Deserializer<>() {
@@ -126,6 +127,8 @@ public class MagicSmokeParticle extends TextureSheetParticle {
                 int duration = p_235962_.readInt();
                 p_235962_.expect(' ');
                 float size = p_235962_.readFloat();
+                p_235962_.expect(' ');
+                float gravity = p_235962_.readFloat();
                 return new Option(colorFrom, colorTo, duration, size);
             }
 
@@ -137,12 +140,22 @@ public class MagicSmokeParticle extends TextureSheetParticle {
         public int colorTo;
         public int duration;
         public float size;
+        public float gravity;
+
+        public Option(int colorFrom, int colorTo, int duration, float size, float gravity){
+            this.colorFrom = colorFrom;
+            this.colorTo = colorTo;
+            this.duration = duration;
+            this.size = size;
+            this.gravity = gravity;
+        }
 
         public Option(int colorFrom, int colorTo, int duration, float size){
             this.colorFrom = colorFrom;
             this.colorTo = colorTo;
             this.duration = duration;
             this.size = size;
+            this.gravity = -0.1F;
         }
 
         public ParticleType<Option> getType() {
@@ -155,12 +168,13 @@ public class MagicSmokeParticle extends TextureSheetParticle {
             p_123732_.writeInt(this.getColorTo());
             p_123732_.writeInt(this.getDuration());
             p_123732_.writeFloat(this.getSize());
+            p_123732_.writeFloat(this.getGravity());
         }
 
         @Override
         public String writeToString() {
-            return String.format(Locale.ROOT, "%s %s %s %s %.2f",
-                    BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.colorFrom, this.colorTo, this.duration, this.size);
+            return String.format(Locale.ROOT, "%s %s %s %s %.2f %.2f",
+                    BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.colorFrom, this.colorTo, this.duration, this.size, this.gravity);
         }
 
         public int getColorFrom() {
@@ -177,6 +191,10 @@ public class MagicSmokeParticle extends TextureSheetParticle {
 
         public float getSize() {
             return this.size;
+        }
+
+        public float getGravity() {
+            return this.gravity;
         }
     }
 }

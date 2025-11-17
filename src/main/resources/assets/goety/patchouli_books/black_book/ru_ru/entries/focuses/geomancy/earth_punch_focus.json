@@ -1,0 +1,19 @@
+{
+  "name": "Фокус земляного удара",
+  "icon": "goety:earth_punch_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Этот фокус призывает земляной кулак под целью или позицией, нанося урон несоюзным существам и подбрасывая их в воздух.."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/earth_punch_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/geo_staff)гео-посоха$() позволит призвать сразу несколько кулаков под ближайшими противниками."
+    }
+  ]
+}

@@ -254,7 +254,10 @@ public class Ravaged extends RaiderServant {
         if (this.getTrueOwner() instanceof Player player) {
             MobUtil.convertTo(this, ModEntityType.MOD_RAVAGER.get(), false, player);
         } else {
-            this.convertTo(ModEntityType.MOD_RAVAGER.get(), false);
+            ModRavager ravager = this.convertTo(ModEntityType.MOD_RAVAGER.get(), false);
+            if (ravager != null) {
+                ravager.setHostile(this.isHostile());
+            }
         }
         if (!this.isSilent()) {
             this.level.levelEvent(null, 1027, this.blockPosition(), 0);

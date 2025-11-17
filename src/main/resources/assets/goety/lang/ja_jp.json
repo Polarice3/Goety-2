@@ -3186,5 +3186,14 @@
   "entity.goety.signaler_servant": "シグナラーの従者",
   "entity.goety.maverick_servant": "マーヴェリックの従者",
   "item.goety.signaler_servant_spawn_egg": "シグナラーの従者のスポーンエッグ",
-  "item.goety.maverick_servant_spawn_egg": "マーヴェリックの従者のスポーンエッグ"
+  "item.goety.maverick_servant_spawn_egg": "マーヴェリックの従者のスポーンエッグ",
+  "block.goety.stash_urn": "隠し壺",
+  "entity.goety.bound_geomancer":"縛られたジオマンサー",
+  "entity.goety.bound_cryologer":"縛られたクライオロジャー",
+  "entity.goety.bound_wind_caller":"縛られたウィンドコーラー",
+  "entity.goety.bound_storm_caster":"縛られたストームキャスター",
+  "item.goety.bound_geomancer_spawn_egg": "縛られたジオマンサーのスポーンエッグ",
+  "item.goety.bound_cryologer_spawn_egg": "縛られたクライオロジャーのスポーンエッグ",
+  "item.goety.bound_wind_caller_spawn_egg": "縛られたウィンドコーラーのスポーンエッグ",
+  "item.goety.bound_storm_caster_spawn_egg": "縛られたストームキャスターのスポーンエッグ"
 }

@@ -1,0 +1,25 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:summon_tamed",
+  "activation_item": {
+    "item": "goety:shocking_focus"
+  },
+  "craftType": "necroturgy",
+  "entity_to_summon": "goety:bound_storm_caster",
+  "soulCost": 5,
+  "duration": 30,
+  "ingredients": [
+    {
+      "item": "goety:ectoplasm"
+    },
+    {
+      "tag": "forge:gems/lapis"
+    },
+    {
+      "tag": "forge:ingots/gold"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

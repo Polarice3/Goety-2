@@ -1,11 +1,11 @@
 {
   "name": "Serva Bruxa",
-  "icon": "goety:occult_fabric",
+  "icon": "goety:witch_hat",
   "category": "goety:mutations",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Embora transformar Aldeões em Bruxas seja uma ciência bem conhecida, você se perguntou como fazer uma Bruxa que sirva você. Felizmente, um pouco de Energia das Almas, muitas Esmeraldas e um Núcleo Místico permitem criar uma Bruxa leal."
+      "text": "Embora transformar Aldeões em Bruxas seja uma ciência bem conhecida, você se perguntou como fazer uma Bruxa que sirva você. Felizmente, um pouco de Energia das Almas, e muitas Esmeraldas e um Núcleo Místico, permitem fazer uma Bruxa leal."
     },
     {
       "type": "goety:ritual",
@@ -18,7 +18,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Você também pode negociar com sua Serva Bruxa dando-lhe uma Esmeralda, sem precisar vestir trajes apropriados para fazê-lo. Você também pode negociar com outras Servas Bruxas, desde que seja aliado de seu mestre, se tiver um, e esteja vestindo as roupas apropriadas."
+      "text": "Você também é capaz de negociar com sua Serva Bruxa dando-lhe uma Esmeralda, sem precisar vestir roupas apropriadas para fazê-lo. Você também pode negociar com outras Servas Bruxa, desde que seja aliado de seu mestre, se elas tiverem um, e vestindo as roupas apropriadas."
     }
   ]
 }

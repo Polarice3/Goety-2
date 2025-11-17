@@ -14,6 +14,8 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -179,6 +181,41 @@ public class EsotericTesseract extends Item implements IPersist {
 
         if (typesKey != null) {
             servantTag.putString("ServantType", typesKey.toString());
+            if (mob.invulnerable) {
+                servantTag.putBoolean("Invulnerable", true);
+            }
+            if (mob.isSilent()) {
+                servantTag.putBoolean("Silent", mob.isSilent());
+            }
+            if (mob.isNoGravity()) {
+                servantTag.putBoolean("NoGravity", mob.isNoGravity());
+            }
+            if (!mob.canUpdate()) {
+                servantTag.putBoolean("CanUpdate", mob.canUpdate());
+            }
+
+            if (!mob.getTags().isEmpty()) {
+                ListTag listtag = new ListTag();
+
+                for(String s : mob.getTags()) {
+                    listtag.add(StringTag.valueOf(s));
+                }
+
+                servantTag.put("Tags", listtag);
+            }
+
+            /*try {
+                net.minecraftforge.common.capabilities.CapabilityProvider.AsField<Entity> capProvider = new net.minecraftforge.common.capabilities.CapabilityProvider.AsField<>(Entity.class, mob);
+                CompoundTag caps = capProvider.serializeInternal();
+                if (caps != null) {
+                    servantTag.put("ForgeCaps", caps);
+                }
+            } catch (Throwable ignored) {
+            }*/
+
+            if (!mob.getPersistentData().isEmpty()) {
+                servantTag.put("ForgeData", mob.getPersistentData().copy());
+            }
             mob.addAdditionalSaveData(servantTag);
             if (mob.hasCustomName()) {
                 servantTag.putString("CustomName", Component.Serializer.toJson(mob.getCustomName()));
@@ -236,6 +273,31 @@ public class EsotericTesseract extends Item implements IPersist {
                     if (entityType != null) {
                         Entity entity = entityType.create(level);
                         if (entity instanceof Mob servant && entity instanceof OwnableEntity) {
+                            if (servantTag.contains("Invulnerable")) {
+                                servant.invulnerable = servantTag.getBoolean("Invulnerable");
+                            }
+                            if (servantTag.contains("Silent")) {
+                                servant.setSilent(servantTag.getBoolean("Silent"));
+                            }
+                            if (servantTag.contains("NoGravity")) {
+                                servant.setNoGravity(servantTag.getBoolean("NoGravity"));
+                            }
+                            if (servantTag.contains("CanUpdate")) {
+                                servant.canUpdate(servantTag.getBoolean("CanUpdate"));
+                            }
+                            if (servantTag.contains("Tags", 9)) {
+                                servant.getTags().clear();
+                                ListTag listtag3 = servantTag.getList("Tags", 8);
+                                int i = Math.min(listtag3.size(), 1024);
+
+                                for(int j = 0; j < i; ++j) {
+                                    servant.getTags().add(listtag3.getString(j));
+                                }
+                            }
+                            if (servantTag.contains("ForgeData", 10)) {
+                                servant.getPersistentData().merge(servantTag.getCompound("ForgeData"));
+                            }
+
                             servant.readAdditionalSaveData(servantTag);
                             if (!servantTag.getString("CustomName").isEmpty()) {
                                 servant.setCustomName(Component.Serializer.fromJson(servantTag.getString("CustomName")));
@@ -271,6 +333,31 @@ public class EsotericTesseract extends Item implements IPersist {
                     if (entityType != null) {
                         Entity entity = entityType.create(level);
                         if (entity instanceof Mob servant && entity instanceof OwnableEntity) {
+                            if (servantTag.contains("Invulnerable")) {
+                                servant.invulnerable = servantTag.getBoolean("Invulnerable");
+                            }
+                            if (servantTag.contains("Silent")) {
+                                servant.setSilent(servantTag.getBoolean("Silent"));
+                            }
+                            if (servantTag.contains("NoGravity")) {
+                                servant.setNoGravity(servantTag.getBoolean("NoGravity"));
+                            }
+                            if (servantTag.contains("CanUpdate")) {
+                                servant.canUpdate(servantTag.getBoolean("CanUpdate"));
+                            }
+                            if (servantTag.contains("Tags", 9)) {
+                                servant.getTags().clear();
+                                ListTag listtag3 = servantTag.getList("Tags", 8);
+                                int i = Math.min(listtag3.size(), 1024);
+
+                                for(int j = 0; j < i; ++j) {
+                                    servant.getTags().add(listtag3.getString(j));
+                                }
+                            }
+                            if (servantTag.contains("ForgeData", 10)) {
+                                servant.getPersistentData().merge(servantTag.getCompound("ForgeData"));
+                            }
+
                             servant.readAdditionalSaveData(servantTag);
                             if (!servantTag.getString("CustomName").isEmpty()) {
                                 servant.setCustomName(Component.Serializer.fromJson(servantTag.getString("CustomName")));

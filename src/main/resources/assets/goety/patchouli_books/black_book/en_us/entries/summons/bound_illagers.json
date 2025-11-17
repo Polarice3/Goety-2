@@ -22,6 +22,18 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:bound_geomancer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "No longer bound to the ground, these undead spellcasters nonetheless retain their mastery over the earth."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_geomancer"
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:bound_iceologer"
     },
     {
@@ -31,6 +43,43 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_bound_iceologer"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_cryologer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "As teary as they are in life, the undead Cryologers will rain hail and conjure walls upon their enemies. For some reason, despite their teary-eyed appearance, they seemed to be less miserable and more apathetic to their predicament than the other bound illagers."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_cryologer"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_wind_caller",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These Illagers retain their power over the wind in death, with a neat caveat of truly being able to fly rather than slowly fall to the ground."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_wind_caller"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_storm_caster"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Not even death can stop the storm within these plunderers, and they're willing to reveal it to their foes."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_storm_caster"
     },
     {
       "type": "patchouli:text",

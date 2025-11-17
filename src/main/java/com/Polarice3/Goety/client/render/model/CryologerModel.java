@@ -3,6 +3,7 @@ package com.Polarice3.Goety.client.render.model;
 import com.Polarice3.Goety.client.render.animation.CryologerAnimations;
 import com.Polarice3.Goety.client.render.layer.HierarchicalArmor;
 import com.Polarice3.Goety.common.entities.ally.illager.CryologerServant;
+import com.Polarice3.Goety.common.entities.ally.undead.bound.BoundCryologer;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Cryologer;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.google.common.collect.ImmutableList;
@@ -162,6 +163,27 @@ public class CryologerModel<T extends Mob> extends HierarchicalModel<T> implemen
 				this.left_arm.visible = true;
 			}
 		} else if (entity instanceof CryologerServant cryologer) {
+			this.animate(cryologer.idleAnimationState, CryologerAnimations.IDLE, ageInTicks);
+			this.animate(cryologer.breathAnimationState, CryologerAnimations.BREATH, ageInTicks);
+			this.animate(cryologer.cloudAnimationState, CryologerAnimations.HAIL, ageInTicks);
+			this.animate(cryologer.wallAnimationState, CryologerAnimations.WALL, ageInTicks);
+			this.animate(cryologer.chunkAnimationState, CryologerAnimations.CHUNK, ageInTicks);
+			if (cryologer.getCurrentAnimation() == cryologer.getAnimationState("idle")) {
+				this.right_arm.xRot = -0.75F;
+				this.right_arm.zRot = 0.0F;
+				this.right_arm.yRot = 0.0F;
+				this.left_arm.xRot = -0.75F;
+				this.left_arm.zRot = 0.0F;
+				this.left_arm.yRot = 0.0F;
+				this.arms.visible = true;
+				this.right_arm.visible = false;
+				this.left_arm.visible = false;
+			} else {
+				this.arms.visible = false;
+				this.right_arm.visible = true;
+				this.left_arm.visible = true;
+			}
+		} else if (entity instanceof BoundCryologer cryologer) {
 			this.animate(cryologer.idleAnimationState, CryologerAnimations.IDLE, ageInTicks);
 			this.animate(cryologer.breathAnimationState, CryologerAnimations.BREATH, ageInTicks);
 			this.animate(cryologer.cloudAnimationState, CryologerAnimations.HAIL, ageInTicks);

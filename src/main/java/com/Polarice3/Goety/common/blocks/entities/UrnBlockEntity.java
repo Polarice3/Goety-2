@@ -16,7 +16,7 @@ public class UrnBlockEntity extends RandomizableContainerBlockEntity {
     private NonNullList<ItemStack> items = NonNullList.withSize(27, ItemStack.EMPTY);
 
     public UrnBlockEntity(BlockPos p_155630_, BlockState p_155631_) {
-        super(ModBlockEntities.CRYPT_URN.get(), p_155630_, p_155631_);
+        super(ModBlockEntities.URN.get(), p_155630_, p_155631_);
     }
 
     protected void saveAdditional(CompoundTag p_187459_) {
@@ -38,11 +38,11 @@ public class UrnBlockEntity extends RandomizableContainerBlockEntity {
         return 27;
     }
 
-    protected NonNullList<ItemStack> getItems() {
+    public NonNullList<ItemStack> getItems() {
         return this.items;
     }
 
-    protected void setItems(NonNullList<ItemStack> pItems) {
+    public void setItems(NonNullList<ItemStack> pItems) {
         this.items = pItems;
     }
 

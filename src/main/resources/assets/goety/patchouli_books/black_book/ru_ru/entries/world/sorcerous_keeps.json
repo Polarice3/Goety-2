@@ -1,0 +1,16 @@
+{
+  "name": "Крепость колдунов",
+  "icon": "goety:crag_bricks",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Хотя среди Злодеян принято совершенствоваться в одном направлении магии, ходят слухи, что некоторые из них стремяться овладеть всеми видами магии сразу, запираясь для этого в специальных крепостях... вместе с пленниками."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/sorcerous_keep.png"],
+      "border": true
+    }
+  ]
+}

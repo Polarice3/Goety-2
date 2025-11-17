@@ -1,0 +1,15 @@
+{
+  "name": "Рейдерский рог",
+  "icon": "goety:raiding_horn",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Этот рог, при использовании в деревне, позволяет вам заставить ваших $(l:mutations/illager_servants#raid)Рейдеров$() начать рейд."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:raiding_horn"
+    }
+  ]
+}

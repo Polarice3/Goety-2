@@ -2,6 +2,7 @@ package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.client.render.layer.HierarchicalArmor;
 import com.Polarice3.Goety.common.entities.ally.illager.GeomancerServant;
+import com.Polarice3.Goety.common.entities.ally.undead.bound.BoundGeomancer;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -103,6 +104,12 @@ public class GeomancerModel<T extends LivingEntity> extends HierarchicalModel<T>
 		state.startIfStopped(entity.tickCount);
 		this.animate(state, SCALE, ageInTicks);
 		if (entity instanceof GeomancerServant servant){
+			this.animate(servant.idleAnimationState, IDLE, ageInTicks);
+			this.animate(servant.attackAnimationState, ATTACK, ageInTicks);
+			if (servant.getCurrentAnimation() != servant.getAnimationState("attack")){
+				this.animateWalk(WALK, limbSwing, limbSwingAmount, 2.5F, 20.0F);
+			}
+		} else if (entity instanceof BoundGeomancer servant){
 			this.animate(servant.idleAnimationState, IDLE, ageInTicks);
 			this.animate(servant.attackAnimationState, ATTACK, ageInTicks);
 			if (servant.getCurrentAnimation() != servant.getAnimationState("attack")){

@@ -121,8 +121,8 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<VoidShrineBlockEntity>> VOID_SHRINE = BLOCK_ENTITY.register("void_shrine",
             () -> BlockEntityType.Builder.of(VoidShrineBlockEntity::new, ModBlocks.VOID_SHRINE.get()).build(null));
 
-    public static final RegistryObject<BlockEntityType<UrnBlockEntity>> CRYPT_URN = BLOCK_ENTITY.register("crypt_urn",
-            () -> BlockEntityType.Builder.of(UrnBlockEntity::new, ModBlocks.CRYPT_URN.get()).build(null));
+    public static final RegistryObject<BlockEntityType<UrnBlockEntity>> URN = BLOCK_ENTITY.register("crypt_urn",
+            () -> BlockEntityType.Builder.of(UrnBlockEntity::new, ModBlocks.CRYPT_URN.get(), ModBlocks.STASH_URN.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<SpiderSacBlockEntity>> SPIDER_SAC = BLOCK_ENTITY.register("spider_sac",
             () -> BlockEntityType.Builder.of(SpiderSacBlockEntity::new, ModBlocks.SPIDER_SAC.get()).build(null));

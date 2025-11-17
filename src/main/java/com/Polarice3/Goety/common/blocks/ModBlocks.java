@@ -200,6 +200,7 @@ public class ModBlocks {
     public static final RegistryObject<CryptChestBlock> CRYPT_CHEST = isterRegister("crypt_chest", CryptChestBlock::new, LootTableType.EMPTY);
     public static final RegistryObject<LoftyChestBlock> LOFTY_CHEST = isterRegister("lofty_chest", () -> new LoftyChestBlock(Block.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASS).strength(5.0F, 3600000.0F).sound(SoundType.NETHER_BRICKS).lightLevel(light -> 6)), LootTableType.EMPTY);
     public static final RegistryObject<Block> SPIDER_SAC = register("spider_sac", SpiderSacBlock::new, true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> STASH_URN = register("stash_urn", StashUrnBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> SOUL_LIGHT_BLOCK = register("soul_light", SoulLightBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> GLOW_LIGHT_BLOCK = register("glow_light", GlowLightBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> DIAMOND_MOLD_BLOCK = register("diamond_mold_block", () ->
@@ -553,9 +554,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> STUDDED_STEEP_WOOD = register("studded_steep_wood",
             () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> LINED_STEEP_WOOD = register("lined_steep_wood",
-            () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
+            () -> new FacingBlock(Block.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> RIMMED_STEEP_WOOD = register("rimmed_steep_wood",
-            () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
+            () -> new FacingBlock(Block.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> STEEP_PRESSURE_PLATE = register("steep_pressure_plate",
             () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of().mapColor(STEEP_PLANKS.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY), ModBlockSetType.WINDSWEPT));
     public static final RegistryObject<Block> STEEP_BUTTON = register("steep_button",

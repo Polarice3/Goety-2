@@ -1,0 +1,26 @@
+{
+    "parent": "goety:block/template_loot_urn",
+    "loader": "forge:composite",
+    "textures": {
+        "urn": "goety:block/stash_urn",
+        "particle": "minecraft:block/terracotta"
+    },
+    "item_render_order": [
+        "urn",
+        "emission"
+    ],
+    "children": {
+        "urn": {
+            "parent": "goety:block/template_loot_urn",
+            "textures": {
+                "urn": "goety:block/stash_urn"
+            }
+        },
+        "emission": {
+            "parent": "goety:block/template_loot_urn_glow",
+            "textures": {
+                "glow": "goety:block/stash_urn_emission"
+            }
+        }
+    }
+}

@@ -45,6 +45,14 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:signaler_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Embora rejeitados por outros por sua falta de habilidades mágicas ou marciais, esses Illagers são altamente úteis para detectar ameaças à distância, especialmente quando empoleirados no alto, e soar um chifre que faz com que servos Guardiões em um grande raio ao seu redor os ataquem. Essas ameaças são um Jogador hostil, uma criatura hostil com o dobro da saúde máxima do Sinalizador ou uma horda de inimigos, cujo tamanho depende do que os compõe e se eles têm uma saúde máxima maior que a do Sinalizador."
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:vindicator_servant"
     },
     {
@@ -179,7 +187,7 @@
       "item": "goety:ominous_shackles",
       "anchor": "capture",
       "title": "Capturando",
-      "text": "Clicar com o botão direito em um Saqueador com Algemas Sinistras fará com que ele entre no Modo de Captura onde, em vez de matar Aldeões, eles os transformarão em $(l:goety:mutations/prisoners)Prisioneiros$() que seguirão seu captor e podem ser comandados por você. Clicar com o botão direito no saqueador em Captura com um Tesouras fará com que ele pare de estar no Modo de Captura."
+      "text": "Clicar com o botão direito em um Saqueador com Algemas Sinistras fará com que ele entre no Modo de Captura onde, em vez de matar Aldeões, eles os transformarão em $(l:goety:mutations/prisoners)Prisioneiros$() que seguirão seu captor e podem ser comandados por você. Clicar com o botão direito no saqueador em Captura com uma Tesoura fará com que ele pare de estar no Modo de Captura."
     },
     {
       "type": "patchouli:text",
@@ -198,7 +206,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Illagers podem receber armaduras (se a configuração estiver definida como verdadeira) e podem receber um Totem da Imortalidade, desde que sua mão secundária esteja vazia."
+      "text": "Illagers podem receber armaduras (se a configuração estiver definida como verdadeira) e podem receber um Totem da Imortalidade, desde que sua mão secundária esteja vazia. Clicar com o botão direito neles com um Graveto fará com que eles soltem seu Totem de sua Mão Secundária."
     }
   ]
 }

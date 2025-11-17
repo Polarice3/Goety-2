@@ -1,16 +1,30 @@
 {
   "variants": {
-    "axis=x": {
+    "facing=down": {
+      "model": "goety:block/lined_steep_wood",
+      "x": 180
+    },
+    "facing=up": {
+      "model": "goety:block/lined_steep_wood"
+    },
+    "facing=north": {
+      "model": "goety:block/lined_steep_wood",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "goety:block/lined_steep_wood",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west":  {
+      "model": "goety:block/lined_steep_wood",
+      "x": 90,
+      "y": 270
+    },
+    "facing=east":  {
       "model": "goety:block/lined_steep_wood",
       "x": 90,
       "y": 90
-    },
-    "axis=y": {
-      "model": "goety:block/lined_steep_wood"
-    },
-    "axis=z": {
-      "model": "goety:block/lined_steep_wood",
-      "x": 90
     }
   }
 }

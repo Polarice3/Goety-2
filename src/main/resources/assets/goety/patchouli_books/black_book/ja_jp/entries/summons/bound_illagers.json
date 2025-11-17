@@ -22,6 +22,18 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:bound_geomancer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "もはや地面にいないにもかかわらず、これらのアンデッドの魔法使いたちは依然として地球に対する支配力を保持しています。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_geomancer"
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:bound_iceologer"
     },
     {
@@ -33,8 +45,45 @@
       "recipe": "goety:thrall/summon_bound_iceologer"
     },
     {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_cryologer"
+    },
+    {
       "type": "patchouli:text",
-      "text": "これらの縛られた魂達は、エクトプラズムで右クリックすることで回復することができます。"
+      "text": "生前は涙もろいアンデッドのクライオロジャーは、敵に氷雨を降らせ、壁を召喚する。なぜか、涙目で見守る姿とは裏腹に、他の縛られたイリジャーたちほど、悲惨さや窮状への無関心さは感じられない。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_cryologer"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_wind_caller",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "これらの縛られたイリジャーは、死んでも風を操る力を保持していますが、ゆっくりと地面に落ちるのではなく、本当に飛ぶことができるという便利な点があります。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_wind_caller"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_storm_caster"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "死をもってしても、内なる嵐を止めることはできず、彼らはそれを敵に明かすつもりでいる。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_storm_caster"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "これらの縛られたイリジャーは、エクトプラズムで右クリックすることで回復することができます。"
     },
     {
       "type": "patchouli:text",

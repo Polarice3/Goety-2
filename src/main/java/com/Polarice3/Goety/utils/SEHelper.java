@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.capabilities.soulenergy.*;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.ally.AnimalSummon;
 import com.Polarice3.Goety.common.entities.ally.illager.Prisoner;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Ripper;
 import com.Polarice3.Goety.common.entities.util.SurveyEye;
@@ -185,7 +186,7 @@ public class SEHelper {
                     return MainConfig.UndeadSouls.get();
                 } else if (victim.getMobType() == MobType.ARTHROPOD) {
                     return MainConfig.AnthropodSouls.get();
-                } else if (victim instanceof Animal) {
+                } else if (victim instanceof Animal || victim instanceof AnimalSummon) {
                     return MainConfig.AnimalSouls.get();
                 } else if (victim instanceof Raider && !(victim instanceof Ripper)) {
                     return MainConfig.IllagerSouls.get();

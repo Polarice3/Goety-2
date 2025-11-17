@@ -608,7 +608,11 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.SKELETON_PILLAGER_SERVANT.get(), SkeletonPillagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), ZombieVindicatorRenderer::new);
         event.registerEntityRenderer(ModEntityType.BOUND_EVOKER.get(), BoundEvokerRenderer::new);
+        event.registerEntityRenderer(ModEntityType.BOUND_GEOMANCER.get(), BoundGeomancerRenderer::new);
         event.registerEntityRenderer(ModEntityType.BOUND_ICEOLOGER.get(), BoundIceologerRenderer::new);
+        event.registerEntityRenderer(ModEntityType.BOUND_CRYOLOGER.get(), BoundCryologerRenderer::new);
+        event.registerEntityRenderer(ModEntityType.BOUND_WIND_CALLER.get(), BoundWindCallerRenderer::new);
+        event.registerEntityRenderer(ModEntityType.BOUND_STORM_CASTER.get(), BoundStormCasterRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_ARMOR_SERVANT.get(), HauntedArmorRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_SKULL.get(), HauntedSkullRenderer::new);
         event.registerEntityRenderer(ModEntityType.DOPPELGANGER.get(), (render) -> new DoppelgangerRenderer(render, false));

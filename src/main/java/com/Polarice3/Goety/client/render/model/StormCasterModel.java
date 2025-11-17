@@ -3,6 +3,7 @@ package com.Polarice3.Goety.client.render.model;
 import com.Polarice3.Goety.client.render.animation.StormCasterAnimations;
 import com.Polarice3.Goety.client.render.layer.HierarchicalArmor;
 import com.Polarice3.Goety.common.entities.ally.illager.StormCasterServant;
+import com.Polarice3.Goety.common.entities.ally.undead.bound.BoundStormCaster;
 import com.Polarice3.Goety.common.entities.hostile.illagers.StormCaster;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.google.common.collect.ImmutableList;
@@ -171,6 +172,14 @@ public class StormCasterModel<T extends LivingEntity> extends HierarchicalModel<
 				this.animateWalk(StormCasterAnimations.MOVE, limbSwing, limbSwingAmount, 2.5F, 20.0F);
 			}
 		} else if (entity instanceof StormCasterServant servant) {
+			this.animate(servant.idleAnimationState, StormCasterAnimations.IDLE, ageInTicks);
+			this.animate(servant.shockAnimationState, StormCasterAnimations.SHOCK, ageInTicks);
+			this.animate(servant.dischargeAnimationState, StormCasterAnimations.DISCHARGE, ageInTicks);
+			this.animate(servant.cloudAnimationState, StormCasterAnimations.SUMMON_CLOUD, ageInTicks);
+			if (!servant.isAttacking()){
+				this.animateWalk(StormCasterAnimations.MOVE, limbSwing, limbSwingAmount, 2.5F, 20.0F);
+			}
+		} else if (entity instanceof BoundStormCaster servant) {
 			this.animate(servant.idleAnimationState, StormCasterAnimations.IDLE, ageInTicks);
 			this.animate(servant.shockAnimationState, StormCasterAnimations.SHOCK, ageInTicks);
 			this.animate(servant.dischargeAnimationState, StormCasterAnimations.DISCHARGE, ageInTicks);

@@ -1,0 +1,16 @@
+{
+  "name": "隠し壺",
+  "icon": "goety:stash_urn",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "中にエメラルドが入っているシンプルな壺。発射物で撃たれると壊れて中身が現れることもあります。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:stash_urn",
+      "recipe2": "goety:stash_urn2"
+    }
+  ]
+}
