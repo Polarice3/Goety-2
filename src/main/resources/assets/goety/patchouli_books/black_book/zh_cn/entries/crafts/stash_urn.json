@@ -1,0 +1,16 @@
+{
+  "name": "隐秘之瓮",
+  "icon": "goety:stash_urn",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "一个简单的绿宝石储藏瓮，当它被弹射物射中时，它会破碎并掉出内容物"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:stash_urn",
+      "recipe2": "goety:stash_urn2"
+    }
+  ]
+}

@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "虽然一个卫道士可以被再起为僵尸，一个掠夺者可以被再起为骷髅，但是如果想要创造一个真正制造一个强大的亡灵化唤魔者，还必须要有更多灵魂能量。"
+      "text": "虽然一个卫道士可以被再起为僵尸，一个掠夺者可以再起为骷髅，但要真正创造一个强大的、亡灵化的唤魔者（或其它会魔法的灾厄村民），还必须要有更多灵魂能量"
     },
     {
       "type": "patchouli:entity",
@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "与其它两种亡灵化的灾厄村民不同，被绑定的唤魔者可以飘浮在地面上，不受重力的影响。尽管他们看起来很像恼鬼，但他们无法穿过墙壁，且仍然会受到常规武器的伤害"
+      "text": "与另外两种寻常的亡灵化灾厄村民不同，被绑定的唤魔者可以飘浮在地面上，不受重力影响。尽管他们看上去很像恼鬼，但他们无法穿过墙壁，且仍然会受到常规武器的伤害"
     },
     {
       "type": "goety:ritual",
@@ -22,15 +22,64 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:bound_geomancer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这些亡灵化的地卜师虽双脚离地，但对大地的掌控却丝毫不减"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_geomancer"
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:bound_iceologer"
     },
     {
       "type": "patchouli:text",
-      "text": "被绑定的冰术士和他们活着的时候一样寒冷，但这一次，他们的冰块掉在了别人的头上，而不是你的头上"
+      "text": "被绑定的冰术师和他们活着的时候一样寒冷，但这一次，他们的冰块是掉到了别人的头上，而不是你的头上"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_bound_iceologer"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_cryologer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "生前泪流满面的他们，在死后依旧泪流满面，但出于某种原因，他们却不像其他被绑定的灾厄村民深感痛苦，反而只对自己现在的处境感到冷漠，当然，他们依旧会在敌人身边召唤冰柱或冰雹云"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_cryologer"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_wind_caller",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这些灾厄村民在死后仍能保持对风的控制力，并巧妙地警告道：他们真正能飞，而不是缓降到地面上"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_wind_caller"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_storm_caster"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "即使是死亡也无法阻止这些施法者心中激荡的风暴，他们愿意向告诉敌人这一点"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_storm_caster"
     },
     {
       "type": "patchouli:text",
@@ -38,7 +87,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "因为这些灵魂的心智仍然保留，所以你可以给予它一个$(l:goety:mutations/illager_servants#banner)个人旗帜$()，并让它领导你其它的$(l:goety:mutations/illager_servants)新刌民$()"
+      "text": "因为这些灵魂的心智仍然被保留，所以你可以给予他一个$(l:goety:mutations/illager_servants#banner)个人旗帜$()并让它领导其他$(l:goety:mutations/illager_servants)灾厄村民仆从$()"
     }
   ]
 }

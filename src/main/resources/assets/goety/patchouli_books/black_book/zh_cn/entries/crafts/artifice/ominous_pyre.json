@@ -49,7 +49,7 @@
     {
       "type": "patchouli:text",
       "title": "唤魔者仆从",
-      "text": "需求：$(li)必须是有魔法资质的新刌民 $(li)32个书架/附魔能力与前者等同的方块 $(li)16根点燃的蜡烛 $(li)4个头颅 $(li)4个非空的花盆 $(li)4块紫水晶簇 $(li)4个觉醒绿宝石块 $(li)1个讲台"
+      "text": "需求：$(li)必须是有魔法资质的新刌民 $(li)32个书架/附魔能力与前者等同的方块 $(li)16根点燃的蜡烛 $(li)4个头颅 $(li)4个非空的花盆 $(li)2面旗帜 $(li)4个$(l:goety:crafts/stash_urn)隐秘之瓮$() $(li)1个讲台"
     },
     {
       "type": "patchouli:text",
@@ -58,7 +58,7 @@
     },
     {
       "type": "patchouli:text",
-      "title": "冰术士仆从",
+      "title": "冰术师仆从",
       "text": "需求：$(li)必须是有魔法资质的新刌民 $(li)16个蓝冰 $(li)64个雪块 $(li)4盏$(l:goety:crafts/artifice/freezing_lamp)极寒冰灯$()"
     },
     {

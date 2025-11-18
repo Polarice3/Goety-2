@@ -1,0 +1,16 @@
+{
+  "name": "Урна для хранения",
+  "icon": "goety:stash_urn",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Простая урна, в которой хранятся изумруды. Если в неё выстрелить, то она сломается, а содержимое выпадет наружу."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:stash_urn",
+      "recipe2": "goety:stash_urn2"
+    }
+  ]
+}

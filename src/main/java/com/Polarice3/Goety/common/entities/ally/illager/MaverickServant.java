@@ -361,7 +361,7 @@ public class MaverickServant extends CultistServant{
         ItemStack itemstack2 = this.getMainHandItem();
         boolean isOwner = this.getTrueOwner() != null && pPlayer == this.getTrueOwner();
         boolean isAlly = ((this.getTrueOwner() != null && MobUtil.areAllies(this.getTrueOwner(), pPlayer)) || this.getTrueOwner() == null) && CuriosFinder.isWitchFriendly(pPlayer);
-        if (this.getMainHandItem().isEmpty() && pHand == InteractionHand.MAIN_HAND && itemstack.is(ModTags.Items.WITCH_CURRENCY)) {
+        if (this.getOffhandItem().isEmpty() && pHand == InteractionHand.MAIN_HAND && itemstack.is(ModTags.Items.WITCH_CURRENCY)) {
             if (isOwner || isAlly) {
                 if (!this.isAggressive()) {
                     this.playSound(this.getCelebrateSound());
@@ -371,7 +371,7 @@ public class MaverickServant extends CultistServant{
                     } else {
                         itemstack1 = itemstack.split(1);
                     }
-                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
+                    this.setItemSlot(EquipmentSlot.OFFHAND, itemstack1);
                     this.setTrader(pPlayer);
                     return InteractionResult.SUCCESS;
                 }
@@ -402,7 +402,9 @@ public class MaverickServant extends CultistServant{
     }
 
     public void handleEntityEvent(byte p_34138_) {
-        if (p_34138_ == 15) {
+        if (p_34138_ == 4) {
+            this.setTrader(null);
+        } else if (p_34138_ == 15) {
             for(int i = 0; i < this.random.nextInt(35) + 10; ++i) {
                 this.level.addParticle(ParticleTypes.WITCH, this.getX() + this.random.nextGaussian() * (double)0.13F, this.getBoundingBox().maxY + 0.5D + this.random.nextGaussian() * (double)0.13F, this.getZ() + this.random.nextGaussian() * (double)0.13F, 0.0D, 0.0D, 0.0D);
             }
@@ -491,6 +493,7 @@ public class MaverickServant extends CultistServant{
         public void clearTrade(){
             this.maverick.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
             this.maverick.setTrader(null);
+            this.maverick.level.broadcastEntityEvent(this.maverick, (byte) 4);
         }
 
         @Override

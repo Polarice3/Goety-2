@@ -3325,7 +3325,7 @@
   "death.attack.goety.soulLeech.item": "%1$s soul was sucked by %2$s with %3$s",
   "death.attack.goety.lifeLeech": "%1$s have their life drained by %2$s",
   "death.attack.goety.lifeLeech.item": "%1$s have their life drained by %2$s with %3$s",
-  "death.attack.goety.dismissed": "%1$s was dismissed by %2$s",
+  "death.attack.goety.dismissed": "%1$s has been dismissed",
   "death.attack.goety.dismissed.item": "%1$s was dismissed by %2$s with %3$s",
   "death.attack.goety.death": "%1$s has been executed by %2$s",
   "death.attack.goety.death.item": "%1$s has been executed by %2$s with %3$s"

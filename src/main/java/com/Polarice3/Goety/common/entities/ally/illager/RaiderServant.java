@@ -327,7 +327,7 @@ public abstract class RaiderServant extends Summoned {
         return null;
     }
 
-    public void setTrader(LivingEntity livingEntity) {
+    public void setTrader(@Nullable LivingEntity livingEntity) {
         if (livingEntity != null) {
             this.setTraderId(livingEntity.getId());
         } else {

@@ -3081,7 +3081,7 @@
   "jade.goety.capture_mode": "§6Modo de Captura",
   "config.jade.plugin_goety.capture_mode": "Modo de Captura",
   "config.jade.plugin_goety.capture_mode_desc": "Mostra se o servo invasor está em modo de captura.",
-  "death.attack.goety.dismissed": "%1$s foi dispensado por %2$s",
+  "death.attack.goety.dismissed": "%1$s foi dispensado",
   "death.attack.goety.dismissed.item": "%1$s foi dispensado por %2$s com %3$s",
   "item.goety.zombie_ravager_servant_spawn_egg": "Ovo de Servo Zumbi Devastador",
   "item.goety.void_eye": "Olho Vazio",

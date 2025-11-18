@@ -2919,7 +2919,7 @@
   "jade.goety.capture_mode": "§6Режим захвата",
   "config.jade.plugin_goety.capture_mode": "Режим захвата",
   "config.jade.plugin_goety.capture_mode_desc": "Отображает то, находится ли рейдер в режиме захвата.",
-  "death.attack.goety.dismissed": "%1$s был изгнан %2$s",
+  "death.attack.goety.dismissed": "%1$s был изгнан",
   "death.attack.goety.dismissed.item": "%1$s был изгнан %2$s с помощью %3$s",
 
   "entity.goety.watchling_servant": "Эндергляд-прислужник",
@@ -3222,6 +3222,17 @@
   "item.goety.razor_wind_focus.info": "Выстреливает перед вами мощным лезвием из ветра.",
 
   "item.goety.thunderstorm_focus": "Фокус грозы",
-  "item.goety.thunderstorm_focus.info": "Призывает вокруг вас или жертвы несколько молний."
+  "item.goety.thunderstorm_focus.info": "Призывает вокруг вас или жертвы несколько молний.",
+
+  "block.goety.stash_urn": "Урна для хранения",
+
+  "entity.goety.bound_geomancer":"Подчинённый геомант",
+  "entity.goety.bound_cryologer":"Подчинённый криолог",
+  "entity.goety.bound_wind_caller":"Подчинённый ветродей",  
+  "entity.goety.bound_storm_caster":"Подчинённый грозаклинатель",
+  "item.goety.bound_geomancer_spawn_egg": "Яйцо призыва подчинённого геоманта",
+  "item.goety.bound_cryologer_spawn_egg": "Яйцо призыва подчинённого криолога",
+  "item.goety.bound_wind_caller_spawn_egg": "Яйцо призыва подчинённого ветродея",
+  "item.goety.bound_storm_caster_spawn_egg": "Яйцо призыва подчинённого грозаклинателя"
 
 }

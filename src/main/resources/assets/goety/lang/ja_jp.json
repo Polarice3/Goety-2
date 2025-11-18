@@ -2934,7 +2934,7 @@
   "jade.goety.capture_mode": "§6誘拐モード",
   "config.jade.plugin_goety.capture_mode": "誘拐モード",
   "config.jade.plugin_goety.capture_mode_desc": "襲撃の従者が誘拐モードであるかどうかを表示します。",
-  "death.attack.goety.dismissed": "%1$sは%2$sによって解雇されました",
+  "death.attack.goety.dismissed": "%1$sが解雇されました",
   "death.attack.goety.dismissed.item": "%1$sは%2$sの%3$sによって解雇されました",
   "subtitle.goety.mountaineer_ambient": "Mountaineer mutters",
   "subtitle.goety.mountaineer_hurt": "Mountaineer hurts",

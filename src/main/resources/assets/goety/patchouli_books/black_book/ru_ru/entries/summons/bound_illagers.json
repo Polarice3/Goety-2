@@ -32,6 +32,43 @@
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_bound_iceologer"
     },
+{
+      "type": "patchouli:entity",
+      "entity": "goety:bound_cryologer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Подчинённые криологи, хоть и остались плаксами, обрушивают на врагов град и воздвигают ледяные стены. По какой-то причине, несмотря на заплаканные глаза, они кажутся менее несчастными и более равнодушными к своему нынешнему положению, чем другие подчинённые злодеяне."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_cryologer"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_wind_caller",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Эти злодеяне сохранянили свою власть над ветром даже после смерти, с одной лишь оговоркой: они действительно способны летать, а не медленно опускаться на землю."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_wind_caller"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_storm_caster"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Даже смерть не смогла успокоить бурю внутри этих злодеян, и они готовы продемонстрировать её своим врагам во всей красе."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_storm_caster"
+    },
     {
       "type": "patchouli:text",
       "text": "Подчинённых злодеян можно исцелять, нажав по ним ПКМ эктоплазмой."

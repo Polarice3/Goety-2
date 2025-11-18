@@ -174,7 +174,6 @@ public class EsotericTesseract extends Item implements IPersist {
         CompoundTag tag = tesseract.getTag();
         if (tag == null) {
             tag = new CompoundTag();
-            tesseract.setTag(tag);
         }
         CompoundTag servantTag = new CompoundTag();
         ResourceLocation typesKey = ForgeRegistries.ENTITY_TYPES.getKey(mob.getType());
@@ -204,15 +203,6 @@ public class EsotericTesseract extends Item implements IPersist {
                 servantTag.put("Tags", listtag);
             }
 
-            /*try {
-                net.minecraftforge.common.capabilities.CapabilityProvider.AsField<Entity> capProvider = new net.minecraftforge.common.capabilities.CapabilityProvider.AsField<>(Entity.class, mob);
-                CompoundTag caps = capProvider.serializeInternal();
-                if (caps != null) {
-                    servantTag.put("ForgeCaps", caps);
-                }
-            } catch (Throwable ignored) {
-            }*/
-
             if (!mob.getPersistentData().isEmpty()) {
                 servantTag.put("ForgeData", mob.getPersistentData().copy());
             }
@@ -227,8 +217,21 @@ public class EsotericTesseract extends Item implements IPersist {
             } else if (isSmall(mob)) {
                 servantTag.putBoolean(BIG, true);
             }
-            tag.put("Servant_" + count, servantTag);
+            String mainName = "Servant_";
+            if (!tag.getAllKeys().isEmpty()) {
+                for (int i = 0; i < tag.getAllKeys().size(); ++i) {
+                    String name = mainName + count;
+                    if (tag.contains(name)) {
+                        count += 1;
+                    } else {
+                        break;
+                    }
+                }
+            }
+            String finalName  = mainName + count;
+            tag.put(finalName, servantTag);
         }
+        tesseract.setTag(tag);
     }
 
     public static int getServantsInTesseract(ItemStack stack) {
