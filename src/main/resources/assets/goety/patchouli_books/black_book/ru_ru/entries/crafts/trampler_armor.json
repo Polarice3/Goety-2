@@ -1,0 +1,39 @@
+{
+  "name": "Броня топтуна",
+  "icon": "goety:iron_trampler_armor",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "В то время, как $(l:crafts/ravager_armor)создание брони$() для $(l:mutations/ravaged)разорителей$() является очень хорошим шагом, защиту их долговязых собратьев тоже можно усилить."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Изготовление доспехов для этих зверей обходится дешевле, чем доспехи разорителей. Их форма и способ передвижения требуют использования конской брони для создания их собственной версии. Как и с разорителями, вы не первый, кто додумался до этого решения..."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:iron_trampler_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:gold_trampler_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:diamond_trampler_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:netherite_trampler_armor"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:iron_trampler_armor": 2,
+    "goety:gold_trampler_armor": 3,
+    "goety:diamond_trampler_armor": 4,
+    "goety:netherite_trampler_armor": 5
+  }
+}

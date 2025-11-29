@@ -56,7 +56,10 @@ public class TelekinesisSpell extends EverChargeSpell {
             if (WandUtil.enchantedFocus(caster)){
                 range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
             }
-            return !(this.victim.distanceTo(caster) > range);
+            if (this.victim.distanceTo(caster) > range) {
+                this.victim = null;
+                return false;
+            }
         }
         return true;
     }
@@ -82,6 +85,7 @@ public class TelekinesisSpell extends EverChargeSpell {
     @Override
     public void startSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
         super.startSpell(worldIn, caster, staff, spellStat);
+        this.victim = null;
         this.findVictim(worldIn, caster, spellStat);
     }
 

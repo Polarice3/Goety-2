@@ -993,6 +993,18 @@ public class ModEvents {
                 }
             }
         }
+        if (victim instanceof Prisoner) {
+            Entity entity = event.getSource().getEntity();
+            if (entity instanceof Mob mob) {
+                if (mob.getType().is(ModTags.EntityTypes.VILLAGE_GUARDS)) {
+                    if (!event.getSource().isIndirect()) {
+                        if (mob.getTarget() != victim) {
+                            event.setCanceled(true);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @SubscribeEvent

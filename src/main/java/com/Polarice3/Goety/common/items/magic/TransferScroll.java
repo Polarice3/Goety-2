@@ -70,14 +70,16 @@ public class TransferScroll extends ItemBase {
                 LivingEntity summon = getSummon(itemstack);
                 if (itemstack.getTag() != null) {
                     if (summon instanceof IOwned owned) {
-                        if (owned.getMasterOwner() == player) {
+                        if (owned.getTrueOwner() == player) {
                             if (player.isShiftKeyDown() || player.isCrouching()){
                                 itemstack.getTag().remove(TAG_ENTITY);
                             }
                         } else if (RitualRequirements.canSummon(level, player, summon.getType())){
                             owned.setTrueOwner(player);
                             player.playSound(SoundEvents.RESPAWN_ANCHOR_SET_SPAWN, 1.0F, 1.0F);
-                            ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.RESPAWN_ANCHOR_SET_SPAWN, 1.0F, 1.0F));
+                            if (!level.isClientSide) {
+                                ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.RESPAWN_ANCHOR_SET_SPAWN, 1.0F, 1.0F));
+                            }
                             itemstack.shrink(1);
                         }
                         return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());

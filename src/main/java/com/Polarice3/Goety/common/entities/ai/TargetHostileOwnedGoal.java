@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.ai;
 
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.common.entities.ally.illager.Prisoner;
 import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
 import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,12 +24,14 @@ public class TargetHostileOwnedGoal<T extends LivingEntity> extends NearestAttac
     public static Predicate<LivingEntity> predicate(){
         return (entity) ->
                 entity instanceof IOwned owned
+                        && !(owned instanceof Prisoner)
                         && owned.isHostile();
     }
 
     public static Predicate<LivingEntity> villageGuardPredicate(Mob mob){
         return (entity) ->
                 entity instanceof IOwned owned
+                        && !(owned instanceof Prisoner)
                         && (owned.isHostile() || (!(mob instanceof IronGolem golem && golem.isPlayerCreated()) && owned instanceof RaiderServant raider && raider.isRaiding()));
     }
 }

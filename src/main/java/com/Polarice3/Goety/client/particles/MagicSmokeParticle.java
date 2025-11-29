@@ -129,11 +129,11 @@ public class MagicSmokeParticle extends TextureSheetParticle {
                 float size = p_235962_.readFloat();
                 p_235962_.expect(' ');
                 float gravity = p_235962_.readFloat();
-                return new Option(colorFrom, colorTo, duration, size);
+                return new Option(colorFrom, colorTo, duration, size, gravity);
             }
 
             public Option fromNetwork(ParticleType<Option> p_235964_, FriendlyByteBuf p_235965_) {
-                return new Option(p_235965_.readInt(), p_235965_.readInt(), p_235965_.readInt(), p_235965_.readFloat());
+                return new Option(p_235965_.readInt(), p_235965_.readInt(), p_235965_.readInt(), p_235965_.readFloat(), p_235965_.readFloat());
             }
         };
         public int colorFrom;
@@ -151,11 +151,7 @@ public class MagicSmokeParticle extends TextureSheetParticle {
         }
 
         public Option(int colorFrom, int colorTo, int duration, float size){
-            this.colorFrom = colorFrom;
-            this.colorTo = colorTo;
-            this.duration = duration;
-            this.size = size;
-            this.gravity = -0.1F;
+            this(colorFrom, colorTo, duration, size, -0.1F);
         }
 
         public ParticleType<Option> getType() {

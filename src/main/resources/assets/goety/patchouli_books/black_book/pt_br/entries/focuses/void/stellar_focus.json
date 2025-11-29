@@ -1,0 +1,23 @@
+{
+  "name": "Foco Estelar",
+  "icon": "goety:stellar_focus",
+  "category": "goety:focuses/void",
+  "advancement": "goety:goety/kill_an_ender_keeper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Os ecos do vácuo permitem que você crie um feitiço que, quando concentrado, convoca continuamente projéteis que, após um segundo de serem conjurados, mirarão automaticamente na posição de um inimigo e explodirão em uma detonação de energia do vácuo."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/stellar_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/void_staff)Cetro do Vácuo$() invoca mais projéteis."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:stellar_focus": 1
+  }
+}

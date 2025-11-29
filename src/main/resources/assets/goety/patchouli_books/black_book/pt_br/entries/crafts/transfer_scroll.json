@@ -1,0 +1,19 @@
+{
+  "name": "Pergaminho de Transferência",
+  "icon": "goety:transfer_scroll",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Seja através de comércio ou como forma de ajudar seus aliados, você concebeu um pergaminho que transferirá a posse de um dos seus Servos para o destinatário."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:transfer_scroll"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Para começar, deve-se clicar com o botão esquerdo no pergaminho sobre seu servo para assiná-lo. Uma vez assinado, qualquer ser como você pode usar o pergaminho e fazer com que o servo assinado nele o sirva em seu lugar, portanto, tenha cuidado ao usar e armazenar estes pergaminhos assinados."
+    }
+  ]
+}

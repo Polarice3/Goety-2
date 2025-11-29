@@ -1,0 +1,23 @@
+{
+  "name": "Foco do Clarão do Vácuo",
+  "icon": "goety:void_flash_focus",
+  "category": "goety:focuses/void",
+  "advancement": "goety:goety/kill_an_ender_keeper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Em vez de convocar continuamente vários projéteis, este feitiço dispara uma enorme bola de energia do vácuo que explodirá em chamas mágicas e lançará várias bolas de vácuo com mira automática contra inimigos próximos."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/void_flash_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/void_staff)Cetro do Vácuo$() invoca mais projéteis."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:void_flash_focus": 1
+  }
+}

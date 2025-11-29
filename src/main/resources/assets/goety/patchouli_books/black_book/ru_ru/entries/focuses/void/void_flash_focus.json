@@ -1,0 +1,23 @@
+{
+  "name": "Фокус пустотной вспышки",
+  "icon": "goety:void_flash_focus",
+  "category": "goety:focuses/void",
+  "advancement": "goety:goety/kill_an_ender_keeper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вместо постоянного создания нескольких снарядом, это заклинание создаёт массивный шар пустотной энергии, взрывающийся в магическом пламени и выстреливающий несколько пустотных снарядов в ближайших врагов."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/void_flash_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/void_staff)пустотного посоха$() позволяет создать больше снарядов."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:void_flash_focus": 1
+  }
+}
