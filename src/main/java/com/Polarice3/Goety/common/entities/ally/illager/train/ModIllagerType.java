@@ -115,7 +115,7 @@ public class ModIllagerType implements ITrainIllager {
         } else if (BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock().getDescriptionId().contains("copper"), range, 32)
                 && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock().getDescriptionId().contains("bricks"), range, 64)
                 && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof LightningRodBlock, range, 4)
-                && level.isRainingAt(blockPos)
+                && level.isRainingAt(blockPos.above())
                 && level.isThundering()) {
             return ModEntityType.STORM_CASTER_SERVANT.get();
         }

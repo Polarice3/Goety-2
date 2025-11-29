@@ -9,7 +9,7 @@
   "duration": 10,
   "ingredients": [
     {
-      "item": "minecraft:feather"
+      "tag": "forge:feathers"
     },
     {
       "tag": "forge:dusts/glowstone"

@@ -644,8 +644,9 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
     }
 
     protected void actuallyHurt(DamageSource source, float amount) {
+        float initialAmount = amount;
         if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)){
-            amount = Math.min(amount, AttributesConfig.EnderKeeperDamageCap.get().floatValue());
+            amount = Math.min(initialAmount, AttributesConfig.EnderKeeperDamageCap.get().floatValue());
         }
         if (this.moddedInvul <= 0){
             super.actuallyHurt(source, amount);
@@ -1301,6 +1302,16 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
                             serverWorld.sendParticles(new ReverseShockwaveParticleOption(colorUtil, 20.0F, 1.0F, 0, true), this.getX(), this.getY() + 0.25D, this.getZ(), 1, 0, 0, 0, 0.5F);
                         }
                     }
+                    if (MobUtil.healthIsHalved(this)) {
+                        if (this.attackTick % 10 == 0) {
+                            VoidShock voidShock = new VoidShock(this, this.getTarget(), this.level);
+                            voidShock.setPos(this.position().add(0.0D, 4.0D, 0.0D));
+                            voidShock.setPower(Vec3.ZERO, 10);
+                            voidShock.setBaseDamage(damage);
+                            this.level.addFreshEntity(voidShock);
+                            this.playSound(ModSounds.TELEPORT_ORB_THROW.get(), 2.0F, this.getVoicePitch());
+                        }
+                    }
                     for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(20.0F))) {
                         if (!MobUtil.areAllies(this, livingEntity) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity) && livingEntity.isAlive()) {
                             Vec3 vec30 = this.position().subtract(livingEntity.position());
@@ -1309,7 +1320,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
                             vec30 = vec30.scale(scale);
                             vec30 = vec30.scale(0.2D);
                             Vec3 add = livingEntity.getDeltaMovement().add(vec30);
-                            MobUtil.drag(livingEntity, add.x, add.y, add.z);
+                            MobUtil.drag(livingEntity, add.x, add.y, add.z, MobUtil.healthIsHalved(this) ? 0.0D : 0.5D);
                             if (this.distanceTo(livingEntity) < radius) {
                                 float lifeSteal = ((livingEntity.getMaxHealth() - livingEntity.getHealth()) * 0.25F) + 1.0F;
                                 if (livingEntity.hurt(this.damageSources().indirectMagic(this, this), lifeSteal)) {
@@ -1329,7 +1340,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
                                 Vec3 vec3 = vec30.reverse();
                                 vec3 = vec3.normalize();
                                 vec3 = vec3.scale(2.0D);
-                                MobUtil.drag(livingEntity, vec3.x, vec3.y, vec3.z);
+                                MobUtil.drag(livingEntity, vec3.x, vec3.y, vec3.z, MobUtil.healthIsHalved(this) ? 0.0D : 0.5D);
                             }
                         }
                     }

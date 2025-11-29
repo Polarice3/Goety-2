@@ -15,7 +15,7 @@
       "item": "goety:ectoplasm"
     },
     {
-      "item": "minecraft:feather"
+      "tag": "forge:feathers"
     },
     {
       "item": "minecraft:phantom_membrane"

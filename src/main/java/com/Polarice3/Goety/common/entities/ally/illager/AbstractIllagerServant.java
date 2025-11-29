@@ -539,6 +539,10 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
         }
     }
 
+    public boolean validLootToStore(ItemStack itemStack) {
+        return !itemStack.isEmpty() && !this.validFood(itemStack);
+    }
+
     public boolean canEat(ItemStack itemStack) {
         return !itemStack.is(Items.ROTTEN_FLESH);
     }
@@ -953,8 +957,7 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
 
         public ThrowLootGoal(AbstractIllagerServant illager){
             super(illager);
-            this.predicate = itemStack -> !this.illager.validFood(itemStack)
-                    && !itemStack.isEmpty();
+            this.predicate = this.illager::validLootToStore;
             this.targetPredicate = livingEntity -> illager.getTrueOwner() != null
                     && livingEntity == illager.getTrueOwner();
         }

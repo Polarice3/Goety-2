@@ -22,12 +22,22 @@ import java.util.List;
 public class VoidShockSpell extends Spell {
 
     @Override
+    public SpellStat defaultStats() {
+        return super.defaultStats().setRadius(0.0D);
+    }
+
+    @Override
     public int defaultSoulCost() {
         return SpellConfig.VoidShockCost.get();
     }
 
     @Override
     public int defaultCastDuration() {
+        return SpellConfig.VoidShockDuration.get();
+    }
+
+    @Override
+    public int castDuration(LivingEntity caster, ItemStack staff) {
         return SpellConfig.VoidShockDuration.get();
     }
 
@@ -51,22 +61,25 @@ public class VoidShockSpell extends Spell {
     public List<Enchantment> acceptedEnchantments() {
         List<Enchantment> list = new ArrayList<>();
         list.add(ModEnchantments.POTENCY.get());
-        list.add(ModEnchantments.RANGE.get());
+        list.add(ModEnchantments.RADIUS.get());
         return list;
     }
 
     @Override
     public void useSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, int castTime, SpellStat spellStat) {
         int potency = spellStat.getPotency();
+        double radius = spellStat.getRadius();
         if (WandUtil.enchantedFocus(caster)){
             potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster) / 2.0F;
         }
         int tickRate = this.rightStaff(staff) ? 2 : 5;
         if (castTime >= 10 && castTime % tickRate == 0) {
             VoidShock voidShock = new VoidShock(caster, this.getTarget(caster), worldIn);
-            voidShock.setPos(caster.position().add(worldIn.getRandom().nextInt(-3, 3), 4.0D, worldIn.getRandom().nextInt(-3, 3)));
+            voidShock.setPos(caster.position().add(worldIn.getRandom().nextInt(-3, 3), caster.getBbHeight() + 1.0F, worldIn.getRandom().nextInt(-3, 3)));
             voidShock.setPower(Vec3.ZERO, 10);
             voidShock.setExtraDamage(potency);
+            voidShock.setExtraRadius((float) radius);
             worldIn.addFreshEntity(voidShock);
             this.playSound(worldIn, voidShock, ModSounds.TELEPORT_ORB_THROW.get(), 2.0F, caster.getVoicePitch());
         }

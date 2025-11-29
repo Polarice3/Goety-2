@@ -1129,6 +1129,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.stellar_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:stellar_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.swarm_focus": {
       "conditions": {
         "items": [
@@ -1291,6 +1303,18 @@
           {
             "items": [
               "goety:vexing_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "item.goety.void_flash_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:void_flash_focus"
             ]
           }
         ]
@@ -1718,6 +1742,12 @@
     ],
     [
       "item.goety.rupture_focus"
+    ],
+    [
+      "item.goety.stellar_focus"
+    ],
+    [
+      "item.goety.void_flash_focus"
     ],
     [
       "item.goety.watching_focus"

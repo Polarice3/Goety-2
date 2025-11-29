@@ -25,9 +25,15 @@
       "type": "patchouli:spotlight",
       "item": "goety:shrouded_blueprint",
       "text": "When slain, the shrine from which they are called from will reveal its treasure, a mysterious blueprint... one that with the help of dark magic will reveal its contents."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:void_echo",
+      "text": "The Keeper also drops some echoes of the very void itself, which can be used to create powerful spells and items."
     }
   ],
   "extra_recipe_mappings": {
-    "goety:shrouded_blueprint": 4
+    "goety:shrouded_blueprint": 4,
+    "goety:void_echo": 5
   }
 }

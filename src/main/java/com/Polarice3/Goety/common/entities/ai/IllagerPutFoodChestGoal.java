@@ -6,6 +6,7 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.Optional;
 
+//This doesn't use Raiding Chest so that other Illagers can take excess food
 public class IllagerPutFoodChestGoal<T extends AbstractIllagerServant> extends IllagerChestGoal<T> {
 
     public IllagerPutFoodChestGoal(T illager) {

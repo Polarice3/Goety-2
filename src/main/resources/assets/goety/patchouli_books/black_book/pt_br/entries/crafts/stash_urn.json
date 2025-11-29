@@ -1,0 +1,16 @@
+{
+  "name": "Urna de Reserva",
+  "icon": "goety:stash_urn",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Uma urna simples que guarda esmeraldas dentro de si, podendo até quebrar e revelar seu conteúdo quando atingida por um projétil."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:stash_urn",
+      "recipe2": "goety:stash_urn2"
+    }
+  ]
+}

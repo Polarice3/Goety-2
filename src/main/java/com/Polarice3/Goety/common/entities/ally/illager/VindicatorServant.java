@@ -155,14 +155,16 @@ public class VindicatorServant extends AbstractIllagerServant {
     @Override
     public void die(DamageSource pCause) {
         if (!this.level.isClientSide) {
-            if (this.getTrueOwner() != null) {
-                if (CuriosFinder.hasNamelessSet(this.getTrueOwner())){
-                    ZombieVindicatorServant servant = this.convertTo(ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), true);
-                    if (servant != null) {
-                        servant.setTrueOwner(this.getTrueOwner());
-                        net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, servant);
-                        if (!this.isSilent()) {
-                            this.level.levelEvent((Player)null, 1026, this.blockPosition(), 0);
+            if (this.getIdol() == null) {
+                if (this.getTrueOwner() != null) {
+                    if (CuriosFinder.hasNamelessSet(this.getTrueOwner())) {
+                        ZombieVindicatorServant servant = this.convertTo(ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), true);
+                        if (servant != null) {
+                            servant.setTrueOwner(this.getTrueOwner());
+                            net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, servant);
+                            if (!this.isSilent()) {
+                                this.level.levelEvent((Player) null, 1026, this.blockPosition(), 0);
+                            }
                         }
                     }
                 }

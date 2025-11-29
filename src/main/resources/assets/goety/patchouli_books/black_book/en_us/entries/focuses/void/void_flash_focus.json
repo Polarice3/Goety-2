@@ -1,0 +1,23 @@
+{
+  "name": "Void Flash Focus",
+  "icon": "goety:void_flash_focus",
+  "category": "goety:focuses/void",
+  "advancement": "goety:goety/kill_an_ender_keeper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Instead of continuously summoning several projectiles, this spell shoots a massive ball of void energy that will explode into magical flames and shoot out several homing balls of void at nearby foes."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/void_flash_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/void_staff)Void Staff$() summons more projectiles."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:void_flash_focus": 1
+  }
+}

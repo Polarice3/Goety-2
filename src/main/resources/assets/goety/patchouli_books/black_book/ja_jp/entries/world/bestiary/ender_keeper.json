@@ -25,9 +25,15 @@
       "type": "patchouli:spotlight",
       "item": "goety:shrouded_blueprint",
       "text": "殺されると、彼らが呼び出された聖堂はその宝物、神秘的な設計図を明らかにします...それは闇の魔法の助けを借りてその内容を明らかにするものです。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:void_echo",
+      "text": "強力な呪文やアイテムを作成するために使用できる、虚空そのものの残響もいくつか落とします。"
     }
   ],
   "extra_recipe_mappings": {
-    "goety:shrouded_blueprint": 4
+    "goety:shrouded_blueprint": 4,
+    "goety:void_echo": 5
   }
 }

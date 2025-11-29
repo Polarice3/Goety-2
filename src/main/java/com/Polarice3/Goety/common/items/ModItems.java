@@ -83,6 +83,7 @@ public class ModItems {
     public static final RegistryObject<Item> RAGING_MATTER = ITEMS.register("raging_matter", ItemBase::new);
     public static final RegistryObject<Item> ICE_CUBE = ITEMS.register("ice_cube", ItemBase::new);
     public static final RegistryObject<Item> VOID_KEY = ITEMS.register("void_key", VoidKeyItem::new);
+    public static final RegistryObject<Item> VOID_ECHO = ITEMS.register("void_echo", () -> new Item(new Item.Properties().fireResistant()));
     public static final RegistryObject<Item> SOUL_RUBY = ITEMS.register("soul_ruby", ItemBase::new);
     public static final RegistryObject<Item> EMPTY_FOCUS = ITEMS.register("empty_focus", ItemBase::new);
     public static final RegistryObject<Item> ANIMATION_CORE = ITEMS.register("animation_core", AnimationCore::new);
@@ -95,6 +96,10 @@ public class ModItems {
     public static final RegistryObject<Item> HEART_OF_THE_NIGHT = ITEMS.register("heart_of_the_night", ItemBase::new);
     public static final RegistryObject<Item> CAULDRON_LADLE = ITEMS.register("cauldron_ladle", SingleStackItem::new);
     public static final RegistryObject<Item> OMINOUS_SADDLE = ITEMS.register("ominous_saddle", ItemBase::new);
+    public static final RegistryObject<Item> IRON_TRAMPLER_ARMOR = ITEMS.register("iron_trampler_armor", () -> new TramplerArmorItem(5, "iron"));
+    public static final RegistryObject<Item> GOLD_TRAMPLER_ARMOR = ITEMS.register("gold_trampler_armor", () -> new TramplerArmorItem(7, "gold"));
+    public static final RegistryObject<Item> DIAMOND_TRAMPLER_ARMOR = ITEMS.register("diamond_trampler_armor", () -> new TramplerArmorItem(11, "diamond"));
+    public static final RegistryObject<Item> NETHERITE_TRAMPLER_ARMOR = ITEMS.register("netherite_trampler_armor", () -> new TramplerArmorItem(15, "netherite", new Item.Properties().stacksTo(1).fireResistant()));
     public static final RegistryObject<Item> IRON_RAVAGER_ARMOR = ITEMS.register("iron_ravager_armor", () -> new RavagerArmorItem(7, "iron"));
     public static final RegistryObject<Item> GOLD_RAVAGER_ARMOR = ITEMS.register("gold_ravager_armor", () -> new RavagerArmorItem(11, "gold"));
     public static final RegistryObject<Item> DIAMOND_RAVAGER_ARMOR = ITEMS.register("diamond_ravager_armor", () -> new RavagerArmorItem(15, "diamond"));
@@ -142,6 +147,7 @@ public class ModItems {
     public static final RegistryObject<Item> BLAZING_HELM = ITEMS.register("blazing_helm", BlazingHelm::new);
     public static final RegistryObject<Item> TAGLOCK_KIT = ITEMS.register("taglock_kit", TaglockKit::new);
     public static final RegistryObject<Item> WAYSTONE = ITEMS.register("waystone", WaystoneItem::new);
+    public static final RegistryObject<Item> TRANSFER_SCROLL = ITEMS.register("transfer_scroll", TransferScroll::new);
     public static final RegistryObject<Item> ARCA_COMPASS = ITEMS.register("arca_compass", ArcaCompassItem::new);
     public static final RegistryObject<Item> GRIMOIRE_OF_GRUDGES = ITEMS.register("grimoire_of_grudges", GrudgeGrimoire::new);
     public static final RegistryObject<Item> GRIMOIRE_OF_GOODWILL = ITEMS.register("grimoire_of_goodwill", GoodwillGrimoire::new);
@@ -379,6 +385,8 @@ public class ModItems {
     public static final RegistryObject<Item> BANISH_FOCUS = ITEMS.register("banish_focus", () -> new MagicFocus(new BanishSpell()));
     public static final RegistryObject<Item> TUNNEL_FOCUS = ITEMS.register("tunnel_focus", () -> new MagicFocus(new TunnelSpell()));
     public static final RegistryObject<Item> RUPTURE_FOCUS = ITEMS.register("rupture_focus", () -> new MagicFocus(new VoidRiftSpell()));
+    public static final RegistryObject<Item> STELLAR_FOCUS = ITEMS.register("stellar_focus", () -> new MagicFocus(new VoidShockSpell()));
+    public static final RegistryObject<Item> VOID_FLASH_FOCUS = ITEMS.register("void_flash_focus", () -> new MagicFocus(new VoidBombSpell()));
     public static final RegistryObject<Item> WATCHING_FOCUS = ITEMS.register("watching_focus", () -> new MagicFocus(new WatchlingSpell()));
     public static final RegistryObject<Item> BLASTING_FOCUS = ITEMS.register("blasting_focus", () -> new MagicFocus(new BlastlingSpell()));
     public static final RegistryObject<Item> SNARING_FOCUS = ITEMS.register("snaring_focus", () -> new MagicFocus(new SnarelingSpell()));

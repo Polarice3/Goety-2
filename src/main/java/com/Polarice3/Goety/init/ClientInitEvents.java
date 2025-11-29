@@ -109,6 +109,8 @@ public class ClientInitEvents {
                     (stack, world, living, seed) -> TaglockKit.hasEntity(stack) ? 1.0F : 0.0F);
             ItemProperties.register(ModItems.WAYSTONE.get(), new ResourceLocation("store"),
                     (stack, world, living, seed) -> WaystoneItem.hasBlock(stack) ? 1.0F : 0.0F);
+            ItemProperties.register(ModItems.TRANSFER_SCROLL.get(), new ResourceLocation("signed"),
+                    (stack, world, living, seed) -> TransferScroll.hasSummon(stack) ? 1.0F : 0.0F);
             ItemProperties.register(ModItems.ARCA_COMPASS.get(), new ResourceLocation("angle")
                     , new CompassItemPropertyFunction((p_234992_, p_234993_, p_234994_) -> {
                         return ArcaCompassItem.getArcaPosition(p_234993_.getOrCreateTag());

@@ -1,0 +1,23 @@
+{
+  "name": "星辰聚晶",
+  "icon": "goety:stellar_focus",
+  "category": "goety:focuses/void",
+  "advancement": "goety:goety/kill_an_ender_keeper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "借助虚空回响，你创造了一个新法术：集中施法时，会持续召唤出飞行物。这些飞行物在生成大约一秒后，就会自动锁定敌人的位置，然后在命中时炸开一团虚空能量。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/stellar_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/void_staff)虚空法杖$()施法时，会召唤出更多的虚空震荡波粒。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:stellar_focus": 1
+  }
+}

@@ -10,7 +10,6 @@ import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.entities.neutral.AbstractVine;
 import com.Polarice3.Goety.common.events.spell.GoetyEventFactory;
-import com.Polarice3.Goety.common.magic.spells.wind.FlyingSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayEntitySoundPacket;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
@@ -869,10 +868,7 @@ public class DarkWand extends Item implements IWand {
                 if (entityLiving.getUsedItemHand() == hand && entityLiving.getUseItemRemainingTicks() > 0) {
                     ISpell spell = WandUtil.getSpell(entityLiving);
                     if (spell != null){
-                        if (spell instanceof FlyingSpell){
-                            return FLIGHT_POSE;
-                        }
-                        return SPELL;
+                        return spell.getPose(entityLiving, itemStack, WandUtil.getStats(entityLiving, spell));
                     }
                 }
             }

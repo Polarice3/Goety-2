@@ -1,0 +1,19 @@
+{
+  "name": "Transfer Scroll",
+  "icon": "goety:transfer_scroll",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Whether through trade or a way to aid your allies, you have devise a scroll that will transfer ownership of one of your Servants to the recipient."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:transfer_scroll"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "To start, one must left-click the scroll onto their servant to sign it. Once signed, any beings like yourself can use the scroll and have the servant signed on it serve them instead, so be mindful on using and storing these signed parchments."
+    }
+  ]
+}

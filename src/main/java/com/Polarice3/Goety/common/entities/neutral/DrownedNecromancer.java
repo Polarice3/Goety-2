@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.client.particles.MagicSmokeParticle;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
@@ -615,6 +616,9 @@ public class DrownedNecromancer extends AbstractNecromancer {
                         }
                         ColorUtil colorUtil = new ColorUtil(0x2ac9cf);
                         ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 0.1F, 0.1F, 0.05F, -1, summonedentity.position());
+                        for (int i2 = 0; i2 < serverLevel.getRandom().nextInt(10) + 10; ++i2) {
+                            serverLevel.sendParticles(new MagicSmokeParticle.Option(0x17b0e0, 0xffffff, 10 + serverLevel.getRandom().nextInt(10), 0.2F), summonedentity.getRandomX(1.5D), summonedentity.getRandomY(), summonedentity.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
+                        }
                     }
                 }
             }

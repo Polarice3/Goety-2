@@ -6,7 +6,6 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
-//Need to test this
 public class SpellPoses {
     public static final HumanoidModel.ArmPose SPELL = HumanoidModel.ArmPose.create("GOETY_SPELL", false, (model, entity, arm) -> {
         float f5 = entity.walkAnimation.position(Minecraft.getInstance().getPartialTick());

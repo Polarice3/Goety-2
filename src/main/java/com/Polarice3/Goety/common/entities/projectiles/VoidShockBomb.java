@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -31,7 +32,7 @@ public class VoidShockBomb extends SpellThrowableProjectile {
     public int growTick = 0;
     public float size = 1.0F;
     public float alpha = 1.0F;
-    public float baseDamage = 6.0F;
+    public float baseDamage = SpellConfig.VoidBombDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get().floatValue();
     private Vec3[] trailPositions = new Vec3[64];
     private int trailPointer = -1;
 

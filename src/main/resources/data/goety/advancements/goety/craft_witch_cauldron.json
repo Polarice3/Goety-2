@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:witch_cauldron"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_witch_cauldron.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_witch_cauldron.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_soul_candlestick",
+  "criteria": {
+    "witch_cauldron": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:witch_cauldron"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "witch_cauldron"
+    ]
+  ]
+}

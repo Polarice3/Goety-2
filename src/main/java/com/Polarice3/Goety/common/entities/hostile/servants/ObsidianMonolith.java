@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.hostile.servants;
 
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.PortalShockwaveParticleOption;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -51,6 +52,7 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
@@ -563,8 +565,14 @@ public class ObsidianMonolith extends AbstractMonolith implements Enemy {
     public void spreadNether(){
         if (this.level instanceof ServerLevel serverLevel) {
             int activeHeretics = this.level.getEntitiesOfClass(Heretic.class, this.getBoundingBox().inflate(10.0D), living -> living.isAlive() && living.isCasting() && living.getMonolith() == this).size();
+            Vec3 skyVec = new Vec3(this.getX(), this.getY() + 16.0D, this.getZ());
             if (this.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.ObsidianMonolithSpread.get() && this.level.dimension() != Level.NETHER) {
                 if (this.startSpreading()) {
+                    if (this.level.isEmptyBlock(BlockPos.containing(skyVec))) {
+                        ServerParticleUtil.addAuraParticles(serverLevel, ModParticleTypes.SPELL_CLOUD.get(), skyVec, 2.0F);
+                        ServerParticleUtil.addReverseAuraParticles(serverLevel, ModParticleTypes.SPELL_CLOUD.get(), skyVec, 6.0F);
+                        ServerParticleUtil.addAuraParticles(serverLevel, ModParticleTypes.SPELL_CLOUD.get(), skyVec, 10.0F);
+                    }
                     this.netherSpreaderUtil.updateCursors(this.level, this.blockPosition().below(), this.random, true);
 
                     if (this.getSpreaderLeveling() >= 100) {
@@ -594,6 +602,23 @@ public class ObsidianMonolith extends AbstractMonolith implements Enemy {
                     }
                 } else {
                     ++this.startUp;
+                    if (this.startUp > 0) {
+                        if (this.level.isEmptyBlock(BlockPos.containing(skyVec))) {
+                            float radius = 2.0F;
+                            float totalTime = MathHelper.minecraftDayToTicks(MobsConfig.ObsidianMonolithStartUpTime.get());
+                            if (this.startUp > totalTime / 4.0F) {
+                                radius = 4.0F;
+                            }
+                            if (this.startUp > totalTime / 2.0F) {
+                                radius = 6.0F;
+                            }
+                            if (this.startUp > totalTime / 1.5F) {
+                                radius = 8.0F;
+                            }
+                            ServerParticleUtil.addReverseAuraParticles(serverLevel, ModParticleTypes.SPELL_CLOUD.get(), skyVec, radius / 2.0F);
+                            ServerParticleUtil.addAuraParticles(serverLevel, ModParticleTypes.SPELL_CLOUD.get(), skyVec, radius);
+                        }
+                    }
                 }
             }
         }

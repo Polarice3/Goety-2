@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:soul_candlestick"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_soul_candlestick.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_soul_candlestick.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_cursed_ingot",
+  "criteria": {
+    "soul_candlestick": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:soul_candlestick"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "soul_candlestick"
+    ]
+  ],
+  "rewards": {
+    "experience": 1
+  }
+}

@@ -2,12 +2,12 @@ package com.Polarice3.Goety.common.magic;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.magic.ISummonSpell;
+import com.Polarice3.Goety.client.particles.MagicSmokeParticle;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.EffectsUtil;
-import com.Polarice3.Goety.utils.SEHelper;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -18,6 +18,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.function.Predicate;
 
@@ -119,6 +120,21 @@ public abstract class SummonSpell extends Spell implements ISummonSpell {
             if (servant1.getTrueOwner() == owner && !SEHelper.isGrounded(owner, servant2)) {
                 servant.moveTo(owner.position());
             }
+        }
+    }
+
+    public void summonParticles(ServerLevel worldIn, LivingEntity caster, ItemStack staff, LivingEntity summoned) {
+        ColorUtil colorUtil = new ColorUtil(0x2ac9cf);
+        int colorFrom = 0x17b0e0;
+        int colorTo = 0xffffff;
+        if (staff.is(ModItems.NAMELESS_STAFF.get())) {
+            colorUtil = new ColorUtil(0xa7fc3e);
+            colorFrom = 0xa7fc3e;
+            colorTo = 0xcffc97;
+        }
+        ServerParticleUtil.windShockwaveParticle(worldIn, colorUtil, 0.1F, 0.1F, 0.05F, -1, summoned.position());
+        for (int i2 = 0; i2 < worldIn.getRandom().nextInt(10) + 10; ++i2) {
+            worldIn.sendParticles(new MagicSmokeParticle.Option(colorFrom, colorTo, 10 + worldIn.getRandom().nextInt(10), 0.2F), summoned.getRandomX(1.5D), summoned.getRandomY(), summoned.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
         }
     }
 }

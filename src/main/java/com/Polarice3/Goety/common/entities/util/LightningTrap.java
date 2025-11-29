@@ -39,6 +39,7 @@ public class LightningTrap extends AbstractTrap {
         if (this.tickCount >= this.getDuration()) {
             SpellLightningBolt lightning = new SpellLightningBolt(ModEntityType.SPELL_LIGHTNING_BOLT.get(), level);
             lightning.setPos(this.getX(),this.getY(),this.getZ());
+            lightning.setOwner(this.getOwner());
             if (this.getOwner() instanceof Apostle){
                 lightning.setDamage(AttributesConfig.ApostleMagicDamage.get().floatValue());
             }

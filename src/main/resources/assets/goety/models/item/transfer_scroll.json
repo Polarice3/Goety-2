@@ -1,0 +1,20 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "goety:item/transfer_scroll"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "signed": 0.00000
+      },
+      "model": "goety:item/transfer_scroll_unsigned"
+    },
+    {
+      "predicate": {
+        "signed": 1.00000
+      },
+      "model": "goety:item/transfer_scroll_signed"
+    }
+  ]
+}

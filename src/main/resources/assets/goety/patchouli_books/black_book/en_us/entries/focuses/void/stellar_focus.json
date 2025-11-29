@@ -1,0 +1,23 @@
+{
+  "name": "Stellar Focus",
+  "icon": "goety:stellar_focus",
+  "category": "goety:focuses/void",
+  "advancement": "goety:goety/kill_an_ender_keeper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The echoes of the void allows you to create a spell that, when concentrated, continuously summon projectiles that, after a second of being conjured, will home onto a foes location and explode in a blast of void energy."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/stellar_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/void_staff)Void Staff$() summons more projectiles."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:stellar_focus": 1
+  }
+}

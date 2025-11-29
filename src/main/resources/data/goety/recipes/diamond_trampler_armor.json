@@ -1,0 +1,22 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "minecraft:diamond_horse_armor"
+  },
+  "craftType": "forge",
+  "soulCost": 1,
+  "duration": 10,
+  "research": "ravaging",
+  "ingredients": [
+    {
+      "tag": "forge:storage_blocks/iron"
+    },
+    {
+      "tag": "forge:gems/diamond"
+    }
+  ],
+  "result": {
+    "item": "goety:diamond_trampler_armor"
+  }
+}

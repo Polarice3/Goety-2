@@ -191,6 +191,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> VoidMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CompatMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CompatNightmareStalker;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ServantOwnedServantPlayerBenefit;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSoulJar;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSummonsLife;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WildfireBlazingHelm;
@@ -225,6 +226,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> HostileRedstoneMonstrosityRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> HRMSpawnNoRaiders;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ArmoredRavagerRaid;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ArmoredTramplerRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WarlockRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MaverickRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> HereticRaid;
@@ -466,7 +468,7 @@ public class MobsConfig {
                     .define("undeadServantSunlightHelmet", true);
             NecromancerSoulJar = BUILDER.comment("Whether owned Necromancers fills Empty Soul Jars, Default: true")
                     .define("necromancerSoulJar", true);
-            NecromancerSummonsLife = BUILDER.comment("Whether Necromancer's summons have limited lifespans, Default: true")
+            NecromancerSummonsLife = BUILDER.comment("Whether Necromancer's summons have limited lifespans, can be affected by servantOwnedServantPlayerBenefit config, Default: true")
                     .define("necromancerSummonsLife", true);
             UndeadMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for an Undead Servant to heal, Default: 1")
                     .defineInRange("undeadServantsHealCost", 1, 0, Integer.MAX_VALUE);
@@ -601,6 +603,8 @@ public class MobsConfig {
                 .define("compatNightmareStalker", true);
         ServantTeleport = BUILDER.comment("Whether Servants can teleport to Players, Default: false")
                 .define("servantTeleport", false);
+        ServantOwnedServantPlayerBenefit = BUILDER.comment("Whether Servants owned by other Servants benefits from Player Robes and Crown, Default: true")
+                .define("servantOwnedServantPlayerBenefit", true);
         RedstoneMonstrosityLeafBreak = BUILDER.comment("Whether Redstone Monstrosity breaks leaves and certain blocks if mob griefing is enabled, Default: true")
                 .define("redstoneMonstrosityLeafBreak", true);
         RedstoneCubeBlockFind = BUILDER.comment("Enable Redstone Cubes block detection mechanic, Default: true")
@@ -664,6 +668,8 @@ public class MobsConfig {
                     .define("specialIllagerRaid", true);
             ArmoredRavagerRaid = BUILDER.comment("Whether Armored Ravagers spawn in Raids, Default: true")
                     .define("armoredRavagerRaid", true);
+            ArmoredTramplerRaid = BUILDER.comment("Whether Armored Tramplers spawn in Raids, Default: true")
+                    .define("armoredTramplerRaid", true);
                 BUILDER.push("Piker");
                 PikerRaid = BUILDER.comment("Whether Pikers appear in Raids, Default: true")
                         .define("pikerRaid", true);

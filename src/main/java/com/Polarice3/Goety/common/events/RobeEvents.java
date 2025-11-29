@@ -239,7 +239,10 @@ public class RobeEvents {
                         if (!victim.isInvulnerableTo(event.getSource()) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(victim)) {
                             float chance = ItemConfig.VoidRobeTeleportChance.get() / 100.0F;
                             if (victim.getRandom().nextFloat() <= chance) {
-                                if (MobUtil.teleport(victim)) {
+                                double d0 = victim.getX() + (victim.getRandom().nextDouble() - 0.5D) * 64;
+                                double d1 = victim.getY();
+                                double d2 = victim.getZ() + (victim.getRandom().nextDouble() - 0.5D) * 64;
+                                if (MobUtil.teleport(victim, d0, d1, d2)) {
                                     if (ItemConfig.VoidRobeTeleportDamageCancel.get()) {
                                         event.setCanceled(true);
                                     }
@@ -397,84 +400,7 @@ public class RobeEvents {
     @SubscribeEvent
     public static void VisibilityEvent(LivingEvent.LivingVisibilityEvent event){
         LivingEntity entity = event.getEntity();
-        if (event.getLookingEntity() instanceof LivingEntity looker && entity instanceof Player) {
-            /*boolean undead = CuriosFinder.validNecroUndead(looker);
-            if (entity.level instanceof ServerLevel serverLevel){
-                if (MobsConfig.HostileCryptUndead.get()) {
-                    if (BlockFinder.findStructure(serverLevel, entity.blockPosition(), ModStructureTags.NECRO_HOSTILE)
-                            && !(CuriosFinder.neutralNamelessCrown(entity) || CuriosFinder.neutralNamelessCape(entity))) {
-                        undead = false;
-                    }
-                }
-            }
-            if (CuriosFinder.neutralNecroCrown(entity)) {
-                if (undead) {
-                    event.modifyVisibility(0.5);
-                }
-            } else if (CuriosFinder.neutralNamelessCrown(entity)) {
-                if (CuriosFinder.validNamelessUndead(looker)) {
-                    event.modifyVisibility(0.5);
-                }
-            }
-            if (CuriosFinder.neutralNecroCape(entity)) {
-                if (undead) {
-                    event.modifyVisibility(0.5);
-                }
-            } else if (CuriosFinder.neutralNamelessCape(entity)) {
-                if (CuriosFinder.validNamelessUndead(looker)) {
-                    event.modifyVisibility(0.5);
-                }
-            }
-            if (ItemConfig.FrostSetMobNeutral.get()) {
-                if (CuriosFinder.validFrostMob(looker)) {
-                    if (CuriosFinder.hasFrostCrown(entity)) {
-                        event.modifyVisibility(0.5);
-                    }
-                    if (CuriosFinder.hasFrostRobes(looker)) {
-                        event.modifyVisibility(0.5);
-                    }
-                }
-            }
-            if (ItemConfig.NetherSetMobNeutral.get()) {
-                if (CuriosFinder.validNetherMob(looker)) {
-                    if (CuriosFinder.hasNetherCrown(entity)) {
-                        event.modifyVisibility(0.5);
-                    }
-                    if (CuriosFinder.hasNetherRobe(looker)) {
-                        event.modifyVisibility(0.5);
-                    }
-                }
-            }
-            if (ItemConfig.WildSetMobNeutral.get()) {
-                if (CuriosFinder.validWildMob(looker)) {
-                    if (CuriosFinder.hasWildCrown(entity)) {
-                        event.modifyVisibility(0.5);
-                    }
-                    if (CuriosFinder.hasWildRobe(looker)) {
-                        event.modifyVisibility(0.5);
-                    }
-                }
-            }
-            if (ItemConfig.AbyssSetMobNeutral.get()) {
-                if (CuriosFinder.validAbyssMob(looker)) {
-                    if (CuriosFinder.hasAbyssCrown(entity)) {
-                        event.modifyVisibility(0.5);
-                    }
-                    if (CuriosFinder.hasAbyssRobes(looker)) {
-                        event.modifyVisibility(0.5);
-                    }
-                }
-            }
-            if (ItemConfig.VoidSetMobNeutral.get()) {
-                if (CuriosFinder.validVoidMob(looker)) {
-                    if (CuriosFinder.hasVoidCrown(entity)) {
-                        event.modifyVisibility(0.5);
-                    }
-                    if (CuriosFinder.hasVoidRobe(looker)) {
-                        event.modifyVisibility(0.5);
-                    }
-                }
-            }*/
+        if (event.getLookingEntity() instanceof LivingEntity && entity instanceof Player) {
             if (entity.isInvisible()){
                 if (CuriosFinder.hasCurio(entity, ModItems.ILLUSION_ROBE.get())){
                     event.modifyVisibility(0.0);

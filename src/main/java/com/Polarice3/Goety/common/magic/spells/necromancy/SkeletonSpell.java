@@ -141,8 +141,7 @@ public class SkeletonSpell extends SummonSpell {
                 this.SummonSap(caster, summonedentity);
                 this.setTarget(caster, summonedentity);
                 if (worldIn.addFreshEntity(summonedentity)) {
-                    ColorUtil colorUtil = new ColorUtil(0x2ac9cf);
-                    ServerParticleUtil.windShockwaveParticle(worldIn, colorUtil, 0.1F, 0.1F, 0.05F, -1, summonedentity.position());
+                    this.summonParticles(worldIn, caster, staff, summonedentity);
                 }
                 this.summonAdvancement(caster, summonedentity);
             }

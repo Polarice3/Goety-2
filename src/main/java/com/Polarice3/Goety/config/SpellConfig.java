@@ -522,6 +522,11 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> VoidShockCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> VoidShockDamage;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> VoidBombCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VoidBombDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VoidBombCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> VoidBombDamage;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> WatchlingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> WatchlingDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> WatchlingCoolDown;
@@ -1653,15 +1658,25 @@ public class SpellConfig {
             RuptureDamage = BUILDER.comment("How much base damage the Void Rift deals, Default: 2.0")
                     .defineInRange("ruptureDamage", 2.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
-            BUILDER.push("Void Shock Spell(NYI)");
-            VoidShockCost = BUILDER.comment("Void Shock Spell Cost, Default: 32")
-                    .defineInRange("voidShockCost", 32, 0, Integer.MAX_VALUE);
-            VoidShockDuration = BUILDER.comment("Time to cast Void Shock Spell, Default: 35")
-                    .defineInRange("voidShockDuration", 35, 0, 72000);
-            VoidShockCoolDown = BUILDER.comment("Void Shock Spell Cooldown, Default: 100")
-                    .defineInRange("voidShockCoolDown", 100, 0, Integer.MAX_VALUE);
-            VoidShockDamage = BUILDER.comment("How much base damage the Void Shocks deals, Default: 6.0")
-                    .defineInRange("voidShockDamage", 6.0, 1.0, Double.MAX_VALUE);
+            BUILDER.push("Stellar Spell");
+            VoidShockCost = BUILDER.comment("Stellar Spell Cost, Default: 16")
+                    .defineInRange("stellarCost", 16, 0, Integer.MAX_VALUE);
+            VoidShockDuration = BUILDER.comment("Time to cast Stellar Spell, Default: 35")
+                    .defineInRange("stellarDuration", 35, 0, 72000);
+            VoidShockCoolDown = BUILDER.comment("Stellar Spell Cooldown, Default: 100")
+                    .defineInRange("stellarCoolDown", 100, 0, Integer.MAX_VALUE);
+            VoidShockDamage = BUILDER.comment("How much base damage the Void Shocks from Stellar spell deals, Default: 7.0")
+                    .defineInRange("stellarDamage", 7.0, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Void Flash Spell");
+            VoidBombCost = BUILDER.comment("Void Flash Spell Cost, Default: 32")
+                    .defineInRange("voidFlashCost", 32, 0, Integer.MAX_VALUE);
+            VoidBombDuration = BUILDER.comment("Time to cast Void Flash Spell, Default: 86")
+                    .defineInRange("voidFlashDuration", 86, 0, 72000);
+            VoidBombCoolDown = BUILDER.comment("Void Flash Spell Cooldown, Default: 200")
+                    .defineInRange("voidFlashCoolDown", 200, 0, Integer.MAX_VALUE);
+            VoidBombDamage = BUILDER.comment("How much base damage the Void Shock Bombs from Void Flash spell deals, Default: 7.0")
+                    .defineInRange("voidFlashDamage", 7.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Watching Spell");
             WatchlingCost = BUILDER.comment("Watching Spell Cost, Default: 20")

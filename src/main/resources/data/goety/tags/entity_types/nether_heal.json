@@ -2,6 +2,10 @@
   "replace": false,
   "__comment": "servants that heals and lose limited lifespan through Nether set.",
   "values": [
-
+    "goety:hoglin_servant",
+    "goety:zpiglin_servant",
+    "goety:zpiglin_brute_servant",
+    "goety:wither_skeleton_servant",
+    "goety:wither_necromancer_servant"
   ]
 }

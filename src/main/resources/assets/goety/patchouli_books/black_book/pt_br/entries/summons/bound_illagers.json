@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Embora um Vingador possa ser ressuscitado como Zombie, um Saqueador como Esqueleto, para criar verdadeiramente uma versão morta-viva dos poderosos Invocadores e outros feiticeiros Illager, é necessário ser mais... espiritual na sua busca."
+      "text": "Enquanto um Aprisionado pode ser ressuscitado como um Zumbi, um Saqueador como um Esqueleto, para verdadeiramente fazer uma versão morta-viva adequada dos poderosos Invocadores e outros Illagers feiticeiros, deve-se ser mais... espiritual em sua busca."
     },
     {
       "type": "patchouli:entity",
@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Ao contrário dos outros dois, os Invocadores Aprisionados podem flutuar acima do solo e não são afetados pela gravidade. Apesar do seu aspeto espiritual, não podem atravessar paredes e ainda podem ser feridos com armas convencionais."
+      "text": "Diferente dos outros dois, os Invocadores Aprisionados podem flutuar acima do solo e não são afetados pela gravidade. Apesar de sua aparência espiritual, eles não podem atravessar paredes e ainda podem ser feridos com armas convencionais."
     },
     {
       "type": "goety:ritual",
@@ -22,23 +22,72 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:bound_geomancer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Não mais presos ao solo, esses feiticeiros mortos-vivos, no entanto, retêm seu domínio sobre a terra."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_geomancer"
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:bound_iceologer"
     },
     {
       "type": "patchouli:text",
-      "text": "Os Iceologistas Aprisionados são tão frios como em vida, mas desta vez os seus Pedaços de Gelo caem na cabeça de outra pessoa em vez da tua."
+      "text": "Os Iceologistas Aprisionados são tão frios quanto em vida, mas, desta vez, seus Pedaços de Gelo estão caindo na cabeça de outra pessoa em vez da sua."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_bound_iceologer"
     },
     {
-      "type": "patchouli:text",
-      "text": "Estas almas aprisionadas podem ser curadas ao clicar nelas com Ectoplasma."
+      "type": "patchouli:entity",
+      "entity": "goety:bound_cryologer"
     },
     {
       "type": "patchouli:text",
-      "text": "Como ainda retêm as suas memorias e conhecimentos como em vida, estas almas podem receber a tua $(l:goety:mutations/illager_servants#banner)bandeira pessoal$() e liderar os teus $(l:goety:mutations/illager_servants)servos Illager$() também."
+      "text": "Tão chorosos quanto em vida, os Criologistas mortos-vivos lançarão granizo e conjurarão paredes sobre seus inimigos. Por alguma razão, apesar de sua aparência de olhos lacrimejantes, eles parecem ser menos miseráveis e mais apáticos à sua situação do que os outros illagers Aprisionados."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_cryologer"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_wind_caller",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Esses Illagers retêm seu poder sobre o vento na morte, com a vantagem adicional de realmente poderem voar, em vez de cair lentamente no chão."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_wind_caller"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_storm_caster"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Nem mesmo a morte pode parar a tempestade dentro desses saqueadores, e eles estão dispostos a revelá-la aos seus inimigos."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_storm_caster"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Essas almas aprisionadas podem ser curadas clicando com o botão direito nelas com Ectoplasma."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Como eles ainda retêm seus conhecimentos em vida em sua mente, essas almas podem receber seu $(l:goety:mutations/illager_servants#banner)estandarte pessoal$() e liderar seus $(l:goety:mutations/illager_servants)servos Illager$() também."
     }
   ]
 }

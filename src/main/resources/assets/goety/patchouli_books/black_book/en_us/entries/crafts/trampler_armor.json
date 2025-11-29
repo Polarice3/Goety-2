@@ -1,0 +1,39 @@
+{
+  "name": "Trampler Armor",
+  "icon": "goety:iron_trampler_armor",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "While $(l:crafts/ravager_armor)armoring$() $(l:mutations/ravaged)Ravagers$() is good step, you've realized that their lanky counterparts would also benefit from being armored as well."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Creating armor for these beasts are cheaper than making Ravager armor, their shape and method of transportation requires the use of horse armor to make their own version. You've heard that much like Ravagers, you're not the first to think of this idea..."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:iron_trampler_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:gold_trampler_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:diamond_trampler_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:netherite_trampler_armor"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:iron_trampler_armor": 2,
+    "goety:gold_trampler_armor": 3,
+    "goety:diamond_trampler_armor": 4,
+    "goety:netherite_trampler_armor": 5
+  }
+}

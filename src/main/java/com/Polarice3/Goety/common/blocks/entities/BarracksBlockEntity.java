@@ -31,9 +31,13 @@ import java.util.UUID;
 
 public abstract class BarracksBlockEntity extends OwnedBlockEntity implements GameEventListener, IBarrack {
     public static String TRAIN_LIST = "trainList";
+    public static String CLEAR = "Clear";
+    public static String RAIN = "Rain";
+    public static String STORM = "Storm";
     private final BlockPositionSource blockPosSource = new BlockPositionSource(this.worldPosition);
     public List<UUID> uuids = new ArrayList<>();
     public List<Mob> trainingMobs = new ArrayList<>();
+    public String currentWeather = CLEAR;
     public String currentMob = "None";
     public int updateVariant;
     public int mobCountO = 0;
@@ -50,6 +54,24 @@ public abstract class BarracksBlockEntity extends OwnedBlockEntity implements Ga
 
     public static void serverTick(Level level, BlockPos blockPos, BlockState blockState, BarracksBlockEntity blockEntity) {
         if (level instanceof ServerLevel serverLevel){
+            if (serverLevel.isRaining()) {
+                if (serverLevel.isThundering()) {
+                    if (!Objects.equals(blockEntity.currentWeather, STORM)) {
+                        blockEntity.currentWeather = STORM;
+                        blockEntity.updateVariant = 5;
+                    }
+                } else {
+                    if (!Objects.equals(blockEntity.currentWeather, RAIN)) {
+                        blockEntity.currentWeather = RAIN;
+                        blockEntity.updateVariant = 5;
+                    }
+                }
+            } else {
+                if (!Objects.equals(blockEntity.currentWeather, CLEAR)) {
+                    blockEntity.currentWeather = CLEAR;
+                    blockEntity.updateVariant = 5;
+                }
+            }
             if (blockEntity.updateVariant > 0){
                 --blockEntity.updateVariant;
                 blockEntity.setVariant(level, blockPos);
@@ -181,6 +203,9 @@ public abstract class BarracksBlockEntity extends OwnedBlockEntity implements Ga
         if (tag.contains("showArea")) {
             this.showArea = tag.getBoolean("showArea");
         }
+        if (tag.contains("CurrentWeather")) {
+            this.currentWeather = tag.getString("CurrentWeather");
+        }
         if (tag.contains("CurrentMob")) {
             this.currentMob = tag.getString("CurrentMob");
         }
@@ -201,6 +226,7 @@ public abstract class BarracksBlockEntity extends OwnedBlockEntity implements Ga
     public CompoundTag writeNetwork(CompoundTag tag) {
         CompoundTag tag1 = super.writeNetwork(tag);
         tag1.putBoolean("showArea", this.showArea);
+        tag1.putString("CurrentWeather", this.currentWeather);
         tag1.putString("CurrentMob", this.currentMob);
         tag1.putInt("MobCount", this.getCurrentAmount());
         tag1.put("EntityTrainTo", this.entityTrainTo);

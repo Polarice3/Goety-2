@@ -3,7 +3,10 @@ package com.Polarice3.Goety.common.entities.ally.illager;
 import com.Polarice3.Goety.common.entities.ai.MinionFollowGoal;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Minion;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
@@ -78,5 +81,24 @@ public class AllyVex extends Minion {
     protected void populateDefaultEquipmentSlots(RandomSource p_219135_, DifficultyInstance p_219136_) {
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
         this.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        LivingEntity owner = this.getTrueOwner();
+        if (MobsConfig.ServantOwnedServantPlayerBenefit.get()) {
+            owner = this.getMasterOwner();
+        }
+        if (owner != null) {
+            boolean crown = CuriosFinder.hasCurio(owner, ModItems.GRAND_TURBAN.get());
+            if (!crown) {
+                if (this.getLifespan() > 0) {
+                    this.setHasLifespan(true);
+                }
+            } else {
+                this.setHasLifespan(false);
+            }
+        }
     }
 }

@@ -1,0 +1,19 @@
+{
+  "name": "转让卷轴",
+  "icon": "goety:transfer_scroll",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "不管是用来做交易还是想帮好朋友个忙，你设计出了一种卷轴，能把你手下一个仆从的所有权转给收到卷轴的人。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:transfer_scroll"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "首先，你得拿着卷轴对着你的仆从左键点击来登记。一旦它们登记了，任何像你这样的玩家就能使用这个卷轴，让上面登记的仆从转而效忠他们，所以这些卷轴可得小心存放和使用。"
+    }
+  ]
+}

@@ -42,24 +42,28 @@ public class RitualRequirements extends RitualTypes {
 
     public static boolean canSummon(Level level, Player castingPlayer, EntityType<?> summonType){
         if (level instanceof ServerLevel serverLevel){
-            Entity summon = summonType.create(level);
-            if (summon instanceof IOwned owned){
-                int count = 0;
-                for (ServerLevel serverLevel1 : serverLevel.getServer().getAllLevels()) {
-                    for (Entity entity : serverLevel1.getAllEntities()) {
-                        if (entity instanceof IOwned servant && owned.summonPredicate().test(entity)) {
-                            if (servant.getTrueOwner() == castingPlayer) {
-                                ++count;
+            if (summonType != null) {
+                Entity summon = summonType.create(level);
+                if (summon instanceof IOwned owned) {
+                    int count = 0;
+                    for (ServerLevel serverLevel1 : serverLevel.getServer().getAllLevels()) {
+                        for (Entity entity : serverLevel1.getAllEntities()) {
+                            if (entity instanceof IOwned servant && owned.summonPredicate().test(entity)) {
+                                if (servant.getTrueOwner() == castingPlayer) {
+                                    ++count;
+                                }
                             }
                         }
                     }
+                    if (count >= owned.getSummonLimit(castingPlayer)) {
+                        castingPlayer.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
+                        return false;
+                    } else {
+                        return true;
+                    }
                 }
-                if (count >= owned.getSummonLimit(castingPlayer)){
-                    castingPlayer.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
-                    return false;
-                } else {
-                    return true;
-                }
+            } else {
+                return false;
             }
         }
         return true;

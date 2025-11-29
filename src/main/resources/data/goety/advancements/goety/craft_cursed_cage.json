@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:cursed_cage"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_cursed_cage.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_cursed_cage.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_cursed_ingot",
+  "criteria": {
+    "cursed_cage": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:cursed_cage"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "cursed_cage"
+    ]
+  ],
+  "rewards": {
+    "experience": 1
+  }
+}

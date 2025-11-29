@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.magic.spells.necromancy;
 
 import com.Polarice3.Goety.api.magic.SpellType;
+import com.Polarice3.Goety.client.particles.MagicSmokeParticle;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -119,6 +120,9 @@ public class BlackguardSpell extends SummonSpell {
                         ColorUtil colorUtil = new ColorUtil(0xa7fc3e);
                         ServerParticleUtil.windShockwaveParticle(worldIn, colorUtil, 0.1F, 0.1F, 0.05F, -1, summonedentity.position());
                         worldIn.sendParticles(ModParticleTypes.LICH.get(), summonedentity.getX(), summonedentity.getY(), summonedentity.getZ(), 1, 0, 0, 0, 0.0F);
+                        for (int i2 = 0; i2 < worldIn.getRandom().nextInt(10) + 10; ++i2) {
+                            worldIn.sendParticles(new MagicSmokeParticle.Option(0xa7fc3e, 0xcffc97, 10 + worldIn.getRandom().nextInt(10), 0.2F), summonedentity.getRandomX(1.5D), summonedentity.getRandomY(), summonedentity.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
+                        }
                         this.playSound(worldIn, summonedentity, ModSounds.SOUL_EXPLODE.get(), 0.25F + (worldIn.random.nextFloat() / 2.0F), 1.0F);
                         this.playSound(worldIn, summonedentity, SoundEvents.ENDERMAN_TELEPORT, 0.25F + (worldIn.random.nextFloat() / 2.0F), 1.0F);
                     }

@@ -2,6 +2,10 @@
   "replace": false,
   "values": [
     "goety:bound_evoker",
-    "goety:bound_iceologer"
+    "goety:bound_geomancer",
+    "goety:bound_iceologer",
+    "goety:bound_cryologer",
+    "goety:bound_wind_caller",
+    "goety:bound_storm_caster"
   ]
 }

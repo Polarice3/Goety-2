@@ -19,7 +19,7 @@
       "item": "minecraft:book"
     },
     "c": {
-      "item": "minecraft:feather"
+      "tag": "forge:feathers"
     }
   },
   "result": {

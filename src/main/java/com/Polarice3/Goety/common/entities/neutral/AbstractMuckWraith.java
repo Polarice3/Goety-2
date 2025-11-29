@@ -70,7 +70,7 @@ public class AbstractMuckWraith extends AbstractWraith {
         acidPool.setWarmupColor(0xfdd4fb);
         acidPool.setPos(livingEntity.position());
         acidPool.setRadius(2.0F);
-        acidPool.setDamage((float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) * 2.0F);
+        acidPool.setDamage((float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) * 2.5F);
         acidPool.setWarmupDelayTicks(MathHelper.secondsToTicks(0.7F));
         acidPool.setDuration(MathHelper.secondsToTicks(1.8F));
         acidPool.setOwner(this);

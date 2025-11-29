@@ -2919,7 +2919,7 @@
   "jade.goety.capture_mode": "§6Режим захвата",
   "config.jade.plugin_goety.capture_mode": "Режим захвата",
   "config.jade.plugin_goety.capture_mode_desc": "Отображает то, находится ли рейдер в режиме захвата.",
-  "death.attack.goety.dismissed": "%1$s был изгнан",
+  "death.attack.goety.dismissed": "%1$s был изгнан %2$s",
   "death.attack.goety.dismissed.item": "%1$s был изгнан %2$s с помощью %3$s",
 
   "entity.goety.watchling_servant": "Эндергляд-прислужник",
@@ -3217,8 +3217,8 @@
   "item.goety.earth_punch_focus": "Фокус земляного удара",
   "item.goety.earth_punch_focus.info": "Призывает каменный кулак из-под жертвы или в точке.",
 
-  "entity.goety.razor_wind": "Ветряная бритва",
-  "item.goety.razor_wind_focus": "Фокус ветряной бритвы",
+  "entity.goety.razor_wind": "Ветряное лезвие",
+  "item.goety.razor_wind_focus": "Фокус ветряного лезвия",
   "item.goety.razor_wind_focus.info": "Выстреливает перед вами мощным лезвием из ветра.",
 
   "item.goety.thunderstorm_focus": "Фокус грозы",

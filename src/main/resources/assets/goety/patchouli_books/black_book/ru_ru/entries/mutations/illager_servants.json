@@ -111,6 +111,14 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:cryologer_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Вечно плачущие жрецы холода могут выдыхать мороз, чоздавать ледяные стены, чтобы помешать своим врагам, и вызывать над ним град."
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:wind_caller_servant",
       "scale": 0.75
     },

@@ -256,6 +256,20 @@ public class ItemEvents {
                             int soulEat = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.SOUL_EATER.get(), livingAttacker) + 1;
                             livingAttacker.heal(event.getAmount() * (0.05F * soulEat));
                         }
+                        if (weapon instanceof BladeOfEnderItem) {
+                            MobEffect effect = GoetyEffects.VOID_TOUCHED.get();
+                            int amp = 0;
+                            if (livingAttacker instanceof Player player) {
+                                if (!player.isSpectator()) {
+                                    if (player.getAttackStrengthScale(0.5F) > 0.9F) {
+                                        amp += 1;
+                                    }
+                                }
+                            }
+                            if (!livingAttacker.hasEffect(GoetyEffects.VOID_TOUCHED.get())) {
+                                victim.addEffect(new MobEffectInstance(effect, MathHelper.secondsToTicks(5), amp, false, true));
+                            }
+                        }
                         if (weapon instanceof DarkScytheItem) {
                             victim.playSound(ModSounds.SCYTHE_HIT_MEATY.get());
                         }

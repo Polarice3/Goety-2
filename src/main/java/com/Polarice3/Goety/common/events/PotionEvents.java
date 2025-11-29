@@ -754,21 +754,6 @@ public class PotionEvents {
     }
 
     @SubscribeEvent
-    public static void KnockbackEvents(LivingKnockBackEvent event){
-        LivingEntity livingEntity = event.getEntity();
-        if (livingEntity != null){
-            if (livingEntity.hasEffect(GoetyEffects.FLIMSY.get())){
-                MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.FLIMSY.get());
-                if (mobEffectInstance != null){
-                    int a = mobEffectInstance.getAmplifier() + 2;
-                    float strength = event.getOriginalStrength();
-                    event.setStrength(strength * a);
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
     public static void PlayerInteractItemEvents(PlayerInteractEvent.RightClickItem event){
         Player player = event.getEntity();
         Level level = event.getLevel();

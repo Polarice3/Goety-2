@@ -1,7 +1,9 @@
 package com.Polarice3.Goety.common.entities.ally.illager;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
+import com.Polarice3.Goety.common.entities.ally.undead.bound.BoundStormCaster;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.spells.storm.DischargeSpell;
@@ -11,10 +13,7 @@ import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SLightningPacket;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.ColorUtil;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModDamageSource;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -33,6 +32,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -246,6 +246,32 @@ public class StormCasterServant extends AbstractIllagerServant {
 
     public boolean isAttacking(){
         return this.getCurrentAnimation() == this.getAnimationState(SHOCK) || this.getCurrentAnimation() == this.getAnimationState(CLOUD) || this.getCurrentAnimation() == this.getAnimationState(DISCHARGE);
+    }
+
+    @Override
+    public void die(DamageSource pCause) {
+        if (!this.level.isClientSide) {
+            if (this.getIdol() == null) {
+                if (this.getTrueOwner() != null) {
+                    if (CuriosFinder.hasNamelessSet(this.getTrueOwner())){
+                        BoundStormCaster servant = this.convertTo(ModEntityType.BOUND_STORM_CASTER.get(), true);
+                        if (servant != null) {
+                            servant.setTrueOwner(this.getTrueOwner());
+                            net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, servant);
+                            if (!this.isSilent()) {
+                                this.level.levelEvent((Player)null, 1026, this.blockPosition(), 0);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        super.die(pCause);
+    }
+
+    @Override
+    public int xpReward() {
+        return 10;
     }
 
     @Override

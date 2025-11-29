@@ -171,7 +171,9 @@ public class GoetyEffects {
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x8d989a));
 
     public static final RegistryObject<MobEffect> FLIMSY = EFFECTS.register("flimsy",
-            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0xf5f5f5));
+            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0xf5f5f5)
+                    .addAttributeModifier(Attributes.ATTACK_DAMAGE, ModUUIDUtil.uuidString("effect.goety.flimsy.knockback_resistance"),
+                    -1.0D, AttributeModifier.Operation.MULTIPLY_TOTAL));
 
     public static final RegistryObject<MobEffect> SENSE_LOSS = EFFECTS.register("sense_loss",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 2039587));

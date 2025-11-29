@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.magic.spells.necromancy;
 
 import com.Polarice3.Goety.api.magic.SpellType;
+import com.Polarice3.Goety.client.particles.MagicSmokeParticle;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
@@ -142,8 +143,7 @@ public class ZombieSpell extends SummonSpell {
                 this.SummonSap(caster, summonedentity);
                 this.setTarget(caster, summonedentity);
                 if (worldIn.addFreshEntity(summonedentity)) {
-                    ColorUtil colorUtil = new ColorUtil(0x2ac9cf);
-                    ServerParticleUtil.windShockwaveParticle(worldIn, colorUtil, 0.1F, 0.1F, 0.05F, -1, summonedentity.position());
+                    this.summonParticles(worldIn, caster, staff, summonedentity);
                 }
                 this.summonAdvancement(caster, summonedentity);
             }

@@ -1,0 +1,23 @@
+{
+  "name": "ヴォイドステラーのフォーカス",
+  "icon": "goety:stellar_focus",
+  "category": "goety:focuses/void",
+  "advancement": "goety:goety/kill_an_ender_keeper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "虚空の残響により、連続的に発射物を召喚する呪文を作成できます。発射物は召喚されてから1秒後に敵のいる場所に誘導され、輝かしい虚空のエネルギーとして爆発します。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/stellar_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/void_staff)ヴォイドの杖$()で唱えると、より多く召喚します。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:stellar_focus": 1
+  }
+}

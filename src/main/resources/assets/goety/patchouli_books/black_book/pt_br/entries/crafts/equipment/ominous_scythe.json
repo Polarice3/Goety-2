@@ -1,11 +1,11 @@
 {
-  "name": "Foice Sinistra",
+  "name": "Foice Amaldiçoada",
   "icon": "goety:dark_scythe",
   "category": "goety:crafts/equipment",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "A Foice Sinistra é uma arma poderosa capaz de atingir múltiplos seres por golpe. Não só ataca com força, mas o portador ganha Energia das Almas a cada golpe. Se o medidor de recarga de ataque do portador estiver cheio, a foice atingirá os seres em um raio maior, embora leve um bom tempo para o medidor se recuperar, o que pode ser mitigado se o portador não segurar nada na mão secundária."
+      "text": "A Foice Amaldiçoada é uma arma poderosa capaz de atingir múltiplos seres por golpe. Não apenas atinge com força, mas o portador ganha Energia de Alma com cada golpe. Se o medidor de recarga de ataque do portador estiver cheio, a foice atingirá os seres em um raio maior, embora leve um bom tempo para o medidor se recuperar, o que pode ser mitigado se o portador não segurar nada na mão secundária."
     },
     {
       "type": "goety:ritual",
@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "A foice pode ser reparada em uma bigorna com um $(l:intro/magical_components)Barra de Metal Amaldiçoado$(). Também pode ser usada como uma ferramenta para limpar grama ou colher plantações em uma área grande ou para coletar blocos de Sculk sem Toque Suave."
+      "text": "A foice pode ser reparada em uma bigorna com um $(l:intro/magical_components)Metal Amaldiçoado$() ou uma $(l:crafts/pale_steel_ingot)Barra de Aço Pálido$(). Também pode ser usada como uma ferramenta para limpar grama ou colher plantações em uma área grande ou para coletar blocos de Sculk sem Toque de Seda."
     },
     {
       "type": "goety:ritual",
@@ -23,7 +23,7 @@
     {
       "type": "patchouli:text",
       "advancement": "goety:goety/craft_necro_brazier",
-      "text": "Uma versão aprimorada da Foice Sinistra, possuindo as qualidades de outros equipamentos de $(l:crafts/dark_alloy_ingot)Liga Sombria$()."
+      "text": "Uma versão aprimorada da Foice Amaldiçoada, possuindo as qualidades de outros equipamentos de $(l:crafts/dark_alloy_ingot)Liga Sombria$()."
     }
   ],
   "extra_recipe_mappings": {

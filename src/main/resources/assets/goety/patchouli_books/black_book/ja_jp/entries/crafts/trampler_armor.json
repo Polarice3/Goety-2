@@ -1,0 +1,39 @@
+{
+  "name": "トランプラー鎧",
+  "icon": "goety:iron_trampler_armor",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/ravager_armor)防具を着た$() $(l:mutations/ravaged)ラヴェジャー$() は良いステップですが、細長いバージョンも同様に防具で恩恵を受けることに気付きました。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "これらの鎧を作るのは、ラヴェジャーの鎧を作るよりも安価です。彼らの形状と移動方法から、馬用の鎧を使わなければなりません。ラヴェジャーと同じように、あなたも聞いたことがあるでしょう。このアイデアを思いついたのはあなただけではありません…"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:iron_trampler_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:gold_trampler_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:diamond_trampler_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:netherite_trampler_armor"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:iron_trampler_armor": 2,
+    "goety:gold_trampler_armor": 3,
+    "goety:diamond_trampler_armor": 4,
+    "goety:netherite_trampler_armor": 5
+  }
+}

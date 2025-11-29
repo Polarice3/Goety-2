@@ -4,9 +4,13 @@ import com.Polarice3.Goety.api.entities.ICharger;
 import com.Polarice3.Goety.api.entities.ICustomAttributes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ai.ChargeGoal;
+import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.TramplerArmorItem;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ModUUIDUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -16,10 +20,13 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -30,7 +37,10 @@ import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
@@ -41,8 +51,10 @@ import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.UUID;
 
 public class Trampler extends Raider implements ICharger, ICustomAttributes {
+    private static final UUID ARMOR_MODIFIER_UUID = ModUUIDUtil.createUUID("entity.goety.trampler.armor");
     private static final EntityDataAccessor<Boolean> DATA_STANDING_ID = SynchedEntityData.defineId(Trampler.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_CHARGING = SynchedEntityData.defineId(Trampler.class, EntityDataSerializers.BOOLEAN);
     private float clientSideStandAnimationO;
@@ -105,8 +117,22 @@ public class Trampler extends Raider implements ICharger, ICustomAttributes {
         this.entityData.define(DATA_CHARGING, false);
     }
 
+    public void addAdditionalSaveData(CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+        ItemStack itemStack = this.getItemBySlot(EquipmentSlot.CHEST);
+        if(!itemStack.isEmpty()) {
+            CompoundTag compoundTag = new CompoundTag();
+            itemStack.save(compoundTag);
+            pCompound.put("ArmorItem", compoundTag);
+        }
+    }
+
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
+        CompoundTag armorItem = pCompound.getCompound("ArmorItem");
+        if(!armorItem.isEmpty()) {
+            this.setArmorEquipment(ItemStack.of(armorItem));
+        }
         this.setConfigurableAttributes();
     }
 
@@ -194,6 +220,78 @@ public class Trampler extends Raider implements ICharger, ICustomAttributes {
             }
         }
 
+        return null;
+    }
+
+    public ItemStack getArmor() {
+        return this.getItemBySlot(EquipmentSlot.CHEST);
+    }
+
+    public void setArmor(ItemStack p_30733_) {
+        this.setItemSlot(EquipmentSlot.CHEST, p_30733_);
+        this.setDropChance(EquipmentSlot.CHEST, 0.0F);
+    }
+
+    public void setArmorEquipment(ItemStack armor) {
+        if (!this.level.isClientSide) {
+            this.setItemSlot(EquipmentSlot.CHEST, armor);
+            this.setDropChance(EquipmentSlot.CHEST, 0.0F);
+            this.updateArmor();
+        }
+    }
+
+    public void updateArmor(){
+        AttributeInstance attribute = this.getAttribute(Attributes.ARMOR);
+        if (attribute != null) {
+            attribute.removeModifier(ARMOR_MODIFIER_UUID);
+            if (this.isArmor(this.getArmor())) {
+                int i = ((TramplerArmorItem) this.getArmor().getItem()).getProtection();
+                if (i != 0) {
+                    attribute.addTransientModifier(new AttributeModifier(ARMOR_MODIFIER_UUID, "Ravager armor bonus", (double) i, AttributeModifier.Operation.ADDITION));
+                }
+            }
+        }
+    }
+
+    public boolean isArmor(ItemStack p_30731_) {
+        return p_30731_.getItem() instanceof TramplerArmorItem;
+    }
+
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+        pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        if (MobsConfig.ArmoredTramplerRaid.get() && this.getCurrentRaid() != null) {
+            int i = pLevel.getLevel().random.nextInt(2);
+            float f = pLevel.getLevel().getDifficulty() == Difficulty.HARD ? 0.75F : 0.45F;
+            if (pLevel.getLevel().random.nextFloat() < f) {
+                ++i;
+            }
+
+            if (pLevel.getLevel().random.nextFloat() < f) {
+                ++i;
+            }
+
+            if (pLevel.getLevel().random.nextFloat() < f) {
+                ++i;
+            }
+
+            Item item = Trampler.getEquipmentForSlot(i);
+            if (item != null) {
+                this.setArmorEquipment(new ItemStack(item));
+            }
+        }
+        return pSpawnData;
+    }
+
+    @Nullable
+    public static Item getEquipmentForSlot(int p_21414_) {
+        if (p_21414_ < 3) {
+            return ModItems.IRON_TRAMPLER_ARMOR.get();
+        } else if (p_21414_ == 3) {
+            return ModItems.GOLD_TRAMPLER_ARMOR.get();
+        } else if (p_21414_ == 4) {
+            return ModItems.DIAMOND_TRAMPLER_ARMOR.get();
+        }
         return null;
     }
 

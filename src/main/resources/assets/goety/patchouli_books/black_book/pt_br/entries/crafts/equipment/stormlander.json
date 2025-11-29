@@ -11,7 +11,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Ele pode realizar as mesmas funcionalidades que sua contraparte comum. O martelo pode ser reparado em uma bigorna com um $(l:intro/magical_components)Lingote de Metal Amaldiçoado$()."
+      "text": "Ele pode realizar as mesmas funcionalidades que sua contraparte mundana. O martelo pode ser reparado em uma bigorna com uma $(l:crafts/pale_steel_ingot)Barra de Aço Pálido$()."
     }
   ],
   "extra_recipe_mappings": {

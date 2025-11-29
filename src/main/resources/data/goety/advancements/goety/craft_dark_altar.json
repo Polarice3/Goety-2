@@ -14,7 +14,7 @@
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "goety:goety/craft_totem",
+  "parent": "goety:goety/craft_cursed_cage",
   "criteria": {
     "1": {
       "conditions": {

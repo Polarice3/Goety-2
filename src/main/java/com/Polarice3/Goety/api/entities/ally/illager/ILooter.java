@@ -31,6 +31,17 @@ public interface ILooter extends InventoryCarrier {
         return list;
     }
 
+    default int getItemAmount(Predicate<ItemStack> predicate) {
+        if (this.itemsInInv(predicate).isEmpty()) {
+            return 0;
+        }
+        return this.itemsInInv(predicate).size();
+    }
+
+    default boolean hasItem(Predicate<ItemStack> predicate) {
+        return this.getItemAmount(predicate) > 0;
+    }
+
     @Nullable
     default BlockPos getChestPos() {
         return null;

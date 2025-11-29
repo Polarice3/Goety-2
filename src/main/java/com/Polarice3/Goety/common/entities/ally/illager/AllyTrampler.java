@@ -7,13 +7,16 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.ChargeGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.common.items.TramplerArmorItem;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.CSetDeltaMovement;
 import com.Polarice3.Goety.common.network.client.CTramplerPacket;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ModUUIDUtil;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -29,6 +32,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -52,8 +56,10 @@ import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.UUID;
 
 public class AllyTrampler extends RaiderServant implements ICharger, IAutoRideable, PlayerRideableJumping {
+    private static final UUID ARMOR_MODIFIER_UUID = ModUUIDUtil.createUUID("entity.goety.ally_trampler.armor");
     private static final EntityDataAccessor<Boolean> DATA_STANDING_ID = SynchedEntityData.defineId(AllyTrampler.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_CHARGING = SynchedEntityData.defineId(AllyTrampler.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DASH = SynchedEntityData.defineId(AllyTrampler.class, EntityDataSerializers.BOOLEAN);
@@ -112,15 +118,27 @@ public class AllyTrampler extends RaiderServant implements ICharger, IAutoRideab
         this.entityData.define(DASH, false);
     }
 
-    public void addAdditionalSaveData(CompoundTag p_33353_) {
-        super.addAdditionalSaveData(p_33353_);
-        p_33353_.putBoolean("AutoMode", this.isAutonomous());
+    public void addAdditionalSaveData(CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+        pCompound.putBoolean("AutoMode", this.isAutonomous());
+        ItemStack itemStack = this.getItemBySlot(EquipmentSlot.CHEST);
+        if(!itemStack.isEmpty()) {
+            CompoundTag compoundTag = new CompoundTag();
+            itemStack.save(compoundTag);
+            pCompound.put("ArmorItem", compoundTag);
+        }
     }
 
-    public void readAdditionalSaveData(CompoundTag p_33344_) {
-        super.readAdditionalSaveData(p_33344_);
-        if (p_33344_.contains("AutoMode")) {
-            this.setAutonomous(p_33344_.getBoolean("AutoMode"));
+    public void readAdditionalSaveData(CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
+        if (pCompound.contains("AutoMode")) {
+            this.setAutonomous(pCompound.getBoolean("AutoMode"));
+        }
+        if (pCompound.contains("ArmorItem")) {
+            CompoundTag armorItem = pCompound.getCompound("ArmorItem");
+            if (!armorItem.isEmpty()) {
+                this.setArmorEquipment(ItemStack.of(armorItem), false);
+            }
         }
     }
 
@@ -234,6 +252,39 @@ public class AllyTrampler extends RaiderServant implements ICharger, IAutoRideab
 
     public boolean isControlledByLocalInstance() {
         return this.isEffectiveAi();
+    }
+
+    public ItemStack getArmor() {
+        return this.getItemBySlot(EquipmentSlot.CHEST);
+    }
+
+    public void setArmorEquipment(ItemStack armor, boolean sound) {
+        if (!this.level.isClientSide) {
+            this.setItemSlot(EquipmentSlot.CHEST, armor);
+            float chance = MobsConfig.PlayerRavagerArmorDrop.get() ? 2.0F : 0.0F;
+            this.setDropChance(EquipmentSlot.CHEST, chance);
+            this.updateArmor();
+            if (sound) {
+                this.playSound(SoundEvents.HORSE_ARMOR, 0.5F, 1.0F);
+            }
+        }
+    }
+
+    public void updateArmor(){
+        AttributeInstance attribute = this.getAttribute(Attributes.ARMOR);
+        if (attribute != null) {
+            attribute.removeModifier(ARMOR_MODIFIER_UUID);
+            if (this.isArmor(this.getArmor())) {
+                int i = ((TramplerArmorItem) this.getArmor().getItem()).getProtection();
+                if (i != 0) {
+                    attribute.addTransientModifier(new AttributeModifier(ARMOR_MODIFIER_UUID, "Ravager armor bonus", (double) i, AttributeModifier.Operation.ADDITION));
+                }
+            }
+        }
+    }
+
+    public boolean isArmor(ItemStack p_30731_) {
+        return p_30731_.getItem() instanceof TramplerArmorItem;
     }
 
     public void tick() {
@@ -604,6 +655,22 @@ public class AllyTrampler extends RaiderServant implements ICharger, IAutoRideab
                         this.doPlayerRide(pPlayer);
                         return InteractionResult.SUCCESS;
                     }
+                } else if (this.isArmor(pPlayer.getItemInHand(pHand))) {
+                    if (!this.getArmor().isEmpty()) {
+                        if (this.spawnAtLocation(this.getArmor()) != null) {
+                            this.setArmorEquipment(pPlayer.getMainHandItem().copy(), true);
+                            if (!pPlayer.getAbilities().instabuild) {
+                                pPlayer.getMainHandItem().shrink(1);
+                            }
+                        }
+                    } else {
+                        this.setArmorEquipment(pPlayer.getMainHandItem().copy(), true);
+                        if (!pPlayer.getAbilities().instabuild) {
+                            pPlayer.getMainHandItem().shrink(1);
+                        }
+                    }
+                    EntityFinder.sendEntityUpdatePacket(pPlayer, this);
+                    return InteractionResult.SUCCESS;
                 } else if (this.isFood(pPlayer.getItemInHand(pHand)) && this.getHealth() < this.getMaxHealth()) {
                     FoodProperties foodProperties = pPlayer.getMainHandItem().getFoodProperties(this);
                     if (foodProperties != null) {

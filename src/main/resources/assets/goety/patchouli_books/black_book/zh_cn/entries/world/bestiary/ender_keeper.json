@@ -24,10 +24,16 @@
     {
       "type": "patchouli:spotlight",
       "item": "goety:shrouded_blueprint",
-      "text": "当它终于被杀死时，末影神龛将会揭示它的宝藏，一个神秘的蓝图......在黑暗魔法的帮助下，它将揭示其内容."
+      "text": "当它终于被杀死时，末影神龛将会揭示它的宝藏，一个神秘的蓝图......在黑暗魔法的帮助下，它将揭示其内容。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:void_echo",
+      "text": "末影守护者还会掉落一些虚空本身的回响，这些材料可以用来制作强力的法术和物品。"
     }
   ],
   "extra_recipe_mappings": {
-    "goety:shrouded_blueprint": 4
+    "goety:shrouded_blueprint": 4,
+    "goety:void_echo": 5
   }
 }

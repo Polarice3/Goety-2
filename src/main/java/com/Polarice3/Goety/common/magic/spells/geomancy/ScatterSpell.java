@@ -98,7 +98,7 @@ public class ScatterSpell extends Spell {
                 duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
             }
             int time = MathHelper.secondsToTicks(5.15F - 1) / 14;
-            if (castTime % time == 0 && caster.onGround()) {
+            if (castTime % time == 0) {
                 BlockPos blockPos = caster.blockPosition();
                 blockPos = blockPos.offset(-8 + worldIn.random.nextInt(16), 0, -8 + worldIn.random.nextInt(16));
                 BlockPos blockPos2 = caster.blockPosition().offset(-8 + worldIn.random.nextInt(16), 0, -8 + worldIn.random.nextInt(16));

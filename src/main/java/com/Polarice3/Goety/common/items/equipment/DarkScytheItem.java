@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.items.ModTiers;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
+import com.Polarice3.Goety.utils.ModUUIDUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
@@ -27,6 +28,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.ForgeMod;
 
 public class DarkScytheItem extends TieredItem implements Vanishable {
     private static float initialDamage = ItemConfig.ScytheBaseDamage.get().floatValue();
@@ -39,6 +41,7 @@ public class DarkScytheItem extends TieredItem implements Vanishable {
         double attackSpeed = 4.0D - ItemConfig.ScytheAttackSpeed.get();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", initialDamage - 1.0D, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", -attackSpeed, AttributeModifier.Operation.ADDITION));
+        builder.put(ForgeMod.ENTITY_REACH.get(), new AttributeModifier(ModUUIDUtil.createUUID("item.goety.scythe.reach"), "Tool modifier", 1.0F, AttributeModifier.Operation.ADDITION));
         this.scytheAttributes = builder.build();
     }
 

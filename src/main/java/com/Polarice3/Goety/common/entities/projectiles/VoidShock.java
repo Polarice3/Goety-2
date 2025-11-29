@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.projectiles;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.DustCloudParticleOption;
+import com.Polarice3.Goety.client.particles.SparkleParticleOption;
 import com.Polarice3.Goety.client.particles.VerticalCircleExplodeParticleOption;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -39,6 +40,7 @@ public class VoidShock extends SpellEntity {
     public double yPower;
     public double zPower;
     public double badMath = 1.0D;
+    public float extraRadius = 0.0F;
     public float baseDamage = SpellConfig.VoidShockDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get().floatValue();
     public int life;
     public int initTime = MathHelper.secondsToTicks(2);
@@ -70,6 +72,9 @@ public class VoidShock extends SpellEntity {
         if (pCompound.contains("BaseDamage")){
             this.baseDamage = pCompound.getFloat("BaseDamage");
         }
+        if (pCompound.contains("ExtraRadius")) {
+            this.setExtraRadius(pCompound.getFloat("ExtraRadius"));
+        }
     }
 
     @Override
@@ -77,6 +82,15 @@ public class VoidShock extends SpellEntity {
         super.addAdditionalSaveData(pCompound);
         pCompound.putBoolean("Explode", this.isExplode());
         pCompound.putFloat("BaseDamage", this.baseDamage);
+        pCompound.putFloat("ExtraRadius", this.getExtraRadius());
+    }
+
+    public float getExtraRadius(){
+        return this.extraRadius;
+    }
+
+    public void setExtraRadius(float radius){
+        this.extraRadius = radius;
     }
 
     public boolean shouldRenderAtSqrDistance(double p_36966_) {
@@ -176,6 +190,11 @@ public class VoidShock extends SpellEntity {
                         this.zPower = -(dz / ds * velocity * 0.2D);
                         this.hasTarget = true;
                         this.level.broadcastEntityEvent(this, (byte) 4);
+                        if (this.level instanceof ServerLevel serverLevel) {
+                            ColorUtil colorUtil = new ColorUtil(0xffffff);
+                            Vec3 vec31 = this.position();
+                            serverLevel.sendParticles(new SparkleParticleOption(4.0F, colorUtil, 2), vec31.x, vec31.y, vec31.z, 0, 0.0F, 0.0F, 0.0F, 1.0F);
+                        }
                     } else if (this.getOwner() != null) {
                         if (this.getOwner() instanceof Mob mob) {
                             if (mob.getTarget() != null) {
@@ -244,7 +263,7 @@ public class VoidShock extends SpellEntity {
                     vec3 = Vec3.atCenterOf(entity1.blockPosition());
                 }
                 float damage = this.baseDamage + this.getExtraDamage();
-                new SpellExplosion(serverLevel, this.getOwner() != null ? this.getOwner() : this, this.damageSources().indirectMagic(this, this.getOwner()), vec3.x, vec3.y, vec3.z, 1.5F, damage) {
+                new SpellExplosion(serverLevel, this.getOwner() != null ? this.getOwner() : this, this.damageSources().indirectMagic(this, this.getOwner()), vec3.x, vec3.y, vec3.z, 1.5F + this.getExtraRadius(), damage) {
                     @Override
                     public void explodeHurt(Entity target, DamageSource damageSource, double x, double y, double z, double seen, float actualDamage) {
                         super.explodeHurt(target, damageSource, x, y, z, seen, actualDamage);

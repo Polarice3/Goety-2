@@ -339,10 +339,14 @@ public class MobUtil {
     }
 
     public static void drag(Entity pEntity, double pX, double pY, double pZ){
+        drag(pEntity, pX, pY, pZ, 1.0D);
+    }
+
+    public static void drag(Entity pEntity, double pX, double pY, double pZ, double reduction){
         pEntity.hurtMarked = true;
         double resist = 0.0D;
         if (pEntity instanceof LivingEntity living && living.getAttribute(Attributes.KNOCKBACK_RESISTANCE) != null) {
-            resist = living.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
+            resist = living.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE) * reduction;
         }
         double resist1 = Math.max(0.0D, 1.0D - resist);
         Vec3 vec3 = new Vec3(pX, pY, pZ).scale(resist1);

@@ -3322,5 +3322,14 @@
   "entity.goety.signaler_servant": "Servo Sinalizador",
   "entity.goety.maverick_servant": "Servo Maverick",
   "item.goety.signaler_servant_spawn_egg": "Ovo de Invocação de Servo Sinalizador",
-  "item.goety.maverick_servant_spawn_egg": "Ovo de Invocação de Servo Maverick"
+  "item.goety.maverick_servant_spawn_egg": "Ovo de Invocação de Servo Maverick",
+  "block.goety.stash_urn": "Urna de Reserva",
+  "entity.goety.bound_geomancer": "Geomante Aprisionado",
+  "entity.goety.bound_cryologer": "Criologista Aprisionado",
+  "entity.goety.bound_wind_caller": "Invocador do Vento Aprisionado",
+  "entity.goety.bound_storm_caster": "Conjurador da Tempestade Aprisionado",
+  "item.goety.bound_geomancer_spawn_egg": "Ovo de Geomante Aprisionado",
+  "item.goety.bound_cryologer_spawn_egg": "Ovo de Criologista Aprisionado",
+  "item.goety.bound_wind_caller_spawn_egg": "Ovo de Invocador do Vento Aprisionado",
+  "item.goety.bound_storm_caster_spawn_egg": "Ovo de Conjurador da Tempestade Aprisionado"
 }

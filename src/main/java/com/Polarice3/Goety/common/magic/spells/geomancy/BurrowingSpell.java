@@ -179,7 +179,7 @@ public class BurrowingSpell extends EverChargeSpell {
                         for (BlockPos blockPos1 : BlockFinder.multiBlockBreak(player, blockPos, 1, 1, 1)) {
                             if (!BlockFinder.samePos(blockPos, blockPos1)) {
                                 BlockState blockState1 = worldIn.getBlockState(blockPos1);
-                                if (canMineBlock(worldIn, player, blockPos1, blockState1) && (blockState1.is(BlockTags.MINEABLE_WITH_AXE) || blockState1.is(BlockTags.MINEABLE_WITH_SHOVEL))) {
+                                if (canMineBlock(worldIn, player, blockPos1, blockState1) && (blockState1.is(BlockTags.MINEABLE_WITH_PICKAXE) || blockState1.is(BlockTags.MINEABLE_WITH_SHOVEL))) {
                                     this.breakBlocks(worldIn, blockState1, blockPos1, player, soundtype, 0, 0, burning, tempTool, tier);
                                 }
                             }

@@ -8,6 +8,7 @@
  */
 package com.Polarice3.Goety.client.particles;
 
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
@@ -31,6 +32,14 @@ public class SparkleParticleOption implements ParticleOptions {
     public final float size;
     public final float r, g, b;
     public final int extraLife;
+
+    public SparkleParticleOption(float size, ColorUtil colorUtil, int extraLife) {
+        this.size = size;
+        this.r = colorUtil.red();
+        this.g = colorUtil.green();
+        this.b = colorUtil.blue();
+        this.extraLife = extraLife;
+    }
 
     public SparkleParticleOption(float size, float r, float g, float b, int extraLife) {
         this.size = size;

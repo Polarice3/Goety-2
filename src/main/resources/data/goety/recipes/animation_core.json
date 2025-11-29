@@ -18,8 +18,9 @@
       "tag": "forge:leather"
     },
     {
-      "item": "minecraft:feather"
+      "tag": "forge:feathers"
     }
+
   ],
   "result": {
     "item": "goety:animation_core",

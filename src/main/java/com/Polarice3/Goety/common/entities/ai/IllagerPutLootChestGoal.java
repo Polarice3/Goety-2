@@ -10,8 +10,7 @@ public class IllagerPutLootChestGoal<T extends AbstractIllagerServant> extends I
 
     public IllagerPutLootChestGoal(T illager) {
         super(illager);
-        this.predicate = itemStack -> !illager.validFood(itemStack)
-                && !itemStack.isEmpty();
+        this.predicate = illager::validLootToStore;
         this.chestPredicate = itemStack -> true;
     }
 

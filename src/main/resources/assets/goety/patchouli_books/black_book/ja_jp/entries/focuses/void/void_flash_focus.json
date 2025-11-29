@@ -1,0 +1,23 @@
+{
+  "name": "ヴォイドフラッシュのフォーカス",
+  "icon": "goety:void_flash_focus",
+  "category": "goety:focuses/void",
+  "advancement": "goety:goety/kill_an_ender_keeper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この呪文は、複数の発射体を連続的に召喚する代わりに、巨大な虚空エネルギーの球を発射します。この球は魔法の炎となって爆発し、近くの敵に複数のホーミングする虚空エネルギーの球を発射します。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/void_flash_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/void_staff)ヴォイドの杖$()で唱えると、より多く召喚します。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:void_flash_focus": 1
+  }
+}

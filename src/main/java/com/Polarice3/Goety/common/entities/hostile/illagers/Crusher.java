@@ -72,7 +72,7 @@ public class Crusher extends HuntingIllagerEntity{
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.CrusherHealth.get())
                 .add(Attributes.ARMOR, AttributesConfig.CrusherArmor.get())
-                .add(Attributes.FOLLOW_RANGE, 32.0D)
+                .add(Attributes.FOLLOW_RANGE, 16.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.35D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.75D)
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.CrusherDamage.get());

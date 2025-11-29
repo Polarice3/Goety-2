@@ -657,7 +657,7 @@ public abstract class RaiderServant extends Summoned {
                     this.moveRaidCenterToNearbyVillageSection();
                 }
 
-                if (!serverLevel.isVillage(this.getRaidPos()) || this.getRaidVillagers().isEmpty()) {
+                if (!serverLevel.isVillage(this.getRaidPos()) || (this.getRaidVillagers().isEmpty() && this.raidTime >= 100)) {
                     this.celebrationTime = 600;
                     this.missionComplete = true;
                     this.setRaidPos(null);
@@ -746,7 +746,7 @@ public abstract class RaiderServant extends Summoned {
         List<Villager> list = new ArrayList<>();
         if (this.level instanceof ServerLevel serverLevel) {
             if (this.getRaidPos() != null) {
-                AABB aabb = new AABB(this.getRaidPos()).inflate(16.0D);
+                AABB aabb = new AABB(this.getRaidPos()).inflate(256.0D);
                 list = serverLevel.getEntitiesOfClass(Villager.class, aabb, villager -> !villager.isBaby());
             }
         }

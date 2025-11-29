@@ -1,0 +1,19 @@
+{
+  "name": "転送のスクロール",
+  "icon": "goety:transfer_scroll",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "貿易を通じてであれ、同盟国を支援する方法を通じてであれ、あなたは、あなたの従者の1人の所有権を、受け手に譲渡する巻物を考案しました。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:transfer_scroll"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "まず、巻物を左クリックして自分の従者に当て、署名します。署名すると、自分と同じような存在なら誰でもその巻物を使用でき、署名された従者を代わりに仕えさせることができます。そのため、署名された羊皮紙の使用と保管には注意してください。"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "name": "践踏者的盔甲",
+  "icon": "goety:iron_trampler_armor",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "尽管$(l:crafts/ravager_armor)铸甲$()给那些$(l:mutations/ravaged)劫掠兽$()是很明智的一步, 但你也意识到，给那些身形细长的同类穿上盔甲也会很有用。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "给这些家伙做盔甲比做劫掠兽盔甲省材料多了。不过因为它们的身形和移动方式，你得直接用马铠来改造。你早就听说过，就像劫掠兽一样，你可不是第一个想到这主意的..."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:iron_trampler_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:gold_trampler_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:diamond_trampler_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:netherite_trampler_armor"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:iron_trampler_armor": 2,
+    "goety:gold_trampler_armor": 3,
+    "goety:diamond_trampler_armor": 4,
+    "goety:netherite_trampler_armor": 5
+  }
+}

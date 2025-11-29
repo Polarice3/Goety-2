@@ -128,14 +128,18 @@ public interface IServant extends IOwned {
 
     default void spawnUpgraded(){
         if (this instanceof Mob mob) {
+            LivingEntity owner = this.getTrueOwner();
+            if (MobsConfig.ServantOwnedServantPlayerBenefit.get()) {
+                owner = this.getMasterOwner();
+            }
             if (mob.getMobType() == MobType.UNDEAD) {
-                this.setUpgraded(CuriosFinder.hasUndeadCape(this.getTrueOwner()));
+                this.setUpgraded(CuriosFinder.hasUndeadCape(owner));
             } else if (mob.getMobType() == ModMobType.NATURAL || mob.getMobType() == MobType.ARTHROPOD) {
-                this.setUpgraded(CuriosFinder.hasWildRobe(this.getTrueOwner()));
+                this.setUpgraded(CuriosFinder.hasWildRobe(owner));
             } else if (mob.getMobType() == ModMobType.FROST) {
-                this.setUpgraded(CuriosFinder.hasFrostRobes(this.getTrueOwner()));
+                this.setUpgraded(CuriosFinder.hasFrostRobes(owner));
             } else if (mob.getMobType() == MobType.WATER) {
-                this.setUpgraded(CuriosFinder.hasAbyssRobes(this.getTrueOwner()));
+                this.setUpgraded(CuriosFinder.hasAbyssRobes(owner));
             }
         }
     }
@@ -406,25 +410,29 @@ public interface IServant extends IOwned {
 
     default void healServant(){
         if (this instanceof LivingEntity self) {
-            if (this.getTrueOwner() != null) {
+            LivingEntity owner = this.getTrueOwner();
+            if (MobsConfig.ServantOwnedServantPlayerBenefit.get()) {
+                owner = this.getMasterOwner();
+            }
+            if (owner != null) {
                 boolean crown = false;
                 if (ServantUtil.isFrostHeal(self)) {
-                    crown = CuriosFinder.hasFrostCrown(this.getTrueOwner());
+                    crown = CuriosFinder.hasFrostCrown(owner);
                 }
                 if (ServantUtil.isWildHeal(self)) {
-                    crown = CuriosFinder.hasWildCrown(this.getTrueOwner());
+                    crown = CuriosFinder.hasWildCrown(owner);
                 }
                 if (ServantUtil.isNetherHeal(self)) {
-                    crown = CuriosFinder.hasNetherCrown(this.getTrueOwner());
+                    crown = CuriosFinder.hasNetherCrown(owner);
                 }
                 if (ServantUtil.isNecroHeal(self)) {
-                    crown = CuriosFinder.hasUndeadCrown(this.getTrueOwner());
+                    crown = CuriosFinder.hasUndeadCrown(owner);
                 }
                 if (ServantUtil.isAbyssHeal(self)) {
-                    crown = CuriosFinder.hasAbyssCrown(this.getTrueOwner());
+                    crown = CuriosFinder.hasAbyssCrown(owner);
                 }
                 if (ServantUtil.isVoidHeal(self)) {
-                    crown = CuriosFinder.hasVoidCrown(this.getTrueOwner());
+                    crown = CuriosFinder.hasVoidCrown(owner);
                 }
                 if (!crown) {
                     if (this.getLifespan() > 0) {
@@ -435,7 +443,7 @@ public interface IServant extends IOwned {
                 }
                 if (!self.level.isClientSide) {
                     if (!this.hasLifespan() || this.getLifespan() > 20) {
-                        ServantUtil.healServant(this.getTrueOwner(), self);
+                        ServantUtil.healServant(owner, self);
                     }
                 }
             }

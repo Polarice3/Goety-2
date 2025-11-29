@@ -1,0 +1,23 @@
+{
+  "name": "虚烁聚晶",
+  "icon": "goety:void_flash_focus",
+  "category": "goety:focuses/void",
+  "advancement": "goety:goety/kill_an_ender_keeper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这个法术不再是连续召唤好几个飞行物，而是直接射出一个超大的虚空震荡弹。它爆炸时不仅会化作魔法火焰，还会向附近的敌人射出好几个自动追踪的虚空球。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/void_flash_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/void_staff)虚空魔杖$()施法会扔出更多弹射物。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:void_flash_focus": 1
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Чёрный кристал",
+  "icon": "goety:black_crystal",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/kill_a_wight",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Голодный до душ кристал, который при размещении устанавлиает с вами связь и будет пытаться поглотить души у всех ближайших не союзных существ, постепенно снижая их жизни до минимума."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:black_crystal"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:black_crystal": 1
+  }
+}

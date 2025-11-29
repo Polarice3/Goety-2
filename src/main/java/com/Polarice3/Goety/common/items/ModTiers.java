@@ -23,6 +23,13 @@ public enum ModTiers implements Tier {
             ItemConfig.DarkToolsEnchantability.get(), () -> {
         return Ingredient.of(ModItems.DARK_ALLOY_INGOT.get());
     }),
+    VOID(4,
+            2031,
+            0.0F,
+            0.0F,
+            15, () -> {
+        return Ingredient.of(Items.ENDER_PEARL);
+    }),
     DEATH(4,
             ItemConfig.DeathScytheDurability.get(),
             12.0F,

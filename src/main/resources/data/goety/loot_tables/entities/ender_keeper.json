@@ -30,21 +30,13 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 8.0,
-                "min": 5.0
+                "max": 3.0,
+                "min": 2.0
               },
               "function": "minecraft:set_count"
-            },
-            {
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": 0.0
-              },
-              "function": "minecraft:looting_enchant"
             }
           ],
-          "name": "minecraft:ender_pearl"
+          "name": "goety:void_echo"
         }
       ],
       "rolls": 1.0

@@ -1,0 +1,27 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:stellar_focus"
+  },
+  "craftType": "end",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "tag": "forge:ender_pearls"
+    },
+    {
+      "item": "goety:void_echo"
+    },
+    {
+      "item": "goety:void_bucket"
+    },
+    {
+      "item": "goety:void_echo"
+    }
+  ],
+  "result": {
+    "item": "goety:void_flash_focus"
+  }
+}

@@ -63,12 +63,12 @@ public class MagicGround extends AbstractTrap{
         if (!targets.isEmpty()){
             for (LivingEntity livingEntity : targets) {
                 livingEntity.hurt(damageSources().magic(), 4.0F);
-                if (this.owner != null){
+                if (this.getOwner() != null){
                     float damage = 4.0F;
-                    if (this.owner instanceof Mob mob && mob.getAttribute(Attributes.ATTACK_DAMAGE) != null){
+                    if (this.getOwner() instanceof Mob mob && mob.getAttribute(Attributes.ATTACK_DAMAGE) != null){
                         damage = (float) (mob.getAttributeValue(Attributes.ATTACK_DAMAGE) / 2.0F);
                     }
-                    livingEntity.hurt(damageSources().indirectMagic(this, this.owner), damage);
+                    livingEntity.hurt(damageSources().indirectMagic(this, this.getOwner()), damage);
                 }
             }
         }

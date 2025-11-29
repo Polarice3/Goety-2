@@ -3,14 +3,17 @@ package com.Polarice3.Goety.mixin;
 import com.Polarice3.Goety.common.blocks.entities.OminousIdolBlockEntity;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.magic.CommandFocus;
 import com.Polarice3.Goety.common.items.magic.OrderFocus;
+import com.Polarice3.Goety.common.items.magic.TransferScroll;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -55,6 +58,15 @@ public class MinecraftMixin {
                     List<LivingEntity> list = OrderFocus.getServantsClient(player.level, WandUtil.findFocus(player));
                     if (!list.isEmpty()) {
                         if (list.contains(livingEntity)) {
+                            cir.setReturnValue(true);
+                        }
+                    }
+                }
+                if (player.isHolding(ModItems.TRANSFER_SCROLL.get())) {
+                    ItemStack itemStack = player.getMainHandItem().is(ModItems.TRANSFER_SCROLL.get()) ? player.getMainHandItem() : player.getOffhandItem();
+                    if (TransferScroll.hasSummon(itemStack)) {
+                        LivingEntity livingEntity1 = TransferScroll.getSummon(itemStack);
+                        if (livingEntity == livingEntity1) {
                             cir.setReturnValue(true);
                         }
                     }

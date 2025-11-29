@@ -2,10 +2,13 @@ package com.Polarice3.Goety.common.entities.ally.illager;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
+import com.Polarice3.Goety.common.entities.ally.undead.bound.BoundEvoker;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -27,6 +30,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -40,7 +44,7 @@ public class EvokerServant extends SpellcasterIllagerServant{
     @Nullable
     private Sheep wololoTarget;
     @Nullable
-    private Villager ravageTarget;
+    private Mob ravageTarget;
     private int ravageCool;
 
     public EvokerServant(EntityType<? extends EvokerServant> p_32627_, Level p_32628_) {
@@ -96,6 +100,27 @@ public class EvokerServant extends SpellcasterIllagerServant{
         return 10;
     }
 
+    @Override
+    public void die(DamageSource pCause) {
+        if (!this.level.isClientSide) {
+            if (this.getIdol() == null) {
+                if (this.getTrueOwner() != null) {
+                    if (CuriosFinder.hasNamelessSet(this.getTrueOwner())){
+                        BoundEvoker servant = this.convertTo(ModEntityType.BOUND_EVOKER.get(), true);
+                        if (servant != null) {
+                            servant.setTrueOwner(this.getTrueOwner());
+                            net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, servant);
+                            if (!this.isSilent()) {
+                                this.level.levelEvent((Player)null, 1026, this.blockPosition(), 0);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        super.die(pCause);
+    }
+
     public SoundEvent getCelebrateSound() {
         return SoundEvents.EVOKER_CELEBRATE;
     }
@@ -121,13 +146,18 @@ public class EvokerServant extends SpellcasterIllagerServant{
         return this.wololoTarget;
     }
 
-    void setRavageTarget(@Nullable Villager p_32635_) {
+    void setRavageTarget(@Nullable Mob p_32635_) {
         this.ravageTarget = p_32635_;
     }
 
     @Nullable
-    Villager getRavageTarget() {
+    Mob getRavageTarget() {
         return this.ravageTarget;
+    }
+
+    @Override
+    public boolean validLootToStore(ItemStack itemStack) {
+        return super.validLootToStore(itemStack) && !itemStack.is(ModItems.OMINOUS_SADDLE.get());
     }
 
     @Override
@@ -356,7 +386,7 @@ public class EvokerServant extends SpellcasterIllagerServant{
 
     public class EvokerRavagingSpellGoal extends SpellcasterUseSpellGoal {
         private final TargetingConditions ravageTargeting = TargetingConditions.forNonCombat().range(16.0D).selector((p_32710_) -> {
-            return true;
+            return p_32710_.getType().is(ModTags.EntityTypes.VILLAGERS);
         });
 
         public boolean canUse() {
@@ -379,7 +409,7 @@ public class EvokerServant extends SpellcasterIllagerServant{
                     if (!SEHelper.hasResearch(player, ResearchList.RAVAGING)){
                         return false;
                     } else if (SEHelper.getGrudgeEntityTypes(player).contains(EntityType.VILLAGER)) {
-                        List<Villager> list = EvokerServant.this.level.getNearbyEntities(Villager.class, this.ravageTargeting, EvokerServant.this, EvokerServant.this.getBoundingBox().inflate(16.0D, 4.0D, 16.0D));
+                        List<Mob> list = EvokerServant.this.level.getNearbyEntities(Mob.class, this.ravageTargeting, EvokerServant.this, EvokerServant.this.getBoundingBox().inflate(16.0D, 4.0D, 16.0D));
                         if (list.isEmpty()) {
                             return false;
                         } else {
@@ -409,28 +439,28 @@ public class EvokerServant extends SpellcasterIllagerServant{
         @Override
         public void tick() {
             super.tick();
-            Villager villager = EvokerServant.this.getRavageTarget();
-            if (villager != null && villager.isAlive()) {
-                MobUtil.instaLook(EvokerServant.this, villager);
-                MiscCapHelper.setShakeTime(villager, 20);
-                villager.setLastHurtByMob(EvokerServant.this);
-                villager.getNavigation().stop();
-                villager.getMoveControl().strafe(0.0F, 0.0F);
-                if (villager.tickCount % 20 == 0) {
-                    if (villager.level instanceof ServerLevel serverLevel){
-                        ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.ENCHANT, villager);
+            Mob victim = EvokerServant.this.getRavageTarget();
+            if (victim != null && victim.isAlive()) {
+                MobUtil.instaLook(EvokerServant.this, victim);
+                MiscCapHelper.setShakeTime(victim, 20);
+                victim.setLastHurtByMob(EvokerServant.this);
+                victim.getNavigation().stop();
+                victim.getMoveControl().strafe(0.0F, 0.0F);
+                if (victim.tickCount % 20 == 0) {
+                    if (victim.level instanceof ServerLevel serverLevel){
+                        ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.ENCHANT, victim);
                     }
                 }
                 Vec3 offset = new Vec3(2, 0, 0);
-                Vec3 at = this.groundOf(villager.position().add(offset));
+                Vec3 at = this.groundOf(victim.position().add(offset));
                 EvokerServant.this.getNavigation().moveTo(at.x, at.y, at.z, 0.75F);
                 for (int i = 0; i < this.otherEvokers().size(); ++i) {
                     EvokerServant evokerServant = this.otherEvokers().get(i);
                     float f = (float) (i + 1) / (this.otherEvokers().size() + 1);
                     Vec3 offset2 = new Vec3(2, 0, 0).yRot(f * ((float) Math.PI * 2F));
-                    Vec3 at2 = this.groundOf(villager.position().add(offset2));
+                    Vec3 at2 = this.groundOf(victim.position().add(offset2));
                     evokerServant.getNavigation().moveTo(at2.x, at2.y, at2.z, 0.75F);
-                    MobUtil.instaLook(evokerServant, villager);
+                    MobUtil.instaLook(evokerServant, victim);
                     evokerServant.setIsCastingSpell(IllagerServantSpell.RAVAGING);
                     evokerServant.spellCastingTickCount = 20;
                 }
@@ -458,16 +488,16 @@ public class EvokerServant extends SpellcasterIllagerServant{
         }
 
         protected void performSpellCasting() {
-            Villager villager = EvokerServant.this.getRavageTarget();
-            if (villager != null && villager.isAlive()) {
+            Mob victim = EvokerServant.this.getRavageTarget();
+            if (victim != null && victim.isAlive()) {
                 Player player = null;
                 if (EvokerServant.this.getTrueOwner() instanceof Player player1) {
                     player = player1;
                 }
-                Entity entity = MobUtil.convertTo(villager, ModEntityType.RAVAGED.get(), true, player);
+                Entity entity = MobUtil.convertTo(victim, ModEntityType.RAVAGED.get(), true, player);
                 if (entity instanceof Mob mob){
-                    mob.setYHeadRot(villager.getYHeadRot());
-                    mob.setYRot(villager.getYRot());
+                    mob.setYHeadRot(victim.getYHeadRot());
+                    mob.setYRot(victim.getYRot());
                     mob.spawnAnim();
                 }
                 EvokerServant.this.ravageCool = MathHelper.secondsToTicks(MobsConfig.EvokerServantRavagedCooldown.get());

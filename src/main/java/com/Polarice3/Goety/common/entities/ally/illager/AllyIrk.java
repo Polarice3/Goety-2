@@ -4,7 +4,10 @@ import com.Polarice3.Goety.common.entities.ai.MinionFollowGoal;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Minion;
 import com.Polarice3.Goety.common.entities.projectiles.SoulBullet;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -53,6 +56,20 @@ public class AllyIrk extends Minion {
         if (this.getTrueOwner() != null){
             if (this.getTrueOwner().isDeadOrDying()){
                 this.kill();
+            }
+        }
+        LivingEntity owner = this.getTrueOwner();
+        if (MobsConfig.ServantOwnedServantPlayerBenefit.get()) {
+            owner = this.getMasterOwner();
+        }
+        if (owner != null) {
+            boolean crown = CuriosFinder.hasCurio(owner, ModItems.GRAND_TURBAN.get());
+            if (!crown) {
+                if (this.getLifespan() > 0) {
+                    this.setHasLifespan(true);
+                }
+            } else {
+                this.setHasLifespan(false);
             }
         }
     }
