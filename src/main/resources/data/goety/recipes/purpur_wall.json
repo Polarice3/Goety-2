@@ -16,7 +16,7 @@
   "conditions": [
     {
       "type": "forge:not",
-      "values": {
+      "value": {
         "type": "forge:mod_loaded",
         "modid": "cataclysm"
       }

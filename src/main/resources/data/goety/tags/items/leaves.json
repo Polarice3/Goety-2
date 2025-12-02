@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "goety:rotten_leaves",
+    "goety:windswept_leaves",
+    "goety:pine_leaves",
+    "goety:chorus_leaves",
+    "goety:chorus_blossom_leaves",
+    "goety:hardened_leaves"
+  ]
+}

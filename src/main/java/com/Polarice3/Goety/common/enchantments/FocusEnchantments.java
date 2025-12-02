@@ -22,6 +22,10 @@ public abstract class FocusEnchantments extends Enchantment {
         return false;
     }
 
+    public boolean isTradeable() {
+        return false;
+    }
+
     public boolean canApplyAtEnchantingTable(ItemStack stack) {
         return super.canApplyAtEnchantingTable(stack)
                 && (stack.getItem() instanceof IFocus

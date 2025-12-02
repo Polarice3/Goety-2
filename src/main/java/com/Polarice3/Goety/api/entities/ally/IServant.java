@@ -415,25 +415,12 @@ public interface IServant extends IOwned {
                 owner = this.getMasterOwner();
             }
             if (owner != null) {
-                boolean crown = false;
-                if (ServantUtil.isFrostHeal(self)) {
-                    crown = CuriosFinder.hasFrostCrown(owner);
-                }
-                if (ServantUtil.isWildHeal(self)) {
-                    crown = CuriosFinder.hasWildCrown(owner);
-                }
-                if (ServantUtil.isNetherHeal(self)) {
-                    crown = CuriosFinder.hasNetherCrown(owner);
-                }
-                if (ServantUtil.isNecroHeal(self)) {
-                    crown = CuriosFinder.hasUndeadCrown(owner);
-                }
-                if (ServantUtil.isAbyssHeal(self)) {
-                    crown = CuriosFinder.hasAbyssCrown(owner);
-                }
-                if (ServantUtil.isVoidHeal(self)) {
-                    crown = CuriosFinder.hasVoidCrown(owner);
-                }
+                boolean crown = (ServantUtil.isFrostHeal(self) && CuriosFinder.hasFrostCrown(owner))
+                        || (ServantUtil.isWildHeal(self) && CuriosFinder.hasWildCrown(owner))
+                        || (ServantUtil.isNetherHeal(self) && CuriosFinder.hasNetherCrown(owner))
+                        || (ServantUtil.isAbyssHeal(self) && CuriosFinder.hasAbyssCrown(owner))
+                        || (ServantUtil.isVoidHeal(self) && CuriosFinder.hasVoidCrown(owner))
+                        || (ServantUtil.isNecroHeal(self) && CuriosFinder.hasUndeadCrown(owner));
                 if (!crown) {
                     if (this.getLifespan() > 0) {
                         this.setHasLifespan(true);

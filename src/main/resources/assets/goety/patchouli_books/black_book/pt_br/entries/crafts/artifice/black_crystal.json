@@ -1,0 +1,19 @@
+{
+  "name": "Black Crystal",
+  "icon": "goety:black_crystal",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/kill_a_wight",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Um cristal que anseia por almas que, quando colocado, irá se vincular a você e tentará sugar a energia vital de qualquer entidade próxima que não seja aliada a você, causando dano a elas até que atinjam uma saúde baixa."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:black_crystal"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:black_crystal": 1
+  }
+}

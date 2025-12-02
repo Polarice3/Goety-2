@@ -36,8 +36,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.RespawnAnchorBlock;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.IExtensibleEnum;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class ServantUtil {
 
@@ -216,48 +218,14 @@ public class ServantUtil {
             if (!servant.getType().is(ModTags.EntityTypes.NO_HEAL_SERVANTS)) {
                 if (!servant.isOnFire() && !servant.isDeadOrDying()) {
                     if (servant.getHealth() < servant.getMaxHealth()) {
-                        boolean curio = false;
-                        int soulCost = 0;
-                        int healRate = 0;
-                        float healAmount = 0;
-                        if (isNecroHeal(servant) && MobsConfig.UndeadMinionHeal.get()) {
-                            curio = CuriosFinder.hasUndeadCape(owner);
-                            soulCost = MobsConfig.UndeadMinionHealCost.get();
-                            healRate = MobsConfig.UndeadMinionHealTime.get();
-                            healAmount = MobsConfig.UndeadMinionHealAmount.get().floatValue();
-                        } else if (isAbyssHeal(servant) && MobsConfig.WaterMinionHeal.get()) {
-                            curio = CuriosFinder.hasAbyssRobes(owner);
-                            soulCost = MobsConfig.WaterMinionHealCost.get();
-                            healRate = MobsConfig.WaterMinionHealTime.get();
-                            healAmount = MobsConfig.WaterMinionHealAmount.get().floatValue();
-                        } else if (isWildHeal(servant) && MobsConfig.NaturalMinionHeal.get()) {
-                            curio = CuriosFinder.hasWildRobe(owner);
-                            soulCost = MobsConfig.NaturalMinionHealCost.get();
-                            healRate = MobsConfig.NaturalMinionHealTime.get();
-                            healAmount = MobsConfig.NaturalMinionHealAmount.get().floatValue();
-                        } else if (isFrostHeal(servant) && MobsConfig.FrostMinionHeal.get()) {
-                            curio = CuriosFinder.hasFrostRobes(owner);
-                            soulCost = MobsConfig.FrostMinionHealCost.get();
-                            healRate = MobsConfig.FrostMinionHealTime.get();
-                            healAmount = MobsConfig.FrostMinionHealAmount.get().floatValue();
-                        } else if (isNetherHeal(servant) && MobsConfig.NetherMinionHeal.get()) {
-                            curio = CuriosFinder.hasNetherRobe(owner);
-                            soulCost = MobsConfig.NetherMinionHealCost.get();
-                            healRate = MobsConfig.NetherMinionHealTime.get();
-                            healAmount = MobsConfig.NetherMinionHealAmount.get().floatValue();
-                        } else if (isVoidHeal(servant) && MobsConfig.VoidMinionHeal.get()) {
-                            curio = CuriosFinder.hasVoidRobe(owner);
-                            soulCost = MobsConfig.VoidMinionHealCost.get();
-                            healRate = MobsConfig.VoidMinionHealTime.get();
-                            healAmount = MobsConfig.VoidMinionHealAmount.get().floatValue();
-                        }
-                        if (curio) {
-                            if (SEHelper.getSoulsAmount(owner, soulCost)) {
-                                if (servant.tickCount % (MathHelper.secondsToTicks(healRate) + 1) == 0) {
-                                    servant.heal(healAmount);
+                        HealConfig config = HealType.getConfig(servant, owner);
+                        if (config.curio) {
+                            if (SEHelper.getSoulsAmount(owner, config.soulCost)) {
+                                if (servant.tickCount % (MathHelper.secondsToTicks(config.healRate) + 1) == 0) {
+                                    servant.heal(config.healAmount);
                                     Vec3 vector3d = servant.getDeltaMovement();
                                     if (servant.level instanceof ServerLevel serverWorld) {
-                                        SEHelper.decreaseSouls(owner, soulCost);
+                                        SEHelper.decreaseSouls(owner, config.soulCost);
                                         serverWorld.sendParticles(ParticleTypes.SCULK_SOUL, servant.getRandomX(0.5D), servant.getRandomY(), servant.getRandomZ(0.5D), 0, vector3d.x * -0.2D, 0.1D, vector3d.z * -0.2D, 0.5F);
                                     }
                                 }
@@ -383,5 +351,98 @@ public class ServantUtil {
 
         return equipmentslot;
     }
+
+    enum HealType implements IExtensibleEnum {
+        ABYSS(
+                ServantUtil::isAbyssHeal,
+                CuriosFinder::hasAbyssRobes,
+                MobsConfig.WaterMinionHeal.get(),
+                MobsConfig.WaterMinionHealCost.get(),
+                MobsConfig.WaterMinionHealTime.get(),
+                MobsConfig.WaterMinionHealAmount.get()
+        ),
+        WILD(
+                ServantUtil::isWildHeal,
+                CuriosFinder::hasWildRobe,
+                MobsConfig.NaturalMinionHeal.get(),
+                MobsConfig.NaturalMinionHealCost.get(),
+                MobsConfig.NaturalMinionHealTime.get(),
+                MobsConfig.NaturalMinionHealAmount.get()
+        ),
+        FROST(
+                ServantUtil::isFrostHeal,
+                CuriosFinder::hasFrostRobes,
+                MobsConfig.FrostMinionHeal.get(),
+                MobsConfig.FrostMinionHealCost.get(),
+                MobsConfig.FrostMinionHealTime.get(),
+                MobsConfig.FrostMinionHealAmount.get()
+        ),
+        NETHER(
+                ServantUtil::isNetherHeal,
+                CuriosFinder::hasNetherRobe,
+                MobsConfig.NetherMinionHeal.get(),
+                MobsConfig.NetherMinionHealCost.get(),
+                MobsConfig.NetherMinionHealTime.get(),
+                MobsConfig.NetherMinionHealAmount.get()
+        ),
+        VOID(
+                ServantUtil::isVoidHeal,
+                CuriosFinder::hasVoidRobe,
+                MobsConfig.VoidMinionHeal.get(),
+                MobsConfig.VoidMinionHealCost.get(),
+                MobsConfig.VoidMinionHealTime.get(),
+                MobsConfig.VoidMinionHealAmount.get()
+        ),
+        NECRO(
+                ServantUtil::isNecroHeal,
+                CuriosFinder::hasUndeadCape,
+                MobsConfig.UndeadMinionHeal.get(),
+                MobsConfig.UndeadMinionHealCost.get(),
+                MobsConfig.UndeadMinionHealTime.get(),
+                MobsConfig.UndeadMinionHealAmount.get()
+        );
+
+        private final Predicate<LivingEntity> healCheck;
+        private final Predicate<LivingEntity> curioCheck;
+        private final boolean healEnabled;
+        private final int healCost;
+        private final int healTime;
+        private final double healAmount;
+
+        HealType(Predicate<LivingEntity> healCheck, Predicate<LivingEntity> curioCheck,
+                 boolean healEnabled, int healCost,
+                 int healTime, double healAmount) {
+            this.healCheck = healCheck;
+            this.curioCheck = curioCheck;
+            this.healEnabled = healEnabled;
+            this.healCost = healCost;
+            this.healTime = healTime;
+            this.healAmount = healAmount;
+        }
+
+        public static HealType create(String name, Predicate<LivingEntity> healCheck, Predicate<LivingEntity> curioCheck,
+                                      boolean healEnabled, int healCost,
+                                      int healTime, double healAmount){
+            throw new IllegalStateException("Enum not extended");
+        }
+
+        public static HealConfig getConfig(LivingEntity servant, LivingEntity owner) {
+            for (HealType type : values()) {
+                if (type.healCheck.test(servant) && type.healEnabled) {
+                    if (type.curioCheck.test(owner)) {
+                        return new HealConfig(
+                                type.curioCheck.test(owner),
+                                type.healCost,
+                                type.healTime,
+                                (float) type.healAmount
+                        );
+                    }
+                }
+            }
+            return new HealConfig(false, 0, 0, 0.0F);
+        }
+    }
+
+    public record HealConfig(boolean curio, int soulCost, int healRate, float healAmount) {}
 
 }
