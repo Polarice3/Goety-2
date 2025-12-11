@@ -79,7 +79,7 @@ public class WindBlastSpell extends Spell {
         }
         if (WandUtil.enchantedFocus(caster)){
             knock += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster) / 4.0D;
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
         }
         double dist = 0.9;
         double px = caster.getX() + lookVec.x * dist;
@@ -142,7 +142,7 @@ public class WindBlastSpell extends Spell {
                             living.setSecondsOnFire(5);
                         }
                     }
-                    if (entity instanceof AbstractCyclone cyclone) {
+                    if (entity instanceof AbstractCyclone cyclone && (cyclone.getTrueOwner() == null || !MobUtil.areAllies(caster, cyclone.getTrueOwner()))) {
                         cyclone.trueRemove();
                     }
                 }

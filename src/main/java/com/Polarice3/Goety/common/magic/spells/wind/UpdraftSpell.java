@@ -68,7 +68,7 @@ public class UpdraftSpell extends Spell {
         }
         float damage = SpellConfig.UpdraftBlastDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
         if (WandUtil.enchantedFocus(caster)) {
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
             damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
         }

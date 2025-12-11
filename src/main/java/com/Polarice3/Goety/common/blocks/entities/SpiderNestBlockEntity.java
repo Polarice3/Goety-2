@@ -67,7 +67,7 @@ public class SpiderNestBlockEntity extends TrainingBlockEntity {
                     this.setEntityType(ModEntityType.BONE_SPIDER_SERVANT.get());
                     this.markUpdated();
                 }
-            } else if (RitualRequirements.frostRitual(blockPos, level)){
+            } else if (RitualRequirements.frostRitual(null, blockPos, level)){
                 if (this.getTrainMob() != ModEntityType.ICY_SPIDER_SERVANT.get()){
                     this.setEntityType(ModEntityType.ICY_SPIDER_SERVANT.get());
                     this.markUpdated();

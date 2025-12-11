@@ -1,0 +1,28 @@
+{
+  "name": "Gnashers",
+  "icon": "minecraft:cod",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Sharks aren't as vicious as most would think and very rarely attack people on their own. These underwater fiends are another story, ripping and tearing up foes with their sharp teeth. Also makes for a good underwater mount without any need for a saddle."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "One can call upon a loyal gnasher through the use of a $(l:focuses/wild/mauling_focus)Mauling Focus$() underwater or through $(l:crafts/staff/abyss_staff)Abyss Staff$(), or through a ritual which summons one without a limited lifespan."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_gnasher_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:gnasher",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Right-clicking on a loyal Gnasher with fish will heal them. If the Gnasher was summoned through ritual, it can breed with another Gnasher summoned that way by right-clicking on them with meat while crouching."
+    }
+  ]
+}

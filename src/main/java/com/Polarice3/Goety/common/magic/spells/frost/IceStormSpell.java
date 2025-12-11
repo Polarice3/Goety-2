@@ -66,7 +66,7 @@ public class IceStormSpell extends Spell {
         if (WandUtil.enchantedFocus(caster)){
             potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
             velocity += WandUtil.getLevels(ModEnchantments.VELOCITY.get(), caster);
         }
         Vec3 vector3d = caster.getViewVector( 1.0F);

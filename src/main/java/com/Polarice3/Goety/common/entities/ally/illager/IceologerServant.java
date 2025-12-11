@@ -219,8 +219,7 @@ public class IceologerServant extends SpellcasterIllagerServant{
 
         @Override
         public boolean canUse() {
-            if (this.iceologer.getTarget() != null
-                    && this.iceologer.distanceTo(this.iceologer.getTarget()) <= this.iceologer.getAttributeValue(Attributes.FOLLOW_RANGE)){
+            if (this.iceologer.getTarget() != null){
                 return this.iceologer.spellCool <= 0;
             }
             return false;

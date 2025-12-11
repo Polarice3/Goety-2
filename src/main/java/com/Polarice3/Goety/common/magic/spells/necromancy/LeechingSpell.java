@@ -76,7 +76,7 @@ public class LeechingSpell extends EverChargeSpell {
         int range = spellStat.getRange();
         if (WandUtil.enchantedFocus(caster)){
             potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster) / 2.0F;
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
         }
         potency += spellStat.getPotency();
         LivingEntity target = this.getTarget(caster, range);

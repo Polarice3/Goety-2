@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.common.blocks.entities.ResonanceCrystalBlockEntity;
 import com.Polarice3.Goety.common.entities.ally.golem.SquallGolem;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.WaystoneItem;
 import com.Polarice3.Goety.common.items.block.ResonanceBlockItem;
 import com.Polarice3.Goety.init.ModSounds;
@@ -37,10 +38,11 @@ import java.util.UUID;
 
 public class ResonanceCrystalBlock extends BaseEntityBlock {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+    public static final BooleanProperty UNSTABLE = BlockStateProperties.UNSTABLE;
 
     public ResonanceCrystalBlock() {
         super(ModBlocks.JadeStoneProperties());
-        this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, Boolean.FALSE));
+        this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, Boolean.FALSE).setValue(UNSTABLE, Boolean.FALSE));
     }
 
     public RenderShape getRenderShape(BlockState state) {
@@ -98,11 +100,15 @@ public class ResonanceCrystalBlock extends BaseEntityBlock {
 
     public void playerDestroy(Level pLevel, Player pPlayer, BlockPos pPos, BlockState pState, @javax.annotation.Nullable BlockEntity pTe, ItemStack pStack) {
         ItemStack itemStack = new ItemStack(this);
-        if (pTe instanceof ResonanceCrystalBlockEntity blockEntity) {
+        if (pState.getValue(UNSTABLE)) {
+            for (int i = 0; i < 4; ++i) {
+                popResource(pLevel, pPos, new ItemStack(ModItems.JADE.get()));
+            }
+        } else if (pTe instanceof ResonanceCrystalBlockEntity blockEntity) {
             blockEntity.clearBlocks();
             this.setItemStackTags(itemStack, blockEntity);
+            popResource(pLevel, pPos, itemStack);
         }
-        popResource(pLevel, pPos, itemStack);
         super.playerDestroy(pLevel, pPlayer, pPos, pState, pTe, pStack);
     }
 
@@ -132,7 +138,7 @@ public class ResonanceCrystalBlock extends BaseEntityBlock {
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(POWERED);
+        pBuilder.add(POWERED, UNSTABLE);
     }
 
     @Override

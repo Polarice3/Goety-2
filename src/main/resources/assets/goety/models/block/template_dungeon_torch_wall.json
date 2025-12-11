@@ -1,0 +1,128 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "#torch",
+		"particle": "#torch"
+	},
+	"render_type": "cutout",
+	"elements": [
+		{
+			"name": "wall_torch",
+			"from": [0, 1, 2],
+			"to": [2, 15, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 2, 8]},
+			"faces": {
+				"north": {"uv": [7, 1, 8, 8], "texture": "#0"},
+				"east": {"uv": [1, 1, 7, 8], "texture": "#0"},
+				"south": {"uv": [0, 1, 1, 8], "texture": "#0"},
+				"west": {"uv": [1, 1, 7, 8], "texture": "#0"},
+				"up": {"uv": [1, 1, 7, 0], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [1, 8, 7, 9], "rotation": 270, "texture": "#0"}
+			}
+		},
+		{
+			"name": "torch",
+			"from": [7, 4, 7],
+			"to": [9, 11, 9],
+			"rotation": {"angle": -45, "axis": "z", "origin": [8, 14.25, 8]},
+			"faces": {
+				"north": {"uv": [15, 0, 16, 4], "texture": "#0"},
+				"east": {"uv": [14, 0, 15, 4], "texture": "#0"},
+				"south": {"uv": [13, 0, 14, 4], "texture": "#0"},
+				"west": {"uv": [12, 0, 13, 4], "texture": "#0"},
+				"up": {"uv": [4, 12, 5, 13], "rotation": 270, "texture": "#0"},
+				"down": {"uv": [4, 12, 5, 13], "rotation": 270, "texture": "#0"}
+			}
+		},
+		{
+			"name": "torch",
+			"from": [6.01, 11.01, 6.01],
+			"to": [9.99, 12.99, 9.99],
+			"rotation": {"angle": -45, "axis": "z", "origin": [8, 14.25, 8]},
+			"faces": {
+				"north": {"uv": [12, 3, 11, 1], "rotation": 90, "texture": "#0"},
+				"east": {"uv": [9, 1, 11, 0], "rotation": 180, "texture": "#0"},
+				"south": {"uv": [8, 1, 9, 3], "rotation": 270, "texture": "#0"},
+				"west": {"uv": [9, 3, 11, 4], "texture": "#0"},
+				"up": {"uv": [8, 12.5, 10, 10.5], "rotation": 270, "texture": "#0"},
+				"down": {"uv": [9, 1, 11, 3], "rotation": 270, "texture": "#0"}
+			}
+		},
+		{
+			"name": "torch",
+			"from": [4.88, 13, 4.98],
+			"to": [10.9, 13.02, 11],
+			"rotation": {"angle": -45, "axis": "z", "origin": [7.89, 14.01, 7.99]},
+			"faces": {
+				"up": {"uv": [10.5, 7, 13.5, 10], "rotation": 270, "texture": "#0"},
+				"down": {"uv": [10.5, 7, 13.5, 10], "rotation": 270, "texture": "#0"}
+			}
+		},
+		{
+			"name": "torch",
+			"from": [10.88, 13, 4.98],
+			"to": [10.9, 17.02, 11],
+			"rotation": {"angle": -45, "axis": "z", "origin": [7.89, 14.01, 7.99]},
+			"faces": {
+				"east": {"uv": [10.5, 12, 13.5, 10], "rotation": 180, "texture": "#0"},
+				"west": {"uv": [10.5, 10, 13.5, 12], "texture": "#0"}
+			}
+		},
+		{
+			"name": "torch",
+			"from": [4.88, 13, 4.98],
+			"to": [4.9, 17.02, 11],
+			"rotation": {"angle": -45, "axis": "z", "origin": [7.89, 14.01, 7.99]},
+			"faces": {
+				"east": {"uv": [13.5, 5, 10.5, 7], "rotation": 180, "texture": "#0"},
+				"west": {"uv": [13.5, 7, 10.5, 5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "torch",
+			"from": [4.88, 13, 4.98],
+			"to": [10.9, 17.02, 5],
+			"rotation": {"angle": -45, "axis": "z", "origin": [7.89, 14.01, 7.99]},
+			"faces": {
+				"north": {"uv": [13.5, 7, 15.5, 10], "rotation": 90, "texture": "#0"},
+				"east": {"uv": [10.5, 5, 13.5, 7], "rotation": 180, "texture": "#0"},
+				"south": {"uv": [15.5, 7, 13.5, 10], "rotation": 270, "texture": "#0"},
+				"west": {"uv": [10.5, 10, 13.5, 12], "texture": "#0"},
+				"up": {"uv": [7.5, 10, 10.5, 13], "rotation": 270, "texture": "#0"},
+				"down": {"uv": [10.5, 7, 13.5, 10], "rotation": 270, "texture": "#0"}
+			}
+		},
+		{
+			"name": "torch",
+			"from": [4.88, 13, 10.98],
+			"to": [10.9, 17.02, 11],
+			"rotation": {"angle": -45, "axis": "z", "origin": [7.89, 14.01, 7.99]},
+			"faces": {
+				"north": {"uv": [10.5, 7, 8.5, 10], "rotation": 90, "texture": "#0"},
+				"east": {"uv": [10.5, 5, 13.5, 7], "rotation": 180, "texture": "#0"},
+				"south": {"uv": [8.5, 7, 10.5, 10], "rotation": 270, "texture": "#0"},
+				"west": {"uv": [10.5, 10, 13.5, 12], "texture": "#0"},
+				"up": {"uv": [7.5, 10, 10.5, 13], "rotation": 270, "texture": "#0"},
+				"down": {"uv": [10.5, 7, 13.5, 10], "rotation": 270, "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "wall_torch",
+			"origin": [8, 7, 8],
+			"color": 0,
+			"children": [
+				0,
+				{
+					"name": "torch",
+					"origin": [8, 12, 8],
+					"color": 1,
+					"children": [1, 2, 3, 4, 5, 6, 7]
+				}
+			]
+		}
+	]
+}

@@ -300,6 +300,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.BLACK_WOLF, BlackWolfModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.BEAR, BearServantModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SNAPPER, SnapperModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.GNASHER, GnasherModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.BLACK_BEAST, BlackBeastModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.BEAST_HEAD, BeastHeadModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WHISPERER, WhispererModel::createBodyLayer);
@@ -659,6 +660,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.HELLHOUND.get(), HellhoundRenderer::new);
         event.registerEntityRenderer(ModEntityType.TWILIGHT_GOAT.get(), TwilightGoatRenderer::new);
         event.registerEntityRenderer(ModEntityType.SNAPPER.get(), SnapperRenderer::new);
+        event.registerEntityRenderer(ModEntityType.GNASHER.get(), GnasherRenderer::new);
         event.registerEntityRenderer(ModEntityType.GUARDIAN_SERVANT.get(), GuardianServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.BEAR_SERVANT.get(), BearServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.POLAR_BEAR_SERVANT.get(), BearServantRenderer::new);

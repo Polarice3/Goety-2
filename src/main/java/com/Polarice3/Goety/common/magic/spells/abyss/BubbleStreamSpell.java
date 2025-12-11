@@ -82,7 +82,7 @@ public class BubbleStreamSpell extends BreathingSpell {
             if (mob.getTarget() != null){
                 int range = spellStat.getRange();
                 if (WandUtil.enchantedFocus(caster)){
-                    range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+                    range += WandUtil.getRangeLevel(caster);
                 }
                 return mob.hasLineOfSight(mob.getTarget()) && mob.distanceTo(mob.getTarget()) <= range + 4.0D;
             }
@@ -95,7 +95,7 @@ public class BubbleStreamSpell extends BreathingSpell {
         int range = spellStat.getRange();
         if (WandUtil.enchantedFocus(caster)) {
             potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
         }
         float damage = SpellConfig.BubbleStreamDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
         damage += potency;
@@ -145,7 +145,7 @@ public class BubbleStreamSpell extends BreathingSpell {
         int range = 0;
         if (entityLiving instanceof Player player){
             if (WandUtil.enchantedFocus(player)){
-                range += WandUtil.getLevels(ModEnchantments.RANGE.get(), player);
+                range += WandUtil.getRangeLevel(player);
             }
         }
         this.breathAttack(ModParticleTypes.BUBBLE_STREAM.get(), entityLiving, true, 0.3F + ((double) range / 10), 0);

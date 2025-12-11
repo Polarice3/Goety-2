@@ -246,16 +246,18 @@ public class LichEvents {
                 }
                 if (MainConfig.LichUndeadFriends.get()) {
                     if (CuriosFinder.hasUndeadSet(player) && event.getSource().getEntity() != null) {
-                        if (event.getSource().getEntity() instanceof LivingEntity attacker) {
+                        if (event.getSource().getEntity() instanceof LivingEntity attacker && attacker.isAlive()) {
                             for (Mob undead : player.level.getEntitiesOfClass(Mob.class, player.getBoundingBox().inflate(16))) {
                                 if (undead != attacker) {
                                     if (undead.getMobType() == MobType.UNDEAD) {
                                         if (undead.getTarget() != player) {
                                             if (MainConfig.LichPowerfulFoes.get()) {
                                                 if (undead.getMaxHealth() <= MainConfig.LichPowerfulFoesHealth.get()) {
+                                                    undead.setLastHurtByMob(attacker);
                                                     undead.setTarget(attacker);
                                                 }
                                             } else {
+                                                undead.setLastHurtByMob(attacker);
                                                 undead.setTarget(attacker);
                                             }
                                         }

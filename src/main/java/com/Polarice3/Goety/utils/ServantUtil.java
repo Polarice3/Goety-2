@@ -37,6 +37,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.RespawnAnchorBlock;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.IExtensibleEnum;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -237,47 +238,52 @@ public class ServantUtil {
         }
     }
 
-    public static boolean teleportToRevive(IOwned owned){
+    @Nullable
+    public static Entity teleportToRevive(IOwned owned){
         if (owned instanceof LivingEntity livingOwned) {
-            BlockPos blockPos = owned.getRevivePos();
-            if (blockPos != null) {
-                BlockPos blockPos1 = BlockPos.containing(blockPos.getX() + 0.5F, blockPos.getY() + 0.5F, blockPos.getZ() + 0.5F);
-                if (owned.getReviveLevel() == livingOwned.level.dimension()) {
-                    Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(livingOwned.getType(), livingOwned.level, blockPos1);
-                    if (optional.isPresent()) {
-                        Vec3 vec3 = optional.get();
-                        if (livingOwned.level.getWorldBorder().isWithinBounds(vec3.x, vec3.y, vec3.z)) {
-                            livingOwned.teleportTo(vec3.x, vec3.y, vec3.z);
-                        } else {
-                            BlockPos blockPos2 = livingOwned.level.getSharedSpawnPos();
-                            livingOwned.teleportTo(blockPos2.getX(), blockPos2.getY(), blockPos2.getZ());
-                        }
-                        return true;
-                    }
-                } else {
+            if (livingOwned.level instanceof ServerLevel serverLevel) {
+                BlockPos blockPos = owned.getRevivePos();
+                if (blockPos != null) {
                     if (owned.getReviveLevel() != null) {
-                        if (livingOwned.getServer() != null) {
-                            ServerLevel serverWorld = livingOwned.getServer().getLevel(owned.getReviveLevel());
-                            if (serverWorld != null) {
-                                Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityType.PLAYER, serverWorld, blockPos1);
-                                if (optional.isPresent()) {
-                                    Vec3 vec3 = optional.get();
-                                    livingOwned.changeDimension(serverWorld, new ArcaTeleporter(optional.get()));
-                                    if (serverWorld.getWorldBorder().isWithinBounds(vec3.x, vec3.y, vec3.z)) {
-                                        livingOwned.teleportTo(vec3.x, vec3.y, vec3.z);
-                                    } else {
-                                        BlockPos blockPos2 = serverWorld.getSharedSpawnPos();
-                                        livingOwned.teleportTo(blockPos2.getX(), blockPos2.getY(), blockPos2.getZ());
+                        Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(livingOwned.getType(), livingOwned.level, blockPos);
+                        Vec3 vec3 = blockPos.getCenter();
+                        if (optional.isPresent()) {
+                            vec3 = optional.get();
+                        }
+                        if (serverLevel.dimension() != owned.getReviveLevel()) {
+                            if (livingOwned.getServer() != null) {
+                                ServerLevel newLevel = livingOwned.getServer().getLevel(owned.getReviveLevel());
+                                if (newLevel != null) {
+                                    Optional<Vec3> optional2 = RespawnAnchorBlock.findStandUpPosition(livingOwned.getType(), newLevel, blockPos);
+                                    if (optional2.isPresent()) {
+                                        Vec3 vec32 = optional2.get();
+                                        Entity entity = livingOwned.changeDimension(newLevel, new ArcaTeleporter(vec32));
+                                        if (entity != null) {
+                                            if (newLevel.getWorldBorder().isWithinBounds(vec32.x, vec32.y, vec32.z)) {
+                                                entity.teleportTo(vec32.x, vec32.y, vec32.z);
+                                            } else {
+                                                BlockPos blockPos2 = newLevel.getSharedSpawnPos();
+                                                entity.teleportTo(blockPos2.getX(), blockPos2.getY(), blockPos2.getZ());
+                                            }
+                                            return entity;
+                                        }
                                     }
-                                    return true;
                                 }
                             }
+                        } else {
+                            if (serverLevel.getWorldBorder().isWithinBounds(vec3.x, vec3.y, vec3.z)) {
+                                livingOwned.teleportTo(vec3.x, vec3.y, vec3.z);
+                            } else {
+                                BlockPos blockPos2 = serverLevel.getSharedSpawnPos();
+                                livingOwned.teleportTo(blockPos2.getX(), blockPos2.getY(), blockPos2.getZ());
+                            }
+                            return livingOwned;
                         }
                     }
                 }
             }
         }
-        return false;
+        return null;
     }
 
     public static InteractionResult equipServantArmor(Player player, Summoned summoned, ItemStack itemStack, InteractionResult failResult) {

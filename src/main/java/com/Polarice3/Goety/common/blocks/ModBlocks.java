@@ -195,6 +195,21 @@ public class ModBlocks {
     public static final RegistryObject<Block> BLACKSTONE_SOUL_BRAZIER = register("blackstone_soul_brazier", () -> new BrazierBlock(true));
     public static final RegistryObject<Block> MARBLE_BRAZIER = register("marble_brazier", BrazierBlock::new);
     public static final RegistryObject<Block> MARBLE_SOUL_BRAZIER = register("marble_soul_brazier", () -> new BrazierBlock(true));
+    public static final RegistryObject<Block> IRON_DUNGEON_TORCH = register("iron_dungeon_torch", () -> new DungeonTorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel((p_50755_) -> {
+        return 14;
+    }).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY)), false);
+    public static final RegistryObject<Block> WALL_IRON_DUNGEON_TORCH = register("wall_iron_dungeon_torch", () -> new WallDungeonTorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel((p_50755_) -> {
+        return 14;
+    }).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY)), false);
+    public static final RegistryObject<Block> GOLD_DUNGEON_TORCH = register("gold_dungeon_torch", () -> new DungeonTorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel((p_50755_) -> {
+        return 14;
+    }).sound(SoundType.METAL).mapColor(MapColor.GOLD).pushReaction(PushReaction.DESTROY)), false);
+    public static final RegistryObject<Block> WALL_GOLD_DUNGEON_TORCH = register("wall_gold_dungeon_torch", () -> new WallDungeonTorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel((p_50755_) -> {
+        return 14;
+    }).sound(SoundType.METAL).mapColor(MapColor.GOLD).pushReaction(PushReaction.DESTROY)), false);
+    public static final RegistryObject<Block> STEEP_SCONCE = register("steep_sconce", SteepSconceBlock::new);
+    public static final RegistryObject<Block> JADE_LIGHT = register("jade_light", JadeLightBlock::new);
+    public static final RegistryObject<Block> PINE_LANTERN = register("pine_lantern", PineLanternBlock::new);
     public static final RegistryObject<Block> SKULL_PILE = register("skull_pile", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).strength(2.0F).sound(SoundType.BONE_BLOCK).instrument(NoteBlockInstrument.BASEDRUM)), true, LootTableType.EMPTY);
     public static final RegistryObject<Block> CRYPT_URN = register("crypt_urn", UrnBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<CryptChestBlock> CRYPT_CHEST = isterRegister("crypt_chest", CryptChestBlock::new, LootTableType.EMPTY);
@@ -349,7 +364,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> SNOWY_JADE_SLAB = registerSlabs("snowy_jade_slab", SNOWY_JADE_TILES);
 
     public static final RegistryObject<Block> RUSTY_IRON_GRATE = register("rusty_iron_grate",
-            () -> new Block(BlockBehaviour.Properties.of()
+            () -> new HalfTransparentBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.PODZOL)
                     .requiresCorrectToolForDrops()
                     .strength(5.0F, 6.0F)
@@ -1010,6 +1025,10 @@ public class ModBlocks {
     //Custom Items
     public static final RegistryObject<Item> SNAP_WARTS_ITEM = ModItems.ITEMS.register("snap_warts",
             () -> new ItemNameBlockItem(ModBlocks.SNAP_WARTS.get(), (new Item.Properties())));
+    public static final RegistryObject<Item> IRON_DUNGEON_TORCH_ITEM = ModItems.ITEMS.register("iron_dungeon_torch",
+            () -> new StandingAndWallBlockItem(ModBlocks.IRON_DUNGEON_TORCH.get(), ModBlocks.WALL_IRON_DUNGEON_TORCH.get(), new Item.Properties(), Direction.DOWN));
+    public static final RegistryObject<Item> GOLD_DUNGEON_TORCH_ITEM = ModItems.ITEMS.register("gold_dungeon_torch",
+            () -> new StandingAndWallBlockItem(ModBlocks.GOLD_DUNGEON_TORCH.get(), ModBlocks.WALL_GOLD_DUNGEON_TORCH.get(), new Item.Properties(), Direction.DOWN));
     public static final RegistryObject<Item> RESONANCE_CRYSTAL_ITEM = ModItems.ITEMS.register("resonance_crystal",
             ResonanceBlockItem::new);
     public static final RegistryObject<Item> OMINOUS_IDOL_ITEM = ModItems.ITEMS.register("ominous_idol",

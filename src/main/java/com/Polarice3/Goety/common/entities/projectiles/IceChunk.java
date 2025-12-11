@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -18,17 +19,20 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class IceChunk extends SpellEntity {
     private final int distance = 4;
@@ -60,6 +64,34 @@ public class IceChunk extends SpellEntity {
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("hovering", this.hovering);
+    }
+
+    //Makes it no longer collide with entities so that they go through Totemic Walls/Bombs.
+    public @NotNull Vec3 collide(@NotNull Vec3 p_20273_) {
+        AABB aabb = this.getBoundingBox();
+        List<VoxelShape> list = new ArrayList<>();
+        Vec3 vec3 = p_20273_.lengthSqr() == 0.0D ? p_20273_ : collideBoundingBox(this, p_20273_, aabb, this.level(), list);
+        boolean flag = p_20273_.x != vec3.x;
+        boolean flag1 = p_20273_.y != vec3.y;
+        boolean flag2 = p_20273_.z != vec3.z;
+        boolean flag3 = this.onGround() || flag1 && p_20273_.y < 0.0D;
+        float stepHeight = getStepHeight();
+        if (stepHeight > 0.0F && flag3 && (flag || flag2)) {
+            Vec3 vec31 = collideBoundingBox(this, new Vec3(p_20273_.x, (double)stepHeight, p_20273_.z), aabb, this.level, list);
+            Vec3 vec32 = collideBoundingBox(this, new Vec3(0.0D, (double)stepHeight, 0.0D), aabb.expandTowards(p_20273_.x, 0.0D, p_20273_.z), this.level, list);
+            if (vec32.y < (double)stepHeight) {
+                Vec3 vec33 = collideBoundingBox(this, new Vec3(p_20273_.x, 0.0D, p_20273_.z), aabb.move(vec32), this.level(), list).add(vec32);
+                if (vec33.horizontalDistanceSqr() > vec31.horizontalDistanceSqr()) {
+                    vec31 = vec33;
+                }
+            }
+
+            if (vec31.horizontalDistanceSqr() > vec3.horizontalDistanceSqr()) {
+                return vec31.add(collideBoundingBox(this, new Vec3(0.0D, -vec31.y + p_20273_.y, 0.0D), aabb.move(vec31), this.level(), list));
+            }
+        }
+
+        return vec3;
     }
 
     private void onHit(HitResult hitResult) {
@@ -224,10 +256,24 @@ public class IceChunk extends SpellEntity {
 
     protected boolean canHitEntity(Entity entity) {
         if (!entity.isSpectator() && entity.isAlive() && entity.isPickable() && !entity.noPhysics && !(entity instanceof IceChunk)) {
-            Entity owner = this.getOwner();
-            return owner == null || !owner.isPassengerOfSameVehicle(entity) && !MobUtil.areAllies(owner, entity);
-        } else {
-            return false;
+            if (this.getOwner() != null){
+                if (entity == this.getOwner()){
+                    return false;
+                }
+                if (this.getOwner() instanceof Mob mob && mob.getTarget() == entity){
+                    return !mob.isPassengerOfSameVehicle(entity) && !MobUtil.areAllies(mob, entity);
+                } else {
+                    if (MobUtil.areAllies(this.getOwner(), entity)){
+                        return false;
+                    }
+                    if (entity instanceof IOwned owned0 && this.getOwner() instanceof IOwned owned1){
+                        return !MobUtil.ownerStack(owned0, owned1);
+                    }
+                }
+            } else {
+                return true;
+            }
         }
+        return false;
     }
 }

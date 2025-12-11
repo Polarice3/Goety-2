@@ -25,7 +25,7 @@ public class SoulHealSpell extends Spell {
 
     @Override
     public SpellStat defaultStats() {
-        return super.defaultStats().setPotency(1).setRadius(0.0D);
+        return super.defaultStats().setPotency(1);
     }
 
     @Override

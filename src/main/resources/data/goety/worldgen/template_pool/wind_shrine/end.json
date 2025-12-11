@@ -1,0 +1,356 @@
+{
+  "name": "goety:wind_shrine/end",
+  "fallback": "goety:wind_shrine/end",
+  "elements": [
+    {
+
+      "weight": 5,
+      "element": {
+
+        "location": "goety:wind_shrine/small_tower_roof_1",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:wind_shrine/small_tower_roof_2",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 3,
+      "element": {
+
+        "location": "goety:wind_shrine/medium_tower_roof_1",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:wind_shrine/medium_tower_roof_2",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:wind_shrine/medium_tower_roof_3",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 5,
+      "element": {
+
+        "location": "goety:wind_shrine/big_tower_roof_1",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:wind_shrine/big_tower_roof_2",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 2,
+      "element": {
+
+        "location": "goety:wind_shrine/big_tower_roof_3",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 3,
+      "element": {
+
+        "location": "goety:wind_shrine/big_tower_roof_4",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:wind_shrine/main_tower_roof_1",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:wind_shrine/small_tower_bottom_1",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 5,
+      "element": {
+
+        "location": "goety:wind_shrine/connector_end_1",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 3,
+      "element": {
+
+        "location": "goety:wind_shrine/connector_end_2",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:wind_shrine/connector_end_3",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:wind_shrine/connector_end_4",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:wind_shrine/connector_end_5",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 5,
+      "element": {
+
+        "location": "goety:wind_shrine/connector_end_6",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 3,
+      "element": {
+
+        "location": "goety:wind_shrine/connector_end_7",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:wind_shrine/connector_end_8",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 5,
+      "element": {
+
+        "location": "goety:wind_shrine/connector_end_9",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:wind_shrine/connector_end_10",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:mobs/pillager",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:mobs/crusher",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:mobs/storm_caster",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:mobs/ravager",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

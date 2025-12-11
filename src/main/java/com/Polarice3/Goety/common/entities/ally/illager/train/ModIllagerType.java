@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.blocks.WindBlowerBlock;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.illager.Neollager;
 import com.Polarice3.Goety.common.research.ResearchList;
+import com.Polarice3.Goety.common.ritual.RitualChecker;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.SEHelper;
@@ -44,77 +45,78 @@ public class ModIllagerType implements ITrainIllager {
 
     @Override
     public EntityType<? extends Mob> getIllager(Level level, BlockPos blockPos, int range) {
-        if (BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(Blocks.HAY_BLOCK) || blockState.is(Blocks.TARGET), range, 2)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof CarvedPumpkinBlock, range, 2)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(Tags.Blocks.FENCES_WOODEN), range, 16)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(BlockTags.WOOL), range, 20)) {
+        RitualChecker checker = new RitualChecker(level, blockPos, blockState -> true, range, 0);
+        if (checker.hasBlocks(blockState -> blockState.is(Blocks.HAY_BLOCK) || blockState.is(Blocks.TARGET), 2)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof CarvedPumpkinBlock, 2)
+                && checker.hasBlocks(blockState -> blockState.is(Tags.Blocks.FENCES_WOODEN), 16)
+                && checker.hasBlocks(blockState -> blockState.is(BlockTags.WOOL), 20)) {
             return ModEntityType.PILLAGER_SERVANT.get();
-        } else if (BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof GrindstoneBlock, range, 2)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof SmithingTableBlock, range, 2)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(Tags.Blocks.FENCES_WOODEN), range, 16)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(BlockTags.LOGS), range, 32)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof BedBlock, range, 4)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof BarrelBlock, range, 4)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof AnvilBlock, range, 2)) {
+        } else if (checker.hasBlocks(blockState -> blockState.getBlock() instanceof GrindstoneBlock, 2)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof SmithingTableBlock, 2)
+                && checker.hasBlocks(blockState -> blockState.is(Tags.Blocks.FENCES_WOODEN), 16)
+                && checker.hasBlocks(blockState -> blockState.is(BlockTags.LOGS), 32)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof BedBlock, 4)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof BarrelBlock, 4)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof AnvilBlock, 2)) {
             return ModEntityType.PIKER_SERVANT.get();
-        } else if (BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof CampfireBlock, range, 2)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof BedBlock, range, 4)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof BarrelBlock, range, 4)) {
+        } else if (checker.hasBlocks(blockState -> blockState.getBlock() instanceof CampfireBlock, 2)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof BedBlock, 4)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof BarrelBlock, 4)) {
             return ModEntityType.SIGNALER_SERVANT.get();
-        } else if (BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(BlockTags.BANNERS), range, 1)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(BlockTags.PLANKS), range, 64)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock().getDescriptionId().contains("bricks"), range, 60)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(BlockTags.WALLS), range, 10)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(BlockTags.FENCES), range, 10)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof FurnaceBlock || blockState.getBlock() instanceof BlastFurnaceBlock, range, 2)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof CraftingTableBlock, range, 1)){
+        } else if (checker.hasBlocks(blockState -> blockState.is(BlockTags.BANNERS), 1)
+                && checker.hasBlocks(blockState -> blockState.is(BlockTags.PLANKS), 64)
+                && checker.hasBlocks(blockState -> blockState.getBlock().getDescriptionId().contains("bricks"), 60)
+                && checker.hasBlocks(blockState -> blockState.is(BlockTags.WALLS), 10)
+                && checker.hasBlocks(blockState -> blockState.is(BlockTags.FENCES), 10)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof FurnaceBlock || blockState.getBlock() instanceof BlastFurnaceBlock, 2)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof CraftingTableBlock, 1)){
             return ModEntityType.VINDICATOR_SERVANT.get();
-        } else if (BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof CakeBlock, range, 2)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof SmokerBlock || blockState.getBlock() instanceof FurnaceBlock, range, 4)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof BarrelBlock, range, 16)){
+        } else if (checker.hasBlocks(blockState -> blockState.getBlock() instanceof CakeBlock, 2)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof SmokerBlock || blockState.getBlock() instanceof FurnaceBlock, 4)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof BarrelBlock, 16)){
             return ModEntityType.VINDICATOR_CHEF_SERVANT.get();
-        } else if (BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof WindBlowerBlock && blockState.getValue(WindBlowerBlock.POWERED), range, 4)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(Tags.Blocks.FENCES_WOODEN), range, 16)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(BlockTags.WOOL), range, 20)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof BarrelBlock, range, 8)
+        } else if (checker.hasBlocks(blockState -> blockState.getBlock() instanceof WindBlowerBlock && blockState.getValue(WindBlowerBlock.POWERED), 4)
+                && checker.hasBlocks(blockState -> blockState.is(Tags.Blocks.FENCES_WOODEN), 16)
+                && checker.hasBlocks(blockState -> blockState.is(BlockTags.WOOL), 20)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof BarrelBlock, 8)
                 && level.getBiome(blockPos).get().coldEnoughToSnow(blockPos)){
             return ModEntityType.MOUNTAINEER_SERVANT.get();
-        } else if (BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(BlockTags.PLANKS), range, 64)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock().getDescriptionId().contains("bricks"), range, 64)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(BlockTags.FENCES), range, 8)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof BlastFurnaceBlock, range, 8)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof LavaCauldronBlock, range, 2)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(Blocks.WATER_CAULDRON), range, 2)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof AnvilBlock, range, 4)){
+        } else if (checker.hasBlocks(blockState -> blockState.is(BlockTags.PLANKS), 64)
+                && checker.hasBlocks(blockState -> blockState.getBlock().getDescriptionId().contains("bricks"), 64)
+                && checker.hasBlocks(blockState -> blockState.is(BlockTags.FENCES), 8)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof BlastFurnaceBlock, 8)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof LavaCauldronBlock, 2)
+                && checker.hasBlocks(blockState -> blockState.is(Blocks.WATER_CAULDRON), 2)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof AnvilBlock, 4)){
             return ModEntityType.CRUSHER_SERVANT.get();
         } else if (BlockFinder.getNearbyEnchantPower(level, blockPos, range, 32)
                 && BlockFinder.getNearbyLitCandles(level, blockPos, range, 16)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(Blocks.LECTERN), range, 1)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof StashUrnBlock, range, 4)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(BlockTags.BANNERS), range, 2)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof AbstractSkullBlock, range, 4)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof FlowerPotBlock flowerPotBlock && flowerPotBlock.getContent() != Blocks.AIR, range, 4)) {
+                && checker.hasBlocks(blockState -> blockState.is(Blocks.LECTERN), 1)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof StashUrnBlock, 4)
+                && checker.hasBlocks(blockState -> blockState.is(BlockTags.BANNERS), 2)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof AbstractSkullBlock, 4)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof FlowerPotBlock flowerPotBlock && flowerPotBlock.getContent() != Blocks.AIR, 4)) {
             return ModEntityType.EVOKER_SERVANT.get();
-        } else if (BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(Tags.Blocks.STORAGE_BLOCKS_AMETHYST), range, 16)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock().getDescriptionId().contains("deepslate"), range, 64)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(ModBlocks.CREEPER_TOTEM.get()), range, 16)) {
+        } else if (checker.hasBlocks(blockState -> blockState.is(Tags.Blocks.STORAGE_BLOCKS_AMETHYST), 16)
+                && checker.hasBlocks(blockState -> blockState.getBlock().getDescriptionId().contains("deepslate"), 64)
+                && checker.hasBlocks(blockState -> blockState.is(ModBlocks.CREEPER_TOTEM.get()), 16)) {
             return ModEntityType.GEOMANCER_SERVANT.get();
-        } else if (BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(Blocks.BLUE_ICE), range, 16)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(BlockTags.SNOW), range, 64)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(ModBlocks.FREEZING_LAMP.get()), range, 4)) {
+        } else if (checker.hasBlocks(blockState -> blockState.is(Blocks.BLUE_ICE), 16)
+                && checker.hasBlocks(blockState -> blockState.is(BlockTags.SNOW), 64)
+                && checker.hasBlocks(blockState -> blockState.is(ModBlocks.FREEZING_LAMP.get()), 4)) {
             return ModEntityType.ICEOLOGER_SERVANT.get();
-        } else if (BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(ModTags.Blocks.MARBLE_BLOCKS), range, 64)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(ModTags.Blocks.JADE_BLOCKS), range, 32)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(ModTags.Blocks.INDENTED_GOLD_BLOCKS), range, 4)) {
+        } else if (checker.hasBlocks(blockState -> blockState.is(ModTags.Blocks.MARBLE_BLOCKS), 64)
+                && checker.hasBlocks(blockState -> blockState.is(ModTags.Blocks.JADE_BLOCKS), 32)
+                && checker.hasBlocks(blockState -> blockState.is(ModTags.Blocks.INDENTED_GOLD_BLOCKS), 4)) {
             return ModEntityType.WIND_CALLER_SERVANT.get();
         } else if (BlockFinder.getNearbyEnchantPower(level, blockPos, range, 16)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(Blocks.POWDER_SNOW), range, 32)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.is(ModBlocks.CREEPER_TOTEM.get()), range, 16)
+                && checker.hasBlocks(blockState -> blockState.is(Blocks.POWDER_SNOW), 32)
+                && checker.hasBlocks(blockState -> blockState.is(ModBlocks.CREEPER_TOTEM.get()), 16)
                 && level.getBiome(blockPos).get().coldEnoughToSnow(blockPos)) {
             return ModEntityType.CRYOLOGER_SERVANT.get();
-        } else if (BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock().getDescriptionId().contains("copper"), range, 32)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock().getDescriptionId().contains("bricks"), range, 64)
-                && BlockFinder.getNearbyBlocks(level, blockPos, blockState -> blockState.getBlock() instanceof LightningRodBlock, range, 4)
+        } else if (checker.hasBlocks(blockState -> blockState.getBlock().getDescriptionId().contains("copper"), 32)
+                && checker.hasBlocks(blockState -> blockState.getBlock().getDescriptionId().contains("bricks"), 64)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof LightningRodBlock, 4)
                 && level.isRainingAt(blockPos.above())
                 && level.isThundering()) {
             return ModEntityType.STORM_CASTER_SERVANT.get();

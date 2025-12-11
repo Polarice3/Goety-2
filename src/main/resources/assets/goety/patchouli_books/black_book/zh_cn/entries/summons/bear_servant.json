@@ -5,11 +5,11 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "这些熊忠诚而好斗，是优秀的仆人，可以用爪子撕裂你的敌人。如果你不在意它缓慢的速度，它也是一个很好的坐骑，而且你不需要马鞍。"
+      "text": "这些熊忠诚而好斗，是优秀的仆人，可以用爪子撕裂你的敌人。如果你不在意它缓慢的速度，它也是一个很好的坐骑，而且你不需要鞍。"
     },
     {
       "type": "patchouli:text",
-      "text": "你可以使用$(l:focuses/wild/mauling_focus)猛击聚晶$()来召唤一只熊，或者使用某种仪式来召唤一只没有存续时间的熊。"
+      "text": "你可以使用$(l:focuses/wild/mauling_focus)猛击聚晶$()来召唤一只熊仆从，或者是使用某种仪式召唤一只没有寿命限制的熊"
     },
     {
       "type": "goety:ritual",
@@ -22,7 +22,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "持有鱼时右键点击一个忠诚的熊仆从，会治愈他们。在寒冷的生物群落中召唤一头熊，或用$(l:crafts/frost_staff)冰霜魔杖$()召唤，会召唤一头北极熊仆从。"
+      "text": "持有鱼时右键点击一个忠诚的熊仆从即可恢复其血量，当你试图在寒冷生物群系或使用$(l:crafts/staff/frost_staff)冰霜魔杖$()召唤熊仆从时，它会转化为北极熊仆从生成"
     },
     {
       "type": "patchouli:entity",
@@ -31,11 +31,15 @@
     },
     {
       "type": "patchouli:text",
-      "text": "另一种获得北极熊仆人的方法是通过转换仪式让一只普通的北极熊服从你."
+      "text": "另一种获得北极熊仆从的方式是通过转换仪式让一只普通的北极熊服从你"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:convert_polar_bear_to_polar_bear_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "玩家在手持蜜脾右键，喂食通过仪式召唤的熊仆从，让它们相互繁殖"
     }
   ]
 }

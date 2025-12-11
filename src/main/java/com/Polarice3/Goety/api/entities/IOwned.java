@@ -390,12 +390,20 @@ public interface IOwned {
         return false;
     }
 
-    default void reviveOwned() {
-        ServantUtil.teleportToRevive(this);
-        if (this instanceof LivingEntity living) {
-            living.setHealth(1.0F);
-            living.removeAllEffects();
+    default void startRevival() {
+        Entity entity = ServantUtil.teleportToRevive(this);
+        if (entity != null) {
+            if (entity instanceof LivingEntity living) {
+                living.setHealth(1.0F);
+                living.removeAllEffects();
+            }
+            if (entity instanceof IOwned owned) {
+                owned.reviveOwned();
+            }
         }
+    }
+
+    default void reviveOwned() {
     }
 
     @Nullable

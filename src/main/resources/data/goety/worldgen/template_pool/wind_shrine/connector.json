@@ -1,0 +1,216 @@
+{
+  "name": "goety:wind_shrine/connector",
+  "fallback": "goety:wind_shrine/end",
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:wind_shrine/big_courtyard_1",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 3,
+      "element": {
+
+        "location": "goety:wind_shrine/courtyard_1",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 2,
+      "element": {
+
+        "location": "goety:wind_shrine/courtyard_2",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 3,
+      "element": {
+
+        "location": "goety:wind_shrine/courtyard_3",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 3,
+      "element": {
+
+        "location": "goety:wind_shrine/courtyard_4",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 3,
+      "element": {
+
+        "location": "goety:wind_shrine/courtyard_5",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 3,
+      "element": {
+
+        "location": "goety:wind_shrine/courtyard_6",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 3,
+      "element": {
+
+        "location": "goety:wind_shrine/courtyard_7",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:wind_shrine/corridor_1",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 3,
+      "element": {
+
+        "location": "goety:wind_shrine/corridor_2",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 3,
+      "element": {
+
+        "location": "goety:wind_shrine/corridor_3",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 3,
+      "element": {
+
+        "location": "goety:wind_shrine/corridor_4",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:wind_shrine/corridor_5",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 2,
+      "element": {
+
+        "location": "goety:wind_shrine/corridor_corner_1",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:wind_shrine/bridge_3",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

@@ -25,7 +25,7 @@ public class HailSpell extends Spell {
 
     @Override
     public SpellStat defaultStats() {
-        return super.defaultStats().setDuration(100);
+        return super.defaultStats().setDuration(100).setRadius(2.0D);
     }
 
     public int defaultSoulCost() {
@@ -66,7 +66,7 @@ public class HailSpell extends Spell {
         double radius = spellStat.getRadius();
         float potency = spellStat.getPotency();
         if (WandUtil.enchantedFocus(caster)) {
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
             duration *= WandUtil.getLevels(ModEnchantments.DURATION.get(), caster) + 1;
             potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);

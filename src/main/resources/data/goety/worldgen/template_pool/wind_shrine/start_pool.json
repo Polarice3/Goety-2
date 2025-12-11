@@ -1,15 +1,27 @@
 {
   "name": "goety:wind_shrine/start_pool",
-
-  "fallback": "minecraft:empty",
-
+  "fallback": "goety:wind_shrine/end",
   "elements": [
     {
 
       "weight": 1,
       "element": {
 
-        "location": "goety:wind_shrine/wind_shrine",
+        "location": "goety:wind_shrine/main_tower_base_1",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:wind_shrine/main_tower_base_2",
 
         "processors": "minecraft:empty",
 

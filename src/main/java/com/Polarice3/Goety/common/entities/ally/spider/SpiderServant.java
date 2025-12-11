@@ -146,7 +146,7 @@ public class SpiderServant extends AbstractSpiderServant {
         if (level instanceof ServerLevel serverLevel) {
             if (BlockFinder.findStructure(serverLevel, blockPos, ModTags.Structures.CRYPT)){
                 entityType = ModEntityType.BONE_SPIDER_SERVANT.get();
-            } else if (RitualRequirements.frostRitual(blockPos, level)){
+            } else if (RitualRequirements.frostRitual(null, blockPos, level)){
                 entityType = ModEntityType.ICY_SPIDER_SERVANT.get();
             } else if (BlockFinder.findStructure(serverLevel, blockPos, StructureTags.MINESHAFT)){
                 entityType = ModEntityType.CAVE_SPIDER_SERVANT.get();

@@ -7,6 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 public interface IRitualType {
 
@@ -16,7 +17,12 @@ public interface IRitualType {
         return new ItemStack(Items.OBSIDIAN);
     }
 
+    @Deprecated
     default boolean getRequirement(RitualBlockEntity pTileEntity, BlockPos pPos, Level pLevel){
+        return this.getRequirement(pTileEntity, null, pPos, pLevel);
+    }
+
+    default boolean getRequirement(RitualBlockEntity pTileEntity, @Nullable Player pPlayer, BlockPos pPos, Level pLevel){
         return false;
     }
 

@@ -1,0 +1,28 @@
+{
+  "name": "ナッシャー",
+  "icon": "minecraft:cod",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "サメは意外と凶暴な種は少なく、単独で人を襲うことは滅多にありません。しかし、水中に潜むこの怪物は鋭い歯で敵を引き裂きます。また、鞍を必要とせず、水中での乗り物としても優れています。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "忠実なナッシャーを呼び出すには、水中で$(l:focuses/wild/mauling_focus)猛獣のフォーカス$()を使用する、または$(l:crafts/staff/abyss_staff)深淵の杖$()でそのフォーカスを使用するか、寿命に制限のないものを召喚する儀式を行う必要があります。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_gnasher_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:gnasher",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "忠実なナッシャーに魚を右クリックすると、回復します。儀式で召喚されたナッシャーは、しゃがんだ状態で肉を右クリックすることで、儀式で召喚された別のナッシャーと繁殖することができます。"
+    }
+  ]
+}

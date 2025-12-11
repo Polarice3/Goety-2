@@ -79,8 +79,8 @@ public abstract class EntityMixin {
         Entity entity = (Entity) (Object) this;
         SoundType soundtype = blockState.getSoundType(entity.level, blockPos, entity);
         if (soundtype == ModSoundTypes.MOD_METAL){
-            entity.playSound(SoundEvents.STONE_STEP, (soundtype.getVolume() * 0.15F) * Mth.randomBetween(entity.level.random, 0.8F, 1.0F), Mth.randomBetween(entity.level.random, 0.8F, 1.0F));
-            entity.playSound(SoundEvents.ZOMBIE_ATTACK_IRON_DOOR, (soundtype.getVolume() * 0.15F) * Mth.randomBetween(entity.level.random, 0.8F, 1.0F), Mth.randomBetween(entity.level.random, 0.8F, 1.0F));
+            entity.playSound(SoundEvents.STONE_STEP, (soundtype.getVolume() * 0.15F) * Mth.randomBetween(entity.level.getRandom(), 0.8F, 1.0F), Mth.randomBetween(entity.level.getRandom(), 0.8F, 1.0F));
+            entity.playSound(SoundEvents.ZOMBIE_ATTACK_IRON_DOOR, (soundtype.getVolume() * 0.15F) * Mth.randomBetween(entity.level.getRandom(), 0.8F, 1.0F), Mth.randomBetween(entity.level.getRandom(), 0.8F, 1.0F));
         }
     }
 

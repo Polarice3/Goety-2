@@ -617,6 +617,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxDurationLevel;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxBurningLevel;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxVelocityLevel;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> FocusEnchantsTrades;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerHitCommand;
     public static final ForgeConfigSpec.ConfigValue<Integer> OwnerHitKill;
@@ -1662,7 +1663,7 @@ public class SpellConfig {
             VoidShockCost = BUILDER.comment("Stellar Spell Cost, Default: 16")
                     .defineInRange("stellarCost", 16, 0, Integer.MAX_VALUE);
             VoidShockDuration = BUILDER.comment("Time to cast Stellar Spell, Default: 35")
-                    .defineInRange("stellarDuration", 35, 0, 72000);
+                    .defineInRange("stellarDuration", 35, 15, 72000);
             VoidShockCoolDown = BUILDER.comment("Stellar Spell Cooldown, Default: 100")
                     .defineInRange("stellarCoolDown", 100, 0, Integer.MAX_VALUE);
             VoidShockDamage = BUILDER.comment("How much base damage the Void Shocks from Stellar spell deals, Default: 7.0")
@@ -1849,6 +1850,8 @@ public class SpellConfig {
                 .defineInRange("redstoneMonstrosityPlayerLimit", 1, 0, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Enchantments");
+        FocusEnchantsTrades = BUILDER.comment("Whether Focus Enchantments can appear on Villager Trade Pools, Default: true")
+                .define("focusEnchantsTrades", true);
         MaxSoulEaterLevel = BUILDER.comment("Soul Eater Maximum Enchantment Level, Default: 5")
                 .defineInRange("maxSoulEaterLevel", 5, 1, 10);
         MaxWantingLevel = BUILDER.comment("Wanting Maximum Enchantment Level, Default: 3")
@@ -1857,8 +1860,8 @@ public class SpellConfig {
                 .defineInRange("maxPotencyLevel", 3, 1, 10);
         MaxRadiusLevel = BUILDER.comment("Radius Maximum Enchantment Level, Default: 2")
                 .defineInRange("maxRadiusLevel", 2, 1, 10);
-        MaxRangeLevel = BUILDER.comment("Range Maximum Enchantment Level, Default: 10")
-                .defineInRange("maxRangeLevel", 10, 1, 10);
+        MaxRangeLevel = BUILDER.comment("Range Maximum Enchantment Level, Default: 5")
+                .defineInRange("maxRangeLevel", 5, 1, 10);
         MaxDurationLevel = BUILDER.comment("Duration Maximum Enchantment Level, Default: 3")
                 .defineInRange("maxDurationLevel", 3, 1, 10);
         MaxBurningLevel = BUILDER.comment("Burning Maximum Enchantment Level, Default: 3")

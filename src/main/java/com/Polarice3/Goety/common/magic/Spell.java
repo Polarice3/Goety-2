@@ -6,7 +6,6 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.client.particles.FoggyCloudParticleOption;
 import com.Polarice3.Goety.client.particles.GatherTrailParticle;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.ChatFormatting;
@@ -82,7 +81,7 @@ public abstract class Spell implements ISpell {
     public LivingEntity getTarget(LivingEntity caster){
         int range = this.defaultStats().getRange();
         if (WandUtil.enchantedFocus(caster)) {
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
         }
         return this.getTarget(caster, range);
     }

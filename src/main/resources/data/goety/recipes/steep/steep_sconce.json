@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ICI",
+    " S "
+  ],
+  "key": {
+    "C": {
+      "tag": "minecraft:coals"
+    },
+    "S": {
+      "item": "goety:steep_wood"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "result": {
+    "item": "goety:steep_sconce",
+    "count": 1
+  }
+}

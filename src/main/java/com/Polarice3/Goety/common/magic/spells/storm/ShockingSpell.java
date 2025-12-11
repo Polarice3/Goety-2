@@ -79,7 +79,7 @@ public class ShockingSpell extends EverChargeSpell {
             if (mob.getTarget() != null){
                 int range = spellStat.getRange();
                 if (WandUtil.enchantedFocus(caster)) {
-                    range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+                    range += WandUtil.getRangeLevel(caster);
                 }
                 return mob.hasLineOfSight(mob.getTarget()) && mob.distanceTo(mob.getTarget()) <= range + 4.0D;
             }
@@ -93,7 +93,7 @@ public class ShockingSpell extends EverChargeSpell {
         int range = spellStat.getRange();
         int burning = spellStat.getBurning();
         if (WandUtil.enchantedFocus(caster)) {
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
             damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
             burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
         }

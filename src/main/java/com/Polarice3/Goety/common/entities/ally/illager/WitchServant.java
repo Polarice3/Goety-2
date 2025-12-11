@@ -97,6 +97,11 @@ public class WitchServant extends RaiderServant implements RangedAttackMob {
         this.getEntityData().define(DATA_USING_ITEM, false);
     }
 
+    @Override
+    public boolean canPickUpLoot() {
+        return false;
+    }
+
     public LivingEntity getShootTarget() {
         return this.shootTarget;
     }

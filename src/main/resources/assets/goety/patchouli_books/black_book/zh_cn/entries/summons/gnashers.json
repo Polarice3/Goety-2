@@ -1,0 +1,28 @@
+{
+  "name": "噬咬鲨",
+  "icon": "minecraft:cod",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "鲨鱼并不像大部分人想的那么凶猛，它们很少独自攻击人类，而你麾下的这些水下恶魔是另一回事，它们可以用锋利的牙齿撕碎敌人，还可以作为坐骑使用，骑乘噬咬鲨不需要鞍"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你可以通过在水下使用$(l:focuses/wild/mauling_focus)猛击聚晶$()或改用$(l:crafts/staff/abyss_staff)深渊魔杖$()承载猛击聚晶施法的方式召唤一条噬咬鲨，或者是使用某种仪式召唤一只没有寿命限制的噬咬鲨"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_gnasher_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:gnasher",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "玩家可以手持鱼类右键喂食噬咬鲨来治愈它们，如果噬咬鲨是通过仪式召唤出来的，那么玩家就可以在手持肉类的情况下潜行+右键喂食噬咬鲨，让它们相互繁殖"
+    }
+  ]
+}

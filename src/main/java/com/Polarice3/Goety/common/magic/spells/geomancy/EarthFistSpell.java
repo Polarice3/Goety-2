@@ -81,7 +81,7 @@ public class EarthFistSpell extends Spell {
         int range = spellStat.getRange();
         int potency = spellStat.getPotency();
         if (WandUtil.enchantedFocus(caster)) {
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
             potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
         }
         HitResult rayTraceResult = this.rayTrace(worldIn, caster, range, 3);

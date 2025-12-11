@@ -1,7 +1,7 @@
 {
   "name": "无名权杖",
   "icon": "goety:nameless_staff",
-  "category": "goety:crafts/garment",
+  "category": "goety:crafts/staff",
   "advancement": "goety:goety/read_forbidden_scroll",
   "secret": true,
   "pages": [

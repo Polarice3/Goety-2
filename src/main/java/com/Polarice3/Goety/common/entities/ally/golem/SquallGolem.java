@@ -3,11 +3,11 @@ package com.Polarice3.Goety.common.entities.ally.golem;
 import com.Polarice3.Goety.api.blocks.entities.IWindPowered;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
-import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
@@ -158,6 +158,14 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
         }
     }
 
+    @Override
+    public boolean isAlliedTo(Entity entityIn) {
+        if (this.isHostile()) {
+            return MobUtil.illagerAllies(this, entityIn);
+        }
+        return super.isAlliedTo(entityIn);
+    }
+
     @Nullable
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {
@@ -264,7 +272,12 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
-        if (pReason != MobSpawnType.MOB_SUMMONED && pReason != MobSpawnType.COMMAND){
+        if (pReason == MobSpawnType.STRUCTURE) {
+            this.setActivated(false);
+            this.setRequiresPower(true);
+            this.setProximity(true);
+            this.setBoundPos(this.blockPosition());
+        } else if (pReason != MobSpawnType.MOB_SUMMONED && pReason != MobSpawnType.COMMAND){
             this.setActivated(true);
             this.setRequiresPower(false);
         } else {
@@ -351,26 +364,26 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
                         }
                     }
                 }
-                if (this.proximity){
+                if (this.isProximity()){
                     LivingEntity livingEntity = null;
                     for (LivingEntity living : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox()
-                            .inflate(4))){
-                        if (SummonTargetGoal.predicate(this).test(living)){
+                            .inflate(6))){
+                        if (MobUtil.isOwnedTargetable(this, living) && living.hasLineOfSight(this)){
                             livingEntity = living;
                         }
                     }
-                    if (livingEntity != null){
+                    if (livingEntity != null || this.getTarget() != null){
                         this.activeTime = 100;
                     }
                 }
-                if (this.requiresPower) {
+                if (this.requiresPower()) {
                     if (this.activeTime > 0) {
                         --this.activeTime;
                         if (!this.isStartingUp() && !this.isActivated()) {
                             this.setStartingUp(true);
                             this.level.broadcastEntityEvent(this, (byte) 25);
                         }
-                    } else if (this.boundPos != null && !this.reachedHome){
+                    } else if (this.getBoundPos() != null && !this.reachedHome){
                         this.setTarget(null);
                         ++this.homeTick;
                         if (this.getNavigation().isStableDestination(this.boundPos)){
@@ -727,10 +740,13 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
                     }
                 }
                 if (SquallGolem.this.level instanceof ServerLevel serverLevel){
-                    BlockPos blockPos = BlockPos.containing(SquallGolem.this.getX() + SquallGolem.this.getHorizontalLookAngle().x * 2, SquallGolem.this.getY() - 1.0F, SquallGolem.this.getZ() + SquallGolem.this.getHorizontalLookAngle().z * 2);
+                    ColorUtil colorUtil = new ColorUtil(0xCCC35C);
+                    Vec3 vec3 = new Vec3(SquallGolem.this.getX() + SquallGolem.this.getHorizontalLookAngle().x * 2, SquallGolem.this.getY() - 1.0F, SquallGolem.this.getZ() + SquallGolem.this.getHorizontalLookAngle().z * 2);
+                    BlockPos blockPos = BlockPos.containing(vec3);
                     BlockParticleOption option = new BlockParticleOption(ParticleTypes.BLOCK, serverLevel.getBlockState(blockPos));
+                    ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 2, 0, 15, -1, vec3.add(0.0D, 1.0D, 0.0D));
                     for (int i = 0; i < 8; ++i) {
-                        ServerParticleUtil.circularParticles(serverLevel, option, SquallGolem.this.getX() + SquallGolem.this.getHorizontalLookAngle().x * 2, SquallGolem.this.getY() + 0.25D, SquallGolem.this.getZ() + SquallGolem.this.getHorizontalLookAngle().z * 2, 3.0F);
+                        ServerParticleUtil.circularParticles(serverLevel, option, vec3.x, SquallGolem.this.getY() + 0.25D, vec3.z, 3.0F);
                     }
                 }
             }

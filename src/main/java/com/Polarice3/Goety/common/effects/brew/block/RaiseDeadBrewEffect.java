@@ -60,7 +60,7 @@ public class RaiseDeadBrewEffect extends BrewEffect {
             int x = pPos.getX() - (radius / 2) + pLevel.random.nextInt(radius) + 1;
             int y = pPos.getY() + radius;
             int z = pPos.getZ() - (radius / 2) + pLevel.random.nextInt(radius) + 1;
-            raiseUndead(pLevel, BlockFinder.SummonPosition(pSource, x, y, z), pSource, lifetime);
+            raiseUndead(pLevel, BlockFinder.SummonPosition(pSource.level, pSource, x, y, z), pSource, lifetime);
         }
     }
 

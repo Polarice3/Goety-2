@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "goety:block/jade_light",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "goety:block/jade_light"
+    },
+    "facing=south": {
+      "model": "goety:block/jade_light",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "goety:block/jade_light",
+      "y": 270
+    }
+  }
+}

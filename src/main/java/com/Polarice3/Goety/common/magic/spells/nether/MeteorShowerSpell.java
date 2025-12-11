@@ -30,11 +30,6 @@ import java.util.List;
 public class MeteorShowerSpell extends EverChargeSpell {
 
     @Override
-    public SpellStat defaultStats() {
-        return super.defaultStats().setRadius(0.0D);
-    }
-
-    @Override
     public int defaultSoulCost() {
         return SpellConfig.MeteorShowerCost.get();
     }
@@ -97,7 +92,7 @@ public class MeteorShowerSpell extends EverChargeSpell {
         if (WandUtil.enchantedFocus(caster)) {
             potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
             burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster) / 2.0F;
         }
         HitResult rayTrace = this.rayTrace(worldIn, caster, range, 3.0D);

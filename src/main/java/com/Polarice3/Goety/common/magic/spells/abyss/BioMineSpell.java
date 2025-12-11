@@ -27,11 +27,6 @@ import java.util.List;
 public class BioMineSpell extends Spell {
 
     @Override
-    public SpellStat defaultStats() {
-        return super.defaultStats().setRadius(0.0D);
-    }
-
-    @Override
     public int defaultSoulCost() {
         return SpellConfig.BiomineCost.get();
     }
@@ -73,7 +68,7 @@ public class BioMineSpell extends Spell {
         int duration = spellStat.getDuration();
         double radius = spellStat.getRadius();
         if (WandUtil.enchantedFocus(caster)) {
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
             potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);

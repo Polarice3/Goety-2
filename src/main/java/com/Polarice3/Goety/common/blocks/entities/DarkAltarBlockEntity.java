@@ -308,7 +308,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
 
                         int totalTime = 60;
 
-                        if (!RitualRequirements.getProperStructure(recipe.getCraftType(), this, this.worldPosition, this.level)){
+                        if (!RitualRequirements.getProperStructure(recipe.getCraftType(), this.castingPlayer, this, this.worldPosition, this.level)){
                             ++this.structureTime;
                             if (this.structureTime >= totalTime) {
                                 this.castingPlayer.displayClientMessage(Component.translatable("info.goety.ritual.structure.fail"), true);
@@ -391,8 +391,8 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                             player.displayClientMessage(Component.translatable("info.goety.ritual.disable.fail"), true);
                             return false;
                         } else if (ritualRecipe.getRitual().isValid(world, pos, this, player, activationItem, ritualRecipe.getIngredients())) {
-                            if (!RitualRequirements.getProperStructure(ritualRecipe.getCraftType(), this, pos, world)){
-                                player.displayClientMessage(Component.translatable("info.goety.ritual.structure.fail"), true);
+                            if (!RitualRequirements.getProperStructure(ritualRecipe.getCraftType(), player, this, pos, world)){
+//                                player.displayClientMessage(Component.translatable("info.goety.ritual.structure.fail"), true);
                                 return false;
                             } else if (ritualRecipe.getResearch().contains(ResearchList.FORBIDDEN.getId())){
                                 if (MainConfig.LichScrollRequirement.get()) {

@@ -679,7 +679,7 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<BoneSpider>> BONE_SPIDER = register("bone_spider",
             EntityType.Builder.of(BoneSpider::new, MobCategory.MONSTER)
-                    .sized(0.6F, 0.7F)
+                    .sized(1.4F, 0.9F)
                     .clientTrackingRange(8));
 
     public static final RegistryObject<EntityType<BroodMother>> BROOD_MOTHER = register("brood_mother",
@@ -979,7 +979,7 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<BoneSpiderServant>> BONE_SPIDER_SERVANT = register("bone_spider_servant",
             EntityType.Builder.of(BoneSpiderServant::new, MobCategory.MONSTER)
-                    .sized(0.6F, 0.7F)
+                    .sized(1.4F, 0.9F)
                     .clientTrackingRange(8));
 
     public static final RegistryObject<EntityType<BroodMotherServant>> BROOD_MOTHER_SERVANT = register("brood_mother_servant",
@@ -1139,6 +1139,11 @@ public class ModEntityType {
             EntityType.Builder.of(Snapper::new, MobCategory.MONSTER)
                     .sized(0.85F, 0.6F)
                     .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<Gnasher>> GNASHER = register("gnasher",
+            EntityType.Builder.of(Gnasher::new, MobCategory.MONSTER)
+                    .sized(1.4F, 0.9F)
+                    .clientTrackingRange(10));
 
     public static final RegistryObject<EntityType<GuardianServant>> GUARDIAN_SERVANT = register("guardian_servant",
             EntityType.Builder.of(GuardianServant::new, MobCategory.MONSTER)

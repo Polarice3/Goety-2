@@ -66,7 +66,7 @@ public class PulverizeSpell extends BlockSpell {
 
     @Override
     public void blockResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, BlockPos target, Direction direction, SpellStat spellStat) {
-        int radius = 0;
+        int radius = (int) spellStat.getRadius();
         if (WandUtil.enchantedFocus(caster)){
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
         }

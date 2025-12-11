@@ -23,7 +23,7 @@ public class VoidRiftSpell extends Spell {
 
     @Override
     public SpellStat defaultStats() {
-        return super.defaultStats().setDuration(300).setRadius(0.0D);
+        return super.defaultStats().setDuration(300);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class VoidRiftSpell extends Spell {
     public void startSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
         int warmUp = this.castDuration(caster, staff) - 10;
         int duration = spellStat.getDuration() * (WandUtil.getLevels(ModEnchantments.DURATION.get(), caster) + 1);
-        int range = spellStat.getRange() + WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+        int range = spellStat.getRange() + WandUtil.getRangeLevel(caster);
         Vec3 vec3 = this.rayTrace(worldIn, caster, range, 3).getLocation();
         VoidRift voidRift = new VoidRift(worldIn, vec3.x, vec3.y, vec3.z);
         voidRift.setOwner(caster);

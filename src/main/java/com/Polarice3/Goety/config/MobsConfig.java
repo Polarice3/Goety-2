@@ -183,6 +183,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ServantsMasterImmune;
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerAttackCancel;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MobSense;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ServantsHarmEffectApply;
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WaterMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NaturalMinionHeal;
@@ -619,6 +620,8 @@ public class MobsConfig {
                 .define("ownerAttackCancel", true);
         MobSense = BUILDER.comment("Mobs will automatically be hostile to servants, if servant is hostile towards the mob, Default: true")
                 .define("mobSense", true);
+        ServantsHarmEffectApply = BUILDER.comment("Whether servants can apply harmful status effects to their owner/allies, Default: false")
+                .define("servantsHarmEffectApply", false);
         VariousRobeWitch = BUILDER.comment("Whether Servants would naturally attack Witches or Warlocks if owner wears a full a robe that renders the former two neutral, Default: false")
                 .define("variousRobeWitch", false);
         StayingServantChunkLoad = BUILDER.comment("Servants, when on staying mode, will load chunks around it, Default: true")

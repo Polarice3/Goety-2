@@ -70,7 +70,7 @@ public class SpikeSpell extends Spell {
         int range = spellStat.getRange();
         double radius = spellStat.getRadius();
         if (WandUtil.enchantedFocus(caster)){
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
         }
         HitResult rayTraceResult = this.rayTrace(worldIn, caster, range, radius);
         Vec3 vector3d = rayTraceResult.getLocation();

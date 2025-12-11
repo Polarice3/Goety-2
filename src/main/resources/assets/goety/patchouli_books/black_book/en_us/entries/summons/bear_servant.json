@@ -36,6 +36,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:convert_polar_bear_to_polar_bear_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Bear Servants summoned through rituals can breed with each other when right-clicked with Honeycombs."
     }
   ]
 }

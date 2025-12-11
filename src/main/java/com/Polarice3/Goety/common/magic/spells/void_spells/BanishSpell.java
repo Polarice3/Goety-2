@@ -85,7 +85,7 @@ public class BanishSpell extends TouchSpell {
         double d2 = target.getZ();
         int range = spellStat.getRange();
         if (WandUtil.enchantedFocus(caster)) {
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
         }
         if (rightStaff(staff)) {
             range *= 2;

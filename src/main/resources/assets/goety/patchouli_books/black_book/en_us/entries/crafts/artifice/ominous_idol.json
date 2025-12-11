@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Rather than dying, those bound to the idol will teleport back to it at the precipice of death, unless it was by their master dismissing them with a Wand/Staff. They will, however, be grievously wounded, unable to be revived for a Minecraft day, and be crippled for 5 minutes until they are sufficiently healed."
+      "text": "Rather than dying, those bound to the idol will teleport back to it at the precipice of death, unless it was by their master dismissing them with a Wand/Staff, or if the idol they're bound with is in another dimension. They will, however, be grievously wounded, unable to be revived for a Minecraft day, and be crippled for 5 minutes until they are sufficiently healed."
     },
     {
       "type": "patchouli:text",

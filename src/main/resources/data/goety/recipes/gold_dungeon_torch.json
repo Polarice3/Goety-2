@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GCG",
+    " S ",
+    " G "
+  ],
+  "key": {
+    "C": {
+      "tag": "minecraft:coals"
+    },
+    "S": {
+      "item": "goety:steep_wood"
+    },
+    "G": {
+      "tag": "forge:ingots/gold"
+    }
+  },
+  "result": {
+    "item": "goety:gold_dungeon_torch",
+    "count": 1
+  }
+}

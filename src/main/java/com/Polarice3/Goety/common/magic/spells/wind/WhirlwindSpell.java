@@ -27,6 +27,11 @@ import java.util.List;
 
 public class WhirlwindSpell extends EverChargeSpell {
     @Override
+    public SpellStat defaultStats() {
+        return super.defaultStats().setRadius(2.0D);
+    }
+
+    @Override
     public int defaultSoulCost() {
         return SpellConfig.WhirlwindCost.get();
     }

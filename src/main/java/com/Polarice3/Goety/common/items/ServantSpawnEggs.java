@@ -168,6 +168,9 @@ public class ServantSpawnEggs {
     public static final RegistryObject<ServantSpawnEggItem> SNAPPER_SPAWN_EGG = ITEMS.register("snapper_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.SNAPPER, 0x141817, 0x481e00, egg()));
 
+    public static final RegistryObject<ServantSpawnEggItem> GNASHER_SPAWN_EGG = ITEMS.register("gnasher_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.GNASHER, 0x3c4454, 0x10121e, egg()));
+
     public static final RegistryObject<ServantSpawnEggItem> GUARDIAN_SERVANT_SPAWN_EGG = ITEMS.register("guardian_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.GUARDIAN_SERVANT, 0x5aafa4, 0xff822f, egg()));
 

@@ -142,6 +142,10 @@ public class WandUtil {
         }
     }
 
+    public static int getRangeLevel(LivingEntity livingEntity) {
+        return getLevels(ModEnchantments.RANGE.get(), livingEntity) * 2;
+    }
+
     public static SpellStat getStats(LivingEntity livingEntity, ISpell spell) {
         return spell.defaultStats()
                 .increasePotency(ModAttributes.getPotency(livingEntity, spell))

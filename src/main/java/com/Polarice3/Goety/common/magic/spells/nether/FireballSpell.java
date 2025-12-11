@@ -65,6 +65,7 @@ public class FireballSpell extends Spell {
 
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
+        float damage = SpellConfig.FireballDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
         int potency = spellStat.getPotency();
         int burning = spellStat.getBurning();
         if (WandUtil.enchantedFocus(caster)){
@@ -95,7 +96,7 @@ public class FireballSpell extends Spell {
             fireball.setExtraDamage(potency);
             fireball.setFiery(burning);
         } else if (smallFireballEntity instanceof HellBolt hellBolt){
-            hellBolt.setDamage(hellBolt.getDamage() + potency);
+            hellBolt.setDamage(damage + potency);
             hellBolt.setFiery(burning);
         }
         worldIn.addFreshEntity(smallFireballEntity);
@@ -124,7 +125,7 @@ public class FireballSpell extends Spell {
                     fireball.setExtraDamage(potency);
                     fireball.setFiery(burning);
                 } else if (smallFireballEntity2 instanceof HellBolt hellBolt){
-                    hellBolt.setDamage(hellBolt.getDamage() + potency);
+                    hellBolt.setDamage(damage + potency);
                     hellBolt.setFiery(burning);
                 }
                 worldIn.addFreshEntity(smallFireballEntity2);

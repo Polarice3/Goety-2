@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.items.block.EnchantableBlockItem;
 import com.Polarice3.Goety.common.items.curios.WardingCharmItem;
 import com.Polarice3.Goety.common.items.equipment.HammerItem;
 import com.Polarice3.Goety.common.items.magic.InfernalTome;
+import com.Polarice3.Goety.config.SpellConfig;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -23,7 +24,7 @@ public abstract class FocusEnchantments extends Enchantment {
     }
 
     public boolean isTradeable() {
-        return false;
+        return SpellConfig.FocusEnchantsTrades.get();
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack) {

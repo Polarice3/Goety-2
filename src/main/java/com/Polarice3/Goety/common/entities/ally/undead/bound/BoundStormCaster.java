@@ -74,7 +74,6 @@ public class BoundStormCaster extends AbstractBoundIllager {
                 return super.canUse() && !BoundStormCaster.this.isAttacking();
             }
         });
-        this.goalSelector.addGoal(5, new MoveToTargetGoal());
     }
 
     public static AttributeSupplier.Builder setCustomAttributes(){
@@ -381,8 +380,11 @@ public class BoundStormCaster extends AbstractBoundIllager {
 
         public boolean canUse() {
             LivingEntity livingentity = BoundStormCaster.this.getTarget();
-            if (livingentity != null && livingentity.distanceTo(BoundStormCaster.this) <= 16.0F && livingentity.isAlive() && BoundStormCaster.this.getCurrentAnimation() != BoundStormCaster.this.getAnimationState(SHOCK)) {
+            if (livingentity != null && livingentity.isAlive() && BoundStormCaster.this.getCurrentAnimation() != BoundStormCaster.this.getAnimationState(SHOCK)) {
                 if (BoundStormCaster.this.isCastingSpell()) {
+                    return false;
+                } else if (livingentity.distanceTo(BoundStormCaster.this) > 13.0F) {
+                    BoundStormCaster.this.getNavigation().moveTo(livingentity, 1.1F);
                     return false;
                 } else {
                     return BoundStormCaster.this.tickCount >= this.nextAttackTickCount;

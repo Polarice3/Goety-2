@@ -15,6 +15,7 @@
     "goety:steep_wall",
     "goety:studded_steep_wall",
     "goety:lined_steep_wall",
-    "goety:rimmed_steep_wall"
+    "goety:rimmed_steep_wall",
+    "goety:steep_sconce"
   ]
 }

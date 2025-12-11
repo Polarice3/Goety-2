@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.blocks.entities.RitualBlockEntity;
 import com.Polarice3.Goety.common.ritual.RitualRequirements;
 import com.Polarice3.Goety.common.ritual.RitualTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.player.Player;
@@ -26,8 +27,19 @@ public class StormRitualType implements IRitualType {
     }
 
     @Override
-    public boolean getRequirement(RitualBlockEntity pTileEntity, BlockPos pPos, Level pLevel) {
-        return RitualRequirements.getStructures(this.getName(), pPos, pLevel) && RitualRequirements.skyRitual(pTileEntity, pLevel, pPos) && pLevel.isThundering() && pLevel.canSeeSky(pPos.above());
+    public boolean getRequirement(RitualBlockEntity pTileEntity, Player pPlayer, BlockPos pPos, Level pLevel) {
+        if (!pLevel.canSeeSky(pPos.above())) {
+            if (pPlayer != null) {
+                pPlayer.displayClientMessage(Component.translatable("info.goety.ritual.structure.exposed"), true);
+            }
+            return false;
+        } else if (!pLevel.isThundering()) {
+            if (pPlayer != null) {
+                pPlayer.displayClientMessage(Component.translatable("info.goety.ritual.structure.storm"), true);
+            }
+            return false;
+        }
+        return RitualRequirements.getStructures(this.getName(), pPlayer, pPos, pLevel) && RitualRequirements.skyRitual(pPlayer, pTileEntity, pLevel, pPos);
     }
 
     @Override

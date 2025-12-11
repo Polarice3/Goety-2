@@ -11,10 +11,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.DataSlot;
-import net.minecraft.world.inventory.ItemCombinerMenu;
-import net.minecraft.world.inventory.ItemCombinerMenuSlotDefinition;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -26,13 +26,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nullable;
 import java.util.Map;
 
-public class DarkAnvilMenu extends ItemCombinerMenu {
+public class DarkAnvilMenu extends AnvilMenu {
     public int repairItemCountCost;
     private String itemName;
     private final DataSlot cost = DataSlot.standalone();
 
     public DarkAnvilMenu(int p_39008_, Inventory p_39009_, ContainerLevelAccess p_39010_) {
-        super(ModContainerType.DARK_ANVIL.get(), p_39008_, p_39009_, p_39010_);
+        super(p_39008_, p_39009_, p_39010_);
         this.addDataSlot(this.cost);
     }
 
@@ -40,12 +40,8 @@ public class DarkAnvilMenu extends ItemCombinerMenu {
         this(i, inventory, ContainerLevelAccess.NULL);
     }
 
-    protected ItemCombinerMenuSlotDefinition createInputSlotDefinitions() {
-        return ItemCombinerMenuSlotDefinition.create().withSlot(0, 27, 47, (p_266635_) -> {
-            return true;
-        }).withSlot(1, 76, 47, (p_266634_) -> {
-            return true;
-        }).withResultSlot(2, 134, 47).build();
+    public MenuType<?> getType() {
+        return ModContainerType.DARK_ANVIL.get();
     }
 
     protected boolean isValidBlock(BlockState p_39019_) {
@@ -131,6 +127,7 @@ public class DarkAnvilMenu extends ItemCombinerMenu {
             this.repairItemCountCost = 0;
             boolean flag = false;
 
+            if (!net.minecraftforge.common.ForgeHooks.onAnvilChange(this, itemstack, itemstack2, resultSlots, itemName, j, this.player)) return;
             if (!itemstack2.isEmpty()) {
                 flag = itemstack2.getItem() == Items.ENCHANTED_BOOK && !EnchantedBookItem.getEnchantments(itemstack2).isEmpty();
                 if (itemstack1.isDamageableItem() && itemstack1.getItem().isValidRepairItem(itemstack, itemstack2)) {

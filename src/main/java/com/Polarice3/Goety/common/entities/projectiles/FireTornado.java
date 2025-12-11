@@ -94,11 +94,11 @@ public class FireTornado extends AbstractCyclone {
                     living.addEffect(new MobEffectInstance(GoetyEffects.BURN_HEX.get(), 1200));
                 }
             } else {
-                living.hurt(ModDamageSource.magicFireBreath(this, this.getTrueOwner()), 4.0F);
+                living.hurt(ModDamageSource.magicFireBreath(this, this.getTrueOwner()), 4.0F + this.getDamage());
             }
         } else {
             if (!living.fireImmune()) {
-                living.hurt(this.damageSources().inFire(), 4.0F);
+                living.hurt(this.damageSources().inFire(), 4.0F + this.getDamage());
             }
         }
         if (living instanceof Player player){

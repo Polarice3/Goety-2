@@ -403,7 +403,8 @@ public class ServantEvents {
         if (killed instanceof IOwned owned) {
             if (!killed.level.isClientSide) {
                 if (owned.canRevive(event.getSource())) {
-                    owned.reviveOwned();
+                    killed.stopRiding();
+                    owned.startRevival();
                     event.setCanceled(true);
                 }
             }

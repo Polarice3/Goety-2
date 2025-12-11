@@ -71,7 +71,7 @@ public class SpellExplosion {
             d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) target, seen);
         }
         if (damageSource.is(DamageTypes.MAGIC)){
-            if (target instanceof AbstractCyclone cyclone){
+            if (target instanceof AbstractCyclone cyclone && (cyclone.getTrueOwner() == null || damageSource.getEntity() == null || !MobUtil.areAllies(damageSource.getEntity(), cyclone.getTrueOwner()))){
                 cyclone.trueRemove();
             }
         }

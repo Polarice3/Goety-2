@@ -4,6 +4,7 @@ import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.OminousIdolBlock;
 import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
 import com.Polarice3.Goety.common.items.block.OminousIdolBlockItem;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.ModTicketTypes;
@@ -40,14 +41,15 @@ public class OminousIdolBlockEntity extends OwnedBlockEntity {
                 if (!this.uuids.isEmpty()) {
                     ChunkPos chunkPos = world.getChunkAt(this.worldPosition).getPos();
                     if (--this.ticketTime <= 0L) {
-                        world.getChunkSource().addRegionTicket(ModTicketTypes.BLOCK, chunkPos, 2, this.worldPosition);
+                        world.getChunkSource().addRegionTicket(ModTicketTypes.BLOCK, chunkPos, 9, this.worldPosition);
                         this.ticketTime = ModTicketTypes.BLOCK.timeout() - 1L;
                     }
                     this.uuids.removeIf(uuid -> {
                         Entity entity = EntityFinder.getLivingEntityByUuiD(uuid);
                         if (!(entity instanceof RaiderServant illagerServant)){
+                            this.markUpdated();
                             return true;
-                        } else if (!illagerServant.isAlive() || (illagerServant.getIdol() != null && illagerServant.getIdol() != this)) {
+                        } else if (illagerServant.isRemoved() || !illagerServant.isAlive() || (illagerServant.getIdol() != null && illagerServant.getIdol() != this)) {
                             this.illagers.remove(illagerServant);
                             this.markUpdated();
                             return true;
@@ -84,7 +86,7 @@ public class OminousIdolBlockEntity extends OwnedBlockEntity {
                     if (this.ids.removeIf(integer -> {
                         Entity entity = this.level.getEntity(integer);
                         if (entity instanceof RaiderServant raider) {
-                            return !raider.isAlive();
+                            return !raider.isAlive() || raider.isRemoved();
                         } else {
                             return true;
                         }
@@ -113,6 +115,10 @@ public class OminousIdolBlockEntity extends OwnedBlockEntity {
 
     public void removeIllager(RaiderServant raider){
         this.uuids.remove(raider.getUUID());
+    }
+
+    public boolean hasSpace() {
+        return this.getIllagers().size() < MainConfig.OminousIdolLimit.get();
     }
 
     public List<UUID> getUuids(){

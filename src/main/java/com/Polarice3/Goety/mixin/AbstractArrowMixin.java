@@ -27,7 +27,7 @@ public abstract class AbstractArrowMixin extends Projectile {
             cancellable = true
     )
     protected void canHitEntity(Entity pEntity, CallbackInfoReturnable<Boolean> callback) {
-        if (this.getOwner() instanceof AbstractIllagerServant
+        if (this.getOwner() instanceof AbstractIllagerServant servant
                 && MobsConfig.IllagerServantGhostArrows.get()) {
             if (pEntity == this.getOwner()){
                 callback.setReturnValue(false);
@@ -36,8 +36,8 @@ public abstract class AbstractArrowMixin extends Projectile {
                 if (MobUtil.areAllies(this.getOwner(), pEntity)){
                     callback.setReturnValue(false);
                 }
-                if (pEntity instanceof IOwned owned0 && this.getOwner() instanceof IOwned owned1){
-                    callback.setReturnValue(!MobUtil.ownerStack(owned0, owned1));
+                if (pEntity instanceof IOwned owned0 && owned0.getMasterOwner() != null && servant.getMasterOwner() != null){
+                    callback.setReturnValue(!MobUtil.ownerStack(owned0, servant));
                 }
             }
         }

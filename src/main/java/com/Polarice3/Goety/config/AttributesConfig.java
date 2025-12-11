@@ -223,6 +223,9 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> SnapperHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SnapperArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> SnapperDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> GnasherHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> GnasherArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> GnasherDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> BearServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> BearServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> BearServantDamage;
@@ -874,6 +877,14 @@ public class AttributesConfig {
                         .defineInRange("snapperArmor", 0.0, 0.0, Double.MAX_VALUE);
                 SnapperDamage = BUILDER.comment("How much damage Snappers melee attack deals, Default: 4.0")
                         .defineInRange("snapperDamage", 4.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Gnasher");
+                GnasherHealth = BUILDER.comment("How much Max Health Gnashers have, Default: 30.0")
+                        .defineInRange("gnasherHealth", 30.0, 1.0, Double.MAX_VALUE);
+                GnasherArmor = BUILDER.comment("How much natural Armor Gnashers have, Default: 0.0")
+                        .defineInRange("gnasherArmor", 0.0, 0.0, Double.MAX_VALUE);
+                GnasherDamage = BUILDER.comment("How much damage Gnashers melee attack deals, Default: 6.0")
+                        .defineInRange("gnasherDamage", 6.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Bear Servant");
                 BearServantHealth = BUILDER.comment("How much Max Health Bear Servants have, Default: 30.0")

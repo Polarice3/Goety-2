@@ -13,6 +13,7 @@ import com.Polarice3.Goety.common.entities.ally.illager.Prisoner;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Ripper;
 import com.Polarice3.Goety.common.entities.util.SurveyEye;
 import com.Polarice3.Goety.common.events.ArcaTeleporter;
+import com.Polarice3.Goety.common.events.spell.GoetyEventFactory;
 import com.Polarice3.Goety.common.items.ModTiers;
 import com.Polarice3.Goety.common.items.equipment.FangedDaggerItem;
 import com.Polarice3.Goety.common.listeners.SoulTakenListener;
@@ -244,13 +245,14 @@ public class SEHelper {
     }
 
     public static void increaseSouls(Player player, int souls){
+        int soulChange = GoetyEventFactory.onSoulEnergyGain(player, souls);
         if (getSEActive(player)) {
-            increaseSESouls(player, souls);
+            increaseSESouls(player, soulChange);
             SEHelper.sendSEUpdatePacket(player);
         } else {
             ItemStack foundStack = TotemFinder.FindTotem(player);
             if (foundStack != null){
-                ITotem.increaseSouls(foundStack, souls);
+                ITotem.increaseSouls(foundStack, soulChange);
             }
         }
     }
@@ -268,13 +270,14 @@ public class SEHelper {
 
     public static void decreaseSouls(Player player, int souls){
         souls *= soulDiscount(player);
+        int soulChange = GoetyEventFactory.onSoulEnergyLoss(player, souls);
         if (getSEActive(player)) {
-            decreaseSESouls(player, souls);
+            decreaseSESouls(player, soulChange);
             SEHelper.sendSEUpdatePacket(player);
         } else {
             ItemStack foundStack = TotemFinder.FindTotem(player);
             if (foundStack != null){
-                ITotem.decreaseSouls(foundStack, souls);
+                ITotem.decreaseSouls(foundStack, soulChange);
             }
         }
     }

@@ -1,0 +1,28 @@
+{
+  "name": "Trituradores",
+  "icon": "minecraft:cod",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Tubarões não são tão viciosos quanto a maioria pensa e raramente atacam pessoas por conta própria. Estes demônios subaquáticos são outra história, rasgando e dilacerando inimigos com seus dentes afiados. Também servem como uma boa montaria subaquática sem necessidade de sela."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Pode-se invocar um triturador leal através do uso de um $(l:focuses/wild/mauling_focus)Foco da Fúria$() subaquático ou através de um $(l:crafts/staff/abyss_staff)Cajado do Abismo$(), ou através de um ritual que invoca um sem tempo de vida limitado."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_gnasher_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:gnasher",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Clicar com o botão direito em um Triturador leal com peixe o curará. Se o Triturador foi invocado através de ritual, ele pode procriar com outro Triturador invocado dessa forma clicando neles com carne enquanto agachado."
+    }
+  ]
+}

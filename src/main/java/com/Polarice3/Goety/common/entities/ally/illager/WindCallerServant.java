@@ -339,8 +339,7 @@ public class WindCallerServant extends SpellcasterIllagerServant{
 
         @Override
         public boolean canUse() {
-            if (this.windCaller.getTarget() != null
-                    && this.windCaller.distanceTo(this.windCaller.getTarget()) <= this.windCaller.getAttributeValue(Attributes.FOLLOW_RANGE)){
+            if (this.windCaller.getTarget() != null){
                 return !this.windCaller.isAttacking() && this.windCaller.updraftCool <= 0;
             }
             return false;

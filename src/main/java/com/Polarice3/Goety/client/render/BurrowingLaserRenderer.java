@@ -34,7 +34,7 @@ public class BurrowingLaserRenderer {
     private final static ResourceLocation laserBeamGlow = Goety.location("textures/entity/burrow/laser_glow.png");
 
     public static void renderLaser(RenderLevelStageEvent event, Player player, float ticks) {
-        int range = 16 + WandUtil.getLevels(ModEnchantments.RANGE.get(), player);
+        int range = 16 + WandUtil.getRangeLevel(player);
 
         Vec3 playerPos = player.getEyePosition(ticks);
         HitResult trace = player.pick(range, 0.0F, false);

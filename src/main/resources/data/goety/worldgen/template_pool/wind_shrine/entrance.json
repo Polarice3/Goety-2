@@ -1,0 +1,48 @@
+{
+  "name": "goety:wind_shrine/entrance",
+  "fallback": "goety:wind_shrine/end",
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:wind_shrine/small_tower_base_1",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:wind_shrine/medium_tower_base_1",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:wind_shrine/big_tower_base_1",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

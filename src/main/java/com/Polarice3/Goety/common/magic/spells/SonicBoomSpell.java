@@ -57,7 +57,7 @@ public class SonicBoomSpell extends Spell {
         int range = spellStat.getRange();
         if (WandUtil.enchantedFocus(caster)){
             damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
         }
         damage += spellStat.getPotency();
         LivingEntity livingEntity = this.getTarget(caster, range);

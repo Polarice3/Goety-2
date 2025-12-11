@@ -655,6 +655,7 @@ public class Goety {
         event.put(ModEntityType.HELLHOUND.get(), Hellhound.setCustomAttributes().build());
         event.put(ModEntityType.TWILIGHT_GOAT.get(), TwilightGoat.setCustomAttributes().build());
         event.put(ModEntityType.SNAPPER.get(), Snapper.setCustomAttributes().build());
+        event.put(ModEntityType.GNASHER.get(), Gnasher.setCustomAttributes().build());
         event.put(ModEntityType.GUARDIAN_SERVANT.get(), GuardianServant.setCustomAttributes().build());
         event.put(ModEntityType.BEAR_SERVANT.get(), BearServant.setCustomAttributes().build());
         event.put(ModEntityType.POLAR_BEAR_SERVANT.get(), BearServant.setCustomAttributes().build());

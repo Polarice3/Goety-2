@@ -69,7 +69,7 @@ public class BlinkSpell extends Spell {
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
         int range = spellStat.getRange();
         if (WandUtil.enchantedFocus(caster)) {
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
         }
         if (rightStaff(staff)) {
             range *= 2;

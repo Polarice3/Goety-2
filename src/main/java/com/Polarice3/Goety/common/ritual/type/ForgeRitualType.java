@@ -25,8 +25,8 @@ public class ForgeRitualType implements IRitualType {
     }
 
     @Override
-    public boolean getRequirement(RitualBlockEntity pTileEntity, BlockPos pPos, Level pLevel) {
-        return RitualRequirements.getStructures(this.getName(), pPos, pLevel);
+    public boolean getRequirement(RitualBlockEntity pTileEntity, Player pPlayer, BlockPos pPos, Level pLevel) {
+        return RitualRequirements.getStructures(this.getName(), pPlayer, pPos, pLevel);
     }
 
     @Override

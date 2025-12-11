@@ -86,17 +86,15 @@ public class BackawayCrossbowGoal<T extends PathfinderMob & RangedAttackMob & Cr
 
             double distanceSq = this.mob.distanceToSqr(livingentity);
             double distance = Mth.sqrt((float) distanceSq);
-            if (distance <= 5.0F || this.hasFirework()) {
-                if (this.isWalkable()) {
-                    this.mob.getMoveControl().strafe(mob.isUsingItem() ? -0.5F : -3.0F, 0);
-                }
+            if (distance <= 14.0F || this.hasFirework()) {
+                this.mob.getMoveControl().strafe(mob.isUsingItem() ? -0.5F : -3.0F, 0);
             }
 
             ItemStack activeStack = this.mob.getUseItem();
-            boolean isCloseToAttack = distanceSq <= (double) this.attackRadiusSqr;
-            boolean shouldMoveTowardsEnemy = (!isCloseToAttack || this.seeTime < 5);
+            boolean isFarAway = distanceSq > (double) this.attackRadiusSqr;
+            boolean shouldMoveTowardsEnemy = (isFarAway || this.seeTime < 5);
             if (shouldMoveTowardsEnemy) {
-                double speedChange = this.isCrossbowUncharged() ? this.speedModifier : this.speedModifier * 0.5D;
+                double speedChange = this.crossbowState != CrossbowState.CHARGING ? this.speedModifier : this.speedModifier * 0.5D;
                 this.mob.getNavigation().moveTo(livingentity, speedChange);
             } else {
                 this.mob.getNavigation().stop();
@@ -130,7 +128,7 @@ public class BackawayCrossbowGoal<T extends PathfinderMob & RangedAttackMob & Cr
                 if (this.attackDelay == 0) {
                     this.crossbowState = CrossbowState.READY_TO_ATTACK;
                 }
-            } else if (this.crossbowState == CrossbowState.READY_TO_ATTACK && canSeeEnemy) {
+            } else if (this.crossbowState == CrossbowState.READY_TO_ATTACK && livingentity.distanceTo(this.mob) <= 20.0F && canSeeEnemy) {
                 this.mob.performRangedAttack(livingentity, 1.0F);
                 CrossbowItem.setCharged(this.mob.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this.mob, item -> item instanceof CrossbowItem)), false);
                 this.crossbowState = CrossbowState.UNCHARGED;

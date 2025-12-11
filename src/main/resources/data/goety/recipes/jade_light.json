@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "JGJ",
+    " S "
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glowstone"
+    },
+    "S": {
+      "item": "goety:steep_wood"
+    },
+    "J": {
+      "item": "goety:jade"
+    }
+  },
+  "result": {
+    "item": "goety:jade_light",
+    "count": 1
+  }
+}

@@ -27,7 +27,7 @@ public class EruptionSpell extends Spell {
 
     @Override
     public SpellStat defaultStats() {
-        return super.defaultStats().setDuration(1).setRadius(0);
+        return super.defaultStats().setDuration(1);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class EruptionSpell extends Spell {
         int duration = spellStat.getDuration();
         int burning = spellStat.getBurning();
         if (WandUtil.enchantedFocus(caster)) {
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
             potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);

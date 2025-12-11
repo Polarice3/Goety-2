@@ -68,7 +68,7 @@ public class FlameStrikeSpell extends Spell {
     public void startSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
         int warmUp = this.castDuration(caster, staff) - 10;
         int duration = spellStat.getDuration() * (WandUtil.getLevels(ModEnchantments.DURATION.get(), caster) + 1);
-        int range = spellStat.getRange() + WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+        int range = spellStat.getRange() + WandUtil.getRangeLevel(caster);
         LivingEntity target = this.getTarget(caster, range);
         if (target != null && !this.isShifting(caster)){
             double radius = spellStat.getRadius();

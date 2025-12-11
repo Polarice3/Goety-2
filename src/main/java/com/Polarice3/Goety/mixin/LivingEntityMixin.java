@@ -4,13 +4,17 @@ import com.Polarice3.Goety.api.entities.IAutoRideable;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.config.MainConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.LichdomHelper;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.NoKnockBackDamageSource;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameRules;
@@ -132,6 +136,21 @@ public abstract class LivingEntityMixin extends Entity {
                     vec31 = new Vec3(vec31.x, 0.0D, vec31.z);
                     if (vec31.dot(vec3) < 0.0D) {
                         callbackInfoReturnable.setReturnValue(true);
+                    }
+                }
+            }
+        }
+    }
+
+    @Inject(method = "addEffect(Lnet/minecraft/world/effect/MobEffectInstance;Lnet/minecraft/world/entity/Entity;)Z", at = @At("HEAD"), cancellable = true)
+    public void addEffect(MobEffectInstance instance, Entity entity, CallbackInfoReturnable<Boolean> cir) {
+        if (entity != null) {
+            if (entity instanceof IOwned) {
+                if (!MobsConfig.ServantsHarmEffectApply.get()) {
+                    if (instance.getEffect().getCategory() == MobEffectCategory.HARMFUL) {
+                        if (MobUtil.areAllies(this, entity)) {
+                            cir.setReturnValue(false);
+                        }
                     }
                 }
             }

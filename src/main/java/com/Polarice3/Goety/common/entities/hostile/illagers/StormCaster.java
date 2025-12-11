@@ -31,7 +31,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -65,7 +64,6 @@ public class StormCaster extends HuntingIllagerEntity{
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new CastingSpellGoal());
         this.goalSelector.addGoal(1, new DischargeSpellGoal());
         this.goalSelector.addGoal(2, new MonsoonSpellGoal());
@@ -76,7 +74,6 @@ public class StormCaster extends HuntingIllagerEntity{
                 return super.canUse() && !StormCaster.this.isAttacking();
             }
         });
-        this.goalSelector.addGoal(5, new MoveToTargetGoal());
     }
 
     public static AttributeSupplier.Builder setCustomAttributes(){
@@ -396,8 +393,11 @@ public class StormCaster extends HuntingIllagerEntity{
 
         public boolean canUse() {
             LivingEntity livingentity = StormCaster.this.getTarget();
-            if (livingentity != null && livingentity.distanceTo(StormCaster.this) <= 16.0F && livingentity.isAlive() && StormCaster.this.getCurrentAnimation() != StormCaster.this.getAnimationState(SHOCK)) {
+            if (livingentity != null && livingentity.isAlive() && StormCaster.this.hasLineOfSight(livingentity) && StormCaster.this.getCurrentAnimation() != StormCaster.this.getAnimationState(SHOCK)) {
                 if (StormCaster.this.isCastingSpell()) {
+                    return false;
+                } else if (livingentity.distanceTo(StormCaster.this) > 13.0F) {
+                    StormCaster.this.getNavigation().moveTo(livingentity, 1.1F);
                     return false;
                 } else {
                     return StormCaster.this.tickCount >= this.nextAttackTickCount;

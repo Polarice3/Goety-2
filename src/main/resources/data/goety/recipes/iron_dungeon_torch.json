@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ICI",
+    " S ",
+    " I "
+  ],
+  "key": {
+    "C": {
+      "tag": "minecraft:coals"
+    },
+    "S": {
+      "tag": "minecraft:logs"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "result": {
+    "item": "goety:iron_dungeon_torch",
+    "count": 1
+  }
+}

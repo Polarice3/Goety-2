@@ -504,7 +504,7 @@ public class Endersent extends AbstractEnderling implements Enemy {
         if (this.getEyeType() > 0) {
             AttributeInstance health = this.getAttribute(Attributes.MAX_HEALTH);
             if (health != null) {
-                health.setBaseValue(200.0D * 1.15D);
+                health.setBaseValue(AttributesConfig.EndersentHealth.get() * 1.15D);
                 this.setHealth(this.getMaxHealth());
             }
         }

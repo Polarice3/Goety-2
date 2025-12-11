@@ -3,7 +3,6 @@ package com.Polarice3.Goety.client.render;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.ModSpiderModel;
 import com.Polarice3.Goety.common.entities.hostile.BoneSpider;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -22,10 +21,6 @@ public class BoneSpiderRenderer<T extends BoneSpider> extends MobRenderer<T, Mod
 
    protected float getFlipDegrees(T p_116011_) {
       return 180.0F;
-   }
-
-   protected void scale(BoneSpider p_113974_, PoseStack p_113975_, float p_113976_) {
-      p_113975_.scale(0.75F, 0.75F, 0.75F);
    }
 
    public ResourceLocation getTextureLocation(BoneSpider p_113972_) {

@@ -28,7 +28,7 @@ public class ScatterSpell extends Spell {
 
     @Override
     public SpellStat defaultStats() {
-        return super.defaultStats().setDuration(10).setRadius(0.0D);
+        return super.defaultStats().setDuration(10);
     }
 
     @Override

@@ -74,7 +74,6 @@ public class StormCasterServant extends AbstractIllagerServant {
                 return super.canUse() && !StormCasterServant.this.isAttacking();
             }
         });
-        this.goalSelector.addGoal(5, new MoveToTargetGoal());
     }
 
     public static AttributeSupplier.Builder setCustomAttributes(){
@@ -414,8 +413,11 @@ public class StormCasterServant extends AbstractIllagerServant {
 
         public boolean canUse() {
             LivingEntity livingentity = StormCasterServant.this.getTarget();
-            if (livingentity != null && livingentity.distanceTo(StormCasterServant.this) <= 16.0F && livingentity.isAlive() && StormCasterServant.this.getCurrentAnimation() != StormCasterServant.this.getAnimationState(SHOCK)) {
+            if (livingentity != null && livingentity.isAlive() && StormCasterServant.this.hasLineOfSight(livingentity) && StormCasterServant.this.getCurrentAnimation() != StormCasterServant.this.getAnimationState(SHOCK)) {
                 if (StormCasterServant.this.isCastingSpell()) {
+                    return false;
+                } else if (livingentity.distanceTo(StormCasterServant.this) > 13.0F) {
+                    StormCasterServant.this.getNavigation().moveTo(livingentity, 1.1F);
                     return false;
                 } else {
                     return StormCasterServant.this.tickCount >= this.nextAttackTickCount;

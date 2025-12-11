@@ -57,7 +57,7 @@ public class NecroBolt extends SpellHurtingProjectile {
 
     @Override
     protected float getInertia() {
-        return 0.9F + Math.min(this.boltSpeed, 0.1F);
+        return 0.9F + this.boltSpeed;
     }
 
     protected void onHitEntity(EntityHitResult p_37626_) {

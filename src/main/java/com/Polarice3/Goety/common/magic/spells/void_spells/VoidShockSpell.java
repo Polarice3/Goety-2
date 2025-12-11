@@ -22,11 +22,6 @@ import java.util.List;
 public class VoidShockSpell extends Spell {
 
     @Override
-    public SpellStat defaultStats() {
-        return super.defaultStats().setRadius(0.0D);
-    }
-
-    @Override
     public int defaultSoulCost() {
         return SpellConfig.VoidShockCost.get();
     }
@@ -38,7 +33,11 @@ public class VoidShockSpell extends Spell {
 
     @Override
     public int castDuration(LivingEntity caster, ItemStack staff) {
-        return SpellConfig.VoidShockDuration.get();
+        int i = WandUtil.getStats(caster, this).getDuration();
+        if (WandUtil.enchantedFocus(caster)) {
+            i += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
+        }
+        return SpellConfig.VoidShockDuration.get() * (i + 1);
     }
 
     @Nullable
@@ -61,6 +60,7 @@ public class VoidShockSpell extends Spell {
     public List<Enchantment> acceptedEnchantments() {
         List<Enchantment> list = new ArrayList<>();
         list.add(ModEnchantments.POTENCY.get());
+//        list.add(ModEnchantments.DURATION.get());
         list.add(ModEnchantments.RADIUS.get());
         return list;
     }

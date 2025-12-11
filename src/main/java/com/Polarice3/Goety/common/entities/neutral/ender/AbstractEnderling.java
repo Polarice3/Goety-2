@@ -262,8 +262,10 @@ public abstract class AbstractEnderling extends Summoned implements IHiding {
             if (this.level instanceof ServerLevel serverLevel) {
                 if (this.isGuardingArea()) {
                     if (this.distanceToSqr(this.vec3BoundPos()) > Mth.square(GUARDING_RANGE)) {
-                        Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(this.getType(), serverLevel, this.getBoundPos());
+                        BlockPos blockPos = BlockFinder.SummonRadius(this.getBoundPos(), this, serverLevel);
+                        Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(this.getType(), serverLevel, blockPos);
                         optional.ifPresent(this::ownedTeleport);
+                        this.refreshDimensions();
                     }
                 }
             }

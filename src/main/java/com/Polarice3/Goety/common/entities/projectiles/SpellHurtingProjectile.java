@@ -65,7 +65,7 @@ public abstract class SpellHurtingProjectile extends WaterHurtingProjectile {
     }
 
     protected float getInertia() {
-        return 0.82F + Math.min(this.boltSpeed, 0.18F);
+        return 0.82F + this.boltSpeed;
     }
 
     protected boolean canHitEntity(Entity pEntity) {

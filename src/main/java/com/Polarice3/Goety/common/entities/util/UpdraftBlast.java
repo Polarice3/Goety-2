@@ -104,8 +104,8 @@ public class UpdraftBlast extends Entity {
             float area = this.getAreaOfEffect() / 2;
             float f = 1.5F + area;
             ColorUtil color = new ColorUtil(0xffffff);
-            ServerParticleUtil.windParticle(serverLevel, color, (f - 1.0F) + serverLevel.random.nextFloat() * 0.5F, 0.0F, this.getId(), this.position());
-            ServerParticleUtil.windParticle(serverLevel, color, f + serverLevel.random.nextFloat() * 0.5F, 0.0F, this.getId(), this.position());
+            ServerParticleUtil.windParticle(serverLevel, color, (f - 1.0F) + serverLevel.getRandom().nextFloat() * 0.5F, 0.0F, this.getId(), this.position());
+            ServerParticleUtil.windParticle(serverLevel, color, f + serverLevel.getRandom().nextFloat() * 0.5F, 0.0F, this.getId(), this.position());
 
             if (this.tickCount == 20){
                 List<Entity> targets = new ArrayList<>();
@@ -113,8 +113,8 @@ public class UpdraftBlast extends Entity {
                 AABB aabb = this.getBoundingBox();
                 AABB aabb1 = new AABB(aabb.minX - area0, aabb.minY - 1.0F, aabb.minZ - area0, aabb.maxX + area0, aabb.maxY + 1.0F, aabb.maxZ + area0);
                 for (Entity entity : this.level.getEntitiesOfClass(Entity.class, aabb1)){
-                    if (this.owner != null) {
-                        if (entity != this.owner && !MobUtil.areAllies(entity, this.owner)) {
+                    if (this.getOwner() != null) {
+                        if (entity != this.getOwner() && !MobUtil.areAllies(entity, this.getOwner())) {
                             targets.add(entity);
                         }
                     } else {
@@ -124,9 +124,9 @@ public class UpdraftBlast extends Entity {
                 if (!targets.isEmpty()){
                     for (Entity entity : targets) {
                         if (entity instanceof LivingEntity livingEntity) {
-                            livingEntity.hurt(ModDamageSource.windBlast(this, this.owner), this.damage);
+                            livingEntity.hurt(ModDamageSource.windBlast(this, this.getOwner()), this.getDamage());
                             MobUtil.push(livingEntity, 0.0D, 1.0D, 0.0D);
-                        } else if (entity instanceof AbstractCyclone cyclone){
+                        } else if (entity instanceof AbstractCyclone cyclone && cyclone.getTrueOwner() != this.getOwner()){
                             cyclone.trueRemove();
                         }
                     }

@@ -423,8 +423,11 @@ public class BoundCryologer extends AbstractBoundIllager implements IBreathing {
 
         public boolean canUse() {
             LivingEntity livingentity = BoundCryologer.this.getTarget();
-            if (livingentity != null && livingentity.distanceTo(BoundCryologer.this) <= 16.0F && livingentity.isAlive() && BoundCryologer.this.hasLineOfSight(livingentity) && BoundCryologer.this.getCurrentAnimation() != BoundCryologer.this.getAnimationState("breath")) {
+            if (livingentity != null && livingentity.isAlive() && BoundCryologer.this.hasLineOfSight(livingentity) && BoundCryologer.this.getCurrentAnimation() != BoundCryologer.this.getAnimationState("breath")) {
                 if (BoundCryologer.this.isCastingSpell()) {
+                    return false;
+                } else if (livingentity.distanceTo(BoundCryologer.this) > 16.0F) {
+                    BoundCryologer.this.getNavigation().moveTo(livingentity, 1.0F);
                     return false;
                 } else {
                     return BoundCryologer.this.tickCount >= this.nextAttackTickCount;

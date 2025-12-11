@@ -4,6 +4,7 @@ import com.Polarice3.Goety.api.magic.ISpell;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -65,5 +66,23 @@ public class GoetyEventFactory {
             return null;
         }
         return event.getSpell();
+    }
+
+    public static int onSoulEnergyGain(Player player, int soulChange){
+        ChangeSoulEnergyEvent event = new ChangeSoulEnergyEvent.Gain(player, soulChange);
+        MinecraftForge.EVENT_BUS.post(event);
+        if (event.isCanceled()) {
+            return 0;
+        }
+        return event.getSoulChange();
+    }
+
+    public static int onSoulEnergyLoss(Player player, int soulChange){
+        ChangeSoulEnergyEvent event = new ChangeSoulEnergyEvent.Loss(player, soulChange);
+        MinecraftForge.EVENT_BUS.post(event);
+        if (event.isCanceled()) {
+            return 0;
+        }
+        return event.getSoulChange();
     }
 }

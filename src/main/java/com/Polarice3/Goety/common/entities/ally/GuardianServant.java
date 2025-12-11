@@ -72,7 +72,7 @@ public class GuardianServant extends Summoned{
         super.registerGoals();
         MoveTowardsRestrictionGoal movetowardsrestrictiongoal = new MoveTowardsRestrictionGoal(this, 1.0D);
         this.randomStrollGoal = new WaterWanderGoal<>(this);
-        this.goalSelector.addGoal(4, new GuardianAttackGoal(this));
+        this.goalSelector.addGoal(3, new GuardianAttackGoal(this));
         this.goalSelector.addGoal(5, movetowardsrestrictiongoal);
         this.goalSelector.addGoal(7, this.randomStrollGoal);
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -84,7 +84,7 @@ public class GuardianServant extends Summoned{
 
     @Override
     public void followGoal() {
-        this.goalSelector.addGoal(5, new FollowOwnerWaterGoal(this, 1.0D, 10.0F, 2.0F));
+        this.goalSelector.addGoal(4, new FollowOwnerWaterGoal(this, 1.0D, 10.0F, 2.0F));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {

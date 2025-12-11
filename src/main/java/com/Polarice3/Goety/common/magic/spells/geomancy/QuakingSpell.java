@@ -52,7 +52,7 @@ public class QuakingSpell extends Spell {
     public int castDuration(LivingEntity caster, ItemStack staff) {
         int i = this.defaultStats().getRange();
         if (WandUtil.enchantedFocus(caster)) {
-            i += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            i += WandUtil.getRangeLevel(caster);
         }
         return i + this.defaultCastDuration();
     }
@@ -86,7 +86,7 @@ public class QuakingSpell extends Spell {
         int radius = (int) spellStat.getRadius();
         float damage = SpellConfig.QuakingDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
         if (WandUtil.enchantedFocus(caster)) {
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
             damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
         }

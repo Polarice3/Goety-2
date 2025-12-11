@@ -26,7 +26,7 @@ public class CushionSpell extends Spell {
 
     @Override
     public SpellStat defaultStats() {
-        return super.defaultStats().setRange(64).setRadius(0.0D);
+        return super.defaultStats().setRange(64);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class CushionSpell extends Spell {
         int duration = spellStat.getDuration();
         int radius = (int) spellStat.getRadius();
         if (WandUtil.enchantedFocus(caster)) {
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
         }

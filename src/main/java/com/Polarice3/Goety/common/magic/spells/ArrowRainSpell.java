@@ -77,7 +77,7 @@ public class ArrowRainSpell extends EverChargeSpell {
         if (WandUtil.enchantedFocus(caster)) {
             potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
             burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
             velocity += WandUtil.getLevels(ModEnchantments.VELOCITY.get(), caster) / 2.0F;
         }
         HitResult rayTrace = this.rayTrace(worldIn, caster, range, 3.0D);

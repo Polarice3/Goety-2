@@ -42,7 +42,7 @@ import java.util.List;
 public interface ISpell {
 
     default SpellStat defaultStats(){
-        return new SpellStat(0, 0, 16, 2.0D, 0, 0.0F);
+        return new SpellStat(0, 0, 16, 0.0D, 0, 0.0F);
     }
 
     int defaultSoulCost();

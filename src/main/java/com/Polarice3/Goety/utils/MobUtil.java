@@ -1619,6 +1619,14 @@ public class MobUtil {
             return owned1.getTrueOwner();
         } else if (owned instanceof OwnableEntity ownable) {
             return ownable.getOwner();
+        } else if (owned instanceof Projectile projectile && projectile.getOwner() instanceof LivingEntity living) {
+            if (living instanceof IOwned owned1) {
+                return owned1.getTrueOwner();
+            } else if (living instanceof OwnableEntity ownable) {
+                return ownable.getOwner();
+            } else {
+                return living;
+            }
         }
         return null;
     }

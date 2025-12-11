@@ -4,6 +4,7 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.BearServant;
+import com.Polarice3.Goety.common.entities.ally.Gnasher;
 import com.Polarice3.Goety.common.entities.ally.HoglinServant;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.magic.SpellStat;
@@ -70,7 +71,7 @@ public class MaulingSpell extends SummonSpell {
 
     @Override
     public Predicate<LivingEntity> summonPredicate() {
-        return livingEntity -> livingEntity instanceof BearServant || livingEntity instanceof HoglinServant;
+        return livingEntity -> livingEntity instanceof BearServant || livingEntity instanceof Gnasher || livingEntity instanceof HoglinServant;
     }
 
     @Override
@@ -97,6 +98,8 @@ public class MaulingSpell extends SummonSpell {
                 BlockPos blockPos = BlockFinder.SummonRadius(caster.blockPosition(), summonedentity, worldIn);
                 if (typeStaff(staff, SpellType.NETHER) || worldIn.dimension() == Level.NETHER){
                     summonedentity = new HoglinServant(ModEntityType.HOGLIN_SERVANT.get(), worldIn);
+                } else if (worldIn.isWaterAt(blockPos) || typeStaff(staff, SpellType.ABYSS)){
+                    summonedentity = new Gnasher(ModEntityType.GNASHER.get(), worldIn);
                 } else if (typeStaff(staff, SpellType.FROST) || worldIn.getBiome(blockPos).is(Tags.Biomes.IS_COLD_OVERWORLD)) {
                     summonedentity = new BearServant(ModEntityType.POLAR_BEAR_SERVANT.get(), worldIn);
                 } else if (blockPos.getY() <= 64 && !worldIn.canSeeSky(blockPos) && summonedentity instanceof BearServant bearServant){

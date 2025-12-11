@@ -26,7 +26,7 @@ public abstract class SummonSpell extends Spell implements ISummonSpell {
 
     @Override
     public SpellStat defaultStats() {
-        return super.defaultStats().setDuration(1).setRadius(0.0D).setBurning(0);
+        return super.defaultStats().setDuration(1).setBurning(0);
     }
 
     public abstract int SummonDownDuration();

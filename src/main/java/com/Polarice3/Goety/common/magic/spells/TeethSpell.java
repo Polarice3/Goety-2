@@ -61,7 +61,7 @@ public class TeethSpell extends Spell {
         double radius = spellStat.getRadius();
         float potency = spellStat.getPotency();
         if (WandUtil.enchantedFocus(caster)){
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
             potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
         }
         HitResult rayTraceResult = this.rayTrace(worldIn, caster, range, radius);
@@ -77,7 +77,7 @@ public class TeethSpell extends Spell {
                     blockPos = ((BlockHitResult) rayTraceResult).getBlockPos().above();
                 }
                 for (int length = 0; length < 16; length++) {
-                    blockPos = blockPos.offset(-2 + caster.getRandom().nextInt(4), 0, -2 + caster.getRandom().nextInt(4));
+                    blockPos = blockPos.offset(caster.getRandom().nextIntBetweenInclusive(-4, 4), 0, caster.getRandom().nextIntBetweenInclusive(-4, 4));
                     BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 
                     while (blockpos$mutable.getY() < blockPos.getY() + 8.0D && !worldIn.getBlockState(blockpos$mutable).blocksMotion()) {

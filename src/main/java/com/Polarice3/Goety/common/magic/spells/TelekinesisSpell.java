@@ -54,7 +54,7 @@ public class TelekinesisSpell extends EverChargeSpell {
         if (this.victim != null) {
             int range = spellStat.getRange();
             if (WandUtil.enchantedFocus(caster)){
-                range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+                range += WandUtil.getRangeLevel(caster);
             }
             if (this.victim.distanceTo(caster) > range) {
                 this.victim = null;
@@ -94,7 +94,7 @@ public class TelekinesisSpell extends EverChargeSpell {
         int range = spellStat.getRange();
         if (WandUtil.enchantedFocus(caster)){
             potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster) / 2.0D;
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
         }
         Entity target = MobUtil.getSingleTarget(worldIn, caster, range, 3, EntitySelector.NO_CREATIVE_OR_SPECTATOR);
         if (caster instanceof Mob mob) {

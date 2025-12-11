@@ -61,7 +61,7 @@ public class LightningSpell extends Spell {
         int range = spellStat.getRange();
         float damage = SpellConfig.LightningDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
         if (WandUtil.enchantedFocus(caster)) {
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
             damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
         }
         damage += spellStat.getPotency();

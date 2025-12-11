@@ -81,7 +81,7 @@ public class SwarmSpell extends BreathingSpell {
         if (WandUtil.enchantedFocus(caster)) {
             potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
         }
         float damage = this.damage + potency;
         if (!worldIn.isClientSide) {
@@ -117,7 +117,7 @@ public class SwarmSpell extends BreathingSpell {
         int range = 0;
         if (entityLiving instanceof Player player){
             if (WandUtil.enchantedFocus(player)){
-                range += WandUtil.getLevels(ModEnchantments.RANGE.get(), player);
+                range += WandUtil.getRangeLevel(entityLiving);
             }
         }
         this.breathAttack(ModParticleTypes.FLY.get(), entityLiving, true, 0.3F + ((double) range / 10), 5);

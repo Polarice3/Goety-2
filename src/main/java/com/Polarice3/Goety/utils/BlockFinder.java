@@ -224,14 +224,17 @@ public class BlockFinder {
     }
 
     public static BlockPos SummonPosition(Entity entity, BlockPos blockPos){
-        return SummonPosition(entity, blockPos.getX(), blockPos.getY(), blockPos.getZ());
+        return SummonPosition(entity.level, entity, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
-    public static BlockPos SummonPosition(Entity entity, double x, double y, double z){
+    public static BlockPos SummonPosition(Level level, Entity entity, BlockPos blockPos){
+        return SummonPosition(level, entity, blockPos.getX(), blockPos.getY(), blockPos.getZ());
+    }
+
+    public static BlockPos SummonPosition(Level level, Entity entity, double x, double y, double z){
         double d3 = y;
         boolean flag = false;
         BlockPos blockpos = BlockPos.containing(x, y, z);
-        Level level = entity.level;
         if (level.isLoaded(blockpos)) {
             boolean flag1 = false;
 
@@ -260,10 +263,13 @@ public class BlockFinder {
     }
 
     public static Vec3 SummonPosition(Entity entity, Vec3 vec3){
+        return SummonPosition(entity.level, entity, vec3);
+    }
+
+    public static Vec3 SummonPosition(Level level, Entity entity, Vec3 vec3){
         double d3 = vec3.y;
         boolean flag = false;
         Vec3 vec31 = new Vec3(vec3.x, vec3.y, vec3.z);
-        Level level = entity.level;
         if (level.isLoaded(BlockPos.containing(vec31))) {
             boolean flag1 = false;
 
@@ -308,7 +314,7 @@ public class BlockFinder {
             if (world.noCollision(entity, entity.getBoundingBox().move(blockpos$mutable))
                     && !world.containsAnyLiquid(entity.getBoundingBox().move(blockpos$mutable))
             && blockpos$mutable.distToCenterSqr(blockPos.getCenter()) <= Mth.square(radius * 2)) {
-                blockPos = SummonPosition(entity, blockpos$mutable);
+                blockPos = SummonPosition(world, entity, blockpos$mutable);
                 break;
             }
         }
@@ -326,7 +332,7 @@ public class BlockFinder {
             if (world.noCollision(livingEntity, livingEntity.getBoundingBox().move(blockpos$mutable))
                     && !world.containsAnyLiquid(livingEntity.getBoundingBox().move(blockpos$mutable))
                     && blockpos$mutable.distToCenterSqr(blockPos.getCenter()) >= Mth.square(radius / 2)) {
-                blockPos = SummonPosition(livingEntity, blockpos$mutable);
+                blockPos = SummonPosition(world, livingEntity, blockpos$mutable);
                 break;
             }
         }
@@ -362,7 +368,7 @@ public class BlockFinder {
                     && !world.containsAnyLiquid(summoned.getBoundingBox().move(blockpos$mutable))
                     && blockpos$mutable.distToCenterSqr(blockPos.getCenter()) <= Mth.square(radius * 2)
                     && canSeeBlock(looker, blockpos$mutable)) {
-                blockPos = SummonPosition(summoned, blockpos$mutable);
+                blockPos = SummonPosition(world, summoned, blockpos$mutable);
                 break;
             }
         }
@@ -377,7 +383,7 @@ public class BlockFinder {
             blockpos$mutable.setZ((int) (blockpos$mutable.getZ() + (world.random.nextDouble() - 0.5D) * 16));
             if (world.noCollision(livingEntity, livingEntity.getBoundingBox().move(blockpos$mutable))
                     && !world.containsAnyLiquid(livingEntity.getBoundingBox().move(blockpos$mutable))) {
-                blockPos = SummonPosition(livingEntity, blockpos$mutable);
+                blockPos = SummonPosition(world, livingEntity, blockpos$mutable);
                 break;
             }
         }

@@ -65,7 +65,7 @@ public class EntanglingSpell extends Spell {
         int range = spellStat.getRange();
         int duration = spellStat.getDuration();
         if (WandUtil.enchantedFocus(caster)) {
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
         }
         HitResult rayTraceResult = this.rayTrace(worldIn, caster, range, 3);

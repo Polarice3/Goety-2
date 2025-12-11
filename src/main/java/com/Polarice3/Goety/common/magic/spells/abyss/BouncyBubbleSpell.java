@@ -22,11 +22,6 @@ import java.util.List;
 public class BouncyBubbleSpell extends Spell {
 
     @Override
-    public SpellStat defaultStats() {
-        return super.defaultStats().setRadius(0.0D);
-    }
-
-    @Override
     public int defaultSoulCost() {
         return SpellConfig.BouncyBubbleCost.get();
     }

@@ -89,8 +89,8 @@ public class HauntedSkullSpell extends SummonSpell {
         if (WandUtil.enchantedFocus(caster)){
             potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster) + 1;
-            burning = WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
-            radius = WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
+            burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
+            radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
         }
         if (!isShifting(caster)) {
             int i = 1;

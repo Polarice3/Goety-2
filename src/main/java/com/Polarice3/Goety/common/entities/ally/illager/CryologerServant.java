@@ -433,8 +433,11 @@ public class CryologerServant extends SpellcasterIllagerServant implements IBrea
 
         public boolean canUse() {
             LivingEntity livingentity = CryologerServant.this.getTarget();
-            if (livingentity != null && livingentity.distanceTo(CryologerServant.this) <= 16.0F && livingentity.isAlive() && CryologerServant.this.hasLineOfSight(livingentity) && CryologerServant.this.getCurrentAnimation() != CryologerServant.this.getAnimationState("breath")) {
+            if (livingentity != null && livingentity.isAlive() && CryologerServant.this.hasLineOfSight(livingentity) && CryologerServant.this.getCurrentAnimation() != CryologerServant.this.getAnimationState("breath")) {
                 if (CryologerServant.this.isCastingSpell()) {
+                    return false;
+                } else if (livingentity.distanceTo(CryologerServant.this) > 16.0F) {
+                    CryologerServant.this.getNavigation().moveTo(livingentity, 1.0F);
                     return false;
                 } else {
                     return CryologerServant.this.tickCount >= this.nextAttackTickCount;

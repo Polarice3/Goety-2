@@ -119,6 +119,7 @@ public class CallFocus extends MagicFocus{
                         } else if (player.getServer() != null) {
                             ServerLevel serverWorld = player.getServer().getLevel(player.level.dimension());
                             if (serverWorld != null) {
+                                blockPos = BlockFinder.SummonRadius(player.blockPosition(), livingEntity, serverWorld);
                                 Vec3 vec3 = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
                                 net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(livingEntity, blockPos.getX(), blockPos.getY(), blockPos.getZ());
                                 if (event.isCanceled()) {

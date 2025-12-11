@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "goety:block/pine_lantern",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "goety:block/pine_lantern"
+    },
+    "facing=south": {
+      "model": "goety:block/pine_lantern",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "goety:block/pine_lantern",
+      "y": 270
+    }
+  }
+}

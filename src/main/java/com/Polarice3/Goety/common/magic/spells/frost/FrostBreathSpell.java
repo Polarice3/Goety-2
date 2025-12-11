@@ -93,7 +93,7 @@ public class FrostBreathSpell extends BreathingSpell {
             if (mob.getTarget() != null){
                 int range = spellStat.getRange();
                 if (WandUtil.enchantedFocus(caster)){
-                    range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+                    range += WandUtil.getRangeLevel(caster);
                 }
                 return mob.hasLineOfSight(mob.getTarget()) && mob.distanceTo(mob.getTarget()) <= range + 4.0D;
             }
@@ -108,7 +108,7 @@ public class FrostBreathSpell extends BreathingSpell {
         if (WandUtil.enchantedFocus(caster)){
             potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
         }
         float damage = this.damage + potency;
         if (!worldIn.isClientSide) {
@@ -153,7 +153,7 @@ public class FrostBreathSpell extends BreathingSpell {
     public void showWandBreath(LivingEntity entityLiving, SpellStat spellStat) {
         int range = 0;
         if (WandUtil.enchantedFocus(entityLiving)){
-            range = WandUtil.getLevels(ModEnchantments.RANGE.get(), entityLiving);
+            range = WandUtil.getRangeLevel(entityLiving);
         }
         if (!CuriosFinder.hasCurio(entityLiving, ModItems.RING_OF_THE_DRAGON.get())) {
             this.breathAttack(ParticleTypes.POOF, entityLiving, 0.3F + ((double) range / 10), 5);

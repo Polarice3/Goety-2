@@ -68,7 +68,7 @@ public class FangSpell extends Spell {
         int burning = spellStat.getBurning();
         double radius = spellStat.getRadius();
         if (WandUtil.enchantedFocus(caster)){
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            range += WandUtil.getRangeLevel(caster);
             potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
             burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
         }

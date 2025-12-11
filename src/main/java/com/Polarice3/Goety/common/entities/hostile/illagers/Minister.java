@@ -586,7 +586,7 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
                     this.surroundTeeth();
                 } else {
                     for (int length = 0; length < 16; length++) {
-                        blockPos = blockPos.offset(-2 + Minister.this.getRandom().nextInt(4), 0, -2 + Minister.this.getRandom().nextInt(4));
+                        blockPos = blockPos.offset(Minister.this.getRandom().nextInt(-4, 4), 0, Minister.this.getRandom().nextInt(-4, 4));
                         BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 
                         while(blockpos$mutable.getY() < blockPos.getY() + 8.0D && !Minister.this.level.getBlockState(blockpos$mutable).blocksMotion()) {

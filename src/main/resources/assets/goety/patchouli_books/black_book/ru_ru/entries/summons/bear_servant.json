@@ -36,6 +36,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:convert_polar_bear_to_polar_bear_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Медведий-прислужников, призванных через ритуал, можно размножить при помощи пчелиных сот."
     }
   ]
 }

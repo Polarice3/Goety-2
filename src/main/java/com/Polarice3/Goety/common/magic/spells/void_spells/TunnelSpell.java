@@ -76,7 +76,7 @@ public class TunnelSpell extends BlockSpell {
         int totalDistance = spellStat.getRange();
         int extraLife = spellStat.getDuration();
         if (WandUtil.enchantedFocus(caster)) {
-            totalDistance += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);
+            totalDistance += WandUtil.getRangeLevel(caster);
             extraLife += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
         }
         for (int distance = 0; distance < totalDistance; ++distance) {

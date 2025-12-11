@@ -417,12 +417,12 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
                     }
                 }
             }
-            if (this.getLeader() == null && this.getMasterOwner() != null && this.isFollowing()) {
-                float f = this.distanceTo(this.getMasterOwner());
+            if (this.getLeader() == null && this.getTrueOwner() instanceof Player player && this.isFollowing()) {
+                float f = this.distanceTo(player);
                 if (f > 6.0F) {
-                    double d0 = (this.getMasterOwner().getX() - this.getX()) / (double)f;
-                    double d1 = (this.getMasterOwner().getY() - this.getY()) / (double)f;
-                    double d2 = (this.getMasterOwner().getZ() - this.getZ()) / (double)f;
+                    double d0 = (player.getX() - this.getX()) / (double)f;
+                    double d1 = (player.getY() - this.getY()) / (double)f;
+                    double d2 = (player.getZ() - this.getZ()) / (double)f;
                     this.setDeltaMovement(this.getDeltaMovement().add(Math.copySign(d0 * d0 * 0.4D, d0), Math.copySign(d1 * d1 * 0.4D, d1), Math.copySign(d2 * d2 * 0.4D, d2)));
                     this.checkSlowFallDistance();
                 }

@@ -209,8 +209,11 @@ public class BoundGeomancer extends AbstractBoundIllager{
 
         @Override
         public boolean canUse() {
-            if (this.geomancer.getTarget() != null
-                    && this.geomancer.distanceTo(this.geomancer.getTarget()) <= this.geomancer.getAttributeValue(Attributes.FOLLOW_RANGE)){
+            if (this.geomancer.getTarget() != null){
+                if (this.geomancer.distanceTo(this.geomancer.getTarget()) > this.geomancer.getAttributeValue(Attributes.FOLLOW_RANGE)) {
+                    this.geomancer.getNavigation().moveTo(this.geomancer.getTarget(), 1.0F);
+                    return false;
+                }
                 return this.geomancer.spellCool <= 0;
             }
             return false;

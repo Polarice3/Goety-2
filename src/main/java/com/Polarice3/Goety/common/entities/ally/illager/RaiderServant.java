@@ -558,7 +558,7 @@ public abstract class RaiderServant extends Summoned {
                             OminousIdolBlockEntity idol = this.getLeader().getIdol();
                             if (idol != null) {
                                 if (this.getIdol() == null || this.getIdol() != idol) {
-                                    if (idol.getIllagers().size() < MainConfig.OminousIdolLimit.get()) {
+                                    if (idol.hasSpace()) {
                                         if (this.getIdol() != null) {
                                             this.getIdol().removeIllager(this);
                                         }
@@ -582,8 +582,17 @@ public abstract class RaiderServant extends Summoned {
                     this.setCaptureMode(this.getLeader().isCapturing());
                 }
             }
+            this.updateIdol();
             this.markedTick();
             this.raidTick();
+        }
+    }
+
+    public void updateIdol() {
+        if (this.getIdol() != null) {
+            if (!this.getIdol().getIllagers().contains(this) && this.getIdol().hasSpace()) {
+                this.getIdol().addIllager(this);
+            }
         }
     }
 
@@ -826,7 +835,7 @@ public abstract class RaiderServant extends Summoned {
             if (this.revivePos != null) {
                 for (Level level1 : this.getServer().getAllLevels()) {
                     if (level1.dimension() == this.getReviveLevel()) {
-                        BlockEntity blockEntity = this.level.getBlockEntity(this.revivePos);
+                        BlockEntity blockEntity = level1.getBlockEntity(this.revivePos);
                         if (blockEntity instanceof OminousIdolBlockEntity idol) {
                             if (idol.getTrueOwner() == this.getTrueOwner()) {
                                 return idol;
@@ -853,7 +862,7 @@ public abstract class RaiderServant extends Summoned {
         if (!damageSource.is(ModDamageSource.DISMISSED)) {
             if (MainConfig.OminousIdolRevive.get()) {
                 if (!this.hasEffect(GoetyEffects.WOUNDED.get())) {
-                    if (this.getIdol() != null) {
+                    if (this.getIdol() != null && this.level.dimension() == this.getReviveLevel()) {
                         if (this.getIdol().getSoulEnergy() >= MainConfig.OminousIdolReviveCost.get()) {
                             return this.getIdol().getIllagers().contains(this);
                         }
@@ -866,11 +875,11 @@ public abstract class RaiderServant extends Summoned {
 
     @Override
     public void reviveOwned() {
+        super.reviveOwned();
         if (this.isLeader()) {
             this.spawnAtLocation(this.getItemBySlot(EquipmentSlot.HEAD));
             this.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
         }
-        super.reviveOwned();
         this.setTarget(null);
         this.setMarked(null);
         this.setRaidPos(null);
@@ -1098,7 +1107,7 @@ public abstract class RaiderServant extends Summoned {
             if (WaystoneItem.isSameDimension(this, pPlayer.getMainHandItem())) {
                 if (WaystoneItem.getBlockEntity(pPlayer.getMainHandItem(), this.level) instanceof OminousIdolBlockEntity idol
                         && idol.getTrueOwner() == this.getTrueOwner()
-                        && idol.getIllagers().size() < MainConfig.OminousIdolLimit.get()) {
+                        && idol.hasSpace()) {
                     if (!this.level.isClientSide) {
                         BlockPos blockPos = idol.getBlockPos();
                         if (this.getIdol() != null) {

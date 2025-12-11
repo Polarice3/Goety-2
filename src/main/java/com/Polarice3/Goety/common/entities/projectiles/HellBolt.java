@@ -5,9 +5,7 @@ import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.DustCloudParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import com.google.common.collect.Maps;
@@ -27,7 +25,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -116,23 +113,13 @@ public class HellBolt extends WaterHurtingProjectile {
         if (!this.level.isClientSide) {
             Entity entity = pResult.getEntity();
             Entity entity1 = this.getOwner();
-            float enchantment = 0;
-            float damage = 5.0F;
             int flaming = this.getFiery();
-            if (entity1 instanceof Player player){
-                if (WandUtil.enchantedFocus(player)){
-                    enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
-                }
-                damage = SpellConfig.FireballDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
-            } else if (entity1 instanceof LivingEntity) {
-                damage = this.getDamage();
-            }
             int i = 0;
             if (flaming > 0){
                 i = entity.getRemainingFireTicks() + (flaming - 1);
                 entity.setSecondsOnFire(5 * flaming);
             }
-            boolean flag = entity.hurt(ModDamageSource.hellfire(this, entity1), damage + enchantment);
+            boolean flag = entity.hurt(ModDamageSource.hellfire(this, entity1), this.getDamage());
             if (!flag) {
                 entity.setRemainingFireTicks(i);
             }
