@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
+import com.Polarice3.Goety.api.entities.ISpellEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -13,7 +14,7 @@ import net.minecraft.world.entity.projectile.Fireball;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkHooks;
 
-public abstract class ExplosiveProjectile extends Fireball {
+public abstract class ExplosiveProjectile extends Fireball implements ISpellEntity {
     private static final EntityDataAccessor<Boolean> DATA_UPGRADED = SynchedEntityData.defineId(ExplosiveProjectile.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Boolean> DATA_DANGEROUS = SynchedEntityData.defineId(ExplosiveProjectile.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Float> DATA_EXPLOSION = SynchedEntityData.defineId(ExplosiveProjectile.class, EntityDataSerializers.FLOAT);

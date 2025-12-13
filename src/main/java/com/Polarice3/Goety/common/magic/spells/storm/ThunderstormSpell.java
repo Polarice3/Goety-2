@@ -65,7 +65,7 @@ public class ThunderstormSpell extends Spell {
         int potency = spellStat.getPotency();
         double radius = spellStat.getRadius();
         if (WandUtil.enchantedFocus(caster)){
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
         }
         if (castTime >= 20) {

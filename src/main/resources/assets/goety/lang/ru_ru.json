@@ -3256,6 +3256,25 @@
   "advancements.goety.servant_kill_ender_keeper.description": "Позвольте своему прислужнику одолеть эндер-привратника.",
 
   "entity.goety.gnasher": "Зубастик",
-  "item.goety.gnasher_spawn_egg": "Яйцо призыва зубастика"
+  "item.goety.gnasher_spawn_egg": "Яйцо призыва зубастика",
+
+  "block.goety.iron_dungeon_torch": "Железный факел подземелья",
+  "block.goety.gold_dungeon_torch": "Золотой факел подземелья",
+  "block.goety.steep_sconce": "Настенный бра",
+  "block.goety.jade_light": "Нефритовый свет",
+  "block.goety.pine_lantern": "Сосновый фонарь",
+
+  "info.goety.ritual.structure.noBlocks": "Недостаточное количество %!",
+  "info.goety.ritual.structure.noFullBlocks": "Недостаточное количество целых блоков %!",
+  "info.goety.ritual.structure.noFill": "Недостаточное количество заполненных %!",
+  "info.goety.ritual.structure.noSlabs": "Недостаточное количество плит!",
+  "info.goety.ritual.structure.noEnchant": "Недостаточное количество силы зачарования!",
+  "info.goety.ritual.structure.waterlogged": "Алтарь должен быть в воде!",
+  "info.goety.ritual.structure.exposed": "Алтарь должен быть под открытым небом!",
+  "info.goety.ritual.structure.sky": "Ритуал должен быть совершён в небе!",
+  "info.goety.ritual.structure.storm": "Ритуал должен быть совершён во время грозы!",
+  "info.goety.ritual.structure.night": "Ритуал должен быть совершён ночью!",
+  "info.goety.ritual.structure.nether": "Ритуал должен быть совершён в Незере!",
+  "info.goety.ritual.structure.end": "Ритуал должен быть совершён в Энде!"
 
 }

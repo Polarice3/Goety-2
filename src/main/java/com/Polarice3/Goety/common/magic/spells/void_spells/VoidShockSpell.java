@@ -70,7 +70,7 @@ public class VoidShockSpell extends Spell {
         int potency = spellStat.getPotency();
         double radius = spellStat.getRadius();
         if (WandUtil.enchantedFocus(caster)){
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster) / 2.0F;
         }
         int tickRate = this.rightStaff(staff) ? 2 : 5;

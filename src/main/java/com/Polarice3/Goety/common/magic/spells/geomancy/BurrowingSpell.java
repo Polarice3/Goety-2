@@ -117,7 +117,7 @@ public class BurrowingSpell extends EverChargeSpell {
         int burning = spellStat.getBurning();
         if (WandUtil.enchantedFocus(caster)){
             range += WandUtil.getRangeLevel(caster);
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
         }
 

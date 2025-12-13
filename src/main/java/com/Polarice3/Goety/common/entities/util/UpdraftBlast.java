@@ -1,13 +1,11 @@
 package com.Polarice3.Goety.common.entities.util;
 
+import com.Polarice3.Goety.api.entities.ISpellEntity;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.projectiles.AbstractCyclone;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.ColorUtil;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModDamageSource;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -26,10 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class UpdraftBlast extends Entity {
+public class UpdraftBlast extends Entity implements ISpellEntity {
     public LivingEntity owner;
     private UUID ownerUniqueId;
-    private float damage = SpellConfig.UpdraftBlastDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+    private float damage = SpellConfig.UpdraftBlastDamage.get().floatValue() * WandUtil.damageMultiply();
     private float areaOfEffect = 0.0F;
 
     public UpdraftBlast(EntityType<?> entityTypeIn, Level worldIn) {

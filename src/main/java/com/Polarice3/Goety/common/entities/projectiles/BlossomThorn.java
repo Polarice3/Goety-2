@@ -4,10 +4,7 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.Vec3Util;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -110,7 +107,7 @@ public class BlossomThorn extends GroundProjectile {
 
     private void dealDamageTo(LivingEntity target) {
         LivingEntity livingentity = this.getOwner();
-        float baseDamage = SpellConfig.BlossomDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        float baseDamage = SpellConfig.BlossomDamage.get().floatValue() * WandUtil.damageMultiply();
         if (target.isAlive() && !target.isInvulnerable() && MobUtil.validEntity(target) && target != livingentity) {
             boolean flag;
             if (livingentity != null) {

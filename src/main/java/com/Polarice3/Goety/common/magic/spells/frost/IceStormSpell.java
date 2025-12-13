@@ -64,7 +64,7 @@ public class IceStormSpell extends Spell {
         int range = spellStat.getRange();
         float velocity = spellStat.getVelocity();
         if (WandUtil.enchantedFocus(caster)){
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
             range += WandUtil.getRangeLevel(caster);
             velocity += WandUtil.getLevels(ModEnchantments.VELOCITY.get(), caster);

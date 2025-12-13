@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
+import com.Polarice3.Goety.api.entities.ISpellEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -13,7 +14,7 @@ import net.minecraftforge.network.NetworkHooks;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public abstract class GroundProjectile extends Entity {
+public abstract class GroundProjectile extends Entity implements ISpellEntity {
     public int warmupDelayTicks;
     public boolean sentTrapEvent;
     public boolean playSound;

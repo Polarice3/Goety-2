@@ -8,10 +8,7 @@ import com.Polarice3.Goety.common.entities.hostile.BoneLord;
 import com.Polarice3.Goety.common.entities.hostile.SkullLord;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.SpellConfig;
-import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.ExplosionUtil;
-import com.Polarice3.Goety.utils.LootingExplosion;
-import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -35,7 +32,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class HauntedSkullProjectile extends ExplosiveProjectile{
     private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(HauntedSkullProjectile.class, EntityDataSerializers.INT);
-    public float damage = SpellConfig.HauntedSkullDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+    public float damage = SpellConfig.HauntedSkullDamage.get().floatValue() * WandUtil.damageMultiply();
     public boolean isPowered;
 
     public HauntedSkullProjectile(EntityType<? extends ExplosiveProjectile> p_i50166_1_, Level p_i50166_2_) {

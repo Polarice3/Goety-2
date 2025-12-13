@@ -1,0 +1,33 @@
+{
+  "replace": false,
+  "values": [
+    "goety:dragon_fireball",
+    "goety:wither_skull",
+    "goety:soul_bolt",
+    "goety:steam_missile",
+    "goety:wither_bolt",
+    "goety:necro_bolt",
+    "goety:fireball",
+    "goety:lavaball",
+    "goety:shield_debris",
+    "goety:harpoon",
+    "goety:poison_quill",
+    "goety:haunted_skull_shot",
+    "goety:soul_bullet",
+    "goety:ill_bomb",
+    "goety:electro_orb",
+    "goety:bouncy_bubble",
+    "goety:scatter_bomb",
+    "goety:magma_bomb",
+    "goety:blossom_ball",
+    "goety:nether_meteor",
+    "goety:ice_spike",
+    "goety:ice_spear",
+    "goety:scythe",
+    "goety:void_shock",
+    "goety:void_shock_bomb",
+    "goety:void_slash",
+    "goety:hell_bolt",
+    "goety:hell_blast"
+  ]
+}

@@ -56,7 +56,7 @@ public class BulwarkSpell extends Spell {
         int amount = SpellConfig.BulwarkShieldAmount.get();
         int duration = SpellConfig.BulwarkShieldTime.get();
         if (WandUtil.enchantedFocus(caster)) {
-            amount += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            amount += WandUtil.getPotencyLevel(caster);
             duration *= Math.min(4, WandUtil.getLevels(ModEnchantments.DURATION.get(), caster) + 1);
         }
         amount += spellStat.getPotency();

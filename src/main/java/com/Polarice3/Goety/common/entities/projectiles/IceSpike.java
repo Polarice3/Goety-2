@@ -5,10 +5,7 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModDamageSource;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -119,7 +116,7 @@ public class IceSpike extends AbstractArrow {
 
     protected void onHitEntity(EntityHitResult p_37626_) {
         if (!this.level.isClientSide) {
-            float baseDamage = SpellConfig.IceSpikeDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+            float baseDamage = SpellConfig.IceSpikeDamage.get().floatValue() * WandUtil.damageMultiply();
             Entity entity = p_37626_.getEntity();
             Entity entity1 = this.getOwner();
             boolean flag;

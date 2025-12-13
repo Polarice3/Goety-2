@@ -65,7 +65,7 @@ public class VoidBombSpell extends Spell {
         int potency = spellStat.getPotency();
         float velocity = spellStat.getVelocity();
         if (WandUtil.enchantedFocus(caster)){
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             velocity += WandUtil.getLevels(ModEnchantments.VELOCITY.get(), caster) / 3.0F;
         }
         Vec3 vec3 = caster.position().add(0, caster.getBbHeight() + 1.0F, 0);

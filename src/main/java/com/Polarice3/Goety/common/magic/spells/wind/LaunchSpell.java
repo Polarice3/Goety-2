@@ -55,7 +55,7 @@ public class LaunchSpell extends Spell {
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
         int potency = spellStat.getPotency();
         if (WandUtil.enchantedFocus(caster)){
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
         }
         caster.hurtMarked = true;
         caster.setOnGround(false);

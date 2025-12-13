@@ -6,6 +6,7 @@ import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -75,7 +76,7 @@ public class HailCloud extends AbstractSpellCloud{
 
     public void hurtEntities(LivingEntity livingEntity){
         if (livingEntity != null) {
-            float baseDamage = SpellConfig.HailDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+            float baseDamage = SpellConfig.HailDamage.get().floatValue() * WandUtil.damageMultiply();
             baseDamage += this.getExtraDamage();
             if (livingEntity.hurt(ModDamageSource.frostBreath(this, this.getOwner()), baseDamage)) {
                 livingEntity.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), MathHelper.secondsToTicks(5)));

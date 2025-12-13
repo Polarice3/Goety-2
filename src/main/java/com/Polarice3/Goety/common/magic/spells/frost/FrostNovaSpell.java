@@ -72,12 +72,12 @@ public class FrostNovaSpell extends Spell {
         float potency = spellStat.getPotency();
         float radius = (float) spellStat.getRadius();
         int duration = spellStat.getDuration();
-        float damage = SpellConfig.FrostNovaDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
-        float maxDamage = SpellConfig.FrostNovaMaxDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        float damage = SpellConfig.FrostNovaDamage.get().floatValue() * WandUtil.damageMultiply();
+        float maxDamage = SpellConfig.FrostNovaMaxDamage.get().floatValue() * WandUtil.damageMultiply();
         if (WandUtil.enchantedFocus(caster)){
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster) / 2.0F;
+            potency += WandUtil.getPotencyLevel(caster) / 2.0F;
         }
         damage += potency;
         maxDamage += potency;

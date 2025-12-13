@@ -7,6 +7,7 @@ import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.ModDamageSource;
+import com.Polarice3.Goety.utils.WandUtil;
 import com.google.common.collect.Maps;
 import net.minecraft.Util;
 import net.minecraft.core.particles.ParticleOptions;
@@ -88,7 +89,7 @@ public class SteamMissile extends SpellHurtingProjectile {
     protected void onHitEntity(EntityHitResult p_37626_) {
         super.onHitEntity(p_37626_);
         if (!this.level.isClientSide) {
-            float baseDamage = SpellConfig.SteamingDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+            float baseDamage = SpellConfig.SteamingDamage.get().floatValue() * WandUtil.damageMultiply();
             Entity entity = p_37626_.getEntity();
             Entity entity1 = this.getOwner();
             boolean flag;

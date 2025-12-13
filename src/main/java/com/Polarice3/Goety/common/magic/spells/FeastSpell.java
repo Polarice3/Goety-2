@@ -95,7 +95,7 @@ public class FeastSpell extends ChargingSpell {
         int potency = spellStat.getPotency();
         int burning = spellStat.getBurning();
         if (WandUtil.enchantedFocus(caster)){
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
         }
         for (LivingEntity entity : this.getLivingEntities(worldIn, caster, spellStat)) {

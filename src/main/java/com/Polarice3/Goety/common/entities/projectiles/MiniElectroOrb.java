@@ -7,6 +7,7 @@ import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.ModDamageSource;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -61,7 +62,7 @@ public class MiniElectroOrb extends SpellHurtingProjectile{
     protected void onHit(HitResult hitResult) {
         if (!this.level.isClientSide) {
             DamageSource damageSource = ModDamageSource.getDamageSource(this.level, ModDamageSource.SHOCK);
-            float damage = SpellConfig.ElectroOrbDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get().floatValue();
+            float damage = SpellConfig.ElectroOrbDamage.get().floatValue() * WandUtil.damageMultiply();
             if (this.getOwner() != null) {
                 damageSource = ModDamageSource.indirectShock(this, this.getOwner());
             }

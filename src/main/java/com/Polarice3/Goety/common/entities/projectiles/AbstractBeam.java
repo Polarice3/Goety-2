@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
+import com.Polarice3.Goety.api.entities.ISpellEntity;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.CBeamPacket;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -34,8 +35,9 @@ import java.util.function.Predicate;
 /**
  * Beam codes based on ArtifactBeamEntity on @Thelnfamous1's Dungeon Gears
  */
-public abstract class AbstractBeam extends Entity implements IEntityAdditionalSpawnData {
+public abstract class AbstractBeam extends Entity implements IEntityAdditionalSpawnData, ISpellEntity {
     public static final double MAX_RAYTRACE_DISTANCE = 64;
+    public float extraDamage = 0;
     public boolean itemBase;
     public LivingEntity owner;
     public UUID ownerUUID;
@@ -94,6 +96,10 @@ public abstract class AbstractBeam extends Entity implements IEntityAdditionalSp
             }
             this.damageEntities(entities);
         }
+    }
+
+    public void setExtraDamage(float extraDamage) {
+        this.extraDamage = extraDamage;
     }
 
     public void damageEntities(Set<LivingEntity> entities){
@@ -180,6 +186,9 @@ public abstract class AbstractBeam extends Entity implements IEntityAdditionalSp
 
     @Override
     protected void readAdditionalSaveData(CompoundTag pCompound) {
+        if (pCompound.contains("ExtraDamage")){
+            this.extraDamage = pCompound.getFloat("ExtraDamage");
+        }
         if (pCompound.hasUUID("Owner")) {
             this.ownerUUID = pCompound.getUUID("Owner");
         }
@@ -190,6 +199,9 @@ public abstract class AbstractBeam extends Entity implements IEntityAdditionalSp
 
     @Override
     protected void addAdditionalSaveData(CompoundTag pCompound) {
+        if (this.extraDamage > 0){
+            pCompound.putFloat("ExtraDamage", this.extraDamage);
+        }
         if (this.ownerUUID != null) {
             pCompound.putUUID("Owner", this.ownerUUID);
         }

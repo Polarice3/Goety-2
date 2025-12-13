@@ -70,7 +70,7 @@ public class MagmaSpell extends Spell {
             radius += 1.0F;
         }
         MagmaBomb blast = new MagmaBomb(caster, worldIn);
-        blast.setExtraDamage(spellStat.getPotency() + WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
+        blast.setExtraDamage(spellStat.getPotency() + WandUtil.getPotencyLevel(caster));
         blast.setExplosionPower(extraBlast + radius);
         blast.setDuration(spellStat.getDuration() + WandUtil.getLevels(ModEnchantments.DURATION.get(), caster));
         blast.setStaff(this.rightStaff(staff));

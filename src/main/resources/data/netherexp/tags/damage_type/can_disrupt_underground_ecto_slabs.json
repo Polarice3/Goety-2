@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#goety:frost_attacks",
+    "#goety:shock_attacks",
+    "#goety:water_attacks",
+    "goety:sword"
+  ]
+}

@@ -68,7 +68,7 @@ public class SoulHealSpell extends Spell {
         int potency = spellStat.getPotency();
         double radius = spellStat.getRadius();
         if (WandUtil.enchantedFocus(caster)) {
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
         }
         float heal = RandomUtil.nextInt(worldIn.getRandom(), SpellConfig.SoulHealAmount.get() * Math.max(1, potency)) + 1.0F;

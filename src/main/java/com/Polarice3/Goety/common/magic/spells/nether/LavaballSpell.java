@@ -72,7 +72,7 @@ public class LavaballSpell extends Spell {
         int burning = spellStat.getBurning();
         float radius = (float) spellStat.getRadius();
         if (WandUtil.enchantedFocus(caster)){
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster) / 2.0F;
         }

@@ -3286,5 +3286,7 @@
   "info.goety.ritual.structure.storm": "仪式必须在雷暴天气中进行！",
   "info.goety.ritual.structure.night": "仪式必须在夜晚进行！",
   "info.goety.ritual.structure.nether": "仪式必须在下界进行！",
-  "info.goety.ritual.structure.end": "仪式必须在末地进行！"
+  "info.goety.ritual.structure.end": "仪式必须在末地进行！",
+  "block.goety.pine_hanging_sign": "悬挂式松木告示牌",
+  "block.goety.pine_wall_hanging_sign": "悬挂式松木告示牌"
 }

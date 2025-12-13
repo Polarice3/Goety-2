@@ -14,6 +14,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec SPEC;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> SpellDamageMultiplier;
+    public static final ForgeConfigSpec.ConfigValue<Double> SpellDamageMultiplierDecimal;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> VexCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> VexDuration;
@@ -471,6 +472,8 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> BiomineCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> BiomineDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> BiomineCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> BiomineDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> BiomineAcidDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> TidalCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> TidalDuration;
@@ -617,6 +620,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxDurationLevel;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxBurningLevel;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxVelocityLevel;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PotencyPower;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FocusEnchantsTrades;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerHitCommand;
@@ -632,8 +636,10 @@ public class SpellConfig {
 
     static {
         BUILDER.push("General");
-        SpellDamageMultiplier = BUILDER.comment("Multiplies the damage of spells by this amount, Default: 1")
+        SpellDamageMultiplier = BUILDER.comment("Multiplies the damage of spells by this amount, this will will be multiplied by 'spellDamageMultiplierDecimal', Default: 1")
                 .defineInRange("spellDamageMultiplier", 1, 1, Integer.MAX_VALUE);
+        SpellDamageMultiplierDecimal = BUILDER.comment("Multiplies the damage of spells by this amount in decimals, this will will be multiplied by 'spellDamageMultiplier', Default: 1.0")
+                .defineInRange("spellDamageMultiplierDecimal", 1.0, 0.0, Double.MAX_VALUE);
         OwnerHitCommand = BUILDER.comment("Whether Servants change navigation modes by hitting them, put false to make them change by right-clicking on them, Default: true")
                 .define("ownerHitCommand", true);
         OwnerHitKill = BUILDER.comment("Whether Servants are killed/dismissed by hitting them while crouching with a wand or staff, put 1 to make them change by right-clicking on them while crouching, put 2 to disable it, Default: 0")
@@ -1563,6 +1569,10 @@ public class SpellConfig {
                     .defineInRange("biomineTime", 40, 0, 72000);
             BiomineCoolDown = BUILDER.comment("Biomine Spell Cooldown, Default: 200")
                     .defineInRange("biomineCoolDown", 200, 0, Integer.MAX_VALUE);
+            BiomineDamage = BUILDER.comment("How much base damage Biomine explosion deals, Default: 3.0")
+                    .defineInRange("biomineDamage", 3.0, 1.0, Double.MAX_VALUE);
+            BiomineAcidDamage = BUILDER.comment("How much base damage Biomine acid cloud deals, Default: 2.0")
+                    .defineInRange("biomineAcidDamage", 2.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Tidal Spell");
             TidalCost = BUILDER.comment("Tidal Spell Cost, Default: 24")
@@ -1852,6 +1862,8 @@ public class SpellConfig {
         BUILDER.push("Enchantments");
         FocusEnchantsTrades = BUILDER.comment("Whether Focus Enchantments can appear on Villager Trade Pools, Default: true")
                 .define("focusEnchantsTrades", true);
+        PotencyPower = BUILDER.comment("How much power Potency increases, Default: 1")
+                .defineInRange("potencyPower", 1, 1, Integer.MAX_VALUE);
         MaxSoulEaterLevel = BUILDER.comment("Soul Eater Maximum Enchantment Level, Default: 5")
                 .defineInRange("maxSoulEaterLevel", 5, 1, 10);
         MaxWantingLevel = BUILDER.comment("Wanting Maximum Enchantment Level, Default: 3")

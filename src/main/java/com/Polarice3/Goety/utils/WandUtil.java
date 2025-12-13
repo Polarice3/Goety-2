@@ -17,6 +17,7 @@ import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SLightningPacket;
 import com.Polarice3.Goety.common.network.server.SThunderBoltPacket;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModAttributes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -142,6 +143,14 @@ public class WandUtil {
         }
     }
 
+    public static float damageMultiply() {
+        return SpellConfig.SpellDamageMultiplier.get() * SpellConfig.SpellDamageMultiplierDecimal.get().floatValue();
+    }
+
+    public static int getPotencyLevel(LivingEntity livingEntity) {
+        return getLevels(ModEnchantments.POTENCY.get(), livingEntity) * SpellConfig.PotencyPower.get();
+    }
+
     public static int getRangeLevel(LivingEntity livingEntity) {
         return getLevels(ModEnchantments.RANGE.get(), livingEntity) * 2;
     }
@@ -248,7 +257,7 @@ public class WandUtil {
 
     }
 
-    public static void spawnSpikes(LivingEntity livingEntity, double pPosX, double pPosZ, double PPPosY, double pOPosY, float pYRot, int pWarmUp) {
+    public static void spawnSpikes(LivingEntity livingEntity, double pPosX, double pPosZ, double PPPosY, double pOPosY, float pYRot, int pWarmUp, SpellStat spellStat) {
         BlockPos blockpos = BlockPos.containing(pPosX, pOPosY, pPosZ);
         boolean flag = false;
         double d0 = 0.0D;
@@ -274,21 +283,17 @@ public class WandUtil {
 
         if (flag) {
             Spike spike = new Spike(livingEntity.level, pPosX, (double)blockpos.getY() + d0, pPosZ, pYRot, pWarmUp, livingEntity);
-            if (livingEntity instanceof Player player){
-                if (WandUtil.enchantedFocus(player)){
-                    float enchantment = 0;
-                    int burning = 0;
-                    int soulEater = 0;
-                    if (WandUtil.enchantedFocus(player)) {
-                        enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
-                        burning = WandUtil.getLevels(ModEnchantments.BURNING.get(), player);
-                        soulEater = WandUtil.getLevels(ModEnchantments.SOUL_EATER.get(), player);
-                    }
-                    spike.setExtraDamage(enchantment);
-                    spike.setBurning(burning);
-                    spike.setSoulEater(soulEater);
-                }
+            float enchantment = spellStat.getPotency();
+            int burning = spellStat.getBurning();
+            int soulEater = 0;
+            if (WandUtil.enchantedFocus(livingEntity)) {
+                enchantment = WandUtil.getPotencyLevel(livingEntity);
+                burning = WandUtil.getLevels(ModEnchantments.BURNING.get(), livingEntity);
+                soulEater = WandUtil.getLevels(ModEnchantments.SOUL_EATER.get(), livingEntity);
             }
+            spike.setExtraDamage(enchantment);
+            spike.setBurning(burning);
+            spike.setSoulEater(soulEater);
             livingEntity.level.addFreshEntity(spike);
         }
 

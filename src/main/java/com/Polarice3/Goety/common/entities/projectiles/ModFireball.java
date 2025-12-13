@@ -1,12 +1,10 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.entities.ISpellEntity;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
-import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModDamageSource;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -25,7 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
-public class ModFireball extends SmallFireball {
+public class ModFireball extends SmallFireball implements ISpellEntity {
     public static final EntityDataAccessor<Boolean> DATA_DANGEROUS = SynchedEntityData.defineId(ModFireball.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Float> DATA_DAMAGE = SynchedEntityData.defineId(ModFireball.class, EntityDataSerializers.FLOAT);
     public static final EntityDataAccessor<Float> DATA_EXTRA_DAMAGE = SynchedEntityData.defineId(ModFireball.class, EntityDataSerializers.FLOAT);
@@ -127,7 +125,7 @@ public class ModFireball extends SmallFireball {
             float damage = 5.0F;
             int flaming = 1 + this.getFiery();
             if (entity1 instanceof Player){
-                damage = SpellConfig.FireballDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+                damage = SpellConfig.FireballDamage.get().floatValue() * WandUtil.damageMultiply();
             } else if (entity1 instanceof LivingEntity) {
                 damage = this.getDamage();
             }

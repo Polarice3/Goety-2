@@ -51,7 +51,7 @@ public class MagicBoltSpell extends Spell {
         int potency = spellStat.getPotency();
         int duration = spellStat.getDuration();
         if (WandUtil.enchantedFocus(caster)){
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
         }
         Vec3 vector3d = caster.getViewVector( 1.0F);

@@ -131,7 +131,7 @@ public class HellBlast extends WaterHurtingProjectile {
             float enchantment = this.getExtraDamage();
             int flaming = this.getFiery();
             if (entity1 instanceof Player){
-                damage = SpellConfig.LavaballDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+                damage = SpellConfig.LavaballDamage.get().floatValue() * WandUtil.damageMultiply();
             }
             entity.hurt(ModDamageSource.hellfire(this, entity1), damage + enchantment);
             if (entity1 instanceof LivingEntity) {

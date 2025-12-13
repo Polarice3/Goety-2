@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
+import com.Polarice3.Goety.api.entities.ISpellEntity;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.PulsatingCircleParticleOption;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -30,7 +31,7 @@ import net.minecraftforge.network.NetworkHooks;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class ScatterMine extends Entity {
+public class ScatterMine extends Entity implements ISpellEntity {
     public static final EntityDataAccessor<Boolean> DATA_SPELL = SynchedEntityData.defineId(ScatterMine.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Float> DATA_EXTRA_DAMAGE = SynchedEntityData.defineId(ScatterMine.class, EntityDataSerializers.FLOAT);
     public float getGlow = 1;

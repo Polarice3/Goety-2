@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FireBreathSpell extends BreathingSpell {
-    public float damage = SpellConfig.FireBreathDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+    public float damage = SpellConfig.FireBreathDamage.get().floatValue() * WandUtil.damageMultiply();
 
     @Override
     public SpellStat defaultStats() {
@@ -100,7 +100,7 @@ public class FireBreathSpell extends BreathingSpell {
         int burning = spellStat.getBurning();
         int range = spellStat.getRange();
         if (WandUtil.enchantedFocus(caster)) {
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
             range += WandUtil.getRangeLevel(caster);
         }

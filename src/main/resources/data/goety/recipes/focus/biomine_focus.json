@@ -15,16 +15,10 @@
       "item": "minecraft:kelp"
     },
     {
-      "item": "minecraft:tnt"
-    },
-    {
       "item": "goety:venomous_fang"
     },
     {
       "tag": "forge:eggs"
-    },
-    {
-      "item": "minecraft:prismarine"
     }
   ],
   "result": {

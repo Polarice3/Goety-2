@@ -4,11 +4,9 @@ import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.VerticalCircleExplodeParticleOption;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.ColorUtil;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModDamageSource;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -118,6 +116,8 @@ public class BioMine extends SpellEntity {
     public void trigger(){
         if (!this.level.isClientSide) {
             double bbSize = 3.0D + this.getExtraRadius();
+            float damage = SpellConfig.BiomineAcidDamage.get().floatValue() * WandUtil.damageMultiply();
+            damage += this.getExtraDamage();
             for (LivingEntity livingentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(bbSize, bbSize / 2.0D, bbSize))) {
                 if (livingentity.isAlive() && !livingentity.isInvulnerable()) {
                     if (this.getOwner() != null) {
@@ -132,7 +132,7 @@ public class BioMine extends SpellEntity {
             AcidPool acidPool = new AcidPool(ModEntityType.ACID_POOL.get(), this.level);
             acidPool.setPos(this.position());
             acidPool.setRadius(2.0F + this.getExtraRadius());
-            acidPool.setDamage(2.0F + this.getExtraDamage());
+            acidPool.setDamage(damage);
             acidPool.setColor(0x20b33e);
             ColorUtil colorUtil0 = new ColorUtil(0x20b33e);
             acidPool.setParticle(ModParticleTypes.BIG_CULT_SPELL.get());
@@ -154,7 +154,8 @@ public class BioMine extends SpellEntity {
 
     public void explodeDamage(LivingEntity livingEntity) {
         if (!this.level.isClientSide) {
-            float damage = 3.0F + this.getExtraDamage();
+            float damage = SpellConfig.BiomineDamage.get().floatValue() * WandUtil.damageMultiply();
+            damage += this.getExtraDamage();
             if (this.getOwner() != null){
                 livingEntity.hurt(ModDamageSource.acid(this, this.getOwner()), damage);
             } else {

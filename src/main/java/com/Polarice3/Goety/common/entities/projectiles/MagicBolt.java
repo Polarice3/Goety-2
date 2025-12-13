@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.entities.util.MagicGround;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -90,7 +91,7 @@ public class MagicBolt extends SpellHurtingProjectile {
         Entity target = pResult.getEntity();
         Entity owner = this.getOwner();
         LivingEntity livingentity = owner instanceof LivingEntity ? (LivingEntity)owner : null;
-        float damage = SpellConfig.MagicBoltDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        float damage = SpellConfig.MagicBoltDamage.get().floatValue() * WandUtil.damageMultiply();
         boolean flag;
         if (livingentity != null) {
             if (livingentity instanceof Mob mob && mob.getAttribute(Attributes.ATTACK_DAMAGE) != null){

@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SwarmSpell extends BreathingSpell {
-    public float damage = SpellConfig.SwarmDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+    public float damage = SpellConfig.SwarmDamage.get().floatValue() * WandUtil.damageMultiply();
 
     @Override
     public SpellStat defaultStats() {
@@ -79,7 +79,7 @@ public class SwarmSpell extends BreathingSpell {
         int duration = spellStat.getDuration();
         int range = spellStat.getRange();
         if (WandUtil.enchantedFocus(caster)) {
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
             range += WandUtil.getRangeLevel(caster);
         }

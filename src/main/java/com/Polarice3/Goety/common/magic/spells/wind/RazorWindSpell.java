@@ -55,13 +55,13 @@ public class RazorWindSpell extends Spell {
 
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){
         float radius = (float) spellStat.getRadius();
-        float damage = SpellConfig.RazorWindDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        float damage = SpellConfig.RazorWindDamage.get().floatValue() * WandUtil.damageMultiply();
         if (rightStaff(staff)){
             radius += 0.5F;
         }
         if (WandUtil.enchantedFocus(caster)) {
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster) / 4.0F;
-            damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            damage += WandUtil.getPotencyLevel(caster);
         }
         damage += spellStat.getPotency();
         SlashProjectile razorWind = new RazorWind(worldIn, caster);

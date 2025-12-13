@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.entities.ISpellEntity;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -35,7 +36,7 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class PoisonQuill extends Arrow {
+public class PoisonQuill extends Arrow implements ISpellEntity {
     private static final EntityDataAccessor<Boolean> AQUA = SynchedEntityData.defineId(PoisonQuill.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> SPEAR = SynchedEntityData.defineId(PoisonQuill.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> PIERCE_LEVEL = SynchedEntityData.defineId(PoisonQuill.class, EntityDataSerializers.INT);

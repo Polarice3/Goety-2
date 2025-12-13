@@ -65,11 +65,11 @@ public class FireballSpell extends Spell {
 
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
-        float damage = SpellConfig.FireballDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        float damage = SpellConfig.FireballDamage.get().floatValue() * WandUtil.damageMultiply();
         int potency = spellStat.getPotency();
         int burning = spellStat.getBurning();
         if (WandUtil.enchantedFocus(caster)){
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
         }
         Vec3 vector3d = caster.getViewVector( 1.0F);

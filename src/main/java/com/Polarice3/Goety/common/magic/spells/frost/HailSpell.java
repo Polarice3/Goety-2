@@ -68,7 +68,7 @@ public class HailSpell extends Spell {
         if (WandUtil.enchantedFocus(caster)) {
             range += WandUtil.getRangeLevel(caster);
             duration *= WandUtil.getLevels(ModEnchantments.DURATION.get(), caster) + 1;
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
         }
         HitResult rayTraceResult = this.rayTrace(worldIn, caster, range, radius);

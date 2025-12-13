@@ -66,11 +66,11 @@ public class DischargeSpell extends Spell {
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){
         int radius = (int) spellStat.getRadius();
         float potency = spellStat.getPotency();
-        float damage = SpellConfig.DischargeDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
-        float maxDamage = SpellConfig.DischargeMaxDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        float damage = SpellConfig.DischargeDamage.get().floatValue() * WandUtil.damageMultiply();
+        float maxDamage = SpellConfig.DischargeMaxDamage.get().floatValue() * WandUtil.damageMultiply();
         if (WandUtil.enchantedFocus(caster)){
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster) / 2.0F;
+            potency += WandUtil.getPotencyLevel(caster) / 2.0F;
         }
         damage += potency;
         maxDamage += potency;

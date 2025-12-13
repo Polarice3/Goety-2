@@ -63,7 +63,7 @@ public class MonsoonCloud extends AbstractSpellCloud{
                 }
                 if (this.random.nextFloat() <= 0.05F) {
                     Vec3 vec3 = this.position();
-                    float damage = SpellConfig.ThunderboltDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+                    float damage = SpellConfig.ThunderboltDamage.get().floatValue() * WandUtil.damageMultiply();
                     damage += this.getExtraDamage();
                     BlockHitResult rayTraceResult = this.blockResult(serverLevel, this, 16);
                     Optional<BlockPos> lightningRod = BlockFinder.findLightningRod(serverLevel, BlockPos.containing(rayTraceResult.getLocation()), 16);

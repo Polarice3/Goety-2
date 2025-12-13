@@ -60,11 +60,11 @@ public class ShockwaveSpell extends Spell {
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){
         int radius = (int) spellStat.getRadius();
         int potency = spellStat.getPotency();
-        float damage = SpellConfig.ShockwaveDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
-        float maxDamage = SpellConfig.ShockwaveMaxDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        float damage = SpellConfig.ShockwaveDamage.get().floatValue() * WandUtil.damageMultiply();
+        float maxDamage = SpellConfig.ShockwaveMaxDamage.get().floatValue() * WandUtil.damageMultiply();
         if (WandUtil.enchantedFocus(caster)){
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
         }
         damage += potency;
         maxDamage += potency;

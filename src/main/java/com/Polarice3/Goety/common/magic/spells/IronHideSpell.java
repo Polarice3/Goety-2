@@ -66,7 +66,7 @@ public class IronHideSpell extends Spell {
         int potency = spellStat.getPotency();
         int duration = spellStat.getDuration();
         if (WandUtil.enchantedFocus(caster)) {
-            potency = WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency = WandUtil.getPotencyLevel(caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
         }
         caster.addEffect(new MobEffectInstance(GoetyEffects.IRON_HIDE.get(), MathHelper.minutesToTicks(duration), potency, false, false, true));

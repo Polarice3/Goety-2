@@ -84,7 +84,7 @@ public class WhirlwindSpell extends EverChargeSpell {
             radius += 1.0F;
         }
         if (WandUtil.enchantedFocus(caster)) {
-            y += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster) / 100.0D;
+            y += WandUtil.getPotencyLevel(caster) / 100.0D;
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
         }
         if (vec3.y < 0.0D) {

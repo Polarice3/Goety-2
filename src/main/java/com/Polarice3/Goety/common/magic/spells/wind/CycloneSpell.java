@@ -102,7 +102,7 @@ public class CycloneSpell extends Spell {
             potency += 1;
         }
         if (WandUtil.enchantedFocus(caster)){
-            potency *= (WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster) + 1);
+            potency *= (WandUtil.getPotencyLevel(caster) + 1);
             duration *= (WandUtil.getLevels(ModEnchantments.DURATION.get(), caster) + 1);
             velocity += WandUtil.getLevels(ModEnchantments.VELOCITY.get(), caster);
             radius += (WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster) / 10.0F);

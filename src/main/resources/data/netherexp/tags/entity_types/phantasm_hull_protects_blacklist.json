@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "goety:dragon_fireball",
+    "goety:wither_skull",
+    "goety:wither_bolt",
+    "goety:necro_bolt",
+    "goety:scythe",
+    "goety:void_shock",
+    "goety:void_shock_bomb",
+    "goety:void_slash",
+    "goety:hell_bolt",
+    "goety:hell_blast",
+    "goety:death_arrow"
+  ]
+}

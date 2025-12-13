@@ -81,7 +81,7 @@ public class FlameStrikeSpell extends Spell {
                 flames.setOwner(caster);
                 flames.setDuration(duration);
                 flames.setWarmUp(warmUp);
-                flames.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
+                flames.setExtraDamage(WandUtil.getPotencyLevel(caster));
                 MobUtil.moveDownToGround(flames);
                 worldIn.addFreshEntity(flames);
             }
@@ -94,7 +94,7 @@ public class FlameStrikeSpell extends Spell {
                 flames.setOwner(caster);
                 flames.setDuration(duration);
                 flames.setWarmUp(warmUp);
-                flames.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
+                flames.setExtraDamage(WandUtil.getPotencyLevel(caster));
                 MobUtil.moveDownToGround(flames);
                 worldIn.addFreshEntity(flames);
             }
@@ -105,7 +105,7 @@ public class FlameStrikeSpell extends Spell {
                 flames.setOwner(caster);
                 flames.setDuration(duration);
                 flames.setWarmUp(warmUp);
-                flames.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
+                flames.setExtraDamage(WandUtil.getPotencyLevel(caster));
                 MobUtil.moveDownToGround(flames);
                 worldIn.addFreshEntity(flames);
             }
@@ -117,7 +117,7 @@ public class FlameStrikeSpell extends Spell {
                     flames.setOwner(caster);
                     flames.setDuration(duration);
                     flames.setWarmUp(warmUp);
-                    flames.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
+                    flames.setExtraDamage(WandUtil.getPotencyLevel(caster));
                     MobUtil.moveDownToGround(flames);
                     worldIn.addFreshEntity(flames);
                 }
@@ -128,7 +128,7 @@ public class FlameStrikeSpell extends Spell {
                     flames.setOwner(caster);
                     flames.setDuration(duration);
                     flames.setWarmUp(warmUp);
-                    flames.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
+                    flames.setExtraDamage(WandUtil.getPotencyLevel(caster));
                     MobUtil.moveDownToGround(flames);
                     worldIn.addFreshEntity(flames);
                 }

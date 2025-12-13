@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -54,7 +55,7 @@ public class TidalSurge extends AbstractWave {
                 if (entity.isSensitiveToWater()){
                     damage += 1.0F;
                 }
-                damage *= SpellConfig.SpellDamageMultiplier.get();
+                damage *= WandUtil.damageMultiply();
                 entity.hurt(source, damage);
                 this.setSlamming(true);
                 entity.knockback(0.1D + 0.5D * scale, (double) Mth.sin(this.getYRot() * ((float) Math.PI / 180F)), (double) (-Mth.cos(this.getYRot() * ((float) Math.PI / 180F))));

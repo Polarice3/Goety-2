@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "#goety:wraiths",
+    "#goety:reapers",
+    "#goety:bound_illagers",
+    "#goety:slime_servants",
+    "#goety:golems",
+    "#goety:enderlings",
+    "goety:endersent",
+    "goety:ender_keeper",
+    "goety:haunt",
+    "goety:crypt_slime",
+    "goety:ally_irk",
+    "goety:ally_vex",
+    "goety:irk"
+  ]
+}

@@ -86,23 +86,23 @@ public class SpikeSpell extends Spell {
         if (!isShifting(caster)) {
             for(int l = 0; l < range; ++l) {
                 double d2 = 1.25D * (double)(l + 1);
-                WandUtil.spawnSpikes(caster, caster.getX() + (double)Mth.cos(f) * d2, caster.getZ() + (double)Mth.sin(f) * d2, d0, d1, f, l);
+                WandUtil.spawnSpikes(caster, caster.getX() + (double)Mth.cos(f) * d2, caster.getZ() + (double)Mth.sin(f) * d2, d0, d1, f, l, spellStat);
             }
         } else {
             for(int i = 0; i < 5; ++i) {
                 float f1 = f + (float)i * (float)Math.PI * 0.4F;
-                WandUtil.spawnSpikes(caster, caster.getX() + (double)Mth.cos(f1) * 1.5D, caster.getZ() + (double)Mth.sin(f1) * 1.5D, d0, d1, f1, 0);
+                WandUtil.spawnSpikes(caster, caster.getX() + (double)Mth.cos(f1) * 1.5D, caster.getZ() + (double)Mth.sin(f1) * 1.5D, d0, d1, f1, 0, spellStat);
             }
 
             for(int k = 0; k < 8; ++k) {
                 float f2 = f + (float)k * (float)Math.PI * 2.0F / 8.0F + 1.2566371F;
-                WandUtil.spawnSpikes(caster, caster.getX() + (double)Mth.cos(f2) * 2.5D, caster.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1, f2, 3);
+                WandUtil.spawnSpikes(caster, caster.getX() + (double)Mth.cos(f2) * 2.5D, caster.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1, f2, 3, spellStat);
             }
 
             if (rightStaff(staff)) {
                 for(int k = 0; k < 11; ++k) {
                     float f2 = f + (float)k * (float)Math.PI * 4.0F / 16.0F + 2.5133462F;
-                    WandUtil.spawnSpikes(caster, caster.getX() + (double)Mth.cos(f2) * 3.5D, caster.getZ() + (double)Mth.sin(f2) * 3.5D, d0, d1, f2, 6);
+                    WandUtil.spawnSpikes(caster, caster.getX() + (double)Mth.cos(f2) * 3.5D, caster.getZ() + (double)Mth.sin(f2) * 3.5D, d0, d1, f2, 6, spellStat);
                 }
             }
         }

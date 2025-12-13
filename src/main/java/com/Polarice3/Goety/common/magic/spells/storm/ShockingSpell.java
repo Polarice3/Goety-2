@@ -89,12 +89,12 @@ public class ShockingSpell extends EverChargeSpell {
 
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
-        float damage = SpellConfig.ShockingDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        float damage = SpellConfig.ShockingDamage.get().floatValue() * WandUtil.damageMultiply();
         int range = spellStat.getRange();
         int burning = spellStat.getBurning();
         if (WandUtil.enchantedFocus(caster)) {
             range += WandUtil.getRangeLevel(caster);
-            damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            damage += WandUtil.getPotencyLevel(caster);
             burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
         }
         damage += spellStat.getPotency();

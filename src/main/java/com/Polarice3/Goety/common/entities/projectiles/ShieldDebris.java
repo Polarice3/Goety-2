@@ -18,7 +18,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-public class ShieldDebris extends ModFireball{
+public class ShieldDebris extends ModFireball {
     public ShieldDebris(EntityType<? extends ModFireball> p_i50160_1_, Level p_i50160_2_) {
         super(p_i50160_1_, p_i50160_2_);
     }

@@ -70,7 +70,7 @@ public class WitherSkullSpell extends Spell {
         if (isShifting(caster)){
             witherSkull.setDangerous(true);
         }
-        witherSkull.setExtraDamage(spellStat.getPotency() + WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
+        witherSkull.setExtraDamage(spellStat.getPotency() + WandUtil.getPotencyLevel(caster));
         witherSkull.setFiery(spellStat.getBurning() + WandUtil.getLevels(ModEnchantments.BURNING.get(), caster));
         witherSkull.setExplosionPower(witherSkull.getExplosionPower() + extraBlast);
         worldIn.addFreshEntity(witherSkull);
@@ -87,7 +87,7 @@ public class WitherSkullSpell extends Spell {
                 if (isShifting(caster)) {
                     witherSkull1.setDangerous(true);
                 }
-                witherSkull1.setExtraDamage(spellStat.getPotency() + WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster));
+                witherSkull1.setExtraDamage(spellStat.getPotency() + WandUtil.getPotencyLevel(caster));
                 witherSkull1.setFiery(spellStat.getBurning() + WandUtil.getLevels(ModEnchantments.BURNING.get(), caster));
                 witherSkull1.setExplosionPower(witherSkull.getExplosionPower() + extraBlast);
                 worldIn.addFreshEntity(witherSkull1);

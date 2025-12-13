@@ -63,10 +63,10 @@ public class ThunderboltSpell extends Spell {
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
         int range = spellStat.getRange();
-        float damage = SpellConfig.ThunderboltDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        float damage = SpellConfig.ThunderboltDamage.get().floatValue() * WandUtil.damageMultiply();
         if (WandUtil.enchantedFocus(caster)) {
             range += WandUtil.getRangeLevel(caster);
-            damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            damage += WandUtil.getPotencyLevel(caster);
         }
         damage += spellStat.getPotency();
         Vec3 vec3 = caster.getEyePosition();

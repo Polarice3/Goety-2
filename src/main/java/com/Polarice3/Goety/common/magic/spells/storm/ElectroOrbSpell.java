@@ -65,7 +65,7 @@ public class ElectroOrbSpell extends Spell {
         int potency = spellStat.getPotency();
         int range = spellStat.getRange();
         if (WandUtil.enchantedFocus(caster)){
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             range += WandUtil.getRangeLevel(caster);
         }
         LivingEntity livingEntity = this.getTarget(caster, range);

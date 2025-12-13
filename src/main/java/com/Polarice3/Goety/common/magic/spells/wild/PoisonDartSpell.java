@@ -61,7 +61,7 @@ public class PoisonDartSpell extends Spell {
         int duration = spellStat.getDuration();
         if (WandUtil.enchantedFocus(caster)) {
             velocity += WandUtil.getLevels(ModEnchantments.VELOCITY.get(), caster) / 3.0F;
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
         }
         PoisonQuill poisonQuill = new PoisonQuill(worldIn, caster);

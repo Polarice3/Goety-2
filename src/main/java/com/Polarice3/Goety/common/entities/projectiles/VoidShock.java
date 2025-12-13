@@ -41,7 +41,7 @@ public class VoidShock extends SpellEntity {
     public double zPower;
     public double badMath = 1.0D;
     public float extraRadius = 0.0F;
-    public float baseDamage = SpellConfig.VoidShockDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get().floatValue();
+    public float baseDamage = SpellConfig.VoidShockDamage.get().floatValue() * WandUtil.damageMultiply();
     public int life;
     public int initTime = MathHelper.secondsToTicks(2);
     private Vec3[] trailPositions;

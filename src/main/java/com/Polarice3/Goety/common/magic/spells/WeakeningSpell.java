@@ -68,7 +68,7 @@ public class WeakeningSpell extends Spell {
         int radius = (int) spellStat.getRadius();
         int duration = spellStat.getDuration();
         if (WandUtil.enchantedFocus(caster)){
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
         }

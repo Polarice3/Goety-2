@@ -59,10 +59,10 @@ public class LightningSpell extends Spell {
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){
         double radius = spellStat.getRadius();
         int range = spellStat.getRange();
-        float damage = SpellConfig.LightningDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        float damage = SpellConfig.LightningDamage.get().floatValue() * WandUtil.damageMultiply();
         if (WandUtil.enchantedFocus(caster)) {
             range += WandUtil.getRangeLevel(caster);
-            damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            damage += WandUtil.getPotencyLevel(caster);
         }
         damage += spellStat.getPotency();
         HitResult rayTraceResult = this.rayTrace(worldIn, caster, range, radius);

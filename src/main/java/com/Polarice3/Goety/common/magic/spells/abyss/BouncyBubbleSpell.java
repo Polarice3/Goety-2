@@ -61,7 +61,7 @@ public class BouncyBubbleSpell extends Spell {
         int velocity = (int) spellStat.getVelocity();
         int radius = (int) spellStat.getRadius();
         if (WandUtil.enchantedFocus(caster)) {
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             velocity += WandUtil.getLevels(ModEnchantments.VELOCITY.get(), caster);
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
         }

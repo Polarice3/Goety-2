@@ -154,7 +154,7 @@ public class ModWitherSkull extends WitherSkull {
          float damage;
          if (entity1 instanceof LivingEntity livingentity) {
             if (entity1 instanceof Player){
-               damage = SpellConfig.WitherSkullDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+               damage = SpellConfig.WitherSkullDamage.get().floatValue() * WandUtil.damageMultiply();
             } else {
                damage = this.getDamage();
             }

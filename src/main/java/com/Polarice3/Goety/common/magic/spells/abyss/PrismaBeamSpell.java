@@ -90,11 +90,11 @@ public class PrismaBeamSpell extends Spell {
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
         float potency = spellStat.getPotency();
         if (WandUtil.enchantedFocus(caster)) {
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
         }
         LivingEntity target = this.getTarget(caster);
         if (target != null) {
-            float damage = SpellConfig.PrismaBeamDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+            float damage = SpellConfig.PrismaBeamDamage.get().floatValue() * WandUtil.damageMultiply();
             float f = 1.0F;
 
             if (this.rightStaff(staff)) {

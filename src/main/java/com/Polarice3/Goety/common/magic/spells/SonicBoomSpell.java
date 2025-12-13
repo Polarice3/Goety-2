@@ -53,10 +53,10 @@ public class SonicBoomSpell extends Spell {
     }
 
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){
-        float damage = SpellConfig.SonicBoomDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        float damage = SpellConfig.SonicBoomDamage.get().floatValue() * WandUtil.damageMultiply();
         int range = spellStat.getRange();
         if (WandUtil.enchantedFocus(caster)){
-            damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            damage += WandUtil.getPotencyLevel(caster);
             range += WandUtil.getRangeLevel(caster);
         }
         damage += spellStat.getPotency();

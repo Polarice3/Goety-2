@@ -7,6 +7,7 @@ import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.ServantUtil;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -63,7 +64,7 @@ public class NecroBolt extends SpellHurtingProjectile {
     protected void onHitEntity(EntityHitResult p_37626_) {
         super.onHitEntity(p_37626_);
         if (!this.level.isClientSide) {
-            float baseDamage = SpellConfig.NecroBoltDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+            float baseDamage = SpellConfig.NecroBoltDamage.get().floatValue() * WandUtil.damageMultiply();
             Entity entity = p_37626_.getEntity();
             Entity entity1 = this.getOwner();
             boolean flag;

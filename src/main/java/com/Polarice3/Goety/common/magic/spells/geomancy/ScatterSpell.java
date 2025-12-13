@@ -93,7 +93,7 @@ public class ScatterSpell extends Spell {
             double radius = spellStat.getRadius();
             int duration = spellStat.getDuration();
             if (WandUtil.enchantedFocus(caster)){
-                potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+                potency += WandUtil.getPotencyLevel(caster);
                 radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster) / 2.0F;
                 duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
             }
@@ -130,7 +130,7 @@ public class ScatterSpell extends Spell {
         double radius = spellStat.getRadius();
         int duration = spellStat.getDuration();
         if (WandUtil.enchantedFocus(caster)){
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster) / 2.0F;
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
         }

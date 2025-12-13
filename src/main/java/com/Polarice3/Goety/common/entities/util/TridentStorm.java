@@ -83,7 +83,7 @@ public class TridentStorm extends CastSpellTrap{
                 }
             }
             if (this.tickTime == (time + this.delay + 5)) {
-                float damage = SpellConfig.TridentStormDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+                float damage = SpellConfig.TridentStormDamage.get().floatValue() * WandUtil.damageMultiply();
                 float radius = 2.0F;
                 List<LivingEntity> targets = new ArrayList<>();
                 AABB aabb = EntityType.TRIDENT.getAABB(this.position().x, this.position().y, this.position().z);

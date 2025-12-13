@@ -46,7 +46,7 @@ public class BurrowingLaserRenderer {
 
     private static float getSpeedModifier(Player player) {
         if (WandUtil.enchantedFocus(player)) {
-            double efficiency = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player) / 5.0F;
+            double efficiency = WandUtil.getPotencyLevel(player) / 5.0F;
             double speedModifier = Mth.lerp(efficiency, 0.02F, 0.05F);
             return (float) -speedModifier;
         } else {

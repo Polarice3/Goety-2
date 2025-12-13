@@ -9,10 +9,7 @@ import com.Polarice3.Goety.common.network.server.SLightningBoltPacket;
 import com.Polarice3.Goety.common.network.server.SLightningPacket;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.ColorUtil;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModDamageSource;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -47,7 +44,7 @@ public class MagicLightningTrap extends AbstractTrap {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.getEntityData().define(DATA_RADIUS, 1.5F);
-        this.getEntityData().define(DATA_DAMAGE, SpellConfig.ThunderboltDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get().floatValue());
+        this.getEntityData().define(DATA_DAMAGE, SpellConfig.ThunderboltDamage.get().floatValue() * WandUtil.damageMultiply());
     }
 
     @Override

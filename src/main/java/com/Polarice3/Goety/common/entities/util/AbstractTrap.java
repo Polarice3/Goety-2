@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.util;
 
+import com.Polarice3.Goety.api.entities.ISpellEntity;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -21,7 +22,7 @@ import net.minecraftforge.common.Tags;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public abstract class AbstractTrap extends Entity {
+public abstract class AbstractTrap extends Entity implements ISpellEntity {
     private int duration = 100;
     public LivingEntity owner;
     private UUID ownerUniqueId;

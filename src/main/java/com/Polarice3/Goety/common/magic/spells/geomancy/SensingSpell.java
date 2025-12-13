@@ -64,7 +64,7 @@ public class SensingSpell extends Spell {
         int potency = spellStat.getPotency();
         int duration = spellStat.getDuration();
         if (WandUtil.enchantedFocus(caster)) {
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
         }
         caster.addEffect(new MobEffectInstance(GoetyEffects.TREMOR_SENSE.get(), MathHelper.secondsToTicks(duration), potency, false, false, true));

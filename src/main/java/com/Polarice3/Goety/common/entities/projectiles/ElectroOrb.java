@@ -84,7 +84,7 @@ public class ElectroOrb extends SpellThrowableProjectile {
     protected void onHit(HitResult hitResult) {
         if (!this.level.isClientSide) {
             DamageSource damageSource = ModDamageSource.getDamageSource(this.level, ModDamageSource.SHOCK);
-            float damage = SpellConfig.ElectroOrbDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get().floatValue();
+            float damage = SpellConfig.ElectroOrbDamage.get().floatValue() * WandUtil.damageMultiply();
             if (this.getOwner() != null) {
                 damageSource = ModDamageSource.indirectShock(this, this.getOwner());
             }
@@ -114,7 +114,7 @@ public class ElectroOrb extends SpellThrowableProjectile {
             if (this.isStaff()) {
                 DamageSource damageSource = ModDamageSource.getDamageSource(this.level, ModDamageSource.SHOCK);
                 int radius = 2;
-                float damage = SpellConfig.ElectroOrbDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get().floatValue();
+                float damage = SpellConfig.ElectroOrbDamage.get().floatValue() * WandUtil.damageMultiply();
                 if (this.getOwner() != null) {
                     damageSource = ModDamageSource.indirectShock(this, this.getOwner());
                     if (this.getOwner() instanceof Mob mob && mob.getAttribute(Attributes.ATTACK_DAMAGE) != null) {

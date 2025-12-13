@@ -78,7 +78,7 @@ public class BlizzardSpell extends EverChargeSpell {
         int range = spellStat.getRange();
         float velocity = spellStat.getVelocity();
         if (WandUtil.enchantedFocus(caster)) {
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             range += WandUtil.getRangeLevel(caster);
             velocity += WandUtil.getLevels(ModEnchantments.VELOCITY.get(), caster) / 2.0F;
         }

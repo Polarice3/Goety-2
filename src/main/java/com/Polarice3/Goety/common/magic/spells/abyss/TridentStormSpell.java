@@ -56,7 +56,7 @@ public class TridentStormSpell extends Spell {
     public void startSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
         int potency = spellStat.getPotency();
         if (WandUtil.enchantedFocus(caster)) {
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
         }
         int warmUp = MathHelper.secondsToTicks(2);
         if (this.rightStaff(staff)) {

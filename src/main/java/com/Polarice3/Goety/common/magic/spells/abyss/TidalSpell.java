@@ -68,7 +68,7 @@ public class TidalSpell extends Spell {
         int range = spellStat.getRange();
         int duration = spellStat.getDuration();
         if (WandUtil.enchantedFocus(caster)) {
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster) / 2.0F;
+            potency += WandUtil.getPotencyLevel(caster) / 2.0F;
             range += WandUtil.getRangeLevel(caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
         }

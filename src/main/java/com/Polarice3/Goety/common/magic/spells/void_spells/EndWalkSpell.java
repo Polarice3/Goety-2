@@ -66,7 +66,7 @@ public class EndWalkSpell extends Spell {
         int potency = spellStat.getPotency();
         int duration = spellStat.getDuration();
         if (WandUtil.enchantedFocus(caster)){
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             duration = MathHelper.secondsToTicks(5) * WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
         }
         if (caster instanceof Player player){

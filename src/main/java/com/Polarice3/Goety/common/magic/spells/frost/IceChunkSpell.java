@@ -59,7 +59,7 @@ public class IceChunkSpell extends Spell {
         float potency = spellStat.getPotency();
         if (WandUtil.enchantedFocus(caster)) {
             range += WandUtil.getRangeLevel(caster);
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
         }
         HitResult rayTraceResult = this.rayTrace(worldIn, caster, range, radius);
         LivingEntity target = this.getTarget(caster, range);

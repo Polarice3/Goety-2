@@ -69,7 +69,7 @@ public class BioMineSpell extends Spell {
         double radius = spellStat.getRadius();
         if (WandUtil.enchantedFocus(caster)) {
             range += WandUtil.getRangeLevel(caster);
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
         }

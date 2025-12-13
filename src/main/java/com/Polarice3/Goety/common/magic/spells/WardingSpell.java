@@ -43,7 +43,7 @@ public class WardingSpell extends EverChargeSpell {
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
         int potency = spellStat.getPotency();
         if (WandUtil.enchantedFocus(caster)){
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
         }
         if (caster instanceof Player player){
             SEHelper.setMaxWarding(player, 20);

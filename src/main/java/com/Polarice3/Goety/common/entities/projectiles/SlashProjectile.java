@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.entities.ISpellEntity;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.particles.ParticleOptions;
@@ -27,7 +28,7 @@ import java.util.List;
 /**
  * Based on BloodSlashProjectile by @iron431: <a href="https://github.com/iron431/irons-spells-n-spellbooks/blob/1.19.2/src/main/java/io/redspace/ironsspellbooks/entity/spells/blood_slash/BloodSlashProjectile.java">...</a>
  **/
-public abstract class SlashProjectile extends Projectile {
+public abstract class SlashProjectile extends Projectile implements ISpellEntity {
     public static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(SlashProjectile.class, EntityDataSerializers.FLOAT);
     public int maxLifeSpan;
     public final int animationSeed;

@@ -216,7 +216,7 @@ public class VoidRift extends CastSpellTrap {
                         MobUtil.pull(entity, vec3.x, vec3.y, vec3.z, 0.5D);
                         if (entity.distanceTo(this) <= this.getBoundingBox().getSize()){
                             if (entity instanceof LivingEntity livingEntity) {
-                                float damage = SpellConfig.RuptureDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+                                float damage = SpellConfig.RuptureDamage.get().floatValue() * WandUtil.damageMultiply();
                                 if (this.getOwner() != null) {
                                     if (this.getOwner() instanceof Mob mob && mob.getAttribute(Attributes.ATTACK_DAMAGE) != null) {
                                         damage = (float) mob.getAttributeValue(Attributes.ATTACK_DAMAGE) / 2.0F;

@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.magic.EverChargeSpell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
@@ -51,6 +52,10 @@ public class CorruptedBeamSpell extends EverChargeSpell {
     }
 
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){
+        float potency = spellStat.getPotency();
+        if (WandUtil.enchantedFocus(caster)) {
+            potency += WandUtil.getPotencyLevel(caster) / 2.0F;
+        }
         List<CorruptedBeam> entities = worldIn.getEntitiesOfClass(CorruptedBeam.class, caster.getBoundingBox().inflate(2.0F),
                 corruptedBeam -> corruptedBeam.getOwner() == caster);
         Vec3 vector3d = caster.getViewVector( 1.0F);
@@ -61,6 +66,7 @@ public class CorruptedBeamSpell extends EverChargeSpell {
                     caster.getEyeY() - 0.2,
                     caster.getZ() + vector3d.z / 2, caster.getYRot(), caster.getXRot());
             corruptedBeam.setOwner(caster);
+            corruptedBeam.setExtraDamage(potency);
             corruptedBeam.setItemBase(true);
             worldIn.addFreshEntity(corruptedBeam);
         }

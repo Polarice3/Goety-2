@@ -6,6 +6,7 @@ import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -106,7 +107,7 @@ public class EarthFist extends SpellEntity {
 
     private void dealDamageTo(LivingEntity target) {
         LivingEntity livingentity = this.getOwner();
-        float baseDamage = SpellConfig.EarthFistDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        float baseDamage = SpellConfig.EarthFistDamage.get().floatValue() * WandUtil.damageMultiply();
         baseDamage += this.getExtraDamage();
         if (target.isAlive() && !target.isInvulnerable()) {
             boolean hurt;

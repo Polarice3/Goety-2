@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.util;
 
+import com.Polarice3.Goety.api.entities.ISpellEntity;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class FireBlastTrap extends Entity {
+public class FireBlastTrap extends Entity implements ISpellEntity {
     private static final EntityDataAccessor<Boolean> IMMEDIATE = SynchedEntityData.defineId(FireBlastTrap.class, EntityDataSerializers.BOOLEAN);
     public LivingEntity owner;
     private UUID ownerUniqueId;

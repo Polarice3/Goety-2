@@ -78,7 +78,7 @@ public class WindBlastSpell extends Spell {
             knock *= 2;
         }
         if (WandUtil.enchantedFocus(caster)){
-            knock += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster) / 4.0D;
+            knock += WandUtil.getPotencyLevel(caster) / 4.0D;
             range += WandUtil.getRangeLevel(caster);
         }
         double dist = 0.9;

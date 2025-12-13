@@ -5,10 +5,7 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.WitherNecromancer;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.BlockFinder;
-import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModDamageSource;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -105,7 +102,7 @@ public class FirePillar extends CastSpellTrap{
                     for (LivingEntity livingEntity : targets) {
                         int distance = Math.max((int) (livingEntity.getY() - this.getY()), 1);
                         if (BlockFinder.emptySpaceBetween(this.level, this.blockPosition().above(), Math.min(8, distance), true)) {
-                            float damage = SpellConfig.FlameStrikeDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+                            float damage = SpellConfig.FlameStrikeDamage.get().floatValue() * WandUtil.damageMultiply();
                             if (this.getOwner() != null) {
                                 if (this.getOwner() instanceof Mob mob && mob.getAttribute(Attributes.ATTACK_DAMAGE) != null) {
                                     damage = (float) mob.getAttributeValue(Attributes.ATTACK_DAMAGE) / 2.0F;

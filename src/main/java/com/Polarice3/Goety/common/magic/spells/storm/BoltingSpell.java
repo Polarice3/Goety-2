@@ -66,7 +66,7 @@ public class BoltingSpell extends Spell {
         int potency = spellStat.getPotency();
         double velocity = spellStat.getVelocity();
         if (WandUtil.enchantedFocus(caster)){
-            potency = WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency = WandUtil.getPotencyLevel(caster);
             velocity = WandUtil.getLevels(ModEnchantments.VELOCITY.get(), caster);
         }
         caster.hurtMarked = true;
@@ -133,7 +133,7 @@ public class BoltingSpell extends Spell {
                     for (Entity entity : list) {
                         if (entity instanceof LivingEntity target) {
                             if (!MobUtil.areAllies(living, entity) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity) && entity.isAttackable()){
-                                float baseDamage = SpellConfig.BoltingDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+                                float baseDamage = SpellConfig.BoltingDamage.get().floatValue() * WandUtil.damageMultiply();
                                 if (target.hurt(ModDamageSource.directShock(living), baseDamage + this.damage)){
                                     float chance = this.staff ? 0.25F : 0.05F;
                                     float chainDamage = this.damage / 2.0F;

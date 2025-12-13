@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FrostBreathSpell extends BreathingSpell {
-    public float damage = SpellConfig.FrostBreathDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+    public float damage = SpellConfig.FrostBreathDamage.get().floatValue() * WandUtil.damageMultiply();
 
     @Override
     public SpellStat defaultStats() {
@@ -106,7 +106,7 @@ public class FrostBreathSpell extends BreathingSpell {
         int duration = spellStat.getDuration();
         int range = spellStat.getRange();
         if (WandUtil.enchantedFocus(caster)){
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
             range += WandUtil.getRangeLevel(caster);
         }

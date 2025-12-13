@@ -78,7 +78,7 @@ public class OvergrowthSpell extends Spell {
         int duration = spellStat.getDuration();
         if (WandUtil.enchantedFocus(caster)) {
             range += WandUtil.getRangeLevel(caster);
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
         }
         HitResult rayTraceResult = this.rayTrace(worldIn, caster, range, 3);

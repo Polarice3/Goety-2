@@ -6,6 +6,7 @@ import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.SpellExplosion;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -33,7 +34,7 @@ import net.minecraftforge.network.NetworkHooks;
 public class BouncyBubble extends SpellHurtingProjectile{
     private static final EntityDataAccessor<Integer> BOUNCE_TIMES = SynchedEntityData.defineId(BouncyBubble.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> SIZE = SynchedEntityData.defineId(BouncyBubble.class, EntityDataSerializers.FLOAT);
-    public float damage = SpellConfig.BouncyBubbleDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+    public float damage = SpellConfig.BouncyBubbleDamage.get().floatValue() * WandUtil.damageMultiply();
 
     public BouncyBubble(EntityType<? extends AbstractHurtingProjectile> p_36833_, Level p_36834_) {
         super(p_36833_, p_36834_);

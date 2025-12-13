@@ -1,11 +1,13 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
+import com.Polarice3.Goety.api.entities.ISpellEntity;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -33,7 +35,7 @@ import net.minecraftforge.network.NetworkHooks;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class ViciousTooth extends Entity {
+public class ViciousTooth extends Entity implements ISpellEntity {
     private LivingEntity owner;
     private UUID ownerUUID;
     private boolean isDropping;
@@ -125,7 +127,7 @@ public class ViciousTooth extends Entity {
     }
 
     public void damageTargets(LivingEntity livingEntity){
-        float damage = SpellConfig.ViciousToothDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        float damage = SpellConfig.ViciousToothDamage.get().floatValue() * WandUtil.damageMultiply();
         damage += this.extraDamage;
         if (livingEntity != null) {
             if ((this.getOwner() != null && !MobUtil.areAllies(this.getOwner(), livingEntity)) || this.getOwner() == null) {

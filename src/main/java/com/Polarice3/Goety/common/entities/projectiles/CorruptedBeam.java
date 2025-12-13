@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
-import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.world.entity.EntityType;
@@ -25,12 +24,8 @@ public class CorruptedBeam extends AbstractBeam {
         for (LivingEntity entity : entities) {
             entity.invulnerableTime = 0;
             Vec3 deltaMovement = entity.getDeltaMovement();
-            float damage = SpellConfig.CorruptedBeamDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
-            if (this.getOwner() != null){
-                if (WandUtil.enchantedFocus(this.getOwner())){
-                    damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), this.getOwner()) / 2.0F;
-                }
-            }
+            float damage = SpellConfig.CorruptedBeamDamage.get().floatValue() * WandUtil.damageMultiply();
+            damage += this.extraDamage;
             entity.hurt(entity.damageSources().indirectMagic(owner, owner), damage);
             entity.setDeltaMovement(deltaMovement);
         }

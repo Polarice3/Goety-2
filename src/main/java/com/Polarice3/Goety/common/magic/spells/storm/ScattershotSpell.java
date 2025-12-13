@@ -70,7 +70,7 @@ public class ScattershotSpell extends EverChargeSpell {
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){
         int potency = spellStat.getPotency();
         if (WandUtil.enchantedFocus(caster)){
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
         }
         Vec3 vector3d = caster.getViewVector( 1.0F);
         MiniElectroOrb orb = new MiniElectroOrb(

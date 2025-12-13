@@ -1,10 +1,12 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.entities.ISpellEntity;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -25,7 +27,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.PartEntity;
 import net.minecraftforge.network.NetworkHooks;
 
-public class Pyroclast extends ThrowableProjectile {
+public class Pyroclast extends ThrowableProjectile implements ISpellEntity {
     public static final EntityDataAccessor<Boolean> DATA_DANGEROUS = SynchedEntityData.defineId(Pyroclast.class, EntityDataSerializers.BOOLEAN);
     public float explosionPower = 1.5F;
     public int potency = 0;
@@ -143,7 +145,7 @@ public class Pyroclast extends ThrowableProjectile {
         Entity entity1 = this.getOwner();
         float damage = 6.0F;
         if (entity1 instanceof Player){
-            damage = SpellConfig.PyroclastDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+            damage = SpellConfig.PyroclastDamage.get().floatValue() * WandUtil.damageMultiply();
         }
         entity.hurt(ModDamageSource.modFireball(this.getOwner(), this.level), damage + this.potency);
 

@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.common.effects.GoetyEffects;
-import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -54,7 +53,7 @@ public class IceSpear extends IceSpike {
     @Override
     public byte getPierceLevel() {
         if (this.getOwner() instanceof LivingEntity livingEntity){
-            return (byte) (WandUtil.getLevels(ModEnchantments.POTENCY.get(), livingEntity) + 1);
+            return (byte) (WandUtil.getPotencyLevel(livingEntity) + 1);
         }
         return super.getPierceLevel();
     }
@@ -71,7 +70,7 @@ public class IceSpear extends IceSpike {
 
     protected void onHitEntity(EntityHitResult p_37626_) {
         if (!this.level.isClientSide) {
-            float baseDamage = SpellConfig.IceSpikeDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+            float baseDamage = SpellConfig.IceSpikeDamage.get().floatValue() * WandUtil.damageMultiply();
             Entity entity = p_37626_.getEntity();
             if (this.getPierceLevel() > 0) {
                 if (this.piercingIgnoreEntityIds == null) {

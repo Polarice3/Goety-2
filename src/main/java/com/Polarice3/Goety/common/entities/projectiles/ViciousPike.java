@@ -1,9 +1,11 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
+import com.Polarice3.Goety.api.entities.ISpellEntity;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -22,7 +24,7 @@ import net.minecraftforge.network.NetworkHooks;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class ViciousPike extends Entity {
+public class ViciousPike extends Entity implements ISpellEntity {
     private LivingEntity owner;
     private UUID ownerUUID;
     private boolean sentSpikeEvent;
@@ -107,7 +109,7 @@ public class ViciousPike extends Entity {
 
     private void dealDamageTo(LivingEntity target) {
         LivingEntity livingentity = this.getOwner();
-        float baseDamage = SpellConfig.ViciousToothDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        float baseDamage = SpellConfig.ViciousToothDamage.get().floatValue() * WandUtil.damageMultiply();
         if (target.isAlive() && !target.isInvulnerable() && MobUtil.validEntity(target) && target != livingentity) {
             if (livingentity != null) {
                 if (MobUtil.areAllies(livingentity, target)) {

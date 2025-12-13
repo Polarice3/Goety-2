@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.entities.ISpellEntity;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.*;
@@ -24,7 +25,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
-public class Lavaball extends LargeFireball {
+public class Lavaball extends LargeFireball implements ISpellEntity {
     private static final EntityDataAccessor<Boolean> DATA_UPGRADED = SynchedEntityData.defineId(Lavaball.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Boolean> DATA_DANGEROUS = SynchedEntityData.defineId(Lavaball.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Float> DATA_EXPLOSION = SynchedEntityData.defineId(Lavaball.class, EntityDataSerializers.FLOAT);
@@ -189,7 +190,7 @@ public class Lavaball extends LargeFireball {
             float enchantment = this.getExtraDamage();
             int flaming = this.getFiery();
             if (entity1 instanceof Player){
-                damage = SpellConfig.LavaballDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+                damage = SpellConfig.LavaballDamage.get().floatValue() * WandUtil.damageMultiply();
             } else if (entity1 instanceof LivingEntity) {
                 damage = this.getDamage();
             }

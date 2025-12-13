@@ -72,10 +72,10 @@ public class LeechingSpell extends EverChargeSpell {
 
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
-        float potency = SpellConfig.LeechingDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        float potency = SpellConfig.LeechingDamage.get().floatValue() * WandUtil.damageMultiply();
         int range = spellStat.getRange();
         if (WandUtil.enchantedFocus(caster)){
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster) / 2.0F;
+            potency += WandUtil.getPotencyLevel(caster) / 2.0F;
             range += WandUtil.getRangeLevel(caster);
         }
         potency += spellStat.getPotency();

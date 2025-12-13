@@ -1,9 +1,11 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
+import com.Polarice3.Goety.api.entities.ISpellEntity;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -24,7 +26,7 @@ import net.minecraftforge.network.NetworkHooks;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class Fangs extends Entity {
+public class Fangs extends Entity implements ISpellEntity {
     private static final EntityDataAccessor<Boolean> ABSORBING = SynchedEntityData.defineId(Fangs.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> TOTEM = SynchedEntityData.defineId(Fangs.class, EntityDataSerializers.BOOLEAN);
     private int warmupDelayTicks;
@@ -194,7 +196,7 @@ public class Fangs extends Entity {
 
     private void dealDamageTo(LivingEntity target) {
         LivingEntity livingentity = this.getOwner();
-        float baseDamage = SpellConfig.FangDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        float baseDamage = SpellConfig.FangDamage.get().floatValue() * WandUtil.damageMultiply();
         baseDamage += this.damage;
         if (target.isAlive() && !target.isInvulnerable()) {
             if (livingentity == null) {

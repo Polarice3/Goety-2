@@ -94,10 +94,10 @@ public class BubbleStreamSpell extends BreathingSpell {
         float potency = spellStat.getPotency();
         int range = spellStat.getRange();
         if (WandUtil.enchantedFocus(caster)) {
-            potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster);
+            potency += WandUtil.getPotencyLevel(caster);
             range += WandUtil.getRangeLevel(caster);
         }
-        float damage = SpellConfig.BubbleStreamDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        float damage = SpellConfig.BubbleStreamDamage.get().floatValue() * WandUtil.damageMultiply();
         damage += potency;
         if (!worldIn.isClientSide) {
             if (rightStaff(staff)){

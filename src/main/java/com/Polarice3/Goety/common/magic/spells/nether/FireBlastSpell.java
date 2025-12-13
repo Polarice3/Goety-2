@@ -65,13 +65,13 @@ public class FireBlastSpell extends Spell {
 
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){
         int radius = (int) spellStat.getRadius();
-        float damage = SpellConfig.FireBlastDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
-        float maxDamage = SpellConfig.FireBlastMaxDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        float damage = SpellConfig.FireBlastDamage.get().floatValue() * WandUtil.damageMultiply();
+        float maxDamage = SpellConfig.FireBlastMaxDamage.get().floatValue() * WandUtil.damageMultiply();
         int burning = spellStat.getBurning();
         if (WandUtil.enchantedFocus(caster)){
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
-            damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster) / 2.0F;
-            maxDamage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), caster) / 2.0F;
+            damage += WandUtil.getPotencyLevel(caster) / 2.0F;
+            maxDamage += WandUtil.getPotencyLevel(caster) / 2.0F;
             burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
         }
         damage += spellStat.getPotency();
