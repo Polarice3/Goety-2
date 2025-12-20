@@ -9,6 +9,8 @@ import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.ServantUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -22,6 +24,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
@@ -132,7 +136,7 @@ public class NecroBolt extends SpellHurtingProjectile {
             this.discard();
         }
         Entity entity = this.getOwner();
-        if (this.level.isClientSide || (entity == null || !entity.isRemoved()) && this.level.hasChunkAt(this.blockPosition())) {
+        if (this.level.isClientSide || (entity == null || !entity.isRemoved()) && this.level.isLoaded(this.blockPosition())) {
             Vec3 vec3 = this.getDeltaMovement();
             double d0 = this.getX() - vec3.x;
             double d1 = this.getY() - vec3.y;
@@ -192,5 +196,10 @@ public class NecroBolt extends SpellHurtingProjectile {
 
     protected boolean shouldBurn() {
         return false;
+    }
+
+    @Override
+    public @NotNull Packet<ClientGamePacketListener> getAddEntityPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

@@ -6,6 +6,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
 import com.Polarice3.Goety.common.entities.ai.ModLeaveWaterGoal;
+import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.ai.path.GroundPathNavigatorFat;
 import com.Polarice3.Goety.common.entities.ai.path.ModWaterPathNavigation;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
@@ -260,6 +261,19 @@ public class DrownedNecromancer extends AbstractNecromancer {
         if (this.rapidShotCool > 0){
             --this.rapidShotCool;
         }
+    }
+
+    protected void doPush(Entity p_28839_) {
+        if (p_28839_ instanceof LivingEntity livingEntity && SummonTargetGoal.predicate(this).test(livingEntity) && this.getRandom().nextInt(20) == 0) {
+            this.setTarget(livingEntity);
+        }
+
+        super.doPush(p_28839_);
+    }
+
+    @Override
+    public boolean isPushable() {
+        return false;
     }
 
     public void travel(Vec3 pTravelVector) {
@@ -665,7 +679,7 @@ public class DrownedNecromancer extends AbstractNecromancer {
             } else {
                 return target != null
                         && target.isAlive()
-                        && target.distanceTo(DrownedNecromancer.this) <= 8.0D
+                        && target.distanceTo(DrownedNecromancer.this) <= 6.0D
                         && DrownedNecromancer.this.stormSpellCool <= 0;
             }
         }

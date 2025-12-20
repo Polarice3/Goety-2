@@ -68,7 +68,7 @@ public class WitherBolt extends SpellHurtingProjectile {
     }
 
     protected float getInertia() {
-        return 0.95F;
+        return 0.95F + this.boltSpeed;
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {

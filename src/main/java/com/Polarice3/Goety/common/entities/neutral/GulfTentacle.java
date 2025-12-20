@@ -282,7 +282,7 @@ public class GulfTentacle extends Owned {
 
     @Override
     public boolean canBeAffected(MobEffectInstance pPotioneffect) {
-        return false;
+        return pPotioneffect.getEffect().isBeneficial();
     }
 
     @Override

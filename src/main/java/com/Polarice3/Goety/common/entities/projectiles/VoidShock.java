@@ -18,6 +18,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.Level;
@@ -353,6 +354,9 @@ public class VoidShock extends SpellEntity {
                     return false;
                 }
                 if (MobUtil.areAllies(this, pEntity)){
+                    return false;
+                }
+                if (pEntity instanceof ItemEntity) {
                     return false;
                 }
                 if (pEntity instanceof Projectile projectile && projectile.getOwner() == this.getOwner()){

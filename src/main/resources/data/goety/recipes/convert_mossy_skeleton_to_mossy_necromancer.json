@@ -7,7 +7,7 @@
   "craftType": "necroturgy",
   "entity_to_convert": {
     "tag": "goety:necromancer/mossy_convert",
-    "display_name": "entity.goety.mossy_skeleton"
+    "display_name": "entity.goety.mossy_skeleton_servant"
   },
   "entity_to_convert_into": "goety:mossy_necromancer_servant",
   "soulCost": 5,

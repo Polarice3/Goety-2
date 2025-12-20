@@ -112,7 +112,7 @@ public abstract class AbstractCyclone extends SpellHurtingProjectile {
 
     @Override
     protected float getInertia() {
-        return 0.68F + Math.min(this.boltSpeed, 0.32F);
+        return 0.68F + this.boltSpeed;
     }
 
     public int getTotalLife() {

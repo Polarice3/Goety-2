@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.ai;
 
 import com.Polarice3.Goety.utils.CrossbowHelper;
+import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,6 +15,7 @@ import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.SupportType;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.NodeEvaluator;
 
@@ -86,8 +88,10 @@ public class BackawayCrossbowGoal<T extends PathfinderMob & RangedAttackMob & Cr
 
             double distanceSq = this.mob.distanceToSqr(livingentity);
             double distance = Mth.sqrt((float) distanceSq);
-            if (distance <= 14.0F || this.hasFirework()) {
-                this.mob.getMoveControl().strafe(mob.isUsingItem() ? -0.5F : -3.0F, 0);
+            if (distance <= 14.0F) {
+                if (this.mob.getBlockStateOn().isFaceSturdy(this.mob.level, this.mob.blockPosition(), Direction.UP, SupportType.CENTER)) {
+                    this.mob.getMoveControl().strafe(mob.isUsingItem() ? -0.5F : -3.0F, 0);
+                }
             }
 
             ItemStack activeStack = this.mob.getUseItem();

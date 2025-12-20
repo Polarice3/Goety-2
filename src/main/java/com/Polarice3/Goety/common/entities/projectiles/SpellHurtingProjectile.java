@@ -54,7 +54,7 @@ public abstract class SpellHurtingProjectile extends WaterHurtingProjectile {
     }
 
     public void setBoltSpeed(int increase){
-        this.boltSpeed += (float) increase / 50;
+        this.boltSpeed += (float) increase / 50.0F;
     }
 
     public float getExtraDamage() {

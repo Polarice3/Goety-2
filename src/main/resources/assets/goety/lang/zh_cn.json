@@ -1330,7 +1330,6 @@
   "info.goety.warlock_robe": "+%s%% 魔法伤害抗性.",
   "info.goety.nether_robe": "+%s%% 火焰伤害抗性..允许下界仆从使用灵魂能量治疗自己。",
   "info.goety.nether_robe_discount": "减半下界法术的灵魂消耗。",
-  "info.goety.ring_of_want": "当被附魔渴望时，用呼吸聚晶法术杀死敌人会增加战利品掉落，就像抢夺那样.",
   "info.goety.ring_of_force": "原力法术会慢慢窒息它所影响的实体。",
   "info.goety.ring_of_the_forge": "使最新召唤的僵尸和骷髅仆从总是会自带盔甲.",
   "info.goety.ring_of_the_dragon": "增强呼吸聚晶的威力.",
@@ -3297,5 +3296,6 @@
   "subtitle.goety.whip_swing": "鞭子：挥动",
   "subtitle.goety.whip_hit": "鞭子：命中",
   "jei.goety.craftType.overgrown": "增生",
-  "key.goety.ceaseFire": "命令/停止仆从攻击、停火袭击"
+  "key.goety.ceaseFire": "命令/停止仆从攻击、停火袭击",
+  "info.goety.ring_of_want": "持有渴望附魔时，使用大部分法术和仆从击杀的生物会掉落更多战利品"
 }

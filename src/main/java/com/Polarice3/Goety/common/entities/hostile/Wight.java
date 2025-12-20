@@ -1142,17 +1142,20 @@ public class Wight extends Summoned implements Enemy, NeutralMob, IHiding {
 
     @Nullable
     public static Wight findWight(Entity entity, Predicate<Wight> predicate){
-        List<Wight> wightList = entity.level.getEntitiesOfClass(Wight.class,
-                entity.getBoundingBox().inflate(64.0D),
-                predicate.and(wight -> !wight.isHallucination()));
-        Wight wight = null;
-        for (Wight wight1 : wightList){
-            if (wight1 != null){
-                wight = wight1;
+        try {
+            List<Wight> wightList = entity.level.getEntitiesOfClass(Wight.class,
+                    entity.getBoundingBox().inflate(64.0D),
+                    predicate.and(wight -> !wight.isHallucination()));
+            Wight wight = null;
+            for (Wight wight1 : wightList){
+                if (wight1 != null){
+                    wight = wight1;
+                }
             }
+            return wight;
+        } catch (ConcurrentModificationException exception) {
+            return null;
         }
-
-        return wight;
     }
 
     static class WightNavigation extends WallClimberNavigation {

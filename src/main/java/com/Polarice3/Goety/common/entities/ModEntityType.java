@@ -206,7 +206,7 @@ public class ModEntityType {
             EntityType.Builder.<NecroBolt>of(NecroBolt::new, MobCategory.MISC)
                     .sized(1.0F, 1.0F)
                     .clientTrackingRange(4)
-                    .updateInterval(Integer.MAX_VALUE));
+                    .updateInterval(1));
 
     public static final RegistryObject<EntityType<MagicBolt>> MAGIC_BOLT = register("magic_bolt",
             EntityType.Builder.<MagicBolt>of(MagicBolt::new, MobCategory.MISC)
