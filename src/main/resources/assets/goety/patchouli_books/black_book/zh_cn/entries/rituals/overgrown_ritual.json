@@ -1,0 +1,22 @@
+{
+  "name": "增生仪式",
+  "icon": "minecraft:jungle_leaves",
+  "category": "goety:rituals",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "需求：$(li)仪式必须位于丛林生物群系 $(br)$(l)或是$()$() $(li)32块任意变种的叶子 $(li)16块增生之根 $(li)16块任意变种的覆苔方块"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/overgrown_ritual.png"],
+      "border": true,
+      "text": "一个如何正确摆放仪式的例子"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "大自然的野性力量！通过这种黑暗仪式，引导并扭曲生长与生命"
+    }
+  ]
+}

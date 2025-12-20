@@ -104,7 +104,7 @@ public class ClientInitEvents {
             ItemProperties.register(ModItems.FLAME_CAPTURE.get(), new ResourceLocation("capture"),
                     (stack, world, living, seed) -> FlameCaptureItem.hasEntity(stack) ? 1.0F : 0.0F);
             ItemProperties.register(ModItems.SOUL_JAR.get(), new ResourceLocation("type"),
-                    (stack, world, living, seed) -> SoulJar.isDrowned(stack) ? 1.0F : SoulJar.isWither(stack) ? 2.0F : SoulJar.isCairn(stack) ? 3.0F : 0.0F);
+                    (stack, world, living, seed) -> SoulJar.isDrowned(stack) ? 1.0F : SoulJar.isWither(stack) ? 2.0F : SoulJar.isCairn(stack) ? 3.0F : SoulJar.isMossy(stack) ? 4.0F : 0.0F);
             ItemProperties.register(ModItems.TAGLOCK_KIT.get(), new ResourceLocation("tagged"),
                     (stack, world, living, seed) -> TaglockKit.hasEntity(stack) ? 1.0F : 0.0F);
             ItemProperties.register(ModItems.WAYSTONE.get(), new ResourceLocation("store"),
@@ -250,6 +250,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.ICE_CHUNK, IceChunkModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VICIOUS_TOOTH, ViciousToothModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VICIOUS_PIKE, ViciousPikeModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.GULF_TENTACLE, GulfTentacleModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.EARTH_FIST, EarthFistModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SOUL_BOLT, SoulBoltModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SHIELD_DEBRIS, ShieldDebrisModel::createBodyLayer);
@@ -483,6 +484,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.GLOW_LIGHT.get(), SoulBulletRenderer::new);
         event.registerEntityRenderer(ModEntityType.SOUL_BULLET.get(), SoulBulletRenderer::new);
         event.registerEntityRenderer(ModEntityType.SOUL_BOLT.get(), SoulBoltRenderer::new);
+        event.registerEntityRenderer(ModEntityType.POISON_BOLT.get(), PoisonBoltRenderer::new);
         event.registerEntityRenderer(ModEntityType.STEAM_MISSILE.get(), SteamMissileRenderer::new);
         event.registerEntityRenderer(ModEntityType.WITHER_BOLT.get(), WitherBoltRenderer::new);
         event.registerEntityRenderer(ModEntityType.NECRO_BOLT.get(), NecroBoltRenderer::new);
@@ -541,6 +543,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.SPIDER_EGG.get(), SpiderEggRenderer::new);
         event.registerEntityRenderer(ModEntityType.INSECT_SWARM.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.BEAST_HEAD.get(), BeastHeadRenderer::new);
+        event.registerEntityRenderer(ModEntityType.GULF_TENTACLE.get(), GulfTentacleRenderer::new);
         event.registerEntityRenderer(ModEntityType.VOLCANO.get(), VolcanoRenderer::new);
         event.registerEntityRenderer(ModEntityType.FIRE_TORNADO.get(), FireTornadoRenderer::new);
         event.registerEntityRenderer(ModEntityType.CYCLONE.get(), CycloneRenderer::new);
@@ -578,6 +581,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.BROOD_MOTHER.get(), BroodMotherRenderer::new);
         event.registerEntityRenderer(ModEntityType.NECROMANCER.get(), NecromancerRenderer::new);
         event.registerEntityRenderer(ModEntityType.CAIRN_NECROMANCER.get(), AbstractCairnNecromancerRenderer::new);
+        event.registerEntityRenderer(ModEntityType.MOSSY_NECROMANCER.get(), MossyNecromancerRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_ARMOR.get(), HauntedArmorRenderer::new);
         event.registerEntityRenderer(ModEntityType.WATCHLING.get(), WatchlingRenderer::new);
         event.registerEntityRenderer(ModEntityType.BLASTLING.get(), BlastlingRenderer::new);
@@ -600,6 +604,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.SUNKEN_SKELETON_SERVANT.get(), SunkenSkeletonServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.NECROMANCER_SERVANT.get(), NecromancerRenderer::new);
         event.registerEntityRenderer(ModEntityType.CAIRN_NECROMANCER_SERVANT.get(), AbstractCairnNecromancerRenderer::new);
+        event.registerEntityRenderer(ModEntityType.MOSSY_NECROMANCER_SERVANT.get(), MossyNecromancerRenderer::new);
         event.registerEntityRenderer(ModEntityType.DROWNED_NECROMANCER_SERVANT.get(), DrownedNecromancerRenderer::new);
         event.registerEntityRenderer(ModEntityType.WITHER_NECROMANCER_SERVANT.get(), WitherNecromancerRenderer::new);
         event.registerEntityRenderer(ModEntityType.REAPER_SERVANT.get(), ReaperRenderer::new);

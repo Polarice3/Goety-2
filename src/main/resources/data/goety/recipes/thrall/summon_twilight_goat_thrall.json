@@ -4,7 +4,7 @@
   "activation_item": {
     "item": "minecraft:goat_horn"
   },
-  "craftType": "animation",
+  "craftType": "sky",
   "entity_to_summon": "goety:twilight_goat",
   "soulCost": 1,
   "duration": 10,

@@ -6,7 +6,7 @@
   },
   "craftType": "expert_nether",
   "entity_to_convert": {
-    "tag": "goety:wither_skeletons",
+    "tag": "goety:necromancer/wither_convert",
     "display_name": "entity.minecraft.wither_skeleton"
   },
   "entity_to_convert_into": "goety:wither_necromancer_servant",

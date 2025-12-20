@@ -37,6 +37,14 @@
       "entity": "goety:cairn_necromancer_servant"
     },
     {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_mossy_skeleton_to_mossy_necromancer"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:mossy_necromancer_servant"
+    },
+    {
       "type": "patchouli:spotlight",
       "item": "goety:soul_jar",
       "text": "Should a Necromancer fall, having an $(l:crafts/empty_soul_jar)Empty Soul Jar$() will cause their soul to fill it, which, when right-clicked on a Skeleton, will revive them using said Skeleton as their new body. It's also rumored that feeding them with a jar of another necromancer will increase their power..."

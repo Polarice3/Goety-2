@@ -107,6 +107,10 @@ public class RitualRequirements extends RitualTypes {
         return ((pPos.getY() <= pLevel.getSeaLevel() && pLevel.getBiome(pPos).is(BiomeTags.IS_DEEP_OCEAN)) || getStructures(DEEP, pPlayer, pPos, pTileEntity.getLevel()));
     }
 
+    public static boolean overgrownRitual(@Nullable Player pPlayer, BlockPos pPos, Level pLevel){
+        return (pLevel.getBiome(pPos).is(BiomeTags.IS_JUNGLE)) || getStructures(OVERGROWN, pPlayer, pPos, pLevel);
+    }
+
     @Deprecated
     public static boolean getStructures(String craftType, BlockPos pPos, Level pLevel) {
         return getStructures(craftType, null, pPos, pLevel);
@@ -421,6 +425,29 @@ public class RitualRequirements extends RitualTypes {
                 if (!finder.hasBlocks(third, 16)) {
                     if (pPlayer != null) {
                         pPlayer.displayClientMessage(Component.translatable("info.goety.ritual.structure.noBlocks", Blocks.GRANITE.getName()), true);
+                    }
+                    return false;
+                }
+            }
+            case OVERGROWN ->{
+                Predicate<BlockState> first = blockState -> blockState.is(BlockTags.LEAVES) || blockState.getBlock().getDescriptionId().contains("leaves");
+                Predicate<BlockState> second = blockState -> blockState.is(ModBlocks.OVERGROWN_ROOTS.get());
+                Predicate<BlockState> third = blockState -> blockState.getBlock().getDescriptionId().contains("moss");
+                if (!finder.hasBlocks(first, 32)) {
+                    if (pPlayer != null) {
+                        pPlayer.displayClientMessage(Component.translatable("info.goety.ritual.structure.noLeaves"), true);
+                    }
+                    return false;
+                }
+                if (!finder.hasBlocks(second, 16)) {
+                    if (pPlayer != null) {
+                        pPlayer.displayClientMessage(Component.translatable("info.goety.ritual.structure.noBlocks", ModBlocks.OVERGROWN_ROOTS.get().getName()), true);
+                    }
+                    return false;
+                }
+                if (!finder.hasBlocks(third, 16)) {
+                    if (pPlayer != null) {
+                        pPlayer.displayClientMessage(Component.translatable("info.goety.ritual.structure.noBlocks", Blocks.MOSS_BLOCK.getName()), true);
                     }
                     return false;
                 }

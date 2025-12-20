@@ -4,7 +4,7 @@
   "activation_item": {
     "item": "goety:savage_tooth"
   },
-  "craftType": "animation",
+  "craftType": "overgrown",
   "entity_to_convert": {
     "tag": "goety:spiders",
     "display_name": "entity.minecraft.spider"

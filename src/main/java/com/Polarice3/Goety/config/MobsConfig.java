@@ -294,11 +294,13 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> FancierApostleDeath;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ObsidianMonolithSpread;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ObsidianMonolithBiome;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ObsidianMonolithSpawner;
     public static final ForgeConfigSpec.ConfigValue<Boolean> HellfireFireImmune;
     public static final ForgeConfigSpec.ConfigValue<Boolean> HellfireFireProtection;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneMonstrosityLeafBreak;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneCubeBlockFind;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PlayerRavagerArmorDrop;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> CroneThornDefense;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> HostileCryptUndead;
 
@@ -936,8 +938,14 @@ public class MobsConfig {
                     .define("obsidianMonolithSpread", true);
             ObsidianMonolithBiome = BUILDER.comment("Whether unowned Obsidian Monoliths, empowered by Heretics, change Overworld biomes to Nether biomes, Default: true")
                     .define("obsidianMonolithBiome", true);
+            ObsidianMonolithSpawner = BUILDER.comment("Whether unowned Obsidian Monoliths can spawn Mobs, Default: true")
+                    .define("obsidianMonolithSpawner", true);
             ObsidianMonolithStartUpTime = BUILDER.comment("How many Minecraft days, since spawning in, until unowned Obsidian Monoliths start spreading, Default: 3")
                     .defineInRange("obsidianMonolithStartUpTime", 3, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Crone");
+            CroneThornDefense = BUILDER.comment("Whether Crones inflict thorn damage at attackers, when attacked. Default: true")
+                    .define("croneThornDefense", true);
             BUILDER.pop();
         BossInvulnerabilityTime = BUILDER.comment("How long invulnerability, Default: 15")
                 .defineInRange("bossInvulnerabilityTime", 15, 0, Integer.MAX_VALUE);

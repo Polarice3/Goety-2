@@ -126,14 +126,14 @@ public class BrewCauldronBlock extends BaseEntityBlock{
                     int targetLevel = cauldron.getTargetLevel(stack, pPlayer);
                     if (targetLevel > -1) {
                         if (bucket) {
-                            ItemHelper.addAndConsumeItem(pPlayer, pHand, ItemHelper.fill(Fluids.WATER, stack), false);
+                            ItemHelper.addAndConsumeItem(pPlayer, pHand, ItemHelper.fill(Fluids.WATER, stack.copyWithCount(1)), false);
                             playSound = true;
                         } else if (waterBucket) {
-                            ItemHelper.addAndConsumeItem(pPlayer, pHand, ItemHelper.drain(Fluids.WATER, stack), false);
+                            ItemHelper.addAndConsumeItem(pPlayer, pHand, ItemHelper.drain(Fluids.WATER, stack.copyWithCount(1)), false);
                             playSound = true;
                         } else if (apple){
                             if (cauldron.mode == BrewCauldronBlockEntity.Mode.COMPLETED) {
-                                ItemStack itemStack = BrewUtils.setCustomEffects(stack.split(1), PotionUtils.getCustomEffects(cauldron.getBrew()), BrewUtils.getBrewEffects(cauldron.getBrew()));
+                                ItemStack itemStack = BrewUtils.setCustomEffects(stack.copyWithCount(1), PotionUtils.getCustomEffects(cauldron.getBrew()), BrewUtils.getBrewEffects(cauldron.getBrew()));
                                 ItemHelper.addAndConsumeItem(pPlayer, pHand, itemStack);
                                 SEHelper.increaseBottling(pPlayer);
                                 playSound = true;

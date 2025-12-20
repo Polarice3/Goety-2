@@ -122,8 +122,10 @@ public class SwordProjectile extends AbstractArrow implements ItemSupplier {
         Entity owner = this.getOwner();
         if (this.getItem().getItem() instanceof SwordItem swordItem){
             f = swordItem.getDamage();
-            f1 += swordItem.getEnchantmentLevel(this.getItem(), Enchantments.KNOCKBACK);
-            i = swordItem.getEnchantmentLevel(this.getItem(), Enchantments.FIRE_ASPECT);
+        }
+        if (!this.getItem().isEmpty()) {
+            f1 += this.getItem().getEnchantmentLevel(Enchantments.KNOCKBACK);
+            i = this.getItem().getEnchantmentLevel(Enchantments.FIRE_ASPECT);
         }
         if (target instanceof LivingEntity livingentity) {
             f += EnchantmentHelper.getDamageBonus(this.getItem(), livingentity.getMobType());

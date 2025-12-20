@@ -77,10 +77,12 @@ public class ModTags {
         public static final TagKey<Item> CAPES = tag("capes");
         public static final TagKey<Item> CROWNS = tag("crowns");
         public static final TagKey<Item> FOCUSES = tag("focuses");
+        public static final TagKey<Item> PILLAGER_WEAPONS = tag("pillager_weapons");
         public static final TagKey<Item> VINDICATOR_WEAPONS = tag("vindicator_weapons");
         public static final TagKey<Item> BREWABLE_FOOD = tag("brewable_food");
         public static final TagKey<Item> GRAVE_GLOVE_BOOST = tag("grave_glove_boost");
         public static final TagKey<Item> THRASH_GLOVE_BOOST = tag("thrash_glove_boost");
+        public static final TagKey<Item> MAGIC_SWORD_SHOOTABLE = tag("magic_sword_shootable");
         public static final TagKey<Item> LICH_WITHER_ITEMS = tag("lich_wither_items");
         public static final TagKey<Item> RESPAWN_BOSS = tag("respawn_boss");
         public static final TagKey<Item> WITCH_CURRENCY = tag("witch_currency");
@@ -148,6 +150,11 @@ public class ModTags {
         public static final TagKey<EntityType<?>> UNBLOWABLE_ENTITIES = tag("unblowable_entities");
         public static final TagKey<EntityType<?>> SKELETON_WOLF_BUFF = tag("skeleton_wolf_buff");
         public static final TagKey<EntityType<?>> SERVANT_RIDEABLE = tag("servant_rideable");
+        public static final TagKey<EntityType<?>> REGULAR_CONVERT = tag("necromancer/regular_convert");
+        public static final TagKey<EntityType<?>> CAIRN_CONVERT = tag("necromancer/cairn_convert");
+        public static final TagKey<EntityType<?>> MOSSY_CONVERT = tag("necromancer/mossy_convert");
+        public static final TagKey<EntityType<?>> DROWNED_CONVERT = tag("necromancer/drowned_convert");
+        public static final TagKey<EntityType<?>> WITHER_CONVERT = tag("necromancer/wither_convert");
         public static final TagKey<EntityType<?>> MINI_BOSSES = tag("mini_bosses");
         public static final TagKey<EntityType<?>> GLOBAL_MUSIC_BOSS = tag("global_music_boss");
         public static final TagKey<EntityType<?>> RAID_BOSS = tag("raid_boss");

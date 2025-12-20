@@ -379,42 +379,42 @@ public class DrownedNecromancer extends AbstractNecromancer {
                         }
                     }
                     return InteractionResult.SUCCESS;
-                } else if (this.getSummonList().stream().noneMatch(entityType -> entityType.is(ModTags.EntityTypes.ZOMBIE_SERVANTS)) && item == ModItems.ROTTING_FOCUS.get()){
+                } else if (this.getSummonList().stream().noneMatch(entityType -> entityType.is(ModTags.EntityTypes.ZOMBIE_SERVANTS) && entityType != ModEntityType.BLACKGUARD_SERVANT.get()) && item == ModItems.ROTTING_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
                     this.addSummon(ModEntityType.ZOMBIE_SERVANT.get());
                     this.playSound(ModSounds.DROWNED_NECROMANCER_AMBIENT.get(), 1.0F, 1.5F);
                     return InteractionResult.SUCCESS;
-                } else if (this.getSummonList().stream().noneMatch(entityType -> entityType.is(ModTags.EntityTypes.SKELETON_SERVANTS)) && item == ModItems.OSSEOUS_FOCUS.get()){
+                } else if (this.getSummonList().stream().noneMatch(entityType -> entityType.is(ModTags.EntityTypes.SKELETON_SERVANTS) && entityType != ModEntityType.VANGUARD_SERVANT.get()) && item == ModItems.OSSEOUS_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
                     this.addSummon(ModEntityType.SKELETON_SERVANT.get());
                     this.playSound(ModSounds.DROWNED_NECROMANCER_AMBIENT.get(), 1.0F, 1.5F);
                     return InteractionResult.SUCCESS;
-                } else if (/*this.getNecroLevel() > 0 && */!this.getSummonList().contains(ModEntityType.WRAITH_SERVANT.get()) && item == ModItems.SPOOKY_FOCUS.get()){
+                } else if (!this.getSummonList().contains(ModEntityType.WRAITH_SERVANT.get()) && item == ModItems.SPOOKY_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
                     this.addSummon(ModEntityType.WRAITH_SERVANT.get());
                     this.playSound(ModSounds.DROWNED_NECROMANCER_AMBIENT.get(), 1.0F, 1.5F);
                     return InteractionResult.SUCCESS;
-                } else if (/*this.getNecroLevel() > 0 && */!this.getSummonList().contains(ModEntityType.REAPER_SERVANT.get()) && item == ModItems.REAPING_FOCUS.get()){
+                } else if (!this.getSummonList().contains(ModEntityType.REAPER_SERVANT.get()) && item == ModItems.REAPING_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
                     this.addSummon(ModEntityType.REAPER_SERVANT.get());
                     this.playSound(ModSounds.DROWNED_NECROMANCER_AMBIENT.get(), 1.0F, 1.5F);
                     return InteractionResult.SUCCESS;
-                } else if (/*this.getNecroLevel() > 1 && */!this.getSummonList().contains(ModEntityType.VANGUARD_SERVANT.get()) && item == ModItems.VANGUARD_FOCUS.get()){
+                } else if (!this.getSummonList().contains(ModEntityType.VANGUARD_SERVANT.get()) && item == ModItems.VANGUARD_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
                     this.addSummon(ModEntityType.VANGUARD_SERVANT.get());
                     this.playSound(ModSounds.DROWNED_NECROMANCER_AMBIENT.get(), 1.0F, 1.5F);
                     return InteractionResult.SUCCESS;
-                } else if (/*this.getNecroLevel() > 1 && */!this.getSummonList().contains(ModEntityType.BLACKGUARD_SERVANT.get()) && item == ModItems.BLACKGUARD_FOCUS.get()){
+                } else if (!this.getSummonList().contains(ModEntityType.BLACKGUARD_SERVANT.get()) && item == ModItems.BLACKGUARD_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
@@ -587,6 +587,16 @@ public class DrownedNecromancer extends AbstractNecromancer {
             return super.canUse() && i < 10 && DrownedNecromancer.this.stormSpellCool > 0;
         }
 
+        @Override
+        public void tick() {
+            super.tick();
+            if (this.spellTime > 20) {
+                if (!DrownedNecromancer.this.isCurrentAnimation(SUMMON)) {
+                    DrownedNecromancer.this.setAnimationState(SUMMON);
+                }
+            }
+        }
+
         protected void castSpell(){
             if (DrownedNecromancer.this.level instanceof ServerLevel serverLevel) {
                 for (int i1 = 0; i1 < 2; ++i1) {
@@ -655,6 +665,7 @@ public class DrownedNecromancer extends AbstractNecromancer {
             } else {
                 return target != null
                         && target.isAlive()
+                        && target.distanceTo(DrownedNecromancer.this) <= 8.0D
                         && DrownedNecromancer.this.stormSpellCool <= 0;
             }
         }
@@ -696,6 +707,11 @@ public class DrownedNecromancer extends AbstractNecromancer {
 
         public void tick() {
             --this.spellTime;
+            if (this.spellTime > 20) {
+                if (!DrownedNecromancer.this.isCurrentAnimation(STORM)) {
+                    DrownedNecromancer.this.setAnimationState(STORM);
+                }
+            }
             if (this.spellTime <= MathHelper.secondsToTicks(2.5F)){
                 DrownedNecromancer.this.setAnimationState(IDLE);
             }
@@ -870,6 +886,11 @@ public class DrownedNecromancer extends AbstractNecromancer {
 
         public void tick() {
             --this.spellTime;
+            if (this.spellTime > 20) {
+                if (!DrownedNecromancer.this.isCurrentAnimation(SPELL_ANIM)) {
+                    DrownedNecromancer.this.setAnimationState(SPELL_ANIM);
+                }
+            }
             if (this.spellTime == 0) {
                 DrownedNecromancer.this.playSound(ModSounds.DROWNED_NECROMANCER_AMBIENT.get(), 2.0F, DrownedNecromancer.this.getVoicePitch());
                 DrownedNecromancer.this.setNecromancerSpellType(NecromancerSpellType.NONE);

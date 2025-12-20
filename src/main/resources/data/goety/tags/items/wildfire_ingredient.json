@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:netherite_scrap",
+    {
+      "id": "ebs_wildfire:wildfire_gem",
+      "required": false
+    },
+    {
+      "id": "friendsandfoes:wildfire_crown",
+      "required": false
+    }
+  ]
+}

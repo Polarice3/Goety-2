@@ -17,6 +17,7 @@ import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.ItemStack;
@@ -80,6 +81,24 @@ public class MaulingSpell extends SummonSpell {
     }
 
     @Override
+    public void commonResult(ServerLevel worldIn, LivingEntity caster) {
+        if (isShifting(caster)) {
+            for (Entity entity : worldIn.getAllEntities()) {
+                if (entity instanceof LivingEntity livingEntity && summonPredicate().test(livingEntity)) {
+                    if (livingEntity instanceof Gnasher){
+                        if (caster.isUnderWater()){
+                            this.teleportServants(caster, entity);
+                        }
+                    } else {
+                        this.teleportServants(caster, entity);
+                    }
+                }
+            }
+            this.commonResultHit(worldIn, caster);
+        }
+    }
+
+    @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
         this.commonResult(worldIn, caster);
         int potency = spellStat.getPotency();
@@ -96,6 +115,9 @@ public class MaulingSpell extends SummonSpell {
             for (int i1 = 0; i1 < i; ++i1) {
                 Summoned summonedentity = new BearServant(ModEntityType.BEAR_SERVANT.get(), worldIn);
                 BlockPos blockPos = BlockFinder.SummonRadius(caster.blockPosition(), summonedentity, worldIn);
+                if (caster.isUnderWater()){
+                    blockPos = BlockFinder.SummonWaterRadius(caster, worldIn);
+                }
                 if (typeStaff(staff, SpellType.NETHER) || worldIn.dimension() == Level.NETHER){
                     summonedentity = new HoglinServant(ModEntityType.HOGLIN_SERVANT.get(), worldIn);
                 } else if (worldIn.isWaterAt(blockPos) || typeStaff(staff, SpellType.ABYSS)){

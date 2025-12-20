@@ -326,6 +326,11 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         return ModSounds.NECROMANCER_STEP.get();
     }
 
+    @Nullable
+    public SoundEvent getLaughSound() {
+        return ModSounds.NECROMANCER_LAUGH.get();
+    }
+
     private boolean getNecromancerFlags(int mask) {
         int i = this.entityData.get(FLAGS);
         return (i & mask) != 0;
@@ -380,6 +385,8 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                     SoulJar.setSummon(this, itemStack);
                     if (this instanceof AbstractCairnNecromancer){
                         SoulJar.setCairn(itemStack);
+                    } else if (this instanceof AbstractMossyNecromancer){
+                        SoulJar.setMossy(itemStack);
                     } else if (this instanceof DrownedNecromancer){
                         SoulJar.setDrowned(itemStack);
                     } else if (this instanceof AbstractWitherNecromancer){
@@ -442,7 +449,11 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
     }
 
     public boolean isIdleOrNoAnimation() {
-        return this.getCurrentAnimation() == this.getAnimationState(IDLE) || this.getCurrentAnimation() == 0;
+        return this.isCurrentAnimation(IDLE) || this.getCurrentAnimation() == 0;
+    }
+
+    public boolean isCurrentAnimation(String animation) {
+        return this.getCurrentAnimation() == this.getAnimationState(animation);
     }
 
     public void tick() {
@@ -527,42 +538,42 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                         }
                     }
                     return InteractionResult.SUCCESS;
-                } else if (this.getSummonList().stream().noneMatch(entityType -> entityType.is(ModTags.EntityTypes.ZOMBIE_SERVANTS)) && item == ModItems.ROTTING_FOCUS.get()){
+                } else if (this.getSummonList().stream().noneMatch(entityType -> entityType.is(ModTags.EntityTypes.ZOMBIE_SERVANTS) && entityType != ModEntityType.BLACKGUARD_SERVANT.get()) && item == ModItems.ROTTING_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
                     this.addSummon(ModEntityType.ZOMBIE_SERVANT.get());
                     this.playLaughSound();
                     return InteractionResult.SUCCESS;
-                } else if (this.getSummonList().stream().noneMatch(entityType -> entityType.is(ModTags.EntityTypes.SKELETON_SERVANTS)) && item == ModItems.OSSEOUS_FOCUS.get()){
+                } else if (this.getSummonList().stream().noneMatch(entityType -> entityType.is(ModTags.EntityTypes.SKELETON_SERVANTS) && entityType != ModEntityType.VANGUARD_SERVANT.get()) && item == ModItems.OSSEOUS_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
                     this.addSummon(ModEntityType.SKELETON_SERVANT.get());
                     this.playLaughSound();
                     return InteractionResult.SUCCESS;
-                } else if (/*this.getNecroLevel() > 0 && */!this.getSummonList().contains(ModEntityType.WRAITH_SERVANT.get()) && item == ModItems.SPOOKY_FOCUS.get()){
+                } else if (!this.getSummonList().contains(ModEntityType.WRAITH_SERVANT.get()) && item == ModItems.SPOOKY_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
                     this.addSummon(ModEntityType.WRAITH_SERVANT.get());
                     this.playLaughSound();
                     return InteractionResult.SUCCESS;
-                } else if (/*this.getNecroLevel() > 0 && */!this.getSummonList().contains(ModEntityType.REAPER_SERVANT.get()) && item == ModItems.REAPING_FOCUS.get()){
+                } else if (!this.getSummonList().contains(ModEntityType.REAPER_SERVANT.get()) && item == ModItems.REAPING_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
                     this.addSummon(ModEntityType.REAPER_SERVANT.get());
                     this.playLaughSound();
                     return InteractionResult.SUCCESS;
-                } else if (/*this.getNecroLevel() > 1 && */!this.getSummonList().contains(ModEntityType.VANGUARD_SERVANT.get()) && item == ModItems.VANGUARD_FOCUS.get()){
+                } else if (!this.getSummonList().contains(ModEntityType.VANGUARD_SERVANT.get()) && item == ModItems.VANGUARD_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
                     this.addSummon(ModEntityType.VANGUARD_SERVANT.get());
                     this.playLaughSound();
                     return InteractionResult.SUCCESS;
-                } else if (/*this.getNecroLevel() > 1 && */!this.getSummonList().contains(ModEntityType.BLACKGUARD_SERVANT.get()) && item == ModItems.BLACKGUARD_FOCUS.get()){
+                } else if (!this.getSummonList().contains(ModEntityType.BLACKGUARD_SERVANT.get()) && item == ModItems.BLACKGUARD_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
@@ -594,7 +605,9 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
     }
 
     public void playLaughSound(){
-        this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 1.0F, 0.5F);
+        if (this.getLaughSound() != null) {
+            this.playSound(this.getLaughSound(), 1.0F, 0.5F);
+        }
     }
 
     public Summoned getDefaultSummon(){
@@ -761,7 +774,9 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         }
 
         protected void playLaughSound(){
-            AbstractNecromancer.this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, AbstractNecromancer.this.getVoicePitch());
+            if (AbstractNecromancer.this.getLaughSound() != null) {
+                AbstractNecromancer.this.playSound(AbstractNecromancer.this.getLaughSound(), 2.0F, AbstractNecromancer.this.getVoicePitch());
+            }
         }
 
         protected abstract NecromancerSpellType getNecromancerSpellType();
@@ -955,7 +970,9 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         }
 
         public void playLaughSound(){
-            AbstractNecromancer.this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, AbstractNecromancer.this.getVoicePitch());
+            if (AbstractNecromancer.this.getLaughSound() != null) {
+                AbstractNecromancer.this.playSound(AbstractNecromancer.this.getLaughSound(), 2.0F, AbstractNecromancer.this.getVoicePitch());
+            }
         }
 
     }

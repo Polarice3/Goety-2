@@ -18,7 +18,15 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Eles só aceitam focos que invocam criaturas que não podem invocar. Aceitam Foco da Pudridão, Foco Ósseo, Foco Assustador, Foco da Ceifa, Foco da Vanguarda e Foco da Retaguarda."
+      "text": "Eles só aceitam focos que invocam criaturas que não podem invocar. Aceitam Foco da Putrefação, Foco Ósseo, Foco Assustador, Foco dos Ceifadores, Foco da Vanguarda e Foco do Guarda Negra."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_mossy_skeleton_to_mossy_necromancer"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:mossy_necromancer_servant"
     },
     {
       "type": "patchouli:spotlight",

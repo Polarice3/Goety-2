@@ -4,7 +4,7 @@
   "activation_item": {
     "item": "goety:dark_wand"
   },
-  "craftType": "animation",
+  "craftType": "overgrown",
   "soulCost": 1,
   "duration": 10,
   "ingredients": [

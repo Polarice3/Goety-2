@@ -361,6 +361,7 @@ public class ModItems {
     public static final RegistryObject<Item> PRISMA_BEAM_FOCUS = ITEMS.register("prisma_beam_focus", () -> new MagicFocus(new PrismaBeamSpell()));
     public static final RegistryObject<Item> GUARDIAN_FOCUS = ITEMS.register("guardian_focus", () -> new MagicFocus(new GuardianSpell()));
     public static final RegistryObject<Item> BIOMINE_FOCUS = ITEMS.register("biomine_focus", () -> new MagicFocus(new BioMineSpell()));
+    public static final RegistryObject<Item> WATER_WHIP_FOCUS = ITEMS.register("water_whip_focus", () -> new MagicFocus(new GulfTentacleSpell()));
     public static final RegistryObject<Item> TIDAL_FOCUS = ITEMS.register("tidal_focus", () -> new MagicFocus(new TidalSpell()));
 
     ///Nether

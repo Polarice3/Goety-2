@@ -13,6 +13,7 @@ import com.Polarice3.Goety.common.items.brew.BrewItem;
 import com.Polarice3.Goety.common.network.ModServerBossInfo;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MainConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BrewUtils;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -498,12 +499,14 @@ public class Crone extends Cultist implements RangedAttackMob {
 
         if (pSource.getEntity() instanceof LivingEntity livingentity && livingentity != this){
             this.lastHitTime = MathHelper.secondsToTicks(15);
-            if (!pSource.is(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !pSource.is(DamageTypes.THORNS)) {
-                float thorn = 2.0F;
-                if (this.level.getDifficulty() == Difficulty.HARD){
-                    thorn *= 2.0F;
+            if (MobsConfig.CroneThornDefense.get()) {
+                if (!pSource.is(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !pSource.is(DamageTypes.THORNS)) {
+                    float thorn = 2.0F;
+                    if (this.level.getDifficulty() == Difficulty.HARD) {
+                        thorn *= 2.0F;
+                    }
+                    livingentity.hurt(this.damageSources().thorns(this), thorn);
                 }
-                livingentity.hurt(this.damageSources().thorns(this), thorn);
             }
             if (pAmount >= 15){
                 this.overwhelmed = MathHelper.secondsToTicks(15);

@@ -8,6 +8,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.enchantment.ProtectionEnchantment;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -44,15 +45,19 @@ public class SpellExplosion {
                     double d14 = (double) getSeenPercent(vec3, entity);
                     double d10 = (1.0D - d12) * d14;
                     float actualDamage = damage == 0 ? (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)) : damage;
+                    Entity trueSource = null;
                     boolean hurt = true;
-                    if (damageSource.is(DamageTypeTags.IS_EXPLOSION) && entity.ignoreExplosion()){
+                    if (entity instanceof ItemEntity) {
+                        hurt = false;
+                    } else if (damageSource.is(DamageTypeTags.IS_EXPLOSION) && entity.ignoreExplosion()){
                         hurt = false;
                     } else if (damageSource.getEntity() != null){
-                        if (MobUtil.areAllies(damageSource.getEntity(), entity) || entity == damageSource.getEntity()){
-                            hurt = false;
-                        }
+                        trueSource = damageSource.getEntity();
                     } else if (source != null){
-                        if (MobUtil.areAllies(source, entity) || entity == source){
+                        trueSource = source;
+                    }
+                    if (trueSource != null) {
+                        if (MobUtil.areAllies(trueSource, entity) || entity == trueSource){
                             hurt = false;
                         }
                     }

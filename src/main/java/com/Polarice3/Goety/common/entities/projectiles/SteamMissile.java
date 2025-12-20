@@ -110,7 +110,7 @@ public class SteamMissile extends SpellHurtingProjectile {
                 flag = entity.hurt(this.damageSources().magic(), baseDamage);
             }
 
-            if (flag && entity instanceof LivingEntity) {
+            /*if (flag && entity instanceof LivingEntity) {
                 double x = this.getX();
                 double z = this.getZ();
                 if (entity1 != null){
@@ -118,7 +118,7 @@ public class SteamMissile extends SpellHurtingProjectile {
                     z = entity1.getZ();
                 }
                 ((LivingEntity) entity).knockback(1.0F, x - entity.getX(), z - entity.getZ());
-            }
+            }*/
         }
     }
 

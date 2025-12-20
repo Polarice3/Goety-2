@@ -4,7 +4,7 @@
   "activation_item": {
     "item": "goety:shadow_essence"
   },
-  "craftType": "animation",
+  "craftType": "overgrown",
   "entity_to_convert": {
     "tag": "goety:black_wolves",
     "display_name": "entity.goety.black_wolf"

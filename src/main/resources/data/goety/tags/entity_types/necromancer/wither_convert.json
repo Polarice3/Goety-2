@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "__comment": "mobs that can be converted to Wither Necromancers.",
+  "values": [
+    "minecraft:wither_skeleton",
+    "goety:wither_skeleton_servant"
+  ]
+}

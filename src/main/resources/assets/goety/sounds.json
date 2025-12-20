@@ -2495,6 +2495,73 @@
     ],
     "subtitle": "subtitle.goety.necromancer_death"
   },
+  "mossy_necromancer_ambient": {
+    "sounds": [
+      {
+        "name": "goety:mossy_necromancer/idle1"
+      },
+      {
+        "name": "goety:mossy_necromancer/idle2"
+      },
+      {
+        "name": "goety:mossy_necromancer/idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.necromancer_ambient"
+  },
+  "mossy_necromancer_hurt": {
+    "sounds": [
+      {
+        "name": "goety:mossy_necromancer/hurt1"
+      },
+      {
+        "name": "goety:mossy_necromancer/hurt2"
+      },
+      {
+        "name": "goety:mossy_necromancer/hurt3"
+      }
+    ],
+    "subtitle": "subtitle.goety.necromancer_hurt"
+  },
+  "mossy_necromancer_laugh": {
+    "sounds": [
+      {
+        "name": "goety:mossy_necromancer/laugh1"
+      },
+      {
+        "name": "goety:mossy_necromancer/laugh2"
+      }
+    ],
+    "subtitle": "subtitle.goety.necromancer_laugh"
+  },
+  "mossy_necromancer_step": {
+    "sounds": [
+      {
+        "name": "goety:mossy_necromancer/step1"
+      },
+      {
+        "name": "goety:mossy_necromancer/step2"
+      },
+      {
+        "name": "goety:mossy_necromancer/step3"
+      },
+      {
+        "name": "goety:mossy_necromancer/step4"
+      }
+    ],
+    "subtitle": "subtitle.goety.necromancer_step"
+  },
+  "mossy_necromancer_death": {
+    "sounds": [
+      {
+        "name": "goety:mossy_necromancer/death1"
+      },
+      {
+        "name": "goety:mossy_necromancer/death2"
+      }
+    ],
+    "subtitle": "subtitle.goety.necromancer_death"
+  },
   "drowned_necromancer_ambient": {
     "sounds": [
       {
@@ -5395,13 +5462,7 @@
   "ice_chunk_summon": {
     "sounds": [
       {
-        "name": "goety:spell/frost_prepare_spell1"
-      },
-      {
-        "name": "goety:spell/frost_prepare_spell2"
-      },
-      {
-        "name": "goety:spell/frost_prepare_spell3"
+        "name": "goety:ice/summon"
       }
     ],
     "subtitle": "subtitle.goety.ice_chunk_summon"
@@ -5409,7 +5470,7 @@
   "ice_chunk_drop": {
     "sounds": [
       {
-        "name": "goety:ice/summon"
+        "name": "goety:ice/drop"
       }
     ],
     "subtitle": "subtitle.goety.ice_chunk_drop"
@@ -6966,6 +7027,20 @@
     ],
     "subtitle": "subtitle.goety.steam_impact"
   },
+  "poison_bolt_impact": {
+    "sounds": [
+      {
+        "name": "goety:item/poison_old1"
+      },
+      {
+        "name": "goety:item/poison_old2"
+      },
+      {
+        "name": "goety:item/poison_old3"
+      }
+    ],
+    "subtitle": "subtitle.goety.bolt_impact"
+  },
   "hell_bolt_shoot": {
     "sounds": [
       {
@@ -7617,6 +7692,40 @@
       }
     ],
     "subtitle": "subtitle.goety.claymore_windup"
+  },
+  "whip_swing": {
+    "sounds": [
+      {
+        "name": "goety:item/whip_swing1"
+      },
+      {
+        "name": "goety:item/whip_swing2"
+      },
+      {
+        "name": "goety:item/whip_swing3"
+      },
+      {
+        "name": "goety:item/whip_swing4"
+      }
+    ],
+    "subtitle": "subtitle.goety.whip_swing"
+  },
+  "whip_hit": {
+    "sounds": [
+      {
+        "name": "goety:item/whip_hit1"
+      },
+      {
+        "name": "goety:item/whip_hit2"
+      },
+      {
+        "name": "goety:item/whip_hit3"
+      },
+      {
+        "name": "goety:item/whip_hit4"
+      }
+    ],
+    "subtitle": "subtitle.goety.whip_hit"
   },
   "harpoon_impact": {
     "sounds": [

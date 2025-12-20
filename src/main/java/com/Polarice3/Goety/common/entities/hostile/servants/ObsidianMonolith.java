@@ -454,74 +454,78 @@ public class ObsidianMonolith extends AbstractMonolith implements Enemy {
                     int spawnChance = 256;
                     if (this.empowered > 0) {
                         this.spreadNether();
-                        int i = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(24.0D, 16.0D, 24.0D), livingEntity -> livingEntity.isAlive() && livingEntity instanceof Maverick).size();
-                        if (this.tickCount % time == 0) {
-                            if (random1.nextFloat() <= 0.25F && i < 8){
-                                Maverick maverick = new Maverick(ModEntityType.MAVERICK.get(), this.level);
-                                int i1 = this.blockPosition().getX() + (Mth.randomBetweenInclusive(random1, 4, 12) * Mth.randomBetweenInclusive(random1, -1, 1));
-                                int j1 = this.blockPosition().getY() + (Mth.randomBetweenInclusive(random1, 0, 3) * Mth.randomBetweenInclusive(random1, -1, 1));
-                                int k1 = this.blockPosition().getZ() + (Mth.randomBetweenInclusive(random1, 4, 12) * Mth.randomBetweenInclusive(random1, -1, 1));
-                                BlockPos blockPos = BlockFinder.SummonPosition(maverick, new BlockPos(i1, j1, k1));
-                                maverick.setPos(blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D);
-                                if (this.level.noCollision(maverick.getBoundingBox()) && this.level.getEntityCollisions(maverick, maverick.getBoundingBox()).isEmpty() && !this.level.containsAnyLiquid(maverick.getBoundingBox())) {
-                                    maverick.finalizeSpawn(serverLevel, this.level.getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null, null);
-                                    maverick.setLeader(this);
-                                    if (this.getTarget() != null) {
-                                        maverick.setTarget(this.getTarget());
+                        if (MobsConfig.ObsidianMonolithSpawner.get()) {
+                            int i = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(24.0D, 16.0D, 24.0D), livingEntity -> livingEntity.isAlive() && livingEntity instanceof Maverick).size();
+                            if (this.tickCount % time == 0) {
+                                if (random1.nextFloat() <= 0.25F && i < 8) {
+                                    Maverick maverick = new Maverick(ModEntityType.MAVERICK.get(), this.level);
+                                    int i1 = this.blockPosition().getX() + (Mth.randomBetweenInclusive(random1, 4, 12) * Mth.randomBetweenInclusive(random1, -1, 1));
+                                    int j1 = this.blockPosition().getY() + (Mth.randomBetweenInclusive(random1, 0, 3) * Mth.randomBetweenInclusive(random1, -1, 1));
+                                    int k1 = this.blockPosition().getZ() + (Mth.randomBetweenInclusive(random1, 4, 12) * Mth.randomBetweenInclusive(random1, -1, 1));
+                                    BlockPos blockPos = BlockFinder.SummonPosition(maverick, new BlockPos(i1, j1, k1));
+                                    maverick.setPos(blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D);
+                                    if (this.level.noCollision(maverick.getBoundingBox()) && this.level.getEntityCollisions(maverick, maverick.getBoundingBox()).isEmpty() && !this.level.containsAnyLiquid(maverick.getBoundingBox())) {
+                                        maverick.finalizeSpawn(serverLevel, this.level.getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null, null);
+                                        maverick.setLeader(this);
+                                        if (this.getTarget() != null) {
+                                            maverick.setTarget(this.getTarget());
+                                        }
+                                        maverick.spawnAnim();
+                                        this.level.addFreshEntity(maverick);
                                     }
-                                    maverick.spawnAnim();
-                                    this.level.addFreshEntity(maverick);
                                 }
                             }
+                            spawnChance = 64;
                         }
-                        spawnChance = 64;
                     } else {
                         this.netherSpreaderUtil.clear();
                     }
-                    if (serverLevel.random.nextInt(spawnChance) == 0) {
-                        int j = serverLevel.getNearbyEntities(Mob.class, TargetingConditions.DEFAULT, this, this.getBoundingBox().inflate(32.0D, 16.0D, 32.0D)).size();
-                        if (j < 16){
-                            WeightedRandomList<MobSpawnSettings.SpawnerData> spawners = MobUtil.mobsAt(serverLevel, serverLevel.structureManager(), serverLevel.getChunkSource().getGenerator(), MobCategory.MONSTER, this.blockPosition(), serverLevel.getBiome(this.blockPosition()));
-                            if (!spawners.isEmpty()) {
-                                MobSpawnSettings.SpawnerData spawner = spawners.getRandom(serverLevel.random).orElse(null);
-                                if (spawner != null) {
-                                    Entity entity = spawner.type.create(serverLevel);
-                                    BlockPos blockPos = BlockFinder.SummonRadius(this.blockPosition(), entity, serverLevel, 24);
-                                    SpawnPlacements.Type spawnplacements$type = SpawnPlacements.getPlacementType(spawner.type);
-                                    if (NaturalSpawner.isSpawnPositionOk(spawnplacements$type, this.level, blockPos, spawner.type)
-                                            && SpawnPlacements.checkSpawnRules(spawner.type, serverLevel, MobSpawnType.SPAWNER, blockPos, serverLevel.random)) {
-                                        if (entity instanceof Mob mob) {
-                                            if (!(entity instanceof Ghast) && !(entity instanceof AbstractPiglin) && !(entity instanceof Hoglin)) {
-                                                mob.setPos(blockPos.getX() + 0.5F, blockPos.getY(), blockPos.getZ() + 0.5F);
-                                                ForgeEventFactory.onFinalizeSpawn(mob, serverLevel, serverLevel.getCurrentDifficultyAt(blockPos), MobSpawnType.SPAWNER, null, null);
-                                                if (serverLevel.addFreshEntity(mob)) {
-                                                    ServerParticleUtil.addParticlesAroundMiddleSelf(serverLevel, ParticleTypes.FLAME, mob);
+                    if (MobsConfig.ObsidianMonolithSpawner.get()) {
+                        if (serverLevel.random.nextInt(spawnChance) == 0) {
+                            int j = serverLevel.getNearbyEntities(Mob.class, TargetingConditions.DEFAULT, this, this.getBoundingBox().inflate(32.0D, 16.0D, 32.0D)).size();
+                            if (j < 16){
+                                WeightedRandomList<MobSpawnSettings.SpawnerData> spawners = MobUtil.mobsAt(serverLevel, serverLevel.structureManager(), serverLevel.getChunkSource().getGenerator(), MobCategory.MONSTER, this.blockPosition(), serverLevel.getBiome(this.blockPosition()));
+                                if (!spawners.isEmpty()) {
+                                    MobSpawnSettings.SpawnerData spawner = spawners.getRandom(serverLevel.random).orElse(null);
+                                    if (spawner != null) {
+                                        Entity entity = spawner.type.create(serverLevel);
+                                        BlockPos blockPos = BlockFinder.SummonRadius(this.blockPosition(), entity, serverLevel, 24);
+                                        SpawnPlacements.Type spawnplacements$type = SpawnPlacements.getPlacementType(spawner.type);
+                                        if (NaturalSpawner.isSpawnPositionOk(spawnplacements$type, this.level, blockPos, spawner.type)
+                                                && SpawnPlacements.checkSpawnRules(spawner.type, serverLevel, MobSpawnType.SPAWNER, blockPos, serverLevel.random)) {
+                                            if (entity instanceof Mob mob) {
+                                                if (!(entity instanceof Ghast) && !(entity instanceof AbstractPiglin) && !(entity instanceof Hoglin)) {
+                                                    mob.setPos(blockPos.getX() + 0.5F, blockPos.getY(), blockPos.getZ() + 0.5F);
+                                                    ForgeEventFactory.onFinalizeSpawn(mob, serverLevel, serverLevel.getCurrentDifficultyAt(blockPos), MobSpawnType.SPAWNER, null, null);
+                                                    if (serverLevel.addFreshEntity(mob)) {
+                                                        ServerParticleUtil.addParticlesAroundMiddleSelf(serverLevel, ParticleTypes.FLAME, mob);
+                                                    }
                                                 }
                                             }
-                                        }
-                                    } else {
-                                        if (entity != null) {
-                                            entity.discard();
+                                        } else {
+                                            if (entity != null) {
+                                                entity.discard();
+                                            }
                                         }
                                     }
                                 }
                             }
-                        }
-                        float f1 = this.getCrackiness() == Crackiness.NONE ? 0.125F : this.getCrackiness() == Crackiness.LOW ? 0.2F : this.getCrackiness() == Crackiness.MEDIUM ? 0.25F : 0.3F;
-                        if (heretics <= 2 && random1.nextFloat() <= f1){
-                            Heretic heretic = new Heretic(ModEntityType.HERETIC.get(), this.level);
-                            int i1 = this.blockPosition().getX() + (Mth.randomBetweenInclusive(random1, 4, 12) * Mth.randomBetweenInclusive(random1, -1, 1));
-                            int j1 = this.blockPosition().getY() + (Mth.randomBetweenInclusive(random1, 0, 3) * Mth.randomBetweenInclusive(random1, -1, 1));
-                            int k1 = this.blockPosition().getZ() + (Mth.randomBetweenInclusive(random1, 4, 12) * Mth.randomBetweenInclusive(random1, -1, 1));
-                            BlockPos blockPos = BlockFinder.SummonPosition(heretic, new BlockPos(i1, j1, k1));
-                            heretic.setPos(blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D);
-                            if (this.level.noCollision(heretic.getBoundingBox()) && this.level.getEntityCollisions(heretic, heretic.getBoundingBox()).isEmpty() && !this.level.containsAnyLiquid(heretic.getBoundingBox())) {
-                                heretic.finalizeSpawn(serverLevel, this.level.getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null, null);
-                                heretic.setPersistenceRequired();
-                                heretic.setLeader(this);
-                                heretic.setMonolith(this);
-                                heretic.spawnAnim();
-                                this.level.addFreshEntity(heretic);
+                            float f1 = this.getCrackiness() == Crackiness.NONE ? 0.125F : this.getCrackiness() == Crackiness.LOW ? 0.2F : this.getCrackiness() == Crackiness.MEDIUM ? 0.25F : 0.3F;
+                            if (heretics <= 2 && random1.nextFloat() <= f1){
+                                Heretic heretic = new Heretic(ModEntityType.HERETIC.get(), this.level);
+                                int i1 = this.blockPosition().getX() + (Mth.randomBetweenInclusive(random1, 4, 12) * Mth.randomBetweenInclusive(random1, -1, 1));
+                                int j1 = this.blockPosition().getY() + (Mth.randomBetweenInclusive(random1, 0, 3) * Mth.randomBetweenInclusive(random1, -1, 1));
+                                int k1 = this.blockPosition().getZ() + (Mth.randomBetweenInclusive(random1, 4, 12) * Mth.randomBetweenInclusive(random1, -1, 1));
+                                BlockPos blockPos = BlockFinder.SummonPosition(heretic, new BlockPos(i1, j1, k1));
+                                heretic.setPos(blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D);
+                                if (this.level.noCollision(heretic.getBoundingBox()) && this.level.getEntityCollisions(heretic, heretic.getBoundingBox()).isEmpty() && !this.level.containsAnyLiquid(heretic.getBoundingBox())) {
+                                    heretic.finalizeSpawn(serverLevel, this.level.getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null, null);
+                                    heretic.setPersistenceRequired();
+                                    heretic.setLeader(this);
+                                    heretic.setMonolith(this);
+                                    heretic.spawnAnim();
+                                    this.level.addFreshEntity(heretic);
+                                }
                             }
                         }
                     }

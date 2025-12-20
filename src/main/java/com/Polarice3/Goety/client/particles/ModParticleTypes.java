@@ -418,6 +418,14 @@ public class ModParticleTypes {
                 }
             });
 
+    public static final RegistryObject<ParticleType<GatherFrostParticle.Option>> FROST_GATHER = PARTICLE_TYPES.register("frost_gather",
+            () -> new ParticleType<>(false, GatherFrostParticle.Option.DESERIALIZER) {
+                @Override
+                public Codec<GatherFrostParticle.Option> codec() {
+                    return GatherFrostParticle.Option.CODEC;
+                }
+            });
+
     public static final RegistryObject<ParticleType<AuraParticle.Option>> AURA = PARTICLE_TYPES.register("aura",
             () -> new ParticleType<>(false, AuraParticle.Option.DESERIALIZER) {
                 @Override

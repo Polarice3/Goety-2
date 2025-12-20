@@ -153,6 +153,7 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.DEATH_ARROW.get());
         this.tag(EntityTypeTags.IMPACT_PROJECTILES).add(
                 ModEntityType.SOUL_BOLT.get(),
+                ModEntityType.POISON_BOLT.get(),
                 ModEntityType.STEAM_MISSILE.get(),
                 ModEntityType.WITHER_BOLT.get(),
                 ModEntityType.HELL_BOLT.get(),

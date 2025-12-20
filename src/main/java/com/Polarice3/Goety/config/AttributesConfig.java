@@ -168,6 +168,9 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> PillagerServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> PillagerServantDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> PillagerServantRangeDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> SignalerServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> SignalerServantArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> SignalerServantFollowRange;
     public static final ForgeConfigSpec.ConfigValue<Double> VindicatorServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> VindicatorServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> VindicatorServantDamage;
@@ -703,6 +706,14 @@ public class AttributesConfig {
                         .defineInRange("pillagerServantDamage", 5.0, 1.0, Double.MAX_VALUE);
                 PillagerServantRangeDamage = BUILDER.comment("How much extra damage Pillager Servants range attack deals, Default: 0.0")
                         .defineInRange("pillagerServantRangeDamage", 0.0, 0.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Signaler Servant");
+                SignalerServantHealth = BUILDER.comment("How much Max Health Signaler Servants have, Default: 24.0")
+                        .defineInRange("signalerServantHealth", 24.0, 1.0, Double.MAX_VALUE);
+                SignalerServantArmor = BUILDER.comment("How much natural Armor Signaler Servants have, Default: 0.0")
+                        .defineInRange("signalerServantArmor", 0.0, 0.0, Double.MAX_VALUE);
+                SignalerServantFollowRange = BUILDER.comment("How much initial following/detection range Signaler Servants have, Default: 32.0")
+                        .defineInRange("signalerServantFollowRange", 32.0, 0.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Vindicator Servant");
                 VindicatorServantHealth = BUILDER.comment("How much Max Health Vindicator Servants have, Default: 24.0")

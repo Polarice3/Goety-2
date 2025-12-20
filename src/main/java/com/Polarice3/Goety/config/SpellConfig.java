@@ -475,6 +475,11 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> BiomineDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> BiomineAcidDamage;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> WaterWhipCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WaterWhipDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WaterWhipCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> WaterWhipDamage;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> TidalCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> TidalDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> TidalCoolDown;
@@ -1573,6 +1578,16 @@ public class SpellConfig {
                     .defineInRange("biomineDamage", 3.0, 1.0, Double.MAX_VALUE);
             BiomineAcidDamage = BUILDER.comment("How much base damage Biomine acid cloud deals, Default: 2.0")
                     .defineInRange("biomineAcidDamage", 2.0, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Water Whip Spell");
+            WaterWhipCost = BUILDER.comment("Water Whip Spell Cost, Default: 16")
+                    .defineInRange("waterWhipCost", 16, 0, Integer.MAX_VALUE);
+            WaterWhipDuration = BUILDER.comment("Time to cast Water Whip Spell, Default: 0")
+                    .defineInRange("waterWhipTime", 0, 0, 72000);
+            WaterWhipCoolDown = BUILDER.comment("Water Whip Spell Cooldown, Default: 10")
+                    .defineInRange("waterWhipCoolDown", 10, 0, Integer.MAX_VALUE);
+            WaterWhipDamage = BUILDER.comment("How much base damage the spell deals, Default: 4.0")
+                    .defineInRange("waterWhipDamage", 4.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Tidal Spell");
             TidalCost = BUILDER.comment("Tidal Spell Cost, Default: 24")

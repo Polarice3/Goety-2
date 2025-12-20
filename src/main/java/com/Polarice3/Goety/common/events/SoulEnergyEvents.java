@@ -464,7 +464,7 @@ public class SoulEnergyEvents {
                 ArcaCompassItem.addPlayer(player, itemStack.getOrCreateTag());
             } else {
                 ItemStack itemstack1 = new ItemStack(ModItems.ARCA_COMPASS.get(), 1);
-                CompoundTag compoundtag = itemStack.hasTag() ? itemStack.getTag().copy() : new CompoundTag();
+                CompoundTag compoundtag = itemStack.getTag() != null ? itemStack.getTag().copy() : new CompoundTag();
                 itemstack1.setTag(compoundtag);
                 if (!player1.getAbilities().instabuild) {
                     itemStack.shrink(1);

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "__comment": "mobs that can be converted to normal Necromancers.",
+  "values": [
+    "minecraft:skeleton",
+    "goety:skeleton_servant"
+  ]
+}

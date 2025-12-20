@@ -5,6 +5,7 @@
     "goety:jungle_zombie_servant",
     "goety:mossy_skeleton_servant",
     "goety:muck_wraith_servant",
+    "goety:mossy_necromancer_servant",
     {
       "id": "iceandfire:cockatrice",
       "required": false

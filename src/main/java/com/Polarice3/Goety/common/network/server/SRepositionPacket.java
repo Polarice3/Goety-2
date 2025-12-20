@@ -5,6 +5,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -20,6 +21,13 @@ public class SRepositionPacket {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    public SRepositionPacket(int id, Vec3 vec3) {
+        this.mob = id;
+        this.x = vec3.x;
+        this.y = vec3.y;
+        this.z = vec3.z;
     }
 
     public static void encode(SRepositionPacket packet, FriendlyByteBuf buffer) {

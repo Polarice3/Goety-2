@@ -6,7 +6,7 @@
   },
   "craftType": "necroturgy",
   "entity_to_convert": {
-    "tag": "goety:strays",
+    "tag": "goety:necromancer/cairn_convert",
     "display_name": "entity.minecraft.stray"
   },
   "entity_to_convert_into": "goety:cairn_necromancer_servant",

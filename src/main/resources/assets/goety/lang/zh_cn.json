@@ -1226,7 +1226,6 @@
   "key.goety.wand": "打开法杖聚晶槽",
   "key.goety.focusCircle": "打开聚晶圆环",
   "key.goety.bag": "打开聚晶包",
-  "key.goety.ceaseFire": "停止施法/停火袭击",
 
   "key.goety.lich.category": "诡厄巫法 巫妖",
   "key.goety.lich.lichForm": "巫妖模式",
@@ -2408,8 +2407,6 @@
   "block.goety.pine_pressure_plate": "松木压力板",
   "block.goety.pine_sign": "松木告示牌",
   "block.goety.pine_wall_sign": "松木告示牌",
-  "block.goety.pine_hanging_sign": "松木告示牌",
-  "block.goety.pine_wall_hanging_sign": "松木告示牌",
   "block.goety.pine_bookshelf": "松木书架",
   "block.goety.pine_chest": "松木箱子",
   "block.goety.trapped_pine_chest": "松木陷阱箱",
@@ -3288,5 +3285,17 @@
   "info.goety.ritual.structure.nether": "仪式必须在下界进行！",
   "info.goety.ritual.structure.end": "仪式必须在末地进行！",
   "block.goety.pine_hanging_sign": "悬挂式松木告示牌",
-  "block.goety.pine_wall_hanging_sign": "悬挂式松木告示牌"
+  "block.goety.pine_wall_hanging_sign": "悬挂式松木告示牌",
+  "entity.goety.mossy_necromancer": "青苔死灵法师",
+  "entity.goety.mossy_necromancer_servant": "青苔死灵法师仆从",
+  "entity.goety.gulf_tentacle": "海沟之触",
+  "item.goety.mossy_necromancer_spawn_egg": "青苔死灵法师刷怪蛋",
+  "item.goety.mossy_necromancer_servant_spawn_egg": "青苔死灵法师仆从刷怪蛋",
+  "item.goety.water_whip_focus": "水鞭聚晶",
+  "item.goety.water_whip_focus.info": "召唤一个触及距离短的触手，刺向施法者面前的目标",
+  "info.goety.ritual.structure.noLeaves": "叶子数量不足！",
+  "subtitle.goety.whip_swing": "鞭子：挥动",
+  "subtitle.goety.whip_hit": "鞭子：命中",
+  "jei.goety.craftType.overgrown": "增生",
+  "key.goety.ceaseFire": "命令/停止仆从攻击、停火袭击"
 }

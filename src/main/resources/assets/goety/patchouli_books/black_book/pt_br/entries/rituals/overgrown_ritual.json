@@ -1,0 +1,22 @@
+{
+  "name": "Ritual Coberto de Vegetação",
+  "icon": "minecraft:jungle_leaves",
+  "category": "goety:rituals",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requisitos: $(li)O Altar está em um Bioma de Selva $(br)$(l)OU$()$() $(li)32 Folhas (Qualquer) $(li)16 Raíces Invadidas $(li)16 Blocos Musgosos (Qualquer)"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/overgrown_ritual.png"],
+      "border": true,
+      "text": "Um exemplo de como o ritual pode ser posicionado."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Os poderes selvagens da natureza, do crescimento e da vida podem ser canalizados e redirecionados através deste ritual para fins sombrios."
+    }
+  ]
+}

@@ -37,6 +37,14 @@
       "entity": "goety:cairn_necromancer_servant"
     },
     {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_mossy_skeleton_to_mossy_necromancer"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:mossy_necromancer_servant"
+    },
+    {
       "type": "patchouli:spotlight",
       "item": "goety:soul_jar",
       "text": "如果一名死灵法师死亡，而你拥有一个$(l:crafts/empty_soul_jar)空灵魂罐$()，那么它会使他们的灵魂填充进去，当在一个骷髅身上右键点击这个魂罐时，将使用该骷髅作为新的躯体来复活死灵法师。还有传言说，用另一个死灵法师的魂罐来喂养他们会增强其力量..."

@@ -277,6 +277,7 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
             this.setRequiresPower(true);
             this.setProximity(true);
             this.setBoundPos(this.blockPosition());
+            this.setHealth(AttributesConfig.SquallGolemHealth.get().floatValue());
         } else if (pReason != MobSpawnType.MOB_SUMMONED && pReason != MobSpawnType.COMMAND){
             this.setActivated(true);
             this.setRequiresPower(false);

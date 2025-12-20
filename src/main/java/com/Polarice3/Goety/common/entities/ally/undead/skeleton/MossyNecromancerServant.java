@@ -8,9 +8,4 @@ public class MossyNecromancerServant extends AbstractMossyNecromancer {
     public MossyNecromancerServant(EntityType<? extends AbstractMossyNecromancer> type, Level level) {
         super(type, level);
     }
-
-    protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(8, new WanderGoal<>(this, 1.0D, 10));
-    }
 }

@@ -4,7 +4,7 @@
   "activation_item": {
     "item": "minecraft:sweet_berries"
   },
-  "craftType": "animation",
+  "craftType": "overgrown",
   "entity_to_convert": {
     "tag": "goety:polar_bears",
     "display_name": "entity.minecraft.polar_bear"

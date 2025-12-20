@@ -2,6 +2,8 @@ package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
+import com.Polarice3.Goety.client.particles.GatherFrostParticle;
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.GlacialWall;
@@ -103,12 +105,20 @@ public class IceChunk extends SpellEntity {
             this.playSound(ModSounds.ICE_CHUNK_HIT.get(), 2.0F, 1.0F);
             serverWorld.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, blockState), this.getX(), y + (this.getBbHeight()/2.0D), this.getZ(), 256, this.getBbWidth()/2.0D, this.getBbHeight()/2.0D, this.getBbWidth()/2.0D, 1.0D);
             ColorUtil colorUtil = new ColorUtil(0xfffeff);
-            serverWorld.sendParticles(new CircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 4.0F, 1), this.getX(), y, this.getZ(), 1, 0, 0, 0, 0.5D);
-            for (int i = 0; (float) i < 8; ++i) {
+            serverWorld.sendParticles(new CircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 5.0F, 1), this.getX(), y, this.getZ(), 1, 0, 0, 0, 0.5D);
+            /*for (int i = 0; (float) i < 8; ++i) {
                 this.setParticleAura(ParticleTypes.POOF, 1.0F, this.getX(), y, this.getZ());
+            }*/
+            for(int k = 0; k < 60; ++k) {
+                float f2 = random.nextFloat() * 4.0F;
+                float f1 = random.nextFloat() * ((float)Math.PI * 2F);
+                double d1 = Mth.cos(f1) * f2;
+                double d2 = 0.01D + random.nextDouble() * 0.5D;
+                double d3 = Mth.sin(f1) * f2;
+                serverWorld.sendParticles(ParticleTypes.POOF, this.getX() + d1 * 0.1D, this.getY() + 0.3D, this.getZ() + d3 * 0.1D, 0, d1, d2, d3, 0.25F);
             }
             if (this.isDropping){
-                for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2.0D, 1.0D, 2.0D), this::canHitEntity)){
+                for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2.5D, 1.0D, 2.5D), this::canHitEntity)){
                     this.damageTargets(livingEntity);
                 }
             }
@@ -169,14 +179,12 @@ public class IceChunk extends SpellEntity {
                     this.setParticleAura(new BlockParticleOption(ParticleTypes.FALLING_DUST, blockState), 1.5F, this.getX(), this.getY(), this.getZ());
                 }
             }
+            if (this.hovering <= 15) {
+                ServerParticleUtil.outerCircleParticles(serverWorld, new GatherFrostParticle.Option(this.position().add(0, 1, 0)), this, 4);
+            }
             if (this.hovering == 20){
-                for(int k = 0; k < 60; ++k) {
-                    float f2 = random.nextFloat() * 4.0F;
-                    float f1 = random.nextFloat() * ((float)Math.PI * 2F);
-                    double d1 = Mth.cos(f1) * f2;
-                    double d2 = 0.01D + random.nextDouble() * 0.5D;
-                    double d3 = Mth.sin(f1) * f2;
-                    serverWorld.sendParticles(ParticleTypes.POOF, this.getX() + d1 * 0.1D, this.getY() + 0.3D, this.getZ() + d3 * 0.1D, 0, d1, d2, d3, 0.25F);
+                for (int i = 0; i < serverWorld.random.nextInt(10) + 10; ++i) {
+                    serverWorld.sendParticles(ModParticleTypes.SUMMON.get(), this.getRandomX(1.0D), this.getRandomY(), this.getRandomZ(1.0D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
                 }
             }
         } else {
@@ -252,25 +260,21 @@ public class IceChunk extends SpellEntity {
     }
 
     protected boolean canHitEntity(Entity entity) {
-        if (!entity.isSpectator() && entity.isAlive() && entity.isPickable() && !entity.noPhysics && !(entity instanceof IceChunk)) {
-            if (this.getOwner() != null){
-                if (entity == this.getOwner()){
+        if (this.getOwner() != null){
+            if (entity == this.getOwner()){
+                return false;
+            }
+            if (this.getOwner() instanceof Mob mob && mob.getTarget() == entity){
+                return !mob.isPassengerOfSameVehicle(entity) && !MobUtil.areAllies(mob, entity);
+            } else {
+                if (MobUtil.areAllies(this.getOwner(), entity)){
                     return false;
                 }
-                if (this.getOwner() instanceof Mob mob && mob.getTarget() == entity){
-                    return !mob.isPassengerOfSameVehicle(entity) && !MobUtil.areAllies(mob, entity);
-                } else {
-                    if (MobUtil.areAllies(this.getOwner(), entity)){
-                        return false;
-                    }
-                    if (entity instanceof IOwned owned0 && this.getOwner() instanceof IOwned owned1){
-                        return !MobUtil.ownerStack(owned0, owned1);
-                    }
+                if (entity instanceof IOwned owned0 && this.getOwner() instanceof IOwned owned1){
+                    return !MobUtil.ownerStack(owned0, owned1);
                 }
-            } else {
-                return true;
             }
         }
-        return false;
+        return !entity.isSpectator() && entity.isAlive() && entity.isPickable() && !entity.noPhysics && !(entity instanceof IceChunk);
     }
 }

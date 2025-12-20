@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "__comment": "mobs that can be converted to Drowned Necromancers.",
+  "values": [
+    "minecraft:drowned",
+    "goety:drowned_servant"
+  ]
+}

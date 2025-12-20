@@ -62,8 +62,10 @@ public class Summoned extends Owned implements IServant {
     private LivingEntity priorityTarget;
     public LivingEntity commandPosEntity;
     public BlockPos commandPos;
+    public BlockPos priorityPos;
     public BlockPos boundPos;
     public String boundDim = Level.OVERWORLD.location().toString();
+    public int priorityTime;
     public int commandTick;
     public int killChance;
     public int noHealTime;
@@ -152,7 +154,7 @@ public class Summoned extends Owned implements IServant {
     }
 
     public void setTarget(@Nullable LivingEntity target) {
-        if (this.isGuardingArea()){
+        if (this.isGuardingArea() && !this.isPrioritizing()){
             if (target != null) {
                 if (target.distanceToSqr(this.vec3BoundPos()) <= Mth.square(GUARDING_RANGE)) {
                     this.overrideSetTarget(target);
@@ -179,6 +181,30 @@ public class Summoned extends Owned implements IServant {
     public void setPriorityTarget(@Nullable LivingEntity priorityTarget) {
         this.overrideSetTarget(priorityTarget);
         this.priorityTarget = priorityTarget;
+        if (priorityTarget != null) {
+            this.setPriorityTime(100);
+            this.setPriorityPos(priorityTarget.blockPosition());
+        }
+    }
+
+    @Override
+    public int getPriorityTime() {
+        return this.priorityTime;
+    }
+
+    @Override
+    public void setPriorityTime(int time) {
+        this.priorityTime = time;
+    }
+
+    @Override
+    public BlockPos getPriorityPos() {
+        return this.priorityPos;
+    }
+
+    @Override
+    public void setPriorityPos(BlockPos priorityPos) {
+        this.priorityPos = priorityPos;
     }
 
     @Deprecated

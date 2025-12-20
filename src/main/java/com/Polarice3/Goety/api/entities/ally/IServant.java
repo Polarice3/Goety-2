@@ -107,6 +107,28 @@ public interface IServant extends IOwned {
 
     default void setPriorityTarget(@Nullable LivingEntity target) {
         this.overrideSetTarget(target);
+        if (target != null) {
+            this.setPriorityTime(100);
+            this.setPriorityPos(target.blockPosition());
+        }
+    }
+
+    default boolean isPrioritizing() {
+        return this.getPriorityTime() > 0;
+    }
+
+    default int getPriorityTime() {
+        return 0;
+    }
+
+    default void setPriorityTime(int time) {
+    }
+
+    default BlockPos getPriorityPos() {
+        return null;
+    }
+
+    default void setPriorityPos(BlockPos blockPos) {
     }
 
     default void overrideSetTarget(@Nullable LivingEntity target) {
@@ -307,16 +329,23 @@ public interface IServant extends IOwned {
                 }
             }
             if (this.isGuardingArea()){
-                if (owned.getTarget() != null){
-                    if (owned.getTarget() != this.getPriorityTarget() && owned.getTarget().distanceToSqr(this.vec3BoundPos()) > Mth.square(GUARDING_RANGE * 2)){
-                        owned.setTarget(null);
-                        if (!this.isCommanded()){
-                            owned.getNavigation().moveTo(this.getBoundPos().getX(), this.getBoundPos().getY(), this.getBoundPos().getZ(), 1.0F);
+                if (!this.isPrioritizing()) {
+                    if (owned.getTarget() != null){
+                        if (owned.getTarget() != this.getPriorityTarget() && owned.getTarget().distanceToSqr(this.vec3BoundPos()) > Mth.square(GUARDING_RANGE * 2)){
+                            owned.setTarget(null);
+                            if (!this.isCommanded()){
+                                owned.getNavigation().moveTo(this.getBoundPos().getX(), this.getBoundPos().getY(), this.getBoundPos().getZ(), 1.0F);
+                            }
                         }
+                    } else if (!this.isCommanded() && owned.distanceToSqr(this.vec3BoundPos()) > Mth.square(GUARDING_RANGE)){
+                        owned.getNavigation().moveTo(this.getBoundPos().getX(), this.getBoundPos().getY(), this.getBoundPos().getZ(), 1.0F);
                     }
-                } else if (!this.isCommanded() && owned.distanceToSqr(this.vec3BoundPos()) > Mth.square(GUARDING_RANGE)){
-                    owned.getNavigation().moveTo(this.getBoundPos().getX(), this.getBoundPos().getY(), this.getBoundPos().getZ(), 1.0F);
+                } else if (!this.isCommanded() && this.getPriorityPos() != null && owned.getTarget() == null) {
+                    owned.getNavigation().moveTo(this.getPriorityPos().getX(), this.getPriorityPos().getY(), this.getPriorityPos().getZ(), 1.0F);
                 }
+            }
+            if (this.isPrioritizing() && (owned.getTarget() == null || owned.getTarget().isDeadOrDying())) {
+                this.setPriorityTime(this.getPriorityTime() - 1);
             }
             if (this.getPriorityTarget() != null) {
                 if (!this.getPriorityTarget().isAlive()) {
@@ -574,6 +603,12 @@ public interface IServant extends IOwned {
         if (compound.contains("noHealTime")){
             this.setNoHealTime(compound.getInt("noHealTime"));
         }
+        if (compound.contains("priorityTargetTime")){
+            this.setPriorityTime(compound.getInt("priorityTargetTime"));
+        }
+        if (compound.contains("priorityPos")){
+            this.setPriorityPos(NbtUtils.readBlockPos(compound.getCompound("priorityPos")));
+        }
     }
 
     default void saveServantData(CompoundTag compound){
@@ -592,5 +627,9 @@ public interface IServant extends IOwned {
             compound.putString("boundDim", this.getBoundDim());
         }
         compound.putInt("noHealTime", this.getNoHealTime());
+        compound.putInt("priorityTargetTime", this.getPriorityTime());
+        if (this.getPriorityPos() != null){
+            compound.put("priorityPos", NbtUtils.writeBlockPos(this.getPriorityPos()));
+        }
     }
 }

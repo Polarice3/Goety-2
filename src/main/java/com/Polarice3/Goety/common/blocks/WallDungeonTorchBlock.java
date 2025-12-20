@@ -27,7 +27,7 @@ public class WallDungeonTorchBlock extends DungeonTorchBlock {
 
    public WallDungeonTorchBlock(Properties p_58123_) {
       super(p_58123_);
-      this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+      this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
    }
 
    public String getDescriptionId() {
@@ -74,11 +74,13 @@ public class WallDungeonTorchBlock extends DungeonTorchBlock {
    }
 
    public void animateTick(BlockState p_222660_, Level p_222661_, BlockPos p_222662_, RandomSource p_222663_) {
-      double d0 = (double)p_222662_.getX() + 0.5D;
-      double d1 = (double)p_222662_.getY() + 1.25D;
-      double d2 = (double)p_222662_.getZ() + 0.5D;
-      p_222661_.addParticle(ModParticleTypes.BIG_FIRE.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
-      p_222661_.addParticle(ModParticleTypes.BIG_FIRE_DROP.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
+      if (p_222660_.getValue(LIT)) {
+         double d0 = (double) p_222662_.getX() + 0.5D;
+         double d1 = (double) p_222662_.getY() + 1.25D;
+         double d2 = (double) p_222662_.getZ() + 0.5D;
+         p_222661_.addParticle(ModParticleTypes.BIG_FIRE.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
+         p_222661_.addParticle(ModParticleTypes.BIG_FIRE_DROP.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
+      }
    }
 
    public BlockState rotate(BlockState p_58140_, Rotation p_58141_) {
@@ -90,6 +92,7 @@ public class WallDungeonTorchBlock extends DungeonTorchBlock {
    }
 
    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_58150_) {
+      super.createBlockStateDefinition(p_58150_);
       p_58150_.add(FACING);
    }
 }

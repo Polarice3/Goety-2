@@ -78,6 +78,7 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), SLootingExplosionPacket.class, SLootingExplosionPacket::encode, SLootingExplosionPacket::decode, SLootingExplosionPacket::consume);
         INSTANCE.registerMessage(nextID(), SApostleSmitePacket.class, SApostleSmitePacket::encode, SApostleSmitePacket::decode, SApostleSmitePacket::consume);
         INSTANCE.registerMessage(nextID(), SRCGlowPacket.class, SRCGlowPacket::encode, SRCGlowPacket::decode, SRCGlowPacket::consume);
+        INSTANCE.registerMessage(nextID(), STentacleRangePacket.class, STentacleRangePacket::encode, STentacleRangePacket::decode, STentacleRangePacket::consume);
         INSTANCE.registerMessage(nextID(), SSoulExplodePacket.class, SSoulExplodePacket::encode, SSoulExplodePacket::decode, SSoulExplodePacket::consume);
         INSTANCE.registerMessage(nextID(), SAddBrewParticlesPacket.class, SAddBrewParticlesPacket::encode, SAddBrewParticlesPacket::decode, SAddBrewParticlesPacket::consume);
         INSTANCE.registerMessage(nextID(), SLightningPacket.class, SLightningPacket::encode, SLightningPacket::decode, SLightningPacket::consume);

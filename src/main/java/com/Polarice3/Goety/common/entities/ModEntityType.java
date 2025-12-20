@@ -184,6 +184,12 @@ public class ModEntityType {
                     .clientTrackingRange(4)
                     .updateInterval(1));
 
+    public static final RegistryObject<EntityType<PoisonBolt>> POISON_BOLT = register("poison_bolt",
+            EntityType.Builder.<PoisonBolt>of(PoisonBolt::new, MobCategory.MISC)
+                    .sized(0.3125F, 0.3125F)
+                    .clientTrackingRange(4)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<SteamMissile>> STEAM_MISSILE = register("steam_missile",
             EntityType.Builder.<SteamMissile>of(SteamMissile::new, MobCategory.MISC)
                     .sized(0.3125F, 0.3125F)
@@ -500,6 +506,11 @@ public class ModEntityType {
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(20));
 
+    public static final RegistryObject<EntityType<GulfTentacle>> GULF_TENTACLE = register("gulf_tentacle",
+            EntityType.Builder.<GulfTentacle>of(GulfTentacle::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(20));
+
     public static final RegistryObject<EntityType<Volcano>> VOLCANO = register("volcano",
             EntityType.Builder.of(Volcano::new, MobCategory.MISC)
                     .fireImmune()
@@ -697,6 +708,11 @@ public class ModEntityType {
                     .sized(0.75F, 2.4875F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<MossyNecromancer>> MOSSY_NECROMANCER = register("mossy_necromancer",
+            EntityType.Builder.of(MossyNecromancer::new, MobCategory.MONSTER)
+                    .sized(0.75F, 2.4875F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<HauntedArmor>> HAUNTED_ARMOR = register("haunted_armor",
             EntityType.Builder.of(HauntedArmor::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)
@@ -810,6 +826,11 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<CairnNecromancerServant>> CAIRN_NECROMANCER_SERVANT = register("cairn_necromancer_servant",
             EntityType.Builder.of(CairnNecromancerServant::new, MobCategory.MONSTER)
+                    .sized(0.75F, 2.4875F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<MossyNecromancerServant>> MOSSY_NECROMANCER_SERVANT = register("mossy_necromancer_servant",
+            EntityType.Builder.of(MossyNecromancerServant::new, MobCategory.MONSTER)
                     .sized(0.75F, 2.4875F)
                     .clientTrackingRange(8));
 

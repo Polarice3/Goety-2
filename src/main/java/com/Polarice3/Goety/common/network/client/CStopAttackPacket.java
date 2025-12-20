@@ -9,6 +9,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.NeutralMob;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -48,6 +50,19 @@ public class CStopAttackPacket {
                                     if (mob.getLastHurtByMob() != null){
                                         mob.setLastHurtByMob(null);
                                     }
+                                    if (playerEntity.getLastHurtMob() != null) {
+                                        playerEntity.setLastHurtMob(null);
+                                    }
+                                    if (mob.getBrain() != null) {
+                                        mob.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
+                                        mob.getBrain().eraseMemory(MemoryModuleType.ANGRY_AT);
+                                        mob.getBrain().eraseMemory(MemoryModuleType.HURT_BY);
+                                    }
+                                    if (mob instanceof NeutralMob neutralMob) {
+                                        neutralMob.setPersistentAngerTarget(null);
+                                        neutralMob.stopBeingAngry();
+                                    }
+                                    mob.setAggressive(false);
                                     entity.playSound(ModSounds.CAST_SPELL.get(), 1.0F, 1.0F);
                                     owned.onStopAttack();
                                 }

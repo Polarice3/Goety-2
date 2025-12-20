@@ -1,0 +1,22 @@
+{
+  "name": "Overgrown Ritual",
+  "icon": "minecraft:jungle_leaves",
+  "category": "goety:rituals",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requirements: $(li)Altar is in Jungle biome $(br)$(l)OR$()$() $(li)32 Leaves Any $(li)16 Overgrown Roots $(li)16 Mossy Blocks Any"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/overgrown_ritual.png"],
+      "border": true,
+      "text": "An example of how the ritual can be placed."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The wild powers of nature, growth and life can be channeled and perverted through this ritual for dark ends."
+    }
+  ]
+}

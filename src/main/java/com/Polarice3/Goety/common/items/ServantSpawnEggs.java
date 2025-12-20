@@ -63,6 +63,9 @@ public class ServantSpawnEggs {
     public static final RegistryObject<ServantSpawnEggItem> CAIRN_NECROMANCER_SERVANT_SPAWN_EGG = ITEMS.register("cairn_necromancer_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.CAIRN_NECROMANCER_SERVANT, 0x0b2830, 0xd2e5ff, egg()));
 
+    public static final RegistryObject<ServantSpawnEggItem> MOSSY_NECROMANCER_SERVANT_SPAWN_EGG = ITEMS.register("mossy_necromancer_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.MOSSY_NECROMANCER_SERVANT, 0x707819, 0x271d06, egg()));
+
     public static final RegistryObject<ServantSpawnEggItem> DROWNED_NECROMANCER_SERVANT_SPAWN_EGG = ITEMS.register("drowned_necromancer_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.DROWNED_NECROMANCER_SERVANT, 0x0c1e2a, 0xf9be26, egg()));
 

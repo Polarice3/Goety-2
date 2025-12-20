@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Você descobriu como criar Devoradores. Aldeões são transformados em 'Devastados' e precisam consumir carne para virar Devoradores completos."
+      "text": "Você descobriu como criar Devastadores. Aldeões são transformados em 'Devastados' e precisam consumir carne para virarem Devastadores completos."
     },
     {
       "type": "goety:ritual",
@@ -24,7 +24,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Ravagers adultos podem fazer parte de um $(l:goety:mutations/illager_servants)grupo de ataque$(), embora não possam ser líderes."
+      "text": "Devastadores adultos podem fazer parte de um $(l:goety:mutations/illager_servants)grupo de ataque$(), embora não possam ser líderes."
     }
   ]
 }

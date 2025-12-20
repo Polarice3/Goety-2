@@ -37,6 +37,14 @@
       "entity": "goety:cairn_necromancer_servant"
     },
     {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_mossy_skeleton_to_mossy_necromancer"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:mossy_necromancer_servant"
+    },
+    {
       "type": "patchouli:spotlight",
       "item": "goety:soul_jar",
       "text": "ネクロマンサーが倒れた場合、$(l:crafts/empty_soul_jar)空のソウルの瓶$() があれば魂が瓶に満たされ、スケルトンを右クリックすると、そのスケルトンを新しい媒体として蘇生します。また、他のネクロマンサーにその瓶を与えると力が増すという噂もあります..."

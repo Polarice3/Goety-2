@@ -2,10 +2,7 @@ package com.Polarice3.Goety.common.magic.spells;
 
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.common.entities.projectiles.NecroBolt;
-import com.Polarice3.Goety.common.entities.projectiles.SoulBolt;
-import com.Polarice3.Goety.common.entities.projectiles.SpellHurtingProjectile;
-import com.Polarice3.Goety.common.entities.projectiles.WitherBolt;
+import com.Polarice3.Goety.common.entities.projectiles.*;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
@@ -74,7 +71,16 @@ public class SoulBoltSpell extends Spell {
                 vector3d.x,
                 vector3d.y,
                 vector3d.z, worldIn);
-        if (this.typeStaff(staff, SpellType.NETHER) && CuriosFinder.hasNetherSet(caster)) {
+        if (this.typeStaff(staff, SpellType.WILD)) {
+            soulBolt = new PoisonBolt(
+                    caster.getX() + vector3d.x / 2,
+                    caster.getEyeY() - 0.2,
+                    caster.getZ() + vector3d.z / 2,
+                    vector3d.x,
+                    vector3d.y,
+                    vector3d.z, worldIn);
+            SoundUtil.playSoulBolt(caster);
+        } else if (this.typeStaff(staff, SpellType.NETHER) && CuriosFinder.hasNetherSet(caster)) {
             soulBolt = new WitherBolt(
                     caster.getX() + vector3d.x / 2,
                     caster.getEyeY() - 0.2,
@@ -84,8 +90,7 @@ public class SoulBoltSpell extends Spell {
                     vector3d.z, worldIn);
             this.playSound(worldIn, caster, SoundEvents.WITHER_SHOOT, 0.5F, 0.25F);
             this.playSound(worldIn, caster, ModSounds.HELL_BOLT_SHOOT.get());
-        }
-        if (staff.is(ModItems.NAMELESS_STAFF.get())) {
+        } else if (staff.is(ModItems.NAMELESS_STAFF.get())) {
             soulBolt = new NecroBolt(
                     caster.getX() + vector3d.x / 2,
                     caster.getEyeY() - 0.2,

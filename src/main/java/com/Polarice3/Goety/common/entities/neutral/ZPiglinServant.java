@@ -1,11 +1,15 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.init.ModTags;
+import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
@@ -70,6 +74,16 @@ public class ZPiglinServant extends ZombieServant {
 
     protected boolean convertsInWater() {
         return false;
+    }
+
+    public EntityType<?> getVariant(Level level, BlockPos blockPos){
+        EntityType<?> entityType1 = ModEntityType.ZPIGLIN_SERVANT.get();
+        if (level instanceof ServerLevel serverLevel) {
+            if (level.random.nextFloat() <= 0.25F && BlockFinder.findStructure(serverLevel, blockPos, ModTags.Structures.CAN_SUMMON_BRUTES)) {
+                entityType1 = ModEntityType.ZPIGLIN_BRUTE_SERVANT.get();
+            }
+        }
+        return entityType1;
     }
 
     @Nullable

@@ -4,7 +4,7 @@
   "activation_item": {
     "item": "minecraft:honeycomb"
   },
-  "craftType": "animation",
+  "craftType": "overgrown",
   "entity_to_summon": "goety:bear_servant",
   "soulCost": 1,
   "duration": 10,

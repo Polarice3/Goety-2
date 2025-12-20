@@ -4,12 +4,10 @@ import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.*;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.DrownedServant;
-import com.Polarice3.Goety.common.entities.neutral.AbstractCairnNecromancer;
-import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
-import com.Polarice3.Goety.common.entities.neutral.AbstractWitherNecromancer;
-import com.Polarice3.Goety.common.entities.neutral.DrownedNecromancer;
+import com.Polarice3.Goety.common.entities.neutral.*;
 import com.Polarice3.Goety.common.ritual.RitualRequirements;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
@@ -38,6 +36,7 @@ import java.util.Objects;
 
 public class SoulJar extends ReviveServantItem {
     public static final String TAG_CAIRN = "Cairn";
+    public static final String TAG_MOSSY = "Mossy";
     public static final String TAG_DROWNED = "Drowned";
     public static final String TAG_WITHER = "Wither";
 
@@ -63,6 +62,10 @@ public class SoulJar extends ReviveServantItem {
                     if (!isCairn(stack)) {
                         setCairn(stack);
                     }
+                } else if (livingEntity instanceof AbstractMossyNecromancer) {
+                    if (!isMossy(stack)) {
+                        setMossy(stack);
+                    }
                 } else if (livingEntity instanceof DrownedNecromancer) {
                     if (!isDrowned(stack)) {
                         setDrowned(stack);
@@ -87,6 +90,8 @@ public class SoulJar extends ReviveServantItem {
             entity = new NecromancerServant(ModEntityType.NECROMANCER_SERVANT.get(), level);
             if (isCairn(stack)){
                 entity = new CairnNecromancerServant(ModEntityType.CAIRN_NECROMANCER_SERVANT.get(), level);
+            } else if (isMossy(stack)){
+                entity = new MossyNecromancerServant(ModEntityType.MOSSY_NECROMANCER_SERVANT.get(), level);
             } else if (isDrowned(stack)){
                 entity = new DrownedNecromancer(ModEntityType.DROWNED_NECROMANCER_SERVANT.get(), level);
             } else if (isWither(stack)){
@@ -98,13 +103,15 @@ public class SoulJar extends ReviveServantItem {
         if (entity instanceof AbstractNecromancer necromancer) {
             boolean flag;
             if (necromancer instanceof DrownedNecromancer || isDrowned(stack)){
-                flag = target instanceof DrownedServant || target instanceof Drowned;
+                flag = target instanceof DrownedServant || target instanceof Drowned || target.getType().is(ModTags.EntityTypes.DROWNED_CONVERT);
             } else if (necromancer instanceof AbstractWitherNecromancer || isWither(stack)){
-                flag = target instanceof WitherSkeletonServant || target instanceof WitherSkeleton;
+                flag = target instanceof WitherSkeletonServant || target instanceof WitherSkeleton || target.getType().is(ModTags.EntityTypes.WITHER_CONVERT);
+            } else if (necromancer instanceof AbstractMossyNecromancer || isMossy(stack)){
+                flag = target instanceof MossySkeletonServant || target.getType().is(ModTags.EntityTypes.MOSSY_CONVERT);
             } else if (necromancer instanceof AbstractCairnNecromancer || isCairn(stack)){
-                flag = target instanceof StrayServant || target instanceof Stray;
+                flag = target instanceof StrayServant || target instanceof Stray || target.getType().is(ModTags.EntityTypes.CAIRN_CONVERT);
             } else {
-                flag = target instanceof SkeletonServant || target instanceof Skeleton;
+                flag = target instanceof SkeletonServant || target instanceof Skeleton || target.getType().is(ModTags.EntityTypes.REGULAR_CONVERT);
             }
             if (flag) {
                 if (necromancer.getTrueOwner() == player) {
@@ -147,6 +154,16 @@ public class SoulJar extends ReviveServantItem {
     public static void setCairn(ItemStack stack){
         CompoundTag compoundTag = stack.getOrCreateTag();
         compoundTag.putBoolean(TAG_CAIRN, true);
+    }
+
+    public static boolean isMossy(ItemStack stack) {
+        CompoundTag compoundtag = stack.getTag();
+        return stack.getItem() instanceof SoulJar && compoundtag != null && compoundtag.contains(TAG_MOSSY);
+    }
+
+    public static void setMossy(ItemStack stack){
+        CompoundTag compoundTag = stack.getOrCreateTag();
+        compoundTag.putBoolean(TAG_MOSSY, true);
     }
 
     public static boolean isDrowned(ItemStack stack) {

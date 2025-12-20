@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.BackawayCrossbowGoal;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonPillagerServant;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
@@ -115,7 +116,7 @@ public class PillagerServant extends AbstractIllagerServant implements CrossbowA
     public IllagerServantArmPose getArmPose() {
         if (this.isChargingCrossbow()) {
             return IllagerServantArmPose.CROSSBOW_CHARGE;
-        } else if (this.isHolding(is -> is.getItem() instanceof CrossbowItem)) {
+        } else if (this.isHolding(is -> is.getItem() instanceof CrossbowItem || is.is(ModTags.Items.PILLAGER_WEAPONS))) {
             if (this.isAggressive()) {
                 return IllagerServantArmPose.CROSSBOW_HOLD;
             } else {
@@ -213,7 +214,7 @@ public class PillagerServant extends AbstractIllagerServant implements CrossbowA
         ItemStack itemstack2 = this.getMainHandItem();
         if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
             if (!(pPlayer.getOffhandItem().getItem() instanceof IWand)) {
-                if (item instanceof CrossbowItem) {
+                if (item instanceof CrossbowItem || itemstack.is(ModTags.Items.PILLAGER_WEAPONS)) {
                     this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
                     this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copy());
                     this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);

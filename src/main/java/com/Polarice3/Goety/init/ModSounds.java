@@ -203,6 +203,12 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> NECROMANCER_STEP = create("necromancer_step");
     public static final RegistryObject<SoundEvent> NECROMANCER_DEATH = create("necromancer_death");
 
+    public static final RegistryObject<SoundEvent> MOSSY_NECROMANCER_AMBIENT = create("mossy_necromancer_ambient");
+    public static final RegistryObject<SoundEvent> MOSSY_NECROMANCER_HURT = create("mossy_necromancer_hurt");
+    public static final RegistryObject<SoundEvent> MOSSY_NECROMANCER_LAUGH = create("mossy_necromancer_laugh");
+    public static final RegistryObject<SoundEvent> MOSSY_NECROMANCER_STEP = create("mossy_necromancer_step");
+    public static final RegistryObject<SoundEvent> MOSSY_NECROMANCER_DEATH = create("mossy_necromancer_death");
+
     public static final RegistryObject<SoundEvent> DROWNED_NECROMANCER_AMBIENT = create("drowned_necromancer_ambient");
     public static final RegistryObject<SoundEvent> DROWNED_NECROMANCER_HURT = create("drowned_necromancer_hurt");
     public static final RegistryObject<SoundEvent> DROWNED_NECROMANCER_PREPARE = create("drowned_necromancer_prepare");
@@ -582,6 +588,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SNARELING_GOO_IMPACT = create("snareling_goo_impact");
     public static final RegistryObject<SoundEvent> CAST_STEAM = create("cast_steam");
     public static final RegistryObject<SoundEvent> STEAM_IMPACT = create("steam_impact");
+    public static final RegistryObject<SoundEvent> POISON_BOLT_IMPACT = create("poison_bolt_impact");
     public static final RegistryObject<SoundEvent> HELL_BOLT_SHOOT = create("hell_bolt_shoot");
     public static final RegistryObject<SoundEvent> HELL_BOLT_IMPACT = create("hell_bolt_impact");
     public static final RegistryObject<SoundEvent> HELL_BLAST_SHOOT = create("hell_blast_shoot");
@@ -636,6 +643,9 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> BONEHEAD_HAMMER_IMPACT = create("bonehead_hammer_impact");
     public static final RegistryObject<SoundEvent> BONEHEAD_HAMMER_HIT = create("bonehead_hammer_hit");
+
+    public static final RegistryObject<SoundEvent> WHIP_SWING = create("whip_swing");
+    public static final RegistryObject<SoundEvent> WHIP_HIT = create("whip_hit");
 
     public static final RegistryObject<SoundEvent> HARPOON_HIT = create("harpoon_impact");
     public static final RegistryObject<SoundEvent> HARPOON_HIT_WATER = create("harpoon_impact_water");

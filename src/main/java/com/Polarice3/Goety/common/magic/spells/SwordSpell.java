@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.entities.projectiles.SwordProjectile;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.ItemHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
@@ -20,8 +21,10 @@ import net.minecraft.world.item.enchantment.Enchantment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class SwordSpell extends Spell {
+    Predicate<ItemStack> predicate = item -> item.getItem() instanceof SwordItem || item.is(ModTags.Items.MAGIC_SWORD_SHOOTABLE);
 
     @Override
     public SpellStat defaultStats() {
@@ -51,7 +54,7 @@ public class SwordSpell extends Spell {
     }
 
     public boolean conditionsMet(ServerLevel worldIn, LivingEntity caster){
-        return caster.getMainHandItem().getItem() instanceof SwordItem || caster.getOffhandItem().getItem() instanceof SwordItem;
+        return predicate.test(caster.getMainHandItem()) || predicate.test(caster.getOffhandItem());
     }
 
     @Override
@@ -66,8 +69,8 @@ public class SwordSpell extends Spell {
         if (WandUtil.enchantedFocus(caster)) {
             velocity += WandUtil.getLevels(ModEnchantments.VELOCITY.get(), caster) / 3.0F;
         }
-        if (caster.getMainHandItem().getItem() instanceof SwordItem || caster.getOffhandItem().getItem() instanceof SwordItem) {
-            ItemStack sword = caster.getMainHandItem().getItem() instanceof SwordItem ? caster.getMainHandItem() : caster.getOffhandItem();
+        if (predicate.test(caster.getMainHandItem()) || predicate.test(caster.getOffhandItem())) {
+            ItemStack sword = predicate.test(caster.getMainHandItem()) ? caster.getMainHandItem() : caster.getOffhandItem();
             SwordProjectile swordProjectile = new SwordProjectile(caster, worldIn, sword);
             swordProjectile.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
             swordProjectile.shootFromRotation(caster, caster.getXRot(), caster.getYRot(), 0.0F, velocity, 1.0F);

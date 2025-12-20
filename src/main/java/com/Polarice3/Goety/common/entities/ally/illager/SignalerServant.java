@@ -29,6 +29,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class SignalerServant extends AbstractIllagerServant{
     public int hornUse;
@@ -42,10 +43,16 @@ public class SignalerServant extends AbstractIllagerServant{
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.35F)
-                .add(Attributes.MAX_HEALTH, AttributesConfig.PillagerServantHealth.get())
-                .add(Attributes.ARMOR, AttributesConfig.PillagerServantArmor.get())
-                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.PillagerServantDamage.get())
-                .add(Attributes.FOLLOW_RANGE, 32.0D);
+                .add(Attributes.MAX_HEALTH, AttributesConfig.SignalerServantHealth.get())
+                .add(Attributes.ARMOR, AttributesConfig.SignalerServantArmor.get())
+                .add(Attributes.ATTACK_DAMAGE, 5.0F)
+                .add(Attributes.FOLLOW_RANGE, AttributesConfig.SignalerServantFollowRange.get());
+    }
+
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.SignalerServantHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.SignalerServantArmor.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.FOLLOW_RANGE), AttributesConfig.SignalerServantFollowRange.get());
     }
 
     public IllagerServantArmPose getArmPose() {
@@ -61,7 +68,7 @@ public class SignalerServant extends AbstractIllagerServant{
         double original = super.getAttributeValue(attribute);
         if (attribute == Attributes.FOLLOW_RANGE) {
             if (this.getAttribute(Attributes.FOLLOW_RANGE) == null) {
-                original = 32.0D;
+                original = AttributesConfig.SignalerServantFollowRange.get();
             }
             if (this.isUsingItem() && this.getUseItem().is(Items.SPYGLASS)) {
                 original *= 2.0D;
@@ -146,33 +153,30 @@ public class SignalerServant extends AbstractIllagerServant{
     @Override
     public void setTarget(@Nullable LivingEntity target) {
         if (target != null && this.hornUse <= 0) {
-            List<LivingEntity> list = this.hordeOfTargets(target);
+            List<LivingEntity> hordeList = this.hordeOfTargets(target);
             if (this.getTarget() == null && !(!this.hordeSaved.isEmpty() && this.hordeSaved.contains(target))) {
                 if (target instanceof Player || target.getMaxHealth() > this.getMaxHealth() * 2 || this.quantityOfTargets(target) >= 15) {
-                    list.sort(Comparator.comparingDouble(living -> living.distanceTo(this)));
-                    for (Mob ally : this.level.getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(this.getAttributeValue(Attributes.FOLLOW_RANGE)), mob -> mob instanceof IServant servant && servant.isGuardingArea() && servant.getMasterOwner() == this.getMasterOwner() && mob != this)) {
-                        if (ally instanceof IServant servant) {
-                            servant.setPriorityTarget(target);
-                            if (!list.isEmpty()) {
-                                if (servant instanceof RaiderServant raiderServant) {
-                                    if (raiderServant.isLeader()) {
-                                        List<RaiderServant> raiders = raiderServant.getNearbyCompanions();
-                                        int maxSize = Math.min(list.size(), raiders.size());
-                                        for (int i = 0; i < maxSize; ++i) {
-                                            try {
-                                                RaiderServant follower = raiders.get(i);
-                                                LivingEntity target1 = list.get(i);
-                                                if (target1 != null) {
-                                                    follower.setPriorityTarget(target1);
-                                                }
-                                            } catch (IndexOutOfBoundsException ignored) {
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
+                    hordeList.sort(Comparator.comparingDouble(living -> living.distanceTo(this)));
+                    Predicate<Mob> predicate = mob -> mob instanceof IServant servant && servant.isGuardingArea() && servant.getMasterOwner() == this.getMasterOwner() && mob != this;
+                    Predicate<Mob> predicate2 = mob -> mob instanceof RaiderServant servant && servant.getLeader() != null && servant.getLeader().isGuardingArea() && servant.getMasterOwner() == this.getMasterOwner() && mob != this;
+                    Predicate<Mob> mainPredicate = predicate.or(predicate2);
+                    List<Mob> alliedList = this.level.getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(this.getAttributeValue(Attributes.FOLLOW_RANGE)), mainPredicate);
+                    if (hordeList.stream().filter(livingEntity -> livingEntity instanceof Mob mob && mob.getTarget() instanceof Mob ally && mainPredicate.test(ally)).toList().size() >= hordeList.size()) {
+                        return;
+                    }
+                    for (int i = 0; i < alliedList.size(); ++i) {
+                        try {
+                            Mob follower = alliedList.get(i);
+                            int pick = hordeList.size() > 1 ? i % (hordeList.size() - 1) : 0;
+                            LivingEntity target1 = hordeList.get(pick);
+                            if (target1 != null && follower instanceof IServant servant) {
+                                servant.setPriorityTarget(target1);
                             }
+                        } catch (IndexOutOfBoundsException ignored) {
+                            break;
                         }
+                    }
+                    for (Mob ally : alliedList) {
                         if (ally instanceof SignalerServant) {
                             ally.setTarget(target);
                         }
@@ -184,8 +188,8 @@ public class SignalerServant extends AbstractIllagerServant{
                             serverLevel.sendParticles(new ModShriekParticleOption(j1 * 5), this.getX(), this.getY() + this.getBbHeight(), this.getZ(), 0, 1.0D, 1.0D, 1.0D, 1.0F);
                         }
                     }
-                    if (!list.isEmpty()) {
-                        this.hordeSaved = list;
+                    if (!hordeList.isEmpty()) {
+                        this.hordeSaved = hordeList;
                     }
                     this.playSound(ModSounds.INTRUDER_ALERT.get(), (float) (this.getAttributeValue(Attributes.FOLLOW_RANGE) / 2.0F), this.getVoicePitch());
                     this.hornUse = 60;

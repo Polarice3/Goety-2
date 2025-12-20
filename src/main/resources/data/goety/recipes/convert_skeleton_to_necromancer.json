@@ -6,7 +6,7 @@
   },
   "craftType": "necroturgy",
   "entity_to_convert": {
-    "tag": "goety:skeletons",
+    "tag": "goety:necromancer/regular_convert",
     "display_name": "entity.minecraft.skeleton"
   },
   "entity_to_convert_into": "goety:necromancer_servant",

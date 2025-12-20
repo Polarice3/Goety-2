@@ -11,6 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Breathing Spells Codes based of codes from @TeamTwilight
@@ -30,6 +31,10 @@ public interface IBreathingSpell extends IChargingSpell{
 
     default List<Entity> getBreathTarget(LivingEntity livingEntity, double range) {
         return MobUtil.getTargets(livingEntity.level, livingEntity, range, 3.0D);
+    }
+
+    default List<Entity> getBreathTarget(LivingEntity livingEntity, double range, Predicate<? super Entity> predicate) {
+        return MobUtil.getTargets(livingEntity.level, livingEntity, range, 3.0D, predicate);
     }
 
     @Deprecated

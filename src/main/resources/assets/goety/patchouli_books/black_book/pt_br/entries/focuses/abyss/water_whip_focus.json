@@ -1,0 +1,19 @@
+{
+  "name": "Foco do Chicote das Marés",
+  "icon": "goety:water_whip_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A magia conjura um tentáculo poderoso da mão do conjurador, chicoteando os inimigos à sua frente, embora apenas em um pequeno alcance."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/water_whip_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/abyss_staff)Cajado do Abismo$() invoca outro tentáculo depois que o tentáculo inicial atingir um alvo."
+    }
+  ]
+}

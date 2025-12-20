@@ -1,0 +1,22 @@
+{
+  "name": "自然の儀式",
+  "icon": "minecraft:jungle_leaves",
+  "category": "goety:rituals",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "必要: $(li)祭壇がジャングルにあること $(br)$(l)OR$()$() $(li)32 あらゆる葉ブロック $(li)16 生い茂った根 $(li)16 あらゆる苔ブロック"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/overgrown_ritual.png"],
+      "border": true,
+      "text": "儀式をどのように配置するかの例"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "この儀式を通じて、大自然の荒々しい力が、邪悪な目的のために利用され歪められる可能性があります。"
+    }
+  ]
+}

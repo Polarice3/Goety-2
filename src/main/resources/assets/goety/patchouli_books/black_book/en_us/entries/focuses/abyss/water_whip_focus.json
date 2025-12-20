@@ -1,0 +1,19 @@
+{
+  "name": "Water Whip Focus",
+  "icon": "goety:water_whip_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The spell conjures a powerful tentacle from the caster's hand, whipping foes in front of them, though only in a small range."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/water_whip_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/abyss_staff)Abyss Staff$() summons another tentacle after the initial tentacle hits a target."
+    }
+  ]
+}

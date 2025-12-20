@@ -40,6 +40,14 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WeaknessCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> WitherCost;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> AbsorptionCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HarmingCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HealingCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HealthBoostCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> LevitationCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ResistanceCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WitherCapacity;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> ClimbingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> CorpseEaterCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> PressureCost;
@@ -82,6 +90,29 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> ShieldingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SaveEffectsCost;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> BottlingCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CorpseEaterCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CursedCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> DeflectiveCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> EvilEyeCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ExplosiveCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FieryAuraCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FireTrailCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FortunateCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FrostyAuraCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GravityPulseCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> NyctophobiaCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PlungeCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> RadianceCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> RallyingCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SaveEffectsCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ShieldingCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SnowSkinCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> StormsWrathCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SunAllergyCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SwirlingCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WildRageCapacity;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> BatBurstCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> BeesCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> BlindJumpCost;
@@ -119,6 +150,17 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> ThornTrapCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> TransposeCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> WebbedCost;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> BatBurstCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BeesCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CombustCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ExplodeCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FloodingCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PurifyDebuffsCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PurifyBuffsCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> RaiseDeadCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> StripArmorCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WebbedCapacity;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> BottlingLevelReq;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxBottlingLevel;
@@ -195,6 +237,22 @@ public class BrewConfig {
                 .defineInRange("weaknessCost", 25, 1, Integer.MAX_VALUE);
         WitherCost = BUILDER.comment("Wither Soul Cost, Default: 25")
                 .defineInRange("witherCost", 25, 1, Integer.MAX_VALUE);
+        BUILDER.pop();
+        BUILDER.push("Vanilla Extra Capacity");
+        AbsorptionCapacity = BUILDER.comment("Absorption Extra Capacity, Default: 1")
+                .defineInRange("absorptionCapacity", 1, 0, Integer.MAX_VALUE);
+        HarmingCapacity = BUILDER.comment("Harming Extra Capacity, Default: 1")
+                .defineInRange("harmingCapacity", 1, 0, Integer.MAX_VALUE);
+        HealingCapacity = BUILDER.comment("Healing Extra Capacity, Default: 1")
+                .defineInRange("healingCapacity", 1, 0, Integer.MAX_VALUE);
+        HealthBoostCapacity = BUILDER.comment("Health Boost Extra Capacity, Default: 2")
+                .defineInRange("healthBoostCapacity", 2, 0, Integer.MAX_VALUE);
+        LevitationCapacity = BUILDER.comment("Levitation Extra Capacity, Default: 2")
+                .defineInRange("levitationCapacity", 2, 0, Integer.MAX_VALUE);
+        ResistanceCapacity = BUILDER.comment("Resistance Extra Capacity, Default: 6")
+                .defineInRange("resistanceCapacity", 6, 0, Integer.MAX_VALUE);
+        WitherCapacity = BUILDER.comment("Wither Extra Capacity, Default: 1")
+                .defineInRange("witherCapacity", 1, 0, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Modded Soul Cost");
         BUILDER.push("Status Effects");
@@ -356,6 +414,76 @@ public class BrewConfig {
                 .defineInRange("transposeCost", 25, 1, Integer.MAX_VALUE);
         WebbedCost = BUILDER.comment("Webbed Soul Cost, Default: 50")
                 .defineInRange("webbedCost", 50, 1, Integer.MAX_VALUE);
+        BUILDER.pop();
+        BUILDER.pop();
+        BUILDER.push("Modded Capacity");
+        BUILDER.push("Status Effects");
+        BottlingCapacity = BUILDER.comment("Bottling Extra Capacity, Default: 4")
+                .defineInRange("bottlingCapacity", 4, 0, Integer.MAX_VALUE);
+        CorpseEaterCapacity = BUILDER.comment("Corpse Eater Extra Capacity, Default: 4")
+                .defineInRange("corpseEaterCapacity", 4, 0, Integer.MAX_VALUE);
+        CursedCapacity = BUILDER.comment("Cursed Extra Capacity, Default: 4")
+                .defineInRange("cursedCapacity", 4, 0, Integer.MAX_VALUE);
+        DeflectiveCapacity = BUILDER.comment("Deflective Extra Capacity, Default: 4")
+                .defineInRange("deflectiveCapacity", 4, 0, Integer.MAX_VALUE);
+        EvilEyeCapacity = BUILDER.comment("Evil Eye Extra Capacity, Default: 4")
+                .defineInRange("evilEyeCapacity", 4, 0, Integer.MAX_VALUE);
+        ExplosiveCapacity = BUILDER.comment("Explosive Extra Capacity, Default: 2")
+                .defineInRange("explosiveCapacity", 2, 0, Integer.MAX_VALUE);
+        FieryAuraCapacity = BUILDER.comment("Fiery Aura Extra Capacity, Default: 2")
+                .defineInRange("fieryAuraCapacity", 2, 0, Integer.MAX_VALUE);
+        FireTrailCapacity = BUILDER.comment("Fire Trail Extra Capacity, Default: 4")
+                .defineInRange("fireTrailCapacity", 4, 0, Integer.MAX_VALUE);
+        FortunateCapacity = BUILDER.comment("Fortunate Extra Capacity, Default: 6")
+                .defineInRange("fortunateCapacity", 6, 0, Integer.MAX_VALUE);
+        FrostyAuraCapacity = BUILDER.comment("Frosty Aura Extra Capacity, Default: 2")
+                .defineInRange("frostyAuraCapacity", 2, 0, Integer.MAX_VALUE);
+        GravityPulseCapacity = BUILDER.comment("Gravity Pulse Extra Capacity, Default: 2")
+                .defineInRange("gravityPulseCapacity", 2, 0, Integer.MAX_VALUE);
+        NyctophobiaCapacity = BUILDER.comment("Nyctophobia Extra Capacity, Default: 4")
+                .defineInRange("nyctophobiaCapacity", 4, 0, Integer.MAX_VALUE);
+        PlungeCapacity = BUILDER.comment("Plunge Extra Capacity, Default: 4")
+                .defineInRange("plungeCapacity", 4, 0, Integer.MAX_VALUE);
+        RadianceCapacity = BUILDER.comment("Radiance Extra Capacity, Default: 2")
+                .defineInRange("radianceCapacity", 2, 0, Integer.MAX_VALUE);
+        RallyingCapacity = BUILDER.comment("Rallying Extra Capacity, Default: 2")
+                .defineInRange("rallyingCapacity", 2, 0, Integer.MAX_VALUE);
+        SaveEffectsCapacity = BUILDER.comment("Save Effects Extra Capacity, Default: 2")
+                .defineInRange("saveEffectsCapacity", 8, 0, Integer.MAX_VALUE);
+        ShieldingCapacity = BUILDER.comment("Shielding Extra Capacity, Default: 2")
+                .defineInRange("shieldingCapacity", 2, 0, Integer.MAX_VALUE);
+        SnowSkinCapacity = BUILDER.comment("Snow Skin Extra Capacity, Default: 4")
+                .defineInRange("snowSkinCapacity", 4, 0, Integer.MAX_VALUE);
+        StormsWrathCapacity = BUILDER.comment("Storm's Wrath Extra Capacity, Default: 4")
+                .defineInRange("stormsWrathCapacity", 4, 0, Integer.MAX_VALUE);
+        SunAllergyCapacity = BUILDER.comment("Sun Allergy Extra Capacity, Default: 4")
+                .defineInRange("sunAllergyCapacity", 4, 0, Integer.MAX_VALUE);
+        SwirlingCapacity = BUILDER.comment("Swirling Extra Capacity, Default: 2")
+                .defineInRange("swirlingCapacity", 2, 0, Integer.MAX_VALUE);
+        WildRageCapacity = BUILDER.comment("Wild Rage Extra Capacity, Default: 2")
+                .defineInRange("wildRageCapacity", 2, 0, Integer.MAX_VALUE);
+        BUILDER.pop();
+        BUILDER.push("Block/Other Effects");
+        BatBurstCapacity = BUILDER.comment("Bat Burst Extra Capacity, Default: 2")
+                .defineInRange("batBurstCapacity", 2, 0, Integer.MAX_VALUE);
+        BeesCapacity = BUILDER.comment("BEEEEES Extra Capacity, Default: 1")
+                .defineInRange("beesCapacity", 1, 0, Integer.MAX_VALUE);
+        CombustCapacity = BUILDER.comment("Combust Extra Capacity, Default: 1")
+                .defineInRange("combustCapacity", 1, 0, Integer.MAX_VALUE);
+        ExplodeCapacity = BUILDER.comment("Explode Extra Capacity, Default: 4")
+                .defineInRange("explodeCapacity", 4, 0, Integer.MAX_VALUE);
+        FloodingCapacity = BUILDER.comment("Flooding Extra Capacity, Default: 2")
+                .defineInRange("floodingCapacity", 2, 0, Integer.MAX_VALUE);
+        PurifyDebuffsCapacity = BUILDER.comment("Purify Debuffs Extra Capacity, Default: 2")
+                .defineInRange("purifyDebuffsCapacity", 2, 0, Integer.MAX_VALUE);
+        PurifyBuffsCapacity = BUILDER.comment("Purify Buffs Extra Capacity, Default: 2")
+                .defineInRange("purifyBuffsCapacity", 2, 0, Integer.MAX_VALUE);
+        RaiseDeadCapacity = BUILDER.comment("Raise Dead Extra Capacity, Default: 2")
+                .defineInRange("raiseDeadCapacity", 2, 0, Integer.MAX_VALUE);
+        StripArmorCapacity = BUILDER.comment("Strip Armor Extra Capacity, Default: 2")
+                .defineInRange("stripArmorCapacity", 2, 0, Integer.MAX_VALUE);
+        WebbedCapacity = BUILDER.comment("Webbed Extra Capacity, Default: 1")
+                .defineInRange("webbedCapacity", 1, 0, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.pop();
         BUILDER.push("Curable");

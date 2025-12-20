@@ -1,0 +1,19 @@
+{
+  "name": "クラーケンの鞭のフォーカス",
+  "icon": "goety:water_whip_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この呪文は、術者の手から強力な触手を出します。狭い範囲ですが、目の前にいる敵を鞭打つには十分です。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/water_whip_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/abyss_staff)深淵の杖$()で唱えると、最初の触手がターゲットに命中した後、別の触手を召喚します。"
+    }
+  ]
+}

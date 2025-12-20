@@ -3233,5 +3233,14 @@
   "info.goety.ritual.structure.storm": "儀式は嵐の天気で行う必要があります！",
   "info.goety.ritual.structure.night": "儀式は夜に行う必要があります！",
   "info.goety.ritual.structure.nether": "儀式はネザーで行う必要があります！",
-  "info.goety.ritual.structure.end": "儀式はエンドで行う必要があります！"
+  "info.goety.ritual.structure.end": "儀式はエンドで行う必要があります！",
+  "entity.goety.mossy_necromancer": "苔むしたネクロマンサー",
+  "entity.goety.mossy_necromancer_servant": "苔むしたネクロマンサーの従者",
+  "entity.goety.gulf_tentacle": "クラーケンの触手",
+  "item.goety.mossy_necromancer_spawn_egg": "苔むしたネクロマンサーのスポーンエッグ",
+  "item.goety.mossy_necromancer_servant_spawn_egg": "苔むしたネクロマンサーの従者のスポーンエッグ",
+  "item.goety.water_whip_focus": "クラーケンの鞭のフォーカス",
+  "item.goety.water_whip_focus.info": "術者の前方のターゲットを攻撃する触手を召喚します。",
+  "info.goety.ritual.structure.noLeaves": "葉っぱの量が足りない！",
+  "jei.goety.craftType.overgrown": "自然"
 }

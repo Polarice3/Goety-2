@@ -10,6 +10,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -69,6 +70,9 @@ public abstract class SpellHurtingProjectile extends WaterHurtingProjectile {
     }
 
     protected boolean canHitEntity(Entity pEntity) {
+        if (pEntity instanceof ItemEntity) {
+            return false;
+        }
         if (this.getOwner() != null){
             if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
                 return super.canHitEntity(pEntity);

@@ -1,7 +1,9 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.MobUtil;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -57,6 +59,10 @@ public class ZPiglinBruteServant extends ZPiglinServant {
 
     public int xpReward(){
         return 20;
+    }
+
+    public EntityType<?> getVariant(Level level, BlockPos blockPos){
+        return ModEntityType.ZPIGLIN_BRUTE_SERVANT.get();
     }
 
     @Override

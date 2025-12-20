@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "__comment": "mobs that can be converted to Cairn Necromancers.",
+  "values": [
+    "minecraft:stray",
+    "goety:stray_servant"
+  ]
+}

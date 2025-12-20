@@ -195,17 +195,17 @@ public class ModBlocks {
     public static final RegistryObject<Block> BLACKSTONE_SOUL_BRAZIER = register("blackstone_soul_brazier", () -> new BrazierBlock(true));
     public static final RegistryObject<Block> MARBLE_BRAZIER = register("marble_brazier", BrazierBlock::new);
     public static final RegistryObject<Block> MARBLE_SOUL_BRAZIER = register("marble_soul_brazier", () -> new BrazierBlock(true));
-    public static final RegistryObject<Block> IRON_DUNGEON_TORCH = register("iron_dungeon_torch", () -> new DungeonTorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel((p_50755_) -> {
-        return 14;
+    public static final RegistryObject<Block> IRON_DUNGEON_TORCH = register("iron_dungeon_torch", () -> new DungeonTorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel((state) -> {
+        return state.hasProperty(BlockStateProperties.LIT) && state.getValue(BlockStateProperties.LIT) ? 14 : 0;
     }).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY)), false);
-    public static final RegistryObject<Block> WALL_IRON_DUNGEON_TORCH = register("wall_iron_dungeon_torch", () -> new WallDungeonTorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel((p_50755_) -> {
-        return 14;
+    public static final RegistryObject<Block> WALL_IRON_DUNGEON_TORCH = register("wall_iron_dungeon_torch", () -> new WallDungeonTorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel((state) -> {
+        return state.hasProperty(BlockStateProperties.LIT) && state.getValue(BlockStateProperties.LIT) ? 14 : 0;
     }).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY)), false);
-    public static final RegistryObject<Block> GOLD_DUNGEON_TORCH = register("gold_dungeon_torch", () -> new DungeonTorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel((p_50755_) -> {
-        return 14;
+    public static final RegistryObject<Block> GOLD_DUNGEON_TORCH = register("gold_dungeon_torch", () -> new DungeonTorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel((state) -> {
+        return state.hasProperty(BlockStateProperties.LIT) && state.getValue(BlockStateProperties.LIT) ? 14 : 0;
     }).sound(SoundType.METAL).mapColor(MapColor.GOLD).pushReaction(PushReaction.DESTROY)), false);
-    public static final RegistryObject<Block> WALL_GOLD_DUNGEON_TORCH = register("wall_gold_dungeon_torch", () -> new WallDungeonTorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel((p_50755_) -> {
-        return 14;
+    public static final RegistryObject<Block> WALL_GOLD_DUNGEON_TORCH = register("wall_gold_dungeon_torch", () -> new WallDungeonTorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel((state) -> {
+        return state.hasProperty(BlockStateProperties.LIT) && state.getValue(BlockStateProperties.LIT) ? 14 : 0;
     }).sound(SoundType.METAL).mapColor(MapColor.GOLD).pushReaction(PushReaction.DESTROY)), false);
     public static final RegistryObject<Block> STEEP_SCONCE = register("steep_sconce", SteepSconceBlock::new);
     public static final RegistryObject<Block> JADE_LIGHT = register("jade_light", JadeLightBlock::new);

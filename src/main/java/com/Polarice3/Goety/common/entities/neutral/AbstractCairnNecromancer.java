@@ -11,7 +11,7 @@ import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.StrayServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.VanguardServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.BlackguardServant;
-import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.FrozenZombieServant;
 import com.Polarice3.Goety.common.entities.projectiles.IceSpike;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.MobsConfig;
@@ -87,7 +87,7 @@ public class AbstractCairnNecromancer extends AbstractNecromancer{
         Summoned summoned = getDefaultSummon();
         if (this.getSummonList().stream().anyMatch(entityType -> entityType.is(ModTags.EntityTypes.ZOMBIE_SERVANTS))) {
             if (this.level.random.nextBoolean()) {
-                summoned = new ZombieServant(ModEntityType.FROZEN_ZOMBIE_SERVANT.get(), this.level);
+                summoned = new FrozenZombieServant(ModEntityType.FROZEN_ZOMBIE_SERVANT.get(), this.level);
             }
         }
         if (this.getSummonList().stream().anyMatch(entityType -> entityType.is(ModTags.EntityTypes.SKELETON_SERVANTS))) {

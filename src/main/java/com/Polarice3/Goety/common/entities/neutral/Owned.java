@@ -416,12 +416,13 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         }
 
         public void start() {
-            this.owned.setTarget(this.attacker);
-            LivingEntity livingentity = this.owned.getTrueOwner();
-            if (livingentity != null) {
-                this.timestamp = livingentity.getLastHurtMobTimestamp();
+            if (this.attacker != null) {
+                this.owned.setTarget(this.attacker);
+                LivingEntity livingentity = this.owned.getTrueOwner();
+                if (livingentity != null) {
+                    this.timestamp = livingentity.getLastHurtMobTimestamp();
+                }
             }
-
             super.start();
         }
     }

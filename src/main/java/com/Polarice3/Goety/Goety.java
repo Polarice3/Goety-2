@@ -573,6 +573,7 @@ public class Goety {
         event.put(ModEntityType.BROOD_MOTHER.get(), AbstractBroodMother.setCustomAttributes().build());
         event.put(ModEntityType.NECROMANCER.get(), HostileNecromancer.setCustomAttributes().build());
         event.put(ModEntityType.CAIRN_NECROMANCER.get(), CairnNecromancer.setCustomAttributes().build());
+        event.put(ModEntityType.MOSSY_NECROMANCER.get(), MossyNecromancer.setCustomAttributes().build());
         event.put(ModEntityType.HAUNTED_ARMOR.get(), HauntedArmor.setCustomAttributes().build());
         event.put(ModEntityType.WATCHLING.get(), Watchling.setCustomAttributes().build());
         event.put(ModEntityType.BLASTLING.get(), Blastling.setCustomAttributes().build());
@@ -595,6 +596,7 @@ public class Goety {
         event.put(ModEntityType.SUNKEN_SKELETON_SERVANT.get(), SunkenSkeletonServant.setCustomAttributes().build());
         event.put(ModEntityType.NECROMANCER_SERVANT.get(), NecromancerServant.setCustomAttributes().build());
         event.put(ModEntityType.CAIRN_NECROMANCER_SERVANT.get(), CairnNecromancerServant.setCustomAttributes().build());
+        event.put(ModEntityType.MOSSY_NECROMANCER_SERVANT.get(), MossyNecromancerServant.setCustomAttributes().build());
         event.put(ModEntityType.DROWNED_NECROMANCER_SERVANT.get(), DrownedNecromancer.setCustomAttributes().build());
         event.put(ModEntityType.WITHER_NECROMANCER_SERVANT.get(), WitherNecromancerServant.setCustomAttributes().build());
         event.put(ModEntityType.REAPER_SERVANT.get(), ReaperServant.setCustomAttributes().build());
@@ -684,6 +686,7 @@ public class Goety {
         event.put(ModEntityType.SPIDER_EGG.get(), SpiderEgg.setCustomAttributes().build());
         event.put(ModEntityType.INSECT_SWARM.get(), InsectSwarm.setCustomAttributes().build());
         event.put(ModEntityType.BEAST_HEAD.get(), BeastHead.setCustomAttributes().build());
+        event.put(ModEntityType.GULF_TENTACLE.get(), GulfTentacle.setCustomAttributes().build());
         event.put(ModEntityType.VOLCANO.get(), Volcano.setCustomAttributes().build());
         event.put(ModEntityType.SORCERER.get(), Sorcerer.setCustomAttributes().build());
         event.put(ModEntityType.ENVIOKER.get(), Envioker.setCustomAttributes().build());
@@ -730,6 +733,7 @@ public class Goety {
         event.register(ModEntityType.BONE_SPIDER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.NECROMANCER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.CAIRN_NECROMANCER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(ModEntityType.MOSSY_NECROMANCER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.HAUNTED_ARMOR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
     }
 

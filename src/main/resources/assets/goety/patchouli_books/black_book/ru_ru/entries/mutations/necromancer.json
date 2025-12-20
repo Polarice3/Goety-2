@@ -37,6 +37,14 @@
       "entity": "goety:cairn_necromancer_servant"
     },
     {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_mossy_skeleton_to_mossy_necromancer"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:mossy_necromancer_servant"
+    },
+    {
       "type": "patchouli:spotlight",
       "item": "goety:soul_jar",
       "text": "Если некромант погибнет, то его душа может переместиться в $(l:crafts/empty_soul_jar)пустую банку душ$(), которая способна его оживить. Для этого нужно нажать ПКМ банкой душ по скелету. Говорят, если накормить некроманта банкой другого некроманта, то его сила возрастёт..."
