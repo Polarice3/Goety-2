@@ -152,11 +152,9 @@ public class ClientInitEvents {
             ItemProperties.register(ModItems.ESOTERIC_TESSERACT.get(), new ResourceLocation("active")
                     , (stack, world, living, seed) -> EsotericTesseract.getServantsInTesseract(stack) > 0 ? 1.0F : 0.0F);
         });
-
-        copyOldArtIfMissing();
     }
 
-    private static void copyOldArtIfMissing() {
+    /*private static void copyOldArtIfMissing() {
         File dir = new File(".", "resourcepacks");
         File target = new File(dir, "Goety Old Textures.zip");
 
@@ -178,7 +176,7 @@ public class ClientInitEvents {
             } catch (IOException ignored) {
 
             }
-    }
+    }*/
 
     /**
      * Ripped from @TeamTwilight's AddLayer codes: <a href="https://github.com/TeamTwilight/twilightforest/blob/1.20.x/src/main/java/twilightforest/client/TFClientSetup.java">...</a>

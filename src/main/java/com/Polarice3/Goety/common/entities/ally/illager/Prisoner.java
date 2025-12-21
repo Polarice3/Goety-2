@@ -46,7 +46,6 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.monster.ZombieVillager;
 import net.minecraft.world.entity.npc.*;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -410,11 +409,11 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
             } else {
                 this.level.broadcastEntityEvent(this, (byte) 5);
             }
-            if (this.getTrueOwner() instanceof Raider raider) {
-                if (raider.isRemoved()) {
+            /*if (this.getTrueOwner() instanceof Raider raider && raider.getCurrentRaid() != null) {
+                if (raider.getCurrentRaid().isLoss() && raider.isRemoved()) {
                     this.discard();
                 }
-            }
+            }*/
             if (this.getTrueOwner() instanceof RaiderServant raider) {
                 if (raider.getLeader() != null && this.getLeader() != raider.getLeader()) {
                     this.setLeader(raider.getLeader());

@@ -57,9 +57,9 @@ public class InquillagerModel<T extends AbstractIllager> extends HumanoidModel<T
 
 		PartDefinition leftbeard = head.addOrReplaceChild("leftbeard", CubeListBuilder.create().texOffs(0, 0).mirror().addBox(-0.45F, -0.85F, -1.25F, 3.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(1.0F, -3.0F, -3.0F, 0.0F, 0.0F, 0.0873F));
 
-		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 20).addBox(-4.0F, -7.5F, -3.0F, 8.0F, 12.0F, 6.0F, new CubeDeformation(0.0F))
-				.texOffs(28, 38).addBox(-1.0F, -7.25F, -3.75F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.2F))
-				.texOffs(28, 41).addBox(-1.5F, -7.0F, -3.25F, 3.0F, 7.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 7.5F, 0.0F));
+		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 20).addBox(-4.0F, -7.5F + 7.5F, -3.0F, 8.0F, 12.0F, 6.0F, new CubeDeformation(0.0F))
+				.texOffs(28, 38).addBox(-1.0F, -7.25F + 7.5F, -3.75F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.2F))
+				.texOffs(28, 41).addBox(-1.5F, -7.0F + 7.5F, -3.25F, 3.0F, 7.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		PartDefinition clothes = partdefinition.addOrReplaceChild("clothes", CubeListBuilder.create().texOffs(0, 38).addBox(-4.0F, -24.0F, -3.0F, 8.0F, 20.0F, 6.0F, new CubeDeformation(0.35F)), PartPose.offset(0.0F, 24.0F, 0.0F));
 

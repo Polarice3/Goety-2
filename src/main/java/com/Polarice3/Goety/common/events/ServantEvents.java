@@ -67,6 +67,11 @@ public class ServantEvents {
     public static void LivingEffects(LivingEvent.LivingTickEvent event){
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity instanceof Mob mob){
+            if (mob instanceof IOwned && mob.getTarget() != null) {
+                if (mob.getTarget().isDeadOrDying() || !EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(mob.getTarget())){
+                    mob.setTarget(null);
+                }
+            }
             if (mob.getTarget() instanceof IOwned owned){
                 if (mob.getType().is(ModTags.EntityTypes.IGNORE_SERVANTS)){
                     if (owned.getTrueOwner() != null){
@@ -76,7 +81,7 @@ public class ServantEvents {
                         }
                     }
                 }
-                if (mob.getTarget().isDeadOrDying()){
+                if (mob.getTarget().isDeadOrDying() || !EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(mob.getTarget())){
                     mob.setTarget(null);
                 }
             }

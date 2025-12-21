@@ -83,7 +83,7 @@ public class IllagerSpawner {
                                 return 0;
                             } else {
                                 Holder<Biome> holder = pLevel.getBiome(blockpos$mutable);
-                                if (holder.is(BiomeTags.WITHOUT_PATROL_SPAWNS)) {
+                                if (holder.is(BiomeTags.WITHOUT_PATROL_SPAWNS) || holder.is(ModTags.Biomes.ILLAGER_ASSAULT_BLACKLIST)) {
                                     return 0;
                                 } else if (pPlayer.blockPosition().getY() < pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY() - 32 && !pLevel.canSeeSky(pPlayer.blockPosition())){
                                     return 0;

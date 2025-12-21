@@ -24,10 +24,12 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.monster.CrossbowAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -41,10 +43,24 @@ import java.util.Map;
 
 public class PillagerServant extends AbstractIllagerServant implements CrossbowAttackMob {
     private static final EntityDataAccessor<Boolean> IS_CHARGING_CROSSBOW = SynchedEntityData.defineId(PillagerServant.class, EntityDataSerializers.BOOLEAN);
+    private final BackawayCrossbowGoal<PillagerServant> crossBowGoal = new BackawayCrossbowGoal<>(this, 1.0D, 8.0F);
+    private final MeleeAttackGoal meleeGoal = new MeleeAttackGoal(this, 1.2D, false) {
+
+        public void stop() {
+            super.stop();
+            PillagerServant.this.setAggressive(false);
+        }
+
+        public void start() {
+            super.start();
+            PillagerServant.this.setAggressive(true);
+        }
+    };
     public double arrowPower;
 
     public PillagerServant(EntityType<? extends PillagerServant> p_33262_, Level p_33263_) {
         super(p_33262_, p_33263_);
+        this.reassessWeaponGoal();
         this.arrowPower = 0.0D;
     }
 
@@ -72,9 +88,31 @@ public class PillagerServant extends AbstractIllagerServant implements CrossbowA
         return AttributesConfig.PillagerServantRangeDamage.get();
     }
 
+    public void reassessWeaponGoal() {
+        if (!this.level.isClientSide) {
+            this.goalSelector.removeGoal(this.meleeGoal);
+            this.goalSelector.removeGoal(this.crossBowGoal);
+            ItemStack itemstack = this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, item -> item instanceof ProjectileWeaponItem));
+            if (itemstack.getItem() == Items.CROSSBOW){
+                this.goalSelector.addGoal(3, this.crossBowGoal);
+            } else {
+                this.goalSelector.addGoal(3, this.meleeGoal);
+            }
+
+        }
+    }
+
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(IS_CHARGING_CROSSBOW, false);
+    }
+
+    public void setItemSlot(EquipmentSlot pSlot, ItemStack pStack) {
+        super.setItemSlot(pSlot, pStack);
+        if (!this.level.isClientSide) {
+            this.reassessWeaponGoal();
+        }
+
     }
 
     public boolean canFireProjectileWeapon(ProjectileWeaponItem p_33280_) {
@@ -96,6 +134,7 @@ public class PillagerServant extends AbstractIllagerServant implements CrossbowA
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
         this.setArrowPower(pCompound.getInt("arrowPower"));
+        this.reassessWeaponGoal();
     }
 
     public void addAdditionalSaveData(CompoundTag pCompound) {
@@ -138,6 +177,7 @@ public class PillagerServant extends AbstractIllagerServant implements CrossbowA
         RandomSource randomsource = p_33282_.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, p_33283_);
         this.populateDefaultEquipmentEnchantments(randomsource, p_33283_);
+        this.reassessWeaponGoal();
         return super.finalizeSpawn(p_33282_, p_33283_, p_33284_, p_33285_, p_33286_);
     }
 

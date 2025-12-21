@@ -229,6 +229,8 @@ public class ModTags {
         public static final TagKey<Biome> WILD_MARKUP = tag("spell_markup/wild");
         public static final TagKey<Biome> WIND_MARKUP = tag("spell_markup/wind");
 
+        public static final TagKey<Biome> ILLAGER_ASSAULT_BLACKLIST = tag("illager_assault_blacklist");
+
         private static TagKey<Biome> tag(String name) {
             return create(Goety.location(name));
         }
