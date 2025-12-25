@@ -2,7 +2,6 @@ package com.Polarice3.Goety.common.magic;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.magic.ISummonSpell;
-import com.Polarice3.Goety.client.particles.MagicSmokeParticle;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -124,7 +123,7 @@ public abstract class SummonSpell extends Spell implements ISummonSpell {
     }
 
     public void summonParticles(ServerLevel worldIn, LivingEntity caster, ItemStack staff, LivingEntity summoned) {
-        ColorUtil colorUtil = new ColorUtil(0x2ac9cf);
+        ColorUtil colorUtil = new ColorUtil(0x8FE6DF);
         int colorFrom = 0x17b0e0;
         int colorTo = 0xffffff;
         if (staff.is(ModItems.NAMELESS_STAFF.get())) {
@@ -132,9 +131,6 @@ public abstract class SummonSpell extends Spell implements ISummonSpell {
             colorFrom = 0xa7fc3e;
             colorTo = 0xcffc97;
         }
-        ServerParticleUtil.windShockwaveParticle(worldIn, colorUtil, 0.1F, 0.1F, 0.05F, -1, summoned.position());
-        for (int i2 = 0; i2 < worldIn.getRandom().nextInt(10) + 10; ++i2) {
-            worldIn.sendParticles(new MagicSmokeParticle.Option(colorFrom, colorTo, 10 + worldIn.getRandom().nextInt(10), 0.2F), summoned.getRandomX(1.5D), summoned.getRandomY(), summoned.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
-        }
+        ServerParticleUtil.summonUndeadParticles(worldIn, summoned, colorUtil, colorFrom, colorTo);
     }
 }

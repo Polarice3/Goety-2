@@ -1375,10 +1375,6 @@
   "info.goety.ritual.enchantCompat.fail": "物品附魔冲突！",
   "info.goety.ritual.disable.fail": "此仪式已禁用!",
   "info.goety.ritual.apostleWarn": "§4警告：你将要面对来自“它们”主场之内的敌人。你准备好了吗?§4",
-  "info.goety.grimoire.addType": "已将所有 %s 添加到怨恨之书",
-  "info.goety.grimoire.add": "已将 %s 添加到怨恨之书",
-  "info.goety.grimoire.removeType": "已将所有 %s 从怨恨之书中移除",
-  "info.goety.grimoire.remove": "已将 %s 从怨恨之书中移除",
   "info.goety.grimoire.emptyTypes": "无任何实体类型",
   "info.goety.grimoire.type": "怨恨实体类型:",
   "info.goety.grimoire.empty": "无任何实体",
@@ -1966,13 +1962,11 @@
   "commands.goety.brew.level.add.success.multiple": "增加%s瓶装级别%s个玩家",
   "commands.goety.brew.level.set.success.single": "设置%s瓶装级别给%s",
   "commands.goety.brew.level.set.success.multiple": "设置%s瓶装级别给%s个玩家",
-  "commands.goety.brew.level.set.failure": "装瓶液位设置错误",
   "commands.goety.brew.xp.get.success": "%s有%s的药酿经验",
   "commands.goety.brew.xp.add.success.single": "为%s添加%s药酿经验",
   "commands.goety.brew.xp.add.success.multiple": "为%s名玩家添加%s药酿经验",
   "commands.goety.brew.xp.set.success.single": "将%s设置到%s药酿经验",
   "commands.goety.brew.xp.set.success.multiple": "将%s名玩家的药酿经验设置到%s",
-  "commands.goety.brew.xp.set.failure": "装瓶体验设置错误",
 
   "advancements.goety.root.title": "黑暗艺术",
   "advancements.goety.root.description": "作为灾厄魔法师，开始您的旅程",
@@ -3297,5 +3291,12 @@
   "subtitle.goety.whip_hit": "鞭子：命中",
   "jei.goety.craftType.overgrown": "增生",
   "key.goety.ceaseFire": "命令/停止仆从攻击、停火袭击",
-  "info.goety.ring_of_want": "持有渴望附魔时，使用大部分法术和仆从击杀的生物会掉落更多战利品"
+  "info.goety.ring_of_want": "持有渴望附魔时，使用大部分法术和仆从击杀的生物会掉落更多战利品",
+  "commands.goety.brew.xp.set.failure": "药酿经验设置错误",
+  "commands.goety.brew.level.set.failure": "药酿瓶装级别设置错误",
+  "info.goety.grimoire.addType": "已将所有 %s 添加到当前书中",
+  "info.goety.grimoire.add": "已将 %s 添加到当前书中",
+  "info.goety.grimoire.removeType": "已将所有 %s 从当前书中移除",
+  "info.goety.grimoire.remove": "已将 %s 从当前书中移除",
+  "key.goety.dismiss": "Dismiss Temporary Servants"
 }

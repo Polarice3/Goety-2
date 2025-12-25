@@ -2,9 +2,7 @@ package com.Polarice3.Goety.api.magic;
 
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.items.curios.MagicHatItem;
 import com.Polarice3.Goety.common.items.curios.MagicRobeItem;
-import com.Polarice3.Goety.common.items.curios.NecroGarbs;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.compat.serene_seasons.SSeasonsIntegration;
 import com.Polarice3.Goety.compat.serene_seasons.SSeasonsLoaded;
@@ -314,21 +312,22 @@ public interface ISpell {
     }
 
     default boolean ReduceCastTime(LivingEntity caster){
-        if (this.getSpellType() == SpellType.FROST){
-            return CuriosFinder.hasFrostCrown(caster) || CuriosFinder.hasMagicHat(caster);
+        if (CuriosFinder.hasCastTimeReduce(caster)) {
+            return true;
+        } else if (this.getSpellType() == SpellType.FROST){
+            return CuriosFinder.hasFrostCrown(caster);
         } else if (this.getSpellType() == SpellType.WILD){
-            return CuriosFinder.hasWildCrown(caster) || CuriosFinder.hasMagicHat(caster);
+            return CuriosFinder.hasWildCrown(caster);
         } else if (this.getSpellType() == SpellType.ABYSS){
-            return CuriosFinder.hasAbyssCrown(caster) || CuriosFinder.hasMagicHat(caster);
+            return CuriosFinder.hasAbyssCrown(caster);
         } else if (this.getSpellType() == SpellType.VOID){
-            return CuriosFinder.hasVoidCrown(caster) || CuriosFinder.hasMagicHat(caster);
+            return CuriosFinder.hasVoidCrown(caster);
         } else if (this.getSpellType() == SpellType.NETHER){
-            return CuriosFinder.hasNetherCrown(caster) || CuriosFinder.hasMagicHat(caster);
+            return CuriosFinder.hasNetherCrown(caster);
         } else if (this.getSpellType() == SpellType.NECROMANCY){
-            return CuriosFinder.hasUndeadCrown(caster) || CuriosFinder.hasMagicHat(caster);
-        } else {
-            return CuriosFinder.hasCurio(caster, itemStack -> (itemStack.getItem() instanceof MagicHatItem) || (itemStack.getItem() instanceof NecroGarbs.NecroCrownItem crown && crown.isNameless));
+            return CuriosFinder.hasUndeadCrown(caster);
         }
+        return false;
     }
 
     @Nullable

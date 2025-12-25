@@ -786,7 +786,7 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
         ItemStack itemInHand = pPlayer.getItemInHand(pHand);
         Item item = itemInHand.getItem();
         ItemStack mainHandItem = this.getMainHandItem();
-        if (pPlayer.isCrouching()) {
+        if (pPlayer.isCrouching() && !(item.interactLivingEntity(itemInHand, pPlayer, this, pHand).consumesAction() || itemInHand.is(ModTags.Items.GRIMOIRES))) {
             this.unshackle(pPlayer);
             return InteractionResult.SUCCESS;
         } else if (this.getMasterOwner() != null && this.getMasterOwner() == pPlayer) {

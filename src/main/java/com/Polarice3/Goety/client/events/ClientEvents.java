@@ -1105,6 +1105,9 @@ public class ClientEvents {
         if (ModKeybindings.keyBindings[14].isDown() && MINECRAFT.isWindowActive()){
             ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CActivateCurioKeyPacket());
         }
+        if (ModKeybindings.keyBindings[15].isDown() && MINECRAFT.isWindowActive()){
+            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CDismissServantsPacket());
+        }
     }
 
     //Domestication Innovation work-a-round

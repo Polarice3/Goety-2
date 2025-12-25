@@ -636,6 +636,7 @@ public class Wildfire extends Summoned {
                             serverLevel.sendParticles(ModParticleTypes.SUMMON.get(), blazeServant.getRandomX(1.5D), blazeServant.getRandomY(), blazeServant.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
                         }
                         ColorUtil colorUtil = new ColorUtil(0xffffff);
+                        ServerParticleUtil.sendGodRay(serverLevel, blazeServant, colorUtil);
                         ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 0.1F, 0.1F, 0.05F, -1, blazeServant.position());
                     }
                 }

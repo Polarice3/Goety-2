@@ -1,9 +1,6 @@
 package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.common.entities.projectiles.IceChunk;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;

@@ -33,7 +33,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "While armed with the sophisticated crossbow, these Illagers are quite simple in their approach to combat. Fortunately your servants knows how to back off when their target goes near them."
+      "text": "While armed with the sophisticated crossbow, these Illagers are quite simple in their approach to combat. Fortunately your servants knows how to back off when their target goes near them. They can accept custom arrows by right-clicking on them with up a stack of them, which they will use up when shooting."
     },
     {
       "type": "patchouli:entity",

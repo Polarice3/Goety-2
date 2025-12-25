@@ -121,6 +121,10 @@ public class CuriosFinder {
         return false;
     }
 
+    public static boolean hasCastTimeReduce(LivingEntity livingEntity){
+        return hasMagicHat(livingEntity) || hasNamelessCrown(livingEntity);
+    }
+
     public static boolean hasMagicHat(LivingEntity livingEntity){
         return hasCurio(livingEntity, (itemStack -> itemStack.getItem() instanceof MagicHatItem));
     }

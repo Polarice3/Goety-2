@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.api.entities.IOwned;
-import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.undead.MuckWraithServant;
@@ -17,7 +16,10 @@ import com.Polarice3.Goety.common.magic.spells.SoulBoltSpell;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
-import com.Polarice3.Goety.utils.*;
+import com.Polarice3.Goety.utils.BlockFinder;
+import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.Polarice3.Goety.utils.SoundUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -133,7 +135,7 @@ public class AbstractMossyNecromancer extends AbstractNecromancer{
     }
 
     public void spellCastParticles(){
-        if (this.getNecromancerSpellType() != NecromancerSpellType.NONE) {
+        /*if (this.getNecromancerSpellType() != NecromancerSpellType.NONE) {
             double[] colors = MathHelper.rgbParticle(2735172);
             double d0 = colors[0];
             double d1 = colors[1];
@@ -141,7 +143,7 @@ public class AbstractMossyNecromancer extends AbstractNecromancer{
             for (int i = 0; i < this.level.random.nextInt(4) + 4; ++i) {
                 this.level.addParticle(ModParticleTypes.BIG_CULT_SPELL.get(), this.getX(), this.getY(), this.getZ(), d0, d1, d2);
             }
-        }
+        }*/
     }
 
     public class SummonServantSpell extends SummoningSpellGoal {
@@ -168,8 +170,7 @@ public class AbstractMossyNecromancer extends AbstractNecromancer{
                     summonedentity.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(AbstractMossyNecromancer.this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                     if (serverLevel.addFreshEntity(summonedentity)){
                         SoundUtil.playNecromancerSummon(summonedentity);
-                        ColorUtil colorUtil = new ColorUtil(0x2ac9cf);
-                        ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 0.1F, 0.1F, 0.05F, -1, summonedentity.position());
+                        ServerParticleUtil.summonUndeadParticles(serverLevel, summonedentity);
                     }
                 }
             }

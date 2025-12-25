@@ -86,15 +86,15 @@ public class EsotericTesseract extends Item implements IPersist {
     }
 
     public static boolean isSmall(Mob mob) {
-        return mob.getType().is(ModTags.EntityTypes.TESSERACT_SMALL) || mob.getBoundingBox().getSize() >= 2.0D;
+        return mob.getType().is(ModTags.EntityTypes.TESSERACT_SMALL);
     }
 
     public static boolean isMedium(Mob mob) {
-        return mob.getType().is(ModTags.EntityTypes.TESSERACT_MEDIUM) || mob.getBoundingBox().getSize() >= 3.0D;
+        return mob.getType().is(ModTags.EntityTypes.TESSERACT_MEDIUM);
     }
 
     public static boolean isLarge(Mob mob) {
-        return mob.getType().is(ModTags.EntityTypes.TESSERACT_LARGE) || mob.getBoundingBox().getSize() >= 4.0D;
+        return mob.getType().is(ModTags.EntityTypes.TESSERACT_LARGE);
     }
 
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity target) {

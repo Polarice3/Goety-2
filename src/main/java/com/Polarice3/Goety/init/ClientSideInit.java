@@ -131,6 +131,7 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.MAGIC_ASH_SMOKE.get(), MagicAshSmokeParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.FOLLOW_CULT_SPELL.get(), FollowFireParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SPIRALLING.get(), SpirallingParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.GOD_RAY.get(), GodRayParticle.Provider::new);
         event.registerSpecial(ModParticleTypes.WATER_STREAM.get(), new WaterStreamParticle.Provider());
         event.registerSpriteSet(ModParticleTypes.BLOSSOM_THORN_INDICATOR.get(),
                 spriteSet -> new GeometricParticle.Provider(spriteSet,

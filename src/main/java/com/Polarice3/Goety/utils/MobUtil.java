@@ -63,6 +63,7 @@ import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.raid.Raid;
@@ -1689,6 +1690,31 @@ public class MobUtil {
                 projectile.shoot(d0, d1 + d3 * (double) 0.2F, d2, speed, (float) (14 - victim.level.getDifficulty().getId() * 4));
             }
         }
+    }
+
+    public static boolean canHitEntity(AbstractArrow arrow, Entity pEntity) {
+        if (arrow.getOwner() != null){
+            if (pEntity == arrow.getOwner()){
+                return false;
+            }
+            if (arrow.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
+                return true;
+            } else {
+                if (MobUtil.areAllies(arrow.getOwner(), pEntity)){
+                    return false;
+                }
+                if (arrow.getOwner() instanceof Enemy && pEntity instanceof Enemy){
+                    return false;
+                }
+                if (pEntity instanceof Projectile projectile && projectile.getOwner() == arrow.getOwner()){
+                    return false;
+                }
+                if (pEntity instanceof IOwned owned0 && arrow.getOwner() instanceof IOwned owned1){
+                    return !MobUtil.ownerStack(owned0, owned1);
+                }
+            }
+        }
+        return true;
     }
 
     /*

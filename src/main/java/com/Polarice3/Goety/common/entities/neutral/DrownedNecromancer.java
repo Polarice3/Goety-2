@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.api.entities.IOwned;
-import com.Polarice3.Goety.client.particles.MagicSmokeParticle;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
@@ -598,7 +597,7 @@ public class DrownedNecromancer extends AbstractNecromancer {
             Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof IOwned owned && owned.getTrueOwner() instanceof DrownedNecromancer;
             int i = DrownedNecromancer.this.level.getEntitiesOfClass(LivingEntity.class, DrownedNecromancer.this.getBoundingBox().inflate(64.0D, 16.0D, 64.0D)
                     , predicate).size();
-            return super.canUse() && i < 10 && DrownedNecromancer.this.stormSpellCool > 0;
+            return super.canUse() && i < 10;
         }
 
         @Override
@@ -638,11 +637,7 @@ public class DrownedNecromancer extends AbstractNecromancer {
                         if (!DrownedNecromancer.this.isSilent()) {
                             DrownedNecromancer.this.level.playSound(null, DrownedNecromancer.this.getX(), DrownedNecromancer.this.getY(), DrownedNecromancer.this.getZ(), ModSounds.DROWNED_NECROMANCER_SUMMON.get(), DrownedNecromancer.this.getSoundSource(), 1.4F, 1.0F);
                         }
-                        ColorUtil colorUtil = new ColorUtil(0x2ac9cf);
-                        ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 0.1F, 0.1F, 0.05F, -1, summonedentity.position());
-                        for (int i2 = 0; i2 < serverLevel.getRandom().nextInt(10) + 10; ++i2) {
-                            serverLevel.sendParticles(new MagicSmokeParticle.Option(0x17b0e0, 0xffffff, 10 + serverLevel.getRandom().nextInt(10), 0.2F), summonedentity.getRandomX(1.5D), summonedentity.getRandomY(), summonedentity.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
-                        }
+                        ServerParticleUtil.summonUndeadParticles(serverLevel, summonedentity);
                     }
                 }
             }
@@ -691,7 +686,6 @@ public class DrownedNecromancer extends AbstractNecromancer {
         public void start() {
             this.spellTime = MathHelper.secondsToTicks(5);
             DrownedNecromancer.this.getNavigation().stop();
-            DrownedNecromancer.this.setSpellCooldown(DrownedNecromancer.this.getSpellCooldown() + 60);
             DrownedNecromancer.this.playSound(ModSounds.TRIDENT_STORM_PRE.get(), 2.0F, 1.1F);
             DrownedNecromancer.this.setSpellCasting(true);
             DrownedNecromancer.this.setNecromancerSpellType(NecromancerSpellType.CLOUD);
@@ -751,7 +745,7 @@ public class DrownedNecromancer extends AbstractNecromancer {
         @Override
         public boolean canUse() {
             LivingEntity livingentity = DrownedNecromancer.this.getTarget();
-            if (livingentity != null && livingentity.isAlive() && DrownedNecromancer.this.rapidShotCool <= 0 && DrownedNecromancer.this.stormSpellCool > 0) {
+            if (livingentity != null && livingentity.isAlive() && livingentity.distanceTo(DrownedNecromancer.this) <= 14.0F && DrownedNecromancer.this.rapidShotCool <= 0) {
                 this.target = livingentity;
                 return !DrownedNecromancer.this.isSpellCasting();
             } else {
@@ -760,7 +754,7 @@ public class DrownedNecromancer extends AbstractNecromancer {
         }
 
         public boolean canContinueToUse() {
-            return this.target != null && this.target.isAlive() && this.totalShots < 4 && !DrownedNecromancer.this.isSpellCasting() && DrownedNecromancer.this.stormSpellCool > 0;
+            return this.target != null && this.target.isAlive() && this.totalShots < 4 && !DrownedNecromancer.this.isSpellCasting() && this.target.distanceTo(DrownedNecromancer.this) < 16.0F;
         }
 
         public void start() {
@@ -788,6 +782,9 @@ public class DrownedNecromancer extends AbstractNecromancer {
             ++this.spellTime;
             Level worldIn = DrownedNecromancer.this.level;
             MobUtil.instaLook(DrownedNecromancer.this, this.target);
+            if (!DrownedNecromancer.this.isCurrentAnimation(RAPID)) {
+                DrownedNecromancer.this.setAnimationState(RAPID);
+            }
             if (this.spellTime % 2 == 0 && this.shots < 5){
                 Vec3 vector3d = DrownedNecromancer.this.getViewVector( 1.0F);
                 double accuracy = 8.0D;
@@ -932,8 +929,7 @@ public class DrownedNecromancer extends AbstractNecromancer {
                             if (!DrownedNecromancer.this.isSilent()) {
                                 DrownedNecromancer.this.level.playSound(null, DrownedNecromancer.this.getX(), DrownedNecromancer.this.getY(), DrownedNecromancer.this.getZ(), ModSounds.DROWNED_NECROMANCER_SUMMON.get(), DrownedNecromancer.this.getSoundSource(), 1.4F, 1.0F);
                             }
-                            ColorUtil colorUtil = new ColorUtil(0x2ac9cf);
-                            ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 0.1F, 0.1F, 0.05F, -1, summonedentity.position());
+                            ServerParticleUtil.summonUndeadParticles(serverLevel, summonedentity);
                         }
                     }
                 }

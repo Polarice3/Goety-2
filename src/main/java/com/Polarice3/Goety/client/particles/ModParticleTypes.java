@@ -276,6 +276,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> CHORUS_BLOSSOM_LEAVES = PARTICLE_TYPES.register("chorus_blossom_leaves",
             () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> GOD_RAY = PARTICLE_TYPES.register("god_ray",
+            () -> new SimpleParticleType(true));
+
     public static final RegistryObject<SimpleParticleType> WATER_STREAM = PARTICLE_TYPES.register("water_stream",
             () -> new SimpleParticleType(true));
 

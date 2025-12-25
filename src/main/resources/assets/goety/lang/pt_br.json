@@ -2549,7 +2549,6 @@
   "advancements.goety.summon_golems.title": "Golemancia",
   "advancements.goety.summon_golems.description": "Invoca um Golem de Gelo, Vendaval, Redstone e Túmulo.",
   "advancements.goety.summon_apostle.title": "Dia do Julgamento",
-  "advancements.goety.summon_apostle.description": "Invoca um Apóstolo usando o Ritual de Sabbath.",
   "advancements.goety.become_lich.title": "Estou Além da Força",
   "advancements.goety.become_lich.description": "Ascende a Lich e torna-te verdadeiramente imortal!",
 
@@ -2582,7 +2581,6 @@
   "jei.goety.craftType.magic": "Magia",
   "jei.goety.craftType.adept_nether": "Adepto Nether",
   "jei.goety.craftType.expert_nether": "Especialista Nether",
-  "jei.goety.craftType.sabbath": "Sabbath",
   "jei.goety.craftType.sky": "Céu",
   "jei.goety.craftType.storm": "Tempestade",
   "jei.goety.craftType.deep": "Profundo",
@@ -3380,5 +3378,7 @@
   "entity.goety.bound_storm_caster": "Conjurador de Tempestade Aprisionado",
   "item.goety.bound_storm_caster_spawn_egg": "Ovo de Conjurador de Tempestade Aprisionado",
   "entity.goety.storm_caster": "Conjurador de Tempestade",
-  "item.goety.storm_caster_spawn_egg": "Ovo de Conjurador de Tempestade"
+  "item.goety.storm_caster_spawn_egg": "Ovo de Conjurador de Tempestade",
+  "advancements.goety.summon_apostle.description": "Invoca um Apóstolo usando o Ritual de Sabá.",
+  "jei.goety.craftType.sabbath": "Sabá"
 }

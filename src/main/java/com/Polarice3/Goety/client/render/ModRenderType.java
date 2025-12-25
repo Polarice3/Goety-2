@@ -4,14 +4,16 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.init.ModShaders;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.blaze3d.vertex.*;
 import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.TheEndPortalRenderer;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 
@@ -144,6 +146,29 @@ public class ModRenderType {
     public static RenderType eyes(ResourceLocation p_110489_) {
         return EYES.apply(p_110489_);
     }
+
+    /**
+     * Based/Stolen from @RCXcrafter's Embers Rekindled codes: <a href="https://github.com/RCXcrafter/EmbersRekindled/blob/rekindled/src/main/java/com/rekindled/embers/render/EmbersRenderTypes.java#L49">...</a>
+     */
+    public static ParticleRenderType PARTICLE_ADDITIVE = new ParticleRenderType() {
+        public void begin(BufferBuilder p_107455_, TextureManager p_107456_) {
+            RenderSystem.enableDepthTest();
+            Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
+            RenderSystem.depthMask(false);
+            RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
+            RenderSystem.enableBlend();
+            RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
+            p_107455_.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
+        }
+
+        public void end(Tesselator p_107458_) {
+            p_107458_.end();
+        }
+
+        public String toString() {
+            return source("additive");
+        }
+    };
 
     private static String source(String name) {
         return Goety.MOD_ID + ":" + name;

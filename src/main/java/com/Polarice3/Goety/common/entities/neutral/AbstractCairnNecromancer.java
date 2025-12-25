@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.api.entities.IOwned;
-import com.Polarice3.Goety.client.particles.MagicSmokeParticle;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.undead.ReaperServant;
@@ -17,7 +16,10 @@ import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
-import com.Polarice3.Goety.utils.*;
+import com.Polarice3.Goety.utils.BlockFinder;
+import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.Polarice3.Goety.utils.SoundUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -163,11 +165,7 @@ public class AbstractCairnNecromancer extends AbstractNecromancer{
                     }
                     if (serverLevel.addFreshEntity(summonedentity)){
                         SoundUtil.playNecromancerSummon(summonedentity);
-                        ColorUtil colorUtil = new ColorUtil(0x2ac9cf);
-                        ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 0.1F, 0.1F, 0.05F, -1, summonedentity.position());
-                        for (int i2 = 0; i2 < serverLevel.getRandom().nextInt(10) + 10; ++i2) {
-                            serverLevel.sendParticles(new MagicSmokeParticle.Option(0x17b0e0, 0xffffff, 10 + serverLevel.getRandom().nextInt(10), 0.2F), summonedentity.getRandomX(1.5D), summonedentity.getRandomY(), summonedentity.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
-                        }
+                        ServerParticleUtil.summonUndeadParticles(serverLevel, summonedentity);
                     }
                 }
             }

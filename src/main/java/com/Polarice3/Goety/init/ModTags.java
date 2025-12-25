@@ -77,6 +77,7 @@ public class ModTags {
         public static final TagKey<Item> CAPES = tag("capes");
         public static final TagKey<Item> CROWNS = tag("crowns");
         public static final TagKey<Item> FOCUSES = tag("focuses");
+        public static final TagKey<Item> GRIMOIRES = tag("grimoires");
         public static final TagKey<Item> PILLAGER_WEAPONS = tag("pillager_weapons");
         public static final TagKey<Item> VINDICATOR_WEAPONS = tag("vindicator_weapons");
         public static final TagKey<Item> BREWABLE_FOOD = tag("brewable_food");

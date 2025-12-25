@@ -1,5 +1,7 @@
 package com.Polarice3.Goety.utils;
 
+import com.Polarice3.Goety.client.particles.MagicSmokeParticle;
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.WindParticleOption;
 import com.Polarice3.Goety.client.particles.WindShockwaveParticle;
 import com.google.common.collect.Lists;
@@ -7,7 +9,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -301,6 +306,60 @@ public class ServerParticleUtil {
     public static void windShockwaveParticle(ServerLevel serverLevel, ColorUtil color, float width, float height, float increase, int life, int id, Vec3 vec3){
         for (int i = 0; i < 8; ++i) {
             serverLevel.sendParticles(new WindShockwaveParticle.Option(color, width, height, increase, i * 0.125F, life, id), vec3.x(), vec3.y(), vec3.z(), 1, 0.0D, 0.0D, 0.0D, 0.0F);
+        }
+    }
+
+    public static void sendGodRay(ServerLevel serverLevel, Entity entity, ColorUtil colorUtil) {
+        sendGodRay(serverLevel, entity.getX(), entity.getY(), entity.getZ(), colorUtil.red(), colorUtil.green(), colorUtil.blue());
+    }
+
+    public static void sendGodRay(ServerLevel serverLevel, double x, double y, double z, ColorUtil colorUtil) {
+        sendGodRay(serverLevel, x, y, z, colorUtil.red(), colorUtil.green(), colorUtil.blue());
+    }
+
+    public static void sendGodRay(ServerLevel serverLevel, double x, double y, double z, double red, double green, double blue) {
+        sendAlwaysVisibleParticles(serverLevel, ModParticleTypes.GOD_RAY.get(), x, y, z, 0, red, green, blue, 1.0F);
+    }
+
+    public static <T extends ParticleOptions> void sendAlwaysVisibleParticles(ServerLevel serverLevel, T p_8768_, double p_8769_, double p_8770_, double p_8771_, int p_8772_, double p_8773_, double p_8774_, double p_8775_, double p_8776_) {
+        ClientboundLevelParticlesPacket clientboundlevelparticlespacket = new ClientboundLevelParticlesPacket(p_8768_, false, p_8769_, p_8770_, p_8771_, (float)p_8773_, (float)p_8774_, (float)p_8775_, (float)p_8776_, p_8772_);
+
+        for(int j = 0; j < serverLevel.getPlayers(serverPlayer -> true).size(); ++j) {
+            ServerPlayer serverplayer = serverLevel.getPlayers(serverPlayer -> true).get(j);
+            sendParticles(serverLevel, serverplayer, true, p_8769_, p_8770_, p_8771_, clientboundlevelparticlespacket);
+        }
+
+    }
+
+    public static void summonUndeadParticles(ServerLevel serverLevel, Entity entity) {
+        ColorUtil waveColor = new ColorUtil(0x8FE6DF);
+        summonUndeadParticles(serverLevel, entity, waveColor, 0x17b0e0, 0xffffff);
+    }
+
+    public static void summonPowerfulUndeadParticles(ServerLevel serverLevel, Entity entity) {
+        ColorUtil waveColor = new ColorUtil(0xa7fc3e);
+        summonUndeadParticles(serverLevel, entity, waveColor, 0xa7fc3e, 0xcffc97);
+    }
+
+    public static void summonUndeadParticles(ServerLevel serverLevel, Entity entity, ColorUtil waveColor, int from, int to) {
+        ServerParticleUtil.sendGodRay(serverLevel, entity, waveColor);
+        ServerParticleUtil.windShockwaveParticle(serverLevel, waveColor, 0.1F, 0.1F, 0.1F, -1, entity.position());
+        for (int i2 = 0; i2 < serverLevel.getRandom().nextInt(10) + 10; ++i2) {
+            sendAlwaysVisibleParticles(serverLevel, new MagicSmokeParticle.Option(from, to, 10 + serverLevel.getRandom().nextInt(10), 0.2F), entity.getRandomX(1.5D), entity.getRandomY(), entity.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
+        }
+    }
+
+    public static boolean sendParticles(ServerLevel serverLevel, ServerPlayer p_8637_, boolean p_8638_, double p_8639_, double p_8640_, double p_8641_, Packet<?> p_8642_) {
+        if (p_8637_.level() != serverLevel) {
+            return false;
+        } else {
+            BlockPos blockpos = p_8637_.blockPosition();
+            if (blockpos.closerToCenterThan(new Vec3(p_8639_, p_8640_, p_8641_), p_8638_ ? 512.0D : 32.0D)) {
+                p_8637_.connection.send(p_8642_);
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }

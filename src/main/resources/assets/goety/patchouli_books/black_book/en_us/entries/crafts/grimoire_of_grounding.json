@@ -19,6 +19,10 @@
     {
       "type": "patchouli:text",
       "text": "Call Spell still works even if stored summon is recorded in the grimoire. For Troop Spell, only individuals recorded on the grimoire aren't teleported. The grimoire adds and erases servants the same way other grimoires do for creatures."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The grimoire also prevents temporary servants recorded in it to be dismissed via the 'Dismiss Temporary Servants' key."
     }
   ]
 }

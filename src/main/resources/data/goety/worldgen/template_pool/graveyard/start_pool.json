@@ -7,7 +7,34 @@
     {
       "weight": 7,
       "element": {
-        "location": "goety:graveyard/graveyard",
+        "location": "goety:graveyard/graveyard_1_xmas",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 7,
+      "element": {
+        "location": "goety:graveyard/graveyard_2_xmas",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 7,
+      "element": {
+        "location": "goety:graveyard/graveyard_3_xmas",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 7,
+      "element": {
+        "location": "goety:graveyard/graveyard_4_xmas",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"

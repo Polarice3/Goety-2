@@ -22,7 +22,9 @@ import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 public class TridentStorm extends CastSpellTrap{
     public boolean instant;
@@ -87,31 +89,36 @@ public class TridentStorm extends CastSpellTrap{
                 float radius = 2.0F;
                 List<LivingEntity> targets = new ArrayList<>();
                 AABB aabb = EntityType.TRIDENT.getAABB(this.position().x, this.position().y, this.position().z);
-                for (Entity entity : this.level.getEntitiesOfClass(Entity.class, aabb.inflate(0, 16, 0))) {
+                for (Entity entity : this.level.getEntitiesOfClass(Entity.class, aabb.inflate(1, 16, 1))) {
                     LivingEntity livingEntity = MobUtil.getLivingTarget(entity);
                     if (livingEntity != null) {
-                        if (this.getOwner() != null) {
-                            if (livingEntity != this.getOwner() && !MobUtil.areAllies(this.getOwner(), livingEntity)) {
+                        if (livingEntity.getY() > this.getY() + 1) {
+                            if (this.getOwner() != null) {
+                                if (livingEntity != this.getOwner() && !MobUtil.areAllies(this.getOwner(), livingEntity)) {
+                                    targets.add(livingEntity);
+                                }
+                            } else {
                                 targets.add(livingEntity);
                             }
-                        } else {
-                            targets.add(livingEntity);
                         }
                     }
                 }
+                Optional<LivingEntity> optional = Optional.empty();
                 if (!targets.isEmpty()) {
-                    for (LivingEntity livingEntity : targets) {
-                        livingEntity.hurt(this.damageSources().trident(this, this.getOwner()), 8.0F + this.getExtraDamage());
-                    }
+                    targets.sort(Comparator.comparingDouble(Entity::getY));
+                    optional = Optional.ofNullable(targets.get(targets.size() - 1));
                 }
-                new SpellExplosion(this.level, this, ModDamageSource.lightning(this, this.getOwner()), this.getX(), this.getY(), this.getZ(), radius, damage + this.getExtraDamage());
+                Vec3 vec3 = this.position();
+                if (optional.isPresent()) {
+                    vec3 = optional.get().position();
+                }
+                new SpellExplosion(this.level, this, ModDamageSource.lightning(this, this.getOwner()), vec3.x, vec3.y, vec3.z, radius, damage + this.getExtraDamage());
                 if (this.level instanceof ServerLevel serverLevel){
                     ColorUtil colorUtil = ColorUtil.WHITE;
-                    serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, radius, 1), this.getX(), this.getY(), this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                    serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, radius, 1), vec3.x, vec3.y, vec3.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
                 }
-                ModNetwork.sendToALL(new SLightningBoltPacket(this.position().add(0.0D, 250.0D, 0.0D), this.position(), 5));
+                ModNetwork.sendToALL(new SLightningBoltPacket(vec3.add(0.0D, 250.0D, 0.0D), this.position(), 5));
                 for (int i = 0; i < 16; ++i) {
-                    Vec3 vec3 = this.position();
                     Vec3 vec31 = vec3.add(this.random.nextDouble(), 1.0D, this.random.nextDouble());
                     ModNetwork.sendToALL(new SLightningPacket(vec3, vec31, 2));
                 }

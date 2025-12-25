@@ -7,10 +7,12 @@ import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 
@@ -50,6 +52,16 @@ public class TridentStormSpell extends Spell {
         List<Enchantment> list = new ArrayList<>();
         list.add(ModEnchantments.POTENCY.get());
         return list;
+    }
+
+    @Override
+    public void stopSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, ItemStack focus, int castTime, SpellStat spellStat) {
+        if (castTime >= MathHelper.secondsToTicks(2)){
+            if (caster instanceof Player player && !focus.isEmpty()) {
+                SEHelper.addCooldown(player, focus.getItem(), this.spellCooldown(caster));
+                SEHelper.sendSEUpdatePacket(player);
+            }
+        }
     }
 
     @Override

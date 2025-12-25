@@ -29,17 +29,15 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.ToIntFunction;
 
 public class SoulCandlestickBlock extends BaseEntityBlock {
-    protected static final VoxelShape SHAPE_BASE = Block.box(6.0D, 0.0D, 6.0D,
-            10.0D, 1.0D, 10.0D);
-    protected static final VoxelShape SHAPE_BASE_2 = Block.box(6.25D, 1.0D, 6.25D,
-            9.75D, 2.0D, 9.75D);
-    protected static final VoxelShape SHAPE_MID = Block.box(7.5D, 2.0D, 7.5D,
-            8.5D, 6.0D, 8.5D);
-    protected static final VoxelShape SHAPE_TOP = Block.box(7.0D, 6.0D, 7.0D,
-            9.0D, 7.0D, 9.0D);
-    protected static final VoxelShape SHAPE_CANDLE = Block.box(7.5D, 7.0D, 7.5D,
-            8.5D, 11.0D, 8.5D);
-    public static final VoxelShape SHAPE = Shapes.or(SHAPE_BASE, SHAPE_BASE_2, SHAPE_MID, SHAPE_TOP, SHAPE_CANDLE);
+    protected static final VoxelShape SHAPE_BASE = Block.box(5.0D, 0.0D, 5.0D,
+            11.0D, 2.0D, 11.0D);
+    protected static final VoxelShape SHAPE_MID = Block.box(7.0D, 2.0D, 7.0D,
+            9.0D, 5.0D, 9.0D);
+    protected static final VoxelShape SHAPE_TOP = Block.box(6.0D, 5.0D, 6.0D,
+            10.0D, 6.0D, 10.0D);
+    protected static final VoxelShape SHAPE_CANDLE = Block.box(7.0D, 5.0D, 7.0D,
+            9.0D, 11.0D, 9.0D);
+    public static final VoxelShape SHAPE = Shapes.or(SHAPE_BASE, SHAPE_MID, SHAPE_TOP, SHAPE_CANDLE);
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
     public SoulCandlestickBlock() {

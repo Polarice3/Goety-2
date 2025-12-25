@@ -14,6 +14,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
@@ -256,14 +257,16 @@ public class PillagerServant extends AbstractIllagerServant implements CrossbowA
             if (!(pPlayer.getOffhandItem().getItem() instanceof IWand)) {
                 if (item instanceof CrossbowItem || itemstack.is(ModTags.Items.PILLAGER_WEAPONS)) {
                     this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
-                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copy());
-                    this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
+                    this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2.copyAndClear());
+                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
                     this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
-                    for (int i = 0; i < 7; ++i) {
-                        double d0 = this.random.nextGaussian() * 0.02D;
-                        double d1 = this.random.nextGaussian() * 0.02D;
-                        double d2 = this.random.nextGaussian() * 0.02D;
-                        this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
+                    if (this.level instanceof ServerLevel serverLevel) {
+                        for (int i = 0; i < 7; ++i) {
+                            double d0 = this.random.nextGaussian() * 0.02D;
+                            double d1 = this.random.nextGaussian() * 0.02D;
+                            double d2 = this.random.nextGaussian() * 0.02D;
+                            serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+                        }
                     }
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
@@ -271,17 +274,16 @@ public class PillagerServant extends AbstractIllagerServant implements CrossbowA
                     return InteractionResult.SUCCESS;
                 } else if (item instanceof ArrowItem) {
                     this.playSound(SoundEvents.ITEM_PICKUP, 1.0F, 1.0F);
-                    this.setItemSlot(EquipmentSlot.OFFHAND, itemstack.copy());
-                    this.dropEquipment(EquipmentSlot.OFFHAND, this.getOffhandItem());
+                    this.dropEquipment(EquipmentSlot.OFFHAND, this.getOffhandItem().copyAndClear());
+                    this.setItemSlot(EquipmentSlot.OFFHAND, itemstack.split(64));
                     this.setGuaranteedDrop(EquipmentSlot.OFFHAND);
-                    for (int i = 0; i < 7; ++i) {
-                        double d0 = this.random.nextGaussian() * 0.02D;
-                        double d1 = this.random.nextGaussian() * 0.02D;
-                        double d2 = this.random.nextGaussian() * 0.02D;
-                        this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
-                    }
-                    if (!pPlayer.getAbilities().instabuild) {
-                        itemstack.shrink(1);
+                    if (this.level instanceof ServerLevel serverLevel) {
+                        for (int i = 0; i < 7; ++i) {
+                            double d0 = this.random.nextGaussian() * 0.02D;
+                            double d1 = this.random.nextGaussian() * 0.02D;
+                            double d2 = this.random.nextGaussian() * 0.02D;
+                            serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+                        }
                     }
                     return InteractionResult.SUCCESS;
                 }
