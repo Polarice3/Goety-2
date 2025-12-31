@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "使用$(l:crafts/staff/wind_staff)烈风魔杖$()施法可以增加击退距离。"
+      "text": "使用$(l:crafts/staff/wind_staff)风之魔杖$()施法可以增加击退距离。"
     }
   ]
 }

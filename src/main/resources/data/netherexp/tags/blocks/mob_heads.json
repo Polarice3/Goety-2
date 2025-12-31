@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "goety:tall_skull",
+    "goety:wall_tall_skull",
+    "goety:redstone_golem_skull",
+    "goety:wall_redstone_golem_skull",
+    "goety:grave_golem_skull",
+    "goety:wall_grave_golem_skull",
+    "goety:redstone_monstrosity_head",
+    "goety:wall_redstone_monstrosity_head"
+  ]
+}

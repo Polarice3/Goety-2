@@ -828,7 +828,7 @@ public class DrownedNecromancer extends AbstractNecromancer {
                 return false;
             } else if (livingentity != null && livingentity.isAlive()) {
                 this.target = livingentity;
-                return this.target.distanceTo(DrownedNecromancer.this) > 12.0D;
+                return this.target.distanceTo(DrownedNecromancer.this) > 6.0D;
             } else {
                 return false;
             }

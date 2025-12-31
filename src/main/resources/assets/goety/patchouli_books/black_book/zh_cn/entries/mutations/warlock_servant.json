@@ -1,0 +1,24 @@
+{
+  "name": "术士仆从",
+  "icon": "goety:warlock_sash",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "让一个誓言破坏者当仆从是一件非常令人惊奇的事，但你仍旧发现了实现这件事的方法，在下界弥漫的气息中，你可以把一个村民转化成一个忠诚的术士"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_villager_to_warlock"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:warlock_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你也可以通过给你自己的术士仆从一块绿宝石来直接与他交易，这个过程不需要你穿戴术士套等相关服装。你也可以与其他玩家的术士仆从进行交易，前提是你与他的主人处于同一阵营，并且你依旧需要穿戴正确的服装（比如术士套）"
+    }
+  ]
+}

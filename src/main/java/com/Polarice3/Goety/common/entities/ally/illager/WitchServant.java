@@ -87,9 +87,9 @@ public class WitchServant extends RaiderServant implements RangedAttackMob {
     @Override
     public void miscGoal() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new RaiderWanderGoal<>(this, 1.0D));
-        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(8, new RaiderWanderGoal<>(this, 1.0D));
+        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
     }
 
     protected void defineSynchedData() {

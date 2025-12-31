@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "你可以使用$(l:focuses/wild/hunting_focus)狩猎聚晶$()在山峰上召唤暮光山羊,或者干脆使用$(l:crafts/staff/wind_staff)烈风魔杖$()施法,你也可以使用一个仪式来召唤出永续存在的仆从。"
+      "text": "你可以使用$(l:focuses/wild/hunting_focus)狩猎聚晶$()在山峰上召唤暮光山羊,或者干脆使用$(l:crafts/staff/wind_staff)风之魔杖$()施法,你也可以使用一个仪式来召唤出永续存在的仆从。"
     },
     {
       "type": "goety:ritual",

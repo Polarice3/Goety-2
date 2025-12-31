@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "需求: $(li)必须要在末地 $(li)16个虚空方块 $(li)64个末地石砖 $(li)32任意类型的紫珀方块。"
+      "text": "需求: $(li)必须要在末地 $(li)16个虚空块 $(li)64个末地石砖 $(li)32个任意类型的紫珀方块。"
     },
     {
       "type": "patchouli:image",

@@ -435,7 +435,7 @@ public class Sorcerer extends HuntingIllagerEntity {
                         if (Sorcerer.this.getTarget() != null) {
                             MobUtil.instaLook(Sorcerer.this, Sorcerer.this.getTarget());
                         }
-                        breathingSpell.showWandBreath(Sorcerer.this, WandUtil.getStats(Sorcerer.this, breathingSpell));
+                        breathingSpell.showWandBreath(Sorcerer.this, ItemStack.EMPTY, WandUtil.getStats(Sorcerer.this, breathingSpell));
                     }
                 }
                 Sorcerer.this.level.broadcastEntityEvent(Sorcerer.this, (byte) 4);

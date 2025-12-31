@@ -46,7 +46,7 @@ public class NightBeaconBlockEntity extends BlockEntity {
         if (p_155108_ instanceof ServerLevel world) {
             ChunkPos chunkPos = world.getChunkAt(p_155109_).getPos();
             if (--p_155111_.ticketTime <= 0L) {
-                world.getChunkSource().addRegionTicket(ModTicketTypes.BLOCK, chunkPos, 2, p_155109_);
+                world.getChunkSource().addRegionTicket(ModTicketTypes.BLOCK, chunkPos, 5, p_155109_);
                 p_155111_.ticketTime = ModTicketTypes.BLOCK.timeout() - 1L;
             }
         }

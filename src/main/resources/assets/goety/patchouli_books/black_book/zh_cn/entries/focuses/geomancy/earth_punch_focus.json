@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "该聚晶允许你从目标位置下方的地面召唤出一个拳头，对敌方实体造成伤害并且可以让它们飞起来！"
+      "text": "该聚晶允许你从目标位置下方的地面召唤出一个拳头，对敌方生物造成伤害并且可以让它们飞起来！"
     },
     {
       "type": "patchouli:crafting",
@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "使用$(l:crafts/staff/geo_staff)占卜魔杖$()施法将会向附近的敌人召唤更多的拳头。"
+      "text": "使用$(l:crafts/staff/geo_staff)地卜魔杖$()施法将会向附近的敌人召唤更多的拳头。"
     }
   ]
 }

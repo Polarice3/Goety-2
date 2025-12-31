@@ -1,5 +1,5 @@
 {
-  "name": "不详之鞍",
+  "name": "不祥之鞍",
   "icon": "goety:ominous_saddle",
   "category": "goety:crafts",
   "advancement": "goety:goety/read_ravaging_scroll",
@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "$(l:mutations/ravaged)劫掠兽$()如此强大，但你拥有的那只却缺少了银色的盔甲和马鞍。使用一些，$(l:intro/magical_components)诅咒金属锭$(), 你重新制造了带装甲的马鞍。右键点击那可怜的没有装备的劫掠兽，让它变得可骑乘并且更强大。"
+      "text": "$(l:mutations/ravaged)劫掠兽$()如此强大，但你拥有的那只却没有银色的装甲和鞍。使用一些$(l:intro/magical_components)诅咒金属锭$()，你重新制造了带装甲的鞍。右键点击那可怜的、没有装备的劫掠兽，让它变得可骑乘并且更强大。"
     },
     {
       "type": "goety:ritual",

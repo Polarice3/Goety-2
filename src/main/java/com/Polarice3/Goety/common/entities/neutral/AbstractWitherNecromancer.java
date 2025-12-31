@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.api.entities.IOwned;
-import com.Polarice3.Goety.client.particles.MagicSmokeParticle;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -284,12 +283,7 @@ public class AbstractWitherNecromancer extends AbstractNecromancer {
                     summoned.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(AbstractWitherNecromancer.this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                     if (serverLevel.addFreshEntity(summoned)){
                         SoundUtil.playNecromancerSummon(summoned);
-                        ColorUtil colorUtil = new ColorUtil(0x8FE6DF);
-                        serverLevel.sendParticles(ModParticleTypes.GOD_RAY.get(), summoned.getX(), summoned.getY(), summoned.getZ(), 0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.0F);
-//                        ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 0.1F, 0.1F, 0.05F, -1, summoned.position());
-                        for (int i2 = 0; i2 < serverLevel.getRandom().nextInt(10) + 10; ++i2) {
-                            serverLevel.sendParticles(new MagicSmokeParticle.Option(0x17b0e0, 0xffffff, 10 + serverLevel.getRandom().nextInt(10), 0.2F), summoned.getRandomX(1.5D), summoned.getRandomY(), summoned.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
-                        }
+                        ServerParticleUtil.summonUndeadParticles(serverLevel, summoned);
                     }
                 }
             }

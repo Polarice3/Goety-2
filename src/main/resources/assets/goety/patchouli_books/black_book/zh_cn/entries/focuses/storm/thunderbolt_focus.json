@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "该聚晶并不会让你发射一个连锁的闪电，而是一个更强大的闪电,当你不是使用$(l:crafts/staff/storm_staff)风暴魔杖$()施法,雷电则会受到避雷针的影响."
+      "text": "与其发射连锁的小闪电，不如发射一个更强的大闪电，造成更大的伤害，当你不是使用$(l:crafts/staff/storm_staff)风暴魔杖$()施法，那么雷电会被避雷针吸引"
     },
     {
       "type": "patchouli:crafting",
@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "使用$(l:crafts/staff/storm_staff)风暴魔杖$()施法还将附加连锁闪电效果，并显著提升触发痉挛效果的几率。"
+      "text": "使用$(l:crafts/staff/storm_staff)风暴魔杖$()施法会提升该法术施加痉挛效果的概率，并触发连锁闪电攻击。"
     }
   ]
 }

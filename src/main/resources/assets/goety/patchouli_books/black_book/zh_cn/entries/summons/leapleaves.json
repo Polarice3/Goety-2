@@ -1,20 +1,26 @@
 {
-  "name": "腾越之叶",
+  "name": "腾跃之叶",
   "icon": "minecraft:jungle_leaves",
   "category": "goety:summons",
+  "advancement": "goety:goety/read_floral_scroll",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "一种强大的类人猿生物，由树根和树叶制成，可以跳得很高，猛烈地砸向召唤者的敌人."
+      "text": "一种强大的类人猿生物，由树根和树叶制成，可以跳得很高，猛烈地砸向召唤者的敌人"
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:leapleaf"
+      "entity": "goety:leapleaf",
+      "scale": 0.75
     },
     {
       "type": "multiblock",
       "multiblock_id": "goety:leapleaf",
-      "text": "使用活力核心右键中心的增生之根。"
+      "text": "使用活力核心右键中心的增生之根即可"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "手持骨粉右键腾跃之叶即可治愈它"
     }
   ]
 }

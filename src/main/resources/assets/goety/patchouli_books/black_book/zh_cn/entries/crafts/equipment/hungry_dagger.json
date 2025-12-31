@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "匕首可以在铁砧上使用$(l:crafts/dark_metal_ingot)黑暗合金锭$()来修复，它也可以自己使用灵魂能量来修复。"
+      "text": "匕首可以在铁砧上使用$(l:crafts/dark_metal_ingot)黑暗金属锭$()来修复，它也可以自己使用灵魂能量来修复。"
     }
   ],
   "extra_recipe_mappings": {

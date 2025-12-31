@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "雷电的力量就流淌在你的魔杖之上 用以震撼任何胆敢靠近你的生物,如果你不使用$(l:crafts/staff/storm_staff)风暴魔杖$()进行施法, ，那么电会被避雷针吸引."
+      "text": "雷电的力量就流淌在你的魔杖之上 用以震撼任何胆敢靠近你的生物,如果你不使用$(l:crafts/staff/storm_staff)风暴魔杖$()进行施法，那么电会被避雷针吸引."
     },
     {
       "type": "patchouli:crafting",
@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "使用$(l:crafts/staff/storm_staff)风暴魔杖$()施法还将触发连锁闪电效果，并提高造成痉挛效果的几率。."
+      "text": "使用$(l:crafts/staff/storm_staff)风暴魔杖$()施法还将产生连锁闪电，并提高造成痉挛效果的概率"
     }
   ]
 }

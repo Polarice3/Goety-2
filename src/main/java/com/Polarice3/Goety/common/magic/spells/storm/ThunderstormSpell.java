@@ -4,6 +4,7 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.util.MagicLightningTrap;
 import com.Polarice3.Goety.common.entities.util.VoidLightningTrap;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -83,6 +84,8 @@ public class ThunderstormSpell extends Spell {
                 MagicLightningTrap trap = new MagicLightningTrap(worldIn, vec3.x, vec3.y, vec3.z);
                 if (this.typeStaff(staff, SpellType.VOID)) {
                     trap = new VoidLightningTrap(worldIn, vec3.x, vec3.y, vec3.z);
+                } else if (staff.is(ModItems.NAMELESS_STAFF.get())) {
+                    trap.setColor(0xa7fc3e);
                 }
                 trap.setOwner(caster);
                 trap.setDuration(40);

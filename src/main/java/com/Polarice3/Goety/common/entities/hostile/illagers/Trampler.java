@@ -95,6 +95,7 @@ public class Trampler extends Raider implements ICharger, ICustomAttributes {
         this.goalSelector.setControlFlag(Goal.Flag.TARGET, flag);
     }
 
+    @SuppressWarnings("removal")
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.TramplerHealth.get())

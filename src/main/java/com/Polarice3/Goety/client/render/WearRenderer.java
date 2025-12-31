@@ -45,6 +45,8 @@ public record WearRenderer(ResourceLocation texture,
                     return CuriosRenderer.render("necro_cape_abyss.png");
                 } else if (CuriosFinder.hasNetherRobe(livingEntity)){
                     return CuriosRenderer.render("necro_cape_nether.png");
+                } else if (CuriosFinder.hasWildRobe(livingEntity)){
+                    return CuriosRenderer.render("necro_cape_wild.png");
                 }
             }
         }

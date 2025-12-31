@@ -1,0 +1,41 @@
+{
+  "parent": "goety:goety/root",
+  "display": {
+    "icon": {
+      "item": "goety:cragrocks"
+    },
+    "title": {
+      "translate": "advancements.goety.find_dark_manor.title"
+    },
+    "description": {
+      "translate": "advancements.goety.find_dark_manor.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "structure": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "goety:dark_manor"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "requirements": [
+    [
+      "structure"
+    ]
+  ]
+}

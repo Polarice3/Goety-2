@@ -1129,6 +1129,11 @@ public class ModEntityType {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<WarlockServant>> WARLOCK_SERVANT = register("warlock_servant",
+            EntityType.Builder.of(WarlockServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<MaverickServant>> MAVERICK_SERVANT = register("maverick_servant",
             EntityType.Builder.of(MaverickServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)

@@ -1,5 +1,5 @@
 {
-  "name": "孤魂",
+  "name": "孤魂尸鬼",
   "icon": "goety:shadow_essence",
   "category": "goety:world/bestiary",
   "advancement": "goety:goety/kill_a_wight",
@@ -15,7 +15,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "goety:shadow_essence",
-      "title": "Essence of Shadow",
+      "title": "暗影精粹",
       "text": "当它被杀死时，它会掉落一些奇怪的“精华”，这种精华似乎会吸收光线。也许可以用这些东西来制作某些物品。"
     },
     {

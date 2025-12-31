@@ -1,9 +1,7 @@
 package com.Polarice3.Goety.common.entities.ally.illager.train;
 
 import com.Polarice3.Goety.api.entities.ally.illager.ITrainIllager;
-import com.Polarice3.Goety.common.blocks.ModBlocks;
-import com.Polarice3.Goety.common.blocks.StashUrnBlock;
-import com.Polarice3.Goety.common.blocks.WindBlowerBlock;
+import com.Polarice3.Goety.common.blocks.*;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.illager.Neollager;
 import com.Polarice3.Goety.common.research.ResearchList;
@@ -94,7 +92,7 @@ public class ModIllagerType implements ITrainIllager {
                 && checker.hasBlocks(blockState -> blockState.is(Blocks.LECTERN), 1)
                 && checker.hasBlocks(blockState -> blockState.getBlock() instanceof StashUrnBlock, 4)
                 && checker.hasBlocks(blockState -> blockState.is(BlockTags.BANNERS), 2)
-                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof AbstractSkullBlock, 4)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof AbstractSkullBlock || blockState.getBlock() instanceof TallSkullBlock || blockState.getBlock() instanceof WallTallSkullBlock, 4)
                 && checker.hasBlocks(blockState -> blockState.getBlock() instanceof FlowerPotBlock flowerPotBlock && flowerPotBlock.getContent() != Blocks.AIR, 4)) {
             return ModEntityType.EVOKER_SERVANT.get();
         } else if (checker.hasBlocks(blockState -> blockState.is(Tags.Blocks.STORAGE_BLOCKS_AMETHYST), 16)

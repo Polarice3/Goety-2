@@ -1,0 +1,24 @@
+{
+  "name": "Warlock Servant",
+  "icon": "goety:warlock_sash",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Having an oath breaker as a servant might raise some eyebrows, but nonetheless you've discovered how to do so. With the infernal air of the Nether, you can turn a Villager into a loyal Warlock."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_villager_to_warlock"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:warlock_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "You're also able to trade with your Warlock Servant by giving them an Emerald, without needing to wear appropriate attire to do so. You can also trade with other Warlock Servants, provided you're allied to their master, if they have one, and wearing the appropriate attire."
+    }
+  ]
+}

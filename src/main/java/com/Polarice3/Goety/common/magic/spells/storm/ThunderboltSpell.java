@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.magic.spells.storm;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.network.ModNetwork;
@@ -68,6 +69,10 @@ public class ThunderboltSpell extends Spell {
             range += WandUtil.getRangeLevel(caster);
             damage += WandUtil.getPotencyLevel(caster);
         }
+        ColorUtil colorUtil = new ColorUtil(0xb1abf1);
+        if (staff.is(ModItems.NAMELESS_STAFF.get())) {
+            colorUtil = new ColorUtil(0xa7fc3e);
+        }
         damage += spellStat.getPotency();
         Vec3 vec3 = caster.getEyePosition();
         BlockHitResult rayTraceResult = this.blockResult(worldIn, caster, range);
@@ -75,13 +80,13 @@ public class ThunderboltSpell extends Spell {
         Optional<BlockPos> lightningRod = BlockFinder.findLightningRod(worldIn, BlockPos.containing(rayTraceResult.getLocation()), range);
         if (lightningRod.isPresent() && !rightStaff(staff)){
             BlockPos blockPos = lightningRod.get();
-            ModNetwork.sendToALL(new SThunderBoltPacket(vec3, new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ()), 10));
+            ModNetwork.sendToALL(new SThunderBoltPacket(vec3, new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ()), colorUtil, 10));
             this.playSound(worldIn, caster, ModSounds.THUNDERBOLT.get());
         } else {
             LivingEntity livingEntity = MobUtil.getLivingTarget(target);
             if (livingEntity != null && ForgeHooks.onLivingAttack(livingEntity, ModDamageSource.directShock(caster), damage)) {
                 Vec3 vec31 = new Vec3(livingEntity.getX(), livingEntity.getY() + livingEntity.getBbHeight() / 2, livingEntity.getZ());
-                ModNetwork.sendToALL(new SThunderBoltPacket(vec3, vec31, 10));
+                ModNetwork.sendToALL(new SThunderBoltPacket(vec3, vec31, colorUtil, 10));
                 if (livingEntity.hurt(ModDamageSource.directShock(caster), damage)){
                     float chance = rightStaff(staff) ? 0.25F : 0.05F;
                     float chainDamage = damage / 2.0F;
@@ -99,7 +104,7 @@ public class ThunderboltSpell extends Spell {
                 this.playSound(worldIn, caster, ModSounds.THUNDERBOLT.get());
             } else {
                 BlockPos blockPos = rayTraceResult.getBlockPos();
-                ModNetwork.sendToALL(new SThunderBoltPacket(vec3, new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ()), 10));
+                ModNetwork.sendToALL(new SThunderBoltPacket(vec3, new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ()), colorUtil, 10));
                 this.playSound(worldIn, caster, ModSounds.THUNDERBOLT.get());
             }
         }

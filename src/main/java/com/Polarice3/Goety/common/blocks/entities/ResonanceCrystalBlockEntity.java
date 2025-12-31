@@ -56,7 +56,7 @@ public class ResonanceCrystalBlockEntity extends ModBlockEntity implements IWind
                 if (this.level instanceof ServerLevel world) {
                     ChunkPos chunkPos = this.level.getChunkAt(this.worldPosition).getPos();
                     if (--this.ticketTime <= 0L) {
-                        world.getChunkSource().addRegionTicket(ModTicketTypes.BLOCK, chunkPos, 2, this.worldPosition);
+                        world.getChunkSource().addRegionTicket(ModTicketTypes.BLOCK, chunkPos, 5, this.worldPosition);
                         this.ticketTime = ModTicketTypes.BLOCK.timeout() - 1L;
                     }
                     BlockPos blockPos = this.getBlockPos();

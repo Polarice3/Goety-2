@@ -145,6 +145,19 @@ public class ClientInitEvents {
                     , (stack, world, living, seed) -> living != null && living.isUsingItem() && (living.getUseItem() == stack || InfernalTome.isChanting(stack)) ? 1.0F : 0.0F);
             ItemProperties.register(ModItems.OMINOUS_CHARM.get(), new ResourceLocation("active")
                     , (stack, world, living, seed) -> OminousCharmItem.hasOmen(stack) ? 1.0F : 0.0F);
+            ItemProperties.register(ModItems.COMMAND_HORN.get(), new ResourceLocation("mode")
+                    , (stack, world, living, seed) -> {
+                        if (CommandHorn.isWander(stack)) {
+                            return 1.0F;
+                        } else if (CommandHorn.isStandBy(stack)) {
+                            return 2.0F;
+                        } else if (CommandHorn.isGuard(stack)) {
+                            return 3.0F;
+                        } else if (CommandHorn.isFollow(stack)) {
+                            return 4.0F;
+                        }
+                        return 0.0F;
+                    });
             ItemProperties.register(ModItems.ESOTERIC_TESSERACT.get(), new ResourceLocation("active")
                     , (stack, world, living, seed) -> EsotericTesseract.getServantsInTesseract(stack) > 0 ? 1.0F : 0.0F);
         });
@@ -653,6 +666,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.ARMORED_RAVAGER.get(), ModRavagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.ZOMBIE_RAVAGER.get(), ZombieRavagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.WITCH_SERVANT.get(), WitchServantRenderer::new);
+        event.registerEntityRenderer(ModEntityType.WARLOCK_SERVANT.get(), WarlockServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.MAVERICK_SERVANT.get(), MaverickServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.BLACK_WOLF.get(), BlackWolfRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKELETON_WOLF.get(), SkeletonWolfRenderer::new);

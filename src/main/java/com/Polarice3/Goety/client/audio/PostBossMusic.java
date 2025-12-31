@@ -24,7 +24,7 @@ public class PostBossMusic extends AbstractTickableSoundInstance {
 
     @Override
     public boolean canPlaySound() {
-        return ClientEvents.BOSS_MUSIC == null;
+        return ClientEvents.PRE_BOSS_MUSIC == null && ClientEvents.BOSS_MUSIC == null;
     }
 
     @Override

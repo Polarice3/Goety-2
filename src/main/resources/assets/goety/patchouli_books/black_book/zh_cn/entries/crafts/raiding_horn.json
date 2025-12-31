@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "吹响这个号角就可以让你的$(l:mutations/illager_servants#raid)袭击者们$()开始向你当前所在的村庄发动袭击"
+      "text": "吹响这个号角就可以让你的$(l:mutations/illager_servants#raid)灾厄村民们$()开始向你当前所在的村庄发动袭击"
     },
     {
       "type": "patchouli:crafting",

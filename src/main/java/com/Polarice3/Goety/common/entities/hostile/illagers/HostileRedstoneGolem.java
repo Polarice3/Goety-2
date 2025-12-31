@@ -10,6 +10,7 @@ import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MiscCapHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SoundUtil;
 import net.minecraft.core.BlockPos;
@@ -107,6 +108,7 @@ public class HostileRedstoneGolem extends HostileGolem {
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, false));
     }
 
+    @SuppressWarnings("removal")
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.RedstoneGolemHealth.get())
@@ -401,6 +403,7 @@ public class HostileRedstoneGolem extends HostileGolem {
                 }
             }
         }
+        MiscCapHelper.updateMobTarget(this);
         if (!this.level.isClientSide){
             if (!this.isDeadOrDying()) {
                 if (!this.isMeleeAttacking() && !this.isSummoning()) {

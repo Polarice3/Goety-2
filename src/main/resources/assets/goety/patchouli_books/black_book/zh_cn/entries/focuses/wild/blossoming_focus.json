@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "该咒语释放出一团荆棘般狂野的能量球，击中区域将生长出多根剧毒荆棘impact."
+      "text": "该发射可以发射一团充满荒野力量的荆棘球，其命中的区域将生长出多根剧毒荆棘"
     },
     {
       "type": "goety:ritual",
@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "使用$(l:crafts/staff/wild_staff)荒野魔杖$()施法可以增加法术半径."
+      "text": "使用$(l:crafts/staff/wild_staff)荒野魔杖$()施法可以增加法术的影响半径."
     }
   ],
   "extra_recipe_mappings": {

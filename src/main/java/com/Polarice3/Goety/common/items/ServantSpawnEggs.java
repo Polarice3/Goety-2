@@ -226,13 +226,13 @@ public class ServantSpawnEggs {
             () -> new ServantSpawnEggItem(ModEntityType.ZPIGLIN_BRUTE_SERVANT, 0x1c1c1c, 0xf5da2a, egg()));
 
     public static final RegistryObject<ServantSpawnEggItem> WATCHLING_SERVANT_SPAWN_EGG = ITEMS.register("watchling_servant_spawn_egg",
-            () -> new ServantSpawnEggItem(ModEntityType.WATCHLING_SERVANT, 0x0f0013, 0xe079fa, egg()));
+            () -> new ServantSpawnEggItem(ModEntityType.WATCHLING_SERVANT, 0x1c001e, 0xff9af5, egg()));
 
     public static final RegistryObject<ServantSpawnEggItem> BLASTLING_SERVANT_SPAWN_EGG = ITEMS.register("blastling_servant_spawn_egg",
-            () -> new ServantSpawnEggItem(ModEntityType.BLASTLING_SERVANT, 0x0f0013, 0xae00d5, egg()));
+            () -> new ServantSpawnEggItem(ModEntityType.BLASTLING_SERVANT, 0x1c001e, 0xb103d7, egg()));
 
     public static final RegistryObject<ServantSpawnEggItem> SNARELING_SERVANT_SPAWN_EGG = ITEMS.register("snareling_servant_spawn_egg",
-            () -> new ServantSpawnEggItem(ModEntityType.SNARELING_SERVANT, 0x0f0013, 0xd4dd4f, egg()));
+            () -> new ServantSpawnEggItem(ModEntityType.SNARELING_SERVANT, 0x1c001e, 0xfcfcc7, egg()));
 
     public static final RegistryObject<ServantSpawnEggItem> NEOLLAGER_SPAWN_EGG = ITEMS.register("neollager_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.NEOLLAGER, 0x281e11, 0x464234, egg()));
@@ -278,6 +278,9 @@ public class ServantSpawnEggs {
 
     public static final RegistryObject<ServantSpawnEggItem> WITCH_SERVANT_SPAWN_EGG = ITEMS.register("witch_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.WITCH_SERVANT, 0x1d0b2f, 0x4f5f3a, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> WARLOCK_SERVANT_SPAWN_EGG = ITEMS.register("warlock_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.WARLOCK_SERVANT, 0xa42822, 0x331609, egg()));
 
     public static final RegistryObject<ServantSpawnEggItem> MAVERICK_SERVANT_SPAWN_EGG = ITEMS.register("maverick_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.MAVERICK_SERVANT, 0x92a7cd, 0x1a2524, egg()));

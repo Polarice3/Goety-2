@@ -17,7 +17,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "使用$(l:crafts/staff/geo_staff)占卜魔杖$()施法时，只要范围内的方块可用镐或锹采集，该法术将实现3x3区域的范围开采。"
+      "text": "使用$(l:crafts/staff/geo_staff)地卜魔杖$()施法时，只要范围内的方块可用镐或锹采集，该法术将实现3x3区域的范围开采。"
     }
   ]
 }

@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "使用$(l:crafts/staff/storm_staff)闪电魔杖$()施法，可以发射带电能量球，更高概率触发痉挛效果，并在命中后引发雷爆，对多个目标造成伤害."
+      "text": "使用$(l:crafts/staff/storm_staff)风暴魔杖$()施法，可以发射带电能量球，更高概率触发痉挛效果，并在命中后引发雷爆，对多个目标造成伤害."
     }
   ]
 }

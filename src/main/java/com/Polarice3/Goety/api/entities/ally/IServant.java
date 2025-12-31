@@ -134,6 +134,26 @@ public interface IServant extends IOwned {
     default void overrideSetTarget(@Nullable LivingEntity target) {
     }
 
+    default void setWandering() {
+        this.setBoundPos(null);
+        this.setWandering(true);
+        this.setStaying(false);
+    }
+
+    default void setStaying() {
+        this.setBoundPos(null);
+        this.setWandering(false);
+        this.setStaying(true);
+    }
+
+    default void setGuarding() {
+        if (this instanceof LivingEntity living) {
+            this.setBoundPos(living.blockPosition());
+            this.setWandering(false);
+            this.setStaying(false);
+        }
+    }
+
     default void setFollowing(){
         this.setBoundPos(null);
         this.setWandering(false);
@@ -397,7 +417,7 @@ public interface IServant extends IOwned {
                         int j = SectionPos.blockToSectionCoord(owned.position().z());
                         BlockPos blockPos = BlockPos.containing(owned.position());
                         if (this.decreaseTicketTime() <= 0L || i != SectionPos.blockToSectionCoord(blockPos.getX()) || j != SectionPos.blockToSectionCoord(blockPos.getZ())) {
-                            serverLevel.getChunkSource().addRegionTicket(ModTicketTypes.SERVANT, owned.chunkPosition(), 2, owned.blockPosition());
+                            serverLevel.getChunkSource().addRegionTicket(ModTicketTypes.SERVANT, owned.chunkPosition(), 5, owned.blockPosition());
                             serverLevel.resetEmptyTime();
                             this.setTicketTime(ModTicketTypes.SERVANT.timeout() - 1L);
                         }
@@ -412,7 +432,7 @@ public interface IServant extends IOwned {
     default void forceChunkLoadSelf() {
         if (this instanceof Mob owned){
             if (owned.level instanceof ServerLevel serverLevel) {
-                serverLevel.getChunkSource().addRegionTicket(ModTicketTypes.SERVANT, owned.chunkPosition(), 2, owned.blockPosition());
+                serverLevel.getChunkSource().addRegionTicket(ModTicketTypes.SERVANT, owned.chunkPosition(), 5, owned.blockPosition());
                 serverLevel.resetEmptyTime();
             }
         }

@@ -37,11 +37,25 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:bone_spider_servant"
+      "entity": "goety:icy_spider_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这些冰冷的蜘蛛每咬一口都能减速目标，它可以随意地走过细雪而不会沉下去。如果它们的主人穿着霜冻长袍，它们的攻击还可以冰冻目标"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bone_spider_servant",
+      "scale": 0.75
     },
     {
       "type": "patchouli:text",
       "text": "一只长满骨头的蜘蛛，从远处向敌人发射骨头碎片，只有在目标很近的情况下才会近战。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "每种蜘蛛仆从都可以用肉类右键喂食来治愈"
     }
   ]
 }

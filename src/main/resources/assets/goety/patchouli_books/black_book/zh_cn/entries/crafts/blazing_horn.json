@@ -1,12 +1,12 @@
 {
-  "name": "燃烧号角",
+  "name": "炽烈号角",
   "icon": "goety:blazing_horn",
   "category": "goety:crafts",
   "advancement": "minecraft:story/enter_the_nether",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "你听说过曾在下界要塞游荡的强大魔法师的传言。据说，一个特殊的咒语在下界要塞内施放时可以召唤出它们。"
+      "text": "你听说过曾在下界要塞游荡的强大魔法师的传言。据说，在下界要塞施放一个特殊的咒语可以召唤出它们。"
     },
     {
       "type": "patchouli:crafting",

@@ -142,7 +142,9 @@ public class VanguardSpell extends SummonSpell {
                     summonedentity.finalizeSpawn(worldIn, caster.level.getCurrentDifficultyAt(caster.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                     this.SummonSap(caster, summonedentity);
                     this.setTarget(caster, summonedentity);
-                    worldIn.addFreshEntity(summonedentity);
+                    if (worldIn.addFreshEntity(summonedentity)) {
+                        this.summonParticles(worldIn, caster, staff, summonedentity);
+                    }
                     this.summonAdvancement(caster, summonedentity);
                 }
             }

@@ -1,11 +1,9 @@
 {
   "replace": false,
   "values": [
+    "#goety:wraith_servants",
     "goety:wraith",
     "goety:border_wraith",
-    "goety:muck_wraith",
-    "goety:wraith_servant",
-    "goety:border_wraith_servant",
-    "goety:muck_wraith_servant"
+    "goety:muck_wraith"
   ]
 }

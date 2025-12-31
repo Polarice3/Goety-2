@@ -1,11 +1,11 @@
 {
   "name": "云垫聚晶",
   "icon": "goety:cushion_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/wind",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "这个聚晶会召唤一团云，当一个生物落在云上时，它会抵消所有的掉落伤害。这团云会自动将自己定位在地面上。"
+      "text": "召唤一朵云，当生物落在云上时，云垫会抵消所有坠落伤害，云垫只会自动生成在地面上"
     },
     {
       "type": "patchouli:crafting",

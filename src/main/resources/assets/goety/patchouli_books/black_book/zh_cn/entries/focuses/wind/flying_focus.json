@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "使用$(l:crafts/staff/wind_staff)烈风魔杖$()施法可以让你飞得更快。"
+      "text": "使用$(l:crafts/staff/wind_staff)风之魔杖$()施法可以让你飞得更快。"
     }
   ],
   "extra_recipe_mappings": {

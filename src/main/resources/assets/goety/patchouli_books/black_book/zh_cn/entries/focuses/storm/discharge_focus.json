@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "会在你的位置释放出电流爆炸，伤害附近的所有生物并电击它们。 爆炸会造成闪电伤害，但不会伤害施法者."
+      "text": "在你的位置释放出电流爆炸，伤害附近的所有生物并击飞它们，爆炸会造成闪电伤害，但不会伤害施法者."
     },
     {
       "type": "goety:ritual",
@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "使用$(l:crafts/staff/storm_staff)风暴魔杖$()施法提升引发痉挛效果的几率，并触发连锁闪电攻击。"
+      "text": "使用$(l:crafts/staff/storm_staff)风暴魔杖$()施法会提升该法术施加痉挛效果的概率，并触发连锁闪电攻击。"
     }
   ],
   "extra_recipe_mappings": {

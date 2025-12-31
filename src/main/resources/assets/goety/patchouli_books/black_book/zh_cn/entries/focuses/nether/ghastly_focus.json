@@ -19,7 +19,7 @@
     {
       "type": "patchouli:text",
       "advancement": "goety:goety/read_bygone_scroll",
-      "text": "身着下界长袍施放此时，将召唤恶魂仆从而非小恶魂，但召唤数量较少——即便使用下界法杖施法也不例外."
+      "text": "身着下界长袍施放该法术时，将召唤真正的恶魂仆从而非迷你恶魂，但召唤数量较少——即便使用下界法杖施法也不例外."
     }
   ],
   "extra_recipe_mappings": {

@@ -11,7 +11,7 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:cryptic_eye",
-      "text": "使用它会复制一个寻找结构的眼睛，这样做会消耗它的耐久。"
+      "text": "使用时会掷出眼睛的复制体而非消耗本体，但每次使用都会损耗其耐久度"
     }
   ]
 }

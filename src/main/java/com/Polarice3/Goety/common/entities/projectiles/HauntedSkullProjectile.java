@@ -173,11 +173,20 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
                 }
             }
             Explosion.BlockInteraction explodeMode = Explosion.BlockInteraction.KEEP;
+            boolean damaging;
+            if (this.getOwner() instanceof Player) {
+                damaging = SpellConfig.HauntedSkullGriefing.get();
+            } else {
+                damaging = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this);
+            }
+            if (!damaging) {
+                flaming = false;
+            }
             if (this.isDangerous()) {
                 if (this.getOwner() instanceof Player) {
-                    explodeMode = SpellConfig.HauntedSkullGriefing.get() ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.KEEP;
+                    explodeMode = damaging ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.KEEP;
                 } else {
-                    explodeMode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.KEEP;
+                    explodeMode = damaging ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.KEEP;
                 }
             }
             LootingExplosion.Mode lootMode = loot ? LootingExplosion.Mode.LOOT : LootingExplosion.Mode.REGULAR;

@@ -1,0 +1,41 @@
+{
+  "parent": "goety:goety/root",
+  "display": {
+    "icon": {
+      "item": "goety:rotten_log"
+    },
+    "title": {
+      "translate": "advancements.goety.find_blighted_shack.title"
+    },
+    "description": {
+      "translate": "advancements.goety.find_blighted_shack.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "structure": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "goety:blighted_shack"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "requirements": [
+    [
+      "structure"
+    ]
+  ]
+}

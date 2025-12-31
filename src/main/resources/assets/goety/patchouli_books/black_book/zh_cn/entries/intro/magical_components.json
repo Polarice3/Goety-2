@@ -1,5 +1,5 @@
 {
-  "name": "神奇的绿宝石",
+  "name": "神奇的部件",
   "icon": "goety:magic_emerald",
   "category": "goety:intro",
   "sortnum": 3,
@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "有了你的原始图腾，你发现你可以用它来制作全新的物品，这些物品可以用来创造各种神奇的装置和聚晶！ 尽管肯定还有更多 $(l:intro/cursed_infuser)更便宜的方式$() 去获得这些东西..."
+      "text": "有了你的初始图腾，你发现你可以用它来制作全新的物品，这些物品可以用来创造各种神奇的装置和聚晶！ 尽管肯定还有更多$(l:intro/cursed_infuser)更便宜的方式$()去获得这些东西..."
     },
     {
       "type": "patchouli:crafting",
@@ -29,13 +29,14 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:magic_emerald_craft"
+      "recipe": "goety:magic_emerald_craft",
+      "recipe2": "goety:soul_emerald"
     },
     {
       "anchor": "totem",
       "type": "patchouli:crafting",
       "recipe": "goety:totem_of_souls",
-      "text": "你终于制作出了一个真正的不死图腾的赝品，尽管他是赝品，但是这个图腾可以比根之图腾拥有更多的灵魂能量，而且他比正品还要强大"
+      "text": "你终于制作出了一个真正的不死图腾的赝品，尽管它是一个赝品，但是这个图腾能够储存比根之图腾更多的灵魂能量，而且灵魂图腾比正品还要强大"
     }
   ]
 }

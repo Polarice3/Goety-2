@@ -28,6 +28,7 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> StormRobeResistance;
     public static final ForgeConfigSpec.ConfigValue<Integer> VoidRobeWaterSapped;
     public static final ForgeConfigSpec.ConfigValue<Integer> VoidRobeTeleportChance;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VoidRobeTeleportDistance;
     public static final ForgeConfigSpec.ConfigValue<Integer> NetherRobeResistance;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> StaffOffhandBuff;
@@ -190,6 +191,8 @@ public class ItemConfig {
                     .define("voidSetMobNeutral", true);
             VoidRobeTeleportChance = BUILDER.comment("Determines the chance of Void Robes wearers can teleport away from incoming attacks, set to 0 to disable, Default: 5")
                     .defineInRange("voidRobeTeleportChance", 5, 0, 100);
+            VoidRobeTeleportDistance = BUILDER.comment("Determines how far Void Robes wearers can teleport away from original position, Default: 4")
+                    .defineInRange("voidRobeTeleportDistance", 4, 1, Integer.MAX_VALUE);
             VoidRobeTeleportDamageCancel = BUILDER.comment("If 'voidRobeTeleport' is enabled, teleporting cancels incoming damage, Default: true")
                     .define("voidRobeTeleportDamageCancel", true);
             VoidRobeWaterSapped = BUILDER.comment("Determines what level of Sapped is applied while wearing Void Robes in rain or water, set to 0 to disable, Default: 2")

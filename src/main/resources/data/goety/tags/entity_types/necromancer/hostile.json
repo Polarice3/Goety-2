@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "goety:necromancer",
+    "goety:cairn_necromancer",
+    "goety:mossy_necromancer",
+    "goety:wither_necromancer"
+  ]
+}

@@ -1,5 +1,7 @@
 package com.Polarice3.Goety.common.items.equipment;
 
+import com.Polarice3.Goety.common.blocks.TallSkullBlock;
+import com.Polarice3.Goety.common.blocks.WallTallSkullBlock;
 import com.Polarice3.Goety.common.items.ModTiers;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -97,7 +99,7 @@ public class GraverobberShovelItem extends ShovelItem {
     }
 
     public float getDestroySpeed(ItemStack p_41004_, BlockState p_41005_) {
-        if (p_41005_.getBlock() instanceof AbstractSkullBlock) {
+        if (p_41005_.getBlock() instanceof AbstractSkullBlock || p_41005_.getBlock() instanceof TallSkullBlock || p_41005_.getBlock() instanceof WallTallSkullBlock) {
             return 8.0F;
         } else {
             return super.getDestroySpeed(p_41004_, p_41005_);

@@ -257,6 +257,10 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
         super.onSyncedDataUpdated(accessor);
     }
 
+    public double getMyRidingOffset() {
+        return 0.0D;
+    }
+
     public SimpleContainer getInventory() {
         return this.inventory;
     }

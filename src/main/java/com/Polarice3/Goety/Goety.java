@@ -102,7 +102,6 @@ import net.minecraftforge.event.server.ServerStoppedEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -132,8 +131,10 @@ import static net.minecraftforge.fml.loading.LogMarkers.CORE;
 public class Goety {
     public static final String MOD_ID = "goety";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static ModProxy PROXY = DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
-    public static SidedInit SIDED_INIT = DistExecutor.unsafeRunForDist(() -> ClientSideInit::new, () -> SidedInit::new);
+    @SuppressWarnings("removal")
+    public static ModProxy PROXY = net.minecraftforge.fml.DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+    @SuppressWarnings("removal")
+    public static SidedInit SIDED_INIT = net.minecraftforge.fml.DistExecutor.unsafeRunForDist(() -> ClientSideInit::new, () -> SidedInit::new);
 
     public static ResourceLocation location(String path) {
         return new ResourceLocation(MOD_ID, path);
@@ -651,6 +652,7 @@ public class Goety {
         event.put(ModEntityType.ARMORED_RAVAGER.get(), Ravager.createAttributes().build());
         event.put(ModEntityType.ZOMBIE_RAVAGER.get(), ZombieRavager.setCustomAttributes().build());
         event.put(ModEntityType.WITCH_SERVANT.get(), WitchServant.setCustomAttributes().build());
+        event.put(ModEntityType.WARLOCK_SERVANT.get(), WarlockServant.setCustomAttributes().build());
         event.put(ModEntityType.MAVERICK_SERVANT.get(), MaverickServant.setCustomAttributes().build());
         event.put(ModEntityType.BLACK_WOLF.get(), BlackWolf.setCustomAttributes().build());
         event.put(ModEntityType.SKELETON_WOLF.get(), SkeletonWolf.setCustomAttributes().build());

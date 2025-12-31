@@ -1,0 +1,26 @@
+{
+  "replace": false,
+  "values": [
+    "goety:prisoner",
+    "goety:neollager",
+    "goety:pillager_servant",
+    "goety:piker_servant",
+    "goety:signaler_servant",
+    "goety:vindicator_servant",
+    "goety:vindicator_chef_servant",
+    "goety:mountaineer_servant",
+    "goety:crusher_servant",
+    "goety:evoker_servant",
+    "goety:geomancer_servant",
+    "goety:iceologer_servant",
+    "goety:cryologer_servant",
+    "goety:wind_caller_servant",
+    "goety:storm_caster_servant",
+    "goety:ally_trampler",
+    "goety:ravaged",
+    "goety:ravager",
+    "goety:zombie_ravager",
+    "goety:witch_servant",
+    "goety:maverick_servant"
+  ]
+}

@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "$(l:summons/black_wolves)黑狼们$() 是民间传说中提到的超自然或恶魔般的猎犬，据说在整个主世界都发现过他们的踪迹。通过一些聚晶，你就能够召唤或用魔法召唤它们来提供帮助。当在山顶上时，你将会召唤出$(l:summons/twilight_goats)暮光山羊$(),它们是普通山羊的凶残近亲。当在水下时，你将召唤出$(l:summons/snappers)黑鲷$(), 这是一种凶猛的类似食人鱼的生物，会撕碎你的敌人。."
+      "text": "$(l:summons/black_wolves)黑狼们$()是民间传说中提到的超自然或恶魔般的猎犬，据说在整个主世界都发现过他们的踪迹。通过一些聚晶，你就能够召唤或用魔法召唤它们来提供帮助。当在山顶上时，你将会召唤出$(l:summons/twilight_goats)暮光山羊$(),它们是普通山羊的凶残近亲。当在水下时，你将召唤出$(l:summons/snappers)黑鲷$(), 这是一种凶猛的、类似食人鱼的生物，会撕碎你的敌人。"
     },
     {
       "type": "patchouli:crafting",
@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "当手持$(l:crafts/staff/wild_staff)荒野魔杖$()施法时,你会召唤更多的黑狼, 穿着荒野长袍可以增幅它们的力量，他们的撕咬与抓痕将难以被治愈。手持$(l:crafts/staff/wind_staff)烈风魔杖$()施法时, 你将会召唤暮光山羊。手持$(l:crafts/staff/abyss_staff)深渊魔杖$()施法时，你会召唤黑鲷... 就算是在陆地上。 只有在水下潜行施法时，黑鲷才会传送到你身边。"
+      "text": "当手持$(l:crafts/staff/wild_staff)荒野魔杖$()施法时,你会召唤更多的黑狼, 穿着荒野长袍可以增幅它们的力量，他们的撕咬与抓痕将难以被治愈。手持$(l:crafts/staff/wind_staff)风之魔杖$()施法时, 你将会召唤暮光山羊。手持$(l:crafts/staff/abyss_staff)深渊魔杖$()施法时，你会召唤黑鲷（即使你身处陆地），只有在水下潜行施法时，黑鲷才会传送到你身边。"
     }
   ]
 }

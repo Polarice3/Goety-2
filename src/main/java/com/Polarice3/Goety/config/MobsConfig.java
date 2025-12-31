@@ -138,6 +138,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> StormCasterServantTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> WitchServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WarlockServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MaverickServantTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> SpiderServantTexture;
@@ -303,6 +304,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> CroneThornDefense;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> HostileCryptUndead;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> HostileTerminalEnder;
 
     static {
         BUILDER.push("Textures");
@@ -398,6 +400,8 @@ public class MobsConfig {
                 BUILDER.push("Raider Servants");
                 WitchServantTexture = BUILDER.comment("If Witch Servants have custom textures, Default: true")
                         .define("witchServantTexture", true);
+                WarlockServantTexture = BUILDER.comment("If Warlock Servants have custom textures, Default: true")
+                        .define("warlockServantTexture", true);
                 MaverickServantTexture = BUILDER.comment("If Maverick Servants have custom textures, Default: true")
                         .define("maverickServantTexture", true);
                 BUILDER.pop();
@@ -957,8 +961,10 @@ public class MobsConfig {
                 .define("hellfireFireImmune", true);
         HellfireFireProtection = BUILDER.comment("Whether Hellfire damage is mitigated by Fire Protection enchantment, Default: true")
                 .define("hellfireFireProtection", true);
-        HostileCryptUndead = BUILDER.comment("Whether undead mobs in the Crypts remain hostile even if players wear Necro Set, Default: true")
+        HostileCryptUndead = BUILDER.comment("Whether undead mobs in the Crypts and certain tagged structures remain hostile even if players wear Necro Set, Default: true")
                 .define("hostileCryptUndead", true);
+        HostileTerminalEnder = BUILDER.comment("Whether ender mobs in the Final Terminal and certain tagged structures remain hostile even if players wear Void Set, Default: true")
+                .define("hostileTerminalEnder", true);
         BUILDER.pop();
         SPEC = BUILDER.build();
     }

@@ -2,5 +2,37 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "goety:item/command_horn"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "mode": 0.00000
+      },
+      "model": "goety:item/command_horn"
+    },
+    {
+      "predicate": {
+        "mode": 1.00000
+      },
+      "model": "goety:item/command_horn_wander"
+    },
+    {
+      "predicate": {
+        "mode": 2.00000
+      },
+      "model": "goety:item/command_horn_stand_by"
+    },
+    {
+      "predicate": {
+        "mode": 3.00000
+      },
+      "model": "goety:item/command_horn_guard"
+    },
+    {
+      "predicate": {
+        "mode": 4.00000
+      },
+      "model": "goety:item/command_horn_follow"
+    }
+  ]
 }

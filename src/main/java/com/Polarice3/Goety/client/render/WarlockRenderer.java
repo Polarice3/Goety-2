@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.client.render.model.VillagerArmorModel;
 import com.Polarice3.Goety.client.render.model.WarlockModel;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -9,6 +10,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CrossedArmsItemLayer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
+import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class WarlockRenderer extends MobRenderer<Warlock, WarlockModel<Warlock>> {
@@ -16,6 +18,7 @@ public class WarlockRenderer extends MobRenderer<Warlock, WarlockModel<Warlock>>
 
    public WarlockRenderer(EntityRendererProvider.Context p_174443_) {
       super(p_174443_, new WarlockModel<>(p_174443_.bakeLayer(ModModelLayer.WARLOCK)), 0.5F);
+      this.addLayer(new HumanoidArmorLayer<>(this, new VillagerArmorModel<>(p_174443_.bakeLayer(ModModelLayer.VILLAGER_ARMOR_INNER)), new VillagerArmorModel<>(p_174443_.bakeLayer(ModModelLayer.VILLAGER_ARMOR_OUTER)), p_174443_.getModelManager()));
       this.addLayer(new CrossedArmsItemLayer<>(this, p_174443_.getItemInHandRenderer()));
       this.addLayer(new CustomHeadLayer<>(this, p_174443_.getModelSet(), p_174443_.getItemInHandRenderer()));
    }

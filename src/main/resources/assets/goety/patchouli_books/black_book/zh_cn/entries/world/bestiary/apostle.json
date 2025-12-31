@@ -51,6 +51,11 @@
     {
       "type": "patchouli:text",
       "text": "这些痛苦的怪物体型较小，但远胜于恶魂，它们喷出能烧穿一切的狱火爆破。偶尔，这些生物会发射出一个普通的火球，这中火球可以被回击到它们。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:unholy_blood{Pure: 1b}",
+      "text": "有传言说，他们在下界掉落的血液，是最为至纯的..."
     }
   ],
   "extra_recipe_mappings": {

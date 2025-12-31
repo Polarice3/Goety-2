@@ -30,6 +30,8 @@ public class VoidFrameBlock extends BaseEntityBlock {
     public static int HALLOWED_EYE = 1;
     public static int TWISTED_EYE = 2;
     public static int DREADFUL_EYE = 3;
+    public static int RANDOM = 4;
+    public static int NONE = 5;
     protected static final VoxelShape BASE_SHAPE = box(0.0, 0.0, 0.0, 16.0, 13.0, 16.0);
     protected static final VoxelShape EYE_SHAPE = box(4.0, 13.0, 4.0, 12.0, 16.0, 12.0);
     protected static final VoxelShape FULL_SHAPE = Shapes.or(BASE_SHAPE, EYE_SHAPE);

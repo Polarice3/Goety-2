@@ -1,5 +1,5 @@
 {
-  "name": "无名权杖",
+  "name": "无名魔杖",
   "icon": "goety:nameless_staff",
   "category": "goety:crafts/staff",
   "advancement": "goety:goety/read_forbidden_scroll",
@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "在发现了死灵能量的遗忘之秘后，你设计了一套新的服装来展示你对黑暗艺术的精通."
+      "text": "透过禁书的秘密，你发现了一种利用暗夜之力打造一根强大魔杖的方法，让你在死灵法术中占据至高无上的地位"
     },
     {
       "type": "goety:ritual",
@@ -19,7 +19,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "$(l:focuses/soul_bolt_focus)灵魂束$() 会被这个套装扭曲成死灵束. 释放 $(l:focuses/illusion_focus)镜像法术$() 同时穿着 $(l:crafts/garment/nameless_set)无名套$() 将会对你的目标发射死灵束."
+      "text": "$(l:focuses/soul_bolt_focus)灵魂束$()会被这个套装扭曲成更强的死灵束，使用$(l:focuses/illusion_focus)幻象聚晶$()施法的同时穿着 $(l:crafts/garment/nameless_set)无名套$()将会让替身对你的目标发射死灵束"
     }
   ]
 }

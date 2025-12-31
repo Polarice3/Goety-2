@@ -11,7 +11,7 @@
     {
       "type": "patchouli:quest",
       "trigger": "goety:goety/respawn_miniboss",
-      "text": "如果你在墓穴之主的's $(l)陶瓷坛$() 或 $(l)水晶球?$()上使用又会发生什么？"
+      "text": "如果你在墓穴之主的$(l)陶瓷坛$()或$(l)水晶球?$()上使用又会发生什么？"
     }
   ]
 }

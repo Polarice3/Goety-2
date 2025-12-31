@@ -132,6 +132,8 @@ import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.MissingMappingsEvent;
 import org.apache.commons.lang3.ArrayUtils;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -141,6 +143,18 @@ import static net.minecraftforge.event.entity.living.LivingChangeTargetEvent.Liv
 
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModEvents {
+
+    //Need to test this.
+    /*@SubscribeEvent
+    public static void onMissingMappings(MissingMappingsEvent event) {
+        event.getAllMappings(ForgeRegistries.Keys.ENTITY_TYPES).forEach(missingMapping -> {
+            switch (missingMapping.getKey().toString()) {
+                case "goety:ally_vex" -> missingMapping.remap(ModEntityType.ALLY_VEX.get());
+                case "goety:ally_irk" -> missingMapping.remap(ModEntityType.ALLY_IRK.get());
+                case "goety:ally_trampler" -> missingMapping.remap(ModEntityType.TRAMPLER.get());
+            }
+        });
+    }*/
 
     @SubscribeEvent
     public static void onPlayerClone(PlayerEvent.Clone event) {
@@ -1039,9 +1053,7 @@ public class ModEvents {
                 }
             }
             if (ModDamageSource.freezeAttacks(event.getSource())){
-                if (target.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)){
-                    event.setAmount(damageAmount * 2.0F);
-                } else if (target.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)){
+                if (target.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)){
                     event.setAmount(damageAmount * 0.5F);
                 }
             }

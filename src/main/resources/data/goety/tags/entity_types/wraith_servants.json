@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "goety:wraith_servant",
+    "goety:border_wraith_servant",
+    "goety:muck_wraith_servant"
+  ]
+}

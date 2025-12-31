@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "缠魂盔甲架与普通的盔甲架有些不同，因为与后者不同，缠魂盔甲架可以配置武器或物品。由于是由闹鬼的木板制成的，所以这个物品对火免疫。"
+      "text": "缠魂盔甲架与普通的盔甲架有些不同，因为缠魂盔甲架相比后者而言可以装备武器或物品。由于这个盔甲架是缠魂木板制成的，所以这个物品对火免疫。"
     },
     {
       "type": "goety:ritual",
@@ -16,8 +16,15 @@
     {
       "type": "patchouli:spotlight",
       "item": "goety:animation_core",
-      "title": "Haunted Armor",
-      "text": "真正让这个支架与众不同的是，如果这个支架全身都是盔甲，你可以用一个活力核心右键它，将把这个支架变成一个忠诚的缠魂仆胄。"
+      "title": "缠魂仆胄",
+      "text": "真正让这个盔甲架与众不同的是，如果这个盔甲架穿上了全套盔甲，你可以用一个活力核心右键它，把这个盔甲架变成一个忠诚的缠魂仆胄。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "手持灵质右键你的缠魂仆胄即可治疗它"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:haunted_armor_stand": 1
+  }
 }

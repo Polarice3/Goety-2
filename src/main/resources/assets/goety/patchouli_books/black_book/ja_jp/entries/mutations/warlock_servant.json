@@ -1,0 +1,24 @@
+{
+  "name": "ウォーロックの従者",
+  "icon": "goety:warlock_sash",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "誓いを破る者を従者にするというのは、眉をひそめる人もいるかもしれないが、それでもあなたはその方法を発見した。冥界の地獄の空気を使えば、村人を忠実な魔術師に変えることができるのだ。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_villager_to_warlock"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:warlock_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ウォーロックの従者にエメラルドを渡すことで、適切な服装をしなくても取引を行うことができます。また、他のウォーロックの従者とも取引可能です。ただし、その従者に主がいる場合は、その主と同盟を結び、適切な服装をしていれば可能です。"
+    }
+  ]
+}

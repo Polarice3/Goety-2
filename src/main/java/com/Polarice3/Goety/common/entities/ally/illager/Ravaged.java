@@ -78,6 +78,7 @@ public class Ravaged extends RaiderServant {
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
 
+    @SuppressWarnings("removal")
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)

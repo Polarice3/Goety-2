@@ -7,6 +7,7 @@ import com.Polarice3.Goety.utils.MathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
@@ -19,7 +20,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class VoidFrameBlockEntity extends BlockEntity {
+    public List<MobEffectInstance> eyeEffects = new ArrayList<>();
+    public int eyeType = 0;
     public int coolTick;
 
     public VoidFrameBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
@@ -51,14 +57,47 @@ public class VoidFrameBlockEntity extends BlockEntity {
         this.coolTick = coolTick;
     }
 
-    public void load(CompoundTag p_155113_) {
-        super.load(p_155113_);
-        this.coolTick = p_155113_.getInt("CoolTick");
+    public int getEyeType() {
+        return this.eyeType;
     }
 
-    protected void saveAdditional(CompoundTag p_187463_) {
-        super.saveAdditional(p_187463_);
-        p_187463_.putInt("CoolTick", this.coolTick);
+    public List<MobEffectInstance> getEyeEffects() {
+        return this.eyeEffects;
+    }
+
+    //Allows custom Endersent to be spawned with either different Eye types or what effects they get
+    public void load(CompoundTag compoundTag) {
+        super.load(compoundTag);
+        if (compoundTag.contains("EyeType")) {
+            this.eyeType = compoundTag.getInt("EyeType");
+        }
+        if (compoundTag.contains("EyeEffects")) {
+            ListTag listtag = compoundTag.getList("EyeEffects", 10);
+
+            for(int i = 0; i < listtag.size(); ++i) {
+                CompoundTag compoundtag = listtag.getCompound(i);
+                MobEffectInstance mobeffectinstance = MobEffectInstance.load(compoundtag);
+                if (mobeffectinstance != null) {
+                    this.eyeEffects.add(mobeffectinstance);
+                }
+            }
+        }
+        this.coolTick = compoundTag.getInt("CoolTick");
+    }
+
+    protected void saveAdditional(CompoundTag compoundTag) {
+        super.saveAdditional(compoundTag);
+        if (!this.eyeEffects.isEmpty()) {
+            ListTag listtag = new ListTag();
+
+            for(MobEffectInstance mobeffectinstance : this.eyeEffects) {
+                listtag.add(mobeffectinstance.save(new CompoundTag()));
+            }
+
+            compoundTag.put("EyeEffects", listtag);
+        }
+        compoundTag.putInt("EyeType", this.getEyeType());
+        compoundTag.putInt("CoolTick", this.coolTick);
     }
 
     public ClientboundBlockEntityDataPacket getUpdatePacket() {

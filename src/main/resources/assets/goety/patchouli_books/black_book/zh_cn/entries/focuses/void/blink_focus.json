@@ -1,15 +1,18 @@
 {
-  "name": "炫目聚晶",
+  "name": "瞬闪聚晶",
   "icon": "goety:blink_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/void",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "此聚晶允许您传送到您鼠标中心对准的位置，前提是它没有超过传送范围."
+      "text": "此聚晶可以让你被传送到你十字光标对准的位置，前提是该位置没有超出传送范围"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/blink_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:blink_focus": 1
+  }
 }

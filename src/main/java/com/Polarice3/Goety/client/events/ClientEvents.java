@@ -32,6 +32,7 @@ import com.Polarice3.Goety.common.entities.boss.EnderKeeper;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.hostile.Wight;
 import com.Polarice3.Goety.common.entities.hostile.ender.Endersent;
+import com.Polarice3.Goety.common.entities.hostile.illagers.HostileRedstoneGolem;
 import com.Polarice3.Goety.common.entities.hostile.illagers.HostileRedstoneMonstrosity;
 import com.Polarice3.Goety.common.entities.hostile.illagers.StormCaster;
 import com.Polarice3.Goety.common.entities.hostile.servants.Inferno;
@@ -259,6 +260,9 @@ public class ClientEvents {
             }
             if (MainConfig.BossMusic.get()) {
                 if (entity instanceof LivingEntity livingEntity) {
+                    if (entity instanceof Wight wight && !wight.isNoAi()) {
+                        playPreBossMusic(ModSounds.ENDERMAN_THEME_PRE.get(), ModSounds.ARENA_END.get(), wight, 0.75F, 1.0F, 64);
+                    }
                     if ((MiscCapHelper.getMobTarget(livingEntity) instanceof Player)
                     || (MiscCapHelper.getMobTarget(livingEntity) instanceof OwnableEntity ownable && ownable.getOwner() instanceof Player)
                     || entity.getType().is(ModTags.EntityTypes.GLOBAL_MUSIC_BOSS)) {
@@ -274,8 +278,14 @@ public class ClientEvents {
                         if (entity instanceof EnderKeeper enderKeeper && !enderKeeper.isNoAi()) {
                             playBossMusic(ModSounds.ENDER_KEEPER_THEME.get(), ModSounds.ENDER_KEEPER_THEME_POST.get(), enderKeeper, 0.75F, 0.825F);
                         }
+                        if (entity instanceof HostileRedstoneGolem rm && !rm.isNoAi()) {
+                            playBossMusic(ModSounds.RM_THEME.get(), ModSounds.BOSS_POST_2.get(), rm, 0.75F, 1.0F);
+                        }
                         if (entity instanceof Endersent endersent && !endersent.isNoAi()) {
                             playBossMusic(ModSounds.ENDERMAN_THEME_PRE.get(), ModSounds.ARENA_END.get(), endersent, 0.75F, 1.0F);
+                        }
+                        if (entity instanceof Wight wight && !wight.isNoAi()) {
+                            playBossMusic(ModSounds.ENDERMAN_THEME.get(), ModSounds.ARENA_END.get(), wight, 0.75F, 1.0F);
                         }
                     }
                 }
@@ -283,7 +293,36 @@ public class ClientEvents {
         }
     }
 
+    public static AbstractTickableSoundInstance PRE_BOSS_MUSIC;
     public static AbstractTickableSoundInstance BOSS_MUSIC;
+
+    public static void playPreBossMusic(SoundEvent soundEvent, SoundEvent postBossMusic, Mob mob){
+        playPreBossMusic(soundEvent, postBossMusic, mob, 1.0F, 1.0F, 0);
+    }
+
+    public static void playPreBossMusic(SoundEvent soundEvent, Mob mob, int withinRange){
+        playPreBossMusic(soundEvent, ModSounds.BOSS_POST.get(), mob, 1.0F, 1.0F, withinRange);
+    }
+
+    public static void playPreBossMusic(SoundEvent soundEvent, SoundEvent postBossMusic, Mob mob, int withinRange){
+        playPreBossMusic(soundEvent, postBossMusic, mob, 1.0F, 1.0F, withinRange);
+    }
+
+    public static void playPreBossMusic(SoundEvent soundEvent, SoundEvent postBossMusic, Mob mob, float volume, float pitch, int withinRange){
+        if (MainConfig.BossMusic.get()) {
+            Minecraft minecraft = Minecraft.getInstance();
+            if (soundEvent != null && mob.isAlive()) {
+                if (PRE_BOSS_MUSIC == null) {
+                    PRE_BOSS_MUSIC = new PreBossLoopMusic(soundEvent, postBossMusic, mob, volume, pitch, withinRange);
+                }
+            } else {
+                PRE_BOSS_MUSIC = null;
+            }
+            if (PRE_BOSS_MUSIC != null && !minecraft.getSoundManager().isActive(PRE_BOSS_MUSIC)) {
+                Minecraft.getInstance().getSoundManager().play(PRE_BOSS_MUSIC);
+            }
+        }
+    }
 
     public static void playBossMusic(SoundEvent soundEvent, Mob mob){
         playBossMusic(soundEvent, mob, 1.0F, 1.0F);

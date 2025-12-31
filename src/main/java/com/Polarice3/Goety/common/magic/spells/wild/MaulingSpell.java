@@ -129,7 +129,9 @@ public class MaulingSpell extends SummonSpell {
                 }
                 summonedentity.setTrueOwner(caster);
                 summonedentity.moveTo(blockPos, 0.0F, 0.0F);
-                MobUtil.moveDownToGround(summonedentity);
+                if (!caster.isUnderWater()){
+                    MobUtil.moveDownToGround(summonedentity);
+                }
                 summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
                 summonedentity.setPersistenceRequired();
                 summonedentity.finalizeSpawn(worldIn, caster.level.getCurrentDifficultyAt(caster.blockPosition()), MobSpawnType.MOB_SUMMONED,null,null);

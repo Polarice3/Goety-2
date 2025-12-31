@@ -189,6 +189,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     public void extraGoal() {
     }
 
+    @SuppressWarnings("removal")
     public static AttributeSupplier.Builder setCustomAttributes(){
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.ApostleHealth.get())

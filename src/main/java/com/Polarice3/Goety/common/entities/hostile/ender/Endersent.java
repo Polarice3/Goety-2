@@ -23,6 +23,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -93,6 +94,7 @@ public class Endersent extends AbstractEnderling implements Enemy {
     public int attackTick;
     public int deathTime = 0;
     private final ModServerBossInfo bossInfo;
+    public List<MobEffectInstance> eyeEffects = new ArrayList<>();
     public DamageSource deathBlow = this.damageSources().generic();
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState attackAnimationState = new AnimationState();
@@ -139,6 +141,7 @@ public class Endersent extends AbstractEnderling implements Enemy {
         });
     }
 
+    @SuppressWarnings("removal")
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.EndersentHealth.get())
@@ -179,6 +182,15 @@ public class Endersent extends AbstractEnderling implements Enemy {
         compound.putInt("MeleeHit", this.meleeHit);
         compound.putInt("RecentlyHit", this.recentHitTime);
         compound.putInt("EyeType", this.getEyeType());
+        if (!this.eyeEffects.isEmpty()) {
+            ListTag listtag = new ListTag();
+
+            for(MobEffectInstance mobeffectinstance : this.eyeEffects) {
+                listtag.add(mobeffectinstance.save(new CompoundTag()));
+            }
+
+            compound.put("EyeEffects", listtag);
+        }
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
@@ -203,6 +215,17 @@ public class Endersent extends AbstractEnderling implements Enemy {
         }
         if (compound.contains("EyeType")) {
             this.setEyeType(compound.getInt("EyeType"));
+        }
+        if (compound.contains("EyeEffects", 9)) {
+            ListTag listtag = compound.getList("EyeEffects", 10);
+
+            for(int i = 0; i < listtag.size(); ++i) {
+                CompoundTag compoundtag = listtag.getCompound(i);
+                MobEffectInstance mobeffectinstance = MobEffectInstance.load(compoundtag);
+                if (mobeffectinstance != null) {
+                    this.eyeEffects.add(mobeffectinstance);
+                }
+            }
         }
     }
 
@@ -365,7 +388,15 @@ public class Endersent extends AbstractEnderling implements Enemy {
     }
 
     public void setEyeType(int eyeType) {
-        this.entityData.set(EYE_TYPE, Math.min(eyeType, 4));
+        this.entityData.set(EYE_TYPE, eyeType);
+    }
+
+    public List<MobEffectInstance> getEyeEffects() {
+        return this.eyeEffects;
+    }
+
+    public void setEyeEffects(List<MobEffectInstance> instances) {
+        this.eyeEffects = instances;
     }
 
     public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
@@ -575,7 +606,14 @@ public class Endersent extends AbstractEnderling implements Enemy {
     }
 
     public void eyeTypeEffects() {
-        if (this.getEyeType() == SEARING_EYE) {
+        //Custom Eye Effects added through nbt overrides hardcoded effects.
+        if (!this.getEyeEffects().isEmpty()) {
+            for (MobEffectInstance instance : this.getEyeEffects()) {
+                if (instance != null) {
+                    this.addEyeEffects(instance.getEffect(), instance.getAmplifier());
+                }
+            }
+        } else if (this.getEyeType() == SEARING_EYE) {
             this.addEyeEffects(MobEffects.FIRE_RESISTANCE);
             this.addEyeEffects(GoetyEffects.FIERY_AURA.get());
             this.addEyeEffects(GoetyEffects.RALLYING.get());

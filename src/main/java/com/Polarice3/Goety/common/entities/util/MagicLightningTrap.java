@@ -30,6 +30,7 @@ import java.util.List;
 public class MagicLightningTrap extends AbstractTrap {
     private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(MagicLightningTrap.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> DATA_DAMAGE = SynchedEntityData.defineId(MagicLightningTrap.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Integer> DATA_COLOR = SynchedEntityData.defineId(MagicLightningTrap.class, EntityDataSerializers.INT);
 
     public MagicLightningTrap(EntityType<?> entityTypeIn, Level worldIn) {
         super(entityTypeIn, worldIn);
@@ -45,6 +46,7 @@ public class MagicLightningTrap extends AbstractTrap {
         super.defineSynchedData();
         this.getEntityData().define(DATA_RADIUS, 1.5F);
         this.getEntityData().define(DATA_DAMAGE, SpellConfig.ThunderboltDamage.get().floatValue() * WandUtil.damageMultiply());
+        this.getEntityData().define(DATA_COLOR, 0xb1ebdc);
     }
 
     @Override
@@ -52,6 +54,7 @@ public class MagicLightningTrap extends AbstractTrap {
         super.addAdditionalSaveData(compound);
         compound.putFloat("Radius", this.radius());
         compound.putFloat("Damage", this.getDamage());
+        compound.putInt("Color", this.getColor());
     }
 
     @Override
@@ -62,6 +65,9 @@ public class MagicLightningTrap extends AbstractTrap {
         }
         if (compound.contains("Damage")){
             this.setDamage(compound.getFloat("Damage"));
+        }
+        if (compound.contains("Color")){
+            this.setColor(compound.getInt("Color"));
         }
     }
 
@@ -74,6 +80,14 @@ public class MagicLightningTrap extends AbstractTrap {
         if (!this.level.isClientSide) {
             this.getEntityData().set(DATA_RADIUS, Mth.clamp(p_19713_, 0.0F, 32.0F));
         }
+    }
+
+    public int getColor() {
+        return this.getEntityData().get(DATA_COLOR);
+    }
+
+    public void setColor(int color) {
+        this.getEntityData().set(DATA_COLOR, color);
     }
 
     public void setDamage(float damage) {
@@ -141,11 +155,10 @@ public class MagicLightningTrap extends AbstractTrap {
 
     public void finalizeAttack(){
         if (this.level instanceof ServerLevel serverLevel) {
-            ColorUtil colorUtil = new ColorUtil(0xb1ebdc);
-            ColorUtil colorUtil2 = new ColorUtil(0xb1ebdc);
+            ColorUtil colorUtil = new ColorUtil(this.getColor());
             serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 3.0F, 1), this.getX(), this.getY(), this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
             serverLevel.sendParticles(new VerticalCircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 3.0F, 1), this.getX(), this.getY(), this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-            ModNetwork.sendToALL(new SLightningBoltPacket(new Vec3(this.getX(), this.getY() + 250, this.getZ()), this.position(), colorUtil2, 10));
+            ModNetwork.sendToALL(new SLightningBoltPacket(new Vec3(this.getX(), this.getY() + 250, this.getZ()), this.position(), colorUtil, 10));
             for (int i = 0; i < 8; ++i) {
                 Vec3 vector3d1 = this.position().add((this.level.getRandom().nextFloat() - 0.5F) * 6.0D, 3.0D, (this.level.getRandom().nextFloat() - 0.5F) * 6.0D);
                 serverLevel.sendParticles(new GatherTrailParticle.Option(colorUtil, vector3d1), this.getX(), this.getY(), this.getZ(), 0, 0.0F, 0.0F, 0.0F, 0.5F);
@@ -155,7 +168,7 @@ public class MagicLightningTrap extends AbstractTrap {
                 int random1 = this.level.getRandom().nextIntBetweenInclusive(-4, 4);
                 int random2 = this.level.getRandom().nextIntBetweenInclusive(-4, 4);
                 Vec3 vec31 = vec3.add(this.level.getRandom().nextDouble() * random1, this.level.getRandom().nextDouble(), this.level.getRandom().nextDouble() * random2);
-                ModNetwork.sendToALL(new SLightningPacket(vec3, vec31, colorUtil2, 12));
+                ModNetwork.sendToALL(new SLightningPacket(vec3, vec31, colorUtil, 12));
             }
         }
         this.discard();

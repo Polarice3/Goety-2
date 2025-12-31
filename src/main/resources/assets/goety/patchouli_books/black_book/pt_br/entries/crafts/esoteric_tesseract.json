@@ -5,11 +5,11 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Cansado de Servos perderem o caminho até você, e/ou de usar os Focos de Chamado e de Tropa de longe, você desesperadamente desejou poder simplesmente colocar seus servos no bolso para soltá-los onde quiser."
+      "text": "Cansado de Servos perderem o caminho até você e/ou usar Focos de Chamar e Tropas à distância, você desesperadamente desejou poder simplesmente colocar seus servos no bolso para soltá-los onde bem entender."
     },
     {
       "type": "patchouli:text",
-      "text": "Após incontáveis dias de pesquisa e experimentação, você criou uma caixa estranha que atende ao seu desejo. Clicando com o botão esquerdo em um dos seus servos com ela, ele será instantaneamente contido. Segurar o botão direito irá lentamente liberar seus servos dela, mas usará durabilidade que a tornará inutilizável até ser reparada, o que pode ser feito em uma Bigorna com Pérolas do Ender. Ela pode conter múltiplos servos e é imune a queimar no fogo e na lava. Quando destruída na forma de item lançado, ela liberará todos os servos dentro de si."
+      "text": "Após incontáveis dias de pesquisa e experimentação, você criou uma caixa estranha que satisfaz seu desejo. Clicando com o botão esquerdo em um de seus servos com ela, você o guardará instantaneamente. Segurar o botão direito irá lentamente liberar seus servos de dentro dela, mas consumirá durabilidade, que a tornará inutilizável até ser reparada. O reparo pode ser feito em uma Bigorna com Pérolas do Ender. Ela pode guardar múltiplos servos e é imune a fogo e lava. Se destruída enquanto estiver na forma de item lançado, ela libertará todos os servos contidos."
     },
     {
       "type": "goety:ritual",
@@ -17,7 +17,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Há algumas condições quando se trata de armazenar certos tipos de servos. Alguns servos ocupam mais de um espaço dentro do tesseracto, dependendo do seu tamanho (e se estão etiquetados corretamente). Servos com vida limitada terão seu tempo de vida pausado quando armazenados dentro do tesseracto."
+      "text": "Há algumas condições para guardar certos tipos de servos. Alguns servos ocupam mais de um espaço dentro do tesseracto, dependendo de seu tamanho (e se estão etiquetados corretamente). Servos com vida limitada terão seu tempo de vida pausado quando armazenados no tesseracto."
     }
   ],
   "extra_recipe_mappings": {

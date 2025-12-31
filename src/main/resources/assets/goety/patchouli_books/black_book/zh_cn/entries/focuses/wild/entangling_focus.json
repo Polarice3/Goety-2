@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "这个法术会在目标身上召唤缠绕树根，如果树根能及时抓住目标，那该目标就会失去移动能力，使用 $(l:crafts/staff/wild_staff)荒野魔杖$() 施法时，树根能同时缠绕8个非友方生物"
+      "text": "这个法术会在目标身上召唤缠绕树根，如果树根能及时抓住目标，那该目标就会失去移动能力，使用$(l:crafts/staff/wild_staff)荒野魔杖$()施法时，树根能同时缠绕8个非友方生物"
     },
     {
       "type": "goety:ritual",
@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "身着 $(l:crafts/garment/wild_robe)荒野长袍$() 可以让缠绕树根持续对困住的目标造成伤害"
+      "text": "身着$(l:crafts/garment/wild_robe)荒野长袍$()可以让缠绕树根持续对困住的目标造成伤害"
     }
   ],
   "extra_recipe_mappings": {

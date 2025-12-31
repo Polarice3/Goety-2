@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "如果'illagerServantTrainArmor',被启用 穿戴锻造之戒可以让新训练的刌民自带盔甲。"
+      "text": "如果配置文件中的'illagerServantTrainArmor'条目被启用，佩戴锻造之戒可以让新训练的刌民自带盔甲。"
     }
   ],
   "extra_recipe_mappings": {

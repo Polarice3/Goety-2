@@ -4,6 +4,13 @@
     "#goety:zombie_servants",
     "#goety:skeleton_servants",
     "#goety:spider_servants",
-    "#goety:slime_servants"
+    "#goety:slime_servants",
+    "#goety:wraith_servants",
+    "#goety:enderling_servants",
+    "#goety:bound_illagers",
+    "#goety:raider_servants",
+    "#goety:golem_servants",
+    "#goety:powerful_servants",
+    "#goety:necromancer/servants"
   ]
 }

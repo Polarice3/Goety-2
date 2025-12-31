@@ -1,5 +1,5 @@
 {
-  "name": "闹鬼盔甲",
+  "name": "缠魂甲胄",
   "icon": "goety:cursed_knight_helmet",
   "category": "goety:world/bestiary",
   "advancement": "goety:goety/kill_a_haunted_armor",
@@ -17,13 +17,13 @@
       "type": "patchouli:spotlight",
       "item": "goety:fell_blade",
       "title": "堕落之刃",
-      "text": "闹鬼盔甲持有的刀刃有一个特殊的特性，他们有概率会将生物的护甲值减半。可以在铁砧上使用诅咒金属锭进行修复"
+      "text": "缠魂甲胄持有的刀刃有一个特殊的能力，他们有概率将命中的生物盔甲值减半。可以在铁砧上使用诅咒金属锭进行修复"
     },
     {
       "type": "patchouli:spotlight",
       "item": "goety:cursed_knight_helmet",
       "title": "诅咒骑士盔甲",
-      "text": "这件盔甲似乎或多或少是普通铁甲的华丽诅咒版，只有两个例外。第一，它提供了少量的韧性。第二，穿上全套盔甲可以获得额外的4点护甲。"
+      "text": "这件盔甲似乎或多或少是普通铁甲的华丽诅咒版，只有两个例外。第一，它提供了少量的韧性。第二，穿上全套盔甲可以获得额外的4点盔甲值。"
     }
   ]
 }

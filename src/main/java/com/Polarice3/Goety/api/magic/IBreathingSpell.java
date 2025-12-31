@@ -42,7 +42,12 @@ public interface IBreathingSpell extends IChargingSpell{
 
     }
 
+    @Deprecated
     default void showWandBreath(LivingEntity caster, SpellStat spellStat) {
+        this.showWandBreath(caster, ItemStack.EMPTY, spellStat);
+    }
+
+    default void showWandBreath(LivingEntity caster, ItemStack staff, SpellStat spellStat) {
 
     }
 

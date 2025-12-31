@@ -1333,6 +1333,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.water_whip_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:water_whip_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.weakening_focus": {
       "conditions": {
         "items": [
@@ -1682,6 +1694,9 @@
     ],
     [
       "item.goety.biomine_focus"
+    ],
+    [
+      "item.goety.water_whip_focus"
     ],
     [
       "item.goety.tidal_focus"

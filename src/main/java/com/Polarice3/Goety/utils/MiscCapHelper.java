@@ -210,7 +210,9 @@ public class MiscCapHelper {
             tag.putInt("noHealTime", misc.getNoHealTime());
         }
         tag.putInt("shakeTime", misc.getShakeTime());
-        tag.putString("customSpinTexture", misc.customSpinTexture());
+        if (!misc.customSpinTexture().isEmpty()) {
+            tag.putString("customSpinTexture", misc.customSpinTexture());
+        }
         return tag;
     }
 

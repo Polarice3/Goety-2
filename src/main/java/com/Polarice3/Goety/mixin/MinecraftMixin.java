@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.magic.CommandFocus;
+import com.Polarice3.Goety.common.items.magic.CommandHorn;
 import com.Polarice3.Goety.common.items.magic.OrderFocus;
 import com.Polarice3.Goety.common.items.magic.TransferScroll;
 import com.Polarice3.Goety.utils.WandUtil;
@@ -69,6 +70,11 @@ public class MinecraftMixin {
                         if (livingEntity == livingEntity1) {
                             cir.setReturnValue(true);
                         }
+                    }
+                }
+                if (player.isHolding(ModItems.COMMAND_HORN.get())) {
+                    if (CommandHorn.getEntities(player.level, player).contains(livingEntity)) {
+                        cir.setReturnValue(true);
                     }
                 }
                 if (pEntity instanceof RaiderServant servant) {

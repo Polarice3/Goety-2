@@ -45,6 +45,8 @@
     "goety:grassy_purpur_block",
     "goety:purpur_lamp",
     "goety:purpur_wall",
+    "goety:purpur_end_rod_block",
+    "goety:end_rod_block",
     "goety:diamond_mold_block",
     "goety:reinforced_redstone_block"
   ]

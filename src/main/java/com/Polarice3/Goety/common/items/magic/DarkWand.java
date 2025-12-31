@@ -755,11 +755,11 @@ public class DarkWand extends Item implements IWand {
             if (worldIn.isClientSide) {
                 if (playerEntity.isCreative()) {
                     if (spell instanceof IBreathingSpell breathingSpells) {
-                        breathingSpells.showWandBreath(caster, WandUtil.getStats(caster, spell));
+                        breathingSpells.showWandBreath(caster, stack, WandUtil.getStats(caster, spell));
                     }
                 } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(caster, stack))) {
                     if (spell instanceof IBreathingSpell breathingSpells) {
-                        breathingSpells.showWandBreath(caster, WandUtil.getStats(caster, spell));
+                        breathingSpells.showWandBreath(caster, stack, WandUtil.getStats(caster, spell));
                     }
                 } else {
                     this.failParticles(worldIn, caster);

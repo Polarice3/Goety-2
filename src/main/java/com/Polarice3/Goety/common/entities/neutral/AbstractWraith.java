@@ -87,8 +87,10 @@ public class AbstractWraith extends Summoned {
 
     public void targetSelectGoal(){
         this.targetSelector.addGoal(1, new SummonTargetGoal(this, false, false));
+        this.targetSelector.addGoal(1, new NaturalAttackGoal<>(this, Mob.class, true, mob -> mob.getType().getDescriptionId().contains("netherexp") && mob.getType().getDescriptionId().contains("carcass") && mob.getBbWidth() < 2.2F));
     }
 
+    @SuppressWarnings("removal")
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.WraithHealth.get())
@@ -236,6 +238,10 @@ public class AbstractWraith extends Summoned {
 
     protected boolean isAffectedByFluids() {
         return false;
+    }
+
+    protected float getBlockSpeedFactor() {
+        return this.onSoulSpeedBlock() ? 1.0F : super.getBlockSpeedFactor();
     }
 
     @Deprecated

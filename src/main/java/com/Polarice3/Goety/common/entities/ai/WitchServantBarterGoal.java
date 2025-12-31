@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.ai;
 
 import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
+import com.Polarice3.Goety.common.entities.ally.illager.WarlockServant;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.ModLootTables;
 import net.minecraft.core.particles.ParticleOptions;
@@ -53,6 +54,9 @@ public class WitchServantBarterGoal extends Goal {
                         luck = 1.0F;
                     }
                     LootTable loottable = this.witch.level.getServer().getLootData().getLootTable(ModLootTables.WITCH_BARTER);
+                    if (this.witch instanceof WarlockServant){
+                        loottable = this.witch.level.getServer().getLootData().getLootTable(ModLootTables.WARLOCK_BARTER);
+                    }
                     List<ItemStack> list = loottable.getRandomItems((new LootParams.Builder((ServerLevel) this.witch.level)).withParameter(LootContextParams.THIS_ENTITY, this.witch).withParameter(LootContextParams.ORIGIN, this.witch.position()).withLuck(luck).create(LootContextParamSets.GIFT));
                     for(ItemStack itemstack : list) {
                         BehaviorUtils.throwItem(this.witch, itemstack, vec3.add(0.0D, 1.0D, 0.0D));

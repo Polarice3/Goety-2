@@ -1,5 +1,5 @@
 {
-  "name": "掘墓人之铲",
+  "name": "掘墓者之铲",
   "icon": "goety:graverobber_shovel",
   "category": "goety:crafts/equipment",
   "pages": [
@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "铲子可以在铁砧上用 $(l:intro/magical_components)诅咒金属锭$()进行修理."
+      "text": "铲子可以在铁砧上用$(l:intro/magical_components)诅咒金属锭$()进行修理."
     }
   ]
 }

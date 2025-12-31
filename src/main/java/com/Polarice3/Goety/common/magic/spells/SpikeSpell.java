@@ -87,6 +87,12 @@ public class SpikeSpell extends Spell {
             for(int l = 0; l < range; ++l) {
                 double d2 = 1.25D * (double)(l + 1);
                 WandUtil.spawnSpikes(caster, caster.getX() + (double)Mth.cos(f) * d2, caster.getZ() + (double)Mth.sin(f) * d2, d0, d1, f, l, spellStat);
+                if (rightStaff(staff)) {
+                    float fleft = f + 0.2F;
+                    float fright = f - 0.2F;
+                    WandUtil.spawnSpikes(caster, caster.getX() + (double) Mth.cos(fleft) * d2, caster.getZ() + (double) Mth.sin(fleft) * d2, d0, d1, fleft, l, spellStat);
+                    WandUtil.spawnSpikes(caster, caster.getX() + (double) Mth.cos(fright) * d2, caster.getZ() + (double) Mth.sin(fright) * d2, d0, d1, fright, l, spellStat);
+                }
             }
         } else {
             for(int i = 0; i < 5; ++i) {

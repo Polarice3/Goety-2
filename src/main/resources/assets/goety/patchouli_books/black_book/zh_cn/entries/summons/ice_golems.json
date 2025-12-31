@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "一个由冰川和雪块制成的傀儡，它们比雪傀儡更加强大，但是还是无法跟钢铁造物相提并论。 它们通过甩动充满冰刺的手进行攻击，有些时候也会进行砸地，并且同时召唤 $(l:focuses/frost/frost_nova_focus)霜冻新星$()。"
+      "text": "一个由冰川和雪块制成的傀儡，它们比雪傀儡更加强大，但是还是无法跟钢铁造物相提并论。 它们通过甩动充满冰刺的手进行攻击，有些时候也会进行砸地，释放$(l:focuses/frost/frost_nova_focus)霜冻新星$()。"
     },
     {
       "type": "patchouli:entity",
@@ -14,11 +14,11 @@
     {
       "type": "multiblock",
       "multiblock_id": "goety:ice_golem",
-      "text": "Right click the center Blue Ice with an Animation Core."
+      "text": "手持活力核心右键中心的蓝冰即可"
     },
     {
       "type": "patchouli:text",
-      "text": "你可以使用$(l:focuses/frost/frostborn_focus)霜裔聚晶$()来召唤这些生物。"
+      "text": "你可以使用$(l:focuses/frost/frostborn_focus)霜裔聚晶$()来召唤这些生物，或是通过搭建方块召唤一个没有寿命限制的冰傀儡，手持冰、浮冰、蓝冰右键冰傀儡即可治愈它"
     }
   ]
 }

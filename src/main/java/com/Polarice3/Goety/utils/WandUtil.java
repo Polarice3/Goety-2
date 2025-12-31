@@ -169,7 +169,15 @@ public class WandUtil {
         chainLightning(pTarget, pAttacker, range, damage, false);
     }
 
+    public static void chainLightning(LivingEntity pTarget, @Nullable LivingEntity pAttacker, ColorUtil colorUtil, double range, float damage){
+        chainLightning(pTarget, pAttacker, colorUtil, range, damage, false);
+    }
+
     public static void chainLightning(LivingEntity pTarget, @Nullable LivingEntity pAttacker, double range, float damage, boolean small) {
+        chainLightning(pTarget, pAttacker, new ColorUtil(0xb1abf1), range, damage, small);
+    }
+
+    public static void chainLightning(LivingEntity pTarget, @Nullable LivingEntity pAttacker, ColorUtil colorUtil, double range, float damage, boolean small) {
         Level level = pTarget.level;
 
         List<Entity> harmed = new ArrayList<>();
@@ -196,9 +204,9 @@ public class WandUtil {
                         Vec3 vec3 = prevTarget.getEyePosition();
                         Vec3 vec31 = target.getEyePosition();
                         if (small){
-                            ModNetwork.sendToALL(new SLightningPacket(vec3, vec31, 5));
+                            ModNetwork.sendToALL(new SLightningPacket(vec3, vec31, colorUtil, 5));
                         } else {
-                            ModNetwork.sendToALL(new SThunderBoltPacket(vec3, vec31, 8));
+                            ModNetwork.sendToALL(new SThunderBoltPacket(vec3, vec31, colorUtil, 8));
                         }
                     }
                 }

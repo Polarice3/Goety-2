@@ -141,7 +141,7 @@ public class FireBreathSpell extends BreathingSpell {
     }
 
     @Override
-    public void showWandBreath(LivingEntity entityLiving, SpellStat spellStat) {
+    public void showWandBreath(LivingEntity entityLiving, ItemStack staff, SpellStat spellStat) {
         int range = spellStat.getRange();
         if (WandUtil.enchantedFocus(entityLiving)){
             range = WandUtil.getRangeLevel(entityLiving);

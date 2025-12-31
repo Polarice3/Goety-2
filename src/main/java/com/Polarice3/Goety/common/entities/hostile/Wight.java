@@ -694,6 +694,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob, IHiding {
 
     public void aiStep() {
         this.jumping = false;
+        MiscCapHelper.updateMobTarget(this);
         if (!this.level.isClientSide) {
             if (!this.isDeadOrDying()) {
                 this.setAggressive(this.getTarget() != null);

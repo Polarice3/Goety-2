@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "After countless days of research and experimentation, you've created an odd box that fulfills your desire. By left-clicking one of your servants with it, it will instantly contain them. Holding down right-click will slowly pull out your servants from it, but will use up durability that will render it unusable until repaired, which can be done on an Anvil with Ender Pearls. It can hold multiple servants, and is immune to being burned in fire and lava. When destroyed in thrown form, it will release every servant within itself."
+      "text": "After countless days of research and experimentation, you've created an odd box that fulfills your desire. By left-clicking one of your servants with it, it will instantly contain them. Holding down right-click will slowly pull out your servants from it, but will use up durability that will render it unusable until repaired, which can be done on an Anvil with Ender Pearls. It can hold multiple servants, and is immune to being burned in fire and lava. If destroyed while in thrown form, it will release every servant within itself."
     },
     {
       "type": "goety:ritual",

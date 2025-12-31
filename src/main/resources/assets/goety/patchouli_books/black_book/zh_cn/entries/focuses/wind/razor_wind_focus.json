@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "持有$(l:crafts/staff/wind_staff)烈风魔杖$()施法可以拓宽风刃的宽度。"
+      "text": "持有$(l:crafts/staff/wind_staff)风之魔杖$()施法可以拓宽风刃的宽度。"
     }
   ],
   "extra_recipe_mappings": {

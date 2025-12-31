@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.magic.spells.storm;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.projectiles.MonsoonCloud;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -82,6 +83,9 @@ public class MonsoonSpell extends Spell {
             monsoonCloud.setRadius((float) radius);
             monsoonCloud.setLifeSpan(duration);
             monsoonCloud.setStaff(rightStaff(staff));
+            if (staff.is(ModItems.NAMELESS_STAFF.get())) {
+                monsoonCloud.setLightningColor(0xa7fc3e);
+            }
             worldIn.addFreshEntity(monsoonCloud);
             this.playSound(worldIn, caster, SoundEvents.LIGHTNING_BOLT_THUNDER, 0.5F, 1.25F);
         } else if (rayTraceResult instanceof BlockHitResult){
@@ -91,6 +95,9 @@ public class MonsoonSpell extends Spell {
             monsoonCloud.setRadius((float) radius);
             monsoonCloud.setLifeSpan(duration);
             monsoonCloud.setStaff(rightStaff(staff));
+            if (staff.is(ModItems.NAMELESS_STAFF.get())) {
+                monsoonCloud.setLightningColor(0xa7fc3e);
+            }
             monsoonCloud.setPos(blockPos.getX() + 0.5F, blockPos.getY() + 4, blockPos.getZ() + 0.5F);
             worldIn.addFreshEntity(monsoonCloud);
             this.playSound(worldIn, caster, SoundEvents.LIGHTNING_BOLT_THUNDER, 0.5F, 1.25F);

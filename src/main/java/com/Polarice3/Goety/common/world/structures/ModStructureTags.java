@@ -12,6 +12,7 @@ public interface ModStructureTags {
     TagKey<Structure> OMINOUS_BLACKSMITH = create("explorer_maps/ominous_blacksmith");
     TagKey<Structure> FINAL_TERMINAL = create("explorer_maps/final_terminal");
     TagKey<Structure> NECRO_HOSTILE = create("necro_hostile");
+    TagKey<Structure> VOID_HOSTILE = create("void_hostile");
 
     private static TagKey<Structure> create(String p_215896_) {
         return TagKey.create(Registries.STRUCTURE, Goety.location(p_215896_));

@@ -113,7 +113,7 @@ public class SwarmSpell extends BreathingSpell {
     }
 
     @Override
-    public void showWandBreath(LivingEntity entityLiving, SpellStat spellStat) {
+    public void showWandBreath(LivingEntity entityLiving, ItemStack staff, SpellStat spellStat) {
         int range = 0;
         if (entityLiving instanceof Player player){
             if (WandUtil.enchantedFocus(player)){

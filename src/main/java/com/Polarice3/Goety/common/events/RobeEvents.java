@@ -239,9 +239,9 @@ public class RobeEvents {
                         if (!victim.isInvulnerableTo(event.getSource()) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(victim)) {
                             float chance = ItemConfig.VoidRobeTeleportChance.get() / 100.0F;
                             if (victim.getRandom().nextFloat() <= chance) {
-                                double d0 = victim.getX() + (victim.getRandom().nextDouble() - 0.5D) * 64;
+                                double d0 = victim.getX() + (victim.getRandom().nextDouble() - 0.5D) * ItemConfig.VoidRobeTeleportDistance.get();
                                 double d1 = victim.getY();
-                                double d2 = victim.getZ() + (victim.getRandom().nextDouble() - 0.5D) * 64;
+                                double d2 = victim.getZ() + (victim.getRandom().nextDouble() - 0.5D) * ItemConfig.VoidRobeTeleportDistance.get();
                                 if (MobUtil.teleport(victim, d0, d1, d2)) {
                                     if (ItemConfig.VoidRobeTeleportDamageCancel.get()) {
                                         event.setCanceled(true);
@@ -354,7 +354,15 @@ public class RobeEvents {
                         }
                     }
                     if (CuriosFinder.neutralVoidSet(target)) {
-                        if (CuriosFinder.validVoidMob(mobAttacker)) {
+                        boolean ender = CuriosFinder.validVoidMob(mobAttacker);
+                        if (target.level instanceof ServerLevel serverLevel) {
+                            if (MobsConfig.HostileTerminalEnder.get()) {
+                                if (BlockFinder.findStructure(serverLevel, target.blockPosition(), ModStructureTags.VOID_HOSTILE)) {
+                                    ender = false;
+                                }
+                            }
+                        }
+                        if (ender) {
                             if (mobAttacker.getLastHurtByMob() != target) {
                                 if (event.getTargetType() == MOB_TARGET) {
                                     event.setNewTarget(null);
