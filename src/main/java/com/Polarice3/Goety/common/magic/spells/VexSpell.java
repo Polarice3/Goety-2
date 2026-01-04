@@ -118,7 +118,7 @@ public class VexSpell extends SummonSpell {
             }
             for (int i1 = 0; i1 < i; ++i1) {
                 BlockPos blockpos = caster.blockPosition().offset(-2 + caster.getRandom().nextInt(5), 1, -2 + caster.getRandom().nextInt(5));
-                AllyVex vexentity = new AllyVex(ModEntityType.ALLY_VEX.get(), worldIn);
+                AllyVex vexentity = new AllyVex(ModEntityType.VEX_SERVANT.get(), worldIn);
                 vexentity.setTrueOwner(caster);
                 vexentity.moveTo(blockpos, 0.0F, 0.0F);
                 vexentity.finalizeSpawn(worldIn, caster.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);

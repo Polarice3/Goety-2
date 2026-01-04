@@ -1,0 +1,27 @@
+{
+  "name": "Carrion Flies",
+  "icon": "minecraft:rotten_flesh",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Some flies, when feeding upon the rotten flesh of the dead, can become enchanted with necrotic energies into becoming larger and ferocious."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Upon killing an creature, they spawn giant maggots, potentially more of them if the creature has high enough max health, that share their current lifespan if the have one, that will also turn into a Carrion Fly upon killing a creature. One can call upon a swarm of them through the use of a $(l:focuses/wild/carrion_focus)Carrion Focus$(), or through a ritual which summons one without a limited lifespan."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_carrion_fly_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:carrion_fly"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "They can, on harder difficulties, move through walls for some reason. Right-clicking on a loyal Carrion Fly with meat will heal them, though on Carrion Maggots, it will cause them to cocoon before they transform into a Carrion Fly."
+    }
+  ]
+}

@@ -279,6 +279,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> GOD_RAY = PARTICLE_TYPES.register("god_ray",
             () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> STRETCHED_GOD_RAY = PARTICLE_TYPES.register("stretched_god_ray",
+            () -> new SimpleParticleType(true));
+
     public static final RegistryObject<SimpleParticleType> WATER_STREAM = PARTICLE_TYPES.register("water_stream",
             () -> new SimpleParticleType(true));
 

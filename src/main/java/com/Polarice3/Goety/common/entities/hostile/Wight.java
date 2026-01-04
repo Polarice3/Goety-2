@@ -105,6 +105,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob, IHiding {
     public double prevX;
     public double prevY;
     public double prevZ;
+    public boolean attackFast;
     private int remainingPersistentAngerTime;
     @Nullable
     private UUID persistentAngerTarget;
@@ -707,6 +708,17 @@ public class Wight extends Summoned implements Enemy, NeutralMob, IHiding {
                 if (this.getTarget() != null){
                     this.breakBlocksAround();
                 }
+                if (MobUtil.healthIsHalved(this) && this.level.getDifficulty() == Difficulty.HARD) {
+                    if (!this.attackFast) {
+                        this.attackFast = true;
+                        this.level.broadcastEntityEvent(this, (byte) 10);
+                    }
+                } else {
+                    if (this.attackFast) {
+                        this.attackFast = false;
+                        this.level.broadcastEntityEvent(this, (byte) 11);
+                    }
+                }
                 if (this.level instanceof ServerLevel serverLevel) {
                     Vec3 vec3 = this.getDeltaMovement();
                     if (this.isUnderWater()
@@ -1129,6 +1141,10 @@ public class Wight extends Summoned implements Enemy, NeutralMob, IHiding {
             this.setSummoning(true);
         } else if (p_21375_ == 9){
             this.setSummoning(false);
+        } else if (p_21375_ == 10){
+            this.attackFast = true;
+        } else if (p_21375_ == 11){
+            this.attackFast = false;
         } else {
             super.handleEntityEvent(p_21375_);
         }
@@ -1301,7 +1317,8 @@ public class Wight extends Summoned implements Enemy, NeutralMob, IHiding {
                                 }
                             }
                         } else if (Wight.this.getCurrentAnimation() == Wight.this.getAnimationState(SMASH)) {
-                            if (Wight.this.attackTick == 20) {
+                            int i = Wight.this.attackFast ? 10 : 20;
+                            if (Wight.this.attackTick == i) {
                                 Wight.this.playSound(ModSounds.WIGHT_SWING.get(), Wight.this.getSoundVolume(), Wight.this.getVoicePitch() - 0.5F);
                                 if (Wight.this.targetClose(enemy, distToEnemySqr)) {
                                     Wight.this.doHurtTarget(enemy);
@@ -1311,7 +1328,8 @@ public class Wight extends Summoned implements Enemy, NeutralMob, IHiding {
                                 }
                             }
                         } else {
-                            if (Wight.this.attackTick == 14) {
+                            int i = Wight.this.attackFast ? 7 : 14;
+                            if (Wight.this.attackTick == i) {
                                 Wight.this.playSound(ModSounds.WIGHT_SWING.get(), Wight.this.getSoundVolume(), Wight.this.getVoicePitch());
                                 this.massiveSweep(Wight.this, 3.0D, 100.0D);
                             }

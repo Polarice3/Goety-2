@@ -299,7 +299,7 @@ public class EvokerServant extends SpellcasterIllagerServant{
 
             for(int i = 0; i < 3; ++i) {
                 BlockPos blockpos = EvokerServant.this.blockPosition().offset(-2 + EvokerServant.this.random.nextInt(5), 1, -2 + EvokerServant.this.random.nextInt(5));
-                AllyVex vex = ModEntityType.ALLY_VEX.get().create(EvokerServant.this.level());
+                AllyVex vex = ModEntityType.VEX_SERVANT.get().create(EvokerServant.this.level());
                 if (vex != null) {
                     vex.moveTo(blockpos, 0.0F, 0.0F);
                     vex.finalizeSpawn(serverlevel, EvokerServant.this.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData)null, (CompoundTag)null);

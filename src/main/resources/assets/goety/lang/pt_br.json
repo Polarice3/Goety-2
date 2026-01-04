@@ -70,7 +70,7 @@
   "entity.goety.zombie_villager_servant": "Servo Zumbi Aldeão",
   "entity.goety.skeleton_villager_servant": "Servo Esqueleto Aldeão",
   "entity.goety.damned": "Condenado",
-  "entity.goety.ally_trampler": "Pisoteador",
+  "entity.goety.trampler_servant": "Pisoteador",
   "entity.goety.ravaged": "Devastado",
   "entity.goety.ravager": "Devastador",
   "entity.goety.armored_ravager": "Devastador Blindado",
@@ -103,8 +103,8 @@
   "entity.goety.cairn_necromancer": "Necromante do Cairn",
   "entity.goety.haunted_armor": "Armadura Assombrada",
 
-  "entity.goety.ally_vex": "Vex Aliado",
-  "entity.goety.ally_irk": "Irk Aliado",
+  "entity.goety.vex_servant": "Vex Aliado",
+  "entity.goety.irk_servant": "Irk Aliado",
   "entity.goety.zombie_servant": "Servo Zumbi",
   "entity.goety.husk_servant": "Servo Husk",
   "entity.goety.drowned_servant": "Servo Afogado",
@@ -3404,5 +3404,9 @@
   "advancements.goety.find_blighted_shack.title": "Refúgio dos Podres",
   "advancements.goety.find_blighted_shack.description": "Encontre uma Cabana Assolada, lar de uma bruxa antiga e poderosa.",
   "entity.goety.warlock_servant": "Servo Bruxo",
-  "item.goety.warlock_servant_spawn_egg": "Ovo de Servo Bruxo"
+  "item.goety.warlock_servant_spawn_egg": "Ovo de Servo Bruxo",
+  "item.goety.vex_servant_spawn_egg": "Ovo de Servo Vex",
+  "item.goety.irk_servant_spawn_egg": "Ovo de Servo Irk",
+  "item.goety.carrion_focus": "Foco de Carniça",
+  "item.goety.carrion_focus.info": "Invoca um enxame de Moscas de Carniça. Conjurar agachado ira convocar os servos do conjurador em sua direção."
 }

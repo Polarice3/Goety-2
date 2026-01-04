@@ -745,13 +745,13 @@ public class ModEntityType {
                     .clientTrackingRange(10)
                     .setShouldReceiveVelocityUpdates(true));
 
-    public static final RegistryObject<EntityType<AllyVex>> ALLY_VEX = register("ally_vex",
+    public static final RegistryObject<EntityType<AllyVex>> VEX_SERVANT = register("vex_servant",
             EntityType.Builder.of(AllyVex::new, MobCategory.MONSTER)
                     .fireImmune()
                     .sized(0.4F, 0.8F)
                     .clientTrackingRange(8));
 
-    public static final RegistryObject<EntityType<AllyIrk>> ALLY_IRK = register("ally_irk",
+    public static final RegistryObject<EntityType<AllyIrk>> IRK_SERVANT = register("irk_servant",
             EntityType.Builder.of(AllyIrk::new, MobCategory.MONSTER)
                     .fireImmune()
                     .sized(0.4F, 0.8F)
@@ -1098,7 +1098,7 @@ public class ModEntityType {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 
-    public static final RegistryObject<EntityType<AllyTrampler>> ALLY_TRAMPLER = register("ally_trampler",
+    public static final RegistryObject<EntityType<AllyTrampler>> TRAMPLER_SERVANT = register("trampler_servant",
             EntityType.Builder.of(AllyTrampler::new, MobCategory.MONSTER)
                     .canSpawnFarFromPlayer()
                     .sized(1.3964844F, 1.6F)

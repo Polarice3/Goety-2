@@ -131,11 +131,11 @@ public class WightModel<T extends Wight> extends HierarchicalModel<T> {
 				}
 			}
 			if (isCrouching){
-				this.animate(entity.attackAnimationState, WightAnimations.CROUCH_ATTACK, ageInTicks);
-				this.animate(entity.smashAnimationState, WightAnimations.CROUCH_SMASH, ageInTicks);
+				this.animate(entity.attackAnimationState, WightAnimations.CROUCH_ATTACK, ageInTicks, entity.attackFast ? 2 : 1);
+				this.animate(entity.smashAnimationState, WightAnimations.CROUCH_SMASH, ageInTicks, entity.attackFast ? 2 : 1);
 			} else {
-				this.animate(entity.attackAnimationState, WightAnimations.ATTACK, ageInTicks);
-				this.animate(entity.smashAnimationState, WightAnimations.SMASH, ageInTicks);
+				this.animate(entity.attackAnimationState, WightAnimations.ATTACK, ageInTicks, entity.attackFast ? 2 : 1);
+				this.animate(entity.smashAnimationState, WightAnimations.SMASH, ageInTicks, entity.attackFast ? 2 : 1);
 			}
 			this.animate(entity.unleashAnimationState, WightAnimations.UNLEASH, ageInTicks);
 			this.animate(entity.summonAnimationState, WightAnimations.SUMMON, ageInTicks);

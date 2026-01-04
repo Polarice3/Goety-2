@@ -76,7 +76,7 @@ public class ModSpawnEggs {
             () -> new ModSpawnEggItem(ModEntityType.VIZIER, 0x1e1c1a, 0x440a67, egg()));
 
     public static final RegistryObject<ModSpawnEggItem> IRK_SPAWN_EGG = ITEMS.register("irk_spawn_egg",
-            () -> new ModSpawnEggItem(ModEntityType.IRK, 8032420, 8032420, egg()));
+            () -> new ModSpawnEggItem(ModEntityType.IRK, 0x89bdef, 0x4e7294, egg()));
 
     public static final RegistryObject<ModSpawnEggItem> HOSTILE_REDSTONE_GOLEM_SPAWN_EGG = ITEMS.register("hostile_redstone_golem_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.HOSTILE_REDSTONE_GOLEM, 0x442b30, 0xd12b13, egg()));

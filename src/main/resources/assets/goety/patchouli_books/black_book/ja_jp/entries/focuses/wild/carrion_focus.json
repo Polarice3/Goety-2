@@ -1,0 +1,23 @@
+{
+  "name": "死肉のフォーカス",
+  "icon": "goety:carrion_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "腐った肉を通して、$(l:focuses/wild/swarm_focus)蚊柱のフォーカス$()で召喚したハエの一部を巨大化させ、$(l:summons/carrion_flies)腐ったハエ$()へと成長させることができます。これらのハエが標的を倒すと、その死体からウジが湧き、あなたに追従します。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/carrion_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/wild_staff)野生の杖$()で唱えると、より多くの腐ったハエが召喚されます。また、野生のローブを着用すると腐ったハエが強化され、体力と攻撃力が増加します。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "@NUTTARの提案により追加されました。"
+    }
+  ]
+}

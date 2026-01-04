@@ -23,10 +23,10 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.PLAGUE_EFFECT.get(), SpellParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.DOOM.get(), SpellParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.DOOM_DEATH.get(), DoomDeathParticle.Provider::new);
-        event.registerSpriteSet(ModParticleTypes.WHITE_EFFECT.get(), SpellParticle.Provider::new);
-        event.registerSpriteSet(ModParticleTypes.BULLET_EFFECT.get(), SpellParticle.Provider::new);
-        event.registerSpriteSet(ModParticleTypes.NECRO_EFFECT.get(), SpellParticle.Provider::new);
-        event.registerSpriteSet(ModParticleTypes.GLOW_EFFECT.get(), SpellParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.WHITE_EFFECT.get(), AdditiveSpellParticle.AlphaProvider::new);
+        event.registerSpriteSet(ModParticleTypes.BULLET_EFFECT.get(), AdditiveSpellParticle.AlphaProvider::new);
+        event.registerSpriteSet(ModParticleTypes.NECRO_EFFECT.get(), AdditiveSpellParticle.AlphaProvider::new);
+        event.registerSpriteSet(ModParticleTypes.GLOW_EFFECT.get(), AdditiveSpellParticle.AlphaProvider::new);
         event.registerSpriteSet(ModParticleTypes.LICH.get(), BigSpellParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.WARLOCK.get(), SpellParticle.WitchProvider::new);
         event.registerSpriteSet(ModParticleTypes.BONE.get(), ShortFlameParticle.Provider::new);
@@ -46,8 +46,8 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.RESONANCE_GATHER.get(), GatheringParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.BURNING.get(), FlameParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.FIERY_PILLAR.get(), FieryPillarParticle.Provider::new);
-        event.registerSpriteSet(ModParticleTypes.SOUL_EXPLODE_BITS.get(), FlameParticle.Provider::new);
-        event.registerSpriteSet(ModParticleTypes.XP_TAKE.get(), FlameParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.SOUL_EXPLODE_BITS.get(), AdditiveFlameParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.XP_TAKE.get(), AdditiveFlameParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.CULT_SPELL.get(), SpellParticle.MobProvider::new);
         event.registerSpriteSet(ModParticleTypes.BIG_CULT_SPELL.get(), BigSpellParticle.MobProvider::new);
         event.registerSpriteSet(ModParticleTypes.SMALL_STATION_CULT_SPELL.get(), FireParticle.SmallerColorProvider::new);
@@ -132,6 +132,7 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.FOLLOW_CULT_SPELL.get(), FollowFireParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SPIRALLING.get(), SpirallingParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.GOD_RAY.get(), GodRayParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.STRETCHED_GOD_RAY.get(), StretchedGodRayParticle.Provider::new);
         event.registerSpecial(ModParticleTypes.WATER_STREAM.get(), new WaterStreamParticle.Provider());
         event.registerSpriteSet(ModParticleTypes.BLOSSOM_THORN_INDICATOR.get(),
                 spriteSet -> new GeometricParticle.Provider(spriteSet,

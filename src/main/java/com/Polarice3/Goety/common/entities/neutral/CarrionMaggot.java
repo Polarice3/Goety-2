@@ -1,8 +1,12 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.hostile.Wight;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.RandomUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -18,6 +22,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
@@ -29,11 +35,15 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -238,12 +248,14 @@ public class CarrionMaggot extends Summoned {
             this.setHost(-1);
          }
          if (!this.isCocoon()) {
-            if (!this.isClimbing() && this.tickCount > 20) {
-               if (this.getTarget() != null && this.getTarget().isAlive()) {
-                  if (!this.isPassenger() && !this.isDeadOrDying()) {
-                     if (this.getTarget().getY() > this.getY() + 4.0F && this.tickCount % 100 == 0) {
-                        this.setCocoon(true);
-                        this.level.broadcastEntityEvent(this, (byte) 4);
+            if (this.getTrueOwner() instanceof Wight) {
+               if (!this.isClimbing() && this.tickCount > 20) {
+                  if (this.getTarget() != null && this.getTarget().isAlive()) {
+                     if (!this.isPassenger() && !this.isDeadOrDying()) {
+                        if (this.getTarget().getY() > this.getY() + 4.0F && this.tickCount % 100 == 0) {
+                           this.setCocoon(true);
+                           this.level.broadcastEntityEvent(this, (byte) 4);
+                        }
                      }
                   }
                }
@@ -351,6 +363,54 @@ public class CarrionMaggot extends Summoned {
             attack.setBaseValue(2.0D);
          }
       }
+   }
+
+   @Override
+   public void uncreditedKill(LivingEntity target) {
+      if (!MobUtil.areAllies(this, target)) {
+         int random = 3;
+         if (target.getMaxHealth() < 20.0F) {
+            random = 1;
+         }
+         if (RandomUtil.nextInt(this.getRandom(), random) == 0) {
+            this.setCocoon(true);
+         }
+      }
+   }
+
+   public boolean isFood(ItemStack p_30440_) {
+      Item item = p_30440_.getItem();
+      return item.isEdible() && p_30440_.getFoodProperties(this).isMeat();
+   }
+
+   public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+      ItemStack itemstack = pPlayer.getItemInHand(pHand);
+      if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
+         if (this.isFood(itemstack) && !this.isCocoon()) {
+            FoodProperties foodProperties = itemstack.getFoodProperties(this);
+            if (foodProperties != null){
+               this.heal((float)foodProperties.getNutrition());
+               if (!pPlayer.getAbilities().instabuild) {
+                  itemstack.shrink(1);
+               }
+
+               this.gameEvent(GameEvent.EAT, this);
+               this.eat(this.level, itemstack);
+               if (this.level instanceof ServerLevel serverLevel) {
+                  for (int i = 0; i < 7; ++i) {
+                     double d0 = this.random.nextGaussian() * 0.02D;
+                     double d1 = this.random.nextGaussian() * 0.02D;
+                     double d2 = this.random.nextGaussian() * 0.02D;
+                     serverLevel.sendParticles(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+                  }
+               }
+               pPlayer.swing(pHand);
+               this.setCocoon(true);
+               return InteractionResult.SUCCESS;
+            }
+         }
+      }
+      return super.mobInteract(pPlayer, pHand);
    }
 
    class CocoonGoal extends Goal {

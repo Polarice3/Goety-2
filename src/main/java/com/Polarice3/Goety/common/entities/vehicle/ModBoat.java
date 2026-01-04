@@ -3,11 +3,14 @@ package com.Polarice3.Goety.common.entities.vehicle;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.items.ModItems;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.util.ByIdMap;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Item;
@@ -15,6 +18,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
+
+import java.util.function.IntFunction;
 
 public class ModBoat extends Boat {
     private static final EntityDataAccessor<Integer> DATA_ID_TYPE = SynchedEntityData.defineId(ModBoat.class, EntityDataSerializers.INT);
@@ -31,6 +36,25 @@ public class ModBoat extends Boat {
         this.xo = p_i1705_2_;
         this.yo = p_i1705_4_;
         this.zo = p_i1705_6_;
+    }
+
+    public void setVariant(ModBoat.Type p_38333_) {
+        this.entityData.set(DATA_ID_TYPE, p_38333_.ordinal());
+    }
+
+    public ModBoat.Type getModVariant() {
+        return ModBoat.Type.byId(this.entityData.get(DATA_ID_TYPE));
+    }
+
+    protected void addAdditionalSaveData(CompoundTag p_38359_) {
+        p_38359_.putString("Type", this.getModVariant().getSerializedName());
+    }
+
+    protected void readAdditionalSaveData(CompoundTag p_38338_) {
+        if (p_38338_.contains("Type", 8)) {
+            this.setVariant(ModBoat.Type.byName(p_38338_.getString("Type")));
+        }
+
     }
 
     public Item getDropItem() {
@@ -57,7 +81,7 @@ public class ModBoat extends Boat {
         return Type.byId(this.entityData.get(DATA_ID_TYPE));
     }
 
-    public static enum Type {
+    public enum Type implements StringRepresentable {
         HAUNTED(ModBlocks.HAUNTED_PLANKS.get(), "haunted"),
         ROTTEN(ModBlocks.ROTTEN_PLANKS.get(), "rotten"),
         WINDSWEPT(ModBlocks.WINDSWEPT_PLANKS.get(), "windswept"),
@@ -67,10 +91,16 @@ public class ModBoat extends Boat {
 
         private final String name;
         private final Block planks;
+        public static final StringRepresentable.EnumCodec<ModBoat.Type> CODEC = StringRepresentable.fromEnum(ModBoat.Type::values);
+        private static final IntFunction<ModBoat.Type> BY_ID = ByIdMap.continuous(Enum::ordinal, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
 
         private Type(Block p_i48146_3_, String p_i48146_4_) {
             this.name = p_i48146_4_;
             this.planks = p_i48146_3_;
+        }
+
+        public String getSerializedName() {
+            return this.name;
         }
 
         public String getName() {
@@ -85,25 +115,12 @@ public class ModBoat extends Boat {
             return this.name;
         }
 
-        public static Type byId(int pId) {
-            Type[] aboatentity$type = values();
-            if (pId < 0 || pId >= aboatentity$type.length) {
-                pId = 0;
-            }
-
-            return aboatentity$type[pId];
+        public static ModBoat.Type byId(int p_38431_) {
+            return BY_ID.apply(p_38431_);
         }
 
-        public static Type byName(String pName) {
-            Type[] aboatentity$type = values();
-
-            for(int i = 0; i < aboatentity$type.length; ++i) {
-                if (aboatentity$type[i].getName().equals(pName)) {
-                    return aboatentity$type[i];
-                }
-            }
-
-            return aboatentity$type[0];
+        public static ModBoat.Type byName(String p_38433_) {
+            return CODEC.byName(p_38433_, HAUNTED);
         }
     }
 

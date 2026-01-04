@@ -326,6 +326,7 @@ public class ModItems {
     public static final RegistryObject<Item> HUNTING_FOCUS = ITEMS.register("hunting_focus", () -> new MagicFocus(new HuntingSpell()));
     public static final RegistryObject<Item> MAULING_FOCUS = ITEMS.register("mauling_focus", () -> new MagicFocus(new MaulingSpell()));
     public static final RegistryObject<Item> SLIMY_FOCUS = ITEMS.register("slimy_focus", () -> new MagicFocus(new SlimySpell()));
+    public static final RegistryObject<Item> CARRION_FOCUS = ITEMS.register("carrion_focus", () -> new MagicFocus(new CarrionSpell()));
     public static final RegistryObject<Item> OVERGROWTH_FOCUS = ITEMS.register("overgrowth_focus", () -> new MagicFocus(new OvergrowthSpell()));
     public static final RegistryObject<Item> ENTANGLING_FOCUS = ITEMS.register("entangling_focus", () -> new MagicFocus(new EntanglingSpell()));
     public static final RegistryObject<Item> WHISPERING_FOCUS = ITEMS.register("whispering_focus", () -> new MagicFocus(new WhisperSpell()));

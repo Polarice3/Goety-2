@@ -234,6 +234,12 @@ public class ServantSpawnEggs {
     public static final RegistryObject<ServantSpawnEggItem> SNARELING_SERVANT_SPAWN_EGG = ITEMS.register("snareling_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.SNARELING_SERVANT, 0x1c001e, 0xfcfcc7, egg()));
 
+    public static final RegistryObject<ServantSpawnEggItem> VEX_SERVANT_SPAWN_EGG = ITEMS.register("vex_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.VEX_SERVANT, 8032420, 0xffa700, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> IRK_SERVANT_SPAWN_EGG = ITEMS.register("irk_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.IRK_SERVANT, 0x89bdef, 0xffa700, egg()));
+
     public static final RegistryObject<ServantSpawnEggItem> NEOLLAGER_SPAWN_EGG = ITEMS.register("neollager_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.NEOLLAGER, 0x281e11, 0x464234, egg()));
 
@@ -292,7 +298,7 @@ public class ServantSpawnEggs {
             () -> new ServantSpawnEggItem(ModEntityType.RAVAGED, 0x102322, 0x757470, egg()));
 
     public static final RegistryObject<ServantSpawnEggItem> TRAMPLER_SERVANT_SPAWN_EGG = ITEMS.register("trampler_servant_spawn_egg",
-            () -> new ServantSpawnEggItem(ModEntityType.ALLY_TRAMPLER, 0x8a795d, 0x696151, egg()));
+            () -> new ServantSpawnEggItem(ModEntityType.TRAMPLER_SERVANT, 0x8a795d, 0x696151, egg()));
 
     public static final RegistryObject<ServantSpawnEggItem> RAVAGER_SERVANT_SPAWN_EGG = ITEMS.register("ravager_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.MOD_RAVAGER, 0x757470, 0x32322c, egg()));

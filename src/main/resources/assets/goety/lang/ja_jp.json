@@ -85,8 +85,8 @@
   "entity.goety.cairn_necromancer": "ケルンネクロマンサー",
   "entity.goety.haunted_armor": "ホーンテッドアーマー",
 
-  "entity.goety.ally_vex": "ヴェックス",
-  "entity.goety.ally_irk": "アーク",
+  "entity.goety.vex_servant": "ヴェックス",
+  "entity.goety.irk_servant": "アーク",
   "entity.goety.zombie_servant": "ゾンビの従者",
   "entity.goety.husk_servant": "ハスクの従者",
   "entity.goety.drowned_servant": "ドラウンドの従者",
@@ -2332,7 +2332,7 @@
   "info.goety.unholy_hat_cast": "ネザー呪文の詠唱時間が半分になります。 反神聖なローブと一緒に着用すると、特定の火の呪文が地獄の炎のダメージを与えます。",
   "death.attack.goety.lifeLeech": "%1$sは%2$sによって吸血された",
   "death.attack.goety.lifeLeech.item": "%1$sは%2$sと%3$sによって体力を消耗した",
-  "entity.goety.ally_trampler": "トランプラー",
+  "entity.goety.trampler_servant": "トランプラー",
   "entity.goety.sorcerer": "ソーサラー",
   "entity.goety.rain_arrow": "矢の雨",
   "item.goety.pure_unholy_blood": "純正な反神聖の血",
@@ -3268,5 +3268,9 @@
   "subtitle.goety.whip_swing": "Whip swing",
   "subtitle.goety.whip_hit": "Whip hit",
   "entity.goety.warlock_servant": "ウォーロックの従者",
-  "item.goety.warlock_servant_spawn_egg": "ウォーロックの従者のスポーンエッグ"
+  "item.goety.warlock_servant_spawn_egg": "ウォーロックの従者のスポーンエッグ",
+  "item.goety.vex_servant_spawn_egg": "ヴェックスの従者のスポーンエッグ",
+  "item.goety.irk_servant_spawn_egg": "アークの従者のスポーンエッグ",
+  "item.goety.carrion_focus": "C死肉のフォーカス",
+  "item.goety.carrion_focus.info": "腐ったハエの群れを召喚します。しゃがむと、すでにいる従者がプレイヤーの元へ行きます。"
 }

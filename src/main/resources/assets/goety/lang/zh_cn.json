@@ -92,8 +92,8 @@
   "entity.goety.bone_spider":"骸骨蜘蛛",
   "entity.goety.haunted_armor":"缠魂甲胄",
 
-  "entity.goety.ally_vex":"恼鬼",
-  "entity.goety.ally_irk":"怒鬼",
+  "entity.goety.vex_servant":"恼鬼",
+  "entity.goety.irk_servant":"怒鬼",
   "entity.goety.zombie_servant":"僵尸仆从",
   "entity.goety.husk_servant":"尸壳仆从",
   "entity.goety.drowned_servant":"溺尸仆从",
@@ -2314,7 +2314,7 @@
   "info.goety.unholy_hat_cast": "减半下界法术的灵魂消耗，与不洁长袍搭配可以使某些火焰法术造成狱火伤害。",
   "death.attack.goety.lifeLeech": "%1$s的生命被%2$s吞噬了",
   "death.attack.goety.lifeLeech.item": "%1$s被%2$s用%3$s吞噬了",
-  "entity.goety.ally_trampler": "践踏者",
+  "entity.goety.trampler_servant": "践踏者",
   "entity.goety.sorcerer": "巫师",
   "entity.goety.rain_arrow": "箭矢",
   "item.goety.pure_unholy_blood": "至纯之血",
@@ -3320,5 +3320,9 @@
   "item.goety.watching_focus.info": "召唤看守灵仆从，潜行施法会把仆从传送到施法者的位置",
   "item.goety.blasting_focus.info": "召唤爆破灵仆从，潜行施法会把仆从传送到施法者的位置",
   "item.goety.snaring_focus.info": "召唤迷惑灵仆从，潜行施法会把仆从传送到施法者的位置",
-  "info.goety.void_crown_cast": "减半虚空法术的施法时间"
+  "info.goety.void_crown_cast": "减半虚空法术的施法时间",
+  "item.goety.vex_servant_spawn_egg": "恼鬼仆从刷怪蛋",
+  "item.goety.irk_servant_spawn_egg": "怒鬼仆从刷怪蛋",
+  "item.goety.carrion_focus": "腐蝇聚晶",
+  "item.goety.carrion_focus.info": "召唤一大群腐尸飞蝇，潜行施法会把仆从传送到施法者的位置"
 }

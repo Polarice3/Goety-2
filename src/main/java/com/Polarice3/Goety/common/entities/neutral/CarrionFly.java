@@ -1,7 +1,9 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -13,6 +15,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -26,9 +30,13 @@ import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -182,20 +190,63 @@ public class CarrionFly extends Summoned {
     @Override
     public void uncreditedKill(LivingEntity target) {
         if (!MobUtil.areAllies(this, target)) {
-            int random = this.getRandom().nextIntBetweenInclusive(1, 3);
-            for (int i = 0; i < random; ++i) {
-                CarrionMaggot carrionMaggot = new CarrionMaggot(ModEntityType.CARRION_MAGGOT.get(), this.level);
-                carrionMaggot.setTrueOwner(this.getTrueOwner() != null ? this.getTrueOwner() : this);
-                BlockPos blockPos = BlockFinder.SummonRadius(target.blockPosition(), carrionMaggot, this.level, 3);
-                carrionMaggot.moveTo(blockPos.getCenter());
-                if (this.level instanceof ServerLevel serverLevel) {
-                    carrionMaggot.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(carrionMaggot.blockPosition()), MobSpawnType.BREEDING, null, null);
+            int total = this.level.getEntitiesOfClass(CarrionMaggot.class, this.getBoundingBox().inflate(16.0F), maggot -> MobUtil.areAllies(this, maggot)).size();
+            if (total < SpellConfig.CarrionLimit.get()) {
+                int random = this.getRandom().nextIntBetweenInclusive(1, 3);
+                if (target.getMaxHealth() < 20.0F) {
+                    random = 1;
                 }
-                carrionMaggot.setNatural(this.isNatural());
-                carrionMaggot.setHostile(this.isHostile());
-                carrionMaggot.setUpgraded(this.isUpgraded());
-                this.level.addFreshEntity(carrionMaggot);
+                for (int i = 0; i < random; ++i) {
+                    CarrionMaggot carrionMaggot = new CarrionMaggot(ModEntityType.CARRION_MAGGOT.get(), this.level);
+                    carrionMaggot.setTrueOwner(this.getTrueOwner() != null ? this.getTrueOwner() : this);
+                    BlockPos blockPos = BlockFinder.SummonRadius(target.blockPosition(), carrionMaggot, this.level, 3);
+                    carrionMaggot.moveTo(blockPos.getCenter());
+                    if (this.level instanceof ServerLevel serverLevel) {
+                        carrionMaggot.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(carrionMaggot.blockPosition()), MobSpawnType.BREEDING, null, null);
+                    }
+                    carrionMaggot.setNatural(this.isNatural());
+                    carrionMaggot.setHostile(this.isHostile());
+                    carrionMaggot.setUpgraded(this.isUpgraded());
+                    if (this.isLimitedLife()) {
+                        carrionMaggot.setLimitedLife(this.getLifespan());
+                    }
+                    this.level.addFreshEntity(carrionMaggot);
+                }
             }
         }
+    }
+
+    public boolean isFood(ItemStack p_30440_) {
+        Item item = p_30440_.getItem();
+        return item.isEdible() && p_30440_.getFoodProperties(this).isMeat();
+    }
+
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
+        if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
+            if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
+                FoodProperties foodProperties = itemstack.getFoodProperties(this);
+                if (foodProperties != null){
+                    this.heal((float)foodProperties.getNutrition());
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
+
+                    this.gameEvent(GameEvent.EAT, this);
+                    this.eat(this.level, itemstack);
+                    if (this.level instanceof ServerLevel serverLevel) {
+                        for (int i = 0; i < 7; ++i) {
+                            double d0 = this.random.nextGaussian() * 0.02D;
+                            double d1 = this.random.nextGaussian() * 0.02D;
+                            double d2 = this.random.nextGaussian() * 0.02D;
+                            serverLevel.sendParticles(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+                        }
+                    }
+                    pPlayer.swing(pHand);
+                    return InteractionResult.SUCCESS;
+                }
+            }
+        }
+        return super.mobInteract(pPlayer, pHand);
     }
 }

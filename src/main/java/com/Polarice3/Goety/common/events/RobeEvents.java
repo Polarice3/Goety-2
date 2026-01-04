@@ -144,7 +144,7 @@ public class RobeEvents {
                 if (SEHelper.getSoulsAmount(player, ItemConfig.ItemsRepairAmount.get())) {
                     int irks = victim.level.getEntitiesOfClass(AllyIrk.class, victim.getBoundingBox().inflate(32)).size();
                     if ((victim.level.random.nextBoolean() || victim.getHealth() <= victim.getMaxHealth() / 2) && irks < 16) {
-                        AllyIrk irk = new AllyIrk(ModEntityType.ALLY_IRK.get(), victim.level);
+                        AllyIrk irk = new AllyIrk(ModEntityType.IRK_SERVANT.get(), victim.level);
                         irk.setPos(victim.getX(), victim.getY(), victim.getZ());
                         irk.setLimitedLife(MobUtil.getSummonLifespan(victim.level));
                         irk.setTrueOwner(victim);

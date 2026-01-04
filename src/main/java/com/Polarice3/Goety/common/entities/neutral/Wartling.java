@@ -153,10 +153,6 @@ public class Wartling extends AbstractSpiderServant {
         return false;
     }
 
-    public boolean canCollideWith(Entity p_20303_) {
-        return p_20303_ != this.getTrueOwner();
-    }
-
     @Override
     public boolean doHurtTarget(Entity entityIn) {
         if (this.isMega()){

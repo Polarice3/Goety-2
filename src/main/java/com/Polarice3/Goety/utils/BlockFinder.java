@@ -297,6 +297,35 @@ public class BlockFinder {
         }
     }
 
+    public static Vec3 SummonPosition(Level level, Vec3 vec3){
+        double d3 = vec3.y;
+        boolean flag = false;
+        Vec3 vec31 = new Vec3(vec3.x, vec3.y, vec3.z);
+        if (level.isLoaded(BlockPos.containing(vec31))) {
+            boolean flag1 = false;
+
+            while(!flag1 && vec31.y > level.getMinBuildHeight()) {
+                BlockPos blockpos1 = BlockPos.containing(vec31).below();
+                BlockState blockstate = level.getBlockState(blockpos1);
+                if (blockstate.blocksMotion()) {
+                    flag1 = true;
+                } else {
+                    --d3;
+                    vec31 = blockpos1.getCenter();
+                }
+            }
+
+            if (flag1) {
+                flag = true;
+            }
+        }
+        if (!flag) {
+            return vec31;
+        } else {
+            return new Vec3(vec3.x, d3, vec3.z);
+        }
+    }
+
     public static BlockPos SummonRadius(BlockPos blockPos, Entity entity, Level world){
         return SummonRadius(blockPos, entity, world, 5);
     }

@@ -1,7 +1,7 @@
 {
   "name": "Servo Bruxo",
   "icon": "goety:warlock_sash",
-  "category": "goety:mutações",
+  "category": "goety:mutations",
   "pages": [
     {
       "type": "patchouli:text",

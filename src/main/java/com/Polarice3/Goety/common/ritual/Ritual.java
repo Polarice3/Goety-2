@@ -92,16 +92,22 @@ public abstract class Ritual {
 
     public void finish(Level world, BlockPos darkAltarPos, DarkAltarBlockEntity tileEntity,
                        Player castingPlayer, ItemStack activationItem) {
-        if (tileEntity.getCurrentRitualRecipe() != null && tileEntity.getCurrentRitualRecipe().getCraftType() != null) {
-            for (IRitualType ritualType : RitualType.getAllRitualType()) {
-                if (tileEntity.getCurrentRitualRecipe().getCraftType().contains(ritualType.getName())) {
-                    ritualType.onFinishRitual(world, darkAltarPos, tileEntity, castingPlayer, activationItem);
+        try {
+            if (tileEntity.getCurrentRitualRecipe() != null && tileEntity.getCurrentRitualRecipe().getCraftType() != null) {
+                for (IRitualType ritualType : RitualType.getAllRitualType()) {
+                    if (tileEntity.getCurrentRitualRecipe().getCraftType().contains(ritualType.getName())) {
+                        ritualType.sendFinishRay(world, darkAltarPos, tileEntity, castingPlayer, activationItem);
+                        ritualType.onFinishRitual(world, darkAltarPos, tileEntity, castingPlayer, activationItem);
+                    }
                 }
             }
+            if (tileEntity.getCurrentRitualRecipe().getRitual() instanceof EnchantItemRitual){
+                world.playSound(null, darkAltarPos, SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
+            }
+        } catch (NullPointerException ignored) {
+
         }
-        if (tileEntity.getCurrentRitualRecipe().getRitual() instanceof EnchantItemRitual){
-            world.playSound(null, darkAltarPos, SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
-        }
+
         world.playSound(null, darkAltarPos, ModSounds.ALTAR_FINISH.get(), SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
     }
 
@@ -118,6 +124,14 @@ public abstract class Ritual {
             if (tileEntity.getConvertEntity.tickCount % 20 == 0) {
                 if (world instanceof ServerLevel serverLevel){
                     ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.ENCHANT, tileEntity.getConvertEntity);
+                }
+            }
+        }
+
+        if (tileEntity.getCurrentRitualRecipe() != null && tileEntity.getCurrentRitualRecipe().getCraftType() != null) {
+            for (IRitualType ritualType : RitualType.getAllRitualType()) {
+                if (tileEntity.getCurrentRitualRecipe().getCraftType().contains(ritualType.getName())) {
+                    ritualType.onPerformRitual(world, darkAltarPos, tileEntity, castingPlayer, activationItem);
                 }
             }
         }

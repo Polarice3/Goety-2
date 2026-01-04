@@ -65,7 +65,7 @@ public class PoisonDartSpell extends Spell {
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
         }
         PoisonQuill poisonQuill = new PoisonQuill(worldIn, caster);
-        poisonQuill.setSpear(rightStaff(staff), potency);
+        poisonQuill.setSpear(rightStaff(staff), potency + 1);
         poisonQuill.shootFromRotation(caster, caster.getXRot(), caster.getYRot(), 0.0F, velocity, 1.0F);
         poisonQuill.setOwner(caster);
         poisonQuill.setExtraDamage(potency);

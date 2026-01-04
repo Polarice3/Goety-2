@@ -283,7 +283,7 @@ public class AbstractWitherNecromancer extends AbstractNecromancer {
                     summoned.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(AbstractWitherNecromancer.this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                     if (serverLevel.addFreshEntity(summoned)){
                         SoundUtil.playNecromancerSummon(summoned);
-                        ServerParticleUtil.summonUndeadParticles(serverLevel, summoned);
+                        ServerParticleUtil.summonUndeadParticles(serverLevel, summoned, new ColorUtil(0xffa300), 0xffa300, 0xffff6e);
                     }
                 }
             }
@@ -303,6 +303,10 @@ public class AbstractWitherNecromancer extends AbstractNecromancer {
         @Override
         public void playLaughSound() {
             AbstractWitherNecromancer.this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, 0.05F);
+        }
+
+        public void summonUndeadParticles(ServerLevel serverLevel, Entity entity) {
+            ServerParticleUtil.summonUndeadParticles(serverLevel, entity, new ColorUtil(0xffa300), 0xffa300, 0xffff6e);
         }
     }
 

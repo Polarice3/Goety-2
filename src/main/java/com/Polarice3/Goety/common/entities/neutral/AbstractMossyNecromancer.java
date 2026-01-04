@@ -16,10 +16,7 @@ import com.Polarice3.Goety.common.magic.spells.SoulBoltSpell;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
-import com.Polarice3.Goety.utils.BlockFinder;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
-import com.Polarice3.Goety.utils.SoundUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -48,7 +45,11 @@ public class AbstractMossyNecromancer extends AbstractNecromancer{
 
     public void summonSpells(int priority){
         this.goalSelector.addGoal(priority, new SummonServantSpell());
-        this.goalSelector.addGoal(priority + 1, new SummonUndeadGoal());
+        this.goalSelector.addGoal(priority + 1, new SummonUndeadGoal(){
+            public void summonUndeadParticles(ServerLevel serverLevel, Entity entity) {
+                ServerParticleUtil.summonUndeadParticles(serverLevel, entity, new ColorUtil(0x403b14), 0x403b14, 0x5b4e1d);
+            }
+        });
     }
 
     protected SoundEvent getAmbientSound() {
@@ -170,7 +171,7 @@ public class AbstractMossyNecromancer extends AbstractNecromancer{
                     summonedentity.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(AbstractMossyNecromancer.this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                     if (serverLevel.addFreshEntity(summonedentity)){
                         SoundUtil.playNecromancerSummon(summonedentity);
-                        ServerParticleUtil.summonUndeadParticles(serverLevel, summonedentity);
+                        ServerParticleUtil.summonUndeadParticles(serverLevel, summonedentity, new ColorUtil(0x403b14), 0x403b14, 0x5b4e1d);
                     }
                 }
             }

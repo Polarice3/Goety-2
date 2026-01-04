@@ -63,8 +63,8 @@
     },
     {
       "type": "patchouli:text",
-      "title": "泣术士仆从",
-      "text": "需求: $(li)冰术士仆从 $(li)火炬必须在可降雪的群戏 $(li)16个书架/同等附魔效力 $(li)32个细雪 $(li)16$(l:goety:crafts/creeper_totem)苦力怕图腾$()"
+      "title": "泣术师仆从",
+      "text": "需求: $(li)冰术师仆从 $(li)火炬必须在可降雪的群系 $(li)16个书架/同等附魔效力 $(li)32个细雪 $(li)16$(l:goety:crafts/creeper_totem)苦力怕图腾$()"
     },
     {
       "type": "patchouli:text",

@@ -1,0 +1,27 @@
+{
+  "name": "Moscas de Carniça",
+  "icon": "minecraft:rotten_flesh",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Algumas moscas, ao se alimentarem da carne podre dos mortos, podem se tornar encantadas com energias necróticas, tornando-se maiores e ferozes."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Ao matar uma criatura, elas geram vermes gigantes, potencialmente mais deles se a criatura tiver vida máxima alta o suficiente, que compartilham seu tempo de vida atual se tiverem um, que também se transformarão em uma Mosca de Carniça após matar uma criatura. Pode-se invocar um enxame delas através do uso de um $(l:focuses/wild/carrion_focus)Foco de Carniça$(), ou através de um ritual que invoca uma sem um tempo de vida limitado."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_carrion_fly_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:carrion_fly"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Elas podem, em dificuldades mais altas, atravessar paredes por algum motivo. Clicar com o botão direito em uma Mosca de Carniça leal com carne irá curá-la, embora em Vermes de Carniça, isso fará com que eles formem um casulo antes de se transformarem em uma Mosca de Carniça."
+    }
+  ]
+}

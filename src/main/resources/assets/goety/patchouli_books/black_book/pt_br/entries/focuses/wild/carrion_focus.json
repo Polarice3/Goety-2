@@ -1,0 +1,23 @@
+{
+  "name": "Foco de Carniça",
+  "icon": "goety:carrion_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Através de carne podre, você é capaz de ampliar e engordar algumas das moscas invocadas com o $(l:focuses/wild/swarm_focus)Foco de Enxame$() em $(l:summons/carrion_flies)Moscas de Carniça$(). Quando qualquer uma delas mata seu alvo, vermes crescerão de seu cadáver e também o seguirão."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/carrion_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Quando lançado com $(l:crafts/staff/wild_staff)Cajado Selvagem$(), mais Moscas de Carniça são invocadas; usar uma Túnica Selvagem irá fortalecê-las, aumentando sua saúde e dano."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Adicionado a partir da sugestão de @NUTTAR"
+    }
+  ]
+}

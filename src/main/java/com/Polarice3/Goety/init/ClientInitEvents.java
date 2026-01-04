@@ -595,8 +595,8 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.SNARELING.get(), SnarelingRenderer::new);
         event.registerEntityRenderer(ModEntityType.ENDERSENT.get(), EndersentRenderer::new);
         event.registerEntityRenderer(ModEntityType.ENDER_KEEPER.get(), EnderKeeperRenderer::new);
-        event.registerEntityRenderer(ModEntityType.ALLY_VEX.get(), AllyVexRenderer::new);
-        event.registerEntityRenderer(ModEntityType.ALLY_IRK.get(), IrkRenderer::new);
+        event.registerEntityRenderer(ModEntityType.VEX_SERVANT.get(), AllyVexRenderer::new);
+        event.registerEntityRenderer(ModEntityType.IRK_SERVANT.get(), IrkRenderer::new);
         event.registerEntityRenderer(ModEntityType.ZOMBIE_SERVANT.get(), ZombieServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.ZOMBIE_VILLAGER_SERVANT.get(), ZombieVillagerServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.HUSK_SERVANT.get(), HuskServantRenderer::new);
@@ -660,7 +660,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.CRYOLOGER_SERVANT.get(), CryologerServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.WIND_CALLER_SERVANT.get(), WindCallerServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.STORM_CASTER_SERVANT.get(), StormCasterServantRenderer::new);
-        event.registerEntityRenderer(ModEntityType.ALLY_TRAMPLER.get(), AllyTramplerRenderer::new);
+        event.registerEntityRenderer(ModEntityType.TRAMPLER_SERVANT.get(), AllyTramplerRenderer::new);
         event.registerEntityRenderer(ModEntityType.RAVAGED.get(), RavagedRenderer::new);
         event.registerEntityRenderer(ModEntityType.MOD_RAVAGER.get(), ModRavagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.ARMORED_RAVAGER.get(), ModRavagerRenderer::new);

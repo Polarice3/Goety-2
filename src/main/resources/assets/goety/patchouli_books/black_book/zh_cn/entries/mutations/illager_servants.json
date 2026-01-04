@@ -161,7 +161,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "当一名灾厄村民仆从被右键给予你的$(l:goety:mutations/illager_servants#banner)个人旗帜$()时，他们就会被任命为队长，使用$(l:goety:focuses/command_focus)命令聚晶$()或$(l:goety:focuses/order_focus)敕令聚晶$()来命令你的灾厄村民或其它灾厄村民相关的生物（例如劫掠兽），此外，其他灾厄村民会优先跟随他们的队长而不是跟随你，你可以更改他们的行为模式以阻止他们跟随队长，或是空手右键队长来卸下他装备的旗帜"
+      "text": "当一名灾厄村民仆从被右键给予你的$(l:goety:mutations/illager_servants#banner)个人旗帜$()时，他们就会被任命为队长，先使用装有$(l:goety:focuses/command_focus)命令聚晶$()或$(l:goety:focuses/order_focus)敕令聚晶$()的法杖右键点击任意一名灾厄村民或其它和灾厄村民有关的生物（比如劫掠兽），然后再右键队长即可让前者成为队员，队员会优先跟随他们的队长而不是跟随你，你可以更改他们的行为模式以阻止他们跟随队长，或是空手右键队长来卸下他装备的旗帜"
     },
     {
       "type": "patchouli:text",

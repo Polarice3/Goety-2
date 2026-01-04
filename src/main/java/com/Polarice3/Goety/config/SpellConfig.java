@@ -388,6 +388,12 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SlimySummonDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> SlimyLimit;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> CarrionCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CarrionDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CarrionCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CarrionSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CarrionLimit;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> OvergrowthCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> OvergrowthDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> OvergrowthCoolDown;
@@ -1405,6 +1411,18 @@ public class SpellConfig {
             SlimyLimit = BUILDER.comment("Number of Slime Servants and variants a player can have, Default: 16")
                     .defineInRange("slimyLimit", 16, 1, Integer.MAX_VALUE);
             BUILDER.pop();
+            BUILDER.push("Carrion Spell");
+            CarrionCost = BUILDER.comment("Carrion Spell Cost, Default: 16")
+                    .defineInRange("carrionCost", 16, 0, Integer.MAX_VALUE);
+            CarrionDuration = BUILDER.comment("Time to cast Carrion Spell, Default: 100")
+                    .defineInRange("carrionTime", 100, 0, 72000);
+            CarrionCoolDown = BUILDER.comment("Carrion Spell Cooldown, Default: 300")
+                    .defineInRange("carrionCoolDown", 300, 0, Integer.MAX_VALUE);
+            CarrionSummonDown = BUILDER.comment("Carrion Spell Summon Down, Default: 200")
+                    .defineInRange("carrionSummonDown", 200, 0, 72000);
+            CarrionLimit = BUILDER.comment("Number of Carrion Maggots and Flies a player can have, Default: 32")
+                    .defineInRange("carrionLimit", 32, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
             BUILDER.push("Overgrowth Spell");
             OvergrowthCost = BUILDER.comment("Overgrowth Spell Cost, Default: 8")
                     .defineInRange("overgrowthCost", 8, 0, Integer.MAX_VALUE);
@@ -1859,8 +1877,8 @@ public class SpellConfig {
                 .defineInRange("drownedNecromancerLimit", 2, 1, Integer.MAX_VALUE);
         WitherNecromancerLimit = BUILDER.comment("Number of Wither Necromancer Servants that an individual player can have in total, Default: 2")
                 .defineInRange("witherNecromancerLimit", 2, 1, Integer.MAX_VALUE);
-        BoundIllagerLimit = BUILDER.comment("Number of Bound Illager Servants that an individual player can have in total, Default: 2")
-                .defineInRange("boundIllagerLimit", 2, 1, Integer.MAX_VALUE);
+        BoundIllagerLimit = BUILDER.comment("Number of Bound Illager Servants that an individual player can have in total, Default: 8")
+                .defineInRange("boundIllagerLimit", 8, 1, Integer.MAX_VALUE);
         BlackBeastLimit = BUILDER.comment("Number of Black Beast Servants that an individual player can have in total, Default: 2")
                 .defineInRange("blackBeastLimit", 2, 1, Integer.MAX_VALUE);
         WildfireLimit = BUILDER.comment("Number of Wildfire Servants that an individual player can have in total, Default: 2")

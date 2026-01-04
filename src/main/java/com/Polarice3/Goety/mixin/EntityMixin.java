@@ -2,8 +2,10 @@ package com.Polarice3.Goety.mixin;
 
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.neutral.AbstractVine;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSoundTypes;
 import com.Polarice3.Goety.utils.CuriosFinder;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -41,6 +43,29 @@ public abstract class EntityMixin {
     private double goety2$playerPerspectiveValue(double value) {
         boolean flag = (Entity) (Object) this instanceof Player player && SEHelper.hasCamera(player);
         return flag ? 0 : value;
+    }
+
+    @Inject(
+            method = {"isAlliedTo(Lnet/minecraft/world/entity/Entity;)Z"},
+            at = @At(value = "HEAD"),
+            cancellable = true
+    )
+    private void goety2$isAlliedTo(Entity entity, CallbackInfoReturnable<Boolean> cir) {
+        Entity entity1 = (Entity) (Object) this;
+        Player player = null;
+        if (entity instanceof Player player1) {
+            player = player1;
+        } else if (MobUtil.getOwner(entity) instanceof Player player1) {
+            player = player1;
+        }
+        if (player != null && entity1 instanceof LivingEntity livingEntity) {
+            if (MainConfig.GoodwillFullAlly.get()) {
+                if (SEHelper.getAllyEntities(player).contains(livingEntity) || SEHelper.getAllyEntityTypes(player).contains(livingEntity.getType())) {
+                    cir.setReturnValue(true);
+                }
+            }
+        }
+
     }
 
     @Inject(

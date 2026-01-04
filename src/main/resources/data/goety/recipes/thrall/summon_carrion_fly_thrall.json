@@ -1,0 +1,22 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:summon_tamed",
+  "activation_item": {
+    "item": "minecraft:rotten_flesh"
+  },
+  "craftType": "overgrown",
+  "entity_to_summon": "goety:carrion_fly",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "goety:poison_quill_seed"
+    },
+    {
+      "item": "goety:grave_dust"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

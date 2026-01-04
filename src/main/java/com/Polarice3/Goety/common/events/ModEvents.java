@@ -145,16 +145,16 @@ import static net.minecraftforge.event.entity.living.LivingChangeTargetEvent.Liv
 public class ModEvents {
 
     //Need to test this.
-    /*@SubscribeEvent
+    @SubscribeEvent
     public static void onMissingMappings(MissingMappingsEvent event) {
         event.getAllMappings(ForgeRegistries.Keys.ENTITY_TYPES).forEach(missingMapping -> {
             switch (missingMapping.getKey().toString()) {
-                case "goety:ally_vex" -> missingMapping.remap(ModEntityType.ALLY_VEX.get());
-                case "goety:ally_irk" -> missingMapping.remap(ModEntityType.ALLY_IRK.get());
-                case "goety:ally_trampler" -> missingMapping.remap(ModEntityType.TRAMPLER.get());
+                case "goety:ally_vex" -> missingMapping.remap(ModEntityType.VEX_SERVANT.get());
+                case "goety:ally_irk" -> missingMapping.remap(ModEntityType.IRK_SERVANT.get());
+                case "goety:ally_trampler" -> missingMapping.remap(ModEntityType.TRAMPLER_SERVANT.get());
             }
         });
-    }*/
+    }
 
     @SubscribeEvent
     public static void onPlayerClone(PlayerEvent.Clone event) {

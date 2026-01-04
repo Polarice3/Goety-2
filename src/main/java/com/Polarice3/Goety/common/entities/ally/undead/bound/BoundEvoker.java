@@ -262,7 +262,7 @@ public class BoundEvoker extends AbstractBoundIllager{
 
             for(int i = 0; i < 3; ++i) {
                 BlockPos blockpos = BoundEvoker.this.blockPosition().offset(-2 + BoundEvoker.this.random.nextInt(5), 1, -2 + BoundEvoker.this.random.nextInt(5));
-                AllyVex vex = ModEntityType.ALLY_VEX.get().create(BoundEvoker.this.level);
+                AllyVex vex = ModEntityType.VEX_SERVANT.get().create(BoundEvoker.this.level);
                 if (vex != null) {
                     vex.moveTo(blockpos, 0.0F, 0.0F);
                     vex.finalizeSpawn(serverlevel, BoundEvoker.this.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);

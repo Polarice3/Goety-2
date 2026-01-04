@@ -1,0 +1,27 @@
+{
+  "name": "腐ったハエ",
+  "icon": "minecraft:rotten_flesh",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ハエの中には、死者の腐った肉を食べるとエネルギーに魅了されて、より大きく凶暴になるものもいます。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "腐ったハエがクリーチャーを倒すと、巨大なウジ虫が発生します。クリーチャーの最大体力が十分に高い場合は、ウジ虫がさらに発生する可能性があります。ウジ虫の寿命は、クリーチャーに寿命がある場合はその寿命を共有します。腐ったハエの群れは、$(l:focuses/wild/carrion_focus)死肉のフォーカス$()を使用するか、寿命に制限のない儀式によって召喚できます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_carrion_fly_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:carrion_fly"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "難易度が高いと、なぜか壁を通り抜けられるようになります。忠実な腐ったハエに肉を右クリックすると回復しますが、腐ったウジ虫の場合は、腐ったハエに変身する前に繭状態になります。"
+    }
+  ]
+}

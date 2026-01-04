@@ -19,6 +19,7 @@ import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.SEHelper;
+import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -225,9 +226,8 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                                 serverWorld.sendParticles(ParticleTypes.FLAME, d0, d1, d2, 1, 0.0F, 0.0F, 0.0F, 0.0F);
                             }
                         }
-                        for (int p = 0; p < 4; ++p) {
-                            serverWorld.sendParticles(ModParticleTypes.TOTEM_EFFECT.get(), d0, d1, d2, 0, 0.45, 0.45, 0.45, 1);
-                        }
+
+                        ServerParticleUtil.addAuraParticles(serverWorld, ModParticleTypes.TOTEM_EFFECT.get(), Vec3.atBottomCenterOf(this.worldPosition).add(0, 0.25, 0), 0.75F);
 
                         if (this.remainingAdditionalIngredients == null) {
                             this.restoreRemainingAdditionalIngredients();
@@ -334,9 +334,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                         }
                     } else {
                         if (this.level.getGameTime() % 20 == 0) {
-                            for (int p = 0; p < 4; ++p) {
-                                serverWorld.sendParticles(ModParticleTypes.TOTEM_EFFECT.get(), d0, d1, d2, 0, 0.45, 0.45, 0.45, 1);
-                            }
+                            ServerParticleUtil.addAuraParticles(serverWorld, ModParticleTypes.TOTEM_EFFECT.get(), Vec3.atBottomCenterOf(this.worldPosition).add(0, 0.25, 0), 0.75F);
                         }
                     }
                 }

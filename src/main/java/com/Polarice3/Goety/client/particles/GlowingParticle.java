@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.client.particles;
 
+import com.Polarice3.Goety.client.render.ModRenderType;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -12,7 +13,7 @@ public class GlowingParticle extends RisingParticle {
     }
 
     public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+        return ModRenderType.PARTICLE_ADDITIVE;
     }
 
     public void tick() {

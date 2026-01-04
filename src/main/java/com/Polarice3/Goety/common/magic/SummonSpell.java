@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.magic;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.magic.ISummonSpell;
+import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -130,6 +131,14 @@ public abstract class SummonSpell extends Spell implements ISummonSpell {
             colorUtil = new ColorUtil(0xa7fc3e);
             colorFrom = 0xa7fc3e;
             colorTo = 0xcffc97;
+        } else if (this.typeStaff(staff, SpellType.WILD)) {
+            colorUtil = new ColorUtil(0x403b14);
+            colorFrom = 0x403b14;
+            colorTo = 0x5b4e1d;
+        } else if (this.typeStaff(staff, SpellType.NETHER)) {
+            colorUtil = new ColorUtil(0xffa300);
+            colorFrom = 0xffa300;
+            colorTo = 0xffff6e;
         }
         ServerParticleUtil.summonUndeadParticles(worldIn, summoned, colorUtil, colorFrom, colorTo);
     }

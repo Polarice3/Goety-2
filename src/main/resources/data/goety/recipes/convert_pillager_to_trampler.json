@@ -9,7 +9,7 @@
     "tag": "goety:pillagers",
     "display_name": "entity.minecraft.pillager"
   },
-  "entity_to_convert_into": "goety:ally_trampler",
+  "entity_to_convert_into": "goety:trampler_servant",
   "soulCost": 5,
   "duration": 30,
   "research": "ravaging",

@@ -321,6 +321,18 @@ public class ServerParticleUtil {
         sendAlwaysVisibleParticles(serverLevel, ModParticleTypes.GOD_RAY.get(), x, y, z, 0, red, green, blue, 1.0F);
     }
 
+    public static void sendStretchedGodRay(ServerLevel serverLevel, Entity entity, ColorUtil colorUtil) {
+        sendStretchedGodRay(serverLevel, entity.getX(), entity.getY(), entity.getZ(), colorUtil.red(), colorUtil.green(), colorUtil.blue());
+    }
+
+    public static void sendStretchedGodRay(ServerLevel serverLevel, double x, double y, double z, ColorUtil colorUtil) {
+        sendStretchedGodRay(serverLevel, x, y, z, colorUtil.red(), colorUtil.green(), colorUtil.blue());
+    }
+
+    public static void sendStretchedGodRay(ServerLevel serverLevel, double x, double y, double z, double red, double green, double blue) {
+        sendAlwaysVisibleParticles(serverLevel, ModParticleTypes.STRETCHED_GOD_RAY.get(), x, y, z, 0, red, green, blue, 1.0F);
+    }
+
     public static <T extends ParticleOptions> void sendAlwaysVisibleParticles(ServerLevel serverLevel, T p_8768_, double p_8769_, double p_8770_, double p_8771_, int p_8772_, double p_8773_, double p_8774_, double p_8775_, double p_8776_) {
         ClientboundLevelParticlesPacket clientboundlevelparticlespacket = new ClientboundLevelParticlesPacket(p_8768_, false, p_8769_, p_8770_, p_8771_, (float)p_8773_, (float)p_8774_, (float)p_8775_, (float)p_8776_, p_8772_);
 

@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.equipment.IceAxeItem;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
@@ -15,7 +16,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
@@ -77,7 +77,10 @@ public class MountaineerServant extends AbstractIllagerServant {
     }
 
     protected PathNavigation createNavigation(Level level) {
-        return new ModClimberNavigation(this, level);
+        if (MobsConfig.MountaineerClimb.get()) {
+            return new ModClimberNavigation(this, level);
+        }
+        return super.createNavigation(level);
     }
 
     @Override
@@ -156,14 +159,41 @@ public class MountaineerServant extends AbstractIllagerServant {
     }
 
     public boolean onClimbable() {
-        return this.isClimbing();
+        if (MobsConfig.MountaineerClimb.get()) {
+            return this.isClimbing();
+        }
+        return super.onClimbable();
     }
 
-    public void aiStep() {
-        super.aiStep();
-        if (this.level instanceof ServerLevel) {
-            this.setClimbing(this.horizontalCollision);
+    @Override
+    public void tick() {
+        super.tick();
+        if (!this.level.isClientSide) {
+            boolean shouldClimb = this.horizontalCollision
+                    /*&& this.canClimbAtCurrentPosition()*/
+                    && !this.isStuckAtCeiling()
+                    && MobsConfig.MountaineerClimb.get();
+            this.setClimbing(shouldClimb);
         }
+    }
+
+    private boolean canClimbAtCurrentPosition() {
+        BlockPos pos = this.blockPosition();
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dz = -1; dz <= 1; dz++) {
+                if (dx != 0 || dz != 0) {
+                    if (this.isClimbableBlock(pos.offset(dx, 0, dz))) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean isStuckAtCeiling() {
+        BlockPos above = this.blockPosition().above(2);
+        return this.level.getBlockState(above).isSolidRender(this.level, above) && this.getDeltaMovement().y <= 0.01D;
     }
 
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {

@@ -265,6 +265,8 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerServantChunkLoadMark;
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerServantChunkLoadRaid;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> MountaineerClimb;
+
     public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerMining;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerMiningSeeBlocks;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerMiningBreakBlocks;
@@ -577,6 +579,8 @@ public class MobsConfig {
                     .define("illagerServantChunkLoadMark", true);
             IllagerServantChunkLoadRaid = BUILDER.comment("Whether Illagers chunk load areas around themselves and their raid position when raiding, Default: true")
                     .define("illagerServantChunkLoadRaid", true);
+            MountaineerClimb = BUILDER.comment("Whether Mountaineers can climb up blocks like Spiders, Default: true")
+                    .define("mountaineerClimb", true);
             BUILDER.pop();
             BUILDER.push("Prisoners");
             PrisonerMining = BUILDER.comment("Whether Prisoners can mine ores when given a Pickaxe, Default: true")

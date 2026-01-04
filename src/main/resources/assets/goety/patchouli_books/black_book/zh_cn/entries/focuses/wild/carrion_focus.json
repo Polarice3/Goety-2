@@ -1,0 +1,23 @@
+{
+  "name": "腐蝇聚晶",
+  "icon": "goety:carrion_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "只要一点腐肉，你就可以将$(l:focuses/wild/swarm_focus)虫群聚晶$()原本召唤的小飞虫放大、充血成一群$(l:summons/carrion_flies)腐尸飞蝇$()，任意一只腐尸飞蝇成功杀死生物时，被杀死的生物身上会爬出腐尸蛆虫，这些蛆虫也会视你为主人并跟随你"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/carrion_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/wild_staff)荒野魔杖$()施法时，该法术能召唤出更多的腐尸飞蝇，在穿上荒野长袍的同时施法，腐尸飞蝇的基础血量和攻击力都会提升"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "该聚晶的设计源自@NUTTAR的建议"
+    }
+  ]
+}

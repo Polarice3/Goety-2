@@ -922,7 +922,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                         this.populateDefaultEquipmentSlots(summonedentity, serverLevel.random);
                         if (serverLevel.addFreshEntity(summonedentity)){
                             SoundUtil.playNecromancerSummon(summonedentity);
-                            ServerParticleUtil.summonUndeadParticles(serverLevel, summonedentity);
+                            this.summonUndeadParticles(serverLevel, summonedentity);
                         }
                     }
                 }
@@ -958,6 +958,10 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                 }
             }
 
+        }
+
+        public void summonUndeadParticles(ServerLevel serverLevel, Entity entity) {
+            ServerParticleUtil.summonUndeadParticles(serverLevel, entity);
         }
 
         public void playLaughSound(){

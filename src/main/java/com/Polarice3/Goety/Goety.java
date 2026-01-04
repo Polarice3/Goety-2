@@ -581,8 +581,8 @@ public class Goety {
         event.put(ModEntityType.SNARELING.get(), Snareling.setCustomAttributes().build());
         event.put(ModEntityType.ENDERSENT.get(), Endersent.setCustomAttributes().build());
         event.put(ModEntityType.ENDER_KEEPER.get(), EnderKeeper.setCustomAttributes().build());
-        event.put(ModEntityType.ALLY_VEX.get(), AllyVex.setCustomAttributes().build());
-        event.put(ModEntityType.ALLY_IRK.get(), AllyIrk.setCustomAttributes().build());
+        event.put(ModEntityType.VEX_SERVANT.get(), AllyVex.setCustomAttributes().build());
+        event.put(ModEntityType.IRK_SERVANT.get(), AllyIrk.setCustomAttributes().build());
         event.put(ModEntityType.ZOMBIE_SERVANT.get(), ZombieServant.setCustomAttributes().build());
         event.put(ModEntityType.ZOMBIE_VILLAGER_SERVANT.get(), ZombieVillagerServant.setCustomAttributes().build());
         event.put(ModEntityType.HUSK_SERVANT.get(), HuskServant.setCustomAttributes().build());
@@ -646,7 +646,7 @@ public class Goety {
         event.put(ModEntityType.CRYOLOGER_SERVANT.get(), CryologerServant.setCustomAttributes().build());
         event.put(ModEntityType.WIND_CALLER_SERVANT.get(), WindCallerServant.setCustomAttributes().build());
         event.put(ModEntityType.STORM_CASTER_SERVANT.get(), StormCasterServant.setCustomAttributes().build());
-        event.put(ModEntityType.ALLY_TRAMPLER.get(), AllyTrampler.setCustomAttributes().build());
+        event.put(ModEntityType.TRAMPLER_SERVANT.get(), AllyTrampler.setCustomAttributes().build());
         event.put(ModEntityType.RAVAGED.get(), Ravaged.setCustomAttributes().build());
         event.put(ModEntityType.MOD_RAVAGER.get(), ModRavager.setCustomAttributes().build());
         event.put(ModEntityType.ARMORED_RAVAGER.get(), Ravager.createAttributes().build());

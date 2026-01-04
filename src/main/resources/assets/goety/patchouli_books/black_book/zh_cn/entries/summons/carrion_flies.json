@@ -1,0 +1,27 @@
+{
+  "name": "腐尸飞蝇",
+  "icon": "minecraft:rotten_flesh",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "一些苍蝇在吸食腐烂尸体的养分时可能会被死灵法术的能量吸引，从而变得更大、更凶猛"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "被腐尸飞蝇杀死的生物身上会爆出腐尸蛆虫，生物的最大血量上限越高，生成的腐尸蛆虫数量也会越多，腐尸蛆虫通常会共享同一个寿命时间的计算（如果它们有寿命时间的话），当腐尸蛆虫杀死一个生物时，也可以进化成新的腐尸飞蝇，使用$(l:focuses/wild/carrion_focus)腐蝇聚晶$()施法即可召唤它们，或是使用仪式召唤一群没有寿命限制的腐尸飞蝇"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_carrion_fly_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:carrion_fly"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "在困难难度下，腐尸飞蝇会获得穿墙飞行的能力。手持肉类右键你的腐尸飞蝇可以恢复它的血量，但如果是右键腐尸蛆虫，它们会先原地结茧，然后孵化成一只腐尸飞蝇"
+    }
+  ]
+}
