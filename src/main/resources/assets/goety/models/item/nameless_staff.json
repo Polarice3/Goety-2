@@ -8,7 +8,7 @@
 		},
 		"ground": {
 			"rotation": [0, 0, 0],
-			"translation": [0, 20, 0],
+			"translation": [0, 10, 0],
 			"scale": [0.5, 0.5, 0.5]
 		},
 		"head": {
@@ -17,9 +17,9 @@
 			"scale": [0.8, 0.8, 0.8]
 		},
 		"fixed": {
-			"rotation": [0, 90, 0],
-			"translation": [0, -4, 0],
-			"scale": [0.35, 0.35, 0.35]
+			"rotation": [0, 180, -45],
+			"translation": [-3.5, 5, 0],
+			"scale": [0.75, 0.75, 0.75]
 		},
 		"thirdperson_righthand": {
 			"rotation": [0, 180, 0],

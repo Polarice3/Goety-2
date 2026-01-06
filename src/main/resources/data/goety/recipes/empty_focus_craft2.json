@@ -2,15 +2,23 @@
   "type": "minecraft:crafting_shaped",
   "pattern":
   [
-    " s ",
-    "sts",
-    " s "
+    "iqr",
+    "qtq",
+    "rqi"
   ],
   "key":
   {
-    "s":
+    "i":
     {
-      "tag": "forge:gems/amethyst"
+      "tag": "forge:raw_materials/iron"
+    },
+    "q":
+    {
+      "tag": "forge:gems/quartz"
+    },
+    "r":
+    {
+      "tag": "forge:dusts/redstone"
     },
     "t":
     {

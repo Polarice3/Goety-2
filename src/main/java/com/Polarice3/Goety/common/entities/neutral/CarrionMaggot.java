@@ -4,6 +4,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.hostile.Wight;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.RandomUtil;
@@ -95,9 +96,17 @@ public class CarrionMaggot extends Summoned {
 
    public static AttributeSupplier.Builder setCustomAttributes() {
       return Monster.createMonsterAttributes()
-              .add(Attributes.MAX_HEALTH, 8.0D)
+              .add(Attributes.MAX_HEALTH, AttributesConfig.CarrionMaggotHealth.get())
               .add(Attributes.MOVEMENT_SPEED, 0.25D)
-              .add(Attributes.ATTACK_DAMAGE, 2.0D);
+              .add(Attributes.ARMOR, AttributesConfig.CarrionMaggotArmor.get())
+              .add(Attributes.ATTACK_DAMAGE, AttributesConfig.CarrionMaggotDamage.get());
+   }
+
+   @Override
+   public void setConfigurableAttributes(){
+      MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.CarrionMaggotHealth.get());
+      MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.CarrionMaggotArmor.get());
+      MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.CarrionMaggotDamage.get());
    }
 
    protected void defineSynchedData() {
@@ -356,26 +365,38 @@ public class CarrionMaggot extends Summoned {
       AttributeInstance attack = this.getAttribute(Attributes.ATTACK_DAMAGE);
       if (health != null && attack != null) {
          if (upgraded) {
-            health.setBaseValue(8.0D * 1.33D);
-            attack.setBaseValue(2.0D * 1.1D);
+            health.setBaseValue(AttributesConfig.CarrionMaggotHealth.get() * 1.33D);
+            attack.setBaseValue(AttributesConfig.CarrionMaggotDamage.get() * 1.1D);
          } else {
-            health.setBaseValue(8.0D);
-            attack.setBaseValue(2.0D);
+            health.setBaseValue(AttributesConfig.CarrionMaggotHealth.get());
+            attack.setBaseValue(AttributesConfig.CarrionMaggotDamage.get());
          }
       }
+      this.setHealth(this.getMaxHealth());
    }
 
    @Override
    public void uncreditedKill(LivingEntity target) {
       if (!MobUtil.areAllies(this, target)) {
          int random = 3;
-         if (target.getMaxHealth() < 20.0F) {
+         if (target.getMaxHealth() >= 20.0F) {
             random = 1;
          }
          if (RandomUtil.nextInt(this.getRandom(), random) == 0) {
             this.setCocoon(true);
+            this.heal(this.getMaxHealth());
          }
       }
+   }
+
+   @Override
+   public boolean doHurtTarget(float amount, Entity target) {
+      if (target instanceof LivingEntity livingTarget) {
+         if (livingTarget.getMobType() == MobType.UNDEAD) {
+            amount *= 2;
+         }
+      }
+      return super.doHurtTarget(amount, target);
    }
 
    public boolean isFood(ItemStack p_30440_) {

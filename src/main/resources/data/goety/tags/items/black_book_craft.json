@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:gems/emerald",
+    "goety:ectoplasm",
+    "goety:shade_stone"
+  ]
+}

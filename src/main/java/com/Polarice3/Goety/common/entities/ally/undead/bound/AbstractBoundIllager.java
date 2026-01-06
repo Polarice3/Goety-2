@@ -188,7 +188,25 @@ public abstract class AbstractBoundIllager extends RaiderServant {
             this.level.addParticle(ParticleTypes.ENTITY_EFFECT, this.getX() + (double)f1 * 0.6D, this.getY() + 1.8D, this.getZ() + (double)f2 * 0.6D, d0, d1, d2);
             this.level.addParticle(ParticleTypes.ENTITY_EFFECT, this.getX() - (double)f1 * 0.6D, this.getY() + 1.8D, this.getZ() - (double)f2 * 0.6D, d0, d1, d2);
         }
+        if (this.hasItemInSlot(EquipmentSlot.LEGS)) {
+            if (this.getEquipmentDropChance(EquipmentSlot.LEGS) > 0.0F) {
+                this.dropEquipment(EquipmentSlot.LEGS, this.getItemBySlot(EquipmentSlot.LEGS).copyAndClear());
+            } else {
+                this.setItemSlot(EquipmentSlot.LEGS, ItemStack.EMPTY);
+            }
+        }
+        if (this.hasItemInSlot(EquipmentSlot.FEET)) {
+            if (this.getEquipmentDropChance(EquipmentSlot.FEET) > 0.0F) {
+                this.dropEquipment(EquipmentSlot.FEET, this.getItemBySlot(EquipmentSlot.FEET).copyAndClear());
+            } else {
+                this.setItemSlot(EquipmentSlot.FEET, ItemStack.EMPTY);
+            }
+        }
+    }
 
+    @Override
+    public boolean wantsToPickUp(ItemStack p_21546_) {
+        return false;
     }
 
     protected int getSpellCastingTime() {

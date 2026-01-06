@@ -2,28 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "pattern":
   [
-    "rip",
-    "itg",
-    "sgb"
+    " i ",
+    "dtd",
+    " g "
   ],
   "key":
   {
-    "r":
-    {
-      "item": "minecraft:rotten_flesh"
-    },
-    "s":
-    {
-      "item": "minecraft:spider_eye"
-    },
-    "b":
-    {
-      "item": "minecraft:bone"
-    },
-    "p":
-    {
-      "item": "minecraft:gunpowder"
-    },
     "i":
     {
       "tag": "forge:ingots/iron"
@@ -31,6 +15,10 @@
     "g":
     {
       "tag": "forge:ingots/gold"
+    },
+    "d":
+    {
+      "tag": "goety:cursed_ingot_craft"
     },
     "t":
     {
@@ -40,6 +28,6 @@
   "result":
   {
     "item": "goety:cursed_ingot",
-    "count": 4
+    "count": 2
   }
 }

@@ -238,6 +238,12 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> BlackBeastHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> BlackBeastArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> BlackBeastDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> CarrionMaggotHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> CarrionMaggotArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> CarrionMaggotDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> CarrionFlyHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> CarrionFlyArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> CarrionFlyDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> WhispererHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> WhispererArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> WhispererDamage;
@@ -920,6 +926,22 @@ public class AttributesConfig {
                         .defineInRange("blackBeastArmor", 0.0, 0.0, Double.MAX_VALUE);
                 BlackBeastDamage = BUILDER.comment("How much damage Black Beasts melee attack deals, Default: 8.0")
                         .defineInRange("blackBeastDamage", 8.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Carrion Maggot");
+                CarrionMaggotHealth = BUILDER.comment("How much Max Health Carrion Maggots have, Default: 8.0")
+                        .defineInRange("carrionMaggotHealth", 8.0, 1.0, Double.MAX_VALUE);
+                CarrionMaggotArmor = BUILDER.comment("How much natural Armor Carrion Maggots have, Default: 0.0")
+                        .defineInRange("carrionMaggotArmor", 0.0, 0.0, Double.MAX_VALUE);
+                CarrionMaggotDamage = BUILDER.comment("How much damage Carrion Maggots melee attack deals, Default: 2.0")
+                        .defineInRange("carrionMaggotDamage", 2.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Carrion Fly");
+                CarrionFlyHealth = BUILDER.comment("How much Max Health Carrion Flies have, Default: 8.0")
+                        .defineInRange("carrionFlyHealth", 8.0, 1.0, Double.MAX_VALUE);
+                CarrionFlyArmor = BUILDER.comment("How much natural Armor Carrion Flies have, Default: 0.0")
+                        .defineInRange("carrionFlyArmor", 0.0, 0.0, Double.MAX_VALUE);
+                CarrionFlyDamage = BUILDER.comment("How much damage Carrion Flies melee attack deals, Default: 3.0")
+                        .defineInRange("carrionFlyDamage", 3.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Whisperer");
                 WhispererHealth = BUILDER.comment("How much Max Health Whisperers have, Default: 20.0")

@@ -18,6 +18,7 @@ import com.Polarice3.Goety.utils.ServantUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -224,6 +225,19 @@ public class WarlockServant extends CultistServant implements RangedAttackMob {
             super.handleEntityEvent(p_34138_);
         }
 
+    }
+
+    protected float getDamageAfterMagicAbsorb(DamageSource damageSource, float damage) {
+        damage = super.getDamageAfterMagicAbsorb(damageSource, damage);
+        if (damageSource.getEntity() == this) {
+            damage = 0.0F;
+        }
+
+        if (damageSource.is(DamageTypeTags.WITCH_RESISTANT_TO)) {
+            damage *= 0.15F;
+        }
+
+        return damage;
     }
 
     @Override
