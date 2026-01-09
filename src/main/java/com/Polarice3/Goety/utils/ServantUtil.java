@@ -108,6 +108,12 @@ public class ServantUtil {
         }
     }
 
+    public static void infect(LivingEntity target, LivingEntity owner, boolean permanent, boolean keepLoot) {
+        if (target instanceof Mob mob) {
+            infect(mob, owner, permanent, keepLoot);
+        }
+    }
+
     public static void infect(Mob target, LivingEntity owner, boolean permanent, boolean keepLoot){
         Summoned summoned = null;
         if (target instanceof Wraith){

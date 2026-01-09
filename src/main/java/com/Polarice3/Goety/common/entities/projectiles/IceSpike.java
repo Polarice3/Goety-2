@@ -22,6 +22,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -122,6 +123,11 @@ public class IceSpike extends AbstractArrow {
             boolean flag;
             baseDamage += this.getExtraDamage();
             if (entity1 instanceof LivingEntity livingentity) {
+                if (livingentity instanceof Mob mob){
+                    if (mob.getAttribute(Attributes.ATTACK_DAMAGE) != null && mob.getAttributeValue(Attributes.ATTACK_DAMAGE) > 0){
+                        baseDamage = (float) mob.getAttributeValue(Attributes.ATTACK_DAMAGE);
+                    }
+                }
                 flag = entity.hurt(ModDamageSource.iceSpike(this, livingentity), baseDamage);
                 if (flag) {
                     if (entity.isAlive()) {

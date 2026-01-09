@@ -22,7 +22,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "O Chapéu Profano reduz pela metade todo o dano recebido no Nether, além de limitar o dano máximo que o usuário pode receber, assim como os Apóstolos. A Túnica Profana concede resistência a danos do fogo do inferno."
+      "text": "O Chapéu Profano reduz todo o dano recebido pelo usuário quando dentro do Nether, assim como limita a quantidade máxima configurável de dano que o usuário pode receber, semelhante aos Apóstolos. As Vestes Profanas concedem resistência a dano de fogo infernal."
     }
   ],
   "extra_recipe_mappings": {

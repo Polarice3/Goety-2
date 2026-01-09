@@ -1,0 +1,8 @@
+{
+  "type": "goety:soul_absorber_recipes",
+  "ingredient": {
+    "item": "minecraft:sculk_sensor"
+  },
+  "soulIncrease": 10,
+  "cookingtime": 100
+}

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.items.equipment;
 import com.Polarice3.Goety.common.blocks.TallSkullBlock;
 import com.Polarice3.Goety.common.blocks.WallTallSkullBlock;
 import com.Polarice3.Goety.common.items.ModTiers;
+import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
@@ -34,7 +35,11 @@ public class GraverobberShovelItem extends ShovelItem {
 
     public boolean mineBlock(ItemStack pStack, Level pLevel, BlockState pState, BlockPos pPos, LivingEntity pEntityLiving) {
         if (pState.is(BlockTags.MINEABLE_WITH_SHOVEL)){
-            if (!MobUtil.isShifting(pEntityLiving)) {
+            boolean flag = !MobUtil.isShifting(pEntityLiving);
+            if (ItemConfig.GraverobberShovelCrouch.get()) {
+                flag = MobUtil.isShifting(pEntityLiving);
+            }
+            if (flag) {
                 for (BlockPos blockPos : multiBlockBreak(pEntityLiving, pPos)) {
                     BlockState blockstate = pLevel.getBlockState(blockPos);
                     if (blockstate.is(BlockTags.MINEABLE_WITH_SHOVEL)) {

@@ -12,6 +12,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.OwnableEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.network.NetworkHooks;
@@ -28,6 +29,7 @@ public abstract class SpellEntity extends Entity implements OwnableEntity, ISpel
     protected static final EntityDataAccessor<Integer> TARGET_CLIENT_ID = SynchedEntityData.defineId(SpellEntity.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Float> DATA_EXTRA_DAMAGE = SynchedEntityData.defineId(SpellEntity.class, EntityDataSerializers.FLOAT);
     public boolean staff = false;
+    public ItemStack castingStaff = ItemStack.EMPTY;
 
     public SpellEntity(EntityType<?> p_19870_, Level p_19871_) {
         super(p_19870_, p_19871_);
@@ -63,6 +65,9 @@ public abstract class SpellEntity extends Entity implements OwnableEntity, ISpel
         if (compound.contains("staff")) {
             this.staff = compound.getBoolean("staff");
         }
+        if (compound.contains("CastingStaff")) {
+            this.setCastingStaff(ItemStack.of(compound.getCompound("CastingStaff")));
+        }
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -80,6 +85,9 @@ public abstract class SpellEntity extends Entity implements OwnableEntity, ISpel
         }
         compound.putFloat("ExtraDamage", this.getExtraDamage());
         compound.putBoolean("staff", this.isStaff());
+        if (!this.getCastingStaff().isEmpty()) {
+            compound.put("CastingStaff", this.getCastingStaff().save(new CompoundTag()));
+        }
     }
 
     public void setStaff(boolean staff){
@@ -172,6 +180,14 @@ public abstract class SpellEntity extends Entity implements OwnableEntity, ISpel
 
     public void setExtraDamage(float pDamage) {
         this.entityData.set(DATA_EXTRA_DAMAGE, pDamage);
+    }
+
+    public ItemStack getCastingStaff() {
+        return this.castingStaff;
+    }
+
+    public void setCastingStaff(ItemStack castingStaff) {
+        this.castingStaff = castingStaff;
     }
 
     @Override

@@ -114,7 +114,7 @@ public class MonsoonCloud extends AbstractSpellCloud{
                             if (serverLevel.getRandom().nextFloat() <= chance){
                                 livingEntity.addEffect(new MobEffectInstance(GoetyEffects.SPASMS.get(), MathHelper.secondsToTicks(5)));
                             }
-                            if (this.staff){
+                            if (this.isStaff()){
                                 WandUtil.chainLightning(livingEntity, this.getOwner() != null ? this.getOwner() : null, 6.0D, chainDamage);
                             }
                         }

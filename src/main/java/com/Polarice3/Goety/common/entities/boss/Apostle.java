@@ -568,7 +568,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             case 9 ->
                     this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, -1, 1, false, false), this);
             case 10 ->
-                    this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, -1, 0, false, false), this);
+                    this.addEffect(new MobEffectInstance(GoetyEffects.IRON_HIDE.get(), -1, 0, false, false), this);
             case 11 -> this.setArrowEffect(GoetyEffects.SAPPED.get());
         }
     }
@@ -791,7 +791,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             return false;
         }
 
-        float trueAmount = this.isInNether() ? pAmount / 2 : pAmount;
+        float trueAmount = this.isInNether() ? pAmount * 0.75F : pAmount;
 
         if (this.getHitTimes() >= this.hitTimeTeleport()){
             trueAmount = trueAmount / 2;
@@ -1172,7 +1172,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             --this.damnedCoolDown;
         }
         if (!this.isSmited()) {
-            int count = this.isSecondPhase() ? 20 : 40;
+            int count = this.isSecondPhase() ? 200 : 400;
             if (this.isInNether()) {
                 if (this.Regen()) {
                     if (this.tickCount % (count / 2) == 0) {
@@ -1428,7 +1428,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         double d0 = pTarget.getX() - this.getX();
         double d1 = pTarget.getY(0.5D) - this.getY(0.5D);
         double d2 = pTarget.getZ() - this.getZ();
-        float speed = this.isInNether() ? 3.2F : 2.4F;
+        float speed = this.isInNether() ? 2.4F : 1.6F;
         float accuracy = this.isInNether() ? 1.0F : 8.0F;
         abstractarrowentity.shoot(d0, d1, d2, speed, accuracy);
         this.playSound(ModSounds.APOSTLE_SHOOT.get(), 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
@@ -1767,7 +1767,12 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         @Override
         public boolean canUse() {
             int i2 = Apostle.this.level.getEntitiesOfClass(SpellEntity.class, Apostle.this.getBoundingBox().inflate(64.0D), OWNED_TRAPS).size();
-            if (!super.canUse()) {
+            if (!MobsConfig.ApostleHellCloud.get()) {
+                if (Apostle.this.getSpellCycle() == 2) {
+                    Apostle.this.setSpellCycle(0);
+                }
+                return false;
+            } else if (!super.canUse()) {
                 return false;
             } else {
                 int cool = Apostle.this.spellStart();
@@ -1908,7 +1913,9 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             int i = Apostle.this.level.getEntitiesOfClass(Owned.class, Apostle.this.getBoundingBox().inflate(64.0D), RANGED_MINIONS).size();
             int i2 = Apostle.this.level.getEntitiesOfClass(Entity.class, Apostle.this.getBoundingBox().inflate(64.0D), entity -> entity instanceof FireTornado || entity instanceof FireTornadoTrap).size();
             int cool = Apostle.this.spellStart();
-            if (!super.canUse()) {
+            if (!MobsConfig.ApostleTornado.get()) {
+                return false;
+            } else if (!super.canUse()) {
                 return false;
             } else if (Apostle.this.isSettingUpSecond()){
                 return false;

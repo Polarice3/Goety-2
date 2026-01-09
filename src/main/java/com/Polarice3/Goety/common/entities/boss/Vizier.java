@@ -60,7 +60,6 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.StructureStart;
 import net.minecraft.world.phys.AABB;
@@ -215,17 +214,47 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
                 }
             }
         } else {
-            if (!this.getTarget().onGround() && this.getTarget().noJumpDelay <= 0){
-                ++this.airBound;
+            if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(this.getTarget())) {
+                this.setTarget(null);
             } else {
-                this.airBound = 0;
+                if (!this.getTarget().onGround() && this.getTarget().noJumpDelay <= 0){
+                    ++this.airBound;
+                } else {
+                    this.airBound = 0;
+                }
             }
         }
-        BlockPos basePos = this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, this.blockPosition());
-        if ((this.getY() < basePos.getY() - 4.0D && this.isInWall())
-                || (this.getY() > basePos.getY() + 16.0F && (this.getTarget() == null || this.airBound < AIR_BOUND_TIME))) {
-            this.getMoveControl().setWantedPosition(basePos.getX(), basePos.getY(), basePos.getZ(), 1.0F);
+        double nearestGround = BlockFinder.findNearestGroundY(this.level, this.blockPosition(), 20);
+        double currentY = this.getY();
+
+        double minAbove = 2.0D;
+        double maxAbove = 8.0D;
+        double idealHeight = 4.0D;
+
+        double aboveGround = currentY - nearestGround;
+
+        boolean adjust = false;
+        double targetY = currentY;
+
+        if (aboveGround < minAbove) {
+            targetY = nearestGround + idealHeight;
+            adjust = true;
+        } else if (aboveGround > maxAbove) {
+            if (this.getTarget() != null && !this.getTarget().onGround() && this.airBound > AIR_BOUND_TIME / 2) {
+                if (aboveGround > maxAbove * 2) {
+                    targetY = nearestGround + maxAbove;
+                    adjust = true;
+                }
+            } else {
+                targetY = nearestGround + idealHeight;
+                adjust = true;
+            }
         }
+
+        if (adjust && !this.isSpellcasting()) {
+            this.getMoveControl().setWantedPosition(this.getX(), targetY, this.getZ(), 0.8F);
+        }
+
         if (this.tickCount % 5 == 0) {
             this.bossInfo.update();
         }

@@ -2,9 +2,9 @@ package com.Polarice3.Goety.mixin;
 
 import com.Polarice3.Goety.common.entities.ally.illager.AbstractIllagerServant;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MobUtil;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
@@ -25,11 +25,22 @@ public abstract class AbstractArrowMixin extends Projectile {
             cancellable = true
     )
     protected void canHitEntity(Entity pEntity, CallbackInfoReturnable<Boolean> callback) {
-        if (this.getOwner() instanceof AbstractIllagerServant servant
+        AbstractArrow arrow = (AbstractArrow) (Object) this;
+        if (this.getOwner() instanceof AbstractIllagerServant
                 && MobsConfig.IllagerServantGhostArrows.get()) {
-            AbstractArrow arrow = (AbstractArrow) (Object) this;
             if (!MobUtil.canHitEntity(arrow, pEntity)) {
                 callback.setReturnValue(false);
+            }
+        }
+        if (this.getOwner() instanceof OwnableEntity ownable && this.getOwner() instanceof LivingEntity livingEntity) {
+            if (livingEntity.getMobType() == MobType.UNDEAD) {
+                if (ownable.getOwner() != null) {
+                    if (CuriosFinder.hasUndeadCape(ownable.getOwner())) {
+                        if (!MobUtil.canHitEntity(arrow, pEntity)) {
+                            callback.setReturnValue(false);
+                        }
+                    }
+                }
             }
         }
     }

@@ -75,11 +75,9 @@ public class SoulHealSpell extends Spell {
         caster.heal(heal);
         if (radius > 0) {
             for (LivingEntity livingEntity : worldIn.getEntitiesOfClass(LivingEntity.class, caster.getBoundingBox().inflate(8.0D * radius))) {
-                if (MobUtil.getOwner(livingEntity) != null) {
-                    if (MobUtil.getOwner(livingEntity) == caster) {
-                        livingEntity.heal(heal);
-                        healParticles(livingEntity, worldIn);
-                    }
+                if (MobUtil.areAllies(caster, livingEntity) || (MobUtil.getOwner(livingEntity) != null && MobUtil.getOwner(livingEntity) == caster)) {
+                    livingEntity.heal(heal);
+                    healParticles(livingEntity, worldIn);
                 }
             }
         }

@@ -126,11 +126,12 @@ public class Wight extends Summoned implements Enemy, NeutralMob, IHiding {
         this.waterNavigation = new WightAquaticNavigation(this, worldIn);
         this.groundNavigation = new WightNavigation(this, worldIn);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.LEAVES,0);
-        this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL,0);
-        this.setPathfindingMalus(BlockPathTypes.DOOR_OPEN,0);
-        this.setPathfindingMalus(BlockPathTypes.DOOR_IRON_CLOSED,0);
-        this.setPathfindingMalus(BlockPathTypes.DOOR_WOOD_CLOSED,0);
+        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.LEAVES,0.0F);
+        this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL,0.0F);
+        this.setPathfindingMalus(BlockPathTypes.DOOR_OPEN,0.0F);
+        this.setPathfindingMalus(BlockPathTypes.DOOR_IRON_CLOSED,0.0F);
+        this.setPathfindingMalus(BlockPathTypes.DOOR_WOOD_CLOSED,0.0F);
     }
 
     protected void registerGoals() {
@@ -621,6 +622,20 @@ public class Wight extends Summoned implements Enemy, NeutralMob, IHiding {
         }
     }
 
+    @Override
+    public void travel(Vec3 pTravelVector) {
+        if (this.isEffectiveAi() && this.isInWater() && this.isSwimming()) {
+            this.moveRelative(this.getSpeed(), pTravelVector);
+            this.move(MoverType.SELF, this.getDeltaMovement());
+            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+            if (this.getTarget() == null) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
+            }
+        } else {
+            super.travel(pTravelVector);
+        }
+    }
+
     public void breakBlocksAround() {
         if (this.isDeadOrDying() || this.isHallucination() || !ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
             return;
@@ -721,14 +736,19 @@ public class Wight extends Summoned implements Enemy, NeutralMob, IHiding {
                 }
                 if (this.level instanceof ServerLevel serverLevel) {
                     Vec3 vec3 = this.getDeltaMovement();
-                    if (this.isUnderWater()
-                            && (this.getTarget() == null
-                            || this.getTarget().getBlockY() > (this.getBlockY() + 2))) {
-                        this.setDeltaMovement(vec3.x(), 0.25D, vec3.z());
-                    } else if (this.isInWater()
-                            && this.getTarget() != null
-                            && (this.getTarget().getBlockY() + 2) < this.getBlockY()){
-                        this.setDeltaMovement(vec3.x(), -0.25D, vec3.z());
+                    if (this.isInWater()) {
+                        if (this.getTarget() != null) {
+                            if (this.getTarget().getY() > this.getY() + 2) {
+                                this.setDeltaMovement(vec3.x(), Math.min(0.3D, vec3.y() + 0.05D), vec3.z());
+                            } else if (this.getTarget().getY() < this.getY() - 2) {
+                                this.setDeltaMovement(vec3.x(), Math.max(-0.3D, vec3.y() - 0.05D), vec3.z());
+                            }
+                        } else if (this.isUnderWater()) {
+                            this.setDeltaMovement(vec3.x(), 0.15D, vec3.z());
+                        }
+                        if (this.getNavigation().isDone()) {
+                            this.setDeltaMovement(vec3.x() * 0.8D, vec3.y(), vec3.z() * 0.8D);
+                        }
                     }
 
                     this.climb(serverLevel);
@@ -1195,6 +1215,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob, IHiding {
 
         protected PathFinder createPathFinder(int p_179679_1_) {
             this.nodeEvaluator = new AmphibiousNodeEvaluator(true);
+            this.nodeEvaluator.setCanFloat(true);
             return new PathFinder(this.nodeEvaluator, p_179679_1_);
         }
 
@@ -1206,13 +1227,13 @@ public class Wight extends Summoned implements Enemy, NeutralMob, IHiding {
             return new Vec3(this.mob.getX(), this.mob.getY(0.5), this.mob.getZ());
         }
 
-        protected boolean canMoveDirectly(Vec3 posVec31, Vec3 posVec32, int sizeX, int sizeY, int sizeZ) {
+        protected boolean canMoveDirectly(Vec3 posVec31, Vec3 posVec32) {
             Vec3 vector3d = new Vec3(posVec32.x, posVec32.y + (double)this.mob.getBbHeight() * 0.5, posVec32.z);
             return this.level.clip(new ClipContext(posVec31, vector3d, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this.mob)).getType() == HitResult.Type.MISS;
         }
 
         public boolean isStableDestination(BlockPos pos) {
-            return !this.level.getBlockState(pos.below()).isAir();
+            return !this.level.getBlockState(pos).isAir() || this.level.getFluidState(pos).is(FluidTags.WATER);
         }
 
     }

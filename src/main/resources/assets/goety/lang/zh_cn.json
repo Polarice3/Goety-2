@@ -2310,7 +2310,6 @@
   "item.goety.fire_blast_focus.info": "允许施法者召唤非破坏性的炎爆陷阱，伤害并且击退点燃非友军实体。",
   "info.goety.unholy_robe": "给予防火能力，并且允许下界仆从使用灵魂能量治愈自己。",
   "info.goety.unholy_robe_discount": "减半下界法术的灵魂消耗，与帽子搭配可以使某些火焰法术造成狱火伤害。",
-  "info.goety.unholy_hat": "给予防火能力，玩家处于下界时将会减半所受伤害，下界仆从将会永续存在。",
   "info.goety.unholy_hat_cast": "减半下界法术的灵魂消耗，与不洁长袍搭配可以使某些火焰法术造成狱火伤害。",
   "death.attack.goety.lifeLeech": "%1$s的生命被%2$s吞噬了",
   "death.attack.goety.lifeLeech.item": "%1$s被%2$s用%3$s吞噬了",
@@ -3324,5 +3323,7 @@
   "item.goety.vex_servant_spawn_egg": "恼鬼仆从刷怪蛋",
   "item.goety.irk_servant_spawn_egg": "怒鬼仆从刷怪蛋",
   "item.goety.carrion_focus": "腐蝇聚晶",
-  "item.goety.carrion_focus.info": "召唤一大群腐尸飞蝇，潜行施法会把仆从传送到施法者的位置"
+  "item.goety.carrion_focus.info": "召唤一大群腐尸飞蝇，潜行施法会把仆从传送到施法者的位置",
+  "info.goety.unholy_hat": "给予防火能力，玩家处于下界时受到的伤害会减免25%，下界仆从将永续存在",
+  "subtitle.goety.villager_chop": "囚犯：挖矿"
 }

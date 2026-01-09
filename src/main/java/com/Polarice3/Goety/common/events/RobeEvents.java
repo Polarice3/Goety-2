@@ -163,7 +163,7 @@ public class RobeEvents {
         float damage = event.getAmount();
         if (CuriosFinder.hasUnholyHat(victim)){
             if (victim.level.dimension() == Level.NETHER){
-                damage /= 2.0F;
+                damage *= 0.75F;
             }
             if (!event.getSource().is(DamageTypeTags.BYPASSES_INVULNERABILITY)){
                 damage = Math.min(damage, AttributesConfig.ApostleDamageCap.get().floatValue());

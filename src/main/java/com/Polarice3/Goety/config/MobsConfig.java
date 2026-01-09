@@ -294,6 +294,8 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApostlePersistent;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleBoilsWater;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleConvertsVillagers;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleTornado;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleHellCloud;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FancierApostleDeath;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ObsidianMonolithSpread;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ObsidianMonolithBiome;
@@ -930,6 +932,10 @@ public class MobsConfig {
                     .define("apostlePersistent", true);
             ApostleBoilsWater = BUILDER.comment("Whether Apostles causes entities within 32 blocks of themselves to take damage when in water. Default: true")
                     .define("apostleBoilsWater", true);
+            ApostleTornado = BUILDER.comment("Whether Apostles can summon Fire Tornadoes. Default: false")
+                    .define("apostleTornado", false);
+            ApostleHellCloud = BUILDER.comment("Whether Apostles can summon Hell Clouds. Default: true")
+                    .define("apostleHellCloud", true);
             ApostleConvertsVillagers = BUILDER.comment("Whether Apostles causes Villagers within 32 blocks of themselves to have a chance of converting into a Witch or Warlock. Default: true")
                     .define("apostleConvertsVillagers", true);
             FancierApostleDeath = BUILDER.comment("Gives Apostle an even more fancier death animation, Default: false")

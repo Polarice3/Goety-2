@@ -68,6 +68,7 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> HuntersBowDurability;
     public static final ForgeConfigSpec.ConfigValue<Integer> SpecialToolsEnchantability;
     public static final ForgeConfigSpec.ConfigValue<Integer> RampagingAxeDuration;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> GraverobberShovelCrouch;
 
     public static final ForgeConfigSpec.ConfigValue<Double> PhilosophersMaceDamage;
     public static final ForgeConfigSpec.ConfigValue<Integer> PhilosophersMaceDurability;
@@ -317,6 +318,8 @@ public class ItemConfig {
                     .defineInRange("specialToolsMiningLevel", 3, 0, Integer.MAX_VALUE);
             RampagingAxeDuration = BUILDER.comment("How many seconds Rampaging Axe gives Rampage for, Default: 10")
                     .defineInRange("rampagingAxeDuration", 10, 1, Integer.MAX_VALUE);
+            GraverobberShovelCrouch = BUILDER.comment("Whether Graverobber's Shovel only breaks two blocks if player is crouching, set to false to make it so that crouching breaks one block instead of two, Default: false")
+                    .define("graverobberShovelCrouch", false);
             BUILDER.pop();
             BUILDER.push("Misc");
             PhilosophersMaceDamage = BUILDER.comment("How much damage Philosopher's Mace deals, Default: 9.0")

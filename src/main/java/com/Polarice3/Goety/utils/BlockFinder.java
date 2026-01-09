@@ -146,6 +146,22 @@ public class BlockFinder {
         return blockPos.getY();
     }
 
+    public static double findNearestGroundY(Level level, BlockPos pos, int maxSearchDown) {
+        BlockPos.MutableBlockPos mutable = pos.mutable();
+
+        for (int i = 0; i < maxSearchDown; i++) {
+            mutable.move(Direction.DOWN);
+            BlockState state = level.getBlockState(mutable);
+
+            if (state.isFaceSturdy(level, mutable, Direction.UP) ||
+                    !state.getCollisionShape(level, mutable).isEmpty()) {
+                return mutable.getY() + 1.0D;
+            }
+        }
+
+        return level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, pos).getY();
+    }
+
     private static HitResult blockRayTrace(Level level, BlockPos blockPos) {
         Vec3 startPos = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
         Vec3 endPos = new Vec3(blockPos.getX(), 0, blockPos.getZ());

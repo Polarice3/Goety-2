@@ -441,6 +441,7 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
                 && this.hurtTime <= 0
                 && this.getTarget() == null
                 && !this.isFollowing()
+                && !this.isCommanded()
                 && !this.isCelebrating()
                 && !this.isRaiding()
                 && !this.isBaby();

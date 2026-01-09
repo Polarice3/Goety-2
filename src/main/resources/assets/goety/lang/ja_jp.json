@@ -3272,5 +3272,6 @@
   "item.goety.vex_servant_spawn_egg": "ヴェックスの従者のスポーンエッグ",
   "item.goety.irk_servant_spawn_egg": "アークの従者のスポーンエッグ",
   "item.goety.carrion_focus": "C死肉のフォーカス",
-  "item.goety.carrion_focus.info": "腐ったハエの群れを召喚します。しゃがむと、すでにいる従者がプレイヤーの元へ行きます。"
+  "item.goety.carrion_focus.info": "腐ったハエの群れを召喚します。しゃがむと、すでにいる従者がプレイヤーの元へ行きます。",
+  "info.goety.unholy_hat": "完全な火炎耐性を与えます。ネザーにいる際に受けるダメージを25%軽減します。ネザーの従者は持続します。"
 }

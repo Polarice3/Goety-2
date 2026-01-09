@@ -83,6 +83,7 @@ public class DeathArrow extends Arrow {
     @Override
     public void tick() {
         super.tick();
+        this.setNoGravity(this.tickCount < 10);
         if (this.tickCount > 200 && !this.inGround){
             this.discard();
         }

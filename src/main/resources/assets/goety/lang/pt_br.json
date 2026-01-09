@@ -1600,7 +1600,6 @@
   "info.goety.nether_robe_discount": "Reduz o custo de alma de feitiços do Nether pela metade. Sopro de fogo e bolas de fogo ferem mobs imunes a fogo.",
   "info.goety.unholy_robe": "Concede Resistência ao Fogo. Permite que servos do Nether curem usando energia de alma.",
   "info.goety.unholy_robe_discount": "Reduz o custo de alma de feitiços do Nether pela metade. Usar com o Chapéu Profano faz certos feitiços de fogo causarem dano infernal.",
-  "info.goety.unholy_hat": "Concede Resistência ao Fogo. Reduz o dano recebido pela metade no Nether. Servos do Nether persistem.",
   "info.goety.unholy_hat_cast": "Reduz o tempo de conjuração de feitiços do Nether pela metade. Usar com a Túnica Profana faz certos feitiços de fogo causarem dano infernal.",
   "info.goety.ring_of_want": "Quando encantado com Desejo, aumenta o nível de saque ao matar com servos ou feitiços.",
   "info.goety.ring_of_force": "O feitiço Telecinese sufocará lentamente a entidade afetada.",
@@ -3408,5 +3407,7 @@
   "item.goety.vex_servant_spawn_egg": "Ovo de Servo Vex",
   "item.goety.irk_servant_spawn_egg": "Ovo de Servo Irk",
   "item.goety.carrion_focus": "Foco de Carniça",
-  "item.goety.carrion_focus.info": "Invoca um enxame de Moscas de Carniça. Conjurar agachado ira convocar os servos do conjurador em sua direção."
+  "item.goety.carrion_focus.info": "Invoca um enxame de Moscas de Carniça. Conjurar agachado ira convocar os servos do conjurador em sua direção.",
+  "info.goety.unholy_hat": "Concede Resistência a Fogo. Reduz dano recebido no Nether em 25%. Servos do Nether permanecem.",
+  "subtitle.goety.villager_chop": "Mineração de Prisioneiro"
 }
