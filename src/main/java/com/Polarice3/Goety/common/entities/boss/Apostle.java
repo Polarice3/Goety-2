@@ -105,6 +105,18 @@ import java.util.UUID;
 import java.util.function.Predicate;
 
 public class Apostle extends SpellCastingCultist implements RangedAttackMob {
+    public static int RISEN = 0;
+    public static int ABHORRENT = 1;
+    public static int DEFILER = 2;
+    public static int DARK = 3;
+    public static int GREAT_SHADOW = 4;
+    public static int WITCH_KING = 5;
+    public static int PYRE_LORD = 6;
+    public static int PROFANE = 7;
+    public static int CRUEL = 8;
+    public static int TERRIBLE = 9;
+    public static int GLORIOUS = 10;
+    public static int ATROCIOUS = 11;
     private int hitTimes;
     private int coolDown;
     private int tornadoCoolDown;
@@ -515,8 +527,10 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         }
 
         if (this.level.getDifficulty() == Difficulty.HARD){
-            if (source.is(DamageTypeTags.WITCH_RESISTANT_TO)){
-                damage = (float)((double)damage * 0.15D);
+            if (MobsConfig.ApostleHardMagicResistance.get()) {
+                if (source.is(DamageTypeTags.WITCH_RESISTANT_TO)) {
+                    damage = (float) ((double) damage * 0.15D);
+                }
             }
         }
 
@@ -551,6 +565,10 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         this.titleNumber = integer;
     }
 
+    public int getTitleNumber() {
+        return this.titleNumber;
+    }
+
     public void TitleEffect(Integer integer){
         switch (integer) {
             case 0 -> this.setRegen(true);
@@ -566,10 +584,27 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             case 7 -> this.setArrowEffect(MobEffects.HUNGER);
             case 8 -> this.setArrowEffect(MobEffects.MOVEMENT_SLOWDOWN);
             case 9 ->
-                    this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, -1, 1, false, false), this);
-            case 10 ->
-                    this.addEffect(new MobEffectInstance(GoetyEffects.IRON_HIDE.get(), -1, 0, false, false), this);
+                    this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 5, 1, false, false), this);
+            case 10 -> {
+                if (MobsConfig.ApostleResistance.get()) {
+                    this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 5, 0, false, false), this);
+                } else {
+                    this.addEffect(new MobEffectInstance(GoetyEffects.IRON_HIDE.get(), 5, 0, false, false), this);
+                }
+            }
             case 11 -> this.setArrowEffect(GoetyEffects.SAPPED.get());
+        }
+    }
+
+    public void addTitleEffect() {
+        if (this.getTitleNumber() == 9) {
+            this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 5, 1, false, false), this);
+        } else if (this.getTitleNumber() == 10) {
+            if (MobsConfig.ApostleResistance.get()) {
+                this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 5, 0, false, false), this);
+            } else {
+                this.addEffect(new MobEffectInstance(GoetyEffects.IRON_HIDE.get(), 5, 0, false, false), this);
+            }
         }
     }
 
@@ -1037,6 +1072,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             }
         }
         if (!this.level.isClientSide){
+            this.addTitleEffect();
             AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
             if (attributeinstance != null) {
                 if (attributeinstance.hasModifier(SPEED_MODIFIER_CASTING)){
@@ -1173,6 +1209,9 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         }
         if (!this.isSmited()) {
             int count = this.isSecondPhase() ? 200 : 400;
+            if (MobsConfig.ApostleQuickerRegen.get()) {
+                count = this.isSecondPhase() ? 20 : 40;
+            }
             if (this.isInNether()) {
                 if (this.Regen()) {
                     if (this.tickCount % (count / 2) == 0) {
@@ -1197,7 +1236,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 }
             }
             if (this.obsidianInvul > 0){
-                if (this.tickCount % (count * 2) == 0) {
+                int obsidianRegenTime = this.isSecondPhase() ? 40 : 80;
+                if (this.tickCount % obsidianRegenTime == 0) {
                     if (this.getHealth() < this.getMaxHealth()) {
                         this.heal(1.0F);
                     }
@@ -1463,21 +1503,23 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         if (this.getFireArrow()){
             deathArrow.setRemainingFireTicks(100);
         }
-        if (this.isInNether()){
-            deathArrow.setCritArrow(true);
-        } else {
-            float critChance = 0.05F;
-            if (this.level.getDifficulty() == Difficulty.HARD){
-                critChance += 0.25F;
-            }
-            if (this.isSecondPhase()){
-                critChance += 0.1F;
-            }
-            if (this.isSecondPhase() && this.getHealth() <= this.getMaxHealth() / 4){
-                critChance += 0.25F;
-            }
-            if (this.level.random.nextFloat() <= critChance){
+        if (MobsConfig.ApostleCritArrows.get()) {
+            if (this.isInNether()) {
                 deathArrow.setCritArrow(true);
+            } else {
+                float critChance = 0.05F;
+                if (this.level.getDifficulty() == Difficulty.HARD) {
+                    critChance += 0.25F;
+                }
+                if (this.isSecondPhase()) {
+                    critChance += 0.1F;
+                }
+                if (this.isSecondPhase() && this.getHealth() <= this.getMaxHealth() / 4) {
+                    critChance += 0.25F;
+                }
+                if (this.level.random.nextFloat() <= critChance) {
+                    deathArrow.setCritArrow(true);
+                }
             }
         }
         return deathArrow;

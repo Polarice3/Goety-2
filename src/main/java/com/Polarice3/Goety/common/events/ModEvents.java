@@ -144,7 +144,6 @@ import static net.minecraftforge.event.entity.living.LivingChangeTargetEvent.Liv
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModEvents {
 
-    //Need to test this.
     @SubscribeEvent
     public static void onMissingMappings(MissingMappingsEvent event) {
         event.getAllMappings(ForgeRegistries.Keys.ENTITY_TYPES).forEach(missingMapping -> {
@@ -629,6 +628,11 @@ public class ModEvents {
                         for (ObsidianMonolith obsidianMonolith : mob.level.getEntitiesOfClass(ObsidianMonolith.class, mob.getBoundingBox().inflate(followRange, 8.0D, followRange))){
                             if (obsidianMonolith.getOwner() == apostle){
                                 mob.setTarget(obsidianMonolith);
+                                try {
+                                    mob.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, obsidianMonolith.getUUID(), 600L);
+                                    mob.getBrain().setMemoryWithExpiry(MemoryModuleType.ATTACK_TARGET, obsidianMonolith, 600L);
+                                } catch (NullPointerException ignored) {
+                                }
                             }
                         }
                     }

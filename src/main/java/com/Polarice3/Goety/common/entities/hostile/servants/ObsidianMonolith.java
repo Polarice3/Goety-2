@@ -40,6 +40,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Ghast;
@@ -267,6 +268,11 @@ public class ObsidianMonolith extends AbstractMonolith implements Enemy {
             };
             if (cause.getEntity() instanceof Mob mob && mob.getTarget() == this && this.getTrueOwner() != null){
                 mob.setTarget(this.getTrueOwner());
+                try {
+                    mob.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, this.getTrueOwner().getUUID(), 600L);
+                    mob.getBrain().setMemoryWithExpiry(MemoryModuleType.ATTACK_TARGET, this.getTrueOwner(), 600L);
+                } catch (NullPointerException ignored) {
+                }
             }
             if (this.getTrueOwner() instanceof Apostle apostle && apostle.isAlive()){
                 apostle.setMonolithCoolDown(MathHelper.minutesToTicks(1));

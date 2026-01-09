@@ -296,6 +296,10 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleConvertsVillagers;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleTornado;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleHellCloud;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleQuickerRegen;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleResistance;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleHardMagicResistance;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleCritArrows;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FancierApostleDeath;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ObsidianMonolithSpread;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ObsidianMonolithBiome;
@@ -936,6 +940,14 @@ public class MobsConfig {
                     .define("apostleTornado", false);
             ApostleHellCloud = BUILDER.comment("Whether Apostles can summon Hell Clouds. Default: true")
                     .define("apostleHellCloud", true);
+            ApostleQuickerRegen = BUILDER.comment("Enable pre-nerf Apostle Nether/The Risen regeneration. Default: false")
+                    .define("apostleQuickerRegen", false);
+            ApostleResistance = BUILDER.comment("Enable pre-nerf Apostle The Glorious resistance. Default: false")
+                    .define("apostleResistance", false);
+            ApostleHardMagicResistance = BUILDER.comment("Whether Apostles gain magic resistance if difficulty is on Hard. Default: false")
+                    .define("apostleHardMagicResistance", false);
+            ApostleCritArrows = BUILDER.comment("Whether Apostles can shoot Critical Hits on their Arrows. Default: true")
+                    .define("apostleCritArrows", true);
             ApostleConvertsVillagers = BUILDER.comment("Whether Apostles causes Villagers within 32 blocks of themselves to have a chance of converting into a Witch or Warlock. Default: true")
                     .define("apostleConvertsVillagers", true);
             FancierApostleDeath = BUILDER.comment("Gives Apostle an even more fancier death animation, Default: false")
