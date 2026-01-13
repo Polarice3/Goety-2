@@ -6,8 +6,10 @@ import com.Polarice3.Goety.client.particles.DustCloudParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.Hellfire;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -115,6 +117,11 @@ public class Damned extends Owned implements Enemy {
         if (this.getTarget() != null) {
             MobUtil.instaLook(this, this.getTarget());
             ++this.chargeTime;
+            if (MobsConfig.DamnedShootIndicator.get()) {
+                if (this.chargeTime >= 40 && this.chargeTime < 50) {
+                    this.shootIndicator();
+                }
+            }
             if (this.chargeTime == 50) {
                 LivingEntity target = this.getTarget();
                 double dx = this.getX() - target.getX();
@@ -138,6 +145,30 @@ public class Damned extends Owned implements Enemy {
                         serverLevel.sendParticles(ModParticleTypes.BIG_FIRE.get(), mX, mY + 0.15D, mZ, 1, 0.0D, 0.0D, 0.0D, 0);
                     }
                 }
+            }
+        }
+    }
+
+    protected void shootIndicator() {
+        Vec3 startPos = new Vec3(
+                this.getX(),
+                this.getY(0.5F),
+                this.getZ()
+        );
+
+        Vec3 targetPos = this.getViewVector(1.0F);
+        if (this.getTarget() != null) {
+            LivingEntity target = this.getTarget();
+            targetPos = new Vec3(target.getX(), target.getY(0.5F), target.getZ());
+        }
+
+        Vec3 direction = targetPos.subtract(startPos).normalize();
+
+        if (this.level instanceof ServerLevel serverLevel) {
+            for (int i = 0; i <= 32; i++) {
+                Vec3 particlePos = startPos.add(direction.scale(i));
+                ColorUtil colorUtil = new ColorUtil(ChatFormatting.GOLD);
+                serverLevel.sendParticles(ModParticleTypes.ROLLING_TARGET.get(), particlePos.x, particlePos.y, particlePos.z, 0, colorUtil.red, colorUtil.green, colorUtil.blue, 1.0F);
             }
         }
     }

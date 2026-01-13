@@ -735,6 +735,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.MONSOON_CLOUD.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.HELL_CLOUD.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.SPELL_LIGHTNING_BOLT.get(), SpellLightningBoltRenderer::new);
+        event.registerEntityRenderer(ModEntityType.ALLIED_EFFECT_CLOUD.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.BREW_EFFECT_CLOUD.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.DRAGON_BREATH_CLOUD.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.VINE_HOOK.get(), VineHookRenderer::new);

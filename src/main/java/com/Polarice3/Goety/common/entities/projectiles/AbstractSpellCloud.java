@@ -81,6 +81,9 @@ public abstract class AbstractSpellCloud extends SpellEntity {
         if (p_20052_.contains("LifeSpan")) {
             this.lifeSpan = p_20052_.getInt("LifeSpan");
         }
+        if (p_20052_.contains("Radius")) {
+            this.setRadius(p_20052_.getFloat("Radius"));
+        }
     }
 
     @Override
@@ -90,6 +93,7 @@ public abstract class AbstractSpellCloud extends SpellEntity {
         p_20139_.putBoolean("Activated", this.activated);
         p_20139_.putInt("ActivateTime", this.activateTime);
         p_20139_.putInt("LifeSpan", this.lifeSpan);
+        p_20139_.putFloat("Radius", this.getRadius());
     }
 
     public void setActivateTime(int activateTime) {

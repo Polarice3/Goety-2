@@ -2328,7 +2328,6 @@
   "item.goety.fire_blast_focus.info": "術者に地形を破壊しない激しい爆発を引き起こし、近くの味方以外のターゲットをノックバックして燃やし、ダメージを与えます。",
   "info.goety.unholy_robe": "完全な火炎耐性を与えます。ネザーの術者がソウルエネルギーを使用して回復できるようにします。",
   "info.goety.unholy_robe_discount": "ネザー呪文のソウルコストを半分にします。反神聖な帽子と一緒に着用すると、特定の火の呪文が地獄の炎のダメージを与えます。",
-  "info.goety.unholy_hat": "完全な火炎耐性を与えます。ネザーにいる間、受けるダメージが半分になります。ネザーの従者は持続します。",
   "info.goety.unholy_hat_cast": "ネザー呪文の詠唱時間が半分になります。 反神聖なローブと一緒に着用すると、特定の火の呪文が地獄の炎のダメージを与えます。",
   "death.attack.goety.lifeLeech": "%1$sは%2$sによって吸血された",
   "death.attack.goety.lifeLeech.item": "%1$sは%2$sと%3$sによって体力を消耗した",
@@ -3271,7 +3270,8 @@
   "item.goety.warlock_servant_spawn_egg": "ウォーロックの従者のスポーンエッグ",
   "item.goety.vex_servant_spawn_egg": "ヴェックスの従者のスポーンエッグ",
   "item.goety.irk_servant_spawn_egg": "アークの従者のスポーンエッグ",
-  "item.goety.carrion_focus": "C死肉のフォーカス",
+  "item.goety.carrion_focus": "死肉のフォーカス",
   "item.goety.carrion_focus.info": "腐ったハエの群れを召喚します。しゃがむと、すでにいる従者がプレイヤーの元へ行きます。",
-  "info.goety.unholy_hat": "完全な火炎耐性を与えます。ネザーにいる際に受けるダメージを25%軽減します。ネザーの従者は持続します。"
+  "info.goety.unholy_hat": "完全な火炎耐性を与えます。ネザーにいる際に受けるダメージを%s%軽減します。ネザーの従者は持続します。",
+  "subtitle.goety.villager_chop": "Prisoner mining"
 }

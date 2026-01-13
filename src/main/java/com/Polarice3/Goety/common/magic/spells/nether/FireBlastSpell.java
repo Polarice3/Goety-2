@@ -64,7 +64,7 @@ public class FireBlastSpell extends Spell {
     }
 
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){
-        int radius = (int) spellStat.getRadius();
+        float radius = (float) spellStat.getRadius();
         float damage = SpellConfig.FireBlastDamage.get().floatValue() * WandUtil.damageMultiply();
         float maxDamage = SpellConfig.FireBlastMaxDamage.get().floatValue() * WandUtil.damageMultiply();
         int burning = spellStat.getBurning();

@@ -1144,10 +1144,10 @@ public class AttributesConfig {
                 BUILDER.push("Apostle");
                 ApostleHealth = BUILDER.comment("How much Max Health Apostles have, Default: 320.0")
                         .defineInRange("apostleHealth", 320.0, 100.0, Double.MAX_VALUE);
-                ApostleArmor = BUILDER.comment("How much natural Armor Points Apostles have, Default: 0.0")
-                        .defineInRange("apostleArmor", 0.0, 0.0, Double.MAX_VALUE);
-                ApostleToughness = BUILDER.comment("How much natural Toughness Points Apostles have, Default: 0.0")
-                        .defineInRange("apostleToughness", 0.0, 0.0, Double.MAX_VALUE);
+                ApostleArmor = BUILDER.comment("How much natural Armor Points Apostles have, Default: 12.0")
+                        .defineInRange("apostleArmor", 12.0, 0.0, Double.MAX_VALUE);
+                ApostleToughness = BUILDER.comment("How much natural Toughness Points Apostles have, Default: 6.0")
+                        .defineInRange("apostleToughness", 6.0, 0.0, Double.MAX_VALUE);
                 ApostleDamageCap = BUILDER.comment("The maximum amount of damage an Apostle can attain per hit, Default: 20.0")
                         .defineInRange("apostleDamageCap", 20.0, 1.0, Double.MAX_VALUE);
                 ApostleBowDamage = BUILDER.comment("Multiplies Apostle's Bow damage, Default: 2")

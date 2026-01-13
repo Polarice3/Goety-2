@@ -44,12 +44,10 @@
   "apostle_prepare_spell": {
     "sounds": [
       {
-        "name": "goety:apostle/prepare_spell1",
-        "volume": 0.25
+        "name": "goety:apostle/prepare_spell1"
       },
       {
-        "name": "goety:apostle/prepare_spell2",
-        "volume": 0.25
+        "name": "goety:apostle/prepare_spell2"
       }
     ],
     "subtitle": "subtitle.goety.apostle_prepare_spell"
@@ -57,8 +55,7 @@
   "apostle_prepare_summon": {
     "sounds": [
       {
-        "name": "goety:apostle/prepare_summon",
-        "volume": 0.25
+        "name": "goety:apostle/prepare_summon"
       }
     ],
     "subtitle": "subtitle.goety.apostle_prepare_summon"
@@ -66,15 +63,20 @@
   "apostle_cast_spell": {
     "sounds": [
       {
-        "name": "goety:apostle/cast1",
-        "volume": 0.75
+        "name": "goety:apostle/cast1"
       },
       {
-        "name": "goety:apostle/cast2",
-        "volume": 0.75
+        "name": "goety:apostle/cast2"
       }
     ],
     "subtitle": "subtitle.goety.apostle_cast_spell"
+  },
+  "apostle_pre_teleport": {
+    "sounds": [
+      {
+        "name": "goety:apostle/pre_teleport"
+      }
+    ]
   },
   "apostle_teleport": {
     "sounds": [

@@ -96,6 +96,7 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.RISING_ENCHANT.get(), RisingRollingParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.ROLLING_SPIRAL.get(), RollingParticle.EnchantProvider::new);
         event.registerSpriteSet(ModParticleTypes.ROLLING_ENCHANT.get(), RollingParticle.EnchantProvider::new);
+        event.registerSpriteSet(ModParticleTypes.ROLLING_TARGET.get(), RollingParticle.TargetProvider::new);
         event.registerSpriteSet(ModParticleTypes.FUNGUS_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
         event.registerSpecial(ModParticleTypes.FUNGUS_EXPLOSION_EMITTER.get(), new HugeFungusExplosionSeedParticle.Provider());
         event.registerSpriteSet(ModParticleTypes.SOUL_EXPLODE.get(), SoulExplodeParticle.Provider::new);

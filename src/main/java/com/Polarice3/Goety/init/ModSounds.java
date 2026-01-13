@@ -20,6 +20,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> APOSTLE_PREPARE_SPELL = create("apostle_prepare_spell");
     public static final RegistryObject<SoundEvent> APOSTLE_PREPARE_SUMMON = create("apostle_prepare_summon");
     public static final RegistryObject<SoundEvent> APOSTLE_CAST_SPELL = create("apostle_cast_spell");
+    public static final RegistryObject<SoundEvent> APOSTLE_PRE_TELEPORT = create("apostle_pre_teleport");
     public static final RegistryObject<SoundEvent> APOSTLE_TELEPORT = create("apostle_teleport");
     public static final RegistryObject<SoundEvent> APOSTLE_PREDEATH = create("apostle_predeath");
     public static final RegistryObject<SoundEvent> APOSTLE_DEATH = create("apostle_death");

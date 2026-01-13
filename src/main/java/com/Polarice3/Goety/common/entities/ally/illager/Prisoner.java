@@ -65,7 +65,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.EnumSet;
+import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 
@@ -1074,7 +1077,7 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
         }
 
         public void throwItem() {
-            if (this.target == null){
+            if (this.target == null) {
                 this.stop();
             }
             SimpleContainer simpleContainer = this.prisoner.getInventory();
@@ -1118,36 +1121,32 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
 
         @Override
         public void chestInteract(Container container) {
-            Optional<ItemStack> optional = this.illager.itemsInInv(this.predicate).stream().findFirst();
-            if (optional.isPresent()) {
-                ItemStack itemStack = optional.get();
-                for (int i = 0; i < container.getContainerSize(); ++i) {
-                    ItemStack containerItem = container.getItem(i);
-                    if (!itemStack.isEmpty()) {
-                        if (containerItem.isEmpty()) {
-                            container.setItem(i, itemStack.copyAndClear());
-                            container.setChanged();
-                            return;
-                        } else if (containerItem.getItem() == itemStack.getItem()) {
-                            final int j = Math.min(container.getMaxStackSize(), containerItem.getMaxStackSize());
-                            final int k = Math.min(itemStack.getCount(), j - containerItem.getCount());
-                            if (k > 0) {
-                                int l = 0;
-                                while (l < k && containerItem.getCount() < containerItem.getMaxStackSize()) {
-                                    ++l;
-                                    containerItem.grow(1);
-                                    itemStack.shrink(1);
-                                }
+            SimpleContainer inventory = this.illager.getInventory();
 
-                                if (l >= k || containerItem.getCount() == containerItem.getMaxStackSize()) {
-                                    if (!itemStack.isEmpty()) {
-                                        if (this.illager.getInventory().canAddItem(itemStack)) {
-                                            this.illager.getInventory().addItem(itemStack);
-                                        }
-                                    }
-                                }
-                                container.setChanged();
-                                return;
+            for (int invSlot = 0; invSlot < inventory.getContainerSize(); ++invSlot) {
+                ItemStack itemStack = inventory.getItem(invSlot);
+
+                if (itemStack.isEmpty()) {
+                    continue;
+                }
+
+                for (int chestSlot = 0; chestSlot < container.getContainerSize(); ++chestSlot) {
+                    ItemStack chestItem = container.getItem(chestSlot);
+
+                    if (chestItem.isEmpty()) {
+                        container.setItem(chestSlot, itemStack.copyAndClear());
+                        container.setChanged();
+                        break;
+                    } else if (ItemStack.isSameItemSameTags(chestItem, itemStack)) {
+                        int space = Math.min(container.getMaxStackSize(), chestItem.getMaxStackSize()) - chestItem.getCount();
+                        if (space > 0) {
+                            int amount = Math.min(space, itemStack.getCount());
+                            chestItem.grow(amount);
+                            itemStack.shrink(amount);
+                            container.setChanged();
+
+                            if (itemStack.isEmpty()) {
+                                break;
                             }
                         }
                     }

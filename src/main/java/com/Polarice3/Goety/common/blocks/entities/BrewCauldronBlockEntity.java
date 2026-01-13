@@ -22,6 +22,7 @@ import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -34,8 +35,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.Mth;
-import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -56,6 +57,7 @@ import net.minecraft.world.level.material.LavaFluid;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,7 +67,7 @@ import java.util.Map;
 /**
  * Based and modified from @MoriyaShiine's Witch Cauldron codes.
  */
-public class BrewCauldronBlockEntity extends BlockEntity implements Container {
+public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyContainer {
     private final List<SoulCandlestickBlockEntity> candlestickBlockEntityList = Lists.newArrayList();
     private final List<BlockPos> witchPoles = Lists.newArrayList();
     public static int WATER_COLOR = 0x3F76E4, FAILED_COLOR = 0x6D4423;
@@ -971,6 +973,21 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
         if (this.level != null && !this.level.isClientSide) {
             this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_ALL);
         }
+    }
+
+    @Override
+    public int @NotNull [] getSlotsForFace(Direction p_19238_) {
+        return new int[0];
+    }
+
+    @Override
+    public boolean canPlaceItemThroughFace(int p_19235_, ItemStack p_19236_, @Nullable Direction p_19237_) {
+        return false;
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int p_19239_, ItemStack p_19240_, Direction p_19241_) {
+        return false;
     }
 
     public enum Mode {

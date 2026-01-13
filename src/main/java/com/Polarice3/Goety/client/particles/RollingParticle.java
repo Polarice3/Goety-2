@@ -7,6 +7,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class RollingParticle extends TextureSheetParticle {
     private final float rotSpeed;
+    public boolean nonShrink = false;
 
     protected RollingParticle(ClientLevel p_106610_, double p_106611_, double p_106612_, double p_106613_, double p_106614_, double p_106615_, double p_106616_, SpriteSet p_106617_) {
         super(p_106610_, p_106611_, p_106612_, p_106613_);
@@ -22,7 +23,10 @@ public class RollingParticle extends TextureSheetParticle {
     }
 
     public float getQuadSize(float p_106860_) {
-        return Math.max(0.0F, this.quadSize - (this.quadSize * (this.age + p_106860_)) / this.lifetime);
+        if (!this.nonShrink) {
+            return Math.max(0.0F, this.quadSize - (this.quadSize * (this.age + p_106860_)) / this.lifetime);
+        }
+        return super.getQuadSize(p_106860_);
     }
 
     public int getLightColor(final float partialTicks) {
@@ -89,6 +93,26 @@ public class RollingParticle extends TextureSheetParticle {
             particle.setColor((float) p_107426_, (float) p_107427_, (float) p_107428_);
             particle.pickSprite(this.sprite);
             particle.quadSize = 0.25F;
+            return particle;
+        }
+    }
+
+    public static class TargetProvider implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet sprite;
+
+        public TargetProvider(SpriteSet p_106884_) {
+            this.sprite = p_106884_;
+        }
+
+        @Nullable
+        @Override
+        public Particle createParticle(SimpleParticleType p_107421_, ClientLevel p_107422_, double p_107423_, double p_107424_, double p_107425_, double p_107426_, double p_107427_, double p_107428_) {
+            RollingParticle particle = new RollingParticle(p_107422_, p_107423_, p_107424_, p_107425_, 0.0D, 0.0D, 0.0D, this.sprite);
+            particle.setColor((float) p_107426_, (float) p_107427_, (float) p_107428_);
+            particle.pickSprite(this.sprite);
+            particle.quadSize = 0.25F;
+            particle.lifetime = 1;
+            particle.nonShrink = true;
             return particle;
         }
     }

@@ -47,6 +47,8 @@ import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.monster.hoglin.Hoglin;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
+import net.minecraft.world.entity.monster.warden.AngerLevel;
+import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -271,6 +273,10 @@ public class ObsidianMonolith extends AbstractMonolith implements Enemy {
                 try {
                     mob.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, this.getTrueOwner().getUUID(), 600L);
                     mob.getBrain().setMemoryWithExpiry(MemoryModuleType.ATTACK_TARGET, this.getTrueOwner(), 600L);
+                    if (mob instanceof Warden warden) {
+                        warden.increaseAngerAt(this.getTrueOwner(), AngerLevel.ANGRY.getMinimumAnger() + 20, false);
+                        warden.setAttackTarget(this.getTrueOwner());
+                    }
                 } catch (NullPointerException ignored) {
                 }
             }

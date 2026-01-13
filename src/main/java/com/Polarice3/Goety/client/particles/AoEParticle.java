@@ -6,15 +6,19 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.Vec3;
 
 public class AoEParticle extends GroundCircleParticle {
    private float initialSize;
    private float growing;
    private float finalSize;
+   private int ownerId = -1;
+   public final Vec3 origin;
    private final SpriteSet spriteSet;
 
-   AoEParticle(ClientLevel p_233976_, double p_233977_, double p_233978_, double p_233979_, float red, float green, float blue, SpriteSet spriteSet) {
-      super(p_233976_, p_233977_, p_233978_, p_233979_, 0.0D, 0.0D, 0.0D);
+   AoEParticle(ClientLevel clientLevel, double x, double y, double z, float red, float green, float blue, SpriteSet spriteSet) {
+      super(clientLevel, x, y, z, 0.0D, 0.0D, 0.0D);
       this.quadSize = 10.0F;
       this.lifetime = 100;
       this.gravity = 0.0F;
@@ -24,6 +28,7 @@ public class AoEParticle extends GroundCircleParticle {
       this.rCol = red;
       this.gCol = green;
       this.bCol = blue;
+      this.origin = new Vec3(this.x, this.y, this.z);
       this.spriteSet = spriteSet;
       this.setSpriteFromAge(spriteSet);
    }
@@ -40,6 +45,15 @@ public class AoEParticle extends GroundCircleParticle {
       return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
    }
 
+   public Vec3 getPosition() {
+      Entity owner = this.getEntity();
+      return owner != null ? owner.position().add(0, 0.25, 0) : this.origin;
+   }
+
+   public Entity getEntity() {
+      return this.ownerId == -1 ? null : this.level.getEntity(this.ownerId);
+   }
+
    public void tick() {
       this.xo = this.x;
       this.yo = this.y;
@@ -47,6 +61,8 @@ public class AoEParticle extends GroundCircleParticle {
       if (this.age++ >= this.lifetime) {
          this.remove();
       } else {
+         Vec3 vec3 = this.getPosition();
+         this.setPos(vec3.x, vec3.y, vec3.z);
          if (this.growing > 0.0F) {
             if (this.initialSize <= this.finalSize) {
                if (this.quadSize < this.finalSize) {
@@ -80,6 +96,7 @@ public class AoEParticle extends GroundCircleParticle {
          shockwaveParticle.quadSize = p_234019_.getSize();
          shockwaveParticle.growing = p_234019_.getGrowing();
          shockwaveParticle.finalSize = p_234019_.getMaxSize();
+         shockwaveParticle.ownerId = p_234019_.getOwnerId();
          shockwaveParticle.setLifetime(p_234019_.getLife());
          shockwaveParticle.setAlpha(0.25F);
          return shockwaveParticle;

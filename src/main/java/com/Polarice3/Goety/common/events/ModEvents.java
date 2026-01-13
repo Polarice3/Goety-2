@@ -91,6 +91,8 @@ import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.monster.warden.AngerLevel;
+import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.npc.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -631,6 +633,10 @@ public class ModEvents {
                                 try {
                                     mob.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, obsidianMonolith.getUUID(), 600L);
                                     mob.getBrain().setMemoryWithExpiry(MemoryModuleType.ATTACK_TARGET, obsidianMonolith, 600L);
+                                    if (mob instanceof Warden warden) {
+                                        warden.increaseAngerAt(obsidianMonolith, AngerLevel.ANGRY.getMinimumAnger() + 20, false);
+                                        warden.setAttackTarget(obsidianMonolith);
+                                    }
                                 } catch (NullPointerException ignored) {
                                 }
                             }

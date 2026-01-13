@@ -266,7 +266,8 @@ public class BlockFinder {
             }
 
             if (flag1) {
-                if (level.noCollision(entity) && !level.containsAnyLiquid(entity.getBoundingBox())) {
+                AABB aabb = entity.getBoundingBox().move(blockpos);
+                if (level.noCollision(entity, aabb) && !level.containsAnyLiquid(aabb)) {
                     flag = true;
                 }
             }
@@ -301,7 +302,8 @@ public class BlockFinder {
             }
 
             if (flag1) {
-                if (level.noCollision(entity) && !level.containsAnyLiquid(entity.getBoundingBox())) {
+                AABB aabb = entity.getBoundingBox().move(vec31);
+                if (level.noCollision(entity, aabb) && !level.containsAnyLiquid(aabb)) {
                     flag = true;
                 }
             }

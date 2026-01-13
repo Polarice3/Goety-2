@@ -641,6 +641,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> SummonDown;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SpellDamageEnderDragon;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FullStopCast;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SpellExplosionDouble;
 
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> TelekinesisBlackList;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> BanishBlackList;
@@ -665,6 +666,8 @@ public class SpellConfig {
                 .define("spellDamageEnderDragon", true);
         FullStopCast = BUILDER.comment("Casting Spells will cause the caster to completely stop moving, Default: false")
                 .define("fullStopCast", false);
+        SpellExplosionDouble = BUILDER.comment("Whether explosions made by SpellExplosion class has double the radius, Default: false")
+                .define("spellExplosionDouble", false);
         BUILDER.pop();
         BUILDER.push("Spells");
             BUILDER.push("Vexing Spell");

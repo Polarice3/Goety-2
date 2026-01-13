@@ -99,6 +99,8 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Integer> BossInvulnerabilityTime;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> ApostleNetherDamageReduction;
+
     public static final ForgeConfigSpec.ConfigValue<Boolean> ZombieServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DrownedServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> HuskServantTexture;
@@ -300,6 +302,9 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleResistance;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleHardMagicResistance;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleCritArrows;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleShootIndicator;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleHalvedArmor;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleDelayedTeleport;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FancierApostleDeath;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ObsidianMonolithSpread;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ObsidianMonolithBiome;
@@ -309,6 +314,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneMonstrosityLeafBreak;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneCubeBlockFind;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PlayerRavagerArmorDrop;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> DamnedShootIndicator;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CroneThornDefense;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> HostileCryptUndead;
@@ -936,22 +942,34 @@ public class MobsConfig {
                     .define("apostlePersistent", true);
             ApostleBoilsWater = BUILDER.comment("Whether Apostles causes entities within 32 blocks of themselves to take damage when in water. Default: true")
                     .define("apostleBoilsWater", true);
-            ApostleTornado = BUILDER.comment("Whether Apostles can summon Fire Tornadoes. Default: false")
-                    .define("apostleTornado", false);
+            ApostleTornado = BUILDER.comment("Whether Apostles can summon Fire Tornadoes. Default: true")
+                    .define("apostleTornado", true);
             ApostleHellCloud = BUILDER.comment("Whether Apostles can summon Hell Clouds. Default: true")
                     .define("apostleHellCloud", true);
-            ApostleQuickerRegen = BUILDER.comment("Enable pre-nerf Apostle Nether/The Risen regeneration. Default: false")
-                    .define("apostleQuickerRegen", false);
-            ApostleResistance = BUILDER.comment("Enable pre-nerf Apostle The Glorious resistance. Default: false")
-                    .define("apostleResistance", false);
+            ApostleQuickerRegen = BUILDER.comment("Enable Apostle Nether/The Risen quicker regeneration. Disabling will cause them to regenerate 10x more slowly. Default: true")
+                    .define("apostleQuickerRegen", true);
+            ApostleResistance = BUILDER.comment("Enable Apostle The Glorious getting Resistance effect. Disabling will give them Iron Hide instead. Default: true")
+                    .define("apostleResistance", true);
+            ApostleShootIndicator = BUILDER.comment("Whether Apostle shoot indicator is enabled. Default: true")
+                    .define("apostleShootIndicator", true);
             ApostleHardMagicResistance = BUILDER.comment("Whether Apostles gain magic resistance if difficulty is on Hard. Default: false")
                     .define("apostleHardMagicResistance", false);
+            ApostleHalvedArmor = BUILDER.comment("Whether Apostle's armor and armor toughness values are halved when fought outside of the Nether. Default: true")
+                    .define("apostleHalvedArmor", true);
             ApostleCritArrows = BUILDER.comment("Whether Apostles can shoot Critical Hits on their Arrows. Default: true")
                     .define("apostleCritArrows", true);
+            ApostleDelayedTeleport = BUILDER.comment("Whether Apostles' teleport has a delay. Disabling will cause them to teleport instantly. Default: true")
+                    .define("apostleDelayedTeleport", true);
             ApostleConvertsVillagers = BUILDER.comment("Whether Apostles causes Villagers within 32 blocks of themselves to have a chance of converting into a Witch or Warlock. Default: true")
                     .define("apostleConvertsVillagers", true);
             FancierApostleDeath = BUILDER.comment("Gives Apostle an even more fancier death animation, Default: false")
                     .define("fancierApostleDeath", false);
+            ApostleNetherDamageReduction = BUILDER.comment("How much damage is reduced, by percentage, on the Apostle when in the Nether, setting to 100 will make them invulnerable, Default: 50")
+                    .defineInRange("apostleNetherDamageReduction", 50, 0, 100);
+            BUILDER.pop();
+            BUILDER.push("Damned");
+            DamnedShootIndicator = BUILDER.comment("Whether Damned shoot indicator is enabled. Default: true")
+                    .define("damnedShootIndicator", true);
             BUILDER.pop();
             BUILDER.push("Vizier");
             VizierPersistent = BUILDER.comment("Whether Viziers are persistent and do not naturally despawn. Default: false")

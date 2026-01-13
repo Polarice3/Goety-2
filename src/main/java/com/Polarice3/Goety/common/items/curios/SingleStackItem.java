@@ -122,7 +122,7 @@ public class SingleStackItem extends Item implements ICurioItem {
                 tooltip.add(Component.translatable("info.goety.nether_crown_cast").withStyle(secondary));
             }
             if (stack.getItem() instanceof UnholyHatItem){
-                tooltip.add(Component.translatable("info.goety.unholy_hat").withStyle(main));
+                tooltip.add(Component.translatable("info.goety.unholy_hat", ItemConfig.UnholyHatNetherResistance.get()).withStyle(main));
                 tooltip.add(Component.translatable("info.goety.unholy_hat_cast").withStyle(secondary));
             }
             if (stack.getItem() instanceof NecroGarbs.NecroCapeItem capeItem) {

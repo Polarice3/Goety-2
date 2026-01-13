@@ -2116,7 +2116,7 @@
   "info.goety.nether_robe_discount": "Halves soul cost of nether spells. Fire breath and fireballs hurts fire immune mobs.",
   "info.goety.unholy_robe": "Gives Fire Resistance. Allows nether servants heal using soul energy.",
   "info.goety.unholy_robe_discount": "Halves soul cost of nether spells. Wearing with Unholy Hat causes certain fire spells to deal hellfire damage.",
-  "info.goety.unholy_hat": "Gives Fire Resistance. Reduces incoming damage when in Nether by 25%. Nether servants will persists.",
+  "info.goety.unholy_hat": "Gives Fire Resistance. Reduces incoming damage when in Nether by %s%. Nether servants will persists.",
   "info.goety.unholy_hat_cast": "Halves casting time for nether spells. Wearing with Unholy Robe causes certain fire spells to deal hellfire damage.",
   "info.goety.ring_of_want": "When enchanted with Wanting, increases looting level when killing with servants or spells.",
   "info.goety.ring_of_force": "Telekinesis spell will slowly suffocate the entity it affects.",

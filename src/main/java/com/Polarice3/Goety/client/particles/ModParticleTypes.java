@@ -255,6 +255,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> ROLLING_ENCHANT = PARTICLE_TYPES.register("rolling_enchant",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> ROLLING_TARGET = PARTICLE_TYPES.register("rolling_target",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> REDSTONE_EXPLODE = PARTICLE_TYPES.register("redstone_explode",
             () -> new SimpleParticleType(false));
 

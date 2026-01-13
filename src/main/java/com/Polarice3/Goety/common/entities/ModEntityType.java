@@ -1584,6 +1584,13 @@ public class ModEntityType {
                     .clientTrackingRange(16)
                     .updateInterval(Integer.MAX_VALUE));
 
+    public static final RegistryObject<EntityType<AlliedEffectCloud>> ALLIED_EFFECT_CLOUD = register("allied_effect_cloud",
+            EntityType.Builder.<AlliedEffectCloud>of(AlliedEffectCloud::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(6.0F, 0.5F)
+                    .clientTrackingRange(10)
+                    .updateInterval(Integer.MAX_VALUE));
+
     public static final RegistryObject<EntityType<BrewEffectCloud>> BREW_EFFECT_CLOUD = register("brew_effect_cloud",
             EntityType.Builder.<BrewEffectCloud>of(BrewEffectCloud::new, MobCategory.MISC)
                     .fireImmune()

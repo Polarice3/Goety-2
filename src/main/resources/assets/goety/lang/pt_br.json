@@ -3408,6 +3408,6 @@
   "item.goety.irk_servant_spawn_egg": "Ovo de Servo Irk",
   "item.goety.carrion_focus": "Foco de Carniça",
   "item.goety.carrion_focus.info": "Invoca um enxame de Moscas de Carniça. Conjurar agachado ira convocar os servos do conjurador em sua direção.",
-  "info.goety.unholy_hat": "Concede Resistência a Fogo. Reduz dano recebido no Nether em 25%. Servos do Nether permanecem.",
+  "info.goety.unholy_hat": "Concede Resistência a Fogo. Reduz dano recebido no Nether em %s%. Servos do Nether permanecem.",
   "subtitle.goety.villager_chop": "Mineração de Prisioneiro"
 }

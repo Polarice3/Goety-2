@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.common.entities.projectiles.AbstractCyclone;
+import com.Polarice3.Goety.config.SpellConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
@@ -29,7 +30,10 @@ public class SpellExplosion {
     }
 
     public SpellExplosion(Level level, Entity source, DamageSource damageSource, double x, double y, double z, float radius, float damage){
-        float f2 = radius * 2.0F;
+        float f2 = radius;
+        if (SpellConfig.SpellExplosionDouble.get()) {
+            f2 *= 2.0F;
+        }
         Vec3 vec3 = new Vec3(x, y, z);
         for (Entity entity : explosionRangeEntities(level, source, x, y, z, radius)) {
             double d12 = Math.sqrt(entity.distanceToSqr(vec3)) / (double) f2;
@@ -91,7 +95,10 @@ public class SpellExplosion {
     }
 
     public static List<Entity> explosionRangeEntities(Level level, Entity source, double x, double y, double z, float radius){
-        float f2 = radius * 2.0F;
+        float f2 = radius;
+        if (SpellConfig.SpellExplosionDouble.get()) {
+            f2 *= 2.0F;
+        }
         int k1 = Mth.floor(x - (double)f2 - 1.0D);
         int l1 = Mth.floor(x + (double)f2 + 1.0D);
         int i2 = Mth.floor(y - (double)f2 - 1.0D);

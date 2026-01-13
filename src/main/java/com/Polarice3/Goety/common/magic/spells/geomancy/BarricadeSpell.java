@@ -28,6 +28,10 @@ import java.util.List;
 public class BarricadeSpell extends Spell {
     public int trueCooldown = this.defaultSpellCooldown();
 
+    public BarricadeSpell() {
+        this.trueCooldown = this.defaultSpellCooldown();
+    }
+
     @Override
     public int defaultSoulCost() {
         return SpellConfig.BarricadeCost.get();
@@ -89,12 +93,12 @@ public class BarricadeSpell extends Spell {
             if (this.isShifting(caster)){
                 if (worldIn.random.nextFloat() <= chance){
                     WandUtil.summonQuadOffensiveTrap(caster, target, ModEntityType.TOTEMIC_BOMB.get(), potency);
-                    this.trueCooldown += MathHelper.secondsToTicks(3);
+                    this.trueCooldown = this.defaultSpellCooldown() + MathHelper.secondsToTicks(3);
                 } else {
                     int xShift = worldIn.getRandom().nextInt(-1, 1);
                     int zShift = worldIn.getRandom().nextInt(-1, 1);
                     WandUtil.summonMonolith(caster, target, ModEntityType.TOTEMIC_BOMB.get(), xShift, zShift, potency);
-                    this.trueCooldown += MathHelper.secondsToTicks(2);
+                    this.trueCooldown = this.defaultSpellCooldown() + MathHelper.secondsToTicks(2);
                 }
             } else {
                 int random = worldIn.random.nextInt(3);
@@ -120,10 +124,10 @@ public class BarricadeSpell extends Spell {
             if (this.isShifting(caster)){
                 if (worldIn.random.nextFloat() <= chance){
                     WandUtil.summonQuadOffensiveTrap(caster, blockPos, ModEntityType.TOTEMIC_BOMB.get(), potency);
-                    this.trueCooldown += MathHelper.secondsToTicks(3);
+                    this.trueCooldown = this.defaultSpellCooldown() + MathHelper.secondsToTicks(3);
                 } else {
                     WandUtil.summonMonolith(caster, blockPos, ModEntityType.TOTEMIC_BOMB.get(), 0, 0, potency);
-                    this.trueCooldown += MathHelper.secondsToTicks(2);
+                    this.trueCooldown = this.defaultSpellCooldown() + MathHelper.secondsToTicks(2);
                 }
             } else {
                 WandUtil.summonWallTrap(caster, blockPos, entityType, duration);

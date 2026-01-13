@@ -30,6 +30,7 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> VoidRobeTeleportChance;
     public static final ForgeConfigSpec.ConfigValue<Integer> VoidRobeTeleportDistance;
     public static final ForgeConfigSpec.ConfigValue<Integer> NetherRobeResistance;
+    public static final ForgeConfigSpec.ConfigValue<Integer> UnholyHatNetherResistance;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> StaffOffhandBuff;
     public static final ForgeConfigSpec.ConfigValue<Double> OminousStaffDamage;
@@ -180,6 +181,8 @@ public class ItemConfig {
                     .defineInRange("stormRobeResistance", 85, 0, 100);
             NetherRobeResistance = BUILDER.comment("How much fire resistance Nether Robes provides by percent, Default: 85")
                     .defineInRange("netherRobeResistance", 85, 0, 100);
+            UnholyHatNetherResistance = BUILDER.comment("How much damage is reduced when in the Nether the Unholy Hats provides by percent, Default: 50")
+                    .defineInRange("unholyHatNetherResistance", 50, 0, 100);
             AbyssSetMobNeutral = BUILDER.comment("Whether wearing both Abyss Robe and Crown will cause certain mobs to be neutral, Default: true")
                     .define("abyssSetMobNeutral", true);
             AbyssSetMobNeutralHealth = BUILDER.comment("If 'abyssSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
