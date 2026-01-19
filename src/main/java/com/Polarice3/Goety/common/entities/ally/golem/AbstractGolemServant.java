@@ -52,8 +52,4 @@ public abstract class AbstractGolemServant extends Summoned implements IGolem {
         return !this.isImmobile();
     }
 
-    @Override
-    public boolean canUpdateMove() {
-        return true;
-    }
 }

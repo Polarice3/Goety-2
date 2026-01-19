@@ -4,6 +4,7 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MobUtil;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -35,6 +36,7 @@ public class IcySpiderServant extends SpiderServant{
     public boolean doHurtTarget(Entity target) {
         if (super.doHurtTarget(target)) {
             if (target instanceof LivingEntity livingEntity) {
+                int amp = 0;
                 int i = this.getMasterOwner() instanceof Player ? 7 : 0;
                 if (this.level.getDifficulty() == Difficulty.NORMAL) {
                     i = 7;
@@ -45,9 +47,13 @@ public class IcySpiderServant extends SpiderServant{
                 if (i > 0) {
                     MobEffect effect = MobEffects.MOVEMENT_SLOWDOWN;
                     if (CuriosFinder.hasFrostRobes(this.getMasterOwner())){
-                        effect = GoetyEffects.FREEZING.get();
+                        if (!target.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)) {
+                            effect = GoetyEffects.FREEZING.get();
+                        } else {
+                            amp += 1;
+                        }
                     }
-                    livingEntity.addEffect(new MobEffectInstance(effect, i * 20, 0), this);
+                    livingEntity.addEffect(new MobEffectInstance(effect, i * 20, amp), this);
                 }
             }
 

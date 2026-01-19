@@ -254,11 +254,6 @@ public class Malghast extends SummonedFlying {
     }
 
     @Override
-    public boolean canUpdateMove() {
-        return true;
-    }
-
-    @Override
     protected ResourceLocation getDefaultLootTable() {
         if (this.isNatural()){
             return EntityType.GHAST.getDefaultLootTable();

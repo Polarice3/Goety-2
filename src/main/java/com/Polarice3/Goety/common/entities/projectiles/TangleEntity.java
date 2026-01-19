@@ -184,7 +184,6 @@ public abstract class TangleEntity extends Entity {
         if (this.getTarget() != null
                 && this.getTarget().isAlive()
                 && !this.getTarget().getType().is(ModTags.EntityTypes.UNTANGLEABLE)
-                && this.getTarget().getMaxHealth() <= 100.0F
                 && this.getTarget().canBeAffected(new MobEffectInstance(GoetyEffects.TANGLED.get()))){
             this.getTarget().setPos(this.position());
             this.getTarget().setDeltaMovement(Vec3.ZERO);

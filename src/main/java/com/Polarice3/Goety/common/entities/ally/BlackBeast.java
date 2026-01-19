@@ -353,11 +353,6 @@ public class BlackBeast extends Summoned{
         return !this.isSwimming();
     }
 
-    @Override
-    public boolean canUpdateMove() {
-        return true;
-    }
-
     protected boolean isImmobile() {
         return super.isImmobile() || this.isSummoning();
     }

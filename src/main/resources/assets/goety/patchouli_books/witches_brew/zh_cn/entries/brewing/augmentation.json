@@ -1,12 +1,12 @@
 {
-  "name": "Augmentation",
+  "name": "增强剂",
   "icon": "minecraft:glowstone_dust",
   "category": "goety:brewing",
   "sortnum": 4,
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "有很多方法可以增强你的药剂！新手应该知道，添加红石可以增加持续时间，添加萤石粉可以增加力量等级，但还有更多！就像容量计一样，配料也必须摆放整齐!"
+      "text": "有很多方法可以增强你的药酿！新手应该知道，添加红石粉可以增加持续时间，添加萤石粉可以增加效果等级，但药酿还有更多种加强方向！不过，就像容量剂一样，你必须按正确的顺序放入增强剂才行"
     },
     {
       "type": "patchouli:text",

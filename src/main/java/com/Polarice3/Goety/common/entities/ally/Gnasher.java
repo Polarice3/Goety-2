@@ -115,11 +115,6 @@ public class Gnasher extends AnimalSummon implements PlayerRideable, IAutoRideab
         this.entityData.define(AUTO_MODE, false);
     }
 
-    @Override
-    public boolean canUpdateMove() {
-        return true;
-    }
-
     public MobType getMobType() {
         return MobType.WATER;
     }

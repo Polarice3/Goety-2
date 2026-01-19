@@ -122,11 +122,6 @@ public class GuardianServant extends Summoned{
         return SpellConfig.GuardianLimit.get();
     }
 
-    @Override
-    public boolean canUpdateMove() {
-        return true;
-    }
-
     public boolean isMoving() {
         return this.entityData.get(DATA_ID_MOVING);
     }

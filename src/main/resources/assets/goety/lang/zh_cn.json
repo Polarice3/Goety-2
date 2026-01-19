@@ -1415,7 +1415,6 @@
   "tooltip.goety.customName": "名字: ",
   "tooltip.goety.entity": "实体",
   "tooltip.goety.disabled": "残疾人",
-  "tooltip.goety.brew.capacity": "容量剂: ",
   "tooltip.goety.brew.area": "有效范围 %s",
   "tooltip.goety.brew.lingering": "滞留 %s",
   "tooltip.goety.brew.quaff": "豪饮 %s",
@@ -3325,5 +3324,11 @@
   "item.goety.carrion_focus": "腐蝇聚晶",
   "item.goety.carrion_focus.info": "召唤一大群腐尸飞蝇，潜行施法会把仆从传送到施法者的位置",
   "info.goety.unholy_hat": "给予防火能力，玩家处于下界时受到的伤害会减免%s%，下界仆从将永续存在",
-  "subtitle.goety.villager_chop": "囚犯：挖矿"
+  "subtitle.goety.villager_chop": "囚犯：挖矿",
+  "tooltip.goety.brew.capacity": "容纳量: ",
+  "entity.goety.winter_wolf": "凛冬狼",
+  "item.goety.winter_wolf_spawn_egg": "凛冬狼刷怪蛋",
+  "commands.goety.misc.despawn.success.single": "成功删除了%s",
+  "commands.goety.misc.despawn.success.multiple": "成功删除了%s个实体",
+  "commands.goety.misc.despawn.failure.player": "无法删除玩家！"
 }

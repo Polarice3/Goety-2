@@ -1,15 +1,15 @@
 {
-  "name": "黑狼",
+  "name": "黑狼们",
   "icon": "minecraft:bone",
   "category": "goety:summons",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "这些常象征童话故事中死亡预兆的存在，对它的召唤者却是实实在在的忠诚"
+      "text": "这些曾被视作民间传说的存在，实则为死亡的征兆，它们真实存在，并对召唤者忠心不贰。"
     },
     {
       "type": "patchouli:text",
-      "text": "使用 $(l:focuses/wild/hunting_focus)狩猎聚晶$() 即可召唤效忠于你的黑狼，或是通过仪式召唤一只没有寿命限制的黑狼"
+      "text": "可以通过使用$(l:focuses/wild/hunting_focus)狩猎聚晶$()召唤一头忠实的黑色巨狼，亦可通过一种仪式来召唤没有寿命限制的黑狼。"
     },
     {
       "type": "goety:ritual",
@@ -22,11 +22,11 @@
     },
     {
       "type": "patchouli:text",
-      "text": "手持肉类右键你的黑狼仆从即可为其恢复血量。"
+      "text": "对忠诚的黑狼右键使用肉类可为其治疗。"
     },
     {
       "type": "patchouli:text",
-      "text": "通过某些特殊方式可以召唤黑狼的变种，甚至是其它类型的猎犬"
+      "text": "通过特定方式召唤黑狼，也可能得到该野兽的变种，甚至其他类型的魔犬。"
     },
     {
       "type": "patchouli:entity",
@@ -35,11 +35,37 @@
     },
     {
       "type": "patchouli:text",
-      "text": "这是普通狼的亡灵化版本，虽然看似没有什么区别，但它们可以通过发动嚎叫来提升周围其它骷髅类仆从的伤害，它们可以通过承载 $(l:focuses/wild/hunting_focus)狩猎聚晶$() 的 $(l:crafts/necro_staff)死灵魔杖$()召唤，或是通过仪式召唤"
+      "text": "普通狼的亡灵变体，但与普通狼不同，这些骸骨狼能发出嚎叫，增强其亡灵盟友的伤害。与其他两种变体不同，这些狼在追猎目标时不会隐形。可通过使用$(l:crafts/staff/necro_staff)死灵魔杖$()施放$(l:focuses/wild/hunting_focus)狩猎聚晶$()召唤，或通过另一种仪式召唤。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_skeleton_wolf_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:winter_wolf",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这些白色毛皮的犬科生物是寒冷地区居民的噩梦，拥有冰冷的獠牙且耐霜冻。可通过使用$(l:crafts/staff/frost_staff)冰霜魔杖$()施放$(l:focuses/wild/hunting_focus)狩猎聚晶$()、在下雪的生物群系中召唤，或通过另一种仪式召唤。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_winter_wolf_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:hellhound",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "或许你可曾听闻那些关于地狱猎犬将罪人拖入下界烈焰的神话与传说，但如今或许是时候将这些魔犬收为麾下了。可通过使用$(l:crafts/staff/nether_staff)下界魔杖$()施放$(l:focuses/wild/hunting_focus)狩猎聚晶$()、在下界生物群系中召唤，或通过另一种仪式召唤。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_hellhound_thrall"
     }
   ]
 }

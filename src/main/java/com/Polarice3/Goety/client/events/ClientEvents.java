@@ -279,10 +279,10 @@ public class ClientEvents {
                             playBossMusic(ModSounds.ENDER_KEEPER_THEME.get(), ModSounds.ENDER_KEEPER_THEME_POST.get(), enderKeeper, 0.75F, 0.825F);
                         }
                         if (entity instanceof HostileRedstoneGolem rm && !rm.isNoAi()) {
-                            playBossMusic(ModSounds.RM_THEME.get(), ModSounds.BOSS_POST_2.get(), rm, 0.75F, 1.0F);
+                            playBossMusic(ModSounds.RG_THEME.get(), ModSounds.BOSS_POST_2.get(), rm, 0.75F, 1.0F);
                         }
                         if (entity instanceof Endersent endersent && !endersent.isNoAi()) {
-                            playBossMusic(ModSounds.ENDERMAN_THEME_PRE.get(), ModSounds.ARENA_END.get(), endersent, 0.75F, 1.0F);
+                            playBossMusic(ModSounds.ENDERSENT_THEME.get(), ModSounds.ARENA_END.get(), endersent, 0.75F, 1.0F);
                         }
                         if (entity instanceof Wight wight && !wight.isNoAi()) {
                             playBossMusic(ModSounds.ENDERMAN_THEME.get(), ModSounds.ARENA_END.get(), wight, 0.75F, 1.0F);

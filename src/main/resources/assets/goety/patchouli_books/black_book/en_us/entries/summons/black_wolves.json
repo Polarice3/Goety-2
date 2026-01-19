@@ -35,11 +35,37 @@
     },
     {
       "type": "patchouli:text",
-      "text": "An undead version of regular wolves, though unlike them, these wolves may emit a howl that boosts the damage of their skeleton allies. They are summoned by casting $(l:focuses/wild/hunting_focus)Hunting spell$() with a $(l:crafts/staff/necro_staff)Necro Staff$(), or through another ritual."
+      "text": "An undead version of regular wolves, though unlike them, these wolves may emit a howl that boosts the damage of their skeleton allies. Unlike the other two variants, these wolves don't turn invisible when hunting their query. They are summoned by casting $(l:focuses/wild/hunting_focus)Hunting spell$() with a $(l:crafts/staff/necro_staff)Necro Staff$(), or through another ritual."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_skeleton_wolf_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:winter_wolf",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These white furred canines are a terror to people living in cold areas, with their icy fangs and resistance to frost. They are summoned by casting $(l:focuses/wild/hunting_focus)Hunting spell$() with a $(l:crafts/staff/frost_staff)Frost Staff$(), summoned in snowing biomes, or through another ritual."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_winter_wolf_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:hellhound",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "You've heard of tales and myths of hounds dragging the damned to the fires of the Nether, perhaps it's time to put these hounds to heel. They are summoned by casting $(l:focuses/wild/hunting_focus)Hunting spell$() with a $(l:crafts/staff/nether_staff)Nether Staff$(), summoned in Nether biomes, or through another ritual."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_hellhound_thrall"
     }
   ]
 }

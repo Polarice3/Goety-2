@@ -165,11 +165,6 @@ public class SkeletonWolf extends AnimalSummon {
         this.entityData.set(DATA_COLLAR_COLOR, p_30398_.getId());
     }
 
-    @Override
-    public boolean canUpdateMove() {
-        return true;
-    }
-
     protected void playStepSound(BlockPos p_30415_, BlockState p_30416_) {
         this.playSound(ModSounds.SKELETON_WOLF_STEP.get(), 0.15F, 1.0F);
     }

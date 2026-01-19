@@ -5,11 +5,11 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "おとぎ話だと思われているこれらの死の前兆は現実に存在し、召喚者に忠実です。"
+      "text": "おとぎ話だと考えられているこれらの死の前兆は、現実的にあり、召喚者に忠実です。"
     },
     {
       "type": "patchouli:text",
-      "text": "$(l:focuses/wild/hunting_focus)狩猟のフォーカス$() を使用するか、寿命を制限せずに召喚する儀式を通じて、忠実なブラックウルフを呼び出すことができます。"
+      "text": "ブラックウルフの従者は、$(l:focuses/wild/hunting_focus)狩猟のフォーカス$()を使用するか、寿命に制限のないブラックウルフを召喚する儀式を通じて呼び出すことができます。"
     },
     {
       "type": "goety:ritual",
@@ -22,11 +22,11 @@
     },
     {
       "type": "patchouli:text",
-      "text": "肉を持って従者に右クリックすると回復します。"
+      "text": "ブラックウルフの従者を肉で右クリックすると回復します。"
     },
     {
       "type": "patchouli:text",
-      "text": "特定の方法でブラックウルフを召喚すると、他の種類の猟犬が生まれることもあります。"
+      "text": "特定の方法でブラックウルフを召喚すると、亜種や他の種類の何かが出現することもあります。"
     },
     {
       "type": "patchouli:entity",
@@ -35,11 +35,37 @@
     },
     {
       "type": "patchouli:text",
-      "text": "通常のオオカミのアンデッドバージョンで、スケルトンの仲間のダメージを高める遠吠えを発することがあります。これらは、 $(l:crafts/necro_staff)ネクロの杖$() で $(l:focuses/wild/hunting_focus)狩猟のフォーカス$() を唱えるか、別の儀式を通じて召喚されます。"
+      "text": "通常のオオカミのアンデッド版です。通常のオオカミとは異なり、あらゆるスケルトン系の従者のダメージを増加させる遠吠えを発することがあります。他の2つの亜種とは異なり、は対象を狩っている間は透明化しません。召喚するには、$(l:crafts/staff/necro_staff)ネクロの杖$()を用いて$(l:focuses/wild/hunting_focus)狩猟のフォーカス$()を唱えるか、その他の儀式によって召喚されます。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_skeleton_wolf_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:winter_wolf",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "白い毛皮に覆われたこのオオカミは、氷のような牙と凍結に対する耐性を持ち、寒冷地に住む人々にとって恐怖の種です。召喚するには、$(l:crafts/staff/frost_staff)氷の杖$()を用いて$(l:focuses/wild/hunting_focus)狩猟のフォーカス$()を唱えるか、雪の降るバイオームで召喚するか、その他の儀式によって召喚されます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_winter_wolf_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:hellhound",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "猟犬が地獄の業火へと罪人たちを引きずり込むという伝説を耳にしたことがあるでしょう。そろそろこれらの猟犬たちを鎮圧する時かもしれません。彼らは、$(l:crafts/staff/nether_staff)ネザーの杖$()を使って$(l:focuses/wild/hunting_focus)狩猟のフォーカス$()を唱えるか、ネザーのバイオームで召喚するか、その他の儀式によって召喚されます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_hellhound_thrall"
     }
   ]
 }

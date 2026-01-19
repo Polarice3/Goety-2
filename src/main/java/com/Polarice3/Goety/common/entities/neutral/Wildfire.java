@@ -410,11 +410,6 @@ public class Wildfire extends Summoned {
         return false;
     }
 
-    @Override
-    public boolean canUpdateMove() {
-        return true;
-    }
-
     public boolean canAnimateMove(){
         return this.getCurrentAnimation() != this.getAnimationState(SHOCKWAVE);
     }

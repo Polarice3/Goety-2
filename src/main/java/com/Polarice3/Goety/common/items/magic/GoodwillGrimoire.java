@@ -2,7 +2,6 @@ package com.Polarice3.Goety.common.items.magic;
 
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -34,16 +33,16 @@ public class GoodwillGrimoire extends Item {
                     if (SEHelper.addAllyEntityType(player, pTarget.getType())) {
                         if (SEHelper.getGrudgeEntityTypes(player).contains(pTarget.getType())){
                             SEHelper.removeGrudgeEntityType(player, pTarget.getType());
-                            player.displayClientMessage(Component.translatable("info.goety.grudge.removeType", I18n.get(pTarget.getType().getDescriptionId())), true);
+                            player.displayClientMessage(Component.translatable("info.goety.grudge.removeType", pTarget.getType().getDescription()), true);
                         }
                         pTarget.playSound(SoundEvents.PLAYER_LEVELUP, 1.0F, 0.25F);
-                        player.displayClientMessage(Component.translatable("info.goety.grimoire.addType", I18n.get(pTarget.getType().getDescriptionId())), true);
+                        player.displayClientMessage(Component.translatable("info.goety.grimoire.addType", pTarget.getType().getDescription()), true);
                     }
                 } else {
                     if (SEHelper.addAllyEntity(player, pTarget)) {
                         if (SEHelper.getGrudgeEntities(player).contains(pTarget)){
                             SEHelper.removeGrudgeEntity(player, pTarget);
-                            player.displayClientMessage(Component.translatable("info.goety.grudge.remove", I18n.get(pTarget.getType().getDescriptionId())), true);
+                            player.displayClientMessage(Component.translatable("info.goety.grudge.remove", pTarget.getType().getDescription()), true);
                         }
                         pTarget.playSound(SoundEvents.PLAYER_LEVELUP);
                         player.displayClientMessage(Component.translatable("info.goety.grimoire.add", pTarget.getDisplayName()), true);
@@ -61,7 +60,7 @@ public class GoodwillGrimoire extends Item {
             if (MobUtil.isShifting(player)) {
                 if (SEHelper.removeAllyEntityType(player, target.getType())) {
                     target.playSound(SoundEvents.FIRE_EXTINGUISH, 1.0F, 0.25F);
-                    player.displayClientMessage(Component.translatable("info.goety.grimoire.removeType", I18n.get(target.getType().getDescriptionId())), true);
+                    player.displayClientMessage(Component.translatable("info.goety.grimoire.removeType", target.getType().getDescription()), true);
                     return InteractionResult.SUCCESS;
                 }
             } else {

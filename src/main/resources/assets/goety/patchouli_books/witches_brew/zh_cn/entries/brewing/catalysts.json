@@ -10,7 +10,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "但别担心小笨蛋！奥奶奶会解释他们中的一些人是怎么做的，因为我今天感觉很好！如果催化剂是一个刷怪蛋，这意味着你必须在你的大锅里煮掉从蛋里生出来的任何东西！哦，其中一些效果占据了多余一个容量计，所以在酿造时要注意另一件事！哈哈哈！"
+      "text": "但别担心小笨蛋！奥奶奶会解释他们中的一些人是怎么做的，因为我今天感觉很好！如果催化剂是一个刷怪蛋，这意味着你必须在你的大锅里煮掉从蛋里生出来的任何东西！哦，其中一些效果会占用更多药酿“容量”，所以在酿造时要注意另一件事！哈哈哈！"
     },
     {
       "type": "goety:catalyst",
@@ -286,7 +286,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.leeching",
-      "text": "抡起棍子揍流氓，偷他血气补你伤~嘿嘿，这可比喝药快当！."
+      "text": "抡起棍子揍流氓，偷他血气补你伤~嘿嘿，这可比喝药快当！"
     },
     {
       "type": "goety:catalyst",
@@ -512,7 +512,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.void_touched",
-      "text": "Get in touch with the void, brat! Make sure you don't get touched by anything else!"
+      "text": "虚空触手可及！小子！这时可千万别磕着碰着。"
     },
     {
       "type": "goety:catalyst",

@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.ally;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
@@ -19,6 +20,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -153,11 +155,6 @@ public class BlackWolf extends AnimalSummon{
     }
 
     @Override
-    public boolean canUpdateMove() {
-        return true;
-    }
-
-    @Override
     public float getVoicePitch() {
         return super.getVoicePitch() - 0.25F;
     }
@@ -196,13 +193,15 @@ public class BlackWolf extends AnimalSummon{
         return this.isSitting;
     }
 
-    /*public EntityType<?> getVariant(Level level, BlockPos blockPos){
+    public EntityType<?> getVariant(Player player, Level level, BlockPos blockPos){
         EntityType<?> entityType = ModEntityType.BLACK_WOLF.get();
-        if (level.dimension() == Level.NETHER) {
+        if (level.getBiome(blockPos).get().coldEnoughToSnow(blockPos)) {
+            entityType = ModEntityType.WINTER_WOLF.get();
+        } else if (level.dimensionType().ultraWarm() || level.getBiome(blockPos).is(BiomeTags.IS_NETHER)) {
             entityType = ModEntityType.HELLHOUND.get();
         }
         return entityType;
-    }*/
+    }
 
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
@@ -376,13 +375,17 @@ public class BlackWolf extends AnimalSummon{
             if (this.hasEffect(MobEffects.INVISIBILITY)){
                 this.removeEffect(MobEffects.INVISIBILITY);
             }
-            if (this.isUpgraded()){
-                if (entityIn instanceof LivingEntity livingEntity) {
-                    livingEntity.addEffect(new MobEffectInstance(GoetyEffects.CURSED.get(), MathHelper.secondsToTicks(5), 0), this);
-                }
-            }
+            this.curseTarget(entityIn);
         }
         return flag;
+    }
+
+    public void curseTarget(Entity entity) {
+        if (this.isUpgraded()){
+            if (entity instanceof LivingEntity livingEntity) {
+                livingEntity.addEffect(new MobEffectInstance(GoetyEffects.CURSED.get(), MathHelper.secondsToTicks(5), 0), this);
+            }
+        }
     }
 
     public void handleEntityEvent(byte p_30379_) {

@@ -29,7 +29,7 @@ public class CuriosRenderer {
         CuriosRendererRegistry.register(ModItems.CRONE_HAT.get(), () -> new WearRenderer(render("crone_hat.png"), new WitchHatModel(bakeLayer(ModModelLayer.CRONE_HAT))));
         CuriosRendererRegistry.register(ModItems.UNHOLY_HAT.get(), () -> new WearRenderer(render("unholy_hat.png"), new UnholyHatModel(bakeLayer(ModModelLayer.UNHOLY_HAT))));
         CuriosRendererRegistry.register(ModItems.DARK_ROBE.get(), () -> new WearRenderer(render("dark_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
-        CuriosRendererRegistry.register(ModItems.GRAND_ROBE.get(), () -> new WearRenderer(render("grand_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
+        CuriosRendererRegistry.register(ModItems.GRAND_ROBE.get(), () -> new WearRenderer(render("grand_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.GRAND_ROBE))));
         CuriosRendererRegistry.register(ModItems.ILLUSION_ROBE.get(), () -> new WearRenderer(render("illusion_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
         CuriosRendererRegistry.register(ModItems.ILLUSION_ROBE_MIRROR.get(), () -> new WearRenderer(render("illusion_robe_mirror.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
         CuriosRendererRegistry.register(ModItems.FROST_ROBE.get(), () -> new WearRenderer(render("frost_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));

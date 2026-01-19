@@ -3,7 +3,6 @@ package com.Polarice3.Goety.common.items.magic;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -33,7 +32,7 @@ public class GroundGrimoire extends Item {
                 if (MobUtil.isShifting(player)) {
                     if (SEHelper.addGroundedEntityType(player, pTarget.getType())) {
                         pTarget.playSound(SoundEvents.PLAYER_LEVELUP, 1.0F, 0.25F);
-                        player.displayClientMessage(Component.translatable("info.goety.grimoire.addType", I18n.get(pTarget.getType().getDescriptionId())), true);
+                        player.displayClientMessage(Component.translatable("info.goety.grimoire.addType", pTarget.getType().getDescription()), true);
                     }
                 } else {
                     if (SEHelper.addGroundedEntity(player, pTarget)) {
@@ -53,7 +52,7 @@ public class GroundGrimoire extends Item {
             if (MobUtil.isShifting(player)) {
                 if (SEHelper.removeGroundedEntityType(player, target.getType())) {
                     target.playSound(SoundEvents.PLAYER_LEVELUP, 1.0F, 0.25F);
-                    player.displayClientMessage(Component.translatable("info.goety.grimoire.removeType", I18n.get(target.getType().getDescriptionId())), true);
+                    player.displayClientMessage(Component.translatable("info.goety.grimoire.removeType", target.getType().getDescription()), true);
                     return InteractionResult.SUCCESS;
                 }
             } else {

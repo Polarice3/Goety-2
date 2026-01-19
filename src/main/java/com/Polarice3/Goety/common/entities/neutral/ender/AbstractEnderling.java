@@ -141,11 +141,6 @@ public abstract class AbstractEnderling extends Summoned implements IHiding {
         return super.isAlliedTo(entityIn);
     }
 
-    @Override
-    public boolean canUpdateMove() {
-        return true;
-    }
-
     public boolean isSensitiveToWater() {
         return true;
     }
@@ -293,6 +288,7 @@ public abstract class AbstractEnderling extends Summoned implements IHiding {
     public void stopHide() {
         this.setHide(false);
         this.level.broadcastEntityEvent(this, (byte) 5);
+        this.refreshDimensions();
     }
 
     public int getHidingDuration() {

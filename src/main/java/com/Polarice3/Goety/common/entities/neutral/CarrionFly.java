@@ -7,6 +7,7 @@ import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
+import com.Polarice3.Goety.utils.EffectsUtil;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
@@ -217,6 +218,7 @@ public class CarrionFly extends Summoned {
                     carrionMaggot.setNatural(this.isNatural());
                     carrionMaggot.setHostile(this.isHostile());
                     carrionMaggot.setUpgraded(this.isUpgraded());
+                    EffectsUtil.copyEffects(this, carrionMaggot);
                     if (this.isLimitedLife()) {
                         carrionMaggot.setLimitedLife(this.getLifespan());
                     }

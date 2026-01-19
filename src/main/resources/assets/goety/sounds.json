@@ -8412,6 +8412,14 @@
       }
     ]
   },
+  "rg_theme": {
+    "sounds": [
+      {
+        "name": "goety:music/rm_theme",
+        "stream": true
+      }
+    ]
+  },
   "rm_theme": {
     "sounds": [
       {
@@ -8464,6 +8472,14 @@
     "sounds": [
       {
         "name": "goety:music/enderman_theme",
+        "stream": true
+      }
+    ]
+  },
+  "endersent_theme": {
+    "sounds": [
+      {
+        "name": "goety:music/enderman_theme_pre",
         "stream": true
       }
     ]

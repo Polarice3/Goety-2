@@ -5,11 +5,11 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Considerados lendas, esses presságios da morte são reais e leais ao seu invocador."
+      "text": "Considerados contos de fadas, esses presságios da morte são muito reais e leais ao seu invocador."
     },
     {
       "type": "patchouli:text",
-      "text": "É possível invocar um lobo negro leal usando um $(l:focuses/wild/hunting_focus)Foco de Caça$(), ou através de um ritual que invoca um sem tempo de vida limitado."
+      "text": "Pode-se invocar um lobo negro leal através do uso de um $(l:focuses/wild/hunting_focus)Foco da Caça$(), ou através de um ritual que invoca um sem um tempo de vida limitado."
     },
     {
       "type": "goety:ritual",
@@ -26,7 +26,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Invocar Lobos Negros de certas maneiras também pode resultar em variantes da criatura ou até mesmo outros tipos de cães."
+      "text": "Invocar Lobos Negros através de certas maneiras também pode produzir variantes da fera ou até mesmo outros tipos de lobos da caça."
     },
     {
       "type": "patchouli:entity",
@@ -35,11 +35,37 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Uma versão morta-viva dos lobos comuns, embora, diferentemente deles, esses lobos possam emitir um uivo que aumenta o dano de seus aliados esqueletos. Eles são invocados ao lançar $(l:focuses/wild/hunting_focus)Feitiço de Caça$() com um $(l:crafts/staff/necro_staff)Cajado Necro$(), ou através de outro ritual."
+      "text": "Uma versão morta-viva dos lobos regulares, embora diferentemente deles, estes lobos podem emitir um uivo que aumenta o dano de seus aliados esqueletos. Diferente das outras duas variantes, estes lobos não se tornam invisíveis ao caçar sua presa. Eles são invocados lançando $(l:focuses/wild/hunting_focus)Foco da Caça$() com um $(l:crafts/staff/necro_staff)Cajado Necro$(), ou através de outro ritual."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_skeleton_wolf_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:winter_wolf",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Estes caninos de pelagem branca são um terror para as pessoas que vivem em áreas gélidas, com suas presas geladas e resistência ao frio. Eles são invocados lançando $(l:focuses/wild/hunting_focus)Foco da Caça$() com um $(l:crafts/staff/frost_staff)Cajado do Gelo$(), invocados em biomas com neve, ou através de outro ritual."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_winter_wolf_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:hellhound",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Você já ouviu histórias e mitos de lobos da caça arrastandos e condenados para os fogos do Nether, talvez seja a hora de colocar estes lobos sob seu comando. Eles são invocados lançando $(l:focuses/wild/hunting_focus)Foco da Caça$() com um $(l:crafts/staff/nether_staff)Cajado do Nether$(), invocados em biomas do Nether, ou através de outro ritual."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_hellhound_thrall"
     }
   ]
 }

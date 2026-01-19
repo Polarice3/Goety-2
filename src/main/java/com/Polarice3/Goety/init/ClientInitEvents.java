@@ -376,6 +376,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.UNHOLY_HAT, UnholyHatModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.IRON_CROWN, DarkHatModel::createIronCrownLayer);
         event.registerLayerDefinition(ModModelLayer.DARK_ROBE, DarkRobeModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.GRAND_ROBE, DarkRobeModel::createGrandRobeLayer);
         event.registerLayerDefinition(ModModelLayer.NECRO_CROWN, NecroCapeModel::createHeadLayer);
         event.registerLayerDefinition(ModModelLayer.NECRO_CAPE, NecroCapeModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.NECRO_SET, NecroCapeModel::createNecromancerLayer);
@@ -670,6 +671,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.MAVERICK_SERVANT.get(), MaverickServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.BLACK_WOLF.get(), BlackWolfRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKELETON_WOLF.get(), SkeletonWolfRenderer::new);
+        event.registerEntityRenderer(ModEntityType.WINTER_WOLF.get(), WinterWolfRenderer::new);
         event.registerEntityRenderer(ModEntityType.HELLHOUND.get(), HellhoundRenderer::new);
         event.registerEntityRenderer(ModEntityType.TWILIGHT_GOAT.get(), TwilightGoatRenderer::new);
         event.registerEntityRenderer(ModEntityType.SNAPPER.get(), SnapperRenderer::new);

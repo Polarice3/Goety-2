@@ -88,11 +88,6 @@ public class Snapper extends AnimalSummon{
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.SnapperDamage.get());
     }
 
-    @Override
-    public boolean canUpdateMove() {
-        return true;
-    }
-
     public MobType getMobType() {
         return MobType.WATER;
     }

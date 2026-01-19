@@ -341,7 +341,7 @@ public class SoulEnergyEvents {
             }
             if (soulEnergy.getSEActive()){
                 if (soulEnergy.getArcaBlock() != null) {
-                    if (MainConfig.ArcaUndying.get()) {
+                    if (MainConfig.ArcaUndying.get() || (MainConfig.ArcaLichUndying.get() && LichdomHelper.isLich(player))) {
                         if (!player.level.isClientSide) {
                             if (LichdomHelper.isLich(player)) {
                                 if (MainConfig.LichNoSERemove.get()){

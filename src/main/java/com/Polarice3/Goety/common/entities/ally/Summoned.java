@@ -6,7 +6,6 @@ import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.MobsConfig;
-import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -402,7 +401,7 @@ public class Summoned extends Owned implements IServant {
     }
 
     public boolean canUpdateMove(){
-        return this.getMobType() == MobType.UNDEAD || this.getMobType() == ModMobType.NATURAL;
+        return true;
     }
 
     public boolean isUpgraded() {

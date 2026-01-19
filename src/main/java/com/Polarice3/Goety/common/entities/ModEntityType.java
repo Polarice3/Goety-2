@@ -1149,11 +1149,15 @@ public class ModEntityType {
                     .sized(0.6F, 0.85F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<WinterWolf>> WINTER_WOLF = register("winter_wolf",
+            EntityType.Builder.of(WinterWolf::new, MobCategory.MONSTER)
+                    .sized(0.6F, 0.85F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<Hellhound>> HELLHOUND = register("hellhound",
             EntityType.Builder.of(Hellhound::new, MobCategory.MONSTER)
                     .sized(0.6F, 0.85F)
                     .fireImmune()
-                    .noSummon() //Temp
                     .clientTrackingRange(8));
 
     public static final RegistryObject<EntityType<TwilightGoat>> TWILIGHT_GOAT = register("twilight_goat",

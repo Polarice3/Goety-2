@@ -11,6 +11,7 @@ import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -56,7 +57,11 @@ public class ChargeSpell extends TouchSpell {
                 MobEffectInstance instance = target.getEffect(GoetyEffects.CHARGED.get());
                 if (instance != null) {
                     if (instance.getAmplifier() >= 1) {
-                        target.hurt(ModDamageSource.directShock(caster), SpellConfig.ChargeDamage.get().floatValue());
+                        DamageSource damageSource = ModDamageSource.directShock(caster);
+                        if (MobUtil.areAllies(target, caster)) {
+                            damageSource = ModDamageSource.getDamageSource(worldIn, ModDamageSource.SHOCK);
+                        }
+                        target.hurt(damageSource, SpellConfig.ChargeDamage.get().floatValue());
                     } else {
                         this.playSound(worldIn, target, 1.0F, 0.75F);
                     }

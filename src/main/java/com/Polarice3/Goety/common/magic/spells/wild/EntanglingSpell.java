@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -78,7 +79,7 @@ public class EntanglingSpell extends Spell {
             if (!list.isEmpty()) {
                 for (LivingEntity entity : list) {
                     if (amount < SpellConfig.EntanglingStaffAmount.get()) {
-                        if (entity != caster && !MobUtil.areAllies(entity, caster) && entity.getMaxHealth() <= 100.0F) {
+                        if (entity != caster && !MobUtil.areAllies(entity, caster) && !entity.getType().is(ModTags.EntityTypes.UNTANGLEABLE)) {
                             EntangleVines entangleVines = new EntangleVines(worldIn, caster, entity);
                             entangleVines.setLifeSpan(entangleVines.getLifeSpan() + MathHelper.secondsToTicks(duration));
                             if (CuriosFinder.hasWildRobe(caster)){

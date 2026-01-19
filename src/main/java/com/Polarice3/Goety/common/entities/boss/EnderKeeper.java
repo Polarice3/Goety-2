@@ -1152,7 +1152,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
                 }
             }
             if (this.isCurrentAnimation(RAPID_SWING)) {
-                if (((this.attackTick - 3) % 7 == 0) && this.attackTick < 39) {
+                if (this.attackTick == 10 || this.attackTick == 20 || this.attackTick == 28 || this.attackTick == 36 || this.attackTick == 44) {
                     this.playSound(ModSounds.OBSIDIAN_CLAYMORE_SWING.get(), 2.0F, this.getVoicePitch());
                 }
                 if (this.attackTick >= 13 && this.attackTick < 54) {
@@ -1160,7 +1160,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
                         this.lookAt(this.getTarget(), 100.0F, 100.0F);
                         this.getLookControl().setLookAt(this.getTarget(), 100.0F, 100.0F);
                     }
-                    if (this.attackTick == 15 || this.attackTick == 21 || this.attackTick == 27 || this.attackTick == 33 || this.attackTick == 39 || this.attackTick == 45 || this.attackTick == 51) {
+                    if (this.attackTick == 16 || this.attackTick == 24 || this.attackTick == 32 || this.attackTick == 40 || this.attackTick == 48) {
                         this.areaAttack(6.5F, 6, 120, damage, 60, false);
                         VoidSlash voidSlash = new VoidSlash(this.level, this);
                         voidSlash.setPos(this.getEyePosition());

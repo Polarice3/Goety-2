@@ -4,6 +4,7 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MathHelper;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -23,13 +24,22 @@ public class WinterWolf extends BlackWolf{
         boolean flag = super.doHurtTarget(entityIn);
         if (flag) {
             if (entityIn instanceof LivingEntity livingEntity) {
+                int amp = 0;
                 MobEffect effect = MobEffects.MOVEMENT_SLOWDOWN;
                 if (CuriosFinder.hasFrostRobes(this.getMasterOwner())){
-                    effect = GoetyEffects.FREEZING.get();
+                    if (!entityIn.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)) {
+                        effect = GoetyEffects.FREEZING.get();
+                    } else {
+                        amp += 1;
+                    }
                 }
-                livingEntity.addEffect(new MobEffectInstance(effect, MathHelper.secondsToTicks(5), 0), this);
+                livingEntity.addEffect(new MobEffectInstance(effect, MathHelper.secondsToTicks(5), amp), this);
             }
         }
         return flag;
+    }
+
+    @Override
+    public void curseTarget(Entity entity) {
     }
 }

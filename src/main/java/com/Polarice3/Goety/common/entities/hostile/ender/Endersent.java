@@ -543,6 +543,15 @@ public class Endersent extends AbstractEnderling implements Enemy {
     }
 
     @Override
+    protected float getStandingEyeHeight(Pose p_32517_, EntityDimensions p_32518_) {
+        if (this.isHiding()){
+            return 0.1F;
+        } else {
+            return super.getStandingEyeHeight(p_32517_, p_32518_) + 0.5F;
+        }
+    }
+
+    @Override
     public Component getName() {
         if (this.getEyeType() > 0) {
             return Component.translatable("name.goety.endersent." + this.getEyeType());

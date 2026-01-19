@@ -9,6 +9,7 @@ import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.WandUtil;
+import com.google.common.collect.ImmutableList;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -235,6 +236,13 @@ public class GoetyCommand {
                                 .then(Commands.argument("targets", EntityArgument.player()).executes((p_198435_0_) -> {
                                     return spawnWight(p_198435_0_.getSource(), EntityArgument.getPlayer(p_198435_0_, "targets"));
                                 })))
+                        .then(Commands.literal("despawn").requires((p_137812_) -> {
+                            return p_137812_.hasPermission(2);
+                        }).executes((p_137817_) -> {
+                            return despawn(p_137817_.getSource(), ImmutableList.of(p_137817_.getSource().getEntityOrException()));
+                        }).then(Commands.argument("targets", EntityArgument.entities()).executes((p_137810_) -> {
+                            return despawn(p_137810_.getSource(), EntityArgument.getEntities(p_137810_, "targets"));
+                        })))
                         .then(Commands.literal("repair")
                                 .then(Commands.literal("held").executes((p_198352_0_) -> {
                                             if (p_198352_0_.getSource().isPlayer()) {
@@ -487,10 +495,11 @@ public class GoetyCommand {
             } else {
                 if (entity instanceof Mob mob){
                     mob.setPersistenceRequired();
+                    if (mob instanceof IOwned owned){
+                        owned.setHostile(true);
+                    }
                     if (mob.getAttribute(Attributes.ATTACK_DAMAGE) != null){
-                        if (mob instanceof IOwned owned){
-                            owned.setHostile(true);
-                        } else {
+                        if (!(mob instanceof IOwned)){
                             mob.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(mob, Player.class, true));
                         }
                     }
@@ -798,5 +807,32 @@ public class GoetyCommand {
             pSource.sendSuccess(() -> Component.translatable("commands.goety.misc.heal.success.multiple", pTargets.size()), true);
         }
         return 1;
+    }
+
+    private static int despawn(CommandSourceStack sourceStack, Collection<? extends Entity> collection) {
+        int i = 0;
+        for (Entity entity : collection) {
+            if (!(entity instanceof Player)) {
+                entity.discard();
+                ++i;
+            }
+        }
+
+        if (collection.size() == 1) {
+            if (collection.stream().anyMatch(entity -> entity instanceof Player)) {
+                sourceStack.sendFailure(Component.translatable("commands.goety.misc.despawn.failure.player"));
+            } else {
+                sourceStack.sendSuccess(() -> {
+                    return Component.translatable("commands.goety.misc.despawn.success.single", collection.iterator().next().getDisplayName());
+                }, true);
+            }
+        } else {
+            int finalI = i;
+            sourceStack.sendSuccess(() -> {
+                return Component.translatable("commands.goety.misc.despawn.success.multiple", finalI);
+            }, true);
+        }
+
+        return collection.size();
     }
 }

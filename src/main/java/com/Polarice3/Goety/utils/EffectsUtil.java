@@ -23,6 +23,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class EffectsUtil {
@@ -255,5 +256,22 @@ public class EffectsUtil {
         i = Mth.clamp(i, 0, maxAmp);
         MobEffectInstance MobEffectInstance = new MobEffectInstance(effect, d, i, pAmbient, pVisible);
         infected.addEffect(MobEffectInstance);
+    }
+
+    public static void copyEffects(LivingEntity origin, LivingEntity target) {
+        if (origin == null || target == null) {
+            return;
+        }
+
+        if (origin.getActiveEffects().isEmpty()) {
+            return;
+        }
+
+        try {
+            for (MobEffectInstance instance : origin.getActiveEffects()) {
+                target.addEffect(new MobEffectInstance(instance));
+            }
+        } catch (ConcurrentModificationException ignored) {
+        }
     }
 }

@@ -729,11 +729,13 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> APOSTLE_THEME = create("apostle_theme");
     public static final RegistryObject<SoundEvent> APOSTLE_THEME_POST = create("apostle_theme_post");
     public static final RegistryObject<SoundEvent> VIZIER_THEME = create("vizier_theme");
+    public static final RegistryObject<SoundEvent> RG_THEME = create("rg_theme");
     public static final RegistryObject<SoundEvent> RM_THEME = create("rm_theme");
     public static final RegistryObject<SoundEvent> ENDER_KEEPER_THEME = create("ender_keeper_theme");
     public static final RegistryObject<SoundEvent> ENDER_KEEPER_THEME_POST = create("ender_keeper_theme_post");
     public static final RegistryObject<SoundEvent> ENDERMAN_THEME_PRE = create("enderman_theme_pre");
     public static final RegistryObject<SoundEvent> ENDERMAN_THEME = create("enderman_theme");
+    public static final RegistryObject<SoundEvent> ENDERSENT_THEME = create("endersent_theme");
 
     public static final RegistryObject<SoundEvent> MUSIC_DISC_APOSTLE = create("apostle_theme_disc");
     public static final RegistryObject<SoundEvent> MUSIC_DISC_KEEPER = create("ender_keeper_theme_disc");

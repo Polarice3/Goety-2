@@ -400,6 +400,7 @@ public class AbstractBlastling extends AbstractEnderling implements RangedAttack
 
         public void tick() {
             if (this.target != null) {
+                this.mob.level.broadcastEntityEvent(this.mob, (byte) 5);
                 ++this.attackTime;
                 if (this.target.distanceTo(this.mob) > 10.0D) {
                     this.mob.getNavigation().moveTo(this.target, 1.0F);

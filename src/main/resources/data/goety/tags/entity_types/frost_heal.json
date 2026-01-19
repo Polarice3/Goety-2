@@ -3,6 +3,7 @@
   "__comment": "servants that heals and lose limited lifespan through Frost set.",
   "values": [
     "goety:icy_spider_servant",
+    "goety:winter_wolf",
     "goety:polar_bear_servant",
     "goety:frozen_zombie_servant",
     "goety:stray_servant",

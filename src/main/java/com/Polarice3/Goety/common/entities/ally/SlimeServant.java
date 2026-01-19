@@ -166,11 +166,6 @@ public class SlimeServant extends Summoned{
     }
 
     @Override
-    public boolean canUpdateMove() {
-        return true;
-    }
-
-    @Override
     public MobType getMobType() {
         return ModMobType.NATURAL;
     }

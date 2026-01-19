@@ -145,6 +145,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation UNHOLY_HAT = register("unholy_hat");
     public static final ModelLayerLocation IRON_CROWN = register("iron_crown");
     public static final ModelLayerLocation DARK_ROBE = register("dark_robe");
+    public static final ModelLayerLocation GRAND_ROBE = register("grand_robe");
     public static final ModelLayerLocation NECRO_CROWN = register("necro_crown");
     public static final ModelLayerLocation NECRO_CAPE = register("necro_cape");
     public static final ModelLayerLocation NECRO_SET = register("necro_set");

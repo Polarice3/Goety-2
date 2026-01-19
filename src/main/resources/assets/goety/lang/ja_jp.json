@@ -3273,5 +3273,10 @@
   "item.goety.carrion_focus": "死肉のフォーカス",
   "item.goety.carrion_focus.info": "腐ったハエの群れを召喚します。しゃがむと、すでにいる従者がプレイヤーの元へ行きます。",
   "info.goety.unholy_hat": "完全な火炎耐性を与えます。ネザーにいる際に受けるダメージを%s%軽減します。ネザーの従者は持続します。",
-  "subtitle.goety.villager_chop": "Prisoner mining"
+  "subtitle.goety.villager_chop": "Prisoner mining",
+  "entity.goety.winter_wolf": "ウィンターウルフ",
+  "item.goety.winter_wolf_spawn_egg": "ウィンターウルフのスポーンエッグ",
+  "commands.goety.misc.despawn.success.single": "%sをデスポーンさせました。",
+  "commands.goety.misc.despawn.success.multiple": "%s体のエンティティをデスポーンさせました。",
+  "commands.goety.misc.despawn.failure.player": "プレイヤーをデスポーンさせることはできません"
 }

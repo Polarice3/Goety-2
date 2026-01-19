@@ -673,7 +673,7 @@ public class ModEvents {
                     Optional<LivingEntity> avoidIllager = Optional.empty();
                     NearestVisibleLivingEntities nearestvisiblelivingentities = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES).orElse(NearestVisibleLivingEntities.empty());
                     for (LivingEntity livingentity : nearestvisiblelivingentities.findAll((p_186157_) -> true)) {
-                        if (livingentity instanceof HuntingIllagerEntity){
+                        if (livingentity instanceof HuntingIllagerEntity || livingentity instanceof Tormentor || livingentity instanceof HostileGolem || livingentity instanceof Trampler || livingentity instanceof Vizier){
                             avoidIllager = Optional.of(livingentity);
                         } else if (livingentity instanceof RaiderServant servant) {
                             if (servant.isRaiding() || servant.isHostile()) {

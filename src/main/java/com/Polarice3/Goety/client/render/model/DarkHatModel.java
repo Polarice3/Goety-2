@@ -34,7 +34,13 @@ public class DarkHatModel extends HumanoidModel<LivingEntity> {
         MeshDefinition meshdefinition = HumanoidModel.createMesh(LayerDefinitions.OUTER_ARMOR_DEFORMATION, 0.25F);
         PartDefinition partdefinition = meshdefinition.getRoot();
 
-        partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -12.0F, -5.0F, 10.0F, 7.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 16).addBox(-5.0F, -6.0F, -5.0F, 10.0F, 2.0F, 10.0F, new CubeDeformation(0.075F))
+                .texOffs(0, 0).addBox(-5.0F, -11.5F, -5.0F, 10.0F, 6.0F, 10.0F, new CubeDeformation(0.5F))
+                .texOffs(0, 0).addBox(-2.0F, -10.3F, -6.2F, 4.0F, 5.0F, 1.0F, new CubeDeformation(0.25F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+
+        head.addOrReplaceChild("feather", CubeListBuilder.create().texOffs(0, 28).addBox(-2.5F, -7.0F, 0.0F, 5.0F, 7.0F, 8.0F, new CubeDeformation(0.0F))
+                .texOffs(26, 28).addBox(-0.5F, -7.0F, 0.0F, 0.0F, 7.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -10.0F, -6.0F, -0.1309F, 0.0F, 0.0F));
+
 
         return LayerDefinition.create(meshdefinition, 64, 64);
     }

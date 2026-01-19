@@ -72,7 +72,7 @@ public class IceologerModel<T extends LivingEntity> extends HierarchicalModel<T>
 
 		PartDefinition right_arm = upperBody.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(40, 46).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-5.25F, -10.0F, 0.8F, 0.1745F, 0.2618F, -0.0436F));
 
-		PartDefinition left_arm = upperBody.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 46).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(5.25F, -9.8F, 0.0F, -0.4363F, -0.0436F, -0.1745F));
+		PartDefinition left_arm = upperBody.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 46).mirror().addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(5.25F, -9.8F, 0.0F, -0.4363F, -0.0436F, -0.1745F));
 
 		PartDefinition cape = upperBody.addOrReplaceChild("cape", CubeListBuilder.create().texOffs(68, 0).addBox(-4.5F, -1.0F, 0.5F, 9.0F, 20.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -11.0F, 3.0F, 0.3054F, 0.1309F, -0.0873F));
 

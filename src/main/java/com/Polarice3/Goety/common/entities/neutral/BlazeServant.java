@@ -209,11 +209,6 @@ public class BlazeServant extends Summoned {
         this.entityData.set(DATA_FLAGS_ID, b0);
     }
 
-    @Override
-    public boolean canUpdateMove() {
-        return true;
-    }
-
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         if (!this.level.isClientSide){
             ItemStack itemstack = pPlayer.getItemInHand(pHand);

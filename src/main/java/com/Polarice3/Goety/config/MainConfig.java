@@ -56,6 +56,7 @@ public class MainConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> TotemUndying;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ArcaUndying;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ArcaLichUndying;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WandCoolItemUse;
     public static final ForgeConfigSpec.ConfigValue<Boolean> StarterTotem;
     public static final ForgeConfigSpec.ConfigValue<Boolean> StarterBook;
@@ -112,6 +113,8 @@ public class MainConfig {
                 .define("totemUndying", true);
         ArcaUndying = BUILDER.comment("Arca will save the Player if past Totem Maximum Soul Count, Default: true")
                 .define("arcaUndying", true);
+        ArcaLichUndying = BUILDER.comment("Arca will save the Player if past Totem Maximum Soul Count but only if they're a Lich, Default: true")
+                .define("arcaLichUndying", true);
         WandCoolItemUse = BUILDER.comment("Using an item while holding a wand or staff on main/offhand will cause the wand or staff to be put on cooldown to prevent accidental spellcasting, Default: true")
                 .define("wandCoolItemUse", true);
         StarterTotem = BUILDER.comment("Gives Players a Totem of Roots when first entering World, Default: false")
@@ -122,8 +125,8 @@ public class MainConfig {
                 .define("starterWitchBook", false);
         GoodwillNoDamage = BUILDER.comment("Entities part of a Player's Grimoire of Goodwill will not take most damage from said Player rather than just spells, Default: false")
                 .define("goodwillNoDamage", false);
-        GoodwillFullAlly = BUILDER.comment("Entities part of a Player's Grimoire of Goodwill will be considered as the Player's ally codewise, Default: true")
-                .define("goodwillFullAlly", true);
+        GoodwillFullAlly = BUILDER.comment("Entities part of a Player's Grimoire of Goodwill will be considered as the Player's ally codewise, Default: false")
+                .define("goodwillFullAlly", false);
         SoulGuiShow = BUILDER.comment("Show the Soul Energy Bar if Player has Totem of Souls/Arca, Default: true")
                 .define("soulGuiShow", true);
         FocusGuiShow = BUILDER.comment("Show currently equipped focus on Wand/Staff in Gui, Default: true")

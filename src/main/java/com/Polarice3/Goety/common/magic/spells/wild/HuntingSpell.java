@@ -3,10 +3,7 @@ package com.Polarice3.Goety.common.magic.spells.wild;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.BlackWolf;
-import com.Polarice3.Goety.common.entities.ally.Snapper;
-import com.Polarice3.Goety.common.entities.ally.Summoned;
-import com.Polarice3.Goety.common.entities.ally.TwilightGoat;
+import com.Polarice3.Goety.common.entities.ally.*;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonWolf;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.magic.SummonSpell;
@@ -18,6 +15,7 @@ import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
@@ -102,7 +100,8 @@ public class HuntingSpell extends SummonSpell {
         return typeStaff(stack, SpellType.NECROMANCY)
                 || typeStaff(stack, SpellType.WIND)
                 || typeStaff(stack, SpellType.ABYSS)
-                /*|| typeStaff(stack, SpellType.NETHER)*/;
+                || typeStaff(stack, SpellType.FROST)
+                || typeStaff(stack, SpellType.NETHER);
     }
 
     @Override
@@ -133,9 +132,11 @@ public class HuntingSpell extends SummonSpell {
                     summonedentity = new TwilightGoat(ModEntityType.TWILIGHT_GOAT.get(), worldIn);
                 } else if (worldIn.isWaterAt(blockPos) || this.typeStaff(staff, SpellType.ABYSS)) {
                     summonedentity = new Snapper(ModEntityType.SNAPPER.get(), worldIn);
-                }/* else if (worldIn.dimension() == Level.NETHER || this.typeStaff(staff, SpellType.NETHER)){
+                } else if (worldIn.getBiome(blockPos).get().coldEnoughToSnow(blockPos) || this.typeStaff(staff, SpellType.FROST)) {
+                    summonedentity = new WinterWolf(ModEntityType.WINTER_WOLF.get(), worldIn);
+                } else if (worldIn.dimensionType().ultraWarm() || worldIn.getBiome(blockPos).is(BiomeTags.IS_NETHER) || this.typeStaff(staff, SpellType.NETHER)){
                     summonedentity = new Hellhound(ModEntityType.HELLHOUND.get(), worldIn);
-                }*/
+                }
                 summonedentity.setTrueOwner(caster);
                 summonedentity.moveTo(blockPos, 0.0F, 0.0F);
                 if (summonedentity.getType() != ModEntityType.SNAPPER.get()){

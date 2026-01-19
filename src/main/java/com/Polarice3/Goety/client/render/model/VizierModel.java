@@ -46,13 +46,13 @@ public class VizierModel extends HierarchicalModel<Vizier> implements ArmedModel
         PartDefinition main = partdefinition.addOrReplaceChild("main", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         PartDefinition head = main.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 10.0F, 8.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 81).addBox(-5.0F, -3.0F, -4.0F, 10.0F, 4.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+                .texOffs(63, 73).addBox(-5.5F, -3.0F, -5.0F, 11.0F, 4.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition right_eyebrow = head.addOrReplaceChild("right_eyebrow", CubeListBuilder.create().texOffs(0, 0).mirror().addBox(-1.0F, -1.5F, -4.9F, 3.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false)
-                .texOffs(0, 2).addBox(-1.0F, -2.5F, -4.9F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(-3.0F, -3.5F, 0.0F));
+        PartDefinition right_eyebrow = head.addOrReplaceChild("right_eyebrow", CubeListBuilder.create().texOffs(0, 0).mirror().addBox(-1.5F, 0.0F, -0.5F, 3.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(0, 2).addBox(-1.5F, -1.0F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.5F, -5.0F, -4.5F));
 
-        PartDefinition left_eyebrow = head.addOrReplaceChild("left_eyebrow", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, -1.5F, -4.9F, 3.0F, 1.0F, 1.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 2).addBox(-1.0F, -2.5F, -4.9F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(3.0F, -3.5F, 0.0F));
+        PartDefinition left_eyebrow = head.addOrReplaceChild("left_eyebrow", CubeListBuilder.create().texOffs(0, 0).addBox(-1.5F, 0.0F, -0.5F, 3.0F, 1.0F, 1.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 2).addBox(-0.5F, -1.0F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(2.5F, -5.0F, -4.5F));
 
         PartDefinition right_eye = head.addOrReplaceChild("right_eye", CubeListBuilder.create().texOffs(0, 4).addBox(-0.5F, -0.5F, 0.0F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.5F, -3.5F, -4.05F));
 
@@ -60,30 +60,69 @@ public class VizierModel extends HierarchicalModel<Vizier> implements ArmedModel
 
         PartDefinition nose = head.addOrReplaceChild("nose", CubeListBuilder.create().texOffs(24, 0).addBox(-1.0F, -1.0F, -6.0F, 2.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -2.0F, 0.0F));
 
-        PartDefinition Hat = head.addOrReplaceChild("Hat", CubeListBuilder.create().texOffs(0, 64).addBox(-5.0F, -13.0F, -5.0F, 10.0F, 7.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition Hat = head.addOrReplaceChild("Hat", CubeListBuilder.create().texOffs(18, 85).addBox(-5.0F, -8.0F, -5.0F, 10.0F, 2.0F, 10.0F, new CubeDeformation(0.075F))
+                .texOffs(18, 68).addBox(-5.0F, -13.5F, -5.0F, 10.0F, 6.0F, 10.0F, new CubeDeformation(0.5F))
+                .texOffs(18, 70).addBox(-2.0F, -12.3F, -6.2F, 4.0F, 5.0F, 1.0F, new CubeDeformation(0.25F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition mustache = head.addOrReplaceChild("mustache", CubeListBuilder.create().texOffs(35, 0).addBox(-6.0F, -5.0F, -4.1F, 12.0F, 6.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition feather = Hat.addOrReplaceChild("feather", CubeListBuilder.create().texOffs(55, 3).addBox(-2.5F, -7.0F, 0.0F, 5.0F, 7.0F, 8.0F, new CubeDeformation(0.0F))
+                .texOffs(81, 3).addBox(-0.5F, -7.0F, 0.0F, 0.0F, 7.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -12.0F, -6.0F, -0.1309F, 0.0F, 0.0F));
 
-        PartDefinition body = main.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 20).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 12.0F, 6.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 38).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 20.0F, 6.0F, new CubeDeformation(0.5F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition mustache = head.addOrReplaceChild("mustache", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 1.0F));
+
+        PartDefinition right_mustache = mustache.addOrReplaceChild("right_mustache", CubeListBuilder.create().texOffs(4, 5).addBox(-5.25F, -2.0F, -1.75F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
+                .texOffs(4, 5).addBox(-4.25F, -1.0F, -1.75F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 2).addBox(-5.25F, 0.0F, -1.75F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 2).addBox(-4.25F, 1.0F, -1.75F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 2).addBox(-3.25F, 0.0F, -1.75F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 6).addBox(-1.25F, 0.0F, -1.75F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 6).addBox(-0.25F, 0.0F, -1.75F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 6).addBox(-2.25F, 1.0F, -1.75F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.0F, -2.75F, -4.0F, 0.0F, 0.0F, 0.0436F));
+
+        PartDefinition left_mustache = mustache.addOrReplaceChild("left_mustache", CubeListBuilder.create().texOffs(0, 2).addBox(1.25F, 0.0F, -1.75F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 2).addBox(2.25F, 1.0F, -1.75F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F))
+                .texOffs(1, 2).addBox(4.25F, 0.0F, -1.75F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F))
+                .texOffs(4, 5).addBox(4.25F, -2.0F, -1.75F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
+                .texOffs(4, 5).addBox(3.25F, -1.0F, -1.75F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 6).addBox(-0.75F, 0.0F, -1.75F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 6).addBox(0.25F, 0.0F, -1.75F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 6).addBox(1.25F, 1.0F, -1.75F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.0F, -2.75F, -4.0F, 0.0F, 0.0F, -0.0436F));
+
+        PartDefinition beard = mustache.addOrReplaceChild("beard", CubeListBuilder.create().texOffs(33, 5).mirror().addBox(-4.0F, -34.0F, -4.0F, 8.0F, 6.0F, 1.0F, new CubeDeformation(0.15F)).mirror(false), PartPose.offset(0.0F, 32.0F, -1.0F));
+
+        PartDefinition body = main.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 20).mirror().addBox(-4.0F, 0.0F, -3.0F, 8.0F, 12.0F, 6.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(44, 58).mirror().addBox(-4.0F, 12.0F, -3.0F, 8.0F, 2.0F, 6.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(0, 38).addBox(-4.5F, -0.25F, -3.5F, 9.0F, 23.0F, 7.0F, new CubeDeformation(0.0F))
+                .texOffs(61, 24).mirror().addBox(-4.0F, 2.75F, 3.6F, 8.0F, 13.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         PartDefinition arms = body.addOrReplaceChild("arms", CubeListBuilder.create().texOffs(44, 22).addBox(-8.0F, -2.0F, -2.0F, 4.0F, 8.0F, 4.0F, new CubeDeformation(0.0F))
-                .texOffs(44, 22).mirror().addBox(4.0F, -2.0F, -2.0F, 4.0F, 8.0F, 4.0F, new CubeDeformation(0.0F))
-                .texOffs(40, 38).addBox(-4.0F, 2.0F, -2.0F, 8.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 2.0F, 0.0F));
+                .texOffs(60, 42).addBox(-8.0F, -1.55F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.5F))
+                .texOffs(60, 42).mirror().addBox(4.0F, -1.55F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.5F)).mirror(false)
+                .texOffs(44, 22).mirror().addBox(4.0F, -2.0F, -2.0F, 4.0F, 8.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(40, 34).addBox(-4.0F, 2.0F, -2.0F, 8.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 2.0F, 0.0F));
 
-        PartDefinition rightArm = body.addOrReplaceChild("rightArm", CubeListBuilder.create().texOffs(40, 46).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 2.0F, 0.0F));
+        PartDefinition bone = arms.addOrReplaceChild("bone", CubeListBuilder.create().texOffs(76, 41).mirror().addBox(3.25F, -2.5F, -2.75F, 7.0F, 4.0F, 5.0F, new CubeDeformation(0.3F)).mirror(false)
+                .texOffs(76, 41).addBox(-10.25F, -2.5F, -2.75F, 7.0F, 4.0F, 5.0F, new CubeDeformation(0.3F)), PartPose.offsetAndRotation(0.0F, -1.0F, 0.0F, 0.7854F, 0.0F, 0.0F));
+
+        PartDefinition rightArm = body.addOrReplaceChild("rightArm", CubeListBuilder.create().texOffs(44, 42).addBox(-3.5F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F))
+                .texOffs(76, 41).addBox(-5.75F, -2.5F, -2.5F, 7.0F, 4.0F, 5.0F, new CubeDeformation(0.3F))
+                .texOffs(10, 22).addBox(-3.5F, 10.05F, -2.0F, 4.0F, 0.0F, 4.0F, new CubeDeformation(0.0F))
+                .texOffs(60, 42).addBox(-3.5F, -1.55F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.5F)), PartPose.offset(-5.0F, 2.0F, 0.0F));
 
         PartDefinition rightItem = rightArm.addOrReplaceChild("rightItem", CubeListBuilder.create(), PartPose.offset(-0.5F, 6.0F, 0.5F));
 
-        PartDefinition leftArm = body.addOrReplaceChild("leftArm", CubeListBuilder.create().texOffs(40, 46).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(5.0F, 2.0F, 0.0F));
+        PartDefinition leftArm = body.addOrReplaceChild("leftArm", CubeListBuilder.create().texOffs(44, 42).mirror().addBox(-0.5F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(76, 41).mirror().addBox(-1.25F, -2.5F, -2.5F, 7.0F, 4.0F, 5.0F, new CubeDeformation(0.3F)).mirror(false)
+                .texOffs(60, 42).mirror().addBox(-0.5F, -1.55F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.5F)).mirror(false), PartPose.offset(5.0F, 2.0F, 0.0F));
 
-        PartDefinition leg0 = main.addOrReplaceChild("leg0", CubeListBuilder.create().texOffs(0, 22).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, 12.0F, 0.0F));
+        PartDefinition leg0 = main.addOrReplaceChild("leg0", CubeListBuilder.create().texOffs(0, 70).addBox(-2.1F, -0.25F, -2.5F, 4.0F, 12.0F, 5.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 22).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, 12.0F, 0.0F));
 
-        PartDefinition leg1 = main.addOrReplaceChild("leg1", CubeListBuilder.create().texOffs(0, 22).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(2.0F, 12.0F, 0.0F));
+        PartDefinition leg1 = main.addOrReplaceChild("leg1", CubeListBuilder.create().texOffs(0, 70).mirror().addBox(-1.9F, -0.25F, -2.5F, 4.0F, 12.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(0, 22).mirror().addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(2.0F, 12.0F, 0.0F));
 
-        PartDefinition cape = partdefinition.addOrReplaceChild("cape", CubeListBuilder.create().texOffs(44, 62).addBox(-4.0F, 0.0F, -0.5F, 8.0F, 20.0F, 1.0F, new CubeDeformation(0.5F)), PartPose.offset(0.0F, 0.0F, 3.5F));
+        PartDefinition cape = partdefinition.addOrReplaceChild("cape", CubeListBuilder.create().texOffs(3, 99).addBox(-5.5F, 0.0F, -2.5F, 11.0F, 24.0F, 3.0F, new CubeDeformation(-0.05F)), PartPose.offset(0.0F, 0.0F, 5.0F));
 
-        return LayerDefinition.create(meshdefinition, 64, 128);
+        return LayerDefinition.create(meshdefinition, 128, 128);
     }
 
     @Override

@@ -3,8 +3,6 @@ package com.Polarice3.Goety.common.items.handler;
 import com.Polarice3.Goety.api.items.magic.IFocus;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
@@ -14,27 +12,25 @@ import javax.annotation.Nonnull;
 
 public class SoulUsingItemHandler extends ItemStackHandler {
     private final ItemStack itemStack;
-    private int slot;
 
     public SoulUsingItemHandler(ItemStack itemStack) {
         this.itemStack = itemStack;
     }
 
     public ItemStack extractItem() {
-        return extractItem(slot, 1, false);
+        return extractItem(0, 1, false);
     }
 
     public ItemStack insertItem(ItemStack insert) {
-        return insertItem(slot, insert, false);
+        return insertItem(0, insert, false);
     }
 
     public ItemStack getSlot() {
-        return getStackInSlot(slot);
+        return getStackInSlot(0);
     }
 
     @Override
-    public boolean isItemValid(int slot, @Nonnull ItemStack stack)
-    {
+    public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
         return stack.getItem() instanceof IFocus;
     }
 
@@ -45,29 +41,6 @@ public class SoulUsingItemHandler extends ItemStackHandler {
 
     public NonNullList<ItemStack> getContents(){
         return stacks;
-    }
-
-    @Override
-    public CompoundTag serializeNBT() {
-        CompoundTag nbt = super.serializeNBT();
-        nbt.putInt("slot", slot);
-        return nbt;
-    }
-
-    @Override
-    public void deserializeNBT(CompoundTag nbt) {
-        super.deserializeNBT(nbt);
-        ListTag tagList = nbt.getList("Items", Tag.TAG_COMPOUND);
-        for (int i = 0; i < tagList.size(); i++)
-        {
-            CompoundTag itemTags = tagList.getCompound(i);
-            if (nbt.contains("slot")) {
-                slot = nbt.getInt("slot");
-                stacks.set(slot, ItemStack.of(itemTags));
-            }
-        }
-        onLoad();
-
     }
 
     @Override

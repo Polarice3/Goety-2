@@ -243,6 +243,8 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         this.checkHostility();
         if (pReason != MobSpawnType.MOB_SUMMONED && this.getTrueOwner() == null){
             this.setNatural(true);
+        } else if (this.isNatural()) {
+            this.setNatural(false);
         }
         if (this.getTrueOwner() instanceof Player) {
             this.setPersistenceRequired();

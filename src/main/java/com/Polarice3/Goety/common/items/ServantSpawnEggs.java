@@ -162,8 +162,11 @@ public class ServantSpawnEggs {
     public static final RegistryObject<ServantSpawnEggItem> SKELETON_WOLF_SPAWN_EGG = ITEMS.register("skeleton_wolf_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.SKELETON_WOLF, 0xe3e3e3, 0x494949, egg()));
 
-    /*public static final RegistryObject<ServantSpawnEggItem> HELLHOUND_SPAWN_EGG = ITEMS.register("hellhound_spawn_egg",
-            () -> new ServantSpawnEggItem(ModEntityType.HELLHOUND, 0x8d2600, 0x140000, egg()));*/
+    public static final RegistryObject<ServantSpawnEggItem> WINTER_WOLF_SPAWN_EGG = ITEMS.register("winter_wolf_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.WINTER_WOLF, 0xa8aeb2, 0xe7e7e7, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> HELLHOUND_SPAWN_EGG = ITEMS.register("hellhound_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.HELLHOUND, 0x8d2600, 0x140000, egg()));
 
     public static final RegistryObject<ServantSpawnEggItem> TWILIGHT_GOAT_SPAWN_EGG = ITEMS.register("twilight_goat_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.TWILIGHT_GOAT, 0x1d1d26, 0xdbd5c2, egg()));

@@ -416,11 +416,6 @@ public abstract class RaiderServant extends Summoned {
     }
 
     @Override
-    public boolean canUpdateMove() {
-        return true;
-    }
-
-    @Override
     public void updateMoveMode(Player player) {
         if (this.getLeader() != null){
             player.displayClientMessage(Component.translatable("info.goety.servant.removeLeader", this.getDisplayName(), this.getLeader().getDisplayName()), true);

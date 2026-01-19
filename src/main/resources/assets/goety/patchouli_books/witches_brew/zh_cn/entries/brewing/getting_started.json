@@ -1,5 +1,5 @@
 {
-  "name": "Getting Started",
+  "name": "入门指南",
   "icon": "minecraft:glass_bottle",
   "category": "goety:brewing",
   "sortnum": 0,
@@ -15,7 +15,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "坩埚也需要精神世界的力量来辅助酿造，所以它必须有一些灵魂蜡烛，可以吸收周围死者的能量。."
+      "text": "坩埚也需要精神世界的力量来辅助酿造，所以它必须有一些灵魂蜡烛，可以吸收周围死者的能量。"
     },
     {
       "type": "patchouli:crafting",
