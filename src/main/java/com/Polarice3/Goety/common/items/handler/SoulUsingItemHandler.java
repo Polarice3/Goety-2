@@ -39,7 +39,7 @@ public class SoulUsingItemHandler extends ItemStackHandler {
         return 1;
     }
 
-    public NonNullList<ItemStack> getContents(){
+    public NonNullList<ItemStack> getContents() {
         return stacks;
     }
 
