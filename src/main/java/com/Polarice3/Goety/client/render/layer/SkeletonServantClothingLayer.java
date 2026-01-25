@@ -19,6 +19,8 @@ public class SkeletonServantClothingLayer<T extends AbstractSkeletonServant, M e
     private static final ResourceLocation STRAY = Goety.location("textures/entity/servants/skeleton/stray_servant_overlay.png");
     private static final ResourceLocation MOSSY = Goety.location("textures/entity/servants/skeleton/mossy_skeleton_servant_overlay.png");
     private static final ResourceLocation WITHER = Goety.location("textures/entity/servants/skeleton/wither_skeleton_servant_overlay.png");
+    private static final ResourceLocation RATTLED_ORIGINAL = Goety.location("textures/entity/servants/skeleton/rattled_overlay.png");
+    private static final ResourceLocation RATTLED = Goety.location("textures/entity/servants/skeleton/rattled_servant_overlay.png");
     private final SkeletonModel<T> layerModel;
 
     public SkeletonServantClothingLayer(RenderLayerParent<T, M> p_i50919_1_, EntityModelSet p_174555_) {
@@ -41,6 +43,12 @@ public class SkeletonServantClothingLayer<T extends AbstractSkeletonServant, M e
             resourceLocation = WITHER;
         } else if (skeleton instanceof SkeletonServant && !skeleton.isHostile() && MobsConfig.SkeletonServantTexture.get()){
             resourceLocation = TEXTURES;
+        } else if (skeleton instanceof RattledServant){
+            if (skeleton.isHostile() || !MobsConfig.RattledServantTexture.get()){
+                resourceLocation = RATTLED_ORIGINAL;
+            } else {
+                resourceLocation = RATTLED;
+            }
         }
         if (resourceLocation != null) {
             coloredCutoutModelCopyLayerRender(this.getParentModel(), this.layerModel, resourceLocation, matrixStackIn, bufferIn, packedLightIn, skeleton, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0F, 1.0F, 1.0F);

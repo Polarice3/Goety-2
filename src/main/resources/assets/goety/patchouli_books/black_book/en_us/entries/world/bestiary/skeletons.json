@@ -1,0 +1,19 @@
+{
+  "name": "Skeleton Variants",
+  "icon": "minecraft:bone",
+  "category": "goety:world/bestiary",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "It seems there are more ways for piles of bones to manifest their ire."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:rattled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These shambling undead shoot arrows that causes the victim to go into Spasms. They seem to appear only in thunderstorms, exposed to the skies, or when a, non-Wither, Skeleton is struck by a lightning bolt. They take half the amount of damage from shock or lightning attacks."
+    }
+  ]
+}

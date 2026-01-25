@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "legendary_monsters:hovering_hurricane",
+      "required": false
+    },
+    {
+      "id": "legendary_monsters:stratling",
+      "required": false
+    }
+  ]
+}

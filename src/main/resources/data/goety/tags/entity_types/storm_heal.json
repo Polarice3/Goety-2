@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "__comment": "servants that heals and lose limited lifespan through Storm set.",
+  "values": [
+    "goety:frayed_servant",
+    "goety:rattled_servant"
+  ]
+}

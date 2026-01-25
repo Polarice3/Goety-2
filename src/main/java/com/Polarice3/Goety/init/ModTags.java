@@ -163,7 +163,10 @@ public class ModTags {
         public static final TagKey<EntityType<?>> APOSTLE_OTHER_ALLIES = tag("apostle_other_allies");
         public static final TagKey<EntityType<?>> WITCH_SET_NEUTRAL = tag("witch_set_neutral");
         public static final TagKey<EntityType<?>> ABYSS_SET_NEUTRAL = tag("abyss_set_neutral");
+        public static final TagKey<EntityType<?>> GEO_SET_NEUTRAL = tag("geo_set_neutral");
         public static final TagKey<EntityType<?>> FROST_SET_NEUTRAL = tag("frost_set_neutral");
+        public static final TagKey<EntityType<?>> WIND_SET_NEUTRAL = tag("wind_set_neutral");
+        public static final TagKey<EntityType<?>> STORM_SET_NEUTRAL = tag("storm_set_neutral");
         public static final TagKey<EntityType<?>> WILD_SET_NEUTRAL = tag("wild_set_neutral");
         public static final TagKey<EntityType<?>> NETHER_SET_NEUTRAL = tag("nether_set_neutral");
         public static final TagKey<EntityType<?>> VOID_SET_NEUTRAL = tag("void_set_neutral");
@@ -200,6 +203,10 @@ public class ModTags {
         public static final TagKey<Biome> WEB_SPIDER_EXCLUDE_SPAWN = tag("mob_spawn/web_spider_exclude");
         public static final TagKey<Biome> ICY_SPIDER_SPAWN = tag("mob_spawn/icy_spider");
         public static final TagKey<Biome> ICY_SPIDER_EXCLUDE_SPAWN = tag("mob_spawn/icy_spider_exclude");
+        public static final TagKey<Biome> FRAYED_SPAWN = tag("mob_spawn/frayed");
+        public static final TagKey<Biome> FRAYED_EXCLUDE_SPAWN = tag("mob_spawn/frayed_exclude");
+        public static final TagKey<Biome> RATTLED_SPAWN = tag("mob_spawn/rattled");
+        public static final TagKey<Biome> RATTLED_EXCLUDE_SPAWN = tag("mob_spawn/rattled_exclude");
         public static final TagKey<Biome> NECROMANCER_SPAWN = tag("mob_spawn/necromancer");
         public static final TagKey<Biome> NECROMANCER_EXCLUDE_SPAWN = tag("mob_spawn/necromancer_exclude");
         public static final TagKey<Biome> WARLOCK_SPAWN = tag("mob_spawn/warlock");

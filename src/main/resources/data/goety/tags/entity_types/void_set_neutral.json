@@ -1,5 +1,10 @@
 {
   "replace": false,
   "values": [
+    "minecraft:shulker",
+    {
+      "id": "legendary_monsters:chorusling",
+      "required": false
+    }
   ]
 }

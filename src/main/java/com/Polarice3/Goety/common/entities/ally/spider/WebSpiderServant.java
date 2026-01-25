@@ -261,7 +261,11 @@ public class WebSpiderServant extends SpiderServant implements RangedAttackMob {
                     this.mob.stopMoving = false;
                 }
 
-                MobUtil.instaLook(this.mob, this.target);
+                if (this.mob.stopMoving) {
+                    MobUtil.instaLook(this.mob, this.target);
+                } else {
+                    this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
+                }
                 --this.attackTime;
                 if (this.attackTime == this.attackInterval - MathHelper.secondsToTicks(0.75F)) {
                     if (!flag) {

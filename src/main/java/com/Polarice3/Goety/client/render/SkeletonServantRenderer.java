@@ -4,6 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.layer.SkeletonServantClothingLayer;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.MossySkeletonServant;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.RattledServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.StrayServant;
 import com.Polarice3.Goety.config.MobsConfig;
 import net.minecraft.client.model.SkeletonModel;
@@ -21,6 +22,8 @@ public class SkeletonServantRenderer extends HumanoidMobRenderer<AbstractSkeleto
    private static final ResourceLocation STRAY_ORIGINAL = new ResourceLocation("textures/entity/skeleton/stray.png");
    private static final ResourceLocation MOSSY = Goety.location("textures/entity/servants/skeleton/mossy_skeleton_servant.png");
    private static final ResourceLocation MOSSY_ORIGINAL = Goety.location("textures/entity/servants/skeleton/mossy_skeleton.png");
+   private static final ResourceLocation RATTLED = Goety.location("textures/entity/servants/skeleton/rattled_servant.png");
+   private static final ResourceLocation RATTLED_ORIGINAL = Goety.location("textures/entity/servants/skeleton/rattled.png");
 
    public SkeletonServantRenderer(EntityRendererProvider.Context p_174380_) {
       this(p_174380_, ModelLayers.SKELETON, ModelLayers.SKELETON_INNER_ARMOR, ModelLayers.SKELETON_OUTER_ARMOR);
@@ -33,7 +36,12 @@ public class SkeletonServantRenderer extends HumanoidMobRenderer<AbstractSkeleto
    }
 
    public ResourceLocation getTextureLocation(AbstractSkeletonServant servant) {
-      if (servant instanceof MossySkeletonServant){
+      if (servant instanceof RattledServant){
+         if (servant.isHostile() || !MobsConfig.RattledServantTexture.get()){
+            return RATTLED_ORIGINAL;
+         }
+         return RATTLED;
+      } else if (servant instanceof MossySkeletonServant){
          if (servant.isHostile() || !MobsConfig.MossySkeletonServantTexture.get()){
             return MOSSY_ORIGINAL;
          }
@@ -51,6 +59,9 @@ public class SkeletonServantRenderer extends HumanoidMobRenderer<AbstractSkeleto
    }
 
    protected boolean isShaking(AbstractSkeletonServant p_174389_) {
+      if (p_174389_ instanceof RattledServant) {
+         return p_174389_.isShaking() || p_174389_.tickCount % 100 > 80;
+      }
       return p_174389_.isShaking();
    }
 }

@@ -1,0 +1,19 @@
+{
+  "name": "Zombie Variants",
+  "icon": "minecraft:rotten_flesh",
+  "category": "goety:world/bestiary",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "More types of zombies have been sighted lately, with some appearing on certain areas or conditions."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:frayed"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These burnt corpses appeared to be remains of those struck by lightning, whose attacks leave their victims in fits of Spasms. They seem to appear only in thunderstorms, exposed to the skies, or when a Zombie is hit by a lightning bolt. They also take half the damage amount from shock or lightning attacks."
+    }
+  ]
+}

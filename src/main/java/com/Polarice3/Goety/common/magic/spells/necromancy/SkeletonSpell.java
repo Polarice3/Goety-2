@@ -4,6 +4,7 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.*;
+import com.Polarice3.Goety.common.entities.neutral.DrownedNecromancer;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.magic.SummonSpell;
@@ -76,10 +77,23 @@ public class SkeletonSpell extends SummonSpell {
 
     public boolean specialStaffs(ItemStack stack){
         return typeStaff(stack, SpellType.FROST)
+                || typeStaff(stack, SpellType.STORM)
                 || typeStaff(stack, SpellType.WILD)
                 || typeStaff(stack, SpellType.NETHER)
                 || typeStaff(stack, SpellType.ABYSS)
                 || stack.is(ModItems.OMINOUS_STAFF.get());
+    }
+
+    @Override
+    public void commonResult(ServerLevel worldIn, LivingEntity caster) {
+        if (isShifting(caster)) {
+            for (Entity entity : worldIn.getAllEntities()) {
+                if (entity instanceof LivingEntity livingEntity && livingEntity instanceof AbstractSkeletonServant && !(livingEntity instanceof DrownedNecromancer)) {
+                    this.teleportServants(caster, entity);
+                }
+            }
+            this.commonResultHit(worldIn, caster);
+        }
     }
 
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
@@ -109,6 +123,8 @@ public class SkeletonSpell extends SummonSpell {
                 if (specialStaffs(staff)) {
                     if (typeStaff(staff, SpellType.FROST)) {
                         summonedentity = new StrayServant(ModEntityType.STRAY_SERVANT.get(), worldIn);
+                    } else if (typeStaff(staff, SpellType.STORM)) {
+                        summonedentity = new RattledServant(ModEntityType.RATTLED_SERVANT.get(), worldIn);
                     } else if (typeStaff(staff, SpellType.WILD)) {
                         summonedentity = new MossySkeletonServant(ModEntityType.MOSSY_SKELETON_SERVANT.get(), worldIn);
                     } else if (typeStaff(staff, SpellType.NETHER)) {

@@ -86,6 +86,12 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> IcySpiderSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> IcySpiderSpawnMinCount;
     public static final ForgeConfigSpec.ConfigValue<Integer> IcySpiderSpawnMaxCount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FrayedSpawnWeight;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FrayedSpawnMinCount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FrayedSpawnMaxCount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> RattledSpawnWeight;
+    public static final ForgeConfigSpec.ConfigValue<Integer> RattledSpawnMinCount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> RattledSpawnMaxCount;
     public static final ForgeConfigSpec.ConfigValue<Integer> NecromancerSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> NecromancerSpawnMinCount;
     public static final ForgeConfigSpec.ConfigValue<Integer> NecromancerSpawnMaxCount;
@@ -106,12 +112,14 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> HuskServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FrozenZombieServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> JungleZombieServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> FrayedServantTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> SkeletonServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> StrayServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WitherSkeletonServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MossySkeletonServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SunkenSkeletonServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> RattledServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VanguardServantTexture;
 
@@ -282,6 +290,9 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> TallSkullDrops;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WraithAggressiveTeleport;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ZombieConvertFrayed;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SkeletonConvertRattled;
+
     public static final ForgeConfigSpec.ConfigValue<Boolean> StayingServantChunkLoad;
     public static final ForgeConfigSpec.ConfigValue<Boolean> GuardingServantChunkLoad;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FollowingServantChunkLoad;
@@ -338,6 +349,8 @@ public class MobsConfig {
                         .define("frozenZombieServantTexture", true);
                 JungleZombieServantTexture = BUILDER.comment("If Jungle Zombie Servants have custom textures, Default: true")
                         .define("jungleZombieServantTexture", true);
+                FrayedServantTexture = BUILDER.comment("If Frayed Servants have custom textures, Default: true")
+                        .define("frayedServantTexture", true);
                 BUILDER.pop();
                 BUILDER.push("Skeleton Servants");
                 SkeletonServantTexture = BUILDER.comment("If Skeleton Servants have custom textures, Default: true")
@@ -350,6 +363,8 @@ public class MobsConfig {
                         .define("mossySkeletonServantTexture", true);
                 SunkenSkeletonServantTexture = BUILDER.comment("If Sunken Skeleton Servants have custom textures, Default: true")
                         .define("sunkenSkeletonServantTexture", true);
+                RattledServantTexture = BUILDER.comment("If Rattled Servants have custom textures, Default: true")
+                        .define("rattledServantTexture", true);
                 NecromancerServantTexture = BUILDER.comment("If Necromancer Servants have custom textures, Default: true")
                         .define("necromancerServantTexture", true);
                 VanguardServantTexture = BUILDER.comment("If Vanguard Servants have custom textures, Default: true")
@@ -907,6 +922,22 @@ public class MobsConfig {
             IcySpiderSpawnMaxCount = BUILDER.comment("Spawn maximum group count for Icy Spiders, must be equal or higher than min count, Default: 4")
                     .defineInRange("icySpiderSpawnMaxCount", 4, 1, Integer.MAX_VALUE);
             BUILDER.pop();
+            BUILDER.push("Frayed");
+            FrayedSpawnWeight = BUILDER.comment("Spawn Weight for Frayeds, Default: 80")
+                    .defineInRange("frayedSpawnWeight", 80, 0, Integer.MAX_VALUE);
+            FrayedSpawnMinCount = BUILDER.comment("Spawn minimum group count for Frayeds, Default: 4")
+                    .defineInRange("frayedSpawnMinCount", 4, 1, Integer.MAX_VALUE);
+            FrayedSpawnMaxCount = BUILDER.comment("Spawn maximum group count for Frayeds, must be equal or higher than min count, Default: 4")
+                    .defineInRange("frayedSpawnMaxCount", 4, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Rattled");
+            RattledSpawnWeight = BUILDER.comment("Spawn Weight for Rattleds, Default: 80")
+                    .defineInRange("rattledSpawnWeight", 80, 0, Integer.MAX_VALUE);
+            RattledSpawnMinCount = BUILDER.comment("Spawn minimum group count for Rattleds, Default: 4")
+                    .defineInRange("rattledSpawnMinCount", 4, 1, Integer.MAX_VALUE);
+            RattledSpawnMaxCount = BUILDER.comment("Spawn maximum group count for Rattleds, must be equal or higher than min count, Default: 4")
+                    .defineInRange("rattledSpawnMaxCount", 4, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
             BUILDER.push("Necromancer");
             NecromancerSpawnWeight = BUILDER.comment("Spawn Weight for Necromancer, Default: 1")
                     .defineInRange("necromancerSpawnWeight", 1, 0, Integer.MAX_VALUE);
@@ -997,6 +1028,10 @@ public class MobsConfig {
                 .define("tallSkullDrop", true);
         WraithAggressiveTeleport = BUILDER.comment("Whether Wraiths should teleport towards their targets if they can't see them instead of just teleporting away when they're near them, Default: true")
                 .define("wraithAggressiveTeleport", true);
+        ZombieConvertFrayed = BUILDER.comment("Whether Zombies convert into Frayed when struck by lightning, Default: true")
+                .define("zombieConvertFrayed", true);
+        SkeletonConvertRattled = BUILDER.comment("Whether Skeletons convert into Rattled when struck by lightning, Default: true")
+                .define("skeletonConvertRattled", true);
         HellfireFireImmune = BUILDER.comment("Whether Hellfire damage is halved on entities that are fire-immune, Default: true")
                 .define("hellfireFireImmune", true);
         HellfireFireProtection = BUILDER.comment("Whether Hellfire damage is mitigated by Fire Protection enchantment, Default: true")

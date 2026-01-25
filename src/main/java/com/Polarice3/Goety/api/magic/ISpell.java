@@ -1,11 +1,11 @@
 package com.Polarice3.Goety.api.magic;
 
 import com.Polarice3.Goety.common.effects.GoetyEffects;
-import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.curios.MagicRobeItem;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.compat.serene_seasons.SSeasonsIntegration;
 import com.Polarice3.Goety.compat.serene_seasons.SSeasonsLoaded;
+import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModAttributes;
 import com.Polarice3.Goety.init.ModTags;
@@ -56,11 +56,11 @@ public interface ISpell {
         Holder<Biome> biomeHolder = level.getBiome(blockPos);
         boolean enable = SpellConfig.EnvironmentalCost.get();
         if (SoulDiscount(caster)){
-            cost /= 1.15F;
+            cost *= 1.0F - (ItemConfig.DarkRobeDiscount.get() / 100.0F);
         }
         if (this.getSpellType() == SpellType.FROST){
             if (FrostSoulDiscount(caster)){
-                cost /= 2;
+                cost *= 1.0F - (ItemConfig.FrostRobeDiscount.get() / 100.0F);
             }
             if (enable) {
                 if (biomeHolder.get().coldEnoughToSnow(blockPos) || biomeHolder.is(ModTags.Biomes.FROST_DISCOUNT) || (level.isRainingAt(blockPos) && biomeHolder.get().coldEnoughToSnow(blockPos))) {
@@ -76,7 +76,7 @@ public interface ISpell {
         }
         if (this.getSpellType() == SpellType.WIND){
             if (WindSoulDiscount(caster)){
-                cost /= 2;
+                cost *= 1.0F - (ItemConfig.WindRobeDiscount.get() / 100.0F);
             }
             if (enable) {
                 if ((blockPos.getY() >= 128 && level.canSeeSky(blockPos)) || (biomeHolder.is(ModTags.Biomes.WIND_DISCOUNT))) {
@@ -88,7 +88,7 @@ public interface ISpell {
         }
         if (this.getSpellType() == SpellType.STORM){
             if (StormSoulDiscount(caster)){
-                cost /= 2;
+                cost *= 1.0F - (ItemConfig.StormRobeDiscount.get() / 100.0F);
             }
             if (enable) {
                 if ((level.canSeeSky(blockPos) && level.isThundering()) || biomeHolder.is(ModTags.Biomes.STORM_DISCOUNT)) {
@@ -100,7 +100,7 @@ public interface ISpell {
         }
         if (this.getSpellType() == SpellType.GEOMANCY){
             if (GeoSoulDiscount(caster)){
-                cost /= 2;
+                cost *= 1.0F - (ItemConfig.GeoRobeDiscount.get() / 100.0F);
             }
             if (enable) {
                 if ((blockPos.getY() <= 32 || biomeHolder.is(ModTags.Biomes.GEOMANCY_DISCOUNT))) {
@@ -112,7 +112,7 @@ public interface ISpell {
         }
         if (this.getSpellType() == SpellType.NETHER){
             if (NetherSoulDiscount(caster)){
-                cost /= 2;
+                cost *= 1.0F - (ItemConfig.NetherRobeDiscount.get() / 100.0F);
             }
             if (enable) {
                 if (level.dimension() == Level.NETHER || biomeHolder.is(ModTags.Biomes.NETHER_DISCOUNT)) {
@@ -137,7 +137,7 @@ public interface ISpell {
         }
         if (this.getSpellType() == SpellType.WILD){
             if (WildSoulDiscount(caster)){
-                cost /= 2;
+                cost *= 1.0F - (ItemConfig.WildRobeDiscount.get() / 100.0F);
             }
             if (enable) {
                 if (biomeHolder.is(ModTags.Biomes.WILD_DISCOUNT)) {
@@ -153,7 +153,7 @@ public interface ISpell {
         }
         if (this.getSpellType() == SpellType.ABYSS){
             if (AbyssSoulDiscount(caster)){
-                cost /= 2;
+                cost *= 1.0F - (ItemConfig.AbyssRobeDiscount.get() / 100.0F);
             }
             if (enable) {
                 if (biomeHolder.is(ModTags.Biomes.ABYSS_DISCOUNT)) {
@@ -165,7 +165,7 @@ public interface ISpell {
         }
         if (this.getSpellType() == SpellType.VOID){
             if (VoidSoulDiscount(caster)){
-                cost /= 2;
+                cost *= 1.0F - (ItemConfig.VoidRobeDiscount.get() / 100.0F);
             }
             if (enable) {
                 if (biomeHolder.is(ModTags.Biomes.VOID_DISCOUNT)
@@ -316,6 +316,12 @@ public interface ISpell {
             return true;
         } else if (this.getSpellType() == SpellType.FROST){
             return CuriosFinder.hasFrostCrown(caster);
+        } else if (this.getSpellType() == SpellType.GEOMANCY){
+            return CuriosFinder.hasAmethystNecklace(caster);
+        } else if (this.getSpellType() == SpellType.WIND){
+            return CuriosFinder.hasWindCrown(caster);
+        } else if (this.getSpellType() == SpellType.STORM){
+            return CuriosFinder.hasStormCrown(caster);
         } else if (this.getSpellType() == SpellType.WILD){
             return CuriosFinder.hasWildCrown(caster);
         } else if (this.getSpellType() == SpellType.ABYSS){
@@ -352,15 +358,15 @@ public interface ISpell {
     }
 
     default boolean WindSoulDiscount(LivingEntity caster){
-        return CuriosFinder.hasCurio(caster, ModItems.WIND_ROBE.get());
+        return CuriosFinder.hasWindRobes(caster);
     }
 
     default boolean GeoSoulDiscount(LivingEntity caster){
-        return CuriosFinder.hasCurio(caster, ModItems.AMETHYST_NECKLACE.get());
+        return CuriosFinder.hasGeoRobe(caster);
     }
 
     default boolean StormSoulDiscount(LivingEntity caster){
-        return CuriosFinder.hasCurio(caster, ModItems.STORM_ROBE.get());
+        return CuriosFinder.hasStormRobes(caster);
     }
 
     default boolean WildSoulDiscount(LivingEntity caster){

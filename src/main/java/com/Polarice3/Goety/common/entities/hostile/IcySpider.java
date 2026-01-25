@@ -2,8 +2,11 @@ package com.Polarice3.Goety.common.entities.hostile;
 
 import com.Polarice3.Goety.common.entities.ally.spider.SpiderServant;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -28,6 +31,18 @@ public class IcySpider extends Spider {
     public void setConfigurableAttributes() {
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.IcySpiderServantHealth.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.IcySpiderServantDamage.get());
+    }
+
+    protected SoundEvent getAmbientSound() {
+        return ModSounds.ICY_SPIDER_AMBIENT.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource p_33814_) {
+        return ModSounds.ICY_SPIDER_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return ModSounds.ICY_SPIDER_DEATH.get();
     }
 
     public boolean doHurtTarget(Entity target) {

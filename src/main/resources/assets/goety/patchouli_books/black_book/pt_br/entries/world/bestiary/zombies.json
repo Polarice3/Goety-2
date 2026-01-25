@@ -1,0 +1,19 @@
+{
+  "name": "Variantes de Zumbi",
+  "icon": "minecraft:rotten_flesh",
+  "category": "goety:world/bestiary",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Mais tipos de zumbis foram avistados recentemente, alguns aparecendo em certas áreas ou condições."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:frayed"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Estes cadáveres queimados parecem ser restos daqueles atingidos por raios, cujos ataques deixam suas vítimas em ataques de Espasmos. Eles parecem aparecer apenas em tempestades, expostos ao céu, ou quando um Zumbi é atingido por um raio. Eles também sofrem metade do dano de ataques de choque ou raio."
+    }
+  ]
+}

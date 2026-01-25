@@ -2198,6 +2198,59 @@
     ],
     "subtitle": "subtitle.goety.jungle_zombie_death"
   },
+  "frayed_ambient": {
+    "sounds": [
+      {
+        "name": "goety:frayed/idle1"
+      },
+      {
+        "name": "goety:frayed/idle2"
+      },
+      {
+        "name": "goety:frayed/idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.frayed_ambient"
+  },
+  "frayed_hurt": {
+    "sounds": [
+      {
+        "name": "goety:frayed/hurt1"
+      },
+      {
+        "name": "goety:frayed/hurt2"
+      }
+    ],
+    "subtitle": "subtitle.goety.frayed_hurt"
+  },
+  "frayed_step": {
+    "sounds": [
+      {
+        "name": "goety:frayed/step1"
+      },
+      {
+        "name": "goety:frayed/step2"
+      },
+      {
+        "name": "goety:frayed/step3"
+      },
+      {
+        "name": "goety:frayed/step4"
+      },
+      {
+        "name": "goety:frayed/step5"
+      }
+    ],
+    "subtitle": "subtitle.goety.frayed_step"
+  },
+  "frayed_death": {
+    "sounds": [
+      {
+        "name": "goety:frayed/death"
+      }
+    ],
+    "subtitle": "subtitle.goety.frayed_death"
+  },
   "blackguard_pre_attack": {
     "sounds": [
       {
@@ -2412,6 +2465,62 @@
       }
     ],
     "subtitle": "subtitle.goety.sunken_skeleton_death"
+  },
+  "rattled_ambient": {
+    "sounds": [
+      {
+        "name": "goety:rattled/idle1"
+      },
+      {
+        "name": "goety:rattled/idle2"
+      },
+      {
+        "name": "goety:rattled/idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.rattled_ambient"
+  },
+  "rattled_hurt": {
+    "sounds": [
+      {
+        "name": "goety:rattled/hurt1"
+      },
+      {
+        "name": "goety:rattled/hurt2"
+      },
+      {
+        "name": "goety:rattled/hurt3"
+      },
+      {
+        "name": "goety:rattled/hurt4"
+      }
+    ],
+    "subtitle": "subtitle.goety.rattled_hurt"
+  },
+  "rattled_step": {
+    "sounds": [
+      {
+        "name": "goety:rattled/step1"
+      },
+      {
+        "name": "goety:rattled/step2"
+      },
+      {
+        "name": "goety:rattled/step3"
+      },
+      {
+        "name": "goety:rattled/step4"
+      }
+    ],
+    "subtitle": "subtitle.goety.rattled_step"
+  },
+  "rattled_death": {
+    "sounds": [
+      {
+        "name": "goety:rattled/death"
+      }
+    ],
+    "subtitle": "subtitle.goety.rattled_death"
   },
   "necromancer_ambient": {
     "sounds": [
@@ -3035,6 +3144,60 @@
       }
     ],
     "subtitle": "subtitle.goety.ravaged_death"
+  },
+  "icy_spider_ambient": {
+    "sounds": [
+      {
+        "name": "goety:icy_spider/idle1"
+      },
+      {
+        "name": "goety:icy_spider/idle2"
+      },
+      {
+        "name": "goety:icy_spider/idle3"
+      },
+      {
+        "name": "goety:icy_spider/idle4"
+      },
+      {
+        "name": "goety:icy_spider/idle5"
+      },
+      {
+        "name": "goety:icy_spider/idle6"
+      }
+    ],
+    "subtitle": "subtitle.goety.icy_spider_ambient"
+  },
+  "icy_spider_hurt": {
+    "sounds": [
+      {
+        "name": "goety:icy_spider/hurt1"
+      },
+      {
+        "name": "goety:icy_spider/hurt2"
+      },
+      {
+        "name": "goety:icy_spider/hurt3"
+      },
+      {
+        "name": "goety:icy_spider/hurt4"
+      },
+      {
+        "name": "goety:icy_spider/hurt5"
+      },
+      {
+        "name": "goety:icy_spider/hurt6"
+      }
+    ],
+    "subtitle": "subtitle.goety.icy_spider_hurt"
+  },
+  "icy_spider_death": {
+    "sounds": [
+      {
+        "name": "goety:icy_spider/death"
+      }
+    ],
+    "subtitle": "subtitle.goety.icy_spider_death"
   },
   "bone_spider_ambient": {
     "sounds": [

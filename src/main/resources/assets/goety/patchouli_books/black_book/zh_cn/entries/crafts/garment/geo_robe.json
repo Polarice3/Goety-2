@@ -1,0 +1,23 @@
+{
+  "name": "占卜长袍",
+  "icon": "goety:geo_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "以毛皮与些许魔法织物制成，这件朴素的长袍可将占卜法术的灵魂消耗减半。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:geo_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "紫水晶是连通占卜魔法的绝佳导体。制作并佩戴此项链，可使占卜法术的施法时间减半。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:amethyst_necklace"
+    }
+  ]
+}

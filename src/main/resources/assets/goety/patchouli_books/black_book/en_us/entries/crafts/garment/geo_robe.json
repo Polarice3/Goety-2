@@ -1,0 +1,23 @@
+{
+  "name": "Geo Robes",
+  "icon": "goety:geo_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With pelts and some magical fabrics, this simple shamanistic robe reduces the soul cost of Geomantic spells by half."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:geo_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Amethysts are powerful conduits to Geomantic magic. By crafting and wearing this necklace, the casting time of Geomantic spells will be reduced by half."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:amethyst_necklace"
+    }
+  ]
+}

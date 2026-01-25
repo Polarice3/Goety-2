@@ -1,0 +1,19 @@
+{
+  "name": "骷髅变种",
+  "icon": "minecraft:bone",
+  "category": "goety:world/bestiary",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "看来这些骸骨堆还有更多方式来宣泄它们的愤怒。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:rattled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这些蹒跚的不死生物射出的箭矢会使受害者陷入痉挛。它们似乎只出现在露天雷暴天气中，当骷髅被闪电击中时，它们也会转变为响骷。（前提是被雷劈的不是凋零骷髅）它们受到的风暴法术和闪电伤害减半。"
+    }
+  ]
+}

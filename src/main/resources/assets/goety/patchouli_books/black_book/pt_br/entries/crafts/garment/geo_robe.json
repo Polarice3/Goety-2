@@ -1,0 +1,23 @@
+{
+  "name": "Túnica Geomântica",
+  "icon": "goety:geo_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com peles e alguns tecidos mágicos, esta simples túnica xamânica reduz o custo de alma de magias geomânticas pela metade."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:geo_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Ametistas são poderosos condutores para magia geomântica. Ao criar e usar este colar, o tempo de conjuração de magias geomânticas será reduzido pela metade."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:amethyst_necklace"
+    }
+  ]
+}

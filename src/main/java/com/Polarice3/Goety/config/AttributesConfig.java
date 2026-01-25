@@ -118,6 +118,9 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> JungleZombieServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> JungleZombieServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> JungleZombieServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> FrayedServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> FrayedServantArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> FrayedServantDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> BlackguardServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> BlackguardServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> BlackguardServantToughness;
@@ -142,6 +145,10 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> SunkenSkeletonServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> SunkenSkeletonServantDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SunkenSkeletonServantRangeDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> RattledServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> RattledServantArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> RattledServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> RattledServantRangeDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> VanguardServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> VanguardServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> VanguardServantDamage;
@@ -569,6 +576,14 @@ public class AttributesConfig {
                 JungleZombieServantDamage = BUILDER.comment("How much damage Jungle Zombie Servants deals, Default: 3.0")
                         .defineInRange("jungleZombieServantDamage", 3.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
+                BUILDER.push("Frayed Servant");
+                FrayedServantHealth = BUILDER.comment("How much Max Health Frayed Servants have, Default: 20.0")
+                        .defineInRange("frayedServantHealth", 20.0, 1.0, Double.MAX_VALUE);
+                FrayedServantArmor = BUILDER.comment("How much natural armor points Frayed Servants have, Default: 2.0")
+                        .defineInRange("frayedServantArmor", 2.0, 0.0, Double.MAX_VALUE);
+                FrayedServantDamage = BUILDER.comment("How much damage Frayed Servants deals, Default: 3.0")
+                        .defineInRange("frayedServantDamage", 3.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
                 BUILDER.push("Zombified Piglin Servant");
                 ZPiglinServantHealth = BUILDER.comment("How much Max Health Zombified Piglin Servants have, Default: 20.0")
                         .defineInRange("zombifiedPiglinServantHealth", 20.0, 1.0, Double.MAX_VALUE);
@@ -644,6 +659,16 @@ public class AttributesConfig {
                         .defineInRange("sunkenSkeletonServantDamage", 2.0, 1.0, Double.MAX_VALUE);
                 SunkenSkeletonServantRangeDamage = BUILDER.comment("How much extra damage Sunken Skeleton Servants range attack deals, Default: 0.0")
                         .defineInRange("sunkenSkeletonServantRangeDamage", 0.0, 0.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Rattled Servant");
+                RattledServantHealth = BUILDER.comment("How much Max Health Rattled Servants have, Default: 20.0")
+                        .defineInRange("rattledServantHealth", 20.0, 1.0, Double.MAX_VALUE);
+                RattledServantArmor = BUILDER.comment("How much natural Armor Rattled Servants have, Default: 0.0")
+                        .defineInRange("rattledServantArmor", 0.0, 0.0, Double.MAX_VALUE);
+                RattledServantDamage = BUILDER.comment("How much damage Rattled Servants deals, Default: 2.0")
+                        .defineInRange("rattledServantDamage", 2.0, 1.0, Double.MAX_VALUE);
+                RattledServantRangeDamage = BUILDER.comment("How much extra damage Rattled Servants range attack deals, Default: 0.0")
+                        .defineInRange("rattledServantRangeDamage", 0.0, 0.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Vanguard Servant");
                 VanguardServantHealth = BUILDER.comment("How much Max Health Vanguard Servants have, Default: 20.0")

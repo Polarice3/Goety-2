@@ -44,6 +44,7 @@ public class ModItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
                 ModItems.GRAND_ROBE.get(),
                 ModItems.ILLUSION_ROBE.get(),
                 ModItems.ILLUSION_ROBE_MIRROR.get(),
+                ModItems.GEO_ROBE.get(),
                 ModItems.FROST_ROBE.get(),
                 ModItems.FROST_ROBE_CRYO.get(),
                 ModItems.WIND_ROBE.get(),

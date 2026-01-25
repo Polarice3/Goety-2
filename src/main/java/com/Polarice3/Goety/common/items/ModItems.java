@@ -212,6 +212,8 @@ public class ModItems {
     public static final RegistryObject<SingleStackItem> DARK_HAT = ITEMS.register("dark_hat", MagicHatItem::new);
     public static final RegistryObject<SingleStackItem> GRAND_TURBAN = ITEMS.register("grand_turban", MagicHatItem::new);
     public static final RegistryObject<SingleStackItem> FROST_CROWN = ITEMS.register("frost_crown", () -> new MagicCrownItem(SpellType.FROST));
+    public static final RegistryObject<SingleStackItem> WIND_CROWN = ITEMS.register("wind_crown", () -> new MagicCrownItem(SpellType.WIND));
+    public static final RegistryObject<SingleStackItem> STORM_CROWN = ITEMS.register("storm_crown", () -> new MagicCrownItem(SpellType.STORM));
     public static final RegistryObject<SingleStackItem> WILD_CROWN = ITEMS.register("wild_crown", () -> new MagicCrownItem(SpellType.WILD));
     public static final RegistryObject<SingleStackItem> ABYSS_CROWN = ITEMS.register("abyss_crown", () -> new MagicCrownItem(SpellType.ABYSS));
     public static final RegistryObject<SingleStackItem> VOID_CROWN = ITEMS.register("void_crown", () -> new MagicCrownItem(SpellType.VOID));
@@ -229,6 +231,7 @@ public class ModItems {
     public static final RegistryObject<SingleStackItem> NAMELESS_CAPE = ITEMS.register("nameless_cape", () -> new NecroGarbs.NecroCapeItem(true));
     public static final RegistryObject<SingleStackItem> ILLUSION_ROBE = ITEMS.register("illusion_robe", IllusionRobeItem::new);
     public static final RegistryObject<SingleStackItem> ILLUSION_ROBE_MIRROR = ITEMS.register("illusion_robe_mirror", IllusionRobeItem::new);
+    public static final RegistryObject<SingleStackItem> GEO_ROBE = ITEMS.register("geo_robe", SingleStackItem::new);
     public static final RegistryObject<SingleStackItem> FROST_ROBE = ITEMS.register("frost_robe", FrostRobeItem::new);
     public static final RegistryObject<SingleStackItem> FROST_ROBE_CRYO = ITEMS.register("frost_robe_cryo", FrostRobeItem::new);
     public static final RegistryObject<SingleStackItem> WIND_ROBE = ITEMS.register("wind_robe", WindyRobeItem::new);

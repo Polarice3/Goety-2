@@ -1,0 +1,19 @@
+{
+  "name": "ゾンビの亜種",
+  "icon": "minecraft:rotten_flesh",
+  "category": "goety:world/bestiary",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "最近はより多くの種類のゾンビが目撃されており、特定の地域や状況で出現するゾンビもいます。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:frayed"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "これらの焼け焦げた死体は、雷に打たれた者の残骸のようで、雷の攻撃を受けると痙攣発作を起こします。雷雨の際、空に露出している時、またはゾンビが雷に打たれた時にのみ出現するようです。また、ショック攻撃や雷撃によるダメージを半減します。"
+    }
+  ]
+}

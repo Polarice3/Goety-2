@@ -61,6 +61,14 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:frayed_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "若在露天雷暴环境下召唤，有50%的几率召唤出焦尸仆从而非普通僵尸仆从；若使用 $(l:crafts/staff/storm_staff)风暴魔杖$() 召唤，该几率为100%。它们的攻击会给予实体痉挛效果，并且受到的电击或闪电伤害减少50%。"
+    },
+	{
+      "type": "patchouli:entity",
       "entity": "goety:zombie_vindicator"
     },
     {

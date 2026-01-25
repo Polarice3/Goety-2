@@ -1,0 +1,16 @@
+{
+  "name": "墓园",
+  "icon": "goety:shade_stone_polished",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "世界各地散落着许多闹鬼的墓地，传闻它们被黑暗魔法所诅咒，甚至有人称在附近听到过诡异的低吼……或许某些墓穴中，正埋藏着不为人知的宝藏。"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/graveyard.png"],
+      "border": true
+    }
+  ]
+}

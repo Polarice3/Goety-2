@@ -1,0 +1,19 @@
+{
+  "name": "僵尸变体",
+  "icon": "minecraft:rotten_flesh",
+  "category": "goety:world/bestiary",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "近来发现了更多类型的僵尸，其中一些只在特定区域或条件下出现。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:frayed"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这些烧焦的尸体似乎是遭雷击者的残骸，其攻击会使受害者陷入阵阵痉挛。它们似乎只出现在露天雷暴天气中，或当一只僵尸被闪电击中时生成。它们受到的风暴法术或闪电伤害也会减半。"
+    }
+  ]
+}

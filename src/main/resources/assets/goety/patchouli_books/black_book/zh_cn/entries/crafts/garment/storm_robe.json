@@ -5,11 +5,27 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "烈风长袍的一种变体，其布料中充满了闪电的力量。风暴长袍可以让你缓降，就像烈风长袍一样，穿着长袍也会使风暴法术的灵魂消耗减半，但不幸的是，它并不会减免烈风法术的灵魂消耗。"
+      "text": "烈风长袍的一种变体，将闪电本身织入衣料。与烈风长袍相似，风暴长袍可让你缓慢降落。它亦能使风暴法术的灵魂消耗减半，但遗憾的是，对烈风法术并无此效"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:storm_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "倘若召唤者身着风暴长袍，则风暴仆从将会使用召唤者的灵魂能量治愈自己。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:storm_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "风暴王冠可将施展风暴法术所需的时间减半，并能防止你的风暴仆从像恼鬼那样自然消亡。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:storm_robe": 1,
+    "goety:storm_crown": 3
+  }
 }

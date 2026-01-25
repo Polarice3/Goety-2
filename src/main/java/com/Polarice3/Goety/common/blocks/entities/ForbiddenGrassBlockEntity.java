@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -75,14 +76,16 @@ public class ForbiddenGrassBlockEntity extends BlockEntity {
                                     List<MobSpawnSettings.SpawnerData> spawnerData = spawners.unwrap();
                                     EntityType<?> entityType = spawnerData.get(serverLevel.getRandom().nextInt(spawnerData.size())).type;
                                     if (entityType != null) {
-                                        if (k <= 16) {
-                                            if (SpawnPlacements.checkSpawnRules(entityType, serverLevel, MobSpawnType.SPAWNER, above, serverLevel.getRandom())) {
-                                                Entity entity = entityType.create(serverLevel);
-                                                if (entity instanceof Mob mob) {
-                                                    mob.setPos(above.getX() + 0.5F, above.getY(), above.getZ() + 0.5F);
-                                                    if (serverLevel.noCollision(entity) && serverLevel.isUnobstructed(entity, serverLevel.getBlockState(above).getShape(serverLevel, above))) {
-                                                        ForgeEventFactory.onFinalizeSpawn(mob, serverLevel, serverLevel.getCurrentDifficultyAt(this.worldPosition), MobSpawnType.SPAWNER, null, null);
-                                                        serverLevel.addFreshEntity(mob);
+                                        if (!MobUtil.hasEntityTypesConfig(MainConfig.ForbiddenGrassBlackList.get(), entityType)) {
+                                            if (k <= 16) {
+                                                if (SpawnPlacements.checkSpawnRules(entityType, serverLevel, MobSpawnType.SPAWNER, above, serverLevel.getRandom())) {
+                                                    Entity entity = entityType.create(serverLevel);
+                                                    if (entity instanceof Mob mob) {
+                                                        mob.setPos(above.getX() + 0.5F, above.getY(), above.getZ() + 0.5F);
+                                                        if (serverLevel.noCollision(entity) && serverLevel.isUnobstructed(entity, serverLevel.getBlockState(above).getShape(serverLevel, above))) {
+                                                            ForgeEventFactory.onFinalizeSpawn(mob, serverLevel, serverLevel.getCurrentDifficultyAt(this.worldPosition), MobSpawnType.SPAWNER, null, null);
+                                                            serverLevel.addFreshEntity(mob);
+                                                        }
                                                     }
                                                 }
                                             }

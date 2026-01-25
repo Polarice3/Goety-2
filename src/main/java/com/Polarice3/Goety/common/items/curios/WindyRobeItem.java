@@ -54,7 +54,7 @@ public class WindyRobeItem extends SingleStackItem{
                             ColorUtil color = new ColorUtil(0xffffff);
                             ServerParticleUtil.windParticle(serverLevel, color, 1.0F + serverLevel.random.nextFloat() * 0.5F, 0.0F, player.getId(), player.position());
                             ServerParticleUtil.circularParticles(serverLevel, ParticleTypes.CLOUD, player, 1.0F);
-                            if (CuriosFinder.hasCurio(player, ModItems.STORM_ROBE.get())) {
+                            if (this == ModItems.STORM_ROBE.get()) {
                                 if (serverLevel.random.nextInt(20) == 0) {
                                     Vec3 vec3 = Vec3.atCenterOf(player.blockPosition());
                                     Vec3 vec31 = vec3.add(player.getRandom().nextDouble(), 1.0D, player.getRandom().nextDouble());

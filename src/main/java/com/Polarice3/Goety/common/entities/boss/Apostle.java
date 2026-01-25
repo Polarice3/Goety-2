@@ -845,14 +845,16 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
         float trueAmount = this.isInNether() ? pAmount * (1.0F - (MobsConfig.ApostleNetherDamageReduction.get() / 100.0F)) : pAmount;
 
-        if (this.getHealth() > trueAmount) {
-            if (this.getHitTimes() >= this.hitTimeTeleport()) {
-                trueAmount = trueAmount / 2;
-                this.teleport();
-            } else if (pSource.getEntity() == null) {
-                trueAmount = trueAmount / 2;
-                if (this.level.getRandom().nextBoolean()) {
+        if (!this.isNoAi()) {
+            if (this.getHealth() > trueAmount) {
+                if (this.getHitTimes() >= this.hitTimeTeleport()) {
+                    trueAmount = trueAmount / 2;
                     this.teleport();
+                } else if (pSource.getEntity() == null) {
+                    trueAmount = trueAmount / 2;
+                    if (this.level.getRandom().nextBoolean()) {
+                        this.teleport();
+                    }
                 }
             }
         }
@@ -910,7 +912,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     }
 
     protected void teleport() {
-        if (!this.level.isClientSide() && this.isAlive() && this.toTeleportPos == null && !this.isSettingUpSecond() && !this.isCasting()) {
+        if (!this.level.isClientSide() && !this.isNoAi() && this.isAlive() && this.toTeleportPos == null && !this.isSettingUpSecond() && !this.isCasting()) {
             this.prevX = this.getX();
             this.prevY = this.getY();
             this.prevZ = this.getZ();
@@ -948,7 +950,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     }
 
     private void teleportTowards(Entity entity) {
-        if (!this.level.isClientSide() && this.isAlive() && this.toTeleportPos == null && !this.isSettingUpSecond()) {
+        if (!this.level.isClientSide() && !this.isNoAi() && this.isAlive() && this.toTeleportPos == null && !this.isSettingUpSecond()) {
             this.prevX = this.getX();
             this.prevY = this.getY();
             this.prevZ = this.getZ();
@@ -980,7 +982,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     }
 
     protected void escapeTeleport() {
-        if (!this.level.isClientSide() && this.isAlive() && !this.isSettingUpSecond() && !this.isCasting()) {
+        if (!this.level.isClientSide() && !this.isNoAi() && this.isAlive() && !this.isSettingUpSecond() && !this.isCasting()) {
             this.prevX = this.getX();
             this.prevY = this.getY();
             this.prevZ = this.getZ();

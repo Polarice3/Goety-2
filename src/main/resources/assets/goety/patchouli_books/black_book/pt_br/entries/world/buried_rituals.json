@@ -1,0 +1,16 @@
+{
+  "name": "Rituais Enterrados",
+  "icon": "minecraft:suspicious_sand",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O deserto está cheio de segredos enterrados, mas estes parecem ter sido o local de um ritual, mas de que tipo?"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/buried_ritual.png"],
+      "border": true
+    }
+  ]
+}

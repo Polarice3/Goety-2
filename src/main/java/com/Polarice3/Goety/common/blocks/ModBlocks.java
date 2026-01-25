@@ -917,7 +917,6 @@ public class ModBlocks {
     public static final RegistryObject<Block> CHORUS_GRASS_SLAB = register("chorus_grass_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.of()
                     .instrument(NoteBlockInstrument.BASEDRUM)
-                    .requiresCorrectToolForDrops()
                     .strength(0.6F)
                     .sound(SoundType.GRASS)
                     .mapColor(MapColor.COLOR_ORANGE)));

@@ -159,6 +159,29 @@ public class CuriosFinder {
                 && !(livingEntity instanceof IOwned && !(livingEntity instanceof Enemy));
     }
 
+    public static boolean hasGeoRobe(LivingEntity livingEntity){
+        return hasCurio(livingEntity, ModItems.GEO_ROBE.get());
+    }
+
+    public static boolean hasAmethystNecklace(LivingEntity livingEntity) {
+        return hasCurio(livingEntity, ModItems.AMETHYST_NECKLACE.get());
+    }
+
+    public static boolean hasGeoSet(LivingEntity livingEntity){
+        return hasGeoRobe(livingEntity)
+                && hasAmethystNecklace(livingEntity);
+    }
+
+    public static boolean neutralGeoSet(LivingEntity livingEntity){
+        return hasGeoSet(livingEntity) && ItemConfig.GeoSetMobNeutral.get();
+    }
+
+    public static boolean validGeoMob(LivingEntity livingEntity){
+        return livingEntity.getType().is(ModTags.EntityTypes.GEO_SET_NEUTRAL)
+                && livingEntity.getMaxHealth() <= ItemConfig.GeoSetMobNeutralHealth.get()
+                && !(livingEntity instanceof IOwned && !(livingEntity instanceof Enemy));
+    }
+
     public static boolean hasVoidRobe(LivingEntity livingEntity){
         return hasCurio(livingEntity, (itemStack -> itemStack.getItem() instanceof VoidRobeItem));
     }
@@ -348,6 +371,52 @@ public class CuriosFinder {
 
     public static boolean hasWindyRobes(LivingEntity livingEntity){
         return hasCurio(livingEntity, item -> item.getItem() instanceof WindyRobeItem);
+    }
+
+    public static boolean hasWindRobes(LivingEntity livingEntity){
+        return hasCurio(livingEntity, ModItems.WIND_ROBE.get());
+    }
+
+    public static boolean hasWindCrown(LivingEntity livingEntity){
+        return hasCurio(livingEntity, item -> item.getItem() instanceof MagicCrownItem crownItem && crownItem.spellType == SpellType.WIND);
+    }
+
+    public static boolean hasWindSet(LivingEntity livingEntity){
+        return hasWindRobes(livingEntity)
+                && hasWindCrown(livingEntity);
+    }
+
+    public static boolean neutralWindSet(LivingEntity livingEntity){
+        return hasWindSet(livingEntity) && ItemConfig.WindSetMobNeutral.get();
+    }
+
+    public static boolean validWindMob(LivingEntity livingEntity){
+        return livingEntity.getType().is(ModTags.EntityTypes.WIND_SET_NEUTRAL)
+                && livingEntity.getMaxHealth() <= ItemConfig.WindSetMobNeutralHealth.get()
+                && !(livingEntity instanceof IOwned && !(livingEntity instanceof Enemy));
+    }
+
+    public static boolean hasStormRobes(LivingEntity livingEntity){
+        return hasCurio(livingEntity, ModItems.STORM_ROBE.get());
+    }
+
+    public static boolean hasStormCrown(LivingEntity livingEntity){
+        return hasCurio(livingEntity, item -> item.getItem() instanceof MagicCrownItem crownItem && crownItem.spellType == SpellType.STORM);
+    }
+
+    public static boolean hasStormSet(LivingEntity livingEntity){
+        return hasStormRobes(livingEntity)
+                && hasStormCrown(livingEntity);
+    }
+
+    public static boolean neutralStormSet(LivingEntity livingEntity){
+        return hasStormSet(livingEntity) && ItemConfig.StormSetMobNeutral.get();
+    }
+
+    public static boolean validStormMob(LivingEntity livingEntity){
+        return livingEntity.getType().is(ModTags.EntityTypes.STORM_SET_NEUTRAL)
+                && livingEntity.getMaxHealth() <= ItemConfig.StormSetMobNeutralHealth.get()
+                && !(livingEntity instanceof IOwned && !(livingEntity instanceof Enemy));
     }
 
     public static boolean hasAbyssCrown(LivingEntity livingEntity){

@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.CreatureBowAttackGoal;
 import com.Polarice3.Goety.common.entities.ai.ModMeleeAttackGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.neutral.DrownedNecromancer;
 import com.Polarice3.Goety.common.entities.projectiles.GhostArrow;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.compat.serene_seasons.SSeasonsIntegration;
@@ -143,7 +144,7 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
 
     @Override
     public Predicate<Entity> summonPredicate() {
-        return entity -> entity instanceof AbstractSkeletonServant;
+        return entity -> entity instanceof AbstractSkeletonServant && !(entity instanceof DrownedNecromancer);
     }
 
     @Override
@@ -201,10 +202,12 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
                 entityType = ModEntityType.SKELETON_PILLAGER_SERVANT.get();
             } else if (player != null && BlockFinder.findStructure(serverLevel, blockPos, ModTags.Structures.CAN_SUMMON_WITHER_SKELETONS) && SEHelper.hasResearch(player, ResearchList.BYGONE)) {
                 entityType = ModEntityType.WITHER_SKELETON_SERVANT.get();
-            } else if (level.getBiome(blockPos).is(BiomeTags.IS_JUNGLE) && level.random.nextBoolean()) {
+            } else if (level.getBiome(blockPos).is(BiomeTags.IS_JUNGLE) && level.getRandom().nextBoolean()) {
                 entityType = ModEntityType.MOSSY_SKELETON_SERVANT.get();
             } else if (level.isWaterAt(blockPos)) {
                 entityType = ModEntityType.SUNKEN_SKELETON_SERVANT.get();
+            } else if (level.isThundering() && level.canSeeSky(blockPos) && level.getRandom().nextBoolean()) {
+                entityType = ModEntityType.RATTLED_SERVANT.get();
             }
             if (SSeasonsLoaded.SERENE_SEASONS.isLoaded()){
                 if (SSeasonsIntegration.summonSnowVariant(level, blockPos)){
@@ -288,6 +291,30 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
 
     public boolean isShaking() {
         return this.isFullyFrozen();
+    }
+
+    public void thunderHit(ServerLevel p_35409_, LightningBolt p_35410_) {
+        if (!(this instanceof WitherSkeletonServant)) {
+            RattledServant rattled = ModEntityType.RATTLED_SERVANT.get().create(p_35409_);
+            if (rattled != null) {
+                rattled.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
+                rattled.finalizeSpawn(p_35409_, p_35409_.getCurrentDifficultyAt(rattled.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+                rattled.setNoAi(this.isNoAi());
+                if (this.hasCustomName()) {
+                    rattled.setCustomName(this.getCustomName());
+                    rattled.setCustomNameVisible(this.isCustomNameVisible());
+                }
+
+                rattled.setPersistenceRequired();
+                net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, rattled);
+                p_35409_.addFreshEntityWithPassengers(rattled);
+                this.discard();
+            } else {
+                super.thunderHit(p_35409_, p_35410_);
+            }
+        } else {
+            super.thunderHit(p_35409_, p_35410_);
+        }
     }
 
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {

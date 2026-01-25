@@ -20,10 +20,12 @@ import java.util.List;
 
 public class SummonRitual extends Ritual {
     private final boolean tame;
+    private final boolean noVariant;
 
-    public SummonRitual(RitualRecipe recipe, boolean tame) {
+    public SummonRitual(RitualRecipe recipe, boolean tame, boolean noVariant) {
         super(recipe);
         this.tame = tame;
+        this.noVariant = noVariant;
     }
 
     public boolean isValid(Level world, BlockPos darkAltarPos, DarkAltarBlockEntity tileEntity,
@@ -53,10 +55,12 @@ public class SummonRitual extends Ritual {
         EntityType<?> entityType = this.recipe.getEntityToSummon();
         if (entityType != null) {
             Entity entity = this.createSummonedEntity(entityType, world, blockPos, tileEntity, castingPlayer);
-            if (entity instanceof IOwned owned){
-                EntityType<?> entityType1 = owned.getVariant(castingPlayer, world, blockPos);
-                if (entityType1 != null) {
-                    entity = this.createSummonedEntity(entityType1, world, blockPos, tileEntity, castingPlayer);
+            if (!this.noVariant) {
+                if (entity instanceof IOwned owned) {
+                    EntityType<?> entityType1 = owned.getVariant(castingPlayer, world, blockPos);
+                    if (entityType1 != null) {
+                        entity = this.createSummonedEntity(entityType1, world, blockPos, tileEntity, castingPlayer);
+                    }
                 }
             }
             if (entity instanceof LivingEntity living) {

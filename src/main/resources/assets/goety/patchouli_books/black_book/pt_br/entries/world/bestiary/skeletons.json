@@ -1,0 +1,19 @@
+{
+  "name": "Variantes de Esqueleto",
+  "icon": "minecraft:bone",
+  "category": "goety:world/bestiary",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Parece haver mais maneiras de pilhas de ossos manifestarem sua ira."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:rattled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Estes mortos-vivos cambaleantes atiram flechas que fazem a vítima entrar em Espasmos. Eles parecem aparecer apenas em tempestades, expostos ao céu, ou quando um Esqueleto (não Wither) é atingido por um raio. Eles sofrem metade do dano de ataques de choque ou raio."
+    }
+  ]
+}

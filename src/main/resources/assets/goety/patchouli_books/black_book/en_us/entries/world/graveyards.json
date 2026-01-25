@@ -1,0 +1,16 @@
+{
+  "name": "Graveyards",
+  "icon": "goety:shade_stone_polished",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Littered across the world, there have been sightings of haunted graveyards that are rumored to be cursed with dark magic and some reported to have heard growling around the area. Perhaps some of the graves holds some treasure..."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/graveyard.png"],
+      "border": true
+    }
+  ]
+}

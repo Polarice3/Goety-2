@@ -33,7 +33,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "当你在露天的寒冷群系或者使用$(l:crafts/frost_staff)霜冻魔杖$()来召唤骷髅仆从，流髑仆从会被召唤出来。"
+      "text": "当你在露天的寒冷群系或者使用$(l:crafts/frost_staff)霜冻魔杖$()来召唤骷髅仆从，流浪者仆从会被召唤出来。"
     },
     {
       "type": "patchouli:entity",
@@ -50,6 +50,14 @@
     {
       "type": "patchouli:text",
       "text": "在海底，骷髅不仅会游泳，而且会发射鱼叉，这种鱼叉在水中的飞行效果比普通的箭要好."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:rattled_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "暴露于露天雷暴中有几率召唤出响骷仆从；若使用 $(l:crafts/staff/storm_staff)风暴魔杖$() 召唤，则几率为100%。它们的箭矢会给予生物痉挛，并对风暴法术或闪电攻击具有伤害抗性。"
     },
     {
       "type": "patchouli:entity",

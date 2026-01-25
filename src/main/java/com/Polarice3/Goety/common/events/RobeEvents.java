@@ -318,8 +318,47 @@ public class RobeEvents {
                             }
                         }
                     }
+                    if (CuriosFinder.neutralGeoSet(target)) {
+                        if (CuriosFinder.validGeoMob(mobAttacker)) {
+                            if (mobAttacker.getLastHurtByMob() != target) {
+                                if (event.getTargetType() == MOB_TARGET) {
+                                    event.setNewTarget(null);
+                                } else {
+                                    event.setCanceled(true);
+                                }
+                            } else {
+                                mobAttacker.setLastHurtByMob(target);
+                            }
+                        }
+                    }
                     if (CuriosFinder.neutralFrostSet(target)) {
                         if (CuriosFinder.validFrostMob(mobAttacker)) {
+                            if (mobAttacker.getLastHurtByMob() != target) {
+                                if (event.getTargetType() == MOB_TARGET) {
+                                    event.setNewTarget(null);
+                                } else {
+                                    event.setCanceled(true);
+                                }
+                            } else {
+                                mobAttacker.setLastHurtByMob(target);
+                            }
+                        }
+                    }
+                    if (CuriosFinder.neutralWindSet(target)) {
+                        if (CuriosFinder.validWindMob(mobAttacker)) {
+                            if (mobAttacker.getLastHurtByMob() != target) {
+                                if (event.getTargetType() == MOB_TARGET) {
+                                    event.setNewTarget(null);
+                                } else {
+                                    event.setCanceled(true);
+                                }
+                            } else {
+                                mobAttacker.setLastHurtByMob(target);
+                            }
+                        }
+                    }
+                    if (CuriosFinder.neutralStormSet(target)) {
+                        if (CuriosFinder.validStormMob(mobAttacker)) {
                             if (mobAttacker.getLastHurtByMob() != target) {
                                 if (event.getTargetType() == MOB_TARGET) {
                                     event.setNewTarget(null);

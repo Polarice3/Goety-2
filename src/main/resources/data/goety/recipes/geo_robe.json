@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "  l",
+    "fff",
+    "lll"
+  ],
+  "key":
+  {
+    "f":
+    {
+      "item": "goety:dark_fabric"
+    },
+    "l":
+    {
+      "tag": "forge:leather"
+    }
+  },
+  "result":
+  {
+    "item": "goety:geo_robe",
+    "count": 1
+  }
+}

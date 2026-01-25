@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.common.entities.projectiles.IceChunk;
+import com.Polarice3.Goety.common.entities.util.AlliedEffectCloud;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.ModDamageSource;
@@ -114,12 +115,14 @@ public class GlacialWall extends AbstractMonolith{
         this.playSound(ModSounds.ICE_SPIKE_HIT.get(), 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 0.5F);
         if (cause.is(DamageTypes.STARVE)){
             if (this.level.random.nextFloat() <= 0.15F) {
-                AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level, this.getX(), this.getY(), this.getZ());
+                AlliedEffectCloud areaeffectcloud = new AlliedEffectCloud(this.level, this.getX(), this.getY(), this.getZ());
                 areaeffectcloud.setParticle(ParticleTypes.POOF);
                 areaeffectcloud.setRadius(2.0F);
                 areaeffectcloud.setDuration(200);
                 areaeffectcloud.setRadiusPerTick(-areaeffectcloud.getRadius() / (float) areaeffectcloud.getDuration());
-
+                if (this.getTrueOwner() != null) {
+                    areaeffectcloud.setOwner(this.getTrueOwner());
+                }
                 areaeffectcloud.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 600));
 
                 this.level.addFreshEntity(areaeffectcloud);

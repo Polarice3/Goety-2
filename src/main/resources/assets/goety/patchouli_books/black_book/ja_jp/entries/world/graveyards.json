@@ -1,0 +1,16 @@
+{
+  "name": "墓地",
+  "icon": "goety:shade_stone_polished",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "世界中に点在する幽霊の出る墓地は、闇の魔術に呪われていると噂されており、その周辺でうなり声が聞こえたという報告もあります。もしかしたら、墓の中には宝物が眠っているかもしれません…"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/graveyard.png"],
+      "border": true
+    }
+  ]
+}

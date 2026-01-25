@@ -10,6 +10,18 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:wind_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "As criaturas dos ventos podem usar a energia de alma do seu invocador para se curarem lentamente, se este vestir esta túnica."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wind_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A coroa de jade reduz pela metade o tempo para conjurar magias de vento e impede que seus servos do vento desapareçam, como Vexes, quando usada."
     }
   ],
   "extra_recipe_mappings": {

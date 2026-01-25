@@ -44,6 +44,14 @@
     {
       "id": "iceandfire:stymphalian_bird",
       "required": false
+    },
+    {
+      "id": "mowziesmobs:foliaath",
+      "required": false
+    },
+    {
+      "id": "mowziesmobs:naga",
+      "required": false
     }
   ]
 }

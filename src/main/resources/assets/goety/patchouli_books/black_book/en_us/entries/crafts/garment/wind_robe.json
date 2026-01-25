@@ -10,6 +10,18 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:wind_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The creatures of the winds can use their summoner's soul energy to slowly heal themselves, should they wear this robe."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wind_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The jade crown will halved the time to cast Wind spells and keeps your wind servants from dying off, like Vexes, when worn."
     }
   ],
   "extra_recipe_mappings": {

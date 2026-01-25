@@ -32,6 +32,12 @@ public class ModLevelRegistry {
             if (biome.is(ModTags.Biomes.ICY_SPIDER_SPAWN) && !biome.is(ModTags.Biomes.ICY_SPIDER_EXCLUDE_SPAWN) && MobsConfig.IcySpiderSpawnWeight.get() > 0){
                 builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.ICY_SPIDER.get(), MobsConfig.IcySpiderSpawnWeight.get(), MobsConfig.IcySpiderSpawnMinCount.get(), MobsConfig.IcySpiderSpawnMaxCount.get()));
             }
+            if (biome.is(ModTags.Biomes.FRAYED_SPAWN) && !biome.is(ModTags.Biomes.FRAYED_EXCLUDE_SPAWN) && MobsConfig.FrayedSpawnWeight.get() > 0){
+                builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.FRAYED.get(), MobsConfig.FrayedSpawnWeight.get(), MobsConfig.FrayedSpawnMinCount.get(), MobsConfig.FrayedSpawnMaxCount.get()));
+            }
+            if (biome.is(ModTags.Biomes.RATTLED_SPAWN) && !biome.is(ModTags.Biomes.RATTLED_EXCLUDE_SPAWN) && MobsConfig.RattledSpawnWeight.get() > 0){
+                builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.RATTLED.get(), MobsConfig.RattledSpawnWeight.get(), MobsConfig.RattledSpawnMinCount.get(), MobsConfig.RattledSpawnMaxCount.get()));
+            }
             if (biome.is(ModTags.Biomes.NECROMANCER_SPAWN) && !biome.is(ModTags.Biomes.NECROMANCER_EXCLUDE_SPAWN) && MobsConfig.NecromancerSpawnWeight.get() > 0){
                 builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.NECROMANCER.get(), MobsConfig.NecromancerSpawnWeight.get(), MobsConfig.NecromancerSpawnMinCount.get(), MobsConfig.NecromancerSpawnMaxCount.get()));
             }

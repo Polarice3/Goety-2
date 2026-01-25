@@ -1,15 +1,31 @@
 {
-  "name": "ストームローブ",
+  "name": "嵐のローブ",
   "icon": "goety:storm_robe",
   "category": "goety:crafts/garment",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "生地に稲妻そのものを取り入れたウィンドローブの亜種。 風のローブと同様に、ローブを使用するとゆっくりと落下することができます。 ローブを着用すると、嵐の呪文のソウルコストも半分になりますが、残念ながら風の呪文は半分になりません。"
+      "text": "風のローブの亜種で、生地自体に雷を宿しています。風のローブと同様に、このローブはゆっくりと落下する効果があります。また、このローブを装備すると嵐の呪文の魂のコストが半減しますが、残念ながら風の呪文は半減しません。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:storm_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "嵐の従者は、このローブを着ると召喚者のソウルエネルギーによってゆっくりと回復します。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:storm_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "嵐の冠は、嵐の呪文を唱える時間を半分に短縮し、嵐の従者がヴェックスのように消滅するのを防ぎます。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:storm_robe": 1,
+    "goety:storm_crown": 3
+  }
 }

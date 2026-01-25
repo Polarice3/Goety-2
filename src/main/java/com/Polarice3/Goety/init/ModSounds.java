@@ -181,6 +181,11 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> JUNGLE_ZOMBIE_STEP = create("jungle_zombie_step");
     public static final RegistryObject<SoundEvent> JUNGLE_ZOMBIE_DEATH = create("jungle_zombie_death");
 
+    public static final RegistryObject<SoundEvent> FRAYED_AMBIENT = create("frayed_ambient");
+    public static final RegistryObject<SoundEvent> FRAYED_HURT = create("frayed_hurt");
+    public static final RegistryObject<SoundEvent> FRAYED_STEP = create("frayed_step");
+    public static final RegistryObject<SoundEvent> FRAYED_DEATH = create("frayed_death");
+
     public static final RegistryObject<SoundEvent> BLACKGUARD_PRE_ATTACK = create("blackguard_pre_attack");
     public static final RegistryObject<SoundEvent> BLACKGUARD_SMASH = create("blackguard_smash");
     public static final RegistryObject<SoundEvent> BLACKGUARD_STEP = create("blackguard_step");
@@ -196,6 +201,11 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SUNKEN_SKELETON_SHOOT = create("sunken_skeleton_shoot");
     public static final RegistryObject<SoundEvent> SUNKEN_SKELETON_STEP = create("sunken_skeleton_step");
     public static final RegistryObject<SoundEvent> SUNKEN_SKELETON_DEATH = create("sunken_skeleton_death");
+
+    public static final RegistryObject<SoundEvent> RATTLED_AMBIENT = create("rattled_ambient");
+    public static final RegistryObject<SoundEvent> RATTLED_HURT = create("rattled_hurt");
+    public static final RegistryObject<SoundEvent> RATTLED_STEP = create("rattled_step");
+    public static final RegistryObject<SoundEvent> RATTLED_DEATH = create("rattled_death");
 
     public static final RegistryObject<SoundEvent> NECROMANCER_AMBIENT = create("necromancer_ambient");
     public static final RegistryObject<SoundEvent> NECROMANCER_HURT = create("necromancer_hurt");
@@ -265,6 +275,10 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> TROPICAL_SLIME_LARGE_JUMP = create("tropical_slime_large_jump");
     public static final RegistryObject<SoundEvent> TROPICAL_SLIME_LARGE_SQUISH = create("tropical_slime_large_squish");
     public static final RegistryObject<SoundEvent> TROPICAL_SLIME_LARGE_DEATH = create("tropical_slime_large_death");
+
+    public static final RegistryObject<SoundEvent> ICY_SPIDER_AMBIENT = create("icy_spider_ambient");
+    public static final RegistryObject<SoundEvent> ICY_SPIDER_HURT = create("icy_spider_hurt");
+    public static final RegistryObject<SoundEvent> ICY_SPIDER_DEATH = create("icy_spider_death");
 
     public static final RegistryObject<SoundEvent> BONE_SPIDER_AMBIENT = create("bone_spider_ambient");
     public static final RegistryObject<SoundEvent> BONE_SPIDER_HURT = create("bone_spider_hurt");

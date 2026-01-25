@@ -1,5 +1,5 @@
 {
-  "name": "Servos Zumbi",
+  "name": "Servos Zumbis",
   "icon": "minecraft:zombie_head",
   "category": "goety:summons",
   "pages": [
@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "É possível invocar essas criaturas usando um $(l:focuses/necromancy/rotting_focus)Foco de Apodrecimento$(), ou através de um ritual que invoca um sem tempo de vida limitado."
+      "text": "É possível invocar essas criaturas usando um $(l:focuses/necromancy/rotting_focus)Foco de Putrefação$(), ou através de um ritual que invoca um sem tempo de vida limitado."
     },
     {
       "type": "goety:ritual",
@@ -33,7 +33,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Servos Zumbi podem ser invocados ou convertidos em diferentes variantes. Lançar o Foco de Apodrecimento em um Deserto exposto ao céu invocará um Servo Husk."
+      "text": "Servos Zumbis podem ser invocados ou convertidos em diferentes variantes. Lançar o Foco de Putrefação em um Deserto exposto ao céu invocará um Servo Zumbi-Múmia."
     },
     {
       "type": "patchouli:entity",
@@ -57,7 +57,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Invocar um Zumbi em um ambiente frio e nevado, ou com um $(l:crafts/staff/frost_staff)Cajado Gélido$(), invocará um Servo Zumbi Congelado. Eles desaceleram alvos com socos ou bolas de neve. Como Errante, não sofrem dano por congelamento."
+      "text": "Invocar um Zumbi em um ambiente frio e nevado, ou com um $(l:crafts/staff/frost_staff)Cajado Gélido$(), invocará um Servo Zumbi Congelado. Eles desaceleram alvos com socos ou bolas de neve. Como Errantes, não sofrem dano por congelamento."
     },
     {
       "type": "patchouli:entity",
@@ -66,6 +66,14 @@
     {
       "type": "patchouli:text",
       "text": "Em uma Selva, pode-se invocar um Servo Zumbi da Selva (100% com $(l:crafts/staff/wild_staff)Cajado Selvagem$()). Seus ataques envenenam, mas se o invocador vestir $(l:crafts/garment/wild_robe)Túnicas Selvagens$(), infligirão Veneno Ácido."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:frayed_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Quando exposto a uma tempestade aberta, há 50% de chance de invocar um Servo Carbonizado em vez de um Zumbi comum, 100% quando invocado com um $(l:crafts/staff/storm_staff)Cajado da Tempestade$(). Eles infligem Espasmos quando atacam e sofrem 50% menos dano de ataques de choque ou raio."
     },
     {
       "type": "patchouli:entity",
@@ -93,7 +101,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Servos Zumbi de todas variantes podem aceitar qualquer Armadura, mas apenas Espadas ou Machados."
+      "text": "Servos Zumbis de todas as variantes podem aceitar qualquer Armadura, mas apenas Espadas ou Machados."
     }
   ]
 }

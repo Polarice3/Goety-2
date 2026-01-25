@@ -105,6 +105,12 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> HOSTILE_BLACK_WOLF_SPAWN_EGG = ITEMS.register("hostile_black_wolf_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.HOSTILE_BLACK_WOLF, 0x132025, 0x495065, egg()));
 
+    public static final RegistryObject<ModSpawnEggItem> FRAYED_SPAWN_EGG = ITEMS.register("frayed_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.FRAYED, 0x170f0c, 0xf6a600, egg()));
+
+    public static final RegistryObject<ModSpawnEggItem> RATTLED_SPAWN_EGG = ITEMS.register("rattled_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.RATTLED, 0x392f13, 0x494949, egg()));
+
     public static final RegistryObject<ModSpawnEggItem> REAPER_SPAWN_EGG = ITEMS.register("reaper_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.REAPER, 0x1c1b25, 0x454545, egg()));
 

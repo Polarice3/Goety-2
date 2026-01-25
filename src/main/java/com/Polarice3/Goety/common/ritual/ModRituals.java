@@ -21,11 +21,15 @@ public class ModRituals {
 
     public static final RegistryObject<ModRitualFactory> SUMMON_RITUAL =
             RITUALS.register("summon",
-                    () -> new ModRitualFactory((ritual) -> new SummonRitual(ritual, false)));
+                    () -> new ModRitualFactory((ritual) -> new SummonRitual(ritual, false, false)));
 
     public static final RegistryObject<ModRitualFactory> SUMMON_TAMED_RITUAL =
             RITUALS.register("summon_tamed",
-                    () -> new ModRitualFactory((ritual) -> new SummonRitual(ritual, true)));
+                    () -> new ModRitualFactory((ritual) -> new SummonRitual(ritual, true, false)));
+
+    public static final RegistryObject<ModRitualFactory> SUMMON_TAMED_NO_VARIANT_RITUAL =
+            RITUALS.register("summon_tamed_no_variant",
+                    () -> new ModRitualFactory((ritual) -> new SummonRitual(ritual, true, true)));
 
     public static final RegistryObject<ModRitualFactory> CONVERT_RITUAL =
             RITUALS.register("convert",

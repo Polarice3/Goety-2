@@ -1,0 +1,16 @@
+{
+  "name": "埋葬仪式",
+  "icon": "minecraft:suspicious_sand",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "沙漠之下深埋着诸多秘密，而此处似乎曾是一处举行仪式之所，却不知是场怎样的仪式？"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/buried_ritual.png"],
+      "border": true
+    }
+  ]
+}

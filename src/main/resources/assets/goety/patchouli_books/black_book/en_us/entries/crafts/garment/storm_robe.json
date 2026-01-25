@@ -10,9 +10,22 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:storm_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Creatures of the storms slowly heal themselves with their summoner's soul energy, should they wear this robe."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:storm_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Storm Crown reduce the amount of time to cast Storm spells by half and keeps your storm servants from dying off like Vexes."
     }
   ],
   "extra_recipe_mappings": {
-    "goety:storm_robe": 1
+    "goety:storm_robe": 1,
+    "goety:storm_crown": 3
   }
 }

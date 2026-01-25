@@ -1,11 +1,16 @@
 package com.Polarice3.Goety.common.entities.ally.undead.zombie;
 
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
+import com.Polarice3.Goety.utils.ServerParticleUtil;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -24,30 +29,44 @@ public class FrayedServant extends ZombieServant{
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, AttributesConfig.JungleZombieServantHealth.get())
+                .add(Attributes.MAX_HEALTH, AttributesConfig.FrayedServantHealth.get())
                 .add(Attributes.FOLLOW_RANGE, 35.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.23D)
-                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.JungleZombieServantDamage.get())
-                .add(Attributes.ARMOR, AttributesConfig.JungleZombieServantArmor.get());
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.FrayedServantDamage.get())
+                .add(Attributes.ARMOR, AttributesConfig.FrayedServantArmor.get());
     }
 
     public void setConfigurableAttributes(){
-        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.JungleZombieServantHealth.get());
-        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.JungleZombieServantArmor.get());
-        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.JungleZombieServantDamage.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.FrayedServantHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.FrayedServantArmor.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.FrayedServantDamage.get());
     }
 
-    protected float getDamageAfterMagicAbsorb(DamageSource p_34149_, float p_34150_) {
-        p_34150_ = super.getDamageAfterMagicAbsorb(p_34149_, p_34150_);
-        if (p_34149_.getEntity() == this) {
-            p_34150_ = 0.0F;
-        }
+    protected SoundEvent getAmbientSound() {
+        return ModSounds.FRAYED_AMBIENT.get();
+    }
 
-        if (ModDamageSource.shockAttacks(p_34149_) || p_34149_.is(DamageTypeTags.IS_LIGHTNING)) {
-            p_34150_ *= 0.15F;
-        }
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return ModSounds.FRAYED_HURT.get();
+    }
 
-        return p_34150_;
+    protected SoundEvent getDeathSound() {
+        return ModSounds.FRAYED_DEATH.get();
+    }
+
+    protected SoundEvent getStepSound() {
+        return ModSounds.FRAYED_STEP.get();
+    }
+
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.level instanceof ServerLevel serverLevel){
+            if (this.tickCount % 5 == 0 && this.level.getRandom().nextBoolean()) {
+                ServerParticleUtil.addParticlesAroundMiddleSelf(serverLevel, ModParticleTypes.BIG_ELECTRIC.get(), this);
+            }
+        }
     }
 
     public boolean doHurtTarget(Entity pEntity) {
@@ -57,6 +76,16 @@ public class FrayedServant extends ZombieServant{
         }
 
         return flag;
+    }
+
+    protected float getDamageAfterMagicAbsorb(DamageSource p_34149_, float p_34150_) {
+        p_34150_ = super.getDamageAfterMagicAbsorb(p_34149_, p_34150_);
+
+        if (ModDamageSource.shockAttacks(p_34149_) || p_34149_.is(DamageTypeTags.IS_LIGHTNING)) {
+            p_34150_ *= 0.5F;
+        }
+
+        return p_34150_;
     }
 
     @Override

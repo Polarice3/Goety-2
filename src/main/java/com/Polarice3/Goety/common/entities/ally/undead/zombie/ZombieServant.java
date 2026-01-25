@@ -274,8 +274,10 @@ public class ZombieServant extends Summoned {
                 entityType = ModEntityType.ZOMBIE_VILLAGER_SERVANT.get();
             } else if (level.getBiome(blockPos).get().coldEnoughToSnow(blockPos)) {
                 entityType = ModEntityType.FROZEN_ZOMBIE_SERVANT.get();
-            } else if (level.getBiome(blockPos).is(BiomeTags.IS_JUNGLE) && level.random.nextBoolean()) {
+            } else if (level.getBiome(blockPos).is(BiomeTags.IS_JUNGLE) && level.getRandom().nextBoolean()) {
                 entityType = ModEntityType.JUNGLE_ZOMBIE_SERVANT.get();
+            } else if (level.isThundering() && level.canSeeSky(blockPos) && level.getRandom().nextBoolean()) {
+                entityType = ModEntityType.FRAYED_SERVANT.get();
             }
             if (SSeasonsLoaded.SERENE_SEASONS.isLoaded()){
                 if (SSeasonsIntegration.summonSnowVariant(level, blockPos)){
@@ -319,6 +321,26 @@ public class ZombieServant extends Summoned {
             Objects.requireNonNull(this.getAttribute(Attributes.FOLLOW_RANGE)).addPermanentModifier(new AttributeModifier("random zombie-spawn bonus", d0, AttributeModifier.Operation.MULTIPLY_TOTAL));
         }
 
+    }
+
+    public void thunderHit(ServerLevel p_35409_, LightningBolt p_35410_) {
+        FrayedServant frayed = ModEntityType.FRAYED_SERVANT.get().create(p_35409_);
+        if (frayed != null) {
+            frayed.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
+            frayed.finalizeSpawn(p_35409_, p_35409_.getCurrentDifficultyAt(frayed.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData)null, (CompoundTag)null);
+            frayed.setNoAi(this.isNoAi());
+            if (this.hasCustomName()) {
+                frayed.setCustomName(this.getCustomName());
+                frayed.setCustomNameVisible(this.isCustomNameVisible());
+            }
+
+            frayed.setPersistenceRequired();
+            net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, frayed);
+            p_35409_.addFreshEntityWithPassengers(frayed);
+            this.discard();
+        } else {
+            super.thunderHit(p_35409_, p_35410_);
+        }
     }
 
     public boolean killedEntity(ServerLevel world, LivingEntity killedEntity) {

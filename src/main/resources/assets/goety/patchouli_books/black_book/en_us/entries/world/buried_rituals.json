@@ -1,0 +1,16 @@
+{
+  "name": "Buried Rituals",
+  "icon": "minecraft:suspicious_sand",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The desert is full of buried secrets, but these appeared to be once a site of a ritual, but of what?"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/buried_ritual.png"],
+      "border": true
+    }
+  ]
+}

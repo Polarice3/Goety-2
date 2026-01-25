@@ -33,6 +33,9 @@ public class ServantSpawnEggs {
     public static final RegistryObject<ServantSpawnEggItem> JUNGLE_ZOMBIE_SERVANT_SPAWN_EGG = ITEMS.register("jungle_zombie_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.JUNGLE_ZOMBIE_SERVANT, 0x383028, 0x2d3c21, egg()));
 
+    public static final RegistryObject<ServantSpawnEggItem> FRAYED_SERVANT_SPAWN_EGG = ITEMS.register("frayed_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.FRAYED_SERVANT, 0x25241f, 0x664400, egg()));
+
     public static final RegistryObject<ServantSpawnEggItem> ZOMBIE_VINDICATOR_SERVANT_SPAWN_EGG = ITEMS.register("zombie_vindicator_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.ZOMBIE_VINDICATOR_SERVANT, 0x8aa2a2, 0x4c6240, egg()));
 
@@ -53,6 +56,9 @@ public class ServantSpawnEggs {
 
     public static final RegistryObject<ServantSpawnEggItem> SUNKEN_SKELETON_SERVANT_SPAWN_EGG = ITEMS.register("sunken_skeleton_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.SUNKEN_SKELETON_SERVANT, 0xd6d0c9, 0xa154bc, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> RATTLED_SERVANT_SPAWN_EGG = ITEMS.register("rattled_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.RATTLED_SERVANT, 0x4c2c00, 0x6b6b6b, egg()));
 
     public static final RegistryObject<ServantSpawnEggItem> SKELETON_PILLAGER_SERVANT_SPAWN_EGG = ITEMS.register("skeleton_pillager_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.SKELETON_PILLAGER_SERVANT, 0x363636, 0x606060, egg()));

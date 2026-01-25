@@ -3278,5 +3278,21 @@
   "item.goety.winter_wolf_spawn_egg": "ウィンターウルフのスポーンエッグ",
   "commands.goety.misc.despawn.success.single": "%sをデスポーンさせました。",
   "commands.goety.misc.despawn.success.multiple": "%s体のエンティティをデスポーンさせました。",
-  "commands.goety.misc.despawn.failure.player": "プレイヤーをデスポーンさせることはできません"
+  "commands.goety.misc.despawn.failure.player": "プレイヤーをデスポーンさせることはできません",
+  "entity.goety.frayed": "フレイド",
+  "entity.goety.rattled": "ラトルド",
+  "entity.goety.frayed_servant": "フレイドの従者",
+  "entity.goety.rattled_servant": "ラトルドの従者",
+  "item.goety.frayed_spawn_egg": "フレイドのスポーンエッグ",
+  "item.goety.rattled_spawn_egg": "ラトルドのスポーンエッグ",
+  "item.goety.frayed_servant_spawn_egg": "フレイドの従者のスポーンエッグ",
+  "item.goety.rattled_servant_spawn_egg": "ラトルドの従者のスポーンエッグ",
+  "item.goety.wind_crown": "風の冠",
+  "item.goety.storm_crown": "嵐の冠",
+  "item.goety.geo_robe": "地のローブ",
+  "info.goety.wind_crown": "風の従者は持続します。",
+  "info.goety.wind_crown_cast": "風の呪文の詠唱時間が半分になります。",
+  "info.goety.storm_crown": "嵐の従者は持続します。",
+  "info.goety.storm_crown_cast": "嵐の呪文の詠唱時間が半分になります。",
+  "info.goety.geo_robe_discount": "ジオマンシーの呪文のソウルコストが%s%%軽減されます。"
 }

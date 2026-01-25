@@ -1,0 +1,19 @@
+{
+  "name": "スケルトンの亜種",
+  "icon": "minecraft:bone",
+  "category": "goety:world/bestiary",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "骨の山が怒りを表明する方法は他にもあるようです。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:rattled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "よろめきながら歩くこのアンデッドは、矢を放ち、犠牲者を痙攣させる。雷雨の際、空に露出している時、あるいはウィザー属性ではないスケルトンが雷に打たれた時にのみ出現します。ショック攻撃や雷撃によるダメージはを半減します。"
+    }
+  ]
+}

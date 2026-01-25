@@ -1,0 +1,16 @@
+{
+  "name": "Cemitérios",
+  "icon": "goety:shade_stone_polished",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Espalhados pelo mundo, há relatos de cemitérios assombrados que rumores dizem ser amaldiçoados com magia sombria, e alguns relataram ter ouvido rosnados ao redor. Talvez alguns dos túmulos guardem tesouros..."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/graveyard.png"],
+      "border": true
+    }
+  ]
+}

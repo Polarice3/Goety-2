@@ -1,5 +1,5 @@
 {
-  "name": "Servos Esqueleto",
+  "name": "Servos Esqueletos",
   "icon": "minecraft:skeleton_skull",
   "category": "goety:summons",
   "pages": [
@@ -25,7 +25,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Servos Esqueleto tentarão matar qualquer um que machucar você ou criaturas hostis próximas. Se invocados enquanto o invocador veste uma Capa Necro, suas flechas atravessam aliados."
+      "text": "Servos Esqueletos tentarão matar qualquer um que machucar você ou criaturas hostis próximas. Se invocados enquanto o invocador veste uma Capa Necro, suas flechas atravessam aliados."
     },
     {
       "type": "patchouli:entity",
@@ -51,6 +51,14 @@
     {
       "type": "patchouli:text",
       "text": "Sob o mar, os Esqueletos não apenas nadam, mas também usam bestas que lançam arpões, mais eficientes na água que flechas comuns."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:rattled_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Ser exposto a uma tempestade aberta terá uma chance de invocar um Servo Espasmódico, 100% se invocado com um $(l:crafts/staff/storm_staff)Cajado da Tempestade$(). Suas flechas infligem Espasmos, e têm resistência a danos de choque ou ataques de raio."
     },
     {
       "type": "patchouli:entity",

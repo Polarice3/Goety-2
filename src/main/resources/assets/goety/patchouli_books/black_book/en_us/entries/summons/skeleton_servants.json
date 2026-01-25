@@ -54,6 +54,14 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:rattled_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Being exposed to an open thunderstorm will have a chance of summoning a Rattled Servant instead, a 100%% if summoned with a $(l:crafts/staff/storm_staff)Storm Staff$(). Their arrows inflicts Spasms, and they are have damage resistance to shock or lightning attacks."
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:skeleton_pillager"
     },
     {

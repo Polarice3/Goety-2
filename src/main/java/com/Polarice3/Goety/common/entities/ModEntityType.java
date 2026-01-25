@@ -653,6 +653,16 @@ public class ModEntityType {
                     .sized(0.6F, 0.85F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<Frayed>> FRAYED = register("frayed",
+            EntityType.Builder.of(Frayed::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<Rattled>> RATTLED = register("rattled",
+            EntityType.Builder.of(Rattled::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<Reaper>> REAPER = register("reaper",
             EntityType.Builder.of(Reaper::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F)
@@ -787,6 +797,11 @@ public class ModEntityType {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<FrayedServant>> FRAYED_SERVANT = register("frayed_servant",
+            EntityType.Builder.of(FrayedServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<BlackguardServant>> BLACKGUARD_SERVANT = register("blackguard_servant",
             EntityType.Builder.of(BlackguardServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)
@@ -816,6 +831,11 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<SunkenSkeletonServant>> SUNKEN_SKELETON_SERVANT = register("sunken_skeleton_servant",
             EntityType.Builder.of(SunkenSkeletonServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<RattledServant>> RATTLED_SERVANT = register("rattled_servant",
+            EntityType.Builder.of(RattledServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F)
                     .clientTrackingRange(8));
 

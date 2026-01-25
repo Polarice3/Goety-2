@@ -105,6 +105,14 @@ public class SingleStackItem extends Item implements ICurioItem {
                 tooltip.add(Component.translatable("info.goety.frost_crown").withStyle(main));
                 tooltip.add(Component.translatable("info.goety.frost_crown_cast").withStyle(secondary));
             }
+            if (stack.is(ModItems.WIND_CROWN.get())){
+                tooltip.add(Component.translatable("info.goety.wind_crown").withStyle(main));
+                tooltip.add(Component.translatable("info.goety.wind_crown_cast").withStyle(secondary));
+            }
+            if (stack.is(ModItems.STORM_CROWN.get())){
+                tooltip.add(Component.translatable("info.goety.storm_crown").withStyle(main));
+                tooltip.add(Component.translatable("info.goety.storm_crown_cast").withStyle(secondary));
+            }
             if (stack.is(ModItems.WILD_CROWN.get())){
                 tooltip.add(Component.translatable("info.goety.wild_crown").withStyle(main));
                 tooltip.add(Component.translatable("info.goety.wild_crown_cast").withStyle(secondary));
@@ -138,40 +146,43 @@ public class SingleStackItem extends Item implements ICurioItem {
                 if (stack.is(ModItems.GRAND_ROBE.get())) {
                     tooltip.add(Component.translatable("info.goety.grand_robe").withStyle(main));
                 }
-                tooltip.add(Component.translatable("info.goety.dark_robe").withStyle(secondary));
+                tooltip.add(Component.translatable("info.goety.dark_robe", ItemConfig.DarkRobeDiscount.get()).withStyle(secondary));
             }
             if (stack.getItem() instanceof IllusionRobeItem) {
                 tooltip.add(Component.translatable("info.goety.illusion_robe").withStyle(secondary));
+            }
+            if (stack.is(ModItems.GEO_ROBE.get())) {
+                tooltip.add(Component.translatable("info.goety.geo_robe_discount", ItemConfig.GeoRobeDiscount.get()).withStyle(secondary));
             }
             if (stack.getItem() instanceof FrostRobeItem) {
                 if (ItemConfig.FrostRobeResistance.get() > 0) {
                     tooltip.add(Component.translatable("info.goety.frost_robe", ItemConfig.FrostRobeResistance.get()).withStyle(main));
                 }
-                tooltip.add(Component.translatable("info.goety.frost_robe_discount").withStyle(secondary));
+                tooltip.add(Component.translatable("info.goety.frost_robe_discount", ItemConfig.FrostRobeDiscount.get()).withStyle(secondary));
             }
             if (stack.getItem() instanceof WindyRobeItem) {
                 tooltip.add(Component.translatable("info.goety.wind_robe").withStyle(main));
                 if (stack.is(ModItems.WIND_ROBE.get())) {
-                    tooltip.add(Component.translatable("info.goety.wind_robe_discount").withStyle(secondary));
+                    tooltip.add(Component.translatable("info.goety.wind_robe_discount", ItemConfig.WindRobeDiscount.get()).withStyle(secondary));
                 }
                 if (stack.is(ModItems.STORM_ROBE.get())) {
                     if (ItemConfig.StormRobeResistance.get() > 0) {
                         tooltip.add(Component.translatable("info.goety.storm_robe", ItemConfig.StormRobeResistance.get()).withStyle(main));
                     }
-                    tooltip.add(Component.translatable("info.goety.storm_robe_discount").withStyle(secondary));
+                    tooltip.add(Component.translatable("info.goety.storm_robe_discount", ItemConfig.StormRobeDiscount.get()).withStyle(secondary));
                 }
             }
             if (stack.getItem() instanceof WildRobeItem) {
                 tooltip.add(Component.translatable("info.goety.wild_robe").withStyle(main));
-                tooltip.add(Component.translatable("info.goety.wild_robe_discount").withStyle(secondary));
+                tooltip.add(Component.translatable("info.goety.wild_robe_discount", ItemConfig.WildRobeDiscount.get()).withStyle(secondary));
             }
             if (stack.getItem() instanceof AbyssRobeItem) {
                 tooltip.add(Component.translatable("info.goety.abyss_robe").withStyle(main));
-                tooltip.add(Component.translatable("info.goety.abyss_robe_discount").withStyle(secondary));
+                tooltip.add(Component.translatable("info.goety.abyss_robe_discount", ItemConfig.AbyssRobeDiscount.get()).withStyle(secondary));
             }
             if (stack.getItem() instanceof VoidRobeItem) {
                 tooltip.add(Component.translatable("info.goety.void_robe", ItemConfig.VoidRobeTeleportChance.get()).withStyle(main));
-                tooltip.add(Component.translatable("info.goety.void_robe_discount").withStyle(secondary));
+                tooltip.add(Component.translatable("info.goety.void_robe_discount", ItemConfig.VoidRobeDiscount.get()).withStyle(secondary));
             }
             if (stack.getItem() instanceof WitchRobeItem) {
                 tooltip.add(Component.translatable("info.goety.witch_robe_brew", ModKeybindings.keyBindings[3].getTranslatedKeyMessage().getString()).withStyle(main));
@@ -189,11 +200,11 @@ public class SingleStackItem extends Item implements ICurioItem {
                 if (ItemConfig.NetherRobeResistance.get() > 0) {
                     tooltip.add(Component.translatable("info.goety.nether_robe", ItemConfig.NetherRobeResistance.get()).withStyle(main));
                 }
-                tooltip.add(Component.translatable("info.goety.nether_robe_discount").withStyle(secondary));
+                tooltip.add(Component.translatable("info.goety.nether_robe_discount", ItemConfig.NetherRobeDiscount.get()).withStyle(secondary));
             }
             if (stack.getItem() instanceof UnholyRobeItem) {
                 tooltip.add(Component.translatable("info.goety.unholy_robe").withStyle(main));
-                tooltip.add(Component.translatable("info.goety.unholy_robe_discount").withStyle(secondary));
+                tooltip.add(Component.translatable("info.goety.unholy_robe_discount", ItemConfig.NetherRobeDiscount.get()).withStyle(secondary));
             }
             if (stack.is(ModItems.RING_OF_WANT.get())){
                 tooltip.add(Component.translatable("info.goety.ring_of_want").withStyle(secondary));

@@ -5,12 +5,10 @@ import com.Polarice3.Goety.common.entities.ai.CreatureBowAttackGoal;
 import com.Polarice3.Goety.common.entities.projectiles.NecroBolt;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.ClientUtils;
 import com.Polarice3.Goety.utils.LichdomHelper;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import com.Polarice3.Goety.utils.SoundUtil;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.PlayerInfo;
-import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -63,8 +61,6 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
     public double xCloak;
     public double yCloak;
     public double zCloak;
-    @Nullable
-    private PlayerInfo playerInfo;
 
     public Doppelganger(EntityType<? extends Doppelganger> type, Level worldIn) {
         super(type, worldIn);
@@ -276,38 +272,36 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
     }
 
     public boolean isCapeLoaded() {
-        return this.getPlayerInfo() != null;
+        if (this.level.isClientSide) {
+            return ClientUtils.getPlayerInfo(this.getOwnerId()) != null;
+        }
+        return false;
     }
 
-    public boolean isModelPartShown(PlayerModelPart p_36171_) {
-        return (this.getEntityData().get(DATA_PLAYER_MODE_CUSTOMISATION) & p_36171_.getMask()) == p_36171_.getMask();
+    public boolean isModelPartShown(PlayerModelPart part) {
+        return ClientUtils.isModelPartShown(this.getEntityData().get(DATA_PLAYER_MODE_CUSTOMISATION), part);
     }
 
     public ResourceLocation getSkinTextureLocation() {
-        PlayerInfo playerinfo = this.getPlayerInfo();
-        return playerinfo == null ? DefaultPlayerSkin.getDefaultSkin(this.getUUID()) : playerinfo.getSkinLocation();
+        if (this.level.isClientSide) {
+            return ClientUtils.getSkinTextureLocation(this.getUUID(), ClientUtils.getPlayerInfo(this.getOwnerId()));
+        }
+        return new ResourceLocation("minecraft", "textures/entity/steve.png");
     }
 
     public String getModelName() {
-        PlayerInfo playerinfo = this.getPlayerInfo();
-        return playerinfo == null ? DefaultPlayerSkin.getSkinModelName(this.getUUID()) : playerinfo.getModelName();
+        if (this.level.isClientSide) {
+            return ClientUtils.getModelName(this.getUUID(), ClientUtils.getPlayerInfo(this.getOwnerId()));
+        }
+        return "default";
     }
 
     @Nullable
     public ResourceLocation getCloakTextureLocation() {
-        PlayerInfo playerinfo = this.getPlayerInfo();
-        return playerinfo == null ? null : playerinfo.getCapeLocation();
-    }
-
-    @Nullable
-    protected PlayerInfo getPlayerInfo() {
-        if (this.playerInfo == null) {
-            if (this.getOwnerId() != null) {
-                this.playerInfo = Minecraft.getInstance().getConnection().getPlayerInfo(this.getOwnerId());
-            }
+        if (this.level.isClientSide) {
+            return ClientUtils.getCloakTextureLocation(ClientUtils.getPlayerInfo(this.getOwnerId()));
         }
-
-        return this.playerInfo;
+        return null;
     }
 
     @Override

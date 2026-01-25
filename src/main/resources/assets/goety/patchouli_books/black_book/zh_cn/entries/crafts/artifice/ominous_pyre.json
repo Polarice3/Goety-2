@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "不祥火炬可以把新刌民训练成其他兵种，要开始训练，你需要使用装有$(l:goety:focuses/command_focus)命令聚晶$()或$(l:goety:focuses/order_focus)敕令聚晶$()的法杖右键新刌民，然后再右键不祥火炬，如果配置文件中的“illagerServantAutoTrain”条目启用，则只需要把新刌民放在火炬旁边就行，就像不同类型的仪式中$(l:rituals/dark_altar)黑暗祭坛$()的摆放需求一样，新刌民最后会训练成特定的兵种，每个火炬至多能同时训练8名新刌民。"
+      "text": "不祥火炬可以把新刌民训练成其他兵种，要开始训练，你需要使用装有$(l:goety:focuses/command_focus)命令聚晶$()或$(l:goety:focuses/order_focus)敕令聚晶$()的法杖左键新刌民，然后再右键不祥火炬，如果配置文件中的“illagerServantAutoTrain”条目启用，则只需要把新刌民放在火炬旁边就行，就像不同类型的仪式中$(l:rituals/dark_altar)黑暗祭坛$()的摆放需求一样，新刌民最后会训练成特定的兵种，每个火炬至多能同时训练8名新刌民。"
     },
     {
       "type": "goety:ritual",

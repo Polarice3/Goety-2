@@ -118,7 +118,10 @@ public class ItemConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> RobeCape;
     public static final ForgeConfigSpec.ConfigValue<Boolean> AbyssSetMobNeutral;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> GeoSetMobNeutral;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FrostSetMobNeutral;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WindSetMobNeutral;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> StormSetMobNeutral;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VoidSetMobNeutral;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VoidRobeTeleportDamageCancel;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WildSetMobNeutral;
@@ -138,8 +141,21 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> FireSpawnCage;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ScytheSlashBreaks;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> DarkRobeDiscount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FrostRobeDiscount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WindRobeDiscount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> StormRobeDiscount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WildRobeDiscount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GeoRobeDiscount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> NetherRobeDiscount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> AbyssRobeDiscount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VoidRobeDiscount;
+
     public static final ForgeConfigSpec.ConfigValue<Double> AbyssSetMobNeutralHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> GeoSetMobNeutralHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> FrostSetMobNeutralHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> WindSetMobNeutralHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> StormSetMobNeutralHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> VoidSetMobNeutralHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> WildSetMobNeutralHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> NetherSetMobNeutralHealth;
@@ -165,34 +181,94 @@ public class ItemConfig {
         BUILDER.pop();
         BUILDER.push("Curios");
             BUILDER.push("Robes");
+                BUILDER.push("Discounts");
+                DarkRobeDiscount = BUILDER.comment("How much soul cost discount Dark/Grand Robes provides by percent, Default: 15")
+                        .defineInRange("darkRobeDiscount", 15, 0, 100);
+                FrostRobeDiscount = BUILDER.comment("How much soul cost discount Frost Robes provides by percent, Default: 50")
+                        .defineInRange("frostRobeDiscount", 50, 0, 100);
+                WindRobeDiscount = BUILDER.comment("How much soul cost discount Wind Robes provides by percent, Default: 50")
+                        .defineInRange("windRobeDiscount", 50, 0, 100);
+                StormRobeDiscount = BUILDER.comment("How much soul cost discount Storm Robes provides by percent, Default: 50")
+                        .defineInRange("stormRobeDiscount", 50, 0, 100);
+                WildRobeDiscount = BUILDER.comment("How much soul cost discount Wild Robes provides by percent, Default: 50")
+                        .defineInRange("wildRobeDiscount", 50, 0, 100);
+                GeoRobeDiscount = BUILDER.comment("How much soul cost discount Geo Robes provides by percent, Default: 50")
+                        .defineInRange("geoRobeDiscount", 50, 0, 100);
+                NetherRobeDiscount = BUILDER.comment("How much soul cost discount Nether/Unholy Robes provides by percent, Default: 50")
+                        .defineInRange("netherRobeDiscount", 50, 0, 100);
+                AbyssRobeDiscount = BUILDER.comment("How much soul cost discount Abyss Robes provides by percent, Default: 50")
+                        .defineInRange("abyssRobeDiscount", 50, 0, 100);
+                VoidRobeDiscount = BUILDER.comment("How much soul cost discount Void Robes provides by percent, Default: 50")
+                        .defineInRange("voidRobeDiscount", 50, 0, 100);
+                BUILDER.pop();
+                BUILDER.push("Resistances");
+                WindRobeSouls = BUILDER.comment("How much Soul Energy is taken per second when wearer is falling slowly, Default: 1")
+                        .defineInRange("windRobeSouls", 1, 1, Integer.MAX_VALUE);
+                WitchRobeResistance = BUILDER.comment("How much magic resistance Witches Robes provides by percent, Default: 85")
+                        .defineInRange("witchRobeResistance", 85, 0, 100);
+                WarlockRobeResistance = BUILDER.comment("How much magic resistance Warlock Robes provides by percent, Default: 85")
+                        .defineInRange("warlockRobeResistance", 85, 0, 100);
+                FrostRobeResistance = BUILDER.comment("How much frost resistance Frost Robes provides by percent, Default: 85")
+                        .defineInRange("frostRobeResistance", 85, 0, 100);
+                StormRobeResistance = BUILDER.comment("How much shock resistance Storm Robes provides by percent, Default: 85")
+                        .defineInRange("stormRobeResistance", 85, 0, 100);
+                NetherRobeResistance = BUILDER.comment("How much fire resistance Nether Robes provides by percent, Default: 85")
+                        .defineInRange("netherRobeResistance", 85, 0, 100);
+                UnholyHatNetherResistance = BUILDER.comment("How much damage is reduced when in the Nether the Unholy Hats provides by percent, Default: 50")
+                        .defineInRange("unholyHatNetherResistance", 50, 0, 100);
+                BUILDER.pop();
+                BUILDER.push("Neutral");
+                AbyssSetMobNeutral = BUILDER.comment("Whether wearing both Abyss Robe and Crown will cause certain mobs to be neutral, Default: true")
+                        .define("abyssSetMobNeutral", true);
+                AbyssSetMobNeutralHealth = BUILDER.comment("If 'abyssSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
+                        .defineInRange("abyssSetMobNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
+                GeoSetMobNeutral = BUILDER.comment("Whether wearing both Geo Robe and Amethyst Necklace will cause certain mobs to be neutral, Default: true")
+                        .define("geoSetMobNeutral", true);
+                GeoSetMobNeutralHealth = BUILDER.comment("If 'geoSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
+                        .defineInRange("geoSetMobNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
+                FrostSetMobNeutral = BUILDER.comment("Whether wearing both Frost Robe and Crown will cause certain mobs to be neutral, Default: true")
+                        .define("frostSetMobNeutral", true);
+                FrostSetMobNeutralHealth = BUILDER.comment("If 'frostSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
+                        .defineInRange("frostSetMobNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
+                WindSetMobNeutral = BUILDER.comment("Whether wearing both Wind Robe and Crown will cause certain mobs to be neutral, Default: true")
+                        .define("windSetMobNeutral", true);
+                WindSetMobNeutralHealth = BUILDER.comment("If 'windSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
+                        .defineInRange("windSetMobNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
+                StormSetMobNeutral = BUILDER.comment("Whether wearing both Storm Robe and Crown will cause certain mobs to be neutral, Default: true")
+                        .define("stormSetMobNeutral", true);
+                StormSetMobNeutralHealth = BUILDER.comment("If 'stormSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
+                        .defineInRange("stormSetMobNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
+                VoidSetMobNeutral = BUILDER.comment("Whether wearing both Void Robe and Crown will cause certain mobs to be neutral, Default: true")
+                        .define("voidSetMobNeutral", true);
+                VoidSetMobNeutralHealth = BUILDER.comment("If 'voidSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
+                        .defineInRange("voidSetMobNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
+                WildSetMobNeutral = BUILDER.comment("Whether wearing both Wild Robe and Crown will cause certain mobs to be neutral, Default: true")
+                        .define("wildSetMobNeutral", true);
+                WildSetMobNeutralHealth = BUILDER.comment("If 'wildSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
+                        .defineInRange("wildSetMobNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
+                NetherSetMobNeutral = BUILDER.comment("Whether wearing both Nether Robe and Crown will cause certain mobs to be neutral, Default: true")
+                        .define("netherSetMobNeutral", true);
+                NetherSetMobNeutralHealth = BUILDER.comment("If 'netherSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
+                        .defineInRange("netherSetMobNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
+                NecroSetUndeadNeutral = BUILDER.comment("Whether wearing both Necro Cape and Crown will cause Undead mobs to be neutral, Default: true")
+                        .define("necroSetUndeadNeutral", true);
+                NecroSetUndeadNeutralHealth = BUILDER.comment("If 'necroSetUndeadNeutral' is enabled, the highest max health an Undead mob has to have to be neutral, Default: 50.0")
+                        .defineInRange("necroSetUndeadNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
+                NamelessSetUndeadNeutral = BUILDER.comment("Whether wearing both Nameless Cape and Crown will cause Undead mobs to be neutral, Default: true")
+                        .define("namelessSetUndeadNeutral", true);
+                NamelessSetUndeadNeutralHealth = BUILDER.comment("If 'namelessSetUndeadNeutral' is enabled, the highest max health an Undead mob has to have to be neutral, Default: 50.0")
+                        .defineInRange("namelessSetUndeadNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
+                WitchSetWitchNeutral = BUILDER.comment("Whether wearing both Witch Robe and Hat will cause Witches and Warlocks to be neutral, Default: true")
+                        .define("witchSetWitchNeutral", true);
+                WarlockRobeWitchNeutral = BUILDER.comment("Whether wearing a Warlock Robe will cause Witches and Warlocks to be neutral, Default: true")
+                        .define("warlockRobeWitchNeutral", true);
+                NetherRobeWitchNeutral = BUILDER.comment("Whether wearing a Nether Robe will cause Witches and Warlocks to be neutral, Default: true")
+                        .define("netherRobeWitchNeutral", true);
+                BUILDER.pop();
             ShowRobeHoods = BUILDER.comment("Show Hoods when wearing certain robes ie, Illusive Robes, Default: true")
                     .define("showRobeHoods", true);
             RobeCape = BUILDER.comment("Render Capes on certain Robes, Default: true")
                     .define("windRobeCape", true);
-            WindRobeSouls = BUILDER.comment("How much Soul Energy is taken per second when wearer is falling slowly, Default: 1")
-                    .defineInRange("windRobeSouls", 1, 1, Integer.MAX_VALUE);
-            WitchRobeResistance = BUILDER.comment("How much magic resistance Witches Robes provides by percent, Default: 85")
-                    .defineInRange("witchRobeResistance", 85, 0, 100);
-            WarlockRobeResistance = BUILDER.comment("How much magic resistance Warlock Robes provides by percent, Default: 85")
-                    .defineInRange("warlockRobeResistance", 85, 0, 100);
-            FrostRobeResistance = BUILDER.comment("How much frost resistance Frost Robes provides by percent, Default: 85")
-                    .defineInRange("frostRobeResistance", 85, 0, 100);
-            StormRobeResistance = BUILDER.comment("How much shock resistance Storm Robes provides by percent, Default: 85")
-                    .defineInRange("stormRobeResistance", 85, 0, 100);
-            NetherRobeResistance = BUILDER.comment("How much fire resistance Nether Robes provides by percent, Default: 85")
-                    .defineInRange("netherRobeResistance", 85, 0, 100);
-            UnholyHatNetherResistance = BUILDER.comment("How much damage is reduced when in the Nether the Unholy Hats provides by percent, Default: 50")
-                    .defineInRange("unholyHatNetherResistance", 50, 0, 100);
-            AbyssSetMobNeutral = BUILDER.comment("Whether wearing both Abyss Robe and Crown will cause certain mobs to be neutral, Default: true")
-                    .define("abyssSetMobNeutral", true);
-            AbyssSetMobNeutralHealth = BUILDER.comment("If 'abyssSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
-                    .defineInRange("abyssSetMobNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
-            FrostSetMobNeutral = BUILDER.comment("Whether wearing both Frost Robe and Crown will cause certain mobs to be neutral, Default: true")
-                    .define("frostSetMobNeutral", true);
-            FrostSetMobNeutralHealth = BUILDER.comment("If 'frostSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
-                    .defineInRange("frostSetMobNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
-            VoidSetMobNeutral = BUILDER.comment("Whether wearing both Void Robe and Crown will cause certain mobs to be neutral, Default: true")
-                    .define("voidSetMobNeutral", true);
             VoidRobeTeleportChance = BUILDER.comment("Determines the chance of Void Robes wearers can teleport away from incoming attacks, set to 0 to disable, Default: 5")
                     .defineInRange("voidRobeTeleportChance", 5, 0, 100);
             VoidRobeTeleportDistance = BUILDER.comment("Determines how far Void Robes wearers can teleport away from original position, Default: 4")
@@ -201,36 +277,12 @@ public class ItemConfig {
                     .define("voidRobeTeleportDamageCancel", true);
             VoidRobeWaterSapped = BUILDER.comment("Determines what level of Sapped is applied while wearing Void Robes in rain or water, set to 0 to disable, Default: 2")
                     .defineInRange("voidRobeWaterSapped", 2, 0, 10);
-            VoidSetMobNeutralHealth = BUILDER.comment("If 'voidSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
-                    .defineInRange("voidSetMobNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
-            WildSetMobNeutral = BUILDER.comment("Whether wearing both Wild Robe and Crown will cause certain mobs to be neutral, Default: true")
-                    .define("wildSetMobNeutral", true);
-            WildSetMobNeutralHealth = BUILDER.comment("If 'wildSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
-                    .defineInRange("wildSetMobNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
-            NetherSetMobNeutral = BUILDER.comment("Whether wearing both Nether Robe and Crown will cause certain mobs to be neutral, Default: true")
-                    .define("netherSetMobNeutral", true);
-            NetherSetMobNeutralHealth = BUILDER.comment("If 'netherSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
-                    .defineInRange("netherSetMobNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
-            NecroSetUndeadNeutral = BUILDER.comment("Whether wearing both Necro Cape and Crown will cause Undead mobs to be neutral, Default: true")
-                    .define("necroSetUndeadNeutral", true);
-            NecroSetUndeadNeutralHealth = BUILDER.comment("If 'necroSetUndeadNeutral' is enabled, the highest max health an Undead mob has to have to be neutral, Default: 50.0")
-                    .defineInRange("necroSetUndeadNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
             NecroCrownWeakness = BUILDER.comment("Whether wearing Necro Crown while not being a Lich gives Weakness when in sunlight, Default: true")
                     .define("necroCrownWeakness", true);
             NecroCapeHunger = BUILDER.comment("Whether wearing Necro Cape while not being a Lich gives Hunger when in sunlight, Default: true")
                     .define("necroCapeHunger", true);
             NecroCapeChangeTexture = BUILDER.comment("Necro Crown and Cape change textures when wearing a specific robe, Default: true")
                     .define("necroCapeChangeTexture", true);
-            NamelessSetUndeadNeutral = BUILDER.comment("Whether wearing both Nameless Cape and Crown will cause Undead mobs to be neutral, Default: true")
-                    .define("namelessSetUndeadNeutral", true);
-            NamelessSetUndeadNeutralHealth = BUILDER.comment("If 'namelessSetUndeadNeutral' is enabled, the highest max health an Undead mob has to have to be neutral, Default: 50.0")
-                    .defineInRange("namelessSetUndeadNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
-            WitchSetWitchNeutral = BUILDER.comment("Whether wearing both Witch Robe and Hat will cause Witches and Warlocks to be neutral, Default: true")
-                    .define("witchSetWitchNeutral", true);
-            WarlockRobeWitchNeutral = BUILDER.comment("Whether wearing a Warlock Robe will cause Witches and Warlocks to be neutral, Default: true")
-                    .define("warlockRobeWitchNeutral", true);
-            NetherRobeWitchNeutral = BUILDER.comment("Whether wearing a Nether Robe will cause Witches and Warlocks to be neutral, Default: true")
-                    .define("netherRobeWitchNeutral", true);
             BUILDER.pop();
         FirstPersonGloves = BUILDER.comment("Show gloves in first person, Default: true")
                 .define("firstPersonGloves", true);

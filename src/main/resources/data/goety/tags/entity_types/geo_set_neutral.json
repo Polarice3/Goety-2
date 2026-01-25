@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "mowziesmobs:bluff",
+      "required": false
+    },
+    {
+      "id": "legendary_monsters:mossy_golem",
+      "required": false
+    },
+    {
+      "id": "legendary_monsters:ambusher",
+      "required": false
+    },
+    {
+      "id": "legendary_monsters:spiky_bug",
+      "required": false
+    }
+  ]
+}

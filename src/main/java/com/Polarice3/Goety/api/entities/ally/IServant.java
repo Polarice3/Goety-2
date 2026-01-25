@@ -182,6 +182,8 @@ public interface IServant extends IOwned {
                 this.setUpgraded(CuriosFinder.hasFrostRobes(owner));
             } else if (mob.getMobType() == MobType.WATER) {
                 this.setUpgraded(CuriosFinder.hasAbyssRobes(owner));
+            } else if (ServantUtil.isVoidHeal(mob)) {
+                this.setUpgraded(CuriosFinder.hasVoidRobe(owner));
             }
         }
     }
@@ -378,6 +380,23 @@ public interface IServant extends IOwned {
                 this.setNoHealTime(this.getNoHealTime() - 1);
             }
             this.burnServant(owned);
+            this.ownedByServantTick();
+        }
+    }
+
+    default void ownedByServantTick() {
+        if (this instanceof Mob mob) {
+            if (this.getTrueOwner() instanceof IServant owner) {
+                if (owner.isGuardingArea()) {
+                    if (!this.isGuardingArea()) {
+                        if (owner.getBoundPos() != null && owner.getBoundLevel() == mob.level.dimension()) {
+                            this.setBoundPos(owner.getBoundPos());
+                        }
+                    }
+                } else {
+                    this.setFollowing();
+                }
+            }
         }
     }
 

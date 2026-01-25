@@ -87,6 +87,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> PithosRespawn;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CrystalBallRespawn;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> HookBellBlackList;
+    public static ForgeConfigSpec.ConfigValue<List<? extends String>> ForbiddenGrassBlackList;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichEnable;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichSoulHeal;
@@ -165,6 +166,11 @@ public class MainConfig {
                         Add mobs that Hook Bells don't work on.\s
                         To do so, enter the namespace ID of the mob, like "minecraft:zombie, minecraft:skeleton".""")
                 .defineList("hookBellBlackList", Lists.newArrayList(),
+                        (itemRaw) -> itemRaw instanceof String);
+        ForbiddenGrassBlackList = BUILDER.comment("""
+                        Add mobs that Forbidden Grass will not spawn.\s
+                        To do so, enter the namespace ID of the mob, like "minecraft:zombie, minecraft:skeleton".""")
+                .defineList("forbiddenGrassBlackList", Lists.newArrayList(),
                         (itemRaw) -> itemRaw instanceof String);
         EnableNightBeacon = BUILDER.comment("Whether Night Beacons are allowed to function, turning Daytime to Midnight so long as it's activated, Default: true")
                 .define("enableNightBeacon", true);
