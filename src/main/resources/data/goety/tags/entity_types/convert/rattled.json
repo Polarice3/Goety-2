@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "__comment": "mobs that can be converted to Rattled when struck by lightning.",
+  "values": [
+    "minecraft:skeleton",
+    "minecraft:stray",
+    "goety:skeleton_servant",
+    "goety:stray_servant",
+    "goety:mossy_skeleton_servant",
+    "goety:sunken_skeleton_servant"
+  ]
+}

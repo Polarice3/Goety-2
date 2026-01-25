@@ -293,30 +293,6 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
         return this.isFullyFrozen();
     }
 
-    public void thunderHit(ServerLevel p_35409_, LightningBolt p_35410_) {
-        if (!(this instanceof WitherSkeletonServant) && !(this instanceof RattledServant)) {
-            RattledServant rattled = ModEntityType.RATTLED_SERVANT.get().create(p_35409_);
-            if (rattled != null) {
-                rattled.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
-                rattled.finalizeSpawn(p_35409_, p_35409_.getCurrentDifficultyAt(rattled.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
-                rattled.setNoAi(this.isNoAi());
-                if (this.hasCustomName()) {
-                    rattled.setCustomName(this.getCustomName());
-                    rattled.setCustomNameVisible(this.isCustomNameVisible());
-                }
-
-                rattled.setPersistenceRequired();
-                net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, rattled);
-                p_35409_.addFreshEntityWithPassengers(rattled);
-                this.discard();
-            } else {
-                super.thunderHit(p_35409_, p_35410_);
-            }
-        } else {
-            super.thunderHit(p_35409_, p_35410_);
-        }
-    }
-
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         Item item = itemstack.getItem();

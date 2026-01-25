@@ -160,6 +160,17 @@ public interface IServant extends IOwned {
         this.setStaying(false);
     }
 
+    default void copyStance(IServant servant) {
+        if (servant.isFollowing()) {
+            this.setFollowing();
+        } else if (servant.isWandering()) {
+            this.setWandering();
+        } else if (servant.isGuardingArea()) {
+            this.setBoundPos(servant.getBoundPos());
+            this.setBoundDim(servant.getBoundLevel());
+        }
+    }
+
     default boolean isFollowing(){
         return !this.isWandering() && !this.isStaying() && !this.isGuardingArea() && this.canFollow();
     }

@@ -151,6 +151,8 @@ public class ModTags {
         public static final TagKey<EntityType<?>> UNBLOWABLE_ENTITIES = tag("unblowable_entities");
         public static final TagKey<EntityType<?>> SKELETON_WOLF_BUFF = tag("skeleton_wolf_buff");
         public static final TagKey<EntityType<?>> SERVANT_RIDEABLE = tag("servant_rideable");
+        public static final TagKey<EntityType<?>> FRAYED_CONVERT = tag("convert/frayed");
+        public static final TagKey<EntityType<?>> RATTLED_CONVERT = tag("convert/rattled");
         public static final TagKey<EntityType<?>> REGULAR_CONVERT = tag("necromancer/regular_convert");
         public static final TagKey<EntityType<?>> CAIRN_CONVERT = tag("necromancer/cairn_convert");
         public static final TagKey<EntityType<?>> MOSSY_CONVERT = tag("necromancer/mossy_convert");

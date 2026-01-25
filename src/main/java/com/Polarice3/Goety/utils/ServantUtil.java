@@ -11,9 +11,7 @@ import com.Polarice3.Goety.common.entities.ally.illager.VindicatorServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieVillagerServant;
-import com.Polarice3.Goety.common.entities.hostile.BorderWraith;
-import com.Polarice3.Goety.common.entities.hostile.MuckWraith;
-import com.Polarice3.Goety.common.entities.hostile.Wraith;
+import com.Polarice3.Goety.common.entities.hostile.*;
 import com.Polarice3.Goety.common.entities.neutral.ender.AbstractEnderling;
 import com.Polarice3.Goety.common.events.ArcaTeleporter;
 import com.Polarice3.Goety.config.MobsConfig;
@@ -53,6 +51,8 @@ public class ServantUtil {
                 entityType = ModEntityType.HUSK_SERVANT.get();
             } else if (zombieEntity instanceof Drowned){
                 entityType = ModEntityType.DROWNED_SERVANT.get();
+            } else if (zombieEntity instanceof Frayed){
+                entityType = ModEntityType.FRAYED_SERVANT.get();
             } else if (zombieEntity instanceof ZombifiedPiglin){
                 entityType = ModEntityType.ZPIGLIN_SERVANT.get();
             }
@@ -86,6 +86,8 @@ public class ServantUtil {
             EntityType<? extends Mob> entityType = ModEntityType.SKELETON_SERVANT.get();
             if (skeleton instanceof Stray){
                 entityType = ModEntityType.STRAY_SERVANT.get();
+            } else if (skeleton instanceof Rattled){
+                entityType = ModEntityType.RATTLED_SERVANT.get();
             } else if (wither && skeleton instanceof WitherSkeleton){
                 entityType = ModEntityType.WITHER_SKELETON_SERVANT.get();
             }

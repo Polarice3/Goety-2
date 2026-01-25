@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "__comment": "mobs that can be converted to Frayed when struck by lightning.",
+  "values": [
+    "minecraft:zombie",
+    "minecraft:husk",
+    "minecraft:drowned",
+    "goety:zombie_servant",
+    "goety:husk_servant",
+    "goety:drowned_servant",
+    "goety:frozen_zombie_servant",
+    "goety:jungle_zombie_servant"
+  ]
+}

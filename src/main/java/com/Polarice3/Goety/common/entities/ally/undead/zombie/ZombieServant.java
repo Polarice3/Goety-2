@@ -323,30 +323,6 @@ public class ZombieServant extends Summoned {
 
     }
 
-    public void thunderHit(ServerLevel p_35409_, LightningBolt p_35410_) {
-        if (!(this instanceof FrayedServant)) {
-            FrayedServant frayed = ModEntityType.FRAYED_SERVANT.get().create(p_35409_);
-            if (frayed != null) {
-                frayed.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
-                frayed.finalizeSpawn(p_35409_, p_35409_.getCurrentDifficultyAt(frayed.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
-                frayed.setNoAi(this.isNoAi());
-                if (this.hasCustomName()) {
-                    frayed.setCustomName(this.getCustomName());
-                    frayed.setCustomNameVisible(this.isCustomNameVisible());
-                }
-
-                frayed.setPersistenceRequired();
-                net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, frayed);
-                p_35409_.addFreshEntityWithPassengers(frayed);
-                this.discard();
-            } else {
-                super.thunderHit(p_35409_, p_35410_);
-            }
-        } else {
-            super.thunderHit(p_35409_, p_35410_);
-        }
-    }
-
     public boolean killedEntity(ServerLevel world, LivingEntity killedEntity) {
         boolean flag = super.killedEntity(world, killedEntity);
         float random = this.level.random.nextFloat();
