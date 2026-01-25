@@ -174,7 +174,10 @@ public class ModTags {
         public static final TagKey<EntityType<?>> LICH_NEUTRAL = tag("lich_neutral");
         public static final TagKey<EntityType<?>> ABYSS_HEAL = tag("abyss_heal");
         public static final TagKey<EntityType<?>> FROST_HEAL = tag("frost_heal");
+        public static final TagKey<EntityType<?>> WIND_HEAL = tag("wind_heal");
+        public static final TagKey<EntityType<?>> STORM_HEAL = tag("storm_heal");
         public static final TagKey<EntityType<?>> WILD_HEAL = tag("wild_heal");
+        public static final TagKey<EntityType<?>> GEO_HEAL = tag("geo_heal");
         public static final TagKey<EntityType<?>> NETHER_HEAL = tag("nether_heal");
         public static final TagKey<EntityType<?>> VOID_HEAL = tag("void_heal");
         public static final TagKey<EntityType<?>> NECRO_HEAL = tag("necro_heal");

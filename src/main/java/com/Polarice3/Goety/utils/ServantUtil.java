@@ -177,10 +177,25 @@ public class ServantUtil {
         return mobType == ModMobType.FROST || entityType.is(ModTags.EntityTypes.FROST_HEAL);
     }
 
+    public static boolean isWindHeal(LivingEntity servant){
+        EntityType<?> entityType = servant.getType();
+        return entityType.is(ModTags.EntityTypes.WIND_HEAL);
+    }
+
+    public static boolean isStormHeal(LivingEntity servant){
+        EntityType<?> entityType = servant.getType();
+        return entityType.is(ModTags.EntityTypes.STORM_HEAL);
+    }
+
     public static boolean isWildHeal(LivingEntity servant){
         MobType mobType = servant.getMobType();
         EntityType<?> entityType = servant.getType();
         return mobType == ModMobType.NATURAL || mobType == MobType.ARTHROPOD || entityType.is(ModTags.EntityTypes.WILD_HEAL);
+    }
+
+    public static boolean isGeoHeal(LivingEntity servant){
+        EntityType<?> entityType = servant.getType();
+        return entityType.is(ModTags.EntityTypes.GEO_HEAL);
     }
 
     public static boolean isNetherHeal(LivingEntity servant){
@@ -207,7 +222,7 @@ public class ServantUtil {
     }
 
     public static boolean isValidServantHeal(LivingEntity livingEntity){
-        return isFrostHeal(livingEntity) || isWildHeal(livingEntity) || isNecroHeal(livingEntity) || isNetherHeal(livingEntity) || isAbyssHeal(livingEntity) || isVoidHeal(livingEntity);
+        return isFrostHeal(livingEntity) || isWindHeal(livingEntity) || isStormHeal(livingEntity) || isWildHeal(livingEntity) || isGeoHeal(livingEntity) || isNecroHeal(livingEntity) || isNetherHeal(livingEntity) || isAbyssHeal(livingEntity) || isVoidHeal(livingEntity);
     }
 
     public static boolean notServantButOwned(LivingEntity livingEntity){
@@ -381,6 +396,14 @@ public class ServantUtil {
                 MobsConfig.NaturalMinionHealTime.get(),
                 MobsConfig.NaturalMinionHealAmount.get()
         ),
+        GEO(
+                ServantUtil::isGeoHeal,
+                CuriosFinder::hasGeoRobe,
+                MobsConfig.GeoMinionHeal.get(),
+                MobsConfig.GeoMinionHealCost.get(),
+                MobsConfig.GeoMinionHealTime.get(),
+                MobsConfig.GeoMinionHealAmount.get()
+        ),
         FROST(
                 ServantUtil::isFrostHeal,
                 CuriosFinder::hasFrostRobes,
@@ -388,6 +411,22 @@ public class ServantUtil {
                 MobsConfig.FrostMinionHealCost.get(),
                 MobsConfig.FrostMinionHealTime.get(),
                 MobsConfig.FrostMinionHealAmount.get()
+        ),
+        WIND(
+                ServantUtil::isWindHeal,
+                CuriosFinder::hasWindRobes,
+                MobsConfig.WindMinionHeal.get(),
+                MobsConfig.WindMinionHealCost.get(),
+                MobsConfig.WindMinionHealTime.get(),
+                MobsConfig.WindMinionHealAmount.get()
+        ),
+        STORM(
+                ServantUtil::isStormHeal,
+                CuriosFinder::hasStormRobes,
+                MobsConfig.StormMinionHeal.get(),
+                MobsConfig.StormMinionHealCost.get(),
+                MobsConfig.StormMinionHealTime.get(),
+                MobsConfig.StormMinionHealAmount.get()
         ),
         NETHER(
                 ServantUtil::isNetherHeal,

@@ -484,7 +484,10 @@ public interface IServant extends IOwned {
             }
             if (owner != null) {
                 boolean crown = (ServantUtil.isFrostHeal(self) && CuriosFinder.hasFrostCrown(owner))
+                        || (ServantUtil.isWindHeal(self) && CuriosFinder.hasWindCrown(owner))
+                        || (ServantUtil.isStormHeal(self) && CuriosFinder.hasStormCrown(owner))
                         || (ServantUtil.isWildHeal(self) && CuriosFinder.hasWildCrown(owner))
+                        || (ServantUtil.isGeoHeal(self) && CuriosFinder.hasAmethystNecklace(owner))
                         || (ServantUtil.isNetherHeal(self) && CuriosFinder.hasNetherCrown(owner))
                         || (ServantUtil.isAbyssHeal(self) && CuriosFinder.hasAbyssCrown(owner))
                         || (ServantUtil.isVoidHeal(self) && CuriosFinder.hasVoidCrown(owner))

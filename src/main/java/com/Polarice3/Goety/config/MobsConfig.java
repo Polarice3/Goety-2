@@ -29,9 +29,21 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> NaturalMinionHealTime;
     public static final ForgeConfigSpec.ConfigValue<Double> NaturalMinionHealAmount;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> GeoMinionHealCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GeoMinionHealTime;
+    public static final ForgeConfigSpec.ConfigValue<Double> GeoMinionHealAmount;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> FrostMinionHealCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FrostMinionHealTime;
     public static final ForgeConfigSpec.ConfigValue<Double> FrostMinionHealAmount;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> WindMinionHealCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WindMinionHealTime;
+    public static final ForgeConfigSpec.ConfigValue<Double> WindMinionHealAmount;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> StormMinionHealCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> StormMinionHealTime;
+    public static final ForgeConfigSpec.ConfigValue<Double> StormMinionHealAmount;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> NetherMinionHealCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> NetherMinionHealTime;
@@ -198,7 +210,10 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WaterMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NaturalMinionHeal;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> GeoMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FrostMinionHeal;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WindMinionHeal;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> StormMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NetherMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VoidMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CompatMinionHeal;
@@ -541,6 +556,16 @@ public class MobsConfig {
             BlackBeastHowlingSoul = BUILDER.comment("Whether owned Black Beasts drop Howling Soul, Default: true")
                     .define("blackBeastHowlingSoul", true);
             BUILDER.pop();
+            BUILDER.push("Geo Servants");
+            GeoMinionHeal = BUILDER.comment("Whether Geo Servants can heal if summoned while wearing Frost Robe, Default: true")
+                    .define("geoMinionHeal", true);
+            GeoMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for a Geo Servant to heal, Default: 1")
+                    .defineInRange("geoMinionHealCost", 1, 0, Integer.MAX_VALUE);
+            GeoMinionHealTime = BUILDER.comment("How frequent Geo Servants heal, count seconds, Default: 1")
+                    .defineInRange("geoMinionHealTime", 1, 0, Integer.MAX_VALUE);
+            GeoMinionHealAmount = BUILDER.comment("How much Health Geo Servants heal, numerically, Default: 1.0")
+                    .defineInRange("geoMinionHealAmount", 1.0, 0.0, Double.MAX_VALUE);
+            BUILDER.pop();
             BUILDER.push("Frost Servants");
             FrostMinionHeal = BUILDER.comment("Whether Frost Servants can heal if summoned while wearing Frost Robe, Default: true")
                     .define("frostMinionHeal", true);
@@ -550,6 +575,26 @@ public class MobsConfig {
                     .defineInRange("frostMinionHealTime", 1, 0, Integer.MAX_VALUE);
             FrostMinionHealAmount = BUILDER.comment("How much Health Frost Servants heal, numerically, Default: 1.0")
                     .defineInRange("frostMinionHealAmount", 1.0, 0.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Wind Servants");
+            WindMinionHeal = BUILDER.comment("Whether Wind Servants can heal if summoned while wearing Frost Robe, Default: true")
+                    .define("windMinionHeal", true);
+            WindMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for a Wind Servant to heal, Default: 1")
+                    .defineInRange("windMinionHealCost", 1, 0, Integer.MAX_VALUE);
+            WindMinionHealTime = BUILDER.comment("How frequent Wind Servants heal, count seconds, Default: 1")
+                    .defineInRange("windMinionHealTime", 1, 0, Integer.MAX_VALUE);
+            WindMinionHealAmount = BUILDER.comment("How much Health Wind Servants heal, numerically, Default: 1.0")
+                    .defineInRange("windMinionHealAmount", 1.0, 0.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Storm Servants");
+            StormMinionHeal = BUILDER.comment("Whether Storm Servants can heal if summoned while wearing Frost Robe, Default: true")
+                    .define("stormMinionHeal", true);
+            StormMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for a Storm Servant to heal, Default: 1")
+                    .defineInRange("stormMinionHealCost", 1, 0, Integer.MAX_VALUE);
+            StormMinionHealTime = BUILDER.comment("How frequent Storm Servants heal, count seconds, Default: 1")
+                    .defineInRange("stormMinionHealTime", 1, 0, Integer.MAX_VALUE);
+            StormMinionHealAmount = BUILDER.comment("How much Health Storm Servants heal, numerically, Default: 1.0")
+                    .defineInRange("stormMinionHealAmount", 1.0, 0.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Nether Servants");
             NetherMinionHeal = BUILDER.comment("Whether Nether Servants can heal if summoned while wearing Nether Robe, Default: true")

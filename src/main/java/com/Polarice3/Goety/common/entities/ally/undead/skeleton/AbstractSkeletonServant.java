@@ -294,7 +294,7 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
     }
 
     public void thunderHit(ServerLevel p_35409_, LightningBolt p_35410_) {
-        if (!(this instanceof WitherSkeletonServant)) {
+        if (!(this instanceof WitherSkeletonServant) && !(this instanceof RattledServant)) {
             RattledServant rattled = ModEntityType.RATTLED_SERVANT.get().create(p_35409_);
             if (rattled != null) {
                 rattled.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());

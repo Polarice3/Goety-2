@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "#forge:is_mountain"
+    "#minecraft:is_mountain",
+    "#minecraft:is_hill",
+    "#forge:is_peak"
   ]
 }

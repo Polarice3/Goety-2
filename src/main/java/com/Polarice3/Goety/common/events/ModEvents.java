@@ -1404,35 +1404,14 @@ public class ModEvents {
         Level level = entity.level;
         if (level instanceof ServerLevel serverLevel) {
             if (entity instanceof Zombie zombie) {
-                boolean hasConverted = false;
-                if (event.getLightning().getCause() != null) {
-                    if (CuriosFinder.hasNamelessSet(event.getLightning().getCause())) {
-                        FrayedServant frayed = ModEntityType.FRAYED_SERVANT.get().create(serverLevel);
-                        if (frayed != null) {
-                            frayed.moveTo(zombie.getX(), zombie.getY(), zombie.getZ(), zombie.getYRot(), zombie.getXRot());
-                            frayed.setTrueOwner(event.getLightning().getCause());
-                            frayed.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(frayed.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
-                            frayed.setNoAi(zombie.isNoAi());
-                            if (zombie.hasCustomName()) {
-                                frayed.setCustomName(zombie.getCustomName());
-                                frayed.setCustomNameVisible(zombie.isCustomNameVisible());
-                            }
-
-                            frayed.setPersistenceRequired();
-                            net.minecraftforge.event.ForgeEventFactory.onLivingConvert(zombie, frayed);
-                            serverLevel.addFreshEntityWithPassengers(frayed);
-                            hasConverted = true;
-                            zombie.discard();
-                        }
-                    }
-                }
-                if (!hasConverted) {
-                    if (MobsConfig.ZombieConvertFrayed.get()) {
-                        if (serverLevel.getDifficulty() != Difficulty.PEACEFUL && net.minecraftforge.event.ForgeEventFactory.canLivingConvert(zombie, ModEntityType.FRAYED.get(), (timer) -> {
-                        })) {
-                            Frayed frayed = ModEntityType.FRAYED.get().create(serverLevel);
+                if (!(entity instanceof Frayed)) {
+                    boolean hasConverted = false;
+                    if (event.getLightning().getCause() != null) {
+                        if (CuriosFinder.hasNamelessSet(event.getLightning().getCause())) {
+                            FrayedServant frayed = ModEntityType.FRAYED_SERVANT.get().create(serverLevel);
                             if (frayed != null) {
                                 frayed.moveTo(zombie.getX(), zombie.getY(), zombie.getZ(), zombie.getYRot(), zombie.getXRot());
+                                frayed.setTrueOwner(event.getLightning().getCause());
                                 frayed.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(frayed.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
                                 frayed.setNoAi(zombie.isNoAi());
                                 if (zombie.hasCustomName()) {
@@ -1443,42 +1422,44 @@ public class ModEvents {
                                 frayed.setPersistenceRequired();
                                 net.minecraftforge.event.ForgeEventFactory.onLivingConvert(zombie, frayed);
                                 serverLevel.addFreshEntityWithPassengers(frayed);
+                                hasConverted = true;
                                 zombie.discard();
+                            }
+                        }
+                    }
+                    if (!hasConverted) {
+                        if (MobsConfig.ZombieConvertFrayed.get()) {
+                            if (serverLevel.getDifficulty() != Difficulty.PEACEFUL && net.minecraftforge.event.ForgeEventFactory.canLivingConvert(zombie, ModEntityType.FRAYED.get(), (timer) -> {
+                            })) {
+                                Frayed frayed = ModEntityType.FRAYED.get().create(serverLevel);
+                                if (frayed != null) {
+                                    frayed.moveTo(zombie.getX(), zombie.getY(), zombie.getZ(), zombie.getYRot(), zombie.getXRot());
+                                    frayed.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(frayed.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+                                    frayed.setNoAi(zombie.isNoAi());
+                                    if (zombie.hasCustomName()) {
+                                        frayed.setCustomName(zombie.getCustomName());
+                                        frayed.setCustomNameVisible(zombie.isCustomNameVisible());
+                                    }
+
+                                    frayed.setPersistenceRequired();
+                                    net.minecraftforge.event.ForgeEventFactory.onLivingConvert(zombie, frayed);
+                                    serverLevel.addFreshEntityWithPassengers(frayed);
+                                    zombie.discard();
+                                }
                             }
                         }
                     }
                 }
             }
             if (entity instanceof AbstractSkeleton skeleton && !(skeleton instanceof WitherSkeleton)) {
-                boolean hasConverted = false;
-                if (event.getLightning().getCause() != null) {
-                    if (CuriosFinder.hasNamelessSet(event.getLightning().getCause())) {
-                        RattledServant rattled = ModEntityType.RATTLED_SERVANT.get().create(serverLevel);
-                        if (rattled != null) {
-                            rattled.moveTo(skeleton.getX(), skeleton.getY(), skeleton.getZ(), skeleton.getYRot(), skeleton.getXRot());
-                            rattled.setTrueOwner(event.getLightning().getCause());
-                            rattled.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(rattled.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
-                            rattled.setNoAi(skeleton.isNoAi());
-                            if (skeleton.hasCustomName()) {
-                                rattled.setCustomName(skeleton.getCustomName());
-                                rattled.setCustomNameVisible(skeleton.isCustomNameVisible());
-                            }
-
-                            rattled.setPersistenceRequired();
-                            net.minecraftforge.event.ForgeEventFactory.onLivingConvert(skeleton, rattled);
-                            serverLevel.addFreshEntityWithPassengers(rattled);
-                            hasConverted = true;
-                            skeleton.discard();
-                        }
-                    }
-                }
-                if (!hasConverted) {
-                    if (MobsConfig.ZombieConvertFrayed.get()) {
-                        if (serverLevel.getDifficulty() != Difficulty.PEACEFUL && net.minecraftforge.event.ForgeEventFactory.canLivingConvert(skeleton, ModEntityType.RATTLED.get(), (timer) -> {
-                        })) {
-                            Rattled rattled = ModEntityType.RATTLED.get().create(serverLevel);
+                if (!(entity instanceof Rattled)) {
+                    boolean hasConverted = false;
+                    if (event.getLightning().getCause() != null) {
+                        if (CuriosFinder.hasNamelessSet(event.getLightning().getCause())) {
+                            RattledServant rattled = ModEntityType.RATTLED_SERVANT.get().create(serverLevel);
                             if (rattled != null) {
                                 rattled.moveTo(skeleton.getX(), skeleton.getY(), skeleton.getZ(), skeleton.getYRot(), skeleton.getXRot());
+                                rattled.setTrueOwner(event.getLightning().getCause());
                                 rattled.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(rattled.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
                                 rattled.setNoAi(skeleton.isNoAi());
                                 if (skeleton.hasCustomName()) {
@@ -1489,7 +1470,30 @@ public class ModEvents {
                                 rattled.setPersistenceRequired();
                                 net.minecraftforge.event.ForgeEventFactory.onLivingConvert(skeleton, rattled);
                                 serverLevel.addFreshEntityWithPassengers(rattled);
+                                hasConverted = true;
                                 skeleton.discard();
+                            }
+                        }
+                    }
+                    if (!hasConverted) {
+                        if (MobsConfig.SkeletonConvertRattled.get()) {
+                            if (serverLevel.getDifficulty() != Difficulty.PEACEFUL && net.minecraftforge.event.ForgeEventFactory.canLivingConvert(skeleton, ModEntityType.RATTLED.get(), (timer) -> {
+                            })) {
+                                Rattled rattled = ModEntityType.RATTLED.get().create(serverLevel);
+                                if (rattled != null) {
+                                    rattled.moveTo(skeleton.getX(), skeleton.getY(), skeleton.getZ(), skeleton.getYRot(), skeleton.getXRot());
+                                    rattled.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(rattled.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+                                    rattled.setNoAi(skeleton.isNoAi());
+                                    if (skeleton.hasCustomName()) {
+                                        rattled.setCustomName(skeleton.getCustomName());
+                                        rattled.setCustomNameVisible(skeleton.isCustomNameVisible());
+                                    }
+
+                                    rattled.setPersistenceRequired();
+                                    net.minecraftforge.event.ForgeEventFactory.onLivingConvert(skeleton, rattled);
+                                    serverLevel.addFreshEntityWithPassengers(rattled);
+                                    skeleton.discard();
+                                }
                             }
                         }
                     }
