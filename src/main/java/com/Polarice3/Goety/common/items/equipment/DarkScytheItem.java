@@ -27,6 +27,7 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeMod;
 
@@ -57,10 +58,13 @@ public class DarkScytheItem extends TieredItem implements Vanishable {
         if (pState.getDestroySpeed(pLevel, pPos) <= -1.0F) {
             return false;
         }
-        return pState.is(BlockTags.MINEABLE_WITH_HOE) || BlockFinder.isScytheBreak(pState);
+        return pState.is(BlockTags.MINEABLE_WITH_HOE) || pState.is(Blocks.COBWEB) || BlockFinder.isScytheBreak(pState);
     }
 
     public float getDestroySpeed(ItemStack pStack, BlockState pState) {
+        if (pState.is(Blocks.COBWEB)) {
+            return 15.0F;
+        }
         return pState.is(BlockTags.MINEABLE_WITH_HOE) ? 8.0F : 1.0F;
     }
 
@@ -148,7 +152,7 @@ public class DarkScytheItem extends TieredItem implements Vanishable {
     }
 
     public boolean isCorrectToolForDrops(BlockState pBlock) {
-        return pBlock.is(BlockTags.MINEABLE_WITH_HOE);
+        return pBlock.is(BlockTags.MINEABLE_WITH_HOE) || pBlock.is(Blocks.COBWEB);
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {

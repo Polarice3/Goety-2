@@ -2,6 +2,7 @@ package com.Polarice3.Goety.compat.patchouli;
 
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
 import com.Polarice3.Goety.common.effects.brew.BrewEffects;
+import com.Polarice3.Goety.common.items.ModItems;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.entity.EntityType;
@@ -32,11 +33,13 @@ public class BrewingSacrificeProcessor implements IComponentProcessor {
             return IVariable.empty();
 
         if (key.startsWith("input")) {
-            ItemStack itemStack = ItemStack.EMPTY;
+            ItemStack itemStack;
             EntityType<?> entityType = new BrewEffects().getSacrificeFromEffect(this.brewEffect.getEffectID());
             Item item = ForgeSpawnEggItem.fromEntityType(entityType);
             if (item != null){
                 itemStack = new ItemStack(item);
+            } else {
+                itemStack = new ItemStack(ModItems.JEI_DUMMY_REQUIRE_SACRIFICE.get()).setHoverName(entityType.getDescription());
             }
             return IVariable.from(itemStack);
         }

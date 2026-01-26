@@ -1135,13 +1135,13 @@ public class Wight extends Summoned implements Enemy, NeutralMob, IHiding {
                             d0 += 0.1D;
                         }
                         if (i % 30 == 0) {
-                            d1 += 0.05D;
+                            d1 += 0.01D;
                         }
                     }
                 }
                 health.setBaseValue(AttributesConfig.WightHealth.get() * (h * d0));
                 attack.setBaseValue(AttributesConfig.WightDamage.get() * (a * d0));
-                speed.setBaseValue(Math.min(0.45D, 0.3D + d1));
+                speed.setBaseValue(Math.min(0.35D, 0.3D + d1));
                 this.setHealth(this.getMaxHealth());
             }
         }

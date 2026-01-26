@@ -3294,5 +3294,20 @@
   "info.goety.wind_crown_cast": "風の呪文の詠唱時間が半分になります。",
   "info.goety.storm_crown": "嵐の従者は持続します。",
   "info.goety.storm_crown_cast": "嵐の呪文の詠唱時間が半分になります。",
-  "info.goety.geo_robe_discount": "ジオマンシーの呪文のソウルコストが%s%%軽減されます。"
+  "info.goety.geo_robe_discount": "ジオマンシーの呪文のソウルコストが%s%%軽減されます。",
+  "item.minecraft.tipped_arrow.effect.spasms": "けいれん矢",
+  "item.minecraft.potion.effect.spasms": "けいれんポーション",
+  "item.minecraft.splash_potion.effect.spasms": "けいれんスプラッシュポーション",
+  "item.minecraft.lingering_potion.effect.spasms": "けいれん残留ポーション",
+  "subtitle.goety.frayed_ambient": "Frayed moans",
+  "subtitle.goety.frayed_hurt": "Frayed hurts",
+  "subtitle.goety.frayed_step": "Frayed steps",
+  "subtitle.goety.frayed_death": "Frayed dies",
+  "subtitle.goety.rattled_ambient": "Rattled rattles",
+  "subtitle.goety.rattled_hurt": "Rattled hurts",
+  "subtitle.goety.rattled_step": "Rattled steps",
+  "subtitle.goety.rattled_death": "Rattled dies",
+  "subtitle.goety.icy_spider_ambient": "Icy Spider hisses",
+  "subtitle.goety.icy_spider_hurt": "Icy Spider hurts",
+  "subtitle.goety.icy_spider_death": "Icy Spider dies"
 }

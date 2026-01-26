@@ -3357,5 +3357,9 @@
   "subtitle.goety.rattled_death": "响骷：死亡",
   "subtitle.goety.icy_spider_ambient": "冰蜘蛛：嘶嘶",
   "subtitle.goety.icy_spider_hurt": "冰蜘蛛：受伤",
-  "subtitle.goety.icy_spider_death": "冰蜘蛛：死亡"
+  "subtitle.goety.icy_spider_death": "冰蜘蛛：死亡",
+  "item.minecraft.tipped_arrow.effect.spasms": "痉挛之箭",
+  "item.minecraft.potion.effect.spasms": "痉挛药水",
+  "item.minecraft.splash_potion.effect.spasms": "喷溅型痉挛药水",
+  "item.minecraft.lingering_potion.effect.spasms": "滞留型痉挛药水"
 }

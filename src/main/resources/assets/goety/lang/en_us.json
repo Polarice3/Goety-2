@@ -1092,6 +1092,12 @@
   "item.minecraft.splash_potion.effect.climbing": "Splash Potion of Spider Climbing",
   "item.minecraft.lingering_potion.effect.climbing": "Lingering Potion of Spider Climbing",
 
+  "item.minecraft.tipped_arrow.effect.spasms": "Arrow of Spasms",
+
+  "item.minecraft.potion.effect.spasms": "Potion of Spasms",
+  "item.minecraft.splash_potion.effect.spasms": "Splash Potion of Spasms",
+  "item.minecraft.lingering_potion.effect.spasms": "Lingering Potion of Spasms",
+
   "trim_pattern.goety.crypt": "Crypt Armor Trim",
 
   "block.goety.awakened_emerald_block": "Block of Awakened Emerald",
