@@ -1,6 +1,7 @@
 {
   "values": [
     "goety:dark_robe",
+    "goety:dark_robe_fancy",
     "goety:grand_robe",
     "goety:illusion_robe",
     "goety:illusion_robe_mirror",
@@ -18,6 +19,6 @@
     "goety:warlock_robe_dark",
     "goety:nether_robe",
     "goety:nether_robe_warped",
-    "goety:unholy_hat"
+    "goety:unholy_robe"
   ]
 }

@@ -1,6 +1,17 @@
 {
   "values": [
     "goety:necro_crown",
-    "goety:nameless_crown"
+    "goety:nameless_crown",
+    "goety:frost_crown",
+    "goety:wind_crown",
+    "goety:storm_crown",
+    "goety:wild_crown",
+    "goety:abyss_crown",
+    "goety:void_crown",
+    "goety:nether_crown",
+    "goety:dark_hat",
+    "goety:grand_turban",
+    "goety:unholy_hat",
+    "goety:unholy_hat_halo"
   ]
 }
