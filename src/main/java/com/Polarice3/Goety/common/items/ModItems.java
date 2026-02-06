@@ -225,7 +225,9 @@ public class ModItems {
     public static final RegistryObject<SingleStackItem> WITCH_HAT_HEDGE = ITEMS.register("witch_hat_hedge", WitchHatItem::new);
     public static final RegistryObject<SingleStackItem> CRONE_HAT = ITEMS.register("crone_hat", WitchHatItem::new);
     public static final RegistryObject<SingleStackItem> UNHOLY_HAT = ITEMS.register("unholy_hat", UnholyHatItem::new);
+    public static final RegistryObject<SingleStackItem> UNHOLY_HAT_HALO = ITEMS.register("unholy_hat_halo", UnholyHatItem::new);
     public static final RegistryObject<SingleStackItem> DARK_ROBE = ITEMS.register("dark_robe", MagicRobeItem::new);
+    public static final RegistryObject<SingleStackItem> DARK_ROBE_FANCY = ITEMS.register("dark_robe_fancy", MagicRobeItem::new);
     public static final RegistryObject<SingleStackItem> GRAND_ROBE = ITEMS.register("grand_robe", MagicRobeItem::new);
     public static final RegistryObject<SingleStackItem> NECRO_CAPE = ITEMS.register("necro_cape", () -> new NecroGarbs.NecroCapeItem(false));
     public static final RegistryObject<SingleStackItem> NAMELESS_CAPE = ITEMS.register("nameless_cape", () -> new NecroGarbs.NecroCapeItem(true));
@@ -431,7 +433,7 @@ public class ModItems {
     public static final RegistryObject<Item> NETHER_STAFF = ITEMS.register("nether_staff", () -> new DarkStaff(DarkWand.wandProperties().fireResistant(), ItemConfig.NetherStaffDamage.get(), SpellType.NETHER));
     public static final RegistryObject<Item> NAMELESS_STAFF = ITEMS.register("nameless_staff", NamelessStaff::new);
     public static final RegistryObject<Item> OMINOUS_SCYTHE = ITEMS.register("dark_scythe", DarkScytheItem::new);
-    public static final RegistryObject<Item> DARK_SCYTHE = ITEMS.register("dark_metal_scythe", () -> new DarkScytheItem(ModTiers.DARK));
+    public static final RegistryObject<Item> DARK_SCYTHE = ITEMS.register("dark_metal_scythe", DarkMetalScythe::new);
     public static final RegistryObject<Item> DEATH_SCYTHE = ITEMS.register("death_scythe", DeathScytheItem::new);
     public static final RegistryObject<Item> GREAT_HAMMER = ITEMS.register("great_hammer", HammerItem::new);
     public static final RegistryObject<Item> BONEHEAD_HAMMER = ITEMS.register("bonehead_hammer", BoneheadHammerItem::new);
@@ -453,6 +455,7 @@ public class ModItems {
     public static final RegistryObject<Item> HUNGRY_DAGGER = ITEMS.register("hungry_dagger", () -> new FangedDaggerItem(ModTiers.DARK));
     public static final RegistryObject<Item> FELL_BLADE = ITEMS.register("fell_blade", () -> new SwordItem(ModTiers.SPECIAL, 3, -2.4F, new Item.Properties().durability(256)));
     public static final RegistryObject<Item> FROZEN_BLADE = ITEMS.register("frozen_blade", () -> new SwordItem(ModTiers.SPECIAL, 4, -2.4F, new Item.Properties()));
+    public static final RegistryObject<Item> BLADE_OF_ENDER = ITEMS.register("blade_of_ender", BladeOfEnderItem::new);
     public static final RegistryObject<Item> INFERNAL_TOME = ITEMS.register("infernal_tome", InfernalTome::new);
 
     //Sherds

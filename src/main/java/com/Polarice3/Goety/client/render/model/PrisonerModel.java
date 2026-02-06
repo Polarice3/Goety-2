@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.client.render.model;
 
-import com.Polarice3.Goety.common.entities.ally.illager.Prisoner;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.Prisoner;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;

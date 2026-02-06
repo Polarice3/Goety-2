@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.render.model;
 
-import com.Polarice3.Goety.common.entities.ally.illager.CultistServant;
-import com.Polarice3.Goety.common.entities.ally.illager.MaverickServant;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.CultistServant;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.MaverickServant;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;

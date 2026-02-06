@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.client.render.model;
 
-import com.Polarice3.Goety.common.entities.ally.illager.CultistServant;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.CultistServant;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;

@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.mixin;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.illager.WitchServant;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.WitchServant;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;

@@ -1,0 +1,30 @@
+{
+  "name": "开膛兽",
+  "icon": "minecraft:bone",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你已学会如何运用黑暗魔法，将灾厄村民驯化的狼快速转化为开膛兽。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_wolf_to_ripper"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "作为更具威胁性的追猎手，它们同样可通过喂食肉类来治疗和繁殖，方式与普通狼相同。它们的成长速度也比普通狼更快。。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:ripper",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "开膛兽可以加入$(l:goety:mutations/illager_servants)袭击队伍$()，但毫无疑问的，它们无法成为队伍的领导者。"
+    }
+  ]
+}

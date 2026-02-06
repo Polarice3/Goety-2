@@ -2,7 +2,7 @@ package com.Polarice3.Goety.mixin;
 
 import com.Polarice3.Goety.common.blocks.entities.OminousIdolBlockEntity;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
-import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.magic.CommandFocus;
 import com.Polarice3.Goety.common.items.magic.CommandHorn;

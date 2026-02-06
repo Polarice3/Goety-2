@@ -1,12 +1,15 @@
 package com.Polarice3.Goety.common.items.equipment;
 
+import com.Polarice3.Goety.api.items.IPersist;
 import com.Polarice3.Goety.api.items.ISoulRepair;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.init.ModTags;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,10 +17,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.Vanishable;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -25,7 +25,11 @@ import net.minecraft.world.item.enchantment.SweepingEdgeEnchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepair {
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.function.Consumer;
+
+public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepair, IPersist {
     private final Multimap<Attribute, AttributeModifier> maceAttributes;
 
     public PhilosophersMaceItem() {
@@ -34,6 +38,44 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", ItemConfig.PhilosophersMaceDamage.get() - 1.0D, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", (double)-2.4F, AttributeModifier.Operation.ADDITION));
         this.maceAttributes = builder.build();
+    }
+
+    @Override
+    public boolean isBarVisible(ItemStack stack) {
+        return this.isDamaged(stack);
+    }
+
+    public int getBarColor(ItemStack stack) {
+        if (this.isBroken(stack)) {
+            return 0x800000;
+        }
+        return super.getBarColor(stack);
+    }
+
+    @Override
+    public int getBarWidth(ItemStack stack){
+        if (this.isBroken(stack)) {
+            return 13;
+        }
+        return super.getBarWidth(stack);
+    }
+
+    public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+        if (ItemConfig.BladeOfEnderPersist.get()) {
+            if (stack.getDamageValue() + amount >= stack.getMaxDamage()) {
+                if (stack.getDamageValue() != stack.getMaxDamage() - 1) {
+                    stack.setDamageValue(stack.getMaxDamage() - 1);
+                    onBroken.accept(entity);
+                }
+                return 0;
+            }
+        }
+        return amount;
+    }
+
+    @Override
+    public boolean isBroken(ItemStack stack) {
+        return IPersist.super.isBroken(stack) && ItemConfig.BladeOfEnderPersist.get();
     }
 
     public boolean canAttackBlock(BlockState state, Level worldIn, BlockPos pos, Player player) {
@@ -61,15 +103,18 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
         return pBlock.is(BlockTags.MINEABLE_WITH_PICKAXE) || pBlock.is(BlockTags.MINEABLE_WITH_AXE) || pBlock.is(BlockTags.MINEABLE_WITH_HOE) || pBlock.is(BlockTags.MINEABLE_WITH_SHOVEL);
     }
 
-    public float getDestroySpeed(ItemStack p_41004_, BlockState p_41005_) {
-        float blockHard = p_41005_.getBlock().defaultDestroyTime();
-        if (p_41005_.is(ModTags.Blocks.PHILOSOPHERS_MACE_HARD)){
-            return 1.0F;
-        } else if (this.isCorrectToolForDrops(p_41004_, p_41005_) && blockHard >= 1.0F) {
-            return 8.0F * blockHard;
-        } else {
-            return 8.0F;
+    public float getDestroySpeed(ItemStack stack, BlockState blockState) {
+        if (this.isNotBroken(stack) || !ItemConfig.BladeOfEnderPersist.get()) {
+            float blockHard = blockState.getBlock().defaultDestroyTime();
+            if (blockState.is(ModTags.Blocks.PHILOSOPHERS_MACE_HARD)){
+                return 1.0F;
+            } else if (this.isCorrectToolForDrops(stack, blockState) && blockHard >= 1.0F) {
+                return 8.0F * blockHard;
+            } else {
+                return 8.0F;
+            }
         }
+        return 1.0F;
     }
 
     public int getEnchantmentValue(ItemStack stack) {
@@ -88,7 +133,11 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
     }
 
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot equipmentSlot, ItemStack itemStack) {
-        return equipmentSlot == EquipmentSlot.MAINHAND ? this.maceAttributes : super.getAttributeModifiers(equipmentSlot, itemStack);
+        if (this.isNotBroken(itemStack) || !ItemConfig.PhilosophersMacePersist.get()) {
+            return equipmentSlot == EquipmentSlot.MAINHAND ? this.maceAttributes : super.getAttributeModifiers(equipmentSlot, itemStack);
+        } else {
+            return ImmutableMultimap.of();
+        }
     }
 
     @Override
@@ -98,6 +147,13 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
 
     public boolean isValidRepairItem(ItemStack pToRepair, ItemStack pRepair) {
         return pRepair.getItem() == ModItems.DARK_ALLOY_INGOT.get();
+    }
+
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+        if (ItemConfig.PhilosophersMacePersist.get() && this.isBroken(stack)) {
+            tooltip.add(Component.translatable("info.goety.armor.broken").withStyle(ChatFormatting.DARK_RED));
+        }
     }
 
 }

@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.items;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.illager.Prisoner;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.Prisoner;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.ChatFormatting;
@@ -45,6 +45,7 @@ public class OminousShacklesItem extends Item {
                     if (villager instanceof Villager villager1) {
                         prisoner.setVillagerData(villager1.getVillagerData());
                         prisoner.setGossips(villager1.getGossips().store(NbtOps.INSTANCE));
+                        MobUtil.releaseAllPois(villager1);
                     }
                     prisoner.setTradeOffers(villager.getOffers().createTag());
                     prisoner.setVillagerXp(villager.getVillagerXp());

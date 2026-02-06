@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.common.blocks.entities.OminousIdolBlockEntity;
-import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
 import com.Polarice3.Goety.common.items.block.OminousIdolBlockItem;
 import com.Polarice3.Goety.utils.BlockFinder;
 import net.minecraft.core.BlockPos;

@@ -291,11 +291,17 @@ public class ServantSpawnEggs {
     public static final RegistryObject<ServantSpawnEggItem> STORM_CASTER_SERVANT_SPAWN_EGG = ITEMS.register("storm_caster_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.STORM_CASTER_SERVANT, 0x994c29, 0x00548c, egg()));
 
+    public static final RegistryObject<ServantSpawnEggItem> RIPPER_SERVANT_SPAWN_EGG = ITEMS.register("ripper_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.RIPPER_SERVANT, 0x4e291d, 0xf8eeac, egg()));
+
     public static final RegistryObject<ServantSpawnEggItem> WITCH_SERVANT_SPAWN_EGG = ITEMS.register("witch_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.WITCH_SERVANT, 0x1d0b2f, 0x4f5f3a, egg()));
 
     public static final RegistryObject<ServantSpawnEggItem> WARLOCK_SERVANT_SPAWN_EGG = ITEMS.register("warlock_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.WARLOCK_SERVANT, 0xa42822, 0x331609, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> HERETIC_SERVANT_SPAWN_EGG = ITEMS.register("heretic_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.HERETIC_SERVANT, 0x100811, 0x7e1e00, egg()));
 
     public static final RegistryObject<ServantSpawnEggItem> MAVERICK_SERVANT_SPAWN_EGG = ITEMS.register("maverick_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.MAVERICK_SERVANT, 0x92a7cd, 0x1a2524, egg()));

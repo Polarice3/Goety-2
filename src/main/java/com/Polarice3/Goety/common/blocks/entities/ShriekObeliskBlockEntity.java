@@ -11,7 +11,6 @@ import net.minecraft.core.particles.ShriekParticleOption;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -40,6 +39,7 @@ public class ShriekObeliskBlockEntity extends BlockEntity {
     }
 
     private static int updateBase(Level pLevel, BlockPos blockPos) {
+        int radius = 8;
         List<BlockPos> result = new ArrayList<>();
 
         for(int levels = 1; levels <= 4; levels++) {
@@ -74,7 +74,11 @@ public class ShriekObeliskBlockEntity extends BlockEntity {
             }
         }
 
-        return result.isEmpty() ? 8 : Mth.floor(result.size() * 1.5F) + 8;
+        if (!result.isEmpty()) {
+            radius += result.size() * MainConfig.ShriekObeliskIncrease.get();
+        }
+
+        return radius;
     }
 
     public boolean shriek(ServerLevel serverLevel, @Nullable Player player, int soulEnergy) {

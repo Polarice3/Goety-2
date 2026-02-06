@@ -1,0 +1,30 @@
+{
+  "name": "Ripper",
+  "icon": "minecraft:bone",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You've learned how to fast track the Illager's domestication wolves into Rippers, using dark magic."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_wolf_to_ripper"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Rippers are healed and bred with meat, the same way as regular wolves. They also grow up faster than regular wolves."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:ripper",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Rippers can be part of a $(l:goety:mutations/illager_servants)raiding party$(), though they cannot be leaders."
+    }
+  ]
+}

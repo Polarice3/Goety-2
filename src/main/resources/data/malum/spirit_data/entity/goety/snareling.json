@@ -1,0 +1,14 @@
+{
+  "registry_name": "goety:snareling",
+  "primary_type": "eldritch",
+  "spirits": [
+    {
+      "spirit": "eldritch",
+      "count": 2
+    },
+    {
+      "spirit": "aerial",
+      "count": 1
+    }
+  ]
+}

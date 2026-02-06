@@ -1,0 +1,8 @@
+{
+  "type": "goety:cursed_infuser_recipes",
+  "ingredient": {
+    "item": "goety:unholy_hat"
+  },
+  "result": "goety:unholy_hat_halo",
+  "cookingTime": 60
+}

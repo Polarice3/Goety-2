@@ -2,8 +2,8 @@ package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.MonolithModel;
-import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
 import com.Polarice3.Goety.common.entities.neutral.AbstractMonolith;
+import com.Polarice3.Goety.common.entities.neutral.AbstractObsidianMonolith;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -150,7 +150,7 @@ public class ObsidianMonolithRenderer<T extends AbstractMonolith> extends Abstra
 
         @Override
         public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T monolith, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-            if (monolith instanceof ObsidianMonolith monolith1) {
+            if (monolith instanceof AbstractObsidianMonolith monolith1) {
                 int shieldTime = monolith1.shieldTime;
                 if (shieldTime > 0) {
                     matrixStackIn.pushPose();

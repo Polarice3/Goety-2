@@ -1,6 +1,8 @@
 package com.Polarice3.Goety.client.render.model;
 
+import com.Polarice3.Goety.common.entities.ally.illager.raider.RipperServant;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Ripper;
+import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HierarchicalModel;
@@ -8,8 +10,9 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
 
-public class RipperModel<T extends Ripper> extends HierarchicalModel<T> {
+public class RipperModel<T extends LivingEntity> extends HierarchicalModel<T> {
 	private final ModelPart root;
 	private final ModelPart head;
 	private final ModelPart lower_maw;
@@ -72,33 +75,89 @@ public class RipperModel<T extends Ripper> extends HierarchicalModel<T> {
 	}
 
 	public void prepareMobModel(T p_104132_, float p_104133_, float p_104134_, float p_104135_) {
-		int b = p_104132_.getBitingTick();
-		if (b > 0){
+		int b = 0;
+		if (p_104132_ instanceof Ripper ripper) {
+			b = ripper.getBitingTick();
+		}
+		if (p_104132_ instanceof RipperServant ripper) {
+			b = ripper.getBitingTick();
+		}
+		if (b > 0) {
 			if (b > 5) {
-				this.lower_maw.xRot = Mth.sin(((float)(-4 + b) - p_104135_) / 4.0F) * (float)Math.PI * 0.4F;
+				this.lower_maw.xRot = Mth.sin(((float) (-4 + b) - p_104135_) / 4.0F) * (float) Math.PI * 0.4F;
 			} else {
-				this.lower_maw.xRot = 0.15707964F * Mth.sin((float)Math.PI * ((float)b - p_104135_) / 10.0F);
+				this.lower_maw.xRot = 0.15707964F * Mth.sin((float) Math.PI * ((float) b - p_104135_) / 10.0F);
 			}
 		} else {
-			this.lower_maw.xRot = (float)Math.PI * 0.01F;
+			this.lower_maw.xRot = (float) Math.PI * 0.01F;
+		}
+		if (p_104132_ instanceof RipperServant ripper) {
+			if (ripper.isStaying()) {
+				this.head.setPos(0.0F, 12.5F, -4.0F);
+				this.body.setPos(0.0F, 19.0F, 4.0F);
+				this.body.xRot = 0.7854F;
+				this.upperBody.setPos(0.0F, 14.5F, -1.0F);
+				this.upperBody.xRot = -2.1817F;
+				this.tail.setPos(0.0F, 20.0F, 7.0F);
+				this.right_backleg.setPos(-2.5F, 23.0F, 4.0F);
+				this.right_backleg.xRot = -1.5708F;
+				this.right_backleg.yRot = 0.1745F;
+				this.left_backleg.setPos(2.5F, 23.0F, 4.0F);
+				this.left_backleg.xRot = -1.5708F;
+				this.left_backleg.yRot = -0.1745F;
+				this.right_frontleg.xRot = -0.4363F;
+				this.right_frontleg.setPos(-4.0F, 17.0F, -3.0F);
+				this.left_frontleg.xRot = -0.4363F;
+				this.left_frontleg.setPos(4.0F, 17.0F, -3.0F);
+			} else {
+				this.head.setPos(0.0F, 13.5F, -6.0F);
+				this.body.setPos(0.0F, 14.0F, 4.0F);
+				this.body.xRot = ((float)Math.PI / 2F);
+				this.upperBody.setPos(0.0F, 13.5F, -3.0F);
+				this.upperBody.xRot = -1.5708F;
+				this.tail.setPos(0.0F, 12.0F, 7.0F);
+				this.right_backleg.setPos(-2.5F, 16.0F, 6.0F);
+				this.left_backleg.setPos(2.5F, 16.0F, 6.0F);
+				this.right_frontleg.setPos(-3.0F, 16.0F, -4.0F);
+				this.left_frontleg.setPos(3.0F, 16.0F, -4.0F);
+				this.right_backleg.xRot = Mth.cos(p_104133_ * 0.6662F) * 1.4F * p_104134_ * 0.5F;
+				this.left_backleg.xRot = Mth.cos(p_104133_ * 0.6662F + (float)Math.PI) * 1.4F * p_104134_ * 0.5F;
+				this.right_frontleg.xRot = Mth.cos(p_104133_ * 0.6662F + (float)Math.PI) * 1.4F * p_104134_ * 0.5F;
+				this.left_frontleg.xRot = Mth.cos(p_104133_ * 0.6662F) * 1.4F * p_104134_ * 0.5F;
+			}
+		} else {
+			this.right_backleg.xRot = Mth.cos(p_104133_ * 0.6662F) * 1.4F * p_104134_;
+			this.left_backleg.xRot = Mth.cos(p_104133_ * 0.6662F + (float)Math.PI) * 1.4F * p_104134_;
+			this.right_frontleg.xRot = Mth.cos(p_104133_ * 0.6662F + (float)Math.PI) * 1.4F * p_104134_;
+			this.left_frontleg.xRot = Mth.cos(p_104133_ * 0.6662F) * 1.4F * p_104134_;
+			this.body.xRot = ((float)Math.PI / 2F);
 		}
 		this.tail.yRot = Mth.cos(p_104133_ * 0.6662F) * 1.4F * p_104134_;
 
-		this.body.xRot = ((float)Math.PI / 2F);
-		this.right_backleg.xRot = Mth.cos(p_104133_ * 0.6662F) * 1.4F * p_104134_;
-		this.left_backleg.xRot = Mth.cos(p_104133_ * 0.6662F + (float)Math.PI) * 1.4F * p_104134_;
-		this.right_frontleg.xRot = Mth.cos(p_104133_ * 0.6662F + (float)Math.PI) * 1.4F * p_104134_;
-		this.left_frontleg.xRot = Mth.cos(p_104133_ * 0.6662F) * 1.4F * p_104134_;
-
-		this.upperBody.zRot = p_104132_.getBodyRollAngle(p_104135_, -0.08F);
-		this.body.zRot = p_104132_.getBodyRollAngle(p_104135_, -0.16F);
-		this.tail.zRot = p_104132_.getBodyRollAngle(p_104135_, -0.2F);
+		if (p_104132_ instanceof Ripper ripper) {
+			this.upperBody.zRot = ripper.getBodyRollAngle(p_104135_, -0.08F);
+			this.body.zRot = ripper.getBodyRollAngle(p_104135_, -0.16F);
+			this.tail.zRot = ripper.getBodyRollAngle(p_104135_, -0.2F);
+		}
+		if (p_104132_ instanceof RipperServant ripper) {
+			this.upperBody.zRot = ripper.getBodyRollAngle(p_104135_, -0.08F);
+			this.body.zRot = ripper.getBodyRollAngle(p_104135_, -0.16F);
+			this.tail.zRot = ripper.getBodyRollAngle(p_104135_, -0.2F);
+		}
 	}
 
 	public void setupAnim(T p_104137_, float p_104138_, float p_104139_, float p_104140_, float p_104141_, float p_104142_) {
 		this.head.xRot = p_104142_ * ((float)Math.PI / 180F);
 		this.head.yRot = p_104141_ * ((float)Math.PI / 180F);
 		this.tail.xRot = p_104140_;
+	}
+
+	protected Iterable<ModelPart> headParts() {
+		return ImmutableList.of(this.head);
+	}
+
+	protected Iterable<ModelPart> bodyParts() {
+		return ImmutableList.of(this.body, this.right_backleg, this.left_backleg, this.right_frontleg, this.left_frontleg, this.tail, this.upperBody);
 	}
 
 	@Override
@@ -117,6 +176,23 @@ public class RipperModel<T extends Ripper> extends HierarchicalModel<T> {
 	}
 
 	public void renderToBuffer(PoseStack p_102424_, VertexConsumer p_102425_, int p_102426_, int p_102427_, float p_102428_, float p_102429_, float p_102430_, float p_102431_) {
-		super.renderToBuffer(p_102424_, p_102425_, p_102426_, p_102427_, this.r * p_102428_, this.g * p_102429_, this.b * p_102430_, p_102431_);
+		if (this.young) {
+			p_102424_.pushPose();
+			p_102424_.translate(0.0F, 0.25F, 4.0F / 16.0F);
+			this.headParts().forEach((p_102081_) -> {
+				p_102081_.render(p_102424_, p_102425_, p_102426_, p_102427_, this.r * p_102428_, this.g * p_102429_, this.b * p_102430_, p_102431_);
+			});
+			p_102424_.popPose();
+			p_102424_.pushPose();
+			float f1 = 1.0F / 2.0F;
+			p_102424_.scale(f1, f1, f1);
+			p_102424_.translate(0.0F, 1.5F, 0.0F);
+			this.bodyParts().forEach((p_102071_) -> {
+				p_102071_.render(p_102424_, p_102425_, p_102426_, p_102427_, this.r * p_102428_, this.g * p_102429_, this.b * p_102430_, p_102431_);
+			});
+			p_102424_.popPose();
+		} else {
+			super.renderToBuffer(p_102424_, p_102425_, p_102426_, p_102427_, this.r * p_102428_, this.g * p_102429_, this.b * p_102430_, p_102431_);
+		}
 	}
 }

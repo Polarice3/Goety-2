@@ -51,6 +51,8 @@ public class WightSpawner {
                             return 0;
                         } else if (!pLevel.getBiome(pPlayer.blockPosition()).is(ModTags.Biomes.WIGHT_SPAWN)) {
                             return 0;
+                        } else if (pLevel.getBiome(pPlayer.blockPosition()).is(ModTags.Biomes.WIGHT_EXCLUDE_SPAWN)) {
+                            return 0;
                         } else if (!pLevel.getEntitiesOfClass(LivingEntity.class,
                                 pPlayer.getBoundingBox().inflate(64.0D),
                                 entity -> entity.getType().is(Tags.EntityTypes.BOSSES)
@@ -84,7 +86,7 @@ public class WightSpawner {
             Vec3 vec3 = BlockFinder.getRandomSpawnBehindDirection(serverLevel, rand, player.position(), player.getLookAngle());
             BlockPos blockPos = BlockPos.containing(vec3);
             if (BlockFinder.canSeeBlock(player, blockPos) || i == 15) {
-                if (serverLevel.isLoaded(blockPos)){
+                if (serverLevel.isLoaded(blockPos) && serverLevel.getFluidState(blockPos).isEmpty()){
                     wight.setPos(vec3);
                     wight.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(wight.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                     wight.upgradePower(sePercent);

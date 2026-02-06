@@ -1,0 +1,25 @@
+{
+  "parent": "goety:goety/kill_a_apostle",
+  "criteria": {
+    "unholy_robe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:unholy_robe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "unholy_robe"
+    ]
+  ],
+  "rewards": {
+    "experience": 1
+  }
+}

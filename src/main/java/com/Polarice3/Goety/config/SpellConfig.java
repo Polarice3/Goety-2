@@ -170,6 +170,8 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulBoltDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulBoltCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> SoulBoltDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> PoisonBoltDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> WitherBoltDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> NecroBoltDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> MagicBoltCost;
@@ -819,8 +821,8 @@ public class SpellConfig {
                     .defineInRange("killingTime", 60, 0, 72000);
             KillingCoolDown = BUILDER.comment("Killing Spell Cooldown, Default: 200")
                     .defineInRange("killingCoolDown", 200, 0, Integer.MAX_VALUE);
-            KillingFeedback = BUILDER.comment("How much damage percentage multiplier of the target's health is applied back to caster, Default: 1.25")
-                    .defineInRange("killingFeedback", 1.25, 0.0, Double.MAX_VALUE);
+            KillingFeedback = BUILDER.comment("How much damage percentage multiplier of the target's health is applied back to caster, Default: 1.1")
+                    .defineInRange("killingFeedback", 1.1, 0.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Skull Spell");
             HauntedSkullCost = BUILDER.comment("Skull Spell Cost, Default: 16")
@@ -979,6 +981,10 @@ public class SpellConfig {
                     .defineInRange("soulBoltCoolDown", 20, 0, Integer.MAX_VALUE);
             SoulBoltDamage = BUILDER.comment("How much base damage Soul Bolts deals, Default: 4.0")
                     .defineInRange("soulBoltDamage", 4.0, 1.0, Double.MAX_VALUE);
+            PoisonBoltDamage = BUILDER.comment("How much base damage Poison Bolts deals, Default: 3.0")
+                    .defineInRange("poisonBoltDamage", 3.0, 1.0, Double.MAX_VALUE);
+            WitherBoltDamage = BUILDER.comment("How much base damage Wither Bolts deals directly, Default: 4.0")
+                    .defineInRange("witherBoltDamage", 4.0, 1.0, Double.MAX_VALUE);
             NecroBoltDamage = BUILDER.comment("How much base damage Necro Bolts deals, Default: 12.0")
                     .defineInRange("necroBoltDamage", 12.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();

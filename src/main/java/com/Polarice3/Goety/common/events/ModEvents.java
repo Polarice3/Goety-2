@@ -22,7 +22,12 @@ import com.Polarice3.Goety.common.entities.ai.FreePrisonerGoal;
 import com.Polarice3.Goety.common.entities.ai.TargetHostileOwnedGoal;
 import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
 import com.Polarice3.Goety.common.entities.ally.golem.IceGolem;
-import com.Polarice3.Goety.common.entities.ally.illager.*;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.HereticServant;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.MaverickServant;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.ModRavager;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.Prisoner;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.Ravaged;
 import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
@@ -34,7 +39,7 @@ import com.Polarice3.Goety.common.entities.hostile.cultists.Maverick;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.hostile.illagers.*;
 import com.Polarice3.Goety.common.entities.hostile.servants.Damned;
-import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
+import com.Polarice3.Goety.common.entities.neutral.AbstractObsidianMonolith;
 import com.Polarice3.Goety.common.entities.neutral.BlazeServant;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
@@ -628,7 +633,7 @@ public class ModEvents {
 //                MiscCapHelper.updateMobTarget(mob); Commented in case it causes lag
                 if (mob.getTarget() instanceof Apostle apostle){
                     if (apostle.obsidianInvul > 5){
-                        for (ObsidianMonolith obsidianMonolith : mob.level.getEntitiesOfClass(ObsidianMonolith.class, mob.getBoundingBox().inflate(followRange, 8.0D, followRange))){
+                        for (AbstractObsidianMonolith obsidianMonolith : mob.level.getEntitiesOfClass(AbstractObsidianMonolith.class, mob.getBoundingBox().inflate(followRange, 8.0D, followRange))){
                             if (obsidianMonolith.getOwner() == apostle){
                                 mob.setTarget(obsidianMonolith);
                                 try {
@@ -644,7 +649,7 @@ public class ModEvents {
                         }
                     }
                 }
-                if (mob.getTarget() instanceof ObsidianMonolith monolith){
+                if (mob.getTarget() instanceof AbstractObsidianMonolith monolith){
                     if (monolith.empowered > 5){
                         for (Heretic heretic : mob.level.getEntitiesOfClass(Heretic.class, mob.getBoundingBox().inflate(followRange, 8.0D, followRange))){
                             if (heretic.getMonolith() == monolith){
@@ -742,26 +747,50 @@ public class ModEvents {
                             }
                         }
                         if (MobsConfig.VillagerConvertHeretic.get()) {
-                            if (villager.getRandom().nextFloat() < 7.5E-4F && villager.isSleeping() && serverLevel.getDifficulty() != Difficulty.PEACEFUL) {
+                            if (villager.getRandom().nextFloat() < 7.5E-4F && villager.isSleeping()) {
                                 if (BlockFinder.findNetherPortal(serverLevel, villager.blockPosition(), 8).isPresent()){
-                                    if (ForgeEventFactory.canLivingConvert(villager, ModEntityType.HERETIC.get(), (timer) -> {
-                                    })) {
-                                        serverLevel.explode(villager, villager.getX(), villager.getY(), villager.getZ(), 0.1F, Level.ExplosionInteraction.NONE);
-                                        Heretic heretic = ModEntityType.HERETIC.get().create(serverLevel);
-                                        if (heretic != null) {
-                                            heretic.moveTo(villager.getX(), villager.getY(), villager.getZ(), villager.getYRot(), villager.getXRot());
-                                            heretic.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(heretic.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
-                                            heretic.setNoAi(villager.isNoAi());
-                                            if (villager.hasCustomName()) {
-                                                heretic.setCustomName(villager.getCustomName());
-                                                heretic.setCustomNameVisible(villager.isCustomNameVisible());
-                                            }
+                                    if (player != null && CuriosFinder.hasUnholySet(player)) {
+                                        if (ForgeEventFactory.canLivingConvert(villager, ModEntityType.HERETIC_SERVANT.get(), (timer) -> {
+                                        })) {
+                                            serverLevel.explode(villager, villager.getX(), villager.getY(), villager.getZ(), 0.1F, Level.ExplosionInteraction.NONE);
+                                            HereticServant heretic = ModEntityType.HERETIC_SERVANT.get().create(serverLevel);
+                                            if (heretic != null) {
+                                                heretic.moveTo(villager.getX(), villager.getY(), villager.getZ(), villager.getYRot(), villager.getXRot());
+                                                heretic.setTrueOwner(player);
+                                                heretic.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(heretic.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+                                                heretic.setNoAi(villager.isNoAi());
+                                                if (villager.hasCustomName()) {
+                                                    heretic.setCustomName(villager.getCustomName());
+                                                    heretic.setCustomNameVisible(villager.isCustomNameVisible());
+                                                }
 
-                                            heretic.setPersistenceRequired();
-                                            ForgeEventFactory.onLivingConvert(villager, heretic);
-                                            serverLevel.addFreshEntityWithPassengers(heretic);
-                                            MobUtil.releaseAllPois(villager);
-                                            villager.discard();
+                                                heretic.setPersistenceRequired();
+                                                ForgeEventFactory.onLivingConvert(villager, heretic);
+                                                serverLevel.addFreshEntityWithPassengers(heretic);
+                                                MobUtil.releaseAllPois(villager);
+                                                villager.discard();
+                                            }
+                                        }
+                                    } else {
+                                        if (serverLevel.getDifficulty() != Difficulty.PEACEFUL && ForgeEventFactory.canLivingConvert(villager, ModEntityType.HERETIC.get(), (timer) -> {
+                                        })) {
+                                            serverLevel.explode(villager, villager.getX(), villager.getY(), villager.getZ(), 0.1F, Level.ExplosionInteraction.NONE);
+                                            Heretic heretic = ModEntityType.HERETIC.get().create(serverLevel);
+                                            if (heretic != null) {
+                                                heretic.moveTo(villager.getX(), villager.getY(), villager.getZ(), villager.getYRot(), villager.getXRot());
+                                                heretic.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(heretic.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+                                                heretic.setNoAi(villager.isNoAi());
+                                                if (villager.hasCustomName()) {
+                                                    heretic.setCustomName(villager.getCustomName());
+                                                    heretic.setCustomNameVisible(villager.isCustomNameVisible());
+                                                }
+
+                                                heretic.setPersistenceRequired();
+                                                ForgeEventFactory.onLivingConvert(villager, heretic);
+                                                serverLevel.addFreshEntityWithPassengers(heretic);
+                                                MobUtil.releaseAllPois(villager);
+                                                villager.discard();
+                                            }
                                         }
                                     }
                                 }

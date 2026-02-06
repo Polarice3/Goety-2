@@ -1,0 +1,14 @@
+{
+  "registry_name": "goety:brood_mother_servant",
+  "primary_type": "aerial",
+  "spirits": [
+    {
+      "spirit": "aerial",
+      "count": 4
+    },
+    {
+      "spirit": "wicked",
+      "count": 4
+    }
+  ]
+}

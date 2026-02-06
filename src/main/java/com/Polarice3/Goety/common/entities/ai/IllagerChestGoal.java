@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.ai;
 
 import com.Polarice3.Goety.api.entities.ally.illager.ILooter;
-import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
 import com.Polarice3.Goety.config.MobsConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;

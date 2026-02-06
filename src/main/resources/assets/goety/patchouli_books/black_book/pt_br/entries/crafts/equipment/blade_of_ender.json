@@ -1,0 +1,32 @@
+{
+  "name": "Lâmina do Ender",
+  "icon": "goety:blade_of_ender",
+  "category": "goety:crafts/equipment",
+  "advancement": "goety:goety/kill_an_ender_keeper",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Inspirado pelo seu inimigo, você forjou uma lâmina usando os poderes do vácuo e adicionou uma Barra de Metal das Trevas para conceder a ela a habilidade de se autorreparar com Energia das Almas."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:blade_of_ender"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A lâmina permite que você avance rapidamente em uma direção ao clicar com o botão direito enquanto corre, ou que dê um salto para trás ao clicar com o botão direito sem correr, embora isso coloque a lâmina em tempo de recarga. A lâmina inflige Tocado pelo Vácuo e é afiada o suficiente para lançar uma lâmina de vento energizada pelo vácuo quando balançada com força total, desde que não esteja em recarga."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Pode ser reparada com Barras de Netherita em uma bigorna."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(o)Ao forjar esta lâmina, as energias lhe trouxeram visões, do que parecia ser o passado, de pessoas criando alguns artefatos, um deles parecia uma espada, outro uma orbe. Você vê a espada sendo usada muitas vezes, por muitos portadores... até que ela praticamente passou a brandir a si mesma. Você vê alguém, ou algo, colocando a orbe dentro de um cristal... e se transformando em algo amais.$()"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:blade_of_ender": 1
+  }
+}

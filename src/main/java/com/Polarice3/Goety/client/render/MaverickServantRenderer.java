@@ -3,7 +3,7 @@ package com.Polarice3.Goety.client.render;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.MaverickServantModel;
 import com.Polarice3.Goety.client.render.model.VillagerArmorModel;
-import com.Polarice3.Goety.common.entities.ally.illager.MaverickServant;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.MaverickServant;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -15,7 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class MaverickServantRenderer<T extends MaverickServant> extends MobRenderer<T, MaverickServantModel<T>> {
-    private static final ResourceLocation WITCH_LOCATION = Goety.location("textures/entity/servants/maverick.png");
+    private static final ResourceLocation WITCH_LOCATION = Goety.location("textures/entity/servants/cultist/maverick.png");
     private static final ResourceLocation ORIGINAL = Goety.location("textures/entity/cultist/maverick.png");
 
     public MaverickServantRenderer(EntityRendererProvider.Context renderManagerIn) {

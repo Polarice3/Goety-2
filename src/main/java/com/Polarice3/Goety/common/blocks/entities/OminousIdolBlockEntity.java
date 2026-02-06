@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.blocks.entities;
 
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.OminousIdolBlock;
-import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
 import com.Polarice3.Goety.common.items.block.OminousIdolBlockItem;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.BlockFinder;

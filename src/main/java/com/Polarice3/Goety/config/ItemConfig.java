@@ -57,10 +57,14 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> DarkToolsDurability;
     public static final ForgeConfigSpec.ConfigValue<Integer> DarkToolsEnchantability;
     public static final ForgeConfigSpec.ConfigValue<Integer> DarkToolsMiningLevel;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> DarkToolsPersist;
 
     public static final ForgeConfigSpec.ConfigValue<Double> DeathScytheDamage;
     public static final ForgeConfigSpec.ConfigValue<Integer> DeathScytheDurability;
     public static final ForgeConfigSpec.ConfigValue<Integer> DeathScytheEnchantability;
+    public static final ForgeConfigSpec.ConfigValue<Integer> DeathScytheSappedDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> DeathScytheSappedChance;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> DeathScythePersist;
 
     public static final ForgeConfigSpec.ConfigValue<Double> SpecialToolsDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SpecialToolsBreakSpeed;
@@ -74,6 +78,13 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> PhilosophersMaceDamage;
     public static final ForgeConfigSpec.ConfigValue<Integer> PhilosophersMaceDurability;
     public static final ForgeConfigSpec.ConfigValue<Integer> PhilosophersMaceEnchantability;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PhilosophersMacePersist;
+
+    public static final ForgeConfigSpec.ConfigValue<Double> BladeOfEnderDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> BladeOfEnderAttackSpeed;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BladeOfEnderDurability;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BladeOfEnderEnchantability;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> BladeOfEnderPersist;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> CursedKnightDurability;
     public static final ForgeConfigSpec.ConfigValue<Integer> CursedKnightFeet;
@@ -113,6 +124,7 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> DarkArmorEnchantability;
     public static final ForgeConfigSpec.ConfigValue<Double> DarkArmorToughness;
     public static final ForgeConfigSpec.ConfigValue<Double> DarkArmorKnockResist;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> DarkArmorPersist;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkHelmetBlindness;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkHelmetDarkness;
 
@@ -323,7 +335,7 @@ public class ItemConfig {
                     .defineInRange("namelessStaffDamage", 6.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Scythes");
-            DarkScytheSouls = BUILDER.comment("Amount of Soul Energy Dark Scythe gives when hitting mob(s), Default: 1")
+            DarkScytheSouls = BUILDER.comment("Amount of Soul Energy Scythes gives when hitting mob(s), Default: 1")
                     .defineInRange("darkScytheSouls", 1, 1, Integer.MAX_VALUE);
             ScytheSlashBreaks = BUILDER.comment("Scythe Slashes from Death Scythe breaks blocks that regular Scythes easily breaks, Default: true")
                     .define("scytheSlashBreaks", true);
@@ -337,6 +349,12 @@ public class ItemConfig {
                     .defineInRange("deathScytheDurability", 444, 1, Integer.MAX_VALUE);
             DeathScytheEnchantability = BUILDER.comment("Define the Enchantability for Death Scythe, higher number the better, Default: 22")
                     .defineInRange("deathScytheEnchantability", 22, 1, Integer.MAX_VALUE);
+            DeathScytheSappedDuration = BUILDER.comment("How many seconds of Sapped the Death Scythe applies, Default: 5")
+                    .defineInRange("deathScytheSappedDuration", 5, 0, Integer.MAX_VALUE);
+            DeathScytheSappedChance = BUILDER.comment("The chance, by percentage, of Sapped being amplified after hitting affected with Death Scythe, Default: 20")
+                    .defineInRange("deathScytheSappedDuration", 20, 0, Integer.MAX_VALUE);
+            DeathScythePersist = BUILDER.comment("Whether tools don't break but no longer benefits, Default: true")
+                    .define("deathScythePersist", true);
             BUILDER.pop();
             BUILDER.push("Hammers");
             HammerBaseDamage = BUILDER.comment("How much base damage Hammers deals, the damage added depends on material the hammer is made off (ie. Iron = 2.0), Default: 5.0")
@@ -357,6 +375,8 @@ public class ItemConfig {
                     .defineInRange("darkToolsEnchantability", 20, 1, Integer.MAX_VALUE);
             DarkToolsMiningLevel = BUILDER.comment("Define the Mining Level for Dark Tools, example, 3 = Diamond, 4 = Netherite, Default: 4")
                     .defineInRange("darkToolsMiningLevel", 4, 0, Integer.MAX_VALUE);
+            DarkToolsPersist = BUILDER.comment("Whether tools don't break but no longer benefits, Default: true")
+                    .define("darkToolsPersist", true);
             BUILDER.pop();
             BUILDER.push("Special Tools");
             SpecialToolsDamage = BUILDER.comment("How much damage Special Tools deals, the configured number is added to Tool Base Damage, Default: 3.0")
@@ -376,13 +396,27 @@ public class ItemConfig {
             GraverobberShovelCrouch = BUILDER.comment("Whether Graverobber's Shovel only breaks two blocks if player is crouching, set to false to make it so that crouching breaks one block instead of two, Default: false")
                     .define("graverobberShovelCrouch", false);
             BUILDER.pop();
-            BUILDER.push("Misc");
+            BUILDER.push("Philosopher's Mace");
             PhilosophersMaceDamage = BUILDER.comment("How much damage Philosopher's Mace deals, Default: 9.0")
                     .defineInRange("philosophersMaceDamage", 9.0, 1.0, Double.MAX_VALUE);
             PhilosophersMaceDurability = BUILDER.comment("How many uses before the Philosopher's Mace breaks, Default: 128")
                     .defineInRange("philosophersMaceDurability", 128, 1, Integer.MAX_VALUE);
             PhilosophersMaceEnchantability = BUILDER.comment("Define the Enchantability for Philosopher's Mace, higher number the better, Default: 20")
                     .defineInRange("philosophersMaceEnchantability", 20, 1, Integer.MAX_VALUE);
+            PhilosophersMacePersist = BUILDER.comment("Whether tools don't break but no longer benefits, Default: true")
+                    .define("philosophersMacePersist", true);
+            BUILDER.pop();
+            BUILDER.push("Blade of Ender");
+            BladeOfEnderDamage = BUILDER.comment("How much damage Blade of Ender deals, Default: 9.0")
+                    .defineInRange("bladeOfEnderDamage", 9.0, 1.0, Double.MAX_VALUE);
+            BladeOfEnderAttackSpeed = BUILDER.comment("How fast it takes to fully swing a Blade of Ender. The lower the number the slower it takes to recharge, Default: 1.2")
+                    .defineInRange("bladeOfEnderAttackSpeed", 1.2, 0.0, Double.MAX_VALUE);
+            BladeOfEnderDurability = BUILDER.comment("How many uses before the Blade of Ender breaks, Default: 2031")
+                    .defineInRange("bladeOfEnderDurability", 2031, 1, Integer.MAX_VALUE);
+            BladeOfEnderEnchantability = BUILDER.comment("Define the Enchantability for Blade of Ender, higher number the better, Default: 20")
+                    .defineInRange("bladeOfEnderEnchantability", 20, 1, Integer.MAX_VALUE);
+            BladeOfEnderPersist = BUILDER.comment("Whether tools don't break but no longer benefits, Default: true")
+                    .define("bladeOfEnderPersist", true);
             BUILDER.pop();
         BUILDER.pop();
         BUILDER.push("Armor");
@@ -471,6 +505,8 @@ public class ItemConfig {
                     .defineInRange("darkArmorToughness", 2.0, 0.0, Double.MAX_VALUE);
             DarkArmorKnockResist = BUILDER.comment("Define how much knockback resistance each armor piece provides, Default: 0.3")
                     .defineInRange("darkArmorKnockResist", 0.3, 0.0, Double.MAX_VALUE);
+            DarkArmorPersist = BUILDER.comment("Whether armor pieces don't break but no longer provide armor, Default: true")
+                    .define("darkArmorPersist", true);
             DarkHelmetBlindness = BUILDER.comment("Whether Dark Helmets makes the wearer immune to Blindness, Default: true")
                     .define("darkHelmetBlindness", true);
             DarkHelmetDarkness = BUILDER.comment("Whether Dark Helmets makes the wearer immune to Darkness, Default: true")

@@ -13,6 +13,7 @@ import com.Polarice3.Goety.common.entities.ally.undead.zombie.BlackguardServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.FrozenZombieServant;
 import com.Polarice3.Goety.common.entities.projectiles.IceSpike;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
@@ -25,6 +26,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -48,6 +51,23 @@ public class AbstractCairnNecromancer extends AbstractNecromancer{
     public void summonSpells(int priority){
         this.goalSelector.addGoal(priority, new SummonServantSpell());
         this.goalSelector.addGoal(priority + 1, new SummonUndeadGoal());
+    }
+
+    public static AttributeSupplier.Builder setCustomAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, AttributesConfig.CairnNecromancerHealth.get())
+                .add(Attributes.ARMOR, AttributesConfig.CairnNecromancerArmor.get())
+                .add(Attributes.FOLLOW_RANGE, AttributesConfig.CairnNecromancerFollowRange.get())
+                .add(Attributes.MOVEMENT_SPEED, 0.25F)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.CairnNecromancerDamage.get());
+    }
+
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.CairnNecromancerHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.CairnNecromancerArmor.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.FOLLOW_RANGE), AttributesConfig.CairnNecromancerFollowRange.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.CairnNecromancerDamage.get());
     }
 
     @Override

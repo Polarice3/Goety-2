@@ -100,7 +100,7 @@ public class PoisonBolt extends SpellHurtingProjectile {
     protected void onHitEntity(EntityHitResult p_37626_) {
         super.onHitEntity(p_37626_);
         if (!this.level.isClientSide) {
-            float baseDamage = SpellConfig.SoulBoltDamage.get().floatValue() * WandUtil.damageMultiply();
+            float baseDamage = SpellConfig.PoisonBoltDamage.get().floatValue() * WandUtil.damageMultiply();
             Entity entity = p_37626_.getEntity();
             Entity entity1 = this.getOwner();
             boolean flag;

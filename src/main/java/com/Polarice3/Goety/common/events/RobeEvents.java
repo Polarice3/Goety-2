@@ -7,7 +7,7 @@ import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.SnapWartsBlock;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.illager.AllyIrk;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.AllyIrk;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.world.structures.ModStructureTags;
 import com.Polarice3.Goety.config.AttributesConfig;

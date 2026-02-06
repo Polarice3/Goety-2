@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.entities.ai;
 
 import com.Polarice3.Goety.api.entities.IOwned;
-import com.Polarice3.Goety.common.entities.ally.illager.Prisoner;
-import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.Prisoner;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
 import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;

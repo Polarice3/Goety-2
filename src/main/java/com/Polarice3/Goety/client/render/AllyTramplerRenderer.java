@@ -2,7 +2,7 @@ package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.TramplerModel;
-import com.Polarice3.Goety.common.entities.ally.illager.AllyTrampler;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.AllyTrampler;
 import com.Polarice3.Goety.common.items.TramplerArmorItem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

@@ -15,6 +15,7 @@ import com.Polarice3.Goety.common.entities.hostile.servants.Damned;
 import com.Polarice3.Goety.common.entities.hostile.servants.Inferno;
 import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
 import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
+import com.Polarice3.Goety.common.entities.neutral.AbstractObsidianMonolith;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
 import com.Polarice3.Goety.common.entities.projectiles.*;
@@ -149,7 +150,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         return owned instanceof ZPiglinServant && owned.getTrueOwner() == this;
     };
     private final Predicate<LivingEntity> MONOLITHS = (livingEntity) -> {
-        return livingEntity instanceof ObsidianMonolith monolith && monolith.getTrueOwner() == this;
+        return livingEntity instanceof AbstractObsidianMonolith monolith && monolith.getTrueOwner() == this;
     };
     private final Predicate<Owned> MALGHASTS = (owned) -> {
         return owned instanceof Malghast && owned.getTrueOwner() == this;

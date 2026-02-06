@@ -3,9 +3,11 @@ package com.Polarice3.Goety.api.entities;
 import com.Polarice3.Goety.api.blocks.entities.IOwnedBlock;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.ServantUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
@@ -19,6 +21,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -33,6 +36,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -232,10 +236,37 @@ public interface IOwned {
                             }
                         }
                     }
-                    for (Mob target : mob.level.getEntitiesOfClass(Mob.class, mob.getBoundingBox().inflate(mob.getAttributeValue(Attributes.FOLLOW_RANGE)))) {
+                    for (Mob target : mob.level.getEntitiesOfClass(Mob.class, mob.getBoundingBox().inflate(mob.getAttributeValue(Attributes.FOLLOW_RANGE)), mob1 -> mob1.isAlive() && mob != mob1)) {
+                        boolean flag = false;
+                        if (MainConfig.GoodwillServantGuard.get()) {
+                            if (this.getTrueOwner() instanceof Player player) {
+                                if (SEHelper.isAlly(player, target)) {
+                                    if (target.getLastHurtByMob() != null && mob.getLastHurtByMob() == null) {
+                                        if (mob.canAttack(target.getLastHurtByMob())) {
+                                            mob.setTarget(target.getLastHurtByMob());
+                                            mob.setLastHurtByMob(target.getLastHurtByMob());
+                                        }
+                                    } else if (target.getLastHurtMob() != null && mob.getLastHurtMob() == null) {
+                                        if (mob.canAttack(target.getLastHurtMob())) {
+                                            mob.setTarget(target.getLastHurtMob());
+                                            mob.setLastHurtMob(target.getLastHurtMob());
+                                        }
+                                    }
+                                } else if (target.getTarget() != null) {
+                                    if (SEHelper.isAlly(player, target.getTarget())) {
+                                        flag = true;
+                                    }
+                                }
+                            }
+                        }
                         if (target instanceof IOwned owned) {
                             if (this.getTrueOwner() != owned.getTrueOwner()
                                     && target.getTarget() == this.getTrueOwner()) {
+                                flag = true;
+                            }
+                        }
+                        if (flag) {
+                            if (mob.canAttack(target) && !MobUtil.areAllies(mob, target) && !MobUtil.areAllies(this.getTrueOwner(), target)) {
                                 mob.setTarget(target);
                             }
                         }
@@ -391,6 +422,7 @@ public interface IOwned {
     }
 
     default void startRevival() {
+        this.pacifySurroundingMobs(64.0D);
         Entity entity = ServantUtil.teleportToRevive(this);
         if (entity != null) {
             if (entity instanceof LivingEntity living) {
@@ -440,6 +472,28 @@ public interface IOwned {
 
     default void setReviveDim(String string) {
 
+    }
+
+    default void pacifySurroundingMobs(double range) {
+        if (this instanceof LivingEntity owned) {
+            for (Mob mob : owned.level.getEntitiesOfClass(Mob.class, owned.getBoundingBox().inflate(range), mob -> mob.getTarget() == owned || mob.getLastHurtByMob() == owned
+                    || ((mob.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent() && mob.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get() == owned))
+                    || (mob.getBrain().getMemory(MemoryModuleType.ANGRY_AT).isPresent() && mob.getBrain().getMemory(MemoryModuleType.ANGRY_AT).get() == owned.getUUID())
+                    || (mob.getBrain().getMemory(MemoryModuleType.HURT_BY_ENTITY).isPresent() && mob.getBrain().getMemory(MemoryModuleType.HURT_BY_ENTITY).get() == owned))) {
+                mob.setTarget(null);
+                mob.setLastHurtByMob(null);
+                Brain<?> brain = mob.getBrain();
+                if (brain.getMemory(MemoryModuleType.ATTACK_TARGET).isPresent() && brain.getMemory(MemoryModuleType.ATTACK_TARGET).get() == owned) {
+                    brain.setMemory(MemoryModuleType.ATTACK_TARGET, Optional.empty());
+                }
+                if (brain.getMemory(MemoryModuleType.ANGRY_AT).isPresent() && brain.getMemory(MemoryModuleType.ANGRY_AT).get() == owned.getUUID()) {
+                    brain.setMemory(MemoryModuleType.ANGRY_AT, Optional.empty());
+                }
+                if (brain.getMemory(MemoryModuleType.HURT_BY_ENTITY).isPresent() && brain.getMemory(MemoryModuleType.HURT_BY_ENTITY).get() == owned) {
+                    brain.setMemory(MemoryModuleType.HURT_BY_ENTITY, Optional.empty());
+                }
+            }
+        }
     }
 
     default void readOwnedData(CompoundTag compound){

@@ -1,0 +1,21 @@
+{
+  "name": "Heretic Servant",
+  "icon": "minecraft:blaze_powder",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/craft_unholy_robe",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Usually when a Villager sleeps next to a Nether Portal, they have a chance of turning into a Heretic. When wearing an Unholy Hat and Robe while being near them however, will cause them to not only turn to heresy, but also serve you as loyal acolytes."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:heretic_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "You're also able to trade with your Heretic Servant by giving them an Emerald, without needing to wear appropriate attire to do so. You can also trade with other Heretic Servants, provided you're allied to their master, if they have one, and wearing the appropriate attire."
+    }
+  ]
+}

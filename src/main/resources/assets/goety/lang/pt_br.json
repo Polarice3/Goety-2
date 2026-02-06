@@ -3445,5 +3445,18 @@
   "item.minecraft.tipped_arrow.effect.spasms": "Flecha da Espasmos",
   "item.minecraft.potion.effect.spasms": "Poção da Espasmos",
   "item.minecraft.splash_potion.effect.spasms": "Poção Arremessável da Espasmos",
-  "item.minecraft.lingering_potion.effect.spasms": "Poção Residual da Espasmos"
+  "item.minecraft.lingering_potion.effect.spasms": "Poção Residual da Espasmos",
+  "entity.goety.ripper_servant": "Estripador",
+  "entity.goety.heretic_servant": "Servo Herege",
+  "entity.goety.poison_bolt": "Dardo Venenoso",
+  "entity.goety.wither_bolt": "Dardo do Wither",
+  "item.goety.heretic_servant_spawn_egg": "Ovo de Servo Herege",
+  "item.goety.ripper_servant_spawn_egg": "Ovo de Estripador",
+  "item.goety.blade_of_ender": "Lâmina do Ender",
+  "item.goety.unholy_hat_halo": "Chapéu Profano",
+  "item.goety.dark_robe_fancy": "Túnica Sombria",
+  "info.goety.blade_of_ender": "Dispara um golpe voador quando balançada com força total.",
+  "info.goety.blade_of_ender.1": "Clique com o botão direito para saltar para trás.",
+  "info.goety.blade_of_ender.2": "Clique com o botão direito enquanto corre para avançar rapidamente.",
+  "subtitle.goety.soul_eat": "Sugando"
 }

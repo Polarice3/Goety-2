@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.ai;
 
-import com.Polarice3.Goety.common.entities.ally.illager.Prisoner;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.Prisoner;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;

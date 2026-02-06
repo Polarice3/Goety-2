@@ -1,0 +1,8 @@
+{
+  "type": "goety:cursed_infuser_recipes",
+  "ingredient": {
+    "item": "goety:dark_robe_fancy"
+  },
+  "result": "goety:dark_robe",
+  "cookingTime": 60
+}

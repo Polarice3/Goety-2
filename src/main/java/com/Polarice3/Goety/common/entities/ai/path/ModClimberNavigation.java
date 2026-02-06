@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.ai.path;
 
 import com.Polarice3.Goety.api.entities.ally.IServant;
-import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;

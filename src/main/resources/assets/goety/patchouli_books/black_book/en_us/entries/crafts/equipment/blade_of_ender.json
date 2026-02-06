@@ -1,0 +1,32 @@
+{
+  "name": "Blade of Ender",
+  "icon": "goety:blade_of_ender",
+  "category": "goety:crafts/equipment",
+  "advancement": "goety:goety/kill_an_ender_keeper",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Inspired by your foe, you've crafted a blade using the powers of the void and added some Dark Alloy to grant it the ability to self-repair with Soul Energy."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:blade_of_ender"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The blade allows one to charge at a direction by right-clicking while sprinting, or to back step away by right-clicking without sprinting, though it will cause the blade to enter cooldown. The blade causes Void Touched and is sharp enough to send a void-powered razor wind when swung at full power, when it's not cooling down."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "It can be repaired with Netherite Ingots on an anvil."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(o)When crafting this blade, the energies gave you visions, of what looks to be the past, of people crafting some artifacts, one of which looks to be sword, another an orb. You see the sword being used many times, with many wielders... until it might as well wield itself. You see someone, or something, putting the orb inside a crystal... and turn into something else.$()"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:blade_of_ender": 1
+  }
+}

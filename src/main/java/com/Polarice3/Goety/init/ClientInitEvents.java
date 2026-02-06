@@ -665,6 +665,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.CRYOLOGER_SERVANT.get(), CryologerServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.WIND_CALLER_SERVANT.get(), WindCallerServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.STORM_CASTER_SERVANT.get(), StormCasterServantRenderer::new);
+        event.registerEntityRenderer(ModEntityType.RIPPER_SERVANT.get(), RipperServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.TRAMPLER_SERVANT.get(), AllyTramplerRenderer::new);
         event.registerEntityRenderer(ModEntityType.RAVAGED.get(), RavagedRenderer::new);
         event.registerEntityRenderer(ModEntityType.MOD_RAVAGER.get(), ModRavagerRenderer::new);
@@ -672,6 +673,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.ZOMBIE_RAVAGER.get(), ZombieRavagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.WITCH_SERVANT.get(), WitchServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.WARLOCK_SERVANT.get(), WarlockServantRenderer::new);
+        event.registerEntityRenderer(ModEntityType.HERETIC_SERVANT.get(), HereticServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.MAVERICK_SERVANT.get(), MaverickServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.BLACK_WOLF.get(), BlackWolfRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKELETON_WOLF.get(), SkeletonWolfRenderer::new);

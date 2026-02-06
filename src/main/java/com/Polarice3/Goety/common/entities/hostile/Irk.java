@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.hostile;
 
-import com.Polarice3.Goety.common.entities.ally.illager.AllyIrk;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.AllyIrk;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;

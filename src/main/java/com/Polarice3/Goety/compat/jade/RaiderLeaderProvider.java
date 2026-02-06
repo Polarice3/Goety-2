@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.compat.jade;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
 import com.Polarice3.Goety.utils.EntityFinder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

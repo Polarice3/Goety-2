@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
@@ -31,7 +32,7 @@ public class VoidFlameBlock extends VoidBlock {
     }
 
     public static boolean canSurviveOnBlock(BlockState p_154651_) {
-        return p_154651_.is(ModBlocks.VOID_BLOCK.get());
+        return p_154651_.is(ModTags.Blocks.VOID_BLOCKS);
     }
 
     public void animateTick(BlockState p_220763_, Level p_220764_, BlockPos p_220765_, RandomSource p_220766_) {

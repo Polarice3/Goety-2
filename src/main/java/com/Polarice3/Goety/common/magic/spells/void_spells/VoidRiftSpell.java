@@ -7,10 +7,12 @@ import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.Vec3;
@@ -64,7 +66,7 @@ public class VoidRiftSpell extends Spell {
 
     @Override
     public void startSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
-        int warmUp = this.castDuration(caster, staff) - 10;
+        int warmUp = this.castDuration(caster, staff) - 5;
         int duration = spellStat.getDuration() * (WandUtil.getLevels(ModEnchantments.DURATION.get(), caster) + 1);
         int range = spellStat.getRange() + WandUtil.getRangeLevel(caster);
         Vec3 vec3 = this.rayTrace(worldIn, caster, range, 3).getLocation();
@@ -76,5 +78,16 @@ public class VoidRiftSpell extends Spell {
         voidRift.setSize((float) (spellStat.getRadius() + WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster)));
         voidRift.setExtraDamage(spellStat.getPotency() + WandUtil.getPotencyLevel(caster));
         worldIn.addFreshEntity(voidRift);
+    }
+
+    @Override
+    public void stopSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, ItemStack focus, int castTime, SpellStat spellStat) {
+        int warmUp = this.castDuration(caster, staff) - 5;
+        if (castTime >= warmUp){
+            if (caster instanceof Player player && !focus.isEmpty()) {
+                SEHelper.addCooldown(player, focus.getItem(), this.spellCooldown(caster));
+                SEHelper.sendSEUpdatePacket(player);
+            }
+        }
     }
 }

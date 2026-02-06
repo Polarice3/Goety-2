@@ -46,6 +46,7 @@ public class ModTags {
         public static final TagKey<Block> RECALL_BLOCKS = tag("recall_blocks");
         public static final TagKey<Block> RAIDING_CHESTS = tag("raiding_chests");
         public static final TagKey<Block> DARK_ANVILS = tag("dark_anvils");
+        public static final TagKey<Block> VOID_BLOCKS = tag("void_blocks");
         public static final TagKey<Block> TUNNEL_BLACKLIST = tag("tunnel_blacklist");
         public static final TagKey<Block> NETHER_SPREAD = tag("nether_spread");
         public static final TagKey<Block> NETHER_SPREAD_REPLACEABLE = tag("nether_spread_replaceable");
@@ -221,6 +222,7 @@ public class ModTags {
         public static final TagKey<Biome> MAVERICK_SPAWN = tag("mob_spawn/maverick");
         public static final TagKey<Biome> MAVERICK_EXCLUDE_SPAWN = tag("mob_spawn/maverick_exclude");
         public static final TagKey<Biome> WIGHT_SPAWN = tag("mob_spawn/wight");
+        public static final TagKey<Biome> WIGHT_EXCLUDE_SPAWN = tag("mob_spawn/wight_exclude");
 
         public static final TagKey<Biome> ABYSS_DISCOUNT = tag("spell_discount/abyss");
         public static final TagKey<Biome> FROST_DISCOUNT = tag("spell_discount/frost");

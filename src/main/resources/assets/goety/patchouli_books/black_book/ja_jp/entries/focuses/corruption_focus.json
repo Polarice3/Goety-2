@@ -3,7 +3,7 @@
   "icon": "goety:corruption_focus",
   "category": "goety:focuses",
   "advancement": "goety:goety/gain_night_beacon",
-  "secret": true,
+
   "pages": [
     {
       "type": "patchouli:text",

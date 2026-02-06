@@ -19,6 +19,11 @@ import com.Polarice3.Goety.common.entities.ally.ender.SnarelingServant;
 import com.Polarice3.Goety.common.entities.ally.ender.WatchlingServant;
 import com.Polarice3.Goety.common.entities.ally.golem.*;
 import com.Polarice3.Goety.common.entities.ally.illager.*;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.HereticServant;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.MaverickServant;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.WarlockServant;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.WitchServant;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.*;
 import com.Polarice3.Goety.common.entities.ally.spider.*;
 import com.Polarice3.Goety.common.entities.ally.undead.*;
 import com.Polarice3.Goety.common.entities.ally.undead.bound.*;
@@ -650,6 +655,7 @@ public class Goety {
         event.put(ModEntityType.CRYOLOGER_SERVANT.get(), CryologerServant.setCustomAttributes().build());
         event.put(ModEntityType.WIND_CALLER_SERVANT.get(), WindCallerServant.setCustomAttributes().build());
         event.put(ModEntityType.STORM_CASTER_SERVANT.get(), StormCasterServant.setCustomAttributes().build());
+        event.put(ModEntityType.RIPPER_SERVANT.get(), RipperServant.setCustomAttributes().build());
         event.put(ModEntityType.TRAMPLER_SERVANT.get(), AllyTrampler.setCustomAttributes().build());
         event.put(ModEntityType.RAVAGED.get(), Ravaged.setCustomAttributes().build());
         event.put(ModEntityType.MOD_RAVAGER.get(), ModRavager.setCustomAttributes().build());
@@ -657,6 +663,7 @@ public class Goety {
         event.put(ModEntityType.ZOMBIE_RAVAGER.get(), ZombieRavager.setCustomAttributes().build());
         event.put(ModEntityType.WITCH_SERVANT.get(), WitchServant.setCustomAttributes().build());
         event.put(ModEntityType.WARLOCK_SERVANT.get(), WarlockServant.setCustomAttributes().build());
+        event.put(ModEntityType.HERETIC_SERVANT.get(), HereticServant.setCustomAttributes().build());
         event.put(ModEntityType.MAVERICK_SERVANT.get(), MaverickServant.setCustomAttributes().build());
         event.put(ModEntityType.BLACK_WOLF.get(), BlackWolf.setCustomAttributes().build());
         event.put(ModEntityType.SKELETON_WOLF.get(), SkeletonWolf.setCustomAttributes().build());

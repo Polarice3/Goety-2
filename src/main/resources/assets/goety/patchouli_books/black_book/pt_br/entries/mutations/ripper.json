@@ -1,0 +1,30 @@
+{
+  "name": "Estripador",
+  "icon": "minecraft:bone",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Você aprendeu como acelerar a domesticação dos lobos dos Illager em Estripadores, usando as Trevas da Magia."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_wolf_to_ripper"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Estripadores são curados e reproduzidos com carne, da mesma forma que lobos comuns. Eles também crescem mais rápido que lobos comuns."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:ripper",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Estripadores podem fazer parte de um $(l:goety:mutations/illager_servants)grupo de ataque$(), embora não possam ser líderes."
+    }
+  ]
+}

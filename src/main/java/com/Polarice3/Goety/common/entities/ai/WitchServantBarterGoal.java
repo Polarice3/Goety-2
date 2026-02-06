@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.ai;
 
-import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
-import com.Polarice3.Goety.common.entities.ally.illager.WarlockServant;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.WarlockServant;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.ModLootTables;
 import net.minecraft.core.particles.ParticleOptions;

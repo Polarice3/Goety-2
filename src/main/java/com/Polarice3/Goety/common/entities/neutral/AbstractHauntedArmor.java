@@ -152,7 +152,9 @@ public abstract class AbstractHauntedArmor extends Summoned implements CrossbowA
     public void setItemSlot(EquipmentSlot pSlot, ItemStack pStack) {
         super.setItemSlot(pSlot, pStack);
         if (!this.level.isClientSide) {
-            this.reassessWeaponGoal();
+            if (pSlot.getType() == EquipmentSlot.Type.HAND) {
+                this.reassessWeaponGoal();
+            }
         }
 
     }

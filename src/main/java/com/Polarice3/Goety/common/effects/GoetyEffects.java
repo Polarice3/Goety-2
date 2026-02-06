@@ -172,7 +172,7 @@ public class GoetyEffects {
 
     public static final RegistryObject<MobEffect> FLIMSY = EFFECTS.register("flimsy",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0xf5f5f5)
-                    .addAttributeModifier(Attributes.ATTACK_DAMAGE, ModUUIDUtil.uuidString("effect.goety.flimsy.knockback_resistance"),
+                    .addAttributeModifier(Attributes.KNOCKBACK_RESISTANCE, ModUUIDUtil.uuidString("effect.goety.flimsy.knockback_resistance"),
                     -1.0D, AttributeModifier.Operation.MULTIPLY_TOTAL));
 
     public static final RegistryObject<MobEffect> SENSE_LOSS = EFFECTS.register("sense_loss",

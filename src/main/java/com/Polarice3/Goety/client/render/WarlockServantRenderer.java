@@ -3,7 +3,7 @@ package com.Polarice3.Goety.client.render;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.VillagerArmorModel;
 import com.Polarice3.Goety.client.render.model.WarlockServantModel;
-import com.Polarice3.Goety.common.entities.ally.illager.WarlockServant;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.WarlockServant;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -13,7 +13,7 @@ import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class WarlockServantRenderer extends MobRenderer<WarlockServant, WarlockServantModel<WarlockServant>> {
-   private static final ResourceLocation WITCH_LOCATION = Goety.location("textures/entity/servants/warlock.png");
+   private static final ResourceLocation WITCH_LOCATION = Goety.location("textures/entity/servants/cultist/warlock.png");
    private static final ResourceLocation ORIGINAL = Goety.location("textures/entity/cultist/warlock.png");
 
    public WarlockServantRenderer(EntityRendererProvider.Context renderManagerIn) {

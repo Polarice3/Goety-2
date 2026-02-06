@@ -3,7 +3,7 @@ package com.Polarice3.Goety.client.render;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.ModWitchModel;
 import com.Polarice3.Goety.client.render.model.VillagerArmorModel;
-import com.Polarice3.Goety.common.entities.ally.illager.WitchServant;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.WitchServant;
 import com.Polarice3.Goety.common.items.brew.BrewItem;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -22,7 +22,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PotionItem;
 
 public class WitchServantRenderer extends MobRenderer<WitchServant, ModWitchModel<WitchServant>> {
-   private static final ResourceLocation WITCH_LOCATION = Goety.location("textures/entity/servants/witch.png");
+   private static final ResourceLocation WITCH_LOCATION = Goety.location("textures/entity/servants/cultist/witch.png");
    private static final ResourceLocation ORIGINAL = new ResourceLocation("textures/entity/witch.png");
 
    public WitchServantRenderer(EntityRendererProvider.Context renderManagerIn) {

@@ -1,0 +1,21 @@
+{
+  "name": "异教徒仆从",
+  "icon": "minecraft:blaze_powder",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/craft_unholy_robe",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "通常，当村民在下界传送门旁睡觉时，他们有一定几率转变为异教徒。然而，若你打扮成下界的使者去接近他们，不仅能欺骗他们使其皈依，更能让他们成为你忠诚的信徒"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:heretic_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你可以通过给予绿宝石与你的异教徒仆从交易，且无需穿戴特定的服饰。若你与异教徒仆从的主人（如果其有主人）是盟友关系，并且穿戴了合适的服饰，你也能与其他人的异教徒仆从进行交易。"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.hostile.cultists;
 
+import com.Polarice3.Goety.api.entities.IHeretic;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -8,6 +9,7 @@ import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
 import com.Polarice3.Goety.common.entities.ally.MagmaCubeServant;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
+import com.Polarice3.Goety.common.entities.neutral.AbstractObsidianMonolith;
 import com.Polarice3.Goety.common.entities.neutral.BlazeServant;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
 import com.Polarice3.Goety.common.entities.projectiles.HellChant;
@@ -47,11 +49,11 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.BiConsumer;
 
-public class Heretic extends Cultist {
+public class Heretic extends Cultist implements IHeretic {
     private static final EntityDataAccessor<Boolean> CHANTING = SynchedEntityData.defineId(Heretic.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> CASTING = SynchedEntityData.defineId(Heretic.class, EntityDataSerializers.BOOLEAN);
     private final DynamicGameEventListener<GameEventListener> gameEventListener;
-    private ObsidianMonolith monolith;
+    private AbstractObsidianMonolith monolith;
     public List<Vec3> convokePos = new ArrayList<>();
     public int chantCoolDown;
     public int chantTimes;
@@ -220,18 +222,18 @@ public class Heretic extends Cultist {
         return this.convokePos;
     }
 
-    public void setMonolith(@Nullable ObsidianMonolith monolith) {
+    public void setMonolith(@Nullable AbstractObsidianMonolith monolith) {
         this.monolith = monolith;
     }
 
     @Nullable
-    public ObsidianMonolith getMonolith() {
+    public AbstractObsidianMonolith getMonolith() {
         return this.monolith;
     }
 
     @Override
     public boolean isAlliedTo(Entity entityIn) {
-        if (entityIn instanceof ObsidianMonolith) {
+        if (entityIn instanceof AbstractObsidianMonolith) {
             return this.getTeam() == null && entityIn.getTeam() == null;
         } else if (entityIn instanceof ZombifiedPiglin){
             return this.getTeam() == null && entityIn.getTeam() == null;

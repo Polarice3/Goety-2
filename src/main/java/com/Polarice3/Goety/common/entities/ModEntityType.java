@@ -7,6 +7,11 @@ import com.Polarice3.Goety.common.entities.ally.ender.SnarelingServant;
 import com.Polarice3.Goety.common.entities.ally.ender.WatchlingServant;
 import com.Polarice3.Goety.common.entities.ally.golem.*;
 import com.Polarice3.Goety.common.entities.ally.illager.*;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.HereticServant;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.MaverickServant;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.WarlockServant;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.WitchServant;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.*;
 import com.Polarice3.Goety.common.entities.ally.spider.*;
 import com.Polarice3.Goety.common.entities.ally.undead.*;
 import com.Polarice3.Goety.common.entities.ally.undead.bound.*;
@@ -1118,6 +1123,12 @@ public class ModEntityType {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<RipperServant>> RIPPER_SERVANT = register("ripper_servant",
+            EntityType.Builder.of(RipperServant::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 0.85F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<AllyTrampler>> TRAMPLER_SERVANT = register("trampler_servant",
             EntityType.Builder.of(AllyTrampler::new, MobCategory.MONSTER)
                     .canSpawnFarFromPlayer()
@@ -1151,6 +1162,11 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<WarlockServant>> WARLOCK_SERVANT = register("warlock_servant",
             EntityType.Builder.of(WarlockServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<HereticServant>> HERETIC_SERVANT = register("heretic_servant",
+            EntityType.Builder.of(HereticServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 

@@ -260,7 +260,7 @@ public class VoidRift extends CastSpellTrap {
                                 if (VoidRift.this.isStaff()) {
                                     if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target)) {
                                         if (target instanceof LivingEntity livingEntity) {
-                                            livingEntity.addEffect(new MobEffectInstance(GoetyEffects.VOID_TOUCHED.get(), MathHelper.secondsToTicks(3), 2, false, true));
+                                            livingEntity.addEffect(new MobEffectInstance(GoetyEffects.VOID_TOUCHED.get(), MathHelper.secondsToTicks(5), 2, false, true));
                                         }
                                     }
                                 }

@@ -3361,5 +3361,18 @@
   "item.minecraft.tipped_arrow.effect.spasms": "痉挛之箭",
   "item.minecraft.potion.effect.spasms": "痉挛药水",
   "item.minecraft.splash_potion.effect.spasms": "喷溅型痉挛药水",
-  "item.minecraft.lingering_potion.effect.spasms": "滞留型痉挛药水"
+  "item.minecraft.lingering_potion.effect.spasms": "滞留型痉挛药水",
+  "entity.goety.ripper_servant": "开膛兽",
+  "entity.goety.heretic_servant": "异教徒仆从",
+  "entity.goety.poison_bolt": "剧毒束",
+  "entity.goety.wither_bolt": "凋零束",
+  "item.goety.heretic_servant_spawn_egg": "异教徒仆从刷怪蛋",
+  "item.goety.ripper_servant_spawn_egg": "开膛兽仆从刷怪蛋",
+  "item.goety.blade_of_ender": "末影之刃",
+  "item.goety.unholy_hat_halo": "不洁圣冠",
+  "item.goety.dark_robe_fancy": "黑暗长袍",
+  "info.goety.blade_of_ender": "蓄力满时挥动可发射末影剑气。",
+  "info.goety.blade_of_ender.1": "右键点击时向后跳跃。",
+  "info.goety.blade_of_ender.2": "奔跑时右键点击时向前突刺。",
+  "subtitle.goety.soul_eat": "吸血"
 }

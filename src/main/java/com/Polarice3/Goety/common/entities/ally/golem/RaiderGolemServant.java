@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.entities.ally.golem;
 
 import com.Polarice3.Goety.api.entities.IGolem;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
-import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;

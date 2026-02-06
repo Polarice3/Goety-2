@@ -1,0 +1,32 @@
+{
+  "name": "エンダーブレード",
+  "icon": "goety:blade_of_ender",
+  "category": "goety:crafts/equipment",
+  "advancement": "goety:goety/kill_an_ender_keeper",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "敵からインスピレーションを得て、虚空の力を使って刃を作り、さらに闇の合金を追加して、ソウルエネルギーで自己修復する能力を付与しました。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:blade_of_ender"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "この刃は、ダッシュ中に右クリックすることで特定の方向に突進し、ダッシュせずに右クリックすることでバックステップで後退することができますが、クールダウン状態になります。この刃は「ヴォイドタッチ」状態を引き起こし、クールダウン状態ではない状態で最大出力で振るうと、ヴォイドーの刀のような風を吹き出すほど鋭利です。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "It can be repaired with Netherite Ingots on an anvil."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(o)この剣を製作している時、エネルギーがあなたに幻影を与えた。過去の出来事と思われる光景だ。人々が何かのアーティファクトを製作している。一つは剣のようで、もう一つはオーブのようだ。剣が何度も、多くの使い手によって使われ…ついには自らを振るうように。誰か、あるいは何かがオーブを水晶の中に閉じ込め…そして何か別のものに変化するのを見た。$()"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:blade_of_ender": 1
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "末影之刃",
+  "icon": "goety:blade_of_ender",
+  "category": "goety:crafts/equipment",
+  "advancement": "goety:goety/kill_an_ender_keeper",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "受你击败的敌人启发，你运用虚空之力铸造了这把利刃，并加入了黑暗合金，使其能够通过灵魂能量自我修复。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:blade_of_ender"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "持此刃时，在冲刺状态下右键点击可向指定方向突刺；非冲刺状态下右键则可向后撤步，但这会使剑刃进入冷却。此刃能施加“虚空之蚀”效果，且极为锋利——当未处于冷却状态时，蓄力满的挥击可释放出灌注虚空之力的锋刃气旋。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "可在铁砧上使用下界合金锭进行修复。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(o)锻造此刃时，汹涌的能量让你瞥见了幻象——那似乎是过去的景象：人们正在铸造某些神器，其一形似长剑，另一则如宝珠。你看见那柄剑被多次使用，历经数位持主……直到它仿佛能自行挥舞。你看见某人，或某物，将宝珠置入一枚水晶之中……随后蜕变为全然不同的存在。$()"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:blade_of_ender": 1
+  }
+}

@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.items;
 
-import com.Polarice3.Goety.common.entities.ally.illager.RaiderServant;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

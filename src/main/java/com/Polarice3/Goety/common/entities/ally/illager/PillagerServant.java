@@ -111,7 +111,9 @@ public class PillagerServant extends AbstractIllagerServant implements CrossbowA
     public void setItemSlot(EquipmentSlot pSlot, ItemStack pStack) {
         super.setItemSlot(pSlot, pStack);
         if (!this.level.isClientSide) {
-            this.reassessWeaponGoal();
+            if (pSlot.getType() == EquipmentSlot.Type.HAND) {
+                this.reassessWeaponGoal();
+            }
         }
 
     }

@@ -1,0 +1,21 @@
+{
+  "name": "ヘレティクの従者",
+  "icon": "minecraft:blaze_powder",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/craft_unholy_robe",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "通常、村人がネザーポータルの隣で眠ると、ヘレティックへと変貌する可能性があります。しかし、反神聖の帽子とローブを身に着けて近くにいると、彼らはヘレティックへと変貌するだけでなく、忠実な侍祭としてあなたに仕えるようになります。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:heretic_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ヘレティックの従者にエメラルドを渡すことで、適切な服装をしなくても取引を行うことができます。また、ヘレティックの従者に主人がいる場合、その主人と同盟を結び、適切な服装をしていれば、他のヘレティックの従者とも取引が可能です。"
+    }
+  ]
+}

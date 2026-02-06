@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.entities.ally.undead.bound;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
-import com.Polarice3.Goety.common.entities.ally.illager.AllyVex;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.AllyVex;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.config.AttributesConfig;

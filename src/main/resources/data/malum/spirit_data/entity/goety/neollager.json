@@ -1,0 +1,14 @@
+{
+  "registry_name": "goety:neollager",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 1
+    },
+    {
+      "spirit": "sacred",
+      "count": 1
+    }
+  ]
+}

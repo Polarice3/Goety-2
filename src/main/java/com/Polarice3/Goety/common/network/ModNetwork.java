@@ -50,6 +50,7 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), CRavagerRoarPacket.class, CRavagerRoarPacket::encode, CRavagerRoarPacket::decode, CRavagerRoarPacket::consume);
         INSTANCE.registerMessage(nextID(), CAutoRideablePacket.class, CAutoRideablePacket::encode, CAutoRideablePacket::decode, CAutoRideablePacket::consume);
         INSTANCE.registerMessage(nextID(), CScytheStrikePacket.class, CScytheStrikePacket::encode, CScytheStrikePacket::decode, CScytheStrikePacket::consume);
+        INSTANCE.registerMessage(nextID(), CBoEStrikePacket.class, CBoEStrikePacket::encode, CBoEStrikePacket::decode, CBoEStrikePacket::consume);
         INSTANCE.registerMessage(nextID(), CLichKissPacket.class, CLichKissPacket::encode, CLichKissPacket::decode, CLichKissPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CMagnetPacket.class, CMagnetPacket::encode, CMagnetPacket::decode, CMagnetPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CSetLichMode.class, CSetLichMode::encode, CSetLichMode::decode, CSetLichMode::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));

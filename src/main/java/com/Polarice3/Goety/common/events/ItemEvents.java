@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.events;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.api.items.IPersist;
 import com.Polarice3.Goety.api.items.ISoulRepair;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
@@ -61,6 +62,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -95,10 +97,13 @@ public class ItemEvents {
                 for (int i = 0; i < nonnulllist.size(); ++i) {
                     if (!nonnulllist.get(i).isEmpty()) {
                         ItemStack itemStack = nonnulllist.get(i);
-                        if (itemStack.getItem() instanceof ISoulRepair soulRepair) {
-                            soulRepair.repairTick(nonnulllist.get(i), player, inventory.selected == i);
-                        } else if (itemStack.getItem() instanceof TieredItem item && item.getTier() == ModTiers.DARK){
-                            ItemHelper.repairTick(itemStack, player, inventory.selected == i);
+                        Item item = itemStack.getItem();
+                        if (!(item instanceof IPersist persist) || !persist.isBroken(itemStack)) {
+                            if (itemStack.getItem() instanceof ISoulRepair soulRepair) {
+                                soulRepair.repairTick(nonnulllist.get(i), player, inventory.selected == i);
+                            } else if (itemStack.getItem() instanceof TieredItem tieredItem && tieredItem.getTier() == ModTiers.DARK){
+                                ItemHelper.repairTick(itemStack, player, inventory.selected == i);
+                            }
                         }
                     }
                 }
@@ -256,33 +261,22 @@ public class ItemEvents {
                             int soulEat = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.SOUL_EATER.get(), livingAttacker) + 1;
                             livingAttacker.heal(event.getAmount() * (0.05F * soulEat));
                         }
-                        if (weapon instanceof BladeOfEnderItem) {
-                            MobEffect effect = GoetyEffects.VOID_TOUCHED.get();
-                            int amp = 0;
-                            if (livingAttacker instanceof Player player) {
-                                if (!player.isSpectator()) {
-                                    if (player.getAttackStrengthScale(0.5F) > 0.9F) {
-                                        amp += 1;
-                                    }
-                                }
-                            }
-                            if (!livingAttacker.hasEffect(GoetyEffects.VOID_TOUCHED.get())) {
-                                victim.addEffect(new MobEffectInstance(effect, MathHelper.secondsToTicks(5), amp, false, true));
-                            }
-                        }
                         if (weapon instanceof DarkScytheItem) {
                             victim.playSound(ModSounds.SCYTHE_HIT_MEATY.get());
                         }
                         if (weapon instanceof DeathScytheItem) {
-                            if (!victim.hasEffect(GoetyEffects.SAPPED.get())) {
-                                victim.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), 100));
-                                victim.playSound(SoundEvents.SHIELD_BREAK, 2.0F, 1.0F);
-                            } else {
-                                if (victim.level.random.nextFloat() <= 0.2F) {
-                                    EffectsUtil.amplifyEffect(victim, GoetyEffects.SAPPED.get(), 100);
+                            if (ItemConfig.DeathScytheSappedDuration.get() > 0) {
+                                int seconds = MathHelper.secondsToTicks(ItemConfig.DeathScytheSappedDuration.get());
+                                if (!victim.hasEffect(GoetyEffects.SAPPED.get())) {
+                                    victim.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), seconds));
                                     victim.playSound(SoundEvents.SHIELD_BREAK, 2.0F, 1.0F);
                                 } else {
-                                    EffectsUtil.resetDuration(victim, GoetyEffects.SAPPED.get(), 100);
+                                    if (ItemConfig.DeathScytheSappedChance.get() > 0 && victim.level.random.nextFloat() <= (ItemConfig.DeathScytheSappedChance.get() / 100.0F)) {
+                                        EffectsUtil.amplifyEffect(victim, GoetyEffects.SAPPED.get(), seconds);
+                                        victim.playSound(SoundEvents.SHIELD_BREAK, 2.0F, 1.0F);
+                                    } else {
+                                        EffectsUtil.resetDuration(victim, GoetyEffects.SAPPED.get(), seconds);
+                                    }
                                 }
                             }
                         }
@@ -297,6 +291,27 @@ public class ItemEvents {
                     if (!event.getSource().is(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !event.getSource().is(DamageTypes.THORNS) && event.getSource().getEntity() instanceof LivingEntity livingentity && livingentity != victim) {
                         livingentity.hurt(livingentity.damageSources().thorns(victim), 2.0F + a);
                         SEHelper.decreaseSouls(player, ItemConfig.SpitefulBeltUseAmount.get() * (a + 1));
+                    }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void OnLivingDamage(LivingDamageEvent event) {
+        LivingEntity victim = event.getEntity();
+        Entity directEntity = event.getSource().getDirectEntity();
+        if (event.getAmount() > 0.0F) {
+            if (directEntity instanceof LivingEntity livingAttacker) {
+                if (ModDamageSource.physicalAttacks(event.getSource())) {
+                    if (livingAttacker.getMainHandItem().getItem() instanceof TieredItem weapon) {
+                        if (weapon == ModItems.BLADE_OF_ENDER.get()) {
+                            MobEffect effect = GoetyEffects.VOID_TOUCHED.get();
+                            int amp = 0;
+                            if (!livingAttacker.hasEffect(effect)) {
+                                victim.addEffect(new MobEffectInstance(effect, MathHelper.secondsToTicks(5), amp, false, true));
+                            }
+                        }
                     }
                 }
             }
@@ -472,12 +487,24 @@ public class ItemEvents {
 
     @SubscribeEvent
     public static void EmptyClickEvents(PlayerInteractEvent.LeftClickEmpty event){
-        DeathScytheItem.emptyClick(event.getItemStack());
+        Player player = event.getEntity();
+        ItemStack itemStack = event.getItemStack();
+        if (itemStack.getItem() instanceof DeathScytheItem) {
+            DeathScytheItem.emptyClick(itemStack);
+        } else if (itemStack.getItem() instanceof BladeOfEnderItem && !player.getCooldowns().isOnCooldown(itemStack.getItem())) {
+            BladeOfEnderItem.emptyClick(itemStack);
+        }
     }
 
     @SubscribeEvent
     public static void PlayerAttackEvents(AttackEntityEvent event){
-        DeathScytheItem.entityClick(event.getEntity(), event.getEntity().level);
+        Player player = event.getEntity();
+        ItemStack itemStack = player.getMainHandItem();
+        if (itemStack.getItem() instanceof DeathScytheItem) {
+            DeathScytheItem.entityClick(player, player.level);
+        } else if (itemStack.getItem() instanceof BladeOfEnderItem) {
+            BladeOfEnderItem.entityClick(player, player.level);
+        }
     }
 
     @SubscribeEvent

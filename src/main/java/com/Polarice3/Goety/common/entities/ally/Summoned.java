@@ -722,6 +722,8 @@ public class Summoned extends Owned implements IServant {
                 return false;
             } else if (this.summonedEntity.distanceToSqr(livingentity) < (double)(this.minDist * this.minDist)) {
                 return false;
+            } else if (this.summonedEntity.distanceTo(livingentity) >= 1024.0F) {
+                return false;
             } else if (!this.summonedEntity.isFollowing()) {
                 return false;
             } else if (this.summonedEntity.getTarget() != null) {

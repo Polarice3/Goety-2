@@ -41,6 +41,7 @@ public class ModItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
                 ModItems.VOID_STAFF.get(),
                 ModItems.NETHER_STAFF.get()).replace(false);
         this.tag(ModTags.Items.ROBES).add(ModItems.DARK_ROBE.get(),
+                ModItems.DARK_ROBE_FANCY.get(),
                 ModItems.GRAND_ROBE.get(),
                 ModItems.ILLUSION_ROBE.get(),
                 ModItems.ILLUSION_ROBE_MIRROR.get(),
@@ -58,11 +59,22 @@ public class ModItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
                 ModItems.WARLOCK_ROBE_DARK.get(),
                 ModItems.NETHER_ROBE.get(),
                 ModItems.NETHER_ROBE_WARPED.get(),
-                ModItems.UNHOLY_HAT.get()).replace(false);
+                ModItems.UNHOLY_ROBE.get()).replace(false);
         this.tag(ModTags.Items.CAPES).add(ModItems.NECRO_CAPE.get(),
                 ModItems.NAMELESS_CAPE.get()).replace(false);
         this.tag(ModTags.Items.CROWNS).add(ModItems.NECRO_CROWN.get(),
-                ModItems.NAMELESS_CROWN.get()).replace(false);
+                ModItems.NAMELESS_CROWN.get(),
+                ModItems.FROST_CROWN.get(),
+                ModItems.WIND_CROWN.get(),
+                ModItems.STORM_CROWN.get(),
+                ModItems.WILD_CROWN.get(),
+                ModItems.ABYSS_CROWN.get(),
+                ModItems.VOID_CROWN.get(),
+                ModItems.NETHER_CROWN.get(),
+                ModItems.DARK_HAT.get(),
+                ModItems.GRAND_TURBAN.get(),
+                ModItems.UNHOLY_HAT.get(),
+                ModItems.UNHOLY_HAT_HALO.get()).replace(false);
         Collection<Item> focuses = new ArrayList<>();
         ModItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(item ->
         {

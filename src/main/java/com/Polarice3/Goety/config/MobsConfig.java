@@ -159,6 +159,8 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> WindCallerServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> StormCasterServantTexture;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> RipperServantTexture;
+
     public static final ForgeConfigSpec.ConfigValue<Boolean> WitchServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WarlockServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MaverickServantTexture;
@@ -346,6 +348,8 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> HostileCryptUndead;
     public static final ForgeConfigSpec.ConfigValue<Boolean> HostileTerminalEnder;
 
+    public static ForgeConfigSpec.ConfigValue<List<? extends String>> ObsidianMonolithBlackList;
+
     static {
         BUILDER.push("Textures");
         HolidaySkins = BUILDER.comment("If certain mobs have a different texture during some holiday months, Default: true")
@@ -442,6 +446,8 @@ public class MobsConfig {
                         .define("stormCasterServantTexture", true);
                 BUILDER.pop();
                 BUILDER.push("Raider Servants");
+                RipperServantTexture = BUILDER.comment("If Ripper Servants have custom textures, Default: true")
+                        .define("ripperServantTexture", true);
                 WitchServantTexture = BUILDER.comment("If Witch Servants have custom textures, Default: true")
                         .define("witchServantTexture", true);
                 WarlockServantTexture = BUILDER.comment("If Warlock Servants have custom textures, Default: true")
@@ -1062,6 +1068,11 @@ public class MobsConfig {
                     .define("obsidianMonolithSpawner", true);
             ObsidianMonolithStartUpTime = BUILDER.comment("How many Minecraft days, since spawning in, until unowned Obsidian Monoliths start spreading, Default: 3")
                     .defineInRange("obsidianMonolithStartUpTime", 3, 1, Integer.MAX_VALUE);
+            ObsidianMonolithBlackList = BUILDER.comment("""
+                            Add mobs that ownerless Obsidian Monolith will not spawn.\s
+                            To do so, enter the namespace ID of the mob, like "minecraft:zombie, minecraft:skeleton".""")
+                    .defineList("obsidianMonolithBlackList", Arrays.asList("minecraft:slime", "minecraft:ghast", "minecraft:piglin", "minecraft:piglin_brute", "minecraft:hoglin"),
+                            (itemRaw) -> itemRaw instanceof String);
             BUILDER.pop();
             BUILDER.push("Crone");
             CroneThornDefense = BUILDER.comment("Whether Crones inflict thorn damage at attackers, when attacked. Default: true")

@@ -147,10 +147,11 @@ public class Pyroclast extends ThrowableProjectile implements ISpellEntity {
         if (entity1 instanceof Player){
             damage = SpellConfig.PyroclastDamage.get().floatValue() * WandUtil.damageMultiply();
         }
-        entity.hurt(ModDamageSource.modFireball(this.getOwner(), this.level), damage + this.potency);
+        damage += this.getPotency();
+        entity.hurt(ModDamageSource.modFireball(this.getOwner(), this.level), damage);
 
-        if (this.flaming != 0){
-            entity.setSecondsOnFire(5 * this.flaming);
+        if (this.getFlaming() != 0){
+            entity.setSecondsOnFire(5 * this.getFlaming());
         }
         if (entity1 instanceof LivingEntity) {
             this.doEnchantDamageEffects((LivingEntity)entity1, entity);

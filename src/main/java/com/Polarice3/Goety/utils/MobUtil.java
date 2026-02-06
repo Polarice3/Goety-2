@@ -1783,4 +1783,20 @@ public class MobUtil {
     /*
       To Here
      */
+
+    @Nullable
+    public static LivingEntity getTarget(Entity attacker) {
+        if (attacker instanceof Mob mob) {
+            return mob.getTarget();
+        }
+        return null;
+    }
+
+    public static boolean notTargetingAlly(Entity attacker, Entity defender) {
+        if (getTarget(attacker) == defender) {
+            return false;
+        } else if (getTarget(attacker) == getOwner(defender)) {
+            return false;
+        } else return !areAllies(defender, getTarget(attacker));
+    }
 }

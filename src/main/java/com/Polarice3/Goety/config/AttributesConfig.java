@@ -92,6 +92,14 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> NecromancerArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> NecromancerFollowRange;
     public static final ForgeConfigSpec.ConfigValue<Double> NecromancerDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> CairnNecromancerHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> CairnNecromancerArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> CairnNecromancerFollowRange;
+    public static final ForgeConfigSpec.ConfigValue<Double> CairnNecromancerDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> MossyNecromancerHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> MossyNecromancerArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> MossyNecromancerFollowRange;
+    public static final ForgeConfigSpec.ConfigValue<Double> MossyNecromancerDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> DrownedNecromancerHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> DrownedNecromancerArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> DrownedNecromancerFollowRange;
@@ -507,6 +515,26 @@ public class AttributesConfig {
                         .defineInRange("necromancerFollowRange", 16.0, 1.0, 2048.0);
                 NecromancerDamage = BUILDER.comment("How much damage Necromancers deals, Default: 4.0")
                         .defineInRange("necromancerDamage", 4.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Cairn Necromancer");
+                CairnNecromancerHealth = BUILDER.comment("How much Max Health Cairn Necromancers have, Default: 50.0")
+                        .defineInRange("cairnNecromancerHealth", 50.0, 1.0, Double.MAX_VALUE);
+                CairnNecromancerArmor = BUILDER.comment("How much natural Armor Cairn Necromancers have, Default: 0.0")
+                        .defineInRange("cairnNecromancerArmor", 0.0, 0.0, Double.MAX_VALUE);
+                CairnNecromancerFollowRange = BUILDER.comment("How much following/detection range Cairn Necromancers have, Default: 16.0")
+                        .defineInRange("cairnNecromancerFollowRange", 16.0, 1.0, 2048.0);
+                CairnNecromancerDamage = BUILDER.comment("How much damage Cairn Necromancers deals, Default: 3.0")
+                        .defineInRange("cairnNecromancerDamage", 3.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Mossy Necromancer");
+                MossyNecromancerHealth = BUILDER.comment("How much Max Health Mossy Necromancers have, Default: 50.0")
+                        .defineInRange("mossyNecromancerHealth", 50.0, 1.0, Double.MAX_VALUE);
+                MossyNecromancerArmor = BUILDER.comment("How much natural Armor Mossy Necromancers have, Default: 0.0")
+                        .defineInRange("mossyNecromancerArmor", 0.0, 0.0, Double.MAX_VALUE);
+                MossyNecromancerFollowRange = BUILDER.comment("How much following/detection range Mossy Necromancers have, Default: 16.0")
+                        .defineInRange("mossyNecromancerFollowRange", 16.0, 1.0, 2048.0);
+                MossyNecromancerDamage = BUILDER.comment("How much damage Mossy Necromancers deals, Default: 3.0")
+                        .defineInRange("mossyNecromancerDamage", 3.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Drowned Necromancer");
                 DrownedNecromancerHealth = BUILDER.comment("How much Max Health Drowned Necromancers have, Default: 220.0")

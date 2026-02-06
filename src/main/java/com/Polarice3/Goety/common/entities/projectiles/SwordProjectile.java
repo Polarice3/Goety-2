@@ -97,7 +97,7 @@ public class SwordProjectile extends AbstractArrow implements ItemSupplier {
 
     @Override
     protected ItemStack getPickupItem() {
-        return this.getItem().copy();
+        return ItemStack.EMPTY;
     }
 
     public void tick() {

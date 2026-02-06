@@ -43,6 +43,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SculkGrowerCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SculkGrowerCharge;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShriekObeliskCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ShriekObeliskIncrease;
     public static final ForgeConfigSpec.ConfigValue<Integer> AnimatorCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> OminousIdolReviveCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> OminousIdolLimit;
@@ -62,6 +63,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> StarterBook;
     public static final ForgeConfigSpec.ConfigValue<Boolean> StarterWitchBook;
     public static final ForgeConfigSpec.ConfigValue<Boolean> GoodwillNoDamage;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> GoodwillServantGuard;
     public static final ForgeConfigSpec.ConfigValue<Boolean> GoodwillFullAlly;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SoulGuiShow;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FocusGuiShow;
@@ -126,6 +128,8 @@ public class MainConfig {
                 .define("starterWitchBook", false);
         GoodwillNoDamage = BUILDER.comment("Entities part of a Player's Grimoire of Goodwill will not take most damage from said Player rather than just spells, Default: false")
                 .define("goodwillNoDamage", false);
+        GoodwillServantGuard = BUILDER.comment("Entities part of a Player's Grimoire of Goodwill will be protected by the Player's servants, Default: true")
+                .define("goodwillServantGuard", true);
         GoodwillFullAlly = BUILDER.comment("Entities part of a Player's Grimoire of Goodwill will be considered as the Player's ally codewise, Default: false")
                 .define("goodwillFullAlly", false);
         SoulGuiShow = BUILDER.comment("Show the Soul Energy Bar if Player has Totem of Souls/Arca, Default: true")
@@ -206,6 +210,8 @@ public class MainConfig {
                 .define("sculkGrowerPotency", true);
         ShriekObeliskCost = BUILDER.comment("The amount of Soul Energy used to power the Shrieking Obelisk, Default: 100")
                 .defineInRange("shriekObeliskCost", 100, 0, Integer.MAX_VALUE);
+        ShriekObeliskIncrease = BUILDER.comment("How many blocks each Tall Skull increases the Shrieking Obelisk's area of effect, Default: 4")
+                .defineInRange("shriekObeliskIncrease", 4, 1, Integer.MAX_VALUE);
         ShriekObeliskRaid = BUILDER.comment("Whether Shrieking Obelisk can prevent or stop Raids, Default: true")
                 .define("ShriekObeliskRaid", true);
         AnimatorCost = BUILDER.comment("The amount of Soul Energy used to power the Animator per block distance, Default: 10")

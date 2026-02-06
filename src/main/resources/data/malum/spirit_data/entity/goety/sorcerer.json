@@ -1,0 +1,14 @@
+{
+  "registry_name": "goety:sorcerer",
+  "primary_type": "arcane",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 3
+    },
+    {
+      "spirit": "wicked",
+      "count": 2
+    }
+  ]
+}

@@ -5,7 +5,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.NeutralZombieAttackGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
-import com.Polarice3.Goety.common.entities.ally.illager.Prisoner;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.Prisoner;
 import com.Polarice3.Goety.compat.serene_seasons.SSeasonsIntegration;
 import com.Polarice3.Goety.compat.serene_seasons.SSeasonsLoaded;
 import com.Polarice3.Goety.config.AttributesConfig;

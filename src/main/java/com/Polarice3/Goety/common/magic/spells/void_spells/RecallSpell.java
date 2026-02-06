@@ -7,7 +7,9 @@ import com.Polarice3.Goety.common.items.magic.RecallFocus;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
+import com.Polarice3.Goety.init.ModAttributes;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -33,7 +35,7 @@ public class RecallSpell extends Spell implements ITouchSpell {
 
     @Override
     public int defaultSpellCooldown() {
-        return SpellConfig.RecallCoolDown.get();
+        return 0;
     }
 
     @Override
@@ -88,7 +90,9 @@ public class RecallSpell extends Spell implements ITouchSpell {
                                 servant.setBoundPos(null);
                             }
                         }
-                        RecallFocus.recall(target, WandUtil.findFocus(player));
+                        if (RecallFocus.recall(target, WandUtil.findFocus(player))) {
+                            SEHelper.addCooldown(player, WandUtil.findFocus(player).getItem(), (int) (SpellConfig.RecallCoolDown.get() * ModAttributes.getCooldownDiscount(caster)));
+                        }
                     }
                 }
             }
@@ -98,7 +102,9 @@ public class RecallSpell extends Spell implements ITouchSpell {
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){
         if (caster instanceof ServerPlayer player) {
             if (RecallFocus.isValid(worldIn, WandUtil.findFocus(player))) {
-                RecallFocus.recall(player, WandUtil.findFocus(player));
+                if (RecallFocus.recall(player, WandUtil.findFocus(player))) {
+                    SEHelper.addCooldown(player, WandUtil.findFocus(player).getItem(), (int) (SpellConfig.RecallCoolDown.get() * ModAttributes.getCooldownDiscount(caster)));
+                }
             }
         }
     }

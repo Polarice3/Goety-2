@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.entities.neutral.AbstractMonolith;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
+import com.Polarice3.Goety.init.ModAttributes;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.Util;
@@ -53,7 +54,7 @@ public class BarricadeSpell extends Spell {
     }
 
     public int spellCooldown(LivingEntity caster){
-        return this.trueCooldown;
+        return (int) (this.trueCooldown * ModAttributes.getCooldownDiscount(caster));
     }
 
     @Override

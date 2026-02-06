@@ -1,0 +1,18 @@
+{
+  "registry_name": "goety:mossy_necromancer",
+  "primary_type": "arcane",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 3
+    },
+    {
+      "spirit": "wicked",
+      "count": 3
+    },
+    {
+      "spirit": "earthen",
+      "count": 3
+    }
+  ]
+}

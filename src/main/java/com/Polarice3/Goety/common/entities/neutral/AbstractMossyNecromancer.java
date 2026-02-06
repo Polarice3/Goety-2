@@ -13,6 +13,7 @@ import com.Polarice3.Goety.common.entities.ally.undead.zombie.JungleZombieServan
 import com.Polarice3.Goety.common.entities.projectiles.PoisonBolt;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.spells.SoulBoltSpell;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
@@ -22,10 +23,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -50,6 +50,23 @@ public class AbstractMossyNecromancer extends AbstractNecromancer{
                 ServerParticleUtil.summonUndeadParticles(serverLevel, entity, new ColorUtil(0x403b14), 0x403b14, 0x5b4e1d);
             }
         });
+    }
+
+    public static AttributeSupplier.Builder setCustomAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, AttributesConfig.MossyNecromancerHealth.get())
+                .add(Attributes.ARMOR, AttributesConfig.MossyNecromancerArmor.get())
+                .add(Attributes.FOLLOW_RANGE, AttributesConfig.MossyNecromancerFollowRange.get())
+                .add(Attributes.MOVEMENT_SPEED, 0.25F)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.MossyNecromancerDamage.get());
+    }
+
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.MossyNecromancerHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.MossyNecromancerArmor.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.FOLLOW_RANGE), AttributesConfig.MossyNecromancerFollowRange.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.MossyNecromancerDamage.get());
     }
 
     protected SoundEvent getAmbientSound() {

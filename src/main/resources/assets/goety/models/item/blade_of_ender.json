@@ -1,0 +1,15 @@
+{
+  "loader": "forge:separate_transforms",
+  "gui_light": "front",
+  "base": {
+    "parent": "goety:item/blade_of_ender_model"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "goety:item/blade_of_ender_inventory"
+    },
+    "fixed": {
+      "parent": "goety:item/blade_of_ender_inventory"
+    }
+  }
+}

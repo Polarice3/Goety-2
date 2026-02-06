@@ -5,6 +5,7 @@ import com.Polarice3.Goety.client.render.model.GloveModel;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.utils.CuriosFinder;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
@@ -48,6 +49,14 @@ public record WearRenderer(ResourceLocation texture,
                 } else if (CuriosFinder.hasWildRobe(livingEntity)){
                     return CuriosRenderer.render("necro_cape_wild.png");
                 }
+            }
+        } else if (Objects.equals(this.texture, CuriosRenderer.render("unholy_hat.png"))){
+            if (MobUtil.healthIsHalved(livingEntity)) {
+                return CuriosRenderer.render("unholy_hat_red.png");
+            }
+        } else if (Objects.equals(this.texture, CuriosRenderer.render("unholy_hat_halo.png"))){
+            if (MobUtil.healthIsHalved(livingEntity)) {
+                return CuriosRenderer.render("unholy_hat_halo_red.png");
             }
         }
         return texture;

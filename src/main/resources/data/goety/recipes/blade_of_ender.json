@@ -1,0 +1,39 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "minecraft:netherite_sword"
+  },
+  "craftType": "end",
+  "soulCost": 10,
+  "duration": 30,
+  "ingredients": [
+    {
+      "item": "goety:void_echo"
+    },
+    {
+      "item": "goety:void_echo"
+    },
+    {
+      "tag": "forge:gems/quartz"
+    },
+    {
+      "item": "goety:dark_ingot"
+    },
+    {
+      "item": "minecraft:ender_eye"
+    },
+    {
+      "item": "minecraft:dragon_breath"
+    },
+    {
+      "item": "minecraft:phantom_membrane"
+    },
+    {
+      "item": "goety:wind_core"
+    }
+  ],
+  "result": {
+    "item": "goety:blade_of_ender"
+  }
+}

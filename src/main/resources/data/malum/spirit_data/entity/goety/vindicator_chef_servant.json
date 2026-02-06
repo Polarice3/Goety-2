@@ -1,0 +1,10 @@
+{
+  "registry_name": "goety:vindicator_chef_servant",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 2
+    }
+  ]
+}

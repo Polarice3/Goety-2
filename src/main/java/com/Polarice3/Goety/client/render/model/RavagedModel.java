@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.client.render.model;
 
-import com.Polarice3.Goety.common.entities.ally.illager.Ravaged;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.Ravaged;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

@@ -831,8 +831,8 @@ public class BlockFinder {
     }
 
     public static boolean findIllagerWard(ServerLevel level, Player player, int soulEnergy){
-        for(int i = -4; i <= 4; ++i) {
-            for(int j = -4; j <= 4; ++j) {
+        for(int i = -16; i <= 16; ++i) {
+            for(int j = -16; j <= 16; ++j) {
                 LevelChunk levelchunk = level.getChunkAt(player.blockPosition().offset(i * 16, 0, j * 16));
 
                 for(BlockEntity blockentity : levelchunk.getBlockEntities().values()) {

@@ -2,6 +2,8 @@ package com.Polarice3.Goety.common.entities.ally.illager;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.AllyVex;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
 import com.Polarice3.Goety.common.entities.ally.undead.bound.BoundEvoker;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.items.ModItems;

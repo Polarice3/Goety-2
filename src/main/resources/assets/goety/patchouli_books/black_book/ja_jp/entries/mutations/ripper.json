@@ -1,0 +1,30 @@
+{
+  "name": "リッパー",
+  "icon": "minecraft:bone",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "あなたは闇の魔法を使って、イリジャーが飼いならした狼をリッパーに素早く変える方法を学びました。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_wolf_to_ripper"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "リッパーは普通のオオカミと同じように、肉を与えて回復し、繁殖させることができます。また、普通のオオカミよりも早く成長します。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:ripper",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "リッパーは$(l:goety:mutations/illager_servants)襲撃隊$()の一員になることはできますが、リーダーになることはできません。"
+    }
+  ]
+}

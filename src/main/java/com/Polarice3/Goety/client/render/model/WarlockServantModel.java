@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.client.render.model;
 
-import com.Polarice3.Goety.common.entities.ally.illager.WarlockServant;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.WarlockServant;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
 

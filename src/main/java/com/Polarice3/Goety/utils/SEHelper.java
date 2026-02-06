@@ -9,7 +9,7 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.AnimalSummon;
-import com.Polarice3.Goety.common.entities.ally.illager.Prisoner;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.Prisoner;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Ripper;
 import com.Polarice3.Goety.common.entities.util.SurveyEye;
 import com.Polarice3.Goety.common.events.ArcaTeleporter;
@@ -488,6 +488,17 @@ public class SEHelper {
             }
         }
         return entityTypes;
+    }
+
+    public static boolean isAlly(LivingEntity owner, LivingEntity livingEntity){
+        if (owner instanceof Player player){
+            return isAlly(player, livingEntity);
+        }
+        return false;
+    }
+
+    public static boolean isAlly(Player owner, LivingEntity livingEntity){
+        return getAllyEntities(owner).contains(livingEntity) || getAllyEntityTypes(owner).contains(livingEntity.getType());
     }
 
     public static boolean addGroundedEntity(Player owner, LivingEntity target){

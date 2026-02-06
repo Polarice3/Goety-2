@@ -1,0 +1,27 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:convert_tamed",
+  "activation_item": {
+    "item": "goety:savage_tooth"
+  },
+  "craftType": "magic",
+  "entity_to_convert": {
+    "tag": "goety:wolves",
+    "display_name": "entity.minecraft.wolf"
+  },
+  "entity_to_convert_into": "goety:ripper_servant",
+  "soulCost": 1,
+  "duration": 10,
+  "research": "ravaging",
+  "ingredients": [
+    {
+      "tag": "goety:meat"
+    },
+    {
+      "tag": "forge:ingots/iron"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

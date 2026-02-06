@@ -54,7 +54,7 @@
 	{
       "type": "patchouli:text",
       "title": "ジオマンサーの従者",
-      "text": "必要: $(li)魔法ネオラジャー $(li)4 芽生えたアメジスト $(li)64 深層岩ブロック $(li)16 $(l:goety:crafts/creeper_totem)クリーパートーテム$()"
+      "text": "必要: $(li)魔法ネオラジャー $(li)16 アメジストブロック $(li)64 深層岩系ブロック $(li)16 $(l:goety:crafts/creeper_totem)クリーパートーテム$()"
     },
     {
       "type": "patchouli:text",

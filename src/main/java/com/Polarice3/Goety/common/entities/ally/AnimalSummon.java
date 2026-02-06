@@ -54,10 +54,6 @@ public abstract class AnimalSummon extends Summoned{
         this.entityData.define(DATA_BABY_ID, false);
     }
 
-    public boolean canBreed() {
-        return false;
-    }
-
     public int getAge() {
         if (this.level().isClientSide) {
             return this.entityData.get(DATA_BABY_ID) ? -1 : 1;
@@ -137,10 +133,10 @@ public abstract class AnimalSummon extends Summoned{
         } else if (this.isAlive()) {
             int i = this.getAge();
             if (i < 0) {
-                ++i;
+                i += this.agingRate();
                 this.setAge(i);
             } else if (i > 0) {
-                --i;
+                i -= this.agingRate();
                 this.setAge(i);
             }
         }
@@ -159,6 +155,10 @@ public abstract class AnimalSummon extends Summoned{
             }
         }
 
+    }
+
+    public int agingRate() {
+        return 1;
     }
 
     protected void ageBoundaryReached() {
