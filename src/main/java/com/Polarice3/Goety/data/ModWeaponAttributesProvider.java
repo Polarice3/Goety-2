@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.data;
 
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.equipment.BladeOfEnderItem;
 import com.Polarice3.Goety.common.items.magic.DarkStaff;
 import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.google.common.collect.Maps;
@@ -50,6 +51,8 @@ public class ModWeaponAttributesProvider implements DataProvider {
                 this.addData(item, "bettercombat:trident");
             } else if (item instanceof DarkWand) {
                 this.addData(item, "bettercombat:wand");
+            } else if (item instanceof BladeOfEnderItem) {
+                this.addData(item, "bettercombat:claymore");
             }
         });
     }

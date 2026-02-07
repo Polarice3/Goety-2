@@ -10,6 +10,16 @@ public interface IHeretic {
         return false;
     }
 
+    default int getChantTimes() {
+        return 0;
+    }
+
+    default void setChantTimes(int chantTimes) {
+    }
+
+    default void setCasting(boolean casting) {
+    }
+
     default void setMonolith(@Nullable AbstractObsidianMonolith monolith) {
     }
 

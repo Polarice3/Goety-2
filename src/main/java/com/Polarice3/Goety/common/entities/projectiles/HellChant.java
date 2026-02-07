@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
+import com.Polarice3.Goety.api.entities.IHeretic;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.hostile.cultists.Heretic;
 import com.Polarice3.Goety.common.entities.util.FireBlastTrap;
 import com.Polarice3.Goety.common.items.magic.InfernalTome;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -70,8 +70,8 @@ public class HellChant extends SpellEntity{
         this.move(MoverType.SELF, this.getDeltaMovement());
 
         for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(this.growProgress), entity -> entity != this && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity))) {
-            if (owner instanceof Heretic heretic) {
-                if (entity == heretic.getTarget()) {
+            if (owner instanceof Mob mob && mob instanceof IHeretic heretic) {
+                if (entity == mob.getTarget()) {
                     heretic.setChantTimes(heretic.getChantTimes() + 1);
                     if (heretic.getChantTimes() == 3){
                         Vec3 vec3 = new Vec3(entity.getX(), entity.getY(), entity.getZ());

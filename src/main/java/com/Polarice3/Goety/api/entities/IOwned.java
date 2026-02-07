@@ -476,21 +476,27 @@ public interface IOwned {
 
     default void pacifySurroundingMobs(double range) {
         if (this instanceof LivingEntity owned) {
-            for (Mob mob : owned.level.getEntitiesOfClass(Mob.class, owned.getBoundingBox().inflate(range), mob -> mob.getTarget() == owned || mob.getLastHurtByMob() == owned
-                    || ((mob.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent() && mob.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get() == owned))
-                    || (mob.getBrain().getMemory(MemoryModuleType.ANGRY_AT).isPresent() && mob.getBrain().getMemory(MemoryModuleType.ANGRY_AT).get() == owned.getUUID())
-                    || (mob.getBrain().getMemory(MemoryModuleType.HURT_BY_ENTITY).isPresent() && mob.getBrain().getMemory(MemoryModuleType.HURT_BY_ENTITY).get() == owned))) {
+            for (Mob mob : owned.level.getEntitiesOfClass(Mob.class, owned.getBoundingBox().inflate(range), mob -> !MobUtil.areAllies(mob, owned))) {
                 mob.setTarget(null);
                 mob.setLastHurtByMob(null);
                 Brain<?> brain = mob.getBrain();
-                if (brain.getMemory(MemoryModuleType.ATTACK_TARGET).isPresent() && brain.getMemory(MemoryModuleType.ATTACK_TARGET).get() == owned) {
-                    brain.setMemory(MemoryModuleType.ATTACK_TARGET, Optional.empty());
+                if (brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET)) {
+                    Optional<?> memory = brain.getMemory(MemoryModuleType.ATTACK_TARGET);
+                    if (memory.isPresent() && memory.get() == owned) {
+                        brain.eraseMemory(MemoryModuleType.ATTACK_TARGET);
+                    }
                 }
-                if (brain.getMemory(MemoryModuleType.ANGRY_AT).isPresent() && brain.getMemory(MemoryModuleType.ANGRY_AT).get() == owned.getUUID()) {
-                    brain.setMemory(MemoryModuleType.ANGRY_AT, Optional.empty());
+                if (brain.hasMemoryValue(MemoryModuleType.ANGRY_AT)) {
+                    Optional<?> memory = brain.getMemory(MemoryModuleType.ANGRY_AT);
+                    if (memory.isPresent() && memory.get() == owned.getUUID()) {
+                        brain.eraseMemory(MemoryModuleType.ANGRY_AT);
+                    }
                 }
-                if (brain.getMemory(MemoryModuleType.HURT_BY_ENTITY).isPresent() && brain.getMemory(MemoryModuleType.HURT_BY_ENTITY).get() == owned) {
-                    brain.setMemory(MemoryModuleType.HURT_BY_ENTITY, Optional.empty());
+                if (brain.hasMemoryValue(MemoryModuleType.HURT_BY_ENTITY)) {
+                    Optional<?> memory = brain.getMemory(MemoryModuleType.HURT_BY_ENTITY);
+                    if (memory.isPresent() && memory.get() == owned) {
+                        brain.eraseMemory(MemoryModuleType.HURT_BY_ENTITY);
+                    }
                 }
             }
         }
