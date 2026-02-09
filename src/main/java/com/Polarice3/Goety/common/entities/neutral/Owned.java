@@ -13,6 +13,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -48,6 +49,7 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
     private final NearestAttackableTargetGoal<Player> targetGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);
     public boolean limitedLifespan;
     public int limitedLifeTicks;
+    public int hasSummonCheck;
 
     protected Owned(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
@@ -393,6 +395,38 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         } else {
             return super.isVehicle();
         }
+    }
+
+    @Override
+    public int getHasSummonCheck() {
+        return this.hasSummonCheck;
+    }
+
+    @Override
+    public void setHasSummonCheck(int hasSummonCheck) {
+        this.hasSummonCheck = hasSummonCheck;
+    }
+
+    @Override
+    public void remove(RemovalReason reason) {
+        if (this.hasSummons()) {
+            if (reason == RemovalReason.DISCARDED || reason == RemovalReason.KILLED) {
+                if (this.level instanceof ServerLevel serverLevel) {
+                    for (Entity entity : serverLevel.getAllEntities()) {
+                        if (entity instanceof IOwned owned) {
+                            if (owned.getTrueOwner() == this) {
+                                if (this.getTrueOwner() != null) {
+                                    owned.setTrueOwner(this.getTrueOwner());
+                                } else {
+                                    owned.removeTrueOwner();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        super.remove(reason);
     }
 
     public static class OwnerHurtTargetGoal<T extends Mob & IOwned> extends TargetGoal {

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.compat.jade;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ally.AnimalSummon;
 import com.Polarice3.Goety.common.entities.ally.illager.Neollager;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.AnimalRaiderServant;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -17,6 +18,8 @@ public enum SummonGrowthProvider implements IServerDataProvider<EntityAccessor> 
         int time = -1;
         Entity entity = accessor.getEntity();
         if (entity instanceof AnimalSummon ageable) {
+            time = -ageable.getAge();
+        } else if (entity instanceof AnimalRaiderServant ageable) {
             time = -ageable.getAge();
         } else if (entity instanceof Neollager neollager) {
             time = -neollager.getAge();

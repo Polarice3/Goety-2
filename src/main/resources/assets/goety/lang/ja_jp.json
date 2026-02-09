@@ -3322,5 +3322,8 @@
   "info.goety.blade_of_ender": "全力で振り回すと飛びかかる斬撃を放つ。",
   "info.goety.blade_of_ender.1": "右クリックすると後方にジャンプします。",
   "info.goety.blade_of_ender.2": "ダッシュ中に右クリックすると、前方に突進します。",
-  "subtitle.goety.soul_eat": "Leeching"
+  "subtitle.goety.soul_eat": "Leeching",
+  "jade.goety.hostile": "§c敵対的な",
+  "config.jade.plugin_goety.hostile": "Hostile Indicator",
+  "config.jade.plugin_goety.hostile_desc": "Displays whether the servant is hostile if ownerless and not inheriting Enemy interface."
 }

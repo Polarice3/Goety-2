@@ -73,6 +73,7 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
     public int commandTick;
     public int killChance;
     public int noHealTime;
+    public int hasSummonCheck;
     public long ticketTime = 0;
 
     public AbstractSpiderServant(EntityType<? extends Spider> p_33786_, Level p_33787_) {
@@ -708,6 +709,38 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
             }
         }
         return super.mobInteract(pPlayer, pHand);
+    }
+
+    @Override
+    public int getHasSummonCheck() {
+        return this.hasSummonCheck;
+    }
+
+    @Override
+    public void setHasSummonCheck(int hasSummonCheck) {
+        this.hasSummonCheck = hasSummonCheck;
+    }
+
+    @Override
+    public void remove(RemovalReason reason) {
+        if (this.hasSummons()) {
+            if (reason == RemovalReason.DISCARDED || reason == RemovalReason.KILLED) {
+                if (this.level instanceof ServerLevel serverLevel) {
+                    for (Entity entity : serverLevel.getAllEntities()) {
+                        if (entity instanceof IOwned owned) {
+                            if (owned.getTrueOwner() == this) {
+                                if (this.getTrueOwner() != null) {
+                                    owned.setTrueOwner(this.getTrueOwner());
+                                } else {
+                                    owned.removeTrueOwner();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        super.remove(reason);
     }
 
 }

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.compat.jade;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ally.AnimalSummon;
 import com.Polarice3.Goety.common.entities.ally.illager.AbstractIllagerServant;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.AnimalRaiderServant;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -17,6 +18,11 @@ public enum SummonBreedProvider implements IServerDataProvider<EntityAccessor> {
         int time = 0;
         Entity entity = accessor.getEntity();
         if (entity instanceof AnimalSummon animalSummon) {
+            time = animalSummon.getAge();
+            if (time > 0) {
+                tag.putInt("BreedingCD", time);
+            }
+        } else if (entity instanceof AnimalRaiderServant animalSummon) {
             time = animalSummon.getAge();
             if (time > 0) {
                 tag.putInt("BreedingCD", time);

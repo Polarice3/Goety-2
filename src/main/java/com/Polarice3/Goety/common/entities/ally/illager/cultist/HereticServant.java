@@ -15,10 +15,8 @@ import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
 import com.Polarice3.Goety.common.entities.projectiles.HellChant;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.ColorUtil;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.Polarice3.Goety.init.ModTags;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -32,12 +30,17 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.phys.Vec3;
@@ -357,6 +360,33 @@ public class HereticServant extends CultistServant implements IHeretic {
         } else {
             super.handleEntityEvent(pId);
         }
+    }
+
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
+        Item item = itemstack.getItem();
+        boolean isOwner = this.getTrueOwner() != null && pPlayer == this.getTrueOwner();
+        boolean isAlly = ((this.getTrueOwner() != null && MobUtil.areAllies(this.getTrueOwner(), pPlayer)) || this.getTrueOwner() == null) && CuriosFinder.isWitchFriendly(pPlayer);
+        if (this.getMainHandItem().isEmpty() && pHand == InteractionHand.MAIN_HAND && itemstack.is(ModTags.Items.WITCH_CURRENCY)) {
+            if (isOwner || isAlly) {
+                if (!this.isAggressive()) {
+                    this.playSound(this.getCelebrateSound());
+                    ItemStack itemstack1;
+                    if (pPlayer.isCreative()) {
+                        itemstack1 = itemstack;
+                    } else {
+                        itemstack1 = itemstack.split(1);
+                    }
+                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
+                    this.setTrader(pPlayer);
+                    return InteractionResult.SUCCESS;
+                }
+            }
+        }
+        if (isOwner) {
+            return ServantUtil.equipServantArmor(pPlayer, this, itemstack, super.mobInteract(pPlayer, pHand));
+        }
+        return super.mobInteract(pPlayer, pHand);
     }
 
     public static class ChantAtTargetGoal extends Goal {

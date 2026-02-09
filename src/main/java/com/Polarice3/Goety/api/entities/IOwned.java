@@ -76,6 +76,11 @@ public interface IOwned {
         }
     }
 
+    default void removeTrueOwner() {
+        this.setOwnerId(null);
+        this.setOwnerClientId(-1);
+    }
+
     void setHostile(boolean hostile);
 
     boolean isHostile();
@@ -228,7 +233,13 @@ public interface IOwned {
                         }
                     }
                     if (this.getTrueOwner() instanceof IOwned owned) {
-                        if (this.getTrueOwner().isDeadOrDying() || !this.getTrueOwner().isAlive()) {
+                        try {
+                            if (owned.getHasSummonCheck() <= 0) {
+                                owned.setHasSummonCheck(2);
+                            }
+                        } catch (NullPointerException ignored) {
+                        }
+                        if (this.getTrueOwner().isRemoved() || this.getTrueOwner().isDeadOrDying() || !this.getTrueOwner().isAlive()) {
                             if (owned.getTrueOwner() != null) {
                                 this.setTrueOwner(owned.getTrueOwner());
                             } else if (!this.isHostile() && !this.isNatural() && !(owned instanceof Enemy) && !owned.isHostile()) {
@@ -285,6 +296,9 @@ public interface IOwned {
                     if (this.getLifespan() <= 1) {
                         this.lifeSpanDamage();
                     }
+                }
+                if (this.getHasSummonCheck() > 0) {
+                    this.setHasSummonCheck(this.getHasSummonCheck() - 1);
                 }
             }
         }
@@ -502,6 +516,17 @@ public interface IOwned {
                 }
             }
         }
+    }
+
+    default boolean hasSummons() {
+        return this.getHasSummonCheck() > 0;
+    }
+
+    default int getHasSummonCheck() {
+        return 0;
+    }
+
+    default void setHasSummonCheck(int count) {
     }
 
     default void readOwnedData(CompoundTag compound){

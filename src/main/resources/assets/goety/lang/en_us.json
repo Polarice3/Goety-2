@@ -3376,6 +3376,7 @@
   "jade.goety.soul_energy_arca": "Soul Energy: %s / %s",
   "jade.goety.raider_leader": "Leader: %s",
   "jade.goety.capture_mode": "§6Capturing Mode",
+  "jade.goety.hostile": "§cHostile",
 
   "config.jade.plugin_goety.summon_lifespan": "Summon Lifespan",
   "config.jade.plugin_goety.summon_lifespan_desc": "Displays summons current lifespan.",
@@ -3395,6 +3396,8 @@
   "config.jade.plugin_goety.raider_leader_desc": "Displays the raiding servant's leader.",
   "config.jade.plugin_goety.capture_mode": "Capture Mode",
   "config.jade.plugin_goety.capture_mode_desc": "Displays whether the raiding servant's in capture mode.",
+  "config.jade.plugin_goety.hostile": "Hostile Indicator",
+  "config.jade.plugin_goety.hostile_desc": "Displays whether the servant is hostile if ownerless and not inheriting Enemy interface.",
 
   "item.goety.jei_dummy.sacrifice": "Requires Sacrifice!",
   "item.goety.jei_dummy.sacrifice.tooltip": "This ritual requires a sacrifice to start.",

@@ -1111,10 +1111,11 @@ public abstract class RaiderServant extends Summoned {
                         && idol.getTrueOwner() == this.getTrueOwner()
                         && idol.hasSpace()) {
                     if (!this.level.isClientSide) {
-                        BlockPos blockPos = idol.getBlockPos();
                         if (this.getIdol() != null) {
                             this.getIdol().removeIllager(this);
+                            this.getIdol().markUpdated();
                         }
+                        BlockPos blockPos = idol.getBlockPos();
                         idol.addIllager(this);
                         this.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
                         if (this.level instanceof ServerLevel serverLevel) {

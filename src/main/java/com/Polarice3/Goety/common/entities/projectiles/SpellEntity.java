@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.api.entities.ISpellEntity;
 import com.Polarice3.Goety.utils.EntityFinder;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -193,9 +194,13 @@ public abstract class SpellEntity extends Entity implements OwnableEntity, ISpel
     @Override
     public void tick() {
         super.tick();
-        if (this.getOwner() != null && this.getOwner().getType().is(Tags.EntityTypes.BOSSES)){
+        if (this.getOwner() != null){
             if (this.getOwner().isDeadOrDying()){
-                this.discard();
+                if (this.getOwner().getType().is(Tags.EntityTypes.BOSSES)) {
+                    this.discard();
+                } else if (MobUtil.getOwner(this.getOwner()) != null) {
+                    this.setOwner(MobUtil.getOwner(this.getOwner()));
+                }
             }
         }
     }

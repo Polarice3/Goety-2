@@ -3374,5 +3374,8 @@
   "info.goety.blade_of_ender.1": "右键点击时向后跳跃。",
   "info.goety.blade_of_ender.2": "奔跑时右键点击时向前突刺。",
   "subtitle.goety.soul_eat": "吸血",
-  "info.goety.unholy_hat": "给予防火能力，玩家处于下界时受到的伤害会减免%s%%，下界仆从将永续存在"
+  "info.goety.unholy_hat": "给予防火能力，玩家处于下界时受到的伤害会减免%s%%，下界仆从将永续存在",
+  "jade.goety.hostile": "§c敌对的",
+  "config.jade.plugin_goety.hostile": "Hostile Indicator",
+  "config.jade.plugin_goety.hostile_desc": "Displays whether the servant is hostile if ownerless and not inheriting Enemy interface."
 }

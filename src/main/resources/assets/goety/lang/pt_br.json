@@ -3458,5 +3458,8 @@
   "info.goety.blade_of_ender.1": "Clique com o botão direito para saltar para trás.",
   "info.goety.blade_of_ender.2": "Clique com o botão direito enquanto corre para avançar rapidamente.",
   "subtitle.goety.soul_eat": "Sugando",
-  "info.goety.unholy_hat": "Concede Resistência a Fogo. Reduz dano recebido no Nether em %s%%. Servos do Nether permanecem"
+  "info.goety.unholy_hat": "Concede Resistência a Fogo. Reduz dano recebido no Nether em %s%%. Servos do Nether permanecem",
+  "jade.goety.hostile": "§cHostil",
+  "config.jade.plugin_goety.hostile": "Hostile Indicator",
+  "config.jade.plugin_goety.hostile_desc": "Displays whether the servant is hostile if ownerless and not inheriting Enemy interface."
 }

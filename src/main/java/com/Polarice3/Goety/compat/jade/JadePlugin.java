@@ -30,6 +30,8 @@ public class JadePlugin implements IWailaPlugin {
         registration.registerEntityDataProvider(SummonOwnerProvider.INSTANCE, Owned.class);
         registration.registerEntityDataProvider(SummonOwnerProvider.INSTANCE, AbstractSpiderServant.class);
         registration.registerEntityDataProvider(SummonOwnerProvider.INSTANCE, SpellEntity.class);
+        registration.registerEntityDataProvider(HostileIndicatorProvider.INSTANCE, Owned.class);
+        registration.registerEntityDataProvider(HostileIndicatorProvider.INSTANCE, AbstractSpiderServant.class);
         registration.registerEntityDataProvider(SummonLifespanProvider.INSTANCE, Owned.class);
         registration.registerEntityDataProvider(SummonLifespanProvider.INSTANCE, AbstractSpiderServant.class);
         registration.registerEntityDataProvider(SummonBreedProvider.INSTANCE, AnimalSummon.class);
@@ -55,6 +57,8 @@ public class JadePlugin implements IWailaPlugin {
     public void registerClient(IWailaClientRegistration registration) {
         CLIENT_REGISTRATION = registration;
 
+        registration.registerEntityComponent(HostileIndicatorProvider.INSTANCE, Owned.class);
+        registration.registerEntityComponent(HostileIndicatorProvider.INSTANCE, AbstractSpiderServant.class);
         registration.registerEntityComponent(SummonLifespanProvider.INSTANCE, Owned.class);
         registration.registerEntityComponent(SummonLifespanProvider.INSTANCE, AbstractSpiderServant.class);
         registration.registerEntityComponent(MobBreedingProvider.INSTANCE, AnimalSummon.class);
