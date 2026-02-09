@@ -668,11 +668,16 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
         }
 
         protected int getCastingTime() {
-            return MathHelper.secondsToTicks(3);
+            return MathHelper.secondsToTicks(6);
         }
 
         protected int getCastingInterval() {
-            return MathHelper.secondsToTicks(10);
+            return MathHelper.secondsToTicks(20);
+        }
+
+        @Override
+        public boolean requiresUpdateEveryTick() {
+            return true;
         }
 
         @Override

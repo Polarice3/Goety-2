@@ -764,6 +764,7 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
                 } else if (this.getMasterOwner() != null) {
                     villager.setLastHurtByMob(this.getMasterOwner());
                 }
+                villager.setCanPickUpLoot(false);
             }
             if (player != null) {
                 ItemStack offhand = ItemStack.EMPTY;

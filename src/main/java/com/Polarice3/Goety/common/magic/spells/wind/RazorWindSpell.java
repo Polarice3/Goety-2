@@ -71,6 +71,7 @@ public class RazorWindSpell extends Spell {
         razorWind.setPos(caster.getEyePosition());
         razorWind.slash(caster.getLookAngle(), 2.0F);
         razorWind.setRadius(0.3F + radius);
+        razorWind.setMaxRadius(razorWind.getMaxRadius() + radius);
         razorWind.setDamage(damage);
         razorWind.setMaxLifeSpan(40);
         worldIn.addFreshEntity(razorWind);

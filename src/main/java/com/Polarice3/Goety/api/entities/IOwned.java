@@ -241,15 +241,17 @@ public interface IOwned {
                         if (MainConfig.GoodwillServantGuard.get()) {
                             if (this.getTrueOwner() instanceof Player player) {
                                 if (SEHelper.isAlly(player, target)) {
+                                    LivingEntity target2 = null;
                                     if (target.getLastHurtByMob() != null && mob.getLastHurtByMob() == null) {
-                                        if (mob.canAttack(target.getLastHurtByMob())) {
-                                            mob.setTarget(target.getLastHurtByMob());
-                                            mob.setLastHurtByMob(target.getLastHurtByMob());
-                                        }
+                                        target2 = target.getLastHurtByMob();
                                     } else if (target.getLastHurtMob() != null && mob.getLastHurtMob() == null) {
-                                        if (mob.canAttack(target.getLastHurtMob())) {
-                                            mob.setTarget(target.getLastHurtMob());
-                                            mob.setLastHurtMob(target.getLastHurtMob());
+                                        target2 = target.getLastHurtMob();
+                                    }
+                                    if (target2 != null) {
+                                        if (!MobUtil.areAllies(mob, target2) && mob.canAttack(target2)) {
+                                            mob.setTarget(target2);
+                                            mob.setLastHurtByMob(target2);
+                                            mob.setLastHurtMob(target2);
                                         }
                                     }
                                 } else if (target.getTarget() != null) {

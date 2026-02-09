@@ -4,6 +4,7 @@ import com.Polarice3.Goety.api.items.IPersist;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.client.particles.WindBlowParticle;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.projectiles.VoidSlash;
 import com.Polarice3.Goety.common.events.TimedEvents;
 import com.Polarice3.Goety.common.items.ModTiers;
@@ -36,6 +37,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -158,6 +160,11 @@ public class BladeOfEnderItem extends SwordItem implements IPersist {
     }
 
     @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        return super.canApplyAtEnchantingTable(stack, enchantment) || enchantment == ModEnchantments.VELOCITY.get() || enchantment == ModEnchantments.RADIUS.get();
+    }
+
+    @Override
     public boolean isValidRepairItem(ItemStack pToRepair, ItemStack pRepair) {
         return pRepair.is(Tags.Items.INGOTS_NETHERITE);
     }
@@ -199,14 +206,23 @@ public class BladeOfEnderItem extends SwordItem implements IPersist {
         if (pPlayer.getAttackStrengthScale(0.5F) > 0.9F) {
             pLevel.playSound(null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), ModSounds.OBSIDIAN_CLAYMORE_SWING.get(), SoundSource.PLAYERS, 2.0F, pPlayer.getVoicePitch());
             if (!pLevel.isClientSide) {
+                ItemStack sword = pPlayer.getMainHandItem();
+                float speed = 0.0F;
+                float radius = 0.0F;
+                if (sword.isEnchanted()) {
+                    speed += sword.getEnchantmentLevel(ModEnchantments.VELOCITY.get()) / 3.0F;
+                    radius += sword.getEnchantmentLevel(ModEnchantments.RADIUS.get()) / 4.0F;
+                }
                 Vec3 vector3d = pPlayer.getViewVector(1.0F);
-                VoidSlash slash = new VoidSlash(pLevel, pPlayer);
+                VoidSlash slash = new VoidSlash(sword, pLevel, pPlayer);
                 slash.setPos(pPlayer.getX() + vector3d.x / 2,
                         pPlayer.getEyeY() - 0.2,
                         pPlayer.getZ() + vector3d.z / 2);
                 slash.setDamage(ItemConfig.BladeOfEnderDamage.get().floatValue());
                 slash.setMaxLifeSpan(MathHelper.secondsToTicks(0.5F));
-                slash.slash(vector3d, 0.5F);
+                slash.setRadius(slash.getRadius() + radius);
+                slash.setMaxRadius(slash.getMaxRadius() + radius);
+                slash.slash(vector3d, 0.5F + speed);
                 slash.setVoidLevel(1);
                 pLevel.addFreshEntity(slash);
             }
@@ -236,7 +252,7 @@ public class BladeOfEnderItem extends SwordItem implements IPersist {
                 Vec3 angle = ownerLiving.getLookAngle().multiply(-1.0D, 1.0D, -1.0D);
                 this.level.sendParticles(new WindBlowParticle.Option(new ColorUtil(ChatFormatting.LIGHT_PURPLE), width, height), vec3.x, vec3.y, vec3.z, 0, angle.x, angle.y, angle.z, 1.0F);
 
-                for (LivingEntity entityHit : this.level.getEntitiesOfClass(LivingEntity.class, ownerLiving.getBoundingBox().inflate(1.5F))) {
+                for (LivingEntity entityHit : this.level.getEntitiesOfClass(LivingEntity.class, ownerLiving.getBoundingBox().inflate(2.0F))) {
                     if (!MobUtil.areAllies(ownerLiving, entityHit) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entityHit) && entityHit.isAttackable()) {
                         boolean flag = entityHit.hurt(this.level.damageSources().mobAttack(ownerLiving), this.damage);
                         if (entityHit.isDamageSourceBlocked(this.level.damageSources().mobAttack(ownerLiving))) {

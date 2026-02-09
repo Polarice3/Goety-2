@@ -3404,7 +3404,6 @@
   "item.goety.irk_servant_spawn_egg": "Ovo de Servo Irk",
   "item.goety.carrion_focus": "Foco de Carniça",
   "item.goety.carrion_focus.info": "Invoca um enxame de Moscas de Carniça. Conjurar agachado ira convocar os servos do conjurador em sua direção.",
-  "info.goety.unholy_hat": "Concede Resistência a Fogo. Reduz dano recebido no Nether em %s%. Servos do Nether permanecem.",
   "subtitle.goety.villager_chop": "Mineração de Prisioneiro",
   "entity.goety.winter_wolf": "Lobo Invernal ",
   "item.goety.winter_wolf_spawn_egg": "Ovo de Lobo Invernal ",
@@ -3458,5 +3457,6 @@
   "info.goety.blade_of_ender": "Dispara um golpe voador quando balançada com força total.",
   "info.goety.blade_of_ender.1": "Clique com o botão direito para saltar para trás.",
   "info.goety.blade_of_ender.2": "Clique com o botão direito enquanto corre para avançar rapidamente.",
-  "subtitle.goety.soul_eat": "Sugando"
+  "subtitle.goety.soul_eat": "Sugando",
+  "info.goety.unholy_hat": "Concede Resistência a Fogo. Reduz dano recebido no Nether em %s%%. Servos do Nether permanecem"
 }
