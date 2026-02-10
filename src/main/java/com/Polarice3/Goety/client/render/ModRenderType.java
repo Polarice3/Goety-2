@@ -119,6 +119,17 @@ public class ModRenderType {
                     .setCullState(NO_CULL)
                     .createCompositeState(false));
 
+    protected static final RenderStateShard.ShaderStateShard RENDERTYPE_LIGHTNING_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getRendertypeLightningShader);
+
+    public static final RenderType DRAGON_RAYS_QUADS = RenderType.create(source("dragon_rays_quads"), DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, RenderType.TRANSIENT_BUFFER_SIZE, true, true, RenderType.CompositeState.builder()
+            .setShaderState(RENDERTYPE_LIGHTNING_SHADER)
+            .setTransparencyState(LIGHTNING_TRANSPARENCY)
+            .setCullState(NO_CULL)
+            .setLightmapState(LIGHTMAP)
+            .setOverlayState(OVERLAY)
+            .setWriteMaskState(COLOR_WRITE)
+            .createCompositeState(true));
+
     public static RenderType hole() {
         return HOLE;
     }
