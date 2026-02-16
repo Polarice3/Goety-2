@@ -678,6 +678,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.BLACK_WOLF.get(), BlackWolfRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKELETON_WOLF.get(), SkeletonWolfRenderer::new);
         event.registerEntityRenderer(ModEntityType.WINTER_WOLF.get(), WinterWolfRenderer::new);
+        event.registerEntityRenderer(ModEntityType.STORMHOUND.get(), StormhoundRenderer::new);
         event.registerEntityRenderer(ModEntityType.HELLHOUND.get(), HellhoundRenderer::new);
         event.registerEntityRenderer(ModEntityType.TWILIGHT_GOAT.get(), TwilightGoatRenderer::new);
         event.registerEntityRenderer(ModEntityType.SNAPPER.get(), SnapperRenderer::new);

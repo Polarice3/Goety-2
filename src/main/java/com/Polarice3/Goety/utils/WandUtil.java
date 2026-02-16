@@ -552,7 +552,7 @@ public class WandUtil {
                     vine.setWarmup(delay);
                     monolith.setLifeSpan(3 + extra);
                 } else if (monolith instanceof TotemicBomb totemicBomb) {
-                    totemicBomb.setExplosionPower(2.0F + (extra / 4.0F));
+                    totemicBomb.setExplosionPower(totemicBomb.getExplosionPower() + (extra / 4.0F));
                 } else {
                     monolith.setLifeSpan(6 + extra);
                 }

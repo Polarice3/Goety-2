@@ -4,6 +4,7 @@ import com.Polarice3.Goety.api.ritual.IRitualType;
 import com.Polarice3.Goety.api.ritual.RitualType;
 import com.Polarice3.Goety.common.blocks.entities.DarkAltarBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.PedestalBlockEntity;
+import com.Polarice3.Goety.common.blocks.entities.VoidShrineBlockEntity;
 import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -144,6 +145,7 @@ public abstract class Ritual {
 
         List<PedestalBlockEntity> pedestals = this.getPedestals(world, darkAltarPos);
         for (PedestalBlockEntity pedestal : pedestals) {
+            pedestal.setLocked(5);
             pedestal.itemStackHandler.map(handler -> {
                 ItemStack stack = handler.extractItem(0, 1, true);
                 if (!stack.isEmpty()) {
@@ -313,7 +315,8 @@ public abstract class Ritual {
         for (BlockPos blockToCheck : blocksToCheck) {
             BlockEntity tileEntity = world.getBlockEntity(blockToCheck);
             if (tileEntity instanceof PedestalBlockEntity &&
-                    !(tileEntity instanceof DarkAltarBlockEntity)) {
+                    !(tileEntity instanceof DarkAltarBlockEntity) &&
+                    !(tileEntity instanceof VoidShrineBlockEntity)) {
                 result.add((PedestalBlockEntity) tileEntity);
             }
         }

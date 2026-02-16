@@ -275,7 +275,7 @@ public class ClientEvents {
                         if (entity instanceof HostileRedstoneMonstrosity rm && !rm.isNoAi()) {
                             playBossMusic(ModSounds.RM_THEME.get(), ModSounds.BOSS_POST_2.get(), rm, 0.75F, 1.0F);
                         }
-                        if (entity instanceof EnderKeeper enderKeeper && !enderKeeper.isNoAi()) {
+                        if (entity instanceof EnderKeeper enderKeeper && !enderKeeper.isNoAi() && !enderKeeper.isIntro()) {
                             playBossMusic(ModSounds.ENDER_KEEPER_THEME.get(), ModSounds.ENDER_KEEPER_THEME_POST.get(), enderKeeper, 0.75F, 0.825F);
                         }
                         if (entity instanceof HostileRedstoneGolem rm && !rm.isNoAi()) {

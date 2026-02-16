@@ -12,9 +12,7 @@ import com.Polarice3.Goety.common.magic.SummonSpell;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
-import com.Polarice3.Goety.utils.BlockFinder;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.WandUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -137,11 +135,33 @@ public class SlimySpell extends SummonSpell {
                 this.buffSummon(caster, slimeServant, potency);
                 this.SummonSap(caster, slimeServant);
                 this.setTarget(caster, slimeServant);
-                worldIn.addFreshEntity(slimeServant);
+                if (worldIn.addFreshEntity(slimeServant)) {
+                    this.uponSummon(worldIn, caster, staff, slimeServant);
+                }
                 this.summonAdvancement(caster, slimeServant);
             }
             this.SummonDown(caster);
             this.playSound(worldIn, caster, ModSounds.SUMMON_SPELL.get());
         }
+    }
+
+    @Override
+    public void summonParticles(ServerLevel worldIn, LivingEntity caster, ItemStack staff, LivingEntity summoned) {
+        ColorUtil colorUtil = ColorUtil.WHITE;
+        int colorFrom = 0xffffff;
+        int colorTo = 0xffffff;
+        if (summoned.getType() == ModEntityType.SLIME_SERVANT.get()) {
+            colorUtil = new ColorUtil(0x403b14);
+            colorFrom = 0x403b14;
+            colorTo = 0x5b4e1d;
+        } else if (summoned.getType() == ModEntityType.CRYPT_SLIME_SERVANT.get()) {
+            colorUtil = new ColorUtil(0x8FE6DF);
+            colorFrom = 0x17b0e0;
+        } else if (summoned.getType() == ModEntityType.MAGMA_CUBE_SERVANT.get()) {
+            colorUtil = new ColorUtil(0xffa300);
+            colorFrom = 0xffa300;
+            colorTo = 0xffff6e;
+        }
+        ServerParticleUtil.summonUndeadParticles(worldIn, summoned, colorUtil, colorFrom, colorTo);
     }
 }

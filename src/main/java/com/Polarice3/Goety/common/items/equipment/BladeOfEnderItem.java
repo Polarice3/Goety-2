@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.items.equipment;
 
 import com.Polarice3.Goety.api.items.IPersist;
+import com.Polarice3.Goety.api.items.ISoulRepair;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.client.particles.WindBlowParticle;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
@@ -51,7 +52,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-public class BladeOfEnderItem extends SwordItem implements IPersist {
+public class BladeOfEnderItem extends SwordItem implements IPersist, ISoulRepair {
 
     public BladeOfEnderItem() {
         super(ModTiers.VOID, Mth.floor(ItemConfig.BladeOfEnderDamage.get() - 1), -(4.0F - ItemConfig.BladeOfEnderAttackSpeed.get().floatValue()), new Item.Properties().durability(ItemConfig.BladeOfEnderDurability.get()).fireResistant());
@@ -123,38 +124,40 @@ public class BladeOfEnderItem extends SwordItem implements IPersist {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         InteractionHand offhand = handIn == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
         ItemStack offhandItem = playerIn.getItemInHand(offhand);
-        if (!playerIn.getCooldowns().isOnCooldown(this)
-                && !offhandItem.canPerformAction(ToolActions.SHIELD_BLOCK)
-                && !(offhandItem.getItem() instanceof IWand wand && !wand.isOnCooldown(playerIn, offhandItem))) {
-            int coolTick = 20;
-            if (playerIn.isSprinting()) {
-                float f1 = (float) Math.cos(Math.toRadians(playerIn.getYRot() + 90));
-                float f2 = (float) Math.sin(Math.toRadians(playerIn.getYRot() + 90));
-                Vec3 vec3 = playerIn.getViewVector(1.0F);
-                float r = (float) Mth.square(playerIn.distanceToSqr(vec3));
-                r = Mth.clamp(r, 0.0F, 10.0F);
-                playerIn.push(f1 * 0.9F * r, 0, f2 * 0.9F * r);
-                if (worldIn instanceof ServerLevel serverLevel) {
-                    ModNetwork.sentToTrackingEntityAndPlayer(playerIn, new SPlayFollowSoundPacket(playerIn, ModSounds.VHOE_CHARGE.get(), 3.0F, playerIn.getVoicePitch(), false));
-                    TimedEvents.submitTask("goety:boe_charge", new ChargeTask(playerIn.getUUID(), serverLevel, ItemConfig.BladeOfEnderDamage.get().floatValue()));
-                    coolTick = 100;
-                }
-            } else {
-                float speed = -2.5F;
-                float dodgeYaw = (float) Math.toRadians(playerIn.getYRot() + 90);
-                Vec3 vec3 = playerIn.getDeltaMovement().add(speed * Math.cos(dodgeYaw), 0, speed * Math.sin(dodgeYaw));
-                if (!worldIn.isClientSide) {
-                    ModNetwork.sentToTrackingEntityAndPlayer(playerIn, new SPlayWorldSoundPacket(playerIn.blockPosition(), SoundEvents.PLAYER_ATTACK_CRIT, 2.0F, 1.0F));
+        if (!(ItemConfig.BladeOfEnderPersist.get() && this.isBroken(itemstack))) {
+            if (!playerIn.getCooldowns().isOnCooldown(this)
+                    && !offhandItem.canPerformAction(ToolActions.SHIELD_BLOCK)
+                    && !(offhandItem.getItem() instanceof IWand wand && !wand.isOnCooldown(playerIn, offhandItem))) {
+                int coolTick = 20;
+                if (playerIn.isSprinting()) {
+                    float f1 = (float) Math.cos(Math.toRadians(playerIn.getYRot() + 90));
+                    float f2 = (float) Math.sin(Math.toRadians(playerIn.getYRot() + 90));
+                    Vec3 vec3 = playerIn.getViewVector(1.0F);
+                    float r = (float) Mth.square(playerIn.distanceToSqr(vec3));
+                    r = Mth.clamp(r, 0.0F, 10.0F);
+                    playerIn.push(f1 * 0.9F * r, 0, f2 * 0.9F * r);
+                    if (worldIn instanceof ServerLevel serverLevel) {
+                        ModNetwork.sentToTrackingEntityAndPlayer(playerIn, new SPlayFollowSoundPacket(playerIn, ModSounds.VHOE_CHARGE.get(), 3.0F, playerIn.getVoicePitch(), false));
+                        TimedEvents.submitTask("goety:boe_charge", new ChargeTask(playerIn.getUUID(), serverLevel, ItemConfig.BladeOfEnderDamage.get().floatValue()));
+                        coolTick = 100;
+                    }
                 } else {
-                    playerIn.playSound(SoundEvents.PLAYER_ATTACK_CRIT, 2.0F, 1.0F);
+                    float speed = -2.5F;
+                    float dodgeYaw = (float) Math.toRadians(playerIn.getYRot() + 90);
+                    Vec3 vec3 = playerIn.getDeltaMovement().add(speed * Math.cos(dodgeYaw), 0, speed * Math.sin(dodgeYaw));
+                    if (!worldIn.isClientSide) {
+                        ModNetwork.sentToTrackingEntityAndPlayer(playerIn, new SPlayWorldSoundPacket(playerIn.blockPosition(), SoundEvents.PLAYER_ATTACK_CRIT, 2.0F, 1.0F));
+                    } else {
+                        playerIn.playSound(SoundEvents.PLAYER_ATTACK_CRIT, 2.0F, 1.0F);
+                    }
+                    playerIn.setDeltaMovement(vec3.x, 0.4F, vec3.z);
                 }
-                playerIn.setDeltaMovement(vec3.x, 0.4F, vec3.z);
+                if (!worldIn.isClientSide) {
+                    playerIn.getCooldowns().addCooldown(this, coolTick);
+                }
+                playerIn.swing(handIn);
+                return InteractionResultHolder.consume(itemstack);
             }
-            if (!worldIn.isClientSide) {
-                playerIn.getCooldowns().addCooldown(this, coolTick);
-            }
-            playerIn.swing(handIn);
-            return InteractionResultHolder.consume(itemstack);
         }
         return InteractionResultHolder.pass(itemstack);
     }
@@ -162,6 +165,11 @@ public class BladeOfEnderItem extends SwordItem implements IPersist {
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         return super.canApplyAtEnchantingTable(stack, enchantment) || enchantment == ModEnchantments.VELOCITY.get() || enchantment == ModEnchantments.RADIUS.get();
+    }
+
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged) && slotChanged;
     }
 
     @Override
@@ -174,11 +182,12 @@ public class BladeOfEnderItem extends SwordItem implements IPersist {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         ChatFormatting main = ChatFormatting.DARK_PURPLE;
         ChatFormatting secondary = ChatFormatting.BLUE;
-        tooltip.add(Component.translatable("info.goety.blade_of_ender").withStyle(main));
-        tooltip.add(Component.translatable("info.goety.blade_of_ender.1").withStyle(secondary));
-        tooltip.add(Component.translatable("info.goety.blade_of_ender.2").withStyle(secondary));
         if (ItemConfig.BladeOfEnderPersist.get() && this.isBroken(stack)) {
             tooltip.add(Component.translatable("info.goety.armor.broken").withStyle(ChatFormatting.DARK_RED));
+        } else {
+            tooltip.add(Component.translatable("info.goety.blade_of_ender").withStyle(main));
+            tooltip.add(Component.translatable("info.goety.blade_of_ender.1").withStyle(secondary));
+            tooltip.add(Component.translatable("info.goety.blade_of_ender.2").withStyle(secondary));
         }
     }
 

@@ -7,7 +7,6 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
-import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -181,12 +180,9 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
                     || entityIn == trueOwner
                     || (entityIn instanceof IOwned owned && MobUtil.ownerStack(this, owned))
                     || (entityIn instanceof OwnableEntity ownable && ownable.getOwner() == trueOwner)
-                    || (trueOwner instanceof Player player
-                    && entityIn instanceof LivingEntity livingEntity
-                    && (SEHelper.getAllyEntities(player).contains(livingEntity)
-                    || SEHelper.getAllyEntityTypes(player).contains(livingEntity.getType())));
+                    || (entityIn instanceof LivingEntity livingEntity && this.isAllyWith(livingEntity));
         }
-        return super.isAlliedTo(entityIn);
+        return super.isAlliedTo(entityIn) || (entityIn instanceof LivingEntity livingEntity && this.isAllyWith(livingEntity));
     }
 
     protected void defineSynchedData() {

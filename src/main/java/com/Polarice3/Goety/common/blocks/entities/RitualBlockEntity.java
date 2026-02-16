@@ -37,7 +37,9 @@ public class RitualBlockEntity extends BlockEntity {
 
     @Override
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        this.readNetwork(pkt.getTag());
+        if (pkt.getTag() != null) {
+            this.readNetwork(pkt.getTag());
+        }
     }
 
     @Override

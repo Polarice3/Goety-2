@@ -197,6 +197,7 @@ public class EnderKeeperModel<T extends EnderKeeper> extends HierarchicalModel<T
 		if (!entity.isAttacking()){
 			this.animateWalk(EnderKeeperAnimations.MOVE, limbSwing, limbSwingAmount, 2.5F, 20.0F);
 		}
+		this.animate(entity.introAnimationState, EnderKeeperAnimations.INTRO, ageInTicks);
 		this.animate(entity.idleAnimationState, EnderKeeperAnimations.IDLE, ageInTicks);
 		this.animate(entity.swingAnimationState, EnderKeeperAnimations.SWING, ageInTicks);
 		this.animate(entity.swingComboAnimationState, EnderKeeperAnimations.SWING_COMBO, ageInTicks);

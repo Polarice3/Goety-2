@@ -25,6 +25,7 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Guardian;
@@ -250,25 +251,23 @@ public interface IOwned {
                     for (Mob target : mob.level.getEntitiesOfClass(Mob.class, mob.getBoundingBox().inflate(mob.getAttributeValue(Attributes.FOLLOW_RANGE)), mob1 -> mob1.isAlive() && mob != mob1)) {
                         boolean flag = false;
                         if (MainConfig.GoodwillServantGuard.get()) {
-                            if (this.getTrueOwner() instanceof Player player) {
-                                if (SEHelper.isAlly(player, target)) {
-                                    LivingEntity target2 = null;
-                                    if (target.getLastHurtByMob() != null && mob.getLastHurtByMob() == null) {
-                                        target2 = target.getLastHurtByMob();
-                                    } else if (target.getLastHurtMob() != null && mob.getLastHurtMob() == null) {
-                                        target2 = target.getLastHurtMob();
+                            if (this.isAllyWith(target)) {
+                                LivingEntity target2 = null;
+                                if (target.getLastHurtByMob() != null && mob.getLastHurtByMob() == null) {
+                                    target2 = target.getLastHurtByMob();
+                                } else if (target.getLastHurtMob() != null && mob.getLastHurtMob() == null) {
+                                    target2 = target.getLastHurtMob();
+                                }
+                                if (target2 != null) {
+                                    if (!MobUtil.areAllies(mob, target2) && mob.canAttack(target2, TargetingConditions.DEFAULT)) {
+                                        mob.setTarget(target2);
+                                        mob.setLastHurtByMob(target2);
+                                        mob.setLastHurtMob(target2);
                                     }
-                                    if (target2 != null) {
-                                        if (!MobUtil.areAllies(mob, target2) && mob.canAttack(target2)) {
-                                            mob.setTarget(target2);
-                                            mob.setLastHurtByMob(target2);
-                                            mob.setLastHurtMob(target2);
-                                        }
-                                    }
-                                } else if (target.getTarget() != null) {
-                                    if (SEHelper.isAlly(player, target.getTarget())) {
-                                        flag = true;
-                                    }
+                                }
+                            } else if (target.getTarget() != null) {
+                                if (this.isAllyWith(target.getTarget())) {
+                                    flag = true;
                                 }
                             }
                         }
@@ -279,14 +278,14 @@ public interface IOwned {
                             }
                         }
                         if (flag) {
-                            if (mob.canAttack(target) && !MobUtil.areAllies(mob, target) && !MobUtil.areAllies(this.getTrueOwner(), target)) {
+                            if (mob.canAttack(target, TargetingConditions.DEFAULT) && !MobUtil.areAllies(mob, target) && !MobUtil.areAllies(this.getTrueOwner(), target)) {
                                 mob.setTarget(target);
                             }
                         }
                     }
                 }
                 if (mob.getTarget() != null) {
-                    if (mob.getTarget().isRemoved() || mob.getTarget().isDeadOrDying()) {
+                    if (this.isAllyWith(mob.getTarget()) || mob.getTarget().isRemoved() || mob.getTarget().isDeadOrDying()) {
                         mob.setTarget(null);
                     }
                 }
@@ -445,6 +444,7 @@ public interface IOwned {
                 living.setHealth(1.0F);
                 living.removeAllEffects();
             }
+            entity.clearFire();
             if (entity instanceof IOwned owned) {
                 owned.reviveOwned();
             }
@@ -527,6 +527,42 @@ public interface IOwned {
     }
 
     default void setHasSummonCheck(int count) {
+    }
+
+    default boolean isGrudgedTowardsType(EntityType<?> entityType) {
+        if (this.getTrueOwner() instanceof Player player) {
+            return SEHelper.getGrudgeEntityTypes(player).contains(entityType);
+        } else if (this.getOwnerId() != null && this instanceof Entity entity && entity.level instanceof ServerLevel serverLevel) {
+            return SEHelper.isSavedGrudgeType(serverLevel, this.getOwnerId(), entityType);
+        }
+        return false;
+    }
+
+    default boolean isGrudgedTowards(LivingEntity target) {
+        if (this.getTrueOwner() instanceof Player player) {
+            return SEHelper.isGrudged(player, target);
+        } else if (this.getOwnerId() != null && target.level instanceof ServerLevel serverLevel) {
+            return SEHelper.isSavedGrudge(serverLevel, this.getOwnerId(), target);
+        }
+        return false;
+    }
+
+    default boolean isAllyWithType(EntityType<?> entityType) {
+        if (this.getTrueOwner() instanceof Player player) {
+            return SEHelper.getAllyEntityTypes(player).contains(entityType);
+        } else if (this.getOwnerId() != null && this instanceof Entity entity && entity.level instanceof ServerLevel serverLevel) {
+            return SEHelper.isSavedAllyType(serverLevel, this.getOwnerId(), entityType);
+        }
+        return false;
+    }
+
+    default boolean isAllyWith(LivingEntity target) {
+        if (this.getTrueOwner() instanceof Player player) {
+            return SEHelper.isAlly(player, target);
+        } else if (this.getOwnerId() != null && target.level instanceof ServerLevel serverLevel) {
+            return SEHelper.isSavedAlly(serverLevel, this.getOwnerId(), target);
+        }
+        return false;
     }
 
     default void readOwnedData(CompoundTag compound){

@@ -630,9 +630,8 @@ public class Wildfire extends Summoned {
                         for (int i = 0; i < serverLevel.random.nextInt(10) + 10; ++i) {
                             serverLevel.sendParticles(ModParticleTypes.SUMMON.get(), blazeServant.getRandomX(1.5D), blazeServant.getRandomY(), blazeServant.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
                         }
-                        ColorUtil colorUtil = new ColorUtil(0xffffff);
+                        ColorUtil colorUtil = new ColorUtil(0xffff6e);
                         ServerParticleUtil.sendGodRay(serverLevel, blazeServant, colorUtil);
-                        ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 0.1F, 0.1F, 0.05F, -1, blazeServant.position());
                     }
                 }
                 Wildfire.this.setSummonCooldown(MathHelper.secondsToTicks(7));

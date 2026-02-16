@@ -1190,6 +1190,11 @@ public class ModEntityType {
                     .sized(0.6F, 0.85F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<Stormhound>> STORMHOUND = register("stormhound",
+            EntityType.Builder.of(Stormhound::new, MobCategory.MONSTER)
+                    .sized(0.6F, 0.85F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<Hellhound>> HELLHOUND = register("hellhound",
             EntityType.Builder.of(Hellhound::new, MobCategory.MONSTER)
                     .sized(0.6F, 0.85F)

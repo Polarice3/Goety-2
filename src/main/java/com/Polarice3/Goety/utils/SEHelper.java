@@ -21,6 +21,7 @@ import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.research.Research;
 import com.Polarice3.Goety.common.research.ResearchList;
+import com.Polarice3.Goety.common.world.data.GrimoireData;
 import com.Polarice3.Goety.compat.minecolonies.MinecoloniesLoaded;
 import com.Polarice3.Goety.config.BrewConfig;
 import com.Polarice3.Goety.config.MainConfig;
@@ -326,6 +327,156 @@ public class SEHelper {
         return getCapability(player).decreaseRestPeriod(decrease);
     }
 
+    public static void saveGrimoireToWorld(Player player) {
+        if (player.level instanceof ServerLevel serverLevel) {
+            GrimoireData data = GrimoireData.get(serverLevel);
+            ISoulEnergy cap = getCapability(player);
+
+            CompoundTag listsTag = new CompoundTag();
+
+            if (data == null) {
+                return;
+            }
+
+            if (cap.allyList() != null && !cap.allyList().isEmpty()) {
+                ListTag allyListTag = new ListTag();
+                for (UUID uuid : cap.allyList()) {
+                    allyListTag.add(NbtUtils.createUUID(uuid));
+                }
+                listsTag.put("allyList", allyListTag);
+            }
+
+            if (cap.allyTypeList() != null && !cap.allyTypeList().isEmpty()) {
+                ListTag allyTypeListTag = new ListTag();
+                for (EntityType<?> entityType : cap.allyTypeList()) {
+                    CompoundTag compoundTag = new CompoundTag();
+                    compoundTag.putString("id", EntityType.getKey(entityType).toString());
+                    allyTypeListTag.add(compoundTag);
+                }
+                listsTag.put("allyTypeList", allyTypeListTag);
+            }
+
+            if (cap.grudgeList() != null && !cap.grudgeList().isEmpty()) {
+                ListTag grudgeListTag = new ListTag();
+                for (UUID uuid : cap.grudgeList()) {
+                    grudgeListTag.add(NbtUtils.createUUID(uuid));
+                }
+                listsTag.put("grudgeList", grudgeListTag);
+            }
+
+            if (cap.grudgeTypeList() != null && !cap.grudgeTypeList().isEmpty()) {
+                ListTag grudgeTypeListTag = new ListTag();
+                for (EntityType<?> entityType : cap.grudgeTypeList()) {
+                    CompoundTag compoundTag = new CompoundTag();
+                    compoundTag.putString("id", EntityType.getKey(entityType).toString());
+                    grudgeTypeListTag.add(compoundTag);
+                }
+                listsTag.put("grudgeTypeList", grudgeTypeListTag);
+            }
+
+            data.setPlayerLists(player.getUUID(), listsTag);
+        }
+    }
+
+    public static CompoundTag loadGrimoireFromWorld(ServerLevel level, UUID uuid) {
+        GrimoireData data = GrimoireData.get(level);
+        if (data == null) {
+            return new CompoundTag();
+        }
+        return data.getPlayerLists(uuid);
+    }
+
+    public static boolean isSavedAllyType(ServerLevel level, UUID uuid, EntityType<?> entityType) {
+        CompoundTag listsData = loadGrimoireFromWorld(level, uuid);
+
+        if (listsData.contains("allyTypeList", Tag.TAG_LIST)) {
+            ListTag allyTypeList = listsData.getList("allyTypeList", Tag.TAG_COMPOUND);
+            for (int i = 0; i < allyTypeList.size(); i++) {
+                String string = allyTypeList.getCompound(i).getString("id");
+                if (EntityType.byString(string).isPresent() &&
+                        EntityType.byString(string).get() == entityType) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean isSavedAlly(ServerLevel level, UUID uuid, LivingEntity livingEntity) {
+        CompoundTag listsData = loadGrimoireFromWorld(level, uuid);
+
+        if (listsData.contains("allyList", 9)) {
+            ListTag allyList = listsData.getList("allyList", 11);
+            for (Tag tag : allyList) {
+                if (NbtUtils.loadUUID(tag).equals(livingEntity.getUUID())) {
+                    return true;
+                }
+            }
+        }
+
+        if (listsData.contains("allyTypeList", Tag.TAG_LIST)) {
+            ListTag allyTypeList = listsData.getList("allyTypeList", Tag.TAG_COMPOUND);
+            for (int i = 0; i < allyTypeList.size(); i++) {
+                String string = allyTypeList.getCompound(i).getString("id");
+                if (EntityType.byString(string).isPresent() &&
+                        EntityType.byString(string).get() == livingEntity.getType()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean isSavedGrudgeType(ServerLevel level, UUID uuid, EntityType<?> entityType) {
+        CompoundTag listsData = loadGrimoireFromWorld(level, uuid);
+
+        if (listsData.contains("grudgeTypeList", Tag.TAG_LIST)) {
+            ListTag grudgeTypeList = listsData.getList("grudgeTypeList", Tag.TAG_COMPOUND);
+            for (int i = 0; i < grudgeTypeList.size(); i++) {
+                String string = grudgeTypeList.getCompound(i).getString("id");
+                if (EntityType.byString(string).isPresent() &&
+                        EntityType.byString(string).get() == entityType) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean isSavedGrudge(ServerLevel level, UUID uuid, LivingEntity livingEntity) {
+        CompoundTag listsData = loadGrimoireFromWorld(level, uuid);
+
+        if (listsData.contains("grudgeList", 9)) {
+            ListTag grudgeList = listsData.getList("grudgeList", 11);
+            for (Tag tag : grudgeList) {
+                if (NbtUtils.loadUUID(tag).equals(livingEntity.getUUID())) {
+                    return true;
+                }
+            }
+        }
+
+        if (listsData.contains("grudgeTypeList", Tag.TAG_LIST)) {
+            ListTag grudgeTypeList = listsData.getList("grudgeTypeList", Tag.TAG_COMPOUND);
+            for (int i = 0; i < grudgeTypeList.size(); i++) {
+                String string = grudgeTypeList.getCompound(i).getString("id");
+                if (EntityType.byString(string).isPresent() &&
+                        EntityType.byString(string).get() == livingEntity.getType()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public static void autoSaveToWorld(Player player) {
+        if (player != null && !player.level.isClientSide) {
+            saveGrimoireToWorld(player);
+        }
+    }
+
     public static boolean teleportToArca(Player player){
         ISoulEnergy soulEnergy = SEHelper.getCapability(player);
         BlockPos blockPos = SEHelper.getArcaBlock(player);
@@ -372,6 +523,7 @@ public class SEHelper {
         if (target != owner) {
             if (!getGrudgeEntities(owner).contains(target)) {
                 getCapability(owner).addGrudge(target.getUUID());
+                autoSaveToWorld(owner);
                 return true;
             }
         }
@@ -382,6 +534,7 @@ public class SEHelper {
         if (target != owner) {
             if (getGrudgeEntities(owner).contains(target)) {
                 getCapability(owner).removeGrudge(target.getUUID());
+                autoSaveToWorld(owner);
                 return true;
             }
         }
@@ -404,6 +557,7 @@ public class SEHelper {
     public static boolean addGrudgeEntityType(Player owner, EntityType<?> target){
         if (!getGrudgeEntityTypes(owner).contains(target)) {
             getCapability(owner).addGrudgeType(target);
+            autoSaveToWorld(owner);
             return true;
         }
         return false;
@@ -412,6 +566,7 @@ public class SEHelper {
     public static boolean removeGrudgeEntityType(Player owner, EntityType<?> target){
         if (getGrudgeEntityTypes(owner).contains(target)) {
             getCapability(owner).removeGrudgeType(target);
+            autoSaveToWorld(owner);
             return true;
         }
         return false;
@@ -429,10 +584,22 @@ public class SEHelper {
         return entityTypes;
     }
 
+    public static boolean isGrudged(LivingEntity owner, LivingEntity livingEntity){
+        if (owner instanceof Player player){
+            return isGrudged(player, livingEntity);
+        }
+        return false;
+    }
+
+    public static boolean isGrudged(Player owner, LivingEntity livingEntity){
+        return getGrudgeEntities(owner).contains(livingEntity) || getGrudgeEntityTypes(owner).contains(livingEntity.getType());
+    }
+
     public static boolean addAllyEntity(Player owner, LivingEntity target){
         if (target != owner) {
             if (!getAllyEntities(owner).contains(target)) {
                 getCapability(owner).addAlly(target.getUUID());
+                autoSaveToWorld(owner);
                 return true;
             }
         }
@@ -443,6 +610,7 @@ public class SEHelper {
         if (target != owner) {
             if (getAllyEntities(owner).contains(target)) {
                 getCapability(owner).removeAlly(target.getUUID());
+                autoSaveToWorld(owner);
                 return true;
             }
         }
@@ -465,6 +633,7 @@ public class SEHelper {
     public static boolean addAllyEntityType(Player owner, EntityType<?> target){
         if (!getAllyEntityTypes(owner).contains(target)) {
             getCapability(owner).addAllyType(target);
+            autoSaveToWorld(owner);
             return true;
         }
         return false;
@@ -473,6 +642,7 @@ public class SEHelper {
     public static boolean removeAllyEntityType(Player owner, EntityType<?> target){
         if (getAllyEntityTypes(owner).contains(target)) {
             getCapability(owner).removeAllyType(target);
+            autoSaveToWorld(owner);
             return true;
         }
         return false;

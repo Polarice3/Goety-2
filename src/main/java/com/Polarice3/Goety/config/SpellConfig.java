@@ -1143,8 +1143,8 @@ public class SpellConfig {
                     .defineInRange("hailCost", 8, 0, Integer.MAX_VALUE);
             HailDuration = BUILDER.comment("Time to cast Hail Spell, Default: 40")
                     .defineInRange("hailTime", 40, 0, 72000);
-            HailCoolDown = BUILDER.comment("Hail Spell Cooldown, Default: 20")
-                    .defineInRange("hailCoolDown", 20, 0, Integer.MAX_VALUE);
+            HailCoolDown = BUILDER.comment("Hail Spell Cooldown, Default: 100")
+                    .defineInRange("hailCoolDown", 100, 0, Integer.MAX_VALUE);
             HailDamage = BUILDER.comment("How much base damage Hail deals, Default: 1.0")
                     .defineInRange("hailDamage", 1.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();

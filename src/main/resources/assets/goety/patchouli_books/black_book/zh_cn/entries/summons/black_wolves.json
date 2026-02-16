@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "可以通过使用$(l:focuses/wild/hunting_focus)狩猎聚晶$()召唤一头忠实的黑色巨狼，亦可通过一种仪式来召唤没有寿命限制的黑狼。"
+      "text": "可以通过使用$(l:focuses/wild/hunting_focus)狩猎聚晶$()召唤一头忠实的黑狼，亦可通过一种仪式来召唤没有寿命限制的黑狼。"
     },
     {
       "type": "goety:ritual",
@@ -48,11 +48,24 @@
     },
     {
       "type": "patchouli:text",
-      "text": "这些白色毛皮的犬科生物是寒冷地区居民的噩梦，拥有冰冷的獠牙且耐霜冻。可通过使用$(l:crafts/staff/frost_staff)冰霜魔杖$()施放$(l:focuses/wild/hunting_focus)狩猎聚晶$()、在下雪的生物群系中召唤，或通过另一种仪式召唤。"
+      "text": "这些白色毛皮的犬科生物是寒冷地区居民的噩梦，拥有冰冷的獠牙且耐霜冻。可通过使用$(l:crafts/staff/frost_staff)冰霜魔杖$()施放$(l:focuses/wild/hunting_focus)狩猎聚晶$()，或是在下雪的生物群系中召唤，或通过另一种仪式召唤。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_winter_wolf_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:stormhound",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "伴随风暴而来的魔犬的传说早已屡不见鲜，因为现在它们的利爪和闪电之力归你指挥，可通过使用$(l:crafts/staff/frost_staff)风暴魔杖$()施放$(l:focuses/wild/hunting_focus)狩猎聚晶$()，或是暴露在雷暴天气中召唤，也可以使用另一种仪式召唤"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_stormhound_thrall"
     },
     {
       "type": "patchouli:entity",

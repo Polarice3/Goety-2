@@ -3377,5 +3377,8 @@
   "info.goety.unholy_hat": "给予防火能力，玩家处于下界时受到的伤害会减免%s%%，下界仆从将永续存在",
   "jade.goety.hostile": "§c敌对的",
   "config.jade.plugin_goety.hostile": "Hostile Indicator",
-  "config.jade.plugin_goety.hostile_desc": "Displays whether the servant is hostile if ownerless and not inheriting Enemy interface."
+  "config.jade.plugin_goety.hostile_desc": "Displays whether the servant is hostile if ownerless and not inheriting Enemy interface.",
+  "entity.goety.stormhound": "风暴犬",
+  "item.goety.stormhound_spawn_egg": "风暴犬刷怪蛋",
+  "subtitle.goety.sword_shing": "剑：闪光"
 }

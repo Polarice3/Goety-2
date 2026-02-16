@@ -58,6 +58,14 @@ import net.minecraftforge.fml.common.Mod;
 public class SoulEnergyEvents {
 
     @SubscribeEvent
+    public static void onPlayerLogOff(PlayerEvent.PlayerLoggedOutEvent event) {
+        Player player = event.getEntity();
+        if (player != null) {
+            SEHelper.saveGrimoireToWorld(player);
+        }
+    }
+
+    @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event){
         Player player = event.player;
         Level world = player.level;

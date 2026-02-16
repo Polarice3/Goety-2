@@ -7858,6 +7858,20 @@
     ],
     "subtitle": "subtitle.goety.claymore_windup"
   },
+  "sword_shing": {
+    "sounds": [
+      {
+        "name": "goety:item/sword_shing1"
+      },
+      {
+        "name": "goety:item/sword_shing2"
+      },
+      {
+        "name": "goety:item/sword_shing3"
+      }
+    ],
+    "subtitle": "subtitle.goety.sword_shing"
+  },
   "whip_swing": {
     "sounds": [
       {

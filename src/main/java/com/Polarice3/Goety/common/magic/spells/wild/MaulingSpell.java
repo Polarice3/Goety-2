@@ -11,9 +11,7 @@ import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.magic.SummonSpell;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.BlockFinder;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.WandUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -118,14 +116,14 @@ public class MaulingSpell extends SummonSpell {
                 if (caster.isUnderWater()){
                     blockPos = BlockFinder.SummonWaterRadius(caster, worldIn);
                 }
-                if (typeStaff(staff, SpellType.NETHER) || worldIn.dimension() == Level.NETHER){
-                    summonedentity = new HoglinServant(ModEntityType.HOGLIN_SERVANT.get(), worldIn);
-                } else if (worldIn.isWaterAt(blockPos) || typeStaff(staff, SpellType.ABYSS)){
+                if (worldIn.isWaterAt(blockPos) || typeStaff(staff, SpellType.ABYSS)){
                     summonedentity = new Gnasher(ModEntityType.GNASHER.get(), worldIn);
                 } else if (typeStaff(staff, SpellType.FROST) || worldIn.getBiome(blockPos).is(Tags.Biomes.IS_COLD_OVERWORLD)) {
                     summonedentity = new BearServant(ModEntityType.POLAR_BEAR_SERVANT.get(), worldIn);
                 } else if (blockPos.getY() <= 64 && !worldIn.canSeeSky(blockPos) && summonedentity instanceof BearServant bearServant){
                     bearServant.setBearCave();
+                } else if (typeStaff(staff, SpellType.NETHER) || worldIn.dimension() == Level.NETHER){
+                    summonedentity = new HoglinServant(ModEntityType.HOGLIN_SERVANT.get(), worldIn);
                 }
                 summonedentity.setTrueOwner(caster);
                 summonedentity.moveTo(blockPos, 0.0F, 0.0F);
@@ -138,11 +136,30 @@ public class MaulingSpell extends SummonSpell {
                 this.buffSummon(caster, summonedentity, potency);
                 this.SummonSap(caster, summonedentity);
                 this.setTarget(caster, summonedentity);
-                worldIn.addFreshEntity(summonedentity);
+                if (worldIn.addFreshEntity(summonedentity)) {
+                    this.uponSummon(worldIn, caster, staff, summonedentity);
+                }
                 this.summonAdvancement(caster, summonedentity);
             }
             this.SummonDown(caster);
             this.playSound(worldIn, caster, ModSounds.SUMMON_SPELL.get());
         }
+    }
+
+    @Override
+    public void summonParticles(ServerLevel worldIn, LivingEntity caster, ItemStack staff, LivingEntity summoned) {
+        ColorUtil colorUtil = ColorUtil.WHITE;
+        int colorFrom = 0xffffff;
+        int colorTo = 0xffffff;
+        if (summoned.getType() == ModEntityType.BEAR_SERVANT.get()) {
+            colorUtil = new ColorUtil(0x403b14);
+            colorFrom = 0x403b14;
+            colorTo = 0x5b4e1d;
+        } else if (summoned.getType() == ModEntityType.HOGLIN_SERVANT.get()) {
+            colorUtil = new ColorUtil(0xffa300);
+            colorFrom = 0xffa300;
+            colorTo = 0xffff6e;
+        }
+        ServerParticleUtil.summonUndeadParticles(worldIn, summoned, colorUtil, colorFrom, colorTo);
     }
 }

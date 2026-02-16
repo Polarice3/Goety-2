@@ -216,6 +216,15 @@ public class IceChunk extends SpellEntity {
                 if (d > 0.5){
                     this.setDeltaMovement(this.getDeltaMovement().add(d0 / d3, d1 / d3, d2 / d3).scale(speed));
                 }
+            } else {
+                for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(16.0F))) {
+                    LivingEntity livingEntity = MobUtil.getLivingTarget(entity);
+                    if (livingEntity != null) {
+                        if (MobUtil.ownedPredicate(this).test(livingEntity)){
+                            this.setTarget(livingEntity);
+                        }
+                    }
+                }
             }
         } else {
             if (!this.isDropping){

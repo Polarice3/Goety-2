@@ -18,6 +18,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -62,23 +64,29 @@ public class PedestalBlock extends BaseEntityBlock implements IForgeBlock, Simpl
         if (!world.isClientSide) {
             ItemStack heldItem = player.getItemInHand(hand);
             PedestalBlockEntity pedestal = (PedestalBlockEntity) world.getBlockEntity(pos);
-            pedestal.getCapability(ForgeCapabilities.ITEM_HANDLER, hit.getDirection()).ifPresent(handler -> {
-                if (!player.isShiftKeyDown() && !player.isCrouching()) {
-                    ItemStack itemStack = handler.getStackInSlot(0);
-                    if (itemStack.isEmpty()) {
-                        player.setItemInHand(hand, handler.insertItem(0, heldItem, false));
-                        world.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1, 1);
-                    } else {
-                        if (heldItem.isEmpty()) {
-                            player.setItemInHand(hand, handler.extractItem(0, 64, false));
+            if (pedestal != null) {
+                pedestal.getCapability(ForgeCapabilities.ITEM_HANDLER, hit.getDirection()).ifPresent(handler -> {
+                    if (!player.isShiftKeyDown() && !player.isCrouching()) {
+                        ItemStack itemStack = handler.getStackInSlot(0);
+                        if (itemStack.isEmpty()) {
+                            if (!pedestal.isLocked()) {
+                                player.setItemInHand(hand, handler.insertItem(0, heldItem, false));
+                                world.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1, 1);
+                            } else {
+                                world.playSound(null, pos, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundSource.BLOCKS, 1, 1);
+                            }
                         } else {
-                            ItemHandlerHelper.giveItemToPlayer(player, handler.extractItem(0, 64, false));
+                            if (heldItem.isEmpty()) {
+                                player.setItemInHand(hand, handler.extractItem(0, 64, false));
+                            } else {
+                                ItemHandlerHelper.giveItemToPlayer(player, handler.extractItem(0, 64, false));
+                            }
+                            world.playSound(null, pos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 1, 1);
                         }
-                        world.playSound(null, pos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 1, 1);
+                        pedestal.setChanged();
                     }
-                    pedestal.setChanged();
-                }
-            });
+                });
+            }
         }
         return InteractionResult.SUCCESS;
     }
@@ -150,6 +158,14 @@ public class PedestalBlock extends BaseEntityBlock implements IForgeBlock, Simpl
 
     public BlockEntity newBlockEntity(BlockPos p_151996_, BlockState p_151997_) {
         return new PedestalBlockEntity(p_151996_, p_151997_);
+    }
+
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152755_, BlockState p_152756_, BlockEntityType<T> p_152757_) {
+        return (world, pos, state, blockEntity) -> {
+            if (blockEntity instanceof PedestalBlockEntity pedestal)
+                pedestal.tick();
+        };
     }
 }
 /*

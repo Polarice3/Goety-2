@@ -29,6 +29,9 @@ public class EnderKeeperRenderer<T extends EnderKeeper> extends MobRenderer<T, E
 
     @Override
     public void render(T pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
+        if (pEntity.isIntro() && pEntity.introTick < 5) {
+            return;
+        }
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
         if (pEntity.deathTime > MathHelper.secondsToTicks(2.5F)){
             pMatrixStack.pushPose();
