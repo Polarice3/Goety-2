@@ -12,7 +12,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "max": 1.0,
-                "min": 0.0
+                "min": -2.0
               },
               "function": "minecraft:set_count"
             },
@@ -26,6 +26,35 @@
             }
           ],
           "name": "minecraft:ender_pearl"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 1.0,
+                "min": 0.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 1.0,
+                "min": 0.0
+              },
+              "function": "minecraft:looting_enchant"
+            }
+          ],
+          "name": "minecraft:slime_ball"
         }
       ],
       "rolls": 1.0

@@ -56,12 +56,25 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:stormhound",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Lendas de criaturas energeticas que aparecem em meio a um trovão são abundantes, agora suas mandíbulas elétricas estão sob seu comando. Eles são invocados lançando $(l:focuses/wild/hunting_focus)Foco da Caça$() com um $(l:crafts/staff/storm_staff)Cajado da Tempestade$(), invocados durante tempestades, ou através de outro ritual."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_stormhound_thrall"
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:hellhound",
       "scale": 0.5
     },
     {
       "type": "patchouli:text",
-      "text": "Você já ouviu histórias e mitos de lobos da caça arrastandos e condenados para os fogos do Nether, talvez seja a hora de colocar estes lobos sob seu comando. Eles são invocados lançando $(l:focuses/wild/hunting_focus)Foco da Caça$() com um $(l:crafts/staff/nether_staff)Cajado do Nether$(), invocados em biomas do Nether, ou através de outro ritual."
+      "text": "Você já ouviu histórias e mitos de feras de caça arrastandos e condenados para as chamas do Nether, talvez seja a hora de colocar estas feras sob seu comando. Eles são invocados lançando $(l:focuses/wild/hunting_focus)Foco da Caça$() com um $(l:crafts/staff/nether_staff)Cajado do Nether$(), invocados em biomas do Nether, ou através de outro ritual."
     },
     {
       "type": "goety:ritual",

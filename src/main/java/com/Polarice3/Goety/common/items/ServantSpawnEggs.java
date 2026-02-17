@@ -171,6 +171,9 @@ public class ServantSpawnEggs {
     public static final RegistryObject<ServantSpawnEggItem> WINTER_WOLF_SPAWN_EGG = ITEMS.register("winter_wolf_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.WINTER_WOLF, 0xa8aeb2, 0xe7e7e7, egg()));
 
+    public static final RegistryObject<ServantSpawnEggItem> STORMHOUND_SPAWN_EGG = ITEMS.register("stormhound_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.STORMHOUND, 0x1a110e, 0x5e4123, egg()));
+
     public static final RegistryObject<ServantSpawnEggItem> HELLHOUND_SPAWN_EGG = ITEMS.register("hellhound_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.HELLHOUND, 0x8d2600, 0x140000, egg()));
 

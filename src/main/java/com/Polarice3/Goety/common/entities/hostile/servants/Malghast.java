@@ -7,6 +7,7 @@ import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -162,6 +163,9 @@ public class Malghast extends SummonedFlying {
             super.hurt(p_32730_, 1000.0F);
             return true;
         } else {
+            if (p_32730_.is(ModDamageSource.DISMISSED)) {
+                this.lifeSpanDamage();
+            }
             return !this.isInvulnerableTo(p_32730_) && super.hurt(p_32730_, p_32731_);
         }
     }

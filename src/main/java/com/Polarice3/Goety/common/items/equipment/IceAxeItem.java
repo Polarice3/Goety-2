@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.items.equipment;
 import com.Polarice3.Goety.utils.ItemHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
@@ -24,21 +25,23 @@ public class IceAxeItem extends DiggerItem {
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext p_41427_) {
-        Level level = p_41427_.getLevel();
-        BlockPos blockpos = p_41427_.getClickedPos();
-        Player player = p_41427_.getPlayer();
+    public InteractionResult useOn(UseOnContext context) {
+        Level level = context.getLevel();
+        BlockPos blockpos = context.getClickedPos();
+        Direction direction = context.getClickedFace();
+        Player player = context.getPlayer();
         BlockState blockstate = level.getBlockState(blockpos);
         if (player != null) {
-            ItemStack itemStack = p_41427_.getItemInHand();
-            if (blockstate.isSolidRender(level, blockpos)) {
+            ItemStack itemStack = context.getItemInHand();
+            if (direction.getAxis().isHorizontal() && (blockstate.isSolidRender(level, blockpos) || blockstate.is(BlockTags.ICE))) {
                 ItemHelper.hurtAndBreak(itemStack, 1, player);
                 double yDelta = 0.52D;
+                player.swing(context.getHand());
                 player.setDeltaMovement(player.getDeltaMovement().x(), yDelta, player.getDeltaMovement().z());
                 player.resetFallDistance();
             }
         }
-        return super.useOn(p_41427_);
+        return super.useOn(context);
     }
 
     @Override

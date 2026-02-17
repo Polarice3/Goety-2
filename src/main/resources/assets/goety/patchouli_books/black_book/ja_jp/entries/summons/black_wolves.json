@@ -56,6 +56,15 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:stormhound",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "雷鳴とともに現れる凶悪な猟犬の伝説は数多くありますが、今、その雷撃の顎を操れるのはあなたです。$(l:crafts/staff/frost_staff)嵐の杖$()を用いて$(l:focuses/wild/hunting_focus)狩猟のフォーカス$()を唱えるか、風雨にさらされた嵐の中で召喚するか、その他の儀式によって召喚されます。"
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:hellhound",
       "scale": 0.5
     },

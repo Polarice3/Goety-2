@@ -160,7 +160,7 @@ public class SkeletonSpell extends SummonSpell {
                 this.SummonSap(caster, summonedentity);
                 this.setTarget(caster, summonedentity);
                 if (worldIn.addFreshEntity(summonedentity)) {
-                    this.summonParticles(worldIn, caster, staff, summonedentity);
+                    this.uponSummon(worldIn, caster, staff, summonedentity);
                 }
                 this.summonAdvancement(caster, summonedentity);
             }

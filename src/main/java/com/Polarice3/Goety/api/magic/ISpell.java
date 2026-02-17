@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.api.magic;
 
+import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.items.curios.MagicRobeItem;
 import com.Polarice3.Goety.common.magic.SpellStat;
@@ -220,6 +221,10 @@ public interface ISpell {
         return (int) (defaultSpellCooldown() * ModAttributes.getCooldownDiscount(caster));
     }
 
+    default boolean hasCustomCooldown(LivingEntity caster, ItemStack staff, ItemStack focus, int initialCooldown) {
+        return false;
+    }
+
     @OnlyIn(Dist.CLIENT) //Had to use this in case of server issues T~T
     default HumanoidModel.ArmPose getPose(LivingEntity caster, ItemStack staff, SpellStat spellStat) {
         return SpellPoses.SPELL;
@@ -347,6 +352,10 @@ public interface ISpell {
             return mobEffectInstance.getAmplifier() + 2;
         }
         return 1;
+    }
+
+    default boolean typeStaff(ItemStack staff, SpellType spellType){
+        return staff.getItem() instanceof IWand darkWand && darkWand.getSpellType() == spellType;
     }
 
     default boolean SoulDiscount(LivingEntity caster){

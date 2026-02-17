@@ -197,9 +197,8 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
                             && !(target instanceof NeutralMob && ((this.getTrueOwner() != null && ((NeutralMob) target).getTarget() != this.getTrueOwner())))
                             && !(target instanceof IOwned && this.getTrueOwner() != null && ((IOwned) target).getTrueOwner() == this.getTrueOwner()))
                             || (target instanceof IOwned owned && owned.isHostile())
-                            || (this.getTrueOwner() instanceof Player player
-                            && ((!SEHelper.getGrudgeEntities(player).isEmpty() && SEHelper.getGrudgeEntities(player).contains(target))
-                            || (!SEHelper.getGrudgeEntityTypes(player).isEmpty() && SEHelper.getGrudgeEntityTypes(player).contains(target.getType()))));
+                            || (this.getTrueOwner() instanceof Player player && SEHelper.isGrudged(player, target))
+                            || (this.isGrudgedTowards(target));
         }
     }
 

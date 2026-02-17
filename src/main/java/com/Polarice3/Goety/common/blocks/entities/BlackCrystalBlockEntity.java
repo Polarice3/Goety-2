@@ -68,6 +68,8 @@ public class BlackCrystalBlockEntity extends OwnedBlockEntity implements IEnchan
                             boolean flag = livingEntity.getHealth() >= livingEntity.getMaxHealth() * 0.25F;
                             if (this.getTrueOwner() != null) {
                                 flag &= !MobUtil.areAllies(this.getTrueOwner(), livingEntity);
+                            } else {
+                                flag &= !this.isAllyWith(livingEntity);
                             }
                             if (flag) {
                                 this.target = livingEntity;

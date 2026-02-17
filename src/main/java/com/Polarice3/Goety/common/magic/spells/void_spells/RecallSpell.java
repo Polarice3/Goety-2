@@ -34,6 +34,11 @@ public class RecallSpell extends Spell implements ITouchSpell {
     }
 
     @Override
+    public boolean hasCustomCooldown(LivingEntity caster, ItemStack staff, ItemStack focus, int initialCooldown) {
+        return true;
+    }
+
+    @Override
     public int defaultSpellCooldown() {
         return 0;
     }

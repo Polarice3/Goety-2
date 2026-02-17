@@ -60,7 +60,7 @@ public abstract class EntityMixin {
         }
         if (player != null && entity1 instanceof LivingEntity livingEntity) {
             if (MainConfig.GoodwillFullAlly.get()) {
-                if (SEHelper.getAllyEntities(player).contains(livingEntity) || SEHelper.getAllyEntityTypes(player).contains(livingEntity.getType())) {
+                if (SEHelper.isAlly(player, livingEntity)) {
                     cir.setReturnValue(true);
                 }
             }

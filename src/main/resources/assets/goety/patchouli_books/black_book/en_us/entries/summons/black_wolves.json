@@ -56,6 +56,19 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:stormhound",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Legends of fiendish hounds that appear in a clap of thunder have been abound, now their lightning jaws are yours to command. They are summoned by casting $(l:focuses/wild/hunting_focus)Hunting spell$() with a $(l:crafts/staff/frost_staff)Storm Staff$(), summoned in an exposed storm, or through another ritual."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_stormhound_thrall"
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:hellhound",
       "scale": 0.5
     },

@@ -656,6 +656,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> OBSIDIAN_CLAYMORE_SMASH = create("obsidian_claymore_smash");
     public static final RegistryObject<SoundEvent> OBSIDIAN_CLAYMORE_WINDUP = create("obsidian_claymore_windup");
 
+    public static final RegistryObject<SoundEvent> SWORD_SHING = create("sword_shing");
+
     public static final RegistryObject<SoundEvent> BONEHEAD_HAMMER_IMPACT = create("bonehead_hammer_impact");
     public static final RegistryObject<SoundEvent> BONEHEAD_HAMMER_HIT = create("bonehead_hammer_hit");
 

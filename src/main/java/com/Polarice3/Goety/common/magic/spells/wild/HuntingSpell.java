@@ -9,9 +9,7 @@ import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.magic.SummonSpell;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.BlockFinder;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.WandUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -99,6 +97,7 @@ public class HuntingSpell extends SummonSpell {
     public boolean specialStaffs(ItemStack stack){
         return typeStaff(stack, SpellType.NECROMANCY)
                 || typeStaff(stack, SpellType.WIND)
+                || typeStaff(stack, SpellType.STORM)
                 || typeStaff(stack, SpellType.ABYSS)
                 || typeStaff(stack, SpellType.FROST)
                 || typeStaff(stack, SpellType.NETHER);
@@ -128,7 +127,9 @@ public class HuntingSpell extends SummonSpell {
                 }
                 if (this.typeStaff(staff, SpellType.NECROMANCY)){
                     summonedentity = new SkeletonWolf(ModEntityType.SKELETON_WOLF.get(), worldIn);
-                } else if (this.typeStaff(staff, SpellType.WIND) || worldIn.getBiome(blockPos).is(Tags.Biomes.IS_MOUNTAIN)){
+                } else if ((worldIn.isThundering() && worldIn.canSeeSky(blockPos)) || this.typeStaff(staff, SpellType.STORM)) {
+                    summonedentity = new Stormhound(ModEntityType.STORMHOUND.get(), worldIn);
+                } else if (worldIn.getBiome(blockPos).is(Tags.Biomes.IS_MOUNTAIN) || this.typeStaff(staff, SpellType.WIND)){
                     summonedentity = new TwilightGoat(ModEntityType.TWILIGHT_GOAT.get(), worldIn);
                 } else if (worldIn.isWaterAt(blockPos) || this.typeStaff(staff, SpellType.ABYSS)) {
                     summonedentity = new Snapper(ModEntityType.SNAPPER.get(), worldIn);
@@ -148,11 +149,30 @@ public class HuntingSpell extends SummonSpell {
                 this.buffSummon(caster, summonedentity, potency);
                 this.SummonSap(caster, summonedentity);
                 this.setTarget(caster, summonedentity);
-                worldIn.addFreshEntity(summonedentity);
+                if (worldIn.addFreshEntity(summonedentity)) {
+                    this.uponSummon(worldIn, caster, staff, summonedentity);
+                }
                 this.summonAdvancement(caster, summonedentity);
             }
             this.SummonDown(caster);
             this.playSound(worldIn, caster, ModSounds.SUMMON_SPELL.get());
         }
+    }
+
+    @Override
+    public void summonParticles(ServerLevel worldIn, LivingEntity caster, ItemStack staff, LivingEntity summoned) {
+        ColorUtil colorUtil = ColorUtil.WHITE;
+        int colorFrom = 0xffffff;
+        int colorTo = 0xffffff;
+        if (summoned.getType() == ModEntityType.BLACK_WOLF.get()) {
+            colorUtil = new ColorUtil(0x0a080a);
+            colorFrom = 0x0a080a;
+            colorTo = 0x0a080a;
+        } else if (summoned.getType() == ModEntityType.HELLHOUND.get()) {
+            colorUtil = new ColorUtil(0xffa300);
+            colorFrom = 0xffa300;
+            colorTo = 0xffff6e;
+        }
+        ServerParticleUtil.summonUndeadParticles(worldIn, summoned, colorUtil, colorFrom, colorTo);
     }
 }

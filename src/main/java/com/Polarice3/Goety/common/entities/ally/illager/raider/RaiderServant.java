@@ -688,9 +688,10 @@ public abstract class RaiderServant extends Summoned {
                         this.teleportTowards(this.getTrueOwner());
                     }
                 }
-                if (this.getTrueOwner() instanceof Player player) {
-                    if (SEHelper.getAllyEntityTypes(player).contains(EntityType.VILLAGER)){
-                        this.setRaidPos(null);
+                boolean raidFlag = this.isAllyWithType(EntityType.VILLAGER);
+                if (raidFlag) {
+                    this.setRaidPos(null);
+                    if (this.getTrueOwner() != null) {
                         if (this.getTrueOwner().distanceTo(this) > 32.0D
                                 && MobUtil.sameDimension(this, this.getTrueOwner())) {
                             this.teleportTowards(this.getTrueOwner());
@@ -1010,10 +1011,8 @@ public abstract class RaiderServant extends Summoned {
                             return InteractionResult.FAIL;
                         }
                         if (serverLevel.isVillage(blockPos)){
-                            if (this.getTrueOwner() instanceof Player player) {
-                                if (SEHelper.getAllyEntityTypes(player).contains(EntityType.VILLAGER)){
-                                    return InteractionResult.FAIL;
-                                }
+                            if (this.isAllyWithType(EntityType.VILLAGER)) {
+                                return InteractionResult.FAIL;
                             }
                             this.setRaidPos(blockPos);
                             this.setRaidDim(serverLevel.dimension());

@@ -1,22 +1,27 @@
 package com.Polarice3.Goety.client.particles;
 
 import com.Polarice3.Goety.client.render.ModRenderType;
+import com.Polarice3.Goety.utils.Easing;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
 
 public class StretchedGodRayParticle extends TextureSheetParticle {
+    private final float halfLife;
 
     public StretchedGodRayParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-        super(level, x, y + 2.0, z);
+        super(level, x, y, z);
         this.lifetime = 20;
+        this.halfLife = this.lifetime / 2.0F;
         this.gravity = 0.0F;
         this.hasPhysics = false;
         this.xd = 0.0D;
@@ -50,55 +55,45 @@ public class StretchedGodRayParticle extends TextureSheetParticle {
 
     @Override
     public void render(VertexConsumer buffer, Camera camera, float partialTicks) {
+        MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
         Vec3 camPos = camera.getPosition();
-        float x = (float)(Mth.lerp(partialTicks, this.xo, this.x) - camPos.x());
-        float y = (float)(Mth.lerp(partialTicks, this.yo, this.y) - camPos.y());
-        float z = (float)(Mth.lerp(partialTicks, this.zo, this.z) - camPos.z());
+        PoseStack stack = new PoseStack();
+        stack.pushPose();
+        stack.translate(x - camPos.x, y - camPos.y, z - camPos.z);
+        float smoothAge = (age + partialTicks);
+        PoseStack.Pose pose = stack.last();
+        if (smoothAge < lifetime) {
+            float flashProgress = Easing.IN_OUT_SINE.calculate(1 - Math.abs(smoothAge - halfLife) / halfLife);
+            float flashDistFromCenter = Mth.lerp(flashProgress, (smoothAge < halfLife ? 0.75F : 0.9F) * 0.5F, 0.65F * 0.5F);
+            float flashHeight = 5.0F * flashProgress;
 
-        Quaternionf quaternion = new Quaternionf().rotationY(-camera.getYRot() * Mth.DEG_TO_RAD);
+            int baseColor = FastColor.ARGB32.color(Math.round(Mth.lerp(flashProgress, 0.5F, 1.0F) * 255), Math.round(rCol * 255), Math.round(gCol * 255), Math.round(bCol * 255));
+            int topColor = FastColor.ARGB32.color(0, Math.round(rCol * 255), Math.round(gCol * 255), Math.round(bCol * 255));
 
-        float xSize = 1.0F;
-        float ySize = 4.0F;
+            VertexConsumer consumer = bufferSource.getBuffer(ModRenderType.DRAGON_RAYS_QUADS);
 
-        Vector3f[] vector3fs = new Vector3f[]{
-                new Vector3f(-xSize, -ySize, 0.0F),
-                new Vector3f(-xSize, ySize, 0.0F),
-                new Vector3f(xSize, ySize, 0.0F),
-                new Vector3f(xSize, -ySize, 0.0F)
-        };
+            consumer.vertex(pose.pose(), -flashDistFromCenter, 0, -flashDistFromCenter).color(baseColor).endVertex();
+            consumer.vertex(pose.pose(), -flashDistFromCenter, 0, flashDistFromCenter).color(baseColor).endVertex();
+            consumer.vertex(pose.pose(), -flashDistFromCenter, flashHeight, flashDistFromCenter).color(topColor).endVertex();
+            consumer.vertex(pose.pose(), -flashDistFromCenter, flashHeight, -flashDistFromCenter).color(topColor).endVertex();
 
-        float size = this.getQuadSize(partialTicks);
+            consumer.vertex(pose.pose(), -flashDistFromCenter, 0, -flashDistFromCenter).color(baseColor).endVertex();
+            consumer.vertex(pose.pose(), flashDistFromCenter, 0, -flashDistFromCenter).color(baseColor).endVertex();
+            consumer.vertex(pose.pose(), flashDistFromCenter, flashHeight, -flashDistFromCenter).color(topColor).endVertex();
+            consumer.vertex(pose.pose(), -flashDistFromCenter, flashHeight, -flashDistFromCenter).color(topColor).endVertex();
 
-        for(int i = 0; i < 4; ++i) {
-            Vector3f vertex = vector3fs[i];
-            vertex.rotate(quaternion);
-            vertex.mul(size);
-            vertex.add(x, y, z);
+            consumer.vertex(pose.pose(), flashDistFromCenter, 0, -flashDistFromCenter).color(baseColor).endVertex();
+            consumer.vertex(pose.pose(), flashDistFromCenter, 0, flashDistFromCenter).color(baseColor).endVertex();
+            consumer.vertex(pose.pose(), flashDistFromCenter, flashHeight, flashDistFromCenter).color(topColor).endVertex();
+            consumer.vertex(pose.pose(), flashDistFromCenter, flashHeight, -flashDistFromCenter).color(topColor).endVertex();
+
+            consumer.vertex(pose.pose(), -flashDistFromCenter, 0, flashDistFromCenter).color(baseColor).endVertex();
+            consumer.vertex(pose.pose(), flashDistFromCenter, 0, flashDistFromCenter).color(baseColor).endVertex();
+            consumer.vertex(pose.pose(), flashDistFromCenter, flashHeight, flashDistFromCenter).color(topColor).endVertex();
+            consumer.vertex(pose.pose(), -flashDistFromCenter, flashHeight, flashDistFromCenter).color(topColor).endVertex();
         }
-
-        float u0 = this.getU0();
-        float u1 = this.getU1();
-        float v0 = this.getV0();
-        float v1 = this.getV1();
-        int light = this.getLightColor(partialTicks);
-
-        buffer.vertex(vector3fs[0].x(), vector3fs[0].y(), vector3fs[0].z())
-                .uv(u1, v1).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(light).endVertex();
-        buffer.vertex(vector3fs[1].x(), vector3fs[1].y(), vector3fs[1].z())
-                .uv(u1, v0).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(light).endVertex();
-        buffer.vertex(vector3fs[2].x(), vector3fs[2].y(), vector3fs[2].z())
-                .uv(u0, v0).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(light).endVertex();
-        buffer.vertex(vector3fs[3].x(), vector3fs[3].y(), vector3fs[3].z())
-                .uv(u0, v1).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(light).endVertex();
-
-        buffer.vertex(vector3fs[3].x(), vector3fs[3].y(), vector3fs[3].z())
-                .uv(u0, v1).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(light).endVertex();
-        buffer.vertex(vector3fs[2].x(), vector3fs[2].y(), vector3fs[2].z())
-                .uv(u0, v0).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(light).endVertex();
-        buffer.vertex(vector3fs[1].x(), vector3fs[1].y(), vector3fs[1].z())
-                .uv(u1, v0).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(light).endVertex();
-        buffer.vertex(vector3fs[0].x(), vector3fs[0].y(), vector3fs[0].z())
-                .uv(u1, v1).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(light).endVertex();
+        stack.popPose();
+        bufferSource.endBatch();
     }
 
     @Override

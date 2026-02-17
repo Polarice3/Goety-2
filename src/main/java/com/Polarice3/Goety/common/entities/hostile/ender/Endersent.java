@@ -854,7 +854,9 @@ public class Endersent extends AbstractEnderling implements Enemy {
                     servant.setTrueOwner(this);
                     servant.moveTo(blockPos, 0.0F, 0.0F);
                     servant.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-                    serverLevel.addFreshEntity(servant);
+                    if (serverLevel.addFreshEntity(servant)){
+                        ServerParticleUtil.summonedParticles(serverLevel, servant, ColorUtil.WHITE, 0xFFFFFF, 0xFFFFFF);
+                    }
                 } else {
                     break;
                 }

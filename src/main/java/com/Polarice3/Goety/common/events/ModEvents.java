@@ -933,7 +933,11 @@ public class ModEvents {
                     player = player1;
                 }
                 if (player != null) {
-                    if (SEHelper.getAllyEntities(player).contains(victim) || SEHelper.getAllyEntityTypes(player).contains(victim.getType())) {
+                    if (SEHelper.isAlly(player, victim)) {
+                        event.setCanceled(true);
+                    }
+                } else if (source instanceof IOwned owned) {
+                    if (owned.isAllyWith(victim)) {
                         event.setCanceled(true);
                     }
                 }
@@ -1089,7 +1093,7 @@ public class ModEvents {
             }
             if (target.isInWaterOrRain()){
                 if (ModDamageSource.shockAttacks(event.getSource())){
-                    event.setAmount(damageAmount * 1.5F);
+                    event.setAmount(damageAmount * 2.0F);
                 }
             }
             if (ModDamageSource.freezeAttacks(event.getSource())){

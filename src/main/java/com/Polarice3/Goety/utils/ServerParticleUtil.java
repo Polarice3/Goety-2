@@ -25,18 +25,20 @@ import java.util.List;
 
 public class ServerParticleUtil {
     public static void smokeParticles(ParticleOptions pParticleData, double x, double y, double z, Level world){
-        ServerLevel serverWorld = (ServerLevel) world;
-        serverWorld.sendParticles(pParticleData, x, y, z, 1, 0, 0, 0, 0);
+        if (world instanceof ServerLevel serverWorld) {
+            serverWorld.sendParticles(pParticleData, x, y, z, 1, 0, 0, 0, 0);
+        }
     }
 
     public static void addParticles(ParticleOptions pParticleData, double x, double y, double z, double pXOffset, double pYOffset, double pZOffset, Level world){
-        ServerLevel serverWorld = (ServerLevel) world;
-        serverWorld.sendParticles(pParticleData, x, y, z, 0, pXOffset, pYOffset, pZOffset, 0.5F);
+        if (world instanceof ServerLevel serverWorld) {
+            serverWorld.sendParticles(pParticleData, x, y, z, 0, pXOffset, pYOffset, pZOffset, 0.5F);
+        }
     }
 
     public static void spawnRedstoneParticles(ServerLevel pLevel, BlockPos pPos) {
         double d0 = 0.5625D;
-        RandomSource random = pLevel.random;
+        RandomSource random = pLevel.getRandom();
 
         for(Direction direction : Direction.values()) {
             BlockPos blockpos = pPos.relative(direction);
@@ -53,9 +55,9 @@ public class ServerParticleUtil {
 
     public static void emitterParticles(ServerLevel serverWorld, Entity entity, ParticleOptions particleData){
         for(int i = 0; i < 16; ++i) {
-            double d0 = (double)(serverWorld.random.nextFloat() * 2.0F - 1.0F);
-            double d1 = (double)(serverWorld.random.nextFloat() * 2.0F - 1.0F);
-            double d2 = (double)(serverWorld.random.nextFloat() * 2.0F - 1.0F);
+            double d0 = (double)(serverWorld.getRandom().nextFloat() * 2.0F - 1.0F);
+            double d1 = (double)(serverWorld.getRandom().nextFloat() * 2.0F - 1.0F);
+            double d2 = (double)(serverWorld.getRandom().nextFloat() * 2.0F - 1.0F);
             if (!(d0 * d0 + d1 * d1 + d2 * d2 > 1.0D)) {
                 double d3 = entity.getX(d0 / 4.0D);
                 double d4 = entity.getY(0.5D + d1 / 4.0D);
@@ -87,10 +89,10 @@ public class ServerParticleUtil {
             }
             Vec3 vector3d = new Vec3(entity.position().x, entity.getEyeY(), entity.position().z);
             for(BlockPos blockpos : positions) {
-                if (serverWorld.random.nextInt(50) == 0) {
-                    float f = -0.5F + serverWorld.random.nextFloat();
-                    float f1 = -2.0F + serverWorld.random.nextFloat();
-                    float f2 = -0.5F + serverWorld.random.nextFloat();
+                if (serverWorld.getRandom().nextInt(50) == 0) {
+                    float f = -0.5F + serverWorld.getRandom().nextFloat();
+                    float f1 = -2.0F + serverWorld.getRandom().nextFloat();
+                    float f2 = -0.5F + serverWorld.getRandom().nextFloat();
                     BlockPos blockpos1 = blockpos.subtract(entity.blockPosition());
                     Vec3 vector3d1 = (new Vec3(f, f1, f2)).add(blockpos1.getX(), blockpos1.getY(), blockpos1.getZ());
                     serverWorld.sendParticles(pParticleData, vector3d.x, vector3d.y, vector3d.z, 1, vector3d1.x, vector3d1.y, vector3d1.z, 0.5F);
@@ -117,10 +119,10 @@ public class ServerParticleUtil {
             }
             Vec3 vector3d = new Vec3(pBlockPos.getX() + 0.5F, pBlockPos.getY() + 1.0F, pBlockPos.getZ() + 0.5F);
             for(BlockPos blockpos : positions) {
-                if (serverWorld.random.nextInt(50) == 0) {
-                    float f = -0.5F + serverWorld.random.nextFloat();
-                    float f1 = -2.0F + serverWorld.random.nextFloat();
-                    float f2 = -0.5F + serverWorld.random.nextFloat();
+                if (serverWorld.getRandom().nextInt(50) == 0) {
+                    float f = -0.5F + serverWorld.getRandom().nextFloat();
+                    float f1 = -2.0F + serverWorld.getRandom().nextFloat();
+                    float f2 = -0.5F + serverWorld.getRandom().nextFloat();
                     BlockPos blockpos1 = blockpos.subtract(pBlockPos);
                     Vec3 vector3d1 = (new Vec3(f, f1, f2)).add(blockpos1.getX(), blockpos1.getY(), blockpos1.getZ());
                     serverWorld.sendParticles(pParticleData, vector3d.x, vector3d.y, vector3d.z, 0, vector3d1.x, vector3d1.y, vector3d1.z, 0.5F);
@@ -159,18 +161,18 @@ public class ServerParticleUtil {
 
     public static void addParticlesAroundSelf(ServerLevel serverLevel, ParticleOptions particleOptions, Entity entity){
         for(int i = 0; i < 5; ++i) {
-            double d0 = serverLevel.random.nextGaussian() * 0.02D;
-            double d1 = serverLevel.random.nextGaussian() * 0.02D;
-            double d2 = serverLevel.random.nextGaussian() * 0.02D;
+            double d0 = serverLevel.getRandom().nextGaussian() * 0.02D;
+            double d1 = serverLevel.getRandom().nextGaussian() * 0.02D;
+            double d2 = serverLevel.getRandom().nextGaussian() * 0.02D;
             serverLevel.sendParticles(particleOptions, entity.getRandomX(1.0D), entity.getRandomY() + 1.0D, entity.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
         }
     }
 
     public static void addParticlesAroundMiddleSelf(ServerLevel serverLevel, ParticleOptions particleOptions, Entity entity){
         for(int i = 0; i < 5; ++i) {
-            double d0 = serverLevel.random.nextGaussian() * 0.02D;
-            double d1 = serverLevel.random.nextGaussian() * 0.02D;
-            double d2 = serverLevel.random.nextGaussian() * 0.02D;
+            double d0 = serverLevel.getRandom().nextGaussian() * 0.02D;
+            double d1 = serverLevel.getRandom().nextGaussian() * 0.02D;
+            double d2 = serverLevel.getRandom().nextGaussian() * 0.02D;
             serverLevel.sendParticles(particleOptions, entity.getRandomX(1.0D), entity.getRandomY(), entity.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
         }
     }
@@ -217,8 +219,8 @@ public class ServerParticleUtil {
     }
 
     public static void outerCircleParticles(ServerLevel serverLevel, ParticleOptions particleOptions, Entity entity, float radius){
-        float f6 = serverLevel.random.nextFloat() * ((float) Math.PI * 2F);
-        float f7 = Mth.sqrt(serverLevel.random.nextFloat()) * radius;
+        float f6 = serverLevel.getRandom().nextFloat() * ((float) Math.PI * 2F);
+        float f7 = Mth.sqrt(serverLevel.getRandom().nextFloat()) * radius;
         float f8 = Mth.cos(f6) * f7;
         float f9 = Mth.sin(f6) * f7;
         serverLevel.sendParticles(particleOptions, entity.getX() + (double) f8, entity.getY() + 0.5, entity.getZ() + (double) f9, 0, 0, 0, 0, 0.5F);
@@ -239,8 +241,8 @@ public class ServerParticleUtil {
     public static void circularParticles(ServerLevel serverLevel, ParticleOptions particleOptions, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, float radius){
         float f5 = (float) Math.PI * radius * radius;
         for (int k1 = 0; (float) k1 < f5; ++k1) {
-            float f6 = serverLevel.random.nextFloat() * ((float) Math.PI * 2F);
-            float f7 = Mth.sqrt(serverLevel.random.nextFloat()) * radius;
+            float f6 = serverLevel.getRandom().nextFloat() * ((float) Math.PI * 2F);
+            float f7 = Mth.sqrt(serverLevel.getRandom().nextFloat()) * radius;
             float f8 = Mth.cos(f6) * f7;
             float f9 = Mth.sin(f6) * f7;
             serverLevel.sendParticles(particleOptions, x + (double) f8, y, z + (double) f9, 0, xSpeed, ySpeed, zSpeed, 0.5F);
@@ -254,8 +256,8 @@ public class ServerParticleUtil {
     public static void circularColoredParticles(ServerLevel serverLevel, ParticleOptions particleOptions, double x, double y, double z, float radius, ColorUtil colorUtil){
         float f5 = (float) Math.PI * radius * radius;
         for (int k1 = 0; (float) k1 < f5; ++k1) {
-            float f6 = serverLevel.random.nextFloat() * ((float) Math.PI * 2F);
-            float f7 = Mth.sqrt(serverLevel.random.nextFloat()) * radius;
+            float f6 = serverLevel.getRandom().nextFloat() * ((float) Math.PI * 2F);
+            float f7 = Mth.sqrt(serverLevel.getRandom().nextFloat()) * radius;
             float f8 = Mth.cos(f6) * f7;
             float f9 = Mth.sin(f6) * f7;
             serverLevel.sendParticles(particleOptions, x + (double) f8, y, z + (double) f9, 1, colorUtil.red, colorUtil.green, colorUtil.blue, 0);
@@ -355,7 +357,14 @@ public class ServerParticleUtil {
 
     public static void summonUndeadParticles(ServerLevel serverLevel, Entity entity, ColorUtil waveColor, int from, int to) {
         ServerParticleUtil.sendGodRay(serverLevel, entity, waveColor);
-        ServerParticleUtil.windShockwaveParticle(serverLevel, waveColor, 0.1F, 0.1F, 0.1F, -1, entity.position());
+//        ServerParticleUtil.windShockwaveParticle(serverLevel, waveColor, 0.1F, 0.1F, 0.1F, -1, entity.position());
+        for (int i2 = 0; i2 < serverLevel.getRandom().nextInt(10) + 10; ++i2) {
+            sendAlwaysVisibleParticles(serverLevel, new MagicSmokeParticle.Option(from, to, 10 + serverLevel.getRandom().nextInt(10), 0.2F), entity.getRandomX(1.5D), entity.getRandomY(), entity.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
+        }
+    }
+
+    public static void summonedParticles(ServerLevel serverLevel, Entity entity, ColorUtil waveColor, int from, int to) {
+        ServerParticleUtil.sendGodRay(serverLevel, entity, waveColor);
         for (int i2 = 0; i2 < serverLevel.getRandom().nextInt(10) + 10; ++i2) {
             sendAlwaysVisibleParticles(serverLevel, new MagicSmokeParticle.Option(from, to, 10 + serverLevel.getRandom().nextInt(10), 0.2F), entity.getRandomX(1.5D), entity.getRandomY(), entity.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
         }

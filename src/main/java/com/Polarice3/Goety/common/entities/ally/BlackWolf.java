@@ -7,7 +7,6 @@ import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModMobType;
-import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
@@ -199,6 +198,8 @@ public class BlackWolf extends AnimalSummon{
             entityType = ModEntityType.WINTER_WOLF.get();
         } else if (level.dimensionType().ultraWarm() || level.getBiome(blockPos).is(BiomeTags.IS_NETHER)) {
             entityType = ModEntityType.HELLHOUND.get();
+        } else if (level.isThundering() && level.canSeeSky(blockPos)) {
+            entityType = ModEntityType.STORMHOUND.get();
         }
         return entityType;
     }
@@ -208,8 +209,6 @@ public class BlackWolf extends AnimalSummon{
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
         if (pReason == MobSpawnType.MOB_SUMMONED && this.getTrueOwner() != null){
             ServerParticleUtil.addParticlesAroundMiddleSelf(pLevel.getLevel(), ParticleTypes.LARGE_SMOKE, this);
-            ColorUtil color = new ColorUtil(0);
-            ServerParticleUtil.windParticle(pLevel.getLevel(), color, 1.0F, 0.0F, this.getId(), this.position());
         }
         return pSpawnData;
     }

@@ -111,7 +111,9 @@ public class GhastSpell extends SummonSpell {
                 float extraBlast = Mth.clamp(potency, 0, SpellConfig.MaxRadiusLevel.get()) / 2.5F;
                 ghast.setExplosionPower(ghast.getExplosionPower() + extraBlast);
                 this.setTarget(caster, ghast);
-                worldIn.addFreshEntity(ghast);
+                if (worldIn.addFreshEntity(ghast)) {
+                    this.uponSummon(worldIn, caster, staff, ghast);
+                }
                 this.summonAdvancement(caster, ghast);
             }
             this.SummonDown(caster);

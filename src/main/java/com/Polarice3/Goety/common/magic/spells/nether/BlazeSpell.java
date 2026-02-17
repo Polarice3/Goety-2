@@ -105,7 +105,9 @@ public class BlazeSpell extends SummonSpell {
                 this.buffSummon(caster, blazeServant, potency);
                 this.SummonSap(caster, blazeServant);
                 this.setTarget(caster, blazeServant);
-                worldIn.addFreshEntity(blazeServant);
+                if (worldIn.addFreshEntity(blazeServant)) {
+                    this.uponSummon(worldIn, caster, staff, blazeServant);
+                }
                 this.summonAdvancement(caster, blazeServant);
             }
             this.SummonDown(caster);

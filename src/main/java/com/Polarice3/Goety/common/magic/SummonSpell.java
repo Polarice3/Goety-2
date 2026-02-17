@@ -2,12 +2,12 @@ package com.Polarice3.Goety.common.magic;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.magic.ISummonSpell;
-import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
-import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.*;
+import com.Polarice3.Goety.utils.CuriosFinder;
+import com.Polarice3.Goety.utils.EffectsUtil;
+import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -18,7 +18,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 
 import java.util.function.Predicate;
 
@@ -121,25 +120,5 @@ public abstract class SummonSpell extends Spell implements ISummonSpell {
                 servant.moveTo(owner.position());
             }
         }
-    }
-
-    public void summonParticles(ServerLevel worldIn, LivingEntity caster, ItemStack staff, LivingEntity summoned) {
-        ColorUtil colorUtil = new ColorUtil(0x8FE6DF);
-        int colorFrom = 0x17b0e0;
-        int colorTo = 0xffffff;
-        if (staff.is(ModItems.NAMELESS_STAFF.get())) {
-            colorUtil = new ColorUtil(0xa7fc3e);
-            colorFrom = 0xa7fc3e;
-            colorTo = 0xcffc97;
-        } else if (this.typeStaff(staff, SpellType.WILD)) {
-            colorUtil = new ColorUtil(0x403b14);
-            colorFrom = 0x403b14;
-            colorTo = 0x5b4e1d;
-        } else if (this.typeStaff(staff, SpellType.NETHER)) {
-            colorUtil = new ColorUtil(0xffa300);
-            colorFrom = 0xffa300;
-            colorTo = 0xffff6e;
-        }
-        ServerParticleUtil.summonUndeadParticles(worldIn, summoned, colorUtil, colorFrom, colorTo);
     }
 }

@@ -410,7 +410,7 @@ public class EvokerServant extends SpellcasterIllagerServant{
                 if (EvokerServant.this.getTrueOwner() instanceof Player player) {
                     if (!SEHelper.hasResearch(player, ResearchList.RAVAGING)){
                         return false;
-                    } else if (SEHelper.getGrudgeEntityTypes(player).contains(EntityType.VILLAGER)) {
+                    } else if (EvokerServant.this.isGrudgedTowardsType(EntityType.VILLAGER)) {
                         List<Mob> list = EvokerServant.this.level.getNearbyEntities(Mob.class, this.ravageTargeting, EvokerServant.this, EvokerServant.this.getBoundingBox().inflate(16.0D, 4.0D, 16.0D));
                         if (list.isEmpty()) {
                             return false;

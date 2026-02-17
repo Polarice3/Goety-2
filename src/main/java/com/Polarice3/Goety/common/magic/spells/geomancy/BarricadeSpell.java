@@ -9,6 +9,7 @@ import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModAttributes;
 import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -18,6 +19,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.BlockHitResult;
@@ -27,11 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BarricadeSpell extends Spell {
-    public int trueCooldown = this.defaultSpellCooldown();
-
-    public BarricadeSpell() {
-        this.trueCooldown = this.defaultSpellCooldown();
-    }
 
     @Override
     public int defaultSoulCost() {
@@ -53,8 +50,9 @@ public class BarricadeSpell extends Spell {
         return SoundEvents.EVOKER_PREPARE_ATTACK;
     }
 
-    public int spellCooldown(LivingEntity caster){
-        return (int) (this.trueCooldown * ModAttributes.getCooldownDiscount(caster));
+    @Override
+    public boolean hasCustomCooldown(LivingEntity caster, ItemStack staff, ItemStack focus, int initialCooldown) {
+        return true;
     }
 
     @Override
@@ -76,6 +74,7 @@ public class BarricadeSpell extends Spell {
         int potency = spellStat.getPotency();
         int duration = spellStat.getDuration();
         float chance = 0.05F;
+        int cooldown = this.defaultSpellCooldown();
         if (WandUtil.enchantedFocus(caster)) {
             range += WandUtil.getRangeLevel(caster);
             potency += WandUtil.getPotencyLevel(caster);
@@ -92,14 +91,14 @@ public class BarricadeSpell extends Spell {
         }
         if (target != null){
             if (this.isShifting(caster)){
-                if (worldIn.random.nextFloat() <= chance){
+                if (worldIn.getRandom().nextFloat() <= chance){
                     WandUtil.summonQuadOffensiveTrap(caster, target, ModEntityType.TOTEMIC_BOMB.get(), potency);
-                    this.trueCooldown = this.defaultSpellCooldown() + MathHelper.secondsToTicks(3);
+                    cooldown += MathHelper.secondsToTicks(3);
                 } else {
                     int xShift = worldIn.getRandom().nextInt(-1, 1);
                     int zShift = worldIn.getRandom().nextInt(-1, 1);
                     WandUtil.summonMonolith(caster, target, ModEntityType.TOTEMIC_BOMB.get(), xShift, zShift, potency);
-                    this.trueCooldown = this.defaultSpellCooldown() + MathHelper.secondsToTicks(2);
+                    cooldown += MathHelper.secondsToTicks(2);
                 }
             } else {
                 int random = worldIn.random.nextInt(3);
@@ -118,22 +117,24 @@ public class BarricadeSpell extends Spell {
                 } else {
                     WandUtil.summonRandomPillarsTrap(caster, target, entityType, duration);
                 }
-                this.trueCooldown = this.defaultSpellCooldown();
             }
         } else if (rayTraceResult instanceof BlockHitResult){
             BlockPos blockPos = ((BlockHitResult) rayTraceResult).getBlockPos();
             if (this.isShifting(caster)){
                 if (worldIn.random.nextFloat() <= chance){
                     WandUtil.summonQuadOffensiveTrap(caster, blockPos, ModEntityType.TOTEMIC_BOMB.get(), potency);
-                    this.trueCooldown = this.defaultSpellCooldown() + MathHelper.secondsToTicks(3);
+                    cooldown += MathHelper.secondsToTicks(3);
                 } else {
                     WandUtil.summonMonolith(caster, blockPos, ModEntityType.TOTEMIC_BOMB.get(), 0, 0, potency);
-                    this.trueCooldown = this.defaultSpellCooldown() + MathHelper.secondsToTicks(2);
+                    cooldown += MathHelper.secondsToTicks(2);
                 }
             } else {
                 WandUtil.summonWallTrap(caster, blockPos, entityType, duration);
-                this.trueCooldown = this.defaultSpellCooldown();
             }
+        }
+        if (caster instanceof Player player) {
+            cooldown *= (int) ModAttributes.getCooldownDiscount(caster);
+            SEHelper.addCooldown(player, WandUtil.findFocus(caster).getItem(), cooldown);
         }
     }
 }

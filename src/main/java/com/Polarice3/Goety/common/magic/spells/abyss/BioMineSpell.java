@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.magic.spells.abyss;
 
 import com.Polarice3.Goety.api.magic.SpellType;
-import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.projectiles.BioMine;
@@ -9,9 +8,7 @@ import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.BlockFinder;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.WandUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -90,9 +87,8 @@ public class BioMineSpell extends Spell {
             bioMine.setLifeTicks(bioMine.getLifeTicks() + MathHelper.secondsToTicks(duration));
             bioMine.setExtraDuration(MathHelper.secondsToTicks(duration));
             if (worldIn.addFreshEntity(bioMine)){
-                for (int i1 = 0; i1 < worldIn.getRandom().nextInt(10) + 10; ++i1) {
-                    worldIn.sendParticles(ModParticleTypes.SUMMON.get(), bioMine.getRandomX(1.5D), bioMine.getRandomY(), bioMine.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
-                }
+                ColorUtil colorUtil = new ColorUtil(0xffffff);
+                ServerParticleUtil.summonedParticles(worldIn, bioMine, colorUtil, 0xffffff, 0xffffff);
                 worldIn.playSound(null, vec3.x, vec3.y, vec3.z, ModSounds.BIOMINE_SPAWN.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
             }
         }

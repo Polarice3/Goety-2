@@ -97,7 +97,9 @@ public class LeapingSpell extends SummonSpell {
                 this.buffSummon(caster, summonedentity, potency);
                 this.SummonSap(caster, summonedentity);
                 this.setTarget(caster, summonedentity);
-                worldIn.addFreshEntity(summonedentity);
+                if (worldIn.addFreshEntity(summonedentity)) {
+                    this.uponSummon(worldIn, caster, staff, summonedentity);
+                }
                 this.summonAdvancement(caster, summonedentity);
             }
             this.SummonDown(caster);

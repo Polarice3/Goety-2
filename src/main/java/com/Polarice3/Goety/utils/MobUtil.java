@@ -119,12 +119,8 @@ public class MobUtil {
     public static boolean areAllies(@Nullable Entity entity, @Nullable Entity entity1){
         if (entity != null && entity1 != null) {
             return entity.isAlliedTo(entity1) || entity1.isAlliedTo(entity) || entity == entity1
-                    || (entity instanceof Player player && entity1 instanceof LivingEntity living
-                    && (SEHelper.getAllyEntities(player).contains(living)
-                    || SEHelper.getAllyEntityTypes(player).contains(living.getType())))
-                    || (entity1 instanceof Player player1 && entity instanceof LivingEntity living1
-                    && (SEHelper.getAllyEntities(player1).contains(living1)
-                    || SEHelper.getAllyEntityTypes(player1).contains(living1.getType())));
+                    || (entity instanceof Player player && entity1 instanceof LivingEntity living && SEHelper.isAlly(player, living))
+                    || (entity1 instanceof Player player1 && entity instanceof LivingEntity living1 && SEHelper.isAlly(player1, living1));
         } else {
             return false;
         }
@@ -1434,9 +1430,9 @@ public class MobUtil {
                 || (attacker instanceof IOwned ownedAttacker && ownedAttacker.isHostile())){
             return target instanceof Player player && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player);
         } else if (target instanceof NeutralMob neutralMob) {
-            return (owner instanceof Player player
-                    && ((!SEHelper.getGrudgeEntities(player).isEmpty() && SEHelper.getGrudgeEntities(player).contains(target))
-                    || (!SEHelper.getGrudgeEntityTypes(player).isEmpty() && SEHelper.getGrudgeEntityTypes(player).contains(target.getType()))))
+            return (owner instanceof Player player && SEHelper.isGrudged(player, target))
+                    || (owner instanceof IOwned owned && owned.isGrudgedTowards(target))
+                    || (attacker instanceof IOwned owned2 && owned2.isGrudgedTowards(target))
                     || (owner != null && neutralMob.getTarget() == owner) || (neutralMob.getTarget() == attacker);
         } else {
             return (((target instanceof Enemy && !(target instanceof IOwned)) || (target instanceof IOwned ownedTarget && ownedTarget.isHostile()))
@@ -1454,9 +1450,9 @@ public class MobUtil {
                     && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.ServantsAttackCreepers.get())
                     && !(target instanceof AbstractPiglin piglin && ((owner != null && piglin.getTarget() != owner) || piglin.getTarget() != attacker))
                     && !(target instanceof IOwned ownedTarget && (owner != null && ownedTarget.getTrueOwner() == owner))
-                    || (owner instanceof Player player
-                    && ((!SEHelper.getGrudgeEntities(player).isEmpty() && SEHelper.getGrudgeEntities(player).contains(target))
-                    || (!SEHelper.getGrudgeEntityTypes(player).isEmpty() && SEHelper.getGrudgeEntityTypes(player).contains(target.getType())))));
+                    || (owner instanceof Player player && (SEHelper.isGrudged(player, target)))
+                    || (owner instanceof IOwned owned && owned.isGrudgedTowards(target))
+                    || (attacker instanceof IOwned owned2 && owned2.isGrudgedTowards(target)));
         }
     }
 

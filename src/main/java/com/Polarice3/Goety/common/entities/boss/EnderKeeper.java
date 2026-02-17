@@ -27,6 +27,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -38,7 +41,9 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -53,6 +58,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
@@ -75,6 +81,7 @@ import java.util.Objects;
 public class EnderKeeper extends AbstractEnderling implements Enemy {
     protected static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(EnderKeeper.class, EntityDataSerializers.INT);
     private final ModServerBossInfo bossInfo;
+    public static String INTRO = "intro";
     public static String IDLE = "idle";
     public static String SWING = "swing";
     public static String SWING_COMBO = "swing_combo";
@@ -92,6 +99,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
     public static String SLICE_1 = "slice_1";
     public static String SLICE_2 = "slice_2";
     public static String DEATH = "death";
+    public int introTick;
     public int attackTick;
     public int sliceAmount = 0;
     public int swingCool = 0;
@@ -111,6 +119,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
     public int deathTime;
     public float deathRotation = 0.0F;
     private BlockPos lastSafePosition;
+    public AnimationState introAnimationState = new AnimationState();
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState swingAnimationState = new AnimationState();
     public AnimationState swingComboAnimationState = new AnimationState();
@@ -555,6 +564,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+        compound.putInt("IntroTick", this.introTick);
         compound.putInt("SwingCool", this.swingCool);
         compound.putInt("SwingComboCool", this.swingComboCool);
         compound.putInt("RapidSwingCool", this.rapidSwingCool);
@@ -572,6 +582,9 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        if (compound.contains("IntroTick")) {
+            this.introTick = compound.getInt("IntroTick");
+        }
         if (compound.contains("SwingCool")) {
             this.swingCool = compound.getInt("SwingCool");
         }
@@ -623,6 +636,9 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
 
     @Override
     public boolean hurt(DamageSource source, float damage) {
+        if (this.isIntro() && !source.is(DamageTypes.FELL_OUT_OF_WORLD)){
+            return false;
+        }
         double range = MobUtil.calculateRange(this, source);
         if (range > Mth.square(AttributesConfig.EnderKeeperHurtRange.get()) && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
             if (source.getEntity() != null && !MobUtil.areAllies(this, source.getEntity())) {
@@ -699,6 +715,8 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
             return 15;
         } else if (Objects.equals(animation, LIFE_STEAL)){
             return 16;
+        } else if (Objects.equals(animation, INTRO)){
+            return 17;
         }  else {
             return 0;
         }
@@ -706,6 +724,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
 
     public List<AnimationState> getAnimations(){
         List<AnimationState> animationStates = new ArrayList<>();
+        animationStates.add(this.introAnimationState);
         animationStates.add(this.idleAnimationState);
         animationStates.add(this.swingAnimationState);
         animationStates.add(this.swingComboAnimationState);
@@ -758,6 +777,10 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
                     case 0:
                     case 14:
                         this.stopMostAnimation(this.idleAnimationState);
+                        break;
+                    case 17:
+                        this.stopMostAnimation(this.introAnimationState);
+                        this.introAnimationState.start(this.tickCount);
                         break;
                     case 1:
                         this.stopMostAnimation(this.swingAnimationState);
@@ -922,6 +945,27 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
         return position;
     }
 
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @org.jetbrains.annotations.Nullable SpawnGroupData pSpawnData, @org.jetbrains.annotations.Nullable CompoundTag pDataTag) {
+        if (pReason == MobSpawnType.MOB_SUMMONED){
+            this.setPose(Pose.EMERGING);
+        }
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+    }
+
+    protected boolean isImmobile() {
+        return super.isImmobile() || this.isIntro();
+    }
+
+    public boolean hasLineOfSight(Entity p_149755_) {
+        return !this.isIntro() && super.hasLineOfSight(p_149755_);
+    }
+
+    public boolean isIntro() {
+        return this.hasPose(Pose.EMERGING);
+    }
+
     @Override
     public void die(DamageSource pCause) {
         this.deathRotation = this.getYRot();
@@ -988,14 +1032,38 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
             this.setYRot(this.deathRotation);
             this.setYBodyRot(this.deathRotation);
         }
-        MiscCapHelper.updateMobTarget(this);
-        if (this.level.isClientSide) {
-            this.idleAnimationState.animateWhen(!this.walkAnimation.isMoving() && this.isCurrentAnimation(IDLE) && !this.isDeadOrDying(), this.tickCount);
-            if (this.shakeSword > 0) {
-                --this.shakeSword;
+        if (this.hasPose(Pose.EMERGING)){
+            ++this.introTick;
+            if (this.introTick == 1) {
+                this.playSound(ModSounds.REAPER_FLY.get(), 2.0F, 0.75F);
             }
-            if (!this.isDeadOrDying() && !this.isHiding()) {
-                this.level.addParticle(ParticleTypes.LARGE_SMOKE, this.getX(), this.getRandomY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+            if (this.introTick == 30) {
+                this.playSound(ModSounds.TOWER_WRAITH_FLY.get(), 2.0F, 0.75F);
+            }
+            if (this.introTick == 60) {
+                this.playSound(ModSounds.OBSIDIAN_CLAYMORE_SWING.get(), 2.0F, this.getVoicePitch() - 0.5F);
+            }
+            if (this.introTick == 85) {
+                this.playSound(SoundEvents.PLAYER_ATTACK_CRIT, 2.0F, this.getVoicePitch());
+                this.playSound(ModSounds.SWORD_SHING.get(), 3.0F, this.getVoicePitch());
+            }
+            if (this.introTick > MathHelper.secondsToTicks(4.5F)){
+                this.setPose(Pose.STANDING);
+                this.setAnimationState(IDLE);
+            } else {
+                this.setAnimationState(INTRO);
+            }
+        }
+        if (!this.isIntro()) {
+            MiscCapHelper.updateMobTarget(this);
+            if (this.level.isClientSide) {
+                this.idleAnimationState.animateWhen(!this.walkAnimation.isMoving() && this.isCurrentAnimation(IDLE) && !this.isDeadOrDying(), this.tickCount);
+                if (this.shakeSword > 0) {
+                    --this.shakeSword;
+                }
+                if (!this.isDeadOrDying() && !this.isHiding()) {
+                    this.level.addParticle(ParticleTypes.LARGE_SMOKE, this.getX(), this.getRandomY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+                }
             }
         }
     }
@@ -1726,6 +1794,17 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
             this.shakeSword = 5;
         } else {
             super.handleEntityEvent(pByte);
+        }
+    }
+
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+        return new ClientboundAddEntityPacket(this, this.hasPose(Pose.EMERGING) ? 1 : 0);
+    }
+
+    public void recreateFromPacket(ClientboundAddEntityPacket p_219420_) {
+        super.recreateFromPacket(p_219420_);
+        if (p_219420_.getData() == 1) {
+            this.setPose(Pose.EMERGING);
         }
     }
 
