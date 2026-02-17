@@ -1,10 +1,7 @@
 package com.Polarice3.Goety.common.entities.boss;
 
 import com.Polarice3.Goety.api.entities.IOwned;
-import com.Polarice3.Goety.client.particles.AbsorbTrailParticleOption;
-import com.Polarice3.Goety.client.particles.AoEParticleOption;
-import com.Polarice3.Goety.client.particles.GatherTrailParticle;
-import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.client.particles.*;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -102,13 +99,14 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.ForgeEventFactory;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class Apostle extends SpellCastingCultist implements RangedAttackMob {
+public class Apostle extends SpellCastingCultist implements RangedAttackMob, ShootIndicatorOwner {
     public static int RISEN = 0;
     public static int ABHORRENT = 1;
     public static int DEFILER = 2;
@@ -138,6 +136,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     private boolean regen;
     private boolean killedPlayer;
     private MobEffect arrowEffect;
+    private float clientShootIndicatorProgress, oClientShootIndicatorProgress;
+    private Vec3 clientShootIndicatorEnd = Vec3.ZERO, oClientShootIndicatorEnd = Vec3.ZERO;
     private static final UUID SPEED_MODIFIER_CASTING_UUID = UUID.fromString("5CD17E52-A79A-43D3-A529-90FDE04B181E");
     private static final AttributeModifier SPEED_MODIFIER_CASTING = new AttributeModifier(SPEED_MODIFIER_CASTING_UUID, "Casting speed penalty", -1.0D, AttributeModifier.Operation.ADDITION);
     private static final UUID SPEED_MODIFIER_MONOLITH_UUID = UUID.fromString("ba4294fc-8f77-44aa-89cc-96a28c263fa1");
@@ -145,6 +145,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     private static final UUID WEAK_ARMOR = ModUUIDUtil.createUUID("entity.goety.apostle.armor");
     private static final AttributeModifier WEAK_ARMOR_MODIFIER = new AttributeModifier(WEAK_ARMOR, "Weaker Armor out of Nether", -0.5D, AttributeModifier.Operation.MULTIPLY_TOTAL);
     protected static final EntityDataAccessor<Byte> BOSS_FLAGS = SynchedEntityData.defineId(Apostle.class, EntityDataSerializers.BYTE);
+    protected static final EntityDataAccessor<Vector3f> SHOOT_INDICATOR_END = SynchedEntityData.defineId(Apostle.class, EntityDataSerializers.VECTOR3);
+    protected static final EntityDataAccessor<Float> SHOOT_INDICATOR_PROGRESS = SynchedEntityData.defineId(Apostle.class, EntityDataSerializers.FLOAT);
     private final ModServerBossInfo bossInfo;
     public Predicate<Owned> ZOMBIE_MINIONS = (owned) -> {
         return owned instanceof ZPiglinServant && owned.getTrueOwner() == this;
@@ -235,6 +237,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(BOSS_FLAGS, (byte)0);
+        this.entityData.define(SHOOT_INDICATOR_END, new Vector3f());
+        this.entityData.define(SHOOT_INDICATOR_PROGRESS, -1F);
     }
 
     private boolean getBossFlag(int mask) {
@@ -1124,6 +1128,10 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                     this.level.addAlwaysVisibleParticle(ParticleTypes.LARGE_SMOKE, this.getX(), this.getY() + 0.5, this.getZ(), d0, d1, d2);
                 }
             }
+            oClientShootIndicatorProgress = clientShootIndicatorProgress;
+            oClientShootIndicatorEnd = clientShootIndicatorEnd;
+            clientShootIndicatorProgress = entityData.get(SHOOT_INDICATOR_PROGRESS);
+            clientShootIndicatorEnd = new Vec3(entityData.get(SHOOT_INDICATOR_END));
         }
         if (!this.level.isClientSide){
             this.addTitleEffect();
@@ -1176,6 +1184,22 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 }
             } else {
                 this.netherSpreaderUtil.clear();
+            }
+            // shoot indicator
+            Vec3 targetPos = getViewVector(1.0F);
+            if (getTarget() != null) {
+                LivingEntity target = getTarget();
+                targetPos = new Vec3(target.getX(), target.getY(0.5F), target.getZ());
+            }
+            entityData.set(SHOOT_INDICATOR_END, targetPos.toVector3f());
+            if (MobsConfig.ApostleShootIndicator.get() && isUsingItem() && getTicksUsingItem() >= 10 && getTicksUsingItem() <= 20) {
+                entityData.set(SHOOT_INDICATOR_PROGRESS, (getTicksUsingItem() - 10F) / 10F);
+                if (getTicksUsingItem() == 10 && level() instanceof ServerLevel serverLevel) {
+                    ColorUtil colorUtil = new ColorUtil(ChatFormatting.DARK_RED);
+                    serverLevel.sendParticles(new ShootIndicatorParticleOption(getId()), getX(), getY(), getZ(), 0, colorUtil.red, colorUtil.green, colorUtil.blue, 1.0F);
+                }
+            } else {
+                entityData.set(SHOOT_INDICATOR_PROGRESS, -1F);
             }
         }
         if (this.isSettingUpSecond()){
@@ -1655,6 +1679,30 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         }
         this.resetCoolDown();
         this.setSpellCycle(0);
+    }
+
+    @Override
+    public Vec3 getShootIndicatorStart(float partialTicks) {
+        return new Vec3(
+                Mth.lerp(partialTicks, xo, getX()),
+                Mth.lerp(partialTicks, yo, getY()) + getEyeHeight(),
+                Mth.lerp(partialTicks, zo, getZ())
+        );
+    }
+
+    @Override
+    public Vec3 getShootIndicatorEnd(float partialTicks) {
+        return Vec3Util.lerp(partialTicks, oClientShootIndicatorEnd, clientShootIndicatorEnd);
+    }
+
+    @Override
+    public float getShootIndicatorProgress(float partialTicks) {
+        return Mth.lerp(partialTicks, oClientShootIndicatorProgress, clientShootIndicatorProgress);
+    }
+
+    @Override
+    public boolean shouldUpdateShootIndicator() {
+        return entityData.get(SHOOT_INDICATOR_PROGRESS) >= 0;
     }
 
     class CastingSpellGoal extends CastingASpellGoal {
@@ -2342,7 +2390,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                         if (this.mob.aboutToShoot()) {
                             this.mob.getNavigation().stop();
                             this.mob.getMoveControl().strafe(0.0F, 0.0F);
-                            this.shootIndicator(false);
                         }
                         if (i >= 20) {
                             this.mob.stopUsingItem();
@@ -2355,7 +2402,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                                 attackIntervalMin = 5;
                             }
                             this.attackTime = attackIntervalMin;
-                            this.shootIndicator(true);
                         }
                     }
                 } else if (this.mob.toTeleportTime <= 0) {
@@ -2369,35 +2415,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
         protected boolean HaveBow() {
             return this.mob.isHolding(item -> item.getItem() instanceof BowItem);
-        }
-
-        protected void shootIndicator(boolean white) {
-            Vec3 startPos = new Vec3(
-                    this.mob.getX(),
-                    this.mob.getEyeY() - (double)0.1F,
-                    this.mob.getZ()
-            );
-
-            Vec3 targetPos = this.mob.getViewVector(1.0F);
-            if (this.mob.getTarget() != null) {
-                LivingEntity target = this.mob.getTarget();
-                targetPos = new Vec3(target.getX(), target.getY(0.5F), target.getZ());
-            }
-
-            Vec3 direction = targetPos.subtract(startPos).normalize();
-
-            if (MobsConfig.ApostleShootIndicator.get()) {
-                if (this.mob.level instanceof ServerLevel serverLevel) {
-                    for (int i = 0; i <= 32; i++) {
-                        Vec3 particlePos = startPos.add(direction.scale(i));
-                        ColorUtil colorUtil = new ColorUtil(ChatFormatting.DARK_RED);
-                        if (white) {
-                            colorUtil = ColorUtil.WHITE;
-                        }
-                        serverLevel.sendParticles(ModParticleTypes.ROLLING_TARGET.get(), particlePos.x, particlePos.y, particlePos.z, 0, colorUtil.red, colorUtil.green, colorUtil.blue, 1.0F);
-                    }
-                }
-            }
         }
     }
 

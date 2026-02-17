@@ -2,6 +2,7 @@ package com.Polarice3.Goety.utils;
 
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 
@@ -59,6 +60,10 @@ public class Vec3Util {
 
     public static Vec3 add(Vec3 vec3, double amount){
         return vec3.add(amount, amount, amount);
+    }
+
+    public static Vec3 lerp(float progress, Vec3 start, Vec3 end) {
+        return new Vec3(Mth.lerp(progress, start.x(), end.x()), Mth.lerp(progress, start.y(), end.y()), Mth.lerp(progress, start.z(), end.z()));
     }
 
     public static Vec3 readVec3(CompoundTag compoundTag) {

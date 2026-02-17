@@ -84,6 +84,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation SNARELING = register("snareling");
     public static final ModelLayerLocation ENDERSENT = register("endersent");
     public static final ModelLayerLocation ENDER_KEEPER = register("ender_keeper");
+    public static final ModelLayerLocation ENDER_KEEPER_SHADOW = register("ender_keeper", "shadow");
     public static final ModelLayerLocation ZPIGLIN_SERVANT = register("zpiglin_servant");
     public static final ModelLayerLocation MALGHAST = register("malghast");
     public static final ModelLayerLocation INFERNO = register("inferno");

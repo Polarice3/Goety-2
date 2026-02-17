@@ -325,6 +325,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.SNARELING, SnarelingModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ENDERSENT, EndersentModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ENDER_KEEPER, EnderKeeperModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.ENDER_KEEPER_SHADOW, EnderKeeperModel::createShadowLayer);
         event.registerLayerDefinition(ModModelLayer.ZPIGLIN_SERVANT, ZPiglinModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MALGHAST, ModGhastModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.INFERNO, InfernoModel::createBodyLayer);

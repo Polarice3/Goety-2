@@ -4,8 +4,10 @@ import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.DustCloudParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.client.particles.ShootIndicatorParticleOption;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.Hellfire;
+import com.Polarice3.Goety.common.entities.util.ShootIndicatorOwner;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
@@ -19,6 +21,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -36,9 +39,13 @@ import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
 
-public class Damned extends Owned implements Enemy {
+public class Damned extends Owned implements Enemy, ShootIndicatorOwner {
     private static final EntityDataAccessor<Boolean> DATA_CHARGING_STATE = SynchedEntityData.defineId(Damned.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_HUMAN = SynchedEntityData.defineId(Damned.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Vector3f> SHOOT_INDICATOR_END = SynchedEntityData.defineId(Damned.class, EntityDataSerializers.VECTOR3);
+    protected static final EntityDataAccessor<Float> SHOOT_INDICATOR_PROGRESS = SynchedEntityData.defineId(Damned.class, EntityDataSerializers.FLOAT);
+    private float clientShootIndicatorProgress, oClientShootIndicatorProgress;
+    private Vec3 clientShootIndicatorEnd = Vec3.ZERO, oClientShootIndicatorEnd = Vec3.ZERO;
     private Vec3 chargePos;
     private int chargeTime;
 
@@ -59,6 +66,8 @@ public class Damned extends Owned implements Enemy {
         super.defineSynchedData();
         this.entityData.define(DATA_CHARGING_STATE, false);
         this.entityData.define(DATA_HUMAN, false);
+        this.entityData.define(SHOOT_INDICATOR_END, new Vector3f());
+        this.entityData.define(SHOOT_INDICATOR_PROGRESS, -1F);
     }
 
     @Override
@@ -117,11 +126,6 @@ public class Damned extends Owned implements Enemy {
         if (this.getTarget() != null) {
             MobUtil.instaLook(this, this.getTarget());
             ++this.chargeTime;
-            if (MobsConfig.DamnedShootIndicator.get()) {
-                if (this.chargeTime >= 40 && this.chargeTime < 50) {
-                    this.shootIndicator();
-                }
-            }
             if (this.chargeTime == 50) {
                 LivingEntity target = this.getTarget();
                 double dx = this.getX() - target.getX();
@@ -147,30 +151,53 @@ public class Damned extends Owned implements Enemy {
                 }
             }
         }
+        // shoot indicator
+        if (!level().isClientSide) {
+            Vec3 targetPos = getViewVector(1.0F);
+            if (getTarget() != null) {
+                LivingEntity target = getTarget();
+                targetPos = new Vec3(target.getX(), target.getY(0.5F), target.getZ());
+            }
+            entityData.set(SHOOT_INDICATOR_END, targetPos.toVector3f());
+            if (MobsConfig.DamnedShootIndicator.get() && this.chargeTime >= 40 && this.chargeTime <= 50) {
+                entityData.set(SHOOT_INDICATOR_PROGRESS, (chargeTime - 40F) / 10F);
+                if (this.chargeTime == 40 && level() instanceof ServerLevel serverLevel) {
+                    ColorUtil colorUtil = new ColorUtil(ChatFormatting.GOLD);
+                    serverLevel.sendParticles(new ShootIndicatorParticleOption(getId()), getX(), getY(), getZ(), 0, colorUtil.red, colorUtil.green, colorUtil.blue, 1.0F);
+                }
+            } else {
+                entityData.set(SHOOT_INDICATOR_PROGRESS, -1F);
+            }
+        } else {
+            oClientShootIndicatorProgress = clientShootIndicatorProgress;
+            oClientShootIndicatorEnd = clientShootIndicatorEnd;
+            clientShootIndicatorProgress = entityData.get(SHOOT_INDICATOR_PROGRESS);
+            clientShootIndicatorEnd = new Vec3(entityData.get(SHOOT_INDICATOR_END));
+        }
     }
 
-    protected void shootIndicator() {
-        Vec3 startPos = new Vec3(
-                this.getX(),
-                this.getY(0.5F),
-                this.getZ()
+    @Override
+    public Vec3 getShootIndicatorStart(float partialTicks) {
+        return new Vec3(
+                Mth.lerp(partialTicks, xo, getX()),
+                Mth.lerp(partialTicks, yo, getY()) + getBbHeight() / 2,
+                Mth.lerp(partialTicks, zo, getZ())
         );
+    }
 
-        Vec3 targetPos = this.getViewVector(1.0F);
-        if (this.getTarget() != null) {
-            LivingEntity target = this.getTarget();
-            targetPos = new Vec3(target.getX(), target.getY(0.5F), target.getZ());
-        }
+    @Override
+    public Vec3 getShootIndicatorEnd(float partialTicks) {
+        return Vec3Util.lerp(partialTicks, oClientShootIndicatorEnd, clientShootIndicatorEnd);
+    }
 
-        Vec3 direction = targetPos.subtract(startPos).normalize();
+    @Override
+    public float getShootIndicatorProgress(float partialTicks) {
+        return Mth.lerp(partialTicks, oClientShootIndicatorProgress, clientShootIndicatorProgress);
+    }
 
-        if (this.level instanceof ServerLevel serverLevel) {
-            for (int i = 0; i <= 32; i++) {
-                Vec3 particlePos = startPos.add(direction.scale(i));
-                ColorUtil colorUtil = new ColorUtil(ChatFormatting.GOLD);
-                serverLevel.sendParticles(ModParticleTypes.ROLLING_TARGET.get(), particlePos.x, particlePos.y, particlePos.z, 0, colorUtil.red, colorUtil.green, colorUtil.blue, 1.0F);
-            }
-        }
+    @Override
+    public boolean shouldUpdateShootIndicator() {
+        return entityData.get(SHOOT_INDICATOR_PROGRESS) >= 0;
     }
 
     @Override

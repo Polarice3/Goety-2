@@ -498,4 +498,12 @@ public class ModParticleTypes {
                     return SpirallingParticleOption.CODEC;
                 }
             });
+
+    public static final RegistryObject<ParticleType<ShootIndicatorParticleOption>> SHOOT_INDICATOR = PARTICLE_TYPES.register("shoot_indicator",
+            () -> new ParticleType<>(false, ShootIndicatorParticleOption.DESERIALIZER) {
+                @Override
+                public Codec<ShootIndicatorParticleOption> codec() {
+                    return ShootIndicatorParticleOption.CODEC;
+                }
+            });
 }
