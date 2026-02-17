@@ -21,6 +21,7 @@ import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -137,6 +138,29 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
     public AnimationState slice2AnimationState = new AnimationState();
     public AnimationState deathAnimationState = new AnimationState();
 
+    public final List<Pair<Vec3, ModelSnapshot>> trailSnapshots = new ArrayList<>();
+    public float lastTrailTick = 0;
+
+    public boolean shouldAddTrailSnapshot() {
+        return Mth.degreesDifferenceAbs(getYRot(), yBodyRot) < 45
+                && Mth.degreesDifferenceAbs(getYRot(), yBodyRotO) < 45
+                && Mth.degreesDifferenceAbs(yBodyRot, yBodyRotO) < 45
+                && !isHiding()
+                && (swingAnimationState.isStarted()
+                || swingComboAnimationState.isStarted()
+                || swingComboTripleAnimationState.isStarted()
+                || rapidSwingAnimationState.isStarted()
+                || chargeAnimationState.isStarted()
+                || spell1AnimationState.isStarted()
+                || spell2AnimationState.isStarted()
+                || spell3AnimationState.isStarted()
+                || groundPoundAnimationState.isStarted()
+                || groundPoundSpinAnimationState.isStarted()
+                || backAwayAnimationState.isStarted()
+                || slice1AnimationState.isStarted()
+                || slice2AnimationState.isStarted());
+    }
+
     public EnderKeeper(EntityType<? extends AbstractEnderling> p_33002_, Level p_33003_) {
         super(p_33002_, p_33003_);
         this.setHostile(true);
@@ -144,6 +168,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
         this.setMaxUpStep(2.0F);
         this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
+        this.noCulling = true;
     }
 
     @Override

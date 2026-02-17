@@ -134,6 +134,23 @@ public class ModRenderType {
         return HOLE;
     }
 
+    protected static final RenderStateShard.ShaderStateShard RENDERTYPE_ENTITY_TRANSLUCENT_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getRendertypeEntityTranslucentShader);
+
+    public static final Function<ResourceLocation, RenderType> ENTITY_TRANSLUCENT_NO_DEPTH = Util.memoize(location ->
+            RenderType.create(source("entity_translucent_no_depth"), DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, RenderType.TRANSIENT_BUFFER_SIZE, true, true, RenderType.CompositeState.builder()
+                    .setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
+                    .setTextureState(new RenderStateShard.TextureStateShard(location, false, false))
+                    .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+                    .setCullState(NO_CULL)
+                    .setWriteMaskState(COLOR_WRITE)
+                    .setLightmapState(LIGHTMAP)
+                    .setOverlayState(OVERLAY)
+                    .createCompositeState(true)));
+
+    public static RenderType entityTranslucentNoDepth(ResourceLocation location) {
+        return ENTITY_TRANSLUCENT_NO_DEPTH.apply(location);
+    }
+
     protected static final RenderStateShard.DepthTestStateShard LEQUAL_DEPTH_TEST = new RenderStateShard.DepthTestStateShard("<=", 515);
 
     public static RenderType getWaterStream(ResourceLocation resourceLocation) {
