@@ -138,7 +138,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
     public AnimationState slice2AnimationState = new AnimationState();
     public AnimationState deathAnimationState = new AnimationState();
 
-    public final List<Pair<Vec3, ModelSnapshot>> trailSnapshots = new ArrayList<>();
+    public final List<Pair<Vec3, ModelSnapshot>> trailSnapshots = new ArrayList<>(50);
     public float lastTrailTick = 0;
 
     public boolean shouldAddTrailSnapshot() {

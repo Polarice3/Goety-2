@@ -11,7 +11,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Axis;
-import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -30,8 +29,10 @@ public class EnderKeeperRenderer<T extends EnderKeeper> extends MobRenderer<T, E
     protected static final ResourceLocation TEXTURE_LOCATION = Goety.location("textures/entity/enderling/keeper/keeper.png");
     protected static final ResourceLocation DEATH = Goety.location("textures/entity/enderling/keeper/keeper_death.png");
 
-    private static final float SNAPSHOT_INTERVAL = 1.0F;
-    private static final int SNAPSHOT_LIFESPAN = 8;
+    private static final RenderType TRAIL_RENDER_TYPE = ModRenderType.entityTranslucentNoDepth(TEXTURE_LOCATION);
+
+    private static final float SNAPSHOT_INTERVAL = 1.5F;
+    private static final float SNAPSHOT_LIFESPAN = 4.5F;
     private final EnderKeeperModel<T> shadowModel;
 
     public EnderKeeperRenderer(EntityRendererProvider.Context p_i47208_1_) {
@@ -71,36 +72,36 @@ public class EnderKeeperRenderer<T extends EnderKeeper> extends MobRenderer<T, E
             pMatrixStack.popPose();
         }
         if (pEntity.isAlive()) {
-            Vec3 currentPos = new Vec3(
-                    Mth.lerp(pPartialTicks, pEntity.xo, pEntity.getX()),
-                    Mth.lerp(pPartialTicks, pEntity.yo, pEntity.getY()),
-                    Mth.lerp(pPartialTicks, pEntity.zo, pEntity.getZ())
-            );
+            double currentX = Mth.lerp(pPartialTicks, pEntity.xo, pEntity.getX());
+            double currentY = Mth.lerp(pPartialTicks, pEntity.yo, pEntity.getY());
+            double currentZ = Mth.lerp(pPartialTicks, pEntity.zo, pEntity.getZ());
             float currentTick = getBob(pEntity, pPartialTicks);
-            if (pEntity.shouldAddTrailSnapshot() && (pEntity.trailSnapshots.isEmpty() || currentTick - pEntity.lastTrailTick > SNAPSHOT_INTERVAL)) {
-                Map<String, ModelPartPose> snapshot = ModelUtil.saveModelSnapshot(getModel().allPartNames, getModel()::getAnyDescendantWithName);
-                pEntity.trailSnapshots.add(0, Pair.of(currentPos, new ModelSnapshot(0, Mth.rotLerp(pPartialTicks, pEntity.yBodyRotO, pEntity.yBodyRot), currentTick, snapshot)));
-                pEntity.lastTrailTick = currentTick;
+            if (pEntity.trailSnapshots.isEmpty() || currentTick - pEntity.lastTrailTick > SNAPSHOT_INTERVAL) {
+                if (pEntity.shouldAddTrailSnapshot()) {
+                    Map<String, ModelPartPose> snapshot = ModelUtil.saveModelSnapshot(getModel().allPartNames, getModel()::getAnyDescendantWithName);
+                    pEntity.trailSnapshots.add(0, Pair.of(new Vec3(currentX, currentY, currentZ), new ModelSnapshot(0, Mth.rotLerp(pPartialTicks, pEntity.yBodyRotO, pEntity.yBodyRot), currentTick, snapshot)));
+                    pEntity.lastTrailTick = currentTick;
+                }
+                pEntity.trailSnapshots.removeIf(p -> currentTick - p.getSecond().timestamp() > SNAPSHOT_LIFESPAN);
+                while (pEntity.trailSnapshots.size() > 32) {
+                    pEntity.trailSnapshots.remove(pEntity.trailSnapshots.size() - 1);
+                }
             }
-            pEntity.trailSnapshots.removeIf(p -> currentTick - p.getSecond().timestamp() > SNAPSHOT_LIFESPAN);
-            while (pEntity.trailSnapshots.size() > 32) {
-                pEntity.trailSnapshots.remove(pEntity.trailSnapshots.size() - 1);
-            }
-            shadowModel.root().getAllParts().forEach(ModelPart::resetPose);
             for (int i = 0; i < pEntity.trailSnapshots.size(); i++) {
                 pMatrixStack.pushPose();
                 Vec3 trailPos = pEntity.trailSnapshots.get(i).getFirst();
                 ModelSnapshot snapshot = pEntity.trailSnapshots.get(i).getSecond();
                 ModelUtil.loadPoseFromSnapshot(snapshot.poses(), shadowModel::getAnyDescendantWithName);
-                pMatrixStack.translate(trailPos.x - currentPos.x, trailPos.y - currentPos.y, trailPos.z - currentPos.z);
+                pMatrixStack.translate(trailPos.x - currentX, trailPos.y - currentY, trailPos.z - currentZ);
                 pMatrixStack.mulPose(Axis.YP.rotationDegrees(180.0F - snapshot.yRot()));
                 pMatrixStack.scale(-1.0F, -1.0F, 1.0F);
                 this.scale(pEntity, pMatrixStack, pPartialTicks);
                 pMatrixStack.translate(0.0F, -1.5F, 0.0F);
-                RenderType renderType = ModRenderType.entityTranslucentNoDepth(getTextureLocation(pEntity));
-                VertexConsumer vertexConsumer = pBuffer.getBuffer(renderType);
+                VertexConsumer vertexConsumer = pBuffer.getBuffer(TRAIL_RENDER_TYPE);
                 float modelAlpha = (1 - Mth.clamp(currentTick - snapshot.timestamp(), 0, SNAPSHOT_LIFESPAN) / SNAPSHOT_LIFESPAN) * 0.35F;
-                shadowModel.renderToBuffer(pMatrixStack, vertexConsumer, pPackedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, modelAlpha);
+                if (modelAlpha > 0) {
+                    shadowModel.renderToBuffer(pMatrixStack, vertexConsumer, pPackedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, modelAlpha);
+                }
                 pMatrixStack.popPose();
             }
         }
