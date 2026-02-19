@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.common.entities.projectiles.MiniElectroOrb;
+import com.Polarice3.Goety.common.entities.projectiles.SurgingOrb;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
@@ -16,19 +16,19 @@ import net.minecraft.util.Mth;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
-public class MiniElectroOrbRenderer extends EntityRenderer<MiniElectroOrb> {
+public class SurgingOrbRenderer extends EntityRenderer<SurgingOrb> {
    private static final ResourceLocation TEXTURE_LOCATION = Goety.location("textures/entity/projectiles/scatter_bolt.png");
    private static final RenderType RENDER_TYPE = RenderType.entityTranslucent(TEXTURE_LOCATION);
 
-   public MiniElectroOrbRenderer(EntityRendererProvider.Context context) {
+   public SurgingOrbRenderer(EntityRendererProvider.Context context) {
       super(context);
    }
 
-   protected int getBlockLightLevel(MiniElectroOrb entity, BlockPos blockPos) {
+   protected int getBlockLightLevel(SurgingOrb entity, BlockPos blockPos) {
       return 15;
    }
 
-   public void render(MiniElectroOrb entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+   public void render(SurgingOrb entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
       poseStack.pushPose();
       float f1 = Mth.sin(entity.tickCount / 5.0F) * 0.2F + 0.2F;
       poseStack.scale(0.5F + f1, 0.5F + f1, 0.5F + f1);
@@ -59,7 +59,7 @@ public class MiniElectroOrbRenderer extends EntityRenderer<MiniElectroOrb> {
               .endVertex();
    }
 
-   public ResourceLocation getTextureLocation(MiniElectroOrb entity) {
+   public ResourceLocation getTextureLocation(SurgingOrb entity) {
       return TEXTURE_LOCATION;
    }
 }

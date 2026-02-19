@@ -27,6 +27,26 @@
     {
       "id": "cataclysm:the_baby_leviathan",
       "required": false
+    },
+    {
+      "id": "legendary_monsters:endersent",
+      "required": false
+    },
+    {
+      "id": "legendary_monsters:chorusling",
+      "required": false
+    },
+    {
+      "id": "legendary_monsters:annihilation_pursuer",
+      "required": false
+    },
+    {
+      "id": "legendary_monsters:flameborn_guard",
+      "required": false
+    },
+    {
+      "id": "legendary_monsters:flameborn_warrior",
+      "required": false
     }
   ]
 }

@@ -92,7 +92,7 @@ public class ModItems {
     public static final RegistryObject<Item> MYSTIC_CORE = ITEMS.register("mystic_core", ItemBase::new);
     public static final RegistryObject<Item> VOID_SHARD = ITEMS.register("void_shard", ItemBase::new);
     public static final RegistryObject<Item> OMINOUS_SHARD = ITEMS.register("ominous_shard", ItemBase::new);
-    public static final RegistryObject<Item> OMINOUS_ORB = ITEMS.register("ominous_orb", () -> new RepeatCraftItem(new Item.Properties()));
+    public static final RegistryObject<Item> OMINOUS_ORB = ITEMS.register("ominous_orb", () -> new RepeatCraftItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> HEART_OF_THE_NIGHT = ITEMS.register("heart_of_the_night", ItemBase::new);
     public static final RegistryObject<Item> CAULDRON_LADLE = ITEMS.register("cauldron_ladle", SingleStackItem::new);
     public static final RegistryObject<Item> OMINOUS_SADDLE = ITEMS.register("ominous_saddle", ItemBase::new);
@@ -353,6 +353,7 @@ public class ModItems {
     public static final RegistryObject<Item> SHOCKING_FOCUS = ITEMS.register("shocking_focus", () -> new MagicFocus(new ShockingSpell()));
     public static final RegistryObject<Item> THUNDERBOLT_FOCUS = ITEMS.register("thunderbolt_focus", () -> new MagicFocus(new ThunderboltSpell()));
     public static final RegistryObject<Item> ELECTROCUTE_FOCUS = ITEMS.register("electrocute_focus", () -> new MagicFocus(new ElectroOrbSpell()));
+    public static final RegistryObject<Item> SURGING_FOCUS = ITEMS.register("surging_focus", () -> new MagicFocus(new SurgingSpell()));
     public static final RegistryObject<Item> MONSOON_FOCUS = ITEMS.register("monsoon_focus", () -> new MagicFocus(new MonsoonSpell()));
     public static final RegistryObject<Item> DISCHARGE_FOCUS = ITEMS.register("discharge_focus", () -> new MagicFocus(new DischargeSpell()));
     public static final RegistryObject<Item> BOLTING_FOCUS = ITEMS.register("bolting_focus", () -> new MagicFocus(new BoltingSpell()));

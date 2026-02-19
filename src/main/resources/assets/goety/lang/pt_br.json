@@ -3464,5 +3464,8 @@
   "config.jade.plugin_goety.hostile_desc": "Displays whether the servant is hostile if ownerless and not inheriting Enemy interface.",
   "entity.goety.stormhound": "Lobo da Tempestade",
   "item.goety.stormhound_spawn_egg": "Ovo de Lobo da Tempestade",
-  "subtitle.goety.sword_shing": "Espada Shing"
+  "subtitle.goety.sword_shing": "Espada Shing",
+  "entity.goety.surging_orb": "Orbe Ondulante",
+  "item.goety.surging_focus": "Foco Ondulante",
+  "item.goety.surging_focus.info": "Dispara vários pequenos raios carregados, após uma carga inicial, em sucessão rápida."
 }

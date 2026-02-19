@@ -78,7 +78,7 @@ public class EnderKeeperRenderer<T extends EnderKeeper> extends MobRenderer<T, E
             float currentTick = getBob(pEntity, pPartialTicks);
             if (pEntity.trailSnapshots.isEmpty() || currentTick - pEntity.lastTrailTick > SNAPSHOT_INTERVAL) {
                 if (pEntity.shouldAddTrailSnapshot()) {
-                    Map<String, ModelPartPose> snapshot = ModelUtil.saveModelSnapshot(getModel().allPartNames, getModel()::getAnyDescendantWithName);
+                    Map<String, ModelPartPose> snapshot = ModelUtil.saveModelSnapshot(this.getModel().allPartNames, this.getModel()::getAnyDescendantWithName);
                     pEntity.trailSnapshots.add(0, Pair.of(new Vec3(currentX, currentY, currentZ), new ModelSnapshot(0, Mth.rotLerp(pPartialTicks, pEntity.yBodyRotO, pEntity.yBodyRot), currentTick, snapshot)));
                     pEntity.lastTrailTick = currentTick;
                 }
@@ -91,7 +91,7 @@ public class EnderKeeperRenderer<T extends EnderKeeper> extends MobRenderer<T, E
                 pMatrixStack.pushPose();
                 Vec3 trailPos = pEntity.trailSnapshots.get(i).getFirst();
                 ModelSnapshot snapshot = pEntity.trailSnapshots.get(i).getSecond();
-                ModelUtil.loadPoseFromSnapshot(snapshot.poses(), shadowModel::getAnyDescendantWithName);
+                ModelUtil.loadPoseFromSnapshot(snapshot.poses(), this.shadowModel::getAnyDescendantWithName);
                 pMatrixStack.translate(trailPos.x - currentX, trailPos.y - currentY, trailPos.z - currentZ);
                 pMatrixStack.mulPose(Axis.YP.rotationDegrees(180.0F - snapshot.yRot()));
                 pMatrixStack.scale(-1.0F, -1.0F, 1.0F);
@@ -100,7 +100,7 @@ public class EnderKeeperRenderer<T extends EnderKeeper> extends MobRenderer<T, E
                 VertexConsumer vertexConsumer = pBuffer.getBuffer(TRAIL_RENDER_TYPE);
                 float modelAlpha = (1 - Mth.clamp(currentTick - snapshot.timestamp(), 0, SNAPSHOT_LIFESPAN) / SNAPSHOT_LIFESPAN) * 0.35F;
                 if (modelAlpha > 0) {
-                    shadowModel.renderToBuffer(pMatrixStack, vertexConsumer, pPackedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, modelAlpha);
+                    this.shadowModel.renderToBuffer(pMatrixStack, vertexConsumer, pPackedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, modelAlpha);
                 }
                 pMatrixStack.popPose();
             }

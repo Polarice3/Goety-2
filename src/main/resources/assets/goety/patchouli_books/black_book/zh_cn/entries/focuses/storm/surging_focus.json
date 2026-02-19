@@ -1,0 +1,19 @@
+{
+  "name": "电涌聚晶",
+  "icon": "goety:surging_focus",
+  "category": "goety:focuses/storm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "此法术以牺牲电荷球的尺寸和追踪能力为代价，让施法者在完成蓄力后能快速连续射出数枚小型电矢。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/surging_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/storm_staff)风暴法杖$()施放时，你的电矢将有更高几率施加痉挛效果，并附带微弱的连锁伤害。"
+    }
+  ]
+}

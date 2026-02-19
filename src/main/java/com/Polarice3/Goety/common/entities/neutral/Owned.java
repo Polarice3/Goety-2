@@ -49,6 +49,7 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
     public boolean limitedLifespan;
     public int limitedLifeTicks;
     public int hasSummonCheck;
+    public int revivingTime;
 
     protected Owned(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
@@ -401,6 +402,16 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
     @Override
     public void setHasSummonCheck(int hasSummonCheck) {
         this.hasSummonCheck = hasSummonCheck;
+    }
+
+    @Override
+    public int getRevivingTime() {
+        return this.revivingTime;
+    }
+
+    @Override
+    public void setRevivingTime(int tick) {
+        this.revivingTime = tick;
     }
 
     @Override

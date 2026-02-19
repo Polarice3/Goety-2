@@ -3328,5 +3328,8 @@
   "config.jade.plugin_goety.hostile_desc": "Displays whether the servant is hostile if ownerless and not inheriting Enemy interface.",
   "entity.goety.stormhound": "ストームハウンド",
   "item.goety.stormhound_spawn_egg": "ストームハウンドのスポーンエッグ",
-  "subtitle.goety.sword_shing": "Sword Shing"
+  "subtitle.goety.sword_shing": "Sword Shing",
+  "entity.goety.surging_orb": "サージングオーブ",
+  "item.goety.surging_focus": "サージングのフォーカス",
+  "item.goety.surging_focus.info": "チャージ後、素早く連続して複数の小さなチャージボルトを発射します。"
 }

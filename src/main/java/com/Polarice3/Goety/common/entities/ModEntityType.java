@@ -277,10 +277,12 @@ public class ModEntityType {
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(10));
 
-    public static final RegistryObject<EntityType<MiniElectroOrb>> MINI_ELECTRO_ORB = register("mini_electro_orb",
-            EntityType.Builder.<MiniElectroOrb>of(MiniElectroOrb::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<SurgingOrb>> SURGING_ORB = register("surging_orb",
+            EntityType.Builder.<SurgingOrb>of(SurgingOrb::new, MobCategory.MISC)
                     .sized(0.3125F, 0.3125F)
-                    .clientTrackingRange(10));
+                    .clientTrackingRange(10)
+                    .updateInterval(1)
+                    .setUpdateInterval(1));
 
     public static final RegistryObject<EntityType<BouncyBubble>> BOUNCY_BUBBLE = register("bouncy_bubble",
             EntityType.Builder.<BouncyBubble>of(BouncyBubble::new, MobCategory.MISC)

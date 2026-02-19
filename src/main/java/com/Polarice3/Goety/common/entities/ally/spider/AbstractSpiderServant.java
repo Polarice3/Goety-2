@@ -77,6 +77,7 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
     public int killChance;
     public int noHealTime;
     public int hasSummonCheck;
+    public int revivingTime;
     public long ticketTime = 0;
 
     public AbstractSpiderServant(EntityType<? extends Spider> p_33786_, Level p_33787_) {
@@ -719,6 +720,16 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
     @Override
     public void setHasSummonCheck(int hasSummonCheck) {
         this.hasSummonCheck = hasSummonCheck;
+    }
+
+    @Override
+    public int getRevivingTime() {
+        return this.revivingTime;
+    }
+
+    @Override
+    public void setRevivingTime(int tick) {
+        this.revivingTime = tick;
     }
 
     @Override

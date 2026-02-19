@@ -1,0 +1,43 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "bsd",
+    "rei",
+    "dwb"
+  ],
+  "key":
+  {
+    "b":
+    {
+      "item": "minecraft:comparator"
+    },
+    "e":
+    {
+      "item": "goety:electrocute_focus"
+    },
+    "d":
+    {
+      "item": "minecraft:dispenser"
+    },
+    "w":
+    {
+      "item": "goety:wind_core"
+    },
+    "s":
+    {
+      "tag": "forge:gems/diamond"
+    },
+    "r":
+    {
+      "tag": "forge:rods/blaze"
+    },
+    "i":
+    {
+      "item": "minecraft:blue_ice"
+    }
+  },
+  "result": {
+    "item": "goety:surging_focus"
+  }
+}

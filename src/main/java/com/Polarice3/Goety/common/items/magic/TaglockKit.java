@@ -3,10 +3,13 @@ package com.Polarice3.Goety.common.items.magic;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.utils.EntityFinder;
+import com.Polarice3.Goety.utils.ModTicketTypes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.SectionPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -36,6 +39,7 @@ import java.util.UUID;
 public class TaglockKit extends Item {
     public static final String TAG_ENTITY = "Tagged";
     public static final String TAG_PLAYER_NAME = "TaggedPlayerName";
+    public static final String TAG_TICKET = "Ticket";
 
     public TaglockKit() {
         super(new Properties()
@@ -54,6 +58,25 @@ public class TaglockKit extends Item {
                 } else if (livingEntity == null && !stack.getTag().contains(TAG_PLAYER_NAME)) {
                     stack.getTag().remove(TAG_ENTITY);
                 }
+                //Saving it if I wanna add this to another item.
+                /*if (worldIn instanceof ServerLevel serverLevel && livingEntity != null) {
+                    if (stack.getTag().contains(TAG_TICKET)) {
+                        int i = SectionPos.blockToSectionCoord(livingEntity.position().x());
+                        int j = SectionPos.blockToSectionCoord(livingEntity.position().z());
+                        BlockPos blockPos = BlockPos.containing(livingEntity.position());
+                        if (decreaseTicketTime(stack) <= 0L || i != SectionPos.blockToSectionCoord(blockPos.getX()) || j != SectionPos.blockToSectionCoord(blockPos.getZ())) {
+                            serverLevel.getChunkSource().addRegionTicket(ModTicketTypes.SERVANT, livingEntity.chunkPosition(), 5, livingEntity.blockPosition());
+                            serverLevel.resetEmptyTime();
+                            setTicketTime(stack, ModTicketTypes.SERVANT.timeout() - 1L);
+                        }
+                    } else {
+                        stack.getTag().putInt(TAG_TICKET, 0);
+                    }
+                } else {
+                    if (stack.getTag().contains(TAG_TICKET)) {
+                        stack.getTag().remove(TAG_TICKET);
+                    }
+                }*/
             }
         }
         super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
@@ -304,6 +327,31 @@ public class TaglockKit extends Item {
             }
         }
         return false;
+    }
+
+    public static long decreaseTicketTime(ItemStack itemStack) {
+        long ticket = getTicketTime(itemStack) - 1L;
+        setTicketTime(itemStack, ticket);
+        return ticket;
+    }
+
+    public static long getTicketTime(ItemStack itemStack) {
+        if (itemStack.getTag() != null) {
+            return itemStack.getTag().getInt(TAG_TICKET);
+        } else {
+            return 0;
+        }
+    }
+
+    public static void setTicketTime(ItemStack itemStack, long time) {
+        if (itemStack.getTag() != null) {
+            itemStack.getTag().putInt(TAG_TICKET, (int) time);
+        }
+    }
+
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged) && slotChanged;
     }
 
     @Override

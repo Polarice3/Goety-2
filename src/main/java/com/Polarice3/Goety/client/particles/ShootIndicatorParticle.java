@@ -44,37 +44,37 @@ public class ShootIndicatorParticle extends Particle {
 
     @Override
     public void tick() {
-        age++;
-        if (start != null) {
-            this.x = start.x();
-            this.y = start.y();
-            this.z = start.z();
+        this.age++;
+        if (this.start != null) {
+            this.x = this.start.x();
+            this.y = this.start.y();
+            this.z = this.start.z();
         }
-        oWidth = width;
-        if (updateStopped) {
-            width -= 0.05F;
+        this.oWidth = this.width;
+        if (this.updateStopped) {
+            this.width -= 0.05F;
         } else {
-            width += 0.06F;
+            this.width += 0.06F;
         }
-        width = Mth.clamp(width, 0, MAX_WIDTH);
-        if (oWidth <= 0 && width <= 0) {
-            remove();
+        this.width = Mth.clamp(this.width, 0, MAX_WIDTH);
+        if (this.oWidth <= 0 && this.width <= 0) {
+            this.remove();
         }
     }
 
     @Override
     public void render(VertexConsumer buffer, Camera camera, float partialTick) {
-        if (level.getEntity(ownerId) instanceof ShootIndicatorOwner owner) {
-            start = owner.getShootIndicatorStart(partialTick);
-            updateStopped = !owner.shouldUpdateShootIndicator() && age >= 3;
-            if (!updateStopped) {
-                end = owner.getShootIndicatorEnd(partialTick);
-                progress = owner.getShootIndicatorProgress(partialTick);
+        if (this.level.getEntity(this.ownerId) instanceof ShootIndicatorOwner owner) {
+            this.start = owner.getShootIndicatorStart(partialTick);
+            this.updateStopped = !owner.shouldUpdateShootIndicator() && age >= 3;
+            if (!this.updateStopped) {
+                this.end = owner.getShootIndicatorEnd(partialTick);
+                this.progress = owner.getShootIndicatorProgress(partialTick);
             }
         } else {
-            updateStopped = true;
+            this.updateStopped = true;
         }
-        if (start != null && end != null && age >= 3) {
+        if (this.start != null && this.end != null && this.age >= 3) {
             MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
             VertexConsumer consumer = bufferSource.getBuffer(ModRenderType.DRAGON_RAYS_QUADS);
             Vec3 camPos = camera.getPosition();
@@ -85,15 +85,15 @@ public class ShootIndicatorParticle extends Particle {
             double currentY = Mth.lerp(partialTick, this.yo, this.y);
             double currentZ = Mth.lerp(partialTick, this.zo, this.z);
             Vec3 sight = camPos.subtract(currentX, currentY, currentZ).scale(-1);
-            Vec3 offset = end.subtract(start);
-            Vec3 sideOffset = offset.cross(sight).normalize().scale(Mth.lerp(partialTick, oWidth, width) / 2);
+            Vec3 offset = this.end.subtract(this.start);
+            Vec3 sideOffset = offset.cross(sight).normalize().scale(Mth.lerp(partialTick, this.oWidth, this.width) / 2);
             PoseStack.Pose pose = stack.last();
-            int startColor = FastColor.ARGB32.color(255, Math.round(rCol * 255), Math.round(gCol * 255), Math.round(bCol * 255));
-            int endColor = FastColor.ARGB32.color(Math.round(Mth.lerp(progress, 0, 255)), Math.round(rCol * 255), Math.round(gCol * 255), Math.round(bCol * 255));
-            vertex(consumer, pose, start.add(sideOffset), startColor);
-            vertex(consumer, pose, start.add(sideOffset.scale(-1)), startColor);
-            vertex(consumer, pose, end.add(sideOffset.scale(-1)), endColor);
-            vertex(consumer, pose, end.add(sideOffset), endColor);
+            int startColor = FastColor.ARGB32.color(255, Math.round(this.rCol * 255), Math.round(this.gCol * 255), Math.round(this.bCol * 255));
+            int endColor = FastColor.ARGB32.color(Math.round(Mth.lerp(this.progress, 0, 255)), Math.round(this.rCol * 255), Math.round(this.gCol * 255), Math.round(this.bCol * 255));
+            vertex(consumer, pose, this.start.add(sideOffset), startColor);
+            vertex(consumer, pose, this.start.add(sideOffset.scale(-1)), startColor);
+            vertex(consumer, pose, this.end.add(sideOffset.scale(-1)), endColor);
+            vertex(consumer, pose, this.end.add(sideOffset), endColor);
             stack.popPose();
             bufferSource.endBatch();
         }

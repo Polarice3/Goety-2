@@ -103,6 +103,10 @@ public abstract class Spell implements ISpell {
         return staff.getItem() instanceof IWand darkWand && darkWand.getSpellType() == getSpellType();
     }
 
+    public boolean typeStaff(ItemStack staff, SpellType spellType){
+        return ISpell.super.typeStaff(staff, spellType);
+    }
+
     @Override
     public void useParticle(Level worldIn, LivingEntity caster, ItemStack stack) {
         if (worldIn instanceof ServerLevel serverLevel){

@@ -273,7 +273,7 @@ public class Crone extends Cultist implements RangedAttackMob {
                 } else if (this.random.nextFloat() < 0.15F && this.getLastDamageSource() != null && ModDamageSource.physicalAttacks(this.getLastDamageSource()) && !this.hasEffect(GoetyEffects.REPULSIVE.get())){
                     mobEffectInstance.add(new MobEffectInstance(GoetyEffects.REPULSIVE.get(), 1800 / (amp + 1), amp));
                 } else if (this.random.nextFloat() < 0.15F && this.getTarget() != null) {
-                    if ((this.random.nextFloat() <= 0.15F && this.getTarget().distanceTo(this) <= 4.0F) || this.getHealth() <= 15.0F){
+                    if ((this.random.nextFloat() <= 0.15F && this.getTarget().distanceTo(this) <= 4.0F)){
                         brewEffectInstance.add(new BrewEffectInstance(new BlindJumpBrewEffect(0), 1, amp));
                     } else if (this.random.nextFloat() <= 0.15F && !this.hasEffect(MobEffects.REGENERATION)){
                         mobEffectInstance.add(new MobEffectInstance(MobEffects.REGENERATION, 900 / (amp + 1), amp));

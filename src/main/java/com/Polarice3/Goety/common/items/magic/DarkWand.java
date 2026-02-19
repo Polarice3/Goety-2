@@ -485,7 +485,9 @@ public class DarkWand extends Item implements IWand {
                             }
                         } else {
                             if (!spell.hasCustomCooldown(player, stack, IWand.getFocus(stack), Mth.floor(chargeSpell.spellCooldown(player)))) {
-                                SEHelper.addCooldown(player, IWand.getFocus(stack).getItem(), Mth.floor(chargeSpell.spellCooldown(player)));
+                                if (CastTime > chargeSpell.castUp(player, stack)) {
+                                    SEHelper.addCooldown(player, IWand.getFocus(stack).getItem(), Mth.floor(chargeSpell.spellCooldown(player)));
+                                }
                             }
                         }
                     }

@@ -853,10 +853,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
         if (!this.isNoAi()) {
             if (this.getHealth() > trueAmount) {
                 if (this.getHitTimes() >= this.hitTimeTeleport()) {
-                    trueAmount = trueAmount / 2;
                     this.teleport();
                 } else if (pSource.getEntity() == null) {
-                    trueAmount = trueAmount / 2;
                     if (this.level.getRandom().nextBoolean()) {
                         this.teleport();
                     }
@@ -1128,10 +1126,10 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
                     this.level.addAlwaysVisibleParticle(ParticleTypes.LARGE_SMOKE, this.getX(), this.getY() + 0.5, this.getZ(), d0, d1, d2);
                 }
             }
-            oClientShootIndicatorProgress = clientShootIndicatorProgress;
-            oClientShootIndicatorEnd = clientShootIndicatorEnd;
-            clientShootIndicatorProgress = entityData.get(SHOOT_INDICATOR_PROGRESS);
-            clientShootIndicatorEnd = new Vec3(entityData.get(SHOOT_INDICATOR_END));
+            this.oClientShootIndicatorProgress = this.clientShootIndicatorProgress;
+            this.oClientShootIndicatorEnd = this.clientShootIndicatorEnd;
+            this.clientShootIndicatorProgress = this.getShootIndicatorProgress();
+            this.clientShootIndicatorEnd = new Vec3(this.getShootIndicatorEnd());
         }
         if (!this.level.isClientSide){
             this.addTitleEffect();
@@ -1191,15 +1189,15 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
                 LivingEntity target = getTarget();
                 targetPos = new Vec3(target.getX(), target.getY(0.5F), target.getZ());
             }
-            entityData.set(SHOOT_INDICATOR_END, targetPos.toVector3f());
-            if (MobsConfig.ApostleShootIndicator.get() && isUsingItem() && getTicksUsingItem() >= 10 && getTicksUsingItem() <= 20) {
-                entityData.set(SHOOT_INDICATOR_PROGRESS, (getTicksUsingItem() - 10F) / 10F);
-                if (getTicksUsingItem() == 10 && level() instanceof ServerLevel serverLevel) {
+            this.setShootIndicatorEnd(targetPos.toVector3f());
+            if (MobsConfig.ApostleShootIndicator.get() && this.isUsingItem() && this.getTicksUsingItem() >= 10 && this.getTicksUsingItem() <= 20) {
+                this.setShootIndicatorProgress((this.getTicksUsingItem() - 10F) / 10F);
+                if (this.getTicksUsingItem() == 10 && this.level instanceof ServerLevel serverLevel) {
                     ColorUtil colorUtil = new ColorUtil(ChatFormatting.DARK_RED);
-                    serverLevel.sendParticles(new ShootIndicatorParticleOption(getId()), getX(), getY(), getZ(), 0, colorUtil.red, colorUtil.green, colorUtil.blue, 1.0F);
+                    serverLevel.sendParticles(new ShootIndicatorParticleOption(this.getId()), this.getX(), this.getY(), this.getZ(), 0, colorUtil.red, colorUtil.green, colorUtil.blue, 1.0F);
                 }
             } else {
-                entityData.set(SHOOT_INDICATOR_PROGRESS, -1F);
+                this.setShootIndicatorProgress(-1.0F);
             }
         }
         if (this.isSettingUpSecond()){
@@ -1703,6 +1701,22 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
     @Override
     public boolean shouldUpdateShootIndicator() {
         return entityData.get(SHOOT_INDICATOR_PROGRESS) >= 0;
+    }
+
+    public void setShootIndicatorEnd(Vector3f vector3f) {
+        this.entityData.set(SHOOT_INDICATOR_END, vector3f);
+    }
+
+    public Vector3f getShootIndicatorEnd() {
+        return this.entityData.get(SHOOT_INDICATOR_END);
+    }
+
+    public void setShootIndicatorProgress(float progress) {
+        this.entityData.set(SHOOT_INDICATOR_PROGRESS, progress);
+    }
+
+    public float getShootIndicatorProgress() {
+        return this.entityData.get(SHOOT_INDICATOR_PROGRESS);
     }
 
     class CastingSpellGoal extends CastingASpellGoal {

@@ -1,0 +1,19 @@
+{
+  "name": "サーギングのフォーカス",
+  "icon": "goety:surging_focus",
+  "category": "goety:focuses/storm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この呪文は、オーブのサイズと追跡能力を犠牲にして、チャージ後に術者がより小さなオーブを素早く発射できるようにします。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/surging_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/storm_staff)嵐の杖$()で唱えると、ボルトがけいれん効果を引き起こす可能性が高くなり、小さな連鎖雷撃効果が発生します。"
+    }
+  ]
+}

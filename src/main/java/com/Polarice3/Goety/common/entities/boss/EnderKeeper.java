@@ -142,18 +142,15 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
     public float lastTrailTick = 0;
 
     public boolean shouldAddTrailSnapshot() {
+        if (!MobsConfig.EnderKeeperAfterImage.get()) {
+            return false;
+        }
         return Mth.degreesDifferenceAbs(getYRot(), yBodyRot) < 45
                 && Mth.degreesDifferenceAbs(getYRot(), yBodyRotO) < 45
                 && Mth.degreesDifferenceAbs(yBodyRot, yBodyRotO) < 45
                 && !isHiding()
-                && (swingAnimationState.isStarted()
-                || swingComboAnimationState.isStarted()
-                || swingComboTripleAnimationState.isStarted()
-                || rapidSwingAnimationState.isStarted()
+                && (rapidSwingAnimationState.isStarted()
                 || chargeAnimationState.isStarted()
-                || spell1AnimationState.isStarted()
-                || spell2AnimationState.isStarted()
-                || spell3AnimationState.isStarted()
                 || groundPoundAnimationState.isStarted()
                 || groundPoundSpinAnimationState.isStarted()
                 || backAwayAnimationState.isStarted()

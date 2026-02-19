@@ -1,0 +1,19 @@
+{
+  "name": "Surging Focus",
+  "icon": "goety:surging_focus",
+  "category": "goety:focuses/storm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The spell sacrifices the size and tracking ability of the Electro Orbs to allow the caster to rapidly shoot smaller orbs after charging up."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/surging_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/storm_staff)Storm Staff$() will cause your bolts to have a higher chance of inflicting Spasms and have minor chain lightning effect."
+    }
+  ]
+}

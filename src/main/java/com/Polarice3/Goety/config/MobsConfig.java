@@ -339,6 +339,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ObsidianMonolithSpawner;
     public static final ForgeConfigSpec.ConfigValue<Boolean> HellfireFireImmune;
     public static final ForgeConfigSpec.ConfigValue<Boolean> HellfireFireProtection;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> EnderKeeperAfterImage;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneMonstrosityLeafBreak;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneCubeBlockFind;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PlayerRavagerArmorDrop;
@@ -1058,6 +1059,10 @@ public class MobsConfig {
                     .define("vizierPersistent", false);
             VizierMinion = BUILDER.comment("Viziers spawn Vexes instead of Irks, Default: false")
                     .define("vizierMinion", false);
+            BUILDER.pop();
+            BUILDER.push("Ender Keeper");
+            EnderKeeperAfterImage = BUILDER.comment("Whether Ender Keeper has their after-image effect. Disable can prevent frame drop. Default: true")
+                    .define("enderKeeperAfterImage", true);
             BUILDER.pop();
             BUILDER.push("Obsidian Monolith");
             ObsidianMonolithSpread = BUILDER.comment("Whether unowned Obsidian Monoliths, empowered by Heretics, converts nearby Overworld blocks to Nether blocks. Default: true")

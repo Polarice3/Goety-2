@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.entities.util;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.hostile.WitherNecromancer;
+import com.Polarice3.Goety.common.entities.neutral.AbstractWitherNecromancer;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
@@ -118,7 +118,7 @@ public class FirePillar extends CastSpellTrap{
                                     damageSource = ModDamageSource.magicFireBreath(this, this.getOwner());
                                 }
                             }
-                            if (this.getOwner() instanceof WitherNecromancer || CuriosFinder.hasUnholySet(this.getOwner())){
+                            if (this.getOwner() instanceof AbstractWitherNecromancer || CuriosFinder.hasUnholySet(this.getOwner())){
                                 damageSource = ModDamageSource.hellfire(this, this.getOwner());
                             }
                             livingEntity.hurt(damageSource, damage);

@@ -3380,5 +3380,8 @@
   "config.jade.plugin_goety.hostile_desc": "Displays whether the servant is hostile if ownerless and not inheriting Enemy interface.",
   "entity.goety.stormhound": "风暴犬",
   "item.goety.stormhound_spawn_egg": "风暴犬刷怪蛋",
-  "subtitle.goety.sword_shing": "剑：闪光"
+  "subtitle.goety.sword_shing": "剑：闪光",
+  "entity.goety.surging_orb": "电涌灵珠",
+  "item.goety.surging_focus": "电涌聚晶",
+  "item.goety.surging_focus.info": "完成蓄力后，快速连续射出数枚充能小电矢。"
 }

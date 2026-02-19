@@ -427,6 +427,13 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> ElectroOrbCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> ElectroOrbDamage;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> SurgingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SurgingChargeUp;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SurgingShots;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SurgingDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SurgingCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> SurgingDamage;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> MonsoonCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> MonsoonDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> MonsoonCoolDown;
@@ -925,7 +932,7 @@ public class SpellConfig {
                     .defineInRange("bombardmentChargeUp", 60, 0, Integer.MAX_VALUE);
             BombardmentShots = BUILDER.comment("How many shots are allowed to be fired before spell ends, set 0 to allow spell to be cast indefinitely, Default: 6")
                     .defineInRange("bombardmentShots", 6, 0, 72000);
-            BombardmentDuration = BUILDER.comment("Time to cast Bombardment Spell per second, Default: 6")
+            BombardmentDuration = BUILDER.comment("Time to cast Bombardment Spell per tick, Default: 6")
                     .defineInRange("bombardmentTime", 6, 0, 72000);
             BombardmentCoolDown = BUILDER.comment("Bombardment Spell Cooldown, Default: 100")
                     .defineInRange("bombardmentCoolDown", 100, 0, 72000);
@@ -1493,6 +1500,20 @@ public class SpellConfig {
                     .defineInRange("electroOrbCoolDown", 40, 0, Integer.MAX_VALUE);
             ElectroOrbDamage = BUILDER.comment("How much base damage Electro Orbs deals, Default: 4.0")
                     .defineInRange("electroOrbDamage", 4.0, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Surging Spell");
+            SurgingCost = BUILDER.comment("Surging Spell Cost, Default: 24")
+                    .defineInRange("surgingCost", 24, 0, Integer.MAX_VALUE);
+            SurgingChargeUp = BUILDER.comment("How many ticks the Surging Spell much charge before casting, Default: 80")
+                    .defineInRange("surgingChargeUp", 80, 0, Integer.MAX_VALUE);
+            SurgingShots = BUILDER.comment("How many shots are allowed to be fired before spell ends, set 0 to allow spell to be cast indefinitely, Default: 0")
+                    .defineInRange("surgingShots", 0, 0, 72000);
+            SurgingDuration = BUILDER.comment("Time to cast Surging Spell per tick, Default: 6")
+                    .defineInRange("surgingTime", 6, 0, 72000);
+            SurgingCoolDown = BUILDER.comment("Surging Spell Cooldown, Default: 200")
+                    .defineInRange("surgingCoolDown", 200, 0, 72000);
+            SurgingDamage = BUILDER.comment("How much base damage Surging Orbs deals, Default: 3.0")
+                    .defineInRange("surgingDamage", 3.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Monsoon Spell");
             MonsoonCost = BUILDER.comment("Monsoon Spell Cost, Default: 8")

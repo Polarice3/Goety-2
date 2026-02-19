@@ -894,6 +894,12 @@ public abstract class RaiderServant extends Summoned {
         }
     }
 
+    @Override
+    public void reviveTick() {
+        super.reviveTick();
+        this.getActiveEffects().removeIf(instance -> instance.getEffect() != GoetyEffects.WOUNDED.get() && instance.getEffect() != GoetyEffects.CRIPPLED.get());
+    }
+
     @Nullable
     @Override
     public BlockPos getRevivePos() {

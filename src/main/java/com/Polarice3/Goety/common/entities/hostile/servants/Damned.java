@@ -152,27 +152,27 @@ public class Damned extends Owned implements Enemy, ShootIndicatorOwner {
             }
         }
         // shoot indicator
-        if (!level().isClientSide) {
+        if (!this.level.isClientSide) {
             Vec3 targetPos = getViewVector(1.0F);
             if (getTarget() != null) {
                 LivingEntity target = getTarget();
                 targetPos = new Vec3(target.getX(), target.getY(0.5F), target.getZ());
             }
-            entityData.set(SHOOT_INDICATOR_END, targetPos.toVector3f());
+            this.setShootIndicatorEnd(targetPos.toVector3f());
             if (MobsConfig.DamnedShootIndicator.get() && this.chargeTime >= 40 && this.chargeTime <= 50) {
-                entityData.set(SHOOT_INDICATOR_PROGRESS, (chargeTime - 40F) / 10F);
+                this.setShootIndicatorProgress((this.chargeTime - 40F) / 10F);
                 if (this.chargeTime == 40 && level() instanceof ServerLevel serverLevel) {
                     ColorUtil colorUtil = new ColorUtil(ChatFormatting.GOLD);
-                    serverLevel.sendParticles(new ShootIndicatorParticleOption(getId()), getX(), getY(), getZ(), 0, colorUtil.red, colorUtil.green, colorUtil.blue, 1.0F);
+                    serverLevel.sendParticles(new ShootIndicatorParticleOption(getId()), this.getX(), this.getY(), this.getZ(), 0, colorUtil.red, colorUtil.green, colorUtil.blue, 1.0F);
                 }
             } else {
-                entityData.set(SHOOT_INDICATOR_PROGRESS, -1F);
+                this.setShootIndicatorProgress(-1.0F);
             }
         } else {
-            oClientShootIndicatorProgress = clientShootIndicatorProgress;
-            oClientShootIndicatorEnd = clientShootIndicatorEnd;
-            clientShootIndicatorProgress = entityData.get(SHOOT_INDICATOR_PROGRESS);
-            clientShootIndicatorEnd = new Vec3(entityData.get(SHOOT_INDICATOR_END));
+            this.oClientShootIndicatorProgress = this.clientShootIndicatorProgress;
+            this.oClientShootIndicatorEnd = this.clientShootIndicatorEnd;
+            this.clientShootIndicatorProgress = this.getShootIndicatorProgress();
+            this.clientShootIndicatorEnd = new Vec3(this.getShootIndicatorEnd());
         }
     }
 
@@ -187,17 +187,33 @@ public class Damned extends Owned implements Enemy, ShootIndicatorOwner {
 
     @Override
     public Vec3 getShootIndicatorEnd(float partialTicks) {
-        return Vec3Util.lerp(partialTicks, oClientShootIndicatorEnd, clientShootIndicatorEnd);
+        return Vec3Util.lerp(partialTicks, this.oClientShootIndicatorEnd, this.clientShootIndicatorEnd);
     }
 
     @Override
     public float getShootIndicatorProgress(float partialTicks) {
-        return Mth.lerp(partialTicks, oClientShootIndicatorProgress, clientShootIndicatorProgress);
+        return Mth.lerp(partialTicks, this.oClientShootIndicatorProgress, this.clientShootIndicatorProgress);
     }
 
     @Override
     public boolean shouldUpdateShootIndicator() {
-        return entityData.get(SHOOT_INDICATOR_PROGRESS) >= 0;
+        return this.getShootIndicatorProgress() >= 0;
+    }
+
+    public void setShootIndicatorEnd(Vector3f vector3f) {
+        this.entityData.set(SHOOT_INDICATOR_END, vector3f);
+    }
+
+    public Vector3f getShootIndicatorEnd() {
+        return this.entityData.get(SHOOT_INDICATOR_END);
+    }
+
+    public void setShootIndicatorProgress(float progress) {
+        this.entityData.set(SHOOT_INDICATOR_PROGRESS, progress);
+    }
+
+    public float getShootIndicatorProgress() {
+        return this.entityData.get(SHOOT_INDICATOR_PROGRESS);
     }
 
     @Override

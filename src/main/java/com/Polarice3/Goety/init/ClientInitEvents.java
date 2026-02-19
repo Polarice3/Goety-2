@@ -508,7 +508,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.VOID_EYE.get(), (rendererManager) -> new ThrownItemRenderer<>(rendererManager, 1.0F, true));
         event.registerEntityRenderer(ModEntityType.FLYING_ITEM.get(), (rendererManager) -> new ThrownItemRenderer<>(rendererManager, 1.0F, true));
         event.registerEntityRenderer(ModEntityType.ELECTRO_ORB.get(), ElectroOrbRenderer::new);
-        event.registerEntityRenderer(ModEntityType.MINI_ELECTRO_ORB.get(), MiniElectroOrbRenderer::new);
+        event.registerEntityRenderer(ModEntityType.SURGING_ORB.get(), SurgingOrbRenderer::new);
         event.registerEntityRenderer(ModEntityType.BOUNCY_BUBBLE.get(), BouncyBubbleRenderer::new);
         event.registerEntityRenderer(ModEntityType.ICE_BOUQUET.get(), IceBouquetRenderer::new);
         event.registerEntityRenderer(ModEntityType.MAGIC_FIRE.get(), MagicFireRenderer::new);

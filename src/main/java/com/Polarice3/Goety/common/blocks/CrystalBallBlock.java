@@ -13,6 +13,7 @@ import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -23,6 +24,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -99,7 +101,8 @@ public class CrystalBallBlock extends Block {
                     }
                 } else if (pPlayer.getItemInHand(pHand).getItem() instanceof TaglockKit && TaglockKit.hasEntity(pPlayer.getItemInHand(pHand))){
                     ItemStack itemStack = pPlayer.getItemInHand(pHand);
-                    if (TaglockKit.isSameDimension(pPlayer, itemStack)) {
+                    Entity entity = TaglockKit.getEntity(pPlayer.getItemInHand(pHand));
+                    if (entity != null && TaglockKit.isSameDimension(pPlayer, itemStack) && (pLevel.getNearestPlayer(entity, 80.0D) != null || entity instanceof Player)) {
                         SEHelper.setCamera(pPlayer, TaglockKit.getEntity(pPlayer.getItemInHand(pHand)));
                         ModNetwork.sendTo(pPlayer, new SPlayPlayerSoundPacket(ModSounds.END_WALK.get(), 1.0F, 0.5F));
                         pLevel.playSound(pPlayer, pPlayer.blockPosition(), ModSounds.END_WALK.get(), SoundSource.PLAYERS, 1.0F, 0.5F);
@@ -108,8 +111,9 @@ public class CrystalBallBlock extends Block {
                     }
                 } else if (pPlayer.getItemInHand(pHand).getItem() instanceof WaystoneItem && WaystoneItem.hasBlock(pPlayer.getItemInHand(pHand))){
                     ItemStack itemStack = pPlayer.getItemInHand(pHand);
-                    if (WaystoneItem.isSameDimension(pPlayer, itemStack)) {
-                        SEHelper.setCamera(pPlayer, null, WaystoneItem.getPosition(pPlayer.getItemInHand(pHand)).pos());
+                    GlobalPos globalPos = WaystoneItem.getPosition(pPlayer.getItemInHand(pHand));
+                    if (globalPos != null && WaystoneItem.isSameDimension(pPlayer, itemStack) && pLevel.isLoaded(globalPos.pos())) {
+                        SEHelper.setCamera(pPlayer, null, globalPos.pos());
                         ModNetwork.sendTo(pPlayer, new SPlayPlayerSoundPacket(ModSounds.END_WALK.get(), 1.0F, 0.5F));
                         pLevel.playSound(pPlayer, pPlayer.blockPosition(), ModSounds.END_WALK.get(), SoundSource.PLAYERS, 1.0F, 0.5F);
                     } else {

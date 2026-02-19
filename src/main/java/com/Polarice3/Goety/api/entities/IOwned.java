@@ -299,6 +299,10 @@ public interface IOwned {
                 if (this.getHasSummonCheck() > 0) {
                     this.setHasSummonCheck(this.getHasSummonCheck() - 1);
                 }
+                if (this.getRevivingTime() > 0) {
+                    this.reviveTick();
+                    this.setRevivingTime(this.getRevivingTime() - 1);
+                }
             }
         }
     }
@@ -436,7 +440,20 @@ public interface IOwned {
         return false;
     }
 
+    default int getRevivingTime() {
+        return 0;
+    }
+
+    default void setRevivingTime(int tick) {
+
+    }
+
+    default boolean isReviving() {
+        return this.getRevivingTime() > 0;
+    }
+
     default void startRevival() {
+        this.setRevivingTime(20);
         this.pacifySurroundingMobs(64.0D);
         Entity entity = ServantUtil.teleportToRevive(this);
         if (entity != null) {
@@ -446,12 +463,17 @@ public interface IOwned {
             }
             entity.clearFire();
             if (entity instanceof IOwned owned) {
+                owned.setRevivingTime(20);
                 owned.reviveOwned();
             }
+            entity.invulnerableTime = 100;
         }
     }
 
     default void reviveOwned() {
+    }
+
+    default void reviveTick() {
     }
 
     @Nullable

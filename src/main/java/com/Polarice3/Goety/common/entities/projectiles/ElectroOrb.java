@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.api.entities.IOwned;
-import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
 import com.Polarice3.Goety.client.particles.VerticalCircleExplodeParticleOption;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
@@ -9,7 +8,6 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
-import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -92,15 +90,6 @@ public class ElectroOrb extends SpellThrowableProjectile {
             if (hitResult instanceof EntityHitResult result) {
                 Entity entity = result.getEntity();
                 entity.hurt(damageSource, damage);
-                if (this.isStaff()) {
-                    float chance = 0.05F;
-                    if (this.level.isThundering() && this.level.isRainingAt(entity.blockPosition())) {
-                        chance += 0.25F;
-                    }
-                    if (entity instanceof LivingEntity livingEntity && this.level.random.nextFloat() <= chance) {
-                        livingEntity.addEffect(new MobEffectInstance(GoetyEffects.SPASMS.get(), MathHelper.secondsToTicks(5)));
-                    }
-                }
             }
             this.finalizeExplosion();
             this.playSound(ModSounds.THUNDERBOLT.get(), 1.0F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
@@ -121,12 +110,6 @@ public class ElectroOrb extends SpellThrowableProjectile {
                         damage = (float) mob.getAttributeValue(Attributes.ATTACK_DAMAGE);
                     }
                 }
-                for (int i = -radius; i < radius; ++i){
-                    for (int k = -radius; k < radius; ++k){
-                        BlockPos blockPos = this.blockPosition().offset(i, 0, k);
-                        serverLevel.sendParticles(ModParticleTypes.ELECTRIC.get(), blockPos.getX(), blockPos.getY() + 0.5F, blockPos.getZ(), 0, 0, 0.04D, 0, 0.5F);
-                    }
-                }
                 serverLevel.sendParticles(new ShockwaveParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 5, 0, true), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0);
                 serverLevel.sendParticles(new VerticalCircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius, 1), this.getX(), this.getY() + 0.5F, this.getZ(), 1, 0, 0, 0, 0);
                 new SpellExplosion(serverLevel, this, damageSource, this.blockPosition(), radius, damage){
@@ -135,12 +118,15 @@ public class ElectroOrb extends SpellThrowableProjectile {
                         if (target instanceof LivingEntity target1){
                             super.explodeHurt(target, damageSource, x, y, z, seen, actualDamage);
                             float chance = 0.05F;
+                            float chainDamage = actualDamage / 2.0F;
                             if (serverLevel.isThundering() && serverLevel.isRainingAt(target1.blockPosition())){
                                 chance += 0.25F;
+                                chainDamage = actualDamage;
                             }
                             if (serverLevel.random.nextFloat() <= chance){
                                 target1.addEffect(new MobEffectInstance(GoetyEffects.SPASMS.get(), MathHelper.secondsToTicks(5)));
                             }
+                            WandUtil.chainLightning(target1, ElectroOrb.this.getOwner(), radius, chainDamage);
                         }
                     }
                 };

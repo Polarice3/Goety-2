@@ -1,0 +1,19 @@
+{
+  "name": "Foco Ondulante",
+  "icon": "goety:surging_focus",
+  "category": "goety:focuses/storm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O foco sacrifica o tamanho e a capacidade de rastreamento das Orbes Elétricas para permitir que o conjurador dispare orbes menores rapidamente após uma carga inicial."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/surging_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com um $(l:crafts/staff/storm_staff)Cajado da Tempestade$() fará com que seus raios tenham uma chance maior de infligir Espasmos e um pequeno efeito de corrente elétrica."
+    }
+  ]
+}

@@ -19,6 +19,6 @@ public class RepeatCraftItem extends Item implements IForgeItem {
     @Nonnull
     @Override
     public ItemStack getCraftingRemainingItem(ItemStack itemStack) {
-        return itemStack.copyAndClear();
+        return itemStack.copyWithCount(1);
     }
 }
