@@ -85,6 +85,20 @@
         ]
       },
       "trigger": "minecraft:summoned_entity"
+    },
+    "rattled": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "goety:rattled_servant"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
     }
   },
   "requirements": [
@@ -93,7 +107,8 @@
       "stray",
       "wither_skeleton",
       "mossy_skeleton",
-      "sunken_skeleton"
+      "sunken_skeleton",
+      "rattled"
     ]
   ]
 }

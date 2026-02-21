@@ -270,6 +270,7 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
                         && !p_37849_.is(DamageTypeTags.BYPASSES_ENCHANTMENTS)
                         && !p_37849_.is(DamageTypeTags.IS_EXPLOSION)
                         && !p_37849_.isCreativePlayer()
+                        && !MobUtil.areAllies(p_37849_.getEntity(), this)
                         && p_37849_.getEntity() != null) {
                     Vec3 vec32 = p_37849_.getSourcePosition();
                     if (vec32 != null) {

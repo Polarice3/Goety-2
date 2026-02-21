@@ -29,11 +29,26 @@
         ]
       },
       "trigger": "minecraft:summoned_entity"
+    },
+    "summon2": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "goety:inferno"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
     }
   },
   "requirements": [
     [
-      "summon"
+      "summon",
+      "summon2"
     ]
   ]
 }

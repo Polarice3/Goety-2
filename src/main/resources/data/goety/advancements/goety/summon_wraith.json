@@ -43,12 +43,27 @@
         ]
       },
       "trigger": "minecraft:summoned_entity"
+    },
+    "muck_wraith": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "goety:muck_wraith_servant"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
     }
   },
   "requirements": [
     [
       "wraith",
-      "border_wraith"
+      "border_wraith",
+      "muck_wraith"
     ]
   ]
 }

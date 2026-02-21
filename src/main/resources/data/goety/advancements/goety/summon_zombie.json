@@ -86,6 +86,20 @@
       },
       "trigger": "minecraft:summoned_entity"
     },
+    "frayed": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "goety:frayed_servant"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
     "zpiglin": {
       "conditions": {
         "entity": [
@@ -122,6 +136,7 @@
       "drowned",
       "frozen_zombie",
       "jungle_zombie",
+      "frayed",
       "zpiglin",
       "zpiglin_brute"
     ]

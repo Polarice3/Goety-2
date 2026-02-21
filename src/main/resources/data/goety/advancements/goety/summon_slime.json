@@ -29,11 +29,54 @@
         ]
       },
       "trigger": "minecraft:summoned_entity"
+    },
+    "summon2": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "goety:magma_cube_servant"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
+    "summon3": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "goety:crypt_slime_servant"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
+    "summon4": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "goety:tropical_slime_servant"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
     }
   },
   "requirements": [
     [
-      "summon"
+      "summon",
+      "summon2"
     ]
   ]
 }

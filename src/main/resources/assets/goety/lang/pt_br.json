@@ -3467,5 +3467,7 @@
   "subtitle.goety.sword_shing": "Espada Shing",
   "entity.goety.surging_orb": "Orbe Ondulante",
   "item.goety.surging_focus": "Foco Ondulante",
-  "item.goety.surging_focus.info": "Dispara vários pequenos raios carregados, após uma carga inicial, em sucessão rápida."
+  "item.goety.surging_focus.info": "Dispara vários pequenos raios carregados, após uma carga inicial, em sucessão rápida.",
+  "advancements.goety.convert_wildfire.title": "Urso Smokey Desaprova",
+  "advancements.goety.convert_wildfire.description": "Converta um Blaze em um Incêndio Selvagem."
 }

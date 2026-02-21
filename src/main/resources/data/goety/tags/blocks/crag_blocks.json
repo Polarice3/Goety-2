@@ -2,6 +2,9 @@
   "replace": false,
   "values": [
     "goety:cragrocks",
+    "goety:cragrocks_slab",
+    "goety:cragrocks_stairs",
+    "goety:cragrocks_wall",
     "goety:cragrocks_fence",
     "goety:crag_tiles",
     "goety:crag_tile_slab",

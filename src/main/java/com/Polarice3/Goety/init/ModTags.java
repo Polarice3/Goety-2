@@ -7,6 +7,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.Item;
@@ -22,6 +23,7 @@ public class ModTags {
     public static void init() {
         Blocks.init();
         Items.init();
+        Effects.init();
         Paintings.init();
         BannerPatterns.init();
         EntityTypes.init();
@@ -93,6 +95,16 @@ public class ModTags {
         private static TagKey<Item> tag(String name)
         {
             return ItemTags.create(Goety.location(name));
+        }
+    }
+
+    public static class Effects {
+        private static void init(){}
+
+        public static final TagKey<MobEffect> LICH_IMMUNE = tag("lich_immune");
+
+        private static TagKey<MobEffect> tag(String name) {
+            return TagKey.create(Registries.MOB_EFFECT, Goety.location(name));
         }
     }
 

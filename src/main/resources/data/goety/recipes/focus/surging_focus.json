@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "pattern":
   [
-    "bsd",
-    "rei",
+    "bcd",
+    "rer",
     "dwb"
   ],
   "key":
@@ -24,17 +24,13 @@
     {
       "item": "goety:wind_core"
     },
-    "s":
-    {
-      "tag": "forge:gems/diamond"
-    },
     "r":
     {
       "tag": "forge:rods/blaze"
     },
-    "i":
+    "c":
     {
-      "item": "minecraft:blue_ice"
+      "item": "minecraft:crossbow"
     }
   },
   "result": {

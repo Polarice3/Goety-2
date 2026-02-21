@@ -4,23 +4,24 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySelector;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.monster.PatrollingMonster;
-import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.tags.ITagManager;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
@@ -141,12 +142,18 @@ public class EffectsUtil {
         return 0;
     }
 
+    //Found out how to use Tags for MobEffect with @mraof's codes:https://github.com/lunar-sway/minestuck/blob/1.20.1/src/main/java/com/mraof/minestuck/effects/SoporSicknessEffect.java
+    public static boolean is(MobEffect effect, TagKey<MobEffect> tagKey) {
+        ITagManager<MobEffect> tags = ForgeRegistries.MOB_EFFECTS.tags();
+        if (tags == null){
+            return false;
+        }
+        return tags.getTag(tagKey).contains(effect);
+    }
+
     public static boolean canAffectLich(MobEffectInstance effectInstance, Level world) {
-        return effectInstance.getEffect() != MobEffects.BLINDNESS
-                && effectInstance.getEffect() != MobEffects.CONFUSION
-                && effectInstance.getEffect() != MobEffects.HUNGER
-                && effectInstance.getEffect() != MobEffects.SATURATION
-                && new Zombie(world).canBeAffected(effectInstance);
+        return !is(effectInstance.getEffect(), ModTags.Effects.LICH_IMMUNE)
+                && new Skeleton(EntityType.SKELETON, world).canBeAffected(effectInstance);
     }
 
     public static int getFortuneEffectLevel(LootContext lootContext) {

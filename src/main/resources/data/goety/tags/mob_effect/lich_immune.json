@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:blindness",
+    "minecraft:nausea",
+    "minecraft:hunger",
+    "minecraft:saturation",
+    "minecraft:poison",
+    {
+      "id": "vampirism:freeze",
+      "required": false
+    }
+  ]
+}

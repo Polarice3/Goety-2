@@ -3383,5 +3383,7 @@
   "subtitle.goety.sword_shing": "剑：闪光",
   "entity.goety.surging_orb": "电涌灵珠",
   "item.goety.surging_focus": "电涌聚晶",
-  "item.goety.surging_focus.info": "完成蓄力后，快速连续射出数枚充能小电矢。"
+  "item.goety.surging_focus.info": "完成蓄力后，快速连续射出数枚充能小电矢。",
+  "advancements.goety.convert_wildfire.title": "斯莫基熊觉得很淦",
+  "advancements.goety.convert_wildfire.description": "将烈焰人转化为野火仆从"
 }

@@ -31,7 +31,7 @@ public class SurgingOrbRenderer extends EntityRenderer<SurgingOrb> {
    public void render(SurgingOrb entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
       poseStack.pushPose();
       float f1 = Mth.sin(entity.tickCount / 5.0F) * 0.2F + 0.2F;
-      poseStack.scale(0.5F + f1, 0.5F + f1, 0.5F + f1);
+      poseStack.scale(0.25F + f1, 0.25F + f1, 0.25F + f1);
       poseStack.translate(0.0D, 0.25D, 0.0D);
       poseStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
       poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));

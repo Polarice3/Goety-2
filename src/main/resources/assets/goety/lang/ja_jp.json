@@ -3331,5 +3331,7 @@
   "subtitle.goety.sword_shing": "Sword Shing",
   "entity.goety.surging_orb": "サージングオーブ",
   "item.goety.surging_focus": "サージングのフォーカス",
-  "item.goety.surging_focus.info": "チャージ後、素早く連続して複数の小さなチャージボルトを発射します。"
+  "item.goety.surging_focus.info": "チャージ後、素早く連続して複数の小さなチャージボルトを発射します。",
+  "advancements.goety.convert_wildfire.title": "スモーキーベアは不承認",
+  "advancements.goety.convert_wildfire.description": "ブレイズをワイルドファイアに変換します。"
 }

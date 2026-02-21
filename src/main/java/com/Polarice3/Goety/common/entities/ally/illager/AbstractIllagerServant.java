@@ -1152,7 +1152,7 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
         private final AbstractIllagerServant illager;
         @Nullable
         protected AbstractIllagerServant partner;
-        private int loveTime;
+        private long loveTime;
         private boolean hasBred;
 
         public MakeLove(AbstractIllagerServant illager){
@@ -1173,7 +1173,7 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
             return this.partner != null
                     && this.partner.isAlive()
                     && this.hasVacantBed()
-                    && (int) this.illager.level.getGameTime() <= this.loveTime
+                    && this.illager.level.getGameTime() <= this.loveTime
                     && this.illager.canBreed()
                     && this.partner.canBreed();
         }
@@ -1182,7 +1182,7 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
         public void start() {
             this.hasBred = false;
             int i = 275 + this.illager.level.getRandom().nextInt(50);
-            this.loveTime = (int) (this.illager.level.getGameTime() + i);
+            this.loveTime = this.illager.level.getGameTime() + i;
         }
 
         @Override
@@ -1197,9 +1197,11 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
             }
             this.illager.getLookControl().setLookAt(this.partner, 10.0F, (float)this.illager.getMaxHeadXRot());
             this.illager.getNavigation().moveTo(this.partner, 0.5F);
-            if ((int) this.illager.level.getGameTime() >= this.loveTime && this.illager.distanceToSqr(this.partner) <= 5.0D) {
-                this.partner.eatAndDigestFood();
-                this.illager.eatAndDigestFood();
+            if (this.illager.level.getGameTime() >= this.loveTime && this.illager.distanceToSqr(this.partner) <= 5.0D) {
+                if (!this.hasBred) {
+                    this.partner.eatAndDigestFood();
+                    this.illager.eatAndDigestFood();
+                }
                 this.breed();
             } else if (this.illager.level.getRandom().nextInt(35) == 0) {
                 this.illager.level.broadcastEntityEvent(this.illager, (byte)12);
@@ -1218,9 +1220,9 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
                 if (baby != null) {
                     baby.moveTo(this.illager.getX(), this.illager.getY(), this.illager.getZ(), 0.0F, 0.0F);
                     baby.setBaby(true);
+                    this.hasBred = true;
                     if (this.illager.level.addFreshEntity(baby)) {
                         this.illager.level.broadcastEntityEvent(baby, (byte) 12);
-                        this.hasBred = true;
                     }
                 }
             }
