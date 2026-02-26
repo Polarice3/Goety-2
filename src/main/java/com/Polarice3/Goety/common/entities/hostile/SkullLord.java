@@ -85,6 +85,7 @@ public class SkullLord extends Monster implements ICustomAttributes {
         this.moveControl = new MoveHelperController(this);
         this.hitTimes = 0;
         this.xpReward = 70;
+        this.noCulling = true;
     }
 
     protected void registerGoals() {
@@ -276,6 +277,11 @@ public class SkullLord extends Monster implements ICustomAttributes {
             this.swell = 0;
         }
         if (!this.level.isClientSide){
+            // update client id if needed
+            BoneLord connectedBoneLord = this.getBoneLord();
+            if (connectedBoneLord != null && connectedBoneLord.getId() != this.getBoneLordClientId()) {
+                this.setBoneLordClientId(connectedBoneLord.getId());
+            }
             ServerLevel serverWorld = (ServerLevel) this.level;
             int i = this.blockPosition().getX();
             int j = this.blockPosition().getY();
@@ -321,7 +327,6 @@ public class SkullLord extends Monster implements ICustomAttributes {
                 }
             } else {
                 if (this.getBoneLord() != null){
-                    this.drawAttachParticleBeam(this, this.getBoneLord());
                     if (this.distanceToSqr(this.getBoneLord()) > Mth.square(16)) {
                         this.moveTo(this.getBoneLord().position());
                     }
@@ -390,24 +395,6 @@ public class SkullLord extends Monster implements ICustomAttributes {
 
     public float getSwelling(float p_32321_) {
         return Mth.lerp(p_32321_, (float)this.oldSwell, (float)this.swell) / 28.0F;
-    }
-
-    private void drawAttachParticleBeam(LivingEntity pSource, LivingEntity pTarget) {
-        double d0 = pTarget.getX() - pSource.getX();
-        double d1 = pTarget.getEyeY() - pSource.getY();
-        double d2 = pTarget.getZ() - pSource.getZ();
-        double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
-        d0 = d0 / d3;
-        d1 = d1 / d3;
-        d2 = d2 / d3;
-        double d4 = pSource.level.random.nextDouble();
-        if (!pSource.level.isClientSide) {
-            ServerLevel serverWorld = (ServerLevel) pSource.level;
-            while (d4 < d3) {
-                d4 += 1.0D;
-                serverWorld.sendParticles(ModParticleTypes.BONE.get(), pSource.getX() + d0 * d4, pSource.getY() + d1 * d4, pSource.getZ() + d2 * d4, 1, 0.0D, 0.0D, 0.0D, 0.0D);
-            }
-        }
     }
 
     public void spawnMobs(){

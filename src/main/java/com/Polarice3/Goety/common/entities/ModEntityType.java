@@ -1598,9 +1598,9 @@ public class ModEntityType {
                     .updateInterval(Integer.MAX_VALUE));
 
     public static final RegistryObject<EntityType<SummonApostle>> SUMMON_APOSTLE = register("summon_apostle",
-            EntityType.Builder.<SummonApostle>of(SummonApostle::new, MobCategory.MISC)
+            EntityType.Builder.of(SummonApostle::new, MobCategory.MISC)
                     .fireImmune()
-                    .sized(2.0F, 0.5F)
+                    .sized(2.0F, 1.95F)
                     .clientTrackingRange(10)
                     .updateInterval(Integer.MAX_VALUE));
 

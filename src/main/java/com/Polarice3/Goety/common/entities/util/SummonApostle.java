@@ -1,9 +1,12 @@
 package com.Polarice3.Goety.common.entities.util;
 
+import com.Polarice3.Goety.client.particles.WindGatherParticleOption;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -73,6 +76,14 @@ public class SummonApostle extends Entity {
             }
             if (this.tickCount >= 300) {
                 serverWorld.sendParticles(ParticleTypes.LARGE_SMOKE, this.getRandomX(0.5D), this.getRandomY() + 1.0D, this.getRandomZ(0.5D), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            }
+            int interval = Mth.lerpInt(this.tickCount / 450.0F, 8, 2);
+            int width = Mth.lerpInt(this.tickCount / 450.0F, 8, 15);
+            float height = Mth.lerp(this.tickCount / 450.0F, 0.3F, 0.9F);
+            if (this.tickCount % interval == 0) {
+                double dx = (this.random.nextDouble() * 3 + 2) * (this.random.nextBoolean() ? 1 : -1);
+                double dz = (this.random.nextDouble() * 3 + 2) * (this.random.nextBoolean() ? 1 : -1);
+                serverWorld.sendParticles(new WindGatherParticleOption(new ColorUtil(this.random.nextInt(3) == 0 ? ChatFormatting.DARK_RED : ChatFormatting.BLACK), width, height, 90, getId()), this.getX() + dx, this.getY() + this.getBbHeight(), this.getZ() + dz, 1, 0.0D, 0.0D, 0.0D, 0.0D);
             }
             if (this.tickCount == 450){
                 for(int k = 0; k < 200; ++k) {
