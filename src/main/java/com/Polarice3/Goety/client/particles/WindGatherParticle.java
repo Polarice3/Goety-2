@@ -33,7 +33,7 @@ public class WindGatherParticle extends WindTrailParticle {
             this.radius = (float) new Vec3(x - owner.getX(), 0, z - owner.getZ()).length();
         }
         this.yawSpeed = (random.nextBoolean() ? 1 : -1) * (0.15F + random.nextFloat() * 0.1F);
-        this.radiusSpeed = radius / 20 * (0.8f + random.nextFloat() * 0.4f);
+        this.radiusSpeed = radius / 20 * (0.8F + random.nextFloat() * 0.4F);
         this.minRadius = 0.75F + random.nextFloat() * 0.2F;
     }
 
