@@ -124,6 +124,7 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.WIND.get(), WindParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.WIND_BLOW.get(), WindBlowParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.WIND_SHOCKWAVE.get(), WindShockwaveParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.WIND_GATHER.get(), WindGatherParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.FAST_DUST.get(), FastFallDust.Provider::new);
         event.registerSpriteSet(ModParticleTypes.GATHER_TRAIL.get(), GatherTrailParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.ABSORB_TRAIL.get(), AbsorbTrailParticle.Provider::new);

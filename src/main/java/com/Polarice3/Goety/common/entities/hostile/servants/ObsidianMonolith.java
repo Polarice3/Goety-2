@@ -24,6 +24,7 @@ public class ObsidianMonolith extends AbstractObsidianMonolith implements Enemy 
 
     public ObsidianMonolith(EntityType<? extends AbstractObsidianMonolith> type, Level worldIn) {
         super(type, worldIn);
+        this.noCulling = true;
     }
 
     @Nullable

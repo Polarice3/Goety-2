@@ -27,13 +27,13 @@ public class SummonApostleRenderer extends EntityRenderer<SummonApostle> {
     }
 
     public void render(SummonApostle entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
-        float f1 = (float)entityIn.tickCount + partialTicks;
-        float f2 = Mth.clamp(entityIn.tickCount * 0.1F, 0.0F, 3.0F);
+        float age = entityIn.tickCount + partialTicks;
+        float size = age >= 440 ? (450 - age) / 10 * 3 : Mth.clamp(age * 0.1F, 0.0F, 3.0F);
         matrixStackIn.pushPose();
         VertexConsumer consumer = bufferIn.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
         matrixStackIn.translate(0.0F, 0.001F, 0.0F);
-        matrixStackIn.scale(f2, f2, f2);
-        matrixStackIn.mulPose(Axis.YP.rotationDegrees(90.0F + f1));
+        matrixStackIn.scale(size, size, size);
+        matrixStackIn.mulPose(Axis.YP.rotationDegrees(90.0F + age));
         PoseStack.Pose pose = matrixStackIn.last();
         Matrix4f matrix4f = pose.pose();
         Matrix3f matrix3f = pose.normal();
@@ -41,18 +41,18 @@ public class SummonApostleRenderer extends EntityRenderer<SummonApostle> {
         matrixStackIn.popPose();
         matrixStackIn.pushPose();
         VertexConsumer consumer2 = bufferIn.getBuffer(RenderType.entityCutoutNoCull(RING));
-        matrixStackIn.translate(0.0F, 2.0F, 0.0F);
-        matrixStackIn.scale(f2, f2, f2);
-        matrixStackIn.mulPose(Axis.YP.rotationDegrees(90.0F - (f1 / 2)));
+        matrixStackIn.translate(0.0F, Mth.clamp(age * 0.3F, 0.001F, 2.001F), 0.0F);
+        matrixStackIn.scale(size, size, size);
+        matrixStackIn.mulPose(Axis.YP.rotationDegrees(90.0F - (age / 2)));
         PoseStack.Pose pose2 = matrixStackIn.last();
         Matrix4f matrix4f2 = pose2.pose();
         Matrix3f matrix3f2 = pose2.normal();
         this.drawRing(matrix4f2, matrix3f2, consumer2);
         matrixStackIn.popPose();
         matrixStackIn.pushPose();
-        matrixStackIn.translate(0.0F, 4.0F, 0.0F);
-        matrixStackIn.scale(f2, f2, f2);
-        matrixStackIn.mulPose(Axis.YP.rotationDegrees(90.0F + (f1 / 2)));
+        matrixStackIn.translate(0.0F, Mth.clamp(age * 0.6F, 0.001F, 4.001F), 0.0F);
+        matrixStackIn.scale(size, size, size);
+        matrixStackIn.mulPose(Axis.YP.rotationDegrees(90.0F + (age / 2)));
         PoseStack.Pose pose3 = matrixStackIn.last();
         Matrix4f matrix4f3 = pose3.pose();
         Matrix3f matrix3f3 = pose3.normal();

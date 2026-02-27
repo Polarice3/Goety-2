@@ -419,6 +419,14 @@ public class ModParticleTypes {
                 }
             });
 
+    public static final RegistryObject<ParticleType<WindGatherParticleOption>> WIND_GATHER = PARTICLE_TYPES.register("wind_gather",
+            () -> new ParticleType<>(false, WindGatherParticleOption.DESERIALIZER) {
+                @Override
+                public Codec<WindGatherParticleOption> codec() {
+                    return WindGatherParticleOption.CODEC;
+                }
+            });
+
     public static final RegistryObject<ParticleType<GatherTrailParticle.Option>> GATHER_TRAIL = PARTICLE_TYPES.register("gather_trail",
             () -> new ParticleType<>(false, GatherTrailParticle.Option.DESERIALIZER) {
                 @Override

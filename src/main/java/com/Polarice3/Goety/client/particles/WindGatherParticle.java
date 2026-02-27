@@ -1,0 +1,94 @@
+package com.Polarice3.Goety.client.particles;
+
+import com.Polarice3.Goety.Goety;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.Camera;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.Vec3;
+
+public class WindGatherParticle extends WindTrailParticle {
+    private static final ResourceLocation TEXTURE = Goety.location("textures/particle/gathering_trail.png");
+
+    private final Entity owner;
+    private final int width;
+    private final float height;
+    private float yaw, radius;
+    private final float yawSpeed, radiusSpeed, minRadius;
+
+    public WindGatherParticle(ClientLevel world, double x, double y, double z, double xd, double yd, double zd, float red, float green, float blue, int width, float height, int life, int ownerId) {
+        super(world, x, y, z, xd, yd, zd, red, green, blue);
+        this.width = width;
+        this.height = height;
+        this.lifetime = life;
+        this.owner = level.getEntity(ownerId);
+        if (this.owner != null) {
+            this.yaw = (float) (Mth.atan2(x - owner.getX(), z - owner.getZ()));
+            this.radius = (float) new Vec3(x - owner.getX(), 0, z - owner.getZ()).length();
+        }
+        this.yawSpeed = (random.nextBoolean() ? 1 : -1) * (0.15F + random.nextFloat() * 0.1F);
+        this.radiusSpeed = radius / 20 * (0.8F + random.nextFloat() * 0.4F);
+        this.minRadius = 0.75F + random.nextFloat() * 0.2F;
+    }
+
+    @Override
+    public void tick() {
+        if (this.age < this.lifetime - (sampleSize() - 1) * sampleStep()) {
+            this.yaw += yawSpeed;
+            this.radius -= radiusSpeed;
+            if (this.radius < minRadius) {
+                this.radius = minRadius;
+            }
+            if (this.owner != null) {
+                Vec3 pos = owner.position().add(radius * Math.cos(yaw), 0, radius * Math.sin(yaw));
+                this.x = pos.x();
+                this.y = owner.getY() + (Math.sin(age * 0.2) + 1) * 0.5 * owner.getBbHeight();
+                this.z = pos.z();
+            }
+        }
+        if (this.age++ >= this.lifetime) {
+            this.remove();
+        }
+        this.trail();
+    }
+
+    @Override
+    public void render(VertexConsumer consumer, Camera camera, float partialTick) {
+        super.render(consumer, camera, partialTick);
+    }
+
+    @Override
+    public ResourceLocation getTexture() {
+        return TEXTURE;
+    }
+
+    @Override
+    public float getTrailHeight() {
+        return this.height;
+    }
+
+    @Override
+    public int sampleSize() {
+        return this.width;
+    }
+
+    @Override
+    public int getLightColor(float pPartialTick) {
+        return LightTexture.FULL_BRIGHT;
+    }
+
+    public static class Provider implements ParticleProvider<WindGatherParticleOption> {
+        public Provider(SpriteSet p_172490_) {
+        }
+
+        public Particle createParticle(WindGatherParticleOption typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+            return new WindGatherParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, typeIn.getRed(), typeIn.getGreen(), typeIn.getBlue(), typeIn.getWidth(), typeIn.getHeight(), typeIn.getLife(), typeIn.getOwnerId());
+        }
+    }
+}
