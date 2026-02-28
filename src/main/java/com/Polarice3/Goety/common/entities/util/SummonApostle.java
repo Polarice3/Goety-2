@@ -5,7 +5,6 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.ColorUtil;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -68,14 +67,8 @@ public class SummonApostle extends Entity {
             if (serverWorld.getDifficulty() == Difficulty.PEACEFUL){
                 this.discard();
             }
-            for(int i = 0; i < 2; ++i) {
-                serverWorld.sendParticles(ParticleTypes.PORTAL, this.getRandomX(0.5D), this.getRandomY() + 1.0D, this.getRandomZ(0.5D), 0, (serverWorld.random.nextDouble() - 0.5D) * 2.0D, -serverWorld.random.nextDouble(), (serverWorld.random.nextDouble() - 0.5D) * 2.0D, 0.5D);
-            }
-            if (serverWorld.dimension() == Level.NETHER) {
-                ServerParticleUtil.gatheringParticles(ParticleTypes.ENCHANT, this, serverWorld);
-            }
             if (this.tickCount >= 300) {
-                serverWorld.sendParticles(ParticleTypes.LARGE_SMOKE, this.getRandomX(0.5D), this.getRandomY() + 1.0D, this.getRandomZ(0.5D), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                serverWorld.sendParticles(ParticleTypes.LARGE_SMOKE, this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 1, 0.0D, 0.0D, 0.0D, 0.0D);
             }
             int interval = Mth.lerpInt(this.tickCount / 450.0F, 8, 2);
             int width = Mth.lerpInt(this.tickCount / 450.0F, 8, 15);

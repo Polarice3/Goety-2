@@ -196,6 +196,8 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> HolidaySkins;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> HierarchicalArmorTrim;
+
     public static final ForgeConfigSpec.ConfigValue<Boolean> ServantTeleport;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VexTeleport;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ServantRideAutonomous;
@@ -357,6 +359,8 @@ public class MobsConfig {
                 .define("holidaySkins", true);
         BroodMotherOldTexture = BUILDER.comment("If Brood Mothers uses their old textures, Default: false")
                 .define("broodMotherOldTexture", false);
+        HierarchicalArmorTrim = BUILDER.comment("If armor worn by mobs that uses HierarchicalArmorLayer(ie, Illager Servants) shows Armor Trim, Default: true")
+                .define("hierarchicalArmorTrim", true);
             BUILDER.push("Summoned Mobs");
                 BUILDER.push("Zombie Servants");
                 ZombieServantTexture = BUILDER.comment("If Zombie Servants have custom textures, Default: true")

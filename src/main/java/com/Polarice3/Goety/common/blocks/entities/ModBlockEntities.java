@@ -1,7 +1,8 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.common.blocks.*;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -23,16 +24,24 @@ public class ModBlockEntities {
             () -> BlockEntityType.Builder.of(CursedCageBlockEntity::new, ModBlocks.CURSED_CAGE_BLOCK.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<DarkAltarBlockEntity>> DARK_ALTAR = BLOCK_ENTITY.register("dark_altar",
-            () -> BlockEntityType.Builder.of(DarkAltarBlockEntity::new,
-                    ModBlocks.DARK_ALTAR.get(), ModBlocks.DARK_ALTAR_STONE.get(), ModBlocks.DARK_ALTAR_DEEPSLATE.get(),
-                    ModBlocks.DARK_ALTAR_NETHER_BRICK.get(), ModBlocks.DARK_ALTAR_BLACKSTONE.get(), ModBlocks.DARK_ALTAR_END_STONE.get(),
-                    ModBlocks.DARK_ALTAR_HIGHROCK.get(), ModBlocks.DARK_ALTAR_MARBLE.get()).build(null));
+            () -> {
+                Block[] blocks = ModBlocks.BLOCKS.getEntries().stream()
+                        .map(RegistryObject::get)
+                        .filter(block -> block instanceof DarkAltarBlock)
+                        .toArray(Block[]::new);
+                return BlockEntityType.Builder.of(DarkAltarBlockEntity::new, blocks).build(null);
+            }
+    );
 
     public static final RegistryObject<BlockEntityType<PedestalBlockEntity>> PEDESTAL = BLOCK_ENTITY.register("pedestal",
-            () -> BlockEntityType.Builder.of(PedestalBlockEntity::new,
-                    ModBlocks.PEDESTAL.get(), ModBlocks.PEDESTAL_STONE.get(), ModBlocks.PEDESTAL_DEEPSLATE.get(),
-                    ModBlocks.PEDESTAL_NETHER_BRICK.get(), ModBlocks.PEDESTAL_BLACKSTONE.get(), ModBlocks.PEDESTAL_END_STONE.get(),
-                    ModBlocks.PEDESTAL_HIGHROCK.get(), ModBlocks.PEDESTAL_MARBLE.get()).build(null));
+            () -> {
+                Block[] blocks = ModBlocks.BLOCKS.getEntries().stream()
+                        .map(RegistryObject::get)
+                        .filter(block -> block instanceof PedestalBlock)
+                        .toArray(Block[]::new);
+                return BlockEntityType.Builder.of(PedestalBlockEntity::new, blocks).build(null);
+            }
+    );
 
     public static final RegistryObject<BlockEntityType<SoulAbsorberBlockEntity>> SOUL_ABSORBER = BLOCK_ENTITY.register("soul_absorber",
             () -> BlockEntityType.Builder.of(SoulAbsorberBlockEntity::new, ModBlocks.SOUL_ABSORBER.get()).build(null));
@@ -155,18 +164,27 @@ public class ModBlockEntities {
             () -> BlockEntityType.Builder.of(RedstoneMonstrosityHeadBlockEntity::new, ModBlocks.REDSTONE_MONSTROSITY_HEAD_BLOCK.get(), ModBlocks.WALL_REDSTONE_MONSTROSITY_HEAD_BLOCK.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<ModChestBlockEntity>> MOD_CHEST = BLOCK_ENTITY.register("chest",
-            () -> BlockEntityType.Builder.of(ModChestBlockEntity::new,
-                    ModBlocks.HAUNTED_CHEST.get(), ModBlocks.ROTTEN_CHEST.get(),
-                    ModBlocks.WINDSWEPT_CHEST.get(), ModBlocks.PINE_CHEST.get(),
-                    ModBlocks.CHORUS_CHEST.get(), ModBlocks.CORRUPT_CHORUS_CHEST.get(),
-                    ModBlocks.RAIDING_CHEST.get()).build(null));
+            () -> {
+                Block[] blocks = ModBlocks.BLOCKS.getEntries().stream()
+                        .map(RegistryObject::get)
+                        .filter(block -> block instanceof ModChestBlock
+                                && !(block instanceof ModTrappedChestBlock)
+                                && !(block instanceof CryptChestBlock)
+                                && !(block instanceof LoftyChestBlock))
+                        .toArray(Block[]::new);
+                return BlockEntityType.Builder.of(ModChestBlockEntity::new, blocks).build(null);
+            }
+    );
 
     public static final RegistryObject<BlockEntityType<ModTrappedChestBlockEntity>> MOD_TRAPPED_CHEST = BLOCK_ENTITY.register("trapped_chest",
-            () -> BlockEntityType.Builder.of(ModTrappedChestBlockEntity::new,
-                    ModBlocks.TRAPPED_HAUNTED_CHEST.get(), ModBlocks.TRAPPED_ROTTEN_CHEST.get(),
-                    ModBlocks.TRAPPED_WINDSWEPT_CHEST.get(), ModBlocks.TRAPPED_PINE_CHEST.get(),
-                    ModBlocks.TRAPPED_CHORUS_CHEST.get(), ModBlocks.TRAPPED_CORRUPT_CHORUS_CHEST.get(),
-                    ModBlocks.TRAPPED_RAIDING_CHEST.get()).build(null));
+            () -> {
+                Block[] blocks = ModBlocks.BLOCKS.getEntries().stream()
+                        .map(RegistryObject::get)
+                        .filter(block -> block instanceof ModTrappedChestBlock)
+                        .toArray(Block[]::new);
+                return BlockEntityType.Builder.of(ModTrappedChestBlockEntity::new, blocks).build(null);
+            }
+    );
 
     public static final RegistryObject<BlockEntityType<CryptChestBlockEntity>> CRYPT_CHEST = BLOCK_ENTITY.register("crypt_chest",
             () -> BlockEntityType.Builder.of(CryptChestBlockEntity::new,
@@ -177,20 +195,33 @@ public class ModBlockEntities {
                     ModBlocks.LOFTY_CHEST.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<ModSignBlockEntity>> SIGN_BLOCK_ENTITIES = BLOCK_ENTITY.register("sign",
-            () -> BlockEntityType.Builder.of(ModSignBlockEntity::new,
-                    ModBlocks.HAUNTED_SIGN.get(), ModBlocks.HAUNTED_WALL_SIGN.get(),
-                    ModBlocks.ROTTEN_SIGN.get(), ModBlocks.ROTTEN_WALL_SIGN.get(),
-                    ModBlocks.WINDSWEPT_SIGN.get(), ModBlocks.WINDSWEPT_WALL_SIGN.get(),
-                    ModBlocks.PINE_SIGN.get(), ModBlocks.PINE_WALL_SIGN.get(),
-                    ModBlocks.CHORUS_SIGN.get(), ModBlocks.CHORUS_WALL_SIGN.get(),
-                    ModBlocks.CORRUPT_CHORUS_SIGN.get(), ModBlocks.CORRUPT_CHORUS_WALL_SIGN.get()).build(null));
+            () -> {
+                Block[] blocks = ModBlocks.BLOCKS.getEntries().stream()
+                        .map(RegistryObject::get)
+                        .filter(block -> block instanceof ModStandSignBlock || block instanceof ModWallSignBlock)
+                        .toArray(Block[]::new);
+                return BlockEntityType.Builder.of(ModSignBlockEntity::new, blocks).build(null);
+            }
+    );
 
     public static final RegistryObject<BlockEntityType<ModHangingSignBlockEntity>> HANGING_SIGN_BLOCK_ENTITIES = BLOCK_ENTITY.register("hanging_sign",
-            () -> BlockEntityType.Builder.of(ModHangingSignBlockEntity::new,
-                    ModBlocks.HAUNTED_HANGING_SIGN.get(), ModBlocks.HAUNTED_WALL_HANGING_SIGN.get(),
-                    ModBlocks.ROTTEN_HANGING_SIGN.get(), ModBlocks.ROTTEN_WALL_HANGING_SIGN.get(),
-                    ModBlocks.WINDSWEPT_HANGING_SIGN.get(), ModBlocks.WINDSWEPT_WALL_HANGING_SIGN.get(),
-                    ModBlocks.PINE_HANGING_SIGN.get(), ModBlocks.PINE_WALL_HANGING_SIGN.get(),
-                    ModBlocks.CHORUS_HANGING_SIGN.get(), ModBlocks.CHORUS_WALL_HANGING_SIGN.get(),
-                    ModBlocks.CORRUPT_CHORUS_HANGING_SIGN.get(), ModBlocks.CORRUPT_CHORUS_WALL_HANGING_SIGN.get()).build(null));
+            () -> {
+                Block[] blocks = ModBlocks.BLOCKS.getEntries().stream()
+                        .map(RegistryObject::get)
+                        .filter(block -> block instanceof ModHangingSignBlock || block instanceof ModWallHangingSignBlock)
+                        .toArray(Block[]::new);
+                return BlockEntityType.Builder.of(ModHangingSignBlockEntity::new, blocks).build(null);
+            }
+    );
+
+    public static final RegistryObject<BlockEntityType<PlushieBlockEntity>> PLUSHIE = BLOCK_ENTITY.register("plushie",
+            () -> {
+                Block[] blocks = ModBlocks.BLOCKS.getEntries().stream()
+                        .map(RegistryObject::get)
+                        .filter(block -> block instanceof PlushieBlock)
+                        .toArray(Block[]::new);
+                return BlockEntityType.Builder.of(PlushieBlockEntity::new, blocks).build(null);
+            }
+    );
+
 }

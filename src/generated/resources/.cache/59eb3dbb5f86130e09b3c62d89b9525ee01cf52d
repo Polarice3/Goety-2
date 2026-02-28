@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-09T00:17:06.4046078	Loot Tables
+// 1.20.1	2026-02-28T12:40:46.4839484	Loot Tables
 1173ad0aef6067156a1c3161e3fe16b8e10b3f92 data/goety/loot_tables/blocks/animator.json
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
@@ -295,6 +295,12 @@ f0b51c4fea7223baa1a17f03b8ba7224cb2350ea data/goety/loot_tables/blocks/pine_sign
 88ebabeb7c0b0e59f167d0dd778abc099aefd3be data/goety/loot_tables/blocks/pine_trapdoor.json
 7e62065280c5761333ab4f8417158579acc6b4d5 data/goety/loot_tables/blocks/pine_wood.json
 4d593cca1a8200ada21b2ed7e5665907fd4367dc data/goety/loot_tables/blocks/pithos.json
+55a71df4c9d4794403f117d7cf966377851d605b data/goety/loot_tables/blocks/plushie.json
+1ca8b37a1ed9620493dba9d20d77644fd075f025 data/goety/loot_tables/blocks/plushie_1.json
+19d5f3e07d876af8998ca139795e8b0e3b2cee28 data/goety/loot_tables/blocks/plushie_2.json
+1654529f676428d76a09727e68a1c54ef19f15d8 data/goety/loot_tables/blocks/plushie_3.json
+90f8080b9d8d13012b0ba3660acdcd1e598f6937 data/goety/loot_tables/blocks/plushie_4.json
+c0c5a5646049566b0e30148d971ec7d5f00167c3 data/goety/loot_tables/blocks/plushie_5.json
 aeea08f84950b9e2890b53e74b5034d9a362779b data/goety/loot_tables/blocks/polished_highrock.json
 3c4d1fe86a59d266c33b9f3e92be4e5e781d33b0 data/goety/loot_tables/blocks/polished_highrock_slab.json
 e9d1343e5271d4d83ad20f1a5569e8b6773001e1 data/goety/loot_tables/blocks/polished_highrock_stairs.json

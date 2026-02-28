@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.data;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.common.blocks.PlushieBlock;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.magic.MagicFocus;
 import com.Polarice3.Goety.init.ModTags;
@@ -8,6 +9,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
@@ -76,15 +78,24 @@ public class ModItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
                 ModItems.UNHOLY_HAT.get(),
                 ModItems.UNHOLY_HAT_HALO.get()).replace(false);
         Collection<Item> focuses = new ArrayList<>();
+        Collection<Item> plushie = new ArrayList<>();
         ModItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(item ->
         {
             if (item instanceof MagicFocus){
                 focuses.add(item);
             }
+            if (item instanceof BlockItem item1 && item1.getBlock() instanceof PlushieBlock) {
+                plushie.add(item);
+            }
         });
         if (!focuses.isEmpty()){
             for (Item item : focuses){
                 this.tag(ModTags.Items.FOCUSES).add(item).replace(false);
+            }
+        }
+        if (!plushie.isEmpty()){
+            for (Item item : plushie){
+                this.tag(ModTags.Items.PLUSHIE).add(item).replace(false);
             }
         }
     }

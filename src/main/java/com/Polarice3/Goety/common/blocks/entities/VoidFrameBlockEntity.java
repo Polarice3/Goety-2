@@ -2,8 +2,8 @@ package com.Polarice3.Goety.common.blocks.entities;
 
 import com.Polarice3.Goety.common.blocks.VoidFrameBlock;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.MathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -41,7 +41,7 @@ public class VoidFrameBlockEntity extends BlockEntity {
                         player.addEffect(new MobEffectInstance(GoetyEffects.IMPAIRED.get(), 5, 0, false, false));
                     }
                 }
-                if (this.coolTick >= MathHelper.minecraftDayToTicks(1)) {
+                if (this.coolTick >= MainConfig.VoidFrameCoolTime.get()) {
                     this.coolTick = 0;
                     serverLevel.playSound(null, this.getBlockPos().above(), ModSounds.VOID_SPAWNER_CLOSE_SHUTTER.get(), SoundSource.BLOCKS, 1.0F, 0.8F);
                     serverLevel.setBlockAndUpdate(this.getBlockPos(), this.getBlockState().setValue(VoidFrameBlock.LOCKED, true));

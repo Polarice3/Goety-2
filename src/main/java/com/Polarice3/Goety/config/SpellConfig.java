@@ -587,6 +587,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> BulwarkCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> BulwarkShieldAmount;
     public static final ForgeConfigSpec.ConfigValue<Integer> BulwarkShieldTime;
+    public static final ForgeConfigSpec.ConfigValue<Double> BulwarkShieldBreakExtra;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulHealCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulHealDuration;
@@ -1827,6 +1828,8 @@ public class SpellConfig {
                     .defineInRange("bulwarkShieldAmount", 4, 1, Integer.MAX_VALUE);
             BulwarkShieldTime = BUILDER.comment("Initial lifespan of the Bulwark Spell's shields, count in ticks, Default: 1500")
                     .defineInRange("bulwarkShieldTime", 1500, 1, Integer.MAX_VALUE);
+            BulwarkShieldBreakExtra = BUILDER.comment("If damage received exceeds this amount, an additional shield will be broken per exceeded amount. Set to 0.0 to disable, Default: 15.0")
+                    .defineInRange("bulwarkShieldBreakExtra", 15.0, 0.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Soul Heal Spell");
             SoulHealCost = BUILDER.comment("Soul Heal Spell Cost, Default: 250")

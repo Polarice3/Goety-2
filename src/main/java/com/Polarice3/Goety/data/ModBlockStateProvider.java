@@ -4,6 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
@@ -30,6 +31,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
         builtinEntity(ModBlocks.CHORUS_WALL_HANGING_SIGN.get(), "goety:block/chorus_log");
         builtinEntity(ModBlocks.CORRUPT_CHORUS_HANGING_SIGN.get(), "goety:block/corrupt_chorus_log");
         builtinEntity(ModBlocks.CORRUPT_CHORUS_WALL_HANGING_SIGN.get(), "goety:block/corrupt_chorus_log");
+
+        plushie(ModBlocks.PLUSHIE.get());
+        plushie(ModBlocks.PLUSHIE_1.get());
+        plushie(ModBlocks.PLUSHIE_2.get());
+        plushie(ModBlocks.PLUSHIE_3.get());
+        plushie(ModBlocks.PLUSHIE_4.get());
+        plushie(ModBlocks.PLUSHIE_5.get());
 
         simpleBlockWithItem(ModBlocks.DIAMOND_MOLD_BLOCK.get());
 
@@ -440,6 +448,21 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlock(b, models().getBuilder(name(b))
                 .parent(new ModelFile.UncheckedModelFile("builtin/entity"))
                 .texture("particle", particle));
+    }
+
+    protected void plushie(Block b) {
+        simpleBlock(b, models().getBuilder(name(b))
+                .parent(new ModelFile.UncheckedModelFile("builtin/entity"))
+                .texture("particle", "minecraft:block/white_wool"));
+        itemModels().getBuilder(key(b).getPath())
+                .parent(new ModelFile.UncheckedModelFile("builtin/entity"))
+                .texture("particle", "minecraft:block/white_wool")
+                .transforms()
+                .transform(ItemDisplayContext.HEAD).rotation(180, 0, 180).translation(0, 9, 0).scale(2, 2, 2).end()
+                .transform(ItemDisplayContext.FIXED).rotation(0, 180, 0).translation(0, 4, 0).scale(1, 1, 1).end()
+                .transform(ItemDisplayContext.GROUND).rotation(0, 0, 0).translation(0, 3, 0).scale(0.5F, 0.5F, 0.5F).end()
+                .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND).rotation(45, 45, 0).translation(0, 3, 0).scale(0.5F, 0.5F, 0.5F).end()
+                .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).rotation(0, 180, 0).translation(0, 0, 0).scale(1, 1, 1).end();
     }
 
     public ModelFile cross(Block block) {

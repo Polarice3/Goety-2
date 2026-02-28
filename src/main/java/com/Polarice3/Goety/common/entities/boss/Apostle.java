@@ -119,48 +119,48 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
     public static int TERRIBLE = 9;
     public static int GLORIOUS = 10;
     public static int ATROCIOUS = 11;
-    private int hitTimes;
-    private int coolDown;
-    private int tornadoCoolDown;
-    private int infernoCoolDown;
-    private int monolithCoolDown;
-    private int damnedCoolDown;
-    private int spellCycle;
-    private int titleNumber;
-    private int stuckTime;
-    private int lastKilledPlayer;
-    private Vec3 prevVecPos;
-    private final Predicate<Entity> ALIVE = Entity::isAlive;
-    private boolean roarParticles;
-    private boolean fireArrows;
-    private boolean regen;
-    private boolean killedPlayer;
-    private MobEffect arrowEffect;
-    private float clientShootIndicatorProgress, oClientShootIndicatorProgress;
-    private Vec3 clientShootIndicatorEnd = Vec3.ZERO, oClientShootIndicatorEnd = Vec3.ZERO;
-    private static final UUID SPEED_MODIFIER_CASTING_UUID = UUID.fromString("5CD17E52-A79A-43D3-A529-90FDE04B181E");
-    private static final AttributeModifier SPEED_MODIFIER_CASTING = new AttributeModifier(SPEED_MODIFIER_CASTING_UUID, "Casting speed penalty", -1.0D, AttributeModifier.Operation.ADDITION);
-    private static final UUID SPEED_MODIFIER_MONOLITH_UUID = UUID.fromString("ba4294fc-8f77-44aa-89cc-96a28c263fa1");
-    private static final AttributeModifier SPEED_MODIFIER_MONOLITH = new AttributeModifier(SPEED_MODIFIER_MONOLITH_UUID, "Monoliths speed penalty", -0.25D, AttributeModifier.Operation.ADDITION);
-    private static final UUID WEAK_ARMOR = ModUUIDUtil.createUUID("entity.goety.apostle.armor");
-    private static final AttributeModifier WEAK_ARMOR_MODIFIER = new AttributeModifier(WEAK_ARMOR, "Weaker Armor out of Nether", -0.5D, AttributeModifier.Operation.MULTIPLY_TOTAL);
+    public int hitTimes;
+    public int coolDown;
+    public int tornadoCoolDown;
+    public int infernoCoolDown;
+    public int monolithCoolDown;
+    public int damnedCoolDown;
+    public int spellCycle;
+    public int titleNumber;
+    public int stuckTime;
+    public int lastKilledPlayer;
+    public Vec3 prevVecPos;
+    public final Predicate<Entity> ALIVE = Entity::isAlive;
+    public boolean roarParticles;
+    public boolean fireArrows;
+    public boolean regen;
+    public boolean killedPlayer;
+    public MobEffect arrowEffect;
+    public float clientShootIndicatorProgress, oClientShootIndicatorProgress;
+    public Vec3 clientShootIndicatorEnd = Vec3.ZERO, oClientShootIndicatorEnd = Vec3.ZERO;
+    public static final UUID SPEED_MODIFIER_CASTING_UUID = UUID.fromString("5CD17E52-A79A-43D3-A529-90FDE04B181E");
+    public static final AttributeModifier SPEED_MODIFIER_CASTING = new AttributeModifier(SPEED_MODIFIER_CASTING_UUID, "Casting speed penalty", -1.0D, AttributeModifier.Operation.ADDITION);
+    public static final UUID SPEED_MODIFIER_MONOLITH_UUID = UUID.fromString("ba4294fc-8f77-44aa-89cc-96a28c263fa1");
+    public static final AttributeModifier SPEED_MODIFIER_MONOLITH = new AttributeModifier(SPEED_MODIFIER_MONOLITH_UUID, "Monoliths speed penalty", -0.25D, AttributeModifier.Operation.ADDITION);
+    public static final UUID WEAK_ARMOR = ModUUIDUtil.createUUID("entity.goety.apostle.armor");
+    public static final AttributeModifier WEAK_ARMOR_MODIFIER = new AttributeModifier(WEAK_ARMOR, "Weaker Armor out of Nether", -0.5D, AttributeModifier.Operation.MULTIPLY_TOTAL);
     protected static final EntityDataAccessor<Byte> BOSS_FLAGS = SynchedEntityData.defineId(Apostle.class, EntityDataSerializers.BYTE);
     protected static final EntityDataAccessor<Vector3f> SHOOT_INDICATOR_END = SynchedEntityData.defineId(Apostle.class, EntityDataSerializers.VECTOR3);
     protected static final EntityDataAccessor<Float> SHOOT_INDICATOR_PROGRESS = SynchedEntityData.defineId(Apostle.class, EntityDataSerializers.FLOAT);
-    private final ModServerBossInfo bossInfo;
+    public final ModServerBossInfo bossInfo;
     public Predicate<Owned> ZOMBIE_MINIONS = (owned) -> {
         return owned instanceof ZPiglinServant && owned.getTrueOwner() == this;
     };
-    private final Predicate<LivingEntity> MONOLITHS = (livingEntity) -> {
+    public final Predicate<LivingEntity> MONOLITHS = (livingEntity) -> {
         return livingEntity instanceof AbstractObsidianMonolith monolith && monolith.getTrueOwner() == this;
     };
-    private final Predicate<Owned> MALGHASTS = (owned) -> {
+    public final Predicate<Owned> MALGHASTS = (owned) -> {
         return owned instanceof Malghast && owned.getTrueOwner() == this;
     };
-    private final Predicate<Owned> RANGED_MINIONS = (owned) -> {
+    public final Predicate<Owned> RANGED_MINIONS = (owned) -> {
         return (owned instanceof Inferno || owned instanceof Malghast) && owned.getTrueOwner() == this;
     };
-    private final Predicate<Entity> OWNED_TRAPS = (entity) -> {
+    public final Predicate<Entity> OWNED_TRAPS = (entity) -> {
         return entity instanceof SpellEntity abstractTrap && abstractTrap.getOwner() == this;
     };
     public int antiRegen;
@@ -241,12 +241,12 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
         this.entityData.define(SHOOT_INDICATOR_PROGRESS, -1F);
     }
 
-    private boolean getBossFlag(int mask) {
+    public boolean getBossFlag(int mask) {
         int i = this.entityData.get(BOSS_FLAGS);
         return (i & mask) != 0;
     }
 
-    private void setBossFlag(int mask, boolean value) {
+    public void setBossFlag(int mask, boolean value) {
         int i = this.entityData.get(BOSS_FLAGS);
         if (value) {
             i = i | mask;
@@ -261,7 +261,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
         return p_204067_.is(FluidTags.LAVA);
     }
 
-    private void floatApostle() {
+    public void floatApostle() {
         if (this.isInLava()) {
             CollisionContext collisioncontext = CollisionContext.of(this);
             if (collisioncontext.isAbove(LiquidBlock.STABLE_SHAPE, this.blockPosition(), true) && !this.level.getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)) {
@@ -404,6 +404,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
     public void die(DamageSource cause) {
         if (this.deathTime > 0) {
             super.die(cause);
+        } else {
+            this.deathBlow = cause;
         }
     }
 
@@ -952,7 +954,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
         }
     }
 
-    private void teleportTowards(Entity entity) {
+    public void teleportTowards(Entity entity) {
         if (!this.level.isClientSide() && !this.isNoAi() && this.isAlive() && this.toTeleportPos == null && !this.isSettingUpSecond()) {
             this.prevX = this.getX();
             this.prevY = this.getY();
@@ -1543,7 +1545,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
     }
 
     @NotNull
-    private NetherMeteor getNetherMeteor() {
+    public NetherMeteor getNetherMeteor() {
         int range = this.getHealth() < this.getMaxHealth() / 2 ? 450 : 900;
         int trueRange = this.getHealth() < this.getHealth() / 4 ? range/2 : range;
         RandomSource random = this.level.random;
@@ -1563,7 +1565,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
         return !this.isSettingUpSecond() && super.hasLineOfSight(p_149755_);
     }
 
-    private void barrier(Entity p_213688_1_, LivingEntity livingEntity) {
+    public void barrier(Entity p_213688_1_, LivingEntity livingEntity) {
         double d0 = p_213688_1_.getX() - livingEntity.getX();
         double d1 = p_213688_1_.getZ() - livingEntity.getZ();
         double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);
@@ -1720,7 +1722,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
     }
 
     class CastingSpellGoal extends CastingASpellGoal {
-        private CastingSpellGoal() {
+        public CastingSpellGoal() {
         }
 
         public void tick() {
@@ -1771,7 +1773,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
     }
 
     class FireballSpellGoal extends CastingGoal {
-        private FireballSpellGoal() {
+        public FireballSpellGoal() {
         }
 
         @Override
@@ -1833,7 +1835,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
 
     class DamnedSpellGoal extends CastingGoal {
 
-        private DamnedSpellGoal() {
+        public DamnedSpellGoal() {
         }
 
         @Override
@@ -1910,7 +1912,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
     }
 
     class MonolithSpellGoal extends CastingGoal {
-        private MonolithSpellGoal() {
+        public MonolithSpellGoal() {
         }
 
         @Override
@@ -1966,7 +1968,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
     }
 
     class FireRainSpellGoal extends CastingGoal {
-        private FireRainSpellGoal() {
+        public FireRainSpellGoal() {
         }
 
         @Override
@@ -2020,7 +2022,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
     }
 
     class RangedSummonSpellGoal extends CastingGoal {
-        private RangedSummonSpellGoal() {
+        public RangedSummonSpellGoal() {
         }
 
         @Override
@@ -2110,7 +2112,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
     }
 
     class FireTornadoSpellGoal extends CastingGoal {
-        private FireTornadoSpellGoal() {
+        public FireTornadoSpellGoal() {
         }
 
         @Override
@@ -2170,7 +2172,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
     }
 
     class RoarSpellGoal extends CastingGoal {
-        private RoarSpellGoal() {
+        public RoarSpellGoal() {
         }
 
         @Override
@@ -2266,7 +2268,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
     }
 
     class SecondPhaseIndicator extends Goal {
-        private SecondPhaseIndicator() {
+        public SecondPhaseIndicator() {
         }
 
         @Override
@@ -2301,13 +2303,13 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
     }
 
     static class ApostleBowGoal<T extends Apostle> extends Goal{
-        private final T mob;
-        private final float attackRadiusSqr;
-        private int attackTime = -1;
-        private int seeTime;
-        private boolean strafingClockwise;
-        private boolean strafingBackwards;
-        private int strafingTime = -1;
+        public final T mob;
+        public final float attackRadiusSqr;
+        public int attackTime = -1;
+        public int seeTime;
+        public boolean strafingClockwise;
+        public boolean strafingBackwards;
+        public int strafingTime = -1;
 
         public ApostleBowGoal(T p_25792_, float p_25795_) {
             this.mob = p_25792_;

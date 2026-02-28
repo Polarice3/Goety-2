@@ -14,6 +14,11 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class BlockItemBase extends BlockItem {
+
+    public BlockItemBase(Block blockIn, Properties properties) {
+        super(blockIn, properties);
+    }
+
     public BlockItemBase(Block blockIn) {
         super(blockIn, new Properties());
     }

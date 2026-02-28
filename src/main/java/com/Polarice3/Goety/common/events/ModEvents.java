@@ -80,6 +80,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.CombatRules;
 import net.minecraft.world.damagesource.DamageSource;
@@ -811,6 +812,7 @@ public class ModEvents {
                     Block.dropResources(Blocks.GOLD_ORE.defaultBlockState(), player.level, event.getPos(), null, player, player.getMainHandItem());
                     event.getState().getBlock().playerWillDestroy(player.level, event.getPos(), event.getState(), player);
                     player.level.setBlockAndUpdate(event.getPos(), Blocks.AIR.defaultBlockState());
+                    ItemHelper.hurtAndBreak(player.getMainHandItem(), 1, player);
                     event.setCanceled(true);
                 }
             }
@@ -915,9 +917,19 @@ public class ModEvents {
         Entity source = event.getSource().getEntity();
         Entity direct = event.getSource().getDirectEntity();
         if (!event.getEntity().level.isClientSide) {
-            if (MiscCapHelper.getShields(victim) > 0 && !event.getSource().is(DamageTypeTags.BYPASSES_EFFECTS)){
+            if (MiscCapHelper.getShields(victim) > 0
+                    && !event.getSource().is(DamageTypeTags.BYPASSES_EFFECTS)
+                    && !event.getSource().is(DamageTypeTags.BYPASSES_INVULNERABILITY)){
                 if (MiscCapHelper.getShieldCool(victim) <= 0) {
                     MiscCapHelper.decreaseShields(victim);
+                    if (SpellConfig.BulwarkShieldBreakExtra.get() > 0.0D) {
+                        int extra = Mth.floor(event.getAmount() / SpellConfig.BulwarkShieldBreakExtra.get());
+                        if (extra >= 1) {
+                            for (int i = 0; i < extra; ++i) {
+                                MiscCapHelper.decreaseShields(victim);
+                            }
+                        }
+                    }
                     MiscCapHelper.setShieldCool(victim, 10);
                     if (event.getSource().getEntity() instanceof LivingEntity livingEntity){
                         MobUtil.knockBack(livingEntity, victim, 1.0D, 0.2D, 1.0D);

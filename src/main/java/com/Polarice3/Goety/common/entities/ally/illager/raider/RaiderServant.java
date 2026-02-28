@@ -9,6 +9,8 @@ import com.Polarice3.Goety.common.entities.ally.illager.AbstractIllagerServant;
 import com.Polarice3.Goety.common.entities.ally.illager.cultist.WitchServant;
 import com.Polarice3.Goety.common.entities.ally.undead.bound.AbstractBoundIllager;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.common.entities.projectiles.Hellfire;
+import com.Polarice3.Goety.common.entities.projectiles.SpellEntity;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.WaystoneItem;
 import com.Polarice3.Goety.common.items.magic.TaglockKit;
@@ -560,6 +562,12 @@ public abstract class RaiderServant extends Summoned {
                                             this.getIdol().removeIllager(this);
                                         }
                                         idol.addIllager(this);
+                                        this.setRevivePos(idol.getBlockPos());
+                                        if (idol.getLevel() != null) {
+                                            this.setReviveDim(idol.getLevel().dimension());
+                                        } else {
+                                            this.setReviveDim(this.getLeader().getReviveDim());
+                                        }
                                     }
                                 }
                             }
@@ -889,6 +897,13 @@ public abstract class RaiderServant extends Summoned {
         this.level.broadcastEntityEvent(this, (byte) 35);
         this.addEffect(new MobEffectInstance(GoetyEffects.WOUNDED.get(), MathHelper.minecraftDayToTicks(1)));
         this.addEffect(new MobEffectInstance(GoetyEffects.CRIPPLED.get(), MathHelper.minutesToTicks(5)));
+        for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(16))) {
+            if (entity instanceof Hellfire || entity instanceof SpellEntity) {
+                if (!MobUtil.areAllies(this, entity)) {
+                    entity.discard();
+                }
+            }
+        }
         if (this.getIdol() != null) {
             this.getIdol().siphonSoulEnergy(MainConfig.OminousIdolReviveCost.get());
         }

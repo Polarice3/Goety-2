@@ -9,6 +9,10 @@ import java.util.function.Consumer;
 
 public class BlockISTERItem extends BlockItemBase{
 
+    public BlockISTERItem(Block blockIn, Properties properties) {
+        super(blockIn, properties);
+    }
+
     public BlockISTERItem(Block blockIn) {
         super(blockIn);
     }

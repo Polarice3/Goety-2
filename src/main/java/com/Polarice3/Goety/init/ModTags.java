@@ -44,6 +44,7 @@ public class ModTags {
         public static final TagKey<Block> END_STONE = tag("end_stone");
         public static final TagKey<Block> CHORUS_GRASS_BLOCKS = tag("chorus_grass_blocks");
         public static final TagKey<Block> END_SOIL_BLOCKS = tag("end_soil_blocks");
+        public static final TagKey<Block> PLUSHIE = tag("plushie");
         public static final TagKey<Block> PHILOSOPHERS_MACE_HARD = tag("philosophers_mace_hard");
         public static final TagKey<Block> RECALL_BLOCKS = tag("recall_blocks");
         public static final TagKey<Block> RAIDING_CHESTS = tag("raiding_chests");
@@ -81,6 +82,7 @@ public class ModTags {
         public static final TagKey<Item> CROWNS = tag("crowns");
         public static final TagKey<Item> FOCUSES = tag("focuses");
         public static final TagKey<Item> GRIMOIRES = tag("grimoires");
+        public static final TagKey<Item> PLUSHIE = tag("plushie");
         public static final TagKey<Item> PILLAGER_WEAPONS = tag("pillager_weapons");
         public static final TagKey<Item> VINDICATOR_WEAPONS = tag("vindicator_weapons");
         public static final TagKey<Item> BREWABLE_FOOD = tag("brewable_food");
@@ -315,6 +317,7 @@ public class ModTags {
         public static final TagKey<DamageType> HELLFIRE = tag("hellfire");
         public static final TagKey<DamageType> NO_KNOCKBACK = tag("no_knockback");
         public static final TagKey<DamageType> WANTING_DAMAGE = tag("wanting_damage");
+        public static final TagKey<DamageType> LICH_IMMUNE = tag("lich_immune");
 
         private static TagKey<DamageType> tag(String name) {
             return create(Goety.location(name));

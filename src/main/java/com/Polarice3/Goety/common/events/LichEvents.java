@@ -236,6 +236,9 @@ public class LichEvents {
     public static void HurtEvent(LivingHurtEvent event){
         if (event.getEntity() instanceof Player player) {
             if (LichdomHelper.isLich(player)){
+                if (event.getSource().is(ModTags.DamageTypes.LICH_IMMUNE)) {
+                    event.setCanceled(true);
+                }
                 if (MainConfig.LichMagicResist.get()) {
                     if (event.getSource().is(DamageTypeTags.WITCH_RESISTANT_TO)) {
                         event.setAmount(event.getAmount() * 0.15F);

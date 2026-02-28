@@ -35,6 +35,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -334,6 +335,7 @@ public class Malghast extends SummonedFlying {
                         fireballentity = new Lavaball(world, this.ghast, d2, d3, d4);
                         if (fireballentity instanceof Lavaball lavaball){
                             lavaball.setExplosionPower(power);
+                            lavaball.setDangerous(ForgeEventFactory.getMobGriefingEvent(world, this.ghast));
                         }
                     }
                     double y = this.ghast.getY() <= livingentity.getEyeY() ? this.ghast.getY(0.5D) : this.ghast.getY();

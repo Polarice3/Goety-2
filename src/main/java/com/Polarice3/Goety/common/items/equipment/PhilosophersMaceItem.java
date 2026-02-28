@@ -61,7 +61,7 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
     }
 
     public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
-        if (ItemConfig.BladeOfEnderPersist.get()) {
+        if (ItemConfig.PhilosophersMacePersist.get()) {
             if (stack.getDamageValue() + amount >= stack.getMaxDamage()) {
                 if (stack.getDamageValue() != stack.getMaxDamage() - 1) {
                     stack.setDamageValue(stack.getMaxDamage() - 1);
@@ -75,7 +75,7 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
 
     @Override
     public boolean isBroken(ItemStack stack) {
-        return IPersist.super.isBroken(stack) && ItemConfig.BladeOfEnderPersist.get();
+        return IPersist.super.isBroken(stack) && ItemConfig.PhilosophersMacePersist.get();
     }
 
     public boolean canAttackBlock(BlockState state, Level worldIn, BlockPos pos, Player player) {
@@ -104,7 +104,7 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
     }
 
     public float getDestroySpeed(ItemStack stack, BlockState blockState) {
-        if (this.isNotBroken(stack) || !ItemConfig.BladeOfEnderPersist.get()) {
+        if (this.isNotBroken(stack) || !ItemConfig.PhilosophersMacePersist.get()) {
             float blockHard = blockState.getBlock().defaultDestroyTime();
             if (blockState.is(ModTags.Blocks.PHILOSOPHERS_MACE_HARD)){
                 return 1.0F;

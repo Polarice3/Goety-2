@@ -641,6 +641,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> VOID_TOUCHED_DEACTIVATE = create("void_touched_deactivate");
     public static final RegistryObject<SoundEvent> VOID_TOUCHED_LOOP = create("void_touched_loop");
     public static final RegistryObject<SoundEvent> SOUL_EAT = create("soul_eat");
+    public static final RegistryObject<SoundEvent> PLUSHIE_SQUEEZE = create("plushie_squeeze");
     public static final RegistryObject<SoundEvent> JOKE = create("joke");
 
     public static final RegistryObject<SoundEvent> NETHER_SPREAD = create("nether_spread");

@@ -3469,5 +3469,11 @@
   "item.goety.surging_focus": "Foco Ondulante",
   "item.goety.surging_focus.info": "Dispara vários pequenos raios carregados, após uma carga inicial, em sucessão rápida.",
   "advancements.goety.convert_wildfire.title": "Urso Smokey Desaprova",
-  "advancements.goety.convert_wildfire.description": "Converta um Blaze em um Incêndio Selvagem."
+  "advancements.goety.convert_wildfire.description": "Converta um Blaze em um Incêndio Selvagem.",
+  "block.goety.plushie": "Plushie",
+  "block.goety.plushie_1": "§6BoxSomething §rPlushie",
+  "block.goety.plushie_2": "§aCodatower §rPlushie",
+  "block.goety.plushie_3": "§6Fracsail §rPlushie",
+  "block.goety.plushie_4": "§6Nedeak §rPlushie",
+  "block.goety.plushie_5": "§6Jade Jester §rPlushie"
 }

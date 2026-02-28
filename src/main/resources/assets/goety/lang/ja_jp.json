@@ -3272,7 +3272,6 @@
   "item.goety.irk_servant_spawn_egg": "アークの従者のスポーンエッグ",
   "item.goety.carrion_focus": "死肉のフォーカス",
   "item.goety.carrion_focus.info": "腐ったハエの群れを召喚します。しゃがむと、すでにいる従者がプレイヤーの元へ行きます。",
-  "info.goety.unholy_hat": "完全な火炎耐性を与えます。ネザーにいる際に受けるダメージを%s%軽減します。ネザーの従者は持続します。",
   "subtitle.goety.villager_chop": "Prisoner mining",
   "entity.goety.winter_wolf": "ウィンターウルフ",
   "item.goety.winter_wolf_spawn_egg": "ウィンターウルフのスポーンエッグ",
@@ -3333,5 +3332,12 @@
   "item.goety.surging_focus": "サージングのフォーカス",
   "item.goety.surging_focus.info": "チャージ後、素早く連続して複数の小さなチャージボルトを発射します。",
   "advancements.goety.convert_wildfire.title": "スモーキーベアは不承認",
-  "advancements.goety.convert_wildfire.description": "ブレイズをワイルドファイアに変換します。"
+  "advancements.goety.convert_wildfire.description": "ブレイズをワイルドファイアに変換します。",
+  "info.goety.unholy_hat": "完全な火炎耐性を与えます。ネザーにいる際に受けるダメージを%s%%軽減します。ネザーの従者は持続します。",
+  "block.goety.plushie": "Plushie",
+  "block.goety.plushie_1": "§6BoxSomething §rPlushie",
+  "block.goety.plushie_2": "§aCodatower §rPlushie",
+  "block.goety.plushie_3": "§6Fracsail §rPlushie",
+  "block.goety.plushie_4": "§6Nedeak §rPlushie",
+  "block.goety.plushie_5": "§6Jade Jester §rPlushie"
 }

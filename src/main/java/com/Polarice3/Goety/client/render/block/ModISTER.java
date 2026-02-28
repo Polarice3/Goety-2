@@ -54,8 +54,8 @@ public class ModISTER extends BlockEntityWithoutLevelRenderer {
     public void renderByItem(ItemStack pStack, ItemDisplayContext pCamera, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pLight, int pOverlay) {
         Item item = pStack.getItem();
 
-        if (item instanceof BlockItem) {
-            Block block = ((BlockItem) item).getBlock();
+        if (item instanceof BlockItem blockItem) {
+            Block block = blockItem.getBlock();
             if (block instanceof TallSkullBlock) {
                 if(pCamera == ItemDisplayContext.GUI) {
                     pMatrixStack.pushPose();
@@ -123,6 +123,19 @@ public class ModISTER extends BlockEntityWithoutLevelRenderer {
                 Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(new LoftyChestBlockEntity(BlockPos.ZERO, block.defaultBlockState()), pMatrixStack, pBuffer, pLight, pOverlay);
             } else if (block instanceof ModChestBlock) {
                 Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(this.chestEntities.get(block), pMatrixStack, pBuffer, pLight, pOverlay);
+            } else if (block instanceof PlushieBlock) {
+                if(pCamera == ItemDisplayContext.GUI) {
+                    pMatrixStack.pushPose();
+                    pMatrixStack.translate(0.5F, 0.5F, 0.5F);
+                    pMatrixStack.mulPose(Axis.XP.rotationDegrees(30));
+                    pMatrixStack.mulPose(Axis.YN.rotationDegrees(-45));
+                    pMatrixStack.translate(-0.5F, -0.5F, -0.5F);
+                    pMatrixStack.translate(0.0F, 0.25F, 0.0F);
+                    PlushieBlockEntityRenderer.renderItemPlushie(pStack, block.defaultBlockState(), 180.0F, pMatrixStack, pBuffer, pLight);
+                    pMatrixStack.popPose();
+                } else {
+                    PlushieBlockEntityRenderer.renderItemPlushie(pStack, block.defaultBlockState(), 180.0F, pMatrixStack, pBuffer, pLight);
+                }
             }
         }
     }

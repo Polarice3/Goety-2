@@ -1021,6 +1021,13 @@ public class ModBlocks {
                     .noOcclusion()));
     public static final RegistryObject<Block> SHADE_GLASS_PANE = register("shade_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.copy(Blocks.GLASS_PANE)));
 
+    public static final RegistryObject<PlushieBlock> PLUSHIE = isterRegister("plushie", PlushieBlock::new);
+    public static final RegistryObject<PlushieBlock> PLUSHIE_1 = isterRegister("plushie_1", () -> new PlushieBlock(1));
+    public static final RegistryObject<PlushieBlock> PLUSHIE_2 = isterRegister("plushie_2", () -> new PlushieBlock(2));
+    public static final RegistryObject<PlushieBlock> PLUSHIE_3 = isterRegister("plushie_3", () -> new PlushieBlock(3));
+    public static final RegistryObject<PlushieBlock> PLUSHIE_4 = isterRegister("plushie_4", () -> new PlushieBlock(4));
+    public static final RegistryObject<PlushieBlock> PLUSHIE_5 = isterRegister("plushie_5", () -> new PlushieBlock(5));
+
     //Custom Items
     public static final RegistryObject<Item> SNAP_WARTS_ITEM = ModItems.ITEMS.register("snap_warts",
             () -> new ItemNameBlockItem(ModBlocks.SNAP_WARTS.get(), (new Item.Properties())));

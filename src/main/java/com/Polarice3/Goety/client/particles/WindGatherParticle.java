@@ -27,28 +27,28 @@ public class WindGatherParticle extends WindTrailParticle {
         this.width = width;
         this.height = height;
         this.lifetime = life;
-        this.owner = level.getEntity(ownerId);
+        this.owner = this.level.getEntity(ownerId);
         if (this.owner != null) {
-            this.yaw = (float) (Mth.atan2(x - owner.getX(), z - owner.getZ()));
-            this.radius = (float) new Vec3(x - owner.getX(), 0, z - owner.getZ()).length();
+            this.yaw = (float) (Mth.atan2(x - this.owner.getX(), z - this.owner.getZ()));
+            this.radius = (float) new Vec3(x - this.owner.getX(), 0, z - this.owner.getZ()).length();
         }
-        this.yawSpeed = (random.nextBoolean() ? 1 : -1) * (0.15F + random.nextFloat() * 0.1F);
-        this.radiusSpeed = radius / 20 * (0.8F + random.nextFloat() * 0.4F);
-        this.minRadius = 0.75F + random.nextFloat() * 0.2F;
+        this.yawSpeed = (this.random.nextBoolean() ? 1 : -1) * (0.15F + this.random.nextFloat() * 0.1F);
+        this.radiusSpeed = this.radius / 20 * (0.8F + this.random.nextFloat() * 0.4F);
+        this.minRadius = 0.75F + this.random.nextFloat() * 0.2F;
     }
 
     @Override
     public void tick() {
         if (this.age < this.lifetime - (sampleSize() - 1) * sampleStep()) {
-            this.yaw += yawSpeed;
-            this.radius -= radiusSpeed;
-            if (this.radius < minRadius) {
-                this.radius = minRadius;
+            this.yaw += this.yawSpeed;
+            this.radius -= this.radiusSpeed;
+            if (this.radius < this.minRadius) {
+                this.radius = this.minRadius;
             }
             if (this.owner != null) {
-                Vec3 pos = owner.position().add(radius * Math.cos(yaw), 0, radius * Math.sin(yaw));
+                Vec3 pos = this.owner.position().add(this.radius * Math.cos(this.yaw), 0, this.radius * Math.sin(this.yaw));
                 this.x = pos.x();
-                this.y = owner.getY() + (Math.sin(age * 0.2) + 1) * 0.5 * owner.getBbHeight();
+                this.y = this.owner.getY() + (Math.sin(this.age * 0.2) + 1) * 0.5 * this.owner.getBbHeight();
                 this.z = pos.z();
             }
         }

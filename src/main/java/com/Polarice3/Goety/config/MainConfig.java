@@ -47,6 +47,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> AnimatorCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> OminousIdolReviveCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> OminousIdolLimit;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VoidFrameCoolTime;
     public static final ForgeConfigSpec.ConfigValue<Double> SoulMenderSeconds;
     public static final ForgeConfigSpec.ConfigValue<Double> LichHealAmount;
     public static final ForgeConfigSpec.ConfigValue<Double> LichPowerfulFoesHealth;
@@ -222,6 +223,8 @@ public class MainConfig {
                 .defineInRange("ominousIdolReviveCost", 500, 0, Integer.MAX_VALUE);
         OminousIdolLimit = BUILDER.comment("The amount of Illager Servants an Ominous Idol can register to revive, Default: 16")
                 .defineInRange("ominousIdolLimit", 16, 0, Integer.MAX_VALUE);
+        VoidFrameCoolTime = BUILDER.comment("How many ticks until Void Frames returns back to Locked State after being used, Default: 24000")
+                .defineInRange("voidFrameCoolTime", 24000, 0, Integer.MAX_VALUE);
         PithosRespawn = BUILDER.comment("Allow looted Pithos to regenerate Loot and spawn Skull Lord again when right-clicked with respawn_boss tagged item, Default: true")
                 .define("pithosRespawn", true);
         CrystalBallRespawn = BUILDER.comment("Allow used Crystal Balls to spawn Crones again when right-clicked with respawn_boss tagged item, Default: true")

@@ -1153,6 +1153,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.surging_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:surging_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.swarm_focus": {
       "conditions": {
         "items": [
@@ -1673,6 +1685,9 @@
     ],
     [
       "item.goety.electrocute_focus"
+    ],
+    [
+      "item.goety.surging_focus"
     ],
     [
       "item.goety.monsoon_focus"

@@ -66,13 +66,14 @@ public class UpdraftSpell extends Spell {
             range *= 2;
             radius += 0.5D;
         }
+        int potency = spellStat.getPotency();
         float damage = SpellConfig.UpdraftBlastDamage.get().floatValue() * WandUtil.damageMultiply();
         if (WandUtil.enchantedFocus(caster)) {
             range += WandUtil.getRangeLevel(caster);
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
-            damage += WandUtil.getPotencyLevel(caster);
+            potency += WandUtil.getPotencyLevel(caster);
         }
-        damage += spellStat.getPotency();
+        damage += potency;
         HitResult rayTraceResult = this.rayTrace(worldIn, caster, range, radius);
         LivingEntity target = this.getTarget(caster, range);
         if (target != null){

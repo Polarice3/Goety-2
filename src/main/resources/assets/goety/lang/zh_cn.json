@@ -3385,5 +3385,11 @@
   "item.goety.surging_focus": "电涌聚晶",
   "item.goety.surging_focus.info": "完成蓄力后，快速连续射出数枚充能小电矢。",
   "advancements.goety.convert_wildfire.title": "斯莫基熊觉得很淦",
-  "advancements.goety.convert_wildfire.description": "将烈焰人转化为野火仆从"
+  "advancements.goety.convert_wildfire.description": "将烈焰人转化为野火仆从",
+  "block.goety.plushie": "Plushie",
+  "block.goety.plushie_1": "§6BoxSomething §rPlushie",
+  "block.goety.plushie_2": "§aCodatower §rPlushie",
+  "block.goety.plushie_3": "§6Fracsail §rPlushie",
+  "block.goety.plushie_4": "§6Nedeak §rPlushie",
+  "block.goety.plushie_5": "§6Jade Jester §rPlushie"
 }

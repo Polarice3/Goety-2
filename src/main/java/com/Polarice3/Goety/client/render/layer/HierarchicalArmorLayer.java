@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.client.render.layer;
 
-import com.google.common.collect.Maps;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
@@ -34,14 +34,12 @@ import net.minecraft.world.item.armortrim.ArmorTrim;
 import org.joml.Quaternionf;
 
 import javax.annotation.Nullable;
-import java.util.Map;
 
 /**
  * <a href="https://github.com/baguchan/BagusLib/blob/1.20/src/main/java/bagu_chan/bagus_lib/client/layer/CustomArmorLayer.java">...</a>
  * Thanks Alex and Bagu!!
  */
 public class HierarchicalArmorLayer<T extends LivingEntity, M extends EntityModel<T> & HierarchicalArmor> extends RenderLayer<T, M> {
-    private static final Map<String, ResourceLocation> ARMOR_TEXTURE_RES_MAP = Maps.newHashMap();
     private final HumanoidModel defaultBipedModel;
     private final HumanoidModel innerModel;
     private final RenderLayerParent<T, M> renderer;
@@ -219,17 +217,16 @@ public class HierarchicalArmorLayer<T extends LivingEntity, M extends EntityMode
 
     private void renderTrim(ModelPart part, ArmorMaterial armorMaterial, PoseStack poseStack, MultiBufferSource pBuffer, int packedLight, ArmorTrim armorTrim, boolean glintIn, boolean innerModel, float red, float green, float blue) {
         TextureAtlasSprite textureatlassprite = this.armorTrimAtlas.getSprite(innerModel ? armorTrim.innerTexture(armorMaterial) : armorTrim.outerTexture(armorMaterial));
-        VertexConsumer vertexconsumer = textureatlassprite.wrap(ItemRenderer.getFoilBufferDirect(pBuffer, Sheets.armorTrimsSheet(), true, glintIn));
+        VertexConsumer vertexconsumer = textureatlassprite.wrap(ItemRenderer.getFoilBufferDirect(pBuffer, Sheets.armorTrimsSheet(), false, glintIn));
         part.render(poseStack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F);
     }
 
-    //frick you
     private void renderTrim(ModelPart part, ItemStack item, LivingEntity entity, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, boolean glintIn, EquipmentSlot equipmentSlot) {
-        /*if (item.getItem() instanceof ArmorItem armorItem) {
+        if (item.getItem() instanceof ArmorItem armorItem) {
             ArmorTrim.getTrim(entity.level().registryAccess(), item).ifPresent((armorTrim) -> {
                 this.renderTrim(part, armorItem.getMaterial(), matrixStackIn, bufferIn, packedLightIn, armorTrim, glintIn, usesInnerModel(equipmentSlot), 1.0F, 1.0F, 1.0F);
             });
-        }*/
+        }
     }
 
     private void renderLeg(ItemStack legItem, LivingEntity entity, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, boolean glintIn, HumanoidModel modelIn, float red, float green, float blue, ResourceLocation armorResource, boolean notAVanillaModel) {
@@ -254,33 +251,51 @@ public class HierarchicalArmorLayer<T extends LivingEntity, M extends EntityMode
         modelIn.leftLeg.z = 0F;
         modelIn.rightLeg.z = 0F;
         renderer.getModel().rightLegPartArmors().forEach(part -> {
-                    matrixStackIn.pushPose();
-                    renderer.getModel().translateToLeg(part, matrixStackIn);
-
-                    modelIn.rightLeg.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F);
-                    renderTrim(modelIn.rightLeg, legItem, entity, matrixStackIn, bufferIn, packedLightIn, glintIn, EquipmentSlot.LEGS);
-
-                    matrixStackIn.popPose();
-                }
-        );
+            matrixStackIn.pushPose();
+            renderer.getModel().translateToLeg(part, matrixStackIn);
+            modelIn.rightLeg.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F);
+            matrixStackIn.popPose();
+        });
         renderer.getModel().leftLegPartArmors().forEach(part -> {
             matrixStackIn.pushPose();
             renderer.getModel().translateToLeg(part, matrixStackIn);
-
             modelIn.leftLeg.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F);
-            renderTrim(modelIn.leftLeg, legItem, entity, matrixStackIn, bufferIn, packedLightIn, glintIn, EquipmentSlot.LEGS);
-
             matrixStackIn.popPose();
         });
         renderer.getModel().bodyPartArmors().forEach(part -> {
             matrixStackIn.pushPose();
-            this.renderer.getModel().translateToChest(part, matrixStackIn);
-
+            renderer.getModel().translateToChest(part, matrixStackIn);
             modelIn.body.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F);
-            renderTrim(modelIn.body, legItem, entity, matrixStackIn, bufferIn, packedLightIn, glintIn, EquipmentSlot.LEGS);
-
             matrixStackIn.popPose();
         });
+        if (MobsConfig.HierarchicalArmorTrim.get()) {
+            ArmorTrim.getTrim(entity.level().registryAccess(), legItem).ifPresent(armorTrim -> {
+                if (legItem.getItem() instanceof ArmorItem armorItem) {
+                    TextureAtlasSprite sprite = this.armorTrimAtlas.getSprite(armorTrim.innerTexture(armorItem.getMaterial()));
+                    renderer.getModel().rightLegPartArmors().forEach(part -> {
+                        matrixStackIn.pushPose();
+                        renderer.getModel().translateToLeg(part, matrixStackIn);
+                        VertexConsumer consumer = sprite.wrap(ItemRenderer.getFoilBufferDirect(bufferIn, Sheets.armorTrimsSheet(), false, glintIn));
+                        modelIn.rightLeg.render(matrixStackIn, consumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+                        matrixStackIn.popPose();
+                    });
+                    renderer.getModel().leftLegPartArmors().forEach(part -> {
+                        matrixStackIn.pushPose();
+                        renderer.getModel().translateToLeg(part, matrixStackIn);
+                        VertexConsumer consumer = sprite.wrap(ItemRenderer.getFoilBufferDirect(bufferIn, Sheets.armorTrimsSheet(), false, glintIn));
+                        modelIn.leftLeg.render(matrixStackIn, consumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+                        matrixStackIn.popPose();
+                    });
+                    renderer.getModel().bodyPartArmors().forEach(part -> {
+                        matrixStackIn.pushPose();
+                        renderer.getModel().translateToChest(part, matrixStackIn);
+                        VertexConsumer consumer = sprite.wrap(ItemRenderer.getFoilBufferDirect(bufferIn, Sheets.armorTrimsSheet(), false, glintIn));
+                        modelIn.body.render(matrixStackIn, consumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+                        matrixStackIn.popPose();
+                    });
+                }
+            });
+        }
     }
 
     private void renderBoot(ItemStack feetItem, LivingEntity entity, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, boolean glintIn, HumanoidModel modelIn, float red, float green, float blue, ResourceLocation armorResource, boolean notAVanillaModel) {
@@ -302,19 +317,35 @@ public class HierarchicalArmorLayer<T extends LivingEntity, M extends EntityMode
             matrixStackIn.pushPose();
             renderer.getModel().translateToLeg(part, matrixStackIn);
             modelIn.rightLeg.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F);
-            renderTrim(modelIn.rightLeg, feetItem, entity, matrixStackIn, bufferIn, packedLightIn, glintIn, EquipmentSlot.FEET);
-
             matrixStackIn.popPose();
         });
         renderer.getModel().leftLegPartArmors().forEach(part -> {
             matrixStackIn.pushPose();
             renderer.getModel().translateToLeg(part, matrixStackIn);
             modelIn.leftLeg.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F);
-            renderTrim(modelIn.leftLeg, feetItem, entity, matrixStackIn, bufferIn, packedLightIn, glintIn, EquipmentSlot.FEET);
-
             matrixStackIn.popPose();
         });
-
+        if (MobsConfig.HierarchicalArmorTrim.get()) {
+            ArmorTrim.getTrim(entity.level().registryAccess(), feetItem).ifPresent(armorTrim -> {
+                if (feetItem.getItem() instanceof ArmorItem armorItem) {
+                    TextureAtlasSprite sprite = this.armorTrimAtlas.getSprite(armorTrim.outerTexture(armorItem.getMaterial()));
+                    renderer.getModel().rightLegPartArmors().forEach(part -> {
+                        matrixStackIn.pushPose();
+                        renderer.getModel().translateToLeg(part, matrixStackIn);
+                        VertexConsumer consumer = sprite.wrap(ItemRenderer.getFoilBufferDirect(bufferIn, Sheets.armorTrimsSheet(), false, glintIn));
+                        modelIn.rightLeg.render(matrixStackIn, consumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+                        matrixStackIn.popPose();
+                    });
+                    renderer.getModel().leftLegPartArmors().forEach(part -> {
+                        matrixStackIn.pushPose();
+                        renderer.getModel().translateToLeg(part, matrixStackIn);
+                        VertexConsumer consumer = sprite.wrap(ItemRenderer.getFoilBufferDirect(bufferIn, Sheets.armorTrimsSheet(), false, glintIn));
+                        modelIn.leftLeg.render(matrixStackIn, consumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+                        matrixStackIn.popPose();
+                    });
+                }
+            });
+        }
     }
 
 
@@ -347,27 +378,48 @@ public class HierarchicalArmorLayer<T extends LivingEntity, M extends EntityMode
             matrixStackIn.pushPose();
             renderer.getModel().translateToArms(part, matrixStackIn);
             modelIn.rightArm.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F);
-            renderTrim(modelIn.rightArm, chestItem, entity, matrixStackIn, bufferIn, packedLightIn, glintIn, EquipmentSlot.CHEST);
-
             matrixStackIn.popPose();
         });
         renderer.getModel().leftHandArmors().forEach(part -> {
             matrixStackIn.pushPose();
             renderer.getModel().translateToArms(part, matrixStackIn);
             modelIn.leftArm.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F);
-            renderTrim(modelIn.leftArm, chestItem, entity, matrixStackIn, bufferIn, packedLightIn, glintIn, EquipmentSlot.CHEST);
-
             matrixStackIn.popPose();
         });
         renderer.getModel().bodyPartArmors().forEach(part -> {
             matrixStackIn.pushPose();
-            this.renderer.getModel().translateToChest(part, matrixStackIn);
-
+            renderer.getModel().translateToChest(part, matrixStackIn);
             modelIn.body.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F);
-            renderTrim(modelIn.body, chestItem, entity, matrixStackIn, bufferIn, packedLightIn, glintIn, EquipmentSlot.CHEST);
-
             matrixStackIn.popPose();
         });
+        if (MobsConfig.HierarchicalArmorTrim.get()) {
+            ArmorTrim.getTrim(entity.level().registryAccess(), chestItem).ifPresent(armorTrim -> {
+                if (chestItem.getItem() instanceof ArmorItem armorItem) {
+                    TextureAtlasSprite sprite = this.armorTrimAtlas.getSprite(armorTrim.outerTexture(armorItem.getMaterial()));
+                    renderer.getModel().rightHandArmors().forEach(part -> {
+                        matrixStackIn.pushPose();
+                        renderer.getModel().translateToArms(part, matrixStackIn);
+                        VertexConsumer consumer = sprite.wrap(ItemRenderer.getFoilBufferDirect(bufferIn, Sheets.armorTrimsSheet(), false, glintIn));
+                        modelIn.rightArm.render(matrixStackIn, consumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+                        matrixStackIn.popPose();
+                    });
+                    renderer.getModel().leftHandArmors().forEach(part -> {
+                        matrixStackIn.pushPose();
+                        renderer.getModel().translateToArms(part, matrixStackIn);
+                        VertexConsumer consumer = sprite.wrap(ItemRenderer.getFoilBufferDirect(bufferIn, Sheets.armorTrimsSheet(), false, glintIn));
+                        modelIn.leftArm.render(matrixStackIn, consumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+                        matrixStackIn.popPose();
+                    });
+                    renderer.getModel().bodyPartArmors().forEach(part -> {
+                        matrixStackIn.pushPose();
+                        renderer.getModel().translateToChest(part, matrixStackIn);
+                        VertexConsumer consumer = sprite.wrap(ItemRenderer.getFoilBufferDirect(bufferIn, Sheets.armorTrimsSheet(), false, glintIn));
+                        modelIn.body.render(matrixStackIn, consumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+                        matrixStackIn.popPose();
+                    });
+                }
+            });
+        }
     }
 
     private void renderHelmet(ItemStack headItem, LivingEntity entity, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, boolean glintIn, HumanoidModel modelIn, float red, float green, float blue, ResourceLocation armorResource, boolean notAVanillaModel) {
@@ -387,12 +439,24 @@ public class HierarchicalArmorLayer<T extends LivingEntity, M extends EntityMode
         modelIn.hat.z = 0F;
         renderer.getModel().headPartArmors().forEach(part -> {
             matrixStackIn.pushPose();
-            this.renderer.getModel().translateToHead(part, matrixStackIn);
+            renderer.getModel().translateToHead(part, matrixStackIn);
             modelIn.head.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F);
-            renderTrim(modelIn.head, headItem, entity, matrixStackIn, bufferIn, packedLightIn, glintIn, EquipmentSlot.HEAD);
             matrixStackIn.popPose();
         });
-
+        if (MobsConfig.HierarchicalArmorTrim.get()) {
+            ArmorTrim.getTrim(entity.level().registryAccess(), headItem).ifPresent(armorTrim -> {
+                if (headItem.getItem() instanceof ArmorItem armorItem) {
+                    TextureAtlasSprite sprite = this.armorTrimAtlas.getSprite(armorTrim.outerTexture(armorItem.getMaterial()));
+                    renderer.getModel().headPartArmors().forEach(part -> {
+                        matrixStackIn.pushPose();
+                        renderer.getModel().translateToHead(part, matrixStackIn);
+                        VertexConsumer consumer = sprite.wrap(ItemRenderer.getFoilBufferDirect(bufferIn, Sheets.armorTrimsSheet(), false, glintIn));
+                        modelIn.head.render(matrixStackIn, consumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+                        matrixStackIn.popPose();
+                    });
+                }
+            });
+        }
     }
 
 
