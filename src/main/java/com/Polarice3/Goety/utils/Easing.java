@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.utils;
 
+@FunctionalInterface
 public interface Easing {
 	float calculate(float f);
 
