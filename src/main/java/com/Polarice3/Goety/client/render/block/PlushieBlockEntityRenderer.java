@@ -35,7 +35,7 @@ public class PlushieBlockEntityRenderer implements BlockEntityRenderer<PlushieBl
         pMatrixStack.translate(0.5D, 0.0D, 0.5D);
 
         pMatrixStack.scale(-1.0F, -1.0F, 1.0F);
-        float f = pBlockEntity.getAnimation();
+        float f = pBlockEntity.getAnimation(pPartialTicks);
         VertexConsumer consumer = pBuffer.getBuffer(RenderType.entityCutoutNoCullZOffset(getTexture(pBlockEntity.getBlockState())));
         plushieModel.setupAnim(f, rotateY, 0.0F);
         plushieModel.renderToBuffer(pMatrixStack, consumer, pLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);

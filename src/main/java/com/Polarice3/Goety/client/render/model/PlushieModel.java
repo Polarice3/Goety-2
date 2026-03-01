@@ -1,11 +1,14 @@
 package com.Polarice3.Goety.client.render.model;
 
+import com.Polarice3.Goety.common.blocks.entities.PlushieBlockEntity;
+import com.Polarice3.Goety.utils.Easing;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.SkullModelBase;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 
 public class PlushieModel extends SkullModelBase {
     private final ModelPart root;
@@ -69,11 +72,19 @@ public class PlushieModel extends SkullModelBase {
         this.root.yRot = yRot * ((float)Math.PI / 180F);
         this.root.xRot = xRot * ((float)Math.PI / 180F);
         if (animationTick > 0) {
-            this.plushie.y = -6.0F;
-            this.plushie.yScale = 0.75F;
+            float downTicks = PlushieBlockEntity.MAX_ANIMATION_TICKS / 3.0F;
+            if (animationTick < downTicks) {
+                this.plushie.y = Easing.OUT_BACK.interpolate(animationTick / downTicks, -8.0F, -6.0F);
+                this.plushie.yScale = Easing.OUT_BACK.interpolate(animationTick / downTicks, 1.0F, 0.75F);
+            } else {
+                float bounceFactor = Easing.IN_QUART.calculate((animationTick / downTicks - 1.0F) * 0.5F);
+                this.plushie.y = Easing.OUT_ELASTIC.interpolate(bounceFactor, -6.0F, -8.0F);
+                this.plushie.yScale = Easing.OUT_ELASTIC.interpolate(bounceFactor, 0.75F, 1.0F);
+            }
+            this.plushie.xScale = this.plushie.zScale = Mth.sqrt(1 / this.plushie.yScale);
         } else {
             this.plushie.y = -8.0F;
-            this.plushie.yScale = 1.0F;
+            this.plushie.xScale = this.plushie.yScale = this.plushie.zScale = 1.0F;
         }
     }
 
