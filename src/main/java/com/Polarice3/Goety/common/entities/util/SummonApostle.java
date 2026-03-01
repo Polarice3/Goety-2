@@ -70,9 +70,10 @@ public class SummonApostle extends Entity {
             if (this.tickCount >= 300) {
                 serverWorld.sendParticles(ParticleTypes.LARGE_SMOKE, this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 1, 0.0D, 0.0D, 0.0D, 0.0D);
             }
-            int interval = Mth.lerpInt(this.tickCount / 450.0F, 8, 2);
-            int width = Mth.lerpInt(this.tickCount / 450.0F, 8, 15);
-            float height = Mth.lerp(this.tickCount / 450.0F, 0.3F, 0.9F);
+            float progress = Mth.clamp(this.tickCount / 450.0F, 0.0F, 1.0F);
+            int interval = Mth.lerpInt(progress, 8, 2);
+            int width = Mth.lerpInt(progress, 8, 15);
+            float height = Mth.lerp(progress, 0.3F, 0.9F);
             if (this.tickCount % interval == 0) {
                 double dx = (this.random.nextDouble() * 3 + 2) * (this.random.nextBoolean() ? 1 : -1);
                 double dz = (this.random.nextDouble() * 3 + 2) * (this.random.nextBoolean() ? 1 : -1);

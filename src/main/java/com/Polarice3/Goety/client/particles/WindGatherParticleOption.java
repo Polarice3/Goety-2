@@ -97,7 +97,7 @@ public class WindGatherParticleOption implements ParticleOptions {
         buffer.writeFloat(this.red);
         buffer.writeFloat(this.green);
         buffer.writeFloat(this.blue);
-        buffer.writeFloat(this.width);
+        buffer.writeInt(this.width);
         buffer.writeFloat(this.height);
         buffer.writeInt(this.life);
         buffer.writeInt(this.ownerId);

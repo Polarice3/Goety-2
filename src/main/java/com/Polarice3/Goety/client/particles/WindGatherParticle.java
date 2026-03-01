@@ -1,8 +1,6 @@
 package com.Polarice3.Goety.client.particles;
 
 import com.Polarice3.Goety.Goety;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
@@ -56,11 +54,6 @@ public class WindGatherParticle extends WindTrailParticle {
             this.remove();
         }
         this.trail();
-    }
-
-    @Override
-    public void render(VertexConsumer consumer, Camera camera, float partialTick) {
-        super.render(consumer, camera, partialTick);
     }
 
     @Override
