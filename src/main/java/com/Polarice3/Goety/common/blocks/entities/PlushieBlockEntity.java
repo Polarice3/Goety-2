@@ -7,7 +7,6 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class PlushieBlockEntity extends BlockEntity {
     public static final int MAX_ANIMATION_TICKS = 12;
-
     private int animationTickCount, oAnimationTickCount;
     private boolean isAnimating;
 

@@ -266,6 +266,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> FrostNovaCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FrostNovaDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> FrostNovaCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FrostNovaTargetCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> FrostNovaDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> FrostNovaMaxDamage;
 
@@ -1181,6 +1182,8 @@ public class SpellConfig {
                     .defineInRange("frostNovaTime", 0, 0, 72000);
             FrostNovaCoolDown = BUILDER.comment("Frost Nova Spell Cooldown, Default: 100")
                     .defineInRange("frostNovaCoolDown", 100, 0, Integer.MAX_VALUE);
+            FrostNovaTargetCoolDown = BUILDER.comment("Frost Nova Spell Cooldown when cast on a target, Default: 160")
+                    .defineInRange("frostNovaTargetCoolDown", 160, 0, Integer.MAX_VALUE);
             FrostNovaDamage = BUILDER.comment("How much base minimum damage Frost Nova Spell deals, Default: 5.0")
                     .defineInRange("frostNovaMinDamage", 5.0, 1.0, Double.MAX_VALUE);
             FrostNovaMaxDamage = BUILDER.comment("How much base maximum damage Frost Nova Spell deals, Default: 10.0")

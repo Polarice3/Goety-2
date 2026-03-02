@@ -216,7 +216,12 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "goety:gameplay/plushie_reward"
+          "name": "goety:gameplay/plushie_reward",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 80
         }
       ],
       "rolls": 1.0

@@ -25,10 +25,10 @@
       "item": "minecraft:leather_helmet"
     },
     {
-      "item": "minecraft:leather"
+      "tag": "forge:leather"
     },
     {
-      "item": "minecraft:leather"
+      "tag": "forge:leather"
     },
     {
       "tag": "forge:ingots/gold"

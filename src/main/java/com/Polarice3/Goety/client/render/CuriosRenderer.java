@@ -2,11 +2,14 @@ package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.*;
+import com.Polarice3.Goety.common.blocks.PlushieBlock;
 import com.Polarice3.Goety.common.items.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import net.minecraftforge.registries.RegistryObject;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
 public class CuriosRenderer {
@@ -68,6 +71,13 @@ public class CuriosRenderer {
         CuriosRendererRegistry.register(ModItems.TARGETING_MONOCLE.get(), () -> new WearRenderer(render("targeting_monocle.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.MONOCLE))));
         CuriosRendererRegistry.register(ModItems.GRAVE_GLOVE.get(), () -> new WearRenderer(render("grave_glove.png"), new GloveModel(bakeLayer(ModModelLayer.GLOVE))));
         CuriosRendererRegistry.register(ModItems.THRASH_GLOVE.get(), () -> new WearRenderer(render("thrash_glove.png"), new GloveModel(bakeLayer(ModModelLayer.GLOVE))));
+        ModItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(item -> {
+            if (item instanceof BlockItem blockItem) {
+                if (blockItem.getBlock() instanceof PlushieBlock) {
+                    CuriosRendererRegistry.register(item, PlushieCurioRenderer::new);
+                }
+            }
+        });
     }
 
     public static ModelPart bakeLayer(ModelLayerLocation layerLocation) {
