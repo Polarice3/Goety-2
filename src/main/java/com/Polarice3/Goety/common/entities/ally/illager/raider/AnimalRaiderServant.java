@@ -234,7 +234,7 @@ public abstract class AnimalRaiderServant extends RaiderServant {
     }
 
     public boolean removeWhenFarAway(double p_27598_) {
-        return false;
+        return super.removeWhenFarAway(p_27598_) && this.isNatural();
     }
 
     public int getExperienceReward() {

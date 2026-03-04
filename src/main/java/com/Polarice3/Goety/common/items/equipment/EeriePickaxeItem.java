@@ -5,6 +5,7 @@ import com.Polarice3.Goety.utils.MobUtil;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -20,6 +21,7 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.UUID;
 
@@ -76,7 +78,11 @@ public class EeriePickaxeItem extends PickaxeItem {
     //Siphon's redundant on Eerie Pickaxe.
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return super.canApplyAtEnchantingTable(stack, enchantment) && !enchantment.getDescriptionId().contains("vanillatweaks:siphon");
+        Enchantment siphon = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation("vanillatweaks", "siphon"));
+        if (siphon != null && enchantment == siphon) {
+            return false;
+        }
+        return super.canApplyAtEnchantingTable(stack, enchantment);
     }
 
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {

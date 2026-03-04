@@ -25,7 +25,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
@@ -77,6 +76,7 @@ public class SkullLord extends Monster implements ICustomAttributes {
     public int boneLordRegen;
     private int hitTimes;
     private int stuckTime = 0;
+    public int noTargetTime = 0;
 
     public SkullLord(EntityType<? extends SkullLord> p_i50190_1_, Level p_i50190_2_) {
         super(p_i50190_1_, p_i50190_2_);
@@ -136,9 +136,6 @@ public class SkullLord extends Monster implements ICustomAttributes {
             return false;
         } else {
             ++this.hitTimes;
-            if (this.hitTimes > 3 || pAmount >= 20){
-                pAmount /= 2;
-            }
             return super.hurt(pSource, pAmount);
         }
     }
@@ -249,22 +246,33 @@ public class SkullLord extends Monster implements ICustomAttributes {
             }
         }
         if (this.getTarget() != null) {
+            if (this.noTargetTime > 0) {
+                this.noTargetTime = 0;
+            }
             if (this.getTarget().isDeadOrDying() || this.getTarget().isRemoved()){
                 this.setTarget(null);
             }
         } else {
             for (Player player : this.level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(8), EntitySelector.NO_CREATIVE_OR_SPECTATOR)){
-                this.setTarget(player);
+                if (!MobUtil.areAllies(this, player)) {
+                    this.setTarget(player);
+                }
             }
             if (this.getPithos() != null) {
                 if (this.getPithos() instanceof PithosBlockEntity pithosTile) {
-                    if (this.tickCount % 100 == 0 && this.level.isLoaded(pithosTile.getBlockPos())) {
-                        this.setIsDespawn(true);
-                        pithosTile.lock();
-                        if (this.getBoneLord() != null) {
-                            this.getBoneLord().discard();
+                    if (this.level.isLoaded(pithosTile.getBlockPos())) {
+                        ++this.noTargetTime;
+                        if (this.noTargetTime >= 100) {
+                            this.setIsDespawn(true);
+                            if (this.hasCustomName()) {
+                                pithosTile.setSkullLordName(this.getCustomName());
+                            }
+                            pithosTile.lock();
+                            if (this.getBoneLord() != null) {
+                                this.getBoneLord().discard();
+                            }
+                            this.discard();
                         }
-                        this.discard();
                     }
                 }
             }
@@ -464,6 +472,7 @@ public class SkullLord extends Monster implements ICustomAttributes {
             }
             if (this.getPithos() != null){
                 if (this.getPithos() instanceof PithosBlockEntity pithosTile){
+                    pithosTile.setSkullLordName(null);
                     pithosTile.unlock();
                 }
             }
@@ -480,6 +489,7 @@ public class SkullLord extends Monster implements ICustomAttributes {
             if (!this.isDespawn()) {
                 if (this.getPithos() != null) {
                     if (this.getPithos() instanceof PithosBlockEntity pithosTile) {
+                        pithosTile.setSkullLordName(null);
                         pithosTile.unlock();
                     }
                 }
@@ -650,19 +660,9 @@ public class SkullLord extends Monster implements ICustomAttributes {
         if (pCompound.contains("BoundX")) {
             this.boundOrigin = new BlockPos(pCompound.getInt("BoundX"), pCompound.getInt("BoundY"), pCompound.getInt("BoundZ"));
         }
-        UUID uuid;
-        if (pCompound.hasUUID("boneLord")) {
-            uuid = pCompound.getUUID("boneLord");
-        } else {
-            String s = pCompound.getString("boneLord");
-            uuid = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), s);
-        }
 
-        if (uuid != null) {
-            try {
-                this.setBoneLordUUID(uuid);
-            } catch (Throwable ignored) {
-            }
+        if (pCompound.contains("boneLord")) {
+            this.setBoneLordUUID(pCompound.getUUID("boneLord"));
         }
 
         if (pCompound.contains("BoneLordClient")){
@@ -674,6 +674,7 @@ public class SkullLord extends Monster implements ICustomAttributes {
         this.spawnNumber = pCompound.getInt("spawnNumber");
         this.shockWaveCool = pCompound.getInt("shockWaveCool");
         this.stuckTime = pCompound.getInt("stuckTime");
+        this.noTargetTime = pCompound.getInt("noTargetTime");
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
         }
@@ -699,6 +700,7 @@ public class SkullLord extends Monster implements ICustomAttributes {
         pCompound.putInt("spawnNumber", this.spawnNumber);
         pCompound.putInt("shockWaveCool", this.shockWaveCool);
         pCompound.putInt("stuckTime", this.stuckTime);
+        pCompound.putInt("noTargetTime", this.noTargetTime);
     }
 
     public void setCustomName(@Nullable Component name) {

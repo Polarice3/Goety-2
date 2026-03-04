@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.entities.hostile;
 
 import com.Polarice3.Goety.api.entities.ICustomAttributes;
-import com.Polarice3.Goety.common.entities.projectiles.HauntedSkullProjectile;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.EntityFinder;
@@ -150,7 +149,7 @@ public class BoneLord extends AbstractSkeleton implements ICustomAttributes {
     }
 
     public boolean hurt(DamageSource pSource, float pAmount) {
-        if (pSource.getEntity() == this.getSkullLord() && pSource.getDirectEntity() instanceof HauntedSkullProjectile){
+        if (pSource.getEntity() == this.getSkullLord()){
             return false;
         } else {
             return super.hurt(pSource, pAmount);
@@ -171,7 +170,7 @@ public class BoneLord extends AbstractSkeleton implements ICustomAttributes {
     public boolean isAlliedTo(Entity entityIn) {
         if (super.isAlliedTo(entityIn)) {
             return true;
-        } else if (entityIn instanceof Monster && ((Monster) entityIn).getMobType() == MobType.UNDEAD) {
+        } else if (entityIn instanceof Monster monster && monster.getMobType() == MobType.UNDEAD) {
             return this.getTeam() == null && entityIn.getTeam() == null;
         } else {
             return false;

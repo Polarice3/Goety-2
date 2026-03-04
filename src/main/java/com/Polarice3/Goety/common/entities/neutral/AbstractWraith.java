@@ -619,7 +619,7 @@ public class AbstractWraith extends Summoned {
             entityType = ModEntityType.WRAITH_SERVANT.get();
         }
         if (level instanceof ServerLevel serverLevel) {
-            if (BlockFinder.findStructure(serverLevel, blockPos, ModTags.Structures.CRYPT)) {
+            if (BlockFinder.findStructure(serverLevel, blockPos, ModTags.Structures.CAN_SUMMON_BORDER_WRAITHS)) {
                 if (this.isHostile()){
                     entityType = ModEntityType.BORDER_WRAITH.get();
                 } else {

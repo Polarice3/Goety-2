@@ -38,5 +38,6 @@ public class ModStructureTagsProvider extends TagsProvider<Structure> {
                 .add(BuiltinStructures.FORTRESS)
                 .addOptional(new ResourceLocation("betterfortresses", "better_fortresses"))
                 .addOptionalTag(new ResourceLocation("morevillagers", "on_fortress_explorer_maps"));
+        this.tag(ModTags.Structures.CAN_SUMMON_BORDER_WRAITHS).addTag(ModTags.Structures.CRYPT);
     }
 }

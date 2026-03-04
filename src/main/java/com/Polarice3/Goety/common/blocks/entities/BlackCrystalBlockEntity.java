@@ -85,7 +85,7 @@ public class BlackCrystalBlockEntity extends OwnedBlockEntity implements IEnchan
                         if (this.attackTick % 20 == 0) {
                             Vec3 vector3d1 = this.getBlockPos().getCenter();
                             DamageSource damageSource = this.getTrueOwner() != null ? ModDamageSource.soulLeech(this.getTrueOwner(), this.getTrueOwner()) : this.level.damageSources().magic();
-                            this.target.addEffect(new MobEffectInstance(GoetyEffects.CURSED.get(), 5, 0, false, false));
+                            this.target.addEffect(new MobEffectInstance(GoetyEffects.CURSED.get(), 10, 0, false, false));
                             if (this.target.hurt(damageSource, this.target.getMaxHealth() * 0.1F)) {
                                 ColorUtil colorUtil1 = new ColorUtil(0x5038dd);
                                 serverLevel.sendParticles(new SpirallingParticleOption(1.0F, colorUtil1.red, colorUtil1.green, colorUtil1.blue, 5), vector3d1.x, vector3d1.y, vector3d1.z, 1, 0.0D, 0.0D, 0.0D, 1.0D);
@@ -95,7 +95,7 @@ public class BlackCrystalBlockEntity extends OwnedBlockEntity implements IEnchan
                                     Vec3 vec31 = new Vec3(this.target.getRandomX(1.0F), this.target.getRandomY(), this.target.getRandomZ(1.0F));
                                     serverLevel.sendParticles(new AbsorbTrailParticleOption(vector3d1, 0x5038dd, 10), vec31.x, vec31.y, vec31.z, 1, 0.0, 0.0, 0.0, 0.0);
                                 }
-                                this.level.playSound(null, this.worldPosition, ModSounds.SOUL_EAT.get(), SoundSource.BLOCKS, 2.0F, 1.0F);
+                                this.level.playSound(null, this.worldPosition, ModSounds.SOUL_EAT.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
                                 if (this.getTrueOwner() instanceof Player player) {
                                     int enchantment = this.enchantments.getOrDefault(ModEnchantments.SOUL_EATER.get(), 0);
                                     int soulEater = Mth.clamp(enchantment + 1, 1, 10);

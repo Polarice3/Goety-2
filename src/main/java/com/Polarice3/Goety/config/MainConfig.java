@@ -75,6 +75,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> BetterDragonFireball;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RobesIronResist;
     public static final ForgeConfigSpec.ConfigValue<Boolean> IronBuff;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> CataclysmVoidStone;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> EnableNightBeacon;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RitualEnchants;
@@ -165,6 +166,8 @@ public class MainConfig {
                 .define("robesIronResist", true);
         IronBuff = BUILDER.comment("If Iron's Spells and Spellbooks is installed, certain curios provides Spell buffs. Default: true")
                 .define("ironBuff", true);
+        CataclysmVoidStone = BUILDER.comment("If L_Ender's Cataclysm is installed, pouring Lava onto Void Fluid source blocks will turn it into Void Stones. Default: true")
+                .define("cataclysmVoidStone", true);
         BUILDER.pop();
         BUILDER.push("Blocks");
         HookBellBlackList = BUILDER.comment("""

@@ -166,6 +166,11 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
         }
     }
 
+    @Override
+    public boolean isPersistenceRequired() {
+        return super.isPersistenceRequired() || this.getTrueOwner() != null;
+    }
+
     public boolean doHurtTarget(Entity entity) {
         if (this.getTrueOwner() != null) {
             float f = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);

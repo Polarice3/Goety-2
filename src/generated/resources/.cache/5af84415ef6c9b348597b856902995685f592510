@@ -1,4 +1,5 @@
-// 1.20.1	2025-03-02T10:12:42.0771107	Tags for minecraft:worldgen/structure mod id goety
+// 1.20.1	2026-03-04T17:39:00.2598365	Tags for minecraft:worldgen/structure mod id goety
+2d08b80c5059a24424e8488d8ece05fe95631456 data/goety/tags/worldgen/structure/can_summon_border_wraiths.json
 67de4047e1e3aab40c5318c5cb39d89e58e90fce data/goety/tags/worldgen/structure/can_summon_brutes.json
 448639158b3802aea2161cd49e2177dca92930df data/goety/tags/worldgen/structure/can_summon_wither_skeletons.json
 4e49d284b026b753d98b23c97286f7953a83cddf data/goety/tags/worldgen/structure/crone_spawns.json

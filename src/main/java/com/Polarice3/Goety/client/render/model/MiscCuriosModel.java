@@ -31,7 +31,7 @@ public class MiscCuriosModel extends HumanoidModel<LivingEntity> {
         PartDefinition partdefinition = meshdefinition.getRoot();
 
         partdefinition.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
-        partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F, new CubeDeformation(0.25F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F, new CubeDeformation(0.26F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         return LayerDefinition.create(meshdefinition, 32, 32);
     }

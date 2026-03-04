@@ -232,6 +232,8 @@ public class ModBlocks {
             new ToweringBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
 
     public static final RegistryObject<Block> VOID_BLOCK = register("void_block", VoidBlock::new);
+    public static final RegistryObject<Block> VOID_MINOR_SPREAD = register("void_minor_spread", VoidSpreadBlock::new);
+    public static final RegistryObject<Block> VOID_MAJOR_SPREAD = register("void_major_spread", VoidSpreadBlock::new);
     public static final RegistryObject<Block> VOID_FLAME = register("void_flame", VoidFlameBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<LiquidBlock> VOID_FLUID = register("void_fluid", VoidFluidBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> VOID_BARREL = register("void_barrel", VoidBarrelBlock::new, true, LootTableType.EMPTY);

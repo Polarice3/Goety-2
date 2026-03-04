@@ -1513,6 +1513,8 @@
   "block.goety.haunted_glass_mob_tinted": "Tinted Haunted Glass (Inverted)",
 
   "block.goety.void_block": "Void Block",
+  "block.goety.void_minor_spread": "Void Minor Spread",
+  "block.goety.void_major_spread": "Void Major Spread",
   "block.goety.void_flame": "Void Flame",
   "block.goety.void_barrel": "Void Barrel",
   "block.goety.void_cauldron": "Void Cauldron",

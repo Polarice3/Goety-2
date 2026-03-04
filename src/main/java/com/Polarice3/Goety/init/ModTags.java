@@ -294,6 +294,7 @@ public class ModTags {
         public static final TagKey<Structure> NECROMANCER_POWER = tag("necromancer_power");
         public static final TagKey<Structure> CAN_SUMMON_BRUTES = tag("can_summon_brutes");
         public static final TagKey<Structure> CAN_SUMMON_WITHER_SKELETONS = tag("can_summon_wither_skeletons");
+        public static final TagKey<Structure> CAN_SUMMON_BORDER_WRAITHS = tag("can_summon_border_wraiths");
         public static final TagKey<Structure> NECROMANCER_SPAWN = tag("mob_spawn/necromancer");
 
         private static TagKey<Structure> tag(String name) {
