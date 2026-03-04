@@ -29,6 +29,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepair, IPersist {
@@ -124,16 +125,14 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        Enchantment siphon = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation("vanillatweaks", "siphon"));
-        if (siphon != null) {
-            return enchantment == siphon;
-        }
+        ResourceLocation enchantmentId = ForgeRegistries.ENCHANTMENTS.getKey(enchantment);
         return (enchantment.category == EnchantmentCategory.VANISHABLE
                 || enchantment.category == EnchantmentCategory.DIGGER
                 || enchantment.category == EnchantmentCategory.WEAPON
                 || enchantment.category == EnchantmentCategory.BREAKABLE
                 || enchantment == Enchantments.MOB_LOOTING
-                || enchantment == Enchantments.BLOCK_FORTUNE)
+                || enchantment == Enchantments.BLOCK_FORTUNE
+                || Objects.equals(enchantmentId, new ResourceLocation("vanillatweaks", "siphon")))
                 && !(enchantment instanceof SweepingEdgeEnchantment);
     }
 

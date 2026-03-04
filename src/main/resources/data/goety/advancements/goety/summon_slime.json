@@ -76,7 +76,9 @@
   "requirements": [
     [
       "summon",
-      "summon2"
+      "summon2",
+      "summon3",
+      "summon4"
     ]
   ]
 }

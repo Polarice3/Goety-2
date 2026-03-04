@@ -23,6 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class EeriePickaxeItem extends PickaxeItem {
@@ -78,8 +79,8 @@ public class EeriePickaxeItem extends PickaxeItem {
     //Siphon's redundant on Eerie Pickaxe.
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        Enchantment siphon = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation("vanillatweaks", "siphon"));
-        if (siphon != null && enchantment == siphon) {
+        ResourceLocation enchantmentId = ForgeRegistries.ENCHANTMENTS.getKey(enchantment);
+        if (Objects.equals(enchantmentId, new ResourceLocation("vanillatweaks", "siphon"))) {
             return false;
         }
         return super.canApplyAtEnchantingTable(stack, enchantment);
