@@ -33,6 +33,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Objects;
+
 public class DarkScytheItem extends TieredItem implements Vanishable {
     private static float initialDamage = ItemConfig.ScytheBaseDamage.get().floatValue();
     private final Multimap<Attribute, AttributeModifier> scytheAttributes;
@@ -158,16 +160,14 @@ public class DarkScytheItem extends TieredItem implements Vanishable {
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        Enchantment siphon = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation("vanillatweaks", "siphon"));
-        if (siphon != null) {
-            return enchantment == siphon;
-        }
+        ResourceLocation enchantmentId = ForgeRegistries.ENCHANTMENTS.getKey(enchantment);
         return (enchantment.category == EnchantmentCategory.VANISHABLE
                 || enchantment.category == EnchantmentCategory.WEAPON
                 || enchantment.category == EnchantmentCategory.BREAKABLE
                 || enchantment.category == EnchantmentCategory.DIGGER
                 || enchantment == Enchantments.MOB_LOOTING
-                || enchantment == Enchantments.BLOCK_FORTUNE);
+                || enchantment == Enchantments.BLOCK_FORTUNE
+                || Objects.equals(enchantmentId, new ResourceLocation("vanillatweaks", "siphon")));
     }
 
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {

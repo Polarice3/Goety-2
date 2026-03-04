@@ -16,13 +16,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BlockPlaceContext.class)
 public abstract class BlockPlaceContextMixin extends UseOnContext {
-
-    public BlockPlaceContextMixin(Player p_43709_, InteractionHand p_43710_, BlockHitResult p_43711_) {
-        super(p_43709_, p_43710_, p_43711_);
-    }
-
-    public BlockPlaceContextMixin(Level p_43713_, @Nullable Player p_43714_, InteractionHand p_43715_, ItemStack p_43716_, BlockHitResult p_43717_) {
-        super(p_43713_, p_43714_, p_43715_, p_43716_, p_43717_);
+    public BlockPlaceContextMixin(Level level, @Nullable Player player, InteractionHand hand, ItemStack stack, BlockHitResult hitResult) {
+        super(level, player, hand, stack, hitResult);
     }
 
     @Inject(

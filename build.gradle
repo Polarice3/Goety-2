@@ -152,6 +152,7 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:citadel-331936:6702068")
     runtimeOnly fg.deobf("curse.maven:domestication-innovation-591149:4911955")
     runtimeOnly fg.deobf("curse.maven:guard-villagers-360203:6793945")
+    runtimeOnly fg.deobf("curse.maven:vanillatweaks-272637:5004559")
 }
 
 tasks.named('jar', Jar).configure {

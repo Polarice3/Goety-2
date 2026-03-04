@@ -35,6 +35,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Objects;
+
 public class HammerItem extends TieredItem implements Vanishable {
     private static float initialDamage = ItemConfig.HammerBaseDamage.get().floatValue();
     private final Multimap<Attribute, AttributeModifier> hammerAttributes;
@@ -166,13 +168,11 @@ public class HammerItem extends TieredItem implements Vanishable {
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        Enchantment siphon = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation("vanillatweaks", "siphon"));
-        if (siphon != null) {
-            return enchantment == siphon;
-        }
+        ResourceLocation enchantmentId = ForgeRegistries.ENCHANTMENTS.getKey(enchantment);
         return (enchantment.category == EnchantmentCategory.WEAPON
                 || enchantment.category == EnchantmentCategory.DIGGER
                 || enchantment == ModEnchantments.RADIUS.get()
+                || Objects.equals(enchantmentId, new ResourceLocation("vanillatweaks", "siphon"))
                 || super.canApplyAtEnchantingTable(stack, enchantment))
                 && !(enchantment instanceof SweepingEdgeEnchantment);
     }
