@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "goety:void_major_spread"
+    }
+  ],
+  "result": {
+    "item": "goety:void_minor_spread",
+    "count": 4
+  }
+}

@@ -1,4 +1,4 @@
-// 1.20.1	2026-02-28T12:40:46.4839484	Loot Tables
+// 1.20.1	2026-03-04T17:39:00.2628201	Loot Tables
 1173ad0aef6067156a1c3161e3fe16b8e10b3f92 data/goety/loot_tables/blocks/animator.json
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
@@ -507,6 +507,8 @@ a102435d92bd289f567ec5b1c2a81d77867593f4 data/goety/loot_tables/blocks/trapped_w
 695141863c209aa0a5a7be13609c903d5f6b0cbb data/goety/loot_tables/blocks/void_barrel.json
 6cdf50e17305b595d48564003fd7f377d0dbad14 data/goety/loot_tables/blocks/void_block.json
 a15f1f70da2d27fb0174ef677f07e02ab2679be2 data/goety/loot_tables/blocks/void_cauldron.json
+3f481caf3c06c0c87bce1aedfafd8d2ef8d8971a data/goety/loot_tables/blocks/void_major_spread.json
+db881793b94e2705c178c6c333d640ce0e3e0709 data/goety/loot_tables/blocks/void_minor_spread.json
 32f0ba9ecbef84d2a2bc26b729786afeff70e05c data/goety/loot_tables/blocks/wall_gold_dungeon_torch.json
 94619376e3488d600612eabb655f2f0053e187dc data/goety/loot_tables/blocks/wall_iron_dungeon_torch.json
 c118a5c39f2fbdff3e422d5f2a5e91dbbf01aa67 data/goety/loot_tables/blocks/washed_slate_marble.json

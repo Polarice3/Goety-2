@@ -24,6 +24,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 
 public class PithosBlockEntity extends RandomizableContainerBlockEntity {
     private NonNullList<ItemStack> items = NonNullList.withSize(27, ItemStack.EMPTY);
@@ -50,6 +51,8 @@ public class PithosBlockEntity extends RandomizableContainerBlockEntity {
             }
         }
     };
+    public boolean hasCustomSLName = false;
+    public Component skullLordName = Component.empty();
 
     public PithosBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.PITHOS.get(), blockPos, blockState);
@@ -60,7 +63,9 @@ public class PithosBlockEntity extends RandomizableContainerBlockEntity {
         if (!this.trySaveLootTable(p_187459_)) {
             ContainerHelper.saveAllItems(p_187459_, this.items);
         }
-
+        if (this.hasCustomSLName()) {
+            p_187459_.putString("SkullLordName", Component.Serializer.toJson(this.skullLordName));
+        }
     }
 
     public void load(CompoundTag p_155055_) {
@@ -68,6 +73,10 @@ public class PithosBlockEntity extends RandomizableContainerBlockEntity {
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         if (!this.tryLoadLootTable(p_155055_)) {
             ContainerHelper.loadAllItems(p_155055_, this.items);
+        }
+        if (p_155055_.contains("SkullLordName")) {
+            this.skullLordName = Component.Serializer.fromJson(p_155055_.getString("SkullLordName"));
+            this.hasCustomSLName = true;
         }
     }
 
@@ -163,6 +172,24 @@ public class PithosBlockEntity extends RandomizableContainerBlockEntity {
                 }
             }
         }
+    }
+
+    public Component getSkullLordName() {
+        return this.skullLordName;
+    }
+
+    public void setSkullLordName(@Nullable Component skullLordName) {
+        if (skullLordName != null) {
+            this.skullLordName = skullLordName;
+            this.hasCustomSLName = true;
+        } else {
+            this.skullLordName = Component.empty();
+            this.hasCustomSLName = false;
+        }
+    }
+
+    public boolean hasCustomSLName() {
+        return hasCustomSLName;
     }
 
     public double getRandomX(double p_20209_, RandomSource randomSource) {

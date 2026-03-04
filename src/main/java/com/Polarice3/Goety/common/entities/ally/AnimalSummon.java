@@ -233,7 +233,7 @@ public abstract class AnimalSummon extends Summoned{
     }
 
     public boolean removeWhenFarAway(double p_27598_) {
-        return false;
+        return super.removeWhenFarAway(p_27598_) && this.isNatural();
     }
 
     public int getExperienceReward() {

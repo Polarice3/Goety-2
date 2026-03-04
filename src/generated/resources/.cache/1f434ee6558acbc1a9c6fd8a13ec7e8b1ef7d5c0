@@ -1,4 +1,4 @@
-// 1.20.1	2026-02-28T12:40:46.5086847	Block States: goety
+// 1.20.1	2026-03-02T19:34:28.6833346	Block States: goety
 92a547327e71f54fb7e9d59c8b81d2e518a332b2 assets/goety/blockstates/big_end_stone_bricks.json
 0a8d518f6f94defea544e6d3da94a9128c2c041c assets/goety/blockstates/bottom_soiled_end_basalt.json
 f03d210a8e984784166c1af55078f99265ad8fdd assets/goety/blockstates/chiseled_end_stone.json
@@ -922,12 +922,12 @@ aea3dc6ad3b99954326b3754fbbad071227c0e4e assets/goety/models/item/pine_pressure_
 81278a5c968cea32d3d9a8200218c3753b37f44b assets/goety/models/item/pine_slab.json
 23a7f2b58cf96507a1d24ea293c7ab4c9ba005b0 assets/goety/models/item/pine_stairs.json
 54baa216e0e5fc7e3557d14776bef4d220e8cd32 assets/goety/models/item/pine_wood.json
-2acf028944845fae1bb27d7473597ef8561af185 assets/goety/models/item/plushie.json
-2acf028944845fae1bb27d7473597ef8561af185 assets/goety/models/item/plushie_1.json
-2acf028944845fae1bb27d7473597ef8561af185 assets/goety/models/item/plushie_2.json
-2acf028944845fae1bb27d7473597ef8561af185 assets/goety/models/item/plushie_3.json
-2acf028944845fae1bb27d7473597ef8561af185 assets/goety/models/item/plushie_4.json
-2acf028944845fae1bb27d7473597ef8561af185 assets/goety/models/item/plushie_5.json
+ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie.json
+ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie_1.json
+ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie_2.json
+ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie_3.json
+ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie_4.json
+ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie_5.json
 236a47d860302518874282afc60d295b0b63fa5e assets/goety/models/item/polished_highrock_slab.json
 8097def93f2c8706770dbe3faac84133c827cffa assets/goety/models/item/polished_highrock_stairs.json
 1c4561fd5e0b2299bbd6cdb05b299af789c8e0ba assets/goety/models/item/polished_highrock_wall.json

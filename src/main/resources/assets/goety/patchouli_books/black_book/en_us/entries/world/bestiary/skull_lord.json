@@ -15,6 +15,18 @@
     {
       "type": "patchouli:text",
       "text": "Unfortunately for would be treasure hunters and mages, the dark master of the Crypt managed to stay bound to the material world to guard their treasure. Their heads are the source of their power and intellect and is protected whenever they reconstituted their armored yet skeletonized bodies."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:frozen_blade",
+      "title": "Frozen Blade",
+      "text": "During the battle, they appear to be wielding a special blade that's similar to the Haunted Armor's Fell Blade, but far more chilling, to the point that simple cut from it can cause rapid freezing. They can be repaired using Cursed Metal Ingots on an Anvil"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:cursed_paladin_helmet",
+      "title": "Cursed Paladin Armor",
+      "text": "A far more ornate and upgraded version of the Cursed Knight Armor, providing more armor and toughness."
     }
   ]
 }

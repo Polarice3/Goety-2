@@ -32,6 +32,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -255,6 +256,11 @@ public class ItemEvents {
                                 EffectsUtil.increaseDuration(victim, effect, 600);
                             } else {
                                 victim.addEffect(new MobEffectInstance(effect, 200));
+                            }
+                        }
+                        if (weapon == ModItems.FROZEN_BLADE.get()) {
+                            if (victim.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)) {
+                                event.setAmount(event.getAmount() * 2);
                             }
                         }
                         if (weapon == ModItems.HUNGRY_DAGGER.get()){

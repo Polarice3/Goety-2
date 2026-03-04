@@ -60,111 +60,6 @@
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": 1.0,
-              "function": "minecraft:set_count"
-            },
-            {
-              "add": false,
-              "damage": {
-                "type": "minecraft:uniform",
-                "max": 0.5,
-                "min": 0.1
-              },
-              "function": "minecraft:set_damage"
-            }
-          ],
-          "weight": 5,
-          "name": "goety:frozen_blade"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": 1.0,
-              "function": "minecraft:set_count"
-            },
-            {
-              "add": false,
-              "damage": {
-                "type": "minecraft:uniform",
-                "max": 0.5,
-                "min": 0.1
-              },
-              "function": "minecraft:set_damage"
-            }
-          ],
-          "weight": 5,
-          "name": "goety:cursed_paladin_chestplate"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": 1.0,
-              "function": "minecraft:set_count"
-            },
-            {
-              "add": false,
-              "damage": {
-                "type": "minecraft:uniform",
-                "max": 0.5,
-                "min": 0.1
-              },
-              "function": "minecraft:set_damage"
-            }
-          ],
-          "weight": 5,
-          "name": "goety:cursed_paladin_helmet"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": 1.0,
-              "function": "minecraft:set_count"
-            },
-            {
-              "add": false,
-              "damage": {
-                "type": "minecraft:uniform",
-                "max": 0.5,
-                "min": 0.1
-              },
-              "function": "minecraft:set_damage"
-            }
-          ],
-          "weight": 5,
-          "name": "goety:cursed_paladin_leggings"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": 1.0,
-              "function": "minecraft:set_count"
-            },
-            {
-              "add": false,
-              "damage": {
-                "type": "minecraft:uniform",
-                "max": 0.5,
-                "min": 0.1
-              },
-              "function": "minecraft:set_damage"
-            }
-          ],
-          "weight": 5,
-          "name": "goety:cursed_paladin_boots"
-        },
-        {
-          "type": "minecraft:item",
           "weight": 5,
           "name": "goety:haunting_scroll"
         },
@@ -178,6 +73,131 @@
             }
           ],
           "name": "minecraft:book"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.1
+              },
+              "function": "minecraft:set_damage"
+            }
+          ],
+          "weight": 10,
+          "name": "goety:frozen_blade"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 50
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.1
+              },
+              "function": "minecraft:set_damage"
+            }
+          ],
+          "weight": 10,
+          "name": "goety:cursed_paladin_helmet"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 50
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.1
+              },
+              "function": "minecraft:set_damage"
+            }
+          ],
+          "weight": 10,
+          "name": "goety:cursed_paladin_chestplate"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 50
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.1
+              },
+              "function": "minecraft:set_damage"
+            }
+          ],
+          "weight": 10,
+          "name": "goety:cursed_paladin_leggings"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 50
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.1
+              },
+              "function": "minecraft:set_damage"
+            }
+          ],
+          "weight": 10,
+          "name": "goety:cursed_paladin_boots"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 50
         }
       ]
     }

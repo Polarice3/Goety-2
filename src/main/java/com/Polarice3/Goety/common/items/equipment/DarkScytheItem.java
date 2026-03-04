@@ -12,6 +12,7 @@ import com.Polarice3.Goety.utils.SEHelper;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -30,6 +31,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class DarkScytheItem extends TieredItem implements Vanishable {
     private static float initialDamage = ItemConfig.ScytheBaseDamage.get().floatValue();
@@ -156,11 +158,14 @@ public class DarkScytheItem extends TieredItem implements Vanishable {
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        Enchantment siphon = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation("vanillatweaks", "siphon"));
+        if (siphon != null) {
+            return enchantment == siphon;
+        }
         return (enchantment.category == EnchantmentCategory.VANISHABLE
                 || enchantment.category == EnchantmentCategory.WEAPON
                 || enchantment.category == EnchantmentCategory.BREAKABLE
                 || enchantment.category == EnchantmentCategory.DIGGER
-                || enchantment.getDescriptionId().contains("vanillatweaks:siphon")
                 || enchantment == Enchantments.MOB_LOOTING
                 || enchantment == Enchantments.BLOCK_FORTUNE);
     }

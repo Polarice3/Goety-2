@@ -2,6 +2,9 @@ package com.Polarice3.Goety.common.blocks.fluids;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.config.MainConfig;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
@@ -55,13 +58,24 @@ public class ModFluids {
                 fluidState -> fluidState.isSource() ? ModBlocks.END_ROCK.get().defaultBlockState() : ModBlocks.END_SOIL.get().defaultBlockState()
         ));
 
-        // Void -> Lava = End Basalt (Source Void) / End Basalt (Flowing Void)
+        // Lava -> Void = End Basalt (Source Void) / End Basalt (Flowing Void)
         FluidInteractionRegistry.addInteraction(VOID_FLUID_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
                 ForgeMod.LAVA_TYPE.get(),
-                fluidState -> ModBlocks.END_BASALT.get().defaultBlockState()
+                fluidState -> {
+                    if (MainConfig.CataclysmVoidStone.get()) {
+                        ResourceLocation location = new ResourceLocation("cataclysm", "void_stone");
+                        if (ForgeRegistries.BLOCKS.getValue(location) != null) {
+                            Block block = ForgeRegistries.BLOCKS.getValue(location);
+                            if (block != null) {
+                                return fluidState.isSource() ? block.defaultBlockState() : ModBlocks.END_BASALT.get().defaultBlockState();
+                            }
+                        }
+                    }
+                    return ModBlocks.END_BASALT.get().defaultBlockState();
+                }
         ));
 
-        // Lava -> Void = End Basalt (Source Lava) / End Basalt (Flowing Lava)
+        // Void -> Lava = End Basalt (Source Lava) / End Basalt (Flowing Lava)
         FluidInteractionRegistry.addInteraction(ForgeMod.LAVA_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
                 VOID_FLUID_TYPE.get(),
                 fluidState -> ModBlocks.END_BASALT.get().defaultBlockState()

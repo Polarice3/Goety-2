@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
+import com.Polarice3.Goety.init.ModAttributes;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.server.level.ServerLevel;
@@ -18,6 +19,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import org.jetbrains.annotations.Nullable;
@@ -59,6 +61,11 @@ public class FrostNovaSpell extends Spell {
     }
 
     @Override
+    public boolean hasCustomCooldown(LivingEntity caster, ItemStack staff, ItemStack focus, int initialCooldown) {
+        return true;
+    }
+
+    @Override
     public List<Enchantment> acceptedEnchantments() {
         List<Enchantment> list = new ArrayList<>();
         list.add(ModEnchantments.POTENCY.get());
@@ -74,6 +81,7 @@ public class FrostNovaSpell extends Spell {
         int duration = spellStat.getDuration();
         float damage = SpellConfig.FrostNovaDamage.get().floatValue() * WandUtil.damageMultiply();
         float maxDamage = SpellConfig.FrostNovaMaxDamage.get().floatValue() * WandUtil.damageMultiply();
+        int cooldown = this.defaultSpellCooldown();
         if (WandUtil.enchantedFocus(caster)){
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster);
@@ -85,6 +93,7 @@ public class FrostNovaSpell extends Spell {
         LivingEntity target = this.getTarget(caster);
         if (isShifting(caster) && target != null){
             spellTarget = target;
+            cooldown = SpellConfig.FrostNovaTargetCoolDown.get();
         }
         this.createParticleBall(worldIn, spellTarget, (int) radius);
         worldIn.sendParticles(new ShockwaveParticleOption(0, (float) (radius * 2), 1), spellTarget.getX(), spellTarget.getY() + 0.5F, spellTarget.getZ(), 0, 0, 0, 0, 0);
@@ -106,6 +115,10 @@ public class FrostNovaSpell extends Spell {
             }
         };
         this.playSound(worldIn, spellTarget, ModSounds.ICE_CHUNK_HIT.get(), 1.0F, 0.5F);
+        if (caster instanceof Player player) {
+            cooldown *= (int) ModAttributes.getCooldownDiscount(caster);
+            SEHelper.addCooldown(player, WandUtil.findFocus(caster).getItem(), cooldown);
+        }
     }
 
     private void createParticleBall(ServerLevel serverLevel, LivingEntity livingEntity, int radius) {

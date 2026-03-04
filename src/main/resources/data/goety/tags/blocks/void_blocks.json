@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "goety:void_block",
+    "goety:void_minor_spread",
+    "goety:void_major_spread",
     "goety:void_flame",
     "goety:void_fluid"
   ]

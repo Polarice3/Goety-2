@@ -10,6 +10,7 @@ import com.google.common.collect.Multimap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,6 +25,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.enchantment.SweepingEdgeEnchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -122,11 +124,14 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        Enchantment siphon = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation("vanillatweaks", "siphon"));
+        if (siphon != null) {
+            return enchantment == siphon;
+        }
         return (enchantment.category == EnchantmentCategory.VANISHABLE
                 || enchantment.category == EnchantmentCategory.DIGGER
                 || enchantment.category == EnchantmentCategory.WEAPON
                 || enchantment.category == EnchantmentCategory.BREAKABLE
-                || enchantment.getDescriptionId().contains("vanillatweaks:siphon")
                 || enchantment == Enchantments.MOB_LOOTING
                 || enchantment == Enchantments.BLOCK_FORTUNE)
                 && !(enchantment instanceof SweepingEdgeEnchantment);

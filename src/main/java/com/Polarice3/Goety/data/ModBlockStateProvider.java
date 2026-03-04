@@ -458,7 +458,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 .parent(new ModelFile.UncheckedModelFile("builtin/entity"))
                 .texture("particle", "minecraft:block/white_wool")
                 .transforms()
-                .transform(ItemDisplayContext.HEAD).rotation(180, 0, 180).translation(0, 9, 0).scale(2, 2, 2).end()
+                .transform(ItemDisplayContext.HEAD).rotation(180, 0, 180).translation(0, 30, 0).scale(3.0F, 3.0F, 3.0F).end()
                 .transform(ItemDisplayContext.FIXED).rotation(0, 180, 0).translation(0, 4, 0).scale(1, 1, 1).end()
                 .transform(ItemDisplayContext.GROUND).rotation(0, 0, 0).translation(0, 3, 0).scale(0.5F, 0.5F, 0.5F).end()
                 .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND).rotation(45, 45, 0).translation(0, 3, 0).scale(0.5F, 0.5F, 0.5F).end()

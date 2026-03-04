@@ -1,0 +1,12 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "goety:void_block"
+    }
+  ],
+  "item_result": {
+    "item": "goety:void_major_spread",
+    "count": 4
+  }
+}

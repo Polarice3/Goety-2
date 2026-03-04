@@ -59,8 +59,8 @@ public class PithosBlock extends BaseEntityBlock {
         if (pLevel.isClientSide) {
             return InteractionResult.SUCCESS;
         } else {
+            BlockEntity tileentity = pLevel.getBlockEntity(pPos);
             if (!pState.getValue(LOCKED)) {
-                BlockEntity tileentity = pLevel.getBlockEntity(pPos);
                 if (pPlayer.getItemInHand(pHand).is(ModTags.Items.RESPAWN_BOSS) && MainConfig.PithosRespawn.get() && pLevel instanceof ServerLevel serverLevel && BlockFinder.findStructure(serverLevel, pPlayer, ModTags.Structures.SKULL_LORD_SPAWNS)){
                     ItemStack itemStack = pPlayer.getItemInHand(pHand);
                     if (tileentity instanceof PithosBlockEntity pithosBlock) {
@@ -85,6 +85,11 @@ public class PithosBlock extends BaseEntityBlock {
                         BlockPos blockPos = BlockPos.containing(pPos.getX(), pPos.getY() + 1.0F, pPos.getZ());
                         Vec3 vec3 = Vec3.atBottomCenterOf(blockPos);
                         skullLord.setPos(vec3.x, vec3.y, vec3.z);
+                        if (tileentity instanceof PithosBlockEntity pithosBlock) {
+                            if (pithosBlock.hasCustomSLName()) {
+                                skullLord.setCustomName(pithosBlock.getSkullLordName());
+                            }
+                        }
                         SummonCircleBoss summonCircleBoss = new SummonCircleBoss(pLevel, vec3, skullLord);
                         pLevel.addFreshEntity(summonCircleBoss);
                     }
