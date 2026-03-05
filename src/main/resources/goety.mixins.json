@@ -12,6 +12,7 @@
     "BlockPlaceContextMixin",
     "ChorusFlowerBlockMixin",
     "ChorusPlantBlockMixin",
+    "EnchantmentMixin",
     "EnchantRandomlyFunctionMixin",
     "EnderDragonMixin",
     "EntityMixin",
@@ -28,8 +29,7 @@
     "SlimePredicateMixin",
     "StructureProcessorAccessor",
     "StructureTemplateMixin",
-    "VillagerMixin",
-    "compat.SiphonEnchantmentMixin"
+    "VillagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
