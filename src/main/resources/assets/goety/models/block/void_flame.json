@@ -15,9 +15,9 @@
 				"sky_light": 15
 			},
 			"faces": {
-				"north": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"north": {"uv": [2.5, 3.5, 13, 16], "texture": "#0"},
 				"east": {"uv": [0, 0, 0, 0], "texture": "#0"},
-				"south": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"south": {"uv": [2.5, 3.5, 13, 16], "texture": "#0"},
 				"west": {"uv": [0, 0, 0, 0], "texture": "#0"},
 				"up": {"uv": [0, 0, 0, 0], "texture": "#0"},
 				"down": {"uv": [0, 0, 0, 0], "texture": "#0"}
@@ -33,9 +33,9 @@
 				"sky_light": 15
 			},
 			"faces": {
-				"north": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"north": {"uv": [2.5, 3.5, 13, 16], "texture": "#0"},
 				"east": {"uv": [0, 0, 0, 0], "texture": "#0"},
-				"south": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"south": {"uv": [2.5, 3.5, 13, 16], "texture": "#0"},
 				"west": {"uv": [0, 0, 0, 0], "texture": "#0"},
 				"up": {"uv": [0, 0, 0, 0], "texture": "#0"},
 				"down": {"uv": [0, 0, 0, 0], "texture": "#0"}

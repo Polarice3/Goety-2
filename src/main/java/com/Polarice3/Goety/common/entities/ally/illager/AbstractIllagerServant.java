@@ -1078,10 +1078,12 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
         @Override
         public void stop() {
             super.stop();
-            if (this.illager.getMainHandItem().is(Items.ROTTEN_FLESH)){
-                this.illager.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
-            } else if (this.illager.getOffhandItem().is(Items.ROTTEN_FLESH)){
-                this.illager.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
+            if (!(this.illager instanceof PillagerServant)) {
+                if (this.illager.getMainHandItem().is(Items.ROTTEN_FLESH)) {
+                    this.illager.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+                } else if (this.illager.getOffhandItem().is(Items.ROTTEN_FLESH)) {
+                    this.illager.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
+                }
             }
         }
 
@@ -1097,10 +1099,12 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
                     if (!itemStack.isEmpty()){
                         FoodProperties foodProperties = itemStack.getFoodProperties(this.target);
                         if (foodProperties != null) {
-                            if (this.illager.getMainHandItem().isEmpty()) {
-                                this.illager.setItemSlot(EquipmentSlot.MAINHAND, itemStack.copyWithCount(1));
-                            } else if (this.illager.getOffhandItem().isEmpty()) {
-                                this.illager.setItemSlot(EquipmentSlot.OFFHAND, itemStack.copyWithCount(1));
+                            if (!(this.illager instanceof PillagerServant)) {
+                                if (this.illager.getMainHandItem().isEmpty()) {
+                                    this.illager.setItemSlot(EquipmentSlot.MAINHAND, itemStack.copyWithCount(1));
+                                } else if (this.illager.getOffhandItem().isEmpty()) {
+                                    this.illager.setItemSlot(EquipmentSlot.OFFHAND, itemStack.copyWithCount(1));
+                                }
                             }
                             if (this.illager.isWithinThrowingDistance(this.target)){
                                 this.illager.getNavigation().stop();
