@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
-import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.client.particles.MagicSmokeParticle;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.items.ModItems;
@@ -8,18 +8,13 @@ import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
-import com.google.common.collect.Maps;
-import net.minecraft.Util;
+import com.Polarice3.Goety.utils.TrailEffect;
+import com.mojang.math.Axis;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -29,34 +24,29 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
+import org.joml.Matrix4f;
+import org.joml.Vector4f;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ScytheSlash extends AbstractHurtingProjectile {
-    private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(ScytheSlash.class, EntityDataSerializers.INT);
-    public static final Map<Integer, ResourceLocation> TEXTURE_BY_TYPE = Util.make(Maps.newHashMap(), (map) -> {
-        map.put(0, Goety.location("textures/entity/projectiles/scythe/scythe_0.png"));
-        map.put(1, Goety.location("textures/entity/projectiles/scythe/scythe_1.png"));
-        map.put(2, Goety.location("textures/entity/projectiles/scythe/scythe_2.png"));
-        map.put(3, Goety.location("textures/entity/projectiles/scythe/scythe_3.png"));
-        map.put(4, Goety.location("textures/entity/projectiles/scythe/scythe_4.png"));
-        map.put(5, Goety.location("textures/entity/projectiles/scythe/scythe_5.png"));
-        map.put(6, Goety.location("textures/entity/projectiles/scythe/scythe_6.png"));
-        map.put(7, Goety.location("textures/entity/projectiles/scythe/scythe_7.png"));
-    });
     private ItemStack weapon = new ItemStack(ModItems.DEATH_SCYTHE.get());
     private float damage;
     private int lifespan;
     private int totalLife;
+
+    public TrailEffect leftTrail = new TrailEffect(0.15F, 8.0F);
+    public TrailEffect rightTrail = new TrailEffect(0.15F, 8.0F);
 
     public ScytheSlash(EntityType<? extends AbstractHurtingProjectile> p_i50173_1_, Level p_i50173_2_) {
         super(p_i50173_1_, p_i50173_2_);
@@ -72,18 +62,6 @@ public class ScytheSlash extends AbstractHurtingProjectile {
 
     public ScytheSlash(Level world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
         super(ModEntityType.SCYTHE.get(), x, y, z, xSpeed, ySpeed, zSpeed, world);
-    }
-
-    public ResourceLocation getResourceLocation() {
-        return TEXTURE_BY_TYPE.getOrDefault(this.getAnimation(), TEXTURE_BY_TYPE.get(0));
-    }
-
-    public int getAnimation() {
-        return this.entityData.get(DATA_TYPE_ID);
-    }
-
-    public void setAnimation(int pType) {
-        this.entityData.set(DATA_TYPE_ID, pType);
     }
 
     public float getDamage() {
@@ -110,14 +88,8 @@ public class ScytheSlash extends AbstractHurtingProjectile {
         this.lifespan = lifespan;
     }
 
-    protected void defineSynchedData() {
-        this.entityData.define(DATA_TYPE_ID, 0);
-    }
-
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setAnimation(compound.getInt("Animation"));
-
         if (compound.contains("Damage")) {
             this.setLifespan(compound.getInt("Damage"));
         }
@@ -132,7 +104,6 @@ public class ScytheSlash extends AbstractHurtingProjectile {
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("Animation", this.getAnimation());
         compound.putFloat("Damage", this.getDamage());
         compound.putInt("Lifespan", this.getLifespan());
         compound.putInt("TotalLife", this.getTotalLife());
@@ -140,15 +111,11 @@ public class ScytheSlash extends AbstractHurtingProjectile {
 
     public void tick() {
         super.tick();
+        ProjectileUtil.rotateTowardsMovement(this, 1.0F);
         if (this.lifespan < getTotalLife()){
             ++this.lifespan;
         } else {
             this.discard();
-        }
-        if (this.getAnimation() < 7) {
-            this.setAnimation(this.getAnimation() + 1);
-        } else {
-            this.setAnimation(0);
         }
         if (ItemConfig.ScytheSlashBreaks.get()) {
             AABB aabb = this.getBoundingBox().inflate(0.2D);
@@ -203,7 +170,21 @@ public class ScytheSlash extends AbstractHurtingProjectile {
                     }
                 }
             }
+        } else if (tickCount > 5) {
+            Vec3 oldPos = new Vec3(xOld, yOld, zOld);
+            Matrix4f transform = new Matrix4f();
+            transform.rotate(Axis.YP.rotationDegrees(-this.getYRot() + 180));
+            transform.rotate(Axis.XP.rotationDegrees(this.getXRot()));
+            Vector4f left = transform.transform(new Vector4f(1.0F, Mth.sin(tickCount * 0.4F) * 0.2F, 0.0F, 1.0F));
+            Vector4f right = transform.transform(new Vector4f(-1.0F, Mth.cos(tickCount * 0.4F) * 0.2F, 0.0F, 1.0F));
+            leftTrail.update(oldPos.add(left.x(), left.y(), left.z()));
+            rightTrail.update(oldPos.add(right.x(), right.y(), right.z()));
         }
+    }
+
+    @Override
+    public AABB getBoundingBoxForCulling() {
+        return super.getBoundingBoxForCulling().inflate(20);
     }
 
     protected void onHitBlock(BlockHitResult p_230299_1_) {
@@ -224,7 +205,7 @@ public class ScytheSlash extends AbstractHurtingProjectile {
     }
 
     protected ParticleOptions getTrailParticle() {
-        return ParticleTypes.CRIT;
+        return new MagicSmokeParticle.Option(0x6ea8f5, 0x95f5ff, 10, 0.35F);
     }
 
     @Override
