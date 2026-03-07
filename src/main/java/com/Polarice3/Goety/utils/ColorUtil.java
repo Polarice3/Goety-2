@@ -70,6 +70,10 @@ public class ColorUtil {
         return this.alpha;
     }
 
+    public int colorCode(float alpha) {
+        return FastColor.ARGB32.color(Math.round(alpha * 255.0F), Math.round(red * 255.0F), Math.round(green * 255.0F), Math.round(blue * 255.0F));
+    }
+
     public static class ARGB {
 
         public static int alpha(int i) {

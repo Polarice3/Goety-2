@@ -107,6 +107,10 @@ public interface IWand extends IForgeItem {
         }
     }
 
+    default float getWandVisualHeight(Level level, LivingEntity entity, ItemStack stack) {
+        return 0.8F;
+    }
+
     default int currentCastTime(LivingEntity livingEntity, ItemStack itemstack){
         if (livingEntity.isUsingItem() && livingEntity.getUseItem() == itemstack) {
             return livingEntity.getTicksUsingItem();

@@ -95,6 +95,7 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), SRepositionPacket.class, SRepositionPacket::encode, SRepositionPacket::decode, SRepositionPacket::consume);
         INSTANCE.registerMessage(nextID(), SInstaLookPacket.class, SInstaLookPacket::encode, SInstaLookPacket::decode, SInstaLookPacket::consume);
         INSTANCE.registerMessage(nextID(), WBUpdatePacket.class, WBUpdatePacket::encode, WBUpdatePacket::decode, WBUpdatePacket::consume);
+        INSTANCE.registerMessage(nextID(), SStaffParticlePacket.class, SStaffParticlePacket::encode, SStaffParticlePacket::decode, SStaffParticlePacket::consume);
     }
 
     public static <MSG> void sendTo(Player player, MSG msg) {

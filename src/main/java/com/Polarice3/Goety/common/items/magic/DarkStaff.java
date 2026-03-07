@@ -4,10 +4,12 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class DarkStaff extends DarkWand {
     private final Multimap<Attribute, AttributeModifier> defaultModifiers;
@@ -37,5 +39,10 @@ public class DarkStaff extends DarkWand {
             return this.defaultModifiers;
         }
         return super.getAttributeModifiers(pEquipmentSlot, stack);
+    }
+
+    @Override
+    public float getWandVisualHeight(Level level, LivingEntity entity, ItemStack stack) {
+        return 0.8F;
     }
 }

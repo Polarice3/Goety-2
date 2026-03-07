@@ -7,6 +7,8 @@ import com.Polarice3.Goety.client.particles.FoggyCloudParticleOption;
 import com.Polarice3.Goety.client.particles.GatherTrailParticle;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SStaffParticlePacket;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -16,9 +18,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -122,8 +126,15 @@ public abstract class Spell implements ISpell {
                 }
             } else if (this.getSpellType() == SpellType.WIND) {
                 if (caster.tickCount % 5 == 0) {
-                    ColorUtil colorUtil = new ColorUtil(0x458c88);
-                    ServerParticleUtil.gatheringParticles(new GatherTrailParticle.Option(colorUtil, caster.position().add(0, 1, 0)), caster, serverLevel, 1);
+                    int range = 1;
+                    int color = 0x458c88;
+                    if (caster instanceof Player player) {
+                        for (int i = 0; i < (caster.getRandom().nextFloat() < 0.1F ? 3 : 1); i++) {
+                            ModNetwork.sentToTrackingEntityAndPlayer(player, new SStaffParticlePacket(player.getId(), stack.getItem() instanceof IWand wand ? wand.getWandVisualHeight(serverLevel, player, stack) : 0.8F, range, color, caster.getUsedItemHand() == InteractionHand.OFF_HAND));
+                        }
+                    } else {
+                        ServerParticleUtil.gatheringParticles(new GatherTrailParticle.Option(new ColorUtil(color), caster.position().add(0, 2, 0)), caster, serverLevel, range);
+                    }
                 }
             } else if (this.getSpellType() == SpellType.STORM) {
                 if (caster.tickCount % 5 == 0) {
@@ -136,26 +147,50 @@ public abstract class Spell implements ISpell {
             } else if (this.getSpellType() == SpellType.ABYSS){
                 int range = 1;
                 ColorUtil colorUtil = new ColorUtil(ChatFormatting.AQUA);
-                ServerParticleUtil.gatheringParticles(new GatherTrailParticle.Option(colorUtil, caster.position().add(0, 2, 0)), caster, serverLevel, range);
+                if (caster instanceof Player player) {
+                    for (int i = 0; i < (caster.getRandom().nextFloat() < 0.1F ? 3 : 1); i++) {
+                        ModNetwork.sentToTrackingEntityAndPlayer(player, new SStaffParticlePacket(player.getId(), stack.getItem() instanceof IWand wand ? wand.getWandVisualHeight(serverLevel, player, stack) : 0.8F, range, colorUtil.colorCode(0), caster.getUsedItemHand() == InteractionHand.OFF_HAND));
+                    }
+                } else {
+                    ServerParticleUtil.gatheringParticles(new GatherTrailParticle.Option(colorUtil, caster.position().add(0, 2, 0)), caster, serverLevel, range);
+                }
             } else if (this.getSpellType() == SpellType.VOID){
                 int range = 1;
                 ColorUtil colorUtil = new ColorUtil(ChatFormatting.DARK_PURPLE);
-                ServerParticleUtil.gatheringParticles(new GatherTrailParticle.Option(colorUtil, caster.position().add(0, 2, 0)), caster, serverLevel, range);
+                if (caster instanceof Player player) {
+                    for (int i = 0; i < (caster.getRandom().nextFloat() < 0.1F ? 3 : 1); i++) {
+                        ModNetwork.sentToTrackingEntityAndPlayer(player, new SStaffParticlePacket(player.getId(), stack.getItem() instanceof IWand wand ? wand.getWandVisualHeight(serverLevel, player, stack) : 0.8F, range, colorUtil.colorCode(0), caster.getUsedItemHand() == InteractionHand.OFF_HAND));
+                    }
+                } else {
+                    ServerParticleUtil.gatheringParticles(new GatherTrailParticle.Option(colorUtil, caster.position().add(0, 2, 0)), caster, serverLevel, range);
+                }
                 for(int i = 0; i < 2; ++i) {
                     serverLevel.sendParticles(ParticleTypes.PORTAL, caster.getRandomX(0.5D), caster.getRandomY() - 0.25D, caster.getRandomZ(0.5D), 0, (worldIn.getRandom().nextDouble() - 0.5D) * 2.0D, -worldIn.getRandom().nextDouble(), (worldIn.getRandom().nextDouble() - 0.5D) * 2.0D, 1.0D);
                 }
             } else if (this.getSpellType() == SpellType.NETHER){
                 int range = 1;
                 ColorUtil colorUtil = new ColorUtil(ChatFormatting.GOLD);
-                ServerParticleUtil.gatheringParticles(new GatherTrailParticle.Option(colorUtil, caster.position().add(0, 2, 0)), caster, serverLevel, range);
+                if (caster instanceof Player player) {
+                    for (int i = 0; i < (caster.getRandom().nextFloat() < 0.1F ? 3 : 1); i++) {
+                        ModNetwork.sentToTrackingEntityAndPlayer(player, new SStaffParticlePacket(player.getId(), stack.getItem() instanceof IWand wand ? wand.getWandVisualHeight(serverLevel, player, stack) : 0.8F, range, colorUtil.colorCode(0), caster.getUsedItemHand() == InteractionHand.OFF_HAND));
+                    }
+                } else {
+                    ServerParticleUtil.gatheringParticles(new GatherTrailParticle.Option(colorUtil, caster.position().add(0, 2, 0)), caster, serverLevel, range);
+                }
             } else if (this.getSpellType() == SpellType.NECROMANCY){
                 int range = 1;
-                ColorUtil colorUtil = new ColorUtil(0xffffff);
+                int color = 0xffffff;
                 if (stack.is(ModItems.NAMELESS_STAFF.get())){
                     range = 3;
-                    colorUtil = new ColorUtil(0xa7fc3e);
+                    color = 0xa7fc3e;
                 }
-                ServerParticleUtil.gatheringParticles(new GatherTrailParticle.Option(colorUtil, caster.position().add(0, 2, 0)), caster, serverLevel, range);
+                if (caster instanceof Player player) {
+                    for (int i = 0; i < (caster.getRandom().nextFloat() < 0.1F ? 3 : 1); i++) {
+                        ModNetwork.sentToTrackingEntityAndPlayer(player, new SStaffParticlePacket(player.getId(), stack.getItem() instanceof IWand wand ? wand.getWandVisualHeight(serverLevel, player, stack) : 0.8F, range, color, caster.getUsedItemHand() == InteractionHand.OFF_HAND));
+                    }
+                } else {
+                    ServerParticleUtil.gatheringParticles(new GatherTrailParticle.Option(new ColorUtil(color), caster.position().add(0, 2, 0)), caster, serverLevel, range);
+                }
             } else {
                 ISpell.super.useParticle(worldIn, caster, stack);
             }
