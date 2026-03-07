@@ -88,6 +88,11 @@ public class DarkWand extends Item implements IWand {
     }
 
     @Override
+    public float getWandVisualHeight(Level level, LivingEntity entity, ItemStack stack) {
+        return 0.4F;
+    }
+
+    @Override
     public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
         if (entityIn instanceof LivingEntity livingEntity) {
             CompoundTag compound = stack.getOrCreateTag();
