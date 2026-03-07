@@ -30,8 +30,7 @@ public class VoidShockBomb extends SpellThrowableProjectile {
     public float size = 1.0F;
     public float alpha = 1.0F;
     public float baseDamage = SpellConfig.VoidBombDamage.get().floatValue() * WandUtil.damageMultiply();
-    private Vec3[] trailPositions = new Vec3[64];
-    private int trailPointer = -1;
+    public TrailEffect trail = new TrailEffect(0.5F, 6.0F);
 
     public VoidShockBomb(EntityType<? extends VoidShockBomb> type, Level world) {
         super(type, world);
@@ -152,34 +151,10 @@ public class VoidShockBomb extends SpellThrowableProjectile {
                     this.discard();
                 }
             }
+        } else if (tickCount > 5) {
+            Vec3 oldPos = new Vec3(xOld, yOld + getBbHeight() / 2, zOld);
+            trail.update(oldPos);
         }
-
-        Vec3 trailAt = this.position().add(0, this.getBbHeight() / 2F, 0);
-        if (this.trailPointer == -1) {
-            Vec3 backAt = trailAt;
-            for (int i = 0; i < this.trailPositions.length; i++) {
-                this.trailPositions[i] = backAt;
-            }
-        }
-        if (++this.trailPointer == this.trailPositions.length) {
-            this.trailPointer = 0;
-        }
-        this.trailPositions[this.trailPointer] = trailAt;
-    }
-
-    public Vec3 getTrailPosition(int pointer, float partialTick) {
-        if (this.isRemoved()) {
-            partialTick = 1.0F;
-        }
-        int i = this.trailPointer - pointer & 63;
-        int j = this.trailPointer - pointer - 1 & 63;
-        Vec3 d0 = this.trailPositions[j];
-        Vec3 d1 = this.trailPositions[i].subtract(d0);
-        return d0.add(d1.scale(partialTick));
-    }
-
-    public boolean hasTrail() {
-        return trailPointer != -1;
     }
 
     protected boolean canHitEntity(Entity pEntity) {

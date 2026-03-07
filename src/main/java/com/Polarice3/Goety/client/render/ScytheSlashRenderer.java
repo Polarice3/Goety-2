@@ -4,6 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.visual.TrailRenderer;
 import com.Polarice3.Goety.common.entities.projectiles.ScytheSlash;
 import com.Polarice3.Goety.utils.ColorUtil;
+import com.Polarice3.Goety.utils.TrailEffect;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
@@ -22,7 +23,7 @@ import org.joml.Vector4f;
 
 public class ScytheSlashRenderer extends EntityRenderer<ScytheSlash> {
     private static final ResourceLocation TEXTURE = Goety.location("textures/entity/projectiles/slash/1.png");
-    private static final ResourceLocation TRAIL_TEXTURE = Goety.location("textures/entity/thin_trail.png");
+    private static final ResourceLocation TRAIL_TEXTURE = Goety.location("textures/entity/projectiles/pointed_trail.png");
 
     public ScytheSlashRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn);
@@ -57,8 +58,8 @@ public class ScytheSlashRenderer extends EntityRenderer<ScytheSlash> {
         entity.rightTrail.prepareRender(new Vec3(x, y, z).add(right.x(), right.y(), right.z()), partialTicks);
         poseStack.translate(-x, -y, -z);
         ColorUtil colorUtil = new ColorUtil(ChatFormatting.AQUA);
-        TrailRenderer.render(entity.leftTrail, bufferSource.getBuffer(RenderType.entityCutoutNoCull(TRAIL_TEXTURE)), poseStack, true, colorUtil.red, colorUtil.green, colorUtil.blue, 1, light);
-        TrailRenderer.render(entity.rightTrail, bufferSource.getBuffer(RenderType.entityCutoutNoCull(TRAIL_TEXTURE)), poseStack, true, colorUtil.red, colorUtil.green, colorUtil.blue, 1, light);
+        TrailRenderer.render(entity.leftTrail, bufferSource.getBuffer(RenderType.entityCutoutNoCull(TRAIL_TEXTURE)), poseStack, TrailEffect.TrailOffsetFunction.FACE_CAMERA, true, colorUtil.red, colorUtil.green, colorUtil.blue, 1, light);
+        TrailRenderer.render(entity.rightTrail, bufferSource.getBuffer(RenderType.entityCutoutNoCull(TRAIL_TEXTURE)), poseStack, TrailEffect.TrailOffsetFunction.FACE_CAMERA, true, colorUtil.red, colorUtil.green, colorUtil.blue, 1, light);
         poseStack.popPose();
     }
 

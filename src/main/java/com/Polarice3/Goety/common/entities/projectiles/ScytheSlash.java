@@ -45,8 +45,8 @@ public class ScytheSlash extends AbstractHurtingProjectile {
     private int lifespan;
     private int totalLife;
 
-    public TrailEffect leftTrail = new TrailEffect(0.15F, 8.0F);
-    public TrailEffect rightTrail = new TrailEffect(0.15F, 8.0F);
+    public TrailEffect leftTrail = new TrailEffect(0.15F, 6.0F);
+    public TrailEffect rightTrail = new TrailEffect(0.15F, 6.0F);
 
     public ScytheSlash(EntityType<? extends AbstractHurtingProjectile> p_i50173_1_, Level p_i50173_2_) {
         super(p_i50173_1_, p_i50173_2_);

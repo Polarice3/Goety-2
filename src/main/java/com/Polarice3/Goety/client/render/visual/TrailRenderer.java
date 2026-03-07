@@ -9,12 +9,15 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 
+// A trail renderer that forces all quads in the trail to perfectly face the camera
+// A glitch might happen in first-person perspective because the sight vector shares the same direction as the trail vector, thus the cross product cannot be computed correctly
+// Offset a little bit to prevent the sight vector from sharing the exact same direction as the trail, or use a different TrailOffsetFunction
 public class TrailRenderer {
-    public static void render(TrailEffect effect, VertexConsumer consumer, PoseStack stack, boolean solid, float r, float g, float b, float a, int light) {
-        render(effect, consumer, stack, solid, false, r, g, b, a, 1, 0, 0, 1, light);
+    public static void render(TrailEffect effect, VertexConsumer consumer, PoseStack stack, TrailEffect.TrailOffsetFunction function, boolean solid, float r, float g, float b, float a, int light) {
+        render(effect, consumer, stack, function, solid, false, r, g, b, a, 1, 0, 0, 1, light);
     }
 
-    public static void render(TrailEffect effect, VertexConsumer consumer, PoseStack stack, boolean solid, boolean particleFormat, float r, float g, float b, float a, float u0, float u1, float v0, float v1, int light) {
+    public static void render(TrailEffect effect, VertexConsumer consumer, PoseStack stack, TrailEffect.TrailOffsetFunction function, boolean solid, boolean particleFormat, float r, float g, float b, float a, float u0, float u1, float v0, float v1, int light) {
         int size = effect.renderPoints.size();
         if (size < 2) return;
 
@@ -42,7 +45,7 @@ public class TrailRenderer {
             if (tangent.lengthSqr() < 0.5) {
                 tangent = new Vec3(0, 1, 0);
             }
-            Vec3 offsetDir = tangent.cross(effect.renderPoints.get(i).pos().subtract(camera.getPosition())).normalize();
+            Vec3 offsetDir = function.calculateTrailOffset(effect.renderPoints.get(i).pos().subtract(camera.getPosition()), camera.getXRot(), camera.getYRot(), tangent).normalize();
             if (offsetDir.lengthSqr() < 0.5) {
                 offsetDir = new Vec3(0, 1, 0);
             }

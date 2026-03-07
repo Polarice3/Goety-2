@@ -89,6 +89,14 @@ public class TrailEffect {
         return new TrailPoint(Vec3Util.lerp(progress, first.pos(), second.pos()));
     }
 
+    @FunctionalInterface
+    public interface TrailOffsetFunction {
+        TrailOffsetFunction FACE_CAMERA = (look, camXRot, camYRot, tangent) -> tangent.cross(look);
+        TrailOffsetFunction Z_ROT = (look, camXRot, camYRot, tangent) -> new Vec3(0, 1, 0).zRot(camXRot * -Mth.DEG_TO_RAD);
+
+        Vec3 calculateTrailOffset(Vec3 look, float camXRot, float camYRot, Vec3 tangent);
+    }
+
     public record TrailPoint(Vec3 pos, float progressFactor) {
         public TrailPoint(Vec3 pos) {
             this(pos, 1);

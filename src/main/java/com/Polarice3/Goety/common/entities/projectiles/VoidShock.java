@@ -30,7 +30,6 @@ import net.minecraftforge.entity.PartEntity;
 import org.joml.Vector3f;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -45,13 +44,10 @@ public class VoidShock extends SpellEntity {
     public float baseDamage = SpellConfig.VoidShockDamage.get().floatValue() * WandUtil.damageMultiply();
     public int life;
     public int initTime = MathHelper.secondsToTicks(2);
-    private Vec3[] trailPositions;
-    private int trailPointer;
+    public TrailEffect trail = new TrailEffect(0.2F, 3.0F);
 
     public VoidShock(EntityType<?> p_19870_, Level p_19871_) {
         super(p_19870_, p_19871_);
-        this.trailPositions = new Vec3[64];
-        this.trailPointer = -1;
     }
 
     public VoidShock(LivingEntity owner, LivingEntity target, Level level) {
@@ -162,17 +158,6 @@ public class VoidShock extends SpellEntity {
 
         this.level.addParticle(ParticleTypes.PORTAL, d0 - vec3.x * 0.25D + this.random.nextDouble() * 0.6D - 0.3D, d1 - vec3.y * 0.25D - 0.5D, d2 - vec3.z * 0.25D + this.random.nextDouble() * 0.6D - 0.3D, vec3.x, vec3.y, vec3.z);
 
-        Vec3 trailAt = this.position().add(0.0D, 0.0D, 0.0D);
-        if (this.trailPointer == -1) {
-            Arrays.fill(this.trailPositions, trailAt);
-        }
-
-        if (++this.trailPointer == this.trailPositions.length) {
-            this.trailPointer = 0;
-        }
-
-        this.trailPositions[this.trailPointer] = trailAt;
-
         ++this.life;
 
         if (!this.level.isClientSide) {
@@ -243,6 +228,10 @@ public class VoidShock extends SpellEntity {
             }
         } else {
             this.setPosRaw(d0, d1, d2);
+            if (tickCount > 5 && hasTrail()) {
+                Vec3 oldPos = new Vec3(xOld, yOld + getBbHeight() / 2, zOld);
+                trail.update(oldPos);
+            }
         }
 
     }
@@ -309,20 +298,8 @@ public class VoidShock extends SpellEntity {
         }
     }
 
-    public Vec3 getTrailPosition(int pointer, float partialTick) {
-        if (this.isRemoved()) {
-            partialTick = 1.0F;
-        }
-
-        int i = this.trailPointer - pointer & 63;
-        int j = this.trailPointer - pointer - 1 & 63;
-        Vec3 d0 = this.trailPositions[j];
-        Vec3 d1 = this.trailPositions[i].subtract(d0);
-        return d0.add(d1.scale(partialTick));
-    }
-
     public boolean hasTrail() {
-        return this.trailPointer != -1 && this.hasTarget;
+        return this.hasTarget;
     }
 
     public float getLightLevelDependentMagicValue() {
