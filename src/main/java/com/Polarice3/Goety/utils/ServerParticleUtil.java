@@ -1,9 +1,6 @@
 package com.Polarice3.Goety.utils;
 
-import com.Polarice3.Goety.client.particles.MagicSmokeParticle;
-import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.client.particles.WindParticleOption;
-import com.Polarice3.Goety.client.particles.WindShockwaveParticle;
+import com.Polarice3.Goety.client.particles.*;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -88,8 +85,11 @@ public class ServerParticleUtil {
                 }
             }
             Vec3 vector3d = new Vec3(entity.position().x, entity.getEyeY(), entity.position().z);
+            if (pParticleData instanceof GatherTrailParticle.Option option) {
+                vector3d = new Vec3(option.getEndX(), option.getEndY(), option.getEndZ());
+            }
             for(BlockPos blockpos : positions) {
-                if (serverWorld.getRandom().nextInt(50) == 0) {
+                if (serverWorld.getRandom().nextInt(25) == 0) {
                     float f = -0.5F + serverWorld.getRandom().nextFloat();
                     float f1 = -2.0F + serverWorld.getRandom().nextFloat();
                     float f2 = -0.5F + serverWorld.getRandom().nextFloat();
