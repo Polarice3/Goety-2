@@ -1,0 +1,19 @@
+{
+  "name": "Foco de Jato de Água",
+  "icon": "goety:water_jet_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O foco dispara um jato de água de alta pressão que lava qualquer inimigo, especialmente aqueles sensíveis à água. Também pode apagar incêndios."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/water_jet_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com um $(l:crafts/staff/abyss_staff)Cajado do Abismo$() fará com que o jato aplique Esgotamento."
+    }
+  ]
+}

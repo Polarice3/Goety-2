@@ -1,0 +1,23 @@
+{
+  "name": "Ministruosidades",
+  "icon": "minecraft:stone",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Pequenos golems que não só correm animadamente, mas também destroem inimigos com suas mandíbulas de pedra."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_ministrosity_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:stone_ministrosity"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Pode-se invocar essas criaturas usando um $(l:focuses/geomancy/ministrous_focus)Foco Ministruosidade$(). Elas podem ser curadas clicando com Pedra nelas."
+    }
+  ]
+}

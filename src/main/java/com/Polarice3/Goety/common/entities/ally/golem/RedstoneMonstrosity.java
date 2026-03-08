@@ -620,13 +620,15 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
     public void tick() {
         super.tick();
         if (this.isHostile()) {
-            if (this.tickCount % 10 == 0) {
-                Mob mob = this.convertTo(ModEntityType.HOSTILE_REDSTONE_MONSTROSITY.get(), false);
-                if (mob != null) {
-                    mob.setXRot(this.getXRot());
-                    mob.setYRot(this.getYRot());
-                    mob.setYBodyRot(this.getYRot());
-                    mob.setYHeadRot(this.getYHeadRot());
+            if (MobsConfig.RedstoneMonstrosityHostileConvert.get()) {
+                if (this.tickCount % 10 == 0) {
+                    Mob mob = this.convertTo(ModEntityType.HOSTILE_REDSTONE_MONSTROSITY.get(), false);
+                    if (mob != null) {
+                        mob.setXRot(this.getXRot());
+                        mob.setYRot(this.getYRot());
+                        mob.setYBodyRot(this.getYRot());
+                        mob.setYHeadRot(this.getYHeadRot());
+                    }
                 }
             }
         }

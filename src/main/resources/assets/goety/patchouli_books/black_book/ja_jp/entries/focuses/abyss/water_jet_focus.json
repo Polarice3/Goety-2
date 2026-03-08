@@ -1,0 +1,19 @@
+{
+  "name": "ウォータージェットのフォーカス",
+  "icon": "goety:water_jet_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "高圧の水流を噴射し、あらゆる敵、特に水に弱い敵を吹き飛ばします。また、火を消すこともできます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/water_jet_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/abyss_staff)深淵の杖$()で唱えると、耐性低下を与えます。"
+    }
+  ]
+}

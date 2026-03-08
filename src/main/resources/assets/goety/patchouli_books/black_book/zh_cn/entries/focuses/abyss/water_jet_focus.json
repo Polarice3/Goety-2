@@ -1,0 +1,19 @@
+{
+  "name": "水柱聚晶",
+  "icon": "goety:water_jet_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "该聚晶会喷射能够冲走任何敌人的水柱，对怕水的敌人效果更佳，也可以用于灭火"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/water_jet_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/abyss_staff)深渊魔杖$()承载此聚晶施法时，可以额外对目标施加侵蚀效果"
+    }
+  ]
+}

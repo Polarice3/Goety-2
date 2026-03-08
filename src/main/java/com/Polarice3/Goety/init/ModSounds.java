@@ -356,6 +356,12 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> LEAPLEAF_STEP = create("leapleaf_step");
     public static final RegistryObject<SoundEvent> LEAPLEAF_DEATH = create("leapleaf_death");
 
+    public static final RegistryObject<SoundEvent> MINISTROSITY_STONE_IDLE = create("ministrosity_stone_idle");
+    public static final RegistryObject<SoundEvent> MINISTROSITY_REDSTONE_IDLE = create("ministrosity_redstone_idle");
+    public static final RegistryObject<SoundEvent> MINISTROSITY_HURT = create("ministrosity_hurt");
+    public static final RegistryObject<SoundEvent> MINISTROSITY_STEP = create("ministrosity_step");
+    public static final RegistryObject<SoundEvent> MINISTROSITY_DEATH = create("ministrosity_death");
+
     public static final RegistryObject<SoundEvent> ICE_GOLEM_HURT = create("ice_golem_hurt");
     public static final RegistryObject<SoundEvent> ICE_GOLEM_SWING = create("ice_golem_swing");
     public static final RegistryObject<SoundEvent> ICE_GOLEM_ATTACK = create("ice_golem_attack");
@@ -567,6 +573,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> FIRE_BREATH_START = create("fire_breath_start");
     public static final RegistryObject<SoundEvent> FIRE_BREATH = create("fire_breath");
     public static final RegistryObject<SoundEvent> FROST_BREATH = create("frost_breath");
+    public static final RegistryObject<SoundEvent> WATER_JET = create("water_jet");
     public static final RegistryObject<SoundEvent> BUBBLE_STREAM = create("bubble_stream");
     public static final RegistryObject<SoundEvent> BURROW = create("burrow_spell");
     public static final RegistryObject<SoundEvent> FLIGHT = create("flight");

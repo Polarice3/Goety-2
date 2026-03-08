@@ -2465,8 +2465,6 @@
   "item.goety.abyss_robe": "深淵のローブ",
   "item.goety.slimy_focus": "スライムのフォーカス",
   "item.goety.slimy_focus.info": "スライムの従者を召喚します。しゃがむと、すでにいる従者がプレイヤーの元へ行きます。",
-  "item.goety.bubble_stream_focus": "泡のストリームのフォーカス",
-  "item.goety.bubble_stream_focus.info": "術者の前方に泡の波を発射します。ターゲットは水によるダメージを受けますが、酸素も獲得します。",
   "item.goety.bouncy_bubble_focus": "巨大な泡のフォーカス",
   "item.goety.bouncy_bubble_focus.info": "表面やターゲットで跳ね返る巨大な泡を発射します。",
   "item.goety.steaming_focus": "蒸気のフォーカス",
@@ -3341,5 +3339,18 @@
   "block.goety.plushie_4": "§6Nedeak §rPlushie",
   "block.goety.plushie_5": "§6Jade Jester §rPlushie",
   "block.goety.void_minor_spread": "虚空のマイナースプレッド",
-  "block.goety.void_major_spread": "虚空のメジャースプレッド"
+  "block.goety.void_major_spread": "虚空のメジャースプレッド",
+  "entity.goety.stone_ministrosity": "石のミニモンスター",
+  "item.goety.stone_ministrosity_spawn_egg": "石のミニモンスターのスポーンエッグ",
+  "item.goety.ministrous_focus": "ミニモンスターのフォーカス",
+  "item.goety.ministrous_focus.info": "ミニモンスターを召喚します。しゃがむと、すでにいる従者がプレイヤーの元へ行きます。",
+  "item.goety.water_jet_focus": "ウォータージェットのフォーカス",
+  "item.goety.water_jet_focus.info": "高圧の水流を発射します。対象は水属性のダメージを受けますが、同時に酸素も得られます。",
+  "entity.goety.redstone_ministrosity": "レッドストーンミニモンスター",
+  "item.goety.redstone_ministrosity_spawn_egg": "レッドストーンミニモンスターのスポーンエッグ",
+  "subtitle.goety.ministrosity_idle": "Ministrosity cheers",
+  "subtitle.goety.ministrosity_hurt": "Ministrosity hurts",
+  "subtitle.goety.ministrosity_step": "Ministrosity steps",
+  "subtitle.goety.ministrosity_death": "Ministrosity dies",
+  "subtitle.goety.water_jet": "Water Jet"
 }

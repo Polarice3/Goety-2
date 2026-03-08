@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "goety:stone_ministrosity",
+    "goety:redstone_ministrosity",
     "goety:ice_golem",
     "goety:whisperer",
     "goety:wavewhisperer",

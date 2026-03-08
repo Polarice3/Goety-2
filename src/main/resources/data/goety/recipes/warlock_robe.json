@@ -27,10 +27,10 @@
       "item": "minecraft:warped_fungus"
     },
     {
-      "tag": "forge:mushrooms"
+      "item": "minecraft:crying_obsidian"
     },
     {
-      "tag": "forge:mushrooms"
+      "item": "goety:mystic_core"
     }
   ],
   "result": {

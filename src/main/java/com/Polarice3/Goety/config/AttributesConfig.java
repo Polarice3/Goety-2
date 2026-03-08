@@ -285,6 +285,14 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> EndersentHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> EndersentArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> EndersentDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> StoneMinistrosityHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> StoneMinistrosityArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> StoneMinistrosityDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> StoneMinistrosityFollowRange;
+    public static final ForgeConfigSpec.ConfigValue<Double> RedstoneMinistrosityHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> RedstoneMinistrosityArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> RedstoneMinistrosityDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> RedstoneMinistrosityFollowRange;
     public static final ForgeConfigSpec.ConfigValue<Double> IceGolemHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> IceGolemArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> IceGolemDamage;
@@ -1057,6 +1065,26 @@ public class AttributesConfig {
                         .defineInRange("snarelingArmor", 0.0, 0.0, Double.MAX_VALUE);
                 SnarelingDamage = BUILDER.comment("How much damage Snarelings deals, Default: 2.0")
                         .defineInRange("snarelingDamage", 2.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Stone Ministrosity");
+                StoneMinistrosityHealth = BUILDER.comment("How much Max Health Stone Ministrosities have, Default: 10.0")
+                        .defineInRange("stoneMinistrosityHealth", 10.0, 1.0, Double.MAX_VALUE);
+                StoneMinistrosityArmor = BUILDER.comment("How much natural armor points Stone Ministrosities have, Default: 0.0")
+                        .defineInRange("stoneMinistrosityArmor", 0.0, 0.0, Double.MAX_VALUE);
+                StoneMinistrosityDamage = BUILDER.comment("How much damage Stone Ministrosities deals, Default: 4.0")
+                        .defineInRange("stoneMinistrosityDamage", 4.0, 1.0, Double.MAX_VALUE);
+                StoneMinistrosityFollowRange = BUILDER.comment("How much following/detection range Stone Ministrosities have, Default: 16.0")
+                        .defineInRange("stoneMinistrosityFollowRange", 16.0, 1.0, 2048.0);
+                BUILDER.pop();
+                BUILDER.push("Redstone Ministrosity");
+                RedstoneMinistrosityHealth = BUILDER.comment("How much Max Health Redstone Ministrosities have, Default: 15.0")
+                        .defineInRange("redstoneMinistrosityHealth", 15.0, 1.0, Double.MAX_VALUE);
+                RedstoneMinistrosityArmor = BUILDER.comment("How much natural armor points Redstone Ministrosities have, Default: 1.0")
+                        .defineInRange("redstoneMinistrosityArmor", 1.0, 0.0, Double.MAX_VALUE);
+                RedstoneMinistrosityDamage = BUILDER.comment("How much damage Redstone Ministrosities deals, Default: 5.0")
+                        .defineInRange("redstoneMinistrosityDamage", 5.0, 1.0, Double.MAX_VALUE);
+                RedstoneMinistrosityFollowRange = BUILDER.comment("How much following/detection range Redstone Ministrosities have, Default: 16.0")
+                        .defineInRange("redstoneMinistrosityFollowRange", 16.0, 1.0, 2048.0);
                 BUILDER.pop();
                 BUILDER.push("Ice Golem");
                 IceGolemHealth = BUILDER.comment("How much Max Health Ice Golems have, Default: 60.0")

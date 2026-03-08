@@ -121,7 +121,7 @@ public abstract class Spell implements ISpell {
             } else if (this.getSpellType() == SpellType.GEOMANCY) {
                 BlockPos blockPos = BlockPos.containing(caster.getX(), caster.getY() - 1.0F, caster.getZ());
                 BlockParticleOption option = new BlockParticleOption(ParticleTypes.BLOCK, serverLevel.getBlockState(blockPos));
-                for (int i = 0; i < 8; ++i) {
+                for (int i = 0; i < 4; ++i) {
                     ServerParticleUtil.circularParticles(serverLevel, option, caster.getX(), caster.getY() + 0.25D, caster.getZ(), 1.0F);
                 }
             } else if (this.getSpellType() == SpellType.WIND) {

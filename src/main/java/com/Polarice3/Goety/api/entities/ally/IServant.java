@@ -195,6 +195,8 @@ public interface IServant extends IOwned {
                 this.setUpgraded(CuriosFinder.hasAbyssRobes(owner));
             } else if (ServantUtil.isVoidHeal(mob)) {
                 this.setUpgraded(CuriosFinder.hasVoidRobe(owner));
+            } else if (ServantUtil.isGeoHeal(mob)) {
+                this.setUpgraded(CuriosFinder.hasGeoRobe(owner));
             }
         }
     }

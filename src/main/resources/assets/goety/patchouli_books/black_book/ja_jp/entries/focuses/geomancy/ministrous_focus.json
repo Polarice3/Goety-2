@@ -1,0 +1,19 @@
+{
+  "name": "ミニモンスターのフォーカス",
+  "icon": "goety:ministrous_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(l:summons/ministrosities)石のミニモンスター$()という素早く動いて敵を噛むができるシンプルなゴーレムを召喚します。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/ministrous_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/geo_staff)地の杖$()で唱えると、追加でミニモンスターを召喚します。"
+    }
+  ]
+}

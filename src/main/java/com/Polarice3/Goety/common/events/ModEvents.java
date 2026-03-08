@@ -162,6 +162,11 @@ public class ModEvents {
                 case "goety:ally_trampler" -> missingMapping.remap(ModEntityType.TRAMPLER_SERVANT.get());
             }
         });
+        event.getAllMappings(ForgeRegistries.Keys.ITEMS).forEach(missingMapping -> {
+            if (missingMapping.getKey().toString().equals("goety:bubble_stream_focus")) {
+                missingMapping.remap(ModItems.WATER_JET_FOCUS.get());
+            }
+        });
     }
 
     @SubscribeEvent
@@ -557,7 +562,7 @@ public class ModEvents {
     public static void PlayerTick(TickEvent.PlayerTickEvent event){
         Player player = event.player;
         Level world = player.level;
-        if (world instanceof ServerLevel serverLevel){
+        if (world instanceof ServerLevel){
             if (player.tickCount % 20 == 0) {
                 if (player instanceof ServerPlayer serverPlayer){
                     if (serverPlayer.getServer() != null) {
@@ -578,15 +583,6 @@ public class ModEvents {
                                 }
                             }
                         }
-                    }
-                }
-            }
-            if (MainConfig.ShriekObeliskRaid.get()) {
-                Raid raid = serverLevel.getRaidAt(player.blockPosition());
-                if (raid != null) {
-                    int cost = MainConfig.ShriekObeliskCost.get() * raid.getBadOmenLevel();
-                    if (BlockFinder.findIllagerWard(serverLevel, player, cost)) {
-                        raid.stop();
                     }
                 }
             }

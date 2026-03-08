@@ -4093,6 +4093,97 @@
     ],
     "subtitle": "subtitle.goety.leapleaf_death"
   },
+  "ministrosity_stone_idle": {
+    "sounds": [
+      {
+        "name": "goety:ministrosity/stone_idle1"
+      },
+      {
+        "name": "goety:ministrosity/stone_idle2"
+      },
+      {
+        "name": "goety:ministrosity/stone_idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.ministrosity_idle"
+  },
+  "ministrosity_redstone_idle": {
+    "sounds": [
+      {
+        "name": "goety:ministrosity/redstone_idle1"
+      },
+      {
+        "name": "goety:ministrosity/redstone_idle2"
+      },
+      {
+        "name": "goety:ministrosity/redstone_idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.ministrosity_idle"
+  },
+  "ministrosity_hurt": {
+    "sounds": [
+      {
+        "name": "goety:redstone_golem/hurt1",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:redstone_golem/hurt2",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:redstone_golem/hurt3",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:redstone_golem/hurt4",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:redstone_golem/hurt5",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:redstone_golem/hurt6",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:redstone_golem/hurt7",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:redstone_golem/hurt8",
+        "pitch": 1.25
+      }
+    ],
+    "subtitle": "subtitle.goety.ministrosity_hurt"
+  },
+  "ministrosity_step": {
+    "sounds": [
+      {
+        "name": "goety:ministrosity/step1"
+      },
+      {
+        "name": "goety:ministrosity/step2"
+      },
+      {
+        "name": "goety:ministrosity/step3"
+      },
+      {
+        "name": "goety:ministrosity/step4"
+      }
+    ],
+    "subtitle": "subtitle.goety.ministrosity_step"
+  },
+  "ministrosity_death": {
+    "sounds": [
+      {
+        "name": "mob/irongolem/death",
+        "pitch": 2.0
+      }
+    ],
+    "subtitle": "subtitle.goety.ministrosity_death"
+  },
   "ice_golem_hurt": {
     "sounds": [
       {
@@ -6740,6 +6831,14 @@
       }
     ],
     "subtitle": "subtitle.goety.frost_breath"
+  },
+  "water_jet": {
+    "sounds": [
+      {
+        "name": "goety:spell/water_jet"
+      }
+    ],
+    "subtitle": "subtitle.goety.water_jet"
   },
   "bubble_stream": {
     "sounds": [

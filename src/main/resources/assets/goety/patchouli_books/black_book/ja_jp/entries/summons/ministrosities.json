@@ -1,0 +1,23 @@
+{
+  "name": "ミニモンスター",
+  "icon": "minecraft:stone",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "興奮して走り回るだけでなく、石の口で敵を引き裂く小さなゴーレム。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_ministrosity_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:stone_ministrosity"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "これらは、$(l:focuses/geomancy/ministrous_focus)ミニモンスターのフォーカス$()を使って呼び出すことができます。また、右クリックで石を与えることで回復できます。"
+    }
+  ]
+}

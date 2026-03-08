@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "sas",
+    "lcl",
+    "sas"
+  ],
+  "key":
+  {
+    "c":
+    {
+      "item": "goety:animation_core"
+    },
+    "l":
+    {
+      "item": "minecraft:lava_bucket"
+    },
+    "a":
+    {
+      "tag": "forge:storage_blocks/amethyst"
+    },
+    "s":
+    {
+      "tag": "forge:stone"
+    }
+  },
+  "result":
+  {
+    "item": "goety:ministrous_focus",
+    "count": 1
+  }
+}

@@ -91,6 +91,10 @@ public interface ISummonSpell extends ISpell{
                 colorUtil = new ColorUtil(0xffa300);
                 colorFrom = 0xffa300;
                 colorTo = 0xffff6e;
+            } else if (this.getSpellType() == SpellType.GEOMANCY) {
+                colorUtil = new ColorUtil(0xffca00);
+                colorFrom = 0xffca00;
+                colorTo = 0xffff00;
             } else {
                 colorUtil = new ColorUtil(0xffffff);
                 colorFrom = 0xffffff;

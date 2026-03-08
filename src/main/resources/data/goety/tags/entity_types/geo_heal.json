@@ -2,5 +2,7 @@
   "replace": false,
   "__comment": "servants that heals and lose limited lifespan through Geo set.",
   "values": [
+    "goety:stone_ministrosity",
+    "goety:redstone_ministrosity"
   ]
 }

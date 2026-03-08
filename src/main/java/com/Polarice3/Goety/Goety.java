@@ -681,6 +681,8 @@ public class Goety {
         event.put(ModEntityType.WHISPERER.get(), Whisperer.setCustomAttributes().build());
         event.put(ModEntityType.WAVEWHISPERER.get(), Wavewhisperer.setCustomAttributes().build());
         event.put(ModEntityType.LEAPLEAF.get(), Leapleaf.setCustomAttributes().build());
+        event.put(ModEntityType.STONE_MINISTROSITY.get(), StoneMinistrosity.setCustomAttributes().build());
+        event.put(ModEntityType.REDSTONE_MINISTROSITY.get(), RedstoneMinistrosity.setCustomAttributes().build());
         event.put(ModEntityType.ICE_GOLEM.get(), IceGolem.setCustomAttributes().build());
         event.put(ModEntityType.SQUALL_GOLEM.get(), SquallGolem.setCustomAttributes().build());
         event.put(ModEntityType.REDSTONE_GOLEM.get(), RedstoneGolem.setCustomAttributes().build());

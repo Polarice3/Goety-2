@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The focus allows you to summon forth a small volcano that would spew several pyroclastic rocks to the sky, which would fall around it, exploding and hopefully hurting your foes."
+      "text": "The focus allows you to summon forth a small volcano that would spew several pyroclastic rocks to the sky, which would fall around it, exploding and hopefully hurting and stunning your foes."
     },
     {
       "type": "goety:ritual",

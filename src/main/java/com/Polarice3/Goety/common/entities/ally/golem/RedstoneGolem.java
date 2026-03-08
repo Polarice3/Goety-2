@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.entities.projectiles.ScatterMine;
 import com.Polarice3.Goety.common.entities.util.CameraShake;
 import com.Polarice3.Goety.common.items.block.RedstoneGolemSkullItem;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -443,13 +444,15 @@ public class RedstoneGolem extends RaiderGolemServant {
             }
         }
         if (this.isHostile()) {
-            if (this.tickCount % 10 == 0) {
-                Mob mob = this.convertTo(ModEntityType.HOSTILE_REDSTONE_GOLEM.get(), false);
-                if (mob != null) {
-                    mob.setXRot(this.getXRot());
-                    mob.setYRot(this.getYRot());
-                    mob.setYBodyRot(this.getYRot());
-                    mob.setYHeadRot(this.getYHeadRot());
+            if (MobsConfig.RedstoneGolemHostileConvert.get()) {
+                if (this.tickCount % 10 == 0) {
+                    Mob mob = this.convertTo(ModEntityType.HOSTILE_REDSTONE_GOLEM.get(), false);
+                    if (mob != null) {
+                        mob.setXRot(this.getXRot());
+                        mob.setYRot(this.getYRot());
+                        mob.setYBodyRot(this.getYRot());
+                        mob.setYHeadRot(this.getYHeadRot());
+                    }
                 }
             }
         }

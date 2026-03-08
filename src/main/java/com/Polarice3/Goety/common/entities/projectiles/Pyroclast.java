@@ -2,6 +2,10 @@ package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ISpellEntity;
+import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.client.particles.VerticalCircleExplodeParticleOption;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.*;
@@ -12,10 +16,14 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.level.Explosion;
@@ -28,7 +36,7 @@ import net.minecraftforge.network.NetworkHooks;
 
 public class Pyroclast extends ThrowableProjectile implements ISpellEntity {
     public static final EntityDataAccessor<Boolean> DATA_DANGEROUS = SynchedEntityData.defineId(Pyroclast.class, EntityDataSerializers.BOOLEAN);
-    public float explosionPower = 1.5F;
+    public float explosionPower = 3.0F;
     public int potency = 0;
     public int flaming = 0;
 
@@ -124,14 +132,35 @@ public class Pyroclast extends ThrowableProjectile implements ISpellEntity {
     public void explode(){
         if (!this.level.isClientSide) {
             Entity owner = this.getOwner();
-            boolean flag = this.isDangerous();
-            if (owner instanceof Player){
-                if (!SpellConfig.PyroclastGriefing.get()){
-                    flag = false;
+            //Temp until compat change
+            if (owner != null && owner.getType().getDescriptionId().contains("netherite_monstrosity")) {
+                boolean flag = this.isDangerous();
+                LootingExplosion.Mode lootMode = CuriosFinder.hasWanting(owner) ? LootingExplosion.Mode.LOOT : LootingExplosion.Mode.REGULAR;
+                ExplosionUtil.lootExplode(this.level, owner, this.getX(), this.getY(), this.getZ(), this.getExplosionPower(), flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.KEEP, lootMode);
+            } else  {
+                if (this.level instanceof ServerLevel serverLevel){
+                    ColorUtil colorUtil = new ColorUtil(0xff8905);
+                    serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, this.getExplosionPower(), 1), this.getX(), this.getY(), this.getZ(), 0, 0.0D, 0.0D, 0.0D, 0);
+                    serverLevel.sendParticles(new VerticalCircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, this.getExplosionPower(), 1), this.getX(), this.getY(), this.getZ(), 0, 0.0D, 0.0D, 0.0D, 0);
+                    for (int i = 0; i < 8; ++i) {
+                        ColorUtil colorUtil1 = new ColorUtil(0xac9b8f);
+                        serverLevel.sendParticles(ModParticleTypes.BIG_CULT_SPELL.get(), this.getRandomX(1.0F), this.getRandomY(), this.getRandomZ(1.0F), 0, colorUtil1.red, colorUtil1.green, colorUtil1.blue, 1.0F);
+                        serverLevel.sendParticles(ModParticleTypes.BIG_FIRE_GROUND.get(), this.getRandomX(0.5F), this.getY(), this.getRandomZ(0.5F), 1, 0.0F, 0.0F, 0.0F, 0.0F);
+                    }
                 }
+                this.playSound(SoundEvents.GENERIC_EXPLODE, 4.0F, (1.0F + (this.level.getRandom().nextFloat() - this.level.getRandom().nextFloat()) * 0.2F) * 0.7F);
+                float damage = SpellConfig.PyroclastDamage.get().floatValue() * WandUtil.damageMultiply();
+                damage += this.getPotency();
+                new SpellExplosion(this.level, this, this.damageSources().explosion(this, owner != null ? owner : this), this.getX(), this.getY(), this.getZ(), this.getExplosionPower(), damage) {
+                    @Override
+                    public void explodeHurt(Entity target, DamageSource damageSource, double x, double y, double z, double seen, float actualDamage) {
+                        super.explodeHurt(target, damageSource, x, y, z, seen, actualDamage);
+                        if (target instanceof LivingEntity target1 && !MobUtil.areAllies(owner, target1) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target1)){
+                            target1.addEffect(new MobEffectInstance(GoetyEffects.STUNNED.get(), MathHelper.secondsToTicks(2), 0, false, false));
+                        }
+                    }
+                };
             }
-            LootingExplosion.Mode lootMode = CuriosFinder.hasWanting(owner) ? LootingExplosion.Mode.LOOT : LootingExplosion.Mode.REGULAR;
-            ExplosionUtil.lootExplode(this.level, owner, this.getX(), this.getY(), this.getZ(), this.getExplosionPower(), flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.KEEP, lootMode);
             this.discard();
         }
     }
@@ -143,15 +172,17 @@ public class Pyroclast extends ThrowableProjectile implements ISpellEntity {
 
     public void hitEntity(Entity entity){
         Entity entity1 = this.getOwner();
-        float damage = 6.0F;
-        if (entity1 instanceof Player){
-            damage = SpellConfig.PyroclastDamage.get().floatValue() * WandUtil.damageMultiply();
-        }
+        float damage = SpellConfig.PyroclastDamage.get().floatValue() * WandUtil.damageMultiply();
         damage += this.getPotency();
-        entity.hurt(ModDamageSource.modFireball(this.getOwner(), this.level), damage);
-
-        if (this.getFlaming() != 0){
-            entity.setSecondsOnFire(5 * this.getFlaming());
+        if (entity.hurt(ModDamageSource.modFireball(this.getOwner(), this.level), damage)) {
+            if (!(entity1 != null && entity1.getType().getDescriptionId().contains("netherite_monstrosity"))) {
+                if (entity instanceof LivingEntity livingEntity) {
+                    livingEntity.addEffect(new MobEffectInstance(GoetyEffects.STUNNED.get(), MathHelper.secondsToTicks(2), 0, false, false));
+                }
+            }
+            if (this.getFlaming() != 0){
+                entity.setSecondsOnFire(5 * this.getFlaming());
+            }
         }
         if (entity1 instanceof LivingEntity) {
             this.doEnchantDamageEffects((LivingEntity)entity1, entity);
@@ -189,7 +220,7 @@ public class Pyroclast extends ThrowableProjectile implements ISpellEntity {
                 }
             }
         }
-        return (!pEntity.isSpectator() && pEntity.isAlive() && pEntity.isPickable()) || this.getOwner() == null;
+        return !pEntity.isSpectator() && pEntity != this && pEntity.isAlive() && pEntity.isPickable();
     }
 
     @Override

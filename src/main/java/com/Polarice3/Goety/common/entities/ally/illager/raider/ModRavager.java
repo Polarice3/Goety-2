@@ -281,15 +281,17 @@ public class ModRavager extends RaiderServant implements PlayerRideable, IAutoRi
     public void aiStep() {
         super.aiStep();
         if (this.isHostile() && this.getMobType() != MobType.UNDEAD) {
-            if (this.tickCount % 20 == 0) {
-                if (this.hasSaddle()) {
-                    if (!this.getArmor().isEmpty()) {
-                        ArmoredRavager armoredRavager = this.convertTo(ModEntityType.ARMORED_RAVAGER.get(), false);
-                        if (armoredRavager != null) {
-                            armoredRavager.setArmorEquipment(this.getArmor());
+            if (MobsConfig.RavagerHostileConvert.get()) {
+                if (this.tickCount % 20 == 0) {
+                    if (this.hasSaddle()) {
+                        if (!this.getArmor().isEmpty()) {
+                            ArmoredRavager armoredRavager = this.convertTo(ModEntityType.ARMORED_RAVAGER.get(), false);
+                            if (armoredRavager != null) {
+                                armoredRavager.setArmorEquipment(this.getArmor());
+                            }
+                        } else {
+                            this.convertTo(EntityType.RAVAGER, false);
                         }
-                    } else {
-                        this.convertTo(EntityType.RAVAGER, false);
                     }
                 }
             }

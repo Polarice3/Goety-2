@@ -291,8 +291,10 @@ public class AllyTrampler extends RaiderServant implements ICharger, IAutoRideab
     public void tick() {
         super.tick();
         if (this.isHostile()) {
-            if (this.tickCount % 20 == 0) {
-                this.convertTo(ModEntityType.TRAMPLER.get(), false);
+            if (MobsConfig.TramplerHostileConvert.get()) {
+                if (this.tickCount % 20 == 0) {
+                    this.convertTo(ModEntityType.TRAMPLER.get(), false);
+                }
             }
         }
         if (this.isDashing() && this.dashCooldown < 180 && (this.onGround() || this.isInWater() || this.isPassenger())) {

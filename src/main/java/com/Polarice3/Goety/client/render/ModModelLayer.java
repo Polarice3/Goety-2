@@ -72,6 +72,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation BLACK_BEAST = register("black_beast");
     public static final ModelLayerLocation WHISPERER = register("whisperer");
     public static final ModelLayerLocation LEAPLEAF = register("leapleaf");
+    public static final ModelLayerLocation MINISTROSITY = register("ministrosity");
     public static final ModelLayerLocation ICE_GOLEM = register("ice_golem");
     public static final ModelLayerLocation SQUALL_GOLEM = register("squall_golem");
     public static final ModelLayerLocation REDSTONE_GOLEM = register("redstone_golem");

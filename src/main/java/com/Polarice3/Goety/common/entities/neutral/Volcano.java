@@ -24,7 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nullable;
 
 public class Volcano extends AbstractMonolith{
-    public float explosionPower = 1.5F;
+    public float explosionPower = 3.0F;
     public int potency = 0;
     public int flaming = 0;
     private int attackStep;

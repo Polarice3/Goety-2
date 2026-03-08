@@ -16,15 +16,14 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -177,6 +176,13 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
         this.add(ModBlocks.VOID_BARREL.get(), this::createVoidBarrelConditionTable);
         this.dropOther(ModBlocks.VOID_CAULDRON.get(), Blocks.CAULDRON.asItem());
         this.dropOther(ModBlocks.END_MUD_CAULDRON.get(), Blocks.CAULDRON.asItem());
+        this.add(ModBlocks.END_SOIL_DEBRIS.get(), (p_251108_) -> {
+            return LootTable.lootTable().withPool(LootPool.lootPool().when(LootItemEntityPropertyCondition.entityPresent(LootContext.EntityTarget.THIS)).add(AlternativesEntry.alternatives(AlternativesEntry.alternatives(LayerBlock.LAYERS.getPossibleValues(), (p_252097_) -> {
+                return LootItem.lootTableItem(ModBlocks.END_SOIL_DEBRIS.get()).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(p_251108_).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LayerBlock.LAYERS, p_252097_))).apply(SetItemCountFunction.setCount(ConstantValue.exactly((float)p_252097_.intValue())));
+            }).when(HAS_NO_SILK_TOUCH), AlternativesEntry.alternatives(LayerBlock.LAYERS.getPossibleValues(), (p_251216_) -> {
+                return p_251216_ == 8 ? LootItem.lootTableItem(ModBlocks.END_SOIL.get()) : LootItem.lootTableItem(ModBlocks.END_SOIL_DEBRIS.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly((float)p_251216_.intValue()))).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(p_251108_).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LayerBlock.LAYERS, p_251216_)));
+            }))));
+        });
     }
 
     protected LootTable.Builder createRottenLeavesDrops(Block p_124264_, Block p_124265_, float... p_124266_) {

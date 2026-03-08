@@ -88,6 +88,7 @@ public class ModCreativeTab {
     public static final RegistryObject<CreativeModeTab> SERVANT_TAB = CREATIVE_MODE_TABS.register(Goety.MOD_ID + "_servants", () -> CreativeModeTab.builder()
             .icon(() -> ModItems.SOUL_JAR.get().getDefaultInstance())
             .title(Component.translatable("itemGroup.goety.servant"))
+            .withSearchBar()
             .displayItems((parameters, output) -> {
                 ServantSpawnEggs.ITEMS.getEntries().forEach(i -> {
                     if (i.isPresent()) {

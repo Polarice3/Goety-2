@@ -225,11 +225,11 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockingCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> ShockingDamage;
 
-    public static final ForgeConfigSpec.ConfigValue<Integer> BubbleStreamCost;
-    public static final ForgeConfigSpec.ConfigValue<Integer> BubbleStreamChargeUp;
-    public static final ForgeConfigSpec.ConfigValue<Integer> BubbleStreamDuration;
-    public static final ForgeConfigSpec.ConfigValue<Integer> BubbleStreamCoolDown;
-    public static final ForgeConfigSpec.ConfigValue<Double> BubbleStreamDamage;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WaterJetCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WaterJetChargeUp;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WaterJetDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WaterJetCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> WaterJetDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulLightCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulLightDuration;
@@ -289,6 +289,12 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> EarthFistDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> EarthFistCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> EarthFistDamage;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> MinistrousCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MinistrousDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MinistrousCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MinistrousSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MinistrousLimit;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> PulverizeCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> PulverizeCoolDown;
@@ -1099,17 +1105,17 @@ public class SpellConfig {
             ShockingDamage = BUILDER.comment("How much base damage Shocking Sparks deals, Default: 2.0")
                     .defineInRange("shockingDamage", 2.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
-            BUILDER.push("Bubble Stream Spell");
-            BubbleStreamCost = BUILDER.comment("Bubble Stream Spell Cost per second, Default: 2")
-                    .defineInRange("bubbleStreamCost", 2, 0, Integer.MAX_VALUE);
-            BubbleStreamChargeUp = BUILDER.comment("How many ticks the Bubble Stream Spell much charge before casting, Default: 0")
-                    .defineInRange("bubbleStreamChargeUp", 0, 0, Integer.MAX_VALUE);
-            BubbleStreamDuration = BUILDER.comment("How long the Bubble Stream Spell can be casted, setting it to 0 will allow the spell to be cast indefinitely, Default: 100")
-                    .defineInRange("bubbleStreamTime", 100, 0, 72000);
-            BubbleStreamCoolDown = BUILDER.comment("Bubble Stream Spell Cooldown, Default: 100")
-                    .defineInRange("bubbleStreamCoolDown", 100, 0, 72000);
-            BubbleStreamDamage = BUILDER.comment("How much base damage Bubble Stream deals, Default: 1.0")
-                    .defineInRange("bubbleStreamDamage", 1.0, 1.0, Double.MAX_VALUE);
+            BUILDER.push("Water Jet Spell");
+            WaterJetCost = BUILDER.comment("Water Jet Spell Cost per second, Default: 2")
+                    .defineInRange("waterJetCost", 2, 0, Integer.MAX_VALUE);
+            WaterJetChargeUp = BUILDER.comment("How many ticks the Water Jet Spell much charge before casting, Default: 0")
+                    .defineInRange("waterJetChargeUp", 0, 0, Integer.MAX_VALUE);
+            WaterJetDuration = BUILDER.comment("How long the Water Jet Spell can be casted, setting it to 0 will allow the spell to be cast indefinitely, Default: 100")
+                    .defineInRange("waterJetTime", 100, 0, 72000);
+            WaterJetCoolDown = BUILDER.comment("Water Jet Spell Cooldown, Default: 100")
+                    .defineInRange("waterJetCoolDown", 100, 0, 72000);
+            WaterJetDamage = BUILDER.comment("How much base damage Water Jet deals, Default: 2.0")
+                    .defineInRange("waterJetDamage", 2.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Soul Light Spell");
             SoulLightCost = BUILDER.comment("Soul Light Spell Cost, Default: 1")
@@ -1228,6 +1234,18 @@ public class SpellConfig {
                     .defineInRange("earthFistCoolDown", 60, 0, Integer.MAX_VALUE);
             EarthFistDamage = BUILDER.comment("How much base damage Earth Fists deals, Default: 6.0")
                     .defineInRange("earthFistDamage", 6.0, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Ministrous Spell");
+            MinistrousCost = BUILDER.comment("Ministrous Spell Cost, Default: 8")
+                    .defineInRange("ministrousCost", 8, 0, Integer.MAX_VALUE);
+            MinistrousDuration = BUILDER.comment("Time to cast Ministrous Spell, Default: 20")
+                    .defineInRange("ministrousTime", 20, 0, 72000);
+            MinistrousCoolDown = BUILDER.comment("Ministrous Spell Cooldown, Default: 200")
+                    .defineInRange("ministrousCoolDown", 200, 0, Integer.MAX_VALUE);
+            MinistrousSummonDown = BUILDER.comment("Ministrous Spell Summon Down, Default: 100")
+                    .defineInRange("ministrousSummonDown", 100, 0, 72000);
+            MinistrousLimit = BUILDER.comment("Number of Ministrosities that can exist around the player, Default: 16")
+                    .defineInRange("ministrousLimit", 16, 1, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Pulverize Spell");
             PulverizeCost = BUILDER.comment("Pulverize Spell Cost, Default: 16")

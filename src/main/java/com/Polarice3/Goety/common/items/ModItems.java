@@ -305,6 +305,7 @@ public class ModItems {
     public static final RegistryObject<Item> BARRICADE_FOCUS = ITEMS.register("barricade_focus", () -> new MagicFocus(new BarricadeSpell()));
     public static final RegistryObject<Item> QUAKING_FOCUS = ITEMS.register("quaking_focus", () -> new MagicFocus(new QuakingSpell()));
     public static final RegistryObject<Item> EARTH_PUNCH_FOCUS = ITEMS.register("earth_punch_focus", () -> new MagicFocus(new EarthFistSpell()));
+    public static final RegistryObject<Item> MINISTROUS_FOCUS = ITEMS.register("ministrous_focus", () -> new MagicFocus(new MinistrousSpell()));
     public static final RegistryObject<Item> PULVERIZE_FOCUS = ITEMS.register("pulverize_focus", () -> new MagicFocus(new PulverizeSpell()));
     public static final RegistryObject<Item> ROTATION_FOCUS = ITEMS.register("rotation_focus", () -> new MagicFocus(new RotationSpell()));
     public static final RegistryObject<Item> BURROWING_FOCUS = ITEMS.register("burrowing_focus", () -> new MagicFocus(new BurrowingSpell()));
@@ -361,7 +362,7 @@ public class ModItems {
     public static final RegistryObject<Item> THUNDERSTORM_FOCUS = ITEMS.register("thunderstorm_focus", () -> new MagicFocus(new ThunderstormSpell()));
 
     //Abyss
-    public static final RegistryObject<Item> BUBBLE_STREAM_FOCUS = ITEMS.register("bubble_stream_focus", () -> new MagicFocus(new BubbleStreamSpell()));
+    public static final RegistryObject<Item> WATER_JET_FOCUS = ITEMS.register("water_jet_focus", () -> new MagicFocus(new WaterJetSpell()));
     public static final RegistryObject<Item> BOUNCY_BUBBLE_FOCUS = ITEMS.register("bouncy_bubble_focus", () -> new MagicFocus(new BouncyBubbleSpell()));
     public static final RegistryObject<Item> STEAMING_FOCUS = ITEMS.register("steaming_focus", () -> new MagicFocus(new SteamSpell()));
     public static final RegistryObject<Item> TRIDENT_STORM_FOCUS = ITEMS.register("trident_storm_focus", () -> new MagicFocus(new TridentStormSpell()));

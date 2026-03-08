@@ -83,6 +83,7 @@ public class Endersent extends AbstractEnderling implements Enemy {
     public static int HALLOWED_EYE = 2;
     public static int TWISTED_EYE = 3;
     public static int DREADFUL_EYE = 4;
+    public boolean shouldTeleportSmash = false;
     @Nullable
     private BlockPos voidFrame;
     public int idleTime = 0;
@@ -892,11 +893,15 @@ public class Endersent extends AbstractEnderling implements Enemy {
     @Override
     public void teleportIn() {
         super.teleportIn();
-        this.setAnimationState(TELEPORT_IN);
-        this.playSound(ModSounds.ENDERSENT_TELEPORT_SMASH.get(), this.getSoundVolume(), this.getVoicePitch());
         this.postTeleportTick = MathHelper.secondsToTicks(1.92F);
-        if (this.isTeleporting()) {
-            this.setTeleporting(false);
+        if (!this.level.isClientSide) {
+            if (this.isTeleporting()) {
+                this.setAnimationState(TELEPORT_IN);
+                this.playSound(ModSounds.ENDERSENT_TELEPORT_SMASH.get(), this.getSoundVolume(), this.getVoicePitch());
+                this.setTeleporting(false);
+            } else {
+                this.setAnimationState(IDLE);
+            }
         }
     }
 
@@ -1107,6 +1112,7 @@ public class Endersent extends AbstractEnderling implements Enemy {
                     && !Endersent.this.isHiding()
                     && !Endersent.this.isTeleporting()
                     && !Endersent.this.isDeadlyEscape()
+                    && Endersent.this.preHidingTime <= 0
                     && Endersent.this.postTeleportTick <= 0;
         }
 
@@ -1116,6 +1122,7 @@ public class Endersent extends AbstractEnderling implements Enemy {
                     && !Endersent.this.isHiding()
                     && !Endersent.this.isTeleporting()
                     && !Endersent.this.isDeadlyEscape()
+                    && Endersent.this.preHidingTime <= 0
                     && Endersent.this.postTeleportTick <= 0;
         }
 

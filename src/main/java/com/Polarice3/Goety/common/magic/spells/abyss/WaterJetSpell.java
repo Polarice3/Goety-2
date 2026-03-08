@@ -1,37 +1,37 @@
 package com.Polarice3.Goety.common.magic.spells.abyss;
 
 import com.Polarice3.Goety.api.magic.SpellType;
-import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.common.magic.BreathingSpell;
+import com.Polarice3.Goety.common.magic.EverChargeSpell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.ModDamageSource;
-import com.Polarice3.Goety.utils.WandUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractCandleBlock;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BubbleStreamSpell extends BreathingSpell {
+public class WaterJetSpell extends EverChargeSpell {
 
     @Override
     public SpellStat defaultStats() {
@@ -40,27 +40,32 @@ public class BubbleStreamSpell extends BreathingSpell {
 
     @Override
     public int defaultSoulCost() {
-        return SpellConfig.BubbleStreamCost.get();
+        return SpellConfig.WaterJetCost.get();
     }
 
     @Override
     public int defaultCastUp() {
-        return SpellConfig.BubbleStreamChargeUp.get();
+        return SpellConfig.WaterJetChargeUp.get();
     }
 
     @Override
     public int shotsNumber() {
-        return SpellConfig.BubbleStreamDuration.get();
+        return SpellConfig.WaterJetDuration.get();
     }
 
     @Override
     public int defaultSpellCooldown() {
-        return SpellConfig.BubbleStreamCoolDown.get();
+        return SpellConfig.WaterJetCoolDown.get();
     }
 
     @Override
     public SoundEvent CastingSound() {
-        return ModSounds.BUBBLE_STREAM.get();
+        return null;
+    }
+
+    @Override
+    public SoundEvent loopSound(LivingEntity caster) {
+        return ModSounds.WATER_JET.get();
     }
 
     @Override
@@ -97,32 +102,34 @@ public class BubbleStreamSpell extends BreathingSpell {
             potency += WandUtil.getPotencyLevel(caster);
             range += WandUtil.getRangeLevel(caster);
         }
-        float damage = SpellConfig.BubbleStreamDamage.get().floatValue() * WandUtil.damageMultiply();
+        float damage = SpellConfig.WaterJetDamage.get().floatValue() * WandUtil.damageMultiply();
         damage += potency;
-        if (!worldIn.isClientSide) {
-            if (rightStaff(staff)){
-                float flameRange = range * ((float) Math.PI / 180.0F);
-                for (int i = 0; i < 3; i++) {
-                    Vec3 cast = caster.getLookAngle().normalize().xRot(worldIn.random.nextFloat() * flameRange * 2 - flameRange).yRot(worldIn.random.nextFloat() * flameRange * 2 - flameRange);
-                    HitResult hitResult = worldIn.clip(new ClipContext(caster.getEyePosition(), caster.getEyePosition().add(cast.scale(10)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, caster));
-                    if (hitResult.getType() == HitResult.Type.BLOCK) {
-                        Vec3 pos = hitResult.getLocation().subtract(cast.scale(0.5D));
-                        BlockPos blockPos = BlockPos.containing(pos.x, pos.y, pos.z);
-                        this.dowseFire(caster, worldIn, blockPos);
+        HitResult result = this.rayTrace(worldIn, caster, range, 3.0F);
+        if (result.getType() != HitResult.Type.MISS) {
+            if (result instanceof EntityHitResult entityHitResult) {
+                Entity target = entityHitResult.getEntity();
+                if (!MobUtil.areAllies(caster, target)) {
+                    MiscCapHelper.setClientTarget(caster, target);
+                    if (target.hurt(ModDamageSource.directDrench(caster), damage)) {
+                        if (this.rightStaff(staff) && target instanceof LivingEntity livingEntity) {
+                            livingEntity.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), MathHelper.secondsToTicks(5)));
+                        }
                     }
                 }
+                target.clearFire();
+            } else if (result instanceof BlockHitResult blockHitResult) {
+                BlockPos blockPos = blockHitResult.getBlockPos();
+                this.dowseFire(caster, worldIn, blockPos);
             }
-            for (Entity target : getBreathTarget(caster, range)) {
-                if (target != null) {
-                    DamageSource damageSource = ModDamageSource.bubbleStream(caster, caster);
-                    if (target.hurt(damageSource, damage)){
-                        int air = Math.min(target.getAirSupply() + 1, target.getMaxAirSupply());
-                        target.setAirSupply(air);
-                    }
-                }
-            }
+            Vec3 vec3 = result.getLocation();
+            worldIn.sendParticles(ParticleTypes.RAIN, vec3.x, vec3.y, vec3.z, 1, 0, 0, 0, 0);
         }
-        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), ModSounds.BUBBLE_STREAM.get(), this.getSoundSource(), worldIn.random.nextFloat() * 0.5F, caster.getVoicePitch());
+    }
+
+    @Override
+    public void stopSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, ItemStack focus, int castTime, SpellStat spellStat) {
+        super.stopSpell(worldIn, caster, staff, focus, castTime, spellStat);
+        MiscCapHelper.setClientTarget(caster, null);
     }
 
     private void dowseFire(LivingEntity caster, Level world, BlockPos blockPos) {
@@ -138,16 +145,5 @@ public class BubbleStreamSpell extends BreathingSpell {
             world.setBlockAndUpdate(blockPos, blockstate.setValue(CampfireBlock.LIT, Boolean.valueOf(false)));
         }
 
-    }
-
-    @Override
-    public void showWandBreath(LivingEntity entityLiving, ItemStack staff, SpellStat spellStat) {
-        int range = 0;
-        if (entityLiving instanceof Player player){
-            if (WandUtil.enchantedFocus(player)){
-                range += WandUtil.getRangeLevel(player);
-            }
-        }
-        this.breathAttack(ModParticleTypes.BUBBLE_STREAM.get(), entityLiving, true, 0.3F + ((double) range / 10), 0);
     }
 }

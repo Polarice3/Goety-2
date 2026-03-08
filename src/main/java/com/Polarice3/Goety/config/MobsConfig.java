@@ -230,6 +230,10 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> BlackBeastDayStrength;
     public static final ForgeConfigSpec.ConfigValue<Boolean> BlackBeastChunkLoad;
     public static final ForgeConfigSpec.ConfigValue<Boolean> BlackBeastHowlingSoul;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> TramplerHostileConvert;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> RavagerHostileConvert;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemHostileConvert;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneMonstrosityHostileConvert;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHate;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHateRavager;
@@ -566,6 +570,14 @@ public class MobsConfig {
                     .define("blackBeastChunkLoad", true);
             BlackBeastHowlingSoul = BUILDER.comment("Whether owned Black Beasts drop Howling Soul, Default: true")
                     .define("blackBeastHowlingSoul", true);
+            TramplerHostileConvert = BUILDER.comment("Whether Trampler Servants when summoned as hostile will convert into their hostile counterpart, Default: true")
+                    .define("tramplerHostileConvert", true);
+            RavagerHostileConvert = BUILDER.comment("Whether Ravager Servants when summoned as hostile will convert into their hostile counterpart, Default: true")
+                    .define("ravagerHostileConvert", true);
+            RedstoneGolemHostileConvert = BUILDER.comment("Whether Redstone Golems when summoned as hostile will convert into their hostile counterpart, Default: true")
+                    .define("redstoneGolemHostileConvert", true);
+            RedstoneMonstrosityHostileConvert = BUILDER.comment("Whether Redstone Monstrosities when summoned as hostile will convert into their hostile counterpart, Default: true")
+                    .define("redstoneMonstrosityHostileConvert", true);
             BUILDER.pop();
             BUILDER.push("Geo Servants");
             GeoMinionHeal = BUILDER.comment("Whether Geo Servants can heal if summoned while wearing Frost Robe, Default: true")

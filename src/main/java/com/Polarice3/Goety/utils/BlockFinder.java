@@ -830,9 +830,29 @@ public class BlockFinder {
         return buildOuterBlockCircle(position, radius, radius - 1.0D);
     }
 
+    public static boolean findIllagerWard(ServerLevel level, BlockPos blockPos, int soulEnergy){
+        for(int i = -4; i <= 4; ++i) {
+            for(int j = -4; j <= 4; ++j) {
+                LevelChunk levelchunk = level.getChunkAt(blockPos.offset(i * 16, 0, j * 16));
+
+                for(BlockEntity blockentity : levelchunk.getBlockEntities().values()) {
+                    if (blockentity instanceof ShriekObeliskBlockEntity obelisk) {
+                        int radius = obelisk.getPower();
+                        AABB initialBB = new AABB(blockPos);
+                        AABB alignedBB = new AABB(obelisk.getBlockPos()).inflate(radius);
+                        if (initialBB.intersects(alignedBB)){
+                            return obelisk.shriek(level, null, soulEnergy);
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     public static boolean findIllagerWard(ServerLevel level, Player player, int soulEnergy){
-        for(int i = -16; i <= 16; ++i) {
-            for(int j = -16; j <= 16; ++j) {
+        for(int i = -8; i <= 8; ++i) {
+            for(int j = -8; j <= 8; ++j) {
                 LevelChunk levelchunk = level.getChunkAt(player.blockPosition().offset(i * 16, 0, j * 16));
 
                 for(BlockEntity blockentity : levelchunk.getBlockEntities().values()) {

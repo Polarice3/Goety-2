@@ -1,0 +1,19 @@
+{
+  "name": "Foco Ministruosidade",
+  "icon": "goety:ministrous_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O feitiço invoca uma $(l:summons/ministrosities)Ministruosidade de Pedra$(), um golem simples que se move rapidamente para morder seus inimigos."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/ministrous_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com um $(l:crafts/staff/geo_staff)Cajado de Geomancia$() invocará Ministruosidades adicionais."
+    }
+  ]
+}

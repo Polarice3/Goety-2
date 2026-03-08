@@ -210,6 +210,12 @@ public class ServantSpawnEggs {
     public static final RegistryObject<ServantSpawnEggItem> LEAPLEAF_SPAWN_EGG = ITEMS.register("leapleaf_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.LEAPLEAF, 0x382b13, 0x818a1a, egg()));
 
+    public static final RegistryObject<ServantSpawnEggItem> STONE_MINISTROSITY_SPAWN_EGG = ITEMS.register("stone_ministrosity_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.STONE_MINISTROSITY, 0xd7b438, 0xdad9d9, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> REDSTONE_MINISTROSITY_SPAWN_EGG = ITEMS.register("redstone_ministrosity_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.REDSTONE_MINISTROSITY, 0x6c1005, 0xdad9d9, egg()));
+
     public static final RegistryObject<ServantSpawnEggItem> ICE_GOLEM_SPAWN_EGG = ITEMS.register("ice_golem_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.ICE_GOLEM, 0x22806a, 0x94daff, egg()));
 

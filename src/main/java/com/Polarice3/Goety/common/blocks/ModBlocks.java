@@ -322,7 +322,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> END_GROWTH_VINES_PLANT = register("end_growth_vines_plant", () -> new EndGrowthVinesPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).randomTicks().noCollission().instabreak().sound(SoundType.TWISTING_VINES).pushReaction(PushReaction.DESTROY)), false, LootTableType.EMPTY);
 
     public static final RegistryObject<Block> END_SOIL = register("end_soil", EndSoilBlock::new);
-    public static final RegistryObject<Block> END_SOIL_DEBRIS = register("end_soil_debris", () -> new LayerBlock(BlockBehaviour.Properties.copy(END_SOIL.get()), true));
+    public static final RegistryObject<Block> END_SOIL_DEBRIS = register("end_soil_debris", () -> new LayerBlock(BlockBehaviour.Properties.copy(END_SOIL.get()), true), true, LootTableType.EMPTY);
 
     public static final RegistryObject<Block> END_MUD = register("end_mud",
             () -> new EndBonemealableBlock(BlockBehaviour.Properties.of()

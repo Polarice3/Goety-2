@@ -11,10 +11,7 @@ import com.Polarice3.Goety.api.magic.ISpell;
 import com.Polarice3.Goety.client.audio.*;
 import com.Polarice3.Goety.client.gui.screen.inventory.BrewRadialMenuScreen;
 import com.Polarice3.Goety.client.gui.screen.inventory.FocusRadialMenuScreen;
-import com.Polarice3.Goety.client.render.BurrowingLaserRenderer;
-import com.Polarice3.Goety.client.render.GuardianLaserRenderer;
-import com.Polarice3.Goety.client.render.ModModelLayer;
-import com.Polarice3.Goety.client.render.WearRenderer;
+import com.Polarice3.Goety.client.render.*;
 import com.Polarice3.Goety.client.render.item.CustomItemsRenderer;
 import com.Polarice3.Goety.client.render.model.LichModeModel;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
@@ -46,6 +43,7 @@ import com.Polarice3.Goety.common.entities.util.CameraShake;
 import com.Polarice3.Goety.common.items.WaystoneItem;
 import com.Polarice3.Goety.common.items.curios.GloveItem;
 import com.Polarice3.Goety.common.magic.spells.abyss.PrismaBeamSpell;
+import com.Polarice3.Goety.common.magic.spells.abyss.WaterJetSpell;
 import com.Polarice3.Goety.common.magic.spells.geomancy.BurrowingSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.*;
@@ -726,6 +724,8 @@ public class ClientEvents {
                             BurrowingLaserRenderer.renderLaser(event, player1, Minecraft.getInstance().getFrameTime());
                         } else if (WandUtil.getSpell(player1) instanceof PrismaBeamSpell) {
                             GuardianLaserRenderer.renderLaser(event, player1, Minecraft.getInstance().getFrameTime());
+                        } else if (WandUtil.getSpell(player1) instanceof WaterJetSpell) {
+                            WaterJetRenderer.renderLaser(event, player1, Minecraft.getInstance().getFrameTime());
                         }
                     }
                 }

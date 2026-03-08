@@ -1,0 +1,19 @@
+{
+  "name": "小兽聚晶",
+  "icon": "goety:ministrous_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "用这个法术可以召唤一只$(l:summons/ministrosities)岩石小兽$()，这个简易的傀儡可以快速追击并咬伤你的敌人"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/ministrous_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/geo_staff)地卜魔杖$()承载此聚晶施法时，一次可以召唤更多小兽作战"
+    }
+  ]
+}

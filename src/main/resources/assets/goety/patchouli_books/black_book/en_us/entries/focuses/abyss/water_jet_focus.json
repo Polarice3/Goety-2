@@ -1,0 +1,19 @@
+{
+  "name": "Water Jet Focus",
+  "icon": "goety:water_jet_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The focus shoots out a high-pressure stream of water that will wash away any foes, especially ones sensitive to water. It can also put out fires."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/water_jet_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/abyss_staff)Abyss Staff$() will cause stream to apply Sapped."
+    }
+  ]
+}

@@ -1,7 +1,7 @@
-// 1.20.1	2026-02-28T15:40:51.1193309	Tags for minecraft:item mod id goety
+// 1.20.1	2026-03-08T10:49:05.2049949	Tags for minecraft:item mod id goety
 812e4c03e0755394c71913fa1d4f6f938400718e data/goety/tags/items/capes.json
 3692eb609260cf7f86c647a9db19f096b92dedac data/goety/tags/items/crowns.json
-0d458a7eb1a87e1e4387c288c74677186051c7ca data/goety/tags/items/focuses.json
+39389de5300fac96304c82f64779f6f27844cd21 data/goety/tags/items/focuses.json
 917739fc5ba8870c43dc849d676319a67c955d4f data/goety/tags/items/plushie.json
 f7d5cf77b5eb139f5040a30da18f0b90372c82a3 data/goety/tags/items/robes.json
 1ce415f8f257b169eaefc32173faa9117759dce3 data/goety/tags/items/staffs.json

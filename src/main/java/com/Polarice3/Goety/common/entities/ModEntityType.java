@@ -1259,6 +1259,17 @@ public class ModEntityType {
                     .sized(1.9F, 1.9F)
                     .clientTrackingRange(10));
 
+    public static final RegistryObject<EntityType<StoneMinistrosity>> STONE_MINISTROSITY = register("stone_ministrosity",
+            EntityType.Builder.of(StoneMinistrosity::new, MobCategory.MONSTER)
+                    .sized(0.5F, 1.0F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<RedstoneMinistrosity>> REDSTONE_MINISTROSITY = register("redstone_ministrosity",
+            EntityType.Builder.of(RedstoneMinistrosity::new, MobCategory.MONSTER)
+                    .fireImmune()
+                    .sized(0.5F, 1.0F)
+                    .clientTrackingRange(10));
+
     public static final RegistryObject<EntityType<IceGolem>> ICE_GOLEM = register("ice_golem",
             EntityType.Builder.of(IceGolem::new, MobCategory.MONSTER)
                     .sized(2.0F, 2.5F)

@@ -288,6 +288,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> WATER_STREAM = PARTICLE_TYPES.register("water_stream",
             () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> WATER_JET = PARTICLE_TYPES.register("water_jet",
+            () -> new SimpleParticleType(true));
+
     public static final RegistryObject<SimpleParticleType> BLOSSOM_THORN_INDICATOR = PARTICLE_TYPES.register("blossom_thorn_indicator",
             () -> new SimpleParticleType(true));
 

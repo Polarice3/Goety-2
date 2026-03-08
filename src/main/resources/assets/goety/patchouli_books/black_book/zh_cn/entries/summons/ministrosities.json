@@ -1,0 +1,23 @@
+{
+  "name": "小兽",
+  "icon": "minecraft:stone",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "一个喜欢奔跑撒欢的小小傀儡，会用石制的小嘴啃咬敌人"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_ministrosity_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:stone_ministrosity"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你可以使用$(l:focuses/geomancy/ministrous_focus)小兽聚晶$()召唤它们，手持石头右键小兽就可以治疗它们"
+    }
+  ]
+}

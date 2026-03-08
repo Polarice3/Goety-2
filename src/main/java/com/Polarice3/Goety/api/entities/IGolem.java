@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.api.entities;
 
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 
 public interface IGolem {
 
@@ -8,7 +9,12 @@ public interface IGolem {
         return false;
     }
 
-    double getAttackReachSqr(LivingEntity enemy);
+    default double getAttackReachSqr(LivingEntity enemy) {
+        if (this instanceof Mob mob) {
+            return mob.getMeleeAttackRangeSqr(enemy);
+        }
+        return 0.0D;
+    }
 
     default boolean targetClose(LivingEntity enemy, double distToEnemySqr){
         if (this instanceof LivingEntity self) {

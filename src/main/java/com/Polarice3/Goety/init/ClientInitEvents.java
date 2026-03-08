@@ -314,6 +314,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.BEAST_HEAD, BeastHeadModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WHISPERER, WhispererModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.LEAPLEAF, LeapleafModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.MINISTROSITY, MinistrosityModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ICE_GOLEM, IceGolemModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SQUALL_GOLEM, SquallGolemModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.REDSTONE_GOLEM, RedstoneGolemModel::createBodyLayer);
@@ -694,6 +695,8 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.WHISPERER.get(), WhispererRenderer::new);
         event.registerEntityRenderer(ModEntityType.WAVEWHISPERER.get(), WhispererRenderer::new);
         event.registerEntityRenderer(ModEntityType.LEAPLEAF.get(), LeapleafRenderer::new);
+        event.registerEntityRenderer(ModEntityType.STONE_MINISTROSITY.get(), StoneMinistrosityRenderer::new);
+        event.registerEntityRenderer(ModEntityType.REDSTONE_MINISTROSITY.get(), RedstoneMinistrosityRenderer::new);
         event.registerEntityRenderer(ModEntityType.ICE_GOLEM.get(), IceGolemRenderer::new);
         event.registerEntityRenderer(ModEntityType.SQUALL_GOLEM.get(), SquallGolemRenderer::new);
         event.registerEntityRenderer(ModEntityType.REDSTONE_GOLEM.get(), RedstoneGolemRenderer::new);

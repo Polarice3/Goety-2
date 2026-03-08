@@ -1,0 +1,19 @@
+{
+  "name": "Ministrous Focus",
+  "icon": "goety:ministrous_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The spell summons a $(l:summons/ministrosities)Stone Ministrosity$(), a simple golem that can move quickly to bite down your foes."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/ministrous_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/geo_staff)Geo Staff$() will summon additional Ministrosities."
+    }
+  ]
+}

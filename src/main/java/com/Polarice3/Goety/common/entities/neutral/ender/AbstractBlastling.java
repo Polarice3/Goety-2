@@ -261,6 +261,9 @@ public class AbstractBlastling extends AbstractEnderling implements RangedAttack
                 if (this.attackCoolTick > 0) {
                     --this.attackCoolTick;
                 }
+                if (this.postAttackTick > 0) {
+                    this.postAttackTick = 0;
+                }
             }
 
             if (this.teleportCool <= 0) {
@@ -279,6 +282,13 @@ public class AbstractBlastling extends AbstractEnderling implements RangedAttack
 
     public int getHidingDuration() {
         return MathHelper.secondsToTicks(3);
+    }
+
+    public void startHide() {
+        this.getNavigation().stop();
+        this.getMoveControl().strafe(0.0F, 0.0F);
+        this.setAnimationState(IDLE);
+        super.startHide();
     }
 
     @Override
@@ -350,14 +360,17 @@ public class AbstractBlastling extends AbstractEnderling implements RangedAttack
                     || this.mob.attackCoolTick > 0
                     || this.mob.isHiding()) {
                 return false;
-            }
-            if (livingentity != null
+            } else if (livingentity != null
                     && livingentity.isAlive()
                     && livingentity.distanceTo(this.mob) > 3.0D
                     && this.mob.hasLineOfSight(livingentity)) {
-                this.totalShots = this.mob.getRandom().nextIntBetweenInclusive(1, 4) * 2;
-                this.target = livingentity;
-                return true;
+                if (this.mob.teleportCool <= 0 && livingentity.distanceTo(this.mob) <= 10.0F) {
+                    return false;
+                } else {
+                    this.totalShots = this.mob.getRandom().nextIntBetweenInclusive(1, 4) * 2;
+                    this.target = livingentity;
+                    return true;
+                }
             } else {
                 return false;
             }
@@ -400,7 +413,6 @@ public class AbstractBlastling extends AbstractEnderling implements RangedAttack
 
         public void tick() {
             if (this.target != null) {
-                this.mob.level.broadcastEntityEvent(this.mob, (byte) 5);
                 ++this.attackTime;
                 if (this.target.distanceTo(this.mob) > 10.0D) {
                     this.mob.getNavigation().moveTo(this.target, 1.0F);

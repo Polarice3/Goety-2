@@ -1,7 +1,9 @@
 package com.Polarice3.Goety.mixin;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.utils.BlockFinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
@@ -11,13 +13,21 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Raid.class)
-public class RaidMixin {
+public abstract class RaidMixin {
     @Shadow
     @Final
     private ServerLevel level;
+
+    @Shadow public abstract int getBadOmenLevel();
+
+    @Shadow public abstract void stop();
+
+    @Shadow private BlockPos center;
 
     @ModifyVariable(at = @At(value = "STORE", ordinal = 0), method = "spawnGroup")
     private Raider spawnCustomRaider(Raider raider, BlockPos blockPos) {
@@ -32,5 +42,17 @@ public class RaidMixin {
             }
         }
         return raider;
+    }
+
+    @Inject(method = "tick()V", at = @At("HEAD"))
+    private void onTick(CallbackInfo ci) {
+        if (MainConfig.ShriekObeliskRaid.get()) {
+            if (this.level.getGameTime() % 20 == 0) {
+                int cost = MainConfig.ShriekObeliskCost.get() * this.getBadOmenLevel();
+                if (BlockFinder.findIllagerWard(this.level, this.center, cost)) {
+                    this.stop();
+                }
+            }
+        }
     }
 }
