@@ -87,17 +87,17 @@ public class WaterJetRenderer {
         PoseStack.Pose matrixstack$entry = matrix.last();
         Matrix3f matrixNormal = matrixstack$entry.normal();
         Matrix4f positionMatrix = matrixstack$entry.pose();
-        //additive laser beam
+        /*//additive laser beam
         builder = buffer.getBuffer(ModRenderType.magicBeam(laserBeam));
         drawBeam(xOffset, yOffset, zOffset, builder, positionMatrix, matrixNormal, additiveThickness, activeHand, distance, v, v + distance * 1.5F, ticks, 1.0F, 1.0F, 1.0F, 0.7F);
-
+*/
         //main laser, colored part
         builder = buffer.getBuffer(ModRenderType.magicBeam(laserBeam2));
-        drawBeam(xOffset, yOffset, zOffset, builder, positionMatrix, matrixNormal, thickness, activeHand, distance, v, v + distance * 1.5F, ticks, 1.0F, 1.0F, 1.0F, 1.0F);
+        drawBeam(xOffset, yOffset, zOffset, builder, positionMatrix, matrixNormal, thickness * 1.5F, activeHand, distance, v, v + distance * 1.5F, ticks, 1.0F, 1.0F, 1.0F, 1.0F);
 
         //core
         builder = buffer.getBuffer(ModRenderType.magicBeam(laserBeamGlow));
-        drawBeam(xOffset, yOffset, zOffset, builder, positionMatrix, matrixNormal, thickness / 2, activeHand, distance, v, v + distance * 1.5F, ticks, 1.0F, 1.0F, 1.0F, 1.0F);
+        drawBeam(xOffset, yOffset, zOffset, builder, positionMatrix, matrixNormal, thickness, activeHand, distance, v, v + distance * 1.5F, ticks, 1.0F, 1.0F, 1.0F, 1.0F);
         matrix.popPose();
         buffer.endBatch();
     }

@@ -4,6 +4,7 @@ import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.boss.EnderKeeper;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -446,12 +447,13 @@ public class BlackguardServant extends ZombieServant{
                 }
                 if (BlackguardServant.this.level instanceof ServerLevel serverLevel){
                     BlockPos blockPos = BlockPos.containing(x, BlackguardServant.this.getY() - 1.0F, z);
+                    Vec3 vec3 = BlockFinder.SummonPosition(BlackguardServant.this.getTarget(), BlackguardServant.this.position());
                     BlockParticleOption option = new BlockParticleOption(ParticleTypes.BLOCK, serverLevel.getBlockState(blockPos));
                     for (int i = 0; i < 2; ++i) {
                         ServerParticleUtil.circularParticles(serverLevel, option, BlackguardServant.this.getX() + BlackguardServant.this.getHorizontalLookAngle().x * 2, BlackguardServant.this.getY() + 0.25D, BlackguardServant.this.getZ() + BlackguardServant.this.getHorizontalLookAngle().z * 2, 1.5F);
                     }
                     ColorUtil colorUtil = new ColorUtil(serverLevel.getBlockState(blockPos).getMapColor(serverLevel, blockPos).col);
-                    serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.5F, 1), x, BlockFinder.moveDownToGround(BlackguardServant.this), z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                    serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.5F, 1), x, vec3.y, z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
                 }
             }
         }

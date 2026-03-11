@@ -497,14 +497,19 @@ public class BlackBeast extends Summoned{
     }
 
     @Override
+    public void swing(InteractionHand p_21007_) {
+        super.swing(p_21007_);
+        this.attackTick = 10;
+        this.setAnimationState(ATTACK);
+        this.level.broadcastEntityEvent(this, (byte) 101);
+    }
+
+    @Override
     public boolean doHurtTarget(Entity entityIn) {
         boolean flag = super.doHurtTarget(entityIn);
 
         if (!this.level.isClientSide) {
             if (flag) {
-                this.attackTick = 10;
-                this.setAnimationState(ATTACK);
-                this.level.broadcastEntityEvent(this, (byte) 101);
                 this.playSound(ModSounds.BLACK_BEAST_CLAW.get(), this.getSoundVolume(), this.getVoicePitch());
                 if (entityIn instanceof LivingEntity target) {
                     if (!target.hasEffect(GoetyEffects.DOOM.get()) && !MobUtil.isInSunlightNoRain(this)) {

@@ -202,18 +202,11 @@ public class StoneMinistrosity extends RaiderGolemServant {
     }
 
     @Override
-    public boolean doHurtTarget(Entity entityIn) {
-        boolean flag = super.doHurtTarget(entityIn);
-
-        if (!this.level.isClientSide) {
-            if (flag) {
-                this.attackTick = 10;
-                this.setAnimationState(ATTACK);
-                this.playSound(SoundEvents.FOX_BITE, this.getSoundVolume(), this.getVoicePitch() * 0.5F);
-            }
-        }
-
-        return flag;
+    public void swing(InteractionHand p_21007_) {
+        super.swing(p_21007_);
+        this.attackTick = 10;
+        this.setAnimationState(ATTACK);
+        this.playSound(SoundEvents.FOX_BITE, this.getSoundVolume(), this.getVoicePitch() * 0.5F);
     }
 
     @Override
