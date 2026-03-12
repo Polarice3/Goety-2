@@ -870,6 +870,10 @@ public class MobUtil {
                         }
                     }
 
+                    if (originalMob instanceof Villager villager) {
+                        releaseAllPois(villager);
+                    }
+
                     originalMob.level.addFreshEntity(newEntity);
                     if (originalMob.isPassenger()) {
                         Entity entity = originalMob.getVehicle();
