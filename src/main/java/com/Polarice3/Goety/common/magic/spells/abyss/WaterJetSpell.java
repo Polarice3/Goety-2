@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.magic.spells.abyss;
 
 import com.Polarice3.Goety.api.magic.SpellType;
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.EverChargeSpell;
@@ -9,7 +10,6 @@ import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
@@ -106,6 +106,7 @@ public class WaterJetSpell extends EverChargeSpell {
         damage += potency;
         HitResult result = this.rayTrace(worldIn, caster, range, 3.0F);
         if (result.getType() != HitResult.Type.MISS) {
+            double particleOffset = 0;
             if (result instanceof EntityHitResult entityHitResult) {
                 Entity target = entityHitResult.getEntity();
                 if (!MobUtil.areAllies(caster, target)) {
@@ -117,12 +118,16 @@ public class WaterJetSpell extends EverChargeSpell {
                     }
                 }
                 target.clearFire();
+                particleOffset = target.getBbHeight() / 2;
             } else if (result instanceof BlockHitResult blockHitResult) {
                 BlockPos blockPos = blockHitResult.getBlockPos();
                 this.dowseFire(caster, worldIn, blockPos);
             }
             Vec3 vec3 = result.getLocation();
-            worldIn.sendParticles(ParticleTypes.RAIN, vec3.x, vec3.y, vec3.z, 1, 0, 0, 0, 0);
+            worldIn.sendParticles(ModParticleTypes.WATER_TRAIL.get(), vec3.x, vec3.y + particleOffset, vec3.z, 1, 0, 0, 0, 0.15);
+        }
+        if (result.getType() == HitResult.Type.MISS || !(result instanceof EntityHitResult)) {
+            MiscCapHelper.setClientTarget(caster, null);
         }
     }
 
