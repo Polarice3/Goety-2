@@ -4,7 +4,6 @@ import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
-import com.Polarice3.Goety.common.entities.boss.EnderKeeper;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -447,7 +446,7 @@ public class BlackguardServant extends ZombieServant{
                 }
                 if (BlackguardServant.this.level instanceof ServerLevel serverLevel){
                     BlockPos blockPos = BlockPos.containing(x, BlackguardServant.this.getY() - 1.0F, z);
-                    Vec3 vec3 = BlockFinder.SummonPosition(BlackguardServant.this.getTarget(), BlackguardServant.this.position());
+                    Vec3 vec3 = BlockFinder.SummonPosition(BlackguardServant.this, BlackguardServant.this.position());
                     BlockParticleOption option = new BlockParticleOption(ParticleTypes.BLOCK, serverLevel.getBlockState(blockPos));
                     for (int i = 0; i < 2; ++i) {
                         ServerParticleUtil.circularParticles(serverLevel, option, BlackguardServant.this.getX() + BlackguardServant.this.getHorizontalLookAngle().x * 2, BlackguardServant.this.getY() + 0.25D, BlackguardServant.this.getZ() + BlackguardServant.this.getHorizontalLookAngle().z * 2, 1.5F);

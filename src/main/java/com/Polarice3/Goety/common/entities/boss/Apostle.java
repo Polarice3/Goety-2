@@ -422,6 +422,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
             this.setNoGravity(true);
             if (this.getKillCredit() instanceof Player){
                 this.lastHurtByPlayerTime = 100;
+            } else {
+                this.lastHurtByMobTimestamp = 100;
             }
             if (this.deathTime < 180) {
                 if (this.deathTime > 20) {

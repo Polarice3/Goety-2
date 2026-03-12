@@ -4,12 +4,14 @@ import com.Polarice3.Goety.common.blocks.entities.ShriekObeliskBlockEntity;
 import com.Polarice3.Goety.common.blocks.fluids.ModFluids;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModTags;
 import com.mojang.authlib.GameProfile;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.SectionPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.registries.Registries;
@@ -830,18 +832,25 @@ public class BlockFinder {
         return buildOuterBlockCircle(position, radius, radius - 1.0D);
     }
 
-    public static boolean findIllagerWard(ServerLevel level, BlockPos blockPos, int soulEnergy){
-        for(int i = -4; i <= 4; ++i) {
-            for(int j = -4; j <= 4; ++j) {
-                LevelChunk levelchunk = level.getChunkAt(blockPos.offset(i * 16, 0, j * 16));
+    public static boolean findIllagerWard(ServerLevel serverLevel, BlockPos blockPos, int soulEnergy) {
+        int maxRadius = 8 + (64 * MainConfig.ShriekObeliskIncrease.get());
+        int chunkRadius = (maxRadius >> 4) + 1;
+        int centerChunkX = SectionPos.blockToSectionCoord(blockPos.getX());
+        int centerChunkZ = SectionPos.blockToSectionCoord(blockPos.getZ());
 
-                for(BlockEntity blockentity : levelchunk.getBlockEntities().values()) {
-                    if (blockentity instanceof ShriekObeliskBlockEntity obelisk) {
-                        int radius = obelisk.getPower();
-                        AABB initialBB = new AABB(blockPos);
-                        AABB alignedBB = new AABB(obelisk.getBlockPos()).inflate(radius);
-                        if (initialBB.intersects(alignedBB)){
-                            return obelisk.shriek(level, null, soulEnergy);
+        for (int i = -chunkRadius; i <= chunkRadius; i++) {
+            for (int j = -chunkRadius; j <= chunkRadius; j++) {
+                LevelChunk chunk = serverLevel.getChunkSource().getChunkNow(centerChunkX + i, centerChunkZ + j);
+                if (chunk != null) {
+                    for (BlockEntity blockEntity : chunk.getBlockEntities().values()) {
+                        if (blockEntity instanceof ShriekObeliskBlockEntity obelisk) {
+                            int radius = obelisk.getPower();
+                            BlockPos obeliskPos = obelisk.getBlockPos();
+                            AABB initialBB = new AABB(obeliskPos);
+                            AABB alignedBB = new AABB(obelisk.getBlockPos()).inflate(radius);
+                            if (initialBB.intersects(alignedBB)) {
+                                return obelisk.shriek(serverLevel, null, soulEnergy);
+                            }
                         }
                     }
                 }
@@ -850,17 +859,26 @@ public class BlockFinder {
         return false;
     }
 
-    public static boolean findIllagerWard(ServerLevel level, Player player, int soulEnergy){
-        for(int i = -8; i <= 8; ++i) {
-            for(int j = -8; j <= 8; ++j) {
-                LevelChunk levelchunk = level.getChunkAt(player.blockPosition().offset(i * 16, 0, j * 16));
+    public static boolean findIllagerWard(ServerLevel serverLevel, Player player, int soulEnergy) {
+        BlockPos blockPos = player.blockPosition();
+        int maxRadius = 8 + (64 * MainConfig.ShriekObeliskIncrease.get());
+        int chunkRadius = (maxRadius >> 4) + 1;
+        int centerChunkX = SectionPos.blockToSectionCoord(blockPos.getX());
+        int centerChunkZ = SectionPos.blockToSectionCoord(blockPos.getZ());
 
-                for(BlockEntity blockentity : levelchunk.getBlockEntities().values()) {
-                    if (blockentity instanceof ShriekObeliskBlockEntity obelisk) {
-                        int radius = obelisk.getPower();
-                        AABB alignedBB = new AABB(obelisk.getBlockPos()).inflate(radius);
-                        if (player.getBoundingBox().intersects(alignedBB)){
-                            return obelisk.shriek(level, player, soulEnergy);
+        for (int i = -chunkRadius; i <= chunkRadius; i++) {
+            for (int j = -chunkRadius; j <= chunkRadius; j++) {
+                LevelChunk chunk = serverLevel.getChunkSource().getChunkNow(centerChunkX + i, centerChunkZ + j);
+                if (chunk != null) {
+                    for (BlockEntity blockEntity : chunk.getBlockEntities().values()) {
+                        if (blockEntity instanceof ShriekObeliskBlockEntity obelisk) {
+                            int radius = obelisk.getPower();
+                            BlockPos obeliskPos = obelisk.getBlockPos();
+                            AABB initialBB = new AABB(obeliskPos);
+                            AABB alignedBB = new AABB(obelisk.getBlockPos()).inflate(radius);
+                            if (initialBB.intersects(alignedBB)) {
+                                return obelisk.shriek(serverLevel, null, soulEnergy);
+                            }
                         }
                     }
                 }

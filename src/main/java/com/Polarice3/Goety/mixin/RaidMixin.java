@@ -29,6 +29,10 @@ public abstract class RaidMixin {
 
     @Shadow private BlockPos center;
 
+    @Shadow public abstract boolean isStopped();
+
+    @Shadow public abstract boolean isVictory();
+
     @ModifyVariable(at = @At(value = "STORE", ordinal = 0), method = "spawnGroup")
     private Raider spawnCustomRaider(Raider raider, BlockPos blockPos) {
         if (MobsConfig.ArmoredRavagerRaid.get()){
@@ -48,9 +52,11 @@ public abstract class RaidMixin {
     private void onTick(CallbackInfo ci) {
         if (MainConfig.ShriekObeliskRaid.get()) {
             if (this.level.getGameTime() % 20 == 0) {
-                int cost = MainConfig.ShriekObeliskCost.get() * this.getBadOmenLevel();
-                if (BlockFinder.findIllagerWard(this.level, this.center, cost)) {
-                    this.stop();
+                if (!this.isStopped() && !this.isVictory()) {
+                    int cost = MainConfig.ShriekObeliskCost.get() * this.getBadOmenLevel();
+                    if (BlockFinder.findIllagerWard(this.level, this.center, cost)) {
+                        this.stop();
+                    }
                 }
             }
         }

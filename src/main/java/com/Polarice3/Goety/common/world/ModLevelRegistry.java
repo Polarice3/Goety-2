@@ -5,6 +5,7 @@ import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
@@ -51,12 +52,12 @@ public class ModLevelRegistry {
                 builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.MAVERICK.get(), MobsConfig.MaverickSpawnWeight.get(), MobsConfig.MaverickSpawnMinCount.get(), MobsConfig.MaverickSpawnMaxCount.get()));
             }
         }
-        if (biome.is(Biomes.SOUL_SAND_VALLEY)){
-            if (MobsConfig.ReaperSpawnWeight.get() > 0) {
+        if (biome.is(Biomes.SOUL_SAND_VALLEY) || biome.is(new ResourceLocation("netherexp:black_ice_glaciers"))){
+            if (MobsConfig.ReaperSpawnWeight.get() > 0 && !biome.is(ModTags.Biomes.REAPER_EXCLUDE_SPAWN)) {
                 builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.REAPER.get(), MobsConfig.ReaperSpawnWeight.get(), MobsConfig.ReaperSpawnMinCount.get(), MobsConfig.ReaperSpawnMaxCount.get()));
                 builder.getMobSpawnSettings().addMobCharge(ModEntityType.REAPER.get(), 0.7D, 0.15D);
             }
-            if (MobsConfig.WraithSpawnWeight.get() > 0) {
+            if (MobsConfig.WraithSpawnWeight.get() > 0 && !biome.is(ModTags.Biomes.WRAITH_EXCLUDE_SPAWN)) {
                 builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.WRAITH.get(), MobsConfig.WraithSpawnWeight.get(), MobsConfig.WraithSpawnMinCount.get(), MobsConfig.WraithSpawnMaxCount.get()));
                 builder.getMobSpawnSettings().addMobCharge(ModEntityType.WRAITH.get(), 0.7D, 0.15D);
             }
