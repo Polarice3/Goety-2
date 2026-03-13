@@ -725,7 +725,7 @@ public class ClientEvents {
                         } else if (WandUtil.getSpell(player1) instanceof PrismaBeamSpell) {
                             GuardianLaserRenderer.renderLaser(event, player1, Minecraft.getInstance().getFrameTime());
                         } else if (WandUtil.getSpell(player1) instanceof WaterJetSpell) {
-                            WaterJetRenderer.renderLaser(event, player1, Minecraft.getInstance().getFrameTime());
+                            WaterJetRenderer.renderWaterJet(event, player1, Minecraft.getInstance().getFrameTime());
                         }
                     }
                 }
