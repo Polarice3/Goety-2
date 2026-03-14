@@ -314,7 +314,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> EruptionDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> EruptionCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> PyroclastDamage;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> PyroclastGriefing;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PyroclastStun;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> ScatterCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ScatterDuration;
@@ -1284,8 +1284,8 @@ public class SpellConfig {
                     .defineInRange("eruptionCoolDown", 100, 0, Integer.MAX_VALUE);
             PyroclastDamage = BUILDER.comment("How much base damage Pyroclasts deal when directly hitting a mob, Default: 6.0")
                     .defineInRange("pyroclastDamage", 6.0, 1.0, Double.MAX_VALUE);
-            PyroclastGriefing = BUILDER.comment("Enable Pyroclast projectile griefing, Default: true")
-                    .define("pyroclastGriefing", true);
+            PyroclastStun = BUILDER.comment("Whether Pyroclasts inflicts a 2 second Stun, Default: true")
+                    .define("pyroclastStun", true);
             BUILDER.pop();
             BUILDER.push("Scatter Spell");
             ScatterCost = BUILDER.comment("Scatter Spell Cost, Default: 16")

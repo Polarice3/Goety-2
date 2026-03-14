@@ -15,6 +15,7 @@ import com.Polarice3.Goety.common.items.revive.HowlingSoul;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModMobType;
@@ -412,7 +413,7 @@ public class BlackBeast extends Summoned{
                 flyingItem.setOwner(this.getTrueOwner());
                 flyingItem.setItem(itemStack);
                 flyingItem.setParticle(ModParticleTypes.TOTEM_EFFECT.get());
-                flyingItem.setSecondsCool(30);
+                flyingItem.setSecondsCool(ItemConfig.ReviveSecondsCool.get());
                 this.level.addFreshEntity(flyingItem);
             }
             this.remove(RemovalReason.KILLED);

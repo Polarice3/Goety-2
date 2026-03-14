@@ -218,6 +218,7 @@ public class CarrionFly extends Summoned {
                     carrionMaggot.setNatural(this.isNatural());
                     carrionMaggot.setHostile(this.isHostile());
                     carrionMaggot.setUpgraded(this.isUpgraded());
+                    carrionMaggot.copyStance(this);
                     EffectsUtil.copyEffects(this, carrionMaggot);
                     if (this.isLimitedLife()) {
                         carrionMaggot.setLimitedLife(this.getLifespan());

@@ -222,9 +222,9 @@ public class SEHelper {
         float extra = soulEater;
         if (killer instanceof Player){
             player = (Player) killer;
-        } else if (killer instanceof IOwned summonedEntity){
-            if (summonedEntity.getTrueOwner() instanceof Player){
-                player = (Player) summonedEntity.getTrueOwner();
+        } else if (killer instanceof OwnableEntity summonedEntity){
+            if (summonedEntity.getOwner() instanceof Player player1){
+                player = player1;
             }
         }
         if (player != null) {

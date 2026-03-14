@@ -97,6 +97,7 @@ public class EruptionSpell extends Spell {
             volcano.setLifeSpan(6 * duration);
             volcano.setPotency(potency);
             volcano.setFlaming(burning);
+            volcano.setUpgraded(SpellConfig.PyroclastStun.get());
             worldIn.addFreshEntity(volcano);
         }
         if (this.rightStaff(staff)) {
@@ -111,6 +112,7 @@ public class EruptionSpell extends Spell {
                 volcano2.setLifeSpan(6 * duration);
                 volcano2.setPotency(potency);
                 volcano2.setFlaming(burning);
+                volcano2.setUpgraded(SpellConfig.PyroclastStun.get());
                 worldIn.addFreshEntity(volcano2);
             }
         }

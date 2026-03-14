@@ -29,6 +29,7 @@ public class Volcano extends AbstractMonolith{
     public int flaming = 0;
     private int attackStep;
     private int attackTime = MathHelper.secondsToTicks(2);
+    public boolean upgraded = false;
 
     public Volcano(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
@@ -75,11 +76,20 @@ public class Volcano extends AbstractMonolith{
         return this.flaming;
     }
 
+    public void setUpgraded(boolean upgraded) {
+        this.upgraded = upgraded;
+    }
+
+    public boolean isUpgraded() {
+        return this.upgraded;
+    }
+
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putFloat("ExplosionPower", this.getExplosionPower());
         pCompound.putInt("Potency",this.getPotency());
         pCompound.putInt("Flaming",this.getFlaming());
+        pCompound.putBoolean("Upgraded", this.isUpgraded());
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
@@ -92,6 +102,9 @@ public class Volcano extends AbstractMonolith{
         }
         if (pCompound.contains("Flaming")){
             this.setFlaming(pCompound.getInt("Flaming"));
+        }
+        if (pCompound.contains("Upgraded")){
+            this.setUpgraded(pCompound.getBoolean("Upgraded"));
         }
     }
 
@@ -166,6 +179,7 @@ public class Volcano extends AbstractMonolith{
                         pyroclast.setExplosionPower(this.getExplosionPower());
                         pyroclast.setPotency(this.getPotency());
                         pyroclast.setFlaming(this.getFlaming());
+                        pyroclast.setUpgraded(this.isUpgraded());
                         MobUtil.shootUp(pyroclast, this, MobUtil.ceilingVelocity(this, 1.5F));
                     }
                 } else {

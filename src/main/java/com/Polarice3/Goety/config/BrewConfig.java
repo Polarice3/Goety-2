@@ -162,6 +162,13 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> StripArmorCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> WebbedCapacity;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> InitialCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> Level1Capacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> Level2Capacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> Level3Capacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> Level4Capacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> Level5Capacity;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> BottlingLevelReq;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxBottlingLevel;
 
@@ -417,6 +424,18 @@ public class BrewConfig {
         BUILDER.pop();
         BUILDER.pop();
         BUILDER.push("Modded Capacity");
+        InitialCapacity = BUILDER.comment("How much Capacity is given initially, Default: 4")
+                .defineInRange("initialCapacity", 4, 1, Integer.MAX_VALUE);
+        Level1Capacity = BUILDER.comment("How much Capacity is given for first level, Default: 2")
+                .defineInRange("level1Capacity", 2, 0, Integer.MAX_VALUE);
+        Level2Capacity = BUILDER.comment("How much Capacity is given for second level, Default: 2")
+                .defineInRange("level2Capacity", 2, 0, Integer.MAX_VALUE);
+        Level3Capacity = BUILDER.comment("How much Capacity is given for third level, Default: 2")
+                .defineInRange("level3Capacity", 2, 0, Integer.MAX_VALUE);
+        Level4Capacity = BUILDER.comment("How much Capacity is given for fourth level, Default: 2")
+                .defineInRange("level4Capacity", 2, 0, Integer.MAX_VALUE);
+        Level5Capacity = BUILDER.comment("How much Capacity is given for fifth level, Default: 4")
+                .defineInRange("level5Capacity", 4, 0, Integer.MAX_VALUE);
         BUILDER.push("Status Effects");
         BottlingCapacity = BUILDER.comment("Bottling Extra Capacity, Default: 4")
                 .defineInRange("bottlingCapacity", 4, 0, Integer.MAX_VALUE);

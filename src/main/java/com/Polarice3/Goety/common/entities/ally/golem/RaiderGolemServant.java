@@ -52,4 +52,9 @@ public abstract class RaiderGolemServant extends RaiderServant implements IGolem
         return !this.isImmobile();
     }
 
+    @Override
+    public boolean canLinkToIdol() {
+        return false;
+    }
+
 }

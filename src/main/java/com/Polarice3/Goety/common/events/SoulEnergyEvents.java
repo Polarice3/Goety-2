@@ -296,7 +296,7 @@ public class SoulEnergyEvents {
                     player = playerEntity;
                 }
                 if (player != null) {
-                    if (CuriosFinder.hasDarkRobe(player) || CuriosFinder.hasUndeadSet(player) || ItemHelper.armorSet(owner, ModArmorMaterials.BLACK_IRON) || ItemHelper.armorSet(player, ModArmorMaterials.DARK) || killer instanceof RaiderServant) {
+                    if (MobsConfig.ServantsAlwaysGiveSE.get() || CuriosFinder.hasDarkRobe(player) || CuriosFinder.hasUndeadSet(player) || ItemHelper.armorSet(owner, ModArmorMaterials.BLACK_IRON) || ItemHelper.armorSet(player, ModArmorMaterials.DARK) || killer instanceof RaiderServant) {
                         if (!(player instanceof FakePlayer)) {
                             SEHelper.handleKill(player, victim, event.getSource());
                         }

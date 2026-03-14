@@ -5,9 +5,6 @@ import com.Polarice3.Goety.common.advancements.ModCriteriaTriggers;
 import com.Polarice3.Goety.common.blocks.entities.OminousIdolBlockEntity;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
-import com.Polarice3.Goety.common.entities.ally.illager.AbstractIllagerServant;
-import com.Polarice3.Goety.common.entities.ally.illager.cultist.WitchServant;
-import com.Polarice3.Goety.common.entities.ally.undead.bound.AbstractBoundIllager;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.Hellfire;
 import com.Polarice3.Goety.common.entities.projectiles.SpellEntity;
@@ -943,11 +940,7 @@ public abstract class RaiderServant extends Summoned {
     }
 
     public boolean canLinkToIdol() {
-        return this instanceof AbstractIllagerServant
-                || this instanceof AbstractBoundIllager
-                || this instanceof WitchServant
-                || this instanceof AllyTrampler
-                || this instanceof ModRavager;
+        return true;
     }
 
     public List<RaiderServant> getNearbyCompanions() {

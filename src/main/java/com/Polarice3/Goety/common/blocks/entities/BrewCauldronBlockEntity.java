@@ -15,6 +15,7 @@ import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.WaystoneItem;
 import com.Polarice3.Goety.common.items.curios.WitchHatItem;
 import com.Polarice3.Goety.common.items.magic.TaglockKit;
+import com.Polarice3.Goety.config.BrewConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BrewUtils;
 import com.Polarice3.Goety.utils.CuriosFinder;
@@ -224,9 +225,9 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
             int firstEmpty = getFirstEmptySlot();
             if (firstEmpty != -1) {
                 this.setItem(firstEmpty, itemStack);
-                if (this.mode == Mode.IDLE && this.getCapacity() < 4 && activate) {
+                if (this.mode == Mode.IDLE && this.getCapacity() < BrewConfig.InitialCapacity.get() && activate) {
                     this.clearContent();
-                    this.capacity = 4;
+                    this.capacity = BrewConfig.InitialCapacity.get();
                     if (this.level instanceof ServerLevel serverLevel){
                         for(int k = 0; k < 20; ++k) {
                             float f2 = serverLevel.random.nextFloat() * 4.0F;
@@ -386,37 +387,43 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
                                 }
                             }
                         } else if (brewModifier instanceof CapacityModifier capacityModifier) {
-                            if (this.getCapacity() == 4 && capacityModifier.getLevel() == 1) {
-                                this.capacity += 2;
+                            int initial = BrewConfig.InitialCapacity.get();
+                            int level1 = BrewConfig.Level1Capacity.get();
+                            int level2 = BrewConfig.Level2Capacity.get();
+                            int level3 = BrewConfig.Level3Capacity.get();
+                            int level4 = BrewConfig.Level4Capacity.get();
+                            int level5 = BrewConfig.Level5Capacity.get();
+                            if (this.getCapacity() == initial && capacityModifier.getLevel() == 1) {
+                                this.capacity += level1;
                                 this.clearContent();
                                 return Mode.BREWING;
                             }
-                            if (this.getCapacity() == 6 && capacityModifier.getLevel() == 2) {
-                                this.capacity += 2;
+                            if (this.getCapacity() == (initial + level1) && capacityModifier.getLevel() == 2) {
+                                this.capacity += level2;
                                 this.clearContent();
                                 return Mode.BREWING;
                             }
-                            if (this.getCapacity() == 8 && capacityModifier.getLevel() == 3) {
-                                this.capacity += 2;
+                            if (this.getCapacity() == (initial + level1 + level2) && capacityModifier.getLevel() == 3) {
+                                this.capacity += level3;
                                 this.clearContent();
                                 return Mode.BREWING;
                             }
-                            if (this.getCapacity() == 10 && capacityModifier.getLevel() == 4) {
-                                this.capacity += 2;
+                            if (this.getCapacity() == (initial + level1 + level2 + level3) && capacityModifier.getLevel() == 4) {
+                                this.capacity += level4;
                                 this.clearContent();
                                 return Mode.BREWING;
                             }
-                            if (this.getCapacity() == 12 && capacityModifier.getLevel() == 5) {
-                                this.capacity += 4;
+                            if (this.getCapacity() == (initial + level1 + level2 + level3 + level4) && capacityModifier.getLevel() == 5) {
+                                this.capacity += level5;
                                 this.clearContent();
                                 return Mode.BREWING;
                             }
                         }
                     }
                 }
-            } else if (this.mode == Mode.IDLE && this.getCapacity() < 4 && activate) {
+            } else if (this.mode == Mode.IDLE && this.getCapacity() < BrewConfig.InitialCapacity.get() && activate) {
                 this.clearContent();
-                this.capacity = 4;
+                this.capacity = BrewConfig.InitialCapacity.get();
                 if (this.level instanceof ServerLevel serverLevel){
                     for(int k = 0; k < 20; ++k) {
                         float f2 = serverLevel.random.nextFloat() * 4.0F;

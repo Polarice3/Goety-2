@@ -308,6 +308,11 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
         this.dumpChestDim = string;
     }
 
+    @Override
+    public boolean canLinkToIdol() {
+        return false;
+    }
+
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {

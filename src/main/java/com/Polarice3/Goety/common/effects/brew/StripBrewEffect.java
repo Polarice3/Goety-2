@@ -10,6 +10,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
@@ -48,7 +49,9 @@ public class StripBrewEffect extends BrewEffect {
                         pTarget.getY() + pTarget.getRandom().nextDouble(),
                         pTarget.getZ() + pTarget.getRandom().nextDouble(), armor);
                 itemEntity.setPickUpDelay(80);
-                if (pTarget.level.addFreshEntity(itemEntity)){
+                ItemStack itemStack = itemEntity.getItem();
+                Item item = itemStack.getItem();
+                if (pTarget.level.addFreshEntity(itemEntity) || item.hasCustomEntity(itemStack)){
                     pTarget.setItemSlot(equipmentSlot, ItemStack.EMPTY);
                     if (!pTarget.level.isClientSide) {
                         ModNetwork.sendToALL(new SPlayWorldSoundPacket(pTarget.blockPosition(), SoundEvents.ARMOR_EQUIP_GENERIC, 10.0F, 1.5F));

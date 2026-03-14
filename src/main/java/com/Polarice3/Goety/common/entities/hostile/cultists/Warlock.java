@@ -172,7 +172,7 @@ public class Warlock extends Cultist implements RangedAttackMob {
                         flag = true;
                     }
                     if (!this.getActiveEffects().isEmpty()) {
-                        if (this.getActiveEffects().stream().anyMatch((mobEffectInstance -> mobEffectInstance.getEffect().getCategory() == MobEffectCategory.HARMFUL))){
+                        if (this.getActiveEffects().stream().anyMatch((mobEffectInstance -> mobEffectInstance.getEffect().getCategory() == MobEffectCategory.HARMFUL && !mobEffectInstance.getEffect().getCurativeItems().isEmpty()))){
                             flag = true;
                         }
                     }

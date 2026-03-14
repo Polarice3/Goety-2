@@ -21,6 +21,7 @@
     "ItemEntityMixin",
     "LivingEntityMixin",
     "MobAccessor",
+    "PatrolSpawnerMixin",
     "PlayerMixin",
     "RaiderMixin",
     "RaidMixin",

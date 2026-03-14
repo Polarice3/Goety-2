@@ -17,6 +17,7 @@ import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.revive.SoulJar;
 import com.Polarice3.Goety.common.magic.spells.SoulBoltSpell;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -391,7 +392,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                     } else if (this instanceof AbstractWitherNecromancer){
                         SoulJar.setWither(itemStack);
                     }
-                    SEHelper.addCooldown(player, itemStack.getItem(), MathHelper.secondsToTicks(30));
+                    SEHelper.addCooldown(player, itemStack.getItem(), MathHelper.secondsToTicks(ItemConfig.ReviveSecondsCool.get()));
                     if (!player.getInventory().add(itemStack)) {
                         player.drop(itemStack, false, true);
                     }

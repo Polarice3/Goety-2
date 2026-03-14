@@ -13,6 +13,7 @@ public class ItemConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Integer> CraftingSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> DarkScytheSouls;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ReviveSecondsCool;
     public static final ForgeConfigSpec.ConfigValue<Integer> PendantOfHungerLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> SeaAmuletChargeConsume;
     public static final ForgeConfigSpec.ConfigValue<Integer> SeaAmuletMax;
@@ -186,6 +187,8 @@ public class ItemConfig {
                 .defineInRange("itemsRepairSouls", 5, 1, Integer.MAX_VALUE);
         FireSpawnCage = BUILDER.comment("Fire Spawn Cage are enabled, Default: true")
                 .define("fireSpawnCage", true);
+        ReviveSecondsCool = BUILDER.comment("How many seconds until a revival item can be used, ie, Soul Jars, Howling Souls, Default: 300")
+                .defineInRange("reviveSecondsCool", 300, 0, Integer.MAX_VALUE);
         TesseractCapacity = BUILDER.comment("How many servants an Esoteric Tesseract can contain, Default: 16")
                 .defineInRange("tesseractCapacity", 16, 1, Integer.MAX_VALUE);
         TesseractDurability = BUILDER.comment("How many uses before Tesseract is disabled, Default: 16")

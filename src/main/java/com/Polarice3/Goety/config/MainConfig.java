@@ -86,6 +86,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilIgnoreMaxLevels;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SculkGrowerContinue;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SculkGrowerPotency;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ShriekObeliskPatrol;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShriekObeliskRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> OminousIdolRevive;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PithosRespawn;
@@ -216,6 +217,8 @@ public class MainConfig {
                 .defineInRange("shriekObeliskCost", 100, 0, Integer.MAX_VALUE);
         ShriekObeliskIncrease = BUILDER.comment("How many blocks each Tall Skull increases the Shrieking Obelisk's area of effect, Default: 4")
                 .defineInRange("shriekObeliskIncrease", 4, 1, Integer.MAX_VALUE);
+        ShriekObeliskPatrol = BUILDER.comment("Whether Shrieking Obelisk can prevent Pillager Patrols, Default: true")
+                .define("ShriekObeliskPatrol", true);
         ShriekObeliskRaid = BUILDER.comment("Whether Shrieking Obelisk can prevent or stop Raids, Default: true")
                 .define("ShriekObeliskRaid", true);
         AnimatorCost = BUILDER.comment("The amount of Soul Energy used to power the Animator per block distance, Default: 10")

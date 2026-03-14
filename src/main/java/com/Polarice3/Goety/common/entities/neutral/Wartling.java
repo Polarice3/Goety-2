@@ -188,6 +188,14 @@ public class Wartling extends AbstractSpiderServant {
         }
     }
 
+    @Override
+    public void healServant() {
+    }
+
+    public boolean isLimitedLife(){
+        return this.limitedLifespan;
+    }
+
     public void lifeSpanDamage(){
         if (this.getTrueOwner() != null
                 && this.getTrueOwner().isAlive()

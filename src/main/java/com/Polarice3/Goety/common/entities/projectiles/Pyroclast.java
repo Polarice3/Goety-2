@@ -36,6 +36,7 @@ import net.minecraftforge.network.NetworkHooks;
 
 public class Pyroclast extends ThrowableProjectile implements ISpellEntity {
     public static final EntityDataAccessor<Boolean> DATA_DANGEROUS = SynchedEntityData.defineId(Pyroclast.class, EntityDataSerializers.BOOLEAN);
+    public boolean upgraded = false;
     public float explosionPower = 3.0F;
     public int potency = 0;
     public int flaming = 0;
@@ -89,11 +90,20 @@ public class Pyroclast extends ThrowableProjectile implements ISpellEntity {
         return this.flaming;
     }
 
+    public void setUpgraded(boolean upgraded) {
+        this.upgraded = upgraded;
+    }
+
+    public boolean isUpgraded() {
+        return this.upgraded;
+    }
+
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putFloat("ExplosionPower", this.getExplosionPower());
         pCompound.putInt("Potency",this.getPotency());
         pCompound.putInt("Flaming",this.getFlaming());
+        pCompound.putBoolean("Upgraded", this.isUpgraded());
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
@@ -106,6 +116,9 @@ public class Pyroclast extends ThrowableProjectile implements ISpellEntity {
         }
         if (pCompound.contains("Flaming")){
             this.setFlaming(pCompound.getInt("Flaming"));
+        }
+        if (pCompound.contains("Upgraded")){
+            this.setUpgraded(pCompound.getBoolean("Upgraded"));
         }
     }
 
@@ -155,8 +168,10 @@ public class Pyroclast extends ThrowableProjectile implements ISpellEntity {
                     @Override
                     public void explodeHurt(Entity target, DamageSource damageSource, double x, double y, double z, double seen, float actualDamage) {
                         super.explodeHurt(target, damageSource, x, y, z, seen, actualDamage);
-                        if (target instanceof LivingEntity target1 && !MobUtil.areAllies(owner, target1) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target1)){
-                            target1.addEffect(new MobEffectInstance(GoetyEffects.STUNNED.get(), MathHelper.secondsToTicks(2), 0, false, false));
+                        if (Pyroclast.this.isUpgraded()) {
+                            if (target instanceof LivingEntity target1 && !MobUtil.areAllies(owner, target1) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target1)) {
+                                target1.addEffect(new MobEffectInstance(GoetyEffects.STUNNED.get(), MathHelper.secondsToTicks(2), 0, false, false));
+                            }
                         }
                     }
                 };
@@ -175,9 +190,11 @@ public class Pyroclast extends ThrowableProjectile implements ISpellEntity {
         float damage = SpellConfig.PyroclastDamage.get().floatValue() * WandUtil.damageMultiply();
         damage += this.getPotency();
         if (entity.hurt(ModDamageSource.modFireball(this.getOwner(), this.level), damage)) {
-            if (!(entity1 != null && entity1.getType().getDescriptionId().contains("netherite_monstrosity"))) {
-                if (entity instanceof LivingEntity livingEntity) {
-                    livingEntity.addEffect(new MobEffectInstance(GoetyEffects.STUNNED.get(), MathHelper.secondsToTicks(2), 0, false, false));
+            if (this.isUpgraded()) {
+                if (!(entity1 != null && entity1.getType().getDescriptionId().contains("netherite_monstrosity"))) {
+                    if (entity instanceof LivingEntity livingEntity) {
+                        livingEntity.addEffect(new MobEffectInstance(GoetyEffects.STUNNED.get(), MathHelper.secondsToTicks(2), 0, false, false));
+                    }
                 }
             }
             if (this.getFlaming() != 0){

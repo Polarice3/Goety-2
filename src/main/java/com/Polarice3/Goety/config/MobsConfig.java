@@ -203,6 +203,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ServantRideAutonomous;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ServantsAttackCreepers;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ServantsCanWearPumpkin;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ServantsAlwaysGiveSE;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecroRobeUndead;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecroSetDebuff;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NamelessSetDebuff;
@@ -238,7 +239,9 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHate;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHateRavager;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerConvertWarlock;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerConvertWarlockUnholy;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerConvertHeretic;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerConvertHereticUnholy;
     public static final ForgeConfigSpec.ConfigValue<Boolean> TraderConvertMaverick;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerAssault;
@@ -737,6 +740,8 @@ public class MobsConfig {
                 .define("followingServantChunkLoad", true);
         ServantsCanWearPumpkin = BUILDER.comment("Whether Servants be equipped with Carved Pumpkins, which would allow Servants to not be affected by sunlight, Default: false")
                 .define("servantsCanWearPumpkin", false);
+        ServantsAlwaysGiveSE = BUILDER.comment("Whether Servants will always give their player Soul Energy upon killing, setting to false will cause them to only give if player wears Dark Robes, Necro Cape and Crown or full Black Iron or Dark Armor set, Default: true")
+                .define("servantsAlwaysGiveSE", true);
         ServantRideAutonomous = BUILDER.comment("Whether certain servants being ridden by other servants will not be controlled by their rider., Default: false")
                 .define("servantRideAutonomous", false);
         MaxSlimeSize = BUILDER.comment("Maximum size Slime and Magma Cube Servants can obtain through Slime/Magma Block, Default: 4")
@@ -928,8 +933,12 @@ public class MobsConfig {
                 .defineInRange("villagerHateSpells", 0, 0, Integer.MAX_VALUE);
         VillagerConvertWarlock = BUILDER.comment("Villagers have a chance of converting into Warlocks if they're underneath a Block of Crying Obsidian, Default: true")
                 .define("villagerConvertToWarlock", true);
+        VillagerConvertWarlockUnholy = BUILDER.comment("Villagers have a chance of converting into Warlock Servants if they're underneath a Block of Crying Obsidian and near and a player wearing Unholy Set, Default: true")
+                .define("villagerConvertWarlockUnholy", true);
         VillagerConvertHeretic = BUILDER.comment("Villagers have a chance of converting into Heretics if they're sleeping near an active Nether Portal, Default: false")
                 .define("villagerConvertToHeretic", false);
+        VillagerConvertHereticUnholy = BUILDER.comment("Villagers have a chance of converting into Heretic Servants if they're sleeping near an active Nether Portal and a player wearing Unholy Set, Default: true")
+                .define("villagerConvertToHereticUnholy", true);
         TraderConvertMaverick = BUILDER.comment("Wandering Traders transforms into Mavericks when struck by lightning, Default: true")
                 .define("traderConvertMaverick", true);
         BUILDER.pop();

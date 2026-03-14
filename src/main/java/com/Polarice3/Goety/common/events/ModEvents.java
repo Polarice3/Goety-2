@@ -24,6 +24,7 @@ import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
 import com.Polarice3.Goety.common.entities.ally.golem.IceGolem;
 import com.Polarice3.Goety.common.entities.ally.illager.cultist.HereticServant;
 import com.Polarice3.Goety.common.entities.ally.illager.cultist.MaverickServant;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.WarlockServant;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.ModRavager;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.Prisoner;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
@@ -717,36 +718,60 @@ public class ModEvents {
                         }
                     }
                     if (villager.level instanceof ServerLevel serverLevel) {
-                        if (MobsConfig.VillagerConvertWarlock.get()) {
+                        if (MobsConfig.VillagerConvertWarlock.get() || MobsConfig.VillagerConvertWarlockUnholy.get()) {
                             if (BlockFinder.getVerticalBlock(serverLevel, villager.blockPosition(), Blocks.CRYING_OBSIDIAN.defaultBlockState(), 16, true)) {
                                 if (villager.getRandom().nextFloat() < 7.5E-4F && serverLevel.getDifficulty() != Difficulty.PEACEFUL) {
-                                    if (ForgeEventFactory.canLivingConvert(villager, ModEntityType.WARLOCK.get(), (timer) -> {
-                                    })) {
-                                        serverLevel.explode(villager, villager.getX(), villager.getY(), villager.getZ(), 0.1F, Level.ExplosionInteraction.NONE);
-                                        Warlock warlock = ModEntityType.WARLOCK.get().create(serverLevel);
-                                        if (warlock != null) {
-                                            warlock.moveTo(villager.getX(), villager.getY(), villager.getZ(), villager.getYRot(), villager.getXRot());
-                                            warlock.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(warlock.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
-                                            warlock.setNoAi(villager.isNoAi());
-                                            if (villager.hasCustomName()) {
-                                                warlock.setCustomName(villager.getCustomName());
-                                                warlock.setCustomNameVisible(villager.isCustomNameVisible());
-                                            }
+                                    if (player != null && CuriosFinder.hasUnholySet(player) && MobsConfig.VillagerConvertWarlockUnholy.get()) {
+                                        if (ForgeEventFactory.canLivingConvert(villager, ModEntityType.HERETIC_SERVANT.get(), (timer) -> {
+                                        })) {
+                                            serverLevel.explode(villager, villager.getX(), villager.getY(), villager.getZ(), 0.1F, Level.ExplosionInteraction.NONE);
+                                            WarlockServant warlock = ModEntityType.WARLOCK_SERVANT.get().create(serverLevel);
+                                            if (warlock != null) {
+                                                warlock.moveTo(villager.getX(), villager.getY(), villager.getZ(), villager.getYRot(), villager.getXRot());
+                                                warlock.setTrueOwner(player);
+                                                warlock.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(warlock.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+                                                warlock.setNoAi(villager.isNoAi());
+                                                if (villager.hasCustomName()) {
+                                                    warlock.setCustomName(villager.getCustomName());
+                                                    warlock.setCustomNameVisible(villager.isCustomNameVisible());
+                                                }
 
-                                            warlock.setPersistenceRequired();
-                                            ForgeEventFactory.onLivingConvert(villager, warlock);
-                                            serverLevel.addFreshEntityWithPassengers(warlock);
-                                            MobUtil.releaseAllPois(villager);
-                                            villager.discard();
+                                                warlock.setPersistenceRequired();
+                                                ForgeEventFactory.onLivingConvert(villager, warlock);
+                                                serverLevel.addFreshEntityWithPassengers(warlock);
+                                                MobUtil.releaseAllPois(villager);
+                                                villager.discard();
+                                            }
+                                        }
+                                    } else if (MobsConfig.VillagerConvertWarlock.get()) {
+                                        if (ForgeEventFactory.canLivingConvert(villager, ModEntityType.WARLOCK.get(), (timer) -> {
+                                        })) {
+                                            serverLevel.explode(villager, villager.getX(), villager.getY(), villager.getZ(), 0.1F, Level.ExplosionInteraction.NONE);
+                                            Warlock warlock = ModEntityType.WARLOCK.get().create(serverLevel);
+                                            if (warlock != null) {
+                                                warlock.moveTo(villager.getX(), villager.getY(), villager.getZ(), villager.getYRot(), villager.getXRot());
+                                                warlock.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(warlock.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+                                                warlock.setNoAi(villager.isNoAi());
+                                                if (villager.hasCustomName()) {
+                                                    warlock.setCustomName(villager.getCustomName());
+                                                    warlock.setCustomNameVisible(villager.isCustomNameVisible());
+                                                }
+
+                                                warlock.setPersistenceRequired();
+                                                ForgeEventFactory.onLivingConvert(villager, warlock);
+                                                serverLevel.addFreshEntityWithPassengers(warlock);
+                                                MobUtil.releaseAllPois(villager);
+                                                villager.discard();
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
-                        if (MobsConfig.VillagerConvertHeretic.get()) {
+                        if (MobsConfig.VillagerConvertHeretic.get() || MobsConfig.VillagerConvertHereticUnholy.get()) {
                             if (villager.getRandom().nextFloat() < 7.5E-4F && villager.isSleeping()) {
                                 if (BlockFinder.findNetherPortal(serverLevel, villager.blockPosition(), 8).isPresent()){
-                                    if (player != null && CuriosFinder.hasUnholySet(player)) {
+                                    if (player != null && CuriosFinder.hasUnholySet(player) && MobsConfig.VillagerConvertHereticUnholy.get()) {
                                         if (ForgeEventFactory.canLivingConvert(villager, ModEntityType.HERETIC_SERVANT.get(), (timer) -> {
                                         })) {
                                             serverLevel.explode(villager, villager.getX(), villager.getY(), villager.getZ(), 0.1F, Level.ExplosionInteraction.NONE);
@@ -768,7 +793,7 @@ public class ModEvents {
                                                 villager.discard();
                                             }
                                         }
-                                    } else {
+                                    } else if (MobsConfig.VillagerConvertHeretic.get()) {
                                         if (serverLevel.getDifficulty() != Difficulty.PEACEFUL && ForgeEventFactory.canLivingConvert(villager, ModEntityType.HERETIC.get(), (timer) -> {
                                         })) {
                                             serverLevel.explode(villager, villager.getX(), villager.getY(), villager.getZ(), 0.1F, Level.ExplosionInteraction.NONE);
