@@ -520,4 +520,12 @@ public class ModParticleTypes {
                     return ShootIndicatorParticleOption.CODEC;
                 }
             });
+
+    public static final RegistryObject<ParticleType<SlamParticleOption>> SLAM = PARTICLE_TYPES.register("slam",
+            () -> new ParticleType<>(false, SlamParticleOption.DESERIALIZER) {
+                @Override
+                public Codec<SlamParticleOption> codec() {
+                    return SlamParticleOption.CODEC;
+                }
+            });
 }

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.hostile.illagers;
 import com.Polarice3.Goety.api.entities.IRM;
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.client.particles.SlamParticleOption;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.golem.RedstoneCube;
@@ -843,10 +844,9 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
                 }
                 CameraShake.cameraShake(this.mob.level, this.mob.position(), 25.0F, 0.3F, 0, 20);
                 if (this.mob.level instanceof ServerLevel serverLevel){
-                    ColorUtil colorUtil = new ColorUtil(0xff8200);
+                    ColorUtil colorUtil = new ColorUtil(0xAA5600);
                     Vec3 vec31 = this.mob.position().add(vec3.scale(5.0D));
-                    ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 2, 0, 20, -1, vec31.add(0.0D, 1.0D, 0.0D));
-                    ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 4, 0, 20, -1, vec31.add(0.0D, 1.0D, 0.0D));
+                    serverLevel.sendParticles(new SlamParticleOption(colorUtil, mob.getBbWidth() * 2.0F, 20), vec31.x(), vec31.y(), vec31.z(), 1, 0.0D, 0.0D, 0.0D, 0.0F);
                 }
             }
         }

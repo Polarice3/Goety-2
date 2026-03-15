@@ -5,6 +5,7 @@ import com.Polarice3.Goety.api.entities.IRM;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.client.particles.SlamParticleOption;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
@@ -17,7 +18,10 @@ import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
-import com.Polarice3.Goety.utils.*;
+import com.Polarice3.Goety.utils.BlockFinder;
+import com.Polarice3.Goety.utils.ColorUtil;
+import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -1032,10 +1036,9 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
                 }
                 CameraShake.cameraShake(this.mob.level, this.mob.position(), 25.0F, 0.3F, 0, 20);
                 if (this.mob.level instanceof ServerLevel serverLevel){
-                    ColorUtil colorUtil = new ColorUtil(0xff8200);
+                    ColorUtil colorUtil = new ColorUtil(0xAA5600);
                     Vec3 vec31 = this.mob.position().add(vec3.scale(5.0D));
-                    ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 2, 0, 20, -1, vec31.add(0.0D, 1.0D, 0.0D));
-                    ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 4, 0, 20, -1, vec31.add(0.0D, 1.0D, 0.0D));
+                    serverLevel.sendParticles(new SlamParticleOption(colorUtil, mob.getBbWidth() * 2.0F, 20), vec31.x(), vec31.y(), vec31.z(), 1, 0.0D, 0.0D, 0.0D, 0.0F);
                 }
             }
         }
