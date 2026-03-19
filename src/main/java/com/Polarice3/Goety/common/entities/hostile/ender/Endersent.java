@@ -3,7 +3,7 @@ package com.Polarice3.Goety.common.entities.hostile.ender;
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.MagicSmokeParticle;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.client.particles.VerticalCircleExplodeParticleOption;
+import com.Polarice3.Goety.client.particles.SphereExplodeParticleOption;
 import com.Polarice3.Goety.common.blocks.entities.VoidFrameBlockEntity;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -1032,7 +1032,7 @@ public class Endersent extends AbstractEnderling implements Enemy {
             if (this.isDeadlyEscape()) {
                 ColorUtil colorUtil = new ColorUtil(0xf169e9);
                 serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), size, 1), this.getXFront(), BlockFinder.moveDownToGround(this), this.getZFront(), 1, 0.0D, 0.0D, 0.0D, 0);
-                serverLevel.sendParticles(new VerticalCircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), size, 1), this.getXFront(), BlockFinder.moveDownToGround(this), this.getZFront(), 1, 0.0D, 0.0D, 0.0D, 0);
+                serverLevel.sendParticles(new SphereExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), size, 1), this.getXFront(), BlockFinder.moveDownToGround(this), this.getZFront(), 1, 0.0D, 0.0D, 0.0D, 0);
                 ServerParticleUtil.circularParticles(serverLevel, ModParticleTypes.BIG_CULT_SPELL.get(), this.getXFront(), BlockFinder.moveDownToGround(this) + 1.0D, this.getZFront(), colorUtil.red(), colorUtil.green(), colorUtil.blue(), size);
             }
         }

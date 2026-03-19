@@ -89,6 +89,7 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), SSetPlayerOwnerPacket.class, SSetPlayerOwnerPacket::encode, SSetPlayerOwnerPacket::decode, SSetPlayerOwnerPacket::consume);
         INSTANCE.registerMessage(nextID(), SUpdateBossBar.class, SUpdateBossBar::encode, SUpdateBossBar::decode, SUpdateBossBar::consume);
         INSTANCE.registerMessage(nextID(), SFocusCooldownPacket.class, SFocusCooldownPacket::encode, SFocusCooldownPacket::decode, SFocusCooldownPacket::consume);
+        INSTANCE.registerMessage(nextID(), SFocusSpecificCooldownPacket.class, SFocusSpecificCooldownPacket::encode, SFocusSpecificCooldownPacket::decode, SFocusSpecificCooldownPacket::consume);
         INSTANCE.registerMessage(nextID(), SRemoveEffectPacket.class, SRemoveEffectPacket::encode, SRemoveEffectPacket::decode, SRemoveEffectPacket::consume);
         INSTANCE.registerMessage(nextID(), SPurifyEffectPacket.class, SPurifyEffectPacket::encode, SPurifyEffectPacket::decode, SPurifyEffectPacket::consume);
         INSTANCE.registerMessage(nextID(), SPlayerRotationPacket.class, SPlayerRotationPacket::encode, SPlayerRotationPacket::decode, SPlayerRotationPacket::consume);

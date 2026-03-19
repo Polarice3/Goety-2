@@ -343,6 +343,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.SPECTER, SpecterModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.REAPER, ReaperModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WRAITH, WraithModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.PLAYER_ZOMBIE, PlayerZombieModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SUNKEN_SKELETON, SunkenSkeletonModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.NECROMANCER, NecromancerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.DROWNED_NECROMANCER, DrownedNecromancerModel::createBodyLayer);

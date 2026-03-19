@@ -3,7 +3,7 @@ package com.Polarice3.Goety.common.entities.projectiles;
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.FoggyCloudParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.client.particles.VerticalCircleExplodeParticleOption;
+import com.Polarice3.Goety.client.particles.SphereExplodeParticleOption;
 import com.Polarice3.Goety.common.entities.util.AbstractTrap;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -175,7 +175,7 @@ public class AcidPool extends AbstractTrap {
                     ColorUtil colorUtil = new ColorUtil(this.getColor());
                     ServerParticleUtil.circularParticles(serverLevel, ModParticleTypes.BIG_CULT_SPELL.get(), this.getX(), this.getY() + 1.0F, this.getZ(), colorUtil.red(), colorUtil.green(), colorUtil.blue(), this.radius());
                     ServerParticleUtil.circularParticles(serverLevel, ModParticleTypes.ROLLING_SPIRAL.get(), this.getX(), this.getY() + 1.0F, this.getZ(), colorUtil.red(), colorUtil.green(), colorUtil.blue(), this.radius());
-                    serverLevel.sendParticles(new VerticalCircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), this.radius(), 1), this.getX(), this.getY(), this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                    serverLevel.sendParticles(new SphereExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), this.radius(), 1), this.getX(), this.getY(), this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                     serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), this.radius(), 1), this.getX(), this.getY(), this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                 }
             } else {

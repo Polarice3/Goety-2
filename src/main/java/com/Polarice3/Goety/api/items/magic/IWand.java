@@ -12,7 +12,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -81,8 +80,7 @@ public interface IWand extends IForgeItem {
     default boolean isOnCooldown(LivingEntity livingEntity, ItemStack stack){
         if (livingEntity instanceof Player player){
             if (IWand.getFocus(stack) != null){
-                Item item = IWand.getFocus(stack).getItem();
-                return SEHelper.getFocusCoolDown(player).isOnCooldown(item);
+                return SEHelper.isOnCooldown(player, IWand.getFocus(stack));
             }
         }
         return false;

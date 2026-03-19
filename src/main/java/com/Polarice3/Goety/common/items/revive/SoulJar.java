@@ -135,7 +135,7 @@ public class SoulJar extends ReviveServantItem {
                             }
                             target.discard();
                             player.swing(hand);
-                            SEHelper.addCooldown(player, this, MathHelper.secondsToTicks(30));
+                            SEHelper.addCooldown(player, this, MathHelper.secondsToTicks(5));
                             stack.shrink(1);
                         }
                     }

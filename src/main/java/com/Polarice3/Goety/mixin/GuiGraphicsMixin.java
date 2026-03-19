@@ -29,17 +29,16 @@ public class GuiGraphicsMixin {
         if (localplayer != null) {
             if (item instanceof IWand && MainConfig.ShowWandCooldown.get()) {
                 float f;
-                if (IWand.getFocus(stack) != null && SEHelper.getFocusCoolDown(localplayer).isOnCooldown(IWand.getFocus(stack).getItem())) {
-                    Item focus = IWand.getFocus(stack).getItem();
-                    f = SEHelper.getFocusCoolDown(localplayer).getCooldownPercent(focus);
+                if (IWand.getFocus(stack) != null && SEHelper.isOnCooldown(localplayer, IWand.getFocus(stack))) {
+                    f = SEHelper.getCooldownPercent(localplayer, IWand.getFocus(stack));
                 } else {
                     f = 0;
                 }
                 renderFocusCooldown(one, two, f);
             } else {
                 float f;
-                if (SEHelper.getFocusCoolDown(localplayer).isOnCooldown(item)) {
-                    f = SEHelper.getFocusCoolDown(localplayer).getCooldownPercent(item);
+                if (SEHelper.isOnCooldown(localplayer, stack)) {
+                    f = SEHelper.getCooldownPercent(localplayer, stack);
                 } else {
                     f = 0;
                 }

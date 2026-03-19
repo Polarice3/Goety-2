@@ -82,7 +82,6 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
     public static String ACTIVATE = "activate";
     public static String IDLE = "idle";
     public static String ATTACK = "attack";
-    public static String WALK = "walk";
     public static String SUMMON = "summon";
     public static String TO_SIT = "to_sit";
     public static String TO_STAND = "to_stand";
@@ -110,7 +109,6 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
     public AnimationState activateAnimationState = new AnimationState();
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState attackAnimationState = new AnimationState();
-    public AnimationState walkAnimationState = new AnimationState();
     public AnimationState summonAnimationState = new AnimationState();
     public AnimationState toSitAnimationState = new AnimationState();
     public AnimationState toStandAnimationState = new AnimationState();
@@ -329,20 +327,18 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
             return 2;
         } else if (Objects.equals(animation, "attack")){
             return 3;
-        } else if (Objects.equals(animation, "walk")){
-            return 4;
         } else if (Objects.equals(animation, "summon")){
-            return 5;
+            return 4;
         } else if (Objects.equals(animation, "to_sit")){
-            return 6;
+            return 5;
         } else if (Objects.equals(animation, "to_stand")){
-            return 7;
+            return 6;
         } else if (Objects.equals(animation, "sit")){
-            return 8;
+            return 7;
         } else if (Objects.equals(animation, "belch")){
-            return 9;
+            return 8;
         } else if (Objects.equals(animation, "death")){
-            return 10;
+            return 9;
         } else {
             return 0;
         }
@@ -352,7 +348,6 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
         List<AnimationState> animationStates = new ArrayList<>();
         animationStates.add(this.activateAnimationState);
         animationStates.add(this.idleAnimationState);
-        animationStates.add(this.walkAnimationState);
         animationStates.add(this.attackAnimationState);
         animationStates.add(this.summonAnimationState);
         animationStates.add(this.toSitAnimationState);
@@ -375,6 +370,10 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
         return this.entityData.get(ANIM_STATE);
     }
 
+    public boolean isCurrentAnimation(String animation) {
+        return this.getCurrentAnimation() == this.getAnimationState(animation);
+    }
+
     public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
         if (ANIM_STATE.equals(accessor)) {
             if (this.level.isClientSide){
@@ -386,7 +385,6 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
                         this.stopMostAnimation(this.activateAnimationState);
                         break;
                     case 2:
-                        this.idleAnimationState.startIfStopped(this.tickCount);
                         this.stopMostAnimation(this.idleAnimationState);
                         break;
                     case 3:
@@ -394,30 +392,25 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
                         this.stopMostAnimation(this.attackAnimationState);
                         break;
                     case 4:
-                        this.walkAnimationState.startIfStopped(this.tickCount);
-                        this.stopMostAnimation(this.walkAnimationState);
-                        break;
-                    case 5:
                         this.summonAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.summonAnimationState);
                         break;
-                    case 6:
+                    case 5:
                         this.stopMostAnimation(this.toSitAnimationState);
                         this.toSitAnimationState.startIfStopped(this.tickCount);
                         break;
-                    case 7:
+                    case 6:
                         this.stopMostAnimation(this.toStandAnimationState);
                         this.toStandAnimationState.startIfStopped(this.tickCount);
                         break;
-                    case 8:
-                        this.sitAnimationState.startIfStopped(this.tickCount);
+                    case 7:
                         this.stopMostAnimation(this.sitAnimationState);
                         break;
-                    case 9:
+                    case 8:
                         this.belchAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.belchAnimationState);
                         break;
-                    case 10:
+                    case 9:
                         this.deathAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.deathAnimationState);
                         break;
@@ -489,10 +482,6 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
         return ModSounds.REDSTONE_MONSTROSITY_AMBIENT.get();
     }
 
-    public boolean canAnimateMove(){
-        return super.canAnimateMove() && this.getCurrentAnimation() == this.getAnimationState(WALK);
-    }
-
     protected boolean isImmobile() {
         return super.isImmobile() || this.isSummoning() || this.isActivating() || this.postAttackCool > 0;
     }
@@ -533,7 +522,7 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
         super.setStaying(staying);
         if (staying){
             this.isSittingDown = MathHelper.secondsToTicks(1);
-        } else if (this.isFollowing()) {
+        } else if (this.isCurrentAnimation(SIT)) {
             this.isStandingUp = MathHelper.secondsToTicks(1);
         }
     }
@@ -655,6 +644,10 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
                 this.setPose(Pose.STANDING);
             }
         }
+        if (this.level.isClientSide) {
+            this.idleAnimationState.animateWhen(this.isCurrentAnimation(IDLE) && !this.walkAnimation.isMoving(), this.tickCount);
+            this.sitAnimationState.animateWhen(this.isCurrentAnimation(SIT) && !this.walkAnimation.isMoving(), this.tickCount);
+        }
         if (!this.level.isClientSide){
             if (this.isAlive() && !this.isActivating()) {
                 if (MobsConfig.RedstoneMonstrosityLeafBreak.get()) {
@@ -680,8 +673,6 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
                         } else {
                             this.setAnimationState(SIT);
                         }
-                    } else if (this.isMoving()) {
-                        this.setAnimationState(WALK);
                     } else {
                         if (this.isStandingUp > 0){
                             --this.isStandingUp;

@@ -773,8 +773,25 @@ public class SEHelper {
         return getCapability(player).cooldowns();
     }
 
+    public static boolean isOnCooldown(Player player, ItemStack itemStack) {
+        return getFocusCoolDown(player).isOnCooldown(itemStack.getItem()) || getFocusCoolDown(player).isOnSpecificCooldown(itemStack);
+    }
+
+    public static float getCooldownPercent(Player player, ItemStack itemStack) {
+        if (getFocusCoolDown(player).isOnCooldown(itemStack.getItem())) {
+            return getFocusCoolDown(player).getCooldownPercent(itemStack.getItem());
+        } else if (getFocusCoolDown(player).isOnSpecificCooldown(itemStack)) {
+            return getFocusCoolDown(player).getSpecificCooldownPercent(itemStack);
+        }
+        return 0.0F;
+    }
+
     public static void addCooldown(Player player, Item item, int duration){
         getFocusCoolDown(player).addCooldown(player, player.level, item, duration);
+    }
+
+    public static void addSpecificCooldown(Player player, ItemStack itemStack, int duration){
+        getFocusCoolDown(player).addSpecificCooldown(player, player.level, itemStack, duration);
     }
 
     public static FocusCooldown.CooldownInstance getCooldownInstance(Player player, Item item){
@@ -783,6 +800,10 @@ public class SEHelper {
 
     public static Map<Item, FocusCooldown.CooldownInstance> getCooldowns(Player player){
         return getFocusCoolDown(player).getCooldowns();
+    }
+
+    public static Map<String, FocusCooldown.CooldownInstance> getSpecificCooldowns(Player player){
+        return getFocusCoolDown(player).getSpecificCooldowns();
     }
 
     @Nullable
@@ -1157,6 +1178,9 @@ public class SEHelper {
             ListTag listTag = new ListTag();
             soulEnergy.cooldowns().save(listTag);
             tag.put("coolDowns", listTag);
+            ListTag listTag2 = new ListTag();
+            soulEnergy.cooldowns().saveSpecifics(listTag2);
+            tag.put("coolDownsSpecifics", listTag2);
         }
         if (soulEnergy.getEndWalkPos() != null) {
             tag.putInt("EndWalkX", soulEnergy.getEndWalkPos().getX());
@@ -1285,6 +1309,10 @@ public class SEHelper {
         if (tag.contains("coolDowns", Tag.TAG_LIST)){
             ListTag listTag = (ListTag) tag.get("coolDowns");
             soulEnergy.cooldowns().load(listTag);
+        }
+        if (tag.contains("coolDownsSpecifics", Tag.TAG_LIST)){
+            ListTag listTag2 = (ListTag) tag.get("coolDownsSpecifics");
+            soulEnergy.cooldowns().loadSpecifics(listTag2);
         }
         return soulEnergy;
     }

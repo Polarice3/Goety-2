@@ -16,7 +16,7 @@ public class FrozenZombieRenderer extends HumanoidMobRenderer<FrozenZombieServan
    private static final ResourceLocation ZOMBIE_LOCATION = Goety.location("textures/entity/servants/zombie/frozen_zombie_original.png");
 
    public FrozenZombieRenderer(EntityRendererProvider.Context entityRendererManager) {
-      super(entityRendererManager, new PlayerZombieModel<>(entityRendererManager.bakeLayer(ModelLayers.PLAYER)), 0.5F);
+      super(entityRendererManager, new PlayerZombieModel<>(entityRendererManager.bakeLayer(ModModelLayer.PLAYER_ZOMBIE)), 0.5F);
       this.addLayer(new HumanoidArmorLayer<>(this, new HumanoidModel<>(entityRendererManager.bakeLayer(ModelLayers.PLAYER_INNER_ARMOR)), new HumanoidModel<>(entityRendererManager.bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR)), entityRendererManager.getModelManager()));
    }
 

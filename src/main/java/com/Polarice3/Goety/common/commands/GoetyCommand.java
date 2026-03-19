@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.commands;
 
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.common.capabilities.soulenergy.FocusCooldown;
 import com.Polarice3.Goety.common.events.IllagerSpawner;
 import com.Polarice3.Goety.common.events.WightSpawner;
 import com.Polarice3.Goety.common.research.Research;
@@ -674,9 +675,14 @@ public class GoetyCommand {
         int i = 0;
         for(ServerPlayer serverPlayer : pTargets) {
             if (!WandUtil.findFocus(serverPlayer).isEmpty()){
-                Item item = WandUtil.findFocus(serverPlayer).getItem();
+                ItemStack itemStack = WandUtil.findFocus(serverPlayer);
+                Item item = itemStack.getItem();
                 if (SEHelper.getCooldowns(serverPlayer).containsKey(item)){
                     SEHelper.getFocusCoolDown(serverPlayer).removeCooldown(serverPlayer, pSource.getLevel(), item);
+                    ++i;
+                }
+                if (SEHelper.getSpecificCooldowns(serverPlayer).containsKey(FocusCooldown.keyOf(itemStack))) {
+                    SEHelper.getFocusCoolDown(serverPlayer).removeSpecificCooldown(serverPlayer, pSource.getLevel(), itemStack);
                     ++i;
                 }
             }
@@ -700,6 +706,9 @@ public class GoetyCommand {
         for(ServerPlayer serverPlayer : pTargets) {
             for (Item item : SEHelper.getCooldowns(serverPlayer).keySet()){
                 SEHelper.getFocusCoolDown(serverPlayer).removeCooldown(serverPlayer, pSource.getLevel(), item);
+            }
+            for (String string : SEHelper.getSpecificCooldowns(serverPlayer).keySet()){
+                SEHelper.getFocusCoolDown(serverPlayer).removeSpecificCooldown(serverPlayer, pSource.getLevel(), string);
             }
         }
 

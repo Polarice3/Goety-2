@@ -49,7 +49,6 @@ public class Whisperer extends Summoned{
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Whisperer.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Boolean> DATA_WAVE_CONVERSION_ID = SynchedEntityData.defineId(Whisperer.class, EntityDataSerializers.BOOLEAN);
     public static String IDLE = "idle";
-    public static String WALK = "walk";
     public static String ATTACK = "attack";
     public static String SUMMON = "summon";
     public static String SUMMON_POISON = "summonPoison";
@@ -60,7 +59,6 @@ public class Whisperer extends Summoned{
     private int inWaterTime;
     private int conversionTime;
     public AnimationState idleAnimationState = new AnimationState();
-    public AnimationState walkAnimationState = new AnimationState();
     public AnimationState attackAnimationState = new AnimationState();
     public AnimationState summonAnimationState = new AnimationState();
     public AnimationState summonPoisonAnimationState = new AnimationState();
@@ -145,6 +143,12 @@ public class Whisperer extends Summoned{
             if (this.getTrueOwner() != null) {
                 wavewhisperer.setTrueOwner(this.getTrueOwner());
             }
+            if (this.isNatural()) {
+                wavewhisperer.setNatural(true);
+            }
+            if (this.isHostile()) {
+                wavewhisperer.setHostile(true);
+            }
             if (this.limitedLifeTicks > 0){
                 wavewhisperer.setLimitedLife(this.limitedLifeTicks);
             }
@@ -169,16 +173,14 @@ public class Whisperer extends Summoned{
     public int getAnimationState(String animation) {
         if (Objects.equals(animation, IDLE)){
             return 1;
-        } else if (Objects.equals(animation, WALK)){
-            return 2;
         } else if (Objects.equals(animation, ATTACK)){
-            return 3;
+            return 2;
         } else if (Objects.equals(animation, SUMMON)){
-            return 4;
+            return 3;
         } else if (Objects.equals(animation, SUMMON_POISON)){
-            return 5;
+            return 4;
         } else if (Objects.equals(animation, SUMMON_THORNS)){
-            return 6;
+            return 5;
         } else {
             return 0;
         }
@@ -187,7 +189,6 @@ public class Whisperer extends Summoned{
     public List<AnimationState> getAllAnimations(){
         List<AnimationState> animationStates = new ArrayList<>();
         animationStates.add(this.idleAnimationState);
-        animationStates.add(this.walkAnimationState);
         animationStates.add(this.attackAnimationState);
         animationStates.add(this.summonAnimationState);
         animationStates.add(this.summonPoisonAnimationState);
@@ -213,33 +214,31 @@ public class Whisperer extends Summoned{
         return this.entityData.get(ANIM_STATE);
     }
 
+    public boolean isCurrentAnimation(String animation) {
+        return this.getCurrentAnimation() == this.getAnimationState(animation);
+    }
+
     public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
         if (ANIM_STATE.equals(accessor)) {
             if (this.level.isClientSide){
                 switch (this.entityData.get(ANIM_STATE)){
                     case 0:
-                        break;
                     case 1:
-                        this.idleAnimationState.startIfStopped(this.tickCount);
                         this.stopMostAnimation(this.idleAnimationState);
                         break;
                     case 2:
-                        this.walkAnimationState.startIfStopped(this.tickCount);
-                        this.stopMostAnimation(this.walkAnimationState);
-                        break;
-                    case 3:
                         this.attackAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.attackAnimationState);
                         break;
-                    case 4:
+                    case 3:
                         this.summonAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.summonAnimationState);
                         break;
-                    case 5:
+                    case 4:
                         this.summonPoisonAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.summonPoisonAnimationState);
                         break;
-                    case 6:
+                    case 5:
                         this.summonThornsAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.summonThornsAnimationState);
                         break;
@@ -363,6 +362,9 @@ public class Whisperer extends Summoned{
     @Override
     public void tick() {
         super.tick();
+        if (this.level.isClientSide) {
+            this.idleAnimationState.animateWhen(!this.walkAnimation.isMoving() && this.isCurrentAnimation(IDLE), this.tickCount);
+        }
         if (this.isAlive()){
             if (!this.level.isClientSide) {
                 if (this.isAlive() && !this.isNoAi()) {
@@ -384,11 +386,7 @@ public class Whisperer extends Summoned{
                     }
                 }
                 if (!this.isMeleeAttacking() && !this.isSummoning()) {
-                    if (!this.isMoving()) {
-                        this.setAnimationState(IDLE);
-                    } else {
-                        this.setAnimationState(WALK);
-                    }
+                    this.setAnimationState(IDLE);
                 }
                 if (this.isMeleeAttacking()) {
                     ++this.attackTick;

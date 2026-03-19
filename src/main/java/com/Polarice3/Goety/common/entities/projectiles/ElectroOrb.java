@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
-import com.Polarice3.Goety.client.particles.VerticalCircleExplodeParticleOption;
+import com.Polarice3.Goety.client.particles.SphereExplodeParticleOption;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -111,7 +111,7 @@ public class ElectroOrb extends SpellThrowableProjectile {
                     }
                 }
                 serverLevel.sendParticles(new ShockwaveParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 5, 0, true), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0);
-                serverLevel.sendParticles(new VerticalCircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius, 1), this.getX(), this.getY() + 0.5F, this.getZ(), 1, 0, 0, 0, 0);
+                serverLevel.sendParticles(new SphereExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius, 1), this.getX(), this.getY() + 0.5F, this.getZ(), 1, 0, 0, 0, 0);
                 new SpellExplosion(serverLevel, this, damageSource, this.blockPosition(), radius, damage){
                     @Override
                     public void explodeHurt(Entity target, DamageSource damageSource, double x, double y, double z, double seen, float actualDamage) {

@@ -101,6 +101,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation SPECTER = register("specter");
     public static final ModelLayerLocation REAPER = register("reaper");
     public static final ModelLayerLocation WRAITH = register("wraith");
+    public static final ModelLayerLocation PLAYER_ZOMBIE = register("player_zombie");
     public static final ModelLayerLocation SUNKEN_SKELETON = register("sunken_skeleton");
     public static final ModelLayerLocation NECROMANCER = register("necromancer");
     public static final ModelLayerLocation DROWNED_NECROMANCER = register("drowned_necromancer");

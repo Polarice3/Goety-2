@@ -49,6 +49,7 @@ public class WindShockwaveParticle extends WindParticle{
         }
     }
 
+    @Deprecated
     public static class Option implements ParticleOptions {
         public static final Codec<Option> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Codec.FLOAT.fieldOf("red").forGetter(d -> d.red),

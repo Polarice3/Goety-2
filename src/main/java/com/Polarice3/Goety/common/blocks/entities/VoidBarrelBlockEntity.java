@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.blocks.entities;
 
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.client.particles.VerticalCircleExplodeParticleOption;
+import com.Polarice3.Goety.client.particles.SphereExplodeParticleOption;
 import com.Polarice3.Goety.common.blocks.VoidBarrelBlock;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.ChatFormatting;
@@ -38,7 +38,7 @@ public class VoidBarrelBlockEntity extends BlockEntity {
                         ColorUtil colorUtil = new ColorUtil(ChatFormatting.LIGHT_PURPLE);
                         serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 3, 1), vec3.x, vec3.y, vec3.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
                         serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 5, 1), vec3.x, vec3.y, vec3.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
-                        serverLevel.sendParticles(new VerticalCircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 5, 1), vec3.x, vec3.y, vec3.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                        serverLevel.sendParticles(new SphereExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 5, 1), vec3.x, vec3.y, vec3.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
                         for (int i = 0; i < 4; ++i) {
                             serverLevel.sendParticles(ModParticleTypes.BIG_CULT_SPELL.get(), vec3.x + (serverLevel.getRandom().nextGaussian() / 16.0F), vec3.y + 1.0F + (serverLevel.getRandom().nextGaussian() / 16.0F), vec3.z + (serverLevel.getRandom().nextGaussian() / 16.0F), 0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.0F);
                         }

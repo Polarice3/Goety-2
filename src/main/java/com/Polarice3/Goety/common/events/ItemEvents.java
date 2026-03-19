@@ -517,7 +517,7 @@ public class ItemEvents {
     public static void InteractEntityEvents(PlayerInteractEvent.EntityInteract event){
         Item item = event.getItemStack().getItem();
         if (item instanceof ReviveServantItem){
-            if (SEHelper.getFocusCoolDown(event.getEntity()).isOnCooldown(event.getItemStack().getItem())){
+            if (SEHelper.isOnCooldown(event.getEntity(), event.getItemStack())){
                 event.setCanceled(true);
                 event.setCancellationResult(InteractionResult.FAIL);
             }

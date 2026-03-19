@@ -1458,8 +1458,8 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
                         ColorUtil colorUtil = new ColorUtil(0xb103d8);
                         serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 4.0F, 1), this.getX(), this.getY() + 0.25D, this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                         serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 8.0F, 1), this.getX(), this.getY() + 0.25D, this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-                        serverLevel.sendParticles(new VerticalCircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 4.0F, 1), this.getX(), this.getY() + 0.25D, this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-                        serverLevel.sendParticles(new VerticalCircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 8.0F, 1), this.getX(), this.getY() + 0.25D, this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                        serverLevel.sendParticles(new SphereExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 4.0F, 1), this.getX(), this.getY() + 0.25D, this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                        serverLevel.sendParticles(new SphereExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 8.0F, 1), this.getX(), this.getY() + 0.25D, this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                         DustCloudParticleOption cloudParticleOptions = new DustCloudParticleOption(new Vector3f(Vec3.fromRGB24(16733695).toVector3f()), 1.0F);
                         for (int i = 0; i < 2; ++i) {
                             ServerParticleUtil.circularParticles(serverLevel, cloudParticleOptions, this.getX(), this.getY() + 0.25D, this.getZ(), 0, 0.14D, 0, 3.5F);

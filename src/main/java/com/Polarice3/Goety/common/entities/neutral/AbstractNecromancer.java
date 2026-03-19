@@ -392,7 +392,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                     } else if (this instanceof AbstractWitherNecromancer){
                         SoulJar.setWither(itemStack);
                     }
-                    SEHelper.addCooldown(player, itemStack.getItem(), MathHelper.secondsToTicks(ItemConfig.ReviveSecondsCool.get()));
+                    SEHelper.addSpecificCooldown(player, itemStack, MathHelper.secondsToTicks(ItemConfig.ReviveSecondsCool.get()));
                     if (!player.getInventory().add(itemStack)) {
                         player.drop(itemStack, false, true);
                     }

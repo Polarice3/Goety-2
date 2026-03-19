@@ -181,6 +181,9 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
         if (this.level != null && !this.level.isClientSide){
             int firstEmpty = getFirstEmptySlot();
             if (firstEmpty != -1) {
+                if (this.mode == Mode.BREWING && this.getOccupiedSlots() >= this.getCapacity()) {
+                    return fail();
+                }
                 this.setSacrificed(firstEmpty, entity.getType());
                 if (this.mode == Mode.BREWING) {
                     BrewingRecipe brewingRecipe = this.level.getRecipeManager().getAllRecipesFor(ModRecipeSerializer.BREWING_TYPE.get()).stream()
@@ -224,6 +227,12 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
             boolean activate = brewModifier instanceof CapacityModifier && brewModifier.getLevel() == 0;
             int firstEmpty = getFirstEmptySlot();
             if (firstEmpty != -1) {
+                if (this.mode == Mode.BREWING && !this.freeModifier(brewModifier) && !activate) {
+                    if (this.getOccupiedSlots() >= this.getCapacity()) {
+                        return fail();
+                    }
+                }
+
                 this.setItem(firstEmpty, itemStack);
                 if (this.mode == Mode.IDLE && this.getCapacity() < BrewConfig.InitialCapacity.get() && activate) {
                     this.clearContent();
@@ -633,6 +642,25 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
 
     public int getBrewCost() {
         return this.totalCost;
+    }
+
+    public boolean freeModifier(BrewModifier brewModifier) {
+        return brewModifier != null && (brewModifier.getId().equals(BrewModifier.HIDDEN) ||
+                        brewModifier.getId().equals(BrewModifier.SPLASH) ||
+                        brewModifier.getId().equals(BrewModifier.LINGERING)||
+                        brewModifier.getId().equals(BrewModifier.GAS) ||
+                        brewModifier.getId().equals(BrewModifier.AQUATIC) ||
+                        brewModifier.getId().equals(BrewModifier.FIRE_PROOF));
+    }
+
+    public int getOccupiedSlots() {
+        int count = 0;
+        for (int i = 0; i < this.getCapacity(); i++) {
+            if (!this.getItem(i).isEmpty() || this.getSacrificed(i) != null) {
+                count++;
+            }
+        }
+        return count;
     }
 
     public int getCapacityUsed(){

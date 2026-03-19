@@ -2,15 +2,18 @@ package com.Polarice3.Goety.common.magic.spells;
 
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.client.particles.SphereExplodeParticleOption;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
-import com.Polarice3.Goety.common.network.server.SSoulExplodePacket;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.*;
+import com.Polarice3.Goety.utils.ColorUtil;
+import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.RandomUtil;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -77,10 +80,9 @@ public class ShockwaveSpell extends Spell {
             }
         }
         ColorUtil colorUtil = new ColorUtil(0x2ac9cf);
-        worldIn.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius * 2, radius), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 0, 0, 0, 0, 0);
-        ServerParticleUtil.windShockwaveParticle(worldIn, colorUtil, radius, 0, -1, caster.position().add(0.0D, 0.5D, 0.0D));
+        worldIn.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius * 2, 1), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 0, 0, 0, 0, 0);
+        worldIn.sendParticles(new SphereExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius * 2, 1), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 1, 0, 0, 0, 0);
         float trueDamage = Mth.clamp(damage + RandomUtil.nextInt(worldIn.getRandom(), (int) (maxDamage - damage)), damage, maxDamage);
-        ModNetwork.sendToALL(new SSoulExplodePacket(caster.blockPosition(), radius));
         ModNetwork.sendToALL(new SPlayWorldSoundPacket(caster.blockPosition(), ModSounds.SOUL_EXPLODE.get(), 4.0F, 1.0F));
         MobUtil.explosionDamage(worldIn, caster, worldIn.damageSources().indirectMagic(caster, caster), caster.blockPosition(), radius, trueDamage);
     }

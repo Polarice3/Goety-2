@@ -137,7 +137,7 @@ public class FlyingItem extends SpellEntity implements ItemSupplier {
                         if (this.getOwner().getBoundingBox().inflate(1.0F).intersects(this.getBoundingBox())){
                             if (this.getOwner() instanceof Player player){
                                 if (this.getSecondsCool() > 0){
-                                    SEHelper.addCooldown(player, this.getItem().getItem(), MathHelper.secondsToTicks(this.getSecondsCool()));
+                                    SEHelper.addSpecificCooldown(player, this.getItem(), MathHelper.secondsToTicks(this.getSecondsCool()));
                                 }
                                 if (!player.getInventory().add(this.getItem())) {
                                     player.drop(this.getItem(), false, true);
@@ -155,7 +155,7 @@ public class FlyingItem extends SpellEntity implements ItemSupplier {
                 } else {
                     if (this.getOwner() instanceof Player player){
                         if (this.getSecondsCool() > 0){
-                            SEHelper.addCooldown(player, this.getItem().getItem(), MathHelper.secondsToTicks(this.getSecondsCool()));
+                            SEHelper.addSpecificCooldown(player, this.getItem(), MathHelper.secondsToTicks(this.getSecondsCool()));
                         }
                         if (!player.getInventory().add(this.getItem())) {
                             player.drop(this.getItem(), false, true);

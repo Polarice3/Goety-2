@@ -5,6 +5,7 @@ import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.PortalShockwaveParticleOption;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
+import com.Polarice3.Goety.client.particles.WindGatherParticleOption;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
@@ -442,6 +443,13 @@ public abstract class AbstractObsidianMonolith extends AbstractMonolith {
             int spawnChance = 256;
             if (this.empowered > 0) {
                 this.spreadNether();
+                int width = Mth.lerpInt(1.0F, 4, 7);
+                float height = Mth.lerp(1.0F, 0.1F, 0.3F);
+                if (this.tickCount % 10 == 0) {
+                    double dx = (this.random.nextDouble()) * (this.random.nextBoolean() ? 1 : -1);
+                    double dz = (this.random.nextDouble()) * (this.random.nextBoolean() ? 1 : -1);
+                    serverLevel.sendParticles(new WindGatherParticleOption(new ColorUtil(ChatFormatting.DARK_RED), width, height, 90, getId()), this.getX() + dx, this.getY() + this.getBbHeight(), this.getZ() + dz, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                }
                 if (MobsConfig.ObsidianMonolithSpawner.get()) {
                     int i = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(24.0D, 16.0D, 24.0D), livingEntity -> livingEntity.isAlive() && livingEntity instanceof Maverick).size();
                     if (this.tickCount % time == 0) {

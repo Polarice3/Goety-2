@@ -174,6 +174,10 @@ public class HostileRedstoneGolem extends HostileGolem {
         return this.entityData.get(ANIM_STATE);
     }
 
+    public boolean isCurrentAnimation(String animation) {
+        return this.getCurrentAnimation() == this.getAnimationState(animation);
+    }
+
     public void onSyncedDataUpdated(EntityDataAccessor<?> p_219422_) {
         if (ANIM_STATE.equals(p_219422_)) {
             if (this.level.isClientSide){
@@ -181,7 +185,6 @@ public class HostileRedstoneGolem extends HostileGolem {
                     case 0:
                         break;
                     case 1:
-                        this.idleAnimationState.startIfStopped(this.tickCount);
                         this.stopMostAnimation(this.idleAnimationState);
                         break;
                     case 2:
@@ -232,10 +235,6 @@ public class HostileRedstoneGolem extends HostileGolem {
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
         }
-    }
-
-    public boolean canAnimateMove(){
-        return super.canAnimateMove() && this.getCurrentAnimation() == this.getAnimationState(IDLE);
     }
 
     public boolean isAlliedTo(Entity pEntity) {
@@ -392,6 +391,7 @@ public class HostileRedstoneGolem extends HostileGolem {
         }
         if (this.level.isClientSide()) {
             if (this.isAlive()) {
+                this.idleAnimationState.animateWhen(!this.walkAnimation.isMoving() && this.isCurrentAnimation(IDLE), this.tickCount);
                 if (!this.isSummoning()){
                     this.glow();
                 }
@@ -614,7 +614,7 @@ public class HostileRedstoneGolem extends HostileGolem {
          */
         @Override
         public boolean canContinueToUse() {
-            return HostileRedstoneGolem.this.attackTick < 5;
+            return HostileRedstoneGolem.this.attackTick < MathHelper.secondsToTicks(1.3F);
         }
 
         @Override

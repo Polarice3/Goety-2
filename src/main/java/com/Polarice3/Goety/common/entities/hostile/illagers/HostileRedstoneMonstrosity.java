@@ -77,7 +77,6 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
     public static String ACTIVATE = "activate";
     public static String IDLE = "idle";
     public static String ATTACK = "attack";
-    public static String WALK = "walk";
     public static String SUMMON = "summon";
     public static String BELCH = "belch";
     public static String DEATH = "death";
@@ -101,7 +100,6 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
     public AnimationState activateAnimationState = new AnimationState();
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState attackAnimationState = new AnimationState();
-    public AnimationState walkAnimationState = new AnimationState();
     public AnimationState summonAnimationState = new AnimationState();
     public AnimationState belchAnimationState = new AnimationState();
     public AnimationState deathAnimationState = new AnimationState();
@@ -239,14 +237,12 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
             return 2;
         } else if (Objects.equals(animation, "attack")){
             return 3;
-        } else if (Objects.equals(animation, "walk")){
-            return 4;
         } else if (Objects.equals(animation, "summon")){
-            return 5;
+            return 4;
         } else if (Objects.equals(animation, "belch")){
-            return 6;
+            return 5;
         } else if (Objects.equals(animation, "death")){
-            return 7;
+            return 6;
         } else {
             return 0;
         }
@@ -256,7 +252,6 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
         List<AnimationState> animationStates = new ArrayList<>();
         animationStates.add(this.activateAnimationState);
         animationStates.add(this.idleAnimationState);
-        animationStates.add(this.walkAnimationState);
         animationStates.add(this.attackAnimationState);
         animationStates.add(this.summonAnimationState);
         animationStates.add(this.belchAnimationState);
@@ -276,6 +271,10 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
         return this.entityData.get(ANIM_STATE);
     }
 
+    public boolean isCurrentAnimation(String animation) {
+        return this.getCurrentAnimation() == this.getAnimationState(animation);
+    }
+
     public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
         if (ANIM_STATE.equals(accessor)) {
             if (this.level.isClientSide){
@@ -287,7 +286,6 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
                         this.stopMostAnimation(this.activateAnimationState);
                         break;
                     case 2:
-                        this.idleAnimationState.startIfStopped(this.tickCount);
                         this.stopMostAnimation(this.idleAnimationState);
                         break;
                     case 3:
@@ -295,18 +293,14 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
                         this.stopMostAnimation(this.attackAnimationState);
                         break;
                     case 4:
-                        this.walkAnimationState.startIfStopped(this.tickCount);
-                        this.stopMostAnimation(this.walkAnimationState);
-                        break;
-                    case 5:
                         this.summonAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.summonAnimationState);
                         break;
-                    case 6:
+                    case 5:
                         this.belchAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.belchAnimationState);
                         break;
-                    case 7:
+                    case 6:
                         this.deathAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.deathAnimationState);
                         break;
@@ -389,10 +383,6 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
     @Override
     public SoundEvent getCelebrateSound() {
         return ModSounds.REDSTONE_MONSTROSITY_AMBIENT.get();
-    }
-
-    public boolean canAnimateMove(){
-        return super.canAnimateMove() && this.getCurrentAnimation() == this.getAnimationState(WALK);
     }
 
     @Override
@@ -533,6 +523,9 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
             }
         }
         MiscCapHelper.updateMobTarget(this);
+        if (this.level.isClientSide) {
+            this.idleAnimationState.animateWhen(this.isCurrentAnimation(IDLE) && !this.walkAnimation.isMoving(), this.tickCount);
+        }
         if (!this.level.isClientSide){
             if (this.isAlive() && !this.isActivating()) {
                 if (MobsConfig.RedstoneMonstrosityLeafBreak.get()) {
@@ -551,11 +544,7 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
                 }
                 if (!this.isMeleeAttacking() && !this.isBelching() && !this.isSummoning()) {
                     this.level.broadcastEntityEvent(this, (byte) 7);
-                    if (this.isMoving()) {
-                        this.setAnimationState(WALK);
-                    } else {
-                        this.setAnimationState(IDLE);
-                    }
+                    this.setAnimationState(IDLE);
                 }
                 if (this.isMeleeAttacking()) {
                     ++this.attackTick;

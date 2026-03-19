@@ -4,10 +4,10 @@ import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.BlackBeast;
 import com.Polarice3.Goety.common.entities.ally.BlackWolf;
-import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.ritual.RitualRequirements;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.particles.ParticleTypes;
@@ -62,7 +62,7 @@ public class HowlingSoul extends ReviveServantItem {
                             blackBeast.playSound(ModSounds.BLACK_BEAST_ROAR.get(), 2.0F, 0.5F);
                             target.discard();
                             player.swing(hand);
-                            player.getCooldowns().addCooldown(ModItems.HOWLING_SOUL.get(), MathHelper.secondsToTicks(30));
+                            SEHelper.addCooldown(player, this, MathHelper.secondsToTicks(5));
                             stack.shrink(1);
                         }
                     }

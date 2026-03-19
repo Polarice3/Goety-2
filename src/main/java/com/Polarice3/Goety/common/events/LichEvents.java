@@ -4,6 +4,8 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.particles.LichShockwaveParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SPlayFollowSoundPacket;
 import com.Polarice3.Goety.compat.iron.IronAttributes;
 import com.Polarice3.Goety.compat.iron.IronLoaded;
 import com.Polarice3.Goety.config.MainConfig;
@@ -121,7 +123,7 @@ public class LichEvents {
                             MiscCapHelper.doAmbientSoundTime(player);
                             if (MiscCapHelper.getAmbientSoundTime(player) > player.getRandom().nextInt(1000)) {
                                 MiscCapHelper.setAmbientSoundTime(player, -MathHelper.secondsToTicks(4));
-                                player.playSound(ModSounds.LICH_AMBIENT.get(), 1.0F, player.getVoicePitch());
+                                ModNetwork.sentToTrackingEntityAndPlayer(player, new SPlayFollowSoundPacket(player, ModSounds.LICH_AMBIENT.get(), 1.0F, player.getVoicePitch(), false));
                             }
                         }
                     }

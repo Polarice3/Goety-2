@@ -528,4 +528,12 @@ public class ModParticleTypes {
                     return SlamParticleOption.CODEC;
                 }
             });
+
+    public static final RegistryObject<ParticleType<SphereExplodeParticleOption>> SPHERE_EXPLODE = PARTICLE_TYPES.register("sphere_explode",
+            () -> new ParticleType<>(false, SphereExplodeParticleOption.DESERIALIZER) {
+                @Override
+                public Codec<SphereExplodeParticleOption> codec() {
+                    return SphereExplodeParticleOption.CODEC;
+                }
+            });
 }

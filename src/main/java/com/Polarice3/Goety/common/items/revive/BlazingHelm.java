@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.entities.neutral.Wildfire;
 import com.Polarice3.Goety.common.ritual.RitualRequirements;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.particles.ParticleTypes;
@@ -65,7 +66,7 @@ public class BlazingHelm extends ReviveServantItem{
                             wildfire.playSound(ModSounds.WILDFIRE_AMBIENT.get(), 2.0F, 0.5F);
                             target.discard();
                             player.swing(hand);
-                            player.getCooldowns().addCooldown(this, MathHelper.secondsToTicks(30));
+                            SEHelper.addCooldown(player, this, MathHelper.secondsToTicks(5));
                             stack.shrink(1);
                         }
                     }

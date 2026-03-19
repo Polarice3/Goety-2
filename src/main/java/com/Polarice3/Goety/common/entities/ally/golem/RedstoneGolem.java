@@ -145,7 +145,7 @@ public class RedstoneGolem extends RaiderGolemServant {
     }
 
     public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return new ClientboundAddEntityPacket((LivingEntity)this, this.hasPose(Pose.EMERGING) ? 1 : 0);
+        return new ClientboundAddEntityPacket(this, this.hasPose(Pose.EMERGING) ? 1 : 0);
     }
 
     public void recreateFromPacket(ClientboundAddEntityPacket p_219420_) {
@@ -200,6 +200,10 @@ public class RedstoneGolem extends RaiderGolemServant {
         return this.entityData.get(ANIM_STATE);
     }
 
+    public boolean isCurrentAnimation(String animation) {
+        return this.getCurrentAnimation() == this.getAnimationState(animation);
+    }
+
     public void onSyncedDataUpdated(EntityDataAccessor<?> p_219422_) {
         if (ANIM_STATE.equals(p_219422_)) {
             if (this.level.isClientSide){
@@ -211,7 +215,6 @@ public class RedstoneGolem extends RaiderGolemServant {
                         this.stopMostAnimation(this.activateAnimationState);
                         break;
                     case 2:
-                        this.idleAnimationState.startIfStopped(this.tickCount);
                         this.stopMostAnimation(this.idleAnimationState);
                         break;
                     case 3:
@@ -231,7 +234,6 @@ public class RedstoneGolem extends RaiderGolemServant {
                         this.toStandAnimationState.startIfStopped(this.tickCount);
                         break;
                     case 7:
-                        this.sitAnimationState.startIfStopped(this.tickCount);
                         this.stopMostAnimation(this.sitAnimationState);
                         break;
                     case 8:
@@ -280,10 +282,6 @@ public class RedstoneGolem extends RaiderGolemServant {
             this.setPose(Pose.EMERGING);
         }
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
-    }
-
-    public boolean canAnimateMove(){
-        return super.canAnimateMove() && this.getCurrentAnimation() == this.getAnimationState(IDLE);
     }
 
     @Override
@@ -458,6 +456,8 @@ public class RedstoneGolem extends RaiderGolemServant {
         }
         if (this.level.isClientSide()) {
             if (this.isAlive() && !this.isActivating()) {
+                this.idleAnimationState.animateWhen(!this.walkAnimation.isMoving() && this.isCurrentAnimation(IDLE), this.tickCount);
+                this.sitAnimationState.animateWhen(!this.walkAnimation.isMoving() && this.isCurrentAnimation(SIT), this.tickCount);
                 if (!this.isSummoning()){
                     this.glow();
                 }
@@ -572,7 +572,7 @@ public class RedstoneGolem extends RaiderGolemServant {
                             }
                         }
                     } else {
-                        if (this.getCurrentAnimation() == this.getAnimationState(SUMMON)){
+                        if (this.isCurrentAnimation(SUMMON)){
                             this.setAnimationState(IDLE);
                         }
                     }
@@ -746,7 +746,7 @@ public class RedstoneGolem extends RaiderGolemServant {
          */
         @Override
         public boolean canContinueToUse() {
-            return RedstoneGolem.this.attackTick < 5;
+            return RedstoneGolem.this.attackTick < MathHelper.secondsToTicks(1.3F);
         }
 
         @Override

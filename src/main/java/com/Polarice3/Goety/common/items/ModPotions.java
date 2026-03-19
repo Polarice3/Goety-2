@@ -20,5 +20,5 @@ public class ModPotions {
     public static final RegistryObject<Potion> LONG_CLIMBING = POTIONS.register("long_climbing", () -> new Potion("climbing", new MobEffectInstance(GoetyEffects.CLIMBING.get(), 9600)));
 
     public static final RegistryObject<Potion> SPASMS = POTIONS.register("spasms", () -> new Potion(new MobEffectInstance(GoetyEffects.SPASMS.get(), 900)));
-    public static final RegistryObject<Potion> LONG_SPASMS = POTIONS.register("long_spasms", () -> new Potion("climbing", new MobEffectInstance(GoetyEffects.SPASMS.get(), 1800)));
+    public static final RegistryObject<Potion> LONG_SPASMS = POTIONS.register("long_spasms", () -> new Potion("spasms", new MobEffectInstance(GoetyEffects.SPASMS.get(), 1800)));
 }

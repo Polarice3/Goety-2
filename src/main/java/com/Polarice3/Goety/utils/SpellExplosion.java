@@ -6,7 +6,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -16,6 +15,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.Tags;
 
 import java.util.List;
 
@@ -79,7 +79,7 @@ public class SpellExplosion {
         if (target instanceof LivingEntity) {
             d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) target, seen);
         }
-        if (damageSource.is(DamageTypes.MAGIC)){
+        if (damageSource.is(Tags.DamageTypes.IS_MAGIC)){
             if (target instanceof AbstractCyclone cyclone && (cyclone.getTrueOwner() == null || damageSource.getEntity() == null || !MobUtil.areAllies(damageSource.getEntity(), cyclone.getTrueOwner()))){
                 cyclone.trueRemove();
             }
