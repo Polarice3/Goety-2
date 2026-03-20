@@ -16,6 +16,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class GoetyEffects {
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, Goety.MOD_ID);
 
+    @SuppressWarnings("removal")
     public static void init(){
         EFFECTS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }

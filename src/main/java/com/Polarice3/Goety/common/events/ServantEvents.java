@@ -452,6 +452,7 @@ public class ServantEvents {
     }
 
     @SubscribeEvent
+    @SuppressWarnings("removal")
     public static void ServantProjectileImpact(ProjectileImpactEvent event){
         if (event.getProjectile().getOwner() instanceof FrozenZombieServant frozenZombieServant){
             if (event.getRayTraceResult() instanceof EntityHitResult entityHitResult){

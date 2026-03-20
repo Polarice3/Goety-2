@@ -139,7 +139,6 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
     }
 
-    @SuppressWarnings("removal")
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.RedstoneMonstrosityHealth.get())

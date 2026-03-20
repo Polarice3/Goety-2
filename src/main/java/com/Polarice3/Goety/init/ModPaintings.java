@@ -10,6 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModPaintings {
     public static final DeferredRegister<PaintingVariant> PAINTING_VARIANTS = DeferredRegister.create(ForgeRegistries.PAINTING_VARIANTS, Goety.MOD_ID);
 
+    @SuppressWarnings("removal")
     public static void init(){
         ModPaintings.PAINTING_VARIANTS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }

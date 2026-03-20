@@ -167,7 +167,6 @@ public class AbstractBroodMother extends Summoned implements IAutoRideable, Play
         });
     }
 
-    @SuppressWarnings("removal")
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.BroodMotherHealth.get())

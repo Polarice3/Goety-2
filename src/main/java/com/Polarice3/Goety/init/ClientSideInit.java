@@ -13,6 +13,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @OnlyIn(Dist.CLIENT)
 public class ClientSideInit extends SidedInit {
 
+    @SuppressWarnings("removal")
     public void init() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupParticles);
     }

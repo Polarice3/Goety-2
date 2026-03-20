@@ -94,7 +94,6 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
         });
     }
 
-    @SuppressWarnings("removal")
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.SquallGolemHealth.get())

@@ -14,6 +14,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModPotPatterns {
     public static final DeferredRegister<String> POT_PATTERNS = DeferredRegister.create(Registries.DECORATED_POT_PATTERNS, Goety.MOD_ID);
 
+    @SuppressWarnings("removal")
     public static void init(){
         ModPotPatterns.POT_PATTERNS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }

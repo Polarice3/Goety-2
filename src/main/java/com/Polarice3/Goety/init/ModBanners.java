@@ -10,6 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModBanners {
     public static final DeferredRegister<BannerPattern> BANNER_PATTERNS = DeferredRegister.create(Registries.BANNER_PATTERN, Goety.MOD_ID);
 
+    @SuppressWarnings("removal")
     public static void init(){
         BANNER_PATTERNS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }

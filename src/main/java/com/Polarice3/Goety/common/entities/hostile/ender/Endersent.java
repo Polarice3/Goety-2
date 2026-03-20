@@ -142,7 +142,6 @@ public class Endersent extends AbstractEnderling implements Enemy {
         });
     }
 
-    @SuppressWarnings("removal")
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.EndersentHealth.get())

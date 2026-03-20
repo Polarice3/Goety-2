@@ -443,8 +443,8 @@ public abstract class AbstractObsidianMonolith extends AbstractMonolith {
             int spawnChance = 256;
             if (this.empowered > 0) {
                 this.spreadNether();
-                int width = Mth.lerpInt(1.0F, 4, 7);
-                float height = Mth.lerp(1.0F, 0.1F, 0.3F);
+                int width = 7;
+                float height = 0.3F;
                 if (this.tickCount % 10 == 0) {
                     double dx = (this.random.nextDouble()) * (this.random.nextBoolean() ? 1 : -1);
                     double dz = (this.random.nextDouble()) * (this.random.nextBoolean() ? 1 : -1);

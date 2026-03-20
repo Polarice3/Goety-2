@@ -81,7 +81,10 @@ public class TotemicBomb extends AbstractMonolith{
         if (!pSource.is(DamageTypeTags.BYPASSES_ARMOR)) {
             this.playSound(ModSounds.BOMB_SPARKLE.get());
         }
-        return pSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY);
+        if (pSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+            return super.hurt(pSource, pAmount);
+        }
+        return false;
     }
 
     @Override

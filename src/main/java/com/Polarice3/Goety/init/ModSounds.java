@@ -10,6 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModSounds {
     public static DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Goety.MOD_ID);
 
+    @SuppressWarnings("removal")
     public static void init(){
         SOUNDS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }

@@ -731,6 +731,7 @@ public class PotionEvents {
     }
 
     @SubscribeEvent
+    @SuppressWarnings("removal")
     public static void onDeflectImpact(ProjectileImpactEvent event) {
         Entity entity = event.getEntity();
         if (entity instanceof Projectile arrow) {

@@ -22,7 +22,6 @@ public class RedstoneMinistrosity extends StoneMinistrosity {
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
     }
 
-    @SuppressWarnings("removal")
     public static AttributeSupplier.Builder setCustomAttributes(){
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.RedstoneMinistrosityHealth.get())

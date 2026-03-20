@@ -82,6 +82,7 @@ public class CuriosIntegration implements ICompatable {
             .put(ModItems.SPITEFUL_BELT.get(), "belt")
             .build();
 
+    @SuppressWarnings("removal")
     public void setup(FMLCommonSetupEvent event) {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::sendImc);
         MinecraftForge.EVENT_BUS.addListener(this::registerCapabilities);

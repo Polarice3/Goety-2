@@ -55,7 +55,6 @@ public class StoneMinistrosity extends RaiderGolemServant {
         });
     }
 
-    @SuppressWarnings("removal")
     public static AttributeSupplier.Builder setCustomAttributes(){
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.StoneMinistrosityHealth.get())

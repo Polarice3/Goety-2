@@ -21,6 +21,7 @@ import java.util.Optional;
 public class ModAttributes {
     private static final DeferredRegister<Attribute> ATTRIBUTES = DeferredRegister.create(ForgeRegistries.ATTRIBUTES, Goety.MOD_ID);
 
+    @SuppressWarnings("removal")
     public static void init(){
         ATTRIBUTES.register(FMLJavaModLoadingContext.get().getModEventBus());
     }

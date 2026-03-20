@@ -11,6 +11,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class ServantSpawnEggs {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Goety.MOD_ID);
 
+    @SuppressWarnings("removal")
     public static void init(){
         ServantSpawnEggs.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }

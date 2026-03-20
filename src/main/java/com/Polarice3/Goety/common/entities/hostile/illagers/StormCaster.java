@@ -76,7 +76,6 @@ public class StormCaster extends HuntingIllagerEntity{
         });
     }
 
-    @SuppressWarnings("removal")
     public static AttributeSupplier.Builder setCustomAttributes(){
         return Mob.createMobAttributes()
                 .add(Attributes.FOLLOW_RANGE, 16.0D)

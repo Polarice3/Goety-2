@@ -62,7 +62,15 @@ public class TotemicWall extends AbstractMonolith{
         if (!pSource.is(DamageTypeTags.BYPASSES_ARMOR)) {
             this.playSound(ModSounds.WALL_HIT.get());
         }
-        return pSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY);
+        if (pSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+            return super.hurt(pSource, pAmount);
+        }
+        return false;
+    }
+
+    @Override
+    public void kill() {
+        super.kill();
     }
 
     @Override

@@ -79,7 +79,7 @@ public class SpellExplosion {
         if (target instanceof LivingEntity) {
             d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) target, seen);
         }
-        if (damageSource.is(Tags.DamageTypes.IS_MAGIC)){
+        if (damageSource.is(DamageTypeTags.WITCH_RESISTANT_TO)){
             if (target instanceof AbstractCyclone cyclone && (cyclone.getTrueOwner() == null || damageSource.getEntity() == null || !MobUtil.areAllies(damageSource.getEntity(), cyclone.getTrueOwner()))){
                 cyclone.trueRemove();
             }

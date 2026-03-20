@@ -14,7 +14,6 @@ import java.util.UUID;
 public class WayfarersBeltItem extends SingleStackItem {
 
     @Override
-    @SuppressWarnings("removal")
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext,
                                                                         UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> map = HashMultimap.create();

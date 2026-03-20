@@ -17,6 +17,7 @@ public class ModRecipeSerializer {
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(
             ForgeRegistries.RECIPE_SERIALIZERS, Goety.MOD_ID);
 
+    @SuppressWarnings("removal")
     public static void init(){
         RECIPE_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
         RECIPE_SERIALIZERS.register(FMLJavaModLoadingContext.get().getModEventBus());

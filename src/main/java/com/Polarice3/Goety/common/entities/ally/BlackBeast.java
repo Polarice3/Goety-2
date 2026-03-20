@@ -139,7 +139,6 @@ public class BlackBeast extends Summoned{
         this.targetSelector.addGoal(7, new NaturalAttackGoal<>(this, AbstractSkeleton.class, false));
     }
 
-    @SuppressWarnings("removal")
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.28D)

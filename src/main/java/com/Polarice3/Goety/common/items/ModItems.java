@@ -53,6 +53,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModItems {
     public static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Goety.MOD_ID);
 
+    @SuppressWarnings("removal")
     public static void init(){
         ModItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }

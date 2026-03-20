@@ -136,15 +136,14 @@ import static net.minecraftforge.fml.loading.LogMarkers.CORE;
 public class Goety {
     public static final String MOD_ID = "goety";
     public static final Logger LOGGER = LogUtils.getLogger();
-    @SuppressWarnings("removal")
     public static ModProxy PROXY = net.minecraftforge.fml.DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
-    @SuppressWarnings("removal")
     public static SidedInit SIDED_INIT = net.minecraftforge.fml.DistExecutor.unsafeRunForDist(() -> ClientSideInit::new, () -> SidedInit::new);
 
     public static ResourceLocation location(String path) {
         return new ResourceLocation(MOD_ID, path);
     }
 
+    @SuppressWarnings("removal")
     public Goety() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 

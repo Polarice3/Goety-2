@@ -12,6 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModPotions {
     public static DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, Goety.MOD_ID);
 
+    @SuppressWarnings("removal")
     public static void init(){
         ModPotions.POTIONS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }

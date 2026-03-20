@@ -43,6 +43,7 @@ public class ModBlocks {
     public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Goety.MOD_ID);
     public static final Map<ResourceLocation, BlockLootSetting> BLOCK_LOOT = new HashMap<>();
 
+    @SuppressWarnings("removal")
     public static void init(){
         ModBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
