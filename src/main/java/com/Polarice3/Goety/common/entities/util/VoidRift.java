@@ -199,7 +199,7 @@ public class VoidRift extends CastSpellTrap {
                             }
                         }
                         if (this.getOwner() != null) {
-                            if (entity != this.getOwner() && !MobUtil.areAllies(this.getOwner(), entity)) {
+                            if (!MobUtil.areAllies(this.getOwner(), entity) && MobUtil.getOwner(entity) != this.getOwner()) {
                                 targets.add(entity);
                             }
                         } else {

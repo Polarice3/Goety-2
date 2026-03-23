@@ -26,6 +26,11 @@ import java.util.function.Predicate;
 
 public class HauntedSkullSpell extends SummonSpell {
 
+    @Override
+    public SpellStat defaultStats() {
+        return super.defaultStats().setRadius(0.0D);
+    }
+
     public int defaultSoulCost() {
         return SpellConfig.HauntedSkullCost.get();
     }
@@ -90,7 +95,7 @@ public class HauntedSkullSpell extends SummonSpell {
             potency += WandUtil.getPotencyLevel(caster);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), caster) + 1;
             burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
-            radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
+            radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster) / 2.0D;
         }
         if (!isShifting(caster)) {
             int i = 1;
@@ -106,9 +111,7 @@ public class HauntedSkullSpell extends SummonSpell {
                 summonedentity.setBoundOrigin(blockpos);
                 summonedentity.setLimitedLife(MathHelper.minutesToTicks(1) * duration);
                 this.buffSummon(caster, summonedentity, potency);
-                if (radius > 0) {
-                    summonedentity.setExplosionPower((float) (1.0F + radius / 4.0F));
-                }
+                summonedentity.setExplosionPower((float) (summonedentity.getExplosionPower() + radius));
                 if (burning > 0) {
                     summonedentity.setBurning(burning);
                 }

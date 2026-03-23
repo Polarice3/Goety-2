@@ -6,6 +6,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
 import com.Polarice3.Goety.common.entities.ai.WitchServantBarterGoal;
+import com.Polarice3.Goety.common.entities.ally.Hellhound;
 import com.Polarice3.Goety.common.entities.ally.MagmaCubeServant;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.neutral.AbstractObsidianMonolith;
@@ -563,9 +564,11 @@ public class HereticServant extends CultistServant implements IHeretic {
                     }
                     if (this.castingTime == TOTAL_CAST_TIME){
                         Summoned summon = new ZPiglinServant(ModEntityType.ZPIGLIN_SERVANT.get(), this.heretic.level);
-                        if (this.heretic.random.nextFloat() <= 0.25F){
+                        if (this.heretic.getRandom().nextFloat() <= 0.5F){
+                            summon = new Hellhound(ModEntityType.HELLHOUND.get(), this.heretic.level);
+                        } else if (this.heretic.getRandom().nextFloat() <= 0.25F){
                             summon = new MagmaCubeServant(ModEntityType.MAGMA_CUBE_SERVANT.get(), this.heretic.level);
-                        } else if (this.heretic.random.nextFloat() <= 0.05F){
+                        } else if (this.heretic.getRandom().nextFloat() <= 0.05F){
                             summon = new BlazeServant(ModEntityType.BLAZE_SERVANT.get(), this.heretic.level);
                         }
                         summon.moveTo(this.targetPos);

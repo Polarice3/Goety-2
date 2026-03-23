@@ -363,6 +363,10 @@ public class HostileRedstoneGolem extends HostileGolem {
         super.die(p_21014_);
     }
 
+    public boolean canAnimateMove(){
+        return this.isCurrentAnimation(IDLE);
+    }
+
     public void stopMostAnimations(AnimationState animationState0){
         for (AnimationState animationState : this.getAnimations()){
             if (animationState != animationState0) {

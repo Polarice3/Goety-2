@@ -365,6 +365,11 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
         }
     }
 
+    @Override
+    public boolean canAnimateMove() {
+        return this.isCurrentAnimation(IDLE);
+    }
+
     public int getCurrentAnimation(){
         return this.entityData.get(ANIM_STATE);
     }

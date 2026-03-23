@@ -118,7 +118,8 @@ public class MagicLightningTrap extends AbstractTrap {
     }
 
     public void damageEntities() {
-        List<Entity> list1 = this.level.getEntities(this, new AABB(this.getX() - 3.0D, this.getY() - 3.0D, this.getZ() - 3.0D, this.getX() + 3.0D, this.getY() + 6.0D + 3.0D, this.getZ() + 3.0D), this::canHitEntity);
+        double actualRadius = this.radius() * 2.0D;
+        List<Entity> list1 = this.level.getEntities(this, new AABB(this.getX() - actualRadius, this.getY() - actualRadius, this.getZ() - actualRadius, this.getX() + actualRadius, this.getY() + 6.0D + actualRadius, this.getZ() + actualRadius), this::canHitEntity);
         for(Entity entity : list1) {
             if (entity instanceof LivingEntity livingEntity) {
                 if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)) {

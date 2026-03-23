@@ -96,7 +96,9 @@ public class RedstoneMonstrosityModel<T extends LivingEntity & IRM> extends Hier
 		if (!entity.isSummoning() && !entity.isBelching() && !entity.isDeadOrDying()) {
 			this.animateHeadLookTarget(netHeadYaw, headPitch);
 		}
-		this.animateWalk(RedstoneMonstrosityAnimations.WALK, limbSwing, limbSwingAmount, 2.5F, 20.0F);
+		if (entity.canAnimateMove()) {
+			this.animateWalk(RedstoneMonstrosityAnimations.WALK, limbSwing, limbSwingAmount, 2.5F, 20.0F);
+		}
 		if (entity instanceof RedstoneMonstrosity redstoneMonstrosity) {
 			this.animate(redstoneMonstrosity.activateAnimationState, RedstoneMonstrosityAnimations.ACTIVATE, ageInTicks);
 			this.animate(redstoneMonstrosity.idleAnimationState, RedstoneMonstrosityAnimations.IDLE, ageInTicks);

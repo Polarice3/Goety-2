@@ -545,10 +545,13 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
         if (this.getInvulnerableTicks() > 0 && !pSource.is(DamageTypes.FELL_OUT_OF_WORLD)){
             return false;
         }
+        if (this.moddedInvul > 0){
+            return false;
+        }
         if (livingEntity != null){
             if (pSource.getEntity() instanceof Irk irk && irk.getTarget() != this){
                 return false;
-            } else {
+            } else if (pAmount > 0.0F) {
                 if (!MobsConfig.VizierMinion.get()) {
                     int irks = this.level.getEntitiesOfClass(Irk.class, this.getBoundingBox().inflate(32)).size();
                     if ((this.level.random.nextBoolean() || this.getHealth() < this.getMaxHealth()/2) && irks < 16) {
@@ -572,10 +575,6 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
                     }
                 }
             }
-        }
-
-        if (this.moddedInvul > 0){
-            return false;
         }
 
         if (this.isSpellcasting() && !pSource.is(DamageTypes.FELL_OUT_OF_WORLD)){

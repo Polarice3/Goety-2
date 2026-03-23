@@ -115,7 +115,9 @@ public class WhispererModel<T extends Whisperer> extends HierarchicalModel<T> {
 			this.animateHeadLookTarget(netHeadYaw, headPitch);
 		}
 		this.animate(entity.idleAnimationState, WhispererAnimations.IDLE, ageInTicks);
-		this.animateWalk(WhispererAnimations.WALK, limbSwing, limbSwingAmount, 2.5F, 20.0F);
+		if (entity.isCurrentAnimation(Whisperer.IDLE)) {
+			this.animateWalk(WhispererAnimations.WALK, limbSwing, limbSwingAmount, 2.5F, 20.0F);
+		}
 		this.animate(entity.attackAnimationState, WhispererAnimations.ATTACK, ageInTicks);
 		this.animate(entity.summonAnimationState, WhispererAnimations.SUMMON, ageInTicks);
 		this.animate(entity.summonPoisonAnimationState, WhispererAnimations.SUMMON_POISON, ageInTicks);

@@ -407,6 +407,10 @@ public class RedstoneGolem extends RaiderGolemServant {
         super.die(p_21014_);
     }
 
+    public boolean canAnimateMove(){
+        return this.isCurrentAnimation(IDLE);
+    }
+
     public EntityDimensions getDimensions(Pose p_29531_) {
         if (this.isSitting()) {
             return super.getDimensions(p_29531_).scale(1.0F, 0.85F);

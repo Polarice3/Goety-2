@@ -5,6 +5,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
+import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.SEHelper;
@@ -37,7 +38,7 @@ public class CommandHorn extends Item {
     public static String STAND_BY = "Stand_By";
     public static String GUARD = "Guard";
     public static String NONE = "None";
-    public static float RANGE = 8.0F;
+    public static float RANGE = ItemConfig.CommandHornDiameter.get().floatValue();
 
     public CommandHorn() {
         super(new Item.Properties().stacksTo(1));

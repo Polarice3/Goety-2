@@ -266,6 +266,11 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
         }
     }
 
+    @Override
+    public boolean canAnimateMove() {
+        return this.isCurrentAnimation(IDLE);
+    }
+
     public int getCurrentAnimation(){
         return this.entityData.get(ANIM_STATE);
     }

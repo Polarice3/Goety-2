@@ -22,6 +22,7 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SpitefulBeltUseAmount;
     public static final ForgeConfigSpec.ConfigValue<Integer> TesseractCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> TesseractDurability;
+    public static final ForgeConfigSpec.ConfigValue<Double> CommandHornDiameter;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WitchRobeResistance;
     public static final ForgeConfigSpec.ConfigValue<Integer> WarlockRobeResistance;
@@ -193,6 +194,8 @@ public class ItemConfig {
                 .defineInRange("tesseractCapacity", 16, 1, Integer.MAX_VALUE);
         TesseractDurability = BUILDER.comment("How many uses before Tesseract is disabled, Default: 16")
                 .defineInRange("tesseractDurability", 16, 1, Integer.MAX_VALUE);
+        CommandHornDiameter = BUILDER.comment("How far the diameter of Command Horns reach, Default: 8.0")
+                .defineInRange("commandHornDiameter", 8.0D, 1.0D, Double.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Curios");
             BUILDER.push("Robes");

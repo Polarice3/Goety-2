@@ -123,7 +123,9 @@ public class LichEvents {
                             MiscCapHelper.doAmbientSoundTime(player);
                             if (MiscCapHelper.getAmbientSoundTime(player) > player.getRandom().nextInt(1000)) {
                                 MiscCapHelper.setAmbientSoundTime(player, -MathHelper.secondsToTicks(4));
-                                ModNetwork.sentToTrackingEntityAndPlayer(player, new SPlayFollowSoundPacket(player, ModSounds.LICH_AMBIENT.get(), 1.0F, player.getVoicePitch(), false));
+                                if (!player.level.isClientSide) {
+                                    ModNetwork.sentToTrackingEntityAndPlayer(player, new SPlayFollowSoundPacket(player, ModSounds.LICH_AMBIENT.get(), 1.0F, player.getVoicePitch(), false));
+                                }
                             }
                         }
                     }

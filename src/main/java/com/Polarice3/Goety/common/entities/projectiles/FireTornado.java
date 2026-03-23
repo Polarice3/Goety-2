@@ -90,7 +90,7 @@ public class FireTornado extends AbstractCyclone {
     public void hurtMobs(LivingEntity living){
         if (this.getTrueOwner() != null) {
             if (CuriosFinder.hasUnholySet(this.getTrueOwner())) {
-                if (living.hurt(ModDamageSource.hellfire(this, this.getTrueOwner()), AttributesConfig.ApostleMagicDamage.get().floatValue() / 1.5F)){
+                if (living.hurt(ModDamageSource.hellfire(this, this.getTrueOwner()), (AttributesConfig.ApostleMagicDamage.get().floatValue() / 1.5F) + this.getDamage())){
                     living.addEffect(new MobEffectInstance(GoetyEffects.BURN_HEX.get(), 1200));
                 }
             } else {
