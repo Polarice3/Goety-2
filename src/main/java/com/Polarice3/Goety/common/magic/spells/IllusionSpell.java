@@ -54,67 +54,69 @@ public class IllusionSpell extends Spell {
         for (Entity entity : worldIn.getAllEntities()) {
             if (entity instanceof Doppelganger doppelganger) {
                 if (doppelganger.getTrueOwner() == caster && doppelganger.tickCount > 10) {
-                    doppelganger.die(caster.damageSources().starve());
+                    doppelganger.dismiss();
                 }
             }
         }
-        int i0 = 4;
-        if (staff.is(ModItems.NAMELESS_STAFF.get())){
-            i0 = 8;
-        }
-        boolean undead = CuriosFinder.hasNamelessSet(caster) && staff.is(ModItems.NAMELESS_STAFF.get());
-        ParticleOptions particleOptions = ParticleTypes.POOF;
-        if (undead){
-            particleOptions = ModParticleTypes.LICH.get();
-        }
-        for (int i1 = 0; i1 < i0; ++i1) {
-            Doppelganger summonedentity = new Doppelganger(ModEntityType.DOPPELGANGER.get(), worldIn);
-            summonedentity.setTrueOwner(caster);
-            if (caster instanceof Player player) {
-                ModNetwork.sendTo(player, new SSetPlayerOwnerPacket(summonedentity));
+        if (!this.isShifting(caster)) {
+            int i0 = 4;
+            if (staff.is(ModItems.NAMELESS_STAFF.get())) {
+                i0 = 8;
             }
-            Vec3 vec3 = BlockFinder.SummonRadius(caster.blockPosition(), summonedentity, worldIn).getCenter();
-            summonedentity.setPos(vec3);
-            summonedentity.setUndeadClone(undead);
-            summonedentity.setLimitedLife(undead ? MathHelper.secondsToTicks(2.875F) : 1200);
-            summonedentity.setPersistenceRequired();
-            summonedentity.setUpgraded(CuriosFinder.hasIllusionRobe(caster));
-            summonedentity.finalizeSpawn(worldIn, caster.level.getCurrentDifficultyAt(BlockFinder.SummonRadius(caster.blockPosition(), summonedentity, worldIn)), MobSpawnType.MOB_SUMMONED, null, null);
-            LivingEntity target = this.getTarget(caster);
-            if (target != null) {
-                double d2 = target.getX() - summonedentity.getX();
-                double d1 = target.getZ() - summonedentity.getZ();
-                summonedentity.setYRot(-((float)Mth.atan2(d2, d1)) * (180F / (float)Math.PI));
-                if (undead){
-                    float f = (float) Mth.atan2(d1, d2);
-                    float f2 = f + (float) i1 * (float) Math.PI * 0.25F + 4.0F;
-                    vec3 = new Vec3(target.getX() + (double) Mth.cos(f2) * 4.0D, target.getY(), target.getZ() + (double) Mth.sin(f2) * 4.0D);
-                    summonedentity.setPos(vec3);
+            boolean undead = CuriosFinder.hasNamelessSet(caster) && staff.is(ModItems.NAMELESS_STAFF.get());
+            ParticleOptions particleOptions = ParticleTypes.POOF;
+            if (undead) {
+                particleOptions = ModParticleTypes.LICH.get();
+            }
+            for (int i1 = 0; i1 < i0; ++i1) {
+                Doppelganger summonedentity = new Doppelganger(ModEntityType.DOPPELGANGER.get(), worldIn);
+                summonedentity.setTrueOwner(caster);
+                if (caster instanceof Player player) {
+                    ModNetwork.sendTo(player, new SSetPlayerOwnerPacket(summonedentity));
+                }
+                Vec3 vec3 = BlockFinder.SummonRadius(caster.blockPosition(), summonedentity, worldIn).getCenter();
+                summonedentity.setPos(vec3);
+                summonedentity.setUndeadClone(undead);
+                summonedentity.setLimitedLife(undead ? MathHelper.secondsToTicks(2.875F) : 1200);
+                summonedentity.setPersistenceRequired();
+                summonedentity.setUpgraded(CuriosFinder.hasIllusionRobe(caster));
+                summonedentity.finalizeSpawn(worldIn, caster.level.getCurrentDifficultyAt(BlockFinder.SummonRadius(caster.blockPosition(), summonedentity, worldIn)), MobSpawnType.MOB_SUMMONED, null, null);
+                LivingEntity target = this.getTarget(caster);
+                if (target != null) {
+                    double d2 = target.getX() - summonedentity.getX();
+                    double d1 = target.getZ() - summonedentity.getZ();
+                    summonedentity.setYRot(-((float) Mth.atan2(d2, d1)) * (180F / (float) Math.PI));
+                    if (undead) {
+                        float f = (float) Mth.atan2(d1, d2);
+                        float f2 = f + (float) i1 * (float) Math.PI * 0.25F + 4.0F;
+                        vec3 = new Vec3(target.getX() + (double) Mth.cos(f2) * 4.0D, target.getY(), target.getZ() + (double) Mth.sin(f2) * 4.0D);
+                        summonedentity.setPos(vec3);
+                    }
+                }
+                MobUtil.moveDownToGround(summonedentity);
+                worldIn.addFreshEntity(summonedentity);
+                for (int i = 0; i < caster.level.random.nextInt(10) + 10; ++i) {
+                    ServerParticleUtil.smokeParticles(particleOptions, summonedentity.getX(), summonedentity.getY(), summonedentity.getZ(), worldIn);
+                }
+                if (undead) {
+                    worldIn.sendParticles(new ReverseShockwaveParticleOption(new ColorUtil(0x36e416), 2.0F, 0.5F, 1), summonedentity.getX(), summonedentity.getY() + 0.5F, summonedentity.getZ(), 0, 0, 0, 0, 0.5F);
                 }
             }
-            MobUtil.moveDownToGround(summonedentity);
-            worldIn.addFreshEntity(summonedentity);
-            for (int i = 0; i < caster.level.random.nextInt(10) + 10; ++i) {
-                ServerParticleUtil.smokeParticles(particleOptions, summonedentity.getX(), summonedentity.getY(), summonedentity.getZ(), worldIn);
+            if (CuriosFinder.hasIllusionRobe(caster)) {
+                caster.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 1200));
+                LivingEntity target = this.getTarget(caster);
+                if (target != null) {
+                    target.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 400));
+                }
             }
-            if (undead){
-                worldIn.sendParticles(new ReverseShockwaveParticleOption(new ColorUtil(0x36e416), 2.0F, 0.5F, 1), summonedentity.getX(), summonedentity.getY() + 0.5F, summonedentity.getZ(), 0, 0, 0, 0, 0.5F);
+            SoundEvent soundEvent = SoundEvents.ILLUSIONER_MIRROR_MOVE;
+            if (undead) {
+                soundEvent = ModSounds.LICH_TELEPORT_IN.get();
             }
-        }
-        if (CuriosFinder.hasIllusionRobe(caster)){
-            caster.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 1200));
-            LivingEntity target = this.getTarget(caster);
-            if (target != null) {
-                target.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 400));
+            this.playSound(worldIn, caster, soundEvent);
+            for (int i = 0; i < caster.level.random.nextInt(35) + 10; ++i) {
+                worldIn.sendParticles(particleOptions, caster.getX(), caster.getEyeY(), caster.getZ(), 0, 0.0F, 0.0F, 0.0F, 0);
             }
-        }
-        SoundEvent soundEvent = SoundEvents.ILLUSIONER_MIRROR_MOVE;
-        if (undead){
-            soundEvent = ModSounds.LICH_TELEPORT_IN.get();
-        }
-        this.playSound(worldIn, caster, soundEvent);
-        for (int i = 0; i < caster.level.random.nextInt(35) + 10; ++i) {
-            worldIn.sendParticles(particleOptions, caster.getX(), caster.getEyeY(), caster.getZ(), 0, 0.0F, 0.0F, 0.0F, 0);
         }
     }
 

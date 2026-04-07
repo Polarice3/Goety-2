@@ -175,6 +175,11 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
 
     @Override
     public void lifeSpanDamage() {
+        this.dismiss();
+    }
+
+    @Override
+    public void dismiss() {
         this.die(this.damageSources().starve());
     }
 
