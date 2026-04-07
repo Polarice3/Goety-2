@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
-import com.Polarice3.Goety.client.particles.GatherFrostParticle;
+import com.Polarice3.Goety.client.particles.GatherFrostParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -180,7 +180,7 @@ public class IceChunk extends SpellEntity {
                 }
             }
             if (this.hovering <= 15) {
-                ServerParticleUtil.outerCircleParticles(serverWorld, new GatherFrostParticle.Option(this.position().add(0, 1, 0)), this, 4);
+                ServerParticleUtil.outerCircleParticles(serverWorld, new GatherFrostParticleOption(this.position().add(0, 1, 0)), this, 4);
             }
             if (this.hovering == 20){
                 for (int i = 0; i < serverWorld.random.nextInt(10) + 10; ++i) {

@@ -17,6 +17,11 @@ public abstract class CultistServant extends RaiderServant {
         this.getNavigation().setCanFloat(true);
     }
 
+    @Override
+    public boolean canWearArmor() {
+        return true;
+    }
+
     public CultistServantArmPose getArmPose() {
         return CultistServantArmPose.CROSSED;
     }

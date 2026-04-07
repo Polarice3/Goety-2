@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "__comment": "items that Vindicator Chefs can craft, items need to have a Crafting Recipe",
+  "values": [
+    "minecraft:cake"
+  ]
+}

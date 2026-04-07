@@ -220,6 +220,16 @@ public class ZombieServant extends Summoned {
         return true;
     }
 
+    @Override
+    public boolean canWearArmor() {
+        return true;
+    }
+
+    @Override
+    public boolean canHaveWeapon() {
+        return true;
+    }
+
     public void tick() {
         if (!this.level.isClientSide && this.isAlive() && !this.isNoAi()) {
             if (this.isUnderWaterConverting()) {
@@ -303,7 +313,19 @@ public class ZombieServant extends Summoned {
         this.populateDefaultEquipmentSlots(worldIn.getRandom(), difficultyIn);
         this.populateDefaultEquipmentEnchantments(worldIn.getRandom(), difficultyIn);
         this.handleAttributes(f);
-        this.setBaby(getSpawnAsBabyOdds(worldIn.getRandom()));
+        if (getSpawnAsBabyOdds(worldIn.getRandom())) {
+            this.setBaby(true);
+            if ((double) worldIn.getRandom().nextFloat() < MobsConfig.ZombieServantChickenJockeyChance.get()) {
+                Chicken chicken1 = EntityType.CHICKEN.create(this.level());
+                if (chicken1 != null) {
+                    chicken1.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
+                    chicken1.finalizeSpawn(worldIn, difficultyIn, MobSpawnType.JOCKEY, (SpawnGroupData) null, (CompoundTag) null);
+                    chicken1.setChickenJockey(true);
+                    this.startRiding(chicken1);
+                    worldIn.addFreshEntity(chicken1);
+                }
+            }
+        }
         for(EquipmentSlot equipmentslottype : EquipmentSlot.values()) {
             this.setDropChance(equipmentslottype, 0.0F);
         }
@@ -387,56 +409,44 @@ public class ZombieServant extends Summoned {
                 return InteractionResult.SUCCESS;
             }
             if (!(pPlayer.getOffhandItem().getItem() instanceof IWand)) {
-                if (item instanceof SwordItem) {
-                    this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
-                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
-                    this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
-                    this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
-                    for (int i = 0; i < 7; ++i) {
-                        double d0 = this.random.nextGaussian() * 0.02D;
-                        double d1 = this.random.nextGaussian() * 0.02D;
-                        double d2 = this.random.nextGaussian() * 0.02D;
-                        this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
+                if (this.canHaveWeapon()) {
+                    if (item instanceof SwordItem || item instanceof AxeItem) {
+                        this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
+                        this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
+                        this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
+                        this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
+                        for (int i = 0; i < 7; ++i) {
+                            double d0 = this.random.nextGaussian() * 0.02D;
+                            double d1 = this.random.nextGaussian() * 0.02D;
+                            double d2 = this.random.nextGaussian() * 0.02D;
+                            this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
+                        }
+                        if (!pPlayer.getAbilities().instabuild) {
+                            itemstack.shrink(1);
+                        }
+                        return InteractionResult.SUCCESS;
                     }
-                    if (!pPlayer.getAbilities().instabuild) {
-                        itemstack.shrink(1);
+                    if (item instanceof TridentItem && this instanceof DrownedServant) {
+                        this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
+                        this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
+                        this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
+                        this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
+                        for (int i = 0; i < 7; ++i) {
+                            double d0 = this.random.nextGaussian() * 0.02D;
+                            double d1 = this.random.nextGaussian() * 0.02D;
+                            double d2 = this.random.nextGaussian() * 0.02D;
+                            this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
+                        }
+                        if (!pPlayer.getAbilities().instabuild) {
+                            itemstack.shrink(1);
+                        }
+                        return InteractionResult.SUCCESS;
                     }
-                    return InteractionResult.SUCCESS;
-                }
-                if (item instanceof AxeItem) {
-                    this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
-                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
-                    this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
-                    this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
-                    for (int i = 0; i < 7; ++i) {
-                        double d0 = this.random.nextGaussian() * 0.02D;
-                        double d1 = this.random.nextGaussian() * 0.02D;
-                        double d2 = this.random.nextGaussian() * 0.02D;
-                        this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
-                    }
-                    if (!pPlayer.getAbilities().instabuild) {
-                        itemstack.shrink(1);
-                    }
-                    return InteractionResult.SUCCESS;
-                }
-                if (item instanceof TridentItem && this instanceof DrownedServant) {
-                    this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
-                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
-                    this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
-                    this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
-                    for (int i = 0; i < 7; ++i) {
-                        double d0 = this.random.nextGaussian() * 0.02D;
-                        double d1 = this.random.nextGaussian() * 0.02D;
-                        double d2 = this.random.nextGaussian() * 0.02D;
-                        this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
-                    }
-                    if (!pPlayer.getAbilities().instabuild) {
-                        itemstack.shrink(1);
-                    }
-                    return InteractionResult.SUCCESS;
                 }
             }
-            return ServantUtil.equipServantArmor(pPlayer, this, itemstack, super.mobInteract(pPlayer, pHand));
+            if (this.canWearArmor()) {
+                return ServantUtil.equipServantArmor(pPlayer, this, itemstack, super.mobInteract(pPlayer, pHand));
+            }
         }
         return super.mobInteract(pPlayer, pHand);
     }

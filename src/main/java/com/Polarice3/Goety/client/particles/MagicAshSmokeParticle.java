@@ -1,10 +1,6 @@
 package com.Polarice3.Goety.client.particles;
 
 import com.Polarice3.Goety.utils.ColorUtil;
-import com.mojang.brigadier.StringReader;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.Util;
 import net.minecraft.client.Timer;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -13,13 +9,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.FastColor;
-
-import java.util.Locale;
 
 public class MagicAshSmokeParticle extends BaseAshSmokeParticle {
     public Timer timer;
@@ -79,75 +69,17 @@ public class MagicAshSmokeParticle extends BaseAshSmokeParticle {
         return LightTexture.FULL_BRIGHT;
     }
 
-    public static class Provider implements ParticleProvider<Option> {
+    public static class Provider implements ParticleProvider<MagicAshSmokeParticleOption> {
         private final SpriteSet sprite;
 
         public Provider(SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
-        public Particle createParticle(Option option, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+        public Particle createParticle(MagicAshSmokeParticleOption option, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
             MagicAshSmokeParticle trailParticle = new MagicAshSmokeParticle(clientLevel, d, e, f, g, h, i, option.getColorFrom(), option.getColorTo(), this.sprite);
             trailParticle.pickSprite(this.sprite);
             return trailParticle;
-        }
-    }
-
-    @Deprecated
-    public static class Option implements ParticleOptions {
-        public static final Codec<Option> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                Codec.INT.fieldOf("colorFrom").forGetter(Option::getColorFrom),
-                Codec.INT.fieldOf("colorTo").forGetter(Option::getColorTo)
-        ).apply(instance, Option::new));
-
-        public static final Deserializer<Option> DESERIALIZER = new Deserializer<>() {
-            public Option fromCommand(ParticleType<Option> p_235961_, StringReader p_235962_) throws CommandSyntaxException {
-                p_235962_.expect(' ');
-                int colorFrom = p_235962_.readInt();
-                p_235962_.expect(' ');
-                int colorTo = p_235962_.readInt();
-                return new Option(colorFrom, colorTo);
-            }
-
-            public Option fromNetwork(ParticleType<Option> p_235964_, FriendlyByteBuf p_235965_) {
-                return new Option(p_235965_.readInt(), p_235965_.readInt());
-            }
-        };
-        public int colorFrom;
-        public int colorTo;
-
-        public Option(int colorFrom, int colorTo){
-            this.colorFrom = colorFrom;
-            this.colorTo = colorTo;
-        }
-
-        public Option(int color){
-            this.colorFrom = color;
-            this.colorTo = color;
-        }
-
-        public ParticleType<Option> getType() {
-            return ModParticleTypes.MAGIC_ASH_SMOKE.get();
-        }
-
-        @Override
-        public void writeToNetwork(FriendlyByteBuf p_123732_) {
-            p_123732_.writeInt(this.getColorFrom());
-            p_123732_.writeInt(this.getColorTo());
-        }
-
-        @Override
-        public String writeToString() {
-            return String.format(Locale.ROOT, "%s %s %s",
-                    BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.colorFrom, this.colorTo);
-        }
-
-        public int getColorFrom() {
-            return this.colorFrom;
-        }
-
-        public int getColorTo() {
-            return this.colorTo;
         }
     }
 }

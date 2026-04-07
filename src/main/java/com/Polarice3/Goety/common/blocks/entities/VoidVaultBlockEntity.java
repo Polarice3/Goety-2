@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
-import com.Polarice3.Goety.client.particles.MagicAshSmokeParticle;
+import com.Polarice3.Goety.client.particles.MagicAshSmokeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.VoidVaultBlock;
 import com.Polarice3.Goety.common.blocks.entities.void_vault.*;
@@ -131,10 +131,10 @@ public class VoidVaultBlockEntity extends BlockEntity {
             for (int i = 0; i < 20; i++) {
                 Vec3 vec3d = getRegularParticlesPos(pos, random);
                 if (world instanceof ServerLevel serverLevel) {
-                    serverLevel.sendParticles(new MagicAshSmokeParticle.Option(0x3a0637, 0x691575), vec3d.x(), vec3d.y(), vec3d.z(), 1, 0.0, 0.0, 0.0, 0.0F);
+                    serverLevel.sendParticles(new MagicAshSmokeParticleOption(0x3a0637, 0x691575), vec3d.x(), vec3d.y(), vec3d.z(), 1, 0.0, 0.0, 0.0, 0.0F);
                     serverLevel.sendParticles(ModParticleTypes.SMALL_END_FIRE.get(), vec3d.x(), vec3d.y(), vec3d.z(), 1, 0.0, 0.0, 0.0, 0.0F);
                 } else {
-                    world.addParticle(new MagicAshSmokeParticle.Option(0x3a0637, 0x691575), vec3d.x(), vec3d.y(), vec3d.z(), 0.0, 0.0, 0.0);
+                    world.addParticle(new MagicAshSmokeParticleOption(0x3a0637, 0x691575), vec3d.x(), vec3d.y(), vec3d.z(), 0.0, 0.0, 0.0);
                     world.addParticle(ModParticleTypes.SMALL_END_FIRE.get(), vec3d.x(), vec3d.y(), vec3d.z(), 0.0, 0.0, 0.0);
                 }
             }
@@ -158,12 +158,12 @@ public class VoidVaultBlockEntity extends BlockEntity {
             if (random.nextFloat() <= 0.5F) {
                 Vec3 vec3d = getRegularParticlesPos(pos, random);
                 if (world instanceof ServerLevel serverLevel) {
-                    serverLevel.sendParticles(new MagicAshSmokeParticle.Option(0x3a0637, 0x691575), vec3d.x(), vec3d.y(), vec3d.z(), 1, 0.0, 0.0, 0.0, 0.0F);
+                    serverLevel.sendParticles(new MagicAshSmokeParticleOption(0x3a0637, 0x691575), vec3d.x(), vec3d.y(), vec3d.z(), 1, 0.0, 0.0, 0.0, 0.0F);
                     if (hasDisplayItem(sharedData)) {
                         serverLevel.sendParticles(ModParticleTypes.SMALL_END_FIRE.get(), vec3d.x(), vec3d.y(), vec3d.z(), 1, 0.0, 0.0, 0.0, 0.0F);
                     }
                 } else {
-                    world.addParticle(new MagicAshSmokeParticle.Option(0x3a0637, 0x691575), vec3d.x(), vec3d.y(), vec3d.z(), 0.0, 0.0, 0.0);
+                    world.addParticle(new MagicAshSmokeParticleOption(0x3a0637, 0x691575), vec3d.x(), vec3d.y(), vec3d.z(), 0.0, 0.0, 0.0);
                     if (hasDisplayItem(sharedData)) {
                         world.addParticle(ModParticleTypes.SMALL_END_FIRE.get(), vec3d.x(), vec3d.y(), vec3d.z(), 0.0, 0.0, 0.0);
                     }

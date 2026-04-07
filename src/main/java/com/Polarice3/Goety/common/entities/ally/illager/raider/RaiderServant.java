@@ -943,6 +943,10 @@ public abstract class RaiderServant extends Summoned {
         return true;
     }
 
+    public boolean isMainWeapon(ItemStack itemStack) {
+        return false;
+    }
+
     public List<RaiderServant> getNearbyCompanions() {
         return this.level.getEntitiesOfClass(RaiderServant.class, this.getBoundingBox().inflate(8.0D), (illager) ->
                 illager != this && illager.getTrueOwner() == this.getTrueOwner() && illager.canJoinPatrol() && (illager.getLeader() == null || illager.getLeader() == this));

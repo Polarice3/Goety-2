@@ -179,6 +179,16 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
         return MobType.UNDEAD;
     }
 
+    @Override
+    public boolean canWearArmor() {
+        return true;
+    }
+
+    @Override
+    public boolean canHaveWeapon() {
+        return true;
+    }
+
     protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficulty) {
         super.populateDefaultEquipmentSlots(randomSource, difficulty);
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
@@ -315,40 +325,8 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
                 return InteractionResult.SUCCESS;
             }
             if (!(pPlayer.getOffhandItem().getItem() instanceof IWand)) {
-                if (item instanceof SwordItem) {
-                    this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
-                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
-                    this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
-                    this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
-                    for (int i = 0; i < 7; ++i) {
-                        double d0 = this.random.nextGaussian() * 0.02D;
-                        double d1 = this.random.nextGaussian() * 0.02D;
-                        double d2 = this.random.nextGaussian() * 0.02D;
-                        this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
-                    }
-                    if (!pPlayer.getAbilities().instabuild) {
-                        itemstack.shrink(1);
-                    }
-                    return InteractionResult.SUCCESS;
-                }
-                if (item instanceof BowItem) {
-                    this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
-                    this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
-                    this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
-                    this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
-                    for (int i = 0; i < 7; ++i) {
-                        double d0 = this.random.nextGaussian() * 0.02D;
-                        double d1 = this.random.nextGaussian() * 0.02D;
-                        double d2 = this.random.nextGaussian() * 0.02D;
-                        this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
-                    }
-                    if (!pPlayer.getAbilities().instabuild) {
-                        itemstack.shrink(1);
-                    }
-                    return InteractionResult.SUCCESS;
-                }
-                if (this instanceof CrossbowAttackMob){
-                    if (item instanceof CrossbowItem) {
+                if (this.canHaveWeapon()) {
+                    if (item instanceof SwordItem || item instanceof BowItem) {
                         this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
                         this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
                         this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
@@ -364,9 +342,29 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
                         }
                         return InteractionResult.SUCCESS;
                     }
+                    if (this instanceof CrossbowAttackMob) {
+                        if (item instanceof CrossbowItem) {
+                            this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
+                            this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
+                            this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
+                            this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
+                            for (int i = 0; i < 7; ++i) {
+                                double d0 = this.random.nextGaussian() * 0.02D;
+                                double d1 = this.random.nextGaussian() * 0.02D;
+                                double d2 = this.random.nextGaussian() * 0.02D;
+                                this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
+                            }
+                            if (!pPlayer.getAbilities().instabuild) {
+                                itemstack.shrink(1);
+                            }
+                            return InteractionResult.SUCCESS;
+                        }
+                    }
                 }
             }
-            return ServantUtil.equipServantArmor(pPlayer, this, itemstack, super.mobInteract(pPlayer, pHand));
+            if (this.canWearArmor()) {
+                return ServantUtil.equipServantArmor(pPlayer, this, itemstack, super.mobInteract(pPlayer, pHand));
+            }
         }
         return super.mobInteract(pPlayer, pHand);
     }

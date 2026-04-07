@@ -39,7 +39,6 @@ public class GodRayParticle extends TextureSheetParticle {
     public void tick() {
         super.tick();
         float agePercent = (float) this.age / this.lifetime;
-        float maxAlpha = 0.6F;
         if (agePercent <= 0.2F) {
             float t = agePercent / 0.2F;
             this.alpha = t * t * (3.0F - 2.0F * t);
@@ -49,11 +48,6 @@ public class GodRayParticle extends TextureSheetParticle {
         } else {
             this.alpha = 1.0F;
         }
-        /*if (agePercent <= 0.81F) {
-            this.alpha = Math.min(1.0F, agePercent / 0.05F) * maxAlpha;
-        } else {
-            this.alpha = maxAlpha * (1.0F - ((agePercent - 0.81F) / 0.19F));
-        }*/
     }
 
     @Override

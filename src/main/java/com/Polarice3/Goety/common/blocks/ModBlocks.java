@@ -60,6 +60,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> DARK_ALTAR_END_STONE = register("dark_altar_end_stone", () -> new DarkAltarBlock(BlockBehaviour.Properties.copy(Blocks.END_STONE_BRICKS).noOcclusion()));
     public static final RegistryObject<Block> DARK_ALTAR_HIGHROCK = register("dark_altar_highrock", () -> new DarkAltarBlock(HighrockProperties().noOcclusion()));
     public static final RegistryObject<Block> DARK_ALTAR_MARBLE = register("dark_altar_marble", () -> new DarkAltarBlock(MarbleProperties().noOcclusion()));
+    public static final RegistryObject<Block> DARK_ALTAR_PRISMARINE = register("dark_altar_prismarine", () -> new DarkAltarBlock(BlockBehaviour.Properties.copy(Blocks.PRISMARINE_BRICKS).noOcclusion()));
+    public static final RegistryObject<Block> DARK_ALTAR_CRYPT_STONE = register("dark_altar_crypt_stone", () -> new DarkAltarBlock(CryptStoneProperties().noOcclusion()));
     public static final RegistryObject<Block> PEDESTAL = register("pedestal", PedestalBlock::new);
     public static final RegistryObject<Block> PEDESTAL_STONE = register("pedestal_stone", () -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS).noOcclusion()));
     public static final RegistryObject<Block> PEDESTAL_DEEPSLATE = register("pedestal_deepslate", () -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICKS).noOcclusion()));
@@ -68,6 +70,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> PEDESTAL_END_STONE = register("pedestal_end_stone", () -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.END_STONE_BRICKS).noOcclusion()));
     public static final RegistryObject<Block> PEDESTAL_HIGHROCK = register("pedestal_highrock", () -> new PedestalBlock(HighrockProperties().noOcclusion()));
     public static final RegistryObject<Block> PEDESTAL_MARBLE = register("pedestal_marble", () -> new PedestalBlock(MarbleProperties().noOcclusion()));
+    public static final RegistryObject<Block> PEDESTAL_PRISMARINE = register("pedestal_prismarine", () -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.PRISMARINE_BRICKS).noOcclusion()));
+    public static final RegistryObject<Block> PEDESTAL_CRYPT_STONE = register("pedestal_crypt_stone", () -> new PedestalBlock(CryptStoneProperties().noOcclusion()));
     public static final RegistryObject<Block> SOUL_ABSORBER = register("soul_absorber", SoulAbsorberBlock::new);
     public static final RegistryObject<Block> SOUL_MENDER = register("soul_mender", SoulMenderBlock::new);
     public static final RegistryObject<Block> ICE_BOUQUET_TRAP = register("ice_bouquet_trap", IceBouquetTrapBlock::new);
@@ -605,6 +609,10 @@ public class ModBlocks {
     //Chorus
     public static final RegistryObject<Block> CHORUS_PLANKS = register("chorus_planks",
             () -> new Block(Block.Properties.of().mapColor(MapColor.COLOR_PURPLE).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> SOILED_CHORUS_PLANKS = register("soiled_chorus_planks",
+            () -> new Block(Block.Properties.copy(CHORUS_PLANKS.get())));
+    public static final RegistryObject<Block> SOILED_CHORUS_PLANKS_HEAVY = register("soiled_chorus_planks_heavy",
+            () -> new Block(Block.Properties.copy(CHORUS_PLANKS.get())));
     public static final RegistryObject<Block> THATCHED_CHORUS_PLANKS = register("thatched_chorus_planks",
             () -> new Block(Block.Properties.of().mapColor(MapColor.COLOR_PURPLE).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> CHORUS_LOG = register("chorus_log", () -> fireProofLog(MapColor.COLOR_PURPLE));
@@ -653,6 +661,8 @@ public class ModBlocks {
     //Corrupt Chorus
     public static final RegistryObject<Block> CORRUPT_CHORUS_PLANKS = register("corrupt_chorus_planks",
             () -> new Block(Block.Properties.of().mapColor(MapColor.COLOR_LIGHT_BLUE).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> SOILED_CORRUPT_CHORUS_PLANKS = register("soiled_corrupt_chorus_planks",
+            () -> new Block(Block.Properties.copy(CORRUPT_CHORUS_PLANKS.get())));
     public static final RegistryObject<Block> CORRUPT_CHORUS_LOG = register("corrupt_chorus_log", () -> fireProofLog(MapColor.COLOR_LIGHT_BLUE));
     public static final RegistryObject<Block> CORRUPT_CHORUS_WOOD = register("corrupt_chorus_wood",
             () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.COLOR_LIGHT_BLUE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
@@ -663,9 +673,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> CORRUPT_CHORUS_BUTTON = register("corrupt_chorus_button",
             () -> woodenButton(ModBlockSetType.CHORUS));
     public static final RegistryObject<Block> CORRUPT_CHORUS_STAIRS = registerStairs("corrupt_chorus_stairs",
-            CHORUS_PLANKS);
+            CORRUPT_CHORUS_PLANKS);
     public static final RegistryObject<Block> CORRUPT_CHORUS_SLAB = registerSlabs("corrupt_chorus_slab",
-            CHORUS_PLANKS);
+            CORRUPT_CHORUS_PLANKS);
     public static final RegistryObject<Block> CORRUPT_CHORUS_FENCE_GATE = register("corrupt_chorus_fence_gate",
             () -> new FenceGateBlock(Block.Properties.of().mapColor(CORRUPT_CHORUS_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD), ModWoodType.CORRUPT_CHORUS));
     public static final RegistryObject<Block> CORRUPT_CHORUS_FENCE = register("corrupt_chorus_fence",

@@ -3,7 +3,7 @@ package com.Polarice3.Goety.common.magic.spells.wind;
 import com.Polarice3.Goety.api.blocks.entities.IWindPowered;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.client.particles.WindBlowParticle;
+import com.Polarice3.Goety.client.particles.WindBlowParticleOption;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.projectiles.AbstractCyclone;
@@ -93,7 +93,7 @@ public class WindBlastSpell extends Spell {
             pos = pos.add(caster.getRandom().nextGaussian() / 2, caster.getRandom().nextGaussian() / 2, caster.getRandom().nextGaussian() / 2);
             int width = worldIn.getRandom().nextIntBetweenInclusive(1, 4);
             float height = worldIn.getRandom().nextFloat() * 0.5F;
-            worldIn.sendParticles(new WindBlowParticle.Option(ColorUtil.WHITE, width, height), pos.x, pos.y, pos.z, 0, vec3.x, vec3.y, vec3.z, 1.0F);
+            worldIn.sendParticles(new WindBlowParticleOption(ColorUtil.WHITE, width, height), pos.x, pos.y, pos.z, 0, vec3.x, vec3.y, vec3.z, 1.0F);
         }
         for(int i = 1; i < range; ++i) {
             Vec3 vector3d2 = srcVec.add(lookVec.scale(i));

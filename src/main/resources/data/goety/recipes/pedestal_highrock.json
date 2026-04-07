@@ -10,11 +10,11 @@
   {
     "l":
     {
-      "item": "goety:highrock_brick_slab"
+      "tag": "goety:slab_highrock_craft"
     },
     "s":
     {
-      "item": "goety:highrock_bricks"
+      "tag": "goety:full_highrock_craft"
     }
   },
   "result":

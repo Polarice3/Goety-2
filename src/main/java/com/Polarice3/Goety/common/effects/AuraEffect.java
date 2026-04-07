@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.effects;
 
-import com.Polarice3.Goety.client.particles.GroundAuraParticle;
+import com.Polarice3.Goety.client.particles.GroundAuraParticleOption;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.server.level.ServerLevel;
@@ -30,7 +30,7 @@ public class AuraEffect extends GoetyBaseEffect {
             }
             if (livingEntity.tickCount % 20 == 0) {
                 if (livingEntity.level instanceof ServerLevel serverLevel) {
-                    serverLevel.sendParticles(new GroundAuraParticle.Option(livingEntity.getId(), 4.0F, new ColorUtil(this.getColor())), livingEntity.getX(), livingEntity.getY() + 0.25F, livingEntity.getZ(), 1, 0.0F, 0.0F, 0.0F, 0.0F);
+                    serverLevel.sendParticles(new GroundAuraParticleOption(livingEntity.getId(), 4.0F, new ColorUtil(this.getColor())), livingEntity.getX(), livingEntity.getY() + 0.25F, livingEntity.getZ(), 1, 0.0F, 0.0F, 0.0F, 0.0F);
                 }
             }
         }

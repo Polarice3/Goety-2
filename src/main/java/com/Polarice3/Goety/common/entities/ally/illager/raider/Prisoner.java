@@ -36,6 +36,8 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -47,6 +49,7 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.monster.ZombieVillager;
 import net.minecraft.world.entity.npc.*;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -66,10 +69,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.EnumSet;
-import java.util.List;
+import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 
@@ -131,8 +131,10 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
         super.registerGoals();
         this.goalSelector.addGoal(0, new PrisonerPutLootChestGoal<>(this));
         this.goalSelector.addGoal(1, new GiveMinedGoal(this));
+        this.goalSelector.addGoal(1, new PrisonerEatFood(this));
         this.goalSelector.addGoal(2, new MiningGoal(this));
         this.goalSelector.addGoal(3, new PrisonerGetPickChestGoal<>(this));
+        this.goalSelector.addGoal(3, new PrisonerTakeFoodChestGoal<>(this));
     }
 
     @Override
@@ -452,6 +454,25 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
                 if (this.updateList > 0) {
                     --this.updateList;
                 }
+                if (MobsConfig.PrisonerHunger.get()) {
+                    if (this.hasEffect(MobEffects.SATURATION)) {
+                        MobEffectInstance instance = this.getEffect(MobEffects.SATURATION);
+                        if (instance != null) {
+                            this.removeHunger(1);
+                        }
+                    } else if (this.hasEffect(MobEffects.HUNGER)) {
+                        MobEffectInstance instance = this.getEffect(MobEffects.HUNGER);
+                        if (instance != null) {
+                            float chance = 0.005F * (float)(instance.getAmplifier() + 1);
+                            if (this.level.getRandom().nextFloat() <= chance) {
+                                this.getHungry();
+                            }
+                        }
+                    }
+                    if (this.isHungry()) {
+                        this.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 5));
+                    }
+                }
                 if (this.getMainHandItem().is(ItemTags.PICKAXES) && this.getMainHandItem().getItem() instanceof PickaxeItem pickaxe) {
                     int range = MobsConfig.PrisonerMiningRange.get();
                     if (this.blockPosList.isEmpty() || this.updateList > 0) {
@@ -489,7 +510,36 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
                         }
                     }
                     if (!this.blockPosList.isEmpty()) {
-                        if (this.mineTimes >= MobsConfig.PrisonerMiningSwings.get()) {
+                        int swings = MobsConfig.PrisonerMiningSwings.get();
+                        int addChance = 0;
+                        if (swings > 1) {
+                            if (this.hasEffect(MobEffects.DIG_SPEED)) {
+                                if (MobsConfig.PrisonerMiningHaste.get()) {
+                                    MobEffectInstance instance = this.getEffect(MobEffects.DIG_SPEED);
+                                    if (instance != null) {
+                                        int amp = instance.getAmplifier() + 1;
+                                        int tempSwing = swings;
+                                        for (int i = 0; i < amp; ++i) {
+                                            if ((tempSwing - amp) > 1) {
+                                                ++addChance;
+                                            } else {
+                                                break;
+                                            }
+                                        }
+                                        swings = Math.max(1, swings - amp);
+                                    }
+                                }
+                            } else if (this.hasEffect(MobEffects.DIG_SLOWDOWN)) {
+                                if (MobsConfig.PrisonerMiningMiningFatigue.get()) {
+                                    MobEffectInstance instance = this.getEffect(MobEffects.DIG_SLOWDOWN);
+                                    if (instance != null) {
+                                        int amp = instance.getAmplifier() + 1;
+                                        swings += amp;
+                                    }
+                                }
+                            }
+                        }
+                        if (this.mineTimes >= swings) {
                             BlockPos blockPos = this.blockPosList.get(RandomUtil.nextInt(serverLevel.getRandom(), blockPosList.size()));
                             boolean isRare = false;
                             if (!this.rareList.isEmpty()) {
@@ -522,6 +572,15 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
                                     serverLevel.destroyBlock(blockPos, false, this);
                                 }
                             }
+                            if (MobsConfig.PrisonerHunger.get()) {
+                                float hungerChance = MobsConfig.PrisonerMiningHungerChance.get() / 100.0F;
+                                if (addChance > 0) {
+                                    hungerChance = Math.max(1.0F, hungerChance + (addChance / 10.0F));
+                                }
+                                if (this.level.getRandom().nextFloat() <= hungerChance) {
+                                    this.getHungry();
+                                }
+                            }
                             this.mineTimes = 0;
                             this.updateList = 5;
                         }
@@ -546,6 +605,115 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
         if (this.level instanceof ServerLevel serverlevel) {
             p_218348_.accept(this.gameEventListener, serverlevel);
         }
+    }
+
+    public void eatUntilFull() {
+        if (this.isHungry() && this.countFoodPointsInInventory() != 0) {
+            for(int i = 0; i < this.getInventory().getContainerSize(); ++i) {
+                ItemStack itemstack = this.getInventory().getItem(i);
+                if (!itemstack.isEmpty()) {
+                    Integer integer = this.getFoodPoints().get(itemstack.getItem());
+                    if (integer != null) {
+                        int j = itemstack.getCount();
+
+                        for(int k = j; k > 0; --k) {
+                            this.removeHunger(integer);
+                            this.getInventory().removeItem(i, 1);
+                            if (this.isFull()) {
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    public void getHungry() {
+        if (MiscCapHelper.getCustomFoodLevel(this) <= -1) {
+            MiscCapHelper.setCustomFoodLevel(this, 11);
+        } else if (MiscCapHelper.getCustomFoodLevel(this) > 0){
+            MiscCapHelper.decreaseCustomFoodLevel(this);
+        }
+    }
+
+    public void removeHunger(int amount) {
+        int currentHunger = MiscCapHelper.getCustomFoodLevel(this);
+        if (currentHunger < 12) {
+            int add = currentHunger + amount;
+            if (add > 12) {
+                add = 12;
+            }
+            MiscCapHelper.setCustomFoodLevel(this, add);
+        }
+    }
+
+    public boolean isHungry() {
+        if (!MobsConfig.PrisonerHunger.get()) {
+            return false;
+        }
+        return MiscCapHelper.getCustomFoodLevel(this) == 0;
+    }
+
+    public boolean isFull() {
+        if (MobsConfig.PrisonerHunger.get()) {
+            return true;
+        }
+        return MiscCapHelper.getCustomFoodLevel(this) >= 12;
+    }
+
+    public int countFoodPointsInInventory() {
+        SimpleContainer simplecontainer = this.getInventory();
+        return this.getFoodPoints().entrySet().stream().mapToInt((entry) -> {
+            return simplecontainer.countItem(entry.getKey()) * entry.getValue();
+        }).sum();
+    }
+
+    public int countFoodInInventory() {
+        SimpleContainer simplecontainer = this.getInventory();
+        return this.getFoodPoints().keySet().stream().mapToInt(simplecontainer::countItem).sum();
+    }
+
+    public boolean validFood(ItemStack itemStack) {
+        FoodProperties foodProperties = itemStack.getFoodProperties(this);
+        if (foodProperties == null) {
+            return false;
+        } else if (foodProperties.isMeat() && foodProperties.getNutrition() <= 3) {
+            return false;
+        } else {
+            return foodProperties.getEffects().isEmpty() || itemStack.is(Items.ROTTEN_FLESH);
+        }
+    }
+
+    public Map<Item, Integer> getFoodPoints(){
+        SimpleContainer simplecontainer = this.getInventory();
+        int i = simplecontainer.getContainerSize();
+        Map<Item, Integer> foodPoints = new HashMap<>();
+        for (int j = 0; j < i; ++j) {
+            ItemStack itemStack = simplecontainer.getItem(j);
+            if (itemStack.getFoodProperties(this) != null){
+                FoodProperties foodProperties = itemStack.getFoodProperties(this);
+                if (foodProperties != null && this.validFood(itemStack)){
+                    foodPoints.put(itemStack.getItem(), foodProperties.getNutrition());
+                }
+            }
+        }
+        return foodPoints;
+    }
+
+    public boolean canHaveMoreFood() {
+        if (!MobsConfig.PrisonerHunger.get()) {
+            return false;
+        }
+        return this.countFoodPointsInInventory() < 12;
+    }
+
+    public boolean wantsMoreFood() {
+        if (!MobsConfig.PrisonerHunger.get()) {
+            return false;
+        }
+        return this.countFoodPointsInInventory() < 12;
     }
 
     @Override
@@ -676,7 +844,7 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
     }
 
     public boolean wantsToPickUp(ItemStack itemStack) {
-        return MobsConfig.PrisonerPickUpPickaxe.get() && itemStack.is(ItemTags.PICKAXES);
+        return (MobsConfig.PrisonerPickUpPickaxe.get() && itemStack.is(ItemTags.PICKAXES)) || (MobsConfig.PrisonerHunger.get() && this.validFood(itemStack));
     }
 
     @Override
@@ -713,6 +881,7 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
 
     public void unshackle(@Nullable Player player) {
         if (this.level instanceof ServerLevel serverLevel) {
+            int currentHunger = MiscCapHelper.getCustomFoodLevel(this);
             serverLevel.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.CHAIN_BREAK, this.getSoundSource(), 1.0F, 2.0F);
             AbstractVillager villager;
             if (this.isTrader()) {
@@ -757,6 +926,8 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
                 if (this.getMasterOwner() instanceof Player player1) {
                     villager1.getGossips().add(player1.getUUID(), GossipType.MAJOR_NEGATIVE, 200);
                 }
+                //Set max to 11 to prevent Villager breeding exploit
+                villager1.foodLevel = Mth.clamp(currentHunger, 0, 11);
             } else if (villager instanceof WanderingTrader) {
                 if (player instanceof ServerPlayer
                         && player != this.getMasterOwner()
@@ -817,6 +988,13 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
             } else if (pPlayer.getMainHandItem().is(Items.STICK)) {
                 this.dropEquipment(EquipmentSlot.MAINHAND, this.getMainHandItem());
                 this.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                return InteractionResult.SUCCESS;
+            } else if (this.validFood(itemInHand) && this.canHaveMoreFood() && this.getInventory().canAddItem(itemInHand)) {
+                this.getInventory().addItem(itemInHand.copyWithCount(1));
+                if (!pPlayer.getAbilities().instabuild) {
+                    itemInHand.shrink(1);
+                }
+                this.playSound(SoundEvents.ITEM_PICKUP, 1.0F, 1.0F);
                 return InteractionResult.SUCCESS;
             } else if (pPlayer.getMainHandItem().is(ModItems.WAYSTONE.get())) {
                 if (WaystoneItem.isSameDimension(this, pPlayer.getMainHandItem())) {
@@ -899,6 +1077,7 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
                     return this.prisoner.itemsInInv(itemStack -> !itemStack.isEmpty()).size() < 64
                             && !this.prisoner.isFollowing()
                             && !this.prisoner.isCommanded()
+                            && !this.prisoner.isHungry()
                             && this.prisoner.noBlockTick <= 0
                             && this.prisoner.getTarget() == null
                             && this.prisoner.hurtTime <= 0;
@@ -1056,7 +1235,7 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
 
         public GiveMinedGoal(Prisoner prisoner){
             super(prisoner);
-            this.predicate = itemStack -> !itemStack.isEmpty();
+            this.predicate = itemStack -> !itemStack.isEmpty() && !prisoner.validFood(itemStack);
             this.targetPredicate = living ->
                     (living instanceof AbstractIllagerServant servant1
                             && servant1.getTrueOwner() == prisoner.getTrueOwner()
@@ -1091,7 +1270,7 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
             List<ItemStack> list = new ArrayList<>();
             for (int i = 0; i < simpleContainer.getContainerSize(); ++i){
                 ItemStack itemstack1 = simpleContainer.getItem(i);
-                if (!itemstack1.isEmpty()) {
+                if (this.predicate.test(itemstack1)) {
                     list.add(itemstack1.copyAndClear());
                 }
             }
@@ -1114,7 +1293,7 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
 
         public PrisonerPutLootChestGoal(T prisoner) {
             super(prisoner);
-            this.predicate = itemStack -> !itemStack.isEmpty();
+            this.predicate = itemStack -> !itemStack.isEmpty() && !prisoner.validFood(itemStack);
             this.chestPredicate = itemStack -> true;
         }
 
@@ -1166,8 +1345,11 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
 
         public PrisonerGetPickChestGoal(T prisoner) {
             super(prisoner);
-            this.predicate = itemStack -> true;
             this.chestPredicate = itemStack -> itemStack.is(ItemTags.PICKAXES) || itemStack.getItem() instanceof PickaxeItem;
+        }
+
+        public boolean hasItemInInv() {
+            return true;
         }
 
         @Override
@@ -1197,6 +1379,9 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
             if (!this.isChestRaidable(this.illager.level, this.illager.getChestPos())){
                 return false;
             }
+            if (this.illager.isHungry()) {
+                return false;
+            }
             if (this.illager.level.getEntitiesOfClass(LivingEntity.class, this.illager.getBoundingBox().inflate(16.0F),
                     livingEntity ->
                             ((livingEntity instanceof IOwned owned
@@ -1216,6 +1401,106 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
                     container.setChanged();
                 }
             }
+        }
+    }
+
+    public static class PrisonerTakeFoodChestGoal<T extends Prisoner> extends IllagerChestGoal<T> {
+
+        public PrisonerTakeFoodChestGoal(T illager) {
+            super(illager);
+            this.chestPredicate = illager::validFood;
+        }
+
+        public boolean hasItemInInv() {
+            return true;
+        }
+
+        @Override
+        public boolean canUse() {
+            if (this.illager.getChestPos() == null) {
+                return false;
+            }
+            if (this.illager.getBoundPos() != null){
+                if (this.illager.getChestPos() != null){
+                    if (!this.illager.isWithinGuard(this.illager.getChestPos())){
+                        return false;
+                    }
+                }
+            }
+            if (this.illager.getChestLevel() != this.illager.level.dimension()) {
+                return false;
+            }
+            if (!this.illager.wantsMoreFood()) {
+                return false;
+            }
+            if (!this.isChestRaidable(this.illager.level, this.illager.getChestPos())){
+                return false;
+            }
+            return super.canUse();
+        }
+
+        @Override
+        public void chestInteract(Container container) {
+            for (ItemStack itemStack : this.getItems(container)) {
+                if (this.illager.getInventory().canAddItem(itemStack) && this.illager.wantsMoreFood()){
+                    this.illager.getInventory().addItem(itemStack.split(12));
+                    container.setChanged();
+                }
+            }
+        }
+    }
+
+    public static class PrisonerEatFood extends Goal {
+        public Prisoner prisoner;
+        public int eatingTime;
+
+        public PrisonerEatFood(Prisoner prisoner) {
+            this.prisoner = prisoner;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK, Goal.Flag.JUMP));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (this.prisoner.isHungry()) {
+                return this.prisoner.countFoodPointsInInventory() != 0
+                        && this.prisoner.hurtTime <= 0;
+            }
+            return false;
+        }
+
+        @Override
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            this.eatingTime = 20;
+            this.prisoner.getNavigation().stop();
+            this.prisoner.getMoveControl().strafe(0.0F, 0.0F);
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.eatingTime = 20;
+        }
+
+        @Override
+        public void tick() {
+            super.tick();
+            if (this.eatingTime <= 0) {
+                this.prisoner.eatUntilFull();
+                this.prisoner.level.gameEvent(this.prisoner, GameEvent.EAT, this.prisoner.position());
+            } else {
+                --this.eatingTime;
+                if (this.eatingTime % 4 == 0) {
+                    this.prisoner.playSound(SoundEvents.GENERIC_EAT);
+                }
+            }
+            this.prisoner.getNavigation().stop();
+            this.prisoner.getMoveControl().strafe(0.0F, 0.0F);
         }
     }
 }

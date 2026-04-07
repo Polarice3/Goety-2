@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.network.server;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.client.particles.GatherTrailParticle;
+import com.Polarice3.Goety.client.particles.GatherTrailParticleOption;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.ModelUtil;
 import net.minecraft.client.CameraType;
@@ -77,7 +77,7 @@ public class SStaffParticlePacket {
                     if (staffEndPos.isPresent()) {
                         Vec3 pos = staffEndPos.get().add(new Vec3(level.random.nextDouble() - 0.5, level.random.nextDouble() - 0.5, level.random.nextDouble() - 0.5).normalize().scale(packet.range));
                         level.addParticle(
-                                new GatherTrailParticle.Option(new ColorUtil(packet.color), staffEndPos.get()),
+                                new GatherTrailParticleOption(new ColorUtil(packet.color), staffEndPos.get()),
                                 pos.x, pos.y, pos.z,
                                 0, 0, 0
                         );

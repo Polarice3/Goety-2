@@ -10,11 +10,11 @@
   {
     "l":
     {
-      "item": "goety:shade_stone_slab"
+      "tag": "goety:slab_shade_stone_craft"
     },
     "s":
     {
-      "item": "goety:shade_stone"
+      "tag": "goety:full_shade_stone_craft"
     }
   },
   "result":

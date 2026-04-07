@@ -1000,7 +1000,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
         if (this.deathTime >= MathHelper.secondsToTicks(2.5F) && this.deathTime < MathHelper.secondsToTicks(6)) {
             if (this.level instanceof ServerLevel serverLevel) {
                 for (int i = 0; i < 8; ++i) {
-                    serverLevel.sendParticles(new MagicSmokeParticle.Option(0, 0, this.level.getRandom().nextIntBetweenInclusive(40, 80), 0.25F), this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0, this.level.getRandom().nextBoolean() ? 0.01D : -0.01D, 0.1D, this.level.getRandom().nextBoolean() ? 0.01D : -0.01D, 0.5F);
+                    serverLevel.sendParticles(new MagicSmokeParticleOption(0, 0, this.level.getRandom().nextIntBetweenInclusive(40, 80), 0.25F), this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0, this.level.getRandom().nextBoolean() ? 0.01D : -0.01D, 0.1D, this.level.getRandom().nextBoolean() ? 0.01D : -0.01D, 0.5F);
                 }
             }
         }
@@ -1280,7 +1280,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
                         float height = serverLevel.getRandom().nextFloat() * 0.5F;
                         Vec3 vec3 = this.getEyePosition().offsetRandom(serverLevel.getRandom(), 2.0F);
                         Vec3 angle = this.getLookAngle().multiply(-1.0D, 1.0D, -1.0D);
-                        serverLevel.sendParticles(new WindBlowParticle.Option(new ColorUtil(ChatFormatting.LIGHT_PURPLE), width, height), vec3.x, vec3.y, vec3.z, 0, angle.x, angle.y, angle.z, 1.0F);
+                        serverLevel.sendParticles(new WindBlowParticleOption(new ColorUtil(ChatFormatting.LIGHT_PURPLE), width, height), vec3.x, vec3.y, vec3.z, 0, angle.x, angle.y, angle.z, 1.0F);
                     }
                     for (LivingEntity entityHit : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.2D))) {
                         if (!MobUtil.areAllies(this, entityHit)) {
@@ -1319,7 +1319,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
                 if (this.attackTick > 10 && this.attackTick <= 28) {
                     if (this.level instanceof ServerLevel serverLevel) {
                         ColorUtil colorUtil = new ColorUtil(ChatFormatting.DARK_PURPLE);
-                        ServerParticleUtil.gatheringParticles(new GatherTrailParticle.Option(colorUtil, this.position().add(0, 8, 0)), this, serverLevel, 2);
+                        ServerParticleUtil.gatheringParticles(new GatherTrailParticleOption(colorUtil, this.position().add(0, 8, 0)), this, serverLevel, 2);
                     }
                 }
                 if (this.attackTick == 43) {
@@ -1385,7 +1385,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
                     this.level.broadcastEntityEvent(this, (byte) 6);
                     if (this.level instanceof ServerLevel serverWorld) {
                         ColorUtil colorUtil = new ColorUtil(ChatFormatting.LIGHT_PURPLE);
-                        ServerParticleUtil.gatheringParticles(new GatherTrailParticle.Option(colorUtil, this.position().add(0, 1, 0)), this, serverWorld, 4);
+                        ServerParticleUtil.gatheringParticles(new GatherTrailParticleOption(colorUtil, this.position().add(0, 1, 0)), this, serverWorld, 4);
                         ServerParticleUtil.windParticle(serverWorld, colorUtil, (float) radius, 1.0F, this.getId(), this.position());
                         ServerParticleUtil.gatheringParticles(ParticleTypes.PORTAL, this, serverWorld, 20);
                         if (this.attackTick % 5 == 0) {
@@ -1418,7 +1418,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
                                         ColorUtil colorUtil = new ColorUtil(ChatFormatting.DARK_PURPLE);
                                         Vec3 vec3 = new Vec3(livingEntity.getX(), livingEntity.getY() + (livingEntity.getBbHeight() / 2.0F), livingEntity.getZ());
                                         Vec3 vector3d1 = new Vec3(this.getRandomX(1.0F), this.getEyeY(), this.getRandomZ(1.0F));
-                                        serverLevel.sendParticles(new GatherTrailParticle.Option(colorUtil, vector3d1), vec3.x, vec3.y, vec3.z, 0, 0.0F, 0.0F, 0.0F, 0.5F);
+                                        serverLevel.sendParticles(new GatherTrailParticleOption(colorUtil, vector3d1), vec3.x, vec3.y, vec3.z, 0, 0.0F, 0.0F, 0.0F, 0.5F);
                                         for (int i = 0; i < 8; ++i){
                                             vec3 = new Vec3(livingEntity.getRandomX(1.0F), livingEntity.getRandomY(), livingEntity.getRandomZ(1.0F));
                                             serverLevel.sendParticles(new AbsorbTrailParticleOption(vector3d1, 11141290, 10), vec3.x, vec3.y, vec3.z, 1, 0.0, 0.0, 0.0, 0.0);

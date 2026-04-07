@@ -18,6 +18,18 @@
     {
       "type": "patchouli:text",
       "text": "One can call these creatures through the use of a $(l:focuses/geomancy/ministrous_focus)Ministrous Focus$(). They can be healed by right-clicking on them with Stone."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_redstone_ministrosity_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:redstone_ministrosity"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Summoned while wearing a $(l:crafts/garment/geo_robe)Geo Robes$() or through ritual, these ministrosities are stronger than their stone counterparts and are immune to fire."
     }
   ]
 }

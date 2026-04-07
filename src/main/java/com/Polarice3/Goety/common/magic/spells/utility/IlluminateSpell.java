@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.magic.spells.utility;
 
-import com.Polarice3.Goety.client.particles.GatherTrailParticle;
+import com.Polarice3.Goety.client.particles.GatherTrailParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
@@ -66,7 +66,7 @@ public class IlluminateSpell extends Spell {
         if (worldIn instanceof ServerLevel serverLevel){
             int range = 1;
             ColorUtil colorUtil = new ColorUtil(ChatFormatting.YELLOW);
-            ServerParticleUtil.gatheringParticles(new GatherTrailParticle.Option(colorUtil, caster.position().add(0, 2, 0)), caster, serverLevel, range);
+            ServerParticleUtil.gatheringParticles(new GatherTrailParticleOption(colorUtil, caster.position().add(0, 2, 0)), caster, serverLevel, range);
         }
     }
 

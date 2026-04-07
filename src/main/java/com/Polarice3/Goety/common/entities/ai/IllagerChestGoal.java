@@ -66,10 +66,14 @@ public abstract class IllagerChestGoal<T extends RaiderServant & ILooter> extend
         if (this.illager.isCelebrating()){
             return false;
         }
-        if (this.illager.itemsInInv(this.predicate).isEmpty()){
+        if (!this.hasItemInInv()){
             return false;
         }
         return this.findNearestBlock();
+    }
+
+    public boolean hasItemInInv() {
+        return !this.illager.itemsInInv(this.predicate).isEmpty();
     }
 
     public boolean canContinueToUse() {

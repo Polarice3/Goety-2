@@ -35,6 +35,7 @@ public class ApostleRenderer extends CultistRenderer<Apostle>{
 
     public ApostleRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new ApostleModel<>(renderManagerIn.bakeLayer(ModModelLayer.APOSTLE)), 0.5F);
+        this.addLayer(new ApostleGlowLayer<>(this));
         this.addLayer(new MonolithLayer<>(this, renderManagerIn.getModelSet()));
         this.addLayer(new HumanoidArmorLayer<>(this, new VillagerArmorModel<>(renderManagerIn.bakeLayer(ModModelLayer.VILLAGER_ARMOR_INNER)), new VillagerArmorModel<>(renderManagerIn.bakeLayer(ModModelLayer.VILLAGER_ARMOR_OUTER)), renderManagerIn.getModelManager()));
         this.addLayer(new ItemInHandLayer<>(this, renderManagerIn.getItemInHandRenderer()) {
@@ -170,6 +171,27 @@ public class ApostleRenderer extends CultistRenderer<Apostle>{
 
         protected float xOffset(float p_225634_1_) {
             return Mth.cos(p_225634_1_ * 0.02F) * 3.0F;
+        }
+    }
+
+    public static class ApostleGlowLayer<T extends Apostle, M extends CultistModel<T>> extends RenderLayer<T, M> {
+        private static final ResourceLocation FIRST = Goety.location("textures/entity/cultist/apostle_glow.png");
+        private static final ResourceLocation SECOND = Goety.location("textures/entity/cultist/apostle_second_glow.png");
+
+        public ApostleGlowLayer(RenderLayerParent<T, M> p_116981_) {
+            super(p_116981_);
+        }
+
+        @Override
+        public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T apostle, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+            if (!apostle.isDeadOrDying()) {
+                RenderType renderType = ModRenderType.wraith(FIRST);
+                if (apostle.isSecondPhase()) {
+                    renderType = ModRenderType.wraith(SECOND);
+                }
+                VertexConsumer vertexconsumer = bufferIn.getBuffer(renderType);
+                this.getParentModel().renderToBuffer(matrixStackIn, vertexconsumer, 15728640, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 0.15F);
+            }
         }
     }
 }

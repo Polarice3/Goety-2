@@ -1,14 +1,19 @@
 package com.Polarice3.Goety.client.particles;
 
 import com.Polarice3.Goety.utils.ColorUtil;
+import com.mojang.brigadier.StringReader;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 
 import java.util.Locale;
 
-public abstract class GroundAuraParticleOption implements ParticleOptions {
-    /*public static final Codec<GroundAuraParticleOption> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+public class GroundAuraParticleOption implements ParticleOptions {
+    public static final Codec<GroundAuraParticleOption> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.INT.fieldOf("ownerId").forGetter(d -> d.ownerId),
             Codec.FLOAT.fieldOf("size").forGetter(d -> d.size),
             Codec.FLOAT.fieldOf("red").forGetter(d -> d.red),
@@ -33,7 +38,7 @@ public abstract class GroundAuraParticleOption implements ParticleOptions {
         public GroundAuraParticleOption fromNetwork(ParticleType<GroundAuraParticleOption> particleTypeIn, FriendlyByteBuf buffer) {
             return new GroundAuraParticleOption(buffer.readInt(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat());
         }
-    };*/
+    };
     private final int ownerId;
     private final float size;
     private final float red;
@@ -69,9 +74,9 @@ public abstract class GroundAuraParticleOption implements ParticleOptions {
                 BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.ownerId, this.size, this.red, this.green, this.blue);
     }
 
-    /*public ParticleType<GroundAuraParticleOption> getType() {
+    public ParticleType<GroundAuraParticleOption> getType() {
         return ModParticleTypes.GROUND_AURA.get();
-    }*/
+    }
 
     public int getOwnerId() {
         return this.ownerId;

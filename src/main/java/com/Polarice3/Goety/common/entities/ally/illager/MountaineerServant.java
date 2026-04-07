@@ -9,6 +9,7 @@ import com.Polarice3.Goety.common.items.equipment.IceAxeItem;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -196,13 +197,18 @@ public class MountaineerServant extends AbstractIllagerServant {
         return this.level.getBlockState(above).isSolidRender(this.level, above) && this.getDeltaMovement().y <= 0.01D;
     }
 
+    @Override
+    public boolean isMainWeapon(ItemStack itemStack) {
+        return itemStack.getItem() instanceof IceAxeItem || itemStack.is(ModTags.Items.MOUNTAINEER_WEAPONS);
+    }
+
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         Item item = itemstack.getItem();
         ItemStack itemstack2 = this.getMainHandItem();
         if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
             if (!(pPlayer.getOffhandItem().getItem() instanceof IWand)) {
-                if (item instanceof IceAxeItem) {
+                if (this.isMainWeapon(itemstack)) {
                     this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
                     this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copy());
                     this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);

@@ -63,6 +63,7 @@ public class ModTags {
         public static final TagKey<Block> PRISONER_MINEABLE = tag("prisoner_mineable");
         public static final TagKey<Block> PRISONER_UNMINEABLE = tag("prisoner_unmineable");
         public static final TagKey<Block> PRISONER_RARE_ORES = tag("prisoner_rare_ores");
+        public static final TagKey<Block> CHEF_WORK_TABLES = tag("chef_work_tables");
         public static final TagKey<Block> MONSTROSITY_BREAKS = tag("monstrosity_breaks");
 
         private static TagKey<Block> tag(String name)
@@ -85,6 +86,12 @@ public class ModTags {
         public static final TagKey<Item> PLUSHIE = tag("plushie");
         public static final TagKey<Item> PILLAGER_WEAPONS = tag("pillager_weapons");
         public static final TagKey<Item> VINDICATOR_WEAPONS = tag("vindicator_weapons");
+        public static final TagKey<Item> MOUNTAINEER_WEAPONS = tag("mountaineer_weapons");
+        public static final TagKey<Item> CHEF_CAN_COOK = tag("chef_can_cook");
+        public static final TagKey<Item> CHEF_CANNOT_COOK = tag("chef_cannot_cook");
+        public static final TagKey<Item> CRUSHER_CAN_SMELT = tag("crusher_can_smelt");
+        public static final TagKey<Item> CRUSHER_CANNOT_SMELT = tag("crusher_cannot_smelt");
+        public static final TagKey<Item> CRUSHER_CANNOT_CRAFT = tag("crusher_cannot_craft");
         public static final TagKey<Item> BREWABLE_FOOD = tag("brewable_food");
         public static final TagKey<Item> GRAVE_GLOVE_BOOST = tag("grave_glove_boost");
         public static final TagKey<Item> THRASH_GLOVE_BOOST = tag("thrash_glove_boost");

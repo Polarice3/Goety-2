@@ -63,6 +63,7 @@ public class HauntedJugBlock extends BaseEntityBlock implements SimpleWaterlogge
     public static final VoxelShape SHAPE_TOP = Shapes.or(SHAPE_TOP_1, SHAPE_TOP_2, SHAPE_TOP_3, SHAPE_TOP_4);
     public static final VoxelShape SHAPE = Shapes.or(SHAPE_BASE, SHAPE_TOP);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
 
     public HauntedJugBlock() {
         super(BlockBehaviour.Properties.of()
@@ -70,7 +71,7 @@ public class HauntedJugBlock extends BaseEntityBlock implements SimpleWaterlogge
                 .instrument(NoteBlockInstrument.BASS)
                 .strength(2.0F)
                 .sound(SoundType.WOOD));
-        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.FALSE));
+        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.FALSE).setValue(ENABLED, Boolean.TRUE));
     }
 
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
@@ -136,7 +137,7 @@ public class HauntedJugBlock extends BaseEntityBlock implements SimpleWaterlogge
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(WATERLOGGED);
+        pBuilder.add(WATERLOGGED, ENABLED);
     }
 
     public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {

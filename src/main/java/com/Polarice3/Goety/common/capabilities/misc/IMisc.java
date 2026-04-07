@@ -26,4 +26,6 @@ public interface IMisc {
     void setNoHealTime(int seconds);
     int getShakeTime();
     void setShakeTime(int ticks);
+    int getCustomFoodLevel();
+    void setCustomFoodLevel(int foodLevel);
 }

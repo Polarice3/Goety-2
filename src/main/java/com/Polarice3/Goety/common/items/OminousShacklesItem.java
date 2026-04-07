@@ -1,13 +1,11 @@
 package com.Polarice3.Goety.common.items;
 
-import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.Prisoner;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ServantUtil;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntitySelector;
@@ -20,7 +18,6 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -40,21 +37,9 @@ public class OminousShacklesItem extends Item {
         Level level = player.getCommandSenderWorld();
         if (!level.isClientSide) {
             if (target instanceof AbstractVillager villager && !villager.isBaby()) {
-                Prisoner prisoner = villager.convertTo(ModEntityType.PRISONER.get(), true);
+                Prisoner prisoner = ServantUtil.takePrisoner(villager);
                 if (prisoner != null) {
-                    if (villager instanceof Villager villager1) {
-                        prisoner.setVillagerData(villager1.getVillagerData());
-                        prisoner.setGossips(villager1.getGossips().store(NbtOps.INSTANCE));
-                        MobUtil.releaseAllPois(villager1);
-                    }
-                    prisoner.setTradeOffers(villager.getOffers().createTag());
-                    prisoner.setVillagerXp(villager.getVillagerXp());
-                    prisoner.setIsTrader(villager instanceof WanderingTrader);
                     prisoner.setTrueOwner(player);
-                    net.minecraftforge.event.ForgeEventFactory.onLivingConvert(villager, prisoner);
-                    if (!prisoner.isSilent()) {
-                        prisoner.playSound(SoundEvents.IRON_TRAPDOOR_CLOSE);
-                    }
                     for (Mob mob : level.getEntitiesOfClass(Mob.class, player.getBoundingBox().inflate(16.0D))) {
                         if (mob instanceof Villager villager1) {
                             Brain<?> brain = villager1.getBrain();

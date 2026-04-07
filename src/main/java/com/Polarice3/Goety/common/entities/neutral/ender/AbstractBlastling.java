@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.neutral.ender;
 
-import com.Polarice3.Goety.client.particles.MagicSmokeParticle;
+import com.Polarice3.Goety.client.particles.MagicSmokeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.EnderGoo;
@@ -220,7 +220,7 @@ public class AbstractBlastling extends AbstractEnderling implements RangedAttack
                 ColorUtil colorUtil = new ColorUtil(0xf169e9);
                 Vec3 vec3 = this.getHorizontalLookAngle();
                 if (this.tickCount % 2 == 0) {
-                    this.level.addParticle(new MagicSmokeParticle.Option(0xf4cdf6, 0xae00bc, 10 + this.level.getRandom().nextInt(10), 0.35F), this.getX() + (vec3.x / 2.0D), this.getEyeY() + 0.35F, this.getZ() + (vec3.z / 2.0D), 0.0D, 0.01D, 0.0D);
+                    this.level.addParticle(new MagicSmokeParticleOption(0xf4cdf6, 0xae00bc, 10 + this.level.getRandom().nextInt(10), 0.35F), this.getX() + (vec3.x / 2.0D), this.getEyeY() + 0.35F, this.getZ() + (vec3.z / 2.0D), 0.0D, 0.01D, 0.0D);
                     this.level.addParticle(ModParticleTypes.SMALL_STATION_CULT_SPELL.get(), this.getX() + (vec3.x / 2.0D), this.getEyeY() + 0.35F, this.getZ() + (vec3.z / 2.0D), colorUtil.red(), colorUtil.green(), colorUtil.blue());
                 }
             }

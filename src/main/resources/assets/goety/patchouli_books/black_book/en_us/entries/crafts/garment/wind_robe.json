@@ -25,6 +25,7 @@
     }
   ],
   "extra_recipe_mappings": {
-    "goety:wind_robe": 1
+    "goety:wind_robe": 1,
+    "goety:wind_crown": 3
   }
 }

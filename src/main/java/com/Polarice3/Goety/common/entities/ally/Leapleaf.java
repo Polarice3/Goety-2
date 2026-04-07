@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.ally;
 
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.client.particles.SmashParticleOption;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModMobType;
@@ -752,8 +753,8 @@ public class Leapleaf extends Summoned{
                     int right = rightState.getMapColor(serverLevel, rightPos).col;
                     ColorUtil colorUtil = left == 0 ? ColorUtil.WHITE : new ColorUtil(left);
                     ColorUtil colorUtil1 = right == 0 ? ColorUtil.WHITE : new ColorUtil(right);
-                    serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 5, 1), xLeft, BlockFinder.moveDownToGround(this.leapleaf), zLeft, 1, 0.0D, 0.0D, 0.0D, 0.0D);
-                    serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil1.red(), colorUtil1.green(), colorUtil1.blue(), 5, 1), xRight, BlockFinder.moveDownToGround(this.leapleaf), zRight, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                    serverLevel.sendParticles(new SmashParticleOption(colorUtil, 5, 10), xLeft, BlockFinder.moveDownToGround(this.leapleaf), zLeft, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                    serverLevel.sendParticles(new SmashParticleOption(colorUtil1, 5, 10), xRight, BlockFinder.moveDownToGround(this.leapleaf), zRight, 1, 0.0D, 0.0D, 0.0D, 0.0D);
                     BlockPos blockPos2 = BlockPos.containing(xLeft, this.leapleaf.getY() + 0.25D, zLeft);
                     BlockPos blockPos3 = BlockPos.containing(xRight, this.leapleaf.getY() + 0.25D, zRight);
 

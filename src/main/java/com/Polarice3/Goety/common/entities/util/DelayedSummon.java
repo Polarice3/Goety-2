@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.util;
 
 import com.Polarice3.Goety.api.entities.IOwned;
-import com.Polarice3.Goety.client.particles.MagicSmokeParticle;
+import com.Polarice3.Goety.client.particles.MagicSmokeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.utils.ColorUtil;
@@ -171,7 +171,7 @@ public class DelayedSummon extends Entity {
                             serverWorld.sendParticles(ModParticleTypes.GOD_RAY.get(), this.entity.getX(), this.entity.getY(), this.entity.getZ(), 0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.0F);
 //                            ServerParticleUtil.windShockwaveParticle(serverWorld, colorUtil, 0.1F, 0.1F, 0.05F, -1, this.entity.position());
                             for (int i2 = 0; i2 < serverWorld.getRandom().nextInt(10) + 10; ++i2) {
-                                serverWorld.sendParticles(new MagicSmokeParticle.Option(0x17b0e0, 0xffffff, 10 + this.entity.level.getRandom().nextInt(10), 0.2F), this.entity.getRandomX(1.5D), this.entity.getRandomY(), this.entity.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
+                                serverWorld.sendParticles(new MagicSmokeParticleOption(0x17b0e0, 0xffffff, 10 + this.entity.level.getRandom().nextInt(10), 0.2F), this.entity.getRandomX(1.5D), this.entity.getRandomY(), this.entity.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
                             }
                         }
                         this.discard();

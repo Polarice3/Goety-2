@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.events;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.items.magic.IWand;
-import com.Polarice3.Goety.client.particles.FollowFireParticle;
+import com.Polarice3.Goety.client.particles.FollowFireParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.RisingCircleParticleOption;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
@@ -98,7 +98,7 @@ public class PotionEvents {
                 if (livingEntity.hasEffect(GoetyEffects.VOID_TOUCHED.get())) {
                     if (livingEntity.tickCount % 10 == 0) {
                         ColorUtil colorUtil = new ColorUtil(0x7f0075);
-                        serverLevel.sendParticles(new FollowFireParticle.Option(livingEntity.getId()), livingEntity.getX(), livingEntity.getY() + (livingEntity.getBbHeight() / 2.0F), livingEntity.getZ(), 0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.0F);
+                        serverLevel.sendParticles(new FollowFireParticleOption(livingEntity.getId()), livingEntity.getX(), livingEntity.getY() + (livingEntity.getBbHeight() / 2.0F), livingEntity.getZ(), 0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.0F);
                     }
                 }
             }

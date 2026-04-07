@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.items.equipment;
 
 import com.Polarice3.Goety.common.blocks.TallSkullBlock;
 import com.Polarice3.Goety.common.blocks.WallTallSkullBlock;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModTiers;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.utils.BlockFinder;
@@ -53,13 +54,13 @@ public class GraverobberShovelItem extends ShovelItem {
                 }
             }
             if (pLevel.getServer() != null) {
-                double d0 = (double) (pLevel.random.nextFloat() * 0.5F) + 0.25D;
-                double d1 = (double) (pLevel.random.nextFloat() * 0.5F) + 0.25D;
-                double d2 = (double) (pLevel.random.nextFloat() * 0.5F) + 0.25D;
+                double d0 = (double) (pLevel.getRandom().nextFloat() * 0.5F) + 0.25D;
+                double d1 = (double) (pLevel.getRandom().nextFloat() * 0.5F) + 0.25D;
+                double d2 = (double) (pLevel.getRandom().nextFloat() * 0.5F) + 0.25D;
                 LootTable loottable = pLevel.getServer().getLootData().getLootTable(EntityType.SKELETON.getDefaultLootTable());
                 if ((pState.is(BlockTags.DIRT) || pState.is(BlockTags.SAND))){
-                    if (pLevel.random.nextFloat() <= 0.1F){
-                        if (pLevel.random.nextBoolean()){
+                    if (pLevel.getRandom().nextFloat() <= 0.1F){
+                        if (pLevel.getRandom().nextBoolean()){
                             loottable = pLevel.getServer().getLootData().getLootTable(EntityType.ZOMBIE.getDefaultLootTable());
                         }
                         LootParams.Builder lootcontext$builder = MobUtil.createLootContext(pLevel.damageSources().generic(), pEntityLiving);
@@ -75,7 +76,7 @@ public class GraverobberShovelItem extends ShovelItem {
                         });
                     }
                 } else if (pState.is(BlockTags.WITHER_SUMMON_BASE_BLOCKS)){
-                    if (pLevel.random.nextFloat() <= 0.1F){
+                    if (pLevel.getRandom().nextFloat() <= 0.1F){
                         LootParams.Builder lootcontext$builder = MobUtil.createLootContext(pLevel.damageSources().generic(), pEntityLiving);
                         LootParams ctx = lootcontext$builder.create(LootContextParamSets.ENTITY);
                         loottable.getRandomItems(ctx).forEach((loot) -> {
@@ -83,6 +84,10 @@ public class GraverobberShovelItem extends ShovelItem {
                             pLevel.addFreshEntity(itemEntity);
                         });
                     }
+                }
+                if (pLevel.getRandom().nextFloat() <= 0.025F){
+                    ItemEntity itemEntity = new ItemEntity(pLevel, pPos.getX() + d0, pPos.getY() + d1, pPos.getZ() + d2, new ItemStack(ModItems.GRAVE_DUST.get()));
+                    pLevel.addFreshEntity(itemEntity);
                 }
             }
         }

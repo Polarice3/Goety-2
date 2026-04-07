@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.effects;
 
-import com.Polarice3.Goety.client.particles.AuraParticle;
+import com.Polarice3.Goety.client.particles.AuraParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
 import com.Polarice3.Goety.common.network.ModNetwork;
@@ -153,7 +153,7 @@ public class GoetyBaseEffect extends MobEffect {
                     ServerParticleUtil.windParticle(serverLevel, new ColorUtil(0x7eb7d4), f, livingEntity.getBbHeight() / 2.0F, livingEntity.getId(), livingEntity.position());
                 }
                 if (livingEntity.tickCount % 15 == 0) {
-                    serverLevel.sendParticles(new AuraParticle.Option(livingEntity.getId(), livingEntity.getBbHeight(), new ColorUtil(MapColor.ICE)), livingEntity.getX(), livingEntity.getY() + (livingEntity.getBbHeight() / 2.0F), livingEntity.getZ(), 1, 0, 0, 0, 0.5F);
+                    serverLevel.sendParticles(new AuraParticleOption(livingEntity.getId(), livingEntity.getBbHeight(), new ColorUtil(MapColor.ICE)), livingEntity.getX(), livingEntity.getY() + (livingEntity.getBbHeight() / 2.0F), livingEntity.getZ(), 1, 0, 0, 0, 0.5F);
                 }
             }
         }

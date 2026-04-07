@@ -3,7 +3,7 @@ package com.Polarice3.Goety.common.items.equipment;
 import com.Polarice3.Goety.api.items.IPersist;
 import com.Polarice3.Goety.api.items.ISoulRepair;
 import com.Polarice3.Goety.api.items.magic.IWand;
-import com.Polarice3.Goety.client.particles.WindBlowParticle;
+import com.Polarice3.Goety.client.particles.WindBlowParticleOption;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.projectiles.VoidSlash;
@@ -259,7 +259,7 @@ public class BladeOfEnderItem extends SwordItem implements IPersist, ISoulRepair
                 float height = this.level.getRandom().nextFloat() * 0.5F;
                 Vec3 vec3 = ownerLiving.getEyePosition().offsetRandom(this.level.getRandom(), 2.0F);
                 Vec3 angle = ownerLiving.getLookAngle().multiply(-1.0D, 1.0D, -1.0D);
-                this.level.sendParticles(new WindBlowParticle.Option(new ColorUtil(ChatFormatting.LIGHT_PURPLE), width, height), vec3.x, vec3.y, vec3.z, 0, angle.x, angle.y, angle.z, 1.0F);
+                this.level.sendParticles(new WindBlowParticleOption(new ColorUtil(ChatFormatting.LIGHT_PURPLE), width, height), vec3.x, vec3.y, vec3.z, 0, angle.x, angle.y, angle.z, 1.0F);
 
                 for (LivingEntity entityHit : this.level.getEntitiesOfClass(LivingEntity.class, ownerLiving.getBoundingBox().inflate(2.0F))) {
                     if (!MobUtil.areAllies(ownerLiving, entityHit) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entityHit) && entityHit.isAttackable()) {

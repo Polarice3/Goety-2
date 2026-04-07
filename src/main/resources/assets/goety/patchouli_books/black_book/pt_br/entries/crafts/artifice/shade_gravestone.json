@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Pedra das Sombras e metal amaldiçoado canalizam energias necróticas. Com o Foco da Podridão, criaste uma lápide que invoca Zombis Servos leais."
+      "text": "Pedra das Sombras e metal amaldiçoado são excelentes para canalizar energias necróticas. Com alguns ajustes e o Foco da Putrefação, você conseguiu criar uma lápide especial que pode invocar Servos Zumbis leais sob demanda."
     },
     {
       "type": "goety:ritual",
@@ -13,7 +13,56 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Requer um Ferro em Pó para invocar um Zombi Servo. Clicar com uma Varinha define se invoca apenas com alvos próximos. Agachado, alterna entre patrulhar ou seguir o dono."
+      "text": "A lápide requer uma Pepita de Ferro para trabalhar, a fim de invocar um Servo Zumbi. Assim como o Ninho de Aranha, clicar com o botão direito no ninho com uma Varinha ou Cajado fará com que ele só invoque um servo se houver um alvo válido por perto. Ao agachar, no entanto, alternará se o servo irá spawnar guardando o bloco ou seguindo o dono."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Dependendo do ambiente, assim como $(l:rituals/dark_altar)Altares$(), o servo pode aparecer como uma variante diferente de um Zumbi normal."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Afogados",
+      "text": "Requisitos: $(li)Lápide estar alagada"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Zumbis-Múmias",
+      "text": "Requisitos: $(li)Lápide está localizada em um Deserto $(br)$(l)OU$()$() $(li)15 Areias $(li)1 Bloco de Ouro"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Zumbis Congelados",
+      "text": "Requisitos: $(li)Lápide está localizada em um bioma nevado $(br)$(l)OU$()$() $(li)20 Neves $(li)8 Gelos"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Zumbis da Selva",
+      "text": "Requisitos: $(li)Lápide está localizada em uma Selva $(br)$(l)OU$()$() $(li)20 Trepadeiras $(li)8 Folhas"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Frayed",
+      "text": "Requisitos: $(li)Lápide está exposta a uma tempestade ativa $(br)$(l)OU$()$() $(li)1 Pára-raios $(li)8 Blocos de Cobre"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Zumbis Vingadores",
+      "text": "Requisitos: $(li)Lápide está localizada em uma Mansão da Floresta $(br)$(l)OU$()$() $(li)15 Troncos de Carvalho Escuro $(li)1 Bigorna"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Piglins Zumbificados",
+      "text": "Requisitos: $(li)Lápide está localizada no Nether $(br)$(l)OU$()$() $(li)25 Netherracks $(li)2 Fogueiras"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Piglins Brutos Zumbificados",
+      "text": "Requisitos: $(li)Lápide está localizada em um Bastião Remanescente $(br)$(l)OU$()$() $(li)25 Pedras-Negras $(li)8 Blocos de Ouro $(li)1 Detrito Ancestral"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Zumbis Aldeões",
+      "text": "Requisitos: $(li)Lápide está localizada em uma Aldeia $(br)$(l)OU$()$() $(li)14 Caminhos de Terra"
     }
   ],
   "extra_recipe_mappings": {

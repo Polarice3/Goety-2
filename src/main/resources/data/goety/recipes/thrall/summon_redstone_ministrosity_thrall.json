@@ -1,0 +1,22 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:summon_tamed_no_variant",
+  "activation_item": {
+    "tag": "forge:storage_blocks/redstone"
+  },
+  "craftType": "geoturgy",
+  "entity_to_summon": "goety:redstone_ministrosity",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "tag": "forge:gems/amethyst"
+    },
+    {
+      "item": "minecraft:magma_block"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

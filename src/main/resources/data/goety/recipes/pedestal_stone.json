@@ -10,11 +10,11 @@
   {
     "l":
     {
-      "item": "minecraft:stone_brick_slab"
+      "tag": "goety:slab_stone_craft"
     },
     "s":
     {
-      "item": "minecraft:stone_bricks"
+      "tag": "goety:full_stone_craft"
     }
   },
   "result":

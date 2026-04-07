@@ -206,7 +206,11 @@ public class PikerServant extends AbstractIllagerServant{
     public void spawnArmor(RandomSource randomSource) {
     }
 
-    public boolean canPickUpLoot() {
+    public boolean canWearArmor() {
+        return false;
+    }
+
+    public boolean canHaveWeapon() {
         return false;
     }
 

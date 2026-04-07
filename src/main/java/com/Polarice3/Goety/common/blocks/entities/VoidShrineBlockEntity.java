@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
 import com.Polarice3.Goety.client.particles.TeleportInShockwaveParticleOption;
-import com.Polarice3.Goety.client.particles.WindBlowParticle;
+import com.Polarice3.Goety.client.particles.WindBlowParticleOption;
 import com.Polarice3.Goety.common.blocks.VoidShrineBlock;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -62,7 +62,7 @@ public class VoidShrineBlockEntity extends PedestalBlockEntity {
                         int width = this.level.getRandom().nextIntBetweenInclusive(1, 4);
                         float height = this.level.getRandom().nextFloat() * 0.5F;
                         vec3 = vec3.offsetRandom(this.level.getRandom(), 3.0F);
-                        serverLevel.sendParticles(new WindBlowParticle.Option(new ColorUtil(ChatFormatting.LIGHT_PURPLE), width, height), vec3.x, vec3.y, vec3.z, 0, 0.0F, 1.0F, 0.0F, 1.0F);
+                        serverLevel.sendParticles(new WindBlowParticleOption(new ColorUtil(ChatFormatting.LIGHT_PURPLE), width, height), vec3.x, vec3.y, vec3.z, 0, 0.0F, 1.0F, 0.0F, 1.0F);
                     }
                     if (this.tick == 100) {
                         this.breakBlocksAround();

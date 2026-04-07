@@ -11,6 +11,10 @@ public class IllagerLootFoodChestGoal<T extends AbstractIllagerServant> extends 
         this.chestPredicate = illager::validFood;
     }
 
+    public boolean hasItemInInv() {
+        return true;
+    }
+
     @Override
     public boolean canUse() {
         if (this.illager.getChestPos() == null) {

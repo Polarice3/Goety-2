@@ -1,14 +1,11 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
-import com.Polarice3.Goety.client.particles.MagicSmokeParticle;
+import com.Polarice3.Goety.client.particles.MagicSmokeParticleOption;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.ItemConfig;
-import com.Polarice3.Goety.utils.BlockFinder;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.SEHelper;
-import com.Polarice3.Goety.utils.TrailEffect;
+import com.Polarice3.Goety.utils.*;
 import com.mojang.math.Axis;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -161,7 +158,7 @@ public class ScytheSlash extends AbstractHurtingProjectile {
                                     SEHelper.increaseSouls(player, ItemConfig.DarkScytheSouls.get() * soulEater);
                                 }
                             } else {
-                                DamageSource damageSource = this.getOwner() instanceof LivingEntity livingEntity ? entity.damageSources().mobAttack(livingEntity) : entity.damageSources().thrown(this, this);
+                                DamageSource damageSource = this.getOwner() instanceof LivingEntity livingEntity ? ModDamageSource.sword(livingEntity, livingEntity) : entity.damageSources().thrown(this, this);
                                 entity.hurt(damageSource, f);
                             }
                         } else {
@@ -205,7 +202,7 @@ public class ScytheSlash extends AbstractHurtingProjectile {
     }
 
     protected ParticleOptions getTrailParticle() {
-        return new MagicSmokeParticle.Option(0x6ea8f5, 0x95f5ff, 10, 0.35F);
+        return new MagicSmokeParticleOption(0x6ea8f5, 0x95f5ff, 10, 0.35F);
     }
 
     @Override

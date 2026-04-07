@@ -819,6 +819,7 @@ public class ModEvents {
                             }
                         }
                     }
+                    MiscCapHelper.setCustomFoodLevel(villager, Math.max(0, villager.foodLevel));
                 }
             }
         }

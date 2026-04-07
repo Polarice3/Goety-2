@@ -1012,26 +1012,10 @@ public class MobUtil {
         return isInSunlight(livingEntity) && !livingEntity.level.isRaining();
     }
 
-    /**
-     * Mind Bending, lol.
-     */
-    public static boolean ownerStack(IOwned owned0, IOwned owned1){
-        LivingEntity masterOwner0 = owned0.getMasterOwner();
-        LivingEntity masterOwner1 = owned1.getMasterOwner();
-        LivingEntity trueOwner0 = owned0.getTrueOwner();
-        LivingEntity trueOwner1 = owned1.getTrueOwner();
-        if (trueOwner0 != null && trueOwner1 != null){
-            if (masterOwner0 != null && masterOwner1 != null){
-                return masterOwner0 == masterOwner1;
-            } else if (masterOwner0 != null){
-                return masterOwner0 == trueOwner1;
-            } else if (masterOwner1 != null){
-                return masterOwner1 == trueOwner0;
-            } else {
-                return trueOwner0 == trueOwner1;
-            }
-        }
-        return false;
+    public static boolean ownerStack(IOwned owned0, IOwned owned1) {
+        LivingEntity master0 = owned0.getMasterOwner();
+        LivingEntity master1 = owned1.getMasterOwner();
+        return master0 != null && master1 != null && (master0 == master1 || master0.getUUID().equals(master1.getUUID()));
     }
 
     public static boolean isSpellCasting(LivingEntity livingEntity){

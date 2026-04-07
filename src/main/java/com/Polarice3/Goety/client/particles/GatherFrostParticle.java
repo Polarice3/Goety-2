@@ -1,24 +1,14 @@
 package com.Polarice3.Goety.client.particles;
 
 import com.Polarice3.Goety.utils.ColorUtil;
-import com.mojang.brigadier.StringReader;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.Util;
 import net.minecraft.client.Timer;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Locale;
 
 public class GatherFrostParticle extends TextureSheetParticle {
     public Timer timer;
@@ -100,83 +90,17 @@ public class GatherFrostParticle extends TextureSheetParticle {
         return new Vec3(this.x, this.y, this.z);
     }
 
-    public static class Provider implements ParticleProvider<Option> {
+    public static class Provider implements ParticleProvider<GatherFrostParticleOption> {
         private final SpriteSet sprite;
 
         public Provider(SpriteSet p_i50607_1_) {
             this.sprite = p_i50607_1_;
         }
 
-        public Particle createParticle(Option pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
-            GatherFrostParticle particle = new GatherFrostParticle(pLevel, pX, pY, pZ, new Vec3(pType.endX, pType.endY, pType.endZ));
+        public Particle createParticle(GatherFrostParticleOption pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
+            GatherFrostParticle particle = new GatherFrostParticle(pLevel, pX, pY, pZ, new Vec3(pType.getEndX(), pType.getEndY(), pType.getEndZ()));
             particle.pickSprite(this.sprite);
             return particle;
-        }
-    }
-
-    @Deprecated
-    public static class Option implements ParticleOptions {
-        public static final Codec<Option> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                Codec.FLOAT.fieldOf("endX").forGetter(d -> d.endX),
-                Codec.FLOAT.fieldOf("endY").forGetter(d -> d.endY),
-                Codec.FLOAT.fieldOf("endZ").forGetter(d -> d.endZ)
-        ).apply(instance, Option::new));
-        public static final Deserializer<Option> DESERIALIZER = new Deserializer<Option>() {
-            public Option fromCommand(ParticleType<Option> particleTypeIn, StringReader reader) throws CommandSyntaxException {
-                reader.expect(' ');
-                float endX = reader.readFloat();
-                reader.expect(' ');
-                float endY = reader.readFloat();
-                reader.expect(' ');
-                float endZ = reader.readFloat();
-                return new Option(endX, endY, endZ);
-            }
-
-            public Option fromNetwork(ParticleType<Option> particleTypeIn, FriendlyByteBuf buffer) {
-                return new Option(buffer.readFloat(), buffer.readFloat(), buffer.readFloat());
-            }
-        };
-        private final float endX;
-        private final float endY;
-        private final float endZ;
-
-        public Option(Vec3 end) {
-            this.endX = (float) end.x;
-            this.endY = (float) end.y;
-            this.endZ = (float) end.z;
-        }
-
-        public Option(float endX, float endY, float endZ) {
-            this.endX = endX;
-            this.endY = endY;
-            this.endZ = endZ;
-        }
-
-        public void writeToNetwork(FriendlyByteBuf buffer) {
-            buffer.writeFloat(this.endX);
-            buffer.writeFloat(this.endY);
-            buffer.writeFloat(this.endZ);
-        }
-
-        public String writeToString() {
-            return String.format(Locale.ROOT, "%s %.2f %.2f %.2f",
-                    BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.endX, this.endY, this.endZ);
-        }
-
-        public ParticleType<Option> getType() {
-            return ModParticleTypes.FROST_GATHER.get();
-        }
-
-        public float getEndX() {
-            return this.endX;
-        }
-
-        public float getEndY() {
-            return this.endY;
-        }
-
-        public float getEndZ() {
-            return this.endZ;
         }
     }
 }

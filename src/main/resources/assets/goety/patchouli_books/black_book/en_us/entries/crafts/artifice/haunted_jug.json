@@ -19,6 +19,10 @@
     {
       "type": "patchouli:text",
       "text": "The jug will attempt to fill in any nearby valid container, such as cauldrons, with water, and will even extinguish any creature that's lit aflame near itself."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Right-clicking on the jug with a Wand/Staff will put a lid on it, disabling the feature, or remove it if it's lidded."
     }
   ],
   "extra_recipe_mappings": {

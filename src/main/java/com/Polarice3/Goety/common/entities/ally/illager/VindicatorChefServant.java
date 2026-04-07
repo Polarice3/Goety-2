@@ -1,44 +1,48 @@
 package com.Polarice3.Goety.common.entities.ally.illager;
 
+import com.Polarice3.Goety.api.entities.IMobCrafter;
 import com.Polarice3.Goety.common.entities.ai.IllagerChestGoal;
+import com.Polarice3.Goety.common.entities.ai.MobCraftingGoal;
+import com.Polarice3.Goety.common.entities.ai.MobFurnaceGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
-import com.Polarice3.Goety.utils.BlockFinder;
-import net.minecraft.commands.arguments.EntityAnchorArgument;
+import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.CraftingTableBlock;
 import net.minecraft.world.level.block.FurnaceBlock;
 import net.minecraft.world.level.block.SmokerBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
-public class VindicatorChefServant extends VindicatorServant{
+public class VindicatorChefServant extends VindicatorServant implements IMobCrafter {
     protected static final EntityDataAccessor<Optional<BlockPos>> FURNACE_POS = SynchedEntityData.defineId(VindicatorChefServant.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
+    protected static final EntityDataAccessor<Optional<BlockPos>> CRAFT_TABLE_POS = SynchedEntityData.defineId(VindicatorChefServant.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
     protected static final EntityDataAccessor<Boolean> COOKING = SynchedEntityData.defineId(VindicatorChefServant.class, EntityDataSerializers.BOOLEAN);
 
     public VindicatorChefServant(EntityType<? extends Owned> type, Level worldIn) {
@@ -48,7 +52,8 @@ public class VindicatorChefServant extends VindicatorServant{
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(2, new CookingGoal(this));
+        this.goalSelector.addGoal(1, new CraftingGoal<>(this));
+        this.goalSelector.addGoal(2, new CookingGoal<>(this));
     }
 
     public void throwGoal() {
@@ -66,21 +71,26 @@ public class VindicatorChefServant extends VindicatorServant{
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(FURNACE_POS, Optional.empty());
+        this.entityData.define(CRAFT_TABLE_POS, Optional.empty());
         this.entityData.define(COOKING, false);
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        if (this.getFurnacePos().isPresent()) {
-            compound.put("FurnacePos", NbtUtils.writeBlockPos(this.getFurnacePos().get()));
-        }
+        this.saveCrafterData(compound);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        if (compound.contains("FurnacePos")){
-            this.setFurnacePos(NbtUtils.readBlockPos(compound.getCompound("FurnacePos")));
+        this.readCrafterData(compound);
+    }
+
+    @Override
+    public void die(DamageSource pCause) {
+        if (!this.isFurnaceActuallyCooking()) {
+            this.setFurnaceLit(false);
         }
+        super.die(pCause);
     }
 
     public Optional<BlockPos> getFurnacePos() {
@@ -91,16 +101,40 @@ public class VindicatorChefServant extends VindicatorServant{
         this.entityData.set(FURNACE_POS, Optional.ofNullable(trainPos));
     }
 
-    public void setCooking(boolean cooking) {
+    public Optional<BlockPos> getCraftTablePos() {
+        return this.entityData.get(CRAFT_TABLE_POS);
+    }
+
+    public void setCraftTablePos(@Nullable BlockPos trainPos) {
+        this.entityData.set(CRAFT_TABLE_POS, Optional.ofNullable(trainPos));
+    }
+
+    public void setUsingFurnace(boolean cooking) {
         this.entityData.set(COOKING, cooking);
     }
 
-    public boolean isCooking() {
+    public boolean isUsingFurnace() {
         return this.entityData.get(COOKING);
     }
 
+    public boolean isFurnace(BlockState blockState) {
+        return blockState.getBlock() instanceof FurnaceBlock || blockState.getBlock() instanceof SmokerBlock;
+    }
+
+    public void setCrafting(boolean crafting) {
+        this.setUsingFurnace(crafting);
+    }
+
+    public boolean isCrafting() {
+        return this.isUsingFurnace();
+    }
+
+    public boolean isCraftTable(BlockState blockState) {
+        return blockState.getBlock() instanceof CraftingTableBlock || blockState.is(ModTags.Blocks.CHEF_WORK_TABLES);
+    }
+
     public IllagerServantArmPose getArmPose() {
-        if (this.isAggressive() || this.isCooking()) {
+        if (this.isAggressive() || this.isUsingFurnace()) {
             return IllagerServantArmPose.ATTACKING;
         } else {
             return this.isCelebrating() ? IllagerServantArmPose.CELEBRATING : IllagerServantArmPose.CROSSED;
@@ -134,6 +168,101 @@ public class VindicatorChefServant extends VindicatorServant{
                 .orElse(ItemStack.EMPTY);
     }
 
+    public static boolean validCook(ItemStack stack, ServerLevel level) {
+        return validCraft(canCook(stack, level));
+    }
+
+    public boolean validLootToStore(ItemStack itemStack) {
+        boolean flag = super.validLootToStore(itemStack);
+        if (this.level instanceof ServerLevel serverLevel) {
+            return flag && !isCraftingIngredient(itemStack, serverLevel);
+        }
+        return flag;
+    }
+
+    @Nullable
+    public static CraftingRecipe findSatisfiableRecipe(ItemStack stack, ServerLevel level, Container inventory) {
+        List<CraftingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING);
+        return recipes.stream()
+                .filter(recipe -> {
+                    ItemStack result = recipe.getResultItem(level.registryAccess());
+                    if (result.isEmpty() || !validCraft(result)) {
+                        return false;
+                    }
+
+                    if (recipe.getIngredients().stream().noneMatch(ing -> ing.test(stack))) {
+                        return false;
+                    }
+
+                    Map<Item, Integer> required = new HashMap<>();
+                    for (Ingredient ingredient : recipe.getIngredients()) {
+                        if (ingredient.isEmpty()) {
+                            continue;
+                        }
+                        boolean matched = false;
+                        for (int i = 0; i < inventory.getContainerSize(); i++) {
+                            ItemStack slot = inventory.getItem(i);
+                            if (!slot.isEmpty() && ingredient.test(slot)) {
+                                required.merge(slot.getItem(), 1, Integer::sum);
+                                matched = true;
+                                break;
+                            }
+                        }
+                        if (!matched) {
+                            return false;
+                        }
+                    }
+
+                    for (Map.Entry<Item, Integer> entry : required.entrySet()) {
+                        int have = 0;
+                        for (int i = 0; i < inventory.getContainerSize(); i++) {
+                            ItemStack slot = inventory.getItem(i);
+                            if (slot.getItem() == entry.getKey()) {
+                                have += slot.getCount();
+                            }
+                        }
+                        if (have < entry.getValue()) {
+                            return false;
+                        }
+                    }
+
+                    return true;
+                })
+                .findFirst()
+                .orElse(null);
+    }
+
+    public static ItemStack canCraft(ItemStack stack, ServerLevel level, Container inventory) {
+        CraftingRecipe recipe = findSatisfiableRecipe(stack, level, inventory);
+        return recipe != null ? recipe.getResultItem(level.registryAccess()).copy() : ItemStack.EMPTY;
+    }
+
+    public static int craftIngredientCount(ItemStack stack, ServerLevel level, SimpleContainer inventory) {
+        CraftingRecipe recipe = findSatisfiableRecipe(stack, level, inventory);
+        if (recipe == null) {
+            return 0;
+        }
+        return (int) recipe.getIngredients().stream()
+                .filter(ingredient -> ingredient.test(stack))
+                .count();
+    }
+
+    public static boolean isCraftingIngredient(ItemStack stack, ServerLevel level) {
+        List<CraftingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING);
+        if (stack.isEmpty()) {
+            return false;
+        }
+        return recipes.stream().anyMatch(recipe -> {
+            ItemStack result = recipe.getResultItem(level.registryAccess());
+            return validCraft(result) && recipe.getIngredients().stream()
+                    .anyMatch(ingredient -> ingredient.test(stack));
+        });
+    }
+
+    public static boolean validCraft(ItemStack itemStack) {
+        return (itemStack.isEdible() || itemStack.is(ModTags.Items.CHEF_CAN_COOK)) && !itemStack.is(ModTags.Items.CHEF_CANNOT_COOK);
+    }
+
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
@@ -155,132 +284,29 @@ public class VindicatorChefServant extends VindicatorServant{
         return super.mobInteract(pPlayer, pHand);
     }
 
-    public static class CookingGoal extends Goal {
-        public static int COOK_TIME = 100;
-        public VindicatorChefServant illager;
-        protected int tryTicks;
-        @Nullable
-        public BlockPos furnace;
-        public int workTick;
-        public boolean playSound = false;
+    public static class CookingGoal<T extends VindicatorChefServant> extends MobFurnaceGoal<T> {
 
-        public CookingGoal(VindicatorChefServant illager){
-            this.illager = illager;
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        public CookingGoal(T illager){
+            super(illager, 100, 0.75F);
         }
 
         @Override
-        public boolean canUse() {
-            if (this.illager.level instanceof ServerLevel serverLevel) {
-                if (!this.illager.itemsInInv(itemStack -> canCook(itemStack, serverLevel).isEdible()).isEmpty()) {
-                    this.furnace = this.findFurnace();
-                    if (this.furnace != null) {
-                        this.illager.setFurnacePos(this.furnace);
-                    }
-                    return this.furnace != null && this.illager.getTarget() == null;
-                }
+        public boolean canStartFurnaceUsing() {
+            if (this.mob.level instanceof ServerLevel serverLevel) {
+                return !this.mob.itemsInInv(itemStack -> validCook(itemStack, serverLevel)).isEmpty();
             }
             return false;
         }
 
         @Override
-        public boolean canContinueToUse() {
-            if (this.illager.level instanceof ServerLevel serverLevel) {
-                if (!this.illager.itemsInInv(itemStack -> canCook(itemStack, serverLevel).isEdible()).isEmpty()) {
-                    if (this.furnace != null) {
-                        if (this.getNearbyChefs(serverLevel, new AABB(this.furnace).inflate(4.0D), this.furnace).isEmpty()) {
-                            if (this.tryTicks <= 1200) {
-                                BlockState blockState = this.illager.level.getBlockState(this.furnace);
-                                return (blockState.getBlock() instanceof FurnaceBlock || blockState.getBlock() instanceof SmokerBlock) && super.canContinueToUse();
-                            }
-                        }
-                    }
+        public void onSmelt(ServerLevel serverLevel) {
+            Optional<ItemStack> optional = this.mob.itemsInInv(itemStack -> validCook(itemStack, serverLevel)).stream().findFirst();
+            if (optional.isPresent()){
+                ItemStack itemStack = smelt(optional.get().split(1), serverLevel);
+                if (this.mob.getInventory().canAddItem(itemStack)) {
+                    this.mob.getInventory().addItem(itemStack);
                 }
             }
-            return false;
-        }
-
-        public void start() {
-            this.moveMobToBlock();
-            this.tryTicks = 0;
-        }
-
-        protected void moveMobToBlock() {
-            if (this.furnace == null) {
-                this.stop();
-                return;
-            }
-            this.illager.getNavigation().moveTo((double)((float)this.furnace.getX()) + 0.5D, (double)(this.furnace.getY() + 1), (double)((float)this.furnace.getZ()) + 0.5D, 0.75F);
-        }
-
-        @Override
-        public boolean requiresUpdateEveryTick() {
-            return true;
-        }
-
-        @Override
-        public void stop() {
-            this.furnace = null;
-            this.illager.setFurnacePos(null);
-            this.tryTicks = 0;
-            this.workTick = 0;
-            this.illager.setCooking(false);
-        }
-
-        public void tick(){
-            if (this.furnace == null) {
-                this.stop();
-                return;
-            }
-            if (this.illager.level instanceof ServerLevel serverLevel) {
-                if (this.illager.distanceToSqr(Vec3.atCenterOf(this.furnace)) > Mth.square(2)) {
-                    ++this.tryTicks;
-                    if (this.shouldRecalculatePath()) {
-                        this.illager.getNavigation().moveTo((double)((float)this.furnace.getX()) + 0.5D, (double)this.furnace.getY(), (double)((float)this.furnace.getZ()) + 0.5D, 0.75F);
-                    }
-                    if (this.illager.isCooking()) {
-                        this.illager.setCooking(false);
-                    }
-                } else {
-                    this.illager.getNavigation().stop();
-                    this.illager.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(this.furnace));
-                    this.tryTicks = 0;
-                    ++this.workTick;
-                    if (!this.illager.isCooking()) {
-                        this.illager.setCooking(true);
-                    }
-                    if (!this.playSound) {
-                        try {
-                            BlockState blockState = this.illager.level.getBlockState(this.furnace);
-                            if (blockState.getBlock() instanceof FurnaceBlock) {
-                                this.illager.level.playSound(null, this.furnace.getX() + 0.5F, this.furnace.getY(), this.furnace.getZ() + 0.5F, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0F, 1.0F);
-                            } else if (blockState.getBlock() instanceof SmokerBlock) {
-                                this.illager.level.playSound(null, this.furnace.getX() + 0.5F, this.furnace.getY(), this.furnace.getZ() + 0.5F, SoundEvents.SMOKER_SMOKE, SoundSource.BLOCKS, 1.0F, 1.0F);
-                            }
-                        } catch (NullPointerException exception) {
-                            this.stop();
-                            return;
-                        }
-                        this.playSound = true;
-                    }
-                    if (this.workTick > COOK_TIME) {
-                        Optional<ItemStack> optional = this.illager.itemsInInv(itemStack -> canCook(itemStack, serverLevel).isEdible()).stream().findFirst();
-                        if (optional.isPresent()){
-                            ItemStack itemStack = smelt(optional.get().split(1), serverLevel);
-                            if (this.illager.getInventory().canAddItem(itemStack)) {
-                                this.illager.getInventory().addItem(itemStack);
-                            }
-                        }
-                        this.playSound = false;
-                        this.workTick = 0;
-                    }
-                }
-            }
-
-        }
-
-        public boolean shouldRecalculatePath() {
-            return this.tryTicks % 40 == 0;
         }
 
         public static ItemStack smelt(ItemStack stack, ServerLevel level) {
@@ -294,33 +320,73 @@ public class VindicatorChefServant extends VindicatorServant{
                     })
                     .orElse(stack);
         }
+    }
 
-        public List<VindicatorChefServant> getNearbyChefs(Level level, AABB aabb, BlockPos blockPos) {
-            return level.getEntitiesOfClass(VindicatorChefServant.class, aabb, chef -> chef.getFurnacePos().isPresent()
-                    && BlockFinder.samePos(chef.getFurnacePos().get(), blockPos)
-                    && chef.isCooking()
-                    && chef != this.illager);
+    public static class CraftingGoal<T extends VindicatorChefServant> extends MobCraftingGoal<T> {
+
+        public CraftingGoal(T mob) {
+            super(mob, 60, 0.75F);
         }
 
-        public BlockPos findFurnace(){
-            int i = 8;
-            int j = 1;
-            for(int k = 0; k <= j; k = k > 0 ? -k : 1 - k) {
-                for(int l = 0; l < i; ++l) {
-                    for(int i1 = 0; i1 <= l; i1 = i1 > 0 ? -i1 : 1 - i1) {
-                        for(int j1 = i1 < l && i1 > -l ? l : 0; j1 <= l; j1 = j1 > 0 ? -j1 : 1 - j1) {
-                            BlockPos blockPos1 = this.illager.blockPosition().offset(i1, k - 1, j1);
-                            BlockState blockState = this.illager.level.getBlockState(blockPos1);
-                            if (blockState.getBlock() instanceof FurnaceBlock || blockState.getBlock() instanceof SmokerBlock){
-                                if (this.getNearbyChefs(this.illager.level, new AABB(blockPos1).inflate(4.0D), blockPos1).isEmpty()) {
-                                    return blockPos1;
+        public boolean canStartCrafting() {
+            if (this.mob.level instanceof ServerLevel serverLevel) {
+                return this.findCraftableStack(serverLevel) != null;
+            }
+            return false;
+        }
+
+        @Nullable
+        public ItemStack findCraftableStack(ServerLevel level) {
+            SimpleContainer inv = this.mob.getInventory();
+            return this.mob.itemsInInv(stack -> {
+                ItemStack result = canCraft(stack, level, inv);
+                if (result.isEmpty()) {
+                    return false;
+                }
+                int needed = craftIngredientCount(stack, level, inv);
+                return inv.countItem(stack.getItem()) >= needed;
+            }).stream().findFirst().orElse(null);
+        }
+
+        @Override
+        public void onCraft(ServerLevel serverLevel) {
+            ItemStack source = this.findCraftableStack(serverLevel);
+            if (source != null) {
+                SimpleContainer inv = this.mob.getInventory();
+                CraftingRecipe recipe = findSatisfiableRecipe(source, serverLevel, inv);
+                if (recipe != null) {
+                    ItemStack result = recipe.getResultItem(serverLevel.registryAccess()).copy();
+
+                    for (Ingredient ingredient : recipe.getIngredients()) {
+                        if (ingredient.isEmpty()) {
+                            continue;
+                        }
+                        for (int i = 0; i < inv.getContainerSize(); i++) {
+                            ItemStack slot = inv.getItem(i);
+                            if (!slot.isEmpty() && ingredient.test(slot)) {
+                                ItemStack remainder = slot.getCraftingRemainingItem() != null
+                                        ? slot.getCraftingRemainingItem()
+                                        : ItemStack.EMPTY;
+                                slot.shrink(1);
+                                if (slot.isEmpty()) {
+                                    inv.setItem(i, remainder);
+                                } else if (!remainder.isEmpty()) {
+                                    if (inv.canAddItem(remainder)) {
+                                        inv.addItem(remainder);
+                                    }
                                 }
+                                break;
                             }
                         }
                     }
+                    inv.setChanged();
+
+                    if (inv.canAddItem(result)) {
+                        inv.addItem(result);
+                        serverLevel.playSound(null, this.mob.blockPosition(), SoundEvents.UI_STONECUTTER_TAKE_RESULT, this.mob.getSoundSource(), 0.5F, 1.0F);
+                    }
                 }
             }
-            return null;
         }
     }
 
@@ -330,7 +396,7 @@ public class VindicatorChefServant extends VindicatorServant{
             super(illager);
             this.predicate = itemStack ->
                     illager.level instanceof ServerLevel serverLevel
-                            && !canCook(itemStack, serverLevel).isEdible();
+                            && !validCook(itemStack, serverLevel) && !isCraftingIngredient(itemStack, serverLevel);
         }
     }
 
@@ -340,7 +406,11 @@ public class VindicatorChefServant extends VindicatorServant{
             super(illager);
             this.chestPredicate = itemStack ->
                     illager.level instanceof ServerLevel serverLevel
-                    && canCook(itemStack, serverLevel).isEdible();
+                            && (validCook(itemStack, serverLevel) || isCraftingIngredient(itemStack, serverLevel));
+        }
+
+        public boolean hasItemInInv() {
+            return true;
         }
 
         @Override
@@ -363,7 +433,7 @@ public class VindicatorChefServant extends VindicatorServant{
             }
             if (this.illager.itemsInInv(itemStack ->
                     this.illager.level instanceof ServerLevel serverLevel
-                            && canCook(itemStack, serverLevel).isEdible()).size() >= 24){
+                            && (validCook(itemStack, serverLevel) || isCraftingIngredient(itemStack, serverLevel))).size() >= 24) {
                 return false;
             }
             return super.canUse();
@@ -372,11 +442,14 @@ public class VindicatorChefServant extends VindicatorServant{
         @Override
         public void chestInteract(Container container) {
             for (ItemStack itemStack : this.getItems(container)) {
-                if (this.illager.getInventory().canAddItem(itemStack)){
-                    this.illager.getInventory().addItem(itemStack.copyAndClear());
-                    container.setChanged();
+                if (itemStack.isEmpty()) {
+                    continue;
+                }
+                if (!this.illager.getInventory().canAddItem(itemStack)) {
                     break;
                 }
+                this.illager.getInventory().addItem(itemStack.copyAndClear());
+                container.setChanged();
             }
         }
     }

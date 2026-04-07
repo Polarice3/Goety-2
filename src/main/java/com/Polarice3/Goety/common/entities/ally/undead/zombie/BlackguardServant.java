@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.ally.undead.zombie;
 
-import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.client.particles.SmashParticleOption;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.config.AttributesConfig;
@@ -184,6 +184,16 @@ public class BlackguardServant extends ZombieServant{
 
     public EntityType<?> getVariant(Level level, BlockPos blockPos){
         return ModEntityType.BLACKGUARD_SERVANT.get();
+    }
+
+    @Override
+    public boolean canWearArmor() {
+        return false;
+    }
+
+    @Override
+    public boolean canHaveWeapon() {
+        return false;
     }
 
     protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficulty) {
@@ -452,7 +462,7 @@ public class BlackguardServant extends ZombieServant{
                         ServerParticleUtil.circularParticles(serverLevel, option, BlackguardServant.this.getX() + BlackguardServant.this.getHorizontalLookAngle().x * 2, BlackguardServant.this.getY() + 0.25D, BlackguardServant.this.getZ() + BlackguardServant.this.getHorizontalLookAngle().z * 2, 1.5F);
                     }
                     ColorUtil colorUtil = new ColorUtil(serverLevel.getBlockState(blockPos).getMapColor(serverLevel, blockPos).col);
-                    serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.5F, 1), x, vec3.y, z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                    serverLevel.sendParticles(new SmashParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.5F, 10), x, vec3.y, z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
                 }
             }
         }

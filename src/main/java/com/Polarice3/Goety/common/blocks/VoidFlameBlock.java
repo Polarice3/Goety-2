@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class VoidFlameBlock extends VoidBlock {
@@ -28,11 +29,12 @@ public class VoidFlameBlock extends VoidBlock {
     }
 
     public boolean canSurvive(BlockState p_56655_, LevelReader p_56656_, BlockPos p_56657_) {
-        return canSurviveOnBlock(p_56656_.getBlockState(p_56657_.below()));
+        BlockPos blockpos = p_56657_.below();
+        return canSurviveOnBlock(p_56656_, p_56656_.getBlockState(blockpos), blockpos);
     }
 
-    public static boolean canSurviveOnBlock(BlockState p_154651_) {
-        return p_154651_.is(ModTags.Blocks.VOID_BLOCKS);
+    public static boolean canSurviveOnBlock(BlockGetter p_56656_, BlockState p_154651_, BlockPos blockPos) {
+        return p_154651_.is(ModTags.Blocks.VOID_BLOCKS) && p_154651_.getShape(p_56656_, blockPos) == Shapes.block();
     }
 
     public void animateTick(BlockState p_220763_, Level p_220764_, BlockPos p_220765_, RandomSource p_220766_) {

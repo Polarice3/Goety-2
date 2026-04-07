@@ -350,6 +350,11 @@ public class CarrionMaggot extends Summoned {
 
    @Override
    public void lifeSpanDamage() {
+      this.dismiss();
+   }
+
+   @Override
+   public void dismiss() {
       if (!this.level.isClientSide){
          for(int i = 0; i < this.level.random.nextInt(10) + 10; ++i) {
             ServerParticleUtil.smokeParticles(ParticleTypes.SMOKE, this.getX(), this.getEyeY(), this.getZ(), this.level);

@@ -73,6 +73,7 @@ public class WaterJetSpell extends EverChargeSpell {
         List<Enchantment> list = new ArrayList<>();
         list.add(ModEnchantments.POTENCY.get());
         list.add(ModEnchantments.RANGE.get());
+        list.add(ModEnchantments.BURNING.get());
         return list;
     }
 
@@ -98,9 +99,11 @@ public class WaterJetSpell extends EverChargeSpell {
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){
         float potency = spellStat.getPotency();
         int range = spellStat.getRange();
+        int burning = spellStat.getBurning();
         if (WandUtil.enchantedFocus(caster)) {
             potency += WandUtil.getPotencyLevel(caster);
             range += WandUtil.getRangeLevel(caster);
+            burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
         }
         float damage = SpellConfig.WaterJetDamage.get().floatValue() * WandUtil.damageMultiply();
         damage += potency;
@@ -117,7 +120,11 @@ public class WaterJetSpell extends EverChargeSpell {
                         }
                     }
                 }
-                target.clearFire();
+                if (burning <= 0) {
+                    target.clearFire();
+                } else {
+                    target.setSecondsOnFire(5 * burning);
+                }
                 particleOffset = target.getBbHeight() / 2;
             } else if (result instanceof BlockHitResult blockHitResult) {
                 BlockPos blockPos = blockHitResult.getBlockPos();

@@ -800,6 +800,13 @@ public class ClientInitEvents {
                         && !entry.getKey().getPath().contains("chorus")).toList();
 
         models.forEach(entry -> event.getModels().put(entry.getKey(), new BakedLeavesModel(entry.getValue())));
+
+        List<Map.Entry<ResourceLocation, BakedModel>> models2 =  event.getModels().entrySet().stream()
+                .filter(entry -> entry.getKey().getNamespace().equals(Goety.MOD_ID)
+                        && entry.getKey().getPath().contains("leaves")
+                        && (entry.getKey().getPath().contains("mcd") || entry.getKey().getPath().contains("chorus"))).toList();
+
+        models2.forEach(entry -> event.getModels().put(entry.getKey(), new FullLeavesModel(entry.getValue())));
     }
 
     @SubscribeEvent

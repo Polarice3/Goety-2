@@ -66,7 +66,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "A specialized Vindicator that can collect uncooked meat and will cook the food in their inventory at a nearby Smoker or Furnace. Shift-right click with an empty hand on them will give you their first food in their inventory."
+      "text": "A specialized Vindicator that can collect ingredients, like uncooked meat, and will either cook them at a nearby Smoker or Furnace, or assemble them at a nearby Crafting Table into an actual meal. Shift-right click with an empty hand on them will give you their first food in their inventory."
     },
     {
       "type": "patchouli:entity",
@@ -83,7 +83,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "These Illagers are usually the ones that forge weapons for other Illagers, but they can also smash apart their foes with their mighty hammer."
+      "text": "These Illagers are usually the ones that forge weapons for other Illagers, but they can also smash apart their foes with their mighty hammer. They can also take ore from a chest they're bound to and smelt them at a nearby Furnace or Blast Furnace, and will also craft weapons to other Illagers if they're somehow deprived of them, or make a better version if they have the resources and the Illager in question doesn't have an enchanted weapon."
     },
     {
       "type": "patchouli:entity",

@@ -1,11 +1,19 @@
 package com.Polarice3.Goety.common.entities.ally.illager;
 
+import com.Polarice3.Goety.api.entities.IMobCrafter;
+import com.Polarice3.Goety.client.particles.SmashParticleOption;
+import com.Polarice3.Goety.common.blocks.DarkAnvilBlock;
+import com.Polarice3.Goety.common.entities.ai.IllagerChestGoal;
+import com.Polarice3.Goety.common.entities.ai.MobCraftingGoal;
+import com.Polarice3.Goety.common.entities.ai.MobFurnaceGoal;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SLightningBoltPacket;
 import com.Polarice3.Goety.common.network.server.SThunderBoltPacket;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -17,7 +25,13 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Container;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -26,20 +40,35 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AnvilBlock;
+import net.minecraft.world.level.block.FurnaceBlock;
+import net.minecraft.world.level.block.SmokerBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Predicate;
 
-public class CrusherServant extends AbstractIllagerServant {
+public class CrusherServant extends AbstractIllagerServant implements IMobCrafter {
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(CrusherServant.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(CrusherServant.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> STORM = SynchedEntityData.defineId(CrusherServant.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Optional<BlockPos>> FURNACE_POS = SynchedEntityData.defineId(CrusherServant.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
+    protected static final EntityDataAccessor<Boolean> SMELTING = SynchedEntityData.defineId(CrusherServant.class, EntityDataSerializers.BOOLEAN);
+    public static String IDLE = "idle";
+    public static String ATTACK = "attack";
     public int attackTick;
     public boolean isRunning = false;
     public AnimationState idleAnimationState = new AnimationState();
@@ -51,8 +80,18 @@ public class CrusherServant extends AbstractIllagerServant {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new MeleeGoal());
-        this.goalSelector.addGoal(4, new AttackGoal(1.0D));
+        this.goalSelector.addGoal(0, new MeleeGoal());
+        this.goalSelector.addGoal(1, new ForgeArmorGoal<>(this));
+        this.goalSelector.addGoal(2, new ForgeWeaponGoal<>(this));
+        this.goalSelector.addGoal(3, new SmeltingGoal<>(this));
+        this.goalSelector.addGoal(4, new EquipArmorGoal(this));
+        this.goalSelector.addGoal(5, new EquipWeaponGoal(this));
+        this.goalSelector.addGoal(6, new AttackGoal(1.0D));
+    }
+
+    public void chestGoal() {
+        super.chestGoal();
+        this.goalSelector.addGoal(6, new LootOreGoal<>(this));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -76,12 +115,15 @@ public class CrusherServant extends AbstractIllagerServant {
         this.entityData.define(DATA_FLAGS_ID, (byte)0);
         this.entityData.define(ANIM_STATE, 0);
         this.entityData.define(STORM, false);
+        this.entityData.define(FURNACE_POS, Optional.empty());
+        this.entityData.define(SMELTING, false);
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putBoolean("Storm", this.isStorm());
+        this.saveCrafterData(pCompound);
     }
 
     @Override
@@ -90,6 +132,53 @@ public class CrusherServant extends AbstractIllagerServant {
         if (pCompound.contains("Storm")){
             this.setStorm(pCompound.getBoolean("Storm"));
         }
+        this.readCrafterData(pCompound);
+    }
+
+    @Override
+    public void die(DamageSource pCause) {
+        if (!this.isFurnaceActuallyCooking()) {
+            this.setFurnaceLit(false);
+        }
+        super.die(pCause);
+    }
+
+    @Override
+    public boolean canHaveWeapon() {
+        return false;
+    }
+
+    public Optional<BlockPos> getFurnacePos() {
+        return this.entityData.get(FURNACE_POS);
+    }
+
+    public void setFurnacePos(@Nullable BlockPos trainPos) {
+        this.entityData.set(FURNACE_POS, Optional.ofNullable(trainPos));
+    }
+
+    public void setUsingFurnace(boolean cooking) {
+        this.entityData.set(SMELTING, cooking);
+    }
+
+    public boolean isUsingFurnace() {
+        return this.entityData.get(SMELTING);
+    }
+
+    @Override
+    public boolean isFurnace(BlockState blockState) {
+        return blockState.getBlock() instanceof FurnaceBlock || blockState.getBlock() instanceof SmokerBlock;
+    }
+
+    public void setCrafting(boolean crafting) {
+        this.setUsingFurnace(crafting);
+    }
+
+    public boolean isCrafting() {
+        return this.isUsingFurnace();
+    }
+
+    public boolean isCraftTable(BlockState blockState) {
+        return blockState.getBlock() instanceof AnvilBlock || blockState.getBlock() instanceof DarkAnvilBlock;
     }
 
     public void setAnimationState(String input) {
@@ -101,9 +190,9 @@ public class CrusherServant extends AbstractIllagerServant {
     }
 
     public int getAnimationState(String animation) {
-        if (Objects.equals(animation, "idle")){
+        if (Objects.equals(animation, IDLE)){
             return 1;
-        } else if (Objects.equals(animation, "attack")){
+        } else if (Objects.equals(animation, ATTACK)){
             return 2;
         } else {
             return 0;
@@ -168,8 +257,8 @@ public class CrusherServant extends AbstractIllagerServant {
         super.tick();
         if (this.level.isClientSide){
             if (this.isAlive()){
-                if (this.getCurrentAnimation() != this.getAnimationState("attack")) {
-                    this.setAnimationState("idle");
+                if (this.getCurrentAnimation() != this.getAnimationState(ATTACK)) {
+                    this.setAnimationState(IDLE);
                     this.isRunning = this.isAggressive();
                 }
             }
@@ -276,6 +365,220 @@ public class CrusherServant extends AbstractIllagerServant {
         return super.xpReward();
     }
 
+    public static ItemStack canSmelt(ItemStack stack, ServerLevel level) {
+        return level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(stack), level)
+                .map(smeltingRecipe -> smeltingRecipe.getResultItem(level.registryAccess()))
+                .filter(itemStack -> !itemStack.isEmpty())
+                .orElse(ItemStack.EMPTY);
+    }
+
+    public static boolean canBeSmelted(ItemStack stack, ServerLevel level) {
+        if (stack.is(ModTags.Items.CRUSHER_CANNOT_SMELT)) {
+            return false;
+        }
+        return !canSmelt(stack, level).isEmpty() && (stack.is(Tags.Items.RAW_MATERIALS) || stack.is(Tags.Items.ORES) || stack.is(ModTags.Items.CRUSHER_CAN_SMELT));
+    }
+
+    public boolean validLootToStore(ItemStack itemStack) {
+        if (itemStack.getItem() instanceof ArmorItem) {
+            return false;
+        }
+        if (validWeapon(itemStack)) {
+            return false;
+        }
+        boolean flag = super.validLootToStore(itemStack);
+        if (!itemStack.is(Tags.Items.RAW_MATERIALS) && !itemStack.is(Tags.Items.ORES)) {
+            if (this.level instanceof ServerLevel serverLevel) {
+                return flag && !isCraftingIngredient(itemStack, serverLevel);
+            }
+            return flag;
+        }
+        return false;
+    }
+
+    @Nullable
+    public static CraftingRecipe findSatisfiableRecipe(ItemStack stack, ServerLevel level, Container inventory, @Nullable EquipmentSlot targetSlot) {
+        List<CraftingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING);
+        return recipes.stream()
+                .filter(recipe -> {
+                    ItemStack result = recipe.getResultItem(level.registryAccess());
+                    if (!validCraft(result)) {
+                        return false;
+                    }
+                    if (targetSlot != null) {
+                        if (!(result.getItem() instanceof ArmorItem armorItem)) {
+                            return false;
+                        }
+                        if (armorItem.getEquipmentSlot() != targetSlot) {
+                            return false;
+                        }
+                    }
+                    if (recipe.getIngredients().stream().noneMatch(ing -> ing.test(stack))) {
+                        return false;
+                    }
+
+                    Map<Item, Integer> required = new HashMap<>();
+                    for (Ingredient ingredient : recipe.getIngredients()) {
+                        if (ingredient.isEmpty()) {
+                            continue;
+                        }
+                        boolean matched = false;
+                        for (int i = 0; i < inventory.getContainerSize(); i++) {
+                            ItemStack slot = inventory.getItem(i);
+                            if (!slot.isEmpty() && ingredient.test(slot)) {
+                                required.merge(slot.getItem(), 1, Integer::sum);
+                                matched = true;
+                                break;
+                            }
+                        }
+                        if (!matched) {
+                            return false;
+                        }
+                    }
+                    for (Map.Entry<Item, Integer> entry : required.entrySet()) {
+                        int have = 0;
+                        for (int i = 0; i < inventory.getContainerSize(); i++) {
+                            ItemStack s = inventory.getItem(i);
+                            if (s.getItem() == entry.getKey()) have += s.getCount();
+                        }
+                        if (have < entry.getValue()) {
+                            return false;
+                        }
+                    }
+                    return true;
+                })
+                .findFirst()
+                .orElse(null);
+    }
+
+    public static boolean isCraftingIngredient(ItemStack stack, ServerLevel level) {
+        List<CraftingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING);
+        if (stack.isEmpty()) {
+            return false;
+        }
+        return recipes.stream().anyMatch(recipe -> {
+            ItemStack result = recipe.getResultItem(level.registryAccess());
+            return validCraft(result) && recipe.getIngredients().stream()
+                    .anyMatch(ingredient -> ingredient.test(stack));
+        });
+    }
+
+    public static boolean validCraft(ItemStack itemStack) {
+        if (itemStack.is(ModTags.Items.CRUSHER_CANNOT_CRAFT)) {
+            return false;
+        }
+        return validWeapon(itemStack) || itemStack.getItem() instanceof ArmorItem || itemStack.is(Tags.Items.ARMORS);
+    }
+
+    @Nullable
+    public static CraftingRecipe findSatisfiableWeaponRecipe(ItemStack stack, ServerLevel level, Container inventory, @Nullable Predicate<ItemStack> resultFilter) {
+        List<CraftingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING);
+        return recipes.stream()
+                .filter(recipe -> {
+                    ItemStack result = recipe.getResultItem(level.registryAccess());
+                    if (!validWeapon(result)) {
+                        return false;
+                    }
+                    if (resultFilter != null && !resultFilter.test(result)) {
+                        return false;
+                    }
+                    if (recipe.getIngredients().stream().noneMatch(ing -> ing.test(stack))) {
+                        return false;
+                    }
+
+                    Map<Item, Integer> required = new HashMap<>();
+                    for (Ingredient ingredient : recipe.getIngredients()) {
+                        if (ingredient.isEmpty()) {
+                            continue;
+                        }
+                        boolean matched = false;
+                        for (int i = 0; i < inventory.getContainerSize(); i++) {
+                            ItemStack slot = inventory.getItem(i);
+                            if (!slot.isEmpty() && ingredient.test(slot)) {
+                                required.merge(slot.getItem(), 1, Integer::sum);
+                                matched = true;
+                                break;
+                            }
+                        }
+                        if (!matched) {
+                            return false;
+                        }
+                    }
+                    for (Map.Entry<Item, Integer> entry : required.entrySet()) {
+                        int have = 0;
+                        for (int i = 0; i < inventory.getContainerSize(); i++) {
+                            ItemStack s = inventory.getItem(i);
+                            if (s.getItem() == entry.getKey()) {
+                                have += s.getCount();
+                            }
+                        }
+                        if (have < entry.getValue()) {
+                            return false;
+                        }
+                    }
+                    return true;
+                })
+                .findFirst()
+                .orElse(null);
+    }
+
+    public static boolean validWeapon(ItemStack itemStack) {
+        if (itemStack.is(ModTags.Items.CRUSHER_CANNOT_CRAFT)) {
+            return false;
+        }
+        return itemStack.getItem() instanceof TieredItem
+                || itemStack.getItem() instanceof CrossbowItem
+                || itemStack.is(Tags.Items.TOOLS_CROSSBOWS)
+                || itemStack.is(ModTags.Items.PILLAGER_WEAPONS)
+                || itemStack.is(ItemTags.AXES)
+                || itemStack.is(ModTags.Items.VINDICATOR_WEAPONS)
+                || itemStack.is(ModTags.Items.MOUNTAINEER_WEAPONS);
+    }
+
+    @Nullable
+    public static Tier getItemTier(ItemStack stack) {
+        if (stack.getItem() instanceof TieredItem tiered) {
+            return tiered.getTier();
+        }
+        return null;
+    }
+
+    public static boolean isBetterTier(ItemStack currentWeapon, ItemStack newWeapon) {
+        Tier current = getItemTier(currentWeapon);
+        Tier next = getItemTier(newWeapon);
+        if (current == null || next == null) {
+            return false;
+        }
+        return next.getAttackDamageBonus() > current.getAttackDamageBonus();
+    }
+
+    @Override
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
+            if (pHand == InteractionHand.MAIN_HAND && pPlayer.getMainHandItem().isEmpty() && (pPlayer.isShiftKeyDown() || pPlayer.isCrouching())) {
+                if (this.level instanceof ServerLevel serverLevel) {
+                    List<ItemStack> craftOrTool = new ArrayList<>();
+                    if (!this.itemsInInv(CrusherServant::validCraft).isEmpty()) {
+                        craftOrTool = this.itemsInInv(CrusherServant::validCraft);
+                    } else if (!this.itemsInInv(itemStack -> isCraftingIngredient(itemStack, serverLevel)).isEmpty()) {
+                        craftOrTool = this.itemsInInv(itemStack -> isCraftingIngredient(itemStack, serverLevel));
+                    }
+                    if (!craftOrTool.isEmpty()) {
+                        Optional<ItemStack> optional = craftOrTool.stream().findFirst();
+                        pPlayer.setItemInHand(pHand, optional.get().copyAndClear());
+                        this.getInventory().setChanged();
+                        if (this.getAmbientSound() != null) {
+                            this.playSound(this.getAmbientSound(), 1.0F, 1.25F);
+                        }
+                        this.level.playSound(pPlayer, pPlayer, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 1.0F, 1.0F);
+                        return InteractionResult.SUCCESS;
+                    }
+                }
+            }
+        }
+        return super.mobInteract(pPlayer, pHand);
+    }
+
     class AttackGoal extends MeleeAttackGoal {
         private final double moveSpeed;
         private int delayCounter;
@@ -364,7 +667,7 @@ public class CrusherServant extends AbstractIllagerServant {
 
         @Override
         public void stop() {
-            CrusherServant.this.setAnimationState("idle");
+            CrusherServant.this.setAnimationState(IDLE);
             CrusherServant.this.setMeleeAttacking(false);
             CrusherServant.this.level.broadcastEntityEvent(CrusherServant.this, (byte) 9);
         }
@@ -376,7 +679,7 @@ public class CrusherServant extends AbstractIllagerServant {
             CrusherServant.this.getNavigation().stop();
             if (CrusherServant.this.attackTick == 1) {
                 CrusherServant.this.playSound(SoundEvents.VINDICATOR_AMBIENT, 1.0F, CrusherServant.this.isStorm() ? 0.75F : 1.25F);
-                CrusherServant.this.setAnimationState("attack");
+                CrusherServant.this.setAnimationState(ATTACK);
             }
             if (CrusherServant.this.attackTick == 11){
                 CrusherServant.this.playSound(ModSounds.HAMMER_SWING.get());
@@ -398,9 +701,13 @@ public class CrusherServant extends AbstractIllagerServant {
                 if (CrusherServant.this.level instanceof ServerLevel serverLevel){
                     BlockPos blockPos = BlockPos.containing(CrusherServant.this.getX() + CrusherServant.this.getHorizontalLookAngle().x * 2, CrusherServant.this.getY() - 1.0F, CrusherServant.this.getZ() + CrusherServant.this.getHorizontalLookAngle().z * 2);
                     BlockParticleOption option = new BlockParticleOption(ParticleTypes.BLOCK, serverLevel.getBlockState(blockPos));
+                    Vec3 vec3 = new Vec3(CrusherServant.this.getX() + CrusherServant.this.getHorizontalLookAngle().x * 2, CrusherServant.this.getY() + 0.25D, CrusherServant.this.getZ() + CrusherServant.this.getHorizontalLookAngle().z * 2);
                     for (int i = 0; i < 8; ++i) {
-                        ServerParticleUtil.circularParticles(serverLevel, option, CrusherServant.this.getX() + CrusherServant.this.getHorizontalLookAngle().x * 2, CrusherServant.this.getY() + 0.25D, CrusherServant.this.getZ() + CrusherServant.this.getHorizontalLookAngle().z * 2, 1.5F);
+                        ServerParticleUtil.circularParticles(serverLevel, option, vec3.x, vec3.y, vec3.z, 1.5F);
                     }
+                    int color = serverLevel.getBlockState(blockPos).getMapColor(serverLevel, blockPos).col;
+                    ColorUtil colorUtil = color == 0 ? ColorUtil.WHITE : new ColorUtil(color);
+                    serverLevel.sendParticles(new SmashParticleOption(colorUtil, 3, 5), vec3.x, vec3.y, vec3.z, 1, 0, 0, 0, 0);
                 }
             }
         }
@@ -473,6 +780,533 @@ public class CrusherServant extends AbstractIllagerServant {
         @Override
         public boolean requiresUpdateEveryTick() {
             return true;
+        }
+    }
+
+    public static class SmeltingGoal<T extends CrusherServant> extends MobFurnaceGoal<T> {
+
+        public SmeltingGoal(T illager){
+            super(illager, 100, 0.75F);
+        }
+
+        @Override
+        public boolean canStartFurnaceUsing() {
+            if (this.mob.level instanceof ServerLevel serverLevel) {
+                return !this.mob.itemsInInv(itemStack -> canBeSmelted(itemStack, serverLevel)).isEmpty();
+            }
+            return false;
+        }
+
+        @Override
+        public void onSmelt(ServerLevel serverLevel) {
+            Optional<ItemStack> optional = this.mob.itemsInInv(itemStack -> canBeSmelted(itemStack, serverLevel)).stream().findFirst();
+            if (optional.isPresent()){
+                ItemStack itemStack = smelt(optional.get().split(1), serverLevel);
+                if (this.mob.getInventory().canAddItem(itemStack)) {
+                    this.mob.getInventory().addItem(itemStack);
+                }
+            }
+        }
+
+        public static ItemStack smelt(ItemStack stack, ServerLevel level) {
+            return level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(stack), level)
+                    .map(smeltingRecipe -> smeltingRecipe.getResultItem(level.registryAccess()))
+                    .filter(itemStack -> !itemStack.isEmpty())
+                    .map(itemStack -> {
+                        ItemStack copy = itemStack.copy();
+                        copy.setCount(stack.getCount() * itemStack.getCount());
+                        return copy;
+                    })
+                    .orElse(stack);
+        }
+    }
+
+    public static class ForgeArmorGoal<T extends CrusherServant> extends MobCraftingGoal<T> {
+
+        public ForgeArmorGoal(T mob) {
+            super(mob, 60, 0.75F);
+        }
+
+        public boolean canStartCrafting() {
+            if (this.mob.level instanceof ServerLevel serverLevel) {
+                return this.findCraftableStack(serverLevel) != null;
+            }
+            return false;
+        }
+
+        private static EquipmentSlot[] armorSlots() {
+            return new EquipmentSlot[]{
+                    EquipmentSlot.HEAD, EquipmentSlot.CHEST,
+                    EquipmentSlot.LEGS, EquipmentSlot.FEET
+            };
+        }
+
+        @Nullable
+        public ItemStack findCraftableStack(ServerLevel level) {
+            SimpleContainer inv = this.mob.getInventory();
+
+            List<RaiderServant> allies = this.mob.level.getEntitiesOfClass(RaiderServant.class, this.mob.getBoundingBox().inflate(16), ally -> ally != this.mob && ally.getTrueOwner() == this.mob.getTrueOwner() && ally.canWearArmor());
+
+            for (EquipmentSlot slot : armorSlots()) {
+                boolean crusherNeeds = this.mob.getItemBySlot(slot).isEmpty() && this.mob.itemsInInv(s -> s.getItem() instanceof ArmorItem a && a.getEquipmentSlot() == slot).isEmpty();
+                boolean allyNeeds = allies.stream().anyMatch(ally -> ally.getItemBySlot(slot).isEmpty() && this.mob.itemsInInv(s -> s.getItem() instanceof ArmorItem a && a.getEquipmentSlot() == slot).isEmpty());
+
+                if (!crusherNeeds && !allyNeeds) {
+                    continue;
+                }
+
+                for (ItemStack stack : this.mob.itemsInInv(s -> !s.isEmpty())) {
+                    CraftingRecipe recipe = findSatisfiableRecipe(stack, level, inv, slot);
+                    if (recipe == null) {
+                        continue;
+                    }
+                    int needed = (int) recipe.getIngredients().stream().filter(ing -> ing.test(stack)).count();
+                    if (inv.countItem(stack.getItem()) >= needed) {
+                        return stack;
+                    }
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public void onCraft(ServerLevel serverLevel) {
+            SimpleContainer inv = this.mob.getInventory();
+            List<RaiderServant> allies = this.mob.level.getEntitiesOfClass(RaiderServant.class, this.mob.getBoundingBox().inflate(16), ally -> ally != this.mob && ally.getTrueOwner() == this.mob.getTrueOwner() && ally.canWearArmor());
+            EquipmentSlot targetSlot = null;
+            ItemStack source = null;
+
+            outer:
+            for (EquipmentSlot slot : armorSlots()) {
+                boolean crusherNeeds = this.mob.getItemBySlot(slot).isEmpty() && this.mob.itemsInInv(s -> s.getItem() instanceof ArmorItem a && a.getEquipmentSlot() == slot).isEmpty();
+                boolean allyNeeds = allies.stream().anyMatch(ally -> ally.getItemBySlot(slot).isEmpty() && this.mob.itemsInInv(s -> s.getItem() instanceof ArmorItem a && a.getEquipmentSlot() == slot).isEmpty());
+
+                if (!crusherNeeds && !allyNeeds) {
+                    continue;
+                }
+
+                for (ItemStack stack : this.mob.itemsInInv(s -> !s.isEmpty())) {
+                    CraftingRecipe recipe = findSatisfiableRecipe(stack, serverLevel, inv, slot);
+                    if (recipe == null) {
+                        continue;
+                    }
+                    int needed = (int) recipe.getIngredients().stream().filter(ing -> ing.test(stack)).count();
+                    if (inv.countItem(stack.getItem()) >= needed) {
+                        targetSlot = slot;
+                        source = stack;
+                        break outer;
+                    }
+                }
+            }
+
+            if (source == null || targetSlot == null) {
+                return;
+            }
+
+            CraftingRecipe recipe = findSatisfiableRecipe(source, serverLevel, inv, targetSlot);
+            if (recipe == null) {
+                return;
+            }
+
+            ItemStack result = recipe.getResultItem(serverLevel.registryAccess()).copy();
+            for (Ingredient ingredient : recipe.getIngredients()) {
+                if (ingredient.isEmpty()) {
+                    continue;
+                }
+                for (int i = 0; i < inv.getContainerSize(); i++) {
+                    ItemStack slot = inv.getItem(i);
+                    if (!slot.isEmpty() && ingredient.test(slot)) {
+                        ItemStack remainder = slot.getCraftingRemainingItem() != null ? slot.getCraftingRemainingItem() : ItemStack.EMPTY;
+                        slot.shrink(1);
+                        if (slot.isEmpty()) {
+                            inv.setItem(i, remainder);
+                        } else if (!remainder.isEmpty() && inv.canAddItem(remainder)) {
+                            inv.addItem(remainder);
+                        }
+                        break;
+                    }
+                }
+            }
+            inv.setChanged();
+
+            if (inv.canAddItem(result)) {
+                inv.addItem(result);
+                serverLevel.playSound(null, this.mob.blockPosition(), SoundEvents.ANVIL_USE, this.mob.getSoundSource(), 0.5F, 1.0F);
+            }
+        }
+    }
+
+    public static class ForgeWeaponGoal<T extends CrusherServant> extends MobCraftingGoal<T> {
+
+        public ForgeWeaponGoal(T mob) {
+            super(mob, 60, 0.75F);
+        }
+
+        @Override
+        public boolean canStartCrafting() {
+            if (this.mob.level instanceof ServerLevel serverLevel) {
+                return this.findCraftableStack(serverLevel) != null;
+            }
+            return false;
+        }
+
+        private boolean allyNeedsWeapon(RaiderServant ally, ItemStack candidateResult) {
+            ItemStack current = ally.getMainHandItem();
+            if (!ally.isMainWeapon(candidateResult)) {
+                return false;
+            }
+            if (current.isEmpty()) {
+                return true;
+            }
+            return !current.isEnchanted() && isBetterTier(current, candidateResult);
+        }
+
+        @Nullable
+        public ItemStack findCraftableStack(ServerLevel level) {
+            SimpleContainer inv = this.mob.getInventory();
+
+            List<RaiderServant> allies = this.mob.level.getEntitiesOfClass(RaiderServant.class, this.mob.getBoundingBox().inflate(16), ally -> ally != this.mob && ally.getTrueOwner() == this.mob.getTrueOwner() && ally.canHaveWeapon());
+
+            for (ItemStack stack : this.mob.itemsInInv(s -> !s.isEmpty())) {
+                CraftingRecipe recipe = findSatisfiableWeaponRecipe(stack, level, inv, null);
+                Optional<RaiderServant> optional = allies.stream().findFirst();
+
+                if (optional.isPresent()) {
+                    RaiderServant raiderServant = optional.get();
+                    recipe = findSatisfiableWeaponRecipe(stack, level, inv, raiderServant::isMainWeapon);
+                }
+                if (recipe == null) {
+                    continue;
+                }
+
+                ItemStack result = recipe.getResultItem(level.registryAccess()).copy();
+                int needed = (int) recipe.getIngredients().stream().filter(ing -> ing.test(stack)).count();
+                if (inv.countItem(stack.getItem()) < needed) {
+                    continue;
+                }
+
+                boolean allyNeeds = allies.stream().anyMatch(ally -> allyNeedsWeapon(ally, result)
+                        && (ally instanceof AbstractIllagerServant illager && illager.itemsInInv(s -> s.getItem() == result.getItem()).isEmpty()) || !(ally instanceof AbstractIllagerServant));
+
+                if (allyNeeds) {
+                    return stack;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public void onCraft(ServerLevel serverLevel) {
+            SimpleContainer inv = this.mob.getInventory();
+
+            List<RaiderServant> allies = this.mob.level.getEntitiesOfClass(RaiderServant.class, this.mob.getBoundingBox().inflate(16), ally -> ally != this.mob && ally.getTrueOwner() == this.mob.getTrueOwner() && ally.canHaveWeapon());
+
+            ItemStack source = null;
+            CraftingRecipe recipe = null;
+
+            for (ItemStack stack : this.mob.itemsInInv(s -> !s.isEmpty())) {
+                CraftingRecipe candidate = findSatisfiableWeaponRecipe(stack, serverLevel, inv, null);
+                Optional<RaiderServant> optional = allies.stream().findFirst();
+
+                if (optional.isPresent()) {
+                    RaiderServant raiderServant = optional.get();
+                    candidate = findSatisfiableWeaponRecipe(stack, serverLevel, inv, raiderServant::isMainWeapon);
+                }
+                if (candidate == null) {
+                    continue;
+                }
+                ItemStack result = candidate.getResultItem(serverLevel.registryAccess()).copy();
+                int needed = (int) candidate.getIngredients().stream().filter(ing -> ing.test(stack)).count();
+                if (inv.countItem(stack.getItem()) < needed) {
+                    continue;
+                }
+
+                boolean allyNeeds = allies.stream().anyMatch(ally -> allyNeedsWeapon(ally, result)
+                        && (ally instanceof AbstractIllagerServant illager && illager.itemsInInv(s -> s.getItem() == result.getItem()).isEmpty()) || !(ally instanceof AbstractIllagerServant));
+
+                if (allyNeeds) {
+                    source = stack;
+                    recipe = candidate;
+                    break;
+                }
+            }
+
+            if (source == null || recipe == null) {
+                return;
+            }
+
+            ItemStack result = recipe.getResultItem(serverLevel.registryAccess()).copy();
+            for (Ingredient ingredient : recipe.getIngredients()) {
+                if (ingredient.isEmpty()) {
+                    continue;
+                }
+                for (int i = 0; i < inv.getContainerSize(); i++) {
+                    ItemStack slot = inv.getItem(i);
+                    if (!slot.isEmpty() && ingredient.test(slot)) {
+                        ItemStack remainder = slot.getCraftingRemainingItem() != null ? slot.getCraftingRemainingItem() : ItemStack.EMPTY;
+                        slot.shrink(1);
+                        if (slot.isEmpty()) {
+                            inv.setItem(i, remainder);
+                        } else if (!remainder.isEmpty() && inv.canAddItem(remainder)) {
+                            inv.addItem(remainder);
+                        }
+                        break;
+                    }
+                }
+            }
+            inv.setChanged();
+
+            if (inv.canAddItem(result)) {
+                inv.addItem(result);
+                serverLevel.playSound(null, this.mob.blockPosition(), SoundEvents.ANVIL_USE, this.mob.getSoundSource(), 0.5F, 1.0F);
+            }
+        }
+    }
+
+    public static class EquipArmorGoal extends Goal {
+        private static final int SEARCH_RADIUS = 16;
+        private final CrusherServant crusher;
+
+        public EquipArmorGoal(CrusherServant crusher) {
+            this.crusher = crusher;
+            this.setFlags(EnumSet.of(Flag.LOOK));
+        }
+
+        @Nullable
+        private ItemStack findArmorForSlot(EquipmentSlot slot) {
+            return this.crusher.itemsInInv(stack -> {
+                if (!(stack.getItem() instanceof ArmorItem armor)) {
+                    return false;
+                }
+                return armor.getEquipmentSlot() == slot;
+            }).stream().findFirst().orElse(null);
+        }
+
+        private boolean slotIsEmpty(LivingEntity entity, EquipmentSlot slot) {
+            return entity.getItemBySlot(slot).isEmpty();
+        }
+
+        @Nullable
+        private RaiderServant findUnequippedAlly() {
+            return this.crusher.level.getEntitiesOfClass(
+                    RaiderServant.class,
+                    this.crusher.getBoundingBox().inflate(SEARCH_RADIUS), ally -> ally != this.crusher && ally.getTrueOwner() == this.crusher.getTrueOwner() && ally.canWearArmor() && hasArmorForAlly(ally)
+            ).stream().findFirst().orElse(null);
+        }
+
+        private boolean hasArmorForAlly(LivingEntity ally) {
+            for (EquipmentSlot slot : armorSlots()) {
+                if (this.slotIsEmpty(ally, slot) && this.findArmorForSlot(slot) != null) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private boolean crusherNeedsArmor() {
+            for (EquipmentSlot slot : armorSlots()) {
+                if (slotIsEmpty(this.crusher, slot) && this.findArmorForSlot(slot) != null) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private static EquipmentSlot[] armorSlots() {
+            return new EquipmentSlot[]{
+                    EquipmentSlot.HEAD, EquipmentSlot.CHEST,
+                    EquipmentSlot.LEGS, EquipmentSlot.FEET
+            };
+        }
+
+        @Override
+        public boolean canUse() {
+            if (this.crusher.getTarget() != null) {
+                return false;
+            }
+            if (this.crusher.isStaying()) {
+                return false;
+            }
+            if (!(this.crusher.level instanceof ServerLevel)) {
+                return false;
+            }
+            RaiderServant ally = this.findUnequippedAlly();
+            LivingEntity target = ally != null ? ally : this.crusher;
+            if (target != this.crusher && !this.crusher.hasLineOfSight(target)) {
+                return false;
+            }
+            return this.findUnequippedAlly() != null || this.crusherNeedsArmor();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            RaiderServant ally = this.findUnequippedAlly();
+            LivingEntity target = ally != null ? ally : this.crusher;
+            if (target != this.crusher && !this.crusher.hasLineOfSight(target)) {
+                return false;
+            }
+            return this.findUnequippedAlly() != null || this.crusherNeedsArmor();
+        }
+
+        @Override
+        public void tick() {
+            RaiderServant ally = this.findUnequippedAlly();
+            LivingEntity target = ally != null ? ally : this.crusher;
+
+            if (target != this.crusher && !this.crusher.isWithinDistance(target, 2.0D)) {
+                this.crusher.getNavigation().moveTo(target.getX(), target.getY(), target.getZ(), 0.75F);
+            } else {
+                this.crusher.getNavigation().stop();
+                for (EquipmentSlot slot : armorSlots()) {
+                    if (!slotIsEmpty(target, slot)) {
+                        continue;
+                    }
+                    ItemStack armor = findArmorForSlot(slot);
+                    if (armor == null) {
+                        continue;
+                    }
+
+                    target.setItemSlot(slot, armor.copyAndClear());
+                    this.crusher.getInventory().setChanged();
+                    this.crusher.level.playSound(null, target.blockPosition(), SoundEvents.ARMOR_EQUIP_GENERIC, crusher.getSoundSource(), 1.0F, 1.0F);
+                }
+            }
+        }
+    }
+
+    public static class EquipWeaponGoal extends Goal {
+        private static final int SEARCH_RADIUS = 16;
+        private final CrusherServant crusher;
+
+        public EquipWeaponGoal(CrusherServant crusher) {
+            this.crusher = crusher;
+            this.setFlags(EnumSet.of(Flag.LOOK));
+        }
+
+        @Nullable
+        private ItemStack findWeaponForAlly(RaiderServant ally) {
+            return this.crusher.itemsInInv(stack -> {
+                if (!validWeapon(stack)) {
+                    return false;
+                }
+                if (!ally.isMainWeapon(stack)) {
+                    return false;
+                }
+                ItemStack current = ally.getMainHandItem();
+                if (current.isEmpty()) {
+                    return true;
+                }
+                return !current.isEnchanted() && isBetterTier(current, stack);
+            }).stream().findFirst().orElse(null);
+        }
+
+        @Nullable
+        private RaiderServant findAllyNeedingWeapon() {
+            return this.crusher.level.getEntitiesOfClass(RaiderServant.class, this.crusher.getBoundingBox().inflate(SEARCH_RADIUS), ally -> ally != this.crusher && ally.getTrueOwner() == this.crusher.getTrueOwner() && ally.canHaveWeapon() && this.findWeaponForAlly(ally) != null).stream().findFirst().orElse(null);
+        }
+
+        @Override
+        public boolean canUse() {
+            if (this.crusher.getTarget() != null) {
+                return false;
+            }
+            if (this.crusher.isStaying()) {
+                return false;
+            }
+            if (!(this.crusher.level instanceof ServerLevel)) {
+                return false;
+            }
+            return this.findAllyNeedingWeapon() != null;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return this.findAllyNeedingWeapon() != null;
+        }
+
+        @Override
+        public void tick() {
+            RaiderServant ally = this.findAllyNeedingWeapon();
+            if (ally == null) {
+                return;
+            }
+
+            if (!this.crusher.isWithinDistance(ally, 2.0D)) {
+                this.crusher.getNavigation().moveTo(ally.getX(), ally.getY(), ally.getZ(), 0.75F);
+            } else {
+                this.crusher.getNavigation().stop();
+                ItemStack weapon = this.findWeaponForAlly(ally);
+                if (weapon != null) {
+                    ItemStack oldWeapon = ally.getMainHandItem();
+                    if (!oldWeapon.isEmpty() && this.crusher.getInventory().canAddItem(oldWeapon)) {
+                        this.crusher.getInventory().addItem(oldWeapon.copy());
+                    }
+                    ally.setItemInHand(InteractionHand.MAIN_HAND, weapon.copyAndClear());
+                    this.crusher.getInventory().setChanged();
+                    this.crusher.level.playSound(null, ally.blockPosition(), SoundEvents.ARMOR_EQUIP_GENERIC, this.crusher.getSoundSource(), 1.0F, 1.0F);
+                }
+            }
+        }
+    }
+
+    public static class LootOreGoal<T extends AbstractIllagerServant> extends IllagerChestGoal<T> {
+
+        public LootOreGoal(T illager) {
+            super(illager);
+            this.chestPredicate = itemStack -> {
+                if (itemStack.isEmpty()) {
+                    return false;
+                }
+                if (!(illager.level instanceof ServerLevel serverLevel)) {
+                    return false;
+                }
+                if (canBeSmelted(itemStack, serverLevel)) {
+                    return true;
+                }
+                return isCraftingIngredient(itemStack, serverLevel);
+            };
+        }
+
+        public boolean hasItemInInv() {
+            return true;
+        }
+
+        @Override
+        public boolean canUse() {
+            if (this.illager.getChestPos() == null) {
+                return false;
+            }
+            if (this.illager.getBoundPos() != null){
+                if (this.illager.getChestPos() != null){
+                    if (!this.illager.isWithinGuard(this.illager.getChestPos())){
+                        return false;
+                    }
+                }
+            }
+            if (this.illager.getChestLevel() != this.illager.level.dimension()) {
+                return false;
+            }
+            if (!this.isChestRaidable(this.illager.level, this.illager.getChestPos())){
+                return false;
+            }
+            if (this.illager.level instanceof ServerLevel serverLevel) {
+                int craftableCount = this.illager.itemsInInv(stack ->
+                        canBeSmelted(stack, serverLevel) || isCraftingIngredient(stack, serverLevel)).size();
+                if (craftableCount >= 24) {
+                    return false;
+                }
+            }
+            return super.canUse();
+        }
+
+        @Override
+        public void chestInteract(Container container) {
+            for (ItemStack itemStack : this.getItems(container)) {
+                if (this.illager.getInventory().canAddItem(itemStack)){
+                    this.illager.getInventory().addItem(itemStack.copyAndClear());
+                    container.setChanged();
+                }
+            }
         }
     }
 }

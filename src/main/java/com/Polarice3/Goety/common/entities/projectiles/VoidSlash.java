@@ -1,10 +1,11 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
-import com.Polarice3.Goety.client.particles.MagicSmokeParticle;
+import com.Polarice3.Goety.client.particles.MagicSmokeParticleOption;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -13,7 +14,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
@@ -75,21 +75,16 @@ public class VoidSlash extends SlashProjectile{
                 double dy = Math.random() * speed * 2.0D - speed;
                 double dz = Math.random() * speed * 2.0D - speed;
 
-                serverLevel.sendParticles(new MagicSmokeParticle.Option(16733695, 11141290, 10, 0.35F), x + rotX + dx, y + dy, z + rotZ + dz, 0, dx, dy, dz, 1.0F);
+                serverLevel.sendParticles(new MagicSmokeParticleOption(16733695, 11141290, 10, 0.35F), x + rotX + dx, y + dy, z + rotZ + dz, 0, dx, dy, dz, 1.0F);
             }
         }
     }
 
     public void damageEntity(Entity entity) {
-        DamageSource damageSource = entity.damageSources().magic();
+        DamageSource damageSource = this.getOwner() != null ? ModDamageSource.sword(this.getOwner(), this.getOwner()) : this.damageSources().thrown(this, this);
         float f = this.getDamage();
         if (entity instanceof LivingEntity livingEntity) {
             f += EnchantmentHelper.getDamageBonus(this.weapon, livingEntity.getMobType());
-        }
-        if (this.getOwner() instanceof Player player) {
-            damageSource = entity.damageSources().playerAttack(player);
-        } else if (this.getOwner() instanceof LivingEntity livingEntity) {
-            damageSource = entity.damageSources().mobAttack(livingEntity);
         }
         if (entity.hurt(damageSource, f)) {
             if (entity instanceof LivingEntity livingEntity && !livingEntity.hasEffect(GoetyEffects.VOID_TOUCHED.get())) {

@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "É possível invocar essas criaturas usando um $(l:focuses/necromancy/reaping_focus)Foco de Ceifa$(), ou através de um ritual que invoca um sem tempo de vida limitado."
+      "text": "É possível invocar essas criaturas usando um $(l:focuses/necromancy/reaping_focus)Foco dos Ceifadores$(), ou através de um ritual que invoca um sem tempo de vida limitado."
     },
     {
       "type": "goety:ritual",

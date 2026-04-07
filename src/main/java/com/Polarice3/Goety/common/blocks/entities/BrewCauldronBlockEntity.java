@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
+import com.Polarice3.Goety.api.blocks.entities.ISoulCandle;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.properties.ModStateProperties;
 import com.Polarice3.Goety.common.crafting.BrewingRecipe;
@@ -69,7 +70,7 @@ import java.util.Map;
  * Based and modified from @MoriyaShiine's Witch Cauldron codes.
  */
 public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyContainer {
-    private final List<SoulCandlestickBlockEntity> candlestickBlockEntityList = Lists.newArrayList();
+    private final List<BlockEntity> candlestickBlockEntityList = Lists.newArrayList();
     private final List<BlockPos> witchPoles = Lists.newArrayList();
     public static int WATER_COLOR = 0x3F76E4, FAILED_COLOR = 0x6D4423;
     public NonNullList<ItemStack> container = NonNullList.withSize(32, ItemStack.EMPTY);
@@ -104,10 +105,12 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
                         if (this.isBrewing && mode == Mode.BREWING) {
                             if (!this.candlestickBlockEntityList.isEmpty()) {
                                 if (this.soulTime < this.getBrewCost()) {
-                                    for (SoulCandlestickBlockEntity candlestickBlock : this.candlestickBlockEntityList) {
-                                        if (candlestickBlock.getSouls() > 0) {
-                                            candlestickBlock.drainSouls(1, this.getBlockPos());
-                                            this.soulTime++;
+                                    for (BlockEntity blockEntity : this.candlestickBlockEntityList) {
+                                        if (blockEntity instanceof ISoulCandle soulCandle) {
+                                            if (soulCandle.getSouls() > 0) {
+                                                soulCandle.drainSouls(1, this.getBlockPos());
+                                                this.soulTime++;
+                                            }
                                         }
                                     }
                                 } else {
@@ -975,9 +978,9 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
                 for (int j = -8; j <= 8; ++j) {
                     for (int k = -8; k <= 8; ++k) {
                         BlockPos blockpos1 = this.getBlockPos().offset(i, j, k);
-                        if (this.level.getBlockEntity(blockpos1) instanceof SoulCandlestickBlockEntity soulCandlestickBlockEntity) {
-                            if (soulCandlestickBlockEntity.getSouls() > 0) {
-                                this.candlestickBlockEntityList.add(soulCandlestickBlockEntity);
+                        if (this.level.getBlockEntity(blockpos1) instanceof ISoulCandle soulCandle) {
+                            if (soulCandle.getSouls() > 0) {
+                                this.candlestickBlockEntityList.add(this.level.getBlockEntity(blockpos1));
                             }
                         }
                     }

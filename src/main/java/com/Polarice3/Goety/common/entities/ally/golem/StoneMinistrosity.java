@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.entities.ally.golem;
 
-import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -16,7 +15,10 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -206,23 +208,6 @@ public class StoneMinistrosity extends RaiderGolemServant {
         this.attackTick = 10;
         this.setAnimationState(ATTACK);
         this.playSound(SoundEvents.FOX_BITE, this.getSoundVolume(), this.getVoicePitch() * 0.5F);
-    }
-
-    @Override
-    public void setUpgraded(boolean upgraded) {
-        if (this.getType() == ModEntityType.STONE_MINISTROSITY.get()) {
-            if (upgraded) {
-                Entity entity = MobUtil.convertTo(this, ModEntityType.REDSTONE_MINISTROSITY.get(), false, this.getTrueOwner() instanceof Player player ? player : null);
-                if (entity instanceof StoneMinistrosity ministrosity) {
-                    if (this.getTrueOwner() != null) {
-                        ministrosity.setTrueOwner(this.getTrueOwner());
-                    }
-                    if (this.limitedLifeTicks > 0){
-                        ministrosity.setLimitedLife(this.limitedLifeTicks);
-                    }
-                }
-            }
-        }
     }
 
     @Override

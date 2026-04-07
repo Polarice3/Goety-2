@@ -840,7 +840,7 @@ public class ClientEvents {
                 y -= 2;
             }
 
-            stack.blit(CUSTOM_HEARTS, x, y, BACKGROUND, TOP, 9, 9);
+            stack.blit(CUSTOM_HEARTS, x, y, BACKGROUND, 0, 9, 9);
             if (highlight) {
                 if (i * 2 + 1 < healthLast) {
                     stack.blit(CUSTOM_HEARTS, x, y, heartX, TOP, 9, 9);
@@ -881,7 +881,7 @@ public class ClientEvents {
                 Player player = minecraft.player;
                 Wight wight = Wight.findWight(player);
                 if (wight != null) {
-                    if (MobUtil.isPlayerLookingTowards(player, minecraft.options.fov().get().floatValue(), wight)){
+                    if (MobUtil.isPlayerLookingTowards(player, minecraft.options.fov().get().floatValue(), wight) && MobUtil.hasVisualLineOfSight(player, wight)){
                         wight.lookTime += 1;
 
                         if (wight.lookTime >= MathHelper.secondsToTicks(3)){

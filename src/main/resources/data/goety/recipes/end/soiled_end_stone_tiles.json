@@ -1,14 +1,24 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "lm",
+    "ml"
+  ],
+  "key":
+  {
+    "m":
     {
       "item": "goety:end_stone_tiles"
     },
+    "l":
     {
-      "item": "goety:end_soil"
+      "item": "goety:end_soil_debris"
     }
-  ],
-  "result": {
-    "item": "goety:soiled_end_stone_tiles"
+  },
+  "result":
+  {
+    "item": "goety:soiled_end_stone_tiles",
+    "count": 2
   }
 }

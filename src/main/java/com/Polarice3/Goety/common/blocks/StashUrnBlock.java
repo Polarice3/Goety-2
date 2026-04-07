@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.blocks;
 
-import com.Polarice3.Goety.client.particles.MagicSmokeParticle;
+import com.Polarice3.Goety.client.particles.MagicSmokeParticleOption;
 import com.Polarice3.Goety.common.blocks.entities.UrnBlockEntity;
 import com.Polarice3.Goety.init.ModSoundTypes;
 import net.minecraft.core.BlockPos;
@@ -114,7 +114,7 @@ public class StashUrnBlock extends BaseEntityBlock implements SimpleWaterloggedB
             double d0 = (double) pPos.getX() + 0.5D;
             double d1 = (double) pPos.getY() + 1.0D;
             double d2 = (double) pPos.getZ() + 0.5D;
-            pLevel.addParticle(new MagicSmokeParticle.Option(0x97F56A, 0x20C631, 40 + pRand.nextInt(20), 0.2F, 0.0F), d0, d1, d2, pRand.nextBoolean() ? 0.01D : -0.01D, 0.025D, pRand.nextBoolean() ? 0.01D : -0.01D);
+            pLevel.addParticle(new MagicSmokeParticleOption(0x97F56A, 0x20C631, 40 + pRand.nextInt(20), 0.2F, 0.0F), d0, d1, d2, pRand.nextBoolean() ? 0.01D : -0.01D, 0.025D, pRand.nextBoolean() ? 0.01D : -0.01D);
         }
     }
 

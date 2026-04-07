@@ -49,6 +49,8 @@ public class Crusher extends HuntingIllagerEntity{
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Crusher.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(Crusher.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> STORM = SynchedEntityData.defineId(Crusher.class, EntityDataSerializers.BOOLEAN);
+    public static String IDLE = "idle";
+    public static String ATTACK = "attack";
     public int attackTick;
     public boolean isRunning = false;
     public AnimationState idleAnimationState = new AnimationState();
@@ -147,9 +149,9 @@ public class Crusher extends HuntingIllagerEntity{
     }
 
     public int getAnimationState(String animation) {
-        if (Objects.equals(animation, "idle")){
+        if (Objects.equals(animation, IDLE)){
             return 1;
-        } else if (Objects.equals(animation, "attack")){
+        } else if (Objects.equals(animation, ATTACK)){
             return 2;
         } else {
             return 0;
@@ -214,8 +216,8 @@ public class Crusher extends HuntingIllagerEntity{
         super.tick();
         if (this.level.isClientSide){
             if (this.isAlive()){
-                if (this.getCurrentAnimation() != this.getAnimationState("attack")) {
-                    this.setAnimationState("idle");
+                if (this.getCurrentAnimation() != this.getAnimationState(ATTACK)) {
+                    this.setAnimationState(IDLE);
                     this.isRunning = this.isAggressive();
                 }
             }
@@ -429,7 +431,7 @@ public class Crusher extends HuntingIllagerEntity{
 
         @Override
         public void stop() {
-            Crusher.this.setAnimationState("idle");
+            Crusher.this.setAnimationState(IDLE);
             Crusher.this.setMeleeAttacking(false);
             Crusher.this.level.broadcastEntityEvent(Crusher.this, (byte) 9);
         }
@@ -441,7 +443,7 @@ public class Crusher extends HuntingIllagerEntity{
             Crusher.this.getNavigation().stop();
             if (Crusher.this.attackTick == 1) {
                 Crusher.this.playSound(SoundEvents.VINDICATOR_AMBIENT, 1.0F, Crusher.this.isStorm() ? 0.75F : 1.25F);
-                Crusher.this.setAnimationState("attack");
+                Crusher.this.setAnimationState(ATTACK);
             }
             if (Crusher.this.attackTick == 11){
                 Crusher.this.playSound(ModSounds.HAMMER_SWING.get());

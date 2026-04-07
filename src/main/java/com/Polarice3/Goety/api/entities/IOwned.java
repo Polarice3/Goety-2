@@ -7,6 +7,7 @@ import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.ServantUtil;
 import net.minecraft.core.BlockPos;
@@ -37,7 +38,9 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -96,12 +99,26 @@ public interface IOwned {
         return null;
     }
 
-    default LivingEntity getMasterOwner(){
-        if (this.getTrueOwner() instanceof IOwned owned){
-            return owned.getTrueOwner();
-        } else {
-            return this.getTrueOwner();
+    default LivingEntity getMasterOwner() {
+        LivingEntity current = this.getTrueOwner();
+        Set<UUID> visited = new HashSet<>();
+
+        while (current != null) {
+            UUID currentId = current.getUUID();
+            if (!visited.add(currentId)) {
+                break;
+            }
+
+            if (current instanceof IOwned owned && owned.getTrueOwner() != null) {
+                current = owned.getTrueOwner();
+            } else if (current instanceof OwnableEntity ownable && ownable.getOwner() != null) {
+                current = ownable.getOwner();
+            } else {
+                break;
+            }
         }
+
+        return current != null ? current : this.getTrueOwner();
     }
 
     default int getOwnerClientId(){
@@ -368,6 +385,12 @@ public interface IOwned {
         if (this instanceof LivingEntity owned) {
             this.setLifespan(20);
             owned.hurt(owned.damageSources().starve(), 1.0F);
+        }
+    }
+
+    default void dismiss() {
+        if (this instanceof Entity entity && entity.level instanceof ServerLevel serverLevel) {
+            entity.hurt(ModDamageSource.getDamageSource(serverLevel, ModDamageSource.DISMISSED), Float.MAX_VALUE);
         }
     }
 

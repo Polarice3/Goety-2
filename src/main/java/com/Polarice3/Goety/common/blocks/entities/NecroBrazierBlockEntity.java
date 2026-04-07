@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
+import com.Polarice3.Goety.api.blocks.entities.ISoulCandle;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.NecroBrazierBlock;
 import com.Polarice3.Goety.common.crafting.BrazierRecipe;
@@ -25,6 +26,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
@@ -32,7 +34,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable {
-    private final List<SoulCandlestickBlockEntity> candlestickBlockEntityList = Lists.newArrayList();
+    private final List<BlockEntity> candlestickBlockEntityList = Lists.newArrayList();
     public BrazierRecipe recipe;
     public ResourceLocation recipeId;
     public final SimpleContainer inventory = new SimpleContainer(5){
@@ -205,10 +207,12 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
                                     serverWorld.sendParticles(ParticleTypes.SMOKE, d0, d1, d2, 0, 0.0D, 5.0E-4D, 0.0D, 0.5F);
                                     serverWorld.sendParticles(ModParticleTypes.NECRO_EFFECT.get(), d0, d1, d2, 1, 0.0F, 0.0F, 0.0F, 0.0F);
                                 }
-                                for (SoulCandlestickBlockEntity candlestickBlock : this.candlestickBlockEntityList){
-                                    if (candlestickBlock.getSouls() > 0){
-                                        candlestickBlock.drainSouls(1, this.getBlockPos());
-                                        this.currentTime++;
+                                for (BlockEntity blockEntity : this.candlestickBlockEntityList){
+                                    if (blockEntity instanceof ISoulCandle soulCandle) {
+                                        if (soulCandle.getSouls() > 0) {
+                                            soulCandle.drainSouls(1, this.getBlockPos());
+                                            this.currentTime++;
+                                        }
                                     }
                                 }
                                 if (this.currentTime == 1) {
@@ -338,9 +342,9 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
                 for (int j = -8; j <= 8; ++j) {
                     for (int k = -8; k <= 8; ++k) {
                         BlockPos blockpos1 = this.getBlockPos().offset(i, j, k);
-                        if (this.level.getBlockEntity(blockpos1) instanceof SoulCandlestickBlockEntity soulCandlestickBlockEntity) {
-                            if (soulCandlestickBlockEntity.getSouls() > 0) {
-                                this.candlestickBlockEntityList.add(soulCandlestickBlockEntity);
+                        if (this.level.getBlockEntity(blockpos1) instanceof ISoulCandle soulCandle) {
+                            if (soulCandle.getSouls() > 0) {
+                                this.candlestickBlockEntityList.add(this.level.getBlockEntity(blockpos1));
                             }
                         }
                     }

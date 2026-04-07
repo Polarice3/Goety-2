@@ -538,7 +538,7 @@ public class AbstractReaper extends Summoned {
         }
 
         public void attackMobs(LivingEntity pTarget, AbstractReaper reaper){
-            if (reaper.getTrueOwner() instanceof Player player) {
+            if (reaper.getMasterOwner() instanceof Player player) {
                 SEHelper.increaseSouls(player, ItemConfig.DarkScytheSouls.get() * 5);
             }
             float f = (float)reaper.getAttributeValue(Attributes.ATTACK_DAMAGE);
@@ -558,9 +558,9 @@ public class AbstractReaper extends Summoned {
                         if (j > 0) {
                             livingentity.setSecondsOnFire(j * 4);
                         }
-                        if (reaper.getTrueOwner() instanceof Player player) {
+                        if (reaper.getMasterOwner() instanceof Player player) {
                             if (livingentity instanceof IOwned owned) {
-                                if (owned.getTrueOwner() != reaper) {
+                                if (owned.getMasterOwner() != reaper) {
                                     SEHelper.increaseSouls(player, ItemConfig.DarkScytheSouls.get() * 5);
                                 }
                             } else {

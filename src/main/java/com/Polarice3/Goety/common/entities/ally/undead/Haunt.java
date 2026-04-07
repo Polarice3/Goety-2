@@ -134,6 +134,11 @@ public class Haunt extends Summoned {
     }
 
     public void lifeSpanDamage(){
+        this.dismiss();
+    }
+
+    @Override
+    public void dismiss() {
         if (!this.level.isClientSide) {
             for (int i = 0; i < this.level.random.nextInt(12) + 10; ++i) {
                 ServerParticleUtil.smokeParticles(ParticleTypes.POOF, this.getX(), this.getEyeY(), this.getZ(), this.level);

@@ -1,23 +1,12 @@
 package com.Polarice3.Goety.client.particles;
 
-import com.Polarice3.Goety.utils.ColorUtil;
-import com.mojang.brigadier.StringReader;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.Locale;
 
 public class GroundAuraParticle extends GroundCircleParticle {
     private final float rotSpeed;
@@ -70,103 +59,15 @@ public class GroundAuraParticle extends GroundCircleParticle {
         return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
 
-    public static class Provider implements ParticleProvider<GroundAuraParticle.Option> {
+    public static class Provider implements ParticleProvider<GroundAuraParticleOption> {
         private final SpriteSet sprites;
 
         public Provider(SpriteSet p_i50607_1_) {
             this.sprites = p_i50607_1_;
         }
 
-        public Particle createParticle(GroundAuraParticle.Option pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
+        public Particle createParticle(GroundAuraParticleOption pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
             return new GroundAuraParticle(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed, this.sprites, pType.getOwnerId(), pType.getSize());
-        }
-    }
-
-    @Deprecated
-    public static class Option implements ParticleOptions {
-        public static final Codec<GroundAuraParticle.Option> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                Codec.INT.fieldOf("ownerId").forGetter(d -> d.ownerId),
-                Codec.FLOAT.fieldOf("size").forGetter(d -> d.size),
-                Codec.FLOAT.fieldOf("red").forGetter(d -> d.red),
-                Codec.FLOAT.fieldOf("green").forGetter(d -> d.green),
-                Codec.FLOAT.fieldOf("blue").forGetter(d -> d.blue)
-        ).apply(instance, GroundAuraParticle.Option::new));
-        public static final Deserializer<GroundAuraParticle.Option> DESERIALIZER = new Deserializer<GroundAuraParticle.Option>() {
-            public GroundAuraParticle.Option fromCommand(ParticleType<GroundAuraParticle.Option> particleTypeIn, StringReader reader) throws CommandSyntaxException {
-                reader.expect(' ');
-                int ownerId = reader.readInt();
-                reader.expect(' ');
-                float size = reader.readFloat();
-                reader.expect(' ');
-                float red = reader.readFloat();
-                reader.expect(' ');
-                float green = reader.readFloat();
-                reader.expect(' ');
-                float blue = reader.readFloat();
-                return new GroundAuraParticle.Option(ownerId, size, red, green, blue);
-            }
-
-            public GroundAuraParticle.Option fromNetwork(ParticleType<GroundAuraParticle.Option> particleTypeIn, FriendlyByteBuf buffer) {
-                return new GroundAuraParticle.Option(buffer.readInt(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat());
-            }
-        };
-        private final int ownerId;
-        private final float size;
-        private final float red;
-        private final float green;
-        private final float blue;
-
-        public Option(int ownerId, float size, ColorUtil color) {
-            this.ownerId = ownerId;
-            this.size = size;
-            this.red = color.red;
-            this.green = color.green;
-            this.blue = color.blue;
-        }
-
-        public Option(int ownerId, float size, float red, float green, float blue) {
-            this.ownerId = ownerId;
-            this.size = size;
-            this.red = red;
-            this.green = green;
-            this.blue = blue;
-        }
-
-        public void writeToNetwork(FriendlyByteBuf buffer) {
-            buffer.writeInt(this.ownerId);
-            buffer.writeFloat(this.size);
-            buffer.writeFloat(this.red);
-            buffer.writeFloat(this.green);
-            buffer.writeFloat(this.blue);
-        }
-
-        public String writeToString() {
-            return String.format(Locale.ROOT, "%s %d %f %f %f %f",
-                    BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.ownerId, this.size, this.red, this.green, this.blue);
-        }
-
-        public ParticleType<GroundAuraParticle.Option> getType() {
-            return ModParticleTypes.GROUND_AURA.get();
-        }
-
-        public int getOwnerId() {
-            return this.ownerId;
-        }
-
-        public float getSize(){
-            return this.size;
-        }
-
-        public float getRed() {
-            return this.red;
-        }
-
-        public float getGreen() {
-            return this.green;
-        }
-
-        public float getBlue() {
-            return this.blue;
         }
     }
 }

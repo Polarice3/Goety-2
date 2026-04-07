@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.magic.spells.necromancy;
 
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.client.particles.AbsorbTrailParticleOption;
-import com.Polarice3.Goety.client.particles.GatherTrailParticle;
+import com.Polarice3.Goety.client.particles.GatherTrailParticleOption;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.EverChargeSpell;
 import com.Polarice3.Goety.common.magic.SpellStat;
@@ -84,7 +84,7 @@ public class LeechingSpell extends EverChargeSpell {
             ColorUtil colorUtil = new ColorUtil(ChatFormatting.DARK_RED);
             Vec3 targetVec = new Vec3(target.getX(), target.getY() + (target.getBbHeight() / 2.0F), target.getZ());
             Vec3 casterVec = new Vec3(caster.getRandomX(1.0F), caster.getEyeY(), caster.getRandomZ(1.0F));
-            worldIn.sendParticles(new GatherTrailParticle.Option(colorUtil, casterVec), targetVec.x, targetVec.y, targetVec.z, 0, 0.0F, 0.0F, 0.0F, 0.5F);
+            worldIn.sendParticles(new GatherTrailParticleOption(colorUtil, casterVec), targetVec.x, targetVec.y, targetVec.z, 0, 0.0F, 0.0F, 0.0F, 0.5F);
             for (int i = 0; i < 8; ++i) {
                 targetVec = new Vec3(target.getRandomX(1.0F), target.getRandomY(), target.getRandomZ(1.0F));
                 worldIn.sendParticles(new AbsorbTrailParticleOption(casterVec, 11141120, 10), targetVec.x, targetVec.y, targetVec.z, 1, 0.0, 0.0, 0.0, 0.0);

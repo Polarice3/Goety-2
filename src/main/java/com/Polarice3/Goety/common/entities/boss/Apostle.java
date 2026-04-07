@@ -417,7 +417,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
             this.toTeleportPos = null;
             this.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
         }
-        if (MobsConfig.FancierApostleDeath.get() || this.isInNether()) {
+        if (MobsConfig.FancierApostleDeath.get() || (this.isInNether() && MobsConfig.ApostleNetherFancyDeath.get())) {
             this.setNoGravity(true);
             if (this.getKillCredit() instanceof Player){
                 this.lastHurtByPlayerTime = 100;
@@ -2221,7 +2221,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
             super.tick();
             Apostle apostle = Apostle.this;
             if (apostle.level instanceof ServerLevel serverLevel) {
-                ServerParticleUtil.gatheringParticles(new GatherTrailParticle.Option(new ColorUtil(ChatFormatting.DARK_RED), apostle.position().add(0, apostle.getBbHeight() / 2, 0)), apostle, serverLevel, 2);
+                ServerParticleUtil.gatheringParticles(new GatherTrailParticleOption(new ColorUtil(ChatFormatting.DARK_RED), apostle.position().add(0, apostle.getBbHeight() / 2, 0)), apostle, serverLevel, 2);
             }
             if (apostle.isSecondPhase()) {
                 if (this.spellWarmup == 10) {

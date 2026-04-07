@@ -28,6 +28,7 @@
   "extra_recipe_mappings": {
     "goety:unholy_fabric": 1,
     "goety:unholy_robe": 2,
-    "goety:unholy_hat": 3
+    "goety:unholy_hat": 3,
+    "goety:unholy_hat_halo": 3
   }
 }

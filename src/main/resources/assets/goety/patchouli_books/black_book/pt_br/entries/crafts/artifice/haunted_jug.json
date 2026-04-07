@@ -19,6 +19,10 @@
     {
       "type": "patchouli:text",
       "text": "O jarro tentará encher qualquer recipiente válido próximo, como caldeirões, com água, e até apagará qualquer criatura que esteja em chamas perto dele."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Clicar com o botão direito no jarro com uma Varinha ou Cajado colocará uma tampa, desativando esta funcionalidade, ou a removerá se já estiver tampado."
     }
   ],
   "extra_recipe_mappings": {

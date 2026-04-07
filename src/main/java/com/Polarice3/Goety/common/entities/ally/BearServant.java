@@ -274,6 +274,11 @@ public class BearServant extends AnimalSummon implements PlayerRideable, IAutoRi
 
     @Override
     public void lifeSpanDamage() {
+        this.dismiss();
+    }
+
+    @Override
+    public void dismiss() {
         if (!this.level.isClientSide){
             for(int i = 0; i < this.level.random.nextInt(35) + 10; ++i) {
                 ServerParticleUtil.smokeParticles(ParticleTypes.POOF, this.getX(), this.getEyeY(), this.getZ(), this.level);

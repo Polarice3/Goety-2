@@ -168,6 +168,11 @@ public class MaverickServant extends CultistServant{
     }
 
     @Override
+    public boolean canHaveWeapon() {
+        return true;
+    }
+
+    @Override
     public CultistServantArmPose getArmPose() {
         if (this.isDrinkingPotion() || this.getTrader() != null){
             return CultistServantArmPose.ITEM;
@@ -354,6 +359,11 @@ public class MaverickServant extends CultistServant{
         }
 
         return damage;
+    }
+
+    @Override
+    public boolean isMainWeapon(ItemStack itemStack) {
+        return itemStack.getItem() instanceof SwordItem;
     }
 
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {

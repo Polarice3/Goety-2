@@ -158,7 +158,7 @@ public class PillagerServant extends AbstractIllagerServant implements CrossbowA
     public IllagerServantArmPose getArmPose() {
         if (this.isChargingCrossbow()) {
             return IllagerServantArmPose.CROSSBOW_CHARGE;
-        } else if (this.isHolding(is -> is.getItem() instanceof CrossbowItem || is.is(ModTags.Items.PILLAGER_WEAPONS))) {
+        } else if (this.isHolding(this::isMainWeapon)) {
             if (this.isAggressive()) {
                 return IllagerServantArmPose.CROSSBOW_HOLD;
             } else {
@@ -231,6 +231,11 @@ public class PillagerServant extends AbstractIllagerServant implements CrossbowA
     }
 
     @Override
+    public boolean isMainWeapon(ItemStack itemStack) {
+        return itemStack.getItem() instanceof CrossbowItem || itemStack.is(ModTags.Items.PILLAGER_WEAPONS);
+    }
+
+    @Override
     public void die(DamageSource pCause) {
         if (!this.level.isClientSide) {
             if (this.getIdol() == null) {
@@ -257,7 +262,7 @@ public class PillagerServant extends AbstractIllagerServant implements CrossbowA
         ItemStack itemstack2 = this.getMainHandItem();
         if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
             if (!(pPlayer.getOffhandItem().getItem() instanceof IWand)) {
-                if (item instanceof CrossbowItem || itemstack.is(ModTags.Items.PILLAGER_WEAPONS)) {
+                if (this.isMainWeapon(itemstack)) {
                     this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
                     this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2.copyAndClear());
                     this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));

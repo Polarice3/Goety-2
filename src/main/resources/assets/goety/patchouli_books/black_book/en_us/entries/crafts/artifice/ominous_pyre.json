@@ -44,7 +44,7 @@
     {
       "type": "patchouli:text",
       "title": "Crusher Servants",
-      "text": "Requirements: $(li)Neollager $(li)64 Wooden Planks $(li)64 Bricks Blocks Any $(li)8 Fences $(li)8 Blast Furnaces $(li)2 Lava Cauldrons $(li)2 Water Cauldrons $(li)4 Anvils"
+      "text": "Requirements: $(li)Vindicator Servant $(li)8 Blast Furnaces $(li)2 Lava Cauldrons $(li)2 Water Cauldrons $(li)4 Anvils $(li)1 Smithing Table"
     },
     {
       "type": "patchouli:text",

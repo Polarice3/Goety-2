@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.hostile.ender;
 
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
-import com.Polarice3.Goety.client.particles.MagicSmokeParticle;
+import com.Polarice3.Goety.client.particles.MagicSmokeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.SphereExplodeParticleOption;
 import com.Polarice3.Goety.common.blocks.entities.VoidFrameBlockEntity;
@@ -450,7 +450,7 @@ public class Endersent extends AbstractEnderling implements Enemy {
         if (this.deathTime < MathHelper.secondsToTicks(2)) {
             if (this.level instanceof ServerLevel serverLevel) {
                 for (int i = 0; i < 16; ++i) {
-                    serverLevel.sendParticles(new MagicSmokeParticle.Option(0, 0, this.level.getRandom().nextIntBetweenInclusive(40, 80), 0.25F), this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0, this.level.getRandom().nextBoolean() ? 0.01D : -0.01D, 0.1D, this.level.getRandom().nextBoolean() ? 0.01D : -0.01D, 0.5F);
+                    serverLevel.sendParticles(new MagicSmokeParticleOption(0, 0, this.level.getRandom().nextIntBetweenInclusive(40, 80), 0.25F), this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0, this.level.getRandom().nextBoolean() ? 0.01D : -0.01D, 0.1D, this.level.getRandom().nextBoolean() ? 0.01D : -0.01D, 0.5F);
                 }
             }
         }

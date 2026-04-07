@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "lm",
+    "ml"
+  ],
+  "key":
+  {
+    "m":
+    {
+      "item": "goety:soiled_chorus_planks"
+    },
+    "l":
+    {
+      "item": "goety:end_soil_debris"
+    }
+  },
+  "result":
+  {
+    "item": "goety:soiled_chorus_planks_heavy",
+    "count": 2
+  }
+}

@@ -46,6 +46,16 @@ public class ModAttributes {
     public static final RegistryObject<Attribute> WILD_POTENCY = ATTRIBUTES.register("wild_potency", () -> (SpellAttribute.potency(SpellType.WILD, 0.0D, 0.0D, 2048.0D).setSyncable(true)));
     public static final RegistryObject<Attribute> WIND_POTENCY = ATTRIBUTES.register("wind_potency", () -> (SpellAttribute.potency(SpellType.WIND, 0.0D, 0.0D, 2048.0D).setSyncable(true)));
 
+    public static final RegistryObject<Attribute> ABYSS_DISCOUNT = ATTRIBUTES.register("abyss_discount", () -> (SpellAttribute.discount(SpellType.ABYSS, 0.0D, -1.0D, 1.0D).setSyncable(true)));
+    public static final RegistryObject<Attribute> FROST_DISCOUNT = ATTRIBUTES.register("frost_discount", () -> (SpellAttribute.discount(SpellType.FROST, 0.0D, -1.0D, 1.0D).setSyncable(true)));
+    public static final RegistryObject<Attribute> GEOMANCY_DISCOUNT = ATTRIBUTES.register("geomancy_discount", () -> (SpellAttribute.discount(SpellType.GEOMANCY, 0.0D, -1.0D, 1.0D).setSyncable(true)));
+    public static final RegistryObject<Attribute> NECROMANCY_DISCOUNT = ATTRIBUTES.register("necromancy_discount", () -> (SpellAttribute.discount(SpellType.NECROMANCY, 0.0D, -1.0D, 1.0D).setSyncable(true)));
+    public static final RegistryObject<Attribute> NETHER_DISCOUNT = ATTRIBUTES.register("nether_discount", () -> (SpellAttribute.discount(SpellType.NETHER, 0.0D, -1.0D, 1.0D).setSyncable(true)));
+    public static final RegistryObject<Attribute> STORM_DISCOUNT = ATTRIBUTES.register("storm_discount", () -> (SpellAttribute.discount(SpellType.STORM, 0.0D, -1.0D, 1.0D).setSyncable(true)));
+    public static final RegistryObject<Attribute> VOID_DISCOUNT = ATTRIBUTES.register("void_discount", () -> (SpellAttribute.discount(SpellType.VOID, 0.0D, -1.0D, 1.0D).setSyncable(true)));
+    public static final RegistryObject<Attribute> WILD_DISCOUNT = ATTRIBUTES.register("wild_discount", () -> (SpellAttribute.discount(SpellType.WILD, 0.0D, -1.0D, 1.0D).setSyncable(true)));
+    public static final RegistryObject<Attribute> WIND_DISCOUNT = ATTRIBUTES.register("wind_discount", () -> (SpellAttribute.discount(SpellType.WIND, 0.0D, -1.0D, 1.0D).setSyncable(true)));
+
     public static int getPotency(LivingEntity livingEntity) {
         return (int) livingEntity.getAttributeValue(ModAttributes.SPELL_POTENCY.get());
     }
@@ -76,6 +86,7 @@ public class ModAttributes {
                 .stream()
                 .map(RegistryObject::get)
                 .filter(attribute1 -> attribute1 instanceof SpellAttribute spellAttribute
+                        && spellAttribute.getType().equals(SpellAttribute.POTENCY)
                         && spellAttribute.getSpellType() == spell.getSpellType())
                 .findFirst();
         if (optional.isPresent()){
@@ -92,8 +103,19 @@ public class ModAttributes {
         return 1.0D - livingEntity.getAttributeValue(ModAttributes.COOLDOWN_DISCOUNT.get());
     }
 
-    public static double getSoulDiscount(LivingEntity livingEntity) {
-        return 1.0D - livingEntity.getAttributeValue(ModAttributes.SOUL_DISCOUNT.get());
+    public static double getSoulDiscount(LivingEntity livingEntity, ISpell spell) {
+        Attribute attribute = ModAttributes.SOUL_DISCOUNT.get();
+        Optional<Attribute> optional = ATTRIBUTES.getEntries()
+                .stream()
+                .map(RegistryObject::get)
+                .filter(attribute1 -> attribute1 instanceof SpellAttribute spellAttribute
+                        && spellAttribute.getType().equals(SpellAttribute.DISCOUNT)
+                        && spellAttribute.getSpellType() == spell.getSpellType())
+                .findFirst();
+        if (optional.isPresent()){
+            attribute = optional.get();
+        }
+        return 1.0D - livingEntity.getAttributeValue(attribute);
     }
 
     @SubscribeEvent

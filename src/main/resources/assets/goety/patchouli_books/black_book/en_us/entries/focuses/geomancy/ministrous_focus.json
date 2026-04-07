@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Casting with $(l:crafts/staff/geo_staff)Geo Staff$() will summon additional Ministrosities."
+      "text": "Casting with $(l:crafts/staff/geo_staff)Geo Staff$() will summon additional Ministrosities. Casting while wearing $(l:crafts/garment/geo_robe)Geo Robes$() will summon Redstone Ministrosities instead."
     }
   ]
 }

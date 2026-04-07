@@ -1,13 +1,11 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
-import com.Polarice3.Goety.client.particles.GatherTrailParticle;
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
-import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.SpellExplosion;
 import com.Polarice3.Goety.utils.WandUtil;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -187,12 +185,7 @@ public class BouncyBubble extends SpellHurtingProjectile{
                     }
                 }
                 for (int i = 0; i < 8; ++i) {
-                    ColorUtil colorUtil = new ColorUtil(ChatFormatting.BLUE);
-                    if (this.isInWater()) {
-                        colorUtil = new ColorUtil(ChatFormatting.AQUA);
-                    }
-                    Vec3 vector3d1 = this.position().offsetRandom(serverLevel.getRandom(), radius * 2.0F);
-                    serverLevel.sendParticles(new GatherTrailParticle.Option(colorUtil, vector3d1), this.getX(), this.getY(), this.getZ(), 0, 0.0F, 0.0F, 0.0F, 0.5F);
+                    serverLevel.sendParticles(ModParticleTypes.WATER_TRAIL.get(), this.getX(), this.getY(), this.getZ(), 1, 0, 0, 0, 0.15);
                 }
             }
 

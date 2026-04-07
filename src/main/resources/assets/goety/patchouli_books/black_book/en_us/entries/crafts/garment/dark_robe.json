@@ -17,5 +17,8 @@
       "recipe": "goety:dark_hat",
       "text": "The Dark Hat helps you focus on your spells, reducing the time needed to cast them."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:dark_robe_fancy": 1
+  }
 }

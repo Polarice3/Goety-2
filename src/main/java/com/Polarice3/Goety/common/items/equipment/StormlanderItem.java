@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.items.equipment;
 
+import com.Polarice3.Goety.client.particles.SmashParticleOption;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.network.ModNetwork;
@@ -44,6 +45,9 @@ public class StormlanderItem extends HammerItem{
             for (int i = 0; i < 8; ++i) {
                 ServerParticleUtil.circularParticles(serverLevel, option, pTarget.getX(), pTarget.getY() + 0.25D, pTarget.getZ(), area);
             }
+            int color = serverLevel.getBlockState(blockPos).getMapColor(serverLevel, blockPos).col;
+            ColorUtil colorUtil = color == 0 ? ColorUtil.WHITE : new ColorUtil(color);
+            serverLevel.sendParticles(new SmashParticleOption(colorUtil, area * 2, 5), pTarget.getX(), pTarget.getY() + 0.25D, pTarget.getZ(), 1, 0, 0, 0, 0);
             BlockHitResult rayTraceResult = this.blockResult(serverLevel, player, 16);
             Optional<BlockPos> lightningRod = BlockFinder.findLightningRod(serverLevel, BlockPos.containing(rayTraceResult.getLocation()), 16);
             if (lightningRod.isPresent()) {

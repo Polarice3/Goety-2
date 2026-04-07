@@ -1,24 +1,13 @@
 package com.Polarice3.Goety.client.particles;
 
 import com.Polarice3.Goety.utils.ColorUtil;
-import com.mojang.brigadier.StringReader;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.Util;
 import net.minecraft.client.Timer;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
-
-import java.util.Locale;
 
 public class MagicSmokeParticle extends TextureSheetParticle {
     public Timer timer;
@@ -94,104 +83,17 @@ public class MagicSmokeParticle extends TextureSheetParticle {
         return LightTexture.FULL_BRIGHT;
     }
 
-    public static class Provider implements ParticleProvider<Option> {
+    public static class Provider implements ParticleProvider<MagicSmokeParticleOption> {
         private final SpriteSet sprite;
 
         public Provider(SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
-        public Particle createParticle(Option option, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+        public Particle createParticle(MagicSmokeParticleOption option, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
             MagicSmokeParticle trailParticle = new MagicSmokeParticle(clientLevel, d, e, f, g, h, i, option.getColorFrom(), option.getColorTo(), option.getDuration(), option.getSize(), option.getGravity());
             trailParticle.pickSprite(this.sprite);
             return trailParticle;
-        }
-    }
-
-    @Deprecated
-    public static class Option implements ParticleOptions {
-        public static final Codec<Option> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                Codec.INT.fieldOf("colorFrom").forGetter(Option::getColorFrom),
-                Codec.INT.fieldOf("colorTo").forGetter(Option::getColorTo),
-                ExtraCodecs.POSITIVE_INT.fieldOf("duration").forGetter(Option::getDuration),
-                Codec.FLOAT.fieldOf("size").forGetter(Option::getSize),
-                Codec.FLOAT.fieldOf("gravity").forGetter(Option::getGravity)
-        ).apply(instance, Option::new));
-
-        public static final ParticleOptions.Deserializer<Option> DESERIALIZER = new ParticleOptions.Deserializer<>() {
-            public Option fromCommand(ParticleType<Option> p_235961_, StringReader p_235962_) throws CommandSyntaxException {
-                p_235962_.expect(' ');
-                int colorFrom = p_235962_.readInt();
-                p_235962_.expect(' ');
-                int colorTo = p_235962_.readInt();
-                p_235962_.expect(' ');
-                int duration = p_235962_.readInt();
-                p_235962_.expect(' ');
-                float size = p_235962_.readFloat();
-                p_235962_.expect(' ');
-                float gravity = p_235962_.readFloat();
-                return new Option(colorFrom, colorTo, duration, size, gravity);
-            }
-
-            public Option fromNetwork(ParticleType<Option> p_235964_, FriendlyByteBuf p_235965_) {
-                return new Option(p_235965_.readInt(), p_235965_.readInt(), p_235965_.readInt(), p_235965_.readFloat(), p_235965_.readFloat());
-            }
-        };
-        public int colorFrom;
-        public int colorTo;
-        public int duration;
-        public float size;
-        public float gravity;
-
-        public Option(int colorFrom, int colorTo, int duration, float size, float gravity){
-            this.colorFrom = colorFrom;
-            this.colorTo = colorTo;
-            this.duration = duration;
-            this.size = size;
-            this.gravity = gravity;
-        }
-
-        public Option(int colorFrom, int colorTo, int duration, float size){
-            this(colorFrom, colorTo, duration, size, -0.1F);
-        }
-
-        public ParticleType<Option> getType() {
-            return ModParticleTypes.MAGIC_SMOKE.get();
-        }
-
-        @Override
-        public void writeToNetwork(FriendlyByteBuf p_123732_) {
-            p_123732_.writeInt(this.getColorFrom());
-            p_123732_.writeInt(this.getColorTo());
-            p_123732_.writeInt(this.getDuration());
-            p_123732_.writeFloat(this.getSize());
-            p_123732_.writeFloat(this.getGravity());
-        }
-
-        @Override
-        public String writeToString() {
-            return String.format(Locale.ROOT, "%s %s %s %s %.2f %.2f",
-                    BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.colorFrom, this.colorTo, this.duration, this.size, this.gravity);
-        }
-
-        public int getColorFrom() {
-            return this.colorFrom;
-        }
-
-        public int getColorTo() {
-            return this.colorTo;
-        }
-
-        public int getDuration() {
-            return this.duration;
-        }
-
-        public float getSize() {
-            return this.size;
-        }
-
-        public float getGravity() {
-            return this.gravity;
         }
     }
 }

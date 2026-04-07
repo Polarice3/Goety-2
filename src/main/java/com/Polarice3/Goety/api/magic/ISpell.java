@@ -177,7 +177,7 @@ public interface ISpell {
                 }
             }
         }
-        cost *= (float) ModAttributes.getSoulDiscount(caster);
+        cost *= (float) ModAttributes.getSoulDiscount(caster, this);
         return (int) cost;
     }
 

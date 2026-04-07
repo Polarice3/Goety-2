@@ -232,6 +232,16 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
     protected void populateDefaultEquipmentSlots(RandomSource p_219154_, DifficultyInstance p_219155_) {
     }
 
+    @Override
+    public boolean canWearArmor() {
+        return false;
+    }
+
+    @Override
+    public boolean canHaveWeapon() {
+        return false;
+    }
+
     public void setSpellCasting(boolean casting){
         this.setNecromancerFlags(1, casting);
     }

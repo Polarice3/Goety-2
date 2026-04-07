@@ -27,7 +27,9 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.monster.piglin.PiglinBrute;
+import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
@@ -173,6 +175,28 @@ public class ServantUtil {
         }
     }
 
+    public static Prisoner takePrisoner(AbstractVillager villager) {
+        int currentHunger = MiscCapHelper.getCustomFoodLevel(villager);
+        Prisoner prisoner = villager.convertTo(ModEntityType.PRISONER.get(), true);
+        if (prisoner != null) {
+            if (villager instanceof Villager villager1) {
+                prisoner.setVillagerData(villager1.getVillagerData());
+                prisoner.setGossips(villager1.getGossips().store(NbtOps.INSTANCE));
+                MobUtil.releaseAllPois(villager1);
+            }
+            prisoner.setTradeOffers(villager.getOffers().createTag());
+            prisoner.setVillagerXp(villager.getVillagerXp());
+            prisoner.setIsTrader(villager instanceof WanderingTrader);
+            MiscCapHelper.setCustomFoodLevel(prisoner, currentHunger);
+            net.minecraftforge.event.ForgeEventFactory.onLivingConvert(villager, prisoner);
+            if (!prisoner.isSilent()) {
+                prisoner.playSound(SoundEvents.IRON_TRAPDOOR_CLOSE);
+            }
+            return prisoner;
+        }
+        return null;
+    }
+
     public static boolean isFrostHeal(LivingEntity servant){
         MobType mobType = servant.getMobType();
         EntityType<?> entityType = servant.getType();
@@ -309,7 +333,7 @@ public class ServantUtil {
         return null;
     }
 
-    public static InteractionResult equipServantArmor(Player player, Summoned summoned, ItemStack itemStack, InteractionResult failResult) {
+    public static InteractionResult equipServantArmor(@Nullable LivingEntity livingEntity, Summoned summoned, ItemStack itemStack, InteractionResult failResult) {
         ItemStack helmet = summoned.getItemBySlot(EquipmentSlot.HEAD);
         ItemStack chestplate = summoned.getItemBySlot(EquipmentSlot.CHEST);
         ItemStack legging = summoned.getItemBySlot(EquipmentSlot.LEGS);
@@ -343,7 +367,7 @@ public class ServantUtil {
                     double d2 = summoned.getRandom().nextGaussian() * 0.02D;
                     summoned.level.addParticle(ParticleTypes.HAPPY_VILLAGER, summoned.getRandomX(1.0D), summoned.getRandomY() + 0.5D, summoned.getRandomZ(1.0D), d0, d1, d2);
                 }
-                if (!player.getAbilities().instabuild) {
+                if (!(livingEntity instanceof Player player) || !player.getAbilities().instabuild) {
                     itemStack.shrink(1);
                 }
                 return InteractionResult.SUCCESS;
@@ -353,7 +377,7 @@ public class ServantUtil {
             summoned.setItemSlot(EquipmentSlot.HEAD, itemStack.copyWithCount(1));
             summoned.dropEquipment(EquipmentSlot.HEAD, helmet);
             summoned.setGuaranteedDrop(EquipmentSlot.HEAD);
-            if (!player.getAbilities().instabuild) {
+            if (!(livingEntity instanceof Player player) || !player.getAbilities().instabuild) {
                 itemStack.shrink(1);
             }
             return InteractionResult.SUCCESS;

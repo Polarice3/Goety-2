@@ -56,7 +56,6 @@ public class RedstoneCube extends AbstractGolemServant{
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(RedstoneCube.class, EntityDataSerializers.BYTE);
     public static String IDLE = "idle";
     public static String ATTACK = "attack";
-    public static String WALK = "walk";
     public int attackTick;
     public float minorGlow;
     public float bigGlow;
@@ -159,8 +158,18 @@ public class RedstoneCube extends AbstractGolemServant{
         return pSpawnData;
     }
 
-    public boolean canAnimateMove(){
-        return super.canAnimateMove() && this.getCurrentAnimation() == this.getAnimationState(WALK);
+    public void handleDamageEvent(DamageSource p_270229_) {
+        this.invulnerableTime = 20;
+        this.hurtDuration = 10;
+        this.hurtTime = this.hurtDuration;
+        SoundEvent soundevent = this.getHurtSound(p_270229_);
+        if (soundevent != null) {
+            this.playSound(soundevent, this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+        }
+
+        this.hurt(this.damageSources().generic(), 0.0F);
+        this.lastDamageSource = p_270229_;
+        this.lastDamageStamp = this.level().getGameTime();
     }
 
     public void setAnimationState(String input) {
@@ -172,12 +181,10 @@ public class RedstoneCube extends AbstractGolemServant{
     }
 
     public int getAnimationState(String animation) {
-        if (Objects.equals(animation, "idle")){
+        if (Objects.equals(animation, IDLE)){
             return 1;
-        } else if (Objects.equals(animation, "walk")){
+        } else if (Objects.equals(animation, ATTACK)){
             return 2;
-        } else if (Objects.equals(animation, "attack")){
-            return 3;
         } else {
             return 0;
         }
@@ -186,7 +193,6 @@ public class RedstoneCube extends AbstractGolemServant{
     public List<AnimationState> getAllAnimations(){
         List<AnimationState> animationStates = new ArrayList<>();
         animationStates.add(this.idleAnimationState);
-        animationStates.add(this.walkAnimationState);
         animationStates.add(this.attackAnimationState);
         return animationStates;
     }
@@ -203,6 +209,10 @@ public class RedstoneCube extends AbstractGolemServant{
         return this.entityData.get(ANIM_STATE);
     }
 
+    public boolean isCurrentAnimation(String animation) {
+        return this.getCurrentAnimation() == this.getAnimationState(animation);
+    }
+
     public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
         if (ANIM_STATE.equals(accessor)) {
             if (this.level.isClientSide){
@@ -210,14 +220,9 @@ public class RedstoneCube extends AbstractGolemServant{
                     case 0:
                         break;
                     case 1:
-                        this.idleAnimationState.startIfStopped(this.tickCount);
                         this.stopMostAnimation(this.idleAnimationState);
                         break;
                     case 2:
-                        this.walkAnimationState.startIfStopped(this.tickCount);
-                        this.stopMostAnimation(this.walkAnimationState);
-                        break;
-                    case 3:
                         this.attackAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.attackAnimationState);
                         break;
@@ -260,6 +265,17 @@ public class RedstoneCube extends AbstractGolemServant{
     @Override
     public void tick() {
         super.tick();
+        if (this.level.isClientSide()) {
+            if (this.isAlive()) {
+                this.idleAnimationState.animateWhen(!this.walkAnimation.isMoving() && this.isCurrentAnimation(IDLE), this.tickCount);
+                if (this.walkAnimation.isMoving()) {
+                    if (this.onGround() && this.tickCount % 5 == 0) {
+                        ColorUtil colorUtil = new ColorUtil(16711680);
+                        this.level.addParticle(ModParticleTypes.REDSTONE_DEBRIS.get(), this.getX(), this.getY() + 0.1F, this.getZ(), colorUtil.red, colorUtil.green, colorUtil.blue);
+                    }
+                }
+            }
+        }
         if (this.isAlive()) {
             if (!this.level.isClientSide) {
                 if (this.isMeleeAttacking()) {
@@ -272,17 +288,7 @@ public class RedstoneCube extends AbstractGolemServant{
                         this.setAnimationState(ATTACK);
                     }
                 } else {
-                    if (this.isMoving()) {
-                        if (this.level instanceof ServerLevel serverLevel){
-                            if (this.onGround() && this.tickCount % 5 == 0) {
-                                ColorUtil colorUtil = new ColorUtil(16711680);
-                                serverLevel.sendParticles(ModParticleTypes.REDSTONE_DEBRIS.get(), this.getX(), this.getY() + 0.1F, this.getZ(), 0, colorUtil.red, colorUtil.green, colorUtil.blue, 1.0F);
-                            }
-                        }
-                        this.setAnimationState(WALK);
-                    } else {
-                        this.setAnimationState(IDLE);
-                    }
+                    this.setAnimationState(IDLE);
                 }
                 if (this.getTarget() != null){
                     if (this.getTarget().isAlive() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(this.getTarget())){

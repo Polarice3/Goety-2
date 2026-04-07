@@ -1,6 +1,6 @@
 {
   "type": "goety:ritual",
-  "ritual_type": "goety:summon_tamed",
+  "ritual_type": "goety:summon_tamed_no_variant",
   "activation_item": {
     "tag": "forge:stone"
   },

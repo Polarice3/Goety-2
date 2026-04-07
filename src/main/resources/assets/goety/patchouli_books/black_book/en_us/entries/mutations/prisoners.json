@@ -28,7 +28,17 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Prisoners will collect ore drops once in a while, but will stop mining once either their pickaxe wore out, or their inventory is full. They will either give their mined goods to an Illager or, if bounded to a chest, place them in it. Right-clicking on them with an empty hand while they're mining will cause them to face towards you, and angle they will face when they start to mine again if they stopped before. Right-click on them with a Stick to make them drop their pickaxe."
+      "text": "Prisoners will collect ore drops once in a while, but will stop mining once either their pickaxe wore out, if they become hungry, or their inventory is full. They will either give their mined goods to an Illager or, if bounded to a chest, place them in it. Right-clicking on them with an empty hand while they're mining will cause them to face towards you, and angle they will face when they start to mine again if they stopped before. Right-click on them with a Stick to make them drop their pickaxe."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:cooked_beef",
+      "title": "Hunger",
+      "text": "When mining, Prisoners will get hungry, and will stop mining once they begin to starve."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "To feed them, either directly give them food or put them into a chest they're bound to. Your Illager servants will also feed the prisoners if they have excess amount of food, funnily enough."
     },
     {
       "type": "patchouli:spotlight",

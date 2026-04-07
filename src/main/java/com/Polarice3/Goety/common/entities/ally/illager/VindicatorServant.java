@@ -173,13 +173,18 @@ public class VindicatorServant extends AbstractIllagerServant {
         super.die(pCause);
     }
 
+    @Override
+    public boolean isMainWeapon(ItemStack itemStack) {
+        return itemStack.getItem() instanceof AxeItem || itemStack.is(ItemTags.AXES) || itemStack.is(ModTags.Items.VINDICATOR_WEAPONS);
+    }
+
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         Item item = itemstack.getItem();
         ItemStack itemstack2 = this.getMainHandItem();
         if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
             if (!(pPlayer.getOffhandItem().getItem() instanceof IWand)) {
-                if (item instanceof AxeItem || itemstack.is(ItemTags.AXES) || itemstack.is(ModTags.Items.VINDICATOR_WEAPONS)) {
+                if (this.isMainWeapon(itemstack)) {
                     this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
                     this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copy());
                     this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);

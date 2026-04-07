@@ -24,7 +24,7 @@ public interface ILooter extends InventoryCarrier {
         int i = simplecontainer.getContainerSize();
         for (int j = 0; j < i; ++j) {
             ItemStack itemStack = simplecontainer.getItem(j);
-            if (predicate.test(itemStack)){
+            if (!itemStack.isEmpty() && predicate.test(itemStack)) {
                 list.add(itemStack);
             }
         }

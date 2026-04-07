@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.api.entities.IOwned;
-import com.Polarice3.Goety.client.particles.MagicSmokeParticle;
+import com.Polarice3.Goety.client.particles.MagicSmokeParticleOption;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -104,7 +104,7 @@ public class Hellfire extends GroundProjectile {
             if (this.lifeTicks <= 26) {
                 --this.lifeTicks;
             }
-            this.level.addParticle(new MagicSmokeParticle.Option(0xcf7a06, 0xb13f00, 10 + this.level.getRandom().nextInt(10), 0.2F), this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
+            this.level.addParticle(new MagicSmokeParticleOption(0xcf7a06, 0xb13f00, 10 + this.level.getRandom().nextInt(10), 0.2F), this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
             if (this.level.random.nextInt(24) == 0) {
                 this.level.playLocalSound((double)this.blockPosition().getX() + 0.5D, (double)this.blockPosition().getY() + 0.5D, (double)this.blockPosition().getZ() + 0.5D, SoundEvents.FIRE_AMBIENT, SoundSource.BLOCKS, 1.0F + this.level.random.nextFloat(), this.level.random.nextFloat() * 0.7F + 0.3F, false);
             }

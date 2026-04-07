@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.blocks.entities.void_spawner;
 
 import com.Polarice3.Goety.api.entities.ally.IServant;
-import com.Polarice3.Goety.client.particles.MagicAshSmokeParticle;
+import com.Polarice3.Goety.client.particles.MagicAshSmokeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -251,7 +251,7 @@ public class VoidSpawner {
             double d = blockPos.getX() + 0.5D + (randomSource.nextDouble() - 0.5D) * 2.0D;
             double e = blockPos.getY() + 0.5D + (randomSource.nextDouble() - 0.5D) * 2.0D;
             double f = blockPos.getZ() + 0.5D + (randomSource.nextDouble() - 0.5D) * 2.0D;
-            level.sendParticles(new MagicAshSmokeParticle.Option(0x3a0637, 0x691575), d, e, f, 1, 0.0D, 0.0D, 0.0D, 0.0F);
+            level.sendParticles(new MagicAshSmokeParticleOption(0x3a0637, 0x691575), d, e, f, 1, 0.0D, 0.0D, 0.0D, 0.0F);
             level.sendParticles(ModParticleTypes.END_FIRE.get(), d, e, f, 1, 0.0D, 0.0D, 0.0D, 0.0F);
             level.sendParticles(ModParticleTypes.END_FIRE_DROP.get(), d, e, f, 1, 0.0D, 0.0D, 0.0D, 0.0F);
         }
@@ -277,7 +277,7 @@ public class VoidSpawner {
             double h = randomSource.nextGaussian() * 0.02D;
             double j = randomSource.nextGaussian() * 0.02D;
             level.sendParticles(ModParticleTypes.SMALL_END_FIRE.get(), d, e, f, 0, g, h, j * 0.25D, 0.5F);
-            level.sendParticles(new MagicAshSmokeParticle.Option(0x3a0637, 0x691575), d, e, f, 0, g, h, j, 0.5F);
+            level.sendParticles(new MagicAshSmokeParticleOption(0x3a0637, 0x691575), d, e, f, 0, g, h, j, 0.5F);
         }
     }
 

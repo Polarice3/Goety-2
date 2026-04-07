@@ -27,7 +27,7 @@ public class VindicatorChefServantRenderer<T extends VindicatorChefServant> exte
         this.addLayer(new HierarchicalArmorLayer<>(this, renderManagerIn));
         this.addLayer(new ItemInHandLayer<>(this, renderManagerIn.getItemInHandRenderer()) {
             public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T illager, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-                if (illager.isAggressive() || illager.isCooking()) {
+                if (illager.isAggressive() || illager.isUsingFurnace()) {
                     super.render(matrixStackIn, bufferIn, packedLightIn, illager, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
                 }
 

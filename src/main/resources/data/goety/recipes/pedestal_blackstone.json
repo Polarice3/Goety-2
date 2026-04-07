@@ -10,11 +10,11 @@
   {
     "l":
     {
-      "item": "minecraft:polished_blackstone_brick_slab"
+      "tag": "goety:slab_blackstone_craft"
     },
     "s":
     {
-      "item": "minecraft:polished_blackstone_bricks"
+      "tag": "goety:full_blackstone_craft"
     }
   },
   "result":

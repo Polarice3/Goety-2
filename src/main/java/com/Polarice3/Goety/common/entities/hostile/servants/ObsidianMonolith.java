@@ -27,6 +27,11 @@ public class ObsidianMonolith extends AbstractObsidianMonolith implements Enemy 
         this.noCulling = true;
     }
 
+    @Override
+    public void aiStep() {
+        super.aiStep();
+    }
+
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);

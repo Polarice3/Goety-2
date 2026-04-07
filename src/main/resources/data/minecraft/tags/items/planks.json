@@ -10,6 +10,9 @@
     "goety:steep_planks",
     "goety:sky_wood_planks",
     "goety:chorus_planks",
-    "goety:corrupt_chorus_planks"
+    "goety:soiled_chorus_planks",
+    "goety:soiled_chorus_planks_heavy",
+    "goety:corrupt_chorus_planks",
+    "goety:soiled_corrupt_chorus_planks"
   ]
 }

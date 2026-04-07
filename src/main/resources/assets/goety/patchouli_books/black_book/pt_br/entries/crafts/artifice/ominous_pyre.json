@@ -1,5 +1,5 @@
 {
-  "name": "Pira Amaldiçoada",
+  "name": "Pira Sinistra",
   "icon": "goety:ominous_pyre",
   "category": "goety:crafts/artifice",
   "pages": [
@@ -19,7 +19,7 @@
     {
       "type": "patchouli:text",
       "title": "Servos Lanceiros",
-      "text": "$(o)Nota: O dono deve ter lido o $(l:goety:rumors/desert)Pergaminho da Frente$()$()$(br)Requisitos: $(li)Neollager $(li)2 Pedras de Amolar $(li)2 Mesas de Ferraria $(li)16 Cercas de Madeira $(li)32 Troncos $(li)4 Barris $(li)4 Camas $(li)2 Bigornas"
+      "text": "$(o)Nota: O dono deve ter lido o $(l:goety:rumors/desert)Pergaminho da Frente$()$()$(br)Requisitos: $(li)Neollager $(li)2 Rebolos $(li)2 Mesas de Ferraria $(li)16 Cercas de Madeira $(li)32 Troncos $(li)4 Barris $(li)4 Camas $(li)2 Bigornas"
     },
     {
       "type": "patchouli:text",
@@ -29,11 +29,11 @@
     {
       "type": "patchouli:text",
       "title": "Servos Vingadores",
-      "text": "Requisitos: $(li)Neollager $(li)1 Estandarte $(li)64 Tábuas de Madeira $(li)60 Blocos de Tijolos (Qualquer) $(li)10 Muros $(li)10 Cercas $(li)2 Fornalhas $(li)1 Mesa de Trabalho"
+      "text": "Requisitos: $(li)Neollager $(li)1 Estandarte $(li)64 Tábuas de Madeira $(li)60 Blocos de Tijolos (Qualquer) $(li)10 Muros $(li)10 Cercas $(li)2 Fornalhas $(li)1 Bancada de Trabalho"
     },
     {
       "type": "patchouli:text",
-      "title": "Servos Vingadores Chefs",
+      "title": "Servos Vingadores Chefes",
       "text": "Requisitos: $(li)Servo Vingadore $(li)4 Defumadores/Fornalhas $(li)16 Barris $(li)2 Bolos"
     },
     {
@@ -44,7 +44,7 @@
     {
       "type": "patchouli:text",
       "title": "Servos Esmagadores",
-      "text": "Requisitos: $(li)Neollager $(li)64 Tábuas de Madeira $(li)64 Blocos de Tijolos (Qualquer) $(li)8 Cercas $(li)8 Altos-fornos $(li)2 Caldeirões de Lava $(li)2 Caldeirões de Água $(li)4 Bigornas"
+      "text": "Requisitos: $(li)Servo Vingadore $(li)8 Altos-fornos $(li)2 Caldeirões de Lava $(li)2 Caldeirões de Água $(li)4 Bigornas $(li)1 Mesa de Ferraria"
     },
     {
       "type": "patchouli:text",
@@ -68,7 +68,7 @@
     },
     {
       "type": "patchouli:text",
-      "title": "Servos Invocadores do Vento",
+      "title": "Servos Xãmas",
       "text": "Requisitos: $(li)Neollager Mágico $(li)64 Blocos de Mármore $(li)32 Blocos de Jade $(li)4 Blocos de Ouro Rebaixados"
     },
     {

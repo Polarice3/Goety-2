@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.magic.spells.necromancy;
 
 import com.Polarice3.Goety.api.magic.SpellType;
-import com.Polarice3.Goety.client.particles.GatherTrailParticle;
+import com.Polarice3.Goety.client.particles.GatherTrailParticleOption;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
@@ -94,7 +94,7 @@ public class KillingSpell extends Spell {
                     for (int i = 0; i < 8; ++i) {
                         Vec3 vector3d = new Vec3(target.getX(), target.getEyeY(), target.getZ());
                         Vec3 vector3d1 = vector3d.offsetRandom(target.getRandom(), 8.0F);
-                        worldIn.sendParticles(new GatherTrailParticle.Option(colorUtil, vector3d1), vector3d.x, vector3d.y, vector3d.z, 0, 0.0F, 0.0F, 0.0F, 0.5F);
+                        worldIn.sendParticles(new GatherTrailParticleOption(colorUtil, vector3d1), vector3d.x, vector3d.y, vector3d.z, 0, 0.0F, 0.0F, 0.0F, 0.5F);
                         ServerParticleUtil.windParticle(worldIn, colorUtil, 1.0F, 0.0F, target.getId(), target.position());
                     }
                     ModNetwork.sendToALL(new SThunderBoltPacket(vec3, vec31, colorUtil, 10));

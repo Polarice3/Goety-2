@@ -202,6 +202,16 @@ public class VanguardServant extends AbstractSkeletonServant {
     }
 
     @Override
+    public boolean canWearArmor() {
+        return false;
+    }
+
+    @Override
+    public boolean canHaveWeapon() {
+        return false;
+    }
+
+    @Override
     public EntityType<?> getVariant(@Nullable Player player, Level level, BlockPos blockPos) {
         return ModEntityType.VANGUARD_SERVANT.get();
     }

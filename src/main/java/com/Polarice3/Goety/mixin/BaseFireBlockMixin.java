@@ -18,7 +18,7 @@ public abstract class BaseFireBlockMixin {
     private static void getState(BlockGetter reader, BlockPos pos, CallbackInfoReturnable<BlockState> cir) {
         BlockPos blockpos = pos.below();
         BlockState blockstate = reader.getBlockState(blockpos);
-        if (VoidFlameBlock.canSurviveOnBlock(blockstate)) {
+        if (VoidFlameBlock.canSurviveOnBlock(reader, blockstate, blockpos)) {
             cir.cancel();
             cir.setReturnValue(ModBlocks.VOID_FLAME.get().defaultBlockState());
         }

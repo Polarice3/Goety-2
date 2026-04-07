@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "__comment": "items that Crushers cannot craft if it has Crafting Recipe",
+  "values": [
+  ]
+}

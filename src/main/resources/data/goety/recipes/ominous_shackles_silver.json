@@ -18,5 +18,14 @@
   },
   "result": {
     "item": "goety:ominous_shackles"
-  }
+  },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "tag": "forge:ingots/silver",
+        "type": "forge:tag_empty"
+      }
+    }
+  ]
 }

@@ -6,6 +6,7 @@ import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.api.magic.*;
 import com.Polarice3.Goety.common.blocks.BrewCauldronBlock;
+import com.Polarice3.Goety.common.blocks.HauntedJugBlock;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.entities.neutral.AbstractVine;
@@ -292,6 +293,7 @@ public class DarkWand extends Item implements IWand {
         Player player = pContext.getPlayer();
         InteractionHand hand = pContext.getHand();
         ItemStack stack = pContext.getItemInHand();
+        BlockState blockState = level.getBlockState(blockpos);
         if (player != null) {
             if (IWand.getFocus(stack).getItem() instanceof RecallFocus recallFocus){
                 CompoundTag compoundTag = IWand.getFocus(stack).getOrCreateTag();
@@ -308,8 +310,7 @@ public class DarkWand extends Item implements IWand {
                             return InteractionResult.sidedSuccess(level.isClientSide);
                         }
                     }
-                    BlockState blockstate = level.getBlockState(blockpos);
-                    if (blockstate.is(ModTags.Blocks.RECALL_BLOCKS)) {
+                    if (blockState.is(ModTags.Blocks.RECALL_BLOCKS)) {
                         recallFocus.addRecallTags(level.dimension(), blockpos, compoundTag);
                         IWand.getFocus(stack).setTag(compoundTag);
                         player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
@@ -369,7 +370,7 @@ public class DarkWand extends Item implements IWand {
                     }
                 }
             } else if (this.getSpell(stack) instanceof IBlockSpell blockSpell0){
-                ISpell spell2 = GoetyEventFactory.onBlockBasedSpell(player.level, blockpos, player.level.getBlockState(blockpos), blockSpell0, pContext.getClickedFace(), player);
+                ISpell spell2 = GoetyEventFactory.onBlockBasedSpell(player.level, blockpos, blockState, blockSpell0, pContext.getClickedFace(), player);
                 if (spell2 instanceof IBlockSpell blockSpell) {
                     if (player.level instanceof ServerLevel serverLevel) {
                         if (blockSpell.rightBlock(serverLevel, player, blockpos, pContext.getClickedFace(), WandUtil.getStats(player, blockSpell))) {
@@ -380,7 +381,7 @@ public class DarkWand extends Item implements IWand {
                         }
                     }
                 }
-            } else if (level.getBlockState(blockpos).is(BlockTags.BANNERS) && level.getBlockEntity(blockpos) instanceof BannerBlockEntity bannerBlock){
+            } else if (blockState.is(BlockTags.BANNERS) && level.getBlockEntity(blockpos) instanceof BannerBlockEntity bannerBlock){
                 if (!level.isClientSide){
                     CompoundTag compoundtag = BlockItem.getBlockEntityData(bannerBlock.getItem());
                     if (compoundtag != null) {
@@ -393,7 +394,7 @@ public class DarkWand extends Item implements IWand {
                         }
                     }
                 }
-            } else if (level.getBlockState(blockpos).getBlock() instanceof BrewCauldronBlock) {
+            } else if (blockState.getBlock() instanceof BrewCauldronBlock) {
                 if (!level.isClientSide) {
                     if (level.getBlockEntity(blockpos) instanceof BrewCauldronBlockEntity cauldronBlock) {
                         if (MobUtil.isShifting(player)) {
@@ -406,9 +407,15 @@ public class DarkWand extends Item implements IWand {
                         }
                     }
                 }
-            } else if (!level.getBlockState(blockpos).isAir()){
+            } else if (blockState.getBlock() instanceof HauntedJugBlock) {
+                if (!level.isClientSide) {
+                    level.playSound(null, blockpos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    level.setBlockAndUpdate(blockpos, blockState.setValue(HauntedJugBlock.ENABLED, !blockState.getValue(HauntedJugBlock.ENABLED)));
+                    return InteractionResult.SUCCESS;
+                }
+            } else if (!blockState.isAir()){
                 if (!level.isClientSide){
-                    return level.getBlockState(blockpos).use(level, player, hand, new BlockHitResult(pContext.getClickLocation(), pContext.getClickedFace(), pContext.getClickedPos(), pContext.isInside()));
+                    return blockState.use(level, player, hand, new BlockHitResult(pContext.getClickLocation(), pContext.getClickedFace(), pContext.getClickedPos(), pContext.isInside()));
                 }
             }
         }

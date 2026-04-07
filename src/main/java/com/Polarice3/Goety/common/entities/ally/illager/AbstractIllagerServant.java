@@ -9,10 +9,7 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.IllagerLootFoodChestGoal;
 import com.Polarice3.Goety.common.entities.ai.IllagerPutFoodChestGoal;
 import com.Polarice3.Goety.common.entities.ai.IllagerPutLootChestGoal;
-import com.Polarice3.Goety.common.entities.ally.illager.raider.AllyTrampler;
-import com.Polarice3.Goety.common.entities.ally.illager.raider.ModRavager;
-import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
-import com.Polarice3.Goety.common.entities.ally.illager.raider.Ravaged;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.*;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.WaystoneItem;
@@ -293,6 +290,16 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
         return MobsConfig.IllagerServantAllOpenDoors.get();
     }
 
+    @Override
+    public boolean canWearArmor() {
+        return true;
+    }
+
+    @Override
+    public boolean canHaveWeapon() {
+        return true;
+    }
+
     protected void customServerAiStep() {
         if (this.canOpenDoors()) {
             if (!this.isNoAi() && GoalUtils.hasGroundPathNavigation(this)) {
@@ -402,16 +409,7 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
     }
 
     public List<ItemStack> itemsInInv(Predicate<ItemStack> predicate){
-        List<ItemStack> list = new ArrayList<>();
-        SimpleContainer simplecontainer = this.getInventory();
-        int i = simplecontainer.getContainerSize();
-        for (int j = 0; j < i; ++j) {
-            ItemStack itemStack = simplecontainer.getItem(j);
-            if (predicate.test(itemStack)){
-                list.add(itemStack);
-            }
-        }
-        return list;
+        return ILooter.super.itemsInInv(predicate);
     }
 
     public boolean inventoryFull() {
@@ -594,7 +592,7 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
         return new Vec3(0.0D, 0.6F * this.getEyeHeight(), (double)(this.getBbWidth() * 0.4F));
     }
 
-    public Vec3 getRopeHoldPosition(float p_35318_) {
+    public @NotNull Vec3 getRopeHoldPosition(float p_35318_) {
         float f = Mth.lerp(p_35318_, this.yBodyRotO, this.yBodyRot) * ((float)Math.PI / 180F);
         Vec3 vec3 = new Vec3(0.0D, this.getBoundingBox().getYsize() - 1.0D, 0.2D);
         return this.getPosition(p_35318_).add(vec3.yRot(-f));
@@ -785,7 +783,7 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
                     }
                     return InteractionResult.SUCCESS;
                 }
-            } else if (item instanceof ArmorItem) {
+            } else if (item instanceof ArmorItem && this.canWearArmor()) {
                 return ServantUtil.equipServantArmor(pPlayer, this, itemstack, super.mobInteract(pPlayer, pHand));
             } else if (pPlayer.getMainHandItem().is(ModItems.WAYSTONE.get())) {
                 if (WaystoneItem.isSameDimension(this, pPlayer.getMainHandItem())) {
@@ -984,10 +982,13 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
             super(illager);
             this.predicate = ItemStack::isEdible;
             this.targetPredicate = living ->
-                    living instanceof AbstractIllagerServant servant1
-                    && servant1.getTrueOwner() == illager.getTrueOwner()
-                    && servant1.wantsMoreFood()
-                    && !servant1.isBaby();
+                    (living instanceof AbstractIllagerServant servant1
+                            && servant1.getTrueOwner() == illager.getTrueOwner()
+                            && servant1.wantsMoreFood()
+                            && !servant1.isBaby()) ||
+                            (living instanceof Prisoner prisoner
+                                    && prisoner.getTrueOwner() == illager.getTrueOwner()
+                                    && prisoner.wantsMoreFood());
         }
 
         @Override

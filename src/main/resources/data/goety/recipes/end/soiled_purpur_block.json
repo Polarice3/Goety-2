@@ -1,14 +1,24 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "lm",
+    "ml"
+  ],
+  "key":
+  {
+    "m":
     {
       "item": "minecraft:purpur_block"
     },
+    "l":
     {
-      "item": "goety:end_soil"
+      "item": "goety:end_soil_debris"
     }
-  ],
-  "result": {
-    "item": "goety:soiled_purpur_block"
+  },
+  "result":
+  {
+    "item": "goety:soiled_purpur_block",
+    "count": 2
   }
 }

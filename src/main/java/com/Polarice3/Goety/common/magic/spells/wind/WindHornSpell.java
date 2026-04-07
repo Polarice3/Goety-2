@@ -2,12 +2,16 @@ package com.Polarice3.Goety.common.magic.spells.wind;
 
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
+import com.Polarice3.Goety.client.particles.SmashParticleOption;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.*;
+import com.Polarice3.Goety.utils.ColorUtil;
+import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -77,7 +81,7 @@ public class WindHornSpell extends Spell {
         }
         ColorUtil colorUtil = new ColorUtil(0xffffff);
         worldIn.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), (float) (radius * 2), radius), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 0, 0, 0, 0, 0);
-        ServerParticleUtil.windShockwaveParticle(worldIn, colorUtil, (float) radius, 0, -1, caster.position().add(0.0D, 1.0D, 0.0D));
+        worldIn.sendParticles(new SmashParticleOption(colorUtil, radius, 10), caster.getX(), caster.getY() + 1.0D, caster.getZ(), 1, 0, 0, 0, 0);
         for (LivingEntity livingEntity : worldIn.getEntitiesOfClass(LivingEntity.class, caster.getBoundingBox().inflate(radius))){
             if (!MobUtil.areAllies(caster, livingEntity)) {
                 double power = 4.0D + potency;

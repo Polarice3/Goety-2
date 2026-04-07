@@ -627,6 +627,18 @@ public interface IServant extends IOwned {
         }
     }
 
+    default boolean canWearArmor() {
+        return false;
+    }
+
+    default boolean canHaveWeapon() {
+        return false;
+    }
+
+    default boolean canHaveEquipment() {
+        return this.canWearArmor() || this.canHaveWeapon();
+    }
+
     default void readServantData(CompoundTag compound){
         if (compound.contains("Upgraded")) {
             this.setUpgraded(compound.getBoolean("Upgraded"));

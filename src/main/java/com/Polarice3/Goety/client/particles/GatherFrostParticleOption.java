@@ -1,14 +1,19 @@
 package com.Polarice3.Goety.client.particles;
 
+import com.mojang.brigadier.StringReader;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Locale;
 
-public abstract class GatherFrostParticleOption implements ParticleOptions {
-    /*public static final Codec<GatherFrostParticleOption> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+public class GatherFrostParticleOption implements ParticleOptions {
+    public static final Codec<GatherFrostParticleOption> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.FLOAT.fieldOf("endX").forGetter(d -> d.endX),
             Codec.FLOAT.fieldOf("endY").forGetter(d -> d.endY),
             Codec.FLOAT.fieldOf("endZ").forGetter(d -> d.endZ)
@@ -27,10 +32,10 @@ public abstract class GatherFrostParticleOption implements ParticleOptions {
         public GatherFrostParticleOption fromNetwork(ParticleType<GatherFrostParticleOption> particleTypeIn, FriendlyByteBuf buffer) {
             return new GatherFrostParticleOption(buffer.readFloat(), buffer.readFloat(), buffer.readFloat());
         }
-    };*/
-    private final float endX;
-    private final float endY;
-    private final float endZ;
+    };
+    public final float endX;
+    public final float endY;
+    public final float endZ;
 
     public GatherFrostParticleOption(Vec3 end) {
         this.endX = (float) end.x;
@@ -55,9 +60,9 @@ public abstract class GatherFrostParticleOption implements ParticleOptions {
                 BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.endX, this.endY, this.endZ);
     }
 
-    /*public ParticleType<GatherFrostParticleOption> getType() {
+    public ParticleType<GatherFrostParticleOption> getType() {
         return ModParticleTypes.FROST_GATHER.get();
-    }*/
+    }
 
     public float getEndX() {
         return this.endX;

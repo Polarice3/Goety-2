@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "cookingforblockheads:cooking_table",
+      "required": false
+    }
+  ]
+}

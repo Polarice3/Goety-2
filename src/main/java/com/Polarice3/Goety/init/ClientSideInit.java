@@ -136,6 +136,7 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.SPIRALLING.get(), SpirallingParticle.Provider::new);
         event.registerSpecial(ModParticleTypes.SHOOT_INDICATOR.get(), new ShootIndicatorParticle.Provider());
         event.registerSpecial(ModParticleTypes.SLAM.get(), new SlamParticle.Provider());
+        event.registerSpecial(ModParticleTypes.SMASH.get(), new SmashParticle.Provider());
         event.registerSpecial(ModParticleTypes.SPHERE_EXPLODE.get(), new SphereExplodeParticle.Provider());
         event.registerSpriteSet(ModParticleTypes.GOD_RAY.get(), GodRayParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.STRETCHED_GOD_RAY.get(), StretchedGodRayParticle.Provider::new);

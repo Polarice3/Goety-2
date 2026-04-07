@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "l",
+    "s",
+    "l"
+  ],
+  "key":
+  {
+    "l":
+    {
+      "tag": "goety:slab_crypt_stone_craft"
+    },
+    "s":
+    {
+      "tag": "goety:full_crypt_stone_craft"
+    }
+  },
+  "result":
+  {
+    "item": "goety:pedestal_crypt_stone",
+    "count": 1
+  }
+}

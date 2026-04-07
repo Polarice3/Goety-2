@@ -14,6 +14,55 @@
     {
       "type": "patchouli:text",
       "text": "The gravestone requires an Iron Nugget to be added, in order to call forth a Zombie Servant. Much like the Spider Nest, right-clicking the nest with a Wand or Staff will make it so that it will only spawn a servant if a valid target is near it. While crouching, however, it will change whether the servant will spawn guarding the block or following the owner."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Depending on its surroundings, much like $(l:rituals/dark_altar)Altars$(), the servant can spawn as a different variant from a regular Zombie."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Drowned Servants",
+      "text": "Requirements: $(li)Gravestone is waterlogged"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Husk Servants",
+      "text": "Requirements: $(li)Gravestone is located in a Desert $(br)$(l)OR$()$() $(li)15 Sands $(li)1 Block of Gold"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Frozen Zombie Servants",
+      "text": "Requirements: $(li)Gravestone is located in a snowy biome $(br)$(l)OR$()$() $(li)20 Snow Any $(li)8 Ice Any"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Jungle Zombie Servants",
+      "text": "Requirements: $(li)Gravestone is located in a Jungle $(br)$(l)OR$()$() $(li)20 Vines $(li)8 Leaves"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Frayed Servants",
+      "text": "Requirements: $(li)Gravestone is exposed to an active thunderstorm $(br)$(l)OR$()$() $(li)1 Lightning Rod $(li)8 Blocks of Copper"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Zombie Vindicator Servants",
+      "text": "Requirements: $(li)Gravestone is located in a Woodland Mansion $(br)$(l)OR$()$() $(li)15 Dark Oak Logs $(li)1 Anvil"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Zombified Piglin Servants",
+      "text": "Requirements: $(li)Gravestone is located in the Nether $(br)$(l)OR$()$() $(li)25 Netherracks $(li)2 Fires"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Zombified Piglin Brute Servants",
+      "text": "Requirements: $(li)Gravestone is located in a Bastion Remnant $(br)$(l)OR$()$() $(li)25 Blackstone Any $(li)8 Blocks of Gold $(li)1 Ancient Debris"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Zombie Villager Servants",
+      "text": "Requirements: $(li)Gravestone is located in a Village $(br)$(l)OR$()$() $(li)14 Dirt Paths"
     }
   ],
   "extra_recipe_mappings": {

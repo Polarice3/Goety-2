@@ -4,6 +4,7 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.ally.golem.RedstoneMinistrosity;
 import com.Polarice3.Goety.common.entities.ally.golem.StoneMinistrosity;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.magic.SummonSpell;
@@ -91,6 +92,9 @@ public class MinistrousSpell extends SummonSpell {
             }
             for (int i1 = 0; i1 < i; ++i1) {
                 Summoned summonedentity = new StoneMinistrosity(ModEntityType.STONE_MINISTROSITY.get(), worldIn);
+                if (this.GeoPower(caster)) {
+                    summonedentity = new RedstoneMinistrosity(ModEntityType.REDSTONE_MINISTROSITY.get(), worldIn);
+                }
                 BlockPos blockPos = BlockFinder.SummonRadius(caster.blockPosition(), summonedentity, worldIn);
                 summonedentity.setTrueOwner(caster);
                 summonedentity.moveTo(blockPos, 0.0F, 0.0F);

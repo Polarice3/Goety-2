@@ -104,6 +104,11 @@ public class Warlock extends Cultist implements RangedAttackMob {
     }
 
     @Override
+    public boolean requiresCustomPersistence() {
+        return super.requiresCustomPersistence() && !(this.getVehicle() instanceof Donkey);
+    }
+
+    @Override
     public void remove(RemovalReason p_146834_) {
         if (this.isPassenger() && this.getVehicle() != null){
             if (this.getVehicle() instanceof AbstractHorse donkey){

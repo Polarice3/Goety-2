@@ -1,5 +1,6 @@
 {
   "variants": {
-    "": { "model": "goety:block/haunted_jug" }
+    "enabled=true": { "model": "goety:block/haunted_jug" },
+    "enabled=false": { "model": "goety:block/haunted_jug_covered" }
   }
 }

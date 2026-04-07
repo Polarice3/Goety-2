@@ -2,24 +2,23 @@
   "type": "minecraft:crafting_shaped",
   "pattern":
   [
-    " m ",
-    "mlm",
-    " m "
+    "lm",
+    "ml"
   ],
   "key":
   {
     "m":
     {
-      "item": "minecraft:end_stone_bricks"
+      "item": "goety:soiled_end_stone_bricks_slight"
     },
     "l":
     {
-      "item": "goety:end_soil"
+      "item": "goety:end_soil_debris"
     }
   },
   "result":
   {
     "item": "goety:soiled_end_stone_bricks",
-    "count": 4
+    "count": 2
   }
 }

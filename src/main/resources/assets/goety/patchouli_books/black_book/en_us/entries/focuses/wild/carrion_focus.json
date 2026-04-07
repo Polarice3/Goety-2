@@ -19,5 +19,8 @@
       "type": "patchouli:text",
       "text": "Added from @NUTTAR's suggestion"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:carrion_focus": 1
+  }
 }

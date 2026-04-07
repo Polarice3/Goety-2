@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "__comment": "items that Crushers can smelt, items need to have a Smelting Recipe",
+  "values": [
+  ]
+}

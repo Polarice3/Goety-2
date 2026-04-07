@@ -20,6 +20,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> UndeadMinionHealTime;
     public static final ForgeConfigSpec.ConfigValue<Double> UndeadMinionHealAmount;
     public static final ForgeConfigSpec.ConfigValue<Double> ZombieServantBabyChance;
+    public static final ForgeConfigSpec.ConfigValue<Double> ZombieServantChickenJockeyChance;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WaterMinionHealCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> WaterMinionHealTime;
@@ -63,6 +64,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> PrisonerMiningDurability;
     public static final ForgeConfigSpec.ConfigValue<Integer> PrisonerMiningChance;
     public static final ForgeConfigSpec.ConfigValue<Integer> PrisonerMiningRareChance;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PrisonerMiningHungerChance;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnFreq;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnChance;
@@ -306,6 +308,9 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerMining;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerMiningSeeBlocks;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerMiningBreakBlocks;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerMiningHaste;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerMiningMiningFatigue;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerHunger;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerUnshackleDamage;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PrisonerPickUpPickaxe;
 
@@ -343,6 +348,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleHalvedArmor;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleDelayedTeleport;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FancierApostleDeath;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleNetherFancyDeath;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ObsidianMonolithSpread;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ObsidianMonolithBiome;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ObsidianMonolithSpawner;
@@ -547,6 +553,8 @@ public class MobsConfig {
                     .defineInRange("undeadServantsHealAmount", 1.0, 0.0, Double.MAX_VALUE);
             ZombieServantBabyChance = BUILDER.comment("Chance that a zombie (or subclass) servant is summoned as a baby, Default: 0.05")
                     .defineInRange("zombieServantBabyChance", 0.05, 0.0, 1.0D);
+            ZombieServantChickenJockeyChance = BUILDER.comment("Chance that a baby zombie servant is summoned as a Chicken Jokey, Default: 0.05")
+                    .defineInRange("zombieServantChickenJockeyChance", 0.05, 0.0, 1.0D);
             BUILDER.pop();
             BUILDER.push("Water Servants");
             WaterMinionHeal = BUILDER.comment("Whether Water Servants can heal if summoned while wearing Abyss Robe, Default: true")
@@ -687,8 +695,12 @@ public class MobsConfig {
                     .define("prisonerMiningSeeBlocks", true);
             PrisonerMiningBreakBlocks = BUILDER.comment("Whether Prisoners break ore blocks when mining, Default: false")
                     .define("prisonerMiningBreakBlocks", false);
+            PrisonerMiningHaste = BUILDER.comment("Whether the amount of times the Prisoner has to swing to collect ores is reduced if they have Haste effect, Default: true")
+                    .define("prisonerMiningHaste", true);
+            PrisonerMiningMiningFatigue = BUILDER.comment("Whether the amount of times the Prisoner has to swing to collect ores is increased if they have Mining Fatigue effect, Default: true")
+                    .define("prisonerMiningMiningFatigue", true);
             PrisonerMiningSwings = BUILDER.comment("How many times a Prisoner has to swing their pickaxe before collecting drops when mining, Default: 5")
-                    .defineInRange("prisonerMiningSwings", 5, 0, Integer.MAX_VALUE);
+                    .defineInRange("prisonerMiningSwings", 5, 1, Integer.MAX_VALUE);
             PrisonerMiningRange = BUILDER.comment("How far Prisoners can scan for ores and mine it, in blocks, Default: 4")
                     .defineInRange("prisonerMiningRange", 4, 1, 64);
             PrisonerMiningDurability = BUILDER.comment("How much durability is used up on Prisoner's pickaxe after swinging, Default: 1")
@@ -697,6 +709,10 @@ public class MobsConfig {
                     .defineInRange("prisonerMiningChance", 0, 0, Integer.MAX_VALUE);
             PrisonerMiningRareChance = BUILDER.comment("What are the chances of Prisoners successfully mining a rare ore (ie, Diamonds), the lower the number, the more likely, setting to 0 will cause Prisoners to always get the drop, Default: 10")
                     .defineInRange("prisonerMiningRareChance", 10, 0, Integer.MAX_VALUE);
+            PrisonerHunger = BUILDER.comment("Whether Prisoners can get hungry, Default: true")
+                    .define("prisonerHunger", true);
+            PrisonerMiningHungerChance = BUILDER.comment("What are the chances of Prisoners getting hungry after mining a block, if 'prisonerHunger' is enabled, Default: 50")
+                    .defineInRange("prisonerMiningHungerChance", 50, 1, 100);
             PrisonerUnshackleDamage = BUILDER.comment("Whether Prisoners unshackles after taking enough damage away from their owner and or captain, Default: true")
                     .define("prisonerUnshackleDamage", true);
             PrisonerPickUpPickaxe = BUILDER.comment("Whether Prisoners can pick up Pickaxes that are dropped near them and mobGriefing is true, Default: true")
@@ -1072,6 +1088,8 @@ public class MobsConfig {
                     .define("apostleConvertsVillagers", true);
             FancierApostleDeath = BUILDER.comment("Gives Apostle an even more fancier death animation, Default: false")
                     .define("fancierApostleDeath", false);
+            ApostleNetherFancyDeath = BUILDER.comment("Whether Apostles play their special death animation when in Nether, Default: true")
+                    .define("apostleNetherFancyDeath", true);
             ApostleNetherDamageReduction = BUILDER.comment("How much damage is reduced, by percentage, on the Apostle when in the Nether, setting to 100 will make them invulnerable, Default: 50")
                     .defineInRange("apostleNetherDamageReduction", 50, 0, 100);
             BUILDER.pop();

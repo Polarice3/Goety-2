@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.entities.util;
 
 import com.Polarice3.Goety.client.particles.AoEParticleOption;
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
-import com.Polarice3.Goety.client.particles.GatherTrailParticle;
+import com.Polarice3.Goety.client.particles.GatherTrailParticleOption;
 import com.Polarice3.Goety.client.particles.SphereExplodeParticleOption;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -54,7 +54,7 @@ public class VoidLightningTrap extends MagicLightningTrap {
             ModNetwork.sendToALL(new SLightningBoltPacket(new Vec3(this.getX(), this.getY() + 250, this.getZ()), this.position(), colorUtil2, 10));
             for (int i = 0; i < 8; ++i) {
                 Vec3 vector3d1 = this.position().add((this.level.getRandom().nextFloat() - 0.5F) * 6.0D, 3.0D, (this.level.getRandom().nextFloat() - 0.5F) * 6.0D);
-                serverLevel.sendParticles(new GatherTrailParticle.Option(colorUtil, vector3d1), this.getX(), this.getY(), this.getZ(), 0, 0.0F, 0.0F, 0.0F, 0.5F);
+                serverLevel.sendParticles(new GatherTrailParticleOption(colorUtil, vector3d1), this.getX(), this.getY(), this.getZ(), 0, 0.0F, 0.0F, 0.0F, 0.5F);
             }
             for (int i = 0; i < 16; ++i) {
                 Vec3 vec3 = this.position().add(0.0D, 1.0D, 0.0D);

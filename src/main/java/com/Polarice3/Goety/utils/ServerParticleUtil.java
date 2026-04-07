@@ -85,7 +85,7 @@ public class ServerParticleUtil {
                 }
             }
             Vec3 vector3d = new Vec3(entity.position().x, entity.getEyeY(), entity.position().z);
-            if (pParticleData instanceof GatherTrailParticle.Option option) {
+            if (pParticleData instanceof GatherTrailParticleOption option) {
                 vector3d = new Vec3(option.getEndX(), option.getEndY(), option.getEndZ());
             }
             for(BlockPos blockpos : positions) {
@@ -307,7 +307,7 @@ public class ServerParticleUtil {
 
     public static void windShockwaveParticle(ServerLevel serverLevel, ColorUtil color, float width, float height, float increase, int life, int id, Vec3 vec3){
         for (int i = 0; i < 8; ++i) {
-            serverLevel.sendParticles(new WindShockwaveParticle.Option(color, width, height, increase, i * 0.125F, life, id), vec3.x(), vec3.y(), vec3.z(), 1, 0.0D, 0.0D, 0.0D, 0.0F);
+            serverLevel.sendParticles(new WindShockwaveParticleOption(color, width, height, increase, i * 0.125F, life, id), vec3.x(), vec3.y(), vec3.z(), 1, 0.0D, 0.0D, 0.0D, 0.0F);
         }
     }
 
@@ -357,16 +357,15 @@ public class ServerParticleUtil {
 
     public static void summonUndeadParticles(ServerLevel serverLevel, Entity entity, ColorUtil waveColor, int from, int to) {
         ServerParticleUtil.sendGodRay(serverLevel, entity, waveColor);
-//        ServerParticleUtil.windShockwaveParticle(serverLevel, waveColor, 0.1F, 0.1F, 0.1F, -1, entity.position());
         for (int i2 = 0; i2 < serverLevel.getRandom().nextInt(10) + 10; ++i2) {
-            sendAlwaysVisibleParticles(serverLevel, new MagicSmokeParticle.Option(from, to, 10 + serverLevel.getRandom().nextInt(10), 0.2F), entity.getRandomX(1.5D), entity.getRandomY(), entity.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
+            sendAlwaysVisibleParticles(serverLevel, new MagicSmokeParticleOption(from, to, 10 + serverLevel.getRandom().nextInt(10), 0.2F), entity.getRandomX(1.5D), entity.getRandomY(), entity.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
         }
     }
 
     public static void summonedParticles(ServerLevel serverLevel, Entity entity, ColorUtil waveColor, int from, int to) {
         ServerParticleUtil.sendGodRay(serverLevel, entity, waveColor);
         for (int i2 = 0; i2 < serverLevel.getRandom().nextInt(10) + 10; ++i2) {
-            sendAlwaysVisibleParticles(serverLevel, new MagicSmokeParticle.Option(from, to, 10 + serverLevel.getRandom().nextInt(10), 0.2F), entity.getRandomX(1.5D), entity.getRandomY(), entity.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
+            sendAlwaysVisibleParticles(serverLevel, new MagicSmokeParticleOption(from, to, 10 + serverLevel.getRandom().nextInt(10), 0.2F), entity.getRandomX(1.5D), entity.getRandomY(), entity.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
         }
     }
 

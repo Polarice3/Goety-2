@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
+import com.Polarice3.Goety.api.blocks.entities.ISoulCandle;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.NecroBrazierBlock;
@@ -8,7 +9,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class SoulCandlestickBlockEntity extends BlockEntity{
+public class SoulCandlestickBlockEntity extends BlockEntity implements ISoulCandle {
     private CursedCageBlockEntity cursedCageTile;
 
     public SoulCandlestickBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
@@ -47,7 +48,7 @@ public class SoulCandlestickBlockEntity extends BlockEntity{
         return 0;
     }
 
-    private boolean checkCage() {
+    public boolean checkCage() {
         if (this.level == null){
             return false;
         }

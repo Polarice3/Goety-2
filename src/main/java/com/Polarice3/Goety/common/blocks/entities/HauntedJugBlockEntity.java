@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.blocks.entities;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.BrewCauldronBlock;
+import com.Polarice3.Goety.common.blocks.HauntedJugBlock;
 import com.Polarice3.Goety.compat.botania.BotaniaIntegration;
 import com.Polarice3.Goety.compat.botania.BotaniaLoaded;
 import com.Polarice3.Goety.utils.BlockFinder;
@@ -81,82 +82,84 @@ public class HauntedJugBlockEntity extends ModBlockEntity {
     public void tick() {
         if (this.level != null) {
             if (!this.level.isClientSide) {
-                if (BlockFinder.isPassableBlock(this.level, this.getBlockPos().above())){
-                    ++this.search;
-                    int radius = 5;
-                    int x = this.search / radius % radius;
-                    int y = this.search / radius / radius % (radius - 2);
-                    int z = this.search % radius;
-                    if (this.search > 1 && x == 0 && y == 0 && z == 0){
-                        this.search = 0;
-                    }
-                    BlockPos blockPos = this.getBlockPos().offset(x - 2, y - 1, z - 2);
-                    BlockState blockState = this.level.getBlockState(blockPos);
-                    BlockEntity blockEntity = this.level.getBlockEntity(blockPos);
-                    boolean fluidHandler0 = blockEntity != null && !(blockEntity instanceof HauntedJugBlockEntity) && (blockEntity instanceof IFluidHandler || blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, Direction.UP).isPresent()) && !blockEntity.getBlockState().getBlock().getDescriptionId().contains("pipe");
-                    boolean water = blockState.getBlock() == Blocks.WATER_CAULDRON && blockState.getValue(LayeredCauldronBlock.LEVEL) < 3;
-                    boolean vanillaCauldron = blockState.getBlock() == Blocks.CAULDRON || water;
-                    boolean brewCauldron = blockState.getBlock() instanceof BrewCauldronBlock && blockEntity instanceof BrewCauldronBlockEntity cauldronEntity && blockState.getValue(BrewCauldronBlock.LEVEL) < 3 && BrewUtils.isEmpty(cauldronEntity.getBrew());
-                    AABB aabb = new AABB(blockPos);
-                    List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, aabb, livingEntity -> livingEntity.isAlive() && (livingEntity.getRemainingFireTicks() > 0 || livingEntity instanceof Axolotl));
-                    if (!list.isEmpty()){
-                        LivingEntity livingEntity = list.get(this.level.random.nextInt(list.size()));
-                        this.streamWater(blockPos);
-                        livingEntity.extinguishFire();
-                        if (livingEntity.isSensitiveToWater()) {
-                            livingEntity.hurt(livingEntity.damageSources().drown(), 1.0F);
+                if (this.getBlockState().getValue(HauntedJugBlock.ENABLED)) {
+                    if (BlockFinder.isPassableBlock(this.level, this.getBlockPos().above())) {
+                        ++this.search;
+                        int radius = 5;
+                        int x = this.search / radius % radius;
+                        int y = this.search / radius / radius % (radius - 2);
+                        int z = this.search % radius;
+                        if (this.search > 1 && x == 0 && y == 0 && z == 0) {
+                            this.search = 0;
                         }
-                        if (livingEntity instanceof Axolotl axolotl){
-                            axolotl.rehydrate();
-                        }
-                    } else if (fluidHandler0) {
-                        IFluidHandler fluidHandler;
-                        if (blockEntity instanceof IFluidHandler handler) {
-                            fluidHandler = handler;
-                        } else {
-                            fluidHandler = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, Direction.UP).resolve().orElse(null);
-                        }
-                        if (fluidHandler != null) {
-                            int filled = fluidHandler.fill(new FluidStack(Fluids.WATER, 250), IFluidHandler.FluidAction.EXECUTE);
-                            if (filled > 0) {
+                        BlockPos blockPos = this.getBlockPos().offset(x - 2, y - 1, z - 2);
+                        BlockState blockState = this.level.getBlockState(blockPos);
+                        BlockEntity blockEntity = this.level.getBlockEntity(blockPos);
+                        boolean fluidHandler0 = blockEntity != null && !(blockEntity instanceof HauntedJugBlockEntity) && (blockEntity instanceof IFluidHandler || blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, Direction.UP).isPresent()) && !blockEntity.getBlockState().getBlock().getDescriptionId().contains("pipe");
+                        boolean water = blockState.getBlock() == Blocks.WATER_CAULDRON && blockState.getValue(LayeredCauldronBlock.LEVEL) < 3;
+                        boolean vanillaCauldron = blockState.getBlock() == Blocks.CAULDRON || water;
+                        boolean brewCauldron = blockState.getBlock() instanceof BrewCauldronBlock && blockEntity instanceof BrewCauldronBlockEntity cauldronEntity && blockState.getValue(BrewCauldronBlock.LEVEL) < 3 && BrewUtils.isEmpty(cauldronEntity.getBrew());
+                        AABB aabb = new AABB(blockPos);
+                        List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, aabb, livingEntity -> livingEntity.isAlive() && (livingEntity.getRemainingFireTicks() > 0 || livingEntity instanceof Axolotl));
+                        if (!list.isEmpty()) {
+                            LivingEntity livingEntity = list.get(this.level.random.nextInt(list.size()));
+                            this.streamWater(blockPos);
+                            livingEntity.extinguishFire();
+                            if (livingEntity.isSensitiveToWater()) {
+                                livingEntity.hurt(livingEntity.damageSources().drown(), 1.0F);
+                            }
+                            if (livingEntity instanceof Axolotl axolotl) {
+                                axolotl.rehydrate();
+                            }
+                        } else if (fluidHandler0) {
+                            IFluidHandler fluidHandler;
+                            if (blockEntity instanceof IFluidHandler handler) {
+                                fluidHandler = handler;
+                            } else {
+                                fluidHandler = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, Direction.UP).resolve().orElse(null);
+                            }
+                            if (fluidHandler != null) {
+                                int filled = fluidHandler.fill(new FluidStack(Fluids.WATER, 250), IFluidHandler.FluidAction.EXECUTE);
+                                if (filled > 0) {
+                                    this.streamWater(blockPos);
+                                    this.fluidTank.drain(new FluidStack(Fluids.WATER, filled), IFluidHandler.FluidAction.EXECUTE);
+                                    this.markUpdated();
+                                }
+                            }
+                        } else if (brewCauldron) {
+                            this.level.setBlock(blockPos, blockState.cycle(BrewCauldronBlock.LEVEL), 2);
+                            this.level.updateNeighborsAt(blockPos, blockState.getBlock());
+                            this.streamWater(blockPos);
+                            this.fluidTank.drain(new FluidStack(Fluids.WATER, 333), IFluidHandler.FluidAction.EXECUTE);
+                            this.markUpdated();
+                        } else if (vanillaCauldron) {
+                            if (water) {
+                                this.level.setBlock(blockPos, blockState.cycle(LayeredCauldronBlock.LEVEL), 2);
+                            } else if (blockState.getBlock() == Blocks.CAULDRON) {
+                                this.level.setBlock(blockPos, Blocks.WATER_CAULDRON.defaultBlockState(), 2);
+                            }
+                            this.level.updateNeighborsAt(blockPos, blockState.getBlock());
+                            this.streamWater(blockPos);
+                            this.fluidTank.drain(new FluidStack(Fluids.WATER, 333), IFluidHandler.FluidAction.EXECUTE);
+                            this.markUpdated();
+                        } else if (BotaniaLoaded.BOTANIA.isLoaded()) {
+                            if (BotaniaIntegration.fillApothecary(blockPos, this.level)) {
+                                this.level.updateNeighborsAt(blockPos, blockState.getBlock());
                                 this.streamWater(blockPos);
-                                this.fluidTank.drain(new FluidStack(Fluids.WATER, filled), IFluidHandler.FluidAction.EXECUTE);
+                                this.fluidTank.drain(new FluidStack(Fluids.WATER, FluidType.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
                                 this.markUpdated();
                             }
                         }
-                    } else if (brewCauldron) {
-                        this.level.setBlock(blockPos, blockState.cycle(BrewCauldronBlock.LEVEL), 2);
-                        this.level.updateNeighborsAt(blockPos, blockState.getBlock());
-                        this.streamWater(blockPos);
-                        this.fluidTank.drain(new FluidStack(Fluids.WATER, 333), IFluidHandler.FluidAction.EXECUTE);
-                        this.markUpdated();
-                    } else if (vanillaCauldron) {
-                        if (water) {
-                            this.level.setBlock(blockPos, blockState.cycle(LayeredCauldronBlock.LEVEL), 2);
-                        } else if (blockState.getBlock() == Blocks.CAULDRON) {
-                            this.level.setBlock(blockPos, Blocks.WATER_CAULDRON.defaultBlockState(), 2);
-                        }
-                        this.level.updateNeighborsAt(blockPos, blockState.getBlock());
-                        this.streamWater(blockPos);
-                        this.fluidTank.drain(new FluidStack(Fluids.WATER, 333), IFluidHandler.FluidAction.EXECUTE);
-                        this.markUpdated();
-                    } else if (BotaniaLoaded.BOTANIA.isLoaded()){
-                        if (BotaniaIntegration.fillApothecary(blockPos, this.level)) {
-                            this.level.updateNeighborsAt(blockPos, blockState.getBlock());
-                            this.streamWater(blockPos);
-                            this.fluidTank.drain(new FluidStack(Fluids.WATER, FluidType.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
-                            this.markUpdated();
-                        }
-                    }
-                } else {
-                    BlockEntity blockEntity = this.level.getBlockEntity(this.getBlockPos().above());
-                    if (blockEntity != null) {
-                        if (blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, Direction.DOWN).resolve().isPresent()) {
-                            IFluidHandler fluidHandler = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, Direction.DOWN).resolve().get();
-                            int filled = fluidHandler.fill(new FluidStack(Fluids.WATER, FluidType.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
-                            if (filled > 0) {
-                                this.fluidTank.drain(new FluidStack(Fluids.WATER, filled), IFluidHandler.FluidAction.EXECUTE);
-                                this.markUpdated();
+                    } else {
+                        BlockEntity blockEntity = this.level.getBlockEntity(this.getBlockPos().above());
+                        if (blockEntity != null) {
+                            if (blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, Direction.DOWN).resolve().isPresent()) {
+                                IFluidHandler fluidHandler = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, Direction.DOWN).resolve().get();
+                                int filled = fluidHandler.fill(new FluidStack(Fluids.WATER, FluidType.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
+                                if (filled > 0) {
+                                    this.fluidTank.drain(new FluidStack(Fluids.WATER, filled), IFluidHandler.FluidAction.EXECUTE);
+                                    this.markUpdated();
+                                }
                             }
                         }
                     }

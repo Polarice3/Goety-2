@@ -2,9 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "pattern":
   [
-    " m ",
-    "mlm",
-    " m "
+    "lm",
+    "ml"
   ],
   "key":
   {
@@ -14,12 +13,12 @@
     },
     "l":
     {
-      "item": "goety:end_soil"
+      "item": "goety:end_soil_debris"
     }
   },
   "result":
   {
     "item": "goety:soiled_cobbled_end_stone",
-    "count": 4
+    "count": 2
   }
 }

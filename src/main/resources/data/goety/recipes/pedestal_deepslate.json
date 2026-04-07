@@ -10,11 +10,11 @@
   {
     "l":
     {
-      "item": "minecraft:deepslate_brick_slab"
+      "tag": "goety:slab_deepslate_craft"
     },
     "s":
     {
-      "item": "minecraft:deepslate_bricks"
+      "tag": "goety:full_deepslate_craft"
     }
   },
   "result":

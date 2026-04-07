@@ -5,7 +5,6 @@ import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.common.advancements.ModCriteriaTriggers;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
-import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.illager.AbstractIllagerServant;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.Prisoner;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
@@ -18,7 +17,6 @@ import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -349,25 +347,13 @@ public class ServantEvents {
                         owner = raider;
                     }
                     if (killed instanceof AbstractVillager villager && !villager.isBaby()) {
-                        Prisoner prisoner = villager.convertTo(ModEntityType.PRISONER.get(), true);
+                        Prisoner prisoner = ServantUtil.takePrisoner(villager);
                         if (prisoner != null) {
-                            if (villager instanceof Villager villager1) {
-                                prisoner.setVillagerData(villager1.getVillagerData());
-                                prisoner.setGossips(villager1.getGossips().store(NbtOps.INSTANCE));
-                                MobUtil.releaseAllPois(villager1);
-                            }
-                            prisoner.setTradeOffers(villager.getOffers().createTag());
-                            prisoner.setVillagerXp(villager.getVillagerXp());
-                            prisoner.setIsTrader(villager instanceof WanderingTrader);
                             if (leader != null) {
                                 prisoner.setTrueOwner(raider.getTrueOwner());
                                 prisoner.setLeader(leader);
                             } else {
                                 prisoner.setTrueOwner(raider);
-                            }
-                            net.minecraftforge.event.ForgeEventFactory.onLivingConvert(villager, prisoner);
-                            if (!prisoner.isSilent()) {
-                                prisoner.playSound(SoundEvents.IRON_TRAPDOOR_CLOSE);
                             }
                         }
                     } else if (killed instanceof Prisoner prisoner) {

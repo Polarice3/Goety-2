@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.blocks.entities;
 
 import com.Polarice3.Goety.api.blocks.IEnchantedBlock;
 import com.Polarice3.Goety.client.particles.AbsorbTrailParticleOption;
-import com.Polarice3.Goety.client.particles.GatherTrailParticle;
+import com.Polarice3.Goety.client.particles.GatherTrailParticleOption;
 import com.Polarice3.Goety.client.particles.SpirallingParticleOption;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
@@ -90,7 +90,7 @@ public class BlackCrystalBlockEntity extends OwnedBlockEntity implements IEnchan
                                 ColorUtil colorUtil1 = new ColorUtil(0x5038dd);
                                 serverLevel.sendParticles(new SpirallingParticleOption(1.0F, colorUtil1.red, colorUtil1.green, colorUtil1.blue, 5), vector3d1.x, vector3d1.y, vector3d1.z, 1, 0.0D, 0.0D, 0.0D, 1.0D);
                                 Vec3 vec3 = new Vec3(this.target.getX(), this.target.getY() + (this.target.getBbHeight() / 2.0F), this.target.getZ());
-                                serverLevel.sendParticles(new GatherTrailParticle.Option(colorUtil1, vector3d1), vec3.x, vec3.y, vec3.z, 0, 0.0F, 0.0F, 0.0F, 0.5F);
+                                serverLevel.sendParticles(new GatherTrailParticleOption(colorUtil1, vector3d1), vec3.x, vec3.y, vec3.z, 0, 0.0F, 0.0F, 0.0F, 0.5F);
                                 for (int i = 0; i < 8; ++i) {
                                     Vec3 vec31 = new Vec3(this.target.getRandomX(1.0F), this.target.getRandomY(), this.target.getRandomZ(1.0F));
                                     serverLevel.sendParticles(new AbsorbTrailParticleOption(vector3d1, 0x5038dd, 10), vec31.x, vec31.y, vec31.z, 1, 0.0, 0.0, 0.0, 0.0);
