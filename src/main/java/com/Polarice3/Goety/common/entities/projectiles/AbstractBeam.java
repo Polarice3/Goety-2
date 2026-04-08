@@ -10,6 +10,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -28,6 +31,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -36,6 +40,8 @@ import java.util.function.Predicate;
  * Beam codes based on ArtifactBeamEntity on @Thelnfamous1's Dungeon Gears
  */
 public abstract class AbstractBeam extends Entity implements IEntityAdditionalSpawnData, ISpellEntity {
+    protected static final EntityDataAccessor<Integer> OWNER = SynchedEntityData.defineId(AbstractBeam.class, EntityDataSerializers.INT);
+
     public static final double MAX_RAYTRACE_DISTANCE = 64;
     public float extraDamage = 0;
     public boolean itemBase;
@@ -53,6 +59,21 @@ public abstract class AbstractBeam extends Entity implements IEntityAdditionalSp
             this.ownerUUID = owner.getUUID();
             this.updatePositionAndRotation();
         }
+        this.getEntityData().set(OWNER, owner != null ? owner.getId() : -1);
+    }
+
+    public int getOwnerId() {
+        return this.getEntityData().get(OWNER);
+    }
+
+    public Optional<LivingEntity> getOptionalOwner() {
+        if (level().isClientSide) {
+            int ownerId = this.getOwnerId();
+            if ((owner == null || ownerId != owner.getId()) && level().getEntity(ownerId) instanceof LivingEntity living) {
+                owner = living;
+            }
+        }
+        return Optional.ofNullable(owner);
     }
 
     @Override
@@ -118,7 +139,7 @@ public abstract class AbstractBeam extends Entity implements IEntityAdditionalSp
         LivingEntity owner = this.getOwner();
         if (owner != null) {
             Vec3 vec1 = owner.position();
-            vec1 = vec1.add(this.getOffsetVector(owner));
+            vec1 = vec1.add(this.getOffsetVector(owner, 1.0F));
             this.setPos(vec1.x, vec1.y, vec1.z);
             this.setYRot(boundDegrees(this.owner.getYRot()));
             this.setXRot(boundDegrees(this.owner.getXRot()));
@@ -131,8 +152,13 @@ public abstract class AbstractBeam extends Entity implements IEntityAdditionalSp
         return (v % 360 + 360) % 360;
     }
 
-    private Vec3 getOffsetVector(LivingEntity living) {
-        Vec3 viewVector = this.getViewVector(1.0F);
+    public Vec3 getOffsetVector(LivingEntity living, float partialTick) {
+        Vec3 viewVector = this.getViewVector(partialTick);
+        Optional<LivingEntity> optionalOwner = this.getOptionalOwner();
+        if (optionalOwner.isPresent()) {
+            LivingEntity owner = optionalOwner.get();
+            viewVector = owner.getViewVector(partialTick);
+        }
         return new Vec3(viewVector.x, living.getEyeHeight() * 0.4D, viewVector.z);
     }
 
@@ -182,6 +208,7 @@ public abstract class AbstractBeam extends Entity implements IEntityAdditionalSp
 
     @Override
     protected void defineSynchedData() {
+        this.entityData.define(OWNER, -1);
     }
 
     @Override

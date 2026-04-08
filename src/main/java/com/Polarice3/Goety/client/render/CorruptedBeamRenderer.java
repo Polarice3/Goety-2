@@ -13,10 +13,14 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
+
+import java.util.Optional;
 
 /**
  * Beam render codes based on BeamEntityRenderer on @Thelnfamous1's Dungeon Gears
@@ -26,8 +30,8 @@ public class CorruptedBeamRenderer<T extends CorruptedBeam> extends EntityRender
     private final static ResourceLocation beaconBeamMain = Goety.location("textures/entity/corrupted/beacon_beam_main.png");
     private final static ResourceLocation beaconBeamGlow = Goety.location("textures/entity/corrupted/beacon_beam_glow.png");
 
-    public CorruptedBeamRenderer(EntityRendererProvider.Context p_174008_) {
-        super(p_174008_);
+    public CorruptedBeamRenderer(EntityRendererProvider.Context context) {
+        super(context);
     }
 
     public void render(T pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
@@ -43,9 +47,25 @@ public class CorruptedBeamRenderer<T extends CorruptedBeam> extends EntityRender
 
         MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
 
+        float yRot = -Mth.rotLerp(ticks, entity.yRotO, entity.getYRot());
+        float xRot = Mth.rotLerp(ticks, entity.xRotO, entity.getXRot());
+        Vec3 offset = Vec3.ZERO;
+        Optional<LivingEntity> optionalOwner = entity.getOptionalOwner();
+        if (optionalOwner.isPresent()) {
+            LivingEntity owner = optionalOwner.get();
+            yRot = -Mth.rotLerp(ticks, owner.yRotO, owner.getYRot());
+            xRot = Mth.rotLerp(ticks, owner.xRotO, owner.getXRot());
+            offset = new Vec3(
+                    Mth.lerp(ticks, owner.xo, owner.getX()) - Mth.lerp(ticks, entity.xo, entity.getX()),
+                    Mth.lerp(ticks, owner.yo, owner.getY()) - Mth.lerp(ticks, entity.yo, entity.getY()),
+                    Mth.lerp(ticks, owner.zo, owner.getZ()) - Mth.lerp(ticks, entity.zo, entity.getZ())
+            ).add(entity.getOffsetVector(owner, ticks));
+        }
+
         pMatrixStack.pushPose();
-        pMatrixStack.mulPose(Axis.YP.rotationDegrees((Mth.lerp(ticks, boundDegrees(-entity.getYRot()), boundDegrees(-entity.yRotO)))));
-        pMatrixStack.mulPose(Axis.XP.rotationDegrees(Mth.lerp(ticks, boundDegrees(entity.getXRot()), boundDegrees(entity.xRotO))));
+        pMatrixStack.translate(offset.x, offset.y, offset.z);
+        pMatrixStack.mulPose(Axis.YP.rotationDegrees(yRot));
+        pMatrixStack.mulPose(Axis.XP.rotationDegrees(xRot));
 
         PoseStack.Pose matrixstack$entry = pMatrixStack.last();
         Matrix3f matrixNormal = matrixstack$entry.normal();
