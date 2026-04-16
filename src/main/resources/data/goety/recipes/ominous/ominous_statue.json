@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " s ",
+    " s ",
+    "sss"
+  ],
+  "key":
+  {
+    "s":
+    {
+      "item": "goety:ominous_stone_bricks"
+    }
+  },
+  "result":
+  {
+    "item": "goety:ominous_statue",
+    "count": 1
+  }
+}

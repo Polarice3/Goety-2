@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "goety:crag_pavement"
+    },
+    {
+      "item": "goety:red_moss_growth"
+    }
+  ],
+  "result": {
+    "item": "goety:mossy_crag_pavement"
+  }
+}

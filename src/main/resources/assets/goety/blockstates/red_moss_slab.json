@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/red_moss_slab"
+    },
+    "type=double": {
+      "model": "goety:block/red_moss_block"
+    },
+    "type=top": {
+      "model": "goety:block/red_moss_slab_top"
+    }
+  }
+}

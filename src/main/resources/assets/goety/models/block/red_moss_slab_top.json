@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "goety:block/red_moss",
+    "top": "goety:block/red_moss",
+    "side": "goety:block/red_moss"
+  }
+}

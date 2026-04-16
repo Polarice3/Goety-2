@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "goety:silt_highrock"
+  },
+  "result": "goety:silt_highrock_slab",
+  "count": 2
+}

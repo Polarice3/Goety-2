@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:dirt"
+    },
+    {
+      "tag": "minecraft:coals"
+    },
+    {
+      "tag": "forge:bones"
+    },
+    {
+      "tag": "forge:rods/wooden"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "goety:dark_dirt"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "sss",
+    "sps",
+    "sss"
+  ],
+  "key":
+  {
+    "s":
+    {
+      "tag": "forge:stone"
+    },
+    "p":
+    {
+      "tag": "forge:gems/lapis"
+    }
+  },
+  "result":
+  {
+    "item": "goety:ominous_stone",
+    "count": 8
+  }
+}

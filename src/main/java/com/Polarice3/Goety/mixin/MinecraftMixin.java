@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.mixin;
 
+import com.Polarice3.Goety.client.events.ClientEvents;
 import com.Polarice3.Goety.common.blocks.entities.OminousIdolBlockEntity;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
@@ -93,6 +94,9 @@ public class MinecraftMixin {
                             }
                         }
                     }
+                }
+                if (ClientEvents.target == pEntity) {
+                    cir.setReturnValue(true);
                 }
             }
         }

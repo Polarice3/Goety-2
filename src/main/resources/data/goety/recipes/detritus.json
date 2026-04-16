@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "minecraft:dirt"
+    },
+    {
+      "item": "minecraft:gravel"
+    },
+    {
+      "tag": "minecraft:coals"
+    },
+    {
+      "tag": "forge:sand"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "goety:detritus"
+  }
+}

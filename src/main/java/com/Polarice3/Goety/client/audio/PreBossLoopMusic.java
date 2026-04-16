@@ -4,6 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.events.ClientEvents;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
@@ -19,12 +20,18 @@ public class PreBossLoopMusic extends AbstractTickableSoundInstance {
     protected SoundEvent preMusic;
     protected SoundEvent postBossMusic;
     protected int withinRange;
+    protected boolean mustSee;
+    protected boolean canSee;
 
     public PreBossLoopMusic(SoundEvent soundEvent, Mob mobEntity, float volume, float pitch, int withinRange) {
         this(soundEvent, ModSounds.BOSS_POST.get(), mobEntity, volume, pitch, withinRange);
     }
 
     public PreBossLoopMusic(SoundEvent soundEvent, SoundEvent postBossMusic, Mob mobEntity, float volume, float pitch, int withinRange) {
+        this(soundEvent, postBossMusic, mobEntity, volume, pitch, withinRange, false);
+    }
+
+    public PreBossLoopMusic(SoundEvent soundEvent, SoundEvent postBossMusic, Mob mobEntity, float volume, float pitch, int withinRange, boolean mustSee) {
         super(soundEvent, SoundSource.RECORDS, SoundInstance.createUnseededRandom());
         this.mobEntity = mobEntity;
         this.postBossMusic = postBossMusic;
@@ -38,6 +45,7 @@ public class PreBossLoopMusic extends AbstractTickableSoundInstance {
         this.trueVolume = volume;
         this.pitch = pitch;
         this.withinRange = withinRange;
+        this.mustSee = mustSee;
     }
 
     @Override
@@ -82,17 +90,41 @@ public class PreBossLoopMusic extends AbstractTickableSoundInstance {
             this.stop();
         }
 
+        if (this.mustSee) {
+            Player player = Goety.PROXY.getPlayer();
+            if (player != null) {
+                this.canSee = MobUtil.hasVisualLineOfSight(player, this.mobEntity);
+            } else {
+                this.canSee = false;
+            }
+        } else {
+            this.canSee = true;
+        }
+
         if (this.withinRange > 0) {
             Player player = Goety.PROXY.getPlayer();
             if (player != null) {
-                this.volume = 1.0F - (player.distanceTo(this.mobEntity) / (this.withinRange + 8));
+                if (this.canSee) {
+                    this.volume = 1.0F - (player.distanceTo(this.mobEntity) / (this.withinRange + 8));
+                } else {
+                    this.volume -= 0.025F;
+                }
             }
         } else {
-            this.volume = 1.0F;
+            if (this.canSee) {
+                this.volume = 1.0F;
+            } else {
+                this.volume -= 0.025F;
+            }
         }
 
         this.x = this.mobEntity.getX();
         this.y = this.mobEntity.getY();
         this.z = this.mobEntity.getZ();
+
+        if (this.volume <= 0.0F && !this.canSee) {
+            ClientEvents.PRE_BOSS_MUSIC = null;
+            this.stop();
+        }
     }
 }

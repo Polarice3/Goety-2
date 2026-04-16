@@ -369,6 +369,21 @@ public class ServerParticleUtil {
         }
     }
 
+    public static void surroundCloudParticles(ParticleOptions options, Entity entity, ServerLevel serverLevel, int amount, float speed) {
+        surroundCloudParticles(options, entity.getX(), entity.getY() + (entity.getBbHeight() / 4.0F), entity.getZ(), serverLevel, amount, speed);
+    }
+
+    public static void surroundCloudParticles(ParticleOptions options, double x, double y, double z, ServerLevel serverLevel, int amount, float speed) {
+        float degree = 360.0F / amount;
+        for(int j2 = 0; j2 < amount; ++j2) {
+            float f11 = MathHelper.modelDegrees(j2 * degree);
+            double d18 = Mth.cos(f11);
+            double d24 = 0.0D;
+            double d29 = Mth.sin(f11);
+            serverLevel.sendParticles(options, x + d18 * 0.1D, y, z + d29 * 0.1D, 0, d18, d24, d29, speed);
+        }
+    }
+
     public static boolean sendParticles(ServerLevel serverLevel, ServerPlayer p_8637_, boolean p_8638_, double p_8639_, double p_8640_, double p_8641_, Packet<?> p_8642_) {
         if (p_8637_.level() != serverLevel) {
             return false;

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/dark_dirt_slab"
+    },
+    "type=double": {
+      "model": "goety:block/dark_dirt"
+    },
+    "type=top": {
+      "model": "goety:block/dark_dirt_slab_top"
+    }
+  }
+}

@@ -1,6 +1,8 @@
 package com.Polarice3.Goety.data;
 
-import com.Polarice3.Goety.common.blocks.*;
+import com.Polarice3.Goety.common.blocks.LayerBlock;
+import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.common.blocks.SnapWartsBlock;
 import com.Polarice3.Goety.common.items.ModItems;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -8,12 +10,16 @@ import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -39,6 +45,8 @@ import java.util.function.BiConsumer;
  */
 public class ModBlockLootProvider extends BlockLootSubProvider {
     private static final LootItemCondition.Builder HAS_SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))));
+    private static final LootItemCondition.Builder HAS_PICKAXE = MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.PICKAXES));
+    private static final LootItemCondition.Builder HAS_SHOVEL = MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.SHOVELS));
     private static final LootItemCondition.Builder HAS_SHEARS = MatchTool.toolMatches(ItemPredicate.Builder.item().of(Items.SHEARS));
     private static final LootItemCondition.Builder HAS_SHEARS_OR_SILK_TOUCH = HAS_SHEARS.or(HAS_SILK_TOUCH);
     private static final LootItemCondition.Builder HAS_NO_SHEARS_OR_SILK_TOUCH = HAS_SHEARS_OR_SILK_TOUCH.invert();
@@ -70,12 +78,8 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
                 this.add(block, createDoorTable(block));
             } else if (block instanceof SlabBlock){
                 this.add(block, createSlabItemTable(block));
-            } else if (block instanceof WitchPoleBlock || block instanceof HauntedMirrorBlock || block instanceof DoublePlantBlock) {
+            } else if (block.defaultBlockState().hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF)) {
                 this.add(block, bl -> createSinglePropConditionTable(bl, BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER));
-            } else if (block instanceof LampBlock) {
-                this.add(block, bl -> createSinglePropConditionTable(bl, LampBlock.HALF, DoubleBlockHalf.LOWER));
-            } else if (block instanceof PurpurLampBlock) {
-                this.add(block, bl -> createSinglePropConditionTable(bl, PurpurLampBlock.HALF, DoubleBlockHalf.LOWER));
             } else {
                 this.dropSelf(block);
             }
@@ -83,11 +87,40 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
         LootItemCondition.Builder lootbuilder = LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.SNAP_WARTS.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SnapWartsBlock.AGE, 2));
         LootItemCondition.Builder lootbuilder1 = LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.SNAP_WARTS.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SnapWartsBlock.AGE, 1));
         this.add(ModBlocks.SNAP_WARTS.get(), createSnapWartDrops(ModBlocks.SNAP_WARTS.get(), ModItems.SNAP_FUNGUS.get(), ModBlocks.SNAP_WARTS_ITEM.get(), lootbuilder, lootbuilder1));
+        this.add(ModBlocks.FIRETHORN.get(), (p_249159_) -> {
+            return this.applyExplosionDecay(p_249159_, LootTable.lootTable().withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.FIRETHORN.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3))).add(LootItem.lootTableItem(ModBlocks.FIRETHORN_BERRIES.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))).withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.FIRETHORN.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 2))).add(LootItem.lootTableItem(ModBlocks.FIRETHORN_BERRIES.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))));
+        });
+        this.add(ModBlocks.COBBLED_DIRT.get(), (block) -> {
+           return LootTable.lootTable().withPool(LootPool.lootPool().add(AlternativesEntry.alternatives(
+                    LootItem.lootTableItem(ModBlocks.COBBLED_DIRT.get()).when(HAS_SILK_TOUCH),
+                    LootItem.lootTableItem(Items.COBBLESTONE).when(HAS_PICKAXE),
+                    LootItem.lootTableItem(Items.DIRT).when(HAS_SHOVEL),
+                    applyExplosionCondition(ModBlocks.COBBLED_DIRT.get(), LootItem.lootTableItem(ModBlocks.COBBLED_DIRT.get())))));
+        });
+        this.add(ModBlocks.SNOWY_DIRT.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, Blocks.DIRT));
+        this.add(ModBlocks.COBBLED_DARK_DIRT.get(), (block) -> {
+            return LootTable.lootTable().withPool(LootPool.lootPool().add(AlternativesEntry.alternatives(
+                    LootItem.lootTableItem(ModBlocks.COBBLED_DARK_DIRT.get()).when(HAS_SILK_TOUCH),
+                    LootItem.lootTableItem(Items.COBBLESTONE).when(HAS_PICKAXE),
+                    LootItem.lootTableItem(ModBlocks.DARK_DIRT.get()).when(HAS_SHOVEL),
+                    applyExplosionCondition(ModBlocks.COBBLED_DARK_DIRT.get(), LootItem.lootTableItem(ModBlocks.COBBLED_DARK_DIRT.get())))));
+        });
+        this.add(ModBlocks.SNOWY_DARK_DIRT.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, ModBlocks.DARK_DIRT.get()));
         this.add(ModBlocks.FORBIDDEN_GRASS.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, Blocks.DIRT));
+        this.add(ModBlocks.END_GROWTH_BLOCK.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, ModBlocks.END_ROCK.get()));
+        this.add(ModBlocks.CHORUS_GRASS_BLOCK.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, ModBlocks.COBBLED_END_STONE_BLOCK.get()));
+        this.add(ModBlocks.RED_MOSS_SILTSTONE.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, ModBlocks.COBBLED_SILTSTONE_BLOCK.get()));
+        this.add(ModBlocks.RED_MOSS_HIGHROCK.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, ModBlocks.HIGHROCK_BLOCK.get()));
+        this.add(ModBlocks.RED_MOSS_DIRT.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, Blocks.DIRT));
         this.add(ModBlocks.SPIDER_NEST.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, Items.STRING, UniformGenerator.between(4.0F, 8.0F)));
         this.add(ModBlocks.SMOOTH_SILTSTONE_BLOCK.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, ModBlocks.COBBLED_SILTSTONE_BLOCK.get()));
+        this.add(ModBlocks.OMINOUS_STONE_BLOCK.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, ModBlocks.COBBLED_OMINOUS_STONE_BLOCK.get()));
         this.add(ModBlocks.END_STONE_SLATE_BLOCK.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, ModBlocks.COBBLED_END_STONE_BLOCK.get()));
+        this.dropOther(ModBlocks.COBBLED_OMINOUS_STONE_PATH_BLOCK.get(), ModBlocks.COBBLED_OMINOUS_STONE_BLOCK.get());
         this.dropWhenSilkTouch(ModBlocks.SCULK_RELAY.get());
+        this.dropPottedContents(ModBlocks.POTTED_SIENNA_GRASS.get());
+        this.dropPottedContents(ModBlocks.POTTED_SIENNA_FERN.get());
+        this.dropPottedContents(ModBlocks.POTTED_WINDSWEPT_DEAD_BUSH.get());
         this.dropPottedContents(ModBlocks.POTTED_CHORUS_STALK.get());
         this.dropPottedContents(ModBlocks.POTTED_CHORUS_FERN.get());
         this.dropPottedContents(ModBlocks.POTTED_HAUNTED_SAPLING.get());
@@ -148,6 +181,17 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
             return createSingleItemTableWithSilkTouch(p_124233_, Items.STRING, UniformGenerator.between(2.0F, 4.0F));
         });
         this.add(ModBlocks.STASH_URN.get(), createSilkTouchOnlyTable(ModBlocks.STASH_URN.get()));
+        this.add(ModBlocks.SIENNA_GRASS.get(), this::createGrassDrops);
+        this.add(ModBlocks.TALL_SIENNA_GRASS.get(), (p_124233_) -> {
+            return createDoublePlantWithSeedDrops(p_124233_, ModBlocks.SIENNA_GRASS.get());
+        });
+        this.add(ModBlocks.SIENNA_FERN.get(), this::createGrassDrops);
+        this.add(ModBlocks.LARGE_SIENNA_FERN.get(), (p_124233_) -> {
+            return createDoublePlantWithSeedDrops(p_124233_, ModBlocks.SIENNA_FERN.get());
+        });
+        this.add(ModBlocks.WINDSWEPT_DEAD_BUSH.get(), (p_249226_) -> {
+            return createShearsDispatchTable(p_249226_, this.applyExplosionDecay(p_249226_, LootItem.lootTableItem(Items.STICK).apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))));
+        });
         this.add(ModBlocks.CHORUS_VINE.get(), (p_124233_) -> {
             return createShearsOnlyDrop(ModBlocks.CHORUS_VINE.get());
         });
@@ -176,6 +220,13 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
         this.add(ModBlocks.VOID_BARREL.get(), this::createVoidBarrelConditionTable);
         this.dropOther(ModBlocks.VOID_CAULDRON.get(), Blocks.CAULDRON.asItem());
         this.dropOther(ModBlocks.END_MUD_CAULDRON.get(), Blocks.CAULDRON.asItem());
+        this.add(ModBlocks.DETRITUS_DUST.get(), (p_251108_) -> {
+            return LootTable.lootTable().withPool(LootPool.lootPool().when(LootItemEntityPropertyCondition.entityPresent(LootContext.EntityTarget.THIS)).add(AlternativesEntry.alternatives(AlternativesEntry.alternatives(LayerBlock.LAYERS.getPossibleValues(), (p_252097_) -> {
+                return LootItem.lootTableItem(ModBlocks.DETRITUS_DUST.get()).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(p_251108_).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LayerBlock.LAYERS, p_252097_))).apply(SetItemCountFunction.setCount(ConstantValue.exactly((float)p_252097_.intValue())));
+            }).when(HAS_NO_SILK_TOUCH), AlternativesEntry.alternatives(LayerBlock.LAYERS.getPossibleValues(), (p_251216_) -> {
+                return p_251216_ == 8 ? LootItem.lootTableItem(ModBlocks.DETRITUS.get()) : LootItem.lootTableItem(ModBlocks.DETRITUS_DUST.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly((float)p_251216_.intValue()))).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(p_251108_).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LayerBlock.LAYERS, p_251216_)));
+            }))));
+        });
         this.add(ModBlocks.END_SOIL_DEBRIS.get(), (p_251108_) -> {
             return LootTable.lootTable().withPool(LootPool.lootPool().when(LootItemEntityPropertyCondition.entityPresent(LootContext.EntityTarget.THIS)).add(AlternativesEntry.alternatives(AlternativesEntry.alternatives(LayerBlock.LAYERS.getPossibleValues(), (p_252097_) -> {
                 return LootItem.lootTableItem(ModBlocks.END_SOIL_DEBRIS.get()).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(p_251108_).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LayerBlock.LAYERS, p_252097_))).apply(SetItemCountFunction.setCount(ConstantValue.exactly((float)p_252097_.intValue())));

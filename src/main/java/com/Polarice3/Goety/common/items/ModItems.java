@@ -131,6 +131,7 @@ public class ModItems {
     public static final RegistryObject<Item> BLAST_FUNGUS = ITEMS.register("blast_fungus", BlastFungusItem::new);
     public static final RegistryObject<Item> BERSERK_FUNGUS = ITEMS.register("berserk_fungus", BerserkFungusItem::new);
     public static final RegistryObject<Item> WARTFUL_EGG = ITEMS.register("wartful_egg", WartlingEggItem::new);
+    public static final RegistryObject<Item> RED_MOSS_GROWTH = ITEMS.register("red_moss_growth", RedMossGrowthItem::new);
     public static final RegistryObject<Item> CHORUS_GROWTH = ITEMS.register("chorus_growth", ChorusGrowthItem::new);
     public static final RegistryObject<Item> QUICK_GROWING_SEED = ITEMS.register("quick_growing_seed", () -> new QuickGrowSeedItem(false));
     public static final RegistryObject<Item> POISON_QUILL_SEED = ITEMS.register("poison_quill_seed", () -> new QuickGrowSeedItem(true));
@@ -209,7 +210,7 @@ public class ModItems {
     public static final RegistryObject<SingleStackItem> RING_OF_THE_FORGE = ITEMS.register("ring_of_the_forge", RingItem::new);
     public static final RegistryObject<SingleStackItem> RING_OF_THE_DRAGON = ITEMS.register("ring_of_the_dragon", RingItem::new);
     public static final RegistryObject<SingleStackItem> PENDANT_OF_HUNGER = ITEMS.register("pendant_of_hunger", PendantOfHungerItem::new);
-    public static final RegistryObject<SingleStackItem> TARGETING_MONOCLE = ITEMS.register("targeting_monocle", SingleStackItem::new);
+    public static final RegistryObject<SingleStackItem> TARGETING_MONOCLE = ITEMS.register("targeting_monocle", TargetingMonocleItem::new);
     public static final RegistryObject<SingleStackItem> DARK_HAT = ITEMS.register("dark_hat", MagicHatItem::new);
     public static final RegistryObject<SingleStackItem> GRAND_TURBAN = ITEMS.register("grand_turban", MagicHatItem::new);
     public static final RegistryObject<SingleStackItem> FROST_CROWN = ITEMS.register("frost_crown", () -> new MagicCrownItem(SpellType.FROST));

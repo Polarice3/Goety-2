@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CD",
+    "DC"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:dirt"
+    },
+    "D": {
+      "item": "minecraft:snowball"
+    }
+  },
+  "result": {
+    "item": "goety:snowy_dirt",
+    "count": 2
+  }
+}

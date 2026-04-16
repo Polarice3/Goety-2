@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "lit=true": { "model": "goety:block/ominous_stone_soul_brazier" },
+    "lit=false": { "model": "goety:block/ominous_stone_brazier_unlit" }
+  }
+}

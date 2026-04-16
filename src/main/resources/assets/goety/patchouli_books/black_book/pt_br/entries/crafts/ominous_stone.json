@@ -1,0 +1,64 @@
+{
+  "name": "Pedras Sinistras",
+  "icon": "goety:chiseled_ominous_stone",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Estes blocos parecem ressoar bem com os Illagers. Talvez possam ser vistos como a pedra equivalente ao seu amado Carvalho Escuro."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/ominous_stone",
+      "recipe2": "goety:ominous/polished_ominous_stone"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/ominous_stone_bricks",
+      "recipe2": "goety:ominous/ominous_stone_tiles"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/ominous_stone_pavement",
+      "recipe2": "goety:ominous/ominous_stone_pillar"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/chiseled_ominous_stone",
+      "recipe2": "goety:ominous/chiseled_polished_ominous_stone"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/chiseled_ominous_stone_bricks",
+      "recipe2": "goety:mandala"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:cobbled_ominous_stone",
+      "title": "Pedregulho Sinistro",
+      "text": "Ao quebrar Pedras Sinistras, você consegue seus pedregulhos. Assim como a Pedra para o Pedregulho comum, você pode fundi-la para obter Pedra Sinistra."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:cobbled_ominous_stone_path",
+      "title": "Caminho de Pedregulho Sinistro",
+      "text": "Usar uma Picareta em um Pedregulho Sinistro o transformará em um caminho, assim como caminhos de terra são feitos com pás."
+    },
+    {
+      "type": "patchouli:stonecutting",
+      "recipe": "goety:wall_shrine",
+      "text": "Santuários de Parede podem ser fixados nas laterais de um bloco e funcionam como decoração."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/ominous_statue",
+      "recipe2": "goety:ominous/ominous_brazier_statue"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:ominous_statue",
+      "title": "Estátuas Sinistras",
+      "text": "Estas estátuas são feitas à semelhança de um dos antigos guerreiros illager. Suas contrapartes com braseiro podem ter seu fogo apagado ou aceso clicando com o botão direito nelas."
+    }
+  ]
+}

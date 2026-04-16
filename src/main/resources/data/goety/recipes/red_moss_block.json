@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LL",
+    "LL"
+  ],
+  "key": {
+    "L": {
+      "item": "goety:red_moss_growth"
+    }
+  },
+  "result": {
+    "item": "goety:red_moss_block",
+    "count": 1
+  }
+}

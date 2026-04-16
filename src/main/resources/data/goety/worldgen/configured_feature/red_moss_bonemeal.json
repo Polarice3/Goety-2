@@ -1,0 +1,36 @@
+{
+  "type": "goety:red_moss_vegetation",
+  "config": {
+    "spread_height": 1,
+    "spread_width": 3,
+    "state_provider": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "goety:sienna_grass"
+          },
+          "weight": 50
+        },
+        {
+          "data": {
+            "Name": "goety:sienna_fern"
+          },
+          "weight": 30
+        },
+        {
+          "data": {
+            "Name": "goety:windswept_dead_bush"
+          },
+          "weight": 10
+        },
+        {
+          "data": {
+            "Name": "goety:firethorn"
+          },
+          "weight": 10
+        }
+      ]
+    }
+  }
+}

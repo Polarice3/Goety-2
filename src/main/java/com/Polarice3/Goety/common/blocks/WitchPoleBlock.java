@@ -128,7 +128,7 @@ public class WitchPoleBlock extends Block implements SimpleWaterloggedBlock {
         for(Direction direction : p_51750_.getNearestLookingDirections()) {
             if (direction.getAxis() != Direction.Axis.Y) {
                 blockstate = blockstate.setValue(FACING, direction).setValue(HALF, DoubleBlockHalf.LOWER);
-                if (blockstate.canSurvive(levelreader, blockpos)) {
+                if (blockstate.canSurvive(levelreader, blockpos) && blockpos.getY() < levelreader.getMaxBuildHeight() - 1 && levelreader.getBlockState(blockpos.above()).canBeReplaced(p_51750_)) {
                     return blockstate.setValue(WATERLOGGED, flag);
                 }
             }

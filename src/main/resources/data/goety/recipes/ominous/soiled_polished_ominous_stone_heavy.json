@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "lm",
+    "ml"
+  ],
+  "key":
+  {
+    "m":
+    {
+      "item": "goety:soiled_polished_ominous_stone"
+    },
+    "l":
+    {
+      "item": "goety:detritus_dust"
+    }
+  },
+  "result":
+  {
+    "item": "goety:soiled_polished_ominous_stone_heavy",
+    "count": 2
+  }
+}

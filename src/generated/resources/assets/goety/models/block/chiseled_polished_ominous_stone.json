@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "goety:block/chiseled_polished_ominous_stone_top",
+    "east": "goety:block/chiseled_polished_ominous_stone",
+    "north": "goety:block/chiseled_polished_ominous_stone",
+    "particle": "goety:block/chiseled_polished_ominous_stone",
+    "south": "goety:block/chiseled_polished_ominous_stone",
+    "up": "goety:block/chiseled_polished_ominous_stone_top",
+    "west": "goety:block/chiseled_polished_ominous_stone"
+  }
+}

@@ -1,0 +1,6 @@
+{
+	"parent": "goety:block/template_dungeon_candlestick",
+	"textures": {
+		"candle": "goety:block/gold_candlestick"
+	}
+}

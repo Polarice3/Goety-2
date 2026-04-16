@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_glass_pane_noside_alt",
+  "textures": {
+    "pane": "goety:block/rusty_iron_bars"
+  },
+  "render_type": "cutout_mipped"
+}

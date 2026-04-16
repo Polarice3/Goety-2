@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "goety:red_moss_siltstone",
+    "goety:red_moss_highrock",
+    "goety:red_moss_dirt",
+    "goety:red_moss_block",
+    "goety:red_moss_slab",
+    "goety:snowy_red_moss_block_slight",
+    "goety:snowy_red_moss_slight_slab",
+    "goety:snowy_red_moss_block",
+    "goety:snowy_red_moss_slab",
+    "goety:snowy_red_moss_block_heavy",
+    "goety:snowy_red_moss_heavy_slab"
+  ]
+}

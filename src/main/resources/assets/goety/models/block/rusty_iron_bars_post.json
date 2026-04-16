@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/template_glass_pane_post",
+  "textures": {
+    "edge": "goety:block/rusty_iron_bars_top",
+    "pane": "goety:block/rusty_iron_bars"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,7 @@
+{
+	"parent": "goety:block/template_candlestick_wall_bottom",
+	"textures": {
+		"stick": "goety:block/gold_candlestick_wall",
+		"candle": "goety:block/gold_candlestick"
+	}
+}

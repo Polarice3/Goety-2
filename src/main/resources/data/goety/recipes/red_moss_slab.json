@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "goety:red_moss_block"
+    }
+  },
+  "result": {
+    "item": "goety:red_moss_slab",
+    "count": 6
+  }
+}

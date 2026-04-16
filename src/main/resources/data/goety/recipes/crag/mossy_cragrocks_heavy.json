@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "lm",
+    "ml"
+  ],
+  "key":
+  {
+    "m":
+    {
+      "item": "goety:mossy_cragrocks"
+    },
+    "l":
+    {
+      "item": "goety:red_moss_growth"
+    }
+  },
+  "result":
+  {
+    "item": "goety:mossy_cragrocks_heavy",
+    "count": 2
+  }
+}

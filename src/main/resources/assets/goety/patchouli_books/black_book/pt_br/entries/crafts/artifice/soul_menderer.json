@@ -1,5 +1,5 @@
 {
-  "name": "Reparador de Almas",
+  "name": "Curandeiro de Almas",
   "icon": "goety:soul_mender",
   "category": "goety:crafts/artifice",
   "advancement": "goety:goety/craft_dark_ingot",
@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Repara ferramentas e armas usando Energia das Almas. Deve ser colocado sobre uma $(l:intro/cursed_cage)Jaula Amaldiçoada$() com um Totem ou $(l:crafts/soul_transfer_gem)Gema de Transferência$()."
+      "text": "Repara ferramentas e armas usando Energia das Almas. Deve ser colocado sobre uma $(l:intro/cursed_cage)Gaiola Amaldiçoada$() com um Totem ou $(l:crafts/soul_transfer_gem)uma Gema de Transferência$()."
     },
     {
       "type": "goety:ritual",

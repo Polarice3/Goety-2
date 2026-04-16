@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "C",
+    "S",
+    "G"
+  ],
+  "key": {
+    "C": {
+      "tag": "minecraft:candles"
+    },
+    "S": {
+      "tag": "forge:nuggets/gold"
+    },
+    "G": {
+      "tag": "forge:ingots/gold"
+    }
+  },
+  "result": {
+    "item": "goety:gold_candlestick",
+    "count": 1
+  }
+}

@@ -48,8 +48,8 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AnvilBlock;
+import net.minecraft.world.level.block.BlastFurnaceBlock;
 import net.minecraft.world.level.block.FurnaceBlock;
-import net.minecraft.world.level.block.SmokerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
@@ -166,7 +166,7 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
 
     @Override
     public boolean isFurnace(BlockState blockState) {
-        return blockState.getBlock() instanceof FurnaceBlock || blockState.getBlock() instanceof SmokerBlock;
+        return blockState.getBlock() instanceof FurnaceBlock || blockState.getBlock() instanceof BlastFurnaceBlock;
     }
 
     public void setCrafting(boolean crafting) {

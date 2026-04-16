@@ -1,0 +1,27 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "goety:ominous_stone"
+    },
+    {
+      "item": "goety:cracked_polished_ominous_stone"
+    },
+    {
+      "item": "goety:cracked_ominous_stone_bricks"
+    },
+    {
+      "item": "goety:ominous_stone_tiles"
+    },
+    {
+      "item": "goety:chiseled_ominous_stone"
+    },
+    {
+      "item": "goety:chiseled_polished_ominous_stone"
+    },
+    {
+      "item": "goety:chiseled_ominous_stone_bricks"
+    }
+  ],
+  "block_result": "goety:cobbled_ominous_stone"
+}

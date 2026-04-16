@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "goety:block/firethorn_stage0"
+    },
+    "age=1": {
+      "model": "goety:block/firethorn_stage1"
+    },
+    "age=2": {
+      "model": "goety:block/firethorn_stage2"
+    },
+    "age=3": {
+      "model": "goety:block/firethorn_stage3"
+    }
+  }
+}

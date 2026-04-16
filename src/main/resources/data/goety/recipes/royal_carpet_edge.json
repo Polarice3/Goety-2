@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "gc"
+  ],
+  "key":
+  {
+    "g":
+    {
+      "tag": "forge:nuggets/gold"
+    },
+    "c":
+    {
+      "item": "goety:royal_carpet"
+    }
+  },
+  "result":
+  {
+    "item": "goety:royal_carpet_edge",
+    "count": 1
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "#S",
+    "S#"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "goety:highrock"
+    },
+    "S":
+    {
+      "item": "goety:cobbled_siltstone"
+    }
+  },
+  "result":
+  {
+    "item": "goety:silt_highrock",
+    "count": 4
+  }
+}

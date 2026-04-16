@@ -9,11 +9,13 @@
     "goety:snowy_highrock_bricks",
     "goety:gold_indented_highrock_bricks",
     "goety:gold_chiseled_highrock_bricks",
+    "goety:silt_highrock",
     "goety:highrock_slab",
     "goety:polished_highrock_slab",
     "goety:highrock_brick_slab",
     "goety:snowy_highrock_brick_slight_slab",
     "goety:snowy_highrock_brick_slab",
+    "goety:silt_highrock_slab",
     "goety:highrock_stairs",
     "goety:polished_highrock_stairs",
     "goety:highrock_brick_stairs",
@@ -24,6 +26,7 @@
     "goety:highrock_brick_wall",
     "goety:snowy_highrock_brick_slight_wall",
     "goety:snowy_highrock_brick_wall",
+    "goety:red_moss_highrock",
     "goety:dark_altar_highrock",
     "goety:pedestal_highrock"
   ]

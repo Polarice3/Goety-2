@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "goety:ominous_statue"
+    },
+    {
+      "item": "goety:ominous_stone_brazier"
+    }
+  ],
+  "result": {
+    "item": "goety:ominous_brazier_statue"
+  }
+}

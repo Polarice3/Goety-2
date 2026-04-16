@@ -11,6 +11,8 @@
     "#goety:end_plants",
     "#goety:chests",
     "#goety:trapped_chests",
+    "goety:soiled_oak_planks",
+    "goety:soiled_oak_planks_heavy",
     "goety:witch_pole",
     "goety:magic_thorn",
     "goety:overgrown_roots",

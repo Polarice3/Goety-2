@@ -151,6 +151,15 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<MagicLightBlockEntity>> MAGIC_LIGHT = BLOCK_ENTITY.register("magic_light",
             () -> BlockEntityType.Builder.of(MagicLightBlockEntity::new, ModBlocks.SOUL_LIGHT_BLOCK.get(), ModBlocks.GLOW_LIGHT_BLOCK.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<MandalaBlockEntity>> MANDALA = BLOCK_ENTITY.register("mandala",
+            () -> BlockEntityType.Builder.of(MandalaBlockEntity::new, ModBlocks.MANDALA.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<OminousStatueBlockEntity>> OMINOUS_STATUE = BLOCK_ENTITY.register("ominous_statue",
+            () -> BlockEntityType.Builder.of(OminousStatueBlockEntity::new, ModBlocks.OMINOUS_STATUE.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<OminousBrazierStatueBlockEntity>> OMINOUS_BRAZIER_STATUE = BLOCK_ENTITY.register("ominous_brazier_statue",
+            () -> BlockEntityType.Builder.of(OminousBrazierStatueBlockEntity::new, ModBlocks.OMINOUS_BRAZIER_STATUE.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<TallSkullBlockEntity>> TALL_SKULL = BLOCK_ENTITY.register("tall_skull",
             () -> BlockEntityType.Builder.of(TallSkullBlockEntity::new, ModBlocks.TALL_SKULL_BLOCK.get(), ModBlocks.WALL_TALL_SKULL_BLOCK.get()).build(null));
 

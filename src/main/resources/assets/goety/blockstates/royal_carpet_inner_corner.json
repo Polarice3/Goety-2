@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "goety:block/royal_carpet/ne_inner_corner"
+    },
+    "facing=north": {
+      "model": "goety:block/royal_carpet/nw_inner_corner"
+    },
+    "facing=south": {
+      "model": "goety:block/royal_carpet/se_inner_corner"
+    },
+    "facing=west": {
+      "model": "goety:block/royal_carpet/sw_inner_corner"
+    }
+  }
+}

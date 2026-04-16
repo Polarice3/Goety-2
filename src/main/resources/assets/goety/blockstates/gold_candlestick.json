@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "half=lower": { "model": "goety:block/gold_candlestick_bottom" },
+    "half=upper": { "model": "goety:block/gold_candlestick_top" }
+  }
+}

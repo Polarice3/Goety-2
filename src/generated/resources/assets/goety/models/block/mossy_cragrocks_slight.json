@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "goety:block/mossy_cragrocks_slight"
+  }
+}

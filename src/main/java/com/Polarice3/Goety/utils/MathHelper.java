@@ -1,8 +1,13 @@
 package com.Polarice3.Goety.utils;
 
+import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 public class MathHelper extends Mth {
     public static int secondsToTicks(int pSeconds){
@@ -128,5 +133,31 @@ public class MathHelper extends Mth {
 
     public static Vec3 rotationToPosition(Vec3 startPos, float radius, float pitch, float yaw) {
         return startPos.add(rotationToPosition(radius, pitch, yaw));
+    }
+
+    //Stolen from @mehvahdjukaar codes: https://github.com/MehVahdJukaar/Moonlight/blob/1.20/common/src/main/java/net/mehvahdjukaar/moonlight/api/util/math/MthUtils.java
+    public static VoxelShape rotateVoxelShape(VoxelShape source, Direction direction) {
+        if (direction == Direction.NORTH) return source;
+        AtomicReference<VoxelShape> newShape = new AtomicReference<>(Shapes.empty());
+        source.forAllBoxes((minX, minY, minZ, maxX, maxY, maxZ) -> {
+            Vec3 min = new Vec3(minX - 0.5, minY - 0.5, minZ - 0.5);
+            Vec3 max = new Vec3(maxX - 0.5, maxY - 0.5, maxZ - 0.5);
+            Vec3 v1 = Vec3Util.rotateVec3(min, direction);
+            Vec3 v2 = Vec3Util.rotateVec3(max, direction);
+            VoxelShape s = Shapes.create(0.5 + Math.min(v1.x, v2.x), 0.5 + Math.min(v1.y, v2.y), 0.5 + Math.min(v1.z, v2.z),
+                    0.5 + Math.max(v1.x, v2.x), 0.5 + Math.max(v1.y, v2.y), 0.5 + Math.max(v1.z, v2.z));
+            newShape.set(Shapes.or(newShape.get(), s));
+        });
+        return newShape.get();
+    }
+
+    public static VoxelShape moveVoxelShape(VoxelShape source, Vec3 v) {
+        AtomicReference<VoxelShape> newShape = new AtomicReference<>(Shapes.empty());
+        source.forAllBoxes((minX, minY, minZ, maxX, maxY, maxZ) -> {
+            VoxelShape s = Shapes.create(minX + v.x, minY + v.y, minZ + v.z,
+                    maxX + v.x, maxY + v.y, maxZ + v.z);
+            newShape.set(Shapes.or(newShape.get(), s));
+        });
+        return newShape.get();
     }
 }

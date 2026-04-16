@@ -96,4 +96,34 @@ public class Vec3Util {
     public static Vec3 randVec(RandomSource random) {
         return randVec(random::nextDouble);
     }
+
+    //Stolen from @mehvahdjukaar codes: https://github.com/MehVahdJukaar/Moonlight/blob/1.20/common/src/main/java/net/mehvahdjukaar/moonlight/api/util/math/MthUtils.java
+    public static Vec3 rotateVec3(Vec3 vec, Direction dir) {
+        double cos = 1;
+        double sin = 0;
+        switch (dir) {
+            case SOUTH -> {
+                cos = -1;
+                sin = 0;
+            }
+            case WEST -> {
+                cos = 0;
+                sin = 1;
+            }
+            case EAST -> {
+                cos = 0;
+                sin = -1;
+            }
+            case UP -> {
+                return new Vec3(vec.x, -vec.z, vec.y);
+            }
+            case DOWN -> {
+                return new Vec3(vec.x, vec.z, vec.y);
+            }
+        }
+        double dx = vec.x * cos + vec.z * sin;
+        double dy = vec.y;
+        double dz = vec.z * cos - vec.x * sin;
+        return new Vec3(dx, dy, dz);
+    }
 }

@@ -71,7 +71,7 @@ public class LichdomHelper {
 
     public static void sendLichUpdatePacket(Player player) {
         if (!player.level.isClientSide) {
-            ModNetwork.sendTo(player, new LichUpdatePacket(player));
+            ModNetwork.sendToALL(new LichUpdatePacket(player));
         }
     }
 

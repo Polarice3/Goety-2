@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " m ",
+    "mlm",
+    " m "
+  ],
+  "key":
+  {
+    "m":
+    {
+      "item": "goety:mossy_crag_tiles_slight"
+    },
+    "l":
+    {
+      "item": "goety:red_moss_growth"
+    }
+  },
+  "result":
+  {
+    "item": "goety:mossy_crag_tiles",
+    "count": 4
+  }
+}

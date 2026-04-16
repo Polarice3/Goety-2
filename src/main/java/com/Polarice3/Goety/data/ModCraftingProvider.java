@@ -57,8 +57,36 @@ public class ModCraftingProvider extends RecipeProvider {
                 .unlockedBy("has_item", has(ModBlocks.SILTSTONE_BRICK_SLAB.get()))
                 .save(consumer, loc("silt/chiseled_siltstone_bricks"));
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.OMINOUS_STONE_PILLAR_BLOCK.get())
+                .pattern("#")
+                .pattern("#")
+                .define('#', ModBlocks.OMINOUS_STONE_TILE_SLAB.get())
+                .unlockedBy("has_item", has(ModBlocks.OMINOUS_STONE_TILE_SLAB.get()))
+                .save(consumer, loc("ominous/ominous_stone_pillar"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_OMINOUS_STONE_BLOCK.get())
+                .pattern("#")
+                .pattern("#")
+                .define('#', ModBlocks.OMINOUS_STONE_SLAB.get())
+                .unlockedBy("has_item", has(ModBlocks.OMINOUS_STONE_SLAB.get()))
+                .save(consumer, loc("ominous/chiseled_ominous_stone"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_POLISHED_OMINOUS_STONE_BLOCK.get())
+                .pattern("#")
+                .pattern("#")
+                .define('#', ModBlocks.POLISHED_OMINOUS_STONE_SLAB.get())
+                .unlockedBy("has_item", has(ModBlocks.POLISHED_OMINOUS_STONE_SLAB.get()))
+                .save(consumer, loc("ominous/chiseled_polished_ominous_stone"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_OMINOUS_STONE_BRICKS_BLOCK.get())
+                .pattern("#")
+                .pattern("#")
+                .define('#', ModBlocks.OMINOUS_STONE_BRICK_SLAB.get())
+                .unlockedBy("has_item", has(ModBlocks.OMINOUS_STONE_BRICK_SLAB.get()))
+                .save(consumer, loc("ominous/chiseled_ominous_stone_bricks"));
+
         smelting(consumer,"silt/smooth_siltstone", ModBlocks.COBBLED_SILTSTONE_BLOCK.get(), ModBlocks.SMOOTH_SILTSTONE_BLOCK.get());
         smelting(consumer,"crypt/crypt_stone_polished", ModBlocks.CRYPT_STONE_BLOCK.get(), ModBlocks.CRYPT_STONE_POLISHED_BLOCK.get());
+        smelting(consumer,"ominous/ominous_stone", ModBlocks.COBBLED_OMINOUS_STONE_BLOCK.get(), ModBlocks.OMINOUS_STONE_BLOCK.get());
+        smelting(consumer,"ominous/cracked_polished_ominous_stone", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK.get(), ModBlocks.CRACKED_POLISHED_OMINOUS_STONE_BLOCK.get());
+        smelting(consumer,"ominous/cracked_ominous_stone_bricks", ModBlocks.OMINOUS_STONE_BRICKS_BLOCK.get(), ModBlocks.CRACKED_OMINOUS_STONE_BRICKS_BLOCK.get());
 
         twoByTwo(consumer, "crypt/crypt_bricks", ModBlocks.CRYPT_STONE_POLISHED_BLOCK, ModBlocks.CRYPT_BRICKS_BLOCK);
         twoByTwo(consumer, "crypt/crypt_tiles", ModBlocks.CRYPT_STONE_BLOCK, ModBlocks.CRYPT_TILES_BLOCK);
@@ -67,6 +95,11 @@ public class ModCraftingProvider extends RecipeProvider {
         twoByTwo(consumer, "silt/siltstone_bricks", ModBlocks.SMOOTH_SILTSTONE_BLOCK, ModBlocks.SILTSTONE_BRICKS_BLOCK);
         twoByTwo(consumer, "silt/siltstone_tiles", ModBlocks.SILTSTONE_BRICKS_BLOCK, ModBlocks.SILTSTONE_TILES_BLOCK);
         twoByTwo(consumer, "silt/siltstone_pavement", ModBlocks.SILTSTONE_TILES_BLOCK, ModBlocks.SILTSTONE_PAVEMENT_BLOCK);
+
+        twoByTwo(consumer, "ominous/polished_ominous_stone", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.POLISHED_OMINOUS_STONE_BLOCK);
+        twoByTwo(consumer, "ominous/ominous_stone_bricks", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_BRICKS_BLOCK);
+        twoByTwo(consumer, "ominous/ominous_stone_tiles", ModBlocks.OMINOUS_STONE_BRICKS_BLOCK, ModBlocks.OMINOUS_STONE_TILES_BLOCK);
+        twoByTwo(consumer, "ominous/ominous_stone_pavement", ModBlocks.OMINOUS_STONE_TILES_BLOCK, ModBlocks.OMINOUS_STONE_PAVEMENT_BLOCK);
 
         slabBlock(consumer, "crypt/crypt_stone", ModBlocks.CRYPT_STONE_BLOCK, ModBlocks.CRYPT_STONE_SLAB_BLOCK);
         slabBlock(consumer, "crypt/crypt_stone_polished", ModBlocks.CRYPT_STONE_POLISHED_BLOCK, ModBlocks.CRYPT_STONE_POLISHED_SLAB_BLOCK);
@@ -83,6 +116,15 @@ public class ModCraftingProvider extends RecipeProvider {
         slabBlock(consumer, "silt/siltstone_tiles", ModBlocks.SILTSTONE_TILES_BLOCK, ModBlocks.SILTSTONE_TILE_SLAB);
         slabBlock(consumer, "silt/siltstone_pavement", ModBlocks.SILTSTONE_PAVEMENT_BLOCK, ModBlocks.SILTSTONE_PAVEMENT_SLAB);
 
+        slabBlock(consumer, "ominous/ominous_stone", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_SLAB);
+        slabBlock(consumer, "ominous/cobbled_ominous_stone", ModBlocks.COBBLED_OMINOUS_STONE_BLOCK, ModBlocks.COBBLED_OMINOUS_STONE_SLAB);
+        slabBlock(consumer, "ominous/polished_ominous_stone", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.POLISHED_OMINOUS_STONE_SLAB);
+        slabBlock(consumer, "ominous/polished_dark_ominous_stone", ModBlocks.POLISHED_DARK_OMINOUS_STONE_BLOCK, ModBlocks.POLISHED_DARK_OMINOUS_STONE_SLAB);
+        slabBlock(consumer, "ominous/ominous_stone_bricks", ModBlocks.OMINOUS_STONE_BRICKS_BLOCK, ModBlocks.OMINOUS_STONE_BRICK_SLAB);
+        slabBlock(consumer, "ominous/ominous_stone_tiles", ModBlocks.OMINOUS_STONE_TILES_BLOCK, ModBlocks.OMINOUS_STONE_TILE_SLAB);
+        slabBlock(consumer, "ominous/ominous_stone_pavement", ModBlocks.OMINOUS_STONE_PAVEMENT_BLOCK, ModBlocks.OMINOUS_STONE_PAVEMENT_SLAB);
+        slabBlock(consumer, "ominous/ominous_stone_pillar", ModBlocks.OMINOUS_STONE_PILLAR_BLOCK, ModBlocks.OMINOUS_STONE_PILLAR_SLAB);
+
         stairsBlock(consumer, "crypt/crypt_stone", ModBlocks.CRYPT_STONE_BLOCK, ModBlocks.CRYPT_STONE_STAIRS_BLOCK);
         stairsBlock(consumer, "crypt/crypt_stone_polished", ModBlocks.CRYPT_STONE_POLISHED_BLOCK, ModBlocks.CRYPT_STONE_POLISHED_STAIRS_BLOCK);
         stairsBlock(consumer, "crypt/crypt_bricks", ModBlocks.CRYPT_BRICKS_BLOCK, ModBlocks.CRYPT_BRICKS_STAIRS_BLOCK);
@@ -98,6 +140,14 @@ public class ModCraftingProvider extends RecipeProvider {
         stairsBlock(consumer, "silt/siltstone_tiles", ModBlocks.SILTSTONE_TILES_BLOCK, ModBlocks.SILTSTONE_TILE_STAIRS);
         stairsBlock(consumer, "silt/siltstone_pavement", ModBlocks.SILTSTONE_PAVEMENT_BLOCK, ModBlocks.SILTSTONE_PAVEMENT_STAIRS);
 
+        stairsBlock(consumer, "ominous/ominous_stone", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_STAIRS);
+        stairsBlock(consumer, "ominous/cobbled_ominous_stone", ModBlocks.COBBLED_OMINOUS_STONE_BLOCK, ModBlocks.COBBLED_OMINOUS_STONE_STAIRS);
+        stairsBlock(consumer, "ominous/polished_ominous_stone", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.POLISHED_OMINOUS_STONE_STAIRS);
+        stairsBlock(consumer, "ominous/polished_dark_ominous_stone", ModBlocks.POLISHED_DARK_OMINOUS_STONE_BLOCK, ModBlocks.POLISHED_DARK_OMINOUS_STONE_STAIRS);
+        stairsBlock(consumer, "ominous/ominous_stone_bricks", ModBlocks.OMINOUS_STONE_BRICKS_BLOCK, ModBlocks.OMINOUS_STONE_BRICK_STAIRS);
+        stairsBlock(consumer, "ominous/ominous_stone_tiles", ModBlocks.OMINOUS_STONE_TILES_BLOCK, ModBlocks.OMINOUS_STONE_TILE_STAIRS);
+        stairsBlock(consumer, "ominous/ominous_stone_pavement", ModBlocks.OMINOUS_STONE_PAVEMENT_BLOCK, ModBlocks.OMINOUS_STONE_PAVEMENT_STAIRS);
+
         wallBlock(consumer, "crypt/crypt_stone_polished", ModBlocks.CRYPT_STONE_POLISHED_BLOCK, ModBlocks.CRYPT_STONE_POLISHED_WALL_BLOCK);
         wallBlock(consumer, "crypt/crypt_bricks", ModBlocks.CRYPT_BRICKS_BLOCK, ModBlocks.CRYPT_BRICKS_WALL_BLOCK);
         wallBlock(consumer, "crypt/crypt_tiles", ModBlocks.CRYPT_TILES_BLOCK, ModBlocks.CRYPT_TILES_WALL_BLOCK);
@@ -111,6 +161,12 @@ public class ModCraftingProvider extends RecipeProvider {
         wallBlock(consumer, "silt/snowy_siltstone_bricks", ModBlocks.SNOWY_SILTSTONE_BRICKS_BLOCK, ModBlocks.SNOWY_SILTSTONE_BRICK_WALL_BLOCK);
         wallBlock(consumer, "silt/siltstone_tiles", ModBlocks.SILTSTONE_TILES_BLOCK, ModBlocks.SILTSTONE_TILE_WALL_BLOCK);
         wallBlock(consumer, "silt/siltstone_pavement", ModBlocks.SILTSTONE_PAVEMENT_BLOCK, ModBlocks.SILTSTONE_PAVEMENT_WALL_BLOCK);
+
+        wallBlock(consumer, "ominous/cobbled_ominous_stone", ModBlocks.COBBLED_OMINOUS_STONE_BLOCK, ModBlocks.COBBLED_OMINOUS_STONE_WALL_BLOCK);
+        wallBlock(consumer, "ominous/polished_ominous_stone", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.POLISHED_OMINOUS_STONE_WALL_BLOCK);
+        wallBlock(consumer, "ominous/polished_dark_ominous_stone", ModBlocks.POLISHED_DARK_OMINOUS_STONE_BLOCK, ModBlocks.POLISHED_DARK_OMINOUS_STONE_WALL_BLOCK);
+        wallBlock(consumer, "ominous/ominous_stone_bricks", ModBlocks.OMINOUS_STONE_BRICKS_BLOCK, ModBlocks.OMINOUS_STONE_BRICK_WALL_BLOCK);
+        wallBlock(consumer, "ominous/ominous_stone_tiles", ModBlocks.OMINOUS_STONE_TILES_BLOCK, ModBlocks.OMINOUS_STONE_TILE_WALL_BLOCK);
 
         stoneCutting(consumer, "crypt", ModBlocks.CRYPT_STONE_BLOCK, ModBlocks.CRYPT_STONE_SLAB_BLOCK, 2);
         stoneCutting(consumer, "crypt", ModBlocks.CRYPT_STONE_BLOCK, ModBlocks.CRYPT_TILES_SLAB_BLOCK, 2);
@@ -220,6 +276,83 @@ public class ModCraftingProvider extends RecipeProvider {
         stoneCutting(consumer, "silt", ModBlocks.SMOOTH_SILTSTONE_BLOCK, ModBlocks.SILTSTONE_PILLAR_BLOCK);
         stoneCutting(consumer, "silt", ModBlocks.SILTSTONE_BRICKS_BLOCK, ModBlocks.SILTSTONE_PILLAR_BLOCK);
         stoneCutting(consumer, "silt", ModBlocks.SILTSTONE_TILES_BLOCK, ModBlocks.SILTSTONE_PILLAR_BLOCK);
+
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_SLAB, 2);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.POLISHED_OMINOUS_STONE_SLAB, 2);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_BRICK_SLAB, 2);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_TILE_SLAB, 2);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_PAVEMENT_SLAB, 2);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_PILLAR_SLAB, 2);
+        stoneCutting(consumer, "ominous", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.POLISHED_OMINOUS_STONE_SLAB, 2);
+        stoneCutting(consumer, "ominous", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_BRICK_SLAB, 2);
+        stoneCutting(consumer, "ominous", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_TILE_SLAB, 2);
+        stoneCutting(consumer, "ominous", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_PAVEMENT_SLAB, 2);
+        stoneCutting(consumer, "ominous", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_PILLAR_SLAB, 2);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BRICKS_BLOCK, ModBlocks.OMINOUS_STONE_BRICK_SLAB, 2);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BRICKS_BLOCK, ModBlocks.OMINOUS_STONE_TILE_SLAB, 2);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BRICKS_BLOCK, ModBlocks.OMINOUS_STONE_PAVEMENT_SLAB, 2);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BRICKS_BLOCK, ModBlocks.OMINOUS_STONE_PILLAR_SLAB, 2);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_TILES_BLOCK, ModBlocks.OMINOUS_STONE_TILE_SLAB, 2);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_TILES_BLOCK, ModBlocks.OMINOUS_STONE_PAVEMENT_SLAB, 2);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_TILES_BLOCK, ModBlocks.OMINOUS_STONE_PILLAR_SLAB, 2);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_PAVEMENT_BLOCK, ModBlocks.OMINOUS_STONE_PAVEMENT_SLAB, 2);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_PILLAR_BLOCK, ModBlocks.OMINOUS_STONE_PILLAR_SLAB, 2);
+
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_STAIRS);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.POLISHED_OMINOUS_STONE_STAIRS);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_BRICK_STAIRS);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_TILE_STAIRS);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_PAVEMENT_STAIRS);
+        stoneCutting(consumer, "ominous", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.POLISHED_OMINOUS_STONE_STAIRS);
+        stoneCutting(consumer, "ominous", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_BRICK_STAIRS);
+        stoneCutting(consumer, "ominous", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_TILE_STAIRS);
+        stoneCutting(consumer, "ominous", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_PAVEMENT_STAIRS);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BRICKS_BLOCK, ModBlocks.OMINOUS_STONE_BRICK_STAIRS);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BRICKS_BLOCK, ModBlocks.OMINOUS_STONE_TILE_STAIRS);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BRICKS_BLOCK, ModBlocks.OMINOUS_STONE_PAVEMENT_STAIRS);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_TILES_BLOCK, ModBlocks.OMINOUS_STONE_TILE_STAIRS);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_TILES_BLOCK, ModBlocks.OMINOUS_STONE_PAVEMENT_STAIRS);
+
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.POLISHED_OMINOUS_STONE_WALL_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_BRICK_WALL_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_TILE_WALL_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.POLISHED_OMINOUS_STONE_WALL_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_BRICK_WALL_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_TILE_WALL_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BRICKS_BLOCK, ModBlocks.OMINOUS_STONE_BRICK_WALL_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BRICKS_BLOCK, ModBlocks.OMINOUS_STONE_TILE_WALL_BLOCK);
+
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.POLISHED_OMINOUS_STONE_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_BRICKS_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_TILES_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_PAVEMENT_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_PILLAR_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.CHISELED_OMINOUS_STONE_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.CHISELED_POLISHED_OMINOUS_STONE_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BLOCK, ModBlocks.CHISELED_OMINOUS_STONE_BRICKS_BLOCK);
+
+        stoneCutting(consumer, "ominous", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_BRICKS_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_TILES_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_PAVEMENT_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.OMINOUS_STONE_PILLAR_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.CHISELED_POLISHED_OMINOUS_STONE_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.POLISHED_OMINOUS_STONE_BLOCK, ModBlocks.CHISELED_OMINOUS_STONE_BRICKS_BLOCK);
+
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BRICKS_BLOCK, ModBlocks.OMINOUS_STONE_TILES_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BRICKS_BLOCK, ModBlocks.OMINOUS_STONE_PAVEMENT_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BRICKS_BLOCK, ModBlocks.OMINOUS_STONE_PILLAR_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_BRICKS_BLOCK, ModBlocks.CHISELED_OMINOUS_STONE_BRICKS_BLOCK);
+
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_TILES_BLOCK, ModBlocks.OMINOUS_STONE_PAVEMENT_BLOCK);
+        stoneCutting(consumer, "ominous", ModBlocks.OMINOUS_STONE_TILES_BLOCK, ModBlocks.OMINOUS_STONE_PILLAR_BLOCK);
+
+        stoneCutting(consumer, "ominous", ModBlocks.COBBLED_OMINOUS_STONE_BLOCK, ModBlocks.COBBLED_OMINOUS_STONE_SLAB, 2);
+        stoneCutting(consumer, "ominous", ModBlocks.COBBLED_OMINOUS_STONE_BLOCK, ModBlocks.COBBLED_OMINOUS_STONE_STAIRS);
+        stoneCutting(consumer, "ominous", ModBlocks.COBBLED_OMINOUS_STONE_BLOCK, ModBlocks.COBBLED_OMINOUS_STONE_WALL_BLOCK);
+
+        stoneCutting(consumer, "ominous", ModBlocks.POLISHED_DARK_OMINOUS_STONE_BLOCK, ModBlocks.POLISHED_DARK_OMINOUS_STONE_SLAB, 2);
+        stoneCutting(consumer, "ominous", ModBlocks.POLISHED_DARK_OMINOUS_STONE_BLOCK, ModBlocks.POLISHED_DARK_OMINOUS_STONE_STAIRS);
+        stoneCutting(consumer, "ominous", ModBlocks.POLISHED_DARK_OMINOUS_STONE_BLOCK, ModBlocks.POLISHED_DARK_OMINOUS_STONE_WALL_BLOCK);
     }
 
     protected final void twoByTwo(Consumer<FinishedRecipe> consumer, String name, Supplier<? extends Block> input, Supplier<? extends Block> output) {

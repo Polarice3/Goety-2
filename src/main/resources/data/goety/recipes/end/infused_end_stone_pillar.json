@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PEP",
+    "PEP",
+    "PEP"
+  ],
+  "key": {
+    "P": {
+      "item": "goety:end_stone_pillar"
+    },
+    "E": {
+      "tag": "forge:ender_pearls"
+    }
+  },
+  "result": {
+    "item": "goety:infused_end_stone_pillar",
+    "count": 6
+  }
+}

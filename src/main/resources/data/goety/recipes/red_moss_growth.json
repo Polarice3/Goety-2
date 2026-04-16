@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LB",
+    "BL"
+  ],
+  "key": {
+    "L": {
+      "tag": "goety:red_moss_growth_leaves"
+    },
+    "B": {
+      "item": "minecraft:bone_meal"
+    }
+  },
+  "result": {
+    "item": "goety:red_moss_growth",
+    "count": 4
+  }
+}

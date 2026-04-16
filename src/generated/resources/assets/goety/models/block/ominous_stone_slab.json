@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "goety:block/ominous_stone",
+    "side": "goety:block/ominous_stone",
+    "top": "goety:block/ominous_stone"
+  }
+}

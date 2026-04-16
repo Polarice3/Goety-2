@@ -1,0 +1,9 @@
+{
+    "parent": "minecraft:block/cube_bottom_top",
+    "textures": {
+        "particle": "goety:block/snow_red_moss_dirt",
+        "top": "minecraft:block/snow",
+        "side": "goety:block/snow_red_moss_dirt",
+        "bottom": "minecraft:block/dirt"
+    }
+}

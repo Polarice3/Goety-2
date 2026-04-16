@@ -1,0 +1,64 @@
+{
+  "name": "不祥之石",
+  "icon": "goety:chiseled_ominous_stone",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这些方块似乎与灾厄村民有着良好的共鸣。或许它们可以被视为灾厄村民所钟爱的深色橡木的石料版本。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/ominous_stone",
+      "recipe2": "goety:ominous/polished_ominous_stone"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/ominous_stone_bricks",
+      "recipe2": "goety:ominous/ominous_stone_tiles"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/ominous_stone_pavement",
+      "recipe2": "goety:ominous/ominous_stone_pillar"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/chiseled_ominous_stone",
+      "recipe2": "goety:ominous/chiseled_polished_ominous_stone"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/chiseled_ominous_stone_bricks",
+      "recipe2": "goety:mandala"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:cobbled_ominous_stone",
+      "title": "不祥圆石",
+      "text": "破坏灾厄之石可以获得其圆石变种。就像普通的圆石一样，你可以烧炼它来获得灾厄之石。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:cobbled_ominous_stone_path",
+      "title": "不祥石径",
+      "text": "对灾厄圆石使用镐子可以将其变成路径，就像用锹制作土径一样。"
+    },
+    {
+      "type": "patchouli:stonecutting",
+      "recipe": "goety:wall_shrine",
+      "text": "墙壁神龛可以附着在方块的侧面，用作装饰。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/ominous_statue",
+      "recipe2": "goety:ominous/ominous_brazier_statue"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:ominous_statue",
+      "title": "不祥神像",
+      "text": "这些雕像是仿照一位古代灾厄战士的形象制作的。它们的火盆变种可以通过右键点击来熄灭或点燃火焰。"
+    }
+  ]
+}

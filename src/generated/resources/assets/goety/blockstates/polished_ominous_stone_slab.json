@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/polished_ominous_stone_slab"
+    },
+    "type=double": {
+      "model": "goety:block/polished_ominous_stone"
+    },
+    "type=top": {
+      "model": "goety:block/polished_ominous_stone_slab_top"
+    }
+  }
+}

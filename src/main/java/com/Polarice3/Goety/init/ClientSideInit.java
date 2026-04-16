@@ -58,6 +58,9 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.WRAITH.get(), WraithParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.WRAITH_BURST.get(), WraithParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.WRAITH_FIRE.get(), BreathParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.SMALL_FIRE.get(), FireParticle.SmallProvider::new);
+        event.registerSpriteSet(ModParticleTypes.SMALL_FIRE_DROP.get(), FireParticle.SmallProvider::new);
+        event.registerSpriteSet(ModParticleTypes.SMALL_FIRE_GROUND.get(), FireParticle.SmallProvider::new);
         event.registerSpriteSet(ModParticleTypes.BIG_FIRE.get(), FireParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.BIG_FIRE_DROP.get(), FireParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.BIG_FIRE_GROUND.get(), FireParticle.Provider::new);

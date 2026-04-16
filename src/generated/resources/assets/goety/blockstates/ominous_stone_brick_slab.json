@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/ominous_stone_brick_slab"
+    },
+    "type=double": {
+      "model": "goety:block/ominous_stone_bricks"
+    },
+    "type=top": {
+      "model": "goety:block/ominous_stone_brick_slab_top"
+    }
+  }
+}

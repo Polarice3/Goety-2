@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "goety:block/wall_shrine"
+    },
+    "facing=east": {
+      "model": "goety:block/wall_shrine",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "goety:block/wall_shrine",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "goety:block/wall_shrine",
+      "y": 270
+    }
+  }
+}

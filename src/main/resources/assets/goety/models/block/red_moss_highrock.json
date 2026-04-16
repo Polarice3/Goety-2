@@ -1,0 +1,9 @@
+{
+    "parent": "minecraft:block/cube_bottom_top",
+    "textures": {
+        "particle": "goety:block/red_moss_highrock",
+        "top": "goety:block/red_moss",
+        "side": "goety:block/red_moss_highrock",
+        "bottom": "goety:block/highrock"
+    }
+}

@@ -12,6 +12,7 @@ public class ModStateProperties {
     public static final IntegerProperty LEVEL_TOWER = IntegerProperty.create("level", 0, 3);
     public static final IntegerProperty LEVEL_BREW = IntegerProperty.create("level", 0, 4);
     public static final IntegerProperty TYPE = IntegerProperty.create("type", 0, 5);
+    public static final IntegerProperty PART = IntegerProperty.create("part", 0, 15);
     public static final IntegerProperty PLUSHIE_TYPE = IntegerProperty.create("plushie_type", 0, 64);
     public static final BooleanProperty FAILED = BooleanProperty.create("failed");
     public static final BooleanProperty GENERATED = BooleanProperty.create("generated");

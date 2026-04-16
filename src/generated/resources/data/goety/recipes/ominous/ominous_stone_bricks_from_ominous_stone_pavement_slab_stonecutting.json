@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "goety:ominous_stone_bricks"
+  },
+  "result": "goety:ominous_stone_pavement_slab"
+}

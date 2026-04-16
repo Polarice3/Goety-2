@@ -41,6 +41,8 @@ public class ModTags {
         public static final TagKey<Block> MARBLE_BLOCKS = tag("marble_blocks");
         public static final TagKey<Block> INDENTED_GOLD_BLOCKS = tag("indented_gold_blocks");
         public static final TagKey<Block> JADE_BLOCKS = tag("jade_blocks");
+        public static final TagKey<Block> RED_MOSS_BLOCKS = tag("red_moss_blocks");
+        public static final TagKey<Block> OMINOUS_BLOCKS = tag("ominous_blocks");
         public static final TagKey<Block> END_STONE = tag("end_stone");
         public static final TagKey<Block> CHORUS_GRASS_BLOCKS = tag("chorus_grass_blocks");
         public static final TagKey<Block> END_SOIL_BLOCKS = tag("end_soil_blocks");
@@ -53,6 +55,7 @@ public class ModTags {
         public static final TagKey<Block> TUNNEL_BLACKLIST = tag("tunnel_blacklist");
         public static final TagKey<Block> NETHER_SPREAD = tag("nether_spread");
         public static final TagKey<Block> NETHER_SPREAD_REPLACEABLE = tag("nether_spread_replaceable");
+        public static final TagKey<Block> RED_MOSS_PLANTABLES = tag("red_moss_plantables");
         public static final TagKey<Block> CHORUS_GROW = tag("chorus_grow");
         public static final TagKey<Block> END_PLANTABLES = tag("end_plantables");
         public static final TagKey<Block> END_GROWTH_BLOCKS = tag("end_growth_blocks");

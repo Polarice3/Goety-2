@@ -1,0 +1,64 @@
+{
+  "name": "Ominous Stones",
+  "icon": "goety:chiseled_ominous_stone",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "These blocks seems to resonate well with the Illagers. Perhaps they can be seen as the stone to their beloved Dark Oak."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/ominous_stone",
+      "recipe2": "goety:ominous/polished_ominous_stone"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/ominous_stone_bricks",
+      "recipe2": "goety:ominous/ominous_stone_tiles"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/ominous_stone_pavement",
+      "recipe2": "goety:ominous/ominous_stone_pillar"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/chiseled_ominous_stone",
+      "recipe2": "goety:ominous/chiseled_polished_ominous_stone"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/chiseled_ominous_stone_bricks",
+      "recipe2": "goety:mandala"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:cobbled_ominous_stone",
+      "title": "Cobbled Ominous Stone",
+      "text": "By breaking Ominous Stone, you can obtain its cobbled counterpart. Much like regular cobblestone, you can smelt it to obtain Ominous Stone."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:cobbled_ominous_stone_path",
+      "title": "Cobbled Ominous Stone Path",
+      "text": "Using a Pickaxe on a Cobbled Ominous Stone will turn it into a path the same way dirt paths are made with shovels."
+    },
+    {
+      "type": "patchouli:stonecutting",
+      "recipe": "goety:wall_shrine",
+      "text": "Wall Shrines can be attached to sides of a block and functions as decoration."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/ominous_statue",
+      "recipe2": "goety:ominous/ominous_brazier_statue"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:ominous_statue",
+      "title": "Ominous Statues",
+      "text": "These statues are made in the likeness of an ancient illager warrior. Their brazier counterparts can have their fire put out or ignited by right-clicking on them."
+    }
+  ]
+}

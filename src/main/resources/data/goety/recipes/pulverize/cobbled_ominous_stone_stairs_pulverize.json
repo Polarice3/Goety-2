@@ -1,0 +1,18 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "goety:ominous_stone_stairs"
+    },
+    {
+      "item": "goety:polished_ominous_stone_stairs"
+    },
+    {
+      "item": "goety:ominous_stone_brick_stairs"
+    },
+    {
+      "item": "goety:ominous_stone_tile_stairs"
+    }
+  ],
+  "block_result": "goety:cobbled_ominous_stone_stairs"
+}

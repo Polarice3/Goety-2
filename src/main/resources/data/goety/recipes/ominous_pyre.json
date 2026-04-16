@@ -9,25 +9,25 @@
   "duration": 30,
   "ingredients": [
     {
-      "tag": "minecraft:stone_bricks"
+      "item": "goety:ominous_stone_bricks"
     },
     {
       "item": "goety:magic_emerald"
     },
     {
-      "tag": "minecraft:stone_bricks"
+      "item": "goety:ominous_stone_bricks"
     },
     {
       "item": "goety:magic_emerald"
     },
     {
-      "tag": "minecraft:stone_bricks"
+      "item": "goety:ominous_stone_bricks"
     },
     {
       "item": "goety:magic_emerald"
     },
     {
-      "tag": "minecraft:stone_bricks"
+      "item": "goety:ominous_stone_bricks"
     },
     {
       "item": "goety:magic_emerald"

@@ -46,7 +46,8 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:rusty_iron_grate"
+      "recipe": "goety:rusty_iron_grate",
+      "recipe2": "goety:rusty_iron_bars"
     }
   ]
 }

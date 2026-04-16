@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "goety:block/large_sienna_fern_bottom"
+    },
+    "half=upper": {
+      "model": "goety:block/large_sienna_fern_top"
+    }
+  }
+}

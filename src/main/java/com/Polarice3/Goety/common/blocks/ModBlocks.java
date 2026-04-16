@@ -14,6 +14,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlag;
+import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -55,6 +56,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> DARK_ALTAR = register("dark_altar", DarkAltarBlock::new);
     public static final RegistryObject<Block> DARK_ALTAR_STONE = register("dark_altar_stone", () -> new DarkAltarBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS).noOcclusion()));
     public static final RegistryObject<Block> DARK_ALTAR_DEEPSLATE = register("dark_altar_deepslate", () -> new DarkAltarBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICKS).noOcclusion()));
+    public static final RegistryObject<Block> DARK_ALTAR_OMINOUS_STONE = register("dark_altar_ominous_stone", () -> new DarkAltarBlock(OminousStoneProperties().noOcclusion()));
     public static final RegistryObject<Block> DARK_ALTAR_NETHER_BRICK = register("dark_altar_nether_brick", () -> new DarkAltarBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_BRICKS).noOcclusion()));
     public static final RegistryObject<Block> DARK_ALTAR_BLACKSTONE = register("dark_altar_blackstone", () -> new DarkAltarBlock(BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE_BRICKS).noOcclusion()));
     public static final RegistryObject<Block> DARK_ALTAR_END_STONE = register("dark_altar_end_stone", () -> new DarkAltarBlock(BlockBehaviour.Properties.copy(Blocks.END_STONE_BRICKS).noOcclusion()));
@@ -65,6 +67,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> PEDESTAL = register("pedestal", PedestalBlock::new);
     public static final RegistryObject<Block> PEDESTAL_STONE = register("pedestal_stone", () -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS).noOcclusion()));
     public static final RegistryObject<Block> PEDESTAL_DEEPSLATE = register("pedestal_deepslate", () -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICKS).noOcclusion()));
+    public static final RegistryObject<Block> PEDESTAL_OMINOUS_STONE = register("pedestal_ominous_stone", () -> new PedestalBlock(OminousStoneProperties().noOcclusion()));
     public static final RegistryObject<Block> PEDESTAL_NETHER_BRICK = register("pedestal_nether_brick", () -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_BRICKS).noOcclusion()));
     public static final RegistryObject<Block> PEDESTAL_BLACKSTONE = register("pedestal_blackstone", () -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE_BRICKS).noOcclusion()));
     public static final RegistryObject<Block> PEDESTAL_END_STONE = register("pedestal_end_stone", () -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.END_STONE_BRICKS).noOcclusion()));
@@ -141,6 +144,21 @@ public class ModBlocks {
     //Plants
     public static final RegistryObject<Block> SNAP_WARTS = register("snap_warts", SnapWartsBlock::new, false, LootTableType.EMPTY);
 
+    public static final RegistryObject<Block> SIENNA_GRASS = register("sienna_grass", SiennaGrassBlock::new, true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> TALL_SIENNA_GRASS = register("tall_sienna_grass", LargeSiennaPlantBlock::new, true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> SIENNA_FERN = register("sienna_fern", SiennaGrassBlock::new, true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> LARGE_SIENNA_FERN = register("large_sienna_fern", LargeSiennaPlantBlock::new, true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> WINDSWEPT_DEAD_BUSH = register("windswept_dead_bush", WindsweptDeadBushBlock::new, true, LootTableType.EMPTY);
+
+    public static final RegistryObject<Block> FIRETHORN = register("firethorn", FirethornBushBlock::new, false, LootTableType.EMPTY);
+
+    public static final RegistryObject<Block> POTTED_SIENNA_GRASS = register("potted_sienna_grass", () ->
+            new FlowerPotBlock(() -> (FlowerPotBlock) ForgeRegistries.BLOCKS.getDelegateOrThrow(Blocks.FLOWER_POT).get(), ModBlocks.SIENNA_GRASS, Block.Properties.of().pushReaction(PushReaction.DESTROY).lightLevel(l -> 4).noOcclusion().instabreak()), false, LootTableType.EMPTY);
+    public static final RegistryObject<Block> POTTED_SIENNA_FERN = register("potted_sienna_fern", () ->
+            new FlowerPotBlock(() -> (FlowerPotBlock) ForgeRegistries.BLOCKS.getDelegateOrThrow(Blocks.FLOWER_POT).get(), ModBlocks.SIENNA_FERN, Block.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion().instabreak()), false, LootTableType.EMPTY);
+    public static final RegistryObject<Block> POTTED_WINDSWEPT_DEAD_BUSH = register("potted_windswept_dead_bush", () ->
+            new FlowerPotBlock(() -> (FlowerPotBlock) ForgeRegistries.BLOCKS.getDelegateOrThrow(Blocks.FLOWER_POT).get(), ModBlocks.WINDSWEPT_DEAD_BUSH, Block.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion().instabreak()), false, LootTableType.EMPTY);
+
     public static final RegistryObject<Block> CHORUS_SPROUT = register("chorus_sprout", ChorusSproutBlock::new);
     public static final RegistryObject<Block> CHORUS_STALK = register("chorus_stalk", ChorusStalkBlock::new);
     public static final RegistryObject<Block> LARGE_CHORUS_STALK = register("large_chorus_stalk", LargeChorusStalkBlock::new);
@@ -194,6 +212,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> BRICK_SOUL_BRAZIER = register("brick_soul_brazier", () -> new BrazierBlock(true));
     public static final RegistryObject<Block> DEEPSLATE_BRAZIER = register("deepslate_brazier", BrazierBlock::new);
     public static final RegistryObject<Block> DEEPSLATE_SOUL_BRAZIER = register("deepslate_soul_brazier", () -> new BrazierBlock(true));
+    public static final RegistryObject<Block> OMINOUS_STONE_BRAZIER = register("ominous_stone_brazier", BrazierBlock::new);
+    public static final RegistryObject<Block> OMINOUS_STONE_SOUL_BRAZIER = register("ominous_stone_soul_brazier", () -> new BrazierBlock(true));
     public static final RegistryObject<Block> NETHER_BRICK_BRAZIER = register("nether_brick_brazier", BrazierBlock::new);
     public static final RegistryObject<Block> NETHER_BRICK_SOUL_BRAZIER = register("nether_brick_soul_brazier", () -> new BrazierBlock(true));
     public static final RegistryObject<Block> BLACKSTONE_BRAZIER = register("blackstone_brazier", BrazierBlock::new);
@@ -212,6 +232,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> WALL_GOLD_DUNGEON_TORCH = register("wall_gold_dungeon_torch", () -> new WallDungeonTorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel((state) -> {
         return state.hasProperty(BlockStateProperties.LIT) && state.getValue(BlockStateProperties.LIT) ? 14 : 0;
     }).sound(SoundType.METAL).mapColor(MapColor.GOLD).pushReaction(PushReaction.DESTROY)), false);
+    public static final RegistryObject<Block> GOLD_CANDLESTICK = register("gold_candlestick", () -> new CandlestickBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).instabreak().mapColor(MapColor.GOLD).pushReaction(PushReaction.DESTROY), 14), false);
+    public static final RegistryObject<Block> WALL_GOLD_CANDLESTICK = register("wall_gold_candlestick", () -> new WallCandlestickBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).instabreak().mapColor(MapColor.GOLD).pushReaction(PushReaction.DESTROY), 14), false);
+    public static final RegistryObject<Block> GOLD_CANDELABRA = register("gold_candelabra", () -> new CandelabraBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(3.0F, 6.0F).mapColor(MapColor.GOLD).pushReaction(PushReaction.DESTROY), 14));
     public static final RegistryObject<Block> STEEP_SCONCE = register("steep_sconce", SteepSconceBlock::new);
     public static final RegistryObject<Block> JADE_LIGHT = register("jade_light", JadeLightBlock::new);
     public static final RegistryObject<Block> PINE_LANTERN = register("pine_lantern", PineLanternBlock::new);
@@ -223,6 +246,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> STASH_URN = register("stash_urn", StashUrnBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> SOUL_LIGHT_BLOCK = register("soul_light", SoulLightBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> GLOW_LIGHT_BLOCK = register("glow_light", GlowLightBlock::new, false, LootTableType.EMPTY);
+    public static final RegistryObject<Block> WALL_SHRINE = register("wall_shrine", WallShrineBlock::new);
+    public static final RegistryObject<Block> MANDALA = register("mandala", MandalaBlock::new);
+    public static final RegistryObject<Block> OMINOUS_STATUE = register("ominous_statue", OminousStatueBlock::new);
+    public static final RegistryObject<Block> OMINOUS_BRAZIER_STATUE = register("ominous_brazier_statue", OminousBrazierStatueBlock::new);
     public static final RegistryObject<Block> DIAMOND_MOLD_BLOCK = register("diamond_mold_block", () ->
             new Block(BlockBehaviour.Properties.copy(Blocks.DIAMOND_BLOCK)));
     public static final RegistryObject<Block> REINFORCED_REDSTONE_BLOCK = register("reinforced_redstone_block", () ->
@@ -233,8 +260,49 @@ public class ModBlocks {
                     .sound(SoundType.METAL)
                     .isRedstoneConductor(ModBlocks::never)));
 
+    public static final RegistryObject<Block> ROYAL_CARPET = register("royal_carpet", () ->
+            new WoolCarpetBlock(DyeColor.RED, BlockBehaviour.Properties.copy(Blocks.RED_CARPET)));
+    public static final RegistryObject<Block> ROYAL_CARPET_CORNER = register("royal_carpet_corner", () ->
+            new FancyCarpetBlock(DyeColor.RED, BlockBehaviour.Properties.copy(Blocks.RED_CARPET)));
+    public static final RegistryObject<Block> ROYAL_CARPET_EDGE = register("royal_carpet_edge", () ->
+            new FancyCarpetBlock(DyeColor.RED, BlockBehaviour.Properties.copy(Blocks.RED_CARPET)));
+    public static final RegistryObject<Block> ROYAL_CARPET_INNER_CORNER = register("royal_carpet_inner_corner", () ->
+            new FancyCarpetBlock(DyeColor.RED, BlockBehaviour.Properties.copy(Blocks.RED_CARPET)));
+
+    public static final RegistryObject<Block> FROSTY_CARPET = register("frosty_carpet", () ->
+            new WoolCarpetBlock(DyeColor.BLUE, BlockBehaviour.Properties.copy(Blocks.BLUE_CARPET)));
+    public static final RegistryObject<Block> FROSTY_CARPET_CORNER = register("frosty_carpet_corner", () ->
+            new FancyCarpetBlock(DyeColor.BLUE, BlockBehaviour.Properties.copy(Blocks.BLUE_CARPET)));
+    public static final RegistryObject<Block> FROSTY_CARPET_EDGE = register("frosty_carpet_edge", () ->
+            new FancyCarpetBlock(DyeColor.BLUE, BlockBehaviour.Properties.copy(Blocks.BLUE_CARPET)));
+    public static final RegistryObject<Block> FROSTY_CARPET_INNER_CORNER = register("frosty_carpet_inner_corner", () ->
+            new FancyCarpetBlock(DyeColor.BLUE, BlockBehaviour.Properties.copy(Blocks.BLUE_CARPET)));
+
     public static final RegistryObject<Block> CREEPER_TOTEM = register("creeper_totem", () ->
             new ToweringBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
+
+    public static final RegistryObject<Block> COBBLED_DIRT = register("cobbled_dirt", () ->
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).sound(SoundType.BASALT).requiresCorrectToolForDrops().strength(1.5F)), true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> SNOWY_DIRT = register("snowy_dirt", () ->
+            new Block(BlockBehaviour.Properties.copy(Blocks.DIRT)), true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> DARK_DIRT = register("dark_dirt", () ->
+            new Block(BlockBehaviour.Properties.copy(Blocks.DIRT).mapColor(MapColor.TERRACOTTA_BLACK)));
+    public static final RegistryObject<Block> COBBLED_DARK_DIRT = register("cobbled_dark_dirt", () ->
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BLACK).sound(SoundType.BASALT).requiresCorrectToolForDrops().strength(1.5F)), true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> SNOWY_DARK_DIRT = register("snowy_dark_dirt", () ->
+            new Block(BlockBehaviour.Properties.copy(DARK_DIRT.get())), true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> DETRITUS = register("detritus", () ->
+            new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_BROWN)
+                    .strength(1.25F)
+                    .sound(SoundType.SAND)));
+    public static final RegistryObject<Block> DETRITUS_DUST = register("detritus_dust", () ->
+            new LayerBlock(BlockBehaviour.Properties.copy(DETRITUS.get()), true), true, LootTableType.EMPTY);
+
+    public static final RegistryObject<Block> SOILED_OAK_PLANKS = register("soiled_oak_planks", () ->
+            new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<Block> SOILED_OAK_PLANKS_HEAVY = register("soiled_oak_planks_heavy", () ->
+            new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 
     public static final RegistryObject<Block> VOID_BLOCK = register("void_block", VoidBlock::new);
     public static final RegistryObject<Block> VOID_MINOR_SPREAD = register("void_minor_spread", VoidSpreadBlock::new);
@@ -322,7 +390,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> SOILED_END_ROCK_CHISELED = register("soiled_end_rock_chiseled",
             () -> new Block(BlockBehaviour.Properties.copy(END_ROCK_CHISELED.get())));
 
-    public static final RegistryObject<Block> END_GROWTH_BLOCK = register("end_growth_block", EndGrowthBlock::new);
+    public static final RegistryObject<Block> END_GROWTH_BLOCK = register("end_growth_block", EndGrowthBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> END_GROWTH_VINES = register("end_growth_vines", () -> new EndGrowthVinesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).randomTicks().noCollission().instabreak().sound(SoundType.TWISTING_VINES).pushReaction(PushReaction.DESTROY)), true, LootTableType.EMPTY);
     public static final RegistryObject<Block> END_GROWTH_VINES_PLANT = register("end_growth_vines_plant", () -> new EndGrowthVinesPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).randomTicks().noCollission().instabreak().sound(SoundType.TWISTING_VINES).pushReaction(PushReaction.DESTROY)), false, LootTableType.EMPTY);
 
@@ -510,7 +578,7 @@ public class ModBlocks {
             () -> new ModHangingSignBlock(BlockBehaviour.Properties.of().mapColor(WINDSWEPT_LOG.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), ModWoodType.WINDSWEPT), false);
     public static final RegistryObject<Block> WINDSWEPT_WALL_HANGING_SIGN = register("windswept_wall_hanging_sign",
             () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(WINDSWEPT_LOG.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).lootFrom(WINDSWEPT_HANGING_SIGN).ignitedByLava(), ModWoodType.WINDSWEPT), false);
-    public static final RegistryObject<Block> WINDSWEPT_SAPLING = register("windswept_sapling", () -> sapling(new WindsweptTree()));
+    public static final RegistryObject<Block> WINDSWEPT_SAPLING = register("windswept_sapling", () -> redMossSapling(new WindsweptTree()));
     public static final RegistryObject<Block> POTTED_WINDSWEPT_SAPLING = register("potted_windswept_sapling", () ->
             new FlowerPotBlock(() -> (FlowerPotBlock) ForgeRegistries.BLOCKS.getDelegateOrThrow(Blocks.FLOWER_POT).get(), ModBlocks.WINDSWEPT_SAPLING, Block.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion().instabreak()), false, LootTableType.EMPTY);
     public static final RegistryObject<Block> WINDSWEPT_PLANK_WALL_BLOCK = registerWalls("windswept_plank_wall", WINDSWEPT_PLANKS);
@@ -562,7 +630,7 @@ public class ModBlocks {
             () -> new ModHangingSignBlock(BlockBehaviour.Properties.of().mapColor(PINE_LOG.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), ModWoodType.PINE), false);
     public static final RegistryObject<Block> PINE_WALL_HANGING_SIGN = register("pine_wall_hanging_sign",
             () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(PINE_LOG.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).lootFrom(PINE_HANGING_SIGN).ignitedByLava(), ModWoodType.PINE), false);
-    public static final RegistryObject<Block> PINE_SAPLING = register("pine_sapling", () -> sapling(new PineTree()));
+    public static final RegistryObject<Block> PINE_SAPLING = register("pine_sapling", () -> redMossSapling(new PineTree()));
     public static final RegistryObject<Block> POTTED_PINE_SAPLING = register("potted_pine_sapling", () ->
             new FlowerPotBlock(() -> (FlowerPotBlock) ForgeRegistries.BLOCKS.getDelegateOrThrow(Blocks.FLOWER_POT).get(), ModBlocks.PINE_SAPLING, Block.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion().instabreak().ignitedByLava()), false, LootTableType.EMPTY);
 
@@ -756,11 +824,19 @@ public class ModBlocks {
 
     //Crag
     public static final RegistryObject<Block> CRAGROCKS_BLOCK = register("cragrocks", CragBlock::new);
+    public static final RegistryObject<Block> MOSSY_CRAGROCKS_SLIGHT_BLOCK = register("mossy_cragrocks_slight", CragBlock::new);
+    public static final RegistryObject<Block> MOSSY_CRAGROCKS_BLOCK = register("mossy_cragrocks", CragBlock::new);
+    public static final RegistryObject<Block> MOSSY_CRAGROCKS_HEAVY_BLOCK = register("mossy_cragrocks_heavy", CragBlock::new);
     public static final RegistryObject<Block> CRAG_TILES_BLOCK = register("crag_tiles", CragBlock::new);
+    public static final RegistryObject<Block> MOSSY_CRAG_TILES_SLIGHT_BLOCK = register("mossy_crag_tiles_slight", CragBlock::new);
+    public static final RegistryObject<Block> MOSSY_CRAG_TILES_BLOCK = register("mossy_crag_tiles", CragBlock::new);
     public static final RegistryObject<Block> CRAG_BRICKS_BLOCK = register("crag_bricks", CragBlock::new);
     public static final RegistryObject<Block> SNOWY_CRAG_BRICKS_BLOCK = register("snowy_crag_bricks", CragBlock::new);
     public static final RegistryObject<Block> CRAG_PAVEMENT_BLOCK = register("crag_pavement", CragBlock::new);
     public static final RegistryObject<Block> CRACKED_CRAG_PAVEMENT_BLOCK = register("cracked_crag_pavement", CragBlock::new);
+    public static final RegistryObject<Block> SNOWY_CRAG_PAVEMENT_BLOCK = register("snowy_crag_pavement", CragBlock::new);
+    public static final RegistryObject<Block> MOSSY_CRAG_PAVEMENT_BLOCK = register("mossy_crag_pavement", CragBlock::new);
+    public static final RegistryObject<Block> MOSSY_CRAG_PAVEMENT_HEAVY_BLOCK = register("mossy_crag_pavement_heavy", CragBlock::new);
     public static final RegistryObject<Block> SILT_STUDDED_CRAG_TILES_BLOCK = register("silt_studded_crag_tiles", CragBlock::new);
 
     //Highrock
@@ -772,6 +848,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> SNOWY_HIGHROCK_BRICKS_BLOCK = register("snowy_highrock_bricks", HighrockBlock::new);
     public static final RegistryObject<Block> GOLD_INDENTED_HIGHROCK_BRICKS_BLOCK = register("gold_indented_highrock_bricks", HighrockBlock::new);
     public static final RegistryObject<Block> GOLD_CHISELED_HIGHROCK_BRICKS_BLOCK = register("gold_chiseled_highrock_bricks", HighrockBlock::new);
+    public static final RegistryObject<Block> SILT_HIGHROCK_BLOCK = register("silt_highrock", HighrockBlock::new);
 
     //Siltstone
     public static final RegistryObject<Block> SILTSTONE_BLOCK = register("siltstone", SiltstoneBlock::new);
@@ -780,6 +857,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> SMOOTH_SILTSTONE_BLOCK = register("smooth_siltstone", SiltstoneBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> COBBLED_SILTSTONE_BLOCK = register("cobbled_siltstone", SiltstoneBlock::new);
     public static final RegistryObject<Block> SNOWY_COBBLED_SILTSTONE_BLOCK = register("snowy_cobbled_siltstone", SiltstoneBlock::new);
+    public static final RegistryObject<Block> MOSSY_COBBLED_SILTSTONE_BLOCK = register("mossy_cobbled_siltstone", SiltstoneBlock::new);
+    public static final RegistryObject<Block> DIRTY_COBBLED_SILTSTONE_BLOCK = register("dirty_cobbled_siltstone", SiltstoneBlock::new);
     public static final RegistryObject<Block> SILTSTONE_BRICKS_BLOCK = register("siltstone_bricks", SiltstoneBlock::new);
     public static final RegistryObject<Block> SNOWY_SILTSTONE_BRICKS_SLIGHT_BLOCK = register("snowy_siltstone_bricks_slight", SiltstoneBlock::new);
     public static final RegistryObject<Block> SNOWY_SILTSTONE_BRICKS_BLOCK = register("snowy_siltstone_bricks", SiltstoneBlock::new);
@@ -789,6 +868,44 @@ public class ModBlocks {
     public static final RegistryObject<Block> CHISELED_SILTSTONE_BRICKS_BLOCK = register("chiseled_siltstone_bricks", SiltstoneBlock::new);
     public static final RegistryObject<Block> SILTSTONE_PILLAR_BLOCK = register("siltstone_pillar", () -> pillar(SiltstoneProperties()));
     public static final RegistryObject<Block> SNOWY_SILTSTONE_PILLAR_BLOCK = register("snowy_siltstone_pillar", () -> pillar(SiltstoneProperties()));
+
+    //Red Moss
+    public static final RegistryObject<Block> RED_MOSS_SILTSTONE = register("red_moss_siltstone", () -> new SnowyRedMossBlock(SiltstoneProperties().mapColor(MapColor.COLOR_RED).randomTicks(), COBBLED_SILTSTONE_BLOCK.get().defaultBlockState()));
+    public static final RegistryObject<Block> RED_MOSS_HIGHROCK = register("red_moss_highrock", () -> new SnowyRedMossBlock(HighrockProperties().mapColor(MapColor.COLOR_RED).randomTicks(), HIGHROCK_BLOCK.get().defaultBlockState()));
+    public static final RegistryObject<Block> RED_MOSS_DIRT = register("red_moss_dirt", () -> new SnowyRedMossBlock(BlockBehaviour.Properties.copy(Blocks.GRASS_BLOCK).mapColor(MapColor.COLOR_RED).randomTicks(), Blocks.DIRT.defaultBlockState()));
+    public static final RegistryObject<Block> RED_MOSS_BLOCK = register("red_moss_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.MOSS_BLOCK).mapColor(MapColor.COLOR_RED)));
+    public static final RegistryObject<Block> SNOWY_RED_MOSS_BLOCK_SLIGHT = register("snowy_red_moss_block_slight", () -> new Block(BlockBehaviour.Properties.copy(Blocks.MOSS_BLOCK).mapColor(MapColor.COLOR_RED)));
+    public static final RegistryObject<Block> SNOWY_RED_MOSS_BLOCK = register("snowy_red_moss_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.MOSS_BLOCK).mapColor(MapColor.COLOR_RED)));
+    public static final RegistryObject<Block> SNOWY_RED_MOSS_BLOCK_HEAVY = register("snowy_red_moss_block_heavy", () -> new Block(BlockBehaviour.Properties.copy(Blocks.MOSS_BLOCK).mapColor(MapColor.SNOW)));
+
+    //Ominous
+    public static final RegistryObject<Block> OMINOUS_STONE_BLOCK = register("ominous_stone", OminousStoneBlock::new, true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> DIRTY_OMINOUS_STONE_SLIGHT_BLOCK = register("dirty_ominous_stone_slight", OminousStoneBlock::new);
+    public static final RegistryObject<Block> DIRTY_OMINOUS_STONE_BLOCK = register("dirty_ominous_stone", OminousStoneBlock::new);
+    public static final RegistryObject<Block> COBBLED_OMINOUS_STONE_BLOCK = register("cobbled_ominous_stone", OminousStoneBlock::new);
+    public static final RegistryObject<Block> POLISHED_OMINOUS_STONE_BLOCK = register("polished_ominous_stone", OminousStoneBlock::new);
+    public static final RegistryObject<Block> POLISHED_DARK_OMINOUS_STONE_BLOCK = register("polished_dark_ominous_stone", OminousStoneBlock::new);
+    public static final RegistryObject<Block> CRACKED_POLISHED_OMINOUS_STONE_BLOCK = register("cracked_polished_ominous_stone", OminousStoneBlock::new);
+    public static final RegistryObject<Block> SOILED_POLISHED_OMINOUS_STONE_BLOCK = register("soiled_polished_ominous_stone", OminousStoneBlock::new);
+    public static final RegistryObject<Block> SOILED_POLISHED_OMINOUS_STONE_HEAVY_BLOCK = register("soiled_polished_ominous_stone_heavy", OminousStoneBlock::new);
+    public static final RegistryObject<Block> OMINOUS_STONE_BRICKS_BLOCK = register("ominous_stone_bricks", OminousStoneBlock::new);
+    public static final RegistryObject<Block> CRACKED_OMINOUS_STONE_BRICKS_BLOCK = register("cracked_ominous_stone_bricks", OminousStoneBlock::new);
+    public static final RegistryObject<Block> DIRTY_OMINOUS_STONE_BRICKS_SLIGHT_BLOCK = register("dirty_ominous_stone_bricks_slight", OminousStoneBlock::new);
+    public static final RegistryObject<Block> DIRTY_OMINOUS_STONE_BRICKS_BLOCK = register("dirty_ominous_stone_bricks", OminousStoneBlock::new);
+    public static final RegistryObject<Block> DIRTY_OMINOUS_STONE_BRICKS_HEAVY_BLOCK = register("dirty_ominous_stone_bricks_heavy", OminousStoneBlock::new);
+    public static final RegistryObject<Block> OMINOUS_STONE_TILES_BLOCK = register("ominous_stone_tiles", OminousStoneBlock::new);
+    public static final RegistryObject<Block> DIRTY_OMINOUS_STONE_TILES_SLIGHT_BLOCK = register("dirty_ominous_stone_tiles_slight", OminousStoneBlock::new);
+    public static final RegistryObject<Block> DIRTY_OMINOUS_STONE_TILES_BLOCK = register("dirty_ominous_stone_tiles", OminousStoneBlock::new);
+    public static final RegistryObject<Block> DIRTY_OMINOUS_STONE_TILES_HEAVY_BLOCK = register("dirty_ominous_stone_tiles_heavy", OminousStoneBlock::new);
+    public static final RegistryObject<Block> OMINOUS_STONE_PAVEMENT_BLOCK = register("ominous_stone_pavement", OminousStoneBlock::new);
+    public static final RegistryObject<Block> DIRTY_OMINOUS_STONE_PAVEMENT_BLOCK = register("dirty_ominous_stone_pavement", OminousStoneBlock::new);
+    public static final RegistryObject<Block> DIRTY_OMINOUS_STONE_PAVEMENT_HEAVY_BLOCK = register("dirty_ominous_stone_pavement_heavy", OminousStoneBlock::new);
+    public static final RegistryObject<Block> OMINOUS_STONE_PILLAR_BLOCK = register("ominous_stone_pillar", () -> pillar(OminousStoneProperties()));
+    public static final RegistryObject<Block> CHISELED_OMINOUS_STONE_BLOCK = register("chiseled_ominous_stone", OminousStoneBlock::new);
+    public static final RegistryObject<Block> CHISELED_POLISHED_OMINOUS_STONE_BLOCK = register("chiseled_polished_ominous_stone", OminousStoneBlock::new);
+    public static final RegistryObject<Block> CHISELED_OMINOUS_STONE_BRICKS_BLOCK = register("chiseled_ominous_stone_bricks", OminousStoneBlock::new);
+
+    public static final RegistryObject<Block> COBBLED_OMINOUS_STONE_PATH_BLOCK = register("cobbled_ominous_stone_path", () -> new BlockPathBlock(OminousStoneProperties().isViewBlocking(ModBlocks::always).isSuffocating(ModBlocks::always), ModBlocks.COBBLED_OMINOUS_STONE_BLOCK.get().defaultBlockState()), true, LootTableType.EMPTY);
 
     //Snow Bricks
     public static final RegistryObject<Block> SNOW_BRICKS_BLOCK = register("snow_bricks", SnowBrickBlock::new);
@@ -810,6 +927,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> MUDDY_SMOOTH_END_STONE_BLOCK = register("muddy_smooth_end_stone", EndStoneBlock::new);
     public static final RegistryObject<Block> GRASSY_SMOOTH_END_STONE_BLOCK = register("grassy_smooth_end_stone", EndStoneBlock::new);
     public static final RegistryObject<Block> GRASSY_SMOOTH_END_STONE_HEAVY_BLOCK = register("grassy_smooth_end_stone_heavy", () -> new Block(EndStoneProperties().mapColor(MapColor.COLOR_ORANGE)));
+    public static final RegistryObject<Block> MIXED_END_STONE_BLOCK = register("mixed_end_stone", EndStoneBlock::new);
     public static final RegistryObject<Block> END_STONE_SLATE_BLOCK = register("end_stone_slate", () -> new RotatedPillarBlock(EndStoneProperties()), true, LootTableType.EMPTY);
     public static final RegistryObject<Block> END_STONE_SLATE_ROCK = register("end_stone_slate_rock", EndStoneBlock::new);
     public static final RegistryObject<Block> COBBLED_END_STONE_BLOCK = register("cobbled_end_stone", EndStoneBlock::new);
@@ -822,7 +940,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> DIRTY_COBBLED_END_STONE_HEAVY_BLOCK = register("dirty_cobbled_end_stone_heavy", EndStoneBlock::new);
     public static final RegistryObject<Block> END_STONE_PILLAR_BLOCK = register("end_stone_pillar", () -> new RotatedPillarBlock(EndStoneProperties()));
     public static final RegistryObject<Block> CHORUS_END_STONE_PILLAR_BLOCK = register("chorus_end_stone_pillar", () -> new RotatedPillarBlock(EndStoneProperties()));
-    public static final RegistryObject<Block> CHORUS_GRASS_BLOCK = register("chorus_grass_block", ChorusGrassBlock::new);
+    public static final RegistryObject<Block> INFUSED_END_STONE_PILLAR_BLOCK = register("infused_end_stone_pillar", () -> new RotatedPillarBlock(EndStoneProperties().mapColor(MapColor.EMERALD)));
+    public static final RegistryObject<Block> CHORUS_GRASS_BLOCK = register("chorus_grass_block", ChorusGrassBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> COBBLED_CHORUS_GRASS_BLOCK = register("cobbled_chorus_grass_block", () -> new Block(EndStoneProperties().mapColor(MapColor.COLOR_ORANGE)));
 
     //End Lights
@@ -870,6 +989,12 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> CRAGROCKS_SLAB = registerSlabs("cragrocks_slab",
             CRAGROCKS_BLOCK);
+    public static final RegistryObject<Block> MOSSY_CRAGROCKS_SLIGHT_SLAB = registerSlabs("mossy_cragrocks_slight_slab",
+            MOSSY_CRAGROCKS_SLIGHT_BLOCK);
+    public static final RegistryObject<Block> MOSSY_CRAGROCKS_SLAB = registerSlabs("mossy_cragrocks_slab",
+            MOSSY_CRAGROCKS_BLOCK);
+    public static final RegistryObject<Block> MOSSY_CRAGROCKS_HEAVY_SLAB = registerSlabs("mossy_cragrocks_heavy_slab",
+            MOSSY_CRAGROCKS_HEAVY_BLOCK);
     public static final RegistryObject<Block> CRAG_TILE_SLAB = registerSlabs("crag_tile_slab",
             CRAG_TILES_BLOCK);
     public static final RegistryObject<Block> CRAG_BRICK_SLAB = registerSlabs("crag_brick_slab",
@@ -891,6 +1016,8 @@ public class ModBlocks {
             SNOWY_HIGHROCK_BRICKS_SLIGHT_BLOCK);
     public static final RegistryObject<Block> SNOWY_HIGHROCK_BRICK_SLAB = registerSlabs("snowy_highrock_brick_slab",
             SNOWY_HIGHROCK_BRICKS_BLOCK);
+    public static final RegistryObject<Block> SILT_HIGHROCK_SLAB = registerSlabs("silt_highrock_slab",
+            SILT_HIGHROCK_BLOCK);
 
     public static final RegistryObject<Block> SILTSTONE_SLAB = registerSlabs("siltstone_slab",
             SILTSTONE_BLOCK);
@@ -913,6 +1040,35 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> INDENTED_GOLD_SLAB = registerSlabs("indented_gold_slab",
             INDENTED_GOLD_BLOCK);
+
+    public static final RegistryObject<Block> RED_MOSS_SLAB = registerSlabs("red_moss_slab",
+            RED_MOSS_BLOCK);
+    public static final RegistryObject<Block> SNOWY_RED_MOSS_SLIGHT_SLAB = registerSlabs("snowy_red_moss_slight_slab",
+            SNOWY_RED_MOSS_BLOCK_SLIGHT);
+    public static final RegistryObject<Block> SNOWY_RED_MOSS_SLAB = registerSlabs("snowy_red_moss_slab",
+            SNOWY_RED_MOSS_BLOCK);
+    public static final RegistryObject<Block> SNOWY_RED_MOSS_HEAVY_SLAB = registerSlabs("snowy_red_moss_heavy_slab",
+            SNOWY_RED_MOSS_BLOCK_HEAVY);
+
+    public static final RegistryObject<Block> OMINOUS_STONE_SLAB = registerSlabs("ominous_stone_slab",
+            OMINOUS_STONE_BLOCK);
+    public static final RegistryObject<Block> COBBLED_OMINOUS_STONE_SLAB = registerSlabs("cobbled_ominous_stone_slab",
+            COBBLED_OMINOUS_STONE_BLOCK);
+    public static final RegistryObject<Block> POLISHED_OMINOUS_STONE_SLAB = registerSlabs("polished_ominous_stone_slab",
+            POLISHED_OMINOUS_STONE_BLOCK);
+    public static final RegistryObject<Block> POLISHED_DARK_OMINOUS_STONE_SLAB = registerSlabs("polished_dark_ominous_stone_slab",
+            POLISHED_DARK_OMINOUS_STONE_BLOCK);
+    public static final RegistryObject<Block> OMINOUS_STONE_BRICK_SLAB = registerSlabs("ominous_stone_brick_slab",
+            OMINOUS_STONE_BRICKS_BLOCK);
+    public static final RegistryObject<Block> OMINOUS_STONE_TILE_SLAB = registerSlabs("ominous_stone_tile_slab",
+            OMINOUS_STONE_TILES_BLOCK);
+    public static final RegistryObject<Block> OMINOUS_STONE_PAVEMENT_SLAB = registerSlabs("ominous_stone_pavement_slab",
+            OMINOUS_STONE_PAVEMENT_BLOCK);
+    public static final RegistryObject<Block> OMINOUS_STONE_PILLAR_SLAB = registerSlabs("ominous_stone_pillar_slab",
+            OMINOUS_STONE_PILLAR_BLOCK);
+
+    public static final RegistryObject<Block> DARK_DIRT_SLAB = registerSlabs("dark_dirt_slab",
+            DARK_DIRT);
 
     public static final RegistryObject<Block> SNOW_BRICK_SLAB = registerSlabs("snow_brick_slab",
             SNOW_BRICKS_BLOCK);
@@ -972,6 +1128,14 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> INDENTED_GOLD_STAIRS_BLOCK = registerStairs("indented_gold_stairs", INDENTED_GOLD_BLOCK);
 
+    public static final RegistryObject<Block> OMINOUS_STONE_STAIRS = registerStairs("ominous_stone_stairs", OMINOUS_STONE_BLOCK);
+    public static final RegistryObject<Block> COBBLED_OMINOUS_STONE_STAIRS = registerStairs("cobbled_ominous_stone_stairs", COBBLED_OMINOUS_STONE_BLOCK);
+    public static final RegistryObject<Block> POLISHED_OMINOUS_STONE_STAIRS = registerStairs("polished_ominous_stone_stairs", POLISHED_OMINOUS_STONE_BLOCK);
+    public static final RegistryObject<Block> POLISHED_DARK_OMINOUS_STONE_STAIRS = registerStairs("polished_dark_ominous_stone_stairs", POLISHED_DARK_OMINOUS_STONE_BLOCK);
+    public static final RegistryObject<Block> OMINOUS_STONE_BRICK_STAIRS = registerStairs("ominous_stone_brick_stairs", OMINOUS_STONE_BRICKS_BLOCK);
+    public static final RegistryObject<Block> OMINOUS_STONE_TILE_STAIRS = registerStairs("ominous_stone_tile_stairs", OMINOUS_STONE_TILES_BLOCK);
+    public static final RegistryObject<Block> OMINOUS_STONE_PAVEMENT_STAIRS = registerStairs("ominous_stone_pavement_stairs", OMINOUS_STONE_PAVEMENT_BLOCK);
+
     public static final RegistryObject<Block> SNOW_BRICK_STAIRS_BLOCK = registerStairs("snow_brick_stairs", SNOW_BRICKS_BLOCK);
 
     public static final RegistryObject<Block> END_STONE_TILE_STAIRS_BLOCK = registerStairs("end_stone_tile_stairs", END_STONE_TILES_BLOCK);
@@ -1015,6 +1179,12 @@ public class ModBlocks {
     public static final RegistryObject<Block> GOLD_TRAPDOOR = register("gold_trapdoor",
             () -> new TrapDoorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GOLD).requiresCorrectToolForDrops().strength(5.0F).noOcclusion().isValidSpawn(ModBlocks::never), ModBlockSetType.MOD_METAL));
 
+    public static final RegistryObject<Block> COBBLED_OMINOUS_STONE_WALL_BLOCK = registerWalls("cobbled_ominous_stone_wall", COBBLED_OMINOUS_STONE_BLOCK);
+    public static final RegistryObject<Block> POLISHED_OMINOUS_STONE_WALL_BLOCK = registerWalls("polished_ominous_stone_wall", POLISHED_OMINOUS_STONE_BLOCK);
+    public static final RegistryObject<Block> POLISHED_DARK_OMINOUS_STONE_WALL_BLOCK = registerWalls("polished_dark_ominous_stone_wall", POLISHED_DARK_OMINOUS_STONE_BLOCK);
+    public static final RegistryObject<Block> OMINOUS_STONE_BRICK_WALL_BLOCK = registerWalls("ominous_stone_brick_wall", OMINOUS_STONE_BRICKS_BLOCK);
+    public static final RegistryObject<Block> OMINOUS_STONE_TILE_WALL_BLOCK = registerWalls("ominous_stone_tile_wall", OMINOUS_STONE_TILES_BLOCK);
+
     public static final RegistryObject<Block> SNOW_BRICK_WALL_BLOCK = registerWalls("snow_brick_wall", SNOW_BRICKS_BLOCK);
 
     public static final RegistryObject<Block> SMOOTH_END_STONE_WALL_BLOCK = registerWalls("smooth_end_stone_wall", SMOOTH_END_STONE_BLOCK);
@@ -1033,6 +1203,13 @@ public class ModBlocks {
                     .sound(SoundType.METAL)
                     .noOcclusion()));
     public static final RegistryObject<Block> SHADE_GLASS_PANE = register("shade_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.copy(Blocks.GLASS_PANE)));
+    public static final RegistryObject<Block> RUSTY_IRON_BARS_BLOCK = register("rusty_iron_bars",
+            () -> new IronBarsBlock(Block.Properties.of()
+                    .mapColor(MapColor.PODZOL)
+                    .requiresCorrectToolForDrops()
+                    .strength(5.0F, 6.0F)
+                    .sound(ModSoundTypes.MOD_METAL)
+                    .noOcclusion()));
 
     public static final RegistryObject<PlushieBlock> PLUSHIE = curioIsterRegister("plushie", PlushieBlock::new);
     public static final RegistryObject<PlushieBlock> PLUSHIE_1 = curioIsterRegister("plushie_1", () -> new PlushieBlock(1));
@@ -1044,10 +1221,14 @@ public class ModBlocks {
     //Custom Items
     public static final RegistryObject<Item> SNAP_WARTS_ITEM = ModItems.ITEMS.register("snap_warts",
             () -> new ItemNameBlockItem(ModBlocks.SNAP_WARTS.get(), (new Item.Properties())));
+    public static final RegistryObject<Item> FIRETHORN_BERRIES = ModItems.ITEMS.register("firethorn_berries",
+            () -> new ItemNameBlockItem(ModBlocks.FIRETHORN.get(), (new Item.Properties().food(Foods.SWEET_BERRIES))));
     public static final RegistryObject<Item> IRON_DUNGEON_TORCH_ITEM = ModItems.ITEMS.register("iron_dungeon_torch",
             () -> new StandingAndWallBlockItem(ModBlocks.IRON_DUNGEON_TORCH.get(), ModBlocks.WALL_IRON_DUNGEON_TORCH.get(), new Item.Properties(), Direction.DOWN));
     public static final RegistryObject<Item> GOLD_DUNGEON_TORCH_ITEM = ModItems.ITEMS.register("gold_dungeon_torch",
             () -> new StandingAndWallBlockItem(ModBlocks.GOLD_DUNGEON_TORCH.get(), ModBlocks.WALL_GOLD_DUNGEON_TORCH.get(), new Item.Properties(), Direction.DOWN));
+    public static final RegistryObject<Item> GOLD_CANDLESTICK_ITEM = ModItems.ITEMS.register("gold_candlestick",
+            () -> new StandingAndWallBlockItem(ModBlocks.GOLD_CANDLESTICK.get(), ModBlocks.WALL_GOLD_CANDLESTICK.get(), new Item.Properties(), Direction.DOWN));
     public static final RegistryObject<Item> RESONANCE_CRYSTAL_ITEM = ModItems.ITEMS.register("resonance_crystal",
             ResonanceBlockItem::new);
     public static final RegistryObject<Item> OMINOUS_IDOL_ITEM = ModItems.ITEMS.register("ominous_idol",
@@ -1133,6 +1314,10 @@ public class ModBlocks {
 
     private static SaplingBlock sapling(AbstractTreeGrower tree){
         return new SaplingBlock(tree, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY));
+    }
+
+    private static RedMossSaplingBlock redMossSapling(AbstractTreeGrower tree){
+        return new RedMossSaplingBlock(tree, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY));
     }
 
     private static EndSaplingBlock endSapling(AbstractTreeGrower tree){
@@ -1451,6 +1636,23 @@ public class ModBlocks {
 
         public IndentedGoldBlock() {
             super(IndentedGoldProperties());
+        }
+
+    }
+
+    public static BlockBehaviour.Properties OminousStoneProperties(){
+        return BlockBehaviour.Properties.of()
+                .mapColor(MapColor.STONE)
+                .instrument(NoteBlockInstrument.BASEDRUM)
+                .requiresCorrectToolForDrops()
+                .strength(2.0F, 6.0F)
+                .sound(SoundType.STONE);
+    }
+
+    public static class OminousStoneBlock extends Block {
+
+        public OminousStoneBlock() {
+            super(OminousStoneProperties());
         }
 
     }

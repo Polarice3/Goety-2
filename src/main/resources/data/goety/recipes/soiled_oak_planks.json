@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "lm",
+    "ml"
+  ],
+  "key":
+  {
+    "m":
+    {
+      "item": "minecraft:oak_planks"
+    },
+    "l":
+    {
+      "item": "goety:detritus_dust"
+    }
+  },
+  "result":
+  {
+    "item": "goety:soiled_oak_planks",
+    "count": 2
+  }
+}

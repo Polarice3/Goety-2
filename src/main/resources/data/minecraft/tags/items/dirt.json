@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "goety:cobbled_dirt",
+    "goety:snowy_dirt",
+    "goety:dark_dirt",
+    "goety:cobbled_dark_dirt",
+    "goety:snowy_dark_dirt",
+    "goety:detritus"
+  ]
+}

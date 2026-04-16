@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "goety:polished_ominous_stone"
+  },
+  "result": "goety:ominous_stone_tile_wall"
+}

@@ -5,6 +5,7 @@ import com.Polarice3.Goety.utils.LichdomHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -39,11 +40,14 @@ public class LichUpdatePacket {
     public static void consume(LichUpdatePacket packet, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             if (ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
-                Player player = Goety.PROXY.getPlayer();
-                if (player != null) {
-                    player.getCapability(LichProvider.CAPABILITY).ifPresent((lichdom) -> {
-                        LichdomHelper.load(packet.tag, lichdom);
-                    });
+                Level level = Goety.PROXY.getLevel();
+                if (level != null) {
+                    Player player = level.getPlayerByUUID(packet.PlayerUUID);
+                    if (player != null) {
+                        player.getCapability(LichProvider.CAPABILITY).ifPresent((lichdom) -> {
+                            LichdomHelper.load(packet.tag, lichdom);
+                        });
+                    }
                 }
             }
         });

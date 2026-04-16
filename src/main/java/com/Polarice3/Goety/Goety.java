@@ -466,6 +466,9 @@ public class Goety {
             AxeItem.STRIPPABLES.put(ModBlocks.WINDSWEPT_WOOD.get(), ModBlocks.STRIPPED_WINDSWEPT_WOOD.get());
             AxeItem.STRIPPABLES.put(ModBlocks.PINE_LOG.get(), ModBlocks.STRIPPED_PINE_LOG.get());
             AxeItem.STRIPPABLES.put(ModBlocks.PINE_WOOD.get(), ModBlocks.STRIPPED_PINE_WOOD.get());
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.SIENNA_GRASS.getId(), ModBlocks.POTTED_SIENNA_GRASS);
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.SIENNA_FERN.getId(), ModBlocks.POTTED_SIENNA_FERN);
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.WINDSWEPT_DEAD_BUSH.getId(), ModBlocks.POTTED_WINDSWEPT_DEAD_BUSH);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.CHORUS_STALK.getId(), ModBlocks.POTTED_CHORUS_STALK);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.CHORUS_FERN.getId(), ModBlocks.POTTED_CHORUS_FERN);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.HAUNTED_SAPLING.getId(), ModBlocks.POTTED_HAUNTED_SAPLING);
@@ -505,6 +508,11 @@ public class Goety {
             ComposterBlock.COMPOSTABLES.put(ModBlocks.PINE_LEAVES.get().asItem(), 0.3F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_VINE.get().asItem(), 0.3F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_BLOSSOM_VINES_PRUNED.get().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.SIENNA_GRASS.get().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.SIENNA_FERN.get().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.FIRETHORN_BERRIES.get(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.TALL_SIENNA_GRASS.get().asItem(), 0.5F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.LARGE_SIENNA_FERN.get().asItem(), 0.5F);
             ComposterBlock.COMPOSTABLES.put(ModItems.SNAP_FUNGUS.get(), 0.65F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.ROTTEN_SAPLING.get().asItem(), 0.65F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_SAPLING.get().asItem(), 0.65F);
@@ -522,6 +530,7 @@ public class Goety {
             ComposterBlock.COMPOSTABLES.put(ModBlocks.TALL_END_GRASS.get().asItem(), 1.0F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.LARGE_CHORUS_FERN.get().asItem(), 1.0F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_BLOSSOM_VINES.get().asItem(), 0.65F);
+            ComposterBlock.COMPOSTABLES.put(ModItems.RED_MOSS_GROWTH.get(), 0.65F);
             ComposterBlock.COMPOSTABLES.put(ModItems.CHORUS_GROWTH.get(), 1.0F);
             ComposterBlock.COMPOSTABLES.put(ModItems.BLAST_FUNGUS.get(), 1.0F);
             ComposterBlock.COMPOSTABLES.put(ModItems.BERSERK_FUNGUS.get(), 1.0F);

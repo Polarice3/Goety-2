@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "goety:royal_carpet",
+    "goety:royal_carpet_corner",
+    "goety:royal_carpet_edge",
+    "goety:royal_carpet_inner_corner",
+    "goety:frosty_carpet",
+    "goety:frosty_carpet_corner",
+    "goety:frosty_carpet_edge",
+    "goety:frosty_carpet_inner_corner"
+  ]
+}

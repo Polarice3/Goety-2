@@ -1,0 +1,9 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "goety:ominous_stone_bricks"
+    }
+  ],
+  "block_result": "goety:cracked_ominous_stone_bricks"
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "goety:block/tall_sienna_grass_bottom"
+    },
+    "half=upper": {
+      "model": "goety:block/tall_sienna_grass_top"
+    }
+  }
+}

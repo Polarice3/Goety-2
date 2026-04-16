@@ -47,10 +47,8 @@ public class OrderFocus extends MagicFocus{
             }
             List<LivingEntity> list = getServants(stack);
             List<LivingEntity> list2 = OrderFocus.getServantsClient(worldIn, stack);
-            List<Integer> integerList = getServantIds(stack);
             if (!list.isEmpty()) {
-                for (int i = 0; i < list.size(); ++i) {
-                    LivingEntity livingEntity = list.get(i);
+                for (LivingEntity livingEntity : list) {
                     if (livingEntity != null) {
                         if (livingEntity.isRemoved() || livingEntity.isDeadOrDying()) {
                             removeServant(stack, livingEntity, worldIn);
@@ -58,15 +56,6 @@ public class OrderFocus extends MagicFocus{
                         } else {
                             if (!list2.contains(livingEntity)) {
                                 setServantsClient(stack, worldIn, livingEntity);
-                            }
-                        }
-                        if (!integerList.isEmpty()) {
-                            if (integerList.size() >= list.size()) {
-                                int id = integerList.get(i);
-                                Entity entity = worldIn.getEntity(id);
-                                if (!(entity instanceof LivingEntity) || entity.isRemoved() || !entity.isAlive() || livingEntity.getId() != id) {
-                                    removeServantClient(stack, id, worldIn);
-                                }
                             }
                         }
                     }
@@ -311,6 +300,11 @@ public class OrderFocus extends MagicFocus{
                 }
             }
         }
+    }
+
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return !oldStack.equals(newStack) && slotChanged;
     }
 
     @Override

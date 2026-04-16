@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "goety:block/frosty_carpet/nes"
+    },
+    "facing=north": {
+      "model": "goety:block/frosty_carpet/nwe"
+    },
+    "facing=south": {
+      "model": "goety:block/frosty_carpet/swe"
+    },
+    "facing=west": {
+      "model": "goety:block/frosty_carpet/nws"
+    }
+  }
+}

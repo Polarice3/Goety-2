@@ -1,0 +1,24 @@
+{
+  "format_version": "1.9.0",
+  "credit": "Made with Blockbench",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "goety:block/rusty_iron_bars",
+    "pane": "goety:block/rusty_iron_bars"
+  },
+  "render_type": "cutout_mipped",
+  "elements": [
+    {
+      "from": [7, 0, 7],
+      "to": [9, 16, 9],
+      "faces": {
+        "north": {"uv": [6, 0, 4, 16], "texture": "#pane"},
+        "east": {"uv": [12, 0, 10, 16], "texture": "#pane"},
+        "south": {"uv": [12, 0, 10, 16], "texture": "#pane"},
+        "west": {"uv": [6, 0, 4, 16], "texture": "#pane"},
+        "up": {"uv": [6, 0, 4, 2], "texture": "#pane"},
+        "down": {"uv": [12, 0, 10, 2], "texture": "#pane"}
+      }
+    }
+  ]
+}

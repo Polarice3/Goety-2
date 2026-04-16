@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CD",
+    "DC"
+  ],
+  "key": {
+    "C": {
+      "item": "goety:dark_dirt"
+    },
+    "D": {
+      "item": "minecraft:cobblestone"
+    }
+  },
+  "result": {
+    "item": "goety:cobbled_dark_dirt",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "caverns_and_chasms"
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/mossy_cragrocks_heavy_slab"
+    },
+    "type=double": {
+      "model": "goety:block/mossy_cragrocks_heavy"
+    },
+    "type=top": {
+      "model": "goety:block/mossy_cragrocks_heavy_slab_top"
+    }
+  }
+}

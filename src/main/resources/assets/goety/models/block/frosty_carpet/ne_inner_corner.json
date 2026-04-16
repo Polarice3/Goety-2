@@ -1,0 +1,7 @@
+{
+  "parent": "goety:block/fancy_carpet",
+  "textures": {
+    "wool": "goety:block/frosty_carpet/ne_inner_corner",
+    "side": "goety:block/frosty_carpet/inner"
+  }
+}

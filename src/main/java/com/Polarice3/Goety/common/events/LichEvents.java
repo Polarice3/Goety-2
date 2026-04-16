@@ -133,13 +133,16 @@ public class LichEvents {
             }
             if (player.isAlive()){
                 if (!player.level.isClientSide) {
+                    MobEffectInstance instance = player.getEffect(MobEffects.NIGHT_VISION);
                     if (LichdomHelper.nightVision(player) && MainConfig.LichNightVision.get()) {
-                        if (!player.hasEffect(MobEffects.NIGHT_VISION)) {
-                            player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, -1, 0, false, false, false));
+                        if (instance == null || instance.getDuration() <= 210) {
+                            player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 300, 0, false, false, false));
                         }
                     } else {
-                        if (player.hasEffect(MobEffects.NIGHT_VISION)) {
-                            player.removeEffect(MobEffects.NIGHT_VISION);
+                        if (instance != null) {
+                            if (instance.getDuration() <= 300) {
+                                player.removeEffect(MobEffects.NIGHT_VISION);
+                            }
                         }
                     }
                 }

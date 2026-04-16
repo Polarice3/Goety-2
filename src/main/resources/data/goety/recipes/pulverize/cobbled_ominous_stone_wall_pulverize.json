@@ -1,0 +1,15 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "goety:polished_ominous_stone_wall"
+    },
+    {
+      "item": "goety:ominous_stone_brick_wall"
+    },
+    {
+      "item": "goety:ominous_stone_tile_wall"
+    }
+  ],
+  "block_result": "goety:cobbled_ominous_stone_wall"
+}

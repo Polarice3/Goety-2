@@ -40,8 +40,10 @@ import com.Polarice3.Goety.common.entities.neutral.Wildfire;
 import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
 import com.Polarice3.Goety.common.entities.projectiles.IceStorm;
 import com.Polarice3.Goety.common.entities.util.CameraShake;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.WaystoneItem;
 import com.Polarice3.Goety.common.items.curios.GloveItem;
+import com.Polarice3.Goety.common.items.curios.TargetingMonocleItem;
 import com.Polarice3.Goety.common.magic.spells.abyss.PrismaBeamSpell;
 import com.Polarice3.Goety.common.magic.spells.abyss.WaterJetSpell;
 import com.Polarice3.Goety.common.magic.spells.geomancy.BurrowingSpell;
@@ -92,6 +94,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
@@ -107,6 +110,7 @@ import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -118,6 +122,7 @@ import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, value = Dist.CLIENT)
 public class ClientEvents {
@@ -259,7 +264,7 @@ public class ClientEvents {
             if (MainConfig.BossMusic.get()) {
                 if (entity instanceof LivingEntity livingEntity) {
                     if (entity instanceof Wight wight && !wight.isNoAi()) {
-                        playPreBossMusic(ModSounds.ENDERMAN_THEME_PRE.get(), ModSounds.ARENA_END.get(), wight, 0.75F, 1.0F, 64);
+                        playPreBossMusic(ModSounds.ENDERMAN_THEME_PRE.get(), ModSounds.ARENA_END.get(), wight, 0.75F, 1.0F, 64, true);
                     }
                     if ((MiscCapHelper.getMobTarget(livingEntity) instanceof Player)
                     || (MiscCapHelper.getMobTarget(livingEntity) instanceof OwnableEntity ownable && ownable.getOwner() instanceof Player)
@@ -307,11 +312,24 @@ public class ClientEvents {
     }
 
     public static void playPreBossMusic(SoundEvent soundEvent, SoundEvent postBossMusic, Mob mob, float volume, float pitch, int withinRange){
+        playPreBossMusic(soundEvent, postBossMusic, mob, volume, pitch, withinRange, false);
+    }
+
+    public static void playPreBossMusic(SoundEvent soundEvent, SoundEvent postBossMusic, Mob mob, float volume, float pitch, int withinRange, boolean mustSee){
         if (MainConfig.BossMusic.get()) {
             Minecraft minecraft = Minecraft.getInstance();
+            boolean flag = true;
+            if (mustSee) {
+                Player player = Goety.PROXY.getPlayer();
+                if (player != null) {
+                    if (!MobUtil.hasVisualLineOfSight(player, mob)) {
+                        flag = false;
+                    }
+                }
+            }
             if (soundEvent != null && mob.isAlive()) {
-                if (PRE_BOSS_MUSIC == null) {
-                    PRE_BOSS_MUSIC = new PreBossLoopMusic(soundEvent, postBossMusic, mob, volume, pitch, withinRange);
+                if (PRE_BOSS_MUSIC == null && flag) {
+                    PRE_BOSS_MUSIC = new PreBossLoopMusic(soundEvent, postBossMusic, mob, volume, pitch, withinRange, mustSee);
                 }
             } else {
                 PRE_BOSS_MUSIC = null;
@@ -904,6 +922,157 @@ public class ClientEvents {
             }
         }
     }
+
+    /**
+     * From here, code is stolen from @Tfarcenim LockOnHandler codes: <a href="https://github.com/Tfarcenim/LockOn/blob/1.20.1/src/main/java/tfar/lockon/LockOnHandler.java">...</a>
+     * */
+    public static boolean lockedOn;
+    public static Entity target;
+    public static List<LivingEntity> targetList = new ArrayList<>();
+
+    @SubscribeEvent
+    public static void TargetMonocleEvents(TickEvent.ClientTickEvent event) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (event.phase == TickEvent.Phase.START) {
+            boolean leave = false;
+            if (minecraft.player != null){
+                if (CuriosFinder.hasCurio(minecraft.player, ModItems.TARGETING_MONOCLE.get())) {
+                    ItemStack itemStack = CuriosFinder.findCurio(minecraft.player, ModItems.TARGETING_MONOCLE.get());
+                    if (TargetingMonocleItem.isActive(itemStack)) {
+                        if (!lockedOn) {
+                            attemptEnterLockOn(Minecraft.getInstance().player);
+                        }
+                        if (!minecraft.player.isCrouching()) {
+                            if (ModKeybindings.useCurios() != null) {
+                                while (ModKeybindings.useCurios().consumeClick()) {
+                                    tabToNextEnemy(Minecraft.getInstance().player);
+                                }
+                            }
+                        }
+                    } else {
+                        leave = lockedOn;
+                    }
+                } else {
+                    leave = lockedOn;
+                }
+            } else {
+                leave = lockedOn;
+            }
+            if (leave) {
+                leaveLockOn();
+            }
+            tickLockedOn();
+        }
+    }
+
+    public static boolean handleKeyPress(Player player) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (player != null && !minecraft.isPaused()) {
+            if (target != null) {
+                Vec3 targetPos = target.position().add(0, target.getBbHeight() / 2.0D, 0);
+                Vec3 targetVec = targetPos.subtract(player.position().add(0, player.getEyeHeight(), 0)).normalize();
+                double targetAngleX = Mth.wrapDegrees(Math.atan2(-targetVec.x, targetVec.z) * 180 / Math.PI);
+                double targetAngleY = Math.atan2(targetVec.y , targetVec.horizontalDistance()) * 180 / Math.PI;
+                double xRot = Mth.wrapDegrees(player.getXRot());
+                double yRot = Mth.wrapDegrees(player.getYRot());
+                double toTurnX = Mth.wrapDegrees(yRot - targetAngleX);
+                double toTurnY = Mth.wrapDegrees(xRot + targetAngleY);
+
+                player.turn(-toTurnX,-toTurnY);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @SubscribeEvent
+    public static void logOff(ClientPlayerNetworkEvent.LoggingOut event) {
+        leaveLockOn();
+    }
+
+    @SubscribeEvent
+    public static void onDying(LivingDeathEvent event) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft.player != null) {
+            if (event.getEntity() == minecraft.player) {
+                leaveLockOn();
+            }
+        }
+    }
+
+    private static void attemptEnterLockOn(Player player) {
+        tabToNextEnemy(player);
+        if (target != null) {
+            lockedOn = true;
+        }
+    }
+
+    private static void tickLockedOn() {
+        targetList.removeIf(livingEntity -> !livingEntity.isAlive());
+        if (target != null) {
+            if (!target.isAlive()) {
+                target = null;
+                lockedOn = false;
+            }
+        }
+    }
+
+    private static final Predicate<LivingEntity> ENTITY_PREDICATE = entity -> entity.isAlive() && entity.attackable() && !isFriendly(entity);
+
+    private static boolean isFriendly(LivingEntity entity) {
+        Player player = Minecraft.getInstance().player;
+        if (player != null) {
+            return MobUtil.areAllies(player, entity);
+        }
+
+        return false;
+    }
+
+    private static int cycle = -1;
+
+    public static Entity findNearby(Player player) {
+        int range = 16;
+        final TargetingConditions selector = TargetingConditions.forCombat().range(range).selector(ENTITY_PREDICATE);
+        List<LivingEntity> entities = player.level().getNearbyEntities(LivingEntity.class, selector, player, player.getBoundingBox().inflate(range)).stream().filter(player::hasLineOfSight).toList();
+        if (lockedOn) {
+            cycle++;
+            for (LivingEntity entity : entities) {
+                if (!targetList.contains(entity)) {
+                    targetList.add(entity);
+                    return entity;
+                }
+            }
+
+            if (cycle >= targetList.size()) {
+                cycle = 0;
+            }
+            return targetList.get(cycle);
+        } else {
+            if (!entities.isEmpty()) {
+                LivingEntity first = entities.get(0);
+                targetList.add(first);
+                return entities.get(0);
+            } else {
+                return null;
+            }
+        }
+    }
+
+    private static void tabToNextEnemy(Player player) {
+        if (target != findNearby(player)) {
+            player.playSound(ModSounds.TOCK.get(), 1.0F, 1.0F);
+        }
+        target = findNearby(player);
+    }
+
+    private static void leaveLockOn() {
+        target = null;
+        lockedOn = false;
+        targetList.clear();
+    }
+    /**
+     * To Here
+     * */
 
     @SubscribeEvent
     public static void FogEvents(ViewportEvent.RenderFog event){

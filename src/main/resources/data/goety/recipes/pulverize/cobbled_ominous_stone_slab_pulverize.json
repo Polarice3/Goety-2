@@ -1,0 +1,21 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "goety:ominous_stone_slab"
+    },
+    {
+      "item": "goety:polished_ominous_stone_slab"
+    },
+    {
+      "item": "goety:ominous_stone_brick_slab"
+    },
+    {
+      "item": "goety:ominous_stone_tile_slab"
+    },
+    {
+      "item": "goety:ominous_stone_pillar_slab"
+    }
+  ],
+  "block_result": "goety:cobbled_ominous_stone_slab"
+}

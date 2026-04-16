@@ -1,15 +1,22 @@
 {
-  "name": "寻位眼镜",
+  "name": "寻位目镜",
   "icon": "goety:targeting_monocle",
   "category": "goety:crafts/garment",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "尝试用法术攻击你的敌人可能是一种折磨，因为他们只需迈开一步就可以躲避你的魔法攻击。有了寻位眼镜，当你用魔杖施法时，你的准心会自动锁定在你正在瞄准的生物，这样你就可以更准确地用法术击中他们。"
+      "text": "试图用法术击中敌人可能是一件难事，因为他们只需一步就能避开你的魔法獠牙。戴上这个单片镜后，你可以按下“激活饰品”键锁定附近的敌人，从而更精准地用法术击中他们。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:targeting_monocle"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "在激活状态下按下“激活饰品”键会切换到另一个附近的敌人。蹲下时按下该键则会关闭目镜的功能。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:targeting_monocle": 1
+  }
 }

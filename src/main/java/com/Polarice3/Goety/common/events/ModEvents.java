@@ -1642,6 +1642,9 @@ public class ModEvents {
             if (itemStack.is(ModBlocks.WITCH_POLE.get().asItem())){
                 event.setBurnTime(200);
             }
+            if (itemStack.is(ModBlocks.WINDSWEPT_DEAD_BUSH.get().asItem())){
+                event.setBurnTime(100);
+            }
         }
     }
 }

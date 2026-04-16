@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "F": {
+      "item": "goety:rusty_iron_grate"
+    }
+  },
+  "pattern": [
+    "FFF",
+    "FFF"
+  ],
+  "result": {
+    "item": "goety:rusty_iron_bars",
+    "count": 16
+  }
+}

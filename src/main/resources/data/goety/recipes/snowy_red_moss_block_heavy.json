@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "lm",
+    "ml"
+  ],
+  "key":
+  {
+    "m":
+    {
+      "item": "goety:snowy_red_moss_block"
+    },
+    "l":
+    {
+      "item": "minecraft:snowball"
+    }
+  },
+  "result":
+  {
+    "item": "goety:snowy_red_moss_block_heavy",
+    "count": 2
+  }
+}

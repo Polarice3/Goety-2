@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "goety:cobbled_siltstone"
+    },
+    {
+      "item": "goety:red_moss_growth"
+    }
+  ],
+  "result": {
+    "item": "goety:mossy_cobbled_siltstone"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "particle": "goety:block/large_sienna_fern_bottom",
+    "cross": "goety:block/large_sienna_fern_bottom"
+  },
+  "render_type": "cutout"
+}

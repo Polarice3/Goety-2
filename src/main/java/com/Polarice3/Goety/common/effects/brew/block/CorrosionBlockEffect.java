@@ -18,6 +18,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
 
@@ -33,7 +34,7 @@ public class CorrosionBlockEffect extends BrewEffect {
                 BlockState state = serverLevel.getBlockState(blockPos);
                 if (!state.is(BlockTags.WITHER_IMMUNE)
                         && !state.hasBlockEntity()
-                        && state.canEntityDestroy(pLevel, blockPos, pSource)
+                        && this.canEntityBreak(serverLevel, state, blockPos, pSource)
                         && state.getDestroySpeed(serverLevel, blockPos) != -1.0F){
                     serverLevel.destroyBlock(blockPos, state.is(Tags.Blocks.OBSIDIAN));
                 }
@@ -42,6 +43,14 @@ public class CorrosionBlockEffect extends BrewEffect {
                 }
             }
             serverLevel.playSound(null, pPos, ModSounds.BREW_GAS_ALT.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
+        }
+    }
+
+    public boolean canEntityBreak(Level pLevel, BlockState state, BlockPos blockPos, LivingEntity pSource) {
+        if (pSource == null) {
+            return true;
+        } else {
+            return state.canEntityDestroy(pLevel, blockPos, pSource) && ForgeEventFactory.onEntityDestroyBlock(pSource, blockPos, state);
         }
     }
 

@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Acertar seus inimigos com feitiços pode ser difícil, pois eles podem desviar de suas Presas Mágicas com um simples passo. Com este monóculo, ao lançar um feitiço através de uma varinha ou cajado, sua cabeça irá automaticamente travar na criatura que você está mirando, permitindo acertá-la com mais precisão."
+      "text": "Tentar acertar seus inimigos com seus feitiços pode ser um pesadelo, pois eles podem desviar de suas Presas Mágicas com apenas um passo. Com este monóculo, você pode travar nos inimigos próximos pressionando a tecla 'Ativar Curio', permitindo que você os acerte com mais precisão com um feitiço."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:targeting_monocle"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Pressionar a tecla 'Ativar Curio' enquanto ativo mudará para outro inimigo próximo. Pressionar a tecla enquanto agachado desativará o monóculo."
     }
   ],
   "extra_recipe_mappings": {

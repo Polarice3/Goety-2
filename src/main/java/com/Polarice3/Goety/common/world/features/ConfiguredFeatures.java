@@ -35,6 +35,7 @@ public class ConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> WINDSWEPT_TREE_2 = FeatureUtils.createKey("goety:second_windswept_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PINE_TREE = FeatureUtils.createKey("goety:pine_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MEGA_PINE_TREE = FeatureUtils.createKey("goety:mega_pine_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> RED_MOSS_BONEMEAL = FeatureUtils.createKey("goety:red_moss_bonemeal");
     public static final ResourceKey<ConfiguredFeature<?, ?>> CHORUS_TREE = FeatureUtils.createKey("goety:chorus_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MEGA_CHORUS_TREE = FeatureUtils.createKey("goety:mega_chorus_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> CHORUS_BLOSSOM_TREE = FeatureUtils.createKey("goety:chorus_blossom_tree");

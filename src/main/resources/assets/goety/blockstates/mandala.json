@@ -1,0 +1,26 @@
+{
+  "multipart": [
+    { "when": { "facing": "up",    "part": 0 }, "apply": { "model": "goety:block/mandala" } },
+    { "when": { "facing": "down",  "part": 0 }, "apply": { "model": "goety:block/mandala", "x": 180 } },
+    { "when": { "facing": "north", "part": 0 }, "apply": { "model": "goety:block/mandala" } },
+    { "when": { "facing": "south", "part": 0 }, "apply": { "model": "goety:block/mandala", "y": 180 } },
+    { "when": { "facing": "east",  "part": 0 }, "apply": { "model": "goety:block/mandala", "y": 90 } },
+    { "when": { "facing": "west",  "part": 0 }, "apply": { "model": "goety:block/mandala", "y": 270 } },
+
+    { "when": { "part": 1  }, "apply": { "model": "goety:block/mandala" } },
+    { "when": { "part": 2  }, "apply": { "model": "goety:block/mandala" } },
+    { "when": { "part": 3  }, "apply": { "model": "goety:block/mandala" } },
+    { "when": { "part": 4  }, "apply": { "model": "goety:block/mandala" } },
+    { "when": { "part": 5  }, "apply": { "model": "goety:block/mandala" } },
+    { "when": { "part": 6  }, "apply": { "model": "goety:block/mandala" } },
+    { "when": { "part": 7  }, "apply": { "model": "goety:block/mandala" } },
+    { "when": { "part": 8  }, "apply": { "model": "goety:block/mandala" } },
+    { "when": { "part": 9  }, "apply": { "model": "goety:block/mandala" } },
+    { "when": { "part": 10 }, "apply": { "model": "goety:block/mandala" } },
+    { "when": { "part": 11 }, "apply": { "model": "goety:block/mandala" } },
+    { "when": { "part": 12 }, "apply": { "model": "goety:block/mandala" } },
+    { "when": { "part": 13 }, "apply": { "model": "goety:block/mandala" } },
+    { "when": { "part": 14 }, "apply": { "model": "goety:block/mandala" } },
+    { "when": { "part": 15 }, "apply": { "model": "goety:block/mandala" } }
+  ]
+}

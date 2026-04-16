@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "g ",
+    "cg"
+  ],
+  "key":
+  {
+    "g":
+    {
+      "item": "minecraft:snowball"
+    },
+    "c":
+    {
+      "item": "goety:frosty_carpet"
+    }
+  },
+  "result":
+  {
+    "item": "goety:frosty_carpet_inner_corner",
+    "count": 1
+  }
+}

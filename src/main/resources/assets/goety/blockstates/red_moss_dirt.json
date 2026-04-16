@@ -1,0 +1,24 @@
+{
+  "variants": {
+    "snowy=false": [
+      {
+        "model": "goety:block/red_moss_dirt"
+      },
+      {
+        "model": "goety:block/red_moss_dirt",
+        "y": 90
+      },
+      {
+        "model": "goety:block/red_moss_dirt",
+        "y": 180
+      },
+      {
+        "model": "goety:block/red_moss_dirt",
+        "y": 270
+      }
+    ],
+    "snowy=true": {
+      "model": "goety:block/snow_red_moss_dirt"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "goety:block/cobbled_ominous_stone_path"
+      },
+      {
+        "model": "goety:block/cobbled_ominous_stone_path",
+        "y": 90
+      },
+      {
+        "model": "goety:block/cobbled_ominous_stone_path",
+        "y": 180
+      },
+      {
+        "model": "goety:block/cobbled_ominous_stone_path",
+        "y": 270
+      }
+    ]
+  }
+}

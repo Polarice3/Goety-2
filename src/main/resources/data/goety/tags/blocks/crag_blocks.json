@@ -6,10 +6,18 @@
     "goety:cragrocks_stairs",
     "goety:cragrocks_wall",
     "goety:cragrocks_fence",
+    "goety:mossy_cragrocks_slight",
+    "goety:mossy_cragrocks_slight_slab",
+    "goety:mossy_cragrocks",
+    "goety:mossy_cragrocks_slab",
+    "goety:mossy_cragrocks_heavy",
+    "goety:mossy_cragrocks_heavy_slab",
     "goety:crag_tiles",
     "goety:crag_tile_slab",
     "goety:crag_tile_stairs",
     "goety:crag_tile_wall",
+    "goety:mossy_crag_tiles_slight",
+    "goety:mossy_crag_tiles",
     "goety:crag_bricks",
     "goety:crag_brick_slab",
     "goety:crag_brick_stairs",
@@ -22,6 +30,9 @@
     "goety:crag_pavement_slab",
     "goety:cracked_crag_pavement",
     "goety:cracked_crag_pavement_slab",
+    "goety:snowy_crag_pavement",
+    "goety:mossy_crag_pavement",
+    "goety:mossy_crag_pavement_heavy",
     "goety:silt_studded_crag_tiles"
   ]
 }

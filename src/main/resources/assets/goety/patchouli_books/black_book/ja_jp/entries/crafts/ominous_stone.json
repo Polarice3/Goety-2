@@ -1,0 +1,64 @@
+{
+  "name": "不吉な石",
+  "icon": "goety:chiseled_ominous_stone",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "これらのブロックはイリジャーによく馴染むようだ。もしかしたら、彼らが愛するダークオークの石材として捉えることができるのかもしれない。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/ominous_stone",
+      "recipe2": "goety:ominous/polished_ominous_stone"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/ominous_stone_bricks",
+      "recipe2": "goety:ominous/ominous_stone_tiles"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/ominous_stone_pavement",
+      "recipe2": "goety:ominous/ominous_stone_pillar"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/chiseled_ominous_stone",
+      "recipe2": "goety:ominous/chiseled_polished_ominous_stone"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/chiseled_ominous_stone_bricks",
+      "recipe2": "goety:mandala"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:cobbled_ominous_stone",
+      "title": "不吉な丸石",
+      "text": "不吉な石を壊すことで、その丸石を入手できます。通常の丸石と同様に、精錬することで不吉な石を入手できます。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:cobbled_ominous_stone_path",
+      "title": "不吉な丸石の道",
+      "text": "不吉な丸石にツルハシを使うと、シャベルで土の道を作るのと同じように、道を作ることができます。"
+    },
+    {
+      "type": "patchouli:stonecutting",
+      "recipe": "goety:wall_shrine",
+      "text": "ウォールシュラインはブロックの側面に取り付けることができ、装飾として機能します。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/ominous_statue",
+      "recipe2": "goety:ominous/ominous_brazier_statue"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:ominous_statue",
+      "title": "不吉な像",
+      "text": "これらの像は、古代のイリジャーの戦士を模して作られています。火鉢型の像は、右クリックすることで火をつけたり消したりできます。"
+    }
+  ]
+}

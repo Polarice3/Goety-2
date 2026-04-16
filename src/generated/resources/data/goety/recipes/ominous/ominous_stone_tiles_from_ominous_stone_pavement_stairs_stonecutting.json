@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "goety:ominous_stone_tiles"
+  },
+  "result": "goety:ominous_stone_pavement_stairs"
+}

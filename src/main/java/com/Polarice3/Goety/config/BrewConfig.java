@@ -111,6 +111,7 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> StormsWrathCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> SunAllergyCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> SwirlingCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VoidTouchedCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> WildRageCapacity;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> BatBurstCost;
@@ -479,6 +480,8 @@ public class BrewConfig {
                 .defineInRange("sunAllergyCapacity", 4, 0, Integer.MAX_VALUE);
         SwirlingCapacity = BUILDER.comment("Swirling Extra Capacity, Default: 2")
                 .defineInRange("swirlingCapacity", 2, 0, Integer.MAX_VALUE);
+        VoidTouchedCapacity = BUILDER.comment("Void Touched Extra Capacity, Default: 4")
+                .defineInRange("voidTouchedCapacity", 4, 0, Integer.MAX_VALUE);
         WildRageCapacity = BUILDER.comment("Wild Rage Extra Capacity, Default: 2")
                 .defineInRange("wildRageCapacity", 2, 0, Integer.MAX_VALUE);
         BUILDER.pop();

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "S#S",
+    "#S#",
+    "S#S"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "goety:ominous_stone"
+    },
+    "S":
+    {
+      "item": "goety:pale_steel_ingot"
+    }
+  },
+  "result":
+  {
+    "item": "goety:mandala",
+    "count": 1
+  }
+}

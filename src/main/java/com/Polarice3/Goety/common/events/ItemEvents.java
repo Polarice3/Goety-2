@@ -22,7 +22,6 @@ import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -59,6 +58,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -348,7 +348,7 @@ public class ItemEvents {
         }
     }
 
-    @SubscribeEvent
+    /*@SubscribeEvent
     public static void usingItemEvents(LivingEntityUseItemEvent.Tick event){
         if (!event.getEntity().level.isClientSide) {
             if (event.getItem().getItem() instanceof IWand && CuriosFinder.hasCurio(event.getEntity(), ModItems.TARGETING_MONOCLE.get())) {
@@ -358,7 +358,7 @@ public class ItemEvents {
                 }
             }
         }
-    }
+    }*/
 
     @SubscribeEvent
     public static void PlayerInteractBlockEvents(PlayerInteractEvent.RightClickBlock event){
@@ -403,6 +403,24 @@ public class ItemEvents {
                 level.gameEvent(null, GameEvent.FLUID_PLACE, blockPos);
                 level.setBlockAndUpdate(blockPos, ModBlocks.END_SOIL.get().defaultBlockState());
                 event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide));
+            }
+        } else if (itemStack.canPerformAction(ToolActions.PICKAXE_DIG)) {
+            if (blockState.is(ModBlocks.COBBLED_OMINOUS_STONE_BLOCK.get())) {
+                if (blockHitResult.getDirection() != Direction.DOWN) {
+                    if (level.isEmptyBlock(blockPos.above())) {
+                        BlockState blockstate2 = ModBlocks.COBBLED_OMINOUS_STONE_PATH_BLOCK.get().defaultBlockState();
+                        level.playSound(player, blockPos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        if (!level.isClientSide) {
+                            level.setBlock(blockPos, blockstate2, 11);
+                            level.gameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Context.of(player, blockstate2));
+                            if (player != null) {
+                                ItemHelper.hurtAndBreak(itemStack, 1, player);
+                                player.swing(event.getHand());
+                            }
+                        }
+                        event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide));
+                    }
+                }
             }
         }
     }
