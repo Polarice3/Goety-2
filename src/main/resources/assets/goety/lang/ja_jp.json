@@ -3453,8 +3453,8 @@
   "block.goety.snowy_dark_dirt": "雪の闇の土",
   "block.goety.detritus": "デトリタス",
   "block.goety.detritus_dust": "デトリタスダスト",
-  "block.goety.soiled_oak_planks": "汚れたオークの板材",
-  "block.goety.soiled_oak_planks_heavy": "かなり汚れたオークの板材",
+  "block.goety.soiled_spruce_planks": "汚れたトウヒの板材",
+  "block.goety.soiled_spruce_planks_heavy": "かなり汚れたトウヒの板材",
   "block.goety.ominous_stone_brazier": "不吉な石の火鉢",
   "block.goety.ominous_stone_soul_brazier": "不吉な石の魂の火鉢",
   "block.goety.wall_shrine": "ウォールシュライン",
@@ -3493,5 +3493,12 @@
   "block.goety.ominous_stone_pavement_slab": "不吉な石畳のハーフブロック",
   "block.goety.ominous_stone_pavement_stairs": "不吉な石畳の階段",
   "block.goety.dirty_ominous_stone_pavement": "汚い不吉な石畳",
-  "block.goety.dirty_ominous_stone_pavement_heavy": "かなり汚い不吉な石畳"
+  "block.goety.dirty_ominous_stone_pavement_heavy": "かなり汚い不吉な石畳",
+  "block.goety.dirty_siltstone": "汚いシルトストーン",
+  "block.goety.dirty_siltstone_heavy": "かなり汚いシルトストーン",
+  "block.goety.snowy_chiseled_siltstone": "雪の模様入りのシルトストーン",
+  "block.goety.dirty_chiseled_siltstone": "汚い模様入りのシルトストーン",
+  "block.goety.red_siltstone_pillar": "レッドシルトストーンの柱",
+  "block.goety.blue_siltstone_pillar": "青いシルトストーンの柱",
+  "block.goety.green_siltstone_pillar": "緑色のシルトストーンの柱"
 }

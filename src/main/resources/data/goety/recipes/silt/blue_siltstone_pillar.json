@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "#S",
+    "S#"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "goety:siltstone_pillar"
+    },
+    "S":
+    {
+      "item": "minecraft:blue_dye"
+    }
+  },
+  "result":
+  {
+    "item": "goety:blue_siltstone_pillar",
+    "count": 2
+  }
+}

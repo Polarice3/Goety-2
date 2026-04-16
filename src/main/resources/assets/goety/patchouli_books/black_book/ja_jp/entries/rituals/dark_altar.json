@@ -14,6 +14,57 @@
       "recipe2": "goety:pedestal"
     },
     {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_altar_stone",
+      "recipe2": "goety:pedestal_stone"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_altar_deepslate",
+      "recipe2": "goety:pedestal_deepslate"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_altar_ominous_stone",
+      "recipe2": "goety:pedestal_ominous_stone"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_altar_nether_brick",
+      "recipe2": "goety:pedestal_nether_brick"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_altar_blackstone",
+      "recipe2": "goety:pedestal_blackstone"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_altar_end_stone",
+      "recipe2": "goety:pedestal_end_stone"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_altar_highrock",
+      "recipe2": "goety:pedestal_highrock"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_altar_marble",
+      "recipe2": "goety:pedestal_marble"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_altar_prismarine",
+      "recipe2": "goety:pedestal_prismarine"
+    },
+    {
+      "type": "patchouli:crafting",
+      "advancement": "goety:goety/read_haunting_scroll",
+      "recipe": "goety:dark_altar_crypt_stone",
+      "recipe2": "goety:pedestal_crypt_stone"
+    },
+    {
       "type": "patchouli:text",
       "text": "闇の祭壇を使用すると、祭壇の周囲のブロックやアイテムに応じて、特定のアイテムを作成したり、クリーチャーを召喚したりできます。 他の魔法の流派とは異なり、これらのブロックは儀式が機能するために特定の順序で配置する必要があります。 重要なのは、一定量の特定のブロックが祭壇の $(l)8 ブロック半径 $() 内にあるということです。$() 空の手で闇の祭壇を Shift キーで右クリックすると、影響範囲が表示されます。 もう一度やると非表示になります。"
     },

@@ -3506,8 +3506,8 @@
   "block.goety.snowy_dark_dirt": "覆雪黑暗泥土",
   "block.goety.detritus": "岩屑",
   "block.goety.detritus_dust": "岩屑尘",
-  "block.goety.soiled_oak_planks": "沾染橡木木板",
-  "block.goety.soiled_oak_planks_heavy": "重度沾染橡木木板",
+  "block.goety.soiled_spruce_planks": "沾染云杉木板",
+  "block.goety.soiled_spruce_planks_heavy": "重度沾染云杉木板",
   "block.goety.ominous_stone_brazier": "不祥石火盆",
   "block.goety.ominous_stone_soul_brazier": "不祥石灵魂火盆",
   "block.goety.wall_shrine": "墙壁神龛",
@@ -3546,5 +3546,12 @@
   "block.goety.ominous_stone_pavement_slab": "不祥铺路石台阶",
   "block.goety.ominous_stone_pavement_stairs": "不祥铺路石楼梯",
   "block.goety.dirty_ominous_stone_pavement": "污浊不祥铺路石",
-  "block.goety.dirty_ominous_stone_pavement_heavy": "重度污浊的不祥铺路石"
+  "block.goety.dirty_ominous_stone_pavement_heavy": "重度污浊的不祥铺路石",
+  "block.goety.dirty_siltstone": "污浊粉砂岩",
+  "block.goety.dirty_siltstone_heavy": "重度污浊的粉砂岩",
+  "block.goety.snowy_chiseled_siltstone": "覆雪雕纹粉砂岩",
+  "block.goety.dirty_chiseled_siltstone": "污浊雕纹粉砂岩",
+  "block.goety.red_siltstone_pillar": "红色粉砂岩柱",
+  "block.goety.blue_siltstone_pillar": "蓝色粉砂岩柱",
+  "block.goety.green_siltstone_pillar": "绿色粉砂岩柱"
 }

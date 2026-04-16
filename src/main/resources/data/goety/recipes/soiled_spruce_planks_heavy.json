@@ -9,7 +9,7 @@
   {
     "m":
     {
-      "item": "minecraft:oak_planks"
+      "item": "goety:soiled_spruce_planks"
     },
     "l":
     {
@@ -18,7 +18,7 @@
   },
   "result":
   {
-    "item": "goety:soiled_oak_planks",
+    "item": "goety:soiled_spruce_planks_heavy",
     "count": 2
   }
 }

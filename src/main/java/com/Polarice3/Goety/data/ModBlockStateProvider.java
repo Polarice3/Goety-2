@@ -48,8 +48,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(ModBlocks.SNOWY_DARK_DIRT.get());
         simpleBlockWithItem(ModBlocks.DETRITUS.get());
 
-        simpleBlockWithItem(ModBlocks.SOILED_OAK_PLANKS.get());
-        simpleBlockWithItem(ModBlocks.SOILED_OAK_PLANKS_HEAVY.get());
+        simpleBlockWithItem(ModBlocks.SOILED_SPRUCE_PLANKS.get());
+        simpleBlockWithItem(ModBlocks.SOILED_SPRUCE_PLANKS_HEAVY.get());
 
         simpleBlockWithItem(ModBlocks.CRAGROCKS_BLOCK.get());
         simpleBlockWithItem(ModBlocks.MOSSY_CRAGROCKS_SLIGHT_BLOCK.get());
@@ -198,6 +198,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
         logBlockWithItem((RotatedPillarBlock) ModBlocks.STRIPPED_WINDSWEPT_LOG.get());
         logBlockWithItem((RotatedPillarBlock) ModBlocks.STRIPPED_PINE_LOG.get());
 
+        logBlockWithItem((RotatedPillarBlock) ModBlocks.RED_SILTSTONE_PILLAR_BLOCK.get());
+        logBlockWithItem((RotatedPillarBlock) ModBlocks.BLUE_SILTSTONE_PILLAR_BLOCK.get());
+        logBlockWithItem((RotatedPillarBlock) ModBlocks.GREEN_SILTSTONE_PILLAR_BLOCK.get());
         logBlockWithItem((RotatedPillarBlock) ModBlocks.OMINOUS_STONE_PILLAR_BLOCK.get());
 
         logBlockWithItem((RotatedPillarBlock) ModBlocks.END_BASALT.get());

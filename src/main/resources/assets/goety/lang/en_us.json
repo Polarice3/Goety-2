@@ -1293,6 +1293,8 @@
   "block.goety.siltstone_wall": "Siltstone Wall",
   "block.goety.snowy_siltstone_slight": "Slight Snowy Siltstone",
   "block.goety.snowy_siltstone": "Snowy Siltstone",
+  "block.goety.dirty_siltstone": "Dirty Siltstone",
+  "block.goety.dirty_siltstone_heavy": "Heavy Dirty Siltstone",
   "block.goety.smooth_siltstone": "Smooth Siltstone",
   "block.goety.smooth_siltstone_slab": "Smooth Siltstone Slab",
   "block.goety.smooth_siltstone_stairs": "Smooth Siltstone Stairs",
@@ -1328,8 +1330,13 @@
   "block.goety.siltstone_pavement_stairs": "Siltstone Pavement Stairs",
   "block.goety.siltstone_pavement_wall": "Siltstone Pavement Wall",
   "block.goety.chiseled_siltstone": "Chiseled Siltstone",
+  "block.goety.snowy_chiseled_siltstone": "Snowy Chiseled Siltstone",
+  "block.goety.dirty_chiseled_siltstone": "Dirty Chiseled Siltstone",
   "block.goety.chiseled_siltstone_bricks": "Chiseled Siltstone Bricks",
   "block.goety.siltstone_pillar": "Siltstone Pillar",
+  "block.goety.red_siltstone_pillar": "Red Siltstone Pillar",
+  "block.goety.blue_siltstone_pillar": "Blue Siltstone Pillar",
+  "block.goety.green_siltstone_pillar": "Green Siltstone Pillar",
   "block.goety.snowy_siltstone_pillar": "Snowy Siltstone Pillar",
 
   "block.goety.red_moss_siltstone": "Red Moss Siltstone",
@@ -1413,8 +1420,8 @@
   "block.goety.detritus": "Detritus",
   "block.goety.detritus_dust": "Detritus Dust",
 
-  "block.goety.soiled_oak_planks": "Soiled Oak Planks",
-  "block.goety.soiled_oak_planks_heavy": "Heavy Soiled Oak Planks",
+  "block.goety.soiled_spruce_planks": "Soiled Spruce Planks",
+  "block.goety.soiled_spruce_planks_heavy": "Heavy Soiled Spruce Planks",
 
   "block.goety.shade_brazier": "Shade Brazier",
   "block.goety.shade_soul_brazier": "Shade Soul Brazier",

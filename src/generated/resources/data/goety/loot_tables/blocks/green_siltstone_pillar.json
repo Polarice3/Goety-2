@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "goety:soiled_oak_planks_heavy"
+          "name": "goety:green_siltstone_pillar"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "goety:blocks/soiled_oak_planks_heavy"
+  "random_sequence": "goety:blocks/green_siltstone_pillar"
 }

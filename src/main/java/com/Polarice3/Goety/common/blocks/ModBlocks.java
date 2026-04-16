@@ -299,10 +299,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> DETRITUS_DUST = register("detritus_dust", () ->
             new LayerBlock(BlockBehaviour.Properties.copy(DETRITUS.get()), true), true, LootTableType.EMPTY);
 
-    public static final RegistryObject<Block> SOILED_OAK_PLANKS = register("soiled_oak_planks", () ->
-            new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
-    public static final RegistryObject<Block> SOILED_OAK_PLANKS_HEAVY = register("soiled_oak_planks_heavy", () ->
-            new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<Block> SOILED_SPRUCE_PLANKS = register("soiled_spruce_planks", () ->
+            new Block(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
+    public static final RegistryObject<Block> SOILED_SPRUCE_PLANKS_HEAVY = register("soiled_spruce_planks_heavy", () ->
+            new Block(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 
     public static final RegistryObject<Block> VOID_BLOCK = register("void_block", VoidBlock::new);
     public static final RegistryObject<Block> VOID_MINOR_SPREAD = register("void_minor_spread", VoidSpreadBlock::new);
@@ -854,6 +854,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> SILTSTONE_BLOCK = register("siltstone", SiltstoneBlock::new);
     public static final RegistryObject<Block> SNOWY_SILTSTONE_SLIGHT_BLOCK = register("snowy_siltstone_slight", SiltstoneBlock::new);
     public static final RegistryObject<Block> SNOWY_SILTSTONE_BLOCK = register("snowy_siltstone", SiltstoneBlock::new);
+    public static final RegistryObject<Block> DIRTY_SILTSTONE_BLOCK = register("dirty_siltstone", SiltstoneBlock::new);
+    public static final RegistryObject<Block> DIRTY_SILTSTONE_BLOCK_HEAVY = register("dirty_siltstone_heavy", SiltstoneBlock::new);
     public static final RegistryObject<Block> SMOOTH_SILTSTONE_BLOCK = register("smooth_siltstone", SiltstoneBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> COBBLED_SILTSTONE_BLOCK = register("cobbled_siltstone", SiltstoneBlock::new);
     public static final RegistryObject<Block> SNOWY_COBBLED_SILTSTONE_BLOCK = register("snowy_cobbled_siltstone", SiltstoneBlock::new);
@@ -865,9 +867,14 @@ public class ModBlocks {
     public static final RegistryObject<Block> SILTSTONE_TILES_BLOCK = register("siltstone_tiles", SiltstoneBlock::new);
     public static final RegistryObject<Block> SILTSTONE_PAVEMENT_BLOCK = register("siltstone_pavement", SiltstoneBlock::new);
     public static final RegistryObject<Block> CHISELED_SILTSTONE_BLOCK = register("chiseled_siltstone", SiltstoneBlock::new);
+    public static final RegistryObject<Block> SNOWY_CHISELED_SILTSTONE_BLOCK = register("snowy_chiseled_siltstone", SiltstoneBlock::new);
+    public static final RegistryObject<Block> DIRTY_CHISELED_SILTSTONE_BLOCK = register("dirty_chiseled_siltstone", SiltstoneBlock::new);
     public static final RegistryObject<Block> CHISELED_SILTSTONE_BRICKS_BLOCK = register("chiseled_siltstone_bricks", SiltstoneBlock::new);
     public static final RegistryObject<Block> SILTSTONE_PILLAR_BLOCK = register("siltstone_pillar", () -> pillar(SiltstoneProperties()));
     public static final RegistryObject<Block> SNOWY_SILTSTONE_PILLAR_BLOCK = register("snowy_siltstone_pillar", () -> pillar(SiltstoneProperties()));
+    public static final RegistryObject<Block> RED_SILTSTONE_PILLAR_BLOCK = register("red_siltstone_pillar", () -> pillar(SiltstoneProperties().mapColor(MapColor.COLOR_RED)));
+    public static final RegistryObject<Block> BLUE_SILTSTONE_PILLAR_BLOCK = register("blue_siltstone_pillar", () -> pillar(SiltstoneProperties().mapColor(MapColor.COLOR_CYAN)));
+    public static final RegistryObject<Block> GREEN_SILTSTONE_PILLAR_BLOCK = register("green_siltstone_pillar", () -> pillar(SiltstoneProperties().mapColor(MapColor.COLOR_LIGHT_GREEN)));
 
     //Red Moss
     public static final RegistryObject<Block> RED_MOSS_SILTSTONE = register("red_moss_siltstone", () -> new SnowyRedMossBlock(SiltstoneProperties().mapColor(MapColor.COLOR_RED).randomTicks(), COBBLED_SILTSTONE_BLOCK.get().defaultBlockState()));

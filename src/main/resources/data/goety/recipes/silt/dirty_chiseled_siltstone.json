@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "mmm",
+    "mlm",
+    "mmm"
+  ],
+  "key":
+  {
+    "m":
+    {
+      "item": "goety:chiseled_siltstone"
+    },
+    "l":
+    {
+      "item": "minecraft:dirt"
+    }
+  },
+  "result":
+  {
+    "item": "goety:dirty_chiseled_siltstone",
+    "count": 8
+  }
+}

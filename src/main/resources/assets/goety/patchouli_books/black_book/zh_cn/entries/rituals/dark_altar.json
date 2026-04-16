@@ -11,11 +11,6 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:dark_altar",
-      "recipe2": "goety:pedestal"
-    },
-    {
-      "type": "patchouli:crafting",
       "recipe": "goety:dark_altar_stone",
       "recipe2": "goety:pedestal_stone"
     },
@@ -23,6 +18,11 @@
       "type": "patchouli:crafting",
       "recipe": "goety:dark_altar_deepslate",
       "recipe2": "goety:pedestal_deepslate"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_altar_ominous_stone",
+      "recipe2": "goety:pedestal_ominous_stone"
     },
     {
       "type": "patchouli:crafting",
@@ -48,6 +48,17 @@
       "type": "patchouli:crafting",
       "recipe": "goety:dark_altar_marble",
       "recipe2": "goety:pedestal_marble"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_altar_prismarine",
+      "recipe2": "goety:pedestal_prismarine"
+    },
+    {
+      "type": "patchouli:crafting",
+      "advancement": "goety:goety/read_haunting_scroll",
+      "recipe": "goety:dark_altar_crypt_stone",
+      "recipe2": "goety:pedestal_crypt_stone"
     },
     {
       "type": "patchouli:text",

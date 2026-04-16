@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "goety:soiled_oak_planks"
+          "name": "goety:soiled_spruce_planks"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "goety:blocks/soiled_oak_planks"
+  "random_sequence": "goety:blocks/soiled_spruce_planks"
 }

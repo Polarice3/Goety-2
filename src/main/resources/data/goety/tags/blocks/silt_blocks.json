@@ -7,6 +7,8 @@
     "goety:siltstone_wall",
     "goety:snowy_siltstone_slight",
     "goety:snowy_siltstone",
+    "goety:dirty_siltstone",
+    "goety:dirty_siltstone_heavy",
     "goety:smooth_siltstone",
     "goety:smooth_siltstone_slab",
     "goety:smooth_siltstone_stairs",
@@ -42,8 +44,13 @@
     "goety:siltstone_pavement_stairs",
     "goety:siltstone_pavement_wall",
     "goety:chiseled_siltstone",
+    "goety:snowy_chiseled_siltstone",
+    "goety:dirty_chiseled_siltstone",
     "goety:chiseled_siltstone_bricks",
     "goety:siltstone_pillar",
+    "goety:red_siltstone_pillar",
+    "goety:blue_siltstone_pillar",
+    "goety:green_siltstone_pillar",
     "goety:red_moss_siltstone"
   ]
 }

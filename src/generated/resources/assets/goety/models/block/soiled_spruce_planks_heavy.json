@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "goety:block/soiled_oak_planks_heavy"
+    "all": "goety:block/soiled_spruce_planks_heavy"
   }
 }

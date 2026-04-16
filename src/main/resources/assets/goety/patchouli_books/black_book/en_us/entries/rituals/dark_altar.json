@@ -26,6 +26,11 @@
     },
     {
       "type": "patchouli:crafting",
+      "recipe": "goety:dark_altar_ominous_stone",
+      "recipe2": "goety:pedestal_ominous_stone"
+    },
+    {
+      "type": "patchouli:crafting",
       "recipe": "goety:dark_altar_nether_brick",
       "recipe2": "goety:pedestal_nether_brick"
     },

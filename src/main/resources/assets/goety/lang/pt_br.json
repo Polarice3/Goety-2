@@ -3590,8 +3590,8 @@
   "block.goety.snowy_dark_dirt": "Terra Escura Nevada",
   "block.goety.detritus": "Detrito",
   "block.goety.detritus_dust": "Poeira de Detrito",
-  "block.goety.soiled_oak_planks": "Tábuas de Carvalho Ensuradas",
-  "block.goety.soiled_oak_planks_heavy": "Tábuas de Carvalho Altamente Ensuradas",
+  "block.goety.soiled_spruce_planks": "Tábuas de Abeto Ensuradas",
+  "block.goety.soiled_spruce_planks_heavy": "Tábuas de Abeto Altamente Ensuradas",
   "block.goety.ominous_stone_brazier": "Braseiro de Pedra Sinistra",
   "block.goety.ominous_stone_soul_brazier": "Braseiro de Alma de Pedra Sinistra",
   "block.goety.wall_shrine": "Santuário de Parede",
@@ -3629,5 +3629,13 @@
   "block.goety.ominous_stone_pavement_slab": "Laje de Pavimento de Pedra Sinistra",
   "block.goety.ominous_stone_pavement_stairs": "Escadas de Pavimento de Pedra Sinistra",
   "block.goety.dirty_ominous_stone_pavement": "Pavimento de Pedra Sinistra Sujo",
-  "block.goety.dirty_ominous_stone_pavement_heavy": "Pavimento de Pedra Sinistra Altamente Sujo"
+  "block.goety.dirty_ominous_stone_pavement_heavy": "Pavimento de Pedra Sinistra Altamente Sujo",
+  "block.goety.dark_metal_block": "Block of Dark Alloy",
+  "block.goety.dirty_siltstone": "Silte Pedra Sujo",
+  "block.goety.dirty_siltstone_heavy": "Silte Pedra Altamente Sujo",
+  "block.goety.snowy_chiseled_siltstone": "Silte Pedra Cinzelado Nevado",
+  "block.goety.dirty_chiseled_siltstone": "Silte Pedra Cinzelado Sujo",
+  "block.goety.red_siltstone_pillar": "Pilar de Silte Pedra Vermelho",
+  "block.goety.blue_siltstone_pillar": "Pilar de Silte Pedra Azul",
+  "block.goety.green_siltstone_pillar": "Pilar de Silte Pedra Verde"
 }

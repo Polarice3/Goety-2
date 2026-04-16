@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "#S",
+    "S#"
+  ],
+  "key":
+  {
+    "S":
+    {
+      "item": "goety:siltstone"
+    },
+    "#":
+    {
+      "item": "minecraft:dirt"
+    }
+  },
+  "result":
+  {
+    "item": "goety:dirty_siltstone",
+    "count": 4
+  }
+}

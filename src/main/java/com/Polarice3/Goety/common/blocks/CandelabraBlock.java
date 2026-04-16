@@ -68,7 +68,7 @@ public class CandelabraBlock extends Block implements SimpleWaterloggedBlock {
     public static final VoxelShape SHAPE_LOWER = Shapes.or(SHAPE_BASE, SHAPE_POLE_LOWER);
     public static final VoxelShape SHAPE_CANDLES = Shapes.or(SHAPE_CANDLE_1, SHAPE_CANDLE_2, SHAPE_CANDLE_3, SHAPE_CANDLE_4, SHAPE_CANDLE_5);
     public static final VoxelShape SHAPE_UPPER = Shapes.or(SHAPE_POLE_UPPER, SHAPE_UPPER_BASE, SHAPE_CANDLES);
-    public List<Vec3> offset = ImmutableList.of(new Vec3(0.5D, 1.0D, 0.5D), new Vec3(2 / 16.0D, 14 / 16.0D, 2 / 16.0D), new Vec3(12 / 16.0D, 14 / 16.0D, 2 / 16.0D), new Vec3(12 / 16.0D, 14 / 16.0D, 12 / 16.0D), new Vec3(2 / 16.0D, 14 / 16.0D, 12 / 16.0D));
+    public List<Vec3> offset = ImmutableList.of(new Vec3(0.5D, 1.0D, 0.5D), new Vec3(3 / 16.0D, 14 / 16.0D, 3 / 16.0D), new Vec3(13 / 16.0D, 14 / 16.0D, 3 / 16.0D), new Vec3(13 / 16.0D, 14 / 16.0D, 13 / 16.0D), new Vec3(3 / 16.0D, 14 / 16.0D, 13 / 16.0D));
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -214,7 +214,7 @@ public class CandelabraBlock extends Block implements SimpleWaterloggedBlock {
     public void animateTick(BlockState p_220697_, Level p_220698_, BlockPos p_220699_, RandomSource p_220700_) {
         if (p_220697_.getValue(LIT) && p_220697_.getValue(HALF) == DoubleBlockHalf.UPPER) {
             this.getParticleOffsets().forEach((p_220695_) -> {
-                this.addParticlesAndSound(p_220698_, p_220695_.add((double)p_220699_.getX(), (double)p_220699_.getY(), (double)p_220699_.getZ()), p_220700_);
+                this.addParticlesAndSound(p_220698_, p_220695_.add(p_220699_.getX(), p_220699_.getY(), p_220699_.getZ()), p_220700_);
             });
         }
     }
@@ -223,7 +223,7 @@ public class CandelabraBlock extends Block implements SimpleWaterloggedBlock {
         float f = p_220690_.nextFloat();
         if (f < 0.3F) {
             if (f < 0.17F) {
-                p_220688_.playLocalSound(p_220689_.x + 0.5D, p_220689_.y + 0.5D, p_220689_.z + 0.5D, SoundEvents.CANDLE_AMBIENT, SoundSource.BLOCKS, 1.0F + p_220690_.nextFloat(), p_220690_.nextFloat() * 0.7F + 0.3F, false);
+                p_220688_.playLocalSound(p_220689_.x, p_220689_.y, p_220689_.z, SoundEvents.CANDLE_AMBIENT, SoundSource.BLOCKS, 1.0F + p_220690_.nextFloat(), p_220690_.nextFloat() * 0.7F + 0.3F, false);
             }
         }
 
