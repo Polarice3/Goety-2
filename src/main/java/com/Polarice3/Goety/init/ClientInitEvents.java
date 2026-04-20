@@ -762,6 +762,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.VINE_HOOK.get(), VineHookRenderer::new);
         event.registerEntityRenderer(ModEntityType.SURVEY_EYE.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.CAMERA_SHAKE.get(), TrapRenderer::new);
+        event.registerEntityRenderer(ModEntityType.SEAT.get(), TrapRenderer::new);
     }
 
     @SubscribeEvent

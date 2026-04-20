@@ -1,7 +1,9 @@
 package com.Polarice3.Goety.api.entities.ally;
 
+import com.Polarice3.Goety.api.blocks.ISeat;
 import com.Polarice3.Goety.api.entities.IGolem;
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.common.entities.vehicle.SeatEntity;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModTags;
@@ -25,6 +27,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -372,8 +378,39 @@ public interface IServant extends IOwned {
                                 owned.getNavigation().moveTo(this.getBoundPos().getX(), this.getBoundPos().getY(), this.getBoundPos().getZ(), 1.0F);
                             }
                         }
-                    } else if (!this.isCommanded() && owned.distanceToSqr(this.vec3BoundPos()) > Mth.square(GUARDING_RANGE)){
-                        owned.getNavigation().moveTo(this.getBoundPos().getX(), this.getBoundPos().getY(), this.getBoundPos().getZ(), 1.0F);
+                    } else if (!this.isCommanded()) {
+                        boolean noSeat = true;
+                        if (ISeat.canBePickedUp(owned) && !(this.getTrueOwner() instanceof IServant)) {
+                            BlockState blockState = owned.level.getBlockState(this.getBoundPos());
+                            if (blockState.getBlock() instanceof ISeat seat) {
+                                if (!ISeat.isSeatOccupied(owned.level, this.getBoundPos())) {
+                                    if (!owned.isPassenger() && owned.getTarget() == null) {
+                                        noSeat = false;
+                                        AABB aabb = new AABB(this.getBoundPos());
+                                        if (owned.getBoundingBox().inflate(0.5F).intersects(aabb)) {
+                                            BlockPos blockPos = this.getBoundPos();
+                                            if (blockState.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF)) {
+                                                if (blockState.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
+                                                    blockPos = this.getBoundPos().below();
+                                                }
+                                            }
+                                            seat.placeSeat(owned.level, blockPos, owned);
+                                        } else {
+                                            owned.getNavigation().moveTo(this.getBoundPos().getX(), this.getBoundPos().getY(), this.getBoundPos().getZ(), this.getCommandSpeed());
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (owned.getVehicle() instanceof SeatEntity) {
+                                    owned.stopRiding();
+                                }
+                            }
+                        }
+                        if (noSeat) {
+                            if (owned.distanceToSqr(this.vec3BoundPos()) > Mth.square(GUARDING_RANGE)) {
+                                owned.getNavigation().moveTo(this.getBoundPos().getX(), this.getBoundPos().getY(), this.getBoundPos().getZ(), 1.0F);
+                            }
+                        }
                     }
                 } else if (!this.isCommanded() && this.getPriorityPos() != null && owned.getTarget() == null) {
                     owned.getNavigation().moveTo(this.getPriorityPos().getX(), this.getPriorityPos().getY(), this.getPriorityPos().getZ(), 1.0F);
@@ -558,12 +595,12 @@ public interface IServant extends IOwned {
                         owned.getNavigation().moveTo(this.getCommandPos().getX() + 0.5D, this.getCommandPos().getY(), this.getCommandPos().getZ() + 0.5D, this.getCommandSpeed());
                     }
 
+                    AABB aabb = new AABB(this.getCommandPos());
+                    Entity entity = owned.getControlledVehicle() != null ? owned.getControlledVehicle() : owned;
                     if (owned.getNavigation().isStuck() || this.getCommandTick() <= 0){
                         this.setCommandPosEntity(null);
                         this.setCommandPos(null);
-                    } else if (this.getCommandPos().closerToCenterThan(
-                            owned.getControlledVehicle() != null ? owned.getControlledVehicle().position() : owned.position(),
-                            owned.getControlledVehicle() != null ? owned.getControlledVehicle().getBbWidth() + 1.0D : owned.getBbWidth() + 1.0D)){
+                    } else if (entity.getBoundingBox().inflate(0.5F).intersects(aabb)){
                         if (this.getCommandPosEntity() != null &&
                                 owned.getBoundingBox().inflate(1.25D).intersects(this.getCommandPosEntity().getBoundingBox())){
                             if (this.isAbleToRide(this.getCommandPosEntity())) {
@@ -577,6 +614,18 @@ public interface IServant extends IOwned {
                         }
                         if (this.isGuardingArea()){
                             this.setBoundPos(this.getCommandPos());
+                        }
+                        if (owned.level.getBlockState(this.getCommandPos()).getBlock() instanceof ISeat seat) {
+                            BlockState blockState = owned.level.getBlockState(this.getCommandPos());
+                            if (!owned.isPassenger() && ISeat.canBePickedUp(owned) && !ISeat.isSeatOccupied(owned.level, this.getCommandPos())) {
+                                BlockPos blockPos = this.getCommandPos();
+                                if (blockState.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF)) {
+                                    if (blockState.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
+                                        blockPos = this.getCommandPos().below();
+                                    }
+                                }
+                                seat.placeSeat(owned.level, blockPos, owned);
+                            }
                         }
                         owned.getNavigation().stop();
                         owned.getMoveControl().strafe(0.0F, 0.0F);

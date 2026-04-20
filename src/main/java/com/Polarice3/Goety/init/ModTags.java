@@ -166,6 +166,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> TESSERACT_SMALL = tag("tesseract_small");
         public static final TagKey<EntityType<?>> TESSERACT_MEDIUM = tag("tesseract_medium");
         public static final TagKey<EntityType<?>> TESSERACT_LARGE = tag("tesseract_large");
+        public static final TagKey<EntityType<?>> NO_SEATING = tag("no_seating");
         public static final TagKey<EntityType<?>> HOLE_IMMUNE = tag("hole_immune");
         public static final TagKey<EntityType<?>> VOID_TOUCHED_IMMUNE = tag("void_touched_immune");
         public static final TagKey<EntityType<?>> WANTING_ENTITIES = tag("wanting_entities");

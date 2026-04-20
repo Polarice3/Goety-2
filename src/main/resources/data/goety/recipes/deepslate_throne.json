@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "#$#",
+    "###"
+  ],
+  "key": {
+    "$": {
+      "tag": "goety:slab_deepslate_craft"
+    },
+    "#": {
+      "tag": "goety:full_deepslate_craft"
+    }
+  },
+  "result": {
+    "item": "goety:deepslate_throne"
+  }
+}

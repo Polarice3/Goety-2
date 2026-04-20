@@ -105,6 +105,9 @@ public class GoetyEffects {
     public static final RegistryObject<MobEffect> ELECTRIFIED = EFFECTS.register("electrified",
             ElectrifiedEffect::new);
 
+    public static final RegistryObject<MobEffect> NECROSIS = EFFECTS.register("necrosis",
+            () -> new GoetyBaseEffect(MobEffectCategory.NEUTRAL, 0x2f4e17));
+
     public static final RegistryObject<MobEffect> VOID_TOUCHED = EFFECTS.register("void_touched",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0));
 

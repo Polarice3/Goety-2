@@ -1,0 +1,28 @@
+{
+  "name": "ネクロの金のキャンドルスティック",
+  "icon": "goety:necrotic_gold_candlestick",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/craft_necro_brazier",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "あなたは燭台に大量のネクロエネルギーを注入しました。そのため、点火すると緑色の炎が燃え上がります。この炎は、アンデッドあるいは何らかの理由であなたのような存在を、燭台から8ブロック以内の太陽光から守るようです(ただし、火からは守りません)。そのため、彼らは日中でも燃えることなく移動できます。"
+    },
+    {
+      "type": "goety:brazier",
+      "recipe": "goety:necrotic_gold_candlestick"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "燭台と、その周囲8ブロック以内にいるアンデッドの両方が、天井の下にいたり夜間であったりして太陽光にさらされていない場合、燭台が点灯している限り、ゆっくりと回復します。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "@kiko5836の提案に基づいています。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:necrotic_gold_candlestick": 1
+  }
+}

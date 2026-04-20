@@ -232,12 +232,14 @@ public class ModBlocks {
     public static final RegistryObject<Block> WALL_GOLD_DUNGEON_TORCH = register("wall_gold_dungeon_torch", () -> new WallDungeonTorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel((state) -> {
         return state.hasProperty(BlockStateProperties.LIT) && state.getValue(BlockStateProperties.LIT) ? 14 : 0;
     }).sound(SoundType.METAL).mapColor(MapColor.GOLD).pushReaction(PushReaction.DESTROY)), false);
-    public static final RegistryObject<Block> GOLD_CANDLESTICK = register("gold_candlestick", () -> new CandlestickBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).instabreak().mapColor(MapColor.GOLD).pushReaction(PushReaction.DESTROY), 14), false);
-    public static final RegistryObject<Block> WALL_GOLD_CANDLESTICK = register("wall_gold_candlestick", () -> new WallCandlestickBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).instabreak().mapColor(MapColor.GOLD).pushReaction(PushReaction.DESTROY), 14), false);
+    public static final RegistryObject<Block> GOLD_CANDLESTICK = register("gold_candlestick", () -> new CandlestickBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).instabreak().mapColor(MapColor.GOLD).pushReaction(PushReaction.DESTROY), 6), false);
+    public static final RegistryObject<Block> WALL_GOLD_CANDLESTICK = register("wall_gold_candlestick", () -> new WallCandlestickBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).instabreak().mapColor(MapColor.GOLD).pushReaction(PushReaction.DESTROY), 6), false);
     public static final RegistryObject<Block> GOLD_CANDELABRA = register("gold_candelabra", () -> new CandelabraBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(3.0F, 6.0F).mapColor(MapColor.GOLD).pushReaction(PushReaction.DESTROY), 14));
     public static final RegistryObject<Block> STEEP_SCONCE = register("steep_sconce", SteepSconceBlock::new);
     public static final RegistryObject<Block> JADE_LIGHT = register("jade_light", JadeLightBlock::new);
     public static final RegistryObject<Block> PINE_LANTERN = register("pine_lantern", PineLanternBlock::new);
+    public static final RegistryObject<Block> NECROTIC_GOLD_CANDLESTICK = register("necrotic_gold_candlestick", () -> new NecroticCandlestick(BlockBehaviour.Properties.of().sound(SoundType.METAL).instabreak().mapColor(MapColor.GOLD).pushReaction(PushReaction.DESTROY)), false);
+    public static final RegistryObject<Block> WALL_NECROTIC_GOLD_CANDLESTICK = register("wall_necrotic_gold_candlestick", () -> new WallNecroticCandlestick(BlockBehaviour.Properties.of().sound(SoundType.METAL).instabreak().mapColor(MapColor.GOLD).pushReaction(PushReaction.DESTROY)), false);
     public static final RegistryObject<Block> SKULL_PILE = register("skull_pile", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).strength(2.0F).sound(SoundType.BONE_BLOCK).instrument(NoteBlockInstrument.BASEDRUM)), true, LootTableType.EMPTY);
     public static final RegistryObject<Block> CRYPT_URN = register("crypt_urn", UrnBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<CryptChestBlock> CRYPT_CHEST = isterRegister("crypt_chest", CryptChestBlock::new, LootTableType.EMPTY);
@@ -277,6 +279,17 @@ public class ModBlocks {
             new FancyCarpetBlock(DyeColor.BLUE, BlockBehaviour.Properties.copy(Blocks.BLUE_CARPET)));
     public static final RegistryObject<Block> FROSTY_CARPET_INNER_CORNER = register("frosty_carpet_inner_corner", () ->
             new FancyCarpetBlock(DyeColor.BLUE, BlockBehaviour.Properties.copy(Blocks.BLUE_CARPET)));
+
+    public static final RegistryObject<Block> SHADE_THRONE = register("shade_throne", () -> new StoneThroneBlock(ShadeStoneProperties().noOcclusion()));
+    public static final RegistryObject<Block> STONE_THRONE = register("stone_throne", () -> new StoneThroneBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
+    public static final RegistryObject<Block> DEEPSLATE_THRONE = register("deepslate_throne", () -> new StoneThroneBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICKS).noOcclusion()));
+    public static final RegistryObject<Block> OMINOUS_THRONE = register("ominous_throne", () -> new StoneThroneBlock(OminousStoneProperties().noOcclusion()));
+    public static final RegistryObject<Block> BLACKSTONE_THRONE = register("blackstone_throne", () -> new StoneThroneBlock(BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE).noOcclusion()));
+    public static final RegistryObject<Block> HIGHROCK_THRONE = register("highrock_throne", () -> new StoneThroneBlock(HighrockProperties().noOcclusion()));
+    public static final RegistryObject<Block> MARBLE_THRONE = register("marble_throne", () -> new StoneThroneBlock(MarbleProperties().noOcclusion()));
+
+    public static final RegistryObject<Block> ROYAL_THRONE = register("royal_throne", () -> new RoyalThroneBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).mapColor(MapColor.COLOR_RED).noOcclusion()));
+    public static final RegistryObject<Block> FROSTED_THRONE = register("frosted_throne", () -> new RoyalThroneBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).mapColor(MapColor.COLOR_BLUE).noOcclusion()));
 
     public static final RegistryObject<Block> CREEPER_TOTEM = register("creeper_totem", () ->
             new ToweringBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
@@ -1236,6 +1249,8 @@ public class ModBlocks {
             () -> new StandingAndWallBlockItem(ModBlocks.GOLD_DUNGEON_TORCH.get(), ModBlocks.WALL_GOLD_DUNGEON_TORCH.get(), new Item.Properties(), Direction.DOWN));
     public static final RegistryObject<Item> GOLD_CANDLESTICK_ITEM = ModItems.ITEMS.register("gold_candlestick",
             () -> new StandingAndWallBlockItem(ModBlocks.GOLD_CANDLESTICK.get(), ModBlocks.WALL_GOLD_CANDLESTICK.get(), new Item.Properties(), Direction.DOWN));
+    public static final RegistryObject<Item> NECROTIC_GOLD_CANDLESTICK_ITEM = ModItems.ITEMS.register("necrotic_gold_candlestick",
+            () -> new StandingAndWallBlockItem(ModBlocks.NECROTIC_GOLD_CANDLESTICK.get(), ModBlocks.WALL_NECROTIC_GOLD_CANDLESTICK.get(), new Item.Properties(), Direction.DOWN));
     public static final RegistryObject<Item> RESONANCE_CRYSTAL_ITEM = ModItems.ITEMS.register("resonance_crystal",
             ResonanceBlockItem::new);
     public static final RegistryObject<Item> OMINOUS_IDOL_ITEM = ModItems.ITEMS.register("ominous_idol",

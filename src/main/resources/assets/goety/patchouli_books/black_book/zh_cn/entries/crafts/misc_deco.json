@@ -1,0 +1,89 @@
+{
+  "name": "杂项.装饰品",
+  "icon": "goety:gold_candlestick",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "黑魔法是学会诸多能力的一条大路，而有些人认为这些能力……还挺好看？你在研习黑魔法中的旅程让你发现了若干装饰品，让你更有真正黑暗巫师的感觉。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "讽刺的是，你发现的东西之一是为你的老窝提供照明的更好方法。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:gold_candlestick",
+      "recipe2": "goety:gold_candelabra"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:iron_dungeon_torch",
+      "recipe2": "goety:gold_dungeon_torch"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:steep/steep_sconce",
+      "recipe2": "goety:jade_light"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:pine/pine_lantern"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:royal_carpet_corner",
+      "text": "普通地毯都太L了。你老窝的地板需要更加华丽，才能让你的脚踩上去。不幸的是，这种地毯需要先分成小块，然后才能把它们组合成合适的地毯图案。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:royal_carpet",
+      "recipe2": "goety:royal_carpet_corner"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:royal_carpet_edge",
+      "recipe2": "goety:royal_carpet_inner_corner"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:frosty_carpet",
+      "recipe2": "goety:frosty_carpet_corner"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:frosty_carpet_edge",
+      "recipe2": "goety:frosty_carpet_inner_corner"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:royal_throne",
+      "text": "一个没有王座的房子算什么黑暗法师的家？你甚至可以让仆从坐在上面，你可以用魔杖命令他们坐上去，也可以用指路石或指令让他们守卫在王座的位置上。要让他们下来，你可以命令他们离开，设置他们守卫另一个位置，或者干脆用魔杖击杀他。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:shade_throne",
+      "recipe2": "goety:stone_throne"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:deepslate_throne",
+      "recipe2": "goety:ominous_throne"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:blackstone_throne",
+      "recipe2": "goety:highrock_throne"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:blackstone_throne",
+      "recipe2": "goety:marble_throne"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:royal_throne",
+      "recipe2": "goety:frosted_throne"
+    }
+  ]
+}

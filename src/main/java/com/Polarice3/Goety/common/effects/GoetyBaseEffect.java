@@ -200,6 +200,21 @@ public class GoetyBaseEffect extends MobEffect {
                 }
             }
         }
+        if (this == GoetyEffects.NECROSIS.get()){
+            if (livingEntity.getMobType() == MobType.UNDEAD) {
+                if (livingEntity.tickCount % 50 == 0) {
+                    if (livingEntity.getHealth() < livingEntity.getMaxHealth()) {
+                        livingEntity.heal(1.0F);
+                    }
+                }
+            } else {
+                if (livingEntity.tickCount % 25 == 0) {
+                    if (livingEntity.getHealth() > 1.0F) {
+                        livingEntity.hurt(livingEntity.damageSources().magic(), 1.0F);
+                    }
+                }
+            }
+        }
         if (this == GoetyEffects.WOUNDED.get()) {
             if (livingEntity.tickCount % 10 == 0) {
                 if (world instanceof ServerLevel serverLevel) {

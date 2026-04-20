@@ -1,0 +1,28 @@
+{
+  "name": "Necrotic Candlesticks",
+  "icon": "goety:necrotic_gold_candlestick",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/craft_necro_brazier",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You've infused a candlestick with large amounts of necrotic energies, causing it to burn baleful green flames once lit. The flames appear shield the undead, or beings like you for some reason, within 8 blocks from it, from the sun, though not fire, allowing them to move in daylight without burning."
+    },
+    {
+      "type": "goety:brazier",
+      "recipe": "goety:necrotic_gold_candlestick"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If both candlestick and undead beings, within 8 blocks of it, are not exposed to the sun, whether they be beneath a ceiling or it's night time, they will slowly heal themselves, so long as it remains lit."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Based on @kiko5836's suggestion"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:necrotic_gold_candlestick": 1
+  }
+}

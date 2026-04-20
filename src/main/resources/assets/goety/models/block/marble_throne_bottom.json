@@ -1,0 +1,6 @@
+{
+	"parent": "goety:block/template_stone_throne_bottom",
+	"textures": {
+		"throne": "goety:block/marble_throne"
+	}
+}

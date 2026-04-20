@@ -1,5 +1,5 @@
 {
-  "name": "Bigorna Sombria",
+  "name": "Bigorna Obscura",
   "icon": "goety:dark_anvil",
   "category": "goety:crafts/artifice",
   "advancement": "goety:goety/craft_dark_ingot",
@@ -15,7 +15,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "A Bigorna Sombria pode se reparar quando colocada em cima de uma $(l:intro/cursed_cage)Jaula Amaldiçoada$(), onde raramente consumirá uma grande quantidade de Energia de Alma dela para se consertar. Usar a Bigorna Sombria não multiplica o custo de reparo do item por 2, mas adiciona 1. Em vez de impedir você de reparar/encantar itens se o custo de nível for muito alto, o custo permanecerá no limite de nível, permitindo que o item seja usado na bigorna de qualquer maneira."
+      "text": "A Bigorna Obscura pode se reparar quando colocada em cima de uma $(l:intro/cursed_cage)Gaiola Amaldiçoada$(), onde raramente consumirá uma grande quantidade de Energia de Alma dela para se consertar. Usar a Bigorna Obscura não multiplica o custo de reparo do item por 2, mas adiciona 1. Em vez de impedir você de reparar/encantar itens se o custo de nível for muito alto, o custo permanecerá no limite de nível, permitindo que o item seja usado na bigorna de qualquer maneira."
     }
   ],
   "extra_recipe_mappings": {

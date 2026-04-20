@@ -1,0 +1,89 @@
+{
+  "name": "Misc. Decorations",
+  "icon": "goety:gold_candlestick",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The dark arts is a pathway to many abilities some consider to be... pretty? Your journey through the dark arts has lead you to discover several decorations that lets you feel more like a true dark wizard."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Ironically, one of the things you've found are better ways to light up your lair."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:gold_candlestick",
+      "recipe2": "goety:gold_candelabra"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:iron_dungeon_torch",
+      "recipe2": "goety:gold_dungeon_torch"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:steep/steep_sconce",
+      "recipe2": "goety:jade_light"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:pine/pine_lantern"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:royal_carpet_corner",
+      "text": "Normal carpets don't cut out for you. The floors of your lair needs to be more opulent for your feet to walk on. Unfortunately, your carpets need to be put into pieces for you to combine into a proper carpet way."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:royal_carpet",
+      "recipe2": "goety:royal_carpet_corner"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:royal_carpet_edge",
+      "recipe2": "goety:royal_carpet_inner_corner"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:frosty_carpet",
+      "recipe2": "goety:frosty_carpet_corner"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:frosty_carpet_edge",
+      "recipe2": "goety:frosty_carpet_inner_corner"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:royal_throne",
+      "text": "What good is a lair without a throne to sit on? You can even have a Servant sit on one, by either commanding them to it, or have them guard, through waystone or command, on the position of the throne. To get them off, you can command them off, set them to guard another position, or simply dismiss them."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:shade_throne",
+      "recipe2": "goety:stone_throne"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:deepslate_throne",
+      "recipe2": "goety:ominous_throne"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:blackstone_throne",
+      "recipe2": "goety:highrock_throne"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:blackstone_throne",
+      "recipe2": "goety:marble_throne"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:royal_throne",
+      "recipe2": "goety:frosted_throne"
+    }
+  ]
+}

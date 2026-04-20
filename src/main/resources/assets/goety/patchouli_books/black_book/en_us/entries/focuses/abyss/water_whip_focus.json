@@ -14,6 +14,10 @@
     {
       "type": "patchouli:text",
       "text": "Casting with $(l:crafts/staff/abyss_staff)Abyss Staff$() summons another tentacle after the initial tentacle hits a target."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Based on @rangoonruler's suggestion"
     }
   ]
 }

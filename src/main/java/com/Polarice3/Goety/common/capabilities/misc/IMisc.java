@@ -28,4 +28,6 @@ public interface IMisc {
     void setShakeTime(int ticks);
     int getCustomFoodLevel();
     void setCustomFoodLevel(int foodLevel);
+    int getSunscreen();
+    void setSunscreen(int ticks);
 }

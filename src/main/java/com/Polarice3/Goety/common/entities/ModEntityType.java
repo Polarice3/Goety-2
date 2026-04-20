@@ -38,6 +38,7 @@ import com.Polarice3.Goety.common.entities.projectiles.*;
 import com.Polarice3.Goety.common.entities.util.*;
 import com.Polarice3.Goety.common.entities.vehicle.ModBoat;
 import com.Polarice3.Goety.common.entities.vehicle.ModChestBoat;
+import com.Polarice3.Goety.common.entities.vehicle.SeatEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -1691,6 +1692,15 @@ public class ModEntityType {
                     .noSummon()
                     .sized(1.0F, 1.0F)
                     .updateInterval(Integer.MAX_VALUE));
+
+    public static final RegistryObject<EntityType<SeatEntity>> SEAT = register("seat",
+            EntityType.Builder.<SeatEntity>of(SeatEntity::new, MobCategory.MISC)
+                    .fireImmune()
+                    .noSummon()
+                    .clientTrackingRange(5)
+                    .updateInterval(Integer.MAX_VALUE)
+                    .setShouldReceiveVelocityUpdates(false)
+                    .sized(0.25F, 0.35F));
 
     private static <T extends Entity> RegistryObject<EntityType<T>> register(String p_20635_, EntityType.Builder<T> p_20636_) {
         return ENTITY_TYPE.register(p_20635_, () -> p_20636_.build(Goety.location(p_20635_).toString()));

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    "#$#",
+    "WWW"
+  ],
+  "key": {
+    "$": {
+      "item": "minecraft:blue_wool"
+    },
+    "#": {
+      "item": "minecraft:snowball"
+    },
+    "W": {
+      "tag": "minecraft:planks"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "result": {
+    "item": "goety:frosted_throne"
+  }
+}

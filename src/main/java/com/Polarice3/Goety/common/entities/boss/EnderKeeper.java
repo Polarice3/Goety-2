@@ -939,14 +939,6 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
         return pPotioneffect.getEffect().isBeneficial() && super.canBeAffected(pPotioneffect);
     }
 
-    public boolean addEffect(MobEffectInstance pPotioneffect, @Nullable Entity entity) {
-        if (entity == this) {
-            return super.addEffect(pPotioneffect, entity);
-        } else {
-            return pPotioneffect.getEffect().isBeneficial();
-        }
-    }
-
     public VoidShrineBlockEntity getVoidShrine() {
         if (this.getBoundPos() != null) {
             if (this.level.getBlockEntity(this.getBoundPos()) instanceof VoidShrineBlockEntity blockEntity) {

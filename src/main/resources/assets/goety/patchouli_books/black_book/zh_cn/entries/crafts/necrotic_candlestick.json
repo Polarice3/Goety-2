@@ -1,0 +1,28 @@
+{
+  "name": "亡灵烛台",
+  "icon": "goety:necrotic_gold_candlestick",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/craft_necro_brazier",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你将大量亡灵能量注入了烛台，使其点燃后会燃起幽绿色的火焰。这种火焰似乎能保护烛台 8 格范围内的亡灵或像你这样的存在免受阳光灼烧，但无法彻底防火。这样一来，它们便能在白昼移动而不被点燃。"
+    },
+    {
+      "type": "goety:brazier",
+      "recipe": "goety:necrotic_gold_candlestick"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "如果烛台及其 8 格范围内的亡灵生物都不完全暴露在阳光下，只要烛台保持点燃，它们就会缓慢恢复生命值。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "基于@kiko5836的建议"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:necrotic_gold_candlestick": 1
+  }
+}

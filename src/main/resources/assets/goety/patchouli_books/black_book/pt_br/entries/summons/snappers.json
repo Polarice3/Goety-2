@@ -1,5 +1,5 @@
 {
-  "name": "Apanhadores",
+  "name": "Pargos",
   "icon": "minecraft:cod",
   "category": "goety:summons",
   "pages": [
@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "É possível invocar um Apanhador leal usando um $(l:focuses/wild/hunting_focus)Foco de Caça$() debaixo d'água ou um $(l:crafts/staff/abyss_staff)Cajado do Abismo$(), ou através de um ritual que invoca um sem tempo de vida limitado."
+      "text": "É possível invocar um Pargo leal usando um $(l:focuses/wild/hunting_focus)Foco de Caça$() debaixo d'água ou um $(l:crafts/staff/abyss_staff)Cajado do Abismo$(), ou através de um ritual que invoca um sem tempo de vida limitado."
     },
     {
       "type": "goety:ritual",
@@ -22,7 +22,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Clicar com o botão direito em um Apanhador leal com carne irá curá-lo."
+      "text": "Clicar com o botão direito em um Pargo leal com carne irá curá-lo."
     }
   ]
 }

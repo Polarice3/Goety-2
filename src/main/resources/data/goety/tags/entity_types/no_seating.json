@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "__comment": "entities that won't seat on SeatEntity.",
+  "values": [
+    "#forge:bosses",
+    "#goety:mini_bosses",
+    "#goety:powerful_servants",
+    "goety:squall_golem"
+  ]
+}

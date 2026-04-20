@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.items.magic;
 
+import com.Polarice3.Goety.api.blocks.ISeat;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
@@ -222,7 +223,11 @@ public class CommandHorn extends Item {
                                         && !SEHelper.getGroundedEntityTypes(player).contains(livingEntity.getType())) {
                                     boolean flag = isGuard(stack) || !servant.isGuardingArea();
                                     if (flag && !servant.isCommanded() && servant.canBeCommanded()){
-                                        servant.setCommandPos(blockpos.above());
+                                        BlockPos blockPos = blockpos.above();
+                                        if (serverlevel.getBlockState(blockpos).getBlock() instanceof ISeat) {
+                                            blockPos = blockpos;
+                                        }
+                                        servant.setCommandPos(blockPos);
                                         serverlevel.sendParticles(ModParticleTypes.GO.get(), livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 0, 0, 2.0D, 0, 1.0F);
                                     }
                                 }

@@ -1444,6 +1444,7 @@
   "block.goety.gold_dungeon_torch": "Gold Dungeon Torch",
 
   "block.goety.gold_candlestick": "Gold Candlestick",
+  "block.goety.necrotic_gold_candlestick": "Necrotic Gold Candlestick",
   "block.goety.gold_candelabra": "Gold Candelabra",
 
   "block.goety.steep_sconce": "Steep Sconce",
@@ -1465,6 +1466,17 @@
   "block.goety.frosty_carpet_corner": "Frosty Carpet",
   "block.goety.frosty_carpet_edge": "Frosty Carpet",
   "block.goety.frosty_carpet_inner_corner": "Frosty Carpet",
+
+  "block.goety.shade_throne": "Shade Throne",
+  "block.goety.stone_throne": "Stone Throne",
+  "block.goety.deepslate_throne": "Deepslate Throne",
+  "block.goety.ominous_throne": "Ominous Throne",
+  "block.goety.blackstone_throne": "Blackstone Throne",
+  "block.goety.highrock_throne": "Highrock Throne",
+  "block.goety.marble_throne": "Marble Throne",
+
+  "block.goety.royal_throne": "Royal Throne",
+  "block.goety.frosted_throne": "Frosted Throne",
 
   "block.goety.rusty_iron_grate": "Rusty Iron Grate",
   "block.goety.rusty_iron_bars": "Rusty Iron Bars",
@@ -2084,6 +2096,8 @@
   "effect.goety.corpse_eater.description": "Restores hunger and saturation with each kill.",
   "effect.goety.acid_venom": "Acid Venom",
   "effect.goety.acid_venom.description": "Inflicts non lethal damage over time; higher levels do more damage per second. Does affect Undead",
+  "effect.goety.necrosis": "Necrosis",
+  "effect.goety.necrosis.description": "For undead, regenerates health over time, for others, inflicts non lethal damage over time; higher levels make health regenerate quicker and do more damage per second.",
   "effect.goety.spasms": "Spasms",
   "effect.goety.spasms.description": "Inflicts non lethal damage over time, pushing affected in random direction when inflicted; higher levels do more damage per second.",
   "effect.goety.electrified": "Electrified",

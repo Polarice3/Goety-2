@@ -4,6 +4,7 @@ import com.Polarice3.Goety.common.entities.ai.ModRangedAttackGoal;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.ai.WitchServantBarterGoal;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
+import com.Polarice3.Goety.common.entities.neutral.Minion;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModTags;
@@ -228,7 +229,7 @@ public class WitchServant extends RaiderServant implements RangedAttackMob {
         this.shootTarget = this.level.getNearestEntity(this.level.getEntitiesOfClass(LivingEntity.class, this.getTargetSearchArea(this.getAttributeValue(Attributes.FOLLOW_RANGE)), (p_148152_) -> {
             return true;
         }), TargetingConditions.forNonCombat().range(this.getAttributeValue(Attributes.FOLLOW_RANGE))
-                .selector(livingEntity -> this.isAlliedTarget(livingEntity) && livingEntity.getHealth() < livingEntity.getMaxHealth()), this, this.getX(), this.getEyeY(), this.getZ());
+                .selector(livingEntity -> this.isAlliedTarget(livingEntity) && !(livingEntity instanceof Minion) && livingEntity.getHealth() < livingEntity.getMaxHealth()), this, this.getX(), this.getEyeY(), this.getZ());
     }
 
     public SoundEvent getCelebrateSound() {

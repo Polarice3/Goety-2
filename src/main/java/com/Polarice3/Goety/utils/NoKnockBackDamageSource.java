@@ -6,6 +6,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
@@ -48,6 +49,15 @@ public class NoKnockBackDamageSource extends DamageSource {
         } else {
             return this.getDirectEntity() != null ? this.getDirectEntity().position() : null;
         }
+    }
+
+    public boolean isCreativePlayer() {
+        Entity entity = this.getOwner();
+        if (entity instanceof Player player) {
+            return player.getAbilities().instabuild;
+        }
+
+        return false;
     }
 
     public Component getLocalizedDeathMessage(LivingEntity pLivingEntity) {

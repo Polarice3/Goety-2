@@ -631,6 +631,9 @@ public class ModEvents {
             if (MiscCapHelper.getShakeTime(livingEntity) > 0) {
                 MiscCapHelper.setShakeTime(livingEntity, MiscCapHelper.getShakeTime(livingEntity) - 1);
             }
+            if (MiscCapHelper.getSunscreen(livingEntity) > 0) {
+                MiscCapHelper.setSunscreen(livingEntity, MiscCapHelper.getSunscreen(livingEntity) - 1);
+            }
             if (livingEntity instanceof Mob mob){
                 double followRange = 32.0D;
                 if (mob.getAttribute(Attributes.FOLLOW_RANGE) != null){

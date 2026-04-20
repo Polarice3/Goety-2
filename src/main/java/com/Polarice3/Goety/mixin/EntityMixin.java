@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.entities.neutral.AbstractVine;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSoundTypes;
 import com.Polarice3.Goety.utils.CuriosFinder;
+import com.Polarice3.Goety.utils.MiscCapHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.core.BlockPos;
@@ -133,6 +134,14 @@ public abstract class EntityMixin {
             if (CuriosFinder.hasUnholyHat(livingEntity) || CuriosFinder.hasUnholyRobe(livingEntity)){
                 callbackInfoReturnable.setReturnValue(true);
             }
+        }
+    }
+
+    @Inject(method = "getLightLevelDependentMagicValue", at = @At("HEAD"), cancellable = true)
+    public void goetyLightLevelMagicValue(CallbackInfoReturnable<Float> cir) {
+        Entity entity = (Entity) (Object) this;
+        if (entity instanceof LivingEntity livingEntity && MiscCapHelper.isSunscreen(livingEntity)) {
+            cir.setReturnValue(0.0F);
         }
     }
 

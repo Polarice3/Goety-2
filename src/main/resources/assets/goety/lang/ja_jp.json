@@ -3498,7 +3498,19 @@
   "block.goety.dirty_siltstone_heavy": "かなり汚いシルトストーン",
   "block.goety.snowy_chiseled_siltstone": "雪の模様入りのシルトストーン",
   "block.goety.dirty_chiseled_siltstone": "汚い模様入りのシルトストーン",
-  "block.goety.red_siltstone_pillar": "レッドシルトストーンの柱",
-  "block.goety.blue_siltstone_pillar": "青いシルトストーンの柱",
-  "block.goety.green_siltstone_pillar": "緑色のシルトストーンの柱"
+  "block.goety.red_siltstone_pillar": "赤色のシルトストーンの柱",
+  "block.goety.blue_siltstone_pillar": "青色のシルトストーンの柱",
+  "block.goety.green_siltstone_pillar": "緑色のシルトストーンの柱",
+  "block.goety.shade_throne": "シェードの玉座",
+  "block.goety.stone_throne": "石の玉座",
+  "block.goety.deepslate_throne": "深層岩の玉座",
+  "block.goety.ominous_throne": "不吉な石の玉座",
+  "block.goety.blackstone_throne": "ブラックストーンの玉座",
+  "block.goety.highrock_throne": "ハイロックの玉座",
+  "block.goety.marble_throne": "大理石の玉座",
+  "block.goety.royal_throne": "王の玉座",
+  "block.goety.frosted_throne": "フロストの玉座",
+  "block.goety.necrotic_gold_candlestick": "ネクロの金のキャンドルスティック",
+  "effect.goety.necrosis": "ネクローシス",
+  "effect.goety.necrosis.description": "アンデッドに対しては、時間経過とともに体力を回復させ、その他に対しては、時間経過とともに非致死的なダメージを与えます。レベルが高いほど、体力の回復速度が速くなり、1秒あたりのダメージ量も増加します。"
 }

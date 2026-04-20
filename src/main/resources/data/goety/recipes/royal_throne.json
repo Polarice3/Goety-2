@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "#$#",
+    "WWW"
+  ],
+  "key": {
+    "$": {
+      "item": "minecraft:red_wool"
+    },
+    "#": {
+      "tag": "forge:ingots/gold"
+    },
+    "W": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "item": "goety:royal_throne"
+  }
+}

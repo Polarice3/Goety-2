@@ -3473,7 +3473,6 @@
   "block.goety.polished_ominous_stone_wall": "磨制不祥石墙",
   "block.goety.polished_dark_ominous_stone": "磨制黑暗不祥石",
   "block.goety.polished_dark_ominous_stone_slab": "磨制黑暗不祥石台阶",
-  "block.goety.polished_dark_ominous_stone_stairs": "磨制嘿暗不祥石楼梯",
   "block.goety.polished_dark_ominous_stone_wall": "磨制黑暗不祥石墙",
   "block.goety.cracked_polished_ominous_stone": "裂纹磨制不祥石",
   "block.goety.soiled_polished_ominous_stone": "沾染磨制不祥石",
@@ -3553,5 +3552,18 @@
   "block.goety.dirty_chiseled_siltstone": "污浊雕纹粉砂岩",
   "block.goety.red_siltstone_pillar": "红色粉砂岩柱",
   "block.goety.blue_siltstone_pillar": "蓝色粉砂岩柱",
-  "block.goety.green_siltstone_pillar": "绿色粉砂岩柱"
+  "block.goety.green_siltstone_pillar": "绿色粉砂岩柱",
+  "block.goety.polished_dark_ominous_stone_stairs": "磨制黑暗不祥石楼梯",
+  "block.goety.shade_throne": "暗影王座",
+  "block.goety.stone_throne": "石制王座",
+  "block.goety.deepslate_throne": "深岩王座",
+  "block.goety.ominous_throne": "不祥王座",
+  "block.goety.blackstone_throne": "黑石王座",
+  "block.goety.highrock_throne": "高岩王座",
+  "block.goety.marble_throne": "大理石王座",
+  "block.goety.royal_throne": "皇室王座",
+  "block.goety.frosted_throne": "冰霜王座",
+  "block.goety.necrotic_gold_candlestick": "亡灵烛台",
+  "effect.goety.necrosis": "亡灵化",
+  "effect.goety.necrosis.description": "对亡灵，随时间恢复生命值；对非亡灵，随时间造成非致命伤害。等级越高，生命恢复越快，每秒伤害也越高。"
 }

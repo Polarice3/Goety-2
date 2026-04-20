@@ -141,6 +141,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> SMALL_NECRO_FIRE = PARTICLE_TYPES.register("small_necro_fire",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> SMALL_NECRO_FIRE_DROP = PARTICLE_TYPES.register("small_necro_fire_drop",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> NECRO_FLAME = PARTICLE_TYPES.register("necro_flame",
             () -> new SimpleParticleType(false));
 

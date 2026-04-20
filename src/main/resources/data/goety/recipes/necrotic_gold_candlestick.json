@@ -1,0 +1,18 @@
+{
+  "type": "goety:brazier",
+  "soulCost": 150,
+  "ingredients": [
+    {
+      "item": "goety:shadow_essence"
+    },
+    {
+      "item": "minecraft:sculk"
+    },
+    {
+      "item": "goety:gold_candlestick"
+    }
+  ],
+  "result": {
+    "item": "goety:necrotic_gold_candlestick"
+  }
+}

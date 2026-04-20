@@ -1,0 +1,6 @@
+{
+	"parent": "goety:block/template_royal_throne_top",
+	"textures": {
+		"throne": "goety:block/frosted_throne"
+	}
+}

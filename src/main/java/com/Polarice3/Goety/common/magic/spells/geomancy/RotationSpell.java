@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.magic.spells.geomancy;
 
 import com.Polarice3.Goety.api.magic.SpellType;
+import com.Polarice3.Goety.common.blocks.properties.ModStateProperties;
 import com.Polarice3.Goety.common.magic.BlockSpell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -107,7 +108,7 @@ public class RotationSpell extends BlockSpell {
                     break;
             }
         }
-        if (oldState.hasProperty(BedBlock.PART) || oldState.hasProperty(ChestBlock.TYPE)){
+        if (oldState.hasProperty(BedBlock.PART) || oldState.hasProperty(ModStateProperties.PART) || oldState.hasProperty(ChestBlock.TYPE)){
             newState = null;
         }
         boolean rotated = false;
