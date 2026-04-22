@@ -104,6 +104,7 @@ import org.joml.Vector3f;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Predicate;
 
 public class Apostle extends SpellCastingCultist implements RangedAttackMob, ShootIndicatorOwner {
@@ -138,6 +139,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
     public MobEffect arrowEffect;
     public float clientShootIndicatorProgress, oClientShootIndicatorProgress;
     public Vec3 clientShootIndicatorEnd = Vec3.ZERO, oClientShootIndicatorEnd = Vec3.ZERO;
+    public CompletableFuture<Vec3> pendingTeleportSearch = null;
     public static final UUID SPEED_MODIFIER_CASTING_UUID = UUID.fromString("5CD17E52-A79A-43D3-A529-90FDE04B181E");
     public static final AttributeModifier SPEED_MODIFIER_CASTING = new AttributeModifier(SPEED_MODIFIER_CASTING_UUID, "Casting speed penalty", -1.0D, AttributeModifier.Operation.ADDITION);
     public static final UUID SPEED_MODIFIER_MONOLITH_UUID = UUID.fromString("ba4294fc-8f77-44aa-89cc-96a28c263fa1");
@@ -411,6 +413,10 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
     protected void tickDeath() {
         ++this.deathTime;
         if (this.deathTime == 1){
+            if (this.pendingTeleportSearch != null) {
+                this.pendingTeleportSearch.cancel(true);
+                this.pendingTeleportSearch = null;
+            }
             this.antiRegen = 0;
             this.antiRegenTotal = 0;
             this.toTeleportTime = 0;
@@ -493,6 +499,10 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
 
     @Override
     public void remove(RemovalReason p_146834_) {
+        if (this.pendingTeleportSearch != null) {
+            this.pendingTeleportSearch.cancel(true);
+            this.pendingTeleportSearch = null;
+        }
         if (!this.level.isClientSide) {
             ServerLevel ServerLevel = (ServerLevel) this.level;
             if (ServerLevel.getLevelData().isThundering()) {
@@ -919,36 +929,58 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
 
     protected void teleport() {
         if (!this.level.isClientSide() && !this.isNoAi() && this.isAlive() && this.toTeleportPos == null && !this.isSettingUpSecond() && !this.isCasting()) {
-            this.prevX = this.getX();
-            this.prevY = this.getY();
-            this.prevZ = this.getZ();
-            for(int i = 0; i < 128; ++i) {
-                boolean flag = true;
-                double d3 = this.getX() + (this.getRandom().nextDouble() - 0.5D) * 32.0D;
-                double d4 = this.getY();
-                if (this.getTarget() != null){
-                    d4 = this.getTarget().getY();
-                }
-                double d5 = this.getZ() + (this.getRandom().nextDouble() - 0.5D) * 32.0D;
-                BlockPos blockPos = BlockPos.containing(d3, d4, d5);
-                if (this.getTarget() != null && i < 64) {
-                    flag = BlockFinder.canSeeBlock(this.getTarget(), blockPos);
-                }
-                if (flag) {
-                    if (MobsConfig.ApostleDelayedTeleport.get()) {
-                        Vec3 vec3 = new Vec3(d3, d4, d5);
-                        this.toTeleportPos = BlockFinder.SummonPosition(this, vec3);
-                        if (this.toTeleportPos != null) {
+            if (MobsConfig.ApostleDelayedTeleport.get()) {
+                if (this.pendingTeleportSearch != null) {
+                    if (this.pendingTeleportSearch.isDone()) {
+                        Vec3 result = this.pendingTeleportSearch.getNow(null);
+                        this.pendingTeleportSearch = null;
+                        if (result != null) {
+                            this.toTeleportPos = result;
                             this.playSound(ModSounds.APOSTLE_PRE_TELEPORT.get(), 2.0F, 1.0F);
                             this.resetHitTime();
-                            break;
                         }
-                    } else {
-                        if (this.randomTeleport(d3, d4, d5, false)) {
-                            this.teleportHits();
-                            this.resetHitTime();
-                            break;
+                    }
+                } else {
+                    final double startX = this.getX();
+                    final double startY = this.getTarget() != null ? this.getTarget().getY() : this.getY();
+                    final double startZ = this.getZ();
+                    final LivingEntity target = this.getTarget();
+                    final Level level = this.level;
+                    final RandomSource randomSource = this.level.getRandom();
+
+                    this.prevX = startX;
+                    this.prevY = this.getY();
+                    this.prevZ = startZ;
+
+                    this.pendingTeleportSearch = CompletableFuture.supplyAsync(() -> {
+                        for (int i = 0; i < 128; ++i) {
+                            double d3 = startX + (randomSource.nextDouble() - 0.5D) * 32.0D;
+                            double d4 = startY;
+                            double d5 = startZ + (randomSource.nextDouble() - 0.5D) * 32.0D;
+                            BlockPos blockPos = BlockPos.containing(d3, d4, d5);
+                            boolean flag = target == null || i >= 64 || BlockFinder.canSeeBlock(target, blockPos);
+                            if (flag) {
+                                Vec3 vec3 = new Vec3(d3, d4, d5);
+                                Vec3 vec31 = BlockFinder.SummonPosition(level, vec3);
+                                if (vec31 != null) {
+                                    return vec31;
+                                }
+                            }
                         }
+                        return null;
+                    });
+                }
+            } else {
+                for (int i = 0; i < 128; ++i) {
+                    double d3 = this.getX() + (this.level.getRandom().nextDouble() - 0.5D) * 32.0D;
+                    double d4 = this.getTarget() != null ? this.getTarget().getY() : this.getY();
+                    double d5 = this.getZ() + (this.level.getRandom().nextDouble() - 0.5D) * 32.0D;
+                    BlockPos blockPos = BlockPos.containing(d3, d4, d5);
+                    boolean flag = this.getTarget() == null || i >= 64 || BlockFinder.canSeeBlock(this.getTarget(), blockPos);
+                    if (flag && this.randomTeleport(d3, d4, d5, false)) {
+                        this.teleportHits();
+                        this.resetHitTime();
+                        break;
                     }
                 }
             }
@@ -957,30 +989,59 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
 
     public void teleportTowards(Entity entity) {
         if (!this.level.isClientSide() && !this.isNoAi() && this.isAlive() && this.toTeleportPos == null && !this.isSettingUpSecond()) {
-            this.prevX = this.getX();
-            this.prevY = this.getY();
-            this.prevZ = this.getZ();
-            for(int i = 0; i < 128; ++i) {
-                Vec3 vector3d = new Vec3(this.getX() - entity.getX(), this.getY(0.5D) - entity.getEyeY(), this.getZ() - entity.getZ());
-                vector3d = vector3d.normalize();
-                double d0 = 16.0D;
-                double d1 = this.getX() + (this.random.nextDouble() - 0.5D) * 8.0D - vector3d.x * d0;
-                double d2 = this.getY() + (double)(this.random.nextInt(16) - 8) - vector3d.y * d0;
-                double d3 = this.getZ() + (this.random.nextDouble() - 0.5D) * 8.0D - vector3d.z * d0;
-                BlockPos blockPos1 = BlockPos.containing(d1, d2, d3);
-                if (BlockFinder.canSeeBlock(entity, blockPos1)) {
-                    if (MobsConfig.ApostleDelayedTeleport.get()) {
-                        Vec3 vec3 = new Vec3(d1, d2, d3);
-                        this.toTeleportPos = BlockFinder.SummonPosition(this, vec3);
-                        if (this.toTeleportPos != null) {
+            if (MobsConfig.ApostleDelayedTeleport.get()) {
+                if (this.pendingTeleportSearch != null) {
+                    if (this.pendingTeleportSearch.isDone()) {
+                        Vec3 result = this.pendingTeleportSearch.getNow(null);
+                        this.pendingTeleportSearch = null;
+                        if (result != null) {
+                            this.toTeleportPos = result;
                             this.playSound(ModSounds.APOSTLE_PRE_TELEPORT.get(), 2.0F, 1.0F);
-                            break;
                         }
-                    } else {
-                        if (this.randomTeleport(d1, d2, d3, false)) {
-                            this.teleportHits();
-                            break;
+                    }
+                } else {
+                    final double targetX = entity.getX();
+                    final double targetY = entity.getEyeY();
+                    final double targetZ = entity.getZ();
+                    final double selfX = this.getX();
+                    final double selfY = this.getY();
+                    final double selfZ = this.getZ();
+                    final Level level = this.level;
+                    final RandomSource randomSource = this.level.getRandom();
+
+                    this.prevX = selfX;
+                    this.prevY = selfY;
+                    this.prevZ = selfZ;
+
+                    this.pendingTeleportSearch = CompletableFuture.supplyAsync(() -> {
+                        Vec3 vec3 = new Vec3(selfX - targetX, selfY * 0.5D - targetY, selfZ - targetZ).normalize();
+                        double d0 = 16.0D;
+                        for (int i = 0; i < 128; ++i) {
+                            double d1 = selfX + (randomSource.nextDouble() - 0.5D) * 8.0D - vec3.x * d0;
+                            double d2 = selfY + (randomSource.nextInt(16) - 8) - vec3.y * d0;
+                            double d3 = selfZ + (randomSource.nextDouble() - 0.5D) * 8.0D - vec3.z * d0;
+                            BlockPos blockPos = BlockPos.containing(d1, d2, d3);
+                            if (BlockFinder.canSeeBlock(new Vec3(targetX, targetY, targetZ), Vec3.atBottomCenterOf(blockPos), level)) {
+                                Vec3 vec31 = BlockFinder.SummonPosition(level, new Vec3(d1, d2, d3));
+                                if (vec31 != null) {
+                                    return vec31;
+                                }
+                            }
                         }
+                        return null;
+                    });
+                }
+            } else {
+                for (int i = 0; i < 128; ++i) {
+                    Vec3 vector3d = new Vec3(this.getX() - entity.getX(), this.getY(0.5D) - entity.getEyeY(), this.getZ() - entity.getZ()).normalize();
+                    double d0 = 16.0D;
+                    double d1 = this.getX() + (this.level.getRandom().nextDouble() - 0.5D) * 8.0D - vector3d.x * d0;
+                    double d2 = this.getY() + (this.level.getRandom().nextInt(16) - 8) - vector3d.y * d0;
+                    double d3 = this.getZ() + (this.level.getRandom().nextDouble() - 0.5D) * 8.0D - vector3d.z * d0;
+                    if (BlockFinder.canSeeBlock(entity, BlockPos.containing(d1, d2, d3))
+                            && this.randomTeleport(d1, d2, d3, false)) {
+                        this.teleportHits();
+                        break;
                     }
                 }
             }

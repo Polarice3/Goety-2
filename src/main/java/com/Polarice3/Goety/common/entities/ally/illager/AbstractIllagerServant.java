@@ -4,6 +4,7 @@ import com.Polarice3.Goety.api.entities.ITrainable;
 import com.Polarice3.Goety.api.entities.ally.illager.ILooter;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.entities.OminousPyreBlockEntity;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.effects.brew.BrewEffectInstance;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.IllagerLootFoodChestGoal;
@@ -650,6 +651,12 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
         Mob mob = entityType.create(this.level);
         if (mob instanceof PillagerServant){
             i *= 2;
+        }
+        if (this.hasEffect(GoetyEffects.INSIGHT.get())) {
+            MobEffectInstance instance = this.getEffect(GoetyEffects.INSIGHT.get());
+            if (instance != null) {
+                i *= instance.getAmplifier() + 2;
+            }
         }
         List<AbstractIllagerServant> list = this.level.getNearbyEntities(AbstractIllagerServant.class,
                 TargetingConditions.forNonCombat().range(8.0D)

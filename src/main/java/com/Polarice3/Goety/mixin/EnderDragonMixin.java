@@ -24,10 +24,8 @@ public abstract class EnderDragonMixin extends Mob {
     private void hurt(EnderDragonPart part, DamageSource damageSource, float amount, CallbackInfoReturnable<Boolean> callbackInfo) {
         EnderDragon $this = (EnderDragon) (Object) this;
         if (SpellConfig.SpellDamageEnderDragon.get()) {
-            if (damageSource instanceof NoKnockBackDamageSource damageSource1 && damageSource.getEntity() == null) {
-                if (damageSource1.getOwner() != null) {
-                    $this.hurt(part, new DamageSource(damageSource1.typeHolder(), damageSource1.getDirectEntity(), damageSource1.getOwner()), amount);
-                }
+            if (damageSource instanceof NoKnockBackDamageSource damageSource1 && damageSource.getEntity() != null) {
+                $this.hurt(part, new DamageSource(damageSource1.typeHolder(), damageSource1.getDirectEntity(), damageSource.getEntity()), amount);
             }
         }
     }

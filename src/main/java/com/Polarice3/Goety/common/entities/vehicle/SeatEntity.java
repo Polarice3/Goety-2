@@ -3,7 +3,6 @@ package com.Polarice3.Goety.common.entities.vehicle;
 import com.Polarice3.Goety.api.blocks.ISeat;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.illager.raider.Prisoner;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;

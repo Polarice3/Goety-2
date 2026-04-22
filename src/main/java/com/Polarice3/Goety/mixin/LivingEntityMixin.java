@@ -8,10 +8,7 @@ import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.LichdomHelper;
 import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.NoKnockBackDamageSource;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -121,24 +118,6 @@ public abstract class LivingEntityMixin extends Entity {
     public void updateInvisibilityStatus(CallbackInfo callbackInfo) {
         if (this.hasEffect(GoetyEffects.SHADOW_WALK.get())) {
             this.setInvisible(true);
-        }
-    }
-
-    @Inject(method = "isDamageSourceBlocked", at = @At("HEAD"), cancellable = true)
-    public void isDamageSourceBlocked(DamageSource damageSource, CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
-        LivingEntity livingEntity = (LivingEntity) (Object) this;
-        if (damageSource instanceof NoKnockBackDamageSource damageSource1){
-            if (!damageSource1.is(DamageTypeTags.BYPASSES_SHIELD) && livingEntity.isBlocking()) {
-                Vec3 vec32 = damageSource1.getSourcePosition();
-                if (vec32 != null) {
-                    Vec3 vec3 = livingEntity.getViewVector(1.0F);
-                    Vec3 vec31 = vec32.vectorTo(livingEntity.position()).normalize();
-                    vec31 = new Vec3(vec31.x, 0.0D, vec31.z);
-                    if (vec31.dot(vec3) < 0.0D) {
-                        callbackInfoReturnable.setReturnValue(true);
-                    }
-                }
-            }
         }
     }
 

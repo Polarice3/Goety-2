@@ -2,7 +2,6 @@ package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.entities.NecroticCandlestickBlockEntity;
-import com.Polarice3.Goety.common.blocks.entities.SoulCandlestickBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;

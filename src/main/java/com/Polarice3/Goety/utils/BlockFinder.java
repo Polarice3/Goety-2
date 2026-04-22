@@ -103,13 +103,16 @@ public class BlockFinder {
         return entity.level.clip(new ClipContext(startPos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity));
     }
 
+    public static boolean canSeeBlock(Vec3 eyePos, Vec3 target, Level level) {
+        if (target.distanceTo(eyePos) > 128.0D) {
+            return false;
+        }
+        return level.clip(new ClipContext(eyePos, target, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, null)).getType() == HitResult.Type.MISS;
+    }
+
     public static boolean canSeeBlock(Entity looker, Vec3 vec31) {
         Vec3 vec3 = new Vec3(looker.getX(), looker.getEyeY(), looker.getZ());
-        if (vec31.distanceTo(vec3) > 128.0D) {
-            return false;
-        } else {
-            return looker.level.clip(new ClipContext(vec3, vec31, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, looker)).getType() == HitResult.Type.MISS;
-        }
+        return canSeeBlock(vec3, vec31, looker.level);
     }
 
     public static boolean canSeeBlock(Entity looker, BlockPos location) {

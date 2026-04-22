@@ -208,25 +208,16 @@ public class RobeEvents {
         if (!event.getEntity().level.isClientSide) {
             if (event.getSource().is(DamageTypeTags.IS_FIRE)){
                 LivingEntity source1 = null;
-                Entity direct1 = direct;
                 if (source instanceof LivingEntity living1) {
                     source1 = living1;
                 } else if (MobUtil.getOwner(source) != null) {
                     source1 = MobUtil.getOwner(source);
                 }
-                if (event.getSource() instanceof NoKnockBackDamageSource damageSource){
-                    if (damageSource.getOwner() instanceof LivingEntity living1) {
-                        source1 = living1;
-                    } else if (MobUtil.getOwner(damageSource.getOwner()) != null) {
-                        source1 = MobUtil.getOwner(damageSource.getOwner());
-                    }
-                    direct1 = damageSource.getDirectEntity();
-                }
                 if (CuriosFinder.hasNetherRobe(source1)){
                     if (victim.isInvulnerableTo(event.getSource()) || victim.hasEffect(MobEffects.FIRE_RESISTANCE)){
-                        DamageSource damageSource = ModDamageSource.magicFireBreath(direct1, source1);
+                        DamageSource damageSource = ModDamageSource.magicFireBreath(direct, source1);
                         if (CuriosFinder.hasUnholyRobe(source1)){
-                            damageSource = ModDamageSource.hellfire(direct1, source1);
+                            damageSource = ModDamageSource.hellfire(direct, source1);
                         }
                         victim.hurt(damageSource, event.getAmount());
                         event.setCanceled(true);

@@ -496,13 +496,7 @@ public class ServantEvents {
                                 servant = servant1;
                             }
                         } else {
-                            if (event.getSource() instanceof NoKnockBackDamageSource source) {
-                                if (source.getOwner() instanceof IOwned minion) {
-                                    if (minion.getTrueOwner() instanceof AbstractIllagerServant servant1) {
-                                        servant = servant1;
-                                    }
-                                }
-                            } else if (event.getSource().getEntity() instanceof IOwned minion) {
+                            if (event.getSource().getEntity() instanceof IOwned minion) {
                                 if (minion.getTrueOwner() instanceof AbstractIllagerServant servant1) {
                                     servant = servant1;
                                 }
@@ -510,14 +504,8 @@ public class ServantEvents {
                         }
                         if (victim.getLastHurtByMob() instanceof AbstractIllagerServant servant1) {
                             servant = servant1;
-                        } else {
-                            if (event.getSource() instanceof NoKnockBackDamageSource source) {
-                                if (source.getOwner() instanceof AbstractIllagerServant servant1) {
-                                    servant = servant1;
-                                }
-                            } else if (event.getSource().getEntity() instanceof AbstractIllagerServant servant1) {
-                                servant = servant1;
-                            }
+                        } else if (event.getSource().getEntity() instanceof AbstractIllagerServant servant1) {
+                            servant = servant1;
                         }
                         if (servant != null){
                             if (servant.getTrueOwner() != null) {
