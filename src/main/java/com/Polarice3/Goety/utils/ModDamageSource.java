@@ -50,13 +50,16 @@ public class ModDamageSource extends DamageSource {
     public static ResourceKey<DamageType> MAGIC_BOLT = create("magic_bolt");
     public static ResourceKey<DamageType> SOUL_LEECH = create("soul_leech");
     public static ResourceKey<DamageType> LIFE_LEECH = create("life_leech");
+    public static ResourceKey<DamageType> ROT = create("rot");
     public static ResourceKey<DamageType> ACID = create("acid");
+    public static ResourceKey<DamageType> VENOM = create("venom");
     public static ResourceKey<DamageType> SPIKE = create("spike");
     public static ResourceKey<DamageType> BOILING = create("boiling");
     public static ResourceKey<DamageType> PHOBIA = create("phobia");
     public static ResourceKey<DamageType> CHOKE = create("choke");
     public static ResourceKey<DamageType> SWARM = create("swarm");
     public static ResourceKey<DamageType> VOIDED = create("voided");
+    public static ResourceKey<DamageType> RAGE = create("rage");
     public static ResourceKey<DamageType> DISMISSED = create("dismissed");
     public static ResourceKey<DamageType> DOOM = create("doom");
     public static ResourceKey<DamageType> DEATH = create("death");
@@ -67,6 +70,10 @@ public class ModDamageSource extends DamageSource {
 
     public static ResourceKey<DamageType> create(String name) {
         return ResourceKey.create(Registries.DAMAGE_TYPE, Goety.location(name));
+    }
+
+    public static DamageSource getDamageSource(Level level, ResourceKey<DamageType> type) {
+        return getEntityDamageSource(level, type, null);
     }
 
     public static DamageSource getDamageSource(Level level, ResourceKey<DamageType> type, EntityType<?>... toIgnore) {
@@ -326,13 +333,16 @@ public class ModDamageSource extends DamageSource {
         context.register(BUBBLE_STREAM, new DamageType("goety.bubbleStream", 0.0F, DamageEffects.DROWNING));
         context.register(MAGIC_BOLT, new DamageType("indirectMagic", 0.0F));
         context.register(ACID, new DamageType("goety.acid", 0.0F));
+        context.register(VENOM, new DamageType("goety.venom", 0.0F));
         context.register(SOUL_LEECH, new DamageType("goety.soulLeech", 0.0F));
         context.register(LIFE_LEECH, new DamageType("goety.lifeLeech", 0.0F));
+        context.register(ROT, new DamageType("goety.rot", 0.0F));
         context.register(SPIKE, new DamageType("goety.spike", 0.0F, DamageEffects.POKING));
         context.register(BOILING, new DamageType("goety.boiling", 0.0F, DamageEffects.BURNING));
         context.register(PHOBIA, new DamageType("goety.phobia", 0.0F));
         context.register(CHOKE, new DamageType("goety.choke", 0.0F));
         context.register(SWARM, new DamageType("goety.swarm", 0.0F));
+        context.register(RAGE, new DamageType("goety.rage", 0.0F, DamageEffects.BURNING));
         context.register(VOIDED, new DamageType("goety.voided", 0.0F));
         context.register(DISMISSED, new DamageType("goety.dismissed", 0.0F));
         context.register(DOOM, new DamageType("goety.doom", 0.0F));

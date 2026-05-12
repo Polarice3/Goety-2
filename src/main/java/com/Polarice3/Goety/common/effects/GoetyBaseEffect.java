@@ -209,8 +209,12 @@ public class GoetyBaseEffect extends MobEffect {
                 }
             } else {
                 if (livingEntity.tickCount % 25 == 0) {
-                    if (livingEntity.getHealth() > 1.0F) {
-                        livingEntity.hurt(livingEntity.damageSources().magic(), 1.0F);
+                    if (!CuriosFinder.hasUndeadSet(livingEntity)) {
+                        livingEntity.hurt(ModDamageSource.getDamageSource(world, ModDamageSource.ROT), 1.0F);
+                    } else {
+                        if (!CuriosFinder.hasNamelessSet(livingEntity)) {
+                            livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 5, 0, false, false));
+                        }
                     }
                 }
             }

@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.hostile;
 
+import com.Polarice3.Goety.api.entities.IChunkLoader;
 import com.Polarice3.Goety.api.entities.ICustomAttributes;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
@@ -8,6 +9,7 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.projectiles.HauntedSkullProjectile;
+import com.Polarice3.Goety.common.events.TimedEvents;
 import com.Polarice3.Goety.common.magic.spells.ShockwaveSpell;
 import com.Polarice3.Goety.common.magic.spells.storm.ElectroOrbSpell;
 import com.Polarice3.Goety.common.network.ModServerBossInfo;
@@ -59,7 +61,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class SkullLord extends Monster implements ICustomAttributes {
+public class SkullLord extends Monster implements ICustomAttributes, IChunkLoader {
     protected static final EntityDataAccessor<Byte> FLAGS = SynchedEntityData.defineId(SkullLord.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Optional<UUID>> BONE_LORD = SynchedEntityData.defineId(SkullLord.class, EntityDataSerializers.OPTIONAL_UUID);
     protected static final EntityDataAccessor<Integer> BONE_LORD_CLIENT_ID = SynchedEntityData.defineId(SkullLord.class, EntityDataSerializers.INT);
@@ -77,6 +79,7 @@ public class SkullLord extends Monster implements ICustomAttributes {
     private int hitTimes;
     private int stuckTime = 0;
     public int noTargetTime = 0;
+    public long ticketTime = 0;
 
     public SkullLord(EntityType<? extends SkullLord> p_i50190_1_, Level p_i50190_2_) {
         super(p_i50190_1_, p_i50190_2_);
@@ -125,7 +128,7 @@ public class SkullLord extends Monster implements ICustomAttributes {
     }
 
     public BlockEntity getPithos(){
-        if (this.getBoundOrigin() != null){
+        if (this.getBoundOrigin() != null && this.level.isLoaded(this.getBoundOrigin())){
             return this.level.getBlockEntity(this.getBoundOrigin());
         }
         return null;
@@ -152,6 +155,21 @@ public class SkullLord extends Monster implements ICustomAttributes {
 
     protected boolean isAffectedByFluids() {
         return false;
+    }
+
+    @Override
+    public long getTicketTime() {
+        return this.ticketTime;
+    }
+
+    @Override
+    public void setTicketTime(long ticketTime) {
+        this.ticketTime = ticketTime;
+    }
+
+    @Override
+    public long decreaseTicketTime() {
+        return --this.ticketTime;
     }
 
     static class MoveHelperController extends MoveControl {
@@ -192,6 +210,11 @@ public class SkullLord extends Monster implements ICustomAttributes {
 
             return true;
         }
+    }
+
+    @Override
+    public boolean shouldChunkLoad() {
+        return this.getPithos() != null;
     }
 
     public void tick() {
@@ -309,7 +332,7 @@ public class SkullLord extends Monster implements ICustomAttributes {
                         this.setSpawning(false);
                     }
                 } else {
-                    this.spawnDelay = this.level.random.nextInt(delay) + delay;
+                    this.spawnDelay = this.level.getRandom().nextInt(delay) + delay;
                     this.setSpawning(false);
                     this.spawnMobs();
                 }
@@ -407,52 +430,56 @@ public class SkullLord extends Monster implements ICustomAttributes {
 
     public void spawnMobs(){
         int spawnRange = 2;
-        boolean random = this.level.random.nextBoolean();
+        boolean random = this.level.getRandom().nextBoolean();
         if (this.level instanceof ServerLevel serverLevel) {
-            double d0 = (double) this.blockPosition().getX() + this.level.random.nextDouble();
-            double d1 = (double) this.blockPosition().getY() + this.level.random.nextDouble();
-            double d2 = (double) this.blockPosition().getZ() + this.level.random.nextDouble();
             for (int p = 0; p < 4; ++p) {
+                double d0 = (double) this.blockPosition().getX() + this.level.getRandom().nextDouble();
+                double d1 = (double) this.blockPosition().getY() + this.level.getRandom().nextDouble();
+                double d2 = (double) this.blockPosition().getZ() + this.level.getRandom().nextDouble();
                 serverLevel.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, d0, d1, d2, 1, 0, 0, 0, 0);
                 serverLevel.sendParticles(ParticleTypes.SMOKE, d0, d1, d2, 1, 0.0D, 5.0E-4D, 0.0D, 5.0E-4D);
             }
             SoundUtil.playNecromancerSummon(this);
-            for (int i = 0; i < 2 + (serverLevel.random.nextInt(2) * serverLevel.random.nextInt(1)); ++i) {
-                double d3 = (double) this.blockPosition().getX() + (serverLevel.random.nextDouble() - serverLevel.random.nextDouble()) * (double) spawnRange + 0.5D;
-                double d4 = (double) (this.blockPosition().getY() + serverLevel.random.nextInt(3));
-                double d5 = (double) this.blockPosition().getZ() + (serverLevel.random.nextDouble() - serverLevel.random.nextDouble()) * (double) spawnRange + 0.5D;
+            for (int i = 0; i < 2 + (serverLevel.getRandom().nextInt(2) * serverLevel.getRandom().nextInt(1)); ++i) {
+                double d3 = (double) this.blockPosition().getX() + (serverLevel.getRandom().nextDouble() - serverLevel.getRandom().nextDouble()) * (double) spawnRange + 0.5D;
+                double d4 = this.blockPosition().getY() + serverLevel.getRandom().nextInt(3);
+                double d5 = (double) this.blockPosition().getZ() + (serverLevel.getRandom().nextDouble() - serverLevel.getRandom().nextDouble()) * (double) spawnRange + 0.5D;
                 Summoned summoned;
-                if (this.isUnderWater()) {
-                    if (random) {
-                        summoned = ModEntityType.DROWNED_SERVANT.get().create(serverLevel);
-                    } else {
-                        summoned = ModEntityType.SUNKEN_SKELETON_SERVANT.get().create(serverLevel);
-                    }
-                } else {
-                    if (random) {
-                        if (serverLevel.random.nextFloat() <= 0.8F){
-                            summoned = ModEntityType.FROZEN_ZOMBIE_SERVANT.get().create(serverLevel);
+                BlockPos blockPos = BlockPos.containing(d3, d4, d5);
+                blockPos = BlockFinder.SummonPosition(this, blockPos);
+                if (this.level.getBlockState(blockPos).getCollisionShape(this.level, blockPos).isEmpty()) {
+                    if (serverLevel.isWaterAt(blockPos)) {
+                        if (random) {
+                            summoned = ModEntityType.DROWNED_SERVANT.get().create(serverLevel);
                         } else {
-                            summoned = ModEntityType.ZOMBIE_SERVANT.get().create(serverLevel);
+                            summoned = ModEntityType.SUNKEN_SKELETON_SERVANT.get().create(serverLevel);
                         }
                     } else {
-                        if (serverLevel.random.nextFloat() <= 0.8F){
-                            summoned = ModEntityType.STRAY_SERVANT.get().create(serverLevel);
+                        if (random) {
+                            if (serverLevel.getRandom().nextFloat() <= 0.8F){
+                                summoned = ModEntityType.FROZEN_ZOMBIE_SERVANT.get().create(serverLevel);
+                            } else {
+                                summoned = ModEntityType.ZOMBIE_SERVANT.get().create(serverLevel);
+                            }
                         } else {
-                            summoned = ModEntityType.SKELETON_SERVANT.get().create(serverLevel);
+                            if (serverLevel.getRandom().nextFloat() <= 0.8F){
+                                summoned = ModEntityType.STRAY_SERVANT.get().create(serverLevel);
+                            } else {
+                                summoned = ModEntityType.SKELETON_SERVANT.get().create(serverLevel);
+                            }
+                        }
+                        if (serverLevel.getRandom().nextFloat() <= 0.15F){
+                            summoned = ModEntityType.BORDER_WRAITH_SERVANT.get().create(serverLevel);
                         }
                     }
-                    if (serverLevel.random.nextFloat() <= 0.15F){
-                        summoned = ModEntityType.BORDER_WRAITH_SERVANT.get().create(serverLevel);
+                    if (summoned != null) {
+                        summoned.setTrueOwner(this);
+                        summoned.setUpgraded(true);
+                        summoned.moveTo(blockPos, this.getYRot(), this.getXRot());
+                        summoned.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(summoned.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+                        ServerParticleUtil.summonUndeadParticles(serverLevel, summoned);
+                        serverLevel.addFreshEntityWithPassengers(summoned);
                     }
-                }
-                if (summoned != null) {
-                    BlockPos blockPos = BlockPos.containing(d3, d4, d5);
-                    summoned.setTrueOwner(this);
-                    summoned.setUpgraded(true);
-                    summoned.moveTo(BlockFinder.SummonPosition(summoned, blockPos), this.getYRot(), this.getXRot());
-                    summoned.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(summoned.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-                    serverLevel.addFreshEntityWithPassengers(summoned);
                 }
             }
         }
@@ -460,7 +487,7 @@ public class SkullLord extends Monster implements ICustomAttributes {
 
     public void die(DamageSource cause) {
         super.die(cause);
-        for(int i = 0; i < this.level.random.nextInt(35) + 10; ++i) {
+        for(int i = 0; i < this.level.getRandom().nextInt(35) + 10; ++i) {
             float f11 = (this.random.nextFloat() - 0.5F);
             float f13 = (this.random.nextFloat() - 0.5F);
             float f14 = (this.random.nextFloat() - 0.5F);
@@ -489,8 +516,18 @@ public class SkullLord extends Monster implements ICustomAttributes {
             if (!this.isDespawn()) {
                 if (this.getPithos() != null) {
                     if (this.getPithos() instanceof PithosBlockEntity pithosTile) {
-                        pithosTile.setSkullLordName(null);
-                        pithosTile.unlock();
+                        BlockPos pithosPos = pithosTile.getBlockPos().immutable();
+                        Level pithosLevel = pithosTile.getLevel();
+                        TimedEvents.submitTask("goety:pithos_unlock_" + pithosPos.toShortString(), () -> {
+                            if (pithosLevel != null) {
+                                BlockEntity blockEntity = pithosLevel.getBlockEntity(pithosPos);
+                                if (blockEntity instanceof PithosBlockEntity pithos) {
+                                    pithos.setSkullLordName(null);
+                                    pithos.unlock();
+                                }
+                            }
+                            return true;
+                        });
                     }
                 }
             }

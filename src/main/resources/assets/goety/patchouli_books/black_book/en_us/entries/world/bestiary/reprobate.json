@@ -1,0 +1,21 @@
+{
+  "name": "Reprobates",
+  "icon": "minecraft:crimson_planks",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_reprobate",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Unlike Witches, these heathens throw an entire cask of potions that all mixed into an acidic pool. They are said to also deliver these potions to dark forces."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:reprobate",
+      "text": "They're resistant to magic much like their Witch cousins."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If a Wandering Trader gets struck by lightning, they will transform into a Reprobate."
+    }
+  ]
+}

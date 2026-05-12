@@ -8,13 +8,12 @@ import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.SoundUtil;
-import com.Polarice3.Goety.utils.WandUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
@@ -122,6 +121,19 @@ public class ScatterSpell extends Spell {
     }
 
     @Override
+    public void stopSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, ItemStack focus, int castTime, SpellStat spellStat) {
+        if (this.rightStaff(staff)) {
+            int time = MathHelper.secondsToTicks(5.15F - 1) / 14;
+            if (castTime >= time) {
+                if (caster instanceof Player player && !focus.isEmpty()) {
+                    SEHelper.addCooldown(player, focus.getItem(), this.spellCooldown(caster));
+                    SEHelper.sendSEUpdatePacket(player);
+                }
+            }
+        }
+    }
+
+    @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
         if (rightStaff(staff)){
             return;
@@ -136,19 +148,17 @@ public class ScatterSpell extends Spell {
         }
         int amount = 3;
         for (int i = 0; i < amount; ++i) {
-            BlockPos blockPos = caster.blockPosition();
-            blockPos = blockPos.offset(-4 + worldIn.random.nextInt(8), 0, -4 + worldIn.random.nextInt(8));
-            BlockPos blockPos2 = caster.blockPosition().offset(-4 + worldIn.random.nextInt(8), 0, -4 + worldIn.random.nextInt(8));
-            Vec3 vec3 = Vec3.atBottomCenterOf(blockPos);
-            Vec3 vec31 = Vec3.atBottomCenterOf(blockPos2);
+            Vec3 vec3 = MobUtil.getFrontPos(caster, 4.0D);
+            if (i == 1) {
+                vec3 = MobUtil.getRightPos(caster, 4.0D);
+            } else if (i == 2) {
+                vec3 = MobUtil.getLeftPos(caster, 4.0D);
+            }
             ScatterMine scatterMine = new ScatterMine(worldIn, caster, vec3);
             scatterMine.setIsSpell();
             scatterMine.setExtraDamage(potency);
             scatterMine.setExtraRadius((float) radius);
             scatterMine.lifeTicks = MathHelper.secondsToTicks(duration);
-            if (!worldIn.getEntitiesOfClass(ScatterMine.class, new AABB(blockPos)).isEmpty()) {
-                scatterMine.setPos(vec31.x(), vec31.y(), vec31.z());
-            }
             if (worldIn.addFreshEntity(scatterMine)) {
                 SoundUtil.playRedstoneMineLoad(scatterMine);
             }

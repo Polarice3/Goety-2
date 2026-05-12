@@ -8,7 +8,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ModSpawnEggItem extends ForgeSpawnEggItem {
 
-    public ModSpawnEggItem(final RegistryObject<? extends EntityType<? extends Mob>> entityTypeSupplier, int primaryColorIn, int secondaryColorIn, Properties builder) {
-        super(Lazy.of(entityTypeSupplier), primaryColorIn, secondaryColorIn, builder);
+    public ModSpawnEggItem(final RegistryObject<? extends EntityType<? extends Mob>> entityTypeSupplier, int backgroundColor, int highlightColor, Properties builder) {
+        super(Lazy.of(entityTypeSupplier), backgroundColor, highlightColor, builder);
     }
 }

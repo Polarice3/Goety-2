@@ -9,9 +9,11 @@ import com.Polarice3.Goety.client.particles.WindGatherParticleOption;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Heresiarch;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Heretic;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Maverick;
 import com.Polarice3.Goety.common.entities.util.SummonCircle;
+import com.Polarice3.Goety.common.entities.util.SummonCircleBoss;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -49,6 +51,7 @@ import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
 
@@ -63,6 +66,8 @@ public abstract class AbstractObsidianMonolith extends AbstractMonolith {
     public int empowered;
     public int shieldTime;
     public int destroyBlocksTick;
+    public int spawnMiniBossCool;
+    public double cloudHeight = 16.0D;
     public boolean shouldSpawnHeretics;
     private final NetherSpreaderUtil netherSpreaderUtil = NetherSpreaderUtil.createLevelSpreader();
 
@@ -100,6 +105,8 @@ public abstract class AbstractObsidianMonolith extends AbstractMonolith {
         p_31485_.putInt("StartUp", this.getStartUp());
         p_31485_.putInt("SpreaderLevel", this.getSpreaderLevel());
         p_31485_.putInt("SpreaderLeveling", this.getSpreaderLeveling());
+        p_31485_.putInt("SpawnMiniBossCool", this.spawnMiniBossCool);
+        p_31485_.putDouble("CloudHeight", this.cloudHeight);
     }
 
     @Override
@@ -119,6 +126,12 @@ public abstract class AbstractObsidianMonolith extends AbstractMonolith {
         }
         if (p_31474_.contains("SpreaderLeveling")) {
             this.setSpreaderLeveling(p_31474_.getInt("SpreaderLeveling"));
+        }
+        if (p_31474_.contains("SpawnMiniBossCool")) {
+            this.spawnMiniBossCool = p_31474_.getInt("SpawnMiniBossCool");
+        }
+        if (p_31474_.contains("CloudHeight")) {
+            this.cloudHeight = p_31474_.getDouble("CloudHeight");
         }
     }
 
@@ -153,6 +166,11 @@ public abstract class AbstractObsidianMonolith extends AbstractMonolith {
     @Override
     public boolean attackable() {
         return super.attackable() && this.empowered <= 0;
+    }
+
+    @Override
+    public boolean canBeSeenAsEnemy() {
+        return super.canBeSeenAsEnemy() && this.empowered <= 0;
     }
 
     @Override
@@ -354,6 +372,9 @@ public abstract class AbstractObsidianMonolith extends AbstractMonolith {
                         this.playSound(ModSounds.SCARY_RECITE.get(), 1.0F, this.getVoicePitch());
                     }
                 }
+                if (this.spawnMiniBossCool > 0) {
+                    --this.spawnMiniBossCool;
+                }
                 this.healCultists();
             }
 
@@ -454,21 +475,7 @@ public abstract class AbstractObsidianMonolith extends AbstractMonolith {
                     int i = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(24.0D, 16.0D, 24.0D), livingEntity -> livingEntity.isAlive() && livingEntity instanceof Maverick).size();
                     if (this.tickCount % time == 0) {
                         if (random1.nextFloat() <= 0.25F && i < 8) {
-                            Maverick maverick = new Maverick(ModEntityType.MAVERICK.get(), this.level);
-                            int i1 = this.blockPosition().getX() + (Mth.randomBetweenInclusive(random1, 4, 12) * Mth.randomBetweenInclusive(random1, -1, 1));
-                            int j1 = this.blockPosition().getY() + (Mth.randomBetweenInclusive(random1, 0, 3) * Mth.randomBetweenInclusive(random1, -1, 1));
-                            int k1 = this.blockPosition().getZ() + (Mth.randomBetweenInclusive(random1, 4, 12) * Mth.randomBetweenInclusive(random1, -1, 1));
-                            BlockPos blockPos = BlockFinder.SummonPosition(maverick, new BlockPos(i1, j1, k1));
-                            maverick.setPos(blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D);
-                            if (this.level.noCollision(maverick.getBoundingBox()) && this.level.getEntityCollisions(maverick, maverick.getBoundingBox()).isEmpty() && !this.level.containsAnyLiquid(maverick.getBoundingBox())) {
-                                maverick.finalizeSpawn(serverLevel, this.level.getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null, null);
-                                maverick.setLeader(this);
-                                if (this.getTarget() != null) {
-                                    maverick.setTarget(this.getTarget());
-                                }
-                                maverick.spawnAnim();
-                                this.level.addFreshEntity(maverick);
-                            }
+                            this.summonMavericks();
                         }
                     }
                     spawnChance = 64;
@@ -477,8 +484,8 @@ public abstract class AbstractObsidianMonolith extends AbstractMonolith {
                 this.netherSpreaderUtil.clear();
             }
             if (MobsConfig.ObsidianMonolithSpawner.get()) {
-                if (serverLevel.random.nextInt(spawnChance) == 0) {
-                    int j = serverLevel.getNearbyEntities(Mob.class, TargetingConditions.DEFAULT, this, this.getBoundingBox().inflate(32.0D, 16.0D, 32.0D)).size();
+                int j = serverLevel.getNearbyEntities(Mob.class, TargetingConditions.DEFAULT, this, this.getBoundingBox().inflate(32.0D, 16.0D, 32.0D)).size();
+                if (serverLevel.getRandom().nextInt(spawnChance) == 0) {
                     if (j < 16){
                         WeightedRandomList<MobSpawnSettings.SpawnerData> spawners = MobUtil.mobsAt(serverLevel, serverLevel.structureManager(), serverLevel.getChunkSource().getGenerator(), MobCategory.MONSTER, this.blockPosition(), serverLevel.getBiome(this.blockPosition()));
                         if (!spawners.isEmpty()) {
@@ -508,26 +515,71 @@ public abstract class AbstractObsidianMonolith extends AbstractMonolith {
                         }
                     }
                     float f1 = this.getCrackiness() == Crackiness.NONE ? 0.125F : this.getCrackiness() == Crackiness.LOW ? 0.2F : this.getCrackiness() == Crackiness.MEDIUM ? 0.25F : 0.3F;
-                    int heretics = this.level.getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(32.0D, 16.0D, 32.0D), LivingEntity::isAlive).size();
-                    if (heretics <= 2 && random1.nextFloat() <= f1){
-                        Heretic heretic = new Heretic(ModEntityType.HERETIC.get(), this.level);
-                        int i1 = this.blockPosition().getX() + (Mth.randomBetweenInclusive(random1, 4, 12) * Mth.randomBetweenInclusive(random1, -1, 1));
+                    if (j <= 2 && random1.nextFloat() <= f1){
+                        this.summonHeretics();
+                    }
+                }
+                if (this.tickCount % 20 == 0) {
+                    int heresiarchs = this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(64.0D, 16.0D, 64.0D), entity -> entity.isAlive() && (entity instanceof Heresiarch || entity instanceof SummonCircleBoss)).size();
+                    if (this.spawnMiniBossCool <= 0 && j == 0 && heresiarchs == 0 && random1.nextFloat() <= 0.05F) {
+                        Heresiarch heresiarch = new Heresiarch(ModEntityType.HERESIARCH.get(), this.level);
+                        int i1 = this.blockPosition().getX() + (Mth.randomBetweenInclusive(random1, 4, 8) * Mth.randomBetweenInclusive(random1, -1, 1));
                         int j1 = this.blockPosition().getY() + (Mth.randomBetweenInclusive(random1, 0, 3) * Mth.randomBetweenInclusive(random1, -1, 1));
-                        int k1 = this.blockPosition().getZ() + (Mth.randomBetweenInclusive(random1, 4, 12) * Mth.randomBetweenInclusive(random1, -1, 1));
-                        BlockPos blockPos = BlockFinder.SummonPosition(heretic, new BlockPos(i1, j1, k1));
-                        heretic.setPos(blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D);
-                        if (this.level.noCollision(heretic.getBoundingBox()) && this.level.getEntityCollisions(heretic, heretic.getBoundingBox()).isEmpty() && !this.level.containsAnyLiquid(heretic.getBoundingBox())) {
-                            heretic.finalizeSpawn(serverLevel, this.level.getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null, null);
-                            heretic.setPersistenceRequired();
-                            heretic.setLeader(this);
-                            heretic.setMonolith(this);
-                            heretic.spawnAnim();
-                            this.level.addFreshEntity(heretic);
+                        int k1 = this.blockPosition().getZ() + (Mth.randomBetweenInclusive(random1, 4, 8) * Mth.randomBetweenInclusive(random1, -1, 1));
+                        BlockPos blockPos = BlockFinder.SummonPosition(heresiarch, new BlockPos(i1, j1, k1));
+                        Vec3 vec3 = new Vec3(blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D);
+                        heresiarch.setPos(vec3);
+                        if (this.level.noCollision(heresiarch.getBoundingBox()) && this.level.getEntityCollisions(heresiarch, heresiarch.getBoundingBox()).isEmpty() && !this.level.containsAnyLiquid(heresiarch.getBoundingBox())) {
+                            heresiarch.finalizeSpawn(serverLevel, this.level.getCurrentDifficultyAt(blockPos), MobSpawnType.SPAWNER, null, null);
+                            heresiarch.setPersistenceRequired();
+                            heresiarch.setLeader(this);
+                            heresiarch.setMonolith(this);
+                            SummonCircleBoss summonCircleBoss = new SummonCircleBoss(this.level, vec3, heresiarch);
+                            this.level.addFreshEntity(summonCircleBoss);
                         }
                     }
                 }
             }
             this.destroyBlocksAround();
+        }
+    }
+
+    public void summonMavericks() {
+        if (this.level instanceof ServerLevel serverLevel) {
+            Maverick maverick = new Maverick(ModEntityType.MAVERICK.get(), this.level);
+            int i1 = this.blockPosition().getX() + (Mth.randomBetweenInclusive(serverLevel.getRandom(), 4, 12) * Mth.randomBetweenInclusive(serverLevel.getRandom(), -1, 1));
+            int j1 = this.blockPosition().getY() + (Mth.randomBetweenInclusive(serverLevel.getRandom(), 0, 3) * Mth.randomBetweenInclusive(serverLevel.getRandom(), -1, 1));
+            int k1 = this.blockPosition().getZ() + (Mth.randomBetweenInclusive(serverLevel.getRandom(), 4, 12) * Mth.randomBetweenInclusive(serverLevel.getRandom(), -1, 1));
+            BlockPos blockPos = BlockFinder.SummonPosition(maverick, new BlockPos(i1, j1, k1));
+            maverick.setPos(blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D);
+            if (this.level.noCollision(maverick.getBoundingBox()) && this.level.getEntityCollisions(maverick, maverick.getBoundingBox()).isEmpty() && !this.level.containsAnyLiquid(maverick.getBoundingBox())) {
+                maverick.finalizeSpawn(serverLevel, this.level.getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null, null);
+                maverick.setLeader(this);
+                if (this.getTarget() != null) {
+                    maverick.setTarget(this.getTarget());
+                }
+                maverick.spawnAnim();
+                this.level.addFreshEntity(maverick);
+            }
+        }
+    }
+
+    public void summonHeretics() {
+        if (this.level instanceof ServerLevel serverLevel) {
+            Heretic heretic = new Heretic(ModEntityType.HERETIC.get(), this.level);
+            int i1 = this.blockPosition().getX() + (Mth.randomBetweenInclusive(serverLevel.getRandom(), 4, 12) * Mth.randomBetweenInclusive(serverLevel.getRandom(), -1, 1));
+            int j1 = this.blockPosition().getY() + (Mth.randomBetweenInclusive(serverLevel.getRandom(), 0, 3) * Mth.randomBetweenInclusive(serverLevel.getRandom(), -1, 1));
+            int k1 = this.blockPosition().getZ() + (Mth.randomBetweenInclusive(serverLevel.getRandom(), 4, 12) * Mth.randomBetweenInclusive(serverLevel.getRandom(), -1, 1));
+            BlockPos blockPos = BlockFinder.SummonPosition(heretic, new BlockPos(i1, j1, k1));
+            heretic.setPos(blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D);
+            if (this.level.noCollision(heretic.getBoundingBox()) && this.level.getEntityCollisions(heretic, heretic.getBoundingBox()).isEmpty() && !this.level.containsAnyLiquid(heretic.getBoundingBox())) {
+                heretic.finalizeSpawn(serverLevel, this.level.getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null, null);
+                heretic.setPersistenceRequired();
+                heretic.setLeader(this);
+                heretic.setMonolith(this);
+                heretic.spawnAnim();
+                this.level.addFreshEntity(heretic);
+            }
         }
     }
 
@@ -569,7 +621,10 @@ public abstract class AbstractObsidianMonolith extends AbstractMonolith {
     public void spreadNether(){
         if (this.level instanceof ServerLevel serverLevel) {
             int activeHeretics = this.level.getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(10.0D), living -> living.isAlive() && living instanceof IHeretic heretic && heretic.isCasting() && heretic.getMonolith() == this).size();
-            Vec3 skyVec = new Vec3(this.getX(), this.getY() + 16.0D, this.getZ());
+            Vec3 skyVec = new Vec3(this.getX(), this.getY() + this.cloudHeight, this.getZ());
+            if (!this.level.canSeeSky(this.blockPosition().above())) {
+                skyVec = this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, this.blockPosition()).getCenter().add(0, this.cloudHeight, 0);
+            }
             if (this.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.ObsidianMonolithSpread.get() && this.level.dimension() != Level.NETHER) {
                 if (this.startSpreading()) {
                     if (this.level.isEmptyBlock(BlockPos.containing(skyVec))) {
@@ -608,19 +663,19 @@ public abstract class AbstractObsidianMonolith extends AbstractMonolith {
                     ++this.startUp;
                     if (this.startUp > 0) {
                         if (this.level.isEmptyBlock(BlockPos.containing(skyVec))) {
-                            float radius = 2.0F;
+                            float radius = 4.0F;
                             float totalTime = MathHelper.minecraftDayToTicks(MobsConfig.ObsidianMonolithStartUpTime.get());
                             if (this.startUp > totalTime / 4.0F) {
-                                radius = 4.0F;
-                            }
-                            if (this.startUp > totalTime / 2.0F) {
                                 radius = 6.0F;
                             }
-                            if (this.startUp > totalTime / 1.5F) {
+                            if (this.startUp > totalTime / 2.0F) {
                                 radius = 8.0F;
                             }
-                            ServerParticleUtil.addReverseAuraParticles(serverLevel, ModParticleTypes.SPELL_CLOUD.get(), skyVec, radius / 2.0F);
-                            ServerParticleUtil.addAuraParticles(serverLevel, ModParticleTypes.SPELL_CLOUD.get(), skyVec, radius);
+                            if (this.startUp > totalTime / 1.5F) {
+                                radius = 12.0F;
+                            }
+                            ServerParticleUtil.addReverseVisualAuraParticles(serverLevel, ModParticleTypes.SPELL_CLOUD.get(), skyVec, radius / 2.0F);
+                            ServerParticleUtil.addVisibleAuraParticles(serverLevel, ModParticleTypes.SPELL_CLOUD.get(), skyVec, radius);
                         }
                     }
                 }

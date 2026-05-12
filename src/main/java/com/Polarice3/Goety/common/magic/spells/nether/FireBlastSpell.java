@@ -76,9 +76,13 @@ public class FireBlastSpell extends Spell {
         }
         damage += spellStat.getPotency();
         maxDamage += spellStat.getPotency();
+        float increase = 0.0F;
+        if (rightStaff(staff)) {
+            increase = 0.5F;
+        }
         ColorUtil colorUtil = new ColorUtil(0xdd9c16);
-        worldIn.sendParticles(new ShockwaveParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue()), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 0, 0, 0, 0, 0);
-        worldIn.sendParticles(new SphereExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius, 1), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 1, 0, 0, 0, 0);
+        worldIn.sendParticles(new ShockwaveParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius + increase, 1, true), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 0, 0, 0, 0, 0);
+        worldIn.sendParticles(new SphereExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius + increase, 1), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 1, 0, 0, 0, 0);
         float trueDamage = Mth.clamp(damage + RandomUtil.nextInt(worldIn.getRandom(), (int) (maxDamage - damage)), damage, maxDamage);
 
         DamageSource damageSource = ModDamageSource.fireBreath(caster, caster);
@@ -95,10 +99,6 @@ public class FireBlastSpell extends Spell {
         }
 
         int finalBurning = burning;
-        float increase = 0.0F;
-        if (rightStaff(staff)) {
-            increase = 0.5F;
-        }
         new SpellExplosion(worldIn, caster, damageSource, caster.blockPosition(), radius + increase, trueDamage){
             @Override
             public void explodeHurt(Entity target, DamageSource damageSource, double x, double y, double z, double seen, float actualDamage) {

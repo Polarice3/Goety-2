@@ -1,0 +1,193 @@
+{
+  "name": "goety:ruined_monastery/connector",
+  "fallback": "goety:ruined_monastery/connector",
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:ruined_monastery/boss_room",
+        "processors": "goety:no_waterlogging",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:ruined_monastery/cellar",
+        "processors": "goety:no_waterlogging",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:ruined_monastery/cellar_stairs",
+        "processors": "goety:no_waterlogging",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:ruined_monastery/church",
+        "processors": "goety:no_waterlogging",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:ruined_monastery/crypt_hallway_1",
+        "processors": "goety:no_waterlogging",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:ruined_monastery/crypt_hallway_2",
+        "processors": "goety:no_waterlogging",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:ruined_monastery/crypt_hallway_3",
+        "processors": "goety:no_waterlogging",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:ruined_monastery/crypt_hallway_4",
+        "processors": "goety:no_waterlogging",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:ruined_monastery/crypt_stairs",
+        "processors": "goety:no_waterlogging",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:ruined_monastery/graveyard",
+        "processors": "goety:no_waterlogging",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:ruined_monastery/scriptorium",
+        "processors": "goety:no_waterlogging",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:ruined_monastery/tower_1",
+        "processors": "goety:no_waterlogging",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:ruined_monastery/refectory",
+        "processors": "goety:no_waterlogging",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:ruined_monastery/rubbles_1",
+        "processors": "goety:no_waterlogging",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:ruined_monastery/rubbles_2",
+        "processors": "goety:no_waterlogging",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:ruined_monastery/rubbles_3",
+        "processors": "goety:no_waterlogging",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:ruined_monastery/rubbles_4",
+        "processors": "goety:no_waterlogging",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

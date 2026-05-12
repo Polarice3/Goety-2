@@ -17,6 +17,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -318,7 +319,19 @@ public class Maverick extends Cultist{
                 if (instance.getEffect().isInstantenous()) {
                     instants.add(instance);
                 } else {
-                    effects.add(instance);
+                    double d1;
+                    if (this.level.getDifficulty() == Difficulty.HARD) {
+                        d1 = 1.0D;
+                    } else {
+                        d1 = 0.25D;
+                    }
+                    int i = instance.mapDuration((p_267930_) -> {
+                        return (int)(d1 * (double)p_267930_ + 0.5D);
+                    });
+                    MobEffectInstance mobeffectinstance1 = new MobEffectInstance(instance.getEffect(), i, instance.getAmplifier(), instance.isAmbient(), instance.isVisible());
+                    if (!mobeffectinstance1.endsWithin(20)) {
+                        effects.add(mobeffectinstance1);
+                    }
                 }
             }
             if (!effects.isEmpty() || !instants.isEmpty()) {
@@ -433,8 +446,7 @@ public class Maverick extends Cultist{
             }
 
             if (this.maverick.hurtTime != 0){
-                if (this.maverick.getItemInHand(InteractionHand.OFF_HAND).is(ModTags.Items.WITCH_CURRENCY)
-                        || this.maverick.getItemInHand(InteractionHand.OFF_HAND).is(ModTags.Items.WITCH_BETTER_CURRENCY)) {
+                if (this.maverick.getItemInHand(InteractionHand.OFF_HAND).is(ModTags.Items.WITCH_CURRENCY)) {
                     this.maverick.spawnAtLocation(this.maverick.getItemInHand(InteractionHand.OFF_HAND));
                     this.clearTrade();
                 }
@@ -456,7 +468,7 @@ public class Maverick extends Cultist{
 
         @Override
         public boolean canUse() {
-            return this.maverick.getOffhandItem().is(ModTags.Items.WITCH_CURRENCY) || this.maverick.getOffhandItem().is(ModTags.Items.WITCH_BETTER_CURRENCY);
+            return this.maverick.getOffhandItem().is(ModTags.Items.WITCH_CURRENCY);
         }
 
         @Override

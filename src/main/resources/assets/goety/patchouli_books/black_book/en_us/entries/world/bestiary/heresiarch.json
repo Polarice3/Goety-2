@@ -1,0 +1,25 @@
+{
+  "name": "Heresiarchs",
+  "icon": "goety:malefic_helm",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_heresiarch",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "These unholy priests leads a congregation of those who worshipped the Great Flame. They're knowledge over the dark realm grants them hellish abilities."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:heresiarch",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:malefic_helm",
+      "text": "Upon death, they drop their antlered bone helmet that provides some benefits upon the wearer, though due to its size, it cannot be worn as a Curio."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:malefic_helm": 2
+  }
+}

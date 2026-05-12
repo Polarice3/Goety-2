@@ -434,8 +434,6 @@ public class BlackguardServant extends ZombieServant{
             if (BlackguardServant.this.getTarget() != null) {
                 LivingEntity livingentity = BlackguardServant.this.getTarget();
                 MobUtil.instaLook(BlackguardServant.this, livingentity);
-                BlackguardServant.this.setYBodyRot(BlackguardServant.this.getYHeadRot());
-                BlackguardServant.this.setYRot(BlackguardServant.this.getYHeadRot());
             }
             if (BlackguardServant.this.attackTick == 1){
                 BlackguardServant.this.playSound(ModSounds.BLACKGUARD_PRE_ATTACK.get(), BlackguardServant.this.getSoundVolume() + 1.0F, BlackguardServant.this.getVoicePitch());
@@ -445,24 +443,24 @@ public class BlackguardServant extends ZombieServant{
             }
             if (BlackguardServant.this.attackTick == 14) {
                 double x = BlackguardServant.this.getX() + BlackguardServant.this.getHorizontalLookAngle().x * 2;
+                double y = BlackguardServant.this.getY();
                 double z = BlackguardServant.this.getZ() + BlackguardServant.this.getHorizontalLookAngle().z * 2;
-                AABB aabb = MobUtil.makeAttackRange(x,
-                        BlackguardServant.this.getY(),
-                        z, 3, 3, 3);
+                AABB aabb = MobUtil.makeAttackRange(x, y, z, 3, 3, 3);
                 for (LivingEntity target : BlackguardServant.this.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
                     if (target != BlackguardServant.this && !MobUtil.areAllies(target, BlackguardServant.this)) {
                         BlackguardServant.this.doHurtTarget(target);
                     }
                 }
                 if (BlackguardServant.this.level instanceof ServerLevel serverLevel){
-                    BlockPos blockPos = BlockPos.containing(x, BlackguardServant.this.getY() - 1.0F, z);
-                    Vec3 vec3 = BlockFinder.SummonPosition(BlackguardServant.this, BlackguardServant.this.position());
+                    double groundY = BlockFinder.findGroundY(serverLevel, x, y, z);
+
+                    BlockPos blockPos = BlockPos.containing(x, groundY - 1.0D, z);
                     BlockParticleOption option = new BlockParticleOption(ParticleTypes.BLOCK, serverLevel.getBlockState(blockPos));
                     for (int i = 0; i < 2; ++i) {
-                        ServerParticleUtil.circularParticles(serverLevel, option, BlackguardServant.this.getX() + BlackguardServant.this.getHorizontalLookAngle().x * 2, BlackguardServant.this.getY() + 0.25D, BlackguardServant.this.getZ() + BlackguardServant.this.getHorizontalLookAngle().z * 2, 1.5F);
+                        ServerParticleUtil.circularParticles(serverLevel, option, x, groundY + 0.25D, z, 1.5F);
                     }
                     ColorUtil colorUtil = new ColorUtil(serverLevel.getBlockState(blockPos).getMapColor(serverLevel, blockPos).col);
-                    serverLevel.sendParticles(new SmashParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.5F, 10), x, vec3.y, z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                    serverLevel.sendParticles(new SmashParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.5F, 10), x, groundY, z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
                 }
             }
         }

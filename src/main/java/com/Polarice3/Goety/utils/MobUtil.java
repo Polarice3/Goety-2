@@ -6,10 +6,7 @@ import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.hostile.Irk;
-import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
-import com.Polarice3.Goety.common.entities.hostile.cultists.Heretic;
-import com.Polarice3.Goety.common.entities.hostile.cultists.Maverick;
-import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
 import com.Polarice3.Goety.common.entities.neutral.AbstractHauntedArmor;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
@@ -84,6 +81,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.entity.PartEntity;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -720,7 +718,7 @@ public class MobUtil {
     }
 
     public static void shoot(Entity entity, double p_37266_, double p_37267_, double p_37268_, float p_37269_, float p_37270_) {
-        Vec3 vec3 = (new Vec3(p_37266_, p_37267_, p_37268_)).normalize().add(entity.level.random.triangle(0.0D, 0.0172275D * (double)p_37270_), entity.level.random.triangle(0.0D, 0.0172275D * (double)p_37270_), entity.level.random.triangle(0.0D, 0.0172275D * (double)p_37270_)).scale((double)p_37269_);
+        Vec3 vec3 = (new Vec3(p_37266_, p_37267_, p_37268_)).normalize().add(entity.level.getRandom().triangle(0.0D, 0.0172275D * (double)p_37270_), entity.level.getRandom().triangle(0.0D, 0.0172275D * (double)p_37270_), entity.level.getRandom().triangle(0.0D, 0.0172275D * (double)p_37270_)).scale((double)p_37269_);
         entity.setDeltaMovement(vec3);
     }
 
@@ -1219,6 +1217,34 @@ public class MobUtil {
         return MobUtil.calculateViewVector(0, entity.getYRot());
     }
 
+    public static Vec3 getLeftPos(Entity entity, double scale) {
+        Vec3 left = getHorizontalLeftLookAngle(entity);
+        double x = left.x * scale;
+        double z = left.z * scale;
+        return entity.position().add(x, 0, z);
+    }
+
+    public static Vec3 getRightPos(Entity entity, double scale) {
+        Vec3 right = getHorizontalRightLookAngle(entity);
+        double x = right.x * scale;
+        double z = right.z * scale;
+        return entity.position().add(x, 0, z);
+    }
+
+    public static Vec3 getFrontPos(Entity entity, double scale) {
+        Vec3 front = getHorizontalLookAngle(entity);
+        double x = front.x * scale;
+        double z = front.z * scale;
+        return entity.position().add(x, 0, z);
+    }
+
+    public static Vec3 getBackPos(Entity entity, double scale) {
+        Vec3 front = getHorizontalLookAngle(entity).reverse();
+        double x = front.x * scale;
+        double z = front.z * scale;
+        return entity.position().add(x, 0, z);
+    }
+
     public static void setRot(Entity entity, float p_19916_, float p_19917_) {
         entity.setYRot(p_19916_ % 360.0F);
         entity.setXRot(p_19917_ % 360.0F);
@@ -1455,7 +1481,7 @@ public class MobUtil {
     }
 
     public static boolean isWitchType(Entity target){
-        return target instanceof Witch || target instanceof Warlock || target instanceof Maverick || target instanceof Heretic || target instanceof Crone || target.getType().is(ModTags.EntityTypes.WITCH_SET_NEUTRAL);
+        return target instanceof Witch || (target instanceof Cultist && !target.getType().is(Tags.EntityTypes.BOSSES)) || target.getType().is(ModTags.EntityTypes.WITCH_SET_NEUTRAL);
     }
 
     public static void createWitherRose(LivingEntity target, @Nullable LivingEntity killer) {

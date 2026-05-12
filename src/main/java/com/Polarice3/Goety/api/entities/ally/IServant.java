@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.api.entities.ally;
 
 import com.Polarice3.Goety.api.blocks.ISeat;
+import com.Polarice3.Goety.api.entities.IChunkLoader;
 import com.Polarice3.Goety.api.entities.IGolem;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.vehicle.SeatEntity;
@@ -9,14 +10,12 @@ import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.SectionPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
@@ -25,7 +24,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -35,7 +33,7 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 
-public interface IServant extends IOwned {
+public interface IServant extends IOwned, IChunkLoader {
     int GUARDING_RANGE = MobsConfig.ServantGuardingRange.get();
 
     boolean isWandering();
@@ -450,80 +448,19 @@ public interface IServant extends IOwned {
         }
     }
 
-    default long getTicketTime() {
-        return 0;
-    }
-
-    default void setTicketTime(long time) {
-
-    }
-
-    default long decreaseTicketTime() {
-        long ticket = this.getTicketTime() - 1L;
-        this.setTicketTime(ticket);
-        return ticket;
-    }
-
     default boolean shouldChunkLoad(){
-        if (this.isStaying()) {
-            return MobsConfig.StayingServantChunkLoad.get();
-        }
-        if (this.isGuardingArea()) {
-            return MobsConfig.GuardingServantChunkLoad.get();
-        }
-        if (this.isFollowing()) {
-            return MobsConfig.FollowingServantChunkLoad.get();
+        if (this.getTrueOwner() instanceof Player) {
+            if (this.isStaying()) {
+                return MobsConfig.StayingServantChunkLoad.get();
+            }
+            if (this.isGuardingArea()) {
+                return MobsConfig.GuardingServantChunkLoad.get();
+            }
+            if (this.isFollowing()) {
+                return MobsConfig.FollowingServantChunkLoad.get();
+            }
         }
         return false;
-    }
-
-    default void chunkLoad() {
-        if (this instanceof Mob owned){
-            if (owned.level instanceof ServerLevel serverLevel) {
-                if (this.shouldChunkLoad()) {
-                    if (this.getTrueOwner() instanceof Player) {
-                        int i = SectionPos.blockToSectionCoord(owned.position().x());
-                        int j = SectionPos.blockToSectionCoord(owned.position().z());
-                        BlockPos blockPos = BlockPos.containing(owned.position());
-                        if (this.decreaseTicketTime() <= 0L || i != SectionPos.blockToSectionCoord(blockPos.getX()) || j != SectionPos.blockToSectionCoord(blockPos.getZ())) {
-                            serverLevel.getChunkSource().addRegionTicket(ModTicketTypes.SERVANT, owned.chunkPosition(), 5, owned.blockPosition());
-                            serverLevel.resetEmptyTime();
-                            this.setTicketTime(ModTicketTypes.SERVANT.timeout() - 1L);
-                        }
-                    }
-                } else if (this.getTicketTime() > 0) {
-                    this.setTicketTime(0);
-                }
-            }
-        }
-    }
-
-    default void forceChunkLoadSelf() {
-        if (this instanceof Mob owned){
-            if (owned.level instanceof ServerLevel serverLevel) {
-                serverLevel.getChunkSource().addRegionTicket(ModTicketTypes.SERVANT, owned.chunkPosition(), 5, owned.blockPosition());
-                serverLevel.resetEmptyTime();
-            }
-        }
-    }
-
-    default void chunkLoadTarget(BlockPos blockPos) {
-        if (blockPos != null) {
-            if (this instanceof Mob owned) {
-                if (owned.level instanceof ServerLevel serverLevel) {
-                    if (this.shouldChunkLoad()) {
-                        if (this.getTrueOwner() instanceof Player) {
-                            int i = SectionPos.blockToSectionCoord(blockPos.getX());
-                            int j = SectionPos.blockToSectionCoord(blockPos.getZ());
-                            if (this.getTicketTime() <= 0 || i != SectionPos.blockToSectionCoord(blockPos.getX()) || j != SectionPos.blockToSectionCoord(blockPos.getZ())) {
-                                serverLevel.getChunkSource().addRegionTicket(ModTicketTypes.SERVANT, new ChunkPos(blockPos), 9, blockPos);
-                                serverLevel.resetEmptyTime();
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 
     default void healServant(){

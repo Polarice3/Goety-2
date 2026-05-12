@@ -1,0 +1,24 @@
+{
+  "name": "堕落者仆从",
+  "icon": "minecraft:crimson_planks",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你发现流浪商人在被闪电击中后似乎会发生转化。你开始思索，是否能够像处理女巫那样，将堕落者变成仆从。经过几次测试之后，你发现只需要一些小手段就能将一个没用的流浪商人转变为忠诚的堕落者。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_trader_to_reprobate"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:reprobate_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你也可以给堕落者仆从一颗绿宝石来与其交易，无需穿戴特定服装。如果其他堕落者仆从有主，且你与其主人结盟，同时你还穿戴了正确的服装时，你也可以与它们进行交易。"
+    }
+  ]
+}

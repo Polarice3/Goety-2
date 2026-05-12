@@ -1,0 +1,17 @@
+{
+  "name": "goety:mobs/obsidian_monolith",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:mobs/obsidian_monolith",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

@@ -1,8 +1,6 @@
 package com.Polarice3.Goety.common.entities.ai;
 
-import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
-import com.Polarice3.Goety.common.entities.hostile.cultists.Heretic;
-import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
+import com.Polarice3.Goety.common.entities.hostile.cultists.*;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.ModLootTables;
 import com.Polarice3.Goety.utils.WitchBarterHelper;
@@ -25,7 +23,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 public class WitchBarterGoal extends Goal {
-    private int progress = 100;
+    public int progress = 100;
     public Raider witch;
 
     public WitchBarterGoal(Raider witch) {
@@ -63,8 +61,14 @@ public class WitchBarterGoal extends Goal {
                     if (this.witch instanceof Heretic){
                         loottable = this.witch.level.getServer().getLootData().getLootTable(ModLootTables.HERETIC_BARTER);
                     }
+                    if (this.witch instanceof Reprobate){
+                        loottable = this.witch.level.getServer().getLootData().getLootTable(ModLootTables.REPROBATE_BARTER);
+                    }
                     if (this.witch instanceof Crone){
                         loottable = this.witch.level.getServer().getLootData().getLootTable(ModLootTables.CRONE_BARTER);
+                    }
+                    if (this.witch instanceof Heresiarch){
+                        loottable = this.witch.level.getServer().getLootData().getLootTable(ModLootTables.HERESIARCH_BARTER);
                     }
                     List<ItemStack> list = loottable.getRandomItems((new LootParams.Builder((ServerLevel) this.witch.level)).withParameter(LootContextParams.THIS_ENTITY, this.witch).withParameter(LootContextParams.ORIGIN, this.witch.position()).withLuck(luck).create(LootContextParamSets.GIFT));
                     for(ItemStack itemstack : list) {
@@ -76,8 +80,7 @@ public class WitchBarterGoal extends Goal {
         }
 
         if (this.witch.hurtTime != 0){
-            if (this.witch.getItemInHand(InteractionHand.MAIN_HAND).is(ModTags.Items.WITCH_CURRENCY)
-                || this.witch.getItemInHand(InteractionHand.MAIN_HAND).is(ModTags.Items.WITCH_BETTER_CURRENCY)) {
+            if (this.witch.getItemInHand(InteractionHand.MAIN_HAND).is(ModTags.Items.WITCH_CURRENCY)) {
                 this.witch.spawnAtLocation(this.witch.getItemInHand(InteractionHand.MAIN_HAND));
                 this.clearTrade();
             }
@@ -99,7 +102,7 @@ public class WitchBarterGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.witch.getMainHandItem().is(ModTags.Items.WITCH_CURRENCY) || this.witch.getMainHandItem().is(ModTags.Items.WITCH_BETTER_CURRENCY);
+        return this.witch.getMainHandItem().is(ModTags.Items.WITCH_CURRENCY);
     }
 
     @Override

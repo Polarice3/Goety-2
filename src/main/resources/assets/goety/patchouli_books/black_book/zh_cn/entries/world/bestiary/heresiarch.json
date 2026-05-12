@@ -1,0 +1,25 @@
+{
+  "name": "异教牧首",
+  "icon": "goety:malefic_helm",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_heresiarch",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这些不洁的司祭们领导着一群崇拜圣火的信众。他们对黑暗领域的了解赋予了他们能让地狱随行的能力。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:heresiarch",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:malefic_helm",
+      "text": "异教牧首被击杀时会掉落一个带角的骨头头盔，它会为佩戴者提供一些加成，但由于其尺寸大小，它不能作为像样的饰品佩戴。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:malefic_helm": 2
+  }
+}

@@ -1316,6 +1316,10 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
                     continue;
                 }
 
+                if (!this.predicate.test(itemStack)) {
+                    continue;
+                }
+
                 for (int chestSlot = 0; chestSlot < container.getContainerSize(); ++chestSlot) {
                     ItemStack chestItem = container.getItem(chestSlot);
 

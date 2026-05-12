@@ -1,0 +1,24 @@
+{
+  "name": "Reprobate Servant",
+  "icon": "minecraft:crimson_planks",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Lately, Wandering Traders seems to transform when shot with Lightning, you began pondering if you can make a servant out of Reprobates much like you did with Witches. After a while, you discovered that some Soul Energy, a Magic Emerald and a Mystic Core can turn a bumbling trader into a loyal Reprobate."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_trader_to_reprobate"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:reprobate_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "You're also able to trade with your Reprobate Servant by giving them an Emerald, without needing to wear appropriate attire to do so. You can also trade with other Reprobate Servants, provided you're allied to their master, if they have one, and wearing the appropriate attire."
+    }
+  ]
+}

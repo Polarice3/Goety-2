@@ -31,10 +31,13 @@ public class ModDamageTypeTagsProvider extends TagsProvider<DamageType> {
                         ModDamageSource.DOOM,
                         ModDamageSource.HELLFIRE,
                         ModDamageSource.INDIRECT_HELLFIRE,
+                        ModDamageSource.ROT,
                         ModDamageSource.ACID,
+                        ModDamageSource.VENOM,
                         ModDamageSource.SPIKE,
                         ModDamageSource.MAGIC_BOLT,
                         ModDamageSource.CHOKE,
+                        ModDamageSource.RAGE,
                         ModDamageSource.VOIDED,
                         ModDamageSource.DISMISSED,
                         ModDamageSource.DEATH);
@@ -89,6 +92,7 @@ public class ModDamageTypeTagsProvider extends TagsProvider<DamageType> {
         this.tag(ModTags.DamageTypes.NO_KNOCKBACK)
                 .add(ModDamageSource.ICE_BOUQUET,
                         ModDamageSource.ACID,
+                        ModDamageSource.VENOM,
                         ModDamageSource.SPIKE,
                         ModDamageSource.HELLFIRE,
                         ModDamageSource.INDIRECT_HELLFIRE,

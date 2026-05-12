@@ -4,6 +4,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.CryptChestBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.PithosBlock;
+import com.Polarice3.Goety.utils.ModTicketTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -20,6 +21,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
@@ -53,6 +55,7 @@ public class PithosBlockEntity extends RandomizableContainerBlockEntity {
     };
     public boolean hasCustomSLName = false;
     public Component skullLordName = Component.empty();
+    public long ticketTime = 0;
 
     public PithosBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.PITHOS.get(), blockPos, blockState);
@@ -135,6 +138,20 @@ public class PithosBlockEntity extends RandomizableContainerBlockEntity {
             return;
         }
         this.level.setBlock(this.getBlockPos(), pState.setValue(PithosBlock.OPEN, pOpen), 3);
+    }
+
+    public void tick() {
+        if (this.level instanceof ServerLevel world) {
+            if (this.getBlockState().getValue(PithosBlock.TRIGGERED) || this.ticketTime > 0L) {
+                ChunkPos chunkPos = world.getChunkAt(this.worldPosition).getPos();
+                if (--this.ticketTime <= 0L) {
+                    world.getChunkSource().addRegionTicket(ModTicketTypes.BLOCK, chunkPos, 5, this.worldPosition);
+                    if (this.getBlockState().getValue(PithosBlock.TRIGGERED)) {
+                        this.ticketTime = ModTicketTypes.BLOCK.timeout() - 1L;
+                    }
+                }
+            }
+        }
     }
 
     public void lock(){

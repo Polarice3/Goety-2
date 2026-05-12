@@ -12,6 +12,9 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -25,6 +28,7 @@ import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 public class SurgingOrb extends SpellHurtingProjectile{
+    public static final EntityDataAccessor<Boolean> DATA_ORANGE = SynchedEntityData.defineId(SurgingOrb.class, EntityDataSerializers.BOOLEAN);
     public boolean staff = false;
 
     public SurgingOrb(EntityType<? extends AbstractHurtingProjectile> p_36833_, Level p_36834_) {
@@ -37,6 +41,11 @@ public class SurgingOrb extends SpellHurtingProjectile{
 
     public SurgingOrb(LivingEntity p_36827_, double p_36828_, double p_36829_, double p_36830_, Level p_36831_) {
         super(ModEntityType.SURGING_ORB.get(), p_36827_, p_36828_, p_36829_, p_36830_, p_36831_);
+    }
+
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_ORANGE, false);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
@@ -57,6 +66,14 @@ public class SurgingOrb extends SpellHurtingProjectile{
 
     public boolean isStaff(){
         return this.staff;
+    }
+
+    public void setOrange(boolean orange){
+        this.entityData.set(DATA_ORANGE, orange);
+    }
+
+    public boolean isOrange(){
+        return this.entityData.get(DATA_ORANGE);
     }
 
     public void tick() {

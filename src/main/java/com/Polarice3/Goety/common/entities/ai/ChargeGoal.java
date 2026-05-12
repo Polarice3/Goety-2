@@ -69,7 +69,7 @@ public class ChargeGoal extends Goal {
                 } else {
                     this.chargePos = chargePos;
 
-                    return this.charger.getRandom().nextInt(this.chance + 1) == 0;
+                    return this.chance == 0 || this.charger.getRandom().nextInt(this.chance + 1) == 0;
                 }
             }
         }

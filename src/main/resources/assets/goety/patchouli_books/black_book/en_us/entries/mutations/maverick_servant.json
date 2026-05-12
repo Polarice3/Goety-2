@@ -2,14 +2,11 @@
   "name": "Maverick Servant",
   "icon": "minecraft:iron_sword",
   "category": "goety:mutations",
+  "advancement": "goety:goety/craft_unholy_robe",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Lately, Wandering Traders seems to transform when shot with Lightning, you began pondering if you can make a servant out of Mavericks much like you did with Witches. After a while, you discovered that some Soul Energy, a Magic Emerald and a Mystic Core can turn a bumbling trader into a loyal Maverick."
-    },
-    {
-      "type": "goety:ritual",
-      "recipe": "goety:convert_trader_to_maverick"
+      "text": "Mavericks appear to be highly devoted to the Nether that they only obey those that are highly devoted to it. However, wearing the Unholy set near a trader that's underneath a block of Crying Obsidian will cause the newly convert to see you as a master of the Nether and obey your commands."
     },
     {
       "type": "patchouli:entity",

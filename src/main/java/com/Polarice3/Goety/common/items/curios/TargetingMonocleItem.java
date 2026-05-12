@@ -6,6 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import top.theillusivec4.curios.api.SlotContext;
 
 public class TargetingMonocleItem extends SingleStackItem implements IActivatable {
     private static final String IS_ACTIVE = "Activated";
@@ -40,5 +41,10 @@ public class TargetingMonocleItem extends SingleStackItem implements IActivatabl
         } else {
             return false;
         }
+    }
+
+    @Override
+    public boolean makesPiglinsNeutral(SlotContext slotContext, ItemStack stack) {
+        return true;
     }
 }

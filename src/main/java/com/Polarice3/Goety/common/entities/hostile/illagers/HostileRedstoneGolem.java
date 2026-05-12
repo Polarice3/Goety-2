@@ -364,7 +364,7 @@ public class HostileRedstoneGolem extends HostileGolem {
     }
 
     public boolean canAnimateMove(){
-        return this.isCurrentAnimation(IDLE) || this.isCurrentAnimation(ATTACK);
+        return this.isCurrentAnimation(IDLE) || this.isCurrentAnimation(ATTACK) || this.isCurrentAnimation(SUMMON);
     }
 
     public void handleDamageEvent(DamageSource p_270229_) {
@@ -573,7 +573,7 @@ public class HostileRedstoneGolem extends HostileGolem {
 
         @Override
         public boolean canUse() {
-            return HostileRedstoneGolem.this.getTarget() != null && HostileRedstoneGolem.this.getTarget().isAlive();
+            return !HostileRedstoneGolem.this.isSummoning() && HostileRedstoneGolem.this.getTarget() != null && HostileRedstoneGolem.this.getTarget().isAlive();
         }
 
         @Override

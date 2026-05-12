@@ -36,6 +36,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface ISpell {
@@ -59,7 +60,7 @@ public interface ISpell {
         if (SoulDiscount(caster)){
             cost *= 1.0F - (ItemConfig.DarkRobeDiscount.get() / 100.0F);
         }
-        if (this.getSpellType() == SpellType.FROST){
+        if (this.getSpellTypes().contains(SpellType.FROST)){
             if (FrostSoulDiscount(caster)){
                 cost *= 1.0F - (ItemConfig.FrostRobeDiscount.get() / 100.0F);
             }
@@ -75,7 +76,7 @@ public interface ISpell {
                 }
             }
         }
-        if (this.getSpellType() == SpellType.WIND){
+        if (this.getSpellTypes().contains(SpellType.WIND)){
             if (WindSoulDiscount(caster)){
                 cost *= 1.0F - (ItemConfig.WindRobeDiscount.get() / 100.0F);
             }
@@ -87,7 +88,7 @@ public interface ISpell {
                 }
             }
         }
-        if (this.getSpellType() == SpellType.STORM){
+        if (this.getSpellTypes().contains(SpellType.STORM)){
             if (StormSoulDiscount(caster)){
                 cost *= 1.0F - (ItemConfig.StormRobeDiscount.get() / 100.0F);
             }
@@ -99,7 +100,7 @@ public interface ISpell {
                 }
             }
         }
-        if (this.getSpellType() == SpellType.GEOMANCY){
+        if (this.getSpellTypes().contains(SpellType.GEOMANCY)){
             if (GeoSoulDiscount(caster)){
                 cost *= 1.0F - (ItemConfig.GeoRobeDiscount.get() / 100.0F);
             }
@@ -111,7 +112,7 @@ public interface ISpell {
                 }
             }
         }
-        if (this.getSpellType() == SpellType.NETHER){
+        if (this.getSpellTypes().contains(SpellType.NETHER)){
             if (NetherSoulDiscount(caster)){
                 cost *= 1.0F - (ItemConfig.NetherRobeDiscount.get() / 100.0F);
             }
@@ -123,7 +124,7 @@ public interface ISpell {
                 }
             }
         }
-        if (this.getSpellType() == SpellType.NECROMANCY){
+        if (this.getSpellTypes().contains(SpellType.NECROMANCY)){
             if (NecroSoulDiscount(caster)){
                 cost /= 2;
             }
@@ -136,7 +137,7 @@ public interface ISpell {
                 }
             }
         }
-        if (this.getSpellType() == SpellType.WILD){
+        if (this.getSpellTypes().contains(SpellType.WILD)){
             if (WildSoulDiscount(caster)){
                 cost *= 1.0F - (ItemConfig.WildRobeDiscount.get() / 100.0F);
             }
@@ -152,7 +153,7 @@ public interface ISpell {
                 }
             }
         }
-        if (this.getSpellType() == SpellType.ABYSS){
+        if (this.getSpellTypes().contains(SpellType.ABYSS)){
             if (AbyssSoulDiscount(caster)){
                 cost *= 1.0F - (ItemConfig.AbyssRobeDiscount.get() / 100.0F);
             }
@@ -164,7 +165,7 @@ public interface ISpell {
                 }
             }
         }
-        if (this.getSpellType() == SpellType.VOID){
+        if (this.getSpellTypes().contains(SpellType.VOID)){
             if (VoidSoulDiscount(caster)){
                 cost *= 1.0F - (ItemConfig.VoidRobeDiscount.get() / 100.0F);
             }
@@ -244,6 +245,12 @@ public interface ISpell {
 
     SpellType getSpellType();
 
+    default List<SpellType> getSpellTypes() {
+        List<SpellType> list = new ArrayList<>();
+        list.add(this.getSpellType());
+        return list;
+    }
+
     default boolean conditionsMet(ServerLevel worldIn, LivingEntity caster){
         return conditionsMet(worldIn, caster, WandUtil.getStats(caster, this));
     }
@@ -319,23 +326,23 @@ public interface ISpell {
     default boolean ReduceCastTime(LivingEntity caster){
         if (CuriosFinder.hasCastTimeReduce(caster)) {
             return true;
-        } else if (this.getSpellType() == SpellType.FROST){
+        } else if (this.getSpellTypes().contains(SpellType.FROST)){
             return CuriosFinder.hasFrostCrown(caster);
-        } else if (this.getSpellType() == SpellType.GEOMANCY){
+        } else if (this.getSpellTypes().contains(SpellType.GEOMANCY)){
             return CuriosFinder.hasAmethystNecklace(caster);
-        } else if (this.getSpellType() == SpellType.WIND){
+        } else if (this.getSpellTypes().contains(SpellType.WIND)){
             return CuriosFinder.hasWindCrown(caster);
-        } else if (this.getSpellType() == SpellType.STORM){
+        } else if (this.getSpellTypes().contains(SpellType.STORM)){
             return CuriosFinder.hasStormCrown(caster);
-        } else if (this.getSpellType() == SpellType.WILD){
+        } else if (this.getSpellTypes().contains(SpellType.WILD)){
             return CuriosFinder.hasWildCrown(caster);
-        } else if (this.getSpellType() == SpellType.ABYSS){
+        } else if (this.getSpellTypes().contains(SpellType.ABYSS)){
             return CuriosFinder.hasAbyssCrown(caster);
-        } else if (this.getSpellType() == SpellType.VOID){
+        } else if (this.getSpellTypes().contains(SpellType.VOID)){
             return CuriosFinder.hasVoidCrown(caster);
-        } else if (this.getSpellType() == SpellType.NETHER){
+        } else if (this.getSpellTypes().contains(SpellType.NETHER)){
             return CuriosFinder.hasNetherCrown(caster);
-        } else if (this.getSpellType() == SpellType.NECROMANCY){
+        } else if (this.getSpellTypes().contains(SpellType.NECROMANCY)){
             return CuriosFinder.hasUndeadCrown(caster);
         }
         return false;
@@ -355,7 +362,7 @@ public interface ISpell {
     }
 
     default boolean typeStaff(ItemStack staff, SpellType spellType){
-        return staff.getItem() instanceof IWand darkWand && darkWand.getSpellType() == spellType;
+        return staff.getItem() instanceof IWand darkWand && darkWand.getSpellTypes().contains(spellType);
     }
 
     default boolean SoulDiscount(LivingEntity caster){

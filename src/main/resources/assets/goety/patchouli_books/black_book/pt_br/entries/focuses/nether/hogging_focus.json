@@ -1,0 +1,23 @@
+{
+  "name": "Foco Hoglin Etéreo",
+  "icon": "goety:hogging_focus",
+  "category": "goety:focuses/nether",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "O Foco Hoglin Etéreo invoca um hoglin infernal de curta duração que avançará em direção a um inimigo e explodirá ao contato."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/hogging_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/nether_staff)Cajado do Nether$() invoca mais Hoglins Infernais de uma vez."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:hogging_focus": 1
+  }
+}

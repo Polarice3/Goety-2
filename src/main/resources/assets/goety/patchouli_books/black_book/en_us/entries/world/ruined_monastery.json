@@ -1,0 +1,16 @@
+{
+  "name": "Ruined Monasteries",
+  "icon": "goety:cragrocks",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "There were once holy monasteries that have been abandoned due to circumstances like being overrun by undead. Now these temples have been occupied by a sinister cult that wishes to perform an unholy ritual..."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/ruined_monastery.png"],
+      "border": true
+    }
+  ]
+}

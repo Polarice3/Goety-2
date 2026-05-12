@@ -44,8 +44,10 @@ public class ModLootTables {
     public static final ResourceLocation WITCH_BARTER = register("gameplay/witch_bartering");
     public static final ResourceLocation WARLOCK_BARTER = register("gameplay/warlock_bartering");
     public static final ResourceLocation MAVERICK_BARTER = register("gameplay/maverick_bartering");
+    public static final ResourceLocation REPROBATE_BARTER = register("gameplay/reprobate_bartering");
     public static final ResourceLocation HERETIC_BARTER = register("gameplay/heretic_bartering");
     public static final ResourceLocation CRONE_BARTER = register("gameplay/crone_bartering");
+    public static final ResourceLocation HERESIARCH_BARTER = register("gameplay/heresiarch_bartering");
 
     public static final ResourceLocation TREASURE_POUCH = register("gameplay/treasure_pouch");
     public static final ResourceLocation VOID_SPAWNER_LOOT = register("gameplay/void_spawner_loot");

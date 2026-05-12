@@ -24,6 +24,7 @@ import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
 import com.Polarice3.Goety.common.entities.ally.golem.IceGolem;
 import com.Polarice3.Goety.common.entities.ally.illager.cultist.HereticServant;
 import com.Polarice3.Goety.common.entities.ally.illager.cultist.MaverickServant;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.ReprobateServant;
 import com.Polarice3.Goety.common.entities.ally.illager.cultist.WarlockServant;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.ModRavager;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.Prisoner;
@@ -34,10 +35,7 @@ import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.deco.HauntedArmorStand;
 import com.Polarice3.Goety.common.entities.hostile.WitherNecromancer;
-import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
-import com.Polarice3.Goety.common.entities.hostile.cultists.Heretic;
-import com.Polarice3.Goety.common.entities.hostile.cultists.Maverick;
-import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
+import com.Polarice3.Goety.common.entities.hostile.cultists.*;
 import com.Polarice3.Goety.common.entities.hostile.illagers.*;
 import com.Polarice3.Goety.common.entities.hostile.servants.Damned;
 import com.Polarice3.Goety.common.entities.neutral.AbstractObsidianMonolith;
@@ -124,6 +122,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
@@ -731,7 +730,7 @@ public class ModEvents {
                             if (BlockFinder.getVerticalBlock(serverLevel, villager.blockPosition(), Blocks.CRYING_OBSIDIAN.defaultBlockState(), 16, true)) {
                                 if (villager.getRandom().nextFloat() < 7.5E-4F && serverLevel.getDifficulty() != Difficulty.PEACEFUL) {
                                     if (player != null && CuriosFinder.hasUnholySet(player) && MobsConfig.VillagerConvertWarlockUnholy.get()) {
-                                        if (ForgeEventFactory.canLivingConvert(villager, ModEntityType.HERETIC_SERVANT.get(), (timer) -> {
+                                        if (ForgeEventFactory.canLivingConvert(villager, ModEntityType.WARLOCK_SERVANT.get(), (timer) -> {
                                         })) {
                                             serverLevel.explode(villager, villager.getX(), villager.getY(), villager.getZ(), 0.1F, Level.ExplosionInteraction.NONE);
                                             WarlockServant warlock = ModEntityType.WARLOCK_SERVANT.get().create(serverLevel);
@@ -829,6 +828,59 @@ public class ModEvents {
                         }
                     }
                     MiscCapHelper.setCustomFoodLevel(villager, Math.max(0, villager.foodLevel));
+                }
+            }
+            if (livingEntity instanceof WanderingTrader trader) {
+                if (trader.level instanceof ServerLevel serverLevel) {
+                    if (MobsConfig.TraderConvertMaverick.get() || MobsConfig.TraderConvertMaverickUnholy.get()) {
+                        if (BlockFinder.getVerticalBlock(serverLevel, trader.blockPosition(), Blocks.CRYING_OBSIDIAN.defaultBlockState(), 16, true)) {
+                            if (trader.getRandom().nextFloat() < 7.5E-4F && serverLevel.getDifficulty() != Difficulty.PEACEFUL) {
+                                Player player = trader.level.getNearestPlayer(trader.getX(), trader.getY(), trader.getZ(), 16.0D, entity -> entity instanceof Player player1 &&  CuriosFinder.hasUnholySet(player1));
+                                if (player != null && CuriosFinder.hasUnholySet(player) && MobsConfig.TraderConvertMaverickUnholy.get()) {
+                                    if (ForgeEventFactory.canLivingConvert(trader, ModEntityType.MAVERICK_SERVANT.get(), (timer) -> {
+                                    })) {
+                                        serverLevel.explode(trader, trader.getX(), trader.getY(), trader.getZ(), 0.1F, Level.ExplosionInteraction.NONE);
+                                        MaverickServant maverick = ModEntityType.MAVERICK_SERVANT.get().create(serverLevel);
+                                        if (maverick != null) {
+                                            maverick.moveTo(trader.getX(), trader.getY(), trader.getZ(), trader.getYRot(), trader.getXRot());
+                                            maverick.setTrueOwner(player);
+                                            maverick.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(maverick.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+                                            maverick.setNoAi(trader.isNoAi());
+                                            if (trader.hasCustomName()) {
+                                                maverick.setCustomName(trader.getCustomName());
+                                                maverick.setCustomNameVisible(trader.isCustomNameVisible());
+                                            }
+
+                                            maverick.setPersistenceRequired();
+                                            ForgeEventFactory.onLivingConvert(trader, maverick);
+                                            serverLevel.addFreshEntityWithPassengers(maverick);
+                                            trader.discard();
+                                        }
+                                    }
+                                } else if (MobsConfig.TraderConvertMaverick.get()) {
+                                    if (ForgeEventFactory.canLivingConvert(trader, ModEntityType.MAVERICK.get(), (timer) -> {
+                                    })) {
+                                        serverLevel.explode(trader, trader.getX(), trader.getY(), trader.getZ(), 0.1F, Level.ExplosionInteraction.NONE);
+                                        Maverick maverick = ModEntityType.MAVERICK.get().create(serverLevel);
+                                        if (maverick != null) {
+                                            maverick.moveTo(trader.getX(), trader.getY(), trader.getZ(), trader.getYRot(), trader.getXRot());
+                                            maverick.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(maverick.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+                                            maverick.setNoAi(trader.isNoAi());
+                                            if (trader.hasCustomName()) {
+                                                maverick.setCustomName(trader.getCustomName());
+                                                maverick.setCustomNameVisible(trader.isCustomNameVisible());
+                                            }
+
+                                            maverick.setPersistenceRequired();
+                                            ForgeEventFactory.onLivingConvert(trader, maverick);
+                                            serverLevel.addFreshEntityWithPassengers(maverick);
+                                            trader.discard();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -984,6 +1036,19 @@ public class ModEvents {
                 } else if (source instanceof IOwned owned) {
                     if (owned.isAllyWith(victim)) {
                         event.setCanceled(true);
+                    }
+                }
+            }
+            if (victim instanceof Witch witch) {
+                double d0 = witch.getAttributeValue(Attributes.FOLLOW_RANGE);
+                AABB axisalignedbb = AABB.unitCubeFromLowerCorner(witch.position()).inflate(d0, 10.0D, d0);
+                List<Mob> list = witch.level.getEntitiesOfClass(Mob.class, axisalignedbb);
+
+                for (Mob mob : list){
+                    if (mob.getTarget() == null && witch.getLastHurtByMob() != null && !(witch.getLastHurtByMob() instanceof Raider) && !MobUtil.areAllies(witch.getLastHurtByMob(), witch)) {
+                        if (mob instanceof Cultist && !mob.getType().is(Tags.EntityTypes.BOSSES) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(witch.getLastHurtByMob())) {
+                            mob.setTarget(witch.getLastHurtByMob());
+                        }
                     }
                 }
             }
@@ -1454,6 +1519,7 @@ public class ModEvents {
         rareTrades.add(new ModTradeUtil.TreasureMapForEmeralds(8, ModStructureTags.OMINOUS_BLACKSMITH, "filled_map.goety.ominous_blacksmith", MapDecoration.Type.TARGET_X, 12, 10));
         rareTrades.add(new ModTradeUtil.TreasureMapForEmeralds(8, ModStructureTags.WIND_SHRINE, "filled_map.goety.wind_shrine", MapDecoration.Type.TARGET_X, 12, 10));
         rareTrades.add(new ModTradeUtil.TreasureMapForEmeralds(8, ModStructureTags.BLIGHTED_SHACK, "filled_map.goety.blighted_shack", MapDecoration.Type.MANSION, 12, 10));
+        rareTrades.add(new ModTradeUtil.TreasureMapForEmeralds(8, ModStructureTags.RUINED_MONASTERY, "filled_map.goety.ruined_monastery", MapDecoration.Type.MANSION, 12, 10));
     }
 
     @SubscribeEvent
@@ -1524,43 +1590,43 @@ public class ModEvents {
             if (entity instanceof WanderingTrader trader) {
                 boolean hasConverted = false;
                 if (event.getLightning().getCause() != null) {
-                    if (CuriosFinder.hasUnholySet(event.getLightning().getCause())) {
-                        MaverickServant maverick = ModEntityType.MAVERICK_SERVANT.get().create(serverLevel);
-                        if (maverick != null) {
-                            maverick.moveTo(trader.getX(), trader.getY(), trader.getZ(), trader.getYRot(), trader.getXRot());
-                            maverick.setTrueOwner(event.getLightning().getCause());
-                            maverick.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(maverick.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
-                            maverick.setNoAi(trader.isNoAi());
+                    if (CuriosFinder.hasUnholySet(event.getLightning().getCause()) && MobsConfig.TraderConvertReprobateUnholy.get()) {
+                        ReprobateServant reprobate = ModEntityType.REPROBATE_SERVANT.get().create(serverLevel);
+                        if (reprobate != null) {
+                            reprobate.moveTo(trader.getX(), trader.getY(), trader.getZ(), trader.getYRot(), trader.getXRot());
+                            reprobate.setTrueOwner(event.getLightning().getCause());
+                            reprobate.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(reprobate.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+                            reprobate.setNoAi(trader.isNoAi());
                             if (trader.hasCustomName()) {
-                                maverick.setCustomName(trader.getCustomName());
-                                maverick.setCustomNameVisible(trader.isCustomNameVisible());
+                                reprobate.setCustomName(trader.getCustomName());
+                                reprobate.setCustomNameVisible(trader.isCustomNameVisible());
                             }
 
-                            maverick.setPersistenceRequired();
-                            net.minecraftforge.event.ForgeEventFactory.onLivingConvert(trader, maverick);
-                            serverLevel.addFreshEntityWithPassengers(maverick);
+                            reprobate.setPersistenceRequired();
+                            net.minecraftforge.event.ForgeEventFactory.onLivingConvert(trader, reprobate);
+                            serverLevel.addFreshEntityWithPassengers(reprobate);
                             hasConverted = true;
                             trader.discard();
                         }
                     }
                 }
                 if (!hasConverted) {
-                    if (MobsConfig.TraderConvertMaverick.get()) {
+                    if (MobsConfig.TraderConvertReprobate.get()) {
                         if (serverLevel.getDifficulty() != Difficulty.PEACEFUL && net.minecraftforge.event.ForgeEventFactory.canLivingConvert(trader, ModEntityType.MAVERICK.get(), (timer) -> {
                         })) {
-                            Maverick maverick = ModEntityType.MAVERICK.get().create(serverLevel);
-                            if (maverick != null) {
-                                maverick.moveTo(trader.getX(), trader.getY(), trader.getZ(), trader.getYRot(), trader.getXRot());
-                                maverick.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(maverick.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
-                                maverick.setNoAi(trader.isNoAi());
+                            Reprobate reprobate = ModEntityType.REPROBATE.get().create(serverLevel);
+                            if (reprobate != null) {
+                                reprobate.moveTo(trader.getX(), trader.getY(), trader.getZ(), trader.getYRot(), trader.getXRot());
+                                reprobate.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(reprobate.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+                                reprobate.setNoAi(trader.isNoAi());
                                 if (trader.hasCustomName()) {
-                                    maverick.setCustomName(trader.getCustomName());
-                                    maverick.setCustomNameVisible(trader.isCustomNameVisible());
+                                    reprobate.setCustomName(trader.getCustomName());
+                                    reprobate.setCustomNameVisible(trader.isCustomNameVisible());
                                 }
 
-                                maverick.setPersistenceRequired();
-                                net.minecraftforge.event.ForgeEventFactory.onLivingConvert(trader, maverick);
-                                serverLevel.addFreshEntityWithPassengers(maverick);
+                                reprobate.setPersistenceRequired();
+                                net.minecraftforge.event.ForgeEventFactory.onLivingConvert(trader, reprobate);
+                                serverLevel.addFreshEntityWithPassengers(reprobate);
                                 trader.discard();
                             }
                         }

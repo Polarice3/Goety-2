@@ -87,7 +87,7 @@ public class ModAttributes {
                 .map(RegistryObject::get)
                 .filter(attribute1 -> attribute1 instanceof SpellAttribute spellAttribute
                         && spellAttribute.getType().equals(SpellAttribute.POTENCY)
-                        && spellAttribute.getSpellType() == spell.getSpellType())
+                        && spell.getSpellTypes().contains(spellAttribute.getSpellType()))
                 .findFirst();
         if (optional.isPresent()){
             attribute = optional.get();
@@ -110,7 +110,7 @@ public class ModAttributes {
                 .map(RegistryObject::get)
                 .filter(attribute1 -> attribute1 instanceof SpellAttribute spellAttribute
                         && spellAttribute.getType().equals(SpellAttribute.DISCOUNT)
-                        && spellAttribute.getSpellType() == spell.getSpellType())
+                        && spell.getSpellTypes().contains(spellAttribute.getSpellType()))
                 .findFirst();
         if (optional.isPresent()){
             attribute = optional.get();

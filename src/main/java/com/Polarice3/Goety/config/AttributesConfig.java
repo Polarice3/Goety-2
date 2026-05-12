@@ -21,6 +21,8 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> HereticHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> HereticArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> HereticDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> ReprobateHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> ReprobateArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> ZPiglinServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> ZPiglinServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> ZPiglinServantDamage;
@@ -45,6 +47,7 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> InfernoMeleeDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> InfernoRangeDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> MalghastHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> MalghastDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Double> SorcererHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SorcererArmor;
@@ -347,6 +350,9 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> VizierHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> VizierDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> CroneHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> HeresiarchHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> HeresiarchArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> HeresiarchDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> MinisterHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> MinisterDamage;
 
@@ -360,6 +366,8 @@ public class AttributesConfig {
             BUILDER.push("Cultists");
             MalghastHealth = BUILDER.comment("How much Max Health Malghast have, Default: 20.0")
                     .defineInRange("malghastHealth", 20.0, 1.0, Double.MAX_VALUE);
+            MalghastDamage = BUILDER.comment("How much damage Malghasts' hell blasts/lavaballs deals, Default: 6.0")
+                .defineInRange("malghastDamage", 6.0, 1.0, Double.MAX_VALUE);
                 BUILDER.push("Skeleton Villager Servant");
                 SkeletonVillagerServantHealth = BUILDER.comment("How much Max Health Skeleton Villager Servants have, Default: 20.0")
                         .defineInRange("skeletonVillagerServantHealth", 20.0, 0.0, Double.MAX_VALUE);
@@ -379,6 +387,12 @@ public class AttributesConfig {
                         .defineInRange("maverickArmor", 0.0, 0.0, Double.MAX_VALUE);
                 MaverickDamage = BUILDER.comment("How much damage Mavericks deals, Default: 2.0")
                         .defineInRange("maverickDamage", 2.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Reprobate");
+                ReprobateHealth = BUILDER.comment("How much Max Health Reprobates have, Default: 26.0")
+                        .defineInRange("reprobateHealth", 26.0, 0.0, Double.MAX_VALUE);
+                ReprobateArmor = BUILDER.comment("How much natural armor points Reprobates have, Default: 0.0")
+                        .defineInRange("reprobateArmor", 0.0, 0.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Heretic");
                 HereticHealth = BUILDER.comment("How much Max Health Heretics have, Default: 26.0")
@@ -1163,6 +1177,14 @@ public class AttributesConfig {
                 BUILDER.push("Crone");
                 CroneHealth = BUILDER.comment("How much Max Health Crones have, Default: 130.0")
                         .defineInRange("croneHealth", 130.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Heresiarch");
+                HeresiarchHealth = BUILDER.comment("How much Max Health Heresiarch have, Default: 130.0")
+                        .defineInRange("heresiarchHealth", 130.0, 1.0, Double.MAX_VALUE);
+                HeresiarchArmor = BUILDER.comment("How much natural Armor Points Heresiarch have, Default: 4.0")
+                        .defineInRange("heresiarchArmor", 4.0, 0.0, Double.MAX_VALUE);
+                HeresiarchDamage = BUILDER.comment("How much damage Heresiarch deals, Default: 2.0")
+                        .defineInRange("heresiarchDamage", 2.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Minister");
                 MinisterHealth = BUILDER.comment("How much Max Health Ministers have, Default: 128.0")

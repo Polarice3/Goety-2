@@ -51,6 +51,9 @@ public class ModLevelRegistry {
             if (biome.is(ModTags.Biomes.MAVERICK_SPAWN) && !biome.is(ModTags.Biomes.MAVERICK_EXCLUDE_SPAWN) && MobsConfig.MaverickSpawnWeight.get() > 0){
                 builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.MAVERICK.get(), MobsConfig.MaverickSpawnWeight.get(), MobsConfig.MaverickSpawnMinCount.get(), MobsConfig.MaverickSpawnMaxCount.get()));
             }
+            if (biome.is(ModTags.Biomes.REPROBATE_SPAWN) && !biome.is(ModTags.Biomes.REPROBATE_EXCLUDE_SPAWN) && MobsConfig.ReprobateSpawnWeight.get() > 0){
+                builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.REPROBATE.get(), MobsConfig.ReprobateSpawnWeight.get(), MobsConfig.ReprobateSpawnMinCount.get(), MobsConfig.ReprobateSpawnMaxCount.get()));
+            }
         }
         if (biome.is(Biomes.SOUL_SAND_VALLEY) || biome.is(new ResourceLocation("netherexp:black_ice_glaciers"))){
             if (MobsConfig.ReaperSpawnWeight.get() > 0 && !biome.is(ModTags.Biomes.REAPER_EXCLUDE_SPAWN)) {

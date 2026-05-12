@@ -19,6 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -35,6 +36,7 @@ import javax.annotation.Nullable;
 public class IceBouquet extends GroundProjectile {
     private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(IceBouquet.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SOUL_EATING = SynchedEntityData.defineId(IceBouquet.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> TRAP = SynchedEntityData.defineId(IceBouquet.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> CONCENTRATE = SynchedEntityData.defineId(IceBouquet.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> CENTER = SynchedEntityData.defineId(IceBouquet.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Float> DATA_EXTRA_DAMAGE = SynchedEntityData.defineId(IceBouquet.class, EntityDataSerializers.FLOAT);
@@ -73,6 +75,7 @@ public class IceBouquet extends GroundProjectile {
         super.defineSynchedData();
         this.entityData.define(DATA_TYPE_ID, 0);
         this.entityData.define(SOUL_EATING, false);
+        this.entityData.define(TRAP, false);
         this.entityData.define(CONCENTRATE, true);
         this.entityData.define(CENTER, true);
         this.entityData.define(DATA_EXTRA_DAMAGE, 0.0F);
@@ -92,6 +95,14 @@ public class IceBouquet extends GroundProjectile {
 
     public void setSoulEating(boolean soulEating){
         this.entityData.set(SOUL_EATING, soulEating);
+    }
+
+    public boolean isTrap(){
+        return this.entityData.get(TRAP);
+    }
+
+    public void setTrap(boolean trap){
+        this.entityData.set(TRAP, trap);
     }
 
     public boolean needsConcentrate(){
@@ -148,6 +159,9 @@ public class IceBouquet extends GroundProjectile {
         if (pCompound.contains("soulEating")) {
             this.setSoulEating(pCompound.getBoolean("soulEating"));
         }
+        if (pCompound.contains("Trap")) {
+            this.setTrap(pCompound.getBoolean("Trap"));
+        }
         if (pCompound.contains("concentrate")) {
             this.setConcentrate(pCompound.getBoolean("concentrate"));
         }
@@ -168,6 +182,7 @@ public class IceBouquet extends GroundProjectile {
         pCompound.putInt("Animation", this.getAnimation());
         pCompound.putInt("TickCount", this.tickCount);
         pCompound.putBoolean("soulEating", this.isSoulEating());
+        pCompound.putBoolean("Trap", this.isTrap());
         pCompound.putBoolean("concentrate", this.needsConcentrate());
         pCompound.putBoolean("Center", this.isCenter());
         pCompound.putBoolean("Dying", this.isDying());
@@ -306,12 +321,24 @@ public class IceBouquet extends GroundProjectile {
                 } else {
                     damage += this.getExtraDamage();
                 }
-                if (target.hurt(ModDamageSource.iceBouquet(this, owner), damage)){
+                DamageSource damageSource = ModDamageSource.iceBouquet(this, owner);
+                if (this.isTrap()) {
+                    damageSource = ModDamageSource.getDamageSource(this.level, ModDamageSource.ICE_BOUQUET);
+                }
+                if (target.hurt(damageSource, damage)){
                     target.invulnerableTime = 16;
-                    if (owner instanceof Player) {
+                    if (owner instanceof Player player) {
                         if (this.isSoulEating()) {
                             SEHelper.increaseSouls((Player) owner, 1);
                         }
+                        if (this.isTrap()) {
+                            target.lastHurtByPlayer = player;
+                            target.lastHurtByPlayerTime = 100;
+                        }
+                    }
+                    if (this.isTrap()) {
+                        target.lastHurtByMob = owner;
+                        target.lastHurtByMobTimestamp = 100;
                     }
                 }
             }

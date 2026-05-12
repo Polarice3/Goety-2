@@ -1502,6 +1502,9 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
                                 }
                                 if (villager instanceof WanderingTrader){
                                     mob = ModEntityType.MAVERICK.get().create(serverLevel);
+                                    if (this.random.nextBoolean()){
+                                        mob = ModEntityType.REPROBATE.get().create(serverLevel);
+                                    }
                                 }
                                 if (mob != null) {
                                     mob.moveTo(villager.getX(), villager.getY(), villager.getZ(), villager.getYRot(), villager.getXRot());

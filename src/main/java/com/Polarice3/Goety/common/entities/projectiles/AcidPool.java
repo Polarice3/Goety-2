@@ -29,8 +29,10 @@ import java.util.List;
 public class AcidPool extends AbstractTrap {
     private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(AcidPool.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> DATA_DAMAGE = SynchedEntityData.defineId(AcidPool.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> DATA_PERCENT_DAMAGE = SynchedEntityData.defineId(AcidPool.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Integer> DATA_COLOR = SynchedEntityData.defineId(AcidPool.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_WARMUP_COLOR = SynchedEntityData.defineId(AcidPool.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> DATA_INV_TIME = SynchedEntityData.defineId(AcidPool.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<String> DATA_SOUND_EVENT = SynchedEntityData.defineId(AcidPool.class, EntityDataSerializers.STRING);
     private int warmupDelayTicks = 0;
     private int lifeTick;
@@ -46,8 +48,10 @@ public class AcidPool extends AbstractTrap {
         super.defineSynchedData();
         this.getEntityData().define(DATA_COLOR, 0x44b529);
         this.getEntityData().define(DATA_WARMUP_COLOR, 0x44b529);
+        this.getEntityData().define(DATA_INV_TIME, -1);
         this.getEntityData().define(DATA_RADIUS, 2.0F);
         this.getEntityData().define(DATA_DAMAGE, 2.0F);
+        this.getEntityData().define(DATA_PERCENT_DAMAGE, 0.0F);
         this.getEntityData().define(DATA_SOUND_EVENT, "");
     }
 
@@ -69,8 +73,10 @@ public class AcidPool extends AbstractTrap {
         compound.putBoolean("Active", this.sentSpikeEvent);
         compound.putFloat("Radius", this.radius());
         compound.putFloat("Damage", this.getDamage());
+        compound.putFloat("PercentDamage", this.getPercentDamage());
         compound.putInt("Color", this.getColor());
         compound.putInt("WarmupColor", this.getWarmupColor());
+        compound.putInt("InvTime", this.getInvTime());
         compound.putInt("Warmup", this.getWarmupDelayTicks());
         compound.putInt("LifeTick", this.lifeTick);
         compound.putString("Sound", this.getSoundEvent());
@@ -88,11 +94,17 @@ public class AcidPool extends AbstractTrap {
         if (compound.contains("Damage")){
             this.setDamage(compound.getFloat("Damage"));
         }
+        if (compound.contains("PercentDamage")){
+            this.setPercentDamage(compound.getFloat("PercentDamage"));
+        }
         if (compound.contains("Color")){
             this.setColor(compound.getInt("Color"));
         }
         if (compound.contains("WarmupColor")){
             this.setWarmupColor(compound.getInt("WarmupColor"));
+        }
+        if (compound.contains("InvTime")){
+            this.setInvTime(compound.getInt("InvTime"));
         }
         if (compound.contains("Warmup")){
             this.setWarmupDelayTicks(compound.getInt("Warmup"));
@@ -119,6 +131,14 @@ public class AcidPool extends AbstractTrap {
         return this.getEntityData().get(DATA_DAMAGE);
     }
 
+    public void setPercentDamage(float damage) {
+        this.getEntityData().set(DATA_PERCENT_DAMAGE, damage);
+    }
+
+    public float getPercentDamage() {
+        return this.getEntityData().get(DATA_PERCENT_DAMAGE);
+    }
+
     public int getColor() {
         return this.getEntityData().get(DATA_COLOR);
     }
@@ -133,6 +153,14 @@ public class AcidPool extends AbstractTrap {
 
     public void setWarmupColor(int p_19715_) {
         this.getEntityData().set(DATA_WARMUP_COLOR, p_19715_);
+    }
+
+    public int getInvTime() {
+        return this.getEntityData().get(DATA_INV_TIME);
+    }
+
+    public void setInvTime(int p_19715_) {
+        this.getEntityData().set(DATA_INV_TIME, p_19715_);
     }
 
     public int getWarmupDelayTicks() {
@@ -206,10 +234,20 @@ public class AcidPool extends AbstractTrap {
                 if (!targets.isEmpty()){
                     for (LivingEntity livingEntity : targets) {
                         if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)) {
+                            float damage = this.getDamage();
+                            if (this.getPercentDamage() > 0.0F) {
+                                damage = livingEntity.getMaxHealth() * this.getPercentDamage();
+                            }
+                            boolean flag;
                             if (this.owner != null) {
-                                livingEntity.hurt(ModDamageSource.acid(this, this.owner), this.getDamage());
+                                flag = livingEntity.hurt(ModDamageSource.acid(this, this.owner), damage);
                             } else {
-                                livingEntity.hurt(this.damageSources().magic(), this.getDamage());
+                                flag = livingEntity.hurt(this.damageSources().magic(), damage);
+                            }
+                            if (flag) {
+                                if (this.getInvTime() > -1) {
+                                    livingEntity.invulnerableTime = this.getInvTime();
+                                }
                             }
                         }
                     }

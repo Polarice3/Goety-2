@@ -5,10 +5,7 @@ import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.blocks.fluids.ModFluids;
 import com.Polarice3.Goety.common.entities.vehicle.ModBoat;
-import com.Polarice3.Goety.common.items.armor.BlackIronArmor;
-import com.Polarice3.Goety.common.items.armor.CursedKnightArmor;
-import com.Polarice3.Goety.common.items.armor.CursedPaladinArmor;
-import com.Polarice3.Goety.common.items.armor.DarkArmor;
+import com.Polarice3.Goety.common.items.armor.*;
 import com.Polarice3.Goety.common.items.block.HauntedArmorStandItem;
 import com.Polarice3.Goety.common.items.block.HauntedPaintingItem;
 import com.Polarice3.Goety.common.items.brew.BrewBag;
@@ -385,6 +382,7 @@ public class ModItems {
     public static final RegistryObject<Item> WITHER_SKULL_FOCUS = ITEMS.register("wither_skull_focus", () -> new MagicFocus(new WitherSkullSpell()));
     public static final RegistryObject<Item> GHASTLY_FOCUS = ITEMS.register("ghastly_focus", () -> new MagicFocus(new GhastSpell()));
     public static final RegistryObject<Item> BLAZING_FOCUS = ITEMS.register("blazing_focus", () -> new MagicFocus(new BlazeSpell()));
+    public static final RegistryObject<Item> HOGGING_FOCUS = ITEMS.register("hogging_focus", () -> new MagicFocus(new HoggingSpell()));
 
     ///Void
     public static final RegistryObject<Item> CALL_FOCUS = ITEMS.register("call_focus", CallFocus::new);
@@ -422,6 +420,8 @@ public class ModItems {
     public static final RegistryObject<Item> DARK_CHESTPLATE = ITEMS.register("dark_chestplate", () -> new DarkArmor(ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> DARK_LEGGINGS = ITEMS.register("dark_leggings", () -> new DarkArmor(ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> DARK_BOOTS = ITEMS.register("dark_boots", () -> new DarkArmor(ArmorItem.Type.BOOTS));
+
+    public static final RegistryObject<Item> MALEFIC_HELM = ITEMS.register("malefic_helm", MaleficHelm::new);
 
     //Tools & Weapons
     public static final RegistryObject<Item> DARK_WAND = ITEMS.register("dark_wand", DarkWand::new);

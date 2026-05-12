@@ -1,0 +1,25 @@
+{
+  "name": "ヒリーズィアーク",
+  "icon": "goety:malefic_helm",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_heresiarch",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "これらの凶悪な司祭たちは、大いなる炎を崇拝する者たちの集団を率いている。彼らは暗黒の領域に関する知識を持ち、地獄のような能力を授かっている。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:heresiarch",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:malefic_helm",
+      "text": "角の生えた骨の兜をドロップします。この兜は着用者に何らかの恩恵をもたらすが、その大きさゆえに骨董品として着用することはできません。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:malefic_helm": 2
+  }
+}

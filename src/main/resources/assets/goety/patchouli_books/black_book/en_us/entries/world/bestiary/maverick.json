@@ -15,7 +15,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "If a Wandering Trader gets struck by lightning, they will transform into a Maverick."
+      "text": "If a Wandering Trader is underneath a Crying Obsidian Block, they have a chance of transforming into a Maverick."
     }
   ]
 }

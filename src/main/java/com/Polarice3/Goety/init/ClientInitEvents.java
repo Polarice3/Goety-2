@@ -266,6 +266,8 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.SHIELD_DEBRIS, ShieldDebrisModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.HELL_BLAST, HellBlastModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SCREAM, HellChantModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.POTION_CASE, ReprobateCarryModel::createCaseLayer);
+        event.registerLayerDefinition(ModModelLayer.POTION_BARREL, ReprobateCarryModel::createBarrelLayer);
         event.registerLayerDefinition(ModModelLayer.VOID_SHOCK, VoidShockModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VOID_SHOCK_BOMB, VoidShockBombModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SCATTER_MINE, ScatterMineModel::createBodyLayer);
@@ -288,8 +290,10 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.WARLOCK, WarlockModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.HERETIC, HereticModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MAVERICK, MaverickModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.REPROBATE, ReprobateModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.CRONE, CroneModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MOD_WITCH, ModWitchModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.HERESIARCH, HeresiarchModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.APOSTLE, ApostleModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.APOSTLE_SHADE, ApostleShadeRenderer.ApostleShadeModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ZOMBIE_VILLAGER_SERVANT, VillagerServantModel::createBodyLayer);
@@ -406,6 +410,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.BLACK_IRON_ARMOR_OUTER, BlackIronArmorModel::createOuterLayer);
         event.registerLayerDefinition(ModModelLayer.DARK_ARMOR_INNER, DarkArmorModel::createInnerLayer);
         event.registerLayerDefinition(ModModelLayer.DARK_ARMOR_OUTER, DarkArmorModel::createOuterLayer);
+        event.registerLayerDefinition(ModModelLayer.MALEFIC_HELM, MaleficHelmModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SOUL_SHIELD, () -> LayerDefinition.create(PlayerModel.createMesh(new CubeDeformation(0.5F), false), 64, 64));
         event.registerLayerDefinition(ModModelLayer.SOUL_ARMOR, () -> LayerDefinition.create(PlayerModel.createMesh(new CubeDeformation(0.3F), false), 64, 64));
         event.registerLayerDefinition(ModModelLayer.NAMELESS_STAFF, NamelessStaffModel::createBodyLayer);
@@ -494,6 +499,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.POISON_QUILL.get(), PoisonQuillRenderer::new);
         event.registerEntityRenderer(ModEntityType.BONE_SHARD.get(), (rendererManager) -> new BoneShardRenderer<>(rendererManager, itemRenderer));
         event.registerEntityRenderer(ModEntityType.BREW.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(ModEntityType.REPROBATE_CARRY.get(), ReprobateCarryRenderer::new);
         event.registerEntityRenderer(ModEntityType.SCYTHE.get(), ScytheSlashRenderer::new);
         event.registerEntityRenderer(ModEntityType.MOD_DRAGON_FIREBALL.get(), ModDragonFireballRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_SKULL_SHOT.get(), HauntedSkullProjectileRenderer::new);
@@ -578,7 +584,9 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.WARTLING.get(), WartlingRenderer::new);
         event.registerEntityRenderer(ModEntityType.HERETIC.get(), HereticRenderer::new);
         event.registerEntityRenderer(ModEntityType.MAVERICK.get(), MaverickRenderer::new);
+        event.registerEntityRenderer(ModEntityType.REPROBATE.get(), ReprobateRenderer::new);
         event.registerEntityRenderer(ModEntityType.CRONE.get(), CroneRenderer::new);
+        event.registerEntityRenderer(ModEntityType.HERESIARCH.get(), HeresiarchRenderer::new);
         event.registerEntityRenderer(ModEntityType.APOSTLE.get(), ApostleRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKELETON_VILLAGER_SERVANT.get(), SkeletonVillagerServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.ZPIGLIN_SERVANT.get(), ZPiglinRenderer::new);
@@ -645,6 +653,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.BOUND_STORM_CASTER.get(), BoundStormCasterRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_ARMOR_SERVANT.get(), HauntedArmorRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_SKULL.get(), HauntedSkullRenderer::new);
+        event.registerEntityRenderer(ModEntityType.BURNING_HOGLIN.get(), BurningHoglinRenderer::new);
         event.registerEntityRenderer(ModEntityType.DOPPELGANGER.get(), (render) -> new DoppelgangerRenderer(render, false));
         event.registerEntityRenderer(ModEntityType.MINI_GHAST.get(), MiniGhastRenderer::new);
         event.registerEntityRenderer(ModEntityType.GHAST_SERVANT.get(), GhastServantRenderer::new);
@@ -685,6 +694,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.WARLOCK_SERVANT.get(), WarlockServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.HERETIC_SERVANT.get(), HereticServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.MAVERICK_SERVANT.get(), MaverickServantRenderer::new);
+        event.registerEntityRenderer(ModEntityType.REPROBATE_SERVANT.get(), ReprobateServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.BLACK_WOLF.get(), BlackWolfRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKELETON_WOLF.get(), SkeletonWolfRenderer::new);
         event.registerEntityRenderer(ModEntityType.WINTER_WOLF.get(), WinterWolfRenderer::new);
@@ -745,6 +755,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.MAGIC_LIGHTNING_TRAP.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.VOID_LIGHTNING_TRAP.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.UPDRAFT_BLAST.get(), TrapRenderer::new);
+        event.registerEntityRenderer(ModEntityType.EFFECT_BLAST_TRAP.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.CUSHION.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.MAGIC_GROUND.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.ACID_POOL.get(), TrapRenderer::new);

@@ -180,6 +180,8 @@ public class Cultist extends Raider implements ICustomAttributes {
             return this.getTeam() == null && entityIn.getTeam() == null;
         } else if (entityIn instanceof AbstractPiglin){
             return this.getTeam() == null && entityIn.getTeam() == null;
+        } else if (this.getLeader() != null && this.getLeader() == entityIn){
+            return true;
         } else {
             return entityIn instanceof IOwned && ((IOwned) entityIn).getTrueOwner() instanceof Cultist;
         }

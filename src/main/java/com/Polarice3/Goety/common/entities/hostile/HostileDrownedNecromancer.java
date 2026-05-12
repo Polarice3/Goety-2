@@ -4,19 +4,25 @@ import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.entities.neutral.DrownedNecromancer;
 import com.Polarice3.Goety.common.network.ModServerBossInfo;
 import com.Polarice3.Goety.config.MainConfig;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class HostileDrownedNecromancer extends DrownedNecromancer implements Enemy {
     private final ModServerBossInfo bossInfo;
@@ -61,20 +67,22 @@ public class HostileDrownedNecromancer extends DrownedNecromancer implements Ene
     }
 
     public boolean hurt(DamageSource pSource, float pAmount) {
-        if (pSource.getEntity() != null){
-            if (pSource.getEntity() instanceof LivingEntity livingEntity){
-                if (!(livingEntity instanceof Drowned) && !livingEntity.isAlliedTo(this)){
-                    for (Drowned drowned : this.level.getEntitiesOfClass(Drowned.class, this.getBoundingBox().inflate(10))){
-                        if (drowned.getTarget() != livingEntity) {
-                            if (drowned.canAttack(livingEntity)) {
-                                drowned.setTarget(livingEntity);
-                            }
-                        }
-                    }
+        this.alertDrowned();
+        return super.hurt(pSource, pAmount);
+    }
+
+    protected void alertDrowned(){
+        double d0 = this.getAttributeValue(Attributes.FOLLOW_RANGE);
+        AABB axisalignedbb = AABB.unitCubeFromLowerCorner(this.position()).inflate(d0, 10.0D, d0);
+        List<Mob> list = this.level.getEntitiesOfClass(Mob.class, axisalignedbb);
+
+        for (Mob mob : list){
+            if (mob.getTarget() == null && this.getLastHurtByMob() != null && !MobUtil.areAllies(this.getLastHurtByMob(), this)) {
+                if (mob instanceof Drowned && !mob.getType().is(Tags.EntityTypes.BOSSES) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(this.getLastHurtByMob())) {
+                    mob.setTarget(this.getLastHurtByMob());
                 }
             }
         }
-        return super.hurt(pSource, pAmount);
     }
 
     @Override

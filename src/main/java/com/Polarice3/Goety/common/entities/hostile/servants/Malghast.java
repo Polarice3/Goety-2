@@ -1,11 +1,13 @@
 package com.Polarice3.Goety.common.entities.hostile.servants;
 
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.SummonedFlying;
 import com.Polarice3.Goety.common.entities.projectiles.HellBlast;
 import com.Polarice3.Goety.common.entities.projectiles.Lavaball;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
@@ -36,8 +38,8 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.EnumSet;
 
 public class Malghast extends SummonedFlying {
@@ -76,6 +78,16 @@ public class Malghast extends SummonedFlying {
     @Override
     public MobType getMobType() {
         return ModMobType.NETHER;
+    }
+
+    @Nullable
+    @Override
+    public EntityType<?> getVariant(@Nullable Player player, Level level, BlockPos blockPos) {
+        EntityType<?> entityType = ModEntityType.GHAST_SERVANT.get();
+        if (player != null && CuriosFinder.hasUnholySet(player)) {
+            entityType = ModEntityType.MALGHAST.get();
+        }
+        return entityType;
     }
 
     public void tick() {
@@ -326,7 +338,8 @@ public class Malghast extends SummonedFlying {
                             this.ghast.playSound(ModSounds.HELL_BLAST_SHOOT.get(), 5.0F, (this.ghast.random.nextFloat() - this.ghast.random.nextFloat()) * 0.2F + 1.0F);
                         } else {
                             this.ghast.playSound(SoundEvents.GHAST_SHOOT, 5.0F, (this.ghast.random.nextFloat() - this.ghast.random.nextFloat()) * 0.2F + 1.0F);
-                        }                    }
+                        }
+                    }
 
                     int power = (int) (this.ghast.getExplosionPower() + this.ghast.level.getCurrentDifficultyAt(this.ghast.blockPosition()).getSpecialMultiplier());
 
@@ -335,10 +348,14 @@ public class Malghast extends SummonedFlying {
 
                     if (this.shotTimes) {
                         fireballentity = new HellBlast(this.ghast, d2, d3, d4, world);
+                        if (fireballentity instanceof HellBlast hellBlast){
+                            hellBlast.setDamage(AttributesConfig.MalghastDamage.get().floatValue() + this.ghast.getFireBallDamage());
+                        }
                         charge = -20;
                     } else {
                         fireballentity = new Lavaball(world, this.ghast, d2, d3, d4);
                         if (fireballentity instanceof Lavaball lavaball){
+                            lavaball.setDamage(AttributesConfig.MalghastDamage.get().floatValue() + this.ghast.getFireBallDamage());
                             lavaball.setExplosionPower(power);
                             lavaball.setDangerous(ForgeEventFactory.getMobGriefingEvent(world, this.ghast));
                         }

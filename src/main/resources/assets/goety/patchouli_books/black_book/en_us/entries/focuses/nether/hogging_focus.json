@@ -1,0 +1,23 @@
+{
+  "name": "Hogging Focus",
+  "icon": "goety:hogging_focus",
+  "category": "goety:focuses/nether",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Hogging focus summons an short-lived ethereal hoglin that will charge towards an enemy and explode upon contact."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/hogging_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/nether_staff)Nether Staff$() summons more Burning Hoglins at once."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:hogging_focus": 1
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "破灭修道院",
+  "icon": "goety:cragrocks",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "曾经有一些神圣的修道院，因被亡灵侵占等原因而被遗弃。如今，这些寺院被一个邪恶的教派占据，他们意图举行一场不洁的仪式……"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/ruined_monastery.png"],
+      "border": true
+    }
+  ]
+}

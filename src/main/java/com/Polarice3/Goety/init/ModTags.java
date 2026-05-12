@@ -246,6 +246,8 @@ public class ModTags {
         public static final TagKey<Biome> HERETIC_EXCLUDE_SPAWN = tag("mob_spawn/heretic_exclude");
         public static final TagKey<Biome> MAVERICK_SPAWN = tag("mob_spawn/maverick");
         public static final TagKey<Biome> MAVERICK_EXCLUDE_SPAWN = tag("mob_spawn/maverick_exclude");
+        public static final TagKey<Biome> REPROBATE_SPAWN = tag("mob_spawn/reprobate");
+        public static final TagKey<Biome> REPROBATE_EXCLUDE_SPAWN = tag("mob_spawn/reprobate_exclude");
         public static final TagKey<Biome> WIGHT_SPAWN = tag("mob_spawn/wight");
         public static final TagKey<Biome> WIGHT_EXCLUDE_SPAWN = tag("mob_spawn/wight_exclude");
 

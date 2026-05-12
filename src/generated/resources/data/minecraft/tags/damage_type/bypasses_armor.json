@@ -4,10 +4,13 @@
     "goety:doom",
     "goety:hellfire",
     "goety:indirect_hellfire",
+    "goety:rot",
     "goety:acid",
+    "goety:venom",
     "goety:spike",
     "goety:magic_bolt",
     "goety:choke",
+    "goety:rage",
     "goety:voided",
     "goety:dismissed",
     "goety:death"

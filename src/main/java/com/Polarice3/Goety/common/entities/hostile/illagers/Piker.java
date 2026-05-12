@@ -123,6 +123,13 @@ public class Piker extends HuntingIllagerEntity{
         }
         if (this.isMeleeAttacking()) {
             ++this.attackTick;
+            if (!this.level.isClientSide && this.attackTick > 25) {
+                this.resetMeleeAttack();
+            }
+        } else {
+            if (this.attackTick != 0) {
+                this.attackTick = 0;
+            }
         }
         if (this.attackTick > 20){
             this.setMeleeAttacking(false);
@@ -258,6 +265,12 @@ public class Piker extends HuntingIllagerEntity{
         return ModSounds.PIKER_CELEBRATE.get();
     }
 
+    public void resetMeleeAttack() {
+        this.setFlag(1, false);
+        this.attackTick = 0;
+        this.level.broadcastEntityEvent(this, (byte) 5);
+    }
+
     class PikerAttackGoal extends MeleeAttackGoal {
         private int delayCounter;
         private static final float SPEED = 1.0F;
@@ -320,23 +333,27 @@ public class Piker extends HuntingIllagerEntity{
 
         @Override
         public boolean canUse() {
-            return Piker.this.getTarget() != null && Piker.this.isMeleeAttacking();
+            return Piker.this.getTarget() != null
+                    && Piker.this.isMeleeAttacking()
+                    && Piker.this.attackTick < 20;
         }
 
         @Override
         public boolean canContinueToUse() {
-            return Piker.this.attackTick < 20;
+            return Piker.this.isMeleeAttacking()
+                    && Piker.this.attackTick < 20
+                    && Piker.this.isAlive();
+        }
+
+        @Override
+        public void stop() {
+            Piker.this.resetMeleeAttack();
         }
 
         @Override
         public void start() {
             Piker.this.setMeleeAttacking(true);
             Piker.this.level.broadcastEntityEvent(Piker.this, (byte) 4);
-        }
-
-        @Override
-        public void stop() {
-            Piker.this.setMeleeAttacking(false);
         }
 
         @Override

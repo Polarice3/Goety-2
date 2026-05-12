@@ -363,24 +363,25 @@
   "warlock_ambient": {
     "sounds": [
       {
-        "name": "mob/wandering_trader/no1",
-        "pitch": 0.75
+        "name": "goety:warlock/idle1"
       },
       {
-        "name": "mob/wandering_trader/no2",
-        "pitch": 0.75
+        "name": "goety:warlock/idle2"
       },
       {
-        "name": "mob/wandering_trader/no3",
-        "pitch": 0.75
+        "name": "goety:warlock/idle3"
       },
       {
-        "name": "mob/wandering_trader/no4",
-        "pitch": 0.75
+        "name": "goety:warlock/idle4"
       },
       {
-        "name": "mob/wandering_trader/no5",
-        "pitch": 0.75
+        "name": "goety:warlock/idle5"
+      },
+      {
+        "name": "goety:warlock/idle6"
+      },
+      {
+        "name": "goety:warlock/idle7"
       }
     ],
     "subtitle": "subtitle.goety.warlock_ambient"
@@ -388,20 +389,16 @@
   "warlock_hurt": {
     "sounds": [
       {
-        "name": "mob/wandering_trader/hurt1",
-        "pitch": 0.75
+        "name": "goety:warlock/hurt1"
       },
       {
-        "name": "mob/wandering_trader/hurt2",
-        "pitch": 0.75
+        "name": "goety:warlock/hurt2"
       },
       {
-        "name": "mob/wandering_trader/hurt3",
-        "pitch": 0.75
+        "name": "goety:warlock/hurt3"
       },
       {
-        "name": "mob/wandering_trader/hurt4",
-        "pitch": 0.75
+        "name": "goety:warlock/hurt4"
       }
     ],
     "subtitle": "subtitle.goety.warlock_hurt"
@@ -409,20 +406,13 @@
   "warlock_celebrate": {
     "sounds": [
       {
-        "name": "mob/wandering_trader/yes1",
-        "pitch": 0.75
+        "name": "goety:warlock/celebrate1"
       },
       {
-        "name": "mob/wandering_trader/yes2",
-        "pitch": 0.75
+        "name": "goety:warlock/celebrate2"
       },
       {
-        "name": "mob/wandering_trader/yes3",
-        "pitch": 0.75
-      },
-      {
-        "name": "mob/wandering_trader/yes4",
-        "pitch": 0.75
+        "name": "goety:warlock/celebrate3"
       }
     ],
     "subtitle": "subtitle.goety.warlock_celebrate"
@@ -430,8 +420,16 @@
   "warlock_death": {
     "sounds": [
       {
-        "name": "mob/wandering_trader/death",
-        "pitch": 0.75
+        "name": "goety:warlock/death1"
+      },
+      {
+        "name": "goety:warlock/death2"
+      },
+      {
+        "name": "goety:warlock/death3"
+      },
+      {
+        "name": "goety:warlock/death4"
       }
     ],
     "subtitle": "subtitle.goety.warlock_death"
@@ -585,6 +583,152 @@
       }
     ],
     "subtitle": "subtitle.goety.crone_death"
+  },
+  "heresiarch_ambient": {
+    "sounds": [
+      {
+        "name": "goety:heresiarch/idle1"
+      },
+      {
+        "name": "goety:heresiarch/idle2"
+      },
+      {
+        "name": "goety:heresiarch/idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.heresiarch_ambient"
+  },
+  "heresiarch_hurt": {
+    "sounds": [
+      {
+        "name": "goety:heresiarch/hurt1"
+      },
+      {
+        "name": "goety:heresiarch/hurt2"
+      }
+    ],
+    "subtitle": "subtitle.goety.heresiarch_hurt"
+  },
+  "heresiarch_death": {
+    "sounds": [
+      {
+        "name": "goety:heresiarch/death"
+      }
+    ],
+    "subtitle": "subtitle.goety.heresiarch_death"
+  },
+  "mcd_hoglin_ambient": {
+    "sounds": [
+      {
+        "name": "goety:hoglin/idle1"
+      },
+      {
+        "name": "goety:hoglin/idle2"
+      },
+      {
+        "name": "goety:hoglin/idle3"
+      },
+      {
+        "name": "goety:hoglin/idle4"
+      }
+    ],
+    "subtitle": "subtitles.entity.hoglin.ambient"
+  },
+  "mcd_hoglin_hurt": {
+    "sounds": [
+      {
+        "name": "goety:hoglin/hurt1"
+      },
+      {
+        "name": "goety:hoglin/hurt2"
+      },
+      {
+        "name": "goety:hoglin/hurt3"
+      },
+      {
+        "name": "goety:hoglin/hurt4"
+      }
+    ],
+    "subtitle": "subtitles.entity.hoglin.hurt"
+  },
+  "mcd_hoglin_growl": {
+    "sounds": [
+      {
+        "name": "goety:hoglin/growl1"
+      },
+      {
+        "name": "goety:hoglin/growl2"
+      },
+      {
+        "name": "goety:hoglin/growl3"
+      }
+    ],
+    "subtitle": "subtitles.entity.hoglin.angry"
+  },
+  "mcd_hoglin_squeel": {
+    "sounds": [
+      {
+        "name": "goety:hoglin/squeel1"
+      },
+      {
+        "name": "goety:hoglin/squeel2"
+      }
+    ],
+    "subtitle": "subtitles.entity.hoglin.attack"
+  },
+  "mcd_hoglin_gallop": {
+    "sounds": [
+      {
+        "name": "goety:hoglin/gallop1"
+      },
+      {
+        "name": "goety:hoglin/gallop2"
+      },
+      {
+        "name": "goety:hoglin/gallop3"
+      },
+      {
+        "name": "goety:hoglin/gallop4"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "mcd_hoglin_step": {
+    "sounds": [
+      {
+        "name": "goety:hoglin/step1"
+      },
+      {
+        "name": "goety:hoglin/step2"
+      },
+      {
+        "name": "goety:hoglin/step3"
+      },
+      {
+        "name": "goety:hoglin/step4"
+      },
+      {
+        "name": "goety:hoglin/step5"
+      },
+      {
+        "name": "goety:hoglin/step6"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "mcd_hoglin_death": {
+    "sounds": [
+      {
+        "name": "goety:hoglin/death1"
+      },
+      {
+        "name": "goety:hoglin/death2"
+      },
+      {
+        "name": "goety:hoglin/death3"
+      }
+    ],
+    "subtitle": "subtitles.entity.hoglin.death"
   },
   "wight_ambient": {
     "sounds": [
@@ -7980,6 +8124,26 @@
       }
     ],
     "subtitle": "subtitle.goety.sword_shing"
+  },
+  "soul_knife_no_soul_swing": {
+    "sounds": [
+      {
+        "name": "goety:soul_knife/no_soul_swing1"
+      },
+      {
+        "name": "goety:soul_knife/no_soul_swing2"
+      },
+      {
+        "name": "goety:soul_knife/no_soul_swing3"
+      },
+      {
+        "name": "goety:soul_knife/no_soul_swing4"
+      },
+      {
+        "name": "goety:soul_knife/no_soul_swing5"
+      }
+    ],
+    "subtitle": "subtitle.goety.sword_swing"
   },
   "whip_swing": {
     "sounds": [

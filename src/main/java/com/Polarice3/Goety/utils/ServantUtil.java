@@ -286,6 +286,21 @@ public class ServantUtil {
     }
 
     @Nullable
+    public static Entity peekReviveTarget(IOwned owned) {
+        if (owned instanceof LivingEntity livingEntity) {
+            if (livingEntity.level instanceof ServerLevel serverLevel) {
+                if (owned.getRevivePos() != null) {
+                    BlockPos revivePos = owned.getRevivePos();
+                    if (serverLevel.isLoaded(revivePos)) {
+                        return livingEntity;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    @Nullable
     public static Entity teleportToRevive(IOwned owned){
         if (owned instanceof LivingEntity livingOwned) {
             if (livingOwned.level instanceof ServerLevel serverLevel) {

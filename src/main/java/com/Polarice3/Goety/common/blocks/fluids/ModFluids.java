@@ -110,5 +110,13 @@ public class ModFluids {
                 (level, currentPos, relativePos, currentState) -> level.getBlockState(currentPos.below()).is(ModBlocks.END_SOIL.get()) && level.getBlockState(relativePos).is(Blocks.BLUE_ICE),
                 Blocks.OBSIDIAN.defaultBlockState()
         ));
+
+        if (MainConfig.OminousStoneGenerator.get()) {
+            // Lava + Lapis Lazuli (Below) + Water = Ominous Stone
+            FluidInteractionRegistry.addInteraction(ForgeMod.LAVA_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
+                    (level, currentPos, relativePos, currentState) -> level.getBlockState(currentPos.below()).is(Blocks.LAPIS_BLOCK) && level.getFluidState(relativePos).getFluidType() == ForgeMod.WATER_TYPE.get(),
+                    fluidState -> fluidState.isSource() ? ModBlocks.OMINOUS_STONE_BLOCK.get().defaultBlockState() : ModBlocks.COBBLED_OMINOUS_STONE_BLOCK.get().defaultBlockState()
+            ));
+        }
     }
 }

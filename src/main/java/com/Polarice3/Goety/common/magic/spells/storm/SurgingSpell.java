@@ -83,6 +83,7 @@ public class SurgingSpell extends EverChargeSpell {
         orb.setOwner(caster);
         orb.setBoltSpeed((int) velocity);
         orb.setExtraDamage(potency);
+        orb.setOrange(this.typeStaff(staff, SpellType.NETHER));
         orb.setStaff(rightStaff(staff));
         worldIn.addFreshEntity(orb);
         this.playSound(worldIn, caster, ModSounds.SHOCK_CAST.get(), 1.0F, this.projPitch(worldIn.getRandom()));

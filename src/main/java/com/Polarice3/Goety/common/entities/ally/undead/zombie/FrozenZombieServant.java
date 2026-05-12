@@ -91,7 +91,7 @@ public class FrozenZombieServant extends ZombieServant implements RangedAttackMo
         double d2 = p_33317_.getZ() + vec3.z - this.getZ();
         double d3 = Math.sqrt(d0 * d0 + d2 * d2);
         snowball.setXRot(snowball.getXRot() - -20.0F);
-        snowball.shoot(d0, d1 + d3 * 0.2D, d2, 0.75F, 8.0F);
+        snowball.shoot(d0, d1 + d3 * 0.2D, d2, 0.95F, 8.0F);
         this.playSound(SoundEvents.SNOWBALL_THROW, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(snowball);
         this.throwCooldown = MathHelper.secondsToTicks(3);

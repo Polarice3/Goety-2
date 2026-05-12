@@ -24,6 +24,7 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.PLAGUE_EFFECT.get(), SpellParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.DOOM.get(), SpellParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.DOOM_DEATH.get(), DoomDeathParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.HYSTERIA.get(), SpellParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.WHITE_EFFECT.get(), AdditiveSpellParticle.AlphaProvider::new);
         event.registerSpriteSet(ModParticleTypes.BULLET_EFFECT.get(), AdditiveSpellParticle.AlphaProvider::new);
         event.registerSpriteSet(ModParticleTypes.NECRO_EFFECT.get(), AdditiveSpellParticle.AlphaProvider::new);

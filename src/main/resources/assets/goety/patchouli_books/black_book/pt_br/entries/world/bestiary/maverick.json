@@ -6,16 +6,16 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Mais agressivos que seus parentes, aplicam efeitos de poções através de suas lâminas, fugindo depois para beber poções de buff."
+      "text": "Mais práticos do que seus primos, eles aplicam efeitos de poção através de suas lâminas, antes de fugirem e beberem uma poção para se buffarem."
     },
     {
       "type": "patchouli:entity",
       "entity": "goety:maverick",
-      "text": "Resistentes a magia, como as Bruxas."
+      "text": "Eles são resistentes à magia, assim como seus primos Bruxos."
     },
     {
       "type": "patchouli:text",
-      "text": "Viajantes errantes atingidos por raios se transformam em Mavericks."
+      "text": "Se um Vendedor Ambulante estiver sob um Bloco de Obsidiana Chorona, ele tem uma chance de se transformar em um Maverick."
     }
   ]
 }

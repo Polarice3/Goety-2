@@ -1,0 +1,17 @@
+{
+  "name": "goety:ruined_monastery/start_pool",
+  "fallback": "goety:ruined_monastery/start_pool",
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:ruined_monastery/cloister",
+        "processors": "goety:no_waterlogging",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

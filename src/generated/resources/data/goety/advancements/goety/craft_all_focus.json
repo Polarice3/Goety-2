@@ -565,6 +565,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.hogging_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:hogging_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.hunting_focus": {
       "conditions": {
         "items": [
@@ -1775,6 +1787,9 @@
     ],
     [
       "item.goety.blazing_focus"
+    ],
+    [
+      "item.goety.hogging_focus"
     ],
     [
       "item.goety.call_focus"

@@ -1,5 +1,7 @@
 package com.Polarice3.Goety.common.entities.ai;
 
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.HereticServant;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.ReprobateServant;
 import com.Polarice3.Goety.common.entities.ally.illager.cultist.WarlockServant;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
 import com.Polarice3.Goety.init.ModTags;
@@ -56,6 +58,10 @@ public class WitchServantBarterGoal extends Goal {
                     LootTable loottable = this.witch.level.getServer().getLootData().getLootTable(ModLootTables.WITCH_BARTER);
                     if (this.witch instanceof WarlockServant){
                         loottable = this.witch.level.getServer().getLootData().getLootTable(ModLootTables.WARLOCK_BARTER);
+                    } else if (this.witch instanceof HereticServant){
+                        loottable = this.witch.level.getServer().getLootData().getLootTable(ModLootTables.HERETIC_BARTER);
+                    } else if (this.witch instanceof ReprobateServant){
+                        loottable = this.witch.level.getServer().getLootData().getLootTable(ModLootTables.REPROBATE_BARTER);
                     }
                     List<ItemStack> list = loottable.getRandomItems((new LootParams.Builder((ServerLevel) this.witch.level)).withParameter(LootContextParams.THIS_ENTITY, this.witch).withParameter(LootContextParams.ORIGIN, this.witch.position()).withLuck(luck).create(LootContextParamSets.GIFT));
                     for(ItemStack itemstack : list) {
@@ -67,8 +73,7 @@ public class WitchServantBarterGoal extends Goal {
         }
 
         if (this.witch.hurtTime != 0){
-            if (this.witch.getItemInHand(InteractionHand.MAIN_HAND).is(ModTags.Items.WITCH_CURRENCY)
-                || this.witch.getItemInHand(InteractionHand.MAIN_HAND).is(ModTags.Items.WITCH_BETTER_CURRENCY)) {
+            if (this.witch.getItemInHand(InteractionHand.MAIN_HAND).is(ModTags.Items.WITCH_CURRENCY)) {
                 this.witch.spawnAtLocation(this.witch.getItemInHand(InteractionHand.MAIN_HAND));
                 this.clearTrade();
             }
@@ -90,7 +95,7 @@ public class WitchServantBarterGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.witch.getMainHandItem().is(ModTags.Items.WITCH_CURRENCY) || this.witch.getMainHandItem().is(ModTags.Items.WITCH_BETTER_CURRENCY);
+        return this.witch.getMainHandItem().is(ModTags.Items.WITCH_CURRENCY);
     }
 
     @Override

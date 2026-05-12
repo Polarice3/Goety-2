@@ -22,6 +22,8 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public interface IWand extends IForgeItem {
     String SOULUSE = "Soul Use";
@@ -34,6 +36,12 @@ public interface IWand extends IForgeItem {
     String SHOTS = "Shots";
 
     SpellType getSpellType();
+
+    default List<SpellType> getSpellTypes() {
+        List<SpellType> list = new ArrayList<>();
+        list.add(this.getSpellType());
+        return list;
+    }
 
     static ItemStack getFocus(ItemStack itemstack) {
         SoulUsingItemHandler handler = SoulUsingItemHandler.get(itemstack);

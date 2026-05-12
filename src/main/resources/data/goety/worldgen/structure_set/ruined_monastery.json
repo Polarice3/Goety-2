@@ -1,0 +1,15 @@
+{
+  "structures": [
+    {
+      "structure": "goety:ruined_monastery",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 8998465,
+	"frequency": 0.2,
+    "spacing": 40,
+    "separation": 10,
+    "type": "minecraft:random_spread"
+  }
+}

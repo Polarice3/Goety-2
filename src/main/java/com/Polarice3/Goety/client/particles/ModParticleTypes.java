@@ -27,6 +27,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> DOOM_DEATH = PARTICLE_TYPES.register("doom_death",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> HYSTERIA = PARTICLE_TYPES.register("hysteria",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> HEAL_EFFECT = PARTICLE_TYPES.register("heal",
             () -> new SimpleParticleType(false));
 
@@ -238,7 +241,7 @@ public class ModParticleTypes {
             () -> new SimpleParticleType(true));
 
     public static final RegistryObject<SimpleParticleType> SPELL_CLOUD = PARTICLE_TYPES.register("spell_cloud",
-            () -> new SimpleParticleType(false));
+            () -> new SimpleParticleType(true));
 
     public static final RegistryObject<SimpleParticleType> DROPLET = PARTICLE_TYPES.register("droplet",
             () -> new SimpleParticleType(true));

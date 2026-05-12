@@ -1,11 +1,14 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.projectiles.ModFireball;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModMobType;
+import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MobUtil;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -38,6 +41,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 
@@ -137,6 +141,16 @@ public class BlazeServant extends Summoned {
 
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource p_217055_, DifficultyInstance p_217056_) {
+    }
+
+    @Nullable
+    @Override
+    public EntityType<?> getVariant(@Nullable Player player, Level level, BlockPos blockPos) {
+        EntityType<?> entityType = ModEntityType.BLAZE_SERVANT.get();
+        if (player != null && CuriosFinder.hasUnholySet(player)) {
+            entityType = ModEntityType.INFERNO.get();
+        }
+        return entityType;
     }
 
     public void aiStep() {

@@ -118,6 +118,12 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> BlazeSummonDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> BlazeLimit;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> HoggingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HoggingDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HoggingCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HoggingSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HoggingLimit;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> FeastCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FeastChargeUp;
     public static final ForgeConfigSpec.ConfigValue<Integer> FeastDuration;
@@ -890,6 +896,18 @@ public class SpellConfig {
                     .defineInRange("blazeSummonDown", 400, 0, 72000);
             BlazeLimit = BUILDER.comment("Number of Blaze Servants that can exist around the player, Default: 16")
                     .defineInRange("blazeLimit", 16, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Hogging Spell");
+            HoggingCost = BUILDER.comment("Hogging Spell Cost, Default: 24")
+                    .defineInRange("hoggingCost", 24, 0, Integer.MAX_VALUE);
+            HoggingDuration = BUILDER.comment("Time to cast Hogging Spell, Default: 40")
+                    .defineInRange("hoggingDuration", 40, 0, 72000);
+            HoggingCoolDown = BUILDER.comment("Hogging Spell Cooldown, Default: 300")
+                    .defineInRange("hoggingCoolDown", 300, 0, Integer.MAX_VALUE);
+            HoggingSummonDown = BUILDER.comment("Hogging Spell Summon Down, Default: 100")
+                    .defineInRange("hoggingSummonDown", 100, 0, 72000);
+            HoggingLimit = BUILDER.comment("Number of Blazing Hoglins that can exist around the player, Default: 4")
+                    .defineInRange("hoggingLimit", 4, 1, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Feasting Spell");
             FeastCost = BUILDER.comment("Feasting Spell Cost, Default: 16")

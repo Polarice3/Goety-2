@@ -27,7 +27,7 @@ public class HereticServantRenderer extends MobRenderer<HereticServant, HereticM
    }
 
    public ResourceLocation getTextureLocation(HereticServant entity) {
-      if (entity.isHostile() || !MobsConfig.MaverickServantTexture.get()) {
+      if (entity.isHostile() || !MobsConfig.HereticServantTexture.get()) {
          return ORIGINAL;
       }
       return WITCH_LOCATION;

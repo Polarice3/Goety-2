@@ -22,8 +22,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.extensions.IForgeBlock;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class ArcaBlock extends BaseEntityBlock implements IForgeBlock {
 
@@ -108,7 +107,7 @@ public class ArcaBlock extends BaseEntityBlock implements IForgeBlock {
         return RenderShape.MODEL;
     }
 
-    @org.jetbrains.annotations.Nullable
+    @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos p_153215_, BlockState p_153216_) {
         return new ArcaBlockEntity(p_153215_, p_153216_);

@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.hostile.servants;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.BlazeServant;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.HellBolt;
@@ -24,6 +25,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -106,6 +108,11 @@ public class Inferno extends BlazeServant {
                 loottable.getRandomItems(lootparams).forEach(this::spawnAtLocation);
             }
         }
+    }
+
+    @Override
+    public @Nullable EntityType<?> getVariant(@Nullable Player player, Level level, BlockPos blockPos) {
+        return ModEntityType.INFERNO.get();
     }
 
     @Override

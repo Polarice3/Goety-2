@@ -9,7 +9,7 @@
     "tag": "goety:wandering_traders",
     "display_name": "entity.minecraft.wandering_trader"
   },
-  "entity_to_convert_into": "goety:maverick_servant",
+  "entity_to_convert_into": "goety:reprobate_servant",
   "soulCost": 1,
   "duration": 10,
   "ingredients": [

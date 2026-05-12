@@ -349,6 +349,19 @@ public class BlockFinder {
         }
     }
 
+    public static double findGroundY(Level level, double x, double y, double z) {
+        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos(Mth.floor(x), Mth.floor(y), Mth.floor(z));
+        int limit = 8;
+        while (limit-- > 0 && pos.getY() > level.getMinBuildHeight()) {
+            BlockState state = level.getBlockState(pos);
+            if (!state.getCollisionShape(level, pos).isEmpty()) {
+                return pos.getY() + 1.0D;
+            }
+            pos.move(Direction.DOWN);
+        }
+        return y;
+    }
+
     public static BlockPos SummonRadius(BlockPos blockPos, Entity entity, Level world){
         return SummonRadius(blockPos, entity, world, 5);
     }
@@ -974,6 +987,18 @@ public class BlockFinder {
             }
         }
         return new BlockPos(pos.getX(), bottomY, pos.getZ());
+    }
+
+    public static BlockPos findGroundBelow(Level level, BlockPos pos) {
+        double y = findGroundY(level, pos.getX(), pos.getY(), pos.getZ());
+
+        return BlockPos.containing(pos.getX(), y, pos.getZ());
+    }
+
+    public static Vec3 findGroundBelow(Level level, Vec3 pos) {
+        double y = findGroundY(level, pos.x(), pos.y(), pos.z());
+
+        return new Vec3(pos.x(), y, pos.z());
     }
 
     public static boolean breakBlock(Level level, BlockPos blockPos, ItemStack itemStack, @Nullable Entity entity) {

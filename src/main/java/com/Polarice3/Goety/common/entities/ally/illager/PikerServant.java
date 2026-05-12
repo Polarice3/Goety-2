@@ -106,6 +106,13 @@ public class PikerServant extends AbstractIllagerServant{
         }
         if (this.isMeleeAttacking()) {
             ++this.attackTick;
+            if (!this.level.isClientSide && this.attackTick > 25) {
+                this.resetMeleeAttack();
+            }
+        } else {
+            if (this.attackTick != 0) {
+                this.attackTick = 0;
+            }
         }
         if (this.attackTick > 20){
             this.setMeleeAttacking(false);
@@ -235,6 +242,12 @@ public class PikerServant extends AbstractIllagerServant{
         return ModSounds.PIKER_CELEBRATE.get();
     }
 
+    public void resetMeleeAttack() {
+        this.setFlag(1, false);
+        this.attackTick = 0;
+        this.level.broadcastEntityEvent(this, (byte) 5);
+    }
+
     class PikerAttackGoal extends MeleeAttackGoal {
         private int delayCounter;
         private static final float SPEED = 1.0F;
@@ -297,23 +310,27 @@ public class PikerServant extends AbstractIllagerServant{
 
         @Override
         public boolean canUse() {
-            return PikerServant.this.getTarget() != null && PikerServant.this.isMeleeAttacking();
+            return PikerServant.this.getTarget() != null
+                    && PikerServant.this.isMeleeAttacking()
+                    && PikerServant.this.attackTick < 20;
         }
 
         @Override
         public boolean canContinueToUse() {
-            return PikerServant.this.attackTick < 20;
+            return PikerServant.this.isMeleeAttacking()
+                    && PikerServant.this.attackTick < 20
+                    && PikerServant.this.isAlive();
+        }
+
+        @Override
+        public void stop() {
+            PikerServant.this.resetMeleeAttack();
         }
 
         @Override
         public void start() {
             PikerServant.this.setMeleeAttacking(true);
             PikerServant.this.level.broadcastEntityEvent(PikerServant.this, (byte) 4);
-        }
-
-        @Override
-        public void stop() {
-            PikerServant.this.setMeleeAttacking(false);
         }
 
         @Override

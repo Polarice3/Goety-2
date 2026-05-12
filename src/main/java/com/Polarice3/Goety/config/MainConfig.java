@@ -76,6 +76,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> RobesIronResist;
     public static final ForgeConfigSpec.ConfigValue<Boolean> IronBuff;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CataclysmVoidStone;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> OminousStoneGenerator;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> EnableNightBeacon;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RitualEnchants;
@@ -169,6 +170,8 @@ public class MainConfig {
                 .define("ironBuff", true);
         CataclysmVoidStone = BUILDER.comment("If L_Ender's Cataclysm is installed, pouring Lava onto Void Fluid source blocks will turn it into Void Stones. Default: true")
                 .define("cataclysmVoidStone", true);
+        OminousStoneGenerator = BUILDER.comment("If there's a Block of Lapis Lazuli below, Lava interacting with water will generate Ominous Stone. Default: true")
+                .define("ominousStoneGenerator", true);
         BUILDER.pop();
         BUILDER.push("Blocks");
         HookBellBlackList = BUILDER.comment("""

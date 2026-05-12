@@ -326,7 +326,7 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
             }
             if (!(pPlayer.getOffhandItem().getItem() instanceof IWand)) {
                 if (this.canHaveWeapon()) {
-                    if (item instanceof SwordItem || item instanceof BowItem) {
+                    if (item instanceof SwordItem || (item instanceof BowItem && !(this instanceof CrossbowAttackMob))) {
                         this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
                         this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
                         this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);

@@ -71,6 +71,26 @@
         },
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:exploration_map",
+              "decoration": "mansion",
+              "destination": "goety:explorer_maps/ruined_monastery",
+              "skip_existing_chunks": true,
+              "zoom": 1
+            },
+            {
+              "function": "minecraft:set_name",
+              "name": {
+                "translate": "filled_map.goety.ruined_monastery"
+              }
+            }
+          ],
+          "name": "minecraft:map",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:packed_ice",
           "weight": 8
         },

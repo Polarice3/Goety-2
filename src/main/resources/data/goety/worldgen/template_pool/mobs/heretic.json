@@ -1,0 +1,17 @@
+{
+  "name": "goety:mobs/heretic",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:mobs/heretic",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "猪群聚晶",
+  "icon": "goety:hogging_focus",
+  "category": "goety:focuses/nether",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "猪群聚晶可召唤一只存续时间短暂的灵体疣猪兽，它会冲向敌人并在接触时爆炸。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/hogging_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用 $(l:crafts/staff/nether_staff)下界魔杖$()施法时会一次性召唤更多燃烧疣猪兽。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:hogging_focus": 1
+  }
+}

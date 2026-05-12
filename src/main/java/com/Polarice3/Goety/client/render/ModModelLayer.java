@@ -29,6 +29,8 @@ public class ModModelLayer {
     public static final ModelLayerLocation WEB_SHOT = register("web_shot");
     public static final ModelLayerLocation SOUL_BOMB = register("soul_bomb");
     public static final ModelLayerLocation SCREAM = register("scream");
+    public static final ModelLayerLocation POTION_CASE = register("potion_case");
+    public static final ModelLayerLocation POTION_BARREL = register("potion_barrel");
     public static final ModelLayerLocation SUMMON_CIRCLE = register("summon_circle");
     public static final ModelLayerLocation SUMMON_CIRCLE_BOSS = register("summon_circle_boss");
     public static final ModelLayerLocation ENTANGLE_VINES = register("entangle_vines");
@@ -45,8 +47,10 @@ public class ModModelLayer {
     public static final ModelLayerLocation WARLOCK = register("warlock");
     public static final ModelLayerLocation HERETIC = register("heretic");
     public static final ModelLayerLocation MAVERICK = register("maverick");
+    public static final ModelLayerLocation REPROBATE = register("reprobate");
     public static final ModelLayerLocation CRONE = register("crone");
     public static final ModelLayerLocation MOD_WITCH = register("mod_witch");
+    public static final ModelLayerLocation HERESIARCH = register("heresiarch");
     public static final ModelLayerLocation APOSTLE = register("apostle");
     public static final ModelLayerLocation APOSTLE_SHADE = register("apostle_shade");
     public static final ModelLayerLocation ZOMBIE_VILLAGER_SERVANT = register("zombie_villager_servant");
@@ -121,6 +125,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation BLACK_IRON_ARMOR_OUTER = registerOuterArmor("black_iron_armor");
     public static final ModelLayerLocation DARK_ARMOR_INNER = registerInnerArmor("dark_armor");
     public static final ModelLayerLocation DARK_ARMOR_OUTER = registerOuterArmor("dark_armor");
+    public static final ModelLayerLocation MALEFIC_HELM = register("malefic_helm");
     public static final ModelLayerLocation MINION = register("minion");
     public static final ModelLayerLocation HAUNTED_SKULL = register("cursed_skull");
     public static final ModelLayerLocation HAUNTED_SKULL_FIRELESS = register("fireless_skull");

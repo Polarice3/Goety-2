@@ -64,6 +64,18 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> CRONE_LAUGH = create("crone_laugh");
     public static final RegistryObject<SoundEvent> CRONE_DEATH = create("crone_death");
 
+    public static final RegistryObject<SoundEvent> HERESIARCH_AMBIENT = create("heresiarch_ambient");
+    public static final RegistryObject<SoundEvent> HERESIARCH_HURT = create("heresiarch_hurt");
+    public static final RegistryObject<SoundEvent> HERESIARCH_DEATH = create("heresiarch_death");
+
+    public static final RegistryObject<SoundEvent> MCD_HOGLIN_AMBIENT = create("mcd_hoglin_ambient");
+    public static final RegistryObject<SoundEvent> MCD_HOGLIN_HURT = create("mcd_hoglin_hurt");
+    public static final RegistryObject<SoundEvent> MCD_HOGLIN_GROWL = create("mcd_hoglin_growl");
+    public static final RegistryObject<SoundEvent> MCD_HOGLIN_SQUEEL = create("mcd_hoglin_squeel");
+    public static final RegistryObject<SoundEvent> MCD_HOGLIN_GALLOP = create("mcd_hoglin_gallop");
+    public static final RegistryObject<SoundEvent> MCD_HOGLIN_STEP = create("mcd_hoglin_step");
+    public static final RegistryObject<SoundEvent> MCD_HOGLIN_DEATH = create("mcd_hoglin_death");
+
     public static final RegistryObject<SoundEvent> WIGHT_AMBIENT = create("wight_ambient");
     public static final RegistryObject<SoundEvent> WIGHT_HURT = create("wight_hurt");
     public static final RegistryObject<SoundEvent> WIGHT_SCREAM = create("wight_scream");
@@ -666,6 +678,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> OBSIDIAN_CLAYMORE_WINDUP = create("obsidian_claymore_windup");
 
     public static final RegistryObject<SoundEvent> SWORD_SHING = create("sword_shing");
+
+    public static final RegistryObject<SoundEvent> SOUL_KNIFE_NO_SOUL_SWING = create("soul_knife_no_soul_swing");
 
     public static final RegistryObject<SoundEvent> BONEHEAD_HAMMER_IMPACT = create("bonehead_hammer_impact");
     public static final RegistryObject<SoundEvent> BONEHEAD_HAMMER_HIT = create("bonehead_hammer_hit");

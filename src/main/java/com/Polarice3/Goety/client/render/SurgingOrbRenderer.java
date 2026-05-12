@@ -18,7 +18,7 @@ import org.joml.Matrix4f;
 
 public class SurgingOrbRenderer extends EntityRenderer<SurgingOrb> {
    private static final ResourceLocation TEXTURE_LOCATION = Goety.location("textures/entity/projectiles/scatter_bolt.png");
-   private static final RenderType RENDER_TYPE = RenderType.entityTranslucent(TEXTURE_LOCATION);
+   private static final ResourceLocation ORANGE = Goety.location("textures/entity/projectiles/scatter_bolt_orange.png");
 
    public SurgingOrbRenderer(EntityRendererProvider.Context context) {
       super(context);
@@ -38,7 +38,8 @@ public class SurgingOrbRenderer extends EntityRenderer<SurgingOrb> {
       PoseStack.Pose posestack$pose = poseStack.last();
       Matrix4f matrix4f = posestack$pose.pose();
       Matrix3f matrix3f = posestack$pose.normal();
-      VertexConsumer vertexconsumer = buffer.getBuffer(RENDER_TYPE);
+      RenderType renderType = RenderType.entityTranslucent(this.getTextureLocation(entity));
+      VertexConsumer vertexconsumer = buffer.getBuffer(renderType);
       float f2 = entity.tickCount % 16 / 16.0F;
       float f3 = f2 + 0.0625F;
       vertex(vertexconsumer, matrix4f, matrix3f, packedLight, -0.5F, -0.5F, f2, 1.0F);
@@ -60,6 +61,10 @@ public class SurgingOrbRenderer extends EntityRenderer<SurgingOrb> {
    }
 
    public ResourceLocation getTextureLocation(SurgingOrb entity) {
-      return TEXTURE_LOCATION;
+      if (entity.isOrange()) {
+         return ORANGE;
+      } else {
+         return TEXTURE_LOCATION;
+      }
    }
 }

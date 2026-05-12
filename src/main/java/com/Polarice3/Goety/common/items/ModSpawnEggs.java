@@ -31,8 +31,14 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> MAVERICK_SPAWN_EGG = ITEMS.register("maverick_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.MAVERICK, 0x383b2c, 0x352427, egg()));
 
+    public static final RegistryObject<ModSpawnEggItem> REPROBATE_SPAWN_EGG = ITEMS.register("reprobate_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.REPROBATE, 0x924663, 0x280912, egg()));
+
     public static final RegistryObject<ModSpawnEggItem> CRONE_SPAWN_EGG = ITEMS.register("crone_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.CRONE, 0x732424, 0x916b1a, egg()));
+
+    public static final RegistryObject<ModSpawnEggItem> HERESIARCH_SPAWN_EGG = ITEMS.register("heresiarch_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.HERESIARCH, 0x25252b, 0x1a131a, egg()));
 
     public static final RegistryObject<ModSpawnEggItem> SORCERER_SPAWN_EGG = ITEMS.register("sorcerer_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.SORCERER, 0x180b20, 0x99112f, egg()));

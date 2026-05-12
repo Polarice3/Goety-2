@@ -1,0 +1,23 @@
+{
+  "name": "バーニングホグリンのフォーカス",
+  "icon": "goety:hogging_focus",
+  "category": "goety:focuses/nether",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "このフォーカスは、短命で幽霊のようなホグリンを召喚し、敵に向かって突進させ、接触すると爆発します。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/hogging_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/nether_staff)ネザーの杖$()で唱えると、一度にさらに多くのバーニングホグリンを召喚します。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:hogging_focus": 1
+  }
+}

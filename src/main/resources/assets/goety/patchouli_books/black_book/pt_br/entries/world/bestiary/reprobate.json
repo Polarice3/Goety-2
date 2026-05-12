@@ -1,0 +1,21 @@
+{
+  "name": "Reprobados",
+  "icon": "minecraft:crimson_planks",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_reprobate",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Ao contrário das Bruxas, estes hereges lançam um barril inteiro de poções que se misturam em uma poça ácida. Diz-se que também entregam essas poções a forças das trevas."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:reprobate",
+      "text": "Eles são resistentes à magia, assim como seus primos Bruxos."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Se um Vendedor Ambulante for atingido por um raio, ele se transformará em um Reprobado."
+    }
+  ]
+}

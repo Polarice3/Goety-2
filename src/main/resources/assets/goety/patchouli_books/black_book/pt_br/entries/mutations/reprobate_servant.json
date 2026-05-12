@@ -1,0 +1,24 @@
+{
+  "name": "Servo Reprobado",
+  "icon": "minecraft:crimson_planks",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Ultimamente, os Vendedores Ambulantes parecem se transformar quando atingidos por um Raio, você começou a se perguntar se conseguiria fazer o seu próprio assim como fez com as Bruxas. Depois de um tempo, você descobriu que alguma Energia das Almas, uma Esmeralda Desperta e um Núcleo Místico podem transformar um vendedor ambulante desajeitado em um Reprobado leal."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_trader_to_reprobate"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:reprobate_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Você também é capaz de negociar com seu Servo Reprobado dando-lhe uma Esmeralda, sem precisar vestir roupas apropriadas para fazê-lo. Você também pode negociar com outros Servos Reprobados, desde que seja aliado de seu mestre, se eles tiverem um, e vestindo as roupas apropriadas."
+    }
+  ]
+}

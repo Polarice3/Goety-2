@@ -130,6 +130,13 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkHelmetBlindness;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkHelmetDarkness;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> MaleficDurability;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MaleficHead;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MaleficEnchantability;
+    public static final ForgeConfigSpec.ConfigValue<Double> MaleficToughness;
+    public static final ForgeConfigSpec.ConfigValue<Double> MaleficKnockResist;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> MaleficPersist;
+
     public static final ForgeConfigSpec.ConfigValue<Boolean> RobeCape;
     public static final ForgeConfigSpec.ConfigValue<Boolean> AbyssSetMobNeutral;
     public static final ForgeConfigSpec.ConfigValue<Boolean> GeoSetMobNeutral;
@@ -517,6 +524,20 @@ public class ItemConfig {
                     .define("darkHelmetBlindness", true);
             DarkHelmetDarkness = BUILDER.comment("Whether Dark Helmets makes the wearer immune to Darkness, Default: true")
                     .define("darkHelmetDarkness", true);
+            BUILDER.pop();
+            BUILDER.push("Malefic Helm");
+            MaleficHead = BUILDER.comment("Define how much armor points wearing the Helmet provides, Default: 2")
+                .defineInRange("maleficHead", 2, 1, Integer.MAX_VALUE);
+            MaleficDurability = BUILDER.comment("Define the Durability Multiplier for the armor, higher number the better, Default: 15")
+                    .defineInRange("maleficDurability", 30, 1, Integer.MAX_VALUE);
+            MaleficEnchantability = BUILDER.comment("Define the Enchantability for the armor, higher number the better, Default: 15")
+                    .defineInRange("maleficEnchantability", 15, 1, Integer.MAX_VALUE);
+            MaleficToughness = BUILDER.comment("Define the toughness for each armor piece, Default: 2.0")
+                    .defineInRange("maleficToughness", 2.0, 0.0, Double.MAX_VALUE);
+            MaleficKnockResist = BUILDER.comment("Define how much knockback resistance each armor piece provides, Default: 0.0")
+                    .defineInRange("maleficKnockResist", 0.0, 0.0, Double.MAX_VALUE);
+            MaleficPersist = BUILDER.comment("Whether armor pieces don't break but no longer provide armor, Default: true")
+                    .define("maleficPersist", true);
             BUILDER.pop();
         BUILDER.pop();
         SPEC = BUILDER.build();

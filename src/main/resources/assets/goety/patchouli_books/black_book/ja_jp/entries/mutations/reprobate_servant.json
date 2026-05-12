@@ -1,0 +1,24 @@
+{
+  "name": "リプロベイトの従者",
+  "icon": "minecraft:crimson_planks",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "最近、行商人が雷を受けると変身するようだったので、ウィッチにしたように、従者にできるのではないかと考え始めた。しばらくして、ソウルエネルギー、覚醒したエメラルド、そしてミスティックコアがあれば、不器用な行商人を忠実なリプロベイトに変えることができると分かった。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_trader_to_reprobate"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:reprobate_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "リプロベイトの従者にエメラルドを渡すことで、適切な服装をしなくても取引を行うことができます。また、他のリプロベイトの従者とも取引可能です。ただし、その従者に主がいる場合は、その主と同盟を結び、適切な服装をしていれば可能です。"
+    }
+  ]
+}

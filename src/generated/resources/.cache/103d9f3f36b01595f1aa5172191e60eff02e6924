@@ -1,4 +1,4 @@
-// 1.20.1	2025-10-13T18:57:52.2338203	Registries
+// 1.20.1	2026-04-29T10:24:46.1842084	Registries
 ee94e54a57be7587d413a72d7ff20c1ca4f97bb9 data/goety/damage_type/acid.json
 1c81619d690aa854535c8fad68b58aef03da65ab data/goety/damage_type/boiling.json
 0ce14aa03d8d6c87ee612550d2ae46968475cb6f data/goety/damage_type/bubble_stream.json
@@ -28,12 +28,15 @@ b4bf6566fdc17ee1ffeb17a40d5b8234e3f14886 data/goety/damage_type/loot_explode_own
 15c56b61b36543013283e5cf4138f34bc5b10a6c data/goety/damage_type/magic_fireball.json
 85b656efe489104d8f8b223f8bae67984c857d97 data/goety/damage_type/no_owner_magic_fireball.json
 df8d879e7560e87f963fd16b22bf273e612c1776 data/goety/damage_type/phobia.json
+fc42b9c4592fb027b9664f45a2cb9f626eb5f508 data/goety/damage_type/rage.json
+de3caa5d9f15a1fd2e5bad555037a429c7d02f45 data/goety/damage_type/rot.json
 cf006f4c8ccd60a8e20d531fc0c3d32258c154ca data/goety/damage_type/shock.json
 e677da1225c542016f45b250adc854a434e9abf9 data/goety/damage_type/soul_leech.json
 18f129c13c30dadde2eea9baa0f9cc0ca2494e48 data/goety/damage_type/spike.json
 148274fd40989efdbaba343a04fe0e042846de5e data/goety/damage_type/summon.json
 21934e73ebecbb7bc277664ecabd53a7e07ae012 data/goety/damage_type/swarm.json
 d23d330e328c21be90345b80bec50eac84bd7553 data/goety/damage_type/sword.json
+07dd73e1fb5ca4ad515ec03e9c3d8d6f340ef8fd data/goety/damage_type/venom.json
 50e82f48f669e065c31ddcddd12d0e78f670456d data/goety/damage_type/voided.json
 a2fe9a17e3c9cf0894ea4d3740b12e40ed2bae40 data/goety/damage_type/wind_blast.json
 312a2da520e337bedf912f833d8ba08cf7f38746 data/goety/trim_material/cursed.json

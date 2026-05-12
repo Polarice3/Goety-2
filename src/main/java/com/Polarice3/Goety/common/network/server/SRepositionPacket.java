@@ -2,8 +2,10 @@ package com.Polarice3.Goety.common.network.server;
 
 import com.Polarice3.Goety.Goety;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
@@ -54,6 +56,13 @@ public class SRepositionPacket {
                     entity.xOld = packet.x;
                     entity.yOld = packet.y;
                     entity.zOld = packet.z;
+                    entity.setDeltaMovement(Vec3.ZERO);
+                    if (entity instanceof LocalPlayer) {
+                        return;
+                    }
+                    if (entity instanceof LivingEntity living) {
+                        living.lerpTo(packet.x, packet.y, packet.z, entity.getYRot(), entity.getXRot(), 0, false);
+                    }
                 }
             }
         });

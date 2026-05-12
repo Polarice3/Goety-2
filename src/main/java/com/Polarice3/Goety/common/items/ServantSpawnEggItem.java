@@ -43,8 +43,8 @@ import java.util.Optional;
 
 public class ServantSpawnEggItem extends ForgeSpawnEggItem {
 
-    public ServantSpawnEggItem(final RegistryObject<? extends EntityType<? extends Mob>> entityTypeSupplier, int primaryColorIn, int secondaryColorIn, Properties builder) {
-        super(Lazy.of(entityTypeSupplier), primaryColorIn, secondaryColorIn, builder);
+    public ServantSpawnEggItem(final RegistryObject<? extends EntityType<? extends Mob>> entityTypeSupplier, int backgroundColor, int highlightColor, Properties builder) {
+        super(Lazy.of(entityTypeSupplier), backgroundColor, highlightColor, builder);
     }
 
     public @NotNull InteractionResult useOn(UseOnContext p_43223_) {

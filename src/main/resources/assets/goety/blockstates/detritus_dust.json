@@ -22,7 +22,7 @@
       "model": "goety:block/detritus_dust/height14"
     },
     "layers=8": {
-      "model": "goety:block/end_soil"
+      "model": "goety:block/detritus"
     }
   }
 }

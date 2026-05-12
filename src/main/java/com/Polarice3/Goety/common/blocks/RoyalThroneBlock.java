@@ -42,28 +42,28 @@ public class RoyalThroneBlock extends HorizontalDirectionalBlock implements Simp
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    public static final VoxelShape SHAPE_LEG_1 = Block.box(16.0D, 0.0D, 0.0D,
-            18.0D, 5.0D, 2.0D);
-    public static final VoxelShape SHAPE_LEG_2 = Block.box(-1.0D, 0.0D, 0.0D,
-            1.0D, 5.0D, 2.0D);
-    public static final VoxelShape SHAPE_LEG_3 = Block.box(16.0D, 0.0D, 14.0D,
-            18.0D, 5.0D, 16.0D);
-    public static final VoxelShape SHAPE_LEG_4 = Block.box(-1.0D, 0.0D, 14.0D,
-            1.0D, 5.0D, 16.0D);
-    public static final VoxelShape SHAPE_LEFT_ARM = Block.box(17.0D, 5.0D, -1.0D,
-            19.0D, 16.0D, 17.0D);
-    public static final VoxelShape SHAPE_SIT = Block.box(0.0D, 5.0D, -1.0D,
-            17.0D, 8.0D, 17.0D);
-    public static final VoxelShape SHAPE_RIGHT_ARM = Block.box(-2.0D, 5.0D, -1.0D,
-            0.0D, 16.0D, 17.0D);
-    public static final VoxelShape SHAPE_BACK = Block.box(0.0D, 8.0D, 15.0D,
-            17.0D, 16.0D, 17.0D);
-    public static final VoxelShape SHAPE_TOP_LEFT_ARM = Block.box(17.0D, 0.0D, -1.0D,
-            19.0D, 1.0D, 17.0D);
-    public static final VoxelShape SHAPE_TOP_RIGHT_ARM = Block.box(-2.0D, 0.0D, -1.0D,
-            0.0D, 1.0D, 17.0D);
-    public static final VoxelShape SHAPE_TOP_BACK = Block.box(0.0D, 0.0D, 15.0D,
-            17.0D, 15.0D, 17.0D);
+    public static final VoxelShape SHAPE_LEG_1 = Block.box(15.5D, 0.0D, 0.0D,
+            17.5D, 5.0D, 2.0D);
+    public static final VoxelShape SHAPE_LEG_2 = Block.box(-1.5D, 0.0D, 0.0D,
+            0.5D, 5.0D, 2.0D);
+    public static final VoxelShape SHAPE_LEG_3 = Block.box(15.5D, 0.0D, 14.0D,
+            17.5D, 5.0D, 16.0D);
+    public static final VoxelShape SHAPE_LEG_4 = Block.box(-1.5D, 0.0D, 14.0D,
+            0.5D, 5.0D, 16.0D);
+    public static final VoxelShape SHAPE_LEFT_ARM = Block.box(16.5D, 5.0D, -1.0D,
+            18.5D, 16.0D, 17.0D);
+    public static final VoxelShape SHAPE_SIT = Block.box(-0.5D, 5.0D, -1.0D,
+            16.5D, 8.0D, 17.0D);
+    public static final VoxelShape SHAPE_RIGHT_ARM = Block.box(-2.5D, 5.0D, -1.0D,
+            -0.5D, 16.0D, 17.0D);
+    public static final VoxelShape SHAPE_BACK = Block.box(-0.5D, 8.0D, 15.0D,
+            16.5D, 16.0D, 17.0D);
+    public static final VoxelShape SHAPE_TOP_LEFT_ARM = Block.box(16.5D, 0.0D, -1.0D,
+            18.5D, 1.0D, 17.0D);
+    public static final VoxelShape SHAPE_TOP_RIGHT_ARM = Block.box(-2.5D, 0.0D, -1.0D,
+            -0.5D, 1.0D, 17.0D);
+    public static final VoxelShape SHAPE_TOP_BACK = Block.box(-0.5D, 0.0D, 15.0D,
+            16.5D, 15.0D, 17.0D);
     public static final VoxelShape SHAPE_BOTTOM = Shapes.or(SHAPE_LEG_1, SHAPE_LEG_2, SHAPE_LEG_3, SHAPE_LEG_4, SHAPE_LEFT_ARM, SHAPE_SIT, SHAPE_RIGHT_ARM, SHAPE_BACK);
     public static final VoxelShape SHAPE_TOP = Shapes.or(SHAPE_TOP_LEFT_ARM, SHAPE_TOP_RIGHT_ARM, SHAPE_TOP_BACK);
     private static final Map<Direction, VoxelShape> LOWER_AABB = Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, SHAPE_BOTTOM, Direction.SOUTH, MathHelper.rotateVoxelShape(SHAPE_BOTTOM, Direction.SOUTH), Direction.WEST, MathHelper.rotateVoxelShape(SHAPE_BOTTOM, Direction.WEST), Direction.EAST, MathHelper.rotateVoxelShape(SHAPE_BOTTOM, Direction.EAST)));

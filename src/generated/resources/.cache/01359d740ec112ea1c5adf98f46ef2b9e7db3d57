@@ -1,14 +1,14 @@
-// 1.20.1	2025-10-03T14:00:14.8905018	Tags for minecraft:damage_type mod id goety
+// 1.20.1	2026-04-29T10:24:46.1772249	Tags for minecraft:damage_type mod id goety
 b2da2a60d0d4b7ba4e063d51d35cd08c791ce55c data/goety/tags/damage_type/fire_attacks.json
 38584b458b732e8d201211fbf087f88e743f37d1 data/goety/tags/damage_type/frost_attacks.json
 bfdb3673ac7c784ebc1d0512c7d5110d20489949 data/goety/tags/damage_type/hellfire.json
 16f96d5d6f1ae97b69c5cf6d585a488f058e3243 data/goety/tags/damage_type/magic_fire.json
-198a9cf9e1c19d94f22306a00508e1050775acbd data/goety/tags/damage_type/no_knockback.json
+0a194d9b1d94e3a8667f5ad3d06f0ab4d0ed84e5 data/goety/tags/damage_type/no_knockback.json
 71807fbc8a72e1178e3e57c9b9f6312904f66805 data/goety/tags/damage_type/physical.json
 082bc08bb64b91203d166c67a75d29c717aa9bea data/goety/tags/damage_type/shock_attacks.json
 fedba5319eb84cd84cca61f3e7c089f9dfca9339 data/goety/tags/damage_type/wanting_damage.json
 33d3e3c76df1fbcdfb1ee0698431a829ec09ef86 data/goety/tags/damage_type/water_attacks.json
-045c485cf08d18d8f9b5c4bced202bbf23524a97 data/minecraft/tags/damage_type/bypasses_armor.json
+b13dc0251bdaf8ae6d1f8c1f7fa003bd36457f30 data/minecraft/tags/damage_type/bypasses_armor.json
 6bfef8179275254335041d4a88c13c844f69024b data/minecraft/tags/damage_type/bypasses_effects.json
 6bfef8179275254335041d4a88c13c844f69024b data/minecraft/tags/damage_type/bypasses_enchantments.json
 6a37c69386ac1d4e05e22653620a63e2d819ccd5 data/minecraft/tags/damage_type/bypasses_invulnerability.json

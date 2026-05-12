@@ -116,6 +116,9 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> MaverickSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaverickSpawnMinCount;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaverickSpawnMaxCount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ReprobateSpawnWeight;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ReprobateSpawnMinCount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ReprobateSpawnMaxCount;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> BossInvulnerabilityTime;
 
@@ -166,6 +169,8 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> WitchServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WarlockServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MaverickServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> HereticServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ReprobateServantTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> SpiderServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CaveSpiderServantTexture;
@@ -245,6 +250,9 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerConvertHeretic;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerConvertHereticUnholy;
     public static final ForgeConfigSpec.ConfigValue<Boolean> TraderConvertMaverick;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> TraderConvertMaverickUnholy;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> TraderConvertReprobate;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> TraderConvertReprobateUnholy;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerAssault;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SoulEnergyBadOmen;
@@ -269,6 +277,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ArmoredTramplerRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WarlockRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MaverickRaid;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ReprobateRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> HereticRaid;
 
     public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> PikerRaidCount;
@@ -286,6 +295,7 @@ public class MobsConfig {
     public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> HostileRedstoneMonstrosityRaidCount;
     public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> WarlockRaidCount;
     public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> MaverickRaidCount;
+    public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> ReprobateRaidCount;
     public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> HereticRaidCount;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> CryologerIceChunk;
@@ -472,6 +482,10 @@ public class MobsConfig {
                         .define("warlockServantTexture", true);
                 MaverickServantTexture = BUILDER.comment("If Maverick Servants have custom textures, Default: true")
                         .define("maverickServantTexture", true);
+                HereticServantTexture = BUILDER.comment("If Heretic Servants have custom textures, Default: true")
+                        .define("hereticServantTexture", true);
+                ReprobateServantTexture = BUILDER.comment("If Reprobate Servants have custom textures, Default: true")
+                        .define("reprobateServantTexture", true);
                 BUILDER.pop();
                 BUILDER.push("Spider Servants");
                 SpiderServantTexture = BUILDER.comment("If Spiders Servants have custom textures, Default: true")
@@ -922,6 +936,14 @@ public class MobsConfig {
                         .defineList("maverickRaidCount",
                                 Arrays.asList(0, 1, 0, 1, 0, 0, 0, 1), (i) -> i instanceof Integer);
                 BUILDER.pop();
+                BUILDER.push("Reprobate");
+                ReprobateRaid = BUILDER.comment("Whether Reprobates appear in Raids, Default: true")
+                        .define("reprobateRaid", true);
+                ReprobateRaidCount = BUILDER.comment("How many Reprobates each wave", "Requires game restart", "Must have no more and no less than 8 integers")
+                        .worldRestart()
+                        .defineList("reprobateRaidCount",
+                                Arrays.asList(0, 0, 1, 0, 0, 0, 1, 2), (i) -> i instanceof Integer);
+                BUILDER.pop();
                 BUILDER.push("Heretic");
                 HereticRaid = BUILDER.comment("Whether Heretics appear in Raids, Default: true")
                         .define("hereticRaid", true);
@@ -955,8 +977,14 @@ public class MobsConfig {
                 .define("villagerConvertToHeretic", false);
         VillagerConvertHereticUnholy = BUILDER.comment("Villagers have a chance of converting into Heretic Servants if they're sleeping near an active Nether Portal and a player wearing Unholy Set, Default: true")
                 .define("villagerConvertToHereticUnholy", true);
-        TraderConvertMaverick = BUILDER.comment("Wandering Traders transforms into Mavericks when struck by lightning, Default: true")
+        TraderConvertMaverick = BUILDER.comment("Wandering Traders have a chance of converting into Mavericks if they're underneath a Block of Crying Obsidian, Default: true")
                 .define("traderConvertMaverick", true);
+        TraderConvertMaverickUnholy = BUILDER.comment("Wandering Traders have a chance of converting into Maverick Servants if they're underneath a Block of Crying Obsidian and a player wearing Unholy Set, Default: true")
+                .define("traderConvertMaverickUnholy", true);
+        TraderConvertReprobate = BUILDER.comment("Wandering Traders transforms into Reprobates when struck by lightning, Default: true")
+                .define("traderConvertReprobate", true);
+        TraderConvertReprobateUnholy = BUILDER.comment("Wandering Traders transforms into Reprobate Servants when struck by lightning summoned by player wearing Unholy Set, Default: true")
+                .define("traderConvertReprobateUnholy", true);
         BUILDER.pop();
         BUILDER.push("Spawning");
             BUILDER.push("Wight");
@@ -1056,6 +1084,14 @@ public class MobsConfig {
                     .defineInRange("maverickSpawnMinCount", 1, 1, Integer.MAX_VALUE);
             MaverickSpawnMaxCount = BUILDER.comment("Spawn maximum group count for Maverick, must be equal or higher than min count, Default: 1")
                     .defineInRange("maverickSpawnMaxCount", 1, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Reprobate");
+            ReprobateSpawnWeight = BUILDER.comment("Spawn Weight for Reprobate, Default: 5")
+                    .defineInRange("reprobateSpawnWeight", 5, 0, Integer.MAX_VALUE);
+            ReprobateSpawnMinCount = BUILDER.comment("Spawn minimum group count for Reprobate, Default: 1")
+                    .defineInRange("reprobateSpawnMinCount", 1, 1, Integer.MAX_VALUE);
+            ReprobateSpawnMaxCount = BUILDER.comment("Spawn maximum group count for Reprobate, must be equal or higher than min count, Default: 1")
+                    .defineInRange("reprobateSpawnMaxCount", 1, 1, Integer.MAX_VALUE);
             BUILDER.pop();
         BUILDER.pop();
         BUILDER.push("Misc");

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "#goety:red_moss_blocks",
     "goety:cobbled_dirt",
     "goety:snowy_dirt",
     "goety:dark_dirt",

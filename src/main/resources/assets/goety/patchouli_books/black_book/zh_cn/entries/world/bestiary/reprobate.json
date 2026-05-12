@@ -1,0 +1,21 @@
+{
+  "name": "堕落者",
+  "icon": "minecraft:crimson_planks",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_reprobate",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "与女巫不同，这些异教徒会把整桶药水都丢出去，这些药水混合后会形成一片酸液池。据说他们还向某些黑暗势力运送这些药水。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:reprobate",
+      "text": "和他们的女巫近亲一样，他们对魔法有抗性。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "如果流浪商人被闪电击中，他们将会转变为堕落者。"
+    }
+  ]
+}

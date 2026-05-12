@@ -12,6 +12,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameRules;
@@ -25,6 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import javax.annotation.Nullable;
+import java.util.Map;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
@@ -43,6 +45,8 @@ public abstract class LivingEntityMixin extends Entity {
     @Shadow protected int lastHurtByPlayerTime;
 
     @Shadow protected abstract boolean isAlwaysExperienceDropper();
+
+    @Shadow public abstract Map<MobEffect, MobEffectInstance> getActiveEffectsMap();
 
     protected LivingEntityMixin(EntityType<? extends Entity> p_20966_, Level p_20967_) {
         super(p_20966_, p_20967_);
@@ -132,6 +136,15 @@ public abstract class LivingEntityMixin extends Entity {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    @Inject(method = "hasEffect", at = @At("HEAD"), cancellable = true)
+    public void goetyHasEffect(MobEffect mobEffect, CallbackInfoReturnable<Boolean> cir) {
+        if (mobEffect == MobEffects.POISON) {
+            if (this.getActiveEffectsMap().containsKey(GoetyEffects.ACID_VENOM.get())) {
+                cir.setReturnValue(true);
             }
         }
     }

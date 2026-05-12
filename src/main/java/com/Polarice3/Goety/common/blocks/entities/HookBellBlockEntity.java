@@ -156,6 +156,7 @@ public class HookBellBlockEntity extends BlockEntity {
                 && !p_155198_.isRemoved()
                 && areRaidersClose(p_155197_, p_155198_)
                 && p_155198_.getType().is(EntityTypeTags.RAIDERS)
+                && !p_155198_.hasCustomName()
                 && !MobUtil.hasEntityTypesConfig(MainConfig.HookBellBlackList.get(), p_155198_.getType());
     }
 

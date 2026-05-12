@@ -1,0 +1,25 @@
+{
+  "name": "Heresiarcas",
+  "icon": "goety:malefic_helm",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_heresiarch",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Estes Sacerdotes Profanos lideram uma congregação daqueles que adoravam a Grande Chama. Seu conhecimento sobre o reino das trevas lhes concede habilidades infernais."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:heresiarch",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:malefic_helm",
+      "text": "Ao morrerem, eles deixam cair seu elmo de ossos com chifres que fornece alguns benefícios ao usuário, embora devido ao seu tamanho, não possa ser usado como uma Curiosidade."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:malefic_helm": 2
+  }
+}
