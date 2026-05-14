@@ -71,16 +71,19 @@ public class HellChant extends SpellEntity{
 
         for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(this.growProgress), entity -> entity != this && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity))) {
             if (owner instanceof Mob mob && mob instanceof IHeretic heretic) {
-                if (entity == mob.getTarget()) {
-                    heretic.setChantTimes(heretic.getChantTimes() + 1);
-                    if (heretic.getChantTimes() == 3){
-                        Vec3 vec3 = new Vec3(entity.getX(), entity.getY(), entity.getZ());
-                        FireBlastTrap fireBlastTrap = new FireBlastTrap(owner.level, vec3.x, vec3.y + 0.25D, vec3.z);
-                        MobUtil.moveDownToGround(fireBlastTrap);
-                        fireBlastTrap.setOwner(owner);
-                        fireBlastTrap.setAreaOfEffect(1.0F);
-                        fireBlastTrap.setExtraDamage(this.getExtraDamage());
-                        this.level.addFreshEntity(fireBlastTrap);
+                if (!MobUtil.areAllies(mob, entity)) {
+                    if (entity == mob.getTarget() || MobUtil.getOwner(entity) == mob.getTarget() || entity instanceof Mob mob1 && mob1.getTarget() == mob) {
+                        heretic.setChantTimes(heretic.getChantTimes() + 1);
+                        if (heretic.getChantTimes() == 3) {
+                            Vec3 vec3 = new Vec3(entity.getX(), entity.getY(), entity.getZ());
+                            FireBlastTrap fireBlastTrap = new FireBlastTrap(owner.level, vec3.x, vec3.y + 0.25D, vec3.z);
+                            MobUtil.moveDownToGround(fireBlastTrap);
+                            fireBlastTrap.setOwner(owner);
+                            fireBlastTrap.setAreaOfEffect(2.0F);
+                            fireBlastTrap.setExtraDamage(this.getExtraDamage());
+                            fireBlastTrap.setBurning(this.getBurning());
+                            this.level.addFreshEntity(fireBlastTrap);
+                        }
                     }
                 }
             } else if (owner != null && owner.getUseItem().getItem() instanceof InfernalTome){
@@ -95,8 +98,9 @@ public class HellChant extends SpellEntity{
                                 FireBlastTrap fireBlastTrap = new FireBlastTrap(owner.level, vec3.x, vec3.y + 0.25D, vec3.z);
                                 MobUtil.moveDownToGround(fireBlastTrap);
                                 fireBlastTrap.setOwner(owner);
-                                fireBlastTrap.setAreaOfEffect(1.0F);
+                                fireBlastTrap.setAreaOfEffect(2.0F);
                                 fireBlastTrap.setExtraDamage(this.getExtraDamage());
+                                fireBlastTrap.setBurning(this.getBurning());
                                 this.level.addFreshEntity(fireBlastTrap);
                             }
                         }
@@ -162,9 +166,9 @@ public class HellChant extends SpellEntity{
 
         Vec3 motion = new Vec3(xMotion, yMotion, zMotion).normalize().scale(0.75D);
 
-        this.setDeltaMovement(motion);
+        this.setDeltaMovement(motion.x, 0, motion.z);
         this.setOwner(owner);
-        this.setPos(owner.getX() + xMotion, owner.getEyeY(), owner.getZ() + zMotion);
+        this.setPos(owner.getX() + xMotion, owner.getEyeY() - 0.2F, owner.getZ() + zMotion);
 
         float motionSqrt = Mth.sqrt((float) motion.horizontalDistanceSqr());
         this.setYRot((float) (Mth.atan2(motion.x, motion.z) * (180F / Math.PI)));

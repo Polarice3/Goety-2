@@ -16,6 +16,7 @@ import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.animal.Animal;
@@ -267,7 +268,8 @@ public class CuriosFinder {
         return (hasWitchSet(livingEntity) && ItemConfig.WitchSetWitchNeutral.get())
                 || (hasWarlockRobe(livingEntity) && ItemConfig.WarlockRobeWitchNeutral.get())
                 || (hasNetherRobe(livingEntity) && ItemConfig.NetherRobeWitchNeutral.get())
-                || (hasUnholyRobe(livingEntity) || hasUnholyHat(livingEntity));
+                || (hasUnholyRobe(livingEntity) || hasUnholyHat(livingEntity))
+                || ItemHelper.hasMaleficHelm(livingEntity);
     }
 
     public static boolean hasWitchSet(LivingEntity livingEntity){

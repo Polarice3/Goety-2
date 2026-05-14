@@ -779,7 +779,7 @@ public class ModEvents {
                         if (MobsConfig.VillagerConvertHeretic.get() || MobsConfig.VillagerConvertHereticUnholy.get()) {
                             if (villager.getRandom().nextFloat() < 7.5E-4F && villager.isSleeping()) {
                                 if (BlockFinder.findNetherPortal(serverLevel, villager.blockPosition(), 8).isPresent()){
-                                    if (player != null && CuriosFinder.hasUnholySet(player) && MobsConfig.VillagerConvertHereticUnholy.get()) {
+                                    if (player != null && (CuriosFinder.hasUnholySet(player) || ItemHelper.hasMaleficHelm(player)) && MobsConfig.VillagerConvertHereticUnholy.get()) {
                                         if (ForgeEventFactory.canLivingConvert(villager, ModEntityType.HERETIC_SERVANT.get(), (timer) -> {
                                         })) {
                                             serverLevel.explode(villager, villager.getX(), villager.getY(), villager.getZ(), 0.1F, Level.ExplosionInteraction.NONE);
@@ -835,8 +835,8 @@ public class ModEvents {
                     if (MobsConfig.TraderConvertMaverick.get() || MobsConfig.TraderConvertMaverickUnholy.get()) {
                         if (BlockFinder.getVerticalBlock(serverLevel, trader.blockPosition(), Blocks.CRYING_OBSIDIAN.defaultBlockState(), 16, true)) {
                             if (trader.getRandom().nextFloat() < 7.5E-4F && serverLevel.getDifficulty() != Difficulty.PEACEFUL) {
-                                Player player = trader.level.getNearestPlayer(trader.getX(), trader.getY(), trader.getZ(), 16.0D, entity -> entity instanceof Player player1 &&  CuriosFinder.hasUnholySet(player1));
-                                if (player != null && CuriosFinder.hasUnholySet(player) && MobsConfig.TraderConvertMaverickUnholy.get()) {
+                                Player player = trader.level.getNearestPlayer(trader.getX(), trader.getY(), trader.getZ(), 16.0D, entity -> entity instanceof Player player1 && (CuriosFinder.hasUnholySet(player1) || ItemHelper.hasMaleficHelm(player1)));
+                                if (player != null && (CuriosFinder.hasUnholySet(player) || ItemHelper.hasMaleficHelm(player)) && MobsConfig.TraderConvertMaverickUnholy.get()) {
                                     if (ForgeEventFactory.canLivingConvert(trader, ModEntityType.MAVERICK_SERVANT.get(), (timer) -> {
                                     })) {
                                         serverLevel.explode(trader, trader.getX(), trader.getY(), trader.getZ(), 0.1F, Level.ExplosionInteraction.NONE);

@@ -16,7 +16,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "goety:malefic_helm",
-      "text": "Upon death, they drop their antlered bone helmet that provides some benefits upon the wearer, though due to its size, it cannot be worn as a Curio."
+      "text": "Upon death, they drop their antlered bone helmet that provides some benefits upon the wearer, so long as it's not broken. One of which includes causing newly converted Heretics and Mavericks to serve you. Another is causing Witches, Warlocks, Reprobates, and other Cultists to be neutral to the wearer. It can also be repaired using Bones. Due to its size, it cannot be worn as a Curio."
     }
   ],
   "extra_recipe_mappings": {

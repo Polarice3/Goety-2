@@ -449,7 +449,6 @@ public class HereticServant extends CultistServant implements IHeretic {
             if (this.chantTime % 10 == 0) {
                 HellChant hellChant = ModEntityType.HELL_CHANT.get().create(this.heretic.level);
                 if (hellChant != null) {
-                    hellChant.setExtraDamage((float) this.heretic.getAttributeValue(Attributes.ATTACK_DAMAGE));
                     if (this.heretic.level.getDifficulty() == Difficulty.HARD){
                         hellChant.setBurning(1);
                     }

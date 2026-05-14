@@ -178,14 +178,14 @@ public class FireBlastTrap extends Entity implements ISpellEntity {
                             }
                             entity.hurt(ModDamageSource.hellfire(this, this.owner), AttributesConfig.ApostleMagicDamage.get().floatValue() + this.getExtraDamage());
                         } else {
+                            float damage = 5.0F;
                             if (this.owner != null){
-                                float damage = 5.0F;
                                 if (this.owner instanceof Mob mob && mob.getAttribute(Attributes.ATTACK_DAMAGE) != null){
                                     damage = (float) mob.getAttributeValue(Attributes.ATTACK_DAMAGE);
                                 }
                                 entity.hurt(ModDamageSource.magicFireBreath(this, this.owner), damage + this.getExtraDamage());
                             } else {
-                                entity.hurt(damageSources().magic(), 5.0F + this.getExtraDamage());
+                                entity.hurt(damageSources().magic(), damage + this.getExtraDamage());
                             }
                         }
                         if (entity instanceof LivingEntity livingEntity) {

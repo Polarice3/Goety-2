@@ -399,8 +399,8 @@ public class AttributesConfig {
                         .defineInRange("hereticHealth", 26.0, 0.0, Double.MAX_VALUE);
                 HereticArmor = BUILDER.comment("How much natural armor points Heretics have, Default: 0.0")
                         .defineInRange("hereticArmor", 0.0, 0.0, Double.MAX_VALUE);
-                HereticDamage = BUILDER.comment("How much damage Heretics deals, Default: 2.0")
-                        .defineInRange("hereticDamage", 2.0, 1.0, Double.MAX_VALUE);
+                HereticDamage = BUILDER.comment("How much damage Heretics deals, Default: 5.0")
+                        .defineInRange("hereticDamage", 5.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Inferno");
                 InfernoHealth = BUILDER.comment("How much Max Health Inferno have, Default: 20.0")

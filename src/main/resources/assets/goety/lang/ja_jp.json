@@ -3551,5 +3551,8 @@
   "title.goety.heresiarch.3" : "レンブラント",
   "entity.goety.reprobate_servant": "リプロベイトの従者",
   "item.goety.reprobate_servant_spawn_egg": "リプロベイトの従者のスポーンエッグ",
-  "filled_map.goety.ruined_monastery": "廃墟となった修道院の地図"
+  "filled_map.goety.ruined_monastery": "廃墟となった修道院の地図",
+  "subtitle.goety.heresiarch_ambient": "Heresiarch murmurs",
+  "subtitle.goety.heresiarch_hurt": "Heresiarch hurts",
+  "subtitle.goety.heresiarch_death": "Heresiarch dies"
 }

@@ -3571,7 +3571,6 @@
   "entity.goety.burning_hoglin": "燃烧疣猪兽",
   "entity.goety.reprobate_carry": "堕落者",
   "item.goety.reprobate_spawn_egg": "堕落者刷怪蛋",
-  "item.goety.heresiarch_spawn_egg": "异教首领刷怪蛋",
   "item.goety.malefic_helm": "恶骸骨盔",
   "item.goety.hogging_focus": "猪群聚晶",
   "item.goety.hogging_focus.info": "在施法者左侧召唤一只燃烧疣猪兽，它会冲向目标并爆炸。",
@@ -3603,7 +3602,11 @@
   "title.goety.heresiarch.1" : "探狱学者",
   "title.goety.heresiarch.2" : "异端裁决",
   "title.goety.heresiarch.3" : "至纯至圣",
-  "entity.goety.reprobate_servant": "Reprobate Servant",
-  "item.goety.reprobate_servant_spawn_egg": "Reprobate Servant Spawn Egg",
-  "filled_map.goety.ruined_monastery": "破灭修道院探险家地图"
+  "item.goety.heresiarch_spawn_egg": "异教牧首刷怪蛋",
+  "entity.goety.reprobate_servant":"堕落者仆从",
+  "item.goety.reprobate_servant_spawn_egg": "堕落者仆从刷怪蛋",
+  "filled_map.goety.ruined_monastery": "破灭修道院探险家地图",
+  "subtitle.goety.heresiarch_ambient": "异教牧首：低语",
+  "subtitle.goety.heresiarch_hurt": "异教牧首：受伤",
+  "subtitle.goety.heresiarch_death": "异教牧首：死亡"
 }

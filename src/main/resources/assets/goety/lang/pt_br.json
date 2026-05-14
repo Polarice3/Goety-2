@@ -3690,5 +3690,8 @@
   "block.goety.pedestal_crypt_stone": "Pedestal de Pedra da Cripta",
   "block.goety.dark_altar_ominous_stone": "Altar das Trevas de Pedra Sinistra",
   "block.goety.pedestal_ominous_stone": "Pedestal de Pedra Sinistra",
-  "filled_map.goety.ruined_monastery": "Mapa de Exploração da Mosteiros Arruinados"
+  "filled_map.goety.ruined_monastery": "Mapa de Exploração da Mosteiros Arruinados",
+  "subtitle.goety.heresiarch_ambient": "Heresiarca murmura",
+  "subtitle.goety.heresiarch_hurt": "Heresiarca ferido",
+  "subtitle.goety.heresiarch_death": "Heresiarca morre"
 }

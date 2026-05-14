@@ -3,6 +3,7 @@ package com.Polarice3.Goety.utils;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModTiers;
+import com.Polarice3.Goety.common.items.armor.MaleficHelm;
 import com.Polarice3.Goety.common.items.equipment.PhilosophersMaceItem;
 import com.Polarice3.Goety.config.ItemConfig;
 import net.minecraft.ChatFormatting;
@@ -377,5 +378,13 @@ public class ItemHelper {
         double d0 = p_41437_.getBlockReach();
         Vec3 vec31 = vec3.add((double)f6 * d0, (double)f5 * d0, (double)f7 * d0);
         return p_41436_.clip(new ClipContext(vec3, vec31, ClipContext.Block.OUTLINE, p_41438_, p_41437_));
+    }
+
+    public static boolean hasMaleficHelm(LivingEntity wearer) {
+        ItemStack itemStack = wearer.getItemBySlot(EquipmentSlot.HEAD);
+        if (itemStack.getItem() instanceof MaleficHelm helm) {
+            return !helm.isBroken(itemStack);
+        }
+        return false;
     }
 }
