@@ -29,7 +29,7 @@ public class EnderKeeperRenderer<T extends EnderKeeper> extends MobRenderer<T, E
     protected static final ResourceLocation TEXTURE_LOCATION = Goety.location("textures/entity/enderling/keeper/keeper.png");
     protected static final ResourceLocation DEATH = Goety.location("textures/entity/enderling/keeper/keeper_death.png");
 
-    private static final RenderType TRAIL_RENDER_TYPE = ModRenderType.entityTranslucentNoDepth(TEXTURE_LOCATION);
+    private static final RenderType AFTERIMAGE_RENDER_TYPE = ModRenderType.entityTranslucentNoDepth(TEXTURE_LOCATION);
 
     private static final float SNAPSHOT_INTERVAL = 1.5F;
     private static final float SNAPSHOT_LIFESPAN = 4.5F;
@@ -97,7 +97,7 @@ public class EnderKeeperRenderer<T extends EnderKeeper> extends MobRenderer<T, E
                 pMatrixStack.scale(-1.0F, -1.0F, 1.0F);
                 this.scale(pEntity, pMatrixStack, pPartialTicks);
                 pMatrixStack.translate(0.0F, -1.5F, 0.0F);
-                VertexConsumer vertexConsumer = pBuffer.getBuffer(TRAIL_RENDER_TYPE);
+                VertexConsumer vertexConsumer = pBuffer.getBuffer(AFTERIMAGE_RENDER_TYPE);
                 float modelAlpha = (1 - Mth.clamp(currentTick - snapshot.timestamp(), 0, SNAPSHOT_LIFESPAN) / SNAPSHOT_LIFESPAN) * 0.35F;
                 if (modelAlpha > 0) {
                     this.shadowModel.renderToBuffer(pMatrixStack, vertexConsumer, pPackedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, modelAlpha);
