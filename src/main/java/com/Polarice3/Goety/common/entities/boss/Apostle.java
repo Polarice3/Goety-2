@@ -29,6 +29,7 @@ import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
+import com.Polarice3.Goety.mixin.LevelAccessor;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -946,13 +947,13 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
                     final double startZ = this.getZ();
                     final LivingEntity target = this.getTarget();
                     final Level level = this.level;
-                    final RandomSource randomSource = this.level.getRandom();
 
                     this.prevX = startX;
                     this.prevY = this.getY();
                     this.prevZ = startZ;
 
                     this.pendingTeleportSearch = CompletableFuture.supplyAsync(() -> {
+                        final RandomSource randomSource = ((LevelAccessor) level).goety$threadSafeRandom();
                         for (int i = 0; i < 128; ++i) {
                             double d3 = startX + (randomSource.nextDouble() - 0.5D) * 32.0D;
                             double d4 = startY;
@@ -1007,13 +1008,13 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
                     final double selfY = this.getY();
                     final double selfZ = this.getZ();
                     final Level level = this.level;
-                    final RandomSource randomSource = this.level.getRandom();
 
                     this.prevX = selfX;
                     this.prevY = selfY;
                     this.prevZ = selfZ;
 
                     this.pendingTeleportSearch = CompletableFuture.supplyAsync(() -> {
+                        final RandomSource randomSource = ((LevelAccessor) level).goety$threadSafeRandom();
                         Vec3 vec3 = new Vec3(selfX - targetX, selfY * 0.5D - targetY, selfZ - targetZ).normalize();
                         double d0 = 16.0D;
                         for (int i = 0; i < 128; ++i) {

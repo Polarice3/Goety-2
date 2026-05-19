@@ -19,6 +19,7 @@
     "FlowingFluidMixin",
     "FrogMixin",
     "ItemEntityMixin",
+    "LevelAccessor",
     "LivingEntityMixin",
     "MobAccessor",
     "PatrolSpawnerMixin",
