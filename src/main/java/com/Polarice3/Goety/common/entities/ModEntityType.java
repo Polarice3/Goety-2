@@ -282,8 +282,7 @@ public class ModEntityType {
             EntityType.Builder.<SurgingOrb>of(SurgingOrb::new, MobCategory.MISC)
                     .sized(0.3125F, 0.3125F)
                     .clientTrackingRange(10)
-                    .updateInterval(1)
-                    .setUpdateInterval(1));
+                    .updateInterval(20));
 
     public static final RegistryObject<EntityType<BouncyBubble>> BOUNCY_BUBBLE = register("bouncy_bubble",
             EntityType.Builder.<BouncyBubble>of(BouncyBubble::new, MobCategory.MISC)
