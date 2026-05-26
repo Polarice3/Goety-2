@@ -1,32 +1,28 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
-import com.Polarice3.Goety.utils.ModTicketTypes;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class ArcaBlockEntity extends OwnedBlockEntity {
     public int tickCount;
-    public long ticketTime = 0;
     private float activeRotation;
 
     public ArcaBlockEntity(BlockPos p_155301_, BlockState p_155302_) {
         super(ModBlockEntities.ARCA.get(), p_155301_, p_155302_);
     }
 
+    @Override
+    public boolean shouldChunkLoad() {
+        return true;
+    }
+
     public void tick() {
         ++this.tickCount;
         ++this.activeRotation;
-        if (this.level instanceof ServerLevel world) {
-            ChunkPos chunkPos = this.level.getChunkAt(this.worldPosition).getPos();
-            if (--this.ticketTime <= 0L) {
-                world.getChunkSource().addRegionTicket(ModTicketTypes.BLOCK, chunkPos, 5, this.worldPosition);
-                this.ticketTime = ModTicketTypes.BLOCK.timeout() - 1L;
-            }
-        }
+        this.chunkLoadBlock();
     }
 
     public float getActiveRotation(float p_205036_1_) {

@@ -9,30 +9,6 @@
           "functions": [
             {
               "add": false,
-              "count": 1.0,
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "minecraft:ancient_debris",
-          "weight": 12
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": 1.0,
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "minecraft:netherite_scrap",
-          "weight": 4
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
               "count": {
                 "type": "minecraft:uniform",
                 "max": 17.0,

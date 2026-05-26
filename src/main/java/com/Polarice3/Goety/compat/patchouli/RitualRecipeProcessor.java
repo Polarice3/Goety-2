@@ -3,8 +3,10 @@ package com.Polarice3.Goety.compat.patchouli;
 import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.ritual.EnchantItemRitual;
+import com.Polarice3.Goety.common.ritual.LocateRitual;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
@@ -88,6 +90,14 @@ public class RitualRecipeProcessor implements IComponentProcessor {
                     variables.add(IVariable.from(itemStack));
                 }
                 return IVariable.wrapList(variables);
+            } else if (this.recipe.getRitual() instanceof LocateRitual && this.recipe.getStructureTag() != null){
+                ItemStack result = new ItemStack(Items.FILLED_MAP);
+                String string = "filled_map.goety.magic";
+                if (this.recipe.getStructureName() != null) {
+                    string = this.recipe.getStructureName();
+                }
+                result.setHoverName(Component.translatable(string));
+                return IVariable.from(result);
             } else if (this.recipe.getResultItem(level.registryAccess()).getItem() != ModItems.JEI_DUMMY_NONE.get()) {
                 return IVariable.from(this.recipe.getResultItem(level.registryAccess()));
             } else {

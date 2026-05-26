@@ -1,0 +1,31 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:locate",
+  "activation_item": {
+    "item": "minecraft:map"
+  },
+  "craftType": "divination",
+  "structure_to_locate": {
+    "tag": "goety:explorer_maps/wind_shrine",
+    "display_name": "filled_map.goety.wind_shrine"
+  },
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "goety:marble"
+    },
+    {
+      "item": "goety:indented_gold"
+    },
+    {
+      "item": "goety:windswept_sapling"
+    },
+    {
+      "item": "goety:pine_sapling"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

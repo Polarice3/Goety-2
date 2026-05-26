@@ -1,0 +1,31 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:locate",
+  "activation_item": {
+    "item": "minecraft:map"
+  },
+  "craftType": "divination",
+  "structure_to_locate": {
+    "tag": "goety:explorer_maps/sorcerous_keep",
+    "display_name": "filled_map.goety.sorcerous_keep"
+  },
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "tag": "forge:gems/amethyst"
+    },
+    {
+      "tag": "forge:bookshelves"
+    },
+    {
+      "tag": "forge:gems/emerald"
+    },
+    {
+      "tag": "goety:full_crag_craft"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

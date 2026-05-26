@@ -1,0 +1,31 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:locate",
+  "activation_item": {
+    "item": "minecraft:map"
+  },
+  "craftType": "divination",
+  "structure_to_locate": {
+    "tag": "goety:explorer_maps/jungle_temple",
+    "display_name": "filled_map.goety.jungle_temple"
+  },
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "minecraft:vine"
+    },
+    {
+      "item": "minecraft:mossy_cobblestone"
+    },
+    {
+      "tag": "forge:storage_blocks/redstone"
+    },
+    {
+      "item": "minecraft:crossbow"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

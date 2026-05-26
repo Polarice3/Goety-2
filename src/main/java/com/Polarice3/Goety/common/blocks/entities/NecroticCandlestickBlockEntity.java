@@ -19,7 +19,7 @@ public class NecroticCandlestickBlockEntity extends BlockEntity {
     }
 
     public void tick(){
-        if (this.level != null){
+        if (this.level != null && !this.level.isClientSide){
             if (this.getBlockState().hasProperty(NecroticCandlestick.LIT)) {
                 if (this.getBlockState().getValue(NecroticCandlestick.LIT)) {
                     AABB aabb = new AABB(this.worldPosition).inflate(8.0D);

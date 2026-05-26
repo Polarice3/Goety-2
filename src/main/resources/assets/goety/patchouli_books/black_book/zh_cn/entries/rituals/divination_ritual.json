@@ -1,0 +1,60 @@
+{
+  "name": "预言仪式",
+  "icon": "goety:crystal_ball",
+  "category": "goety:rituals",
+  "advancement": "goety:goety/get_crystal_ball",
+  "sortnum": 2,
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "需求: $(li)1个水晶球,$(li)16个点燃的蜡烛,$(li)1个骷髅头颅"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/divination_ritual.png"],
+      "border": true,
+      "text": "一个仪式摆放的例子。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "“死灵术”一词指的是通过死者之灵进行占卜的技艺。因此，你又经过一些尝试，然后发现你可以借助灵魂的力量举行仪式，进而揭示一些特定区域的位置。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/ancient_city"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/desert_pyramid"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/jungle_temple"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/pillager_outpost"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/stronghold"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/woodland_mansion"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/nether/fortress"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/nether/bastion_remnant"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/end/end_city"
+    }
+  ]
+}

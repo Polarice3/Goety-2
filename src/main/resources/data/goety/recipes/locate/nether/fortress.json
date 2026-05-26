@@ -1,0 +1,31 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:locate",
+  "activation_item": {
+    "item": "minecraft:map"
+  },
+  "craftType": "divination",
+  "structure_to_locate": {
+    "tag": "goety:explorer_maps/nether/fortress",
+    "display_name": "filled_map.goety.fortress"
+  },
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "minecraft:nether_bricks"
+    },
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "tag": "minecraft:soul_fire_base_blocks"
+    },
+    {
+      "item": "minecraft:lava_bucket"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

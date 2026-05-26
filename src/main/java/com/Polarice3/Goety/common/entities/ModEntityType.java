@@ -965,6 +965,11 @@ public class ModEntityType {
                     .clientTrackingRange(8)
                     .fireImmune());
 
+    public static final RegistryObject<EntityType<SpriteMob>> SPRITE = register("sprite",
+            EntityType.Builder.of(SpriteMob::new, MobCategory.MONSTER)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<BurningHoglin>> BURNING_HOGLIN = register("burning_hoglin",
             EntityType.Builder.of(BurningHoglin::new, MobCategory.MONSTER)
                     .sized(1.05F, 1.05F)

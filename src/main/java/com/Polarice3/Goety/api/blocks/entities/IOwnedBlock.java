@@ -30,6 +30,11 @@ public interface IOwnedBlock {
     default void setOwnerId(int p_184754_1_) {
     }
 
+    @Nullable
+    default LivingEntity getTrueOwner() {
+        return null;
+    }
+
     Player getPlayer();
 
     default CompoundTag getAttitudeLists() {

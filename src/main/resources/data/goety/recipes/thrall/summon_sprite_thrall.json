@@ -1,0 +1,22 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:summon_tamed_no_variant",
+  "activation_item": {
+    "tag": "forge:glass"
+  },
+  "craftType": "storm",
+  "entity_to_summon": "goety:sprite",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "goety:ectoplasm"
+    },
+    {
+      "tag": "forge:ingots/copper"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

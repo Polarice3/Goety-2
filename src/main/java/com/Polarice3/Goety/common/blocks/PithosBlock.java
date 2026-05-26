@@ -151,7 +151,7 @@ public class PithosBlock extends BaseEntityBlock {
     }
 
     public float getDestroyProgress(BlockState pState, Player pPlayer, BlockGetter pLevel, BlockPos pPos) {
-        return !pState.getValue(LOCKED) ? 2.5F : -1.0F;
+        return !pState.getValue(LOCKED) ? super.getDestroyProgress(pState, pPlayer, pLevel, pPos) : -1.0F;
     }
 
     public boolean hasAnalogOutputSignal(BlockState pState) {
@@ -172,10 +172,12 @@ public class PithosBlock extends BaseEntityBlock {
 
     public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRand) {
         if (!pState.getValue(TRIGGERED)) {
-            double d0 = (double) pPos.getX() + 0.5D;
-            double d1 = (double) pPos.getY() + 0.75D;
-            double d2 = (double) pPos.getZ() + 0.5D;
-            pLevel.addParticle(ParticleTypes.ENCHANT, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+            if (pLevel.getBlockState(pPos.above()).getCollisionShape(pLevel, pPos.above()).isEmpty()) {
+                double d0 = (double) pPos.getX() + 0.5D;
+                double d1 = (double) pPos.getY() + 1.0D;
+                double d2 = (double) pPos.getZ() + 0.5D;
+                pLevel.addParticle(ParticleTypes.ENCHANT, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+            }
         }
     }
 }

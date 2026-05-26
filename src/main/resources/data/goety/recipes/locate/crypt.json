@@ -1,0 +1,34 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:locate",
+  "activation_item": {
+    "item": "minecraft:map"
+  },
+  "craftType": "divination",
+  "structure_to_locate": {
+    "tag": "goety:explorer_maps/crypt",
+    "display_name": "filled_map.goety.crypt"
+  },
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "goety:cryptic_eye"
+    },
+    {
+      "tag": "goety:shade_stone"
+    },
+    {
+      "tag": "forge:obsidian"
+    },
+    {
+      "item": "goety:grave_dust"
+    },
+    {
+      "item": "goety:ectoplasm"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

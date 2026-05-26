@@ -69,7 +69,7 @@ public class CrystalBallBlock extends Block {
     }
 
     public float getDestroyProgress(BlockState pState, Player pPlayer, BlockGetter pLevel, BlockPos pPos) {
-        return !pState.getValue(POWERED) ? 3.0F : -1.0F;
+        return !pState.getValue(POWERED) ? super.getDestroyProgress(pState, pPlayer, pLevel, pPos) : -1.0F;
     }
 
     @Override
@@ -87,7 +87,7 @@ public class CrystalBallBlock extends Block {
                         blockPos = BlockFinder.SummonRadius(pPos, crone, pLevel);
                     }
                     crone.setPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-                    if (!CuriosFinder.hasWitchSet(pPlayer) && MobUtil.validEntity(pPlayer)){
+                    if (!CuriosFinder.isWitchFriendly(pPlayer) && MobUtil.validEntity(pPlayer)){
                         crone.setTarget(pPlayer);
                     }
                     crone.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(pPos), MobSpawnType.MOB_SUMMONED, null, null);

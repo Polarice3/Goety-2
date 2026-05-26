@@ -31,6 +31,10 @@ import java.util.Objects;
 public class QuickGrowingVine extends AbstractVine{
     private static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(QuickGrowingVine.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> IDLE_TYPE = SynchedEntityData.defineId(QuickGrowingVine.class, EntityDataSerializers.BOOLEAN);
+    public static String IDLE = "idle";
+    public static String BURST = "burst";
+    public static String BURROW = "burrow";
+    public static String HOLD = "hold";
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState burstAnimationState = new AnimationState();
     public AnimationState burrowAnimationState = new AnimationState();
@@ -83,16 +87,14 @@ public class QuickGrowingVine extends AbstractVine{
     }
 
     public int getAnimationState(String animation) {
-        if (Objects.equals(animation, "idle")){
+        if (Objects.equals(animation, IDLE)){
             return 1;
-        } else if (Objects.equals(animation, "burst")){
+        } else if (Objects.equals(animation, BURST)){
             return 2;
-        } else if (Objects.equals(animation, "burrow")){
+        } else if (Objects.equals(animation, BURROW)){
             return 3;
-        } else if (Objects.equals(animation, "hold")){
+        } else if (Objects.equals(animation, HOLD)){
             return 4;
-        } else if (Objects.equals(animation, "idle2")){
-            return 5;
         } else {
             return 0;
         }
@@ -153,7 +155,7 @@ public class QuickGrowingVine extends AbstractVine{
         if (pReason != MobSpawnType.MOB_SUMMONED){
             this.setPerpetual(true);
         }
-        this.setAnimationState("hold");
+        this.setAnimationState(HOLD);
         return pSpawnData;
     }
 
@@ -228,18 +230,26 @@ public class QuickGrowingVine extends AbstractVine{
 
     public void burst(){
         super.burst();
-        if (this.activeTick < 15 && this.getCurrentAnimation() != this.getAnimationState("burst")) {
-            this.setAnimationState("burst");
+        if (this.activeTick < 15 && this.getCurrentAnimation() != this.getAnimationState(BURST)) {
+            this.setAnimationState(BURST);
             this.playSound(this.getBurstSound(), 2.0F, 1.0F);
-        } else if ((this.getCurrentAnimation() < 2 && this.getCurrentAnimation() != this.getAnimationState("hold")) || this.activeTick == 15) {
-            this.setAnimationState("idle");
+        } else if ((this.getCurrentAnimation() < 2 && this.getCurrentAnimation() != this.getAnimationState(HOLD)) || this.activeTick == 15) {
+            this.setAnimationState(IDLE);
         }
     }
 
     public void burrow(){
         super.burrow();
-        this.setAnimationState("burrow");
+        this.setAnimationState(BURROW);
         this.playSound(this.getBurrowSound(), 2.0F, 1.0F);
+    }
+
+    @Override
+    public void burrowThenHold() {
+        super.burrowThenHold();
+        if (this.getAge() <= 0) {
+            this.setAnimationState(HOLD);
+        }
     }
 
     @Override

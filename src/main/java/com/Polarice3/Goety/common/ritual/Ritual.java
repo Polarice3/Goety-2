@@ -355,6 +355,10 @@ public abstract class Ritual {
         entity.setPickUpDelay(10);
         world.addFreshEntity(entity);
     }
+
+    public boolean isPending(DarkAltarBlockEntity tileEntity) {
+        return false;
+    }
 }
 /*
  * MIT License

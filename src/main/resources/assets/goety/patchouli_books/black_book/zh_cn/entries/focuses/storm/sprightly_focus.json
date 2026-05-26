@@ -1,0 +1,19 @@
+{
+  "name": "电灵聚晶",
+  "icon": "goety:sprightly_focus",
+  "category": "goety:focuses/storm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "借助一些材料和魔法，你可以召唤精灵四处飞旋，用微小的闪电攻击你的敌人。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/sprightly_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/storm_staff)风暴魔杖$()施法可以召唤更多精灵。"
+    }
+  ]
+}

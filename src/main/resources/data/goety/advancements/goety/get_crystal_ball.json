@@ -1,0 +1,22 @@
+{
+  "parent": "goety:goety/root",
+  "criteria": {
+    "crystal_ball": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:crystal_ball"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "crystal_ball"
+    ]
+  ]
+}

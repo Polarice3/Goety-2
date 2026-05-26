@@ -1141,6 +1141,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.sprightly_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:sprightly_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.steaming_focus": {
       "conditions": {
         "items": [
@@ -1715,6 +1727,9 @@
     ],
     [
       "item.goety.surging_focus"
+    ],
+    [
+      "item.goety.sprightly_focus"
     ],
     [
       "item.goety.monsoon_focus"

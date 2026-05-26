@@ -1,0 +1,47 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:locate",
+  "activation_item": {
+    "item": "minecraft:map"
+  },
+  "craftType": "divination",
+  "entity_to_sacrifice": {
+    "tag": "goety:chickens",
+    "display_name": "entity.minecraft.chicken"
+  },
+  "structure_to_locate": {
+    "tag": "minecraft:on_woodland_explorer_maps",
+    "display_name": "filled_map.mansion"
+  },
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "minecraft:dark_oak_sapling"
+    },
+    {
+      "item": "minecraft:iron_axe"
+    },
+    {
+      "item": "minecraft:dark_oak_sapling"
+    },
+    {
+      "item": "goety:dark_fabric"
+    },
+    {
+      "item": "minecraft:dark_oak_sapling"
+    },
+    {
+      "item": "goety:magic_fabric"
+    },
+    {
+      "item": "minecraft:dark_oak_sapling"
+    },
+    {
+      "item": "goety:soul_emerald"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

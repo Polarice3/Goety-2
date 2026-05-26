@@ -1,0 +1,34 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:locate",
+  "activation_item": {
+    "item": "minecraft:map"
+  },
+  "craftType": "divination",
+  "structure_to_locate": {
+    "tag": "goety:explorer_maps/end/final_terminal",
+    "display_name": "filled_map.goety.final_terminal"
+  },
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "goety:void_eye"
+    },
+    {
+      "item": "goety:end_soil"
+    },
+    {
+      "item": "minecraft:purpur_block"
+    },
+    {
+      "item": "goety:end_rod_block"
+    },
+    {
+      "item": "goety:chorus_growth"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

@@ -16,4 +16,5 @@ public class RitualTypes {
     public final static String STORM = "storm";
     public final static String DEEP = "deep";
     public final static String OVERGROWN = "overgrown";
+    public final static String DIVINATION = "divination";
 }

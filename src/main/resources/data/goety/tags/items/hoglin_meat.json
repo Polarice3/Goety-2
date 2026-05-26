@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:raw_pork",
+    {
+      "id": "netherexp:hogham",
+      "required": false
+    },
+    {
+      "id": "mynethersdelight:hoglin_loin",
+      "required": false
+    },
+    {
+      "id": "mynethersdelight:hoglin_sausage",
+      "required": false
+    }
+  ]
+}

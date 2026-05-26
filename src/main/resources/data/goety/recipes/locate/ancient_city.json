@@ -1,0 +1,37 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:locate",
+  "activation_item": {
+    "item": "minecraft:map"
+  },
+  "craftType": "divination",
+  "structure_to_locate": {
+    "tag": "goety:explorer_maps/ancient_city",
+    "display_name": "filled_map.goety.ancient_city"
+  },
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "tag": "forge:storage_blocks/redstone"
+    },
+    {
+      "item": "minecraft:chiseled_deepslate"
+    },
+    {
+      "tag": "minecraft:soul_fire_base_blocks"
+    },
+    {
+      "item": "minecraft:experience_bottle"
+    },
+    {
+      "tag": "forge:gems/amethyst"
+    },
+    {
+      "item": "minecraft:gray_wool"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

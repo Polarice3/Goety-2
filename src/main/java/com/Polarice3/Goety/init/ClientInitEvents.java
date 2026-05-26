@@ -375,6 +375,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.VIZIER_CLONE, VizierCloneModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.IRK, IrkModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MINION, MinionModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.SPRITE, SpriteMobModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.HAUNTED_SKULL, HauntedSkullModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.HAUNTED_SKULL_FIRELESS, HauntedSkullModel::createFirelessLayer);
         event.registerLayerDefinition(ModModelLayer.SKULL_LORD, SkullLordModel::createBodyLayer);
@@ -653,6 +654,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.BOUND_STORM_CASTER.get(), BoundStormCasterRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_ARMOR_SERVANT.get(), HauntedArmorRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_SKULL.get(), HauntedSkullRenderer::new);
+        event.registerEntityRenderer(ModEntityType.SPRITE.get(), SpriteMobRenderer::new);
         event.registerEntityRenderer(ModEntityType.BURNING_HOGLIN.get(), BurningHoglinRenderer::new);
         event.registerEntityRenderer(ModEntityType.DOPPELGANGER.get(), (render) -> new DoppelgangerRenderer(render, false));
         event.registerEntityRenderer(ModEntityType.MINI_GHAST.get(), MiniGhastRenderer::new);
@@ -794,7 +796,7 @@ public class ClientInitEvents {
                 (state, lightReader, pos, color) ->
                         lightReader != null && pos != null ?
                                 BiomeColors.getAverageFoliageColor(lightReader, pos) :
-                                FoliageColor.getDefaultColor(), ModBlocks.HARDENED_LEAVES.get(), ModBlocks.ROTTEN_LEAVES.get(), ModBlocks.WINDSWEPT_LEAVES.get(), ModBlocks.PINE_LEAVES.get());
+                                FoliageColor.getDefaultColor(), ModBlocks.HARDENED_LEAVES.get(), ModBlocks.ROTTEN_LEAVES.get());
     }
 
     @SubscribeEvent
@@ -805,7 +807,7 @@ public class ClientInitEvents {
         event.register((itemStack, i) -> {
             BlockState blockstate = ((BlockItem)itemStack.getItem()).getBlock().defaultBlockState();
             return event.getBlockColors().getColor(blockstate, null, null, i);
-        }, ModBlocks.HARDENED_LEAVES.get(), ModBlocks.ROTTEN_LEAVES.get(), ModBlocks.WINDSWEPT_LEAVES.get(), ModBlocks.PINE_LEAVES.get());
+        }, ModBlocks.HARDENED_LEAVES.get(), ModBlocks.ROTTEN_LEAVES.get());
     }
 
     @SubscribeEvent

@@ -131,9 +131,6 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
         this.add(ModBlocks.JADE_ORE.get(), (p_124076_) -> {
             return createOreDrop(p_124076_, ModItems.JADE.get());
         });
-        this.add(ModBlocks.CRYSTAL_BALL.get(), (p_236253_) -> {
-            return createSilkTouchDispatchTable(p_236253_, LootItem.lootTableItem(Items.GOLD_INGOT).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))));
-        });
         this.add(ModBlocks.ROTTEN_LEAVES.get(), (p_124094_) -> {
             return createRottenLeavesDrops(p_124094_, ModBlocks.ROTTEN_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
         });
@@ -191,6 +188,9 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
         });
         this.add(ModBlocks.WINDSWEPT_DEAD_BUSH.get(), (p_249226_) -> {
             return createShearsDispatchTable(p_249226_, this.applyExplosionDecay(p_249226_, LootItem.lootTableItem(Items.STICK).apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))));
+        });
+        this.add(ModBlocks.SIENNA_VINE.get(), (p_124233_) -> {
+            return createShearsOnlyDrop(ModBlocks.SIENNA_VINE.get());
         });
         this.add(ModBlocks.CHORUS_VINE.get(), (p_124233_) -> {
             return createShearsOnlyDrop(ModBlocks.CHORUS_VINE.get());

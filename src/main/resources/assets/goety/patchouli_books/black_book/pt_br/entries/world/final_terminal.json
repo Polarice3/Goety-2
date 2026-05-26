@@ -15,6 +15,11 @@
     {
       "type": "patchouli:text",
       "text": "No topo do terminal fica um Santuário do Vazio. Ele requer que quatro Fragmentos do Vazio sejam inseridos antes que um guerreiro poderoso seja invocado. Derrotar o guerreiro fará com que um objeto apareça, colocado no Santuário do Vazio, que pode conceder um segredo monstruoso."
+    },
+    {
+      "type": "goety:ritual",
+      "advancement": "goety:goety/get_crystal_ball",
+      "recipe": "goety:locate/end/final_terminal"
     }
   ]
 }

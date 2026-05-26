@@ -1,0 +1,20 @@
+{
+  "name": "スプライト",
+  "icon": "minecraft:glass",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "沼地や湿原で光が踊るように現れ、旅人を死へと誘い込むという話を聞いたことがあるでしょう。最初は、光は単に犠牲者をぐるぐると回して疲れ果てさせ、餓死させるだけだと思っていました。ところが、餓死させるのではなく、光で感電死させてしまうのだと分かったのです。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:sprite",
+      "scale": 0.75
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_sprite_thrall"
+    }
+  ]
+}

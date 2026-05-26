@@ -50,6 +50,10 @@ public class ModRituals {
     public static final RegistryObject<ModRitualFactory> TELEPORT =
             RITUALS.register("teleport",
                     () -> new ModRitualFactory(TeleportRitual::new));
+
+    public static final RegistryObject<ModRitualFactory> LOCATE =
+            RITUALS.register("locate",
+                    () -> new ModRitualFactory(LocateRitual::new));
 }
 /*
  * MIT License

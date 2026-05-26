@@ -1,0 +1,31 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:locate",
+  "activation_item": {
+    "item": "minecraft:map"
+  },
+  "craftType": "divination",
+  "structure_to_locate": {
+    "tag": "goety:explorer_maps/spider_den",
+    "display_name": "filled_map.goety.spider_den"
+  },
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "tag": "goety:haunted_logs"
+    },
+    {
+      "item": "minecraft:cobweb"
+    },
+    {
+      "item": "goety:spider_egg"
+    },
+    {
+      "tag": "forge:raw_meat"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

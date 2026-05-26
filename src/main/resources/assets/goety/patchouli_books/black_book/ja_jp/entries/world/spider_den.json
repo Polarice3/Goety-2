@@ -11,6 +11,11 @@
       "type": "patchouli:image",
       "images": ["goety:textures/gui/entries/spider_den.png"],
       "border": true
+    },
+    {
+      "type": "goety:ritual",
+      "advancement": "goety:goety/get_crystal_ball",
+      "recipe": "goety:locate/spider_den"
     }
   ]
 }

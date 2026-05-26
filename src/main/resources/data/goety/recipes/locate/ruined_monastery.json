@@ -1,0 +1,31 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:locate",
+  "activation_item": {
+    "item": "minecraft:map"
+  },
+  "craftType": "divination",
+  "structure_to_locate": {
+    "tag": "goety:explorer_maps/ruined_monastery",
+    "display_name": "filled_map.goety.ruined_monastery"
+  },
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "goety:gold_candlestick"
+    },
+    {
+      "tag": "goety:full_silt_craft"
+    },
+    {
+      "item": "goety:rotten_sapling"
+    },
+    {
+      "tag": "goety:full_crag_craft"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

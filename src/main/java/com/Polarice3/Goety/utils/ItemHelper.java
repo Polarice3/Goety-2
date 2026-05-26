@@ -304,19 +304,21 @@ public class ItemHelper {
                     ListTag listtag1 = compoundtag1.getList("Patterns", 10);
                     ListTag listtag2 = compoundtag2.getList("Patterns", 10);
                     if (listtag1.size() == listtag2.size()) {
-                        int i = 0;
-                        for (int j = 0; j < listtag1.size(); ++j){
-                            CompoundTag compoundtag3 = listtag1.getCompound(i);
-                            CompoundTag compoundtag4 = listtag2.getCompound(i);
+                        for (int j = 0; j < listtag1.size(); ++j) {
+                            CompoundTag compoundtag3 = listtag1.getCompound(j);
+                            CompoundTag compoundtag4 = listtag2.getCompound(j);
                             Holder<BannerPattern> holder1 = BannerPattern.byHash(compoundtag3.getString("Pattern"));
                             Holder<BannerPattern> holder2 = BannerPattern.byHash(compoundtag4.getString("Pattern"));
-                            if (holder1 != null && holder2 != null) {
-                                if (holder1.get().getHashname().equals(holder2.get().getHashname())){
-                                    ++i;
-                                }
+                            if (holder1 == null || holder2 == null) {
+                                return false;
+                            }
+                            if (!holder1.get().getHashname().equals(holder2.get().getHashname())) {
+                                return false;
+                            }
+                            if (compoundtag3.getInt("Color") != compoundtag4.getInt("Color")) {
+                                return false;
                             }
                         }
-                        return i == listtag1.size();
                     }
                 }
             }

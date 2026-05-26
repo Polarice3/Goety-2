@@ -3,7 +3,6 @@ package com.Polarice3.Goety.common.blocks.entities;
 import com.Polarice3.Goety.client.particles.PortalShockwaveParticleOption;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.ModTicketTypes;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
@@ -17,7 +16,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -28,7 +26,7 @@ import net.minecraft.world.phys.AABB;
 
 import java.util.List;
 
-public class NightBeaconBlockEntity extends BlockEntity {
+public class NightBeaconBlockEntity extends ChunkLoadBlockEntity {
     List<BeaconBeamSection> beamSections = Lists.newArrayList();
     private List<BeaconBeamSection> checkingBeamSections = Lists.newArrayList();
     private boolean daylightTrue;
@@ -36,20 +34,18 @@ public class NightBeaconBlockEntity extends BlockEntity {
     private boolean hasPortal;
     private boolean isActive;
     private int lastCheckY;
-    public long ticketTime = 0;
 
     public NightBeaconBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
         super(ModBlockEntities.NIGHT_BEACON.get(), p_155229_, p_155230_);
     }
 
+    @Override
+    public boolean shouldChunkLoad() {
+        return this.isActive && !this.beamSections.isEmpty();
+    }
+
     public static void tick(Level p_155108_, BlockPos p_155109_, BlockState p_155110_, NightBeaconBlockEntity p_155111_) {
-        if (p_155108_ instanceof ServerLevel world) {
-            ChunkPos chunkPos = world.getChunkAt(p_155109_).getPos();
-            if (--p_155111_.ticketTime <= 0L) {
-                world.getChunkSource().addRegionTicket(ModTicketTypes.BLOCK, chunkPos, 5, p_155109_);
-                p_155111_.ticketTime = ModTicketTypes.BLOCK.timeout() - 1L;
-            }
-        }
+        p_155111_.chunkLoadBlock();
         int i = p_155109_.getX();
         int j = p_155109_.getY();
         int k = p_155109_.getZ();
@@ -155,7 +151,6 @@ public class NightBeaconBlockEntity extends BlockEntity {
                     }
                 }
             }
-
         }
         super.setRemoved();
     }

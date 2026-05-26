@@ -1,10 +1,10 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
+import com.Polarice3.Goety.api.entities.IChunkLoader;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.CryptChestBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.PithosBlock;
-import com.Polarice3.Goety.utils.ModTicketTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -21,14 +21,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class PithosBlockEntity extends RandomizableContainerBlockEntity {
+public class PithosBlockEntity extends RandomizableContainerBlockEntity implements IChunkLoader {
     private NonNullList<ItemStack> items = NonNullList.withSize(27, ItemStack.EMPTY);
     private ContainerOpenersCounter openersCounter = new ContainerOpenersCounter() {
         protected void onOpen(Level p_155062_, BlockPos p_155063_, BlockState p_155064_) {
@@ -56,9 +55,29 @@ public class PithosBlockEntity extends RandomizableContainerBlockEntity {
     public boolean hasCustomSLName = false;
     public Component skullLordName = Component.empty();
     public long ticketTime = 0;
+    public boolean saveDataCheck = true;
 
     public PithosBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.PITHOS.get(), blockPos, blockState);
+    }
+
+    @Override
+    public long getTicketTime() {
+        return this.ticketTime;
+    }
+
+    @Override
+    public void setTicketTime(long ticketTime) {
+        this.ticketTime = ticketTime;
+    }
+
+    public boolean saveDataCheck() {
+        return this.saveDataCheck;
+    }
+
+    @Override
+    public void saveDataChecked() {
+        this.saveDataCheck = false;
     }
 
     protected void saveAdditional(CompoundTag p_187459_) {
@@ -140,16 +159,16 @@ public class PithosBlockEntity extends RandomizableContainerBlockEntity {
         this.level.setBlock(this.getBlockPos(), pState.setValue(PithosBlock.OPEN, pOpen), 3);
     }
 
+    @Override
+    public boolean shouldChunkLoad() {
+        return this.getBlockState().getValue(PithosBlock.TRIGGERED);
+    }
+
     public void tick() {
-        if (this.level instanceof ServerLevel world) {
-            if (this.getBlockState().getValue(PithosBlock.TRIGGERED) || this.ticketTime > 0L) {
-                ChunkPos chunkPos = world.getChunkAt(this.worldPosition).getPos();
-                if (--this.ticketTime <= 0L) {
-                    world.getChunkSource().addRegionTicket(ModTicketTypes.BLOCK, chunkPos, 5, this.worldPosition);
-                    if (this.getBlockState().getValue(PithosBlock.TRIGGERED)) {
-                        this.ticketTime = ModTicketTypes.BLOCK.timeout() - 1L;
-                    }
-                }
+        this.chunkLoadBlock();
+        if (this.level instanceof ServerLevel) {
+            if (!this.getBlockState().getValue(PithosBlock.TRIGGERED) && this.ticketTime > 0L) {
+                this.decreaseTicketTime();
             }
         }
     }

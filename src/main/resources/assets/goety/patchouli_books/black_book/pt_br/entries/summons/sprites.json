@@ -1,0 +1,20 @@
+{
+  "name": "Centelha Relampejante",
+  "icon": "minecraft:glass",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Tu ouviste contos de luzes dançando em pântanos e alagadiços, atraindo viajantes para a morte. Ao princípio, pensaste que elas simplesmente guiariam as vítimas em círculos até que se cansassem e morressem de fome. Mas não: ao invés de deixá-los definhar, elas simplesmente os electrocutam até a morte."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:sprite",
+      "scale": 0.75
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_sprite_thrall"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "妖精のフォーカス",
+  "icon": "goety:sprightly_focus",
+  "category": "goety:focuses/storm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "いくつかの材料と魔法を使えば、スプライトを召喚して飛び回らせ、小さな稲妻で敵を攻撃させることができます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/sprightly_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/storm_staff)嵐の杖$()で唱えると、より多くスプライトを召喚できます。"
+    }
+  ]
+}

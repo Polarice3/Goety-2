@@ -214,6 +214,8 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedVexDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedIrkHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedIrkDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> SpriteHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> SpriteDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> MiniGhastHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> MiniGhastDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> GhastServantHealth;
@@ -863,6 +865,12 @@ public class AttributesConfig {
                         .defineInRange("summonedIrkHealth", 12.0, 1.0, Double.MAX_VALUE);
                 SummonedIrkDamage = BUILDER.comment("How much damage Irks deals, Default: 4.0")
                         .defineInRange("summonedIrkDamage", 4.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Sprite");
+                SpriteHealth = BUILDER.comment("How much Max Health Sprites have, Default: 12.0")
+                        .defineInRange("spriteHealth", 12.0, 1.0, Double.MAX_VALUE);
+                SpriteDamage = BUILDER.comment("How much damage Sprites deals, Default: 2.0")
+                        .defineInRange("spriteDamage", 2.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Mini-Ghast");
                 MiniGhastHealth = BUILDER.comment("How much Max Health Mini-Ghasts have, Default: 5.0")

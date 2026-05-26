@@ -23,6 +23,7 @@ public class RitualType {
     public static IRitualType FROST = new FrostRitualType();
     public static IRitualType DEEP = new DeepRitualType();
     public static IRitualType OVERGROWN = new OvergrownRitualType();
+    public static IRitualType DIVINATION = new DivinationRitualType();
 
     public static void addRitualType(String id, IRitualType ritualType){
         RITUAL_TYPE_LIST.put(id, ritualType);
@@ -44,6 +45,7 @@ public class RitualType {
         rituals.put(FROST.getName(), FROST);
         rituals.put(DEEP.getName(), DEEP);
         rituals.put(OVERGROWN.getName(), OVERGROWN);
+        rituals.put(DIVINATION.getName(), DIVINATION);
         if (!RITUAL_TYPE_LIST.isEmpty()){
             rituals.putAll(RITUAL_TYPE_LIST);
         }

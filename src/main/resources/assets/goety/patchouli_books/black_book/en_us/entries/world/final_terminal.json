@@ -15,6 +15,11 @@
     {
       "type": "patchouli:text",
       "text": "On top of the terminal lies a Void Shrine. It requires four Void Shards to be inserted before a powerful warrior is summoned. Defeating the warrior will cause an object to appear, placed on the Void Shrine, that can give a monstrous secret."
+    },
+    {
+      "type": "goety:ritual",
+      "advancement": "goety:goety/get_crystal_ball",
+      "recipe": "goety:locate/end/final_terminal"
     }
   ]
 }

@@ -67,4 +67,16 @@ public class RitualChecker {
 
         return currentCount >= this.totalCount;
     }
+
+    public int getXRange() {
+        return this.xRange;
+    }
+
+    public int getYRange() {
+        return this.yRange;
+    }
+
+    public int getZRange() {
+        return this.zRange;
+    }
 }

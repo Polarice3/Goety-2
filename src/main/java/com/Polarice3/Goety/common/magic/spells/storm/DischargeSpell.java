@@ -88,7 +88,8 @@ public class DischargeSpell extends Spell {
             Vec3 vec3 = caster.position();
             int random1 = worldIn.getRandom().nextIntBetweenInclusive(-4, 4);
             int random2 = worldIn.getRandom().nextIntBetweenInclusive(-4, 4);
-            Vec3 vec31 = vec3.add(worldIn.getRandom().nextDouble() * random1, worldIn.getRandom().nextDouble(), worldIn.getRandom().nextDouble() * random2);
+            int random3 = worldIn.getRandom().nextIntBetweenInclusive(-4, 4);
+            Vec3 vec31 = vec3.add(worldIn.getRandom().nextDouble() * random1, worldIn.getRandom().nextDouble() * random2, worldIn.getRandom().nextDouble() * random3);
             ModNetwork.sendToALL(new SLightningPacket(vec3, vec31, colorUtil, 12));
         }
         float trueDamage = Mth.clamp(damage + RandomUtil.nextInt(worldIn.getRandom(), (int) (maxDamage - damage)), damage, maxDamage);

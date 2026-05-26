@@ -117,7 +117,7 @@ public class ObsidianMonolithRenderer<T extends AbstractMonolith> extends Abstra
                     this.getParentModel().copyPropertiesTo(this.model);
                     RenderType renderType = RenderType.energySwirl(TEXTURE, f * 0.02F % 1.0F, f * 0.01F % 1.0F);
                     VertexConsumer vertexconsumer = bufferIn.getBuffer(renderType);
-                    float f1 = Math.min(AbstractMonolith.getEmergingTime(), monolith.getAge());
+                    float f1 = Math.min(monolith.localEmergingTime(), monolith.getAge());
                     this.model.setupAnim(monolith, f1, 0.0F, partialTicks, monolith.getYRot(), monolith.getXRot());
                     this.model.renderToBuffer(matrixStackIn, vertexconsumer, packedLightIn, OverlayTexture.NO_OVERLAY, alpha, alpha, alpha, 1.0F);
                     matrixStackIn.popPose();

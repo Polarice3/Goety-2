@@ -1,0 +1,20 @@
+{
+  "name": "Sprites",
+  "icon": "minecraft:glass",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You have of tales of lights dancing in bogs or swamps, luring travellers to their deaths. At first, you thought they would simply lure victims around in circles until they get tired and starve to death. Turns out, instead of having them starve, they would just zap them to death."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:sprite",
+      "scale": 0.75
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_sprite_thrall"
+    }
+  ]
+}

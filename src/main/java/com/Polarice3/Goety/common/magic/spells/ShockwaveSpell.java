@@ -29,7 +29,7 @@ public class ShockwaveSpell extends Spell {
 
     @Override
     public SpellStat defaultStats() {
-        return super.defaultStats().setRadius(3.0D);
+        return super.defaultStats().setRadius(4.0D);
     }
 
     @Override
@@ -74,16 +74,16 @@ public class ShockwaveSpell extends Spell {
         for (int i = -radius; i < radius; ++i){
             for (int k = -radius; k < radius; ++k){
                 BlockPos blockPos = caster.blockPosition().offset(i, 0, k);
-                if (worldIn.random.nextFloat() <= 0.25F){
+                if (worldIn.getRandom().nextFloat() <= 0.05F){
                     worldIn.sendParticles(ModParticleTypes.SOUL_EXPLODE.get(), blockPos.getX(), blockPos.getY(), blockPos.getZ(), 0, 0, 0.04D, 0, 0.5F);
                 }
             }
         }
         ColorUtil colorUtil = new ColorUtil(0x2ac9cf);
-        worldIn.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius * 2, 1), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 0, 0, 0, 0, 0);
-        worldIn.sendParticles(new SphereExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius * 2, 1), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 1, 0, 0, 0, 0);
+        worldIn.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius, 1), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 0, 0, 0, 0, 0);
+        worldIn.sendParticles(new SphereExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius, 1), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 1, 0, 0, 0, 0);
         float trueDamage = Mth.clamp(damage + RandomUtil.nextInt(worldIn.getRandom(), (int) (maxDamage - damage)), damage, maxDamage);
-        ModNetwork.sendToALL(new SPlayWorldSoundPacket(caster.blockPosition(), ModSounds.SOUL_EXPLODE.get(), 4.0F, 1.0F));
+        ModNetwork.sendToALL(new SPlayWorldSoundPacket(caster.blockPosition(), ModSounds.SOUL_EXPLODE.get(), 2.0F, 1.0F));
         MobUtil.explosionDamage(worldIn, caster, worldIn.damageSources().indirectMagic(caster, caster), caster.blockPosition(), radius, trueDamage);
     }
 }

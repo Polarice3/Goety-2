@@ -8,14 +8,13 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public abstract class OwnedBlockEntity extends BlockEntity implements IOwnedBlock {
+public abstract class OwnedBlockEntity extends ChunkLoadBlockEntity implements IOwnedBlock {
     private UUID ownerUUID;
     private int ownerID;
 

@@ -1,0 +1,31 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:locate",
+  "activation_item": {
+    "item": "minecraft:map"
+  },
+  "craftType": "divination",
+  "structure_to_locate": {
+    "tag": "goety:explorer_maps/graveyard",
+    "display_name": "filled_map.goety.graveyard"
+  },
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "tag": "goety:shade_stone"
+    },
+    {
+      "item": "goety:ectoplasm"
+    },
+    {
+      "tag": "forge:ingots/iron"
+    },
+    {
+      "item": "goety:cursed_ingot"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

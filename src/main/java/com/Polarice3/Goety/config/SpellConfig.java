@@ -447,6 +447,12 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SurgingCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> SurgingDamage;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> SpriteCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SpriteDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SpriteCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SpriteSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SpriteLimit;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> MonsoonCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> MonsoonDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> MonsoonCoolDown;
@@ -1554,6 +1560,18 @@ public class SpellConfig {
                     .defineInRange("surgingCoolDown", 200, 0, 72000);
             SurgingDamage = BUILDER.comment("How much base damage Surging Orbs deals, Default: 3.0")
                     .defineInRange("surgingDamage", 3.0, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Sprightly Spell");
+            SpriteCost = BUILDER.comment("Sprightly Spell Cost, Default: 24")
+                    .defineInRange("spriteCost", 24, 0, Integer.MAX_VALUE);
+            SpriteDuration = BUILDER.comment("Time to cast Sprightly Spell, Default: 100")
+                    .defineInRange("spriteDuration", 100, 0, 72000);
+            SpriteCoolDown = BUILDER.comment("Sprightly Spell Cooldown, Default: 200")
+                    .defineInRange("spriteCoolDown", 200, 0, Integer.MAX_VALUE);
+            SpriteSummonDown = BUILDER.comment("Sprightly Spell Summon Down, Default: 200")
+                    .defineInRange("spriteSummonDown", 200, 0, 72000);
+            SpriteLimit = BUILDER.comment("Number of Sprites that can exist around the player, Default: 8")
+                    .defineInRange("spriteLimit", 8, 1, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Monsoon Spell");
             MonsoonCost = BUILDER.comment("Monsoon Spell Cost, Default: 8")

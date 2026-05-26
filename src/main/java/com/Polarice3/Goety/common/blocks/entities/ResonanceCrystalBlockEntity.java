@@ -6,7 +6,10 @@ import com.Polarice3.Goety.common.blocks.ResonanceCrystalBlock;
 import com.Polarice3.Goety.common.entities.ally.golem.SquallGolem;
 import com.Polarice3.Goety.common.items.block.ResonanceBlockItem;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.*;
+import com.Polarice3.Goety.utils.ColorUtil;
+import com.Polarice3.Goety.utils.EntityFinder;
+import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -15,7 +18,6 @@ import net.minecraft.nbt.StringTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -33,10 +35,14 @@ public class ResonanceCrystalBlockEntity extends ModBlockEntity implements IWind
     public int active;
     private boolean isOn;
     public boolean showBlock;
-    public long ticketTime = 0;
 
     public ResonanceCrystalBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
         super(ModBlockEntities.RESONANCE_CRYSTAL.get(), p_155229_, p_155230_);
+    }
+
+    @Override
+    public boolean shouldChunkLoad() {
+        return this.getBlockState().getValue(ResonanceCrystalBlock.POWERED);
     }
 
     public void tick(){
@@ -54,11 +60,7 @@ public class ResonanceCrystalBlockEntity extends ModBlockEntity implements IWind
                     }
                 }
                 if (this.level instanceof ServerLevel world) {
-                    ChunkPos chunkPos = this.level.getChunkAt(this.worldPosition).getPos();
-                    if (--this.ticketTime <= 0L) {
-                        world.getChunkSource().addRegionTicket(ModTicketTypes.BLOCK, chunkPos, 5, this.worldPosition);
-                        this.ticketTime = ModTicketTypes.BLOCK.timeout() - 1L;
-                    }
+                    this.chunkLoadBlock();
                     BlockPos blockPos = this.getBlockPos();
                     ServerParticleUtil.gatheringBlockParticles(ModParticleTypes.RESONANCE_GATHER.get(), blockPos, world);
                     ColorUtil color = new ColorUtil(0xffffff);

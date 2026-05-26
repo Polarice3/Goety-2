@@ -1,0 +1,31 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:locate",
+  "activation_item": {
+    "item": "minecraft:map"
+  },
+  "craftType": "divination",
+  "structure_to_locate": {
+    "tag": "goety:explorer_maps/blighted_shack",
+    "display_name": "filled_map.goety.blighted_shack"
+  },
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "goety:rotten_sapling"
+    },
+    {
+      "item": "minecraft:cobweb"
+    },
+    {
+      "item": "minecraft:cauldron"
+    },
+    {
+      "item": "minecraft:nether_wart"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

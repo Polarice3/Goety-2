@@ -1686,12 +1686,6 @@
   "info.goety.witch_brew.title": "As Preparações da Bruxa",
   "info.goety.witch_brew.landing": "Um guia da bruxa para a preparação.",
 
-  "filled_map.goety.blighted_shack": "Mapa de Exploração da Cabana Amaldiçoada",
-  "filled_map.goety.crypt": "Mapa de Exploração da Cripta",
-  "filled_map.goety.wind_shrine": "Mapa de Exploração do Santuário do Vento",
-  "filled_map.goety.ominous_blacksmith": "Mapa de Exploração do Ferreiro Sinistro",
-  "filled_map.goety.ancient_city": "Mapa de Exploração da Cidade Antiga",
-
   "spell.goety.none": "§eMagia§e",
   "spell.goety.necromancy": "§2Necromancia§2",
   "spell.goety.nether": "§4Nether§4",
@@ -3693,5 +3687,33 @@
   "filled_map.goety.ruined_monastery": "Mapa de Exploração da Mosteiros Arruinados",
   "subtitle.goety.heresiarch_ambient": "Heresiarca murmura",
   "subtitle.goety.heresiarch_hurt": "Heresiarca ferido",
-  "subtitle.goety.heresiarch_death": "Heresiarca morre"
+  "subtitle.goety.heresiarch_death": "Heresiarca morre",
+  "filled_map.goety.blighted_shack": "Mapa da Cabana Amaldiçoada",
+  "filled_map.goety.crypt": "Mapa da Cripta",
+  "filled_map.goety.wind_shrine": "Mapa do Santuário do Vento",
+  "filled_map.goety.ominous_blacksmith": "Mapa do Ferreiro Sinistro",
+  "filled_map.goety.ancient_city": "Mapa da Cidade Antiga",
+
+
+  "entity.goety.sprite": "Centelha Relampejante",
+  "item.goety.sprite_spawn_egg": "Ovo de Centelha Relampejante",
+  "item.goety.sprightly_focus": "Foco da Centelha Relampejante",
+  "item.goety.sprightly_focus.info": "Invoca uma Centelha Relampejante que flutuará e atacará alvos com choques elétricos.",
+  "block.goety.sienna_vine": "Trepadeiras Terrosas",
+  "info.goety.ritual.structure.noCandles": "Quantidade insuficiente de castiçais acesos!",
+  "info.goety.ritual.location.fail": "Não foi possível encontrar o alvo!",
+  "filled_map.goety.magic": "Mapa do Explorador",
+  "filled_map.goety.graveyard": "Mapa do Cemitério",
+  "filled_map.goety.spider_den": "Mapa da Toca de Aranhas",
+  "filled_map.goety.dark_manor": "Mapa da Mansão Sombria",
+  "filled_map.goety.sorcerous_keep": "Mapa do Forte do Feiticeiro",
+  "filled_map.goety.desert_pyramid": "Mapa da Pirâmide do Deserto",
+  "filled_map.goety.jungle_temple": "Mapa do Templo da Selva",
+  "filled_map.goety.pillager_outpost": "Mapa do Posto de Pillagers",
+  "filled_map.goety.stronghold": "Mapa da Fortaleza",
+  "jei.goety.craftType.divination": "Oráculo",
+  "filled_map.goety.fortress": "Mapa da Fortaleza do Nether",
+  "filled_map.goety.bastion_remnant": "Mapa da Bastião em Ruínas",
+  "filled_map.goety.end_city": "Mapa da Cidade do End",
+  "filled_map.goety.final_terminal": "Mapa da Terminal Final"
 }

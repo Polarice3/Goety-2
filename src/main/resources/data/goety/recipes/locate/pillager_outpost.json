@@ -1,0 +1,31 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:locate",
+  "activation_item": {
+    "item": "minecraft:map"
+  },
+  "craftType": "divination",
+  "structure_to_locate": {
+    "tag": "goety:explorer_maps/pillager_outpost",
+    "display_name": "filled_map.goety.pillager_outpost"
+  },
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "minecraft:crossbow"
+    },
+    {
+      "tag": "minecraft:banners"
+    },
+    {
+      "item": "minecraft:carved_pumpkin"
+    },
+    {
+      "tag": "forge:gems/emerald"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

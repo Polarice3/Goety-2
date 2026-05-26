@@ -1,0 +1,60 @@
+{
+  "name": "占いの儀式",
+  "icon": "goety:crystal_ball",
+  "category": "goety:rituals",
+  "advancement": "goety:goety/get_crystal_ball",
+  "sortnum": 2,
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "必要: $(li)1 水晶玉 $(li)16 灯ったろうそく $(li)1 スケルトンの頭蓋骨"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/divination_ritual.png"],
+      "border": true,
+      "text": "祭祀の置き方の一例。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "「ネクロマンシー」とは、死者の霊を通して占いを行う術を指します。魂の力を用いることで、特定の場所の位置を明らかにする儀式を行うことができます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/ancient_city"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/desert_pyramid"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/jungle_temple"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/pillager_outpost"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/stronghold"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/woodland_mansion"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/nether/fortress"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/nether/bastion_remnant"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/end/end_city"
+    }
+  ]
+}

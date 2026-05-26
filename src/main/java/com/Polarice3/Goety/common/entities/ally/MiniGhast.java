@@ -1,22 +1,18 @@
 package com.Polarice3.Goety.common.entities.ally;
 
+import com.Polarice3.Goety.common.entities.ai.FloatAroundGoal;
 import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
 import com.Polarice3.Goety.common.entities.projectiles.ModFireball;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.MobUtil;
-import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.EnumSet;
 
 public class MiniGhast extends Malghast {
 
@@ -25,7 +21,7 @@ public class MiniGhast extends Malghast {
     }
 
     public void addFlyingGoal(){
-        this.goalSelector.addGoal(5, new FlyingGoal(this));
+        this.goalSelector.addGoal(5, new FloatAroundGoal<>(this, 8.0F, 4, 0.25D));
     }
 
     public void addFireballGoal(){
@@ -119,66 +115,6 @@ public class MiniGhast extends Malghast {
             }
 
             this.ghast.setCharging(this.chargeTime > 10);
-        }
-    }
-
-    static class FlyingGoal extends Goal {
-        private final MiniGhast ghast;
-
-        public FlyingGoal(MiniGhast p_i45836_1_) {
-            this.ghast = p_i45836_1_;
-            this.setFlags(EnumSet.of(Flag.MOVE));
-        }
-
-        public boolean canUse() {
-            MoveControl moveControl = this.ghast.getMoveControl();
-            if (this.ghast.isCommanded() || this.ghast.isStaying()){
-                return false;
-            } else if (!moveControl.hasWanted()) {
-                return true;
-            } else {
-                double d0 = moveControl.getWantedX() - this.ghast.getX();
-                double d1 = moveControl.getWantedY() - this.ghast.getY();
-                double d2 = moveControl.getWantedZ() - this.ghast.getZ();
-                double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-                return d3 < 1.0D || d3 > 3600.0D;
-            }
-        }
-
-        public boolean canContinueToUse() {
-            return false;
-        }
-
-        @Override
-        public void start() {
-            RandomSource random = this.ghast.getRandom();
-            float distance = 8.0F;
-            BlockPos blockPos = null;
-            if (this.ghast.getBoundPos() != null){
-                blockPos = this.ghast.getBoundPos();
-            } else if (this.ghast.getTrueOwner() != null && this.ghast.isFollowing()){
-                blockPos = this.ghast.getTrueOwner().blockPosition().above(4);
-            } else if (this.ghast.getTarget() != null){
-                blockPos = this.ghast.getTarget().blockPosition().above(4);
-            }
-
-            if (blockPos != null) {
-                if (this.ghast.distanceToSqr(Vec3.atCenterOf(blockPos)) < Mth.square(distance)) {
-                    Vec3 vector3d = Vec3.atCenterOf(blockPos);
-                    double X = this.ghast.getX() + vector3d.x * distance + (random.nextFloat() * 2.0F - 1.0F) * distance;
-                    double Y = this.ghast.getY() + vector3d.y * distance + (random.nextFloat() * 2.0F - 1.0F) * distance;
-                    double Z = this.ghast.getZ() + vector3d.z * distance + (random.nextFloat() * 2.0F - 1.0F) * distance;
-
-                    this.ghast.getMoveControl().setWantedPosition(X, Y, Z, 0.25D);
-                } else {
-                    this.ghast.getMoveControl().setWantedPosition(blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D, 0.25D);
-                }
-            } else {
-                double d0 = this.ghast.getX() + (random.nextFloat() * 2.0F - 1.0F) * distance;
-                double d1 = this.ghast.getY() + (random.nextFloat() * 2.0F - 1.0F) * distance;
-                double d2 = this.ghast.getZ() + (random.nextFloat() * 2.0F - 1.0F) * distance;
-                this.ghast.getMoveControl().setWantedPosition(d0, d1, d2, 0.25D);
-            }
         }
     }
 }

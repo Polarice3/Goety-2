@@ -507,6 +507,7 @@ public class Goety {
             ComposterBlock.COMPOSTABLES.put(ModBlocks.FIRETHORN_BERRIES.get(), 0.3F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.TALL_SIENNA_GRASS.get().asItem(), 0.5F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.LARGE_SIENNA_FERN.get().asItem(), 0.5F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.SIENNA_VINE.get().asItem(), 0.5F);
             ComposterBlock.COMPOSTABLES.put(ModItems.SNAP_FUNGUS.get(), 0.65F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.ROTTEN_SAPLING.get().asItem(), 0.65F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_SAPLING.get().asItem(), 0.65F);
@@ -629,6 +630,7 @@ public class Goety {
         event.put(ModEntityType.BOUND_STORM_CASTER.get(), BoundStormCaster.setCustomAttributes().build());
         event.put(ModEntityType.HAUNTED_ARMOR_SERVANT.get(), HauntedArmorServant.setCustomAttributes().build());
         event.put(ModEntityType.HAUNTED_SKULL.get(), HauntedSkull.setCustomAttributes().build());
+        event.put(ModEntityType.SPRITE.get(), SpriteMob.setCustomAttributes().build());
         event.put(ModEntityType.BURNING_HOGLIN.get(), BurningHoglin.setCustomAttributes().build());
         event.put(ModEntityType.DOPPELGANGER.get(), Doppelganger.setCustomAttributes().build());
         event.put(ModEntityType.MINI_GHAST.get(), MiniGhast.setCustomAttributes().build());

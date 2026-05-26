@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "#goety:windswept_plants",
     "#goety:end_plants"
   ]
 }

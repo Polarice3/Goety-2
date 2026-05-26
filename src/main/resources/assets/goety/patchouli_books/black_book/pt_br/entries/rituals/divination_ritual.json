@@ -1,0 +1,60 @@
+{
+  "name": "Ritual do Oráculo",
+  "icon": "goety:crystal_ball",
+  "category": "goety:rituals",
+  "advancement": "goety:goety/get_crystal_ball",
+  "sortnum": 2,
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requisitos: $(li)1 Bola de Cristal $(li)16 Castiçais Acesos $(li)1 Crânio de Esqueleto"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/divination_ritual.png"],
+      "border": true,
+      "text": "Um exemplo de como o ritual pode ser montado."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A palavra 'Necromancia' refere-se à arte da adivinhação através dos espíritos dos mortos. Usando o poder das almas, você é capaz de realizar rituais que podem revelar localizações de certas áreas para você."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/ancient_city"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/desert_pyramid"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/jungle_temple"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/pillager_outpost"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/stronghold"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/woodland_mansion"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/nether/fortress"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/nether/bastion_remnant"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/end/end_city"
+    }
+  ]
+}

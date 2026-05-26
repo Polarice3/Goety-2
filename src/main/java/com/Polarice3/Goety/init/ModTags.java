@@ -308,7 +308,26 @@ public class ModTags {
         public static final TagKey<Structure> CAN_SUMMON_BRUTES = tag("can_summon_brutes");
         public static final TagKey<Structure> CAN_SUMMON_WITHER_SKELETONS = tag("can_summon_wither_skeletons");
         public static final TagKey<Structure> CAN_SUMMON_BORDER_WRAITHS = tag("can_summon_border_wraiths");
+
         public static final TagKey<Structure> NECROMANCER_SPAWN = tag("mob_spawn/necromancer");
+
+        public static final TagKey<Structure> PILLAGER_OUTPOST = tag("explorer_maps/pillager_outpost");
+        public static final TagKey<Structure> JUNGLE_TEMPLE = tag("explorer_maps/jungle_temple");
+        public static final TagKey<Structure> DESERT_PYRAMID = tag("explorer_maps/desert_pyramid");
+
+        public static final TagKey<Structure> CRYPT_EXPLORER = tag("explorer_maps/crypt");
+        public static final TagKey<Structure> GRAVEYARD = tag("explorer_maps/graveyard");
+        public static final TagKey<Structure> SPIDER_DEN = tag("explorer_maps/spider_den");
+        public static final TagKey<Structure> BLIGHTED_SHACK = tag("explorer_maps/blighted_shack");
+        public static final TagKey<Structure> RUINED_MONASTERY = tag("explorer_maps/ruined_monastery");
+        public static final TagKey<Structure> DARK_MANOR = tag("explorer_maps/dark_manor");
+        public static final TagKey<Structure> WIND_SHRINE = tag("explorer_maps/wind_shrine");
+        public static final TagKey<Structure> OMINOUS_BLACKSMITH = tag("explorer_maps/ominous_blacksmith");
+        public static final TagKey<Structure> SORCEROUS_KEEP = tag("explorer_maps/sorcerous_keep");
+        public static final TagKey<Structure> FINAL_TERMINAL = tag("explorer_maps/final_terminal");
+
+        public static final TagKey<Structure> NECRO_HOSTILE = tag("necro_hostile");
+        public static final TagKey<Structure> VOID_HOSTILE = tag("void_hostile");
 
         private static TagKey<Structure> tag(String name) {
             return create(Goety.location(name));

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.magic.spells.storm;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
+import com.Polarice3.Goety.common.entities.ally.SpriteMob;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.EverChargeSpell;
 import com.Polarice3.Goety.common.magic.SpellStat;
@@ -18,6 +19,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.BlockHitResult;
@@ -91,6 +93,11 @@ public class ShockingSpell extends EverChargeSpell {
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
         float damage = SpellConfig.ShockingDamage.get().floatValue() * WandUtil.damageMultiply();
+        if (caster instanceof SpriteMob spriteMob) {
+            if (spriteMob.getAttribute(Attributes.ATTACK_DAMAGE) != null) {
+                damage = (float) spriteMob.getAttributeValue(Attributes.ATTACK_DAMAGE);
+            }
+        }
         int range = spellStat.getRange();
         int burning = spellStat.getBurning();
         if (WandUtil.enchantedFocus(caster)) {

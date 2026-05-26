@@ -1,0 +1,20 @@
+{
+  "name": "精灵",
+  "icon": "minecraft:glass",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你听过那些光化作的精灵在沼泽中轻舞、引诱旅人走向死亡的传说。起初，你以为它们只是带着受害者在原地绕圈，直到他们饿死为止。结果你发现，这群精灵不擅长饿死别人，它们擅长电死别人。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:sprite",
+      "scale": 0.75
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_sprite_thrall"
+    }
+  ]
+}

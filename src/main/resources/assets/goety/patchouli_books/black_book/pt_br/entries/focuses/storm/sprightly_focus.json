@@ -1,0 +1,19 @@
+{
+  "name": "Foco da Centelha Relampejante",
+  "icon": "goety:sprightly_focus",
+  "category": "goety:focuses/storm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Com alguns ingredientes e magia, tu és capaz de invocar Centelhas Relampejantes para que voem ao redor e ataquem teus inimigos com pequenos raios."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/sprightly_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Lançar com $(l:crafts/staff/storm_staff)Cajado da Tempestade$() invoca mais Centelhas Relampejantes."
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.items.magic;
 
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
 import com.Polarice3.Goety.common.items.ItemBase;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
@@ -13,6 +14,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -70,19 +72,26 @@ public class TransferScroll extends ItemBase {
                 LivingEntity summon = getSummon(itemstack);
                 if (itemstack.getTag() != null) {
                     if (summon instanceof IOwned owned) {
-                        if (owned.getTrueOwner() == player) {
-                            if (player.isShiftKeyDown() || player.isCrouching()){
-                                itemstack.getTag().remove(TAG_ENTITY);
-                            }
-                        } else if (RitualRequirements.canSummon(level, player, summon.getType())){
-                            owned.setTrueOwner(player);
-                            player.playSound(SoundEvents.RESPAWN_ANCHOR_SET_SPAWN, 1.0F, 1.0F);
-                            if (!level.isClientSide) {
+                        if (!level.isClientSide) {
+                            if (owned.getTrueOwner() == player) {
+                                if (player.isShiftKeyDown() || player.isCrouching()){
+                                    itemstack.getTag().remove(TAG_ENTITY);
+                                    return InteractionResultHolder.success(itemstack);
+                                }
+                            } else if (RitualRequirements.canSummon(level, player, summon.getType())){
+                                owned.setTrueOwner(player);
+                                if (summon instanceof RaiderServant servant && servant.isLeader()) {
+                                    ItemStack newBanner = servant.getLeaderBannerInstance();
+                                    if (!newBanner.isEmpty()) {
+                                        servant.setItemSlot(EquipmentSlot.HEAD, newBanner);
+                                    }
+                                }
+                                player.playSound(SoundEvents.RESPAWN_ANCHOR_SET_SPAWN, 1.0F, 1.0F);
                                 ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.RESPAWN_ANCHOR_SET_SPAWN, 1.0F, 1.0F));
+                                itemstack.shrink(1);
+                                return InteractionResultHolder.success(itemstack);
                             }
-                            itemstack.shrink(1);
                         }
-                        return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
                     }
                 }
             }

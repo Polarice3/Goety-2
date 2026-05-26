@@ -15,6 +15,11 @@
     {
       "type": "patchouli:text",
       "text": "终端顶部有一座虚空神龛。需要插入四块虚空碎片才能召唤一位强大的战士。击败战士后，虚空神龛上会出现一个物品，用以揭示一个可怕的秘密。"
+    },
+    {
+      "type": "goety:ritual",
+      "advancement": "goety:goety/get_crystal_ball",
+      "recipe": "goety:locate/end/final_terminal"
     }
   ]
 }

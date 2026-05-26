@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "goety:siltstone",
+    "goety:smooth_siltstone",
+    "goety:siltstone_bricks",
+    "goety:siltstone_tiles",
+    "goety:siltstone_pavement",
+    "goety:chiseled_siltstone",
+    "goety:chiseled_siltstone_bricks",
+    "goety:siltstone_pillar"
+  ]
+}

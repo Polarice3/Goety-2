@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:pillager_outpost",
+    {
+      "id": "#ctov:pillager_outpost",
+      "required": false
+    },
+    {
+      "id": "#repurposed_structures:collections/outposts",
+      "required": false
+    }
+  ]
+}

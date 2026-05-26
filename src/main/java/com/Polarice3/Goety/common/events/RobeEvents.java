@@ -9,7 +9,6 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.AllyIrk;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.world.structures.ModStructureTags;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.config.MainConfig;
@@ -278,7 +277,7 @@ public class RobeEvents {
                         boolean undead = CuriosFinder.validNecroUndead(mobAttacker);
                         if (target.level instanceof ServerLevel serverLevel) {
                             if (MobsConfig.HostileCryptUndead.get()) {
-                                if (BlockFinder.findStructure(serverLevel, target.blockPosition(), ModStructureTags.NECRO_HOSTILE)
+                                if (BlockFinder.findStructure(serverLevel, target.blockPosition(), ModTags.Structures.NECRO_HOSTILE)
                                         && !CuriosFinder.neutralNamelessSet(target)) {
                                     undead = false;
                                 }
@@ -387,7 +386,7 @@ public class RobeEvents {
                         boolean ender = CuriosFinder.validVoidMob(mobAttacker);
                         if (target.level instanceof ServerLevel serverLevel) {
                             if (MobsConfig.HostileTerminalEnder.get()) {
-                                if (BlockFinder.findStructure(serverLevel, target.blockPosition(), ModStructureTags.VOID_HOSTILE)) {
+                                if (BlockFinder.findStructure(serverLevel, target.blockPosition(), ModTags.Structures.VOID_HOSTILE)) {
                                     ender = false;
                                 }
                             }

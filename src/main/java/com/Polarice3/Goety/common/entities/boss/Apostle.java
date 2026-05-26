@@ -174,6 +174,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
     public double prevX;
     public double prevY;
     public double prevZ;
+    public RandomSource apostleRandom = RandomSource.create();
     public Vec3 toTeleportPos = null;
     public DamageSource deathBlow = this.damageSources().generic();
     public NetherSpreaderUtil netherSpreaderUtil = NetherSpreaderUtil.createLevelSpreader();
@@ -946,7 +947,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
                     final double startZ = this.getZ();
                     final LivingEntity target = this.getTarget();
                     final Level level = this.level;
-                    final RandomSource randomSource = this.level.getRandom();
+                    final RandomSource randomSource = this.apostleRandom;
 
                     this.prevX = startX;
                     this.prevY = this.getY();
@@ -1007,7 +1008,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
                     final double selfY = this.getY();
                     final double selfZ = this.getZ();
                     final Level level = this.level;
-                    final RandomSource randomSource = this.level.getRandom();
+                    final RandomSource randomSource = this.apostleRandom;
 
                     this.prevX = selfX;
                     this.prevY = selfY;

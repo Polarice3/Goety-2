@@ -3,7 +3,7 @@ package com.Polarice3.Goety.common.items;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.projectiles.EyeItemEntity;
-import com.Polarice3.Goety.common.world.structures.ModStructureTags;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.ItemHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -27,7 +27,7 @@ public class CrypticEyeItem extends Item {
       ItemStack itemstack = p_41185_.getItemInHand(p_41186_);
       p_41185_.startUsingItem(p_41186_);
       if (p_41184_ instanceof ServerLevel serverlevel) {
-          BlockPos blockpos = serverlevel.findNearestMapStructure(ModStructureTags.CRYPT, p_41185_.blockPosition(), 100, false);
+          BlockPos blockpos = serverlevel.findNearestMapStructure(ModTags.Structures.CRYPT_EXPLORER, p_41185_.blockPosition(), 100, false);
          if (blockpos != null) {
             EyeItemEntity eyeItem = new EyeItemEntity(ModEntityType.CRYPTIC_EYE.get(), p_41184_, p_41185_.getX(), p_41185_.getY(0.5D), p_41185_.getZ());
             eyeItem.setItem(itemstack);

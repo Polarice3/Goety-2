@@ -4,6 +4,8 @@ import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.ritual.IRitualType;
 import com.Polarice3.Goety.api.ritual.RitualType;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.common.blocks.TallSkullBlock;
+import com.Polarice3.Goety.common.blocks.WallTallSkullBlock;
 import com.Polarice3.Goety.common.blocks.entities.RitualBlockEntity;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
@@ -448,6 +450,28 @@ public class RitualRequirements extends RitualTypes {
                 if (!finder.hasBlocks(third, 16)) {
                     if (pPlayer != null) {
                         pPlayer.displayClientMessage(Component.translatable("info.goety.ritual.structure.noBlocks", Blocks.MOSS_BLOCK.getName()), true);
+                    }
+                    return false;
+                }
+            }
+            case DIVINATION ->{
+                Predicate<BlockState> first = blockState -> blockState.is(ModBlocks.CRYSTAL_BALL.get());
+                Predicate<BlockState> third = blockState -> blockState.getBlock() instanceof AbstractSkullBlock || blockState.getBlock() instanceof TallSkullBlock || blockState.getBlock() instanceof WallTallSkullBlock;
+                if (!finder.hasBlocks(first, 1)) {
+                    if (pPlayer != null) {
+                        pPlayer.displayClientMessage(Component.translatable("info.goety.ritual.structure.noBlocks", ModBlocks.CRYSTAL_BALL.get().getName()), true);
+                    }
+                    return false;
+                }
+                if (!BlockFinder.getNearbyLitCandles(pLevel, pPos, finder.getXRange(), finder.getYRange(), finder.getZRange(), 16)) {
+                    if (pPlayer != null) {
+                        pPlayer.displayClientMessage(Component.translatable("info.goety.ritual.structure.noCandles"), true);
+                    }
+                    return false;
+                }
+                if (!finder.hasBlocks(third, 1)) {
+                    if (pPlayer != null) {
+                        pPlayer.displayClientMessage(Component.translatable("info.goety.ritual.structure.noBlocks", Blocks.SKELETON_SKULL.getName()), true);
                     }
                     return false;
                 }

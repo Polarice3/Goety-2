@@ -1,4 +1,4 @@
-// 1.20.1	2026-04-27T11:22:36.425219	Loot Tables
+// 1.20.1	2026-05-24T16:46:02.5401858	Loot Tables
 1173ad0aef6067156a1c3161e3fe16b8e10b3f92 data/goety/loot_tables/blocks/animator.json
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
@@ -133,7 +133,7 @@ e7d53fcab331d82ff8ab3a6cb08e58b9d4258b80 data/goety/loot_tables/blocks/crypt_sto
 cb80103d326355ff2ba19a7053c0d245ab29bfb5 data/goety/loot_tables/blocks/crypt_tiles_stairs.json
 c08e424ed01a5be424159d4336e4ac75bf03d86c data/goety/loot_tables/blocks/crypt_tiles_wall.json
 3f0405296ee9217cf199cca85654581d24abe372 data/goety/loot_tables/blocks/crypt_urn.json
-c786a9967448671d8890840c980f24df29a8f64b data/goety/loot_tables/blocks/crystal_ball.json
+32b471f03456f962c712541a6d1cc47eac567c99 data/goety/loot_tables/blocks/crystal_ball.json
 fff865226994e4c1c81dafb7d5896bfc42cfb570 data/goety/loot_tables/blocks/cursed_bars.json
 83bb6fbe810b68a3cc10cc1382ac246c8e7d45f3 data/goety/loot_tables/blocks/cursed_cage.json
 97d89d65368518d07c5703d79518baf62c94947b data/goety/loot_tables/blocks/cursed_infuser.json
@@ -476,6 +476,7 @@ ca0f28271dc1286e5a7ba840177cbdfc8f64e17b data/goety/loot_tables/blocks/shade_til
 cfcaa16ac0755134e23ff7190f8d0a59a9e39ba3 data/goety/loot_tables/blocks/shriek_obelisk.json
 40020f02c21c793ff69aea0d97e57ee41c1743e3 data/goety/loot_tables/blocks/sienna_fern.json
 f2551087e9f4e0e91715e981a5f2b53bfb7a5f33 data/goety/loot_tables/blocks/sienna_grass.json
+b8b079c020c9a008a9410432b004ad459bb724a0 data/goety/loot_tables/blocks/sienna_vine.json
 25ce9af4fb84c41c02dd4ceda1a2e1aa3e476871 data/goety/loot_tables/blocks/siltstone.json
 2eb2c9ac25b34029386c670029a53f926ae55be5 data/goety/loot_tables/blocks/siltstone_bricks.json
 b0bda61f20a66c808652b666277fb4499e86b134 data/goety/loot_tables/blocks/siltstone_brick_slab.json

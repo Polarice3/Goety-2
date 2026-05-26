@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.api.entities;
 
 import com.Polarice3.Goety.api.blocks.entities.IBarrack;
+import com.Polarice3.Goety.api.blocks.entities.IOwnedBlock;
 import com.Polarice3.Goety.api.entities.ally.IServant;
-import com.Polarice3.Goety.common.blocks.entities.OwnedBlockEntity;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
@@ -129,7 +129,7 @@ public interface ITrainable {
                 }
                 if (this.getStoredTrainPos().isPresent()) {
                     if (mob.level.getBlockEntity(this.getStoredTrainPos().get()) instanceof IBarrack barrack) {
-                        if (barrack instanceof OwnedBlockEntity ownedBlock && mob instanceof IServant owned) {
+                        if (barrack instanceof IOwnedBlock ownedBlock && mob instanceof IServant owned) {
                             if (ownedBlock.getTrueOwner() != owned.getTrueOwner()) {
                                 this.setStoredTrainPos(null);
                             }

@@ -7,12 +7,10 @@ import com.Polarice3.Goety.common.items.block.OminousIdolBlockItem;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.EntityFinder;
-import com.Polarice3.Goety.utils.ModTicketTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -28,22 +26,27 @@ public class OminousIdolBlockEntity extends OwnedBlockEntity {
     public List<Integer> ids = new ArrayList<>();
     public int clientCount = 0;
     private CursedCageBlockEntity cursedCageTile;
-    public long ticketTime = 0;
     public boolean isEmpty = false;
 
     public OminousIdolBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
         super(ModBlockEntities.OMINOUS_IDOL.get(), p_155229_, p_155230_);
     }
 
+    @Override
+    public boolean shouldChunkLoad() {
+        return this.level instanceof ServerLevel && !this.uuids.isEmpty();
+    }
+
+    @Override
+    public int selfLoadRadius() {
+        return 9;
+    }
+
     public void tick(){
         if (this.level != null) {
-            if (this.level instanceof ServerLevel world) {
+            if (this.level instanceof ServerLevel) {
                 if (!this.uuids.isEmpty()) {
-                    ChunkPos chunkPos = world.getChunkAt(this.worldPosition).getPos();
-                    if (--this.ticketTime <= 0L) {
-                        world.getChunkSource().addRegionTicket(ModTicketTypes.BLOCK, chunkPos, 9, this.worldPosition);
-                        this.ticketTime = ModTicketTypes.BLOCK.timeout() - 1L;
-                    }
+                    this.chunkLoadBlock();
                     this.uuids.removeIf(uuid -> {
                         Entity entity = EntityFinder.getLivingEntityByUuiD(uuid);
                         if (!(entity instanceof RaiderServant illagerServant)){

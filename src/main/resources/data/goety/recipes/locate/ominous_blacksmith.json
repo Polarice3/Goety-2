@@ -1,0 +1,31 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:locate",
+  "activation_item": {
+    "item": "minecraft:map"
+  },
+  "craftType": "divination",
+  "structure_to_locate": {
+    "tag": "goety:explorer_maps/ominous_blacksmith",
+    "display_name": "filled_map.goety.ominous_blacksmith"
+  },
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "tag": "goety:full_highrock_craft"
+    },
+    {
+      "tag": "goety:full_silt_craft"
+    },
+    {
+      "tag": "forge:storage_blocks/iron"
+    },
+    {
+      "tag": "forge:storage_blocks/copper"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

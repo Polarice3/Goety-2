@@ -9,6 +9,7 @@ import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.research.ResearchScroll;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.common.ritual.EnchantItemRitual;
+import com.Polarice3.Goety.common.ritual.LocateRitual;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -154,6 +155,14 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
                 EnchantmentInstance enchantmentInstance = new EnchantmentInstance(recipe.getEnchantment(), i);
                 results.add(EnchantedBookItem.createForEnchantment(enchantmentInstance));
             }
+        } else if (recipe.getRitual() instanceof LocateRitual && recipe.getStructureTag() != null) {
+            ItemStack result = new ItemStack(Items.FILLED_MAP);
+            String string = "filled_map.goety.magic";
+            if (recipe.getStructureName() != null) {
+                string = recipe.getStructureName();
+            }
+            result.setHoverName(Component.translatable(string));
+            results.add(result);
         } else {
             results.add(recipe.getResultItem(null));
         }

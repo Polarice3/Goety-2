@@ -3,9 +3,11 @@ package com.Polarice3.Goety.common.blocks;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.entities.NecroticCandlestickBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -18,6 +20,40 @@ import org.jetbrains.annotations.Nullable;
 public class WallNecroticCandlestick extends WallCandlestickBlock implements EntityBlock {
     public WallNecroticCandlestick(Properties p_49795_) {
         super(p_49795_, 6);
+    }
+
+    public void onPlace(BlockState p_55724_, Level p_55725_, BlockPos p_55726_, BlockState p_55727_, boolean p_55728_) {
+        for(Direction direction : Direction.values()) {
+            p_55725_.updateNeighborsAt(p_55726_.relative(direction), this);
+        }
+
+    }
+
+    public void onRemove(BlockState p_54647_, Level p_54648_, BlockPos p_54649_, BlockState p_54650_, boolean p_54651_) {
+        if (!p_54651_ && !p_54647_.is(p_54650_.getBlock())) {
+            if (p_54647_.getValue(LIT)) {
+                this.updateNeighbours(p_54647_, p_54648_, p_54649_);
+            }
+
+            super.onRemove(p_54647_, p_54648_, p_54649_, p_54650_, p_54651_);
+        }
+    }
+
+    public boolean isSignalSource(BlockState p_55213_) {
+        return p_55213_.hasProperty(LIT);
+    }
+
+    public int getSignal(BlockState p_55208_, BlockGetter p_55209_, BlockPos p_55210_, Direction p_55211_) {
+        return p_55208_.hasProperty(LIT) && p_55208_.getValue(LIT) ? 15 : 0;
+    }
+
+    public int getDirectSignal(BlockState p_54670_, BlockGetter p_54671_, BlockPos p_54672_, Direction p_54673_) {
+        return p_54670_.getValue(LIT) && p_54670_.getValue(FACING) == p_54673_ ? 15 : 0;
+    }
+
+    private void updateNeighbours(BlockState p_54681_, Level p_54682_, BlockPos p_54683_) {
+        p_54682_.updateNeighborsAt(p_54683_, this);
+        p_54682_.updateNeighborsAt(p_54683_.relative(p_54681_.getValue(FACING).getOpposite()), this);
     }
 
     public void animateTick(BlockState p_220697_, Level p_220698_, BlockPos p_220699_, RandomSource p_220700_) {

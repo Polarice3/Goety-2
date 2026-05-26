@@ -26,7 +26,7 @@ public class VolcanoRenderer extends EntityRenderer<AbstractMonolith> {
     }
 
     public void render(AbstractMonolith pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
-        float f = Math.min(AbstractMonolith.getEmergingTime(), pEntity.getAge());
+        float f = Math.min(pEntity.localEmergingTime(), pEntity.getAge());
         pMatrixStack.pushPose();
         pMatrixStack.mulPose(Axis.YP.rotationDegrees(pEntity.getYRot()));
         pMatrixStack.scale(-1.0F, -1.0F, 1.0F);

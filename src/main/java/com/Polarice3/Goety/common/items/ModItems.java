@@ -354,6 +354,7 @@ public class ModItems {
     public static final RegistryObject<Item> THUNDERBOLT_FOCUS = ITEMS.register("thunderbolt_focus", () -> new MagicFocus(new ThunderboltSpell()));
     public static final RegistryObject<Item> ELECTROCUTE_FOCUS = ITEMS.register("electrocute_focus", () -> new MagicFocus(new ElectroOrbSpell()));
     public static final RegistryObject<Item> SURGING_FOCUS = ITEMS.register("surging_focus", () -> new MagicFocus(new SurgingSpell()));
+    public static final RegistryObject<Item> SPRIGHTLY_FOCUS = ITEMS.register("sprightly_focus", () -> new MagicFocus(new SpriteSpell()));
     public static final RegistryObject<Item> MONSOON_FOCUS = ITEMS.register("monsoon_focus", () -> new MagicFocus(new MonsoonSpell()));
     public static final RegistryObject<Item> DISCHARGE_FOCUS = ITEMS.register("discharge_focus", () -> new MagicFocus(new DischargeSpell()));
     public static final RegistryObject<Item> BOLTING_FOCUS = ITEMS.register("bolting_focus", () -> new MagicFocus(new BoltingSpell()));

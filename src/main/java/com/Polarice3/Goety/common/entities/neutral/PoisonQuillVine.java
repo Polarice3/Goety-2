@@ -289,12 +289,8 @@ public class PoisonQuillVine extends AbstractVine{
         return MathHelper.secondsToTicks(1.25F);
     }
 
-    public boolean isEmerging() {
-        return this.getAge() < getEmergingTime() && !this.isActivate();
-    }
-
-    public boolean isDescending(){
-        return this.getAge() < getEmergingTime() && this.isActivate();
+    public float localEmergingTime() {
+        return getEmergingTime();
     }
 
     public void shootQuill(@NotNull LivingEntity target) {
@@ -371,8 +367,16 @@ public class PoisonQuillVine extends AbstractVine{
         this.playSound(this.getBurrowSound(), 2.0F, 1.0F);
     }
 
+    @Override
+    public void burrowThenHold() {
+        super.burrowThenHold();
+        if (this.getAge() <= 0) {
+            this.setAnimationState("hold");
+        }
+    }
+
     public EntityDimensions getDimensions(Pose p_33113_) {
-        float i = (this.getAge() / getEmergingTime());
+        float i = (this.getAge() / this.localEmergingTime());
         EntityDimensions entitydimensions = this.getType().getDimensions();
         return entitydimensions.scale(1, i);
     }

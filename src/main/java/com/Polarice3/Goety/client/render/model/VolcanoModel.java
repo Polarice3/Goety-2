@@ -49,7 +49,7 @@ public class VolcanoModel<T extends AbstractMonolith> extends EntityModel<T> {
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		if (entity.isEmerging() || entity.isDescending()) {
-			this.volcano.y = (AbstractMonolith.getEmergingTime()) - limbSwing;
+			this.volcano.y = entity.localEmergingTime() - limbSwing;
 		} else {
 			this.volcano.y = 0;
 		}

@@ -15,6 +15,11 @@
     {
       "type": "patchouli:text",
       "text": "ターミナルの上には虚空の聖堂があります。強力な戦士を召喚するには、4つの虚空の破片を挿入する必要があります。戦士を倒すと、虚空の聖堂に恐ろしい秘密を明かすオブジェクトが出現します。"
+    },
+    {
+      "type": "goety:ritual",
+      "advancement": "goety:goety/get_crystal_ball",
+      "recipe": "goety:locate/end/final_terminal"
     }
   ]
 }

@@ -1,0 +1,31 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:locate",
+  "activation_item": {
+    "item": "minecraft:map"
+  },
+  "craftType": "divination",
+  "structure_to_locate": {
+    "tag": "goety:explorer_maps/end/end_city",
+    "display_name": "filled_map.goety.end_city"
+  },
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "minecraft:purpur_block"
+    },
+    {
+      "item": "minecraft:end_stone_bricks"
+    },
+    {
+      "item": "minecraft:end_rod"
+    },
+    {
+      "item": "minecraft:ender_chest"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}
