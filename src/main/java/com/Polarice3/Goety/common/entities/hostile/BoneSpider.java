@@ -98,6 +98,7 @@ public class BoneSpider extends Spider implements RangedAttackMob {
                 }
             }
         }
+        super.onSyncedDataUpdated(accessor);
     }
 
     @Override
