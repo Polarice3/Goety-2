@@ -70,8 +70,10 @@ public class PedestalBlock extends BaseEntityBlock implements IForgeBlock, Simpl
                         ItemStack itemStack = handler.getStackInSlot(0);
                         if (itemStack.isEmpty()) {
                             if (!pedestal.isLocked()) {
-                                player.setItemInHand(hand, handler.insertItem(0, heldItem, false));
-                                world.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1, 1);
+                                if (!heldItem.isEmpty()) {
+                                    player.setItemInHand(hand, handler.insertItem(0, heldItem, false));
+                                    world.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1, 1);
+                                }
                             } else {
                                 world.playSound(null, pos, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundSource.BLOCKS, 1, 1);
                             }

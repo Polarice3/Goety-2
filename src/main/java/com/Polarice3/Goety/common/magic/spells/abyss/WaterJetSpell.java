@@ -122,7 +122,7 @@ public class WaterJetSpell extends EverChargeSpell {
                 }
                 if (burning <= 0) {
                     target.clearFire();
-                } else {
+                } else if (!MobUtil.areAllies(caster, target)) {
                     target.setSecondsOnFire(5 * burning);
                 }
                 particleOffset = target.getBbHeight() / 2;

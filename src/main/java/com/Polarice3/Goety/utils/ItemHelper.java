@@ -319,6 +319,7 @@ public class ItemHelper {
                                 return false;
                             }
                         }
+                        return true;
                     }
                 }
             }

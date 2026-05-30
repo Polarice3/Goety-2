@@ -260,6 +260,9 @@ public class GoetyEffects {
                     .addAttributeModifier(Attributes.ATTACK_DAMAGE, ModUUIDUtil.uuidString("effect.goety.rallied.attack"),
                             0.1D, AttributeModifier.Operation.MULTIPLY_TOTAL));
 
+    public static final RegistryObject<MobEffect> MANDATE = EFFECTS.register("mandate",
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0xdba213));
+
     public static final RegistryObject<MobEffect> DEFLECTIVE = EFFECTS.register("deflective",
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0xa575a5));
 

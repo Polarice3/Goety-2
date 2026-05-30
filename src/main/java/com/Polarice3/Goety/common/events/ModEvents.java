@@ -603,6 +603,23 @@ public class ModEvents {
                                 }
                             }
                         }
+                        Advancement advancement4 = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_buried_and_bygone_scroll"));
+                        if (advancement4 != null) {
+                            AdvancementProgress advancementProgress4 = serverPlayer.getAdvancements().getOrStartProgress(advancement4);
+                            if (!advancementProgress4.isDone()){
+                                Advancement advancement1 = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/unlock_necromancer"));
+                                Advancement advancement2 = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_bygone_scroll"));
+                                if (advancement1 != null && advancement2 != null) {
+                                    AdvancementProgress advancementProgress1 = serverPlayer.getAdvancements().getOrStartProgress(advancement1);
+                                    AdvancementProgress advancementProgress2 = serverPlayer.getAdvancements().getOrStartProgress(advancement2);
+                                    if (advancementProgress1.isDone() && advancementProgress2.isDone()){
+                                        for(String s : advancementProgress4.getRemainingCriteria()) {
+                                            serverPlayer.getAdvancements().award(advancement4, s);
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

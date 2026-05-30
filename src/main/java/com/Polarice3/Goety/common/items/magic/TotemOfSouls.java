@@ -125,10 +125,10 @@ public class TotemOfSouls extends Item implements ITotem {
         Level world = pContext.getLevel();
         BlockPos blockpos = pContext.getClickedPos();
         BlockState blockstate = world.getBlockState(blockpos);
-        if (blockstate.is(ModBlocks.CURSED_CAGE_BLOCK.get()) && !blockstate.getValue(CursedCageBlock.POWERED)) {
+        if (blockstate.getBlock() instanceof CursedCageBlock cageBlock && !blockstate.getValue(CursedCageBlock.POWERED)) {
             ItemStack itemstack = pContext.getItemInHand();
             if (!world.isClientSide) {
-                ((CursedCageBlock) ModBlocks.CURSED_CAGE_BLOCK.get()).setItem(world, blockpos, blockstate, itemstack);
+                cageBlock.setItem(world, blockpos, blockstate, itemstack);
                 world.levelEvent(null, 1010, blockpos, Item.getId(this));
             }
 

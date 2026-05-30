@@ -2148,6 +2148,8 @@
   "effect.goety.deflective.description": "Chance of deflecting incoming arrows from affected, negating damage; higher levels increases the chance.",
   "effect.goety.leeching": "Leeching",
   "effect.goety.leeching.description": "Heals affected per attack, healing 5% of target's max health; higher levels increases amount healed.",
+  "effect.goety.mandate": "Mandate (WIP)",
+  "effect.goety.mandate.description": "Receiving incoming damage redistributes it to 4 nearby allied entities, reducing the damage done to affected; higher levels increases effect radius and number of entities.",
   "effect.goety.swirling": "Swirling",
   "effect.goety.swirling.description": "Physical attacks causes swirling attack that damages nearby non-allied entities; higher levels deals more damage.",
   "effect.goety.shielding": "Shielding",

@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.TallSkullBlock;
 import com.Polarice3.Goety.common.blocks.WallTallSkullBlock;
 import com.Polarice3.Goety.common.blocks.entities.RitualBlockEntity;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.Prisoner;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import net.minecraft.core.BlockPos;
@@ -39,7 +40,25 @@ public class RitualRequirements extends RitualTypes {
 
     public static Mob getConvertEntity(TagKey<EntityType<?>> entityType, BlockPos pPos, Level pLevel){
         for (Mob mob : pLevel.getEntitiesOfClass(Mob.class, new AABB(pPos).inflate(RANGE))){
-            if (mob.getType().is(entityType)){
+            if (EntityType.WANDERING_TRADER.is(entityType) || EntityType.VILLAGER.is(entityType)) {
+                if (mob instanceof Prisoner prisoner) {
+                    if (prisoner.isTrader()) {
+                        if (EntityType.WANDERING_TRADER.is(entityType)) {
+                            return prisoner;
+                        } else {
+                            return null;
+                        }
+                    } else {
+                        if (EntityType.VILLAGER.is(entityType)) {
+                            return prisoner;
+                        } else {
+                            return null;
+                        }
+                    }
+                } else if (mob.getType().is(entityType)){
+                    return mob;
+                }
+            } else if (mob.getType().is(entityType)){
                 return mob;
             }
         }

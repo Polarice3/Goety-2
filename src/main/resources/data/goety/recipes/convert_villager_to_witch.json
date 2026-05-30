@@ -6,7 +6,7 @@
   },
   "craftType": "storm",
   "entity_to_convert": {
-    "tag": "goety:villagers",
+    "tag": "goety:non_trader_villagers",
     "display_name": "entity.minecraft.villager"
   },
   "entity_to_convert_into": "goety:witch_servant",

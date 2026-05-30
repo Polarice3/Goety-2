@@ -2,7 +2,7 @@
   "name": "凋灵死灵法师",
   "icon": "goety:nether_staff",
   "category": "goety:mutations",
-  "advancement": "goety:goety/unlock_necromancer",
+  "advancement": "goety:goety/read_buried_and_bygone_scroll",
   "pages": [
     {
       "type": "patchouli:text",

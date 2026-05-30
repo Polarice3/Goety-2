@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.common.blocks.entities.CursedCageBlockEntity;
+import com.Polarice3.Goety.utils.TotemFinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
@@ -10,6 +11,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -59,14 +61,24 @@ public class CursedCageBlock extends BaseEntityBlock implements IForgeBlock {
     }
 
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (pHand == InteractionHand.MAIN_HAND && pState.getValue(POWERED) && pPlayer.getMainHandItem().isEmpty()) {
-            this.dropItem(pLevel, pPos, pPlayer);
-            pState = pState.setValue(POWERED, Boolean.FALSE);
-            pLevel.setBlock(pPos, pState, 2);
-            return InteractionResult.sidedSuccess(pLevel.isClientSide);
-        } else {
-            return InteractionResult.PASS;
+        if (pHand == InteractionHand.MAIN_HAND && pPlayer.getMainHandItem().isEmpty()) {
+            if (!pState.getValue(POWERED)) {
+                if (!TotemFinder.FindTotem(pPlayer).isEmpty() && pState.getBlock() instanceof CursedCageBlock cageBlock) {
+                    ItemStack itemStack = TotemFinder.FindTotem(pPlayer);
+                    if (!pLevel.isClientSide) {
+                        cageBlock.setItem(pLevel, pPos, pState, itemStack);
+                        pLevel.levelEvent(null, 1010, pPos, Item.getId(itemStack.getItem()));
+                    }
+
+                    return InteractionResult.sidedSuccess(pLevel.isClientSide);
+                }
+            } else {
+                this.dropItem(pLevel, pPos, pPlayer);
+                pLevel.setBlock(pPos, pState.setValue(POWERED, Boolean.FALSE), 2);
+                return InteractionResult.sidedSuccess(pLevel.isClientSide);
+            }
         }
+        return InteractionResult.PASS;
     }
 
     public void setItem(Level pLevel, BlockPos pPos, BlockState pState, ItemStack pStack) {

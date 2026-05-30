@@ -21,6 +21,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 public class RecallSpell extends Spell implements ITouchSpell {
     @Override
@@ -66,6 +67,18 @@ public class RecallSpell extends Spell implements ITouchSpell {
                 player.displayClientMessage(Component.translatable("info.goety.focus.noPos"), true);
             } else {
                 player.displayClientMessage(Component.translatable("info.goety.focus.PosInvalid"), true);
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean targetConditions(ServerLevel worldIn, LivingEntity caster, @Nullable LivingEntity target, ItemStack staff, SpellStat spellStat) {
+        if (caster instanceof ServerPlayer player) {
+            if (RecallFocus.isValid(worldIn, WandUtil.findFocus(player))) {
+                if (MobUtil.getOwner(target) != null) {
+                    return MobUtil.getOwner(target) == caster;
+                }
             }
         }
         return false;

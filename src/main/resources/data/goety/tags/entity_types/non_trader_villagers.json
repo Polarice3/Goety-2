@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:villager",
+    "goety:prisoner",
+    {
+      "id": "guardvillagers:guard",
+      "required": false
+    }
+  ]
+}

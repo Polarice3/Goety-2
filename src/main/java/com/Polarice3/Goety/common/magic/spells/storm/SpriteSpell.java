@@ -91,9 +91,7 @@ public class SpriteSpell extends SummonSpell {
                 this.buffSummon(caster, spriteMob, potency);
                 this.SummonSap(caster, spriteMob);
                 this.setTarget(caster, spriteMob);
-                if (worldIn.addFreshEntity(spriteMob)) {
-                    this.uponSummon(worldIn, caster, staff, spriteMob);
-                }
+                worldIn.addFreshEntity(spriteMob);
                 this.summonAdvancement(caster, spriteMob);
             }
             this.SummonDown(caster);

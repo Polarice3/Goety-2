@@ -1,0 +1,29 @@
+{
+  "parent": "goety:goety/root",
+  "criteria": {
+    "buried_scroll": {
+      "conditions": {
+        "item": {
+          "items": [
+            "goety:buried_scroll"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "bygone_scroll": {
+      "conditions": {
+        "item": {
+          "items": [
+            "goety:bygone_scroll"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "requirements": [
+    ["buried_scroll"],
+    ["bygone_scroll"]
+  ]
+}
