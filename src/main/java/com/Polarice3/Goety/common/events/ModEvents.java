@@ -1,12 +1,12 @@
 package com.Polarice3.Goety.common.events;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.api.blocks.IEnchanteableBlock;
 import com.Polarice3.Goety.api.entities.IChunkLoader;
 import com.Polarice3.Goety.api.entities.IHiding;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.common.blocks.EnchanteableBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.ModChestBlock;
 import com.Polarice3.Goety.common.capabilities.lichdom.ILichdom;
@@ -945,9 +945,9 @@ public class ModEvents {
                             }
                         }
                     }
-                    if (event.getState().getBlock() instanceof EnchanteableBlock enchanteableBlock){
+                    if (event.getState().getBlock() instanceof IEnchanteableBlock){
                         BlockEntity blockEntity = event.getLevel().getBlockEntity(event.getPos());
-                        enchanteableBlock.playerDestroy(player.level, event.getPlayer(), event.getPos(), event.getState(), blockEntity, fakeItem);
+                        event.getState().getBlock().playerDestroy(player.level, event.getPlayer(), event.getPos(), event.getState(), blockEntity, fakeItem);
                     } else {
                         Block.dropResources(event.getState(), player.level, event.getPos(), null, player, fakeItem);
                     }
@@ -972,9 +972,9 @@ public class ModEvents {
                             }
                         }
                     }
-                    if (event.getState().getBlock() instanceof EnchanteableBlock enchanteableBlock){
+                    if (event.getState().getBlock() instanceof IEnchanteableBlock){
                         BlockEntity blockEntity = event.getLevel().getBlockEntity(event.getPos());
-                        enchanteableBlock.playerDestroy(player.level, event.getPlayer(), event.getPos(), event.getState(), blockEntity, fakeItem);
+                        event.getState().getBlock().playerDestroy(player.level, event.getPlayer(), event.getPos(), event.getState(), blockEntity, fakeItem);
                     } else {
                         Block.dropResources(event.getState(), player.level, event.getPos(), null, player, fakeItem);
                     }

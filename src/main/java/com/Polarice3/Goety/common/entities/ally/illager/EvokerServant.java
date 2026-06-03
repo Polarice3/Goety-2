@@ -16,6 +16,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -100,6 +101,15 @@ public class EvokerServant extends SpellcasterIllagerServant{
     @Override
     public int xpReward() {
         return 10;
+    }
+
+    @Override
+    protected ResourceLocation getDefaultLootTable() {
+        if (this.isNatural()){
+            return EntityType.EVOKER.getDefaultLootTable();
+        } else {
+            return super.getDefaultLootTable();
+        }
     }
 
     @Override

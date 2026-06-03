@@ -21,20 +21,12 @@ public class Hellhound extends BlackWolf{
     }
 
     @Override
-    public boolean doHurtTarget(Entity entityIn) {
-        boolean flag = super.doHurtTarget(entityIn);
-        if (flag) {
-            if (!entityIn.fireImmune()) {
-                float f = this.level.getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
-                entityIn.setSecondsOnFire(5 * (int) f);
-            } else if (entityIn instanceof LivingEntity livingEntity) {
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.WITHER, MathHelper.secondsToTicks(5), 0), this);
-            }
-        }
-        return flag;
-    }
-
-    @Override
     public void curseTarget(Entity entity) {
+        if (!entity.fireImmune()) {
+            float f = this.level.getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
+            entity.setSecondsOnFire(5 * (int) f);
+        } else if (entity instanceof LivingEntity livingEntity) {
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.WITHER, MathHelper.secondsToTicks(5), 0), this);
+        }
     }
 }

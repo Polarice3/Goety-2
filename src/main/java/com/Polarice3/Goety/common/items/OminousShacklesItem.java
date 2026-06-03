@@ -36,7 +36,7 @@ public class OminousShacklesItem extends Item {
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
         Level level = player.getCommandSenderWorld();
         if (!level.isClientSide) {
-            if (target instanceof AbstractVillager villager && !villager.isBaby()) {
+            if (target instanceof AbstractVillager villager && !villager.isBaby() && !villager.getType().is(ModTags.EntityTypes.UNSHACKLEABLE)) {
                 Prisoner prisoner = ServantUtil.takePrisoner(villager);
                 if (prisoner != null) {
                     prisoner.setTrueOwner(player);

@@ -163,6 +163,16 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<OminousBrazierStatueBlockEntity>> OMINOUS_BRAZIER_STATUE = BLOCK_ENTITY.register("ominous_brazier_statue",
             () -> BlockEntityType.Builder.of(OminousBrazierStatueBlockEntity::new, ModBlocks.OMINOUS_BRAZIER_STATUE.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<ThroneBlockEntity>> THRONE = BLOCK_ENTITY.register("throne",
+            () -> {
+                Block[] blocks = ModBlocks.BLOCKS.getEntries().stream()
+                        .map(RegistryObject::get)
+                        .filter(block -> block instanceof ThroneBlock)
+                        .toArray(Block[]::new);
+                return BlockEntityType.Builder.of(ThroneBlockEntity::new, blocks).build(null);
+            }
+    );
+
     public static final RegistryObject<BlockEntityType<TallSkullBlockEntity>> TALL_SKULL = BLOCK_ENTITY.register("tall_skull",
             () -> BlockEntityType.Builder.of(TallSkullBlockEntity::new, ModBlocks.TALL_SKULL_BLOCK.get(), ModBlocks.WALL_TALL_SKULL_BLOCK.get()).build(null));
 

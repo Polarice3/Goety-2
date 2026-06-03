@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " ic",
+    " gc",
+    "s  "
+  ],
+  "key":
+  {
+    "i":
+    {
+      "tag": "forge:ingots/iron"
+    },
+    "g":
+    {
+      "tag": "forge:ingots/gold"
+    },
+    "c":
+    {
+      "item": "goety:pale_steel_ingot"
+    },
+    "s":
+    {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result":
+  {
+    "item": "goety:reinforced_ice_axe"
+  }
+}

@@ -83,7 +83,7 @@ public class Endersent extends AbstractEnderling implements Enemy {
     public static int HALLOWED_EYE = 2;
     public static int TWISTED_EYE = 3;
     public static int DREADFUL_EYE = 4;
-    public boolean shouldTeleportSmash = false;
+    public boolean dropShard = false;
     @Nullable
     private BlockPos voidFrame;
     public int idleTime = 0;
@@ -191,6 +191,7 @@ public class Endersent extends AbstractEnderling implements Enemy {
 
             compound.put("EyeEffects", listtag);
         }
+        compound.putBoolean("DropShard", this.isDropShard());
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
@@ -226,6 +227,9 @@ public class Endersent extends AbstractEnderling implements Enemy {
                     this.eyeEffects.add(mobeffectinstance);
                 }
             }
+        }
+        if (compound.contains("DropShard")) {
+            this.setDropShard(compound.getBoolean("DropShard"));
         }
     }
 
@@ -389,6 +393,14 @@ public class Endersent extends AbstractEnderling implements Enemy {
 
     public void setEyeType(int eyeType) {
         this.entityData.set(EYE_TYPE, eyeType);
+    }
+
+    public boolean isDropShard() {
+        return this.dropShard;
+    }
+
+    public void setDropShard(boolean dropShard) {
+        this.dropShard = dropShard;
     }
 
     public List<MobEffectInstance> getEyeEffects() {
@@ -568,6 +580,8 @@ public class Endersent extends AbstractEnderling implements Enemy {
                 if (itementity != null) {
                     itementity.setExtendedLifetime();
                 }
+            }
+            if (this.isDropShard()) {
                 ItemEntity itementity2 = this.spawnAtLocation(ModItems.VOID_SHARD.get());
                 if (itementity2 != null) {
                     itementity2.setGlowingTag(true);

@@ -6,8 +6,10 @@ import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.npc.InventoryCarrier;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -25,7 +27,10 @@ public class MobFurnaceGoal<T extends Mob & IMobCrafter> extends Goal {
     public BlockPos furnace;
     public int workTick;
     public int furnaceTime;
+    public int checkCooldown = 0;
+    public int lastInventorySize = -1;
     public float speedModifier;
+    public boolean cachedCanSmelt = false;
     public boolean playSound = false;
 
     public MobFurnaceGoal(T mob, int furnaceTime, float speedModifier) {
@@ -41,6 +46,17 @@ public class MobFurnaceGoal<T extends Mob & IMobCrafter> extends Goal {
 
     @Override
     public boolean canUse() {
+        if (!this.inventoryChanged() && --this.checkCooldown > 0) {
+            return this.cachedCanSmelt
+                    && !this.mob.isUsingFurnace()
+                    && this.mob.level instanceof ServerLevel;
+        }
+        this.checkCooldown = 40;
+        this.cachedCanSmelt = this.smeltCheck();
+        return this.cachedCanSmelt;
+    }
+
+    public boolean smeltCheck() {
         if (this.mob.level instanceof ServerLevel) {
             if (this.canStartFurnaceUsing()) {
                 this.furnace = this.findFurnace();
@@ -48,6 +64,21 @@ public class MobFurnaceGoal<T extends Mob & IMobCrafter> extends Goal {
                     this.mob.setFurnacePos(this.furnace);
                 }
                 return this.furnace != null && this.mob.getTarget() == null;
+            }
+        }
+        return false;
+    }
+
+    public boolean inventoryChanged() {
+        if (this.mob instanceof InventoryCarrier carrier) {
+            int currentSize = 0;
+            SimpleContainer inv = carrier.getInventory();
+            for (int i = 0; i < inv.getContainerSize(); i++) {
+                currentSize += inv.getItem(i).getCount();
+            }
+            if (currentSize != this.lastInventorySize) {
+                this.lastInventorySize = currentSize;
+                return true;
             }
         }
         return false;

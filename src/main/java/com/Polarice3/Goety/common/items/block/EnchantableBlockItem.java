@@ -1,11 +1,24 @@
 package com.Polarice3.Goety.common.items.block;
 
 import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.common.blocks.ThroneBlock;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.config.MainConfig;
+import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.UUID;
 
 public class EnchantableBlockItem extends BlockItemBase {
 
@@ -30,6 +43,9 @@ public class EnchantableBlockItem extends BlockItemBase {
                 return stack.getCount() == 1 && enchantment == ModEnchantments.RADIUS.get();
             }
         }
+        if (stack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof ThroneBlock) {
+            return stack.getCount() == 1 && enchantment == ModEnchantments.ROYALTY.get();
+        }
         return stack.getCount() == 1;
     }
 
@@ -45,5 +61,34 @@ public class EnchantableBlockItem extends BlockItemBase {
     @Override
     public int getEnchantmentValue(ItemStack stack) {
         return 25;
+    }
+
+    public static void setOwner(@Nullable LivingEntity entity, ItemStack stack) {
+        CompoundTag entityTag = stack.getOrCreateTag();
+        if (entity != null) {
+            entityTag.putUUID("owner", entity.getUUID());
+            entityTag.putString("owner_name", entity.getDisplayName().getString());
+        }
+    }
+
+    @Nullable
+    public static UUID getOwnerID(ItemStack stack){
+        CompoundTag entityTag = stack.getTag();
+        if (entityTag != null){
+            if (entityTag.contains("owner")) {
+                return entityTag.getUUID("owner");
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+        if (stack.getTag() != null) {
+            if (stack.getTag().contains("owner_name")) {
+                tooltip.add(Component.translatable("tooltip.goety.arcaPlayer").setStyle(Style.EMPTY.applyFormat((ChatFormatting.GRAY))).append(Component.literal("" + stack.getTag().getString("owner_name")).setStyle(Style.EMPTY.applyFormat((ChatFormatting.GRAY)))));
+            }
+        }
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
 }

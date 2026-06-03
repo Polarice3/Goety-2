@@ -31,7 +31,7 @@ public class DischargeSpell extends Spell {
 
     @Override
     public SpellStat defaultStats() {
-        return super.defaultStats().setRadius(3.0D);
+        return super.defaultStats().setRadius(4.0D);
     }
 
     @Override

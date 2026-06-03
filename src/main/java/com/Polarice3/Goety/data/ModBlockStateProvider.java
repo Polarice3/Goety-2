@@ -38,6 +38,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
         plushie(ModBlocks.PLUSHIE_3.get());
         plushie(ModBlocks.PLUSHIE_4.get());
         plushie(ModBlocks.PLUSHIE_5.get());
+        plushie(ModBlocks.PLUSHIE_6.get());
+        plushie(ModBlocks.PLUSHIE_7.get());
+        plushie(ModBlocks.PLUSHIE_8.get());
+        plushie(ModBlocks.PLUSHIE_9.get());
+        plushie(ModBlocks.PLUSHIE_10.get());
 
         simpleBlockWithItem(ModBlocks.DIAMOND_MOLD_BLOCK.get());
 

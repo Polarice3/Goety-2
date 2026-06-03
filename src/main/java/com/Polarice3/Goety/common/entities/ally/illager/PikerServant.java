@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.ally.illager;
 
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.IRavager;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.config.AttributesConfig;
@@ -9,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -246,6 +248,15 @@ public class PikerServant extends AbstractIllagerServant{
         this.setFlag(1, false);
         this.attackTick = 0;
         this.level.broadcastEntityEvent(this, (byte) 5);
+    }
+
+    @Override
+    protected ResourceLocation getDefaultLootTable() {
+        if (this.isNatural()){
+            return ModEntityType.PIKER.get().getDefaultLootTable();
+        } else {
+            return super.getDefaultLootTable();
+        }
     }
 
     class PikerAttackGoal extends MeleeAttackGoal {

@@ -363,11 +363,14 @@ public class Heresiarch extends Cultist {
         this.populateDefaultEquipmentSlots(worldIn.getRandom(), difficultyIn);
         this.populateDefaultEquipmentEnchantments(worldIn.getRandom(), difficultyIn);
         if (!this.hasCustomName()){
-            int random = this.random.nextInt(4);
+            int random = this.random.nextInt(12);
             int random2 = this.random.nextInt(12);
             Component component = Component.translatable("title.goety.heresiarch." + random);
             Component component1 = Component.translatable("name.goety.heresiarch." + random2);
             this.setCustomName(Component.translatable(component.getString() +  component1.getString()));
+        }
+        if (reason == MobSpawnType.STRUCTURE) {
+            this.heal(this.getMaxHealth());
         }
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }

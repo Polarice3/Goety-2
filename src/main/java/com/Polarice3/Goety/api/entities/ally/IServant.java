@@ -580,7 +580,8 @@ public interface IServant extends IOwned, IChunkLoader {
         if (this instanceof Mob owned) {
             AttributeInstance modifiableattributeinstance = owned.getAttribute(Attributes.MOVEMENT_SPEED);
             if (modifiableattributeinstance != null) {
-                if (this.isStaying()) {
+                boolean isRidden = owned.getControllingPassenger() instanceof IServant servant && servant.isStaying();
+                if (this.isStaying() || isRidden) {
                     if (owned.getNavigation().getPath() != null) {
                         owned.getNavigation().stop();
                     }
@@ -589,8 +590,10 @@ public interface IServant extends IOwned, IChunkLoader {
                         modifiableattributeinstance.addTransientModifier(SPEED_MODIFIER);
                     }
                     this.stayingPosition();
-                    if (this.isWandering()) {
-                        this.setWandering(false);
+                    if (!isRidden) {
+                        if (this.isWandering()) {
+                            this.setWandering(false);
+                        }
                     }
                 } else {
                     if (modifiableattributeinstance.hasModifier(SPEED_MODIFIER)) {

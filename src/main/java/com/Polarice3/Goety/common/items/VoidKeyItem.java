@@ -57,6 +57,7 @@ public class VoidKeyItem extends ItemBase{
                 if (blockEntity1 != null && !blockEntity1.getEyeEffects().isEmpty()) {
                     endersent.setEyeEffects(blockEntity1.getEyeEffects());
                 }
+                endersent.setDropShard(true);
                 endersent.setPos(vec3);
                 endersent.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null, null);
                 endersent.setVoidFramePos(blockPos);

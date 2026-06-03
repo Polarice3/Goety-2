@@ -20,26 +20,18 @@ public class WinterWolf extends BlackWolf{
     }
 
     @Override
-    public boolean doHurtTarget(Entity entityIn) {
-        boolean flag = super.doHurtTarget(entityIn);
-        if (flag) {
-            if (entityIn instanceof LivingEntity livingEntity) {
-                int amp = 0;
-                MobEffect effect = MobEffects.MOVEMENT_SLOWDOWN;
-                if (CuriosFinder.hasFrostRobes(this.getMasterOwner())){
-                    if (!entityIn.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)) {
-                        effect = GoetyEffects.FREEZING.get();
-                    } else {
-                        amp += 1;
-                    }
-                }
-                livingEntity.addEffect(new MobEffectInstance(effect, MathHelper.secondsToTicks(5), amp), this);
-            }
-        }
-        return flag;
-    }
-
-    @Override
     public void curseTarget(Entity entity) {
+        if (entity instanceof LivingEntity livingEntity) {
+            int amp = 0;
+            MobEffect effect = MobEffects.MOVEMENT_SLOWDOWN;
+            if (CuriosFinder.hasFrostRobes(this.getMasterOwner())){
+                if (!entity.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)) {
+                    effect = GoetyEffects.FREEZING.get();
+                } else {
+                    amp += 1;
+                }
+            }
+            livingEntity.addEffect(new MobEffectInstance(effect, MathHelper.secondsToTicks(5), amp), this);
+        }
     }
 }

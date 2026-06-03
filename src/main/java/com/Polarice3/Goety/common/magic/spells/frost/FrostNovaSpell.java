@@ -31,7 +31,7 @@ public class FrostNovaSpell extends Spell {
 
     @Override
     public SpellStat defaultStats() {
-        return new SpellStat(0, 1, 16, 2.5D, 0, 0.0F);
+        return new SpellStat(0, 1, 16, 3.5D, 0, 0.0F);
     }
 
     @Override

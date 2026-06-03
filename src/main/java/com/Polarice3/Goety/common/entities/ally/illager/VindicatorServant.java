@@ -12,6 +12,7 @@ import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
@@ -171,6 +172,15 @@ public class VindicatorServant extends AbstractIllagerServant {
             }
         }
         super.die(pCause);
+    }
+
+    @Override
+    protected ResourceLocation getDefaultLootTable() {
+        if (this.isNatural()){
+            return EntityType.VINDICATOR.getDefaultLootTable();
+        } else {
+            return super.getDefaultLootTable();
+        }
     }
 
     @Override

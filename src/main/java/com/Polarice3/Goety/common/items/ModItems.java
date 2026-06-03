@@ -450,6 +450,7 @@ public class ModItems {
     public static final RegistryObject<Item> HUNTERS_BOW = ITEMS.register("hunters_bow", HuntersBowItem::new);
 //    public static final RegistryObject<Item> REVOLVER_CROSSBOW = ITEMS.register("revolver_crossbow", RevolverCrossbowItem::new);
     public static final RegistryObject<Item> IRON_ICE_AXE = ITEMS.register("iron_ice_axe", () -> new IceAxeItem(Tiers.IRON));
+    public static final RegistryObject<Item> REINFORCED_ICE_AXE = ITEMS.register("reinforced_ice_axe", () -> new IceAxeItem(Tiers.IRON, new Item.Properties().durability(600)));
     public static final RegistryObject<Item> DIAMOND_ICE_AXE = ITEMS.register("diamond_ice_axe", () -> new IceAxeItem(Tiers.DIAMOND));
     public static final RegistryObject<Item> PHILOSOPHERS_MACE = ITEMS.register("philosophers_mace", PhilosophersMaceItem::new);
     public static final RegistryObject<Item> DARK_SWORD = ITEMS.register("dark_sword", ModToolItems.DarkSwordItem::new);

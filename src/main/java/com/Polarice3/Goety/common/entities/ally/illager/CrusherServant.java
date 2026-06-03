@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.ally.illager;
 import com.Polarice3.Goety.api.entities.IMobCrafter;
 import com.Polarice3.Goety.client.particles.SmashParticleOption;
 import com.Polarice3.Goety.common.blocks.DarkAnvilBlock;
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.IllagerChestGoal;
 import com.Polarice3.Goety.common.entities.ai.MobCraftingGoal;
 import com.Polarice3.Goety.common.entities.ai.MobFurnaceGoal;
@@ -22,6 +23,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -67,6 +69,9 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
     protected static final EntityDataAccessor<Boolean> STORM = SynchedEntityData.defineId(CrusherServant.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Optional<BlockPos>> FURNACE_POS = SynchedEntityData.defineId(CrusherServant.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
     protected static final EntityDataAccessor<Boolean> SMELTING = SynchedEntityData.defineId(CrusherServant.class, EntityDataSerializers.BOOLEAN);
+    private static List<CraftingRecipe> ARMOR_RECIPE_CACHE = null;
+    private static List<CraftingRecipe> WEAPON_RECIPE_CACHE = null;
+    private static List<CraftingRecipe> ALL_CRAFTING_CACHE = null;
     public static String IDLE = "idle";
     public static String ATTACK = "attack";
     public int attackTick;
@@ -135,12 +140,27 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
         this.readCrafterData(pCompound);
     }
 
+    public static void invalidateRecipeCache() {
+        ARMOR_RECIPE_CACHE = null;
+        WEAPON_RECIPE_CACHE = null;
+        ALL_CRAFTING_CACHE = null;
+    }
+
     @Override
     public void die(DamageSource pCause) {
         if (!this.isFurnaceActuallyCooking()) {
             this.setFurnaceLit(false);
         }
         super.die(pCause);
+    }
+
+    @Override
+    protected ResourceLocation getDefaultLootTable() {
+        if (this.isNatural()){
+            return ModEntityType.CRUSHER.get().getDefaultLootTable();
+        } else {
+            return super.getDefaultLootTable();
+        }
     }
 
     @Override
@@ -365,6 +385,37 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
         return super.xpReward();
     }
 
+    private static List<CraftingRecipe> getArmorRecipes(ServerLevel level) {
+        if (ARMOR_RECIPE_CACHE == null) {
+            ARMOR_RECIPE_CACHE = level.getRecipeManager()
+                    .getAllRecipesFor(RecipeType.CRAFTING).stream()
+                    .filter(r -> validCraft(r.getResultItem(level.registryAccess()))
+                            && r.getResultItem(level.registryAccess()).getItem() instanceof ArmorItem)
+                    .toList();
+        }
+        return ARMOR_RECIPE_CACHE;
+    }
+
+    private static List<CraftingRecipe> getWeaponRecipes(ServerLevel level) {
+        if (WEAPON_RECIPE_CACHE == null) {
+            WEAPON_RECIPE_CACHE = level.getRecipeManager()
+                    .getAllRecipesFor(RecipeType.CRAFTING).stream()
+                    .filter(r -> validWeapon(r.getResultItem(level.registryAccess())))
+                    .toList();
+        }
+        return WEAPON_RECIPE_CACHE;
+    }
+
+    private static List<CraftingRecipe> getAllCraftingRecipes(ServerLevel level) {
+        if (ALL_CRAFTING_CACHE == null) {
+            ALL_CRAFTING_CACHE = level.getRecipeManager()
+                    .getAllRecipesFor(RecipeType.CRAFTING).stream()
+                    .filter(r -> validCraft(r.getResultItem(level.registryAccess())))
+                    .toList();
+        }
+        return ALL_CRAFTING_CACHE;
+    }
+
     public static ItemStack canSmelt(ItemStack stack, ServerLevel level) {
         return level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(stack), level)
                 .map(smeltingRecipe -> smeltingRecipe.getResultItem(level.registryAccess()))
@@ -398,7 +449,7 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
 
     @Nullable
     public static CraftingRecipe findSatisfiableRecipe(ItemStack stack, ServerLevel level, Container inventory, @Nullable EquipmentSlot targetSlot) {
-        List<CraftingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING);
+        List<CraftingRecipe> recipes = targetSlot != null ? getArmorRecipes(level) : getAllCraftingRecipes(level);
         return recipes.stream()
                 .filter(recipe -> {
                     ItemStack result = recipe.getResultItem(level.registryAccess());
@@ -452,15 +503,11 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
     }
 
     public static boolean isCraftingIngredient(ItemStack stack, ServerLevel level) {
-        List<CraftingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING);
         if (stack.isEmpty()) {
             return false;
         }
-        return recipes.stream().anyMatch(recipe -> {
-            ItemStack result = recipe.getResultItem(level.registryAccess());
-            return validCraft(result) && recipe.getIngredients().stream()
-                    .anyMatch(ingredient -> ingredient.test(stack));
-        });
+        return getAllCraftingRecipes(level).stream().anyMatch(recipe ->
+                recipe.getIngredients().stream().anyMatch(ingredient -> ingredient.test(stack)));
     }
 
     public static boolean validCraft(ItemStack itemStack) {
@@ -472,7 +519,7 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
 
     @Nullable
     public static CraftingRecipe findSatisfiableWeaponRecipe(ItemStack stack, ServerLevel level, Container inventory, @Nullable Predicate<ItemStack> resultFilter) {
-        List<CraftingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING);
+        List<CraftingRecipe> recipes = getWeaponRecipes(level);
         return recipes.stream()
                 .filter(recipe -> {
                     ItemStack result = recipe.getResultItem(level.registryAccess());
@@ -822,9 +869,24 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
     }
 
     public static class ForgeArmorGoal<T extends CrusherServant> extends MobCraftingGoal<T> {
+        private List<RaiderServant> cachedAllies = List.of();
+        private int allyCheckCooldown = 0;
 
         public ForgeArmorGoal(T mob) {
             super(mob, 60, 0.75F);
+        }
+
+        private List<RaiderServant> getAllies() {
+            if (--this.allyCheckCooldown <= 0) {
+                this.allyCheckCooldown = 60;
+                this.cachedAllies = this.mob.level.getEntitiesOfClass(
+                        RaiderServant.class,
+                        this.mob.getBoundingBox().inflate(16),
+                        ally -> ally != this.mob
+                                && ally.getTrueOwner() == this.mob.getTrueOwner()
+                                && ally.canWearArmor());
+            }
+            return this.cachedAllies;
         }
 
         public boolean canStartCrafting() {
@@ -845,11 +907,9 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
         public ItemStack findCraftableStack(ServerLevel level) {
             SimpleContainer inv = this.mob.getInventory();
 
-            List<RaiderServant> allies = this.mob.level.getEntitiesOfClass(RaiderServant.class, this.mob.getBoundingBox().inflate(16), ally -> ally != this.mob && ally.getTrueOwner() == this.mob.getTrueOwner() && ally.canWearArmor());
-
             for (EquipmentSlot slot : armorSlots()) {
                 boolean crusherNeeds = this.mob.getItemBySlot(slot).isEmpty() && this.mob.itemsInInv(s -> s.getItem() instanceof ArmorItem a && a.getEquipmentSlot() == slot).isEmpty();
-                boolean allyNeeds = allies.stream().anyMatch(ally -> ally.getItemBySlot(slot).isEmpty() && this.mob.itemsInInv(s -> s.getItem() instanceof ArmorItem a && a.getEquipmentSlot() == slot).isEmpty());
+                boolean allyNeeds = this.getAllies().stream().anyMatch(ally -> ally.getItemBySlot(slot).isEmpty() && this.mob.itemsInInv(s -> s.getItem() instanceof ArmorItem a && a.getEquipmentSlot() == slot).isEmpty());
 
                 if (!crusherNeeds && !allyNeeds) {
                     continue;
@@ -937,9 +997,24 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
     }
 
     public static class ForgeWeaponGoal<T extends CrusherServant> extends MobCraftingGoal<T> {
+        private List<RaiderServant> cachedAllies = List.of();
+        private int allyCheckCooldown = 0;
 
         public ForgeWeaponGoal(T mob) {
             super(mob, 60, 0.75F);
+        }
+
+        private List<RaiderServant> getAllies() {
+            if (--this.allyCheckCooldown <= 0) {
+                this.allyCheckCooldown = 60;
+                this.cachedAllies = this.mob.level.getEntitiesOfClass(
+                        RaiderServant.class,
+                        this.mob.getBoundingBox().inflate(16),
+                        ally -> ally != this.mob
+                                && ally.getTrueOwner() == this.mob.getTrueOwner()
+                                && ally.canWearArmor());
+            }
+            return this.cachedAllies;
         }
 
         @Override
@@ -965,11 +1040,9 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
         public ItemStack findCraftableStack(ServerLevel level) {
             SimpleContainer inv = this.mob.getInventory();
 
-            List<RaiderServant> allies = this.mob.level.getEntitiesOfClass(RaiderServant.class, this.mob.getBoundingBox().inflate(16), ally -> ally != this.mob && ally.getTrueOwner() == this.mob.getTrueOwner() && ally.canHaveWeapon());
-
             for (ItemStack stack : this.mob.itemsInInv(s -> !s.isEmpty())) {
                 CraftingRecipe recipe = findSatisfiableWeaponRecipe(stack, level, inv, null);
-                Optional<RaiderServant> optional = allies.stream().findFirst();
+                Optional<RaiderServant> optional = this.getAllies().stream().findFirst();
 
                 if (optional.isPresent()) {
                     RaiderServant raiderServant = optional.get();
@@ -985,7 +1058,7 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
                     continue;
                 }
 
-                boolean allyNeeds = allies.stream().anyMatch(ally -> allyNeedsWeapon(ally, result)
+                boolean allyNeeds = this.getAllies().stream().anyMatch(ally -> allyNeedsWeapon(ally, result)
                         && (ally instanceof AbstractIllagerServant illager && illager.itemsInInv(s -> s.getItem() == result.getItem()).isEmpty()) || !(ally instanceof AbstractIllagerServant));
 
                 if (allyNeeds) {

@@ -4,6 +4,7 @@ import com.Polarice3.Goety.common.entities.vehicle.SeatEntity;
 import com.Polarice3.Goety.common.items.magic.CommandFocus;
 import com.Polarice3.Goety.common.items.magic.OrderFocus;
 import com.Polarice3.Goety.init.ModTags;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -20,6 +21,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.FakePlayer;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +36,11 @@ public interface ISeat {
         }
         if (WandUtil.findFocus(player).getItem() instanceof CommandFocus || WandUtil.findFocus(player).getItem() instanceof OrderFocus) {
             return InteractionResult.PASS;
+        }
+        if (this.getOwner(world, pos) != null) {
+            if (this.getOwner(world, pos) != player || !MobUtil.areAllies(player, this.getOwner(world, pos))) {
+                return InteractionResult.PASS;
+            }
         }
 
         List<SeatEntity> seats = world.getEntitiesOfClass(SeatEntity.class, new AABB(pos));
@@ -96,6 +103,15 @@ public interface ISeat {
         return 0.0F;
     }
 
+    default boolean isThrone(Level world, BlockPos pos) {
+        return false;
+    }
+
+    @Nullable
+    default LivingEntity getOwner(Level world, BlockPos pos) {
+        return null;
+    }
+
     default void placeSeat(Level world, BlockPos pos, Entity entity) {
         if (world.isClientSide) {
             return;
@@ -103,6 +119,11 @@ public interface ISeat {
         SeatEntity seat = new SeatEntity(world, this.seatOffset(pos));
         if (this.hasLookAngle()) {
             seat.setCustomLook(this.seatLookAngle(world, pos));
+        }
+        seat.setThrone(this.isThrone(world, pos));
+        LivingEntity owner = this.getOwner(world, pos);
+        if (owner != null) {
+            seat.setOwner(owner);
         }
         world.addFreshEntity(seat);
         entity.startRiding(seat, true);

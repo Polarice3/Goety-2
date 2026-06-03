@@ -452,15 +452,19 @@ public class PotionEvents {
                         double radius = 8.0D * amp;
                         int size = 4 * amp;
                         List<LivingEntity> allies = target.level.getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(radius), livingEntity -> MobUtil.areAllies(target, livingEntity) && livingEntity != target && !livingEntity.hasEffect(GoetyEffects.MANDATE.get()));
+                        if (target instanceof Mob mob) {
+                            allies.removeIf(livingEntity -> MobUtil.getOwner(livingEntity) != mob);
+                        }
                         if (!allies.isEmpty()) {
                             allies.sort(Comparator.comparingDouble(target::distanceToSqr));
                             if (allies.size() > size) {
                                 allies.subList(size, allies.size()).clear();
                             }
-                            finalDamage /= Math.max(1, allies.size());
+                            finalDamage /= (allies.size() + 1);
+                            float distribute = finalDamage;
                             for (LivingEntity living : allies) {
                                 if (living != target) {
-                                    living.hurt(event.getSource(), finalDamage);
+                                    living.hurt(event.getSource(), distribute);
                                 }
                             }
                         }

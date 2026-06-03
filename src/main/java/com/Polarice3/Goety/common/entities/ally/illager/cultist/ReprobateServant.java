@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.ally.illager.cultist;
 
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
 import com.Polarice3.Goety.common.entities.ai.WitchServantBarterGoal;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
@@ -14,6 +15,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
@@ -235,6 +237,15 @@ public class ReprobateServant extends CultistServant {
     @Override
     public SoundEvent getCelebrateSound() {
         return SoundEvents.WITCH_CELEBRATE;
+    }
+
+    @Override
+    protected ResourceLocation getDefaultLootTable() {
+        if (this.isNatural()){
+            return ModEntityType.REPROBATE.get().getDefaultLootTable();
+        } else {
+            return super.getDefaultLootTable();
+        }
     }
 
     @Nullable

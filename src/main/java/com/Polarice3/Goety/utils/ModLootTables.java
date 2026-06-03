@@ -41,6 +41,13 @@ public class ModLootTables {
     public static final ResourceLocation INFERNO = register("entities/inferno_extra");
     public static final ResourceLocation APOSTLE_HARD = register("entities/apostle_2");
 
+    public static final ResourceLocation NATURAL_SIGNALER = register("entities/natural/signaler");
+    public static final ResourceLocation NATURAL_VINDICATOR_CHEF = register("entities/natural/vindicator_chef");
+    public static final ResourceLocation NATURAL_MOUNTAINEER = register("entities/natural/mountaineer");
+    public static final ResourceLocation NATURAL_GEOMANCER = register("entities/natural/geomancer");
+    public static final ResourceLocation NATURAL_ICEOLOGER = register("entities/natural/iceologer");
+    public static final ResourceLocation NATURAL_WIND_CALLER = register("entities/natural/wind_caller");
+
     public static final ResourceLocation WITCH_BARTER = register("gameplay/witch_bartering");
     public static final ResourceLocation WARLOCK_BARTER = register("gameplay/warlock_bartering");
     public static final ResourceLocation MAVERICK_BARTER = register("gameplay/maverick_bartering");

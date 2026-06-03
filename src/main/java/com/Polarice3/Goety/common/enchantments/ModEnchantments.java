@@ -47,4 +47,7 @@ public class ModEnchantments {
 
     public static final RegistryObject<Enchantment> VELOCITY = ENCHANTMENTS.register("velocity",
             () -> new VelocityEnchantment(Enchantment.Rarity.UNCOMMON, EquipmentSlot.MAINHAND));
+
+    public static final RegistryObject<Enchantment> ROYALTY = ENCHANTMENTS.register("royalty",
+            () -> new RoyaltyEnchantment(Enchantment.Rarity.VERY_RARE, EquipmentSlot.MAINHAND));
 }

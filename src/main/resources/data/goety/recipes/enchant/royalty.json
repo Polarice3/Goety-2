@@ -1,0 +1,29 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:enchant",
+  "activation_item": {
+    "item": "minecraft:book"
+  },
+  "craftType": "magic",
+  "soulCost": 25,
+  "duration": 10,
+  "enchantment": "goety:royalty",
+  "xpLevelCost": 10,
+  "ingredients": [
+    {
+      "item": "goety:soul_emerald"
+    },
+    {
+      "tag": "forge:ender_pearls"
+    },
+    {
+      "tag": "forge:storage_blocks/lapis"
+    },
+    {
+      "tag": "forge:storage_blocks/diamond"
+    }
+  ],
+  "result": {
+    "item": "minecraft:enchanted_book"
+  }
+}

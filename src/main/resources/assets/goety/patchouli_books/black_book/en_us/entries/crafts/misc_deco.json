@@ -84,6 +84,16 @@
       "type": "patchouli:crafting",
       "recipe": "goety:royal_throne",
       "recipe2": "goety:frosted_throne"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Royalty",
+      "text": "Thrones of all types can be enchanted with Royalty through a Ritual. Not only will no one but you or your allies can sit on the throne, but sitting on it will cause up to 4 nearby allies to take up incoming damage towards you. If someone else breaks the throne, it will lose its enchantment."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/royalty"
     }
   ]
 }

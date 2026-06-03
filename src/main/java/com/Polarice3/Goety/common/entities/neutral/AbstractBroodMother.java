@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.api.entities.IAutoRideable;
-import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
@@ -436,11 +435,6 @@ public class AbstractBroodMother extends Summoned implements IAutoRideable, Play
     public void die(DamageSource p_21014_) {
         this.setAnimationState(DEATH);
         super.die(p_21014_);
-    }
-
-    @Override
-    public boolean isStaying() {
-        return super.isStaying() || (this.getControllingPassenger() instanceof IServant servant && servant.isStaying());
     }
 
     public int getAttackType() {

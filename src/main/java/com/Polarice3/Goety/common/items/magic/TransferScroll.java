@@ -99,6 +99,34 @@ public class TransferScroll extends ItemBase {
         return InteractionResultHolder.pass(itemstack);
     }
 
+    /*@Override
+    public InteractionResult interactLivingEntity(ItemStack itemStack, Player player, LivingEntity target, InteractionHand hand) {
+        if (itemStack.getItem() == this){
+            if (target instanceof Mob mob) {
+                if (hasSummon(itemStack)) {
+                    LivingEntity summon = getSummon(itemStack);
+                    if (itemStack.getTag() != null) {
+                        if (summon instanceof IOwned owned) {
+                            if (!player.level.isClientSide) {
+                                owned.setTrueOwner(mob);
+                                if (summon instanceof RaiderServant servant && servant.isLeader()) {
+                                    ItemStack newBanner = servant.getLeaderBannerInstance();
+                                    if (!newBanner.isEmpty()) {
+                                        servant.setItemSlot(EquipmentSlot.HEAD, newBanner);
+                                    }
+                                }
+                                mob.playSound(SoundEvents.RESPAWN_ANCHOR_SET_SPAWN, 1.0F, 1.0F);
+                                itemStack.shrink(1);
+                                return InteractionResult.SUCCESS;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return super.interactLivingEntity(itemStack, player, target, hand);
+    }*/
+
     public static boolean hasSummon(ItemStack stack) {
         CompoundTag compoundtag = stack.getTag();
         return compoundtag != null && stack.getTag().contains(TAG_ENTITY);

@@ -6,8 +6,10 @@ import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.npc.InventoryCarrier;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -24,7 +26,10 @@ public class MobCraftingGoal<T extends Mob & IMobCrafter> extends Goal {
     public BlockPos craftTable;
     public int workTick;
     public int craftTime;
+    public int checkCooldown = 0;
+    public int lastInventorySize = -1;
     public float speedModifier;
+    public boolean cachedCanCraft = false;
 
     public MobCraftingGoal(T mob, int craftTime, float speedModifier) {
         this.mob = mob;
@@ -39,6 +44,17 @@ public class MobCraftingGoal<T extends Mob & IMobCrafter> extends Goal {
 
     @Override
     public boolean canUse() {
+        if (!this.inventoryChanged() && --this.checkCooldown > 0) {
+            return this.cachedCanCraft
+                    && !this.mob.isUsingFurnace()
+                    && this.mob.level instanceof ServerLevel;
+        }
+        this.checkCooldown = 40;
+        this.cachedCanCraft = this.craftCheck();
+        return this.cachedCanCraft;
+    }
+
+    public boolean craftCheck() {
         if (this.mob.level instanceof ServerLevel) {
             if (this.canStartCrafting()) {
                 this.craftTable = this.findCraftTable();
@@ -46,6 +62,21 @@ public class MobCraftingGoal<T extends Mob & IMobCrafter> extends Goal {
                     this.mob.setCraftTablePos(this.craftTable);
                 }
                 return this.craftTable != null && this.mob.getTarget() == null;
+            }
+        }
+        return false;
+    }
+
+    public boolean inventoryChanged() {
+        if (this.mob instanceof InventoryCarrier carrier) {
+            int currentSize = 0;
+            SimpleContainer inv = carrier.getInventory();
+            for (int i = 0; i < inv.getContainerSize(); i++) {
+                currentSize += inv.getItem(i).getCount();
+            }
+            if (currentSize != this.lastInventorySize) {
+                this.lastInventorySize = currentSize;
+                return true;
             }
         }
         return false;

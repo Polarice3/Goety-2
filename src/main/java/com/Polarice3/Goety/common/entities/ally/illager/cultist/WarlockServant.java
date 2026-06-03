@@ -17,6 +17,7 @@ import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ServantUtil;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
@@ -136,6 +137,15 @@ public class WarlockServant extends CultistServant implements RangedAttackMob {
 
     public SoundEvent getCelebrateSound() {
         return ModSounds.WARLOCK_CELEBRATE.get();
+    }
+
+    @Override
+    protected ResourceLocation getDefaultLootTable() {
+        if (this.isNatural()){
+            return ModEntityType.WARLOCK.get().getDefaultLootTable();
+        } else {
+            return super.getDefaultLootTable();
+        }
     }
 
     @Override

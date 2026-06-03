@@ -39,7 +39,7 @@ public class SculkConverterBlockEntity extends ModBlockEntity implements IEnchan
     public void activate(){
         if (this.level != null && this.level instanceof ServerLevel serverLevel) {
             if (this.checkCage()) {
-                int spread = this.enchantments.getOrDefault(ModEnchantments.POTENCY.get(), 0) + 1;
+                int spread = this.getEnchantments().getOrDefault(ModEnchantments.POTENCY.get(), 0) + 1;
                 int cost = 5 * spread;
                 if (this.getCursedCageTile().getSouls() > cost) {
                     this.getRelay();

@@ -1,15 +1,15 @@
 {
-  "name": "杂项.装饰品",
+  "name": "杂项装饰",
   "icon": "goety:gold_candlestick",
   "category": "goety:crafts",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "黑魔法是学会诸多能力的一条大路，而有些人认为这些能力……还挺好看？你在研习黑魔法中的旅程让你发现了若干装饰品，让你更有真正黑暗巫师的感觉。"
+      "text": "黑暗魔法是通往许多能力的途径，而作为黑魔法使你也有一颗臭美的心。你在黑暗艺术中的旅程让你发现了若干装饰品，这倒是能让你感觉自己更像一个真正的黑暗巫师。"
     },
     {
       "type": "patchouli:text",
-      "text": "讽刺的是，你发现的东西之一是为你的老窝提供照明的更好方法。"
+      "text": "具有讽刺的是，你发现的东西之一是为你老窝提供更好的照明的方法，黑魔法使也会怕迷失在黑暗里吗？"
     },
     {
       "type": "patchouli:crafting",
@@ -33,7 +33,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "goety:royal_carpet_corner",
-      "text": "普通地毯都太L了。你老窝的地板需要更加华丽，才能让你的脚踩上去。不幸的是，这种地毯需要先分成小块，然后才能把它们组合成合适的地毯图案。"
+      "text": "普通地毯对你来说都太L了。你老窝的地板必须更加豪华，才能让你的脚踩上去。不幸的是，这种地毯需要先被分成小块，然后才能将它们组合成合适的地毯样式。"
     },
     {
       "type": "patchouli:crafting",
@@ -58,7 +58,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "goety:royal_throne",
-      "text": "一个没有王座的房子算什么黑暗法师的家？你甚至可以让仆从坐在上面，你可以用魔杖命令他们坐上去，也可以用指路石或指令让他们守卫在王座的位置上。要让他们下来，你可以命令他们离开，设置他们守卫另一个位置，或者干脆用魔杖击杀他。"
+      "text": "作为黑魔法使你的家里居然没有邪恶的王座？你甚至可以让自己的仆从坐在王座上，你可以用魔杖命令他们坐上去，也可以用指路石或指令让他们守卫在王座的位置上。要让他们下来，你可以命令他们离开，设置他们守卫另一个位置，或者干脆一魔杖砸死他。"
     },
     {
       "type": "patchouli:crafting",
@@ -84,6 +84,16 @@
       "type": "patchouli:crafting",
       "recipe": "goety:royal_throne",
       "recipe2": "goety:frosted_throne"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "王权",
+      "text": "所有类型的王座都可以附魔王权。你和你的盟友都可以坐在王座上，坐在上面会使得附近最多4个盟友为你承受伤害。但是如果有敢于僭越王权的人破坏了王座，那么王座将失去附魔。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/royalty"
     }
   ]
 }

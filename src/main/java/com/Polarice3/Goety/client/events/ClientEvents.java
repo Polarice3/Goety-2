@@ -22,6 +22,7 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ally.GuardianServant;
 import com.Polarice3.Goety.common.entities.ally.Leapleaf;
 import com.Polarice3.Goety.common.entities.ally.golem.SquallGolem;
+import com.Polarice3.Goety.common.entities.ally.illager.CrusherServant;
 import com.Polarice3.Goety.common.entities.ally.illager.StormCasterServant;
 import com.Polarice3.Goety.common.entities.ally.illager.WindCallerServant;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
@@ -1356,5 +1357,10 @@ public class ClientEvents {
                 humanoidModel.copyPropertiesTo(model);
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onRecipesUpdated(RecipesUpdatedEvent event) {
+        CrusherServant.invalidateRecipeCache();
     }
 }

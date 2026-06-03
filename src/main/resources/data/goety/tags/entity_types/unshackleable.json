@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "__comment": "villager entities that can't be shackled by Ominous Shackles.",
+  "values": [
+    {
+      "id": "mca:male_villager",
+      "required": false
+    },
+    {
+      "id": "mca:female_villager",
+      "required": false
+    }
+  ]
+}

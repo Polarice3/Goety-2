@@ -20,23 +20,15 @@ public class Stormhound extends BlackWolf {
     }
 
     @Override
-    public boolean doHurtTarget(Entity entityIn) {
-        boolean flag = super.doHurtTarget(entityIn);
-        if (flag) {
-            if (entityIn instanceof LivingEntity livingEntity) {
-                int amp = 0;
-                MobEffect effect = GoetyEffects.SPASMS.get();
-                if (CuriosFinder.hasStormRobes(this.getMasterOwner())){
-                    amp += 1;
-                }
-                livingEntity.addEffect(new MobEffectInstance(effect, MathHelper.secondsToTicks(5), amp), this);
-            }
-        }
-        return flag;
-    }
-
-    @Override
     public void curseTarget(Entity entity) {
+        if (entity instanceof LivingEntity livingEntity) {
+            int amp = 0;
+            MobEffect effect = GoetyEffects.SPASMS.get();
+            if (CuriosFinder.hasStormRobes(this.getMasterOwner())){
+                amp += 1;
+            }
+            livingEntity.addEffect(new MobEffectInstance(effect, MathHelper.secondsToTicks(5), amp), this);
+        }
     }
 
     protected float getDamageAfterMagicAbsorb(DamageSource p_34149_, float p_34150_) {

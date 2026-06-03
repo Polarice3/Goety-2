@@ -6,11 +6,13 @@ import com.Polarice3.Goety.common.entities.ai.MobCraftingGoal;
 import com.Polarice3.Goety.common.entities.ai.MobFurnaceGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.init.ModTags;
+import com.Polarice3.Goety.utils.ModLootTables;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -91,6 +93,15 @@ public class VindicatorChefServant extends VindicatorServant implements IMobCraf
             this.setFurnaceLit(false);
         }
         super.die(pCause);
+    }
+
+    @Override
+    protected ResourceLocation getDefaultLootTable() {
+        if (this.isNatural()){
+            return ModLootTables.NATURAL_VINDICATOR_CHEF;
+        } else {
+            return super.getDefaultLootTable();
+        }
     }
 
     public Optional<BlockPos> getFurnacePos() {

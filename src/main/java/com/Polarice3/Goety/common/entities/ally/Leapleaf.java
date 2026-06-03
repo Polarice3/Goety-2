@@ -162,6 +162,31 @@ public class Leapleaf extends Summoned{
         this.playSound(ModSounds.LEAPLEAF_STEP.get(), 0.15F, this.getVoicePitch());
     }
 
+    @Override
+    public void push(Entity p_21294_) {
+        if (!this.level.isClientSide) {
+            if (!this.isLeaping()) {
+                super.push(p_21294_);
+            }
+        }
+    }
+
+    protected void doPush(Entity p_20971_) {
+        if (!this.level.isClientSide) {
+            if (!this.isLeaping()) {
+                super.doPush(p_20971_);
+            }
+        }
+    }
+
+    public boolean canCollideWith(Entity p_20303_) {
+        if (!this.isLeaping()){
+            return super.canCollideWith(p_20303_);
+        } else {
+            return false;
+        }
+    }
+
     public void setAnimationState(String input) {
         this.setAnimationState(this.getAnimationState(input));
     }
@@ -535,9 +560,8 @@ public class Leapleaf extends Summoned{
             if (Leapleaf.this.attackTick == 13) {
                 double x = Leapleaf.this.getX() + Leapleaf.this.getHorizontalLookAngle().x * 2;
                 double z = Leapleaf.this.getZ() + Leapleaf.this.getHorizontalLookAngle().z * 2;
-                AABB aabb = MobUtil.makeAttackRange(x,
-                        Leapleaf.this.getY(),
-                        z, 1, 1, 1);
+                Vec3 vec3 = MobUtil.getFrontPos(Leapleaf.this, 1);
+                AABB aabb = new AABB(vec3, vec3).inflate(1.0F);
                 for (LivingEntity target : Leapleaf.this.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
                     if (target != Leapleaf.this && !target.isAlliedTo(Leapleaf.this) && !Leapleaf.this.isAlliedTo(target)) {
                         Leapleaf.this.doHurtTarget(target);
@@ -640,6 +664,7 @@ public class Leapleaf extends Summoned{
         public Leapleaf leapleaf;
         @Nullable
         public LivingEntity target;
+        public Vec3 leapDirection = Vec3.ZERO;
 
         public LeapGoal(Leapleaf leapleaf) {
             this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP));
@@ -681,6 +706,7 @@ public class Leapleaf extends Summoned{
             super.stop();
             this.leapleaf.setLeaping(false);
             this.leapleaf.leapTick = 0;
+            this.leapDirection = Vec3.ZERO;
         }
 
         @Override
@@ -703,29 +729,33 @@ public class Leapleaf extends Summoned{
                         this.leapleaf.setAnimationState(LEAP);
                         this.leapleaf.playSound(ModSounds.LEAPLEAF_LEAP.get(), this.leapleaf.getSoundVolume(), this.leapleaf.getVoicePitch());
                         this.leapleaf.setLeaping(true);
+                        double dx = this.target.getX() - this.leapleaf.getX();
+                        double dy = this.target.getY() - this.leapleaf.getY();
+                        double dz = this.target.getZ() - this.leapleaf.getZ();
+                        double horizontalDist = Math.sqrt(dx * dx + dz * dz);
+                        if (horizontalDist > 1.0E-4) {
+                            this.leapDirection = new Vec3(dx / horizontalDist, dy, dz / horizontalDist);
+                        } else {
+                            this.leapDirection = this.leapleaf.getLookAngle();
+                        }
                     } else {
                         this.leapleaf.navigation.moveTo(this.target, 1.25F);
                     }
                 }
 
                 if (this.leapleaf.leapTick == 1) {
-                    double d0 = this.target.getX() - this.leapleaf.getX();
-                    double d1 = this.target.getY() - this.leapleaf.getY();
-                    double d2 = this.target.getZ() - this.leapleaf.getZ();
-                    this.leapleaf.setDeltaMovement(d0 * 0.15D, 0.75 + Mth.clamp(d1 * 0.05D, 0, 10), d2 * 0.15D);
+                    double leapSpeed = 0.6D;
+                    this.leapleaf.setDeltaMovement(this.leapDirection.x * leapSpeed, 0.75 + Mth.clamp(this.leapDirection.y * 0.05D, 0, 0.5), this.leapDirection.z * leapSpeed);
                 }
             }
 
-            double x = this.leapleaf.getX() + this.leapleaf.getHorizontalLookAngle().x;
-            double z = this.leapleaf.getZ() + this.leapleaf.getHorizontalLookAngle().z;
             double xLeft = this.leapleaf.getX() + this.leapleaf.getHorizontalLeftLookAngle().x;
             double zLeft = this.leapleaf.getZ() + this.leapleaf.getHorizontalLeftLookAngle().z;
             double xRight = this.leapleaf.getX() + this.leapleaf.getHorizontalRightLookAngle().x;
             double zRight = this.leapleaf.getZ() + this.leapleaf.getHorizontalRightLookAngle().z;
             if (this.leapleaf.isLeaping() && this.leapleaf.onGround() && this.leapleaf.leapTick > 1) {
-                AABB aabb = MobUtil.makeAttackRange(x,
-                        this.leapleaf.getY(),
-                        z, 3, 3, 3);
+                Vec3 vec3 = MobUtil.getFrontPos(this.leapleaf, 1);
+                AABB aabb = new AABB(vec3, vec3).inflate(3.0D);
                 boolean random = this.leapleaf.random.nextFloat() <= 0.25F;
                 for (LivingEntity target : this.leapleaf.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
                     if (target != this.leapleaf && !target.isAlliedTo(this.leapleaf) && !this.leapleaf.isAlliedTo(target)) {

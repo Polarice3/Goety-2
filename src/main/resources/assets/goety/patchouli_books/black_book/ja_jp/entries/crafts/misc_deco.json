@@ -84,6 +84,16 @@
       "type": "patchouli:crafting",
       "recipe": "goety:royal_throne",
       "recipe2": "goety:frosted_throne"
+    },
+	{
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "近衛兵/ロイヤリティ",
+      "text": "あらゆる種類の玉座に「近衛兵」というエンチャントをかけることができます。この魔法をかけると、あなたやあなたの仲間以外は玉座に座ることができなくなるだけでなく、玉座に座ると、近くにいる最大4人の仲間があなたへのダメージを代わりに受けてくれます。もし誰かが玉座を破壊した場合、効果は失われます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/royalty"
     }
   ]
 }
