@@ -397,6 +397,17 @@ public class Heresiarch extends Cultist {
     }
 
     @Override
+    public void setTarget(@Nullable LivingEntity p_21544_) {
+        if (this.isCurrentAnimation(CHANT)) {
+            if (p_21544_ == null || (p_21544_.distanceTo(this) <= 6 && this.hasLineOfSight(p_21544_))) {
+                super.setTarget(p_21544_);
+            }
+        } else {
+            super.setTarget(p_21544_);
+        }
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (this.tickCount % 5 == 0) {
@@ -580,7 +591,7 @@ public class Heresiarch extends Cultist {
         public boolean canUse() {
             return this.heresiarch.getMonolith() != null
                     && this.heresiarch.getMonolith().isAlive()
-                    && (this.heresiarch.getTarget() == null || this.heresiarch.getTarget().distanceTo(this.heresiarch) > 6.0D || !this.heresiarch.hasLineOfSight(this.heresiarch.getTarget()))
+                    && this.heresiarch.getTarget() == null
                     && this.heresiarch.getLastHurtByMobTimestamp() <= 0
                     && this.heresiarch.fightTick <= 0
                     && this.heresiarch.getHealth() == this.heresiarch.getMaxHealth();
@@ -1110,6 +1121,12 @@ public class Heresiarch extends Cultist {
                         this.heresiarch.level);
                 orb.setOwner(this.heresiarch);
                 orb.setOrange(true);
+                if (this.heresiarch.getTarget() != null) {
+                    if (this.heresiarch.getTarget().getY() < this.heresiarch.getY() + (this.heresiarch.getBbHeight() * 1.5F)) {
+                        orb.setTurnRate(0.2F);
+                    }
+                }
+                orb.setTarget(this.heresiarch.getTarget());
                 orb.setExtraDamage((float) this.heresiarch.getAttributeValue(Attributes.ATTACK_DAMAGE));
                 int i = 0;
                 if (this.halfHealth()) {

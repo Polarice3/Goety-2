@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "O foco sacrifica o tamanho e a capacidade de rastreamento das Orbes Elétricas para permitir que o conjurador dispare orbes menores rapidamente após uma carga inicial."
+      "text": "O foco sacrifica o tamanho dos Orbes Elétricas para permitir que o conjurador dispare rapidamente orbes menores que podem descrever arcos em direção a um alvo que o conjurador esteja mirando após o carregamento."
     },
     {
       "type": "patchouli:crafting",

@@ -75,16 +75,16 @@ public class ServantEvents {
                     mob.setTarget(null);
                 }
             }
-            if (mob.getTarget() instanceof IOwned owned){
-                if (mob.getType().is(ModTags.EntityTypes.IGNORE_SERVANTS)){
-                    if (owned.getTrueOwner() != null){
-                        if (mob.canAttack(owned.getTrueOwner()) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(owned.getTrueOwner())) {
+            if (mob.getTarget() instanceof IOwned owned) {
+                if (mob.getType().is(ModTags.EntityTypes.IGNORE_SERVANTS)) {
+                    if (owned.getTrueOwner() != null) {
+                        if (!owned.getTrueOwner().isDeadOrDying() && mob.canAttack(owned.getTrueOwner()) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(owned.getTrueOwner())) {
                             mob.setLastHurtByMob(owned.getTrueOwner());
                             mob.setTarget(owned.getTrueOwner());
                         }
                     }
                 }
-                if (mob.getTarget().isDeadOrDying() || !EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(mob.getTarget())){
+                if (mob.getTarget() != null && (mob.getTarget().isDeadOrDying() || !EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(mob.getTarget()))) {
                     mob.setTarget(null);
                 }
             }
@@ -110,13 +110,12 @@ public class ServantEvents {
                     event.setNewTarget(mobAttacker.getLastHurtByMob());
                 }
             }
-            if (target instanceof OwnableEntity ownable) {
-                if (attacker.getType().is(ModTags.EntityTypes.IGNORE_SERVANTS)) {
-                    if (ownable.getOwner() != null) {
-                        if (attacker.canAttack(ownable.getOwner()) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(ownable.getOwner())) {
-                            attacker.setLastHurtByMob(ownable.getOwner());
-                            event.setNewTarget(ownable.getOwner());
-                        }
+            if (attacker.getType().is(ModTags.EntityTypes.IGNORE_SERVANTS)) {
+                if (target instanceof OwnableEntity ownable) {
+                    LivingEntity owner = target instanceof IOwned owned ? owned.getTrueOwner() : ownable.getOwner();
+                    if (owner != null && !owner.isDeadOrDying() && attacker.canAttack(owner) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(owner)) {
+                        attacker.setLastHurtByMob(owner);
+                        event.setNewTarget(owner);
                     }
                 }
             }

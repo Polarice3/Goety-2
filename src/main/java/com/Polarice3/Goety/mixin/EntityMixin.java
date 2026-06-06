@@ -1,8 +1,10 @@
 package com.Polarice3.Goety.mixin;
 
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.neutral.AbstractVine;
 import com.Polarice3.Goety.config.MainConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSoundTypes;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MiscCapHelper;
@@ -52,17 +54,28 @@ public abstract class EntityMixin {
             cancellable = true
     )
     private void goety2$isAlliedTo(Entity entity, CallbackInfoReturnable<Boolean> cir) {
-        Entity entity1 = (Entity) (Object) this;
+        Entity thisEntity = (Entity) (Object) this;
         Player player = null;
         if (entity instanceof Player player1) {
             player = player1;
         } else if (MobUtil.getOwner(entity) instanceof Player player1) {
             player = player1;
         }
-        if (player != null && entity1 instanceof LivingEntity livingEntity) {
-            if (MainConfig.GoodwillFullAlly.get()) {
-                if (SEHelper.isAlly(player, livingEntity)) {
-                    cir.setReturnValue(true);
+        if (player != null) {
+            if (thisEntity instanceof LivingEntity livingEntity) {
+                if (MainConfig.GoodwillFullAlly.get()) {
+                    if (SEHelper.isAlly(player, livingEntity)) {
+                        cir.setReturnValue(true);
+                    }
+                }
+            }
+        }
+        if (thisEntity instanceof Player player1) {
+            if (MobsConfig.OwnerAttackCancel.get()) {
+                if (entity instanceof IOwned owned) {
+                    if (owned.getMasterOwner() == player1) {
+                        cir.setReturnValue(true);
+                    }
                 }
             }
         }

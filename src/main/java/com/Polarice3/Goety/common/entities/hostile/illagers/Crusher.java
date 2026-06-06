@@ -1,5 +1,7 @@
 package com.Polarice3.Goety.common.entities.hostile.illagers;
 
+import com.Polarice3.Goety.client.particles.SmashParticleOption;
+import com.Polarice3.Goety.common.entities.ally.illager.CrusherServant;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SLightningBoltPacket;
@@ -465,9 +467,13 @@ public class Crusher extends HuntingIllagerEntity{
                 if (Crusher.this.level instanceof ServerLevel serverLevel){
                     BlockPos blockPos = BlockPos.containing(Crusher.this.getX() + Crusher.this.getHorizontalLookAngle().x * 2, Crusher.this.getY() - 1.0F, Crusher.this.getZ() + Crusher.this.getHorizontalLookAngle().z * 2);
                     BlockParticleOption option = new BlockParticleOption(ParticleTypes.BLOCK, serverLevel.getBlockState(blockPos));
+                    Vec3 vec3 = new Vec3(Crusher.this.getX() + Crusher.this.getHorizontalLookAngle().x * 2, Crusher.this.getY() + 0.25D, Crusher.this.getZ() + Crusher.this.getHorizontalLookAngle().z * 2);
                     for (int i = 0; i < 8; ++i) {
-                        ServerParticleUtil.circularParticles(serverLevel, option, Crusher.this.getX() + Crusher.this.getHorizontalLookAngle().x * 2, Crusher.this.getY() + 0.25D, Crusher.this.getZ() + Crusher.this.getHorizontalLookAngle().z * 2, 1.5F);
+                        ServerParticleUtil.circularParticles(serverLevel, option, vec3.x, vec3.y, vec3.z, 1.5F);
                     }
+                    int color = serverLevel.getBlockState(blockPos).getMapColor(serverLevel, blockPos).col;
+                    ColorUtil colorUtil = color == 0 ? ColorUtil.WHITE : new ColorUtil(color);
+                    serverLevel.sendParticles(new SmashParticleOption(colorUtil, 3, 5), vec3.x, vec3.y, vec3.z, 1, 0, 0, 0, 0);
                 }
             }
         }

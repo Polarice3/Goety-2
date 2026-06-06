@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.neutral.ender;
 
 import com.Polarice3.Goety.api.entities.IHiding;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.common.entities.ai.ServantHurtByTargetGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.network.ModNetwork;
@@ -26,7 +27,6 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrownPotion;
@@ -66,7 +66,7 @@ public abstract class AbstractEnderling extends Summoned implements IHiding {
     }
 
     public void targetRetaliateGoal() {
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this, AbstractEnderling.class){
+        this.targetSelector.addGoal(1, new ServantHurtByTargetGoal(this, AbstractEnderling.class){
             protected void alertOther(Mob other, LivingEntity target) {
                 if (this.mob.isAlliedTo(other)) {
                     other.setTarget(target);

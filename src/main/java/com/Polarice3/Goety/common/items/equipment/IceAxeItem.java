@@ -49,7 +49,7 @@ public class IceAxeItem extends DiggerItem {
                 player.swing(context.getHand());
                 player.setDeltaMovement(player.getDeltaMovement().x(), yDelta, player.getDeltaMovement().z());
                 player.resetFallDistance();
-            } else if (direction == Direction.UP && (blockstate.isSolidRender(level, blockpos) || blockstate.is(BlockTags.ICE))) {
+            } else if (player.onGround() && direction == Direction.UP && (blockstate.isSolidRender(level, blockpos) || blockstate.is(BlockTags.ICE))) {
                 player.startUsingItem(context.getHand());
             }
         }
@@ -65,7 +65,7 @@ public class IceAxeItem extends DiggerItem {
     }
 
     public void onUseTick(Level p_273467_, LivingEntity p_273619_, ItemStack p_273316_, int p_273101_) {
-        if (p_273101_ >= 0 && p_273619_ instanceof Player player) {
+        if (p_273101_ >= 0 && p_273619_ instanceof Player player && player.onGround()) {
             HitResult hitresult = this.calculateHitResult(p_273619_);
             if (hitresult instanceof BlockHitResult blockhitresult) {
                 if (hitresult.getType() == HitResult.Type.BLOCK) {

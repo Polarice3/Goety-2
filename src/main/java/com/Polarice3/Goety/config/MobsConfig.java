@@ -1162,10 +1162,10 @@ public class MobsConfig {
             BUILDER.push("Crone");
             CroneThornDefense = BUILDER.comment("Whether Crones inflict thorn damage at attackers, when attacked. Default: true")
                     .define("croneThornDefense", true);
-        BUILDER.pop();
-        BUILDER.push("Heresiarch");
-        HeresiarchAfterImage = BUILDER.comment("Whether Heresiarch has their after-image effect when they teleport. Disable can prevent frame drop. Default: true")
-                .define("heresiarchAfterImage", true);
+            BUILDER.pop();
+            BUILDER.push("Heresiarch");
+            HeresiarchAfterImage = BUILDER.comment("Whether Heresiarch has their after-image effect when they teleport. Disable can prevent frame drop. Default: true")
+                    .define("heresiarchAfterImage", true);
             BUILDER.pop();
         BossInvulnerabilityTime = BUILDER.comment("How long invulnerability, Default: 15")
                 .defineInRange("bossInvulnerabilityTime", 15, 0, Integer.MAX_VALUE);

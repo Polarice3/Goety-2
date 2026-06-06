@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "As artes sombrias são um caminho para muitas habilidades que alguns consideram... bonitas? Sua jornada pelas trevas o levou a descobrir várias decorações que fazem você se sentir mais como um verdadeiro mornaca das trevas."
+      "text": "As artes das trevas são um caminho para muitas habilidades que alguns consideram... bonitas? Sua jornada pelas trevas o levou a descobrir várias decorações que fazem você se sentir mais como um verdadeiro mago das trevas."
     },
     {
       "type": "patchouli:text",
@@ -84,6 +84,12 @@
       "type": "patchouli:crafting",
       "recipe": "goety:royal_throne",
       "recipe2": "goety:frosted_throne"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Realeza",
+      "text": "Tronos de todos os tipos podem ser encantados com Realeza. Não apenas ninguém além de você ou seus aliados pode sentar no trono, mas sentar nele fará com que até 4 aliados próximos absorvam o dano recebido por você. Se outra pessoa quebrar o trono, ele perderá seu encantamento."
     }
   ]
 }

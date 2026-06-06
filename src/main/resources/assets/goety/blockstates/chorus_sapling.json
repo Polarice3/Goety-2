@@ -1,7 +1,12 @@
 {
   "variants": {
-    "": {
-      "model": "goety:block/chorus_sapling"
-    }
+    "": [
+      {
+        "model": "goety:block/chorus_sapling"
+      },
+      {
+        "model": "goety:block/chorus_sapling_alt"
+      }
+    ]
   }
 }

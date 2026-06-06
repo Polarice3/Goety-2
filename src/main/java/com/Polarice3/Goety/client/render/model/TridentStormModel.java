@@ -2,8 +2,6 @@ package com.Polarice3.Goety.client.render.model;
 
 
 import com.Polarice3.Goety.common.entities.util.TridentStorm;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
@@ -43,12 +41,10 @@ public class TridentStormModel<T extends TridentStorm> extends HierarchicalModel
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.animate(entity.mainAnimationState, SHOOT, ageInTicks);
 		this.circle.visible = !entity.isActivated();
+		if (this.circle.visible) {
+			this.circle.offsetScale(KeyframeAnimations.scaleVec(1.25F, 1.0F, 1.25F));
+		}
 		this.trident.visible = entity.isActivated();
-	}
-
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override
@@ -59,7 +55,7 @@ public class TridentStormModel<T extends TridentStorm> extends HierarchicalModel
 	public static final AnimationDefinition SHOOT = AnimationDefinition.Builder.withLength(0.25F)
 			.addAnimation("trident", new AnimationChannel(AnimationChannel.Targets.POSITION,
 					new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
-					new Keyframe(0.25F, KeyframeAnimations.posVec(0.0F, -216.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+					new Keyframe(0.25F, KeyframeAnimations.posVec(0.0F, -212.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
 			))
 			.build();
 }

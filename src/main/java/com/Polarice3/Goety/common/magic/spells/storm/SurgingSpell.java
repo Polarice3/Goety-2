@@ -21,6 +21,11 @@ import java.util.List;
 public class SurgingSpell extends EverChargeSpell {
 
     @Override
+    public SpellStat defaultStats() {
+        return super.defaultStats().setRange(32);
+    }
+
+    @Override
     public int defaultSoulCost() {
         return SpellConfig.SurgingCost.get();
     }
@@ -85,6 +90,7 @@ public class SurgingSpell extends EverChargeSpell {
         orb.setExtraDamage(potency);
         orb.setOrange(this.typeStaff(staff, SpellType.NETHER));
         orb.setStaff(rightStaff(staff));
+        orb.setTarget(this.getTarget(caster));
         worldIn.addFreshEntity(orb);
         this.playSound(worldIn, caster, ModSounds.SHOCK_CAST.get(), 1.0F, this.projPitch(worldIn.getRandom()));
     }

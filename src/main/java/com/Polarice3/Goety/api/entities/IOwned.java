@@ -207,22 +207,40 @@ public interface IOwned {
         if (this instanceof Mob mob) {
             if (!mob.level.isClientSide) {
                 if (!mob.hasEffect(GoetyEffects.WILD_RAGE.get())) {
-                    if (mob.getTarget() instanceof IOwned ownedEntity) {
-                        if (this.getTrueOwner() != null && (ownedEntity.getTrueOwner() == this.getTrueOwner())) {
-                            mob.setTarget(null);
-                            if (mob.getLastHurtByMob() == ownedEntity) {
-                                mob.setLastHurtByMob(null);
-                            }
+                    if (mob.getTarget() instanceof IOwned ownedTarget) {
+                        boolean shouldClearTarget = false;
+                        if (this.getTrueOwner() != null
+                                && ownedTarget.getTrueOwner() == this.getTrueOwner()) {
+                            shouldClearTarget = true;
                         }
-                        if (ownedEntity.getTrueOwner() == this) {
-                            mob.setTarget(null);
-                            if (mob.getLastHurtByMob() == ownedEntity) {
-                                mob.setLastHurtByMob(null);
-                            }
+                        if (ownedTarget.getTrueOwner() == this) {
+                            shouldClearTarget = true;
                         }
-                        if (MobUtil.ownerStack(this, ownedEntity)) {
+                        if (MobUtil.ownerStack(this, ownedTarget)) {
+                            shouldClearTarget = true;
+                        }
+                        if (!shouldClearTarget && mob.getTarget() != null
+                                && this.isAllyWith(mob.getTarget())) {
+                            shouldClearTarget = true;
+                        }
+                        if (!shouldClearTarget
+                                && this.getTrueOwner() == null
+                                && ownedTarget.getTrueOwner() == null
+                                && this.getOwnerId() != null
+                                && this.getOwnerId().equals(ownedTarget.getOwnerId())) {
+                            shouldClearTarget = true;
+                        }
+                        if (!shouldClearTarget
+                                && this.getOwnerId() != null
+                                && ownedTarget.getOwnerId() != null
+                                && mob.level instanceof ServerLevel serverLevel
+                                && SEHelper.isSavedAlly(serverLevel, this.getOwnerId(),
+                                mob.getTarget())) {
+                            shouldClearTarget = true;
+                        }
+                        if (shouldClearTarget) {
                             mob.setTarget(null);
-                            if (mob.getLastHurtByMob() == ownedEntity) {
+                            if (mob.getLastHurtByMob() == mob.getTarget()) {
                                 mob.setLastHurtByMob(null);
                             }
                         }

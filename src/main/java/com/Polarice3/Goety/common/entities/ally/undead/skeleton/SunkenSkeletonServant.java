@@ -46,7 +46,7 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
 public class SunkenSkeletonServant extends AbstractSkeletonServant implements CrossbowAttackMob {
-    private final CreatureCrossbowAttackGoal<SunkenSkeletonServant> crossbowAttackGoal = new CreatureCrossbowAttackGoal<>(this, 1.0D, 8.0F);
+    private final CreatureCrossbowAttackGoal<SunkenSkeletonServant> crossbowAttackGoal = new CreatureCrossbowAttackGoal<>(this, 1.0D, 13.0F);
     private static final EntityDataAccessor<Boolean> IS_CHARGING_CROSSBOW = SynchedEntityData.defineId(SunkenSkeletonServant.class, EntityDataSerializers.BOOLEAN);
     private boolean searchingForLand;
     protected final ModWaterPathNavigation waterNavigation;

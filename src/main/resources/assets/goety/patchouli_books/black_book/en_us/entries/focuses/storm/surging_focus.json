@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The spell sacrifices the size and tracking ability of the Electro Orbs to allow the caster to rapidly shoot smaller orbs after charging up."
+      "text": "The spell sacrifices the size of the Electro Orbs to allow the caster to rapidly shoot smaller orbs that can arc towards a target the caster is looking at after charging up."
     },
     {
       "type": "patchouli:crafting",
