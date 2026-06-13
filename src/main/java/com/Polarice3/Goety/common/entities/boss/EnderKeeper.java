@@ -62,6 +62,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.RespawnAnchorBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
@@ -74,10 +75,7 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class EnderKeeper extends AbstractEnderling implements Enemy {
     protected static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(EnderKeeper.class, EntityDataSerializers.INT);
@@ -1571,12 +1569,18 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
 
     @Override
     public void servantTick() {
-        if (this.isGuardingArea()){
-            if (this.distanceToSqr(this.vec3BoundPos()) > Mth.square(64.0F) && this.getTarget() == null || (this.vec3BoundPos().y - this.getY() > 12.0F)){
-                Vec3 vec3 = this.vec3BoundPos();
-                this.teleportOut();
-                if (this.ownedTeleport(vec3.x, vec3.y, vec3.z)){
-                    this.teleportIn();
+        if (this.level instanceof ServerLevel serverLevel) {
+            if (this.isGuardingArea()) {
+                if (this.distanceToSqr(this.vec3BoundPos()) > Mth.square(64.0F) && this.getTarget() == null || (this.vec3BoundPos().y - this.getY() > 12.0F)) {
+                    Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(this.getType(), serverLevel, this.getBoundPos());
+                    if (optional.isPresent()) {
+                        this.teleportOut();
+                        Vec3 vec3 = optional.get();
+                        if (this.ownedTeleport(vec3.x, vec3.y, vec3.z)) {
+                            this.teleportIn();
+                            this.refreshDimensions();
+                        }
+                    }
                 }
             }
         }

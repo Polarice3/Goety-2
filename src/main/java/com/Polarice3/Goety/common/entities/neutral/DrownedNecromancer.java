@@ -594,7 +594,7 @@ public class DrownedNecromancer extends AbstractNecromancer {
     public class SummonServantSpell extends SummoningSpellGoal {
 
         public boolean canUse() {
-            Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof IOwned owned && owned.getTrueOwner() instanceof DrownedNecromancer;
+            Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof IOwned owned && owned.getTrueOwner() == DrownedNecromancer.this;
             int i = DrownedNecromancer.this.level.getEntitiesOfClass(LivingEntity.class, DrownedNecromancer.this.getBoundingBox().inflate(64.0D, 16.0D, 64.0D)
                     , predicate).size();
             return super.canUse() && i < 10;

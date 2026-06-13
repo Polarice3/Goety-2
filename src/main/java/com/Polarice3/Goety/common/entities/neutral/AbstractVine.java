@@ -16,6 +16,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -126,7 +127,9 @@ public abstract class AbstractVine extends AbstractMonolith{
     @Override
     public boolean hurt(DamageSource p_21016_, float p_21017_) {
         if (this.isEmerging() || this.isDescending()){
-            return false;
+            if (!p_21016_.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+                return false;
+            }
         }
         return super.hurt(p_21016_, p_21017_);
     }
@@ -227,6 +230,9 @@ public abstract class AbstractVine extends AbstractMonolith{
         if (!this.isEmerging()){
             if (!this.isActivate()){
                 this.setActivate(true);
+                if (!this.level.isClientSide) {
+                    this.level.broadcastEntityEvent(this, (byte) 100);
+                }
             }
             if (!this.isPerpetual()) {
                 if (!this.level.isClientSide) {
@@ -307,6 +313,7 @@ public abstract class AbstractVine extends AbstractMonolith{
             this.activeTick = 0;
             this.level.broadcastEntityEvent(this, (byte) 7);
             this.setActivate(false);
+            this.level.broadcastEntityEvent(this, (byte) 101);
         }
     }
 

@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.magic.TouchSpell;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.RandomUtil;
 import com.Polarice3.Goety.utils.WandUtil;
@@ -65,7 +66,7 @@ public class BanishSpell extends TouchSpell {
         HitResult hitResult = this.entityResult(worldIn, caster, 3, 3.0F);
         if (hitResult instanceof EntityHitResult result){
             if (result.getEntity() instanceof LivingEntity living){
-                if (living.getMaxHealth() > SpellConfig.BanishMaxHealth.get() || MobUtil.hasEntityTypesConfig(SpellConfig.BanishBlackList.get(), living.getType())){
+                if (living.getMaxHealth() > SpellConfig.BanishMaxHealth.get() || living.getType().is(ModTags.EntityTypes.BANISH_IMMUNE) || MobUtil.hasEntityTypesConfig(SpellConfig.BanishBlackList.get(), living.getType())){
                     this.playSound(worldIn, caster, ModSounds.SPELL_FAIL.get(), 1.0F, 1.0F);
                     return false;
                 }

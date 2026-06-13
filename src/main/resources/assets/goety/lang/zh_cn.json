@@ -3635,7 +3635,7 @@
   "block.goety.plushie_8": "§6Peppertheskink§r毛绒玩偶",
   "block.goety.plushie_9": "§aMrdrewlego§r毛绒玩偶",
   "block.goety.plushie_10": "§6Ur-Tsar the Glorious§r毛绒玩偶",
-  "item.goety.reinforced_ice_axe": "强化冰斧",
+  "item.goety.reinforced_ice_axe": "强化登山镐",
   "effect.goety.mandate": "统御",
   "effect.goety.mandate.description": "当效果持有者受到伤害时，会将伤害重新分配给附近的4个盟友实体，同时减少对受影响者造成的伤害；等级越高，效果半径和实体数量越大。",
   "enchantment.goety.royalty": "王权",

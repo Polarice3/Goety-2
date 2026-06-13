@@ -3733,5 +3733,11 @@
   "name.goety.heresiarch.8": " Golgotha",
   "name.goety.heresiarch.9": " Heolstor",
   "name.goety.heresiarch.10": " Jaakobah",
-  "name.goety.heresiarch.11": " Mazzikim"
+  "name.goety.heresiarch.11": " Mazzikim",
+  "entity.goety.smack_stone": "Pedra Arremessada",
+  "item.goety.smack_stone_focus": "Foco da Mira de Pedra",
+  "item.goety.smack_stone_focus.info": "Dispara uma pedra que, ao atingir, faz o alvo cair no chão. Causa mais dano a alvos que não estão no chão.",
+  "block.goety.gold_chandelier": "Candelabro de Ouro",
+  "block.goety.iron_dungeon_chain": "Corrente de Ferro de Masmorra",
+  "block.goety.gold_dungeon_chain": "Corrente de Ouro de Masmorra"
 }

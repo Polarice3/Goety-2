@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 
 public abstract class AbstractMonolith extends Owned{
     protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(AbstractMonolith.class, EntityDataSerializers.INT);
-    private boolean activate;
+    protected static final EntityDataAccessor<Boolean> ACTIVATE = SynchedEntityData.defineId(AbstractMonolith.class, EntityDataSerializers.BOOLEAN);
     public int lifeSpan = 6;
 
     public AbstractMonolith(EntityType<? extends Owned> type, Level worldIn) {
@@ -38,6 +38,7 @@ public abstract class AbstractMonolith extends Owned{
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(AGE, 0);
+        this.entityData.define(ACTIVATE, false);
     }
 
     public void onSyncedDataUpdated(EntityDataAccessor<?> p_33134_) {
@@ -104,11 +105,11 @@ public abstract class AbstractMonolith extends Owned{
     }
 
     public void setActivate(boolean activate){
-        this.activate = activate;
+        this.entityData.set(ACTIVATE, activate);
     }
 
     public boolean isActivate(){
-        return this.activate;
+        return this.entityData.get(ACTIVATE);
     }
 
     public void setLifeSpan(int lifeSpan){
@@ -239,6 +240,10 @@ public abstract class AbstractMonolith extends Owned{
             this.setAge(this.getAge() + this.getAgeSpeed());
         } else if (pId == 5){
             this.setAge(this.getAge() - this.getAgeSpeed());
+        } else if (pId == 100){
+            this.setActivate(true);
+        } else if (pId == 101){
+            this.setActivate(false);
         } else {
             super.handleEntityEvent(pId);
         }

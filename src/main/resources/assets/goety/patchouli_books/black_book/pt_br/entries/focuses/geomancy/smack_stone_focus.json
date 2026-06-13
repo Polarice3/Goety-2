@@ -1,0 +1,19 @@
+{
+  "name": "Foco da Mira de Pedra",
+  "icon": "goety:smack_stone_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Já ouviu a expressão 'matar dois coelhos com uma caixa d'água só' quero dizer 'matar dois coelhos com uma cajadada só'? Embora estas pedras sejam frágeis demais para acertar mais de um alvo, elas não apenas fazem com que o alvo tenha dificuldade para pular ou voar, mas também causam mais dano se ele não estiver no chão."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/smack_stone_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/geo_staff)Cajado Geomântico$() dispara três pedras em vez de uma."
+    }
+  ]
+}

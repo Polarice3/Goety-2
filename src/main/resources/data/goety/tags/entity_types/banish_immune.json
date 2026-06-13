@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:bosses",
+    "#goety:mini_bosses",
+    "goety:redstone_golem",
+    "goety:grave_golem",
+    "goety:redstone_monstrosity"
+  ]
+}

@@ -176,6 +176,8 @@ public class ModTags {
         public static final TagKey<EntityType<?>> UNTANGLEABLE = tag("untangleable");
         public static final TagKey<EntityType<?>> UNBLOWABLE_ENTITIES = tag("unblowable_entities");
         public static final TagKey<EntityType<?>> UNSHACKLEABLE = tag("unshackleable");
+        public static final TagKey<EntityType<?>> BANISH_IMMUNE = tag("banish_immune");
+        public static final TagKey<EntityType<?>> TELEKINESIS_IMMUNE = tag("telekinesis_immune");
         public static final TagKey<EntityType<?>> SKELETON_WOLF_BUFF = tag("skeleton_wolf_buff");
         public static final TagKey<EntityType<?>> SERVANT_RIDEABLE = tag("servant_rideable");
         public static final TagKey<EntityType<?>> FRAYED_CONVERT = tag("convert/frayed");

@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.magic.EverChargeSpell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -105,6 +106,7 @@ public class TelekinesisSpell extends EverChargeSpell {
             if ((caster.getBoundingBox().inflate(0.5D).getSize() * potency) >= target.getBoundingBox().getSize()) {
                 if (this.victim instanceof LivingEntity livingTarget){
                     if (livingTarget.getMaxHealth() >= SpellConfig.TelekinesisMaxHealth.get()
+                            || livingTarget.getType().is(ModTags.EntityTypes.BANISH_IMMUNE)
                             || MobUtil.hasEntityTypesConfig(SpellConfig.TelekinesisBlackList.get(), livingTarget.getType())){
                         flag = false;
                     }
