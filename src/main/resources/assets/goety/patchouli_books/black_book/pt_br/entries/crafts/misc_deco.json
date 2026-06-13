@@ -31,6 +31,15 @@
       "recipe": "goety:pine/pine_lantern"
     },
     {
+      "type": "patchouli:crafting",
+      "recipe": "goety:gold_chandelier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:iron_dungeon_chain",
+      "recipe2": "goety:gold_dungeon_chain"
+    },
+    {
       "type": "patchouli:spotlight",
       "item": "goety:royal_carpet_corner",
       "text": "Tapetes comuns não são suficientes para você. Os pisos do seu covil precisam ser mais opulentos para seus pés pisarem. Infelizmente, seus tapetes precisam ser colocados em peças para você combiná-los em um tapete adequado."

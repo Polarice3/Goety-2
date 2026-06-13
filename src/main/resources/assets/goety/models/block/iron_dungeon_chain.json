@@ -1,0 +1,6 @@
+{
+    "parent": "goety:block/template_dungeon_chain",
+    "textures": {
+        "chain": "goety:block/iron_dungeon_chain"
+    }
+}

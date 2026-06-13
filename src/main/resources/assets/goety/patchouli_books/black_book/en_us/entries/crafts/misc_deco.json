@@ -31,6 +31,15 @@
       "recipe": "goety:pine/pine_lantern"
     },
     {
+      "type": "patchouli:crafting",
+      "recipe": "goety:gold_chandelier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:iron_dungeon_chain",
+      "recipe2": "goety:gold_dungeon_chain"
+    },
+    {
       "type": "patchouli:spotlight",
       "item": "goety:royal_carpet_corner",
       "text": "Normal carpets don't cut out for you. The floors of your lair needs to be more opulent for your feet to walk on. Unfortunately, your carpets need to be put into pieces for you to combine into a proper carpet way."

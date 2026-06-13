@@ -1,4 +1,4 @@
-// 1.20.1	2026-06-02T11:13:47.9806349	Loot Tables
+// 1.20.1	2026-06-08T19:28:19.4192107	Loot Tables
 1173ad0aef6067156a1c3161e3fe16b8e10b3f92 data/goety/loot_tables/blocks/animator.json
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
@@ -223,8 +223,10 @@ b6646b8e880b73a6c9665e0dff3275752d013708 data/goety/loot_tables/blocks/freezing_
 3aaeeba7a4c60a3cdc638abe915379a7cfa6a5cd data/goety/loot_tables/blocks/gold_banded_marble.json
 45823c8b7406262830db68f0300c756a80a2e3e1 data/goety/loot_tables/blocks/gold_candelabra.json
 c786740947eb3e8933653e9f3dd004f24b5eadb6 data/goety/loot_tables/blocks/gold_candlestick.json
+b4542e438781187456e78661f45355b9626dcabd data/goety/loot_tables/blocks/gold_chandelier.json
 d7363e831559f98ecc92da33663ad7623ae7ad83 data/goety/loot_tables/blocks/gold_chiseled_highrock_bricks.json
 3de9deca66e7adc098d20d256432cdff3ac9fe04 data/goety/loot_tables/blocks/gold_covered_marble.json
+7500bd0d74fe488a96af68e26a7ba777b090ca93 data/goety/loot_tables/blocks/gold_dungeon_chain.json
 119eb530a19aac201df4b452bf0f4818e025be84 data/goety/loot_tables/blocks/gold_dungeon_torch.json
 bb6ee73cd1fad2001c9fa85208a8e162bb7021ca data/goety/loot_tables/blocks/gold_holder_marble.json
 b3222e11afa79e7fb02c3f7a98fb2bd824f9a146 data/goety/loot_tables/blocks/gold_indented_highrock_bricks.json
@@ -283,6 +285,7 @@ e8f7398127056f5efc9001d072e08c9eafcc9938 data/goety/loot_tables/blocks/ice_bouqu
 7fe3fc42fbcb21ca659abbda31d58cd4a77c2d0f data/goety/loot_tables/blocks/indented_gold_stairs.json
 8ecd4fb2ff369c5513ad5025da0f425842a02fac data/goety/loot_tables/blocks/indented_gold_wall.json
 85b046ae3b904a9a982c1b6a062c14db615a737d data/goety/loot_tables/blocks/infused_end_stone_pillar.json
+e7f6261fe98730adb51c3ac55a9ab90370cfa6b6 data/goety/loot_tables/blocks/iron_dungeon_chain.json
 3ca86380e480a9c379babdc0ace2082aa31057e2 data/goety/loot_tables/blocks/iron_dungeon_torch.json
 e6d76c4ed20f899bf74973c74b9d401afa8e325b data/goety/loot_tables/blocks/jade_block.json
 7ca6e5a84d5daefe29188bfd2a43fcf0f0f8fcd9 data/goety/loot_tables/blocks/jade_light.json

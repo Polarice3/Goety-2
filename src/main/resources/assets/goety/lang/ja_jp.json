@@ -3593,5 +3593,12 @@
   "title.goety.heresiarch.8": "オラクル",
   "title.goety.heresiarch.9": "ネザーシーア",
   "title.goety.heresiarch.10": "父親",
-  "title.goety.heresiarch.11": "母親"
+  "title.goety.heresiarch.11": "母親",
+
+  "entity.goety.smack_stone": "スマックストーン",
+  "item.goety.smack_stone_focus": "スマックストーンのフォーカス",
+  "item.goety.smack_stone_focus.info": "石を発射し、命中した標的を地面に落下させます。地面についていない標的には、より大きなダメージを与えます。",
+  "block.goety.gold_chandelier": "金のシャンデリア",
+  "block.goety.iron_dungeon_chain": "鉄のダンジョン鎖",
+  "block.goety.gold_dungeon_chain": "金のダンジョン鎖"
 }

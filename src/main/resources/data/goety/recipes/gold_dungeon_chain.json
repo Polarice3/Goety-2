@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "#",
+    "S",
+    "#"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "tag": "forge:nuggets/gold"
+    },
+    "S":
+    {
+      "item": "goety:pale_steel_ingot"
+    }
+  },
+  "result":
+  {
+    "item": "goety:gold_dungeon_chain",
+    "count": 1
+  }
+}

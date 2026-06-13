@@ -1,0 +1,19 @@
+{
+  "name": "Smack Stone Focus",
+  "icon": "goety:smack_stone_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Ever heard of the phrase 'killing two birds with one stone'? While these stones are to fragile to hit more than one target, it not only causes the target to have a hard time jumping or flying, but it also deals more damage to them if they're not on the ground."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/smack_stone_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/geo_staff)Geo Staff$() shoots three stones instead of one."
+    }
+  ]
+}

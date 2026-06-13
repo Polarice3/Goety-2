@@ -6,6 +6,13 @@ import com.Polarice3.Goety.api.items.ISoulRepair;
 import com.Polarice3.Goety.api.items.armor.ISoulDiscount;
 import com.Polarice3.Goety.client.render.ModModelLayer;
 import com.Polarice3.Goety.client.render.model.DarkArmorModel;
+import com.Polarice3.Goety.common.entities.ally.illager.AbstractIllagerServant;
+import com.Polarice3.Goety.common.entities.ally.illager.cultist.CultistServant;
+import com.Polarice3.Goety.common.entities.ally.undead.bound.AbstractBoundIllager;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonPillagerServant;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieVillagerServant;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieVindicatorServant;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.google.common.collect.ImmutableMultimap;
@@ -22,12 +29,17 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.monster.AbstractIllager;
+import net.minecraft.world.entity.monster.Witch;
+import net.minecraft.world.entity.monster.ZombieVillager;
+import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -122,6 +134,20 @@ public class DarkArmor extends ArmorItem implements ISoulRepair, ISoulDiscount, 
                    if (player.isCapeLoaded() && player.isModelPartShown(PlayerModelPart.CAPE) && player.getCloakTextureLocation() != null){
                        model.cape.visible = false;
                    }
+               }
+
+               if (livingEntity instanceof AbstractVillager
+                       || livingEntity instanceof AbstractIllager
+                       || livingEntity instanceof AbstractIllagerServant
+                       || livingEntity instanceof AbstractBoundIllager
+                       || livingEntity instanceof ZombieVillager
+                       || livingEntity instanceof ZombieVillagerServant
+                       || livingEntity instanceof ZombieVindicatorServant
+                       || livingEntity instanceof SkeletonPillagerServant
+                       || livingEntity instanceof Witch
+                       || livingEntity instanceof Cultist
+                       || livingEntity instanceof CultistServant) {
+                   model.villager = true;
                }
 
                model.young = original.young;

@@ -171,6 +171,7 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.SHIELD_DEBRIS.get(),
                 ModEntityType.ILL_BOMB.get(),
                 ModEntityType.SCATTER_BOMB.get(),
+                ModEntityType.SMACK_STONE.get(),
                 ModEntityType.SCYTHE.get(),
                 ModEntityType.SWORD.get(),
                 ModEntityType.ICE_SPIKE.get(),

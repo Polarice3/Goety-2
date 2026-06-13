@@ -408,6 +408,7 @@
   "entity.goety.blast_fungus":"Blast Fungus",
   "entity.goety.berserk_fungus":"Berserk Fungus",
   "entity.goety.pyroclast":"Pyroclast",
+  "entity.goety.smack_stone":"Smack Stone",
   "entity.goety.magma_bomb":"Magma Bomb",
   "entity.goety.web_shot":"Web Shot",
   "entity.goety.snareling_shot":"Snareling Shot",
@@ -943,6 +944,8 @@
   "item.goety.quaking_focus.info": "Sends tremors in front of the caster, damaging and flinging non-allied entities. Cast crouching will summon tremors around the caster.",
   "item.goety.earth_punch_focus": "Earth's Punch Focus",
   "item.goety.earth_punch_focus.info": "Summons a fist made of stone from below a target or at a location.",
+  "item.goety.smack_stone_focus": "Smack Stone Focus",
+  "item.goety.smack_stone_focus.info": "Shoots a stone that when hit, causes the target to plunge to the ground. Deals more damage to targets that are not on the ground.",
   "item.goety.ministrous_focus": "Ministrous Focus",
   "item.goety.ministrous_focus.info": "Summons Ministrosities. Cast crouching will summon the caster's servants towards them.",
   "item.goety.pulverize_focus": "Pulverize Focus",
@@ -1489,6 +1492,10 @@
   "block.goety.gold_candlestick": "Gold Candlestick",
   "block.goety.necrotic_gold_candlestick": "Necrotic Gold Candlestick",
   "block.goety.gold_candelabra": "Gold Candelabra",
+  "block.goety.gold_chandelier": "Gold Chandelier",
+
+  "block.goety.iron_dungeon_chain": "Iron Dungeon Chain",
+  "block.goety.gold_dungeon_chain": "Gold Dungeon Chain",
 
   "block.goety.steep_sconce": "Steep Sconce",
   "block.goety.jade_light": "Jade Light",

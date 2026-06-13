@@ -145,4 +145,9 @@ public class AbstractSkeletonPillager extends AbstractSkeletonServant implements
         }
         this.shootCrossbowProjectile(this, p_33275_, p_33277_, p_33278_, 1.6F);
     }
+
+    @Override
+    public boolean canUseBow() {
+        return false;
+    }
 }

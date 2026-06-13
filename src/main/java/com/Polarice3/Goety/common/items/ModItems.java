@@ -304,6 +304,7 @@ public class ModItems {
     public static final RegistryObject<Item> BARRICADE_FOCUS = ITEMS.register("barricade_focus", () -> new MagicFocus(new BarricadeSpell()));
     public static final RegistryObject<Item> QUAKING_FOCUS = ITEMS.register("quaking_focus", () -> new MagicFocus(new QuakingSpell()));
     public static final RegistryObject<Item> EARTH_PUNCH_FOCUS = ITEMS.register("earth_punch_focus", () -> new MagicFocus(new EarthFistSpell()));
+    public static final RegistryObject<Item> SMACK_STONE_FOCUS = ITEMS.register("smack_stone_focus", () -> new MagicFocus(new SmackStoneSpell()));
     public static final RegistryObject<Item> MINISTROUS_FOCUS = ITEMS.register("ministrous_focus", () -> new MagicFocus(new MinistrousSpell()));
     public static final RegistryObject<Item> PULVERIZE_FOCUS = ITEMS.register("pulverize_focus", () -> new MagicFocus(new PulverizeSpell()));
     public static final RegistryObject<Item> ROTATION_FOCUS = ITEMS.register("rotation_focus", () -> new MagicFocus(new RotationSpell()));

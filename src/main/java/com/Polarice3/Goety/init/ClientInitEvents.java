@@ -271,6 +271,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.VOID_SHOCK, VoidShockModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VOID_SHOCK_BOMB, VoidShockBombModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SCATTER_MINE, ScatterMineModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.SMACK_STONE, SmackStoneModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.BLAST_FUNGUS, BlastFungusModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WEB_SHOT, WebShotModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SOUL_BOMB, SoulBombModel::createBodyLayer);
@@ -544,6 +545,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.BLAST_FUNGUS.get(), BlastFungusRenderer::new);
         event.registerEntityRenderer(ModEntityType.BERSERK_FUNGUS.get(), BerserkFungusRenderer::new);
         event.registerEntityRenderer(ModEntityType.PYROCLAST.get(), PyroclastRenderer::new);
+        event.registerEntityRenderer(ModEntityType.SMACK_STONE.get(), SmackStoneRenderer::new);
         event.registerEntityRenderer(ModEntityType.MAGMA_BOMB.get(), MagmaBombRenderer::new);
         event.registerEntityRenderer(ModEntityType.BLOSSOM_BALL.get(), BlossomBallRenderer::new);
         event.registerEntityRenderer(ModEntityType.WEB_SHOT.get(), WebShotRenderer::new);

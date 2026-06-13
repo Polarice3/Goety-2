@@ -170,7 +170,7 @@ public class Conquillager extends HuntingIllagerEntity implements CrossbowAttack
     protected void enchantSpawnedWeapon(RandomSource randomsource, float p_241844_1_) {
         super.enchantSpawnedWeapon(randomsource, p_241844_1_);
         ItemStack itemstack = this.getMainHandItem();
-        if (itemstack.getItem() == Items.CROSSBOW) {
+        if (itemstack.getItem() instanceof CrossbowItem) {
             Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(itemstack);
             map.putIfAbsent(Enchantments.PIERCING, 4);
             EnchantmentHelper.setEnchantments(map, itemstack);

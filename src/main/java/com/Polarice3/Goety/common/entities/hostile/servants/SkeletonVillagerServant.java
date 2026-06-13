@@ -30,10 +30,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
-import net.minecraft.world.item.BowItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.ProjectileWeaponItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -88,12 +85,12 @@ public class SkeletonVillagerServant extends Owned implements CrossbowAttackMob,
             this.goalSelector.removeGoal(this.meleeGoal);
             this.goalSelector.removeGoal(this.bowGoal);
             ItemStack itemstack = this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, item -> item instanceof ProjectileWeaponItem));
-            if (itemstack.getItem() == Items.BOW) {
+            if (itemstack.getItem() instanceof BowItem) {
                 int i = 20;
 
                 this.bowGoal.setMinAttackInterval(i);
                 this.goalSelector.addGoal(4, this.bowGoal);
-            } else if (itemstack.getItem() == Items.CROSSBOW){
+            } else if (itemstack.getItem() instanceof CrossbowItem){
                 this.goalSelector.addGoal(4, this.crossBowGoal);
             } else {
                 this.goalSelector.addGoal(4, this.meleeGoal);

@@ -296,6 +296,11 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> EarthFistCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> EarthFistDamage;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> SmackStoneCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SmackStoneDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SmackStoneCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> SmackStoneDamage;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> MinistrousCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> MinistrousDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> MinistrousCoolDown;
@@ -1254,10 +1259,20 @@ public class SpellConfig {
                     .defineInRange("earthFistCost", 8, 0, Integer.MAX_VALUE);
             EarthFistDuration = BUILDER.comment("Time to cast Earth Fist Spell, Default: 0")
                     .defineInRange("earthFistTime", 0, 0, 72000);
-            EarthFistCoolDown = BUILDER.comment("Earth Fist Spell Cooldown, Default: 100")
+            EarthFistCoolDown = BUILDER.comment("Earth Fist Spell Cooldown, Default: 60")
                     .defineInRange("earthFistCoolDown", 60, 0, Integer.MAX_VALUE);
             EarthFistDamage = BUILDER.comment("How much base damage Earth Fists deals, Default: 6.0")
                     .defineInRange("earthFistDamage", 6.0, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Smack Stone Spell");
+            SmackStoneCost = BUILDER.comment("Smack Stone Spell Cost, Default: 4")
+                    .defineInRange("smackStoneCost", 4, 0, Integer.MAX_VALUE);
+            SmackStoneDuration = BUILDER.comment("Time to cast Smack Stone Spell, Default: 0")
+                    .defineInRange("smackStoneTime", 0, 0, 72000);
+            SmackStoneCoolDown = BUILDER.comment("Smack Stone Spell Cooldown, Default: 40")
+                    .defineInRange("smackStoneCoolDown", 40, 0, Integer.MAX_VALUE);
+            SmackStoneDamage = BUILDER.comment("How much base damage Smack Stones deals, Default: 4.0")
+                    .defineInRange("smackStoneDamage", 4.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Ministrous Spell");
             MinistrousCost = BUILDER.comment("Ministrous Spell Cost, Default: 8")

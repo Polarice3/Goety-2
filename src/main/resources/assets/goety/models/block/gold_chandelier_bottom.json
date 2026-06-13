@@ -1,0 +1,6 @@
+{
+	"parent": "goety:block/template_chandelier_bottom",
+	"textures": {
+		"chandelier": "goety:block/gold_chandelier"
+	}
+}

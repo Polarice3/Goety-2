@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "half=lower": { "model": "goety:block/gold_chandelier_bottom" },
+    "half=upper": { "model": "goety:block/gold_chandelier_top" }
+  }
+}

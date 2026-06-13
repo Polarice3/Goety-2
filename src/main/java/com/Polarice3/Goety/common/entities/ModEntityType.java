@@ -391,6 +391,12 @@ public class ModEntityType {
                     .clientTrackingRange(8)
                     .updateInterval(1));
 
+    public static final RegistryObject<EntityType<SmackStone>> SMACK_STONE = register("smack_stone",
+            EntityType.Builder.<SmackStone>of(SmackStone::new, MobCategory.MISC)
+                    .sized(0.3125F, 0.3125F)
+                    .clientTrackingRange(4)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<MagmaBomb>> MAGMA_BOMB = register("magma_bomb",
             EntityType.Builder.<MagmaBomb>of(MagmaBomb::new, MobCategory.MISC)
                     .sized(1.25F, 1.25F)

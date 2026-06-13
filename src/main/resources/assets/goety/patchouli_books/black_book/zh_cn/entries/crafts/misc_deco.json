@@ -31,6 +31,15 @@
       "recipe": "goety:pine/pine_lantern"
     },
     {
+      "type": "patchouli:crafting",
+      "recipe": "goety:gold_chandelier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:iron_dungeon_chain",
+      "recipe2": "goety:gold_dungeon_chain"
+    },
+    {
       "type": "patchouli:spotlight",
       "item": "goety:royal_carpet_corner",
       "text": "普通地毯对你来说都太L了。你老窝的地板必须更加豪华，才能让你的脚踩上去。不幸的是，这种地毯需要先被分成小块，然后才能将它们组合成合适的地毯样式。"

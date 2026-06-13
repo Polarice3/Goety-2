@@ -25,6 +25,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation VOID_SHOCK = register("void_shock");
     public static final ModelLayerLocation VOID_SHOCK_BOMB = register("void_shock_bomb");
     public static final ModelLayerLocation SCATTER_MINE = register("scatter_mine");
+    public static final ModelLayerLocation SMACK_STONE = register("smack_stone");
     public static final ModelLayerLocation BLAST_FUNGUS = register("blast_fungus");
     public static final ModelLayerLocation WEB_SHOT = register("web_shot");
     public static final ModelLayerLocation SOUL_BOMB = register("soul_bomb");

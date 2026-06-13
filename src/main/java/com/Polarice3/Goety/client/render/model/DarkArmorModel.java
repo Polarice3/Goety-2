@@ -13,6 +13,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 
 public class DarkArmorModel extends HumanoidModel<LivingEntity> {
+	public boolean villager = false;
 	public final ModelPart head;
 	public final ModelPart body;
 	public final ModelPart bottom;
@@ -123,7 +124,13 @@ public class DarkArmorModel extends HumanoidModel<LivingEntity> {
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		if (this.villager) {
+			this.head.y += -1.0F;
+		}
 		this.bodyParts().forEach((modelPart -> modelPart.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha)));
+		if (this.villager) {
+			this.head.y -= -1.0F;
+		}
 	}
 
 	@Override

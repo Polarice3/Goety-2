@@ -1,0 +1,19 @@
+{
+  "name": "猛石聚晶",
+  "icon": "goety:smack_stone_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你听说过“一石二鸟”这个词吗？但这一石可能不止打中二鸟，这个法术很容易命中多个目标，并让被命中的目标难以跳跃和飞行，如果是命中飞行生物的话，还可以造成更高的伤害"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/smack_stone_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/geo_staff)地卜魔杖$()承载此聚晶施法时，一次可以发射三颗石头"
+    }
+  ]
+}

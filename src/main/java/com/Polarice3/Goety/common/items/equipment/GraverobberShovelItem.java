@@ -85,7 +85,7 @@ public class GraverobberShovelItem extends ShovelItem {
                         });
                     }
                 }
-                if (pLevel.getRandom().nextFloat() <= 0.025F){
+                if (pLevel.getRandom().nextFloat() <= 0.0025F){
                     ItemEntity itemEntity = new ItemEntity(pLevel, pPos.getX() + d0, pPos.getY() + d1, pPos.getZ() + d2, new ItemStack(ModItems.GRAVE_DUST.get()));
                     pLevel.addFreshEntity(itemEntity);
                 }

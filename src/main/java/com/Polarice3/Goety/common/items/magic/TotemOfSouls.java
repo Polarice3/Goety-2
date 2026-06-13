@@ -17,6 +17,8 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -25,7 +27,7 @@ import java.util.List;
 /**
  * Learned how to make Totem of Souls gain Soul Energy from codes by @Ipsis
  */
-public class TotemOfSouls extends Item implements ITotem {
+public class TotemOfSouls extends Item implements ITotem, ICurioItem {
     public int maxSouls;
 
     public TotemOfSouls(int maxSouls) {
@@ -135,6 +137,11 @@ public class TotemOfSouls extends Item implements ITotem {
         } else {
             return InteractionResult.PASS;
         }
+    }
+
+    @Override
+    public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {
+        return true;
     }
 
     @Override

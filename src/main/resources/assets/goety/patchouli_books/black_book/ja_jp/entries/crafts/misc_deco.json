@@ -31,6 +31,15 @@
       "recipe": "goety:pine/pine_lantern"
     },
     {
+      "type": "patchouli:crafting",
+      "recipe": "goety:gold_chandelier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:iron_dungeon_chain",
+      "recipe2": "goety:gold_dungeon_chain"
+    },
+    {
       "type": "patchouli:spotlight",
       "item": "goety:royal_carpet_corner",
       "text": "普通のカーペットでは物足りない。あなたの隠れ家の床は、足元にふさわしい、もっと豪華なものでなければならない。残念ながら、カーペットをきちんと組み合わせるには、複数のパーツを作る必要がある。"

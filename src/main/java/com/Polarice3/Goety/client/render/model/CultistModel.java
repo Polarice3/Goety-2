@@ -264,7 +264,7 @@ public class CultistModel<T extends Cultist> extends HumanoidModel<T> {
             this.LeftArmPoses(InteractionHand.MAIN_HAND, entityIn);
         }
         ItemStack itemstack = entityIn.getItemInHand(InteractionHand.MAIN_HAND);
-        if (itemstack.getItem() == Items.BOW && entityIn.isAggressive()) {
+        if (itemstack.getItem() instanceof BowItem && entityIn.isAggressive()) {
             if (entityIn.getMainArm() == HumanoidArm.RIGHT) {
                 this.rightArmPose = ArmPose.BOW_AND_ARROW;
             } else {

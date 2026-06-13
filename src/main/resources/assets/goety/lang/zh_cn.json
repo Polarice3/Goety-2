@@ -3647,5 +3647,11 @@
   "title.goety.heresiarch.8": "甲骨文",
   "title.goety.heresiarch.9": "虚空先知",
   "title.goety.heresiarch.10": "父亲",
-  "title.goety.heresiarch.11": "母亲"
+  "title.goety.heresiarch.11": "母亲",
+  "entity.goety.smack_stone": "猛击之石",
+  "item.goety.smack_stone_focus": "猛石聚晶",
+  "item.goety.smack_stone_focus.info": "发射一块石头，被它击中的目标会坠落到地面上，命中没有着地的目标时可以造成更高的伤害",
+  "block.goety.gold_chandelier": "金吊灯",
+  "block.goety.iron_dungeon_chain": "铁制地牢锁链",
+  "block.goety.gold_dungeon_chain": "金制地牢锁链"
 }

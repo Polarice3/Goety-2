@@ -95,7 +95,7 @@ public class PillagerServant extends AbstractIllagerServant implements CrossbowA
             this.goalSelector.removeGoal(this.meleeGoal);
             this.goalSelector.removeGoal(this.crossBowGoal);
             ItemStack itemstack = this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, item -> item instanceof ProjectileWeaponItem));
-            if (itemstack.getItem() == Items.CROSSBOW){
+            if (itemstack.getItem() instanceof CrossbowItem){
                 this.goalSelector.addGoal(3, this.crossBowGoal);
             } else {
                 this.goalSelector.addGoal(3, this.meleeGoal);

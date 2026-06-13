@@ -1,0 +1,19 @@
+{
+  "name": "スマックストーンのフォーカス",
+  "icon": "goety:smack_stone_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "「一石二鳥」という言葉を聞いたことがありますか？これらの石は壊れやすいため複数の標的に命中させることはできませんが、標的がジャンプしたり飛んだりするのを困難にするだけでなく、標的が地面にいない場合はより大きなダメージを与えることができます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/smack_stone_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/geo_staff)地の杖$()で唱えると、1つではなく3つの石を出します。"
+    }
+  ]
+}
