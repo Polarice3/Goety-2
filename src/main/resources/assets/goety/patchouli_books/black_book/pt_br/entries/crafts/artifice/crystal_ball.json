@@ -1,0 +1,23 @@
+{
+  "name": "Bola de Cristal",
+  "icon": "goety:crystal_ball",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_crystal_ball",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "As Bolas de Cristal são conhecidas por serem usadas para adivinhação ou para prever o futuro."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Usar uma $(l:crafts/waystone)Pedra da Orientação$() com uma localização nela fará com que você observe a localização de cima, desde que a referida localização esteja carregada. Usar um $(l:crafts/taglock_kit)Kit de Taglock$() com um alvo marcado nela fará com que você veja através dos olhos da vítima, desde que a referida vítima seja da mesma espécie que você, ou se a vítima estiver a menos de 80 blocos de distância."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Qualquer um dos métodos exige que a localização ou a vítima esteja na mesma dimensão."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:crystal_ball": 1
+  }
+}

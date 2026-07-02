@@ -41,6 +41,32 @@
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_skeleton_wolf_thrall"
     },
+	{
+      "type": "patchouli:entity",
+      "entity": "goety:winter_wolf",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Белые собаки, наводящие ужас на обитателей холодных биомов своими леденящими клыками и устойчивостью к оледенению. Их можно вызвать, вставив $(l:focuses/wild/hunting_focus)фокус охоты$() в $(l:crafts/staff/frost_staff)морозный посох$() или использовав его в снежном биоме, или с помощью ритуала."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_winter_wolf_thrall"
+    },
+	{
+      "type": "patchouli:entity",
+      "entity": "goety:stormhound",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Ходят легенды о дьявольских гончих, которые появляются с раскатами грома, и теперь их молниеносные клыки в вашей власти. Их можно вызвать, вставив $(l:focuses/wild/hunting_focus)фокус охоты$() в $(l:crafts/staff/frost_staff)штормовой посох$() или использовав его под грозовым небом, или с помощью ритуала."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_stormhound_thrall"
+    },
     {
       "type": "patchouli:entity",
       "entity": "goety:hellhound",

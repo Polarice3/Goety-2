@@ -78,23 +78,29 @@ public class CrystalBallBlock extends Block {
     }
 
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (!pLevel.isClientSide && pLevel.getDifficulty() != Difficulty.PEACEFUL) {
+        if (!pLevel.isClientSide) {
             if (pLevel instanceof ServerLevel serverLevel) {
                 if (pState.getValue(POWERED)) {
-                    Crone crone = new Crone(ModEntityType.CRONE.get(), pLevel);
-                    BlockPos blockPos = BlockFinder.SummonFurtherRadius(pPos, crone, pLevel);
-                    if (!serverLevel.getBlockState(blockPos.below()).isSolidRender(pLevel, blockPos.below())) {
-                        blockPos = BlockFinder.SummonRadius(pPos, crone, pLevel);
+                    boolean flag = pLevel.getDifficulty() == Difficulty.PEACEFUL;
+                    if (pLevel.getDifficulty() != Difficulty.PEACEFUL) {
+                        Crone crone = new Crone(ModEntityType.CRONE.get(), pLevel);
+                        BlockPos blockPos = BlockFinder.SummonFurtherRadius(pPos, crone, pLevel);
+                        if (!serverLevel.getBlockState(blockPos.below()).isSolidRender(pLevel, blockPos.below())) {
+                            blockPos = BlockFinder.SummonRadius(pPos, crone, pLevel);
+                        }
+                        crone.setPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+                        if (!CuriosFinder.isWitchFriendly(pPlayer) && MobUtil.validEntity(pPlayer)){
+                            crone.setTarget(pPlayer);
+                        }
+                        crone.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(pPos), MobSpawnType.MOB_SUMMONED, null, null);
+                        crone.setPersistenceRequired();
+                        SummonCircleBoss summonCircle = new SummonCircleBoss(serverLevel, blockPos, crone);
+                        flag = pLevel.addFreshEntity(summonCircle);
+                        if (flag) {
+                            pLevel.playSound(null, summonCircle.blockPosition(), ModSounds.CRONE_LAUGH.get(), SoundSource.HOSTILE, 2.0F, 1.0F);
+                        }
                     }
-                    crone.setPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-                    if (!CuriosFinder.isWitchFriendly(pPlayer) && MobUtil.validEntity(pPlayer)){
-                        crone.setTarget(pPlayer);
-                    }
-                    crone.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(pPos), MobSpawnType.MOB_SUMMONED, null, null);
-                    crone.setPersistenceRequired();
-                    SummonCircleBoss summonCircle = new SummonCircleBoss(serverLevel, blockPos, crone);
-                    if (pLevel.addFreshEntity(summonCircle)) {
-                        pLevel.playSound(null, summonCircle.blockPosition(), ModSounds.CRONE_LAUGH.get(), SoundSource.HOSTILE, 2.0F, 1.0F);
+                    if (flag) {
                         pLevel.playSound(null, pPos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 0.75F);
                         ServerParticleUtil.smokeParticles(ParticleTypes.SMOKE, pPos.getX() + 0.5F, pPos.getY() + 0.5F, pPos.getZ() + 0.5F, serverLevel);
                         pLevel.setBlockAndUpdate(pPos, ModBlocks.CRYSTAL_BALL.get().defaultBlockState().setValue(POWERED, false));

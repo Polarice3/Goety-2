@@ -18,6 +18,8 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SeaAmuletChargeConsume;
     public static final ForgeConfigSpec.ConfigValue<Integer> SeaAmuletMax;
     public static final ForgeConfigSpec.ConfigValue<Integer> WindRobeSouls;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HauntedBroomSoulDistance;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HauntedBroomSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> ItemsRepairAmount;
     public static final ForgeConfigSpec.ConfigValue<Integer> SpitefulBeltUseAmount;
     public static final ForgeConfigSpec.ConfigValue<Integer> TesseractCapacity;
@@ -46,6 +48,9 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> VoidStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> NetherStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> NamelessStaffDamage;
+
+    public static final ForgeConfigSpec.ConfigValue<Double> SickleBaseDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> SickleAttackSpeed;
 
     public static final ForgeConfigSpec.ConfigValue<Double> ScytheBaseDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> ScytheAttackSpeed;
@@ -203,6 +208,10 @@ public class ItemConfig {
                 .defineInRange("tesseractDurability", 16, 1, Integer.MAX_VALUE);
         CommandHornDiameter = BUILDER.comment("How far the diameter of Command Horns reach, Default: 8.0")
                 .defineInRange("commandHornDiameter", 8.0D, 1.0D, Double.MAX_VALUE);
+        HauntedBroomSoulDistance = BUILDER.comment("How many blocks from its previous location will the Haunted Broom take Soul Energy, set to 0 to disable, Default: 8")
+                .defineInRange("hauntedBroomSoulDistance", 8, 0, Integer.MAX_VALUE);
+        HauntedBroomSouls = BUILDER.comment("How much Soul Energy is taken every 'hauntedBroomSoulDistance' blocks flown with Haunted Brooms, Default: 10")
+                .defineInRange("hauntedBroomSouls", 10, 1, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Curios");
             BUILDER.push("Robes");
@@ -325,27 +334,27 @@ public class ItemConfig {
             StaffOffhandBuff = BUILDER.comment("Holding a Staff offhand increases wielder's melee attack damage by 25%, Default: true")
                     .define("staffOffhandBuff", true);
             OminousStaffDamage = BUILDER.comment("How much base damage Ominous Staffs deals, Default: 4.0")
-                    .defineInRange("ominousStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
+                    .defineInRange("ominousStaffDamage", 4.0, 0.0, Double.MAX_VALUE);
             NecroStaffDamage = BUILDER.comment("How much base damage Necro Staffs deals, Default: 4.0")
-                    .defineInRange("necroStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
+                    .defineInRange("necroStaffDamage", 4.0, 0.0, Double.MAX_VALUE);
             GeoStaffDamage = BUILDER.comment("How much base damage Geo Staffs deals, Default: 4.0")
-                    .defineInRange("geoStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
+                    .defineInRange("geoStaffDamage", 4.0, 0.0, Double.MAX_VALUE);
             WindStaffDamage = BUILDER.comment("How much base damage Wind Staffs deals, Default: 4.0")
-                    .defineInRange("windStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
+                    .defineInRange("windStaffDamage", 4.0, 0.0, Double.MAX_VALUE);
             StormStaffDamage = BUILDER.comment("How much base damage Storm Staffs deals, Default: 4.0")
-                    .defineInRange("stormStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
+                    .defineInRange("stormStaffDamage", 4.0, 0.0, Double.MAX_VALUE);
             FrostStaffDamage = BUILDER.comment("How much base damage Frost Staffs deals, Default: 4.0")
-                    .defineInRange("frostStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
+                    .defineInRange("frostStaffDamage", 4.0, 0.0, Double.MAX_VALUE);
             WildStaffDamage = BUILDER.comment("How much base damage Wild Staffs deals, Default: 4.0")
-                    .defineInRange("wildStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
+                    .defineInRange("wildStaffDamage", 4.0, 0.0, Double.MAX_VALUE);
             AbyssStaffDamage = BUILDER.comment("How much base damage Abyss Staffs deals, Default: 9.0")
-                    .defineInRange("abyssStaffDamage", 9.0, 1.0, Double.MAX_VALUE);
+                    .defineInRange("abyssStaffDamage", 9.0, 0.0, Double.MAX_VALUE);
             VoidStaffDamage = BUILDER.comment("How much base damage Void Staffs deals, Default: 4.0")
-                    .defineInRange("voidStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
+                    .defineInRange("voidStaffDamage", 4.0, 0.0, Double.MAX_VALUE);
             NetherStaffDamage = BUILDER.comment("How much base damage Nether Staffs deals, Default: 4.0")
-                    .defineInRange("netherStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
+                    .defineInRange("netherStaffDamage", 4.0, 0.0, Double.MAX_VALUE);
             NamelessStaffDamage = BUILDER.comment("How much base damage Nameless Staffs deals, Default: 6.0")
-                    .defineInRange("namelessStaffDamage", 6.0, 1.0, Double.MAX_VALUE);
+                    .defineInRange("namelessStaffDamage", 6.0, 0.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Scythes");
             DarkScytheSouls = BUILDER.comment("Amount of Soul Energy Scythes gives when hitting mob(s), Default: 1")
@@ -353,7 +362,7 @@ public class ItemConfig {
             ScytheSlashBreaks = BUILDER.comment("Scythe Slashes from Death Scythe breaks blocks that regular Scythes easily breaks, Default: true")
                     .define("scytheSlashBreaks", true);
             ScytheBaseDamage = BUILDER.comment("How much base damage Scythes deals, the damage added depends on material the scythe is made off (ie. Iron = 2.0), Default: 4.5")
-                    .defineInRange("scytheBaseDamage", 4.5, 1.0, Double.MAX_VALUE);
+                    .defineInRange("scytheBaseDamage", 4.5, 0.0, Double.MAX_VALUE);
             ScytheAttackSpeed = BUILDER.comment("How fast it takes to fully swing a Scythe with item offhand and not wearing Grave Gloves. The lower the number the slower it takes to recharge, Default: 0.6")
                     .defineInRange("scytheAttackSpeed", 0.6, 0.0, Double.MAX_VALUE);
             DeathScytheDamage = BUILDER.comment("How much damage Death Scythe deals, the configured number is added to Scythe Base Damage, Default: 4.0")
@@ -371,7 +380,7 @@ public class ItemConfig {
             BUILDER.pop();
             BUILDER.push("Hammers");
             HammerBaseDamage = BUILDER.comment("How much base damage Hammers deals, the damage added depends on material the hammer is made off (ie. Iron = 2.0), Default: 5.0")
-                    .defineInRange("hammerBaseDamage", 5.0, 1.0, Double.MAX_VALUE);
+                    .defineInRange("hammerBaseDamage", 5.0, 0.0, Double.MAX_VALUE);
             HammerAttackSpeed = BUILDER.comment("How fast it takes to fully swing a Hammers. The lower the number the slower it takes to recharge, Default: 0.5")
                     .defineInRange("hammerAttackSpeed", 0.5, 0.0, Double.MAX_VALUE);
             HammerDurability = BUILDER.comment("How many uses before Hammers breaks, Default: 2500")
@@ -379,9 +388,9 @@ public class ItemConfig {
             BUILDER.pop();
             BUILDER.push("Dark Tools");
             DarkToolsDamage = BUILDER.comment("How much damage Dark Tools deals, the configured number is added to Tool Base Damage, Default: 3.0")
-                    .defineInRange("darkToolsDamage", 3.0, 1.0, Double.MAX_VALUE);
+                    .defineInRange("darkToolsDamage", 3.0, 0.0, Double.MAX_VALUE);
             DarkToolsBreakSpeed = BUILDER.comment("How fast Dark Tools mines, the higher the better, Default: 8.0")
-                    .defineInRange("darkToolsBreakSpeed", 8.0, 1.0, Double.MAX_VALUE);
+                    .defineInRange("darkToolsBreakSpeed", 8.0, 0.0, Double.MAX_VALUE);
             DarkToolsDurability = BUILDER.comment("How many uses before Dark Tools breaks, Default: 166")
                     .defineInRange("darkToolsDurability", 166, 1, Integer.MAX_VALUE);
             DarkToolsEnchantability = BUILDER.comment("Define the Enchantability for Dark Tools, higher number the better, Default: 20")
@@ -408,10 +417,14 @@ public class ItemConfig {
                     .defineInRange("rampagingAxeDuration", 10, 1, Integer.MAX_VALUE);
             GraverobberShovelCrouch = BUILDER.comment("Whether Graverobber's Shovel only breaks two blocks if player is crouching, set to false to make it so that crouching breaks one block instead of two, Default: false")
                     .define("graverobberShovelCrouch", false);
+            SickleBaseDamage = BUILDER.comment("How much base damage Sickles deals, the damage added depends on material the sickle is made off (ie. Iron = 2.0), Default: 0.5")
+                    .defineInRange("sickleBaseDamage", 0.5, 0.0, Double.MAX_VALUE);
+            SickleAttackSpeed = BUILDER.comment("How fast it takes to fully swing a Sickle. The lower the number the slower it takes to recharge, Default: 3.0")
+                    .defineInRange("sickleAttackSpeed", 3.0, 0.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Philosopher's Mace");
             PhilosophersMaceDamage = BUILDER.comment("How much damage Philosopher's Mace deals, Default: 9.0")
-                    .defineInRange("philosophersMaceDamage", 9.0, 1.0, Double.MAX_VALUE);
+                    .defineInRange("philosophersMaceDamage", 9.0, 0.0, Double.MAX_VALUE);
             PhilosophersMaceDurability = BUILDER.comment("How many uses before the Philosopher's Mace breaks, Default: 128")
                     .defineInRange("philosophersMaceDurability", 128, 1, Integer.MAX_VALUE);
             PhilosophersMaceEnchantability = BUILDER.comment("Define the Enchantability for Philosopher's Mace, higher number the better, Default: 20")
@@ -421,7 +434,7 @@ public class ItemConfig {
             BUILDER.pop();
             BUILDER.push("Blade of Ender");
             BladeOfEnderDamage = BUILDER.comment("How much damage Blade of Ender deals, Default: 9.0")
-                    .defineInRange("bladeOfEnderDamage", 9.0, 1.0, Double.MAX_VALUE);
+                    .defineInRange("bladeOfEnderDamage", 9.0, 0.0, Double.MAX_VALUE);
             BladeOfEnderAttackSpeed = BUILDER.comment("How fast it takes to fully swing a Blade of Ender. The lower the number the slower it takes to recharge, Default: 1.2")
                     .defineInRange("bladeOfEnderAttackSpeed", 1.2, 0.0, Double.MAX_VALUE);
             BladeOfEnderDurability = BUILDER.comment("How many uses before the Blade of Ender breaks, Default: 2031")

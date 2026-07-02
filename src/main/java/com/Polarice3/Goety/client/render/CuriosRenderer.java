@@ -71,6 +71,7 @@ public class CuriosRenderer {
         CuriosRendererRegistry.register(ModItems.TARGETING_MONOCLE.get(), () -> new WearRenderer(render("targeting_monocle.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.MONOCLE))));
         CuriosRendererRegistry.register(ModItems.GRAVE_GLOVE.get(), () -> new WearRenderer(render("grave_glove.png"), new GloveModel(bakeLayer(ModModelLayer.GLOVE))));
         CuriosRendererRegistry.register(ModItems.THRASH_GLOVE.get(), () -> new WearRenderer(render("thrash_glove.png"), new GloveModel(bakeLayer(ModModelLayer.GLOVE))));
+        CuriosRendererRegistry.register(ModItems.ETERNAL_CAULDRON.get(), () -> new WearRenderer(render("eternal_cauldron.png"), new EternalCauldronModel(bakeLayer(ModModelLayer.ETERNAL_CAULDRON))));
         ModItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(item -> {
             if (item instanceof BlockItem blockItem) {
                 if (blockItem.getBlock() instanceof PlushieBlock) {

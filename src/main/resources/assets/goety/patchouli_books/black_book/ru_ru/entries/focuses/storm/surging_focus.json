@@ -1,0 +1,19 @@
+{
+  "name": "Фокус маленьких молний",
+  "icon": "goety:surging_focus",
+  "category": "goety:focuses/storm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Фокус жертвует размером и самонаведением электрической сферы, чтобы позволить быстро стрелять небольшими шарами после зарядки."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/surging_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/storm_staff)штормового посоха$() увеличивает шанс вызвать судороги или создать цепную молнию при попадании."
+    }
+  ]
+}

@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Этот рог, при использовании в деревне, позволяет вам заставить ваших $(l:mutations/illager_servants#raid)Рейдеров$() начать рейд."
+      "text": "Использование рога заставит ваших $(l:mutations/illager_servants#raid)рейдеров$() совершить рейд на деревню, в которой вы находитесь."
     },
     {
       "type": "patchouli:crafting",

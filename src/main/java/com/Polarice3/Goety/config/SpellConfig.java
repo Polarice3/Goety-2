@@ -338,6 +338,7 @@ public class SpellConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Integer> FlyingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FlyingChargeUp;
+    public static final ForgeConfigSpec.ConfigValue<Double> FlyingPower;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WhirlwindCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> WhirlwindChargeUp;
@@ -1349,6 +1350,8 @@ public class SpellConfig {
                     .defineInRange("flightCost", 4, 0, Integer.MAX_VALUE);
             FlyingChargeUp = BUILDER.comment("How many ticks the Flight Spell much charge before casting, Default: 0")
                     .defineInRange("flightChargeUp", 0, 0, Integer.MAX_VALUE);
+            FlyingPower = BUILDER.comment("Initial velocity power for the Flight Spell, Default: 0.5D")
+                    .defineInRange("flightPower", 0.5D, 0.1D, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Whirlwind Spell");
             WhirlwindCost = BUILDER.comment("Whirlwind Spell Cost, Default: 4")

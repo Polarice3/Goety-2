@@ -1,0 +1,59 @@
+{
+  "name": "Зловещий камень",
+  "icon": "goety:chiseled_ominous_stone",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Эти блоки выполнены в традиционном злодеянском стиле. Отлично сочетаются с тёмным дубом."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/ominous_stone",
+      "recipe2": "goety:ominous/polished_ominous_stone"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/ominous_stone_bricks",
+      "recipe2": "goety:ominous/ominous_stone_tiles"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/ominous_stone_pillar",
+      "recipe2": "goety:ominous/chiseled_ominous_stone"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/chiseled_polished_ominous_stone",
+      "recipe2": "goety:ominous/chiseled_ominous_stone_bricks"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:cobbled_ominous_stone",
+      "title": "Зловещий булыжник",
+      "text": "Добывая зловещий камень, вы получаете его булыжный аналог. Как и обычный булыжник, его можно переплавить обратно в камень."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:cobbled_ominous_stone_path",
+      "title": "Тропинка из зловещего булыжника",
+      "text": "Использование кирки на зловещем булыжнике превратит его в тропинку (по аналогии с лопатой и обычной тропинкой)."
+    },
+    {
+      "type": "patchouli:stonecutting",
+      "recipe": "goety:wall_shrine",
+      "text": "Настенные реликвии можно вешать в качестве украшения."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ominous/ominous_statue",
+      "recipe2": "goety:ominous/ominous_brazier_statue"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:ominous_statue",
+      "title": "Зловещая статуя",
+      "text": "Эти статуи изображают древних злодеян-воителей. Статуи с жаровнями можно потушить или зажечь, нажав по ним ПКМ."
+    }
+  ]
+}

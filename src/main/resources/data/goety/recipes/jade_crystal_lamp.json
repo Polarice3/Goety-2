@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "JGJ",
+    "FSF"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glowstone"
+    },
+    "S": {
+      "item": "goety:snowy_pine_pillar"
+    },
+    "F": {
+      "item": "goety:pine_fence"
+    },
+    "J": {
+      "item": "goety:jade"
+    }
+  },
+  "result": {
+    "item": "goety:jade_crystal_lamp",
+    "count": 1
+  }
+}

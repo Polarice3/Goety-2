@@ -121,6 +121,7 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> CombustCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> CorrosionCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> DroughtCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ExchangeCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ExplodeCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ExtinguishCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FertilityCost;
@@ -169,6 +170,7 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> Level3Capacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> Level4Capacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> Level5Capacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> Level6Capacity;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> BottlingLevelReq;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxBottlingLevel;
@@ -257,8 +259,8 @@ public class BrewConfig {
                 .defineInRange("healthBoostCapacity", 2, 0, Integer.MAX_VALUE);
         LevitationCapacity = BUILDER.comment("Levitation Extra Capacity, Default: 2")
                 .defineInRange("levitationCapacity", 2, 0, Integer.MAX_VALUE);
-        ResistanceCapacity = BUILDER.comment("Resistance Extra Capacity, Default: 6")
-                .defineInRange("resistanceCapacity", 6, 0, Integer.MAX_VALUE);
+        ResistanceCapacity = BUILDER.comment("Resistance Extra Capacity, Default: 8")
+                .defineInRange("resistanceCapacity", 8, 0, Integer.MAX_VALUE);
         WitherCapacity = BUILDER.comment("Wither Extra Capacity, Default: 1")
                 .defineInRange("witherCapacity", 1, 0, Integer.MAX_VALUE);
         BUILDER.pop();
@@ -362,6 +364,8 @@ public class BrewConfig {
                 .defineInRange("corrosionCost", 25, 1, Integer.MAX_VALUE);
         DroughtCost = BUILDER.comment("Drought Soul Cost, Default: 25")
                 .defineInRange("droughtCost", 25, 1, Integer.MAX_VALUE);
+        ExchangeCost = BUILDER.comment("Exchange Soul Cost, Default: 25")
+                .defineInRange("exchangeCost", 25, 1, Integer.MAX_VALUE);
         ExplodeCost = BUILDER.comment("Explode Soul Cost, Default: 100")
                 .defineInRange("explodeCost", 100, 1, Integer.MAX_VALUE);
         ExtinguishCost = BUILDER.comment("Extinguish Soul Cost, Default: 25")
@@ -425,8 +429,8 @@ public class BrewConfig {
         BUILDER.pop();
         BUILDER.pop();
         BUILDER.push("Modded Capacity");
-        InitialCapacity = BUILDER.comment("How much Capacity is given initially, Default: 4")
-                .defineInRange("initialCapacity", 4, 1, Integer.MAX_VALUE);
+        InitialCapacity = BUILDER.comment("How much Capacity is given initially, Default: 1")
+                .defineInRange("initialCapacity", 1, 1, Integer.MAX_VALUE);
         Level1Capacity = BUILDER.comment("How much Capacity is given for first level, Default: 2")
                 .defineInRange("level1Capacity", 2, 0, Integer.MAX_VALUE);
         Level2Capacity = BUILDER.comment("How much Capacity is given for second level, Default: 2")
@@ -437,6 +441,8 @@ public class BrewConfig {
                 .defineInRange("level4Capacity", 2, 0, Integer.MAX_VALUE);
         Level5Capacity = BUILDER.comment("How much Capacity is given for fifth level, Default: 4")
                 .defineInRange("level5Capacity", 4, 0, Integer.MAX_VALUE);
+        Level6Capacity = BUILDER.comment("How much Capacity is given for sixth level, Default: 6")
+                .defineInRange("level6Capacity", 6, 0, Integer.MAX_VALUE);
         BUILDER.push("Status Effects");
         BottlingCapacity = BUILDER.comment("Bottling Extra Capacity, Default: 4")
                 .defineInRange("bottlingCapacity", 4, 0, Integer.MAX_VALUE);

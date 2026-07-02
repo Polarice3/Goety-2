@@ -1,0 +1,30 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:dark_wand"
+  },
+  "craftType": "sky",
+  "soulCost": 25,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "goety:flying_ointment"
+    },
+    {
+      "item": "minecraft:hay_block"
+    },
+    {
+      "item": "goety:occult_fabric"
+    },
+    {
+      "tag": "goety:haunted_logs"
+    },
+    {
+      "item": "goety:telekinesis_focus"
+    }
+  ],
+  "result": {
+    "item": "goety:haunted_broom"
+  }
+}

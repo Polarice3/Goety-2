@@ -42,6 +42,15 @@ import java.util.Objects;
 
 public class PoisonQuillVine extends AbstractVine{
     private static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(PoisonQuillVine.class, EntityDataSerializers.INT);
+    public static String IDLE = "idle";
+    public static String SHOOT = "shoot";
+    public static String BURST = "burst";
+    public static String BURROW = "burrow";
+    public static String HOLD = "hold";
+    public static String OPEN = "open";
+    public static String CLOSE = "close";
+    public static String TARGET = "target";
+    public static String DOCILE = "docile";
     public int openTick = 0;
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState shootAnimationState = new AnimationState();
@@ -111,23 +120,23 @@ public class PoisonQuillVine extends AbstractVine{
     }
 
     public int getAnimationState(String animation) {
-        if (Objects.equals(animation, "idle")){
+        if (Objects.equals(animation, IDLE)){
             return 1;
-        } else if (Objects.equals(animation, "shoot")){
+        } else if (Objects.equals(animation, SHOOT)){
             return 2;
-        } else if (Objects.equals(animation, "burst")){
+        } else if (Objects.equals(animation, BURST)){
             return 3;
-        } else if (Objects.equals(animation, "burrow")){
+        } else if (Objects.equals(animation, BURROW)){
             return 4;
-        } else if (Objects.equals(animation, "hold")){
+        } else if (Objects.equals(animation, HOLD)){
             return 5;
-        } else if (Objects.equals(animation, "open")){
+        } else if (Objects.equals(animation, OPEN)){
             return 6;
-        } else if (Objects.equals(animation, "close")){
+        } else if (Objects.equals(animation, CLOSE)){
             return 7;
-        } else if (Objects.equals(animation, "target")){
+        } else if (Objects.equals(animation, TARGET)){
             return 8;
-        } else if (Objects.equals(animation, "docile")){
+        } else if (Objects.equals(animation, DOCILE)){
             return 9;
         } else {
             return 0;
@@ -166,6 +175,10 @@ public class PoisonQuillVine extends AbstractVine{
 
     public int getCurrentAnimation(){
         return this.entityData.get(ANIM_STATE);
+    }
+
+    public boolean isCurrentAnimation(String animation) {
+        return this.getCurrentAnimation() == this.getAnimationState(animation);
     }
 
     public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
@@ -226,7 +239,7 @@ public class PoisonQuillVine extends AbstractVine{
         if (pReason != MobSpawnType.MOB_SUMMONED){
             this.setPerpetual(true);
         }
-        this.setAnimationState("hold");
+        this.setAnimationState(HOLD);
         return pSpawnData;
     }
 
@@ -322,48 +335,55 @@ public class PoisonQuillVine extends AbstractVine{
     public void aiStep() {
         super.aiStep();
         if (!this.level.isClientSide){
-            if (this.getCurrentAnimation() == this.getAnimationState("target")){
+            if (this.isCurrentAnimation(TARGET)){
                 if (this.getTarget() == null){
-                    this.setAnimationState("close");
+                    this.setAnimationState(CLOSE);
                     this.playSound(this.getCloseSound());
                 }
             }
-            if (this.getCurrentAnimation() == this.getAnimationState("close")){
+            if (this.isCurrentAnimation(CLOSE)){
                 ++this.openTick;
                 if (this.openTick > 20) {
                     this.openTick = 0;
-                    this.setAnimationState("docile");
+                    this.setAnimationState(DOCILE);
                 }
             }
-            if (this.getCurrentAnimation() == this.getAnimationState("docile")){
+            if (this.isCurrentAnimation(DOCILE)){
                 if (this.getTarget() != null){
-                    this.setAnimationState("open");
+                    this.setAnimationState(OPEN);
                     this.playSound(this.getOpenSound());
                 }
             }
-            if (this.getCurrentAnimation() == this.getAnimationState("open")){
+            if (this.isCurrentAnimation(OPEN)){
                 ++this.openTick;
                 if (this.openTick > 20) {
                     this.openTick = 0;
-                    this.setAnimationState("target");
+                    this.setAnimationState(TARGET);
                 }
             }
+        }
+    }
+
+    @Override
+    public void startBursting() {
+        if (!this.isCurrentAnimation(BURROW) && this.activeTick < 25) {
+            super.startBursting();
         }
     }
 
     public void burst(){
         super.burst();
-        if (this.activeTick < 25 && this.getCurrentAnimation() != this.getAnimationState("burst")) {
-            this.setAnimationState("burst");
+        if (this.activeTick < 25 && !this.isCurrentAnimation(BURST)) {
+            this.setAnimationState(BURST);
             this.playSound(this.getBurstSound(), 2.0F, 1.0F);
-        } else if (this.activeTick == 25) {
-            this.setAnimationState("docile");
+        } else if (this.activeTick >= 25) {
+            this.setAnimationState(DOCILE);
         }
     }
 
     public void burrow(){
         super.burrow();
-        this.setAnimationState("burrow");
+        this.setAnimationState(BURROW);
         this.playSound(this.getBurrowSound(), 2.0F, 1.0F);
     }
 
@@ -371,7 +391,7 @@ public class PoisonQuillVine extends AbstractVine{
     public void burrowThenHold() {
         super.burrowThenHold();
         if (this.getAge() <= 0) {
-            this.setAnimationState("hold");
+            this.setAnimationState(HOLD);
         }
     }
 
@@ -420,8 +440,8 @@ public class PoisonQuillVine extends AbstractVine{
         }
 
         public void stop() {
-            if (this.mob.getCurrentAnimation() != this.mob.getAnimationState("burrow")) {
-                this.mob.setAnimationState("target");
+            if (!this.mob.isCurrentAnimation(BURROW)) {
+                this.mob.setAnimationState(TARGET);
             }
             this.target = null;
             this.attackTime = 0;
@@ -436,11 +456,11 @@ public class PoisonQuillVine extends AbstractVine{
                 this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
                 ++this.attackTime;
                 if (this.attackTime == 1) {
-                    this.mob.setAnimationState("shoot");
+                    this.mob.setAnimationState(SHOOT);
                 } else if (this.attackTime == 10) {
                     this.mob.shootQuill(this.target);
                 } else if (this.attackTime >= 25){
-                    this.mob.setAnimationState("target");
+                    this.mob.setAnimationState(TARGET);
                     this.attackTime = -20;
                 }
             }

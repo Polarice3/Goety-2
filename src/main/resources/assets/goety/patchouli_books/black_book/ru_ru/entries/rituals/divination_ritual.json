@@ -1,0 +1,48 @@
+{
+  "name": "Ритуал прорицания",
+  "icon": "goety:crystal_ball",
+  "category": "goety:rituals",
+  "advancement": "goety:goety/get_crystal_ball",
+  "sortnum": 2,
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Требования: $(li)1 хрустальный шар $(li)16 зажжённых свечей $(li)1 череп"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/divination_ritual.png"],
+      "border": true,
+      "text": "Пример того, как можно провести ритуал."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Слово «некромантия» относится к искусству гадания с помощью духов умерших. Используя энергию душ, можно совершать ритуалы, раскрывающие местонахождение некоторых структур."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/ancient_city"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/desert_pyramid"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/jungle_temple"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/pillager_outpost"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/stronghold"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:locate/woodland_mansion"
+    }
+  ]
+}

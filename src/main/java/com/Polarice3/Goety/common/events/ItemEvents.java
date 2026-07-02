@@ -73,6 +73,12 @@ import java.util.UUID;
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ItemEvents {
 
+    public static AttributeModifier TWO_HAND_SCYTHE_SPEED_MOD = new AttributeModifier(UUID.fromString("0c091f42-8c6d-4fde-96e9-148115731cbf"), "Two Handed Scythe", 0.25F, AttributeModifier.Operation.MULTIPLY_TOTAL);
+    public static AttributeModifier GLOVE_SCYTHE_SPEED_MOD = new AttributeModifier(UUID.fromString("d4818bbc-54ed-4ecf-95a3-a15fbf71b31d"), "Scythe Proficiency", 0.5F, AttributeModifier.Operation.MULTIPLY_TOTAL);
+    public static AttributeModifier TWO_HAND_HAMMER_SPEED_MOD = new AttributeModifier(UUID.fromString("3f0d53a8-f075-4d27-a0b7-a4d923542d4f"), "Two Handed Hammer", 0.25F, AttributeModifier.Operation.MULTIPLY_TOTAL);
+    public static AttributeModifier GLOVE_HAMMER_SPEED_MOD = new AttributeModifier(UUID.fromString("39c01496-8161-4fde-ac2c-0bea379ceb37"), "Hammer Proficiency", 0.5F, AttributeModifier.Operation.MULTIPLY_TOTAL);
+    public static AttributeModifier STAFF_ATTACK_BOOST_MOD = new AttributeModifier(UUID.fromString("6dc7952d-11a6-4bf4-954b-b527b35787c6"), "Dark Staff Proficiency", 0.25D, AttributeModifier.Operation.MULTIPLY_TOTAL);
+
     @SubscribeEvent
     public static void PlayerTick(TickEvent.PlayerTickEvent event){
         Player player = event.player;
@@ -122,64 +128,56 @@ public class ItemEvents {
         AttributeInstance attackSpeed = player.getAttribute(Attributes.ATTACK_SPEED);
         boolean scythe = player.getMainHandItem().getItem() instanceof DarkScytheItem;
 
-        float increaseAttackSpeed0 = 0.25F;
-        AttributeModifier attributemodifier0 = new AttributeModifier(UUID.fromString("0c091f42-8c6d-4fde-96e9-148115731cbf"), "Two Handed Scythe", increaseAttackSpeed0, AttributeModifier.Operation.MULTIPLY_TOTAL);
         boolean flag0 = scythe && player.getOffhandItem().isEmpty();
         if (attackSpeed != null){
             if (flag0){
-                if (!attackSpeed.hasModifier(attributemodifier0)){
-                    attackSpeed.addPermanentModifier(attributemodifier0);
+                if (!attackSpeed.hasModifier(TWO_HAND_SCYTHE_SPEED_MOD)){
+                    attackSpeed.addPermanentModifier(TWO_HAND_SCYTHE_SPEED_MOD);
                 }
             } else {
-                if (attackSpeed.hasModifier(attributemodifier0)){
-                    attackSpeed.removeModifier(attributemodifier0);
+                if (attackSpeed.hasModifier(TWO_HAND_SCYTHE_SPEED_MOD)){
+                    attackSpeed.removeModifier(TWO_HAND_SCYTHE_SPEED_MOD);
                 }
             }
         }
 
-        float increaseAttackSpeed = 0.5F;
-        AttributeModifier attributemodifier = new AttributeModifier(UUID.fromString("d4818bbc-54ed-4ecf-95a3-a15fbf71b31d"), "Scythe Proficiency", increaseAttackSpeed, AttributeModifier.Operation.MULTIPLY_TOTAL);
         boolean flag = CuriosFinder.hasCurio(player, ModItems.GRAVE_GLOVE.get()) && (scythe || player.getMainHandItem().is(ModTags.Items.GRAVE_GLOVE_BOOST));
         if (attackSpeed != null){
             if (flag){
-                if (!attackSpeed.hasModifier(attributemodifier)){
-                    attackSpeed.addPermanentModifier(attributemodifier);
+                if (!attackSpeed.hasModifier(GLOVE_SCYTHE_SPEED_MOD)){
+                    attackSpeed.addPermanentModifier(GLOVE_SCYTHE_SPEED_MOD);
                 }
             } else {
-                if (attackSpeed.hasModifier(attributemodifier)){
-                    attackSpeed.removeModifier(attributemodifier);
+                if (attackSpeed.hasModifier(GLOVE_SCYTHE_SPEED_MOD)){
+                    attackSpeed.removeModifier(GLOVE_SCYTHE_SPEED_MOD);
                 }
             }
         }
 
         boolean hammer = player.getMainHandItem().getItem() instanceof HammerItem;
 
-        float increaseAttackSpeed1 = 0.25F;
-        AttributeModifier attributemodifier1 = new AttributeModifier(UUID.fromString("3f0d53a8-f075-4d27-a0b7-a4d923542d4f"), "Two Handed Hammer", increaseAttackSpeed1, AttributeModifier.Operation.MULTIPLY_TOTAL);
         boolean flag1 = hammer && player.getOffhandItem().isEmpty();
         if (attackSpeed != null){
             if (flag1){
-                if (!attackSpeed.hasModifier(attributemodifier1)){
-                    attackSpeed.addPermanentModifier(attributemodifier1);
+                if (!attackSpeed.hasModifier(TWO_HAND_HAMMER_SPEED_MOD)){
+                    attackSpeed.addPermanentModifier(TWO_HAND_HAMMER_SPEED_MOD);
                 }
             } else {
-                if (attackSpeed.hasModifier(attributemodifier1)){
-                    attackSpeed.removeModifier(attributemodifier1);
+                if (attackSpeed.hasModifier(TWO_HAND_HAMMER_SPEED_MOD)){
+                    attackSpeed.removeModifier(TWO_HAND_HAMMER_SPEED_MOD);
                 }
             }
         }
 
-        float increaseAttackSpeed2 = 0.5F;
-        AttributeModifier attributemodifier2 = new AttributeModifier(UUID.fromString("39c01496-8161-4fde-ac2c-0bea379ceb37"), "Hammer Proficiency", increaseAttackSpeed2, AttributeModifier.Operation.MULTIPLY_TOTAL);
         boolean flag2 = CuriosFinder.hasCurio(player, ModItems.THRASH_GLOVE.get()) && (hammer || player.getMainHandItem().is(ModTags.Items.THRASH_GLOVE_BOOST));
         if (attackSpeed != null){
             if (flag2){
-                if (!attackSpeed.hasModifier(attributemodifier2)){
-                    attackSpeed.addPermanentModifier(attributemodifier2);
+                if (!attackSpeed.hasModifier(GLOVE_HAMMER_SPEED_MOD)){
+                    attackSpeed.addPermanentModifier(GLOVE_HAMMER_SPEED_MOD);
                 }
             } else {
-                if (attackSpeed.hasModifier(attributemodifier2)){
-                    attackSpeed.removeModifier(attributemodifier2);
+                if (attackSpeed.hasModifier(GLOVE_HAMMER_SPEED_MOD)){
+                    attackSpeed.removeModifier(GLOVE_HAMMER_SPEED_MOD);
                 }
             }
         }
@@ -188,15 +186,14 @@ public class ItemEvents {
 
         AttributeInstance attackDamage = player.getAttribute(Attributes.ATTACK_DAMAGE);
 
-        AttributeModifier attributemodifier3 = new AttributeModifier(UUID.fromString("6dc7952d-11a6-4bf4-954b-b527b35787c6"), "Dark Staff Proficiency", 0.25D, AttributeModifier.Operation.MULTIPLY_TOTAL);
         if (attackDamage != null){
             if (staff){
-                if (!attackDamage.hasModifier(attributemodifier3)){
-                    attackDamage.addPermanentModifier(attributemodifier3);
+                if (!attackDamage.hasModifier(STAFF_ATTACK_BOOST_MOD)){
+                    attackDamage.addPermanentModifier(STAFF_ATTACK_BOOST_MOD);
                 }
             } else {
-                if (attackDamage.hasModifier(attributemodifier3)){
-                    attackDamage.removeModifier(attributemodifier3);
+                if (attackDamage.hasModifier(STAFF_ATTACK_BOOST_MOD)){
+                    attackDamage.removeModifier(STAFF_ATTACK_BOOST_MOD);
                 }
             }
         }
@@ -205,33 +202,34 @@ public class ItemEvents {
         }
     }
 
+    public static AttributeModifier ARMOR_INCREASE_MOD = new AttributeModifier(UUID.fromString("17cb060f-0465-412e-abe7-a9c397b2e548"), "Increase Armor", 4.0D, AttributeModifier.Operation.ADDITION);
+    public static AttributeModifier TOUGHNESS_INCREASE_MOD = new AttributeModifier(UUID.fromString("c3c510ca-76eb-4eb5-9f69-6763b7e40be2"), "Increase Toughness", 4.0D, AttributeModifier.Operation.ADDITION);
+
     @SubscribeEvent
     public static void LivingEffects(LivingEvent.LivingTickEvent event){
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity != null && livingEntity.isAlive()){
-            AttributeModifier attributemodifier = new AttributeModifier(UUID.fromString("17cb060f-0465-412e-abe7-a9c397b2e548"), "Increase Armor", 4.0D, AttributeModifier.Operation.ADDITION);
             AttributeInstance armor = livingEntity.getAttribute(Attributes.ARMOR);
-            AttributeModifier attributemodifier1 = new AttributeModifier(UUID.fromString("c3c510ca-76eb-4eb5-9f69-6763b7e40be2"), "Increase Toughness", 4.0D, AttributeModifier.Operation.ADDITION);
             AttributeInstance toughness = livingEntity.getAttribute(Attributes.ARMOR_TOUGHNESS);
             if (armor != null){
                 if (ItemHelper.armorSet(livingEntity, ModArmorMaterials.CURSED_KNIGHT) || ItemHelper.armorSet(livingEntity, ModArmorMaterials.CURSED_PALADIN)){
-                    if (!armor.hasModifier(attributemodifier)){
-                        armor.addPermanentModifier(attributemodifier);
+                    if (!armor.hasModifier(ARMOR_INCREASE_MOD)){
+                        armor.addPermanentModifier(ARMOR_INCREASE_MOD);
                     }
                 } else {
-                    if (armor.hasModifier(attributemodifier)){
-                        armor.removeModifier(attributemodifier);
+                    if (armor.hasModifier(ARMOR_INCREASE_MOD)){
+                        armor.removeModifier(ARMOR_INCREASE_MOD);
                     }
                 }
             }
             if (toughness != null){
                 if (ItemHelper.armorSet(livingEntity, ModArmorMaterials.CURSED_PALADIN)){
-                    if (!toughness.hasModifier(attributemodifier1)){
-                        toughness.addPermanentModifier(attributemodifier1);
+                    if (!toughness.hasModifier(TOUGHNESS_INCREASE_MOD)){
+                        toughness.addPermanentModifier(TOUGHNESS_INCREASE_MOD);
                     }
                 } else {
-                    if (toughness.hasModifier(attributemodifier1)){
-                        toughness.removeModifier(attributemodifier1);
+                    if (toughness.hasModifier(TOUGHNESS_INCREASE_MOD)){
+                        toughness.removeModifier(TOUGHNESS_INCREASE_MOD);
                     }
                 }
             }

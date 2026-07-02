@@ -1,0 +1,22 @@
+{
+  "name": "Фокус фей",
+  "icon": "goety:sprightly_focus",
+  "category": "goety:focuses/storm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "С помощью некоторых ингредиентов и магии вы можете вызвать фей, которые будут атаковать ваших врагов крошечными молниями."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/sprightly_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/storm_staff)штормового посоха$() позволить призывать больше фей."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:sprightly_focus": 1
+  }
+}

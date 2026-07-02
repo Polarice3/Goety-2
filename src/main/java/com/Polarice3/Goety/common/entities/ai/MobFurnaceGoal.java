@@ -92,7 +92,7 @@ public class MobFurnaceGoal<T extends Mob & IMobCrafter> extends Goal {
                     if (this.getNearbyFurnaceUsers(serverLevel, new AABB(this.furnace).inflate(4.0D), this.furnace).isEmpty()) {
                         if (this.tryTicks <= 1200) {
                             BlockState blockState = this.mob.level.getBlockState(this.furnace);
-                            return this.mob.isFurnace(blockState) && super.canContinueToUse();
+                            return this.mob.isFurnace(blockState);
                         }
                     }
                 }
@@ -129,6 +129,7 @@ public class MobFurnaceGoal<T extends Mob & IMobCrafter> extends Goal {
         this.tryTicks = 0;
         this.workTick = 0;
         this.mob.setUsingFurnace(false);
+        this.checkCooldown = 0;
     }
 
     public void tick(){

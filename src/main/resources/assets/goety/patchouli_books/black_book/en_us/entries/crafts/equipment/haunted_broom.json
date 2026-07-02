@@ -1,0 +1,36 @@
+{
+  "name": "Haunted Broom",
+  "icon": "goety:haunted_broom",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Legends spoke of witches riding on brooms and fly off into the sky. After some research, you've figured out a way to make one for yourself."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:haunted/haunted_broom"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Haunted Broom is essentially a Wand deprived of being able to cast spells, but given the strength and ability to carry you through the air. The broom only respond to forward inputs, and will fly towards the direction you are looking at, though you would need to look behind you to slow down. Careful not to fly to quickly, as crashing upon a solid block can cause you to take damage and for your broom to break, upon impact."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Unfortunately, there's a cost. For every 8 blocks, by default, vertically or horizontally, the broom needs to feed off their rider's Soul Energy. If deprived the amount of Soul Energy needed to fly, the broom will break, dropping you and the broom from the sky. If you have an insufficient amount of Soul Energy, you'll be unable to ride on Haunted Broom."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Broom Enchantments",
+      "text": "Haunted Brooms can surprisingly be enchanted with two $(l:focuses/focus_enchantments)focus enchantments$(). Velocity will, of course, increase the speed of the broom. Burning, however, has a special effect in that if a broom were to break upon collision with a solid block, it will explode! The size of which depends on how fast the broom was going."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "According to some of your research, the brooms were actually the witch's staff disguised with a brush on it. Also, they most likely rode it the with the brush at the front, but it seems to me an old and outdated trend in this world."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:haunted_broom": 1
+  }
+}

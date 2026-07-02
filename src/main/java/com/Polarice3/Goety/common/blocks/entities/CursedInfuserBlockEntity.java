@@ -20,6 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -77,7 +78,8 @@ public class CursedInfuserBlockEntity extends ModBlockEntity implements Clearabl
                         if (this.cookingProgress[i] >= this.cookingTime[i]) {
                             this.items.set(i, ItemStack.EMPTY);
                             BlockPos blockpos = this.getBlockPos();
-                            dropItemStack(this.level, blockpos.getX(), blockpos.getY() + 0.5F, blockpos.getZ(), itemstack1);
+                            Vec3 vec3 = Vec3.atCenterOf(blockpos);
+                            dropItemStack(this.level, vec3.x, vec3.y, vec3.z, itemstack1);
                             this.level.playSound(null, this.getBlockPos(), SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
                             this.markUpdated();
                             this.cookingProgress[i] = 0;
@@ -93,13 +95,12 @@ public class CursedInfuserBlockEntity extends ModBlockEntity implements Clearabl
         double d0 = EntityType.ITEM.getWidth();
         double d1 = 1.0D - d0;
         double d2 = d0 / 2.0D;
-        double d3 = Math.floor(pX) + level.random.nextDouble() * d1 + d2;
-        double d4 = Math.floor(pY) + level.random.nextDouble() * d1;
-        double d5 = Math.floor(pZ) + level.random.nextDouble() * d1 + d2;
+        double d3 = Math.floor(pX) + level.getRandom().nextDouble() * d1 + d2;
+        double d4 = Math.floor(pY) + level.getRandom().nextDouble() * d1;
+        double d5 = Math.floor(pZ) + level.getRandom().nextDouble() * d1 + d2;
 
         while(!stack.isEmpty()) {
-            ItemEntity itementity = new ItemEntity(level, d3, d4, d5, stack.split(level.random.nextInt(21) + 10));
-            float f = 0.05F;
+            ItemEntity itementity = new ItemEntity(level, pX, pY, pZ, stack.split(1));
             itementity.setDeltaMovement(0.0D, level.random.triangle(0.2D, 0.11485000171139836D), 0.0D);
             level.addFreshEntity(itementity);
         }

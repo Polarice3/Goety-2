@@ -5,7 +5,9 @@ import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
 import net.minecraft.server.level.ServerLevel;
@@ -13,6 +15,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -414,5 +417,24 @@ public class ServerParticleUtil {
                 return false;
             }
         }
+    }
+
+    public static void spawnItemParticles(Entity entity, ItemStack itemStack, int amount) {
+        for(int i = 0; i < amount; ++i) {
+            Vec3 vec3 = new Vec3(((double)entity.level().getRandom().nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
+            vec3 = vec3.xRot(-entity.getXRot() * ((float)Math.PI / 180F));
+            vec3 = vec3.yRot(-entity.getYRot() * ((float)Math.PI / 180F));
+            double d0 = (double)(-entity.level().getRandom().nextFloat()) * 0.6D - 0.3D;
+            Vec3 vec31 = new Vec3(((double)entity.level().getRandom().nextFloat() - 0.5D) * 0.3D, d0, 0.6D);
+            vec31 = vec31.xRot(-entity.getXRot() * ((float)Math.PI / 180F));
+            vec31 = vec31.yRot(-entity.getYRot() * ((float)Math.PI / 180F));
+            vec31 = vec31.add(entity.getX(), entity.getEyeY(), entity.getZ());
+            if (entity.level() instanceof ServerLevel serverLevel) {
+                serverLevel.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, itemStack), vec31.x, vec31.y, vec31.z, 1, vec3.x, vec3.y + 0.05D, vec3.z, 0.0D);
+            } else {
+                entity.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, itemStack), vec31.x, vec31.y, vec31.z, vec3.x, vec3.y + 0.05D, vec3.z);
+            }
+        }
+
     }
 }

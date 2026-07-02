@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "JGJ",
+    "FFF"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glowstone"
+    },
+    "F": {
+      "item": "goety:pine_fence"
+    },
+    "J": {
+      "item": "goety:jade"
+    }
+  },
+  "result": {
+    "item": "goety:half_jade_crystal_lamp",
+    "count": 1
+  }
+}

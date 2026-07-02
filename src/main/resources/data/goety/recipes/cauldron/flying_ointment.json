@@ -1,0 +1,44 @@
+{
+  "type": "goety:cauldron",
+  "soulCost": 2000,
+  "color": 15002780,
+  "levelLeft": 1,
+  "take_with": {
+    "item": "minecraft:glass_bottle"
+  },
+  "ingredients": [
+    {
+      "item": "goety:henbane_flower"
+    },
+    {
+      "item": "minecraft:poppy"
+    },
+    {
+      "item": "minecraft:rotten_flesh"
+    },
+    {
+      "tag": "forge:crops/wheat"
+    },
+    {
+      "item": "goety:jade"
+    },
+    {
+      "item": "goety:wind_core"
+    },
+    {
+      "item": "minecraft:ender_eye"
+    }
+  ],
+  "result": {
+    "item": "goety:flying_ointment"
+  },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "goety_revelation"
+      }
+    }
+  ]
+}

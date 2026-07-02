@@ -1,0 +1,19 @@
+{
+  "name": "Фокус камешков",
+  "icon": "goety:smack_stone_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Слышали выражение «убить двух птиц одним камнем»? Хотя эти камни слишком хрупкие, чтобы поразить более одной цели, но они могут прервать прыжок или полёт и наносят больше урона, если жертва находится в воздухе."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/smack_stone_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/geo_staff)гео-посоха$() позволит стрелять тремя камнями за раз."
+    }
+  ]
+}

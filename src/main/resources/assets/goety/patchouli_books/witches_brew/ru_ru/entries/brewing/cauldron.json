@@ -1,0 +1,50 @@
+{
+  "name": "Прочие применения котла",
+  "icon": "goety:witch_cauldron",
+  "category": "goety:brewing",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Котлы нужны не только для варева! В них можно сварганить похлёбку или мазь с эффектом!"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:nightshade_blossom",
+      "text": "Чтобы приготовить не варево, надо бросить не белену, а беладонну! Её семена так же выпадают из травы и папоротника, если их срезать $(l:brewing/brewing_steps#boline)болином$(), и растут на пашнях!"
+    },
+    {
+      "type": "goety:cauldron",
+      "recipe": "goety:cauldron/resilience_lotion"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Этот лосьон укрепляет кожу и кости, чтобы ты получал меньше урона!"
+    },
+    {
+      "type": "goety:cauldron",
+      "anchor": "flying_ointment",
+      "recipe": "goety:cauldron/flying_ointment"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ХА-ХА-ХА-ХА-ХА! Старая добрая мазь! Дает ощущение полёта и энергии! С метлой заходит на ура, ха-ха-ха!"
+    },
+    {
+      "type": "goety:cauldron",
+      "recipe": "goety:cauldron/mushroom_stew"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Это тебе не лаптем щи хлебать!"
+    },
+    {
+      "type": "goety:cauldron",
+      "recipe": "goety:cauldron/candle"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Многим нужны танцы с бубном, чтоб осветить дом, но я просто кидаю в котёл кусок нити и получаю идеальные свечки!"
+    }
+  ]
+}

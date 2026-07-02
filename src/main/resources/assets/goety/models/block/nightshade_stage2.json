@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "goety:block/nightshade_stage2"
+  },
+  "render_type": "cutout"
+}

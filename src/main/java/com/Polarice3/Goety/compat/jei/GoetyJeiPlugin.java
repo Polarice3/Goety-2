@@ -35,6 +35,7 @@ public class GoetyJeiPlugin implements IModPlugin {
             registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper(), ritualType.getName()));
         }
         registration.addRecipeCategories(new ModBrazierCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new ModCauldronCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new PulverizeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new WitchBrewCategory(registration.getJeiHelpers().getGuiHelper()));
     }
@@ -49,6 +50,7 @@ public class GoetyJeiPlugin implements IModPlugin {
             registration.addRecipeCatalyst(ritualType.getJeiIcon(), JeiRecipeTypes.getRitual(ritualType.getName()));
         }
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.NECRO_BRAZIER.get()), JeiRecipeTypes.BRAZIER);
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.BREWING_CAULDRON.get()), JeiRecipeTypes.CAULDRON);
         registration.addRecipeCatalyst(new ItemStack(ModItems.PULVERIZE_FOCUS.get()), JeiRecipeTypes.PULVERIZE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.BREWING_CAULDRON.get()), JeiRecipeTypes.BREWING);
     }
@@ -67,6 +69,8 @@ public class GoetyJeiPlugin implements IModPlugin {
         }
         List<BrazierRecipe> brazierRecipes = recipeManager.getAllRecipesFor(ModRecipeSerializer.BRAZIER_TYPE.get());
         registration.addRecipes(JeiRecipeTypes.BRAZIER, brazierRecipes);
+        List<CauldronRecipe> cauldronRecipes = recipeManager.getAllRecipesFor(ModRecipeSerializer.CAULDRON_TYPE.get());
+        registration.addRecipes(JeiRecipeTypes.CAULDRON, cauldronRecipes);
         List<PulverizeRecipe> pulverizeRecipes = recipeManager.getAllRecipesFor(ModRecipeSerializer.PULVERIZE_TYPE.get());
         registration.addRecipes(JeiRecipeTypes.PULVERIZE, pulverizeRecipes);
         registration.addRecipes(JeiRecipeTypes.BREWING, WitchBrewMaker.getRecipes(recipeManager, vanillaRecipeFactory, ingredientManager));

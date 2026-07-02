@@ -69,6 +69,7 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), CPrisonerMinePacket.class, CPrisonerMinePacket::encode, CPrisonerMinePacket::decode, CPrisonerMinePacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CActivateCurioKeyPacket.class, CActivateCurioKeyPacket::encode, CActivateCurioKeyPacket::decode, CActivateCurioKeyPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CDismissServantsPacket.class, CDismissServantsPacket::encode, CDismissServantsPacket::decode, CDismissServantsPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
+        INSTANCE.registerMessage(nextID(), CBroomCollisionPacket.class, CBroomCollisionPacket::encode, CBroomCollisionPacket::decode, CBroomCollisionPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), TotemDeathPacket.class, TotemDeathPacket::encode, TotemDeathPacket::decode, TotemDeathPacket::consume);
         INSTANCE.registerMessage(nextID(), SPlayPlayerSoundPacket.class, SPlayPlayerSoundPacket::encode, SPlayPlayerSoundPacket::decode, SPlayPlayerSoundPacket::consume);
         INSTANCE.registerMessage(nextID(), SPlayWorldSoundPacket.class, SPlayWorldSoundPacket::encode, SPlayWorldSoundPacket::decode, SPlayWorldSoundPacket::consume);
@@ -95,6 +96,7 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), SPlayerRotationPacket.class, SPlayerRotationPacket::encode, SPlayerRotationPacket::decode, SPlayerRotationPacket::consume);
         INSTANCE.registerMessage(nextID(), SRepositionPacket.class, SRepositionPacket::encode, SRepositionPacket::decode, SRepositionPacket::consume);
         INSTANCE.registerMessage(nextID(), SInstaLookPacket.class, SInstaLookPacket::encode, SInstaLookPacket::decode, SInstaLookPacket::consume);
+        INSTANCE.registerMessage(nextID(), SInstaLookAtPacket.class, SInstaLookAtPacket::encode, SInstaLookAtPacket::decode, SInstaLookAtPacket::consume);
         INSTANCE.registerMessage(nextID(), WBUpdatePacket.class, WBUpdatePacket::encode, WBUpdatePacket::decode, WBUpdatePacket::consume);
         INSTANCE.registerMessage(nextID(), SStaffParticlePacket.class, SStaffParticlePacket::encode, SStaffParticlePacket::decode, SStaffParticlePacket::consume);
     }

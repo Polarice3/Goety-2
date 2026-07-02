@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,lit=true": {
+      "model": "goety:block/steep_firewood",
+      "y": 270
+    },
+    "facing=north,lit=true": {
+      "model": "goety:block/steep_firewood",
+      "y": 180
+    },
+    "facing=south,lit=true": {
+      "model": "goety:block/steep_firewood"
+    },
+    "facing=west,lit=true": {
+      "model": "goety:block/steep_firewood",
+      "y": 90
+    },
+    "facing=east,lit=false": {
+      "model": "goety:block/steep_firewood_unlit",
+      "y": 270
+    },
+    "facing=north,lit=false": {
+      "model": "goety:block/steep_firewood_unlit",
+      "y": 180
+    },
+    "facing=south,lit=false": {
+      "model": "goety:block/steep_firewood_unlit"
+    },
+    "facing=west,lit=false": {
+      "model": "goety:block/steep_firewood_unlit",
+      "y": 90
+    }
+  }
+}

@@ -6,6 +6,9 @@ import com.Polarice3.Goety.common.entities.util.FireBlastTrap;
 import com.Polarice3.Goety.common.items.magic.InfernalTome;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.ItemStack;
@@ -17,6 +20,8 @@ import net.minecraftforge.network.PlayMessages;
  * Based on SonarWave code from Upgrade Aquatic:<a href="https://github.com/team-abnormals/upgrade-aquatic/blob/1.19.x/src/main/java/com/teamabnormals/upgrade_aquatic/common/entity/projectile/SonarWave.java">...</a>;
  */
 public class HellChant extends SpellEntity{
+    private static final EntityDataAccessor<Float> Y_ROT_VISUAL = SynchedEntityData.defineId(HellChant.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> X_ROT_VISUAL = SynchedEntityData.defineId(HellChant.class, EntityDataSerializers.FLOAT);
     private float growProgress = 0;
     private float prevGrowProgress = 0;
     private int burning = 0;
@@ -39,8 +44,21 @@ public class HellChant extends SpellEntity{
     }
 
     @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(Y_ROT_VISUAL, 0.0F);
+        this.entityData.define(X_ROT_VISUAL, 0.0F);
+    }
+
+    @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        if (compound.contains("VisualYRot")) {
+            this.setYRotVisual(compound.getFloat("VisualYRot"));
+            this.setXRotVisual(compound.getFloat("VisualXRot"));
+            this.setYRot(compound.getFloat("VisualYRot"));
+            this.setXRot(compound.getFloat("VisualXRot"));
+        }
         this.growProgress = compound.getFloat("GrowProgress");
         this.burning = compound.getInt("Burning");
     }
@@ -48,6 +66,8 @@ public class HellChant extends SpellEntity{
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+        compound.putFloat("VisualYRot", this.getYRotVisual());
+        compound.putFloat("VisualXRot", this.getXRotVisual());
         compound.putFloat("GrowProgress", this.growProgress);
         compound.putInt("Burning", this.burning);
     }
@@ -58,6 +78,22 @@ public class HellChant extends SpellEntity{
 
     public int getBurning(){
         return this.burning;
+    }
+
+    public float getYRotVisual() {
+        return this.entityData.get(Y_ROT_VISUAL);
+    }
+
+    public void setYRotVisual(float yRot) {
+        this.entityData.set(Y_ROT_VISUAL, yRot);
+    }
+
+    public float getXRotVisual() {
+        return this.entityData.get(X_ROT_VISUAL);
+    }
+
+    public void setXRotVisual(float xRot) {
+        this.entityData.set(X_ROT_VISUAL, xRot);
     }
 
     @Override
@@ -139,9 +175,14 @@ public class HellChant extends SpellEntity{
             this.yRotO += 360.0F;
         }
 
-        this.setXRot(Mth.lerp(0.2F, this.xRotO, this.getXRot()));
-        this.setYRot(Mth.lerp(0.2F, this.yRotO, this.getYRot()));
-
+        float yRot = Mth.lerp(0.2F, this.yRotO, this.getYRot());
+        float xRot = Mth.lerp(0.2F, this.xRotO, this.getXRot());
+        this.setYRot(yRot);
+        this.setXRot(xRot);
+        if (!this.level.isClientSide) {
+            this.setYRotVisual(this.getYRot());
+            this.setXRotVisual(this.getXRot());
+        }
         this.prevGrowProgress = this.growProgress;
 
         if (this.growProgress < 0.1F) {
@@ -166,15 +207,17 @@ public class HellChant extends SpellEntity{
 
         Vec3 motion = new Vec3(xMotion, yMotion, zMotion).normalize().scale(0.75D);
 
-        this.setDeltaMovement(motion.x, 0, motion.z);
+        this.setDeltaMovement(motion.x, motion.y, motion.z);
         this.setOwner(owner);
-        this.setPos(owner.getX() + xMotion, owner.getEyeY() - 0.2F, owner.getZ() + zMotion);
+        this.setPos(owner.getX() + xMotion, owner.getEyeY() - 0.5F, owner.getZ() + zMotion);
 
         float motionSqrt = Mth.sqrt((float) motion.horizontalDistanceSqr());
         this.setYRot((float) (Mth.atan2(motion.x, motion.z) * (180F / Math.PI)));
         this.setYRot((float) (Mth.atan2(motion.y, motionSqrt) * (180F / Math.PI)));
         this.yRotO = this.getYRot();
         this.xRotO = this.getXRot();
+        this.setYRotVisual(this.getYRot());
+        this.setXRotVisual(this.getXRot());
     }
 
     @Override

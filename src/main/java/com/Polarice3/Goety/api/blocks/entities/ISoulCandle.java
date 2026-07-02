@@ -4,11 +4,19 @@ import net.minecraft.core.BlockPos;
 
 public interface ISoulCandle {
 
-    default void drainSouls(int amount, BlockPos blockPos){
+    default void drainSouls(BlockPos blockPos) {
+        this.drainSouls(this.soulDrainAmount(), blockPos);
     }
 
-    default int getSouls(){
+    default void drainSouls(int amount, BlockPos blockPos) {
+    }
+
+    default int getSouls() {
         return 0;
+    }
+
+    default int soulDrainAmount() {
+        return 1;
     }
 
     default boolean checkCage() {

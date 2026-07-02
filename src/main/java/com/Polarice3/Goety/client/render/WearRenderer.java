@@ -3,6 +3,7 @@ package com.Polarice3.Goety.client.render;
 import com.Polarice3.Goety.client.render.model.DarkRobeModel;
 import com.Polarice3.Goety.client.render.model.GloveModel;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.curios.EternalCauldronItem;
 import com.Polarice3.Goety.common.items.curios.UnholyHatItem;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.utils.CuriosFinder;
@@ -58,6 +59,11 @@ public record WearRenderer(ResourceLocation texture,
         } else if (Objects.equals(this.texture, CuriosRenderer.render("unholy_hat_halo.png"))){
             if (MobUtil.healthIsHalved(livingEntity)) {
                 return CuriosRenderer.render("unholy_hat_halo_red.png");
+            }
+        } else if (Objects.equals(this.texture, CuriosRenderer.render("eternal_cauldron.png"))){
+            ItemStack itemStack = CuriosFinder.findCurio(livingEntity, ModItems.ETERNAL_CAULDRON.get());
+            if (EternalCauldronItem.getBottle(itemStack).isEmpty()) {
+                return CuriosRenderer.render("eternal_cauldron_empty.png");
             }
         }
         return texture;

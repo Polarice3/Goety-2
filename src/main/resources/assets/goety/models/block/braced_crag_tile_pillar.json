@@ -1,0 +1,9 @@
+{
+  "parent": "goety:block/template_double_block",
+  "textures": {
+    "first": "goety:block/braced_crag_tile_pillar_bottom",
+    "second": "goety:block/braced_crag_tile_pillar_top",
+    "up": "goety:block/crag_tiles",
+    "down": "goety:block/crag_tiles"
+  }
+}

@@ -1,15 +1,19 @@
 package com.Polarice3.Goety.utils;
 
+import com.google.common.collect.Lists;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.ParticleStatus;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class ParticleUtil {
     @Nullable
@@ -69,6 +73,36 @@ public class ParticleUtil {
             float f8 = Mth.cos(f6) * f7;
             float f9 = Mth.sin(f6) * f7;
             level.addParticle(particleOptions, x + (double) f8, y, z + (double) f9, xSpeed, ySpeed, zSpeed);
+        }
+    }
+
+    public static void gatheringBlockParticles(ParticleOptions pParticleData, BlockPos pBlockPos, Level level){
+        List<BlockPos> positions = Lists.newArrayList();
+        if (level != null) {
+            for(int j1 = -2; j1 <= 2; ++j1) {
+                for(int k1 = -2; k1 <= 2; ++k1) {
+                    for(int l1 = -2; l1 <= 2; ++l1) {
+                        int i2 = Math.abs(j1);
+                        int l = Math.abs(k1);
+                        int i1 = Math.abs(l1);
+                        if ((j1 == 0 && (l == 2 || i1 == 2) || k1 == 0 && (i2 == 2 || i1 == 2) || l1 == 0 && (i2 == 2 || l == 2))) {
+                            BlockPos blockpos1 = pBlockPos.offset(j1, k1, l1);
+                            positions.add(blockpos1);
+                        }
+                    }
+                }
+            }
+            Vec3 vector3d = new Vec3(pBlockPos.getX() + 0.5F, pBlockPos.getY() + 1.0F, pBlockPos.getZ() + 0.5F);
+            for(BlockPos blockpos : positions) {
+                if (level.getRandom().nextInt(50) == 0) {
+                    float f = -0.5F + level.getRandom().nextFloat();
+                    float f1 = -2.0F + level.getRandom().nextFloat();
+                    float f2 = -0.5F + level.getRandom().nextFloat();
+                    BlockPos blockpos1 = blockpos.subtract(pBlockPos);
+                    Vec3 vector3d1 = (new Vec3(f, f1, f2)).add(blockpos1.getX(), blockpos1.getY(), blockpos1.getZ());
+                    level.addParticle(pParticleData, vector3d.x, vector3d.y, vector3d.z, vector3d1.x, vector3d1.y, vector3d1.z);
+                }
+            }
         }
     }
 }

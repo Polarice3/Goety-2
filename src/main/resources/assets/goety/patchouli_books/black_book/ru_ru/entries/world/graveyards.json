@@ -1,0 +1,16 @@
+{
+  "name": "Кладбища",
+  "icon": "goety:shade_stone_polished",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "По всему миру обнаруживают кладбища с привидениями, которые, по слухам, одержимы тёмной магией. Некоторые сообщали, что слышали вой рядом с захоронениями. Возможно, что в этих могилах хранятся сокровища..."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/graveyard.png"],
+      "border": true
+    }
+  ]
+}

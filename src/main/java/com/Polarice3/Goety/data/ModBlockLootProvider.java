@@ -1,8 +1,6 @@
 package com.Polarice3.Goety.data;
 
-import com.Polarice3.Goety.common.blocks.LayerBlock;
-import com.Polarice3.Goety.common.blocks.ModBlocks;
-import com.Polarice3.Goety.common.blocks.SnapWartsBlock;
+import com.Polarice3.Goety.common.blocks.*;
 import com.Polarice3.Goety.common.items.ModItems;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -87,6 +85,10 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
         LootItemCondition.Builder lootbuilder = LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.SNAP_WARTS.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SnapWartsBlock.AGE, 2));
         LootItemCondition.Builder lootbuilder1 = LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.SNAP_WARTS.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SnapWartsBlock.AGE, 1));
         this.add(ModBlocks.SNAP_WARTS.get(), createSnapWartDrops(ModBlocks.SNAP_WARTS.get(), ModItems.SNAP_FUNGUS.get(), ModBlocks.SNAP_WARTS_ITEM.get(), lootbuilder, lootbuilder1));
+        LootItemCondition.Builder lootitemcondition$builder1 = LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.HENBANE.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(HenbaneBlock.AGE, 3));
+        this.add(ModBlocks.HENBANE.get(), this.createCropDrops(ModBlocks.HENBANE.get(), ModItems.HENBANE_FLOWER.get(), ModBlocks.HENBANE_SEEDS.get(), lootitemcondition$builder1));
+        LootItemCondition.Builder lootitemcondition$builder2 = LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.DEADLY_NIGHTSHADE.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(NightshadeBlock.AGE, 3));
+        this.add(ModBlocks.DEADLY_NIGHTSHADE.get(), this.createCropDrops(ModBlocks.DEADLY_NIGHTSHADE.get(), ModItems.NIGHTSHADE_BLOSSOM.get(), ModBlocks.NIGHTSHADE_SEEDS.get(), lootitemcondition$builder2));
         this.add(ModBlocks.FIRETHORN.get(), (p_249159_) -> {
             return this.applyExplosionDecay(p_249159_, LootTable.lootTable().withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.FIRETHORN.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3))).add(LootItem.lootTableItem(ModBlocks.FIRETHORN_BERRIES.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))).withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.FIRETHORN.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 2))).add(LootItem.lootTableItem(ModBlocks.FIRETHORN_BERRIES.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))));
         });
@@ -118,6 +120,8 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
         this.add(ModBlocks.END_STONE_SLATE_BLOCK.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, ModBlocks.COBBLED_END_STONE_BLOCK.get()));
         this.dropOther(ModBlocks.COBBLED_OMINOUS_STONE_PATH_BLOCK.get(), ModBlocks.COBBLED_OMINOUS_STONE_BLOCK.get());
         this.dropWhenSilkTouch(ModBlocks.SCULK_RELAY.get());
+        this.dropPottedContents(ModBlocks.POTTED_HENBANE.get());
+        this.dropPottedContents(ModBlocks.POTTED_DEADLY_NIGHTSHADE.get());
         this.dropPottedContents(ModBlocks.POTTED_SIENNA_GRASS.get());
         this.dropPottedContents(ModBlocks.POTTED_SIENNA_FERN.get());
         this.dropPottedContents(ModBlocks.POTTED_WINDSWEPT_DEAD_BUSH.get());

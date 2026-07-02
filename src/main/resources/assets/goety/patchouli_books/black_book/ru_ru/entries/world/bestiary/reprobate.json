@@ -1,0 +1,21 @@
+{
+  "name": "Нечестивцы",
+  "icon": "minecraft:crimson_planks",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_reprobate",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "В отличие от ведьм, эти язычники бросают бочки со смесью самых разных зелий. Говорят, что они также поставляют зелья силам тьмы."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:reprobate",
+      "text": "Нечестивцы имеют иммунитет к магии, подобно ведьмам."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Если в странствующего торговца ударит молния, он превратится в нечестивца."
+    }
+  ]
+}

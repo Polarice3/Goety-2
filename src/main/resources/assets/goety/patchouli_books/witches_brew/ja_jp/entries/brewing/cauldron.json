@@ -1,0 +1,50 @@
+{
+  "name": "その他の大釜の使い道",
+  "icon": "goety:witch_cauldron",
+  "category": "goety:brewing",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "私たちの「大釜」は、単に魔法の薬を作るためのものではありません！時にはシチューを作ったり、体に塗ることで何らかの効果が得られる軟膏を作ったりすることもできるんですよ！"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:nightshade_blossom",
+      "text": "ブリュー以外のものを作り始めるには、ヒヨスの花の代わりに、おなじみのベラドンナを投入します！ヒナスと同様に、草やシダをボーリンで刈り取って種を入手し、耕地で育てることができます！"
+    },
+    {
+      "type": "goety:cauldron",
+      "recipe": "goety:cauldron/resilience_lotion"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "このローションを塗ると肌と骨が強化され、受ける攻撃のダメージを減らすことができます！"
+    },
+    {
+      "type": "goety:cauldron",
+      "anchor": "flying_ointment",
+      "recipe": "goety:cauldron/flying_ointment"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "アハハハハ！これぞ「空飛ぶ軟膏」！本当に空を飛んでいるような気分になれるし、気分も最高にアガるわ！ほうきとの相性も抜群だ、アハハ！"
+    },
+    {
+      "type": "goety:cauldron",
+      "recipe": "goety:cauldron/mushroom_stew"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "言っただろ、自業自得だって！"
+    },
+    {
+      "type": "goety:cauldron",
+      "recipe": "goety:cauldron/candle"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "大釜でキャンドルを作る際、もっと凝った仕掛けを必要とする魔女もいますが、ここではただ紐を一本使うだけで、なぜか完璧な形のワックス・シリンダーが出来上がってしまうんですよ！"
+    }
+  ]
+}

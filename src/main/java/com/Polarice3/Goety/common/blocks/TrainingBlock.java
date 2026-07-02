@@ -45,7 +45,7 @@ public abstract class TrainingBlock extends BaseEntityBlock {
 
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         BlockEntity tileentity = pLevel.getBlockEntity(pPos);
-        if (tileentity instanceof TrainingBlockEntity blockEntity) {
+        if (tileentity instanceof TrainingBlockEntity blockEntity && blockEntity.getPlayer() == pPlayer) {
             ItemStack itemstack = pPlayer.getItemInHand(pHand);
             if (blockEntity.placeItem(itemstack)){
                 return InteractionResult.SUCCESS;

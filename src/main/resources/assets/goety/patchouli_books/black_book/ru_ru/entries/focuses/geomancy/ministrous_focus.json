@@ -1,0 +1,19 @@
+{
+  "name": "Фокус чудовищности",
+  "icon": "goety:ministrous_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Этот фокус призывает $(l:summons/ministrosities)камнных чудушек$(), простых големчиков, которые кусают противников."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/ministrous_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/geo_staff)гео-посоха$() позволит призывать больше чудушек. Ношение $(l:crafts/garment/geo_robe)гео-мантии$() позволит призывать редстоуновых чудушек."
+    }
+  ]
+}

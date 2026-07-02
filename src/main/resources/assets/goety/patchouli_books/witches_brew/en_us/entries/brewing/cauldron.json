@@ -1,0 +1,50 @@
+{
+  "name": "Other Cauldron Uses",
+  "icon": "goety:witch_cauldron",
+  "category": "goety:brewing",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Our Cauldrons aren't just for making brews! Sometimes you can make stew or some unguents to cover your body with for some effects!"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:nightshade_blossom",
+      "text": "To start making non-brews, instead of throwing a Henbane Flower, you throw in the good ol' Nightshade! Like Henbane, you get the seeds from breaking grass and ferns with the $(l:brewing/brewing_steps#boline)boline$(), and grow them on farmland!"
+    },
+    {
+      "type": "goety:cauldron",
+      "recipe": "goety:cauldron/resilience_lotion"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "This lotion will strengthened up your skin and bones when applied, making you take less damage from incoming attacks!"
+    },
+    {
+      "type": "goety:cauldron",
+      "anchor": "flying_ointment",
+      "recipe": "goety:cauldron/flying_ointment"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "HAHAHAHAHA! Good ol' Flying Ointment! Makes you feel like you're actually flying and pumps you up! Works well with a broom hahaha!"
+    },
+    {
+      "type": "goety:cauldron",
+      "recipe": "goety:cauldron/mushroom_stew"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Told ya you can stew outta this!"
+    },
+    {
+      "type": "goety:cauldron",
+      "recipe": "goety:cauldron/candle"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Some witches requires a more fancy get-up to make candles out of their cauldron, but out here, we just use a piece of string and get somehow get perfectly shaped wax cylinders out of it!"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "goety:item/resilience_lotion",
+    "layer1": "goety:item/unguent"
+  }
+}

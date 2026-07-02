@@ -1,0 +1,36 @@
+{
+  "name": "Vassoura Assombrada",
+  "icon": "goety:haunted_broom",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Lendas falavam de bruxas montando em vassouras e voando pelos céus. Após algumas pesquisas, você descobriu uma maneira de fazer uma para si mesmo."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:haunted/haunted_broom"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Vassoura Assombrada é essencialmente uma Varinha privada da capacidade de lançar feitiços, mas com a força e habilidade de carregá-lo pelo ar. A vassoura só responde a comandos para frente, e voará na direção em que você está olhando, embora você precise olhar para trás para desacelerar. Cuidado para não voar muito rápido, pois colidir com um bloco sólido pode causar dano e fazer sua vassoura quebrar no impacto."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Infelizmente, há um custo. A cada 8 blocos, por padrão, vertical ou horizontalmente, a vassoura precisa se alimentar da Energia da Alma de quem a monta. Se for privada da quantidade de Energia da Alma necessária para voar, a vassoura quebrará, derrubando você e a vassoura do céu. Se você tiver uma quantidade insuficiente de Energia da Alma, não poderá montar na Vassoura Assombrada."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Encantamentos de Vassoura",
+      "text": "As Vassouras Assombradas podem ser surpreendentemente encantadas com dois $(l:focuses/focus_enchantments)encantamentos de foco$(). Velocidade aumentará, é claro, a velocidade da vassoura. Ardente, no entanto, tem um efeito especial: se uma vassoura quebrar ao colidir com um bloco sólido, ela explodirá! O tamanho depende da velocidade em que a vassoura estava."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "De acordo com algumas de suas pesquisas, as vassouras eram na verdade o cajado da bruxa disfarçado com uma escova. Além disso, elas provavelmente andavam com a escova na frente, mas isso me parece uma tendência antiga e ultrapassada neste mundo."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:haunted_broom": 1
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "O",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "goety:crag_tiles"
+    },
+    "O": {
+      "item": "minecraft:orange_dye"
+    }
+  },
+  "result": {
+    "item": "goety:braced_crag_tile_pillar",
+    "count": 1
+  }
+}

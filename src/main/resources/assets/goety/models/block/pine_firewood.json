@@ -1,0 +1,6 @@
+{
+  "parent": "goety:block/template_firewood",
+  "textures": {
+    "wood": "goety:block/pine_firewood"
+  }
+}

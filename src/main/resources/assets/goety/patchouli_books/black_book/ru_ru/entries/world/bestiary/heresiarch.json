@@ -1,0 +1,25 @@
+{
+  "name": "Ересиархи",
+  "icon": "goety:malefic_helm",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_heresiarch",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Эти нечестивые жрецы возглавляют общину фанатиков, поклоняющихся Великому Пламени. Знания о тёмном царстве наделяют их адскими способностями."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:heresiarch",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:malefic_helm",
+      "text": "После смерти с них выпадает рогатый костяной шлем, который даёт некоторые преимущества, но из-за размера его нельзя носить в слоте Curios."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:malefic_helm": 2
+  }
+}

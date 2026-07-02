@@ -5,10 +5,7 @@ import com.Polarice3.Goety.api.items.IPersist;
 import com.Polarice3.Goety.api.items.IPersistDecorator;
 import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.client.events.BossBarEvent;
-import com.Polarice3.Goety.client.gui.overlay.CurrentFocusGui;
-import com.Polarice3.Goety.client.gui.overlay.DreadOverlay;
-import com.Polarice3.Goety.client.gui.overlay.RavagerRoarGui;
-import com.Polarice3.Goety.client.gui.overlay.SoulEnergyGui;
+import com.Polarice3.Goety.client.gui.overlay.*;
 import com.Polarice3.Goety.client.gui.screen.inventory.*;
 import com.Polarice3.Goety.client.inventory.container.ModContainerType;
 import com.Polarice3.Goety.client.render.*;
@@ -26,6 +23,7 @@ import com.Polarice3.Goety.common.items.ArcaCompassItem;
 import com.Polarice3.Goety.common.items.FlameCaptureItem;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.WaystoneItem;
+import com.Polarice3.Goety.common.items.curios.EternalCauldronItem;
 import com.Polarice3.Goety.common.items.curios.OminousCharmItem;
 import com.Polarice3.Goety.common.items.magic.*;
 import com.Polarice3.Goety.common.items.revive.SoulJar;
@@ -81,6 +79,7 @@ public class ClientInitEvents {
         MenuScreens.register(ModContainerType.FOCUS_BAG.get(), FocusBagScreen::new);
         MenuScreens.register(ModContainerType.FOCUS_PACK.get(), FocusPackScreen::new);
         MenuScreens.register(ModContainerType.BREW_BAG.get(), BrewBagScreen::new);
+        MenuScreens.register(ModContainerType.ETERNAL_CAULDRON.get(), EternalCauldronScreen::new);
         MenuScreens.register(ModContainerType.DARK_ANVIL.get(), DarkAnvilScreen::new);
         MenuScreens.register(ModContainerType.CRAFTING_FOCUS.get(), CraftingScreen::new);
         CuriosRenderer.register();
@@ -160,6 +159,8 @@ public class ClientInitEvents {
                     });
             ItemProperties.register(ModItems.ESOTERIC_TESSERACT.get(), new ResourceLocation("active")
                     , (stack, world, living, seed) -> EsotericTesseract.getServantsInTesseract(stack) > 0 ? 1.0F : 0.0F);
+            ItemProperties.register(ModItems.ETERNAL_CAULDRON.get(), new ResourceLocation("filled")
+                    , (stack, world, living, seed) -> !EternalCauldronItem.getBottle(stack).isEmpty() ? 1.0F : 0.0F);
         });
     }
 
@@ -235,6 +236,8 @@ public class ClientInitEvents {
 
     @SubscribeEvent
     public static void registerGUI(final RegisterGuiOverlaysEvent event){
+        event.registerAboveAll("ominous_charm", OminousCharmGui.OVERLAY);
+        event.registerAboveAll("eternal_cauldron", EternalCauldronGui.OVERLAY);
         event.registerAbove(VanillaGuiOverlay.PLAYER_LIST.id(), "static_overlay", DreadOverlay.OVERLAY);
         event.registerAbove(VanillaGuiOverlay.HOTBAR.id(), "soul_energy_hud", SoulEnergyGui.OVERLAY);
         event.registerAbove(VanillaGuiOverlay.HOTBAR.id(), "ravager_roar_hud", RavagerRoarGui.OVERLAY);
@@ -401,6 +404,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.BREW_BAG, MiscCuriosModel::createBrewBagLayer);
         event.registerLayerDefinition(ModModelLayer.AMULET, MiscCuriosModel::createAmuletLayer);
         event.registerLayerDefinition(ModModelLayer.AMETHYST_NECKLACE, MiscCuriosModel::createAmethystNecklaceLayer);
+        event.registerLayerDefinition(ModModelLayer.ETERNAL_CAULDRON, EternalCauldronModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.BELT, MiscCuriosModel::createBeltLayer);
         event.registerLayerDefinition(ModModelLayer.MONOCLE, MiscCuriosModel::createMonocleLayer);
         event.registerLayerDefinition(ModModelLayer.VILLAGER_ARMOR_INNER, VillagerArmorModel::createInnerArmorLayer);
@@ -417,6 +421,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.SOUL_SHIELD, () -> LayerDefinition.create(PlayerModel.createMesh(new CubeDeformation(0.5F), false), 64, 64));
         event.registerLayerDefinition(ModModelLayer.SOUL_ARMOR, () -> LayerDefinition.create(PlayerModel.createMesh(new CubeDeformation(0.3F), false), 64, 64));
         event.registerLayerDefinition(ModModelLayer.NAMELESS_STAFF, NamelessStaffModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.BROOM, HauntedBroomModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.HAUNTED_ARMOR_STAND, HauntedArmorStandModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.HAS_INNER, () -> HauntedArmorStandArmorModel.createBodyLayer(new CubeDeformation(0.5F)));
         event.registerLayerDefinition(ModModelLayer.HAS_OUTER, () -> HauntedArmorStandArmorModel.createBodyLayer(new CubeDeformation(1.0F)));
@@ -583,6 +588,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.BREW_EFFECT_GAS.get(), BrewGasRenderer::new);
         event.registerEntityRenderer(ModEntityType.MOD_BOAT.get(), (render) -> new ModBoatRenderer(render, false));
         event.registerEntityRenderer(ModEntityType.MOD_CHEST_BOAT.get(), (render) -> new ModBoatRenderer(render, true));
+        event.registerEntityRenderer(ModEntityType.HAUNTED_BROOM.get(), HauntedBroomRenderer::new);
         event.registerEntityRenderer(ModEntityType.MOD_PAINTING.get(), HauntedPaintingRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_ARMOR_STAND.get(), HauntedArmorStandRenderer::new);
         event.registerEntityRenderer(ModEntityType.WARLOCK.get(), WarlockRenderer::new);
@@ -843,6 +849,7 @@ public class ClientInitEvents {
         event.registerRecipeCategoryFinder(ModRecipeSerializer.SOUL_ABSORBER.get(), recipe -> RecipeBookCategories.UNKNOWN);
         event.registerRecipeCategoryFinder(ModRecipeSerializer.RITUAL_TYPE.get(), recipe -> RecipeBookCategories.UNKNOWN);
         event.registerRecipeCategoryFinder(ModRecipeSerializer.BRAZIER_TYPE.get(), recipe -> RecipeBookCategories.UNKNOWN);
+        event.registerRecipeCategoryFinder(ModRecipeSerializer.CAULDRON_TYPE.get(), recipe -> RecipeBookCategories.UNKNOWN);
         event.registerRecipeCategoryFinder(ModRecipeSerializer.BREWING_TYPE.get(), recipe -> RecipeBookCategories.UNKNOWN);
         event.registerRecipeCategoryFinder(ModRecipeSerializer.PULVERIZE_TYPE.get(), recipe -> RecipeBookCategories.UNKNOWN);
     }

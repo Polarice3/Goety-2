@@ -13,7 +13,7 @@ import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
 import com.Polarice3.Goety.common.entities.projectiles.SnapFungus;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.network.ModNetwork;
-import com.Polarice3.Goety.common.network.server.SInstaLookPacket;
+import com.Polarice3.Goety.common.network.server.SInstaLookAtPacket;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModTags;
@@ -60,7 +60,6 @@ import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.raid.Raid;
@@ -1021,6 +1020,10 @@ public class MobUtil {
     }
 
     public static void instaLook(Mob mob, Vec3 vec3){
+        instaLook(mob, vec3, false);
+    }
+
+    public static void instaLook(Mob mob, Vec3 vec3, boolean clientSent){
         mob.getLookControl().setLookAt(vec3.x, vec3.y, vec3.z, 200.0F, mob.getMaxHeadXRot());
         double d2 = vec3.x - mob.getX();
         double d1 = vec3.z - mob.getZ();
@@ -1028,6 +1031,11 @@ public class MobUtil {
         mob.setYRot(rotate);
         mob.yBodyRot = rotate;
         mob.yHeadRot = rotate;
+        if (clientSent) {
+            if (!mob.level.isClientSide) {
+                ModNetwork.sendToALL(new SInstaLookAtPacket(mob, vec3));
+            }
+        }
     }
 
     public static void instaLook(Mob looker, Entity target){
@@ -1036,12 +1044,7 @@ public class MobUtil {
 
     public static void instaLook(Mob looker, Entity target, boolean clientSent){
         looker.lookAt(target, 100.0F, 100.0F);
-        instaLook(looker, target.getEyePosition());
-        if (clientSent) {
-            if (!looker.level.isClientSide) {
-                ModNetwork.sendToALL(new SInstaLookPacket(looker, target));
-            }
-        }
+        instaLook(looker, target.getEyePosition(), clientSent);
     }
 
     public static void rotateTo(Mob looker, LivingEntity target){
@@ -1715,7 +1718,7 @@ public class MobUtil {
         }
     }
 
-    public static boolean canHitEntity(AbstractArrow arrow, Entity pEntity) {
+    public static boolean canHitEntity(Projectile arrow, Entity pEntity) {
         if (arrow.getOwner() != null){
             if (pEntity == arrow.getOwner()){
                 return false;

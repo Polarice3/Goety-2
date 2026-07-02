@@ -88,7 +88,7 @@ public class WightSpawner {
             if (BlockFinder.canSeeBlock(player, blockPos) || i == 15) {
                 if (serverLevel.isLoaded(blockPos) && serverLevel.getFluidState(blockPos).isEmpty()){
                     wight.setPos(vec3);
-                    wight.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(wight.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+                    wight.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(wight.blockPosition()), MobSpawnType.EVENT, null, null);
                     wight.upgradePower(sePercent);
                     return serverLevel.addFreshEntity(wight);
                 }

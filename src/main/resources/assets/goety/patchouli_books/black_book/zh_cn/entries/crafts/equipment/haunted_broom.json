@@ -1,0 +1,36 @@
+{
+  "name": "缠魂扫帚",
+  "icon": "goety:haunted_broom",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "传说中女巫们可以骑着扫帚翱翔于天际。这不禁让你遐想，而黑魔法使从来不缺天才，因此你经过一番研究，传说终将在你手上得以再度重现。 "
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:haunted/haunted_broom"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "缠魂扫帚本质上是一根失去了施法能力的魔杖，依次为代价，它获得了载你飞行的能力。扫帚只响应前进指令，会朝你视线方向飞行，不过你需要在飞行的时候向后看才能减速。小心别飞太快，因为撞上固体方块会导致你受伤，扫帚也会在撞击时破损。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "不幸的是，虽然无忧无虑的翱翔天际很美好，但是万事万物都是有代价的。默认情况下，每飞行8格（无论垂直或水平），扫帚就需要吸取骑乘者的灵魂能量。如果灵魂能量不足，扫帚会损坏，然后扫帚就会坠落而下。如果你的灵魂能量不足，你将无法再骑乘缠魂扫帚。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "适用于扫帚的附魔",
+      "text": "令人惊讶的是，扫帚也可以附魔两种$(l:focuses/focus_enchantments)适用于聚晶的附魔$()。速度魔咒自然会提高扫帚的飞行速度。而燃烧魔咒则有特殊效果：如果扫帚在撞击固体方块时被毁坏，它会爆炸！爆炸范围取决于扫帚当时的飞行速度。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "经过你的一些研究发现，扫帚实际上是女巫的法杖，不过是上面绑了一把刷子。而且，她们很可能一直以来都以错误的方式骑乘自己的魔杖，但在我看来，这玩意都老掉牙了。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:haunted_broom": 1
+  }
+}

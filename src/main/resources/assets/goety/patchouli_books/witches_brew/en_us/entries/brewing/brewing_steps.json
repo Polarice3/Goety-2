@@ -1,12 +1,18 @@
 {
   "name": "Brewing Steps",
-  "icon": "minecraft:nether_wart",
+  "icon": "goety:henbane_flower",
   "category": "goety:brewing",
   "sortnum": 1,
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "To truly start brewing, you must add a $(item)Nether Wart$() into the boiling cauldron! Then, when it starts emitting purple sparks, we can truly begin nyehahahaha!"
+      "text": "To truly start brewing, you must add a $(item)Henbane Flower$() into the boiling cauldron! Then, when it starts emitting purple sparks, we can truly begin nyehahahaha!"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:wicked_boline",
+      "anchor": "boline",
+      "text": "How do you get a Henbane Flower you asked? You grow them, that's how! Now be a good would-be witch, make, or steal, a boline and start foraging some grass or fern for the seeds, along with other wonderful plants!"
     },
     {
       "type": "patchouli:text",

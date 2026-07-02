@@ -89,7 +89,7 @@ public class MobCraftingGoal<T extends Mob & IMobCrafter> extends Goal {
                     if (this.getNearbyCraftTableUsers(serverLevel, new AABB(this.craftTable).inflate(4.0D), this.craftTable).isEmpty()) {
                         if (this.tryTicks <= 1200) {
                             BlockState blockState = this.mob.level.getBlockState(this.craftTable);
-                            return this.mob.isCraftTable(blockState) && super.canContinueToUse();
+                            return this.mob.isCraftTable(blockState);
                         }
                     }
                 }
@@ -118,6 +118,7 @@ public class MobCraftingGoal<T extends Mob & IMobCrafter> extends Goal {
         this.tryTicks = 0;
         this.workTick = 0;
         this.mob.setCrafting(false);
+        this.checkCooldown = 0;
     }
 
     @Override

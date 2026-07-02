@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Maverick;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
@@ -24,6 +25,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -175,7 +177,7 @@ public class MaverickServant extends CultistServant{
 
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource p_217055_, DifficultyInstance p_217056_) {
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.WICKED_BOLINE.get()));
     }
 
     @Override
@@ -311,7 +313,19 @@ public class MaverickServant extends CultistServant{
                 if (instance.getEffect().isInstantenous()) {
                     instants.add(instance);
                 } else {
-                    effects.add(instance);
+                    double d1;
+                    if (this.level.getDifficulty() == Difficulty.HARD) {
+                        d1 = 1.0D;
+                    } else {
+                        d1 = 0.25D;
+                    }
+                    int i = instance.mapDuration((p_267930_) -> {
+                        return (int)(d1 * (double)p_267930_ + 0.5D);
+                    });
+                    MobEffectInstance mobeffectinstance1 = new MobEffectInstance(instance.getEffect(), i, instance.getAmplifier(), instance.isAmbient(), instance.isVisible());
+                    if (!mobeffectinstance1.endsWithin(20)) {
+                        effects.add(mobeffectinstance1);
+                    }
                 }
             }
             if (!effects.isEmpty() || !instants.isEmpty()) {

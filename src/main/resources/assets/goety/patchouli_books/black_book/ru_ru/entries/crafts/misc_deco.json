@@ -1,0 +1,95 @@
+{
+  "name": "Различные украшения",
+  "icon": "goety:gold_candlestick",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Тёмные искусства — это путь ко многим способностям, в том числе... привлекательным? Изучение тёмной магии привело вас к открытию нескольких украшений, которые позволят почувствовать себя настоящим тёмным волшебником."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "По иронии судьбы, вы открыли новые способы осветить своё логово."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:gold_candlestick",
+      "recipe2": "goety:gold_candelabra"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:iron_dungeon_torch",
+      "recipe2": "goety:gold_dungeon_torch"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:steep/steep_sconce",
+      "recipe2": "goety:jade_light"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:pine/pine_lantern"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:royal_carpet_corner",
+      "text": "Обычные ковры вам не годятся. Полы в логове должны быть достаточно просторными для ваших ног. К сожалению, эти ковры необходимо делить на части, из которых впоследствии можно составить целый узор."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:royal_carpet",
+      "recipe2": "goety:royal_carpet_corner"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:royal_carpet_edge",
+      "recipe2": "goety:royal_carpet_inner_corner"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:frosty_carpet",
+      "recipe2": "goety:frosty_carpet_corner"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:frosty_carpet_edge",
+      "recipe2": "goety:frosty_carpet_inner_corner"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:royal_throne",
+      "text": "Куда же в логове без трона? На него можно даже усадить прислужника (либо с помощью фокусов, либо поручив ему охранять трон). Так же можно заставить его слезть (либо с помощью фокусов, либо изменив ему место охраны, либо просто отозвав его)."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:shade_throne",
+      "recipe2": "goety:stone_throne"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:deepslate_throne",
+      "recipe2": "goety:ominous_throne"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:blackstone_throne",
+      "recipe2": "goety:highrock_throne"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:blackstone_throne",
+      "recipe2": "goety:marble_throne"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:royal_throne",
+      "recipe2": "goety:frosted_throne"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Царственность",
+      "text": "На все троны можно наложить «царственность». Никто, кроме вас и ваших союзников, не сможет сидеть на зачарованном троне. Если на трон сядете вы, 4 ближайших союзника будут получать урон вместо вас. Если кто-то другой сломает трон, он потеряет свои чары."
+    }
+  ]
+}

@@ -442,7 +442,7 @@ public class Goety {
                             if (blockState.is(ModBlocks.BREWING_CAULDRON.get())) {
                                 if (blockState.getValue(BrewCauldronBlock.LEVEL) == 3) {
                                     if (source.getLevel().getBlockEntity(blockpos) instanceof BrewCauldronBlockEntity blockEntity){
-                                        blockEntity.reset();
+                                        blockEntity.fullReset();
                                     }
                                     this.setSuccess(source.getLevel().setBlockAndUpdate(blockpos, blockState.setValue(BrewCauldronBlock.LEVEL, 0)));
                                     return new ItemStack(Items.WATER_BUCKET);
@@ -460,6 +460,8 @@ public class Goety {
             AxeItem.STRIPPABLES.put(ModBlocks.WINDSWEPT_WOOD.get(), ModBlocks.STRIPPED_WINDSWEPT_WOOD.get());
             AxeItem.STRIPPABLES.put(ModBlocks.PINE_LOG.get(), ModBlocks.STRIPPED_PINE_LOG.get());
             AxeItem.STRIPPABLES.put(ModBlocks.PINE_WOOD.get(), ModBlocks.STRIPPED_PINE_WOOD.get());
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.HENBANE.getId(), ModBlocks.POTTED_HENBANE);
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.DEADLY_NIGHTSHADE.getId(), ModBlocks.POTTED_DEADLY_NIGHTSHADE);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.SIENNA_GRASS.getId(), ModBlocks.POTTED_SIENNA_GRASS);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.SIENNA_FERN.getId(), ModBlocks.POTTED_SIENNA_FERN);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.WINDSWEPT_DEAD_BUSH.getId(), ModBlocks.POTTED_WINDSWEPT_DEAD_BUSH);
@@ -508,6 +510,8 @@ public class Goety {
             ComposterBlock.COMPOSTABLES.put(ModBlocks.TALL_SIENNA_GRASS.get().asItem(), 0.5F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.LARGE_SIENNA_FERN.get().asItem(), 0.5F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.SIENNA_VINE.get().asItem(), 0.5F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.HENBANE_SEEDS.get(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModItems.HENBANE_FLOWER.get(), 0.65F);
             ComposterBlock.COMPOSTABLES.put(ModItems.SNAP_FUNGUS.get(), 0.65F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.ROTTEN_SAPLING.get().asItem(), 0.65F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_SAPLING.get().asItem(), 0.65F);

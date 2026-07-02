@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "goety:block/dense_steep_planks_shaded",
+    "bottom": "goety:block/dense_steep_planks",
+    "side": "goety:block/dense_banded_steep_planks"
+  }
+}

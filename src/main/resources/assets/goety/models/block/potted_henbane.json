@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/flower_pot_cross",
+  "textures": {
+    "plant": "goety:block/henbane_stage3"
+  },
+  "render_type": "cutout"
+}

@@ -43,6 +43,11 @@ public class ModRecipeSerializer {
     public static final RegistryObject<RecipeSerializer<BrazierRecipe>> BRAZIER = RECIPE_SERIALIZERS.register("brazier",
             () -> BrazierRecipe.SERIALIZER);
 
+    public static final RegistryObject<RecipeType<CauldronRecipe>> CAULDRON_TYPE = register("cauldron");
+
+    public static final RegistryObject<RecipeSerializer<CauldronRecipe>> CAULDRON = RECIPE_SERIALIZERS.register("cauldron",
+            () -> CauldronRecipe.SERIALIZER);
+
     public static final RegistryObject<RecipeType<BrewingRecipe>> BREWING_TYPE = register("brewing");
 
     public static final RegistryObject<RecipeSerializer<BrewingRecipe>> BREWING = RECIPE_SERIALIZERS.register("brewing",

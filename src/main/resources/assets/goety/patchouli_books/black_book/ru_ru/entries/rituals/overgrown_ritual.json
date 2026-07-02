@@ -1,0 +1,22 @@
+{
+  "name": "Ритуал растительности",
+  "icon": "minecraft:jungle_leaves",
+  "category": "goety:rituals",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Требования: $(li)Алтарь должен находиться в тропическом биоме $(br)$(l)ИЛИ$()$() $(li)32 любых блока листьев $(li)16 разросшихся корней $(li)16 любых замшелых блоком"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/overgrown_ritual.png"],
+      "border": true,
+      "text": "Пример того, как можно провести ритуал."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Силы дикой природы, роста и жизни могут быть использованы в тёмных целях с помощью этого ритуала."
+    }
+  ]
+}

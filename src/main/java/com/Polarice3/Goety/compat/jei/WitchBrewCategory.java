@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.compat.jei;
 
 import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.common.items.ModItems;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotView;
@@ -24,13 +25,15 @@ import java.util.Optional;
 public class WitchBrewCategory implements IRecipeCategory<WitchBrewJeiRecipe> {
     private final IDrawable background;
     private final IDrawable icon;
+    private final IDrawable cauldron;
     private final String inputSlotName = "inputSlot";
     private final String catalystSlotName = "catalystSlot";
     private final String outputSlotName = "outputSlot";
 
     public WitchBrewCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(125, 60);
-        this.icon = guiHelper.createDrawableItemStack(new ItemStack(ModBlocks.BREWING_CAULDRON.get()));
+        this.icon = guiHelper.createDrawableItemStack(new ItemStack(ModItems.HENBANE_FLOWER.get()));
+        this.cauldron = guiHelper.createDrawableItemStack(new ItemStack(ModBlocks.BREWING_CAULDRON.get()));
     }
 
     @Override
@@ -50,7 +53,7 @@ public class WitchBrewCategory implements IRecipeCategory<WitchBrewJeiRecipe> {
 
     @Override
     public Component getTitle() {
-        return ModBlocks.BREWING_CAULDRON.get().getName();
+        return Component.translatable("goety.jei.brew");
     }
 
     @Override
@@ -63,7 +66,7 @@ public class WitchBrewCategory implements IRecipeCategory<WitchBrewJeiRecipe> {
                 .setSlotName(inputSlotName);
 
         builder.addSlot(RecipeIngredientRole.CATALYST, 36, y)
-                .addItemStack(new ItemStack(Items.NETHER_WART))
+                .addItemStack(new ItemStack(ModItems.HENBANE_FLOWER.get()))
                 .setSlotName(catalystSlotName);
 
         builder.addSlot(RecipeIngredientRole.CATALYST, 72, y)
@@ -103,13 +106,13 @@ public class WitchBrewCategory implements IRecipeCategory<WitchBrewJeiRecipe> {
         graphics.pose().pushPose();
         graphics.pose().translate((getWidth() / 1.5F) - 10 * 1.4F, (getHeight() / 2.0F) + 8, 0);
         graphics.pose().scale(1.4F, 1.4F, 1.4F);
-        this.icon.draw(graphics);
+        this.cauldron.draw(graphics);
         graphics.pose().popPose();
 
         graphics.pose().pushPose();
         graphics.pose().translate((getWidth() / 3.0F) - 6 * 1.4F, (getHeight() / 2.0F) + 8, 0);
         graphics.pose().scale(1.4F, 1.4F, 1.4F);
-        this.icon.draw(graphics);
+        this.cauldron.draw(graphics);
         graphics.pose().popPose();
     }
 

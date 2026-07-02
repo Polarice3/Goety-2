@@ -40,6 +40,9 @@ import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
+import com.Polarice3.Goety.utils.MathHelper;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -130,9 +133,13 @@ public class ModItems {
     public static final RegistryObject<Item> WARTFUL_EGG = ITEMS.register("wartful_egg", WartlingEggItem::new);
     public static final RegistryObject<Item> RED_MOSS_GROWTH = ITEMS.register("red_moss_growth", RedMossGrowthItem::new);
     public static final RegistryObject<Item> CHORUS_GROWTH = ITEMS.register("chorus_growth", ChorusGrowthItem::new);
+    public static final RegistryObject<Item> HENBANE_FLOWER = ITEMS.register("henbane_flower", () -> new Item(new Item.Properties().food(ModFoods.HENBANE)));
+    public static final RegistryObject<Item> NIGHTSHADE_BLOSSOM = ITEMS.register("nightshade_blossom", () -> new Item(new Item.Properties().food(ModFoods.NIGHTSHADE)));
     public static final RegistryObject<Item> QUICK_GROWING_SEED = ITEMS.register("quick_growing_seed", () -> new QuickGrowSeedItem(false));
     public static final RegistryObject<Item> POISON_QUILL_SEED = ITEMS.register("poison_quill_seed", () -> new QuickGrowSeedItem(true));
     public static final RegistryObject<Item> REFUSE_BOTTLE = ITEMS.register("refuse_bottle", RefuseBottleItem::new);
+    public static final RegistryObject<Item> RESILIENCE_LOTION = ITEMS.register("resilience_lotion", () -> new UnguentItem(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, MathHelper.minutesToTicks(3))));
+    public static final RegistryObject<Item> FLYING_OINTMENT = ITEMS.register("flying_ointment", FlyingOintmentItem::new);
     public static final RegistryObject<Item> ILL_BOMB = ITEMS.register("ill_bomb", IllBombItem::new);
     public static final RegistryObject<Item> OMINOUS_SHACKLES = ITEMS.register("ominous_shackles", OminousShacklesItem::new);
     public static final RegistryObject<Item> CRYPTIC_EYE = ITEMS.register("cryptic_eye", CrypticEyeItem::new);
@@ -189,6 +196,8 @@ public class ModItems {
 
     public static final RegistryObject<Item> CORRUPT_CHORUS_BOAT = ITEMS.register("corrupt_chorus_boat", () -> new ModBoatItem(false, ModBoat.Type.CORRUPT_CHORUS, (new Item.Properties()).stacksTo(1)));
     public static final RegistryObject<Item> CORRUPT_CHORUS_CHEST_BOAT = ITEMS.register("corrupt_chorus_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.CORRUPT_CHORUS, (new Item.Properties()).stacksTo(1)));
+
+    public static final RegistryObject<Item> HAUNTED_BROOM = ITEMS.register("haunted_broom", HauntedBroomItem::new);
 
     public static final RegistryObject<Item> HAUNTED_ARMOR_STAND = ITEMS.register("haunted_armor_stand", HauntedArmorStandItem::new);
     public static final RegistryObject<Item> HAUNTED_PAINTING = ITEMS.register("haunted_painting", HauntedPaintingItem::new);
@@ -248,6 +257,7 @@ public class ModItems {
     public static final RegistryObject<SingleStackItem> NETHER_ROBE = ITEMS.register("nether_robe", NetherRobeItem::new);
     public static final RegistryObject<SingleStackItem> NETHER_ROBE_WARPED = ITEMS.register("nether_robe_warped", NetherRobeItem::new);
     public static final RegistryObject<SingleStackItem> UNHOLY_ROBE = ITEMS.register("unholy_robe", UnholyRobeItem::new);
+    public static final RegistryObject<SingleStackItem> ETERNAL_CAULDRON = ITEMS.register("eternal_cauldron", EternalCauldronItem::new);
     public static final RegistryObject<SingleStackItem> SEA_AMULET = ITEMS.register("sea_amulet", SeaAmuletItem::new);
     public static final RegistryObject<SingleStackItem> FELINE_AMULET = ITEMS.register("feline_amulet", SingleStackItem::new);
     public static final RegistryObject<SingleStackItem> ALARMING_CHARM = ITEMS.register("alarming_charm", SingleStackItem::new);
@@ -445,6 +455,7 @@ public class ModItems {
     public static final RegistryObject<Item> BONEHEAD_HAMMER = ITEMS.register("bonehead_hammer", BoneheadHammerItem::new);
     public static final RegistryObject<Item> STORMLANDER = ITEMS.register("stormlander", StormlanderItem::new);
     public static final RegistryObject<Item> FANGED_DAGGER = ITEMS.register("fanged_dagger", FangedDaggerItem::new);
+    public static final RegistryObject<Item> WICKED_BOLINE = ITEMS.register("wicked_boline", SickleItem::new);
     public static final RegistryObject<Item> EERIE_PICKAXE = ITEMS.register("eerie_pickaxe", EeriePickaxeItem::new);
     public static final RegistryObject<Item> RAMPAGING_AXE = ITEMS.register("rampaging_axe", RampagingAxeItem::new);
     public static final RegistryObject<Item> GRAVEROBBER_SHOVEL = ITEMS.register("graverobber_shovel", GraverobberShovelItem::new);

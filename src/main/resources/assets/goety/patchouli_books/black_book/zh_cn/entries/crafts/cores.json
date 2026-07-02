@@ -12,7 +12,7 @@
       "type": "patchouli:spotlight",
       "item": "goety:empty_focus",
       "title": "空法术聚晶",
-      "text": "The $(l:intro/magical_components)空法术聚晶$()是各种魔法聚晶的核心，将紫水晶碎片放入诅咒注入器即可合成它"
+      "text": "$(l:intro/magical_components)空法术聚晶$()是各种魔法聚晶的核心，将紫水晶碎片放入诅咒注入器即可合成它"
     },
     {
       "type": "goety:ritual",

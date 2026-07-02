@@ -75,8 +75,8 @@ public class FlameCaptureItem extends Item {
                 if (level.getBlockState(pos).getBlock() == Blocks.SPAWNER) {
                     if (!level.isClientSide()) {
                         BlockEntity blockentity = level.getBlockEntity(pos);
-                        if (blockentity instanceof SpawnerBlockEntity) {
-                            Entity entity = ((SpawnerBlockEntity) blockentity).getSpawner().getOrCreateDisplayEntity(level, level.random, blockentity.getBlockPos());
+                        if (blockentity instanceof SpawnerBlockEntity spawnerBlockEntity) {
+                            Entity entity = spawnerBlockEntity.getSpawner().getOrCreateDisplayEntity(level, level.getRandom(), blockentity.getBlockPos());
                             if (entity != null) {
                                 this.setEntity(entity, stack);
                                 level.destroyBlock(pos, false);

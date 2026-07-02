@@ -38,7 +38,7 @@ public class CursedCageBlock extends BaseEntityBlock implements IForgeBlock {
 
     public CursedCageBlock() {
         super(Properties.of()
-                .mapColor(MapColor.STONE)
+                .mapColor(MapColor.METAL)
                 .strength(5.0F)
                 .sound(SoundType.METAL)
                 .requiresCorrectToolForDrops()

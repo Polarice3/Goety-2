@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "ss",
+    "ss"
+  ],
+  "key":
+  {
+    "s":
+    {
+      "item": "goety:steep_wood_slab"
+    }
+  },
+  "result":
+  {
+    "item": "goety:dense_steep_planks",
+    "count": 1
+  }
+}

@@ -77,12 +77,17 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.UUID;
 
 import static net.minecraftforge.event.entity.living.LivingChangeTargetEvent.LivingTargetType.MOB_TARGET;
 
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class PotionEvents {
+
+    public static AttributeModifier SOUL_ARMOR_MOD = new AttributeModifier(UUID.fromString("3e4b414b-466c-4b90-8a92-a878e2542bb8"), "Increase Armor", 2.0D, AttributeModifier.Operation.MULTIPLY_TOTAL);
 
     @SubscribeEvent
     public static void LivingEffects(LivingEvent.LivingTickEvent event){
@@ -100,21 +105,20 @@ public class PotionEvents {
                 }
             }
             AttributeInstance armor = livingEntity.getAttribute(Attributes.ARMOR);
-            AttributeModifier soulArmorBuff = new AttributeModifier(UUID.fromString("3e4b414b-466c-4b90-8a92-a878e2542bb8"), "Increase Armor", 2.0D, AttributeModifier.Operation.MULTIPLY_TOTAL);
             if (armor != null){
                 if (livingEntity.hasEffect(GoetyEffects.SOUL_ARMOR.get())){
                     if (ItemHelper.noArmor(livingEntity)){
-                        if (!armor.hasModifier(soulArmorBuff)){
-                            armor.addPermanentModifier(soulArmorBuff);
+                        if (!armor.hasModifier(SOUL_ARMOR_MOD)){
+                            armor.addPermanentModifier(SOUL_ARMOR_MOD);
                         }
                     } else {
-                        if (armor.hasModifier(soulArmorBuff)){
-                            armor.removeModifier(soulArmorBuff);
+                        if (armor.hasModifier(SOUL_ARMOR_MOD)){
+                            armor.removeModifier(SOUL_ARMOR_MOD);
                         }
                     }
                 } else {
-                    if (armor.hasModifier(soulArmorBuff)){
-                        armor.removeModifier(soulArmorBuff);
+                    if (armor.hasModifier(SOUL_ARMOR_MOD)){
+                        armor.removeModifier(SOUL_ARMOR_MOD);
                     }
                 }
             }
@@ -155,20 +159,23 @@ public class PotionEvents {
             }
             if (livingEntity.hasEffect(GoetyEffects.FREEZING.get())){
                 if (!livingEntity.level.isClientSide){
-                    livingEntity.setIsInPowderSnow(true);
-                    if (livingEntity.canFreeze()) {
-                        int h = Objects.requireNonNull(livingEntity.getEffect(GoetyEffects.FREEZING.get())).getAmplifier() + 1;
-                        MiscCapHelper.setFreezing(livingEntity, h);
-                        if (livingEntity.level instanceof ServerLevel serverLevel){
-                            if (serverLevel.random.nextFloat() <= 0.25F) {
-                                for (int h1 = 0; h1 < h; ++h1) {
-                                    ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.SNOWFLAKE, livingEntity);
+                    MobEffectInstance instance = livingEntity.getEffect(GoetyEffects.FREEZING.get());
+                    if (instance != null) {
+                        livingEntity.setIsInPowderSnow(true);
+                        if (livingEntity.canFreeze()) {
+                            int h = instance.getAmplifier() + 1;
+                            MiscCapHelper.setFreezing(livingEntity, h);
+                            if (livingEntity.level instanceof ServerLevel serverLevel) {
+                                if (serverLevel.random.nextFloat() <= 0.25F) {
+                                    for (int h1 = 0; h1 < h; ++h1) {
+                                        ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.SNOWFLAKE, livingEntity);
+                                    }
                                 }
                             }
+                            int i = livingEntity.getTicksFrozen();
+                            int j = h * 4;
+                            livingEntity.setTicksFrozen(Math.min(livingEntity.getTicksRequiredToFreeze() + 5, i + j));
                         }
-                        int i = livingEntity.getTicksFrozen();
-                        int j = h * 4;
-                        livingEntity.setTicksFrozen(Math.min(livingEntity.getTicksRequiredToFreeze() + 5, i + j));
                     }
                 }
             } else {
@@ -569,18 +576,18 @@ public class PotionEvents {
         }
     }
 
+    public static AttributeModifier CHARGE_SPEED_MOD = new AttributeModifier(UUID.fromString("d4818bbc-54ed-4ecf-95a3-a15fbf71b31d"), "Charged Speed I", 0.1, AttributeModifier.Operation.MULTIPLY_TOTAL);
+    public static AttributeModifier CHARGE_ATTACK_MOD = new AttributeModifier(UUID.fromString("4bf0a8e3-a8f8-4bf6-95d2-f0ddbadd793e"), "Charged Attack I", 0.1, AttributeModifier.Operation.MULTIPLY_TOTAL);
+
+    public static AttributeModifier CHARGE_MOAR_SPEED_MOD = new AttributeModifier(UUID.fromString("e8ea9f21-c671-4a61-a297-db8fa50f3d13"), "Charged Speed II", 0.25, AttributeModifier.Operation.MULTIPLY_TOTAL);
+    public static AttributeModifier CHARGE_BAD_ATTACK_MOD = new AttributeModifier(UUID.fromString("a55e53d6-dd6a-41e8-8c1f-8f548887ed30"), "Charged Attack II", -0.15, AttributeModifier.Operation.MULTIPLY_TOTAL);
+
     @SubscribeEvent
     public static void ChargeEffect(LivingEvent.LivingTickEvent event){
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity != null){
             AttributeInstance speed = livingEntity.getAttribute(Attributes.MOVEMENT_SPEED);
             AttributeInstance attack = livingEntity.getAttribute(Attributes.ATTACK_DAMAGE);
-
-            AttributeModifier addSpeed = new AttributeModifier(UUID.fromString("d4818bbc-54ed-4ecf-95a3-a15fbf71b31d"), "Charged Speed I", 0.1, AttributeModifier.Operation.MULTIPLY_TOTAL);
-            AttributeModifier addAttack = new AttributeModifier(UUID.fromString("4bf0a8e3-a8f8-4bf6-95d2-f0ddbadd793e"), "Charged Attack I", 0.1, AttributeModifier.Operation.MULTIPLY_TOTAL);
-
-            AttributeModifier addMoreSpeed = new AttributeModifier(UUID.fromString("e8ea9f21-c671-4a61-a297-db8fa50f3d13"), "Charged Speed II", 0.25, AttributeModifier.Operation.MULTIPLY_TOTAL);
-            AttributeModifier reduceAttack = new AttributeModifier(UUID.fromString("a55e53d6-dd6a-41e8-8c1f-8f548887ed30"), "Charged Attack II", -0.15, AttributeModifier.Operation.MULTIPLY_TOTAL);
 
             MobEffectInstance chargeInstance = livingEntity.getEffect(GoetyEffects.CHARGED.get());
             boolean notNull = chargeInstance != null;
@@ -589,44 +596,44 @@ public class PotionEvents {
             if (attack != null && speed != null) {
                 if (notNull) {
                     if (flag) {
-                        if (speed.hasModifier(addMoreSpeed)){
-                            speed.removeModifier(addMoreSpeed);
+                        if (speed.hasModifier(CHARGE_MOAR_SPEED_MOD)){
+                            speed.removeModifier(CHARGE_MOAR_SPEED_MOD);
                         }
-                        if (attack.hasModifier(reduceAttack)){
-                            attack.removeModifier(reduceAttack);
+                        if (attack.hasModifier(CHARGE_BAD_ATTACK_MOD)){
+                            attack.removeModifier(CHARGE_BAD_ATTACK_MOD);
                         }
-                        if (!speed.hasModifier(addSpeed)) {
-                            speed.addPermanentModifier(addSpeed);
+                        if (!speed.hasModifier(CHARGE_SPEED_MOD)) {
+                            speed.addPermanentModifier(CHARGE_SPEED_MOD);
                         }
-                        if (!attack.hasModifier(addAttack)) {
-                            attack.addPermanentModifier(addAttack);
+                        if (!attack.hasModifier(CHARGE_ATTACK_MOD)) {
+                            attack.addPermanentModifier(CHARGE_ATTACK_MOD);
                         }
                     } else if (flag2) {
-                        if (speed.hasModifier(addSpeed)){
-                            speed.removeModifier(addSpeed);
+                        if (speed.hasModifier(CHARGE_SPEED_MOD)){
+                            speed.removeModifier(CHARGE_SPEED_MOD);
                         }
-                        if (attack.hasModifier(addAttack)){
-                            attack.removeModifier(addAttack);
+                        if (attack.hasModifier(CHARGE_ATTACK_MOD)){
+                            attack.removeModifier(CHARGE_ATTACK_MOD);
                         }
-                        if (!speed.hasModifier(addMoreSpeed)) {
-                            speed.addPermanentModifier(addMoreSpeed);
+                        if (!speed.hasModifier(CHARGE_MOAR_SPEED_MOD)) {
+                            speed.addPermanentModifier(CHARGE_MOAR_SPEED_MOD);
                         }
-                        if (!attack.hasModifier(reduceAttack)) {
-                            attack.addPermanentModifier(reduceAttack);
+                        if (!attack.hasModifier(CHARGE_BAD_ATTACK_MOD)) {
+                            attack.addPermanentModifier(CHARGE_BAD_ATTACK_MOD);
                         }
                     }
                 } else {
-                    if (speed.hasModifier(addSpeed)){
-                        speed.removeModifier(addSpeed);
+                    if (speed.hasModifier(CHARGE_SPEED_MOD)){
+                        speed.removeModifier(CHARGE_SPEED_MOD);
                     }
-                    if (attack.hasModifier(addAttack)){
-                        attack.removeModifier(addAttack);
+                    if (attack.hasModifier(CHARGE_ATTACK_MOD)){
+                        attack.removeModifier(CHARGE_ATTACK_MOD);
                     }
-                    if (speed.hasModifier(addMoreSpeed)) {
-                        speed.removeModifier(addMoreSpeed);
+                    if (speed.hasModifier(CHARGE_MOAR_SPEED_MOD)) {
+                        speed.removeModifier(CHARGE_MOAR_SPEED_MOD);
                     }
-                    if (attack.hasModifier(reduceAttack)) {
-                        attack.removeModifier(reduceAttack);
+                    if (attack.hasModifier(CHARGE_BAD_ATTACK_MOD)) {
+                        attack.removeModifier(CHARGE_BAD_ATTACK_MOD);
                     }
                 }
             }

@@ -1,0 +1,23 @@
+{
+  "name": "Хрустальный шар",
+  "icon": "goety:crystal_ball",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_crystal_ball",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Известно, что хрустальные шары используются для предсказаний."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Нажав по шару $(l:crafts/waystone)путеводным камнем$(), вы увидите то место, к которому он привязан (вид сверху), если оно прогружено. Нажав по шару $(l:crafts/taglock_kit)набором привязки$(), вы сможете смотреть глазами привязанного существа, если оно либо одного с вами вида, либо находится в пределах 80 метров от вас."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Хрустальный шар работает в пределах одного измерения."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:crystal_ball": 1
+  }
+}

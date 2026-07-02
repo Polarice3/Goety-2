@@ -1,0 +1,19 @@
+{
+  "name": "Фокус потока пузырей",
+  "icon": "goety:bubble_stream_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Пузыри — так себе оружие, но вот пузыри, создаваемые энергией душ, сметут с лица земли любого врага, особенно чувствительного к воде! К сожалению, пузыри также могут обеспечить противника небольшим количеством кислорода."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/bubble_stream_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/abyss_staff)глубоководного посоха$() позволяет тушить пузырями огонь."
+    }
+  ]
+}

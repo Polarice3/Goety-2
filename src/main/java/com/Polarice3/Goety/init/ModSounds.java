@@ -657,6 +657,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> FIRE_PROJECTILE_FLY = create("fire_projectile_fly");
     public static final RegistryObject<SoundEvent> TELEPORT_ORB_THROW = create("teleport_orb_throw");
     public static final RegistryObject<SoundEvent> SWIRLINGS = create("swirlings");
+    public static final RegistryObject<SoundEvent> POTION_DRINK = create("potion_drink");
     public static final RegistryObject<SoundEvent> VOID_TOUCHED_ACTIVATE = create("void_touched_activate");
     public static final RegistryObject<SoundEvent> VOID_TOUCHED_DEACTIVATE = create("void_touched_deactivate");
     public static final RegistryObject<SoundEvent> VOID_TOUCHED_LOOP = create("void_touched_loop");
@@ -699,6 +700,10 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> BLAST_FUNGUS_EXPLODE = create("blast_fungus_explode");
 
     public static final RegistryObject<SoundEvent> FUNGUS_EXPLOSION = create("fungus_explosion");
+
+    public static final RegistryObject<SoundEvent> BROOM_SWING = create("broom_swing");
+    public static final RegistryObject<SoundEvent> BROOM_BREAK = create("broom_break");
+    public static final RegistryObject<SoundEvent> BROOM_IMPACT = create("broom_impact");
 
     public static final RegistryObject<SoundEvent> FOCUS_PICK = create("focus_pick");
 

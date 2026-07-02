@@ -22,14 +22,14 @@ public class HellChantModel<T extends HellChant> extends EntityModel<T> {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition bb_main = partdefinition.addOrReplaceChild("scream", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -16.0F, 0.0F, 16.0F, 16.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
-
+		PartDefinition bb_main = partdefinition.addOrReplaceChild("scream", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -8.0F, 0.0F, 16.0F, 16.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 		return LayerDefinition.create(meshdefinition, 16, 16);
 	}
 
 	@Override
 	public void renderToBuffer(PoseStack stack, VertexConsumer consumer, int pPackedLight, int pOverlay, float r, float g, float b, float a) {
 		stack.pushPose();
+		stack.translate(0.0D, 1.25D, 0.0D);
 		float progress = this.entity.getGrowProgress(Minecraft.getInstance().getPartialTick());
 		float scale = 0.6F + progress;
 		stack.scale(scale, scale, scale);

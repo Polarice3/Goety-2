@@ -14,7 +14,7 @@ public class TargetingMonocleItem extends SingleStackItem implements IActivatabl
     @Override
     public void activate(Level level, Player player, ItemStack itemStack) {
         if (itemStack.is(this)) {
-            if (player.isCrouching() || !isActive(itemStack)) {
+            if (player.isShiftKeyDown() || !isActive(itemStack)) {
                 setIsActive(itemStack, !isActive(itemStack));
                 level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.TOCK.get(), player.getSoundSource(), 1.0F, 1.0F);
             }

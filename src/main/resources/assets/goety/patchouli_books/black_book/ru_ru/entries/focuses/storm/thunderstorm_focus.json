@@ -1,11 +1,11 @@
 {
-  "name": "Фокус грозы",
+  "name": "Фокус шторма",
   "icon": "goety:thunderstorm_focus",
   "category": "goety:focuses/storm",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Этот фокус позволит вам заполнить пространство вокруг ударами молний."
+      "text": "Фокус позволяет вызывать с небес множественные разряды молний."
     },
     {
       "type": "goety:ritual",
@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Использование $(l:crafts/staff/storm_staff)Штормового посоха$() позволит призвать ещё больше молинй."
+      "text": "Использование $(l:crafts/staff/storm_staff)штормового посоха$() увеличивает число молний."
     }
   ],
   "extra_recipe_mappings": {

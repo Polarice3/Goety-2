@@ -99,7 +99,7 @@ public class BlockFinder {
 
     private static HitResult rayTrace(Entity entity) {
         Vec3 startPos = new Vec3(entity.getX(), entity.getY(), entity.getZ());
-        Vec3 endPos = new Vec3(entity.getX(), 0, entity.getZ());
+        Vec3 endPos = new Vec3(entity.getX(), entity.level.getMinBuildHeight(), entity.getZ());
         return entity.level.clip(new ClipContext(startPos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity));
     }
 
@@ -347,6 +347,10 @@ public class BlockFinder {
         } else {
             return new Vec3(vec3.x, d3, vec3.z);
         }
+    }
+
+    public static double findGroundY(Level level, Vec3 vec3) {
+        return findGroundY(level, vec3.x, vec3.y, vec3.z);
     }
 
     public static double findGroundY(Level level, double x, double y, double z) {

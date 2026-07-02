@@ -1,0 +1,50 @@
+{
+  "name": "坩埚的其他用处",
+  "icon": "goety:witch_cauldron",
+  "category": "goety:brewing",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "咱们的坩埚可不光能酿酒！有时候还能炖个汤、熬个药膏，往身上一抹就立竿见影！"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:nightshade_blossom",
+      "text": "要不想酿药，就别扔天仙子花了，改成扔咱们的老朋友，颠茄花！跟天仙子一样，种子得用$(l:brewing/brewing_steps#boline)伯莱恩匕首$()去薅草和蕨才能搞到，然后种在耕地上！"
+    },
+    {
+      "type": "goety:cauldron",
+      "recipe": "goety:cauldron/resilience_lotion"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这药膏抹上能强筋健骨，挨揍的时候能少掉点血！"
+    },
+    {
+      "type": "goety:cauldron",
+      "anchor": "flying_ointment",
+      "recipe": "goety:cauldron/flying_ointment"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "哈哈哈哈！老娘的飞行药膏！就是这个味！抹上让你觉得自个儿真在飞，浑身来劲！配把扫帚真绝了哈哈哈！"
+    },
+    {
+      "type": "goety:cauldron",
+      "recipe": "goety:cauldron/mushroom_stew"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你看，跟你说过吧，这玩意儿也能炖汤！"
+    },
+    {
+      "type": "goety:cauldron",
+      "recipe": "goety:cauldron/candle"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "有些女巫搞什么花里胡哨的装置才拿坩埚做蜡烛，咱们这儿？直接扔根线进去，莫名其妙就能整出漂漂亮亮的蜡烛来！照她那个速度，她做不过我你信吗，哈哈哈哈！"
+    }
+  ]
+}

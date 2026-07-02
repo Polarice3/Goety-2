@@ -4,9 +4,11 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.Tags;
 
 public class HysteriaEffect extends GoetyBaseEffect{
@@ -25,9 +27,9 @@ public class HysteriaEffect extends GoetyBaseEffect{
         if (living.tickCount % 20 == 0) {
             float amp = (amplify + 1.0F) / 10.0F;
             float damage = living.getMaxHealth() * amp;
-            if (living.getHealth() <= damage) {
+            if (living.getHealth() <= damage || living instanceof Player) {
                 living.hurt(ModDamageSource.getDamageSource(living.level, ModDamageSource.RAGE), damage);
-            } else {
+            } else if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(living)) {
                 living.setHealth(living.getHealth() - damage);
             }
         }

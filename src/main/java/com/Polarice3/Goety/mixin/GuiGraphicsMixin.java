@@ -11,7 +11,9 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -22,8 +24,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(GuiGraphics.class)
 public class GuiGraphicsMixin {
 
-    @Inject(method = "renderItemDecorations(Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;II)V", at = @At(value = "HEAD"))
-    public void renderFocusCooldown(Font font, ItemStack stack, int one, int two, CallbackInfo ci) {
+    @Inject(method = "renderItemDecorations(Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;IILjava/lang/String;)V", at = @At(value = "HEAD"))
+    public void renderFocusCooldown(Font font, ItemStack stack, int one, int two, @Nullable String string, CallbackInfo ci) {
         Item item = stack.getItem();
         LocalPlayer localplayer = Minecraft.getInstance().player;
         if (localplayer != null) {
@@ -34,7 +36,7 @@ public class GuiGraphicsMixin {
                 } else {
                     f = 0;
                 }
-                renderFocusCooldown(one, two, f);
+                goety2_0_1_20_1$renderFocusCooldown(one, two, f);
             } else {
                 float f;
                 if (SEHelper.isOnCooldown(localplayer, stack)) {
@@ -42,13 +44,14 @@ public class GuiGraphicsMixin {
                 } else {
                     f = 0;
                 }
-                renderFocusCooldown(one, two, f);
+                goety2_0_1_20_1$renderFocusCooldown(one, two, f);
             }
         }
     }
 
 
-    private void renderFocusCooldown(int one, int two, float f) {
+    @Unique
+    private void goety2_0_1_20_1$renderFocusCooldown(int one, int two, float f) {
         if (f > 0.0F) {
             GuiGraphics self = (GuiGraphics) (Object) this;
             int i1 = two + Mth.floor(16.0F * (1.0F - f));

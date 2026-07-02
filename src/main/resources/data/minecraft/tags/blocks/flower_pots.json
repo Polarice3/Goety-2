@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "goety:potted_henbane",
+    "goety:potted_deadly_nightshade",
     "goety:potted_sienna_grass",
     "goety:potted_sienna_fern",
     "goety:potted_windswept_dead_bush",

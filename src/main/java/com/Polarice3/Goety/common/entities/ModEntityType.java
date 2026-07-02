@@ -30,6 +30,7 @@ import com.Polarice3.Goety.common.entities.hostile.servants.*;
 import com.Polarice3.Goety.common.entities.neutral.*;
 import com.Polarice3.Goety.common.entities.projectiles.*;
 import com.Polarice3.Goety.common.entities.util.*;
+import com.Polarice3.Goety.common.entities.vehicle.HauntedBroom;
 import com.Polarice3.Goety.common.entities.vehicle.ModBoat;
 import com.Polarice3.Goety.common.entities.vehicle.ModChestBoat;
 import com.Polarice3.Goety.common.entities.vehicle.SeatEntity;
@@ -574,6 +575,11 @@ public class ModEntityType {
     public static final RegistryObject<EntityType<ModChestBoat>> MOD_CHEST_BOAT = register("chest_boat",
             EntityType.Builder.<ModChestBoat>of(ModChestBoat::new, MobCategory.MISC)
                     .sized(1.375F, 0.5625F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<HauntedBroom>> HAUNTED_BROOM = register("haunted_broom",
+            EntityType.Builder.<HauntedBroom>of(HauntedBroom::new, MobCategory.MISC)
+                    .sized(0.7F, 0.6F)
                     .clientTrackingRange(10));
 
     public static final RegistryObject<EntityType<HauntedPainting>> MOD_PAINTING = register("haunted_painting",

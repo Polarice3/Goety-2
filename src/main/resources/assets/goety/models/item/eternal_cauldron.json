@@ -1,0 +1,17 @@
+{
+  "parent": "goety:item/eternal_cauldron",
+  "overrides": [
+    {
+      "predicate": {
+        "filled": 0.00000
+      },
+      "model": "goety:item/eternal_cauldron_empty"
+    },
+    {
+      "predicate": {
+        "filled": 1.00000
+      },
+      "model": "goety:item/eternal_cauldron_filled"
+    }
+  ]
+}

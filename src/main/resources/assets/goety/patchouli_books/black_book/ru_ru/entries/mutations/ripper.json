@@ -1,0 +1,30 @@
+{
+  "name": "Потрошители",
+  "icon": "minecraft:bone",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вы узнали, как превратить приручённых волков в злодеянских потрошителей, используя тёмную магию."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_wolf_to_ripper"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Поторошителей можно кормить и размножать мясом, как и обычных волков. Но растут они быстрее своих сородичей."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:ripper",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Потрошители могут быть частью $(l:goety:mutations/illager_servants)рейдерского отряда$(), но не могут быть его лидерами."
+    }
+  ]
+}

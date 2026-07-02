@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "goety:block/dense_steep_planks",
+    "side": "goety:block/dense_banded_steep_planks"
+  }
+}

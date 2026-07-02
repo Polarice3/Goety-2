@@ -1,5 +1,5 @@
 {
-  "name": "Топотун",
+  "name": "Топтатель",
   "icon": "minecraft:saddle",
   "category": "goety:mutations",
   "advancement": "goety:goety/read_ravaging_scroll",
@@ -19,12 +19,12 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:trampler_servant",
+      "entity": "goety:ally_trampler",
       "scale": 0.5
     },
 	{
       "type": "patchouli:text",
-      "text": "Топотуны могут быть частью $(l:goety:mutations/illager_servants)рейдерского отряда$(), но не могут быть его лидерами."
+      "text": "Топтатели могут быть частью $(l:goety:mutations/illager_servants)рейдерского отряда$(), но не могут быть его лидерами."
     }
   ]
 }

@@ -1,0 +1,19 @@
+{
+  "name": "Фокус водяного хлыста",
+  "icon": "goety:water_whip_focus",
+  "category": "goety:focuses/abyss",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Фокус превращает руку в мощное щупальце, которое наносит удар по врагам на небольшом расстоянии."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/water_whip_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/abyss_staff)глубоководного фокуса$() позволяет превращать руку дважды."
+    }
+  ]
+}

@@ -43,6 +43,7 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
             return 1;
         }
     };
+    public boolean playSound = false;
     public int currentTime;
 
     public NecroBrazierBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
@@ -210,13 +211,14 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
                                 for (BlockEntity blockEntity : this.candlestickBlockEntityList){
                                     if (blockEntity instanceof ISoulCandle soulCandle) {
                                         if (soulCandle.getSouls() > 0) {
-                                            soulCandle.drainSouls(1, this.getBlockPos());
-                                            this.currentTime++;
+                                            soulCandle.drainSouls(this.getBlockPos());
+                                            this.currentTime += soulCandle.soulDrainAmount();
                                         }
                                     }
                                 }
-                                if (this.currentTime == 1) {
+                                if (!this.playSound) {
                                     ModNetwork.sendToALL(new SPlayWorldSoundPacket(this.worldPosition, SoundEvents.BLAZE_AMBIENT, 1.0F, this.level.random.nextFloat() * 0.1F + 0.9F));
+                                    this.playSound = true;
                                 }
                                 if (this.level.getGameTime() % 20 == 0) {
                                     ModNetwork.sendToALL(new SPlayWorldSoundPacket(this.worldPosition, SoundEvents.FIRE_AMBIENT, 1.0F + this.level.random.nextFloat(), this.level.random.nextFloat() * 0.7F + 0.3F));
@@ -275,6 +277,7 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
                 this.clearContent();
                 this.recipe = null;
                 this.currentTime = 0;
+                this.playSound = false;
                 this.markUpdated();
             }
         }

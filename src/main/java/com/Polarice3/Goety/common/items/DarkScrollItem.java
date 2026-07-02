@@ -41,7 +41,7 @@ public class DarkScrollItem extends Item {
                     vizier.makeInvulnerable();
                     worldIn.addFreshEntity(vizier);
                     if (!(entityLiving instanceof Player && ((Player) entityLiving).isCreative())) {
-                        stack.setCount(0);
+                        stack.shrink(1);
                     }
                 }
             } else {

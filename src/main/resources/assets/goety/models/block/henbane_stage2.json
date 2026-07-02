@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "goety:block/henbane_stage2"
+  },
+  "render_type": "cutout"
+}

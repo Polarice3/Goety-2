@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "half=lower": { "model": "goety:block/jade_crystal_lamp_bottom" },
+    "half=upper": { "model": "goety:block/jade_crystal_lamp_top" }
+  }
+}

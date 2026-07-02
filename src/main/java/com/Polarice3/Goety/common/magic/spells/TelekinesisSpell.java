@@ -16,6 +16,7 @@ import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.Vec3;
@@ -97,7 +98,11 @@ public class TelekinesisSpell extends EverChargeSpell {
             potency += WandUtil.getPotencyLevel(caster) / 2.0D;
             range += WandUtil.getRangeLevel(caster);
         }
-        Entity target = MobUtil.getSingleTarget(worldIn, caster, range, 3, EntitySelector.NO_CREATIVE_OR_SPECTATOR);
+        Entity target = MobUtil.getSingleTarget(worldIn, caster, range, 3,
+                entity -> EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity)
+                        && !entity.getType().is(ModTags.EntityTypes.BANISH_IMMUNE)
+                        && !MobUtil.hasEntityTypesConfig(SpellConfig.TelekinesisBlackList.get(), entity.getType())
+                        && !(entity instanceof AbstractHurtingProjectile));
         if (caster instanceof Mob mob) {
             target = mob.getTarget();
         }
@@ -105,9 +110,7 @@ public class TelekinesisSpell extends EverChargeSpell {
             boolean flag = true;
             if ((caster.getBoundingBox().inflate(0.5D).getSize() * potency) >= target.getBoundingBox().getSize()) {
                 if (this.victim instanceof LivingEntity livingTarget){
-                    if (livingTarget.getMaxHealth() >= SpellConfig.TelekinesisMaxHealth.get()
-                            || livingTarget.getType().is(ModTags.EntityTypes.BANISH_IMMUNE)
-                            || MobUtil.hasEntityTypesConfig(SpellConfig.TelekinesisBlackList.get(), livingTarget.getType())){
+                    if (livingTarget.getMaxHealth() >= SpellConfig.TelekinesisMaxHealth.get()){
                         flag = false;
                     }
                 }

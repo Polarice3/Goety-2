@@ -1,20 +1,20 @@
 {
   "name": "Capacidade",
-  "icon": "minecraft:crimson_fungus",
+  "icon": "minecraft:nether_wart",
   "category": "goety:brewing",
   "sortnum": 2,
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Uma poção pode conter mais efeitos que as comuns, mas precisa de capacidade suficiente! Exceder a capacidade resultará numa bagunça! Normalmente, uma poção simples suporta 4 ingredientes, mas há como aumentar isso!"
+      "text": "Uma Poção pode conter mais efeitos e aumentos do que poções normais, mas precisa de capacidade suficiente para armazená-los! Coloque mais ingredientes do que a capacidade da poção e você terá uma bagunça! Geralmente, uma poção simples pode conter um único ingrediente! Mas há maneiras de aumentar a capacidade da poção!"
     },
     {
       "type": "patchouli:text",
-      "text": "Atenção! Os ingredientes devem ser adicionados NA ORDEM para aumentar a capacidade. E lembra-te: o primeiro ingrediente deve ser uma $(item)Verruga do Nether$()!"
+      "text": "Devo deixar claro! Esses ingredientes devem ser colocados em ordem para aumentar a capacidade da poção, então nada de atalhos jogando o último ingrediente! Além disso, lembre-se de que a primeira coisa que você precisa colocar no Caldeirão é uma $(item)Flor de Meimendro$() para começar a preparação!"
     },
     {
       "type": "patchouli:text",
-      "text": "$(bold)Ordem de Capacidade$()$(br)$(li)$(item)Fungo Carmesim$() - +2 $(li)$(item)Verrugas Rápidas$() - +2 $(li)$(item)Esmeralda Despertada$() - +2 $(li)$(item)Esmeralda Concentrada$() - +2 $(li)$(item)Rubi das Almas$() - +4"
+      "text": "$(bold)Ordem de Capacidade$()$(br)$(li)$(item)Flor de Meimendro$() - +1 $(li)$(item)Verruga do Nether$() - +2 $(li)$(item)Fungo Estaladiço$() - +2 $(li)$(item)Esmeralda Desperta$() - +2 $(li)$(item)Esmeralda Concentrada$() - +2 $(li)$(item)Manuscrito Murcho$() - +4 $(li)$(item)Rubi das Almas$() - +6"
     }
   ]
 }

@@ -419,7 +419,8 @@ public class Heretic extends Cultist implements IHeretic {
             this.heretic.getNavigation().stop();
             this.heretic.getMoveControl().strafe(0.0F, 0.0F);
             if (this.heretic.getTarget() != null) {
-                MobUtil.instaLook(this.heretic, this.heretic.getTarget());
+                LivingEntity target = this.heretic.getTarget();
+                MobUtil.instaLook(this.heretic, target.getEyePosition());
             }
             if (this.chantTime % 10 == 0) {
                 HellChant hellChant = ModEntityType.HELL_CHANT.get().create(this.heretic.level);

@@ -42,6 +42,7 @@
     "GuiGraphicsMixin",
     "LevelRendererMixin",
     "LivingEntityRendererMixin",
+    "LocalPlayerMixin",
     "MinecraftMixin",
     "MouseHandlerMixin",
     "PlayerRendererAccessor",

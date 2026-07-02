@@ -1,0 +1,23 @@
+{
+  "name": "Crystal Ball",
+  "icon": "goety:crystal_ball",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_crystal_ball",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Crystal Balls are known to be used for scrying or to foresee the future."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Using a filled $(l:crafts/waystone)Waystone$() on it will cause you to look upon the location from above, provided that said location is loaded. Using a filled $(l:crafts/taglock_kit)Taglock Kit$() on it will cause you to look through the victim's eyes, provided said victim is either the same creature as you, or if the victim is within 80 blocks from you."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Either method requires the location or victim to be on the same dimension."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:crystal_ball": 1
+  }
+}

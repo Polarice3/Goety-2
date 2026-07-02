@@ -1,0 +1,28 @@
+{
+  "name": "Некротические подсвечники",
+  "icon": "goety:necrotic_gold_candlestick",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/craft_necro_brazier",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вы наполнили подсвечник большим количеством некротической энергии, заставив его гореть зловещим зелёным пламенем. Это пламя защищает нежить и существ, подобных вам, в радиусе 8 метров от солнца, но не от огня."
+    },
+    {
+      "type": "goety:brazier",
+      "recipe": "goety:necrotic_gold_candlestick"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Если и зажжённый подсвечник, и нежить, находящаяся в радиусе 8 метров от него, закрыты от солнца (будь то потолком или луной), то последняя будет медленно исцеляться."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Добавлено по предложению @kiko5836"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:necrotic_gold_candlestick": 1
+  }
+}

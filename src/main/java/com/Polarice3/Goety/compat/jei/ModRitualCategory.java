@@ -188,7 +188,7 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
             }
         }
         if (!scrollStack.isEmpty()) {
-            recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 16)
+            recipeLayout.addSlot(RecipeIngredientRole.CATALYST, 0, 16)
                     .addItemStack(scrollStack);
         }
     }

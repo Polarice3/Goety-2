@@ -10,9 +10,22 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:wind_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Существа, порождённые ветряной магией, могут медленно исцеляться, используя энергию душ создателя, если он наденет эту мантию."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wind_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Эта нефритовая корона вдвое сокращает время использования диких заклинаний и не даёт вашим диким прислужникам исчезать, подобно врединам."
     }
   ],
   "extra_recipe_mappings": {
-    "goety:wind_robe": 1
+    "goety:wind_robe": 1,
+	"goety:wind_crown": 3
   }
 }

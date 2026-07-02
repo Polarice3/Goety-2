@@ -46,6 +46,9 @@ import static net.minecraftforge.event.entity.living.LivingChangeTargetEvent.Liv
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class LichEvents {
 
+    public static AttributeModifier BLOOD_RESIST_MOD = new AttributeModifier(UUID.fromString("1d0bd7da-03e8-4b25-be6d-014d73689417"), "Lich Blood Resistance", 0.5F, AttributeModifier.Operation.ADDITION);
+    public static AttributeModifier HOLY_WEAK_MOD = new AttributeModifier(UUID.fromString("5290681e-7020-4de5-bba2-a659242d45a9"), "Lich Holy Weakness", -0.5F, AttributeModifier.Operation.ADDITION);
+
     @SubscribeEvent
     public static void onPlayerLichdom(TickEvent.PlayerTickEvent event){
         Player player = event.player;
@@ -161,29 +164,27 @@ public class LichEvents {
 
         if (IronLoaded.IRON_SPELLBOOKS.isLoaded()){
             AttributeInstance bloodResist = player.getAttribute(IronAttributes.BLOOD_MAGIC_RESIST);
-            AttributeModifier attributemodifier = new AttributeModifier(UUID.fromString("1d0bd7da-03e8-4b25-be6d-014d73689417"), "Lich Blood Resistance", 0.5F, AttributeModifier.Operation.ADDITION);
             if (bloodResist != null){
                 if (LichdomHelper.isLich(player)){
-                    if (!bloodResist.hasModifier(attributemodifier)){
-                        bloodResist.addPermanentModifier(attributemodifier);
+                    if (!bloodResist.hasModifier(BLOOD_RESIST_MOD)){
+                        bloodResist.addPermanentModifier(BLOOD_RESIST_MOD);
                     }
                 } else {
-                    if (bloodResist.hasModifier(attributemodifier)){
-                        bloodResist.removeModifier(attributemodifier);
+                    if (bloodResist.hasModifier(BLOOD_RESIST_MOD)){
+                        bloodResist.removeModifier(BLOOD_RESIST_MOD);
                     }
                 }
             }
 
             AttributeInstance holyResist = player.getAttribute(IronAttributes.HOLY_MAGIC_RESIST);
-            AttributeModifier attributemodifier1 = new AttributeModifier(UUID.fromString("5290681e-7020-4de5-bba2-a659242d45a9"), "Lich Holy Weakness", -0.5F, AttributeModifier.Operation.ADDITION);
             if (holyResist != null){
                 if (LichdomHelper.isLich(player)){
-                    if (!holyResist.hasModifier(attributemodifier1)){
-                        holyResist.addPermanentModifier(attributemodifier1);
+                    if (!holyResist.hasModifier(HOLY_WEAK_MOD)){
+                        holyResist.addPermanentModifier(HOLY_WEAK_MOD);
                     }
                 } else {
-                    if (holyResist.hasModifier(attributemodifier1)){
-                        holyResist.removeModifier(attributemodifier1);
+                    if (holyResist.hasModifier(HOLY_WEAK_MOD)){
+                        holyResist.removeModifier(HOLY_WEAK_MOD);
                     }
                 }
             }
@@ -241,7 +242,9 @@ public class LichEvents {
 
     @SubscribeEvent
     public static void HurtEvent(LivingHurtEvent event){
-        if (event.getEntity() instanceof Player player) {
+        LivingEntity victim = event.getEntity();
+        Entity source = event.getSource().getEntity();
+        if (victim instanceof Player player) {
             if (LichdomHelper.isLich(player)){
                 if (event.getSource().is(ModTags.DamageTypes.LICH_IMMUNE)) {
                     event.setCanceled(true);
@@ -255,10 +258,10 @@ public class LichEvents {
                     event.setAmount(event.getAmount()/2);
                 }
                 if (MainConfig.LichUndeadFriends.get()) {
-                    if (CuriosFinder.hasUndeadSet(player) && event.getSource().getEntity() != null) {
-                        if (event.getSource().getEntity() instanceof LivingEntity attacker && attacker.isAlive()) {
+                    if (CuriosFinder.hasUndeadSet(player) && source != null) {
+                        if (source instanceof LivingEntity attacker && attacker.isAlive()) {
                             for (Mob undead : player.level.getEntitiesOfClass(Mob.class, player.getBoundingBox().inflate(16))) {
-                                if (undead != attacker) {
+                                if (!MobUtil.areAllies(attacker, player)) {
                                     if (undead.getMobType() == MobType.UNDEAD) {
                                         if (undead.getTarget() != player) {
                                             if (MainConfig.LichPowerfulFoes.get()) {
@@ -293,12 +296,12 @@ public class LichEvents {
         }
         if (event.getSource().getDirectEntity() instanceof Player player){
             if (LichdomHelper.isLich(player) && MainConfig.LichTouch.get()){
-                if (ModDamageSource.physicalAttacks(event.getSource()) && event.getEntity() != player){
+                if (ModDamageSource.physicalAttacks(event.getSource()) && victim != player){
                     if (player.getMainHandItem().isEmpty()) {
-                        event.getEntity().addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), 900));
+                        victim.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), 900));
                     }
-                    if (event.getEntity().getMobType() != MobType.UNDEAD && player.getMainHandItem().is(ModTags.Items.LICH_WITHER_ITEMS)){
-                        event.getEntity().addEffect(new MobEffectInstance(MobEffects.WITHER, MathHelper.secondsToTicks(5)));
+                    if (victim.getMobType() != MobType.UNDEAD && player.getMainHandItem().is(ModTags.Items.LICH_WITHER_ITEMS)){
+                        victim.addEffect(new MobEffectInstance(MobEffects.WITHER, MathHelper.secondsToTicks(5)));
                     }
                 }
             }

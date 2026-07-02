@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "goety:block/snowy_pine_pillar",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "goety:block/snowy_pine_pillar"
+    },
+    "axis=z": {
+      "model": "goety:block/snowy_pine_pillar",
+      "x": 90
+    }
+  }
+}

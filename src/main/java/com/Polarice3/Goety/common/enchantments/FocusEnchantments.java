@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.items.block.EnchantableBlockItem;
 import com.Polarice3.Goety.common.items.curios.WardingCharmItem;
 import com.Polarice3.Goety.common.items.equipment.BladeOfEnderItem;
 import com.Polarice3.Goety.common.items.equipment.HammerItem;
+import com.Polarice3.Goety.common.items.equipment.HauntedBroomItem;
 import com.Polarice3.Goety.common.items.magic.InfernalTome;
 import com.Polarice3.Goety.config.SpellConfig;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -33,6 +34,7 @@ public abstract class FocusEnchantments extends Enchantment {
                 && (stack.getItem() instanceof IFocus
                     || stack.getItem() instanceof WardingCharmItem
                     || stack.getItem() instanceof EnchantableBlockItem
+                    || stack.getItem() instanceof HauntedBroomItem
                     || stack.getItem() instanceof InfernalTome
                     || stack.getItem() instanceof HammerItem
                     || stack.getItem() instanceof BladeOfEnderItem);

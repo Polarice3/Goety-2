@@ -645,15 +645,27 @@ public class ClientEvents {
                         }
                     } else if (blockEntity instanceof BrewCauldronBlockEntity cauldronBlock){
                         if (player.isShiftKeyDown() || player.isCrouching()){
-                            poseStack.pushPose();
-                            poseStack.translate((float)(width / 2), (float)(height - 60), 0.0F);
-                            RenderSystem.enableBlend();
-                            RenderSystem.defaultBlendFunc();
-                            String s1 = Component.translatable("tooltip.goety.brew.capacity").getString() + cauldronBlock.getCapacityUsed() + "/" + cauldronBlock.getCapacity();
-                            int l2 = fontRenderer.width(s1);
-                            event.getGuiGraphics().drawString(fontRenderer, s1, (-l2 / 2), -4, 0xFFFFFF);
-                            RenderSystem.disableBlend();
-                            poseStack.popPose();
+                            if (cauldronBlock.mode == BrewCauldronBlockEntity.Mode.BREWING){
+                                poseStack.pushPose();
+                                poseStack.translate((float) (width / 2), (float) (height - 60), 0.0F);
+                                RenderSystem.enableBlend();
+                                RenderSystem.defaultBlendFunc();
+                                String s1 = Component.translatable("tooltip.goety.brew.capacity").getString() + cauldronBlock.getCapacityUsed() + "/" + cauldronBlock.getCapacity();
+                                int l2 = fontRenderer.width(s1);
+                                event.getGuiGraphics().drawString(fontRenderer, s1, (-l2 / 2), -4, 0xFFFFFF);
+                                RenderSystem.disableBlend();
+                                poseStack.popPose();
+                            } else if (cauldronBlock.mode == BrewCauldronBlockEntity.Mode.CRAFTING || cauldronBlock.mode == BrewCauldronBlockEntity.Mode.CRAFTED) {
+                                poseStack.pushPose();
+                                poseStack.translate((float) (width / 2), (float) (height - 60), 0.0F);
+                                RenderSystem.enableBlend();
+                                RenderSystem.defaultBlendFunc();
+                                String s1 = Component.translatable("tooltip.goety.crafting").getString() + Component.translatable(cauldronBlock.getCraftedItem().getDescriptionId()).getString();
+                                int l2 = fontRenderer.width(s1);
+                                event.getGuiGraphics().drawString(fontRenderer, s1, (-l2 / 2), -4, 0xFFFFFF);
+                                RenderSystem.disableBlend();
+                                poseStack.popPose();
+                            }
                             poseStack.pushPose();
                             poseStack.translate((float)(width / 2), (float)(height - 68), 0.0F);
                             RenderSystem.enableBlend();

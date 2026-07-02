@@ -1,0 +1,23 @@
+{
+  "name": "Гео-одежды",
+  "icon": "goety:geo_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это простое шаманское одеяние из шкур и волшебных тканей вдвое снижает стоимость геомантических заклинаний."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:geo_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Аметисты являются мощными проводниками геомантической магии. Это ожерелье вдвое сокращает время использования геомантических заклинаний."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:amethyst_necklace"
+    }
+  ]
+}

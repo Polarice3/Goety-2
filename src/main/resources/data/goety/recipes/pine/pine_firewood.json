@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SCS",
+    "FFF"
+  ],
+  "key": {
+    "C": {
+      "tag": "minecraft:coals"
+    },
+    "S":
+    {
+      "tag": "forge:rods/wooden"
+    },
+    "F":
+    {
+      "item": "goety:pine_wood"
+    }
+  },
+  "result": {
+    "item": "goety:pine_firewood"
+  }
+}

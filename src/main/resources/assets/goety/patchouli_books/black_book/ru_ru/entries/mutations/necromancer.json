@@ -36,7 +36,7 @@
       "type": "patchouli:entity",
       "entity": "goety:cairn_necromancer_servant"
     },
-    {
+	{
       "type": "goety:ritual",
       "recipe": "goety:convert_mossy_skeleton_to_mossy_necromancer"
     },

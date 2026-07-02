@@ -1,0 +1,35 @@
+{
+  "name": "Чудушки",
+  "icon": "minecraft:stone",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Крошечные големы, которые носятся сломя голову и кусают врагов каменной пастью."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_ministrosity_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:stone_ministrosity"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Можно вызвать чудушко с помощью $(l:focuses/geomancy/ministrous_focus)фокуса чудовищности$(). Нажатие ПКМ по чудушку камнем исцелит его."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_redstone_ministrosity_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:redstone_ministrosity"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Если надеть $(l:crafts/garment/geo_robe)гео-мантию$() при использовании фокуса или провести особый ритуал, можно призвать редстоуновых чудушек. Они сильнее своих каменных собратьев и невосприимчивы к огню."
+    }
+  ]
+}

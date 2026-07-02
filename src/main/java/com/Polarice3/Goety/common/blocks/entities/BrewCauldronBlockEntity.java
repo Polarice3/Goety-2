@@ -1,9 +1,11 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
 import com.Polarice3.Goety.api.blocks.entities.ISoulCandle;
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.properties.ModStateProperties;
 import com.Polarice3.Goety.common.crafting.BrewingRecipe;
+import com.Polarice3.Goety.common.crafting.CauldronRecipe;
 import com.Polarice3.Goety.common.crafting.ModRecipeSerializer;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
@@ -18,10 +20,7 @@ import com.Polarice3.Goety.common.items.curios.WitchHatItem;
 import com.Polarice3.Goety.common.items.magic.TaglockKit;
 import com.Polarice3.Goety.config.BrewConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.BrewUtils;
-import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.SEHelper;
+import com.Polarice3.Goety.utils.*;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -30,6 +29,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -37,7 +37,9 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -51,6 +53,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -61,10 +66,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Based and modified from @MoriyaShiine's Witch Cauldron codes.
@@ -74,13 +76,23 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
     private final List<BlockPos> witchPoles = Lists.newArrayList();
     public static int WATER_COLOR = 0x3F76E4, FAILED_COLOR = 0x6D4423;
     public NonNullList<ItemStack> container = NonNullList.withSize(32, ItemStack.EMPTY);
+    public final SimpleContainer craftContainer = new SimpleContainer(32){
+        @Override
+        public int getMaxStackSize() {
+            return 1;
+        }
+    };
     public Map<Integer, EntityType<?>> sacrificed = new HashMap<>();
     public Mode mode = Mode.IDLE;
     public boolean isBrewing = false;
+    public boolean isCrafting = false;
     public int liquidColor = WATER_COLOR, capacity = 0, capacityUsed = 0, duration = 0, amplifier = 0, aoe = 0, heatTime = 0, totalCost = 0, soulTime = 0, quaff = 0, takeBrew = 0, update = 0;
     public float velocity = 0;
     public boolean isAquatic, isFireProof;
     public float lingering = 0;
+
+    public CauldronRecipe recipe;
+    public ResourceLocation recipeId;
 
     public BrewCauldronBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
         super(ModBlockEntities.BREWING_CAULDRON.get(), p_155229_, p_155230_);
@@ -90,10 +102,15 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
         if (this.level != null) {
             if (!this.level.isClientSide) {
                 if (this.checkFire()) {
+                    int waterLevel = this.getBlockState().getValue(ModStateProperties.LEVEL_BREW);
                     if (!this.isHeated()) {
                         ++this.heatTime;
-                    } else if (this.getBlockState().getValue(ModStateProperties.LEVEL_BREW) > 0){
-                        if (this.level.getGameTime() % 60 == 0 || this.isBrewing) {
+                    } else if (waterLevel > 0){
+                        int bubbleTime = 60;
+                        if (this.isBrewing || this.isCrafting) {
+                            bubbleTime = 20;
+                        }
+                        if (this.level.getGameTime() % bubbleTime == 0) {
                             this.level.playSound(null, this.getBlockPos(), ModSounds.CAULDRON_BUBBLES.get(), SoundSource.BLOCKS, 0.33F, this.mode == Mode.FAILED ? 0.5F : 1);
                         }
                         if (this.mode == Mode.BREWING){
@@ -103,16 +120,9 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
                         }
                         this.findCandlesticks();
                         if (this.isBrewing && mode == Mode.BREWING) {
-                            if (!this.candlestickBlockEntityList.isEmpty()) {
-                                if (this.soulTime < this.getBrewCost()) {
-                                    for (BlockEntity blockEntity : this.candlestickBlockEntityList) {
-                                        if (blockEntity instanceof ISoulCandle soulCandle) {
-                                            if (soulCandle.getSouls() > 0) {
-                                                soulCandle.drainSouls(1, this.getBlockPos());
-                                                this.soulTime++;
-                                            }
-                                        }
-                                    }
+                            if (!this.candlestickBlockEntityList.isEmpty() || this.getBrewCost() <= 0) {
+                                if (this.soulTime < this.getBrewCost() && this.getBrewCost() > 0) {
+                                    this.drainSouls();
                                 } else {
                                     this.setColor(PotionUtils.getColor(this.getBrew()));
                                     this.level.playSound(null, this.getBlockPos(), ModSounds.CAST_SPELL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -122,21 +132,77 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
                                     this.mode = Mode.COMPLETED;
                                 }
                             } else {
-                                this.fail();
+                                this.mode = this.fail();
                             }
                         }
-                        if (mode == Mode.COMPLETED){
+                        if (this.mode == Mode.COMPLETED || this.mode == Mode.CRAFTED){
                             if (this.level instanceof ServerLevel serverLevel){
                                 float f = 1.0F;
                                 serverLevel.sendParticles(ParticleTypes.WITCH, this.worldPosition.getX() + 0.5F + Math.cos(serverLevel.getGameTime() * 0.25) * f, this.worldPosition.getY(), this.worldPosition.getZ() + 0.5F + Math.sin(serverLevel.getGameTime() * 0.25) * f, 0, 0, 0, 0, 0.5F);
                                 serverLevel.sendParticles(ParticleTypes.WITCH, this.worldPosition.getX() + 0.5F + Math.cos(serverLevel.getGameTime() * 0.25 + Math.PI) * f, this.worldPosition.getY(), this.worldPosition.getZ() + 0.5F + Math.sin(serverLevel.getGameTime() * 0.25 + Math.PI) * f, 0, 0, 0, 0, 0.5F);
                             }
                         }
+                        if (this.mode == Mode.CRAFTING) {
+                            CauldronRecipe recipe = this.getRecipe();
+                            if (this.isCrafting) {
+                                if (this.canCraft(this.level)) {
+                                    if (recipe != null) {
+                                        if (!this.candlestickBlockEntityList.isEmpty() || recipe.getSoulCost() <= 0) {
+                                            if (recipe.getSoulCost() > 0) {
+                                                this.drainSouls();
+                                            }
+
+                                            if (this.soulTime >= recipe.getSoulCost()) {
+                                                if (waterLevel > recipe.getLevelLeft()) {
+                                                    if (this.level instanceof ServerLevel serverLevel) {
+                                                        for (int i = 0; i < 8; ++i) {
+                                                            Vec3 vec3 = this.worldPosition.getCenter();
+                                                            vec3 = vec3.offsetRandom(serverLevel.getRandom(), 0.1F);
+                                                            ColorUtil colorUtil = new ColorUtil(recipe.getColor());
+                                                            serverLevel.sendParticles(ModParticleTypes.BIG_CULT_SPELL.get(), vec3.x, vec3.y, vec3.z, 0, colorUtil.red, colorUtil.green, colorUtil.blue, 1.0F);
+                                                        }
+                                                    }
+                                                    this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(ModStateProperties.LEVEL_BREW, recipe.getLevelLeft()), 11);
+                                                }
+                                                this.level.playSound(null, this.getBlockPos(), ModSounds.CAST_SPELL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                                                this.soulTime = 0;
+                                                this.totalCost = 0;
+                                                this.isCrafting = false;
+                                                this.mode = Mode.CRAFTED;
+                                            } else {
+                                                this.updateRecipe(this.level);
+                                            }
+                                        } else {
+                                            this.mode = this.fail();
+                                        }
+                                    } else {
+                                        this.mode = this.fail();
+                                    }
+                                } else {
+                                    this.mode = this.fail();
+                                }
+                            } else {
+                                if (recipe != null) {
+                                    ItemStack result = this.getCraftedItem();
+                                    if (!result.isEmpty() && !result.is(Items.AIR)) {
+                                        if (this.getColor() != recipe.getColor()) {
+                                            this.setColor(recipe.getColor());
+                                        }
+                                        if (this.totalCost <= 0 && recipe.getSoulCost() > 0) {
+                                            this.addCost(recipe.getSoulCost());
+                                        }
+                                    } else {
+                                        this.setColor(0x5fd01a);
+                                    }
+                                }
+                            }
+                        }
                     } else {
-                        this.reset();
+                        this.fullReset();
                     }
                 } else {
                     this.isBrewing = false;
+                    this.isCrafting = false;
                     this.soulTime = 0;
                     this.totalCost = 0;
                     this.mode = Mode.IDLE;
@@ -151,9 +217,127 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
                         this.update = 0;
                     }
                 }
-                this.level.setBlockAndUpdate(this.getBlockPos(), this.getBlockState().setValue(ModStateProperties.FAILED, this.mode == Mode.FAILED));
+                this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(ModStateProperties.FAILED, this.mode == Mode.FAILED).setValue(ModStateProperties.CRAFTING, this.mode == Mode.CRAFTING || this.mode == Mode.CRAFTED), 11);
                 this.markUpdated();
             }
+        }
+    }
+
+    public void drainSouls() {
+        if (!this.candlestickBlockEntityList.isEmpty()) {
+            for (BlockEntity blockEntity : this.candlestickBlockEntityList) {
+                if (blockEntity instanceof ISoulCandle soulCandle) {
+                    if (soulCandle.getSouls() > 0) {
+                        soulCandle.drainSouls(this.getBlockPos());
+                        this.soulTime += soulCandle.soulDrainAmount();
+                    }
+                }
+            }
+        } else {
+            this.mode = this.fail();
+        }
+    }
+
+    public Container getCraftContainer() {
+        return this.craftContainer;
+    }
+
+    public boolean addCraftItem(ItemStack stack) {
+        if (this.soulTime > 0){
+            return false;
+        }
+
+        boolean did = false;
+
+        for (int i = 0; i < this.getCraftContainer().getContainerSize(); i++) {
+            if (this.getCraftContainer().getItem(i).isEmpty()) {
+                did = true;
+                ItemStack stackToAdd = stack.copyWithCount(1);
+                this.getCraftContainer().setItem(i, stackToAdd);
+
+                break;
+            }
+        }
+        if (did) {
+            this.markUpdated();
+        }
+        return did;
+    }
+
+    public void setCraftItems(NonNullList<ItemStack> items){
+        for (int i = 0; i < items.size(); i++) {
+            this.getCraftContainer().setItem(i, items.get(i));
+        }
+    }
+
+    public NonNullList<ItemStack> getCraftItems(){
+        NonNullList<ItemStack> itemStacks = NonNullList.withSize(this.getCraftContainer().getContainerSize(), ItemStack.EMPTY);
+        for (int i = 0; i < this.getCraftContainer().getContainerSize(); i++) {
+            itemStacks.set(i, this.getCraftContainer().getItem(i));
+        }
+        return itemStacks;
+    }
+
+    public void removeAllCraftItems(){
+        for (int i = 0; i < this.getCraftContainer().getContainerSize(); i++) {
+            ItemStack stackAt = this.getCraftContainer().getItem(i);
+            if (!stackAt.isEmpty()) {
+                this.getCraftContainer().setItem(i, ItemStack.EMPTY);
+            }
+        }
+    }
+
+    public boolean canCraft(Level world) {
+        Container container = this.getCraftContainer();
+
+        if (this.recipe != null) {
+            if (this.recipe.couldMatch(container, world)) {
+                return true;
+            }
+            this.recipe = null;
+        }
+
+        List<CauldronRecipe> candidates = world.getRecipeManager()
+                .getAllRecipesFor(ModRecipeSerializer.CAULDRON_TYPE.get()).stream()
+                .filter(r -> r.couldMatch(container, world))
+                .toList();
+
+        if (candidates.isEmpty()) {
+            return false;
+        }
+
+        CauldronRecipe exact = candidates.stream()
+                .filter(r -> r.matches(container, world))
+                .findFirst().orElse(null);
+
+        if (exact != null) {
+            this.recipe = exact;
+        } else if (candidates.size() == 1) {
+            this.recipe = candidates.get(0);
+        }
+        return true;
+    }
+
+    public CauldronRecipe getRecipe(){
+        if (this.recipeId != null){
+            if (this.level != null) {
+                Optional<? extends Recipe<?>> recipe = this.level.getRecipeManager().byKey(this.recipeId);
+                recipe.map(r -> (CauldronRecipe) r).ifPresent(r -> this.recipe = r);
+                this.recipeId = null;
+            }
+        }
+        return this.recipe;
+    }
+
+    public void updateRecipe(Level world) {
+        if (this.getRecipe() != null) {
+            if (!this.getRecipe().matches(this.getCraftContainer(), world)) {
+                if (!this.canCraft(world)) {
+                    this.mode = this.fail();
+                }
+            }
+        } else if (!this.canCraft(world)) {
+            this.mode = this.fail();
         }
     }
 
@@ -170,13 +354,36 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
         return -1;
     }
 
-    public void brew(){
+    public void brew() {
+        this.brew(null);
+    }
+
+    public void brew(@Nullable Player player){
         if (this.level != null && !this.level.isClientSide) {
-            if (this.mode == Mode.BREWING && !this.isBrewing) {
-                this.isBrewing = true;
-                this.level.playSound(null, this.getBlockPos(), ModSounds.PREPARE_SPELL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+            if (this.candlestickBlockEntityList.isEmpty()) {
+                if (player != null) {
+                    player.displayClientMessage(Component.translatable("info.goety.brew.candlesticks"), true);
+                }
+                this.level.playSound(null, this.getBlockPos(), SoundEvents.NOTE_BLOCK_SNARE.get(), SoundSource.BLOCKS, 1.0F, 0.75F);
+            } else {
+                if (this.mode == Mode.BREWING && !this.isBrewing) {
+                    this.isBrewing = true;
+                    this.level.playSound(null, this.getBlockPos(), ModSounds.PREPARE_SPELL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                } else if (this.mode == Mode.CRAFTING && !this.isCrafting) {
+                    if (this.canCraft(this.level)) {
+                        this.isCrafting = true;
+                        if (this.totalCost > 0) {
+                            this.level.playSound(null, this.getBlockPos(), ModSounds.PREPARE_SPELL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                        }
+                    } else {
+                        if (player != null) {
+                            player.displayClientMessage(Component.translatable("info.goety.cauldron.craft.fail"), true);
+                        }
+                        this.level.playSound(null, this.getBlockPos(), SoundEvents.NOTE_BLOCK_SNARE.get(), SoundSource.BLOCKS, 1.0F, 0.75F);
+                    }
+                }
+                this.markUpdated();
             }
-            this.markUpdated();
         }
     }
 
@@ -224,12 +431,22 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
 
     public Mode insertItem(ItemStack itemStack){
         if (this.level != null && !this.level.isClientSide){
+            boolean craft = itemStack.is(ModItems.NIGHTSHADE_BLOSSOM.get());
+            if (this.mode == Mode.IDLE && craft) {
+                this.clearContent();
+                return Mode.CRAFTING;
+            } else if (this.mode == Mode.CRAFTING && this.addCraftItem(itemStack)) {
+                if (!this.canCraft(this.level)) {
+                    return this.fail();
+                }
+                return Mode.CRAFTING;
+            }
             Item ingredient = itemStack.getItem();
             BrewModifier brewModifier = new BrewEffects().getModifier(ingredient);
             int modLevel = brewModifier != null ? brewModifier.getLevel() : -1;
             boolean activate = brewModifier instanceof CapacityModifier && brewModifier.getLevel() == 0;
             int firstEmpty = getFirstEmptySlot();
-            if (firstEmpty != -1) {
+            if (firstEmpty != -1 && this.mode != Mode.CRAFTING) {
                 if (this.mode == Mode.BREWING && !this.freeModifier(brewModifier) && !activate) {
                     if (this.getOccupiedSlots() >= this.getCapacity()) {
                         return fail();
@@ -405,6 +622,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
                             int level3 = BrewConfig.Level3Capacity.get();
                             int level4 = BrewConfig.Level4Capacity.get();
                             int level5 = BrewConfig.Level5Capacity.get();
+                            int level6 = BrewConfig.Level6Capacity.get();
                             if (this.getCapacity() == initial && capacityModifier.getLevel() == 1) {
                                 this.capacity += level1;
                                 this.clearContent();
@@ -430,6 +648,11 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
                                 this.clearContent();
                                 return Mode.BREWING;
                             }
+                            if (this.getCapacity() == (initial + level1 + level2 + level3 + level4 + level5) && capacityModifier.getLevel() == 6) {
+                                this.capacity += level6;
+                                this.clearContent();
+                                return Mode.BREWING;
+                            }
                         }
                     }
                 }
@@ -450,13 +673,15 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
             }
             this.markUpdated();
         }
-        return fail();
+        return this.fail();
     }
 
     public void commonReset(){
         if (this.level != null && !this.level.isClientSide) {
             this.setColor(WATER_COLOR, false);
             this.isBrewing = false;
+            this.isCrafting = false;
+            this.removeAllCraftItems();
             this.capacity = 0;
             this.capacityUsed = 0;
             this.soulTime = 0;
@@ -470,6 +695,8 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
             this.takeBrew = 0;
             this.isAquatic = false;
             this.isFireProof = false;
+            this.recipe = null;
+            this.recipeId = null;
             this.clearContent();
             this.markUpdated();
             this.level.setBlock(this.worldPosition, this.getBlockState().setValue(ModStateProperties.LEVEL_BREW, 0), 3);
@@ -478,8 +705,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
 
     public void fullReset(){
         if (this.level != null && !this.level.isClientSide) {
-            this.commonReset();
-            this.mode = Mode.IDLE;
+            this.mode = this.reset();
         }
     }
 
@@ -492,10 +718,12 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
         if (this.level != null && !this.level.isClientSide) {
             this.setColor(FAILED_COLOR);
             this.isBrewing = false;
+            this.isCrafting = false;
+            this.removeAllCraftItems();
             this.capacity = 0;
             this.soulTime = 0;
             this.totalCost = 0;
-            this.level.playSound(null, this.worldPosition, SoundEvents.NOTE_BLOCK_SNARE.get(), SoundSource.BLOCKS, 5.0F, 0.75F);
+            this.level.playSound(null, this.worldPosition, SoundEvents.NOTE_BLOCK_SNARE.get(), SoundSource.BLOCKS, 1.0F, 0.75F);
             this.markUpdated();
         }
         return Mode.FAILED;
@@ -614,6 +842,15 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
         return brew;
     }
 
+    public ItemStack getCraftedItem() {
+        if (this.level == null) {
+            return ItemStack.EMPTY;
+        }
+        return this.level.getRecipeManager()
+                .getRecipeFor(ModRecipeSerializer.CAULDRON_TYPE.get(), this.getCraftContainer(), this.level)
+                .map((recipes) -> recipes.assemble(this.getCraftContainer(), this.level.registryAccess())).orElse(ItemStack.EMPTY);
+    }
+
     public boolean hasNoAugmentation(){
         return this.duration <= 0 && this.amplifier <= 0 && this.aoe <= 0 && this.quaff <= 0 && this.velocity <= 0 && this.lingering <= 0;
     }
@@ -633,12 +870,12 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
         int size = Mth.clamp(this.witchPoles.size(), 0, 3);
         if (size > 0) {
             for (int i = 0; i < size; ++i) {
-                totalCost *= 0.99F;
+                this.totalCost *= 0.99F;
             }
         }
         if (this.level != null){
             if (this.level.getBiome(this.worldPosition).is(BiomeTags.HAS_SWAMP_HUT)){
-                totalCost *= 0.99F;
+                this.totalCost *= 0.99F;
             }
         }
     }
@@ -775,6 +1012,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
     public void clearContent() {
         this.container.clear();
         this.clearSacrifices();
+        this.getCraftContainer().clearContent();
     }
 
     public void clearSacrifices() {
@@ -801,6 +1039,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
         this.isFireProof = compoundNBT.getBoolean("FireProof");
         this.lingering = compoundNBT.getFloat("Lingering");
         this.isBrewing = compoundNBT.getBoolean("Brewing");
+        this.isCrafting = compoundNBT.getBoolean("Crafting");
         if (compoundNBT.contains("Mode")) {
             this.mode = Mode.valueOf(compoundNBT.getString("Mode"));
         }
@@ -808,6 +1047,12 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
         ContainerHelper.loadAllItems(compoundNBT, this.container);
         this.sacrificed = new HashMap<>();
         loadAllSacrificed(compoundNBT, this.sacrificed);
+        NonNullList<ItemStack> items = NonNullList.withSize(this.getCraftContainer().getContainerSize(), ItemStack.EMPTY);
+        ContainerHelper.loadAllItems(compoundNBT.getCompound("CraftItems"), items);
+        this.setCraftItems(items);
+        if (compoundNBT.contains("currentCraftRecipe")) {
+            this.recipeId = new ResourceLocation(compoundNBT.getString("currentCraftRecipe"));
+        }
     }
 
     public void saveAdditional(CompoundTag pCompound) {
@@ -828,9 +1073,16 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
         pCompound.putBoolean("FireProof", this.isFireProof);
         pCompound.putFloat("Lingering", this.lingering);
         pCompound.putBoolean("Brewing", this.isBrewing);
+        pCompound.putBoolean("Crafting", this.isCrafting);
         pCompound.putString("Mode", this.mode.name());
         ContainerHelper.saveAllItems(pCompound, this.container);
         saveEntities(pCompound, this.sacrificed);
+        CompoundTag craftItemsTag = new CompoundTag();
+        ContainerHelper.saveAllItems(craftItemsTag, this.getCraftItems(), true);
+        pCompound.put("CraftItems", craftItemsTag);
+        if (this.recipe != null) {
+            pCompound.putString("currentCraftRecipe", this.recipe.getId().toString());
+        }
     }
 
     public static CompoundTag saveEntities(CompoundTag p_18977_, Map<Integer, EntityType<?>> p_18978_) {
@@ -891,53 +1143,67 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
                 } else if (waterLevel >= 3 && WaystoneItem.canAffect(player, stack, Vec3.atCenterOf(this.getBlockPos()), getWitchPoles(this))){
                     return 0;
                 } else if (item == Items.GLASS_BOTTLE || BrewUtils.brewableFood(stack)) {
-                    boolean hat = CuriosFinder.hasCurio(player, itemStack -> itemStack.getItem() instanceof WitchHatItem),
-                            croneHat = CuriosFinder.hasCurio(player, ModItems.CRONE_HAT.get()),
-                            robe = CuriosFinder.hasWitchRobe(player);
-                    boolean blackCat = !player.level.getEntitiesOfClass(Cat.class,
-                            player.getBoundingBox().inflate(16, 8, 16),
-                            cat -> cat.getVariant() == BuiltInRegistries.CAT_VARIANT.get(CatVariant.ALL_BLACK) && cat.getOwner() == player).isEmpty();
-                    float chance = 1.0F;
-                    int times = 0;
-                    int bottle = 0;
-                    if (croneHat){
-                        times += 2;
-                        chance -= 0.25F;
-                    } else if (hat){
-                        times += 1;
-                        chance -= 0.25F;
-                    }
-                    if (robe){
-                        times += 1;
-                        chance -= 0.25F;
-                    }
-                    if (blackCat){
-                        times += 1;
-                        chance -= 0.25F;
-                    }
-                    bottle += SEHelper.getBottleLevel(player);
-                    MobEffectInstance mobEffectInstance = player.getEffect(GoetyEffects.BOTTLING.get());
-                    if (mobEffectInstance != null){
-                        bottle += mobEffectInstance.getAmplifier() + 1;
-                    }
-                    times += bottle;
-                    if (this.takeBrew < bottle){
-                        this.takeBrew++;
-                        return waterLevel;
-                    } else if (player.level.random.nextFloat() <= chance || this.takeBrew >= times) {
-                        return waterLevel - 1;
-                    } else {
-                        this.takeBrew++;
-                        return waterLevel;
-                    }
+                    return this.takeBrew(player, waterLevel);
                 } else {
                     return waterLevel;
                 }
+            } else if (this.mode == Mode.CRAFTED) {
+                Ingredient takeWith = this.getRecipe().getTakeWith();
+                boolean flag = stack.isEmpty();
+                if (!takeWith.isEmpty()) {
+                    flag = takeWith.test(stack);
+                }
+                if (flag) {
+                    return this.takeBrew(player, waterLevel);
+                }
+                return waterLevel;
             } else {
                 return waterLevel;
             }
         }
         return -1;
+    }
+
+    public int takeBrew(Player player, int waterLevel) {
+        boolean hat = CuriosFinder.hasCurio(player, itemStack -> itemStack.getItem() instanceof WitchHatItem),
+                croneHat = CuriosFinder.hasCurio(player, ModItems.CRONE_HAT.get()),
+                robe = CuriosFinder.hasWitchRobe(player);
+        boolean blackCat = !player.level.getEntitiesOfClass(Cat.class,
+                player.getBoundingBox().inflate(16, 8, 16),
+                cat -> cat.getVariant() == BuiltInRegistries.CAT_VARIANT.get(CatVariant.ALL_BLACK) && cat.getOwner() == player).isEmpty();
+        float chance = 1.0F;
+        int times = 0;
+        int bottle = 0;
+        if (croneHat){
+            times += 2;
+            chance -= 0.25F;
+        } else if (hat){
+            times += 1;
+            chance -= 0.25F;
+        }
+        if (robe){
+            times += 1;
+            chance -= 0.25F;
+        }
+        if (blackCat){
+            times += 1;
+            chance -= 0.25F;
+        }
+        bottle += SEHelper.getBottleLevel(player);
+        MobEffectInstance mobEffectInstance = player.getEffect(GoetyEffects.BOTTLING.get());
+        if (mobEffectInstance != null){
+            bottle += mobEffectInstance.getAmplifier() + 1;
+        }
+        times += bottle;
+        if (this.takeBrew < bottle){
+            this.takeBrew++;
+            return waterLevel;
+        } else if (player.level.random.nextFloat() <= chance || this.takeBrew >= times) {
+            return waterLevel - 1;
+        } else {
+            this.takeBrew++;
+            return waterLevel;
+        }
     }
 
     private boolean checkFire() {
@@ -1032,6 +1298,8 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
         IDLE("idle"),
         BREWING("brewing"),
         COMPLETED("completed"),
+        CRAFTING("crafting"),
+        CRAFTED("crafted"),
         FAILED("failed");
 
         public final String name;

@@ -1,33 +1,64 @@
 {
   "variants": {
-    "level=0,failed=false": {
+    "level=0,failed=false,crafting=false": {
       "model": "goety:block/witch_cauldron"
     },
-    "level=1,failed=false": {
+    "level=1,failed=false,crafting=false": {
       "model": "goety:block/witch_cauldron_semi"
     },
-    "level=2,failed=false": {
+    "level=2,failed=false,crafting=false": {
       "model": "goety:block/witch_cauldron_mid"
     },
-    "level=3,failed=false": {
+    "level=3,failed=false,crafting=false": {
       "model": "goety:block/witch_cauldron_full"
     },
-    "level=4,failed=false": {
+    "level=4,failed=false,crafting=false": {
       "model": "goety:block/witch_cauldron_full"
     },
-    "level=0,failed=true": {
+    "level=0,failed=true,crafting=false": {
       "model": "goety:block/witch_cauldron"
     },
-    "level=1,failed=true": {
+    "level=1,failed=true,crafting=false": {
       "model": "goety:block/witch_cauldron_semi_failed"
     },
-    "level=2,failed=true": {
+    "level=2,failed=true,crafting=false": {
       "model": "goety:block/witch_cauldron_mid_failed"
     },
-    "level=3,failed=true": {
+    "level=3,failed=true,crafting=false": {
       "model": "goety:block/witch_cauldron_full_failed"
     },
-    "level=4,failed=true": {
+    "level=4,failed=true,crafting=false": {
+      "model": "goety:block/witch_cauldron_full_failed"
+    },
+
+    "level=0,failed=false,crafting=true": {
+      "model": "goety:block/witch_cauldron"
+    },
+    "level=1,failed=false,crafting=true": {
+      "model": "goety:block/witch_cauldron_semi_crafting"
+    },
+    "level=2,failed=false,crafting=true": {
+      "model": "goety:block/witch_cauldron_mid_crafting"
+    },
+    "level=3,failed=false,crafting=true": {
+      "model": "goety:block/witch_cauldron_full_crafting"
+    },
+    "level=4,failed=false,crafting=true": {
+      "model": "goety:block/witch_cauldron_full_crafting"
+    },
+    "level=0,failed=true,crafting=true": {
+      "model": "goety:block/witch_cauldron"
+    },
+    "level=1,failed=true,crafting=true": {
+      "model": "goety:block/witch_cauldron_semi_failed"
+    },
+    "level=2,failed=true,crafting=true": {
+      "model": "goety:block/witch_cauldron_mid_failed"
+    },
+    "level=3,failed=true,crafting=true": {
+      "model": "goety:block/witch_cauldron_full_failed"
+    },
+    "level=4,failed=true,crafting=true": {
       "model": "goety:block/witch_cauldron_full_failed"
     }
   }

@@ -7904,6 +7904,16 @@
       }
     ]
   },
+  "potion_drink": {
+    "sounds": [
+      {
+        "name": "goety:random/potion_drink1"
+      },
+      {
+        "name": "goety:random/potion_drink2"
+      }
+    ]
+  },
   "void_touched_activate": {
     "sounds": [
       {
@@ -8294,6 +8304,78 @@
     "sounds": [
       {
         "name": "goety:item/focus_pick"
+      }
+    ]
+  },
+  "broom_swing": {
+    "sounds": [
+      {
+        "name": "goety:item/broom_swing1"
+      },
+      {
+        "name": "goety:item/broom_swing2"
+      },
+      {
+        "name": "goety:item/broom_swing3"
+      },
+      {
+        "name": "goety:item/broom_swing4"
+      },
+      {
+        "name": "goety:item/broom_swing5"
+      },
+      {
+        "name": "goety:item/broom_swing6"
+      },
+      {
+        "name": "goety:item/broom_swing7"
+      },
+      {
+        "name": "goety:item/broom_swing8"
+      }
+    ]
+  },
+  "broom_break": {
+    "sounds": [
+      {
+        "name": "goety:item/broom_impact_stronk1"
+      },
+      {
+        "name": "goety:item/broom_impact_stronk2"
+      },
+      {
+        "name": "goety:item/broom_impact_stronk3"
+      },
+      {
+        "name": "goety:item/broom_impact_stronk4"
+      },
+      {
+        "name": "goety:item/broom_impact_stronk5"
+      },
+      {
+        "name": "goety:item/broom_impact_stronk6"
+      }
+    ]
+  },
+  "broom_impact": {
+    "sounds": [
+      {
+        "name": "goety:item/broom_impact1"
+      },
+      {
+        "name": "goety:item/broom_impact2"
+      },
+      {
+        "name": "goety:item/broom_impact3"
+      },
+      {
+        "name": "goety:item/broom_impact4"
+      },
+      {
+        "name": "goety:item/broom_impact5"
+      },
+      {
+        "name": "goety:item/broom_impact6"
       }
     ]
   },

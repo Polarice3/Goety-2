@@ -22,6 +22,10 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulGuiVertical;
     public static final ForgeConfigSpec.ConfigValue<Integer> FocusGuiHorizontal;
     public static final ForgeConfigSpec.ConfigValue<Integer> FocusGuiVertical;
+    public static final ForgeConfigSpec.ConfigValue<Integer> OCGuiHorizontal;
+    public static final ForgeConfigSpec.ConfigValue<Integer> OCGuiVertical;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ECGuiHorizontal;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ECGuiVertical;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulTakenMultiplier;
     public static final ForgeConfigSpec.ConfigValue<Integer> UndeadSouls;
@@ -68,6 +72,8 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> GoodwillFullAlly;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SoulGuiShow;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FocusGuiShow;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> OCGuiShow;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ECGuiShow;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShowWandCooldown;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WheelGuiMovement;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShowNum;
@@ -140,6 +146,10 @@ public class MainConfig {
                 .define("soulGuiShow", true);
         FocusGuiShow = BUILDER.comment("Show currently equipped focus on Wand/Staff in Gui, Default: true")
                 .define("focusGuiShow", true);
+        OCGuiShow = BUILDER.comment("Show the Ominous Charm Bad Omen amount in Gui, Default: true")
+                .define("ocGuiShow", true);
+        ECGuiShow = BUILDER.comment("Show the Eternal Cauldron cooldown in Gui, Default: true")
+                .define("ecGuiShow", true);
         ShowWandCooldown = BUILDER.comment("Whether Wands and Staffs show cooldown if the focus it's equipped with is, Default: true")
                 .define("showWandCooldown", true);
         WheelGuiMovement = BUILDER.comment("Allows player movement if Focus/Brew Wheel are open, Default: true")
@@ -154,6 +164,14 @@ public class MainConfig {
                 .defineInRange("focusGuiHorizontal", 0, -Integer.MAX_VALUE, Integer.MAX_VALUE);
         FocusGuiVertical = BUILDER.comment("Move where the equipped Focus is located vertically from its original position (- = Up, + = Down), Default: 0")
                 .defineInRange("focusGuiVertical", 0, -Integer.MAX_VALUE, Integer.MAX_VALUE);
+        OCGuiHorizontal = BUILDER.comment("Move where the equipped Ominous Charm counter is located horizontally from its original position (- = Left, + = Right), Default: 0")
+                .defineInRange("ocGuiHorizontal", 0, -Integer.MAX_VALUE, Integer.MAX_VALUE);
+        OCGuiVertical = BUILDER.comment("Move where the equipped Ominous Charm counter is located vertically from its original position (- = Up, + = Down), Default: 0")
+                .defineInRange("ocGuiVertical", 0, -Integer.MAX_VALUE, Integer.MAX_VALUE);
+        ECGuiHorizontal = BUILDER.comment("Move where the equipped Eternal Cauldron counter is located horizontally from its original position (- = Left, + = Right), Default: 0")
+                .defineInRange("ecGuiHorizontal", 0, -Integer.MAX_VALUE, Integer.MAX_VALUE);
+        ECGuiVertical = BUILDER.comment("Move where the equipped Eternal Cauldron counter is located vertically from its original position (- = Up, + = Down), Default: 0")
+                .defineInRange("ecGuiVertical", 0, -Integer.MAX_VALUE, Integer.MAX_VALUE);
         SpecialBossBar = BUILDER.comment("Bosses from the Mod has custom looking Boss Bars. Default: true")
                 .define("specialBossBar", true);
         BossMusic = BUILDER.comment("Bosses from the Mod has custom Music Playing. Default: true")

@@ -13,12 +13,17 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Clearable;
-import net.minecraft.world.Containers;
 import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nullable;
 
@@ -70,11 +75,15 @@ public class SoulMenderBlockEntity extends ModBlockEntity implements Clearable, 
                                 this.level.playSound(null, this.getBlockPos(), SoundEvents.FIRE_AMBIENT, SoundSource.BLOCKS, 1.0F + this.level.random.nextFloat(), this.level.random.nextFloat() * 0.7F + 0.3F);
                             }
                         } else {
-                            BlockPos blockpos = this.getBlockPos();
-                            Containers.dropItemStack(this.level, blockpos.getX(), blockpos.getY(), blockpos.getZ(), this.itemStack);
+                            ItemStack finished = this.itemStack.copy();
                             this.itemStack.shrink(1);
                             this.finishParticles();
                             this.markUpdated();
+                            if (!this.tryDepositItem(finished)) {
+                                BlockPos blockpos = this.getBlockPos();
+                                Vec3 vec3 = Vec3.atCenterOf(blockpos);
+                                dropItemStack(this.level, vec3.x, vec3.y, vec3.z, finished);
+                            }
                         }
                     } else if (this.itemStack.isDamaged()) {
                         if (this.level.getGameTime() % (MathHelper.secondsToTicks(MainConfig.SoulMenderSeconds.get().floatValue()) + 1) == 0) {
@@ -85,14 +94,62 @@ public class SoulMenderBlockEntity extends ModBlockEntity implements Clearable, 
                             this.level.playSound(null, this.getBlockPos(), SoundEvents.FIRE_AMBIENT, SoundSource.BLOCKS, 1.0F + this.level.random.nextFloat(), this.level.random.nextFloat() * 0.7F + 0.3F);
                         }
                     } else {
-                        BlockPos blockpos = this.getBlockPos();
-                        Containers.dropItemStack(this.level, blockpos.getX(), blockpos.getY(), blockpos.getZ(), this.itemStack);
+                        ItemStack finished = this.itemStack.copy();
                         this.itemStack.shrink(1);
                         this.finishParticles();
                         this.markUpdated();
+                        if (!this.tryDepositItem(finished)) {
+                            BlockPos blockpos = this.getBlockPos();
+                            Vec3 vec3 = Vec3.atCenterOf(blockpos);
+                            dropItemStack(this.level, vec3.x, vec3.y, vec3.z, finished);
+                        }
                     }
                 }
             }
+        }
+    }
+
+    public boolean tryDepositItem(ItemStack stack) {
+        if (this.level == null || this.level.isClientSide) {
+            return false;
+        }
+
+        for (Direction direction : Direction.values()) {
+            if (direction == Direction.DOWN) {
+                continue;
+            }
+
+            BlockPos neighborPos = this.getBlockPos().relative(direction);
+            BlockEntity neighbor = this.level.getBlockEntity(neighborPos);
+            if (neighbor == null) {
+                continue;
+            }
+
+            LazyOptional<IItemHandler> cap = neighbor.getCapability(ForgeCapabilities.ITEM_HANDLER, direction.getOpposite());
+
+            if (!cap.isPresent()) {
+                continue;
+            }
+
+            IItemHandler handler = cap.orElseThrow(RuntimeException::new);
+            ItemStack remainder = net.minecraftforge.items.ItemHandlerHelper.insertItem(handler, stack.copy(), false);
+
+            if (remainder.isEmpty()) {
+                stack.setCount(0);
+                return true;
+            } else if (remainder.getCount() < stack.getCount()) {
+                stack.setCount(remainder.getCount());
+            }
+        }
+
+        return false;
+    }
+
+    public static void dropItemStack(Level level, double pX, double pY, double pZ, ItemStack stack) {
+        while(!stack.isEmpty()) {
+            ItemEntity itementity = new ItemEntity(level, pX, pY, pZ, stack.split(1));
+            itementity.setDeltaMovement(0.0D, level.random.triangle(0.2D, 0.11485000171139836D), 0.0D);
+            level.addFreshEntity(itementity);
         }
     }
 

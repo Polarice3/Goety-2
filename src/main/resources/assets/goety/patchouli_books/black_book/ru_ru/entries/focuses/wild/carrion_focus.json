@@ -1,0 +1,23 @@
+{
+  "name": "Фокус личинок",
+  "icon": "goety:carrion_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "С помощью гнилой плоти вы можете увеличить количество насекомых, вызываемых с помощью $(l:focuses/wild/swarm_focus)фокуса роя$(), и превратить их в $(l:summons/carrion_flies)мух-падальщиков$(). Если муха убивает существо, из его трупа вылезают новые мухи, подчинённые вам."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/carrion_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Использование $(l:crafts/staff/wild_staff)дикого посоха$() увеличивает число мух-падальщиков, ношение дикой мантии увеличит их урон и здоровье."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Добавлено по предложению @NUTTAR"
+    }
+  ]
+}

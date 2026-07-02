@@ -1069,6 +1069,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "item.goety.smack_stone_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:smack_stone_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "item.goety.snaring_focus": {
       "conditions": {
         "items": [
@@ -1601,6 +1613,9 @@
     ],
     [
       "item.goety.earth_punch_focus"
+    ],
+    [
+      "item.goety.smack_stone_focus"
     ],
     [
       "item.goety.ministrous_focus"

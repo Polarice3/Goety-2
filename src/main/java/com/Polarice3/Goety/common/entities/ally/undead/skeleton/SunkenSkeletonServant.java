@@ -4,7 +4,6 @@ import com.Polarice3.Goety.common.entities.ai.CreatureBowAttackGoal;
 import com.Polarice3.Goety.common.entities.ai.CreatureCrossbowAttackGoal;
 import com.Polarice3.Goety.common.entities.ai.path.ModWaterPathNavigation;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
-import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
 import com.Polarice3.Goety.common.entities.projectiles.Harpoon;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -220,8 +219,23 @@ public class SunkenSkeletonServant extends AbstractSkeletonServant implements Cr
         this.noActionTime = 0;
     }
 
-    public void performRangedAttack(@NotNull LivingEntity p_33272_, float p_33273_) {
-        this.performCrossbowAttack(this, 1.6F);
+    public void performRangedAttack(@NotNull LivingEntity pTarget, float pDistanceFactor) {
+        if (this.isHolding(is -> is.getItem() instanceof CrossbowItem)) {
+            this.performCrossbowAttack(this, 1.6F);
+        } else {
+            ItemStack itemstack = this.getProjectile(this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, item -> item instanceof BowItem)));
+            AbstractArrow abstractarrowentity = this.getArrow(itemstack, pDistanceFactor);
+            if (this.getMainHandItem().getItem() instanceof BowItem bowItem) {
+                abstractarrowentity = bowItem.customArrow(abstractarrowentity);
+            }
+            double d0 = pTarget.getX() - this.getX();
+            double d1 = pTarget.getY(0.3333333333333333D) - abstractarrowentity.getY();
+            double d2 = pTarget.getZ() - this.getZ();
+            double d3 = Mth.sqrt((float) (d0 * d0 + d2 * d2));
+            abstractarrowentity.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, (float)(14 - this.level.getDifficulty().getId() * 4));
+            this.playSound(this.isInWater() ? ModSounds.SUNKEN_SKELETON_SHOOT.get() : SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+            this.level.addFreshEntity(abstractarrowentity);
+        }
     }
 
     public void performCrossbowAttack(@NotNull LivingEntity shooter, float velocity) {

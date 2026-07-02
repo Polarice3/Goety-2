@@ -1,16 +1,22 @@
 {
-  "name": "Passos do Preparo",
-  "icon": "minecraft:nether_wart",
+  "name": "Etapas da Preparação",
+  "icon": "goety:henbane_flower",
   "category": "goety:brewing",
   "sortnum": 1,
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Para começar verdadeiramente, deves adicionar um $(item)Verruga do Nether$() ao caldeirão fervente! Quando ele soltar faíscas roxas, podemos começar de verdade, nyehahahaha!"
+      "text": "Para realmente começar a preparar, você deve adicionar uma $(item)Flor de Meimendro$() no caldeirão em ebulição! Então, quando começar a emitir faíscas roxas, podemos realmente começar nyehahahaha!"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:wicked_boline",
+      "anchor": "boline",
+      "text": "Como você consegue uma Flor de Meimendro, perguntou? Você as cultiva, é assim! Agora seja uma boa aspirante a bruxa, faça, ou roube, uma boline e comece a coletar grama ou samambaia para as sementes, junto com outras plantas maravilhosas!"
     },
     {
       "type": "patchouli:text",
-      "text": "O processo segue esta ordem:$(br2)$()$(l)Capacidade -> Catalisador -> Aprimoramento -> Finalização!$()$(br2)Lembra-te destes passos, pestinha! Misturá-los arruinará tua poção! Agora deves estar a perguntar: 'Avó, o que significam estas palavras?' Cala a boca e eu te direi!"
+      "text": "O processo de preparação segue o seguinte:$(br2)$()$(l)Capacidade -> Catalisador -> Aumento -> Finalização!$()$(br2)Lembre-se destes passos, pirralho! Misture-os e sua poção será arruinada! Agora você pode estar perguntando, Vovó, o que essas palavras significam? Bem, cale a boca e eu vou te contar!"
     },
     {
       "type": "patchouli:relations",
@@ -22,19 +28,19 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Quando Capacidade, Catalisador e Aprimoramento estiverem adicionados, e teu caldeirão não soltar fumaça negra, tua poção está pronta para a Finalização! Clica com o botão direito no Caldeirão com a Concha antes de engarrafar!"
+      "text": "Depois que a Capacidade, o Catalisador e o Aumento forem adicionados, e sua poção não estiver emitindo fumaça preta, sua poção está pronta para o processo de Finalização! Você deve clicar com o botão direito no Caldeirão com a Concha do Caldeirão para começar, então não vá engarrafar a poção ainda!"
     },
     {
       "type": "patchouli:text",
-      "text": "Verifica se os teus Castiçais de Alma podem transferir energia suficiente (vê o Caldeirão agachado) antes de começar! O Caldeirão emitirá partículas quando estiver pronto para engarrafar!"
+      "text": "Certifique-se de que seus Castiçais de Almas possam transferir a quantidade necessária de energia, que você pode ver olhando para o Caldeirão enquanto agacha, antes de começar! O Caldeirão emitirá Partículas de Efeito assim que o processo for concluído, que é quando você pode começar a engarrafar sua poção!"
     },
     {
       "type": "patchouli:text",
-      "text": "Usa trajes de Bruxa ao engarrafar! Um Chapéu e Robe dão chance de poções extras! Segredo da Avó: Maçãs absorvem bem poções... lembras-te da Branca de Neve? Hehehehahaha!"
+      "text": "Certifique-se de usar suas roupas de Bruxa adequadas ao engarrafar! Todo mundo sabe que o Chapéu e as Túnicas de Bruxa dão uma chance de poções extras! Além disso, aqui está um pequeno segredo da Velha Vovó! Maçãs podem ser bastante... receptivas a absorver poções. Lembra da Branca de Neve? Hehehehahaha!"
     },
     {
       "type": "patchouli:text",
-      "text": "O caldeirão deve estar cheio para usar um $(bold)kit taglock$() ou $(bold)pedra de waystone$()! Se não sabes o que são, azar! Esta Avó só fala de poções! Hahahahaha!"
+      "text": "Além disso, não se esqueça de que seu caldeirão deve estar cheio da poção para usar seu $(bold)Kit de Taglock$(), ou uma $(bold)Pedra da Orientação$() nele! Se você não sabe o que são essas coisas, que pena! A Velha Vovó está falando sobre preparação! Encontre outra Vovó para mostrar os outros caminhos dos velhos costumes! Hahahahaha!"
     }
   ]
 }

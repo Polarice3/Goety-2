@@ -119,7 +119,7 @@ public class RobeEvents {
         if (CuriosFinder.hasAbyssRobes(victim)){
             if (event.getSource().is(DamageTypeTags.IS_DROWNING)){
                 if (victim.getAirSupply() <= 0){
-                    victim.setAirSupply(20);
+                    victim.setAirSupply(50);
                 }
                 event.setAmount(event.getAmount() * 0.5F);
             }

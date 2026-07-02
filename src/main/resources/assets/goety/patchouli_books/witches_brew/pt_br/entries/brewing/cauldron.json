@@ -1,0 +1,50 @@
+{
+  "name": "Outros Usos do Caldeirão",
+  "icon": "goety:witch_cauldron",
+  "category": "goety:brewing",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Nossos Caldeirões não servem apenas para fazer poções! Às vezes você pode fazer ensopado ou algumas pomadas para cobrir seu corpo para alguns efeitos!"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:nightshade_blossom",
+      "text": "Para começar a fazer não-poções, em vez de jogar uma Flor de Meimendro, você joga a boa e velha Beladona! Assim como o Meimendro, você obtém as sementes quebrando grama e samambaias com a $(l:brewing/brewing_steps#boline)boline$() e as cultiva em terra arada!"
+    },
+    {
+      "type": "goety:cauldron",
+      "recipe": "goety:cauldron/resilience_lotion"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Esta loção fortalecerá sua pele e ossos quando aplicada, fazendo com que você sofra menos dano de ataques recebidos!"
+    },
+    {
+      "type": "goety:cauldron",
+      "anchor": "flying_ointment",
+      "recipe": "goety:cauldron/flying_ointment"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "HAHAHAHAHA! A boa e velha Pomada Voadora! Faz você se sentir como se estivesse nas nuvens e te anima! Funciona bem com uma vassoura hahaha!"
+    },
+    {
+      "type": "goety:cauldron",
+      "recipe": "goety:cauldron/mushroom_stew"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Eu disse que você pode fazer ensopado com isso!"
+    },
+    {
+      "type": "goety:cauldron",
+      "recipe": "goety:cauldron/candle"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Algumas bruxas precisam de uma aparência mais extravagante para fazer velas em seus caldeirões, mas aqui, nós apenas usamos um pedaço de linha e de alguma forma conseguimos cilindros de cera perfeitamente moldados a partir disso!"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "goety:block/pine_firewood",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "goety:block/pine_firewood",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "goety:block/pine_firewood"
+    },
+    "facing=west": {
+      "model": "goety:block/pine_firewood",
+      "y": 90
+    }
+  }
+}

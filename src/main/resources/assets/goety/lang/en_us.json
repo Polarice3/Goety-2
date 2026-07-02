@@ -428,6 +428,8 @@
   "entity.goety.boat":"Boat",
   "entity.goety.chest_boat":"Boat with Chest",
 
+  "entity.goety.haunted_broom":"Haunted Broom",
+
   "entity.goety.haunted_armor_stand":"Haunted Armor Stand",
   "entity.goety.haunted_painting":"Haunted Painting",
 
@@ -658,6 +660,8 @@
 
   "item.goety.cauldron_ladle": "Cauldron Ladle",
 
+  "item.goety.wicked_boline": "Wicked Boline",
+
   "item.goety.dark_scythe": "Ominous Scythe",
   "item.goety.dark_metal_scythe": "Dark Scythe",
   "item.goety.death_scythe": "Death Scythe",
@@ -746,6 +750,10 @@
   "item.goety.forbidden_scroll": "Forbidden Scroll",
 
   "item.goety.snap_warts": "Snap Warts",
+  "item.goety.henbane_seeds": "Henbane Seeds",
+  "item.goety.henbane_flower": "Henbane Flower",
+  "item.goety.nightshade_seeds": "Nightshade Seeds",
+  "item.goety.nightshade_blossom": "Nightshade Blossom",
 
   "item.goety.feet_of_frog": "Feet of Frog",
   "item.goety.cooked_feet_of_frog": "Cooked Feet of Frog",
@@ -773,6 +781,9 @@
   "item.goety.howling_soul": "Howling Soul",
   "item.goety.blazing_helm": "Blazing Helm",
   "item.goety.refuse_bottle": "Bottle of Refuse",
+
+  "item.goety.resilience_lotion": "Resilience Lotion",
+  "item.goety.flying_ointment": "Flying Ointment",
 
   "item.goety.void_bottle": "Bottle of Void",
   "item.goety.void_bucket": "Bucket of Liquid Void",
@@ -808,6 +819,8 @@
 
   "item.goety.corrupt_chorus_boat": "Corrupted Chorus Boat",
   "item.goety.corrupt_chorus_chest_boat": "Corrupted Chorus Chest Boat",
+
+  "item.goety.haunted_broom": "Haunted Broom",
 
   "item.goety.haunted_armor_stand":"Haunted Armor Stand",
   "item.goety.haunted_painting":"Haunted Painting",
@@ -880,6 +893,7 @@
   "item.goety.nether_robe": "Nether Robe",
   "item.goety.nether_robe_warped": "Nether Robe",
   "item.goety.unholy_robe": "Unholy Robe",
+  "item.goety.eternal_cauldron": "Eternal Cauldron",
   "item.goety.grave_glove": "Grave Gloves",
   "item.goety.thrash_glove": "Thrash Gloves",
   "item.goety.targeting_monocle": "Targeting Monocle",
@@ -1306,6 +1320,7 @@
   "block.goety.mossy_crag_pavement": "Mossy Crag Pavement",
   "block.goety.mossy_crag_pavement_heavy": "Heavy Mossy Crag Pavement",
   "block.goety.silt_studded_crag_tiles": "Silt Studded Crag Tiles",
+  "block.goety.braced_crag_tile_pillar": "Braced Crag Tile Pillar",
 
   "block.goety.highrock": "Highrock",
   "block.goety.highrock_slab": "Highrock Slab",
@@ -1500,6 +1515,8 @@
   "block.goety.steep_sconce": "Steep Sconce",
   "block.goety.jade_light": "Jade Light",
   "block.goety.pine_lantern": "Pine Lantern",
+  "block.goety.jade_crystal_lamp": "Jade Crystal Lamp",
+  "block.goety.half_jade_crystal_lamp": "Half Jade Crystal Lamp",
   "block.goety.skull_pile": "Skull Pile",
 
   "block.goety.wall_shrine": "Wall Shrine",
@@ -1624,6 +1641,8 @@
   "block.goety.pine_slab": "Pine Slab",
   "block.goety.pine_stairs": "Pine Stairs",
   "block.goety.pine_trapdoor": "Pine Trapdoor",
+  "block.goety.snowy_pine_pillar": "Snowy Pine Pillar",
+  "block.goety.pine_firewood": "Pine Firewood",
   "block.goety.pine_wood": "Pine Wood",
   "block.goety.pine_button": "Pine Button",
   "block.goety.pine_pressure_plate": "Pine Pressure Plate",
@@ -1638,6 +1657,8 @@
   "block.goety.stripped_pine_wood": "Stripped Pine Wood",
 
   "block.goety.steep_planks": "Steep Planks",
+  "block.goety.dense_steep_planks": "Dense Steep Planks",
+  "block.goety.dense_banded_steep_planks": "Dense Banded Steep Planks",
   "block.goety.steep_lamp": "Steep Lamp",
   "block.goety.steep_fence": "Steep Fence",
   "block.goety.steep_fence_gate": "Steep Fence Gate",
@@ -1654,6 +1675,7 @@
   "block.goety.rimmed_steep_wood": "Rimmed Steep Wood",
   "block.goety.steep_button": "Steep Button",
   "block.goety.steep_pressure_plate": "Steep Pressure Plate",
+  "block.goety.steep_firewood": "Steep Firewood",
 
   "block.goety.sky_wood_planks": "Sky Wood Planks",
   "block.goety.sky_wood_slab": "Sky Wood Slab",
@@ -1899,6 +1921,10 @@
   "block.goety.sculk_grower": "Sculk Grower",
 
   "block.goety.snap_warts": "Snap Warts",
+  "block.goety.henbane": "Henbane",
+  "block.goety.potted_henbane": "Potted Henbane",
+  "block.goety.deadly_nightshade": "Deadly Nightshade",
+  "block.goety.potted_deadly_nightshade": "Potted Deadly Nightshade",
 
   "block.goety.sienna_grass": "Sienna Grass",
   "block.goety.tall_sienna_grass": "Tall Sienna Grass",
@@ -2203,6 +2229,7 @@
   "effect.goety.grow_tree": "Grow Tree",
   "effect.goety.pulverize": "Pulverize",
   "effect.goety.corrosion": "Corrosion",
+  "effect.goety.exchange": "Exchange",
   "effect.goety.shear": "Shear",
   "effect.goety.flaying": "Flaying",
   "effect.goety.pruning": "Pruning",
@@ -2529,8 +2556,11 @@
   "info.goety.taglock.difDimension": "Tagged Entity is too far away!",
   "info.goety.waystone.unloaded": "Location is not loaded!",
   "info.goety.waystone.difDimension": "Stored Location is too far away!",
+  "info.goety.brew.candlesticks": "No lit Soul Candlesticks are nearby!",
   "info.goety.brew.level_up": "You're getting more skilled at brewing, more brews can be bottled!",
   "info.goety.brew.max_level": "You have mastered the art of brewing!",
+  "info.goety.broom.noSouls.ride": "Not enough Soul Energy to ride!",
+  "info.goety.cauldron.craft.fail": "Ingredients don't match any recipes!",
   "info.goety.lichdom.success": "You have ascended your mortal coil!",
   "info.goety.lichdom.fail": "You didn't prepare yourself properly to drink the potion!",
   "info.goety.lichdom.disable": "Lichdom is disabled",
@@ -2606,6 +2636,7 @@
   "tooltip.goety.customName": "Name: ",
   "tooltip.goety.entity": "Entity",
   "tooltip.goety.disabled": "Disabled",
+  "tooltip.goety.crafting": "Crafting: ",
   "tooltip.goety.brew.capacity": "Capacity: ",
   "tooltip.goety.brew.area": "Area Of Effect %s",
   "tooltip.goety.brew.lingering": "Lingering %s",
@@ -3619,11 +3650,14 @@
   "gui.jei.category.dark_altar.time": "%ss",
   "gui.jei.category.dark_altar.soulcost": "%s Souls/s",
   "gui.jei.category.brazier": "Necro Brazier",
+  "gui.jei.category.cauldron": "Witch's Cauldron",
   "gui.jei.category.pulverize": "Pulverize Focus",
 
   "goety.jei.ritual": "Dark Rituals",
   "goety.jei.ritualType": "Ritual",
   "goety.jei.brazier": "Necro Brazier",
+  "goety.jei.brew": "Cauldron Brewing",
+  "goety.jei.cauldron": "Cauldron Crafting",
 
   "jei.goety.sacrifice": "Sacrifice: %s",
   "jei.goety.summon": "Summon: %s",
