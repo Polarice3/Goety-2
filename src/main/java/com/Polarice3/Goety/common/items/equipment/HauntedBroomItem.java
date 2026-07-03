@@ -7,6 +7,8 @@ import com.Polarice3.Goety.utils.ModUUIDUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -23,6 +25,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -42,6 +46,28 @@ public class HauntedBroomItem extends Item {
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", -3.1D, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_KNOCKBACK, new AttributeModifier(UUID.fromString(ModUUIDUtil.uuidString("item.goety.haunted_broom.knockback")), "Tool modifier", 1.0D, AttributeModifier.Operation.ADDITION));
         this.defaultModifiers = builder.build();
+    }
+
+    @Override
+    public boolean mineBlock(ItemStack pStack, Level pLevel, BlockState pState, BlockPos pPos, LivingEntity pEntityLiving) {
+        if (pState.is(Blocks.COBWEB)) {
+            if (pLevel instanceof ServerLevel serverLevel) {
+                pState.getBlock().popExperience(serverLevel, pPos, 1 + pLevel.getRandom().nextInt(5));
+            }
+        }
+        return true;
+    }
+
+    public float getDestroySpeed(ItemStack p_43288_, BlockState p_43289_) {
+        if (p_43289_.is(Blocks.COBWEB)) {
+            return 15.0F;
+        } else {
+            return super.getDestroySpeed(p_43288_, p_43289_);
+        }
+    }
+
+    public boolean isCorrectToolForDrops(BlockState p_43298_) {
+        return p_43298_.is(Blocks.COBWEB);
     }
 
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand) {
@@ -97,8 +123,19 @@ public class HauntedBroomItem extends Item {
     }
 
     @Override
+    public boolean isEnchantable(ItemStack p_41456_) {
+        return this.getMaxStackSize(p_41456_) == 1;
+    }
+
+    @Override
+    public int getEnchantmentValue(ItemStack stack) {
+        return 1;
+    }
+
+    @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return enchantment == ModEnchantments.VELOCITY.get() || enchantment == ModEnchantments.BURNING.get();
+        return enchantment == ModEnchantments.VELOCITY.get()
+                || enchantment == ModEnchantments.BURNING.get();
     }
 
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot pEquipmentSlot, ItemStack stack) {

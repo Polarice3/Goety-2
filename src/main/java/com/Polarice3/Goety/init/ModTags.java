@@ -114,6 +114,7 @@ public class ModTags {
         private static void init(){}
 
         public static final TagKey<MobEffect> LICH_IMMUNE = tag("lich_immune");
+        public static final TagKey<MobEffect> UNPURIFIABLE = tag("unpurifiable");
 
         private static TagKey<MobEffect> tag(String name) {
             return TagKey.create(Registries.MOB_EFFECT, Goety.location(name));

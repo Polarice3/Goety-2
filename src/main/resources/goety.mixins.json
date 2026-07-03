@@ -23,6 +23,7 @@
     "MobAccessor",
     "PatrolSpawnerMixin",
     "PlayerMixin",
+    "ProjectileMixin",
     "RaiderMixin",
     "RaidMixin",
     "SensorMixin",

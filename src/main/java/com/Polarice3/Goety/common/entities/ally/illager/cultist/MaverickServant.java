@@ -9,6 +9,7 @@ import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Maverick;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.equipment.SickleItem;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
@@ -388,7 +389,7 @@ public class MaverickServant extends CultistServant{
 
     @Override
     public boolean isMainWeapon(ItemStack itemStack) {
-        return itemStack.getItem() instanceof SwordItem;
+        return itemStack.getItem() instanceof SwordItem || itemStack.getItem() instanceof SickleItem;
     }
 
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
@@ -415,7 +416,7 @@ public class MaverickServant extends CultistServant{
         }
         if (isOwner) {
             if (!(pPlayer.getOffhandItem().getItem() instanceof IWand)) {
-                if (item instanceof SwordItem) {
+                if (item instanceof SwordItem || item instanceof SickleItem) {
                     this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
                     this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
                     this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);

@@ -254,17 +254,9 @@ public class HauntedBroom extends Entity {
                 dY = -0.2D;
             }
         } else {
-            /*dX *= 0.9D;
-            dZ *= 0.9D;
-            if (Math.abs(dX) < 0.01D) {
-                dX = 0.0D;
-            }*/
             if (!this.onGround()) {
                 dY = -GRAVITY;
             }
-            /*if (Math.abs(dZ) < 0.01D) {
-                dZ = 0.0D;
-            }*/
         }
 
         double horizontal = Math.sqrt(dX * dX + dZ * dZ);
@@ -311,6 +303,9 @@ public class HauntedBroom extends Entity {
                 float threshold = this.getDamageThreshold() / 10.0F;
                 if (f1 > threshold) {
                     this.hurt(damageSource, f1);
+                    if (rider instanceof Player player) {
+                        player.getCooldowns().addCooldown(this.getItem().getItem(), 50);
+                    }
                     if (this.isBurning()) {
                         float explodeSize = f1 / threshold;
                         ExplosionUtil.lootExplode(this.level, this, this.getX(), this.getY(), this.getZ(), explodeSize, true, Explosion.BlockInteraction.DESTROY, LootingExplosion.Mode.LOOT);

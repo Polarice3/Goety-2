@@ -492,7 +492,7 @@ public class PotionEvents {
             if (player.hasEffect(GoetyEffects.INSIGHT.get())){
                 MobEffectInstance mobEffectInstance = player.getEffect(GoetyEffects.INSIGHT.get());
                 if (mobEffectInstance != null){
-                    int a = mobEffectInstance.getAmplifier() + 2;
+                    int a = (mobEffectInstance.getAmplifier() + 1) * 2;
                     event.setDroppedExperience(event.getOriginalExperience() * a);
                 }
             }
