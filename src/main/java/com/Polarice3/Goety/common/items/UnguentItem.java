@@ -34,7 +34,9 @@ public class UnguentItem extends Item {
 
     public ItemStack finishUsingItem(ItemStack p_41348_, Level p_41349_, LivingEntity p_41350_) {
         super.finishUsingItem(p_41348_, p_41349_, p_41350_);
-        p_41348_.shrink(1);
+        if (!(p_41350_ instanceof Player) || !((Player)p_41350_).getAbilities().instabuild) {
+            p_41348_.shrink(1);
+        }
 
         if (!p_41349_.isClientSide) {
             if (!this.instances.isEmpty()) {

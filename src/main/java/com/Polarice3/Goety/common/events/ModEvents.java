@@ -995,19 +995,21 @@ public class ModEvents {
             }
         }
         if (tool.getItem() instanceof SickleItem){
-            if (!EnchantmentHelper.hasSilkTouch(tool)) {
-                if (player.level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
-                    if (block instanceof TallGrassBlock || blockState.is(Blocks.TALL_GRASS) || blockState.is(Blocks.LARGE_FERN)) {
-                        if (!player.level.isClientSide) {
-                            if (player.level.getRandom().nextFloat() < 0.125F) {
-                                int i = tool.getEnchantmentLevel(Enchantments.BLOCK_FORTUNE);
-                                int count = 1 + RandomUtil.nextInt(player.level.getRandom(), i);
-                                Block.popResource(player.level, event.getPos(), new ItemStack(ModBlocks.HENBANE_SEEDS.get(), count));
-                            }
-                            if (player.level.getRandom().nextFloat() < 0.1F) {
-                                int i = tool.getEnchantmentLevel(Enchantments.BLOCK_FORTUNE);
-                                int count = 1 + RandomUtil.nextInt(player.level.getRandom(), i);
-                                Block.popResource(player.level, event.getPos(), new ItemStack(ModBlocks.NIGHTSHADE_SEEDS.get(), count));
+            if (!player.isCreative()) {
+                if (!EnchantmentHelper.hasSilkTouch(tool)) {
+                    if (player.level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
+                        if (block instanceof TallGrassBlock || blockState.is(Blocks.TALL_GRASS) || blockState.is(Blocks.LARGE_FERN)) {
+                            if (!player.level.isClientSide) {
+                                if (player.level.getRandom().nextFloat() < 0.125F) {
+                                    int i = tool.getEnchantmentLevel(Enchantments.BLOCK_FORTUNE);
+                                    int count = 1 + RandomUtil.nextInt(player.level.getRandom(), i);
+                                    Block.popResource(player.level, event.getPos(), new ItemStack(ModBlocks.HENBANE_SEEDS.get(), count));
+                                }
+                                if (player.level.getRandom().nextFloat() < 0.1F) {
+                                    int i = tool.getEnchantmentLevel(Enchantments.BLOCK_FORTUNE);
+                                    int count = 1 + RandomUtil.nextInt(player.level.getRandom(), i);
+                                    Block.popResource(player.level, event.getPos(), new ItemStack(ModBlocks.NIGHTSHADE_SEEDS.get(), count));
+                                }
                             }
                         }
                     }

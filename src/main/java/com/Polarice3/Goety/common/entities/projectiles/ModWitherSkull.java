@@ -198,7 +198,7 @@ public class ModWitherSkull extends WitherSkull {
          boolean flaming = this.getFiery() > 0;
          boolean loot = CuriosFinder.hasWanting(owner);
          Explosion.BlockInteraction explodeMode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.KEEP;
-         if (this.getOwner() instanceof Player) {
+         if (owner instanceof Player || (owner instanceof IOwned iOwned && iOwned.getMasterOwner() instanceof Player)) {
             explodeMode = SpellConfig.WitherSkullGriefing.get() ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.KEEP;
          }
          LootingExplosion.Mode lootMode = loot ? LootingExplosion.Mode.LOOT : LootingExplosion.Mode.REGULAR;

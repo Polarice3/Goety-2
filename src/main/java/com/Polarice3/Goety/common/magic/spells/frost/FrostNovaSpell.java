@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.magic.spells.frost;
 
+import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
@@ -117,7 +118,7 @@ public class FrostNovaSpell extends Spell {
         this.playSound(worldIn, spellTarget, ModSounds.ICE_CHUNK_HIT.get(), 1.0F, 0.5F);
         if (caster instanceof Player player) {
             cooldown *= (int) ModAttributes.getCooldownDiscount(caster);
-            SEHelper.addCooldown(player, WandUtil.findFocus(caster).getItem(), cooldown);
+            SEHelper.addCooldown(player, IWand.getFocus(staff).getItem(), cooldown);
         }
     }
 

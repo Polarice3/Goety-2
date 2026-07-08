@@ -27,12 +27,10 @@ public enum HostileIndicatorProvider implements IEntityComponentProvider, IServe
     public void appendServerData(CompoundTag data, EntityAccessor accessor) {
         Entity entity = accessor.getEntity();
         if (entity instanceof IOwned owned){
-            if (owned.getTrueOwner() == null
-                    && owned.isHostile()
-                    && !owned.isNatural()
-                    && !(entity.getType().is(ModTags.EntityTypes.MINI_BOSSES)
-                    && !(entity.getType().is(Tags.EntityTypes.BOSSES)))) {
-                data.putInt("IsHostile", 1);
+            if (owned.getTrueOwner() == null && owned.isHostile() && !owned.isNatural()) {
+                if (!entity.getType().is(ModTags.EntityTypes.MINI_BOSSES) && !entity.getType().is(Tags.EntityTypes.BOSSES)) {
+                    data.putInt("IsHostile", 1);
+                }
             }
         }
     }

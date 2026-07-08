@@ -46,5 +46,10 @@
       "type": "patchouli:text",
       "text": "Some witches requires a more fancy get-up to make candles out of their cauldron, but out here, we just use a piece of string and get somehow get perfectly shaped wax cylinders out of it!"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:nightshade_blossom": 1,
+    "goety:resilience_lotion": 2,
+    "goety:flying_ointment": 4
+  }
 }

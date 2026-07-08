@@ -1,0 +1,23 @@
+{
+  "name": "水晶球",
+  "icon": "goety:crystal_ball",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_crystal_ball",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "众所周知，水晶可以用作占卜或预测未来"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "对水晶球使用记录过位置的$(l:crafts/waystone)指路石$()，你就可以将你的视野转移至那个位置的上空，前提是该位置已经被加载出来，对水晶球使用标记过生物的$(l:crafts/taglock_kit)巫毒娃娃$()，则可以让你附身并通过这只生物的视野看东西，前提是这只生物和你是同类，或是任意一只在80格范围以内的生物"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "两种转移视野的方法都要求记录的位置和玩家自己处于同一维度"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:crystal_ball": 1
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "Mavericks",
-  "icon": "minecraft:iron_sword",
+  "icon": "goety:wicked_boline",
   "category": "goety:world/bestiary",
   "advancement": "goety:goety/kill_a_maverick",
   "pages": [

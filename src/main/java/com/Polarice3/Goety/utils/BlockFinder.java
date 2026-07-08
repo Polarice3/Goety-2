@@ -252,101 +252,46 @@ public class BlockFinder {
         return SummonPosition(level, entity, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
-    public static BlockPos SummonPosition(Level level, Entity entity, double x, double y, double z){
-        double d3 = y;
-        boolean flag = false;
-        BlockPos blockpos = BlockPos.containing(x, y, z);
-        if (level.isLoaded(blockpos)) {
-            boolean flag1 = false;
-
-            while(!flag1 && blockpos.getY() > level.getMinBuildHeight()) {
-                BlockPos blockpos1 = blockpos.below();
-                BlockState blockstate = level.getBlockState(blockpos1);
-                if (blockstate.blocksMotion()) {
-                    flag1 = true;
-                } else {
-                    --d3;
-                    blockpos = blockpos1;
-                }
-            }
-
-            if (flag1) {
-                AABB aabb = entity.getBoundingBox().move(blockpos);
-                if (level.noCollision(entity, aabb) && !level.containsAnyLiquid(aabb)) {
-                    flag = true;
-                }
-            }
+    public static BlockPos SummonPosition(Level level, Entity entity, double x, double y, double z) {
+        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos(Mth.floor(x), Mth.floor(y), Mth.floor(z));
+        if (!level.isLoaded(pos)) {
+            return pos.immutable();
         }
-        if (!flag) {
-            return blockpos;
-        } else {
-            return BlockPos.containing(x, d3, z);
+
+        double groundY = findGroundY(level, x, y, z);
+        BlockPos result = BlockPos.containing(x, groundY, z);
+        AABB aabb = entity.getBoundingBox().move(result);
+        if (level.noCollision(entity, aabb) && !level.containsAnyLiquid(aabb)) {
+            return result;
         }
+        return pos.immutable();
     }
 
     public static Vec3 SummonPosition(Entity entity, Vec3 vec3){
         return SummonPosition(entity.level, entity, vec3);
     }
 
-    public static Vec3 SummonPosition(Level level, Entity entity, Vec3 vec3){
-        double d3 = vec3.y;
-        boolean flag = false;
-        Vec3 vec31 = new Vec3(vec3.x, vec3.y, vec3.z);
-        if (level.isLoaded(BlockPos.containing(vec31))) {
-            boolean flag1 = false;
-
-            while(!flag1 && vec31.y > level.getMinBuildHeight()) {
-                BlockPos blockpos1 = BlockPos.containing(vec31).below();
-                BlockState blockstate = level.getBlockState(blockpos1);
-                if (blockstate.blocksMotion()) {
-                    flag1 = true;
-                } else {
-                    --d3;
-                    vec31 = blockpos1.getCenter();
-                }
-            }
-
-            if (flag1) {
-                AABB aabb = entity.getBoundingBox().move(vec31);
-                if (level.noCollision(entity, aabb) && !level.containsAnyLiquid(aabb)) {
-                    flag = true;
-                }
-            }
+    public static Vec3 SummonPosition(Level level, Entity entity, Vec3 vec3) {
+        if (!level.isLoaded(BlockPos.containing(vec3))) {
+            return vec3;
         }
-        if (!flag) {
-            return vec31;
-        } else {
-            return new Vec3(vec3.x, d3, vec3.z);
+
+        double groundY = findGroundY(level, vec3.x, vec3.y, vec3.z);
+        Vec3 result = new Vec3(vec3.x, groundY, vec3.z);
+        AABB aabb = entity.getBoundingBox().move(result);
+        if (level.noCollision(entity, aabb) && !level.containsAnyLiquid(aabb)) {
+            return result;
         }
+        return vec3;
     }
 
-    public static Vec3 SummonPosition(Level level, Vec3 vec3){
-        double d3 = vec3.y;
-        boolean flag = false;
-        Vec3 vec31 = new Vec3(vec3.x, vec3.y, vec3.z);
-        if (level.isLoaded(BlockPos.containing(vec31))) {
-            boolean flag1 = false;
-
-            while(!flag1 && vec31.y > level.getMinBuildHeight()) {
-                BlockPos blockpos1 = BlockPos.containing(vec31).below();
-                BlockState blockstate = level.getBlockState(blockpos1);
-                if (blockstate.blocksMotion()) {
-                    flag1 = true;
-                } else {
-                    --d3;
-                    vec31 = blockpos1.getCenter();
-                }
-            }
-
-            if (flag1) {
-                flag = true;
-            }
+    public static Vec3 SummonPosition(Level level, Vec3 vec3) {
+        if (!level.isLoaded(BlockPos.containing(vec3))) {
+            return vec3;
         }
-        if (!flag) {
-            return vec31;
-        } else {
-            return new Vec3(vec3.x, d3, vec3.z);
-        }
+
+        double groundY = findGroundY(level, vec3.x, vec3.y, vec3.z);
+        return new Vec3(vec3.x, groundY, vec3.z);
     }
 
     public static double findGroundY(Level level, Vec3 vec3) {
@@ -355,7 +300,7 @@ public class BlockFinder {
 
     public static double findGroundY(Level level, double x, double y, double z) {
         BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos(Mth.floor(x), Mth.floor(y), Mth.floor(z));
-        int limit = 8;
+        int limit = 16;
         while (limit-- > 0 && pos.getY() > level.getMinBuildHeight()) {
             BlockState state = level.getBlockState(pos);
             if (!state.getCollisionShape(level, pos).isEmpty()) {

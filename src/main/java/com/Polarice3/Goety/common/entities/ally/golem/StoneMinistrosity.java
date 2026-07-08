@@ -194,9 +194,8 @@ public class StoneMinistrosity extends RaiderGolemServant {
                 if (this.isMeleeAttacking()) {
                     this.getNavigation().stop();
                     --this.attackTick;
-                    if (this.attackTick <= 0){
-                        this.setAnimationState(IDLE);
-                    }
+                } else if (this.isCurrentAnimation(ATTACK)) {
+                    this.setAnimationState(IDLE);
                 }
             }
         }
@@ -205,21 +204,10 @@ public class StoneMinistrosity extends RaiderGolemServant {
     @Override
     public void swing(InteractionHand p_21007_) {
         super.swing(p_21007_);
-        this.attackTick = 10;
-        this.setAnimationState(ATTACK);
-        this.playSound(SoundEvents.FOX_BITE, this.getSoundVolume(), this.getVoicePitch() * 0.5F);
-    }
-
-    @Override
-    public void handleEntityEvent(byte p_21375_) {
-        if (p_21375_ == 5){
-            this.attackTick = 0;
-        } else if (p_21375_ == 6){
-            this.setAggressive(true);
-        } else if (p_21375_ == 7){
-            this.setAggressive(false);
-        } else {
-            super.handleEntityEvent(p_21375_);
+        if (!this.level.isClientSide) {
+            this.attackTick = 10;
+            this.setAnimationState(ATTACK);
+            this.playSound(SoundEvents.FOX_BITE, this.getSoundVolume(), this.getVoicePitch() * 0.5F);
         }
     }
 

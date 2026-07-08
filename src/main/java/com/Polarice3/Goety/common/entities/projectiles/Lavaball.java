@@ -170,7 +170,7 @@ public class Lavaball extends LargeFireball implements ISpellEntity {
         if (!this.level.isClientSide) {
             Entity owner = this.getOwner();
             boolean flag = this.isDangerous();
-            if (owner instanceof Player || (owner instanceof IOwned owned && owned.getTrueOwner() instanceof Player)) {
+            if (owner instanceof Player || (owner instanceof IOwned iOwned && iOwned.getMasterOwner() instanceof Player)) {
                 if (!SpellConfig.LavaballGriefing.get()) {
                     flag = false;
                 }

@@ -1286,8 +1286,6 @@
   "info.goety.witch_hat_potion": "在使用药剂时有10％的概率不消耗这瓶药剂。",
   "info.goety.crone_hat_potion": "在使用药剂时有25％的概率不消耗这瓶药剂，如果是药酿则只有10％的概率。",
   "info.goety.necro_crown_weakness": "穿戴时暴露在阳光下会给予虚弱效果。",
-  "info.goety.amethyst_necklace": "减半所有占卜类法术的灵魂消耗.",
-  "info.goety.dark_robe": "减半所有法术的灵魂消耗.",
   "info.goety.grand_robe": "使用魔杖施法期间，减半所有受到的伤害.",
   "info.goety.necro_cape": "允许亡灵仆从使用主人的灵魂能量治愈自身.",
   "info.goety.necro_cape_power": "赋予某些新召唤的亡灵仆从以新能力.",
@@ -3683,5 +3681,7 @@
   "block.goety.mossy_crag_tiles_slight": "轻度附苔的峭壁岩瓦",
   "block.goety.mossy_crag_tiles": "附苔峭壁岩瓦",
   "block.goety.potted_henbane": "天仙子盆栽",
-  "block.goety.potted_deadly_nightshade": "颠茄盆栽"
+  "block.goety.potted_deadly_nightshade": "颠茄盆栽",
+  "info.goety.dark_robe": "减免所有法术的灵魂消耗.",
+  "info.goety.amethyst_necklace": "减半所有占卜类法术的施法时间."
 }
