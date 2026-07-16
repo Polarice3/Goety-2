@@ -333,6 +333,9 @@ public class PoisonQuillVine extends AbstractVine{
 
     @Override
     public void aiStep() {
+        if (this.isEmerging() || this.isDescending()) {
+            this.refreshDimensions();
+        }
         super.aiStep();
         if (!this.level.isClientSide){
             if (this.isCurrentAnimation(TARGET)){

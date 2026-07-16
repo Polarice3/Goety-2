@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.ally.illager;
 
 import com.Polarice3.Goety.api.entities.IMobCrafter;
+import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.client.particles.SmashParticleOption;
 import com.Polarice3.Goety.common.blocks.DarkAnvilBlock;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -1156,6 +1157,11 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
         }
 
         private boolean slotIsEmpty(LivingEntity entity, EquipmentSlot slot) {
+            if (entity instanceof IServant servant) {
+                if (!servant.canWearArmorSlot(slot)) {
+                    return false;
+                }
+            }
             return entity.getItemBySlot(slot).isEmpty();
         }
 

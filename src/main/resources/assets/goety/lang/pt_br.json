@@ -3769,5 +3769,11 @@
   "block.goety.dense_banded_steep_planks": "Tábuas Densas com Faixas Íngremes",
   "block.goety.steep_firewood": "Lenha Íngreme",
   "block.goety.potted_henbane": "Meimendro em Vaso",
-  "block.goety.potted_deadly_nightshade": "Beladona Mortífera em Vaso"
+  "block.goety.potted_deadly_nightshade": "Beladona Mortífera em Vaso",
+  "enchantment.goety.fealty": "Lealdade",
+  "enchantment.goety.hardy": "Resistência",
+  "enchantment.goety.fealty.desc": "Retorna a vassoura ao inventário de quem a colocou quando quebrada. Impede que outros jogadores a montem também.",
+  "enchantment.goety.hardy.desc": "Faz com que as vassouras tenham um limite maior de dano que podem receber antes de quebrar.",
+  "block.goety.end_rock_stairs": "Escadas de Rocha do End",
+  "block.goety.end_rock_brick_stairs": "Escadas de Tijolos de Rocha do End"
 }

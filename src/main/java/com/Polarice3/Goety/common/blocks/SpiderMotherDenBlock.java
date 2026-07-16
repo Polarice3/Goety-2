@@ -39,7 +39,7 @@ public class SpiderMotherDenBlock extends BaseEntityBlock {
             Vec3 vec3 = Vec3.atBottomCenterOf(pPos);
             broodMother.setPos(vec3);
             if (pLevel instanceof ServerLevel serverLevel) {
-                broodMother.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(pPos), MobSpawnType.MOB_SUMMONED, null, null);
+                broodMother.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(pPos), MobSpawnType.TRIGGERED, null, null);
             }
             if (MobUtil.validEntity(pPlayer)) {
                 broodMother.setTarget(pPlayer);

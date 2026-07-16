@@ -28,6 +28,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KillingSpell extends Spell {
+    @Nullable
+    private LivingEntity lockedTarget = null;
+
     @Override
     public int defaultSoulCost() {
         return SpellConfig.KillingCost.get();
@@ -70,6 +73,7 @@ public class KillingSpell extends Spell {
     public void useSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, int castTime, SpellStat spellStat) {
         LivingEntity target = this.getTarget(caster);
         if (target != null){
+            this.lockedTarget = target;
             ColorUtil colorUtil = new ColorUtil(0xd91516);
             ServerParticleUtil.windParticle(worldIn, colorUtil, 1.0F, 0.0F, target.getId(), target.position());
         }
@@ -78,7 +82,8 @@ public class KillingSpell extends Spell {
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
         Vec3 vec3 = caster.getEyePosition();
-        LivingEntity target = this.getTarget(caster);
+        LivingEntity target = this.lockedTarget != null && this.lockedTarget.isAlive() ? this.lockedTarget : this.getTarget(caster);
+        this.lockedTarget = null;
         if (target != null){
             ColorUtil colorUtil = new ColorUtil(0xd91516);
             Vec3 vec31 = new Vec3(target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ());

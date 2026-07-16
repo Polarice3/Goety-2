@@ -46,6 +46,7 @@ public class ModTags {
         public static final TagKey<Block> END_STONE = tag("end_stone");
         public static final TagKey<Block> CHORUS_GRASS_BLOCKS = tag("chorus_grass_blocks");
         public static final TagKey<Block> END_SOIL_BLOCKS = tag("end_soil_blocks");
+        public static final TagKey<Block> ANCIENT_PLANTS = tag("ancient_plants");
         public static final TagKey<Block> PLUSHIE = tag("plushie");
         public static final TagKey<Block> PHILOSOPHERS_MACE_HARD = tag("philosophers_mace_hard");
         public static final TagKey<Block> RECALL_BLOCKS = tag("recall_blocks");

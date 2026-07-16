@@ -121,6 +121,10 @@ public class QuickGrowingVine extends AbstractVine{
         return this.entityData.get(ANIM_STATE);
     }
 
+    public boolean isCurrentAnimation(String animation) {
+        return this.getCurrentAnimation() == this.getAnimationState(animation);
+    }
+
     public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
         if (ANIM_STATE.equals(accessor)) {
             if (this.level.isClientSide){
@@ -226,6 +230,14 @@ public class QuickGrowingVine extends AbstractVine{
             return 5;
         }
         return 3;
+    }
+
+    @Override
+    public void startBursting() {
+        if (this.isCurrentAnimation(BURROW) && this.activeTick > 0) {
+            this.activeTick = 0;
+        }
+        super.startBursting();
     }
 
     public void burst(){

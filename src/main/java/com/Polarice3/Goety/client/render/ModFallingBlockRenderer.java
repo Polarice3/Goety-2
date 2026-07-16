@@ -31,7 +31,9 @@ public class ModFallingBlockRenderer extends EntityRenderer<ModFallingBlock> {
             matrixStackIn.translate(0, -1, 0);
         }
         matrixStackIn.translate(-0.5f, -0.5f, -0.5f);
-        dispatcher.renderSingleBlock(entityIn.getBlock(), matrixStackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, null);
+        if (entityIn.getBlock() != null) {
+            dispatcher.renderSingleBlock(entityIn.getBlock(), matrixStackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, null);
+        }
         matrixStackIn.popPose();
     }
 

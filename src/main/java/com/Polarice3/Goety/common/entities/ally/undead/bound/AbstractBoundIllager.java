@@ -214,6 +214,11 @@ public abstract class AbstractBoundIllager extends RaiderServant {
         return true;
     }
 
+    @Override
+    public boolean canWearArmorSlot(EquipmentSlot slot) {
+        return slot != EquipmentSlot.LEGS && slot != EquipmentSlot.FEET;
+    }
+
     protected int getSpellCastingTime() {
         return this.spellCastingTickCount;
     }

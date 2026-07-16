@@ -92,7 +92,7 @@ public class CrystalBallBlock extends Block {
                         if (!CuriosFinder.isWitchFriendly(pPlayer) && MobUtil.validEntity(pPlayer)){
                             crone.setTarget(pPlayer);
                         }
-                        crone.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(pPos), MobSpawnType.MOB_SUMMONED, null, null);
+                        crone.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(pPos), MobSpawnType.TRIGGERED, null, null);
                         crone.setPersistenceRequired();
                         SummonCircleBoss summonCircle = new SummonCircleBoss(serverLevel, blockPos, crone);
                         flag = pLevel.addFreshEntity(summonCircle);

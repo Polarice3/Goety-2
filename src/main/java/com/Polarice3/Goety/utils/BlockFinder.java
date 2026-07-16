@@ -300,7 +300,7 @@ public class BlockFinder {
 
     public static double findGroundY(Level level, double x, double y, double z) {
         BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos(Mth.floor(x), Mth.floor(y), Mth.floor(z));
-        int limit = 16;
+        int limit = 8;
         while (limit-- > 0 && pos.getY() > level.getMinBuildHeight()) {
             BlockState state = level.getBlockState(pos);
             if (!state.getCollisionShape(level, pos).isEmpty()) {

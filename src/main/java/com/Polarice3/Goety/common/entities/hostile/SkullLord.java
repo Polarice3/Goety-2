@@ -442,7 +442,7 @@ public class SkullLord extends Monster implements ICustomAttributes, IChunkLoade
             SoundUtil.playNecromancerSummon(this);
             for (int i = 0; i < 2 + (serverLevel.getRandom().nextInt(2) * serverLevel.getRandom().nextInt(1)); ++i) {
                 double d3 = (double) this.blockPosition().getX() + (serverLevel.getRandom().nextDouble() - serverLevel.getRandom().nextDouble()) * (double) spawnRange + 0.5D;
-                double d4 = this.blockPosition().getY() + serverLevel.getRandom().nextInt(3);
+                double d4 = this.blockPosition().getY();
                 double d5 = (double) this.blockPosition().getZ() + (serverLevel.getRandom().nextDouble() - serverLevel.getRandom().nextDouble()) * (double) spawnRange + 0.5D;
                 Summoned summoned;
                 BlockPos blockPos = BlockPos.containing(d3, d4, d5);

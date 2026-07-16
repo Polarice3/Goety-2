@@ -1,10 +1,9 @@
 package com.Polarice3.Goety.mixin;
 
-import com.Polarice3.Goety.common.entities.ally.illager.AbstractIllagerServant;
-import com.Polarice3.Goety.config.MobsConfig;
-import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MobUtil;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;

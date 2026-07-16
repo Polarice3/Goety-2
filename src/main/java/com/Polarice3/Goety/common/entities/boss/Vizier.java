@@ -795,14 +795,15 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
                     }
                 } else {
                     if (Vizier.this.level instanceof ServerLevel serverLevel) {
-                        BlockPos blockPos = BlockFinder.SummonPosition(livingentity, livingentity.blockPosition()).below();
+                        BlockPos blockPos = livingentity.blockPosition().below();
+                        double groundY = BlockFinder.findGroundY(serverLevel, blockPos.getCenter());
                         BlockParticleOption option = new BlockParticleOption(ParticleTypes.BLOCK, serverLevel.getBlockState(blockPos));
                         for (int i = 0; i < 4; ++i) {
                             float radius = 1.0F;
                             if (MobUtil.healthIsHalved(Vizier.this) || serverLevel.getDifficulty() != Difficulty.EASY){
                                 radius = 3.0F;
                             }
-                            ServerParticleUtil.circularParticles(serverLevel, option, livingentity.getX(), blockPos.getY() + 1.25D, livingentity.getZ(), radius);
+                            ServerParticleUtil.circularParticles(serverLevel, option, livingentity.getX(), groundY + 0.25D, livingentity.getZ(), radius);
                         }
                     }
                 }
@@ -831,13 +832,14 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
 
         private void attack(LivingEntity livingEntity){
             if (Vizier.this.airBound < AIR_BOUND_TIME) {
-                BlockPos blockPos = BlockFinder.SummonPosition(livingEntity, livingEntity.blockPosition()).below();
+                BlockPos blockPos = livingEntity.blockPosition().below();
+                double groundY = BlockFinder.findGroundY(livingEntity.level, blockPos.getCenter());
                 float f = (float) Mth.atan2(livingEntity.getZ() - Vizier.this.getZ(), livingEntity.getX() - Vizier.this.getX());
-                this.spawnFangs(livingEntity.getX(), livingEntity.getZ(), blockPos.getY(), blockPos.getY() + 1.0D, f, 1);
+                this.spawnFangs(livingEntity.getX(), livingEntity.getZ(), groundY, groundY + 1.0D, f, 1);
                 if (MobUtil.healthIsHalved(Vizier.this) || Vizier.this.level.getDifficulty() != Difficulty.EASY) {
                     for (int i = 0; i < 5; ++i) {
                         float f1 = f + (float) i * (float) Math.PI * 0.4F;
-                        this.spawnFangs(livingEntity.getX() + (double) Mth.cos(f1) * 1.5D, livingEntity.getZ() + (double) Mth.sin(f1) * 1.5D, blockPos.getY(), blockPos.getY() + 1.0D, f1, 1);
+                        this.spawnFangs(livingEntity.getX() + (double) Mth.cos(f1) * 1.5D, livingEntity.getZ() + (double) Mth.sin(f1) * 1.5D, groundY, groundY + 1.0D, f1, 1);
                     }
                 }
             } else {

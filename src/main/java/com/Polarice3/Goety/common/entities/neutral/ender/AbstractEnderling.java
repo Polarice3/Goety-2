@@ -128,12 +128,29 @@ public abstract class AbstractEnderling extends Summoned implements IHiding {
     }
 
     @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        super.onSyncedDataUpdated(key);
+        if (DATA_HIDE.equals(key)) {
+            this.refreshDimensions();
+        }
+    }
+
+    @Override
     public boolean isAlliedTo(Entity entityIn) {
         if (this.getTrueOwner() == null) {
             if (entityIn instanceof EnderMan){
                 return this.getTeam() == null && entityIn.getTeam() == null;
             } else if (entityIn instanceof AbstractEnderling enderling){
                 if (this.getTeam() == null && entityIn.getTeam() == null) {
+                    if (enderling.getTrueOwner() != null) {
+                        return super.isAlliedTo(entityIn);
+                    }
+                    if (this.getTarget() == entityIn) {
+                        return false;
+                    }
+                    if (enderling.getTarget() == this) {
+                        return false;
+                    }
                     return (this.isHostile() && enderling.isHostile()) || (!this.isHostile() && !enderling.isHostile());
                 }
             }
@@ -271,6 +288,11 @@ public abstract class AbstractEnderling extends Summoned implements IHiding {
             if (this.hidingTime >= this.getHidingDuration() || this.shouldStopHiding()) {
                 this.stopHide();
                 this.teleportAfterHiding();
+                this.refreshDimensions();
+            }
+
+            if (this.hidingTime > this.getHidingDuration() + 20) {
+                this.stopHide();
                 this.refreshDimensions();
             }
         }

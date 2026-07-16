@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "goety:end_rock",
+    "goety:end_rock_stairs",
     "goety:end_rock_slab",
     "goety:soiled_end_rock",
     "goety:grassy_end_rock",
@@ -9,6 +10,7 @@
     "goety:dirty_end_rock",
     "goety:end_rock_slate",
     "goety:end_rock_bricks",
+    "goety:end_rock_brick_stairs",
     "goety:end_rock_brick_slab",
     "goety:end_rock_brick_wall",
     "goety:end_rock_brick_fence",

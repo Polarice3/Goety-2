@@ -408,6 +408,31 @@ public class Heresiarch extends Cultist {
     }
 
     @Override
+    public void push(Entity p_21294_) {
+        if (!this.level.isClientSide) {
+            if (!this.isCurrentAnimation(CHANT) && this.tickCount >= 20) {
+                super.push(p_21294_);
+            }
+        }
+    }
+
+    protected void doPush(Entity p_20971_) {
+        if (!this.level.isClientSide) {
+            if (!this.isCurrentAnimation(CHANT) && this.tickCount >= 20) {
+                super.doPush(p_20971_);
+            }
+        }
+    }
+
+    public boolean canCollideWith(Entity p_20303_) {
+        if (!this.isCurrentAnimation(CHANT) && this.tickCount >= 20){
+            return super.canCollideWith(p_20303_);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (this.tickCount % 5 == 0) {

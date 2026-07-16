@@ -3683,5 +3683,11 @@
   "block.goety.potted_henbane": "天仙子盆栽",
   "block.goety.potted_deadly_nightshade": "颠茄盆栽",
   "info.goety.dark_robe": "减免所有法术的灵魂消耗.",
-  "info.goety.amethyst_necklace": "减半所有占卜类法术的施法时间."
+  "info.goety.amethyst_necklace": "减半所有占卜类法术的施法时间.",
+  "enchantment.goety.fealty": "效忠",
+  "enchantment.goety.hardy": "耐实",
+  "enchantment.goety.fealty.desc": "被骑乘的扫帚损坏时，会立刻以物品形式返回到放置者的物品栏中，防止其它玩家骑乘它",
+  "enchantment.goety.hardy.desc": "提升扫帚损坏前可承受的最大伤害阈值",
+  "block.goety.end_rock_stairs": "末地岩楼梯",
+  "block.goety.end_rock_brick_stairs": "末地岩砖楼梯"
 }

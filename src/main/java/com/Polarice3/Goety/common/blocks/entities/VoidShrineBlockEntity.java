@@ -69,7 +69,7 @@ public class VoidShrineBlockEntity extends PedestalBlockEntity {
                         Vec3 vec3 = this.worldPosition.above().getCenter();
                         EnderKeeper keeper = new EnderKeeper(ModEntityType.ENDER_KEEPER.get(), serverLevel);
                         keeper.setPos(vec3);
-                        keeper.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(this.worldPosition), MobSpawnType.MOB_SUMMONED, null, null);
+                        keeper.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(this.worldPosition), MobSpawnType.TRIGGERED, null, null);
                         keeper.setBoundPos(this.worldPosition);
                         keeper.setPersistenceRequired();
                         serverLevel.addFreshEntity(keeper);

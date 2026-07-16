@@ -1,4 +1,4 @@
-// 1.20.1	2026-07-02T14:01:06.8779429	Loot Tables
+// 1.20.1	2026-07-15T21:20:19.2420488	Loot Tables
 1173ad0aef6067156a1c3161e3fe16b8e10b3f92 data/goety/loot_tables/blocks/animator.json
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
@@ -202,10 +202,12 @@ c125e2a1cd106e5d3fa627359bd6413690f1df17 data/goety/loot_tables/blocks/end_mud_c
 212b53be9694bb4b3bcf713a3c77d615ede92621 data/goety/loot_tables/blocks/end_rock_bricks.json
 431de1639c1b2f6adbd97aad4519f0ce91deb462 data/goety/loot_tables/blocks/end_rock_brick_fence.json
 e8661dc1a131d8c8840053546b95aa519e5edd1d data/goety/loot_tables/blocks/end_rock_brick_slab.json
+e83c17c0b15997c4112f6560eee7964bd9e423cf data/goety/loot_tables/blocks/end_rock_brick_stairs.json
 e3b0e8d76d6f8e94e74483fd20c4b038019b93c1 data/goety/loot_tables/blocks/end_rock_brick_wall.json
 72a3bfd2509db765d05c9bd8062c44cc4ff97efa data/goety/loot_tables/blocks/end_rock_chiseled.json
 ba674b9affb48f017f5f217cfb20542e99a193d7 data/goety/loot_tables/blocks/end_rock_slab.json
 d612e0bfc8767bd4b74addeee89ca2e10d40fdb6 data/goety/loot_tables/blocks/end_rock_slate.json
+c390334e555541ff5c01edf853a30919785886b3 data/goety/loot_tables/blocks/end_rock_stairs.json
 ab3a37ea025d25d52f0b06cbd06b20fe61df1fb5 data/goety/loot_tables/blocks/end_rod_block.json
 d03be0f8134d208cca54c61acc0cf33f3bb34f29 data/goety/loot_tables/blocks/end_soil.json
 ca52ff324ea4f1488c4a5dd8442087fb12c63bc9 data/goety/loot_tables/blocks/end_soil_debris.json

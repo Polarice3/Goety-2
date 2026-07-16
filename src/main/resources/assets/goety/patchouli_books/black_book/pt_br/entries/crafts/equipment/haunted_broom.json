@@ -17,12 +17,16 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Infelizmente, há um custo. A cada 8 blocos, por padrão, vertical ou horizontalmente, a vassoura precisa se alimentar da Energia da Alma de quem a monta. Se for privada da quantidade de Energia da Alma necessária para voar, a vassoura quebrará, derrubando você e a vassoura do céu. Se você tiver uma quantidade insuficiente de Energia da Alma, não poderá montar na Vassoura Assombrada."
+      "text": "Infelizmente, há um custo. A cada 8 blocos, por padrão, vertical ou horizontalmente, a vassoura precisa se alimentar da Energia da Alma de seu cavaleiro. Se for privada da quantidade de Energia da Alma necessária para voar, a vassoura quebrará, derrubando você e a vassoura do céu. Se você tiver uma quantidade insuficiente de Energia da Alma, não poderá montar na Vassoura Assombrada."
     },
     {
       "type": "patchouli:spotlight",
       "item": "minecraft:enchanted_book",
       "title": "Encantamentos de Vassoura",
+      "text": "Vassouras Assombradas têm seus próprios encantamentos únicos. Resistência as torna menos propensas a quebrar e Lealdade fará com que retornem ao inventário de quem as colocou quando quebradas, além de impedir que outros as usem depois de serem colocadas após obter o encantamento."
+    },
+    {
+      "type": "patchouli:text",
       "text": "As Vassouras Assombradas podem ser surpreendentemente encantadas com dois $(l:focuses/focus_enchantments)encantamentos de foco$(). Velocidade aumentará, é claro, a velocidade da vassoura. Ardente, no entanto, tem um efeito especial: se uma vassoura quebrar ao colidir com um bloco sólido, ela explodirá! O tamanho depende da velocidade em que a vassoura estava."
     },
     {

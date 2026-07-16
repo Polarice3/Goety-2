@@ -4,8 +4,10 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.equipment.HauntedBroomItem;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.CBroomCollisionPacket;
+import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
@@ -24,10 +26,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
@@ -39,7 +38,13 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
-public class HauntedBroom extends Entity {
+import javax.annotation.Nullable;
+import java.util.Optional;
+import java.util.UUID;
+
+public class HauntedBroom extends Entity implements OwnableEntity {
+    protected static final EntityDataAccessor<Optional<UUID>> OWNER_UNIQUE_ID = SynchedEntityData.defineId(HauntedBroom.class, EntityDataSerializers.OPTIONAL_UUID);
+    protected static final EntityDataAccessor<Integer> OWNER_CLIENT_ID = SynchedEntityData.defineId(HauntedBroom.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<ItemStack> ITEM = SynchedEntityData.defineId(HauntedBroom.class, EntityDataSerializers.ITEM_STACK);
     private static final EntityDataAccessor<Integer> HURT_TIME = SynchedEntityData.defineId(HauntedBroom.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> HURT_DIR = SynchedEntityData.defineId(HauntedBroom.class, EntityDataSerializers.INT);
@@ -77,10 +82,53 @@ public class HauntedBroom extends Entity {
 
     @Override
     protected void defineSynchedData() {
+        this.entityData.define(OWNER_UNIQUE_ID, Optional.empty());
+        this.entityData.define(OWNER_CLIENT_ID, -1);
         this.entityData.define(ITEM, ItemStack.EMPTY);
         this.entityData.define(HURT_TIME, 0);
         this.entityData.define(HURT_DIR, 1);
         this.entityData.define(DAMAGE, 0.0F);
+    }
+
+    @Nullable
+    public LivingEntity getOwner() {
+        if (!this.level.isClientSide){
+            UUID uuid = this.getOwnerId();
+            return uuid == null ? null : EntityFinder.getLivingEntityByUuiD(uuid);
+        } else {
+            int id = this.getOwnerClientId();
+            return id <= -1 ? null : this.level.getEntity(this.getOwnerClientId()) instanceof LivingEntity living ? living : null;
+        }
+    }
+
+    @Nullable
+    @Override
+    public UUID getOwnerUUID() {
+        return this.getOwnerId();
+    }
+
+    @Nullable
+    public UUID getOwnerId() {
+        return this.entityData.get(OWNER_UNIQUE_ID).orElse((UUID)null);
+    }
+
+    public void setOwnerId(@Nullable UUID p_184754_1_) {
+        this.entityData.set(OWNER_UNIQUE_ID, Optional.ofNullable(p_184754_1_));
+    }
+
+    public int getOwnerClientId(){
+        return this.entityData.get(OWNER_CLIENT_ID);
+    }
+
+    public void setOwnerClientId(int id){
+        this.entityData.set(OWNER_CLIENT_ID, id);
+    }
+
+    public void setOwner(LivingEntity livingEntity){
+        if (livingEntity != null) {
+            this.setOwnerId(livingEntity.getUUID());
+            this.setOwnerClientId(livingEntity.getId());
+        }
     }
 
     @Override
@@ -169,6 +217,10 @@ public class HauntedBroom extends Entity {
 
         if (this.getDamage() > 0.0F) {
             this.setDamage(this.getDamage() - 1.0F);
+        }
+
+        if (this.getOwner() != null) {
+            this.ownerCheck();
         }
 
         if (this.isVehicle() && this.getControllingPassenger() != null) {
@@ -333,13 +385,48 @@ public class HauntedBroom extends Entity {
         }
     }
 
+    public void ownerCheck(){
+        if (!this.level.isClientSide) {
+            if (this.getOwner() != null) {
+                if (this.getOwner().tickCount < 20) {
+                    Entity entity = this.level.getEntity(this.getOwnerClientId());
+                    if (entity instanceof LivingEntity livingEntity) {
+                        if (livingEntity != this.getOwner()) {
+                            this.setOwnerClientId(this.getOwner().getId());
+                        }
+                    } else {
+                        this.setOwnerClientId(this.getOwner().getId());
+                    }
+                }
+            }
+        }
+    }
+
     @Override
     protected void addAdditionalSaveData(CompoundTag compoundTag) {
+        if (this.getOwnerId() != null) {
+            compoundTag.putUUID("Owner", this.getOwnerId());
+        }
+        if (this.getOwnerClientId() > -1) {
+            compoundTag.putInt("OwnerClient", this.getOwnerClientId());
+        }
+        compoundTag.putFloat("DamageThreshold", this.getDamageThreshold());
         compoundTag.put("Item", this.getItem().save(new CompoundTag()));
     }
 
     @Override
     protected void readAdditionalSaveData(CompoundTag compoundTag) {
+        if (compoundTag.contains("Owner")) {
+            this.setOwnerId(compoundTag.getUUID("Owner"));
+        }
+
+        if (compoundTag.contains("OwnerClient")){
+            this.setOwnerClientId(compoundTag.getInt("OwnerClient"));
+        }
+
+        if (compoundTag.contains("DamageThreshold")){
+            this.setDamageThreshold(compoundTag.getFloat("DamageThreshold"));
+        }
         CompoundTag itemTag = compoundTag.getCompound("Item");
         this.setItem(ItemStack.of(itemTag));
     }
@@ -348,7 +435,7 @@ public class HauntedBroom extends Entity {
     public InteractionResult interact(Player pPlayer, InteractionHand pHand) {
         if (pPlayer.isSecondaryUseActive()) {
             return InteractionResult.PASS;
-        } else {
+        } else if (this.getOwner() == null || this.getOwner() == pPlayer) {
             if (!this.level.isClientSide) {
                 if (ItemConfig.HauntedBroomSoulDistance.get() > 0 && !SEHelper.getSoulsAmount(pPlayer, ItemConfig.HauntedBroomSouls.get())) {
                     pPlayer.displayClientMessage(Component.translatable("info.goety.broom.noSouls.ride"), true);
@@ -360,6 +447,7 @@ public class HauntedBroom extends Entity {
                 return InteractionResult.SUCCESS;
             }
         }
+        return InteractionResult.PASS;
     }
 
     @Override
@@ -397,7 +485,19 @@ public class HauntedBroom extends Entity {
 
     public void spawnBroomItem() {
         if (!this.getItem().isEmpty()) {
-            this.spawnAtLocation(this.getItem());
+            if (this.getOwner() instanceof Player player) {
+                ItemStack itemStack = this.getItem();
+                HauntedBroomItem.setOwner(player, itemStack);
+                if (!player.getInventory().add(itemStack)) {
+                    player.drop(itemStack, false, true);
+                } else {
+                    if (!this.level.isClientSide){
+                        ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.ITEM_PICKUP, 0.2F, (this.random.nextFloat() - this.random.nextFloat()) * 1.4F + 2.0F));
+                    }
+                }
+            } else {
+                this.spawnAtLocation(this.getItem());
+            }
         } else {
             this.spawnAtLocation(new ItemStack(ModItems.HAUNTED_BROOM.get()));
         }

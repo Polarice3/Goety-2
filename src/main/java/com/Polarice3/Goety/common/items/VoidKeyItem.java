@@ -53,13 +53,16 @@ public class VoidKeyItem extends ItemBase{
                         endersent.setEyeType(blockState2.getValue(VoidFrameBlock.TYPE) + 1);
                     }
                 }
-                //If Void Frame Block Entity is available and has saved custom EyeEffects, use those.
-                if (blockEntity1 != null && !blockEntity1.getEyeEffects().isEmpty()) {
-                    endersent.setEyeEffects(blockEntity1.getEyeEffects());
+                //If Void Frame Block Entity is available and has saved custom EyeEffects, use those. Also if Endersent should drop Void Shard upon death.
+                if (blockEntity1 != null) {
+                    if (!blockEntity1.getEyeEffects().isEmpty()) {
+                        endersent.setEyeEffects(blockEntity1.getEyeEffects());
+                    }
+                    endersent.setDropShard(blockEntity1.isDropShard());
                 }
                 endersent.setDropShard(true);
                 endersent.setPos(vec3);
-                endersent.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null, null);
+                endersent.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(blockPos), MobSpawnType.TRIGGERED, null, null);
                 endersent.setVoidFramePos(blockPos);
                 endersent.setPersistenceRequired();
                 SummonCircleBoss circleBoss = new SummonCircleBoss(level, vec3, endersent);

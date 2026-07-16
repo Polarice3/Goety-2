@@ -3,8 +3,8 @@ package com.Polarice3.Goety.common.entities.neutral;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.ally.undead.BorderWraithServant;
 import com.Polarice3.Goety.common.entities.ally.undead.ReaperServant;
-import com.Polarice3.Goety.common.entities.ally.undead.WraithServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.StrayServant;
@@ -119,7 +119,7 @@ public class AbstractCairnNecromancer extends AbstractNecromancer{
         }
         if (this.getSummonList().contains(ModEntityType.WRAITH_SERVANT.get())) {
             if (this.level.random.nextFloat() <= 0.05F) {
-                summoned = new WraithServant(ModEntityType.BORDER_WRAITH_SERVANT.get(), this.level);
+                summoned = new BorderWraithServant(ModEntityType.BORDER_WRAITH_SERVANT.get(), this.level);
             }
         }
         if (this.getSummonList().contains(ModEntityType.REAPER_SERVANT.get())) {

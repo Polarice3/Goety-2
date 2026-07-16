@@ -19,7 +19,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
-public class ElderGuardianServant extends GuardianServant{
+public class ElderGuardianServant extends GuardianServant {
 
     public ElderGuardianServant(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);

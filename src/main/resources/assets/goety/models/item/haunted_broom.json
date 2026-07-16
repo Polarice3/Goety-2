@@ -1,6 +1,15 @@
 {
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "goety:item/haunted_broom"
+  "loader": "forge:separate_transforms",
+  "gui_light": "front",
+  "base": {
+    "parent": "goety:item/haunted_broom_model"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "goety:item/haunted_broom_inventory"
+    },
+    "fixed": {
+      "parent": "goety:item/haunted_broom_inventory"
+    }
   }
 }

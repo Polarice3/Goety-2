@@ -448,7 +448,7 @@ public class RobeEvents {
 
     @SubscribeEvent
     public static void OnLivingFall(LivingFallEvent event){
-        if (CuriosFinder.hasWindyRobes(event.getEntity())){
+        if (CuriosFinder.hasWindyRobes(event.getEntity()) && event.getEntity() instanceof Player player && SEHelper.getSoulsAmount(player, ItemConfig.WindRobeSouls.get())){
             event.setCanceled(true);
         }
     }

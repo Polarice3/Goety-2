@@ -201,6 +201,10 @@ public class StormCaster extends HuntingIllagerEntity{
 
     }
 
+    public boolean canPickUpLoot() {
+        return false;
+    }
+
     protected int getSpellCastingTime() {
         return this.castingTime;
     }

@@ -50,4 +50,10 @@ public class ModEnchantments {
 
     public static final RegistryObject<Enchantment> ROYALTY = ENCHANTMENTS.register("royalty",
             () -> new RoyaltyEnchantment(Enchantment.Rarity.VERY_RARE, EquipmentSlot.MAINHAND));
+
+    public static final RegistryObject<Enchantment> FEALTY = ENCHANTMENTS.register("fealty",
+            () -> new BroomEnchantment(Enchantment.Rarity.VERY_RARE, 1, EquipmentSlot.MAINHAND));
+
+    public static final RegistryObject<Enchantment> HARDY = ENCHANTMENTS.register("hardy",
+            () -> new BroomEnchantment(Enchantment.Rarity.VERY_RARE, 3, EquipmentSlot.MAINHAND));
 }

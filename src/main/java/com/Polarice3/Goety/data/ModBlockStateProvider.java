@@ -353,6 +353,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         stairsBlockWithItem((StairBlock) ModBlocks.END_BASALT_STAIRS.get(), Goety.location("block/end_basalt"));
 
         stairsBlockWithItem((StairBlock) ModBlocks.END_BASALT_BRICK_STAIRS.get(), Goety.location("block/end_basalt_bricks"));
+        stairsBlockWithItem((StairBlock) ModBlocks.END_ROCK_STAIRS.get(), Goety.location("block/end_rock"), Goety.location("block/end_rock_top"), Goety.location("block/end_rock_top"));
+        stairsBlockWithItem((StairBlock) ModBlocks.END_ROCK_BRICK_STAIRS.get(), Goety.location("block/end_rock_bricks"));
         stairsBlockWithItem((StairBlock) ModBlocks.END_STONE_TILE_STAIRS_BLOCK.get(), Goety.location("block/end_stone_tiles"));
         stairsBlockWithItem((StairBlock) ModBlocks.SMOOTH_END_STONE_STAIRS_BLOCK.get(), Goety.location("block/smooth_end_stone"));
         stairsBlockWithItem((StairBlock) ModBlocks.COBBLED_END_STONE_STAIRS_BLOCK.get(), Goety.location("block/cobbled_end_stone"));
@@ -437,6 +439,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     public void slabBlock(SlabBlock block, ResourceLocation doubleSlab, ResourceLocation side, ResourceLocation top) {
         slabBlock(block, doubleSlab, side, top, top);
+    }
+
+    public void stairsBlockWithItem(StairBlock block, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
+        stairsBlock(block, side, bottom, top);
+        String baseName = key(block).toString();
+        simpleBlockItem(block, models().stairs(baseName, side, bottom, top));
     }
 
     public void stairsBlockWithItem(StairBlock block, ResourceLocation texture) {

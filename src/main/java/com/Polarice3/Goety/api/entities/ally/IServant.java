@@ -620,6 +620,10 @@ public interface IServant extends IOwned, IChunkLoader {
         return false;
     }
 
+    default boolean canWearArmorSlot(EquipmentSlot slot) {
+        return this.canWearArmor();
+    }
+
     default boolean canHaveWeapon() {
         return false;
     }

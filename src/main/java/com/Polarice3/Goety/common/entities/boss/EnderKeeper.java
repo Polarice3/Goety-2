@@ -960,7 +960,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @org.jetbrains.annotations.Nullable SpawnGroupData pSpawnData, @org.jetbrains.annotations.Nullable CompoundTag pDataTag) {
-        if (pReason == MobSpawnType.MOB_SUMMONED){
+        if (pReason == MobSpawnType.MOB_SUMMONED || pReason == MobSpawnType.TRIGGERED){
             this.setPose(Pose.EMERGING);
         }
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);

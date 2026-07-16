@@ -15,6 +15,10 @@
         "ecto": "goety:trims/color_palettes/ecto",
         "jade": "goety:trims/color_palettes/jade"
       }
+    },
+    {
+      "type": "single",
+      "resource": "goety:entity/haunted_broom"
     }
   ]
 }

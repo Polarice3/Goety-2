@@ -27,6 +27,7 @@ public class VoidFrameBlockEntity extends BlockEntity {
     public List<MobEffectInstance> eyeEffects = new ArrayList<>();
     public int eyeType = 0;
     public int coolTick;
+    public boolean dropShard = true;
 
     public VoidFrameBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
         super(ModBlockEntities.VOID_FRAME.get(), p_155229_, p_155230_);
@@ -51,6 +52,10 @@ public class VoidFrameBlockEntity extends BlockEntity {
                 serverLevel.sendParticles(ParticleTypes.ENCHANT, vec3.x, vec3.y + 0.5F, vec3.z, 1, 0.0F, 0.0F, 0.0F, 0.0F);
             }
         }
+    }
+
+    public boolean isDropShard() {
+        return this.dropShard;
     }
 
     public void setCoolTick(int coolTick) {
@@ -83,6 +88,9 @@ public class VoidFrameBlockEntity extends BlockEntity {
             }
         }
         this.coolTick = compoundTag.getInt("CoolTick");
+        if (compoundTag.contains("DropShard")) {
+            this.dropShard = compoundTag.getBoolean("DropShard");
+        }
     }
 
     protected void saveAdditional(CompoundTag compoundTag) {
@@ -98,6 +106,7 @@ public class VoidFrameBlockEntity extends BlockEntity {
         }
         compoundTag.putInt("EyeType", this.getEyeType());
         compoundTag.putInt("CoolTick", this.coolTick);
+        compoundTag.putBoolean("DropShard", this.dropShard);
     }
 
     public ClientboundBlockEntityDataPacket getUpdatePacket() {

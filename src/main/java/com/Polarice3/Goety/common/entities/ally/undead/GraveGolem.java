@@ -344,8 +344,8 @@ public class GraveGolem extends AbstractGolemServant {
         this.setYBodyRot(this.deathRotation);
     }
 
+    @Override
     public void die(DamageSource p_21014_) {
-        this.level.broadcastEntityEvent(this, (byte) 7);
         this.deathRotation = this.getYRot();
         super.die(p_21014_);
     }
@@ -547,7 +547,13 @@ public class GraveGolem extends AbstractGolemServant {
     }
 
     public void handleEntityEvent(byte pId) {
-        if (pId == 4){
+        if (pId == 3) {
+            this.stopAnimations();
+            this.deathAnimationState.start(this.tickCount);
+            this.deathRotation = this.getYRot();
+            this.playSound(ModSounds.GRAVE_GOLEM_DEATH.get(), 1.0F, 1.0F);
+            super.handleEntityEvent(pId);
+        } else if (pId == 4){
             this.stopAnimations();
             this.setShooting(true);
             this.shootAnimationState.start(this.tickCount);

@@ -23,6 +23,10 @@
       "type": "patchouli:spotlight",
       "item": "minecraft:enchanted_book",
       "title": "Broom Enchantments",
+      "text": "Haunted Brooms have their own unique enchantments. Hardy makes them less likely to break and Fealty will cause them to return back to their placer when broken as well as prevent others from using it once placed after getting the enchantment."
+    },
+    {
+      "type": "patchouli:text",
       "text": "Haunted Brooms can surprisingly be enchanted with two $(l:focuses/focus_enchantments)focus enchantments$(). Velocity will, of course, increase the speed of the broom. Burning, however, has a special effect in that if a broom were to break upon collision with a solid block, it will explode! The size of which depends on how fast the broom was going."
     },
     {
