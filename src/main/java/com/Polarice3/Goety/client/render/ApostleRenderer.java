@@ -185,11 +185,11 @@ public class ApostleRenderer extends CultistRenderer<Apostle>{
         @Override
         public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T apostle, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
             if (!apostle.isDeadOrDying()) {
-                RenderType renderType = ModRenderType.wraith(FIRST);
+                ResourceLocation location = FIRST;
                 if (apostle.isSecondPhase()) {
-                    renderType = ModRenderType.wraith(SECOND);
+                    location = SECOND;
                 }
-                VertexConsumer vertexconsumer = bufferIn.getBuffer(renderType);
+                VertexConsumer vertexconsumer = bufferIn.getBuffer(ModRenderType.wraith(location));
                 this.getParentModel().renderToBuffer(matrixStackIn, vertexconsumer, 15728640, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 0.15F);
             }
         }

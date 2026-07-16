@@ -89,6 +89,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.piston.MovingPistonBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
@@ -933,10 +934,12 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
             if (MobsConfig.ApostleDelayedTeleport.get()) {
                 if (this.pendingTeleportSearch != null) {
                     if (this.pendingTeleportSearch.isDone()) {
+                        final double startY = this.getTarget() != null ? this.getTarget().getY() : this.getY();
                         Vec3 result = this.pendingTeleportSearch.getNow(null);
                         this.pendingTeleportSearch = null;
-                        if (result != null) {
-                            this.toTeleportPos = result;
+                        Vec3 vec3 = findTeleportGroundY(this.level, result.x, result.y + 3, result.z, startY);
+                        if (vec3 != null) {
+                            this.toTeleportPos = vec3;
                             this.playSound(ModSounds.APOSTLE_PRE_TELEPORT.get(), 2.0F, 1.0F);
                             this.resetHitTime();
                         }
@@ -945,8 +948,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
                     final double startX = this.getX();
                     final double startY = this.getTarget() != null ? this.getTarget().getY() : this.getY();
                     final double startZ = this.getZ();
-                    final LivingEntity target = this.getTarget();
-                    final Level level = this.level;
                     final RandomSource randomSource = this.apostleRandom;
 
                     this.prevX = startX;
@@ -954,21 +955,11 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
                     this.prevZ = startZ;
 
                     this.pendingTeleportSearch = CompletableFuture.supplyAsync(() -> {
-                        for (int i = 0; i < 128; ++i) {
-                            double d3 = startX + (randomSource.nextDouble() - 0.5D) * 32.0D;
-                            double d4 = startY;
-                            double d5 = startZ + (randomSource.nextDouble() - 0.5D) * 32.0D;
-                            BlockPos blockPos = BlockPos.containing(d3, d4, d5);
-                            boolean flag = target == null || i >= 64 || BlockFinder.canSeeBlock(target, blockPos);
-                            if (flag) {
-                                Vec3 vec3 = new Vec3(d3, d4, d5);
-                                Vec3 vec31 = BlockFinder.SummonPosition(level, vec3);
-                                if (vec31 != null) {
-                                    return vec31;
-                                }
-                            }
-                        }
-                        return null;
+                        double d0 = 32.0D;
+                        double d1 = startX + (randomSource.nextDouble() - 0.5D) * d0;
+                        double d2 = startY + 3.0D;
+                        double d3 = startZ + (randomSource.nextDouble() - 0.5D) * d0;
+                        return new Vec3(d1, d2, d3);
                     });
                 }
             } else {
@@ -988,6 +979,31 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
         }
     }
 
+    @Nullable
+    private static Vec3 findTeleportGroundY(Level level, double x, double startY, double z, double targetY) {
+        BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(Mth.floor(x), Mth.floor(startY), Mth.floor(z));
+        if (!level.isLoaded(mutableBlockPos)) {
+            return null;
+        }
+
+        int limit = 64;
+        while (limit-- > 0 && mutableBlockPos.getY() > level.getMinBuildHeight()) {
+            BlockState state = level.getBlockState(mutableBlockPos);
+            BlockState above = level.getBlockState(mutableBlockPos.above());
+            BlockState below = level.getBlockState(mutableBlockPos.below());
+            boolean canStand = state.getCollisionShape(level, mutableBlockPos).isEmpty()
+                    && above.getCollisionShape(level, mutableBlockPos.above()).isEmpty()
+                    && !below.getCollisionShape(level, mutableBlockPos.below()).isEmpty();
+            if (canStand) {
+                if (mutableBlockPos.getY() <= targetY + 3.0) {
+                    return new Vec3(mutableBlockPos.getX(), mutableBlockPos.getY(), mutableBlockPos.getZ());
+                }
+            }
+            mutableBlockPos.move(Direction.DOWN);
+        }
+        return null;
+    }
+
     public void teleportTowards(Entity entity) {
         if (!this.level.isClientSide() && !this.isNoAi() && this.isAlive() && this.toTeleportPos == null && !this.isSettingUpSecond()) {
             if (MobsConfig.ApostleDelayedTeleport.get()) {
@@ -996,8 +1012,11 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
                         Vec3 result = this.pendingTeleportSearch.getNow(null);
                         this.pendingTeleportSearch = null;
                         if (result != null) {
-                            this.toTeleportPos = result;
-                            this.playSound(ModSounds.APOSTLE_PRE_TELEPORT.get(), 2.0F, 1.0F);
+                            Vec3 vec3 = findTeleportGroundY(this.level, result.x, result.y + 3, result.z, entity.getY());
+                            if (vec3 != null) {
+                                this.toTeleportPos = vec3;
+                                this.playSound(ModSounds.APOSTLE_PRE_TELEPORT.get(), 2.0F, 1.0F);
+                            }
                         }
                     }
                 } else {
@@ -1007,7 +1026,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
                     final double selfX = this.getX();
                     final double selfY = this.getY();
                     final double selfZ = this.getZ();
-                    final Level level = this.level;
                     final RandomSource randomSource = this.apostleRandom;
 
                     this.prevX = selfX;
@@ -1017,19 +1035,10 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
                     this.pendingTeleportSearch = CompletableFuture.supplyAsync(() -> {
                         Vec3 vec3 = new Vec3(selfX - targetX, selfY * 0.5D - targetY, selfZ - targetZ).normalize();
                         double d0 = 16.0D;
-                        for (int i = 0; i < 128; ++i) {
-                            double d1 = selfX + (randomSource.nextDouble() - 0.5D) * 8.0D - vec3.x * d0;
-                            double d2 = selfY + (randomSource.nextInt(16) - 8) - vec3.y * d0;
-                            double d3 = selfZ + (randomSource.nextDouble() - 0.5D) * 8.0D - vec3.z * d0;
-                            BlockPos blockPos = BlockPos.containing(d1, d2, d3);
-                            if (BlockFinder.canSeeBlock(new Vec3(targetX, targetY, targetZ), Vec3.atBottomCenterOf(blockPos), level)) {
-                                Vec3 vec31 = BlockFinder.SummonPosition(level, new Vec3(d1, d2, d3));
-                                if (vec31 != null) {
-                                    return vec31;
-                                }
-                            }
-                        }
-                        return null;
+                        double d1 = selfX + (randomSource.nextDouble() - 0.5D) * 8.0D - vec3.x * d0;
+                        double d2 = selfY + (randomSource.nextInt(16) - 8) - vec3.y * d0;
+                        double d3 = selfZ + (randomSource.nextDouble() - 0.5D) * 8.0D - vec3.z * d0;
+                        return new Vec3(d1, d2, d3);
                     });
                 }
             } else {
@@ -1120,6 +1129,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
             this.setMonolithPower(true);
         } else if (pId == 102){
             this.setMonolithPower(false);
+        } else if (pId == 103){
+            this.setSecondPhase(true);
         } else {
             super.handleEntityEvent(pId);
         }
@@ -1307,6 +1318,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
                 }
                 this.setSettingUpSecond(false);
                 this.setSecondPhase(true);
+                this.level.broadcastEntityEvent(this, (byte) 103);
             }
         } else {
             if (this.tickCount % 10 == 0){

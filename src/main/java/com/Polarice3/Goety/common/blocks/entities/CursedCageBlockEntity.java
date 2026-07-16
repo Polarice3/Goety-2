@@ -57,6 +57,8 @@ public class CursedCageBlockEntity extends BlockEntity implements Clearable {
                 UUID owner = this.item.getTag().getUUID("owner");
                 if (this.level instanceof ServerLevel serverLevel) {
                     return serverLevel.getServer().getPlayerList().getPlayer(owner);
+                } else if (this.level != null) {
+                    return this.level.getPlayerByUUID(owner);
                 }
             }
         }

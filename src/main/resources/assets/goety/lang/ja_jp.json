@@ -3630,5 +3630,12 @@
   "block.goety.dense_banded_steep_planks": "高密度の帯状のスティープの板材",
   "block.goety.steep_firewood": "スティープの薪",
   "block.goety.potted_henbane": "鉢植えされたヒヨス",
-  "block.goety.potted_deadly_nightshade": "鉢植えされたベラドンナ"
+  "block.goety.potted_deadly_nightshade": "鉢植えされたベラドンナ",
+  "block.goety.braced_crag_tile_pillar": "補強された岩タイルの柱",
+  "enchantment.goety.fealty": "献身",
+  "enchantment.goety.hardy": "頑丈",
+  "enchantment.goety.fealty.desc": "壊れると、設置者のインベントリにほうきが戻ります。また、他のプレイヤーが乗ることも防ぎます。",
+  "enchantment.goety.hardy.desc": "ほうきが壊れるまでに耐えられるダメージ量の閾値を引き上げます。",
+  "block.goety.end_rock_stairs": "エンドロックの階段",
+  "block.goety.end_rock_brick_stairs": "エンドロックレンガの階段"
 }

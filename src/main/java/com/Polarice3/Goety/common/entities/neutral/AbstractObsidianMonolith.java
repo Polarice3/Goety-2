@@ -436,6 +436,31 @@ public abstract class AbstractObsidianMonolith extends AbstractMonolith {
         }
     }
 
+    public void teleportTowards(Entity entity, double range) {
+        if (!this.level.isClientSide() && this.isAlive()) {
+            for (int i = 0; i < 128; ++i) {
+                Vec3 vector3d = new Vec3(this.getX() - entity.getX(), this.getY(0.5D) - entity.getEyeY(), this.getZ() - entity.getZ());
+                vector3d = vector3d.normalize();
+                double d1 = this.getX() + (this.getRandom().nextDouble() - 0.5D) * (range / 2.0D) - vector3d.x * range;
+                double d2 = this.getY() + (this.getRandom().nextInt(Mth.floor(range)) - (range / 2.0D)) - vector3d.y * range;
+                double d3 = this.getZ() + (this.getRandom().nextDouble() - 0.5D) * (range / 2.0D) - vector3d.z * range;
+                net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(this, d1, d2, d3);
+                if (event.isCanceled()) {
+                    break;
+                }
+                if (i == 127) {
+                    Vec3 vec3 = entity.position().add(this.getRandom().nextIntBetweenInclusive(-2, 2), 0, this.getRandom().nextIntBetweenInclusive(-2, 2));
+                    this.teleportTo(vec3.x, vec3.y, vec3.z);
+                    this.teleportHits();
+                    break;
+                } else if (this.ownedTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ())) {
+                    this.teleportHits();
+                    break;
+                }
+            }
+        }
+    }
+
     public void healCultists() {
         if (this.tickCount % 50 == 0) {
             if (this.level instanceof ServerLevel serverLevel){

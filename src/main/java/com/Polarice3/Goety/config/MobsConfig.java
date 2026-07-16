@@ -177,7 +177,6 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> WebSpiderServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> IcySpiderServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> BoneSpiderServantTexture;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> BroodMotherOldTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> SlimeServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MagmaCubeServantTexture;
@@ -381,8 +380,6 @@ public class MobsConfig {
         BUILDER.push("Textures");
         HolidaySkins = BUILDER.comment("If certain mobs have a different texture during some holiday months, Default: true")
                 .define("holidaySkins", true);
-        BroodMotherOldTexture = BUILDER.comment("If Brood Mothers uses their old textures, Default: false")
-                .define("broodMotherOldTexture", false);
         HierarchicalArmorTrim = BUILDER.comment("If armor worn by mobs that uses HierarchicalArmorLayer(ie, Illager Servants) shows Armor Trim, Default: true")
                 .define("hierarchicalArmorTrim", true);
             BUILDER.push("Summoned Mobs");
