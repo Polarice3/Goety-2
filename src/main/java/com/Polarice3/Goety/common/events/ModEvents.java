@@ -53,6 +53,8 @@ import com.Polarice3.Goety.common.items.equipment.DarkScytheItem;
 import com.Polarice3.Goety.common.items.equipment.IceAxeItem;
 import com.Polarice3.Goety.common.items.equipment.PhilosophersMaceItem;
 import com.Polarice3.Goety.common.items.equipment.SickleItem;
+import com.Polarice3.Goety.common.items.magic.FocusBag;
+import com.Polarice3.Goety.common.items.magic.FocusPack;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
@@ -107,6 +109,7 @@ import net.minecraft.world.entity.projectile.DragonFireball;
 import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.entity.raid.Raider;
+import net.minecraft.world.inventory.CraftingMenu;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -129,6 +132,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
@@ -145,6 +149,7 @@ import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.MissingMappingsEvent;
 import org.apache.commons.lang3.ArrayUtils;
@@ -1766,6 +1771,45 @@ public class ModEvents {
             }
             if (itemStack.is(ModBlocks.WINDSWEPT_DEAD_BUSH.get().asItem())){
                 event.setBurnTime(100);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onFocusBagUpgrade(PlayerEvent.ItemCraftedEvent event) {
+        ItemStack crafted = event.getCrafting();
+        if (!(crafted.getItem() instanceof FocusPack)) return;
+
+        Player player = event.getEntity();
+        if (player.level().isClientSide) return;
+        if (!(player.containerMenu instanceof CraftingMenu menu)) return;
+
+        IItemHandler packHandler = crafted.getCapability(ForgeCapabilities.ITEM_HANDLER).orElse(null);
+        if (packHandler == null) return;
+
+        for (int i = 0; i < 9; i++) {
+            ItemStack bagStack = menu.getSlot(i).getItem();
+            if (!(bagStack.getItem() instanceof FocusBag) || bagStack.getItem() instanceof FocusPack) {
+                continue;
+            }
+
+            IItemHandler bagHandler = bagStack.getCapability(ForgeCapabilities.ITEM_HANDLER).orElse(null);
+            if (bagHandler == null) continue;
+
+            for (int bagSlot = 1; bagSlot < bagHandler.getSlots(); bagSlot++) {
+                ItemStack itemInBag = bagHandler.getStackInSlot(bagSlot);
+                if (itemInBag.isEmpty()) continue;
+
+                ItemStack toInsert = itemInBag.copy();
+
+                for (int packSlot = 1; packSlot < packHandler.getSlots(); packSlot++) {
+                    if (toInsert.isEmpty()) break;
+                    toInsert = packHandler.insertItem(packSlot, toInsert, false);
+                }
+
+                if (!toInsert.isEmpty()) {
+                    player.drop(toInsert, false);
+                }
             }
         }
     }
