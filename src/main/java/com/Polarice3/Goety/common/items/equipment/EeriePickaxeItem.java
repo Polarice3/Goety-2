@@ -35,9 +35,9 @@ public class EeriePickaxeItem extends PickaxeItem {
     public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
         if (entityIn instanceof Player player) {
             if (isSelected){
-                if (worldIn.random.nextFloat() <= 7.5E-4F){
+                if (worldIn.getRandom().nextFloat() <= 7.5E-4F){
                     int i = 17;
-                    BlockPos blockpos = BlockPos.containing(player.getX() + (double)worldIn.random.nextInt(i) - (double)8, player.getEyeY() + (double)worldIn.random.nextInt(i) - (double)8, player.getZ() + (double)worldIn.random.nextInt(i) - (double)8);
+                    BlockPos blockpos = BlockPos.containing(player.getX() + (double)worldIn.getRandom().nextInt(i) - (double)8, player.getEyeY() + (double)worldIn.getRandom().nextInt(i) - (double)8, player.getZ() + (double)worldIn.getRandom().nextInt(i) - (double)8);
                     double d0 = (double)blockpos.getX() + 0.5D;
                     double d1 = (double)blockpos.getY() + 0.5D;
                     double d2 = (double)blockpos.getZ() + 0.5D;
@@ -48,14 +48,19 @@ public class EeriePickaxeItem extends PickaxeItem {
                     double d7 = d6 + 2.0D;
                     BlockPos blockPos = BlockPos.containing(player.getX() + d3 / d6 * d7, player.getEyeY() + d4 / d6 * d7, player.getZ() + d5 / d6 * d7);
                     SoundEvent soundEvent = SoundEvents.AMBIENT_CAVE.get();
-                    if (worldIn.random.nextFloat() <= 0.01F){
+                    if (worldIn.getRandom().nextFloat() <= 0.01F){
                         soundEvent = SoundEvents.GOAT_SCREAMING_AMBIENT;
-                    } else if (worldIn.random.nextFloat() <= 0.05F){
+                    } else if (worldIn.getRandom().nextFloat() <= 0.05F){
                         soundEvent = SoundEvents.WARDEN_NEARBY_CLOSE;
-                    } else if (worldIn.random.nextFloat() <= 0.15F){
+                    } else if (worldIn.getRandom().nextFloat() <= 0.15F){
                         soundEvent = SoundEvents.SCULK_SHRIEKER_SHRIEK;
-                    } else if (worldIn.random.nextFloat() <= 0.25F){
+                    } else if (worldIn.getRandom().nextFloat() <= 0.25F){
                         soundEvent = SoundEvents.AMBIENT_SOUL_SAND_VALLEY_MOOD.get();
+                        if (worldIn.getRandom().nextBoolean()) {
+                            if (!worldIn.dimensionType().hasSkyLight() || player.getY() >= worldIn.getSeaLevel() && worldIn.canSeeSky(blockpos)) {
+                                soundEvent = SoundEvents.PHANTOM_FLAP;
+                            }
+                        }
                     }
                     worldIn.playSound(player, blockPos, soundEvent, SoundSource.PLAYERS, 1.0F, 1.0F);
                 }

@@ -25,7 +25,7 @@ import static net.minecraftforge.event.entity.living.LivingChangeTargetEvent.Liv
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class StunnedEvents {
 
-    private static boolean isStunned(@Nullable LivingEntity entity) {
+    public static boolean isStunned(@Nullable LivingEntity entity) {
         return entity != null && entity.isAlive() && (entity.hasEffect(GoetyEffects.STUNNED.get())
                 || (entity instanceof Player player && SEHelper.hasCamera(player)));
     }

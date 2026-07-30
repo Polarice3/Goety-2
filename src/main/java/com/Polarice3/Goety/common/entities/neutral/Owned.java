@@ -253,6 +253,9 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
 
     @Nullable
     public LivingEntity getTrueOwner() {
+        if (this.hasEffect(GoetyEffects.WILD_RAGE.get())) {
+            return null;
+        }
         if (!this.level.isClientSide){
             UUID uuid = this.getOwnerId();
             return uuid == null ? null : EntityFinder.getLivingEntityByUuiD(this.level, uuid);

@@ -34,6 +34,7 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
     private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(HauntedSkullProjectile.class, EntityDataSerializers.INT);
     public float damage = SpellConfig.HauntedSkullDamage.get().floatValue() * WandUtil.damageMultiply();
     public boolean isPowered;
+    private boolean exploding = false;
 
     public HauntedSkullProjectile(EntityType<? extends ExplosiveProjectile> p_i50166_1_, Level p_i50166_2_) {
         super(p_i50166_1_, p_i50166_2_);
@@ -158,6 +159,10 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
     }
 
     public void explode(){
+        if (this.exploding || this.isRemoved()) {
+            return;
+        }
+        this.exploding = true;
         if (!this.level.isClientSide) {
             Entity owner = this.getOwner();
             boolean flaming = this.getFiery() > 0;
@@ -208,7 +213,9 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
     }
 
     public boolean hurt(DamageSource source, float amount) {
-        if (this.isUpgraded()) {
+        if (this.exploding || this.isRemoved()) {
+            return false;
+        } else if (this.isUpgraded()) {
             return false;
         } else {
             this.explode();

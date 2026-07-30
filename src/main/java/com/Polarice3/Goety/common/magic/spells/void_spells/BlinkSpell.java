@@ -90,7 +90,7 @@ public class BlinkSpell extends Spell {
                 worldIn.broadcastEntityEvent(caster, (byte) 46);
                 this.playSound(worldIn, caster, SoundEvents.ENDERMAN_TELEPORT, 2.0F, 1.0F);
             } else {
-                for(int i = 0; i < 64; ++i) {
+                for (int i = 0; i < 64; ++i) {
                     if (MobUtil.teleport(caster, range)){
                         break;
                     }

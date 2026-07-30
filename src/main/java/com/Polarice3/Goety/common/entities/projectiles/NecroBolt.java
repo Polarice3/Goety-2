@@ -19,6 +19,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.AbstractSkeleton;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
@@ -84,14 +86,19 @@ public class NecroBolt extends SpellHurtingProjectile {
                     if (entity.isAlive()) {
                         this.doEnchantDamageEffects(livingentity, entity);
                     } else {
-                        ServantUtil.convertZombies(entity, livingentity, true);
-                        boolean wither = false;
-                        if (livingentity instanceof Player player){
-                            wither = SEHelper.hasResearch(player, ResearchList.BYGONE);
-                        }
-                        ServantUtil.convertSkeletons(entity, livingentity, wither, true);
-                        if (entity instanceof Mob mob) {
-                            ServantUtil.infect(mob, livingentity, true, true);
+                        if (entity instanceof Zombie) {
+                            ServantUtil.convertZombies(entity, livingentity, true);
+                        } else if (entity instanceof AbstractSkeleton) {
+                            boolean wither = false;
+                            if (livingentity instanceof Player player){
+                                wither = SEHelper.hasResearch(player, ResearchList.BYGONE);
+                            }
+                            ServantUtil.convertSkeletons(entity, livingentity, wither, true);
+                        } else if (entity instanceof Mob mob) {
+                            boolean flag1 = ServantUtil.convertUndead(mob, livingentity, true, true);
+                            if (!flag1) {
+                                ServantUtil.infect(mob, livingentity, true, true);
+                            }
                         }
                     }
                 }

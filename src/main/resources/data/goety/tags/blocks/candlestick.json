@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "goety:gold_candlestick",
+    "goety:wall_gold_candlestick",
+    "goety:necrotic_gold_candlestick",
+    "goety:wall_necrotic_gold_candlestick"
+  ]
+}

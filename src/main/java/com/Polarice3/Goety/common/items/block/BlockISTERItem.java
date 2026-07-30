@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.items.block;
 
-import com.Polarice3.Goety.client.render.block.ModISTER;
+import com.Polarice3.Goety.client.render.block.ModISTERs;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
@@ -22,7 +22,7 @@ public class BlockISTERItem extends BlockItemBase{
         consumer.accept(new IClientItemExtensions() {
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return new ModISTER();
+                return ModISTERs.get();
             }
         });
     }

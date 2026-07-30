@@ -2,6 +2,7 @@ package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.illager.PillagerServant;
@@ -112,6 +113,42 @@ public class ServantUtil {
         }
     }
 
+    public static boolean convertUndead(Mob target, LivingEntity owner, boolean permanent, boolean keepLoot){
+        Summoned summoned = null;
+        if (target instanceof MuckWraith) {
+            summoned = target.convertTo(ModEntityType.MUCK_WRAITH_SERVANT.get(), keepLoot);
+        } else if (target instanceof BorderWraith) {
+            summoned = target.convertTo(ModEntityType.BORDER_WRAITH_SERVANT.get(), keepLoot);
+        } else if (target instanceof Wraith) {
+            summoned = target.convertTo(ModEntityType.WRAITH_SERVANT.get(), keepLoot);
+        } else if (target instanceof Reaper) {
+            summoned = target.convertTo(ModEntityType.REAPER_SERVANT.get(), keepLoot);
+        } else if (target instanceof Phantom) {
+            summoned = target.convertTo(ModEntityType.PHANTOM_SERVANT.get(), keepLoot);
+        }
+
+        if (summoned != null) {
+            EntityType<? extends LivingEntity> entityType = (EntityType<? extends LivingEntity>) summoned.getType();
+            if (net.minecraftforge.event.ForgeEventFactory.canLivingConvert(target, entityType, (timer) -> {})) {
+                if (owner != null) {
+                    summoned.setTrueOwner(owner);
+                }
+                if (target.level instanceof ServerLevel serverLevel) {
+                    summoned.finalizeSpawn(serverLevel, target.level.getCurrentDifficultyAt(summoned.blockPosition()), MobSpawnType.CONVERSION, null, null);
+                }
+                if (!permanent) {
+                    summoned.setLimitedLife(10 * (15 + target.level.random.nextInt(45)));
+                }
+                net.minecraftforge.event.ForgeEventFactory.onLivingConvert(target, summoned);
+                if (!summoned.isSilent()) {
+                    summoned.level.levelEvent(null, 1026, summoned.blockPosition(), 0);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void infect(LivingEntity target, LivingEntity owner, boolean permanent, boolean keepLoot) {
         if (target instanceof Mob mob) {
             infect(mob, owner, permanent, keepLoot);
@@ -120,13 +157,7 @@ public class ServantUtil {
 
     public static void infect(Mob target, LivingEntity owner, boolean permanent, boolean keepLoot){
         Summoned summoned = null;
-        if (target instanceof Wraith){
-            summoned = target.convertTo(ModEntityType.WRAITH_SERVANT.get(), keepLoot);
-        } else if (target instanceof BorderWraith){
-            summoned = target.convertTo(ModEntityType.BORDER_WRAITH_SERVANT.get(), keepLoot);
-        } else if (target instanceof MuckWraith){
-            summoned = target.convertTo(ModEntityType.MUCK_WRAITH_SERVANT.get(), keepLoot);
-        } else if (target instanceof PiglinBrute){
+        if (target instanceof PiglinBrute){
             summoned = target.convertTo(ModEntityType.ZPIGLIN_BRUTE_SERVANT.get(), keepLoot);
         } else if (target instanceof AbstractPiglin){
             summoned = target.convertTo(ModEntityType.ZPIGLIN_SERVANT.get(), keepLoot);
@@ -141,14 +172,14 @@ public class ServantUtil {
         if (summoned != null) {
             EntityType<? extends LivingEntity> entityType = (EntityType<? extends LivingEntity>) summoned.getType();
             if (net.minecraftforge.event.ForgeEventFactory.canLivingConvert(target, entityType, (timer) -> {})) {
+                if (owner != null) {
+                    summoned.setTrueOwner(owner);
+                }
                 if (target.level instanceof ServerLevel serverLevel) {
                     summoned.finalizeSpawn(serverLevel, target.level.getCurrentDifficultyAt(summoned.blockPosition()), MobSpawnType.CONVERSION, null, null);
                 }
                 if (!permanent) {
                     summoned.setLimitedLife(10 * (15 + target.level.random.nextInt(45)));
-                }
-                if (owner != null) {
-                    summoned.setTrueOwner(owner);
                 }
                 if (summoned instanceof ZombieVillagerServant servant) {
                     if (target instanceof Villager villager) {
@@ -418,6 +449,55 @@ public class ServantUtil {
         }
 
         return equipmentslot;
+    }
+
+    public static boolean nullifyTarget(IOwned owned, LivingEntity target) {
+        boolean shouldClearTarget = false;
+        if (owned instanceof Mob mobThis) {
+            if (owned.getMasterOwner() instanceof Player){
+                if (mobThis.level.getServer() != null) {
+                    if (!mobThis.level.getServer().isPvpAllowed()) {
+                        if (target instanceof Player || (target instanceof IOwned owned1 && owned1.getMasterOwner() instanceof Player)) {
+                            shouldClearTarget = true;
+                        }
+                    }
+                }
+            }
+            if (!mobThis.hasEffect(GoetyEffects.WILD_RAGE.get())) {
+                if (target instanceof IOwned ownedTarget) {
+                    shouldClearTarget = owned.getTrueOwner() != null && ownedTarget.getTrueOwner() == owned.getTrueOwner();
+                    if (ownedTarget.getTrueOwner() == owned) {
+                        shouldClearTarget = true;
+                    }
+                    if (MobUtil.ownerStack(owned, ownedTarget)) {
+                        shouldClearTarget = true;
+                    }
+                    if (!shouldClearTarget && owned.isAllyWith(target)) {
+                        shouldClearTarget = true;
+                    }
+                    if (!shouldClearTarget
+                            && owned.getTrueOwner() == null
+                            && ownedTarget.getTrueOwner() == null
+                            && owned.getOwnerId() != null
+                            && owned.getOwnerId().equals(ownedTarget.getOwnerId())) {
+                        shouldClearTarget = true;
+                    }
+                    if (!shouldClearTarget
+                            && owned.getOwnerId() != null
+                            && ownedTarget.getOwnerId() != null
+                            && mobThis.level instanceof ServerLevel serverLevel
+                            && SEHelper.isSavedAlly(serverLevel, owned.getOwnerId(),
+                            target)) {
+                        shouldClearTarget = true;
+                    }
+                } else if (target != null) {
+                    if (owned.isAllyWith(target) || (owned.getMasterOwner() != null && target == owned.getMasterOwner()) || target.isRemoved() || target.isDeadOrDying()) {
+                        shouldClearTarget = true;
+                    }
+                }
+            }
+        }
+        return shouldClearTarget;
     }
 
     enum HealType implements IExtensibleEnum {

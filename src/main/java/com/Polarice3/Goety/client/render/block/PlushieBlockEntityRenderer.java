@@ -57,8 +57,8 @@ public class PlushieBlockEntityRenderer implements BlockEntityRenderer<PlushieBl
 
     public static ResourceLocation getTexture(BlockState blockState) {
         ResourceLocation texture = TEXTURE;
-        if (blockState.getBlock() instanceof PlushieBlock) {
-            texture = Goety.location("textures/entity/plushie/" + blockState.getValue(PlushieBlock.TYPE) + ".png");
+        if (blockState.getBlock() instanceof PlushieBlock plushieBlock) {
+            texture = Goety.location("textures/entity/plushie/" + plushieBlock.getPlushieType() + ".png");
         }
         return texture;
     }

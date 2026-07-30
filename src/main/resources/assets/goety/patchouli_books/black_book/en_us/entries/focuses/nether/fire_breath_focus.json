@@ -1,7 +1,7 @@
 {
   "name": "Fire Breath Focus",
   "icon": "goety:fire_breath_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/nether",
   "pages": [
     {
       "type": "patchouli:text",
@@ -10,6 +10,10 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/fire_breath_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/nether_staff)Nether Staff$() will not only increases the damage, but also sets fire to terrain."
     }
   ]
 }

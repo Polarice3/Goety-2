@@ -63,8 +63,7 @@ public class ResonanceCrystalBlockEntity extends ModBlockEntity implements IWind
                     this.chunkLoadBlock();
                     BlockPos blockPos = this.getBlockPos();
                     ServerParticleUtil.gatheringBlockParticles(ModParticleTypes.RESONANCE_GATHER.get(), blockPos, world);
-                    ColorUtil color = new ColorUtil(0xffffff);
-                    ServerParticleUtil.windParticle(world, color, 1.0F + world.random.nextFloat() * 0.5F, 0.0F, -1, Vec3.atBottomCenterOf(blockPos));
+                    ServerParticleUtil.windParticle(world, ColorUtil.WHITE, 1.0F + world.random.nextFloat() * 0.5F, 0.0F, -1, Vec3.atBottomCenterOf(blockPos));
 
                     if (!this.uuids.isEmpty()) {
                         this.uuids.removeIf(uuid -> {

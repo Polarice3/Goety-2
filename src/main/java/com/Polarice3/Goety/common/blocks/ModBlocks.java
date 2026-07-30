@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.client.render.block.ModISTER;
+import com.Polarice3.Goety.client.render.block.ModISTERs;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.block.*;
 import com.Polarice3.Goety.common.world.features.trees.*;
@@ -87,6 +87,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> SCULK_GROWER = enchantedRegister("sculk_grower", SculkGrowerBlock::new);
     public static final RegistryObject<Block> SPIDER_NEST = register("spider_nest", SpiderNestBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> SHADE_GRAVESTONE = register("shade_gravestone", GravestoneBlock::new);
+    public static final RegistryObject<Block> SHADE_OSSUARY = register("shade_ossuary", OssuaryBlock::new);
     public static final RegistryObject<Block> BLAZING_CAGE = register("blazing_cage", BlazingCageBlock::new);
     public static final RegistryObject<Block> OMINOUS_PYRE = register("ominous_pyre", OminousPyreBlock::new);
     public static final RegistryObject<Block> OMINOUS_IDOL = register("ominous_idol", OminousIdolBlock::new, false, LootTableType.EMPTY);
@@ -355,6 +356,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> TOP_SOILED_END_BASALT = register("top_soiled_end_basalt",
             () -> new Block(BlockBehaviour.Properties.copy(END_BASALT.get()).mapColor(MapColor.COLOR_GRAY)));
     public static final RegistryObject<Block> BOTTOM_SOILED_END_BASALT = register("bottom_soiled_end_basalt",
+            () -> new Block(BlockBehaviour.Properties.copy(END_BASALT.get())));
+    public static final RegistryObject<Block> TOP_DIRTY_END_BASALT = register("top_dirty_end_basalt",
+            () -> new Block(BlockBehaviour.Properties.copy(END_BASALT.get()).mapColor(MapColor.COLOR_PURPLE)));
+    public static final RegistryObject<Block> BOTTOM_DIRTY_END_BASALT = register("bottom_dirty_end_basalt",
             () -> new Block(BlockBehaviour.Properties.copy(END_BASALT.get())));
     public static final RegistryObject<Block> GRASSY_END_BASALT = register("grassy_end_basalt",
             () -> new Block(BlockBehaviour.Properties.copy(END_BASALT.get())));
@@ -722,6 +727,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> CHORUS_LOG = register("chorus_log", () -> fireProofLog(MapColor.COLOR_PURPLE));
     public static final RegistryObject<Block> CHORUS_WOOD = register("chorus_wood",
             () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.COLOR_PURPLE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> BLOSSOMING_CHORUS_WOOD = register("blossoming_chorus_wood",
+            () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.COLOR_PURPLE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> BLOOMING_CHORUS_WOOD = register("blooming_chorus_wood",
+            () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.COLOR_PURPLE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> STUDDED_CHORUS_WOOD = register("studded_chorus_wood",
             () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.COLOR_PURPLE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> CHORUS_WOOD_STAIRS = registerStairs("chorus_wood_stairs",
@@ -986,6 +995,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> CHORUS_END_STONE_PILLAR_BLOCK = register("chorus_end_stone_pillar", () -> new RotatedPillarBlock(EndStoneProperties()));
     public static final RegistryObject<Block> INFUSED_END_STONE_PILLAR_BLOCK = register("infused_end_stone_pillar", () -> new RotatedPillarBlock(EndStoneProperties().mapColor(MapColor.EMERALD)));
     public static final RegistryObject<Block> CHORUS_GRASS_BLOCK = register("chorus_grass_block", ChorusGrassBlock::new, true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> CHORUS_GRASS_DIRT = register("chorus_grass_dirt", () -> new ChorusGrassBlock(BlockBehaviour.Properties.copy(END_DIRT.get())
+            .mapColor(MapColor.COLOR_ORANGE)
+            .randomTicks()
+            .sound(SoundType.GRASS)), true, LootTableType.EMPTY);
     public static final RegistryObject<Block> COBBLED_CHORUS_GRASS_BLOCK = register("cobbled_chorus_grass_block", () -> new Block(EndStoneProperties().mapColor(MapColor.COLOR_ORANGE)));
 
     //End Lights
@@ -1267,6 +1280,12 @@ public class ModBlocks {
     public static final RegistryObject<PlushieBlock> PLUSHIE_9 = curioIsterRegister("plushie_9", () -> new PlushieBlock(9));
     public static final RegistryObject<PlushieBlock> PLUSHIE_10 = curioIsterRegister("plushie_10", () -> new PlushieBlock(10));
 
+    public static final RegistryObject<SculpturedStatueBlock> SCULPTURED_STATUE = isterRegister("sculptured_statue", SculpturedStatueBlock::new);
+    public static final RegistryObject<SculpturedStatueBlock> STATUE_1 = isterRegister("sculptured_statue_1", () -> new SculpturedStatueBlock(1));
+    public static final RegistryObject<SculpturedStatueBlock> STATUE_2 = isterRegister("sculptured_statue_2", () -> new SculpturedStatueBlock(2));
+    public static final RegistryObject<SculpturedStatueBlock> STATUE_3 = isterRegister("sculptured_statue_3", () -> new SculpturedStatueBlock(3, true));
+    public static final RegistryObject<SculpturedStatueBlock> STATUE_4 = isterRegister("sculptured_statue_4", () -> new SculpturedStatueBlock(4));
+
     //Custom Items
     public static final RegistryObject<Item> SNAP_WARTS_ITEM = ModItems.ITEMS.register("snap_warts",
             () -> new ItemNameBlockItem(ModBlocks.SNAP_WARTS.get(), (new Item.Properties())));
@@ -1325,7 +1344,7 @@ public class ModBlocks {
                     consumer.accept(new IClientItemExtensions() {
                         @Override
                         public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                            return new ModISTER();
+                            return ModISTERs.get();
                         }
                     });
                 }
@@ -1337,7 +1356,7 @@ public class ModBlocks {
                     consumer.accept(new IClientItemExtensions() {
                         @Override
                         public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                            return new ModISTER();
+                            return ModISTERs.get();
                         }
                     });
                 }
@@ -1349,7 +1368,7 @@ public class ModBlocks {
                     consumer.accept(new IClientItemExtensions() {
                         @Override
                         public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                            return new ModISTER();
+                            return ModISTERs.get();
                         }
                     });
                 }
@@ -1361,7 +1380,7 @@ public class ModBlocks {
                     consumer.accept(new IClientItemExtensions() {
                         @Override
                         public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                            return new ModISTER();
+                            return ModISTERs.get();
                         }
                     });
                 }

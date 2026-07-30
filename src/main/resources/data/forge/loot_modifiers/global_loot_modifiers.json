@@ -2,9 +2,6 @@
   "replace": false,
   "entries": [
     "goety:instant_pick",
-    "goety:chill_fabric_dig",
-    "goety:dark_fabric_dig",
-    "goety:gale_fabric_dig",
     "goety:occult_fabric_dig",
     "goety:spirit_fabric_dig",
     "goety:cross_pottery_sherd_dig",
@@ -12,7 +9,6 @@
     "goety:haunt_pottery_sherd_dig",
     "goety:night_pottery_sherd_dig",
     "goety:soul_pottery_sherd_dig",
-    "goety:forbidden_piece_dig",
-    "goety:jade_dig"
+    "goety:forbidden_piece_dig"
   ]
 }

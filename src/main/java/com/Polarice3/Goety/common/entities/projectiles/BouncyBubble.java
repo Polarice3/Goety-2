@@ -33,6 +33,7 @@ public class BouncyBubble extends SpellHurtingProjectile{
     private static final EntityDataAccessor<Integer> BOUNCE_TIMES = SynchedEntityData.defineId(BouncyBubble.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> SIZE = SynchedEntityData.defineId(BouncyBubble.class, EntityDataSerializers.FLOAT);
     public float damage = SpellConfig.BouncyBubbleDamage.get().floatValue() * WandUtil.damageMultiply();
+    private boolean exploding = false;
 
     public BouncyBubble(EntityType<? extends AbstractHurtingProjectile> p_36833_, Level p_36834_) {
         super(p_36833_, p_36834_);
@@ -170,6 +171,10 @@ public class BouncyBubble extends SpellHurtingProjectile{
     }
 
     public void explode() {
+        if (this.exploding || this.isRemoved()) {
+            return;
+        }
+        this.exploding = true;
         if (!this.level.isClientSide) {
             Entity owner = this.getOwner();
             float radius = 1.0F + this.getSize();
@@ -207,6 +212,9 @@ public class BouncyBubble extends SpellHurtingProjectile{
         if (this.isInvulnerableTo(source)){
             return false;
         } else {
+            if (this.exploding || this.isRemoved()) {
+                return false;
+            }
             if (!ModDamageSource.waterAttacks(source) && !(source.getDirectEntity() instanceof BouncyBubble)){
                 this.explode();
             }

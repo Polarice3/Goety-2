@@ -20,13 +20,13 @@ import java.util.List;
 
 public class CauldronRecipe implements Recipe<Container> {
     public static Serializer SERIALIZER = new Serializer();
-    private final ResourceLocation id;
-    private final ItemStack result;
-    private final NonNullList<Ingredient> ingredients;
-    private final Ingredient takeWith;
-    private final int levelLeft;
-    private final int soulCost;
-    private final int color;
+    public final ResourceLocation id;
+    public final ItemStack result;
+    public final NonNullList<Ingredient> ingredients;
+    public final Ingredient takeWith;
+    public final int levelLeft;
+    public final int soulCost;
+    public final int color;
 
     public CauldronRecipe(ResourceLocation p_44246_, ItemStack p_44248_, NonNullList<Ingredient> p_44249_, Ingredient takeWith, int levelLeft, int soulCost, int color) {
         this.id = p_44246_;
@@ -171,7 +171,7 @@ public class CauldronRecipe implements Recipe<Container> {
             return new CauldronRecipe(recipeId, result, ingredients, takeWith, levelLeft, soulCost, color);
         }
 
-        private static NonNullList<Ingredient> itemsFromJson(JsonArray pIngredientArray) {
+        public static NonNullList<Ingredient> itemsFromJson(JsonArray pIngredientArray) {
             NonNullList<Ingredient> nonnulllist = NonNullList.create();
 
             for(int i = 0; i < pIngredientArray.size(); ++i) {

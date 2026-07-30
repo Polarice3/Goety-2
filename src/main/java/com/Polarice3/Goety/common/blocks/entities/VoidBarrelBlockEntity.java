@@ -35,7 +35,7 @@ public class VoidBarrelBlockEntity extends BlockEntity {
                 if (this.getBlockState().getValue(VoidBarrelBlock.TRIGGERED) && !this.getBlockState().getValue(VoidBarrelBlock.LIT)) {
                     ++this.tick;
                     if (this.tick >= MathHelper.secondsToTicks(3)) {
-                        ColorUtil colorUtil = new ColorUtil(ChatFormatting.LIGHT_PURPLE);
+                        ColorUtil colorUtil = ColorUtil.LIGHT_PURPLE;
                         serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 3, 1), vec3.x, vec3.y, vec3.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
                         serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 5, 1), vec3.x, vec3.y, vec3.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
                         serverLevel.sendParticles(new SphereExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 5, 1), vec3.x, vec3.y, vec3.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);

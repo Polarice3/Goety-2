@@ -3,7 +3,7 @@
   "soulCost": 750,
   "ingredients": [
     {
-      "item": "minecraft:ghast_tear"
+      "item": "goety:grave_dust"
     },
     {
       "item": "minecraft:sculk"

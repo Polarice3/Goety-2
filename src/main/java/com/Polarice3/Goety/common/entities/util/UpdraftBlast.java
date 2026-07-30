@@ -101,7 +101,7 @@ public class UpdraftBlast extends Entity implements ISpellEntity {
         if (this.level instanceof ServerLevel serverLevel) {
             float area = this.getAreaOfEffect() / 2;
             float f = 1.5F + area;
-            ColorUtil color = new ColorUtil(0xffffff);
+            ColorUtil color = ColorUtil.WHITE;
             ServerParticleUtil.windParticle(serverLevel, color, (f - 1.0F) + serverLevel.getRandom().nextFloat() * 0.5F, 0.0F, this.getId(), this.position());
             ServerParticleUtil.windParticle(serverLevel, color, f + serverLevel.getRandom().nextFloat() * 0.5F, 0.0F, this.getId(), this.position());
 

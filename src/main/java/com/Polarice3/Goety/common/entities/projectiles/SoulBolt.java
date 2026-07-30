@@ -27,6 +27,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.AbstractSkeleton;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
@@ -123,12 +125,17 @@ public class SoulBolt extends SpellHurtingProjectile {
                     if (entity.isAlive()) {
                         this.doEnchantDamageEffects(livingentity, entity);
                     } else if (this.isNecro()) {
-                        ServantUtil.convertZombies(entity, livingentity, false);
-                        boolean wither = false;
-                        if (livingentity instanceof Player player){
-                            wither = SEHelper.hasResearch(player, ResearchList.BYGONE);
+                        if (entity instanceof Zombie) {
+                            ServantUtil.convertZombies(entity, livingentity, false);
+                        } else if (entity instanceof AbstractSkeleton) {
+                            boolean wither = false;
+                            if (livingentity instanceof Player player) {
+                                wither = SEHelper.hasResearch(player, ResearchList.BYGONE);
+                            }
+                            ServantUtil.convertSkeletons(entity, livingentity, wither, false);
+                        } else if (entity instanceof Mob mob) {
+                            ServantUtil.convertUndead(mob, livingentity, true, true);
                         }
-                        ServantUtil.convertSkeletons(entity, livingentity, wither, false);
                     }
                 }
             } else {

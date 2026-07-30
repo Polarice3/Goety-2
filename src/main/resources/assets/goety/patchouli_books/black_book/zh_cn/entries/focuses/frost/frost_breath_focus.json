@@ -1,15 +1,19 @@
 {
   "name": "霜呼聚晶",
   "icon": "goety:frost_breath_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/frost",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "只需一口气，你面前的生物就会颤抖着走向坟墓."
+      "text": "吐出一口寒气，你前方的生物会在颤抖中走向坟墓。"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/frost_breath_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/frost_staff)冰霜法杖$()施放时，不仅会提升伤害，还会降雪并冻结地形。"
     }
   ]
 }

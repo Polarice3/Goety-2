@@ -1592,7 +1592,6 @@
   "info.goety.ring_of_want": "Quando encantado com Desejo, aumenta o nível de saque ao matar com servos ou feitiços.",
   "info.goety.ring_of_force": "O feitiço Telecinese sufocará lentamente a entidade afetada.",
   "info.goety.ring_of_the_forge": "Servos Zumbis e Esqueletos recém-invocados sempre usarão armadura, quando usado.",
-  "info.goety.ring_of_the_dragon": "Fortalece feitiços de sopro quando usado.",
   "info.goety.grave_gloves": "+50% de velocidade de ataque para Foices.",
   "info.goety.thrash_gloves": "+50% de velocidade de ataque para Martelos.",
   "info.goety.wayfarers_belt": "Aumenta a velocidade de movimento e natação, altura de passo e salto.",
@@ -3775,5 +3774,18 @@
   "enchantment.goety.fealty.desc": "Retorna a vassoura ao inventário de quem a colocou quando quebrada. Impede que outros jogadores a montem também.",
   "enchantment.goety.hardy.desc": "Faz com que as vassouras tenham um limite maior de dano que podem receber antes de quebrar.",
   "block.goety.end_rock_stairs": "Escadas de Rocha do End",
-  "block.goety.end_rock_brick_stairs": "Escadas de Tijolos de Rocha do End"
+  "block.goety.end_rock_brick_stairs": "Escadas de Tijolos de Rocha do End",
+  "info.goety.ring_of_the_dragon": "Emite uma explosão na localização inicial ao se teletransportar.",
+  "block.goety.shade_ossuary": "Ossuário das Sombras",
+  "subtitle.goety.void_blast": "Explosão do Vácuo",
+  "block.goety.blossoming_chorus_wood": "Madeira de Coro Florescida",
+  "block.goety.blooming_chorus_wood": "Madeira de Coro em Floração",
+  "block.goety.top_dirty_end_basalt": "Basalto do End Sujo Superior",
+  "block.goety.bottom_dirty_end_basalt": "Basalto do End Sujo Inferior",
+  "block.goety.chorus_grass_dirt": "Terra de Grama de Coro",
+  "block.goety.sculptured_statue": "Estátua Esculpida",
+  "block.goety.sculptured_statue_1": "Estátua de §aNedeak",
+  "block.goety.sculptured_statue_2": "Estátua de §aMrdrewlego",
+  "block.goety.sculptured_statue_3": "Estátua de §aCodatower",
+  "block.goety.sculptured_statue_4": "Estátua de §a坂上駒子"
 }

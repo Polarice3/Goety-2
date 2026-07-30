@@ -53,8 +53,7 @@ public class SingleStackItem extends Item implements ICurioItem {
         return 15;
     }
 
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment)
-    {
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         if (stack.getItem() == ModItems.SPITEFUL_BELT.get()) {
             return enchantment == Enchantments.THORNS;
         }

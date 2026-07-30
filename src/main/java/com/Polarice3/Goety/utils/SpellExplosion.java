@@ -34,41 +34,48 @@ public class SpellExplosion {
             f2 *= 2.0F;
         }
         Vec3 vec3 = new Vec3(x, y, z);
-        for (Entity entity : explosionRangeEntities(level, source, x, y, z, radius)) {
-            double d12 = Math.sqrt(entity.distanceToSqr(vec3)) / (double) f2;
-            if (d12 <= 1.0D) {
-                double d5 = entity.getX() - x;
-                double d7 = entity.getEyeY() - y;
-                double d9 = entity.getZ() - z;
-                double d13 = Math.sqrt(d5 * d5 + d7 * d7 + d9 * d9);
-                if (d13 != 0.0D) {
-                    d5 /= d13;
-                    d7 /= d13;
-                    d9 /= d13;
-                    double d14 = (double) getSeenPercent(vec3, entity);
-                    double d10 = (1.0D - d12) * d14;
-                    float actualDamage = damage == 0 ? (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)) : damage;
-                    Entity trueSource = null;
-                    boolean hurt = true;
-                    if (entity instanceof ItemEntity) {
-                        hurt = false;
-                    } else if (damageSource.is(DamageTypeTags.IS_EXPLOSION) && entity.ignoreExplosion()){
-                        hurt = false;
-                    } else if (damageSource.getEntity() != null){
-                        trueSource = damageSource.getEntity();
-                    } else if (source != null){
-                        trueSource = source;
-                    }
-                    if (trueSource != null) {
-                        if (MobUtil.areAllies(trueSource, entity) || entity == trueSource){
+        if (!ExplosionUtil.enterExplosion()) {
+            return;
+        }
+        try {
+            for (Entity entity : explosionRangeEntities(level, source, x, y, z, radius)) {
+                double d12 = Math.sqrt(entity.distanceToSqr(vec3)) / (double) f2;
+                if (d12 <= 1.0D) {
+                    double d5 = entity.getX() - x;
+                    double d7 = entity.getEyeY() - y;
+                    double d9 = entity.getZ() - z;
+                    double d13 = Math.sqrt(d5 * d5 + d7 * d7 + d9 * d9);
+                    if (d13 != 0.0D) {
+                        d5 /= d13;
+                        d7 /= d13;
+                        d9 /= d13;
+                        double d14 = (double) getSeenPercent(vec3, entity);
+                        double d10 = (1.0D - d12) * d14;
+                        float actualDamage = damage == 0 ? (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)) : damage;
+                        Entity trueSource = null;
+                        boolean hurt = true;
+                        if (entity instanceof ItemEntity) {
                             hurt = false;
+                        } else if (damageSource.is(DamageTypeTags.IS_EXPLOSION) && entity.ignoreExplosion()){
+                            hurt = false;
+                        } else if (damageSource.getEntity() != null){
+                            trueSource = damageSource.getEntity();
+                        } else if (source != null){
+                            trueSource = source;
                         }
-                    }
-                    if (hurt) {
-                        this.explodeHurt(entity, damageSource, d5, d7, d9, d10, actualDamage);
+                        if (trueSource != null) {
+                            if (MobUtil.areAllies(trueSource, entity) || entity == trueSource){
+                                hurt = false;
+                            }
+                        }
+                        if (hurt) {
+                            this.explodeHurt(entity, damageSource, d5, d7, d9, d10, actualDamage);
+                        }
                     }
                 }
             }
+        } finally {
+            ExplosionUtil.exitExplosion();
         }
     }
 

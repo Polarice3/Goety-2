@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class MiscCapHelper {
     public static IMisc getCapability(LivingEntity livingEntity) {
-        return livingEntity.getCapability(MiscProvider.CAPABILITY).orElse(new MiscImp());
+        return livingEntity.getCapability(MiscProvider.CAPABILITY).orElseGet(MiscImp::new);
     }
 
     public static boolean isFreezing(LivingEntity livingEntity){
@@ -33,9 +33,12 @@ public class MiscCapHelper {
     }
 
     public static void setFreezing(LivingEntity livingEntity, int freeze){
-        getCapability(livingEntity).setFreezeLevel(freeze);
-        if (!livingEntity.level.isClientSide){
-            sendMiscUpdatePacket(livingEntity);
+        IMisc misc = getCapability(livingEntity);
+        if (misc.freezeLevel() != freeze) {
+            misc.setFreezeLevel(freeze);
+            if (!livingEntity.level.isClientSide){
+                sendMiscUpdatePacket(livingEntity);
+            }
         }
     }
 
@@ -70,13 +73,20 @@ public class MiscCapHelper {
     }
 
     public static void setShieldTime(LivingEntity livingEntity, int time){
-        getCapability(livingEntity).setShieldTime(time);
-        MiscCapHelper.sendMiscUpdatePacket(livingEntity);
+        IMisc misc = getCapability(livingEntity);
+        if (misc.shieldTime() != time) {
+            getCapability(livingEntity).setShieldTime(time);
+            MiscCapHelper.sendMiscUpdatePacket(livingEntity);
+        }
     }
 
     public static void decreaseShieldTime(LivingEntity livingEntity){
-        getCapability(livingEntity).decreaseShieldTime();
-        MiscCapHelper.sendMiscUpdatePacket(livingEntity);
+        IMisc misc = getCapability(livingEntity);
+        int before = misc.shieldTime();
+        misc.decreaseShieldTime();
+        if (misc.shieldTime() != before) {
+            MiscCapHelper.sendMiscUpdatePacket(livingEntity);
+        }
     }
 
     public static int getShieldCool(LivingEntity livingEntity){
@@ -133,8 +143,11 @@ public class MiscCapHelper {
     }
 
     public static void setMobTargetID(LivingEntity livingEntity, int mob){
-        getCapability(livingEntity).setMobTargetID(mob);
-        MiscCapHelper.sendMiscUpdatePacket(livingEntity);
+        IMisc misc = getCapability(livingEntity);
+        if (misc.getMobTargetID() != mob) {
+            misc.setMobTargetID(mob);
+            MiscCapHelper.sendMiscUpdatePacket(livingEntity);
+        }
     }
 
     @Nullable
@@ -181,8 +194,11 @@ public class MiscCapHelper {
     }
 
     public static void setCustomFoodLevel(LivingEntity livingEntity, int foodLevel){
-        getCapability(livingEntity).setCustomFoodLevel(foodLevel);
-        MiscCapHelper.sendMiscUpdatePacket(livingEntity);
+        IMisc misc = getCapability(livingEntity);
+        if (misc.getCustomFoodLevel() != foodLevel) {
+            misc.setCustomFoodLevel(foodLevel);
+            MiscCapHelper.sendMiscUpdatePacket(livingEntity);
+        }
     }
 
     public static void decreaseCustomFoodLevel(LivingEntity livingEntity) {

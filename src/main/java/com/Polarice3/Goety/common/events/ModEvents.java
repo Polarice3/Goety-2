@@ -137,6 +137,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
+import net.minecraftforge.event.entity.EntityTeleportEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -149,7 +150,6 @@ import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.MissingMappingsEvent;
 import org.apache.commons.lang3.ArrayUtils;
@@ -1778,38 +1778,51 @@ public class ModEvents {
     @SubscribeEvent
     public static void onFocusBagUpgrade(PlayerEvent.ItemCraftedEvent event) {
         ItemStack crafted = event.getCrafting();
-        if (!(crafted.getItem() instanceof FocusPack)) return;
+        if (crafted.getItem() instanceof FocusPack) {
+            Player player = event.getEntity();
+            if (!player.level.isClientSide) {
+                if (player.containerMenu instanceof CraftingMenu menu) {
+                    crafted.getCapability(ForgeCapabilities.ITEM_HANDLER)
+                            .ifPresent(packHandler -> {
+                                for (int i = 0; i < 9; i++) {
+                                    ItemStack bagStack = menu.getSlot(i).getItem();
+                                    if (!(bagStack.getItem() instanceof FocusBag) || bagStack.getItem() instanceof FocusPack) {
+                                        continue;
+                                    }
 
-        Player player = event.getEntity();
-        if (player.level().isClientSide) return;
-        if (!(player.containerMenu instanceof CraftingMenu menu)) return;
+                                    bagStack.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(bagHandler -> {
+                                        for (int bagSlot = 1; bagSlot < bagHandler.getSlots(); bagSlot++) {
+                                            ItemStack itemInBag = bagHandler.getStackInSlot(bagSlot);
+                                            if (itemInBag.isEmpty()) {
+                                                continue;
+                                            }
 
-        IItemHandler packHandler = crafted.getCapability(ForgeCapabilities.ITEM_HANDLER).orElse(null);
-        if (packHandler == null) return;
+                                            ItemStack toInsert = itemInBag.copy();
 
-        for (int i = 0; i < 9; i++) {
-            ItemStack bagStack = menu.getSlot(i).getItem();
-            if (!(bagStack.getItem() instanceof FocusBag) || bagStack.getItem() instanceof FocusPack) {
-                continue;
+                                            for (int packSlot = 1; packSlot < packHandler.getSlots(); packSlot++) {
+                                                if (toInsert.isEmpty()) {
+                                                    break;
+                                                }
+                                                toInsert = packHandler.insertItem(packSlot, toInsert, false);
+                                            }
+
+                                            if (!toInsert.isEmpty()) {
+                                                player.drop(toInsert, false);
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                }
             }
+        }
+    }
 
-            IItemHandler bagHandler = bagStack.getCapability(ForgeCapabilities.ITEM_HANDLER).orElse(null);
-            if (bagHandler == null) continue;
-
-            for (int bagSlot = 1; bagSlot < bagHandler.getSlots(); bagSlot++) {
-                ItemStack itemInBag = bagHandler.getStackInSlot(bagSlot);
-                if (itemInBag.isEmpty()) continue;
-
-                ItemStack toInsert = itemInBag.copy();
-
-                for (int packSlot = 1; packSlot < packHandler.getSlots(); packSlot++) {
-                    if (toInsert.isEmpty()) break;
-                    toInsert = packHandler.insertItem(packSlot, toInsert, false);
-                }
-
-                if (!toInsert.isEmpty()) {
-                    player.drop(toInsert, false);
-                }
+    @SubscribeEvent
+    public static void onTeleport(EntityTeleportEvent event) {
+        if (!(event instanceof EntityTeleportEvent.TeleportCommand) && !(event instanceof EntityTeleportEvent.SpreadPlayersCommand)) {
+            if (event.getEntity() instanceof Player player) {
+                CuriosFinder.dragonBlast(player, event.getPrev());
             }
         }
     }

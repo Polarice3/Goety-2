@@ -120,7 +120,7 @@ public abstract class AbstractVine extends AbstractMonolith{
             }
             this.discard();
         } else {
-            super.kill();
+            this.hurt(ModDamageSource.getDamageSource(this.level, ModDamageSource.DISMISSED), Float.MAX_VALUE);
         }
     }
 

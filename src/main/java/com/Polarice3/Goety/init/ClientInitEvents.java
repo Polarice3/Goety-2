@@ -255,6 +255,8 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModBlockLayer.BLACK_CRYSTAL, BlackCrystalRenderer::createBodyLayer);
         event.registerLayerDefinition(ModBlockLayer.OMINOUS_STATUE, OminousStatueRenderer::createBodyLayer);
         event.registerLayerDefinition(ModBlockLayer.BRAZIER_STATUE, OminousBrazierStatueRenderer::createBodyLayer);
+        event.registerLayerDefinition(ModBlockLayer.SCULPTURED_STATUE, SculpturedStatueRenderer::createBodyLayer);
+        event.registerLayerDefinition(ModBlockLayer.SCULPTURED_STATUE_SLIM, SculpturedStatueRenderer::createSlimLayer);
         event.registerLayerDefinition(ModBlockLayer.PLUSHIE, PlushieModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SPIKE, SpikeModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.HARPOON, HarpoonModel::createBodyLayer);
@@ -464,6 +466,7 @@ public class ClientInitEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.HAUNTED_JUG.get(), ModBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SPIDER_NEST.get(), TrainingBlockRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SHADE_GRAVESTONE.get(), TrainingBlockRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.SHADE_OSSUARY.get(), TrainingBlockRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.BLAZING_CAGE.get(), TrainingBlockRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.OMINOUS_PYRE.get(), BarracksBlockRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.OMINOUS_IDOL.get(), ModBlockEntityRenderer::new);
@@ -491,6 +494,7 @@ public class ClientInitEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.SIGN_BLOCK_ENTITIES.get(), SignRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.HANGING_SIGN_BLOCK_ENTITIES.get(), HangingSignRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.PLUSHIE.get(), PlushieBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.SCULPTURED_STATUE.get(), SculpturedStatueRenderer::new);
         event.registerEntityRenderer(ModEntityType.NETHER_METEOR.get(), NetherMeteorRenderer::new);
         event.registerEntityRenderer(ModEntityType.MOD_FIREBALL.get(), (rendererManager) -> new ModFireballRenderer<>(rendererManager, 0.75F, true));
         event.registerEntityRenderer(ModEntityType.LAVABALL.get(), (rendererManager) -> new ModFireballRenderer<>(rendererManager, 3.0F, true));

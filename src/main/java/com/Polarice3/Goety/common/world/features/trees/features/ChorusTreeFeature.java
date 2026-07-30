@@ -166,7 +166,15 @@ public class ChorusTreeFeature extends ModTreeFeature<ModTreeFeatureConfig> {
 
 					// make a trunk!
 					if (dist <= diameter && dist > hollow) {
-						ModFeaturePlacers.placeIfValidTreePos(world, trunkPlacer, random, dPos, config.trunkProvider);
+						if (world.getRandom().nextFloat() <= 0.01F) {
+							if (world.getRandom().nextBoolean()) {
+								world.setBlock(dPos, ModBlocks.BLOSSOMING_CHORUS_WOOD.get().defaultBlockState(), 3);
+							} else {
+								world.setBlock(dPos, ModBlocks.BLOOMING_CHORUS_WOOD.get().defaultBlockState(), 3);
+							}
+						} else {
+							ModFeaturePlacers.placeIfValidTreePos(world, trunkPlacer, random, dPos, config.trunkProvider);
+						}
 					}
 
 					// fill it with lava!

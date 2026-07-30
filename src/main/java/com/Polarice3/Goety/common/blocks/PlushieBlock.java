@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.common.blocks.entities.PlushieBlockEntity;
-import com.Polarice3.Goety.common.blocks.properties.ModStateProperties;
 import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -37,11 +36,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class PlushieBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, Equipable {
-    public static final IntegerProperty TYPE = ModStateProperties.PLUSHIE_TYPE;
     public static final IntegerProperty ROTATION = BlockStateProperties.ROTATION_16;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     protected static final VoxelShape SHAPE = Block.box(3.0D, 0.0D, 3.0D,
             13.0D, 15.0D, 13.0D);
+    public int type;
 
     protected PlushieBlock(Properties p_54120_) {
         super(p_54120_);
@@ -55,7 +54,8 @@ public class PlushieBlock extends BaseEntityBlock implements SimpleWaterloggedBl
                 .sound(SoundType.WOOL)
                 .noOcclusion()
                 .instabreak());
-        this.registerDefaultState(this.stateDefinition.any().setValue(TYPE, type).setValue(ROTATION, 0).setValue(WATERLOGGED, Boolean.FALSE));
+        this.type = type;
+        this.registerDefaultState(this.stateDefinition.any().setValue(ROTATION, 0).setValue(WATERLOGGED, Boolean.FALSE));
     }
 
     public PlushieBlock() {
@@ -64,6 +64,10 @@ public class PlushieBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 
     public EquipmentSlot getEquipmentSlot() {
         return EquipmentSlot.HEAD;
+    }
+
+    public int getPlushieType() {
+        return this.type;
     }
 
     public InteractionResult use(BlockState p_48804_, Level p_48805_, BlockPos p_48806_, Player p_48807_, InteractionHand p_48808_, BlockHitResult p_48809_) {
@@ -129,7 +133,7 @@ public class PlushieBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_54794_) {
-        p_54794_.add(TYPE, ROTATION, WATERLOGGED);
+        p_54794_.add(ROTATION, WATERLOGGED);
     }
 
     @Nullable

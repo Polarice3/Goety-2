@@ -106,6 +106,9 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<GravestoneBlockEntity>> SHADE_GRAVESTONE = BLOCK_ENTITY.register("shade_gravestone",
             () -> BlockEntityType.Builder.of(GravestoneBlockEntity::new, ModBlocks.SHADE_GRAVESTONE.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<OssuaryBlockEntity>> SHADE_OSSUARY = BLOCK_ENTITY.register("shade_ossuary",
+            () -> BlockEntityType.Builder.of(OssuaryBlockEntity::new, ModBlocks.SHADE_OSSUARY.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<BlazingCageBlockEntity>> BLAZING_CAGE = BLOCK_ENTITY.register("blazing_cage",
             () -> BlockEntityType.Builder.of(BlazingCageBlockEntity::new, ModBlocks.BLAZING_CAGE.get()).build(null));
 
@@ -170,6 +173,16 @@ public class ModBlockEntities {
                         .filter(block -> block instanceof ThroneBlock)
                         .toArray(Block[]::new);
                 return BlockEntityType.Builder.of(ThroneBlockEntity::new, blocks).build(null);
+            }
+    );
+
+    public static final RegistryObject<BlockEntityType<SculpturedStatueBlockEntity>> SCULPTURED_STATUE = BLOCK_ENTITY.register("sculptured_statue",
+            () -> {
+                Block[] blocks = ModBlocks.BLOCKS.getEntries().stream()
+                        .map(RegistryObject::get)
+                        .filter(block -> block instanceof SculpturedStatueBlock)
+                        .toArray(Block[]::new);
+                return BlockEntityType.Builder.of(SculpturedStatueBlockEntity::new, blocks).build(null);
             }
     );
 

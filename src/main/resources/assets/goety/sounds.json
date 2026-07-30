@@ -8379,6 +8379,23 @@
       }
     ]
   },
+  "void_blast": {
+    "sounds": [
+      {
+        "name": "goety:item/void_blast1"
+      },
+      {
+        "name": "goety:item/void_blast2"
+      },
+      {
+        "name": "goety:item/void_blast3"
+      },
+      {
+        "name": "goety:item/void_blast4"
+      }
+    ],
+    "subtitle": "subtitle.goety.void_blast"
+  },
   "corrupt_beam_start": {
     "sounds": [
       {

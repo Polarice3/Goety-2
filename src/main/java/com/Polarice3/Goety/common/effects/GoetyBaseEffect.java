@@ -36,6 +36,10 @@ public class GoetyBaseEffect extends MobEffect {
         super(p_19451_, p_19452_);
     }
 
+    public static ColorUtil CHILL_HIDE = new ColorUtil(0x7eb7d4);
+    public static ColorUtil CHILL_HIDE_AURA = new ColorUtil(MapColor.ICE);
+    public static ColorUtil GRAVITY_PULSE = new ColorUtil(0x9a62e7);
+
     @SuppressWarnings("deprecation")
     public void applyEffectTick(LivingEntity livingEntity, int amplify) {
         Level world = livingEntity.level;
@@ -150,10 +154,10 @@ public class GoetyBaseEffect extends MobEffect {
             if (world instanceof ServerLevel serverLevel) {
                 if (livingEntity.tickCount % 5 == 0) {
                     float f = livingEntity.getBbWidth();
-                    ServerParticleUtil.windParticle(serverLevel, new ColorUtil(0x7eb7d4), f, livingEntity.getBbHeight() / 2.0F, livingEntity.getId(), livingEntity.position());
+                    ServerParticleUtil.windParticle(serverLevel, CHILL_HIDE, f, livingEntity.getBbHeight() / 2.0F, livingEntity.getId(), livingEntity.position());
                 }
                 if (livingEntity.tickCount % 15 == 0) {
-                    serverLevel.sendParticles(new AuraParticleOption(livingEntity.getId(), livingEntity.getBbHeight(), new ColorUtil(MapColor.ICE)), livingEntity.getX(), livingEntity.getY() + (livingEntity.getBbHeight() / 2.0F), livingEntity.getZ(), 1, 0, 0, 0, 0.5F);
+                    serverLevel.sendParticles(new AuraParticleOption(livingEntity.getId(), livingEntity.getBbHeight(), CHILL_HIDE_AURA), livingEntity.getX(), livingEntity.getY() + (livingEntity.getBbHeight() / 2.0F), livingEntity.getZ(), 1, 0, 0, 0, 0.5F);
                 }
             }
         }
@@ -172,7 +176,7 @@ public class GoetyBaseEffect extends MobEffect {
                 if (world instanceof ServerLevel serverLevel) {
                     double area = Mth.square(livingEntity.getBoundingBox().getSize()) * 2.0F;
                     area *= ((amplify / 2.0D) + 1.0D);
-                    ColorUtil colorUtil = new ColorUtil(0x9a62e7);
+                    ColorUtil colorUtil = GRAVITY_PULSE;
                     serverLevel.sendParticles(new ShockwaveParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), (float) area, 1, true), livingEntity.getX(), livingEntity.getY() + 0.25F, livingEntity.getZ(), 0, 0, 0, 0, 0.5F);
                     for (LivingEntity target : livingEntity.level.getEntitiesOfClass(LivingEntity.class, livingEntity.getBoundingBox().inflate(area))) {
                         if (target != livingEntity && !MobUtil.areAllies(livingEntity, target) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target) && target != livingEntity.getVehicle()) {

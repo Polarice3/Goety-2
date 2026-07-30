@@ -474,8 +474,8 @@ public class ItemConfig {
                         .defineInRange("cursedPaladinFeet", 3, 1, Integer.MAX_VALUE);
                 CursedPaladinLegs = BUILDER.comment("Define how much armor points wearing the Leggings provides, Default: 6")
                         .defineInRange("cursedPaladinLegs", 6, 1, Integer.MAX_VALUE);
-                CursedPaladinChest = BUILDER.comment("Define how much armor points wearing the Chestplate provides, Default: 7")
-                        .defineInRange("cursedPaladinChest", 7, 1, Integer.MAX_VALUE);
+                CursedPaladinChest = BUILDER.comment("Define how much armor points wearing the Chestplate provides, Default: 8")
+                        .defineInRange("cursedPaladinChest", 8, 1, Integer.MAX_VALUE);
                 CursedPaladinHead = BUILDER.comment("Define how much armor points wearing the Helmet provides, Default: 3")
                         .defineInRange("cursedPaladinHead", 3, 1, Integer.MAX_VALUE);
                 BUILDER.pop();
@@ -483,8 +483,8 @@ public class ItemConfig {
                     .defineInRange("cursedPaladinDurability", 30, 1, Integer.MAX_VALUE);
             CursedPaladinEnchantability = BUILDER.comment("Define the Enchantability for the armor, higher number the better, Default: 20")
                     .defineInRange("cursedPaladinEnchantability", 20, 1, Integer.MAX_VALUE);
-            CursedPaladinToughness = BUILDER.comment("Define the toughness for each armor piece, Default: 1.0")
-                    .defineInRange("cursedPaladinToughness", 1.0, 0.0, Double.MAX_VALUE);
+            CursedPaladinToughness = BUILDER.comment("Define the toughness for each armor piece, Default: 2.0")
+                    .defineInRange("cursedPaladinToughness", 2.0, 0.0, Double.MAX_VALUE);
             CursedPaladinKnockResist = BUILDER.comment("Define how much knockback resistance each armor piece provides, Default: 0.0")
                     .defineInRange("cursedPaladinKnockResist", 0.0, 0.0, Double.MAX_VALUE);
             CursedPaladinPersist = BUILDER.comment("Whether armor pieces don't break but no longer provide armor, Default: true")

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "goety:block/blossoming_chorus_wood",
+    "side": "goety:block/blossoming_chorus_wood"
+  }
+}

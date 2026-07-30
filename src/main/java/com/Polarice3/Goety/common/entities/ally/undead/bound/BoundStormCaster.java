@@ -13,7 +13,7 @@ import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.Polarice3.Goety.utils.ParticleUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -251,13 +251,15 @@ public class BoundStormCaster extends AbstractBoundIllager {
             for(int i = 0; i < 2; ++i) {
                 this.level.addParticle(ParticleTypes.CLOUD, this.getRandomX(0.5D), this.getY() + 0.5D, this.getRandomZ(0.5D), (0.5D - this.random.nextDouble()) * 0.15D, 0.01F, (0.5D - this.random.nextDouble()) * 0.15D);
             }
+            if (this.isAlive() && this.tickCount % 3 == 0) {
+                ParticleUtil.windParticle(this.level, ColorUtil.WHITE, 0.5F + this.random.nextFloat() * 0.5F, 0.0F, this.getId(), this.position());
+            }
         } else if (this.level instanceof ServerLevel serverLevel){
             if (this.isAlive()) {
-                ServerParticleUtil.windParticle(serverLevel, ColorUtil.WHITE, 0.5F + serverLevel.random.nextFloat() * 0.5F, 0.0F, this.getId(), this.position());
-                if (serverLevel.random.nextInt(20) == 0){
+                if (serverLevel.getRandom().nextInt(20) == 0){
                     Vec3 vec3 = Vec3.atCenterOf(this.blockPosition());
                     Vec3 vec31 = vec3.add(this.random.nextDouble(), 1.0D, this.random.nextDouble());
-                    ModNetwork.sendToALL(new SLightningPacket(vec3, vec31, 2));
+                    ModNetwork.sentToTrackingEntity(this, new SLightningPacket(vec3, vec31, 2));
                 }
             }
         }

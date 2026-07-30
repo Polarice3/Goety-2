@@ -44,6 +44,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
         plushie(ModBlocks.PLUSHIE_9.get());
         plushie(ModBlocks.PLUSHIE_10.get());
 
+        sculpturedStatue(ModBlocks.SCULPTURED_STATUE.get());
+        sculpturedStatue(ModBlocks.STATUE_1.get());
+        sculpturedStatue(ModBlocks.STATUE_2.get());
+        sculpturedStatue(ModBlocks.STATUE_3.get());
+        sculpturedStatue(ModBlocks.STATUE_4.get());
+
         simpleBlockWithItem(ModBlocks.DIAMOND_MOLD_BLOCK.get());
 
         simpleBlockWithItem(ModBlocks.COBBLED_DIRT.get());
@@ -188,6 +194,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         sideBottomTopBlock(ModBlocks.CHISELED_POLISHED_OMINOUS_STONE_BLOCK.get(), Goety.location("block/chiseled_polished_ominous_stone_top"), Goety.location("block/chiseled_polished_ominous_stone"), Goety.location("block/chiseled_polished_ominous_stone_top"));
         sideBottomTopBlock(ModBlocks.TOP_SOILED_END_BASALT.get(), Goety.location("block/end_soil"), Goety.location("block/top_soiled_end_basalt"), Goety.location("block/end_basalt_top"));
         sideBottomTopBlock(ModBlocks.BOTTOM_SOILED_END_BASALT.get(), Goety.location("block/end_basalt_top"), Goety.location("block/bottom_soiled_end_basalt"), Goety.location("block/end_soil"));
+        sideBottomTopBlock(ModBlocks.TOP_DIRTY_END_BASALT.get(), Goety.location("block/end_dirt"), Goety.location("block/top_dirty_end_basalt"), Goety.location("block/end_basalt_top"));
+        sideBottomTopBlock(ModBlocks.BOTTOM_DIRTY_END_BASALT.get(), Goety.location("block/end_basalt_top"), Goety.location("block/bottom_dirty_end_basalt"), Goety.location("block/end_dirt"));
         sideBottomTopBlock(ModBlocks.END_ROCK_SLATE.get(), Goety.location("block/end_rock_top"), Goety.location("block/end_rock_slate"), Goety.location("block/end_stone_slate_top"));
         sideBottomTopBlock(ModBlocks.END_STONE_SLATE_ROCK.get(), Goety.location("block/end_stone_slate_top"), Goety.location("block/end_stone_slate_rock"), Goety.location("block/end_rock_top"));
 
@@ -220,6 +228,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         columnBlockWithItem((RotatedPillarBlock) ModBlocks.PINE_WOOD.get(), Goety.location("block/pine_log"));
         columnBlockWithItem((RotatedPillarBlock) ModBlocks.STEEP_WOOD.get(), Goety.location("block/steep_log"));
         columnBlockWithItem((RotatedPillarBlock) ModBlocks.CHORUS_WOOD.get(), Goety.location("block/chorus_log"));
+        columnBlockWithItem((RotatedPillarBlock) ModBlocks.BLOSSOMING_CHORUS_WOOD.get(), Goety.location("block/blossoming_chorus_wood"));
+        columnBlockWithItem((RotatedPillarBlock) ModBlocks.BLOOMING_CHORUS_WOOD.get(), Goety.location("block/blooming_chorus_wood"));
         columnBlockWithItem((RotatedPillarBlock) ModBlocks.CORRUPT_CHORUS_WOOD.get(), Goety.location("block/corrupt_chorus_log"));
 
         columnBlockWithItem((RotatedPillarBlock) ModBlocks.STRIPPED_HAUNTED_WOOD.get(), Goety.location("block/stripped_haunted_log"));
@@ -559,6 +569,15 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 .transform(ItemDisplayContext.GROUND).rotation(0, 0, 0).translation(0, 3, 0).scale(0.5F, 0.5F, 0.5F).end()
                 .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND).rotation(45, 45, 0).translation(0, 3, 0).scale(0.5F, 0.5F, 0.5F).end()
                 .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).rotation(0, 180, 0).translation(0, 0, 0).scale(1, 1, 1).end();
+    }
+
+    protected void sculpturedStatue(Block b) {
+        simpleBlock(b, models().getBuilder(name(b))
+                .parent(new ModelFile.UncheckedModelFile("builtin/entity"))
+                .texture("particle", "minecraft:block/stone_bricks"));
+        itemModels().getBuilder(key(b).getPath())
+                .parent(new ModelFile.UncheckedModelFile("builtin/entity"))
+                .texture("particle", "minecraft:block/stone_bricks");
     }
 
     public ModelFile cross(Block block) {

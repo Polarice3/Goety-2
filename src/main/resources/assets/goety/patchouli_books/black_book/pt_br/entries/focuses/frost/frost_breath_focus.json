@@ -10,6 +10,10 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/frost_breath_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Conjurar com $(l:crafts/staff/frost_staff)Cajado do Gelo$() não só aumenta o dano, como também cobre o terreno de neve e o congela."
     }
   ]
 }

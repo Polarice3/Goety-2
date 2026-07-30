@@ -1106,8 +1106,8 @@ public class SpellConfig {
                     .defineInRange("fireBreathCoolDown", 100, 0, 72000);
             FireBreathDamage = BUILDER.comment("How much base damage Fire Breath deals, Default: 2.0")
                     .defineInRange("fireBreathDamage", 2.0, 1.0, Double.MAX_VALUE);
-            DragonFireGriefing = BUILDER.comment("Ring of the Dragon Fire Breath deals environmental damage, Default: true")
-                    .define("dragonFireGriefing", true);
+            DragonFireGriefing = BUILDER.comment("Staff Fire Breath deals environmental damage, Default: true")
+                    .define("staffFireGriefing", true);
             BUILDER.pop();
             BUILDER.push("Frost Breath Spell");
             FrostBreathCost = BUILDER.comment("Frost Breath Spell Cost per second, Default: 2")
@@ -1120,8 +1120,8 @@ public class SpellConfig {
                     .defineInRange("frostBreathCoolDown", 100, 0, 72000);
             FrostBreathDamage = BUILDER.comment("How much base damage Frost Breath deals, Default: 1.0")
                     .defineInRange("frostBreathDamage", 1.0, 1.0, Double.MAX_VALUE);
-            DragonFrostGriefing = BUILDER.comment("Ring of the Dragon Frost Breath deals environmental damage, Default: true")
-                    .define("dragonFrostGriefing", true);
+            DragonFrostGriefing = BUILDER.comment("Staff Frost Breath deals environmental damage, Default: true")
+                    .define("staffFrostGriefing", true);
             BUILDER.pop();
             BUILDER.push("Shocking Spell");
             ShockingCost = BUILDER.comment("Shocking Spell Cost per second, Default: 4")

@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The Ring of the Dragon, when worn, powers up the breath spells, $(l:focuses/fire_breath_focus)Fire$() and $(l:focuses/frost/frost_breath_focus)Frost$(), that not only increases their damage, but also affects the terrain itself!"
+      "text": "The Ring of the Dragon, when worn, causes you to emit an explosion, when you teleport with spells, ender pearls or chorus fruits, upon your previous location before entering a small cooldown."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:ring_of_the_dragon"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The ring can be enchanted with Radius to increase the size of the explosion."
     }
   ],
   "extra_recipe_mappings": {

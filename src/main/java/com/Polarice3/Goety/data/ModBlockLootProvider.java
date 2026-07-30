@@ -111,6 +111,7 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
         this.add(ModBlocks.FORBIDDEN_GRASS.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, Blocks.DIRT));
         this.add(ModBlocks.END_GROWTH_BLOCK.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, ModBlocks.END_ROCK.get()));
         this.add(ModBlocks.CHORUS_GRASS_BLOCK.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, ModBlocks.COBBLED_END_STONE_BLOCK.get()));
+        this.add(ModBlocks.CHORUS_GRASS_DIRT.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, ModBlocks.END_DIRT.get()));
         this.add(ModBlocks.RED_MOSS_SILTSTONE.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, ModBlocks.COBBLED_SILTSTONE_BLOCK.get()));
         this.add(ModBlocks.RED_MOSS_HIGHROCK.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, ModBlocks.HIGHROCK_BLOCK.get()));
         this.add(ModBlocks.RED_MOSS_DIRT.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, Blocks.DIRT));

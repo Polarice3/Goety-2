@@ -30,7 +30,6 @@ import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -1269,7 +1268,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
             if (MobsConfig.ApostleShootIndicator.get() && this.isUsingItem() && this.getTicksUsingItem() >= 10 && this.getTicksUsingItem() <= 20) {
                 this.setShootIndicatorProgress((this.getTicksUsingItem() - 10F) / 10F);
                 if (this.getTicksUsingItem() == 10 && this.level instanceof ServerLevel serverLevel) {
-                    ColorUtil colorUtil = new ColorUtil(ChatFormatting.DARK_RED);
+                    ColorUtil colorUtil = ColorUtil.DARK_RED;
                     serverLevel.sendParticles(new ShootIndicatorParticleOption(this.getId()), this.getX(), this.getY(), this.getZ(), 0, colorUtil.red, colorUtil.green, colorUtil.blue, 1.0F);
                 }
             } else {
@@ -1297,8 +1296,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
                 this.resetCoolDown();
                 this.setSpellCycle(0);
                 if (this.level instanceof ServerLevel serverLevel){
-                    ServerParticleUtil.windParticle(serverLevel, new ColorUtil(ChatFormatting.BLACK), 2.0F, 1.5F, this.getId(), this.position());
-                    ServerParticleUtil.windParticle(serverLevel, new ColorUtil(ChatFormatting.BLACK), 4.0F, 0.5F, this.getId(), this.position());
+                    ServerParticleUtil.windParticle(serverLevel, ColorUtil.BLACK, 2.0F, 1.5F, this.getId(), this.position());
+                    ServerParticleUtil.windParticle(serverLevel, ColorUtil.BLACK, 4.0F, 0.5F, this.getId(), this.position());
                 }
             }
             if (this.getHealth() >= this.getMaxHealth()){
@@ -2289,7 +2288,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
                 }
             }
             if (apostle.level instanceof ServerLevel serverLevel) {
-                ColorUtil colorUtil = new ColorUtil(ChatFormatting.DARK_RED);
+                ColorUtil colorUtil = ColorUtil.DARK_RED;
                 serverLevel.sendParticles(new AoEParticleOption(radius, 40, apostle.getId()), apostle.getX(), apostle.getY() + 0.25F, apostle.getZ(), 0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.0F);
             }
         }
@@ -2298,7 +2297,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
             super.tick();
             Apostle apostle = Apostle.this;
             if (apostle.level instanceof ServerLevel serverLevel) {
-                ServerParticleUtil.gatheringParticles(new GatherTrailParticleOption(new ColorUtil(ChatFormatting.DARK_RED), apostle.position().add(0, apostle.getBbHeight() / 2, 0)), apostle, serverLevel, 2);
+                ServerParticleUtil.gatheringParticles(new GatherTrailParticleOption(ColorUtil.DARK_RED, apostle.position().add(0, apostle.getBbHeight() / 2, 0)), apostle, serverLevel, 2);
             }
             if (apostle.isSecondPhase()) {
                 if (this.spellWarmup == 10) {

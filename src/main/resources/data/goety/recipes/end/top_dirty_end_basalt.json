@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "goety:end_basalt"
+    },
+    "S": {
+      "item": "goety:end_dirt"
+    }
+  },
+  "result": {
+    "item": "goety:top_dirty_end_basalt"
+  }
+}

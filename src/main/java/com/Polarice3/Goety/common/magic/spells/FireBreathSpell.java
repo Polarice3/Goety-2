@@ -28,6 +28,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated(forRemoval = true)
 public class FireBreathSpell extends BreathingSpell {
     public float damage = SpellConfig.FireBreathDamage.get().floatValue() * WandUtil.damageMultiply();
 

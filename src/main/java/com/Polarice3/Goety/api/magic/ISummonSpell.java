@@ -74,42 +74,50 @@ public interface ISummonSpell extends ISpell{
         this.summonParticles(worldIn, caster, staff, summoned);
     }
 
+    ColorUtil DEFAULT_SUMMON = new ColorUtil(0x8FE6DF);
+    ColorUtil VOID_SUMMON = new ColorUtil(0xcc00fa);
+    ColorUtil WILD_SUMMON = new ColorUtil(0x403b14);
+    ColorUtil NETHER_SUMMON = new ColorUtil(0xffa300);
+    ColorUtil GEO_SUMMON = new ColorUtil(0xffca00);
+    ColorUtil NORMAL_SUMMON = ColorUtil.WHITE;
+    ColorUtil NAMELESS_SUMMON = new ColorUtil(0xa7fc3e);
+
     default void summonParticles(ServerLevel worldIn, LivingEntity caster, ItemStack staff, LivingEntity summoned) {
-        ColorUtil colorUtil = new ColorUtil(0x8FE6DF);
+        ColorUtil colorUtil = DEFAULT_SUMMON;
         int colorFrom = 0x17b0e0;
         int colorTo = 0xffffff;
         if (summoned.getMobType() != MobType.UNDEAD) {
             if (this.getSpellType() == SpellType.VOID) {
-                colorUtil = new ColorUtil(0xcc00fa);
+                colorUtil = VOID_SUMMON;
                 colorFrom = 0xcc00fa;
                 colorTo = 0xe079fa;
             } else if (this.getSpellType() == SpellType.WILD) {
-                colorUtil = new ColorUtil(0x403b14);
+                colorUtil = WILD_SUMMON;
                 colorFrom = 0x403b14;
                 colorTo = 0x5b4e1d;
             } else if (this.getSpellType() == SpellType.NETHER) {
-                colorUtil = new ColorUtil(0xffa300);
+                colorUtil = NETHER_SUMMON;
                 colorFrom = 0xffa300;
                 colorTo = 0xffff6e;
             } else if (this.getSpellType() == SpellType.GEOMANCY) {
-                colorUtil = new ColorUtil(0xffca00);
+                colorUtil = GEO_SUMMON;
                 colorFrom = 0xffca00;
                 colorTo = 0xffff00;
             } else {
-                colorUtil = new ColorUtil(0xffffff);
+                colorUtil = NORMAL_SUMMON;
                 colorFrom = 0xffffff;
             }
         } else {
             if (staff.is(ModItems.NAMELESS_STAFF.get())) {
-                colorUtil = new ColorUtil(0xa7fc3e);
+                colorUtil = NAMELESS_SUMMON;
                 colorFrom = 0xa7fc3e;
                 colorTo = 0xcffc97;
             } else if (this.typeStaff(staff, SpellType.WILD)) {
-                colorUtil = new ColorUtil(0x403b14);
+                colorUtil = WILD_SUMMON;
                 colorFrom = 0x403b14;
                 colorTo = 0x5b4e1d;
             } else if (this.typeStaff(staff, SpellType.NETHER)) {
-                colorUtil = new ColorUtil(0xffa300);
+                colorUtil = NETHER_SUMMON;
                 colorFrom = 0xffa300;
                 colorTo = 0xffff6e;
             }

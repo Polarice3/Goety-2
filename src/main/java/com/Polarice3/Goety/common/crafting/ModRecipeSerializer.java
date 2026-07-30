@@ -48,6 +48,9 @@ public class ModRecipeSerializer {
     public static final RegistryObject<RecipeSerializer<CauldronRecipe>> CAULDRON = RECIPE_SERIALIZERS.register("cauldron",
             () -> CauldronRecipe.SERIALIZER);
 
+    public static final RegistryObject<RecipeSerializer<CauldronSusStewRecipe>> CAULDRON_SUS = RECIPE_SERIALIZERS.register("cauldron_sus",
+            () -> CauldronSusStewRecipe.SERIALIZER);
+
     public static final RegistryObject<RecipeType<BrewingRecipe>> BREWING_TYPE = register("brewing");
 
     public static final RegistryObject<RecipeSerializer<BrewingRecipe>> BREWING = RECIPE_SERIALIZERS.register("brewing",

@@ -104,42 +104,47 @@ public class LootingExplosion extends Explosion {
 
         boolean flag = this.lootMode == Mode.LOOT;
 
-        for (Entity entity : list) {
-            if (!entity.ignoreExplosion()) {
-                if (!(flag && entity instanceof ItemEntity)) {
-                    double d12 = Mth.sqrt((float) entity.distanceToSqr(vector3d)) / f2;
-                    if (d12 <= 1.0D) {
-                        double d5 = entity.getX() - this.x;
-                        double d7 = (entity instanceof PrimedTnt ? entity.getY() : entity.getEyeY()) - this.y;
-                        double d9 = entity.getZ() - this.z;
-                        double d13 = Mth.sqrt((float) (d5 * d5 + d7 * d7 + d9 * d9));
-                        if (d13 != 0.0D) {
-                            d5 = d5 / d13;
-                            d7 = d7 / d13;
-                            d9 = d9 / d13;
-                            double d14 = (double) getSeenPercent(vector3d, entity);
-                            double d10 = (1.0D - d12) * d14;
-                            boolean hurt = true;
-                            if (this.getIndirectSourceEntity() != null){
-                                if (MobUtil.areAllies(this.getIndirectSourceEntity(), entity)){
-                                    hurt = false;
+        if (!ExplosionUtil.enterExplosion()) {
+            return;
+        }
+        try {
+            for (Entity entity : list) {
+                if (!entity.ignoreExplosion()) {
+                    if (!(flag && entity instanceof ItemEntity)) {
+                        double d12 = Mth.sqrt((float) entity.distanceToSqr(vector3d)) / f2;
+                        if (d12 <= 1.0D) {
+                            double d5 = entity.getX() - this.x;
+                            double d7 = (entity instanceof PrimedTnt ? entity.getY() : entity.getEyeY()) - this.y;
+                            double d9 = entity.getZ() - this.z;
+                            double d13 = Mth.sqrt((float) (d5 * d5 + d7 * d7 + d9 * d9));
+                            if (d13 != 0.0D) {
+                                d5 = d5 / d13;
+                                d7 = d7 / d13;
+                                d9 = d9 / d13;
+                                double d14 = (double) getSeenPercent(vector3d, entity);
+                                double d10 = (1.0D - d12) * d14;
+                                boolean hurt = true;
+                                if (this.getIndirectSourceEntity() != null){
+                                    if (MobUtil.areAllies(this.getIndirectSourceEntity(), entity)){
+                                        hurt = false;
+                                    }
                                 }
-                            }
-                            if (hurt) {
-                                if (flag){
-                                    entity.hurt(ModDamageSource.lootExplosion(this.getDirectSourceEntity(), this.getIndirectSourceEntity(), this.level), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
-                                } else {
-                                    entity.hurt(this.getDamageSource(), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
-                                }
-                                double d11 = d10;
-                                if (entity instanceof LivingEntity) {
-                                    d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10);
-                                }
+                                if (hurt) {
+                                    if (flag){
+                                        entity.hurt(ModDamageSource.lootExplosion(this.getDirectSourceEntity(), this.getIndirectSourceEntity(), this.level), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
+                                    } else {
+                                        entity.hurt(this.getDamageSource(), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
+                                    }
+                                    double d11 = d10;
+                                    if (entity instanceof LivingEntity) {
+                                        d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10);
+                                    }
 
-                                entity.setDeltaMovement(entity.getDeltaMovement().add(d5 * d11, d7 * d11, d9 * d11));
-                                if (entity instanceof Player player) {
-                                    if (!player.isSpectator() && (!player.isCreative() || !player.getAbilities().flying)) {
-                                        this.hitPlayers.put(player, new Vec3(d5 * d10, d7 * d10, d9 * d10));
+                                    entity.setDeltaMovement(entity.getDeltaMovement().add(d5 * d11, d7 * d11, d9 * d11));
+                                    if (entity instanceof Player player) {
+                                        if (!player.isSpectator() && (!player.isCreative() || !player.getAbilities().flying)) {
+                                            this.hitPlayers.put(player, new Vec3(d5 * d10, d7 * d10, d9 * d10));
+                                        }
                                     }
                                 }
                             }
@@ -147,6 +152,8 @@ public class LootingExplosion extends Explosion {
                     }
                 }
             }
+        } finally {
+            ExplosionUtil.exitExplosion();
         }
     }
 

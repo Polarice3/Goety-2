@@ -2,9 +2,11 @@ package com.Polarice3.Goety.compat.jei;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.crafting.CauldronRecipe;
+import com.Polarice3.Goety.common.crafting.CauldronSusStewRecipe;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -19,6 +21,9 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.SuspiciousStewItem;
+import net.minecraft.world.level.block.FlowerBlock;
 
 public class ModCauldronCategory implements IRecipeCategory<CauldronRecipe> {
     private final IDrawable background;
@@ -74,8 +79,16 @@ public class ModCauldronCategory implements IRecipeCategory<CauldronRecipe> {
                     .addIngredients(recipe.getIngredients().get(i));
         }
 
-        recipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 109, 35)
-                .addItemStack(recipe.getResultItem(null));
+        IRecipeSlotBuilder output = recipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 109, 35);
+        if (recipe instanceof CauldronSusStewRecipe) {
+            for (FlowerBlock flower : CauldronSusStewRecipe.getFlowers()) {
+                ItemStack stew = new ItemStack(Items.SUSPICIOUS_STEW);
+                SuspiciousStewItem.saveMobEffect(stew, flower.getSuspiciousEffect(), flower.getEffectDuration());
+                output.addItemStack(stew);
+            }
+        } else {
+            output.addItemStack(recipe.getResultItem(null));
+        }
 
         recipeLayout.addSlot(RecipeIngredientRole.CATALYST, 109 + 36, 35)
                         .addIngredients(recipe.getTakeWith());

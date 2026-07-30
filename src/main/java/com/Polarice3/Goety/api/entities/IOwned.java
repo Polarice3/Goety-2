@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.api.entities;
 
 import com.Polarice3.Goety.api.blocks.entities.IOwnedBlock;
-import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
+import com.Polarice3.Goety.common.events.StunnedEvents;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModTags;
@@ -204,124 +204,35 @@ public interface IOwned {
     }
 
     default void ownedTick(){
-        if (this instanceof Mob mob) {
-            if (!mob.level.isClientSide) {
-                if (!mob.hasEffect(GoetyEffects.WILD_RAGE.get())) {
-                    if (mob.getTarget() instanceof IOwned ownedTarget) {
-                        boolean shouldClearTarget = false;
-                        if (this.getTrueOwner() != null
-                                && ownedTarget.getTrueOwner() == this.getTrueOwner()) {
-                            shouldClearTarget = true;
+        if (this instanceof Mob mobThis) {
+            if (!mobThis.level.isClientSide) {
+                if (this.getTrueOwner() instanceof IOwned owned) {
+                    try {
+                        if (owned.getHasSummonCheck() <= 0) {
+                            owned.setHasSummonCheck(2);
                         }
-                        if (ownedTarget.getTrueOwner() == this) {
-                            shouldClearTarget = true;
-                        }
-                        if (MobUtil.ownerStack(this, ownedTarget)) {
-                            shouldClearTarget = true;
-                        }
-                        if (!shouldClearTarget && mob.getTarget() != null
-                                && this.isAllyWith(mob.getTarget())) {
-                            shouldClearTarget = true;
-                        }
-                        if (!shouldClearTarget
-                                && this.getTrueOwner() == null
-                                && ownedTarget.getTrueOwner() == null
-                                && this.getOwnerId() != null
-                                && this.getOwnerId().equals(ownedTarget.getOwnerId())) {
-                            shouldClearTarget = true;
-                        }
-                        if (!shouldClearTarget
-                                && this.getOwnerId() != null
-                                && ownedTarget.getOwnerId() != null
-                                && mob.level instanceof ServerLevel serverLevel
-                                && SEHelper.isSavedAlly(serverLevel, this.getOwnerId(),
-                                mob.getTarget())) {
-                            shouldClearTarget = true;
-                        }
-                        if (shouldClearTarget) {
-                            mob.setTarget(null);
-                            if (mob.getLastHurtByMob() == mob.getTarget()) {
-                                mob.setLastHurtByMob(null);
-                            }
-                        }
+                    } catch (NullPointerException ignored) {
                     }
-                    if (this.getTrueOwner() != null) {
-                        if (mob.getLastHurtByMob() == this.getTrueOwner()) {
-                            mob.setLastHurtByMob(null);
+                    if (this.getTrueOwner().isRemoved() || this.getTrueOwner().isDeadOrDying() || !this.getTrueOwner().isAlive()) {
+                        if (owned.getTrueOwner() != null) {
+                            this.setTrueOwner(owned.getTrueOwner());
+                        } else if (!this.isHostile() && !this.isNatural() && !(owned instanceof Enemy) && !owned.isHostile()) {
+                            mobThis.kill();
                         }
                     }
                 }
-                if (this.getTrueOwner() != null) {
-                    this.ownerCheck();
-                    if (this.getTrueOwner() instanceof Mob mobOwner) {
-                        if (mobOwner.getTarget() != null && mob.getTarget() == null) {
-                            mob.setTarget(mobOwner.getTarget());
-                        }
-                        if (mobOwner instanceof Apostle apostle) {
-                            if (mob.distanceTo(apostle) > 32) {
-                                this.teleportTowards(apostle);
-                            }
-                        }
-                        if (mobOwner.getType().is(Tags.EntityTypes.BOSSES) || mobOwner.getType().is(ModTags.EntityTypes.SUMMON_KILL)) {
-                            if (mobOwner.isRemoved() || mobOwner.isDeadOrDying()) {
-                                mob.kill();
-                            }
+                this.ownerCheck();
+                this.targetingTick();
+                if (this.getTrueOwner() instanceof Mob mobOwner) {
+                    if (mobOwner instanceof Apostle apostle) {
+                        if (mobThis.distanceTo(apostle) > 32) {
+                            this.teleportTowards(apostle);
                         }
                     }
-                    if (this.getTrueOwner() instanceof IOwned owned) {
-                        try {
-                            if (owned.getHasSummonCheck() <= 0) {
-                                owned.setHasSummonCheck(2);
-                            }
-                        } catch (NullPointerException ignored) {
+                    if (mobOwner.getType().is(Tags.EntityTypes.BOSSES) || mobOwner.getType().is(ModTags.EntityTypes.SUMMON_KILL)) {
+                        if (mobOwner.isRemoved() || mobOwner.isDeadOrDying()) {
+                            mobThis.kill();
                         }
-                        if (this.getTrueOwner().isRemoved() || this.getTrueOwner().isDeadOrDying() || !this.getTrueOwner().isAlive()) {
-                            if (owned.getTrueOwner() != null) {
-                                this.setTrueOwner(owned.getTrueOwner());
-                            } else if (!this.isHostile() && !this.isNatural() && !(owned instanceof Enemy) && !owned.isHostile()) {
-                                mob.kill();
-                            }
-                        }
-                    }
-                    for (Mob target : mob.level.getEntitiesOfClass(Mob.class, mob.getBoundingBox().inflate(mob.getAttributeValue(Attributes.FOLLOW_RANGE)), mob1 -> mob1.isAlive() && mob != mob1)) {
-                        boolean flag = false;
-                        if (MainConfig.GoodwillServantGuard.get()) {
-                            if (this.isAllyWith(target)) {
-                                LivingEntity target2 = null;
-                                if (target.getLastHurtByMob() != null && mob.getLastHurtByMob() == null) {
-                                    target2 = target.getLastHurtByMob();
-                                } else if (target.getLastHurtMob() != null && mob.getLastHurtMob() == null) {
-                                    target2 = target.getLastHurtMob();
-                                }
-                                if (target2 != null) {
-                                    if (!MobUtil.areAllies(mob, target2) && mob.canAttack(target2, TargetingConditions.DEFAULT)) {
-                                        mob.setTarget(target2);
-                                        mob.setLastHurtByMob(target2);
-                                        mob.setLastHurtMob(target2);
-                                    }
-                                }
-                            } else if (target.getTarget() != null) {
-                                if (this.isAllyWith(target.getTarget())) {
-                                    flag = true;
-                                }
-                            }
-                        }
-                        if (target instanceof IOwned owned) {
-                            if (this.getTrueOwner() != owned.getTrueOwner()
-                                    && target.getTarget() == this.getTrueOwner()) {
-                                flag = true;
-                            }
-                        }
-                        if (flag) {
-                            if (mob.canAttack(target, TargetingConditions.DEFAULT) && !MobUtil.areAllies(mob, target) && !MobUtil.areAllies(this.getTrueOwner(), target)) {
-                                mob.setTarget(target);
-                            }
-                        }
-                    }
-                }
-                if (mob.getTarget() != null) {
-                    if (this.isAllyWith(mob.getTarget()) || mob.getTarget().isRemoved() || mob.getTarget().isDeadOrDying()) {
-                        mob.setTarget(null);
                     }
                 }
                 this.mobSense();
@@ -354,6 +265,57 @@ public interface IOwned {
                             }
                         } else {
                             this.setOwnerClientId(this.getTrueOwner().getId());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    default void targetingTick() {
+        if (this instanceof Mob mobThis && !StunnedEvents.isStunned(mobThis)) {
+            if (mobThis.getTarget() != null) {
+                if (ServantUtil.nullifyTarget(this, mobThis.getTarget()) || mobThis.getTarget().isRemoved() || mobThis.getTarget().isDeadOrDying()) {
+                    mobThis.setTarget(null);
+                }
+            }
+            if (this.getTrueOwner() != null) {
+                if (this.getTrueOwner() instanceof Mob mobOwner) {
+                    if (mobOwner.getTarget() != null && mobThis.getTarget() == null) {
+                        mobThis.setTarget(mobOwner.getTarget());
+                    }
+                }
+                for (Mob target : mobThis.level.getEntitiesOfClass(Mob.class, mobThis.getBoundingBox().inflate(mobThis.getAttributeValue(Attributes.FOLLOW_RANGE)), mob1 -> mob1.isAlive() && mobThis != mob1)) {
+                    boolean flag = false;
+                    if (MainConfig.GoodwillServantGuard.get()) {
+                        if (this.isAllyWith(target)) {
+                            LivingEntity target2 = null;
+                            if (target.getLastHurtByMob() != null && mobThis.getLastHurtByMob() == null) {
+                                target2 = target.getLastHurtByMob();
+                            } else if (target.getLastHurtMob() != null && mobThis.getLastHurtMob() == null) {
+                                target2 = target.getLastHurtMob();
+                            }
+                            if (target2 != null) {
+                                if (!MobUtil.areAllies(mobThis, target2) && mobThis.canAttack(target2, TargetingConditions.DEFAULT)) {
+                                    mobThis.setTarget(target2);
+                                    mobThis.setLastHurtByMob(target2);
+                                    mobThis.setLastHurtMob(target2);
+                                }
+                            }
+                        } else if (target.getTarget() != null) {
+                            if (this.isAllyWith(target.getTarget())) {
+                                flag = true;
+                            }
+                        }
+                    }
+                    if (target instanceof IOwned owned) {
+                        if (this.getTrueOwner() != owned.getTrueOwner() && target.getTarget() == this.getTrueOwner()) {
+                            flag = true;
+                        }
+                    }
+                    if (flag) {
+                        if (mobThis.canAttack(target, TargetingConditions.DEFAULT) && !MobUtil.areAllies(mobThis, target) && !MobUtil.areAllies(this.getTrueOwner(), target)) {
+                            mobThis.setTarget(target);
                         }
                     }
                 }

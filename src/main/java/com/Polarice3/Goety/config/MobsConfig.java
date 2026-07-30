@@ -603,7 +603,7 @@ public class MobsConfig {
                     .define("redstoneMonstrosityHostileConvert", true);
             BUILDER.pop();
             BUILDER.push("Geo Servants");
-            GeoMinionHeal = BUILDER.comment("Whether Geo Servants can heal if summoned while wearing Frost Robe, Default: true")
+            GeoMinionHeal = BUILDER.comment("Whether Geo Servants can heal if summoned while wearing Geo Robe, Default: true")
                     .define("geoMinionHeal", true);
             GeoMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for a Geo Servant to heal, Default: 1")
                     .defineInRange("geoMinionHealCost", 1, 0, Integer.MAX_VALUE);

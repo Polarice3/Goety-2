@@ -1516,9 +1516,6 @@
       "item.goety.ignite_focus"
     ],
     [
-      "item.goety.fire_breath_focus"
-    ],
-    [
       "item.goety.soul_bolt_focus"
     ],
     [
@@ -1787,6 +1784,9 @@
     ],
     [
       "item.goety.tidal_focus"
+    ],
+    [
+      "item.goety.fire_breath_focus"
     ],
     [
       "item.goety.fireball_focus"

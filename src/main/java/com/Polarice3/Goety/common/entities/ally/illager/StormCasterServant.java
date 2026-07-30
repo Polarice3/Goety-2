@@ -288,15 +288,17 @@ public class StormCasterServant extends AbstractIllagerServant {
         super.tick();
         if (this.level.isClientSide){
             this.idleAnimationState.animateWhen(!this.isAttacking() && !this.walkAnimation.isMoving(), this.tickCount);
+            if (this.isAlive() && this.tickCount % 3 == 0) {
+                ParticleUtil.windParticle(this.level, ColorUtil.WHITE, 0.5F + this.random.nextFloat() * 0.5F, 0.0F, this.getId(), this.position());
+                ColorUtil colorUtil = new ColorUtil(0x8d837d);
+                ParticleUtil.circularParticles(this.level, ModParticleTypes.STATION_CULT_SPELL.get(), this, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 0.5F);
+            }
         } else if (this.level instanceof ServerLevel serverLevel){
             if (this.isAlive()) {
-                ServerParticleUtil.windParticle(serverLevel, ColorUtil.WHITE, 0.5F + serverLevel.random.nextFloat() * 0.5F, 0.0F, this.getId(), this.position());
-                ColorUtil colorUtil = new ColorUtil(0x8d837d);
-                ServerParticleUtil.circularParticles(serverLevel, ModParticleTypes.STATION_CULT_SPELL.get(), this, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 0.5F);
-                if (serverLevel.random.nextInt(20) == 0){
+                if (serverLevel.getRandom().nextInt(20) == 0){
                     Vec3 vec3 = Vec3.atCenterOf(this.blockPosition());
                     Vec3 vec31 = vec3.add(this.random.nextDouble(), 1.0D, this.random.nextDouble());
-                    ModNetwork.sendToALL(new SLightningPacket(vec3, vec31, 2));
+                    ModNetwork.sentToTrackingEntity(this, new SLightningPacket(vec3, vec31, 2));
                 }
             }
         }

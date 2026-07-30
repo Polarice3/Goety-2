@@ -23,8 +23,12 @@ import net.minecraft.world.level.material.MapColor;
 
 public class ChorusGrassBlock extends Block implements BonemealableBlock {
 
+    public ChorusGrassBlock(Properties properties) {
+        super(properties);
+    }
+
     public ChorusGrassBlock() {
-        super(ModBlocks.EndStoneProperties()
+        this(ModBlocks.EndStoneProperties()
                 .mapColor(MapColor.COLOR_ORANGE)
                 .randomTicks()
                 .sound(ModSoundTypes.CHORUS_GRASS));
@@ -50,12 +54,24 @@ public class ChorusGrassBlock extends Block implements BonemealableBlock {
         return canBeGrass(p_56828_, p_56829_, p_56830_) && p_56829_.getFluidState(blockpos).isEmpty();
     }
 
+    public Block turnInto(BlockState blockState) {
+        if (this == ModBlocks.CHORUS_GRASS_DIRT.get()) {
+            return ModBlocks.END_DIRT.get();
+        }
+        return ModBlocks.SMOOTH_END_STONE_BLOCK.get();
+    }
+
+    public boolean turnOthers(BlockState blockState) {
+        return blockState.is(ModBlocks.SMOOTH_END_STONE_BLOCK.get()) || blockState.is(ModBlocks.END_DIRT.get());
+    }
+
     public void randomTick(BlockState p_222508_, ServerLevel p_222509_, BlockPos p_222510_, RandomSource p_222511_) {
+        Block turn = this.turnInto(p_222508_);
         if (!canBeGrass(p_222508_, p_222509_, p_222510_)) {
             if (!p_222509_.isLoaded(p_222510_)) {
                 return;
             }
-            p_222509_.setBlockAndUpdate(p_222510_, ModBlocks.SMOOTH_END_STONE_BLOCK.get().defaultBlockState());
+            p_222509_.setBlockAndUpdate(p_222510_, turn.defaultBlockState());
         } else {
             if (!p_222509_.isLoaded(p_222510_)) {
                 return;
@@ -65,7 +81,7 @@ public class ChorusGrassBlock extends Block implements BonemealableBlock {
 
                 for (int i = 0; i < 4; ++i) {
                     BlockPos blockpos = p_222510_.offset(p_222511_.nextInt(3) - 1, p_222511_.nextInt(5) - 3, p_222511_.nextInt(3) - 1);
-                    if (p_222509_.getBlockState(blockpos).is(ModBlocks.SMOOTH_END_STONE_BLOCK.get()) && canPropagate(blockstate, p_222509_, blockpos)) {
+                    if (this.turnOthers(p_222509_.getBlockState(blockpos)) && canPropagate(blockstate, p_222509_, blockpos)) {
                         p_222509_.setBlockAndUpdate(blockpos, blockstate);
                     }
                 }

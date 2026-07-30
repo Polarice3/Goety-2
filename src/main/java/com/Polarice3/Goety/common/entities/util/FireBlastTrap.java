@@ -6,7 +6,6 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.*;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -137,7 +136,7 @@ public class FireBlastTrap extends Entity implements ISpellEntity {
                 float f9 = Mth.sin(f6) * f7;
                 serverLevel.sendParticles(ModParticleTypes.BURNING.get(), this.getX() + (double) f8, this.getY(), this.getZ() + (double) f9, 1, 0, 0, 0, 0);
             }
-            ColorUtil color = new ColorUtil(ChatFormatting.GOLD);
+            ColorUtil color = ColorUtil.GOLD;
             ServerParticleUtil.windParticle(serverLevel, color, (f - 1.0F) + serverLevel.random.nextFloat() * 0.5F, 0.0F, this.getId(), this.position());
             ServerParticleUtil.windParticle(serverLevel, color, f + serverLevel.random.nextFloat() * 0.5F, 0.0F, this.getId(), this.position());
 

@@ -1,15 +1,19 @@
 {
-  "name": "Frost Breath Focus",
+  "name": "フロストブレスのフォーカス",
   "icon": "goety:frost_breath_focus",
   "category": "goety:focuses/frost",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "With a cold breath, creatures in front of you will shiver to the grave."
+      "text": "冷たいブレスを放てば、目の前の生き物たちは震えながら死の淵へと追いやられるだろう。"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/frost_breath_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/frost_staff)氷の杖$()で唱えると、ダメージが増加するだけでなく、地形を雪で覆い、凍結させます。"
     }
   ]
 }

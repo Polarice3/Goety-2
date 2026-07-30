@@ -1,0 +1,19 @@
+{
+  "name": "炎呼聚晶",
+  "icon": "goety:fire_breath_focus",
+  "category": "goety:focuses/nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "如同神话中的红龙一般，你向前方喷吐火焰，将路径上的一切生物焚烧殆尽。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/fire_breath_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/nether_staff)下界法杖$()施放时，不仅会提升伤害，还会点燃地形。"
+    }
+  ]
+}

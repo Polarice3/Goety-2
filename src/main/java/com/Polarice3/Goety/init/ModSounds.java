@@ -705,6 +705,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> BROOM_BREAK = create("broom_break");
     public static final RegistryObject<SoundEvent> BROOM_IMPACT = create("broom_impact");
 
+    public static final RegistryObject<SoundEvent> VOID_BLAST = create("void_blast");
+
     public static final RegistryObject<SoundEvent> FOCUS_PICK = create("focus_pick");
 
     public static final RegistryObject<SoundEvent> CORRUPT_BEAM_START = create("corrupt_beam_start");

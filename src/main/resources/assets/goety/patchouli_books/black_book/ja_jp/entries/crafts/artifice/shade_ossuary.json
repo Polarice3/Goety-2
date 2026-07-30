@@ -1,0 +1,57 @@
+{
+  "name": "シェードの納骨堂",
+  "icon": "goety:shade_ossuary",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "予想通り、骨や頭蓋骨はシェードストーンと同様に、死霊のエネルギーを導くのに適しています。スケルトンのフォーカスを用いることで、あなたは忠実なスケルトンの従者を自在に召喚できる納骨堂を作り上げました。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:shade/shade_ossuary"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "スケルトンの従者を召喚するには、納骨堂に骨粉を与える必要があります。スパイダーネストと同様に、杖で墓石を右クリックすると、有効な標的が近くにいる場合にのみ従者をスポーンさせる設定に切り替わります。また、しゃがんだ状態で操作することで、出された従者ががそのブロックで巡回するのか、それとも所有者をフォローするのか切り替えることができます。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "周囲の環境によっては、$(l:rituals/dark_altar)祭壇$()と同様に、その従者は通常のスケルトンとは異なるバリエーションとして出現することがあります。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "沈没したスケルトンの従者",
+      "text": "必要: $(li)納骨堂が水中にある"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "ストレイの従者",
+      "text": "必要: $(li)納骨堂が雪のバイオームにある $(br)$(l)OR$()$() $(li)20 あらゆる雪 $(li)8 あらゆる氷"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "苔むしたスケルトンの従者",
+      "text": "必要: $(li)納骨堂がジャングルのバイオームにある $(br)$(l)OR$()$() $(li)20 つた $(li)8 葉"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "ラトルドの従者",
+      "text": "必要: $(li)納骨堂が雷雨にさらされている $(br)$(l)OR$()$() $(li)1 避雷針 $(li)8 銅ブロック"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "スケルトンピリジャーの従者",
+      "text": "必要: $(li)納骨堂がピリジャーの前哨基地にある $(br)$(l)OR$()$() $(li)15 ダークオークの原木 $(li)4 くりぬかれたカボチャ か 的"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "title": "ウィザースケルトンの従者",
+      "text": "必要: $(li)納骨堂がネザー要塞にある $(br)$(l)OR$()$() $(li)32 あらゆるネザーレンガ $(li)8 ネザーウォート"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shade_ossuary": 1
+  }
+}

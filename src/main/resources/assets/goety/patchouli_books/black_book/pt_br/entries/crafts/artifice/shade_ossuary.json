@@ -1,0 +1,57 @@
+{
+  "name": "Ossuário das Sombras",
+  "icon": "goety:shade_ossuary",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Ossos e caveiras são, sem surpresa, bons em canalizar energias necróticas junto com a pedra das sombras. Com o Foco Ósseo, você criou um ossuário que pode invocar Servos Esqueletos leais sob demanda."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:shade/shade_ossuary"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A lápide requer Farinha de Osso para ser adicionada, a fim de invocar um Servo Esqueleto. Assim como o Ninho de Aranha, clicar com o botão direito no ossuório com uma Varinha ou Cajado fará com que ele só gere um servo se houver um alvo válido por perto. Ao agachar, no entanto, ele mudará se o servo será gerado guardando o bloco ou seguindo o dono."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Dependendo do ambiente, assim como os $(l:rituals/dark_altar)Altares$(), o servo pode surgir como uma variante diferente de um Esqueleto comum."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Esqueletos Submersos",
+      "text": "Requisitos: $(li)A lápide está submersa"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Errantes",
+      "text": "Requisitos: $(li)A lápide está localizada em um bioma nevado $(br)$(l)OU$()$() $(li)20 Neve $(li)8 Gelo"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Esqueletos Musgosos",
+      "text": "Requisitos: $(li)A lápide está localizada em uma Selva $(br)$(l)OU$()$() $(li)20 Vinhas $(li)8 Folhas"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Rattled",
+      "text": "Requisitos: $(li)A lápide está exposta a uma tempestade ativa $(br)$(l)OU$()$() $(li)1 Pára-raios $(li)8 Blocos de Cobre"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Servos Esqueletos Saqueadores",
+      "text": "Requisitos: $(li)A lápide está localizada em um Posto de Saqueadores $(br)$(l)OU$()$() $(li)15 Toras de Carvalho Escuro $(li)4 Abóboras Esculpidas ou Alvos"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "title": "Servos Esqueletos Wither",
+      "text": "Requisitos: $(li)A lápide está localizada em uma Fortaleza do Nether $(br)$(l)OU$()$() $(li)32 Tijolos do Nether $(li)8 Fungos do Nether"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shade_ossuary": 1
+  }
+}

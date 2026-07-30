@@ -560,6 +560,9 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
 
     @Nullable
     public LivingEntity getTrueOwner() {
+        if (this.hasEffect(GoetyEffects.WILD_RAGE.get())) {
+            return null;
+        }
         if (!this.level.isClientSide){
             UUID uuid = this.getOwnerId();
             return uuid == null ? null : EntityFinder.getLivingEntityByUuiD(uuid);

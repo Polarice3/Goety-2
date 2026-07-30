@@ -1,0 +1,57 @@
+{
+  "name": "阴影骨灰盒",
+  "icon": "goety:shade_ossuary",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "骨头和头骨，不出所料，与那些阴影石一起能很好地传导死灵能量。借助骨质聚晶，你制作了一个骨灰盒，可以按需召唤忠诚的骷髅仆从。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:shade/shade_ossuary"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这个东西需要添加骨粉才能召唤骷髅仆从。与蜘蛛巢类似，手持魔杖或法杖右键点击它时，可以使其仅在附近有有效目标时才会生成仆从。而潜行时右键则可以在“守卫方块”和“跟随主人”两种模式间切换。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "根据周围环境的不同，就像$(l:rituals/dark_altar)祭坛$()一样，召唤出的仆从可能会生成普通骷髅之外的变种。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "沉溺骷髅仆从",
+      "text": "需求：$(li)墓碑处于含水状态"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "流浪者仆从",
+      "text": "需求：$(li)墓碑位于雪原类生物群系 $(br)$(l)或$()$() $(li)20 个任意雪 $(li)8 个任意冰"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "苔藓骷髅仆从",
+      "text": "需求：$(li)墓碑位于丛林生物群系 $(br)$(l)或$()$() $(li)20 个藤蔓 $(li)8 个树叶"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "响骷仆从",
+      "text": "需求：$(li)墓碑暴露在活跃的雷暴天气中 $(br)$(l)或$()$() $(li)1 个避雷针 $(li)8 个铜块"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "掠夺者骷髅仆从",
+      "text": "需求：$(li)墓碑位于掠夺者前哨站 $(br)$(l)或$()$() $(li)15 个深色橡木原木 $(li)4 个雕刻南瓜或标靶"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "title": "凋灵骷髅仆从",
+      "text": "需求：$(li)墓碑位于下界要塞 $(br)$(l)或$()$() $(li)32 个任意下界砖 $(li)8 个下界疣"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shade_ossuary": 1
+  }
+}

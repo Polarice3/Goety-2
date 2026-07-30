@@ -16,6 +16,7 @@ import com.Polarice3.Goety.common.magic.spells.frost.IceSpikeSpell;
 import com.Polarice3.Goety.common.magic.spells.frost.IceStormSpell;
 import com.Polarice3.Goety.common.magic.spells.geomancy.EruptionSpell;
 import com.Polarice3.Goety.common.magic.spells.geomancy.ScatterSpell;
+import com.Polarice3.Goety.common.magic.spells.nether.FireBreathSpell;
 import com.Polarice3.Goety.common.magic.spells.storm.ElectroOrbSpell;
 import com.Polarice3.Goety.common.magic.spells.storm.ThunderboltSpell;
 import com.Polarice3.Goety.common.magic.spells.wild.HuntingSpell;

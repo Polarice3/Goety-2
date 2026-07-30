@@ -1,0 +1,57 @@
+{
+  "name": "Shade Ossuary",
+  "icon": "goety:shade_ossuary",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Bones and skulls are, unsurprisingly, good at channeling necrotic energies alongside shade stone. With the Osseous Focus, you've created an ossuary that can summon loyal Skeleton Servants on demand."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:shade/shade_ossuary"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The gravestone requires a Bone Meal to be added, in order to call forth a Skeleton Servant. Much like the Spider Nest, right-clicking the nest with a Wand or Staff will make it so that it will only spawn a servant if a valid target is near it. While crouching, however, it will change whether the servant will spawn guarding the block or following the owner."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Depending on its surroundings, much like $(l:rituals/dark_altar)Altars$(), the servant can spawn as a different variant from a regular Skeleton."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Sunken Skeleton Servants",
+      "text": "Requirements: $(li)Gravestone is waterlogged"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Stray Servants",
+      "text": "Requirements: $(li)Gravestone is located in a snowy biome $(br)$(l)OR$()$() $(li)20 Snow Any $(li)8 Ice Any"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Mossy Skeleton Servants",
+      "text": "Requirements: $(li)Gravestone is located in a Jungle $(br)$(l)OR$()$() $(li)20 Vines $(li)8 Leaves"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Rattled Servants",
+      "text": "Requirements: $(li)Gravestone is exposed to an active thunderstorm $(br)$(l)OR$()$() $(li)1 Lightning Rod $(li)8 Blocks of Copper"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Skeleton Pillager Servants",
+      "text": "Requirements: $(li)Gravestone is located in a Pillager Outpost $(br)$(l)OR$()$() $(li)15 Dark Oak Logs $(li)4 Carved Pumpkins or Targets"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "title": "Wither Skeleton Servants",
+      "text": "Requirements: $(li)Gravestone is located in a Nether Fortress $(br)$(l)OR$()$() $(li)32 Nether Bricks Any $(li)8 Nether Warts"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shade_ossuary": 1
+  }
+}

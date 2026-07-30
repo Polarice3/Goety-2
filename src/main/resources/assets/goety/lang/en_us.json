@@ -1699,6 +1699,8 @@
   "block.goety.chorus_wood": "Chorus Wood",
   "block.goety.chorus_wood_slab": "Chorus Wood Slab",
   "block.goety.chorus_wood_stairs": "Chorus Wood Stairs",
+  "block.goety.blossoming_chorus_wood": "Blossoming Chorus Wood",
+  "block.goety.blooming_chorus_wood": "Blooming Chorus Wood",
   "block.goety.studded_chorus_wood": "Studded Chorus Wood",
   "block.goety.chorus_button": "Chorus Button",
   "block.goety.chorus_pressure_plate": "Chorus Pressure Plate",
@@ -1755,6 +1757,8 @@
   "block.goety.soiled_end_basalt": "Soiled End Basalt",
   "block.goety.top_soiled_end_basalt": "Top Soiled End Basalt",
   "block.goety.bottom_soiled_end_basalt": "Bottom Soiled End Basalt",
+  "block.goety.top_dirty_end_basalt": "Top Dirty End Basalt",
+  "block.goety.bottom_dirty_end_basalt": "Bottom Dirty End Basalt",
   "block.goety.grassy_end_basalt": "Grassy End Basalt",
   "block.goety.dirty_end_basalt": "Dirty End Basalt",
 
@@ -1836,6 +1840,7 @@
 
   "block.goety.chorus_grass_block": "Chorus Grass Block",
   "block.goety.chorus_grass_block_slab": "Chorus Grass Block Slab",
+  "block.goety.chorus_grass_dirt": "Chorus Grass Dirt",
   "block.goety.cobbled_chorus_grass_block": "Cobbled Chorus Grass Block",
 
   "block.goety.chorus_grass_slab": "Chorus Grass Slab",
@@ -1961,6 +1966,7 @@
 
   "block.goety.spider_nest": "Spider Nest",
   "block.goety.shade_gravestone": "Shade Gravestone",
+  "block.goety.shade_ossuary": "Shade Ossuary",
   "block.goety.blazing_cage": "Blazing Cage",
 
   "block.goety.ominous_pyre": "Ominous Pyre",
@@ -2009,10 +2015,16 @@
   "block.goety.plushie_4": "§aNedeak §rPlushie",
   "block.goety.plushie_5": "§6Jade Jester §rPlushie",
   "block.goety.plushie_6": "§6SLM_SHDY §rPlushie",
-  "block.goety.plushie_7": "§a東漢 駒 §rPlushie",
+  "block.goety.plushie_7": "§a坂上駒子 §rPlushie",
   "block.goety.plushie_8": "§6Peppertheskink §rPlushie",
   "block.goety.plushie_9": "§aMrdrewlego §rPlushie",
   "block.goety.plushie_10": "§6Ur-Tsar the Glorious §rPlushie",
+
+  "block.goety.sculptured_statue": "Sculptured Statue",
+  "block.goety.sculptured_statue_1": "Statue of §aNedeak",
+  "block.goety.sculptured_statue_2": "Statue of §aMrdrewlego",
+  "block.goety.sculptured_statue_3": "Statue of §aCodatower",
+  "block.goety.sculptured_statue_4": "Statue of §a坂上駒子",
 
   "block.goety.tall_skull": "Tall Skull",
   "block.goety.wall_tall_skull": "Tall Skull",
@@ -2446,7 +2458,7 @@
   "info.goety.ring_of_want": "When enchanted with Wanting, increases looting level when killing with servants or spells.",
   "info.goety.ring_of_force": "Telekinesis spell will slowly suffocate the entity it affects.",
   "info.goety.ring_of_the_forge": "Newly summoned servants of certain types will always wear armor, when worn.",
-  "info.goety.ring_of_the_dragon": "Empowers certain breath spells when worn.",
+  "info.goety.ring_of_the_dragon": "Emits an explosion on initial location when teleporting.",
   "info.goety.grave_gloves": "+50% attack speed for Scythes.",
   "info.goety.thrash_gloves": "+50% attack speed for Hammers.",
   "info.goety.wayfarers_belt": "Increases movement and swimming speed, step and jump height.",
@@ -3263,6 +3275,7 @@
   "subtitle.goety.harpoon_impact": "Harpoon Hits",
   "subtitle.goety.blast_fungus_throw": "Throw Fungus",
   "subtitle.goety.blast_fungus_explode": "Fungus explodes",
+  "subtitle.goety.void_blast": "Void blast",
   "subtitle.goety.corrupt_beam_start": "Corrupted Beam starts",
   "subtitle.goety.corrupt_beam_loop": "Corrupted Beam blasts",
   "subtitle.goety.ice_storm_loop": "Ice Storm flies",

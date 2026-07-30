@@ -359,11 +359,12 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
         this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(DarkAltarBlock.LIT, flag), 3);
     }
 
+    public static ColorUtil XP_COLOR = new ColorUtil(0xd0e45a);
+
     private void addXPParticles(ServerLevel world) {
-        ColorUtil colorUtil = new ColorUtil(0xd0e45a);
         Vec3 vec3 = new Vec3(this.castingPlayer.getX(), this.castingPlayer.getY() + (this.castingPlayer.getBbHeight() / 2.0F), this.castingPlayer.getZ());
         Vec3 vector3d1 = Vec3.atCenterOf(this.getBlockPos());
-        world.sendParticles(new GatherTrailParticleOption(colorUtil, vector3d1), vec3.x, vec3.y, vec3.z, 0, 0.0F, 0.0F, 0.0F, 0.5F);
+        world.sendParticles(new GatherTrailParticleOption(XP_COLOR, vector3d1), vec3.x, vec3.y, vec3.z, 0, 0.0F, 0.0F, 0.0F, 0.5F);
         for (int i = 0; i < 8; ++i) {
             Vec3 vector3d = new Vec3(this.castingPlayer.getRandomX(1.0F), this.castingPlayer.getRandomY(), this.castingPlayer.getRandomZ(1.0F));
             world.sendParticles(new AbsorbTrailParticleOption(vector3d1, 0xd0e45a, 10), vector3d.x, vector3d.y, vector3d.z, 1, 0.0, 0.0, 0.0, 0.0);

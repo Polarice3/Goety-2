@@ -144,7 +144,6 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:framework-549225:5180972")
     runtimeOnly fg.deobf("curse.maven:configured-457570:5180900")
     runtimeOnly fg.deobf("curse.maven:spark-361579:4738952")
-    runtimeOnly fg.deobf("curse.maven:illage-and-spillage-finally-ported-1079714:6156035")
     runtimeOnly fg.deobf("curse.maven:free-cam-557076:4643128")
     runtimeOnly fg.deobf("curse.maven:mob-battle-extra-853296:4810120")
     runtimeOnly fg.deobf("curse.maven:guard-villagers-360203:6793945")
@@ -155,6 +154,8 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:enchantment-descriptions-250419:7612607")
     runtimeOnly fg.deobf("curse.maven:xaeros-minimap-263420:8046960")
     runtimeOnly fg.deobf("curse.maven:xaeros-world-map-317780:8042194")
+    runtimeOnly fg.deobf("curse.maven:puzzles-lib-495476:6918565")
+    runtimeOnly fg.deobf("curse.maven:illager-invasion-891324:6192869")
 }
 
 tasks.named('jar', Jar).configure {

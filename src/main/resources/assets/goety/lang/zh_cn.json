@@ -1304,7 +1304,6 @@
   "info.goety.nether_robe_discount": "减半下界法术的灵魂消耗。",
   "info.goety.ring_of_force": "原力法术会慢慢窒息它所影响的实体。",
   "info.goety.ring_of_the_forge": "使最新召唤的僵尸和骷髅仆从总是会自带盔甲.",
-  "info.goety.ring_of_the_dragon": "增强呼吸聚晶的威力.",
   "info.goety.grave_gloves": "+50% 镰刀攻速.",
   "info.goety.thrash_gloves": "+50%锤子攻击速度。",
   "info.goety.wayfarers_belt": "增加游泳速度，移动速度，跳跃高度，以及使你可以直接迈上一格高的方块.",
@@ -3689,5 +3688,18 @@
   "enchantment.goety.fealty.desc": "被骑乘的扫帚损坏时，会立刻以物品形式返回到放置者的物品栏中，防止其它玩家骑乘它",
   "enchantment.goety.hardy.desc": "提升扫帚损坏前可承受的最大伤害阈值",
   "block.goety.end_rock_stairs": "末地岩楼梯",
-  "block.goety.end_rock_brick_stairs": "末地岩砖楼梯"
+  "block.goety.end_rock_brick_stairs": "末地岩砖楼梯",
+  "info.goety.ring_of_the_dragon": "传送时在起始位置引发爆炸。",
+  "block.goety.shade_ossuary": "暗影骨灰盒",
+  "subtitle.goety.void_blast": "虚空爆裂",
+  "block.goety.blossoming_chorus_wood": "繁花紫颂木",
+  "block.goety.blooming_chorus_wood": "盛花紫颂木",
+  "block.goety.top_dirty_end_basalt": "顶部污浊的末地玄武岩",
+  "block.goety.bottom_dirty_end_basalt": "底部污浊的末地玄武岩",
+  "block.goety.chorus_grass_dirt": "紫颂草泥土",
+  "block.goety.sculptured_statue": "雕刻雕像",
+  "block.goety.sculptured_statue_1": "§aNedeak的雕像",
+  "block.goety.sculptured_statue_2": "§aMrdrewlego的雕像",
+  "block.goety.sculptured_statue_3": "§aCodatower的雕像",
+  "block.goety.sculptured_statue_4": "§a坂上駒子的雕像"
 }

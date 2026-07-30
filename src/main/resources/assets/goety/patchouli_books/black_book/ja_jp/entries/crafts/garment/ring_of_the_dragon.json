@@ -6,11 +6,18 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "ドラゴンの指輪を着用すると、ブレス呪文 $(l:focuses/fire_breath_focus)炎$() と $(l:focuses/frost_breath_focus)氷$() がパワーアップし、ダメージが増加するだけでなく、 地形自体に影響を与えます！"
+      "text": "ドラゴンの指輪を装備している状態で、呪文、エンダーパール、またはコーラスフルーツを使用してテレポートすると、移動前の地点で爆発が発生します（その後、短いクールダウン時間が発生します）"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:ring_of_the_dragon"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "爆発の範囲を拡大する、半径のエンチャントを付けることができます。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:ring_of_the_dragon": 1
+  }
 }

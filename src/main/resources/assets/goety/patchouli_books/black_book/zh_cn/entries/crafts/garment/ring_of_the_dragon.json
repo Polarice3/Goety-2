@@ -1,16 +1,23 @@
 {
-  "name": "龙息戒指",
+  "name": "龙之戒",
   "icon": "goety:ring_of_the_dragon",
   "category": "goety:crafts/garment",
   "advancement": "minecraft:end/dragon_breath",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "龙息的力量, 可以极大地提升呼吸聚晶的能力, 不仅可以提升$(l:focuses/fire_breath_focus)炎呼$() 和 $(l:focuses/frost/frost_breath_focus)霜呼$()它们的伤害，甚至足矣改变地形!"
+      "text": "佩戴龙之戒后，当你使用法术、末影珍珠或紫颂果传送时，会在你之前所在的位置引发一次爆炸，随后该戒指会进入短暂的冷却。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:ring_of_the_dragon"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "可以给其使用半径附魔来增大爆炸的范围。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:ring_of_the_dragon": 1
+  }
 }

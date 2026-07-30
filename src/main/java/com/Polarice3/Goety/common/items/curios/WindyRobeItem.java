@@ -51,7 +51,7 @@ public class WindyRobeItem extends SingleStackItem{
                             SEHelper.decreaseSouls(player, ItemConfig.WindRobeSouls.get());
                         }
                         if (worldIn instanceof ServerLevel serverLevel){
-                            ColorUtil color = new ColorUtil(0xffffff);
+                            ColorUtil color = ColorUtil.WHITE;
                             ServerParticleUtil.windParticle(serverLevel, color, 1.0F + serverLevel.random.nextFloat() * 0.5F, 0.0F, player.getId(), player.position());
                             ServerParticleUtil.circularParticles(serverLevel, ParticleTypes.CLOUD, player, 1.0F);
                             if (this == ModItems.STORM_ROBE.get()) {

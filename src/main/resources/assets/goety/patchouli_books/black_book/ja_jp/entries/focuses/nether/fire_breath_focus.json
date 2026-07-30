@@ -1,0 +1,19 @@
+{
+  "name": "ファイアブレスのフォーカス",
+  "icon": "goety:fire_breath_focus",
+  "category": "goety:focuses/nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "古の伝説に語られるレッドドラゴンのように、前方に炎を吐き出し、その進路上のあらゆるクリーチャーを焼き尽くせます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/fire_breath_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/nether_staff)ネザーの杖$()で唱えると、ダメージが増加するだけでなく、地形に火を放ちます。"
+    }
+  ]
+}

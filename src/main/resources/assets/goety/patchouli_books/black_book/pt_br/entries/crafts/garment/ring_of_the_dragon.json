@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "O Anel do Dragão fortalece os feitiços de sopro, $(l:focuses/fire_breath_focus)Fogo$() e $(l:focuses/frost/frost_breath_focus)Gélido$(), aumentando seu dano e afetando o terreno ao redor!"
+      "text": "O Anel do Dragão, quando usado, faz com que você emita uma explosão ao se teletransportar com feitiços, pérolas do End ou frutas do coro, na sua localização anterior antes de entrar em uma pequena recarga."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:ring_of_the_dragon"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O anel pode ser encantado com Raio para aumentar o tamanho da explosão."
     }
   ],
   "extra_recipe_mappings": {

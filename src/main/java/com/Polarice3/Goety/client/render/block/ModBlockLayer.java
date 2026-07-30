@@ -17,6 +17,8 @@ public class ModBlockLayer {
     public static final ModelLayerLocation BLACK_CRYSTAL = register("black_crystal");
     public static final ModelLayerLocation OMINOUS_STATUE = register("ominous_statue");
     public static final ModelLayerLocation BRAZIER_STATUE = register("brazier_statue");
+    public static final ModelLayerLocation SCULPTURED_STATUE = register("sculptured_statue");
+    public static final ModelLayerLocation SCULPTURED_STATUE_SLIM = register("sculptured_statue_slim");
     public static final ModelLayerLocation PLUSHIE = register("plushie");
 
     private static ModelLayerLocation register(String p_171294_) {

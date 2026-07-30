@@ -12,6 +12,8 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 
 public class ExplosionUtil {
+    private static int explosionDepth = 0;
+    private static final int MAX_EXPLOSION_DEPTH = 8;
 
     public static LootingExplosion lootExplode(Level world, @Nullable Entity pExploder, double pX, double pY, double pZ, float pSize, boolean pCausesFire, Explosion.BlockInteraction pMode, LootingExplosion.Mode pLootMode) {
         LootingExplosion explosion = new LootingExplosion(world, pExploder, pX, pY, pZ, pSize, pCausesFire, pMode, pLootMode);
@@ -45,5 +47,19 @@ public class ExplosionUtil {
             explosion.finalizeExplosion(true);
         }
         return explosion;
+    }
+
+    public static boolean enterExplosion() {
+        if (explosionDepth >= MAX_EXPLOSION_DEPTH) {
+            return false;
+        }
+        explosionDepth++;
+        return true;
+    }
+
+    public static void exitExplosion() {
+        if (explosionDepth > 0) {
+            explosionDepth--;
+        }
     }
 }

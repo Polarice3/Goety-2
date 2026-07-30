@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.enchantments;
 
 import com.Polarice3.Goety.api.items.magic.IFocus;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.block.EnchantableBlockItem;
 import com.Polarice3.Goety.common.items.curios.WardingCharmItem;
 import com.Polarice3.Goety.common.items.equipment.BladeOfEnderItem;
@@ -37,7 +38,8 @@ public abstract class FocusEnchantments extends Enchantment {
                     || stack.getItem() instanceof HauntedBroomItem
                     || stack.getItem() instanceof InfernalTome
                     || stack.getItem() instanceof HammerItem
-                    || stack.getItem() instanceof BladeOfEnderItem);
+                    || stack.getItem() instanceof BladeOfEnderItem
+                    || stack.is(ModItems.RING_OF_THE_DRAGON.get()));
     }
 
     public boolean allowedInCreativeTab(Item book, Set<EnchantmentCategory> allowedCategories) {
