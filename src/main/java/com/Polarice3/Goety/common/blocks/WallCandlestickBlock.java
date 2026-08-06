@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -194,8 +195,8 @@ public class WallCandlestickBlock extends Block implements SimpleWaterloggedBloc
             }
          }
 
-         p_220698_.addParticle(ModParticleTypes.SMALL_FIRE.get(), p_220699_.getX() + 0.5D, p_220699_.getY() + (9 / 16.0D), p_220699_.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
-         p_220698_.addParticle(ModParticleTypes.SMALL_FIRE_DROP.get(), p_220699_.getX() + 0.5D, p_220699_.getY() + (9 / 16.0D), p_220699_.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
+         ParticleOptions particleOptions = p_220700_.nextBoolean() ? ModParticleTypes.SMALL_FIRE_REVERSED.get() : ModParticleTypes.SMALL_FIRE.get();
+         p_220698_.addParticle(particleOptions, p_220699_.getX() + 0.5D, p_220699_.getY() + (9 / 16.0D), p_220699_.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
       }
    }
 

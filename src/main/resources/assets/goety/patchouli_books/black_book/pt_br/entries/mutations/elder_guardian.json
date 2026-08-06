@@ -1,0 +1,24 @@
+{
+  "name": "Guardião-Mestre",
+  "icon": "minecraft:tide_armor_trim_smithing_template",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Guardiões são criaturas estranhas que podem ou não ser algum tipo de criatura de carne-golem, semelhantes a Creepers e Shulkers. Ao contrário desses dois, provavelmente, essas criaturas podem envelhecer e se tornar um espécime mais forte na velhice."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_guardian_to_elder_guardian"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Com o Creme de Envelhecimento místico, você é capaz de envelhecer um Guardião em um Guardião-Mestre, tornando-o não apenas maior e mais forte, mas também dando-lhe o conhecimento para dar magicamente Exaustão III a entidades não-aliadas próximas, semelhantes a você."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:elder_guardian_servant",
+      "scale": 0.5
+    }
+  ]
+}

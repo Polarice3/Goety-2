@@ -17,7 +17,7 @@ import net.minecraftforge.common.world.ModifiableStructureInfo;
 public class ModLevelRegistry {
 
     public static void addBiomeSpawns(Holder<Biome> biome, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
-        if (!biome.containsTag(ModTags.Biomes.COMMON_BLACKLIST) && !biome.is(biomeResourceKey -> biomeResourceKey.registry().getNamespace().contains("alexscaves"))){
+        if (!biome.containsTag(ModTags.Biomes.COMMON_BLACKLIST) && !biome.is(biomeResourceKey -> biomeResourceKey.location().getNamespace().contains("alexscaves"))){
             if (biome.is(ModTags.Biomes.REAPER_SPAWN) && !biome.is(ModTags.Biomes.REAPER_EXCLUDE_SPAWN) && MobsConfig.ReaperSpawnWeight.get() > 0){
                 builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.REAPER.get(), MobsConfig.ReaperSpawnWeight.get(), MobsConfig.ReaperSpawnMinCount.get(), MobsConfig.ReaperSpawnMaxCount.get()));
             }

@@ -118,6 +118,7 @@ public class BrewEffects {
         this.register(new PotionBrewEffect(GoetyEffects.FROSTY_AURA.get(), BrewConfig.FrostyAuraCost.get(), BrewConfig.FrostyAuraCapacity.get(), 1800), Items.BLUE_ICE);
         this.register(new PotionBrewEffect(GoetyEffects.GOLD_TOUCHED.get(), BrewConfig.GoldTouchedCost.get(), 1800), Items.GOLD_NUGGET);
         this.register(new PotionBrewEffect(GoetyEffects.GRAVITY_PULSE.get(), BrewConfig.GravityPulseCost.get(), BrewConfig.GravityPulseCapacity.get(), 3600), Items.RAW_IRON_BLOCK);
+        this.register(new PotionBrewEffect(GoetyEffects.INSECT_BANE.get(), BrewConfig.InsectBaneCost.get(), BrewConfig.InsectBaneCapacity.get(), 3600), Items.BLUE_ORCHID);
         this.register(new PotionBrewEffect(GoetyEffects.INSIGHT.get(), BrewConfig.InsightCost.get(), 3600), Items.WRITABLE_BOOK);
         this.register(new PotionBrewEffect(GoetyEffects.LEECHING.get(), BrewConfig.LeechingCost.get(), 3600), Items.BEETROOT);
         this.register(new PotionBrewEffect(GoetyEffects.NYCTOPHOBIA.get(), BrewConfig.NyctophobiaCost.get(), BrewConfig.NyctophobiaCapacity.get(), 1800), Items.SCULK_SHRIEKER);
@@ -130,6 +131,7 @@ public class BrewEffects {
         this.register(new PotionBrewEffect(GoetyEffects.SAPPED.get(), BrewConfig.SappedCost.get(), 1800), ModItems.SAVAGE_TOOTH.get());
         this.register(new PotionBrewEffect(GoetyEffects.SAVE_EFFECTS.get(), BrewConfig.SaveEffectsCost.get(), BrewConfig.SaveEffectsCapacity.get(), 6000), Items.ECHO_SHARD);
         this.register(new PotionBrewEffect(GoetyEffects.SHIELDING.get(), BrewConfig.ShieldingCost.get(), BrewConfig.ShieldingCapacity.get(), 3600), Items.SHIELD);
+        this.register(new PotionBrewEffect(GoetyEffects.SMITING.get(), BrewConfig.SmitingCost.get(), BrewConfig.SmitingCapacity.get(), 3600), Items.CARVED_PUMPKIN);
         this.register(new PotionBrewEffect(GoetyEffects.STORMS_WRATH.get(), BrewConfig.StormsWrathCost.get(), BrewConfig.StormsWrathCapacity.get(), 3600), Items.LIGHTNING_ROD);
         this.register(new PotionBrewEffect(GoetyEffects.SUN_ALLERGY.get(), BrewConfig.SunAllergyCost.get(), BrewConfig.SunAllergyCapacity.get(), 3600), Items.SKELETON_SKULL);
         this.register(new PotionBrewEffect(GoetyEffects.SWIFT_SWIM.get(), BrewConfig.SwiftSwimCost.get(), 3600), ModItems.COOKED_FEET_OF_FROG.get());
@@ -140,6 +142,7 @@ public class BrewEffects {
         this.register(new PotionBrewEffect(GoetyEffects.WILD_RAGE.get(), BrewConfig.WildRageCost.get(), BrewConfig.WildRageCapacity.get(), 900), ModItems.RAGING_MATTER.get());
 
         //Brew
+        this.register(new AgingBrewEffect(), ModItems.AGING_CREAM.get());
         this.register(new BatsBrewEffect(BrewConfig.BatBurstCost.get(), BrewConfig.BatBurstCapacity.get()), Items.BEETROOT_SOUP);
         this.register(new BeesBrewEffect(BrewConfig.BeesCost.get(), BrewConfig.BeesCapacity.get()), Items.BEE_NEST);
         this.register(new BlindJumpBrewEffect(BrewConfig.BlindJumpCost.get()), Items.CHORUS_FRUIT);

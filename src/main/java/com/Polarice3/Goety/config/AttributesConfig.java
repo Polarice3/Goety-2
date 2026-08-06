@@ -249,6 +249,12 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> GnasherHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> GnasherArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> GnasherDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> GuardianHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> GuardianArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> GuardianDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> ElderGuardianHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> ElderGuardianArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> ElderGuardianDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> BearServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> BearServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> BearServantDamage;
@@ -985,6 +991,22 @@ public class AttributesConfig {
                         .defineInRange("gnasherArmor", 0.0, 0.0, Double.MAX_VALUE);
                 GnasherDamage = BUILDER.comment("How much damage Gnashers melee attack deals, Default: 6.0")
                         .defineInRange("gnasherDamage", 6.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Guardian Servant");
+                GuardianHealth = BUILDER.comment("How much Max Health Guardian Servants have, Default: 30.0")
+                        .defineInRange("guardianHealth", 30.0, 1.0, Double.MAX_VALUE);
+                GuardianArmor = BUILDER.comment("How much natural Armor Guardian Servants have, Default: 0.0")
+                        .defineInRange("guardianArmor", 0.0, 0.0, Double.MAX_VALUE);
+                GuardianDamage = BUILDER.comment("How much damage Guardian Servants attack deals, Default: 6.0")
+                        .defineInRange("guardianDamage", 6.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Elder Guardian Servant");
+                ElderGuardianHealth = BUILDER.comment("How much Max Health Elder Guardian Servants have, Default: 80.0")
+                        .defineInRange("elderGuardianHealth", 80.0, 1.0, Double.MAX_VALUE);
+                ElderGuardianArmor = BUILDER.comment("How much natural Armor Elder Guardian Servants have, Default: 0.0")
+                        .defineInRange("elderGuardianArmor", 0.0, 0.0, Double.MAX_VALUE);
+                ElderGuardianDamage = BUILDER.comment("How much damage Elder Guardian Servants attack deals, Default: 8.0")
+                        .defineInRange("elderGuardianDamage", 8.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Bear Servant");
                 BearServantHealth = BUILDER.comment("How much Max Health Bear Servants have, Default: 30.0")

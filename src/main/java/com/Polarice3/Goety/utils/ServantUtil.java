@@ -7,9 +7,11 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.illager.PillagerServant;
 import com.Polarice3.Goety.common.entities.ally.illager.VindicatorServant;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.ModRavager;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.Prisoner;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieRavager;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieVillagerServant;
 import com.Polarice3.Goety.common.entities.hostile.*;
@@ -167,6 +169,8 @@ public class ServantUtil {
             summoned = target.convertTo(ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), keepLoot);
         } else if (target instanceof Pillager || target instanceof PillagerServant){
             summoned = target.convertTo(ModEntityType.SKELETON_PILLAGER_SERVANT.get(), keepLoot);
+        } else if (target instanceof Ravager || target instanceof ModRavager){
+            summoned = target.convertTo(ModEntityType.ZOMBIE_RAVAGER.get(), keepLoot);
         }
 
         if (summoned != null) {
@@ -197,6 +201,8 @@ public class ServantUtil {
                         }
                         servant.setVillagerXp(prisoner.getVillagerXp());
                     }
+                } else if (summoned instanceof ZombieRavager servant) {
+                    servant.convertNewEquipment(target);
                 }
                 net.minecraftforge.event.ForgeEventFactory.onLivingConvert(target, summoned);
                 if (!summoned.isSilent()) {

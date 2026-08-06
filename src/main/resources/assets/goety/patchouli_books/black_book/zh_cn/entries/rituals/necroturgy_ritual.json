@@ -6,17 +6,17 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "需要: $(li)16 个非木质台阶 $(li)16 个幽匿块 $(li)8 个不是空的花盆 $(li)必须在夜晚"
+      "text": "需求：$(li)16 个非木质台阶 $(li)16 个幽匿块或 $(l:goety:crafts/grave_soil)坟壤$() $(li)8 个非空的花盆 $(li)仪式必须在夜晚进行"
     },
     {
       "type": "patchouli:image",
       "images": ["goety:textures/gui/entries/necroturgy_ritual.png"],
       "border": true,
-      "text": "一个仪式摆放的例子."
+      "text": "一个正确地摆放仪式的例子"
     },
     {
       "type": "patchouli:text",
-      "text": "幽匿拥有大量的亡灵能量。通过用它们建造坟墓，你找到了一种收集更多亡灵能量用于仪式的方法."
+      "text": "通过对幽匿块或坟壤的运用，你找到了收集更多死灵能量以用于仪式的方法。其中，幽匿块内含充足的死灵能量，坟壤相比之下则更为脆弱，因为坟壤在仪式结束后有很大概率转化为无法用于激活仪式的黑暗泥土"
     }
   ]
 }

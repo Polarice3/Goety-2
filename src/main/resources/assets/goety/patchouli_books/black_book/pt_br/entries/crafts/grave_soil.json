@@ -1,0 +1,16 @@
+{
+  "name": "Terra do Túmulo",
+  "icon": "goety:grave_soil",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Quando os mortos são enterrados, o solo pode se infundir com energias necróticas, dando-lhe uma chance de reanimar o cadáver e se transformar novamente em terra escura, se não houver blocos colocados sobre ele."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:grave_soil",
+      "recipe2": "goety:dark_dirt"
+    }
+  ]
+}

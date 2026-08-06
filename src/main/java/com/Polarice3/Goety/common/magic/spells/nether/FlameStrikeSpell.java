@@ -72,9 +72,6 @@ public class FlameStrikeSpell extends Spell {
         LivingEntity target = this.getTarget(caster, range);
         if (target != null && !this.isShifting(caster)){
             double radius = spellStat.getRadius();
-            if (rightStaff(staff)){
-                radius *= 2.0D;
-            }
             List<Vec3> vec3s = BlockFinder.buildOuterBlockCircle(target.position(), radius);
             for (Vec3 vec3 : vec3s) {
                 FirePillar flames = new FirePillar(worldIn, vec3.x, vec3.y, vec3.z);
@@ -84,6 +81,18 @@ public class FlameStrikeSpell extends Spell {
                 flames.setExtraDamage(WandUtil.getPotencyLevel(caster));
                 MobUtil.moveDownToGround(flames);
                 worldIn.addFreshEntity(flames);
+            }
+            if (rightStaff(staff)) {
+                List<Vec3> vec32s = BlockFinder.buildOuterBlockCircle(target.position(), radius * 2.0D);
+                for (Vec3 vec3 : vec32s) {
+                    FirePillar flames = new FirePillar(worldIn, vec3.x, vec3.y, vec3.z);
+                    flames.setOwner(caster);
+                    flames.setDuration(duration);
+                    flames.setWarmUp(warmUp);
+                    flames.setExtraDamage(WandUtil.getPotencyLevel(caster));
+                    MobUtil.moveDownToGround(flames);
+                    worldIn.addFreshEntity(flames);
+                }
             }
         } else {
             Vec3 vector3d = caster.getViewVector(1.0F);

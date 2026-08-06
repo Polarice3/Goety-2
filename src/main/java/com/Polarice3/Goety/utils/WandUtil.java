@@ -331,14 +331,14 @@ public class WandUtil {
 
     public static void spawnIceBouquet(Level world, Vec3 pPos, LivingEntity livingEntity, float damage, int duration){
         spawnIceBouquet(world, livingEntity, pPos, 0, 0, damage, duration, true);
-        spawnIceBouquet(world, livingEntity, pPos, 0, 1, damage, duration);
-        spawnIceBouquet(world, livingEntity, pPos, 0, -1, damage, duration);
-        spawnIceBouquet(world, livingEntity, pPos, 1, 0, damage, duration);
-        spawnIceBouquet(world, livingEntity, pPos, 1, 1, damage, duration);
-        spawnIceBouquet(world, livingEntity, pPos, 1, -1, damage, duration);
-        spawnIceBouquet(world, livingEntity, pPos, -1, 0, damage, duration);
-        spawnIceBouquet(world, livingEntity, pPos, -1, 1, damage, duration);
-        spawnIceBouquet(world, livingEntity, pPos, -1, -1, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, 0, 1.5D, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, 0, -1.5D, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, 1.5D, 0, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, 1.5D, 1.5D, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, 1.5D, -1.5D, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, -1.5D, 0, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, -1.5D, 1.5D, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, -1.5D, -1.5D, damage, duration);
     }
 
     public static void spawnCrossIceBouquet(Level world, Vec3 pPos, LivingEntity livingEntity){
@@ -347,10 +347,10 @@ public class WandUtil {
 
     public static void spawnCrossIceBouquet(Level world, Vec3 pPos, LivingEntity livingEntity, float damage, int duration){
         spawnIceBouquet(world, livingEntity, pPos, 0, 0, damage, duration, true);
-        spawnIceBouquet(world, livingEntity, pPos, 1, 0, damage, duration);
-        spawnIceBouquet(world, livingEntity, pPos, -1, 0, damage, duration);
-        spawnIceBouquet(world, livingEntity, pPos, 0, 1, damage, duration);
-        spawnIceBouquet(world, livingEntity, pPos, 0, -1, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, 1.5D, 0, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, -1.5D, 0, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, 0, 1.5D, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, 0, -1.5D, damage, duration);
     }
 
     public static void spawn4x4IceBouquet(Level world, Vec3 pPos, LivingEntity livingEntity){
@@ -361,21 +361,21 @@ public class WandUtil {
         spawnIceBouquet(world, livingEntity, pPos, 0, 0, damage, duration, true);
         int random = world.random.nextInt(4);
         if (random == 0){
-            spawnIceBouquet(world, livingEntity, pPos, 0, 1, damage, duration);
-            spawnIceBouquet(world, livingEntity, pPos, 1, 0, damage, duration);
-            spawnIceBouquet(world, livingEntity, pPos, 1, 1, damage, duration);
+            spawnIceBouquet(world, livingEntity, pPos, 0, 1.5D, damage, duration);
+            spawnIceBouquet(world, livingEntity, pPos, 1.5D, 0, damage, duration);
+            spawnIceBouquet(world, livingEntity, pPos, 1.5D, 1.5D, damage, duration);
         } else if (random == 1){
-            spawnIceBouquet(world, livingEntity, pPos, 0, -1, damage, duration);
-            spawnIceBouquet(world, livingEntity, pPos, 1, 0, damage, duration);
-            spawnIceBouquet(world, livingEntity, pPos, 1, -1, damage, duration);
+            spawnIceBouquet(world, livingEntity, pPos, 0, -1.5D, damage, duration);
+            spawnIceBouquet(world, livingEntity, pPos, 1.5D, 0, damage, duration);
+            spawnIceBouquet(world, livingEntity, pPos, 1.5D, -1.5D, damage, duration);
         } else if (random == 2){
-            spawnIceBouquet(world, livingEntity, pPos, 0, 1, damage, duration);
-            spawnIceBouquet(world, livingEntity, pPos, -1, 0, damage, duration);
-            spawnIceBouquet(world, livingEntity, pPos, -1, 1, damage, duration);
+            spawnIceBouquet(world, livingEntity, pPos, 0, 1.5D, damage, duration);
+            spawnIceBouquet(world, livingEntity, pPos, -1.5D, 0, damage, duration);
+            spawnIceBouquet(world, livingEntity, pPos, -1.5D, 1.5D, damage, duration);
         } else {
-            spawnIceBouquet(world, livingEntity, pPos, 0, -1, damage, duration);
-            spawnIceBouquet(world, livingEntity, pPos, -1, 0, damage, duration);
-            spawnIceBouquet(world, livingEntity, pPos, -1, -1, damage, duration);
+            spawnIceBouquet(world, livingEntity, pPos, 0, -1.5D, damage, duration);
+            spawnIceBouquet(world, livingEntity, pPos, -1.5D, 0, damage, duration);
+            spawnIceBouquet(world, livingEntity, pPos, -1.5D, -1.5D, damage, duration);
         }
     }
 

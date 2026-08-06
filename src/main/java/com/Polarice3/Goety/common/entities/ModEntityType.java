@@ -1261,6 +1261,11 @@ public class ModEntityType {
                     .sized(0.85F, 0.85F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<ElderGuardianServant>> ELDER_GUARDIAN_SERVANT = register("elder_guardian_servant",
+            EntityType.Builder.of(ElderGuardianServant::new, MobCategory.MONSTER)
+                    .sized(1.9975F, 1.9975F)
+                    .clientTrackingRange(10));
+
     public static final RegistryObject<EntityType<BearServant>> BEAR_SERVANT = register("bear_servant",
             EntityType.Builder.of(BearServant::new, MobCategory.MONSTER)
                     .sized(1.4F, 1.4F)

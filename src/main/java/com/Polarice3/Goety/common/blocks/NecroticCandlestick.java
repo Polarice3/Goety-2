@@ -4,6 +4,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.entities.NecroticCandlestickBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -65,8 +66,8 @@ public class NecroticCandlestick extends CandlestickBlock implements EntityBlock
                 }
             }
 
-            p_220698_.addParticle(ModParticleTypes.SMALL_NECRO_FIRE.get(), p_220699_.getX() + 0.5D, p_220699_.getY() + (8 / 16.0D), p_220699_.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
-            p_220698_.addParticle(ModParticleTypes.SMALL_NECRO_FIRE_DROP.get(), p_220699_.getX() + 0.5D, p_220699_.getY() + (8 / 16.0D), p_220699_.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
+            ParticleOptions particleOptions = ModParticleTypes.SMALL_NECRO_FIRE.get();
+            p_220698_.addParticle(particleOptions, p_220699_.getX() + 0.5D, p_220699_.getY() + (8 / 16.0D), p_220699_.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
         }
     }
 

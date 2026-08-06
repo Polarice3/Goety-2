@@ -1,0 +1,16 @@
+{
+  "name": "Grave Soil",
+  "icon": "goety:grave_soil",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "When the dead are buried, the soil can become infused with necrotic energies, giving it a chance of reanimating the corpse and turning back into dark dirt once more, if there's no blocks placed atop of it."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:grave_soil",
+      "recipe2": "goety:dark_dirt"
+    }
+  ]
+}

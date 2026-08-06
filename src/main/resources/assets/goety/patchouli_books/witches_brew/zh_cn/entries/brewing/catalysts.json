@@ -10,11 +10,16 @@
     },
     {
       "type": "patchouli:text",
-      "text": "但别担心小笨蛋！奥奶奶会解释他们中的一些人是怎么做的，因为我今天感觉很好！如果催化剂是一个刷怪蛋，这意味着你必须在你的大锅里煮掉从蛋里生出来的任何东西！哦，其中一些效果会占用更多药酿“容量”，所以在酿造时要注意另一件事！哈哈哈！"
+      "text": "但别担心小笨蛋！奥奶奶会解释他们中的一些人是怎么做的，因为我今天感觉很好！如果催化剂是一个刷怪蛋，这意味着你必须在你的大锅里煮掉从蛋里生出来的任何东西！哦，其中一些效果占据了多余一个容量计，所以在酿造时要注意另一件事！哈哈哈！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.absorption"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.aging",
+      "text": "奥奶奶可爱把这种药水往那些糟蹋她花园的小兔崽子们身上泼了！就算那些小混蛋是活动的尸体也管用！不过不管我的药水多厉害，总有些蠢货要么命太长，要么身上带点古怪，药水对他们没辙——比如那些海里的独眼怪！"
     },
     {
       "type": "goety:catalyst",
@@ -29,12 +34,12 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.bees",
-      "text": "蝴蝶翅膀青蛙腿，野猪腐肉蝙蝠嘴!"
+      "text": "嗡嗡嗡，嗡嗡嗡，蛰我敌人，蜜我脚趾头！"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.blind_jump",
-      "text": "将有此效果的人传送到任何位置！如果效果等级越高，那他们就要找回家的路了!"
+      "text": "将有此效果的人传送到随机位置！等级越高，传送得越远！"
     },
     {
       "type": "goety:catalyst",
@@ -43,7 +48,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.bottling",
-      "text": "一个合格的女巫甚至可以酿造一个能让自己药酿技艺更好的药酿！"
+      "text": "酿一锅让你酿得更好的药水，从而让你酿得更好！"
     },
     {
       "type": "goety:catalyst",
@@ -53,7 +58,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.chop_tree",
-      "text": "利斧磐石有相助，珍馐佳酿已出釜。眉前若现老橡树，此刻已为手中木!"
+      "text": "石斧在手，药水一泼，见树砍树，木头归我！"
     },
     {
       "type": "goety:catalyst",
@@ -86,7 +91,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.deflective",
-      "text": "奶奶讨厌那些朝她扔石子的小孩！但是有了这个魔药，现在要讨厌的是那些小孩了。哇哈哈哈哈！"
+      "text": "与其挡开弹射物，不如让它自己飞回去找射它的人！"
     },
     {
       "type": "goety:catalyst",
@@ -136,7 +141,8 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.fire_resistance"
-    },{
+    },
+    {
       "type": "goety:catalyst",
       "recipe": "effect.goety.fire_trail",
       "text": "抓住我，如果你敢!追上我！如果你能驾驭这种火焰！"
@@ -223,7 +229,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.grow_tree",
-      "text": "一个女巫的家居然不被树包围起来？这不可容忍!"
+      "text": "一个女巫的家居然不被树包围起来？这不可容忍！催化剂可以是任何树苗！"
     },
     {
       "type": "goety:catalyst",
@@ -245,12 +251,17 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.infest",
-      "text": "让石头和石砖被侵蚀!这才有古老建筑的风格!哈哈哈!"
+      "text": "让某些石头和石砖被那些可爱的蠹虫蛀满！"
     },
     {
       "type": "goety:sacrifice",
       "recipe": "effect.goety.infest",
-      "text": "如果你周围没有任何被侵蚀的石头，就在你的大锅炖鱼汤！虽然它可能比较硌牙...."
+      "text": "要是周围找不到被蛀的石头，就往坩埚里煮一只蠹虫！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.insect_bane",
+      "text": "这效果用来猎杀那些美味的虫子可太棒了，尤其是大个儿的！"
     },
     {
       "type": "goety:catalyst",
@@ -286,7 +297,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.leeching",
-      "text": "抡起棍子揍流氓，偷他血气补你伤~嘿嘿，这可比喝药快当！"
+      "text": "抡起棍子揍流氓，偷他血气补你伤~嘿嘿，这可比喝药快当！."
     },
     {
       "type": "goety:catalyst",
@@ -427,7 +438,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.shielding",
-      "text": "嘿嘿…闻见没？这止疼的圣饼！"
+      "text": "待在奥奶奶身边，似乎挨打都没那么疼了！"
     },
     {
       "type": "goety:catalyst",
@@ -436,6 +447,11 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.slowness"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.smiting",
+      "text": "奥奶奶很不喜欢有只僵尸她的院子里！"
     },
     {
       "type": "goety:catalyst",
@@ -512,7 +528,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.void_touched",
-      "text": "虚空触手可及！小子！这时可千万别磕着碰着。"
+      "text": "跟虚空贴贴吧，小崽子！小心别让别的东西贴到你！"
     },
     {
       "type": "goety:catalyst",

@@ -76,7 +76,6 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -1171,7 +1170,7 @@ public class ModEvents {
         }
         if (ModDamageSource.isMagicFire(event.getSource())){
             float amount = event.getAmount();
-            if (victim.fireImmune()) {
+            if (victim.fireImmune() && !victim.hasEffect(GoetyEffects.BURN_HEX.get())) {
                 amount /= 2.0F;
             }
             int k = EnchantmentHelper.getDamageProtection(victim.getArmorSlots(), victim.damageSources().inFire());
@@ -1187,7 +1186,7 @@ public class ModEvents {
             }
             float amount = event.getAmount();
             if (MobsConfig.HellfireFireImmune.get()) {
-                if (victim.fireImmune()) {
+                if (victim.fireImmune() && !victim.hasEffect(GoetyEffects.BURN_HEX.get())) {
                     amount /= 2.0F;
                 }
             }
@@ -1335,22 +1334,6 @@ public class ModEvents {
             }
         }
         if (world instanceof ServerLevel serverLevel) {
-            if (killed instanceof Villager villager) {
-                if (villager.hasEffect(GoetyEffects.ILLAGUE.get())) {
-                    ZombieVillager zombievillager = villager.convertTo(EntityType.ZOMBIE_VILLAGER, false);
-                    if (zombievillager != null) {
-                        zombievillager.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(zombievillager.blockPosition()), MobSpawnType.CONVERSION, new Zombie.ZombieGroupData(false, true), (CompoundTag) null);
-                        zombievillager.setVillagerData(villager.getVillagerData());
-                        zombievillager.setGossips(villager.getGossips().store(NbtOps.INSTANCE));
-                        zombievillager.setTradeOffers(villager.getOffers().createTag());
-                        zombievillager.setVillagerXp(villager.getVillagerXp());
-                        ForgeEventFactory.onLivingConvert(villager, zombievillager);
-                        if (!zombievillager.isSilent()) {
-                            serverLevel.levelEvent((Player) null, 1026, zombievillager.blockPosition(), 0);
-                        }
-                    }
-                }
-            }
             if (killed instanceof AbstractIllager illager){
                 if (!illager.getType().getDescriptionId().contains("magispeller")
                         && !illager.getType().getDescriptionId().contains("faker")

@@ -3701,5 +3701,15 @@
   "block.goety.sculptured_statue_1": "§aNedeak的雕像",
   "block.goety.sculptured_statue_2": "§aMrdrewlego的雕像",
   "block.goety.sculptured_statue_3": "§aCodatower的雕像",
-  "block.goety.sculptured_statue_4": "§a坂上駒子的雕像"
+  "block.goety.sculptured_statue_4": "§a坂上駒子的雕像",
+  "entity.goety.elder_guardian_servant": "远古守卫者仆从",
+  "item.goety.elder_guardian_servant_spawn_egg": "远古守卫者仆从刷怪蛋",
+  "item.goety.aging_cream": "衰老面霜",
+  "block.goety.grave_soil": "坟壤",
+  "effect.goety.smiting": "亡灵克星",
+  "effect.goety.smiting.description": "持有者的物理攻击可以对亡灵生物造成更高的伤害，等级越高，额外伤害也就越高",
+  "effect.goety.insect_bane": "节肢克星",
+  "effect.goety.insect_bane.description": "持有者的物理攻击可以对节肢生物造成更高的伤害，等级越高，额外伤害也就越高",
+  "effect.goety.aging": "衰老",
+  "info.goety.ritual.structure.noBlocksMulti": "%s或%s的数量不足！"
 }

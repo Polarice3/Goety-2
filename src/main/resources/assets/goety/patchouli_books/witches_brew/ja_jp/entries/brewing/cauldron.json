@@ -23,6 +23,14 @@
     },
     {
       "type": "goety:cauldron",
+      "recipe": "goety:cauldron/aging_cream"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "魔女の集まりにいる他の「おばあちゃん」たち、見た目ほど年寄りじゃない気がするわ！きっと、わざと肌にシワを作るためにこのクリームを使ってるのよ！"
+    },
+    {
+      "type": "goety:cauldron",
       "anchor": "flying_ointment",
       "recipe": "goety:cauldron/flying_ointment"
     },

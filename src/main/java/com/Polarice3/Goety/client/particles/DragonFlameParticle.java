@@ -1,12 +1,15 @@
 package com.Polarice3.Goety.client.particles;
 
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.*;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.SimpleParticleType;
 
-public class DragonFlameParticle extends TextureSheetParticle {
+public class DragonFlameParticle extends ReversibleParticle {
     private final SpriteSet spriteSet;
     public boolean isBig = false;
 
@@ -69,6 +72,21 @@ public class DragonFlameParticle extends TextureSheetParticle {
         }
     }
 
+    public static class ReversibleProvider implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet spriteSet;
+
+        public ReversibleProvider(SpriteSet spriteSet) {
+            this.spriteSet = spriteSet;
+        }
+
+        public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+            DragonFlameParticle flameParticle = new DragonFlameParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
+            flameParticle.isBig = true;
+            flameParticle.reversed = worldIn.getRandom().nextBoolean();
+            return flameParticle;
+        }
+    }
+
     public static class SmallProvider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteSet;
 
@@ -79,6 +97,21 @@ public class DragonFlameParticle extends TextureSheetParticle {
         public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             DragonFlameParticle flameparticle = new DragonFlameParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
             flameparticle.scale(0.5F);
+            return flameparticle;
+        }
+    }
+
+    public static class SmallReversibleProvider implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet spriteSet;
+
+        public SmallReversibleProvider(SpriteSet spriteSet) {
+            this.spriteSet = spriteSet;
+        }
+
+        public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+            DragonFlameParticle flameparticle = new DragonFlameParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
+            flameparticle.scale(0.5F);
+            flameparticle.reversed = worldIn.getRandom().nextBoolean();
             return flameparticle;
         }
     }

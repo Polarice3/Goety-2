@@ -232,6 +232,12 @@ public class GoetyEffects {
     public static final RegistryObject<MobEffect> CORPSE_EATER = EFFECTS.register("corpse_eater",
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x48565e));
 
+    public static final RegistryObject<MobEffect> SMITING = EFFECTS.register("smiting",
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0xfff240));
+
+    public static final RegistryObject<MobEffect> INSECT_BANE = EFFECTS.register("insect_bane",
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x153c2a));
+
     public static final RegistryObject<MobEffect> FORTUNATE = EFFECTS.register("fortunate",
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x4aedd9));
 

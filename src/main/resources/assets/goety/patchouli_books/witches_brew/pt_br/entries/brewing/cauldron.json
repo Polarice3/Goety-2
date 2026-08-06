@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Nossos Caldeirões não servem apenas para fazer poções! Às vezes você pode fazer ensopado ou algumas pomadas para cobrir seu corpo para alguns efeitos!"
+      "text": "Nossos Caldeirões não servem apenas para fazer poções! Às vezes você pode fazer ensopado ou algumas pomadas para passar no corpo para alguns efeitos!"
     },
     {
       "type": "patchouli:spotlight",
@@ -23,12 +23,20 @@
     },
     {
       "type": "goety:cauldron",
+      "recipe": "goety:cauldron/aging_cream"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Juro que algumas das outras avós do coven não são tão velhas quanto parecem! Certamente elas usam este creme para deixar a pele mais enrugada!"
+    },
+    {
+      "type": "goety:cauldron",
       "anchor": "flying_ointment",
       "recipe": "goety:cauldron/flying_ointment"
     },
     {
       "type": "patchouli:text",
-      "text": "HAHAHAHAHA! A boa e velha Pomada Voadora! Faz você se sentir como se estivesse nas nuvens e te anima! Funciona bem com uma vassoura hahaha!"
+      "text": "HAHAHAHAHA! A boa e velha Pomada Voadora! Faz você se sentir como se estivesse realmente voando e te anima! Funciona bem com uma vassoura hahaha!"
     },
     {
       "type": "goety:cauldron",
@@ -46,5 +54,11 @@
       "type": "patchouli:text",
       "text": "Algumas bruxas precisam de uma aparência mais extravagante para fazer velas em seus caldeirões, mas aqui, nós apenas usamos um pedaço de linha e de alguma forma conseguimos cilindros de cera perfeitamente moldados a partir disso!"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:nightshade_blossom": 1,
+    "goety:resilience_lotion": 2,
+    "goety:aging_cream": 4,
+    "goety:flying_ointment": 6
+  }
 }

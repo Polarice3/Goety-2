@@ -23,6 +23,14 @@
     },
     {
       "type": "goety:cauldron",
+      "recipe": "goety:cauldron/aging_cream"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "我敢打赌，咱们集会里有些老太婆压根没看着那么老！准是用了这玩意儿涂脸，才把皮肤弄得皱巴巴的！"
+    },
+    {
+      "type": "goety:cauldron",
       "anchor": "flying_ointment",
       "recipe": "goety:cauldron/flying_ointment"
     },
@@ -46,5 +54,11 @@
       "type": "patchouli:text",
       "text": "有些女巫搞什么花里胡哨的装置才拿坩埚做蜡烛，咱们这儿？直接扔根线进去，莫名其妙就能整出漂漂亮亮的蜡烛来！照她那个速度，她做不过我你信吗，哈哈哈哈！"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:nightshade_blossom": 1,
+    "goety:resilience_lotion": 2,
+    "goety:aging_cream": 4,
+    "goety:flying_ointment": 6
+  }
 }

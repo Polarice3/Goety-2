@@ -1,4 +1,4 @@
-// 1.20.1	2026-07-30T00:33:13.1934116	Block States: goety
+// 1.20.1	2026-08-03T15:09:52.9533213	Block States: goety
 92a547327e71f54fb7e9d59c8b81d2e518a332b2 assets/goety/blockstates/big_end_stone_bricks.json
 82b39d96011dec7bfc2719744242e26b70c038fb assets/goety/blockstates/blooming_chorus_wood.json
 0868546e099bb6609c1b9df7cd57e1e80292eae2 assets/goety/blockstates/blossoming_chorus_wood.json
@@ -125,6 +125,7 @@ c296e3d319f5b7b9f6a3ae2710d6c57aa516234a assets/goety/blockstates/grassy_end_sto
 49eea7b81a982d896ce372a273bde9d465bda155 assets/goety/blockstates/grassy_end_stone_bricks_heavy.json
 e438aded12b452e1cbeeb5f5f9cc3eb75e4cad09 assets/goety/blockstates/grassy_end_stone_tiles.json
 642af2313f82599af7c13b4e3e3f82ec60faccaf assets/goety/blockstates/grassy_purpur_block.json
+d0171f2ee3ad62f9f83fc684190dfb4978cd1561 assets/goety/blockstates/grave_soil.json
 89c80506a20cf445bf6f8a97b3a80ff454248972 assets/goety/blockstates/green_siltstone_pillar.json
 9695e21d4de7d6aafe313be7e7638563d2d6719d assets/goety/blockstates/haunted_button.json
 eb83aabf86461e7205fc2406a72216f8102ec228 assets/goety/blockstates/haunted_door.json
@@ -573,6 +574,7 @@ f029d7c503680844e170a4b944b73831285b8d1b assets/goety/models/block/grassy_end_ro
 86da9d05de9b15a15f8e9896e11ba23236db1de5 assets/goety/models/block/grassy_end_stone_bricks_heavy.json
 f2944e88394383d8956f6b4e6fbae407d37078d6 assets/goety/models/block/grassy_end_stone_tiles.json
 88d7f5281d78a4a46438c7a1255291ca3c2f35cb assets/goety/models/block/grassy_purpur_block.json
+c562484768078c63b29bfa429c6b84b06a2c6ee8 assets/goety/models/block/grave_soil.json
 92592b35cd6320f3c26f37c067cb51f3e0d08f6e assets/goety/models/block/green_siltstone_pillar.json
 cfe079c74fb45a1b5875c3e4b94f1535df270a7a assets/goety/models/block/green_siltstone_pillar_horizontal.json
 47b09f5574d7901bab42978dae40916dba795bf5 assets/goety/models/block/haunted_button.json
@@ -1156,6 +1158,7 @@ d72269b3a9612a4a74b4d0b175592aeac2c2f4ec assets/goety/models/item/grassy_end_sto
 e3b9a6396842c34498b311999f16553701dd8275 assets/goety/models/item/grassy_end_stone_bricks_heavy.json
 dbdaa276ed380d75447839c339f16008a6bbd253 assets/goety/models/item/grassy_end_stone_tiles.json
 cd4e6b15a70710680e83f0213ce83db23797eed9 assets/goety/models/item/grassy_purpur_block.json
+6e824c22b2ae41517872e430e16f5aab1cc91519 assets/goety/models/item/grave_soil.json
 b53994136794312cd47d3d7f2c84048db0596e6c assets/goety/models/item/green_siltstone_pillar.json
 416c217b36c3a068356ef630fb29b7c234ee3b99 assets/goety/models/item/haunted_button.json
 30ddc17381ad9296096df034436501cd50072b4f assets/goety/models/item/haunted_fence.json

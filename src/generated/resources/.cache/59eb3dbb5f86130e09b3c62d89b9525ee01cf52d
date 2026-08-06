@@ -1,4 +1,4 @@
-// 1.20.1	2026-07-30T00:33:13.1828672	Loot Tables
+// 1.20.1	2026-08-03T15:09:52.9413527	Loot Tables
 1173ad0aef6067156a1c3161e3fe16b8e10b3f92 data/goety/loot_tables/blocks/animator.json
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
@@ -252,6 +252,7 @@ bf2950381cbe6c79e9a42532c0b8be91302ae272 data/goety/loot_tables/blocks/grassy_en
 d3febcbc5301fa178bdb72a09d8fb4c2154750cf data/goety/loot_tables/blocks/grassy_purpur_block.json
 5e1c94b0acf69bee9e7d2f488244e0ac2ae0e8af data/goety/loot_tables/blocks/grassy_smooth_end_stone.json
 094f18c4092ff639ea1415c586fbe36eafee6eb8 data/goety/loot_tables/blocks/grassy_smooth_end_stone_heavy.json
+529561d51d44ff4fbdc51321a8cb445bdc9fa0c9 data/goety/loot_tables/blocks/grave_soil.json
 0db00528e3db7ee5ddf9627618ed863db8a65a5d data/goety/loot_tables/blocks/green_siltstone_pillar.json
 b8eaf8f54c00942169371a654e8656949badc5fa data/goety/loot_tables/blocks/grim_infuser.json
 a6e3f5936f6bea0bd81fbdb29949f88067c75d95 data/goety/loot_tables/blocks/grown_cobbled_end_stone.json

@@ -1,0 +1,38 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:convert_tamed",
+  "activation_item": {
+    "item": "goety:aging_cream"
+  },
+  "craftType": "deep",
+  "entity_to_convert": {
+    "tag": "goety:guardians",
+    "display_name": "entity.minecraft.guardian"
+  },
+  "entity_to_convert_into": "goety:elder_guardian_servant",
+  "soulCost": 5,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "minecraft:tide_armor_trim_smithing_template"
+    },
+    {
+      "tag": "minecraft:fishes"
+    },
+    {
+      "tag": "minecraft:fishes"
+    },
+    {
+      "tag": "minecraft:fishes"
+    },
+    {
+      "tag": "minecraft:fishes"
+    },
+    {
+      "item": "minecraft:pufferfish"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

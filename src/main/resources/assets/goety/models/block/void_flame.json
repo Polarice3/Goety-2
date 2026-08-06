@@ -1,5 +1,5 @@
 {
-	"texture_size": [25, 25],
+	"texture_size": [32, 32],
 	"textures": {
 		"0": "goety:block/void_flame",
 		"particle": "goety:block/void_flame"

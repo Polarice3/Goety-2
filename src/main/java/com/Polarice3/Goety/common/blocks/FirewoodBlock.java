@@ -4,6 +4,7 @@ import com.Polarice3.Goety.client.particles.MagicSmokeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -134,7 +135,8 @@ public class FirewoodBlock extends Block implements SimpleWaterloggedBlock {
             if (this.spawnParticles) {
                 Vec3 vec3 = new Vec3(0.5D, 0.75D, 0.5D);
                 vec3 = vec3.add(p_220920_.getX(), p_220920_.getY(), p_220920_.getZ());
-                p_220919_.addParticle(ModParticleTypes.BIG_FIRE.get(), vec3.x, vec3.y, vec3.z, 0.0D, 0.0D, 0.0D);
+                ParticleOptions particleOptions = ModParticleTypes.BIG_FIRE.get();
+                p_220919_.addParticle(particleOptions, vec3.x, vec3.y, vec3.z, 0.0D, 0.0D, 0.0D);
                 p_220919_.addParticle(ModParticleTypes.BIG_FIRE_DROP.get(), vec3.x, vec3.y, vec3.z, 0.0D, 0.0D, 0.0D);
                 for (int i = 0; i < 4; ++i) {
                     vec3 = vec3.offsetRandom(p_220921_, 0.5F);

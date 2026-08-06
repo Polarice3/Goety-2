@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
@@ -164,12 +165,12 @@ public class RitualRequirements extends RitualTypes {
                 }
             }
             case NECROTURGY -> {
-                Predicate<BlockState> first = blockState -> blockState.getBlock() instanceof SculkBlock;
+                Predicate<BlockState> first = blockState -> blockState.getBlock() instanceof SculkBlock || blockState.is(ModBlocks.GRAVE_SOIL.get());
                 Predicate<BlockState> second = blockState -> blockState.getBlock() instanceof SlabBlock;
                 Predicate<BlockState> third = blockState -> blockState.getBlock() instanceof FlowerPotBlock flowerPotBlock && flowerPotBlock.getContent() != Blocks.AIR;
                 if (!finder.hasBlocks(first, 16)) {
                     if (pPlayer != null) {
-                        pPlayer.displayClientMessage(Component.translatable("info.goety.ritual.structure.noBlocks", Blocks.SCULK.getName()), true);
+                        pPlayer.displayClientMessage(Component.translatable("info.goety.ritual.structure.noBlocksMulti", Blocks.SCULK.getName(), ModBlocks.GRAVE_SOIL.get().getName()), true);
                     }
                     return false;
                 }
@@ -268,8 +269,8 @@ public class RitualRequirements extends RitualTypes {
             }
             case SABBATH -> {
                 Predicate<BlockState> first = blockState -> blockState.is(Blocks.CRYING_OBSIDIAN);
-                Predicate<BlockState> second = blockState -> blockState.is(Blocks.OBSIDIAN);
-                Predicate<BlockState> third = blockState -> blockState.is(Blocks.SOUL_FIRE);
+                Predicate<BlockState> second = blockState -> blockState.is(Tags.Blocks.OBSIDIAN);
+                Predicate<BlockState> third = blockState -> blockState.getBlock() instanceof SoulFireBlock;
                 if (!finder.hasBlocks(first, 8)) {
                     if (pPlayer != null) {
                         pPlayer.displayClientMessage(Component.translatable("info.goety.ritual.structure.noBlocks", Blocks.CRYING_OBSIDIAN.getName()), true);

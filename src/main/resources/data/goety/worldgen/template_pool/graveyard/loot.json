@@ -8,7 +8,7 @@
       "weight": 11,
       "element": {
 
-        "location": "goety:graveyard/podzol",
+        "location": "goety:graveyard/soil",
 
         "processors": "minecraft:empty",
 

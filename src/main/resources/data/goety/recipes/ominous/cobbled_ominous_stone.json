@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "sss",
+    "sps",
+    "sss"
+  ],
+  "key":
+  {
+    "s":
+    {
+      "tag": "forge:cobblestone"
+    },
+    "p":
+    {
+      "tag": "forge:gems/lapis"
+    }
+  },
+  "result":
+  {
+    "item": "goety:cobbled_ominous_stone",
+    "count": 8
+  }
+}

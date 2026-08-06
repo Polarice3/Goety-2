@@ -89,6 +89,8 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> DeflectiveCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShieldingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SaveEffectsCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SmitingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> InsectBaneCost;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> BottlingCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> CorpseEaterCapacity;
@@ -101,12 +103,14 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> FortunateCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> FrostyAuraCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> GravityPulseCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> InsectBaneCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> NyctophobiaCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> PlungeCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> RadianceCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> RallyingCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> SaveEffectsCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShieldingCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SmitingCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> SnowSkinCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> StormsWrathCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> SunAllergyCapacity;
@@ -114,6 +118,7 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> VoidTouchedCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> WildRageCapacity;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> AgingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> BatBurstCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> BeesCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> BlindJumpCost;
@@ -348,8 +353,14 @@ public class BrewConfig {
                 .defineInRange("shieldingCost", 50, 1, Integer.MAX_VALUE);
         SaveEffectsCost = BUILDER.comment("Save Effects Soul Cost, Default: 50")
                 .defineInRange("saveEffectsCost", 50, 1, Integer.MAX_VALUE);
+        SmitingCost = BUILDER.comment("Smiting Soul Cost, Default: 25")
+                .defineInRange("smitingCost", 25, 1, Integer.MAX_VALUE);
+        InsectBaneCost = BUILDER.comment("Insect Bane Soul Cost, Default: 25")
+                .defineInRange("insectBaneCost", 25, 1, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Block/Other Effects");
+        AgingCost = BUILDER.comment("Aging Soul Cost, Default: 100")
+                .defineInRange("agingCost", 100, 1, Integer.MAX_VALUE);
         BatBurstCost = BUILDER.comment("Bat Burst Soul Cost, Default: 100")
                 .defineInRange("batBurstCost", 100, 1, Integer.MAX_VALUE);
         BeesCost = BUILDER.comment("BEEEEES Soul Cost, Default: 50")
@@ -466,6 +477,8 @@ public class BrewConfig {
                 .defineInRange("frostyAuraCapacity", 2, 0, Integer.MAX_VALUE);
         GravityPulseCapacity = BUILDER.comment("Gravity Pulse Extra Capacity, Default: 2")
                 .defineInRange("gravityPulseCapacity", 2, 0, Integer.MAX_VALUE);
+        InsectBaneCapacity = BUILDER.comment("Insect Bane Extra Capacity, Default: 2")
+                .defineInRange("insectBaneCapacity", 2, 0, Integer.MAX_VALUE);
         NyctophobiaCapacity = BUILDER.comment("Nyctophobia Extra Capacity, Default: 4")
                 .defineInRange("nyctophobiaCapacity", 4, 0, Integer.MAX_VALUE);
         PlungeCapacity = BUILDER.comment("Plunge Extra Capacity, Default: 4")
@@ -478,6 +491,8 @@ public class BrewConfig {
                 .defineInRange("saveEffectsCapacity", 8, 0, Integer.MAX_VALUE);
         ShieldingCapacity = BUILDER.comment("Shielding Extra Capacity, Default: 2")
                 .defineInRange("shieldingCapacity", 2, 0, Integer.MAX_VALUE);
+        SmitingCapacity = BUILDER.comment("Smiting Extra Capacity, Default: 2")
+                .defineInRange("smitingCapacity", 2, 0, Integer.MAX_VALUE);
         SnowSkinCapacity = BUILDER.comment("Snow Skin Extra Capacity, Default: 4")
                 .defineInRange("snowSkinCapacity", 4, 0, Integer.MAX_VALUE);
         StormsWrathCapacity = BUILDER.comment("Storm's Wrath Extra Capacity, Default: 4")

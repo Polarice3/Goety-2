@@ -57,6 +57,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(ModBlocks.DARK_DIRT.get());
         simpleBlockWithItem(ModBlocks.COBBLED_DARK_DIRT.get());
         simpleBlockWithItem(ModBlocks.SNOWY_DARK_DIRT.get());
+        simpleBlockWithItem(ModBlocks.GRAVE_SOIL.get());
         simpleBlockWithItem(ModBlocks.DETRITUS.get());
 
         simpleBlockWithItem(ModBlocks.SOILED_SPRUCE_PLANKS.get());

@@ -228,6 +228,6 @@ public class CandelabraBlock extends Block implements SimpleWaterloggedBlock {
         }
 
         p_220688_.addParticle(ModParticleTypes.SMALL_FIRE.get(), p_220689_.x, p_220689_.y, p_220689_.z, 0.0D, 0.0D, 0.0D);
-        p_220688_.addParticle(ModParticleTypes.SMALL_FIRE_DROP.get(), p_220689_.x, p_220689_.y, p_220689_.z, 0.0D, 0.0D, 0.0D);
+        p_220688_.addParticle(ModParticleTypes.SMALL_FIRE_REVERSED.get(), p_220689_.x, p_220689_.y, p_220689_.z, 0.0D, 0.0D, 0.0D);
     }
 }

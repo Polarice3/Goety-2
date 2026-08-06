@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "DRD",
+    "BGB",
+    "DRD"
+  ],
+  "key":
+  {
+    "R":
+    {
+      "item": "minecraft:rotten_flesh"
+    },
+    "B":
+    {
+      "tag": "forge:bones"
+    },
+    "G":
+    {
+      "item": "goety:grave_dust"
+    },
+    "D":
+    {
+      "item": "goety:dark_dirt"
+    }
+  },
+  "result":
+  {
+    "item": "goety:grave_soil",
+    "count": 4
+  }
+}

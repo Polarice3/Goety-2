@@ -1,0 +1,35 @@
+{
+  "type": "goety:cauldron",
+  "soulCost": 1000,
+  "color": 3815994,
+  "levelLeft": 1,
+  "take_with": {
+    "item": "minecraft:glass_bottle"
+  },
+  "ingredients": [
+    {
+      "tag": "goety:ancient_plants"
+    },
+    {
+      "item": "minecraft:ancient_debris"
+    },
+    {
+      "tag": "minecraft:decorated_pot_sherds"
+    },
+    {
+      "item": "goety:grave_dust"
+    }
+  ],
+  "result": {
+    "item": "goety:aging_cream"
+  },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "goety_revelation"
+      }
+    }
+  ]
+}

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.blocks;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -69,7 +70,8 @@ public class DungeonTorchBlock extends Block {
             double d0 = (double)p_222595_.getX() + 0.5D;
             double d1 = (double)p_222595_.getY() + 1.0D;
             double d2 = (double)p_222595_.getZ() + 0.5D;
-            p_222594_.addParticle(ModParticleTypes.BIG_FIRE.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
+            ParticleOptions particleOptions = ModParticleTypes.BIG_FIRE.get();
+            p_222594_.addParticle(particleOptions, d0, d1, d2, 0.0D, 0.0D, 0.0D);
             p_222594_.addParticle(ModParticleTypes.BIG_FIRE_DROP.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
         }
     }

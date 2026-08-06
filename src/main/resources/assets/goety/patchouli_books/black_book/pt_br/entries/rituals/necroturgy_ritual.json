@@ -6,17 +6,17 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Requisitos: $(li)16 Lajes não de Madeira $(li)16 Blocos de Sculk $(li)8 Vasos com Plantas $(li)Deve ser realizado à Noite"
+      "text": "Requisitos: $(li)16 Lajes Não de Madeira $(li)16 Blocos de Sculk ou $(l:goety:crafts/grave_soil)Terra do Túmulo$() $(li)8 Vasos de Flores Não Vazios $(li)Deve ser realizado à Noite"
     },
     {
       "type": "patchouli:image",
       "images": ["goety:textures/gui/entries/necroturgy_ritual.png"],
       "border": true,
-      "text": "Um exemplo de como o ritual pode ser posicionado."
+      "text": "Um exemplo de como o ritual pode ser montado."
     },
     {
       "type": "patchouli:text",
-      "text": "O Sculk contém muita energia necrotúrgica. Ao construir Túmulos com eles, você descobriu uma maneira de coletar mais energias necrotúrgicas para usar em rituais."
+      "text": "Ao construir túmulos com Sculk ou Terra do Túmulo, você encontrou uma maneira de reunir mais energias necrotúrgicas para usar em Rituais. No entanto, enquanto o Sculk contém uma grande quantidade de energia necrótica, a Terra de Túmulo é mais frágil e tem uma grande chance de se transformar em Terra Escura assim que um ritual é concluído."
     }
   ]
 }

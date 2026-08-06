@@ -12,6 +12,7 @@ import com.Polarice3.Goety.utils.ConstantPaths;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -311,13 +312,14 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
 
         if (serverLevel != null) {
             long t = serverLevel.getGameTime();
-            double d0 = (double)blockpos.getX() + serverLevel.random.nextDouble();
-            double d1 = (double)blockpos.getY() + serverLevel.random.nextDouble();
-            double d2 = (double)blockpos.getZ() + serverLevel.random.nextDouble();
+            double d0 = (double)blockpos.getX() + serverLevel.getRandom().nextDouble();
+            double d1 = (double)blockpos.getY() + serverLevel.getRandom().nextDouble();
+            double d2 = (double)blockpos.getZ() + serverLevel.getRandom().nextDouble();
             if (t % 20L == 0L) {
                 if (this.getBlockState().getValue(NecroBrazierBlock.WATERLOGGED)) {
                     if (serverLevel.getFluidState(blockpos.above()).isEmpty() && serverLevel.getBlockState(blockpos.above()).isAir()) {
-                        serverLevel.sendParticles(ModParticleTypes.NECRO_FIRE.get(), blockpos.getX() + 0.5F, blockpos.getY() + 1.0F, blockpos.getZ() + 0.5F, 1, 0, 0, 0, 0);
+                        ParticleOptions particleOptions = ModParticleTypes.NECRO_FIRE.get();
+                        serverLevel.sendParticles(particleOptions, blockpos.getX() + 0.5F, blockpos.getY() + 1.0F, blockpos.getZ() + 0.5F, 1, 0, 0, 0, 0);
                         serverLevel.sendParticles(ModParticleTypes.NECRO_FIRE_DROP.get(), blockpos.getX() + 0.5F, blockpos.getY() + 1.0F, blockpos.getZ() + 0.5F, 1, 0, 0, 0, 0);
                     } else {
                         for (int p = 0; p < 4; ++p) {
@@ -330,7 +332,8 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
                         for (int p = 0; p < 4; ++p) {
                             serverLevel.sendParticles(ParticleTypes.SMOKE, d0, d1, d2, 0, 0.0D, 5.0E-4D, 0.0D, 0.5F);
                         }
-                        serverLevel.sendParticles(ModParticleTypes.NECRO_FIRE.get(), blockpos.getX() + 0.5F, blockpos.getY() + 1.0F, blockpos.getZ() + 0.5F, 1, 0, 0, 0, 0);
+                        ParticleOptions particleOptions = ModParticleTypes.NECRO_FIRE.get();
+                        serverLevel.sendParticles(particleOptions, blockpos.getX() + 0.5F, blockpos.getY() + 1.0F, blockpos.getZ() + 0.5F, 1, 0, 0, 0, 0);
                         serverLevel.sendParticles(ModParticleTypes.NECRO_FIRE_DROP.get(), blockpos.getX() + 0.5F, blockpos.getY() + 1.0F, blockpos.getZ() + 0.5F, 1, 0, 0, 0, 0);
                     }
                 }

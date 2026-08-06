@@ -1,0 +1,24 @@
+{
+  "name": "エルダーガーディアン",
+  "icon": "minecraft:tide_armor_trim_smithing_template",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ガーディアンは奇妙な生物であり、クリーパーやシュルカーと同様、ある種の「肉のゴーレム」のような存在である可能性があります。しかし、それらとは異なり、ガーディアンは歳をとることができ、極めて長寿になるとより強力な個体へと変化します。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_guardian_to_elder_guardian"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "神秘的なエイジングクリームを使えば、ガーディアンをエルダーガーディアンへと成長させることができます。これにより、体格が大きくなり強さが増すだけでなく、周囲にいる自分以外のエンティティに対して、魔法によって採掘速度IIIを付与する能力も得られます。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:elder_guardian_servant",
+      "scale": 0.5
+    }
+  ]
+}

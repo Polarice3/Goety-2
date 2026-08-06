@@ -3787,5 +3787,15 @@
   "block.goety.sculptured_statue_1": "Estátua de §aNedeak",
   "block.goety.sculptured_statue_2": "Estátua de §aMrdrewlego",
   "block.goety.sculptured_statue_3": "Estátua de §aCodatower",
-  "block.goety.sculptured_statue_4": "Estátua de §a坂上駒子"
+  "block.goety.sculptured_statue_4": "Estátua de §a坂上駒子",
+  "entity.goety.elder_guardian_servant": "Servo Guardião-Mestre",
+  "item.goety.elder_guardian_servant_spawn_egg": "Ovo de Servo Guardião-Mestre",
+  "item.goety.aging_cream": "Creme de Envelhecimento",
+  "block.goety.grave_soil": "Terra do Túmulo",
+  "effect.goety.smiting": "Julgamento",
+  "effect.goety.smiting.description": "Ataques físicos causam mais dano a mortos-vivos; níveis mais altos causam mais dano.",
+  "effect.goety.insect_bane": "Praga de Insetos",
+  "effect.goety.insect_bane.description": "Ataques físicos causam mais dano a artrópodes; níveis mais altos causam mais dano.",
+  "effect.goety.aging": "Envelhecimento",
+  "info.goety.ritual.structure.noBlocksMulti": "Quantidade insuficiente de %s ou %s!"
 }

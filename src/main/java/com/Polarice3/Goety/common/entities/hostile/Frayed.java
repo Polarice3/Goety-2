@@ -14,7 +14,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
@@ -22,8 +21,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.ServerLevelAccessor;
 
 public class Frayed extends Zombie {
     public Frayed(EntityType<? extends Zombie> p_34271_, Level p_34272_) {
@@ -102,15 +100,9 @@ public class Frayed extends Zombie {
                 && pPotioneffect.getEffect() != GoetyEffects.SPASMS.get();
     }
 
-    public static boolean checkFrayedSpawnRules(EntityType<Frayed> p_219113_, LevelAccessor p_219114_, MobSpawnType p_219115_, BlockPos p_219116_, RandomSource p_219117_) {
-        if (p_219114_.getDifficulty() != Difficulty.PEACEFUL) {
-            if (p_219114_ instanceof WorldGenLevel genLevel) {
-                if (genLevel.canSeeSky(p_219116_)) {
-                    if (genLevel.getLevel().isThundering()) {
-                        return checkMonsterSpawnRules(p_219113_, genLevel, p_219115_, p_219116_, p_219117_);
-                    }
-                }
-            }
+    public static boolean checkFrayedSpawnRules(EntityType<Frayed> p_219113_, ServerLevelAccessor p_219114_, MobSpawnType p_219115_, BlockPos p_219116_, RandomSource p_219117_) {
+        if (MobUtil.stormSpawn(p_219114_, p_219116_)) {
+            return checkMonsterSpawnRules(p_219113_, p_219114_, p_219115_, p_219116_, p_219117_);
         }
 
         return false;

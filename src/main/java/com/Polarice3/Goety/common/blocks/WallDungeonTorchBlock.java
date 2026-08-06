@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -78,7 +79,8 @@ public class WallDungeonTorchBlock extends DungeonTorchBlock {
          double d0 = (double) p_222662_.getX() + 0.5D;
          double d1 = (double) p_222662_.getY() + 1.25D;
          double d2 = (double) p_222662_.getZ() + 0.5D;
-         p_222661_.addParticle(ModParticleTypes.BIG_FIRE.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
+         ParticleOptions particleOptions = ModParticleTypes.BIG_FIRE.get();
+         p_222661_.addParticle(particleOptions, d0, d1, d2, 0.0D, 0.0D, 0.0D);
          p_222661_.addParticle(ModParticleTypes.BIG_FIRE_DROP.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
       }
    }

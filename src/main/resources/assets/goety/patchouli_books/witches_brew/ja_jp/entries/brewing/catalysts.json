@@ -18,6 +18,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.aging",
+      "text": "庭を荒らしてばかりいるあの生意気な若造どもに、この特製薬をぶっかけるのがおばあちゃんの楽しみさ！相手が動き回る死体だろうと、きっちり効くんだからね。もっとも、どんなに強力な薬を作っても、海の奇妙なサイクロプスみたいに、寿命が長すぎたり何らかの特殊な体質だったりして、薬が効かない間抜けな連中もいるみたいだけどね！"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.arrowmantic",
       "text": "あの矢は本当にうっとうしい！ほら！今度はあなたがあの矢にイライラさせられるわよ！ハハハハ！"
     },
@@ -254,6 +259,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.insect_bane",
+      "text": "この効果は、美味しい昆虫、特に大きな昆虫を狩るのに最適です！"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.insight",
       "text": "私は天才に！"
     },
@@ -436,6 +446,11 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.slowness"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.smiting",
+      "text": "おばあちゃんは時々、庭に死体があってはいけないと思うことがある。特に、歩く死体ならなおさらだ！"
     },
     {
       "type": "goety:catalyst",

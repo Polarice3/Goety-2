@@ -328,8 +328,8 @@ public interface IOwned {
             if (MobsConfig.MobSense.get()) {
                 if (owned.isAlive()) {
                     if (owned.getTarget() != null) {
-                        if (owned.getTarget() instanceof Mob mob && !(mob instanceof Guardian)) {
-                            if (owned.getTarget() instanceof Animal animal) {
+                        if (owned.getTarget() instanceof Mob mob) {
+                            if (mob instanceof Animal animal) {
                                 animal.setLastHurtByMob(owned);
                             } else if (mob.getTarget() == null) {
                                 LivingEntity target = owned;
@@ -340,7 +340,13 @@ public interface IOwned {
                                         }
                                     }
                                 }
-                                mob.setTarget(target);
+                                if (mob instanceof Guardian guardian) {
+                                    if (guardian.hasLineOfSight(owned) && guardian.distanceToSqr(owned) > 9.0D) {
+                                        mob.setTarget(target);
+                                    }
+                                } else {
+                                    mob.setTarget(target);
+                                }
                             }
                             if (!mob.getBrain().isActive(Activity.FIGHT) && !(mob instanceof Warden)) {
                                 LivingEntity target = owned;

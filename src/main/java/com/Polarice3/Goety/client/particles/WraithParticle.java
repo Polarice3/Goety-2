@@ -1,13 +1,16 @@
 package com.Polarice3.Goety.client.particles;
 
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.*;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
 
 import java.util.Random;
 
-public class WraithParticle extends TextureSheetParticle {
+public class WraithParticle extends ReversibleParticle {
     private static final Random RANDOM = new Random();
     private final SpriteSet sprites;
 
@@ -79,6 +82,20 @@ public class WraithParticle extends TextureSheetParticle {
 
         public Particle createParticle(SimpleParticleType pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
             return new WraithParticle(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed, this.sprite);
+        }
+    }
+
+    public static class ReversibleProvider implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet sprite;
+
+        public ReversibleProvider(SpriteSet p_106827_) {
+            this.sprite = p_106827_;
+        }
+
+        public Particle createParticle(SimpleParticleType pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
+            WraithParticle fireParticle = new WraithParticle(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed, this.sprite);
+            fireParticle.reversed = pLevel.getRandom().nextBoolean();
+            return fireParticle;
         }
     }
 }

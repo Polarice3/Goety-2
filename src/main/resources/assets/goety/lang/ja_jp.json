@@ -3648,5 +3648,15 @@
   "block.goety.sculptured_statue_1": "§aNedeak§fの石像",
   "block.goety.sculptured_statue_2": "§aMrdrewlego§fの石像",
   "block.goety.sculptured_statue_3": "§aCodatower§fの石像",
-  "block.goety.sculptured_statue_4": "§a坂上駒子§fの石像"
+  "block.goety.sculptured_statue_4": "§a坂上駒子§fの石像",
+  "entity.goety.elder_guardian_servant": "エルダーガーディアンの従者",
+  "item.goety.elder_guardian_servant_spawn_egg": "エルダーガーディアンの従者のスポーンエッグ",
+  "item.goety.aging_cream": "エイジングクリーム",
+  "block.goety.grave_soil": "グレイブソイル",
+  "effect.goety.smiting": "アンデッド特効",
+  "effect.goety.smiting.description": "物理攻撃はアンデッドに対してより大きなダメージを与え、レベルが高いほどダメージも増加します。",
+  "effect.goety.insect_bane": "虫特効",
+  "effect.goety.insect_bane.description": "物理攻撃は節足動物に対してより大きなダメージを与え、レベルが高いほどダメージ量も増加します。",
+  "effect.goety.aging": "加齢",
+  "info.goety.ritual.structure.noBlocksMulti": "%sまたは%sの量が不足しています！"
 }

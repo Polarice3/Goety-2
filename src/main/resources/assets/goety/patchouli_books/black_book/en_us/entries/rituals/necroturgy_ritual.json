@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Requirements: $(li)16 Non-Wooden Slabs $(li)16 Sculk Blocks $(li)8 Non-Empty Flower Pots $(li)Must be done at Night"
+      "text": "Requirements: $(li)16 Non-Wooden Slabs $(li)16 Sculk Blocks or $(l:goety:crafts/grave_soil)Grave Soils$() $(li)8 Non-Empty Flower Pots $(li)Must be done at Night"
     },
     {
       "type": "patchouli:image",
@@ -16,7 +16,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "The Sculk holds a lot of Necroturgic Energies. By constructing Graves with them, you found a way to gather up more Necroturgic Energies to use for Rituals."
+      "text": "By constructing graves with either Sculk or Grave Soils, you found a way to gather up more necroturgic energies to use for Rituals. However, while Sculk holds a vast amount of necrotic energy, Grave Soil is more fragile, and have a large chance of being turned into Dark Dirt once a ritual is finished."
     }
   ]
 }

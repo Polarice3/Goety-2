@@ -1,6 +1,8 @@
 package com.Polarice3.Goety.common.entities.ally;
 
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.server.level.ServerLevel;
@@ -11,13 +13,17 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class ElderGuardianServant extends GuardianServant {
 
@@ -32,8 +38,25 @@ public class ElderGuardianServant extends GuardianServant {
     public static AttributeSupplier.Builder setCustomAttributes() {
         return GuardianServant.setCustomAttributes()
                 .add(Attributes.MOVEMENT_SPEED, (double)0.3F)
-                .add(Attributes.ATTACK_DAMAGE, 8.0D)
-                .add(Attributes.MAX_HEALTH, 80.0D);
+                .add(Attributes.ARMOR, AttributesConfig.ElderGuardianArmor.get())
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.ElderGuardianDamage.get())
+                .add(Attributes.MAX_HEALTH, AttributesConfig.ElderGuardianHealth.get());
+    }
+
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.ElderGuardianHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.ElderGuardianArmor.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.ElderGuardianDamage.get());
+    }
+
+    @Override
+    public Predicate<Entity> summonPredicate() {
+        return entity -> entity instanceof ElderGuardianServant;
+    }
+
+    @Override
+    public int getSummonLimit(LivingEntity owner) {
+        return SpellConfig.ElderGuardianLimit.get();
     }
 
     public int getAttackDuration() {
@@ -72,5 +95,14 @@ public class ElderGuardianServant extends GuardianServant {
         });
         list.forEach((serverPlayer) -> serverPlayer.addEffect(new MobEffectInstance(p_216951_), this));
         return list;
+    }
+
+    @Override
+    public void tryKill(Player player) {
+        if (this.killChance <= 0){
+            this.warnKill(player);
+        } else {
+            super.tryKill(player);
+        }
     }
 }

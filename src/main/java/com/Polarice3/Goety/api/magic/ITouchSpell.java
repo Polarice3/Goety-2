@@ -15,11 +15,6 @@ public interface ITouchSpell extends ISpell{
         return true;
     }
 
-    @Deprecated(forRemoval = true)
-    default void touchResult(ServerLevel worldIn, LivingEntity caster, LivingEntity target, SpellStat spellStat){
-        this.touchResult(worldIn, caster, target, ItemStack.EMPTY, spellStat);
-    }
-
     default void touchResult(ServerLevel worldIn, LivingEntity caster, LivingEntity target, ItemStack staff, SpellStat spellStat){
     }
 }

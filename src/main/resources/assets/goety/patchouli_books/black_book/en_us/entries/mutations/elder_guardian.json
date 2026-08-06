@@ -1,0 +1,24 @@
+{
+  "name": "Elder Guardian",
+  "icon": "minecraft:tide_armor_trim_smithing_template",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Guardians are strange creatures that may or may not be some sort of flesh-golem creature, similar to Creepers and Shulkers. Unlike those two, probably, these creatures can age and become a stronger specimen at a very old age."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_guardian_to_elder_guardian"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "With the mystical Aging Cream, you're able age up a Guardian into an Elder Guardian, making it not only bigger and stronger, but also gives it the knowledge to magically give Mining Fatigue III to nearby non-allied entities similar to yourself."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:elder_guardian_servant",
+      "scale": 0.5
+    }
+  ]
+}

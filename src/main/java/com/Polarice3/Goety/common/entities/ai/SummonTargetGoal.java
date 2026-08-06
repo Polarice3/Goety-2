@@ -15,8 +15,20 @@ public class SummonTargetGoal extends NearestAttackableTargetGoal<LivingEntity> 
         super(ownedEntity, LivingEntity.class, 5, true, false, predicate(ownedEntity));
     }
 
+    public SummonTargetGoal(Mob ownedEntity, Predicate<LivingEntity> predicate) {
+        super(ownedEntity, LivingEntity.class, 5, true, false, predicate);
+    }
+
     public SummonTargetGoal(Mob ownedEntity, boolean pMustSee, boolean pMustReach) {
         super(ownedEntity, LivingEntity.class, 5, pMustSee, pMustReach, predicate(ownedEntity));
+    }
+
+    public SummonTargetGoal(Mob ownedEntity, boolean pMustSee, boolean pMustReach, Predicate<LivingEntity> predicate) {
+        super(ownedEntity, LivingEntity.class, 5, pMustSee, pMustReach, predicate);
+    }
+
+    public SummonTargetGoal(Mob ownedEntity, int randomInterval, boolean pMustSee, boolean pMustReach, Predicate<LivingEntity> predicate) {
+        super(ownedEntity, LivingEntity.class, randomInterval, pMustSee, pMustReach, predicate);
     }
 
     public boolean canUse() {

@@ -1,0 +1,24 @@
+{
+  "name": "远古守卫者",
+  "icon": "minecraft:tide_armor_trim_smithing_template",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "守卫者是一种奇特的生物，它们可能是类似苦力怕或监守者的血肉型傀儡生物，也可能不是，与前两者不同的是，守卫者可以衰老，并且越老越强"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_guardian_to_elder_guardian"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用秘制的衰老面霜，你可以将守卫者仆从“老化”成远古守卫者仆从，它们不仅体型更大，战力更强，还掌握了一些魔法知识，周期性对自身周围的非友方生物施加挖掘疲劳 III"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:elder_guardian_servant",
+      "scale": 0.5
+    }
+  ]
+}

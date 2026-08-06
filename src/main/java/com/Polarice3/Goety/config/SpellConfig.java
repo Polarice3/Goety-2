@@ -652,6 +652,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WitherNecromancerLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> BoundIllagerLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> BlackBeastLimit;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ElderGuardianLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> WildfireLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> RedstoneGolemLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> GraveGolemLimit;
@@ -1010,8 +1011,8 @@ public class SpellConfig {
             BUILDER.push("Flame Strike Spell");
             FlameStrikeCost = BUILDER.comment("Flame Strike Spell Cost, Default: 32")
                     .defineInRange("flameStrikeCost", 32, 0, Integer.MAX_VALUE);
-            FlameStrikeDuration = BUILDER.comment("Time to cast Flame Strike Spell, Default: 120")
-                    .defineInRange("flameStrikeTime", 120, 0, 72000);
+            FlameStrikeDuration = BUILDER.comment("Time to cast Flame Strike Spell, Default: 60")
+                    .defineInRange("flameStrikeTime", 60, 0, 72000);
             FlameStrikeCoolDown = BUILDER.comment("Flame Strike Spell Cooldown, Default: 200")
                     .defineInRange("flameStrikeCoolDown", 200, 0, Integer.MAX_VALUE);
             FlameStrikeDamage = BUILDER.comment("How much base damage Flame Strike deals, Default: 4.0")
@@ -1989,6 +1990,8 @@ public class SpellConfig {
                 .defineInRange("boundIllagerLimit", 8, 1, Integer.MAX_VALUE);
         BlackBeastLimit = BUILDER.comment("Number of Black Beast Servants that an individual player can have in total, Default: 2")
                 .defineInRange("blackBeastLimit", 2, 1, Integer.MAX_VALUE);
+        ElderGuardianLimit = BUILDER.comment("Number of Elder Guardian Servants that an individual player can have in total, Default: 3")
+                .defineInRange("elderGuardianLimit", 3, 1, Integer.MAX_VALUE);
         WildfireLimit = BUILDER.comment("Number of Wildfire Servants that an individual player can have in total, Default: 2")
                 .defineInRange("wildfireLimit", 2, 1, Integer.MAX_VALUE);
         RedstoneGolemLimit = BUILDER.comment("Total number of Redstone Golems an individual player can have, Default: 2")

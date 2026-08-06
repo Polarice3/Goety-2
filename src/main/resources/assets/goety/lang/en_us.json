@@ -289,6 +289,7 @@
   "entity.goety.snapper":"Snapper",
   "entity.goety.gnasher":"Gnasher",
   "entity.goety.guardian_servant":"Guardian Servant",
+  "entity.goety.elder_guardian_servant":"Elder Guardian Servant",
   "entity.goety.bear_servant":"Bear Servant",
   "entity.goety.polar_bear_servant":"Polar Bear Servant",
   "entity.goety.hoglin_servant":"Hoglin Servant",
@@ -552,6 +553,7 @@
   "item.goety.snapper_spawn_egg": "Snapper Spawn Egg",
   "item.goety.gnasher_spawn_egg": "Gnasher Spawn Egg",
   "item.goety.guardian_servant_spawn_egg": "Guardian Servant Spawn Egg",
+  "item.goety.elder_guardian_servant_spawn_egg": "Elder Guardian Servant Spawn Egg",
   "item.goety.bear_servant_spawn_egg": "Bear Servant Spawn Egg",
   "item.goety.polar_bear_servant_spawn_egg": "Polar Bear Servant Spawn Egg",
   "item.goety.hoglin_servant_spawn_egg": "Hoglin Servant Spawn Egg",
@@ -783,6 +785,7 @@
   "item.goety.refuse_bottle": "Bottle of Refuse",
 
   "item.goety.resilience_lotion": "Resilience Lotion",
+  "item.goety.aging_cream": "Aging Cream",
   "item.goety.flying_ointment": "Flying Ointment",
 
   "item.goety.void_bottle": "Bottle of Void",
@@ -1478,6 +1481,7 @@
   "block.goety.dark_dirt_slab": "Dark Dirt Slab",
   "block.goety.cobbled_dark_dirt": "Cobbled Dark Dirt",
   "block.goety.snowy_dark_dirt": "Snowy Dark Dirt",
+  "block.goety.grave_soil": "Grave Soil",
   "block.goety.detritus": "Detritus",
   "block.goety.detritus_dust": "Detritus Dust",
 
@@ -2191,6 +2195,10 @@
   "effect.goety.fortunate.description": "Increases Fortune level for affected. Increases by effect level.",
   "effect.goety.corpse_eater": "Corpse Eater",
   "effect.goety.corpse_eater.description": "Restores hunger and saturation with each kill.",
+  "effect.goety.smiting": "Smiting",
+  "effect.goety.smiting.description": "Physical attacks deals more damage to undead; higher levels deals more damage.",
+  "effect.goety.insect_bane": "Insect Bane",
+  "effect.goety.insect_bane.description": "Physical attacks deals more damage to arthopods; higher levels deals more damage.",
   "effect.goety.acid_venom": "Acid Venom",
   "effect.goety.acid_venom.description": "Inflicts non lethal damage over time; higher levels do more damage per second. Does affect Undead",
   "effect.goety.necrosis": "Necrosis",
@@ -2271,6 +2279,7 @@
   "effect.goety.part_water": "Part Water",
   "effect.goety.part_lava": "Part Lava",
   "effect.goety.raise_dead": "Raise Dead",
+  "effect.goety.aging": "Aging",
   "effect.goety.purify_debuff": "Purify Debuffs",
   "effect.goety.purify_buff": "Purify Buffs",
 
@@ -2509,6 +2518,7 @@
   "info.goety.ritual.fail": "You do not know how to properly start this ritual!",
   "info.goety.ritual.structure.fail": "Insufficient Block Requirements!",
   "info.goety.ritual.structure.noBlocks": "Insufficient amount of %s!",
+  "info.goety.ritual.structure.noBlocksMulti": "Insufficient amount of %s or %s!",
   "info.goety.ritual.structure.noFullBlocks": "Insufficient amount of full blocks of %s!",
   "info.goety.ritual.structure.noFill": "Insufficient amount of filled %s!",
   "info.goety.ritual.structure.noSlabs": "Insufficient amount of slabs!",

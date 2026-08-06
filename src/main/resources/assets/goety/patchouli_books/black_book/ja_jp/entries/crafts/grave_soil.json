@@ -1,0 +1,16 @@
+{
+  "name": "グレイブソイル",
+  "icon": "goety:grave_soil",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "死者が埋葬されると、その土はネクロの力に侵食されることがあります。その上にブロックが設置されていない場合、死体が蘇生する可能性があり、土は再び闇の土へと変化してしまいます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:grave_soil",
+      "recipe2": "goety:dark_dirt"
+    }
+  ]
+}

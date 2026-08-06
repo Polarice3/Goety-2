@@ -1822,4 +1822,15 @@ public class MobUtil {
             return false;
         } else return !areAllies(defender, getTarget(attacker));
     }
+
+    public static boolean stormSpawn(LevelAccessor accessor, BlockPos blockPos) {
+        if (accessor.getDifficulty() != Difficulty.PEACEFUL) {
+            if (accessor instanceof WorldGenLevel genLevel) {
+                if (genLevel.canSeeSky(blockPos) && blockPos.getY() >= accessor.getSeaLevel()) {
+                    return genLevel.getLevel().isThundering();
+                }
+            }
+        }
+        return false;
+    }
 }

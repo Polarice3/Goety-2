@@ -512,8 +512,9 @@ public class BlackBeast extends Summoned{
             if (flag) {
                 this.playSound(ModSounds.BLACK_BEAST_CLAW.get(), this.getSoundVolume(), this.getVoicePitch());
                 if (entityIn instanceof LivingEntity target) {
-                    if (!target.hasEffect(GoetyEffects.DOOM.get()) && !MobUtil.isInSunlightNoRain(this)) {
-                        int debuffDuration = MathHelper.secondsToTicks(15);
+                    int debuffDuration = MathHelper.secondsToTicks(15);
+                    MobEffectInstance doom = new MobEffectInstance(GoetyEffects.DOOM.get(), debuffDuration, 0, false, false);
+                    if (!target.hasEffect(GoetyEffects.DOOM.get()) && target.canBeAffected(doom) && !MobUtil.isInSunlightNoRain(this)) {
                         int regenAmp = 2;
                         if (MobsConfig.BlackBeastDayStrength.get()) {
                             if (this.level.dayTime() >= MathHelper.minecraftDayToTicks(50)) {

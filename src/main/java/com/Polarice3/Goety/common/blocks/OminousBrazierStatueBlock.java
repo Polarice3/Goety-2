@@ -4,6 +4,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.entities.OminousBrazierStatueBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -84,7 +85,8 @@ public class OminousBrazierStatueBlock extends StatueBlock {
                 d0 = (double)p_222595_.getX() + facing.getStepX();
                 d2 = (double)p_222595_.getZ() + facing.getStepZ();
             }
-            p_222594_.addParticle(ModParticleTypes.BIG_FIRE.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
+            ParticleOptions particleOptions = ModParticleTypes.BIG_FIRE.get();
+            p_222594_.addParticle(particleOptions, d0, d1, d2, 0.0D, 0.0D, 0.0D);
             p_222594_.addParticle(ModParticleTypes.BIG_FIRE_DROP.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
         }
     }

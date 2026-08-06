@@ -6,17 +6,17 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "要件: $(li) 非木製ハーフブロック 16 個 $(li) スカルクブロック 16 個 $(li) 空でない植木鉢 8 個 $(li) 夜間に行う必要があります"
+      "text": "必要: $(li)16 非木製ハーフブロック $(li)16 スカルク or $(l:goety:crafts/grave_soil)グレイブソイル$() $(li)8 空でない植木鉢 $(li)夜間に行う必要があります"
     },
     {
       "type": "patchouli:image",
       "images": ["goety:textures/gui/entries/necroturgy_ritual.png"],
       "border": true,
-      "text": "祭祀の置き方の一例。"
+      "text": "An example of how the ritual can be placed."
     },
     {
       "type": "patchouli:text",
-      "text": "スカルクは大量の壊死性エネルギーを保持しています。 彼らを使って墓を建設することで、儀式に使用するより多くの死滅エネルギーを集める方法を見つけました。"
+      "text": "スカルクやグレイブソイルを用いて墓を築くことで、儀式に利用できるネクロマンシーのエネルギーをより多く収集する手段を見出しました。ただし、スカルクが膨大なエネルギーを秘めているのに対し、グレイブソイルはより脆く、儀式が終了すると闇の土へと変化してしまう可能性が高いという特性があります。"
     }
   ]
 }

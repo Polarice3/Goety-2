@@ -1,0 +1,16 @@
+{
+  "name": "坟壤",
+  "icon": "goety:grave_soil",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "当死者被埋葬时，坟壤可能会其被注入死灵能量，此时如果没有任何方块覆盖在坟壤上方，里面的死者就会有可能“复活”，同时坟壤会变回黑暗泥土"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:grave_soil",
+      "recipe2": "goety:dark_dirt"
+    }
+  ]
+}

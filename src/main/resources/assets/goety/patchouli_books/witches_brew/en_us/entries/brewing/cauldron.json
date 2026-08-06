@@ -23,6 +23,14 @@
     },
     {
       "type": "goety:cauldron",
+      "recipe": "goety:cauldron/aging_cream"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "I swear that some of the other grannies in the coven aren't actually as old as they look! Surely they're using this cream to make their skin more wrinkly!"
+    },
+    {
+      "type": "goety:cauldron",
       "anchor": "flying_ointment",
       "recipe": "goety:cauldron/flying_ointment"
     },
@@ -50,6 +58,7 @@
   "extra_recipe_mappings": {
     "goety:nightshade_blossom": 1,
     "goety:resilience_lotion": 2,
-    "goety:flying_ointment": 4
+    "goety:aging_cream": 4,
+    "goety:flying_ointment": 6
   }
 }

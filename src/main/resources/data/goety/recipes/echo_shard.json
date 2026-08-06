@@ -1,0 +1,18 @@
+{
+  "type": "goety:brazier",
+  "soulCost": 250,
+  "ingredients": [
+    {
+      "item": "minecraft:amethyst_shard"
+    },
+    {
+      "item": "minecraft:sculk_sensor"
+    },
+    {
+      "item": "goety:grave_dust"
+    }
+  ],
+  "result": {
+    "item": "minecraft:echo_shard"
+  }
+}

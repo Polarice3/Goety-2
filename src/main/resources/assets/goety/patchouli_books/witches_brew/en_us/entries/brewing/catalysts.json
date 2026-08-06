@@ -18,6 +18,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.aging",
+      "text": "Ol' Granny loves to throw these brews at those whippersnappers when they keep messing her garden! Even works if those brats were moving corpses! Though it appears no matter how powerful a brew I make, some cretins have either too long of a lifespan, or some other oddities, for the brew to have affect, like those weird cyclops of the ocean!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.arrowmantic",
       "text": "Those arrows sure are annoying! Here! Now those arrows will annoy you instead! Hahahaha!"
     },
@@ -254,6 +259,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.insect_bane",
+      "text": "This effect is great for hunting down those delicious insects, especially the big ones!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.insight",
       "text": "I'm becoming SMARTER!"
     },
@@ -436,6 +446,11 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.slowness"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.smiting",
+      "text": "Sometimes Ol' Granny wants her yard to be clear of corpses, especially if they walk!"
     },
     {
       "type": "goety:catalyst",
