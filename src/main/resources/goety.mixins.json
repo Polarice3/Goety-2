@@ -12,6 +12,7 @@
     "BlockPlaceContextMixin",
     "ChorusFlowerBlockMixin",
     "ChorusPlantBlockMixin",
+    "EnchantmentHelperMixin",
     "EnchantRandomlyFunctionMixin",
     "EnderDragonMixin",
     "EntityMixin",

@@ -340,6 +340,35 @@ public class PotionEvents {
                 }
             }
         }
+        if (attacker instanceof LivingEntity attackerL && ModDamageSource.physicalAttacks(event.getSource())) {
+            float bonus = 0.0F;
+
+            if (attackerL.hasEffect(GoetyEffects.SMITING.get())) {
+                MobEffectInstance inst = attackerL.getEffect(GoetyEffects.SMITING.get());
+                if (inst != null) {
+                    int amp = inst.getAmplifier() + 1;
+                    ItemStack weapon = attackerL.getMainHandItem();
+                    if (weapon.getEnchantmentLevel(Enchantments.SMITE) < amp) {
+                        bonus += Enchantments.SMITE.getDamageBonus(amp, victim.getMobType(), weapon);
+                    }
+                }
+            }
+
+            if (attackerL.hasEffect(GoetyEffects.INSECT_BANE.get())) {
+                MobEffectInstance inst = attackerL.getEffect(GoetyEffects.INSECT_BANE.get());
+                if (inst != null) {
+                    int amp = inst.getAmplifier() + 1;
+                    ItemStack weapon = attackerL.getMainHandItem();
+                    if (weapon.getEnchantmentLevel(Enchantments.BANE_OF_ARTHROPODS) < amp) {
+                        bonus += Enchantments.BANE_OF_ARTHROPODS.getDamageBonus(amp, victim.getMobType(), weapon);
+                    }
+                }
+            }
+
+            if (bonus > 0.0F) {
+                event.setAmount(event.getAmount() + bonus);
+            }
+        }
     }
 
     @SubscribeEvent
@@ -353,7 +382,7 @@ public class PotionEvents {
                 MobEffectInstance effectInstance = target.getEffect(GoetyEffects.SAPPED.get());
                 if (effectInstance != null) {
                     int i = effectInstance.getAmplifier() + 1;
-                    finalDamage += event.getAmount() * (0.2F * i);
+                    finalDamage += finalDamage * (0.2F * i);
                 }
             }
 
@@ -376,7 +405,7 @@ public class PotionEvents {
                     }
                     if (effectInstance != null) {
                         int i = effectInstance.getAmplifier() + 1;
-                        finalDamage -= event.getAmount() * (0.05F * i);
+                        finalDamage -= finalDamage * (0.05F * i);
                     }
                 }
             }
@@ -444,34 +473,6 @@ public class PotionEvents {
                                         livingEntity.hurt(ModDamageSource.sword(attackerL, attackerL), damage);
                                     }
                                 }
-                            }
-                        }
-                    }
-                }
-                if (attackerL.hasEffect(GoetyEffects.SMITING.get())) {
-                    if (ModDamageSource.physicalAttacks(event.getSource())) {
-                        MobEffectInstance effectInstance = attackerL.getEffect(GoetyEffects.SMITING.get());
-                        if (effectInstance != null) {
-                            Enchantment enchantment = Enchantments.SMITE;
-                            ItemStack weapon = attackerL.getMainHandItem();
-                            int amp = effectInstance.getAmplifier() + 1;
-                            if (!weapon.isEnchanted() || weapon.getEnchantmentLevel(enchantment) < amp) {
-                                finalDamage += enchantment.getDamageBonus(amp, target.getMobType(), weapon);
-                                enchantment.doPostAttack(attackerL, target, amp);
-                            }
-                        }
-                    }
-                }
-                if (attackerL.hasEffect(GoetyEffects.INSECT_BANE.get())) {
-                    if (ModDamageSource.physicalAttacks(event.getSource())) {
-                        MobEffectInstance effectInstance = attackerL.getEffect(GoetyEffects.INSECT_BANE.get());
-                        if (effectInstance != null) {
-                            Enchantment enchantment = Enchantments.BANE_OF_ARTHROPODS;
-                            ItemStack weapon = attackerL.getMainHandItem();
-                            int amp = effectInstance.getAmplifier() + 1;
-                            if (!weapon.isEnchanted() || weapon.getEnchantmentLevel(enchantment) < amp) {
-                                finalDamage += enchantment.getDamageBonus(amp, target.getMobType(), weapon);
-                                enchantment.doPostAttack(attackerL, target, amp);
                             }
                         }
                     }

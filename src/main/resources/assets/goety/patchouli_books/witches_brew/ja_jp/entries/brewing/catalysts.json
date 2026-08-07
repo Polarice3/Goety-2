@@ -260,7 +260,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.insect_bane",
-      "text": "この効果は、美味しい昆虫、特に大きな昆虫を狩るのに最適です！"
+      "text": "この効果は、あの美味しい虫たち、特に大きな虫を狩るのにうってつけです！"
     },
     {
       "type": "goety:catalyst",
@@ -450,7 +450,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.smiting",
-      "text": "おばあちゃんは時々、庭に死体があってはいけないと思うことがある。特に、歩く死体ならなおさらだ！"
+      "text": "時には、おばあちゃんだって庭から死体を片付けておきたいと思うものさ。特に、その死体が歩き回るような連中ならなおさらね！"
     },
     {
       "type": "goety:catalyst",
