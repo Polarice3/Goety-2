@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.items.magic;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
+import com.Polarice3.Goety.api.items.magic.IFocus;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.api.magic.*;
 import com.Polarice3.Goety.common.blocks.BrewCauldronBlock;
@@ -114,26 +115,32 @@ public class DarkWand extends Item implements IWand {
     public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
         if (entityIn instanceof LivingEntity livingEntity) {
             CompoundTag compound = stack.getOrCreateTag();
-            if (stack.getTag() == null) {
+            if (!stack.hasTag() || !compound.contains(SOULUSE)) {
                 compound.putInt(SOULUSE, SoulUse(livingEntity, stack));
                 compound.putInt(SOULCOST, 0);
                 compound.putInt(CASTTIME, CastDuration(stack));
                 compound.putInt(COOL, 0);
                 compound.putInt(SHOTS, 0);
                 compound.putInt(SECONDS, 0);
-            } else {
-                if (!compound.contains(SHOTS)){
-                    compound.putInt(SHOTS, 0);
-                }
             }
+
+            int newSoulUse = SoulUse(livingEntity, stack);
+            if (compound.getInt(SOULUSE) != newSoulUse) {
+                compound.putInt(SOULUSE, newSoulUse);
+            }
+
+            int newCastTime = CastDuration(stack);
+            if (compound.getInt(CASTTIME) != newCastTime) {
+                compound.putInt(CASTTIME, newCastTime);
+            }
+
             if (this.getSpell(stack) != null) {
                 this.setSpellConditions(this.getSpell(stack), stack, livingEntity);
             } else {
                 this.setSpellConditions(null, stack, livingEntity);
             }
-            compound.putInt(SOULUSE, SoulUse(livingEntity, stack));
-            compound.putInt(CASTTIME, CastDuration(stack));
-            if (IWand.getFocus(stack) != null){
+
+            if (IWand.getFocus(stack).getItem() instanceof IFocus) {
                 IWand.getFocus(stack).inventoryTick(worldIn, entityIn, itemSlot, isSelected);
             }
         }
@@ -613,19 +620,37 @@ public class DarkWand extends Item implements IWand {
     }
 
     public void setSpellConditions(@Nullable ISpell spell, ItemStack stack, LivingEntity livingEntity){
-        if (stack.getTag() != null) {
-            if (spell != null) {
-                stack.getTag().putInt(SOULCOST, spell.soulCost(livingEntity, stack));
-                stack.getTag().putInt(DURATION, spell.castDuration(livingEntity, stack));
-                if (spell instanceof IChargingSpell chargingSpell) {
-                    stack.getTag().putInt(COOLDOWN, chargingSpell.Cooldown(livingEntity, stack, stack.getTag().contains(SHOTS) ? stack.getTag().getInt(SHOTS) : 0));
-                } else {
-                    stack.getTag().putInt(COOLDOWN, 0);
-                }
-            } else {
-                stack.getTag().putInt(SOULCOST, 0);
-                stack.getTag().putInt(DURATION, 0);
-                stack.getTag().putInt(COOLDOWN, 0);
+        if (stack.getTag() == null) {
+            return;
+        }
+        CompoundTag tag = stack.getTag();
+
+        if (spell != null) {
+            int newSoulCost = spell.soulCost(livingEntity, stack);
+            if (tag.getInt(SOULCOST) != newSoulCost) {
+                tag.putInt(SOULCOST, newSoulCost);
+            }
+
+            int newDuration = spell.castDuration(livingEntity, stack);
+            if (tag.getInt(DURATION) != newDuration) {
+                tag.putInt(DURATION, newDuration);
+            }
+            int newCooldown = 0;
+            if (spell instanceof IChargingSpell chargingSpell) {
+                newCooldown = chargingSpell.Cooldown(livingEntity, stack, tag.contains(SHOTS) ? tag.getInt(SHOTS) : 0);
+            }
+            if (tag.getInt(COOLDOWN) != newCooldown) {
+                tag.putInt(COOLDOWN, newCooldown);
+            }
+        } else {
+            if (tag.getInt(SOULCOST) != 0) {
+                tag.putInt(SOULCOST, 0);
+            }
+            if (tag.getInt(DURATION) != 0) {
+                tag.putInt(DURATION, 0);
+            }
+            if (tag.getInt(COOLDOWN) != 0) {
+                tag.putInt(COOLDOWN, 0);
             }
         }
     }

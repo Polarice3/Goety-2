@@ -60,6 +60,7 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> GoldTouchedCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> GravityPulseCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> NyctophobiaCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> NecrosisCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SnowSkinCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SappedCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> StormsWrathCost;
@@ -295,6 +296,8 @@ public class BrewConfig {
                 .defineInRange("gravityPulseCost", 50, 1, Integer.MAX_VALUE);
         NyctophobiaCost = BUILDER.comment("Nyctophobia Soul Cost, Default: 50")
                 .defineInRange("nyctophobiaCost", 50, 1, Integer.MAX_VALUE);
+        NecrosisCost = BUILDER.comment("Necrosis Soul Cost, Default: 25")
+                .defineInRange("necrosisCost", 25, 1, Integer.MAX_VALUE);
         SnowSkinCost = BUILDER.comment("Snow Skin Soul Cost, Default: 50")
                 .defineInRange("snowSkinCost", 50, 1, Integer.MAX_VALUE);
         SappedCost = BUILDER.comment("Sapped Soul Cost, Default: 25")

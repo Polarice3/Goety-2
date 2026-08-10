@@ -37,7 +37,7 @@ public class GraveGolemMold implements IMold {
             new BlockPos(-1, -1, 1),
             new BlockPos(-1, -1, -1)
     );
-    private static final List<BlockPos> COARSE_DIRT_LOCATIONS = ImmutableList.of(
+    private static final List<BlockPos> GRAVE_SOIL_LOCATIONS = ImmutableList.of(
             new BlockPos(0, -1, 2),
             new BlockPos(1, -1, 2),
             new BlockPos(-1, -1, 2),
@@ -153,9 +153,9 @@ public class GraveGolemMold implements IMold {
 
     private static List<BlockPos> checkCoarseDirt(Level level, BlockPos blockPos){
         List<BlockPos> invalid = new ArrayList<>();
-        for (BlockPos blockPos1 : COARSE_DIRT_LOCATIONS){
+        for (BlockPos blockPos1 : GRAVE_SOIL_LOCATIONS){
             BlockPos blockPos2 = blockPos.offset(blockPos1);
-            if (!level.getBlockState(blockPos2).is(Blocks.COARSE_DIRT)){
+            if (!level.getBlockState(blockPos2).is(ModBlocks.GRAVE_SOIL.get())){
                 invalid.add(blockPos1);
             }
         }
@@ -267,7 +267,7 @@ public class GraveGolemMold implements IMold {
 
     public static void removeBlocks(Level level, BlockPos blockPos){
         if (!level.isClientSide) {
-            for (BlockPos blockPos1 : COARSE_DIRT_LOCATIONS) {
+            for (BlockPos blockPos1 : GRAVE_SOIL_LOCATIONS) {
                 BlockPos blockPos2 = blockPos.offset(blockPos1);
                 if (level.getBlockState(blockPos2).is(Blocks.COARSE_DIRT)) {
                     level.levelEvent(2001, blockPos2, Block.getId(level.getBlockState(blockPos2)));

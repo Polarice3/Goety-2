@@ -121,6 +121,7 @@ public class BrewEffects {
         this.register(new PotionBrewEffect(GoetyEffects.INSECT_BANE.get(), BrewConfig.InsectBaneCost.get(), BrewConfig.InsectBaneCapacity.get(), 3600), Items.BLUE_ORCHID);
         this.register(new PotionBrewEffect(GoetyEffects.INSIGHT.get(), BrewConfig.InsightCost.get(), 3600), Items.WRITABLE_BOOK);
         this.register(new PotionBrewEffect(GoetyEffects.LEECHING.get(), BrewConfig.LeechingCost.get(), 3600), Items.BEETROOT);
+        this.register(new PotionBrewEffect(GoetyEffects.NECROSIS.get(), BrewConfig.NecrosisCost.get(), 900), ModItems.GRAVE_DUST.get());
         this.register(new PotionBrewEffect(GoetyEffects.NYCTOPHOBIA.get(), BrewConfig.NyctophobiaCost.get(), BrewConfig.NyctophobiaCapacity.get(), 1800), Items.SCULK_SHRIEKER);
         this.register(new PotionBrewEffect(GoetyEffects.PHOTOSYNTHESIS.get(), BrewConfig.PhotosynthesisCost.get(), 1800), Items.SUNFLOWER);
         this.register(new PotionBrewEffect(GoetyEffects.PLUNGE.get(), BrewConfig.PlungeCost.get(), BrewConfig.PlungeCapacity.get(), 600), Items.ANVIL);
@@ -170,7 +171,7 @@ public class BrewEffects {
         this.register(new PurifyBrewEffect("purify_debuff", BrewConfig.PurifyDebuffsCost.get(), BrewConfig.PurifyDebuffsCapacity.get(), MobEffectCategory.BENEFICIAL, 0x385858, true), ModItems.WARTFUL_EGG.get());
         this.register(new PurifyBrewEffect("purify_buff", BrewConfig.PurifyBuffsCost.get(), BrewConfig.PurifyBuffsCapacity.get(), MobEffectCategory.HARMFUL, 0x374a4a, false), ModItems.WARPED_WARTFUL_EGG.get());
         this.register(new PruningBlockEffect(BrewConfig.PruningCost.get()), Items.STONE_HOE);
-        this.register(new RaiseDeadBrewEffect(BrewConfig.RaiseDeadCost.get(), BrewConfig.RaiseDeadCapacity.get()), ModItems.GRAVE_DUST.get());
+        this.register(new RaiseDeadBrewEffect(BrewConfig.RaiseDeadCost.get(), BrewConfig.RaiseDeadCapacity.get()), ModBlocks.GRAVE_SOIL.get().asItem());
         //Buffed version of Vanilla effect
         this.register(new SaturationBrewEffect(BrewConfig.SaturationCost.get()), Items.RABBIT_STEW);
         this.register(new ShearBrewEffect(BrewConfig.ShearCost.get()), Items.SHEARS);

@@ -230,8 +230,8 @@ public class PatchouliIntegration implements ICompatable {
                 state -> state.getBlock().getDescriptionId().contains("bricks") && !(state.getBlock() instanceof SlabBlock) && !(state.getBlock() instanceof StairBlock) && !(state.getBlock() instanceof WallBlock));
         IStateMatcher darkMetalMold = PatchouliAPI.get().predicateMatcher(ModBlocks.DARK_ALLOY_BLOCK.get(),
                 state -> state.is(ModBlocks.DARK_ALLOY_BLOCK.get()));
-        IStateMatcher coarseDirt = PatchouliAPI.get().predicateMatcher(Blocks.COARSE_DIRT,
-                state -> state.is(Blocks.COARSE_DIRT));
+        IStateMatcher coarseDirt = PatchouliAPI.get().predicateMatcher(ModBlocks.GRAVE_SOIL.get(),
+                state -> state.is(ModBlocks.GRAVE_SOIL.get()));
         IStateMatcher skullPiles = PatchouliAPI.get().predicateMatcher(ModBlocks.SKULL_PILE.get(),
                 state -> state.is(ModBlocks.SKULL_PILE.get()));
         IStateMatcher shadeBody = PatchouliAPI.get().predicateMatcher(ModBlocks.SHADE_STONE_BLOCK.get(),

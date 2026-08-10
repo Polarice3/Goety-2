@@ -7,7 +7,7 @@
   "show_toasts": false,
   "show_progress": false,
   "creative_tab": "goety",
-  "text_overflow_mode": "overflow",
+  "text_overflow_mode": "resize",
   "use_resource_pack": true,
   "i18n": true
 }
