@@ -151,7 +151,7 @@ public class GraveGolemMold implements IMold {
         return invalid;
     }
 
-    private static List<BlockPos> checkCoarseDirt(Level level, BlockPos blockPos){
+    private static List<BlockPos> checkGraveSoil(Level level, BlockPos blockPos){
         List<BlockPos> invalid = new ArrayList<>();
         for (BlockPos blockPos1 : GRAVE_SOIL_LOCATIONS){
             BlockPos blockPos2 = blockPos.offset(blockPos1);
@@ -211,7 +211,7 @@ public class GraveGolemMold implements IMold {
     }
 
     public static boolean checkBlocks(Level level, BlockPos blockPos){
-        return checkSoulSand(level, blockPos).isEmpty() && checkBones(level, blockPos).isEmpty() && checkCoarseDirt(level, blockPos).isEmpty()
+        return checkSoulSand(level, blockPos).isEmpty() && checkBones(level, blockPos).isEmpty() && checkGraveSoil(level, blockPos).isEmpty()
                 && checkDarkMetals(level, blockPos).isEmpty() && checkShadeStone(level, blockPos).isEmpty() && checkSkullPiles(level, blockPos).isEmpty()
                 && checkStones(level, blockPos).isEmpty();
     }
@@ -269,9 +269,9 @@ public class GraveGolemMold implements IMold {
         if (!level.isClientSide) {
             for (BlockPos blockPos1 : GRAVE_SOIL_LOCATIONS) {
                 BlockPos blockPos2 = blockPos.offset(blockPos1);
-                if (level.getBlockState(blockPos2).is(Blocks.COARSE_DIRT)) {
+                if (level.getBlockState(blockPos2).is(ModBlocks.GRAVE_SOIL.get())) {
                     level.levelEvent(2001, blockPos2, Block.getId(level.getBlockState(blockPos2)));
-                    level.setBlockAndUpdate(blockPos2, Blocks.DIRT.defaultBlockState());
+                    level.setBlockAndUpdate(blockPos2, ModBlocks.DARK_DIRT.get().defaultBlockState());
                 }
             }
             for (BlockPos blockPos1 : SOUL_SAND_LOCATIONS) {
