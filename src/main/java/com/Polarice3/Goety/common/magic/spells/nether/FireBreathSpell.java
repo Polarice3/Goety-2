@@ -149,13 +149,13 @@ public class FireBreathSpell extends BreathingSpell {
     public void showWandBreath(LivingEntity entityLiving, ItemStack staff, SpellStat spellStat) {
         int range = spellStat.getRange();
         if (WandUtil.enchantedFocus(entityLiving)){
-            range = WandUtil.getRangeLevel(entityLiving);
+            range += WandUtil.getRangeLevel(entityLiving);
         }
 
         if (this.rightStaff(staff)) {
-            this.dragonBreathAttack(ModParticleTypes.DRAGON_FLAME.get(), entityLiving, ((double) range / 10) * 0.5D);
+            this.dragonBreathAttack(ModParticleTypes.DRAGON_FLAME.get(), entityLiving, ((double) range / 10) * 0.35D);
         } else {
-            this.dragonBreathAttack(ModParticleTypes.SMALL_DRAGON_FLAME.get(), entityLiving, 10, ((double) range / 10) * 0.5D, 1.0D);
+            this.dragonBreathAttack(ModParticleTypes.SMALL_DRAGON_FLAME.get(), entityLiving, 10, ((double) range / 10) * 0.55D, 0.05F);
         }
     }
 }

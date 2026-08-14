@@ -75,6 +75,7 @@ public class ServantUtil {
                     servant.setTradeOffers(villager.tradeOffers);
                     servant.setVillagerXp(villager.getVillagerXp());
                 }
+                zombieServant.setBaby(zombieEntity.isBaby());
                 if (!permanent) {
                     zombieServant.setLimitedLife(10 * (15 + target.level.random.nextInt(45)));
                 }
@@ -204,6 +205,7 @@ public class ServantUtil {
                 } else if (summoned instanceof ZombieRavager servant) {
                     servant.convertNewEquipment(target);
                 }
+                summoned.setBaby(target.isBaby());
                 net.minecraftforge.event.ForgeEventFactory.onLivingConvert(target, summoned);
                 if (!summoned.isSilent()) {
                     summoned.level.levelEvent(null, 1026, summoned.blockPosition(), 0);

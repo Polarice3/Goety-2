@@ -9,6 +9,8 @@ import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.CuriosFinder;
+import com.Polarice3.Goety.utils.ItemHelper;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -39,10 +41,7 @@ public class FireballSpell extends Spell {
 
     @Override
     public SoundEvent CastingSound(LivingEntity caster) {
-        if (CuriosFinder.hasUnholySet(caster)){
-            return ModSounds.HELL_BOLT_SHOOT.get();
-        }
-        return SoundEvents.BLAZE_SHOOT;
+        return SoundEvents.BLAZE_BURN;
     }
 
     @Override
@@ -72,18 +71,27 @@ public class FireballSpell extends Spell {
             potency += WandUtil.getPotencyLevel(caster);
             burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
         }
-        Vec3 vector3d = caster.getViewVector( 1.0F);
+        Vec3 vector3d = caster.getViewVector(1.0F);
+        double x = caster.getX() + vector3d.x / 2;
+        double y = caster.getEyeY() - 0.2D;
+        double z = caster.getZ() + vector3d.z / 2;
+        Vec3 origin = new Vec3(x, y, z);
+        if (ItemHelper.hasMaleficHelm(caster) && this.rightStaff(staff)) {
+            origin = MobUtil.vecFromCenterToFrontOfFace(caster, 0.5D, 0.0F);
+            vector3d = MobUtil.vecCenterFaceVector(caster, 2.0D, 0.0F);
+        }
         AbstractHurtingProjectile smallFireballEntity = new ModFireball(worldIn,
-                caster.getX() + vector3d.x / 2,
-                caster.getEyeY() - 0.2,
-                caster.getZ() + vector3d.z / 2,
+                origin.x,
+                origin.y,
+                origin.z,
                 vector3d.x,
                 vector3d.y,
                 vector3d.z);
         if (CuriosFinder.hasUnholySet(caster)){
-            smallFireballEntity = new HellBolt(caster.getX() + vector3d.x / 2,
-                    caster.getEyeY() - 0.2,
-                    caster.getZ() + vector3d.z / 2,
+            smallFireballEntity = new HellBolt(
+                    origin.x,
+                    origin.y,
+                    origin.z,
                     vector3d.x,
                     vector3d.y,
                     vector3d.z, worldIn);
@@ -102,17 +110,31 @@ public class FireballSpell extends Spell {
         worldIn.addFreshEntity(smallFireballEntity);
         if (rightStaff(staff)) {
             for (int i = 0; i < 2; ++i) {
+                double x1 = caster.getX() + vector3d.x / 2 + worldIn.getRandom().nextGaussian();
+                double y1 = caster.getEyeY() - 0.2D;
+                double z1 = caster.getZ() + vector3d.z / 2 + worldIn.getRandom().nextGaussian();
+                Vec3 origin2 = new Vec3(x1, y1, z1);
+                if (ItemHelper.hasMaleficHelm(caster)) {
+                    if (i == 0) {
+                        origin2 = MobUtil.vecFromCenterToFrontOfFace(caster, 0.5D, -10.0F);
+                        vector3d = MobUtil.vecCenterFaceVector(caster, 2.0D, -10.0F);
+                    } else {
+                        origin2 = MobUtil.vecFromCenterToFrontOfFace(caster, 0.5D, 10.0F);
+                        vector3d = MobUtil.vecCenterFaceVector(caster, 2.0D, 10.0F);
+                    }
+                }
                 AbstractHurtingProjectile smallFireballEntity2 = new ModFireball(worldIn,
-                        caster.getX() + vector3d.x / 2 + worldIn.random.nextGaussian(),
-                        caster.getEyeY() - 0.2,
-                        caster.getZ() + vector3d.z / 2 + worldIn.random.nextGaussian(),
+                        origin2.x,
+                        origin2.y,
+                        origin2.z,
                         vector3d.x,
                         vector3d.y,
                         vector3d.z);
                 if (CuriosFinder.hasUnholySet(caster)){
-                    smallFireballEntity2 = new HellBolt(caster.getX() + vector3d.x / 2 + worldIn.random.nextGaussian(),
-                            caster.getEyeY() - 0.2,
-                            caster.getZ() + vector3d.z / 2 + worldIn.random.nextGaussian(),
+                    smallFireballEntity2 = new HellBolt(
+                            origin2.x,
+                            origin2.y,
+                            origin2.z,
                             vector3d.x,
                             vector3d.y,
                             vector3d.z, worldIn);
@@ -131,6 +153,10 @@ public class FireballSpell extends Spell {
                 worldIn.addFreshEntity(smallFireballEntity2);
             }
         }
-        this.playSound(worldIn, caster, 2.0F, this.projPitch(worldIn.getRandom()));
+        SoundEvent soundEvent = SoundEvents.BLAZE_SHOOT;
+        if (CuriosFinder.hasUnholySet(caster)){
+            soundEvent = ModSounds.HELL_BOLT_SHOOT.get();
+        }
+        this.playSound(worldIn, caster, soundEvent, 2.0F, this.projPitch(worldIn.getRandom()));
     }
 }

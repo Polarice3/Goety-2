@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "#goety:ice_axe",
     "goety:philosophers_mace",
     "goety:wicked_boline"
   ]

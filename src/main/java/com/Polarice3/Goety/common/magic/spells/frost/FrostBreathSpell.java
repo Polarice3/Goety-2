@@ -150,14 +150,15 @@ public class FrostBreathSpell extends BreathingSpell {
 
     @Override
     public void showWandBreath(LivingEntity entityLiving, ItemStack staff, SpellStat spellStat) {
-        int range = 0;
+        int range = spellStat.getRange();
         if (WandUtil.enchantedFocus(entityLiving)){
-            range = WandUtil.getRangeLevel(entityLiving);
+            range += WandUtil.getRangeLevel(entityLiving);
         }
-        if (!this.rightStaff(staff)) {
-            this.dragonBreathAttack(ModParticleTypes.FROST.get(), entityLiving, 0.3F + ((double) range / 10));
+
+        if (this.rightStaff(staff)) {
+            this.dragonBreathAttack(ModParticleTypes.FROST.get(), entityLiving, ((double) range / 10) * 0.55D);
         } else {
-            this.breathAttack(ParticleTypes.POOF, entityLiving, 0.3F + ((double) range / 10), 5);
+            this.dragonBreathAttack(ModParticleTypes.SMALL_FROST.get(), entityLiving, 10, ((double) range / 10) * 0.55D, 0.05F);
         }
     }
 }

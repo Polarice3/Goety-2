@@ -14,16 +14,16 @@ import net.minecraft.world.phys.Vec3;
 
 public abstract class WaterHurtingProjectile extends AbstractHurtingProjectile implements ISpellEntity {
 
-    protected WaterHurtingProjectile(EntityType<? extends AbstractHurtingProjectile> p_36833_, Level p_36834_) {
-        super(p_36833_, p_36834_);
+    protected WaterHurtingProjectile(EntityType<? extends AbstractHurtingProjectile> entityType, Level level) {
+        super(entityType, level);
     }
 
-    public WaterHurtingProjectile(EntityType<? extends AbstractHurtingProjectile> p_36817_, double p_36818_, double p_36819_, double p_36820_, double p_36821_, double p_36822_, double p_36823_, Level p_36824_) {
-        super(p_36817_, p_36818_, p_36819_, p_36820_, p_36821_, p_36822_, p_36823_, p_36824_);
+    public WaterHurtingProjectile(EntityType<? extends AbstractHurtingProjectile> entityType, double x, double y, double z, double xPower, double yPower, double zPower, Level level) {
+        super(entityType, x, y, z, xPower, yPower, zPower, level);
     }
 
-    public WaterHurtingProjectile(EntityType<? extends AbstractHurtingProjectile> p_36826_, LivingEntity p_36827_, double p_36828_, double p_36829_, double p_36830_, Level p_36831_) {
-        super(p_36826_, p_36827_, p_36828_, p_36829_, p_36830_, p_36831_);
+    public WaterHurtingProjectile(EntityType<? extends AbstractHurtingProjectile> entityType, LivingEntity shooter, double xPower, double yPower, double zPower, Level level) {
+        super(entityType, shooter, xPower, yPower, zPower, level);
     }
 
     public boolean isAffectedByWater(){

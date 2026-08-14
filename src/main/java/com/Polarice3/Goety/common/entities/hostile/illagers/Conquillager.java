@@ -64,7 +64,7 @@ public class Conquillager extends HuntingIllagerEntity implements CrossbowAttack
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(2, new HoldGroundAttackGoal(this, 10.0F));
-        this.goalSelector.addGoal(3, new IllagerCrossbowGoal<>(this, 1.0D, 16.0F));
+        this.goalSelector.addGoal(3, new IllagerCrossbowGoal<>(this, 1.0D, 12.0F));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes(){

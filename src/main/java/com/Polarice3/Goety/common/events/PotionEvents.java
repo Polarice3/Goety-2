@@ -60,7 +60,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.trading.Merchant;
 import net.minecraft.world.level.GameRules;
@@ -175,10 +174,9 @@ public class PotionEvents {
                             int h = instance.getAmplifier() + 1;
                             MiscCapHelper.setFreezing(livingEntity, h);
                             if (livingEntity.level instanceof ServerLevel serverLevel) {
-                                if (serverLevel.random.nextFloat() <= 0.25F) {
-                                    for (int h1 = 0; h1 < h; ++h1) {
-                                        ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.SNOWFLAKE, livingEntity);
-                                    }
+                                float chance = 0.005F * (h * h);
+                                if (serverLevel.getRandom().nextFloat() <= chance) {
+                                    ServerParticleUtil.addParticlesAroundMiddleSelf(serverLevel, ParticleTypes.SNOWFLAKE, livingEntity);
                                 }
                             }
                             int i = livingEntity.getTicksFrozen();

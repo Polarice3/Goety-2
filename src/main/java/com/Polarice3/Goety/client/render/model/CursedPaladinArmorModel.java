@@ -76,12 +76,19 @@ public class CursedPaladinArmorModel extends HumanoidModel<LivingEntity> {
 
         PartDefinition cape1 = cape.addOrReplaceChild("cape1", CubeListBuilder.create().texOffs(64, 11).addBox(-4.5F, 0.0F, -0.5F, 9.0F, 8.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 10.0F, -0.5F, 0.1745F, 0.0F, 0.0F));
 
-        PartDefinition right_arm = partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(31, 35).addBox(-2.0F, 7.0F, -2.0F, 4.0F, 2.0F, 4.0F, new CubeDeformation(0.26F))
-                .texOffs(47, 34).addBox(-3.0F, 5.0F, -2.0F, 3.0F, 5.0F, 4.0F, new CubeDeformation(0.5F))
-                .texOffs(40, 1).mirror().addBox(-2.0F, 0.0F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.4F)).mirror(false)
-                .texOffs(40, 8).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 5.0F, 4.0F, new CubeDeformation(0.3F)), PartPose.offset(-6.0F, 1.0F, 0.0F));
+        PartDefinition right_arm = partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(31, 35).addBox(-3.0F, 6.0F, -2.0F, 4.0F, 2.0F, 4.0F, new CubeDeformation(0.26F))
+                .texOffs(47, 34).addBox(-4.0F, 4.0F, -2.0F, 3.0F, 5.0F, 4.0F, new CubeDeformation(0.5F))
+                .texOffs(40, 1).mirror().addBox(-3.0F, -1.0F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.4F)).mirror(false)
+                .texOffs(40, 8).addBox(-3.0F, -1.0F, -2.0F, 4.0F, 5.0F, 4.0F, new CubeDeformation(0.3F)), PartPose.offset(-5.0F, 2.0F, 0.0F));
 
-        PartDefinition cube_r3 = right_arm.addOrReplaceChild("cube_r3", CubeListBuilder.create().texOffs(65, 29).mirror().addBox(-3.5F, -2.5F, -3.0F, 6.0F, 4.0F, 6.0F, new CubeDeformation(0.5F)).mirror(false), PartPose.offsetAndRotation(-1.0F, -0.5F, 0.0F, 0.0F, 0.0F, -0.48F));
+        PartDefinition cube_r3 = right_arm.addOrReplaceChild("cube_r3", CubeListBuilder.create().texOffs(65, 29).mirror().addBox(-3.5F, -2.5F, -3.0F, 6.0F, 4.0F, 6.0F, new CubeDeformation(0.5F)).mirror(false), PartPose.offsetAndRotation(-2.0F, -1.5F, 0.0F, 0.0F, 0.0F, -0.48F));
+
+        PartDefinition left_arm = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(31, 35).mirror().addBox(-1.0F, 6.0F, -2.0F, 4.0F, 2.0F, 4.0F, new CubeDeformation(0.26F)).mirror(false)
+                .texOffs(47, 34).mirror().addBox(1.0F, 4.0F, -2.0F, 3.0F, 5.0F, 4.0F, new CubeDeformation(0.5F)).mirror(false)
+                .texOffs(40, 1).addBox(-1.0F, -1.0F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.4F))
+                .texOffs(40, 8).mirror().addBox(-1.0F, -1.0F, -2.0F, 4.0F, 5.0F, 4.0F, new CubeDeformation(0.3F)).mirror(false), PartPose.offset(5.0F, 2.0F, 0.0F));
+
+        PartDefinition cube_r4 = left_arm.addOrReplaceChild("cube_r4", CubeListBuilder.create().texOffs(65, 29).addBox(-2.5F, -2.5F, -3.0F, 6.0F, 4.0F, 6.0F, new CubeDeformation(0.5F)), PartPose.offsetAndRotation(2.0F, -1.5F, 0.0F, 0.0F, 0.0F, 0.48F));
 
         PartDefinition right_leg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 44).mirror().addBox(-2.0F, 6.0F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.5F)).mirror(false)
                 .texOffs(17, 50).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 10.0F, 4.0F, new CubeDeformation(0.3F))
@@ -90,13 +97,6 @@ public class CursedPaladinArmorModel extends HumanoidModel<LivingEntity> {
         PartDefinition left_leg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 44).addBox(-2.0F, 6.0F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.5F))
                 .texOffs(17, 50).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 10.0F, 4.0F, new CubeDeformation(0.3F))
                 .texOffs(0, 56).addBox(-1.9F, 0.0F, -2.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.5F)), PartPose.offset(1.9F, 12.0F, 0.0F));
-
-        PartDefinition left_arm = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(31, 35).mirror().addBox(-1.0F, 6.0F, -2.0F, 4.0F, 2.0F, 4.0F, new CubeDeformation(0.26F)).mirror(false)
-                .texOffs(47, 34).mirror().addBox(1.0F, 4.0F, -2.0F, 3.0F, 5.0F, 4.0F, new CubeDeformation(0.5F)).mirror(false)
-                .texOffs(40, 1).addBox(-1.0F, -1.0F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.4F))
-                .texOffs(40, 8).mirror().addBox(-1.0F, -1.0F, -2.0F, 4.0F, 5.0F, 4.0F, new CubeDeformation(0.3F)).mirror(false), PartPose.offset(5.0F, 2.0F, 0.0F));
-
-        PartDefinition cube_r4 = left_arm.addOrReplaceChild("cube_r4", CubeListBuilder.create().texOffs(65, 29).addBox(-2.5F, -2.5F, -3.0F, 6.0F, 4.0F, 6.0F, new CubeDeformation(0.5F)), PartPose.offsetAndRotation(2.0F, -1.5F, 0.0F, 0.0F, 0.0F, 0.48F));
 
         return LayerDefinition.create(meshdefinition, 128, 64);
     }

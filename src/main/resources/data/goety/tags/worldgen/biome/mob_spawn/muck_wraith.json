@@ -1,6 +1,11 @@
 {
   "replace": false,
   "values": [
-    "#forge:is_swamp"
+    "#forge:is_swamp",
+    "#minecraft:is_jungle",
+    {
+      "id": "#forge:is_jungle",
+      "required": false
+    }
   ]
 }

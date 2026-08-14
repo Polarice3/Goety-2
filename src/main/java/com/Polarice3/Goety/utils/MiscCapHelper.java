@@ -33,12 +33,9 @@ public class MiscCapHelper {
     }
 
     public static void setFreezing(LivingEntity livingEntity, int freeze){
-        IMisc misc = getCapability(livingEntity);
-        if (misc.freezeLevel() != freeze) {
-            misc.setFreezeLevel(freeze);
-            if (!livingEntity.level.isClientSide){
-                sendMiscUpdatePacket(livingEntity);
-            }
+        getCapability(livingEntity).setFreezeLevel(freeze);
+        if (!livingEntity.level.isClientSide){
+            sendMiscUpdatePacket(livingEntity);
         }
     }
 

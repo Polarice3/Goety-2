@@ -46,12 +46,12 @@ public class HellBolt extends WaterHurtingProjectile {
     public static final EntityDataAccessor<Float> DATA_DAMAGE = SynchedEntityData.defineId(HellBolt.class, EntityDataSerializers.FLOAT);
     public static final EntityDataAccessor<Boolean> RAIN = SynchedEntityData.defineId(HellBolt.class, EntityDataSerializers.BOOLEAN);
 
-    public HellBolt(EntityType<? extends HellBolt> p_i50160_1_, Level p_i50160_2_) {
-        super(p_i50160_1_, p_i50160_2_);
+    public HellBolt(EntityType<? extends HellBolt> entityType, Level level) {
+        super(entityType, level);
     }
 
-    public HellBolt(LivingEntity p_i1771_2_, double p_i1771_3_, double p_i1771_5_, double p_i1771_7_, Level p_i1771_1_) {
-        super(ModEntityType.HELL_BOLT.get(), p_i1771_2_, p_i1771_3_, p_i1771_5_, p_i1771_7_, p_i1771_1_);
+    public HellBolt(LivingEntity shooter, double xPower, double yPower, double zPower, Level level) {
+        super(ModEntityType.HELL_BOLT.get(), shooter, xPower, yPower, zPower, level);
     }
 
     public HellBolt(double pX, double pY, double pZ, double pAccelX, double pAccelY, double pAccelZ, Level pWorld) {

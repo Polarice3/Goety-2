@@ -130,9 +130,11 @@ public class GoetyBaseEffect extends MobEffect {
                 ServerParticleUtil.addAuraParticles(serverLevel, ParticleTypes.FLAME, livingEntity, f);
                 for (LivingEntity living : world.getEntitiesOfClass(LivingEntity.class, livingEntity.getBoundingBox().inflate(f))) {
                     if (!living.isOnFire() && !living.hasEffect(MobEffects.FIRE_RESISTANCE) && !living.fireImmune() && !MobUtil.areAllies(livingEntity, living) && MobUtil.validEntity(living) && living != livingEntity) {
-                        ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.FLAME, living);
-                        ModNetwork.sendToALL(new SPlayWorldSoundPacket(livingEntity.blockPosition(), SoundEvents.FIRECHARGE_USE, 1.0F, 0.75F));
                         living.setSecondsOnFire(5 * (amplify + 1));
+                        if (living.getRemainingFireTicks() > 0) {
+                            ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.FLAME, living);
+                            ModNetwork.sendToALL(new SPlayWorldSoundPacket(livingEntity.blockPosition(), SoundEvents.FIRECHARGE_USE, 1.0F, 0.75F));
+                        }
                     }
                 }
             }
@@ -143,9 +145,10 @@ public class GoetyBaseEffect extends MobEffect {
                 ServerParticleUtil.addAuraParticles(serverLevel, ParticleTypes.SNOWFLAKE, livingEntity, f);
                 for (LivingEntity living : world.getEntitiesOfClass(LivingEntity.class, livingEntity.getBoundingBox().inflate(f))) {
                     if (!living.isFreezing() && living.canFreeze() && !MobUtil.areAllies(livingEntity, living) && MobUtil.validEntity(living) && living != livingEntity) {
-                        ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.SNOWFLAKE, living);
-                        ModNetwork.sendToALL(new SPlayWorldSoundPacket(livingEntity.blockPosition(), SoundEvents.PLAYER_HURT_FREEZE, 1.0F, 0.75F));
-                        living.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), 100, amplify));
+                        if (living.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), 100, amplify))) {
+                            ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.SNOWFLAKE, living);
+                            ModNetwork.sendToALL(new SPlayWorldSoundPacket(livingEntity.blockPosition(), SoundEvents.PLAYER_HURT_FREEZE, 1.0F, 0.75F));
+                        }
                     }
                 }
             }

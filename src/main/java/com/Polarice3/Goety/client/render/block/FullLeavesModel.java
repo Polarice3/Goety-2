@@ -27,6 +27,6 @@ public class FullLeavesModel extends BakedModelWrapper<BakedModel> {
 
     @Override
     public ChunkRenderTypeSet getRenderTypes(@NotNull BlockState state, @NotNull RandomSource rand, @NotNull ModelData data) {
-        return ChunkRenderTypeSet.of(RenderType.cutoutMipped());
+        return ChunkRenderTypeSet.of(RenderType.cutout());
     }
 }

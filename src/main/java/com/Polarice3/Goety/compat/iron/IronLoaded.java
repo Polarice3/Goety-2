@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.compat.iron;
 
+import com.Polarice3.Goety.utils.CuriosFinder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraftforge.fml.ModList;
@@ -38,6 +39,10 @@ public enum IronLoaded {
 
     public boolean hasEvocationPower(LivingEntity livingEntity){
         return isCompat(livingEntity, IronAttributes.EVOCATION_SPELL_POWER);
+    }
+
+    public boolean hasFirewardRing(LivingEntity livingEntity) {
+        return CuriosFinder.hasCurio(livingEntity, itemStack -> itemStack.getDescriptionId().contains("irons_spellbooks") && itemStack.getDescriptionId().contains("fireward_ring"));
     }
 
     public boolean isCompat(LivingEntity livingEntity, Attribute attribute){

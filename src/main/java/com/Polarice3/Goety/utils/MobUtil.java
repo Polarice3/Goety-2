@@ -1833,4 +1833,33 @@ public class MobUtil {
         }
         return false;
     }
+
+    //Based on @hexnowloading code: https://github.com/hexnowloading/DungeonNowLoading/blob/3.0-1.20.1/common/src/main/java/dev/hexnowloading/dungeonnowloading/entity/ai/chaos_spawner/ChaosSpawnerShootGhostBulletGoal.java
+    public static Vec3 vecFromCenterToFrontOfFace(LivingEntity shooter, float angle) {
+        return vecFromCenterToFrontOfFace(shooter, 2.0D, angle);
+    }
+
+    public static Vec3 vecFromCenterToFrontOfFace(LivingEntity shooter, double viewDistance, float angle) {
+        Vec3 viewVector = shooter.getViewVector(1.0F);
+        if (angle != 0.0F) {
+            float offset = (float) Math.toRadians(angle);
+            viewVector = viewVector.yRot(offset);
+        }
+        double d0 = viewVector.x * viewDistance;
+        double d1 = viewVector.y * viewDistance;
+        double d2 = viewVector.z * viewDistance;
+        return new Vec3(shooter.getX() + d0, shooter.getEyeY() + d1, shooter.getZ() + d2);
+    }
+
+    public static Vec3 vecCenterFaceVector(LivingEntity shooter, double viewDistance, float angle) {
+        Vec3 viewVector = shooter.getViewVector(1.0F);
+        if (angle != 0.0F) {
+            float offset = (float) Math.toRadians(angle);
+            viewVector = viewVector.yRot(offset);
+        }
+        double d0 = viewVector.x * viewDistance;
+        double d1 = viewVector.y * viewDistance;
+        double d2 = viewVector.z * viewDistance;
+        return new Vec3(d0, d1, d2);
+    }
 }

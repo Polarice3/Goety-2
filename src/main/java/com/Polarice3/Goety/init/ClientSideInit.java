@@ -81,7 +81,8 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.END_FIRE.get(), FireParticle.ReversibleProvider::new);
         event.registerSpriteSet(ModParticleTypes.END_FIRE_DROP.get(), FireParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SMALL_END_FIRE.get(), FireParticle.SmallReversibleProvider::new);
-        event.registerSpriteSet(ModParticleTypes.FROST.get(), FireParticle.FrostProvider::new);
+        event.registerSpriteSet(ModParticleTypes.FROST.get(), FrostParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.SMALL_FROST.get(), FrostParticle.SmallProvider::new);
         event.registerSpriteSet(ModParticleTypes.FROST_NOVA.get(), FlameParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.FLY.get(), FireParticle.FlyProvider::new);
         event.registerSpriteSet(ModParticleTypes.SPELL_CLOUD.get(), FireParticle.ColorProvider::new);
