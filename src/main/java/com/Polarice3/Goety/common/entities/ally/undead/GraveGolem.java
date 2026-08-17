@@ -1,21 +1,26 @@
 package com.Polarice3.Goety.common.entities.ally.undead;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
+import com.Polarice3.Goety.client.particles.SmashParticleOption;
+import com.Polarice3.Goety.client.particles.SphereExplodeParticleOption;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.golem.AbstractGolemServant;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.HauntedSkullProjectile;
-import com.Polarice3.Goety.common.entities.projectiles.SoulBomb;
+import com.Polarice3.Goety.common.entities.util.CameraShake;
 import com.Polarice3.Goety.common.entities.util.SummonCircle;
 import com.Polarice3.Goety.common.items.block.GraveGolemSkullItem;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.protocol.Packet;
@@ -49,6 +54,7 @@ import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
@@ -58,13 +64,23 @@ import java.util.*;
 
 public class GraveGolem extends AbstractGolemServant {
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(GraveGolem.class, EntityDataSerializers.BYTE);
-    public static float SUMMON_SECONDS_TIME = 4.7F;
+    private static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(GraveGolem.class, EntityDataSerializers.INT);
+    public static String ACTIVATE = "activate";
+    public static String IDLE = "idle";
+    public static String ATTACK = "attack";
+    public static String SUMMON = "summon";
+    public static String TO_SIT = "to_sit";
+    public static String TO_STAND = "to_stand";
+    public static String SIT = "sit";
+    public static String SHOOT = "shoot";
+    public static String DEATH = "death";
+    public static float SUMMON_SECONDS_TIME = 4.6F;
+    public static int SUMMON_COOL = MathHelper.secondsToTicks(20);
     private int activateTick;
     public int attackTick;
     public int summonTick;
     private int summonCool;
     private int summonCount;
-    public int belchCool;
     public int isSittingDown;
     public int isStandingUp;
     public float getGlow;
@@ -75,13 +91,11 @@ public class GraveGolem extends AbstractGolemServant {
     public AnimationState activateAnimationState = new AnimationState();
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState attackAnimationState = new AnimationState();
-    public AnimationState walkAnimationState = new AnimationState();
     public AnimationState summonAnimationState = new AnimationState();
     public AnimationState toSitAnimationState = new AnimationState();
     public AnimationState toStandAnimationState = new AnimationState();
     public AnimationState sitAnimationState = new AnimationState();
     public AnimationState shootAnimationState = new AnimationState();
-    public AnimationState belchAnimationState = new AnimationState();
     public AnimationState deathAnimationState = new AnimationState();
 
     public GraveGolem(EntityType<? extends Owned> type, Level worldIn) {
@@ -92,8 +106,7 @@ public class GraveGolem extends AbstractGolemServant {
         super.registerGoals();
         this.goalSelector.addGoal(1, new SummonGoal());
         this.goalSelector.addGoal(2, new MeleeGoal());
-//        this.goalSelector.addGoal(3, new GraveGolem.BelchGoal(this));
-        this.goalSelector.addGoal(3, new GolemRangedGoal(this, 1.0D, 32.0F));
+        this.goalSelector.addGoal(3, new GolemRangedGoal(this));
         this.goalSelector.addGoal(5, new AttackGoal(1.0D));
         this.goalSelector.addGoal(8, new WanderGoal<>(this, 1.0D, 10));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
@@ -122,6 +135,7 @@ public class GraveGolem extends AbstractGolemServant {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_FLAGS_ID, (byte)0);
+        this.entityData.define(ANIM_STATE, 0);
     }
 
     public Packet<ClientGamePacketListener> getAddEntityPacket() {
@@ -136,10 +150,102 @@ public class GraveGolem extends AbstractGolemServant {
 
     }
 
+    public void setAnimationState(String input) {
+        this.setAnimationState(this.getAnimationState(input));
+    }
+
+    public void setAnimationState(int id) {
+        this.entityData.set(ANIM_STATE, id);
+    }
+
+    public int getAnimationState(String animation) {
+        if (Objects.equals(animation, ACTIVATE)){
+            return 1;
+        } else if (Objects.equals(animation, IDLE)){
+            return 2;
+        } else if (Objects.equals(animation, ATTACK)){
+            return 3;
+        } else if (Objects.equals(animation, SUMMON)){
+            return 4;
+        } else if (Objects.equals(animation, TO_SIT)){
+            return 5;
+        } else if (Objects.equals(animation, TO_STAND)){
+            return 6;
+        } else if (Objects.equals(animation, SIT)){
+            return 7;
+        } else if (Objects.equals(animation, SHOOT)){
+            return 8;
+        } else if (Objects.equals(animation, DEATH)){
+            return 9;
+        } else {
+            return 0;
+        }
+    }
+
+    public void stopMostAnimation(AnimationState exception){
+        for (AnimationState state : this.getAnimations()){
+            if (state != exception){
+                state.stop();
+            }
+        }
+    }
+
+    public int getCurrentAnimation(){
+        return this.entityData.get(ANIM_STATE);
+    }
+
+    public boolean isCurrentAnimation(String animation) {
+        return this.getCurrentAnimation() == this.getAnimationState(animation);
+    }
+
+    public void resetToIdle() {
+        this.setAnimationState(IDLE);
+        if (this.isStaying()) {
+            this.isSittingDown = MathHelper.secondsToTicks(1);
+        }
+    }
+
     public void onSyncedDataUpdated(EntityDataAccessor<?> p_219422_) {
-        if (DATA_POSE.equals(p_219422_)) {
-            if (this.getPose() == Pose.EMERGING) {
-                this.activateAnimationState.start(this.tickCount);
+        if (ANIM_STATE.equals(p_219422_)) {
+            if (this.level.isClientSide){
+                switch (this.entityData.get(ANIM_STATE)){
+                    case 0:
+                        break;
+                    case 1:
+                        this.activateAnimationState.start(this.tickCount);
+                        this.stopMostAnimation(this.activateAnimationState);
+                        break;
+                    case 2:
+                        this.stopMostAnimation(this.idleAnimationState);
+                        break;
+                    case 3:
+                        this.attackAnimationState.startIfStopped(this.tickCount);
+                        this.stopMostAnimation(this.attackAnimationState);
+                        break;
+                    case 4:
+                        this.stopMostAnimation(this.summonAnimationState);
+                        this.summonAnimationState.start(this.tickCount);
+                        break;
+                    case 5:
+                        this.stopMostAnimation(this.toSitAnimationState);
+                        this.toSitAnimationState.startIfStopped(this.tickCount);
+                        break;
+                    case 6:
+                        this.stopMostAnimation(this.toStandAnimationState);
+                        this.toStandAnimationState.startIfStopped(this.tickCount);
+                        break;
+                    case 7:
+                        this.stopMostAnimation(this.sitAnimationState);
+                        break;
+                    case 8:
+                        this.shootAnimationState.startIfStopped(this.tickCount);
+                        this.stopMostAnimation(this.shootAnimationState);
+                        break;
+                    case 9:
+                        this.deathAnimationState.start(this.tickCount);
+                        this.stopMostAnimation(this.deathAnimationState);
+                        break;
+                }
             }
         }
 
@@ -151,7 +257,7 @@ public class GraveGolem extends AbstractGolemServant {
         pCompound.putInt("ActivateTick", this.activateTick);
         pCompound.putInt("SummonTick", this.summonTick);
         pCompound.putInt("SummonCount", this.summonCount);
-        pCompound.putInt("BelchCool", this.belchCool);
+
         ListTag listnbt = new ListTag();
 
         for(int i = 0; i < this.inventory.getContainerSize(); ++i) {
@@ -174,9 +280,6 @@ public class GraveGolem extends AbstractGolemServant {
         }
         if (pCompound.contains("SummonCount")) {
             this.summonCount = pCompound.getInt("SummonCount");
-        }
-        if (pCompound.contains("BelchCool")) {
-            this.belchCool = pCompound.getInt("BelchCool");
         }
         if (pCompound.contains("Inventory")) {
             ListTag listnbt = pCompound.getList("Inventory", 10);
@@ -209,8 +312,12 @@ public class GraveGolem extends AbstractGolemServant {
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 
+    @Override
+    public void summonParticles(ServerLevel pLevel, MobSpawnType pReason) {
+    }
+
     public boolean canAnimateMove(){
-        return super.canAnimateMove() && !this.isMeleeAttacking();
+        return super.canAnimateMove() && !this.isMeleeAttacking() && !this.isShooting();
     }
 
     protected boolean isImmobile() {
@@ -275,7 +382,6 @@ public class GraveGolem extends AbstractGolemServant {
     public void setMeleeAttacking(boolean attacking) {
         this.setGolemFlags(1, attacking);
         this.attackTick = 0;
-        this.level.broadcastEntityEvent(this, (byte) 5);
     }
 
     public void setShooting(boolean shooting){
@@ -286,37 +392,18 @@ public class GraveGolem extends AbstractGolemServant {
         return this.getGolemFlag(2);
     }
 
-    public void setBelching(boolean belching){
-        this.setGolemFlags(4, belching);
-    }
-
-    public boolean isBelching(){
-        return this.getGolemFlag(4);
-    }
-
     public List<AnimationState> getAnimations(){
         List<AnimationState> animationStates = new ArrayList<>();
         animationStates.add(this.activateAnimationState);
         animationStates.add(this.attackAnimationState);
         animationStates.add(this.idleAnimationState);
         animationStates.add(this.summonAnimationState);
-        animationStates.add(this.belchAnimationState);
         animationStates.add(this.toSitAnimationState);
         animationStates.add(this.toStandAnimationState);
         animationStates.add(this.sitAnimationState);
         animationStates.add(this.shootAnimationState);
-        animationStates.add(this.walkAnimationState);
         animationStates.add(this.deathAnimationState);
         return animationStates;
-    }
-
-    public void setStaying(boolean staying){
-        super.setStaying(staying);
-        if (staying){
-            this.level.broadcastEntityEvent(this, (byte) 22);
-        } else if (this.isFollowing()) {
-            this.level.broadcastEntityEvent(this, (byte) 23);
-        }
     }
 
     protected void tickDeath() {
@@ -333,7 +420,7 @@ public class GraveGolem extends AbstractGolemServant {
                 if (itemEntity != null){
                     itemEntity.setExtendedLifetime();
                 }
-            } else if (this.level.random.nextFloat() <= 0.11F){
+            } else if (this.level.getRandom().nextFloat() <= 0.11F){
                 this.spawnAtLocation(itemStack);
             }
             this.dropInventory();
@@ -346,6 +433,7 @@ public class GraveGolem extends AbstractGolemServant {
 
     @Override
     public void die(DamageSource p_21014_) {
+        this.setAnimationState(DEATH);
         this.deathRotation = this.getYRot();
         super.die(p_21014_);
     }
@@ -393,20 +481,6 @@ public class GraveGolem extends AbstractGolemServant {
         }
     }
 
-    public void stopMostAnimations(AnimationState animationState0){
-        for (AnimationState animationState : this.getAnimations()){
-            if (animationState != animationState0) {
-                animationState.stop();
-            }
-        }
-    }
-
-    public void stopAnimations(){
-        for (AnimationState animationState : this.getAnimations()){
-            animationState.stop();
-        }
-    }
-
     private boolean isActivating() {
         return this.hasPose(Pose.EMERGING);
     }
@@ -414,14 +488,19 @@ public class GraveGolem extends AbstractGolemServant {
     public void tick() {
         super.tick();
         if (this.isDeadOrDying()){
-            this.stopMostAnimations(this.deathAnimationState);
             this.setYRot(this.deathRotation);
             this.setYBodyRot(this.deathRotation);
         }
         if (this.hasPose(Pose.EMERGING)){
             ++this.activateTick;
+            this.setAnimationState(ACTIVATE);
             if (this.activateTick == 1){
                 this.playSound(ModSounds.GRAVE_GOLEM_AWAKEN.get(), 2.0F, 1.0F);
+            }
+            if (this.activateTick > 20) {
+                if (this.level.isClientSide()) {
+                    this.getGlow = 1.0F;
+                }
             }
             if (this.activateTick > MathHelper.secondsToTicks(3.25F)){
                 this.setPose(Pose.STANDING);
@@ -429,69 +508,40 @@ public class GraveGolem extends AbstractGolemServant {
         }
         if (this.level.isClientSide()) {
             if (this.isAlive() && !this.isActivating()) {
+                this.idleAnimationState.animateWhen(!this.walkAnimation.isMoving() && this.isCurrentAnimation(IDLE), this.tickCount);
+                this.sitAnimationState.animateWhen(!this.walkAnimation.isMoving() && this.isCurrentAnimation(SIT), this.tickCount);
                 this.glow();
-                if (!this.isMeleeAttacking() && !this.isShooting() && !this.isBelching() && !this.isSummoning()) {
-                    if (this.isMoving()) {
-                        this.stopMostAnimations(this.walkAnimationState);
-                        this.walkAnimationState.startIfStopped(this.tickCount);
-                    } else {
-                        if (this.isStaying()) {
-                            if (this.isSittingDown > 0){
-                                --this.isSittingDown;
-                                this.stopMostAnimations(this.toSitAnimationState);
-                                this.toSitAnimationState.startIfStopped(this.tickCount);
-                            } else {
-                                this.stopMostAnimations(this.sitAnimationState);
-                                this.sitAnimationState.startIfStopped(this.tickCount);
-                            }
-                        } else {
-                            if (this.isStandingUp > 0){
-                                --this.isStandingUp;
-                                this.stopMostAnimations(this.toStandAnimationState);
-                                this.toStandAnimationState.startIfStopped(this.tickCount);
-                            } else {
-                                this.stopMostAnimations(this.idleAnimationState);
-                                this.idleAnimationState.startIfStopped(this.tickCount);
-                            }
-                        }
-                    }
-                } else {
-                    if (this.isStaying()){
-                        this.isSittingDown = MathHelper.secondsToTicks(1);
-                    } else {
-                        this.isSittingDown = 0;
-                    }
-                    this.isStandingUp = 0;
-                    this.sitAnimationState.stop();
-                    this.idleAnimationState.stop();
-                    this.walkAnimationState.stop();
-                    this.toSitAnimationState.stop();
-                    this.toStandAnimationState.stop();
-                }
                 if (this.isMeleeAttacking()) {
                     this.getGlow = 1.0F;
-                    ++this.attackTick;
                 }
                 if (this.isSummoning()) {
                     this.getGlow = 1.0F;
-                    this.stopMostAnimations(this.summonAnimationState);
-                    if (!this.summonAnimationState.isStarted()){
-                        this.summonAnimationState.start(this.tickCount);
-                    }
-                    --this.summonTick;
-                } else {
-                    this.summonAnimationState.stop();
-                }
-                if (this.isShooting()) {
-                    this.stopMostAnimations(this.shootAnimationState);
-                    if (!this.shootAnimationState.isStarted()){
-                        this.shootAnimationState.start(this.tickCount);
-                    }
                 }
             }
         }
         if (!this.level.isClientSide){
-            if (this.isAlive() && !this.isActivating() && !this.isShooting() && !this.isBelching()) {
+            if (!this.isDeadOrDying()) {
+                if (!this.isActivating() && !this.isMeleeAttacking() && !this.isSummoning() && !this.isShooting()) {
+                    if (this.isStaying()) {
+                        this.isStandingUp = MathHelper.secondsToTicks(1);
+                        if (this.isSittingDown > 0) {
+                            --this.isSittingDown;
+                            this.setAnimationState(TO_SIT);
+                        } else {
+                            this.setAnimationState(SIT);
+                        }
+                    } else {
+                        this.isSittingDown = MathHelper.secondsToTicks(1);
+                        if (this.isStandingUp > 0) {
+                            --this.isStandingUp;
+                            this.setAnimationState(TO_STAND);
+                        } else {
+                            this.setAnimationState(IDLE);
+                        }
+                    }
+                }
+            }
+            if (this.isAlive() && !this.isActivating() && !this.isSummoning() && !this.isShooting()) {
                 if (this.isMeleeAttacking()) {
                     ++this.attackTick;
                 }
@@ -502,98 +552,70 @@ public class GraveGolem extends AbstractGolemServant {
             if (this.summonCool > 0) {
                 --this.summonCool;
             }
-            if (this.belchCool > 0){
-                --this.belchCool;
-            }
             if (!this.inventory.isEmpty()){
                 this.level.broadcastEntityEvent(this, (byte) 19);
             } else {
                 this.level.broadcastEntityEvent(this, (byte) 24);
             }
             if (this.isSummoning()) {
+                this.level.broadcastEntityEvent(this, (byte) 14);
+                this.level.broadcastEntityEvent(this, (byte) 15);
                 if (this.level instanceof ServerLevel serverLevel) {
                     for (int i = 0; i < 5; ++i) {
-                        double d0 = serverLevel.random.nextGaussian() * 0.02D;
-                        double d1 = serverLevel.random.nextGaussian() * 0.02D;
-                        double d2 = serverLevel.random.nextGaussian() * 0.02D;
-                        serverLevel.sendParticles(ModParticleTypes.WRAITH.get(), this.getRandomX(0.5D), this.getEyeY() - serverLevel.random.nextInt(2), this.getRandomZ(0.5D), 0, d0, d1, d2, 0.5F);
-                    }
-                    if (!this.level.getBlockState(this.blockPosition().below()).isAir()) {
-                        for (int j = 0; j < 4; ++j) {
-                            double d1 = this.getX() + (this.random.nextDouble() - 0.5D) * (double) this.getBbWidth() * 2.0D;
-                            double d2 = this.blockPosition().below().getY() + 0.5F;
-                            double d3 = this.getZ() + (this.random.nextDouble() - 0.5D) * (double) this.getBbWidth() * 2.0D;
-                            serverLevel.sendParticles(ModParticleTypes.WRAITH_BURST.get(), d1, d2, d3, 0, 0.0D, 0.0D, 0.0D, 0.5F);
-                        }
+                        double d0 = serverLevel.getRandom().nextGaussian() * 0.02D;
+                        double d1 = serverLevel.getRandom().nextGaussian() * 0.02D;
+                        double d2 = serverLevel.getRandom().nextGaussian() * 0.02D;
+                        serverLevel.sendParticles(ModParticleTypes.WRAITH.get(), this.getRandomX(0.5D), this.getEyeY() - serverLevel.getRandom().nextInt(2), this.getRandomZ(0.5D), 0, d0, d1, d2, 0.5F);
                     }
                 }
-                if (this.summonTick == MathHelper.secondsToTicks(SUMMON_SECONDS_TIME - 1)){
-                    this.playSound(ModSounds.GRAVE_GOLEM_BLAST.get());
+                if (this.summonTick == MathHelper.secondsToTicks(SUMMON_SECONDS_TIME) - 36){
+                    this.playSound(ModSounds.GRAVE_GOLEM_ROAR.get(), 2.0F, 1.0F);
+                    this.gameEvent(GameEvent.ENTITY_ROAR, this);
                 }
                 if (this.summonTick <= (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME - 2)) && this.summonCount != 0) {
-                    for (int i = 0; i < 6; ++i){
-                        BlockPos blockPos = this.blockPosition();
-                        blockPos = blockPos.offset(-8 + this.level.random.nextInt(16), 0, -8 + this.level.random.nextInt(16));
-                        Summoned summoned = new Haunt(ModEntityType.HAUNT.get(), this.level);
-                        summoned.setLimitedLife(MathHelper.secondsToTicks(20));
-                        SummonCircle summonCircle = new SummonCircle(this.level, blockPos, summoned, true, true, this);
-                        summonCircle.noParticles = true;
-                        this.level.addFreshEntity(summonCircle);
+                    int j = 0;
+                    for (int i = 0; i < 32; ++i){
+                        if (j < 6) {
+                            BlockPos blockPos = this.blockPosition();
+                            blockPos = blockPos.offset(-8 + this.level.getRandom().nextInt(16), 0, -8 + this.level.getRandom().nextInt(16));
+                            Vec3 vec3 = Vec3.atBottomCenterOf(blockPos);
+                            Summoned summoned = new Haunt(ModEntityType.HAUNT.get(), this.level);
+                            summoned.setLimitedLife(SUMMON_COOL);
+                            if (this.level.noCollision(summoned, summoned.getBoundingBox().move(vec3))) {
+                                SummonCircle summonCircle = new SummonCircle(this.level, blockPos, summoned, true, true, this);
+                                summonCircle.noParticles = true;
+                                if (this.level.addFreshEntity(summonCircle)) {
+                                    ++j;
+                                }
+                            }
+                        } else {
+                            break;
+                        }
                     }
+                    this.summonCool = SUMMON_COOL;
                     this.summonCount = 0;
+                }
+            } else {
+                if (this.isCurrentAnimation(SUMMON)){
+                    this.resetToIdle();
                 }
             }
         }
     }
 
     public void handleEntityEvent(byte pId) {
-        if (pId == 3) {
-            this.stopAnimations();
-            this.deathAnimationState.start(this.tickCount);
-            this.deathRotation = this.getYRot();
-            this.playSound(ModSounds.GRAVE_GOLEM_DEATH.get(), 1.0F, 1.0F);
-            super.handleEntityEvent(pId);
-        } else if (pId == 4){
-            this.stopAnimations();
-            this.setShooting(true);
-            this.shootAnimationState.start(this.tickCount);
-        } else if (pId == 5){
-            this.attackTick = 0;
-        } else if (pId == 6){
-            this.stopAnimations();
-            this.attackAnimationState.start(this.tickCount);
-        } else if (pId == 7){
-            this.stopAnimations();
-            this.deathAnimationState.start(this.tickCount);
-            this.deathRotation = this.getYRot();
-            this.playSound(ModSounds.GRAVE_GOLEM_DEATH.get(), 1.0F, 1.0F);
-        } else if (pId == 8){
-            this.stopAnimations();
-            this.activateAnimationState.start(this.tickCount);
-        } else if (pId == 9){
-            this.shootAnimationState.stop();
-        } else if (pId == 10){
-            this.stopAnimations();
-            this.summonAnimationState.start(this.tickCount);
-            this.summonTick = (int) (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME));
-        } else if (pId == 11){
-            this.attackAnimationState.stop();
-        } else if (pId == 12){
-            this.stopAnimations();
-            this.setBelching(true);
-            this.belchAnimationState.start(this.tickCount);
-        } else if (pId == 13){
-            this.belchAnimationState.stop();
+        if (pId == 13){
+            this.stopMostAnimation(this.shootAnimationState);
+            if (!this.shootAnimationState.isStarted()) {
+                this.shootAnimationState.start(this.tickCount);
+            }
         } else if (pId == 14){
-            this.setShooting(false);
+            this.stopMostAnimation(this.summonAnimationState);
+            if (!this.summonAnimationState.isStarted()) {
+                this.summonAnimationState.start(this.tickCount);
+            }
         } else if (pId == 15){
             this.getGlow = 1.0F;
-        } else if (pId == 16){
-            this.setBelching(false);
-        } else if (pId == 17){
-            this.setMeleeAttacking(true);
-        } else if (pId == 18){
-            this.setMeleeAttacking(false);
         } else if (pId == 19) {
             if (!this.hasInventory) {
                 this.hasInventory = true;
@@ -602,10 +624,6 @@ public class GraveGolem extends AbstractGolemServant {
             if (this.hasInventory) {
                 this.hasInventory = false;
             }
-        } else if (pId == 22) {
-            this.isSittingDown = MathHelper.secondsToTicks(1);
-        } else if (pId == 23) {
-            this.isStandingUp = MathHelper.secondsToTicks(1);
         } else {
             super.handleEntityEvent(pId);
         }
@@ -630,7 +648,6 @@ public class GraveGolem extends AbstractGolemServant {
     public boolean doHurtTarget(Entity entityIn) {
         if (!this.level.isClientSide && !this.isMeleeAttacking()) {
             this.setMeleeAttacking(true);
-            this.level.broadcastEntityEvent(GraveGolem.this, (byte) 17);
         }
         return true;
     }
@@ -662,9 +679,9 @@ public class GraveGolem extends AbstractGolemServant {
                     }
                     if (this.level instanceof ServerLevel serverLevel) {
                         for (int i = 0; i < 7; ++i) {
-                            double d0 = serverLevel.random.nextGaussian() * 0.02D;
-                            double d1 = serverLevel.random.nextGaussian() * 0.02D;
-                            double d2 = serverLevel.random.nextGaussian() * 0.02D;
+                            double d0 = serverLevel.getRandom().nextGaussian() * 0.02D;
+                            double d1 = serverLevel.getRandom().nextGaussian() * 0.02D;
+                            double d2 = serverLevel.getRandom().nextGaussian() * 0.02D;
                             serverLevel.sendParticles(ModParticleTypes.TOTEM_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY(), this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
                         }
                     }
@@ -679,17 +696,27 @@ public class GraveGolem extends AbstractGolemServant {
         return InteractionResult.PASS;
     }
 
-    public void shootProjectile(LivingEntity p_33317_) {
+    public void shootProjectile(@Nullable LivingEntity target) {
         Vec3 vector3d = this.getViewVector( 1.0F);
-        double x = this.getHorizontalRightLookAngle(this).x * 2;
-        double z = this.getHorizontalRightLookAngle(this).z * 2;
-        double d1 = p_33317_.getX() - (this.getX() + x);
-        double d2 = p_33317_.getY() - this.getY(0.5D);
-        double d3 = p_33317_.getZ() - (this.getZ() + z);
+        double rightOffset = 1.5D;
+        double x = this.getHorizontalRightLookAngle(this).x * rightOffset;
+        double z = this.getHorizontalRightLookAngle(this).z * rightOffset;
+        double forwardOffset = 2.0D;
+        Vec3 vec3 = vector3d;
+        if (target != null) {
+            vec3 = target.position();
+        }
+        double spawnX = this.getX() + x + (vector3d.x * forwardOffset);
+        double spawnY = this.getY(0.65D);
+        double spawnZ = this.getZ() + z + (vector3d.z * forwardOffset);
+        double d1 = vec3.x() - (this.getX() + x);
+        double d2 = vec3.y() - this.getY(0.5D);
+        double d3 = vec3.z() - (this.getZ() + z);
         HauntedSkullProjectile soulSkull = new HauntedSkullProjectile(this, d1, d2, d3, this.level);
-        soulSkull.setPos(this.getX() + x + (vector3d.x / 2), this.getY(0.75D), this.getZ() + z + (vector3d.z / 2));
+        soulSkull.setPos(spawnX, spawnY, spawnZ);
         soulSkull.setYRot(this.getYRot());
         soulSkull.setXRot(this.getXRot());
+        soulSkull.setDamage(this.getAttributeValue(Attributes.ATTACK_DAMAGE));
         soulSkull.setUpgraded(true);
         this.level.addFreshEntity(soulSkull);
         this.playSound(ModSounds.GRAVE_GOLEM_BLAST.get(), 1.0F, 1.0F);
@@ -706,7 +733,7 @@ public class GraveGolem extends AbstractGolemServant {
 
         @Override
         public boolean canUse() {
-            return GraveGolem.this.getTarget() != null && !GraveGolem.this.isSummoning() && !GraveGolem.this.isShooting() && !GraveGolem.this.isBelching() && GraveGolem.this.getTarget().isAlive();
+            return GraveGolem.this.getTarget() != null && !GraveGolem.this.isSummoning() && !GraveGolem.this.isShooting() && GraveGolem.this.getTarget().isAlive();
         }
 
         @Override
@@ -749,6 +776,8 @@ public class GraveGolem extends AbstractGolemServant {
 
     }
 
+    public static ColorUtil SMASH_COLOR = new ColorUtil(0x2ac9cf);
+
     class MeleeGoal extends Goal {
         private float yRot;
 
@@ -758,18 +787,17 @@ public class GraveGolem extends AbstractGolemServant {
 
         @Override
         public boolean canUse() {
-            return GraveGolem.this.getTarget() != null && !GraveGolem.this.isShooting() && !GraveGolem.this.isBelching() && GraveGolem.this.isMeleeAttacking();
+            return GraveGolem.this.getTarget() != null && !GraveGolem.this.isShooting() && GraveGolem.this.isMeleeAttacking();
         }
 
         @Override
         public boolean canContinueToUse() {
-            return GraveGolem.this.attackTick < MathHelper.secondsToTicks(3.0417F) && !GraveGolem.this.isShooting() && !GraveGolem.this.isBelching();
+            return GraveGolem.this.attackTick < MathHelper.secondsToTicks(3) && !GraveGolem.this.isShooting();
         }
 
         @Override
         public void start() {
             GraveGolem.this.setMeleeAttacking(true);
-            GraveGolem.this.level.broadcastEntityEvent(GraveGolem.this, (byte) 17);
             if (GraveGolem.this.getTarget() != null){
                 MobUtil.instaLook(GraveGolem.this, GraveGolem.this.getTarget());
             }
@@ -779,7 +807,7 @@ public class GraveGolem extends AbstractGolemServant {
         @Override
         public void stop() {
             GraveGolem.this.setMeleeAttacking(false);
-            GraveGolem.this.level.broadcastEntityEvent(GraveGolem.this, (byte) 18);
+            GraveGolem.this.resetToIdle();
         }
 
         @Override
@@ -789,20 +817,29 @@ public class GraveGolem extends AbstractGolemServant {
             GraveGolem.this.getNavigation().stop();
             if (GraveGolem.this.attackTick == 1) {
                 GraveGolem.this.playSound(ModSounds.GRAVE_GOLEM_GROWL.get(), 5.0F, 1.0F);
-                GraveGolem.this.level.broadcastEntityEvent(GraveGolem.this, (byte) 6);
+                GraveGolem.this.setAnimationState(ATTACK);
             }
-            if (GraveGolem.this.attackTick == 22) {
-                GraveGolem.this.playSound(SoundEvents.GENERIC_EXPLODE, 2.0F, 1.0F);
+            if (GraveGolem.this.attackTick == 24) {
+                GraveGolem.this.playSound(ModSounds.REDSTONE_MONSTROSITY_SMASH.get(), 2.0F, 0.2F);
+                GraveGolem.this.playSound(SoundEvents.GENERIC_EXPLODE, 0.5F, 0.9F);
                 AABB aabb = MobUtil.makeAttackRange(GraveGolem.this.getX() + GraveGolem.this.getHorizontalLookAngle().x * 2,
                         GraveGolem.this.getY(),
-                        GraveGolem.this.getZ() + GraveGolem.this.getHorizontalLookAngle().z * 2, 9, 7, 9);
+                        GraveGolem.this.getZ() + GraveGolem.this.getHorizontalLookAngle().z * 2, 7, 7, 7);
                 for (LivingEntity target : GraveGolem.this.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
                     if (target != GraveGolem.this && !target.isAlliedTo(GraveGolem.this) && !GraveGolem.this.isAlliedTo(target)) {
                         this.hurtTarget(target);
                     }
                 }
+                CameraShake.cameraShake(GraveGolem.this.level, GraveGolem.this.position(), 18.0F, 0.3F, 0, 20);
                 if (GraveGolem.this.level instanceof ServerLevel serverLevel){
-                    serverLevel.sendParticles(new ShockwaveParticleOption(), GraveGolem.this.getX() + GraveGolem.this.getHorizontalLookAngle().x * 2, GraveGolem.this.getY() + 0.25D, GraveGolem.this.getZ() + GraveGolem.this.getHorizontalLookAngle().z * 2, 0, 0.0D, 0.0D, 0.0D, 0);
+                    Vec3 vec31 = new Vec3(GraveGolem.this.getX() + GraveGolem.this.getHorizontalLookAngle().x * 2, GraveGolem.this.getY() + 0.25D, GraveGolem.this.getZ() + GraveGolem.this.getHorizontalLookAngle().z * 2);
+                    serverLevel.sendParticles(new SmashParticleOption(SMASH_COLOR, 7, 10), vec31.x, vec31.y, vec31.z, 0, 0, 0, 0, 0);
+                    serverLevel.sendParticles(new SphereExplodeParticleOption(SMASH_COLOR, 7, 1), vec31.x, vec31.y, vec31.z, 1, 0, 0, 0, 0);
+                    BlockPos blockPos = BlockPos.containing(vec31);
+                    BlockParticleOption option = new BlockParticleOption(ParticleTypes.BLOCK, serverLevel.getBlockState(blockPos));
+                    for (int i = 0; i < 8; ++i) {
+                        ServerParticleUtil.circularParticles(serverLevel, option, vec31.x, vec31.y, vec31.z, 3.0F);
+                    }
                 }
             }
         }
@@ -836,129 +873,59 @@ public class GraveGolem extends AbstractGolemServant {
         }
     }
 
-    public static class BelchGoal extends Goal{
-        private final GraveGolem mob;
-        private int attackTime = 0;
-        private int seeTime;
-
-        public BelchGoal(GraveGolem mob) {
-            this.mob = mob;
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
-        }
-
-        @Override
-        public boolean canUse() {
-            LivingEntity livingentity = this.mob.getTarget();
-            if (this.mob.belchCool <= 0 && livingentity != null && livingentity.isAlive() && !this.mob.targetClose(livingentity) && this.mob.distanceTo(livingentity) <= 8.0D) {
-                return !this.mob.isMeleeAttacking() && !this.mob.isShooting() && !this.mob.isSummoning();
-            } else {
-                return false;
-            }
-        }
-
-        public boolean canContinueToUse() {
-            return this.canUse() || (!this.mob.isMeleeAttacking() && !this.mob.isSummoning() && !this.mob.isShooting() && this.attackTime > 0 && this.mob.belchCool <= 0);
-        }
-
-        public void stop() {
-            this.mob.setBelching(false);
-            this.mob.level.broadcastEntityEvent(this.mob, (byte) 13);
-            this.seeTime = 0;
-            this.attackTime = 0;
-        }
-
-        public boolean requiresUpdateEveryTick() {
-            return true;
-        }
-
-        public void tick() {
-            LivingEntity target = this.mob.getTarget();
-            if (!this.mob.isMeleeAttacking() && !this.mob.isSummoning()) {
-                if (target != null){
-                    double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
-                    boolean flag = this.mob.getSensing().hasLineOfSight(target);
-                    if (flag) {
-                        ++this.seeTime;
-                    } else {
-                        this.seeTime = 0;
-                    }
-
-                    if (distance <= Mth.square(32) && this.seeTime >= 5) {
-                        this.mob.getNavigation().stop();
-                    } else {
-                        this.mob.getNavigation().moveTo(target, 1.0D);
-                    }
-
-                    MobUtil.instaLook(this.mob, target);
-                }
-                ++this.attackTime;
-                if (this.attackTime == 1) {
-                    this.mob.setBelching(true);
-                    this.mob.level.broadcastEntityEvent(this.mob, (byte) 12);
-                    this.mob.playSound(ModSounds.GRAVE_GOLEM_GROWL.get());
-                } else if (this.attackTime == 17) {
-                    Vec3 vec3 = this.mob.position().add(this.mob.getLookAngle().scale(20));
-                    this.mob.level.broadcastEntityEvent(this.mob, (byte) 15);
-                    for (int i = 0; i < 8; i++) {
-                        SoulBomb snowball = new SoulBomb(this.mob, this.mob.level);
-                        double d0 = vec3.y - 2.5D;
-                        double d1 = vec3.x - this.mob.getX();
-                        double d2 = d0 - snowball.getY();
-                        double d3 = vec3.z - this.mob.getZ();
-                        double d4 = Math.sqrt(d1 * d1 + d3 * d3) * (double) 0.2F;
-                        snowball.moveTo(this.mob.getX(), this.mob.getY() + 4.5D, this.mob.getZ());
-                        snowball.shoot(d1, d2 + d4, d3, 1.0F, 30);
-                        this.mob.level.addFreshEntity(snowball);
-                    }
-                    this.mob.playSound(ModSounds.GRAVE_GOLEM_BLAST.get());
-                } else if (this.attackTime >= 37) {
-                    this.mob.setBelching(false);
-                    this.mob.level.broadcastEntityEvent(this.mob, (byte) 16);
-                    this.attackTime = 0;
-                    this.mob.belchCool = 100;
-                }
-            }
-        }
-    }
-
     public static class GolemRangedGoal extends Goal{
         private final GraveGolem mob;
         @Nullable
         private LivingEntity target;
         private int attackTime = 0;
-        private final double speedModifier;
-        private int seeTime;
-        private final float attackRadius;
-        private final float attackRadiusSqr;
 
-        public GolemRangedGoal(GraveGolem mob, double speed, float attackRadius) {
+        public GolemRangedGoal(GraveGolem mob) {
             this.mob = mob;
-            this.speedModifier = speed;
-            this.attackRadius = attackRadius;
-            this.attackRadiusSqr = attackRadius * attackRadius;
             this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         public boolean canUse() {
             LivingEntity livingentity = this.mob.getTarget();
-            if (livingentity != null && livingentity.isAlive() && !this.mob.targetClose(livingentity) && this.mob.distanceTo(livingentity) > 8.0D) {
+            if (livingentity != null
+                    && livingentity.isAlive()
+                    && this.mob.hasLineOfSight(livingentity)
+                    && !this.mob.targetClose(livingentity)
+                    && (this.mob.distanceTo(livingentity) > 8.0D || this.mob.isStaying())) {
                 this.target = livingentity;
-                return !this.mob.isMeleeAttacking() && !this.mob.isSummoning() && !this.mob.isBelching();
+                return !this.mob.isMeleeAttacking()
+                        && !this.mob.isShooting()
+                        && !this.mob.isSummoning();
             } else {
                 return false;
             }
         }
 
         public boolean canContinueToUse() {
-            return this.canUse() || (!this.mob.isMeleeAttacking() && !this.mob.isSummoning() && !this.mob.isBelching() && this.target != null && this.mob.distanceTo(this.target) > 8.0D && !this.mob.targetClose(this.target) && this.target.isAlive() && !this.mob.getNavigation().isDone());
+            if (this.mob.isShooting()) {
+                return true;
+            }
+            if (this.target == null) {
+                return false;
+            }
+            if (!this.target.isAlive()) {
+                return false;
+            }
+            if (!this.mob.hasLineOfSight(this.target)) {
+                return false;
+            }
+            if (this.mob.isMeleeAttacking() || this.mob.isSummoning()) {
+                return false;
+            }
+            return this.mob.distanceTo(this.target) > 8.0D && !this.mob.targetClose(this.target);
         }
 
         public void stop() {
             this.mob.setShooting(false);
-            this.mob.level.broadcastEntityEvent(this.mob, (byte) 9);
             this.target = null;
-            this.seeTime = 0;
-            this.attackTime = 0;
+            if (this.mob.isCurrentAnimation(SHOOT)) {
+                this.mob.resetToIdle();
+            }
+            this.attackTime = -1;
         }
 
         public boolean requiresUpdateEveryTick() {
@@ -966,38 +933,21 @@ public class GraveGolem extends AbstractGolemServant {
         }
 
         public void tick() {
-            if (this.target != null && !this.mob.isMeleeAttacking() && !this.mob.isSummoning()) {
-                double d0 = this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ());
-                boolean flag = this.mob.getSensing().hasLineOfSight(this.target);
-                if (flag) {
-                    ++this.seeTime;
-                } else {
-                    this.seeTime = 0;
-                }
-
-                if (d0 <= (double) this.attackRadiusSqr && this.seeTime >= 5) {
-                    this.mob.getNavigation().stop();
-                } else {
-                    this.mob.getNavigation().moveTo(this.target, this.speedModifier);
-                }
-
+            if (this.target != null) {
                 MobUtil.instaLook(this.mob, this.target);
-                ++this.attackTime;
-                if (this.attackTime == 1) {
-                    this.mob.setShooting(true);
-                    this.mob.level.broadcastEntityEvent(this.mob, (byte) 4);
-                } else if (this.attackTime == 10) {
-                    if (!flag) {
-                        return;
-                    }
-
-                    this.mob.level.broadcastEntityEvent(this.mob, (byte) 15);
-                    this.mob.shootProjectile(this.target);
-                } else if (this.attackTime >= 23) {
-                    this.mob.setShooting(false);
-                    this.mob.level.broadcastEntityEvent(this.mob, (byte) 14);
-                    this.attackTime = 0;
-                }
+            }
+            ++this.attackTime;
+            if (this.attackTime == 1) {
+                this.mob.setShooting(true);
+                this.mob.setAnimationState(SHOOT);
+                this.mob.level.broadcastEntityEvent(this.mob, (byte) 13);
+            } else if (this.attackTime == 10) {
+                this.mob.level.broadcastEntityEvent(this.mob, (byte) 15);
+                this.mob.shootProjectile(this.target != null ? this.target : null);
+            } else if (this.attackTime >= 23) {
+                this.mob.setShooting(false);
+                this.mob.resetToIdle();
+                this.attackTime = 0;
             }
         }
     }
@@ -1007,9 +957,15 @@ public class GraveGolem extends AbstractGolemServant {
         @Override
         public boolean canUse() {
             LivingEntity livingentity = GraveGolem.this.getTarget();
-            int i = GraveGolem.this.level.getEntitiesOfClass(Haunt.class, GraveGolem.this.getBoundingBox().inflate(32)).size();
+            int i = GraveGolem.this.level.getEntitiesOfClass(Haunt.class, GraveGolem.this.getBoundingBox().inflate(32), haunt -> haunt.getTrueOwner() == GraveGolem.this).size();
             if (livingentity != null && livingentity.isAlive()) {
-                return GraveGolem.this.summonCool <= 0 && i < 3 && !GraveGolem.this.isShooting() && !GraveGolem.this.isBelching() && GraveGolem.this.onGround() && GraveGolem.this.distanceTo(livingentity) < 16;
+                return GraveGolem.this.summonCool <= 0
+                        && i < 3
+                        && !GraveGolem.this.isShooting()
+                        && !GraveGolem.this.isCurrentAnimation(SHOOT)
+                        && !GraveGolem.this.isMeleeAttacking()
+                        && GraveGolem.this.onGround()
+                        && GraveGolem.this.distanceTo(livingentity) <= 16;
             } else {
                 return false;
             }
@@ -1018,11 +974,14 @@ public class GraveGolem extends AbstractGolemServant {
         @Override
         public void start() {
             super.start();
+            GraveGolem.this.level.broadcastEntityEvent(GraveGolem.this, (byte) 14);
+            GraveGolem.this.summonTick = MathHelper.secondsToTicks(SUMMON_SECONDS_TIME);
+            GraveGolem.this.setAnimationState(SUMMON);
             GraveGolem.this.playSound(ModSounds.GRAVE_GOLEM_ARM.get(), GraveGolem.this.getSoundVolume(), GraveGolem.this.getVoicePitch());
-            GraveGolem.this.level.broadcastEntityEvent(GraveGolem.this, (byte) 10);
-            GraveGolem.this.summonTick = (int) (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME));
-            GraveGolem.this.summonCool = MathHelper.secondsToTicks(20);
             GraveGolem.this.summonCount = 1;
+            if (GraveGolem.this.getTarget() != null) {
+                MobUtil.instaLook(GraveGolem.this, GraveGolem.this.getTarget());
+            }
         }
     }
 }

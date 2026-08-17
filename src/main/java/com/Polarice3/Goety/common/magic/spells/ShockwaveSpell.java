@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShockwaveSpell extends Spell {
+    public static ColorUtil SHOCKWAVE_COLOR = new ColorUtil(0x2ac9cf);
 
     @Override
     public SpellStat defaultStats() {
@@ -79,7 +80,7 @@ public class ShockwaveSpell extends Spell {
                 }
             }
         }
-        ColorUtil colorUtil = new ColorUtil(0x2ac9cf);
+        ColorUtil colorUtil = SHOCKWAVE_COLOR;
         worldIn.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius, 1), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 0, 0, 0, 0, 0);
         worldIn.sendParticles(new SphereExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius, 1), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 1, 0, 0, 0, 0);
         float trueDamage = Mth.clamp(damage + RandomUtil.nextInt(worldIn.getRandom(), (int) (maxDamage - damage)), damage, maxDamage);

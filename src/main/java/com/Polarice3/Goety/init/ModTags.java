@@ -69,6 +69,7 @@ public class ModTags {
         public static final TagKey<Block> PRISONER_RARE_ORES = tag("prisoner_rare_ores");
         public static final TagKey<Block> CHEF_WORK_TABLES = tag("chef_work_tables");
         public static final TagKey<Block> MONSTROSITY_BREAKS = tag("monstrosity_breaks");
+        public static final TagKey<Block> HEATING = tag("heating");
 
         private static TagKey<Block> tag(String name)
         {

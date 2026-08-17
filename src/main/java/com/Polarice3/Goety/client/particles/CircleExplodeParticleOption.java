@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.client.particles;
 
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
@@ -56,6 +57,14 @@ public class CircleExplodeParticleOption implements ParticleOptions {
       this.red = r;
       this.green = g;
       this.blue = b;
+      this.size = size;
+      this.speed = speed;
+   }
+
+   public CircleExplodeParticleOption(ColorUtil colorUtil, float size, int speed) {
+      this.red = colorUtil.red();
+      this.green = colorUtil.green();
+      this.blue = colorUtil.blue();
       this.size = size;
       this.speed = speed;
    }

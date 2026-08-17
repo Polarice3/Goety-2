@@ -20,6 +20,7 @@ import com.Polarice3.Goety.common.items.curios.WitchHatItem;
 import com.Polarice3.Goety.common.items.magic.TaglockKit;
 import com.Polarice3.Goety.config.BrewConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
@@ -1210,7 +1211,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements WorldlyConta
         if (this.level != null) {
             BlockPos pos = new BlockPos(this.getBlockPos().getX(), this.getBlockPos().getY() - 1, this.getBlockPos().getZ());
             BlockState blockState = this.level.getBlockState(pos);
-            return blockState.getBlock() instanceof BaseFireBlock || blockState.getBlock() instanceof LiquidBlock liquidBlock && liquidBlock.getFluid() instanceof LavaFluid || blockState.getBlock() instanceof MagmaBlock || (blockState.getBlock() instanceof CampfireBlock && blockState.getValue(BlockStateProperties.LIT));
+            return blockState.is(ModTags.Blocks.HEATING) || blockState.getBlock() instanceof BaseFireBlock || blockState.getBlock() instanceof LiquidBlock liquidBlock && liquidBlock.getFluid() instanceof LavaFluid || blockState.getBlock() instanceof MagmaBlock || (blockState.getBlock() instanceof CampfireBlock && blockState.getValue(BlockStateProperties.LIT));
         } else {
             return false;
         }

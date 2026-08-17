@@ -226,7 +226,7 @@ public class Summoned extends Owned implements IServant {
 
     public void summonParticles(ServerLevel pLevel, MobSpawnType pReason) {
         if (pReason == MobSpawnType.MOB_SUMMONED && this.getTrueOwner() != null){
-            for (int i = 0; i < pLevel.random.nextInt(10) + 10; ++i) {
+            for (int i = 0; i < pLevel.getRandom().nextInt(10) + 10; ++i) {
                 pLevel.sendParticles(ModParticleTypes.SUMMON.get(), this.getRandomX(1.5D), this.getRandomY(), this.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
             }
             if (this.getMobType() == MobType.UNDEAD) {

@@ -410,6 +410,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> GRAVE_GOLEM_ARM = create("grave_golem_arm");
     public static final RegistryObject<SoundEvent> GRAVE_GOLEM_BLAST = create("grave_golem_blast");
     public static final RegistryObject<SoundEvent> GRAVE_GOLEM_GROWL = create("grave_golem_growl");
+    public static final RegistryObject<SoundEvent> GRAVE_GOLEM_ROAR = create("grave_golem_roar");
     public static final RegistryObject<SoundEvent> GRAVE_GOLEM_STEP = create("grave_golem_step");
     public static final RegistryObject<SoundEvent> GRAVE_GOLEM_DEATH = create("grave_golem_death");
 

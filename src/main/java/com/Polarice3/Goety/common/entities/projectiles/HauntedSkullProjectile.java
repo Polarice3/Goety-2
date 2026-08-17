@@ -2,15 +2,14 @@ package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.render.HauntedSkullTextures;
-import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.BoneLord;
 import com.Polarice3.Goety.common.entities.hostile.SkullLord;
-import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -20,10 +19,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
@@ -32,29 +29,83 @@ import net.minecraft.world.phys.Vec3;
 
 public class HauntedSkullProjectile extends ExplosiveProjectile{
     private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(HauntedSkullProjectile.class, EntityDataSerializers.INT);
-    public float damage = SpellConfig.HauntedSkullDamage.get().floatValue() * WandUtil.damageMultiply();
+    private static final EntityDataAccessor<Float> Y_ROT_VISUAL = SynchedEntityData.defineId(HauntedSkullProjectile.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> X_ROT_VISUAL = SynchedEntityData.defineId(HauntedSkullProjectile.class, EntityDataSerializers.FLOAT);
     public boolean isPowered;
     private boolean exploding = false;
 
-    public HauntedSkullProjectile(EntityType<? extends ExplosiveProjectile> p_i50166_1_, Level p_i50166_2_) {
-        super(p_i50166_1_, p_i50166_2_);
+    public HauntedSkullProjectile(EntityType<? extends ExplosiveProjectile> entityType, Level level) {
+        super(entityType, level);
     }
 
-    public HauntedSkullProjectile(double p_i50167_2_, double p_i50167_4_, double p_i50167_6_, double p_i50167_8_, double p_i50167_10_, double p_i50167_12_, Level p_i50167_14_) {
-        super(ModEntityType.HAUNTED_SKULL_SHOT.get(), p_i50167_2_, p_i50167_4_, p_i50167_6_, p_i50167_8_, p_i50167_10_, p_i50167_12_, p_i50167_14_);
+    public HauntedSkullProjectile(double x, double y, double z, double xPower, double yPower, double zPower, Level level) {
+        super(ModEntityType.HAUNTED_SKULL_SHOT.get(), x, y, z, xPower, yPower, zPower, level);
     }
 
-    public HauntedSkullProjectile(LivingEntity p_i50168_2_, double p_i50168_3_, double p_i50168_5_, double p_i50168_7_, Level p_i50168_9_) {
-        super(ModEntityType.HAUNTED_SKULL_SHOT.get(), p_i50168_2_, p_i50168_3_, p_i50168_5_, p_i50168_7_, p_i50168_9_);
+    public HauntedSkullProjectile(LivingEntity shooter, double xPower, double yPower, double zPower, Level level) {
+        super(ModEntityType.HAUNTED_SKULL_SHOT.get(), shooter, xPower, yPower, zPower, level);
     }
 
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_TYPE_ID, 9);
+        this.entityData.define(Y_ROT_VISUAL, 0.0F);
+        this.entityData.define(X_ROT_VISUAL, 0.0F);
+    }
+
+    public void defaultExplosionAndDamage(){
+        this.entityData.define(DATA_EXPLOSION, 1.0F);
+        this.entityData.define(DATA_DAMAGE, SpellConfig.HauntedSkullDamage.get().floatValue() * WandUtil.damageMultiply());
     }
 
     public ResourceLocation getResourceLocation() {
         return HauntedSkullTextures.TEXTURES.getOrDefault(this.getAnimation(), HauntedSkullTextures.TEXTURES.get(0));
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putFloat("VisualYRot", this.getYRotVisual());
+        compound.putFloat("VisualXRot", this.getXRotVisual());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        if (compound.contains("VisualYRot")) {
+            this.setYRotVisual(compound.getFloat("VisualYRot"));
+            this.setXRotVisual(compound.getFloat("VisualXRot"));
+            this.setYRot(compound.getFloat("VisualYRot"));
+            this.setXRot(compound.getFloat("VisualXRot"));
+        }
+    }
+
+    public float getYRotVisual() {
+        return this.entityData.get(Y_ROT_VISUAL);
+    }
+
+    public void setYRotVisual(float yRot) {
+        this.entityData.set(Y_ROT_VISUAL, yRot);
+    }
+
+    public float getXRotVisual() {
+        return this.entityData.get(X_ROT_VISUAL);
+    }
+
+    public void setXRotVisual(float xRot) {
+        this.entityData.set(X_ROT_VISUAL, xRot);
+    }
+
+    @Override
+    public void setYRot(float p_146923_) {
+        super.setYRot(p_146923_);
+        this.setYRotVisual(p_146923_);
+    }
+
+    @Override
+    public void setXRot(float p_146927_) {
+        super.setXRot(p_146927_);
+        this.setXRotVisual(p_146927_);
     }
 
     public void tick() {
@@ -93,6 +144,10 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
         return this.isPowered;
     }
 
+    public void setDamage(double damage) {
+        this.entityData.set(DATA_DAMAGE, (float) damage);
+    }
+
     protected void onHitEntity(EntityHitResult pResult) {
         super.onHitEntity(pResult);
         if (!this.level.isClientSide) {
@@ -102,12 +157,7 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
             float enchantment = this.getExtraDamage();
             int flaming = this.getFiery();
             if (owner instanceof LivingEntity livingentity) {
-                if (livingentity instanceof Mob mob){
-                    if (mob.getAttribute(Attributes.ATTACK_DAMAGE) != null){
-                        this.damage = (float) mob.getAttributeValue(Attributes.ATTACK_DAMAGE);
-                    }
-                }
-                flag = target.hurt(this.damageSources().indirectMagic(this, livingentity), this.damage + enchantment);
+                flag = target.hurt(this.damageSources().indirectMagic(this, livingentity), this.getDamage() + enchantment);
                 if (livingentity instanceof SkullLord){
                     if (target instanceof BoneLord){
                         flag = false;
@@ -124,7 +174,7 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
                     }
                 }
             } else {
-                target.hurt(this.damageSources().magic(), this.damage);
+                target.hurt(this.damageSources().magic(), this.getDamage());
             }
         }
     }
@@ -166,17 +216,6 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
         if (!this.level.isClientSide) {
             Entity owner = this.getOwner();
             boolean flaming = this.getFiery() > 0;
-            boolean loot = false;
-            if (owner instanceof Player player) {
-                if (CuriosFinder.findRing(player).getItem() == ModItems.RING_OF_WANT.get()) {
-                    if (CuriosFinder.findRing(player).isEnchanted()) {
-                        float wanting = EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.WANTING.get(), CuriosFinder.findRing(player));
-                        if (wanting > 0) {
-                            loot = true;
-                        }
-                    }
-                }
-            }
             Explosion.BlockInteraction explodeMode = Explosion.BlockInteraction.KEEP;
             boolean damaging;
             if (owner instanceof Player || (owner instanceof IOwned iOwned && iOwned.getMasterOwner() instanceof Player)) {
@@ -194,7 +233,7 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
                     explodeMode = damaging ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.KEEP;
                 }
             }
-            LootingExplosion.Mode lootMode = loot ? LootingExplosion.Mode.LOOT : LootingExplosion.Mode.REGULAR;
+            LootingExplosion.Mode lootMode = CuriosFinder.hasWanting(owner) ? LootingExplosion.Mode.LOOT : LootingExplosion.Mode.REGULAR;
             ExplosionUtil.lootExplode(this.level, this, this.getX(), this.getY(), this.getZ(), this.getExplosionPower(), flaming, explodeMode, lootMode);
             this.discard();
         }

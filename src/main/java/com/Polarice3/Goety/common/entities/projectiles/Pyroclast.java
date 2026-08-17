@@ -145,8 +145,7 @@ public class Pyroclast extends ThrowableProjectile implements ISpellEntity {
     public void explode(){
         if (!this.level.isClientSide) {
             Entity owner = this.getOwner();
-            //Temp until compat change
-            if (owner != null && owner.getType().getDescriptionId().contains("netherite_monstrosity")) {
+            if (owner != null) {
                 boolean flag = this.isDangerous();
                 LootingExplosion.Mode lootMode = CuriosFinder.hasWanting(owner) ? LootingExplosion.Mode.LOOT : LootingExplosion.Mode.REGULAR;
                 ExplosionUtil.lootExplode(this.level, owner, this.getX(), this.getY(), this.getZ(), this.getExplosionPower(), flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.KEEP, lootMode);

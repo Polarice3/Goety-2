@@ -22,16 +22,16 @@ public abstract class ExplosiveProjectile extends Fireball implements ISpellEnti
     public static final EntityDataAccessor<Float> DATA_EXTRA_DAMAGE = SynchedEntityData.defineId(ExplosiveProjectile.class, EntityDataSerializers.FLOAT);
     public static final EntityDataAccessor<Integer> DATA_FIERY = SynchedEntityData.defineId(ExplosiveProjectile.class, EntityDataSerializers.INT);
 
-    public ExplosiveProjectile(EntityType<? extends ExplosiveProjectile> p_i50166_1_, Level p_i50166_2_) {
-        super(p_i50166_1_, p_i50166_2_);
+    public ExplosiveProjectile(EntityType<? extends ExplosiveProjectile> entityType, Level level) {
+        super(entityType, level);
     }
 
-    public ExplosiveProjectile(EntityType<? extends ExplosiveProjectile> p_i50167_1_, double p_i50167_2_, double p_i50167_4_, double p_i50167_6_, double p_i50167_8_, double p_i50167_10_, double p_i50167_12_, Level p_i50167_14_) {
-        super(p_i50167_1_, p_i50167_2_, p_i50167_4_, p_i50167_6_, p_i50167_8_, p_i50167_10_, p_i50167_12_, p_i50167_14_);
+    public ExplosiveProjectile(EntityType<? extends ExplosiveProjectile> entityType, double x, double y, double z, double xPower, double yPower, double zPower, Level level) {
+        super(entityType, x, y, z, xPower, yPower, zPower, level);
     }
 
-    public ExplosiveProjectile(EntityType<? extends ExplosiveProjectile> p_i50168_1_, LivingEntity p_i50168_2_, double p_i50168_3_, double p_i50168_5_, double p_i50168_7_, Level p_i50168_9_) {
-        super(p_i50168_1_, p_i50168_2_, p_i50168_3_, p_i50168_5_, p_i50168_7_, p_i50168_9_);
+    public ExplosiveProjectile(EntityType<? extends ExplosiveProjectile> entityType, LivingEntity shooter, double xPower, double yPower, double zPower, Level level) {
+        super(entityType, shooter, xPower, yPower, zPower, level);
     }
 
     protected void defineSynchedData() {
