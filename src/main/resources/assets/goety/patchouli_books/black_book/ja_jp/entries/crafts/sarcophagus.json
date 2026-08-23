@@ -1,0 +1,31 @@
+{
+  "name": "棺",
+  "icon": "goety:shade_sarcophagus",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "棺はベッドと同様の機能を持ちますが、夜間に眠る代わりに、日中に眠ることになります。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:shade/shade_sarcophagus",
+      "recipe2": "goety:stone_sarcophagus"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:deepslate_sarcophagus",
+      "recipe2": "goety:ominous/ominous_sarcophagus"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:crypt_sarcophagus"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:white_wool",
+      "title": "クッション",
+      "text": "羊毛を持って棺を右クリックするとクッションを設置でき、横になった際の寝心地が良くなります。また、染料を持って右クリックすればクッションの色を変更でき、ハサミを使えばクッションを取り外すことも可能です。"
+    }
+  ]
+}

@@ -81,7 +81,7 @@ public class BlackguardSpell extends SummonSpell {
 
     @Override
     public void commonResultHit(ServerLevel worldIn, LivingEntity caster) {
-        for (int i = 0; i < caster.level.random.nextInt(35) + 10; ++i) {
+        for (int i = 0; i < worldIn.getRandom().nextInt(35) + 10; ++i) {
             worldIn.sendParticles(ModParticleTypes.LICH.get(), caster.getX(), caster.getEyeY(), caster.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
         }
         this.playSound(worldIn, caster, ModSounds.VANGUARD_SUMMON.get());

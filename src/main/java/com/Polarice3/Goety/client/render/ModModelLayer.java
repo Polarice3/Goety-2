@@ -134,6 +134,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation HAUNTED_SKULL_FIRELESS = register("fireless_skull");
     public static final ModelLayerLocation SKULL_LORD = register("skull_lord");
     public static final ModelLayerLocation SORCERER = register("sorcerer");
+    public static final ModelLayerLocation ENVIOKER = register("envioker");
     public static final ModelLayerLocation TORMENTOR = register("tormentor");
     public static final ModelLayerLocation INQUILLAGER = register("inquillager");
     public static final ModelLayerLocation CONQUILLAGER = register("conquillager");
@@ -180,6 +181,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation HAS_OUTER = registerOuterArmor("haunted_armor_stand");
     public static final ModelLayerLocation TOMB_HEAD = register("tomb_head");
     public static final ModelLayerLocation TOMB_FOOT = register("tomb_foot");
+    public static final ModelLayerLocation SARCOPHAGUS = register("sarcophagus");
     public static final ModelLayerLocation SMALL_PAINTING = register("small_painting");
     public static final ModelLayerLocation MEDIUM_PAINTING = register("medium_painting");
     public static final ModelLayerLocation LARGE_PAINTING = register("large_painting");

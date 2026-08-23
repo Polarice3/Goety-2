@@ -30,6 +30,7 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.NECRO_EFFECT.get(), AdditiveSpellParticle.AlphaProvider::new);
         event.registerSpriteSet(ModParticleTypes.GLOW_EFFECT.get(), AdditiveSpellParticle.AlphaProvider::new);
         event.registerSpriteSet(ModParticleTypes.LICH.get(), BigSpellParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.LICH_COLORED.get(), BigSpellParticle.LichProvider::new);
         event.registerSpriteSet(ModParticleTypes.WARLOCK.get(), SpellParticle.WitchProvider::new);
         event.registerSpriteSet(ModParticleTypes.BONE.get(), ShortFlameParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.LEECH.get(), FlameParticle.Provider::new);

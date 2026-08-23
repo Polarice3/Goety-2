@@ -93,6 +93,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> LICH = PARTICLE_TYPES.register("lich",
             () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> LICH_COLORED = PARTICLE_TYPES.register("lich_colored",
+            () -> new SimpleParticleType(true));
+
     public static final RegistryObject<SimpleParticleType> CONFUSED = PARTICLE_TYPES.register("confused",
             () -> new SimpleParticleType(true));
 

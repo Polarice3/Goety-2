@@ -249,6 +249,16 @@ public class ModBlockEntities {
             }
     );
 
+    public static final RegistryObject<BlockEntityType<SarcophagusBlockEntity>> SARCOPHAGUS = BLOCK_ENTITY.register("sarcophagus",
+            () -> {
+                Block[] blocks = ModBlocks.BLOCKS.getEntries().stream()
+                        .map(RegistryObject::get)
+                        .filter(block -> block instanceof SarcophagusBlock)
+                        .toArray(Block[]::new);
+                return BlockEntityType.Builder.of(SarcophagusBlockEntity::new, blocks).build(null);
+            }
+    );
+
     public static final RegistryObject<BlockEntityType<PlushieBlockEntity>> PLUSHIE = BLOCK_ENTITY.register("plushie",
             () -> {
                 Block[] blocks = ModBlocks.BLOCKS.getEntries().stream()

@@ -24,6 +24,13 @@
     {
       "type": "patchouli:text",
       "text": "You can also regain your living form by pressing the Lich Form key (Default: N). The form somehow does not fool anyone, but at least you have your former looks back."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:haunted_mirror",
+      "title": "Changing Colors",
+      "advancement": "goety:goety/read_haunting_scroll",
+      "text": "You can also change the color of your Lich Form by right-clicking a Haunted Mirror with a dye. To remove the custom color, right-click the mirror with a bucket of water."
     }
   ]
 }

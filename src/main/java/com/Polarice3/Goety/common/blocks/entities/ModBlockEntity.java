@@ -6,6 +6,7 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class ModBlockEntity extends ChunkLoadBlockEntity {
 
@@ -29,16 +30,16 @@ public abstract class ModBlockEntity extends ChunkLoadBlockEntity {
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
+    public @NotNull CompoundTag getUpdateTag() {
         return this.writeNetwork(super.getUpdateTag());
     }
 
-    public void load(CompoundTag nbt) {
+    public void load(@NotNull CompoundTag nbt) {
         this.readNetwork(nbt);
         super.load(nbt);
     }
 
-    public void saveAdditional(CompoundTag compound) {
+    public void saveAdditional(@NotNull CompoundTag compound) {
         this.writeNetwork(compound);
         super.saveAdditional(compound);
     }
@@ -50,6 +51,8 @@ public abstract class ModBlockEntity extends ChunkLoadBlockEntity {
 
     public void markUpdated() {
         this.setChanged();
-        this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
+        if (this.getLevel() != null) {
+            this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
+        }
     }
 }

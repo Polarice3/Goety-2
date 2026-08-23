@@ -152,10 +152,12 @@ public class ScytheSlash extends AbstractHurtingProjectile {
                                 if (entity instanceof EnderDragon enderDragonEntity) {
                                     attack = enderDragonEntity.hurt(entity.damageSources().playerAttack(player), f);
                                 }
-                                if (attack && entity instanceof LivingEntity) {
-                                    int enchantment = this.weapon.getEnchantmentLevel(ModEnchantments.SOUL_EATER.get());
-                                    int soulEater = Mth.clamp(enchantment + 1, 1, 10);
-                                    SEHelper.increaseSouls(player, ItemConfig.DarkScytheSouls.get() * soulEater);
+                                if (attack && entity instanceof LivingEntity livingEntity) {
+                                    if (SEHelper.getSoulGiven(livingEntity) > 0) {
+                                        int enchantment = this.weapon.getEnchantmentLevel(ModEnchantments.SOUL_EATER.get());
+                                        int soulEater = Mth.clamp(enchantment + 1, 1, 10);
+                                        SEHelper.increaseSouls(player, ItemConfig.DarkScytheSouls.get() * soulEater);
+                                    }
                                 }
                             } else {
                                 DamageSource damageSource = this.getOwner() instanceof LivingEntity livingEntity ? ModDamageSource.sword(livingEntity, livingEntity) : entity.damageSources().thrown(this, this);

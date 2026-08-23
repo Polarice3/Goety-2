@@ -65,6 +65,23 @@ public class LichdomHelper {
         sendLichUpdatePacket(player);
     }
 
+    public static int lichModeColor(Player player){
+        return getCapability(player).lichModeColor();
+    }
+
+    public static int lichModeColor(LivingEntity livingEntity){
+        if (livingEntity instanceof Player player){
+            return lichModeColor(player);
+        } else {
+            return -1;
+        }
+    }
+
+    public static void setLichModeColor(Player player, int colorCode){
+        getCapability(player).setLichModeColor(colorCode);
+        sendLichUpdatePacket(player);
+    }
+
     public static boolean isLich(Player player) {
         return getCapability(player).getLichdom();
     }
@@ -80,6 +97,7 @@ public class LichdomHelper {
         tag.putBoolean("lichMode", lichdom.isLichMode());
         tag.putBoolean("nightVision", lichdom.nightVision());
         tag.putInt("smited", lichdom.smited());
+        tag.putInt("LichModeColor", lichdom.lichModeColor());
         return tag;
     }
 
@@ -95,6 +113,9 @@ public class LichdomHelper {
         }
         if (tag.contains("smited")) {
             lichdom.setSmited(tag.getInt("smited"));
+        }
+        if (tag.contains("LichModeColor")) {
+            lichdom.setLichModeColor(tag.getInt("LichModeColor"));
         }
         return lichdom;
     }

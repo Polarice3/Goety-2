@@ -41,14 +41,14 @@ public class TotemOfSouls extends Item implements ITotem, ICurioItem {
 
     public ItemStack getEmptyTotem(){
         ItemStack emptySouls = new ItemStack(this);
-        ITotem.setSoulsamount(emptySouls, 0);
+        ITotem.setSoulsAmount(emptySouls, 0);
         ITotem.setMaxSoulAmount(emptySouls, this.getMaxSouls());
         return emptySouls;
     }
 
     public ItemStack getFilledTotem(){
         ItemStack maxSouls = new ItemStack(this);
-        ITotem.setSoulsamount(maxSouls, this.getMaxSouls());
+        ITotem.setSoulsAmount(maxSouls, this.getMaxSouls());
         ITotem.setMaxSoulAmount(maxSouls, this.getMaxSouls());
         return maxSouls;
     }
@@ -75,7 +75,7 @@ public class TotemOfSouls extends Item implements ITotem, ICurioItem {
 
     @Override
     public void onCraftedBy(ItemStack pStack, Level pLevel, Player pPlayer) {
-        ITotem.setSoulsamount(pStack, 0);
+        ITotem.setSoulsAmount(pStack, 0);
         ITotem.setMaxSoulAmount(pStack, this.getMaxSouls());
         super.onCraftedBy(pStack, pLevel, pPlayer);
     }

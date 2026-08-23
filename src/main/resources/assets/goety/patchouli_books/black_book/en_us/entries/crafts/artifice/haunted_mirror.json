@@ -2,7 +2,7 @@
   "name": "Haunted Mirror",
   "icon": "goety:haunted_mirror",
   "category": "goety:crafts/artifice",
-  "advancement": "goety:goety/craft_dark_altar",
+  "advancement": "goety:goety/read_haunting_scroll",
   "pages": [
     {
       "type": "patchouli:text",

@@ -164,30 +164,6 @@ public class ClientInitEvents {
         });
     }
 
-    /*private static void copyOldArtIfMissing() {
-        File dir = new File(".", "resourcepacks");
-        File target = new File(dir, "Goety Old Textures.zip");
-
-        if(!target.exists())
-            try {
-                dir.mkdirs();
-                InputStream in = Goety.class.getResourceAsStream("/assets/goety/old_textures.zip");
-                FileOutputStream out = new FileOutputStream(target);
-
-                byte[] buf = new byte[16384];
-                int len;
-                if (in != null) {
-                    while ((len = in.read(buf)) > 0)
-                        out.write(buf, 0, len);
-
-                    in.close();
-                }
-                out.close();
-            } catch (IOException ignored) {
-
-            }
-    }*/
-
     /**
      * Ripped from @TeamTwilight's AddLayer codes: <a href="https://github.com/TeamTwilight/twilightforest/blob/1.20.x/src/main/java/twilightforest/client/TFClientSetup.java">...</a>
      */
@@ -367,6 +343,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.MAGGOT, CarrionMaggotModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.FLY, CarrionFlyModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SORCERER, SorcererModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.ENVIOKER, EnviokerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.TORMENTOR, TormentorModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.INQUILLAGER, InquillagerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.CONQUILLAGER, ConquillagerModel::createBodyLayer);
@@ -427,6 +404,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.HAUNTED_ARMOR_STAND, HauntedArmorStandModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.HAS_INNER, () -> HauntedArmorStandArmorModel.createBodyLayer(new CubeDeformation(0.5F)));
         event.registerLayerDefinition(ModModelLayer.HAS_OUTER, () -> HauntedArmorStandArmorModel.createBodyLayer(new CubeDeformation(1.0F)));
+        event.registerLayerDefinition(ModModelLayer.SARCOPHAGUS, SarcophagusModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SMALL_PAINTING, HauntedPaintingModel::createSmallFrameLayer);
         event.registerLayerDefinition(ModModelLayer.MEDIUM_PAINTING, HauntedPaintingModel::createMediumFrameLayer);
         event.registerLayerDefinition(ModModelLayer.LARGE_PAINTING, HauntedPaintingModel::createLargeFrameLayer);
@@ -493,6 +471,7 @@ public class ClientInitEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.LOFTY_CHEST.get(), LoftyChestRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SIGN_BLOCK_ENTITIES.get(), SignRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.HANGING_SIGN_BLOCK_ENTITIES.get(), HangingSignRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.SARCOPHAGUS.get(), SarcophagusRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.PLUSHIE.get(), PlushieBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SCULPTURED_STATUE.get(), SculpturedStatueRenderer::new);
         event.registerEntityRenderer(ModEntityType.NETHER_METEOR.get(), NetherMeteorRenderer::new);

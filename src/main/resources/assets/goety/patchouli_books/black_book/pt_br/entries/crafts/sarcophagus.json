@@ -1,0 +1,31 @@
+{
+  "name": "Sarcófago",
+  "icon": "goety:shade_sarcophagus",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Os Sarcófagos funcionam da mesma forma que as camas, mas em vez de dormir durante a noite, você dorme durante o dia."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:shade/shade_sarcophagus",
+      "recipe2": "goety:stone_sarcophagus"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:deepslate_sarcophagus",
+      "recipe2": "goety:ominous/ominous_sarcophagus"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:crypt_sarcophagus"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:white_wool",
+      "title": "Almofadamento",
+      "text": "Você também pode almofadar seu sarcófago clicando com o botão direito nele com uma lã, tornando-o mais confortável para se deitar. Você também pode mudar a cor das almofadas clicando com o botão direito no sarcófago com corante, ou remover as almofadas usando Tesouras."
+    }
+  ]
+}

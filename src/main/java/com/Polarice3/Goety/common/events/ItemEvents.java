@@ -641,15 +641,6 @@ public class ItemEvents {
                 event.setCancellationResult(InteractionResult.FAIL);
             }
         }
-        /*if (item instanceof IWand || item instanceof GoodwillGrimoire || item instanceof GrudgeGrimoire) {
-            if (event.getTarget() instanceof Villager villager) {
-                InteractionResult result = event.getItemStack().interactLivingEntity(event.getEntity(), villager, event.getHand());
-                if (result.consumesAction()) {
-                    event.setCanceled(true);
-                    event.setCancellationResult(InteractionResult.SUCCESS);
-                }
-            }
-        }*/
     }
 
     @SubscribeEvent
@@ -662,4 +653,21 @@ public class ItemEvents {
             }
         }
     }
+
+    /*@SubscribeEvent
+    public static void DropEvents(LivingDropsEvent event){
+        if (event.getEntity() != null) {
+            Entity attacker = event.getSource().getEntity();
+            LivingEntity victim = event.getEntity();
+            if (attacker instanceof Player player) {
+                if (!victim.level.isClientSide) {
+                    if (victim instanceof Mob) {
+                        if (CuriosFinder.hasCurio(player, ModItems.RING_OF_WRECKING.get())) {
+                            event.getDrops().removeIf(itemEntity -> itemEntity.getItem().isDamageableItem());
+                        }
+                    }
+                }
+            }
+        }
+    }*/
 }

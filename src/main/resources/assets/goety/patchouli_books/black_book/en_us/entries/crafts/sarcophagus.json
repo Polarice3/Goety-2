@@ -1,0 +1,31 @@
+{
+  "name": "Sarcophagus",
+  "icon": "goety:shade_sarcophagus",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Sarcophagi functions the same as beds, but instead of sleeping through the night, you sleep through the day instead."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:shade/shade_sarcophagus",
+      "recipe2": "goety:stone_sarcophagus"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:deepslate_sarcophagus",
+      "recipe2": "goety:ominous/ominous_sarcophagus"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:crypt_sarcophagus"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:white_wool",
+      "title": "Cushioning",
+      "text": "You can also cushion your sarcophagus by right-clicking on it with wool, making it more comfortable to lay in. You can also change the color of the cushions by right-clicking the sarcophagus with dye, or remove the cushions by using Shears."
+    }
+  ]
+}

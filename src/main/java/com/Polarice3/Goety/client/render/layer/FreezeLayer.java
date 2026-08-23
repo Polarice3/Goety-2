@@ -3,7 +3,6 @@ package com.Polarice3.Goety.client.render.layer;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.utils.MiscCapHelper;
 import com.mojang.blaze3d.platform.NativeImage;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
@@ -26,6 +25,7 @@ import java.util.Optional;
 
 public class FreezeLayer<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M> {
     private static final ResourceLocation TEXTURE = Goety.location("textures/entity/freeze.png");
+    private static final ResourceLocation UNMASKABLE = Goety.location("unmaskable");
     private final LivingEntityRenderer<T, M> renderer;
     private static final Map<String, ResourceLocation> CACHE = new HashMap<>();
 
@@ -48,9 +48,15 @@ public class FreezeLayer<T extends LivingEntity, M extends EntityModel<T>> exten
 
     private static ResourceLocation build(ResourceLocation baseTex, ResourceLocation freezeTex, int frame) {
         Minecraft mc = Minecraft.getInstance();
+        NativeImage base = null;
+        NativeImage freeze = null;
         try {
-            NativeImage base = read(baseTex);
-            NativeImage freeze = read(freezeTex);
+            base = read(baseTex);
+            freeze = read(freezeTex);
+
+            if (base == null || freeze == null) {
+                return UNMASKABLE;
+            }
 
             int width = base.getWidth();
             int height = base.getHeight();
@@ -77,18 +83,26 @@ public class FreezeLayer<T extends LivingEntity, M extends EntityModel<T>> exten
             mc.getTextureManager().register(id, dyn);
             return id;
         } catch (Exception e) {
-            System.out.println("Freeze mask failed for " + baseTex + ": " + e);
-            return freezeTex;
+            return UNMASKABLE;
+        } finally {
+            if (base != null) {
+                base.close();
+            }
+            if (freeze != null) {
+                freeze.close();
+            }
         }
     }
 
-    private static NativeImage read(ResourceLocation rl) throws Exception {
+    private static NativeImage read(ResourceLocation rl) {
         Minecraft mc = Minecraft.getInstance();
 
         Optional<Resource> res = mc.getResourceManager().getResource(rl);
         if (res.isPresent()) {
             try (InputStream is = res.get().open()) {
                 return NativeImage.read(is);
+            } catch (Exception e) {
+                return null;
             }
         }
 
@@ -100,10 +114,7 @@ public class FreezeLayer<T extends LivingEntity, M extends EntityModel<T>> exten
             return copy;
         }
 
-        RenderSystem.bindTexture(tex.getId());
-        NativeImage img = new NativeImage(64, 64, false);
-        img.downloadTexture(0, false);
-        return img;
+        return null;
     }
 
     @Override
@@ -116,6 +127,9 @@ public class FreezeLayer<T extends LivingEntity, M extends EntityModel<T>> exten
                 VertexConsumer vc = bufferIn.getBuffer(RenderType.entityTranslucent(masked));
                 int level = Math.min(MiscCapHelper.freezeLevel(entity), 5);
                 float alpha = level / 5.0F;
+                if (masked == UNMASKABLE) {
+                    return;
+                }
                 this.getParentModel().renderToBuffer(matrixStackIn, vc, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
             }
         }

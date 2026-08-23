@@ -6,17 +6,22 @@ import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayerRotationPacket;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
+import com.Polarice3.Goety.utils.LichdomHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -36,6 +41,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -91,6 +97,23 @@ public class HauntedMirrorBlock extends BaseEntityBlock implements SimpleWaterlo
         } else {
             return doubleblockhalf == DoubleBlockHalf.LOWER && pFacing == Direction.DOWN && !pState.canSurvive(pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
         }
+    }
+
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if (LichdomHelper.isLich(pPlayer)) {
+            ItemStack itemStack = pPlayer.getItemInHand(pHand);
+            if (itemStack.getItem() instanceof DyeItem dyeItem) {
+                LichdomHelper.setLichModeColor(pPlayer, dyeItem.getDyeColor().getTextColor());
+                pLevel.playSound(pPlayer, pPos.getX(), pPos.getY(), pPos.getZ(), ModSounds.CAST_SPELL.get(), pPlayer.getSoundSource(), 1.0F, 0.5F);
+                return InteractionResult.SUCCESS;
+            } else if (itemStack.is(Items.WATER_BUCKET) && LichdomHelper.lichModeColor(pPlayer) > -1) {
+                LichdomHelper.setLichModeColor(pPlayer, -1);
+                pLevel.playSound(pPlayer, pPos.getX(), pPos.getY(), pPos.getZ(), SoundEvents.BUCKET_EMPTY, pPlayer.getSoundSource(), 1.0F, 1.0F);
+                pLevel.playSound(pPlayer, pPos.getX(), pPos.getY(), pPos.getZ(), ModSounds.CAST_SPELL.get(), pPlayer.getSoundSource(), 1.0F, 0.5F);
+                return InteractionResult.SUCCESS;
+            }
+        }
+        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 
     @Nullable

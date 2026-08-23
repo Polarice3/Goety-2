@@ -539,7 +539,9 @@ public class AbstractReaper extends Summoned {
 
         public void attackMobs(LivingEntity pTarget, AbstractReaper reaper){
             if (reaper.getMasterOwner() instanceof Player player) {
-                SEHelper.increaseSouls(player, ItemConfig.DarkScytheSouls.get() * 5);
+                if (SEHelper.getSoulGiven(pTarget) > 0) {
+                    SEHelper.increaseSouls(player, ItemConfig.DarkScytheSouls.get() * 5);
+                }
             }
             float f = (float)reaper.getAttributeValue(Attributes.ATTACK_DAMAGE);
             float f1 = EnchantmentHelper.getDamageBonus(reaper.getMainHandItem(), pTarget.getMobType());
@@ -559,12 +561,18 @@ public class AbstractReaper extends Summoned {
                             livingentity.setSecondsOnFire(j * 4);
                         }
                         if (reaper.getMasterOwner() instanceof Player player) {
+                            boolean giveSoul = false;
                             if (livingentity instanceof IOwned owned) {
                                 if (owned.getMasterOwner() != reaper) {
-                                    SEHelper.increaseSouls(player, ItemConfig.DarkScytheSouls.get() * 5);
+                                    giveSoul = true;
                                 }
                             } else {
-                                SEHelper.increaseSouls(player, ItemConfig.DarkScytheSouls.get() * 5);
+                                giveSoul = true;
+                            }
+                            if (giveSoul) {
+                                if (SEHelper.getSoulGiven(livingentity) > 0) {
+                                    SEHelper.increaseSouls(player, ItemConfig.DarkScytheSouls.get() * 5);
+                                }
                             }
                         }
                         EnchantmentHelper.doPostHurtEffects(livingentity, reaper);

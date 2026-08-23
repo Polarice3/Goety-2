@@ -87,4 +87,18 @@ public class BigSpellParticle extends TextureSheetParticle {
          return particle;
       }
    }
+
+   public static class LichProvider implements ParticleProvider<SimpleParticleType> {
+      private final SpriteSet sprite;
+
+      public LichProvider(SpriteSet p_107826_) {
+         this.sprite = p_107826_;
+      }
+
+      public Particle createParticle(SimpleParticleType p_107837_, ClientLevel p_107838_, double p_107839_, double p_107840_, double p_107841_, double p_107842_, double p_107843_, double p_107844_) {
+         Particle particle = new BigSpellParticle(p_107838_, p_107839_, p_107840_, p_107841_, 0.0D, 0.0D, 0.0D, this.sprite, true);
+         particle.setColor((float)p_107842_, (float)p_107843_, (float)p_107844_);
+         return particle;
+      }
+   }
 }

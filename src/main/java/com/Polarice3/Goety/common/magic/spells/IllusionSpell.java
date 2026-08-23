@@ -80,7 +80,7 @@ public class IllusionSpell extends Spell {
                 summonedentity.setLimitedLife(undead ? MathHelper.secondsToTicks(2.875F) : 1200);
                 summonedentity.setPersistenceRequired();
                 summonedentity.setUpgraded(CuriosFinder.hasIllusionRobe(caster));
-                summonedentity.finalizeSpawn(worldIn, caster.level.getCurrentDifficultyAt(BlockFinder.SummonRadius(caster.blockPosition(), summonedentity, worldIn)), MobSpawnType.MOB_SUMMONED, null, null);
+                summonedentity.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(BlockFinder.SummonRadius(caster.blockPosition(), summonedentity, worldIn)), MobSpawnType.MOB_SUMMONED, null, null);
                 LivingEntity target = this.getTarget(caster);
                 if (target != null) {
                     double d2 = target.getX() - summonedentity.getX();
@@ -95,11 +95,22 @@ public class IllusionSpell extends Spell {
                 }
                 MobUtil.moveDownToGround(summonedentity);
                 worldIn.addFreshEntity(summonedentity);
-                for (int i = 0; i < caster.level.random.nextInt(10) + 10; ++i) {
-                    ServerParticleUtil.smokeParticles(particleOptions, summonedentity.getX(), summonedentity.getY(), summonedentity.getZ(), worldIn);
-                }
+                boolean flag = true;
                 if (undead) {
-                    worldIn.sendParticles(new ReverseShockwaveParticleOption(new ColorUtil(0x36e416), 2.0F, 0.5F, 1), summonedentity.getX(), summonedentity.getY() + 0.5F, summonedentity.getZ(), 0, 0, 0, 0, 0.5F);
+                    ColorUtil colorUtil = new ColorUtil(0x36e416);
+                    if (LichdomHelper.lichModeColor(caster) > -1) {
+                        colorUtil = new ColorUtil(LichdomHelper.lichModeColor(caster));
+                        for (int i = 0; i < worldIn.getRandom().nextInt(10) + 10; ++i) {
+                            worldIn.sendParticles(ModParticleTypes.LICH_COLORED.get(), caster.getX(), caster.getEyeY(), caster.getZ(), 0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.0F);
+                        }
+                        flag = false;
+                    }
+                    worldIn.sendParticles(new ReverseShockwaveParticleOption(colorUtil, 2.0F, 0.5F, 1), summonedentity.getX(), summonedentity.getY() + 0.5F, summonedentity.getZ(), 0, 0, 0, 0, 0.5F);
+                }
+                if (flag) {
+                    for (int i = 0; i < worldIn.getRandom().nextInt(10) + 10; ++i) {
+                        ServerParticleUtil.smokeParticles(particleOptions, summonedentity.getX(), summonedentity.getY(), summonedentity.getZ(), worldIn);
+                    }
                 }
             }
             if (CuriosFinder.hasIllusionRobe(caster)) {
@@ -110,12 +121,22 @@ public class IllusionSpell extends Spell {
                 }
             }
             SoundEvent soundEvent = SoundEvents.ILLUSIONER_MIRROR_MOVE;
+            boolean flag = true;
             if (undead) {
                 soundEvent = ModSounds.LICH_TELEPORT_IN.get();
+                if (LichdomHelper.lichModeColor(caster) > -1) {
+                    ColorUtil colorUtil = new ColorUtil(LichdomHelper.lichModeColor(caster));
+                    for (int i = 0; i < worldIn.getRandom().nextInt(35) + 10; ++i) {
+                        worldIn.sendParticles(ModParticleTypes.LICH_COLORED.get(), caster.getX(), caster.getEyeY(), caster.getZ(), 0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.0F);
+                    }
+                    flag = false;
+                }
             }
             this.playSound(worldIn, caster, soundEvent);
-            for (int i = 0; i < caster.level.random.nextInt(35) + 10; ++i) {
-                worldIn.sendParticles(particleOptions, caster.getX(), caster.getEyeY(), caster.getZ(), 0, 0.0F, 0.0F, 0.0F, 0);
+            if (flag) {
+                for (int i = 0; i < worldIn.getRandom().nextInt(35) + 10; ++i) {
+                    worldIn.sendParticles(particleOptions, caster.getX(), caster.getEyeY(), caster.getZ(), 0, 0.0F, 0.0F, 0.0F, 0);
+                }
             }
         }
     }

@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.items.equipment;
 
-import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModTiers;
@@ -17,6 +16,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -107,7 +107,9 @@ public class DarkScytheItem extends TieredItem implements Vanishable {
     public void attackMobs(ItemStack pStack, LivingEntity pTarget, Player pPlayer){
         int enchantment = pStack.getEnchantmentLevel(ModEnchantments.SOUL_EATER.get());
         int soulEater = Mth.clamp(enchantment + 1, 1, 10);
-        SEHelper.increaseSouls(pPlayer, ItemConfig.DarkScytheSouls.get() * soulEater);
+        if (SEHelper.getSoulGiven(pTarget) > 0) {
+            SEHelper.increaseSouls(pPlayer, ItemConfig.DarkScytheSouls.get() * soulEater);
+        }
 
         float f = (float)pPlayer.getAttributeValue(Attributes.ATTACK_DAMAGE);
         float f1 = EnchantmentHelper.getDamageBonus(pPlayer.getMainHandItem(), pTarget.getMobType());
@@ -132,12 +134,18 @@ public class DarkScytheItem extends TieredItem implements Vanishable {
                         }
                         pStack.hurtAndBreak(1, pPlayer, (p_220045_0_) ->
                                 p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-                        if (livingentity instanceof IOwned){
-                            if (((IOwned) livingentity).getTrueOwner() != pPlayer){
-                                SEHelper.increaseSouls(pPlayer, ItemConfig.DarkScytheSouls.get() * soulEater);
+                        boolean giveSoul = false;
+                        if (livingentity instanceof OwnableEntity owned){
+                            if (owned.getOwner() != pPlayer){
+                                giveSoul = true;
                             }
                         } else {
-                            SEHelper.increaseSouls(pPlayer, ItemConfig.DarkScytheSouls.get() * soulEater);
+                            giveSoul = true;
+                        }
+                        if (giveSoul) {
+                            if (SEHelper.getSoulGiven(livingentity) > 0) {
+                                SEHelper.increaseSouls(pPlayer, ItemConfig.DarkScytheSouls.get() * soulEater);
+                            }
                         }
                         EnchantmentHelper.doPostHurtEffects(livingentity, pPlayer);
                         EnchantmentHelper.doPostDamageEffects(pPlayer, livingentity);

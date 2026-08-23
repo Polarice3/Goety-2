@@ -9,6 +9,46 @@
     {
       "id": "irons_spellbooks:priest",
       "required": false
+    },
+    {
+      "id": "recruits:recruit",
+      "required": false
+    },
+    {
+      "id": "recruits:recruit_shieldman",
+      "required": false
+    },
+    {
+      "id": "recruits:bowman",
+      "required": false
+    },
+    {
+      "id": "recruits:crossbowman",
+      "required": false
+    },
+    {
+      "id": "recruits:nomad",
+      "required": false
+    },
+    {
+      "id": "recruits:horseman",
+      "required": false
+    },
+    {
+      "id": "recruits:scout",
+      "required": false
+    },
+    {
+      "id": "recruits:patrol_leader",
+      "required": false
+    },
+    {
+      "id": "recruits:captain",
+      "required": false
+    },
+    {
+      "id": "recruits:siege_engineer",
+      "required": false
     }
   ]
 }

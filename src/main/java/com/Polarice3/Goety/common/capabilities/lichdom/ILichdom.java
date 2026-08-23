@@ -9,4 +9,6 @@ public interface ILichdom {
     void setNightVision(boolean nightVision);
     int smited();
     void setSmited(int smited);
+    int lichModeColor();
+    void setLichModeColor(int colorCode);
 }

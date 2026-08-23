@@ -17,6 +17,7 @@
     "goety:crypt_pillar",
     "goety:crypt_bookshelf",
     "goety:crypt_chest",
+    "goety:crypt_sarcophagus",
     "goety:dark_altar_crypt_stone",
     "goety:pedestal_crypt_stone"
   ]

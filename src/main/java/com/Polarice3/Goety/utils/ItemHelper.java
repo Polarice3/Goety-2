@@ -6,7 +6,9 @@ import com.Polarice3.Goety.common.items.ModTiers;
 import com.Polarice3.Goety.common.items.armor.MaleficHelm;
 import com.Polarice3.Goety.common.items.equipment.PhilosophersMaceItem;
 import com.Polarice3.Goety.config.ItemConfig;
+import com.google.common.collect.Maps;
 import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -29,7 +31,9 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
@@ -40,6 +44,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -390,4 +395,44 @@ public class ItemHelper {
         }
         return false;
     }
+
+    public static final Map<ItemLike, DyeColor> DYE_BY_WOOL = Util.make(() -> {
+        Map<ItemLike, DyeColor> ret = new HashMap<>();
+        ret.put(Items.WHITE_WOOL, DyeColor.WHITE);
+        ret.put(Items.ORANGE_WOOL, DyeColor.ORANGE);
+        ret.put(Items.MAGENTA_WOOL, DyeColor.MAGENTA);
+        ret.put(Items.LIGHT_BLUE_WOOL, DyeColor.LIGHT_BLUE);
+        ret.put(Items.YELLOW_WOOL, DyeColor.YELLOW);
+        ret.put(Items.LIME_WOOL, DyeColor.LIME);
+        ret.put(Items.PINK_WOOL, DyeColor.PINK);
+        ret.put(Items.GRAY_WOOL, DyeColor.GRAY);
+        ret.put(Items.LIGHT_GRAY_WOOL, DyeColor.LIGHT_GRAY);
+        ret.put(Items.CYAN_WOOL, DyeColor.CYAN);
+        ret.put(Items.PURPLE_WOOL, DyeColor.PURPLE);
+        ret.put(Items.BLUE_WOOL, DyeColor.BLUE);
+        ret.put(Items.BROWN_WOOL, DyeColor.BROWN);
+        ret.put(Items.GREEN_WOOL, DyeColor.GREEN);
+        ret.put(Items.RED_WOOL, DyeColor.RED);
+        ret.put(Items.BLACK_WOOL, DyeColor.BLACK);
+        return ret;
+    });
+
+    public static final Map<DyeColor, ItemLike> ITEM_BY_DYE = Util.make(Maps.newEnumMap(DyeColor.class), (p_29841_) -> {
+        p_29841_.put(DyeColor.WHITE, Blocks.WHITE_WOOL);
+        p_29841_.put(DyeColor.ORANGE, Blocks.ORANGE_WOOL);
+        p_29841_.put(DyeColor.MAGENTA, Blocks.MAGENTA_WOOL);
+        p_29841_.put(DyeColor.LIGHT_BLUE, Blocks.LIGHT_BLUE_WOOL);
+        p_29841_.put(DyeColor.YELLOW, Blocks.YELLOW_WOOL);
+        p_29841_.put(DyeColor.LIME, Blocks.LIME_WOOL);
+        p_29841_.put(DyeColor.PINK, Blocks.PINK_WOOL);
+        p_29841_.put(DyeColor.GRAY, Blocks.GRAY_WOOL);
+        p_29841_.put(DyeColor.LIGHT_GRAY, Blocks.LIGHT_GRAY_WOOL);
+        p_29841_.put(DyeColor.CYAN, Blocks.CYAN_WOOL);
+        p_29841_.put(DyeColor.PURPLE, Blocks.PURPLE_WOOL);
+        p_29841_.put(DyeColor.BLUE, Blocks.BLUE_WOOL);
+        p_29841_.put(DyeColor.BROWN, Blocks.BROWN_WOOL);
+        p_29841_.put(DyeColor.GREEN, Blocks.GREEN_WOOL);
+        p_29841_.put(DyeColor.RED, Blocks.RED_WOOL);
+        p_29841_.put(DyeColor.BLACK, Blocks.BLACK_WOOL);
+    });
 }

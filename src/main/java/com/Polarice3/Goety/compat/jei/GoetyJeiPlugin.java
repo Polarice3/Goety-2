@@ -37,6 +37,7 @@ public class GoetyJeiPlugin implements IModPlugin {
         registration.addRecipeCategories(new ModBrazierCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new ModCauldronCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new PulverizeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new SoulAbsorberCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new WitchBrewCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
@@ -52,6 +53,7 @@ public class GoetyJeiPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.NECRO_BRAZIER.get()), JeiRecipeTypes.BRAZIER);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.BREWING_CAULDRON.get()), JeiRecipeTypes.CAULDRON);
         registration.addRecipeCatalyst(new ItemStack(ModItems.PULVERIZE_FOCUS.get()), JeiRecipeTypes.PULVERIZE);
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.SOUL_ABSORBER.get()), JeiRecipeTypes.SOUL_ABSORBER);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.BREWING_CAULDRON.get()), JeiRecipeTypes.BREWING);
     }
 
@@ -73,6 +75,8 @@ public class GoetyJeiPlugin implements IModPlugin {
         registration.addRecipes(JeiRecipeTypes.CAULDRON, cauldronRecipes);
         List<PulverizeRecipe> pulverizeRecipes = recipeManager.getAllRecipesFor(ModRecipeSerializer.PULVERIZE_TYPE.get());
         registration.addRecipes(JeiRecipeTypes.PULVERIZE, pulverizeRecipes);
+        List<SoulAbsorberRecipes> soulAbsorberRecipes = recipeManager.getAllRecipesFor(ModRecipeSerializer.SOUL_ABSORBER.get());
+        registration.addRecipes(JeiRecipeTypes.SOUL_ABSORBER, soulAbsorberRecipes);
         registration.addRecipes(JeiRecipeTypes.BREWING, WitchBrewMaker.getRecipes(recipeManager, vanillaRecipeFactory, ingredientManager));
     }
 

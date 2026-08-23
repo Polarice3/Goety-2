@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -31,6 +32,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
         builtinEntity(ModBlocks.CHORUS_WALL_HANGING_SIGN.get(), "goety:block/chorus_log");
         builtinEntity(ModBlocks.CORRUPT_CHORUS_HANGING_SIGN.get(), "goety:block/corrupt_chorus_log");
         builtinEntity(ModBlocks.CORRUPT_CHORUS_WALL_HANGING_SIGN.get(), "goety:block/corrupt_chorus_log");
+
+        sarcophagus(ModBlocks.SHADE_SARCOPHAGUS.get(), "goety:block/shade_stone_polished");
+        sarcophagus(ModBlocks.STONE_SARCOPHAGUS.get(), "minecraft:block/stone_bricks");
+        sarcophagus(ModBlocks.DEEPSLATE_SARCOPHAGUS.get(), "minecraft:block/deepslate_bricks");
+        sarcophagus(ModBlocks.OMINOUS_SARCOPHAGUS.get(), "goety:block/ominous_stone_bricks");
+        sarcophagus(ModBlocks.CRYPT_SARCOPHAGUS.get(), "goety:block/crypt_stone_polished");
 
         plushie(ModBlocks.PLUSHIE.get());
         plushie(ModBlocks.PLUSHIE_1.get());
@@ -557,6 +564,29 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 .texture("particle", particle));
     }
 
+    protected void builtinEntityItem(Block b, String particle) {
+        simpleBlock(b, models().getBuilder(name(b))
+                .parent(new ModelFile.UncheckedModelFile("builtin/entity"))
+                .texture("particle", particle));
+        itemModels().getBuilder(key(b).getPath())
+                .parent(new ModelFile.UncheckedModelFile("builtin/entity"));
+    }
+
+    protected void sarcophagus(Block b, String particle) {
+        simpleBlock(b, models().getBuilder(name(b))
+                .parent(new ModelFile.UncheckedModelFile("builtin/entity"))
+                .texture("particle", particle));
+        itemModels().getBuilder(key(b).getPath())
+                .parent(new ModelFile.UncheckedModelFile("builtin/entity"))
+                .transforms()
+                .transform(ItemDisplayContext.HEAD).rotation(0, 180, 0).translation(0, 10, -8).scale(1.0F, 1.0F, 1.0F).end()
+                .transform(ItemDisplayContext.FIXED).rotation(270, 0, 0).translation(0, 4, -2).scale(0.5F, 0.5F, 0.5F).end()
+                .transform(ItemDisplayContext.GUI).rotation(30, -20, 0).translation(0.0F, -2.0F, 0).scale(0.475F, 0.475F, 0.475F).end()
+                .transform(ItemDisplayContext.GROUND).rotation(0, 0, 0).translation(0, 1, 2).scale(0.25F, 0.25F, 0.25F).end()
+                .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND).rotation(30, -20, 0).translation(0, 2, 1).scale(0.23F, 0.23F, 0.23F).end()
+                .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).rotation(30, -20, 0).translation(0, 0, 2).scale(0.375F, 0.375F, 0.375F).end();
+    }
+
     protected void plushie(Block b) {
         simpleBlock(b, models().getBuilder(name(b))
                 .parent(new ModelFile.UncheckedModelFile("builtin/entity"))
@@ -594,6 +624,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
     protected void crossBlockWithItem(Block block) {
         simpleBlock(block, cross(block));
         generatedItem(block);
+    }
+
+    public ResourceLocation itemTexture(Block block) {
+        ResourceLocation name = key(block);
+        return new ResourceLocation(name.getNamespace(), ModelProvider.ITEM_FOLDER + "/" + name.getPath());
     }
 
     private ResourceLocation extend(ResourceLocation rl, String suffix) {

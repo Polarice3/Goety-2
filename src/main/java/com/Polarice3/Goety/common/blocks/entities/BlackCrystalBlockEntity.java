@@ -7,7 +7,7 @@ import com.Polarice3.Goety.client.particles.SpirallingParticleOption;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.config.ItemConfig;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -97,9 +97,11 @@ public class BlackCrystalBlockEntity extends OwnedBlockEntity implements IEnchan
                                 }
                                 this.level.playSound(null, this.worldPosition, ModSounds.SOUL_EAT.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
                                 if (this.getTrueOwner() instanceof Player player) {
-                                    int enchantment = this.getEnchantments().getOrDefault(ModEnchantments.SOUL_EATER.get(), 0);
-                                    int soulEater = Mth.clamp(enchantment + 1, 1, 10);
-                                    SEHelper.increaseSouls(player, ItemConfig.DarkScytheSouls.get() * soulEater);
+                                    if (SEHelper.getSoulGiven(this.target) > 0) {
+                                        int enchantment = this.getEnchantments().getOrDefault(ModEnchantments.SOUL_EATER.get(), 0);
+                                        int soulEater = Mth.clamp(enchantment + 1, 1, 10);
+                                        SEHelper.increaseSouls(player, MainConfig.BlackCrystalSouls.get() * soulEater);
+                                    }
                                 }
                             }
                         }

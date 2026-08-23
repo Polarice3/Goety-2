@@ -216,8 +216,10 @@ public class Fangs extends Entity implements ISpellEntity {
                         }
                     } else {
                         if (target.hurt(this.damageSources().indirectMagic(this, livingentity), baseDamage)){
-                            int soulEater = Mth.clamp(this.getSoulEater(), 0, 10);
-                            SEHelper.increaseSouls(player, SpellConfig.FangGainSouls.get() * soulEater);
+                            if (SEHelper.getSoulGiven(target) > 0) {
+                                int soulEater = Mth.clamp(this.getSoulEater(), 0, 10);
+                                SEHelper.increaseSouls(player, SpellConfig.FangGainSouls.get() * soulEater);
+                            }
                             if (this.burning > 0){
                                 target.setSecondsOnFire(5 * this.burning);
                             }

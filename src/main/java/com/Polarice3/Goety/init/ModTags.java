@@ -175,6 +175,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> WANTING_ENTITIES = tag("wanting_entities");
         public static final TagKey<EntityType<?>> SUMMON_KILL = tag("summon_kill");
         public static final TagKey<EntityType<?>> IGNORE_SERVANTS = tag("ignore_servants");
+        public static final TagKey<EntityType<?>> SOULLESS = tag("soulless");
         public static final TagKey<EntityType<?>> UNSTUNNABLE = tag("unstunnable");
         public static final TagKey<EntityType<?>> UNTANGLEABLE = tag("untangleable");
         public static final TagKey<EntityType<?>> UNBLOWABLE_ENTITIES = tag("unblowable_entities");

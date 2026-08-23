@@ -49,6 +49,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> ShriekObeliskCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShriekObeliskIncrease;
     public static final ForgeConfigSpec.ConfigValue<Integer> AnimatorCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlackCrystalSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> OminousIdolReviveCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> OminousIdolLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> VoidFrameCoolTime;
@@ -96,6 +97,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShriekObeliskPatrol;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShriekObeliskRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> OminousIdolRevive;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SarcophagusUndead;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PithosRespawn;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CrystalBallRespawn;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> HookBellBlackList;
@@ -244,12 +246,16 @@ public class MainConfig {
                 .define("ShriekObeliskRaid", true);
         AnimatorCost = BUILDER.comment("The amount of Soul Energy used to power the Animator per block distance, Default: 10")
                 .defineInRange("animatorCost", 10, 0, Integer.MAX_VALUE);
+        BlackCrystalSouls = BUILDER.comment("The amount of Soul Energy Black Crystal gives when draining a mob, Default: 1")
+                .defineInRange("blackCrystalSouls", 1, 0, Integer.MAX_VALUE);
         OminousIdolRevive = BUILDER.comment("Whether Ominous Idols can revive Illager Servants, Default: true")
                 .define("ominousIdolRevive", true);
         OminousIdolReviveCost = BUILDER.comment("The amount of Soul Energy required to revive an Illager Servant, Default: 500")
                 .defineInRange("ominousIdolReviveCost", 500, 0, Integer.MAX_VALUE);
         OminousIdolLimit = BUILDER.comment("The amount of Illager Servants an Ominous Idol can register to revive, Default: 16")
                 .defineInRange("ominousIdolLimit", 16, 0, Integer.MAX_VALUE);
+        SarcophagusUndead = BUILDER.comment("Whether sleeping in a non-cushioned Sarcophagus would give debuffs to non-undead players when waking up the next day, Default: true")
+                .define("sarcophagusUndead", true);
         VoidFrameCoolTime = BUILDER.comment("How many ticks until Void Frames returns back to Locked State after being used, Default: 24000")
                 .defineInRange("voidFrameCoolTime", 24000, 0, Integer.MAX_VALUE);
         PithosRespawn = BUILDER.comment("Allow looted Pithos to regenerate Loot and spawn Skull Lord again when right-clicked with respawn_boss tagged item, Default: true")

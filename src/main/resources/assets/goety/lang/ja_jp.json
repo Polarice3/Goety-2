@@ -3658,5 +3658,18 @@
   "effect.goety.insect_bane": "虫特効",
   "effect.goety.insect_bane.description": "物理攻撃は節足動物に対してより大きなダメージを与え、レベルが高いほどダメージ量も増加します。",
   "effect.goety.aging": "加齢",
-  "info.goety.ritual.structure.noBlocksMulti": "%sまたは%sの量が不足しています！"
+  "info.goety.ritual.structure.noBlocksMulti": "%sまたは%sの量が不足しています！",
+  "item.goety.soul_energy": "ソウルエネルギー",
+  "info.goety.item.souls": "§aソウルエネルギー: %d§a",
+  "gui.jei.category.soul_absorber": "ソウルアブソーバー",
+  "jei.goety.soulAmount": "%s",
+  "block.goety.shade_sarcophagus": "シェードの棺",
+  "block.goety.stone_sarcophagus": "石の棺",
+  "block.goety.deepslate_sarcophagus": "深層岩の棺",
+  "block.goety.ominous_sarcophagus": "不吉な石の棺",
+  "block.goety.crypt_sarcophagus": "クリプトストーンの棺",
+  "info.goety.sarcophagus.occupied": "この石棺は使用中です！",
+  "info.goety.sarcophagus.not_day": "昼の間しか眠ることはできません！",
+  "info.goety.sarcophagus.too_far": "棺から離れすぎています！",
+  "info.goety.sarcophagus.obstructed": "この棺は塞がれています。"
 }

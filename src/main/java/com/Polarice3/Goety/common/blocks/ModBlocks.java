@@ -275,6 +275,12 @@ public class ModBlocks {
                     .sound(SoundType.METAL)
                     .isRedstoneConductor(ModBlocks::never)));
 
+    public static final RegistryObject<Block> SHADE_SARCOPHAGUS = isterRegister("shade_sarcophagus", () -> new SarcophagusBlock(ShadeStoneProperties(), "shade"));
+    public static final RegistryObject<Block> STONE_SARCOPHAGUS = isterRegister("stone_sarcophagus", () -> new SarcophagusBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS), "stone"));
+    public static final RegistryObject<Block> DEEPSLATE_SARCOPHAGUS = isterRegister("deepslate_sarcophagus", () -> new SarcophagusBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICKS), "deepslate"));
+    public static final RegistryObject<Block> OMINOUS_SARCOPHAGUS = isterRegister("ominous_sarcophagus", () -> new SarcophagusBlock(OminousStoneProperties(), "ominous"));
+    public static final RegistryObject<Block> CRYPT_SARCOPHAGUS = isterRegister("crypt_sarcophagus", () -> new SarcophagusBlock(CryptStoneProperties(), "crypt"));
+
     public static final RegistryObject<Block> ROYAL_CARPET = register("royal_carpet", () ->
             new WoolCarpetBlock(DyeColor.RED, BlockBehaviour.Properties.copy(Blocks.RED_CARPET)));
     public static final RegistryObject<Block> ROYAL_CARPET_CORNER = register("royal_carpet_corner", () ->

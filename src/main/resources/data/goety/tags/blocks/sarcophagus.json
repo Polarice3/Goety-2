@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "goety:shade_sarcophagus",
+    "goety:stone_sarcophagus",
+    "goety:deepslate_sarcophagus",
+    "goety:ominous_sarcophagus",
+    "goety:crypt_sarcophagus"
+  ]
+}

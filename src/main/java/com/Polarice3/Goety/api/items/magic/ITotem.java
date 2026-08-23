@@ -6,8 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-public interface ITotem {
-    String SOULS_AMOUNT = "Souls";
+public interface ITotem extends ISoulContainer {
     String MAX_SOUL_AMOUNT = "Max Souls";
     int MAX_SOULS = MainConfig.MaxSouls.get();
 
@@ -35,17 +34,13 @@ public interface ITotem {
         if (itemStack.getTag() == null){
             return false;
         }
-        int Soulcount = itemStack.getTag().getInt(SOULS_AMOUNT);
+        int soulCount = itemStack.getTag().getInt(SOULS_AMOUNT);
         int MaxSouls = itemStack.getTag().getInt(MAX_SOUL_AMOUNT);
-        return Soulcount == MaxSouls;
+        return soulCount == MaxSouls;
     }
 
     static boolean isEmpty(ItemStack itemStack) {
-        if (itemStack.getTag() == null){
-            return true;
-        }
-        int Soulcount = itemStack.getTag().getInt(SOULS_AMOUNT);
-        return Soulcount == 0;
+        return ISoulContainer.isEmpty(itemStack);
     }
 
     static boolean UndyingEffect(Player player){
@@ -61,11 +56,7 @@ public interface ITotem {
     }
 
     static int currentSouls(ItemStack itemStack){
-        if (itemStack.getTag() != null){
-            return itemStack.getTag().getInt(SOULS_AMOUNT);
-        } else {
-            return 0;
-        }
+        return ISoulContainer.currentSouls(itemStack);
     }
 
     static int maximumSouls(ItemStack itemStack){
@@ -76,11 +67,13 @@ public interface ITotem {
         }
     }
 
+    static void setSoulsAmount(ItemStack itemStack, int souls){
+        ISoulContainer.setSoulsAmount(itemStack, souls);
+    }
+
+    @Deprecated(forRemoval = true)
     static void setSoulsamount(ItemStack itemStack, int souls){
-        if (!(itemStack.getItem() instanceof ITotem)) {
-            return;
-        }
-        itemStack.getOrCreateTag().putInt(SOULS_AMOUNT, souls);
+        setSoulsAmount(itemStack, souls);
     }
 
     static void setMaxSoulAmount(ItemStack itemStack, int souls){
@@ -102,13 +95,6 @@ public interface ITotem {
     }
 
     static void decreaseSouls(ItemStack itemStack, int souls) {
-        if (!(itemStack.getItem() instanceof ITotem) || itemStack.getTag() == null) {
-            return;
-        }
-        int Soulcount = itemStack.getTag().getInt(SOULS_AMOUNT);
-        if (!isEmpty(itemStack)) {
-            int finalCount = Math.max(Soulcount - souls, 0);
-            itemStack.getOrCreateTag().putInt(SOULS_AMOUNT, finalCount);
-        }
+        ISoulContainer.decreaseSouls(itemStack, souls);
     }
 }

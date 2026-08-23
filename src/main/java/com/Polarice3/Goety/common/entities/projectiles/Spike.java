@@ -153,10 +153,12 @@ public class Spike extends GroundProjectile {
             }
             if (flag){
                 if (livingEntity instanceof Player player) {
-                    int soulEater = Mth.clamp(this.getSoulEater(), 0, 10);
-                    SEHelper.increaseSouls(player, SpellConfig.SpikeGainSouls.get() * soulEater);
-                    if (this.getBurning() > 0){
-                        target.setSecondsOnFire(5 * this.getBurning());
+                    if (SEHelper.getSoulGiven(target) > 0) {
+                        int soulEater = Mth.clamp(this.getSoulEater(), 0, 10);
+                        SEHelper.increaseSouls(player, SpellConfig.SpikeGainSouls.get() * soulEater);
+                        if (this.getBurning() > 0) {
+                            target.setSecondsOnFire(5 * this.getBurning());
+                        }
                     }
                 }
             }

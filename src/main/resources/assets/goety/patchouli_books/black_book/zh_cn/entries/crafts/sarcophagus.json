@@ -1,0 +1,31 @@
+{
+  "name": "石棺",
+  "icon": "goety:shade_sarcophagus",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "石棺的功能和床相同，但进去睡觉不是用来跳过夜晚的，而是用来跳过白天的"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:shade/shade_sarcophagus",
+      "recipe2": "goety:stone_sarcophagus"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:deepslate_sarcophagus",
+      "recipe2": "goety:ominous/ominous_sarcophagus"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:crypt_sarcophagus"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:white_wool",
+      "title": "垫子",
+      "text": "你还可以手持羊毛右键石棺，往里面放一块垫子，此后你还可以手持染料右键石棺，给里面的垫子染色，最后，你可以手持剪刀右键石棺来移除里面的垫子"
+    }
+  ]
+}

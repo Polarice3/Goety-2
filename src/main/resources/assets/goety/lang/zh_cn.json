@@ -3711,5 +3711,18 @@
   "effect.goety.insect_bane": "节肢克星",
   "effect.goety.insect_bane.description": "持有者的物理攻击可以对节肢生物造成更高的伤害，等级越高，额外伤害也就越高",
   "effect.goety.aging": "衰老",
-  "info.goety.ritual.structure.noBlocksMulti": "%s或%s的数量不足！"
+  "info.goety.ritual.structure.noBlocksMulti": "%s或%s的数量不足！",
+  "item.goety.soul_energy": "灵魂能量",
+  "info.goety.item.souls": "§a灵魂能量: %d§a",
+  "gui.jei.category.soul_absorber": "灵魂吸收器",
+  "jei.goety.soulAmount": "%s",
+  "block.goety.shade_sarcophagus": "阴影石棺",
+  "block.goety.stone_sarcophagus": "石棺",
+  "block.goety.deepslate_sarcophagus": "深板岩棺",
+  "block.goety.ominous_sarcophagus": "不祥石棺",
+  "block.goety.crypt_sarcophagus": "墓穴石棺",
+  "info.goety.sarcophagus.occupied": "这口石棺正在被占用",
+  "info.goety.sarcophagus.not_day": "你只能在白天睡觉",
+  "info.goety.sarcophagus.too_far": "你现在不能休息，石棺太远了",
+  "info.goety.sarcophagus.obstructed": "这口石棺已被阻挡"
 }

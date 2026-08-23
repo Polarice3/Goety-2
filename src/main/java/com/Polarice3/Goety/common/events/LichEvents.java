@@ -117,7 +117,13 @@ public class LichEvents {
             if (LichdomHelper.isInLichMode(player)) {
                 if (player.tickCount % 5 == 0) {
                     if (world.isClientSide) {
-                        world.addParticle(ModParticleTypes.LICH.get(), player.getRandomX(0.5D), player.getY(), player.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
+                        int color = LichdomHelper.lichModeColor(player);
+                        if (color > -1) {
+                            ColorUtil colorUtil = new ColorUtil(color);
+                            world.addParticle(ModParticleTypes.LICH_COLORED.get(), player.getRandomX(0.5D), player.getY(), player.getRandomZ(0.5D), colorUtil.red(), colorUtil.green(), colorUtil.blue());
+                        } else {
+                            world.addParticle(ModParticleTypes.LICH.get(), player.getRandomX(0.5D), player.getY(), player.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
+                        }
                     }
                 }
                 if (MainConfig.LichModeSounds.get()) {
@@ -320,6 +326,10 @@ public class LichEvents {
                     }
                     if (livingEntity.level instanceof ServerLevel serverLevel){
                         ColorUtil colorUtil = new ColorUtil(0x36e416);
+                        if (livingEntity instanceof Player player) {
+                            int color = LichdomHelper.lichModeColor(player);
+                            colorUtil = new ColorUtil(color);
+                        }
                         serverLevel.sendParticles(new LichShockwaveParticleOption(colorUtil, 40, 20, 1, 100), livingEntity.getX(), livingEntity.getY() + 0.5F, livingEntity.getZ(), 0, 0, 0, 0, 0.5F);
                     }
                 }

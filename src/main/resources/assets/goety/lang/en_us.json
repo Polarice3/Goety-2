@@ -1178,6 +1178,7 @@
   "item.goety.moon_banner_pattern.desc": "Moon",
 
   "item.goety.pedestal_dummy": "Pedestal",
+  "item.goety.soul_energy": "Soul Energy",
 
   "item.goety.music_disc_enderman": "Music Disc",
   "item.goety.music_disc_enderman.desc": "Peter Hont - Enderman",
@@ -1527,6 +1528,12 @@
   "block.goety.mandala": "Mandala",
   "block.goety.ominous_statue": "Ominous Statue",
   "block.goety.ominous_brazier_statue": "Ominous Brazier Statue",
+
+  "block.goety.shade_sarcophagus": "Shade Sarcophagus",
+  "block.goety.stone_sarcophagus": "Stone Sarcophagus",
+  "block.goety.deepslate_sarcophagus": "Deepslate Sarcophagus",
+  "block.goety.ominous_sarcophagus": "Ominous Sarcophagus",
+  "block.goety.crypt_sarcophagus": "Crypt Sarcophagus",
 
   "block.goety.royal_carpet": "Royal Carpet",
   "block.goety.royal_carpet_corner": "Royal Carpet",
@@ -2344,6 +2351,7 @@
   "key.goety.mount.freeRoam": "Mount Autonomous",
 
   "info.goety.totem_of_souls.souls": "§aSoul Energy: %d/%d§a",
+  "info.goety.item.souls": "§aSoul Energy: %d§a",
   "info.goety.wand.cost": "§3Soul Cost:§3 %d",
   "info.goety.wand.focus": "§dFocus:§d %d",
   "info.goety.wand.castTime": "§fCast Time:§f %ds",
@@ -2602,6 +2610,10 @@
   "info.goety.summon.hunt": "Something is hunting you down...",
   "info.goety.banner.add": "Registered personal banner for %s!",
   "info.goety.banner.remove": "Removed %s's personal banner!",
+  "info.goety.sarcophagus.occupied": "This sarcophagus is occupied",
+  "info.goety.sarcophagus.not_day": "You can sleep only during the day",
+  "info.goety.sarcophagus.too_far": "You may not rest now; the sarcophagus is too far away",
+  "info.goety.sarcophagus.obstructed": "This sarcophagus is obstructed",
   "info.goety.shrine.shard": "Place in Void Shards to initiate",
   "info.goety.apostle.summon": "A dark presence washes over you...",
 
@@ -3681,6 +3693,7 @@
   "gui.jei.category.brazier": "Necro Brazier",
   "gui.jei.category.cauldron": "Witch's Cauldron",
   "gui.jei.category.pulverize": "Pulverize Focus",
+  "gui.jei.category.soul_absorber": "Soul Absorber",
 
   "goety.jei.ritual": "Dark Rituals",
   "goety.jei.ritualType": "Ritual",
@@ -3714,6 +3727,7 @@
   "jei.goety.craftType.divination": "Divination",
   "jei.goety.soulCost": "Soul Cost/s: %s",
   "jei.goety.single.soulcost": "Soul Cost: %s",
+  "jei.goety.soulAmount": "%s",
   "jei.goety.capacityUse": "Capacity Extra: %s",
   "jei.goety.duration": "Duration: %s sec",
   "jei.goety.single.duration": "Duration: %s",

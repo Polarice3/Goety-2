@@ -3797,5 +3797,18 @@
   "effect.goety.insect_bane": "Praga de Insetos",
   "effect.goety.insect_bane.description": "Ataques físicos causam mais dano a artrópodes; níveis mais altos causam mais dano.",
   "effect.goety.aging": "Envelhecimento",
-  "info.goety.ritual.structure.noBlocksMulti": "Quantidade insuficiente de %s ou %s!"
+  "info.goety.ritual.structure.noBlocksMulti": "Quantidade insuficiente de %s ou %s!",
+  "item.goety.soul_energy": "Energia de Alma",
+  "info.goety.item.souls": "§aEnergia de Alma: %d§a",
+  "gui.jei.category.soul_absorber": "Absorvedor de Almas",
+  "jei.goety.soulAmount": "%s",
+  "block.goety.shade_sarcophagus": "Sarcófago das Sombras",
+  "block.goety.stone_sarcophagus": "Sarcófago de Pedra",
+  "block.goety.deepslate_sarcophagus": "Sarcófago de Ardósia",
+  "block.goety.ominous_sarcophagus": "Sarcófago Sinistro",
+  "block.goety.crypt_sarcophagus": "Sarcófago da Cripta",
+  "info.goety.sarcophagus.occupied": "Este sarcófago está ocupado",
+  "info.goety.sarcophagus.not_day": "Você só pode dormir durante o dia",
+  "info.goety.sarcophagus.too_far": "Você não pode descansar agora; o sarcófago está muito longe",
+  "info.goety.sarcophagus.obstructed": "Este sarcófago está obstruído"
 }

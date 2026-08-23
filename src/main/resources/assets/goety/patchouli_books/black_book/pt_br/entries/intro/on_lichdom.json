@@ -1,5 +1,5 @@
 {
-  "name": "Parabéns por te tornares um Lich",
+  "name": "O que significa ser um Lich",
   "icon": "minecraft:skeleton_skull",
   "category": "goety:intro",
   "advancement": "goety:goety/become_lich",
@@ -7,23 +7,30 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Conseguiste renascer como a forma definitiva de Morto-Vivo. Possuis agora as forças e fraquezas dos Mortos-Vivos. A tua fome já não diminui ou aumenta. Curas ferimentos usando Energia das Almas (a menos que estejas a arder)."
+      "text": "Você finalmente se tornou a definição de um Morto-Vivo. Como você deve ter adivinhado, você tem os pontos fortes e fracos da Mortos. Para começar, sua fome não aumenta nem diminui. Quando ferido, você usará a Energia da Alma dentro do seu Totem ou Arca para curar todos os ferimentos (a menos que esteja em chamas)."
     },
     {
       "type": "patchouli:text",
-      "text": "Não podes ser Envenenado, Faminto, Saciado e a Regeneração não funciona em ti. Entrarás em combustão espontânea à luz do sol a menos que tenhas algo na cabeça, e os Destruidores de Mortos-Vivos causam-te mais dano. Além disso, os Aldeões odeiam-te, a menos que os tenhas curado múltiplas vezes de serem Zombies."
+      "text": "Segundo, você não pode obter os efeitos de Veneno, Regeneração, Fome e Saturação. Você queimará na luz do sol, a menos que tenha algo na cabeça, e sofrerá mais dano ao Encantamento Julgamento. Além disso, os Aldeões odeiam você, A menos que você tenha curado muitos deles da zumbificação."
     },
     {
       "type": "patchouli:text",
-      "text": "Olhando para o lado positivo, a maioria dos Mortos-Vivos não te ataca, não podes afogar-te e desde que tenhas um Capacete ou Resistência ao Fogo podes permanecer ao Sol o dia inteiro! Poções de Dano curam-te e Poções de Cura causam-te dano."
+      "text": "Por outro lado, a maioria das criaturas mortas-vivas não atacaram mais você, você não consegue se afogar e só pode ficar ao sol o dia todo enquanto estiver usando um Capacete ou tiver Resistência ao Fogo! Ser Morto-Vivo também significa que Poções de Dano curam você, enquanto Poções de Cura causam dano a você da mesma forma que a seus companheiros mortos."
     },
     {
       "type": "patchouli:text",
-      "text": "$(l:crafts/artifice/arca)Arca$() A Ressurreição ocorrerá sempre, mesmo que não tenhas Energia das Almas suficiente. Se a Arca for destruída e morreres, deixarás de ser um Lich."
+      "text": "As ressurreições da $(l:crafts/artifice/arca)Arca$() são iniciadas independentemente da quantidade de Energia da Alma dentro dela. No entanto, se a quantidade de Energia da Alma for menor que o número usual necessário para revivê-lo ou se sua Arca tiver sido destruída, você perderá seu lich ao morrer."
     },
     {
       "type": "patchouli:text",
-      "text": "Podes reassumir a forma dos teus tempos de vivo pressionando a Tecla de Forma de Lich (Predefinição: N). Esta forma é apenas visual."
+      "text": "Você também pode recuperar sua forma viva pressionando a tecla Forma de Lich (Padrão: N). A forma de alguma forma não engana ninguém, mas pelo menos você recupera sua aparência anterior."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:haunted_mirror",
+      "title": "Mudando Cores",
+      "advancement": "goety:goety/read_haunting_scroll",
+      "text": "Você também pode mudar a cor da sua Forma de Lich clicando com o botão direito em um Espelho Assombrado com um corante. Para remover a cor personalizada, clique com o botão direito no espelho com um balde de água."
     }
   ]
 }
