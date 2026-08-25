@@ -1,0 +1,22 @@
+{
+  "name": "Ring of Wrecking",
+  "icon": "goety:ring_of_wrecking",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "While some take joy of taking trophies from slain foes, some don't find having their inventory be filled with damaged armor, tools and weapons and having to rid of them to make space to be fun."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ring_of_wrecking"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Fortunately, this ring will cause those unstackable items to completely break without ever entering your inventory. However, this does not work on creatures like yourself and any items given to your servants will also not break if you personally dismiss them."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ring_of_wrecking": 1
+  }
+}

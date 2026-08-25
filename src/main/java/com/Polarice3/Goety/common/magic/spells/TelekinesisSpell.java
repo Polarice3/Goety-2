@@ -100,7 +100,7 @@ public class TelekinesisSpell extends EverChargeSpell {
         }
         Entity target = MobUtil.getSingleTarget(worldIn, caster, range, 3,
                 entity -> EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity)
-                        && !entity.getType().is(ModTags.EntityTypes.BANISH_IMMUNE)
+                        && !entity.getType().is(ModTags.EntityTypes.TELEKINESIS_IMMUNE)
                         && !MobUtil.hasEntityTypesConfig(SpellConfig.TelekinesisBlackList.get(), entity.getType())
                         && !(entity instanceof AbstractHurtingProjectile));
         if (caster instanceof Mob mob) {

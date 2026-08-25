@@ -3671,5 +3671,18 @@
   "info.goety.sarcophagus.occupied": "この石棺は使用中です！",
   "info.goety.sarcophagus.not_day": "昼の間しか眠ることはできません！",
   "info.goety.sarcophagus.too_far": "棺から離れすぎています！",
-  "info.goety.sarcophagus.obstructed": "この棺は塞がれています。"
+  "info.goety.sarcophagus.obstructed": "この棺は塞がれています。",
+  "item.goety.ring_of_wrecking": "破壊のリング",
+  "info.goety.ring_of_wrecking": "装備者または従者によって倒されたモブは、耐久値が減少するタイプの装備品をドロップしなくなります。",
+  "commands.goety.misc.grimoire.grudge": "遺恨",
+  "commands.goety.misc.grimoire.goodwill": "善意",
+  "commands.goety.misc.grimoire.success.add.entity": "%sリストに%s体のエンティティを追加しました",
+  "commands.goety.misc.grimoire.success.add.entityType": "%s向けの%sリストに%sを追加しました。",
+  "commands.goety.misc.grimoire.success.remove.entity": "%sリストから%s体のエンティティを削除しました",
+  "commands.goety.misc.grimoire.success.remove.entityType": "%s向けの%sリストから%sを削除しました",
+  "commands.goety.misc.grimoire.list": "=== %sの%sリスト===",
+  "commands.goety.misc.grimoire.list.empty": "空",
+  "commands.goety.misc.grimoire.list.entities": "エンティティ:",
+  "commands.goety.misc.grimoire.list.entityTypes": "エンティティの種類:",
+  "info.goety.sarcophagus.stop_sleeping": "石棺を去る"
 }

@@ -1,17 +1,15 @@
 {
   "replace": false,
   "values": [
+    "#goety:necromancer/hostile",
     "goety:apostle",
     "goety:wraith",
     "goety:border_wraith",
     "goety:muck_wraith",
     "goety:reaper",
     "goety:crypt_slime",
-    "goety:necromancer",
-    "goety:cairn_necromancer",
     "goety:haunted_armor",
     "goety:skull_lord",
-    "goety:bone_lord",
-    "goety:wither_necromancer"
+    "goety:bone_lord"
   ]
 }

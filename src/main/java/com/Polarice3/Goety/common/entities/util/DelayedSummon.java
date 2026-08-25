@@ -143,6 +143,14 @@ public class DelayedSummon extends Entity {
             MobUtil.moveDownToGround(this);
         }
         if (this.level instanceof ServerLevel serverWorld) {
+            if (this.tickCount > this.getLifeSpan() + 100) {
+                this.discard();
+                return;
+            }
+            if (this.entity == null) {
+                this.discard();
+                return;
+            }
             if (this.tickCount >= this.getLifeSpan()){
                 if (this.entity != null){
                     if (this.noPos) {
@@ -169,16 +177,22 @@ public class DelayedSummon extends Entity {
                             SoundUtil.playNecromancerSummon(this.entity);
                             ColorUtil colorUtil = new ColorUtil(0x8FE6DF);
                             serverWorld.sendParticles(ModParticleTypes.GOD_RAY.get(), this.entity.getX(), this.entity.getY(), this.entity.getZ(), 0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.0F);
-//                            ServerParticleUtil.windShockwaveParticle(serverWorld, colorUtil, 0.1F, 0.1F, 0.05F, -1, this.entity.position());
                             for (int i2 = 0; i2 < serverWorld.getRandom().nextInt(10) + 10; ++i2) {
                                 serverWorld.sendParticles(new MagicSmokeParticleOption(0x17b0e0, 0xffffff, 10 + this.entity.level.getRandom().nextInt(10), 0.2F), this.entity.getRandomX(1.5D), this.entity.getRandomY(), this.entity.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
                             }
                         }
                         this.discard();
+                    } else {
+                        this.discard();
                     }
                 }
             }
         }
+    }
+
+    @Override
+    public boolean shouldBeSaved() {
+        return false;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.blocks.entities.SarcophagusBlockEntity;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.ItemHelper;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.google.common.collect.ImmutableMap;
@@ -11,6 +12,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
@@ -236,18 +238,24 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock implements Enti
             Vec3 vec3 = pos.getCenter();
             level.explode(null, level.damageSources().badRespawnPointExplosion(vec3), null, vec3, 5.0F, true, Level.ExplosionInteraction.BLOCK);
             return InteractionResult.SUCCESS;
-        } else if (level.isDay()) {
-            if (state.getValue(OCCUPIED)) {
-                player.displayClientMessage(Component.translatable("info.goety.sarcophagus.occupied"), true);
-                return InteractionResult.SUCCESS;
-            }
-            player.startSleepInBed(pos).ifLeft(problem -> {
-                if (problem.getMessage() != null) {
-                    player.displayClientMessage(problem.getMessage(), true);
+        } else if (MainConfig.SarcophagusSleep.get()) {
+            if (level.isDay()) {
+                if (state.getValue(OCCUPIED)) {
+                    player.displayClientMessage(Component.translatable("info.goety.sarcophagus.occupied"), true);
+                    return InteractionResult.SUCCESS;
                 }
-            });
+                player.startSleepInBed(pos).ifLeft(problem -> {
+                    if (problem.getMessage() != null) {
+                        player.displayClientMessage(problem.getMessage(), true);
+                    }
+                });
+            } else {
+                player.displayClientMessage(Component.translatable("info.goety.sarcophagus.not_day"), true);
+            }
         } else {
-            player.displayClientMessage(Component.translatable("info.goety.sarcophagus.not_day"), true);
+            if (player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.setRespawnPosition(serverPlayer.level.dimension(), pos, serverPlayer.getYRot(), false, true);
+            }
         }
         return InteractionResult.SUCCESS;
     }

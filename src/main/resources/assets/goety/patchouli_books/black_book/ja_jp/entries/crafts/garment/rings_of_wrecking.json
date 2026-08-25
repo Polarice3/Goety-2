@@ -1,0 +1,22 @@
+{
+  "name": "破壊のリング",
+  "icon": "goety:ring_of_wrecking",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "倒した敵から戦利品を得ることに喜びを感じる人がいる一方で、破損した防具や道具、武器で所持品がいっぱいになり、スペースを空けるためにそれらを処分しなければならない状況を、楽しいとは思わない人もいます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ring_of_wrecking"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "幸いなことに、この指輪があれば、スタックできないアイテムはインベントリに入ることなく完全に破壊されます。ただし、あなた自身のような者には効果がありません。また、従者に渡したアイテムについても、あなたが直接解雇した場合には破壊されません。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ring_of_wrecking": 1
+  }
+}

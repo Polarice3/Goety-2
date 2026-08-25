@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:soul_sand_valley",
-    "minecraft:deep_dark",
     {
       "id": "vampirism:vampire_forest",
       "required": false

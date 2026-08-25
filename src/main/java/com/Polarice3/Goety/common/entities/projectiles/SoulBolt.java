@@ -134,7 +134,7 @@ public class SoulBolt extends SpellHurtingProjectile {
                             }
                             ServantUtil.convertSkeletons(entity, livingentity, wither, false);
                         } else if (entity instanceof Mob mob) {
-                            ServantUtil.convertUndead(mob, livingentity, true, true);
+                            ServantUtil.convertUndead(mob, livingentity, false, true);
                         }
                     }
                 }

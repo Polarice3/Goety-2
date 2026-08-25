@@ -14,13 +14,13 @@ import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.RandomUtil;
 import com.Polarice3.Goety.utils.WandUtil;
-import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,13 +72,9 @@ public class ShockwaveSpell extends Spell {
         }
         damage += potency;
         maxDamage += potency;
-        for (int i = -radius; i < radius; ++i){
-            for (int k = -radius; k < radius; ++k){
-                BlockPos blockPos = caster.blockPosition().offset(i, 0, k);
-                if (worldIn.getRandom().nextFloat() <= 0.05F){
-                    worldIn.sendParticles(ModParticleTypes.SOUL_EXPLODE.get(), blockPos.getX(), blockPos.getY(), blockPos.getZ(), 0, 0, 0.04D, 0, 0.5F);
-                }
-            }
+        for (int i = 0; i < 8; ++i) {
+            Vec3 vec3 = caster.position().add(0, 0.5F, 0).offsetRandom(worldIn.getRandom(), radius);
+            worldIn.sendParticles(ModParticleTypes.SOUL_EXPLODE.get(), vec3.x, vec3.y, vec3.z, 1, 0, 0, 0, 0);
         }
         ColorUtil colorUtil = SHOCKWAVE_COLOR;
         worldIn.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius, 1), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 0, 0, 0, 0, 0);

@@ -1,0 +1,22 @@
+{
+  "name": "Anel da Destruição",
+  "icon": "goety:ring_of_wrecking",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Enquanto alguns se alegram em pegar troféus de inimigos derrotados, outros não acham divertido ter seu inventário cheio de armaduras, ferramentas e armas danificadas e ter que se livrar delas para abrir espaço."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ring_of_wrecking"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Felizmente, este anel fará com que esses itens não empilháveis se quebrem completamente sem nunca entrar em seu inventário. No entanto, isso não funciona em criaturas como você, e quaisquer itens dados aos seus servos também não quebrarão se você os dispensar pessoalmente."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ring_of_wrecking": 1
+  }
+}

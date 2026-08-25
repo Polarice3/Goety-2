@@ -56,7 +56,7 @@ public class LichEvents {
         if (LichdomHelper.isLich(player)){
             player.getFoodData().setFoodLevel(17);
             player.resetStat(Stats.CUSTOM.get(Stats.TIME_SINCE_REST));
-            boolean burn = MobUtil.isInSunlight(player) && !world.isRaining();
+            boolean burn = MobUtil.isInSunlightNoRain(player);
 
             if (!player.level.isClientSide) {
                 if (burn){

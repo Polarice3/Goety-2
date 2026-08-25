@@ -71,7 +71,7 @@ public class IllagerSpawner {
                             return 0;
                         } else if (SEHelper.getRestPeriod(pPlayer) > 0){
                             return 0;
-                        } else if (pLevel.isCloseToVillage(pPlayer.blockPosition(), 2) && soulEnergy < MobsConfig.IllagerAssaultSELimit.get()) {
+                        } else if (pLevel.isCloseToVillage(pPlayer.blockPosition(), 2)) {
                             return 0;
                         } else if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get()) {
                             int k = (24 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);

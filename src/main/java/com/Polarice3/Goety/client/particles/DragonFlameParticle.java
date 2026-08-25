@@ -12,6 +12,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 public class DragonFlameParticle extends ReversibleParticle {
     private final SpriteSet spriteSet;
     public boolean isBig = false;
+    public boolean isNecro = false;
 
     protected DragonFlameParticle(ClientLevel world, double x, double y, double z, double vx, double vy, double vz, SpriteSet spriteSet) {
         super(world, x, y, z);
@@ -45,6 +46,9 @@ public class DragonFlameParticle extends ReversibleParticle {
             this.zd += this.random.nextFloat() / 500.0F * (float)(this.random.nextBoolean() ? 1 : -1);
             this.setSprite(this.spriteSet.get((this.age / 2) % 8 + 1, 8));
             ParticleOptions ground = ModParticleTypes.SMALL_DRAGON_FLAME_GROUND.get();
+            if (this.isNecro) {
+                ground = ModParticleTypes.NECRO_DRAGON_FLAME_GROUND.get();
+            }
             if (this.isBig) {
                 if (this.random.nextFloat() <= 0.25F) {
                     this.level.addParticle(ModParticleTypes.DRAGON_FLAME_DROP.get(), this.x, this.y, this.z, this.xd, this.yd, this.zd);
@@ -111,6 +115,22 @@ public class DragonFlameParticle extends ReversibleParticle {
         public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             DragonFlameParticle flameparticle = new DragonFlameParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
             flameparticle.scale(0.5F);
+            flameparticle.reversed = worldIn.getRandom().nextBoolean();
+            return flameparticle;
+        }
+    }
+
+    public static class NecroProvider implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet spriteSet;
+
+        public NecroProvider(SpriteSet spriteSet) {
+            this.spriteSet = spriteSet;
+        }
+
+        public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+            DragonFlameParticle flameparticle = new DragonFlameParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
+            flameparticle.scale(0.5F);
+            flameparticle.isNecro = true;
             flameparticle.reversed = worldIn.getRandom().nextBoolean();
             return flameparticle;
         }

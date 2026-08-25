@@ -13,9 +13,13 @@ import com.Polarice3.Goety.utils.WandUtil;
 import com.google.common.collect.ImmutableList;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
+import com.mojang.brigadier.suggestion.Suggestions;
+import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -35,10 +39,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringUtil;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
@@ -51,6 +52,8 @@ import net.minecraftforge.event.ForgeEventFactory;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 public class GoetyCommand {
     private static final SimpleCommandExceptionType ERROR_FAILED = new SimpleCommandExceptionType(Component.translatable("commands.summon.failed"));
@@ -64,6 +67,11 @@ public class GoetyCommand {
         Collection<Research> collection = ResearchList.getResearchIdList().values();
         return SharedSuggestionProvider.suggestResource(collection.stream().map(Research::getLocation), p_136345_);
     };
+    private static final SuggestionProvider<CommandSourceStack> SUGGEST_GOODWILL_ENTITIES =
+            (ctx, builder) -> suggestGrimoireEntities(ctx, builder, false);
+
+    private static final SuggestionProvider<CommandSourceStack> SUGGEST_GRUDGE_ENTITIES =
+            (ctx, builder) -> suggestGrimoireEntities(ctx, builder, true);
 
     public static void register(CommandDispatcher<CommandSourceStack> pDispatcher, CommandBuildContext p_250122_) {
         pDispatcher.register(Commands.literal("goety")
@@ -283,6 +291,75 @@ public class GoetyCommand {
                                         .then(Commands.argument("amount", IntegerArgumentType.integer()).executes((p_198445_0_) -> {
                                             return damageItem(p_198445_0_.getSource(), EntityArgument.getPlayers(p_198445_0_, "targets"), IntegerArgumentType.getInteger(p_198445_0_, "amount"));
                                         }))))
+                                .then(Commands.literal("grimoire")
+                                        .then(Commands.literal("goodwill")
+                                                .then(Commands.literal("add")
+                                                        .requires((p_137812_) -> {
+                                                            return p_137812_.hasPermission(2);
+                                                        })
+                                                        .then(Commands.argument("targets", EntityArgument.players())
+                                                                .then(Commands.literal("entity")
+                                                                        .then(Commands.argument("entity", EntityArgument.entities()).executes((ctx) ->
+                                                                                grimoireAddEntity(ctx.getSource(), EntityArgument.getPlayers(ctx, "targets"),
+                                                                                        EntityArgument.getEntities(ctx, "entity"), false))))
+                                                                .then(Commands.literal("entityType")
+                                                                        .then(Commands.argument("entityType", ResourceArgument.resource(p_250122_, Registries.ENTITY_TYPE))
+                                                                                .suggests(SuggestionProviders.SUMMONABLE_ENTITIES).executes((ctx) ->
+                                                                                        grimoireAddType(ctx.getSource(), EntityArgument.getPlayers(ctx, "targets"),
+                                                                                                ResourceArgument.getSummonableEntityType(ctx, "entityType"), false))))))
+                                                .then(Commands.literal("remove")
+                                                        .requires((p_137812_) -> {
+                                                            return p_137812_.hasPermission(2);
+                                                        })
+                                                        .then(Commands.argument("targets", EntityArgument.players())
+                                                                .then(Commands.literal("entity")
+                                                                        .then(Commands.argument("entity", StringArgumentType.string())
+                                                                                .suggests(SUGGEST_GOODWILL_ENTITIES).executes((ctx) ->
+                                                                                        grimoireRemoveEntityByUUID(ctx.getSource(),
+                                                                                                EntityArgument.getPlayers(ctx, "targets"),
+                                                                                                StringArgumentType.getString(ctx, "entity"), false))))
+                                                                .then(Commands.literal("entityType")
+                                                                        .then(Commands.argument("entityType", ResourceArgument.resource(p_250122_, Registries.ENTITY_TYPE))
+                                                                                .suggests(SuggestionProviders.SUMMONABLE_ENTITIES).executes((ctx) ->
+                                                                                        grimoireRemoveType(ctx.getSource(), EntityArgument.getPlayers(ctx, "targets"),
+                                                                                                ResourceArgument.getSummonableEntityType(ctx, "entityType"), false))))))
+                                                .then(Commands.literal("query")
+                                                        .then(Commands.argument("target", EntityArgument.player()).executes((ctx) ->
+                                                                grimoireQuery(ctx.getSource(), EntityArgument.getPlayer(ctx, "target"), false)))))
+                                        .then(Commands.literal("grudge")
+                                                .then(Commands.literal("add")
+                                                        .requires((p_137812_) -> {
+                                                            return p_137812_.hasPermission(2);
+                                                        })
+                                                        .then(Commands.argument("targets", EntityArgument.players())
+                                                                .then(Commands.literal("entity")
+                                                                        .then(Commands.argument("entity", EntityArgument.entities()).executes((ctx) ->
+                                                                                grimoireAddEntity(ctx.getSource(), EntityArgument.getPlayers(ctx, "targets"),
+                                                                                        EntityArgument.getEntities(ctx, "entity"), true))))
+                                                                .then(Commands.literal("entityType")
+                                                                        .then(Commands.argument("entityType", ResourceArgument.resource(p_250122_, Registries.ENTITY_TYPE))
+                                                                                .suggests(SuggestionProviders.SUMMONABLE_ENTITIES).executes((ctx) ->
+                                                                                        grimoireAddType(ctx.getSource(), EntityArgument.getPlayers(ctx, "targets"),
+                                                                                                ResourceArgument.getSummonableEntityType(ctx, "entityType"), true))))))
+                                                .then(Commands.literal("remove")
+                                                        .requires((p_137812_) -> {
+                                                            return p_137812_.hasPermission(2);
+                                                        })
+                                                        .then(Commands.argument("targets", EntityArgument.players())
+                                                                .then(Commands.literal("entity")
+                                                                        .then(Commands.argument("entity", StringArgumentType.string())
+                                                                                .suggests(SUGGEST_GRUDGE_ENTITIES).executes((ctx) ->
+                                                                                        grimoireRemoveEntityByUUID(ctx.getSource(),
+                                                                                                EntityArgument.getPlayers(ctx, "targets"),
+                                                                                                StringArgumentType.getString(ctx, "entity"), true))))
+                                                                .then(Commands.literal("entityType")
+                                                                        .then(Commands.argument("entityType", ResourceArgument.resource(p_250122_, Registries.ENTITY_TYPE))
+                                                                                .suggests(SuggestionProviders.SUMMONABLE_ENTITIES).executes((ctx) ->
+                                                                                        grimoireRemoveType(ctx.getSource(), EntityArgument.getPlayers(ctx, "targets"),
+                                                                                                ResourceArgument.getSummonableEntityType(ctx, "entityType"), true))))))
+                                                .then(Commands.literal("query")
+                                                        .then(Commands.argument("target", EntityArgument.player()).executes((ctx) ->
+                                                                grimoireQuery(ctx.getSource(), EntityArgument.getPlayer(ctx, "target"), true))))))
                         ));
     }
 
@@ -843,5 +920,144 @@ public class GoetyCommand {
         }
 
         return collection.size();
+    }
+
+    private static int grimoireAddEntity(CommandSourceStack source, Collection<? extends ServerPlayer> players, Collection<? extends Entity> entities, boolean grudge) {
+        int total = 0;
+        for (ServerPlayer player : players) {
+            for (Entity entity : entities) {
+                if (entity instanceof LivingEntity living && living != player) {
+                    boolean changed = grudge
+                            ? SEHelper.addGrudgeEntity(player, living)
+                            : SEHelper.addAllyEntity(player, living);
+                    if (changed) {
+                        total++;
+                    }
+                }
+            }
+        }
+        final int count = total;
+        String list = grudge ? Component.translatable("commands.goety.misc.grimoire.grudge").getString() : Component.translatable("commands.goety.misc.grimoire.goodwill").getString();
+        source.sendSuccess(() -> Component.translatable("commands.goety.misc.grimoire.success.add.entity", count, list), true);
+        return total;
+    }
+
+    private static int grimoireAddType(CommandSourceStack source, Collection<? extends ServerPlayer> players, Holder.Reference<EntityType<?>> typeHolder, boolean grudge) {
+        EntityType<?> type = typeHolder.value();
+        int total = 0;
+        for (ServerPlayer player : players) {
+            boolean changed = grudge
+                    ? SEHelper.addGrudgeEntityType(player, type)
+                    : SEHelper.addAllyEntityType(player, type);
+            if (changed) {
+                total++;
+            }
+        }
+        final int count = total;
+        String list = grudge ? Component.translatable("commands.goety.misc.grimoire.grudge").getString() : Component.translatable("commands.goety.misc.grimoire.goodwill").getString();
+        Component typeName = type.getDescription();
+        source.sendSuccess(() -> Component.translatable("commands.goety.misc.grimoire.success.add.entityType", typeName.getString(), list, count), true);
+
+        return total;
+    }
+
+    private static int grimoireRemoveType(CommandSourceStack source, Collection<? extends ServerPlayer> players, Holder.Reference<EntityType<?>> typeHolder, boolean grudge) {
+        EntityType<?> type = typeHolder.value();
+        int total = 0;
+        for (ServerPlayer player : players) {
+            boolean changed = grudge
+                    ? SEHelper.removeGrudgeEntityType(player, type)
+                    : SEHelper.removeAllyEntityType(player, type);
+            if (changed) {
+                total++;
+            }
+        }
+        final int count = total;
+        String list = grudge ? Component.translatable("commands.goety.misc.grimoire.grudge").getString() : Component.translatable("commands.goety.misc.grimoire.goodwill").getString();
+        Component typeName = type.getDescription();
+        source.sendSuccess(() -> Component.translatable("commands.goety.misc.grimoire.success.remove.entityType", typeName.getString(), list, count), true);
+        return total;
+    }
+
+    private static int grimoireQuery(CommandSourceStack source, ServerPlayer player, boolean grudge) {
+        List<LivingEntity> entities = grudge ? SEHelper.getGrudgeEntities(player) : SEHelper.getAllyEntities(player);
+        List<EntityType<?>> types = grudge ? SEHelper.getGrudgeEntityTypes(player) : SEHelper.getAllyEntityTypes(player);
+        String list = grudge ? Component.translatable("commands.goety.misc.grimoire.grudge").getString() : Component.translatable("commands.goety.misc.grimoire.goodwill").getString();
+
+        source.sendSuccess(() -> Component.translatable("commands.goety.misc.grimoire.list", player.getName().getString(), list), false);
+
+        if (entities.isEmpty() && types.isEmpty()) {
+            source.sendSuccess(() -> Component.translatable("commands.goety.misc.grimoire.list.empty"), false);
+            return 0;
+        }
+
+        if (!entities.isEmpty()) {
+            source.sendSuccess(() -> Component.translatable("commands.goety.misc.grimoire.list.entities"), false);
+            for (LivingEntity livingEntity : entities) {
+                Component name = livingEntity.getDisplayName();
+                source.sendSuccess(() -> Component.literal(" - ").append(name)
+                        .append(" (" + livingEntity.getUUID() + ")"), false);
+            }
+        }
+        if (!types.isEmpty()) {
+            source.sendSuccess(() -> Component.translatable("commands.goety.misc.grimoire.list.entityTypes"), false);
+            for (EntityType<?> entityType : types) {
+                Component name = entityType.getDescription();
+                source.sendSuccess(() -> Component.literal(" - ").append(name)
+                        .append(" (" + EntityType.getKey(entityType) + ")"), false);
+            }
+        }
+        return entities.size() + types.size();
+    }
+
+    private static CompletableFuture<Suggestions> suggestGrimoireEntities(CommandContext<CommandSourceStack> ctx, SuggestionsBuilder builder, boolean grudge) {
+        try {
+            Collection<ServerPlayer> players = EntityArgument.getPlayers(ctx, "targets");
+            List<String> uuids = new ArrayList<>();
+            for (ServerPlayer player : players) {
+                List<LivingEntity> stored = grudge
+                        ? SEHelper.getGrudgeEntities(player)
+                        : SEHelper.getAllyEntities(player);
+                for (LivingEntity livingEntity : stored) {
+                    String id = livingEntity.getUUID().toString();
+                    if (!uuids.contains(id)) {
+                        uuids.add(id);
+                    }
+                }
+            }
+            return SharedSuggestionProvider.suggest(uuids, builder);
+        } catch (Exception e) {
+            return builder.buildFuture();
+        }
+    }
+
+    private static int grimoireRemoveEntityByUUID(CommandSourceStack source, Collection<? extends ServerPlayer> players, String uuidString, boolean grudge) {
+        UUID uuid;
+        try {
+            uuid = UUID.fromString(uuidString);
+        } catch (IllegalArgumentException e) {
+            source.sendFailure(Component.literal("Invalid UUID: " + uuidString));
+            return 0;
+        }
+
+        int total = 0;
+        for (ServerPlayer player : players) {
+            List<LivingEntity> stored = grudge
+                    ? SEHelper.getGrudgeEntities(player)
+                    : SEHelper.getAllyEntities(player);
+            for (LivingEntity living : stored) {
+                if (living.getUUID().equals(uuid)) {
+                    boolean changed = grudge
+                            ? SEHelper.removeGrudgeEntity(player, living)
+                            : SEHelper.removeAllyEntity(player, living);
+                    if (changed) total++;
+                    break;
+                }
+            }
+        }
+        final int count = total;
+        String list = grudge ? Component.translatable("commands.goety.misc.grimoire.grudge").getString() : Component.translatable("commands.goety.misc.grimoire.goodwill").getString();
+        source.sendSuccess(() -> Component.translatable("commands.goety.misc.grimoire.success.remove.entity", count, list), true);
+        return total;
     }
 }

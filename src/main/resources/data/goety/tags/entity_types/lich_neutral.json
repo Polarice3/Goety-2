@@ -52,6 +52,10 @@
     {
       "id": "born_in_chaos_v1:spiritof_chaos",
       "required": false
+    },
+    {
+      "id": "#vampirism:vampire",
+      "required": false
     }
   ]
 }

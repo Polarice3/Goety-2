@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "goety:prisoner",
+      "value": 15
+    }
+  ]
+}

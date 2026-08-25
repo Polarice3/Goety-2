@@ -100,6 +100,8 @@ public class ModTags {
         public static final TagKey<Item> BREWABLE_FOOD = tag("brewable_food");
         public static final TagKey<Item> GRAVE_GLOVE_BOOST = tag("grave_glove_boost");
         public static final TagKey<Item> THRASH_GLOVE_BOOST = tag("thrash_glove_boost");
+        public static final TagKey<Item> WRECKABLE = tag("wreckable");
+        public static final TagKey<Item> UNWRECKABLE = tag("unwreckable");
         public static final TagKey<Item> MAGIC_SWORD_SHOOTABLE = tag("magic_sword_shootable");
         public static final TagKey<Item> LICH_WITHER_ITEMS = tag("lich_wither_items");
         public static final TagKey<Item> RESPAWN_BOSS = tag("respawn_boss");
@@ -180,6 +182,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> UNTANGLEABLE = tag("untangleable");
         public static final TagKey<EntityType<?>> UNBLOWABLE_ENTITIES = tag("unblowable_entities");
         public static final TagKey<EntityType<?>> UNSHACKLEABLE = tag("unshackleable");
+        public static final TagKey<EntityType<?>> UNWRECKABLE = tag("unwreckable");
         public static final TagKey<EntityType<?>> BANISH_IMMUNE = tag("banish_immune");
         public static final TagKey<EntityType<?>> TELEKINESIS_IMMUNE = tag("telekinesis_immune");
         public static final TagKey<EntityType<?>> SKELETON_WOLF_BUFF = tag("skeleton_wolf_buff");
@@ -279,6 +282,7 @@ public class ModTags {
         public static final TagKey<Biome> WIND_MARKUP = tag("spell_markup/wind");
 
         public static final TagKey<Biome> ILLAGER_ASSAULT_BLACKLIST = tag("illager_assault_blacklist");
+        public static final TagKey<Biome> NO_SUNLIGHT = tag("no_sunlight");
 
         private static TagKey<Biome> tag(String name) {
             return create(Goety.location(name));

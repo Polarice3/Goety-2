@@ -168,6 +168,12 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> SMALL_DRAGON_FLAME_GROUND = PARTICLE_TYPES.register("small_dragon_flame_ground",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> NECRO_DRAGON_FLAME = PARTICLE_TYPES.register("necro_dragon_flame",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> NECRO_DRAGON_FLAME_GROUND = PARTICLE_TYPES.register("necro_dragon_flame_ground",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> END_FIRE = PARTICLE_TYPES.register("end_fire",
             () -> new SimpleParticleType(false));
 

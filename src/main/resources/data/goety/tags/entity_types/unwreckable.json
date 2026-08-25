@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "__comment": "entities that can drop damageable equipment regardless of Ring of Wrecking",
+  "values": [
+    "#forge:bosses",
+    "#goety:mini_bosses"
+  ]
+}

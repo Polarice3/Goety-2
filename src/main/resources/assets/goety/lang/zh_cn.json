@@ -3724,5 +3724,18 @@
   "info.goety.sarcophagus.occupied": "这口石棺正在被占用",
   "info.goety.sarcophagus.not_day": "你只能在白天睡觉",
   "info.goety.sarcophagus.too_far": "你现在不能休息，石棺太远了",
-  "info.goety.sarcophagus.obstructed": "这口石棺已被阻挡"
+  "info.goety.sarcophagus.obstructed": "这口石棺已被阻挡",
+  "item.goety.ring_of_wrecking": "破灭之戒",
+  "info.goety.ring_of_wrecking": "穿戴者或仆从杀死的生物将不再掉落可损坏的装备。",
+  "commands.goety.misc.grimoire.grudge": "怨恨",
+  "commands.goety.misc.grimoire.goodwill": "亲善",
+  "commands.goety.misc.grimoire.success.add.entity": "已向 %s 列表添加 %s 个实体",
+  "commands.goety.misc.grimoire.success.add.entityType": "已为 %s 名玩家将 %s 添加到 %s 列表",
+  "commands.goety.misc.grimoire.success.remove.entity": "已从 %s 列表移除 %s 个实体",
+  "commands.goety.misc.grimoire.success.remove.entityType": "已为 %s 名玩家从 %s 列表移除 %s",
+  "commands.goety.misc.grimoire.list": "=== %s 的 %s 列表 ===",
+  "commands.goety.misc.grimoire.list.empty": "空",
+  "commands.goety.misc.grimoire.list.entities": "实体：",
+  "commands.goety.misc.grimoire.list.entityTypes": "实体类型：",
+  "info.goety.sarcophagus.stop_sleeping": "离开石棺"
 }

@@ -4,7 +4,7 @@
   "activation_item": {
     "item": "goety:philosophers_stone"
   },
-  "craftType": "expert_nether",
+  "craftType": "forge",
   "soulCost": 5,
   "duration": 30,
   "ingredients": [

@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.items.ModTiers;
 import com.Polarice3.Goety.common.items.armor.MaleficHelm;
 import com.Polarice3.Goety.common.items.equipment.PhilosophersMaceItem;
 import com.Polarice3.Goety.config.ItemConfig;
+import com.Polarice3.Goety.init.ModTags;
 import com.google.common.collect.Maps;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
@@ -394,6 +395,10 @@ public class ItemHelper {
             return !helm.isBroken(itemStack);
         }
         return false;
+    }
+
+    public static boolean isWreckable(ItemStack itemStack) {
+        return (itemStack.isDamageableItem() || itemStack.is(ModTags.Items.WRECKABLE)) && !itemStack.is(ModTags.Items.UNWRECKABLE);
     }
 
     public static final Map<ItemLike, DyeColor> DYE_BY_WOOL = Util.make(() -> {

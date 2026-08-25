@@ -1,0 +1,22 @@
+{
+  "name": "破灭之戒",
+  "icon": "goety:ring_of_wrecking",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "虽然有些人乐于从倒下的敌人身上获取战利品，但也肯定有人不喜欢让背包里塞满损坏的盔甲、工具和武器，还得费心清理它们腾出空间。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ring_of_wrecking"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "幸运的是，这枚戒指会让那些不可堆叠的物品彻底碎裂，根本不会进入你的背包。不过，这对像你自己这样的生物并不起效，而且如果你想亲自击杀某个带着装备的仆从，给予仆从的任何物品也不会因此破碎。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ring_of_wrecking": 1
+  }
+}

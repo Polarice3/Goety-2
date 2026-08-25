@@ -984,25 +984,25 @@ public class MobUtil {
     }
 
     public static boolean isInSunlight(LivingEntity livingEntity){
+        BlockPos blockpos = BlockPos.containing(livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ());
         if (livingEntity.level().isDay() && !livingEntity.level().isClientSide) {
             float f = livingEntity.getLightLevelDependentMagicValue();
-            BlockPos blockpos = BlockPos.containing(livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ());
             boolean flag = livingEntity.isInWaterRainOrBubble() || livingEntity.isInPowderSnow || livingEntity.wasInPowderSnow;
             return f > 0.5F && livingEntity.getRandom().nextFloat() * 30.0F < (f - 0.4F) * 2.0F && !flag && livingEntity.level().canSeeSky(blockpos);
         }
 
-        return false;
+        return BlockFinder.isNotSunlessBiome(livingEntity.level, blockpos);
     }
 
     public static boolean isInSunlightNoChance(LivingEntity livingEntity){
+        BlockPos blockpos = BlockPos.containing(livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ());
         if (livingEntity.level.isDay() && !livingEntity.level.isClientSide) {
             float f = livingEntity.getLightLevelDependentMagicValue();
-            BlockPos blockpos = BlockPos.containing(livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ());
             boolean flag = livingEntity.isInWaterRainOrBubble() || livingEntity.isInPowderSnow || livingEntity.wasInPowderSnow;
             return f > 0.5F && !flag && livingEntity.level().canSeeSky(blockpos);
         }
 
-        return false;
+        return BlockFinder.isNotSunlessBiome(livingEntity.level, blockpos);
     }
 
     public static boolean isInSunlightNoRain(LivingEntity livingEntity){
@@ -1656,6 +1656,19 @@ public class MobUtil {
             }
         }
         return null;
+    }
+
+    @Nullable
+    public static Player getPlayerFromEntity(Entity entity) {
+        Player player = null;
+        if (entity != null) {
+            if (entity instanceof Player player1) {
+                player = player1;
+            } else if (getOwner(entity) instanceof Player player1) {
+                player = player1;
+            }
+        }
+        return player;
     }
 
     public static void disableShield(Entity target) {

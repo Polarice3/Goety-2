@@ -3,12 +3,14 @@ package com.Polarice3.Goety.common.magic.spells.nether;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.BreathingSpell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -155,7 +157,11 @@ public class FireBreathSpell extends BreathingSpell {
         if (this.rightStaff(staff)) {
             this.dragonBreathAttack(ModParticleTypes.DRAGON_FLAME.get(), entityLiving, ((double) range / 10) * 0.35D);
         } else {
-            this.dragonBreathAttack(ModParticleTypes.SMALL_DRAGON_FLAME.get(), entityLiving, 10, ((double) range / 10) * 0.55D, 0.05F);
+            ParticleOptions options = ModParticleTypes.SMALL_DRAGON_FLAME.get();
+            if (staff.is(ModItems.NAMELESS_STAFF.get())) {
+                options = ModParticleTypes.NECRO_DRAGON_FLAME.get();
+            }
+            this.dragonBreathAttack(options, entityLiving, 10, ((double) range / 10) * 0.55D, 0.05F);
         }
     }
 }

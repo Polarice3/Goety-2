@@ -1053,6 +1053,10 @@ public class BlockFinder {
         return flag;
     }
 
+    public static boolean isNotSunlessBiome(Level level, BlockPos blockPos) {
+        return !level.getBiome(blockPos).is(ModTags.Biomes.NO_SUNLIGHT);
+    }
+
     //Based on ChainsawTask by @Shadows-of-Fire: https://github.com/Shadows-of-Fire/Apotheosis/blob/1.20/src/main/java/dev/shadowsoffire/apotheosis/ench/enchantments/masterwork/ChainsawEnchant.java
     public static class ChopTreeTask implements EventTask {
         UUID owner;

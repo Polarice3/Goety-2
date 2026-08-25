@@ -3810,5 +3810,18 @@
   "info.goety.sarcophagus.occupied": "Este sarcófago está ocupado",
   "info.goety.sarcophagus.not_day": "Você só pode dormir durante o dia",
   "info.goety.sarcophagus.too_far": "Você não pode descansar agora; o sarcófago está muito longe",
-  "info.goety.sarcophagus.obstructed": "Este sarcófago está obstruído"
+  "info.goety.sarcophagus.obstructed": "Este sarcófago está obstruído",
+  "item.goety.ring_of_wrecking": "Anel da Destruição",
+  "info.goety.ring_of_wrecking": "Mobs mortos pelo usuário ou servos não deixarão mais cair equipamentos danificáveis.",
+  "commands.goety.misc.grimoire.grudge": "Rancor",
+  "commands.goety.misc.grimoire.goodwill": "Boa Vontade",
+  "commands.goety.misc.grimoire.success.add.entity": "Adicionado(s) %s entidade(s) à lista de %s",
+  "commands.goety.misc.grimoire.success.add.entityType": "Adicionado %s à lista de %s para %s jogadores",
+  "commands.goety.misc.grimoire.success.remove.entity": "Removido(s) %s entidade(s) da lista de %s",
+  "commands.goety.misc.grimoire.success.remove.entityType": "Removido %s da lista de %s para %s jogadores",
+  "commands.goety.misc.grimoire.list": "=== Lista de %s de %s ===",
+  "commands.goety.misc.grimoire.list.empty": "Vazio",
+  "commands.goety.misc.grimoire.list.entities": "Entidades:",
+  "commands.goety.misc.grimoire.list.entityTypes": "Tipos de Entidade:",
+  "info.goety.sarcophagus.stop_sleeping": "Sair do Sarcófago"
 }

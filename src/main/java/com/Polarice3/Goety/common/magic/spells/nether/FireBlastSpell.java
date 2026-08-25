@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.magic.spells.nether;
 
 import com.Polarice3.Goety.api.magic.SpellType;
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
 import com.Polarice3.Goety.client.particles.SphereExplodeParticleOption;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
@@ -18,6 +19,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,8 +83,13 @@ public class FireBlastSpell extends Spell {
             increase = 0.5F;
         }
         ColorUtil colorUtil = new ColorUtil(0xdd9c16);
-        worldIn.sendParticles(new ShockwaveParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius + increase, 1, true), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 0, 0, 0, 0, 0);
+        worldIn.sendParticles(new ShockwaveParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius + increase, 1, true), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 1, 0, 0, 0, 0);
         worldIn.sendParticles(new SphereExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius + increase, 1), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 1, 0, 0, 0, 0);
+        int particleAmount = worldIn.getRandom().nextIntBetweenInclusive(4, (rightStaff(staff) ? 16 : 8));
+        for (int i = 0; i < particleAmount; ++i) {
+            Vec3 vec3 = caster.position().add(0, 0.5F, 0).offsetRandom(worldIn.getRandom(), radius + increase);
+            worldIn.sendParticles(ModParticleTypes.BIG_FIRE.get(), vec3.x, vec3.y, vec3.z, 1, 0, 0, 0, 0);
+        }
         float trueDamage = Mth.clamp(damage + RandomUtil.nextInt(worldIn.getRandom(), (int) (maxDamage - damage)), damage, maxDamage);
 
         DamageSource damageSource = ModDamageSource.fireBreath(caster, caster);

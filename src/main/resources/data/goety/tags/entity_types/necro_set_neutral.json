@@ -40,6 +40,10 @@
     {
       "id": "born_in_chaos_v1:corpse_fish",
       "required": false
+    },
+    {
+      "id": "#vampirism:vampire",
+      "required": false
     }
   ]
 }

@@ -1,0 +1,10 @@
+{
+  "tag": "vampirism:hunter",
+  "soul_amount": 75,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "vampirism"
+    }
+  ]
+}

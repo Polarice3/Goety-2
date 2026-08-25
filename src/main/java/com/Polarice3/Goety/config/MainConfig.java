@@ -98,6 +98,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShriekObeliskRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> OminousIdolRevive;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SarcophagusUndead;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SarcophagusSleep;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PithosRespawn;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CrystalBallRespawn;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> HookBellBlackList;
@@ -256,6 +257,8 @@ public class MainConfig {
                 .defineInRange("ominousIdolLimit", 16, 0, Integer.MAX_VALUE);
         SarcophagusUndead = BUILDER.comment("Whether sleeping in a non-cushioned Sarcophagus would give debuffs to non-undead players when waking up the next day, Default: true")
                 .define("sarcophagusUndead", true);
+        SarcophagusSleep = BUILDER.comment("Whether Sarcophagus can be sleep in, Default: true")
+                .define("sarcophagusSleep", true);
         VoidFrameCoolTime = BUILDER.comment("How many ticks until Void Frames returns back to Locked State after being used, Default: 24000")
                 .defineInRange("voidFrameCoolTime", 24000, 0, Integer.MAX_VALUE);
         PithosRespawn = BUILDER.comment("Allow looted Pithos to regenerate Loot and spawn Skull Lord again when right-clicked with respawn_boss tagged item, Default: true")

@@ -326,7 +326,7 @@ public class Crusher extends HuntingIllagerEntity{
     protected void dropCustomDeathLoot(DamageSource pSource, int pLooting, boolean pRecentlyHit) {
         super.dropCustomDeathLoot(pSource, pLooting, pRecentlyHit);
         if (this.level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT) && pRecentlyHit) {
-            if (this.level.random.nextFloat() < 0.025F + (pLooting * 0.01F)) {
+            if (this.level.getRandom().nextFloat() < 0.025F + (pLooting * 0.01F)) {
                 ItemStack itemStack = ModItems.GREAT_HAMMER.get().getDefaultInstance();
                 if (this.isStorm()) {
                     itemStack = ModItems.STORMLANDER.get().getDefaultInstance();

@@ -217,7 +217,7 @@ public class ModItems {
     public static final RegistryObject<SingleStackItem> RING_OF_FORCE = ITEMS.register("ring_of_force", RingItem::new);
     public static final RegistryObject<SingleStackItem> RING_OF_THE_FORGE = ITEMS.register("ring_of_the_forge", RingItem::new);
     public static final RegistryObject<SingleStackItem> RING_OF_THE_DRAGON = ITEMS.register("ring_of_the_dragon", RingItem::new);
-//    public static final RegistryObject<SingleStackItem> RING_OF_WRECKING = ITEMS.register("ring_of_wrecking", RingItem::new);
+    public static final RegistryObject<SingleStackItem> RING_OF_WRECKING = ITEMS.register("ring_of_wrecking", RingItem::new);
     public static final RegistryObject<SingleStackItem> PENDANT_OF_HUNGER = ITEMS.register("pendant_of_hunger", PendantOfHungerItem::new);
     public static final RegistryObject<SingleStackItem> TARGETING_MONOCLE = ITEMS.register("targeting_monocle", TargetingMonocleItem::new);
     public static final RegistryObject<SingleStackItem> DARK_HAT = ITEMS.register("dark_hat", MagicHatItem::new);
