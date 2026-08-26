@@ -985,24 +985,30 @@ public class MobUtil {
 
     public static boolean isInSunlight(LivingEntity livingEntity){
         BlockPos blockpos = BlockPos.containing(livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ());
-        if (livingEntity.level().isDay() && !livingEntity.level().isClientSide) {
+        if (livingEntity.level().isDay() && !livingEntity.level.isClientSide) {
+            if (BlockFinder.isInSunlessBiome(livingEntity.level, blockpos)) {
+                return false;
+            }
             float f = livingEntity.getLightLevelDependentMagicValue();
             boolean flag = livingEntity.isInWaterRainOrBubble() || livingEntity.isInPowderSnow || livingEntity.wasInPowderSnow;
             return f > 0.5F && livingEntity.getRandom().nextFloat() * 30.0F < (f - 0.4F) * 2.0F && !flag && livingEntity.level().canSeeSky(blockpos);
         }
 
-        return BlockFinder.isNotSunlessBiome(livingEntity.level, blockpos);
+        return false;
     }
 
     public static boolean isInSunlightNoChance(LivingEntity livingEntity){
         BlockPos blockpos = BlockPos.containing(livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ());
         if (livingEntity.level.isDay() && !livingEntity.level.isClientSide) {
+            if (BlockFinder.isInSunlessBiome(livingEntity.level, blockpos)) {
+                return false;
+            }
             float f = livingEntity.getLightLevelDependentMagicValue();
             boolean flag = livingEntity.isInWaterRainOrBubble() || livingEntity.isInPowderSnow || livingEntity.wasInPowderSnow;
             return f > 0.5F && !flag && livingEntity.level().canSeeSky(blockpos);
         }
 
-        return BlockFinder.isNotSunlessBiome(livingEntity.level, blockpos);
+        return false;
     }
 
     public static boolean isInSunlightNoRain(LivingEntity livingEntity){

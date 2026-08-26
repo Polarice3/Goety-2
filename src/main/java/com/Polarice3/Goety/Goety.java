@@ -511,7 +511,9 @@ public class Goety {
             ComposterBlock.COMPOSTABLES.put(ModBlocks.LARGE_SIENNA_FERN.get().asItem(), 0.5F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.SIENNA_VINE.get().asItem(), 0.5F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.HENBANE_SEEDS.get(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.NIGHTSHADE_SEEDS.get(), 0.3F);
             ComposterBlock.COMPOSTABLES.put(ModItems.HENBANE_FLOWER.get(), 0.65F);
+            ComposterBlock.COMPOSTABLES.put(ModItems.NIGHTSHADE_BLOSSOM.get(), 0.65F);
             ComposterBlock.COMPOSTABLES.put(ModItems.SNAP_FUNGUS.get(), 0.65F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.ROTTEN_SAPLING.get().asItem(), 0.65F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_SAPLING.get().asItem(), 0.65F);
