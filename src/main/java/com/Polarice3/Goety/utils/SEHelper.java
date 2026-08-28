@@ -483,6 +483,7 @@ public class SEHelper {
     public static boolean teleportToArca(Player player){
         ISoulEnergy soulEnergy = SEHelper.getCapability(player);
         BlockPos blockPos = SEHelper.getArcaBlock(player);
+        player.stopRiding();
         if (blockPos != null) {
             BlockPos blockPos1 = BlockPos.containing(blockPos.getX() + 0.5F, blockPos.getY() + 0.5F, blockPos.getZ() + 0.5F);
             if (soulEnergy.getArcaBlockDimension() == player.level.dimension()) {

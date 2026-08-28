@@ -1571,15 +1571,12 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
     public void servantTick() {
         if (this.level instanceof ServerLevel serverLevel) {
             if (this.isGuardingArea()) {
-                if (this.distanceToSqr(this.vec3BoundPos()) > Mth.square(64.0F) && this.getTarget() == null || (this.vec3BoundPos().y - this.getY() > 12.0F)) {
-                    Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(this.getType(), serverLevel, this.getBoundPos());
-                    if (optional.isPresent()) {
-                        this.teleportOut();
-                        Vec3 vec3 = optional.get();
-                        if (this.ownedTeleport(vec3.x, vec3.y, vec3.z)) {
-                            this.teleportIn();
-                            this.refreshDimensions();
-                        }
+                if ((this.distanceToSqr(this.vec3BoundPos()) > Mth.square(64.0F) && this.getTarget() == null) || (this.vec3BoundPos().y - this.getY() > 12.0F)) {
+                    this.teleportOut();
+                    Vec3 vec3 = this.vec3BoundPos().add(0, 1, 0);
+                    if (this.ownedTeleport(vec3.x, vec3.y, vec3.z)) {
+                        this.teleportIn();
+                        this.refreshDimensions();
                     }
                 }
             }

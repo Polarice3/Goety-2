@@ -123,14 +123,19 @@ public class DarkArmorModel extends HumanoidModel<LivingEntity> {
 		if (this.villager) {
 			this.head.y += -1.0F;
 		}
-		this.bodyParts().forEach((modelPart -> modelPart.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha)));
+		super.renderToBuffer(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 		if (this.villager) {
 			this.head.y -= -1.0F;
 		}
 	}
 
 	@Override
+	protected Iterable<ModelPart> headParts() {
+		return ImmutableList.of(this.head);
+	}
+
+	@Override
 	protected Iterable<ModelPart> bodyParts() {
-		return ImmutableList.of(this.head, this.body, this.rightArm, this.leftArm, this.rightLeg, this.leftLeg);
+		return ImmutableList.of(this.body, this.rightArm, this.leftArm, this.rightLeg, this.leftLeg);
 	}
 }
