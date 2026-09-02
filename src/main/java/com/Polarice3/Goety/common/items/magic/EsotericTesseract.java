@@ -29,9 +29,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.capabilities.CapabilityProvider;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -206,6 +208,17 @@ public class EsotericTesseract extends Item implements IPersist {
             if (!mob.getPersistentData().isEmpty()) {
                 servantTag.put("ForgeData", mob.getPersistentData().copy());
             }
+            // Serialize capabilities. As serializeCaps() is protected, we have to use reflection
+            CompoundTag caps = null;
+            try {
+                Method serializeCaps = CapabilityProvider.class.getDeclaredMethod("serializeCaps");
+                serializeCaps.setAccessible(true);
+                caps = (CompoundTag) (serializeCaps.invoke(mob));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            if (caps != null) servantTag.put("ForgeCaps", caps);
+            // Serialize capabilities end
             mob.addAdditionalSaveData(servantTag);
             if (mob.hasCustomName()) {
                 servantTag.putString("CustomName", Component.Serializer.toJson(mob.getCustomName()));
@@ -300,7 +313,17 @@ public class EsotericTesseract extends Item implements IPersist {
                             if (servantTag.contains("ForgeData", 10)) {
                                 servant.getPersistentData().merge(servantTag.getCompound("ForgeData"));
                             }
-
+                            // Deserialize caps. Also we have to use reflection
+                            if (servantTag.contains("ForgeCaps", 10)) {
+                                try {
+                                    Method deserializeCaps = CapabilityProvider.class.getDeclaredMethod("deserializeCaps", CompoundTag.class);
+                                    deserializeCaps.setAccessible(true);
+                                    deserializeCaps.invoke(servant, servantTag.getCompound("ForgeCaps"));
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                            // Deserialize caps end
                             servant.readAdditionalSaveData(servantTag);
                             if (!servantTag.getString("CustomName").isEmpty()) {
                                 servant.setCustomName(Component.Serializer.fromJson(servantTag.getString("CustomName")));
