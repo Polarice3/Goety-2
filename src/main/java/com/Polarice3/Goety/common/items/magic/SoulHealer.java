@@ -33,7 +33,7 @@ import java.util.List;
 public class SoulHealer extends SingleStackItem implements ISoulContainer, IActivatable, IMobCharm, ISpellHolder {
 
     public SoulHealer() {
-        super(new Properties().rarity(Rarity.UNCOMMON));
+        super(new Properties().rarity(Rarity.UNCOMMON).stacksTo(1));
     }
 
     @Override

@@ -140,8 +140,10 @@ public class AllyTrampler extends RaiderServant implements ICharger, IAutoRideab
         if (pCompound.contains("AutoMode")) {
             this.setAutonomous(pCompound.getBoolean("AutoMode"));
         }
-        if (pCompound.contains("Saddle") || this.getAttributeValue(Attributes.MAX_HEALTH) == AttributesConfig.TramplerHealth.get()) {
+        if (pCompound.contains("Saddle")) {
             this.setSaddle(pCompound.getBoolean("Saddle"));
+        } else if (pCompound.contains("Health")) {
+            this.setSaddle(true);
         }
         if (pCompound.contains("ArmorItem")) {
             CompoundTag armorItem = pCompound.getCompound("ArmorItem");

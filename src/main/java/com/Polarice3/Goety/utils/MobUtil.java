@@ -128,7 +128,7 @@ public class MobUtil {
                 }
                 return entity.isAlliedTo(entity1) && entity1.isAlliedTo(entity);
             } else {
-                return entity.isAlliedTo(entity1) || entity1.isAlliedTo(entity) || entity == entity1
+                return (entity.isAlliedTo(entity1) && entity1.isAlliedTo(entity)) || entity == entity1
                         || (entity instanceof Player player && entity1 instanceof LivingEntity living && SEHelper.isAlly(player, living))
                         || (entity1 instanceof Player player1 && entity instanceof LivingEntity living1 && SEHelper.isAlly(player1, living1));
             }

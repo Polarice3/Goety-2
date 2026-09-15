@@ -43,6 +43,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -455,6 +456,23 @@ public class SEHelper {
                 String string = grudgeTypeList.getCompound(i).getString("id");
                 if (EntityType.byString(string).isPresent() &&
                         EntityType.byString(string).get() == entityType) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean isSavedGrudgeTag(ServerLevel level, UUID uuid, TagKey<EntityType<?>> tag) {
+        CompoundTag listsData = loadGrimoireFromWorld(level, uuid);
+
+        if (listsData.contains("grudgeTypeList", Tag.TAG_LIST)) {
+            ListTag grudgeTypeList = listsData.getList("grudgeTypeList", Tag.TAG_COMPOUND);
+            for (int i = 0; i < grudgeTypeList.size(); i++) {
+                String string = grudgeTypeList.getCompound(i).getString("id");
+                if (EntityType.byString(string).isPresent() &&
+                        EntityType.byString(string).get().is(tag)) {
                     return true;
                 }
             }

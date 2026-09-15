@@ -58,10 +58,10 @@ public class EvokerServant extends SpellcasterIllagerServant{
         super.registerGoals();
         this.goalSelector.addGoal(1, new EvokerCastingSpellGoal());
         this.goalSelector.addGoal(2, new AvoidTargetGoal<>(this, LivingEntity.class, 8.0F, 0.6D, 1.0D));
+        this.goalSelector.addGoal(2, new EvokerRavagingSpellGoal());
         this.goalSelector.addGoal(4, new EvokerSummonSpellGoal());
         this.goalSelector.addGoal(5, new EvokerAttackSpellGoal());
         this.goalSelector.addGoal(6, new EvokerWololoSpellGoal());
-        this.goalSelector.addGoal(6, new EvokerRavagingSpellGoal());
     }
 
     @Override
@@ -401,7 +401,7 @@ public class EvokerServant extends SpellcasterIllagerServant{
             return !(MobUtil.areAllies(mob, EvokerServant.this)) && !(mob instanceof OwnableEntity ownable && ownable.getOwner() != null && EvokerServant.this.getTrueOwner() != null && (ownable.getOwner() == EvokerServant.this.getTrueOwner() || MobUtil.areAllies(ownable.getOwner(), EvokerServant.this.getTrueOwner())));
         };
         private final Predicate<LivingEntity> ravagePredicate = mob -> {
-            return (mob.getType().is(ModTags.EntityTypes.VILLAGERS) || mob.getType().is(ModTags.EntityTypes.PILLAGERS)) && this.alliedPredicate.test(mob);
+            return (mob.getType().is(ModTags.EntityTypes.VILLAGERS) || mob.getType().is(ModTags.EntityTypes.PILLAGERS));
         };
         private final TargetingConditions ravageTargeting = TargetingConditions.forNonCombat().range(16.0D).selector(this.ravagePredicate);
         private final TargetingConditions pillagerTargeting = TargetingConditions.forNonCombat().range(16.0D).selector((p_32710_) -> {
@@ -430,11 +430,14 @@ public class EvokerServant extends SpellcasterIllagerServant{
                 if (EvokerServant.this.getTrueOwner() instanceof Player player) {
                     if (!SEHelper.hasResearch(player, ResearchList.RAVAGING)){
                         return false;
-                    } else if (EvokerServant.this.isGrudgedTowardsType(EntityType.VILLAGER) || EvokerServant.this.isGrudgedTowardsType(EntityType.PILLAGER)) {
+                    } else if (EvokerServant.this.getCommandPosEntity() instanceof Mob mob && this.ravagePredicate.test(mob) && !(mob instanceof RaiderServant raiderServant && EvokerServant.this.getLeader() == raiderServant) && mob.distanceTo(EvokerServant.this) <= 16.0D) {
+                        EvokerServant.this.setRavageTarget(mob);
+                        return true;
+                    } else if (EvokerServant.this.isGrudgedTowardsTag(ModTags.EntityTypes.VILLAGERS) || EvokerServant.this.isGrudgedTowardsTag(ModTags.EntityTypes.PILLAGERS)) {
                         TargetingConditions conditions = this.ravageTargeting;
-                        if (!EvokerServant.this.isGrudgedTowardsType(EntityType.VILLAGER)) {
+                        if (!EvokerServant.this.isGrudgedTowardsTag(ModTags.EntityTypes.VILLAGERS)) {
                             conditions = this.pillagerTargeting;
-                        } else if (!EvokerServant.this.isGrudgedTowardsType(EntityType.PILLAGER)) {
+                        } else if (!EvokerServant.this.isGrudgedTowardsTag(ModTags.EntityTypes.PILLAGERS)) {
                             conditions = this.villagerTargeting;
                         }
                         List<Mob> list = EvokerServant.this.level.getNearbyEntities(Mob.class, conditions, EvokerServant.this, EvokerServant.this.getBoundingBox().inflate(16.0D, 4.0D, 16.0D));
@@ -444,9 +447,6 @@ public class EvokerServant extends SpellcasterIllagerServant{
                             EvokerServant.this.setRavageTarget(list.get(EvokerServant.this.random.nextInt(list.size())));
                             return true;
                         }
-                    } else if (EvokerServant.this.getCommandPosEntity() instanceof Mob mob && this.ravagePredicate.test(mob) && !(mob instanceof RaiderServant raiderServant && EvokerServant.this.getLeader() == raiderServant) && mob.distanceTo(EvokerServant.this) <= 16.0D) {
-                        EvokerServant.this.setRavageTarget(mob);
-                        return true;
                     } else {
                         return false;
                     }

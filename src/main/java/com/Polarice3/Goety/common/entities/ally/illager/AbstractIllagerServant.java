@@ -632,9 +632,13 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
             itemEntity.discard();
         } else if (itemstack.getItem() instanceof IMobCharm && itemEntity.tickCount > 20 && this.getCharm().isEmpty()) {
             this.onItemPickup(itemEntity);
-            this.setCharm(itemstack);
-            this.take(itemEntity, itemstack.getCount());
-            itemEntity.discard();
+            this.setCharm(itemstack.split(1));
+            this.take(itemEntity, 1);
+            if (itemstack.isEmpty()) {
+                itemEntity.discard();
+            } else {
+                itemEntity.setItem(itemstack);
+            }
         } else {
             InventoryCarrier.pickUpItem(this, this, itemEntity);
         }
@@ -646,8 +650,13 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
     }
 
     public boolean wantsToPickUp(ItemStack itemStack) {
-        return MobsConfig.IllagerServantPickUpDrops.get()
-                && this.validFood(itemStack)
+        if (!MobsConfig.IllagerServantPickUpDrops.get()) {
+            return false;
+        }
+        if (itemStack.getItem() instanceof IMobCharm) {
+            return this.getCharm().isEmpty();
+        }
+        return this.validFood(itemStack)
                 && this.canHaveMoreFood()
                 && this.getInventory().canAddItem(itemStack);
     }
@@ -893,7 +902,7 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
                 if (!charm.isEmpty()) {
                     this.spawnAtLocation(charm);
                 }
-                this.setCharm(itemstack.copyAndClear());
+                this.setCharm(itemstack.split(1));
                 this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
                 if (this.level instanceof ServerLevel serverLevel) {
                     for (int i = 0; i < 7; ++i) {

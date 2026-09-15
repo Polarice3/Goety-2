@@ -257,7 +257,7 @@ public class BlackguardServant extends ZombieServant implements IShielded {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        return this.hurtShielded(source, amount, super.hurt(source, amount));
+        return this.hurtShielded(source, amount, () -> super.hurt(source, amount));
     }
 
     @Override
@@ -308,6 +308,6 @@ public class BlackguardServant extends ZombieServant implements IShielded {
             }
             return this.repairShield(pPlayer, itemstack);
         }
-        return InteractionResult.PASS;
+        return super.mobInteract(pPlayer, pHand);
     }
 }

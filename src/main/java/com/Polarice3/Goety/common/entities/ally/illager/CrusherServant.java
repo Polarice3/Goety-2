@@ -786,9 +786,15 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
                 AABB aabb = MobUtil.makeAttackRange(CrusherServant.this.getX() + CrusherServant.this.getHorizontalLookAngle().x * 2,
                         CrusherServant.this.getY(),
                         CrusherServant.this.getZ() + CrusherServant.this.getHorizontalLookAngle().z * 2, 3, 3, 3);
-                for (LivingEntity target : CrusherServant.this.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
-                    if (target != CrusherServant.this && !MobUtil.areAllies(CrusherServant.this, target)) {
-                        this.hurtTarget(target);
+                AABB boundingBox = CrusherServant.this.getBoundingBox();
+                for (LivingEntity target : CrusherServant.this.level.getEntitiesOfClass(LivingEntity.class, aabb.minmax(boundingBox))) {
+                    if (target != CrusherServant.this) {
+                        AABB box = target.getBoundingBox();
+                        if (box.intersects(aabb) || box.intersects(boundingBox)) {
+                            if (CrusherServant.this.getTarget() == target || (target instanceof Mob mob && mob.getTarget() == CrusherServant.this) || !MobUtil.areAllies(CrusherServant.this, target)) {
+                                this.hurtTarget(target);
+                            }
+                        }
                     }
                 }
                 CrusherServant.this.playSound(ModSounds.HAMMER_IMPACT.get());

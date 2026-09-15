@@ -19,6 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -558,6 +559,15 @@ public interface IOwned {
     }
 
     default void setHasSummonCheck(int count) {
+    }
+
+    default boolean isGrudgedTowardsTag(TagKey<EntityType<?>> tag) {
+        if (this.getTrueOwner() instanceof Player player) {
+            return SEHelper.getGrudgeEntityTypes(player).stream().anyMatch(entityType -> entityType.is(tag));
+        } else if (this.getOwnerId() != null && this instanceof Entity entity && entity.level instanceof ServerLevel serverLevel) {
+            return SEHelper.isSavedGrudgeTag(serverLevel, this.getOwnerId(), tag);
+        }
+        return false;
     }
 
     default boolean isGrudgedTowardsType(EntityType<?> entityType) {

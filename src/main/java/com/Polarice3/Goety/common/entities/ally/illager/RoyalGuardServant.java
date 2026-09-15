@@ -292,7 +292,7 @@ public class RoyalGuardServant extends AbstractIllagerServant implements IShield
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        return this.hurtShielded(source, amount, super.hurt(source, amount));
+        return this.hurtShielded(source, amount, () -> super.hurt(source, amount));
     }
 
     @Override
@@ -328,6 +328,6 @@ public class RoyalGuardServant extends AbstractIllagerServant implements IShield
                 return this.repairShield(pPlayer, itemstack);
             }
         }
-        return InteractionResult.PASS;
+        return super.mobInteract(pPlayer, pHand);
     }
 }

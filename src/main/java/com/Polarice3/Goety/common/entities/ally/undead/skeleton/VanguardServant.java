@@ -274,7 +274,7 @@ public class VanguardServant extends AbstractSkeletonServant implements IShielde
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        return this.hurtShielded(source, amount, super.hurt(source, amount));
+        return this.hurtShielded(source, amount, () -> super.hurt(source, amount));
     }
 
     @Override
@@ -374,7 +374,7 @@ public class VanguardServant extends AbstractSkeletonServant implements IShielde
             }
             return this.repairShield(pPlayer, itemstack);
         }
-        return InteractionResult.PASS;
+        return super.mobInteract(pPlayer, pHand);
     }
 
     class VanguardAttackGoal extends MeleeAttackGoal {

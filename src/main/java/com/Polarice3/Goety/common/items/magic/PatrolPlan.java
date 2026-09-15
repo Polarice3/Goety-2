@@ -87,7 +87,9 @@ public class PatrolPlan extends Item implements IShowOutlines {
         if (player.isShiftKeyDown() || player.isCrouching()){
             itemstack.setTag(null);
             player.displayClientMessage(Component.translatable("info.goety.patrol.clear"), true);
-            ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.BOOK_PAGE_TURN, 1.0F, 0.5F));
+            if (!level.isClientSide) {
+                ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.BOOK_PAGE_TURN, 1.0F, 0.5F));
+            }
             return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
         }
         return InteractionResultHolder.pass(itemstack);
@@ -124,12 +126,16 @@ public class PatrolPlan extends Item implements IShowOutlines {
             if (togglePos(stack, entry)) {
                 if (player != null) {
                     player.displayClientMessage(Component.translatable("info.goety.patrol.add"), true);
-                    ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.BOOK_PAGE_TURN, 1.0F, 1.0F));
+                    if (!level.isClientSide) {
+                        ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.BOOK_PAGE_TURN, 1.0F, 1.0F));
+                    }
                 }
             } else {
                 if (player != null) {
                     player.displayClientMessage(Component.translatable("info.goety.patrol.remove"), true);
-                    ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.BOOK_PAGE_TURN, 1.0F, 0.5F));
+                    if (!level.isClientSide) {
+                        ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.BOOK_PAGE_TURN, 1.0F, 0.5F));
+                    }
                 }
             }
         }

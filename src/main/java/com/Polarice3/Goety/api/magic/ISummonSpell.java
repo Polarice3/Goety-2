@@ -49,9 +49,6 @@ public interface ISummonSpell extends ISpell{
         int s = SummonDownDuration();
         if (effectinstance1 != null) {
             i += effectinstance1.getAmplifier();
-            if (effectinstance1.getDuration() > s) {
-                s = effectinstance1.getDuration();
-            }
             entityLiving.removeEffectNoUpdate(GoetyEffects.SUMMON_DOWN.get());
         } else {
             --i;

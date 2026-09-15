@@ -72,9 +72,15 @@ public class ShieldedMeleeGoal<T extends Mob & IShielded> extends Goal {
 
     public void attack(double x, double y, double z) {
         AABB aabb = MobUtil.makeAttackRange(x, y, z, 3, 3, 3);
-        for (LivingEntity target : this.mob.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
-            if (target != this.mob && !MobUtil.areAllies(target, this.mob)) {
-                this.mob.doHurtTarget(target);
+        AABB boundingBox = this.mob.getBoundingBox();
+        for (LivingEntity target : this.mob.level.getEntitiesOfClass(LivingEntity.class, aabb.minmax(boundingBox))) {
+            if (target != this.mob) {
+                AABB box = target.getBoundingBox();
+                if (box.intersects(aabb) || box.intersects(boundingBox)) {
+                    if (this.mob.getTarget() == target || (target instanceof Mob mob1 && mob1.getTarget() == this.mob) || !MobUtil.areAllies(this.mob, target)) {
+                        this.mob.doHurtTarget(target);
+                    }
+                }
             }
         }
     }

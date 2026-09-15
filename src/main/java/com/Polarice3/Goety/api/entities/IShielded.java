@@ -18,6 +18,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
 
+import java.util.function.BooleanSupplier;
+
 public interface IShielded {
     default boolean hasShield(){
         return false;
@@ -78,7 +80,7 @@ public interface IShielded {
         }
     }
 
-    default boolean hurtShielded(DamageSource source, float amount, boolean defaultHurt) {
+    default boolean hurtShielded(DamageSource source, float amount, BooleanSupplier defaultHurt) {
         if (this instanceof Mob mob) {
             if (!mob.level.isClientSide) {
                 if (this.hasShield() && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
@@ -99,7 +101,7 @@ public interface IShielded {
                 }
             }
         }
-        return defaultHurt;
+        return defaultHurt.getAsBoolean();
     }
 
     default void handleShieldedEvent(byte event) {
