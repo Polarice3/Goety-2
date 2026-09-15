@@ -36,6 +36,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         sarcophagus(ModBlocks.SHADE_SARCOPHAGUS.get(), "goety:block/shade_stone_polished");
         sarcophagus(ModBlocks.STONE_SARCOPHAGUS.get(), "minecraft:block/stone_bricks");
         sarcophagus(ModBlocks.DEEPSLATE_SARCOPHAGUS.get(), "minecraft:block/deepslate_bricks");
+        sarcophagus(ModBlocks.SANDSTONE_SARCOPHAGUS.get(), "minecraft:block/sandstone");
         sarcophagus(ModBlocks.OMINOUS_SARCOPHAGUS.get(), "goety:block/ominous_stone_bricks");
         sarcophagus(ModBlocks.CRYPT_SARCOPHAGUS.get(), "goety:block/crypt_stone_polished");
 
@@ -50,12 +51,16 @@ public class ModBlockStateProvider extends BlockStateProvider {
         plushie(ModBlocks.PLUSHIE_8.get());
         plushie(ModBlocks.PLUSHIE_9.get());
         plushie(ModBlocks.PLUSHIE_10.get());
+        plushie(ModBlocks.PLUSHIE_11.get());
+        plushie(ModBlocks.PLUSHIE_12.get());
 
         sculpturedStatue(ModBlocks.SCULPTURED_STATUE.get());
         sculpturedStatue(ModBlocks.STATUE_1.get());
         sculpturedStatue(ModBlocks.STATUE_2.get());
         sculpturedStatue(ModBlocks.STATUE_3.get());
         sculpturedStatue(ModBlocks.STATUE_4.get());
+        sculpturedStatue(ModBlocks.STATUE_5.get());
+        sculpturedStatue(ModBlocks.STATUE_6.get());
 
         simpleBlockWithItem(ModBlocks.DIAMOND_MOLD_BLOCK.get());
 

@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.ally.illager.raider;
 
 import com.Polarice3.Goety.api.entities.IAutoRideable;
+import com.Polarice3.Goety.api.entities.INeedSaddle;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -64,7 +65,7 @@ import javax.annotation.Nullable;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class ModRavager extends RaiderServant implements PlayerRideable, IAutoRideable, IRavager {
+public class ModRavager extends RaiderServant implements PlayerRideable, IAutoRideable, INeedSaddle, IRavager {
     private static final UUID ARMOR_MODIFIER_UUID = UUID.fromString("d404309f-25d3-4837-8828-e2b7b0ea79fd");
     private static final EntityDataAccessor<Boolean> DATA_SADDLE_ID = SynchedEntityData.defineId(ModRavager.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> AUTO_MODE = SynchedEntityData.defineId(ModRavager.class, EntityDataSerializers.BOOLEAN);
@@ -682,7 +683,14 @@ public class ModRavager extends RaiderServant implements PlayerRideable, IAutoRi
         }
         AttributeInstance attributeInstance = this.getAttribute(Attributes.MAX_HEALTH);
         if (attributeInstance != null) {
-            attributeInstance.setBaseValue(AttributesConfig.RavagerSaddleHealth.get());
+            double original = attributeInstance.getBaseValue();
+            double newValue = AttributesConfig.RavagerSaddleHealth.get();
+            attributeInstance.setBaseValue(newValue);
+            if (playSound) {
+                if (newValue > original) {
+                    this.heal((float) (newValue - original));
+                }
+            }
         }
         this.setSaddle(true);
     }

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:map"
+    },
+    {
+      "tag": "forge:feathers"
+    },
+    {
+      "item": "minecraft:ink_sac"
+    },
+    {
+      "item": "goety:command_focus"
+    }
+  ],
+  "result":
+  {
+    "item": "goety:patrol_plan"
+  }
+}

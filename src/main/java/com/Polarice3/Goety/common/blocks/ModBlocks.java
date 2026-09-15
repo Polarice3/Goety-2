@@ -278,11 +278,12 @@ public class ModBlocks {
     public static final RegistryObject<Block> SHADE_SARCOPHAGUS = isterRegister("shade_sarcophagus", () -> new SarcophagusBlock(ShadeStoneProperties(), "shade"));
     public static final RegistryObject<Block> STONE_SARCOPHAGUS = isterRegister("stone_sarcophagus", () -> new SarcophagusBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS), "stone"));
     public static final RegistryObject<Block> DEEPSLATE_SARCOPHAGUS = isterRegister("deepslate_sarcophagus", () -> new SarcophagusBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICKS), "deepslate"));
+    public static final RegistryObject<Block> SANDSTONE_SARCOPHAGUS = isterRegister("sandstone_sarcophagus", () -> new SarcophagusBlock(BlockBehaviour.Properties.copy(Blocks.SANDSTONE), "sandstone"));
     public static final RegistryObject<Block> OMINOUS_SARCOPHAGUS = isterRegister("ominous_sarcophagus", () -> new SarcophagusBlock(OminousStoneProperties(), "ominous"));
     public static final RegistryObject<Block> CRYPT_SARCOPHAGUS = isterRegister("crypt_sarcophagus", () -> new SarcophagusBlock(CryptStoneProperties(), "crypt"));
 
     public static final RegistryObject<Block> ROYAL_CARPET = register("royal_carpet", () ->
-            new WoolCarpetBlock(DyeColor.RED, BlockBehaviour.Properties.copy(Blocks.RED_CARPET)));
+            new StairCarpetBlock(DyeColor.RED, BlockBehaviour.Properties.copy(Blocks.RED_CARPET)));
     public static final RegistryObject<Block> ROYAL_CARPET_CORNER = register("royal_carpet_corner", () ->
             new FancyCarpetBlock(DyeColor.RED, BlockBehaviour.Properties.copy(Blocks.RED_CARPET)));
     public static final RegistryObject<Block> ROYAL_CARPET_EDGE = register("royal_carpet_edge", () ->
@@ -291,7 +292,7 @@ public class ModBlocks {
             new FancyCarpetBlock(DyeColor.RED, BlockBehaviour.Properties.copy(Blocks.RED_CARPET)));
 
     public static final RegistryObject<Block> FROSTY_CARPET = register("frosty_carpet", () ->
-            new WoolCarpetBlock(DyeColor.BLUE, BlockBehaviour.Properties.copy(Blocks.BLUE_CARPET)));
+            new StairCarpetBlock(DyeColor.BLUE, BlockBehaviour.Properties.copy(Blocks.BLUE_CARPET)));
     public static final RegistryObject<Block> FROSTY_CARPET_CORNER = register("frosty_carpet_corner", () ->
             new FancyCarpetBlock(DyeColor.BLUE, BlockBehaviour.Properties.copy(Blocks.BLUE_CARPET)));
     public static final RegistryObject<Block> FROSTY_CARPET_EDGE = register("frosty_carpet_edge", () ->
@@ -1287,12 +1288,16 @@ public class ModBlocks {
     public static final RegistryObject<PlushieBlock> PLUSHIE_8 = curioIsterRegister("plushie_8", () -> new PlushieBlock(8));
     public static final RegistryObject<PlushieBlock> PLUSHIE_9 = curioIsterRegister("plushie_9", () -> new PlushieBlock(9));
     public static final RegistryObject<PlushieBlock> PLUSHIE_10 = curioIsterRegister("plushie_10", () -> new PlushieBlock(10));
+    public static final RegistryObject<PlushieBlock> PLUSHIE_11 = curioIsterRegister("plushie_11", () -> new PlushieBlock(11));
+    public static final RegistryObject<PlushieBlock> PLUSHIE_12 = curioIsterRegister("plushie_12", () -> new PlushieBlock(12));
 
     public static final RegistryObject<SculpturedStatueBlock> SCULPTURED_STATUE = isterRegister("sculptured_statue", SculpturedStatueBlock::new);
     public static final RegistryObject<SculpturedStatueBlock> STATUE_1 = isterRegister("sculptured_statue_1", () -> new SculpturedStatueBlock(1));
     public static final RegistryObject<SculpturedStatueBlock> STATUE_2 = isterRegister("sculptured_statue_2", () -> new SculpturedStatueBlock(2));
     public static final RegistryObject<SculpturedStatueBlock> STATUE_3 = isterRegister("sculptured_statue_3", () -> new SculpturedStatueBlock(3, true));
     public static final RegistryObject<SculpturedStatueBlock> STATUE_4 = isterRegister("sculptured_statue_4", () -> new SculpturedStatueBlock(4));
+    public static final RegistryObject<SculpturedStatueBlock> STATUE_5 = isterRegister("sculptured_statue_5", () -> new SculpturedStatueBlock(5));
+    public static final RegistryObject<SculpturedStatueBlock> STATUE_6 = isterRegister("sculptured_statue_6", () -> new SculpturedStatueBlock(6, true));
 
     //Custom Items
     public static final RegistryObject<Item> SNAP_WARTS_ITEM = ModItems.ITEMS.register("snap_warts",

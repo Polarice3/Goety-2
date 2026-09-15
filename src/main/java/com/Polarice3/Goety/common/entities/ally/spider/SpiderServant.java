@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.ally.spider;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.ai.servant.ServantWanderGoal;
 import com.Polarice3.Goety.common.ritual.RitualRequirements;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModTags;
@@ -55,7 +55,7 @@ public class SpiderServant extends AbstractSpiderServant {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(5, new Summoned.WanderGoal<>(this, 0.8D));
+        this.goalSelector.addGoal(5, new ServantWanderGoal<>(this, 0.8D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.attackGoal();

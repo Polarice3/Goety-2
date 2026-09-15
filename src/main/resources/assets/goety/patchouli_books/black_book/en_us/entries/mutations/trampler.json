@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "It appears you've found a way to create a violent horse-like steed made from Illagers instead of Villagers. Unlike Ravagers, these steeds appeared ready to be mounted out of the gate."
+      "text": "It appears you've found a way to create a violent horse-like steed made from Illagers instead of Villagers."
     },
     {
       "type": "goety:ritual",

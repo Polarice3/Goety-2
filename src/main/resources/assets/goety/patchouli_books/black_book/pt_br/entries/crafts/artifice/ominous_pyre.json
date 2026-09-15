@@ -48,6 +48,11 @@
     },
     {
       "type": "patchouli:text",
+      "title": "Servos Guarda Real",
+      "text": "Requirements: $(li)Servo Vingadore $(li)4 Ominous Statues $(li)16 Royal/Frosty Carpets $(li)4 Estandartes $(li)4 Bigornas $(li)4 $(l:goety:crafts/stash_urn)Urnas de Reserva$()"
+    },
+    {
+      "type": "patchouli:text",
       "title": "Servos Invocadores",
       "text": "Requisitos: $(li)Neollager Mágico $(li)32 Estantes de Livros/Poder de Encantamento $(li)16 Velas Acesas $(li)4 Cabeças $(li)4 Vasos com Plantas $(li)2 Estandartes $(li)4 $(l:goety:crafts/stash_urn)Urnas de Reserva$() $(li)1 Atril"
     },

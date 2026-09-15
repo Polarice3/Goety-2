@@ -1,0 +1,20 @@
+{
+  "name": "パトロール計画書",
+  "icon": "goety:patrol_plan",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この紙には、従者がパトロールする複数の地点を記録できます。地点を記録したら、その神を従者に対して右クリックするだけで、パトロールを開始させることができます。パトロールを停止させるには、従者の移動モードを変更するか、その紙を手に持った状態で従者をShiftキーを押しながら右クリックしてください。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:patrol_plan"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:command_horn",
+      "text": "パトロール計画が設定済みの紙をオフハンドに持って、「なし」モードに設定した$(l:crafts/command_horn)命令の角笛$()を使用すると、選択されたすべての従者がその位置でパトロールを開始します。Shiftキーを押しながら右クリックで使用すると、選択された従者のパトロールを停止します。"
+    }
+  ]
+}

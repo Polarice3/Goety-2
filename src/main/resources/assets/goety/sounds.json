@@ -3492,6 +3492,46 @@
     ],
     "subtitle": "subtitle.goety.mountaineer_death"
   },
+  "royal_guard_pre_attack": {
+    "sounds": [
+      {
+        "name": "goety:vindicator/novelty1"
+      },
+      {
+        "name": "goety:vindicator/novelty2"
+      },
+      {
+        "name": "goety:vindicator/novelty3"
+      },
+      {
+        "name": "goety:vindicator/novelty4"
+      }
+    ],
+    "subtitle": "subtitle.goety.royal_guard_pre_attack"
+  },
+  "royal_guard_step": {
+    "sounds": [
+      {
+        "name": "goety:blackguard/step1"
+      },
+      {
+        "name": "goety:blackguard/step2"
+      },
+      {
+        "name": "goety:blackguard/step3"
+      },
+      {
+        "name": "goety:blackguard/step4"
+      },
+      {
+        "name": "goety:blackguard/step5"
+      },
+      {
+        "name": "goety:blackguard/step6"
+      }
+    ],
+    "subtitle": "subtitle.goety.royal_guard_step"
+  },
   "geomancer_ambient": {
     "sounds": [
       {
@@ -6911,6 +6951,26 @@
       }
     ]
   },
+  "dirt_shatter": {
+    "sounds": [
+      {
+        "name": "goety:random/dirt_shatter1"
+      },
+      {
+        "name": "goety:random/dirt_shatter2"
+      },
+      {
+        "name": "goety:random/dirt_shatter3"
+      }
+    ]
+  },
+  "dirt_shatter_three": {
+    "sounds": [
+      {
+        "name": "goety:random/dirt_shatter3"
+      }
+    ]
+  },
   "thunder_strike_epic": {
     "sounds": [
       {
@@ -8056,6 +8116,13 @@
     ],
     "subtitle": "subtitle.goety.hammer_impact"
   },
+  "hammer_shimmer_impact_four": {
+    "sounds": [
+      {
+        "name": "goety:item/hammer_shimmer_impact4"
+      }
+    ]
+  },
   "bonehead_hammer_impact": {
     "sounds": [
       {
@@ -8145,6 +8212,13 @@
       }
     ],
     "subtitle": "subtitle.goety.sword_shing"
+  },
+  "double_axe_impact_shing": {
+    "sounds": [
+      {
+        "name": "goety:haunted_armor/step"
+      }
+    ]
   },
   "soul_knife_no_soul_swing": {
     "sounds": [
@@ -8389,6 +8463,20 @@
         "name": "goety:item/broom_impact6"
       }
     ]
+  },
+  "shield_break": {
+    "sounds": [
+      {
+        "name": "goety:item/shield_break1"
+      },
+      {
+        "name": "goety:item/shield_break2"
+      },
+      {
+        "name": "goety:item/shield_break3"
+      }
+    ],
+    "subtitle": "subtitles.entity.item.break"
   },
   "void_blast": {
     "sounds": [

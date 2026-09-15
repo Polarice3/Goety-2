@@ -2,7 +2,6 @@ package com.Polarice3.Goety.client.render.block;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.blocks.OminousBrazierStatueBlock;
-import com.Polarice3.Goety.common.blocks.OminousStatueBlock;
 import com.Polarice3.Goety.common.blocks.entities.OminousBrazierStatueBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -106,7 +105,7 @@ public class OminousBrazierStatueRenderer implements BlockEntityRenderer<Ominous
         pStack.scale(-1.0F, -1.0F, 1.0F);
         pStack.translate(-0.5D, 0.0D, 0.5D);
         if (pBlockEntity != null) {
-            Direction facing = pBlockEntity.getBlockState().getValue(OminousStatueBlock.FACING);
+            Direction facing = pBlockEntity.getBlockState().getValue(OminousBrazierStatueBlock.FACING);
             switch (facing) {
                 case NORTH:
                 default:

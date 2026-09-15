@@ -36,6 +36,8 @@ public enum ServantModeProvider implements IEntityComponentProvider, IServerData
             if (servant.getTrueOwner() instanceof Player) {
                 if (servant.isFollowing()) {
                     mode = "follow";
+                } else if (servant.isPatrolling()) {
+                    mode = "patrol";
                 } else if (servant.isGuardingArea()) {
                     mode = "guard";
                 } else if (servant.isWandering()) {

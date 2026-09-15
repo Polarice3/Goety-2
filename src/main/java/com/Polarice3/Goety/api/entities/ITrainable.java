@@ -12,10 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -209,6 +206,21 @@ public interface ITrainable {
                             servant1.setBoundPos(null);
                             servant1.setWandering(false);
                             servant1.setStaying(false);
+                        }
+                        for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
+                            boolean flag = false;
+                            if (!equipmentSlot.isArmor()) {
+                                if (!servant1.canHaveWeapon()) {
+                                    flag = true;
+                                }
+                            } else {
+                                if (!servant1.canWearArmorSlot(equipmentSlot)) {
+                                    flag = true;
+                                }
+                            }
+                            if (flag) {
+                                servant.dropEquipment(equipmentSlot, mob.getItemBySlot(equipmentSlot).copyAndClear());
+                            }
                         }
                     }
                     converted.playAmbientSound();

@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Após aprender mais sobre os Illagers, como eles surgiram de uma luta antiga onde seus ancestais Aldeões pegaram em armas para se defender, você concebeu e encontrou uma maneira de introduzir violência nos corações dos Aldeões... junto com servidão."
+      "text": "Após aprender mais sobre os Illagers, como eles surgiram de uma luta antiga onde seus ancestrais Aldeões pegaram em armas para se defender, você concebeu e encontrou uma maneira de introduzir violência nos corações dos Aldeões... junto com servidão."
     },
     {
       "type": "goety:ritual",
@@ -33,7 +33,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Embora armados com a besta sofisticada, esses Illagers são bastante simples em sua abordagem ao combate. Felizmente, seus servos sabem recuar quando seu alvo se aproxima deles."
+      "text": "Embora armados com a besta sofisticada, esses Illagers são bastante simples em sua abordagem ao combate. Felizmente, seus servos sabem recuar quando seu alvo se aproxima deles. Eles podem aceitar flechas personalizadas clicando com o botão direito neles com até uma pilha delas, que usarão ao atirar."
     },
     {
       "type": "patchouli:entity",
@@ -66,7 +66,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Um Vingador especializado que pode coletar carne não cozida e cozinhará a comida em seu inventário em um Defumador ou Fornalha próximo. Shift + clique com o botão direito com a mão vazia neles lhe dará a primeira comida em seu inventário."
+      "text": "Um Vingador especializado que pode coletar ingredientes, como carne não cozida, e os cozinhará em um Defumador ou Fornalha próximo, ou os montará em uma Bancada de Trabalho próxima para formar uma refeição de verdade. Shift + clique com o botão direito com a mão vazia neles lhe dará a primeira comida em seu inventário."
     },
     {
       "type": "patchouli:entity",
@@ -83,7 +83,16 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Estes Illagers são geralmente os que forjam armas para outros Illagers, mas também podem esmagar seus inimigos com seu poderoso martelo."
+      "text": "Estes Illagers são geralmente os que forjam armas para outros Illagers, mas também podem esmagar seus inimigos com seu poderoso martelo. Eles também podem pegar minério de um baú ao qual estão vinculados e fundi-los em uma Fornalha ou Alto-forno próximo, e também forjarão armas para outros Illagers se de alguma forma estiverem privados delas, ou farão uma versão melhor se tiverem os recursos e o Illager em questão não tiver uma arma encantada. Eles também são capazes de criar Massas de Reparo, que usarão para reparar golens próximos danificados."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:royal_guard_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Illagers de alto escalão encarregados de guardar seus superiores através de intimidação e golpes poderosos de suas maças. Se estiverem sem escudo, clique com o botão direito neles com uma Barra de Ferro para devolver seu escudo quando não estiverem atacando."
     },
     {
       "type": "patchouli:entity",
@@ -207,6 +216,12 @@
     {
       "type": "patchouli:text",
       "text": "Illagers podem receber armaduras (se a configuração estiver definida como verdadeira) e podem receber um Totem da Imortalidade, desde que sua mão secundária esteja vazia. Clicar com o botão direito neles com um Graveto fará com que eles soltem seu Totem de sua Mão Secundária."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:soul_healer",
+      "title": "Amuletos",
+      "text": "Alguns itens podem ser dados a um Illager que lhes concede habilidades adicionais. Simplesmente clique com o botão direito em um Illager para equipá-lo com um amuleto, clique com o botão direito neles com um Graveto para remover quaisquer amuletos que estejam equipados (se eles não estiverem mais/não estiverem segurando um Totem na mão secundária)."
     }
   ]
 }

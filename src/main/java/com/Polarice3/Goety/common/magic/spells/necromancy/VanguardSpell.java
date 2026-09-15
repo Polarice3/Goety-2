@@ -12,12 +12,10 @@ import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.ItemStack;
@@ -119,10 +117,7 @@ public class VanguardSpell extends SummonSpell {
                     this.SummonSap(caster, summonedentity);
                     this.setTarget(caster, summonedentity);
                     if (worldIn.addFreshEntity(summonedentity)) {
-                        worldIn.sendParticles(ModParticleTypes.LICH.get(), summonedentity.getX(), summonedentity.getY(), summonedentity.getZ(), 1, 0, 0, 0, 0.0F);
-                        ServerParticleUtil.summonPowerfulUndeadParticles(worldIn, summonedentity);
-                        this.playSound(worldIn, summonedentity, ModSounds.SOUL_EXPLODE.get(), 0.25F + (worldIn.random.nextFloat() / 2.0F), 1.0F);
-                        this.playSound(worldIn, summonedentity, SoundEvents.ENDERMAN_TELEPORT, 0.25F + (worldIn.random.nextFloat() / 2.0F), 1.0F);
+                        this.namelessSummon(worldIn, caster, staff, summonedentity);
                     }
                     this.summonAdvancement(caster, summonedentity);
                 }

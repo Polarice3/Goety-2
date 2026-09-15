@@ -53,12 +53,15 @@ import com.Polarice3.Goety.common.world.features.ModFeatures;
 import com.Polarice3.Goety.common.world.features.trees.trunkplacers.ModTrunkPlacerTypes;
 import com.Polarice3.Goety.common.world.placements.ModPlacementType;
 import com.Polarice3.Goety.common.world.processors.ModProcessors;
+import com.Polarice3.Goety.common.world.processors.ruletest.ModRuleTests;
+import com.Polarice3.Goety.common.world.structures.ModStructurePieces;
 import com.Polarice3.Goety.common.world.structures.ModStructureTypes;
 import com.Polarice3.Goety.compat.OtherModCompat;
 import com.Polarice3.Goety.config.*;
 import com.Polarice3.Goety.init.*;
 import com.Polarice3.Goety.mixin.FireBlockAccessor;
 import com.Polarice3.Goety.utils.ModPotionUtil;
+import com.Polarice3.Goety.utils.SpellItemCache;
 import com.google.common.collect.Maps;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
@@ -151,7 +154,9 @@ public class Goety {
         ModLootModifier.GLOBAL_LOOT_MODIFIER.register(modEventBus);
         ModRituals.RITUALS.register(modEventBus);
         ModStructureTypes.STRUCTURE_TYPE.register(modEventBus);
+        ModStructurePieces.STRUCTURE_PIECE.register(modEventBus);
         ModPlacementType.STRUCTURE_PLACEMENT_TYPE.register(modEventBus);
+        ModRuleTests.RULE_TESTS.register(modEventBus);
         ModProcessors.STRUCTURE_PROCESSOR.register(modEventBus);
         ModCreativeTab.CREATIVE_MODE_TABS.register(modEventBus);
 
@@ -234,6 +239,7 @@ public class Goety {
 
         OtherModCompat.setup(event);
         event.enqueueWork(() -> {
+            SpellItemCache.build();
             ModCauldronInteraction.init();
             DispenserBlock.registerBehavior(ModBlocks.TALL_SKULL_ITEM.get(), new OptionalDispenseItemBehavior() {
                 protected ItemStack execute(BlockSource source, ItemStack stack) {
@@ -581,6 +587,8 @@ public class Goety {
         event.put(ModEntityType.HOSTILE_BLACK_WOLF.get(), HostileBlackWolf.setCustomAttributes().build());
         event.put(ModEntityType.FRAYED.get(), Frayed.setCustomAttributes().build());
         event.put(ModEntityType.RATTLED.get(), Rattled.setCustomAttributes().build());
+        event.put(ModEntityType.ZOMBIE_VINDICATOR.get(), HostileZombieVindicator.setCustomAttributes().build());
+        event.put(ModEntityType.SKELETON_PILLAGER.get(), HostileSkeletonPillager.setCustomAttributes().build());
         event.put(ModEntityType.REAPER.get(), Reaper.setCustomAttributes().build());
         event.put(ModEntityType.WRAITH.get(), Wraith.setCustomAttributes().build());
         event.put(ModEntityType.BORDER_WRAITH.get(), BorderWraith.setCustomAttributes().build());
@@ -609,6 +617,7 @@ public class Goety {
         event.put(ModEntityType.JUNGLE_ZOMBIE_SERVANT.get(), JungleZombieServant.setCustomAttributes().build());
         event.put(ModEntityType.FRAYED_SERVANT.get(), FrayedServant.setCustomAttributes().build());
         event.put(ModEntityType.BLACKGUARD_SERVANT.get(), BlackguardServant.setCustomAttributes().build());
+        event.put(ModEntityType.BLACKGUARD_VARIANT_SERVANT.get(), ZombieRoyalGuardServant.setCustomAttributes().build());
         event.put(ModEntityType.SKELETON_SERVANT.get(), SkeletonServant.setCustomAttributes().build());
         event.put(ModEntityType.STRAY_SERVANT.get(), StrayServant.setCustomAttributes().build());
         event.put(ModEntityType.WITHER_SKELETON_SERVANT.get(), WitherSkeletonServant.setCustomAttributes().build());
@@ -656,12 +665,14 @@ public class Goety {
         event.put(ModEntityType.PRISONER.get(), Villager.createAttributes().build());
         event.put(ModEntityType.NEOLLAGER.get(), Neollager.setCustomAttributes().build());
         event.put(ModEntityType.PILLAGER_SERVANT.get(), PillagerServant.setCustomAttributes().build());
+        event.put(ModEntityType.IMPERIAL_GUARD_SERVANT.get(), ImperialGuardServant.setCustomAttributes().build());
         event.put(ModEntityType.PIKER_SERVANT.get(), PikerServant.setCustomAttributes().build());
         event.put(ModEntityType.SIGNALER_SERVANT.get(), SignalerServant.setCustomAttributes().build());
         event.put(ModEntityType.VINDICATOR_SERVANT.get(), VindicatorServant.setCustomAttributes().build());
         event.put(ModEntityType.VINDICATOR_CHEF_SERVANT.get(), VindicatorChefServant.setCustomAttributes().build());
         event.put(ModEntityType.MOUNTAINEER_SERVANT.get(), MountaineerServant.setCustomAttributes().build());
         event.put(ModEntityType.CRUSHER_SERVANT.get(), CrusherServant.setCustomAttributes().build());
+        event.put(ModEntityType.ROYAL_GUARD_SERVANT.get(), RoyalGuardServant.setCustomAttributes().build());
         event.put(ModEntityType.EVOKER_SERVANT.get(), EvokerServant.setCustomAttributes().build());
         event.put(ModEntityType.GEOMANCER_SERVANT.get(), GeomancerServant.setCustomAttributes().build());
         event.put(ModEntityType.ICEOLOGER_SERVANT.get(), IceologerServant.setCustomAttributes().build());
@@ -758,6 +769,8 @@ public class Goety {
         event.register(ModEntityType.HOSTILE_BLACK_WOLF.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkDayMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.FRAYED.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Frayed::checkFrayedSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.RATTLED.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Rattled::checkRattledSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(ModEntityType.ZOMBIE_VINDICATOR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(ModEntityType.SKELETON_PILLAGER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.REAPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.BORDER_WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);

@@ -1,0 +1,19 @@
+{
+  "name": "Soul Healer",
+  "icon": "goety:soul_healer",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A common amongst Illagers within Woodland Mansions, these artifacts heals the user the same way casting the $(l:focuses/soul_heal_focus)Soul Heal spell$() does."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:soul_healer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "You can also give a Soul Healer to an Illager servant, where they will now take and store half of the soul energy per kill into the trinket, and will use it once they have enough and they're below half of their max health, where they cannot use it again for the duration of the spell's cool down."
+    }
+  ]
+}

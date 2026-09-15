@@ -1296,10 +1296,7 @@ public class ModEvents {
                                     killed.spawnAtLocation(new ItemStack(Items.PIGLIN_HEAD));
                                 }
                                 if (MobsConfig.TallSkullDrops.get()) {
-                                    if (killed instanceof Villager || killed instanceof AbstractIllager) {
-                                        killed.spawnAtLocation(new ItemStack(ModBlocks.TALL_SKULL_ITEM.get()));
-                                    }
-                                    if (killed instanceof Witch || (killed instanceof Cultist && killed.getType() != ModEntityType.APOSTLE.get())) {
+                                    if (killed.getType().is(ModTags.EntityTypes.TALL_HEAD) || killed instanceof Villager || killed instanceof AbstractIllager || killed instanceof Witch || (killed instanceof Cultist && killed.getType() != ModEntityType.APOSTLE.get())) {
                                         killed.spawnAtLocation(new ItemStack(ModBlocks.TALL_SKULL_ITEM.get()));
                                     }
                                 }
@@ -1425,20 +1422,20 @@ public class ModEvents {
                     }
                 }
             }
-            if (living instanceof SpellcasterIllager || living instanceof Witch || living instanceof Cultist) {
+            if ((living instanceof SpellcasterIllager && !(living instanceof Crusher) && !(living instanceof Piker)) || living instanceof Witch || living instanceof Warlock || living instanceof Heretic) {
                 if (living.level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
                     if (living.getTags().contains(ConstantPaths.structureMob())) {
                         float chance = 0.025F;
                         chance += (float) event.getLootingLevel() / 100;
-                        if (living.level.random.nextFloat() <= chance) {
-                            event.getDrops().add(ItemHelper.itemEntityDrop(living, new ItemStack(ModItems.FORBIDDEN_FRAGMENT.get())));
+                        if (living.level.getRandom().nextFloat() <= chance) {
+                            event.getDrops().add(ItemHelper.itemEntityDrop(living, new ItemStack(ModItems.FORBIDDEN_PIECE.get())));
                         }
                     }
                 }
             }
             if (MobsConfig.TallSkullDrops.get()) {
                 if (living.level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
-                    if (living instanceof AbstractVillager || living instanceof Prisoner || living instanceof AbstractIllager || living instanceof Witch || living instanceof Cultist) {
+                    if (living.getType().is(ModTags.EntityTypes.TALL_HEAD) || living instanceof AbstractVillager || living instanceof Prisoner || living instanceof AbstractIllager || living instanceof Witch || living instanceof Cultist) {
                         if (living.level.getServer() != null) {
                             LootTable loottable = living.level.getServer().getLootData().getLootTable(ModLootTables.TALL_SKULL);
                             LootParams.Builder lootcontext$builder = MobUtil.createLootContext(event.getSource(), living);

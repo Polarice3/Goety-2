@@ -226,6 +226,21 @@ public class GoetyBaseEffect extends MobEffect {
                 }
             }
         }
+        /*if (this == GoetyEffects.SOUL_BURN.get()){
+            if (livingEntity.tickCount % 20 == 0) {
+                livingEntity.hurt(ModDamageSource.getDamageSource(world, ModDamageSource.MAGIC_FIRE), 2.0F);
+                if (livingEntity instanceof Player player) {
+                    int amount;
+                    if (ISoulContainer.MAX_SOULS <= 300) {
+                        amount = 5;
+                    } else {
+                        amount = (ISoulContainer.MAX_SOULS / 300) * 5;
+                    }
+                    SEHelper.decreaseSouls(player, amount);
+                }
+
+            }
+        }*/
         if (this == GoetyEffects.WOUNDED.get()) {
             if (livingEntity.tickCount % 10 == 0) {
                 if (world instanceof ServerLevel serverLevel) {

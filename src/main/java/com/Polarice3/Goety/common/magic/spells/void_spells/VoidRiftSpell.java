@@ -85,7 +85,7 @@ public class VoidRiftSpell extends Spell {
         int warmUp = this.castDuration(caster, staff) - 5;
         if (castTime >= warmUp){
             if (caster instanceof Player player && !focus.isEmpty()) {
-                SEHelper.addCooldown(player, focus.getItem(), this.spellCooldown(caster));
+                SEHelper.addSpellCooldown(player, this, this.spellCooldown(caster));
                 SEHelper.sendSEUpdatePacket(player);
             }
         }

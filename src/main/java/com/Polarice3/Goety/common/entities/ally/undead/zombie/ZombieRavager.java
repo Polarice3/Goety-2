@@ -139,9 +139,9 @@ public class ZombieRavager extends ModRavager {
     @Override
     public void convertNewEquipment(Entity entity){
         if (!this.level.isClientSide) {
-            if (entity instanceof Ravager) {
+            if (entity instanceof Ravager ravager) {
                 this.equipSaddle(false);
-                this.setHealth(((Ravager) entity).getHealth());
+                this.setHealth(ravager.getHealth());
                 this.updateArmor();
             } else if (entity instanceof ModRavager modRavager) {
                 if (modRavager.hasSaddle()) {

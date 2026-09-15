@@ -1,0 +1,15 @@
+{
+  "name": "Massa de Reparo",
+  "icon": "goety:repair_putty",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Uma substância milagrosa que pode ser aplicada em um constructo vivo ou golem de qualquer material e repará-los, desde que o usuário segure um martelo na mão secundária."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:repair_putty"
+    }
+  ]
+}

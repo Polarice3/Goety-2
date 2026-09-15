@@ -516,13 +516,13 @@ public class DarkWand extends Item implements IWand {
                                 float coolPercent = (float) this.ShotsFired(stack) / chargeSpell.shotsNumber(player, stack);
                                 this.setShots(stack, 0);
                                 if (!spell.hasCustomCooldown(player, stack, IWand.getFocus(stack), Mth.floor(chargeSpell.spellCooldown(player) * coolPercent))) {
-                                    SEHelper.addCooldown(player, IWand.getFocus(stack).getItem(), Mth.floor(chargeSpell.spellCooldown(player) * coolPercent));
+                                    SEHelper.addSpellCooldown(player, spell, Mth.floor(chargeSpell.spellCooldown(player) * coolPercent));
                                 }
                             }
                         } else {
                             if (!spell.hasCustomCooldown(player, stack, IWand.getFocus(stack), Mth.floor(chargeSpell.spellCooldown(player)))) {
                                 if (CastTime > chargeSpell.castUp(player, stack)) {
-                                    SEHelper.addCooldown(player, IWand.getFocus(stack).getItem(), Mth.floor(chargeSpell.spellCooldown(player)));
+                                    SEHelper.addSpellCooldown(player, spell, Mth.floor(chargeSpell.spellCooldown(player)));
                                 }
                             }
                         }
@@ -736,14 +736,14 @@ public class DarkWand extends Item implements IWand {
                 }
                 if (playerEntity.isCreative()){
                     if (!spell.hasCustomCooldown(caster, stack, IWand.getFocus(stack), spell.spellCooldown(playerEntity))) {
-                        SEHelper.addCooldown(playerEntity, IWand.getFocus(stack).getItem(), spell.spellCooldown(playerEntity));
+                        SEHelper.addSpellCooldown(playerEntity, spell, spell.spellCooldown(playerEntity));
                     }
                     return stack.getTag() != null;
                 } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(caster, stack))) {
                     if (stack.getTag() != null) {
                         SEHelper.decreaseSouls(playerEntity, SoulUse(caster, stack));
                         if (!spell.hasCustomCooldown(caster, stack, IWand.getFocus(stack), spell.spellCooldown(playerEntity))) {
-                            SEHelper.addCooldown(playerEntity, IWand.getFocus(stack).getItem(), spell.spellCooldown(playerEntity));
+                            SEHelper.addSpellCooldown(playerEntity, spell, spell.spellCooldown(playerEntity));
                         }
                         SEHelper.sendSEUpdatePacket(playerEntity);
                         return true;
@@ -777,7 +777,7 @@ public class DarkWand extends Item implements IWand {
                         if (flag) {
                             this.setShots(stack, 0);
                             if (!spell.hasCustomCooldown(caster, stack, IWand.getFocus(stack), spell.spellCooldown(playerEntity))) {
-                                SEHelper.addCooldown(playerEntity, IWand.getFocus(stack).getItem(), spell.spellCooldown(playerEntity));
+                                SEHelper.addSpellCooldown(playerEntity, spell, spell.spellCooldown(playerEntity));
                             }
                         }
                     }
@@ -817,7 +817,7 @@ public class DarkWand extends Item implements IWand {
                         if (flag) {
                             this.setShots(stack, 0);
                             if (!spell.hasCustomCooldown(caster, stack, IWand.getFocus(stack), spell.spellCooldown(playerEntity))) {
-                                SEHelper.addCooldown(playerEntity, IWand.getFocus(stack).getItem(), spell.spellCooldown(playerEntity));
+                                SEHelper.addSpellCooldown(playerEntity, spell, spell.spellCooldown(playerEntity));
                             }
                         }
                     }

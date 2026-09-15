@@ -1,30 +1,24 @@
 {
-  "type": "goety:ritual",
-  "ritual_type": "goety:craft",
-  "activation_item": {
-    "item": "minecraft:saddle"
-  },
-  "craftType": "forge",
-  "soulCost": 1,
-  "duration": 30,
-  "research": "ravaging",
-  "ingredients": [
-    {
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PSP",
+    "CBC",
+    "C C"
+  ],
+  "key": {
+    "B": {
       "tag": "forge:storage_blocks/silver"
     },
-    {
-      "item": "minecraft:chain"
+    "P": {
+      "tag": "forge:ingots/silver"
     },
-    {
-      "item": "minecraft:chain"
+    "S": {
+      "item": "minecraft:saddle"
     },
-    {
-      "item": "minecraft:chain"
-    },
-    {
+    "C": {
       "item": "minecraft:chain"
     }
-  ],
+  },
   "result": {
     "item": "goety:ominous_saddle"
   },

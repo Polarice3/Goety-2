@@ -3,7 +3,7 @@
   "pools": [
     {
       "bonus_rolls": 0.0,
-      "rolls": 3.0,
+      "rolls": 1.0,
       "entries": [
         {
           "type": "minecraft:item",
@@ -18,7 +18,8 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:paper"
+          "name": "minecraft:paper",
+          "weight": 30
         },
         {
           "type": "minecraft:item",
@@ -243,6 +244,38 @@
             }
           ],
           "name": "minecraft:gold_nugget",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:ink_sac",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:feather",
           "weight": 15
         }
       ]

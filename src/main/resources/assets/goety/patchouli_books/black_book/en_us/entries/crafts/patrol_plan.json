@@ -1,0 +1,20 @@
+{
+  "name": "Patrol Plan",
+  "icon": "goety:patrol_plan",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "This parchment can hold multiple positions for your servants to patrol around. Simply record your positions and right-click the parchment on your servant for them to start patrolling. To stop your servants from patrolling, simply change their movement mode or shift right-clicking on them with the plan."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:patrol_plan"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:command_horn",
+      "text": "Using a $(l:crafts/command_horn)Command Horn$() on None mode while having a filled Patrol Plan offhand will cause all selected servants to patrol at the positions. Blowing it while shift right-clicking will stop selected servants from patrolling."
+    }
+  ]
+}

@@ -692,6 +692,16 @@ public class ModEntityType {
                     .sized(0.6F, 1.99F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<HostileZombieVindicator>> ZOMBIE_VINDICATOR = register("hostile_zombie_vindicator",
+            EntityType.Builder.of(HostileZombieVindicator::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<HostileSkeletonPillager>> SKELETON_PILLAGER = register("hostile_skeleton_pillager",
+            EntityType.Builder.of(HostileSkeletonPillager::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<Reaper>> REAPER = register("reaper",
             EntityType.Builder.of(Reaper::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F)
@@ -806,6 +816,11 @@ public class ModEntityType {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<ZombieVindicatorServant>> ZOMBIE_VINDICATOR_SERVANT = register("zombie_vindicator",
+            EntityType.Builder.of(ZombieVindicatorServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<HuskServant>> HUSK_SERVANT = register("husk_servant",
             EntityType.Builder.of(HuskServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)
@@ -836,8 +851,18 @@ public class ModEntityType {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<ZombieRoyalGuardServant>> BLACKGUARD_VARIANT_SERVANT = register("blackguard_variant_servant",
+            EntityType.Builder.of(ZombieRoyalGuardServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<SkeletonServant>> SKELETON_SERVANT = register("skeleton_servant",
             EntityType.Builder.of(SkeletonServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<SkeletonPillagerServant>> SKELETON_PILLAGER_SERVANT = register("skeleton_pillager",
+            EntityType.Builder.of(SkeletonPillagerServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F)
                     .clientTrackingRange(8));
 
@@ -923,16 +948,6 @@ public class ModEntityType {
     public static final RegistryObject<EntityType<PhantomServant>> PHANTOM_SERVANT = register("phantom_servant",
             EntityType.Builder.of(PhantomServant::new, MobCategory.MONSTER)
                     .sized(0.9F, 0.5F)
-                    .clientTrackingRange(8));
-
-    public static final RegistryObject<EntityType<SkeletonPillagerServant>> SKELETON_PILLAGER_SERVANT = register("skeleton_pillager",
-            EntityType.Builder.of(SkeletonPillagerServant::new, MobCategory.MONSTER)
-                    .sized(0.6F, 1.99F)
-                    .clientTrackingRange(8));
-
-    public static final RegistryObject<EntityType<ZombieVindicatorServant>> ZOMBIE_VINDICATOR_SERVANT = register("zombie_vindicator",
-            EntityType.Builder.of(ZombieVindicatorServant::new, MobCategory.MONSTER)
-                    .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 
     public static final RegistryObject<EntityType<BoundEvoker>> BOUND_EVOKER = register("bound_evoker",
@@ -1086,6 +1101,13 @@ public class ModEntityType {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(10));
 
+    public static final RegistryObject<EntityType<ImperialGuardServant>> IMPERIAL_GUARD_SERVANT = register("imperial_guard_servant",
+            EntityType.Builder.of(ImperialGuardServant::new, MobCategory.MONSTER)
+                    .noSummon() //WIP
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<PikerServant>> PIKER_SERVANT = register("piker_servant",
             EntityType.Builder.of(PikerServant::new, MobCategory.MONSTER)
                     .canSpawnFarFromPlayer()
@@ -1118,6 +1140,12 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<CrusherServant>> CRUSHER_SERVANT = register("crusher_servant",
             EntityType.Builder.of(CrusherServant::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<RoyalGuardServant>> ROYAL_GUARD_SERVANT = register("royal_guard_servant",
+            EntityType.Builder.of(RoyalGuardServant::new, MobCategory.MONSTER)
                     .canSpawnFarFromPlayer()
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(10));

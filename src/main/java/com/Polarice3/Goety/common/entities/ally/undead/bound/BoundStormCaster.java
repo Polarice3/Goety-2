@@ -10,16 +10,14 @@ import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SLightningPacket;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.ColorUtil;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModDamageSource;
-import com.Polarice3.Goety.utils.ParticleUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
@@ -107,6 +105,15 @@ public class BoundStormCaster extends AbstractBoundIllager {
     public void addAdditionalSaveData(CompoundTag p_33734_) {
         super.addAdditionalSaveData(p_33734_);
         p_33734_.putInt("StormSpellTicks", this.castingTime);
+    }
+
+    @Override
+    protected ResourceLocation getDefaultLootTable() {
+        if (this.isNatural()){
+            return ModLootTables.NATURAL_BOUND_STORM_CASTER;
+        } else {
+            return super.getDefaultLootTable();
+        }
     }
 
     public void setAnimationState(String input) {

@@ -48,6 +48,11 @@
     },
     {
       "type": "patchouli:text",
+      "title": "Royal Guard Servants",
+      "text": "Requirements: $(li)Vindicator Servant $(li)4 Ominous Statues $(li)16 Royal/Frosty Carpets $(li)4 Banners $(li)4 Anvils $(li)4 $(l:goety:crafts/stash_urn)Stash Urns$()"
+    },
+    {
+      "type": "patchouli:text",
       "title": "Evoker Servants",
       "text": "Requirements: $(li)Magic Neollager $(li)32 Bookshelves/Enchant Power $(li)16 Lit Candles $(li)4 Heads $(li)4 Filled Flower Pots $(li)2 Banners $(li)4 $(l:goety:crafts/stash_urn)Stash Urns$() $(li)1 Lectern"
     },

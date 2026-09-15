@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.items.magic;
 
 import com.Polarice3.Goety.api.entities.ally.IServant;
-import com.Polarice3.Goety.common.magic.spells.utility.CommandSpell;
+import com.Polarice3.Goety.common.magic.ModSpells;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.utils.EntityFinder;
@@ -32,7 +32,7 @@ public class OrderFocus extends MagicFocus{
     public static String SERVANT_CLIENT_LIST = "servantClientList";
 
     public OrderFocus() {
-        super(new CommandSpell());
+        super(ModSpells.ORDER);
     }
 
     @Override

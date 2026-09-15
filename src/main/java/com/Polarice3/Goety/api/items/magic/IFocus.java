@@ -2,6 +2,6 @@ package com.Polarice3.Goety.api.items.magic;
 
 import com.Polarice3.Goety.api.magic.ISpell;
 
-public interface IFocus {
+public interface IFocus extends ISpellHolder{
     ISpell getSpell();
 }

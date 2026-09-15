@@ -2,41 +2,22 @@ package com.Polarice3.Goety.api.items.magic;
 
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.TotemFinder;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public interface ITotem extends ISoulContainer {
-    String MAX_SOUL_AMOUNT = "Max Souls";
-    int MAX_SOULS = MainConfig.MaxSouls.get();
 
-    int getMaxSouls();
+    @Override
+    default boolean hasMaxAmount() {
+        return true;
+    }
 
     default void setTagTick(ItemStack stack){
-        if (stack.getTag() == null){
-            CompoundTag compound = stack.getOrCreateTag();
-            compound.putInt(SOULS_AMOUNT, 0);
-            compound.putInt(MAX_SOUL_AMOUNT, this.getMaxSouls());
-        }
-        if (!stack.getTag().contains(MAX_SOUL_AMOUNT)){
-            CompoundTag compound = stack.getOrCreateTag();
-            compound.putInt(MAX_SOUL_AMOUNT, this.getMaxSouls());
-        }
-        if (stack.getTag().getInt(SOULS_AMOUNT) > stack.getTag().getInt(MAX_SOUL_AMOUNT)){
-            stack.getTag().putInt(SOULS_AMOUNT, stack.getTag().getInt(MAX_SOUL_AMOUNT));
-        }
-        if (stack.getTag().getInt(SOULS_AMOUNT) < 0){
-            stack.getTag().putInt(SOULS_AMOUNT, 0);
-        }
+        ISoulContainer.super.setTagTick(stack);
     }
 
     static boolean isFull(ItemStack itemStack) {
-        if (itemStack.getTag() == null){
-            return false;
-        }
-        int soulCount = itemStack.getTag().getInt(SOULS_AMOUNT);
-        int MaxSouls = itemStack.getTag().getInt(MAX_SOUL_AMOUNT);
-        return soulCount == MaxSouls;
+        return ISoulContainer.isFull(itemStack);
     }
 
     static boolean isEmpty(ItemStack itemStack) {
@@ -60,11 +41,7 @@ public interface ITotem extends ISoulContainer {
     }
 
     static int maximumSouls(ItemStack itemStack){
-        if (itemStack.getTag() != null){
-            return itemStack.getTag().getInt(MAX_SOUL_AMOUNT);
-        } else {
-            return 0;
-        }
+        return ISoulContainer.maximumSouls(itemStack);
     }
 
     static void setSoulsAmount(ItemStack itemStack, int souls){
@@ -77,21 +54,11 @@ public interface ITotem extends ISoulContainer {
     }
 
     static void setMaxSoulAmount(ItemStack itemStack, int souls){
-        if (!(itemStack.getItem() instanceof ITotem)) {
-            return;
-        }
-        itemStack.getOrCreateTag().putInt(MAX_SOUL_AMOUNT, souls);
+        ISoulContainer.setMaxSoulAmount(itemStack, souls);
     }
 
     static void increaseSouls(ItemStack itemStack, int souls) {
-        if (!(itemStack.getItem() instanceof ITotem) || itemStack.getTag() == null) {
-            return;
-        }
-        int Soulcount = itemStack.getTag().getInt(SOULS_AMOUNT);
-        if (!isFull(itemStack)) {
-            int finalCount = Math.min(Soulcount + souls, maximumSouls(itemStack));
-            itemStack.getOrCreateTag().putInt(SOULS_AMOUNT, finalCount);
-        }
+        ISoulContainer.increaseSouls(itemStack, souls);
     }
 
     static void decreaseSouls(ItemStack itemStack, int souls) {

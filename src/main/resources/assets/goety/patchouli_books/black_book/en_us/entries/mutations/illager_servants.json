@@ -83,7 +83,16 @@
     },
     {
       "type": "patchouli:text",
-      "text": "These Illagers are usually the ones that forge weapons for other Illagers, but they can also smash apart their foes with their mighty hammer. They can also take ore from a chest they're bound to and smelt them at a nearby Furnace or Blast Furnace, and will also craft weapons to other Illagers if they're somehow deprived of them, or make a better version if they have the resources and the Illager in question doesn't have an enchanted weapon."
+      "text": "These Illagers are usually the ones that forge weapons for other Illagers, but they can also smash apart their foes with their mighty hammer. They can also take ore from a chest they're bound to and smelt them at a nearby Furnace or Blast Furnace, and will also craft weapons to other Illagers if they're somehow deprived of them, or make a better version if they have the resources and the Illager in question doesn't have an enchanted weapon. They're also capable of creating Repair Putties, which they will use to repair nearby damaged golems."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:royal_guard_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "High-ranking Illagers charged with guarding their superiors through intimidation and powerful blows from their maces. If they're shield-less, right click on them with an Iron Ingot to give them their shield back when they're not attacking."
     },
     {
       "type": "patchouli:entity",
@@ -91,7 +100,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "A practitioner of the dark arts, though one that's limited to only two spells, spells they perform quite well though. Combat-wise they love to run around in order to avoid getting stabbed. If their master learned $(l:rumors/ravaging)the ways of ravaging$(), they are able to transform a Villager into a Ravaged which requires $(l:goety:focuses/command_focus)commanding$() a $(l:goety:mutations/illager_servants#banner)leading$() Evoker to one, or one nearby if Villagers as a whole are $(l:goety:crafts/grimoire_of_grudges)grudged against$(), while also having two Evokers nearby."
+      "text": "A practitioner of the dark arts, though one that's limited to only two spells, spells they perform quite well though. Combat-wise they love to run around in order to avoid getting stabbed. If their master learned $(l:rumors/ravaging)the ways of ravaging$(), they are able to transform a Villager into a Ravaged, or a Pillager into a Trampler, which requires $(l:goety:focuses/command_focus)commanding$() a $(l:goety:mutations/illager_servants#banner)leading$() Evoker to one, or a Villager nearby if Villagers as a whole are $(l:goety:crafts/grimoire_of_grudges)grudged against$(), while also having two Evokers nearby."
     },
     {
       "type": "patchouli:entity",
@@ -207,6 +216,12 @@
     {
       "type": "patchouli:text",
       "text": "Illagers can be given armor (if config is set to true) and can be given a Totem of Undying so long as their offhand is empty. Right-clicking on them with a Stick will cause them to drop their Totem from their Offhand."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:soul_healer",
+      "title": "Charms",
+      "text": "Some items can be given to an Illager that gives them additional abilities. Simply right-click on an Illager to equip them a charm, right-click on them with a Stick to remove any charms they're equipped with (if they're no longer/not holding a Totem offhand)."
     }
   ]
 }

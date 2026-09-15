@@ -1,0 +1,20 @@
+{
+  "name": "巡逻计划书",
+  "icon": "goety:patrol_plan",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这份名单可以记录多个位置，将这些位置提供给你的仆从就可以让它们去周围巡逻。你记录好位置后，手持这份名单右键你的仆从，他们就会开始巡逻。如果你想让你家仆从停止巡逻，只需更改他们的行为模式（例如改为跟随或待命），或是再手持计划书右键它们一次"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:patrol_plan"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:command_horn",
+      "text": "在同时手持记录好的巡逻计划书和调整为“无”模式的$(l:crafts/command_horn)命令呼号n$()时，使用命令呼号可以让所有听到命令的仆从前往你记录的位置巡逻，如果是潜行时使用命令呼号，这些仆从就会停止巡逻"
+    }
+  ]
+}

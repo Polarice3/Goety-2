@@ -2,6 +2,8 @@
   "replace": false,
   "__comment": "servants that heals and lose limited lifespan through Wild set.",
   "values": [
+    "goety:snapper",
+    "goety:gnasher",
     "goety:jungle_zombie_servant",
     "goety:mossy_skeleton_servant",
     "goety:muck_wraith_servant",

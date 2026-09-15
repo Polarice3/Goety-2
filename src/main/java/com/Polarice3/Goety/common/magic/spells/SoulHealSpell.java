@@ -13,19 +13,21 @@ import com.Polarice3.Goety.utils.RandomUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class SoulHealSpell extends Spell {
 
     @Override
     public SpellStat defaultStats() {
-        return super.defaultStats().setPotency(1);
+        return super.defaultStats().setPotency(1).setRadius(1.0D);
     }
 
     @Override
@@ -73,13 +75,20 @@ public class SoulHealSpell extends Spell {
         }
         float heal = RandomUtil.nextInt(worldIn.getRandom(), SpellConfig.SoulHealAmount.get() * Math.max(1, potency)) + 1.0F;
         caster.heal(heal);
+        List<LivingEntity> list = worldIn.getEntitiesOfClass(LivingEntity.class, caster.getBoundingBox().inflate(8.0D * Math.max(radius, 1)), livingEntity -> EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity) && (MobUtil.areAllies(caster, livingEntity) || (MobUtil.getOwner(livingEntity) != null && MobUtil.getOwner(livingEntity) == caster)));
         if (radius > 0) {
-            for (LivingEntity livingEntity : worldIn.getEntitiesOfClass(LivingEntity.class, caster.getBoundingBox().inflate(8.0D * radius))) {
+            for (LivingEntity livingEntity : list) {
                 if (MobUtil.areAllies(caster, livingEntity) || (MobUtil.getOwner(livingEntity) != null && MobUtil.getOwner(livingEntity) == caster)) {
                     livingEntity.heal(heal);
                     healParticles(livingEntity, worldIn);
                 }
             }
+        } else if (!list.isEmpty()) {
+            list.sort(Comparator.comparingDouble(LivingEntity::getHealth));
+            list.stream().findFirst().ifPresent(livingEntity -> {
+                livingEntity.heal(heal);
+                healParticles(livingEntity, worldIn);
+            });
         }
         worldIn.sendParticles(new SoulShockwaveParticleOption(), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 0, 0, 0, 0, 0);
         healParticles(caster, worldIn);

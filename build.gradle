@@ -154,7 +154,7 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:enchantment-descriptions-250419:7612607")
     runtimeOnly fg.deobf("curse.maven:xaeros-minimap-263420:8449808")
     runtimeOnly fg.deobf("curse.maven:xaeros-world-map-317780:8449908")
-    runtimeOnly fg.deobf("curse.maven:the-twilight-forest-227639:5468648")
+//    runtimeOnly fg.deobf("curse.maven:the-twilight-forest-227639:5468648")
 }
 
 tasks.named('jar', Jar).configure {

@@ -1,0 +1,17 @@
+{
+  "name": "Withered Remains",
+  "icon": "minecraft:nether_bricks",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "There's much theories surrounding the inhabitants of the $(l)fortresses$() within the Nether and their theoretical abilities in magic. Unfortunately, any texts holding such insights have all withered away like the inhabitants themselves."
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/read_bygone_scroll",
+      "text": "However, perhaps some of the former inhabitants have a more studious grip on such knowledge, maybe blowing a $(l)special horn$() can call forth one of them."
+    }
+  ]
+}

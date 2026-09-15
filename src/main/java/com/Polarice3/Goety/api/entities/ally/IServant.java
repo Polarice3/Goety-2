@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.api.entities.ally;
 
+import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.blocks.ISeat;
 import com.Polarice3.Goety.api.entities.IChunkLoader;
 import com.Polarice3.Goety.api.entities.IGolem;
@@ -9,9 +10,12 @@ import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
+import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -32,9 +36,12 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public interface IServant extends IOwned, IChunkLoader {
     int GUARDING_RANGE = MobsConfig.ServantGuardingRange.get();
+    Codec<List<GlobalPos>> LIST_CODEC = GlobalPos.CODEC.listOf();
 
     boolean isWandering();
 
@@ -63,6 +70,10 @@ public interface IServant extends IOwned, IChunkLoader {
 
     default boolean canGuardArea(){
         return true;
+    }
+
+    default boolean canPatrol(){
+        return this.canGuardArea();
     }
 
     default BlockPos getBoundPos(){
@@ -102,6 +113,50 @@ public interface IServant extends IOwned, IChunkLoader {
         } else {
             return this.getBoundPos().distSqr(p_21445_) < Mth.square(GUARDING_RANGE);
         }
+    }
+
+    default List<GlobalPos> getPatrolRoute() {
+        return new ArrayList<>();
+    }
+
+    default void setPatrolRoute(List<GlobalPos> list) {
+
+    }
+
+    default int getPatrolIndex() {
+        return 0;
+    }
+
+    default void setPatrolIndex(int index) {
+
+    }
+
+    default boolean isPatrolling() {
+        return !this.getPatrolRoute().isEmpty();
+    }
+
+    @Nullable
+    default GlobalPos getCurrentWaypoint() {
+        List<GlobalPos> route = this.getPatrolRoute();
+        if (route.isEmpty()) {
+            return null;
+        }
+        return route.get(Mth.clamp(this.getPatrolIndex(), 0, route.size() - 1));
+    }
+
+    default void advancePatrol() {
+        List<GlobalPos> route = this.getPatrolRoute();
+        if (route.isEmpty()) {
+            return;
+        }
+        this.setPatrolIndex((this.getPatrolIndex() + 1) % route.size());
+        this.setBoundPos(route.get(this.getPatrolIndex()).pos());
+    }
+
+    default void clearPatrol() {
+        this.setPatrolRoute(List.of());
+        this.setPatrolIndex(0);
+        this.setBoundPos(null);
     }
 
     @Nullable
@@ -211,24 +266,28 @@ public interface IServant extends IOwned, IChunkLoader {
         if (this instanceof LivingEntity living) {
             boolean flag = false;
             if (!this.isWandering() && !this.isStaying() && !this.isGuardingArea() && this.canWander()) {
+                this.clearPatrol();
                 this.setBoundPos(null);
                 this.setWandering(true);
                 this.setStaying(false);
                 player.displayClientMessage(Component.translatable("info.goety.servant.wander", living.getDisplayName()), true);
                 flag = true;
             } else if (!this.isStaying() && !this.isGuardingArea() && this.canStay()) {
+                this.clearPatrol();
                 this.setBoundPos(null);
                 this.setWandering(false);
                 this.setStaying(true);
                 player.displayClientMessage(Component.translatable("info.goety.servant.staying", living.getDisplayName()), true);
                 flag = true;
             } else if (!this.isGuardingArea() && this.canGuardArea()) {
+                this.clearPatrol();
                 this.setBoundPos(living.blockPosition());
                 this.setWandering(false);
                 this.setStaying(false);
                 player.displayClientMessage(Component.translatable("info.goety.servant.guard", living.getDisplayName()), true);
                 flag = true;
             } else if (this.canFollow()) {
+                this.clearPatrol();
                 this.setBoundPos(null);
                 this.setWandering(false);
                 this.setStaying(false);
@@ -376,7 +435,7 @@ public interface IServant extends IOwned, IChunkLoader {
                                 owned.getNavigation().moveTo(this.getBoundPos().getX(), this.getBoundPos().getY(), this.getBoundPos().getZ(), 1.0F);
                             }
                         }
-                    } else if (!this.isCommanded()) {
+                    } else if (!this.isCommanded() && !this.isPatrolling()) {
                         boolean noSeat = true;
                         if (ISeat.canBePickedUp(owned) && !(this.getTrueOwner() instanceof IServant)) {
                             BlockState blockState = owned.level.getBlockState(this.getBoundPos());
@@ -517,6 +576,10 @@ public interface IServant extends IOwned, IChunkLoader {
         }
     }
 
+    default double getFollowSpeed() {
+        return 1.0D;
+    }
+
     default double getCommandSpeed(){
         return 1.25D;
     }
@@ -616,6 +679,9 @@ public interface IServant extends IOwned, IChunkLoader {
         }
     }
 
+    default void dropEquipment(EquipmentSlot equipmentSlot, ItemStack stack) {
+    }
+
     default boolean canWearArmor() {
         return false;
     }
@@ -660,6 +726,15 @@ public interface IServant extends IOwned, IChunkLoader {
                 }
             }
         }
+        if (compound.contains("PatrolPath")) {
+            this.setPatrolRoute(LIST_CODEC.parse(NbtOps.INSTANCE, compound.get("PatrolPath"))
+                    .resultOrPartial(Goety.LOGGER::error)
+                    .<List<GlobalPos>>map(ArrayList::new)
+                    .orElseGet(ArrayList::new));
+        }
+        if (compound.contains("PatrolIndex")){
+            this.setPatrolIndex(compound.getInt("PatrolIndex"));
+        }
         if (compound.contains("noHealTime")){
             this.setNoHealTime(compound.getInt("noHealTime"));
         }
@@ -685,6 +760,12 @@ public interface IServant extends IOwned, IChunkLoader {
         if (this.getBoundPos() != null){
             compound.put("boundPos", NbtUtils.writeBlockPos(this.getBoundPos()));
             compound.putString("boundDim", this.getBoundDim());
+        }
+        if (!this.getPatrolRoute().isEmpty()) {
+            LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.getPatrolRoute())
+                    .resultOrPartial(Goety.LOGGER::error)
+                    .ifPresent(encoded -> compound.put("PatrolPath", encoded));
+            compound.putInt("PatrolIndex", this.getPatrolIndex());
         }
         compound.putInt("noHealTime", this.getNoHealTime());
         compound.putInt("priorityTargetTime", this.getPriorityTime());

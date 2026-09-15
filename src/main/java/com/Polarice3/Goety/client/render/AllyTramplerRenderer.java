@@ -19,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class AllyTramplerRenderer extends MobRenderer<AllyTrampler, TramplerModel<AllyTrampler>> {
     private static final ResourceLocation TEXTURE = Goety.location("textures/entity/illagers/trampler/trampler.png");
+    private static final ResourceLocation UNARMORED = Goety.location("textures/entity/illagers/trampler/unarmored_trampler.png");
 
     public AllyTramplerRenderer(EntityRendererProvider.Context p_174435_) {
         super(p_174435_, new TramplerModel<>(p_174435_.bakeLayer(ModModelLayer.TRAMPLER)), 0.5F);
@@ -31,7 +32,11 @@ public class AllyTramplerRenderer extends MobRenderer<AllyTrampler, TramplerMode
     }
 
     public ResourceLocation getTextureLocation(AllyTrampler p_116292_) {
-        return TEXTURE;
+        if (p_116292_.hasSaddle()){
+            return TEXTURE;
+        } else {
+            return UNARMORED;
+        }
     }
 
     public static class TramplerArmorLayer<T extends AllyTrampler> extends RenderLayer<T, TramplerModel<T>> {

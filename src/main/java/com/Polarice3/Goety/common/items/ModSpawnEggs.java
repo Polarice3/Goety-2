@@ -118,6 +118,12 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> RATTLED_SPAWN_EGG = ITEMS.register("rattled_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.RATTLED, 0x392f13, 0x494949, egg()));
 
+    public static final RegistryObject<ModSpawnEggItem> ZOMBIE_VINDICATOR_SPAWN_EGG = ITEMS.register("zombie_vindicator_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.ZOMBIE_VINDICATOR, 0x2f2f2b, 7969893, egg()));
+
+    public static final RegistryObject<ModSpawnEggItem> SKELETON_PILLAGER_SPAWN_EGG = ITEMS.register("skeleton_pillager_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.SKELETON_PILLAGER, 5451574, 4802889, egg()));
+
     public static final RegistryObject<ModSpawnEggItem> REAPER_SPAWN_EGG = ITEMS.register("reaper_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.REAPER, 0x1c1b25, 0x454545, egg()));
 

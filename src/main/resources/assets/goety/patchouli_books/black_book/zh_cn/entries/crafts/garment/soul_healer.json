@@ -1,0 +1,19 @@
+{
+  "name": "灵魂治疗护符",
+  "icon": "goety:soul_healer",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "普遍存在于林地府邸的灾厄村民之中，这种护符可以产生类似$(l:focuses/soul_heal_focus)治疗聚晶$()的效果，治愈使用者"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:soul_healer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你也可以将灵魂治疗护符交给一个灾厄村民仆从，当这名灾厄村民仆从每次杀死敌人时，敌人产出灵魂能量的一半会被存进护符里，收集足够的灵魂能量后，当这名灾厄村民剩余血量不足一半，治疗就会发动，需注意治疗有冷却时间，冷却期间无法发动"
+    }
+  ]
+}

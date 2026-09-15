@@ -3,7 +3,7 @@ package com.Polarice3.Goety.common.items.magic;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.common.events.ArcaTeleporter;
-import com.Polarice3.Goety.common.magic.spells.void_spells.CallSpell;
+import com.Polarice3.Goety.common.magic.ModSpells;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
@@ -35,7 +35,7 @@ public class CallFocus extends MagicFocus{
     public static final String TAG_ENTITY = "Summoned";
 
     public CallFocus() {
-        super(new CallSpell());
+        super(ModSpells.CALL);
     }
 
     @Override

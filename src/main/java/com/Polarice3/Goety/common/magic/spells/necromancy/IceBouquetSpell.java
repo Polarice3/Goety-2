@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.magic.spells.necromancy;
 
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -78,8 +79,10 @@ public class IceBouquetSpell extends Spell {
             vec3 = result.getLocation();
         }
         if (vec3 != null) {
-            if (rightStaff(staff)) {
-                if (worldIn.random.nextFloat() <= 0.05F) {
+            if (staff.is(ModItems.NAMELESS_STAFF.get())) {
+                WandUtil.spawnTowerIceBouquet(worldIn, vec3, caster, potency, MathHelper.secondsToTicks(duration));
+            } else if (rightStaff(staff)) {
+                if (worldIn.getRandom().nextFloat() <= 0.05F) {
                     WandUtil.spawnCrossIceBouquet(worldIn, vec3, caster, potency, MathHelper.secondsToTicks(duration));
                 } else {
                     WandUtil.spawnIceBouquet(worldIn, vec3, caster, potency, MathHelper.secondsToTicks(duration));

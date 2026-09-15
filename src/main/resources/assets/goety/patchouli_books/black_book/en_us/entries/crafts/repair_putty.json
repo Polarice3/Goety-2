@@ -1,0 +1,15 @@
+{
+  "name": "Repair Putty",
+  "icon": "goety:repair_putty",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A miraculous substance that can be applied onto a living construct or golem of any material and repair them, so long as the user holds a hammer offhand."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:repair_putty"
+    }
+  ]
+}

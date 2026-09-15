@@ -109,7 +109,7 @@ public class RecallSpell extends Spell implements ITouchSpell {
                             }
                         }
                         if (RecallFocus.recall(target, WandUtil.findFocus(player))) {
-                            SEHelper.addCooldown(player, WandUtil.findFocus(player).getItem(), (int) (SpellConfig.RecallCoolDown.get() * ModAttributes.getCooldownDiscount(caster)));
+                            SEHelper.addSpellCooldown(player, this, (int) (SpellConfig.RecallCoolDown.get() * ModAttributes.getCooldownDiscount(caster)));
                         }
                     }
                 }
@@ -121,7 +121,7 @@ public class RecallSpell extends Spell implements ITouchSpell {
         if (caster instanceof ServerPlayer player) {
             if (RecallFocus.isValid(worldIn, WandUtil.findFocus(player))) {
                 if (RecallFocus.recall(player, WandUtil.findFocus(player))) {
-                    SEHelper.addCooldown(player, WandUtil.findFocus(player).getItem(), (int) (SpellConfig.RecallCoolDown.get() * ModAttributes.getCooldownDiscount(caster)));
+                    SEHelper.addSpellCooldown(player, this, (int) (SpellConfig.RecallCoolDown.get() * ModAttributes.getCooldownDiscount(caster)));
                 }
             }
         }

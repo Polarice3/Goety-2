@@ -5,6 +5,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.BlackguardServant;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieRoyalGuardServant;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.magic.SummonSpell;
@@ -12,12 +13,10 @@ import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.ItemStack;
@@ -119,10 +118,7 @@ public class BlackguardSpell extends SummonSpell {
                     this.SummonSap(caster, summonedentity);
                     this.setTarget(caster, summonedentity);
                     if (worldIn.addFreshEntity(summonedentity)) {
-                        worldIn.sendParticles(ModParticleTypes.LICH.get(), summonedentity.getX(), summonedentity.getY(), summonedentity.getZ(), 1, 0, 0, 0, 0.0F);
-                        ServerParticleUtil.summonPowerfulUndeadParticles(worldIn, summonedentity);
-                        this.playSound(worldIn, summonedentity, ModSounds.SOUL_EXPLODE.get(), 0.25F + (worldIn.random.nextFloat() / 2.0F), 1.0F);
-                        this.playSound(worldIn, summonedentity, SoundEvents.ENDERMAN_TELEPORT, 0.25F + (worldIn.random.nextFloat() / 2.0F), 1.0F);
+                        this.namelessSummon(worldIn, caster, staff, summonedentity);
                     }
                     this.summonAdvancement(caster, summonedentity);
                 }
@@ -130,9 +126,14 @@ public class BlackguardSpell extends SummonSpell {
                 int i = 1;
                 if (rightStaff(staff)){
                     i = 2 + caster.level.random.nextInt(6);
+                } else if (staff.is(ModItems.OMINOUS_STAFF.get())) {
+                    i = 2;
                 }
                 for (int i1 = 0; i1 < i; ++i1) {
                     BlackguardServant summonedentity = new BlackguardServant(ModEntityType.BLACKGUARD_SERVANT.get(), worldIn);
+                    if (staff.is(ModItems.OMINOUS_STAFF.get())) {
+                        summonedentity = new ZombieRoyalGuardServant(ModEntityType.BLACKGUARD_VARIANT_SERVANT.get(), worldIn);
+                    }
                     summonedentity.setTrueOwner(caster);
                     summonedentity.moveTo(BlockFinder.SummonRadius(caster.blockPosition(), summonedentity, worldIn), 0.0F, 0.0F);
                     MobUtil.moveDownToGround(summonedentity);

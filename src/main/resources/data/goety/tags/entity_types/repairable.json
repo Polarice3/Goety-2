@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "__comment": "entities that can be healed with Repair Putty",
+  "values": [
+    "minecraft:iron_golem",
+    "minecraft:snow_golem",
+    "goety:stone_ministrosity",
+    "goety:redstone_ministrosity",
+    "goety:ice_golem",
+    "goety:squall_golem",
+    "goety:redstone_golem",
+    "goety:grave_golem",
+    "goety:redstone_monstrosity",
+    "goety:redstone_cube"
+  ]
+}

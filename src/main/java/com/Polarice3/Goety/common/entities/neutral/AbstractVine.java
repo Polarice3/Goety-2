@@ -289,12 +289,13 @@ public abstract class AbstractVine extends AbstractMonolith{
     }
 
     public void startBursting() {
-        boolean flag;
-        if (this.proximity){
-            flag = this.hasTarget();
-        } else {
-            flag = true;
+        if (this.activeTick > 0) {
+            ++this.activeTick;
+            this.burst();
+            return;
         }
+
+        boolean flag = !this.proximity || this.hasTarget();
         if (flag) {
             if (this.proximity) {
                 this.proximityTick = 20;

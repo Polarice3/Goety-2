@@ -93,7 +93,7 @@ public class IlluminateSpell extends Spell {
     @Override
     public void stopSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, ItemStack focus, int castTime, SpellStat spellStat) {
         if (caster instanceof Player player && !focus.isEmpty()) {
-            SEHelper.addCooldown(player, focus.getItem(), this.spellCooldown(caster));
+            SEHelper.addSpellCooldown(player, this, this.spellCooldown(caster));
             SEHelper.sendSEUpdatePacket(player);
         }
     }

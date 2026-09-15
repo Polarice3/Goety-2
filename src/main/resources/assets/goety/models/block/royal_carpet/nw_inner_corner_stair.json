@@ -1,0 +1,7 @@
+{
+  "parent": "goety:block/fancy_carpet_stair",
+  "textures": {
+    "wool": "goety:block/royal_carpet/nw_inner_corner",
+    "side": "goety:block/royal_carpet/inner"
+  }
+}

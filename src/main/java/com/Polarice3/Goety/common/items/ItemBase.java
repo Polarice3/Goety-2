@@ -22,6 +22,9 @@ public class ItemBase extends Item {
         ChatFormatting secondary = ChatFormatting.BLUE;
 
         if (stack.getItem() instanceof ItemBase) {
+            if (stack.is(ModItems.REPAIR_PUTTY.get())) {
+                tooltip.add(Component.translatable("info.goety.repair_putty").withStyle(main));
+            }
             if (stack.is(ModItems.OMINOUS_SADDLE.get())) {
                 tooltip.add(Component.translatable("info.goety.ominous_saddle").withStyle(main));
             }

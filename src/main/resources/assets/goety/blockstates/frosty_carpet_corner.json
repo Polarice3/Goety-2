@@ -1,16 +1,13 @@
 {
   "variants": {
-    "facing=east": {
-      "model": "goety:block/frosty_carpet/ne_corner"
-    },
-    "facing=north": {
-      "model": "goety:block/frosty_carpet/nw_corner"
-    },
-    "facing=south": {
-      "model": "goety:block/frosty_carpet/se_corner"
-    },
-    "facing=west": {
-      "model": "goety:block/frosty_carpet/sw_corner"
-    }
+    "facing=east,on_stairs=false":  { "model": "goety:block/frosty_carpet/ne_corner" },
+    "facing=north,on_stairs=false": { "model": "goety:block/frosty_carpet/nw_corner" },
+    "facing=south,on_stairs=false": { "model": "goety:block/frosty_carpet/se_corner" },
+    "facing=west,on_stairs=false":  { "model": "goety:block/frosty_carpet/sw_corner" },
+
+    "facing=east,on_stairs=true":   { "model": "goety:block/frosty_carpet/ne_corner_stair" },
+    "facing=north,on_stairs=true":  { "model": "goety:block/frosty_carpet/nw_corner_stair" },
+    "facing=south,on_stairs=true":  { "model": "goety:block/frosty_carpet/se_corner_stair" },
+    "facing=west,on_stairs=true":   { "model": "goety:block/frosty_carpet/sw_corner_stair" }
   }
 }

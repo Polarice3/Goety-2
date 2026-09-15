@@ -111,7 +111,7 @@ public abstract class RaiderServant extends Summoned {
 
     @Override
     public void followGoal() {
-        this.goalSelector.addGoal(6, new FollowOwnerGoal<>(this, 1.0D, 10.0F, 2.0F){
+        this.goalSelector.addGoal(6, new FollowOwnerGoal<>(this, this.getFollowSpeed(), 10.0F, 2.0F){
             @Override
             public boolean canUse() {
                 if (RaiderServant.this.isRaiding()){

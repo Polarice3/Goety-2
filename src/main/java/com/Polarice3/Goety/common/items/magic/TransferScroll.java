@@ -12,14 +12,17 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -99,25 +102,21 @@ public class TransferScroll extends ItemBase {
         return InteractionResultHolder.pass(itemstack);
     }
 
-    /*@Override
-    public InteractionResult interactLivingEntity(ItemStack itemStack, Player player, LivingEntity target, InteractionHand hand) {
-        if (itemStack.getItem() == this){
-            if (target instanceof Mob mob) {
-                if (hasSummon(itemStack)) {
-                    LivingEntity summon = getSummon(itemStack);
-                    if (itemStack.getTag() != null) {
-                        if (summon instanceof IOwned owned) {
-                            if (!player.level.isClientSide) {
-                                owned.setTrueOwner(mob);
-                                if (summon instanceof RaiderServant servant && servant.isLeader()) {
-                                    ItemStack newBanner = servant.getLeaderBannerInstance();
-                                    if (!newBanner.isEmpty()) {
-                                        servant.setItemSlot(EquipmentSlot.HEAD, newBanner);
-                                    }
+    @Override
+    public @NotNull InteractionResult interactLivingEntity(ItemStack itemStack, Player player, LivingEntity target, InteractionHand hand) {
+        if (!player.level.isClientSide) {
+            if (itemStack.getItem() == this){
+                if (target instanceof Mob mob) {
+                    if (hasSummon(itemStack)) {
+                        LivingEntity summon = getSummon(itemStack);
+                        if (itemStack.getTag() != null) {
+                            if (summon instanceof IOwned owned) {
+                                if (owned.getTrueOwner() == player) {
+                                    owned.setTrueOwner(mob);
+                                    mob.playSound(SoundEvents.RESPAWN_ANCHOR_SET_SPAWN, 1.0F, 1.0F);
+                                    itemStack.shrink(1);
+                                    return InteractionResult.SUCCESS;
                                 }
-                                mob.playSound(SoundEvents.RESPAWN_ANCHOR_SET_SPAWN, 1.0F, 1.0F);
-                                itemStack.shrink(1);
-                                return InteractionResult.SUCCESS;
                             }
                         }
                     }
@@ -125,7 +124,7 @@ public class TransferScroll extends ItemBase {
             }
         }
         return super.interactLivingEntity(itemStack, player, target, hand);
-    }*/
+    }
 
     public static boolean hasSummon(ItemStack stack) {
         CompoundTag compoundtag = stack.getTag();

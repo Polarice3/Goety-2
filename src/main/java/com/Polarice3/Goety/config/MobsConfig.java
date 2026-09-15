@@ -241,6 +241,8 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> RavagerHostileConvert;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemHostileConvert;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneMonstrosityHostileConvert;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ZombieVindicatorHostileConvert;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SkeletonPillagerHostileConvert;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHate;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHateRavager;
@@ -567,6 +569,10 @@ public class MobsConfig {
                     .defineInRange("zombieServantBabyChance", 0.05, 0.0, 1.0D);
             ZombieServantChickenJockeyChance = BUILDER.comment("Chance that a baby zombie servant is summoned as a Chicken Jokey, Default: 0.05")
                     .defineInRange("zombieServantChickenJockeyChance", 0.05, 0.0, 1.0D);
+            ZombieVindicatorHostileConvert = BUILDER.comment("Whether Zombie Vindicators, when summoned as hostile and without owner, will convert into their hostile counterpart, Default: true")
+                    .define("zombieVindicatorHostileConvert", true);
+            SkeletonPillagerHostileConvert = BUILDER.comment("Whether Skeleton Pillagers, when summoned as hostile and without owner, will convert into their hostile counterpart, Default: true")
+                    .define("skeletonPillagerHostileConvert", true);
             BUILDER.pop();
             BUILDER.push("Water Servants");
             WaterMinionHeal = BUILDER.comment("Whether Water Servants can heal if summoned while wearing Abyss Robe, Default: true")
@@ -593,14 +599,6 @@ public class MobsConfig {
                     .define("blackBeastChunkLoad", true);
             BlackBeastHowlingSoul = BUILDER.comment("Whether owned Black Beasts drop Howling Soul, Default: true")
                     .define("blackBeastHowlingSoul", true);
-            TramplerHostileConvert = BUILDER.comment("Whether Trampler Servants when summoned as hostile will convert into their hostile counterpart, Default: true")
-                    .define("tramplerHostileConvert", true);
-            RavagerHostileConvert = BUILDER.comment("Whether Ravager Servants when summoned as hostile will convert into their hostile counterpart, Default: true")
-                    .define("ravagerHostileConvert", true);
-            RedstoneGolemHostileConvert = BUILDER.comment("Whether Redstone Golems when summoned as hostile will convert into their hostile counterpart, Default: true")
-                    .define("redstoneGolemHostileConvert", true);
-            RedstoneMonstrosityHostileConvert = BUILDER.comment("Whether Redstone Monstrosities when summoned as hostile will convert into their hostile counterpart, Default: true")
-                    .define("redstoneMonstrosityHostileConvert", true);
             BUILDER.pop();
             BUILDER.push("Geo Servants");
             GeoMinionHeal = BUILDER.comment("Whether Geo Servants can heal if summoned while wearing Geo Robe, Default: true")
@@ -784,6 +782,14 @@ public class MobsConfig {
                 .defineInRange("servantGuardingRange", 16, 2, Integer.MAX_VALUE);
         ServantHealHalt = BUILDER.comment("How many seconds a servant can't heal through Soul Energy after being injured, Default: 5")
                 .defineInRange("servantHealHalt", 5, 0, Integer.MAX_VALUE);
+        TramplerHostileConvert = BUILDER.comment("Whether Trampler Servants when summoned as hostile will convert into their hostile counterpart, Default: true")
+                .define("tramplerHostileConvert", true);
+        RavagerHostileConvert = BUILDER.comment("Whether Ravager Servants when summoned as hostile will convert into their hostile counterpart, Default: true")
+                .define("ravagerHostileConvert", true);
+        RedstoneGolemHostileConvert = BUILDER.comment("Whether Redstone Golems when summoned as hostile will convert into their hostile counterpart, Default: true")
+                .define("redstoneGolemHostileConvert", true);
+        RedstoneMonstrosityHostileConvert = BUILDER.comment("Whether Redstone Monstrosities when summoned as hostile will convert into their hostile counterpart, Default: true")
+                .define("redstoneMonstrosityHostileConvert", true);
         BUILDER.pop();
         BUILDER.push("Illagers");
             BUILDER.push("Illager Assaults");

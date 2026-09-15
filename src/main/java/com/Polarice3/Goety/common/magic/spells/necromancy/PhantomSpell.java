@@ -4,6 +4,7 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.undead.PhantomServant;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.magic.SummonSpell;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -101,7 +102,9 @@ public class PhantomSpell extends SummonSpell {
             SpawnGroupData spawngroupdata = null;
             int l = 1;
 
-            if (rightStaff(staff)){
+            if (staff.is(ModItems.NAMELESS_STAFF.get())) {
+                l = caster.getRandom().nextIntBetweenInclusive(4, 7);
+            } else if (rightStaff(staff)){
                 l += caster.getRandom().nextInt(4);
             }
 

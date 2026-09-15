@@ -18,6 +18,11 @@
     {
       "type": "patchouli:text",
       "text": "You can also right click on a block to have them move towards it, unless the servants are guarding and the horn is not in Guard mode. However, servants that are already commanded or part of a $(l:crafts/grimoire_of_grounding)Grimoire of Grounding$() are unaffected by the horn."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:patrol_plan",
+      "text": "Using a Command Horn on None mode while having a filled $(l:crafts/patrol_plan)Patrol Plan$() offhand will cause all selected servants to patrol at the positions. Blowing it while shift right-clicking will stop selected servants from patrolling."
     }
   ]
 }

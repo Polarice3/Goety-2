@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.AbstractMuckWraith;
 import com.Polarice3.Goety.common.entities.neutral.AbstractWraith;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.magic.SummonSpell;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -83,8 +84,12 @@ public class WraithSpell extends SummonSpell {
         }
         if (!isShifting(caster)) {
             int i = 1;
-            if (rightStaff(staff)){
-                i = 2 + caster.level.random.nextInt(4);
+            if (staff.is(ModItems.NAMELESS_STAFF.get())) {
+                i = caster.level.getRandom().nextIntBetweenInclusive(4, 7);
+            } else if (rightStaff(staff)){
+                i = 2 + caster.level.getRandom().nextInt(4);
+            } else if (typeStaff(staff, SpellType.FROST)){
+                i = 2;
             }
             for (int i1 = 0; i1 < i; ++i1) {
                 AbstractWraith summonedentity = new AbstractWraith(ModEntityType.WRAITH_SERVANT.get(), worldIn);

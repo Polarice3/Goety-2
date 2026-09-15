@@ -4,7 +4,9 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.NeutralZombieAttackGoal;
 import com.Polarice3.Goety.common.entities.ally.illager.VindicatorServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
+import com.Polarice3.Goety.common.entities.hostile.HostileZombieVindicator;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -83,6 +85,23 @@ public class AbstractZombieVindicator extends ZombieServant {
     }
 
     public void tick() {
+        if (this.isHostile() && this.isNatural()) {
+            if (MobsConfig.ZombieVindicatorHostileConvert.get()) {
+                if (this.getType() != ModEntityType.ZOMBIE_VINDICATOR.get()) {
+                    if (this.tickCount % 10 == 0) {
+                        HostileZombieVindicator mob = this.convertTo(ModEntityType.ZOMBIE_VINDICATOR.get(), true);
+                        if (mob != null) {
+                            mob.setTrueOwner(null);
+                            mob.setNatural(true);
+                            mob.setXRot(this.getXRot());
+                            mob.setYRot(this.getYRot());
+                            mob.setYBodyRot(this.getYRot());
+                            mob.setYHeadRot(this.getYHeadRot());
+                        }
+                    }
+                }
+            }
+        }
         if (this.level instanceof ServerLevel serverLevel && this.isAlive() && this.isConverting()) {
             int i = this.getConversionProgress();
             this.villagerConversionTime -= i;

@@ -6,6 +6,7 @@ import com.Polarice3.Goety.api.blocks.entities.IOwnedBlock;
 import com.Polarice3.Goety.api.blocks.entities.ITrainingBlock;
 import com.Polarice3.Goety.api.blocks.entities.IWaystoneBlock;
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.items.IShowOutlines;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.api.magic.ISpell;
 import com.Polarice3.Goety.client.audio.*;
@@ -44,6 +45,7 @@ import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.WaystoneItem;
 import com.Polarice3.Goety.common.items.curios.GloveItem;
 import com.Polarice3.Goety.common.items.curios.TargetingMonocleItem;
+import com.Polarice3.Goety.common.items.magic.PatrolPlan;
 import com.Polarice3.Goety.common.magic.spells.abyss.PrismaBeamSpell;
 import com.Polarice3.Goety.common.magic.spells.abyss.WaterJetSpell;
 import com.Polarice3.Goety.common.magic.spells.geomancy.BurrowingSpell;
@@ -95,6 +97,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -738,26 +741,41 @@ public class ClientEvents {
         }
         Minecraft minecraft = Minecraft.getInstance();
         Player player = minecraft.player;
-        Level level = minecraft.level;
+        ClientLevel level = minecraft.level;
         if (level != null) {
-            List<AbstractClientPlayer> players = minecraft.level.players();
+            List<AbstractClientPlayer> players = level.players();
             if (player != null) {
                 Level world = player.level;
-                ItemStack stack = player.getMainHandItem();
                 Map<BlockPos, ColorUtil> renderCubes = new HashMap<>();
-                if (stack.getItem() instanceof WaystoneItem) {
-                    if (stack.getTag() != null) {
-                        GlobalPos loc = WaystoneItem.getPosition(stack);
-                        if (loc != null) {
-                            if (loc.dimension() == world.dimension()) {
-                                renderCubes.put(loc.pos(), CUBE_COLOR);
+                if (player.isHolding(itemStack -> itemStack.getItem() instanceof IShowOutlines)) {
+                    for (InteractionHand hand : InteractionHand.values()) {
+                        ItemStack stack = player.getItemInHand(hand);
+                        if (stack.getItem() instanceof WaystoneItem) {
+                            if (stack.getTag() != null) {
+                                GlobalPos loc = WaystoneItem.getPosition(stack);
+                                if (loc != null) {
+                                    if (loc.dimension() == world.dimension()) {
+                                        renderCubes.put(loc.pos(), CUBE_COLOR);
+                                    }
+                                }
+                            }
+                        }
+                        if (stack.getItem() instanceof PatrolPlan) {
+                            if (stack.getTag() != null) {
+                                if (!PatrolPlan.getList(stack).isEmpty()) {
+                                    for (GlobalPos pos : PatrolPlan.getList(stack)) {
+                                        if (pos.dimension() == world.dimension()) {
+                                            renderCubes.put(pos.pos(), CUBE_COLOR);
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                 }
                 if (!renderCubes.keySet().isEmpty()) {
                     PoseStack matrix = event.getPoseStack();
-                    Vec3 view = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
+                    Vec3 view = minecraft.gameRenderer.getMainCamera().getPosition();
                     RenderBlockUtils.renderColourCubes(matrix, view, renderCubes, 1.0F, 1.0F);
                 }
                 for (Player player1 : players) {
@@ -767,11 +785,11 @@ public class ClientEvents {
 
                     if (player1.isUsingItem()) {
                         if (WandUtil.getSpell(player1) instanceof BurrowingSpell) {
-                            BurrowingLaserRenderer.renderLaser(event, player1, Minecraft.getInstance().getFrameTime());
+                            BurrowingLaserRenderer.renderLaser(event, player1, minecraft.getFrameTime());
                         } else if (WandUtil.getSpell(player1) instanceof PrismaBeamSpell) {
-                            PrismaBeamRenderer.renderLaser(event, player1, Minecraft.getInstance().getFrameTime());
+                            PrismaBeamRenderer.renderLaser(event, player1, minecraft.getFrameTime());
                         } else if (WandUtil.getSpell(player1) instanceof WaterJetSpell) {
-                            WaterJetRenderer.renderWaterJet(event, player1, Minecraft.getInstance().getFrameTime());
+                            WaterJetRenderer.renderWaterJet(event, player1, minecraft.getFrameTime());
                         }
                     }
                 }

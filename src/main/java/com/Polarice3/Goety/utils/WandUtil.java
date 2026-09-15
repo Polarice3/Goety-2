@@ -151,6 +151,10 @@ public class WandUtil {
         return getLevels(ModEnchantments.POTENCY.get(), livingEntity) * SpellConfig.PotencyPower.get();
     }
 
+    public static int getPotencyItemLevel(ItemStack itemStack) {
+        return itemStack.getEnchantmentLevel(ModEnchantments.POTENCY.get()) * SpellConfig.PotencyPower.get();
+    }
+
     public static int getRangeLevel(LivingEntity livingEntity) {
         return getLevels(ModEnchantments.RANGE.get(), livingEntity) * 2;
     }
@@ -163,6 +167,14 @@ public class WandUtil {
                 .increaseRadius(ModAttributes.getRadius(livingEntity))
                 .increaseBurning(ModAttributes.getBurning(livingEntity))
                 .increaseVelocity(ModAttributes.getVelocity(livingEntity));
+    }
+
+    public static int getSoulUse(LivingEntity caster, ItemStack spellItem, int initialSoulCost) {
+        if (spellItem.isEnchanted() && SpellConfig.EnchantMultiCost.get()){
+            return (int) ((initialSoulCost * 2) * SEHelper.soulDiscount(caster));
+        } else {
+            return (int) (initialSoulCost * SEHelper.soulDiscount(caster));
+        }
     }
 
     public static void chainLightning(LivingEntity pTarget, @Nullable LivingEntity pAttacker, double range, float damage){
@@ -339,6 +351,22 @@ public class WandUtil {
         spawnIceBouquet(world, livingEntity, pPos, -1.5D, 0, damage, duration);
         spawnIceBouquet(world, livingEntity, pPos, -1.5D, 1.5D, damage, duration);
         spawnIceBouquet(world, livingEntity, pPos, -1.5D, -1.5D, damage, duration);
+    }
+
+    public static void spawnTowerIceBouquet(Level world, Vec3 pPos, LivingEntity livingEntity, float damage, int duration){
+        spawnIceBouquet(world, pPos, livingEntity, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, 0, 3.0D, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, 0, -3.0D, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, 3.0D, 0, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, 3.0D, 1.5D, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, 3.0D, -1.5D, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, -3.0D, 0, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, -3.0D, 1.5D, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, -3.0D, -1.5D, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, 1.5D, 3.0D, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, -1.5D, 3.0D, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, 1.5D, -3.0D, damage, duration);
+        spawnIceBouquet(world, livingEntity, pPos, -1.5D, -3.0D, damage, duration);
     }
 
     public static void spawnCrossIceBouquet(Level world, Vec3 pPos, LivingEntity livingEntity){

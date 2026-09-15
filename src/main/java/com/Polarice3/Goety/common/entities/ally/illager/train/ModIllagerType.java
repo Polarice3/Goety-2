@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.ally.illager.train;
 
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.illager.ITrainIllager;
 import com.Polarice3.Goety.common.blocks.*;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -34,6 +35,10 @@ public class ModIllagerType implements ITrainIllager {
             return mob.getType() == ModEntityType.ICEOLOGER_SERVANT.get();
         } else if (entityType == ModEntityType.VINDICATOR_CHEF_SERVANT.get() || entityType == ModEntityType.MOUNTAINEER_SERVANT.get() || entityType == ModEntityType.CRUSHER_SERVANT.get()) {
             return mob.getType() == ModEntityType.VINDICATOR_SERVANT.get();
+        } else if (entityType == ModEntityType.ROYAL_GUARD_SERVANT.get()) {
+            return mob.getType() == ModEntityType.VINDICATOR_SERVANT.get() && mob instanceof IOwned owned && owned.getTrueOwner() instanceof Player player && SEHelper.hasResearch(player, ResearchList.FRONT);
+        } else if (entityType == ModEntityType.IMPERIAL_GUARD_SERVANT.get()) {
+            return mob.getType() == ModEntityType.PILLAGER_SERVANT.get() && mob instanceof IOwned owned && owned.getTrueOwner() instanceof Player player && SEHelper.hasResearch(player, ResearchList.FRONT);
         } else if (entityType == ModEntityType.PIKER_SERVANT.get()) {
             return mob instanceof Neollager neollager && neollager.getTrueOwner() instanceof Player player && SEHelper.hasResearch(player, ResearchList.FRONT);
         } else {
@@ -85,6 +90,12 @@ public class ModIllagerType implements ITrainIllager {
                 && checker.hasBlocks(blockState -> blockState.getBlock() instanceof SmithingTableBlock, 1)
                 && checker.hasBlocks(blockState -> blockState.getBlock() instanceof AnvilBlock, 4)){
             return ModEntityType.CRUSHER_SERVANT.get();
+        } else if (checker.hasBlocks(blockState -> blockState.getBlock() instanceof OminousStatueBlock || blockState.getBlock() instanceof OminousBrazierStatueBlock, 4)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof FancyCarpetBlock, 16)
+                && checker.hasBlocks(blockState -> blockState.is(BlockTags.BANNERS), 4)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof AnvilBlock, 4)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof StashUrnBlock, 4)){
+            return ModEntityType.ROYAL_GUARD_SERVANT.get();
         } else if (BlockFinder.getNearbyEnchantPower(level, blockPos, range, 32)
                 && BlockFinder.getNearbyLitCandles(level, blockPos, range, 16)
                 && checker.hasBlocks(blockState -> blockState.is(Blocks.LECTERN), 1)

@@ -17,7 +17,6 @@ import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -30,7 +29,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
@@ -46,7 +44,6 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.AbstractVillager;
@@ -58,10 +55,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.level.pathfinder.NodeEvaluator;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -111,7 +106,7 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
         this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.LEAVES, 0.0F);
-        this.moveControl = new SlowRotMoveControl(this);
+        this.moveControl = new MobUtil.SlowRotMoveControl(this);
         this.xpReward = 100;
     }
 
@@ -1114,100 +1109,6 @@ public class HostileRedstoneMonstrosity extends HostileGolem implements IRM {
                 delta = limit;
             }
             return target + delta * 0.55F;
-        }
-    }
-
-    /**
-     * Based on @lgh877's codes:<a href="https://github.com/lgh877/CrimsonStevesMoreMobs/blob/master/src/main/java/net/mcreator/crimson_steves_mobs/SlowRotMoveControl.java">...</a>
-     */
-    public static class SlowRotMoveControl extends MobUtil.noSpinControl {
-        public SlowRotMoveControl(Mob mob) {
-            super(mob);
-        }
-
-        private float trueSpeed;
-        private float additionalRot;
-
-        public void tick() {
-            if (this.operation == Operation.STRAFE) {
-                float f = (float) this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED);
-                float f1 = (float) this.speedModifier * f;
-                float f2 = this.strafeForwards;
-                float f3 = this.strafeRight;
-                float f4 = Mth.sqrt(f2 * f2 + f3 * f3);
-                this.trueSpeed = Mth.lerp(0.1F, this.trueSpeed, f1);
-                if (f4 < 1.0F) {
-                    f4 = 1.0F;
-                }
-                f4 = this.trueSpeed / f4;
-                f2 *= f4;
-                f3 *= f4;
-                float f5 = Mth.sin(this.mob.getYRot() * ((float) Math.PI / 180F));
-                float f6 = Mth.cos(this.mob.getYRot() * ((float) Math.PI / 180F));
-                float f7 = f2 * f6 - f3 * f5;
-                float f8 = f3 * f6 + f2 * f5;
-                if (!this.isWalkable(f7, f8)) {
-                    this.strafeForwards = 1.0F;
-                    this.strafeRight = 0.0F;
-                }
-                this.mob.setSpeed(trueSpeed);
-                this.mob.setZza(this.strafeForwards);
-                this.mob.setXxa(this.strafeRight);
-                this.operation = Operation.WAIT;
-            } else if (this.operation == Operation.MOVE_TO) {
-                this.operation = Operation.WAIT;
-                double d0 = this.wantedX - this.mob.getX();
-                double d1 = this.wantedZ - this.mob.getZ();
-                double d2 = this.wantedY - this.mob.getY();
-                double d3 = d0 * d0 + d2 * d2 + d1 * d1;
-                if (d3 < (double) 2.5000003E-7F) {
-                    this.trueSpeed = Mth.lerp(0.1F, this.trueSpeed, 0.0F);
-                    this.mob.setZza(trueSpeed);
-                    if (this.additionalRot > 0) {
-                        this.additionalRot -= 0.1F;
-                    }
-                    return;
-                } else {
-                    this.trueSpeed = Mth.lerp(0.1F, this.trueSpeed, (float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
-                }
-                float f9 = (float) (Mth.atan2(d1, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
-                if (this.additionalRot < 1) {
-                    this.additionalRot += 0.1F;
-                }
-                this.mob.setYRot(this.rotlerp(this.mob.getYRot(), f9, 5 + additionalRot * 5));
-                this.mob.setSpeed(trueSpeed);
-                BlockPos blockpos = this.mob.blockPosition();
-                BlockState blockstate = this.mob.level.getBlockState(blockpos);
-                VoxelShape voxelshape = blockstate.getCollisionShape(this.mob.level, blockpos);
-                if (d2 > (double) this.mob.getStepHeight() && d0 * d0 + d1 * d1 < (double) Math.max(1.0F, this.mob.getBbWidth())
-                        || !voxelshape.isEmpty() && this.mob.getY() < voxelshape.max(Direction.Axis.Y) + (double) blockpos.getY()
-                        && !blockstate.is(BlockTags.DOORS) && !blockstate.is(BlockTags.FENCES)) {
-                    this.mob.getJumpControl().jump();
-                    this.operation = Operation.JUMPING;
-                }
-            } else if (this.operation == Operation.JUMPING) {
-                this.trueSpeed = Mth.lerp(0.1F, this.trueSpeed, (float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
-                this.mob.setSpeed(this.trueSpeed);
-                if (this.mob.onGround()) {
-                    this.operation = Operation.WAIT;
-                }
-            } else {
-                this.trueSpeed = Mth.lerp(0.1F, this.trueSpeed, 0.0F);
-                this.mob.setZza(trueSpeed);
-                if (this.additionalRot > 0) {
-                    this.additionalRot -= 0.1F;
-                }
-            }
-        }
-
-        private boolean isWalkable(float p_24997_, float p_24998_) {
-            PathNavigation pathnavigation = this.mob.getNavigation();
-            if (pathnavigation != null) {
-                NodeEvaluator nodeevaluator = pathnavigation.getNodeEvaluator();
-                return nodeevaluator == null || nodeevaluator.getBlockPathType(this.mob.level, Mth.floor(this.mob.getX() + (double) p_24997_),
-                        this.mob.getBlockY(), Mth.floor(this.mob.getZ() + (double) p_24998_)) == BlockPathTypes.WALKABLE;
-            }
-            return true;
         }
     }
 }

@@ -1,0 +1,17 @@
+{
+  "name": "凋灵之遗",
+  "icon": "minecraft:nether_bricks",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "关于$(l)下界堡垒$()的居民及其相关魔法的使用方法曾存在诸多理论，遗憾的是，任何记载此类内容的文献都已经随着这些居民消亡了"
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/read_bygone_scroll",
+      "text": "然而，没有文献，不代表没有曾经的居民牢牢记住了这些知识，若你吹响$(l)某支特殊的号角$()，你也许就可以参见其中一位"
+    }
+  ]
+}

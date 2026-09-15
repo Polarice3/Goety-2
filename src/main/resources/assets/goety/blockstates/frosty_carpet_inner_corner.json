@@ -1,16 +1,28 @@
 {
   "variants": {
-    "facing=east": {
-      "model": "goety:block/frosty_carpet/ne_inner_corner"
-    },
-    "facing=north": {
-      "model": "goety:block/frosty_carpet/nw_inner_corner"
-    },
-    "facing=south": {
-      "model": "goety:block/frosty_carpet/se_inner_corner"
-    },
-    "facing=west": {
-      "model": "goety:block/frosty_carpet/sw_inner_corner"
-    }
+    "on_stairs=false,facing=north": { "model": "goety:block/frosty_carpet/ne_inner_corner" },
+    "on_stairs=false,facing=east":  { "model": "goety:block/frosty_carpet/nw_inner_corner" },
+    "on_stairs=false,facing=south": { "model": "goety:block/frosty_carpet/se_inner_corner" },
+    "on_stairs=false,facing=west":  { "model": "goety:block/frosty_carpet/sw_inner_corner" },
+
+    "on_stairs=true,stair_facing=north,facing=north": { "model": "goety:block/frosty_carpet/ne_inner_corner_stair" },
+    "on_stairs=true,stair_facing=north,facing=east":  { "model": "goety:block/frosty_carpet/nw_inner_corner_stair" },
+    "on_stairs=true,stair_facing=north,facing=south": { "model": "goety:block/frosty_carpet/se_inner_corner_stair" },
+    "on_stairs=true,stair_facing=north,facing=west":  { "model": "goety:block/frosty_carpet/sw_inner_corner_stair" },
+
+    "on_stairs=true,stair_facing=east,facing=north": { "model": "goety:block/frosty_carpet/sw_inner_corner_stair", "y": 90 },
+    "on_stairs=true,stair_facing=east,facing=east":  { "model": "goety:block/frosty_carpet/ne_inner_corner_stair", "y": 90 },
+    "on_stairs=true,stair_facing=east,facing=south": { "model": "goety:block/frosty_carpet/nw_inner_corner_stair", "y": 90 },
+    "on_stairs=true,stair_facing=east,facing=west":  { "model": "goety:block/frosty_carpet/se_inner_corner_stair", "y": 90 },
+
+    "on_stairs=true,stair_facing=south,facing=north": { "model": "goety:block/frosty_carpet/se_inner_corner_stair", "y": 180 },
+    "on_stairs=true,stair_facing=south,facing=east":  { "model": "goety:block/frosty_carpet/sw_inner_corner_stair", "y": 180 },
+    "on_stairs=true,stair_facing=south,facing=south": { "model": "goety:block/frosty_carpet/ne_inner_corner_stair", "y": 180 },
+    "on_stairs=true,stair_facing=south,facing=west":  { "model": "goety:block/frosty_carpet/nw_inner_corner_stair", "y": 180 },
+
+    "on_stairs=true,stair_facing=west,facing=north": { "model": "goety:block/frosty_carpet/nw_inner_corner_stair", "y": 270 },
+    "on_stairs=true,stair_facing=west,facing=east":  { "model": "goety:block/frosty_carpet/se_inner_corner_stair", "y": 270 },
+    "on_stairs=true,stair_facing=west,facing=south": { "model": "goety:block/frosty_carpet/sw_inner_corner_stair", "y": 270 },
+    "on_stairs=true,stair_facing=west,facing=west":  { "model": "goety:block/frosty_carpet/ne_inner_corner_stair", "y": 270 }
   }
 }

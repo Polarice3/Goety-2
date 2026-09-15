@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.items;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.entities.ally.IServant;
+import com.Polarice3.Goety.api.items.IShowOutlines;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import net.minecraft.core.BlockPos;
@@ -35,7 +36,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-public class WaystoneItem extends ItemBase {
+public class WaystoneItem extends ItemBase implements IShowOutlines {
     public static final String TAG_OWNER = "Owner";
     public static final String TAG_OWNER_NAME = "Owner_Name";
     public static final String TAG_POS = "Pos";

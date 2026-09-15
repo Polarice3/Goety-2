@@ -4,6 +4,7 @@ import com.Polarice3.Goety.api.blocks.ISeat;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
+import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.config.ItemConfig;
@@ -12,6 +13,7 @@ import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -159,17 +161,56 @@ public class CommandHorn extends Item {
                                     && !SEHelper.getGroundedEntities(player).contains(livingEntity)
                                     && !SEHelper.getGroundedEntityTypes(player).contains(livingEntity.getType())) {
                                 if (isNone(itemstack)) {
-                                    if (!servant.isGuardingArea()
-                                            && servant.canStay()
-                                            && servant.canWander()) {
-                                        if (servant.isStaying() || servant.isWandering()) {
-                                            servant.setFollowing();
-                                            serverlevel.sendParticles(ModParticleTypes.GO.get(), livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 0, 0, 2.0D, 0, 1.0F);
+                                    boolean patrol = false;
+                                    if (player.getOffhandItem().getItem() instanceof PatrolPlan && servant.canPatrol()) {
+                                        boolean isLeader = false;
+                                        if (servant instanceof RaiderServant raiderServant) {
+                                            if (raiderServant.getLeader() != null && raiderServant.getLeader().canPatrol()) {
+                                                servant = raiderServant.getLeader();
+                                                isLeader = true;
+                                            }
+                                        }
+                                        if (player.isShiftKeyDown()) {
+                                            if (servant.isPatrolling()) {
+                                                servant.clearPatrol();
+                                                serverlevel.sendParticles(ModParticleTypes.STOP.get(), livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 0, 0, 2.0D, 0, 1.0F);
+                                                patrol = true;
+                                            }
                                         } else {
-                                            servant.setBoundPos(null);
-                                            servant.setWandering(false);
-                                            servant.setStaying(true);
-                                            serverlevel.sendParticles(ModParticleTypes.STOP.get(), livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 0, 0, 2.0D, 0, 1.0F);
+                                            List<GlobalPos> route = PatrolPlan.getList((player.getOffhandItem()));
+                                            if (!route.isEmpty() && route.get(0).dimension().equals(livingEntity.level.dimension())) {
+                                                boolean flag = true;
+                                                if (isLeader) {
+                                                    if (servant.getPatrolRoute().equals(route)) {
+                                                        flag = false;
+                                                    }
+                                                }
+                                                if (flag) {
+                                                    servant.setPatrolRoute(route);
+                                                    servant.setPatrolIndex(0);
+                                                    servant.setBoundPos(route.get(0).pos());
+                                                    servant.setWandering(false);
+                                                    servant.setStaying(false);
+                                                    livingEntity.playSound(SoundEvents.ZOMBIE_VILLAGER_CONVERTED, 1.0F, 1.0F);
+                                                    serverlevel.sendParticles(ModParticleTypes.GO.get(), livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 0, 0, 2.0D, 0, 1.0F);
+                                                    patrol = true;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (!patrol) {
+                                        if (!servant.isGuardingArea()
+                                                && servant.canStay()
+                                                && servant.canWander()) {
+                                            if (servant.isStaying() || servant.isWandering()) {
+                                                servant.setFollowing();
+                                                serverlevel.sendParticles(ModParticleTypes.GO.get(), livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 0, 0, 2.0D, 0, 1.0F);
+                                            } else {
+                                                servant.setBoundPos(null);
+                                                servant.setWandering(false);
+                                                servant.setStaying(true);
+                                                serverlevel.sendParticles(ModParticleTypes.STOP.get(), livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 0, 0, 2.0D, 0, 1.0F);
+                                            }
                                         }
                                     }
                                 } else if (isFollow(itemstack)) {

@@ -1,5 +1,13 @@
 {
   "variants": {
-    "": { "model": "goety:block/royal_carpet/inner" }
+    "stair_facing=north,on_stairs=false": { "model": "goety:block/royal_carpet/inner" },
+    "stair_facing=east,on_stairs=false":  { "model": "goety:block/royal_carpet/inner", "y": 90 },
+    "stair_facing=south,on_stairs=false": { "model": "goety:block/royal_carpet/inner", "y": 180 },
+    "stair_facing=west,on_stairs=false":  { "model": "goety:block/royal_carpet/inner", "y": 270 },
+
+    "stair_facing=north,on_stairs=true": { "model": "goety:block/royal_carpet/inner_stair" },
+    "stair_facing=east,on_stairs=true":  { "model": "goety:block/royal_carpet/inner_stair", "y": 90 },
+    "stair_facing=south,on_stairs=true": { "model": "goety:block/royal_carpet/inner_stair", "y": 180 },
+    "stair_facing=west,on_stairs=true":  { "model": "goety:block/royal_carpet/inner_stair", "y": 270 }
   }
 }

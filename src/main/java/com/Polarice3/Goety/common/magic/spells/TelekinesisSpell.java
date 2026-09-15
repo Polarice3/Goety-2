@@ -78,7 +78,7 @@ public class TelekinesisSpell extends EverChargeSpell {
     public void stopSpell(ServerLevel worldIn, LivingEntity caster, ItemStack staff, ItemStack focus, int castTime, SpellStat spellStat) {
         this.victim = null;
         if (caster instanceof Player player){
-            SEHelper.addCooldown(player, focus.getItem(), MathHelper.secondsToTicks(5));
+            SEHelper.addSpellCooldown(player, this, MathHelper.secondsToTicks(5));
             SEHelper.sendSEUpdatePacket(player);
         }
         super.stopSpell(worldIn, caster, staff, focus, castTime, spellStat);

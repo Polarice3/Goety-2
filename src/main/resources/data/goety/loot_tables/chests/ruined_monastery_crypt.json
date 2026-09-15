@@ -173,29 +173,6 @@
           "name": "goety:grave_dust"
         },
         {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1.0,
-                "max": 2.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:phantom_membrane"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:honey_bottle"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:honeycomb"
-        },
-        {
           "type": "minecraft:empty",
           "weight": 2
         }

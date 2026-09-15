@@ -1,6 +1,6 @@
 {
   "type": "minecraft:jigsaw",
-  "biomes": "#goety:has_structure/graveyard",
+  "biomes": "#goety:has_structure/royal_tribute",
   "step": "surface_structures",
   "spawn_overrides": {
   },

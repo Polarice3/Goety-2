@@ -62,8 +62,10 @@ public class ModModelLayer {
     public static final ModelLayerLocation DAMNED = register("damned");
     public static final ModelLayerLocation DAMNED_HUMAN = register("damned_human");
     public static final ModelLayerLocation ILLAGER_SERVANT = register("illager_servant");
+    public static final ModelLayerLocation IMPERIAL_GUARD = register("imperial_guard");
     public static final ModelLayerLocation VINDICATOR_CHEF = register("vindicator_chef");
     public static final ModelLayerLocation MOUNTAINEER = register("mountaineer");
+    public static final ModelLayerLocation ROYAL_GUARD = register("royal_guard");
     public static final ModelLayerLocation GEOMANCER = register("geomancer");
     public static final ModelLayerLocation ICEOLOGER = register("iceologer");
     public static final ModelLayerLocation WIND_CALLER = register("wind_caller");

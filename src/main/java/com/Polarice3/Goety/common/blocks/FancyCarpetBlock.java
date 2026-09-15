@@ -6,18 +6,17 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.WoolCarpetBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 
-public class FancyCarpetBlock extends WoolCarpetBlock {
+public class FancyCarpetBlock extends StairCarpetBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public FancyCarpetBlock(DyeColor p_58291_, Properties p_58292_) {
         super(p_58291_, p_58292_);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
     }
 
     public BlockState rotate(BlockState p_54125_, Rotation p_54126_) {
@@ -28,11 +27,14 @@ public class FancyCarpetBlock extends WoolCarpetBlock {
         return p_54122_.rotate(p_54123_.getRotation(p_54122_.getValue(FACING)));
     }
 
-    public BlockState getStateForPlacement(BlockPlaceContext p_51377_) {
-        return this.defaultBlockState().setValue(FACING, p_51377_.getHorizontalDirection());
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return conform(this.defaultBlockState(), ctx.getLevel(), ctx.getClickedPos()).setValue(FACING, ctx.getHorizontalDirection());
     }
 
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_51385_) {
-        p_51385_.add(FACING);
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(FACING);
     }
 }

@@ -1,0 +1,15 @@
+{
+  "name": "修理用パテ",
+  "icon": "goety:repair_putty",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "使用者が利き手とは反対の手(オフハンド)にハンマーを構えていれば、あらゆる素材で構成された生ける人造物やゴーレムに塗布し、修復することができる奇跡の物質です。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:repair_putty"
+    }
+  ]
+}

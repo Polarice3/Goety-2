@@ -32,6 +32,7 @@ public class ModLootTables {
     private static final Set<ResourceLocation> IMMUTABLE_LOCATIONS = Collections.unmodifiableSet(LOCATIONS);
     public static final ResourceLocation EMPTY = new ResourceLocation("empty");
     public static final ResourceLocation CRYPT_TOMB = register("chests/crypt_tomb");
+    public static final ResourceLocation CRYPT_TOMB_RESPAWN = register("chests/crypt_tomb_respawn");
 
     public static final ResourceLocation TALL_SKULL = register("entities/tall_skull_mobs");
     public static final ResourceLocation PLAYER_WITCH = register("entities/player_witch");
@@ -47,6 +48,13 @@ public class ModLootTables {
     public static final ResourceLocation NATURAL_GEOMANCER = register("entities/natural/geomancer");
     public static final ResourceLocation NATURAL_ICEOLOGER = register("entities/natural/iceologer");
     public static final ResourceLocation NATURAL_WIND_CALLER = register("entities/natural/wind_caller");
+
+    public static final ResourceLocation NATURAL_BOUND_EVOKER = register("entities/natural/bound_evoker");
+    public static final ResourceLocation NATURAL_BOUND_GEOMANCER = register("entities/natural/bound_geomancer");
+    public static final ResourceLocation NATURAL_BOUND_ICEOLOGER = register("entities/natural/bound_iceologer");
+    public static final ResourceLocation NATURAL_BOUND_WIND_CALLER = register("entities/natural/bound_wind_caller");
+    public static final ResourceLocation NATURAL_BOUND_CRYOLOGER = register("entities/natural/bound_cryologer");
+    public static final ResourceLocation NATURAL_BOUND_STORM_CASTER = register("entities/natural/bound_storm_caster");
 
     public static final ResourceLocation WITCH_BARTER = register("gameplay/witch_bartering");
     public static final ResourceLocation WARLOCK_BARTER = register("gameplay/warlock_bartering");

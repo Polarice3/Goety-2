@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "不祥火炬可以把新刌民训练成其他兵种，要开始训练，你需要使用装有$(l:goety:focuses/command_focus)命令聚晶$()或$(l:goety:focuses/order_focus)敕令聚晶$()的法杖左键新刌民，然后再右键不祥火炬，如果配置文件中的“illagerServantAutoTrain”条目启用，则只需要把新刌民放在火炬旁边就行，就像不同类型的仪式中$(l:rituals/dark_altar)黑暗祭坛$()的摆放需求一样，新刌民最后会训练成特定的兵种，每个火炬至多能同时训练8名新刌民。"
+      "text": "不祥火炬可以将$(l:goety:mutations/illager_servants)新刌民$()训练成其他兵种，要开始训练，你需要使用装有$(l:goety:focuses/command_focus)命令聚晶$()或$(l:goety:focuses/order_focus)敕令聚晶$()的法杖左键新刌民，然后再右键不祥火炬，如果配置文件中的“illagerServantAutoTrain”条目启用，则只需要把新刌民放在火炬旁边就行，就像不同类型的仪式中$(l:rituals/dark_altar)黑暗祭坛$()的摆放需求一样，新刌民最后会训练成特定的兵种，每个火炬至多能同时训练8名新刌民。"
     },
     {
       "type": "goety:ritual",
@@ -39,12 +39,17 @@
     {
       "type": "patchouli:text",
       "title": "登山者仆从",
-      "text": "需求: $(li)卫道士仆从 $(li)火炬必须在可降雪的群系 $(li)16个木栅栏 $(li)20 个羊毛 $(li)8个木桶 $(li)4个充能鼓风机"
+      "text": "需求: $(li)1名卫道士仆从 $(li)火炬必须在可降雪的群系 $(li)16个木栅栏 $(li)20 个羊毛 $(li)8个木桶 $(li)4个被红石信号激活的鼓风机"
     },
     {
       "type": "patchouli:text",
       "title": "粉碎者仆从",
-      "text": "需求：$(li)卫道士仆从 $(li)8个高炉 $(li)2个装满熔岩（岩浆）的炼药锅 $(li)2个装满水的炼药锅 $(li)4个铁砧 $(li)1个锻造台"
+      "text": "需求：$(li)1名卫道士仆从 $(li)8个高炉 $(li)2个装满熔岩（岩浆）的炼药锅 $(li)2个装满水的炼药锅 $(li)4个铁砧 $(li)1个锻造台"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "皇家守卫仆从",
+      "text": "需求：$(li)1名卫道士仆从 $(li)4个不祥雕像 $(li)16块皇家地毯或霜冻地毯 $(li)4面旗帜 $(li)4个铁砧 $(li)4个$(l:goety:crafts/stash_urn)隐秘之瓮$()"
     },
     {
       "type": "patchouli:text",
@@ -64,7 +69,7 @@
     {
       "type": "patchouli:text",
       "title": "泣术师仆从",
-      "text": "需求: $(li)冰术师仆从 $(li)火炬必须在可降雪的群系 $(li)16个书架/附魔能力与前者等同的方块 $(li)32个细雪 $(li)16$(l:goety:crafts/creeper_totem)苦力怕图腾$()"
+      "text": "需求: $(li)1名冰术师仆从 $(li)火炬必须在可降雪的群系 $(li)16个书架/附魔能力与前者等同的方块 $(li)32个细雪 $(li)16$(l:goety:crafts/creeper_totem)苦力怕图腾$()"
     },
     {
       "type": "patchouli:text",
@@ -78,7 +83,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "要想停止或阻止他们的训练，你可以破坏掉不祥火炬，或是把他们转移到距离不祥火炬10格及以上的位置"
+      "text": "要想停止或阻止他们的训练，你可以破坏掉不祥火炬，或是把他们转移到距离不祥火炬10格及以上的位置，如果正在训练的新刌民旁边有一名已经训练成功、并且兵种类型和这些新刌民训练目标一样的兵种（例如准备训练成卫道士的新刌民旁边有一个练好的卫道士），那新刌民的训练速度会加快"
     }
   ],
   "extra_recipe_mappings": {

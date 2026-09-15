@@ -15,11 +15,12 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:deepslate_sarcophagus",
-      "recipe2": "goety:ominous/ominous_sarcophagus"
+      "recipe2": "goety:sandstone_sarcophagus"
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:crypt_sarcophagus"
+      "recipe": "goety:ominous/ominous_sarcophagus",
+      "recipe2": "goety:crypt_sarcophagus"
     },
     {
       "type": "patchouli:spotlight",

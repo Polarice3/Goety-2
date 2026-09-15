@@ -1,0 +1,20 @@
+{
+  "name": "Plano de Patrulha",
+  "icon": "goety:patrol_plan",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Este pergaminho pode armazenar múltiplas posições para seus servos patrulharem. Simplesmente registre suas posições e clique com o botão direito no pergaminho em seu servo para que eles comecem a patrulhar. Para parar seus servos de patrulhar, simplesmente altere seu modo de movimento ou shift + clique com o botão direito neles com o plano."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:patrol_plan"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:command_horn",
+      "text": "Usar um $(l:crafts/command_horn)Chifre de Comando$() no modo Nenhum enquanto tiver um Plano de Patrulha preenchido na mão secundária fará com que todos os servos selecionados patrulhem nas posições. Soprá-lo enquanto agacha e clica com o botão direito impedirá que os servos selecionados patrulhem."
+    }
+  ]
+}

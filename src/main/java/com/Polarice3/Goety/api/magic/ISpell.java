@@ -22,8 +22,11 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
@@ -403,5 +406,28 @@ public interface ISpell {
 
     default boolean VoidSoulDiscount(LivingEntity caster){
         return CuriosFinder.hasVoidRobe(caster);
+    }
+
+    default SoundSource getSoundSource(){
+        return SoundSource.PLAYERS;
+    }
+
+    default float projPitch(RandomSource source){
+        return (source.nextFloat() - source.nextFloat()) * 0.2F + 1.0F;
+    }
+
+    default void playSound(ServerLevel serverLevel, Entity entity, SoundEvent soundEvent){
+        this.playSound(serverLevel, entity, soundEvent, 1.0F, 1.0F);
+    }
+
+    default void playSound(ServerLevel serverLevel, Entity entity, SoundEvent soundEvent, float volume, float pitch){
+        serverLevel.playSound(null, entity.getX(), entity.getY(), entity.getZ(), soundEvent, this.getSoundSource(), volume, pitch);
+    }
+
+    default void playSound(ServerLevel serverLevel, LivingEntity caster, float volume, float pitch){
+        SoundEvent soundEvent = this.CastingSound(caster);
+        if (soundEvent != null){
+            this.playSound(serverLevel, caster, soundEvent, volume, pitch);
+        }
     }
 }

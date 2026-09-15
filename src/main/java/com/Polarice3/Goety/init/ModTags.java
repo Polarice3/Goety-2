@@ -87,6 +87,7 @@ public class ModTags {
         public static final TagKey<Item> CAPES = tag("capes");
         public static final TagKey<Item> CROWNS = tag("crowns");
         public static final TagKey<Item> FOCUSES = tag("focuses");
+        public static final TagKey<Item> HAMMERS = tag("hammers");
         public static final TagKey<Item> GRIMOIRES = tag("grimoires");
         public static final TagKey<Item> PLUSHIE = tag("plushie");
         public static final TagKey<Item> PILLAGER_WEAPONS = tag("pillager_weapons");
@@ -104,6 +105,7 @@ public class ModTags {
         public static final TagKey<Item> UNWRECKABLE = tag("unwreckable");
         public static final TagKey<Item> MAGIC_SWORD_SHOOTABLE = tag("magic_sword_shootable");
         public static final TagKey<Item> LICH_WITHER_ITEMS = tag("lich_wither_items");
+        public static final TagKey<Item> SOUL_TAKING = tag("soul_taking");
         public static final TagKey<Item> RESPAWN_BOSS = tag("respawn_boss");
         public static final TagKey<Item> WITCH_CURRENCY = tag("witch_currency");
         public static final TagKey<Item> WITCH_BETTER_CURRENCY = tag("witch_better_currency");
@@ -162,7 +164,10 @@ public class ModTags {
         public static final TagKey<EntityType<?>> CREEPERS = tag("creepers");
         public static final TagKey<EntityType<?>> ENDERMEN = tag("endermen");
         public static final TagKey<EntityType<?>> VILLAGERS = tag("villagers");
+        public static final TagKey<EntityType<?>> PILLAGERS = tag("pillagers");
         public static final TagKey<EntityType<?>> SERVANTS = tag("servants");
+        public static final TagKey<EntityType<?>> TALL_HEAD = tag("tall_head");
+        public static final TagKey<EntityType<?>> REPAIRABLE = tag("repairable");
         public static final TagKey<EntityType<?>> VILLAGE_GUARDS = tag("village_guards");
         public static final TagKey<EntityType<?>> ZOMBIE_SERVANTS = tag("zombie_servants");
         public static final TagKey<EntityType<?>> SKELETON_SERVANTS = tag("skeleton_servants");
@@ -219,6 +224,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> NETHER_HEAL = tag("nether_heal");
         public static final TagKey<EntityType<?>> VOID_HEAL = tag("void_heal");
         public static final TagKey<EntityType<?>> NECRO_HEAL = tag("necro_heal");
+        public static final TagKey<EntityType<?>> GARMENT_HEAL = tag("garment_heal");
         public static final TagKey<EntityType<?>> NECRO_NO_DEBUFF = tag("necro_no_debuff");
 
         private static TagKey<EntityType<?>> tag(String name) {

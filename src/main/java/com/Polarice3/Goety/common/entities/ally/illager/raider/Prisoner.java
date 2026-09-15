@@ -1074,7 +1074,8 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
                             return false;
                         }
                     }
-                    return this.prisoner.itemsInInv(itemStack -> !itemStack.isEmpty()).size() < 64
+                    int collected = this.prisoner.itemsInInv(s -> !s.isEmpty()).stream().mapToInt(ItemStack::getCount).sum();
+                    return collected < 64
                             && !this.prisoner.isFollowing()
                             && !this.prisoner.isCommanded()
                             && !this.prisoner.isHungry()
@@ -1300,7 +1301,11 @@ public class Prisoner extends RaiderServant implements VillagerDataHolder, ILoot
         @Override
         public boolean canUse() {
             if (this.illager.isMining()) {
-                return false;
+                int collected = this.illager.itemsInInv(s -> !s.isEmpty())
+                        .stream().mapToInt(ItemStack::getCount).sum();
+                if (collected < 64) {
+                    return false;
+                }
             }
             return super.canUse();
         }

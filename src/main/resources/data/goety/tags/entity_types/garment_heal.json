@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "__comment": "servants that heals and lose limited lifespan through any set.",
+  "values": [
+    "#goety:abyss_heal",
+    "#goety:frost_heal",
+    "#goety:geo_heal",
+    "#goety:necro_heal",
+    "#goety:nether_heal",
+    "#goety:storm_heal",
+    "#goety:void_heal",
+    "#goety:wild_heal",
+    "#goety:wind_heal"
+  ]
+}

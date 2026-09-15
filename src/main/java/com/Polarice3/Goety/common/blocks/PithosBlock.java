@@ -65,7 +65,7 @@ public class PithosBlock extends BaseEntityBlock {
                 if (pPlayer.getItemInHand(pHand).is(ModTags.Items.RESPAWN_BOSS) && MainConfig.PithosRespawn.get() && pLevel instanceof ServerLevel serverLevel && BlockFinder.findStructure(serverLevel, pPlayer, ModTags.Structures.SKULL_LORD_SPAWNS)){
                     ItemStack itemStack = pPlayer.getItemInHand(pHand);
                     if (tileentity instanceof PithosBlockEntity pithosBlock) {
-                        pithosBlock.setLootTable(ModLootTables.CRYPT_TOMB, pLevel.random.nextLong());
+                        pithosBlock.setLootTable(ModLootTables.CRYPT_TOMB_RESPAWN, pLevel.random.nextLong());
                     }
                     if (pPlayer instanceof ServerPlayer serverPlayer){
                         CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pPos, itemStack);

@@ -8,7 +8,6 @@ import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.hostile.Irk;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
 import com.Polarice3.Goety.common.entities.neutral.AbstractHauntedArmor;
-import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
 import com.Polarice3.Goety.common.entities.projectiles.SnapFungus;
 import com.Polarice3.Goety.common.items.ModItems;
@@ -33,6 +32,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
@@ -53,6 +53,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -75,11 +76,14 @@ import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.NodeEvaluator;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.entity.PartEntity;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -458,6 +462,128 @@ public class MobUtil {
             } else {
                 return super.rotlerp(pSourceAngle, pTargetAngle, pMaximumChange * 0.25F);
             }
+        }
+    }
+
+    /**
+     * Based on @lgh877's codes:<a href="https://github.com/lgh877/CrimsonStevesMoreMobs/blob/master/src/main/java/net/mcreator/crimson_steves_mobs/SlowRotMoveControl.java">...</a>
+     */
+    public static class SlowRotMoveControl extends noSpinControl {
+        public SlowRotMoveControl(Mob mob) {
+            super(mob);
+        }
+
+        private float trueSpeed;
+        private float additionalRot;
+
+        public void tick() {
+            if (this.operation == MoveControl.Operation.STRAFE) {
+                float f = (float) this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED);
+                float f1 = (float) this.speedModifier * f;
+                float f2 = this.strafeForwards;
+                float f3 = this.strafeRight;
+                float f4 = Mth.sqrt(f2 * f2 + f3 * f3);
+                this.trueSpeed = Mth.lerp(0.1F, this.trueSpeed, f1);
+                if (f4 < 1.0F) {
+                    f4 = 1.0F;
+                }
+                f4 = this.trueSpeed / f4;
+                f2 *= f4;
+                f3 *= f4;
+                float f5 = Mth.sin(this.mob.getYRot() * ((float) Math.PI / 180F));
+                float f6 = Mth.cos(this.mob.getYRot() * ((float) Math.PI / 180F));
+                float f7 = f2 * f6 - f3 * f5;
+                float f8 = f3 * f6 + f2 * f5;
+                if (!this.isWalkable(f7, f8)) {
+                    this.strafeForwards = 1.0F;
+                    this.strafeRight = 0.0F;
+                }
+                this.mob.setSpeed(trueSpeed);
+                this.mob.setZza(this.strafeForwards);
+                this.mob.setXxa(this.strafeRight);
+                this.operation = MoveControl.Operation.WAIT;
+            } else if (this.operation == MoveControl.Operation.MOVE_TO) {
+                this.operation = MoveControl.Operation.WAIT;
+                double d0 = this.wantedX - this.mob.getX();
+                double d1 = this.wantedZ - this.mob.getZ();
+                double d2 = this.wantedY - this.mob.getY();
+                double d3 = d0 * d0 + d2 * d2 + d1 * d1;
+                if (d3 < 2.5000003E-7F) {
+                    this.trueSpeed = Mth.lerp(0.1F, this.trueSpeed, 0.0F);
+                    this.mob.setZza(this.trueSpeed);
+                    if (this.additionalRot > 0) {
+                        this.additionalRot -= 0.1F;
+                    }
+                    return;
+                }
+
+                float wantedYaw = (float)(Mth.atan2(d1, d0) * (180F / (float)Math.PI)) - 90.0F;
+
+                float yawDiff = Mth.degreesDifferenceAbs(this.mob.getYRot(), wantedYaw);
+
+                if (this.additionalRot < 1) {
+                    this.additionalRot += 0.1F;
+                }
+                float maxTurn = 20.0F + this.additionalRot * 10.0F;
+                this.mob.setYRot(this.rotlerp(this.mob.getYRot(), wantedYaw, maxTurn));
+
+                float alignment = Math.max(0.0F, 1.0F - (yawDiff / 90.0F));
+                float target = (float)(this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                this.trueSpeed = Mth.lerp(0.1F, this.trueSpeed, target * alignment);
+                this.mob.setSpeed(this.trueSpeed);
+                BlockPos blockpos = this.mob.blockPosition();
+                BlockState blockstate = this.mob.level.getBlockState(blockpos);
+                VoxelShape voxelshape = blockstate.getCollisionShape(this.mob.level, blockpos);
+                if (d2 > (double) this.mob.getStepHeight() && d0 * d0 + d1 * d1 < (double) Math.max(1.0F, this.mob.getBbWidth())
+                        || !voxelshape.isEmpty() && this.mob.getY() < voxelshape.max(Direction.Axis.Y) + (double) blockpos.getY()
+                        && !blockstate.is(BlockTags.DOORS) && !blockstate.is(BlockTags.FENCES)) {
+                    this.mob.getJumpControl().jump();
+                    this.operation = MoveControl.Operation.JUMPING;
+                }
+            } else if (this.operation == MoveControl.Operation.JUMPING) {
+                this.trueSpeed = Mth.lerp(0.1F, this.trueSpeed, (float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
+                this.mob.setSpeed(this.trueSpeed);
+                if (this.mob.onGround()) {
+                    this.operation = MoveControl.Operation.WAIT;
+                }
+            } else {
+                this.trueSpeed = Mth.lerp(0.1F, this.trueSpeed, 0.0F);
+                this.mob.setZza(trueSpeed);
+                if (this.additionalRot > 0) {
+                    this.additionalRot -= 0.1F;
+                }
+            }
+        }
+
+        private boolean isWalkable(float p_24997_, float p_24998_) {
+            PathNavigation pathnavigation = this.mob.getNavigation();
+            if (pathnavigation != null) {
+                NodeEvaluator nodeevaluator = pathnavigation.getNodeEvaluator();
+                return nodeevaluator == null || nodeevaluator.getBlockPathType(this.mob.level, Mth.floor(this.mob.getX() + (double) p_24997_),
+                        this.mob.getBlockY(), Mth.floor(this.mob.getZ() + (double) p_24998_)) == BlockPathTypes.WALKABLE;
+            }
+            return true;
+        }
+
+        @Override
+        protected float rotlerp(float source, float target, float maxChange) {
+            float f = Mth.wrapDegrees(target - source);
+            if (f > maxChange) {
+                f = maxChange;
+            }
+
+            if (f < -maxChange) {
+                f = -maxChange;
+            }
+
+            float f1 = source + f;
+            if (f1 < 0.0F) {
+                f1 += 360.0F;
+            } else if (f1 > 360.0F) {
+                f1 -= 360.0F;
+            }
+
+            return f1;
         }
     }
 
@@ -1157,16 +1283,19 @@ public class MobUtil {
         return canAttack(attacker, target);
     }
 
-    public static boolean ownedCanAttack(Owned attacker, LivingEntity target){
-        if (attacker.getTrueOwner() != null){
-            LivingEntity owner = attacker.getTrueOwner();
+    public static boolean ownedCanAttack(OwnableEntity attacker, LivingEntity target){
+        if (attacker.getOwner() != null){
+            LivingEntity owner = attacker.getOwner();
             if (owner instanceof Mob mob){
                 return mobCanAttack(mob, target);
             } else {
                 return canAttack(owner, target);
             }
         }
-        return mobCanAttack(attacker, target);
+        if (attacker instanceof Mob mob) {
+            return mobCanAttack(mob, target);
+        }
+        return false;
     }
 
     public static void sweepAttack(LivingEntity attacker, Entity target, DamageSource damageSource, float damage){

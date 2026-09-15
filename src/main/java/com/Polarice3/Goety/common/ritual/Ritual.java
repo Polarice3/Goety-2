@@ -30,10 +30,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.ItemStackHandler;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Ritual Codes based from @klikli-dev
@@ -56,8 +53,19 @@ public abstract class Ritual {
 
     public static List<Ingredient> getRemainingAdditionalIngredients(List<Ingredient> additionalIngredients, List<ItemStack> consumedIngredients) {
         List<ItemStack> consumedIngredientsCopy = new ArrayList<>(consumedIngredients);
+        List<Ingredient> list = new ArrayList<>(additionalIngredients);
+        list.sort(Comparator.comparingInt(ing -> {
+            int count = 0;
+            for (ItemStack stack : consumedIngredients) {
+                if (ing.test(stack)) {
+                    count++;
+                }
+            }
+            return count;
+        }));
+
         List<Ingredient> remainingAdditionalIngredients = new ArrayList<>();
-        for (Ingredient ingredient : additionalIngredients) {
+        for (Ingredient ingredient : list) {
             Optional<ItemStack> matchedStack = consumedIngredientsCopy.stream().filter(ingredient::test).findFirst();
             if (matchedStack.isPresent()) {
                 consumedIngredientsCopy.remove(matchedStack.get());
@@ -183,6 +191,16 @@ public abstract class Ritual {
             return true;
 
         List<PedestalBlockEntity> pedestals = this.getPedestals(world, darkAltarPos);
+        List<ItemStack> itemsOnPedestals = this.getItemsOnPedestals(world, darkAltarPos);
+        remainingAdditionalIngredients.sort(Comparator.comparingInt(ingredient -> {
+            int count = 0;
+            for (ItemStack stack : itemsOnPedestals) {
+                if (ingredient.test(stack)) {
+                    count++;
+                }
+            }
+            return count;
+        }));
         int consumed = 0;
         for (Iterator<Ingredient> it = remainingAdditionalIngredients.iterator();
              it.hasNext() && consumed < ingredientsToConsume; consumed++) {
@@ -248,33 +266,50 @@ public abstract class Ritual {
     }
 
     public boolean matchesAdditionalIngredients(Player player, List<Ingredient> additionalIngredients, List<ItemStack> items) {
-
         if (additionalIngredients.size() != items.size()) {
             return false;
         }
-
         if (additionalIngredients.isEmpty()) {
             return true;
         }
 
-        List<ItemStack> remainingItems = new ArrayList<>(items);
-
+        int size = additionalIngredients.size();
+        List<List<Integer>> adjacency = new ArrayList<>(size);
         for (Ingredient ingredient : additionalIngredients) {
-            boolean isMatched = false;
-            for (int i = 0; i < remainingItems.size(); i++) {
-                ItemStack stack = remainingItems.get(i);
-                if (ingredient.test(stack)) {
-                    isMatched = true;
-                    remainingItems.remove(i);
-                    break;
+            List<Integer> candidates = new ArrayList<>();
+            for (int j = 0; j < items.size(); j++) {
+                if (ingredient.test(items.get(j))) {
+                    candidates.add(j);
                 }
             }
-            if (!isMatched) {
+            if (candidates.isEmpty()) {
                 return false;
             }
+            adjacency.add(candidates);
         }
 
-        return true;
+        int[] itemToIngredient = new int[items.size()];
+        Arrays.fill(itemToIngredient, -1);
+        int matched = 0;
+        for (int i = 0; i < size; i++) {
+            if (tryAssign(i, adjacency, new boolean[items.size()], itemToIngredient)) {
+                matched++;
+            }
+        }
+        return matched == size;
+    }
+
+    private boolean tryAssign(int ingredient, List<List<Integer>> adjacency, boolean[] visited, int[] itemToIngredient) {
+        for (int item : adjacency.get(ingredient)) {
+            if (!visited[item]) {
+                visited[item] = true;
+                if (itemToIngredient[item] == -1 || tryAssign(itemToIngredient[item], adjacency, visited, itemToIngredient)) {
+                    itemToIngredient[item] = ingredient;
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public List<ItemStack> getItemsOnPedestals(Level world, BlockPos darkAltarPos, List<Ingredient> additionalIngredients) {

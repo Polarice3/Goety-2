@@ -286,8 +286,10 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.DAMNED, DamnedModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.DAMNED_HUMAN, DamnedModel::createHumanLayer);
         event.registerLayerDefinition(ModModelLayer.ILLAGER_SERVANT, IllagerServantModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.IMPERIAL_GUARD, ImperialGuardModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VINDICATOR_CHEF, VindicatorChefModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MOUNTAINEER, MountaineerModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.ROYAL_GUARD, RoyalGuardModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.GEOMANCER, GeomancerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ICEOLOGER, IceologerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WIND_CALLER, WindCallerModel::createBodyLayer);
@@ -592,6 +594,8 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.HOSTILE_BLACK_WOLF.get(), BlackWolfRenderer::new);
         event.registerEntityRenderer(ModEntityType.FRAYED.get(), FrayedRenderer::new);
         event.registerEntityRenderer(ModEntityType.RATTLED.get(), RattledRenderer::new);
+        event.registerEntityRenderer(ModEntityType.ZOMBIE_VINDICATOR.get(), ZombieVindicatorRenderer::new);
+        event.registerEntityRenderer(ModEntityType.SKELETON_PILLAGER.get(), SkeletonPillagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.REAPER.get(), ReaperRenderer::new);
         event.registerEntityRenderer(ModEntityType.WRAITH.get(), WraithRenderer::new);
         event.registerEntityRenderer(ModEntityType.BORDER_WRAITH.get(), BorderWraithRenderer::new);
@@ -620,6 +624,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.JUNGLE_ZOMBIE_SERVANT.get(), JungleZombieRenderer::new);
         event.registerEntityRenderer(ModEntityType.FRAYED_SERVANT.get(), FrayedServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.BLACKGUARD_SERVANT.get(), BlackguardRenderer::new);
+        event.registerEntityRenderer(ModEntityType.BLACKGUARD_VARIANT_SERVANT.get(), ZombieRoyalGuardRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKELETON_SERVANT.get(), SkeletonServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.STRAY_SERVANT.get(), SkeletonServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.WITHER_SKELETON_SERVANT.get(), WitherSkeletonServantRenderer::new);
@@ -667,12 +672,14 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.PRISONER.get(), PrisonerRenderer::new);
         event.registerEntityRenderer(ModEntityType.NEOLLAGER.get(), NeollagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.PILLAGER_SERVANT.get(), PillagerServantRenderer::new);
+        event.registerEntityRenderer(ModEntityType.IMPERIAL_GUARD_SERVANT.get(), ImperialGuardRenderer::new);
         event.registerEntityRenderer(ModEntityType.PIKER_SERVANT.get(), PikerServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.SIGNALER_SERVANT.get(), SignalerServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.VINDICATOR_SERVANT.get(), VindicatorServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.VINDICATOR_CHEF_SERVANT.get(), VindicatorChefServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.MOUNTAINEER_SERVANT.get(), MountaineerServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.CRUSHER_SERVANT.get(), CrusherServantRenderer::new);
+        event.registerEntityRenderer(ModEntityType.ROYAL_GUARD_SERVANT.get(), RoyalGuardRenderer::new);
         event.registerEntityRenderer(ModEntityType.EVOKER_SERVANT.get(), EvokerServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.GEOMANCER_SERVANT.get(), GeomancerServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.ICEOLOGER_SERVANT.get(), IceologerServantRenderer::new);

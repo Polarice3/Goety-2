@@ -1,0 +1,17 @@
+{
+  "name": "枯れ果てた遺骸",
+  "icon": "minecraft:nether_bricks",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ネザーに存在する要塞の住人や、彼らが有していたとされる魔法の能力については、数多くの説が唱えられています。しかし残念なことに、そうした知見を記した文献は、住人たち自身と同様に、すべて朽ち果てて消え失せてしまいました。"
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/read_bygone_scroll",
+      "text": "とはいえ、かつての住人の中には、そうした知識をより深く理解している者もいるかもしれない。もしかすると、特別な$(l)角笛$()を吹けば、彼らの一人を呼び出せるかもしれない。"
+    }
+  ]
+}

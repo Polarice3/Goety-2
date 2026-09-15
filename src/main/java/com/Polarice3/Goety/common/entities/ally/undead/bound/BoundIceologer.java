@@ -8,11 +8,13 @@ import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ModLootTables;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AnimationState;
@@ -85,6 +87,15 @@ public class BoundIceologer extends AbstractBoundIllager{
         super.readAdditionalSaveData(compound);
         if (compound.contains("SpellCool")) {
             this.spellCool = compound.getInt("SpellCool");
+        }
+    }
+
+    @Override
+    protected ResourceLocation getDefaultLootTable() {
+        if (this.isNatural()){
+            return ModLootTables.NATURAL_BOUND_ICEOLOGER;
+        } else {
+            return super.getDefaultLootTable();
         }
     }
 

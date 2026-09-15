@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class SkeletonPillagerRenderer extends HumanoidMobRenderer<AbstractSkeletonPillager, SkeletonVillagerModel<AbstractSkeletonPillager>> {
     protected static final ResourceLocation TEXTURE = Goety.location("textures/entity/servants/skeleton/skeleton_pillager.png");
+    protected static final ResourceLocation HOSTILE = Goety.location("textures/entity/servants/skeleton/skeleton_pillager_hostile.png");
 
     public SkeletonPillagerRenderer(EntityRendererProvider.Context entityRendererManager) {
         super(entityRendererManager, new SkeletonVillagerModel<>(entityRendererManager.bakeLayer(ModModelLayer.SKELETON_VILLAGER_SERVANT)),0.5F);
@@ -26,6 +27,9 @@ public class SkeletonPillagerRenderer extends HumanoidMobRenderer<AbstractSkelet
     }
 
     public ResourceLocation getTextureLocation(AbstractSkeletonPillager entity) {
+        if (entity.isHostile()) {
+            return HOSTILE;
+        }
         return TEXTURE;
     }
 }

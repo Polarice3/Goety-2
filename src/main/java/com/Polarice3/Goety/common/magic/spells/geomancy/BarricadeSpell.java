@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.magic.spells.geomancy;
 
-import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -135,7 +134,7 @@ public class BarricadeSpell extends Spell {
         }
         if (caster instanceof Player player) {
             cooldown *= (int) ModAttributes.getCooldownDiscount(caster);
-            SEHelper.addCooldown(player, IWand.getFocus(staff).getItem(), cooldown);
+            SEHelper.addSpellCooldown(player, this, cooldown);
         }
     }
 }

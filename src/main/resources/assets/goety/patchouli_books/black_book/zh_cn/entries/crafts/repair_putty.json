@@ -1,0 +1,15 @@
+{
+  "name": "速修腻子",
+  "icon": "goety:repair_putty",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "一种神奇的物质，只要使用者的副手还持有一个大锤，就可以把它涂在傀儡（任意材质均可）或建筑上，治疗它们"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:repair_putty"
+    }
+  ]
+}

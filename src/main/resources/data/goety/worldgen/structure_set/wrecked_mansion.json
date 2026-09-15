@@ -1,0 +1,19 @@
+{
+  "structures": [
+    {
+      "structure": "goety:wrecked_mansion",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 288973156,
+    "spacing": 80,
+    "separation": 20,
+    "exclusion_zone": {
+      "chunk_count": 10,
+      "other_set": "minecraft:woodland_mansions"
+    },
+    "spread_type": "triangular",
+    "type": "minecraft:random_spread"
+  }
+}

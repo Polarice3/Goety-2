@@ -2,11 +2,13 @@ package com.Polarice3.Goety.common.entities.ally.illager.raider;
 
 import com.Polarice3.Goety.api.entities.IAutoRideable;
 import com.Polarice3.Goety.api.entities.ICharger;
+import com.Polarice3.Goety.api.entities.INeedSaddle;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.ChargeGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.TramplerArmorItem;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.CSetDeltaMovement;
@@ -25,6 +27,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -42,6 +45,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -58,8 +62,9 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class AllyTrampler extends RaiderServant implements ICharger, IAutoRideable, PlayerRideableJumping {
+public class AllyTrampler extends RaiderServant implements ICharger, IAutoRideable, INeedSaddle, PlayerRideableJumping {
     private static final UUID ARMOR_MODIFIER_UUID = ModUUIDUtil.createUUID("entity.goety.ally_trampler.armor");
+    private static final EntityDataAccessor<Boolean> DATA_SADDLE_ID = SynchedEntityData.defineId(AllyTrampler.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_STANDING_ID = SynchedEntityData.defineId(AllyTrampler.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_CHARGING = SynchedEntityData.defineId(AllyTrampler.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DASH = SynchedEntityData.defineId(AllyTrampler.class, EntityDataSerializers.BOOLEAN);
@@ -96,7 +101,7 @@ public class AllyTrampler extends RaiderServant implements ICharger, IAutoRideab
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, AttributesConfig.TramplerHealth.get())
+                .add(Attributes.MAX_HEALTH, 20.0D)
                 .add(Attributes.ARMOR, AttributesConfig.TramplerArmor.get())
                 .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0D)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
@@ -105,13 +110,13 @@ public class AllyTrampler extends RaiderServant implements ICharger, IAutoRideab
     }
 
     public void setConfigurableAttributes(){
-        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.TramplerHealth.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.TramplerArmor.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.TramplerDamage.get());
     }
 
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(DATA_SADDLE_ID, false);
         this.entityData.define(DATA_STANDING_ID, false);
         this.entityData.define(DATA_CHARGING, false);
         this.entityData.define(AUTO_MODE, false);
@@ -121,6 +126,7 @@ public class AllyTrampler extends RaiderServant implements ICharger, IAutoRideab
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putBoolean("AutoMode", this.isAutonomous());
+        pCompound.putBoolean("Saddle", this.hasSaddle());
         ItemStack itemStack = this.getItemBySlot(EquipmentSlot.CHEST);
         if(!itemStack.isEmpty()) {
             CompoundTag compoundTag = new CompoundTag();
@@ -134,12 +140,23 @@ public class AllyTrampler extends RaiderServant implements ICharger, IAutoRideab
         if (pCompound.contains("AutoMode")) {
             this.setAutonomous(pCompound.getBoolean("AutoMode"));
         }
+        if (pCompound.contains("Saddle") || this.getAttributeValue(Attributes.MAX_HEALTH) == AttributesConfig.TramplerHealth.get()) {
+            this.setSaddle(pCompound.getBoolean("Saddle"));
+        }
         if (pCompound.contains("ArmorItem")) {
             CompoundTag armorItem = pCompound.getCompound("ArmorItem");
             if (!armorItem.isEmpty()) {
                 this.setArmorEquipment(ItemStack.of(armorItem), false);
             }
         }
+    }
+
+    public void setSaddle(boolean p_20850_) {
+        this.entityData.set(DATA_SADDLE_ID, p_20850_);
+    }
+
+    public boolean hasSaddle() {
+        return this.entityData.get(DATA_SADDLE_ID);
     }
 
     protected float getWaterSlowDown() {
@@ -434,6 +451,13 @@ public class AllyTrampler extends RaiderServant implements ICharger, IAutoRideab
         return super.hurt(p_37849_, p_37850_);
     }
 
+    protected void dropEquipment() {
+        super.dropEquipment();
+        if (this.hasSaddle()) {
+            this.spawnAtLocation(Items.SADDLE);
+        }
+    }
+
     @Override
     public boolean isCharging() {
         return this.entityData.get(DATA_CHARGING);
@@ -649,7 +673,7 @@ public class AllyTrampler extends RaiderServant implements ICharger, IAutoRideab
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         if (!pPlayer.level.isClientSide) {
             if (pPlayer == this.getTrueOwner()) {
-                if (!pPlayer.isCrouching()) {
+                if (this.hasSaddle() && !pPlayer.isCrouching()) {
                     if (this.getFirstPassenger() != null && this.getFirstPassenger() != pPlayer){
                         this.getFirstPassenger().stopRiding();
                         return InteractionResult.SUCCESS;
@@ -657,6 +681,12 @@ public class AllyTrampler extends RaiderServant implements ICharger, IAutoRideab
                         this.doPlayerRide(pPlayer);
                         return InteractionResult.SUCCESS;
                     }
+                } else if (pPlayer.getItemInHand(pHand).is(ModItems.OMINOUS_SADDLE.get()) && !this.hasSaddle()) {
+                    if (!pPlayer.getAbilities().instabuild) {
+                        pPlayer.getItemInHand(pHand).shrink(1);
+                    }
+                    this.equipSaddle(true);
+                    return InteractionResult.SUCCESS;
                 } else if (this.isArmor(pPlayer.getItemInHand(pHand))) {
                     if (!this.getArmor().isEmpty()) {
                         if (this.spawnAtLocation(this.getArmor()) != null) {
@@ -696,6 +726,24 @@ public class AllyTrampler extends RaiderServant implements ICharger, IAutoRideab
         Item item = p_30440_.getItem();
         FoodProperties foodProperties = p_30440_.getFoodProperties(this);
         return item.isEdible() && foodProperties != null && foodProperties.isMeat();
+    }
+
+    public void equipSaddle(boolean playSound) {
+        if (playSound) {
+            this.level.playSound(null, this, SoundEvents.HORSE_SADDLE, SoundSource.PLAYERS, 1.0F, 1.0F);
+        }
+        AttributeInstance attributeInstance = this.getAttribute(Attributes.MAX_HEALTH);
+        if (attributeInstance != null) {
+            double original = attributeInstance.getBaseValue();
+            double newValue = AttributesConfig.TramplerHealth.get();
+            attributeInstance.setBaseValue(newValue);
+            if (playSound) {
+                if (newValue > original) {
+                    this.heal((float) (newValue - original));
+                }
+            }
+        }
+        this.setSaddle(true);
     }
 
     class TramplerMeleeAttackGoal extends MeleeAttackGoal {

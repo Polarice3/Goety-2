@@ -35,7 +35,7 @@
       "type": "patchouli:text",
       "text": "洗練されたクロスボウを装備しているにもかかわらず、イリジャーの戦闘スタイルは実にシンプルです。幸いにも、あなたの従者は標的が近づいたら後退する方法を心得ています。"
     },
-	{
+    {
       "type": "patchouli:entity",
       "entity": "goety:piker_servant"
     },
@@ -43,7 +43,7 @@
       "type": "patchouli:text",
       "text": "高度な訓練を受け、規律正しいイリジャーは、自分の位置から遠く離れた標的を刺すことが可能です。"
     },
-	{
+    {
       "type": "patchouli:entity",
       "entity": "goety:signaler_servant"
     },
@@ -59,16 +59,16 @@
       "type": "patchouli:text",
       "text": "指揮下にある最も凶悪なイリジャーの一人。斧で盾を無効化し、大量のダメージを与える。従順にさせたいなら、「Johnny」という名前は避けた方が良いだろう。"
     },
-	{
+    {
       "type": "patchouli:entity",
       "entity": "goety:vindicator_chef_servant",
       "scale": 0.75
     },
-	{
+    {
       "type": "patchouli:text",
       "text": "生肉を集め、近くの燻製器やかまどでインベントリ内の食材を調理できる、特別なヴィンディケーターです。何も持たずにShiftキーを押しながら右クリックすると、インベントリ内の最初の食材が手に入ります。"
     },
-	{
+    {
       "type": "patchouli:entity",
       "entity": "goety:mountaineer_servant"
     },
@@ -76,7 +76,7 @@
       "type": "patchouli:text",
       "text": "これらの登山家は、HPでも、風に吹き飛ばされにくい点でも、ヴィンディケーターより頑丈です。"
     },
-	{
+    {
       "type": "patchouli:entity",
       "entity": "goety:crusher_servant",
       "scale": 0.75
@@ -87,13 +87,22 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:royal_guard_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "威圧的な態度とメイスによる強力な一撃で上官を護衛する、高位のイラジャーです。盾を失っている場合、攻撃中でない時に鉄インゴットを持って右クリックすると、盾を再び持たせることができます。"
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:evoker_servant"
     },
     {
       "type": "patchouli:text",
       "text": "闇の魔術の使い手だが、使える呪文は2つに限られている。しかし、呪文の使い手としてはかなり優秀です。戦闘に関しては、刺されないように走り回るのが好きなようだ。主人が$(l:rumors/ravaging)荒らし方$()を学んだ場合、村人をラヴェジャーに変えることが可能です。そのためには、$(l:goety:focuses/command_focus)命令$()して $(l:goety:mutations/illager_servants#banner)エヴォーカーを1人に導く$() か、村人全体が$(l:goety:crafts/grimoire_of_grudges)恨みを抱いている$()場合は近くに1人、さらにエヴォーカーが2人いる必要があります。"
     },
-	{
+    {
       "type": "patchouli:entity",
       "entity": "goety:geomancer_servant"
     },
@@ -109,7 +118,7 @@
       "type": "patchouli:text",
       "text": "これらの冷たい氷の魔術師は、氷の塊で敵の頭を粉砕します。"
     },
-	{
+    {
       "type": "patchouli:entity",
       "entity": "goety:cryologer_servant"
     },
@@ -117,7 +126,7 @@
       "type": "patchouli:text",
       "text": "常に泣き叫ぶこの冷気の司祭たちは、氷の息を吐き出し、敵を妨害する凍った壁を召喚し、頭上に雹の雲を召喚することができます。"
     },
-	{
+    {
       "type": "patchouli:entity",
       "entity": "goety:wind_caller_servant",
       "scale": 0.75
@@ -126,7 +135,7 @@
       "type": "patchouli:text",
       "text": "空の支配者であるこの大きな髪の魔術師は、敵を上空に投げ飛ばしたり、風で吹き飛ばしたりすることができます。"
     },
-	{
+    {
       "type": "patchouli:entity",
       "entity": "goety:storm_caster_servant",
       "scale": 0.75
@@ -166,7 +175,7 @@
       "type": "patchouli:text",
       "text": "タグロックキットを装備し、タグ付きのクリーチャーを登録してリーダーのイリジャーを右クリックすると、そのイリジャーと、そのイリジャーをフォローしている、あるいはリーダーを持たない近くの襲撃者らが、そのクリーチャーを狩ってから主人の元へ戻ります。襲撃隊に、どのイリジャーにも従っていなかった襲撃者が含まれている場合、彼らは一緒に来たリーダーを追跡し始めます。"
     },
-	{
+    {
       "type": "patchouli:spotlight",
       "item": "goety:waystone",
       "anchor": "レイド",
@@ -177,7 +186,7 @@
       "type": "patchouli:text",
       "text": "襲撃が成功すると、イリジャーは主人の元へ戻り、戦利品を落とします。イリジャーは村人を倒すとエメラルドなどの戦利品を獲得します。主人が村人をまとめて$(l:goety:crafts/grimoire_of_goodwill)仲間$()に登録している場合は、襲撃を行いません。襲撃を中止するには、村人を$(l:goety:crafts/grimoire_of_goodwill)仲間$()に登録するか、メインハンドまたはオフハンドに旗を持った状態で停戦キー$(l)を押します。$()。"
     },
-	{
+    {
       "type": "patchouli:text",
       "text": "すべてのイリジャーは、倒した敵から戦利品を集め、その戦利品が自分にとって有効な食料でない限り、主人が近くにいて戦闘から離れているときにそれを主人に投げつけます。"
     },
@@ -198,7 +207,7 @@
       "title": "チェストとの相互作用",
       "text": "イリジャーをロックされていないチェストの位置を保存したウェイストーンで右クリックすると、そのチェストは食料の倉庫として登録され、近くにいる間は食料を取り出すことができます。そのイリジャーがリーダーだった場合、リーダーをフォローしている従者も同じチェストを登録します。"
     },
-	{
+    {
       "type": "patchouli:crafting",
       "recipe": "goety:raiding_chest",
       "text": "イリジャーは通常のチェストとは別に、別のチェストを登録することもできます。登録すると、イリジャーは他のチェストの上に戦利品を預けようとし、そのチェストからアイテムを持ち出そうとしなくなります。"

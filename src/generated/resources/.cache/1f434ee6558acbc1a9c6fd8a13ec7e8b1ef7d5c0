@@ -1,4 +1,4 @@
-// 1.20.1	2026-08-22T13:34:37.3250209	Block States: goety
+// 1.20.1	2026-09-07T17:32:53.3628877	Block States: goety
 92a547327e71f54fb7e9d59c8b81d2e518a332b2 assets/goety/blockstates/big_end_stone_bricks.json
 82b39d96011dec7bfc2719744242e26b70c038fb assets/goety/blockstates/blooming_chorus_wood.json
 0868546e099bb6609c1b9df7cd57e1e80292eae2 assets/goety/blockstates/blossoming_chorus_wood.json
@@ -193,6 +193,8 @@ f470eb09d30eb32827c3e9c3835061c22e7285ae assets/goety/blockstates/pine_hanging_s
 152ae2dc8ea7bc2c35d45b31f02e07d1624271d5 assets/goety/blockstates/plushie.json
 3451a9d10bd86fabec204c47ea8d1f7d5201b661 assets/goety/blockstates/plushie_1.json
 f02610cf8a479f1a0f60720eedce6c649994636c assets/goety/blockstates/plushie_10.json
+db26cf69181571699ce425d610342c2e6cd9451a assets/goety/blockstates/plushie_11.json
+0c5171bb89912f4f40d03c391b50bc91f9b9a027 assets/goety/blockstates/plushie_12.json
 aeaabfea84222785471c3faa9c88dccfeb447e03 assets/goety/blockstates/plushie_2.json
 203decfdca4011fd9490db9763b647e6dadf27df assets/goety/blockstates/plushie_3.json
 13fe6f4edda6659d093c5c6b1c5122e346bc60d2 assets/goety/blockstates/plushie_4.json
@@ -227,11 +229,14 @@ a662d242201f7c4038e17507a879fee0000826b8 assets/goety/blockstates/rotten_stairs.
 9ed3a159b44de74cbf04a268d28a37c52de6a215 assets/goety/blockstates/rotten_trapdoor.json
 56aea9721357afd59f100df31aea50d0f192f34f assets/goety/blockstates/rotten_wall_hanging_sign.json
 3bbe67ae0e94d266444ac0ad8c7d5089123502ed assets/goety/blockstates/rotten_wood.json
+c42311c9d301f44562103d883cf399e02df5028d assets/goety/blockstates/sandstone_sarcophagus.json
 c499cf6aa069746f8545a5de6ee22d2bca91521c assets/goety/blockstates/sculptured_statue.json
 a0b8f67c7b9234e95c656469c27ffe3205473d24 assets/goety/blockstates/sculptured_statue_1.json
 940dc13999d6d21aa1874698e0fc6106b12b7641 assets/goety/blockstates/sculptured_statue_2.json
 958b4e8b9ebf22c2856e5fc4d41c3e793248dcee assets/goety/blockstates/sculptured_statue_3.json
 c61dc9360d7ec336f9e18c1de43b47aae258ee6b assets/goety/blockstates/sculptured_statue_4.json
+c1122eb34a1f2e7a2903a10f8c1bdfa97bbf5327 assets/goety/blockstates/sculptured_statue_5.json
+6437a6738083cd6a076f01e0ac29359871c84a08 assets/goety/blockstates/sculptured_statue_6.json
 2e56ff6483c9970cc675df6eabdf19d9dbcb4b18 assets/goety/blockstates/shade_sarcophagus.json
 ef03f58978f72f42e0a3f83a5a99fbfb7ddb7a40 assets/goety/blockstates/sienna_fern.json
 f80f6880baf9b7c55b1727312d2b5d2125bbf661 assets/goety/blockstates/sienna_grass.json
@@ -734,6 +739,8 @@ e0951856f2ef17b5983e5e4c2f63b3cb20e44f40 assets/goety/models/block/pine_trapdoor
 6d572e6f960820cab6a9d9c4ebc0f69ebf41c113 assets/goety/models/block/plushie.json
 6d572e6f960820cab6a9d9c4ebc0f69ebf41c113 assets/goety/models/block/plushie_1.json
 6d572e6f960820cab6a9d9c4ebc0f69ebf41c113 assets/goety/models/block/plushie_10.json
+6d572e6f960820cab6a9d9c4ebc0f69ebf41c113 assets/goety/models/block/plushie_11.json
+6d572e6f960820cab6a9d9c4ebc0f69ebf41c113 assets/goety/models/block/plushie_12.json
 6d572e6f960820cab6a9d9c4ebc0f69ebf41c113 assets/goety/models/block/plushie_2.json
 6d572e6f960820cab6a9d9c4ebc0f69ebf41c113 assets/goety/models/block/plushie_3.json
 6d572e6f960820cab6a9d9c4ebc0f69ebf41c113 assets/goety/models/block/plushie_4.json
@@ -814,11 +821,14 @@ c802a5a6a970fcc54a3c353b921016e89c589fc4 assets/goety/models/block/rotten_trapdo
 cd979e467c52177954a673086cb179d254e9f0ce assets/goety/models/block/rotten_trapdoor_top.json
 39ad70e48dc729b08b89838c54663055ab313ab9 assets/goety/models/block/rotten_wall_hanging_sign.json
 316af17df013ee5e710a7367e99c70b88f7d34b3 assets/goety/models/block/rotten_wood.json
+2bdeb40382f5eaa95b6342ae0a40f38c2e6d5e72 assets/goety/models/block/sandstone_sarcophagus.json
 4114c582596dbd7f41d08e6bcf45af53b0e885b7 assets/goety/models/block/sculptured_statue.json
 4114c582596dbd7f41d08e6bcf45af53b0e885b7 assets/goety/models/block/sculptured_statue_1.json
 4114c582596dbd7f41d08e6bcf45af53b0e885b7 assets/goety/models/block/sculptured_statue_2.json
 4114c582596dbd7f41d08e6bcf45af53b0e885b7 assets/goety/models/block/sculptured_statue_3.json
 4114c582596dbd7f41d08e6bcf45af53b0e885b7 assets/goety/models/block/sculptured_statue_4.json
+4114c582596dbd7f41d08e6bcf45af53b0e885b7 assets/goety/models/block/sculptured_statue_5.json
+4114c582596dbd7f41d08e6bcf45af53b0e885b7 assets/goety/models/block/sculptured_statue_6.json
 933b6e2d31b6701e6e81682a8690c382e8ccd7db assets/goety/models/block/shade_sarcophagus.json
 4671df57fd68367fa8ff146e884c6257378e8969 assets/goety/models/block/sienna_fern.json
 befaaeaee098b0126f10d83fb0fc5cd4d54db2b8 assets/goety/models/block/sienna_grass.json
@@ -1228,6 +1238,8 @@ aea3dc6ad3b99954326b3754fbbad071227c0e4e assets/goety/models/item/pine_pressure_
 ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie.json
 ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie_1.json
 ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie_10.json
+ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie_11.json
+ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie_12.json
 ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie_2.json
 ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie_3.json
 ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie_4.json
@@ -1258,11 +1270,14 @@ f11ca39da3f714563325e9e8607d0813da9f59eb assets/goety/models/item/rotten_log.jso
 f280b575b568a9f43dba5ffd53e9295b1f364dac assets/goety/models/item/rotten_slab.json
 c84df57e9c075156d5da25c85276ddbaa8f7fb4c assets/goety/models/item/rotten_stairs.json
 7fd0ebd1618f03f1d9d8122dfcd08d1f49bd990d assets/goety/models/item/rotten_wood.json
+6df13dd6daf23f2c9198b24b1c57032149a6f790 assets/goety/models/item/sandstone_sarcophagus.json
 4114c582596dbd7f41d08e6bcf45af53b0e885b7 assets/goety/models/item/sculptured_statue.json
 4114c582596dbd7f41d08e6bcf45af53b0e885b7 assets/goety/models/item/sculptured_statue_1.json
 4114c582596dbd7f41d08e6bcf45af53b0e885b7 assets/goety/models/item/sculptured_statue_2.json
 4114c582596dbd7f41d08e6bcf45af53b0e885b7 assets/goety/models/item/sculptured_statue_3.json
 4114c582596dbd7f41d08e6bcf45af53b0e885b7 assets/goety/models/item/sculptured_statue_4.json
+4114c582596dbd7f41d08e6bcf45af53b0e885b7 assets/goety/models/item/sculptured_statue_5.json
+4114c582596dbd7f41d08e6bcf45af53b0e885b7 assets/goety/models/item/sculptured_statue_6.json
 6df13dd6daf23f2c9198b24b1c57032149a6f790 assets/goety/models/item/shade_sarcophagus.json
 fb5749638bcb89e5456304ce92fd055d17686fcb assets/goety/models/item/sienna_fern.json
 bf5036b383a463b06f816023051f75b5e436ee59 assets/goety/models/item/sienna_grass.json

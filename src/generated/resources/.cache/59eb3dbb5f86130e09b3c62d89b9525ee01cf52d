@@ -1,4 +1,4 @@
-// 1.20.1	2026-08-20T18:30:01.5262166	Loot Tables
+// 1.20.1	2026-09-07T16:41:22.6608113	Loot Tables
 1173ad0aef6067156a1c3161e3fe16b8e10b3f92 data/goety/loot_tables/blocks/animator.json
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
@@ -400,6 +400,8 @@ f0b51c4fea7223baa1a17f03b8ba7224cb2350ea data/goety/loot_tables/blocks/pine_sign
 55a71df4c9d4794403f117d7cf966377851d605b data/goety/loot_tables/blocks/plushie.json
 1ca8b37a1ed9620493dba9d20d77644fd075f025 data/goety/loot_tables/blocks/plushie_1.json
 8eee8be7526e3d9c4e785662568c71a5a4d95238 data/goety/loot_tables/blocks/plushie_10.json
+ded6334a40c2c066eeeb372482eee04caab394dd data/goety/loot_tables/blocks/plushie_11.json
+4cdad98fc9f49ef4d1a756b0a204d104777ad184 data/goety/loot_tables/blocks/plushie_12.json
 19d5f3e07d876af8998ca139795e8b0e3b2cee28 data/goety/loot_tables/blocks/plushie_2.json
 1654529f676428d76a09727e68a1c54ef19f15d8 data/goety/loot_tables/blocks/plushie_3.json
 90f8080b9d8d13012b0ba3660acdcd1e598f6937 data/goety/loot_tables/blocks/plushie_4.json
@@ -468,12 +470,15 @@ a27ad74aef76ddbac506c3a269f1d0c77fd13be0 data/goety/loot_tables/blocks/royal_car
 f5cc6786358943b258f27069f8ec2ff494ac648a data/goety/loot_tables/blocks/royal_carpet_inner_corner.json
 e34c60f22e8481b625982827f936ce6a8fc477c1 data/goety/loot_tables/blocks/rusty_iron_bars.json
 c916f78d87009ca3c9d7ee8d1fbfddf6231cace9 data/goety/loot_tables/blocks/rusty_iron_grate.json
+8cbeb561e3f32a0f71d1708d83debad457d92255 data/goety/loot_tables/blocks/sandstone_sarcophagus.json
 54726be3bbadb63afa8584a0c2eff4a314043063 data/goety/loot_tables/blocks/sculk_relay.json
 ba1fc69db1dff42caf96ed8c1ad503a8bb1f4aee data/goety/loot_tables/blocks/sculptured_statue.json
 0f3e9aa5efcde51e9bb51438924f14037307ccb4 data/goety/loot_tables/blocks/sculptured_statue_1.json
 2231b25428d1e9d02cf777c7a52b317774d2adb3 data/goety/loot_tables/blocks/sculptured_statue_2.json
 27d1ace6376102df4c4289f1b43003730307dc86 data/goety/loot_tables/blocks/sculptured_statue_3.json
 b7031427bedd8fe8cdeb67b4776b68dc901e0426 data/goety/loot_tables/blocks/sculptured_statue_4.json
+8def012b54290e59b5788730c9c7218c2c65099c data/goety/loot_tables/blocks/sculptured_statue_5.json
+1d52163f39ca08ba284dcb8f0d19d6237dabd8e7 data/goety/loot_tables/blocks/sculptured_statue_6.json
 0214fa491ed55c2cfbdaf63463f6f9e6a024ed14 data/goety/loot_tables/blocks/shade_brazier.json
 1d103328ba05a241888cdb4272552a21cd4cdfa4 data/goety/loot_tables/blocks/shade_bricks.json
 acb20f12bf5dceb11afaec37098d26371608013c data/goety/loot_tables/blocks/shade_bricks_slab.json

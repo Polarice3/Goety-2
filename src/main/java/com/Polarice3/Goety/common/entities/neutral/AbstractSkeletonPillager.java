@@ -1,8 +1,11 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.CreatureCrossbowAttackGoal;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
+import com.Polarice3.Goety.common.entities.hostile.HostileSkeletonPillager;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -149,5 +152,27 @@ public class AbstractSkeletonPillager extends AbstractSkeletonServant implements
     @Override
     public boolean canUseBow() {
         return false;
+    }
+
+    public void tick() {
+        if (this.isHostile() && this.isNatural()) {
+            if (MobsConfig.SkeletonPillagerHostileConvert.get()) {
+                if (this.getType() != ModEntityType.SKELETON_PILLAGER.get()) {
+                    if (this.tickCount % 10 == 0) {
+                        HostileSkeletonPillager mob = this.convertTo(ModEntityType.SKELETON_PILLAGER.get(), true);
+                        if (mob != null) {
+                            mob.setTrueOwner(null);
+                            mob.setNatural(true);
+                            mob.setXRot(this.getXRot());
+                            mob.setYRot(this.getYRot());
+                            mob.setYBodyRot(this.getYRot());
+                            mob.setYHeadRot(this.getYHeadRot());
+                        }
+                    }
+                }
+            }
+        }
+
+        super.tick();
     }
 }

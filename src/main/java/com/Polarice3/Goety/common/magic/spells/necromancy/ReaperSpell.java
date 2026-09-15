@@ -4,6 +4,7 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.AbstractReaper;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.magic.SummonSpell;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -79,8 +80,10 @@ public class ReaperSpell extends SummonSpell {
         }
         if (!isShifting(caster)) {
             int i = 1;
-            if (rightStaff(staff)){
-                i = 2 + caster.level.random.nextInt(4);
+            if (staff.is(ModItems.NAMELESS_STAFF.get())) {
+                i = caster.level.getRandom().nextIntBetweenInclusive(4, 7);
+            } else if (rightStaff(staff)){
+                i = 2 + caster.level.getRandom().nextInt(4);
             }
             for (int i1 = 0; i1 < i; ++i1) {
                 AbstractReaper summonedentity = new AbstractReaper(ModEntityType.REAPER_SERVANT.get(), worldIn);

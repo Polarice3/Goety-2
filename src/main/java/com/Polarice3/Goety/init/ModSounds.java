@@ -305,6 +305,9 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> MOUNTAINEER_CELEBRATE = create("mountaineer_celebrate");
     public static final RegistryObject<SoundEvent> MOUNTAINEER_DEATH = create("mountaineer_death");
 
+    public static final RegistryObject<SoundEvent> ROYAL_GUARD_PRE_ATTACK = create("royal_guard_pre_attack");
+    public static final RegistryObject<SoundEvent> ROYAL_GUARD_STEP = create("royal_guard_step");
+
     public static final RegistryObject<SoundEvent> GEOMANCER_AMBIENT = create("geomancer_ambient");
     public static final RegistryObject<SoundEvent> GEOMANCER_HURT = create("geomancer_hurt");
     public static final RegistryObject<SoundEvent> GEOMANCER_PRE_ATTACK = create("geomancer_pre_attack");
@@ -576,6 +579,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> DAMNED_SCREAM = create("damned_scream");
 
     public static final RegistryObject<SoundEvent> DIRT_DEBRIS = create("dirt_debris");
+    public static final RegistryObject<SoundEvent> DIRT_SHATTER = create("dirt_shatter");
+    public static final RegistryObject<SoundEvent> DIRT_SHATTER_THREE = create("dirt_shatter_three");
 
     public static final RegistryObject<SoundEvent> THUNDER_STRIKE_EPIC = create("thunder_strike_epic");
     public static final RegistryObject<SoundEvent> THUNDER_STRIKE_FAST = create("thunder_strike_fast");
@@ -675,11 +680,15 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> HAMMER_SWING = create("hammer_swing");
     public static final RegistryObject<SoundEvent> HAMMER_IMPACT = create("hammer_impact");
 
+    public static final RegistryObject<SoundEvent> HAMMER_SHIMMER_IMPACT_FOUR = create("hammer_shimmer_impact_four");
+
     public static final RegistryObject<SoundEvent> OBSIDIAN_CLAYMORE_SWING = create("obsidian_claymore_swing");
     public static final RegistryObject<SoundEvent> OBSIDIAN_CLAYMORE_SMASH = create("obsidian_claymore_smash");
     public static final RegistryObject<SoundEvent> OBSIDIAN_CLAYMORE_WINDUP = create("obsidian_claymore_windup");
 
     public static final RegistryObject<SoundEvent> SWORD_SHING = create("sword_shing");
+
+    public static final RegistryObject<SoundEvent> DOUBLE_AXE_IMPACT_SHING = create("double_axe_impact_shing");
 
     public static final RegistryObject<SoundEvent> SOUL_KNIFE_NO_SOUL_SWING = create("soul_knife_no_soul_swing");
 
@@ -705,6 +714,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> BROOM_SWING = create("broom_swing");
     public static final RegistryObject<SoundEvent> BROOM_BREAK = create("broom_break");
     public static final RegistryObject<SoundEvent> BROOM_IMPACT = create("broom_impact");
+
+    public static final RegistryObject<SoundEvent> SHIELD_BREAK = create("shield_break");
 
     public static final RegistryObject<SoundEvent> VOID_BLAST = create("void_blast");
 

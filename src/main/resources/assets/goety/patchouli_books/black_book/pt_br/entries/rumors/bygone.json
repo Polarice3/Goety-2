@@ -1,0 +1,17 @@
+{
+  "name": "Restos Murchos",
+  "icon": "minecraft:nether_bricks",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Há muitas teorias em torno dos habitantes das $(l)fortalezas$() dentro do Nether e suas habilidades teóricas em magia. Infelizmente, quaisquer textos que contenham tais conhecimentos murcharam como os próprios habitantes."
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/read_bygone_scroll",
+      "text": "No entanto, talvez alguns dos antigos habitantes tenham um domínio mais estudioso de tal conhecimento, talvez soprar um $(l)chifre especial$() possa chamar um deles."
+    }
+  ]
+}
