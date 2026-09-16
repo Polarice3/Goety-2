@@ -27,6 +27,7 @@ public class MobCraftingGoal<T extends Mob & IMobCrafter> extends Goal {
     public int workTick;
     public int craftTime;
     public int checkCooldown = 0;
+    public long nextCooldown = 0L;
     public int lastInventorySize = -1;
     public float speedModifier;
     public boolean cachedCanCraft = false;
@@ -44,12 +45,15 @@ public class MobCraftingGoal<T extends Mob & IMobCrafter> extends Goal {
 
     @Override
     public boolean canUse() {
-        if (!this.inventoryChanged() && --this.checkCooldown > 0) {
-            return this.cachedCanCraft
-                    && !this.mob.isUsingFurnace()
+        if (this.mob.getTarget() != null) {
+            return false;
+        }
+        long now = this.mob.level.getGameTime();
+        if (!this.inventoryChanged() && now < this.nextCooldown) {
+            return this.cachedCanCraft && !this.mob.isUsingFurnace()
                     && this.mob.level instanceof ServerLevel;
         }
-        this.checkCooldown = 40;
+        this.nextCooldown = now + 40L;
         this.cachedCanCraft = this.craftCheck();
         return this.cachedCanCraft;
     }
@@ -118,7 +122,7 @@ public class MobCraftingGoal<T extends Mob & IMobCrafter> extends Goal {
         this.tryTicks = 0;
         this.workTick = 0;
         this.mob.setCrafting(false);
-        this.checkCooldown = 0;
+        this.nextCooldown = 0L;
     }
 
     @Override

@@ -8782,6 +8782,14 @@
     ],
     "subtitle": "subtitle.goety.urn_break"
   },
+  "decree": {
+    "sounds": [
+      {
+        "name": "goety:block/arena_eye_activate"
+      }
+    ],
+    "subtitle": "subtitle.goety.decree"
+  },
   "void_flame_loop": {
     "sounds": [
       {

@@ -6,6 +6,7 @@ import com.Polarice3.Goety.api.blocks.entities.IOwnedBlock;
 import com.Polarice3.Goety.api.blocks.entities.ITrainingBlock;
 import com.Polarice3.Goety.api.blocks.entities.IWaystoneBlock;
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.items.IPosHolder;
 import com.Polarice3.Goety.api.items.IShowOutlines;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.api.magic.ISpell;
@@ -625,6 +626,39 @@ public class ClientEvents {
                                 event.getGuiGraphics().drawString(fontRenderer, s2, (-l2 / 2), -4, 0xFFFFFF);
                                 RenderSystem.disableBlend();
                                 poseStack.popPose();
+                            } else if (blockEntity instanceof OminousDecreeBlockEntity decree) {
+                                poseStack.pushPose();
+                                poseStack.translate((float) (width / 2), (float) (height - 58), 0.0F);
+                                RenderSystem.enableBlend();
+                                RenderSystem.defaultBlendFunc();
+                                String s = Component.translatable("tooltip.goety.blockOwner").getString() + owner.getDisplayName().getString();
+                                int l = fontRenderer.width(s);
+                                event.getGuiGraphics().drawString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
+                                RenderSystem.disableBlend();
+                                poseStack.popPose();
+
+                                if (decree.getMode() != OminousDecreeBlockEntity.DecreeMode.ALL) {
+                                    poseStack.pushPose();
+                                    poseStack.translate((float) (width / 2), (float) (height - 68), 0.0F);
+                                    RenderSystem.enableBlend();
+                                    RenderSystem.defaultBlendFunc();
+                                    String s2 = Component.translatable("tooltip.goety.decree.mode").getString() + Component.translatable("tooltip.goety.decree." + decree.getMode().getName().toLowerCase(Locale.ROOT)).getString();
+                                    int l2 = fontRenderer.width(s2);
+                                    event.getGuiGraphics().drawString(fontRenderer, s2, (-l2 / 2), -4, 0xFFFFFF);
+                                    RenderSystem.disableBlend();
+                                    poseStack.popPose();
+                                }
+                                if (decree.getEntityType() != null) {
+                                    poseStack.pushPose();
+                                    poseStack.translate((float) (width / 2), (float) (height - 78), 0.0F);
+                                    RenderSystem.enableBlend();
+                                    RenderSystem.defaultBlendFunc();
+                                    String s1 = Component.translatable("tooltip.goety.decree.type").getString() + Component.translatable(decree.getEntityType().getDescriptionId()).getString();
+                                    int l1 = fontRenderer.width(s1);
+                                    event.getGuiGraphics().drawString(fontRenderer, s1, (-l1 / 2), -4, 0xFFFFFF);
+                                    RenderSystem.disableBlend();
+                                    poseStack.popPose();
+                                }
                             } else if ((player.isShiftKeyDown() || player.isCrouching()) && ownedBlock.getPlayer() != null) {
                                 poseStack.pushPose();
                                 poseStack.translate((float) (width / 2), (float) (height - 68), 0.0F);
@@ -753,6 +787,16 @@ public class ClientEvents {
                         if (stack.getItem() instanceof WaystoneItem) {
                             if (stack.getTag() != null) {
                                 GlobalPos loc = WaystoneItem.getPosition(stack);
+                                if (loc != null) {
+                                    if (loc.dimension() == world.dimension()) {
+                                        renderCubes.put(loc.pos(), CUBE_COLOR);
+                                    }
+                                }
+                            }
+                        }
+                        if (stack.getItem() instanceof IPosHolder) {
+                            if (stack.getTag() != null) {
+                                GlobalPos loc = IPosHolder.getPosition(stack);
                                 if (loc != null) {
                                     if (loc.dimension() == world.dimension()) {
                                         renderCubes.put(loc.pos(), CUBE_COLOR);

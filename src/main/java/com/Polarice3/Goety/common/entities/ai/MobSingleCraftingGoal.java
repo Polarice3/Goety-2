@@ -18,7 +18,7 @@ import java.util.function.Predicate;
 
 public class MobSingleCraftingGoal<T extends Mob & ILooter & IMobCrafter> extends MobCraftingGoal<T> {
     private List<LivingEntity> cachedAllies = List.of();
-    private int allyCheckCooldown = 0;
+    private long nextAllyScan = 0L;
     public Predicate<LivingEntity> entityPredicate;
     public Predicate<ItemStack> itemPredicate;
 
@@ -26,6 +26,21 @@ public class MobSingleCraftingGoal<T extends Mob & ILooter & IMobCrafter> extend
         super(mob, craftTime, speedModifier);
         this.entityPredicate = entityPredicate;
         this.itemPredicate = itemPredicate;
+    }
+
+    @Override
+    public boolean canUse() {
+        if (this.mob.getTarget() != null) {
+            return false;
+        }
+        long now = this.mob.level.getGameTime();
+        if (now < this.nextCooldown) {
+            return this.cachedCanCraft && !this.mob.isUsingFurnace()
+                    && this.mob.level instanceof ServerLevel;
+        }
+        this.nextCooldown = now + 40L;
+        this.cachedCanCraft = this.craftCheck();
+        return this.cachedCanCraft;
     }
 
     public static boolean cannotSatisfy(CraftingRecipe recipe, SimpleContainer inv) {
@@ -56,14 +71,26 @@ public class MobSingleCraftingGoal<T extends Mob & ILooter & IMobCrafter> extend
     }
 
     private List<LivingEntity> getAllies() {
-        if (--this.allyCheckCooldown <= 0) {
-            this.cachedAllies = this.mob.level.getEntitiesOfClass(
-                    LivingEntity.class,
-                    this.mob.getBoundingBox().inflate(16),
-                    this.entityPredicate);
-            this.allyCheckCooldown = 60;
+        long now = this.mob.level.getGameTime();
+        if (now < this.nextAllyScan) {
+            this.cachedAllies.removeIf(e -> !e.isAlive() || e.isRemoved()
+                    || !this.entityPredicate.test(e));
+            return this.cachedAllies;
         }
+        this.nextAllyScan = now + 20L;
+        this.cachedAllies = new ArrayList<>(this.mob.level.getEntitiesOfClass(
+                LivingEntity.class,
+                this.mob.getBoundingBox().inflate(16),
+                this.entityPredicate));
         return this.cachedAllies;
+    }
+
+    @Override
+    public void stop() {
+        super.stop();
+        this.nextCooldown = 0L;
+        this.nextAllyScan = 0L;
+        this.cachedAllies = new ArrayList<>();
     }
 
     @Override
@@ -76,11 +103,12 @@ public class MobSingleCraftingGoal<T extends Mob & ILooter & IMobCrafter> extend
 
     @Nullable
     public ItemStack findCraftableStack(ServerLevel level) {
-        if (this.getAllies().isEmpty()) {
+        List<LivingEntity> allies = this.getAllies();
+        if (allies.isEmpty()) {
             return null;
         }
         int itemHeld = this.mob.itemsInInv(this.itemPredicate).stream().mapToInt(ItemStack::getCount).sum();
-        if (itemHeld >= this.getAllies().size()) {
+        if (itemHeld >= allies.size()) {
             return null;
         }
         CraftingRecipe recipe = this.getRecipe(level);

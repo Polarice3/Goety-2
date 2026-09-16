@@ -450,6 +450,7 @@ public class ClientInitEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.BLAZING_CAGE.get(), TrainingBlockRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.OMINOUS_PYRE.get(), BarracksBlockRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.OMINOUS_IDOL.get(), ModBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.OMINOUS_DECREE.get(), OminousDecreeRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SPIDER_MOTHER_DEN.get(), ModBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.VOID_SPAWNER.get(), VoidSpawnerRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.VOID_VAULT.get(), VoidVaultRenderer::new);

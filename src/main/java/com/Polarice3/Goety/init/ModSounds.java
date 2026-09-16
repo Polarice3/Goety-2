@@ -752,6 +752,8 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> URN_BREAK = create("urn_break");
 
+    public static final RegistryObject<SoundEvent> DECREE = create("decree");
+
     public static final RegistryObject<SoundEvent> VOID_FLAME_LOOP = create("void_flame_loop");
     public static final RegistryObject<SoundEvent> VOID_FLAME = create("void_flame");
     public static final RegistryObject<SoundEvent> VOID_BARREL_ACTIVATE = create("void_barrel_activate");

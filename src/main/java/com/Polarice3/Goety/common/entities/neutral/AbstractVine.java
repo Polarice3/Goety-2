@@ -234,7 +234,8 @@ public abstract class AbstractVine extends AbstractMonolith{
                 if (!this.level.isClientSide) {
                     if (this.activeTick == MathHelper.secondsToTicks(this.getLifeSpan())){
                         this.burrow();
-                    } else if (this.activeTick >= MathHelper.secondsToTicks(this.getLifeSpan())){
+                    }
+                    if (this.activeTick >= MathHelper.secondsToTicks(this.getLifeSpan())){
                         this.setAge(this.getAge() - this.getAgeSpeed());
                         this.level.broadcastEntityEvent(this, (byte) 5);
                     }

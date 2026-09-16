@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.ally.illager;
 
+import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.entities.*;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
@@ -44,7 +45,9 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -92,16 +95,16 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new MeleeGoal());
-        this.goalSelector.addGoal(1, new ForgeOminousSaddleGoal<>(this));
-        this.goalSelector.addGoal(2, new ForgePuttyGoal<>(this));
-        this.goalSelector.addGoal(3, new ForgeArmorGoal<>(this));
-        this.goalSelector.addGoal(4, new ForgeWeaponGoal<>(this));
-        this.goalSelector.addGoal(5, new SmeltingGoal<>(this));
-        this.goalSelector.addGoal(6, new EquipSaddleGoal(this));
-        this.goalSelector.addGoal(7, new RepairGolemGoal(this));
-        this.goalSelector.addGoal(8, new EquipArmorGoal(this));
-        this.goalSelector.addGoal(9, new EquipWeaponGoal(this));
-        this.goalSelector.addGoal(10, new AttackGoal(1.0D));
+        this.goalSelector.addGoal(1, new AttackGoal(1.0D));
+        this.goalSelector.addGoal(2, new EquipSaddleGoal(this));
+        this.goalSelector.addGoal(3, new EquipArmorGoal(this));
+        this.goalSelector.addGoal(4, new EquipWeaponGoal(this));
+        this.goalSelector.addGoal(5, new ForgeOminousSaddleGoal<>(this));
+        this.goalSelector.addGoal(6, new ForgePuttyGoal<>(this));
+        this.goalSelector.addGoal(7, new ForgeArmorGoal<>(this));
+        this.goalSelector.addGoal(8, new ForgeWeaponGoal<>(this));
+        this.goalSelector.addGoal(9, new SmeltingGoal<>(this));
+        this.goalSelector.addGoal(10, new RepairGolemGoal(this));
     }
 
     public void throwGoal() {
@@ -114,6 +117,13 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
         this.goalSelector.addGoal(5, new LootSaddleGoal<>(this));
         this.goalSelector.addGoal(5, new LootPuttyGoal<>(this));
         this.goalSelector.addGoal(6, new LootOreGoal<>(this));
+    }
+
+    public void miscGoal() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(11, new RaiderWanderGoal<>(this, 0.6D));
+        this.goalSelector.addGoal(12, new LookAtPlayerGoal(this, Player.class, 15.0F, 1.0F));
+        this.goalSelector.addGoal(13, new LookAtPlayerGoal(this, Mob.class, 15.0F));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -155,6 +165,11 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
             this.setStorm(pCompound.getBoolean("Storm"));
         }
         this.readCrafterData(pCompound);
+    }
+
+    @Override
+    public int getBaseInvSize() {
+        return 16;
     }
 
     public static void invalidateRecipeCache() {
@@ -927,23 +942,32 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
 
     public static class ForgeArmorGoal<T extends CrusherServant> extends MobCraftingGoal<T> {
         private List<RaiderServant> cachedAllies = List.of();
-        private int allyCheckCooldown = 0;
+        private long nextAllyScan = 0L;
 
         public ForgeArmorGoal(T mob) {
             super(mob, 60, 0.75F);
         }
 
         private List<RaiderServant> getAllies() {
-            if (--this.allyCheckCooldown <= 0) {
+            long now = this.mob.level.getGameTime();
+            if (now < this.nextAllyScan) {
                 this.cachedAllies = this.mob.level.getEntitiesOfClass(
                         RaiderServant.class,
                         this.mob.getBoundingBox().inflate(16),
                         ally -> ally != this.mob
+                                && this.mob.getTrueOwner() != null
                                 && ally.getTrueOwner() == this.mob.getTrueOwner()
                                 && ally.canWearArmor());
-                this.allyCheckCooldown = 60;
             }
+            this.nextAllyScan = now + 20L;
             return this.cachedAllies;
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.nextAllyScan = 0L;
+            this.cachedAllies = new ArrayList<>();
         }
 
         public boolean canStartCrafting() {
@@ -989,7 +1013,7 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
         @Override
         public void onCraft(ServerLevel serverLevel) {
             SimpleContainer inv = this.mob.getInventory();
-            List<RaiderServant> allies = this.mob.level.getEntitiesOfClass(RaiderServant.class, this.mob.getBoundingBox().inflate(16), ally -> ally != this.mob && ally.getTrueOwner() == this.mob.getTrueOwner() && ally.canWearArmor());
+            List<RaiderServant> allies = this.mob.level.getEntitiesOfClass(RaiderServant.class, this.mob.getBoundingBox().inflate(16), ally -> ally != this.mob && this.mob.getTrueOwner() != null && ally.getTrueOwner() == this.mob.getTrueOwner() && ally.canWearArmor());
             EquipmentSlot targetSlot = null;
             ItemStack source = null;
 
@@ -1055,23 +1079,32 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
 
     public static class ForgeWeaponGoal<T extends CrusherServant> extends MobCraftingGoal<T> {
         private List<RaiderServant> cachedAllies = List.of();
-        private int allyCheckCooldown = 0;
+        private long nextAllyScan = 0L;
 
         public ForgeWeaponGoal(T mob) {
             super(mob, 60, 0.75F);
         }
 
         private List<RaiderServant> getAllies() {
-            if (--this.allyCheckCooldown <= 0) {
+            long now = this.mob.level.getGameTime();
+            if (now < this.nextAllyScan) {
                 this.cachedAllies = this.mob.level.getEntitiesOfClass(
                         RaiderServant.class,
                         this.mob.getBoundingBox().inflate(16),
                         ally -> ally != this.mob
+                                && this.mob.getTrueOwner() != null
                                 && ally.getTrueOwner() == this.mob.getTrueOwner()
                                 && ally.canWearArmor());
-                this.allyCheckCooldown = 60;
             }
+            this.nextAllyScan = now + 20L;
             return this.cachedAllies;
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.nextAllyScan = 0L;
+            this.cachedAllies = new ArrayList<>();
         }
 
         @Override
@@ -1129,7 +1162,7 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
         public void onCraft(ServerLevel serverLevel) {
             SimpleContainer inv = this.mob.getInventory();
 
-            List<RaiderServant> allies = this.mob.level.getEntitiesOfClass(RaiderServant.class, this.mob.getBoundingBox().inflate(16), ally -> ally != this.mob && ally.getTrueOwner() == this.mob.getTrueOwner() && ally.canHaveWeapon());
+            List<RaiderServant> allies = this.mob.level.getEntitiesOfClass(RaiderServant.class, this.mob.getBoundingBox().inflate(16), ally -> ally != this.mob && this.mob.getTrueOwner() != null && ally.getTrueOwner() == this.mob.getTrueOwner() && ally.canHaveWeapon());
 
             ItemStack source = null;
             CraftingRecipe recipe = null;
@@ -1249,7 +1282,7 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
 
         public EquipArmorGoal(CrusherServant crusher) {
             this.crusher = crusher;
-            this.setFlags(EnumSet.of(Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.LOOK, Flag.MOVE));
         }
 
         @Nullable
@@ -1316,18 +1349,14 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
                 return false;
             }
             RaiderServant ally = this.findUnequippedAlly();
-            LivingEntity target = ally != null ? ally : this.crusher;
-            if (target != this.crusher && !this.crusher.hasLineOfSight(target)) {
-                return false;
-            }
-            return this.findUnequippedAlly() != null || this.crusherNeedsArmor();
+            return ally != null || this.crusherNeedsArmor();
         }
 
         @Override
         public boolean canContinueToUse() {
             RaiderServant ally = this.findUnequippedAlly();
             LivingEntity target = ally != null ? ally : this.crusher;
-            if (target != this.crusher && !this.crusher.hasLineOfSight(target)) {
+            if (target != this.crusher) {
                 return false;
             }
             return this.findUnequippedAlly() != null || this.crusherNeedsArmor();
@@ -1365,7 +1394,7 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
 
         public EquipWeaponGoal(CrusherServant crusher) {
             this.crusher = crusher;
-            this.setFlags(EnumSet.of(Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.LOOK, Flag.MOVE));
         }
 
         @Nullable

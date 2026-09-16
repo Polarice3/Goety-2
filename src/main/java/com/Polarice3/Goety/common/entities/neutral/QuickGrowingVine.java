@@ -234,7 +234,7 @@ public class QuickGrowingVine extends AbstractVine{
 
     @Override
     public void startBursting() {
-        if (this.isCurrentAnimation(BURROW) && this.activeTick > 0) {
+        if (this.isCurrentAnimation(BURROW) && this.activeTick > 0 && this.isPerpetual()) {
             this.activeTick = 0;
         }
         super.startBursting();

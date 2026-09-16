@@ -369,9 +369,10 @@ public class PoisonQuillVine extends AbstractVine{
 
     @Override
     public void startBursting() {
-        if (!this.isCurrentAnimation(BURROW) && this.activeTick < 25) {
-            super.startBursting();
+        if (this.isCurrentAnimation(BURROW) && this.activeTick > 0 && this.isPerpetual()) {
+            this.activeTick = 0;
         }
+        super.startBursting();
     }
 
     public void burst(){
@@ -379,7 +380,7 @@ public class PoisonQuillVine extends AbstractVine{
         if (this.activeTick < 25 && !this.isCurrentAnimation(BURST)) {
             this.setAnimationState(BURST);
             this.playSound(this.getBurstSound(), 2.0F, 1.0F);
-        } else if (this.activeTick >= 25) {
+        } else if (this.activeTick == 25) {
             this.setAnimationState(DOCILE);
         }
     }

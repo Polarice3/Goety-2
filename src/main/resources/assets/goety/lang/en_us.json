@@ -1997,6 +1997,7 @@
 
   "block.goety.ominous_pyre": "Ominous Pyre",
   "block.goety.ominous_idol": "Ominous Idol",
+  "block.goety.ominous_decree": "Ominous Decree",
   "block.goety.raiding_chest": "Raiding Chest",
   "block.goety.trapped_raiding_chest": "Trapped Raiding Chest",
   "block.goety.player_banner": "%s's Banner",
@@ -2397,6 +2398,7 @@
   "info.goety.focus.groundedSummonType": "§5Summon Type is Grounded§5",
   "info.goety.focus.noServant": "§5No Servant Selected§5",
   "info.goety.focus.servant": "Servant:",
+  "info.goety.focus.servantType": "Servant Type:",
   "info.goety.focus.owner": "Owner:",
   "info.goety.focus.noPos": "§5No Recall Position Set§5",
   "info.goety.focus.noPos2": "§5No Location Set§5",
@@ -2724,6 +2726,11 @@
   "tooltip.goety.focusBag.extract": "Extract",
   "tooltip.goety.focusBag.empty": "Empty",
   "tooltip.goety.idol.count": "Raiders: ",
+  "tooltip.goety.decree.mode": "Mode: ",
+  "tooltip.goety.decree.baby": "Babies Only",
+  "tooltip.goety.decree.adult": "Adults Only",
+  "tooltip.goety.decree.all": "All Ages",
+  "tooltip.goety.decree.type": "Only: ",
   "tooltip.goety.servant.spawn_egg": "Crouching causes spawned mob to be owned by user.",
 
   "painting.goety.apostle.author": "Unknown",
@@ -3360,6 +3367,8 @@
   "subtitle.goety.blazing_cage_train": "Blazing Cage training",
 
   "subtitle.goety.urn_break": "Urn breaks",
+
+  "subtitle.goety.decree": "Decree issued",
 
   "subtitle.goety.void_spawner_ambient": "Void Spawner crackles",
   "subtitle.goety.void_spawner_detect_player": "Void Spawner charges up",

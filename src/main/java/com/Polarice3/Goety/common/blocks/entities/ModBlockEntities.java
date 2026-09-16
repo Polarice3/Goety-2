@@ -118,6 +118,9 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<OminousIdolBlockEntity>> OMINOUS_IDOL = BLOCK_ENTITY.register("ominous_idol",
             () -> BlockEntityType.Builder.of(OminousIdolBlockEntity::new, ModBlocks.OMINOUS_IDOL.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<OminousDecreeBlockEntity>> OMINOUS_DECREE = BLOCK_ENTITY.register("ominous_decree",
+            () -> BlockEntityType.Builder.of(OminousDecreeBlockEntity::new, ModBlocks.OMINOUS_DECREE.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<PithosBlockEntity>> PITHOS = BLOCK_ENTITY.register("pithos",
             () -> BlockEntityType.Builder.of(PithosBlockEntity::new, ModBlocks.PITHOS.get()).build(null));
 

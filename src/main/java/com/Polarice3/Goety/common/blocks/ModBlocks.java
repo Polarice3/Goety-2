@@ -91,6 +91,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> BLAZING_CAGE = register("blazing_cage", BlazingCageBlock::new);
     public static final RegistryObject<Block> OMINOUS_PYRE = register("ominous_pyre", OminousPyreBlock::new);
     public static final RegistryObject<Block> OMINOUS_IDOL = register("ominous_idol", OminousIdolBlock::new, false, LootTableType.EMPTY);
+    public static final RegistryObject<Block> OMINOUS_DECREE = register("ominous_decree", OminousDecreeBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<ModChestBlock> RAIDING_CHEST = isterRegister("raiding_chest", () -> new ModChestBlock(Block.Properties.of().instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD)));
     public static final RegistryObject<ModTrappedChestBlock> TRAPPED_RAIDING_CHEST = isterRegister("trapped_raiding_chest", () -> new ModTrappedChestBlock(Block.Properties.of().instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> FORBIDDEN_GRASS = register("forbidden_grass", ForbiddenGrassBlock::new, true, LootTableType.EMPTY);
@@ -1320,6 +1321,8 @@ public class ModBlocks {
             ResonanceBlockItem::new);
     public static final RegistryObject<Item> OMINOUS_IDOL_ITEM = ModItems.ITEMS.register("ominous_idol",
             OminousIdolBlockItem::new);
+    /*public static final RegistryObject<Item> OMINOUS_DECREE_ITEM = ModItems.ITEMS.register("ominous_decree",
+            OminousDecreeItem::new);*/
     public static final RegistryObject<Item> HAUNTED_JUG_ITEM = ModItems.ITEMS.register("haunted_jug",
             HauntedJugItem::new);
     public static final RegistryObject<Item> BLACK_CRYSTAL_ITEM = ModItems.ITEMS.register("black_crystal",

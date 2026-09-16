@@ -92,7 +92,7 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
     public BlockPos dumpChestPos;
     public String dumpChestDim = Level.OVERWORLD.location().toString();
     public ItemStack charmItem = ItemStack.EMPTY;
-    private final SimpleContainer inventory = new SimpleContainer(8);
+    private final SimpleContainer inventory = new SimpleContainer(this.getBaseInvSize());
 
     public AbstractIllagerServant(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
@@ -165,6 +165,10 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
         this.readTrainableData(compound);
         this.readCharmData(compound);
         this.readInventoryFromTag(compound);
+    }
+
+    public int getBaseInvSize() {
+        return 8;
     }
 
     public SimpleContainer getInventory() {

@@ -14,6 +14,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
@@ -219,7 +220,11 @@ public interface ITrainable {
                                 }
                             }
                             if (flag) {
-                                servant.dropEquipment(equipmentSlot, mob.getItemBySlot(equipmentSlot).copyAndClear());
+                                ItemStack stack = converted.getItemBySlot(equipmentSlot);
+                                if (!stack.isEmpty()) {
+                                    servant1.dropEquipment(equipmentSlot, stack.copyAndClear());
+                                    converted.setItemSlot(equipmentSlot, ItemStack.EMPTY);
+                                }
                             }
                         }
                     }
