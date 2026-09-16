@@ -410,7 +410,9 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
             if (!this.level.isClientSide) {
-                return this.repairShield(pPlayer, itemstack);
+                if (!this.hasShield() && this.isShieldRepair(itemstack) && this.getTarget() == null && this.hurtTime <= 0) {
+                    return this.repairShield(pPlayer, itemstack);
+                }
             }
         }
         return super.mobInteract(pPlayer, pHand);

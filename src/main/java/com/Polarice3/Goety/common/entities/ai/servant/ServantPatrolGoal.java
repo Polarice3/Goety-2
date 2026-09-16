@@ -10,7 +10,7 @@ import net.minecraft.world.phys.AABB;
 import java.util.EnumSet;
 
 public class ServantPatrolGoal<T extends PathfinderMob & IServant> extends Goal {
-    private final T mob;
+    public final T mob;
     private final double speed;
     private int waitTicks;
 

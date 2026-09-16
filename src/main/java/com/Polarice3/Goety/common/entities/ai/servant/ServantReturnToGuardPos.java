@@ -9,7 +9,7 @@ import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.level.LevelReader;
 
 public class ServantReturnToGuardPos<T extends PathfinderMob & IServant> extends MoveToBlockGoal {
-    protected final T servant;
+    public final T servant;
     public int range;
 
     public ServantReturnToGuardPos(T servant, double speed, int range) {

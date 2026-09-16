@@ -9,7 +9,7 @@ import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
 public class ServantNaturalAttackGoal<T extends LivingEntity, M extends PathfinderMob & IServant> extends NearestAttackableTargetGoal<T> {
-    protected M summoned;
+    public M summoned;
 
     public ServantNaturalAttackGoal(M summoned, Class<T> tClass) {
         this(summoned, tClass, 10, true, null);

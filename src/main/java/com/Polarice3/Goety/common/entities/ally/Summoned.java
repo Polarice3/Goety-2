@@ -586,7 +586,7 @@ public class Summoned extends Owned implements IServant {
         }
     }
 
-    public static class WaterWanderGoal<T extends PathfinderMob & IServant> extends ServantWaterWanderGoal<T> {
+    public class WaterWanderGoal<T extends PathfinderMob & IServant> extends ServantWaterWanderGoal<T> {
 
         public WaterWanderGoal(T entity) {
             super(entity, 1.0D);

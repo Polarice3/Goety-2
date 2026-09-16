@@ -306,7 +306,9 @@ public class BlackguardServant extends ZombieServant implements IShielded {
                 }
                 return InteractionResult.SUCCESS;
             }
-            return this.repairShield(pPlayer, itemstack);
+            if (!this.hasShield() && this.isShieldRepair(itemstack) && this.getTarget() == null && this.hurtTime <= 0) {
+                return this.repairShield(pPlayer, itemstack);
+            }
         }
         return super.mobInteract(pPlayer, pHand);
     }

@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 
 public class ServantWanderGoal<T extends PathfinderMob & IServant> extends RandomStrollGoal {
     public final T summonedEntity;
-    protected final float probability;
+    public final float probability;
 
     public ServantWanderGoal(T entity, double speedModifier) {
         this(entity, speedModifier, 0.001F);

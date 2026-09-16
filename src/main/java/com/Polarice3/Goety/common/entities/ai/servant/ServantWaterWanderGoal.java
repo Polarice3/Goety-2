@@ -12,7 +12,7 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 
 public class ServantWaterWanderGoal<T extends PathfinderMob & IServant> extends RandomStrollGoal {
-    private final T summonedEntity;
+    public final T summonedEntity;
 
     public ServantWaterWanderGoal(T entity) {
         this(entity, 1.0D);

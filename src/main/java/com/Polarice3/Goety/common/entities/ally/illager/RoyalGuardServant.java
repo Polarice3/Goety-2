@@ -325,7 +325,9 @@ public class RoyalGuardServant extends AbstractIllagerServant implements IShield
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
             if (!this.level.isClientSide) {
-                return this.repairShield(pPlayer, itemstack);
+                if (!this.hasShield() && this.isShieldRepair(itemstack) && this.getTarget() == null && this.hurtTime <= 0) {
+                    return this.repairShield(pPlayer, itemstack);
+                }
             }
         }
         return super.mobInteract(pPlayer, pHand);

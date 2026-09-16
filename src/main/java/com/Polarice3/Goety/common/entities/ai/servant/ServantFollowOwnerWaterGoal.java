@@ -19,18 +19,18 @@ import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import java.util.EnumSet;
 
 public class ServantFollowOwnerWaterGoal<T extends PathfinderMob & IServant> extends Goal {
-    protected final T summonedEntity;
-    private LivingEntity owner;
-    private final LevelReader level;
-    private final double followSpeed;
-    private Path path;
-    private double pathedTargetX;
-    private double pathedTargetY;
-    private double pathedTargetZ;
-    private int ticksUntilNextPathRecalculation;
-    private final PathNavigation navigation;
-    private final float maxDist;
-    private final float minDist;
+    public final T summonedEntity;
+    public LivingEntity owner;
+    public final LevelReader level;
+    public final double followSpeed;
+    public Path path;
+    public double pathedTargetX;
+    public double pathedTargetY;
+    public double pathedTargetZ;
+    public int ticksUntilNextPathRecalculation;
+    public final PathNavigation navigation;
+    public final float maxDist;
+    public final float minDist;
 
     public ServantFollowOwnerWaterGoal(T summonedEntity, double speed, float minDist, float maxDist) {
         this.summonedEntity = summonedEntity;

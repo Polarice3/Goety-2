@@ -84,7 +84,9 @@ public interface IShielded {
         if (this instanceof Mob mob) {
             if (!mob.level.isClientSide) {
                 if (this.hasShield() && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
-                    this.destroyShield();
+                    if (amount > 0.0F) {
+                        this.destroyShield();
+                    }
                     return false;
                 } else {
                     if (mob.getTarget() != null && mob instanceof OwnableEntity ownable) {
@@ -157,16 +159,14 @@ public interface IShielded {
     default InteractionResult repairShield(LivingEntity livingEntity, ItemStack itemStack) {
         if (this instanceof Mob mob) {
             if (!mob.level.isClientSide) {
-                if (!this.hasShield() && this.isShieldRepair(itemStack) && mob.getTarget() == null && mob.hurtTime <= 0) {
-                    if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)) {
-                        itemStack.shrink(1);
-                    }
-                    this.setShield(true);
-                    this.setShieldHealth(this.getMaxShieldHealth());
-                    mob.level.broadcastEntityEvent(mob, (byte) 6);
-                    mob.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
-                    return InteractionResult.SUCCESS;
+                if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)) {
+                    itemStack.shrink(1);
                 }
+                this.setShield(true);
+                this.setShieldHealth(this.getMaxShieldHealth());
+                mob.level.broadcastEntityEvent(mob, (byte) 6);
+                mob.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
+                return InteractionResult.SUCCESS;
             }
         }
         return InteractionResult.PASS;

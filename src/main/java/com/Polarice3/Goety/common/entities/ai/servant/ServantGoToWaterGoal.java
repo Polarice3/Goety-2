@@ -13,12 +13,12 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 
 public class ServantGoToWaterGoal<T extends PathfinderMob & IServant> extends Goal {
-    private final T mob;
-    private double wantedX;
-    private double wantedY;
-    private double wantedZ;
-    private final double speedModifier;
-    private final Level level;
+    public final T mob;
+    public double wantedX;
+    public double wantedY;
+    public double wantedZ;
+    public final double speedModifier;
+    public final Level level;
 
     public ServantGoToWaterGoal(T p_i48910_1_, double p_i48910_2_) {
         this.mob = p_i48910_1_;
