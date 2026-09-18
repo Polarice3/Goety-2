@@ -2,5 +2,9 @@
   "replace": false,
   "__comment": "tools that get attack speed boost when held while wearing Grave Gloves",
   "values": [
+    {
+      "id": "#malum:scythe",
+      "required": false
+    }
   ]
 }
