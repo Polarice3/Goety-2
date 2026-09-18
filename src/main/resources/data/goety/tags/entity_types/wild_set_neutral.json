@@ -52,6 +52,26 @@
     {
       "id": "mowziesmobs:naga",
       "required": false
+    },
+    {
+      "id": "alexsmobs:komodo_dragon",
+      "required": false
+    },
+    {
+      "id": "alexsmobs:anaconda",
+      "required": false
+    },
+    {
+      "id": "alexsmobs:grizzly_bear",
+      "required": false
+    },
+    {
+      "id": "alexsmobs:alligator_snapping_turtle",
+      "required": false
+    },
+    {
+      "id": "alexmobs:crocodile",
+      "required": false
     }
   ]
 }
