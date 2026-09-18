@@ -8,6 +8,10 @@
     {
       "id": "legendary_monsters:stratling",
       "required": false
+    },
+    {
+      "id": "alexsmobs:guster",
+      "required": false
     }
   ]
 }
