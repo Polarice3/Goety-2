@@ -5,6 +5,18 @@
     "goety:death_arrow",
     "goety:soul_light",
     "goety:glow_light",
-    "goety:mountaineer_servant"
+    "goety:mountaineer_servant",
+    {
+      "id": "botania:corporea_spark",
+      "required": false
+    },
+    {
+      "id": "botania:spark", 
+      "required": false
+    },
+    {
+      "id": "botania:babylon_weapon",
+      "required": false
+    }
   ]
 }
