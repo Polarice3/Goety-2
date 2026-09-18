@@ -44,6 +44,10 @@
     {
       "id": "#vampirism:vampire",
       "required": false
+    },
+    {
+      "id": "eidolon:zombie_brute",
+      "required": false
     }
   ]
 }
