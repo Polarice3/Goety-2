@@ -63,6 +63,10 @@
     {
       "id": "alexsmobs:cosmaw",
       "required": false
+    },
+    {
+      "id": "alexsmobs:mimicube",
+      "required": false
     }
   ]
 }
