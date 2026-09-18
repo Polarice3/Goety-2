@@ -2,5 +2,6 @@
   "replace": false,
   "__comment": "tools that get attack speed boost when held while wearing Thrash Gloves",
   "values": [
+    "#forge:hammers"
   ]
 }
