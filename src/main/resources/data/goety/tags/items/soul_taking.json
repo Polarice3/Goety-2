@@ -2,5 +2,9 @@
   "replace": false,
   "__comment": "items that gives Soul Energy when hitting a valid entity",
   "values": [
+    {
+      "id": "#malum:soul_hunter_weapon",
+      "required": false
+    }
   ]
 }
