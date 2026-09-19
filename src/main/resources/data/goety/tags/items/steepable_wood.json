@@ -2,6 +2,30 @@
   "replace": false,
   "values": [
     "goety:windswept_wood",
-    "goety:pine_wood"
+    "goety:pine_wood",
+    {
+      "id": "biomeswevegone:pine_wood",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:fir_wood",
+      "required": false
+    },
+    {
+      "id": "forestry:pine_wood",
+      "required": false
+    },
+    {
+      "id": "windswept:pine_wood",
+      "required": false
+    },
+    {
+      "id": "environmental:pine_wood",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:pine_wood",
+      "required": false
+    }
   ]
 }

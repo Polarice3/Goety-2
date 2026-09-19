@@ -2,6 +2,207 @@
   "replace": false,
   "__comment": "items that Vindicator Chefs can craft, items need to have a Crafting Recipe",
   "values": [
-    "minecraft:cake"
+    "minecraft:cake",
+    "#forge:cookies",
+    {
+      "id": "farmersdelight:pie_crust",
+      "required": false
+    },
+    {
+      "id": "fruitsdelight:mangosteen_cake",
+      "required": false
+    },
+    {
+      "id": "trailandtales_delight:cherry_cake",
+      "required": false
+    },
+    {
+      "id": "cosmopolitan:wheatgrass_cubecake",
+      "required": false
+    },
+    {
+      "id": "cosmopolitan:chorus_fruit_cubecake",
+      "required": false
+    },
+    {
+      "id": "cosmopolitan:glow_berry_cubecake",
+      "required": false
+    },
+    {
+      "id": "cosmopolitan:warped_velvet_cubecake",
+      "required": false
+    },
+    {
+      "id": "seasonals:red_velvet_cupcake",
+      "required": false
+    },
+     {
+      "id": "cosmopolitan:raindroop_cake",
+      "required": false
+    },
+    {
+      "id": "cosmopolitan:recovery_lava_cake",
+      "required": false
+    },
+    {
+      "id": "cosmopolitan:zebra_cake",
+      "required": false
+    },
+    {
+      "id": "collectorsreap:lime_cake",
+      "required": false
+    },
+    {
+      "id": "collectorsreap:pomegranate_cake",
+      "required": false
+    },
+    {
+      "id": "collectorsreap:lucuma_cake",
+      "required": false
+    },
+    {
+      "id": "collectorsreap:pink_dragon_fruit_cake",
+      "required": false
+    },
+    {
+      "id": "collectorsreap:sweet_berry_cheesecake",
+      "required": false
+    },
+    {
+      "id": "collectorsreap:panettone",
+      "required": false
+    },
+    {
+      "id": "respiteful:green_tea_cake",
+      "required": false
+    },
+    {
+      "id": "respiteful:yellow_tea_cake",
+      "required": false
+    },
+    {
+      "id": "respiteful:black_tea_cake",
+      "required": false
+    },
+    {
+      "id": "farmersrespite:coffee_cake",
+      "required": false
+    },
+    {
+      "id": "neapolitan:mint_cake",
+      "required": false
+    },
+    {
+      "id": "neapolitan:banana_cake",
+      "required": false
+    },
+    {
+      "id": "neapolitan:adzuki_cake",
+      "required": false
+    },
+    {
+      "id": "neapolitan:vanilla_cake",
+      "required": false
+    },
+    {
+      "id": "neapolitan:chocolate_cake",
+      "required": false
+    },
+    {
+      "id": "neapolitan:strawberry_cake",
+      "required": false
+    },
+    {
+      "id": "twilightdelight:glacier_cake",
+      "required": false
+    },
+    {
+      "id": "twilightdelight:phytochemical_cake",
+      "required": false
+    },
+    {
+      "id": "twilightdelight:aurora_cake",
+      "required": false
+    },
+    {
+      "id": "vanillacookbook:carrot_cake",
+      "required": false
+    },
+    {
+      "id": "vanillacookbook:berry_cake",
+      "required": false
+    },
+    {
+      "id": "vanillacookbook:cheesecake",
+      "required": false
+    },
+    {
+      "id": "vanillacookbook:glow_berry_cake",
+      "required": false
+    },
+    {
+      "id": "vanillacookbook:chocolate_cake",
+      "required": false
+    },
+    {
+      "id": "vanillacookbook:ice_cream_cake",
+      "required": false
+    },
+    {
+      "id": "vanillacookbook:rose_cake",
+      "required": false
+    },
+    {
+      "id": "vanillacookbook:chorus_cake",
+      "required": false
+    },
+    {
+      "id": "vanillacookbook:book_cake",
+      "required": false
+    },
+    {
+      "id": "exquisito:chorus_cake",
+      "required": false
+    },
+    {
+      "id": "exquisito:jelly_ring_cake",
+      "required": false
+    },
+    {
+      "id": "exquisito:zure_berry_cake",
+      "required": false
+    },
+    {
+      "id": "exquisito:nightshade_berry_cake",
+      "required": false
+    },
+    {
+      "id": "exquisito:ether_bulb_cake",
+      "required": false
+    },
+    {
+      "id": "seasonals:pumpkin_cake",
+      "required": false
+    },
+    {
+      "id": "seasonals:sweet_berry_cake",
+      "required": false
+    },
+    {
+      "id": "seasonals:beetroot_cake",
+      "required": false
+    },
+    {
+      "id": "peculiars:aloe_cake",
+      "required": false
+    },
+    {
+      "id": "peculiars:passion_fruit_cake",
+      "required": false
+    },
+    {
+      "id": "peculiars:yucca_cake",
+      "required": false
+    }
   ]
 }

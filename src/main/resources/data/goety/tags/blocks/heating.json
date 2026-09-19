@@ -2,5 +2,9 @@
   "replace": false,
   "__comment": "extra blocks that can heat up Witch's Cauldron from below",
   "values": [
+    {
+      "id": "#hexerei:heat_sources",
+      "required": false
+    }
   ]
 }

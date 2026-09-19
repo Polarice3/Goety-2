@@ -2,6 +2,26 @@
   "replace": false,
   "values": [
     "minecraft:torchflower",
-    "minecraft:pitcher_plant"
+    "minecraft:pitcher_plant",
+    {
+      "id": "collectorsreap:damselflower",
+      "required": false
+    },
+    {
+      "id": "collectorsreap:moontear",
+      "required": false
+    },
+    {
+      "id": "collectorsreap:skull_lily",
+      "required": false
+    },
+    {
+      "id": "collectorsreap:bulbous_rose",
+      "required": false
+    },
+    {
+      "id": "collectorsreap:heartpetals"
+      "required": false
+    }
   ]
 }

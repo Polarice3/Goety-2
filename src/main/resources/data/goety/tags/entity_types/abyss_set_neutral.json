@@ -12,6 +12,10 @@
     {
       "id": "born_in_chaos_v1:glutton_fish",
       "required": false
+    },
+    {
+      "id": "alexsmobs:hammerhead_shark",
+      "required": false
     }
   ]
 }

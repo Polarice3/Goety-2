@@ -5,6 +5,10 @@
     {
       "id": "legendary_monsters:chorusling",
       "required": false
+    },
+    {
+      "id": "alexsmobs:enderiophage",
+      "required": false
     }
   ]
 }

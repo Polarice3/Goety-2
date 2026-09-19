@@ -4,6 +4,10 @@
   "values": [
     "goety:apostle",
     "goety:ender_keeper",
-    "goety:vizier"
+    "goety:vizier",
+    {
+      "id": "botania:doppelganger",
+      "required": false
+    }
   ]
 }
