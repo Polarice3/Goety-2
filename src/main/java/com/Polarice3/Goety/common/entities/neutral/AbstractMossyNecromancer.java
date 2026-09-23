@@ -40,7 +40,7 @@ public class AbstractMossyNecromancer extends AbstractNecromancer{
     }
 
     public void projectileGoal(int priority) {
-        this.goalSelector.addGoal(priority, new NecromancerRangedGoal(this, 1.0D, 20, 10.0F));
+        this.goalSelector.addGoal(priority, new NecromancerRangedGoal(this, 1.0D, SHOOT_INTERVAL, 10.0F));
     }
 
     public void summonSpells(int priority){

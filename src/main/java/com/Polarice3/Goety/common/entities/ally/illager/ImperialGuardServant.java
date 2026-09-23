@@ -2,17 +2,20 @@ package com.Polarice3.Goety.common.entities.ally.illager;
 
 import com.Polarice3.Goety.api.entities.IShielded;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.common.entities.projectiles.HeavyArrow;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -30,11 +33,10 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.monster.CrossbowAttackMob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.SupportType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -49,18 +51,16 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
     private static final EntityDataAccessor<Boolean> HAS_SHIELD = SynchedEntityData.defineId(ImperialGuardServant.class, EntityDataSerializers.BOOLEAN);
     public int fleeCool;
     public int fleeTime;
-    public int postAttackTick;
     public int attackCoolTick;
     public int shieldHealth = AttributesConfig.ImperialGuardServantShield.get();
     public boolean isFleeing;
     public static String IDLE = "idle";
     public static String PRE_ATTACK = "pre_attack";
     public static String ATTACK = "attack";
-    public static String POST_ATTACK = "post_attack";
     public AnimationState idleAnimationState = new AnimationState();
+    public AnimationState standAnimationState = new AnimationState();
     public AnimationState preAttackAnimationState = new AnimationState();
     public AnimationState attackAnimationState = new AnimationState();
-    public AnimationState postAttackAnimationState = new AnimationState();
     public double arrowPower;
 
     public ImperialGuardServant(EntityType<? extends Owned> type, Level worldIn) {
@@ -206,10 +206,6 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
                         this.attackAnimationState.startIfStopped(this.tickCount);
                         this.stopMostAnimation(this.attackAnimationState);
                         break;
-                    case 3:
-                        this.postAttackAnimationState.startIfStopped(this.tickCount);
-                        this.stopMostAnimation(this.postAttackAnimationState);
-                        break;
                 }
             }
         }
@@ -230,8 +226,6 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
             return 1;
         } else if (Objects.equals(animation, ATTACK)){
             return 2;
-        } else if (Objects.equals(animation, POST_ATTACK)){
-            return 3;
         } else {
             return 0;
         }
@@ -240,9 +234,9 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
     public List<AnimationState> getAnimations(){
         List<AnimationState> animationStates = new ArrayList<>();
         animationStates.add(this.idleAnimationState);
+        animationStates.add(this.standAnimationState);
         animationStates.add(this.preAttackAnimationState);
         animationStates.add(this.attackAnimationState);
-        animationStates.add(this.postAttackAnimationState);
         return animationStates;
     }
 
@@ -256,6 +250,10 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
 
     public int getCurrentAnimation(){
         return this.entityData.get(ANIM_STATE);
+    }
+
+    public boolean isCurrentAnimation(String animation) {
+        return this.getCurrentAnimation() == this.getAnimationState(animation);
     }
 
     public void stopAllAnimations(){
@@ -305,7 +303,8 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
     public void tick() {
         super.tick();
         if (this.level.isClientSide) {
-            this.idleAnimationState.animateWhen(!this.walkAnimation.isMoving() && this.getCurrentAnimation() == 0, this.tickCount);
+            this.idleAnimationState.animateWhen(!this.walkAnimation.isMoving() && !this.isStaying() && this.getCurrentAnimation() == 0, this.tickCount);
+            this.standAnimationState.animateWhen(!this.walkAnimation.isMoving() && this.isStaying() && this.getCurrentAnimation() == 0, this.tickCount);
         } else {
             if (this.fleeCool > 0) {
                 --this.fleeCool;
@@ -317,7 +316,7 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
                         this.isFleeing = true;
                         Vec3 vec3 = DefaultRandomPos.getPosAway(this, 16, 7, this.getTarget().position());
                         if (vec3 != null) {
-                            this.getNavigation().moveTo(vec3.x, vec3.y, vec3.z, 1.25F);
+                            this.getNavigation().moveTo(vec3.x, vec3.y, vec3.z, 1.5F);
                         }
                     }
 
@@ -332,19 +331,8 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
                 }
             }
 
-            if (this.getCurrentAnimation() == this.getAnimationState(POST_ATTACK)) {
-                ++this.postAttackTick;
-                if (this.postAttackTick >= MathHelper.secondsToTicks(0.5F)) {
-                    this.setAnimationState(IDLE);
-                    this.postAttackTick = 0;
-                }
-            } else {
-                if (this.attackCoolTick > 0) {
-                    --this.attackCoolTick;
-                }
-                if (this.postAttackTick > 0) {
-                    this.postAttackTick = 0;
-                }
+            if (this.attackCoolTick > 0) {
+                --this.attackCoolTick;
             }
         }
     }
@@ -394,16 +382,22 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
     }
 
     public void performRangedAttack(LivingEntity p_33272_, float p_33273_) {
-        AbstractArrow abstractarrow = new Arrow(this.level, this);
-        abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + this.getArrowPower() + this.getBaseRangeDamage());
-        abstractarrow.setSoundEvent(SoundEvents.CROSSBOW_HIT);
-        abstractarrow.setShotFromCrossbow(true);
-        this.shootCrossbowProjectile(p_33272_, ItemStack.EMPTY, abstractarrow, 0.0F);
+        HeavyArrow heavyArrow = new HeavyArrow(this.level, this);
+        heavyArrow.setBaseDamage(this.getArrowPower() + this.getBaseRangeDamage());
+        heavyArrow.setPierceLevel((byte) 4);
+        heavyArrow.setSoundEvent(SoundEvents.CROSSBOW_HIT);
+        heavyArrow.setShotFromCrossbow(true);
+        this.shootCrossbowProjectile(p_33272_, ItemStack.EMPTY, heavyArrow, 0.0F);
     }
 
-    public void shootCrossbowProjectile(LivingEntity p_33275_, ItemStack p_33276_, Projectile p_33277_, float p_33278_) {
-        this.shootCrossbowProjectile(this, p_33275_, p_33277_, p_33278_, 1.6F);
-        this.level.addFreshEntity(p_33277_);
+    public void shootCrossbowProjectile(LivingEntity target, ItemStack stack, Projectile projectile, float angle) {
+        float velocity = 4.8F;
+        double d3 = target.getX() - this.getX();
+        double d4 = (target.getY() + target.getBbHeight() / 2.0D) - this.getEyeY();
+        double d5 = target.getZ() - this.getZ();
+        projectile.shoot(d3, d4, d5, velocity, 0.0F);
+        this.playSound(SoundEvents.CROSSBOW_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+        this.level.addFreshEntity(projectile);
     }
 
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
@@ -422,10 +416,7 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
         private final ImperialGuardServant mob;
         @Nullable
         private LivingEntity target;
-        private int preAttackTime = 0;
         private int attackTime = 0;
-        private int totalShots = 0;
-        private int shots = 0;
 
         public ImperialGuardRangedGoal(ImperialGuardServant mob) {
             this.mob = mob;
@@ -439,9 +430,7 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
                 return false;
             } else if (livingentity != null
                     && livingentity.isAlive()
-                    && (livingentity.distanceTo(this.mob) > 3.0D || this.mob.hasShield())
                     && this.mob.hasLineOfSight(livingentity)) {
-                this.totalShots = 1;
                 this.target = livingentity;
                 return true;
             } else {
@@ -452,33 +441,15 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
         public boolean canContinueToUse() {
             return this.target != null
                     && this.target.isAlive()
-                    && (this.target.distanceTo(this.mob) > 3.0D || this.mob.hasShield())
                     && this.mob.hasLineOfSight(this.target)
-                    && !this.mob.isFleeing
-                    && this.shots < this.totalShots;
-        }
-
-        @Override
-        public void start() {
-            super.start();
-            this.mob.setAnimationState(PRE_ATTACK);
-            this.mob.playSound(SoundEvents.CROSSBOW_LOADING_START);
-            this.preAttackTime = 0;
-            this.attackTime = 0;
+                    && !this.mob.isFleeing;
         }
 
         public void stop() {
             super.stop();
-            if (this.mob.getCurrentAnimation() == this.mob.getAnimationState(PRE_ATTACK) || this.mob.getCurrentAnimation() == this.mob.getAnimationState(ATTACK)) {
-                this.mob.setAnimationState(POST_ATTACK);
-            }
-            if (this.shots >= this.totalShots) {
-                this.mob.attackCoolTick = 20;
-            }
-            this.target = null;
-            this.preAttackTime = 0;
+            this.mob.attackCoolTick = 20;
             this.attackTime = 0;
-            this.shots = 0;
+            this.target = null;
         }
 
         public boolean requiresUpdateEveryTick() {
@@ -487,25 +458,33 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
 
         public void tick() {
             if (this.target != null) {
-                ++this.preAttackTime;
-                if (this.target.distanceTo(this.mob) > 10.0D) {
-                    this.mob.getNavigation().moveTo(this.target, 1.0F);
-                } else {
-                    this.mob.getNavigation().stop();
+                if (this.mob.isCurrentAnimation(PRE_ATTACK) || this.attackTime > 1) {
+                    ++this.attackTime;
                 }
+                double distanceSq = this.mob.distanceToSqr(this.target);
+                double distance = Mth.sqrt((float) distanceSq);
+                if (distance <= 14.0F && !this.mob.hasShield()) {
+                    if (this.mob.getBlockStateOn().isFaceSturdy(this.mob.level, this.mob.blockPosition(), Direction.UP, SupportType.CENTER)) {
+                        this.mob.getMoveControl().strafe(-0.75F, 0);
+                    }
+                }
+
+                this.mob.getNavigation().stop();
                 MobUtil.instaLook(this.mob, this.target);
-                if (this.preAttackTime > 20) {
+                if (this.attackTime >= 20) {
                     if (this.mob.getCurrentAnimation() == this.mob.getAnimationState(PRE_ATTACK)) {
                         this.mob.setAnimationState(ATTACK);
                     }
-                    if (this.attackTime % 15 == 0) {
-                        ++this.shots;
-                        this.mob.performRangedAttack(this.target, 1.6F);
+                    if (this.attackTime == 20) {
+                        this.mob.performRangedAttack(this.target, 4.8F);
                     }
-                    ++this.attackTime;
+                    if (this.attackTime >= 40) {
+                        this.attackTime = 0;
+                    }
                 } else {
-                    if (this.mob.getCurrentAnimation() != this.mob.getAnimationState(PRE_ATTACK)) {
+                    if (!this.mob.isCurrentAnimation(PRE_ATTACK)) {
                         this.mob.setAnimationState(PRE_ATTACK);
+                        this.mob.playSound(SoundEvents.CROSSBOW_LOADING_START);
                     }
                 }
             }

@@ -46,10 +46,12 @@ public class ModBlockTagsProvider extends IntrinsicHolderTagsProvider<Block> {
         if (!ominous.isEmpty()) {
             ominous.add(ModBlocks.OMINOUS_PYRE.get());
             ominous.add(ModBlocks.OMINOUS_IDOL.get());
+            ominous.add(ModBlocks.OMINOUS_DECREE.get());
             ominous.add(ModBlocks.WALL_SHRINE.get());
             ominous.add(ModBlocks.MANDALA.get());
             ominous.add(ModBlocks.OMINOUS_STATUE.get());
             ominous.add(ModBlocks.OMINOUS_BRAZIER_STATUE.get());
+            ominous.add(ModBlocks.OMINOUS_SARCOPHAGUS.get());
             for (Block block : ominous){
                 this.tag(ModTags.Blocks.OMINOUS_BLOCKS).add(block).replace(false);
             }

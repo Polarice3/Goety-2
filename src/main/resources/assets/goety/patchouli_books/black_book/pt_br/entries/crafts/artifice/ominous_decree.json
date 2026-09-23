@@ -1,0 +1,36 @@
+{
+  "name": "Decreto Sinistro",
+  "icon": "goety:ominous_decree",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Lidar com uma grande quantidade de Servos pode ser um incômodo, então você criou um Santuário de Parede especial que diz aos seus Servos para guardarem uma área específica quando se aproximam dela."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_decree"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Existem várias maneiras de registrar a localização e o tipo de servo que seria afetado por ela. Uma é simplesmente shift + clicar com o botão direito no bloco para onde você quer que seus servos vão com o próprio decreto e 'bater' no seu servo para registrar seu tipo. A segunda maneira é colocar o decreto em uma parede e clicar com o botão direito nele com uma Pedra da Orientação registrada para a localização, ou um Kit de Taglock preenchido para registrar o tipo que ele afeta (o tipo deve ser de um servo). Ele não afeta servos que estão $(l:goety:crafts/grimoire_of_grounding)fundamentados$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Clicar com o botão direito em um decreto colocado sem pressionar shift, ou clicar com o botão direito no ar com ele na mão principal, fará com que ele entre em um de três modos, alternando entre eles. O primeiro modo afeta servos de todas as idades, o segundo afeta apenas servos bebês, o terceiro apenas servos adultos e depois volta ao primeiro modo. Ao clicar com o botão direito nele com uma Varinha/Cajado, no entanto, o alcance da influência do decreto pode ser ajustado, aumentando o alcance até 8 blocos, ou diminuindo até 1 se shift + clicar com o botão direito, em todas as direções. Shift + clicar com o botão direito sem uma varinha/cajado, kits de taglock ou pedras da orientação mostrará a localização vinculada e o alcance de influência do decreto."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:ominous_pyre",
+      "text": "O decreto pode registrar a localização de uma Pira Sinistra, o que pode levar a interações especiais com $(l:goety:mutations/illager_servants)Neollagers$(). Se a Pira estiver acesa, os Neollagers comandados à Pira treinarão se possível. Ele também distingue o tipo de Neollager que comanda para treinar, pois se a Pira estiver treinando para uma função não-mágica, ela não comandará os Neollagers com inclinação mágica para treinar nela e não comandará aqueles sem magia se a pira treinar uma função mágica."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:raiding_chest",
+      "text": "O decreto também tem outras interações especiais com servos de saque, mas apenas se ditos servos não estiverem seguindo um $(l:goety:mutations/illager_servants#captain)capitão$(). O decreto pode registrar $(l:goety:mutations/illager_servants#chest)baús$() e $(l:goety:crafts/artifice/ominous_idol)ídolos$() para Illagers e outros Saqueadores se vincularem, mas apenas se eles não estiverem vinculados a nenhum em primeiro lugar. Ao vincular, o saqueador não será comandado ou ordenado a guardar a localização vinculada."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ominous_decree": 1
+  }
+}

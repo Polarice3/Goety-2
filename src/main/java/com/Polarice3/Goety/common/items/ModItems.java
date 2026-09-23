@@ -309,6 +309,7 @@ public class ModItems {
     public static final RegistryObject<Item> QUAKING_FOCUS = ITEMS.register("quaking_focus", () -> new MagicFocus(ModSpells.QUAKING));
     public static final RegistryObject<Item> EARTH_PUNCH_FOCUS = ITEMS.register("earth_punch_focus", () -> new MagicFocus(ModSpells.EARTH_PUNCH));
     public static final RegistryObject<Item> SMACK_STONE_FOCUS = ITEMS.register("smack_stone_focus", () -> new MagicFocus(ModSpells.SMACK_STONE));
+    public static final RegistryObject<Item> TEMBLOR_CLAP_FOCUS = ITEMS.register("temblor_clap_focus", () -> new MagicFocus(ModSpells.TEMBLOR_CLAP));
     public static final RegistryObject<Item> MINISTROUS_FOCUS = ITEMS.register("ministrous_focus", () -> new MagicFocus(ModSpells.MINISTROUS));
     public static final RegistryObject<Item> PULVERIZE_FOCUS = ITEMS.register("pulverize_focus", () -> new MagicFocus(ModSpells.PULVERIZE));
     public static final RegistryObject<Item> ROTATION_FOCUS = ITEMS.register("rotation_focus", () -> new MagicFocus(ModSpells.ROTATION));

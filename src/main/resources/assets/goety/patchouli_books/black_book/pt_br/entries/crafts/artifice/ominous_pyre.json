@@ -18,7 +18,14 @@
     },
     {
       "type": "patchouli:text",
+      "title": "Servos da Guarda Imperial",
+      "advancement": "goety:goety/read_front_scroll",
+      "text": "$(o)Nota: O dono deve ter lido o $(l:goety:rumors/desert)Pergaminho da Frente$()$()$(br)Requisitos: $(li)Servo Saqueador $(li)4 Estátuas Sinistras $(li)4 Estandartes $(li)4 Fenos/Blocos Alvo $(li)4 Mesas de Flecheiro $(li)2 Bigornas $(li)8 $(l:goety:crafts/stash_urn)Urnas de Reserva$()"
+    },
+    {
+      "type": "patchouli:text",
       "title": "Servos Lanceiros",
+      "advancement": "goety:goety/read_front_scroll",
       "text": "$(o)Nota: O dono deve ter lido o $(l:goety:rumors/desert)Pergaminho da Frente$()$()$(br)Requisitos: $(li)Neollager $(li)2 Rebolos $(li)2 Mesas de Ferraria $(li)16 Cercas de Madeira $(li)32 Troncos $(li)4 Barris $(li)4 Camas $(li)2 Bigornas"
     },
     {
@@ -48,8 +55,9 @@
     },
     {
       "type": "patchouli:text",
-      "title": "Servos Guarda Real",
-      "text": "Requirements: $(li)Servo Vingadore $(li)4 Ominous Statues $(li)16 Royal/Frosty Carpets $(li)4 Estandartes $(li)4 Bigornas $(li)4 $(l:goety:crafts/stash_urn)Urnas de Reserva$()"
+      "title": "Servos Guardas Reais",
+      "advancement": "goety:goety/read_front_scroll",
+      "text": "$(o)Nota: O dono deve ter lido o $(l:goety:rumors/desert)Pergaminho da Frente$()$()$(br)Requisitos: $(li)Servo Vingadore $(li)4 Estátuas Sinistras $(li)16 Tapetes Reais/Gelados $(li)4 Estandartes $(li)4 Bigornas $(li)8 $(l:goety:crafts/stash_urn)Urnas de Reserva$()"
     },
     {
       "type": "patchouli:text",

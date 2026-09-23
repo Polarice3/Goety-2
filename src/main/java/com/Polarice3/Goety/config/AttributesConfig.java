@@ -820,15 +820,15 @@ public class AttributesConfig {
                 SignalerServantFollowRange = BUILDER.comment("How much initial following/detection range Signaler Servants have, Default: 32.0")
                         .defineInRange("signalerServantFollowRange", 32.0, 0.0, Double.MAX_VALUE);
                 BUILDER.pop();
-                BUILDER.push("Imperial Guard Servant (WIP)");
+                BUILDER.push("Imperial Guard Servant");
                 ImperialGuardServantHealth = BUILDER.comment("How much Max Health Imperial Guard Servants have, Default: 40.0")
                         .defineInRange("imperialGuardServantHealth", 40.0, 1.0, Double.MAX_VALUE);
                 ImperialGuardServantArmor = BUILDER.comment("How much natural Armor Imperial Guard Servants have, Default: 8.0")
                         .defineInRange("imperialGuardServantArmor", 8.0, 0.0, Double.MAX_VALUE);
                 ImperialGuardServantToughness = BUILDER.comment("How much natural armor toughness points Imperial Guard Servants have, Default: 2.0")
                         .defineInRange("imperialGuardServantToughness", 2.0, 0.0, Double.MAX_VALUE);
-                ImperialGuardServantRangeDamage = BUILDER.comment("How much extra damage Imperial Guard Servants range attack deals, Default: 4.0")
-                        .defineInRange("imperialGuardServantRangeDamage", 4.0, 0.0, Double.MAX_VALUE);
+                ImperialGuardServantRangeDamage = BUILDER.comment("How much damage Imperial Guard Servants range attack deals, Default: 8.0")
+                        .defineInRange("imperialGuardServantRangeDamage", 8.0, 0.0, Double.MAX_VALUE);
                 ImperialGuardServantShield = BUILDER.comment("Initially, how many hits until Shield is broken, Default: 1")
                         .defineInRange("imperialGuardServantShield", 1, 1, Integer.MAX_VALUE);
                 BUILDER.pop();

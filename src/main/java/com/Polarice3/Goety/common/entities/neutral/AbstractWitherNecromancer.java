@@ -54,7 +54,7 @@ public class AbstractWitherNecromancer extends AbstractNecromancer {
     }
 
     public void projectileGoal(int priority){
-        this.goalSelector.addGoal(priority, new WitherNecromancerRangedGoal(this, 1.0D, 20, 12.0F));
+        this.goalSelector.addGoal(priority, new WitherNecromancerRangedGoal(this, 1.0D, SHOOT_INTERVAL, 12.0F));
     }
 
     public void avoidGoal(int priority){
@@ -256,7 +256,7 @@ public class AbstractWitherNecromancer extends AbstractNecromancer {
         @Override
         public void tick() {
             --this.spellTime;
-            if (this.spellTime == 10) {
+            if (this.spellTime == this.timeToCast()) {
                 if (this.getCastSound() != null) {
                     AbstractWitherNecromancer.this.playSound(this.getCastSound(), 1.0F, 1.0F);
                 }

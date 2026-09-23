@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.entities.ally.illager;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.entities.*;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
@@ -122,8 +121,8 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
     public void miscGoal() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(11, new RaiderWanderGoal<>(this, 0.6D));
-        this.goalSelector.addGoal(12, new LookAtPlayerGoal(this, Player.class, 15.0F, 1.0F));
-        this.goalSelector.addGoal(13, new LookAtPlayerGoal(this, Mob.class, 15.0F));
+        this.goalSelector.addGoal(12, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
+        this.goalSelector.addGoal(13, new LookAtPlayerGoal(this, Mob.class, 8.0F));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {

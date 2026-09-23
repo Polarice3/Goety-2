@@ -1326,8 +1326,8 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
         }
 
         public Optional<BlockPos> getVacantBed(ServerLevel serverLevel) {
-            return serverLevel.getPoiManager().find((holder) -> holder.is(PoiTypes.HOME)
-                    , (blockPos -> true), this.illager.blockPosition(), 8, PoiManager.Occupancy.HAS_SPACE);
+            return serverLevel.getPoiManager().findClosest((holder) -> holder.is(PoiTypes.HOME)
+                    , this.illager.blockPosition(), 8, PoiManager.Occupancy.HAS_SPACE);
         }
 
         public boolean canReach(BlockPos p_217502_) {

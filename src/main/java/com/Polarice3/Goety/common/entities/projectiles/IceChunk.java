@@ -17,6 +17,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -130,7 +131,11 @@ public class IceChunk extends SpellEntity {
         float damage = SpellConfig.IceChunkDamage.get().floatValue() * WandUtil.damageMultiply();
         damage += this.getExtraDamage();
         if (livingEntity != null) {
-            if (livingEntity.hurt(ModDamageSource.indirectFreeze(this, this.getOwner()), damage)) {
+            DamageSource damageSource = ModDamageSource.indirectFreeze(this, this.getOwner());
+            if (livingEntity.isDamageSourceBlocked(damageSource)) {
+                MobUtil.disableShield(livingEntity, 100);
+            }
+            if (livingEntity.hurt(damageSource, damage)) {
                 livingEntity.addEffect(new MobEffectInstance(GoetyEffects.STUNNED.get(), MathHelper.secondsToTicks(2)));
             }
         }

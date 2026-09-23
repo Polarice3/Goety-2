@@ -123,6 +123,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> BossInvulnerabilityTime;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> ApostleNetherDamageReduction;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ApostleSmiteDamageReduction;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> ZombieServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DrownedServantTexture;
@@ -1132,6 +1133,8 @@ public class MobsConfig {
                     .define("apostleNetherFancyDeath", true);
             ApostleNetherDamageReduction = BUILDER.comment("How much damage is reduced, by percentage, on the Apostle when in the Nether, setting to 100 will make them invulnerable, Default: 50")
                     .defineInRange("apostleNetherDamageReduction", 50, 0, 100);
+            ApostleSmiteDamageReduction = BUILDER.comment("How much damage caused by Smite enchantment is reduced, by percentage, on the Apostle, setting to 100 will make them immune to Smite enchanted attacks, Default: 25")
+                    .defineInRange("apostleSmiteDamageReduction", 25, 0, 100);
             BUILDER.pop();
             BUILDER.push("Damned");
             DamnedShootIndicator = BUILDER.comment("Whether Damned shoot indicator is enabled. Default: true")

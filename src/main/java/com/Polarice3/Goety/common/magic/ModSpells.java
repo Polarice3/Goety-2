@@ -59,6 +59,7 @@ public class ModSpells {
     public static final ISpell QUAKING = new QuakingSpell();
     public static final ISpell EARTH_PUNCH = new EarthFistSpell();
     public static final ISpell SMACK_STONE = new SmackStoneSpell();
+    public static final ISpell TEMBLOR_CLAP = new TemblorClapSpell();
     public static final ISpell MINISTROUS = new MinistrousSpell();
     public static final ISpell PULVERIZE = new PulverizeSpell();
     public static final ISpell ROTATION = new RotationSpell();

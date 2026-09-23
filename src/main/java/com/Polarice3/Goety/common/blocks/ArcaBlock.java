@@ -2,8 +2,16 @@ package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.capabilities.soulenergy.ISoulEnergy;
+import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.WaystoneItem;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -55,10 +63,11 @@ public class ArcaBlock extends BaseEntityBlock implements IForgeBlock {
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (pState.hasBlockEntity()) {
             BlockEntity tileEntity = pLevel.getBlockEntity(pPos);
-            if (pPlayer.getMainHandItem().isEmpty()) {
-                if (tileEntity instanceof ArcaBlockEntity arcaTileEntity) {
-                    if (arcaTileEntity.getPlayer() == pPlayer) {
-                        ISoulEnergy soulEnergy = SEHelper.getCapability(arcaTileEntity.getPlayer());
+            if (tileEntity instanceof ArcaBlockEntity arcaTileEntity) {
+                if (arcaTileEntity.getPlayer() == pPlayer) {
+                    ISoulEnergy soulEnergy = SEHelper.getCapability(arcaTileEntity.getPlayer());
+                    ItemStack itemStack = pPlayer.getMainHandItem();
+                    if (itemStack.isEmpty()) {
                         if (!pPlayer.isShiftKeyDown() && !pPlayer.isCrouching()){
                             if (soulEnergy.getArcaBlock() == null){
                                 soulEnergy.setArcaBlock(arcaTileEntity.getBlockPos());
@@ -72,6 +81,27 @@ public class ArcaBlock extends BaseEntityBlock implements IForgeBlock {
                         } else {
                             pLevel.destroyBlock(pPos, true);
                             return InteractionResult.sidedSuccess(pLevel.isClientSide);
+                        }
+                    } else if (itemStack.is(ModItems.WAYSTONE.get())) {
+                        if (WaystoneItem.isSameDimension(tileEntity, itemStack)){
+                            BlockPos blockPos = WaystoneItem.getBlockPos(itemStack);
+                            if (blockPos != null && soulEnergy.getArcaRevivePos() != blockPos) {
+                                if (blockPos.distToCenterSqr(pPos.getCenter()) <= Mth.square(8)) {
+                                    soulEnergy.setArcaRevivePos(blockPos);
+                                    SEHelper.sendSEUpdatePacket(pPlayer);
+                                    if (pLevel instanceof ServerLevel) {
+                                        ModNetwork.sendTo(pPlayer, new SPlayPlayerSoundPacket(SoundEvents.RESPAWN_ANCHOR_SET_SPAWN, 1.0F, 1.0F));
+                                    }
+                                    pPlayer.displayClientMessage(Component.translatable("info.goety.waystone.revivePos"), true);
+                                    return InteractionResult.sidedSuccess(pLevel.isClientSide);
+                                } else {
+                                    pPlayer.displayClientMessage(Component.translatable("info.goety.waystone.difDimension"), true);
+                                    return InteractionResult.FAIL;
+                                }
+                            }
+                        } else {
+                            pPlayer.displayClientMessage(Component.translatable("info.goety.waystone.difDimension"), true);
+                            return InteractionResult.FAIL;
                         }
                     }
                 }
@@ -90,6 +120,7 @@ public class ArcaBlock extends BaseEntityBlock implements IForgeBlock {
                     if (soulEnergy.getArcaBlock() == arcaTileEntity.getBlockPos()) {
                         soulEnergy.setSEActive(false);
                         soulEnergy.setArcaBlock(null);
+                        soulEnergy.setArcaRevivePos(null);
                         soulEnergy.setArcaBlockDimension(null);
                         SEHelper.sendSEUpdatePacket(arcaTileEntity.getPlayer());
                     }

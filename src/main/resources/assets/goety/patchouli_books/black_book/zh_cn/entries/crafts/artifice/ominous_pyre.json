@@ -18,7 +18,14 @@
     },
     {
       "type": "patchouli:text",
+      "title": "帝国卫队仆从",
+      "advancement": "goety:goety/read_front_scroll",
+      "text" : "$(o)注: 所有者必须阅读过$(l:goety:rumors/desert)先锋卷轴$()$()$(br)需求: $(li)掠夺者仆从 $(li)4个不详雕像 $(li)4个旗帜 $(li)4面旗帜 $(li)4个干草块或标靶 $(li)4个制箭台 $(li)2个铁砧 $(li)4个$(l:goety:crafts/stash_urn)隐秘之瓮$()"
+    },
+    {
+      "type": "patchouli:text",
       "title": "长矛兵仆从",
+      "advancement": "goety:goety/read_front_scroll",
       "text": "$(o)注: 所有者必须阅读过$(l:goety:rumors/desert)先锋卷轴$()$()$(br)需求: $(li)新刌民 $(li)2个砂轮 $(li)2个锻造台 $(li)16个木栅栏 $(li)32个原木 $(li)4个木桶 $(li)4张床 $(li)2个铁砧"
     },
     {
@@ -49,6 +56,7 @@
     {
       "type": "patchouli:text",
       "title": "皇家守卫仆从",
+      "advancement": "goety:goety/read_front_scroll",
       "text": "需求：$(li)1名卫道士仆从 $(li)4个不祥雕像 $(li)16块皇家地毯或霜冻地毯 $(li)4面旗帜 $(li)4个铁砧 $(li)4个$(l:goety:crafts/stash_urn)隐秘之瓮$()"
     },
     {

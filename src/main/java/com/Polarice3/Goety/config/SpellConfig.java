@@ -301,6 +301,12 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SmackStoneCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> SmackStoneDamage;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> TemblorClapCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> TemblorClapDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> TemblorClapCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> TemblorClapDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> TemblorClapMaxDamage;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> MinistrousCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> MinistrousDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> MinistrousCoolDown;
@@ -1256,7 +1262,7 @@ public class SpellConfig {
             QuakingDamage = BUILDER.comment("How much base damage Quaking Spell deals, Default: 4.0")
                     .defineInRange("quakingDamage", 4.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
-            BUILDER.push("Quaking Spell");
+            BUILDER.push("Earth Fist Spell");
             EarthFistCost = BUILDER.comment("Earth Fist Spell Cost, Default: 8")
                     .defineInRange("earthFistCost", 8, 0, Integer.MAX_VALUE);
             EarthFistDuration = BUILDER.comment("Time to cast Earth Fist Spell, Default: 0")
@@ -1275,6 +1281,18 @@ public class SpellConfig {
                     .defineInRange("smackStoneCoolDown", 40, 0, Integer.MAX_VALUE);
             SmackStoneDamage = BUILDER.comment("How much base damage Smack Stones deals, Default: 4.0")
                     .defineInRange("smackStoneDamage", 4.0, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Temblor Clap Spell");
+            TemblorClapCost = BUILDER.comment("Temblor Clap Spell Cost, Default: 40")
+                    .defineInRange("temblorClapCost", 40, 0, Integer.MAX_VALUE);
+            TemblorClapDuration = BUILDER.comment("Time to cast Temblor Clap Spell, Default: 0")
+                    .defineInRange("temblorClapTime", 0, 0, 72000);
+            TemblorClapCoolDown = BUILDER.comment("Temblor Clap Spell Cooldown, Default: 140")
+                    .defineInRange("temblorClapCoolDown", 140, 0, Integer.MAX_VALUE);
+            TemblorClapDamage = BUILDER.comment("How much base minimum damage Temblor Clap Spell deals, Default: 3.0")
+                    .defineInRange("temblorClapMinDamage", 3.0, 1.0, Double.MAX_VALUE);
+            TemblorClapMaxDamage = BUILDER.comment("How much base maximum damage Temblor Clap Spell deals, Default: 9.0")
+                    .defineInRange("temblorClapMaxDamage", 9.0, 2.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Ministrous Spell");
             MinistrousCost = BUILDER.comment("Ministrous Spell Cost, Default: 8")

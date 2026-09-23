@@ -10,6 +10,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -24,8 +25,9 @@ public class RepairPuttyItem extends ItemBase {
             if (player.getOffhandItem().getItem() instanceof HammerItem || player.getOffhandItem().is(ModTags.Items.HAMMERS)) {
                 if (target instanceof Mob mob) {
                     if (target.getType().getDescriptionId().contains("golem") || target.getType().is(ModTags.EntityTypes.REPAIRABLE)) {
+                        boolean ownedByPlayer = mob instanceof OwnableEntity owned && owned.getOwner() == player;
                         boolean notTargetFriendly = mob.getTarget() == null || (mob.getTarget() != player && !MobUtil.areAllies(mob.getTarget(), player));
-                        if (notTargetFriendly || (target instanceof IronGolem golem && golem.isPlayerCreated())) {
+                        if (notTargetFriendly || ownedByPlayer || (target instanceof IronGolem golem && golem.isPlayerCreated())) {
                             mob.heal(25.0F);
                             float f1 = 1.0F + (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2F;
                             mob.playSound(SoundEvents.IRON_GOLEM_REPAIR, 1.0F, f1);

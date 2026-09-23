@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "bark",
+  "ingredients": [
+    {
+      "item": "goety:blossoming_chorus_wood"
+    },
+    {
+      "item": "minecraft:bone_meal"
+    }
+  ],
+  "result": {
+    "item": "goety:blooming_chorus_wood"
+  }
+}

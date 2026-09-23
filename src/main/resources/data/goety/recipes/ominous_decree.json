@@ -1,0 +1,40 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:order_focus"
+  },
+  "craftType": "magic",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "goety:wall_shrine"
+    },
+    {
+      "item": "goety:magic_emerald"
+    },
+    {
+      "item": "goety:wall_shrine"
+    },
+    {
+      "item": "goety:magic_emerald"
+    },
+    {
+      "item": "goety:wall_shrine"
+    },
+    {
+      "item": "goety:magic_emerald"
+    },
+    {
+      "item": "goety:wall_shrine"
+    },
+    {
+      "item": "goety:magic_emerald"
+    }
+  ],
+  "result": {
+    "item": "goety:ominous_decree",
+    "count": 4
+  }
+}

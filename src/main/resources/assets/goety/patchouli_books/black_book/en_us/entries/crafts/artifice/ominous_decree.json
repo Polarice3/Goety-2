@@ -1,0 +1,36 @@
+{
+  "name": "Ominous Decree",
+  "icon": "goety:ominous_decree",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Handling a large amount of Servants can be a hassle, so you've created a special Wall Shrine that tells your Servants to guard a specific area when they go near it."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_decree"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "There are multiple ways to record the location and what type of servant would be affected by it. One is by simply shift right-click the block you want your servants to go to with the decree itself and to 'hit' your servant to record its type. The second way is by placing down the decree to a wall, and right-click on it with a recorded Waystone for the location, or a filled Taglock Kit to record the type it only effects (the type must be of a servant). It does not affect servants that are $(l:goety:crafts/grimoire_of_grounding)grounded$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Right-clicking on a placed down decree without pressing shift, or right-clicking the air with it on main hand, will cause it to enter into one out of three modes, cycling through them. The first mode affects servants of all ages, the second only affects baby servants, the third only adult servants and then back to the first mode. When right-clicking on it with a Wand/Staff however, the range of the decree's influence can be adjusted, increasing the range up to 8 blocks, or decreasing it down to 1 if shift-right clicking, at all directions. Shift-right clicking without a wand/staff, taglock kits, or waystones will show the linked location and influence range of the decree."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:ominous_pyre",
+      "text": "The decree can record the location of an Ominous Pyre, which can lead to special interactions with $(l:goety:mutations/illager_servants)Neollagers$(). If the Pyre is lit, the Neollagers commanded to the Pyre will train if possible. It also distinguishes the type of Neollager it commands to train, as if the Pyre is training to a non-magic role, it will not command the magically inclined Neollagers to train at it and it will not command those without magic if the pyre does train a magic role."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:raiding_chest",
+      "text": "The decree also have other special interactions with raiding servants, but only if said servants are not following a $(l:goety:mutations/illager_servants#captain)captain$(). The decree can record $(l:goety:mutations/illager_servants#chest)chests$() and $(l:goety:crafts/artifice/ominous_idol)idols$() for Illagers and other Raiders to link to, but only if they're aren't link to any in the first place. When linking, the raider will not be commanded or order to guard the linked location."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ominous_decree": 1
+  }
+}

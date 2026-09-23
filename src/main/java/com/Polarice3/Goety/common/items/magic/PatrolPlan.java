@@ -3,7 +3,6 @@ package com.Polarice3.Goety.common.items.magic;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.IShowOutlines;
-import com.Polarice3.Goety.common.items.WaystoneItem;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.mojang.serialization.Codec;

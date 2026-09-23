@@ -1,0 +1,19 @@
+{
+  "name": "Temblor Clap Focus",
+  "icon": "goety:temblor_clap_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "This spell lets loose a shockwave that knocks back foes and stunning them for a few seconds. The spell's radius is increased if the caster on the ground."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/temblor_clap_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting with $(l:crafts/staff/geo_staff)Geo Staff$() increases the radius a bit."
+    }
+  ]
+}

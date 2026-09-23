@@ -489,6 +489,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.ICE_STORM.get(), IceStormRenderer::new);
         event.registerEntityRenderer(ModEntityType.GHOST_ARROW.get(), TippableArrowRenderer::new);
         event.registerEntityRenderer(ModEntityType.RAIN_ARROW.get(), RainArrowRenderer::new);
+        event.registerEntityRenderer(ModEntityType.HEAVY_ARROW.get(), HeavyArrowRenderer::new);
         event.registerEntityRenderer(ModEntityType.DEATH_ARROW.get(), DeathArrowRenderer::new);
         event.registerEntityRenderer(ModEntityType.HARPOON.get(), HarpoonRenderer::new);
         event.registerEntityRenderer(ModEntityType.POISON_QUILL.get(), PoisonQuillRenderer::new);

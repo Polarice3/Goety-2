@@ -1321,8 +1321,8 @@ public class ModBlocks {
             ResonanceBlockItem::new);
     public static final RegistryObject<Item> OMINOUS_IDOL_ITEM = ModItems.ITEMS.register("ominous_idol",
             OminousIdolBlockItem::new);
-    /*public static final RegistryObject<Item> OMINOUS_DECREE_ITEM = ModItems.ITEMS.register("ominous_decree",
-            OminousDecreeItem::new);*/
+    public static final RegistryObject<Item> OMINOUS_DECREE_ITEM = ModItems.ITEMS.register("ominous_decree",
+            OminousDecreeItem::new);
     public static final RegistryObject<Item> HAUNTED_JUG_ITEM = ModItems.ITEMS.register("haunted_jug",
             HauntedJugItem::new);
     public static final RegistryObject<Item> BLACK_CRYSTAL_ITEM = ModItems.ITEMS.register("black_crystal",

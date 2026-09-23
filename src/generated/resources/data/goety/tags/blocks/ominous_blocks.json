@@ -4,7 +4,6 @@
     "goety:pedestal_ominous_stone",
     "goety:ominous_stone_brazier",
     "goety:ominous_stone_soul_brazier",
-    "goety:ominous_sarcophagus",
     "goety:ominous_stone",
     "goety:dirty_ominous_stone_slight",
     "goety:dirty_ominous_stone",
@@ -53,9 +52,11 @@
     "goety:ominous_stone_tile_wall",
     "goety:ominous_pyre",
     "goety:ominous_idol",
+    "goety:ominous_decree",
     "goety:wall_shrine",
     "goety:mandala",
     "goety:ominous_statue",
-    "goety:ominous_brazier_statue"
+    "goety:ominous_brazier_statue",
+    "goety:ominous_sarcophagus"
   ]
 }

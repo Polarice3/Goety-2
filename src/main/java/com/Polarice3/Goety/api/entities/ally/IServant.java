@@ -5,9 +5,9 @@ import com.Polarice3.Goety.api.blocks.ISeat;
 import com.Polarice3.Goety.api.entities.IChunkLoader;
 import com.Polarice3.Goety.api.entities.IGolem;
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.entities.vehicle.SeatEntity;
 import com.Polarice3.Goety.config.MobsConfig;
-import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import com.mojang.serialization.Codec;
@@ -159,6 +159,21 @@ public interface IServant extends IOwned, IChunkLoader {
         this.setBoundPos(null);
     }
 
+    default boolean isInPatrolPoint(BlockPos blockPos) {
+        AABB aabb = new AABB(blockPos).inflate(1.0D);
+        if (this instanceof Entity entity) {
+            return entity.getBoundingBox().inflate(1.0D).intersects(aabb);
+        }
+        return false;
+    }
+
+    default boolean moveToPatrolPoint(BlockPos pos, double speed) {
+        if (this instanceof PathfinderMob mob) {
+            return mob.getNavigation().moveTo(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, speed);
+        }
+        return false;
+    }
+
     @Nullable
     default LivingEntity getPriorityTarget() {
         return null;
@@ -244,14 +259,18 @@ public interface IServant extends IOwned, IChunkLoader {
             if (MobsConfig.ServantOwnedServantPlayerBenefit.get()) {
                 owner = this.getMasterOwner();
             }
-            if (mob.getMobType() == MobType.UNDEAD) {
-                this.setUpgraded(CuriosFinder.hasUndeadCape(owner));
-            } else if (mob.getMobType() == ModMobType.NATURAL || mob.getMobType() == MobType.ARTHROPOD) {
+            if (ServantUtil.isNecroHeal(mob)) {
+                this.setUpgraded(CuriosFinder.hasUndeadCape(owner) || this.getTrueOwner() instanceof AbstractNecromancer);
+            } else if (ServantUtil.isWildHeal(mob)) {
                 this.setUpgraded(CuriosFinder.hasWildRobe(owner));
-            } else if (mob.getMobType() == ModMobType.FROST) {
+            } else if (ServantUtil.isFrostHeal(mob)) {
                 this.setUpgraded(CuriosFinder.hasFrostRobes(owner));
-            } else if (mob.getMobType() == MobType.WATER) {
+            } else if (ServantUtil.isAbyssHeal(mob)) {
                 this.setUpgraded(CuriosFinder.hasAbyssRobes(owner));
+            } else if (ServantUtil.isNetherHeal(mob)) {
+                this.setUpgraded(CuriosFinder.hasNetherRobe(owner));
+            } else if (ServantUtil.isWindHeal(mob)) {
+                this.setUpgraded(CuriosFinder.hasWindRobes(owner));
             } else if (ServantUtil.isVoidHeal(mob)) {
                 this.setUpgraded(CuriosFinder.hasVoidRobe(owner));
             } else if (ServantUtil.isGeoHeal(mob)) {

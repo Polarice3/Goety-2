@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.client.render.layer.HierarchicalArmorLayer;
 import com.Polarice3.Goety.client.render.model.ImperialGuardModel;
 import com.Polarice3.Goety.common.entities.ally.illager.ImperialGuardServant;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -13,6 +14,7 @@ public class ImperialGuardRenderer<T extends ImperialGuardServant> extends MobRe
 
    public ImperialGuardRenderer(EntityRendererProvider.Context p_174443_) {
       super(p_174443_, new ImperialGuardModel<>(p_174443_.bakeLayer(ModModelLayer.IMPERIAL_GUARD)), 0.5F);
+      this.addLayer(new HierarchicalArmorLayer<>(this, p_174443_));
    }
 
    public ResourceLocation getTextureLocation(T p_116410_) {

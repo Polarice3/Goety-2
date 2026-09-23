@@ -20,7 +20,7 @@
       "required": false
     },
     {
-      "id": "collectorsreap:heartpetals"
+      "id": "collectorsreap:heartpetals",
       "required": false
     }
   ]

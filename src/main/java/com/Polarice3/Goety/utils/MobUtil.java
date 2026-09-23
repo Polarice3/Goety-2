@@ -128,6 +128,11 @@ public class MobUtil {
                 }
                 return entity.isAlliedTo(entity1) && entity1.isAlliedTo(entity);
             } else {
+                if (entity instanceof Mob mob && entity1 instanceof Mob mob1) {
+                    if ((entity instanceof OwnableEntity ownable && entity1 == ownable.getOwner()) || (entity1 instanceof OwnableEntity ownable1 && entity == ownable1.getOwner())) {
+                        return mob.getTarget() != mob1 && mob1.getTarget() != mob;
+                    }
+                }
                 return (entity.isAlliedTo(entity1) && entity1.isAlliedTo(entity)) || entity == entity1
                         || (entity instanceof Player player && entity1 instanceof LivingEntity living && SEHelper.isAlly(player, living))
                         || (entity1 instanceof Player player1 && entity instanceof LivingEntity living1 && SEHelper.isAlly(player1, living1));

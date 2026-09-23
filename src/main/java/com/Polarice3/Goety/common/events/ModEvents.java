@@ -230,6 +230,9 @@ public class ModEvents {
                         soulEnergy.setArcaBlockDimension(capability3.getArcaBlockDimension()));
         player.getCapability(SEProvider.CAPABILITY)
                 .ifPresent(soulEnergy ->
+                        soulEnergy.setArcaRevivePos(capability3.getArcaRevivePos()));
+        player.getCapability(SEProvider.CAPABILITY)
+                .ifPresent(soulEnergy ->
                         soulEnergy.setRestPeriod(capability3.getRestPeriod()));
         player.getCapability(SEProvider.CAPABILITY)
                 .ifPresent(soulEnergy -> {

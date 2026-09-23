@@ -3770,5 +3770,18 @@
   "advancements.goety.find_wind_shrine.title": "天游记",
   "block.goety.sandstone_sarcophagus": "砂岩石棺",
   "entity.goety.imperial_guard_servant": "帝国卫队仆从",
-  "item.goety.imperial_guard_servant_spawn_egg": "帝国卫队仆从刷怪蛋"
+  "item.goety.imperial_guard_servant_spawn_egg": "帝国卫队仆从刷怪蛋",
+  "block.goety.ominous_decree": "不详谕令像",
+  "info.goety.focus.servantType": "仆从类型：",
+  "tooltip.goety.decree.mode": "模式：",
+  "tooltip.goety.decree.baby": "仅限幼年",
+  "tooltip.goety.decree.adult": "仅限成年",
+  "tooltip.goety.decree.all": "不限年龄",
+  "tooltip.goety.decree.type": "仅限：",
+  "subtitle.goety.decree": "谕令已设定",
+  "item.goety.temblor_clap_focus": "震颤猛击聚晶",
+  "item.goety.temblor_clap_focus.info": "在施法者处产生一次不破坏方块的爆炸，爆炸会伤害、击退并眩晕周围的非友军目标。",
+  "info.goety.ring_of_thirst": "Experience gained through killing, by wearer or their servants, will immediately be collected.",
+  "tooltip.goety.blockRange": "Range: %s blocks",
+  "info.goety.waystone.revivePos": "恢复位置设置！"
 }

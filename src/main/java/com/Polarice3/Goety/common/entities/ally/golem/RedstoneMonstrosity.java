@@ -13,6 +13,7 @@ import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.ScatterBomb;
 import com.Polarice3.Goety.common.entities.util.CameraShake;
 import com.Polarice3.Goety.common.entities.util.SummonCircleVariant;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.block.RedstoneMonstrosityHeadItem;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
@@ -902,6 +903,9 @@ public class RedstoneMonstrosity extends RaiderGolemServant implements PlayerRid
                     }
                     return InteractionResult.SUCCESS;
                 } else {
+                    if (pPlayer.getMainHandItem().is(ModItems.REPAIR_PUTTY.get()) && pPlayer.getOffhandItem().is(ModTags.Items.HAMMERS)) {
+                        return InteractionResult.PASS;
+                    }
                     //Don't care, let them ride in the air lol
                     if (this.getFirstPassenger() != null && this.getFirstPassenger() != pPlayer){
                         this.getFirstPassenger().stopRiding();

@@ -112,6 +112,11 @@ public class SEHelper {
         return getCapability(player).getArcaBlock();
     }
 
+    @Nullable
+    public static BlockPos getArcaRevivePos(Player player){
+        return getCapability(player).getArcaRevivePos();
+    }
+
     public static ResourceKey<Level> getArcaDimension(Player player){
         return getCapability(player).getArcaBlockDimension();
     }
@@ -516,6 +521,9 @@ public class SEHelper {
     public static boolean teleportToArca(Player player){
         ISoulEnergy soulEnergy = SEHelper.getCapability(player);
         BlockPos blockPos = SEHelper.getArcaBlock(player);
+        if (SEHelper.getArcaRevivePos(player) != null) {
+            blockPos = SEHelper.getArcaRevivePos(player);
+        }
         player.stopRiding();
         if (blockPos != null) {
             BlockPos blockPos1 = BlockPos.containing(blockPos.getX() + 0.5F, blockPos.getY() + 0.5F, blockPos.getZ() + 0.5F);
@@ -1129,6 +1137,11 @@ public class SEHelper {
             tag.putInt("arcaz", soulEnergy.getArcaBlock().getZ());
             ResourceLocation.CODEC.encodeStart(NbtOps.INSTANCE, soulEnergy.getArcaBlockDimension().location()).resultOrPartial(Goety.LOGGER::error).ifPresent(
                     (p_241148_1_) -> tag.put("dimension", p_241148_1_));
+            if (soulEnergy.getArcaRevivePos() != null) {
+                tag.putInt("arcaReviveX", soulEnergy.getArcaRevivePos().getX());
+                tag.putInt("arcaReviveY", soulEnergy.getArcaRevivePos().getY());
+                tag.putInt("arcaReviveZ", soulEnergy.getArcaRevivePos().getZ());
+            }
         }
         tag.putInt("BannerBaseColor", soulEnergy.bannerBaseColor().getId());
         ListTag banner = soulEnergy.bannerPattern();
@@ -1241,6 +1254,9 @@ public class SEHelper {
         soulEnergy.setSEActive(tag.getBoolean("seActive"));
         if (tag.contains("arcax") && tag.contains("arcay") && tag.contains("arcaz")) {
             soulEnergy.setArcaBlock(new BlockPos(tag.getInt("arcax"), tag.getInt("arcay"), tag.getInt("arcaz")));
+        }
+        if (tag.contains("arcaReviveX") && tag.contains("arcaReviveY") && tag.contains("arcaReviveZ")) {
+            soulEnergy.setArcaRevivePos(new BlockPos(tag.getInt("arcaReviveX"), tag.getInt("arcaReviveY"), tag.getInt("arcaReviveZ")));
         }
         if (tag.contains("dimension")) {
             soulEnergy.setArcaBlockDimension(Level.RESOURCE_KEY_CODEC.parse(NbtOps.INSTANCE, tag.get("dimension")).resultOrPartial(Goety.LOGGER::error).orElse(Level.OVERWORLD));

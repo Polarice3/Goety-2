@@ -32,6 +32,11 @@
     {
       "type": "patchouli:text",
       "text": "Só podes ter UMA Arca, colocar outra fará com que a nova Arca substitua a anterior. Se a Arca for quebrada, a Energia das Almas armazenada dentro dela irá evaporar lentamente, causando Fome das Almas, que te enfraquece e abranda, até que toda a Energia se esvaeça ou outra Arca seja colocada. Se houver múltiplas Arcas, clicar com o botão direito numa não usada com a mão vazia irá transferir qual Arca está a ser usada."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:waystone",
+      "text": "Você pode ajustar o local onde a Arca irá te colocar ao te salvar da morte. Clique com o botão direito na Arca que possui uma Pedra de Orientação que tenha registrado uma posição a até 8 blocos de distância, e ela tentará te reviver nesse local em vez de perto dela mesma."
     }
   ],
   "extra_recipe_mappings": {

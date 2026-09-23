@@ -1,0 +1,19 @@
+{
+  "name": "激震のフォーカス",
+  "icon": "goety:temblor_clap_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この呪文は衝撃波を放ち、敵を吹き飛ばして数秒間気絶させます。術者が地に足をついている場合、呪文の範囲が拡大します。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/temblor_clap_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/staff/geo_staff)地の杖$()で唱えると、若干半径が大きくなります。"
+    }
+  ]
+}

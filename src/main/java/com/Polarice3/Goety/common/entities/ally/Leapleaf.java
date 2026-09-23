@@ -759,6 +759,9 @@ public class Leapleaf extends Summoned{
                 boolean random = this.leapleaf.random.nextFloat() <= 0.25F;
                 for (LivingEntity target : this.leapleaf.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
                     if (target != this.leapleaf && !target.isAlliedTo(this.leapleaf) && !this.leapleaf.isAlliedTo(target)) {
+                        if (target.isDamageSourceBlocked(ModDamageSource.summonAttack(this.leapleaf, this.leapleaf.getTrueOwner()))) {
+                            MobUtil.disableShield(target, 100);
+                        }
                         if (this.leapleaf.doHurtTarget(target) && (random || !target.isAlive())){
                             this.leapleaf.restTick = REST_TIME;
                         }

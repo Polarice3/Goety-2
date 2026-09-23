@@ -3855,6 +3855,19 @@
   "jade.goety.movement.patrol": "Patrulhando",
   "advancements.goety.find_wind_shrine.title": "Jornada ao Céu",
   "block.goety.sandstone_sarcophagus": "Sarcófago de Arenito",
-  "entity.goety.imperial_guard_servant": "Imperial Guard Servant",
-  "item.goety.imperial_guard_servant_spawn_egg": "Imperial Guard Servant Spawn Egg"
+  "block.goety.ominous_decree": "Decreto Sinistro",
+  "info.goety.focus.servantType": "Tipo de Servo:",
+  "tooltip.goety.decree.mode": "Modo: ",
+  "tooltip.goety.decree.baby": "Apenas Bebês",
+  "tooltip.goety.decree.adult": "Apenas Adultos",
+  "tooltip.goety.decree.all": "Todas as Idades",
+  "tooltip.goety.decree.type": "Apenas: ",
+  "subtitle.goety.decree": "Decreto emitido",
+  "item.goety.temblor_clap_focus": "Foco da Palma do Temblor",
+  "item.goety.temblor_clap_focus.info": "Invoca uma explosão não destrutiva no conjurador que repele, danifica e atordoa alvos não aliados próximos.",
+  "info.goety.ring_of_thirst": "Experiência ganha através de abates, pelo usuário ou seus servos, será coletada imediatamente.",
+  "tooltip.goety.blockRange": "Alcance: %s blocos",
+  "info.goety.waystone.revivePos": "Reviver posição definida!",
+  "entity.goety.imperial_guard_servant": "Servo Guarda Imperial",
+  "item.goety.imperial_guard_servant_spawn_egg": "Ovo de Servo Guarda Imperial"
 }

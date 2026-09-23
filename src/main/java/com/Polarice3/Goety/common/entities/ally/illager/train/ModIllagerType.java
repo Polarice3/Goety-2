@@ -26,9 +26,7 @@ public class ModIllagerType implements ITrainIllager {
         return this.getIllager(level, blockPos, range) != null;
     }
 
-    @Override
-    public boolean mobCanTrainTo(Mob mob, Level level, BlockPos blockPos, int range) {
-        EntityType<?> entityType = this.getIllager(level, blockPos, range);
+    public boolean mobCanTrainToType(Mob mob, EntityType<?> entityType) {
         if (entityType == ModEntityType.STORM_CASTER_SERVANT.get()) {
             return mob.getType() == ModEntityType.GEOMANCER_SERVANT.get() || mob.getType() == ModEntityType.WIND_CALLER_SERVANT.get();
         } else if (entityType == ModEntityType.CRYOLOGER_SERVANT.get()) {
@@ -54,6 +52,12 @@ public class ModIllagerType implements ITrainIllager {
                 && checker.hasBlocks(blockState -> blockState.is(Tags.Blocks.FENCES_WOODEN), 16)
                 && checker.hasBlocks(blockState -> blockState.is(BlockTags.WOOL), 20)) {
             return ModEntityType.PILLAGER_SERVANT.get();
+        } else if (checker.hasBlocks(blockState -> blockState.getBlock() instanceof OminousStatueBlock || blockState.getBlock() instanceof OminousBrazierStatueBlock, 4)
+                && checker.hasBlocks(blockState -> blockState.is(BlockTags.BANNERS), 4)
+                && checker.hasBlocks(blockState -> blockState.is(Blocks.HAY_BLOCK) || blockState.is(Blocks.TARGET), 4)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof FletchingTableBlock, 4)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof StashUrnBlock, 8)){
+            return ModEntityType.IMPERIAL_GUARD_SERVANT.get();
         } else if (checker.hasBlocks(blockState -> blockState.getBlock() instanceof GrindstoneBlock, 2)
                 && checker.hasBlocks(blockState -> blockState.getBlock() instanceof SmithingTableBlock, 2)
                 && checker.hasBlocks(blockState -> blockState.is(Tags.Blocks.FENCES_WOODEN), 16)
@@ -91,10 +95,10 @@ public class ModIllagerType implements ITrainIllager {
                 && checker.hasBlocks(blockState -> blockState.getBlock() instanceof AnvilBlock, 4)){
             return ModEntityType.CRUSHER_SERVANT.get();
         } else if (checker.hasBlocks(blockState -> blockState.getBlock() instanceof OminousStatueBlock || blockState.getBlock() instanceof OminousBrazierStatueBlock, 4)
-                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof FancyCarpetBlock, 16)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof StairCarpetBlock, 16)
                 && checker.hasBlocks(blockState -> blockState.is(BlockTags.BANNERS), 4)
                 && checker.hasBlocks(blockState -> blockState.getBlock() instanceof AnvilBlock, 4)
-                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof StashUrnBlock, 4)){
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof StashUrnBlock, 8)){
             return ModEntityType.ROYAL_GUARD_SERVANT.get();
         } else if (BlockFinder.getNearbyEnchantPower(level, blockPos, range, 32)
                 && BlockFinder.getNearbyLitCandles(level, blockPos, range, 16)

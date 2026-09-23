@@ -20,6 +20,9 @@ public interface ISoulEnergy {
     void setArcaBlock(@Nullable BlockPos blockPos);
     ResourceKey<Level> getArcaBlockDimension();
     void setArcaBlockDimension(ResourceKey<Level> dimension);
+    @Nullable
+    BlockPos getArcaRevivePos();
+    void setArcaRevivePos(@Nullable BlockPos blockPos);
     boolean getSEActive();
     void setSEActive(boolean seActive);
     int getSoulEnergy();

@@ -11,8 +11,12 @@ public interface ITrainIllager {
         return false;
     }
 
-    default boolean mobCanTrainTo(Mob mob, Level level, BlockPos blockPos, int range) {
+    default boolean mobCanTrainToType(Mob mob, EntityType<?> entityType) {
         return true;
+    }
+
+    default boolean mobCanTrainTo(Mob mob, Level level, BlockPos blockPos, int range) {
+        return this.mobCanTrainToType(mob, this.getIllager(level, blockPos, range));
     }
 
     EntityType<? extends Mob> getIllager(Level level, BlockPos blockPos, int range);

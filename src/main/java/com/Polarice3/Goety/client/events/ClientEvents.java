@@ -637,25 +637,32 @@ public class ClientEvents {
                                 RenderSystem.disableBlend();
                                 poseStack.popPose();
 
-                                if (decree.getMode() != OminousDecreeBlockEntity.DecreeMode.ALL) {
-                                    poseStack.pushPose();
-                                    poseStack.translate((float) (width / 2), (float) (height - 68), 0.0F);
-                                    RenderSystem.enableBlend();
-                                    RenderSystem.defaultBlendFunc();
-                                    String s2 = Component.translatable("tooltip.goety.decree.mode").getString() + Component.translatable("tooltip.goety.decree." + decree.getMode().getName().toLowerCase(Locale.ROOT)).getString();
-                                    int l2 = fontRenderer.width(s2);
-                                    event.getGuiGraphics().drawString(fontRenderer, s2, (-l2 / 2), -4, 0xFFFFFF);
-                                    RenderSystem.disableBlend();
-                                    poseStack.popPose();
-                                }
+                                poseStack.pushPose();
+                                poseStack.translate((float) (width / 2), (float) (height - 68), 0.0F);
+                                RenderSystem.enableBlend();
+                                RenderSystem.defaultBlendFunc();
+                                String s2 = Component.translatable("tooltip.goety.decree.mode").getString() + Component.translatable("tooltip.goety.decree." + decree.getMode().getName().toLowerCase(Locale.ROOT)).getString();
+                                int l2 = fontRenderer.width(s2);
+                                event.getGuiGraphics().drawString(fontRenderer, s2, (-l2 / 2), -4, 0xFFFFFF);
+                                RenderSystem.disableBlend();
+                                poseStack.popPose();
+                                poseStack.pushPose();
+                                poseStack.translate((float) (width / 2), (float) (height - 78), 0.0F);
+                                RenderSystem.enableBlend();
+                                RenderSystem.defaultBlendFunc();
+                                String s1 = Component.translatable("tooltip.goety.blockRange", decree.getRange()).getString();
+                                int l1 = fontRenderer.width(s1);
+                                event.getGuiGraphics().drawString(fontRenderer, s1, (-l1 / 2), -4, 0xFFFFFF);
+                                RenderSystem.disableBlend();
+                                poseStack.popPose();
                                 if (decree.getEntityType() != null) {
                                     poseStack.pushPose();
-                                    poseStack.translate((float) (width / 2), (float) (height - 78), 0.0F);
+                                    poseStack.translate((float) (width / 2), (float) (height - 88), 0.0F);
                                     RenderSystem.enableBlend();
                                     RenderSystem.defaultBlendFunc();
-                                    String s1 = Component.translatable("tooltip.goety.decree.type").getString() + Component.translatable(decree.getEntityType().getDescriptionId()).getString();
-                                    int l1 = fontRenderer.width(s1);
-                                    event.getGuiGraphics().drawString(fontRenderer, s1, (-l1 / 2), -4, 0xFFFFFF);
+                                    String s3 = Component.translatable("tooltip.goety.decree.type").getString() + Component.translatable(decree.getEntityType().getDescriptionId()).getString();
+                                    int l3 = fontRenderer.width(s3);
+                                    event.getGuiGraphics().drawString(fontRenderer, s3, (-l3 / 2), -4, 0xFFFFFF);
                                     RenderSystem.disableBlend();
                                     poseStack.popPose();
                                 }

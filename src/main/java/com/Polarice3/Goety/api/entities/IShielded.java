@@ -86,6 +86,8 @@ public interface IShielded {
                 if (this.hasShield() && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
                     if (amount > 0.0F) {
                         this.destroyShield();
+                    } else {
+                        mob.playSound(SoundEvents.SHIELD_BLOCK);
                     }
                     return false;
                 } else {

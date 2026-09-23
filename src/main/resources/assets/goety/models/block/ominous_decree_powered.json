@@ -1,0 +1,6 @@
+{
+	"parent": "goety:block/template_decree",
+	"textures": {
+		"decree": "goety:block/ominous_decree_powered"
+	}
+}

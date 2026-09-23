@@ -341,7 +341,7 @@ public class CuriosFinder {
 
     public static boolean hasUndeadCrown(LivingEntity livingEntity){
         return CuriosFinder.hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof NecroGarbs.NecroCrownItem)
-                || (livingEntity instanceof AbstractNecromancer && MobsConfig.NecromancerSummonsLife.get());
+                || (livingEntity instanceof AbstractNecromancer && !MobsConfig.NecromancerSummonsLife.get());
     }
 
     public static boolean hasUndeadCape(LivingEntity livingEntity){

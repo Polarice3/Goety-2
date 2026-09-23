@@ -37,10 +37,23 @@
     },
     {
       "type": "patchouli:entity",
+      "advancement": "goety:goety/read_front_scroll",
+      "entity": "goety:imperial_guard_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_front_scroll",
+      "text": "Highly trained Pillagers trained to protect their superiors by pelting foes with powerful arrows from behind their shields. You've made this role through creative thinking while researching on desert scrolls."
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/read_front_scroll",
       "entity": "goety:piker_servant"
     },
     {
       "type": "patchouli:text",
+      "advancement": "goety:goety/read_front_scroll",
       "text": "These highly trained and disciplined Illagers are capable of stabbing targets further from their position."
     },
     {
@@ -87,11 +100,13 @@
     },
     {
       "type": "patchouli:entity",
+      "advancement": "goety:goety/read_front_scroll",
       "entity": "goety:royal_guard_servant",
       "scale": 0.75
     },
     {
       "type": "patchouli:text",
+      "advancement": "goety:goety/read_front_scroll",
       "text": "High-ranking Illagers charged with guarding their superiors through intimidation and powerful blows from their maces. If they're shield-less, right click on them with an Iron Ingot to give them their shield back when they're not attacking."
     },
     {
@@ -164,6 +179,7 @@
     {
       "type": "patchouli:entity",
       "name": "Illager Captain",
+      "anchor": "captain",
       "entity": "goety:pillager_servant{HandItems:[{Count:1,id:\"minecraft:crossbow\"},{}], ArmorItems:[{},{},{},{Count:1,id:\"minecraft:black_banner\"}]}",
       "scale": 0.5,
       "text": "Illagers like Pillager Servants can be made a captain."
@@ -205,6 +221,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "minecraft:chest",
+      "anchor": "chest",
       "title": "Chest Interaction",
       "text": "Right clicking on an Illager with a Waystone that leads to an unlocked Chest will cause them to register the chest as a valid container to take food from it, or store excess food and loot, when they are nearby. If the Illager is a leader, their followers will register the same chest as well."
     },

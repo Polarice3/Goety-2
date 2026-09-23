@@ -87,7 +87,7 @@ public class VexSpell extends SummonSpell {
             for (Entity entity : worldIn.getAllEntities()) {
                 if (entity instanceof Minion minion) {
                     if (minion instanceof AllyVex || minion instanceof AllyIrk) {
-                        if (minion.getTrueOwner() == caster) {
+                        if (minion.getMasterOwner() == caster) {
                             if (minion instanceof AllyIrk){
                                 caster.heal(2.0F);
                             }

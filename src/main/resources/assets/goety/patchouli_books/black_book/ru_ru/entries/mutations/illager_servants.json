@@ -147,6 +147,7 @@
     {
       "type": "patchouli:entity",
       "name": "Злодеянин-лидер",
+      "anchor": "captain",
       "entity": "goety:pillager_servant{HandItems:[{Count:1,id:\"minecraft:crossbow\"},{}], ArmorItems:[{},{},{},{Count:1,id:\"minecraft:black_banner\"}]}",
       "scale": 0.5,
       "text": "Злодеяне, вроде разбойников-прислужников, могут быть лидерами."
@@ -188,6 +189,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "minecraft:chest",
+      "anchor": "chest",
       "title": "Сундуки",
       "text": "Нажатие ПКМ по злодеянину путеводным камнем, который привязан к сундуку, заставит его принять сундук за хранилище, где он начнёт брать еду или хранить добычу, если будет поблизости. Если злодеянин является лидером, то его последователи также примут этот сундук."
     },

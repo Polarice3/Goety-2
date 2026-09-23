@@ -274,9 +274,9 @@ public class ServantSpawnEggs {
     public static final RegistryObject<ServantSpawnEggItem> PILLAGER_SERVANT_SPAWN_EGG = ITEMS.register("pillager_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.PILLAGER_SERVANT, 0x341c22, 0xadbebe, egg()));
 
-    /*public static final RegistryObject<ServantSpawnEggItem> IMPERIAL_GUARD_SERVANT_SPAWN_EGG = ITEMS.register("imperial_guard_servant_spawn_egg",
+    public static final RegistryObject<ServantSpawnEggItem> IMPERIAL_GUARD_SERVANT_SPAWN_EGG = ITEMS.register("imperial_guard_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.IMPERIAL_GUARD_SERVANT, 0x311505, 0xffc444, egg()));
-*/
+
     public static final RegistryObject<ServantSpawnEggItem> PIKER_SERVANT_SPAWN_EGG = ITEMS.register("piker_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.PIKER_SERVANT, 0x341610, 0xc7cece, egg()));
 

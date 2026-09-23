@@ -822,6 +822,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
             }
         }
 
+        int smiteLevel = 0;
         if (pSource.getDirectEntity() instanceof LivingEntity living){
             int smite = EnchantmentHelper.getEnchantmentLevel(Enchantments.SMITE, living);
             if (smite > 0){
@@ -829,6 +830,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
                 int duration = MathHelper.secondsToTicks(smite2);
                 this.antiRegenTotal = duration;
                 this.antiRegen = duration;
+                smiteLevel = smite;
                 if (this.level instanceof ServerLevel){
                     ModNetwork.sendToALL(new SApostleSmitePacket(this.getId(), duration));
                     if (this.getCoolDown() < this.coolDownLimit()){
@@ -879,6 +881,13 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
         if (!this.level.getNearbyPlayers(TargetingConditions.forCombat().selector(MobUtil.NO_CREATIVE_OR_SPECTATOR), this, this.getBoundingBox().inflate(32)).isEmpty()){
             if (!(pSource.getEntity() instanceof Player)){
                 trueAmount = trueAmount / 2;
+            }
+        }
+
+        if (smiteLevel > 0) {
+            if (MobsConfig.ApostleSmiteDamageReduction.get() > 0) {
+                float reduce = 1.0F - (MobsConfig.ApostleSmiteDamageReduction.get() / 100.0F);
+                trueAmount *= reduce;
             }
         }
 

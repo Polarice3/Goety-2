@@ -18,7 +18,14 @@
     },
     {
       "type": "patchouli:text",
+      "title": "Imperial Guard Servants",
+      "advancement": "goety:goety/read_front_scroll",
+      "text": "$(o)Note: Owner must have read $(l:goety:rumors/desert)Front Scroll$()$()$(br)Requirements: $(li)Pillager Servant $(li)4 Ominous Statues $(li)4 Banners $(li)4 Hay/Target Blocks $(li)4 Fletching Tables $(li)2 Anvils $(li)8 $(l:goety:crafts/stash_urn)Stash Urns$()"
+    },
+    {
+      "type": "patchouli:text",
       "title": "Piker Servants",
+      "advancement": "goety:goety/read_front_scroll",
       "text": "$(o)Note: Owner must have read $(l:goety:rumors/desert)Front Scroll$()$()$(br)Requirements: $(li)Neollager $(li)2 Grindstone $(li)2 Smithing Tables $(li)16 Wooden Fences $(li)32 Logs $(li)4 Barrels $(li)4 Beds $(li)2 Anvils"
     },
     {
@@ -49,7 +56,8 @@
     {
       "type": "patchouli:text",
       "title": "Royal Guard Servants",
-      "text": "Requirements: $(li)Vindicator Servant $(li)4 Ominous Statues $(li)16 Royal/Frosty Carpets $(li)4 Banners $(li)4 Anvils $(li)4 $(l:goety:crafts/stash_urn)Stash Urns$()"
+      "advancement": "goety:goety/read_front_scroll",
+      "text": "$(o)Note: Owner must have read $(l:goety:rumors/desert)Front Scroll$()$()$(br)Requirements: $(li)Vindicator Servant $(li)4 Ominous Statues $(li)16 Royal/Frosty Carpets $(li)4 Banners $(li)4 Anvils $(li)8 $(l:goety:crafts/stash_urn)Stash Urns$()"
     },
     {
       "type": "patchouli:text",

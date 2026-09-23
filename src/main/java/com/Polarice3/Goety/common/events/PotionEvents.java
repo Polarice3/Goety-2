@@ -21,6 +21,8 @@ import com.Polarice3.Goety.common.magic.spells.void_spells.EndWalkSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayEntitySoundPacket;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
+import com.Polarice3.Goety.compat.vampirism.VampirismIntegration;
+import com.Polarice3.Goety.compat.vampirism.VampirismLoaded;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
@@ -116,6 +118,11 @@ public class PotionEvents {
                     if (livingEntity.tickCount % 10 == 0) {
                         ColorUtil colorUtil = VOID_TOUCHED;
                         serverLevel.sendParticles(new FollowFireParticleOption(livingEntity.getId()), livingEntity.getX(), livingEntity.getY() + (livingEntity.getBbHeight() / 2.0F), livingEntity.getZ(), 0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.0F);
+                    }
+                }
+                if (VampirismLoaded.VAMPIRISM.isLoaded()) {
+                    if (VampirismIntegration.hasSunscreen(livingEntity)) {
+                        MiscCapHelper.setSunscreen(livingEntity, 20);
                     }
                 }
             }

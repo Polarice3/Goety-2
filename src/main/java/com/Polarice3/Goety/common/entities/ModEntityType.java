@@ -111,6 +111,12 @@ public class ModEntityType {
                     .clientTrackingRange(4)
                     .updateInterval(20));
 
+    public static final RegistryObject<EntityType<HeavyArrow>> HEAVY_ARROW = register("heavy_arrow",
+            EntityType.Builder.<HeavyArrow>of(HeavyArrow::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(4)
+                    .updateInterval(20));
+
     public static final RegistryObject<EntityType<DeathArrow>> DEATH_ARROW = register("death_arrow",
             EntityType.Builder.<DeathArrow>of(DeathArrow::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F)
@@ -1103,7 +1109,6 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<ImperialGuardServant>> IMPERIAL_GUARD_SERVANT = register("imperial_guard_servant",
             EntityType.Builder.of(ImperialGuardServant::new, MobCategory.MONSTER)
-                    .noSummon() //WIP
                     .canSpawnFarFromPlayer()
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));

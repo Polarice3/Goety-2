@@ -3,7 +3,10 @@
   "__comment": "items that Vindicator Chefs can craft, items need to have a Crafting Recipe",
   "values": [
     "minecraft:cake",
-    "#forge:cookies",
+    {
+      "id": "#forge:cookies",
+      "required": false
+    },
     {
       "id": "farmersdelight:pie_crust",
       "required": false

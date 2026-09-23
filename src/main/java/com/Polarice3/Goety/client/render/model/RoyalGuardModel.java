@@ -2,15 +2,19 @@ package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.api.entities.IShielded;
 import com.Polarice3.Goety.client.render.animation.RoyalGuardAnimations;
+import com.Polarice3.Goety.client.render.layer.HierarchicalArmor;
 import com.Polarice3.Goety.common.entities.ally.illager.RoyalGuardServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieRoyalGuardServant;
+import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.Mob;
 
-public class RoyalGuardModel<T extends Mob & IShielded> extends HierarchicalModel<T> {
+public class RoyalGuardModel<T extends Mob & IShielded> extends HierarchicalModel<T> implements HeadedModel, HierarchicalArmor {
     private final ModelPart root;
     private final ModelPart guard;
     private final ModelPart body;
@@ -161,5 +165,34 @@ public class RoyalGuardModel<T extends Mob & IShielded> extends HierarchicalMode
     @Override
     public ModelPart root() {
         return this.root;
+    }
+
+    @Override
+    public ModelPart getHead() {
+        return this.head;
+    }
+
+    @Override
+    public void translateToHead(ModelPart part, PoseStack poseStack) {
+        this.guard.translateAndRotate(poseStack);
+        this.body.translateAndRotate(poseStack);
+        part.translateAndRotate(poseStack);
+        poseStack.translate(0, 0.0F, 0);
+    }
+
+    @Override
+    public void translateToChest(ModelPart part, PoseStack poseStack) {
+    }
+
+    @Override
+    public void translateToLeg(ModelPart part, PoseStack poseStack) {
+    }
+
+    @Override
+    public void translateToArms(ModelPart part, PoseStack poseStack) {
+    }
+
+    public Iterable<ModelPart> headPartArmors() {
+        return ImmutableList.of(this.head);
     }
 }

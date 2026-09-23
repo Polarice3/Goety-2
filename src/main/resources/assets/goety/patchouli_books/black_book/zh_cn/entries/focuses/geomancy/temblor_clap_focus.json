@@ -1,0 +1,19 @@
+{
+  "name": "震颤猛击聚晶",
+  "icon": "goety:temblor_clap_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这个法术会释放出冲击波来击退敌人并令它们眩晕数秒。如果施法者站在地上，法术的范围会得到提升。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/temblor_clap_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/staff/geo_staff)地卜魔杖$()施法时会略微提升范围。"
+    }
+  ]
+}

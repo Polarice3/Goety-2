@@ -1,8 +1,7 @@
 package com.Polarice3.Goety.common.magic.spells.geomancy;
 
 import com.Polarice3.Goety.api.magic.SpellType;
-import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
-import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
+import com.Polarice3.Goety.client.particles.SmashParticleOption;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.Spell;
@@ -24,21 +23,26 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WarStompSpell extends Spell {
+public class TemblorClapSpell extends Spell {
+
+    @Override
+    public SpellStat defaultStats() {
+        return super.defaultStats().setRadius(3.0D);
+    }
 
     @Override
     public int defaultSoulCost() {
-        return SpellConfig.DischargeCost.get();
+        return SpellConfig.TemblorClapCost.get();
     }
 
     @Override
     public int defaultCastDuration() {
-        return SpellConfig.DischargeDuration.get();
+        return SpellConfig.TemblorClapDuration.get();
     }
 
     @Override
     public int defaultSpellCooldown() {
-        return SpellConfig.DischargeCoolDown.get();
+        return SpellConfig.TemblorClapCoolDown.get();
     }
 
     @Override
@@ -52,11 +56,6 @@ public class WarStompSpell extends Spell {
     }
 
     @Override
-    public boolean conditionsMet(ServerLevel worldIn, LivingEntity caster, SpellStat spellStat) {
-        return caster.onGround();
-    }
-
-    @Override
     public List<Enchantment> acceptedEnchantments() {
         List<Enchantment> list = new ArrayList<>();
         list.add(ModEnchantments.POTENCY.get());
@@ -65,24 +64,35 @@ public class WarStompSpell extends Spell {
     }
 
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){
-        int radius = (int) spellStat.getRadius();
+        double radius = spellStat.getRadius();
         float potency = spellStat.getPotency();
-        float damage = SpellConfig.DischargeDamage.get().floatValue() * WandUtil.damageMultiply();
-        float maxDamage = SpellConfig.DischargeMaxDamage.get().floatValue() * WandUtil.damageMultiply();
+        float damage = SpellConfig.TemblorClapDamage.get().floatValue() * WandUtil.damageMultiply();
+        float maxDamage = SpellConfig.TemblorClapMaxDamage.get().floatValue() * WandUtil.damageMultiply();
         if (WandUtil.enchantedFocus(caster)){
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
             potency += WandUtil.getPotencyLevel(caster) / 2.0F;
         }
         damage += potency;
         maxDamage += potency;
+        double increase = 0.0D;
+        if (caster.onGround()) {
+            increase += 0.5D;
+        }
+        if (rightStaff(staff)) {
+            increase += 0.5D;
+        }
+        radius += increase;
         double groundY = BlockFinder.findGroundY(worldIn, caster.position());
         BlockPos blockPos = BlockPos.containing(caster.position().x, groundY - 1.0D, caster.position().z);
 
-        ColorUtil colorUtil = new ColorUtil(worldIn.getBlockState(blockPos).getMapColor(worldIn, blockPos).col);
-        worldIn.sendParticles(new ShockwaveParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue()), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 0, 0, 0, 0, 0);
-        worldIn.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius, 1), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 1, 0, 0, 0, 0);
+        int color = worldIn.getBlockState(blockPos).getMapColor(worldIn, blockPos).col;
+        if (worldIn.getBlockState(blockPos).isAir()) {
+            color = 0xfefaa3;
+        }
+        ColorUtil colorUtil = new ColorUtil(color);
+        worldIn.sendParticles(new SmashParticleOption(colorUtil, (float) radius, 10), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 0, 0, 0, 0, 0);
         float trueDamage = Mth.clamp(damage + RandomUtil.nextInt(worldIn.getRandom(), (int) (maxDamage - damage)), damage, maxDamage);
-        new SpellExplosion(worldIn, caster, caster.damageSources().mobAttack(caster), caster.blockPosition(), radius, trueDamage){
+        new SpellExplosion(worldIn, caster, caster.damageSources().mobAttack(caster), caster.blockPosition(), (float) radius, trueDamage){
             @Override
             public void explodeHurt(Entity target, DamageSource damageSource, double x, double y, double z, double seen, float actualDamage) {
                 if (target instanceof LivingEntity target1){

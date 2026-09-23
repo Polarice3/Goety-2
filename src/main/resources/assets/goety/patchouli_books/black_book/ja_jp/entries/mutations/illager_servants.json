@@ -37,6 +37,17 @@
     },
     {
       "type": "patchouli:entity",
+      "advancement": "goety:goety/read_front_scroll",
+      "entity": "goety:imperial_guard_servant",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_front_scroll",
+      "text": "盾の陰から強力な矢を敵に浴びせかけ、上官を守るよう高度な訓練を受けたピリジャー。あなたは砂漠にあったスクロールを研究する中で、独創的な発想によりこの役割を考案しました。"
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:piker_servant"
     },
     {
@@ -83,16 +94,18 @@
     },
     {
       "type": "patchouli:text",
-      "text": "これらのイリジャーは通常、他のイリジャーのために武器を鍛造しますが、強力なハンマーで敵を粉砕することもできます。"
+      "text": "これらのイリジャーは通常、他のイリジャーのために武器を鍛造しますが、強力なハンマーで敵を粉砕することもできます。彼らは自身に紐付けられたチェストから鉱石を取り出し、近くのかまどや溶鉱炉で精錬することができます。また、他のイリジャーが武器を失った際には新たな武器を製作したり、十分な資源があり、かつ対象のイラジャーがエンチャント付きの武器を所持していない場合には、より高性能な武器を作ったりすることもあります。さらに、彼らは「修理用パテ」を作成し、それを使って近くの損傷した味方のゴーレム系を修理することもできます。"
     },
     {
       "type": "patchouli:entity",
+      "advancement": "goety:goety/read_front_scroll",
       "entity": "goety:royal_guard_servant",
       "scale": 0.75
     },
     {
       "type": "patchouli:text",
-      "text": "威圧的な態度とメイスによる強力な一撃で上官を護衛する、高位のイラジャーです。盾を失っている場合、攻撃中でない時に鉄インゴットを持って右クリックすると、盾を再び持たせることができます。"
+      "advancement": "goety:goety/read_front_scroll",
+      "text": "威圧的な態度とメイスによる強力な一撃で上官を護衛する、高位のイリジャーです。盾を失っている場合、攻撃中でない時に鉄インゴットを持って右クリックすると、盾を再び持たせることができます。"
     },
     {
       "type": "patchouli:entity",
@@ -100,7 +113,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "闇の魔術の使い手だが、使える呪文は2つに限られている。しかし、呪文の使い手としてはかなり優秀です。戦闘に関しては、刺されないように走り回るのが好きなようだ。主人が$(l:rumors/ravaging)荒らし方$()を学んだ場合、村人をラヴェジャーに変えることが可能です。そのためには、$(l:goety:focuses/command_focus)命令$()して $(l:goety:mutations/illager_servants#banner)エヴォーカーを1人に導く$() か、村人全体が$(l:goety:crafts/grimoire_of_grudges)恨みを抱いている$()場合は近くに1人、さらにエヴォーカーが2人いる必要があります。"
+      "text": "闇の魔術の使い手だが、使える呪文は2つに限られている。しかし、呪文の使い手としてはかなり優秀です。戦闘に関しては、刺されないように走り回るのが好きなようだ。主人が$(l:rumors/ravaging)荒らし方$()を学んだ場合、村人をラヴェジャーに変えることが可能です(ピリジャーをトランプラーにすることも可能です)。そのためには、$(l:goety:focuses/command_focus)命令$()して $(l:goety:mutations/illager_servants#banner)エヴォーカーを1人に導く$() か、村人全体が$(l:goety:crafts/grimoire_of_grudges)恨みを抱いている$()場合は近くに1人、さらにエヴォーカーが2人いる必要があります。"
     },
     {
       "type": "patchouli:entity",
@@ -163,6 +176,7 @@
     },
     {
       "type": "patchouli:entity",
+      "anchor": "captain",
       "entity": "goety:pillager_servant{HandItems:[{Count:1,id:\"minecraft:crossbow\"},{}], ArmorItems:[{},{},{},{Count:1,id:\"minecraft:black_banner\"}]}",
       "scale": 0.5,
       "text": "ピリジャーの従者のようなイリジャーはリーダーにすることができます。"
@@ -204,17 +218,24 @@
     {
       "type": "patchouli:spotlight",
       "item": "minecraft:chest",
+      "anchor": "chest",
       "title": "チェストとの相互作用",
       "text": "イリジャーをロックされていないチェストの位置を保存したウェイストーンで右クリックすると、そのチェストは食料の倉庫として登録され、近くにいる間は食料を取り出すことができます。そのイリジャーがリーダーだった場合、リーダーをフォローしている従者も同じチェストを登録します。"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:raiding_chest",
-      "text": "イリジャーは通常のチェストとは別に、別のチェストを登録することもできます。登録すると、イリジャーは他のチェストの上に戦利品を預けようとし、そのチェストからアイテムを持ち出そうとしなくなります。"
+      "text": "イリジャーは通常のチェストとは別に、別のチェストを登録することもできます。登録すると、イリジャーは他のチェストの上に戦利品を預けますが、そのチェストからアイテムを持ち出せません。"
     },
     {
       "type": "patchouli:text",
       "text": "イリジャーには鎧を与えることができ(設定がtrueに設定されている場合)、オフハンドが空である限り不死のトーテムを与えることができます。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:soul_healer",
+      "title": "チャーム",
+      "text": "特定のアイテムをイリジャーに与えると、新たな能力を付与することができます。イリジャーを右クリックするだけでチャームを装備させることができ、棒で右クリックすれば装備中のチャームを外すことが可能です(ただし、オフハンドにトーテムを持っていない場合に限ります)。"
     }
   ]
 }

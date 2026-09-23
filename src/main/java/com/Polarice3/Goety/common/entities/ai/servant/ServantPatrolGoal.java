@@ -5,7 +5,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.phys.AABB;
 
 import java.util.EnumSet;
 
@@ -44,14 +43,13 @@ public class ServantPatrolGoal<T extends PathfinderMob & IServant> extends Goal 
         }
 
         BlockPos pos = waypoint.pos();
-        AABB aabb = new AABB(pos).inflate(1.0D);
-        if (this.mob.getBoundingBox().inflate(1.0D).intersects(aabb)) {
+        if (this.mob.isInPatrolPoint(pos)) {
             if (--this.waitTicks <= 0) {
                 this.mob.advancePatrol();
                 this.waitTicks = 40;
             }
         } else if (this.mob.getNavigation().isDone()) {
-            this.mob.getNavigation().moveTo(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, this.speed);
+            this.mob.moveToPatrolPoint(pos, this.speed);
         }
     }
 }
