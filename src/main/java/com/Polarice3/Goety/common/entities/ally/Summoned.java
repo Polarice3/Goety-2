@@ -163,7 +163,9 @@ public class Summoned extends Owned implements IServant {
     }
 
     public void setTarget(@Nullable LivingEntity target) {
-        if (this.isGuardingArea() && !this.isPrioritizing()){
+        if (this.getPacifyTick() > 0) {
+            this.overrideSetTarget(null);
+        } else if (this.isGuardingArea() && !this.isPrioritizing()){
             if (target != null) {
                 if (target.distanceToSqr(this.vec3BoundPos()) <= Mth.square(GUARDING_RANGE)) {
                     this.overrideSetTarget(target);

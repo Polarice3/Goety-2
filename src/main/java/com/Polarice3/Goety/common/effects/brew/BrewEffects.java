@@ -175,6 +175,7 @@ public class BrewEffects {
         //Buffed version of Vanilla effect
         this.register(new SaturationBrewEffect(BrewConfig.SaturationCost.get()), Items.RABBIT_STEW);
         this.register(new ShearBrewEffect(BrewConfig.ShearCost.get()), Items.SHEARS);
+        this.register(new SlimyBrewEffect(BrewConfig.SlimyCost.get(), BrewConfig.SlimyCapacity.get()), Items.SLIME_BLOCK);
         this.register(new SnowBlockEffect(), Items.SNOW_BLOCK);
         this.register(new StripBrewEffect(BrewConfig.StripArmorCost.get(), BrewConfig.StripArmorCapacity.get()), Items.MANGROVE_ROOTS);
         this.register(new SweetBerriedEffect(), Items.SWEET_BERRIES);

@@ -17,8 +17,8 @@
       "text": "平滑金块虽然没有完整的金块那么闪亮，但仍然能够成为纯粹富裕和财富的象征。这是一个奇怪的建筑块，你听说一个古老的圣地曾经使用过它。"
     },
     {
-      "type": "patchouli:crafting",
-      "recipe": "goety:indented_gold/indented_gold_craft"
+      "type": "patchouli:stonecutting",
+      "recipe": "goety:indented_gold/indented_gold"
     }
   ]
 }

@@ -107,6 +107,9 @@ public class ModItems {
     public static final RegistryObject<Item> END_MUD_BOTTLE = ITEMS.register("end_mud_bottle", () -> new Item(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE)));
     public static final RegistryObject<Item> END_MUD_BUCKET = ITEMS.register("end_mud_bucket", () -> new BucketItem(ModFluids.END_MUD_FLUID_SOURCE, (new Item.Properties()).craftRemainder(Items.BUCKET).stacksTo(1)));
 
+    public static final RegistryObject<Item> END_MINERAL_BOTTLE = ITEMS.register("end_mineral_bottle", () -> new Item(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE)));
+    public static final RegistryObject<Item> END_MINERAL_BUCKET = ITEMS.register("end_mineral_bucket", () -> new BucketItem(ModFluids.END_MINERAL_FLUID_SOURCE, (new Item.Properties()).craftRemainder(Items.BUCKET).stacksTo(1)));
+
     public static final RegistryObject<Item> PHILOSOPHERS_STONE = ITEMS.register("philosophers_stone", PhilosophersStone::new);
     public static final RegistryObject<Item> DARK_SCROLL = ITEMS.register("dark_scroll", DarkScrollItem::new);
     public static final RegistryObject<Item> BLAZING_HORN = ITEMS.register("blazing_horn", BlazingHornItem::new);
@@ -176,6 +179,9 @@ public class ModItems {
     public static final RegistryObject<Item> ROTTEN_BOAT = ITEMS.register("rotten_boat", () -> new ModBoatItem(false, ModBoat.Type.ROTTEN, (new Item.Properties()).stacksTo(1)));
     public static final RegistryObject<Item> ROTTEN_CHEST_BOAT = ITEMS.register("rotten_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.ROTTEN, (new Item.Properties()).stacksTo(1)));
 
+    public static final RegistryObject<Item> MARSH_BOAT = ITEMS.register("marsh_boat", () -> new ModBoatItem(false, ModBoat.Type.MARSH, (new Item.Properties()).stacksTo(1)));
+    public static final RegistryObject<Item> MARSH_CHEST_BOAT = ITEMS.register("marsh_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.MARSH, (new Item.Properties()).stacksTo(1)));
+
     public static final RegistryObject<Item> WINDSWEPT_BOAT = ITEMS.register("windswept_boat", () -> new ModBoatItem(false, ModBoat.Type.WINDSWEPT, (new Item.Properties()).stacksTo(1)));
     public static final RegistryObject<Item> WINDSWEPT_CHEST_BOAT = ITEMS.register("windswept_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.WINDSWEPT, (new Item.Properties()).stacksTo(1)));
 
@@ -210,6 +216,7 @@ public class ModItems {
     public static final RegistryObject<SingleStackItem> PENDANT_OF_HUNGER = ITEMS.register("pendant_of_hunger", PendantOfHungerItem::new);
     public static final RegistryObject<SingleStackItem> TARGETING_MONOCLE = ITEMS.register("targeting_monocle", TargetingMonocleItem::new);
     public static final RegistryObject<SingleStackItem> DARK_HAT = ITEMS.register("dark_hat", MagicHatItem::new);
+    public static final RegistryObject<SingleStackItem> DARK_CROWN = ITEMS.register("dark_crown", MagicHatItem::new);
     public static final RegistryObject<SingleStackItem> GRAND_TURBAN = ITEMS.register("grand_turban", MagicHatItem::new);
     public static final RegistryObject<SingleStackItem> FROST_CROWN = ITEMS.register("frost_crown", () -> new MagicCrownItem(SpellType.FROST));
     public static final RegistryObject<SingleStackItem> WIND_CROWN = ITEMS.register("wind_crown", () -> new MagicCrownItem(SpellType.WIND));
@@ -480,7 +487,11 @@ public class ModItems {
     public static final RegistryObject<Item> SOUL_POTTERY_SHERD = ITEMS.register("soul_pottery_sherd", ItemBase::new);
 
     //Discs
-    public static final RegistryObject<Item> MUSIC_DISC_ENDERMAN = ITEMS.register("music_disc_enderman", () -> new RecordItem(14, ModSounds.MUSIC_DISC_ENDERMAN, (new Item.Properties()).stacksTo(1).rarity(Rarity.RARE),2240));
+    public static final RegistryObject<Item> MUSIC_DISC_ENDERMAN = ITEMS.register("music_disc_enderman", () -> new RecordItem(13, ModSounds.MUSIC_DISC_ENDERMAN, (new Item.Properties()).stacksTo(1).rarity(Rarity.RARE),2240));
+    public static final RegistryObject<Item> MUSIC_DISC_CRONE = ITEMS.register("music_disc_crone", () -> new RecordItem(13, ModSounds.MUSIC_DISC_CRONE, (new Item.Properties()).stacksTo(1).rarity(Rarity.RARE),2180));
+    public static final RegistryObject<Item> MUSIC_DISC_HERESIARCH = ITEMS.register("music_disc_heresiarch", () -> new RecordItem(13, ModSounds.MUSIC_DISC_HERESIARCH, (new Item.Properties()).stacksTo(1).rarity(Rarity.RARE),1820));
+    public static final RegistryObject<Item> MUSIC_DISC_SKULL_LORD = ITEMS.register("music_disc_skull_lord", () -> new RecordItem(13, ModSounds.MUSIC_DISC_SKULL_LORD, (new Item.Properties()).stacksTo(1).rarity(Rarity.RARE),2120));
+    public static final RegistryObject<Item> MUSIC_DISC_WITHER_NECROMANCER = ITEMS.register("music_disc_wither_necromancer", () -> new RecordItem(13, ModSounds.MUSIC_DISC_WITHER_NECROMANCER, (new Item.Properties()).stacksTo(1).rarity(Rarity.RARE),1580));
     public static final RegistryObject<Item> MUSIC_DISC_RM = ITEMS.register("music_disc_rm", () -> new RecordItem(14, ModSounds.MUSIC_DISC_RM, (new Item.Properties()).stacksTo(1).rarity(Rarity.RARE),3200));
     public static final RegistryObject<Item> MUSIC_DISC_VIZIER = ITEMS.register("music_disc_vizier", () -> new RecordItem(14, ModSounds.MUSIC_DISC_VIZIER, (new Item.Properties()).stacksTo(1).rarity(Rarity.RARE), 1860));
     public static final RegistryObject<Item> MUSIC_DISC_KEEPER = ITEMS.register("music_disc_keeper", () -> new RecordItem(14, ModSounds.MUSIC_DISC_KEEPER, (new Item.Properties()).stacksTo(1).rarity(Rarity.RARE), 4640));

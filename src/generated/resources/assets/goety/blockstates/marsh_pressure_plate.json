@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "goety:block/marsh_pressure_plate"
+    },
+    "powered=true": {
+      "model": "goety:block/marsh_pressure_plate_down"
+    }
+  }
+}

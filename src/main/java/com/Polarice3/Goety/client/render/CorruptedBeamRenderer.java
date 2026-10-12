@@ -6,7 +6,6 @@ import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -20,6 +19,8 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -29,6 +30,7 @@ public class CorruptedBeamRenderer<T extends CorruptedBeam> extends EntityRender
     private final static ResourceLocation beaconBeamCore = Goety.location("textures/entity/corrupted/beacon_beam_core.png");
     private final static ResourceLocation beaconBeamMain = Goety.location("textures/entity/corrupted/beacon_beam_main.png");
     private final static ResourceLocation beaconBeamGlow = Goety.location("textures/entity/corrupted/beacon_beam_glow.png");
+    private static final List<QueuedBeam> QUEUE = new ArrayList<>();
 
     public CorruptedBeamRenderer(EntityRendererProvider.Context context) {
         super(context);
@@ -44,8 +46,6 @@ public class CorruptedBeamRenderer<T extends CorruptedBeam> extends EntityRender
         long gameTime = entity.level.getGameTime();
         double velocity = gameTime * speedModifier;
         float additiveThickness = (entity.getBeamWidth() * 1.75f) * calculateLaserFlickerModifier(gameTime);
-
-        MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
 
         float yRot = -Mth.rotLerp(ticks, entity.yRotO, entity.getYRot());
         float xRot = Mth.rotLerp(ticks, entity.xRotO, entity.getXRot());
@@ -66,15 +66,28 @@ public class CorruptedBeamRenderer<T extends CorruptedBeam> extends EntityRender
         pMatrixStack.translate(offset.x, offset.y, offset.z);
         pMatrixStack.mulPose(Axis.YP.rotationDegrees(yRot));
         pMatrixStack.mulPose(Axis.XP.rotationDegrees(xRot));
-
         PoseStack.Pose matrixstack$entry = pMatrixStack.last();
-        Matrix3f matrixNormal = matrixstack$entry.normal();
-        Matrix4f positionMatrix = matrixstack$entry.pose();
-        drawClosingBeam(buffer.getBuffer(ModRenderType.magicBeam(beaconBeamGlow)), positionMatrix, matrixNormal, additiveThickness, distance / 10, 0.5, 1, ticks, 0.9f);
-        drawBeam(buffer.getBuffer(ModRenderType.magicBeam(beaconBeamMain)), positionMatrix, matrixNormal, entity.getBeamWidth(), distance, velocity, velocity + distance * 1.5, ticks, 0.7f);
-        drawBeam(buffer.getBuffer(ModRenderType.magicBeam(beaconBeamCore)), positionMatrix, matrixNormal, entity.getBeamWidth() * 0.7f, distance, velocity, velocity + distance * 1.5, ticks, 1f);
+        QUEUE.add(new QueuedBeam(new Matrix4f(matrixstack$entry.pose()), new Matrix3f(matrixstack$entry.normal()), distance, entity.getBeamWidth(), additiveThickness, velocity, ticks));
         pMatrixStack.popPose();
-        buffer.endBatch();
+    }
+
+    public static void renderQueued(MultiBufferSource.BufferSource buffer) {
+        if (QUEUE.isEmpty()) {
+            return;
+        }
+        for (QueuedBeam beam : QUEUE) {
+            drawClosingBeam(buffer.getBuffer(ModRenderType.magicBeam(beaconBeamGlow)), beam.pose(), beam.normal(), beam.additiveThickness(), beam.distance() / 10, 0.5, 1, beam.ticks(), 0.9f);
+        }
+        buffer.endBatch(ModRenderType.magicBeam(beaconBeamGlow));
+        for (QueuedBeam beam : QUEUE) {
+            drawBeam(buffer.getBuffer(ModRenderType.magicBeam(beaconBeamMain)), beam.pose(), beam.normal(), beam.width(), beam.distance(), beam.velocity(), beam.velocity() + beam.distance() * 1.5, beam.ticks(), 0.7f);
+        }
+        buffer.endBatch(ModRenderType.magicBeam(beaconBeamMain));
+        for (QueuedBeam beam : QUEUE) {
+            drawBeam(buffer.getBuffer(ModRenderType.magicBeam(beaconBeamCore)), beam.pose(), beam.normal(), beam.width() * 0.7f, beam.distance(), beam.velocity(), beam.velocity() + beam.distance() * 1.5, beam.ticks(), 1f);
+        }
+        buffer.endBatch(ModRenderType.magicBeam(beaconBeamCore));
+        QUEUE.clear();
     }
 
     private static float boundDegrees(float rotation) {
@@ -198,5 +211,8 @@ public class CorruptedBeamRenderer<T extends CorruptedBeam> extends EntityRender
     @Override
     public ResourceLocation getTextureLocation(T p_110775_1_) {
         return beaconBeamCore;
+    }
+
+    private record QueuedBeam(Matrix4f pose, Matrix3f normal, double distance, float width, float additiveThickness, double velocity, float ticks) {
     }
 }

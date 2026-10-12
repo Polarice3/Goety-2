@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "goety:marsh_log",
+    "goety:marsh_wood",
+    "goety:marsh_planks",
+    "goety:compacted_marsh_planks",
+    "goety:compacted_marsh_slab",
+    "goety:marsh_door",
+    "goety:marsh_fence",
+    "goety:marsh_fence_gate",
+    "goety:marsh_slab",
+    "goety:marsh_stairs",
+    "goety:marsh_trapdoor",
+    "goety:marsh_button",
+    "goety:marsh_pressure_plate",
+    "goety:marsh_bookshelf",
+    "goety:marsh_sign",
+    "goety:marsh_hanging_sign",
+    "goety:stripped_marsh_log",
+    "goety:stripped_marsh_wood"
+  ]
+}

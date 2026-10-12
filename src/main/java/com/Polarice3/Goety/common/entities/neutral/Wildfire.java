@@ -5,10 +5,12 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.projectiles.FlyingItem;
 import com.Polarice3.Goety.common.entities.projectiles.ShieldDebris;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.revive.BlazingHelm;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModMobType;
@@ -40,7 +42,6 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -460,10 +461,12 @@ public class Wildfire extends Summoned {
             ItemStack itemStack = new ItemStack(ModItems.BLAZING_HELM.get());
             BlazingHelm.setOwnerName(this.getTrueOwner(), itemStack);
             BlazingHelm.setSummon(this, itemStack);
-            ItemEntity itemEntity = this.spawnAtLocation(itemStack);
-            if (itemEntity != null){
-                itemEntity.setExtendedLifetime();
-            }
+            FlyingItem flyingItem = new FlyingItem(ModEntityType.FLYING_ITEM.get(), this.level, this.getX(), this.getY(), this.getZ());
+            flyingItem.setOwner(this.getTrueOwner());
+            flyingItem.setItem(itemStack);
+            flyingItem.setParticle(ModParticleTypes.SMALL_FIRE.get());
+            flyingItem.setSecondsCool(ItemConfig.ReviveSecondsCool.get());
+            this.level.addFreshEntity(flyingItem);
         }
         super.die(pCause);
     }
@@ -750,7 +753,7 @@ public class Wildfire extends Summoned {
 
         public boolean canUse() {
             LivingEntity livingentity = this.mob.getTarget();
-            if (livingentity != null && livingentity.isAlive()) {
+            if (livingentity != null && livingentity.isAlive() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
                 this.target = livingentity;
                 float distance = this.mob.getHealth() <= (this.mob.getMaxHealth() * 0.7F) ? 9.0F : 2.0F;
                 return this.mob.hasLineOfSight(this.target) && (this.mob.distanceTo(this.target) > distance || this.mob.getFleeingCool() > 0);
@@ -761,7 +764,7 @@ public class Wildfire extends Summoned {
 
         public boolean canContinueToUse() {
             float distance = this.mob.getHealth() <= (this.mob.getMaxHealth() * 0.7F) ? 9.0F : 2.0F;
-            return this.canUse() || (this.target != null && this.target.isAlive() && (this.mob.distanceTo(this.target) > distance || this.mob.getFleeingCool() > 0)) || this.attackTime > 1;
+            return this.canUse() || (this.target != null && this.target.isAlive() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(this.target) && (this.mob.distanceTo(this.target) > distance || this.mob.getFleeingCool() > 0)) || this.attackTime > 1;
         }
 
         @Override

@@ -14,6 +14,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation POISON_QUILL = register("poison_quill");
     public static final ModelLayerLocation ICE_BOUQUET = register("ice_bouquet");
     public static final ModelLayerLocation ICE_CHUNK = register("ice_chunk");
+    public static final ModelLayerLocation MASTER_FANG = register("master_fang");
     public static final ModelLayerLocation VICIOUS_TOOTH = register("vicious_tooth");
     public static final ModelLayerLocation VICIOUS_PIKE = register("vicious_pike");
     public static final ModelLayerLocation BEAST_HEAD = register("beast_head");
@@ -66,6 +67,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation VINDICATOR_CHEF = register("vindicator_chef");
     public static final ModelLayerLocation MOUNTAINEER = register("mountaineer");
     public static final ModelLayerLocation ROYAL_GUARD = register("royal_guard");
+    public static final ModelLayerLocation ENCHANTER = register("enchanter");
     public static final ModelLayerLocation GEOMANCER = register("geomancer");
     public static final ModelLayerLocation ICEOLOGER = register("iceologer");
     public static final ModelLayerLocation WIND_CALLER = register("wind_caller");
@@ -81,6 +83,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation WHISPERER = register("whisperer");
     public static final ModelLayerLocation LEAPLEAF = register("leapleaf");
     public static final ModelLayerLocation MINISTROSITY = register("ministrosity");
+    public static final ModelLayerLocation FLAME_CONSTRUCT = register("flame_construct");
     public static final ModelLayerLocation ICE_GOLEM = register("ice_golem");
     public static final ModelLayerLocation SQUALL_GOLEM = register("squall_golem");
     public static final ModelLayerLocation REDSTONE_GOLEM = register("redstone_golem");
@@ -116,6 +119,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation WITHER_NECROMANCER = register("wither_necromancer");
     public static final ModelLayerLocation VANGUARD = register("vanguard");
     public static final ModelLayerLocation BLACKGUARD = register("blackguard");
+    public static final ModelLayerLocation ROGUEGUARD = register("rogueguard");
     public static final ModelLayerLocation WIGHT = register("wight");
     public static final ModelLayerLocation MAGGOT = register("maggot");
     public static final ModelLayerLocation FLY = register("fly");

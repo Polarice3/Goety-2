@@ -9,6 +9,7 @@ import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -31,7 +32,7 @@ public class LaunchSpell extends Spell {
 
     @Override
     public SoundEvent CastingSound() {
-        return ModSounds.WIND.get();
+        return ModSounds.PREPARE_SPELL.get();
     }
 
     @Override
@@ -55,16 +56,16 @@ public class LaunchSpell extends Spell {
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat) {
         int potency = spellStat.getPotency();
         if (WandUtil.enchantedFocus(caster)){
-            potency += WandUtil.getPotencyLevel(caster);
+            potency += rightStaff(staff) ? WandUtil.getPotencyLevel(caster) : Mth.floor(WandUtil.getPotencyLevel(caster) * 0.5F);
         }
         caster.hurtMarked = true;
         caster.setOnGround(false);
         Vec3 vector3d = caster.getLookAngle();
-        double power = rightStaff(staff) ? 2.5D : 1.5D;
+        double power = rightStaff(staff) ? 2.5D : 1.0D;
         double d0 = power + (potency / 2.0D);
         caster.setDeltaMovement(vector3d.x * d0, vector3d.y * d0, vector3d.z * d0);
         caster.hasImpulse = true;
         caster.fallDistance = 0;
-        this.playSound(worldIn, caster, 2.0F, 1.0F);
+        this.playSound(worldIn, caster, ModSounds.WIND.get(), 2.0F, 1.0F);
     }
 }

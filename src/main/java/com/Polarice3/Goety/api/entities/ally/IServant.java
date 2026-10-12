@@ -658,12 +658,16 @@ public interface IServant extends IOwned, IChunkLoader {
         }
     }
 
+    default boolean altStaying() {
+        return false;
+    }
+
     default void stayingMode(){
         if (this instanceof Mob owned) {
             AttributeInstance modifiableattributeinstance = owned.getAttribute(Attributes.MOVEMENT_SPEED);
             if (modifiableattributeinstance != null) {
                 boolean isRidden = owned.getControllingPassenger() instanceof IServant servant && servant.isStaying();
-                if (this.isStaying() || isRidden) {
+                if (this.isStaying() || isRidden || this.altStaying()) {
                     if (owned.getNavigation().getPath() != null) {
                         owned.getNavigation().stop();
                     }

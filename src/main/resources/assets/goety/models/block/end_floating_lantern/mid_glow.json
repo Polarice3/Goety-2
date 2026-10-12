@@ -1,0 +1,72 @@
+{
+    "texture_size": [ 64, 64 ],
+    "textures": {
+        "glow": "goety:block/end_lantern_emissive",
+        "particle": "goety:block/end_basalt_bricks"
+    },
+    "render_type": "minecraft:cutout",
+    "elements": [
+        {   "from": [ 3.053, 4, 3 ],
+            "to": [ 6, 13, 13 ],
+            "faces": {
+                "up": { "uv": [ 2.5, 3, 5, 3.75 ], "texture": "#glow", "rotation": 90, "forge_data": { "block_light": 15, "sky_light": 15, "ambient_occlusion": false } }
+            }
+        },
+        {   "from": [ 6, 4, 8 ],
+            "to": [ 12.947, 16, 13 ],
+            "faces": {
+                "up": { "uv": [ 5.75, 1.75, 7.5, 3 ], "texture": "#glow", "forge_data": { "block_light": 15, "sky_light": 15, "ambient_occlusion": false } }
+            }
+        },
+        {   "from": [ 8, 4, 3 ],
+            "to": [ 12.947, 16, 8 ],
+            "faces": {
+                "up": { "uv": [ 6.25, 0.5, 7.5, 1.75 ], "texture": "#glow", "forge_data": { "block_light": 15, "sky_light": 15, "ambient_occlusion": false } }
+            }
+        },
+        {   "from": [ 8, 4, 5 ],
+            "to": [ 10, 8, 8 ],
+            "faces": {
+                "north": { "uv": [ 5.25, 6, 5.75, 7 ], "texture": "#glow", "forge_data": { "block_light": 15, "sky_light": 15, "ambient_occlusion": false } },
+                "east": { "uv": [ 5.75, 7, 6.5, 8 ], "texture": "#glow", "forge_data": { "block_light": 15, "sky_light": 15, "ambient_occlusion": false } }
+            }
+        },
+        {   "from": [ 6, 6, 8 ],
+            "to": [ 10, 8, 13 ],
+            "faces": {
+                "east": { "uv": [ 4.5, 7, 5.75, 7.5 ], "texture": "#glow", "forge_data": { "block_light": 15, "sky_light": 15, "ambient_occlusion": false } }
+            }
+        },
+        {   "from": [ 5, 8, 3 ],
+            "to": [ 10, 11, 8 ],
+            "faces": {
+                "east": { "uv": [ 5.75, 6.25, 7, 7 ], "texture": "#glow", "forge_data": { "block_light": 15, "sky_light": 15, "ambient_occlusion": false } }
+            }
+        },
+        {   "from": [ 6, 13, 3 ],
+            "to": [ 8, 13, 7 ],
+            "faces": {
+                "up": { "uv": [ 2.5, 2.5, 3.5, 3 ], "texture": "#glow", "rotation": 90, "forge_data": { "block_light": 15, "sky_light": 15, "ambient_occlusion": false } }
+            }
+        },
+        {   "from": [ 6, 13, 7 ],
+            "to": [ 8, 16, 13 ],
+            "faces": {
+                "north": { "uv": [ 5.75, 1.5, 5, 1 ], "texture": "#glow", "rotation": 90, "forge_data": { "block_light": 15, "sky_light": 15, "ambient_occlusion": false } },
+                "west": { "uv": [ 5.75, 3, 5, 1.5 ], "texture": "#glow", "rotation": 90, "forge_data": { "block_light": 15, "sky_light": 15, "ambient_occlusion": false } }
+            }
+        },
+        {   "from": [ 8, 13, 3 ],
+            "to": [ 8, 16, 7 ],
+            "faces": {
+                "west": { "uv": [ 5.75, 1, 5, 0 ], "texture": "#glow", "rotation": 90, "forge_data": { "block_light": 15, "sky_light": 15, "ambient_occlusion": false } }
+            }
+        },
+        {   "from": [ 6, 16, 7 ],
+            "to": [ 8, 16, 8 ],
+            "faces": {
+                "up": { "uv": [ 5.75, 1.5, 6.25, 1.75 ], "texture": "#glow", "forge_data": { "block_light": 15, "sky_light": 15, "ambient_occlusion": false } }
+            }
+        }
+    ]
+}

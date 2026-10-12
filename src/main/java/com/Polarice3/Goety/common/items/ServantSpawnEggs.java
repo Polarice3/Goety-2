@@ -85,6 +85,9 @@ public class ServantSpawnEggs {
     public static final RegistryObject<ServantSpawnEggItem> VANGUARD_SERVANT_SPAWN_EGG = ITEMS.register("vanguard_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.VANGUARD_SERVANT, 0xd6d0c9, 0xe8b42f, egg()));
 
+    public static final RegistryObject<ServantSpawnEggItem> ROGUEGUARD_SERVANT_SPAWN_EGG = ITEMS.register("rogueguard_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.ROGUEGUARD_SERVANT, 0x203945, 0x606060, egg()));
+
     public static final RegistryObject<ServantSpawnEggItem> REAPER_SERVANT_SPAWN_EGG = ITEMS.register("reaper_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.REAPER_SERVANT, 0x1f1f2e, 0xd8e1e6, egg()));
 
@@ -226,6 +229,9 @@ public class ServantSpawnEggs {
     public static final RegistryObject<ServantSpawnEggItem> REDSTONE_MINISTROSITY_SPAWN_EGG = ITEMS.register("redstone_ministrosity_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.REDSTONE_MINISTROSITY, 0x6c1005, 0xdad9d9, egg()));
 
+    public static final RegistryObject<ServantSpawnEggItem> FLAME_CONSTRUCT_SPAWN_EGG = ITEMS.register("flame_construct_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.FLAME_CONSTRUCT, 0x878d99, 0x8c310d, egg()));
+
     public static final RegistryObject<ServantSpawnEggItem> ICE_GOLEM_SPAWN_EGG = ITEMS.register("ice_golem_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.ICE_GOLEM, 0x22806a, 0x94daff, egg()));
 
@@ -300,6 +306,9 @@ public class ServantSpawnEggs {
 
     public static final RegistryObject<ServantSpawnEggItem> EVOKER_SERVANT_SPAWN_EGG = ITEMS.register("evoker_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.EVOKER_SERVANT, 0x959b9b, 0x0f1119, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> ENCHANTER_SERVANT_SPAWN_EGG = ITEMS.register("enchanter_servant_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.ENCHANTER_SERVANT, 0x35c1a9, 0x600f2b, egg()));
 
     public static final RegistryObject<ServantSpawnEggItem> GEOMANCER_SERVANT_SPAWN_EGG = ITEMS.register("geomancer_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.GEOMANCER_SERVANT, 0x342817, 0xcdb7d8, egg()));

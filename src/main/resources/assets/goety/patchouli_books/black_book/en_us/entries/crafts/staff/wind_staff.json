@@ -2,6 +2,7 @@
   "name": "Wind Staff",
   "icon": "goety:wind_staff",
   "category": "goety:crafts/staff",
+  "advancement": "goety:goety/read_mistral_scroll",
   "pages": [
     {
       "type": "patchouli:text",

@@ -5,7 +5,6 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
 import com.Polarice3.Goety.common.entities.ai.BreathingAttackGoal;
-import com.Polarice3.Goety.common.entities.ally.undead.bound.BoundCryologer;
 import com.Polarice3.Goety.common.entities.neutral.AbstractMonolith;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.spells.frost.HailSpell;
@@ -13,7 +12,10 @@ import com.Polarice3.Goety.common.magic.spells.frost.IceChunkSpell;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.*;
+import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ModDamageSource;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -32,7 +34,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -108,24 +109,9 @@ public class CryologerServant extends SpellcasterIllagerServant implements IBrea
     }
 
     @Override
-    public void die(DamageSource pCause) {
-        if (!this.level.isClientSide) {
-            if (this.getIdol() == null) {
-                if (this.getTrueOwner() != null) {
-                    if (CuriosFinder.hasNamelessSet(this.getTrueOwner())){
-                        BoundCryologer servant = this.convertTo(ModEntityType.BOUND_CRYOLOGER.get(), true);
-                        if (servant != null) {
-                            servant.setTrueOwner(this.getTrueOwner());
-                            net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, servant);
-                            if (!this.isSilent()) {
-                                this.level.levelEvent((Player)null, 1026, this.blockPosition(), 0);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        super.die(pCause);
+    @Nullable
+    public EntityType<? extends Mob> getNecroConvert() {
+        return ModEntityType.BOUND_CRYOLOGER.get();
     }
 
     @Override

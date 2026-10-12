@@ -70,24 +70,35 @@ public class PreBossLoopMusic extends AbstractTickableSoundInstance {
         return ClientEvents.PRE_BOSS_MUSIC == this && (ClientEvents.BOSS_MUSIC == null || ClientEvents.BOSS_MUSIC.isStopped());
     }
 
-    public void tick() {
-        if (!MainConfig.BossMusic.get()){
+    public static boolean canPlayFor(Mob mob) {
+        return mob.isAlive() && !mob.isRemoved() && !mob.isDeadOrDying() && !mob.isAggressive();
+    }
+
+    public boolean isStale() {
+        Minecraft minecraft = Minecraft.getInstance();
+        return this.isStopped() || minecraft.level == null || this.mobEntity.level() != minecraft.level;
+    }
+
+    private void clear() {
+        if (ClientEvents.PRE_BOSS_MUSIC == this) {
             ClientEvents.PRE_BOSS_MUSIC = null;
-            this.stop();
+        }
+        this.stop();
+    }
+
+    public void tick() {
+        if (!MainConfig.BossMusic.get() || this.isStale()){
+            this.clear();
+            return;
         }
 
-        if (this.mobEntity.isAggressive() || this.mobEntity.isRemoved() || this.mobEntity.isDeadOrDying() || !this.mobEntity.isAlive()){
-            if (this.mobEntity.isDeadOrDying()){
-                if (this.mobEntity.level.isClientSide){
-                    Minecraft minecraft = Minecraft.getInstance();
-                    SoundManager soundHandler = minecraft.getSoundManager();
-                    if (!this.isStopped()){
-                        soundHandler.queueTickingSound(new PostBossMusic(this.postBossMusic, mobEntity, this.trueVolume, this.pitch));
-                    }
-                }
+        if (!canPlayFor(this.mobEntity)){
+            boolean died = this.mobEntity.isDeadOrDying() && !this.isStopped();
+            this.clear();
+            if (died) {
+                ClientEvents.queuePostBossMusic(new PostBossMusic(this.postBossMusic, this.mobEntity, this.trueVolume, this.pitch));
             }
-            ClientEvents.PRE_BOSS_MUSIC = null;
-            this.stop();
+            return;
         }
 
         if (this.mustSee) {
@@ -123,8 +134,7 @@ public class PreBossLoopMusic extends AbstractTickableSoundInstance {
         this.z = this.mobEntity.getZ();
 
         if (this.volume <= 0.0F && !this.canSee) {
-            ClientEvents.PRE_BOSS_MUSIC = null;
-            this.stop();
+            this.clear();
         }
     }
 }

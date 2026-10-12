@@ -17,8 +17,8 @@
       "text": "インデントされたゴールドブロックは、完全なゴールドブロックよりも光沢がありませんが、それでも純粋な贅沢と富の象徴となることができます。 古代の聖域として聞いたことがあるものとは異なる、奇妙な構成要素です。"
     },
     {
-      "type": "patchouli:crafting",
-      "recipe": "goety:indented_gold/indented_gold_craft"
+      "type": "patchouli:stonecutting",
+      "recipe": "goety:indented_gold/indented_gold"
     }
   ]
 }

@@ -27,7 +27,7 @@ public class DivinationRitualType implements IRitualType {
 
     @Override
     public ItemStack getJeiIcon() {
-        return new ItemStack(ModBlocks.CRYSTAL_BALL.get());
+        return new ItemStack(ModBlocks.PALE_CRYSTAL_BALL.get());
     }
 
     @Override

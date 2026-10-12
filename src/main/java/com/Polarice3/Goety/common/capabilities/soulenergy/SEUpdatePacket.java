@@ -40,7 +40,7 @@ public class SEUpdatePacket {
         ctx.get().enqueueWork(() -> {
             if (ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
                 Player player = Goety.PROXY.getPlayer();
-                if (player != null) {
+                if (player != null && packet.tag != null) {
                     player.getCapability(SEProvider.CAPABILITY).ifPresent((soulEnergy) -> {
                         SEHelper.load(packet.tag, soulEnergy);
                     });

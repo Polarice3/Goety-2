@@ -16,6 +16,9 @@
     "goety:end_basalt_brick_stairs",
     "goety:end_basalt_brick_slab",
     "goety:soiled_end_basalt_bricks",
-    "goety:smooth_end_basalt_bricks"
+    "goety:smooth_end_basalt_bricks",
+    "goety:end_wall_lantern",
+    "goety:end_standing_lantern",
+    "goety:end_floating_lantern"
   ]
 }

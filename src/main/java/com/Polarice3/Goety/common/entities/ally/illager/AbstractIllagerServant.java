@@ -10,6 +10,7 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.effects.brew.BrewEffectInstance;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.IllagerLootFoodChestGoal;
+import com.Polarice3.Goety.common.entities.ai.IllagerLootItemsChestGoal;
 import com.Polarice3.Goety.common.entities.ai.IllagerPutFoodChestGoal;
 import com.Polarice3.Goety.common.entities.ai.IllagerPutLootChestGoal;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.*;
@@ -130,6 +131,7 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
         this.goalSelector.addGoal(2, new IllagerPutFoodChestGoal<>(this));
         this.goalSelector.addGoal(4, new IllagerPutLootChestGoal<>(this));
         this.goalSelector.addGoal(7, new IllagerLootFoodChestGoal<>(this));
+        this.goalSelector.addGoal(8, new IllagerLootItemsChestGoal<>(this));
     }
 
     protected void defineSynchedData() {
@@ -563,6 +565,10 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
         }
     }
 
+    public boolean validItemToTake(ItemStack itemStack) {
+        return itemStack.getItem() instanceof IMobCharm && this.getCharm().isEmpty();
+    }
+
     public boolean validLootToStore(ItemStack itemStack) {
         return !itemStack.isEmpty() && !this.validFood(itemStack);
     }
@@ -667,6 +673,11 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
 
     @Nullable
     public AbstractIllagerServant getBreedOffspring(ServerLevel serverLevel, AbstractIllagerServant illager) {
+        if (!MobsConfig.IllagerServantAllBreed.get()){
+            if (!(this instanceof Neollager)) {
+                return null;
+            }
+        }
         Neollager neollager = new Neollager(ModEntityType.NEOLLAGER.get(), serverLevel);
         neollager.copyTrueOwner(this);
         ForgeEventFactory.onFinalizeSpawn(neollager, serverLevel, serverLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.BREEDING, null, null);
@@ -679,11 +690,15 @@ public abstract class AbstractIllagerServant extends RaiderServant implements IT
         return neollager;
     }
 
+    public boolean trainFaster(Mob mob) {
+        return mob instanceof PillagerServant || mob instanceof MountaineerServant;
+    }
+
     @Override
     public int trainSpeed(EntityType<? extends Mob> entityType) {
         int i = this.isBaby() ? 2 : 1;
         Mob mob = entityType.create(this.level);
-        if (mob instanceof PillagerServant){
+        if (this.trainFaster(mob)){
             i *= 2;
         }
         if (this.hasEffect(GoetyEffects.INSIGHT.get())) {

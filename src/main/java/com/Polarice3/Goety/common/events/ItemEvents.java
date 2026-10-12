@@ -557,6 +557,24 @@ public class ItemEvents {
                     }
                 }
             }
+        } else if (itemStack.canPerformAction(ToolActions.AXE_DIG)) {
+            if (blockState.is(ModBlocks.CHORUS_PLANKS.get())) {
+                if (blockHitResult.getDirection() != Direction.DOWN) {
+                    if (level.isEmptyBlock(blockPos.above())) {
+                        BlockState blockstate2 = ModBlocks.CHORUS_PLANKS_PATH.get().defaultBlockState();
+                        level.playSound(player, blockPos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        if (!level.isClientSide) {
+                            level.setBlock(blockPos, blockstate2, 11);
+                            level.gameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Context.of(player, blockstate2));
+                            if (player != null) {
+                                ItemHelper.hurtAndBreak(itemStack, 1, player);
+                                player.swing(event.getHand());
+                            }
+                        }
+                        event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide));
+                    }
+                }
+            }
         }
     }
 

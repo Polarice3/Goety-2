@@ -9,7 +9,6 @@ import com.Polarice3.Goety.utils.MiscCapHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
-import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Mob;
@@ -26,6 +25,7 @@ public class BossLoopMusic extends AbstractTickableSoundInstance {
     private int timeUntilFade;
     ControlledAnimation volumeControl;
     protected SoundEvent postBossMusic;
+    private boolean finished;
 
     public BossLoopMusic(SoundEvent soundEvent, Mob mobEntity) {
         this(soundEvent, mobEntity, 1.0F, 1.0F);
@@ -56,10 +56,42 @@ public class BossLoopMusic extends AbstractTickableSoundInstance {
         return ClientEvents.BOSS_MUSIC == this;
     }
 
-    public void tick() {
-        if (!MainConfig.BossMusic.get()){
+    public boolean isStale() {
+        Minecraft minecraft = Minecraft.getInstance();
+        return this.isStopped() || minecraft.level == null || this.mobEntity.level() != minecraft.level;
+    }
+
+    private void clear() {
+        if (ClientEvents.BOSS_MUSIC == this) {
             ClientEvents.BOSS_MUSIC = null;
-            this.stop();
+        }
+        this.stop();
+    }
+
+    private void finish() {
+        if (this.finished) {
+            return;
+        }
+        this.finished = true;
+        boolean died = this.mobEntity.isDeadOrDying();
+        this.clear();
+        if (died && MainConfig.BossMusic.get()) {
+            ClientEvents.queuePostBossMusic(new PostBossMusic(this.postBossMusic, this.mobEntity, this.trueVolume, this.pitch));
+        }
+    }
+
+    public void tick() {
+        if (this.finished) {
+            return;
+        }
+        if (!MainConfig.BossMusic.get() || this.isStale()){
+            this.clear();
+            this.finished = true;
+            return;
+        }
+        if (ClientEvents.BOSS_MUSIC != this) {
+            this.finish();
+            return;
         }
         boolean target = MiscCapHelper.getMobTarget(this.mobEntity) instanceof Player || (MiscCapHelper.getMobTarget(this.mobEntity) instanceof OwnableEntity ownable && ownable.getOwner() instanceof Player) || this.mobEntity.getType().is(ModTags.EntityTypes.GLOBAL_MUSIC_BOSS);
         if (!target || this.mobEntity.isRemoved()
@@ -67,13 +99,6 @@ public class BossLoopMusic extends AbstractTickableSoundInstance {
                 || !this.mobEntity.isAlive()){
             if (this.mobEntity.isDeadOrDying()){
                 this.timeUntilFade = 0;
-                if (this.mobEntity.level.isClientSide){
-                    Minecraft minecraft = Minecraft.getInstance();
-                    SoundManager soundHandler = minecraft.getSoundManager();
-                    if (!this.isStopped()){
-                        soundHandler.queueTickingSound(new PostBossMusic(this.postBossMusic, mobEntity, this.trueVolume, this.pitch));
-                    }
-                }
             }
             if (this.timeUntilFade > 0) {
                 this.timeUntilFade--;
@@ -92,8 +117,8 @@ public class BossLoopMusic extends AbstractTickableSoundInstance {
         this.volume = this.volumeControl.getAnimationFraction() / this.trueVolume;
 
         if (this.volumeControl.getAnimationFraction() < 0.025) {
-            ClientEvents.BOSS_MUSIC = null;
-            this.stop();
+            this.finish();
+            return;
         }
 
         if (this.ticksExisted % 100 == 0) {

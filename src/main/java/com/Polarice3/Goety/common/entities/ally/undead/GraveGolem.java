@@ -14,10 +14,7 @@ import com.Polarice3.Goety.common.entities.util.SummonCircle;
 import com.Polarice3.Goety.common.items.block.GraveGolemSkullItem;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.ColorUtil;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -827,6 +824,9 @@ public class GraveGolem extends AbstractGolemServant {
                         GraveGolem.this.getZ() + GraveGolem.this.getHorizontalLookAngle().z * 2, 7, 7, 7);
                 for (LivingEntity target : GraveGolem.this.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
                     if (target != GraveGolem.this && !target.isAlliedTo(GraveGolem.this) && !GraveGolem.this.isAlliedTo(target)) {
+                        if (target.isDamageSourceBlocked(ModDamageSource.summonAttack(GraveGolem.this, GraveGolem.this.getTrueOwner()))) {
+                            MobUtil.disableShield(target, 100);
+                        }
                         this.hurtTarget(target);
                     }
                 }

@@ -47,6 +47,7 @@ public class ModDamageSource extends DamageSource {
     public static ResourceKey<DamageType> FIRE_BREATH = create("fire_breath");
     public static ResourceKey<DamageType> FROST_BREATH = create("frost_breath");
     public static ResourceKey<DamageType> BUBBLE_STREAM = create("bubble_stream");
+    public static ResourceKey<DamageType> SOUL_BURN = create("soul_burn");
     public static ResourceKey<DamageType> MAGIC_BOLT = create("magic_bolt");
     public static ResourceKey<DamageType> SOUL_LEECH = create("soul_leech");
     public static ResourceKey<DamageType> LIFE_LEECH = create("life_leech");
@@ -331,6 +332,7 @@ public class ModDamageSource extends DamageSource {
         context.register(MAGIC_FIRE, new DamageType("goety.fireBreath", 0.0F, DamageEffects.BURNING));
         context.register(FROST_BREATH, new DamageType("goety.frostBreath", 0.0F, DamageEffects.FREEZING));
         context.register(BUBBLE_STREAM, new DamageType("goety.bubbleStream", 0.0F, DamageEffects.DROWNING));
+        context.register(SOUL_BURN, new DamageType("goety.soulBurn", 0.0F, DamageEffects.BURNING));
         context.register(MAGIC_BOLT, new DamageType("indirectMagic", 0.0F));
         context.register(ACID, new DamageType("goety.acid", 0.0F));
         context.register(VENOM, new DamageType("goety.venom", 0.0F));

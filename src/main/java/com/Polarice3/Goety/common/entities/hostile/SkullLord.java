@@ -223,6 +223,7 @@ public class SkullLord extends Monster implements ICustomAttributes, IChunkLoade
             this.bossInfo.update();
         }
         this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
+        MiscCapHelper.updateMobTarget(this);
         this.setNoGravity(true);
         int delay = switch (this.level.getDifficulty()) {
             case NORMAL -> 300;

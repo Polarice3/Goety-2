@@ -82,10 +82,12 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
     private static CraftingRecipe PUTTY_RECIPE = null;
     public static String IDLE = "idle";
     public static String ATTACK = "attack";
+    public static String SMITH = "smith";
     public int attackTick;
     public boolean isRunning = false;
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState attackAnimationState = new AnimationState();
+    public AnimationState smithAnimationState = new AnimationState();
 
     public CrusherServant(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
@@ -247,6 +249,8 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
             return 1;
         } else if (Objects.equals(animation, ATTACK)){
             return 2;
+        } else if (Objects.equals(animation, SMITH)){
+            return 3;
         } else {
             return 0;
         }
@@ -290,6 +294,10 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
                     case 2:
                         this.attackAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.attackAnimationState);
+                        break;
+                    case 3:
+                        this.smithAnimationState.start(this.tickCount);
+                        this.stopMostAnimation(this.smithAnimationState);
                         break;
                 }
             }
@@ -947,6 +955,21 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
             super(mob, 60, 0.75F);
         }
 
+        @Override
+        public int timeToAnimateWork() {
+            return 30;
+        }
+
+        @Override
+        public void playWorkAnimation() {
+            this.mob.setAnimationState(SMITH);
+        }
+
+        @Override
+        public void returnIdleAnimation() {
+            this.mob.setAnimationState(IDLE);
+        }
+
         private List<RaiderServant> getAllies() {
             long now = this.mob.level.getGameTime();
             if (now < this.nextAllyScan) {
@@ -1082,6 +1105,21 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
 
         public ForgeWeaponGoal(T mob) {
             super(mob, 60, 0.75F);
+        }
+
+        @Override
+        public int timeToAnimateWork() {
+            return 30;
+        }
+
+        @Override
+        public void playWorkAnimation() {
+            this.mob.setAnimationState(SMITH);
+        }
+
+        @Override
+        public void returnIdleAnimation() {
+            this.mob.setAnimationState(IDLE);
         }
 
         private List<RaiderServant> getAllies() {
@@ -1231,6 +1269,21 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
             super(mob, 60, 0.75F, predicate(mob), itemStack -> itemStack.is(ModItems.OMINOUS_SADDLE.get()));
         }
 
+        @Override
+        public int timeToAnimateWork() {
+            return 30;
+        }
+
+        @Override
+        public void playWorkAnimation() {
+            this.mob.setAnimationState(SMITH);
+        }
+
+        @Override
+        public void returnIdleAnimation() {
+            this.mob.setAnimationState(IDLE);
+        }
+
         public static Predicate<LivingEntity> predicate(IOwned owned) {
             return living -> {
                 if (living instanceof INeedSaddle saddle && living instanceof RaiderServant mob) {
@@ -1252,6 +1305,21 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
 
         public ForgePuttyGoal(T mob) {
             super(mob, 60, 0.75F, predicate(mob), itemStack -> itemStack.is(ModItems.REPAIR_PUTTY.get()));
+        }
+
+        @Override
+        public int timeToAnimateWork() {
+            return 30;
+        }
+
+        @Override
+        public void playWorkAnimation() {
+            this.mob.setAnimationState(SMITH);
+        }
+
+        @Override
+        public void returnIdleAnimation() {
+            this.mob.setAnimationState(IDLE);
         }
 
         public static Predicate<LivingEntity> predicate(IOwned owned) {

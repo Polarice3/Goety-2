@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "goety:end_limestone"
+    }
+  ],
+  "result": {
+    "item": "goety:end_limestone_growth",
+    "count": 4
+  }
+}

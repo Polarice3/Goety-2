@@ -1,0 +1,19 @@
+{
+	"render_type": "minecraft:cutout",
+	"texture_size": [64, 64],
+	"textures": {
+		"glow": "goety:block/end_lantern_emissive",
+		"particle": "goety:block/end_basalt_bricks"
+	},
+	"elements": [
+		{
+			"from": [4, 3, 2],
+			"to": [12, 13, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 2]},
+			"faces": {
+				"up": {"uv": [3.75, 10.25, 1.75, 8.25], "texture": "#glow"},
+				"down": {"uv": [1.75, 8.25, 3.75, 10.25], "texture": "#glow"}
+			}
+		}
+	]
+}

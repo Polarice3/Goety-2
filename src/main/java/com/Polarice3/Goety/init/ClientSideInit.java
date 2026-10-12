@@ -67,6 +67,7 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.BIG_FIRE.get(), FireParticle.ReversibleProvider::new);
         event.registerSpriteSet(ModParticleTypes.BIG_FIRE_DROP.get(), FireParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.BIG_FIRE_GROUND.get(), FireParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.FLAMETHROWER.get(), FireParticle.FlamethrowerProvider::new);
         event.registerSpriteSet(ModParticleTypes.BIG_SOUL_FIRE.get(), FireParticle.ReversibleProvider::new);
         event.registerSpriteSet(ModParticleTypes.BIG_SOUL_FIRE_DROP.get(), FireParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.BIG_SOUL_FIRE_GROUND.get(), FireParticle.Provider::new);
@@ -84,6 +85,11 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.END_FIRE.get(), FireParticle.ReversibleProvider::new);
         event.registerSpriteSet(ModParticleTypes.END_FIRE_DROP.get(), FireParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SMALL_END_FIRE.get(), FireParticle.SmallReversibleProvider::new);
+        event.registerSpriteSet(ModParticleTypes.END_GLOW_ORB.get(), EndFlipbookParticle.Provider::Orb);
+        event.registerSpriteSet(ModParticleTypes.END_GLOW_HALO.get(), EndGlowParticle.HaloProvider::new);
+        event.registerSpriteSet(ModParticleTypes.END_LANTERN_FIRE.get(), EndFlipbookParticle.Provider::Fire);
+        event.registerSpriteSet(ModParticleTypes.END_LANTERN_FIRE_INVERTED.get(), EndFlipbookParticle.Provider::FireUpsideDown);
+        event.registerSpriteSet(ModParticleTypes.END_LANTERN_FIRE_SPARK.get(), EndFireSparkParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.FROST.get(), FrostParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SMALL_FROST.get(), FrostParticle.SmallProvider::new);
         event.registerSpriteSet(ModParticleTypes.FROST_NOVA.get(), FlameParticle.Provider::new);
@@ -138,10 +144,12 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.WIND_GATHER.get(), WindGatherParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.FAST_DUST.get(), FastFallDust.Provider::new);
         event.registerSpriteSet(ModParticleTypes.GATHER_TRAIL.get(), GatherTrailParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.GATHER_SQUARE.get(), GatherSquareParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.ABSORB_TRAIL.get(), AbsorbTrailParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.FROST_GATHER.get(), GatherFrostParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.MAGIC_SMOKE.get(), MagicSmokeParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.MAGIC_ASH_SMOKE.get(), MagicAshSmokeParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.COLORED_SPELL_SQUARE.get(), ColoredSpellSquareParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.FOLLOW_CULT_SPELL.get(), FollowFireParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SPIRALLING.get(), SpirallingParticle.Provider::new);
         event.registerSpecial(ModParticleTypes.SHOOT_INDICATOR.get(), new ShootIndicatorParticle.Provider());

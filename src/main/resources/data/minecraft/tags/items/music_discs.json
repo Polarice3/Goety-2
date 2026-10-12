@@ -2,6 +2,10 @@
   "replace": false,
   "values": [
     "goety:music_disc_enderman",
+    "goety:music_disc_crone",
+    "goety:music_disc_heresiarch",
+    "goety:music_disc_skull_lord",
+    "goety:music_disc_wither_necromancer",
     "goety:music_disc_rm",
     "goety:music_disc_vizier",
     "goety:music_disc_keeper",

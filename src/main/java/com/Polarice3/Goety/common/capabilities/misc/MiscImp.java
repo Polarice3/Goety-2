@@ -10,6 +10,8 @@ public class MiscImp implements IMisc{
     private int ambientSoundTime = 0;
     private int clientTargetID = 0;
     private int mobTargetID = 0;
+    private int enchanterID = 0;
+    private int enchanterTime = 0;
     private int noHealTime = 0;
     private int shakeTime = 0;
     private int customFoodLevel = -1;
@@ -120,6 +122,26 @@ public class MiscImp implements IMisc{
     @Override
     public void setMobTargetID(int id) {
         this.mobTargetID = id;
+    }
+
+    @Override
+    public int getEnchanterID() {
+        return this.enchanterID;
+    }
+
+    @Override
+    public void setEnchanterID(int id) {
+        this.enchanterID = id;
+    }
+
+    @Override
+    public int getEnchanterTime() {
+        return this.enchanterTime;
+    }
+
+    @Override
+    public void setEnchanterTime(int time) {
+        this.enchanterTime = time;
     }
 
     @Override

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#forge:ingots/silver",
+      "required": false
+    },
+    "goety:pale_steel_ingot"
+  ]
+}

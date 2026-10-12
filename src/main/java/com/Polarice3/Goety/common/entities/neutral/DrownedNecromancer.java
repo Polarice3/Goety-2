@@ -881,7 +881,7 @@ public class DrownedNecromancer extends AbstractNecromancer {
 
         public void start() {
             this.spellTime = 29;
-            DrownedNecromancer.this.setSpellCooldown(100);
+            DrownedNecromancer.this.setSpellCooldown(SUMMON_TICK);
             DrownedNecromancer.this.playSound(ModSounds.PREPARE_SUMMON.get(), 1.0F, 1.0F);
             DrownedNecromancer.this.setSpellCasting(true);
             DrownedNecromancer.this.setNecromancerSpellType(NecromancerSpellType.ZOMBIE);

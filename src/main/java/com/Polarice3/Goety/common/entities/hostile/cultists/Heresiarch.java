@@ -39,6 +39,7 @@ import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -83,6 +84,9 @@ public class Heresiarch extends Cultist {
     public int meleeCool;
     public int fightTick;
     public int aboutToTeleport = 0;
+    private int hitTimes;
+    private int lastHitTime;
+    private int overwhelmed;
     public float runeScale, prevRuneScale;
     private final ModServerBossInfo bossInfo;
     public AnimationState idleAnimationState = new AnimationState();
@@ -169,6 +173,9 @@ public class Heresiarch extends Cultist {
         pCompound.putInt("HysteriaCool", this.hysteriaCool);
         pCompound.putInt("MeleeCool", this.meleeCool);
         pCompound.putInt("SpellType", this.spellType);
+        pCompound.putInt("HitTimes", this.hitTimes);
+        pCompound.putInt("LastHitTime", this.lastHitTime);
+        pCompound.putInt("Overwhelmed", this.overwhelmed);
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
@@ -181,6 +188,15 @@ public class Heresiarch extends Cultist {
         }
         if (pCompound.contains("SpellType")) {
             this.spellType = pCompound.getInt("SpellType");
+        }
+        if (pCompound.contains("HitTimes")) {
+            this.hitTimes = pCompound.getInt("HitTimes");
+        }
+        if (pCompound.contains("LastHitTime")) {
+            this.lastHitTime = pCompound.getInt("LastHitTime");
+        }
+        if (pCompound.contains("Overwhelmed")) {
+            this.overwhelmed = pCompound.getInt("overwhelmed");
         }
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
@@ -440,6 +456,7 @@ public class Heresiarch extends Cultist {
         }
         this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
         this.bossInfo.setVisible(!this.isCurrentAnimation(CHANT));
+        MiscCapHelper.updateMobTarget(this);
         if (this.level.isClientSide) {
             this.prevRuneScale = this.runeScale;
             if (this.isCurrentAnimation(Heresiarch.BARRAGE)) {
@@ -466,6 +483,14 @@ public class Heresiarch extends Cultist {
                 if (this.getTarget() == null) {
                     --this.fightTick;
                 }
+            }
+            if (this.lastHitTime > 0){
+                --this.lastHitTime;
+            } else if (this.hitTimes > 0) {
+                this.hitTimes = 0;
+            }
+            if (this.overwhelmed > 0) {
+                --this.overwhelmed;
             }
             if (this.getMonolith() == null){
                 if (this.getLeader() instanceof ObsidianMonolith obsidianMonolith){
@@ -506,7 +531,10 @@ public class Heresiarch extends Cultist {
             }
             if (this.isStartTeleporting()) {
                 ++this.aboutToTeleport;
-                int time = MobUtil.healthIsHalved(this) ? 30 : 60;
+                int time = MobUtil.healthIsHalved(this) ? 30 : 45;
+                if (this.overwhelmed > 0) {
+                    time -= 20;
+                }
                 if (this.aboutToTeleport >= time && !this.isCurrentAnimation(MELEE)) {
                     if (this.getTarget() != null) {
                         this.teleport();
@@ -546,6 +574,20 @@ public class Heresiarch extends Cultist {
     @Override
     protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
         return 2.25F;
+    }
+
+    public boolean hurt(DamageSource pSource, float pAmount) {
+        if (pSource.getEntity() instanceof LivingEntity livingentity && livingentity != this){
+            if (pAmount >= 6 && this.overwhelmed <= 0) {
+                this.hitTimes += 1;
+                this.lastHitTime = 25;
+            }
+            if (pAmount >= 15 || this.hitTimes > 3){
+                this.overwhelmed = MathHelper.secondsToTicks(5);
+            }
+        }
+
+        return super.hurt(pSource, pAmount);
     }
 
     protected void teleport() {
@@ -1149,7 +1191,7 @@ public class Heresiarch extends Cultist {
                 orb.setOrange(true);
                 if (this.heresiarch.getTarget() != null) {
                     if (this.heresiarch.getTarget().getY() < this.heresiarch.getY() + (this.heresiarch.getBbHeight() * 1.5F)) {
-                        orb.setTurnRate(0.2F);
+                        orb.setTurnRate(orb.getTurnRate() + 0.1F);
                     }
                 }
                 orb.setTarget(this.heresiarch.getTarget());

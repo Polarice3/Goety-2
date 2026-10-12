@@ -1,0 +1,27 @@
+{
+  "name": "フレイムコンストラクトの従者",
+  "icon": "minecraft:magma_block",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_warred_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "古の文献には、炎と深層岩からなる、ゴーレムのような奇妙な生物を創り出す方法が記されています。その生物は、炎のブレスと爆発を伴うジャンプで、恐るべき脅威となります。(抗争のスクロールを読んでください)"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:flame_construct",
+      "scale": 0.75
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:flame_construct",
+      "text": "中央のマグマブロックをアニメーションコアで右クリックしてください"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "火鉢は他の装飾用火鉢に、深層岩は名前に「Deepslate」を含む他のフルブロックに置き換えることができます。マグマブロックまたは、かまどで使用できる燃料を手に持って右クリックすることで、回復できます。しゃがんでいない状態で右クリックするとプレイヤーの方を向き、しゃがみながら右クリックすると設置されているブロックの中央へ移動します。"
+    }
+  ]
+}

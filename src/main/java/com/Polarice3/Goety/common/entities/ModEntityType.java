@@ -251,6 +251,12 @@ public class ModEntityType {
                     .clientTrackingRange(6)
                     .updateInterval(2));
 
+    public static final RegistryObject<EntityType<MasterFangs>> MASTER_FANG = register("master_fang",
+            EntityType.Builder.<MasterFangs>of(MasterFangs::new, MobCategory.MISC)
+                    .sized(1.0F, 0.475F)
+                    .clientTrackingRange(6)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<Spike>> SPIKE = register("spike",
             EntityType.Builder.<Spike>of(Spike::new, MobCategory.MISC)
                     .sized(0.5F, 0.8F)
@@ -931,6 +937,11 @@ public class ModEntityType {
                     .sized(0.6F, 1.99F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<RogueguardServant>> ROGUEGUARD_SERVANT = register("rogueguard_servant",
+            EntityType.Builder.of(RogueguardServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<ReaperServant>> REAPER_SERVANT = register("reaper_servant",
             EntityType.Builder.of(ReaperServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F)
@@ -1161,6 +1172,12 @@ public class ModEntityType {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(10));
 
+    public static final RegistryObject<EntityType<EnchanterServant>> ENCHANTER_SERVANT = register("enchanter_servant",
+            EntityType.Builder.of(EnchanterServant::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(10));
+
     public static final RegistryObject<EntityType<GeomancerServant>> GEOMANCER_SERVANT = register("geomancer_servant",
             EntityType.Builder.of(GeomancerServant::new, MobCategory.MONSTER)
                     .canSpawnFarFromPlayer()
@@ -1344,6 +1361,11 @@ public class ModEntityType {
             EntityType.Builder.of(RedstoneMinistrosity::new, MobCategory.MONSTER)
                     .fireImmune()
                     .sized(0.5F, 1.0F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<FlameConstruct>> FLAME_CONSTRUCT = register("flame_construct",
+            EntityType.Builder.of(FlameConstruct::new, MobCategory.MONSTER)
+                    .sized(0.75F, 1.1875F)
                     .clientTrackingRange(10));
 
     public static final RegistryObject<EntityType<IceGolem>> ICE_GOLEM = register("ice_golem",

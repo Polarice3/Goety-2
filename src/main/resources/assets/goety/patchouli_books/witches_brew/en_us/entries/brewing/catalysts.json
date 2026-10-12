@@ -441,6 +441,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.slimy",
+      "text": "I heard you whippersnappers love getting slime all over yourselves! Why you'll surely love Ol'Granny's bottle then!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.minecraft.slow_falling"
     },
     {

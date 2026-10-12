@@ -10,6 +10,7 @@
     "ArrowItemMixin",
     "BaseFireBlockMixin",
     "BlockPlaceContextMixin",
+    "CampfireBlockMixin",
     "ChorusFlowerBlockMixin",
     "ChorusPlantBlockMixin",
     "EnchantmentHelperMixin",
@@ -28,6 +29,7 @@
     "RaiderMixin",
     "RaidMixin",
     "SensorMixin",
+    "ServerLevelMixin",
     "SlimePredicateMixin",
     "StructureProcessorAccessor",
     "StructureTemplateMixin",
@@ -48,6 +50,7 @@
     "MinecraftMixin",
     "MouseHandlerMixin",
     "PlayerRendererAccessor",
+    "ScreenEffectRendererMixin",
     "SpinAttackEffectLayerMixin"
   ]
 }

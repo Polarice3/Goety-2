@@ -30,7 +30,7 @@ public class ServantWanderGoal<T extends PathfinderMob & IServant> extends Rando
 
     public boolean canUse() {
         if (super.canUse()){
-            return (!this.summonedEntity.isStaying() && !this.summonedEntity.isCommanded() || this.summonedEntity.getTrueOwner() == null) && !(this.summonedEntity.getNavigation() instanceof WaterBoundPathNavigation);
+            return (!this.summonedEntity.isStaying() && !this.summonedEntity.altStaying() && !this.summonedEntity.isCommanded() || this.summonedEntity.getTrueOwner() == null) && !(this.summonedEntity.getNavigation() instanceof WaterBoundPathNavigation);
         } else {
             return false;
         }

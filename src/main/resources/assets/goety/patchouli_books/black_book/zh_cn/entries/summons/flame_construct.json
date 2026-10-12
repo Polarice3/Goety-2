@@ -1,0 +1,27 @@
+{
+  "name": "烈焰构造体",
+  "icon": "minecraft:magma_block",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_warred_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "古老的文本中记载了一种利用火焰和深板岩制造出一种奇异的傀儡型生物的方法。这种生物凭借火焰吐息和爆炸性跳跃展现出了致命的威力。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:flame_construct",
+      "scale": 0.75
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:flame_construct",
+      "text": "使用活力核心右键中央的岩浆块。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "火盆可以用其他类型的装饰火盆替代，而深板岩则可以用名称中包含“深板岩”的其它完整方块替代。右键点击它们并使用岩浆块或熔炉燃料即可对其进行修复。它收起时右键它会让它转向你。潜行右键则会使其移动到当前所在方块的正中心。"
+    }
+  ]
+}

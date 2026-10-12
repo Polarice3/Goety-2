@@ -5,6 +5,7 @@
     "item": "goety:soul_emerald"
   },
   "craftType": "sky",
+  "research": "mistral",
   "soulCost": 1,
   "duration": 10,
   "ingredients": [

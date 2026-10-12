@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "goety:block/end_limestone",
+    "side": "goety:block/end_limestone",
+    "top": "goety:block/end_limestone"
+  }
+}

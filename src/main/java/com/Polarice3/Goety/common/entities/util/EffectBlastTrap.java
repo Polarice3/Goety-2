@@ -1,7 +1,9 @@
 package com.Polarice3.Goety.common.entities.util;
 
 import com.Polarice3.Goety.api.entities.ISpellEntity;
+import com.Polarice3.Goety.client.particles.FoggyCloudParticleOption;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.projectiles.AcidPool;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
@@ -19,9 +21,12 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
@@ -272,6 +277,22 @@ public class EffectBlastTrap extends Entity implements ISpellEntity {
                         }
                     }
                 }
+                int ticks = this.level.getDifficulty() == Difficulty.HARD ? 160 : 100;
+                AcidPool acidPool = new AcidPool(ModEntityType.ACID_POOL.get(), this.level);
+                if (this.getOwner() != null) {
+                    acidPool.setOwner(this.getOwner());
+                }
+                for (MobEffectInstance instance : list) {
+                    acidPool.addEffect(instance);
+                }
+                acidPool.setColor(this.getColor());
+                acidPool.setWarmupColor(this.getColor());
+                acidPool.setPercentDamage(0.1F);
+                acidPool.setInvTime(15);
+                acidPool.setDuration(ticks);
+                acidPool.setPos(this.position());
+                acidPool.setExplodeEffect(false);
+                this.level.addFreshEntity(acidPool);
             }
         }
         if (this.tickCount > 20 || (this.getImmediate() && this.tickCount > 5)){
@@ -283,9 +304,14 @@ public class EffectBlastTrap extends Entity implements ISpellEntity {
                 this.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 0.5F);
             }
         }
-        if (this.owner != null){
-            if (this.owner.isDeadOrDying() || this.owner.isRemoved()){
+        if (this.getOwner() != null){
+            if (this.getOwner().isDeadOrDying() || this.getOwner().isRemoved()){
                 this.discard();
+            }
+            if (this.getOwner() instanceof Player player){
+                if (!MobUtil.isReadingTome(player) && !(this.tickCount == 20 || this.getImmediate())){
+                    this.discard();
+                }
             }
         }
         if (this.tickCount % 30 == 0){

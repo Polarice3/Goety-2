@@ -46,7 +46,7 @@
     {
       "type": "patchouli:text",
       "title": "Mountaineer Servants",
-      "text": "Requirements: $(li)Vindicator Servant $(li)Pyre must be in snowing biomes $(li)16 Wooden Fences $(li)20 Wools $(li)8 Barrels $(li)4 Powered Wind Blowers"
+      "text": "$(o)Note: Vindicators are quicker to train into Mountaineer Servants$()$(br)Requirements: $(li)Vindicator Servant $(li)Pyre must be in snowing biomes $(li)16 Wooden Fences $(li)20 Wools $(li)8 Barrels $(li)4 Powered Wind Blowers"
     },
     {
       "type": "patchouli:text",
@@ -66,6 +66,11 @@
     },
     {
       "type": "patchouli:text",
+      "title": "Enchanter Servants",
+      "text": "Requirements: $(li)Magic Neollager $(li)64 Bookshelves/Enchant Power $(li)2 Lit Candlesticks/Candelabras $(li)1 Lectern $(li)1 Enchanting Table $(li)4 $(l:goety:crafts/stash_urn)Stash Urns$() $(li)4 Chiseled Bookshelves filled with Enchanted Books"
+    },
+    {
+      "type": "patchouli:text",
       "title": "Geomancer Servants",
       "text": "Requirements: $(li)Magic Neollager $(li)16 Blocks of Amethysts $(li)64 Deepslate Blocks $(li)16 $(l:goety:crafts/creeper_totem)Creeper Totems$()"
     },
@@ -82,11 +87,13 @@
     {
       "type": "patchouli:text",
       "title": "Wind Caller Servants",
+      "advancement": "goety:goety/read_mistral_scroll",
       "text": "Requirements: $(li)Magic Neollager $(li)64 Marble Blocks $(li)32 Jade Blocks $(li)4 Indented Gold Blocks"
     },
     {
       "type": "patchouli:text",
       "title": "Storm Caster Servants",
+      "advancement": "goety:goety/read_mistral_scroll",
       "text": "Requirements: $(li)Geomancer or Wind Caller $(li)Pyre must be exposed to Thunderstorm $(li)32 Copper Blocks Any $(li)64 Bricks Blocks Any $(li)4 Lightning Rods"
     },
     {

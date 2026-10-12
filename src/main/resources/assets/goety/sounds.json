@@ -3532,6 +3532,88 @@
     ],
     "subtitle": "subtitle.goety.royal_guard_step"
   },
+  "enchanter_ambient": {
+    "sounds": [
+      {
+        "name": "goety:enchanter/idle1"
+      },
+      {
+        "name": "goety:enchanter/idle2"
+      },
+      {
+        "name": "goety:enchanter/idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.enchanter_ambient"
+  },
+  "enchanter_hurt": {
+    "sounds": [
+      {
+        "name": "goety:enchanter/hurt1"
+      },
+      {
+        "name": "goety:enchanter/hurt2"
+      },
+      {
+        "name": "goety:enchanter/hurt3"
+      }
+    ],
+    "subtitle": "subtitle.goety.enchanter_hurt"
+  },
+  "enchanter_attack": {
+    "sounds": [
+      {
+        "name": "goety:enchanter/attack1"
+      },
+      {
+        "name": "goety:enchanter/attack2"
+      },
+      {
+        "name": "goety:enchanter/attack3"
+      }
+    ],
+    "subtitle": "subtitle.goety.enchanter_attack"
+  },
+  "enchanter_spell": {
+    "sounds": [
+      {
+        "name": "goety:enchanter/spell1"
+      },
+      {
+        "name": "goety:enchanter/spell2"
+      }
+    ],
+    "subtitle": "subtitle.goety.enchanter_spell"
+  },
+  "enchanter_beam": {
+    "sounds": [
+      {
+        "name": "goety:enchanter/beam"
+      }
+    ],
+    "subtitle": "subtitle.goety.enchanter_beam"
+  },
+  "enchanter_beam_loop": {
+    "sounds": [
+      {
+        "name": "goety:enchanter/beam_loop"
+      }
+    ]
+  },
+  "enchanter_death": {
+    "sounds": [
+      {
+        "name": "goety:enchanter/death1"
+      },
+      {
+        "name": "goety:enchanter/death2"
+      },
+      {
+        "name": "goety:enchanter/death3"
+      }
+    ],
+    "subtitle": "subtitle.goety.enchanter_death"
+  },
   "geomancer_ambient": {
     "sounds": [
       {
@@ -4367,6 +4449,273 @@
       }
     ],
     "subtitle": "subtitle.goety.ministrosity_death"
+  },
+  "flame_construct_idle": {
+    "sounds": [
+      {
+        "name": "goety:flame_construct/idle1"
+      },
+      {
+        "name": "goety:flame_construct/idle2"
+      },
+      {
+        "name": "goety:flame_construct/idle3"
+      },
+      {
+        "name": "goety:flame_construct/idle4"
+      },
+      {
+        "name": "goety:flame_construct/idle5"
+      },
+      {
+        "name": "goety:flame_construct/idle6"
+      }
+    ],
+    "subtitle": "subtitle.goety.flame_construct_idle"
+  },
+  "flame_construct_hurt": {
+    "sounds": [
+      {
+        "name": "goety:flame_construct/hurt1"
+      },
+      {
+        "name": "goety:flame_construct/hurt2"
+      },
+      {
+        "name": "goety:flame_construct/hurt3"
+      }
+    ],
+    "subtitle": "subtitle.goety.flame_construct_hurt"
+  },
+  "flame_construct_pre_breath": {
+    "sounds": [
+      {
+        "name": "goety:flame_construct/pre_breath1"
+      },
+      {
+        "name": "goety:flame_construct/pre_breath2"
+      }
+    ],
+    "subtitle": "subtitle.goety.flame_construct_pre_breath"
+  },
+  "flame_construct_breath_stand": {
+    "sounds": [
+      {
+        "name": "goety:flame_construct/breath_stand1"
+      },
+      {
+        "name": "goety:flame_construct/breath_stand2"
+      },
+      {
+        "name": "goety:flame_construct/breath_stand3"
+      }
+    ]
+  },
+  "flame_construct_breath": {
+    "sounds": [
+      {
+        "name": "goety:flame_construct/breath1"
+      },
+      {
+        "name": "goety:flame_construct/breath2"
+      },
+      {
+        "name": "goety:flame_construct/breath3"
+      },
+      {
+        "name": "goety:flame_construct/breath4"
+      }
+    ],
+    "subtitle": "subtitle.goety.flame_construct_breath"
+  },
+  "flame_construct_breath_end": {
+    "sounds": [
+      {
+        "name": "goety:flame_construct/breath_end1"
+      },
+      {
+        "name": "goety:flame_construct/breath_end2"
+      },
+      {
+        "name": "goety:flame_construct/breath_end3"
+      },
+      {
+        "name": "goety:flame_construct/breath_end4"
+      }
+    ],
+    "subtitle": "subtitle.goety.flame_construct_breath_end"
+  },
+  "flame_construct_pre_blast": {
+    "sounds": [
+      {
+        "name": "goety:flame_construct/pre_blast"
+      }
+    ],
+    "subtitle": "subtitle.goety.flame_construct_pre_blast"
+  },
+  "flame_construct_blast_jump": {
+    "sounds": [
+      {
+        "name": "goety:flame_construct/blast_jump"
+      }
+    ],
+    "subtitle": "subtitle.goety.flame_construct_blast_jump"
+  },
+  "flame_construct_blast": {
+    "sounds": [
+      {
+        "name": "goety:flame_construct/blast1"
+      },
+      {
+        "name": "goety:flame_construct/blast2"
+      },
+      {
+        "name": "goety:flame_construct/blast3"
+      }
+    ],
+    "subtitle": "subtitle.goety.flame_construct_blast"
+  },
+  "flame_construct_hunker_down_vocal": {
+    "sounds": [
+      {
+        "name": "goety:flame_construct/hunker_down_vocal"
+      }
+    ],
+    "subtitle": "subtitle.goety.flame_construct_hunker_down"
+  },
+  "flame_construct_hunker_down": {
+    "sounds": [
+      {
+        "name": "goety:flame_construct/hunker_down"
+      }
+    ]
+  },
+  "flame_construct_leg_tuck": {
+    "sounds": [
+      {
+        "name": "goety:flame_construct/leg_tuck1"
+      },
+      {
+        "name": "goety:flame_construct/leg_tuck2"
+      },
+      {
+        "name": "goety:flame_construct/leg_tuck3"
+      },
+      {
+        "name": "goety:flame_construct/leg_tuck4"
+      }
+    ]
+  },
+  "flame_construct_twist": {
+    "sounds": [
+      {
+        "name": "goety:flame_construct/twist1"
+      },
+      {
+        "name": "goety:flame_construct/twist2"
+      },
+      {
+        "name": "goety:flame_construct/twist3"
+      },
+      {
+        "name": "goety:flame_construct/twist4"
+      }
+    ],
+    "subtitle": "subtitle.goety.flame_construct_twist"
+  },
+  "flame_construct_close": {
+    "sounds": [
+      {
+        "name": "goety:flame_construct/close1"
+      },
+      {
+        "name": "goety:flame_construct/close2"
+      },
+      {
+        "name": "goety:flame_construct/close3"
+      }
+    ],
+    "subtitle": "subtitle.goety.flame_construct_close"
+  },
+  "flame_construct_bored_side": {
+    "sounds": [
+      {
+        "name": "goety:flame_construct/bored_side1"
+      },
+      {
+        "name": "goety:flame_construct/bored_side2"
+      },
+      {
+        "name": "goety:flame_construct/bored_side3"
+      }
+    ],
+    "subtitle": "subtitle.goety.flame_construct_bored_side"
+  },
+  "flame_construct_bored_down": {
+    "sounds": [
+      {
+        "name": "goety:flame_construct/bored_down1"
+      },
+      {
+        "name": "goety:flame_construct/bored_down2"
+      },
+      {
+        "name": "goety:flame_construct/bored_down3"
+      }
+    ],
+    "subtitle": "subtitle.goety.flame_construct_bored_down"
+  },
+  "flame_construct_stand_up": {
+    "sounds": [
+      {
+        "name": "goety:flame_construct/stand_up"
+      }
+    ],
+    "subtitle": "subtitle.goety.flame_construct_stand_up"
+  },
+  "flame_construct_loop": {
+    "sounds": [
+      {
+        "name": "goety:flame_construct/flame_loop"
+      }
+    ]
+  },
+  "flame_construct_step": {
+    "sounds": [
+      {
+        "name": "goety:flame_construct/step1"
+      },
+      {
+        "name": "goety:flame_construct/step2"
+      },
+      {
+        "name": "goety:flame_construct/step3"
+      },
+      {
+        "name": "goety:flame_construct/step4"
+      },
+      {
+        "name": "goety:flame_construct/step5"
+      },
+      {
+        "name": "goety:flame_construct/step6"
+      },
+      {
+        "name": "goety:flame_construct/step7"
+      }
+    ],
+    "subtitle": "subtitle.goety.flame_construct_step"
+  },
+  "flame_construct_death": {
+    "sounds": [
+      {
+        "name": "goety:flame_construct/death1"
+      },
+      {
+        "name": "goety:flame_construct/death2"
+      }
+    ],
+    "subtitle": "subtitle.goety.flame_construct_death"
   },
   "ice_golem_hurt": {
     "sounds": [
@@ -7373,6 +7722,114 @@
       }
     ]
   },
+  "master_fang_telegraph": {
+    "sounds": [
+      {
+        "name": "goety:evoker/telegraph1"
+      },
+      {
+        "name": "goety:evoker/telegraph2"
+      }
+    ],
+    "subtitle": "subtitle.goety.prepare_spell"
+  },
+  "master_fang_summon": {
+    "sounds": [
+      {
+        "name": "goety:evoker/trap_summon1"
+      },
+      {
+        "name": "goety:evoker/trap_summon2"
+      },
+      {
+        "name": "goety:evoker/trap_summon3"
+      }
+    ],
+    "subtitle": "subtitle.goety.cast_spell"
+  },
+  "master_fang_spawn": {
+    "sounds": [
+      {
+        "name": "goety:evoker/trap_spawn1"
+      },
+      {
+        "name": "goety:evoker/trap_spawn2"
+      },
+      {
+        "name": "goety:evoker/trap_spawn3"
+      },
+      {
+        "name": "goety:evoker/trap_spawn4"
+      },
+      {
+        "name": "goety:evoker/trap_spawn5"
+      }
+    ]
+  },
+  "master_fang_snap": {
+    "sounds": [
+      {
+        "name": "goety:evoker/trap_snap1"
+      },
+      {
+        "name": "goety:evoker/trap_snap2"
+      },
+      {
+        "name": "goety:evoker/trap_snap3"
+      },
+      {
+        "name": "goety:evoker/trap_snap4"
+      }
+    ],
+    "subtitle": "subtitles.entity.evoker_fangs.attack"
+  },
+  "book": {
+    "sounds": [
+      {
+        "name": "goety:enchanter/book1"
+      },
+      {
+        "name": "goety:enchanter/book2"
+      },
+      {
+        "name": "goety:enchanter/book3"
+      }
+    ],
+    "subtitle": "subtitle.goety.book"
+  },
+  "book_bladder": {
+    "sounds": [
+      {
+        "name": "goety:enchanter/book_bladder1"
+      },
+      {
+        "name": "goety:enchanter/book_bladder2"
+      },
+      {
+        "name": "goety:enchanter/book_bladder3"
+      },
+      {
+        "name": "goety:enchanter/book_bladder4"
+      }
+    ],
+    "subtitle": "subtitle.goety.book_bladder"
+  },
+  "book_close": {
+    "sounds": [
+      {
+        "name": "goety:enchanter/book_close"
+      }
+    ],
+    "subtitle": "subtitle.goety.book_close"
+  },
+  "book_throw": {
+    "sounds": [
+      {
+        "name": "goety:enchanter/book1"
+      }
+    ],
+    "subtitle": "subtitle.goety.book_throw"
+  },
   "plushie_squeeze": {
     "sounds": [
       {
@@ -9168,6 +9625,78 @@
     "sounds": [
       {
         "name": "goety:music/arena_end",
+        "stream": true
+      }
+    ]
+  },
+  "crone_theme": {
+    "sounds": [
+      {
+        "name": "goety:music/crone_theme",
+        "stream": true
+      }
+    ]
+  },
+  "crone_theme_post": {
+    "sounds": [
+      {
+        "name": "goety:music/crone_theme_post",
+        "stream": true
+      }
+    ]
+  },
+  "crone_theme_disc": {
+    "sounds": [
+      {
+        "name": "goety:music/crone_theme_disc",
+        "stream": true
+      }
+    ]
+  },
+  "heresiarch_theme": {
+    "sounds": [
+      {
+        "name": "goety:music/heresiarch_theme",
+        "stream": true
+      }
+    ]
+  },
+  "heresiarch_theme_disc": {
+    "sounds": [
+      {
+        "name": "goety:music/heresiarch_theme_disc",
+        "stream": true
+      }
+    ]
+  },
+  "skull_lord_theme": {
+    "sounds": [
+      {
+        "name": "goety:music/skull_lord_theme",
+        "stream": true
+      }
+    ]
+  },
+  "skull_lord_theme_disc": {
+    "sounds": [
+      {
+        "name": "goety:music/skull_lord_theme_disc",
+        "stream": true
+      }
+    ]
+  },
+  "wither_necromancer_theme": {
+    "sounds": [
+      {
+        "name": "goety:music/wither_necromancer_theme",
+        "stream": true
+      }
+    ]
+  },
+  "wither_necromancer_theme_disc": {
+    "sounds": [
+      {
+        "name": "goety:music/wither_necromancer_theme_disc",
         "stream": true
       }
     ]

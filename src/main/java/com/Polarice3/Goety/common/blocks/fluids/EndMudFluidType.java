@@ -37,6 +37,7 @@ public class EndMudFluidType extends FluidType {
                 .motionScale(0.005F)
                 .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL)
                 .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY)
+                .sound(SoundActions.FLUID_VAPORIZE, SoundEvents.FIRE_EXTINGUISH)
                 .pathType(BlockPathTypes.OPEN)
                 .adjacentPathType(BlockPathTypes.OPEN)
                 .fallDistanceModifier(0.0F)

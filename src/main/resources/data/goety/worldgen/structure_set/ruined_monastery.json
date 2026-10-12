@@ -10,6 +10,11 @@
 	"frequency": 0.2,
     "spacing": 40,
     "separation": 10,
-    "type": "minecraft:random_spread"
+    "exclusion_zone": {
+      "chunk_count": 10,
+      "other_set": "minecraft:villages"
+    },
+    "type": "minecraft:random_spread",
+    "frequency_reduction_method": "legacy_type_1"
   }
 }

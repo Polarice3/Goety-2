@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "__comment": "entities that can't be enchanted by Enchanters",
+  "values": [
+    "#forge:bosses",
+    "#goety:mini_bosses",
+    "#goety:powerful_servants"
+  ]
+}

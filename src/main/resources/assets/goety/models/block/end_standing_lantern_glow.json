@@ -1,0 +1,16 @@
+{
+    "texture_size": [ 64, 64 ],
+    "textures": {
+        "glow": "goety:block/end_lantern_emissive",
+        "particle": "goety:block/end_basalt_bricks"
+    },
+    "render_type": "minecraft:cutout",
+    "elements": [
+        {   "from": [ 3.1631, 21, 3 ],
+            "to": [ 13.057, 21, 13 ],
+            "faces": {
+                "up": { "uv": [ 1.5, 8, 4, 10.5 ], "texture": "#glow", "forge_data": { "block_light": 15, "sky_light": 15, "ambient_occlusion": false } }
+            }
+        }
+    ]
+}

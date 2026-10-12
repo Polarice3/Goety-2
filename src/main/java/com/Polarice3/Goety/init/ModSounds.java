@@ -308,6 +308,14 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> ROYAL_GUARD_PRE_ATTACK = create("royal_guard_pre_attack");
     public static final RegistryObject<SoundEvent> ROYAL_GUARD_STEP = create("royal_guard_step");
 
+    public static final RegistryObject<SoundEvent> ENCHANTER_AMBIENT = create("enchanter_ambient");
+    public static final RegistryObject<SoundEvent> ENCHANTER_HURT = create("enchanter_hurt");
+    public static final RegistryObject<SoundEvent> ENCHANTER_ATTACK = create("enchanter_attack");
+    public static final RegistryObject<SoundEvent> ENCHANTER_SPELL = create("enchanter_spell");
+    public static final RegistryObject<SoundEvent> ENCHANTER_BEAM = create("enchanter_beam");
+    public static final RegistryObject<SoundEvent> ENCHANTER_BEAM_LOOP = create("enchanter_beam_loop");
+    public static final RegistryObject<SoundEvent> ENCHANTER_DEATH = create("enchanter_death");
+
     public static final RegistryObject<SoundEvent> GEOMANCER_AMBIENT = create("geomancer_ambient");
     public static final RegistryObject<SoundEvent> GEOMANCER_HURT = create("geomancer_hurt");
     public static final RegistryObject<SoundEvent> GEOMANCER_PRE_ATTACK = create("geomancer_pre_attack");
@@ -377,6 +385,27 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> MINISTROSITY_HURT = create("ministrosity_hurt");
     public static final RegistryObject<SoundEvent> MINISTROSITY_STEP = create("ministrosity_step");
     public static final RegistryObject<SoundEvent> MINISTROSITY_DEATH = create("ministrosity_death");
+
+    public static final RegistryObject<SoundEvent> FLAME_CONSTRUCT_IDLE = create("flame_construct_idle");
+    public static final RegistryObject<SoundEvent> FLAME_CONSTRUCT_HURT = create("flame_construct_hurt");
+    public static final RegistryObject<SoundEvent> FLAME_CONSTRUCT_PRE_BREATH = create("flame_construct_pre_breath");
+    public static final RegistryObject<SoundEvent> FLAME_CONSTRUCT_BREATH_STAND = create("flame_construct_breath_stand");
+    public static final RegistryObject<SoundEvent> FLAME_CONSTRUCT_BREATH = create("flame_construct_breath");
+    public static final RegistryObject<SoundEvent> FLAME_CONSTRUCT_BREATH_END = create("flame_construct_breath_end");
+    public static final RegistryObject<SoundEvent> FLAME_CONSTRUCT_PRE_BLAST = create("flame_construct_pre_blast");
+    public static final RegistryObject<SoundEvent> FLAME_CONSTRUCT_BLAST_JUMP = create("flame_construct_blast_jump");
+    public static final RegistryObject<SoundEvent> FLAME_CONSTRUCT_BLAST = create("flame_construct_blast");
+    public static final RegistryObject<SoundEvent> FLAME_CONSTRUCT_HUNKER_DOWN_VOCAL = create("flame_construct_hunker_down_vocal");
+    public static final RegistryObject<SoundEvent> FLAME_CONSTRUCT_HUNKER_DOWN = create("flame_construct_hunker_down");
+    public static final RegistryObject<SoundEvent> FLAME_CONSTRUCT_LEG_TUCK = create("flame_construct_leg_tuck");
+    public static final RegistryObject<SoundEvent> FLAME_CONSTRUCT_TWIST = create("flame_construct_twist");
+    public static final RegistryObject<SoundEvent> FLAME_CONSTRUCT_CLOSE = create("flame_construct_close");
+    public static final RegistryObject<SoundEvent> FLAME_CONSTRUCT_BORED_SIDE = create("flame_construct_bored_side");
+    public static final RegistryObject<SoundEvent> FLAME_CONSTRUCT_BORED_DOWN = create("flame_construct_bored_down");
+    public static final RegistryObject<SoundEvent> FLAME_CONSTRUCT_STAND_UP = create("flame_construct_stand_up");
+    public static final RegistryObject<SoundEvent> FLAME_CONSTRUCT_LOOP = create("flame_construct_loop");
+    public static final RegistryObject<SoundEvent> FLAME_CONSTRUCT_STEP = create("flame_construct_step");
+    public static final RegistryObject<SoundEvent> FLAME_CONSTRUCT_DEATH = create("flame_construct_death");
 
     public static final RegistryObject<SoundEvent> ICE_GOLEM_HURT = create("ice_golem_hurt");
     public static final RegistryObject<SoundEvent> ICE_GOLEM_SWING = create("ice_golem_swing");
@@ -668,6 +697,14 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> VOID_TOUCHED_DEACTIVATE = create("void_touched_deactivate");
     public static final RegistryObject<SoundEvent> VOID_TOUCHED_LOOP = create("void_touched_loop");
     public static final RegistryObject<SoundEvent> SOUL_EAT = create("soul_eat");
+    public static final RegistryObject<SoundEvent> MASTER_FANG_TELEGRAPH = create("master_fang_telegraph");
+    public static final RegistryObject<SoundEvent> MASTER_FANG_SUMMON = create("master_fang_summon");
+    public static final RegistryObject<SoundEvent> MASTER_FANG_SPAWN = create("master_fang_spawn");
+    public static final RegistryObject<SoundEvent> MASTER_FANG_SNAP = create("master_fang_snap");
+    public static final RegistryObject<SoundEvent> BOOK = create("book");
+    public static final RegistryObject<SoundEvent> BOOK_BLADDER = create("book_bladder");
+    public static final RegistryObject<SoundEvent> BOOK_CLOSE = create("book_close");
+    public static final RegistryObject<SoundEvent> BOOK_THROW = create("book_throw");
     public static final RegistryObject<SoundEvent> PLUSHIE_SQUEEZE = create("plushie_squeeze");
     public static final RegistryObject<SoundEvent> JOKE = create("joke");
 
@@ -796,12 +833,21 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> ENDERMAN_THEME_PRE = create("enderman_theme_pre");
     public static final RegistryObject<SoundEvent> ENDERMAN_THEME = create("enderman_theme");
     public static final RegistryObject<SoundEvent> ENDERSENT_THEME = create("endersent_theme");
+    public static final RegistryObject<SoundEvent> CRONE_THEME = create("crone_theme");
+    public static final RegistryObject<SoundEvent> CRONE_THEME_POST = create("crone_theme_post");
+    public static final RegistryObject<SoundEvent> HERESIARCH_THEME = create("heresiarch_theme");
+    public static final RegistryObject<SoundEvent> SKULL_LORD_THEME = create("skull_lord_theme");
+    public static final RegistryObject<SoundEvent> WITHER_NECROMANCER_THEME = create("wither_necromancer_theme");
 
     public static final RegistryObject<SoundEvent> MUSIC_DISC_APOSTLE = create("apostle_theme_disc");
     public static final RegistryObject<SoundEvent> MUSIC_DISC_KEEPER = create("ender_keeper_theme_disc");
     public static final RegistryObject<SoundEvent> MUSIC_DISC_VIZIER = create("vizier_theme_disc");
     public static final RegistryObject<SoundEvent> MUSIC_DISC_RM = create("rm_theme_disc");
     public static final RegistryObject<SoundEvent> MUSIC_DISC_ENDERMAN = create("enderman_theme_disc");
+    public static final RegistryObject<SoundEvent> MUSIC_DISC_CRONE = create("crone_theme_disc");
+    public static final RegistryObject<SoundEvent> MUSIC_DISC_HERESIARCH = create("heresiarch_theme_disc");
+    public static final RegistryObject<SoundEvent> MUSIC_DISC_SKULL_LORD = create("skull_lord_theme_disc");
+    public static final RegistryObject<SoundEvent> MUSIC_DISC_WITHER_NECROMANCER = create("wither_necromancer_theme_disc");
 
     public static final RegistryObject<SoundEvent> BOSS_POST = create("boss_post");
     public static final RegistryObject<SoundEvent> BOSS_POST_2 = create("boss_post_second");

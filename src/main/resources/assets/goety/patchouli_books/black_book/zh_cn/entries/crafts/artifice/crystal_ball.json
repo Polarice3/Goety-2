@@ -1,23 +1,28 @@
 {
   "name": "水晶球",
-  "icon": "goety:crystal_ball",
+  "icon": "goety:pale_crystal_ball",
   "category": "goety:crafts/artifice",
-  "advancement": "goety:goety/get_crystal_ball",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "众所周知，水晶可以用作占卜或预测未来"
+      "text": "众所周知，水晶球正是用来占卜或窥见未来的。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:pale_crystal_ball"
     },
     {
       "type": "patchouli:text",
-      "text": "对水晶球使用记录过位置的$(l:crafts/waystone)指路石$()，你就可以将你的视野转移至那个位置的上空，前提是该位置已经被加载出来，对水晶球使用标记过生物的$(l:crafts/taglock_kit)巫毒娃娃$()，则可以让你附身并通过这只生物的视野看东西，前提是这只生物和你是同类，或是任意一只在80格范围以内的生物"
+      "text": "对着它使用一个标记了坐标的$(l:crafts/waystone)指路石$()能让你从上方俯瞰坐标所在处, 前提是该区域处于加载状态。对它使用一个标记了生物的$(l:crafts/taglock_kit)巫毒娃娃$()则允许你透过受害者的双眼进行观察，前提是受害者和你是同一类生物（玩家），或是它处在你或你的同类（玩家）周围的80格以内。"
     },
     {
-      "type": "patchouli:text",
-      "text": "两种转移视野的方法都要求记录的位置和玩家自己处于同一维度"
+      "type": "patchouli:spotlight",
+      "item": "goety:crystal_ball",
+      "text": "两种观察方式都需要目标与水晶球处在同一纬度，且距离水晶球不超过1024格。不过也有$(l:world/blighted_shacks)传言$()说还有一种水晶球并不存在如此限制……"
     }
   ],
   "extra_recipe_mappings": {
-    "goety:crystal_ball": 1
+    "goety:pale_crystal_ball": 1,
+    "goety:crystal_ball": 3
   }
 }

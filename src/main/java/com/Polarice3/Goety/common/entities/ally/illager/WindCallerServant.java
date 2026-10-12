@@ -3,7 +3,6 @@ package com.Polarice3.Goety.common.entities.ally.illager;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
-import com.Polarice3.Goety.common.entities.ally.undead.bound.BoundWindCaller;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.spells.wind.UpdraftSpell;
@@ -36,6 +35,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -176,24 +176,9 @@ public class WindCallerServant extends SpellcasterIllagerServant{
     }
 
     @Override
-    public void die(DamageSource pCause) {
-        if (!this.level.isClientSide) {
-            if (this.getIdol() == null) {
-                if (this.getTrueOwner() != null) {
-                    if (CuriosFinder.hasNamelessSet(this.getTrueOwner())){
-                        BoundWindCaller servant = this.convertTo(ModEntityType.BOUND_WIND_CALLER.get(), true);
-                        if (servant != null) {
-                            servant.setTrueOwner(this.getTrueOwner());
-                            net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, servant);
-                            if (!this.isSilent()) {
-                                this.level.levelEvent((Player)null, 1026, this.blockPosition(), 0);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        super.die(pCause);
+    @Nullable
+    public EntityType<? extends Mob> getNecroConvert() {
+        return ModEntityType.BOUND_WIND_CALLER.get();
     }
 
     @Override

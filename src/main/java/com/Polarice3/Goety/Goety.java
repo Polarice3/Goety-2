@@ -462,6 +462,8 @@ public class Goety {
             AxeItem.STRIPPABLES.put(ModBlocks.HAUNTED_WOOD.get(), ModBlocks.STRIPPED_HAUNTED_WOOD.get());
             AxeItem.STRIPPABLES.put(ModBlocks.ROTTEN_LOG.get(), ModBlocks.STRIPPED_ROTTEN_LOG.get());
             AxeItem.STRIPPABLES.put(ModBlocks.ROTTEN_WOOD.get(), ModBlocks.STRIPPED_ROTTEN_WOOD.get());
+            AxeItem.STRIPPABLES.put(ModBlocks.MARSH_LOG.get(), ModBlocks.STRIPPED_MARSH_LOG.get());
+            AxeItem.STRIPPABLES.put(ModBlocks.MARSH_WOOD.get(), ModBlocks.STRIPPED_MARSH_WOOD.get());
             AxeItem.STRIPPABLES.put(ModBlocks.WINDSWEPT_LOG.get(), ModBlocks.STRIPPED_WINDSWEPT_LOG.get());
             AxeItem.STRIPPABLES.put(ModBlocks.WINDSWEPT_WOOD.get(), ModBlocks.STRIPPED_WINDSWEPT_WOOD.get());
             AxeItem.STRIPPABLES.put(ModBlocks.PINE_LOG.get(), ModBlocks.STRIPPED_PINE_LOG.get());
@@ -475,6 +477,7 @@ public class Goety {
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.CHORUS_FERN.getId(), ModBlocks.POTTED_CHORUS_FERN);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.HAUNTED_SAPLING.getId(), ModBlocks.POTTED_HAUNTED_SAPLING);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.ROTTEN_SAPLING.getId(), ModBlocks.POTTED_ROTTEN_SAPLING);
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.MARSH_SAPLING.getId(), ModBlocks.POTTED_MARSH_SAPLING);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.WINDSWEPT_SAPLING.getId(), ModBlocks.POTTED_WINDSWEPT_SAPLING);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.PINE_SAPLING.getId(), ModBlocks.POTTED_PINE_SAPLING);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.CHORUS_SAPLING.getId(), ModBlocks.POTTED_CHORUS_SAPLING);
@@ -522,11 +525,13 @@ public class Goety {
             ComposterBlock.COMPOSTABLES.put(ModItems.NIGHTSHADE_BLOSSOM.get(), 0.65F);
             ComposterBlock.COMPOSTABLES.put(ModItems.SNAP_FUNGUS.get(), 0.65F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.ROTTEN_SAPLING.get().asItem(), 0.65F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.MARSH_SAPLING.get().asItem(), 0.65F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_SAPLING.get().asItem(), 0.65F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_SPROUT.get().asItem(), 0.65F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.END_GRASS_SPROUT.get().asItem(), 0.65F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_FERN_SPROUT.get().asItem(), 0.65F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.ROTTEN_LEAVES.get().asItem(), 0.65F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.MARSH_LEAVES.get().asItem(), 0.65F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_LEAVES.get().asItem(), 0.65F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_BLOSSOM_LEAVES.get().asItem(), 0.65F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.CHORUS_STALK.get().asItem(), 0.85F);
@@ -636,6 +641,7 @@ public class Goety {
         event.put(ModEntityType.PHANTOM_SERVANT.get(), PhantomServant.setCustomAttributes().build());
         event.put(ModEntityType.VANGUARD_SERVANT.get(), VanguardServant.setCustomAttributes().build());
         event.put(ModEntityType.SKELETON_PILLAGER_SERVANT.get(), SkeletonPillagerServant.setCustomAttributes().build());
+        event.put(ModEntityType.ROGUEGUARD_SERVANT.get(), RogueguardServant.setCustomAttributes().build());
         event.put(ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), ZombieVindicatorServant.setCustomAttributes().build());
         event.put(ModEntityType.BOUND_EVOKER.get(), BoundEvoker.setCustomAttributes().build());
         event.put(ModEntityType.BOUND_GEOMANCER.get(), BoundGeomancer.setCustomAttributes().build());
@@ -674,6 +680,7 @@ public class Goety {
         event.put(ModEntityType.CRUSHER_SERVANT.get(), CrusherServant.setCustomAttributes().build());
         event.put(ModEntityType.ROYAL_GUARD_SERVANT.get(), RoyalGuardServant.setCustomAttributes().build());
         event.put(ModEntityType.EVOKER_SERVANT.get(), EvokerServant.setCustomAttributes().build());
+        event.put(ModEntityType.ENCHANTER_SERVANT.get(), EnchanterServant.setCustomAttributes().build());
         event.put(ModEntityType.GEOMANCER_SERVANT.get(), GeomancerServant.setCustomAttributes().build());
         event.put(ModEntityType.ICEOLOGER_SERVANT.get(), IceologerServant.setCustomAttributes().build());
         event.put(ModEntityType.CRYOLOGER_SERVANT.get(), CryologerServant.setCustomAttributes().build());
@@ -709,6 +716,7 @@ public class Goety {
         event.put(ModEntityType.LEAPLEAF.get(), Leapleaf.setCustomAttributes().build());
         event.put(ModEntityType.STONE_MINISTROSITY.get(), StoneMinistrosity.setCustomAttributes().build());
         event.put(ModEntityType.REDSTONE_MINISTROSITY.get(), RedstoneMinistrosity.setCustomAttributes().build());
+        event.put(ModEntityType.FLAME_CONSTRUCT.get(), FlameConstruct.setCustomAttributes().build());
         event.put(ModEntityType.ICE_GOLEM.get(), IceGolem.setCustomAttributes().build());
         event.put(ModEntityType.SQUALL_GOLEM.get(), SquallGolem.setCustomAttributes().build());
         event.put(ModEntityType.REDSTONE_GOLEM.get(), RedstoneGolem.setCustomAttributes().build());

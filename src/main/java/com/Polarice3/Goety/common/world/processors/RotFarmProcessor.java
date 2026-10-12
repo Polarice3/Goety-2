@@ -1,13 +1,12 @@
 package com.Polarice3.Goety.common.world.processors;
 
+import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FarmBlock;
-import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
@@ -25,7 +24,7 @@ public class RotFarmProcessor extends StructureProcessor {
         BlockState blockstate = p_74020_.state();
         BlockPos blockpos = p_74020_.pos();
         BlockState blockstate1 = null;
-        if (blockstate.is(BlockTags.CROPS)) {
+        if (blockstate.is(BlockTags.CROPS) || blockstate.getBlock() instanceof StemGrownBlock || blockstate.getBlock() instanceof StemBlock) {
             blockstate1 = this.replaceCrops(randomsource);
         } else if (blockstate.getBlock() instanceof FarmBlock) {
             blockstate1 = this.replaceFarmland(randomsource);
@@ -56,6 +55,8 @@ public class RotFarmProcessor extends StructureProcessor {
         BlockState blockState = Blocks.CAVE_AIR.defaultBlockState();
         if (p_230256_.nextFloat() <= 0.25F) {
             blockState = Blocks.DEAD_BUSH.defaultBlockState();
+        } else if (p_230256_.nextFloat() <= 0.25F) {
+            blockState = ModBlocks.MARSH_SAPLING.get().defaultBlockState();
         }
         return blockState;
     }

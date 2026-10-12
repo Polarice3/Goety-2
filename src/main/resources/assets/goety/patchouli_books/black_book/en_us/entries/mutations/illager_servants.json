@@ -119,6 +119,14 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:enchanter_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These scholars have the ability to enchant nearby allies, when confronted with an enemy, increasing their stats and resistance to damage. They can only maintain their links for a time, and it will break if the enchanted moves too far from the Enchanter."
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:geomancer_servant"
     },
     {
@@ -144,19 +152,23 @@
     {
       "type": "patchouli:entity",
       "entity": "goety:wind_caller_servant",
+      "advancement": "goety:goety/read_mistral_scroll",
       "scale": 0.75
     },
     {
       "type": "patchouli:text",
+      "advancement": "goety:goety/read_mistral_scroll",
       "text": "Masters of the skies, these big haired shamans can fling their foes to the sky or blast them away with the wind."
     },
     {
       "type": "patchouli:entity",
       "entity": "goety:storm_caster_servant",
+      "advancement": "goety:goety/read_mistral_scroll",
       "scale": 0.75
     },
     {
       "type": "patchouli:text",
+      "advancement": "goety:goety/read_mistral_scroll",
       "text": "Whether they're hunting treasures or keeping them safe, these illagers will mercilessly electrocute their enemies to cinders."
     },
     {

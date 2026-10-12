@@ -157,6 +157,9 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<VoidBarrelBlockEntity>> VOID_BARREL = BLOCK_ENTITY.register("void_barrel",
             () -> BlockEntityType.Builder.of(VoidBarrelBlockEntity::new, ModBlocks.VOID_BARREL.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<EndLanternBlockEntity>> END_LANTERN = BLOCK_ENTITY.register("end_lantern",
+            () -> BlockEntityType.Builder.of(EndLanternBlockEntity::new, ModBlocks.END_WALL_LANTERN.get(), ModBlocks.END_STANDING_LANTERN.get(), ModBlocks.END_FLOATING_LANTERN.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<MagicLightBlockEntity>> MAGIC_LIGHT = BLOCK_ENTITY.register("magic_light",
             () -> BlockEntityType.Builder.of(MagicLightBlockEntity::new, ModBlocks.SOUL_LIGHT_BLOCK.get(), ModBlocks.GLOW_LIGHT_BLOCK.get()).build(null));
 

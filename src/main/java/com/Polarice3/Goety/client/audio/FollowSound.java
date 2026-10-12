@@ -32,7 +32,6 @@ public class FollowSound extends AbstractTickableSoundInstance {
                 this.y = this.entity.getY();
                 this.z = this.entity.getZ();
             }
-
         } else {
             this.stop();
         }

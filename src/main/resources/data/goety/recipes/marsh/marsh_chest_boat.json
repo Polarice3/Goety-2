@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "chest_boat",
+  "ingredients": [
+    {
+      "tag": "forge:chests/wooden"
+    },
+    {
+      "item": "goety:marsh_boat"
+    }
+  ],
+  "result": {
+    "item": "goety:marsh_chest_boat"
+  }
+}

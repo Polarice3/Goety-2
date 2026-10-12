@@ -50,6 +50,30 @@
     },
     {
       "type": "minecraft:single",
+      "resource": "goety:entity/chest/marsh/normal"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/marsh/normal_left"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/marsh/normal_right"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/marsh/trapped"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/marsh/trapped_left"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/marsh/trapped_right"
+    },
+    {
+      "type": "minecraft:single",
       "resource": "goety:entity/chest/windswept/normal"
     },
     {

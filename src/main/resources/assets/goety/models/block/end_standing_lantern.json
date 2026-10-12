@@ -1,0 +1,19 @@
+{
+    "loader": "forge:composite",
+    "textures": {
+        "particle": "goety:block/end_basalt_bricks"
+    },
+    "children": {
+        "base": {
+            "parent": "goety:block/end_standing_lantern_base"
+        },
+        "glow": {
+            "parent": "goety:block/end_standing_lantern_glow",
+            "render_type": "minecraft:cutout"
+        }
+    },
+    "item_render_order": [
+        "base",
+        "glow"
+    ]
+}

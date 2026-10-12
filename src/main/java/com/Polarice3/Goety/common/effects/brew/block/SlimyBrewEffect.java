@@ -1,0 +1,94 @@
+package com.Polarice3.Goety.common.effects.brew.block;
+
+import com.Polarice3.Goety.common.effects.brew.BrewEffect;
+import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.ally.SlimeServant;
+import com.Polarice3.Goety.common.ritual.RitualRequirements;
+import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.BlockFinder;
+import com.Polarice3.Goety.utils.MobUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+
+public class SlimyBrewEffect extends BrewEffect {
+    public SlimyBrewEffect(int soulCost, int capacityExtra) {
+        super("slime", soulCost, capacityExtra, MobEffectCategory.BENEFICIAL, 0x75b964);
+    }
+
+    @Override
+    public boolean isInstantenous() {
+        return true;
+    }
+
+    @Override
+    public boolean canLinger() {
+        return true;
+    }
+
+    @Override
+    public void applyBlockEffect(Level pLevel, BlockPos pPos, LivingEntity pSource, int pAmplifier, int pAreaOfEffect) {
+        makeSlimes(pLevel, pPos, pSource, pAmplifier, pAreaOfEffect, MobUtil.getSummonLifespan(pLevel) * (pAmplifier + 1));
+    }
+
+    public static void makeSlimes(Level pLevel, BlockPos pPos, LivingEntity pSource, int pAmplifier, int pAreaOfEffect, int lifetime) {
+        makeSlimes(pLevel, pPos, pSource, lifetime);
+        pLevel.playSound(null, pPos.getX(), pPos.getY(), pPos.getZ(), ModSounds.NECROMANCER_SUMMON.get(), pSource.getSoundSource(), 1.4F, 0.7F);
+        int j = 1 + pAmplifier;
+
+        for (int i = 0; i < j; ++i) {
+            int radius = 4 + pAreaOfEffect;
+            int x = pPos.getX() - (radius / 2) + pLevel.random.nextInt(radius) + 1;
+            int y = pPos.getY() + radius;
+            int z = pPos.getZ() - (radius / 2) + pLevel.random.nextInt(radius) + 1;
+            makeSlimes(pLevel, BlockFinder.SummonPosition(pSource.level, pSource, x, y, z), pSource, lifetime);
+        }
+    }
+
+    private static void makeSlimes(Level pLevel, BlockPos pPos, LivingEntity pSource, int lifetime) {
+        if(!pLevel.isClientSide) {
+            SlimeServant summoned = ModEntityType.SLIME_SERVANT.get().create(pLevel);
+            if (summoned != null) {
+                Player player = null;
+                if (pSource instanceof Player player1){
+                    player = player1;
+                }
+                EntityType<?> entityType = summoned.getVariant(player, pLevel, pPos);
+                if (entityType != null) {
+                    Entity entity = entityType.create(pLevel);
+                    if (entity instanceof SlimeServant summoned1){
+                        summoned = summoned1;
+                    } else {
+                        summoned = null;
+                    }
+                }
+                if (summoned != null) {
+                    if (pLevel instanceof ServerLevel serverLevel) {
+                        if (!RitualRequirements.canSummon(serverLevel, player, entityType)){
+                            return;
+                        }
+                    }
+                    summoned.setPos(Vec3.upFromBottomCenterOf(pPos, 1.0F));
+                    if (pSource != null){
+                        summoned.setTrueOwner(pSource);
+                    }
+                    if (pLevel instanceof ServerLevel serverLevel) {
+                        summoned.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(pPos), MobSpawnType.MOB_SUMMONED, null, null);
+                    }
+                    summoned.setSize(1, true);
+                    summoned.setPersistenceRequired();
+                    summoned.setLimitedLife(lifetime);
+                    pLevel.addFreshEntity(summoned);
+                }
+            }
+        }
+
+    }
+}

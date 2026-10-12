@@ -2,11 +2,13 @@ package com.Polarice3.Goety.common.entities.ally.illager;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
-import com.Polarice3.Goety.common.entities.ally.undead.bound.BoundGeomancer;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.*;
+import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ModLootTables;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -19,13 +21,14 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -136,24 +139,9 @@ public class GeomancerServant extends SpellcasterIllagerServant{
     }
 
     @Override
-    public void die(DamageSource pCause) {
-        if (!this.level.isClientSide) {
-            if (this.getIdol() == null) {
-                if (this.getTrueOwner() != null) {
-                    if (CuriosFinder.hasNamelessSet(this.getTrueOwner())){
-                        BoundGeomancer servant = this.convertTo(ModEntityType.BOUND_GEOMANCER.get(), true);
-                        if (servant != null) {
-                            servant.setTrueOwner(this.getTrueOwner());
-                            net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, servant);
-                            if (!this.isSilent()) {
-                                this.level.levelEvent((Player)null, 1026, this.blockPosition(), 0);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        super.die(pCause);
+    @Nullable
+    public EntityType<? extends Mob> getNecroConvert() {
+        return ModEntityType.BOUND_GEOMANCER.get();
     }
 
     @Override

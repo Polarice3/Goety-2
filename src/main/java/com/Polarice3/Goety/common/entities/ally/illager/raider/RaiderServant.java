@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.ally.illager.raider;
 
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ITrainable;
 import com.Polarice3.Goety.api.entities.ally.illager.ICharmUser;
 import com.Polarice3.Goety.api.entities.ally.illager.ILooter;
@@ -77,6 +78,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.util.ITeleporter;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -97,6 +99,9 @@ public abstract class RaiderServant extends Summoned {
     private int celebrationTime;
     private int raidTime;
     private boolean missionComplete = false;
+    @Nullable
+    private ItemStack cachedBanner;
+    private long bannerCacheExpiry = -1L;
 
     public RaiderServant(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
@@ -302,11 +307,11 @@ public abstract class RaiderServant extends Summoned {
 
     public boolean isLeader(){
         if (this.canBeLeader()) {
-            if (this.getLeaderBannerInstance().isEmpty()) {
+            ItemStack banner = this.getLeaderBannerInstance();
+            if (banner.isEmpty()) {
                 return this.getItemBySlot(EquipmentSlot.HEAD).is(ItemTags.BANNERS);
-            } else {
-                return ItemStack.matches(this.getItemBySlot(EquipmentSlot.HEAD), this.getLeaderBannerInstance());
             }
+            return ItemHelper.sameBanner(this.getItemBySlot(EquipmentSlot.HEAD), banner);
         }
         return false;
     }
@@ -487,11 +492,41 @@ public abstract class RaiderServant extends Summoned {
         if (this.getRaidPos() != null){
             this.setRaidPos(null);
         }
+        this.necroRevive();
         super.die(pCause);
+    }
+
+    public void necroRevive() {
+        if (this.getNecroConvert() != null) {
+            if (!this.level.isClientSide) {
+                if (this.getIdol() == null) {
+                    if (this.getTrueOwner() != null) {
+                        if (CuriosFinder.hasNamelessSet(this.getTrueOwner())) {
+                            Mob mob = this.convertTo(this.getNecroConvert(), true);
+                            if (mob != null) {
+                                if (mob instanceof IOwned owned) {
+                                    owned.setTrueOwner(this.getTrueOwner());
+                                }
+                                net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, mob);
+                                if (!this.isSilent()) {
+                                    this.level.levelEvent((Player) null, 1026, this.blockPosition(), 0);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Nullable
+    public EntityType<? extends Mob> getNecroConvert() {
+        return null;
     }
 
     @Override
     public void onCeaseFire(ServerPlayer player) {
+        super.onCeaseFire(player);
         if (player.getMainHandItem().is(ItemTags.BANNERS) || player.getOffhandItem().is(ItemTags.BANNERS)){
             if (this.getRaidPos() != null) {
                 if (this.isLeader()) {
@@ -521,6 +556,15 @@ public abstract class RaiderServant extends Summoned {
             }
         }
         return flag;
+    }
+
+    @Override
+    public Entity changeDimension(ServerLevel destination, ITeleporter teleporter) {
+        Entity moved = super.changeDimension(destination, teleporter);
+        if (moved instanceof RaiderServant raider) {
+            raider.setRaidPos(null);
+        }
+        return moved;
     }
 
     @Override
@@ -604,7 +648,7 @@ public abstract class RaiderServant extends Summoned {
         if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this)) {
             Vec3i vec3i = this.getPickupReach();
 
-            if (!this.level.isClientSide && this.canPickUpLoot() && this.isAlive() && !this.dead) {
+            if (!this.level.isClientSide && this.getTrueOwner() != null && this.canPickUpLoot() && this.isAlive() && !this.dead) {
                 for (ItemEntity itementity : this.level().getEntitiesOfClass(ItemEntity.class, this.getBoundingBox().inflate(vec3i.getX(), vec3i.getY(), vec3i.getZ()))) {
                     if (!itementity.isRemoved() && !itementity.getItem().isEmpty() && !itementity.hasPickUpDelay() && this.wantsToPickUp(itementity.getItem())) {
                         this.pickUpItem(itementity);
@@ -651,7 +695,7 @@ public abstract class RaiderServant extends Summoned {
                         }
                     }
                 }
-                if (this.getMarked().isDeadOrDying()) {
+                if (this.getMarked() == null || this.getMarked().isDeadOrDying()) {
                     this.celebrationTime = 600;
                     this.missionComplete = true;
                     if (this.getMarked() != null){
@@ -678,7 +722,8 @@ public abstract class RaiderServant extends Summoned {
 
     public void raidTick(){
         if (this.level instanceof ServerLevel serverLevel) {
-            if (this.getRaidPos() != null) {
+            BlockPos raidPos = this.getRaidPos();
+            if (raidPos != null) {
                 if (this.level.dimension() != this.getRaidLevel()){
                     this.setRaidPos(null);
                     if (this.getTrueOwner() != null
@@ -688,11 +733,11 @@ public abstract class RaiderServant extends Summoned {
                     }
                 }
 
-                if (!serverLevel.isVillage(this.getRaidPos())) {
+                if (!serverLevel.isVillage(raidPos)) {
                     this.moveRaidCenterToNearbyVillageSection();
                 }
 
-                if (!serverLevel.isVillage(this.getRaidPos()) || (this.getRaidVillagers().isEmpty() && this.raidTime >= 100)) {
+                if (!serverLevel.isVillage(raidPos) || (this.getRaidVillagers().isEmpty() && this.raidTime >= 100)) {
                     this.celebrationTime = 600;
                     this.missionComplete = true;
                     this.setRaidPos(null);
@@ -702,7 +747,7 @@ public abstract class RaiderServant extends Summoned {
                 }
                 ++this.raidTime;
 
-                this.chunkLoadTarget(this.getRaidPos());
+                this.chunkLoadTarget(raidPos);
 
                 if (this.raidTime >= 48000){
                     this.setRaidPos(null);
@@ -724,7 +769,7 @@ public abstract class RaiderServant extends Summoned {
                 }
                 if (this.isLeader()) {
                     for (RaiderServant servant : this.getNearbyCompanions()) {
-                        if (servant.getLeader() == null && servant.getRaidPos() == this.getRaidPos()) {
+                        if (servant.getLeader() == null && servant.getRaidPos() == raidPos) {
                             servant.setLeader(this);
                             servant.setFollowing();
                         }
@@ -832,14 +877,23 @@ public abstract class RaiderServant extends Summoned {
     }
 
     public ItemStack getLeaderBannerInstance() {
+        long now = this.level.getGameTime();
+        if (this.cachedBanner != null && now < this.bannerCacheExpiry) {
+            return this.cachedBanner;
+        }
+        this.bannerCacheExpiry = now + 100L;
+        this.cachedBanner = this.getBannerPatternInstance();
+        return this.cachedBanner;
+    }
+
+    public ItemStack getLeaderBannerWithNameInstance() {
         if (this.getTrueOwner() instanceof Player player) {
-            ListTag listTag = SEHelper.getBannerPattern(player);
-            if (listTag != null) {
-                ItemStack itemstack = this.getBannerPatternInstance();
+            ItemStack itemstack = this.getBannerPatternInstance();
+            if (!itemstack.isEmpty()) {
                 itemstack.hideTooltipPart(ItemStack.TooltipPart.ADDITIONAL);
                 itemstack.setHoverName(Component.translatable("block.goety.player_banner", player.getDisplayName()).withStyle(ChatFormatting.GOLD));
-                return itemstack;
             }
+            return itemstack;
         }
         return ItemStack.EMPTY;
     }
@@ -1007,15 +1061,17 @@ public abstract class RaiderServant extends Summoned {
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
-            if (this.canBeLeader()
-                    && !this.getLeaderBannerInstance().isEmpty()
-                    && ItemHelper.sameBanner(itemstack, this.getBannerPatternInstance())
-                    && !ItemStack.matches(this.getItemBySlot(EquipmentSlot.HEAD), this.getLeaderBannerInstance())) {
+            ItemStack leaderBanner = this.getLeaderBannerInstance();
+            if (pHand == InteractionHand.MAIN_HAND
+                    && this.canBeLeader()
+                    && !leaderBanner.isEmpty()
+                    && ItemHelper.sameBanner(itemstack, leaderBanner)
+                    && !ItemHelper.sameBanner(this.getItemBySlot(EquipmentSlot.HEAD), leaderBanner)) {
                 ItemStack helmet = this.getItemBySlot(EquipmentSlot.HEAD);
                 this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
                 this.playSound(this.getCelebrateSound(), 1.0F, this.getVoicePitch());
                 this.dropEquipment(EquipmentSlot.HEAD, helmet);
-                this.setItemSlot(EquipmentSlot.HEAD, this.getLeaderBannerInstance());
+                this.setItemSlot(EquipmentSlot.HEAD, this.getLeaderBannerWithNameInstance());
                 this.setGuaranteedDrop(EquipmentSlot.HEAD);
                 if (!pPlayer.getAbilities().instabuild) {
                     itemstack.shrink(1);
@@ -1276,10 +1332,11 @@ public abstract class RaiderServant extends Summoned {
         }
 
         public boolean canUse() {
-            if ((this.mob.getMarked() != null || this.mob.isRaiding()) && this.mob.canBeLeader() && !this.mob.getLeaderBannerInstance().isEmpty() && !ItemStack.matches(this.mob.getItemBySlot(EquipmentSlot.HEAD), this.mob.getLeaderBannerInstance())) {
+            ItemStack leaderBanner = this.mob.getLeaderBannerInstance();
+            if ((this.mob.getMarked() != null || this.mob.isRaiding()) && this.mob.canBeLeader() && !leaderBanner.isEmpty() && !ItemHelper.sameBanner(this.mob.getItemBySlot(EquipmentSlot.HEAD), leaderBanner)) {
                 RaiderServant raider = this.mob.getLeader();
                 if (raider == null || !raider.isAlive()) {
-                    List<ItemEntity> list = this.mob.level.getEntitiesOfClass(ItemEntity.class, this.mob.getBoundingBox().inflate(16.0D, 8.0D, 16.0D), itemEntity -> !itemEntity.hasPickUpDelay() && itemEntity.isAlive() && ItemHelper.sameBanner(itemEntity.getItem(), this.mob.getBannerPatternInstance()));
+                    List<ItemEntity> list = this.mob.level.getEntitiesOfClass(ItemEntity.class, this.mob.getBoundingBox().inflate(16.0D, 8.0D, 16.0D), itemEntity -> !itemEntity.hasPickUpDelay() && itemEntity.isAlive() && ItemHelper.sameBanner(itemEntity.getItem(), leaderBanner));
                     if (!list.isEmpty()) {
                         Optional<ItemEntity> optional = list.stream().findFirst();
                         if (optional.isPresent()) {

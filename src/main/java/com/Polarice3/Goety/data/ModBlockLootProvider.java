@@ -122,6 +122,7 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
         this.add(ModBlocks.SMOOTH_SILTSTONE_BLOCK.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, ModBlocks.COBBLED_SILTSTONE_BLOCK.get()));
         this.add(ModBlocks.OMINOUS_STONE_BLOCK.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, ModBlocks.COBBLED_OMINOUS_STONE_BLOCK.get()));
         this.add(ModBlocks.END_STONE_SLATE_BLOCK.get(), (p_124183_) -> createSingleItemTableWithSilkTouch(p_124183_, ModBlocks.COBBLED_END_STONE_BLOCK.get()));
+        this.dropOther(ModBlocks.CHORUS_PLANKS_PATH.get(), ModBlocks.CHORUS_PLANKS.get());
         this.dropOther(ModBlocks.COBBLED_OMINOUS_STONE_PATH_BLOCK.get(), ModBlocks.COBBLED_OMINOUS_STONE_BLOCK.get());
         this.dropWhenSilkTouch(ModBlocks.SCULK_RELAY.get());
         this.dropPottedContents(ModBlocks.POTTED_HENBANE.get());
@@ -133,6 +134,7 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
         this.dropPottedContents(ModBlocks.POTTED_CHORUS_FERN.get());
         this.dropPottedContents(ModBlocks.POTTED_HAUNTED_SAPLING.get());
         this.dropPottedContents(ModBlocks.POTTED_ROTTEN_SAPLING.get());
+        this.dropPottedContents(ModBlocks.POTTED_MARSH_SAPLING.get());
         this.dropPottedContents(ModBlocks.POTTED_WINDSWEPT_SAPLING.get());
         this.dropPottedContents(ModBlocks.POTTED_PINE_SAPLING.get());
         this.dropPottedContents(ModBlocks.POTTED_CHORUS_SAPLING.get());
@@ -143,6 +145,12 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
             return createRottenLeavesDrops(p_124094_, ModBlocks.ROTTEN_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
         });
         this.add(ModBlocks.ROTTEN_BOOKSHELF.get(), (p_124233_) -> {
+            return createSingleItemTableWithSilkTouch(p_124233_, Items.BOOK, ConstantValue.exactly(3.0F));
+        });
+        this.add(ModBlocks.MARSH_LEAVES.get(), (p_124094_) -> {
+            return createLeavesDrops(p_124094_, ModBlocks.MARSH_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
+        });
+        this.add(ModBlocks.MARSH_BOOKSHELF.get(), (p_124233_) -> {
             return createSingleItemTableWithSilkTouch(p_124233_, Items.BOOK, ConstantValue.exactly(3.0F));
         });
         this.add(ModBlocks.WINDSWEPT_LEAVES.get(), (p_124094_) -> {
@@ -225,9 +233,11 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
             return createDoublePlantShearsDrop(ModBlocks.LARGE_CHORUS_FERN.get());
         });
         this.addNetherVinesDropTable(ModBlocks.END_GROWTH_VINES.get(), ModBlocks.END_GROWTH_VINES_PLANT.get());
+        this.addNetherVinesDropTable(ModBlocks.END_LIMESTONE_GROWTH.get(), ModBlocks.END_LIMESTONE_GROWTH_BASE.get());
         this.add(ModBlocks.VOID_BARREL.get(), this::createVoidBarrelConditionTable);
         this.dropOther(ModBlocks.VOID_CAULDRON.get(), Blocks.CAULDRON.asItem());
         this.dropOther(ModBlocks.END_MUD_CAULDRON.get(), Blocks.CAULDRON.asItem());
+        this.dropOther(ModBlocks.END_MINERAL_CAULDRON.get(), Blocks.CAULDRON.asItem());
         this.add(ModBlocks.DETRITUS_DUST.get(), (p_251108_) -> {
             return LootTable.lootTable().withPool(LootPool.lootPool().when(LootItemEntityPropertyCondition.entityPresent(LootContext.EntityTarget.THIS)).add(AlternativesEntry.alternatives(AlternativesEntry.alternatives(LayerBlock.LAYERS.getPossibleValues(), (p_252097_) -> {
                 return LootItem.lootTableItem(ModBlocks.DETRITUS_DUST.get()).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(p_251108_).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LayerBlock.LAYERS, p_252097_))).apply(SetItemCountFunction.setCount(ConstantValue.exactly((float)p_252097_.intValue())));

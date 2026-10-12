@@ -27,6 +27,8 @@ public class ModChestRenderer<T extends ModChestBlockEntity> extends ChestRender
         builder.put(ModBlocks.TRAPPED_HAUNTED_CHEST.get(), trappedMaterial("haunted"));
         builder.put(ModBlocks.ROTTEN_CHEST.get(), chestMaterial("rotten"));
         builder.put(ModBlocks.TRAPPED_ROTTEN_CHEST.get(), trappedMaterial("rotten"));
+        builder.put(ModBlocks.MARSH_CHEST.get(), chestMaterial("marsh"));
+        builder.put(ModBlocks.TRAPPED_MARSH_CHEST.get(), trappedMaterial("marsh"));
         builder.put(ModBlocks.WINDSWEPT_CHEST.get(), chestMaterial("windswept"));
         builder.put(ModBlocks.TRAPPED_WINDSWEPT_CHEST.get(), trappedMaterial("windswept"));
         builder.put(ModBlocks.PINE_CHEST.get(), chestMaterial("pine"));

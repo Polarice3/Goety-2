@@ -166,8 +166,7 @@ public class BrewCauldronBlock extends BaseEntityBlock{
                             if (cauldron.mode == BrewCauldronBlockEntity.Mode.COMPLETED) {
                                 LivingEntity target = TaglockKit.getEntity(stack);
                                 if (target != null){
-                                    if (TaglockKit.isSameDimension(pPlayer, stack)
-                                            && TaglockKit.isInRange(Vec3.atCenterOf(pPos), stack, BrewCauldronBlockEntity.getWitchPoles(cauldron))) {
+                                    if (TaglockKit.isSameDimension(pPlayer, stack) && (TaglockKit.isInRange(Vec3.atCenterOf(pPos), stack, BrewCauldronBlockEntity.getWitchPoles(cauldron))) || BrewCauldronBlockEntity.getWitchPoles(cauldron) >= 3) {
                                         List<MobEffectInstance> list = PotionUtils.getMobEffects(cauldron.getBrew());
                                         List<BrewEffectInstance> list1 = BrewUtils.getBrewEffects(cauldron.getBrew());
                                         if (!list.isEmpty()) {
@@ -206,7 +205,7 @@ public class BrewCauldronBlock extends BaseEntityBlock{
                                 GlobalPos globalPos = WaystoneItem.getPosition(stack);
                                 if (globalPos != null){
                                     if (globalPos.dimension() == pLevel.dimension()
-                                            && WaystoneItem.isInRange(Vec3.atCenterOf(pPos), stack, BrewCauldronBlockEntity.getWitchPoles(cauldron))) {
+                                            && (WaystoneItem.isInRange(Vec3.atCenterOf(pPos), stack, BrewCauldronBlockEntity.getWitchPoles(cauldron))) || BrewCauldronBlockEntity.getWitchPoles(cauldron) >= 3) {
                                         BrewUtils.onHit(pPlayer, cauldron.getBrew(), null, globalPos.pos(), WaystoneItem.getDirection(cauldron.getBrew()));
                                         pLevel.playSound(null, pPos, ModSounds.CAST_SPELL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
                                         SEHelper.increaseBottling(pPlayer, 5);
@@ -245,7 +244,7 @@ public class BrewCauldronBlock extends BaseEntityBlock{
                         }
                     }
                 }
-                if (pState.getValue(ModStateProperties.LEVEL_BREW) != targetLevel) {
+                if (targetLevel > -1 && pState.getValue(ModStateProperties.LEVEL_BREW) != targetLevel) {
                     pLevel.setBlockAndUpdate(pPos, pState.setValue(ModStateProperties.LEVEL_BREW, targetLevel));
                 }
                 if (playSound) {

@@ -13,6 +13,7 @@ public enum GolemType implements net.minecraftforge.common.IExtensibleEnum {
     NONE(null, null),
     WHISPERER(Blocks.MOSS_BLOCK::defaultBlockState, new WhispererMold()),
     LEAPLEAF(ModBlocks.OVERGROWN_ROOTS.get()::defaultBlockState, new LeapleafMold()),
+    FLAME_CONSTRUCT(Blocks.MAGMA_BLOCK::defaultBlockState, new FlameConstructMold()),
     ICE_GOLEM(Blocks.BLUE_ICE::defaultBlockState, new IceGolemMold()),
     SQUALL_GOLEM(ModBlocks.JADE_BLOCK.get()::defaultBlockState, new SquallGolemMold()),
     REDSTONE_GOLEM(Blocks.REDSTONE_BLOCK::defaultBlockState, new RedstoneGolemMold()),

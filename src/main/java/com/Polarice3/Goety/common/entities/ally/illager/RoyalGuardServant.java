@@ -4,12 +4,10 @@ import com.Polarice3.Goety.api.entities.IShielded;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.ShieldedMeleeGoal;
 import com.Polarice3.Goety.common.entities.ai.ShieldedPreMeleeGoal;
-import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieRoyalGuardServant;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -35,6 +33,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -190,6 +189,11 @@ public class RoyalGuardServant extends AbstractIllagerServant implements IShield
         return super.validLootToStore(itemStack) && !this.isShieldRepair(itemStack);
     }
 
+    @Override
+    public boolean validItemToTake(ItemStack itemStack) {
+        return this.isShieldRepair(itemStack) && this.itemsInInv(itemStack1 -> this.isShieldRepair(itemStack)).size() <= 24 || super.validItemToTake(itemStack);
+    }
+
     public List<AnimationState> getAnimations(){
         List<AnimationState> animationStates = new ArrayList<>();
         animationStates.add(this.idleAnimationState);
@@ -222,23 +226,18 @@ public class RoyalGuardServant extends AbstractIllagerServant implements IShield
         this.playSound(ModSounds.DIRT_SHATTER_THREE.get(), 1.5F * 0.25F * (this.getRandom().nextIntBetweenInclusive(7, 10) * 0.1F), (this.getRandom().nextBoolean() ? 0.65F : 0.6F) * (this.getRandom().nextIntBetweenInclusive(7, 10) * 0.1F));
         this.playSound(ModSounds.HAMMER_SHIMMER_IMPACT_FOUR.get(), 1.5F * 0.4F * (this.getRandom().nextIntBetweenInclusive(5, 10) * 0.1F), (this.getRandom().nextBoolean() ? 0.65F : 0.6F) * (this.getRandom().nextIntBetweenInclusive(5, 7) * 0.1F));
         this.playSound(ModSounds.PLATE_DROP.get(), this.getSoundVolume(), this.getVoicePitch());
-        if (!this.level.isClientSide) {
-            if (this.getIdol() == null) {
-                if (this.getTrueOwner() != null) {
-                    if (CuriosFinder.hasNamelessSet(this.getTrueOwner())) {
-                        ZombieRoyalGuardServant servant = this.convertTo(ModEntityType.BLACKGUARD_VARIANT_SERVANT.get(), true);
-                        if (servant != null) {
-                            servant.setTrueOwner(this.getTrueOwner());
-                            net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, servant);
-                            if (!this.isSilent()) {
-                                this.level.levelEvent((Player) null, 1026, this.blockPosition(), 0);
-                            }
-                        }
-                    }
-                }
-            }
-        }
         super.die(pCause);
+    }
+
+    @Override
+    @Nullable
+    public EntityType<? extends Mob> getNecroConvert() {
+        return ModEntityType.BLACKGUARD_VARIANT_SERVANT.get();
+    }
+
+    @Override
+    public int xpReward() {
+        return 20;
     }
 
     protected void playHurtSound(DamageSource p_21160_) {
@@ -281,7 +280,7 @@ public class RoyalGuardServant extends AbstractIllagerServant implements IShield
     public void healServant() {
         super.healServant();
         if (!this.level.isClientSide) {
-            if (this.getShieldHealth() < this.getMaxShieldHealth()) {
+            if (this.getShieldHealth() < this.getMaxShieldHealth() && this.getTarget() == null && this.hurtTime <= 0) {
                 this.itemsInInv(this::isShieldRepair)
                         .stream()
                         .findFirst()

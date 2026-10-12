@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "I I",
+    "PAP"
+  ],
+  "key":
+  {
+    "I":
+    {
+      "tag": "forge:ingots/iron"
+    },
+    "A":
+    {
+      "item": "minecraft:crying_obsidian"
+    },
+    "P":
+    {
+      "item": "goety:pale_steel_ingot"
+    }
+  },
+  "result":
+  {
+    "item": "goety:dark_crown",
+    "count": 1
+  }
+}

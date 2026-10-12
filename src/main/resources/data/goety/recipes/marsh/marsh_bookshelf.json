@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "XBX",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "goety:marsh_planks"
+    },
+    "B": {
+      "item": "minecraft:bookshelf"
+    },
+    "X": {
+      "item": "minecraft:book"
+    }
+  },
+  "result": {
+    "item": "goety:marsh_bookshelf",
+    "count": 2
+  }
+}

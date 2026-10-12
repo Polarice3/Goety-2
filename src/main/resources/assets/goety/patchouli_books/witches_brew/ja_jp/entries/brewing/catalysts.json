@@ -441,6 +441,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.slimy",
+      "text": "お前ら若造は全身にヌルヌルしたものを塗りたくるのが好きだって聞いたぞ！ ならば、おばあちゃんのボトルもきっと気に入るだろうな！"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.minecraft.slow_falling"
     },
     {

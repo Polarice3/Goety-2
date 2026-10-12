@@ -2,13 +2,11 @@ package com.Polarice3.Goety.common.entities.ally.illager;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
-import com.Polarice3.Goety.common.entities.ally.undead.bound.BoundIceologer;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.spells.frost.IceChunkSpell;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModLootTables;
@@ -33,6 +31,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -150,24 +149,9 @@ public class IceologerServant extends SpellcasterIllagerServant{
     }
 
     @Override
-    public void die(DamageSource pCause) {
-        if (!this.level.isClientSide) {
-            if (this.getIdol() == null) {
-                if (this.getTrueOwner() != null) {
-                    if (CuriosFinder.hasNamelessSet(this.getTrueOwner())){
-                        BoundIceologer servant = this.convertTo(ModEntityType.BOUND_ICEOLOGER.get(), true);
-                        if (servant != null) {
-                            servant.setTrueOwner(this.getTrueOwner());
-                            net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, servant);
-                            if (!this.isSilent()) {
-                                this.level.levelEvent((Player)null, 1026, this.blockPosition(), 0);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        super.die(pCause);
+    @Nullable
+    public EntityType<? extends Mob> getNecroConvert() {
+        return ModEntityType.BOUND_ICEOLOGER.get();
     }
 
     @Override

@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "goety:block/end_limestone_growth"
+  },
+  "render_type": "cutout"
+}

@@ -25,6 +25,7 @@ import java.util.Arrays;
 
 public class HeavyArrow extends Arrow {
     public TrailEffect trail = new TrailEffect(0.1F, 3.0F);
+    public boolean hitEnemy = false;
 
     public HeavyArrow(EntityType<? extends Arrow> p_36858_, Level p_36859_) {
         super(p_36858_, p_36859_);
@@ -46,6 +47,7 @@ public class HeavyArrow extends Arrow {
     @Override
     public void tick() {
         super.tick();
+        this.setNoGravity(this.tickCount < 10 && !this.hitEnemy && !this.inGround);
         if (this.level.isClientSide) {
             if (this.tickCount > 2 && this.hasTrail()) {
                 Vec3 oldPos = new Vec3(this.xOld, this.yOld + getBbHeight() / 2, this.zOld);
@@ -55,12 +57,25 @@ public class HeavyArrow extends Arrow {
     }
 
     public boolean hasTrail() {
-        return !this.inGround;
+        return !this.inGround && !this.hitEnemy;
+    }
+
+    @Override
+    public void handleEntityEvent(byte p_36869_) {
+        if (p_36869_ == 4) {
+            this.hitEnemy = true;
+        } else {
+            super.handleEntityEvent(p_36869_);
+        }
     }
 
     protected void onHitEntity(EntityHitResult p_36757_) {
         Entity entity = p_36757_.getEntity();
         double baseDamage = this.getBaseDamage();
+        this.hitEnemy = true;
+        if (!this.level.isClientSide) {
+            this.level.broadcastEntityEvent(this, (byte) 4);
+        }
         if (this.getPierceLevel() > 0) {
             if (this.piercingIgnoreEntityIds == null) {
                 this.piercingIgnoreEntityIds = new IntOpenHashSet(5);
@@ -106,7 +121,7 @@ public class HeavyArrow extends Arrow {
             }
 
             if (entity instanceof LivingEntity livingentity) {
-                if (!this.level().isClientSide && this.getPierceLevel() <= 0) {
+                if (!this.level.isClientSide && this.getPierceLevel() <= 0) {
                     livingentity.setArrowCount(livingentity.getArrowCount() + 1);
                 }
 
@@ -118,7 +133,7 @@ public class HeavyArrow extends Arrow {
                     }
                 }
 
-                if (!this.level().isClientSide && entity1 instanceof LivingEntity) {
+                if (!this.level.isClientSide && entity1 instanceof LivingEntity) {
                     EnchantmentHelper.doPostHurtEffects(livingentity, entity1);
                     EnchantmentHelper.doPostDamageEffects((LivingEntity)entity1, livingentity);
                 }
@@ -132,7 +147,7 @@ public class HeavyArrow extends Arrow {
                     this.piercedAndKilledEntities.add(livingentity);
                 }
 
-                if (!this.level().isClientSide && entity1 instanceof ServerPlayer serverplayer) {
+                if (!this.level.isClientSide && entity1 instanceof ServerPlayer serverplayer) {
                     if (this.piercedAndKilledEntities != null && this.shotFromCrossbow()) {
                         CriteriaTriggers.KILLED_BY_CROSSBOW.trigger(serverplayer, this.piercedAndKilledEntities);
                     } else if (!entity.isAlive() && this.shotFromCrossbow()) {
@@ -150,7 +165,7 @@ public class HeavyArrow extends Arrow {
             this.setDeltaMovement(this.getDeltaMovement().scale(-0.1D));
             this.setYRot(this.getYRot() + 180.0F);
             this.yRotO += 180.0F;
-            if (!this.level().isClientSide && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
+            if (!this.level.isClientSide && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
                 if (this.pickup == AbstractArrow.Pickup.ALLOWED) {
                     this.spawnAtLocation(this.getPickupItem(), 0.1F);
                 }

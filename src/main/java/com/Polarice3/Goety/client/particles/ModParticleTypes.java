@@ -132,6 +132,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> BIG_FIRE_GROUND = PARTICLE_TYPES.register("big_fire_ground",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> FLAMETHROWER = PARTICLE_TYPES.register("flamethrower",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> BIG_SOUL_FIRE = PARTICLE_TYPES.register("big_soul_fire",
             () -> new SimpleParticleType(false));
 
@@ -181,6 +184,21 @@ public class ModParticleTypes {
             () -> new SimpleParticleType(false));
 
     public static final RegistryObject<SimpleParticleType> SMALL_END_FIRE = PARTICLE_TYPES.register("small_end_fire",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> END_GLOW_ORB = PARTICLE_TYPES.register("end_glow_orb",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> END_GLOW_HALO = PARTICLE_TYPES.register("end_glow_halo",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> END_LANTERN_FIRE = PARTICLE_TYPES.register("end_lantern_fire",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> END_LANTERN_FIRE_INVERTED = PARTICLE_TYPES.register("end_lantern_fire_inverted",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> END_LANTERN_FIRE_SPARK = PARTICLE_TYPES.register("end_lantern_fire_spark",
             () -> new SimpleParticleType(false));
 
     public static final RegistryObject<SimpleParticleType> FROST = PARTICLE_TYPES.register("frost",
@@ -471,6 +489,14 @@ public class ModParticleTypes {
                 }
             });
 
+    public static final RegistryObject<ParticleType<GatherSquareParticleOption>> GATHER_SQUARE = PARTICLE_TYPES.register("gather_square",
+            () -> new ParticleType<>(false, GatherSquareParticleOption.DESERIALIZER) {
+                @Override
+                public Codec<GatherSquareParticleOption> codec() {
+                    return GatherSquareParticleOption.CODEC;
+                }
+            });
+
     public static final RegistryObject<ParticleType<GatherFrostParticleOption>> FROST_GATHER = PARTICLE_TYPES.register("frost_gather",
             () -> new ParticleType<>(false, GatherFrostParticleOption.DESERIALIZER) {
                 @Override
@@ -524,6 +550,14 @@ public class ModParticleTypes {
                 @Override
                 public Codec<MagicAshSmokeParticleOption> codec() {
                     return MagicAshSmokeParticleOption.CODEC;
+                }
+            });
+
+    public static final RegistryObject<ParticleType<ColoredSpellSquareParticleOption>> COLORED_SPELL_SQUARE = PARTICLE_TYPES.register("colored_spell_square",
+            () -> new ParticleType<>(false, ColoredSpellSquareParticleOption.DESERIALIZER) {
+                @Override
+                public Codec<ColoredSpellSquareParticleOption> codec() {
+                    return ColoredSpellSquareParticleOption.CODEC;
                 }
             });
 

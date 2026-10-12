@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.ally.illager;
 
 import com.Polarice3.Goety.api.entities.IShielded;
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.HeavyArrow;
 import com.Polarice3.Goety.config.AttributesConfig;
@@ -21,10 +22,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -191,6 +189,11 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
         return super.validLootToStore(itemStack) && !this.isShieldRepair(itemStack);
     }
 
+    @Override
+    public boolean validItemToTake(ItemStack itemStack) {
+        return this.isShieldRepair(itemStack) && this.itemsInInv(itemStack1 -> this.isShieldRepair(itemStack)).size() <= 24 || super.validItemToTake(itemStack);
+    }
+
     public void onSyncedDataUpdated(EntityDataAccessor<?> p_33609_) {
         if (ANIM_STATE.equals(p_33609_)) {
             if (this.level.isClientSide) {
@@ -283,6 +286,17 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
         super.die(pCause);
     }
 
+    @Override
+    @Nullable
+    public EntityType<? extends Mob> getNecroConvert() {
+        return ModEntityType.ROGUEGUARD_SERVANT.get();
+    }
+
+    @Override
+    public int xpReward() {
+        return 20;
+    }
+
     protected void playHurtSound(DamageSource p_21160_) {
         SoundEvent soundevent = this.getHurtSound(p_21160_);
         if (soundevent != null) {
@@ -341,7 +355,7 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
     public void healServant() {
         super.healServant();
         if (!this.level.isClientSide) {
-            if (this.getShieldHealth() < this.getMaxShieldHealth()) {
+            if (this.getShieldHealth() < this.getMaxShieldHealth() && this.getTarget() == null && this.hurtTime <= 0) {
                 this.itemsInInv(this::isShieldRepair)
                         .stream()
                         .findFirst()
@@ -393,7 +407,7 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
     public void shootCrossbowProjectile(LivingEntity target, ItemStack stack, Projectile projectile, float angle) {
         float velocity = 4.8F;
         double d3 = target.getX() - this.getX();
-        double d4 = (target.getY() + target.getBbHeight() / 2.0D) - this.getEyeY();
+        double d4 = target.getEyeY() - this.getEyeY();
         double d5 = target.getZ() - this.getZ();
         projectile.shoot(d3, d4, d5, velocity, 0.0F);
         this.playSound(SoundEvents.CROSSBOW_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
@@ -425,11 +439,11 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
 
         public boolean canUse() {
             LivingEntity livingentity = this.mob.getTarget();
-            if (this.mob.isFleeing
-                    || this.mob.attackCoolTick > 0) {
+            if (this.mob.isFleeing || this.mob.attackCoolTick > 0) {
                 return false;
             } else if (livingentity != null
                     && livingentity.isAlive()
+                    && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)
                     && this.mob.hasLineOfSight(livingentity)) {
                 this.target = livingentity;
                 return true;
@@ -441,6 +455,7 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
         public boolean canContinueToUse() {
             return this.target != null
                     && this.target.isAlive()
+                    && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(this.target)
                     && this.mob.hasLineOfSight(this.target)
                     && !this.mob.isFleeing;
         }
@@ -450,6 +465,9 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
             this.mob.attackCoolTick = 20;
             this.attackTime = 0;
             this.target = null;
+            if (!this.mob.isCurrentAnimation(IDLE)) {
+                this.mob.setAnimationState(IDLE);
+            }
         }
 
         public boolean requiresUpdateEveryTick() {
@@ -458,6 +476,11 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
 
         public void tick() {
             if (this.target != null) {
+                if (this.target.distanceTo(this.mob) > 32.0D) {
+                    this.mob.getNavigation().moveTo(this.target, 1.0D);
+                } else {
+                    this.mob.getNavigation().stop();
+                }
                 if (this.mob.isCurrentAnimation(PRE_ATTACK) || this.attackTime > 1) {
                     ++this.attackTime;
                 }
@@ -469,7 +492,6 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
                     }
                 }
 
-                this.mob.getNavigation().stop();
                 MobUtil.instaLook(this.mob, this.target);
                 if (this.attackTime >= 20) {
                     if (this.mob.getCurrentAnimation() == this.mob.getAnimationState(PRE_ATTACK)) {

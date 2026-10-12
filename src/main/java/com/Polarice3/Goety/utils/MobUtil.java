@@ -7,10 +7,12 @@ import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.hostile.Irk;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
+import com.Polarice3.Goety.common.entities.hostile.illagers.Tormentor;
 import com.Polarice3.Goety.common.entities.neutral.AbstractHauntedArmor;
 import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
 import com.Polarice3.Goety.common.entities.projectiles.SnapFungus;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.magic.InfernalTome;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SInstaLookAtPacket;
 import com.Polarice3.Goety.config.MainConfig;
@@ -151,6 +153,8 @@ public class MobUtil {
             return self.isAlliedTo(vex.getOwner());
         } else if (target instanceof Irk irk && irk.getTrueOwner() != null) {
             return self.isAlliedTo(irk.getTrueOwner());
+        } else if (target instanceof Tormentor tormentor && tormentor.getOwner() != null) {
+            return self.isAlliedTo(tormentor.getOwner());
         } else if (target instanceof LivingEntity livingEntity && livingEntity.getMobType() == MobType.ILLAGER) {
             if (livingEntity instanceof IOwned owned){
                 if (owned.getTrueOwner() != null){
@@ -665,10 +669,20 @@ public class MobUtil {
         return getTargets(level, pSource, pRange, pRadius, EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(LIVING_OR_PART).and(entity -> !MobUtil.areAllies(entity, pSource)));
     }
 
+    public static List<Entity> getTargets(Level level, LivingEntity pSource, Vec3 srcVec, Vec3 lookVec, double pRange, double pRadius) {
+        return getTargets(level, pSource, srcVec, lookVec, pRange, pRadius, EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(LIVING_OR_PART).and(entity -> !MobUtil.areAllies(entity, pSource)));
+    }
+
     public static List<Entity> getTargets(Level level, LivingEntity pSource, double pRange, double pRadius, Predicate<? super Entity> predicate) {
+        return getTargets(level, pSource, pSource.getEyePosition(), pRange, pRadius, predicate);
+    }
+
+    public static List<Entity> getTargets(Level level, LivingEntity pSource, Vec3 srcVec, double pRange, double pRadius, Predicate<? super Entity> predicate) {
+        return getTargets(level, pSource, srcVec, pSource.getViewVector(1.0F), pRange, pRadius, predicate);
+    }
+
+    public static List<Entity> getTargets(Level level, LivingEntity pSource, Vec3 srcVec, Vec3 lookVec, double pRange, double pRadius, Predicate<? super Entity> predicate) {
         List<Entity> list = new ArrayList<>();
-        Vec3 srcVec = pSource.getEyePosition();
-        Vec3 lookVec = pSource.getViewVector(1.0F);
         double[] lookRange = new double[] {lookVec.x() * pRange, lookVec.y() * pRange, lookVec.z() * pRange};
         Vec3 destVec = srcVec.add(lookRange[0], lookRange[1], lookRange[2]);
         List<Entity> possibleList = level.getEntities(pSource, pSource.getBoundingBox().expandTowards(lookRange[0], lookRange[1], lookRange[2]).inflate(pRadius, pRadius, pRadius),
@@ -1156,6 +1170,10 @@ public class MobUtil {
         return livingEntity.isUsingItem() && livingEntity.getUseItem().getItem() instanceof IWand && !WandUtil.findFocus(livingEntity).isEmpty();
     }
 
+    public static boolean isReadingTome(LivingEntity livingEntity){
+        return livingEntity.isUsingItem() && livingEntity.getUseItem().getItem() instanceof InfernalTome;
+    }
+
     public static void instaLook(Mob mob, Vec3 vec3){
         instaLook(mob, vec3, false);
     }
@@ -1361,31 +1379,47 @@ public class MobUtil {
     }
 
     public static Vec3 getLeftPos(Entity entity, double scale) {
+        return getLeftPos(entity.position(), entity, scale);
+    }
+
+    public static Vec3 getLeftPos(Vec3 vec3, Entity entity, double scale) {
         Vec3 left = getHorizontalLeftLookAngle(entity);
         double x = left.x * scale;
         double z = left.z * scale;
-        return entity.position().add(x, 0, z);
+        return vec3.add(x, 0, z);
     }
 
     public static Vec3 getRightPos(Entity entity, double scale) {
+        return getRightPos(entity.position(), entity, scale);
+    }
+
+    public static Vec3 getRightPos(Vec3 vec3, Entity entity, double scale) {
         Vec3 right = getHorizontalRightLookAngle(entity);
         double x = right.x * scale;
         double z = right.z * scale;
-        return entity.position().add(x, 0, z);
+        return vec3.add(x, 0, z);
     }
 
     public static Vec3 getFrontPos(Entity entity, double scale) {
+        return getFrontPos(entity.position(), entity, scale);
+    }
+
+    public static Vec3 getFrontPos(Vec3 vec3, Entity entity, double scale) {
         Vec3 front = getHorizontalLookAngle(entity);
         double x = front.x * scale;
         double z = front.z * scale;
-        return entity.position().add(x, 0, z);
+        return vec3.add(x, 0, z);
     }
 
     public static Vec3 getBackPos(Entity entity, double scale) {
+        return getBackPos(entity.position(), entity, scale);
+    }
+
+    public static Vec3 getBackPos(Vec3 vec3, Entity entity, double scale) {
         Vec3 front = getHorizontalLookAngle(entity).reverse();
         double x = front.x * scale;
         double z = front.z * scale;
-        return entity.position().add(x, 0, z);
+        return vec3.add(x, 0, z);
     }
 
     public static void setRot(Entity entity, float p_19916_, float p_19917_) {
@@ -1782,6 +1816,9 @@ public class MobUtil {
 
     @Nullable
     public static LivingEntity getOwner(Entity owned) {
+        if (owned == null) {
+            return null;
+        }
         if (owned instanceof IOwned owned1) {
             return owned1.getTrueOwner();
         } else if (owned instanceof OwnableEntity ownable) {

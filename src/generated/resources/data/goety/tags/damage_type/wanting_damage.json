@@ -2,10 +2,7 @@
   "values": [
     "#minecraft:witch_resistant_to",
     "#goety:no_knockback",
-    "#goety:fire_attacks",
-    "#goety:frost_attacks",
-    "#goety:shock_attacks",
-    "#goety:water_attacks",
+    "#goety:elemental",
     "minecraft:wither_skull",
     "goety:loot_explode",
     "goety:loot_explode_owned"

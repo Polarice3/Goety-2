@@ -210,6 +210,11 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> EvokerServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> EvokerServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> EvokerServantFollowRange;
+    public static final ForgeConfigSpec.ConfigValue<Double> EnchanterServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> EnchanterServantArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> EnchanterServantFollowRange;
+    public static final ForgeConfigSpec.ConfigValue<Double> EnchanterServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Integer> EnchanterServantEnchantTime;
     public static final ForgeConfigSpec.ConfigValue<Double> GeomancerServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> GeomancerServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> GeomancerServantFollowRange;
@@ -316,6 +321,10 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> RedstoneMinistrosityArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> RedstoneMinistrosityDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> RedstoneMinistrosityFollowRange;
+    public static final ForgeConfigSpec.ConfigValue<Double> FlameConstructHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> FlameConstructArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> FlameConstructDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> FlameConstructFollowRange;
     public static final ForgeConfigSpec.ConfigValue<Double> IceGolemHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> IceGolemArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> IceGolemDamage;
@@ -868,6 +877,18 @@ public class AttributesConfig {
                 EvokerServantFollowRange = BUILDER.comment("How much following/detection range Evoker Servants have, Default: 12.0")
                         .defineInRange("evokerServantFollowRange", 12.0, 0.0, Double.MAX_VALUE);
                 BUILDER.pop();
+                BUILDER.push("Enchanter Servant");
+                EnchanterServantHealth = BUILDER.comment("How much Max Health Enchanter Servants have, Default: 20.0")
+                        .defineInRange("enchanterServantHealth", 20.0, 1.0, Double.MAX_VALUE);
+                EnchanterServantArmor = BUILDER.comment("How much natural Armor Enchanter Servants have, Default: 0.0")
+                        .defineInRange("enchanterServantArmor", 0.0, 0.0, Double.MAX_VALUE);
+                EnchanterServantFollowRange = BUILDER.comment("How much following/detection range Enchanter Servants have, Default: 12.0")
+                        .defineInRange("enchanterServantFollowRange", 12.0, 0.0, Double.MAX_VALUE);
+                EnchanterServantDamage = BUILDER.comment("How much damage Enchanter Servants deals, Default: 5.0")
+                        .defineInRange("enchanterServantDamage", 5.0, 1.0, Double.MAX_VALUE);
+                EnchanterServantEnchantTime = BUILDER.comment("How long the Enchanter can maintain enchantment in seconds, set to -1 to make it last forever, Default: 300")
+                        .defineInRange("enchanterServantEnchantTime", 300, -1, Integer.MAX_VALUE);
+                BUILDER.pop();
                 BUILDER.push("Geomancer Servant");
                 GeomancerServantHealth = BUILDER.comment("How much Max Health Geomancer Servants have, Default: 18.0")
                         .defineInRange("geomancerServantHealth", 18.0, 1.0, Double.MAX_VALUE);
@@ -1169,6 +1190,16 @@ public class AttributesConfig {
                         .defineInRange("redstoneMinistrosityDamage", 5.0, 1.0, Double.MAX_VALUE);
                 RedstoneMinistrosityFollowRange = BUILDER.comment("How much following/detection range Redstone Ministrosities have, Default: 16.0")
                         .defineInRange("redstoneMinistrosityFollowRange", 16.0, 1.0, 2048.0);
+                BUILDER.pop();
+                BUILDER.push("Flame Construct");
+                FlameConstructHealth = BUILDER.comment("How much Max Health Flame Constructs have, Default: 35.0")
+                        .defineInRange("flameConstructHealth", 35.0, 1.0, Double.MAX_VALUE);
+                FlameConstructArmor = BUILDER.comment("How much natural armor points Flame Constructs have, Default: 0.0")
+                        .defineInRange("flameConstructArmor", 0.0, 0.0, Double.MAX_VALUE);
+                FlameConstructDamage = BUILDER.comment("How much damage Flame Constructs deals, Default: 5.0")
+                        .defineInRange("flameConstructDamage", 5.0, 1.0, Double.MAX_VALUE);
+                FlameConstructFollowRange = BUILDER.comment("How much following/detection range Flame Constructs have, Default: 10.0")
+                        .defineInRange("flameConstructFollowRange", 10.0, 1.0, 2048.0);
                 BUILDER.pop();
                 BUILDER.push("Ice Golem");
                 IceGolemHealth = BUILDER.comment("How much Max Health Ice Golems have, Default: 60.0")

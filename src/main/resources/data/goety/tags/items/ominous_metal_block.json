@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#forge:storage_blocks/silver",
+      "required": false
+    },
+    "goety:pale_steel_block"
+  ]
+}

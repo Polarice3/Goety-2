@@ -580,29 +580,35 @@ public class ModRavager extends RaiderServant implements PlayerRideable, IAutoRi
         return !(this.getControllingPassenger() instanceof Mob);
     }
 
-    @Override
-    public void die(DamageSource pCause) {
-        if (!this.level.isClientSide) {
-            if (this.getIdol() == null) {
-                if (this.getTrueOwner() != null && this.getMobType() != MobType.UNDEAD) {
-                    if (CuriosFinder.hasNamelessSet(this.getTrueOwner())) {
-                        ZombieRavager servant = this.convertTo(ModEntityType.ZOMBIE_RAVAGER.get(), true);
-                        if (servant != null) {
-                            servant.setTrueOwner(this.getTrueOwner());
-                            if (this.hasSaddle()) {
-                                servant.equipSaddle(false);
-                            }
-                            servant.updateArmor();
-                            net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, servant);
-                            if (!this.isSilent()) {
-                                this.level.levelEvent((Player) null, 1026, this.blockPosition(), 0);
+    public void necroRevive() {
+        if (this.getNecroConvert() != null) {
+            if (!this.level.isClientSide) {
+                if (this.getIdol() == null) {
+                    if (this.getTrueOwner() != null) {
+                        if (CuriosFinder.hasNamelessSet(this.getTrueOwner())) {
+                            Mob mob = this.convertTo(this.getNecroConvert(), true);
+                            if (mob instanceof ZombieRavager servant) {
+                                servant.setTrueOwner(this.getTrueOwner());
+                                if (this.hasSaddle()) {
+                                    servant.equipSaddle(false);
+                                }
+                                servant.updateArmor();
+                                net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, servant);
+                                if (!this.isSilent()) {
+                                    this.level.levelEvent((Player) null, 1026, this.blockPosition(), 0);
+                                }
                             }
                         }
                     }
                 }
             }
         }
-        super.die(pCause);
+    }
+
+    @Override
+    @Nullable
+    public EntityType<? extends Mob> getNecroConvert() {
+        return ModEntityType.ZOMBIE_RAVAGER.get();
     }
 
     @Override

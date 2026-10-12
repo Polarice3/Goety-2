@@ -1101,7 +1101,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob, IHiding {
                 if (entityIn instanceof LivingEntity living){
                     if (entityIn instanceof Player player){
                         if (SEHelper.getSoulsAmount(player, AttributesConfig.WightSoulAbsorb.get())){
-                            SEHelper.decreaseSouls(player, AttributesConfig.WightSoulAbsorb.get());
+                            SEHelper.decreaseSoulsNoDiscount(player, AttributesConfig.WightSoulAbsorb.get());
                             this.regenHeal += AttributesConfig.WightSoulHeal.get();
                         } else {
                             player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0, false, false));

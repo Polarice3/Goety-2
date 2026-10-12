@@ -84,7 +84,7 @@ public class TransferScroll extends ItemBase {
                             } else if (RitualRequirements.canSummon(level, player, summon.getType())){
                                 owned.setTrueOwner(player);
                                 if (summon instanceof RaiderServant servant && servant.isLeader()) {
-                                    ItemStack newBanner = servant.getLeaderBannerInstance();
+                                    ItemStack newBanner = servant.getLeaderBannerWithNameInstance();
                                     if (!newBanner.isEmpty()) {
                                         servant.setItemSlot(EquipmentSlot.HEAD, newBanner);
                                     }

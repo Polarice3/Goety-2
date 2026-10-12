@@ -22,6 +22,10 @@ public interface IMisc {
     void setClientTargetID(int id);
     int getMobTargetID();
     void setMobTargetID(int id);
+    int getEnchanterID();
+    void setEnchanterID(int id);
+    int getEnchanterTime();
+    void setEnchanterTime(int time);
     int getNoHealTime();
     void setNoHealTime(int seconds);
     int getShakeTime();

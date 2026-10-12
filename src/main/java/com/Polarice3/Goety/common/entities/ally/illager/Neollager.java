@@ -378,7 +378,7 @@ public class Neollager extends AbstractIllagerServant {
                 ++this.workTick;
                 if (this.workTick > 100){
                     this.illager.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
-                    ItemEntity itementity = new ItemEntity(this.illager.level, this.loom.getX() + 0.5F, this.loom.getY() + 1.0F, this.loom.getZ() + 0.5F, this.illager.getLeaderBannerInstance());
+                    ItemEntity itementity = new ItemEntity(this.illager.level, this.loom.getX() + 0.5F, this.loom.getY() + 1.0F, this.loom.getZ() + 0.5F, this.illager.getLeaderBannerWithNameInstance());
                     itementity.setDefaultPickUpDelay();
                     this.illager.playSound(SoundEvents.UI_LOOM_TAKE_RESULT);
                     this.illager.level.addFreshEntity(itementity);

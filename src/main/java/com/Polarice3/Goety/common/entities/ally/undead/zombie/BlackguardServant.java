@@ -214,6 +214,11 @@ public class BlackguardServant extends ZombieServant implements IShielded {
         super.die(pCause);
     }
 
+    @Override
+    public int xpReward() {
+        return 20;
+    }
+
     protected void playHurtSound(DamageSource p_21160_) {
         SoundEvent soundevent = this.getHurtSound(p_21160_);
         if (soundevent != null) {

@@ -66,7 +66,7 @@ public class FlyingSpell extends EverChargeSpell {
         }
         int potency = spellStat.getPotency();
         if (WandUtil.enchantedFocus(caster)){
-            potency = WandUtil.getPotencyLevel(caster);
+            potency += WandUtil.getPotencyLevel(caster);
         }
         caster.hurtMarked = true;
         if (!worldIn.isClientSide){

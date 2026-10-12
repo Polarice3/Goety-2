@@ -44,6 +44,7 @@ public class ModTags {
         public static final TagKey<Block> RED_MOSS_BLOCKS = tag("red_moss_blocks");
         public static final TagKey<Block> OMINOUS_BLOCKS = tag("ominous_blocks");
         public static final TagKey<Block> END_STONE = tag("end_stone");
+        public static final TagKey<Block> BRAZIER = tag("brazier");
         public static final TagKey<Block> CHORUS_GRASS_BLOCKS = tag("chorus_grass_blocks");
         public static final TagKey<Block> END_SOIL_BLOCKS = tag("end_soil_blocks");
         public static final TagKey<Block> ANCIENT_PLANTS = tag("ancient_plants");
@@ -60,6 +61,7 @@ public class ModTags {
         public static final TagKey<Block> CHORUS_GROW = tag("chorus_grow");
         public static final TagKey<Block> END_PLANTABLES = tag("end_plantables");
         public static final TagKey<Block> END_GROWTH_BLOCKS = tag("end_growth_blocks");
+        public static final TagKey<Block> END_LIMESTONE = tag("end_limestone");
         public static final TagKey<Block> CHORUS_SAPLING_GROW = tag("chorus_sapling_grow");
         public static final TagKey<Block> CHORUS_BLOSSOM_GROW = tag("chorus_blossom_grow");
         public static final TagKey<Block> REDSTONE_CUBE_DETECT = tag("redstone_cube_detect");
@@ -183,6 +185,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> SUMMON_KILL = tag("summon_kill");
         public static final TagKey<EntityType<?>> IGNORE_SERVANTS = tag("ignore_servants");
         public static final TagKey<EntityType<?>> SOULLESS = tag("soulless");
+        public static final TagKey<EntityType<?>> UNENCHANTABLE = tag("unenchantable");
         public static final TagKey<EntityType<?>> UNSTUNNABLE = tag("unstunnable");
         public static final TagKey<EntityType<?>> UNTANGLEABLE = tag("untangleable");
         public static final TagKey<EntityType<?>> UNBLOWABLE_ENTITIES = tag("unblowable_entities");
@@ -363,6 +366,7 @@ public class ModTags {
         public static final TagKey<DamageType> FROST_ATTACKS = tag("frost_attacks");
         public static final TagKey<DamageType> SHOCK_ATTACKS = tag("shock_attacks");
         public static final TagKey<DamageType> WATER_ATTACKS = tag("water_attacks");
+        public static final TagKey<DamageType> ELEMENTAL = tag("elemental");
         public static final TagKey<DamageType> MAGIC_FIRE = tag("magic_fire");
         public static final TagKey<DamageType> HELLFIRE = tag("hellfire");
         public static final TagKey<DamageType> NO_KNOCKBACK = tag("no_knockback");

@@ -8,7 +8,6 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
@@ -72,14 +71,8 @@ public class CryptSlimeServant extends SlimeServant{
         return this.isEffectiveAi();
     }
 
-    protected void dealDamage(LivingEntity livingEntity) {
-        if (this.isAlive()) {
-            int i = this.getSize();
-            if (this.distanceToSqr(livingEntity) < 0.6D * (double)i * 0.6D * (double)i && this.hasLineOfSight(livingEntity) && livingEntity.hurt(this.getServantAttack(), this.getAttackDamage())) {
-                this.playSound(SoundEvents.SLIME_ATTACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-                this.doEnchantDamageEffects(this, livingEntity);
-                livingEntity.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), 60, this.getSize()));
-            }
-        }
+    protected void postAttackEffect(LivingEntity livingEntity) {
+        super.postAttackEffect(livingEntity);
+        livingEntity.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), 60, this.getSize()));
     }
 }

@@ -12,6 +12,7 @@ import com.Polarice3.Goety.common.blocks.SarcophagusBlock;
 import com.Polarice3.Goety.common.capabilities.lichdom.ILichdom;
 import com.Polarice3.Goety.common.capabilities.lichdom.LichProvider;
 import com.Polarice3.Goety.common.capabilities.misc.IMisc;
+import com.Polarice3.Goety.common.capabilities.misc.MiscCapUpdatePacket;
 import com.Polarice3.Goety.common.capabilities.misc.MiscProvider;
 import com.Polarice3.Goety.common.capabilities.soulenergy.ISoulEnergy;
 import com.Polarice3.Goety.common.capabilities.soulenergy.SEProvider;
@@ -449,6 +450,13 @@ public class ModEvents {
 
     }
 
+    @SubscribeEvent
+    public static void syncMiscOnTrack(PlayerEvent.StartTracking event) {
+        if (event.getEntity() instanceof ServerPlayer player && event.getTarget() instanceof LivingEntity target) {
+            ModNetwork.sendTo(player, new MiscCapUpdatePacket(target));
+        }
+    }
+
     private static final Map<ServerLevel, IllagerSpawner> ILLAGER_SPAWN_MAP = new HashMap<>();
     private static final Map<ServerLevel, WightSpawner> WIGHT_SPAWN_MAP = new HashMap<>();
 
@@ -654,6 +662,9 @@ public class ModEvents {
                 if (MiscCapHelper.getClientTargetID(livingEntity) > 0){
                     MiscCapHelper.setClientTargetID(livingEntity, 0);
                 }
+            }
+            if (MiscCapHelper.getEnchanterTime(livingEntity) > 0) {
+                MiscCapHelper.setEnchanterTime(livingEntity, MiscCapHelper.getEnchanterTime(livingEntity) - 1);
             }
             if (MiscCapHelper.getShields(livingEntity) > 0) {
                 if (MiscCapHelper.getShieldTime(livingEntity) > 0) {
@@ -1613,9 +1624,12 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void ExplosionDetonateEvent(ExplosionEvent.Detonate event){
-        if (event.getExplosion() != null) {
-            event.getAffectedEntities().removeIf(entity -> (entity instanceof ItemEntity && ((ItemEntity) entity).getItem().getItem() == ModItems.UNHOLY_BLOOD.get()));
-            event.getAffectedEntities().removeIf(entity -> (entity instanceof ItemEntity && ((ItemEntity) entity).getItem().getItem() == ModBlocks.NIGHT_BEACON_ITEM.get()));
+        try {
+            if (event.getExplosion() != null) {
+                event.getAffectedEntities().removeIf(entity -> (entity instanceof ItemEntity && ((ItemEntity) entity).getItem().getItem() == ModItems.UNHOLY_BLOOD.get()));
+                event.getAffectedEntities().removeIf(entity -> (entity instanceof ItemEntity && ((ItemEntity) entity).getItem().getItem() == ModBlocks.NIGHT_BEACON_ITEM.get()));
+            }
+        } catch (UnsupportedOperationException ignored){
         }
     }
 

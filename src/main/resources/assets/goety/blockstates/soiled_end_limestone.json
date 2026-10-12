@@ -1,0 +1,78 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "goety:block/soiled_end_limestone"
+      },
+      {
+        "model": "goety:block/soiled_end_limestone",
+        "x": 90
+      },
+      {
+        "model": "goety:block/soiled_end_limestone",
+        "x": 180
+      },
+      {
+        "model": "goety:block/soiled_end_limestone",
+        "x": 270
+      },
+      {
+        "model": "goety:block/soiled_end_limestone",
+        "y": 90
+      },
+      {
+        "model": "goety:block/soiled_end_limestone",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "goety:block/soiled_end_limestone",
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "goety:block/soiled_end_limestone",
+        "x": 270,
+        "y": 90
+      },
+      {
+        "model": "goety:block/soiled_end_limestone",
+        "y": 180
+      },
+      {
+        "model": "goety:block/soiled_end_limestone",
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "goety:block/soiled_end_limestone",
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "goety:block/soiled_end_limestone",
+        "x": 270,
+        "y": 180
+      },
+      {
+        "model": "goety:block/soiled_end_limestone",
+        "y": 270
+      },
+      {
+        "model": "goety:block/soiled_end_limestone",
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "goety:block/soiled_end_limestone",
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "goety:block/soiled_end_limestone",
+        "x": 270,
+        "y": 270
+      }
+    ]
+  }
+}

@@ -61,6 +61,7 @@ public class ModBoat extends Boat {
         return switch (this.getModBoatType()) {
             case HAUNTED -> ModItems.HAUNTED_BOAT.get();
             case ROTTEN -> ModItems.ROTTEN_BOAT.get();
+            case MARSH -> ModItems.MARSH_BOAT.get();
             case WINDSWEPT -> ModItems.WINDSWEPT_BOAT.get();
             case PINE -> ModItems.PINE_BOAT.get();
             case CHORUS -> ModItems.CHORUS_BOAT.get();
@@ -84,6 +85,7 @@ public class ModBoat extends Boat {
     public enum Type implements StringRepresentable {
         HAUNTED(ModBlocks.HAUNTED_PLANKS.get(), "haunted"),
         ROTTEN(ModBlocks.ROTTEN_PLANKS.get(), "rotten"),
+        MARSH(ModBlocks.MARSH_PLANKS.get(), "marsh"),
         WINDSWEPT(ModBlocks.WINDSWEPT_PLANKS.get(), "windswept"),
         PINE(ModBlocks.PINE_PLANKS.get(), "pine"),
         CHORUS(ModBlocks.CHORUS_PLANKS.get(), "chorus"),

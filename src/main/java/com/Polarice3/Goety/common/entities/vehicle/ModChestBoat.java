@@ -102,6 +102,7 @@ public class ModChestBoat extends ModBoat implements HasCustomInventoryScreen, C
         return switch (this.getModBoatType()) {
             case HAUNTED -> ModItems.HAUNTED_CHEST_BOAT.get();
             case ROTTEN -> ModItems.ROTTEN_CHEST_BOAT.get();
+            case MARSH -> ModItems.MARSH_CHEST_BOAT.get();
             case WINDSWEPT -> ModItems.WINDSWEPT_CHEST_BOAT.get();
             case PINE -> ModItems.PINE_CHEST_BOAT.get();
             case CHORUS -> ModItems.CHORUS_CHEST_BOAT.get();

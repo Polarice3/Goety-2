@@ -17,8 +17,8 @@
       "text": "Зазубренные золотые блоки, хотя и не так блестят, как обычные, но всё же могут быть символами роскоши и достатка. Необычный строительный материал для неких древних святилищ."
     },
     {
-      "type": "patchouli:crafting",
-      "recipe": "goety:indented_gold/indented_gold_craft"
+      "type": "patchouli:stonecutting",
+      "recipe": "goety:indented_gold/indented_gold"
     },
     {
       "type": "patchouli:text",

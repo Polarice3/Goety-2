@@ -16,6 +16,11 @@
       "type": "patchouli:crafting",
       "recipe": "goety:dark_hat",
       "text": "The Dark Hat helps you focus on your spells, reducing the time needed to cast them."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_crown",
+      "text": "The Dark Crown also reduces the time needed to cast spells. A headwear more fitting for soon-to-be royalty."
     }
   ],
   "extra_recipe_mappings": {

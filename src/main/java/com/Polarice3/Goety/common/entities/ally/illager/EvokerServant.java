@@ -4,7 +4,6 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.AllyVex;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
-import com.Polarice3.Goety.common.entities.ally.undead.bound.BoundEvoker;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.research.ResearchList;
@@ -113,24 +112,9 @@ public class EvokerServant extends SpellcasterIllagerServant{
     }
 
     @Override
-    public void die(DamageSource pCause) {
-        if (!this.level.isClientSide) {
-            if (this.getIdol() == null) {
-                if (this.getTrueOwner() != null) {
-                    if (CuriosFinder.hasNamelessSet(this.getTrueOwner())){
-                        BoundEvoker servant = this.convertTo(ModEntityType.BOUND_EVOKER.get(), true);
-                        if (servant != null) {
-                            servant.setTrueOwner(this.getTrueOwner());
-                            net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, servant);
-                            if (!this.isSilent()) {
-                                this.level.levelEvent((Player)null, 1026, this.blockPosition(), 0);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        super.die(pCause);
+    @Nullable
+    public EntityType<? extends Mob> getNecroConvert() {
+        return ModEntityType.BOUND_EVOKER.get();
     }
 
     public SoundEvent getCelebrateSound() {

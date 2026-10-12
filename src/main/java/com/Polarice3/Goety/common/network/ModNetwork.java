@@ -99,6 +99,7 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), SInstaLookAtPacket.class, SInstaLookAtPacket::encode, SInstaLookAtPacket::decode, SInstaLookAtPacket::consume);
         INSTANCE.registerMessage(nextID(), WBUpdatePacket.class, WBUpdatePacket::encode, WBUpdatePacket::decode, WBUpdatePacket::consume);
         INSTANCE.registerMessage(nextID(), SStaffParticlePacket.class, SStaffParticlePacket::encode, SStaffParticlePacket::decode, SStaffParticlePacket::consume);
+        INSTANCE.registerMessage(nextID(), SSoulChangePacket.class, SSoulChangePacket::encode, SSoulChangePacket::decode, SSoulChangePacket::consume);
     }
 
     public static <MSG> void sendTo(Player player, MSG msg) {

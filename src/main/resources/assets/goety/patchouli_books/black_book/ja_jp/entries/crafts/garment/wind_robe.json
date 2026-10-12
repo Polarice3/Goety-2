@@ -2,6 +2,7 @@
   "name": "風のローブ",
   "icon": "goety:wind_robe",
   "category": "goety:crafts/garment",
+  "advancement": "goety:goety/read_mistral_scroll",
   "pages": [
     {
       "type": "patchouli:text",

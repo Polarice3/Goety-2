@@ -80,7 +80,9 @@ public class SpellExplosion {
     }
 
     public void explodeHurt(Entity target, DamageSource damageSource, double x, double y, double z, double seen, float actualDamage){
-        target.hurt(damageSource, actualDamage);
+        if (target.hurt(damageSource, actualDamage)) {
+            this.postHurtEffect(target, damageSource, actualDamage);
+        }
         double d11 = seen;
         if (target instanceof LivingEntity) {
             d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) target, seen);
@@ -94,6 +96,9 @@ public class SpellExplosion {
         if (target instanceof LivingEntity) {
             MobUtil.push(target, x * d11, y * d11, z * d11);
         }
+    }
+
+    public void postHurtEffect(Entity target, DamageSource damageSource, float actualDamage) {
     }
 
     public static List<Entity> explosionRangeEntities(Level level, Entity source, BlockPos blockPos, float range){

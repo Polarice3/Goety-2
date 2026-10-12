@@ -32,7 +32,7 @@ public class RedstoneMonstrosityHeadModel extends SkullModelBase {
 		.texOffs(0, 14).addBox(10.25F, -6.0F, -20.5F, 4.0F, 4.0F, 0.0F, new CubeDeformation(0.0F))
 		.texOffs(0, 18).addBox(-2.0F, -9.0F, -20.5F, 6.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition bottom = head.addOrReplaceChild("bottom", CubeListBuilder.create().texOffs(98, 0).addBox(-14.0F, 0.0F, -20.0F, 28.0F, 10.0F, 21.0F, new CubeDeformation(0.0F))
+		PartDefinition bottom = head.addOrReplaceChild("bottom", CubeListBuilder.create().texOffs(98, 0).addBox(-14.0F, 0.0F, -20.0F, 28.0F, 10.0F, 21.0F, new CubeDeformation(-0.01F))
 		.texOffs(77, 31).addBox(-14.0F, 7.0F, -20.0F, 28.0F, 0.0F, 21.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -10.0F, 9.0F));
 
 		return LayerDefinition.create(meshdefinition, 512, 256);

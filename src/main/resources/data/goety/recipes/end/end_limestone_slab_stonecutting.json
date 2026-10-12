@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "goety:end_limestone"
+  },
+  "result": "goety:end_limestone_slab"
+}

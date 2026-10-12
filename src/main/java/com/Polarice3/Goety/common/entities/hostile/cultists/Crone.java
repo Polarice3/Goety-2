@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.hostile.cultists;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.effects.brew.*;
 import com.Polarice3.Goety.common.effects.brew.block.HarvestBlockEffect;
+import com.Polarice3.Goety.common.effects.brew.block.SlimyBrewEffect;
 import com.Polarice3.Goety.common.effects.brew.block.SweetBerriedEffect;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
@@ -15,10 +16,7 @@ import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.BrewUtils;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModDamageSource;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -79,6 +77,7 @@ public class Crone extends Cultist implements RangedAttackMob {
     private int usingTime;
     private int hitTimes;
     private int lastHitTime;
+    private int toHealTime;
     private int overwhelmed;
     private final ModServerBossInfo bossInfo;
     private NearestHealableRaiderTargetGoal<Raider> healRaidersGoal;
@@ -127,6 +126,7 @@ public class Crone extends Cultist implements RangedAttackMob {
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("hitTimes", this.hitTimes);
         pCompound.putInt("lastHitTime", this.lastHitTime);
+        pCompound.putInt("toHealTime", this.toHealTime);
         pCompound.putInt("overwhelmed", this.overwhelmed);
     }
 
@@ -134,6 +134,7 @@ public class Crone extends Cultist implements RangedAttackMob {
         super.readAdditionalSaveData(pCompound);
         this.hitTimes = pCompound.getInt("hitTimes");
         this.lastHitTime = pCompound.getInt("lastHitTime");
+        this.toHealTime = pCompound.getInt("toHealTime");
         this.overwhelmed = pCompound.getInt("overwhelmed");
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
@@ -220,12 +221,21 @@ public class Crone extends Cultist implements RangedAttackMob {
             this.bossInfo.update();
         }
         this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
+        MiscCapHelper.updateMobTarget(this);
     }
 
     public void aiStep() {
         if (!this.level.isClientSide && this.isAlive()) {
             if (this.lastHitTime > 0){
                 --this.lastHitTime;
+            } else if (this.hitTimes > 0) {
+                this.hitTimes = 0;
+            }
+            if (this.toHealTime > 0) {
+                --this.toHealTime;
+            }
+            if (this.overwhelmed > 0) {
+                --this.overwhelmed;
             }
             this.healRaidersGoal.decrementCooldown();
             this.attackPlayersGoal.setCanAttack(this.healRaidersGoal.getCooldown() <= 0);
@@ -250,9 +260,9 @@ public class Crone extends Cultist implements RangedAttackMob {
                 }
             } else {
                 int amp = 0;
-                if (this.level.random.nextFloat() <= 0.05F && this.level.getDifficulty() == Difficulty.NORMAL){
+                if (this.level.getRandom().nextFloat() <= 0.05F && this.level.getDifficulty() == Difficulty.NORMAL){
                     amp = 2;
-                } else if (this.level.random.nextFloat() <= 0.25F){
+                } else if (this.level.getRandom().nextFloat() <= 0.25F){
                     amp = 1;
                 }
                 List<MobEffectInstance> mobEffectInstance = new ArrayList<>();
@@ -261,7 +271,7 @@ public class Crone extends Cultist implements RangedAttackMob {
                     brewEffectInstance.add(new BrewEffectInstance(new BlindJumpBrewEffect(0), 1, amp));
                 } else if (this.random.nextFloat() < 0.15F && this.getLastDamageSource() != null && (this.getLastDamageSource().is(DamageTypes.CACTUS) || this.getLastDamageSource().is(DamageTypes.SWEET_BERRY_BUSH))){
                     brewEffectInstance.add(new BrewEffectInstance(new HarvestBlockEffect()));
-                } else if (this.random.nextFloat() < 0.15F && this.getHealth() < this.getMaxHealth() && (this.getTarget() == null || this.lastHitTime == 0)) {
+                } else if (this.random.nextFloat() < 0.15F && this.getHealth() < this.getMaxHealth() && (this.getTarget() == null || this.toHealTime == 0)) {
                     mobEffectInstance.add(new MobEffectInstance(MobEffects.HEAL, 1, amp));
                 } else if (this.random.nextFloat() < 0.15F && this.isEyeInFluidType(ForgeMod.WATER_TYPE.get()) && !this.hasEffect(MobEffects.WATER_BREATHING)) {
                     mobEffectInstance.add(new MobEffectInstance(MobEffects.WATER_BREATHING, 3600));
@@ -301,7 +311,7 @@ public class Crone extends Cultist implements RangedAttackMob {
 
                 if (!mobEffectInstance.isEmpty() || !brewEffectInstance.isEmpty()) {
                     ItemStack brew = BrewUtils.setCustomEffects(new ItemStack(ModItems.BREW.get()), mobEffectInstance, brewEffectInstance);
-                    BrewUtils.setAreaOfEffect(brew, this.level.random.nextInt(amp + 1));
+                    BrewUtils.setAreaOfEffect(brew, this.level.getRandom().nextInt(amp + 1));
                     brew.getOrCreateTag().putInt("CustomPotionColor", BrewUtils.getColor(mobEffectInstance, brewEffectInstance));
                     this.setItemSlot(EquipmentSlot.MAINHAND, brew);
                     this.usingTime = this.overwhelmed > 0 ? this.getMainHandItem().getUseDuration() / 2 : this.getMainHandItem().getUseDuration();
@@ -379,9 +389,9 @@ public class Crone extends Cultist implements RangedAttackMob {
             double d2 = target.getZ() + vec3.z - this.getZ();
             double d3 = Math.sqrt(d0 * d0 + d2 * d2);
             int amp = 0;
-            if (this.level.random.nextFloat() <= 0.05F && this.level.getDifficulty() != Difficulty.EASY){
+            if (this.level.getRandom().nextFloat() <= 0.05F && this.level.getDifficulty() != Difficulty.EASY){
                 amp = 2;
-            } else if (this.level.random.nextFloat() <= 0.25F){
+            } else if (this.level.getRandom().nextFloat() <= 0.25F){
                 amp = 1;
             }
             List<MobEffectInstance> mobEffectInstance = new ArrayList<>();
@@ -414,7 +424,7 @@ public class Crone extends Cultist implements RangedAttackMob {
                 }
                 if (this.random.nextFloat() <= 0.25F && !this.hasEffect(GoetyEffects.FIERY_AURA.get()) && !target.hasEffect(GoetyEffects.FREEZING.get()) && !target.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)){
                     mobEffectInstance.add(new MobEffectInstance(GoetyEffects.FREEZING.get(), 900 / (amp + 1), amp));
-                } else if (this.random.nextFloat() <= 0.25F && !this.hasEffect(GoetyEffects.FROSTY_AURA.get()) && !target.hasEffect(GoetyEffects.FLAMMABLE.get()) && !target.fireImmune()){
+                } else if (this.random.nextFloat() <= 0.25F && !this.hasEffect(GoetyEffects.FROSTY_AURA.get()) && !target.hasEffect(GoetyEffects.FLAMMABLE.get()) && !target.fireImmune() && !target.isInFluidType(ForgeMod.WATER_TYPE.get())){
                     mobEffectInstance.add(new MobEffectInstance(GoetyEffects.FLAMMABLE.get(), 900 / (amp + 1), amp));
                 } else if (this.random.nextFloat() <= 0.05F && !target.hasEffect(GoetyEffects.TRIPPING.get())){
                     mobEffectInstance.add(new MobEffectInstance(GoetyEffects.TRIPPING.get(), 1800 / (amp + 1), amp));
@@ -452,7 +462,7 @@ public class Crone extends Cultist implements RangedAttackMob {
                 } else if (this.random.nextFloat() <= 0.35F && !target.hasEffect(MobEffects.BLINDNESS) && !MobUtil.isInWeb(target) && target.getMaxHealth() > 10.0F && this.noBrewMinions(target)){
                     mobEffectInstance.add(new MobEffectInstance(MobEffects.BLINDNESS, MathHelper.secondsToTicks(5)));
                     brewEffectInstance.add(new BrewEffectInstance(new BatsBrewEffect(0, 0)));
-                } else if (this.random.nextFloat() <= 0.55F){
+                } else if (this.random.nextFloat() <= 0.55F && !MobUtil.isInWeb(target) && !target.hasEffect(MobEffects.LEVITATION)){
                     brewEffectInstance.add(new BrewEffectInstance(new LaunchBrewEffect(), 1));
                 } else if (this.random.nextFloat() <= 0.75F && !MobUtil.isInWeb(target) && target.getMaxHealth() > 10.0F && this.noBrewMinions(target)){
                     brewEffectInstance.add(new BrewEffectInstance(new BeesBrewEffect(0, 0)));
@@ -463,9 +473,9 @@ public class Crone extends Cultist implements RangedAttackMob {
 
             if (!mobEffectInstance.isEmpty() || !brewEffectInstance.isEmpty()) {
                 ThrownBrew thrownBrew = new ThrownBrew(this.level, this);
-                ItemStack brew0 = this.level.random.nextFloat() <= 0.15F && this.level.getDifficulty() == Difficulty.HARD ? new ItemStack(ModItems.GAS_BREW.get()) : new ItemStack(ModItems.SPLASH_BREW.get());
+                ItemStack brew0 = this.level.getRandom().nextFloat() <= 0.15F && this.level.getDifficulty() == Difficulty.HARD ? new ItemStack(ModItems.GAS_BREW.get()) : new ItemStack(ModItems.SPLASH_BREW.get());
                 ItemStack brew = BrewUtils.setCustomEffects(brew0, mobEffectInstance, brewEffectInstance);
-                BrewUtils.setAreaOfEffect(brew, this.level.random.nextInt(amp + 1));
+                BrewUtils.setAreaOfEffect(brew, this.level.getRandom().nextInt(amp + 1));
                 brew.getOrCreateTag().putInt("CustomPotionColor", BrewUtils.getColor(mobEffectInstance, brewEffectInstance));
                 thrownBrew.setItem(brew);
                 float velocity = 0.75F;
@@ -498,7 +508,7 @@ public class Crone extends Cultist implements RangedAttackMob {
         }
 
         if (pSource.getEntity() instanceof LivingEntity livingentity && livingentity != this){
-            this.lastHitTime = MathHelper.secondsToTicks(15);
+            this.toHealTime = MathHelper.secondsToTicks(15);
             if (MobsConfig.CroneThornDefense.get()) {
                 if (!pSource.is(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !pSource.is(DamageTypes.THORNS)) {
                     float thorn = 2.0F;
@@ -508,7 +518,11 @@ public class Crone extends Cultist implements RangedAttackMob {
                     livingentity.hurt(this.damageSources().thorns(this), thorn);
                 }
             }
-            if (pAmount >= 15){
+            if (pAmount >= 6 && this.overwhelmed <= 0) {
+                this.hitTimes += 1;
+                this.lastHitTime = 25;
+            }
+            if (pAmount >= 15 || this.hitTimes > 3){
                 this.overwhelmed = MathHelper.secondsToTicks(15);
             }
         }
@@ -616,7 +630,7 @@ public class Crone extends Cultist implements RangedAttackMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && (this.crone.getHealth() >= (this.crone.getMaxHealth() / 4));
+            return super.canUse() && (this.crone.getHealth() >= (this.crone.getMaxHealth() / 4)) && this.crone.overwhelmed <= 0;
         }
     }
 
@@ -630,7 +644,7 @@ public class Crone extends Cultist implements RangedAttackMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && this.crone.getHealth() < (this.crone.getMaxHealth() / 4);
+            return super.canUse() && (this.crone.getHealth() < (this.crone.getMaxHealth() / 4) || this.crone.overwhelmed > 0);
         }
     }
 }

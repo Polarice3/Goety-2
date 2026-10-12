@@ -702,7 +702,7 @@ public class DarkWand extends Item implements IWand {
     @Nullable
     public SoundEvent CastingSound(ItemStack stack, LivingEntity caster) {
         if (this.getSpell(stack) != null) {
-            return this.getSpell(stack).CastingSound(caster);
+            return this.getSpell(stack).CastingSound(caster, stack);
         } else {
             return null;
         }

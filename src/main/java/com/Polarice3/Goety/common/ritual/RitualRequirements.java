@@ -475,7 +475,7 @@ public class RitualRequirements extends RitualTypes {
                 }
             }
             case DIVINATION ->{
-                Predicate<BlockState> first = blockState -> blockState.is(ModBlocks.CRYSTAL_BALL.get());
+                Predicate<BlockState> first = blockState -> blockState.is(ModBlocks.CRYSTAL_BALL.get()) || blockState.is(ModBlocks.PALE_CRYSTAL_BALL.get());
                 Predicate<BlockState> third = blockState -> blockState.getBlock() instanceof AbstractSkullBlock || blockState.getBlock() instanceof TallSkullBlock || blockState.getBlock() instanceof WallTallSkullBlock;
                 if (!finder.hasBlocks(first, 1)) {
                     if (pPlayer != null) {

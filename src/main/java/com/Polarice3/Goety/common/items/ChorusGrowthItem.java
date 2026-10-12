@@ -25,6 +25,8 @@ public class ChorusGrowthItem extends ItemBase {
                 return this.grassify(level, stack, blockpos, ModBlocks.GRASSY_END_ROCK.get());
             } else if (blockState.is(ModBlocks.END_ROCK_BRICKS.get())) {
                 return this.grassify(level, stack, blockpos, ModBlocks.GRASSY_END_ROCK_BRICKS.get());
+            } else if (blockState.is(ModBlocks.END_LIMESTONE.get())) {
+                return this.grassify(level, stack, blockpos, ModBlocks.GRASSY_END_LIMESTONE.get());
             } else if (blockState.is(ModBlocks.END_BASALT.get())) {
                 return this.grassify(level, stack, blockpos, ModBlocks.GRASSY_END_BASALT.get());
             } else if (blockState.is(ModBlocks.COBBLED_END_STONE_BLOCK.get())) {

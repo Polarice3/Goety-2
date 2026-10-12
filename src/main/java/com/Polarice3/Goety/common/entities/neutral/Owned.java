@@ -50,6 +50,7 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
     public int limitedLifeTicks;
     public int hasSummonCheck;
     public int revivingTime;
+    public int pacifyTime;
 
     protected Owned(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
@@ -317,6 +318,14 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
 
     public boolean isNatural(){
         return this.entityData.get(NATURAL);
+    }
+
+    public int getPacifyTick() {
+        return this.pacifyTime;
+    }
+
+    public void setPacifyTick(int tick) {
+        this.pacifyTime = tick;
     }
 
     public boolean canBeAffected(MobEffectInstance pPotioneffect) {

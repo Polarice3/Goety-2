@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "goety:block/end_wall_lantern"
+    },
+    "facing=east":  {
+      "model": "goety:block/end_wall_lantern",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "goety:block/end_wall_lantern",
+      "y": 180
+    },
+    "facing=west":  {
+      "model": "goety:block/end_wall_lantern",
+      "y": 270
+    }
+  }
+}

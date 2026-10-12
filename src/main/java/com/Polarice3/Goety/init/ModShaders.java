@@ -15,6 +15,8 @@ import java.io.IOException;
 public final class ModShaders {
 
     private static ShaderInstance holeShader;
+    private static ShaderInstance enchantBeamShader;
+    private static ShaderInstance enchantSwirlShader;
 
     @SubscribeEvent
     static void registerShaders(RegisterShadersEvent event) throws IOException {
@@ -24,10 +26,29 @@ public final class ModShaders {
                         DefaultVertexFormat.POSITION),
                 shader -> holeShader = shader
         );
+        event.registerShader(
+                new ShaderInstance(event.getResourceProvider(),
+                        new ResourceLocation(Goety.MOD_ID, "enchant_beam"),
+                        DefaultVertexFormat.POSITION_COLOR_TEX),
+                shader -> enchantBeamShader = shader
+        );
+        event.registerShader(
+                new ShaderInstance(event.getResourceProvider(),
+                        new ResourceLocation(Goety.MOD_ID, "enchant_swirl"),
+                        DefaultVertexFormat.NEW_ENTITY),
+                shader -> enchantSwirlShader = shader
+        );
     }
 
     public static ShaderInstance getHoleShader() {
         return holeShader;
     }
 
+    public static ShaderInstance getEnchantBeamShader() {
+        return enchantBeamShader;
+    }
+
+    public static ShaderInstance getEnchantSwirlShader() {
+        return enchantSwirlShader;
+    }
 }

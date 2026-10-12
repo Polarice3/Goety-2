@@ -1,0 +1,27 @@
+{
+  "name": "Flame Construct",
+  "icon": "minecraft:magma_block",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_warred_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The ancient texts have jotted down a method of creating a strange golem-like creature of flame and deepslate. The creature proves itself deadly with its flame breath and explosive jumps."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:flame_construct",
+      "scale": 0.75
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:flame_construct",
+      "text": "Right click the center Magma Block with an Animation Core."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Brazier can be substituted with other types of decorative braziers, and the Deepslate can be substituted with other full blocks that have Deepslate in its name. They can be repaired by right-clicking on them with Magma Blocks or Furnace fuels. When it's hunkered down, right-clicking will cause it to rotate towards you, shift right-clicking will cause it to move to the center of the block it's on."
+    }
+  ]
+}

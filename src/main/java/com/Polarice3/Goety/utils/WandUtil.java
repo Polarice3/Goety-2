@@ -11,6 +11,7 @@ import com.Polarice3.Goety.common.entities.neutral.AbstractVine;
 import com.Polarice3.Goety.common.entities.neutral.TotemicBomb;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.entities.projectiles.IceBouquet;
+import com.Polarice3.Goety.common.entities.projectiles.MasterFangs;
 import com.Polarice3.Goety.common.entities.projectiles.Spike;
 import com.Polarice3.Goety.common.entities.util.TridentStorm;
 import com.Polarice3.Goety.common.magic.SpellStat;
@@ -884,5 +885,92 @@ public class WandUtil {
     public static void summonQuadOffensiveTrap(LivingEntity casterEntity, Entity targetEntity, EntityType<? extends AbstractMonolith> entityType, int extra) {
         BlockPos targetPos = createCenteredBlockPosOnTarget(targetEntity);
         summonQuadOffensiveTrap(casterEntity, targetPos, entityType, extra);
+    }
+
+    public static final double FANG_CELL_SIZE = 1.0D;
+
+    public static final int[][] FANG_LINE = {
+            {0, 0}, {1, -1}, {2, 0}, {3, -1}, {4, 0}, {5, -1},
+            {6, 0}, {7, -1}, {8, 0}, {9, -1}, {10, 0}, {11, -1}
+    };
+
+    public static final int[][] FANG_ROUND = {
+            {-1, 0}, {0, -1}, {0, 1}, {1, 0},
+            {-2, -2}, {-2, 2}, {2, -2}, {2, 2},
+            {-4, 0}, {0, -4}, {0, 4}, {4, 0},
+            {-5, -3}, {-5, 3}, {-3, -5}, {-3, 5}, {3, -5}, {3, 5}, {5, -3}, {5, 3}
+    };
+
+    public static void spawnFangLine(LivingEntity caster, Vec3 target) {
+        spawnFangPattern(caster, FANG_LINE, target, 1);
+    }
+
+    public static void spawnFangRound(LivingEntity caster, Vec3 target) {
+        spawnFangPattern(caster, FANG_ROUND, target, 0);
+    }
+
+    public static void spawnFangPattern(LivingEntity caster, int[][] pattern, Vec3 target, int ticksBetween) {
+        double minY = Math.min(target.y(), caster.getY());
+        double maxY = Math.max(target.y(), caster.getY()) + 1.0D;
+        float yaw = (float) Mth.atan2(target.z() - caster.getZ(), target.x() - caster.getX());
+        double forwardX = Mth.cos(yaw);
+        double forwardZ = Mth.sin(yaw);
+        double rightX = -forwardZ;
+        double rightZ = forwardX;
+        for (int i = 0; i < pattern.length; i++) {
+            double forward = pattern[i][0] * FANG_CELL_SIZE;
+            double right = pattern[i][1] * FANG_CELL_SIZE;
+            createMasterFang(caster, caster.getX() + forwardX * forward + rightX * right, caster.getZ() + forwardZ * forward + rightZ * right, minY, maxY, yaw, i * ticksBetween);
+        }
+    }
+
+    private static final int AROUND_TARGET_FANGS = 6;
+    private static final double AROUND_TARGET_RADIUS = 1.4D;
+    private static final int SLOW_FANG_WARMUP = 10;
+
+    public static void spawnFangsAroundTarget(LivingEntity caster, Vec3 target) {
+        double minY = Math.min(target.y(), caster.getY());
+        double maxY = Math.max(target.y(), caster.getY()) + 1.0D;
+        double centerX = target.x();
+        double centerZ = target.z();
+        float start = (float) Mth.atan2(centerZ - caster.getZ(), centerX - caster.getX());
+        float step = (float) (Math.PI * 2.0D / AROUND_TARGET_FANGS);
+        for (int i = 0; i < AROUND_TARGET_FANGS; i++) {
+            float angle = start + i * step;
+            double x = centerX + Mth.cos(angle) * AROUND_TARGET_RADIUS;
+            double z = centerZ + Mth.sin(angle) * AROUND_TARGET_RADIUS;
+            float facing = angle + Mth.PI + MathHelper.modelDegrees(90);
+            createMasterFang(caster, x, z, minY, maxY, facing, SLOW_FANG_WARMUP);
+        }
+    }
+
+    public static void createMasterFang(LivingEntity caster, double originalX, double originalZ, double minY, double originalY, float pYRot, int pWarmUp) {
+        BlockPos blockpos = BlockPos.containing(originalX, originalY, originalZ);
+        boolean flag = false;
+        double d0 = 0.0D;
+
+        do {
+            BlockPos blockpos1 = blockpos.below();
+            BlockState blockstate = caster.level.getBlockState(blockpos1);
+            if (blockstate.isFaceSturdy(caster.level, blockpos1, Direction.UP)) {
+                if (!caster.level.isEmptyBlock(blockpos)) {
+                    BlockState blockstate1 = caster.level.getBlockState(blockpos);
+                    VoxelShape voxelshape = blockstate1.getCollisionShape(caster.level, blockpos);
+                    if (!voxelshape.isEmpty()) {
+                        d0 = voxelshape.max(Direction.Axis.Y);
+                    }
+                }
+
+                flag = true;
+                break;
+            }
+
+            blockpos = blockpos.below();
+        } while(blockpos.getY() >= Mth.floor(minY) - 1);
+
+        if (flag) {
+            caster.level.addFreshEntity(new MasterFangs(caster.level, originalX, (double)blockpos.getY() + d0, originalZ, pYRot, pWarmUp, caster));
+        }
+
     }
 }

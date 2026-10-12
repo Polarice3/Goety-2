@@ -33,11 +33,13 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:writable_book"
+          "name": "minecraft:writable_book",
+          "weight": 5
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:golden_apple"
+          "name": "minecraft:golden_apple",
+          "weight": 5
         }
       ]
     },
@@ -45,7 +47,7 @@
       "bonus_rolls": 0.0,
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 4.0,
+        "max": 3.0,
         "min": 1.0
       },
       "entries": [
@@ -284,7 +286,7 @@
       "bonus_rolls": 0.0,
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 4.0,
+        "max": 3.0,
         "min": 1.0
       },
       "entries": [

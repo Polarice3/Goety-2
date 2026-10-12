@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "goety:marsh_log",
+    "goety:marsh_wood",
+    "goety:stripped_marsh_log",
+    "goety:stripped_marsh_wood"
+  ]
+}

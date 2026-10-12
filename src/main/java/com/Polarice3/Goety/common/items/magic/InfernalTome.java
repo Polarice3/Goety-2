@@ -1,11 +1,15 @@
 package com.Polarice3.Goety.common.items.magic;
 
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.projectiles.HellChant;
+import com.Polarice3.Goety.common.entities.util.EffectBlastTrap;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.ItemHelper;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -19,6 +23,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 public class InfernalTome extends Item {
     public static String CHANT_TIMES = "Chant Times";
@@ -80,22 +87,77 @@ public class InfernalTome extends Item {
         super.onUseTick(worldIn, livingEntityIn, stack, count);
         if (stack.getItem() instanceof InfernalTome) {
             int CastTime = stack.getUseDuration() - count;
-            if (CastTime == 1) {
-                worldIn.playSound(null, livingEntityIn.getX(), livingEntityIn.getY(), livingEntityIn.getZ(), ModSounds.HERETIC_CHANT.get(), SoundSource.PLAYERS, 2.0F, 0.5F);
-            }
-            if (!worldIn.isClientSide) {
-                boolean nether = CuriosFinder.hasNetherRobe(livingEntityIn);
-                if (!nether){
-                    livingEntityIn.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 60, 0, false, false));
+            if (ItemHelper.hasMaleficHelm(livingEntityIn)) {
+                if (!worldIn.isClientSide) {
+                    if (CastTime == 10) {
+                        Entity target = null;
+                        Vec3 vec30;
+                        HitResult hitResult = BlockFinder.rayTrace(worldIn, livingEntityIn, 32, 3);
+                        if (hitResult instanceof EntityHitResult result) {
+                            target = result.getEntity();
+                            vec30 = target.position();
+                        } else {
+                            vec30 = hitResult.getLocation();
+                        }
+                        int amount = MobUtil.healthIsHalved(livingEntityIn) ? 4 : 3;
+                        worldIn.playSound(null, vec30.x, vec30.y, vec30.z, ModSounds.TOWER_WRAITH_ACID.get(), livingEntityIn.getSoundSource(), 2.0F, 0.5F);
+                        for (int i = 0; i < amount; ++i) {
+                            Vec3 vec3;
+                            if (target != null) {
+                                vec3 = MobUtil.getFrontPos(target, 4.0D);
+                                if (i == 1) {
+                                    vec3 = MobUtil.getRightPos(target, 4.0D);
+                                } else if (i == 2) {
+                                    vec3 = MobUtil.getLeftPos(target, 4.0D);
+                                } else if (i == 3) {
+                                    vec3 = MobUtil.getBackPos(target, 4.0D);
+                                }
+                            } else {
+                                vec3 = MobUtil.getFrontPos(vec30, livingEntityIn, 4.0D);
+                                if (i == 1) {
+                                    vec3 = MobUtil.getRightPos(vec30, livingEntityIn, 4.0D);
+                                } else if (i == 2) {
+                                    vec3 = MobUtil.getLeftPos(vec30, livingEntityIn, 4.0D);
+                                } else if (i == 3) {
+                                    vec3 = MobUtil.getBackPos(vec30, livingEntityIn, 4.0D);
+                                }
+                            }
+                            EffectBlastTrap effectBlastTrap = new EffectBlastTrap(worldIn, vec3);
+                            effectBlastTrap.setOwner(livingEntityIn);
+                            effectBlastTrap.setAreaOfEffect(1.5F);
+                            effectBlastTrap.playSound = false;
+                            if (i == 0) {
+                                effectBlastTrap.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 1800));
+                            } else if (i == 1) {
+                                effectBlastTrap.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 1800));
+                            } else if (i == 2) {
+                                effectBlastTrap.addEffect(new MobEffectInstance(GoetyEffects.ACID_VENOM.get(), 900));
+                            } else {
+                                effectBlastTrap.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), 1800, 1));
+                            }
+                            MobUtil.moveDownToGround(effectBlastTrap);
+                            worldIn.addFreshEntity(effectBlastTrap);
+                        }
+                    }
                 }
-                if (count % 10 == 0) {
-                    HellChant hellChant = ModEntityType.HELL_CHANT.get().create(worldIn);
-                    if (hellChant != null) {
-                        hellChant.setExtraDamage(stack.getEnchantmentLevel(ModEnchantments.POTENCY.get()));
-                        hellChant.setBurning(stack.getEnchantmentLevel(ModEnchantments.BURNING.get()));
-                        hellChant.chant(livingEntityIn);
-                        worldIn.addFreshEntity(hellChant);
-                        ItemHelper.hurtAndBreak(stack, 1, livingEntityIn);
+            } else {
+                if (CastTime == 1) {
+                    worldIn.playSound(null, livingEntityIn.getX(), livingEntityIn.getY(), livingEntityIn.getZ(), ModSounds.HERETIC_CHANT.get(), SoundSource.PLAYERS, 2.0F, 0.5F);
+                }
+                if (!worldIn.isClientSide) {
+                    boolean nether = CuriosFinder.hasNetherRobe(livingEntityIn);
+                    if (!nether){
+                        livingEntityIn.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 60, 0, false, false));
+                    }
+                    if (count % 10 == 0) {
+                        HellChant hellChant = ModEntityType.HELL_CHANT.get().create(worldIn);
+                        if (hellChant != null) {
+                            hellChant.setExtraDamage(stack.getEnchantmentLevel(ModEnchantments.POTENCY.get()));
+                            hellChant.setBurning(stack.getEnchantmentLevel(ModEnchantments.BURNING.get()));
+                            hellChant.chant(livingEntityIn);
+                            worldIn.addFreshEntity(hellChant);
+                            ItemHelper.hurtAndBreak(stack, 1, livingEntityIn);
+                        }
                     }
                 }
             }

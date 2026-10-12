@@ -118,6 +118,7 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.STORM_CASTER.get(),
                 ModEntityType.STONE_MINISTROSITY.get(),
                 ModEntityType.REDSTONE_MINISTROSITY.get(),
+                ModEntityType.FLAME_CONSTRUCT.get(),
                 ModEntityType.ICE_GOLEM.get(),
                 ModEntityType.SQUALL_GOLEM.get(),
                 ModEntityType.GRAVE_GOLEM.get(),

@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "不祥火炬可以将$(l:goety:mutations/illager_servants)新刌民$()训练成其他兵种，要开始训练，你需要使用装有$(l:goety:focuses/command_focus)命令聚晶$()或$(l:goety:focuses/order_focus)敕令聚晶$()的法杖左键新刌民，然后再右键不祥火炬，如果配置文件中的“illagerServantAutoTrain”条目启用，则只需要把新刌民放在火炬旁边就行，就像不同类型的仪式中$(l:rituals/dark_altar)黑暗祭坛$()的摆放需求一样，新刌民最后会训练成特定的兵种，每个火炬至多能同时训练8名新刌民。"
+      "text": "不祥火炬可以将忠诚的$(l:goety:mutations/illager_servants)新刌民$()训练成其他兵种。要开始训练，你需要使用装有$(l:goety:focuses/command_focus)命令聚晶$()或$(l:goety:focuses/order_focus)敕令聚晶$()的法杖左键新刌民，然后再右键不祥火炬。如果配置文件中的“illagerServantAutoTrain”条目启用，则只需要把新刌民放在火炬旁边即可。训练过程类似于$(l:rituals/dark_altar)黑暗祭坛$()的特定仪式摆放需求，只要周围的内容物正确，新刌民最后就会训练成特定的兵种，每个火炬至多能同时训练8名新刌民。"
     },
     {
       "type": "goety:ritual",
@@ -14,19 +14,19 @@
     {
       "type": "patchouli:text",
       "title": "掠夺者仆从",
-      "text": "$(o)注：有其他掠夺者仆从在附近时，新刌民的训练速度会更快 $()$(br)需求： $(li)新刌民 $(li)2个干草块或标靶 $(li)2个雕刻过的南瓜 $(li)16个木栅栏 $(li)20个羊毛"
+      "text": "$(o)注：新刌民训练为掠夺者仆从的速度比其它兵种更快$()$(br)需求： $(li)新刌民 $(li)2个干草块或标靶 $(li)2个雕刻过的南瓜 $(li)16个木栅栏 $(li)20个羊毛"
     },
     {
       "type": "patchouli:text",
       "title": "帝国卫队仆从",
       "advancement": "goety:goety/read_front_scroll",
-      "text" : "$(o)注: 所有者必须阅读过$(l:goety:rumors/desert)先锋卷轴$()$()$(br)需求: $(li)掠夺者仆从 $(li)4个不详雕像 $(li)4个旗帜 $(li)4面旗帜 $(li)4个干草块或标靶 $(li)4个制箭台 $(li)2个铁砧 $(li)4个$(l:goety:crafts/stash_urn)隐秘之瓮$()"
+      "text": "$(o)注: 所有者必须阅读过$(l:goety:rumors/desert)先锋卷轴$()$()$(br)需求： $(li)掠夺者仆从 $(li)4个不祥雕像 $(li)4面旗帜 $(li)4个干草块或标靶 $(li)4个制箭台 $(li)2个铁砧 $(li)8个$(l:goety:crafts/stash_urn)隐秘之瓮$())"
     },
     {
       "type": "patchouli:text",
       "title": "长矛兵仆从",
       "advancement": "goety:goety/read_front_scroll",
-      "text": "$(o)注: 所有者必须阅读过$(l:goety:rumors/desert)先锋卷轴$()$()$(br)需求: $(li)新刌民 $(li)2个砂轮 $(li)2个锻造台 $(li)16个木栅栏 $(li)32个原木 $(li)4个木桶 $(li)4张床 $(li)2个铁砧"
+      "text": "$(o)注: 所有者必须阅读过$(l:goety:rumors/desert)先锋卷轴$()$()$(br)需求： $(li)新刌民 $(li)2个砂轮 $(li)2个锻造台 $(li)16个木栅栏 $(li)32个原木 $(li4个木桶 $(li)4张床 $(li)2个铁砧"
     },
     {
       "type": "patchouli:text",
@@ -41,28 +41,33 @@
     {
       "type": "patchouli:text",
       "title": "卫道士厨师仆从",
-      "text": "需求：$(li)1名卫道士仆从 $(li)4个烟熏炉或熔炉 $(li)16个木桶 $(li)2个熔炉 $(li)2块蛋糕"
+      "text": "需求：$(li)卫道士仆从 $(li)4个烟熏炉或熔炉 $(li)16个木桶 $(li)2个熔炉 $(li)2块蛋糕"
     },
     {
       "type": "patchouli:text",
       "title": "登山者仆从",
-      "text": "需求: $(li)1名卫道士仆从 $(li)火炬必须在可降雪的群系 $(li)16个木栅栏 $(li)20 个羊毛 $(li)8个木桶 $(li)4个被红石信号激活的鼓风机"
+      "text": "$(o)注：卫道士仆从训练为登山者仆从的速度比其它兵种更快$()$(br)需求: $(li)卫道士仆从 $(li)火炬必须在可降雪的群系 $(li)16个木栅栏 $(li)20 个羊毛 $(li)8个木桶 $(li)4个被红石信号激活的鼓风机"
     },
     {
       "type": "patchouli:text",
       "title": "粉碎者仆从",
-      "text": "需求：$(li)1名卫道士仆从 $(li)8个高炉 $(li)2个装满熔岩（岩浆）的炼药锅 $(li)2个装满水的炼药锅 $(li)4个铁砧 $(li)1个锻造台"
+      "text": "需求：$(li)卫道士仆从 $(li)8个高炉 $(li)2个装满岩浆的炼药锅 $(li)2个装满水的炼药锅 $(li)4个铁砧 $(li)1个锻造台"
     },
     {
       "type": "patchouli:text",
       "title": "皇家守卫仆从",
       "advancement": "goety:goety/read_front_scroll",
-      "text": "需求：$(li)1名卫道士仆从 $(li)4个不祥雕像 $(li)16块皇家地毯或霜冻地毯 $(li)4面旗帜 $(li)4个铁砧 $(li)4个$(l:goety:crafts/stash_urn)隐秘之瓮$()"
+      "text": "$(o)注: 所有者必须阅读过$(l:goety:rumors/desert)先锋卷轴$()$()$(br)需求：$(li)卫道士仆从 $(li)4个不祥雕像 $(li)16块皇家地毯或霜冻地毯 $(li)4面旗帜 $(li)4个铁砧 $(li)8个$(l:goety:crafts/stash_urn)隐秘之瓮$()"
     },
     {
       "type": "patchouli:text",
       "title": "唤魔者仆从",
-      "text": "需求：$(li)必须是有魔法资质的新刌民 $(li)32个书架/附魔能力与前者等同的方块 $(li)16根点燃的蜡烛 $(li)4个头颅 $(li)4个非空的花盆 $(li)2面旗帜 $(li)4个$(l:goety:crafts/stash_urn)隐秘之瓮$() $(li)1个讲台"
+      "text": "需求： $(li)必须是有魔法资质的新刌民 $(li)32个书架/附魔能力与前者等同的方块 $(li)16根点燃的蜡烛 $(li)4个头颅 $(li)4个非空的花盆 $(li)2面旗帜 $(li)4个$(l:goety:crafts/stash_urn)隐秘之瓮$() $(li)1个讲台"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "附魔师仆从",
+      "text": "需求： $(li)必须是有魔法资质的新刌民 $(li)64个书架/附魔能力与前者等同的方块 $(li)2个点亮的金制烛台/金制大烛台 $(li)1个讲台 $(li)1个附魔台 $(li)4个$(l:goety:crafts/stash_urn)隐秘之瓮$() $(li)4个装满附魔书的雕纹书架"
     },
     {
       "type": "patchouli:text",
@@ -77,7 +82,7 @@
     {
       "type": "patchouli:text",
       "title": "泣术师仆从",
-      "text": "需求: $(li)1名冰术师仆从 $(li)火炬必须在可降雪的群系 $(li)16个书架/附魔能力与前者等同的方块 $(li)32个细雪 $(li)16$(l:goety:crafts/creeper_totem)苦力怕图腾$()"
+      "text": "需求: $(li)冰术师仆从 $(li)火炬必须在可降雪的群系 $(li)16个书架/附魔能力与前者等同的方块 $(li)32个细雪 $(li)16$(l:goety:crafts/creeper_totem)苦力怕图腾$()"
     },
     {
       "type": "patchouli:text",
@@ -87,11 +92,11 @@
     {
       "type": "patchouli:text",
       "title": "暴风术士仆从",
-      "text": "需求：$(li)1名地卜师或唤风者仆从 $(li)火盆必须暴露在雷雨天气中 $(li)32个铜块及其变种 $(li)64个砖块及其变种 $(li)4根避雷针"
+      "text": "需求：$(li)地卜师仆从或唤风者仆从 $(li)火盆必须暴露在雷雨天气中 $(li)32个铜块及其变种 $(li)64个砖块及其变种 $(li)4根避雷针"
     },
     {
       "type": "patchouli:text",
-      "text": "要想停止或阻止他们的训练，你可以破坏掉不祥火炬，或是把他们转移到距离不祥火炬10格及以上的位置，如果正在训练的新刌民旁边有一名已经训练成功、并且兵种类型和这些新刌民训练目标一样的兵种（例如准备训练成卫道士的新刌民旁边有一个练好的卫道士），那新刌民的训练速度会加快"
+      "text": "要想停止他们的训练，你可以破坏掉不祥火炬，或是把他们转移到距离不祥火炬10格及以上的位置，如果正在训练的灾厄村民旁边有一名已经训练成功、并且兵种类型和这些新刌民训练目标一样的兵种（例如准备训练为卫道士的新刌民旁边有一个卫道士仆从，或是准备训练为泣术士的冰术士旁边有一个泣术士），那该灾厄村民的训练速度会加快。"
     }
   ],
   "extra_recipe_mappings": {

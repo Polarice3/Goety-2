@@ -11,7 +11,7 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:witch_pole",
-      "text": "A Witch's Pole helps reduce the amount of energy needed to make a brew when placed within 8 blocks of a Witch's Cauldron. Only up to 3 Poles will give the effect."
+      "text": "A Witch's Pole helps reduce the amount of energy needed to make a brew when placed within 8 blocks of a Witch's Cauldron. Only up to 3 Poles will give the effect. If you're using a Taglock Kit or a Waystone on your cauldron, each of them will also increases how the cauldron's reach! Why, with 3 of them, you can have the brew land anywhere! So long as that where is in the same dimension of course."
     },
     {
       "type": "patchouli:entity",

@@ -442,6 +442,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.slimy",
+      "text": "我听说你们这些小家伙喜欢浑身沾满黏液！那你们肯定会喜欢老奶奶的瓶子！"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.minecraft.slow_falling"
     },
     {

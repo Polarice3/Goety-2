@@ -85,6 +85,7 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
     public int noHealTime;
     public int hasSummonCheck;
     public int revivingTime;
+    public int pacifyTime;
     public long ticketTime = 0;
 
     public AbstractSpiderServant(EntityType<? extends Spider> p_33786_, Level p_33787_) {
@@ -418,7 +419,9 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
     }
 
     public void setTarget(@Nullable LivingEntity target) {
-        if (this.isGuardingArea() && !this.isPrioritizing()){
+        if (this.getPacifyTick() > 0) {
+            this.overrideSetTarget(null);
+        } else if (this.isGuardingArea() && !this.isPrioritizing()){
             if (target != null) {
                 if (target.distanceToSqr(this.vec3BoundPos()) <= Mth.square(GUARDING_RANGE)) {
                     this.overrideSetTarget(target);
@@ -652,6 +655,14 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
 
     public boolean isNatural(){
         return this.entityData.get(NATURAL);
+    }
+
+    public int getPacifyTick() {
+        return this.pacifyTime;
+    }
+
+    public void setPacifyTick(int tick) {
+        this.pacifyTime = tick;
     }
 
     public boolean canBeAffected(MobEffectInstance pPotioneffect) {

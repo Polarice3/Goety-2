@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "goety:end_limestone",
+    "goety:end_limestone_stairs",
+    "goety:end_limestone_slab",
+    "goety:soiled_end_limestone",
+    "goety:grassy_end_limestone",
+    "goety:dirty_end_limestone_slight",
+    "goety:dirty_end_limestone",
+    "goety:end_limestone_growth",
+    "goety:end_limestone_growth_base"
+  ]
+}

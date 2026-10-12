@@ -33,7 +33,9 @@ import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiRecord;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.DirectionalPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ClipContext;
@@ -42,6 +44,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -53,10 +56,7 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureStart;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.UsernameCache;
@@ -1055,6 +1055,50 @@ public class BlockFinder {
 
     public static boolean isInSunlessBiome(Level level, BlockPos blockPos) {
         return level.getBiome(blockPos).is(ModTags.Biomes.NO_SUNLIGHT);
+    }
+
+    public static boolean filledWithEnchantedBook(ChiseledBookShelfBlockEntity entity) {
+        if (entity == null) {
+            return false;
+        }
+        int i = 0;
+        for (int j = 0; j < ChiseledBookShelfBlock.SLOT_OCCUPIED_PROPERTIES.size(); ++j) {
+            ItemStack itemStack = entity.getItem(j);
+            if (itemStack.is(Items.ENCHANTED_BOOK)) {
+                ++i;
+            }
+        }
+        return i >= ChiseledBookShelfBlock.SLOT_OCCUPIED_PROPERTIES.size();
+    }
+
+    public static HitResult rayTrace(Level worldIn, LivingEntity caster, int range, double radius) {
+        if (entityResult(worldIn, caster, range, radius) == null){
+            return blockResult(worldIn, caster, range);
+        } else {
+            return entityResult(worldIn, caster, range, radius);
+        }
+    }
+
+    public static BlockHitResult blockResult(Level worldIn, LivingEntity caster, double range) {
+        float f = caster.getXRot();
+        float f1 = caster.getYRot();
+        Vec3 vector3d = caster.getEyePosition(1.0F);
+        float f2 = Mth.cos(-f1 * ((float)Math.PI / 180F) - (float)Math.PI);
+        float f3 = Mth.sin(-f1 * ((float)Math.PI / 180F) - (float)Math.PI);
+        float f4 = -Mth.cos(-f * ((float)Math.PI / 180F));
+        float f5 = Mth.sin(-f * ((float)Math.PI / 180F));
+        float f6 = f3 * f4;
+        float f7 = f2 * f4;
+        Vec3 vector3d1 = vector3d.add((double)f6 * range, (double)f5 * range, (double)f7 * range);
+        return worldIn.clip(new ClipContext(vector3d, vector3d1, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, caster));
+    }
+
+    public static EntityHitResult entityResult(Level worldIn, LivingEntity caster, int range, double radius){
+        Vec3 srcVec = caster.getEyePosition(1.0F);
+        Vec3 lookVec = caster.getViewVector(1.0F);
+        Vec3 destVec = srcVec.add(lookVec.x * range, lookVec.y * range, lookVec.z * range);
+        AABB axisalignedbb = caster.getBoundingBox().expandTowards(lookVec.scale(range)).inflate(radius, radius, radius);
+        return ProjectileUtil.getEntityHitResult(worldIn, caster, srcVec, destVec, axisalignedbb, entity -> entity instanceof LivingEntity && !entity.isSpectator() && entity.isPickable());
     }
 
     //Based on ChainsawTask by @Shadows-of-Fire: https://github.com/Shadows-of-Fire/Apotheosis/blob/1.20/src/main/java/dev/shadowsoffire/apotheosis/ench/enchantments/masterwork/ChainsawEnchant.java

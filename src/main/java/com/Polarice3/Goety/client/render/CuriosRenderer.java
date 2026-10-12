@@ -21,6 +21,7 @@ public class CuriosRenderer {
 
     public static void register() {
         CuriosRendererRegistry.register(ModItems.DARK_HAT.get(), () -> new WearRenderer(render("dark_hat.png"), new DarkHatModel(bakeLayer(ModModelLayer.DARK_HAT))));
+        CuriosRendererRegistry.register(ModItems.DARK_CROWN.get(), () -> new WearRenderer(render("dark_crown.png"), new DarkHatModel(bakeLayer(ModModelLayer.IRON_CROWN))));
         CuriosRendererRegistry.register(ModItems.GRAND_TURBAN.get(), () -> new WearRenderer(render("grand_turban.png"), new DarkHatModel(bakeLayer(ModModelLayer.GRAND_TURBAN))));
         CuriosRendererRegistry.register(ModItems.FROST_CROWN.get(), () -> new WearRenderer(render("frost_crown.png"), new DarkHatModel(bakeLayer(ModModelLayer.IRON_CROWN))));
         CuriosRendererRegistry.register(ModItems.WIND_CROWN.get(), () -> new WearRenderer(render("wind_crown.png"), new DarkHatModel(bakeLayer(ModModelLayer.IRON_CROWN))));

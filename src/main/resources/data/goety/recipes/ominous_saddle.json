@@ -7,10 +7,10 @@
   ],
   "key": {
     "B": {
-      "item": "goety:pale_steel_block"
+      "tag": "goety:ominous_metal_block"
     },
     "P": {
-      "item": "goety:pale_steel_ingot"
+      "tag": "goety:ominous_metal_ingot"
     },
     "S": {
       "item": "minecraft:saddle"

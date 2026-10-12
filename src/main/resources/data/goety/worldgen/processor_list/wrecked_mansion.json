@@ -12,6 +12,10 @@
       "to_haunt": "minecraft:dark_oak_planks"
     },
     {
+      "processor_type": "goety:marsh_processor",
+      "to_marsh": "minecraft:birch_planks"
+    },
+    {
       "processor_type": "goety:replace_processor",
       "to_replace": "minecraft:dark_oak_log",
       "replace_to": "goety:haunted_log"
@@ -48,22 +52,6 @@
     {
       "processor_type": "minecraft:rule",
       "rules": [
-        {
-          "input_predicate": {
-            "block": "minecraft:birch_planks",
-            "predicate_type": "minecraft:random_block_match",
-            "probability": 0.05
-          },
-          "location_predicate": {
-            "predicate_type": "minecraft:always_true"
-          },
-          "output_state": {
-            "Name": "minecraft:birch_slab",
-            "Properties": {
-              "type": "bottom"
-            }
-          }
-        },
         {
           "input_predicate": {
             "tag": "minecraft:wool_carpets",

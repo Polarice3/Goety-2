@@ -14,10 +14,11 @@
     },
     {
       "type": "patchouli:text",
-      "text": "どちらの方法も、場所または犠牲者が同じ次元にあることを必要とします。"
+      "text": "どちらの方法も、対象となる場所や犠牲者がボールと同じ次元にあり、かつ水晶玉から1024ブロック以内にある必要があります。ただし、そうした特定の制限を受けない水晶玉についての噂も存在します……。"
     }
   ],
   "extra_recipe_mappings": {
-    "goety:crystal_ball": 1
+    "goety:pale_crystal_ball": 1,
+    "goety:crystal_ball": 3
   }
 }

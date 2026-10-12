@@ -442,6 +442,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.slimy",
+      "text": "Ouvi dizer que vocês, pirralhos, adoram se sujar de gosma! Então com certeza vão adorar a mamadeira da Vovó!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.minecraft.slow_falling"
     },
     {

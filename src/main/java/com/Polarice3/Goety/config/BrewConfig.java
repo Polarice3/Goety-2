@@ -152,6 +152,7 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> PruningCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> RaiseDeadCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShearCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SlimyCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SnowyCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> StripArmorCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SweetThornsCost;
@@ -167,6 +168,7 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> PurifyDebuffsCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> PurifyBuffsCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> RaiseDeadCapacity;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SlimyCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> StripArmorCapacity;
     public static final ForgeConfigSpec.ConfigValue<Integer> WebbedCapacity;
 
@@ -428,6 +430,8 @@ public class BrewConfig {
                 .defineInRange("raiseDeadCost", 50, 1, Integer.MAX_VALUE);
         ShearCost = BUILDER.comment("Shear Soul Cost, Default: 10")
                 .defineInRange("shearCost", 10, 1, Integer.MAX_VALUE);
+        SlimyCost = BUILDER.comment("Slimy Soul Cost, Default: 50")
+                .defineInRange("slimyCost", 50, 1, Integer.MAX_VALUE);
         SnowyCost = BUILDER.comment("Snowy Soul Cost, Default: 25")
                 .defineInRange("snowyCost", 25, 1, Integer.MAX_VALUE);
         StripArmorCost = BUILDER.comment("Strip Armor Soul Cost, Default: 100")
@@ -526,6 +530,8 @@ public class BrewConfig {
                 .defineInRange("purifyBuffsCapacity", 2, 0, Integer.MAX_VALUE);
         RaiseDeadCapacity = BUILDER.comment("Raise Dead Extra Capacity, Default: 2")
                 .defineInRange("raiseDeadCapacity", 2, 0, Integer.MAX_VALUE);
+        SlimyCapacity = BUILDER.comment("Slimy Extra Capacity, Default: 2")
+                .defineInRange("slimyCapacity", 2, 0, Integer.MAX_VALUE);
         StripArmorCapacity = BUILDER.comment("Strip Armor Extra Capacity, Default: 2")
                 .defineInRange("stripArmorCapacity", 2, 0, Integer.MAX_VALUE);
         WebbedCapacity = BUILDER.comment("Webbed Extra Capacity, Default: 1")

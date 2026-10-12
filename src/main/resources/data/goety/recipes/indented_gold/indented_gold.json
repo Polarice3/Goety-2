@@ -1,8 +1,8 @@
 {
-  "type": "goety:cursed_infuser_recipes",
+  "type": "minecraft:stonecutting",
   "ingredient": {
     "tag": "forge:storage_blocks/gold"
   },
   "result": "goety:indented_gold",
-  "cookingTime": 20
+  "count": 4
 }

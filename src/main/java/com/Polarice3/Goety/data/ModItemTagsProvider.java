@@ -74,6 +74,7 @@ public class ModItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
                 ModItems.VOID_CROWN.get(),
                 ModItems.NETHER_CROWN.get(),
                 ModItems.DARK_HAT.get(),
+                ModItems.DARK_CROWN.get(),
                 ModItems.GRAND_TURBAN.get(),
                 ModItems.UNHOLY_HAT.get(),
                 ModItems.UNHOLY_HAT_HALO.get()).replace(false);

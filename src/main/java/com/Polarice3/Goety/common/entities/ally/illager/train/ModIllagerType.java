@@ -1,10 +1,11 @@
 package com.Polarice3.Goety.common.entities.ally.illager.train;
 
-import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.entities.ally.illager.ITrainIllager;
 import com.Polarice3.Goety.common.blocks.*;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.illager.Neollager;
+import com.Polarice3.Goety.common.research.Research;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.common.ritual.RitualChecker;
 import com.Polarice3.Goety.init.ModTags;
@@ -17,6 +18,8 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.Tags;
 
 public class ModIllagerType implements ITrainIllager {
@@ -28,25 +31,36 @@ public class ModIllagerType implements ITrainIllager {
 
     public boolean mobCanTrainToType(Mob mob, EntityType<?> entityType) {
         if (entityType == ModEntityType.STORM_CASTER_SERVANT.get()) {
-            return mob.getType() == ModEntityType.GEOMANCER_SERVANT.get() || mob.getType() == ModEntityType.WIND_CALLER_SERVANT.get();
+            return (mob.getType() == ModEntityType.GEOMANCER_SERVANT.get() || mob.getType() == ModEntityType.WIND_CALLER_SERVANT.get()) && this.hasResearch(mob, ResearchList.MISTRAL);
         } else if (entityType == ModEntityType.CRYOLOGER_SERVANT.get()) {
             return mob.getType() == ModEntityType.ICEOLOGER_SERVANT.get();
+        } else if (entityType == ModEntityType.WIND_CALLER_SERVANT.get()) {
+            return mob instanceof Neollager neollager && neollager.isMagic() && this.hasResearch(mob, ResearchList.MISTRAL);
         } else if (entityType == ModEntityType.VINDICATOR_CHEF_SERVANT.get() || entityType == ModEntityType.MOUNTAINEER_SERVANT.get() || entityType == ModEntityType.CRUSHER_SERVANT.get()) {
             return mob.getType() == ModEntityType.VINDICATOR_SERVANT.get();
         } else if (entityType == ModEntityType.ROYAL_GUARD_SERVANT.get()) {
-            return mob.getType() == ModEntityType.VINDICATOR_SERVANT.get() && mob instanceof IOwned owned && owned.getTrueOwner() instanceof Player player && SEHelper.hasResearch(player, ResearchList.FRONT);
+            return mob.getType() == ModEntityType.VINDICATOR_SERVANT.get() && this.hasResearch(mob, ResearchList.FRONT);
         } else if (entityType == ModEntityType.IMPERIAL_GUARD_SERVANT.get()) {
-            return mob.getType() == ModEntityType.PILLAGER_SERVANT.get() && mob instanceof IOwned owned && owned.getTrueOwner() instanceof Player player && SEHelper.hasResearch(player, ResearchList.FRONT);
+            return mob.getType() == ModEntityType.PILLAGER_SERVANT.get() && this.hasResearch(mob, ResearchList.FRONT);
         } else if (entityType == ModEntityType.PIKER_SERVANT.get()) {
-            return mob instanceof Neollager neollager && neollager.getTrueOwner() instanceof Player player && SEHelper.hasResearch(player, ResearchList.FRONT);
+            return mob instanceof Neollager && this.hasResearch(mob, ResearchList.FRONT);
         } else {
             return mob instanceof Neollager;
         }
     }
 
+    public boolean hasResearch(Mob mob, Research research) {
+        if (mob instanceof IServant servant) {
+            if (servant.getTrueOwner() instanceof Player player) {
+                return SEHelper.hasResearch(player, research);
+            }
+        }
+        return false;
+    }
+
     @Override
     public EntityType<? extends Mob> getIllager(Level level, BlockPos blockPos, int range) {
-        RitualChecker checker = new RitualChecker(level, blockPos, blockState -> true, range, 0);
+        RitualChecker checker = new RitualChecker(level, blockPos, blockState -> true, blockEntity -> false, range, 0);
         if (checker.hasBlocks(blockState -> blockState.is(Blocks.HAY_BLOCK) || blockState.is(Blocks.TARGET), 2)
                 && checker.hasBlocks(blockState -> blockState.getBlock() instanceof CarvedPumpkinBlock, 2)
                 && checker.hasBlocks(blockState -> blockState.is(Tags.Blocks.FENCES_WOODEN), 16)
@@ -108,6 +122,13 @@ public class ModIllagerType implements ITrainIllager {
                 && checker.hasBlocks(blockState -> blockState.getBlock() instanceof AbstractSkullBlock || blockState.getBlock() instanceof TallSkullBlock || blockState.getBlock() instanceof WallTallSkullBlock, 4)
                 && checker.hasBlocks(blockState -> blockState.getBlock() instanceof FlowerPotBlock flowerPotBlock && flowerPotBlock.getContent() != Blocks.AIR, 4)) {
             return ModEntityType.EVOKER_SERVANT.get();
+        } else if (BlockFinder.getNearbyEnchantPower(level, blockPos, range, 64)
+                && checker.hasBlocks(blockState -> (blockState.getBlock() instanceof CandlestickBlock && blockState.getValue(BlockStateProperties.LIT)) || (blockState.getBlock() instanceof WallCandlestickBlock && blockState.getValue(BlockStateProperties.LIT)) || (blockState.getBlock() instanceof CandelabraBlock && blockState.getValue(BlockStateProperties.LIT)), 2)
+                && checker.hasBlocks(blockState -> blockState.is(Blocks.LECTERN), 1)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof StashUrnBlock, 4)
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof EnchantmentTableBlock, 1)
+                && checker.hasBlockEntities(blockEntity -> blockEntity instanceof ChiseledBookShelfBlockEntity blockEntity1 && BlockFinder.filledWithEnchantedBook(blockEntity1), 4)) {
+            return ModEntityType.ENCHANTER_SERVANT.get();
         } else if (checker.hasBlocks(blockState -> blockState.is(Tags.Blocks.STORAGE_BLOCKS_AMETHYST), 16)
                 && checker.hasBlocks(blockState -> blockState.getBlock().getDescriptionId().contains("deepslate"), 64)
                 && checker.hasBlocks(blockState -> blockState.is(ModBlocks.CREEPER_TOTEM.get()), 16)) {

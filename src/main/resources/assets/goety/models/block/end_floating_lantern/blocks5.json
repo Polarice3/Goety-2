@@ -1,0 +1,20 @@
+{
+    "texture_size": [ 64, 64 ],
+    "textures": {
+        "0": "goety:block/end_lantern",
+        "particle": "goety:block/end_basalt_bricks"
+    },
+    "elements": [
+        {   "from": [ 6.5002, 5.4446, 6.5263 ],
+            "to": [ 9.5002, 10.5556, 9.4738 ],
+            "faces": {
+                "down": { "uv": [ 7.5, 0.75, 8.25, 1.5 ], "texture": "#0" },
+                "up": { "uv": [ 10.25, 1.5, 9.5, 0.75 ], "texture": "#0" },
+                "north": { "uv": [ 9.5, 2.25, 8.25, 1.5 ], "texture": "#0", "rotation": 90 },
+                "south": { "uv": [ 9.5, 0.75, 8.25, 0 ], "texture": "#0", "rotation": 90 },
+                "west": { "uv": [ 9.5, 3, 8.25, 2.25 ], "texture": "#0", "rotation": 90 },
+                "east": { "uv": [ 9.5, 1.5, 8.25, 0.75 ], "texture": "#0", "rotation": 90 }
+            }
+        }
+    ]
+}

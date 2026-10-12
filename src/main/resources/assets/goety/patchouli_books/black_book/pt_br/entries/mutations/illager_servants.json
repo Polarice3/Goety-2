@@ -119,6 +119,14 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:enchanter_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Estes estudiosos têm a capacidade de encantar aliados próximos, quando confrontados com um inimigo, aumentando suas estatísticas e resistência a danos. Eles só podem manter seus vínculos por um tempo, e ele se romperá se o encantado se afastar muito do Encantador."
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:geomancer_servant"
     },
     {
@@ -144,19 +152,23 @@
     {
       "type": "patchouli:entity",
       "entity": "goety:wind_caller_servant",
+      "advancement": "goety:goety/read_mistral_scroll",
       "scale": 0.75
     },
     {
       "type": "patchouli:text",
+      "advancement": "goety:goety/read_mistral_scroll",
       "text": "Mestres dos céus, estes xamãs de cabelo grande podem arremessar seus inimigos para o céu ou afastá-los com o vento."
     },
     {
       "type": "patchouli:entity",
       "entity": "goety:storm_caster_servant",
+      "advancement": "goety:goety/read_mistral_scroll",
       "scale": 0.75
     },
     {
       "type": "patchouli:text",
+      "advancement": "goety:goety/read_mistral_scroll",
       "text": "Quer estejam caçando tesouros ou mantendo-os seguros, estes illagers eletrocutarão impiedosamente seus inimigos até virar cinzas."
     },
     {
@@ -179,6 +191,7 @@
     {
       "type": "patchouli:entity",
       "name": "Capitão Illager",
+      "anchor": "captain",
       "entity": "goety:pillager_servant{HandItems:[{Count:1,id:\"minecraft:crossbow\"},{}], ArmorItems:[{},{},{},{Count:1,id:\"minecraft:black_banner\"}]}",
       "scale": 0.5,
       "text": "Illagers como Servos Saqueadores podem ser feitos capitães."
@@ -189,7 +202,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Clicar com o botão direito em um capitão com um Kit Taglock, que tenha uma criatura Marcada nele, fará com que ele, e servos de saque próximos que estão seguindo o Illager, ou que não tenham um capitão, cacem a dita criatura antes de retornar ao seu mestre uma vez que matem sua presa. Se o grupo de caça contiver saqueadores que não seguiam nenhum Illager, eles começarão a seguir o capitão com quem vieram."
+      "text": "Clicar com o botão direito em um capitão com um Kit de Taglock, que tenha uma criatura Marcada nele, fará com que ele, e servos de saque próximos que estão seguindo o Illager, ou que não tenham um capitão, cacem a dita criatura antes de retornar ao seu mestre uma vez que matem sua presa. Se o grupo de caça contiver saqueadores que não seguiam nenhum Illager, eles começarão a seguir o capitão com quem vieram."
     },
     {
       "type": "patchouli:spotlight",
@@ -220,6 +233,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "minecraft:chest",
+      "anchor": "chest",
       "title": "Interação com Baú",
       "text": "Clicar com o botão direito em um Illager com uma Pedra da Orientação que leve a um Baú destrancado fará com que eles registrem o baú como um contêiner válido para tirar comida dele, ou armazenar comida e pilhagem em excesso, quando estiverem por perto. Se o Illager for um líder, seus seguidores registrarão o mesmo baú também."
     },

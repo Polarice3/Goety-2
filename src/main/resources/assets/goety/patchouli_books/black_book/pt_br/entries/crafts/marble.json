@@ -17,8 +17,8 @@
       "text": "Blocos de Ouro Rebaixado, embora menos brilhantes que um bloco sólido de ouro, ainda simbolizam opulência e riqueza. Um bloco construtivo peculiar para o que você ouviu ser um antigo santuário."
     },
     {
-      "type": "patchouli:crafting",
-      "recipe": "goety:indented_gold/indented_gold_craft"
+      "type": "patchouli:stonecutting",
+      "recipe": "goety:indented_gold/indented_gold"
     },
     {
       "type": "patchouli:text",

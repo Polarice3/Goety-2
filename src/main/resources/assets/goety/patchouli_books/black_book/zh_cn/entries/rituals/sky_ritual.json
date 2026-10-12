@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "需求: $(li)祭坛必须y=128层以上 $(br)$(l)或$()$() $(li)8个大理石方块 $(li)16个玉瓷砖 $(li)4个平滑金块"
+      "text": "需求: $(li)祭坛必须y=128层以上 $(br)$(l)或$()$() $(li)8个大理石方块 $(li)16个玉瓦 $(li)4个平滑金块"
     },
     {
       "type": "patchouli:image",

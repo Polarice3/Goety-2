@@ -78,12 +78,14 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShowWandCooldown;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WheelGuiMovement;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShowNum;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ShowChange;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> BetterDragonFireball;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RobesIronResist;
     public static final ForgeConfigSpec.ConfigValue<Boolean> IronBuff;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CataclysmVoidStone;
     public static final ForgeConfigSpec.ConfigValue<Boolean> OminousStoneGenerator;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SoulFireBurn;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> EnableNightBeacon;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RitualEnchants;
@@ -139,8 +141,8 @@ public class MainConfig {
                 .define("starterBook", false);
         StarterWitchBook = BUILDER.comment("Gives Players the Witch's Brew when first entering World and Patchouli is loaded, Default: false")
                 .define("starterWitchBook", false);
-        GoodwillNoDamage = BUILDER.comment("Entities part of a Player's Grimoire of Goodwill will not take most damage from said Player rather than just spells, Default: false")
-                .define("goodwillNoDamage", false);
+        GoodwillNoDamage = BUILDER.comment("Entities part of a Player's Grimoire of Goodwill will not take most damage from said Player rather than just spells, Default: true")
+                .define("goodwillNoDamage", true);
         GoodwillServantGuard = BUILDER.comment("Entities part of a Player's Grimoire of Goodwill will be protected by the Player's servants, Default: true")
                 .define("goodwillServantGuard", true);
         GoodwillFullAlly = BUILDER.comment("Entities part of a Player's Grimoire of Goodwill will be considered as the Player's ally codewise, Default: false")
@@ -159,6 +161,8 @@ public class MainConfig {
                 .define("wheelGuiMovement", true);
         ShowNum = BUILDER.comment("Show numerical amount of Souls on the Soul Energy Bar, Default: false")
                 .define("showNumber", false);
+        ShowChange = BUILDER.comment("Show how much soul energy is added or removed on the Soul Energy Bar, Default: true")
+                .define("showChange", true);
         SoulGuiHorizontal = BUILDER.comment("Horizontal Position of where the Soul Energy Bar is located, Default: 100")
                 .defineInRange("soulGuiHorizontal", 100, -Integer.MAX_VALUE, Integer.MAX_VALUE);
         SoulGuiVertical = BUILDER.comment("Vertical Position of where the Soul Energy Bar is located, Default: -5")
@@ -182,7 +186,7 @@ public class MainConfig {
         CameraShake = BUILDER.comment("Players camera can shake. Default: true")
                 .define("cameraShake", true);
         BUILDER.pop();
-        BUILDER.push("Mod Compatibility");
+        BUILDER.push("Mod Compat/Vanilla Changes");
         BetterDragonFireball = BUILDER.comment("If enabled, Ender Dragon's Fireballs will leave clouds that damages even undead and will not hit itself. Default: false")
                 .define("betterDragonFireball", false);
         RobesIronResist = BUILDER.comment("If Iron's Spells and Spellbooks is installed, certain robes provides Spell resistances. Default: true")
@@ -193,6 +197,8 @@ public class MainConfig {
                 .define("cataclysmVoidStone", true);
         OminousStoneGenerator = BUILDER.comment("If there's a Block of Lapis Lazuli below, Lava interacting with water will generate Ominous Stone. Default: true")
                 .define("ominousStoneGenerator", true);
+        SoulFireBurn = BUILDER.comment("Change Soul Fire behavior to give Soul Burn effect instead of simply burning entities. Default: true")
+                .define("soulFireBurn", true);
         BUILDER.pop();
         BUILDER.push("Blocks");
         HookBellBlackList = BUILDER.comment("""

@@ -25,6 +25,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -347,9 +348,16 @@ public class SlimeServant extends Summoned{
             if (this.distanceToSqr(p_33638_) < 0.6D * (double)i * 0.6D * (double)i && this.hasLineOfSight(p_33638_) && p_33638_.hurt(this.getServantAttack(), this.getAttackDamage())) {
                 this.playSound(this.getAttackSound(), 1.0F, this.getVoicePitch());
                 this.doEnchantDamageEffects(this, p_33638_);
+                this.postAttackEffect(p_33638_);
             }
         }
 
+    }
+
+    protected void postAttackEffect(LivingEntity livingEntity) {
+        if (this.isUpgraded()) {
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 3));
+        }
     }
 
     protected float getStandingEyeHeight(Pose p_33614_, EntityDimensions p_33615_) {

@@ -57,11 +57,19 @@ public interface IShielded {
         return new ItemStack(Items.ANVIL);
     }
 
-    default void destroyShield(){
+    default boolean hitBaseShield() {
+        return true;
+    }
+
+    default void destroyShield(DamageSource source, float amount){
         Mob mob = this instanceof Mob mob1 ? mob1 : null;
         if (this.hasShield()) {
-            if (this.getShieldHealth() > 1){
-                this.setShieldHealth(this.getShieldHealth() - 1);
+            int finalAmount = Mth.floor(amount);
+            if (this.hitBaseShield()) {
+                finalAmount = 1;
+            }
+            if (this.getShieldHealth() > finalAmount){
+                this.setShieldHealth(this.getShieldHealth() - finalAmount);
                 if (mob != null) {
                     mob.playSound(SoundEvents.SHIELD_BLOCK);
                 }
@@ -80,12 +88,17 @@ public interface IShielded {
         }
     }
 
+    @Deprecated
+    default void destroyShield(){
+        this.destroyShield(null, 1.0F);
+    }
+
     default boolean hurtShielded(DamageSource source, float amount, BooleanSupplier defaultHurt) {
         if (this instanceof Mob mob) {
             if (!mob.level.isClientSide) {
                 if (this.hasShield() && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
                     if (amount > 0.0F) {
-                        this.destroyShield();
+                        this.destroyShield(source, amount);
                     } else {
                         mob.playSound(SoundEvents.SHIELD_BLOCK);
                     }

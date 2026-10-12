@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "goety:block/end_standing_lantern"
+    },
+    "half=upper": {
+      "model": "goety:block/end_lantern_empty"
+    }
+  }
+}

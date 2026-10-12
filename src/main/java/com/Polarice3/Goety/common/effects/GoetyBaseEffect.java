@@ -1,6 +1,8 @@
 package com.Polarice3.Goety.common.effects;
 
+import com.Polarice3.Goety.api.items.magic.ISoulContainer;
 import com.Polarice3.Goety.client.particles.AuraParticleOption;
+import com.Polarice3.Goety.client.particles.MagicSmokeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
 import com.Polarice3.Goety.common.network.ModNetwork;
@@ -226,21 +228,37 @@ public class GoetyBaseEffect extends MobEffect {
                 }
             }
         }
-        /*if (this == GoetyEffects.SOUL_BURN.get()){
+        if (this == GoetyEffects.SOUL_BURN.get()){
             if (livingEntity.tickCount % 20 == 0) {
-                livingEntity.hurt(ModDamageSource.getDamageSource(world, ModDamageSource.MAGIC_FIRE), 2.0F);
-                if (livingEntity instanceof Player player) {
+                boolean flag = livingEntity.hurt(ModDamageSource.getDamageSource(world, ModDamageSource.SOUL_BURN), 2.0F);
+                if (livingEntity instanceof Player player && flag) {
                     int amount;
-                    if (ISoulContainer.MAX_SOULS <= 300) {
-                        amount = 5;
+                    if (ISoulContainer.MAX_SOULS <= 100) {
+                        amount = 2;
                     } else {
-                        amount = (ISoulContainer.MAX_SOULS / 300) * 5;
+                        amount = (ISoulContainer.MAX_SOULS / 100) * 2;
                     }
-                    SEHelper.decreaseSouls(player, amount);
+                    SEHelper.decreaseSoulsNoDiscount(player, amount);
                 }
 
             }
-        }*/
+        }
+        if (this == GoetyEffects.ENCHANTED.get()) {
+            /*if (livingEntity.tickCount % 4 == 0) {
+                livingEntity.heal(livingEntity.getMaxHealth() * 0.01F);
+            }*/
+            if (!world.isClientSide) {
+                if (world instanceof ServerLevel serverLevel) {
+                    serverLevel.sendParticles(new MagicSmokeParticleOption(0xffecff, 0x9f34cd, 10 + world.getRandom().nextInt(10), 0.2F, -0.01F), livingEntity.getRandomX(0.5D), livingEntity.getRandomY(), livingEntity.getRandomZ(0.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
+                }
+                Entity entity = MiscCapHelper.getEnchanter(livingEntity);
+                if (entity == null || !entity.isAlive() || (entity instanceof LivingEntity living && living.isDeadOrDying())) {
+                    livingEntity.removeEffect(GoetyEffects.ENCHANTED.get());
+                } else if (entity instanceof LivingEntity living) {
+                    MiscCapHelper.setEnchanterTime(living, 5);
+                }
+            }
+        }
         if (this == GoetyEffects.WOUNDED.get()) {
             if (livingEntity.tickCount % 10 == 0) {
                 if (world instanceof ServerLevel serverLevel) {

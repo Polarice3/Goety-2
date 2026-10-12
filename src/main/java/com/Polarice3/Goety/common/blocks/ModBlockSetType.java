@@ -10,6 +10,8 @@ public class ModBlockSetType {
             BlockSetType.register(new BlockSetType(Goety.location("haunted").toString()));
     public static final BlockSetType ROTTEN =
             BlockSetType.register(new BlockSetType(Goety.location("rotten").toString()));
+    public static final BlockSetType MARSH =
+            BlockSetType.register(new BlockSetType(Goety.location("marsh").toString()));
     public static final BlockSetType WINDSWEPT =
             BlockSetType.register(new BlockSetType(Goety.location("windswept").toString()));
     public static final BlockSetType PINE =

@@ -12,6 +12,7 @@ import com.Polarice3.Goety.common.entities.ally.undead.HauntedSkull;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.FrozenZombieServant;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.projectiles.ThrowableFungus;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
@@ -29,6 +30,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.gossip.GossipType;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.Villager;
@@ -52,8 +54,10 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static net.minecraftforge.event.entity.living.LivingChangeTargetEvent.LivingTargetType.MOB_TARGET;
@@ -314,7 +318,13 @@ public class ServantEvents {
             }
         }
         RaiderServant raider = null;
-        if (killer instanceof RaiderServant servant) {
+        if (killer == null) {
+            if (killed.getLastHurtByMob() instanceof RaiderServant servant) {
+                raider = servant;
+            } else if (MobUtil.getOwner(killed.getLastHurtByMob()) instanceof RaiderServant servant) {
+                raider = servant;
+            }
+        } else if (killer instanceof RaiderServant servant) {
             raider = servant;
         } else if (MobUtil.getOwner(killer) instanceof RaiderServant servant) {
             raider = servant;
@@ -476,38 +486,48 @@ public class ServantEvents {
 
     @SubscribeEvent
     public static void DropEvents(LivingDropsEvent event){
+        Collection<ItemEntity> collection = event.getDrops();
         if (event.getEntity() != null) {
             LivingEntity victim = event.getEntity();
             if (!victim.level.isClientSide) {
                 if (victim instanceof Mob) {
                     if (MobsConfig.IllagerServantCollectLoot.get()){
-                        AbstractIllagerServant servant = null;
-                        if (victim.getLastHurtByMob() instanceof IOwned minion){
-                            if (minion.getTrueOwner() instanceof AbstractIllagerServant servant1) {
-                                servant = servant1;
-                            }
-                        } else {
-                            if (event.getSource().getEntity() instanceof IOwned minion) {
-                                if (minion.getTrueOwner() instanceof AbstractIllagerServant servant1) {
-                                    servant = servant1;
-                                }
-                            }
-                        }
-                        if (victim.getLastHurtByMob() instanceof AbstractIllagerServant servant1) {
-                            servant = servant1;
-                        } else if (event.getSource().getEntity() instanceof AbstractIllagerServant servant1) {
-                            servant = servant1;
-                        }
+                        AbstractIllagerServant servant = getIllagerServant(event, victim);
                         if (servant != null){
                             if (servant.getTrueOwner() != null) {
-                                servant.addDrops(event.getDrops());
-                                event.getDrops().clear();
+                                if (CuriosFinder.hasCurio(servant.getTrueOwner(), ModItems.RING_OF_WRECKING.get())) {
+                                    collection.removeIf(itemEntity -> ItemHelper.isWreckable(itemEntity.getItem()));
+                                }
+                                servant.addDrops(collection);
+                                collection.clear();
                             }
                         }
                     }
                 }
             }
         }
+    }
+
+    @Nullable
+    private static AbstractIllagerServant getIllagerServant(LivingDropsEvent event, LivingEntity victim) {
+        AbstractIllagerServant servant = null;
+        if (victim.getLastHurtByMob() instanceof IOwned minion){
+            if (minion.getTrueOwner() instanceof AbstractIllagerServant servant1) {
+                servant = servant1;
+            }
+        } else {
+            if (event.getSource().getEntity() instanceof IOwned minion) {
+                if (minion.getTrueOwner() instanceof AbstractIllagerServant servant1) {
+                    servant = servant1;
+                }
+            }
+        }
+        if (victim.getLastHurtByMob() instanceof AbstractIllagerServant servant1) {
+            servant = servant1;
+        } else if (event.getSource().getEntity() instanceof AbstractIllagerServant servant1) {
+            servant = servant1;
+        }
+        return servant;
     }
 
     @SubscribeEvent

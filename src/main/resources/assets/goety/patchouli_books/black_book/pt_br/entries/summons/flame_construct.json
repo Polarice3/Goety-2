@@ -1,0 +1,27 @@
+{
+  "name": "Constructo Flamejante",
+  "icon": "minecraft:magma_block",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_warred_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Os textos antigos registraram um método de criar uma estranha criatura semelhante a um golem feita de chamas e ardósia. A criatura se mostra mortal com seu sopro de fogo e saltos explosivos."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:flame_construct",
+      "scale": 0.75
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:flame_construct",
+      "text": "Clique com o botão direito no Bloco de Magma central com um Núcleo de Animação."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "O Braseiro pode ser substituído por outros tipos de braseiros decorativos, e a Ardósia pode ser substituída por outros blocos completos que tenham Ardósia em seu nome. Eles podem ser reparados clicando com o botão direito neles com Blocos de Magma ou combustíveis de Fornalha. Quando estiver encolhido, clicar com o botão direito fará com que ele gire em sua direção, shift + clique com o botão direito fará com que ele se mova para o centro do bloco em que está."
+    }
+  ]
+}

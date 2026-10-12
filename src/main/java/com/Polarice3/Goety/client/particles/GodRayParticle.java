@@ -5,11 +5,9 @@ import com.Polarice3.Goety.utils.Easing;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
@@ -57,7 +55,6 @@ public class GodRayParticle extends TextureSheetParticle {
 
     @Override
     public void render(VertexConsumer buffer, Camera camera, float partialTicks) {
-        MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
         Vec3 camPos = camera.getPosition();
         PoseStack stack = new PoseStack();
         stack.pushPose();
@@ -72,30 +69,27 @@ public class GodRayParticle extends TextureSheetParticle {
             int baseColor = FastColor.ARGB32.color(Math.round(Mth.lerp(flashProgress, 0.5F, 1.0F) * 255), Math.round(rCol * 255), Math.round(gCol * 255), Math.round(bCol * 255));
             int topColor = FastColor.ARGB32.color(0, Math.round(rCol * 255), Math.round(gCol * 255), Math.round(bCol * 255));
 
-            VertexConsumer consumer = bufferSource.getBuffer(ModRenderType.DRAGON_RAYS_QUADS);
+            buffer.vertex(pose.pose(), -flashDistFromCenter, 0, -flashDistFromCenter).color(baseColor).endVertex();
+            buffer.vertex(pose.pose(), -flashDistFromCenter, 0, flashDistFromCenter).color(baseColor).endVertex();
+            buffer.vertex(pose.pose(), -flashDistFromCenter, flashHeight, flashDistFromCenter).color(topColor).endVertex();
+            buffer.vertex(pose.pose(), -flashDistFromCenter, flashHeight, -flashDistFromCenter).color(topColor).endVertex();
 
-            consumer.vertex(pose.pose(), -flashDistFromCenter, 0, -flashDistFromCenter).color(baseColor).endVertex();
-            consumer.vertex(pose.pose(), -flashDistFromCenter, 0, flashDistFromCenter).color(baseColor).endVertex();
-            consumer.vertex(pose.pose(), -flashDistFromCenter, flashHeight, flashDistFromCenter).color(topColor).endVertex();
-            consumer.vertex(pose.pose(), -flashDistFromCenter, flashHeight, -flashDistFromCenter).color(topColor).endVertex();
+            buffer.vertex(pose.pose(), -flashDistFromCenter, 0, -flashDistFromCenter).color(baseColor).endVertex();
+            buffer.vertex(pose.pose(), flashDistFromCenter, 0, -flashDistFromCenter).color(baseColor).endVertex();
+            buffer.vertex(pose.pose(), flashDistFromCenter, flashHeight, -flashDistFromCenter).color(topColor).endVertex();
+            buffer.vertex(pose.pose(), -flashDistFromCenter, flashHeight, -flashDistFromCenter).color(topColor).endVertex();
 
-            consumer.vertex(pose.pose(), -flashDistFromCenter, 0, -flashDistFromCenter).color(baseColor).endVertex();
-            consumer.vertex(pose.pose(), flashDistFromCenter, 0, -flashDistFromCenter).color(baseColor).endVertex();
-            consumer.vertex(pose.pose(), flashDistFromCenter, flashHeight, -flashDistFromCenter).color(topColor).endVertex();
-            consumer.vertex(pose.pose(), -flashDistFromCenter, flashHeight, -flashDistFromCenter).color(topColor).endVertex();
+            buffer.vertex(pose.pose(), flashDistFromCenter, 0, -flashDistFromCenter).color(baseColor).endVertex();
+            buffer.vertex(pose.pose(), flashDistFromCenter, 0, flashDistFromCenter).color(baseColor).endVertex();
+            buffer.vertex(pose.pose(), flashDistFromCenter, flashHeight, flashDistFromCenter).color(topColor).endVertex();
+            buffer.vertex(pose.pose(), flashDistFromCenter, flashHeight, -flashDistFromCenter).color(topColor).endVertex();
 
-            consumer.vertex(pose.pose(), flashDistFromCenter, 0, -flashDistFromCenter).color(baseColor).endVertex();
-            consumer.vertex(pose.pose(), flashDistFromCenter, 0, flashDistFromCenter).color(baseColor).endVertex();
-            consumer.vertex(pose.pose(), flashDistFromCenter, flashHeight, flashDistFromCenter).color(topColor).endVertex();
-            consumer.vertex(pose.pose(), flashDistFromCenter, flashHeight, -flashDistFromCenter).color(topColor).endVertex();
-
-            consumer.vertex(pose.pose(), -flashDistFromCenter, 0, flashDistFromCenter).color(baseColor).endVertex();
-            consumer.vertex(pose.pose(), flashDistFromCenter, 0, flashDistFromCenter).color(baseColor).endVertex();
-            consumer.vertex(pose.pose(), flashDistFromCenter, flashHeight, flashDistFromCenter).color(topColor).endVertex();
-            consumer.vertex(pose.pose(), -flashDistFromCenter, flashHeight, flashDistFromCenter).color(topColor).endVertex();
+            buffer.vertex(pose.pose(), -flashDistFromCenter, 0, flashDistFromCenter).color(baseColor).endVertex();
+            buffer.vertex(pose.pose(), flashDistFromCenter, 0, flashDistFromCenter).color(baseColor).endVertex();
+            buffer.vertex(pose.pose(), flashDistFromCenter, flashHeight, flashDistFromCenter).color(topColor).endVertex();
+            buffer.vertex(pose.pose(), -flashDistFromCenter, flashHeight, flashDistFromCenter).color(topColor).endVertex();
         }
         stack.popPose();
-        bufferSource.endBatch();
     }
 
     @Override
@@ -105,7 +99,7 @@ public class GodRayParticle extends TextureSheetParticle {
 
     @Override
     public ParticleRenderType getRenderType() {
-        return ModRenderType.PARTICLE_ADDITIVE;
+        return ModRenderType.PARTICLE_GOD_RAY;
     }
 
     public static class Provider implements ParticleProvider<SimpleParticleType> {

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " O",
+    "BO",
+    "BB"
+  ],
+  "key":
+  {
+    "B":
+    {
+      "tag": "goety:full_end_basalt_craft"
+    },
+    "O":
+    {
+      "item": "goety:end_mineral_bottle"
+    }
+  },
+  "result":
+  {
+    "item": "goety:end_floating_lantern"
+  }
+}

@@ -109,11 +109,11 @@ public class PotionEvents {
                 if (livingEntity.hasEffect(GoetyEffects.ILLAGUE.get())) {
                     EffectsUtil.Illague(serverLevel, livingEntity);
                 }
-                /*if (livingEntity.hasEffect(GoetyEffects.SOUL_BURN.get())) {
-                    if (livingEntity.tickCount % 10 == 0) {
-                        serverLevel.sendParticles(ModParticleTypes.BIG_SOUL_FIRE.get(), livingEntity.getX(), livingEntity.getY() + (livingEntity.getBbHeight() / 2.0F), livingEntity.getZ(), 1, 0, 0, 0, 1);
+                if (livingEntity.hasEffect(GoetyEffects.SOUL_BURN.get())) {
+                    if (livingEntity.tickCount % 2 == 0) {
+                        serverLevel.sendParticles(ModParticleTypes.BIG_SOUL_FIRE.get(), livingEntity.getRandomX(1.0D), livingEntity.getY(livingEntity.getRandom().nextDouble() * 0.5F), livingEntity.getRandomZ(1.0D), 1, 0, 0, 0, 0);
                     }
-                }*/
+                }
                 if (livingEntity.hasEffect(GoetyEffects.VOID_TOUCHED.get())) {
                     if (livingEntity.tickCount % 10 == 0) {
                         ColorUtil colorUtil = VOID_TOUCHED;
@@ -260,6 +260,15 @@ public class PotionEvents {
                     }
                 }
             }
+            /*if (livingEntity instanceof Mob mob) {
+                if (mob.getTarget() != null) {
+                    if (mob.getTarget().hasEffect(GoetyEffects.ENCHANTED.get())) {
+                        if (MiscCapHelper.getEnchanter(mob.getTarget()) instanceof LivingEntity enchanter && TargetingConditions.forCombat().test(mob, enchanter)) {
+                            mob.setTarget(enchanter);
+                        }
+                    }
+                }
+            }*/
         }
     }
 
@@ -267,7 +276,8 @@ public class PotionEvents {
     public static void HurtEvent(LivingHurtEvent event){
         LivingEntity victim = event.getEntity();
         Entity attacker = event.getSource().getEntity();
-
+        float finalAmount = event.getAmount();
+        float bonus = 0.0F;
         if (attacker instanceof LivingEntity living) {
             if (ModDamageSource.physicalAttacks(event.getSource())) {
                 if (living.hasEffect(GoetyEffects.FLAME_HANDS.get())) {
@@ -299,6 +309,9 @@ public class PotionEvents {
                         MobUtil.knockBack(living, victim, 1.0D + (a / 2.0D), 0.4D + (a * 0.2D), 1.0D + (a / 2.0D));
                     }
                 }
+            }
+            if (living.hasEffect(GoetyEffects.ENCHANTED.get())) {
+                finalAmount *= 1.25F;
             }
         }
         if (victim.hasEffect(GoetyEffects.SOUL_ARMOR.get())){
@@ -353,8 +366,6 @@ public class PotionEvents {
             }
         }
         if (attacker instanceof LivingEntity attackerL && ModDamageSource.physicalAttacks(event.getSource())) {
-            float bonus = 0.0F;
-
             if (attackerL.hasEffect(GoetyEffects.SMITING.get())) {
                 MobEffectInstance inst = attackerL.getEffect(GoetyEffects.SMITING.get());
                 if (inst != null) {
@@ -376,10 +387,9 @@ public class PotionEvents {
                     }
                 }
             }
-
-            if (bonus > 0.0F) {
-                event.setAmount(event.getAmount() + bonus);
-            }
+        }
+        if (bonus > 0.0F || finalAmount != event.getAmount()) {
+            event.setAmount(finalAmount + bonus);
         }
     }
 
@@ -524,6 +534,30 @@ public class PotionEvents {
                                     living.hurt(event.getSource(), distribute);
                                 }
                             }
+                        }
+                    }
+                }
+                Entity aggressor = null;
+                LivingEntity enchanted = null;
+                if (target.hasEffect(GoetyEffects.ENCHANTED.get())) {
+                    finalDamage *= 0.5F;
+                    aggressor = attacker;
+                    enchanted = target;
+                } else if (attacker instanceof LivingEntity livingEntity && livingEntity.hasEffect(GoetyEffects.ENCHANTED.get())) {
+                    aggressor = target;
+                    enchanted = livingEntity;
+                }
+                if (aggressor instanceof Mob mob && mob.getTarget() == enchanted) {
+                    if (MiscCapHelper.getEnchanter(enchanted) instanceof LivingEntity livingEntity) {
+                        float chance = 0.05F;
+                        if (mob.getHealth() < mob.getMaxHealth() * 0.5F) {
+                            chance += 0.2F;
+                        }
+                        if (mob.getHealth() < mob.getMaxHealth() * 0.25F) {
+                            chance += 0.2F;
+                        }
+                        if (mob.getRandom().nextFloat() <= chance) {
+                            mob.setTarget(livingEntity);
                         }
                     }
                 }
@@ -1091,6 +1125,11 @@ public class PotionEvents {
                 mob.setTarget(null);
             }
         }
+        if (effect == GoetyEffects.ENCHANTED.get()) {
+            if (event.getEffectSource() != null) {
+                MiscCapHelper.setEnchanter(effected, event.getEffectSource());
+            }
+        }
     }
 
     @SubscribeEvent
@@ -1124,6 +1163,11 @@ public class PotionEvents {
                         ModNetwork.sentToTrackingEntityAndPlayer(effected, new SPlayWorldSoundPacket(effected.blockPosition(), ModSounds.VOID_TOUCHED_DEACTIVATE.get(), 1.0F, 1.0F));
                     }
                 }
+                if (event.getEffect() == GoetyEffects.ENCHANTED.get()) {
+                    if (effected.level instanceof ServerLevel) {
+                        MiscCapHelper.setEnchanter(effected, null);
+                    }
+                }
             }
         }
     }
@@ -1152,6 +1196,11 @@ public class PotionEvents {
             if (mobEffectInstance.getEffect() == GoetyEffects.VOID_TOUCHED.get()){
                 if (effected.level instanceof ServerLevel) {
                     ModNetwork.sentToTrackingEntityAndPlayer(effected, new SPlayWorldSoundPacket(effected.blockPosition(), ModSounds.VOID_TOUCHED_DEACTIVATE.get(), 1.0F, 1.0F));
+                }
+            }
+            if (mobEffectInstance.getEffect() == GoetyEffects.ENCHANTED.get()) {
+                if (effected.level instanceof ServerLevel) {
+                    MiscCapHelper.setEnchanter(effected, null);
                 }
             }
         }

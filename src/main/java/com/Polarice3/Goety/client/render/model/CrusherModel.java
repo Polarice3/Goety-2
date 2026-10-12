@@ -104,6 +104,7 @@ public class CrusherModel<T extends Mob> extends HierarchicalModel<T> implements
 		} else if (entity instanceof CrusherServant servant) {
 			this.animate(servant.idleAnimationState, CrusherAnimations.IDLE, ageInTicks);
 			this.animate(servant.attackAnimationState, CrusherAnimations.SMASH, ageInTicks);
+			this.animate(servant.smithAnimationState, CrusherAnimations.SMITH, ageInTicks);
 		}
 		boolean flag2 = entity.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof ArmorItem
 				|| entity.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ArmorItem;

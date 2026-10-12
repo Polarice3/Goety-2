@@ -27,19 +27,19 @@ import javax.annotation.Nullable;
 import java.util.UUID;
 
 public class Fangs extends Entity implements ISpellEntity {
-    private static final EntityDataAccessor<Boolean> ABSORBING = SynchedEntityData.defineId(Fangs.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> TOTEM = SynchedEntityData.defineId(Fangs.class, EntityDataSerializers.BOOLEAN);
-    private int warmupDelayTicks;
-    private boolean sentSpikeEvent;
-    private int lifeTicks = 22;
-    private boolean clientSideAttackStarted;
-    private int damage = 0;
-    private int burning = 0;
-    private int soulEater = 0;
+    public static final EntityDataAccessor<Boolean> ABSORBING = SynchedEntityData.defineId(Fangs.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Boolean> TOTEM = SynchedEntityData.defineId(Fangs.class, EntityDataSerializers.BOOLEAN);
+    public int warmupDelayTicks;
+    public boolean sentSpikeEvent = false;
+    public int lifeTicks = 22;
+    public boolean clientSideAttackStarted;
+    public int damage = 0;
+    public int burning = 0;
+    public int soulEater = 0;
     @Nullable
-    private LivingEntity owner;
+    public LivingEntity owner;
     @Nullable
-    private UUID ownerUUID;
+    public UUID ownerUUID;
 
     public Fangs(EntityType<? extends Fangs> p_36923_, Level p_36924_) {
         super(p_36923_, p_36924_);
@@ -156,10 +156,14 @@ public class Fangs extends Entity implements ISpellEntity {
         if (this.ownerUUID != null) {
             pCompound.putUUID("Owner", this.ownerUUID);
         }
-
     }
+
     public void tick() {
         super.tick();
+        this.fangTick();
+    }
+
+    public void fangTick() {
         if (this.level.isClientSide) {
             if (this.clientSideAttackStarted) {
                 --this.lifeTicks;
@@ -191,10 +195,9 @@ public class Fangs extends Entity implements ISpellEntity {
                 this.discard();
             }
         }
-
     }
 
-    private void dealDamageTo(LivingEntity target) {
+    public void dealDamageTo(LivingEntity target) {
         LivingEntity livingentity = this.getOwner();
         float baseDamage = SpellConfig.FangDamage.get().floatValue() * WandUtil.damageMultiply();
         baseDamage += this.damage;
@@ -234,13 +237,16 @@ public class Fangs extends Entity implements ISpellEntity {
 
     public void handleEntityEvent(byte p_36935_) {
         super.handleEntityEvent(p_36935_);
-        if (p_36935_ == 4) {
+        this.toClientHandle(p_36935_);
+    }
+
+    public void toClientHandle(byte event) {
+        if (event == 4) {
             this.clientSideAttackStarted = true;
             if (!this.isSilent()) {
                 this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.EVOKER_FANGS_ATTACK, this.getSoundSource(), 1.0F, this.random.nextFloat() * 0.2F + 0.85F, false);
             }
         }
-
     }
 
     public float getAnimationProgress(float p_36937_) {

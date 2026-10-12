@@ -165,6 +165,9 @@ public class ServantUtil {
         } else if (target instanceof AbstractPiglin){
             summoned = target.convertTo(ModEntityType.ZPIGLIN_SERVANT.get(), keepLoot);
         } else if (target instanceof Villager || target instanceof Prisoner || target.getType().getDescriptionId().contains("entity.guardvillagers.guard")){
+            if (target instanceof Villager villager) {
+                MobUtil.releaseAllPois(villager);
+            }
             summoned = target.convertTo(ModEntityType.ZOMBIE_VILLAGER_SERVANT.get(), keepLoot);
         } else if (target instanceof Vindicator || target instanceof VindicatorServant){
             summoned = target.convertTo(ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), keepLoot);
@@ -216,12 +219,14 @@ public class ServantUtil {
 
     public static Prisoner takePrisoner(AbstractVillager villager) {
         int currentHunger = MiscCapHelper.getCustomFoodLevel(villager);
+        if (villager instanceof Villager villager1) {
+            MobUtil.releaseAllPois(villager1);
+        }
         Prisoner prisoner = villager.convertTo(ModEntityType.PRISONER.get(), true);
         if (prisoner != null) {
             if (villager instanceof Villager villager1) {
                 prisoner.setVillagerData(villager1.getVillagerData());
                 prisoner.setGossips(villager1.getGossips().store(NbtOps.INSTANCE));
-                MobUtil.releaseAllPois(villager1);
             }
             prisoner.setTradeOffers(villager.getOffers().createTag());
             prisoner.setVillagerXp(villager.getVillagerXp());

@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
@@ -99,5 +100,36 @@ public class SoulEnergyGui {
             guiGraphics.drawString(getFont(), s, i1, j1, 16777215);
             minecraft.getProfiler().pop();
         }
+        if (MainConfig.ShowChange.get()) {
+            drawSoulChange(guiGraphics, i, height, partialTicks);
+        }
+    }
+
+    private static void drawSoulChange(GuiGraphics guiGraphics, int i, int height, float partialTicks) {
+        if (!SoulChangePopup.isActive()) {
+            return;
+        }
+        int amount = SoulChangePopup.getAmount();
+        float progress = SoulChangePopup.progress(partialTicks);
+
+        String s = (amount > 0 ? "+" : "") + amount;
+        int color = amount > 0 ? 0x3ae0f0 : 0x288f85;
+
+        float alpha = progress < 0.6F ? 1.0F : 1.0F - ((progress - 0.6F) / 0.4F);
+        int alphaBits = Mth.clamp((int) (alpha * 255.0F), 0, 255) << 24;
+        if (alphaBits == 0) {
+            return;
+        }
+
+        int x = i + 64 - getFont().width(s) / 2;
+        int y = height - 20;
+
+        guiGraphics.pose().pushPose();
+        guiGraphics.pose().translate(0.0F, -progress * 8.0F, 0.0F);
+        RenderSystem.enableBlend();
+        guiGraphics.drawString(getFont(), s, x, y, alphaBits | color, true);
+        guiGraphics.flush();
+        RenderSystem.disableBlend();
+        guiGraphics.pose().popPose();
     }
 }

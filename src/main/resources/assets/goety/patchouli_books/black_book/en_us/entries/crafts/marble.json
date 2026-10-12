@@ -17,8 +17,8 @@
       "text": "Indented Gold blocks, while less shiny than a full Block of Gold, are still capable of being symbols of pure opulence and wealth. An odd building block for what you've heard as an ancient sanctum."
     },
     {
-      "type": "patchouli:crafting",
-      "recipe": "goety:indented_gold/indented_gold_craft"
+      "type": "patchouli:stonecutting",
+      "recipe": "goety:indented_gold/indented_gold"
     },
     {
       "type": "patchouli:text",
