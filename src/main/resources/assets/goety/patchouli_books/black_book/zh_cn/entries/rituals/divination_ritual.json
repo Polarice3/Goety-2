@@ -2,9 +2,7 @@
   "name": "预言仪式",
   "icon": "goety:crystal_ball",
   "category": "goety:rituals",
-  "advancement": "goety:goety/get_crystal_ball",
   "sortnum": 2,
-  "secret": true,
   "pages": [
     {
       "type": "patchouli:text",

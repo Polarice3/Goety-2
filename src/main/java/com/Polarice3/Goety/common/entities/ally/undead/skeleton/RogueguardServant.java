@@ -128,6 +128,11 @@ public class RogueguardServant extends AbstractSkeletonServant implements IShiel
     }
 
     @Override
+    protected boolean isSunSensitive() {
+        return false;
+    }
+
+    @Override
     public boolean canHaveWeapon() {
         return false;
     }

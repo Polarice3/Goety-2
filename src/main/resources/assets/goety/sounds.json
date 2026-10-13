@@ -9664,7 +9664,7 @@
   "heresiarch_theme_disc": {
     "sounds": [
       {
-        "name": "goety:music/heresiarch_theme_disc",
+        "name": "goety:music/heresiarch_theme_mono",
         "stream": true
       }
     ]
@@ -9680,7 +9680,7 @@
   "skull_lord_theme_disc": {
     "sounds": [
       {
-        "name": "goety:music/skull_lord_theme_disc",
+        "name": "goety:music/skull_lord_theme_mono",
         "stream": true
       }
     ]
@@ -9696,7 +9696,7 @@
   "wither_necromancer_theme_disc": {
     "sounds": [
       {
-        "name": "goety:music/wither_necromancer_theme_disc",
+        "name": "goety:music/wither_necromancer_theme_mono",
         "stream": true
       }
     ]
