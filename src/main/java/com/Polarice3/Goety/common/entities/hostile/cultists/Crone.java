@@ -3,7 +3,6 @@ package com.Polarice3.Goety.common.entities.hostile.cultists;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.effects.brew.*;
 import com.Polarice3.Goety.common.effects.brew.block.HarvestBlockEffect;
-import com.Polarice3.Goety.common.effects.brew.block.SlimyBrewEffect;
 import com.Polarice3.Goety.common.effects.brew.block.SweetBerriedEffect;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;

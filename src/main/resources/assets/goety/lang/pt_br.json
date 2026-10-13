@@ -3927,7 +3927,7 @@
   "block.goety.end_wall_lantern": "Lanterna de Parede do End",
   "block.goety.end_standing_lantern": "Lanterna de Chão do End",
   "block.goety.end_floating_lantern": "Lanterna Flutuante do End",
-  "block.goety.end_mud_mineral": "Mineral Líquido do End",
+  "block.goety.end_mineral_fluid": "Mineral Líquido do End",
   "effect.goety.enchanted": "Encantado",
   "effect.goety.enchanted.description": "Aumenta o dano de ataque, a velocidade de movimento e de ataque.",
   "info.goety.dark_crown": "Reduz o tempo de conjuração de todos os feitiços pela metade.",
@@ -3961,5 +3961,14 @@
   "death.attack.goety.soulBurn.player": "A alma de %1$s foi incinerada enquanto lutava contra %2$s",
   "block.goety.plushie_15": "Pelúcia do §aCona1r §r",
   "block.goety.sculptured_statue_8": "Estátua de §aCona1r",
-  "effect.goety.slimy": "Viscoso"
+  "effect.goety.slimy": "Viscoso",
+  "item.goety.music_disc_crone": "Disco de Música",
+  "item.goety.music_disc_crone.desc": "Peter Hont - Witch",
+  "item.goety.music_disc_heresiarch": "Disco de Música",
+  "item.goety.music_disc_heresiarch.desc": "Johan Johnson - arena1",
+  "item.goety.music_disc_skull_lord": "Disco de Música",
+  "item.goety.music_disc_skull_lord.desc": "Johan Johnson - arena2",
+  "item.goety.music_disc_wither_necromancer": "Disco de Música",
+  "item.goety.music_disc_wither_necromancer.desc": "Peter Hont - Wildfire",
+  "block.goety.end_mineral_cauldron": "Caldeirão do Mineral do End"
 }

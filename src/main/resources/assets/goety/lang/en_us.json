@@ -1962,9 +1962,11 @@
   "block.goety.end_dirt_slab": "End Dirt Slab",
   "block.goety.soiled_end_dirt": "Soiled End Dirt",
 
+  "block.goety.end_mineral_cauldron": "End Mineral Cauldron",
+
   "block.goety.void_fluid": "Liquid Void",
   "block.goety.end_mud_fluid": "Liquid End Mud",
-  "block.goety.end_mud_mineral": "Liquid End Mineral",
+  "block.goety.end_mineral_fluid": "Liquid End Mineral",
 
   "block.goety.freezing_lamp": "Freezing Lamp",
   "block.goety.shriek_obelisk": "Shrieking Obelisk",

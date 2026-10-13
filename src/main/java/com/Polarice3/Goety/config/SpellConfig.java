@@ -1785,7 +1785,7 @@ public class SpellConfig {
                 VexLimit = BUILDER.comment("Number of Vex Servants that an individual player can have in total, Default: 8")
                         .defineInRange("vexLimit", 8, 1, Integer.MAX_VALUE);
                 BUILDER.pop();
-                BUILDER.push("Biting Spell && Magic Fangs");
+                BUILDER.push("Biting Spell & Magic Fangs");
                 FangCost = BUILDER.comment("Biting Spell Cost, Default: 8")
                         .defineInRange("fangCost", 8, 0, Integer.MAX_VALUE);
                 FangDuration = BUILDER.comment("Time to cast Biting Spell, Default: 40")
@@ -1797,7 +1797,7 @@ public class SpellConfig {
                 FangGainSouls = BUILDER.comment("Amount of Soul Energy Magic Fangs gives when hitting mob(s), Default: 1")
                         .defineInRange("fangGainSouls", 1, 0, Integer.MAX_VALUE);
                 BUILDER.pop();
-                BUILDER.push("Shredding Spell && Royal Spikes");
+                BUILDER.push("Shredding Spell & Royal Spikes");
                 SpikeCost = BUILDER.comment("Shredding Spell Cost, Default: 16")
                         .defineInRange("spikeCost", 16, 0, Integer.MAX_VALUE);
                 SpikeDuration = BUILDER.comment("Time to cast Shredding Spell, Default: 160")

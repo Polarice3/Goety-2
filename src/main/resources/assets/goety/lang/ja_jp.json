@@ -3763,7 +3763,7 @@
   "block.goety.end_wall_lantern": "エンドの壁ランタン",
   "block.goety.end_standing_lantern": "エンドの置き型ランタン",
   "block.goety.end_floating_lantern": "エンドの浮いたランタン",
-  "block.goety.end_mud_mineral": "エンドミネラル",
+  "block.goety.end_mineral_fluid": "エンドミネラル",
   "effect.goety.enchanted": "エンチャント",
   "effect.goety.enchanted.description": "攻撃ダメージ、移動速度、攻撃速度を上昇させます。",
   "info.goety.dark_crown": "すべての呪文の詠唱時間が半分になります。",
@@ -3830,5 +3830,6 @@
   "item.goety.music_disc_skull_lord.desc": "Johan Johnson - arena2",
   "item.goety.music_disc_wither_necromancer": "レコード",
   "item.goety.music_disc_wither_necromancer.desc": "Peter Hont - Wildfire",
-  "effect.goety.slimy": "ぬるぬる"
+  "effect.goety.slimy": "ぬるぬる",
+  "block.goety.end_mineral_cauldron": "エンドミネラルの大釜"
 }

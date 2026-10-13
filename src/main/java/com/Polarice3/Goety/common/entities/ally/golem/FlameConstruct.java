@@ -325,10 +325,6 @@ public class FlameConstruct extends AbstractGolemServant implements IBreathing, 
             p_34150_ = 0.0F;
         }
 
-        if (p_34149_.is(DamageTypeTags.IS_FIRE)) {
-            p_34150_ *= 0.5F;
-        }
-
         if (p_34149_.is(DamageTypeTags.IS_FREEZING)) {
             p_34150_ *= 2.0F;
         }

@@ -1365,6 +1365,7 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<FlameConstruct>> FLAME_CONSTRUCT = register("flame_construct",
             EntityType.Builder.of(FlameConstruct::new, MobCategory.MONSTER)
+                    .fireImmune()
                     .sized(0.75F, 1.1875F)
                     .clientTrackingRange(10));
 

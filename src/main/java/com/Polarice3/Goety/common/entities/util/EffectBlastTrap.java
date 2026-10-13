@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.entities.util;
 
 import com.Polarice3.Goety.api.entities.ISpellEntity;
-import com.Polarice3.Goety.client.particles.FoggyCloudParticleOption;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.projectiles.AcidPool;
 import com.Polarice3.Goety.utils.ColorUtil;
@@ -23,7 +22,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
