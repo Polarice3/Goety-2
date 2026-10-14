@@ -236,6 +236,22 @@ public class WandUtil {
     }
 
     public static void spawnFangs(LivingEntity livingEntity, double pPosX, double pPosZ, double PPPosY, double pOPosY, float pYRot, int pWarmUp, int pPotency, int pBurning) {
+        boolean absorb = false;
+        int soulEater = 0;
+        if (livingEntity instanceof Player player){
+            if (WandUtil.enchantedFocus(player)){
+                if (WandUtil.getLevels(ModEnchantments.ABSORB.get(), player) != 0){
+                    absorb = true;
+                }
+                if (WandUtil.getLevels(ModEnchantments.SOUL_EATER.get(), player) > 0){
+                    soulEater = WandUtil.getLevels(ModEnchantments.SOUL_EATER.get(), player);
+                }
+            }
+        }
+        spawnFangs(livingEntity, pPosX, pPosZ, PPPosY, pOPosY, pYRot, pWarmUp, pPotency, pBurning, absorb, soulEater);
+    }
+
+    public static void spawnFangs(LivingEntity livingEntity, double pPosX, double pPosZ, double PPPosY, double pOPosY, float pYRot, int pWarmUp, int pPotency, int pBurning, boolean pAbsorb, int pSoulEater) {
         BlockPos blockpos = BlockPos.containing(pPosX, pOPosY, pPosZ);
         boolean flag = false;
         double d0 = 0.0D;
@@ -261,18 +277,10 @@ public class WandUtil {
 
         if (flag) {
             Fangs fangEntity = new Fangs(livingEntity.level, pPosX, (double)blockpos.getY() + d0, pPosZ, pYRot, pWarmUp, livingEntity);
-            if (livingEntity instanceof Player player){
-                if (WandUtil.enchantedFocus(player)){
-                    if (WandUtil.getLevels(ModEnchantments.ABSORB.get(), player) != 0){
-                        fangEntity.setAbsorbing(true);
-                    }
-                    if (WandUtil.getLevels(ModEnchantments.SOUL_EATER.get(), player) > 0){
-                        fangEntity.setSoulEater(WandUtil.getLevels(ModEnchantments.SOUL_EATER.get(), player));
-                    }
-                }
-            }
             fangEntity.setDamage(pPotency);
             fangEntity.setBurning(pBurning);
+            fangEntity.setAbsorbing(pAbsorb);
+            fangEntity.setSoulEater(pSoulEater);
             livingEntity.level.addFreshEntity(fangEntity);
         }
 
@@ -906,7 +914,23 @@ public class WandUtil {
     }
 
     public static void spawnFangLine(LivingEntity caster, Vec3 target, int pPotency, int pBurning) {
-        spawnFangPattern(caster, FANG_LINE, target, 1, pPotency, pBurning);
+        boolean absorb = false;
+        int soulEater = 0;
+        if (caster instanceof Player player){
+            if (WandUtil.enchantedFocus(player)){
+                if (WandUtil.getLevels(ModEnchantments.ABSORB.get(), player) != 0){
+                    absorb = true;
+                }
+                if (WandUtil.getLevels(ModEnchantments.SOUL_EATER.get(), player) > 0){
+                    soulEater = WandUtil.getLevels(ModEnchantments.SOUL_EATER.get(), player);
+                }
+            }
+        }
+        spawnFangLine(caster, target, pPotency, pBurning, absorb, soulEater);
+    }
+
+    public static void spawnFangLine(LivingEntity caster, Vec3 target, int pPotency, int pBurning, boolean pAbsorb, int pSoulEater) {
+        spawnFangPattern(caster, FANG_LINE, target, 1, pPotency, pBurning, pAbsorb, pSoulEater);
     }
 
     public static void spawnFangRound(LivingEntity caster, Vec3 target) {
@@ -914,10 +938,26 @@ public class WandUtil {
     }
 
     public static void spawnFangRound(LivingEntity caster, Vec3 target, int pPotency, int pBurning) {
-        spawnFangPattern(caster, FANG_ROUND, target, 0, pPotency, pBurning);
+        boolean absorb = false;
+        int soulEater = 0;
+        if (caster instanceof Player player){
+            if (WandUtil.enchantedFocus(player)){
+                if (WandUtil.getLevels(ModEnchantments.ABSORB.get(), player) != 0){
+                    absorb = true;
+                }
+                if (WandUtil.getLevels(ModEnchantments.SOUL_EATER.get(), player) > 0){
+                    soulEater = WandUtil.getLevels(ModEnchantments.SOUL_EATER.get(), player);
+                }
+            }
+        }
+        spawnFangRound(caster, target, pPotency, pBurning, absorb, soulEater);
     }
 
-    public static void spawnFangPattern(LivingEntity caster, int[][] pattern, Vec3 target, int ticksBetween, int pPotency, int pBurning) {
+    public static void spawnFangRound(LivingEntity caster, Vec3 target, int pPotency, int pBurning, boolean pAbsorb, int pSoulEater) {
+        spawnFangPattern(caster, FANG_ROUND, target, 0, pPotency, pBurning, pAbsorb, pSoulEater);
+    }
+
+    public static void spawnFangPattern(LivingEntity caster, int[][] pattern, Vec3 target, int ticksBetween, int pPotency, int pBurning, boolean pAbsorb, int pSoulEater) {
         double minY = Math.min(target.y(), caster.getY());
         double maxY = Math.max(target.y(), caster.getY()) + 1.0D;
         float yaw = (float) Mth.atan2(target.z() - caster.getZ(), target.x() - caster.getX());
@@ -928,7 +968,7 @@ public class WandUtil {
         for (int i = 0; i < pattern.length; i++) {
             double forward = pattern[i][0] * FANG_CELL_SIZE;
             double right = pattern[i][1] * FANG_CELL_SIZE;
-            createMasterFang(caster, caster.getX() + forwardX * forward + rightX * right, caster.getZ() + forwardZ * forward + rightZ * right, minY, maxY, yaw, i * ticksBetween, pPotency, pBurning);
+            createMasterFang(caster, caster.getX() + forwardX * forward + rightX * right, caster.getZ() + forwardZ * forward + rightZ * right, minY, maxY, yaw, i * ticksBetween, pPotency, pBurning, pAbsorb, pSoulEater);
         }
     }
 
@@ -941,6 +981,22 @@ public class WandUtil {
     }
 
     public static void spawnFangsAroundTarget(LivingEntity caster, Vec3 target, int pPotency, int pBurning) {
+        boolean absorb = false;
+        int soulEater = 0;
+        if (caster instanceof Player player){
+            if (WandUtil.enchantedFocus(player)){
+                if (WandUtil.getLevels(ModEnchantments.ABSORB.get(), player) != 0){
+                    absorb = true;
+                }
+                if (WandUtil.getLevels(ModEnchantments.SOUL_EATER.get(), player) > 0){
+                    soulEater = WandUtil.getLevels(ModEnchantments.SOUL_EATER.get(), player);
+                }
+            }
+        }
+        spawnFangsAroundTarget(caster, target, pPotency, pBurning, absorb, soulEater);
+    }
+
+    public static void spawnFangsAroundTarget(LivingEntity caster, Vec3 target, int pPotency, int pBurning, boolean pAbsorb, int pSoulEater) {
         double minY = Math.min(target.y(), caster.getY());
         double maxY = Math.max(target.y(), caster.getY()) + 1.0D;
         double centerX = target.x();
@@ -952,11 +1008,11 @@ public class WandUtil {
             double x = centerX + Mth.cos(angle) * AROUND_TARGET_RADIUS;
             double z = centerZ + Mth.sin(angle) * AROUND_TARGET_RADIUS;
             float facing = angle + Mth.PI + MathHelper.modelDegrees(90);
-            createMasterFang(caster, x, z, minY, maxY, facing, SLOW_FANG_WARMUP, pPotency, pBurning);
+            createMasterFang(caster, x, z, minY, maxY, facing, SLOW_FANG_WARMUP, pPotency, pBurning, pAbsorb, pSoulEater);
         }
     }
 
-    public static void createMasterFang(LivingEntity caster, double originalX, double originalZ, double minY, double originalY, float pYRot, int pWarmUp, int pPotency, int pBurning) {
+    public static void createMasterFang(LivingEntity caster, double originalX, double originalZ, double minY, double originalY, float pYRot, int pWarmUp, int pPotency, int pBurning, boolean pAbsorb, int pSoulEater) {
         BlockPos blockpos = BlockPos.containing(originalX, originalY, originalZ);
         boolean flag = false;
         double d0 = 0.0D;
@@ -981,7 +1037,12 @@ public class WandUtil {
         } while(blockpos.getY() >= Mth.floor(minY) - 1);
 
         if (flag) {
-            caster.level.addFreshEntity(new MasterFangs(caster.level, originalX, (double)blockpos.getY() + d0, originalZ, pYRot, pWarmUp, caster));
+            MasterFangs fangs = new MasterFangs(caster.level, originalX, (double)blockpos.getY() + d0, originalZ, pYRot, pWarmUp, caster);
+            fangs.setDamage(pPotency);
+            fangs.setBurning(pBurning);
+            fangs.setAbsorbing(pAbsorb);
+            fangs.setSoulEater(pSoulEater);
+            caster.level.addFreshEntity(fangs);
         }
 
     }

@@ -94,18 +94,22 @@ public class FeastSpell extends ChargingSpell {
     public void SpellResult(ServerLevel worldIn, LivingEntity caster, ItemStack staff, SpellStat spellStat){
         int potency = spellStat.getPotency();
         int burning = spellStat.getBurning();
+        boolean absorb = false;
+        int soulEater = 0;
         if (WandUtil.enchantedFocus(caster)){
             potency += WandUtil.getPotencyLevel(caster);
             burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
+            absorb = WandUtil.getLevels(ModEnchantments.ABSORB.get(), caster) > 0;
+            soulEater += WandUtil.getLevels(ModEnchantments.SOUL_EATER.get(), caster);
         }
         for (LivingEntity entity : this.getLivingEntities(worldIn, caster, spellStat)) {
             float f = (float) Mth.atan2(entity.getZ() - caster.getZ(), entity.getX() - caster.getX());
             if (entity != caster && !MobUtil.areAllies(entity, caster)){
-                WandUtil.spawnFangs(caster, entity.getX(), entity.getZ(), entity.getY(), entity.getY() + 1.0D, f, 1, potency, burning);
+                WandUtil.spawnFangs(caster, entity.getX(), entity.getZ(), entity.getY(), entity.getY() + 1.0D, f, 1, potency, burning, absorb, soulEater);
                 if (rightStaff(staff)) {
                     for (int i1 = 0; i1 < 5; ++i1) {
                         float f1 = f + (float) i1 * (float) Math.PI * 0.4F;
-                        WandUtil.spawnFangs(caster, entity.getX() + (double) Mth.cos(f1) * 1.5D, entity.getZ() + (double) Mth.sin(f1) * 1.5D, entity.getY(), entity.getY() + 1.0D, f1, 0, potency, burning);
+                        WandUtil.spawnFangs(caster, entity.getX() + (double) Mth.cos(f1) * 1.5D, entity.getZ() + (double) Mth.sin(f1) * 1.5D, entity.getY(), entity.getY() + 1.0D, f1, 0, potency, burning, absorb, soulEater);
                     }
                 }
             }

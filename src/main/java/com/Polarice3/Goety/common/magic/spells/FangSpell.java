@@ -71,10 +71,14 @@ public class FangSpell extends Spell {
         int potency = spellStat.getPotency();
         int burning = spellStat.getBurning();
         double radius = spellStat.getRadius();
+        boolean absorb = false;
+        int soulEater = 0;
         if (WandUtil.enchantedFocus(caster)){
             range += WandUtil.getRangeLevel(caster);
             potency += WandUtil.getPotencyLevel(caster);
             burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
+            absorb = WandUtil.getLevels(ModEnchantments.ABSORB.get(), caster) > 0;
+            soulEater += WandUtil.getLevels(ModEnchantments.SOUL_EATER.get(), caster);
         }
         HitResult rayTraceResult = this.rayTrace(worldIn, caster, range, radius);
         Vec3 vector3d = rayTraceResult.getLocation();
@@ -89,29 +93,29 @@ public class FangSpell extends Spell {
         }
         if (!isShifting(caster)) {
             if (this.rightStaff(staff)) {
-                WandUtil.spawnFangLine(caster, target != null ? target.position() : vector3d, potency, burning);
+                WandUtil.spawnFangLine(caster, target != null ? target.position() : vector3d, potency, burning, absorb, soulEater);
             } else {
                 for(int l = 0; l < range; ++l) {
                     double d2 = 1.25D * (double)(l + 1);
-                    WandUtil.spawnFangs(caster, caster.getX() + (double)Mth.cos(f) * d2, caster.getZ() + (double)Mth.sin(f) * d2, d0, d1, f, l, potency, burning);
+                    WandUtil.spawnFangs(caster, caster.getX() + (double)Mth.cos(f) * d2, caster.getZ() + (double)Mth.sin(f) * d2, d0, d1, f, l, potency, burning, absorb, soulEater);
                 }
             }
         } else {
             if (rightStaff(staff)) {
                 if (target != null) {
-                    WandUtil.spawnFangsAroundTarget(caster, target.position(), potency, burning);
+                    WandUtil.spawnFangsAroundTarget(caster, target.position(), potency, burning, absorb, soulEater);
                 } else {
-                    WandUtil.spawnFangRound(caster, vector3d, potency, burning);
+                    WandUtil.spawnFangRound(caster, vector3d, potency, burning, absorb, soulEater);
                 }
             } else {
                 for(int i = 0; i < 5; ++i) {
                     float f1 = f + (float)i * (float)Math.PI * 0.4F;
-                    WandUtil.spawnFangs(caster, caster.getX() + (double)Mth.cos(f1) * 1.5D, caster.getZ() + (double)Mth.sin(f1) * 1.5D, d0, d1, f1, 0, potency, burning);
+                    WandUtil.spawnFangs(caster, caster.getX() + (double)Mth.cos(f1) * 1.5D, caster.getZ() + (double)Mth.sin(f1) * 1.5D, d0, d1, f1, 0, potency, burning, absorb, soulEater);
                 }
 
                 for(int k = 0; k < 8; ++k) {
                     float f2 = f + (float)k * (float)Math.PI * 2.0F / 8.0F + 1.2566371F;
-                    WandUtil.spawnFangs(caster, caster.getX() + (double)Mth.cos(f2) * 2.5D, caster.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1, f2, 3, potency, burning);
+                    WandUtil.spawnFangs(caster, caster.getX() + (double)Mth.cos(f2) * 2.5D, caster.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1, f2, 3, potency, burning, absorb, soulEater);
                 }
             }
         }
