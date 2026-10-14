@@ -27,7 +27,7 @@ public class RepairPuttyItem extends ItemBase {
                     if (target.getType().getDescriptionId().contains("golem") || target.getType().is(ModTags.EntityTypes.REPAIRABLE)) {
                         boolean ownedByPlayer = mob instanceof OwnableEntity owned && owned.getOwner() == player;
                         boolean notTargetFriendly = mob.getTarget() == null || (mob.getTarget() != player && !MobUtil.areAllies(mob.getTarget(), player));
-                        if (mob.getHealth() < mob.getMaxHealth()) {
+                        if (mob.getHealth() < mob.getMaxHealth() && !mob.isDeadOrDying()) {
                             if (notTargetFriendly || ownedByPlayer || (target instanceof IronGolem golem && golem.isPlayerCreated())) {
                                 mob.heal(25.0F);
                                 float f1 = 1.0F + (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2F;
