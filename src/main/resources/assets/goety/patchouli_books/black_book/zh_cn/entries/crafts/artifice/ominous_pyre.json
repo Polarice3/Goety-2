@@ -26,7 +26,7 @@
       "type": "patchouli:text",
       "title": "长矛兵仆从",
       "advancement": "goety:goety/read_front_scroll",
-      "text": "$(o)注: 所有者必须阅读过$(l:goety:rumors/desert)先锋卷轴$()$()$(br)需求： $(li)新刌民 $(li)2个砂轮 $(li)2个锻造台 $(li)16个木栅栏 $(li)32个原木 $(li4个木桶 $(li)4张床 $(li)2个铁砧"
+      "text": "$(o)注: 所有者必须阅读过$(l:goety:rumors/desert)先锋卷轴$()$()$(br)需求： $(li)新刌民 $(li)2个砂轮 $(li)2个锻造台 $(li)16个木栅栏 $(li)32个原木 $(li)4个木桶 $(li)4张床 $(li)2个铁砧"
     },
     {
       "type": "patchouli:text",
@@ -46,7 +46,7 @@
     {
       "type": "patchouli:text",
       "title": "登山者仆从",
-      "text": "$(o)注：卫道士仆从训练为登山者仆从的速度比其它兵种更快$()$(br)需求: $(li)卫道士仆从 $(li)火炬必须在可降雪的群系 $(li)16个木栅栏 $(li)20 个羊毛 $(li)8个木桶 $(li)4个被红石信号激活的鼓风机"
+      "text": "$(o)注：卫道士仆从训练为登山者仆从的速度比其它兵种更快$()$(br)需求: $(li)卫道士仆从 $(li)火炬必须在可降雪的群系 $(li)16个木栅栏 $(li)20个羊毛 $(li)8个木桶 $(li)4个被红石信号激活的鼓风机"
     },
     {
       "type": "patchouli:text",
@@ -82,7 +82,7 @@
     {
       "type": "patchouli:text",
       "title": "泣术师仆从",
-      "text": "需求: $(li)冰术师仆从 $(li)火炬必须在可降雪的群系 $(li)16个书架/附魔能力与前者等同的方块 $(li)32个细雪 $(li)16$(l:goety:crafts/creeper_totem)苦力怕图腾$()"
+      "text": "需求: $(li)冰术师仆从 $(li)火炬必须在可降雪的群系 $(li)16个书架/附魔能力与前者等同的方块 $(li)32个细雪 $(li)16个$(l:goety:crafts/creeper_totem)苦力怕图腾$()"
     },
     {
       "type": "patchouli:text",

@@ -8,8 +8,8 @@
       "mossiness": 0.5
     },
     {
-      "processor_type": "goety:haunt_processor",
-      "to_haunt": "minecraft:dark_oak_planks"
+      "processor_type": "goety:weathered_processor",
+      "to_weather": "minecraft:dark_oak_planks"
     },
     {
       "processor_type": "goety:marsh_processor",
@@ -17,30 +17,45 @@
     },
     {
       "processor_type": "goety:replace_processor",
-      "to_replace": "minecraft:dark_oak_log",
-      "replace_to": "goety:haunted_log"
-    },
-    {
-      "processor_type": "goety:replace_processor",
       "to_replace": "minecraft:dark_oak_slab",
-      "replace_to": "goety:haunted_slab"
+      "replace_to": "goety:weathered_dark_oak_slab"
     },
     {
       "processor_type": "goety:replace_processor",
       "to_replace": "minecraft:dark_oak_fence",
-      "replace_to": "goety:haunted_fence"
+      "replace_to": "goety:weathered_dark_oak_fence"
     },
     {
       "processor_type": "goety:replace_processor",
       "to_replace": "minecraft:dark_oak_stairs",
-      "replace_to": "goety:haunted_stairs"
+      "replace_to": "goety:weathered_dark_oak_stairs"
+    },
+    {
+      "processor_type": "goety:replace_processor",
+      "to_replace": "minecraft:oak_planks",
+      "replace_to": "goety:weathered_oak_planks"
+    },
+    {
+      "processor_type": "goety:replace_processor",
+      "to_replace": "minecraft:oak_slab",
+      "replace_to": "goety:weathered_oak_slab"
+    },
+    {
+      "processor_type": "goety:replace_processor",
+      "to_replace": "minecraft:oak_fence",
+      "replace_to": "goety:weathered_oak_fence"
+    },
+    {
+      "processor_type": "goety:replace_processor",
+      "to_replace": "minecraft:oak_stairs",
+      "replace_to": "goety:weathered_oak_stairs"
     },
     {
       "processor_type": "goety:wreck_processor",
       "wreck": 0.2,
       "to_wreck": "minecraft:bookshelf",
-      "slab": "minecraft:oak_slab",
-      "stairs": "minecraft:oak_stairs",
+      "slab": "goety:weathered_oak_slab",
+      "stairs": "goety:weathered_oak_stairs",
       "other": "minecraft:cobweb"
     },
     {

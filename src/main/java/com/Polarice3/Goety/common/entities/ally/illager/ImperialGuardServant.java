@@ -97,6 +97,7 @@ public class ImperialGuardServant extends AbstractIllagerServant implements IShi
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0F)
+                .add(Attributes.ATTACK_DAMAGE, 5.0D)
                 .add(Attributes.ARMOR, AttributesConfig.ImperialGuardServantArmor.get())
                 .add(Attributes.ARMOR_TOUGHNESS, AttributesConfig.ImperialGuardServantToughness.get());
     }

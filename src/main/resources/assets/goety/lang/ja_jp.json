@@ -3732,7 +3732,7 @@
   "info.goety.waystone.revivePos": "復活ポジション設定完了！",
   "item.goety.reprobate_servant_spawn_egg": "リプロベイトの従者のスポーンエッグ",
   "entity.goety.hostile_skeleton_pillager": "スケルトンピリジャー",
-  "entity.goety.rogueguard_variant_servant": "ローグガードの従者",
+  "entity.goety.rogueguard_servant": "ローグガードの従者",
   "entity.goety.heavy_arrow": "重い矢",
   "item.goety.rogueguard_servant_spawn_egg": "ローグガードの従者のスポーンエッグ",
   "block.goety.pale_crystal_ball": "ペールの水晶玉",
@@ -3831,5 +3831,15 @@
   "item.goety.music_disc_wither_necromancer": "レコード",
   "item.goety.music_disc_wither_necromancer.desc": "Peter Hont - Wildfire",
   "effect.goety.slimy": "ぬるぬる",
-  "block.goety.end_mineral_cauldron": "エンドミネラルの大釜"
+  "block.goety.end_mineral_cauldron": "エンドミネラルの大釜",
+  "block.goety.weathering_oak_planks": "風化しつつあるオークの板材",
+  "block.goety.weathered_oak_planks": "風化したオークの板材",
+  "block.goety.weathered_oak_slab": "風化したオークのハーフブロック",
+  "block.goety.weathered_oak_stairs": "風化したオークの階段",
+  "block.goety.weathered_oak_fence": "風化したオークの柵",
+  "block.goety.weathering_dark_oak_planks": "風化しつつあるダークオークの板材",
+  "block.goety.weathered_dark_oak_planks": "風化したダークオークの板材",
+  "block.goety.weathered_dark_oak_slab": "風化したダークオークのハーフブロック",
+  "block.goety.weathered_dark_oak_stairs": "風化したダークオークの階段",
+  "block.goety.weathered_dark_oak_fence": "風化したダークオークの柵"
 }

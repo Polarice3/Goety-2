@@ -3,6 +3,10 @@ package com.Polarice3.Goety.common.blocks;
 import com.Polarice3.Goety.init.ModCauldronInteraction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractCauldronBlock;
 import net.minecraft.world.level.block.Block;
@@ -12,6 +16,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.HitResult;
 
 public class EndMudCauldronBlock extends AbstractCauldronBlock {
     public static final IntegerProperty LEVEL = BlockStateProperties.LEVEL_CAULDRON;
@@ -56,5 +61,10 @@ public class EndMudCauldronBlock extends AbstractCauldronBlock {
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_153549_) {
         p_153549_.add(LEVEL);
+    }
+
+    @Override
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
+        return new ItemStack(Items.CAULDRON);
     }
 }

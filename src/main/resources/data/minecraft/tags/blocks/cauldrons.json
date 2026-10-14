@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "goety:void_cauldron",
+    "goety:end_mud_cauldron",
+    "goety:end_mineral_cauldron"
+  ]
+}

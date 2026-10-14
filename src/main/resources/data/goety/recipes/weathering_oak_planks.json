@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " m ",
+    "mlm",
+    " m "
+  ],
+  "key":
+  {
+    "m":
+    {
+      "item": "minecraft:oak_planks"
+    },
+    "l":
+    {
+      "type": "forge:nbt",
+      "item": "minecraft:potion",
+      "nbt": "{\"Potion\": \"minecraft:water\"}"
+    }
+  },
+  "result":
+  {
+    "item": "goety:weathering_oak_planks",
+    "count": 4
+  }
+}

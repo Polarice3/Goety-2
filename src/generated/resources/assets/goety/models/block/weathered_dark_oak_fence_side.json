@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_side",
+  "textures": {
+    "texture": "goety:block/weathered_dark_oak_planks"
+  }
+}

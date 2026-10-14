@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-11T17:35:56.4028887	Loot Tables
+// 1.20.1	2026-10-14T14:24:10.5329757	Loot Tables
 1173ad0aef6067156a1c3161e3fe16b8e10b3f92 data/goety/loot_tables/blocks/animator.json
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
@@ -727,7 +727,17 @@ db881793b94e2705c178c6c333d640ce0e3e0709 data/goety/loot_tables/blocks/void_mino
 29ca826ebe8308b04fa7b5de376b8a38742f9c5c data/goety/loot_tables/blocks/wall_necrotic_gold_candlestick.json
 527954127d63fe5a68bc008a60d0f9e44e0ae8cc data/goety/loot_tables/blocks/wall_shrine.json
 c118a5c39f2fbdff3e422d5f2a5e91dbbf01aa67 data/goety/loot_tables/blocks/washed_slate_marble.json
+da7e77b193f276325e9795c7dfe80cdaa803e125 data/goety/loot_tables/blocks/weathered_dark_oak_fence.json
+2d2cb6d1655fba0a67a97e2b7cd355f585607ca2 data/goety/loot_tables/blocks/weathered_dark_oak_planks.json
+c52011a6eb4f04f259bb58cd563e23b693f64ad0 data/goety/loot_tables/blocks/weathered_dark_oak_slab.json
+78e971125f7f229a2bf4cb19b4066a43e4cf0b37 data/goety/loot_tables/blocks/weathered_dark_oak_stairs.json
+6d071d738dc818a4a44582be2c22afc3c2e4aed0 data/goety/loot_tables/blocks/weathered_oak_fence.json
+a2763f48bcc2f7b18fd537f6de10e0cdb9ee7fcf data/goety/loot_tables/blocks/weathered_oak_planks.json
+795e6aa95cedbd4fb056205e2d7b3865777b4e03 data/goety/loot_tables/blocks/weathered_oak_slab.json
+a488be6c9ca3b1613573468658e11fabc319b5ee data/goety/loot_tables/blocks/weathered_oak_stairs.json
 ad89cea6c75948b55ab1e794e6f5064fef4797a2 data/goety/loot_tables/blocks/weathered_slate_marble.json
+2cf9b03bcd2279185a54f1c0f493cd4800d94156 data/goety/loot_tables/blocks/weathering_dark_oak_planks.json
+d351836b78a98bb9e2220c32011f24d37578737c data/goety/loot_tables/blocks/weathering_oak_planks.json
 65b965fe004a526bc0d2fcf5d030ea9164747656 data/goety/loot_tables/blocks/windswept_bookshelf.json
 e5ba5dabdbdc1258c5692a326b0ec3ba377834ab data/goety/loot_tables/blocks/windswept_button.json
 031f1735709cade6b98632985ec1af65edcb8f5d data/goety/loot_tables/blocks/windswept_chest.json

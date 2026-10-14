@@ -253,7 +253,7 @@
   "entity.goety.drowned_necromancer_servant":"Drowned Necromancer",
   "entity.goety.wither_necromancer_servant":"Wither Necromancer",
   "entity.goety.vanguard_servant":"Vanguard Servant",
-  "entity.goety.rogueguard_variant_servant":"Rogueguard Servant",
+  "entity.goety.rogueguard_servant":"Rogueguard Servant",
   "entity.goety.reaper_servant":"Reaper Servant",
   "entity.goety.wraith_servant":"Wraith Servant",
   "entity.goety.border_wraith_servant":"Border Wraith Servant",
@@ -1673,6 +1673,18 @@
   "block.goety.trapped_marsh_chest": "Trapped Marsh Chest",
   "block.goety.stripped_marsh_log": "Stripped Marsh Log",
   "block.goety.stripped_marsh_wood": "Stripped Marsh Wood",
+
+  "block.goety.weathering_oak_planks": "Weathering Oak Planks",
+  "block.goety.weathered_oak_planks": "Weathered Oak Planks",
+  "block.goety.weathered_oak_slab": "Weathered Oak Slab",
+  "block.goety.weathered_oak_stairs": "Weathered Oak Stairs",
+  "block.goety.weathered_oak_fence": "Weathered Oak Fence",
+
+  "block.goety.weathering_dark_oak_planks": "Weathering Dark Oak Planks",
+  "block.goety.weathered_dark_oak_planks": "Weathered Dark Oak Planks",
+  "block.goety.weathered_dark_oak_slab": "Weathered Dark Oak Slab",
+  "block.goety.weathered_dark_oak_stairs": "Weathered Dark Oak Stairs",
+  "block.goety.weathered_dark_oak_fence": "Weathered Dark Oak Fence",
 
   "block.goety.windswept_sapling": "Windswept Sapling",
   "block.goety.potted_windswept_sapling": "Potted Windswept Sapling",

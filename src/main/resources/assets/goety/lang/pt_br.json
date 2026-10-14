@@ -3896,7 +3896,7 @@
   "block.goety.stripped_marsh_log": "Tronco do Pântano Descascado",
   "block.goety.stripped_marsh_wood": "Madeira do Pântano Descascada",
   "entity.goety.hostile_skeleton_pillager": "Esqueleto Saqueador",
-  "entity.goety.rogueguard_variant_servant": "Servo Guarda Renegado",
+  "entity.goety.rogueguard_servant": "Servo Guarda Renegado",
   "entity.goety.heavy_arrow": "Flecha",
   "item.goety.rogueguard_servant_spawn_egg": "Ovo de Servo Guarda Renegado",
   "block.goety.pale_crystal_ball": "Bola de Cristal Pálida",
@@ -3970,5 +3970,15 @@
   "item.goety.music_disc_skull_lord.desc": "Johan Johnson - arena2",
   "item.goety.music_disc_wither_necromancer": "Disco de Música",
   "item.goety.music_disc_wither_necromancer.desc": "Peter Hont - Wildfire",
-  "block.goety.end_mineral_cauldron": "Caldeirão do Mineral do End"
+  "block.goety.end_mineral_cauldron": "Caldeirão do Mineral do End",
+  "block.goety.weathering_oak_planks": "Tábuas de Carvalho em Desgaste",
+  "block.goety.weathered_oak_planks": "Tábuas de Carvalho Desgastadas",
+  "block.goety.weathered_oak_slab": "Laje de Carvalho Desgastada",
+  "block.goety.weathered_oak_stairs": "Escadas de Carvalho Desgastadas",
+  "block.goety.weathered_oak_fence": "Cerca de Carvalho Desgastada",
+  "block.goety.weathering_dark_oak_planks": "Tábuas de Carvalho Escuro em Desgaste",
+  "block.goety.weathered_dark_oak_planks": "Tábuas de Carvalho Escuro Desgastadas",
+  "block.goety.weathered_dark_oak_slab": "Laje de Carvalho Escuro Desgastada",
+  "block.goety.weathered_dark_oak_stairs": "Escadas de Carvalho Escuro Desgastadas",
+  "block.goety.weathered_dark_oak_fence": "Cerca de Carvalho Escuro Desgastada"
 }

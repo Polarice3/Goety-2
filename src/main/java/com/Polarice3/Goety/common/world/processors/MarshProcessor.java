@@ -8,8 +8,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.CrossCollisionBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.SlabType;
@@ -20,8 +20,9 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MarshProcessor extends StructureProcessor {
     public static final Codec<MarshProcessor> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -35,27 +36,54 @@ public class MarshProcessor extends StructureProcessor {
     }
 
     @Nullable
-    public StructureTemplate.StructureBlockInfo processBlock(LevelReader p_74016_, BlockPos p_74017_, BlockPos p_74018_, StructureTemplate.StructureBlockInfo p_74019_, StructureTemplate.StructureBlockInfo p_74020_, StructurePlaceSettings p_74021_) {
-        RandomSource randomsource = p_74021_.getRandom(p_74020_.pos());
-        BlockState blockstate = p_74020_.state();
-        BlockPos blockpos = p_74020_.pos();
-        BlockState blockstate1 = null;
-        if (blockstate.is(this.toMarsh)) {
-            blockstate1 = this.maybeReplaceFullStoneBlock(p_74016_, blockpos, randomsource);
-        }
-
-        return blockstate1 != null ? new StructureTemplate.StructureBlockInfo(blockpos, blockstate1, p_74020_.nbt()) : p_74020_;
+    public StructureTemplate.StructureBlockInfo processBlock(LevelReader level, BlockPos offset, BlockPos pos, StructureTemplate.StructureBlockInfo blockInfo, StructureTemplate.StructureBlockInfo relativeBlockInfo, StructurePlaceSettings settings) {
+        return relativeBlockInfo;
     }
 
-    @Nullable
-    private BlockState maybeReplaceFullStoneBlock(LevelReader p_74016_, BlockPos p_74017_, RandomSource p_230256_) {
-        if (p_230256_.nextFloat() >= CHANCE || Arrays.stream(Direction.values()).anyMatch(direction -> p_74016_.getBlockState(p_74017_.relative(direction)).getBlock() instanceof CrossCollisionBlock)) {
+    @Override
+    public List<StructureTemplate.StructureBlockInfo> finalizeProcessing(ServerLevelAccessor level, BlockPos offset, BlockPos pos, List<StructureTemplate.StructureBlockInfo> originalBlockInfos, List<StructureTemplate.StructureBlockInfo> processedBlockInfos, StructurePlaceSettings settings) {
+        Map<BlockPos, BlockState> piece = new HashMap<>();
+        for (StructureTemplate.StructureBlockInfo info : processedBlockInfos) {
+            piece.put(info.pos(), info.state());
+        }
+        List<StructureTemplate.StructureBlockInfo> result = new ArrayList<>(processedBlockInfos.size());
+        for (StructureTemplate.StructureBlockInfo info : processedBlockInfos) {
+            if (info.state().is(this.toMarsh)) {
+                BlockState weathered = this.maybeReplaceFullStoneBlock(level, piece, info.pos(), settings.getRandom(info.pos()));
+                result.add(new StructureTemplate.StructureBlockInfo(info.pos(), weathered, info.nbt()));
+            } else {
+                result.add(info);
+            }
+        }
+        return result;
+    }
+
+    private BlockState maybeReplaceFullStoneBlock(LevelReader level, Map<BlockPos, BlockState> piece, BlockPos pos, RandomSource random) {
+        if (random.nextFloat() >= CHANCE || this.hasAttachedNeighbour(level, piece, pos)) {
             return ModBlocks.MARSH_PLANKS.get().defaultBlockState();
         } else {
             List<BlockState> list = new ArrayList<>();
             list.add(getSlab(ModBlocks.MARSH_SLAB.get()));
-            return getRandomBlock(p_230256_, list);
+            return getRandomBlock(random, list);
         }
+    }
+
+    private boolean hasAttachedNeighbour(LevelReader level, Map<BlockPos, BlockState> piece, BlockPos pos) {
+        for (Direction direction : Direction.values()) {
+            BlockPos neighbourPos = pos.relative(direction);
+            BlockState neighbour = piece.get(neighbourPos);
+            if (neighbour == null) {
+                neighbour = level.getBlockState(neighbourPos);
+            }
+            if (this.keepsPlank(level, neighbourPos, neighbour)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean keepsPlank(LevelReader level, BlockPos neighbourPos, BlockState neighbour) {
+        return !neighbour.isAir() && !neighbour.isCollisionShapeFullBlock(level, neighbourPos);
     }
 
     private static BlockState getSlab(Block p_230259_) {

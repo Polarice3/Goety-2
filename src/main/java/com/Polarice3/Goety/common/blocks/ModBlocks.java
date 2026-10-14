@@ -642,6 +642,28 @@ public class ModBlocks {
     public static final RegistryObject<Block> POTTED_MARSH_SAPLING = register("potted_marsh_sapling", () ->
             new FlowerPotBlock(() -> (FlowerPotBlock) ForgeRegistries.BLOCKS.getDelegateOrThrow(Blocks.FLOWER_POT).get(), ModBlocks.MARSH_SAPLING, Block.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion().instabreak()), false, LootTableType.EMPTY);
 
+    //Weathered
+    public static final RegistryObject<Block> WEATHERING_OAK_PLANKS = register("weathering_oak_planks", () ->
+            new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<Block> WEATHERED_OAK_PLANKS = register("weathered_oak_planks", () ->
+            new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<Block> WEATHERED_OAK_STAIRS = registerStairs("weathered_oak_stairs",
+            WEATHERED_OAK_PLANKS);
+    public static final RegistryObject<Block> WEATHERED_OAK_SLAB = registerSlabs("weathered_oak_slab",
+            WEATHERED_OAK_PLANKS);
+    public static final RegistryObject<Block> WEATHERED_OAK_FENCE = register("weathered_oak_fence",
+            () -> new FenceBlock(Block.Properties.of().mapColor(WEATHERED_OAK_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava()));
+    public static final RegistryObject<Block> WEATHERING_DARK_OAK_PLANKS = register("weathering_dark_oak_planks", () ->
+            new Block(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
+    public static final RegistryObject<Block> WEATHERED_DARK_OAK_PLANKS = register("weathered_dark_oak_planks", () ->
+            new Block(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
+    public static final RegistryObject<Block> WEATHERED_DARK_OAK_STAIRS = registerStairs("weathered_dark_oak_stairs",
+            WEATHERED_DARK_OAK_PLANKS);
+    public static final RegistryObject<Block> WEATHERED_DARK_OAK_SLAB = registerSlabs("weathered_dark_oak_slab",
+            WEATHERED_DARK_OAK_PLANKS);
+    public static final RegistryObject<Block> WEATHERED_DARK_OAK_FENCE = register("weathered_dark_oak_fence",
+            () -> new FenceBlock(Block.Properties.of().mapColor(WEATHERED_DARK_OAK_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava()));
+
     //Windswept
     public static final RegistryObject<Block> WINDSWEPT_PLANKS = register("windswept_planks",
             () -> new Block(Block.Properties.of().mapColor(MapColor.COLOR_YELLOW).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava()));

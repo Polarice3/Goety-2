@@ -80,6 +80,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(ModBlocks.DETRITUS.get());
 
         simpleBlockWithItem(ModBlocks.MARSH_PLANKS.get());
+        simpleBlockWithItem(ModBlocks.WEATHERING_OAK_PLANKS.get());
+        simpleBlockWithItem(ModBlocks.WEATHERED_OAK_PLANKS.get());
+        simpleBlockWithItem(ModBlocks.WEATHERING_DARK_OAK_PLANKS.get());
+        simpleBlockWithItem(ModBlocks.WEATHERED_DARK_OAK_PLANKS.get());
 
         simpleBlockWithItem(ModBlocks.SOILED_SPRUCE_PLANKS.get());
         simpleBlockWithItem(ModBlocks.SOILED_SPRUCE_PLANKS_HEAVY.get());
@@ -211,6 +215,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         fenceBlockWithItem((FenceBlock) ModBlocks.HAUNTED_FENCE.get(), Goety.location("block/haunted_planks"));
         fenceBlockWithItem((FenceBlock) ModBlocks.ROTTEN_FENCE.get(), Goety.location("block/rotten_planks"));
         fenceBlockWithItem((FenceBlock) ModBlocks.MARSH_FENCE.get(), Goety.location("block/marsh_planks"));
+        fenceBlockWithItem((FenceBlock) ModBlocks.WEATHERED_OAK_FENCE.get(), Goety.location("block/weathered_oak_planks"));
+        fenceBlockWithItem((FenceBlock) ModBlocks.WEATHERED_DARK_OAK_FENCE.get(), Goety.location("block/weathered_dark_oak_planks"));
         fenceBlockWithItem((FenceBlock) ModBlocks.WINDSWEPT_FENCE.get(), Goety.location("block/windswept_planks"));
         fenceBlockWithItem((FenceBlock) ModBlocks.PINE_FENCE.get(), Goety.location("block/pine_planks"));
         fenceBlockWithItem((FenceBlock) ModBlocks.STEEP_FENCE.get(), Goety.location("block/steep_planks"));
@@ -289,6 +295,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         slabBlockWithItem((SlabBlock) ModBlocks.HAUNTED_SLAB.get(), Goety.location("block/haunted_planks"));
         slabBlockWithItem((SlabBlock) ModBlocks.ROTTEN_SLAB.get(), Goety.location("block/rotten_planks"));
         slabBlockWithItem((SlabBlock) ModBlocks.MARSH_SLAB.get(), Goety.location("block/marsh_planks"));
+        slabBlockWithItem((SlabBlock) ModBlocks.WEATHERED_OAK_SLAB.get(), Goety.location("block/weathered_oak_planks"));
+        slabBlockWithItem((SlabBlock) ModBlocks.WEATHERED_DARK_OAK_SLAB.get(), Goety.location("block/weathered_dark_oak_planks"));
         slabBlockWithItem((SlabBlock) ModBlocks.WINDSWEPT_SLAB.get(), Goety.location("block/windswept_planks"));
         slabBlockWithItem((SlabBlock) ModBlocks.PINE_SLAB.get(), Goety.location("block/pine_planks"));
         slabBlockWithItem((SlabBlock) ModBlocks.COMPACTED_WINDSWEPT_SLAB.get(), Goety.location("block/compacted_windswept_planks"));
@@ -361,6 +369,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         stairsBlockWithItem((StairBlock) ModBlocks.HAUNTED_STAIRS.get(), Goety.location("block/haunted_planks"));
         stairsBlockWithItem((StairBlock) ModBlocks.ROTTEN_STAIRS.get(), Goety.location("block/rotten_planks"));
         stairsBlockWithItem((StairBlock) ModBlocks.MARSH_STAIRS.get(), Goety.location("block/marsh_planks"));
+        stairsBlockWithItem((StairBlock) ModBlocks.WEATHERED_OAK_STAIRS.get(), Goety.location("block/weathered_oak_planks"));
+        stairsBlockWithItem((StairBlock) ModBlocks.WEATHERED_DARK_OAK_STAIRS.get(), Goety.location("block/weathered_dark_oak_planks"));
         stairsBlockWithItem((StairBlock) ModBlocks.WINDSWEPT_STAIRS.get(), Goety.location("block/windswept_planks"));
         stairsBlockWithItem((StairBlock) ModBlocks.PINE_STAIRS.get(), Goety.location("block/pine_planks"));
         stairsBlockWithItem((StairBlock) ModBlocks.STEEP_STAIRS.get(), Goety.location("block/steep_planks"));
