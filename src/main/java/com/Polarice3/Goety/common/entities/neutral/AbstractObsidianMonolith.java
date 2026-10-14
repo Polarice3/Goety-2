@@ -54,9 +54,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public abstract class AbstractObsidianMonolith extends AbstractMonolith {
     protected static final EntityDataAccessor<Float> DATA_PROGRESS = SynchedEntityData.defineId(AbstractObsidianMonolith.class, EntityDataSerializers.FLOAT);
@@ -69,6 +71,8 @@ public abstract class AbstractObsidianMonolith extends AbstractMonolith {
     public int spawnMiniBossCool;
     public double cloudHeight = 16.0D;
     public boolean shouldSpawnHeretics;
+    @Nullable
+    private UUID heresiarchUUID;
     private final NetherSpreaderUtil netherSpreaderUtil = NetherSpreaderUtil.createLevelSpreader();
 
     public AbstractObsidianMonolith(EntityType<? extends AbstractMonolith> type, Level worldIn) {
@@ -107,6 +111,9 @@ public abstract class AbstractObsidianMonolith extends AbstractMonolith {
         p_31485_.putInt("SpreaderLeveling", this.getSpreaderLeveling());
         p_31485_.putInt("SpawnMiniBossCool", this.spawnMiniBossCool);
         p_31485_.putDouble("CloudHeight", this.cloudHeight);
+        if (this.heresiarchUUID != null) {
+            p_31485_.putUUID("HeresiarchUUID", this.heresiarchUUID);
+        }
     }
 
     @Override
@@ -132,6 +139,9 @@ public abstract class AbstractObsidianMonolith extends AbstractMonolith {
         }
         if (p_31474_.contains("CloudHeight")) {
             this.cloudHeight = p_31474_.getDouble("CloudHeight");
+        }
+        if (p_31474_.hasUUID("HeresiarchUUID")) {
+            this.heresiarchUUID = p_31474_.getUUID("HeresiarchUUID");
         }
     }
 
@@ -176,6 +186,25 @@ public abstract class AbstractObsidianMonolith extends AbstractMonolith {
     @Override
     public boolean isPersistenceRequired() {
         return super.isPersistenceRequired() || this.empowered > 0;
+    }
+
+    private boolean hasHeresiarch(ServerLevel serverLevel) {
+        if (this.heresiarchUUID == null) {
+            return false;
+        }
+        Entity entity = serverLevel.getEntity(this.heresiarchUUID);
+        if (entity != null && !entity.isAlive()) {
+            this.heresiarchUUID = null;
+            return false;
+        }
+        return true;
+    }
+
+    public void heresiarchRemoved(Heresiarch heresiarch) {
+        if (heresiarch.getUUID().equals(this.heresiarchUUID)) {
+            this.heresiarchUUID = null;
+            this.spawnMiniBossCool = MathHelper.minutesToTicks(5);
+        }
     }
 
     public boolean hurt(DamageSource pSource, float pAmount) {
@@ -545,8 +574,7 @@ public abstract class AbstractObsidianMonolith extends AbstractMonolith {
                     }
                 }
                 if (this.tickCount % 20 == 0) {
-                    int heresiarchs = this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(64.0D, 16.0D, 64.0D), entity -> entity.isAlive() && (entity instanceof Heresiarch || entity instanceof SummonCircleBoss)).size();
-                    if (this.spawnMiniBossCool <= 0 && j == 0 && heresiarchs == 0 && random1.nextFloat() <= 0.05F) {
+                    if (this.spawnMiniBossCool <= 0 && j == 0 && !this.hasHeresiarch(serverLevel) && random1.nextFloat() <= 0.05F) {
                         Heresiarch heresiarch = new Heresiarch(ModEntityType.HERESIARCH.get(), this.level);
                         int i1 = this.blockPosition().getX() + (Mth.randomBetweenInclusive(random1, 4, 8) * Mth.randomBetweenInclusive(random1, -1, 1));
                         int j1 = this.blockPosition().getY() + (Mth.randomBetweenInclusive(random1, 0, 3) * Mth.randomBetweenInclusive(random1, -1, 1));
@@ -560,7 +588,10 @@ public abstract class AbstractObsidianMonolith extends AbstractMonolith {
                             heresiarch.setLeader(this);
                             heresiarch.setMonolith(this);
                             SummonCircleBoss summonCircleBoss = new SummonCircleBoss(this.level, vec3, heresiarch);
-                            this.level.addFreshEntity(summonCircleBoss);
+                            if (this.level.addFreshEntity(summonCircleBoss)) {
+                                this.heresiarchUUID = heresiarch.getUUID();
+                                this.spawnMiniBossCool = MathHelper.minutesToTicks(5);
+                            }
                         }
                     }
                 }

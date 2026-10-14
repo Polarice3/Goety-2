@@ -73,6 +73,7 @@ public class VoidShrineBlockEntity extends PedestalBlockEntity {
                         keeper.setBoundPos(this.worldPosition);
                         keeper.setPersistenceRequired();
                         serverLevel.addFreshEntity(keeper);
+                        this.setChanged();
                     }
                     if (this.coolTick < 20) {
                         for (Player player : serverLevel.getEntitiesOfClass(Player.class, new AABB(this.getBlockPos()).inflate(64.0F), EntitySelector.NO_CREATIVE_OR_SPECTATOR)) {

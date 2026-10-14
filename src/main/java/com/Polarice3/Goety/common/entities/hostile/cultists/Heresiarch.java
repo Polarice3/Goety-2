@@ -589,6 +589,14 @@ public class Heresiarch extends Cultist {
         return super.hurt(pSource, pAmount);
     }
 
+    @Override
+    public void remove(RemovalReason reason) {
+        if (reason.shouldDestroy() && this.getMonolith() != null) {
+            this.getMonolith().heresiarchRemoved(this);
+        }
+        super.remove(reason);
+    }
+
     protected void teleport() {
         this.prevX = this.getX();
         this.prevY = this.getY();

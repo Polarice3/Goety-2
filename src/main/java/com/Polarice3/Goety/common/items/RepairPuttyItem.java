@@ -27,22 +27,24 @@ public class RepairPuttyItem extends ItemBase {
                     if (target.getType().getDescriptionId().contains("golem") || target.getType().is(ModTags.EntityTypes.REPAIRABLE)) {
                         boolean ownedByPlayer = mob instanceof OwnableEntity owned && owned.getOwner() == player;
                         boolean notTargetFriendly = mob.getTarget() == null || (mob.getTarget() != player && !MobUtil.areAllies(mob.getTarget(), player));
-                        if (notTargetFriendly || ownedByPlayer || (target instanceof IronGolem golem && golem.isPlayerCreated())) {
-                            mob.heal(25.0F);
-                            float f1 = 1.0F + (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2F;
-                            mob.playSound(SoundEvents.IRON_GOLEM_REPAIR, 1.0F, f1);
-                            if (level instanceof ServerLevel serverLevel) {
-                                for (int i = 0; i < 7; ++i) {
-                                    double d0 = mob.getRandom().nextGaussian() * 0.02D;
-                                    double d1 = mob.getRandom().nextGaussian() * 0.02D;
-                                    double d2 = mob.getRandom().nextGaussian() * 0.02D;
-                                    serverLevel.sendParticles(ModParticleTypes.HEAL_EFFECT.get(), mob.getRandomX(1.0D), mob.getRandomY() + 0.5D, mob.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+                        if (mob.getHealth() < mob.getMaxHealth()) {
+                            if (notTargetFriendly || ownedByPlayer || (target instanceof IronGolem golem && golem.isPlayerCreated())) {
+                                mob.heal(25.0F);
+                                float f1 = 1.0F + (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2F;
+                                mob.playSound(SoundEvents.IRON_GOLEM_REPAIR, 1.0F, f1);
+                                if (level instanceof ServerLevel serverLevel) {
+                                    for (int i = 0; i < 7; ++i) {
+                                        double d0 = mob.getRandom().nextGaussian() * 0.02D;
+                                        double d1 = mob.getRandom().nextGaussian() * 0.02D;
+                                        double d2 = mob.getRandom().nextGaussian() * 0.02D;
+                                        serverLevel.sendParticles(ModParticleTypes.HEAL_EFFECT.get(), mob.getRandomX(1.0D), mob.getRandomY() + 0.5D, mob.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+                                    }
                                 }
+                                if (!player.getAbilities().instabuild) {
+                                    stack.shrink(1);
+                                }
+                                return InteractionResult.SUCCESS;
                             }
-                            if (!player.getAbilities().instabuild) {
-                                stack.shrink(1);
-                            }
-                            return InteractionResult.SUCCESS;
                         }
                     }
                 }

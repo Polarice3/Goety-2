@@ -902,14 +902,22 @@ public class WandUtil {
     };
 
     public static void spawnFangLine(LivingEntity caster, Vec3 target) {
-        spawnFangPattern(caster, FANG_LINE, target, 1);
+        spawnFangLine(caster, target, 0, 0);
+    }
+
+    public static void spawnFangLine(LivingEntity caster, Vec3 target, int pPotency, int pBurning) {
+        spawnFangPattern(caster, FANG_LINE, target, 1, pPotency, pBurning);
     }
 
     public static void spawnFangRound(LivingEntity caster, Vec3 target) {
-        spawnFangPattern(caster, FANG_ROUND, target, 0);
+        spawnFangRound(caster, target, 0, 0);
     }
 
-    public static void spawnFangPattern(LivingEntity caster, int[][] pattern, Vec3 target, int ticksBetween) {
+    public static void spawnFangRound(LivingEntity caster, Vec3 target, int pPotency, int pBurning) {
+        spawnFangPattern(caster, FANG_ROUND, target, 0, pPotency, pBurning);
+    }
+
+    public static void spawnFangPattern(LivingEntity caster, int[][] pattern, Vec3 target, int ticksBetween, int pPotency, int pBurning) {
         double minY = Math.min(target.y(), caster.getY());
         double maxY = Math.max(target.y(), caster.getY()) + 1.0D;
         float yaw = (float) Mth.atan2(target.z() - caster.getZ(), target.x() - caster.getX());
@@ -920,7 +928,7 @@ public class WandUtil {
         for (int i = 0; i < pattern.length; i++) {
             double forward = pattern[i][0] * FANG_CELL_SIZE;
             double right = pattern[i][1] * FANG_CELL_SIZE;
-            createMasterFang(caster, caster.getX() + forwardX * forward + rightX * right, caster.getZ() + forwardZ * forward + rightZ * right, minY, maxY, yaw, i * ticksBetween);
+            createMasterFang(caster, caster.getX() + forwardX * forward + rightX * right, caster.getZ() + forwardZ * forward + rightZ * right, minY, maxY, yaw, i * ticksBetween, pPotency, pBurning);
         }
     }
 
@@ -929,6 +937,10 @@ public class WandUtil {
     private static final int SLOW_FANG_WARMUP = 10;
 
     public static void spawnFangsAroundTarget(LivingEntity caster, Vec3 target) {
+        spawnFangsAroundTarget(caster, target, 0, 0);
+    }
+
+    public static void spawnFangsAroundTarget(LivingEntity caster, Vec3 target, int pPotency, int pBurning) {
         double minY = Math.min(target.y(), caster.getY());
         double maxY = Math.max(target.y(), caster.getY()) + 1.0D;
         double centerX = target.x();
@@ -940,11 +952,11 @@ public class WandUtil {
             double x = centerX + Mth.cos(angle) * AROUND_TARGET_RADIUS;
             double z = centerZ + Mth.sin(angle) * AROUND_TARGET_RADIUS;
             float facing = angle + Mth.PI + MathHelper.modelDegrees(90);
-            createMasterFang(caster, x, z, minY, maxY, facing, SLOW_FANG_WARMUP);
+            createMasterFang(caster, x, z, minY, maxY, facing, SLOW_FANG_WARMUP, pPotency, pBurning);
         }
     }
 
-    public static void createMasterFang(LivingEntity caster, double originalX, double originalZ, double minY, double originalY, float pYRot, int pWarmUp) {
+    public static void createMasterFang(LivingEntity caster, double originalX, double originalZ, double minY, double originalY, float pYRot, int pWarmUp, int pPotency, int pBurning) {
         BlockPos blockpos = BlockPos.containing(originalX, originalY, originalZ);
         boolean flag = false;
         double d0 = 0.0D;

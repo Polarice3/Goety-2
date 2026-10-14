@@ -89,7 +89,7 @@ public class FangSpell extends Spell {
         }
         if (!isShifting(caster)) {
             if (this.rightStaff(staff)) {
-                WandUtil.spawnFangLine(caster, target != null ? target.position() : vector3d);
+                WandUtil.spawnFangLine(caster, target != null ? target.position() : vector3d, potency, burning);
             } else {
                 for(int l = 0; l < range; ++l) {
                     double d2 = 1.25D * (double)(l + 1);
@@ -99,9 +99,9 @@ public class FangSpell extends Spell {
         } else {
             if (rightStaff(staff)) {
                 if (target != null) {
-                    WandUtil.spawnFangsAroundTarget(caster, target.position());
+                    WandUtil.spawnFangsAroundTarget(caster, target.position(), potency, burning);
                 } else {
-                    WandUtil.spawnFangRound(caster, vector3d);
+                    WandUtil.spawnFangRound(caster, vector3d, potency, burning);
                 }
             } else {
                 for(int i = 0; i < 5; ++i) {
