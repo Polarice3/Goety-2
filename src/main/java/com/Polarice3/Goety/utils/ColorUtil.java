@@ -79,6 +79,21 @@ public class ColorUtil {
         return FastColor.ARGB32.color(Math.round(alpha * 255.0F), Math.round(red * 255.0F), Math.round(green * 255.0F), Math.round(blue * 255.0F));
     }
 
+    public static float sample(float[] curve, float t) {
+        float x = Mth.clamp(t, 0.0F, 1.0F) * (curve.length - 1);
+        int i = Math.min((int) x, curve.length - 2);
+        return Mth.lerp(x - i, curve[i], curve[i + 1]);
+    }
+
+    public static float[] toLdr(float r, float g, float b) {
+        float m = Math.max(r, Math.max(g, b));
+        if (m <= 1.0F) {
+            return new float[]{r, g, b};
+        }
+        float w = Mth.clamp((float) Math.log10(m) / 3.0F, 0.0F, 0.9F);
+        return new float[]{Mth.lerp(w, r / m, 1.0F), Mth.lerp(w, g / m, 1.0F), Mth.lerp(w, b / m, 1.0F)};
+    }
+
     public static class ARGB {
 
         public static int alpha(int i) {

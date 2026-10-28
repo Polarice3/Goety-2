@@ -1,0 +1,37 @@
+{
+  "name": "Monstruosidade do Túmulo",
+  "icon": "goety:grave_monstrosity_head",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_terminus_and_haunting_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Depois de aprender sobre as monstruosidades do passado, você mergulhou mais fundo nas profundezas da necromancia para criar uma monstruosidade digna dos mortos. Após muitas pesquisas e testes... você conseguiu."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:grave_monstrosity",
+      "scale": 0.75
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:grave_monstrosity",
+      "text": "Clique com o botão direito no $(l:goety:crafts/monstrous_core)Núcleo Monstruoso$() central com um Núcleo de Animação."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Pedra da Cripta pode ser substituída por outras variantes de blocos completos. Talvez o monstro definitivo nascido da necromancia, esta criatura protege mortos-vivos aliados próximos dos raios do sol miserável. Eles podem ser reparados clicando com o botão direito neles com Blocos de Osso."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:grave_monstrosity_head",
+      "text": "Se a Monstruosidade cair em batalha ou por comando, eles deixarão cair sua cabeça. A Cabeça pode ser usada para reviver a Monstruosidade de uma maneira mais barata. No entanto, a Cabeça lembra seu criador e mestre original, e a Monstruosidade revivida só seguirá os comandos deles."
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:grave_monstrosity_revive",
+      "enable_visualize": false
+    }
+  ]
+}

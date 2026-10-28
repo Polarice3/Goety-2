@@ -10,7 +10,7 @@
     "display_name": "entity.goety.black_wolf"
   },
   "entity_to_convert_into": "goety:black_beast",
-  "soulCost": 5,
+  "soulCost": 500,
   "duration": 30,
   "research": "haunting",
   "ingredients": [

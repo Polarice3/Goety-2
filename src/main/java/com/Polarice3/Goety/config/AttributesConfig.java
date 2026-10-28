@@ -356,6 +356,17 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> RedstoneCubeArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> RedstoneCubeDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> RedstoneCubeFollowRange;
+    public static final ForgeConfigSpec.ConfigValue<Double> GraveMonstrosityHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> GraveMonstrosityArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> GraveMonstrosityDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> GraveMonstrosityFollowRange;
+    public static final ForgeConfigSpec.ConfigValue<Double> GraveMonstrosityHPPercentDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> GraveMonstrosityHurtRange;
+    public static final ForgeConfigSpec.ConfigValue<Double> GraveMonstrosityDamageCap;
+    public static final ForgeConfigSpec.ConfigValue<Double> GraveCubeHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> GraveCubeArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> GraveCubeDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> GraveCubeFollowRange;
 
     public static final ForgeConfigSpec.ConfigValue<Double> WightHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> WightDamage;
@@ -1254,8 +1265,8 @@ public class AttributesConfig {
                         .defineInRange("redstoneMonstrosityHealth", 600.0, 1.0, Double.MAX_VALUE);
                 RedstoneMonstrosityArmor = BUILDER.comment("How much natural armor points Redstone Monstrosities have, Default: 0.0")
                         .defineInRange("redstoneMonstrosityArmor", 0.0, 0.0, Double.MAX_VALUE);
-                RedstoneMonstrosityDamage = BUILDER.comment("How much damage Redstone Monstrosities deals, Default: 21.0")
-                        .defineInRange("redstoneMonstrosityDamage", 21.0, 1.0, Double.MAX_VALUE);
+                RedstoneMonstrosityDamage = BUILDER.comment("How much damage Redstone Monstrosities deals, Default: 25.0")
+                        .defineInRange("redstoneMonstrosityDamage", 25.0, 1.0, Double.MAX_VALUE);
                 RedstoneMonstrosityFollowRange = BUILDER.comment("How much following/detection range Redstone Monstrosities have, Default: 32.0")
                         .defineInRange("redstoneMonstrosityFollowRange", 32.0, 1.0, 2048.0);
                 RedstoneMonstrosityHPPercentDamage = BUILDER.comment("Redstone Monstrosities attack HP percent damage, Default: 0.08")
@@ -1272,6 +1283,30 @@ public class AttributesConfig {
                         .defineInRange("redstoneCubeDamage", 4.0, 1.0, Double.MAX_VALUE);
                 RedstoneCubeFollowRange = BUILDER.comment("How much following/detection range Redstone Cubes have, Default: 16.0")
                         .defineInRange("redstoneCubeFollowRange", 16.0, 1.0, 2048.0);
+                BUILDER.pop();
+                BUILDER.push("Grave Monstrosity");
+                GraveMonstrosityHealth = BUILDER.comment("How much Max Health Grave Monstrosities have, Default: 480.0")
+                        .defineInRange("graveMonstrosityHealth", 480.0, 1.0, Double.MAX_VALUE);
+                GraveMonstrosityArmor = BUILDER.comment("How much natural armor points Grave Monstrosities have, Default: 0.0")
+                        .defineInRange("graveMonstrosityArmor", 0.0, 0.0, Double.MAX_VALUE);
+                GraveMonstrosityDamage = BUILDER.comment("How much damage Grave Monstrosities deals, Default: 16.0")
+                        .defineInRange("graveMonstrosityDamage", 16.0, 1.0, Double.MAX_VALUE);
+                GraveMonstrosityFollowRange = BUILDER.comment("How much following/detection range Grave Monstrosities have, Default: 50.0")
+                        .defineInRange("graveMonstrosityFollowRange", 50.0, 1.0, 2048.0);
+                GraveMonstrosityHPPercentDamage = BUILDER.comment("Grave Monstrosities attack HP percent damage, Default: 0.05")
+                        .defineInRange("graveMonstrosityHPPercentDamage", 0.05, 0.0, 1.0);
+                GraveMonstrosityHurtRange = BUILDER.comment("How many blocks or distance away an attack can be from Grave Monstrosities to damage them, Default: 20.0")
+                        .defineInRange("graveMonstrosityHurtRange", 20.0, 6.0, Double.MAX_VALUE);
+                GraveMonstrosityDamageCap = BUILDER.comment("The maximum amount of damage an Grave Monstrosities can attain per hit, Default: 25.0")
+                        .defineInRange("graveMonstrosityDamageCap", 25.0D, 1.0, Double.MAX_VALUE);
+                GraveCubeHealth = BUILDER.comment("How much Max Health Grave Cubes have, Default: 10.0")
+                        .defineInRange("graveCubeHealth", 10.0, 1.0, Double.MAX_VALUE);
+                GraveCubeArmor = BUILDER.comment("How much natural armor points Grave Cubes have, Default: 0.0")
+                        .defineInRange("graveCubeArmor", 0.0, 0.0, Double.MAX_VALUE);
+                GraveCubeDamage = BUILDER.comment("How much damage Grave Cubes deals, Default: 4.0")
+                        .defineInRange("graveCubeDamage", 4.0, 1.0, Double.MAX_VALUE);
+                GraveCubeFollowRange = BUILDER.comment("How much following/detection range Grave Cubes have, Default: 16.0")
+                        .defineInRange("graveCubeFollowRange", 16.0, 1.0, 2048.0);
                 BUILDER.pop();
             BUILDER.pop();
             BUILDER.push("Mini-Bosses");

@@ -15,6 +15,7 @@ import com.Polarice3.Goety.client.audio.*;
 import com.Polarice3.Goety.client.gui.overlay.SoulChangePopup;
 import com.Polarice3.Goety.client.gui.screen.inventory.BrewRadialMenuScreen;
 import com.Polarice3.Goety.client.gui.screen.inventory.FocusRadialMenuScreen;
+import com.Polarice3.Goety.client.gui.screen.inventory.TesseractRadialMenuScreen;
 import com.Polarice3.Goety.client.render.*;
 import com.Polarice3.Goety.client.render.item.CustomItemsRenderer;
 import com.Polarice3.Goety.client.render.model.LichModeModel;
@@ -48,6 +49,7 @@ import com.Polarice3.Goety.common.entities.neutral.InsectSwarm;
 import com.Polarice3.Goety.common.entities.neutral.Wildfire;
 import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
 import com.Polarice3.Goety.common.entities.projectiles.IceStorm;
+import com.Polarice3.Goety.common.entities.projectiles.Ripple;
 import com.Polarice3.Goety.common.entities.util.CameraShake;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.WaystoneItem;
@@ -70,6 +72,7 @@ import com.Polarice3.Goety.utils.*;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.client.KeyMapping;
@@ -89,6 +92,7 @@ import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.Input;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -519,6 +523,13 @@ public class ClientEvents {
     }
 
     @SubscribeEvent
+    public static void renderTesseractHUD(RenderGuiOverlayEvent.Pre event) {
+        if (event.getOverlay() == VanillaGuiOverlay.CROSSHAIR.type() && Minecraft.getInstance().screen instanceof TesseractRadialMenuScreen) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
     public static void renderArcaAmount(final RenderGuiOverlayEvent.Post event) {
         Minecraft minecraft = Minecraft.getInstance();
         final Player player = minecraft.player;
@@ -905,6 +916,32 @@ public class ClientEvents {
                     }
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void RenderRipple(RenderLevelStageEvent event) {
+        if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS && !RippleRenderer.QUEUE.isEmpty()) {
+            Vec3 cam = event.getCamera().getPosition();
+            float partialTicks = event.getPartialTick();
+            PoseStack poseStack = event.getPoseStack();
+            MultiBufferSource.BufferSource buffers = Minecraft.getInstance().renderBuffers().bufferSource();
+
+            for (RippleRenderer.Pass pass : RippleRenderer.Pass.values()) {
+                RenderType type = switch (pass) {
+                    case TRANSLUCENT -> ModRenderType.RIPPLE_TRANSLUCENT;
+                    case ADDITIVE -> ModRenderType.RIPPLE_ADDITIVE;
+                    case ELECTRIC -> ModRenderType.RIPPLE_ELECTRIC;
+                };
+                VertexConsumer consumer = buffers.getBuffer(type);
+                for (Ripple ripple : RippleRenderer.QUEUE) {
+                    if (!ripple.isRemoved()) {
+                        RippleRenderer.drawRipple(ripple, partialTicks, poseStack, consumer, cam, pass);
+                    }
+                }
+                buffers.endBatch(type);
+            }
+            RippleRenderer.QUEUE.clear();
         }
     }
 
@@ -1302,9 +1339,13 @@ public class ClientEvents {
                 if (wandCircle) {
                     while (ModKeybindings.wandCircle().consumeClick()) {
                         if (minecraft.screen == null && minecraft.player != null) {
-                            ItemStack inHand = WandUtil.findWand(minecraft.player);
-                            if (!inHand.isEmpty() && ((TotemFinder.canOpenWandCircle(minecraft.player)))) {
-                                minecraft.setScreen(new FocusRadialMenuScreen());
+                            if (TesseractRadialMenuScreen.canOpen(minecraft.player)) {
+                                minecraft.setScreen(new TesseractRadialMenuScreen());
+                            } else {
+                                ItemStack inHand = WandUtil.findWand(minecraft.player);
+                                if (!inHand.isEmpty() && ((TotemFinder.canOpenWandCircle(minecraft.player)))) {
+                                    minecraft.setScreen(new FocusRadialMenuScreen());
+                                }
                             }
                         }
                     }
@@ -1351,7 +1392,7 @@ public class ClientEvents {
         Input input = event.getInput();
         if (player instanceof LocalPlayer localPlayer) {
             if (MainConfig.WheelGuiMovement.get()) {
-                if (Minecraft.getInstance().screen instanceof FocusRadialMenuScreen || Minecraft.getInstance().screen instanceof BrewRadialMenuScreen) {
+                if (Minecraft.getInstance().screen instanceof FocusRadialMenuScreen || Minecraft.getInstance().screen instanceof BrewRadialMenuScreen || Minecraft.getInstance().screen instanceof TesseractRadialMenuScreen) {
                     Options settings = Minecraft.getInstance().options;
                     input.up = isKeyDown0(settings.keyUp);
                     input.down = isKeyDown0(settings.keyDown);
@@ -1388,7 +1429,7 @@ public class ClientEvents {
         Minecraft MINECRAFT = Minecraft.getInstance();
 
         if (MainConfig.WheelGuiMovement.get()) {
-            if (MINECRAFT.screen instanceof FocusRadialMenuScreen || MINECRAFT.screen instanceof BrewRadialMenuScreen) {
+            if (MINECRAFT.screen instanceof FocusRadialMenuScreen || MINECRAFT.screen instanceof BrewRadialMenuScreen || MINECRAFT.screen instanceof TesseractRadialMenuScreen) {
                 InputConstants.Key inputconstants$key = InputConstants.getKey(event.getKey(), event.getScanCode());
                 if (event.getAction() == 0) {
                     KeyMapping.set(inputconstants$key, false);

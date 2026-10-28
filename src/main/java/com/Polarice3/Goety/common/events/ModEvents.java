@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.events;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.entities.IChunkLoader;
+import com.Polarice3.Goety.api.entities.IEnchanter;
 import com.Polarice3.Goety.api.entities.IHiding;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
@@ -33,6 +34,7 @@ import com.Polarice3.Goety.common.entities.ally.illager.raider.Prisoner;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.RaiderServant;
 import com.Polarice3.Goety.common.entities.ally.illager.raider.Ravaged;
 import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
+import com.Polarice3.Goety.common.entities.ally.undead.GraveMonstrosity;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.deco.HauntedArmorStand;
@@ -614,35 +616,52 @@ public class ModEvents {
             if (player.tickCount % 20 == 0) {
                 if (player instanceof ServerPlayer serverPlayer){
                     if (serverPlayer.getServer() != null) {
-                        Advancement advancement3 = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_warred_and_haunting_scroll"));
-                        if (advancement3 != null) {
-                            AdvancementProgress advancementProgress3 = serverPlayer.getAdvancements().getOrStartProgress(advancement3);
-                            if (!advancementProgress3.isDone()){
-                                Advancement advancement1 = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_warred_scroll"));
-                                Advancement advancement2 = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_haunting_scroll"));
-                                if (advancement1 != null && advancement2 != null) {
-                                    AdvancementProgress advancementProgress1 = serverPlayer.getAdvancements().getOrStartProgress(advancement1);
-                                    AdvancementProgress advancementProgress2 = serverPlayer.getAdvancements().getOrStartProgress(advancement2);
-                                    if (advancementProgress1.isDone() && advancementProgress2.isDone()){
-                                        for(String s : advancementProgress3.getRemainingCriteria()) {
-                                            serverPlayer.getAdvancements().award(advancement3, s);
+                        Advancement readWarredHaunt = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_warred_and_haunting_scroll"));
+                        if (readWarredHaunt != null) {
+                            AdvancementProgress readWarredHauntProgress = serverPlayer.getAdvancements().getOrStartProgress(readWarredHaunt);
+                            if (!readWarredHauntProgress.isDone()){
+                                Advancement readWarred = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_warred_scroll"));
+                                Advancement readHaunt = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_haunting_scroll"));
+                                if (readWarred != null && readHaunt != null) {
+                                    AdvancementProgress readWarredProgress = serverPlayer.getAdvancements().getOrStartProgress(readWarred);
+                                    AdvancementProgress readHauntProgress = serverPlayer.getAdvancements().getOrStartProgress(readHaunt);
+                                    if (readWarredProgress.isDone() && readHauntProgress.isDone()){
+                                        for(String s : readWarredHauntProgress.getRemainingCriteria()) {
+                                            serverPlayer.getAdvancements().award(readWarredHaunt, s);
                                         }
                                     }
                                 }
                             }
                         }
-                        Advancement advancement4 = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_buried_and_bygone_scroll"));
-                        if (advancement4 != null) {
-                            AdvancementProgress advancementProgress4 = serverPlayer.getAdvancements().getOrStartProgress(advancement4);
-                            if (!advancementProgress4.isDone()){
-                                Advancement advancement1 = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/unlock_necromancer"));
-                                Advancement advancement2 = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_bygone_scroll"));
-                                if (advancement1 != null && advancement2 != null) {
-                                    AdvancementProgress advancementProgress1 = serverPlayer.getAdvancements().getOrStartProgress(advancement1);
-                                    AdvancementProgress advancementProgress2 = serverPlayer.getAdvancements().getOrStartProgress(advancement2);
-                                    if (advancementProgress1.isDone() && advancementProgress2.isDone()){
-                                        for(String s : advancementProgress4.getRemainingCriteria()) {
-                                            serverPlayer.getAdvancements().award(advancement4, s);
+                        Advancement readTerminusHaunt = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_terminus_and_haunting_scroll"));
+                        if (readTerminusHaunt != null) {
+                            AdvancementProgress readTerminusHauntProgress = serverPlayer.getAdvancements().getOrStartProgress(readTerminusHaunt);
+                            if (!readTerminusHauntProgress.isDone()){
+                                Advancement readTerminus = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_terminus_scroll"));
+                                Advancement readHaunt = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_haunting_scroll"));
+                                if (readTerminus != null && readHaunt != null) {
+                                    AdvancementProgress readTerminusProgress = serverPlayer.getAdvancements().getOrStartProgress(readTerminus);
+                                    AdvancementProgress readHauntProgress = serverPlayer.getAdvancements().getOrStartProgress(readHaunt);
+                                    if (readTerminusProgress.isDone() && readHauntProgress.isDone()){
+                                        for(String s : readTerminusHauntProgress.getRemainingCriteria()) {
+                                            serverPlayer.getAdvancements().award(readTerminusHaunt, s);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        Advancement readBuriedBygone = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_buried_and_bygone_scroll"));
+                        if (readBuriedBygone != null) {
+                            AdvancementProgress readBuriedBygoneProgress = serverPlayer.getAdvancements().getOrStartProgress(readBuriedBygone);
+                            if (!readBuriedBygoneProgress.isDone()){
+                                Advancement readBuried = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/unlock_necromancer"));
+                                Advancement readBygone = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_bygone_scroll"));
+                                if (readBuried != null && readBygone != null) {
+                                    AdvancementProgress readBuriedProgress = serverPlayer.getAdvancements().getOrStartProgress(readBuried);
+                                    AdvancementProgress readBygoneProgress = serverPlayer.getAdvancements().getOrStartProgress(readBygone);
+                                    if (readBuriedProgress.isDone() && readBygoneProgress.isDone()){
+                                        for(String s : readBuriedBygoneProgress.getRemainingCriteria()) {
+                                            serverPlayer.getAdvancements().award(readBuriedBygone, s);
                                         }
                                     }
                                 }
@@ -982,6 +1001,18 @@ public class ModEvents {
                         event.setCanceled(true);
                     }
                 }
+                if (attacker.level instanceof ServerLevel serverLevel) {
+                    if (target instanceof IEnchanter enchanter) {
+                        if (!enchanter.getEnchantList().isEmpty()) {
+                            for (UUID uuid : enchanter.getEnchantList()) {
+                                Entity enchanted = serverLevel.getEntity(uuid);
+                                if (enchanted != attacker && enchanted instanceof Mob mob && !MobUtil.areAllies(mob, attacker)) {
+                                    mob.setTarget(attacker);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -1193,6 +1224,11 @@ public class ModEvents {
                     event.setAmount(damageAmount * 2.0F);
                 } else if (target.getMobType() == MobType.WATER){
                     event.setAmount(damageAmount * 0.5F);
+                }
+            }
+            if (ModDamageSource.soulAttacks(event.getSource())){
+                if (target instanceof Warden){
+                    event.setAmount(damageAmount * 0.8F);
                 }
             }
             float totalReduce = 0;
@@ -1425,7 +1461,13 @@ public class ModEvents {
                 if (!living.level.isClientSide) {
                     if (player instanceof ServerPlayer serverPlayer) {
                         for (LivingEntity livingEntity : serverPlayer.level.getEntitiesOfClass(LivingEntity.class, serverPlayer.getBoundingBox().inflate(64.0D))) {
-                            if (livingEntity instanceof GraveGolem graveGolem) {
+                            if (livingEntity instanceof GraveMonstrosity graveMonstrosity) {
+                                if (graveMonstrosity.getTrueOwner() == serverPlayer) {
+                                    graveMonstrosity.addDrops(event.getDrops());
+                                    event.getDrops().clear();
+                                    break;
+                                }
+                            } else if (livingEntity instanceof GraveGolem graveGolem) {
                                 if (graveGolem.getTrueOwner() == serverPlayer) {
                                     graveGolem.addDrops(event.getDrops());
                                     event.getDrops().clear();

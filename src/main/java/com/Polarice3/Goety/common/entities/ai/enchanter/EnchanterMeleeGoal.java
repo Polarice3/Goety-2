@@ -25,7 +25,7 @@ public class EnchanterMeleeGoal<T extends PathfinderMob & IEnchanter> extends En
         } else if (!target.isAlive()) {
             return false;
         } else {
-            return this.enchanter.distanceTo(target) <= 2.2F || this.getAllies().isEmpty();
+            return this.enchanter.distanceTo(target) <= 2.2F;
         }
     }
 

@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.config.SpellConfig;
+import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -22,11 +23,11 @@ public class CorruptedBeam extends AbstractBeam {
 
     public void damageEntities(Set<LivingEntity> entities){
         for (LivingEntity entity : entities) {
-            entity.invulnerableTime = 0;
+            entity.invulnerableTime = 10;
             Vec3 deltaMovement = entity.getDeltaMovement();
             float damage = SpellConfig.CorruptedBeamDamage.get().floatValue() * WandUtil.damageMultiply();
             damage += this.extraDamage;
-            entity.hurt(entity.damageSources().indirectMagic(owner, owner), damage);
+            entity.hurt(ModDamageSource.indirectSoul(owner, owner), damage);
             entity.setDeltaMovement(deltaMovement);
         }
     }

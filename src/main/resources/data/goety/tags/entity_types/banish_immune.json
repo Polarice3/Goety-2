@@ -5,6 +5,7 @@
     "#goety:mini_bosses",
     "goety:redstone_golem",
     "goety:grave_golem",
-    "goety:redstone_monstrosity"
+    "goety:redstone_monstrosity",
+    "goety:grave_monstrosity"
   ]
 }

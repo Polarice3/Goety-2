@@ -108,6 +108,7 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.NECRO_BOLT.get(), RollingParticle.QuickProvider::new);
         event.registerSpriteSet(ModParticleTypes.STUN.get(), RollingParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.AURA.get(), AuraParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.GROUND_AURA.get(), GroundAuraParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.VERTICAL_CIRCLE_EXPLODE.get(), VerticalCircleExplodeParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.RISING_SPIRAL.get(), RisingRollingParticle.SpiralProvider::new);
         event.registerSpriteSet(ModParticleTypes.RISING_ENCHANT.get(), RisingRollingParticle.Provider::new);
@@ -156,6 +157,18 @@ public class ClientSideInit extends SidedInit {
         event.registerSpecial(ModParticleTypes.SLAM.get(), new SlamParticle.Provider());
         event.registerSpecial(ModParticleTypes.SMASH.get(), new SmashParticle.Provider());
         event.registerSpecial(ModParticleTypes.SPHERE_EXPLODE.get(), new SphereExplodeParticle.Provider());
+        event.registerSpecial(ModParticleTypes.ERUPTION.get(), new EruptionParticle.Provider(1.0F, 0.1F, 0.1F));
+        event.registerSpecial(ModParticleTypes.SOUL_LEADER.get(), new SoulLeaderParticle.Provider());
+        event.registerSpecial(ModParticleTypes.SOUL_DUST.get(), new SoulDustParticle.Provider());
+        event.registerSpecial(ModParticleTypes.SOUL_FLASH.get(), new SoulPixelParticle.FlashProvider());
+        event.registerSpecial(ModParticleTypes.SOUL_SPARK.get(), new SoulPixelParticle.SparkProvider());
+        event.registerSpecial(ModParticleTypes.SOUL_ORBIT.get(), new SoulLeaderParticle.Provider(SoulLeaderParticle.Behaviour.ORBIT));
+        event.registerSpecial(ModParticleTypes.SOUL_BURST.get(), new SoulLeaderParticle.Provider(SoulLeaderParticle.Behaviour.BURST));
+        event.registerSpecial(ModParticleTypes.SOUL_STREAK.get(), new SoulPixelParticle.Provider(SoulPixelParticle.Mode.STREAK));
+        event.registerSpecial(ModParticleTypes.SOUL_LAVA.get(), new EruptionParticle.Provider(1.0F, 1.0F, 1.0F));
+        event.registerSpecial(ModParticleTypes.SOUL_EMITTER.get(), new SoulEmitterParticle.Provider());
+        event.registerSpriteSet(ModParticleTypes.MAGIC_RUNES.get(), MagicRuneParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.SWIRL_CLOUD.get(), SwirlCloudParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.GOD_RAY.get(), GodRayParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.STRETCHED_GOD_RAY.get(), StretchedGodRayParticle.Provider::new);
         event.registerSpecial(ModParticleTypes.WATER_STREAM.get(), new WaterStreamParticle.Provider());

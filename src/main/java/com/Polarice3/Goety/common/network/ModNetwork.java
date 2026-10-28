@@ -63,6 +63,7 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), CAddFocusToInventoryPacket.class, CAddFocusToInventoryPacket::encode, CAddFocusToInventoryPacket::decode, CAddFocusToInventoryPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CBrewBagKeyPacket.class, CBrewBagKeyPacket::encode, CBrewBagKeyPacket::decode, CBrewBagKeyPacket::consume);
         INSTANCE.registerMessage(nextID(), CThrowBrewKeyPacket.class, CThrowBrewKeyPacket::encode, CThrowBrewKeyPacket::decode, CThrowBrewKeyPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
+        INSTANCE.registerMessage(nextID(), CSelectTesseractServantPacket.class, CSelectTesseractServantPacket::encode, CSelectTesseractServantPacket::decode, CSelectTesseractServantPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CMultiJumpPacket.class, CMultiJumpPacket::encode, CMultiJumpPacket::decode, CMultiJumpPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CSetDeltaMovement.class, CSetDeltaMovement::encode, CSetDeltaMovement::decode, CSetDeltaMovement::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CTramplerPacket.class, CTramplerPacket::encode, CTramplerPacket::decode, CTramplerPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));

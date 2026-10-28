@@ -7,11 +7,12 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "有了古代战争机器的示意图和制作缠魂仆胄的方法，你思索有没有什么办法让他们也亡灵化。经过一些试错，你终于发现了一种创造终极不死仆从的方法：墓灵巨像。"
+      "text": "有了古代战争机器的示意图和制作缠魂仆胄的方法，你思索有没有什么办法让他们也亡灵化。经过一些试错，你终于发现了一种创造终极不死仆从的方法：墓灵巨像"
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:grave_golem"
+      "entity": "goety:grave_golem",
+      "scale": 0.75
     },
     {
       "type": "multiblock",
@@ -21,6 +22,11 @@
     {
       "type": "patchouli:text",
       "text": "石砖可以用其他类似的方块代替，如深板岩石砖。巨像有各种各样的能力，例如类似红石巨兽的猛击地面，召唤缠魂飞颅到召唤墓灵来帮助它。巨像也可以通过魔杖/杖被命令跟随、徘徊附近或停滞在原位。它们可以用骨块或骨头右键点击修复，但如果召唤师穿上死灵长袍，它们会获得再生效果。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_mold_block",
+      "text": "为了制作这个终极的不死仆从，你需要使用黑暗合金和墓穴石来制作一种强大的模具。"
     },
     {
       "type": "patchouli:text",
@@ -36,5 +42,8 @@
       "multiblock_id": "goety:grave_golem_revive",
       "enable_visualize": false
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:grave_golem_skull": 6
+  }
 }

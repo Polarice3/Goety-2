@@ -8,7 +8,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.AbstractTexture;
@@ -43,6 +45,7 @@ public class EnchantLayer<T extends LivingEntity, M extends EntityModel<T>> exte
         }
         ResourceLocation entityTex = this.renderer.getTextureLocation(entity);
         float f = (float) entity.tickCount + partialTicks;
+        this.renderEyes(entity, matrixStackIn, bufferIn);
         this.renderSwirl(matrixStackIn, bufferIn, packedLightIn, entityTex, OUTER, f * OUTER_SPEED);
         this.renderSwirl(matrixStackIn, bufferIn, packedLightIn, entityTex, INNER, f * INNER_SPEED);
     }
@@ -58,6 +61,13 @@ public class EnchantLayer<T extends LivingEntity, M extends EntityModel<T>> exte
         float scaleV = (float) base[1] / (float) swirl[1];
         VertexConsumer consumer = buffer.getBuffer(ModRenderType.enchantSwirl(swirlTex, entityTex, offset, offset, scaleU, scaleV));
         this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+    }
+
+    private void renderEyes(T entity, PoseStack poseStack, MultiBufferSource buffer) {
+        String string = entity.getType().getDescriptionId().replace("entity.", "").replace(".", "/");
+        ResourceLocation eyeLocation = Goety.location("textures/entity/enchant_eyes/" + string + ".png");
+        VertexConsumer consumer = buffer.getBuffer(RenderType.eyes(eyeLocation));
+        this.getParentModel().renderToBuffer(poseStack, consumer, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 
     private static int[] size(ResourceLocation rl) {

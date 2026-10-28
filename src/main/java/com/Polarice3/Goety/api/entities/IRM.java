@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.api.entities;
 
-public interface IRM {
+public interface IRM extends IMonstrosity {
     int getDeathTime();
 
     float getBigGlow();

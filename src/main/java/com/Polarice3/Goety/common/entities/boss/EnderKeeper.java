@@ -9,6 +9,7 @@ import com.Polarice3.Goety.common.entities.projectiles.VoidShock;
 import com.Polarice3.Goety.common.entities.projectiles.VoidShockBomb;
 import com.Polarice3.Goety.common.entities.projectiles.VoidSlash;
 import com.Polarice3.Goety.common.entities.util.CameraShake;
+import com.Polarice3.Goety.common.entities.util.ChargeAura;
 import com.Polarice3.Goety.common.entities.util.ModFallingBlock;
 import com.Polarice3.Goety.common.entities.util.VoidLightningTrap;
 import com.Polarice3.Goety.common.items.ModItems;
@@ -81,6 +82,7 @@ import java.util.Objects;
 
 public class EnderKeeper extends AbstractEnderling implements Enemy {
     protected static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(EnderKeeper.class, EntityDataSerializers.INT);
+    public final ChargeAura chargeAura = new ChargeAura(ChargeAura.Settings.END);
     private final ModServerBossInfo bossInfo;
     public static String INTRO = "intro";
     public static String IDLE = "idle";
@@ -117,6 +119,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
     public int groundPoundSize = 6;
     public int shakeSword = 0;
     public int moddedInvul = 0;
+    public int charging = 0;
     public int deathTime;
     public float deathRotation = 0.0F;
     private BlockPos lastSafePosition;
@@ -682,12 +685,8 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
     }
 
     protected void actuallyHurt(DamageSource source, float amount) {
-        float initialAmount = amount;
-        if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)){
-            amount = Math.min(initialAmount, AttributesConfig.EnderKeeperDamageCap.get().floatValue());
-        }
         if (this.moddedInvul <= 0){
-            super.actuallyHurt(source, amount);
+            MobUtil.bossHurt(this, source, amount, AttributesConfig.EnderKeeperDamageCap.get().floatValue());
             if (source.getEntity() != null) {
                 this.moddedInvul = MobsConfig.BossInvulnerabilityTime.get();
             }
@@ -1147,6 +1146,12 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
         if (this.moddedInvul > 0){
             --this.moddedInvul;
         }
+        if (this.level.isClientSide) {
+            if (this.charging > 0) {
+                --this.charging;
+            }
+            this.chargeAura.tick(this, this.isCurrentAnimation(CHARGE) && this.charging > 0 && this.isAlive());
+        }
 
         if (!this.level.isClientSide) {
             if (this.getBoundPos() == null) {
@@ -1271,6 +1276,7 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
                     }
                 }
                 if (this.attackTick >= 18 && this.attackTick < 27) {
+                    this.level.broadcastEntityEvent(this, (byte) 102);
                     if (this.level instanceof ServerLevel serverLevel) {
                         int width = serverLevel.getRandom().nextIntBetweenInclusive(1, 4);
                         float height = serverLevel.getRandom().nextFloat() * 0.5F;
@@ -1813,6 +1819,8 @@ public class EnderKeeper extends AbstractEnderling implements Enemy {
     public void handleEntityEvent(byte pByte) {
         if (pByte == 6) {
             this.shakeSword = 5;
+        } else if (pByte == 102) {
+            this.charging = 5;
         } else {
             super.handleEntityEvent(pByte);
         }

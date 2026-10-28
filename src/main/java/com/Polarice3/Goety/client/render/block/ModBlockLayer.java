@@ -13,6 +13,7 @@ public class ModBlockLayer {
     public static final ModelLayerLocation REDSTONE_GOLEM_SKULL = register("redstone_golem_skull");
     public static final ModelLayerLocation GRAVE_GOLEM_SKULL = register("grave_golem_skull");
     public static final ModelLayerLocation REDSTONE_MONSTROSITY_HEAD = register("redstone_monstrosity_head");
+    public static final ModelLayerLocation GRAVE_MONSTROSITY_HEAD = register("grave_monstrosity_head");
     public static final ModelLayerLocation LOFTY_CHEST = register("lofty_chest");
     public static final ModelLayerLocation BLACK_CRYSTAL = register("black_crystal");
     public static final ModelLayerLocation OMINOUS_STATUE = register("ominous_statue");

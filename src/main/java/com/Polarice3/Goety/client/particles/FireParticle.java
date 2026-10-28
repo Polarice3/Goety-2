@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.client.particles;
 
+import com.Polarice3.Goety.utils.FlamethrowerVFX;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
@@ -11,6 +12,7 @@ import net.minecraft.util.Mth;
 public class FireParticle extends ReversibleParticle {
    private final SpriteSet sprites;
    private boolean ember = false;
+   private float grow = 1.0F;
 
    protected FireParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, SpriteSet pSprites) {
       super(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed);
@@ -39,6 +41,15 @@ public class FireParticle extends ReversibleParticle {
       if (this.age < this.lifetime) {
          this.setSpriteFromAge(this.sprites);
       }
+   }
+
+   public float getQuadSize(float partialTicks) {
+      if (this.grow >= 1.0F) {
+         return this.quadSize;
+      }
+      float f = 1.0F - Mth.clamp(((float)this.age + partialTicks) / (float)this.lifetime, 0.0F, 1.0F);
+      f *= f;
+      return this.quadSize * Mth.lerp(1.0F - f * f, this.grow, 1.0F);
    }
 
    public ParticleRenderType getRenderType() {
@@ -205,6 +216,9 @@ public class FireParticle extends ReversibleParticle {
          fireParticle.xd = p_106843_;
          fireParticle.yd = p_106844_;
          fireParticle.zd = p_106845_;
+         fireParticle.friction = FlamethrowerVFX.SPRITE_FRICTION;
+         fireParticle.lifetime = FlamethrowerVFX.SPRITE_LIFE;
+         fireParticle.grow = FlamethrowerVFX.SPRITE_GROW;
          return fireParticle;
       }
    }

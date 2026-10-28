@@ -7,10 +7,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.StairBlock;
-import net.minecraft.world.level.block.WoolCarpetBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -55,6 +52,16 @@ public class StairCarpetBlock extends WoolCarpetBlock {
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         return conform(this.defaultBlockState(), ctx.getLevel(), ctx.getClickedPos());
+    }
+
+    @Override
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(STAIR_FACING, rotation.rotate(state.getValue(STAIR_FACING)));
+    }
+
+    @Override
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        return state.setValue(STAIR_FACING, mirror.mirror(state.getValue(STAIR_FACING)));
     }
 
     public static BlockState conform(BlockState state, LevelAccessor level, BlockPos pos) {

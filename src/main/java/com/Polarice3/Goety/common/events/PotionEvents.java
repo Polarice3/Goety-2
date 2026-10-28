@@ -342,7 +342,7 @@ public class PotionEvents {
             MobEffectInstance mobEffectInstance = victim.getEffect(GoetyEffects.FLAMMABLE.get());
             if (mobEffectInstance != null){
                 int a = mobEffectInstance.getAmplifier() + 2;
-                if (event.getSource().is(DamageTypeTags.IS_FIRE)) {
+                if (event.getSource().is(DamageTypeTags.IS_FIRE) || event.getSource().is(ModTags.DamageTypes.FIRE_ATTACKS)) {
                     event.setAmount(event.getAmount() * a);
                 }
             }
@@ -1083,6 +1083,11 @@ public class PotionEvents {
         }
         if (event.getEffectInstance().getEffect() == GoetyEffects.VOID_TOUCHED.get()){
             if (event.getEntity().getType().is(ModTags.EntityTypes.VOID_TOUCHED_IMMUNE)) {
+                event.setResult(Event.Result.DENY);
+            }
+        }
+        if (event.getEffectInstance().getEffect() == GoetyEffects.SOUL_BURN.get()){
+            if (event.getEntity().getType().is(ModTags.EntityTypes.SOUL_BURN_IMMUNE)) {
                 event.setResult(Event.Result.DENY);
             }
         }

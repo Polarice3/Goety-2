@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-14T14:24:10.5432132	Block States: goety
+// 1.20.1	2026-10-22T21:29:09.9710425	Block States: goety
 92a547327e71f54fb7e9d59c8b81d2e518a332b2 assets/goety/blockstates/big_end_stone_bricks.json
 82b39d96011dec7bfc2719744242e26b70c038fb assets/goety/blockstates/blooming_chorus_wood.json
 0868546e099bb6609c1b9df7cd57e1e80292eae2 assets/goety/blockstates/blossoming_chorus_wood.json
@@ -78,6 +78,7 @@ ad4120fcdbf8a10c43962d247dd3db3d8c4c4c20 assets/goety/blockstates/crag_tile_stai
 b61ddae7bf2f9d37dd51e00c2551752d78c3a60c assets/goety/blockstates/crypt_sarcophagus.json
 07b5027455aa1fa60ec2573af21a060af23ccd3f assets/goety/blockstates/dark_dirt.json
 3ada901a1676cdb101c1a1af921a7925c84f268f assets/goety/blockstates/dark_dirt_slab.json
+9b7fca2e322226c5f67401fdac46e217eb0fe4b5 assets/goety/blockstates/dark_mold_block.json
 ff60d63dcec5ab8d447d7a8553f7b50af3c0945c assets/goety/blockstates/deepslate_sarcophagus.json
 7409f0227c100b0f517c04f8c335972c76e4f6ca assets/goety/blockstates/detritus.json
 7811175fd1336a076f505a4874353a9d973d29b3 assets/goety/blockstates/diamond_mold_block.json
@@ -170,6 +171,7 @@ d9cb4115a2ea1a7b002922fb545d925dc24b097b assets/goety/blockstates/marsh_trapdoor
 2b26b872f48c68ac22b1a8a13136001314d3936c assets/goety/blockstates/marsh_wall_hanging_sign.json
 9487666bc2fcad1cdc9649aea7bfdd778e9b73e8 assets/goety/blockstates/marsh_wood.json
 ddccffcd954164e99ff43d127ab984a2f71e5c94 assets/goety/blockstates/messy_end_stone_bricks.json
+211d329e8663aa6dc490abd5a43af617acd0f0da assets/goety/blockstates/monstrous_core.json
 753930c407a51842577937986b51e07b415dd882 assets/goety/blockstates/mossy_cobbled_siltstone.json
 5e41d536b31946ad483462742c8dea0c419922ee assets/goety/blockstates/mossy_cragrocks.json
 ea7cfbe635b2bbb5338b3fb691a979b5591d86b6 assets/goety/blockstates/mossy_cragrocks_heavy.json
@@ -546,6 +548,7 @@ fa92310a5df570c9cb5064dfcffe3edac02e6ec6 assets/goety/models/block/crag_tile_wal
 aed2d20f6f1d25cc5ec6232ea855c6b955034486 assets/goety/models/block/dark_dirt.json
 b44e4f724f1a8f16d92dd8763c0fc84960270c9e assets/goety/models/block/dark_dirt_slab.json
 dafba1eaa180ebbb1983b9521bb379f217c14706 assets/goety/models/block/dark_dirt_slab_top.json
+07e04d4d490b8687a3d4166f1baa14c34929eaaf assets/goety/models/block/dark_mold_block.json
 e8fb67b61ff3c1b8e2416154a511228bc50ed070 assets/goety/models/block/deepslate_sarcophagus.json
 2097d356c441500d5d4077005855be48773ca67b assets/goety/models/block/detritus.json
 1f0083ddfdbbce1db45e6a00cd39157a1ac2c991 assets/goety/models/block/diamond_mold_block.json
@@ -731,6 +734,7 @@ d8040aed4641e504298bce69c45a34cd2738b3c1 assets/goety/models/block/marsh_pressur
 ed363ff633ce748a9cee9706369cb8e1aadf4eed assets/goety/models/block/marsh_wall_hanging_sign.json
 306b5e6cdad05bdf019aca810b0aca964cc5e86f assets/goety/models/block/marsh_wood.json
 f5461da0246714c57ae15f9dbb48ea5f99bfb5a9 assets/goety/models/block/messy_end_stone_bricks.json
+cdb6d84d12921701bd9061a51f4d97430e3947f7 assets/goety/models/block/monstrous_core.json
 af9681222b6a907dc9d8efbd64501f0d292d9336 assets/goety/models/block/mossy_cobbled_siltstone.json
 91c47e753f3f37d3c70f3ef9d825a843032c9b78 assets/goety/models/block/mossy_cragrocks.json
 8d8c13dc032030c749f5479bc219e5c3adc39af1 assets/goety/models/block/mossy_cragrocks_heavy.json
@@ -1236,6 +1240,7 @@ e9fa6e393cfc4d15fde20d455630b5ce40e2a259 assets/goety/models/item/crag_tile_wall
 6df13dd6daf23f2c9198b24b1c57032149a6f790 assets/goety/models/item/crypt_sarcophagus.json
 6cc9a12eb4010a6b82eb8000d620b171460040f6 assets/goety/models/item/dark_dirt.json
 aa9d9b6418671a45fba511a60eb322dadd8f9cc6 assets/goety/models/item/dark_dirt_slab.json
+3a2a29e7039223c2a50991b8ee4cbfa7e965ff7d assets/goety/models/item/dark_mold_block.json
 6df13dd6daf23f2c9198b24b1c57032149a6f790 assets/goety/models/item/deepslate_sarcophagus.json
 690dd2e34f868f61192169a5530be8e385ac72da assets/goety/models/item/detritus.json
 e352d4eb8803f488819b798827bf101fa4787aa6 assets/goety/models/item/diamond_mold_block.json
@@ -1320,6 +1325,7 @@ bbcf9d8944c52b5f664210117082b5c1e4136e2c assets/goety/models/item/marsh_slab.jso
 92ea75f6fb35df68018a4f53d7b225709fd22bc5 assets/goety/models/item/marsh_stairs.json
 08453882cefa9f8d0debd4ec9537cabe922d8a90 assets/goety/models/item/marsh_wood.json
 067544e6f48b58d805812f913ca22f279844b534 assets/goety/models/item/messy_end_stone_bricks.json
+5308e6eaa0c9220180ec39baea0fe8200d97f136 assets/goety/models/item/monstrous_core.json
 a1f38881d9a7cc3536e0903d80fff599daba1cee assets/goety/models/item/mossy_cobbled_siltstone.json
 632c341ac7a03495a974d3ad6ed73e9dfb29a6cf assets/goety/models/item/mossy_cragrocks.json
 43de34e4d06b44d6614c69fcf42608c6402f0824 assets/goety/models/item/mossy_cragrocks_heavy.json

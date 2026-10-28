@@ -35,6 +35,8 @@ public class ModDamageTypeTagsProvider extends TagsProvider<DamageType> {
                         ModDamageSource.ACID,
                         ModDamageSource.VENOM,
                         ModDamageSource.SPIKE,
+                        ModDamageSource.SOUL,
+                        ModDamageSource.INDIRECT_SOUL,
                         ModDamageSource.MAGIC_BOLT,
                         ModDamageSource.CHOKE,
                         ModDamageSource.RAGE,
@@ -85,12 +87,15 @@ public class ModDamageTypeTagsProvider extends TagsProvider<DamageType> {
                         ModDamageSource.ICE_BOUQUET,
                         ModDamageSource.ACID,
                         ModDamageSource.SPIKE,
+                        ModDamageSource.SOUL,
+                        ModDamageSource.INDIRECT_SOUL,
                         ModDamageSource.MAGIC_BOLT,
                         ModDamageSource.WIND_BLAST,
                         ModDamageSource.SOUL_LEECH,
                         ModDamageSource.LIFE_LEECH);
         this.tag(ModTags.DamageTypes.NO_KNOCKBACK)
                 .add(ModDamageSource.ICE_BOUQUET,
+                        ModDamageSource.ROT,
                         ModDamageSource.ACID,
                         ModDamageSource.VENOM,
                         ModDamageSource.SPIKE,
@@ -141,6 +146,11 @@ public class ModDamageTypeTagsProvider extends TagsProvider<DamageType> {
                 .addTag(ModTags.DamageTypes.FROST_ATTACKS)
                 .addTag(ModTags.DamageTypes.SHOCK_ATTACKS)
                 .addTag(ModTags.DamageTypes.WATER_ATTACKS);
+        this.tag(ModTags.DamageTypes.SOUL)
+                .add(DamageTypes.SONIC_BOOM,
+                        ModDamageSource.SOUL,
+                        ModDamageSource.INDIRECT_SOUL,
+                        ModDamageSource.SOUL_BURN);
         this.tag(ModTags.DamageTypes.MAGIC_FIRE)
                 .add(ModDamageSource.MAGIC_FIRE,
                         ModDamageSource.MAGIC_FIREBALL,

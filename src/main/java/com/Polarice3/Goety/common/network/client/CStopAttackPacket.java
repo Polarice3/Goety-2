@@ -29,14 +29,15 @@ public class CStopAttackPacket {
 
             if (playerEntity != null) {
                 if (playerEntity.level instanceof ServerLevel serverLevel){
+                    Entity pick = MobUtil.getSingleTarget(serverLevel, playerEntity, 16, 3);
+                    LivingEntity target = pick instanceof LivingEntity living
+                            && living != playerEntity
+                            && !MobUtil.areAllies(playerEntity, living)
+                            && !(living instanceof IOwned ownedTarget && ownedTarget.getMasterOwner() == playerEntity)
+                            ? living : null;
                     for (Entity entity : serverLevel.getAllEntities()){
-                        if (entity instanceof IOwned owned && entity instanceof Mob mob && owned.getTrueOwner() == playerEntity){
-                            Entity pick = MobUtil.getSingleTarget(serverLevel, playerEntity, 16, 3);
-                            if (pick instanceof LivingEntity target
-                                    && target != mob
-                                    && target != owned.getTrueOwner()
-                                    && !MobUtil.areAllies(playerEntity, target)
-                                    && mob.distanceTo(playerEntity) <= 32){
+                        if (entity instanceof IOwned owned && entity instanceof Mob mob && owned.getTrueOwner() == playerEntity) {
+                            if (target != null && target != mob && mob.distanceTo(playerEntity) <= 32) {
                                 mob.setTarget(target);
                                 if (mob.getLastHurtByMob() != target){
                                     mob.setLastHurtByMob(target);

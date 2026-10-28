@@ -79,6 +79,12 @@ public interface IEnchanter extends IAnimated {
                             if (entity instanceof LivingEntity livingEntity) {
                                 livingEntity.addEffect(new MobEffectInstance(GoetyEffects.ENCHANTED.get(), 30), mob);
                             }
+                            if (entity instanceof Mob mob1) {
+                                LivingEntity target = mob.getLastHurtByMob();
+                                if (target != null && !target.isDeadOrDying() && target.isAlive()) {
+                                    mob1.setTarget(target);
+                                }
+                            }
                         });
                         this.setEnchantTime(this.getEnchantTime() + 1);
                     } else if (this.getEnchantTime() > 0) {

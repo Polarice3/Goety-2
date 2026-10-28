@@ -25,13 +25,12 @@ public abstract class GroundCircleParticle extends TextureSheetParticle {
         super(p_108328_, p_108329_, p_108330_, p_108331_, p_108332_, p_108333_, p_108334_);
     }
 
-    public void render(VertexConsumer p_233985_, Camera p_233986_, float p_233987_) {
-        this.renderRotatedParticle(p_233985_, p_233986_, p_233987_, (p_234005_) -> {
-            p_234005_.mul(new Quaternionf()).rotationX(-MathHelper.modelDegrees(90));
-        });
-        this.renderRotatedParticle(p_233985_, p_233986_, p_233987_, (p_234000_) -> {
-            p_234000_.mul((new Quaternionf()).rotationYXZ(-(float)Math.PI, MathHelper.modelDegrees(90), 0.0F));
-        });
+    public void render(VertexConsumer buffer, Camera camera, float partialTicks) {
+        float spin = Mth.lerp(partialTicks, this.oRoll, this.roll);
+        this.renderRotatedParticle(buffer, camera, partialTicks, quaternion ->
+                quaternion.rotationX(-MathHelper.modelDegrees(90)).rotateZ(spin));
+        this.renderRotatedParticle(buffer, camera, partialTicks, quaternion ->
+                quaternion.rotationYXZ(-(float) Math.PI, MathHelper.modelDegrees(90), 0.0F).rotateZ(-spin));
     }
 
     public void renderRotatedParticle(VertexConsumer p_233989_, Camera p_233990_, float p_233991_, Consumer<Quaternionf> p_233992_) {

@@ -52,7 +52,7 @@ public class AuraEffect extends GoetyBaseEffect {
                     ally.addEffect(new MobEffectInstance(effect, 5, amplify, false, false));
                 }
             }
-            if (livingEntity.tickCount % 20 == 0) {
+            if (livingEntity.tickCount % 19 == 0) {
                 if (livingEntity.level instanceof ServerLevel serverLevel) {
                     radius /= 2.0F;
                     serverLevel.sendParticles(new GroundAuraParticleOption(livingEntity.getId(), radius, new ColorUtil(this.getColor())), livingEntity.getX(), livingEntity.getY() + 0.25F, livingEntity.getZ(), 1, 0.0F, 0.0F, 0.0F, 0.0F);

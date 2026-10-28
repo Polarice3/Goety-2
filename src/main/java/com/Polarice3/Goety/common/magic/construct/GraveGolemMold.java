@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.magic.construct;
 
 import com.Polarice3.Goety.api.magic.IMold;
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
@@ -31,88 +32,113 @@ import java.util.List;
 
 public class GraveGolemMold implements IMold {
     private static final List<BlockPos> SOUL_SAND_LOCATIONS = ImmutableList.of(
-            new BlockPos(1, -1, 1),
-            new BlockPos(1, -1, -1),
-
-            new BlockPos(-1, -1, 1),
-            new BlockPos(-1, -1, -1)
-    );
-    private static final List<BlockPos> GRAVE_SOIL_LOCATIONS = ImmutableList.of(
-            new BlockPos(0, -1, 2),
-            new BlockPos(1, -1, 2),
-            new BlockPos(-1, -1, 2),
-
-            new BlockPos(2, -1, -2),
-            new BlockPos(2, -1, -1),
-            new BlockPos(2, -1, 0),
-            new BlockPos(2, -1, 1),
-            new BlockPos(2, -1, 2),
-
-            new BlockPos(-2, -1, -2),
-            new BlockPos(-2, -1, -1),
-            new BlockPos(-2, -1, 0),
-            new BlockPos(-2, -1, 1),
-            new BlockPos(-2, -1, 2),
-
-            new BlockPos(0, -1, -2),
-            new BlockPos(1, -1, -2),
-            new BlockPos(-1, -1, -2)
-    );
-    private static final List<BlockPos> DARK_ALLOY_LOCATIONS = ImmutableList.of(
-            new BlockPos(-3, 0, 3),
-            new BlockPos(3, 0, 3),
-            new BlockPos(3, 0, -3),
-            new BlockPos(-3, 0, -3)
-    );
-    private static final List<BlockPos> SHADE_STONE_LOCATIONS = ImmutableList.of(
-            new BlockPos(0, -1, 0),
-
-            new BlockPos(0, -1, 1),
-            new BlockPos(0, -1, -1),
-
-            new BlockPos(1, -1, 0),
-            new BlockPos(-1, -1, 0),
+            new BlockPos(2, 0, 0),
+            new BlockPos(-2, 0, 0),
 
             new BlockPos(0, 0, 2),
+            new BlockPos(0, 0, -2)
+    );
+    private static final List<BlockPos> GRAVE_SOIL_LOCATIONS = ImmutableList.of(
             new BlockPos(1, 0, 2),
             new BlockPos(-1, 0, 2),
 
-            new BlockPos(2, 0, -2),
-            new BlockPos(2, 0, -1),
-            new BlockPos(2, 0, 0),
-            new BlockPos(2, 0, 1),
-            new BlockPos(2, 0, 2),
-
-            new BlockPos(-2, 0, -2),
-            new BlockPos(-2, 0, -1),
-            new BlockPos(-2, 0, 0),
-            new BlockPos(-2, 0, 1),
-            new BlockPos(-2, 0, 2),
-
-            new BlockPos(0, 0, -2),
             new BlockPos(1, 0, -2),
-            new BlockPos(-1, 0, -2)
+            new BlockPos(-1, 0, -2),
+
+            new BlockPos(2, 0, 1),
+            new BlockPos(2, 0, -1),
+
+            new BlockPos(-2, 0, 1),
+            new BlockPos(-2, 0, -1)
     );
-    private static final List<BlockPos> STONE_BRICKS_LOCATIONS = ImmutableList.of(
+    private static final List<BlockPos> DARK_MOLD_LOCATIONS = ImmutableList.of(
+            new BlockPos(0, 0, 4),
+            new BlockPos(0, 0, -4),
+            new BlockPos(4, 0, 0),
+            new BlockPos(-4, 0, 0),
+            new BlockPos(3, 0, 3),
+            new BlockPos(-3, 0, 3),
+            new BlockPos(3, 0, -3),
+            new BlockPos(-3, 0, -3),
+
+            new BlockPos(0, -1, 3),
+            new BlockPos(0, -1, -3),
+            new BlockPos(3, -1, 0),
+            new BlockPos(-3, -1, 0),
+            new BlockPos(2, -1, 2),
+            new BlockPos(-2, -1, 2),
+            new BlockPos(2, -1, -2),
+            new BlockPos(-2, -1, -2)
+    );
+    private static final List<BlockPos> SHADE_STONE_LOCATIONS = ImmutableList.of(
             new BlockPos(0, 0, 3),
             new BlockPos(1, 0, 3),
             new BlockPos(-1, 0, 3),
-
-            new BlockPos(3, 0, -2),
-            new BlockPos(3, 0, -1),
-            new BlockPos(3, 0, 0),
-            new BlockPos(3, 0, 1),
-            new BlockPos(3, 0, 2),
-
-            new BlockPos(-3, 0, -2),
-            new BlockPos(-3, 0, -1),
-            new BlockPos(-3, 0, 0),
-            new BlockPos(-3, 0, 1),
-            new BlockPos(-3, 0, 2),
-
             new BlockPos(0, 0, -3),
             new BlockPos(1, 0, -3),
-            new BlockPos(-1, 0, -3)
+            new BlockPos(-1, 0, -3),
+
+            new BlockPos(3, 0, 0),
+            new BlockPos(-3, 0, 0),
+            new BlockPos(3, 0, 1),
+            new BlockPos(-3, 0, 1),
+            new BlockPos(3, 0, -1),
+            new BlockPos(-3, 0, -1),
+
+            new BlockPos(2, 0, 2),
+            new BlockPos(-2, 0, 2),
+            new BlockPos(2, 0, -2),
+            new BlockPos(-2, 0, -2)
+    );
+    private static final List<BlockPos> CRYPT_STONE_LOCATIONS = ImmutableList.of(
+            new BlockPos(1, 0, 4),
+            new BlockPos(-1, 0, 4),
+            new BlockPos(1, 0, -4),
+            new BlockPos(-1, 0, -4),
+            new BlockPos(4, 0, 1),
+            new BlockPos(-4, 0, 1),
+            new BlockPos(4, 0, -1),
+            new BlockPos(-4, 0, -1),
+            new BlockPos(3, 0, 2),
+            new BlockPos(-3, 0, 2),
+            new BlockPos(3, 0, -2),
+            new BlockPos(-3, 0, -2),
+            new BlockPos(2, 0, 3),
+            new BlockPos(-2, 0, 3),
+            new BlockPos(2, 0, -3),
+            new BlockPos(-2, 0, -3),
+
+            new BlockPos(1, -1, 3),
+            new BlockPos(-1, -1, 3),
+            new BlockPos(1, -1, -3),
+            new BlockPos(-1, -1, -3),
+            new BlockPos(3, -1, 1),
+            new BlockPos(-3, -1, 1),
+            new BlockPos(3, -1, -1),
+            new BlockPos(-3, -1, -1),
+
+            new BlockPos(0, -1, 2),
+            new BlockPos(1, -1, 2),
+            new BlockPos(-1, -1, 2),
+            new BlockPos(0, -1, -2),
+            new BlockPos(1, -1, -2),
+            new BlockPos(-1, -1, -2),
+            new BlockPos(2, -1, 0),
+            new BlockPos(-2, -1, 0),
+            new BlockPos(2, -1, 1),
+            new BlockPos(-2, -1, 1),
+            new BlockPos(2, -1, -1),
+            new BlockPos(-2, -1, -1),
+
+            new BlockPos(0, -1, 0),
+            new BlockPos(0, -1, 1),
+            new BlockPos(0, -1, -1),
+            new BlockPos(1, -1, 0),
+            new BlockPos(1, -1, 1),
+            new BlockPos(1, -1, -1),
+            new BlockPos(-1, -1, 0),
+            new BlockPos(-1, -1, 1),
+            new BlockPos(-1, -1, -1)
     );
     private static final List<BlockPos> SKULL_PILE_LOCATIONS = ImmutableList.of(
             new BlockPos(-1, 0, 0),
@@ -164,9 +190,9 @@ public class GraveGolemMold implements IMold {
 
     private static List<BlockPos> checkDarkMetals(Level level, BlockPos blockPos){
         List<BlockPos> invalid = new ArrayList<>();
-        for (BlockPos blockPos1 : DARK_ALLOY_LOCATIONS){
+        for (BlockPos blockPos1 : DARK_MOLD_LOCATIONS){
             BlockPos blockPos2 = blockPos.offset(blockPos1);
-            if (!level.getBlockState(blockPos2).is(ModBlocks.DARK_ALLOY_BLOCK.get())){
+            if (!level.getBlockState(blockPos2).is(ModBlocks.DARK_MOLD_BLOCK.get())){
                 invalid.add(blockPos1);
             }
         }
@@ -175,13 +201,10 @@ public class GraveGolemMold implements IMold {
 
     private static List<BlockPos> checkStones(Level level, BlockPos blockPos){
         List<BlockPos> invalid = new ArrayList<>();
-        for (BlockPos blockPos1 : STONE_BRICKS_LOCATIONS){
+        for (BlockPos blockPos1 : CRYPT_STONE_LOCATIONS){
             BlockPos blockPos2 = blockPos.offset(blockPos1);
             BlockState blockState = level.getBlockState(blockPos2);
-            if (!blockState.getBlock().getDescriptionId().contains("bricks")){
-                invalid.add(blockPos1);
-            }
-            if (!blockState.isCollisionShapeFullBlock(level, blockPos2)){
+            if (!blockState.is(ModTags.Blocks.CRYPT_STONE)){
                 invalid.add(blockPos1);
             }
         }
@@ -216,6 +239,11 @@ public class GraveGolemMold implements IMold {
                 && checkStones(level, blockPos).isEmpty();
     }
 
+    @Override
+    public boolean isStructureValid(Level level, BlockPos blockPos) {
+        return checkBlocks(level, blockPos);
+    }
+
     public static boolean conditionsMet(Level worldIn, LivingEntity entityLiving) {
         int count = 0;
         if (worldIn instanceof ServerLevel serverLevel) {
@@ -243,6 +271,9 @@ public class GraveGolemMold implements IMold {
                                 graveGolem.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(graveGolem.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                                 graveGolem.moveTo((double) blockPos.getX() + 0.5D, (double) blockPos.getY() + 0.05D, (double) blockPos.getZ() + 0.5D, 0.0F, 0.0F);
                                 if (level.addFreshEntity(graveGolem)) {
+                                    if (level instanceof ServerLevel serverLevel) {
+                                        serverLevel.sendParticles(ModParticleTypes.MAGIC_RUNES.get(), graveGolem.getX(), graveGolem.getY() + 1.0F, graveGolem.getZ(), 0, 0.24F, 0.0F, 1.0F, 1.0);
+                                    }
                                     removeBlocks(level, blockPos);
                                     stack.shrink(1);
                                     if (player instanceof ServerPlayer serverPlayer) {
@@ -271,14 +302,14 @@ public class GraveGolemMold implements IMold {
                 BlockPos blockPos2 = blockPos.offset(blockPos1);
                 if (level.getBlockState(blockPos2).is(ModBlocks.GRAVE_SOIL.get())) {
                     level.levelEvent(2001, blockPos2, Block.getId(level.getBlockState(blockPos2)));
-                    level.setBlockAndUpdate(blockPos2, ModBlocks.DARK_DIRT.get().defaultBlockState());
+                    level.setBlockAndUpdate(blockPos2, Blocks.AIR.defaultBlockState());
                 }
             }
             for (BlockPos blockPos1 : SOUL_SAND_LOCATIONS) {
                 BlockPos blockPos2 = blockPos.offset(blockPos1);
                 if (level.getBlockState(blockPos2).is(BlockTags.SOUL_FIRE_BASE_BLOCKS)) {
                     level.levelEvent(2001, blockPos2, Block.getId(level.getBlockState(blockPos2)));
-                    level.setBlockAndUpdate(blockPos2, Blocks.SAND.defaultBlockState());
+                    level.setBlockAndUpdate(blockPos2, Blocks.AIR.defaultBlockState());
                 }
             }
             for (BlockPos blockPos1 : SHADE_STONE_LOCATIONS) {

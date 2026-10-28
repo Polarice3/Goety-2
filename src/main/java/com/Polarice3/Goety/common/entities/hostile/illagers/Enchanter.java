@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.hostile.illagers;
 import com.Polarice3.Goety.api.entities.IEnchanter;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
 import com.Polarice3.Goety.common.entities.ai.enchanter.EnchanterEnchantGoal;
+import com.Polarice3.Goety.common.entities.ai.enchanter.EnchanterFleeToAllyGoal;
 import com.Polarice3.Goety.common.entities.ai.enchanter.EnchanterMeleeGoal;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -51,7 +52,8 @@ public class Enchanter extends SpellcasterIllager implements IEnchanter {
         super.registerGoals();
         this.goalSelector.addGoal(0, new EnchanterEnchantGoal<>(this));
         this.goalSelector.addGoal(1, new EnchanterMeleeGoal<>(this));
-        this.goalSelector.addGoal(2, new AvoidTargetGoal<>(this, LivingEntity.class, 7.0F, 1.0D, 1.0D){
+        this.goalSelector.addGoal(2, new EnchanterFleeToAllyGoal<>(this));
+        this.goalSelector.addGoal(3, new AvoidTargetGoal<>(this, LivingEntity.class, 7.0F, 1.0D, 1.0D){
             @Override
             public boolean canUse() {
                 return super.canUse() && this.toAvoid != null && Enchanter.this.distanceTo(this.toAvoid) > 2.2F;

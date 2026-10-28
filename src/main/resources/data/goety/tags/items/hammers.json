@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-    "goety:great_hammer",
-    "goety:bonehead_hammer",
-    "goety:stormlander"
+    "#forge:tools/hammers"
   ]
 }

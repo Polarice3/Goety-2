@@ -10,12 +10,15 @@ public class AuraParticle extends TextureSheetParticle {
     public final int ownerId;
     public final Vec3 origin;
 
-    protected AuraParticle(ClientLevel level, double x, double y, double z, double xd, double yd, double zd, SpriteSet spriteSet, int ownerId, float size) {
+    protected AuraParticle(ClientLevel level, double x, double y, double z, double xd, double yd, double zd, float red, float green, float blue, SpriteSet spriteSet, int ownerId, float size) {
         super(level, x, y, z);
         this.ownerId = ownerId;
         this.xd = xd;
         this.yd = yd;
         this.zd = zd;
+        this.rCol = red;
+        this.gCol = green;
+        this.bCol = blue;
         this.origin = new Vec3(x, y, z);
         this.hasPhysics = false;
         this.quadSize = size;
@@ -64,7 +67,7 @@ public class AuraParticle extends TextureSheetParticle {
         }
 
         public Particle createParticle(AuraParticleOption pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
-            return new AuraParticle(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed, this.sprites, pType.getOwnerId(), pType.getSize());
+            return new AuraParticle(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed, pType.getRed(), pType.getGreen(), pType.getBlue(), this.sprites, pType.getOwnerId(), pType.getSize());
         }
     }
 }

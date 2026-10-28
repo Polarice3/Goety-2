@@ -11,6 +11,7 @@ import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.ConstantPaths;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -29,6 +30,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.InvWrapper;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -43,7 +50,26 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
         public int getMaxStackSize() {
             return 1;
         }
+
+        @Override
+        public boolean canPlaceItem(int slot, ItemStack stack) {
+            return NecroBrazierBlockEntity.this.canAccept(slot, stack);
+        }
+
+        @Override
+        public void setChanged() {
+            super.setChanged();
+            if (NecroBrazierBlockEntity.this.level != null && !NecroBrazierBlockEntity.this.level.isClientSide) {
+                NecroBrazierBlockEntity.this.markUpdated();
+            }
+        }
     };
+    private final LazyOptional<IItemHandler> itemHandler = LazyOptional.of(() -> new InvWrapper(this.inventory) {
+        @Override
+        public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
+            return ItemStack.EMPTY;
+        }
+    });
     public boolean playSound = false;
     public int currentTime;
 
@@ -95,6 +121,18 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
     private CompoundTag saveMetadataAndItems(CompoundTag pCompound) {
         ContainerHelper.saveAllItems(pCompound, this.getItems(), true);
         return pCompound;
+    }
+
+    public boolean canAccept(int slot, ItemStack stack) {
+        if (this.currentTime > 0 || stack.isEmpty() || !this.inventory.getItem(slot).isEmpty()) {
+            return false;
+        }
+        for (int i = 0; i < this.inventory.getContainerSize(); i++) {
+            if (ItemStack.isSameItem(this.inventory.getItem(i), stack)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean addItem(@Nullable Player player, ItemStack stack) {
@@ -357,5 +395,19 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
                 }
             }
         }
+    }
+
+    @Override
+    public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
+            return this.itemHandler.cast();
+        }
+        return super.getCapability(cap, side);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        this.itemHandler.invalidate();
     }
 }

@@ -467,6 +467,31 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> REDSTONE_CUBE_WALK = create("redstone_cube_walk");
     public static final RegistryObject<SoundEvent> REDSTONE_CUBE_ATTACK = create("redstone_cube_attack");
 
+    public static final RegistryObject<SoundEvent> GRAVE_MONSTROSITY_AMBIENT = create("grave_monstrosity_ambient");
+    public static final RegistryObject<SoundEvent> GRAVE_MONSTROSITY_HURT = create("grave_monstrosity_hurt");
+    public static final RegistryObject<SoundEvent> GRAVE_MONSTROSITY_AWAKEN = create("grave_monstrosity_awaken");
+    public static final RegistryObject<SoundEvent> GRAVE_MONSTROSITY_SUMMON_START = create("grave_monstrosity_summon_start");
+    public static final RegistryObject<SoundEvent> GRAVE_MONSTROSITY_SUMMON = create("grave_monstrosity_summon");
+    public static final RegistryObject<SoundEvent> GRAVE_MONSTROSITY_SUMMON_END = create("grave_monstrosity_summon_end");
+    public static final RegistryObject<SoundEvent> GRAVE_MONSTROSITY_ATTACK_COMBO = create("grave_monstrosity_attack_combo");
+    public static final RegistryObject<SoundEvent> GRAVE_MONSTROSITY_ATTACK_COMBO_END = create("grave_monstrosity_attack_combo_end");
+    public static final RegistryObject<SoundEvent> GRAVE_MONSTROSITY_ATTACK_SWIPE = create("grave_monstrosity_attack_swipe");
+    public static final RegistryObject<SoundEvent> GRAVE_MONSTROSITY_CHARGE_START = create("grave_monstrosity_charge_start");
+    public static final RegistryObject<SoundEvent> GRAVE_MONSTROSITY_CHARGE_END = create("grave_monstrosity_charge_end");
+    public static final RegistryObject<SoundEvent> GRAVE_MONSTROSITY_PRE_BELCH = create("grave_monstrosity_pre_belch");
+    public static final RegistryObject<SoundEvent> GRAVE_MONSTROSITY_BELCH = create("grave_monstrosity_belch");
+    public static final RegistryObject<SoundEvent> GRAVE_MONSTROSITY_CALL = create("grave_monstrosity_call");
+    public static final RegistryObject<SoundEvent> GRAVE_MONSTROSITY_STAGGER_START = create("grave_monstrosity_stagger_start");
+    public static final RegistryObject<SoundEvent> GRAVE_MONSTROSITY_STAGGER_END = create("grave_monstrosity_stagger_end");
+    public static final RegistryObject<SoundEvent> GRAVE_MONSTROSITY_STEP = create("grave_monstrosity_step");
+    public static final RegistryObject<SoundEvent> GRAVE_MONSTROSITY_DEATH = create("grave_monstrosity_death");
+
+    public static final RegistryObject<SoundEvent> GRAVE_CUBE_BURST = create("grave_cube_burst");
+    public static final RegistryObject<SoundEvent> GRAVE_CUBE_HURT = create("grave_cube_hurt");
+    public static final RegistryObject<SoundEvent> GRAVE_CUBE_ATTACK = create("grave_cube_attack");
+    public static final RegistryObject<SoundEvent> GRAVE_CUBE_WALK = create("grave_cube_walk");
+    public static final RegistryObject<SoundEvent> GRAVE_CUBE_DEATH = create("grave_cube_death");
+
     public static final RegistryObject<SoundEvent> WATCHLING_AMBIENT = create("watchling_ambient");
     public static final RegistryObject<SoundEvent> WATCHLING_HURT = create("watchling_hurt");
     public static final RegistryObject<SoundEvent> WATCHLING_ATTACK = create("watchling_attack");
@@ -646,6 +671,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> VANGUARD_SPELL = create("vanguard_spell");
     public static final RegistryObject<SoundEvent> VANGUARD_SUMMON = create("vanguard_summon");
     public static final RegistryObject<SoundEvent> BOSS_SUMMON = create("boss_summon");
+    public static final RegistryObject<SoundEvent> MONSTROSITY_SPAWN = create("monstrosity_spawn");
     public static final RegistryObject<SoundEvent> SWING = create("swing");
     public static final RegistryObject<SoundEvent> HEAVY_WOOSH = create("heavy_woosh");
     public static final RegistryObject<SoundEvent> PROJECTILE_SPELL = create("projectile_spell");
@@ -664,6 +690,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> HELL_BLAST_SHOOT = create("hell_blast_shoot");
     public static final RegistryObject<SoundEvent> HELL_BLAST_IMPACT = create("hell_blast_impact");
     public static final RegistryObject<SoundEvent> SOUL_EXPLODE = create("soul_explode");
+    public static final RegistryObject<SoundEvent> SOUL_ORB_EXPLODE = create("soul_orb_explode");
+    public static final RegistryObject<SoundEvent> SOUL_BOMB_EXPLODE = create("soul_bomb_explode");
     public static final RegistryObject<SoundEvent> RADIANCE_WAVE = create("radiance_wave");
     public static final RegistryObject<SoundEvent> LEECHING = create("leeching");
     public static final RegistryObject<SoundEvent> HEAL_SPELL = create("heal_spell");

@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-14T14:24:10.5329757	Loot Tables
+// 1.20.1	2026-10-22T21:29:09.9600733	Loot Tables
 1173ad0aef6067156a1c3161e3fe16b8e10b3f92 data/goety/loot_tables/blocks/animator.json
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
@@ -160,6 +160,7 @@ a7c513170e7f0de8bfebbc835026c0f3ecbba18a data/goety/loot_tables/blocks/dark_alta
 e92707a83113bde03ca043084f17c277ff17d2e7 data/goety/loot_tables/blocks/dark_dirt.json
 32e57da649d08a5cd5250c8aacec648928822a8d data/goety/loot_tables/blocks/dark_dirt_slab.json
 ed30b0bdc50c587cc9376c3dc35a6728c0130f5f data/goety/loot_tables/blocks/dark_metal_block.json
+8f8c13ba5537a2d8c9f9b4e1373fc67476a6e9ce data/goety/loot_tables/blocks/dark_mold_block.json
 d96970541510b1dcbf0c98c17655b736c5d90010 data/goety/loot_tables/blocks/dark_pressure_plate.json
 61b850cd5f28d62c3f34c6e16657b616fffa3220 data/goety/loot_tables/blocks/deadly_nightshade.json
 9f38bc6343636994f7caec7bcc2f1d748b99e4ce data/goety/loot_tables/blocks/deepslate_brazier.json
@@ -356,6 +357,7 @@ eab0fa927d301e672b21e0728f9f437bc0131c35 data/goety/loot_tables/blocks/marsh_sta
 a876110fc9b1f5efa576489f44f99813538079cc data/goety/loot_tables/blocks/messy_end_stone_bricks.json
 2953465e41eaa43590c8d2a7e85f745d3485918a data/goety/loot_tables/blocks/mixed_end_limestone.json
 ac3720a164f0f5b05ff397693ae59e6aee21c5d5 data/goety/loot_tables/blocks/mixed_end_stone.json
+2dd3ca5660093f10e15db045b1be6d948a9fd2ea data/goety/loot_tables/blocks/monstrous_core.json
 3494aefd1cbe1d45b0cdac67c25d4afd86ae4eb4 data/goety/loot_tables/blocks/mossy_cobbled_siltstone.json
 1ffef7773af051a480223a72637cf07ac3252bc5 data/goety/loot_tables/blocks/mossy_cragrocks.json
 dfbf095c17ca122b2f66101731ceefe044fdda87 data/goety/loot_tables/blocks/mossy_cragrocks_heavy.json

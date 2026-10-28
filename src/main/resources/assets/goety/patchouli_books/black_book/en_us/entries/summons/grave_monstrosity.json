@@ -1,0 +1,37 @@
+{
+  "name": "Grave Monstrosity",
+  "icon": "goety:grave_monstrosity_head",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_terminus_and_haunting_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "After learning of the monstrosities of the past, you've delved deeper into the depths of necromancy in order to create a monstrosity fit for the dead. After many research and tests... you've succeeded."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:grave_monstrosity",
+      "scale": 0.75
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:grave_monstrosity",
+      "text": "Right click the center $(l:goety:crafts/monstrous_core)Monstrous Core$() with an Animation Core."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Crypt Stone can be substituted with other full block variants. Perhaps the ultimate monster born of necromancy, this creature shield nearby allied undead from the rays of the wretched sun. They can be repaired by right-clicking on them with Bone Blocks."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:grave_monstrosity_head",
+      "text": "Should the Monstrosity fell from battle or command, they will drop their head. The Head can be used to revive the Monstrosity in a cheaper manner. However, the Head remembers it's original creator and master and the revived Monstrosity will only follow their commands."
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:grave_monstrosity_revive",
+      "enable_visualize": false
+    }
+  ]
+}

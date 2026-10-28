@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "goety:hostile_redstone_monstrosity",
+    "goety:redstone_monstrosity",
+    "goety:grave_monstrosity"
+  ]
+}

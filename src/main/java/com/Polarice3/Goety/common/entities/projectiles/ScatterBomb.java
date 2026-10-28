@@ -5,14 +5,10 @@ import com.Polarice3.Goety.client.particles.DustCloudParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.SphereExplodeParticleOption;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.utils.BlockFinder;
-import com.Polarice3.Goety.utils.ColorUtil;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
-import com.Polarice3.Goety.utils.SpellExplosion;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,11 +16,13 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.enchantment.ProtectionEnchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -108,13 +106,41 @@ public class ScatterBomb extends Projectile {
             if (this.getOwner() instanceof Mob mob && mob.getAttribute(Attributes.ATTACK_DAMAGE) != null){
                 damage = (float) mob.getAttributeValue(Attributes.ATTACK_DAMAGE) / 2.0F;
             }
-            new SpellExplosion(this.level, this, this.damageSources().explosion(this, this.getOwner()), this.getX(), this.getY(), this.getZ(), 4.5F, damage){
-                @Override
-                public void explodeHurt(Entity target, DamageSource damageSource, double x, double y, double z, double seen, float actualDamage) {
-                    super.explodeHurt(target, damageSource, x, y, z, seen, actualDamage);
-                    target.invulnerableTime = 15;
+            //Changed it because it sometimes does no damage despite hitting an enemy directly.
+            AABB aabb = new AABB(this.position(), this.position()).inflate(4.5F);
+            Entity trueSource = this;
+            if (this.getOwner() != null) {
+                trueSource = this.getOwner();
+            }
+            for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
+                boolean hurt = !livingEntity.ignoreExplosion();
+                if (MobUtil.areAllies(trueSource, livingEntity) || livingEntity == trueSource){
+                    hurt = false;
                 }
-            };
+                if (hurt) {
+                    double d5 = livingEntity.getX() - this.getX();
+                    double d7 = livingEntity.getEyeY() - this.getY();
+                    double d9 = livingEntity.getZ() - this.getZ();
+                    double d12 = Math.sqrt(livingEntity.distanceToSqr(this.position())) / 4.5D;
+                    if (d12 <= 1.0D) {
+                        double d14 = SpellExplosion.getSeenPercent(this.position(), livingEntity);
+                        double d10 = (1.0D - d12) * d14;
+                        double d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener(livingEntity, d10);
+                        double d13 = Math.sqrt(d5 * d5 + d7 * d7 + d9 * d9);
+                        if (d13 != 0.0D) {
+                            d5 /= d13;
+                            d7 /= d13;
+                            d9 /= d13;
+                            MobUtil.push(livingEntity, d5 * d11, d7 * d11, d9 * d11);
+                        }
+                    }
+                    if (MobUtil.canPositionBeSeen(this.level, livingEntity, this.getX(), this.getY(), this.getZ())) {
+                        if (livingEntity.hurt(this.damageSources().explosion(this, this.getOwner()), damage)){
+                            livingEntity.invulnerableTime = 15;
+                        }
+                    }
+                }
+            }
             if (this.level instanceof ServerLevel serverLevel) {
                 ServerParticleUtil.addParticlesAroundSelf(serverLevel, ModParticleTypes.BIG_FIRE.get(), this);
                 ServerParticleUtil.addAuraParticles(serverLevel, ModParticleTypes.BIG_FIRE_GROUND.get(), this, 2.0F);

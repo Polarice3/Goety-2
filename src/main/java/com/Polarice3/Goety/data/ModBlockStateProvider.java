@@ -70,6 +70,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
         sculpturedStatue(ModBlocks.STATUE_8.get());
 
         simpleBlockWithItem(ModBlocks.DIAMOND_MOLD_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.DARK_MOLD_BLOCK.get());
+
+        simpleBlockWithItem(ModBlocks.MONSTROUS_CORE.get());
 
         simpleBlockWithItem(ModBlocks.COBBLED_DIRT.get());
         simpleBlockWithItem(ModBlocks.SNOWY_DIRT.get());

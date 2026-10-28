@@ -1,0 +1,39 @@
+{
+  "parent": "goety:goety/read_terminus_and_haunting_scroll",
+  "criteria": {
+    "summoned_golem": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "goety:grave_monstrosity"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.goety.summon_grave_monstrosity.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "goety:grave_monstrosity_head"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.goety.summon_grave_monstrosity.title"
+    }
+  },
+  "requirements": [
+    [
+      "summoned_golem"
+    ]
+  ]
+}

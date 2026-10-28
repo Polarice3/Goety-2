@@ -2,6 +2,7 @@
   "replace": false,
   "__comment": "mobs that when killed, have all their summons killed as well.",
   "values": [
-    "goety:sorcerer"
+    "goety:sorcerer",
+    "goety:grave_monstrosity"
   ]
 }

@@ -114,7 +114,7 @@ public class FeastSpell extends ChargingSpell {
                 }
             }
         }
-        for(int i1 = 0; i1 < caster.level.random.nextInt(35) + 10; ++i1) {
+        for(int i1 = 0; i1 < caster.level.getRandom().nextInt(35) + 10; ++i1) {
             worldIn.sendParticles(ParticleTypes.POOF, caster.getX(), caster.getEyeY(), caster.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
         }
     }

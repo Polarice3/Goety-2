@@ -8,13 +8,9 @@ import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
-import com.Polarice3.Goety.utils.ColorUtil;
-import com.Polarice3.Goety.utils.EntityFinder;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -146,11 +142,9 @@ public class RedstoneCube extends AbstractGolemServant{
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
         if (pReason == MobSpawnType.MOB_SUMMONED){
             if (pLevel instanceof ServerLevel serverLevel){
-                for (int i = 0; i < 8; ++i) {
-                    double d0 = (double) this.getX() + this.random.nextDouble();
-                    double d1 = (double) this.getY() + 1.0D;
-                    double d2 = (double) this.getZ() + this.random.nextDouble();
-                    serverLevel.sendParticles(ParticleTypes.LAVA, d0, d1, d2, 0, 0.0D, 0.5D, 0.0D, 0.5F);
+                int lava = 12 + pLevel.getRandom().nextInt(7);
+                for (int i = 0; i < lava; i++) {
+                    ServerParticleUtil.eruption(serverLevel, this.position(), pLevel.getRandom());
                 }
                 this.playSound(ModSounds.REDSTONE_CUBE_BURST.get(), 0.65F, 0.7F + Math.min(this.random.nextFloat(), 0.5F));
             }

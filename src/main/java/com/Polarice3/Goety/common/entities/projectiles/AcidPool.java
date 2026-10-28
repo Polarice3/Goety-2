@@ -263,6 +263,14 @@ public class AcidPool extends AbstractTrap {
         this.getEntityData().set(DATA_SOUND_EVENT, p_19715_);
     }
 
+    public void setSoundEvent(ResourceLocation location) {
+        this.setSoundEvent(location.toString());
+    }
+
+    public void setSoundEvent(SoundEvent soundEvent) {
+        this.setSoundEvent(soundEvent.getLocation());
+    }
+
     public void setExplodeEffect(boolean explodeEffect) {
         this.explodeEffect = explodeEffect;
     }
@@ -311,48 +319,52 @@ public class AcidPool extends AbstractTrap {
                         serverLevel.sendParticles(new FoggyCloudParticleOption(new ColorUtil(this.getColor()), this.radius() / 2.0F, 1), this.getX(), this.getY() + 0.25D, this.getZ(), 1, 0, 0, 0, 0);
                     }
                 }
-                List<LivingEntity> targets = new ArrayList<>();
-                for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox())){
-                    if (this.owner != null) {
-                        if (livingEntity != this.owner && !MobUtil.areAllies(this.owner, livingEntity)) {
-                            targets.add(livingEntity);
-                        }
-                    } else {
-                        targets.add(livingEntity);
-                    }
-                }
-                if (!targets.isEmpty()){
-                    for (LivingEntity livingEntity : targets) {
-                        if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)) {
-                            float damage = this.getDamage();
-                            if (this.getPercentDamage() > 0.0F) {
-                                damage = livingEntity.getMaxHealth() * this.getPercentDamage();
-                            }
-                            boolean flag;
-                            if (this.owner != null) {
-                                flag = livingEntity.hurt(ModDamageSource.acid(this, this.owner), damage);
-                            } else {
-                                flag = livingEntity.hurt(this.damageSources().magic(), damage);
-                            }
-                            if (flag) {
-                                if (this.getInvTime() > -1) {
-                                    livingEntity.invulnerableTime = this.getInvTime();
-                                }
-                                if (!this.getEffects().isEmpty()) {
-                                    for (MobEffectInstance mobeffectinstance1 : this.getEffects()) {
-                                        if (mobeffectinstance1.getEffect().isInstantenous()) {
-                                            mobeffectinstance1.getEffect().applyInstantenousEffect(this, this.getOwner(), livingEntity, mobeffectinstance1.getAmplifier(), 0.5D);
-                                        } else {
-                                            livingEntity.addEffect(new MobEffectInstance(mobeffectinstance1), this);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                this.poolTick();
                 if (this.lifeTick >= this.getDuration()) {
                     this.discard();
+                }
+            }
+        }
+    }
+
+    public void poolTick(){
+        List<LivingEntity> targets = new ArrayList<>();
+        for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox())){
+            if (this.owner != null) {
+                if (livingEntity != this.owner && !MobUtil.areAllies(this.owner, livingEntity)) {
+                    targets.add(livingEntity);
+                }
+            } else {
+                targets.add(livingEntity);
+            }
+        }
+        if (!targets.isEmpty()){
+            for (LivingEntity livingEntity : targets) {
+                if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)) {
+                    float damage = this.getDamage();
+                    if (this.getPercentDamage() > 0.0F) {
+                        damage = livingEntity.getMaxHealth() * this.getPercentDamage();
+                    }
+                    boolean flag;
+                    if (this.owner != null) {
+                        flag = livingEntity.hurt(ModDamageSource.acid(this, this.owner), damage);
+                    } else {
+                        flag = livingEntity.hurt(this.damageSources().magic(), damage);
+                    }
+                    if (flag) {
+                        if (this.getInvTime() > -1) {
+                            livingEntity.invulnerableTime = this.getInvTime();
+                        }
+                        if (!this.getEffects().isEmpty()) {
+                            for (MobEffectInstance mobeffectinstance1 : this.getEffects()) {
+                                if (mobeffectinstance1.getEffect().isInstantenous()) {
+                                    mobeffectinstance1.getEffect().applyInstantenousEffect(this, this.getOwner(), livingEntity, mobeffectinstance1.getAmplifier(), 0.5D);
+                                } else {
+                                    livingEntity.addEffect(new MobEffectInstance(mobeffectinstance1), this);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -106,9 +106,21 @@ public class ModISTER extends BlockEntityWithoutLevelRenderer {
                     pMatrixStack.translate(0.0F, 0.25F, 0.0F);
                     RedstoneMonstrosityHeadBlockEntityRenderer.renderItemSkull(pStack, null, 180.0F, pMatrixStack, pBuffer, pLight);
                     pMatrixStack.popPose();
-
                 } else {
                     RedstoneMonstrosityHeadBlockEntityRenderer.renderItemSkull(pStack, null, 180.0F, pMatrixStack, pBuffer, pLight);
+                }
+            } else if (block instanceof GraveMonstrosityHeadBlock){
+                if(pCamera == ItemDisplayContext.GUI) {
+                    pMatrixStack.pushPose();
+                    pMatrixStack.translate(0.5F, 0.5F, 0.5F);
+                    pMatrixStack.mulPose(Axis.XP.rotationDegrees(30));
+                    pMatrixStack.mulPose(Axis.YN.rotationDegrees(-45));
+                    pMatrixStack.translate(-0.5F, -0.5F, -0.5F);
+                    pMatrixStack.translate(0.0F, 0.25F, 0.0F);
+                    GraveMonstrosityHeadBlockEntityRenderer.renderItemSkull(pStack, null, 180.0F, pMatrixStack, pBuffer, pLight);
+                    pMatrixStack.popPose();
+                } else {
+                    GraveMonstrosityHeadBlockEntityRenderer.renderItemSkull(pStack, null, 180.0F, pMatrixStack, pBuffer, pLight);
                 }
             } else if (block instanceof BlackCrystalBlock) {
                 BlackCrystalBlockEntity crystalBlock = crystalEntity(block);

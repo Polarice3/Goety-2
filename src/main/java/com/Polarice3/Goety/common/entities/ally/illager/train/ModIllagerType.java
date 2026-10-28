@@ -90,7 +90,7 @@ public class ModIllagerType implements ITrainIllager {
                 && checker.hasBlocks(blockState -> blockState.is(BlockTags.WALLS), 10)
                 && checker.hasBlocks(blockState -> blockState.is(BlockTags.FENCES), 10)
                 && checker.hasBlocks(blockState -> blockState.getBlock() instanceof FurnaceBlock || blockState.getBlock() instanceof BlastFurnaceBlock, 2)
-                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof CraftingTableBlock, 1)){
+                && checker.hasBlocks(blockState -> blockState.getBlock() instanceof CraftingTableBlock || blockState.is(ModTags.Blocks.CRAFTING_TABLE), 1)){
             return ModEntityType.VINDICATOR_SERVANT.get();
         } else if (checker.hasBlocks(blockState -> blockState.getBlock() instanceof CakeBlock, 2)
                 && checker.hasBlocks(blockState -> blockState.getBlock() instanceof SmokerBlock || blockState.getBlock() instanceof FurnaceBlock, 4)

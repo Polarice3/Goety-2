@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "goety:raid_boss_summon",
+    "goety:hostile_redstone_monstrosity",
+    "goety:apostle",
+    "goety:vizier"
+  ]
+}

@@ -5562,6 +5562,319 @@
     ],
     "subtitle": "subtitle.goety.redstone_cube_attack"
   },
+  "grave_monstrosity_ambient": {
+    "sounds": [
+      {
+        "name": "goety:sculk_monstrosity/idle1"
+      },
+      {
+        "name": "goety:sculk_monstrosity/idle2"
+      },
+      {
+        "name": "goety:sculk_monstrosity/idle3"
+      },
+      {
+        "name": "goety:sculk_monstrosity/idle4"
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_monstrosity_ambient"
+  },
+  "grave_monstrosity_hurt": {
+    "sounds": [
+      {
+        "name": "goety:redstone_monstrosity2/hurt1",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_monstrosity2/hurt2",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_monstrosity2/hurt3",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_monstrosity_hurt"
+  },
+  "grave_monstrosity_awaken": {
+    "sounds": [
+      {
+        "name": "goety:sculk_monstrosity/cube_summon_scream1"
+      },
+      {
+        "name": "goety:sculk_monstrosity/cube_summon_scream2"
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_monstrosity_awaken"
+  },
+  "grave_monstrosity_summon_start": {
+    "sounds": [
+      {
+        "name": "goety:sculk_monstrosity/cube_summon_start"
+      }
+    ]
+  },
+  "grave_monstrosity_summon": {
+    "sounds": [
+      {
+        "name": "goety:sculk_monstrosity/cube_summon_scream1"
+      },
+      {
+        "name": "goety:sculk_monstrosity/cube_summon_scream2"
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_monstrosity_summon"
+  },
+  "grave_monstrosity_summon_end": {
+    "sounds": [
+      {
+        "name": "goety:sculk_monstrosity/cube_summon_end"
+      }
+    ]
+  },
+  "grave_monstrosity_attack_combo": {
+    "sounds": [
+      {
+        "name": "goety:sculk_monstrosity/attack_combo"
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_monstrosity_attack_combo"
+  },
+  "grave_monstrosity_attack_combo_end": {
+    "sounds": [
+      {
+        "name": "goety:sculk_monstrosity/attack_combo_end"
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_monstrosity_attack_combo"
+  },
+  "grave_monstrosity_attack_swipe": {
+    "sounds": [
+      {
+        "name": "goety:sculk_monstrosity/attack_swipe"
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_monstrosity_attack_combo"
+  },
+  "grave_monstrosity_charge_start": {
+    "sounds": [
+      {
+        "name": "goety:sculk_monstrosity/charge_start"
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_monstrosity_charge_start"
+  },
+  "grave_monstrosity_charge_end": {
+    "sounds": [
+      {
+        "name": "goety:sculk_monstrosity/charge_end1"
+      },
+      {
+        "name": "goety:sculk_monstrosity/charge_end2"
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_monstrosity_charge_end"
+  },
+  "grave_monstrosity_pre_belch": {
+    "sounds": [
+      {
+        "name": "goety:redstone_monstrosity2/pre_belch1",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_monstrosity2/pre_belch2",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_monstrosity_pre_belch"
+  },
+  "grave_monstrosity_belch": {
+    "sounds": [
+      {
+        "name": "goety:redstone_monstrosity2/belch1",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_monstrosity2/belch2",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_monstrosity2/belch3",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_monstrosity_belch"
+  },
+  "grave_monstrosity_call": {
+    "sounds": [
+      {
+        "name": "goety:sculk_monstrosity/catalyst_summon"
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_monstrosity_call"
+  },
+  "grave_monstrosity_stagger_start": {
+    "sounds": [
+      {
+        "name": "goety:sculk_monstrosity/stagger_start"
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_monstrosity_stagger_start"
+  },
+  "grave_monstrosity_stagger_end": {
+    "sounds": [
+      {
+        "name": "goety:sculk_monstrosity/stagger_end"
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_monstrosity_stagger_end"
+  },
+  "grave_monstrosity_step": {
+    "sounds": [
+      {
+        "name": "goety:redstone_monstrosity2/step1",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_monstrosity2/step2",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_monstrosity2/step3",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_monstrosity2/step4",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_monstrosity_step"
+  },
+  "grave_monstrosity_death": {
+    "sounds": [
+      {
+        "name": "goety:sculk_monstrosity/death"
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_monstrosity_death"
+  },
+  "grave_cube_burst": {
+    "sounds": [
+      {
+        "name": "goety:redstone_cube2/spawn1",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_cube2/spawn2",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_cube2/spawn3",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_cube2/spawn4",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_cube_burst"
+  },
+  "grave_cube_hurt": {
+    "sounds": [
+      {
+        "name": "goety:redstone_cube2/hurt1",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_cube2/hurt2",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_cube2/hurt3",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_cube_hurt"
+  },
+  "grave_cube_attack": {
+    "sounds": [
+      {
+        "name": "goety:redstone_cube/attack1",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_cube/attack2",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_cube/attack3",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_cube/attack4",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_cube_attack"
+  },
+  "grave_cube_walk": {
+    "sounds": [
+      {
+        "name": "goety:redstone_cube2/step1",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_cube2/step2",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_cube2/step3",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_cube2/step4",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_cube2/step5",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_cube2/step6",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_cube2/step7",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_cube2/step8",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_cube2/step9",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_cube_walk"
+  },
+  "grave_cube_death": {
+    "sounds": [
+      {
+        "name": "goety:redstone_cube2/death1",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_cube2/death2",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_cube2/death3",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_cube_death"
+  },
   "watchling_ambient": {
     "sounds": [
       {
@@ -7693,6 +8006,13 @@
       }
     ]
   },
+  "monstrosity_spawn": {
+    "sounds": [
+      {
+        "name": "goety:random/monstrosity_spawn"
+      }
+    ]
+  },
   "swing": {
     "sounds": [
       {
@@ -8070,6 +8390,40 @@
       }
     ],
     "subtitle": "subtitle.goety.soul_explode"
+  },
+  "soul_orb_explode": {
+    "sounds": [
+      {
+        "name": "goety:random/soul_orb_explode1"
+      },
+      {
+        "name": "goety:random/soul_orb_explode2"
+      },
+      {
+        "name": "goety:random/soul_orb_explode3"
+      },
+      {
+        "name": "goety:random/soul_orb_explode4"
+      }
+    ],
+    "subtitle": "subtitle.goety.soul_explode"
+  },
+  "soul_bomb_explode": {
+    "sounds": [
+      {
+        "name": "goety:redstone_monstrosity2/belch_explode1",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_monstrosity2/belch_explode2",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_monstrosity2/belch_explode3",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.soul_bomb_explode"
   },
   "fire_tornado_ambient": {
     "sounds": [

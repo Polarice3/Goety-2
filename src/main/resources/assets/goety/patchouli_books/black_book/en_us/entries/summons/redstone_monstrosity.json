@@ -1,6 +1,6 @@
 {
   "name": "Redstone Monstrosity",
-  "icon": "goety:reinforced_redstone_block",
+  "icon": "goety:redstone_monstrosity_head",
   "category": "goety:summons",
   "advancement": "goety:goety/read_terminus_scroll",
   "secret": true,
@@ -17,7 +17,7 @@
     {
       "type": "multiblock",
       "multiblock_id": "goety:redstone_monstrosity",
-      "text": "Right click the center Reinforced Redstone Block with an Animation Core."
+      "text": "Right click the center $(l:goety:crafts/monstrous_core)Monstrous Core$() with an Animation Core."
     },
     {
       "type": "goety:ritual",

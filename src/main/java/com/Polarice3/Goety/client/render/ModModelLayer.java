@@ -91,6 +91,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation HAUNT = register("haunt");
     public static final ModelLayerLocation REDSTONE_MONSTROSITY = register("redstone_monstrosity");
     public static final ModelLayerLocation REDSTONE_CUBE = register("redstone_cube");
+    public static final ModelLayerLocation GRAVE_MONSTROSITY = register("grave_monstrosity");
     public static final ModelLayerLocation WATCHLING = register("watchling");
     public static final ModelLayerLocation BLASTLING = register("blastling");
     public static final ModelLayerLocation SNARELING = register("snareling");

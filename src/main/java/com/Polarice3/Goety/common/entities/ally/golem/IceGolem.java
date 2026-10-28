@@ -9,6 +9,7 @@ import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
@@ -235,10 +236,10 @@ public class IceGolem extends AbstractGolemServant{
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        if (source.is(DamageTypeTags.IS_FIRE)){
+        if (source.is(DamageTypeTags.IS_FIRE) || source.is(ModTags.DamageTypes.FIRE_ATTACKS)){
             amount *= 1.33F;
         }
-        if (source.is(DamageTypeTags.IS_FREEZING)){
+        if (source.is(DamageTypeTags.IS_FREEZING) || source.is(ModTags.DamageTypes.FROST_ATTACKS)){
             return false;
         }
         if (this.isUpgraded()){

@@ -1,0 +1,37 @@
+{
+  "name": "墓灵巨兽",
+  "icon": "goety:grave_monstrosity_head",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_terminus_and_haunting_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在了解到过去的那些巨兽之后，你深入钻研死灵法术的至暗之处，目的仅是为了创造出一头配得上你的巨兽。经过大量研究与试验，你仍然成功了。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:grave_monstrosity",
+      "scale": 0.75
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:grave_monstrosity",
+      "text": "用活力核心右键点击中央的$(l:goety:crafts/monstrous_core)巨兽核心$()。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "墓穴石可以替换为其他完整方块变种。这或许是死灵法术诞生以来你能见识到的最强大的人造生物，与其相比，太阳都要黯淡三分。甚至于该生物能保护附近的友方亡灵免受那可憎太阳的灼烧伤害。你可以用骨块右键点击它们来治疗它们。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:grave_monstrosity_head",
+      "text": "如果巨兽在战斗中倒下或因命令而倒下，它们会掉落自己的头颅。该头颅可用于以更廉价的方式复活巨兽。然而，头颅会记得其最初的创造者和主人，复活后的巨兽只会听从他们的命令。"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:grave_monstrosity_revive",
+      "enable_visualize": false
+    }
+  ]
+}

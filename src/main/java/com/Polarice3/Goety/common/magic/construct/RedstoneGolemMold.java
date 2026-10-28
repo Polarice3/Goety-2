@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.magic.construct;
 
 import com.Polarice3.Goety.api.magic.IMold;
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.golem.RedstoneCube;
@@ -230,6 +231,11 @@ public class RedstoneGolemMold implements IMold {
                 && checkLava(level, blockPos).isEmpty() && checkRedstone(level, blockPos).isEmpty();
     }
 
+    @Override
+    public boolean isStructureValid(Level level, BlockPos blockPos) {
+        return checkBlocks(level, blockPos);
+    }
+
     public static boolean conditionsMet(Level worldIn, LivingEntity entityLiving) {
         int count = 0;
         if (worldIn instanceof ServerLevel serverLevel) {
@@ -257,6 +263,9 @@ public class RedstoneGolemMold implements IMold {
                                 redstoneGolem1.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(redstoneGolem1.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                                 redstoneGolem1.moveTo((double) blockPos.getX() + 0.5D, (double) blockPos.getY() + 0.05D, (double) blockPos.getZ() + 0.5D, 0.0F, 0.0F);
                                 if (level.addFreshEntity(redstoneGolem1)) {
+                                    if (level instanceof ServerLevel serverLevel) {
+                                        serverLevel.sendParticles(ModParticleTypes.MAGIC_RUNES.get(), redstoneGolem1.getX(), redstoneGolem1.getY() + 1.0F, redstoneGolem1.getZ(), 0, 0.24F, 0.0F, 1.0F, 1.0);
+                                    }
                                     removeBlocks(level, blockPos);
                                     stack.shrink(1);
                                     if (player instanceof ServerPlayer serverPlayer) {

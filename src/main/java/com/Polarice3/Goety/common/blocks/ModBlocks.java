@@ -143,6 +143,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> WALL_GRAVE_GOLEM_SKULL_BLOCK = register("wall_grave_golem_skull", WallGraveGolemSkullBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> REDSTONE_MONSTROSITY_HEAD_BLOCK = register("redstone_monstrosity_head", RedstoneMonstrosityHeadBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> WALL_REDSTONE_MONSTROSITY_HEAD_BLOCK = register("wall_redstone_monstrosity_head", WallRedstoneMonstrosityHeadBlock::new, false, LootTableType.EMPTY);
+    public static final RegistryObject<Block> GRAVE_MONSTROSITY_HEAD_BLOCK = register("grave_monstrosity_head", GraveMonstrosityHeadBlock::new, false, LootTableType.EMPTY);
+    public static final RegistryObject<Block> WALL_GRAVE_MONSTROSITY_HEAD_BLOCK = register("wall_grave_monstrosity_head", WallGraveMonstrosityHeadBlock::new, false, LootTableType.EMPTY);
 
     //Plants
     public static final RegistryObject<Block> SNAP_WARTS = register("snap_warts", SnapWartsBlock::new, false, LootTableType.EMPTY);
@@ -269,9 +271,18 @@ public class ModBlocks {
     public static final RegistryObject<Block> OMINOUS_BRAZIER_STATUE = register("ominous_brazier_statue", OminousBrazierStatueBlock::new);
     public static final RegistryObject<Block> DIAMOND_MOLD_BLOCK = register("diamond_mold_block", () ->
             new Block(BlockBehaviour.Properties.copy(Blocks.DIAMOND_BLOCK)));
+    public static final RegistryObject<Block> DARK_MOLD_BLOCK = register("dark_mold_block", () ->
+            new Block(BlockBehaviour.Properties.copy(ModBlocks.DARK_ALLOY_BLOCK.get())));
     public static final RegistryObject<Block> REINFORCED_REDSTONE_BLOCK = register("reinforced_redstone_block", () ->
             new PoweredBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.FIRE)
+                    .requiresCorrectToolForDrops()
+                    .strength(50.0F, 1200.0F)
+                    .sound(SoundType.METAL)
+                    .isRedstoneConductor(ModBlocks::never)));
+    public static final RegistryObject<Block> MONSTROUS_CORE = register("monstrous_core", () ->
+            new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
                     .requiresCorrectToolForDrops()
                     .strength(50.0F, 1200.0F)
                     .sound(SoundType.METAL)
@@ -1494,6 +1505,18 @@ public class ModBlocks {
             });
     public static final RegistryObject<Item> REDSTONE_MONSTROSITY_HEAD_ITEM = ModItems.ITEMS.register("redstone_monstrosity_head",
             () -> new RedstoneMonstrosityHeadItem((new Item.Properties()).rarity(Rarity.EPIC).fireResistant()){
+                @Override
+                public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+                    consumer.accept(new IClientItemExtensions() {
+                        @Override
+                        public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                            return ModISTERs.get();
+                        }
+                    });
+                }
+            });
+    public static final RegistryObject<Item> GRAVE_MONSTROSITY_HEAD_ITEM = ModItems.ITEMS.register("grave_monstrosity_head",
+            () -> new GraveMonstrosityHeadItem((new Item.Properties()).rarity(Rarity.EPIC).fireResistant()){
                 @Override
                 public void initializeClient(Consumer<IClientItemExtensions> consumer) {
                     consumer.accept(new IClientItemExtensions() {

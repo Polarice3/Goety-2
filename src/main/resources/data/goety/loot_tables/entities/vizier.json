@@ -23,6 +23,21 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "goety:ravaging_scroll"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.125
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
           "name": "goety:treasure_pouch"
         }
       ],

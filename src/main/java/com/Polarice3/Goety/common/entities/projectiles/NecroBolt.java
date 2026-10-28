@@ -4,10 +4,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.config.SpellConfig;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.SEHelper;
-import com.Polarice3.Goety.utils.ServantUtil;
-import com.Polarice3.Goety.utils.WandUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -81,7 +78,7 @@ public class NecroBolt extends SpellHurtingProjectile {
                     }
                 }
                 baseDamage += this.getExtraDamage();
-                flag = entity.hurt(entity.damageSources().indirectMagic(this, livingentity), baseDamage);
+                flag = entity.hurt(ModDamageSource.indirectSoul(this, livingentity), baseDamage);
                 if (flag) {
                     if (entity.isAlive()) {
                         this.doEnchantDamageEffects(livingentity, entity);

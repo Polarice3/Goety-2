@@ -345,6 +345,39 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> BLOSSOM_THORN_INDICATOR = PARTICLE_TYPES.register("blossom_thorn_indicator",
             () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> MAGIC_RUNES = PARTICLE_TYPES.register("magic_runes",
+            () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<ParticleType<MCDEffectOption>> ERUPTION = PARTICLE_TYPES.register("eruption",
+            MCDEffectOption::createType);
+
+    public static final RegistryObject<ParticleType<MCDEffectOption>> SOUL_LEADER = PARTICLE_TYPES.register("soul_leader",
+            MCDEffectOption::createType);
+
+    public static final RegistryObject<ParticleType<MCDEffectOption>> SOUL_DUST = PARTICLE_TYPES.register("soul_dust",
+            MCDEffectOption::createType);
+
+    public static final RegistryObject<ParticleType<MCDEffectOption>> SOUL_FLASH = PARTICLE_TYPES.register("soul_flash",
+            MCDEffectOption::createType);
+
+    public static final RegistryObject<ParticleType<MCDEffectOption>> SOUL_SPARK = PARTICLE_TYPES.register("soul_spark",
+            MCDEffectOption::createType);
+
+    public static final RegistryObject<ParticleType<MCDEffectOption>> SOUL_ORBIT = PARTICLE_TYPES.register("soul_orbit",
+            MCDEffectOption::createType);
+
+    public static final RegistryObject<ParticleType<MCDEffectOption>> SOUL_BURST = PARTICLE_TYPES.register("soul_burst",
+            MCDEffectOption::createType);
+
+    public static final RegistryObject<ParticleType<MCDEffectOption>> SOUL_STREAK = PARTICLE_TYPES.register("soul_streak",
+            MCDEffectOption::createType);
+
+    public static final RegistryObject<ParticleType<MCDEffectOption>> SOUL_LAVA = PARTICLE_TYPES.register("soul_lava",
+            MCDEffectOption::createType);
+
+    public static final RegistryObject<ParticleType<MCDEffectOption>> SOUL_EMITTER = PARTICLE_TYPES.register("soul_emitter",
+            MCDEffectOption::createType);
+
     public static final RegistryObject<ParticleType<SparkleParticleOption>> SPARKLE = PARTICLE_TYPES.register("sparkle",
             () -> new ParticleType<>(false, SparkleParticleOption.DESERIALIZER) {
                 @Override
@@ -514,7 +547,7 @@ public class ModParticleTypes {
             });
 
     public static final RegistryObject<ParticleType<GroundAuraParticleOption>> GROUND_AURA = PARTICLE_TYPES.register("ground_aura",
-            () -> new ParticleType<>(false, GroundAuraParticleOption.DESERIALIZER) {
+            () -> new ParticleType<>(true, GroundAuraParticleOption.DESERIALIZER) {
                 @Override
                 public Codec<GroundAuraParticleOption> codec() {
                     return GroundAuraParticleOption.CODEC;
@@ -606,6 +639,14 @@ public class ModParticleTypes {
                 @Override
                 public Codec<SphereExplodeParticleOption> codec() {
                     return SphereExplodeParticleOption.CODEC;
+                }
+            });
+
+    public static final RegistryObject<ParticleType<SwirlCloudParticleOption>> SWIRL_CLOUD = PARTICLE_TYPES.register("swirl_cloud",
+            () -> new ParticleType<>(true, SwirlCloudParticleOption.DESERIALIZER) {
+                @Override
+                public Codec<SwirlCloudParticleOption> codec() {
+                    return SwirlCloudParticleOption.CODEC;
                 }
             });
 }

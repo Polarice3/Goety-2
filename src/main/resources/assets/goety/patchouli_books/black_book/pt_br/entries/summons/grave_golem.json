@@ -1,5 +1,5 @@
 {
-  "name": "Golem de Tumba",
+  "name": "Golem do Túmulo",
   "icon": "goety:skull_pile",
   "category": "goety:summons",
   "advancement": "goety:goety/read_warred_and_haunting_scroll",
@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Com os esquemas de uma antiga máquina de guerra e uma maneira de possuir armaduras, você começou a pensar. Após alguns testes, você descobriu uma maneira de criar o servo morto-vivo definitivo: O Golem de Tumba."
+      "text": "Com os esquemas de uma antiga máquina de guerra e uma maneira de possuir Armaduras, você começou a pensar. Após algumas tentativas e erros, você descobriu uma maneira de criar o Servo Morto-Vivo definitivo: O Golem do Túmulo."
     },
     {
       "type": "patchouli:entity",
@@ -17,20 +17,25 @@
     {
       "type": "multiblock",
       "multiblock_id": "goety:grave_golem",
-      "text": "Clique com o botão direito na Pilha de Crânios central com um Núcleo de Animação."
+      "text": "Clique com o botão direito na Pilha de Caveiras central com um Núcleo de Animação."
     },
     {
       "type": "patchouli:text",
-      "text": "Os tijolos de pedra podem ser substituídos por blocos similares, como tijolos de ardósia. O Golem possui várias habilidades, desde esmagar o chão com as mãos até lançar Crânios Assombrados e invocar Assombrações para ajudá-lo. O Golem pode ser comandado para seguir, vagar ou ficar parado através de uma varinha/cajado. Eles podem ser reparados clicando neles com Blocos de Ossos ou Ossos, mas também podem se regenerar se o invocador estiver usando uma Capa Necro."
+      "text": "Os Tijolos de Pedra podem ser substituídos por outros blocos similares, como Tijolos de Ardósia. O Golem possui uma variedade de habilidades, desde esmagar suas mãos no chão, disparar Caveiras Assombradas e invocar Assombrações para ajudá-lo. O Golem pode ser comandado a seguir, vagar ou ficar em posição através de uma varinha/cajado. Eles podem ser reparados clicando com o botão direito neles com Blocos de Osso ou Ossos, mas podem se regenerar se o Mestre usar uma Capa Necromante."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_mold_block",
+      "text": "Barras de Metal das Trevas e Pedras da Cripta são usadas para criar um molde poderoso."
     },
     {
       "type": "patchouli:text",
-      "text": "Há também uma habilidade especial que o Golem possui: se seu invocador morrer dentro de 64 blocos de distância, seus itens e equipamentos serão absorvidos pelo Golem. O Golem brilhará em tons de vermelho-alaranjado para indicar que contém itens. Para recuperar os itens, o invocador precisa clicar nele com uma pá. Os itens também serão dropados se o Golem for morto. Claro, isso requer que o invocador realmente deixe cair seus itens ao morrer. (Sugerido por JoTurtleGuy21)"
+      "text": "Há também outra habilidade especial que o Golem possui: se o seu Mestre morrer dentro de 64 blocos perto deles, seus itens e equipamentos serão absorvidos dentro do Golem. O Golem brilhará em laranja-avermelhado para mostrar que contém itens em si. Para recuperar os itens, o Mestre simplesmente precisa clicar com o botão direito neles com uma Pá. Eles também deixarão cair tais itens quando mortos. É claro, isso requer que o Mestre realmente deixe cair seus itens ao morrer. (Sugerido por JoTurtleGuy21)"
     },
     {
       "type": "patchouli:spotlight",
       "item": "goety:grave_golem_skull",
-      "text": "Se o Golem for derrotado ou desativado, ele deixará cair seu 'crânio'. O Crânio pode ser usado para reviver o Golem de forma mais barata. No entanto, o Crânio lembra seu criador original e mestre, e o Golem revivido só seguirá seus comandos."
+      "text": "Se o Golem cair em batalha ou por comando, eles deixarão cair seu 'crânio'. O Crânio pode ser usado para reviver o Golem de uma maneira mais barata. No entanto, o Crânio lembra seu criador e mestre original, e o Golem revivido só seguirá os comandos deles."
     },
     {
       "type": "multiblock",

@@ -1,15 +1,16 @@
-// 1.20.1	2026-10-06T16:01:10.587887	Tags for minecraft:damage_type mod id goety
+// 1.20.1	2026-10-22T15:48:18.8978458	Tags for minecraft:damage_type mod id goety
 f23d111d5faf0319c20798c088ddcddfc97f7df2 data/goety/tags/damage_type/elemental.json
 b2da2a60d0d4b7ba4e063d51d35cd08c791ce55c data/goety/tags/damage_type/fire_attacks.json
 38584b458b732e8d201211fbf087f88e743f37d1 data/goety/tags/damage_type/frost_attacks.json
 bfdb3673ac7c784ebc1d0512c7d5110d20489949 data/goety/tags/damage_type/hellfire.json
 16f96d5d6f1ae97b69c5cf6d585a488f058e3243 data/goety/tags/damage_type/magic_fire.json
-0a194d9b1d94e3a8667f5ad3d06f0ab4d0ed84e5 data/goety/tags/damage_type/no_knockback.json
+3fa1bff01d5c208a5f855a16852ad98f5e1c2571 data/goety/tags/damage_type/no_knockback.json
 71807fbc8a72e1178e3e57c9b9f6312904f66805 data/goety/tags/damage_type/physical.json
 082bc08bb64b91203d166c67a75d29c717aa9bea data/goety/tags/damage_type/shock_attacks.json
+8a9c077c6c9a693ee8b74dec4d4a7949b119156d data/goety/tags/damage_type/soul.json
 f970455071e80b90e866efd3339002c78764c214 data/goety/tags/damage_type/wanting_damage.json
 33d3e3c76df1fbcdfb1ee0698431a829ec09ef86 data/goety/tags/damage_type/water_attacks.json
-b13dc0251bdaf8ae6d1f8c1f7fa003bd36457f30 data/minecraft/tags/damage_type/bypasses_armor.json
+e419d81f08ffd5151acd32d3eb1a7c806fb7e19f data/minecraft/tags/damage_type/bypasses_armor.json
 6bfef8179275254335041d4a88c13c844f69024b data/minecraft/tags/damage_type/bypasses_effects.json
 6bfef8179275254335041d4a88c13c844f69024b data/minecraft/tags/damage_type/bypasses_enchantments.json
 6a37c69386ac1d4e05e22653620a63e2d819ccd5 data/minecraft/tags/damage_type/bypasses_invulnerability.json
@@ -19,4 +20,4 @@ f183160a6b3101a9832abbf5143d6d07c25e6c4b data/minecraft/tags/damage_type/is_expl
 44cac629124d5921ca0e9cf2d7c0420ad4b38f7b data/minecraft/tags/damage_type/is_fire.json
 01cce596397b6b0103aacd48a7c3065767e9fec6 data/minecraft/tags/damage_type/is_freezing.json
 4861a20e396717468bd601cb4a92c8e904bf3c38 data/minecraft/tags/damage_type/is_projectile.json
-5c3ba5b9d3aa40561d13ffea5a7f9b971682301c data/minecraft/tags/damage_type/witch_resistant_to.json
+83893fd5141a8290cc71c1dcc08e24a5a4ae4f19 data/minecraft/tags/damage_type/witch_resistant_to.json

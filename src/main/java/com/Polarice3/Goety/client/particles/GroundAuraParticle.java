@@ -13,19 +13,22 @@ public class GroundAuraParticle extends GroundCircleParticle {
     public final int ownerId;
     public final Vec3 origin;
 
-    protected GroundAuraParticle(ClientLevel level, double x, double y, double z, double xd, double yd, double zd, SpriteSet spriteSet, int ownerId, float size) {
+    protected GroundAuraParticle(ClientLevel level, double x, double y, double z, double xd, double yd, double zd, float red, float green, float blue, SpriteSet spriteSet, int ownerId, float size) {
         super(level, x, y, z);
         this.ownerId = ownerId;
         this.xd = xd;
         this.yd = yd;
         this.zd = zd;
+        this.rCol = red;
+        this.gCol = green;
+        this.bCol = blue;
         this.origin = new Vec3(x, y, z);
         this.hasPhysics = false;
         this.quadSize = size;
         this.lifetime = 20;
         this.setSpriteFromAge(spriteSet);
-        this.rotSpeed = ((float)Math.random() - 0.5F) * 0.1F;
-        this.roll = (float)Math.random() * ((float)Math.PI * 2F);
+        this.rotSpeed = 0.01F;
+        this.roll = (level.getGameTime() * this.rotSpeed) * ((float)Math.PI * 2F);
     }
 
     public Vec3 getPosition() {
@@ -67,7 +70,7 @@ public class GroundAuraParticle extends GroundCircleParticle {
         }
 
         public Particle createParticle(GroundAuraParticleOption pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
-            return new GroundAuraParticle(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed, this.sprites, pType.getOwnerId(), pType.getSize());
+            return new GroundAuraParticle(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed, pType.getRed(), pType.getGreen(), pType.getBlue(), this.sprites, pType.getOwnerId(), pType.getSize());
         }
     }
 }

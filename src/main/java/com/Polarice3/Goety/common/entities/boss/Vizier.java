@@ -27,7 +27,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.StructureTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -585,12 +584,8 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     }
 
     protected void actuallyHurt(DamageSource source, float amount) {
-        float initialAmount = amount;
-        if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)){
-            amount = Math.min(initialAmount, AttributesConfig.VizierDamageCap.get().floatValue());
-        }
         if (this.moddedInvul <= 0){
-            super.actuallyHurt(source, amount);
+            MobUtil.bossHurt(this, source, amount, AttributesConfig.VizierDamageCap.get().floatValue());
             if (source.getEntity() != null) {
                 this.moddedInvul = MobsConfig.BossInvulnerabilityTime.get();
             }

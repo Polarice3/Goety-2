@@ -24,6 +24,11 @@
       "text": "The Stone Bricks can be substituted with other similar blocks such as Deepslate Bricks. The Golem has an assortment of abilities, from smashing its hands on the ground, shooting Haunted Skulls and summoning Haunts to aid it. The Golem can be commanded to follow, wander or stay in position through a wand/staff. They can be repaired by right-clicking on them with Bone Blocks or Bones, but can regenerate if the summoner wears a Necro Cape."
     },
     {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_mold_block",
+      "text": "Dark Alloy and Crypt Stones are used to create a powerful mold."
+    },
+    {
       "type": "patchouli:text",
       "text": "There's also another special ability the Golem possesses, should their Summoner die within 64 blocks near them, their items and equipment will be absorbed within the Golem. The Golem will glow reddish-orange to show that it has items contained itself. To get the items back, the Summoner simply needs to right-click on them with a Shovel. They'll also drop said items when killed. Of course, this requires the Summoner to actually drop their items upon death. (Suggested by JoTurtleGuy21)"
     },

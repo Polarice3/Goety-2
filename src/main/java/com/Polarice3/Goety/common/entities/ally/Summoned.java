@@ -52,6 +52,7 @@ public class Summoned extends Owned implements IServant {
     public BlockPos boundPos;
     public String boundDim = Level.OVERWORLD.location().toString();
     public List<GlobalPos> patrolList = new ArrayList<>();
+    public boolean playSummonParticles = true;
     public int patrolIndex = 0;
     public int priorityTime;
     public int commandTick;
@@ -223,6 +224,10 @@ public class Summoned extends Owned implements IServant {
         this.overrideSetTarget(target);
     }
 
+    public void setPlaySummonParticles(boolean flag) {
+        this.playSummonParticles = flag;
+    }
+
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
@@ -237,12 +242,14 @@ public class Summoned extends Owned implements IServant {
     }
 
     public void summonParticles(ServerLevel pLevel, MobSpawnType pReason) {
-        if (pReason == MobSpawnType.MOB_SUMMONED && this.getTrueOwner() != null){
-            for (int i = 0; i < pLevel.getRandom().nextInt(10) + 10; ++i) {
-                pLevel.sendParticles(ModParticleTypes.SUMMON.get(), this.getRandomX(1.5D), this.getRandomY(), this.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
-            }
-            if (this.getMobType() == MobType.UNDEAD) {
-                pLevel.sendParticles(ModParticleTypes.SOUL_EXPLODE.get(), this.getX(), this.getY(), this.getZ(), 0, 0, 2.0D, 0, 1.0F);
+        if (this.playSummonParticles) {
+            if (pReason == MobSpawnType.MOB_SUMMONED && this.getTrueOwner() != null) {
+                for (int i = 0; i < pLevel.getRandom().nextInt(10) + 10; ++i) {
+                    pLevel.sendParticles(ModParticleTypes.SUMMON.get(), this.getRandomX(1.5D), this.getRandomY(), this.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
+                }
+                if (this.getMobType() == MobType.UNDEAD) {
+                    pLevel.sendParticles(ModParticleTypes.SOUL_EXPLODE.get(), this.getX(), this.getY(), this.getZ(), 0, 0, 2.0D, 0, 1.0F);
+                }
             }
         }
     }

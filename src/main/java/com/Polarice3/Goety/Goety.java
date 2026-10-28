@@ -724,6 +724,8 @@ public class Goety {
         event.put(ModEntityType.HAUNT.get(), Haunt.setCustomAttributes().build());
         event.put(ModEntityType.REDSTONE_MONSTROSITY.get(), RedstoneMonstrosity.setCustomAttributes().build());
         event.put(ModEntityType.REDSTONE_CUBE.get(), RedstoneCube.setCustomAttributes().build());
+        event.put(ModEntityType.GRAVE_MONSTROSITY.get(), GraveMonstrosity.setCustomAttributes().build());
+        event.put(ModEntityType.GRAVE_CUBE.get(), GraveCube.setCustomAttributes().build());
         event.put(ModEntityType.WATCHLING_SERVANT.get(), WatchlingServant.setCustomAttributes().build());
         event.put(ModEntityType.BLASTLING_SERVANT.get(), BlastlingServant.setCustomAttributes().build());
         event.put(ModEntityType.SNARELING_SERVANT.get(), SnarelingServant.setCustomAttributes().build());

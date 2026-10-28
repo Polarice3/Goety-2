@@ -62,7 +62,7 @@ public class FlameConstructRenderer<T extends FlameConstruct> extends MobRendere
 
         public void render(PoseStack p_116983_, MultiBufferSource p_116984_, int p_116985_, T p_116986_, float p_116987_, float p_116988_, float p_116989_, float p_116990_, float p_116991_, float p_116992_) {
             if (!p_116986_.isInvisible() && !p_116986_.isDeadOrDying()) {
-                ResourceLocation texture = Goety.location("textures/entity/servants/flame_construct/fire/" + p_116986_.tickCount % 31 + ".png");
+                ResourceLocation texture = Goety.location("textures/entity/servants/flame_construct/fire/" + p_116986_.level.getGameTime() % 31 + ".png");
                 VertexConsumer ivertexbuilder = p_116984_.getBuffer(this.getParentModel().renderType(texture));
                 this.getParentModel().renderToBuffer(p_116983_, ivertexbuilder, 15728640, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 0.5F);
                 VertexConsumer vertexconsumer = p_116984_.getBuffer(ModRenderType.fire(texture));

@@ -11,6 +11,8 @@
     "goety:grave_golem",
     "goety:haunt",
     "goety:redstone_monstrosity",
-    "goety:redstone_cube"
+    "goety:redstone_cube",
+    "goety:grave_monstrosity",
+    "goety:grave_cube"
   ]
 }

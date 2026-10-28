@@ -1,0 +1,37 @@
+{
+  "name": "グレイブの怪物",
+  "icon": "goety:grave_monstrosity_head",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_terminus_and_haunting_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "過去の悍ましき所業を知ったあなたは、死者にふさわしい怪物を生み出すべく、ネクロマンシーの深淵へとさらに足を踏み入れた。幾多の研究と実験の末……ついに、あなたは成功を収めた。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:grave_monstrosity",
+      "scale": 0.75
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:grave_monstrosity",
+      "text": "中央の$(l:goety:crafts/monstrous_core)怪物のコア$()をアニメーションコアで右クリック"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "クリプトストーンは、他のフルブロックの種類で代用可能です。ネクロマンシーの技術によって生み出された究極の怪物とも言えるこのクリーチャーは、近くにいる味方のアンデッドを、忌まわしい太陽の光から守ります。また、骨ブロックを持って右クリックすることで、回復することができます。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:grave_monstrosity_head",
+      "text": "グレイブの怪物が戦闘で倒されるか、あるいは解雇された場合、頭をドロップします。この頭を用いれば、より低コストで怪物を蘇生させることが可能です。ただし、頭は本来の創造主および主を記憶しており、蘇生された怪物は、その主の命令にのみ従います。"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:grave_monstrosity_revive",
+      "enable_visualize": false
+    }
+  ]
+}

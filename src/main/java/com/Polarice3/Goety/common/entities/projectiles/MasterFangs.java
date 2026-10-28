@@ -137,7 +137,7 @@ public class MasterFangs extends Fangs {
                 }
             }
             if (hurt) {
-                target.invulnerableTime = 11;
+                target.invulnerableTime = 15;
                 target.knockback(1.0D, (this.getX() - target.getX()) * MathHelper.modelDegrees(45), (this.getZ() - target.getZ()) * MathHelper.modelDegrees(45));
             }
         }

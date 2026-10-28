@@ -8,6 +8,8 @@
     "goety:grave_golem_skull",
     "goety:wall_grave_golem_skull",
     "goety:redstone_monstrosity_head",
-    "goety:wall_redstone_monstrosity_head"
+    "goety:wall_redstone_monstrosity_head",
+    "goety:grave_monstrosity_head",
+    "goety:wall_grave_monstrosity_head"
   ]
 }

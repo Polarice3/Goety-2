@@ -42,6 +42,7 @@ public abstract class EnchanterGoal<T extends PathfinderMob & IEnchanter> extend
                     ally -> !(ally instanceof IEnchanter)
                             && !ally.getType().is(ModTags.EntityTypes.UNENCHANTABLE)
                             && !ally.isDeadOrDying()
+                            && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(ally)
                             && !ally.hasEffect(GoetyEffects.ENCHANTED.get())
                             && ally.getAttribute(Attributes.ATTACK_DAMAGE) != null
                             && this.isAlliedTarget(ally));

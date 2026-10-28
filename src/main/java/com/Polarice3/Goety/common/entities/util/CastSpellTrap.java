@@ -67,10 +67,10 @@ public abstract class CastSpellTrap extends SpellEntity {
             if (this.getParticle() != null) {
                 ServerParticleUtil.circularParticles(serverWorld, this.getParticle(), this.getX(), this.getY(), this.getZ(), this.radius());
             }
-        }
-        if (this.getOwner() instanceof Player player){
-            if (!MobUtil.isSpellCasting(player) && !this.isActivated()){
-                this.discard();
+            if (this.getOwner() instanceof Player player){
+                if (!MobUtil.isSpellCasting(player) && !this.isActivated()){
+                    this.discard();
+                }
             }
         }
     }

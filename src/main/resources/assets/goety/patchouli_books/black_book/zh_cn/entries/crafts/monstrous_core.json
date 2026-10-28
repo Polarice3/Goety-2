@@ -1,0 +1,20 @@
+{
+  "name": "巨兽核心",
+  "icon": "goety:monstrous_core",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_terminus_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你已在方块上铭刻了复杂符文，并让它臣服向了你，使其成为即将成型的大规模杀伤性武器的头脑与能源。尽管万事皆备，然而，它仍需要大量灵魂能量驱动才能真正苏醒。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:monstrous_core"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:monstrous_core": 1
+  }
+}

@@ -1,10 +1,14 @@
 package com.Polarice3.Goety.common.magic.construct;
 
+import com.Polarice3.Goety.api.entities.IMonstrosity;
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.magic.IMold;
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.golem.RedstoneMonstrosity;
 import com.Polarice3.Goety.common.research.ResearchList;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.google.common.collect.ImmutableList;
@@ -461,51 +465,64 @@ public class RedstoneMonstrosityMold implements IMold {
                 && checkLava(level, blockPos).isEmpty() && checkRedstone(level, blockPos).isEmpty();
     }
 
+    @Override
+    public boolean isStructureValid(Level level, BlockPos blockPos) {
+        return checkBlocks(level, blockPos);
+    }
+
     public boolean conditionsMet(Level worldIn, LivingEntity entityLiving) {
         int count = 0;
         int global = 0;
         if (worldIn instanceof ServerLevel serverLevel) {
             for (Entity entity : serverLevel.getAllEntities()) {
-                if (entity instanceof RedstoneMonstrosity servant) {
-                    if (servant.getTrueOwner() == entityLiving && servant.isAlive()) {
+                if (entity instanceof IMonstrosity monstrosity && monstrosity instanceof IOwned servant) {
+                    if (servant.getTrueOwner() == entityLiving && entity.isAlive()) {
                         ++count;
                     }
                     ++global;
                 }
             }
         }
-        return count < SpellConfig.RedstoneMonstrosityPlayerLimit.get() && global < SpellConfig.RedstoneMonstrosityGlobalLimit.get();
+        return count < SpellConfig.MonstrosityPlayerLimit.get() && global < SpellConfig.MonstrosityGlobalLimit.get();
     }
 
     @Override
     public boolean spawnServant(Player player, ItemStack stack, Level level, BlockPos blockPos){
         if (!level.isClientSide) {
-            if (level.getBlockState(blockPos).is(ModBlocks.REINFORCED_REDSTONE_BLOCK.get())) {
-                if (checkBlocks(level, blockPos)) {
-                    if (SEHelper.hasResearch(player, ResearchList.TERMINUS)) {
-                        if (conditionsMet(level, player)) {
-                            RedstoneMonstrosity monstrosity = ModEntityType.REDSTONE_MONSTROSITY.get().create(level);
-                            if (monstrosity != null) {
-                                monstrosity.setTrueOwner(player);
-                                monstrosity.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(monstrosity.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-                                monstrosity.moveTo((double) blockPos.getX() + 0.5D, (double) blockPos.getY() + 0.05D, (double) blockPos.getZ() + 0.5D, 0.0F, 0.0F);
-                                if (level.addFreshEntity(monstrosity)) {
-                                    removeBlocks(level, blockPos);
-                                    stack.shrink(1);
-                                    if (player instanceof ServerPlayer serverPlayer) {
-                                        CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, monstrosity);
+            if (level.getBlockState(blockPos).is(ModBlocks.MONSTROUS_CORE.get())) {
+                if (SEHelper.getSoulsAmount(player, MobsConfig.MonstrositySoulCost.get())) {
+                    if (checkBlocks(level, blockPos)) {
+                        if (SEHelper.hasResearch(player, ResearchList.TERMINUS)) {
+                            if (conditionsMet(level, player)) {
+                                RedstoneMonstrosity monstrosity = ModEntityType.REDSTONE_MONSTROSITY.get().create(level);
+                                if (monstrosity != null) {
+                                    monstrosity.setTrueOwner(player);
+                                    monstrosity.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(monstrosity.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+                                    monstrosity.moveTo((double) blockPos.getX() + 0.5D, (double) blockPos.getY() + 0.05D, (double) blockPos.getZ() + 0.5D, 0.0F, 0.0F);
+                                    if (level.addFreshEntity(monstrosity)) {
+                                        if (level instanceof ServerLevel serverLevel) {
+                                            serverLevel.sendParticles(ModParticleTypes.MAGIC_RUNES.get(), monstrosity.getX(), monstrosity.getY() + 1.0F, monstrosity.getZ(), 0, 0.24F, 0.0F, 1.0F, 1.0);
+                                        }
+                                        SEHelper.decreaseSoulsNoDiscount(player, MobsConfig.MonstrositySoulCost.get());
+                                        removeBlocks(level, blockPos);
+                                        stack.shrink(1);
+                                        if (player instanceof ServerPlayer serverPlayer) {
+                                            CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, monstrosity);
+                                        }
+                                        return true;
                                     }
-                                    return true;
                                 }
+                            } else {
+                                player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
                             }
                         } else {
-                            player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
+                            player.displayClientMessage(Component.translatable("info.goety.research.fail"), true);
                         }
                     } else {
-                        player.displayClientMessage(Component.translatable("info.goety.research.fail"), true);
+                        player.displayClientMessage(Component.translatable("info.goety.block.fail"), true);
                     }
                 } else {
-                    player.displayClientMessage(Component.translatable("info.goety.block.fail"), true);
+                    player.displayClientMessage(Component.translatable("info.goety.soul.cost.fail", MobsConfig.MonstrositySoulCost.get()), true);
                 }
             }
         }
@@ -529,7 +546,7 @@ public class RedstoneMonstrosityMold implements IMold {
                 }
             }
             BlockPos blockPos2 = blockPos.offset(CORE);
-            if (level.getBlockState(blockPos2).is(ModBlocks.REINFORCED_REDSTONE_BLOCK.get())) {
+            if (level.getBlockState(blockPos2).is(ModBlocks.MONSTROUS_CORE.get())) {
                 level.levelEvent(2001, blockPos2, Block.getId(level.getBlockState(blockPos2)));
                 level.setBlockAndUpdate(blockPos2, Blocks.AIR.defaultBlockState());
             }

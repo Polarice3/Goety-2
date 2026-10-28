@@ -18,6 +18,7 @@ import com.Polarice3.Goety.common.network.server.SInstaLookAtPacket;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModTags;
+import com.Polarice3.Goety.mixin.LivingEntityAccessor;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -43,7 +44,6 @@ import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.damagesource.CombatRules;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -137,7 +137,11 @@ public class MobUtil {
                 }
                 return (entity.isAlliedTo(entity1) && entity1.isAlliedTo(entity)) || entity == entity1
                         || (entity instanceof Player player && entity1 instanceof LivingEntity living && SEHelper.isAlly(player, living))
-                        || (entity1 instanceof Player player1 && entity instanceof LivingEntity living1 && SEHelper.isAlly(player1, living1));
+                        || (entity1 instanceof Player player1 && entity instanceof LivingEntity living1 && SEHelper.isAlly(player1, living1))
+                        || (entity1 instanceof OwnableEntity ownable1 && ownable1.getOwner() == entity)
+                        || (entity instanceof OwnableEntity ownable0 && ownable0.getOwner() == entity1)
+                        || (entity1 instanceof IOwned owned1 && owned1.getMasterOwner() == entity)
+                        || (entity instanceof IOwned owned0 && owned0.getMasterOwner() == entity1);
             }
         } else {
             return false;
@@ -1702,46 +1706,20 @@ public class MobUtil {
     }
 
     public static float hurtCalculation(LivingEntity livingEntity, DamageSource damageSource, float amount) {
-        amount = net.minecraftforge.common.ForgeHooks.onLivingHurt(livingEntity, damageSource, amount);
-        amount = getDamageAfterArmorAbsorb(livingEntity, damageSource, amount);
-        amount = getDamageAfterMagicAbsorb(livingEntity, damageSource, amount);
-        float f1 = Math.max(amount - livingEntity.getAbsorptionAmount(), 0.0F);
-        f1 = net.minecraftforge.common.ForgeHooks.onLivingDamage(livingEntity, damageSource, f1);
-        return f1;
+        LivingEntityAccessor accessor = (LivingEntityAccessor) livingEntity;
+        amount = accessor.goety$invokeGetDamageAfterArmorAbsorb(damageSource, amount);
+        amount = accessor.goety$invokeGetDamageAfterMagicAbsorb(damageSource, amount);
+        return Math.max(amount - livingEntity.getAbsorptionAmount(), 0.0F);
     }
 
     public static float getDamageAfterArmorAbsorb(LivingEntity livingEntity, DamageSource damageSource, float amount) {
-        if (!damageSource.is(DamageTypeTags.BYPASSES_ARMOR)) {
-            amount = CombatRules.getDamageAfterAbsorb(amount, (float)livingEntity.getArmorValue(), (float)livingEntity.getAttributeValue(Attributes.ARMOR_TOUGHNESS));
-        }
-
-        return amount;
+        LivingEntityAccessor accessor = (LivingEntityAccessor) livingEntity;
+        return accessor.goety$invokeGetDamageAfterArmorAbsorb(damageSource, amount);
     }
 
     public static float getDamageAfterMagicAbsorb(LivingEntity livingEntity, DamageSource damageSource, float amount) {
-        if (damageSource.is(DamageTypeTags.BYPASSES_EFFECTS)) {
-            return amount;
-        } else {
-            if (livingEntity.hasEffect(MobEffects.DAMAGE_RESISTANCE) && !damageSource.is(DamageTypeTags.BYPASSES_RESISTANCE)) {
-                int i = (livingEntity.getEffect(MobEffects.DAMAGE_RESISTANCE).getAmplifier() + 1) * 5;
-                int j = 25 - i;
-                float f = amount * (float)j;
-                amount = Math.max(f / 25.0F, 0.0F);
-            }
-
-            if (amount <= 0.0F) {
-                return 0.0F;
-            } else if (damageSource.is(DamageTypeTags.BYPASSES_ENCHANTMENTS)) {
-                return amount;
-            } else {
-                int k = EnchantmentHelper.getDamageProtection(livingEntity.getArmorSlots(), damageSource);
-                if (k > 0) {
-                    amount = CombatRules.getDamageAfterMagicAbsorb(amount, (float)k);
-                }
-
-                return amount;
-            }
-        }
+        LivingEntityAccessor accessor = (LivingEntityAccessor) livingEntity;
+        return accessor.goety$invokeGetDamageAfterMagicAbsorb(damageSource, amount);
     }
 
     public static boolean doHurtTarget(Mob mob, Entity target, DamageSource damageSource) {
@@ -2051,5 +2029,127 @@ public class MobUtil {
         double d1 = viewVector.y * viewDistance;
         double d2 = viewVector.z * viewDistance;
         return new Vec3(d0, d1, d2);
+    }
+
+    public static final float MCD2_UNITS_PER_BLOCK = 100.0F;
+    public static float MCD2_KNOCKBACK_SCALE = 1.0F / (MCD2_UNITS_PER_BLOCK * 20.0F);
+
+    public static void meleeConeAttack(LivingEntity attacker, float range, float coneAngle, float maxZDifference, float damage, float hpDamage, int shieldBreak, DamageSource damageSource, float knockbackStrength, float launchAngle, @Nullable Consumer<LivingEntity> onHit) {
+        meleeConeAttack(attacker, range, coneAngle, 0.0F, maxZDifference, damage, hpDamage, shieldBreak, damageSource, knockbackStrength, launchAngle, false, onHit);
+    }
+
+    public static void meleeConeAttack(LivingEntity attacker, float range, float coneAngle, float coneOffset, float maxZDifference, float damage, float hpDamage, int shieldBreak, DamageSource damageSource, float knockbackStrength, float launchAngle, boolean friendlyFire, @Nullable Consumer<LivingEntity> onHit) {
+        if (attacker.level.isClientSide) {
+            return;
+        }
+        float yaw = attacker.getYRot();
+        double fx = -Mth.sin(yaw * Mth.DEG_TO_RAD);
+        double fz = Mth.cos(yaw * Mth.DEG_TO_RAD);
+        double apexX = attacker.getX() + fx * coneOffset;
+        double apexZ = attacker.getZ() + fz * coneOffset;
+        float halfAngle = coneAngle * 0.5F;
+
+        AABB search = attacker.getBoundingBox().inflate(range + 4.0D, maxZDifference, range + 4.0D);
+        for (LivingEntity target : attacker.level.getEntitiesOfClass(LivingEntity.class, search, target -> target != attacker && target.isAlive() && target.isAttackable() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target))) {
+            if (!friendlyFire && areAllies(attacker, target)) {
+                continue;
+            }
+            if (Math.abs(target.getY() - attacker.getY()) > maxZDifference) {
+                continue;
+            }
+            double radius = target.getBbWidth() * 0.5D;
+
+            double cx = target.getX() - attacker.getX();
+            double cz = target.getZ() - attacker.getZ();
+            if (Math.sqrt(cx * cx + cz * cz) - radius > range) {
+                continue;
+            }
+
+            double dx = target.getX() - apexX;
+            double dz = target.getZ() - apexZ;
+            double dist = Math.sqrt(dx * dx + dz * dz);
+            if (dist > radius) {
+                float yawTo = (float) (Mth.atan2(-dx, dz) * Mth.RAD_TO_DEG);
+                float slack = (float) (Math.asin(Math.min(1.0D, radius / dist)) * Mth.RAD_TO_DEG);
+                if (Math.abs(Mth.wrapDegrees(yawTo - yaw)) - slack > halfAngle) {
+                    continue;
+                }
+            }
+
+            boolean blocked = target.isDamageSourceBlocked(damageSource);
+            if (target.hurt(damageSource, damage + (target.getMaxHealth() * hpDamage))) {
+                if (knockbackStrength > 0.0F) {
+                    mcd2Knockback(attacker, target, knockbackStrength, launchAngle);
+                }
+                if (onHit != null) {
+                    onHit.accept(target);
+                }
+            }
+            if (blocked && shieldBreak > 0) {
+                disableShield(target, shieldBreak);
+            }
+        }
+    }
+
+    public static void mcd2Knockback(LivingEntity attacker, LivingEntity target, float strength, float launchAngle) {
+        double resist = target.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE) * 0.5D;
+        double speed = strength * MCD2_KNOCKBACK_SCALE * Math.max(0.0D, 1.0D - resist);
+        if (speed <= 0.0D) {
+            return;
+        }
+        double dx = target.getX() - attacker.getX();
+        double dz = target.getZ() - attacker.getZ();
+        double len = Math.sqrt(dx * dx + dz * dz);
+        if (len < 1.0E-4D) {
+            dx = -Mth.sin(attacker.getYRot() * Mth.DEG_TO_RAD);
+            dz = Mth.cos(attacker.getYRot() * Mth.DEG_TO_RAD);
+            len = 1.0D;
+        }
+        double angle = Math.toRadians(launchAngle);
+        double horizontal = speed * Math.cos(angle) / len;
+        double vertical = speed * Math.sin(angle);
+        target.hurtMarked = true;
+        target.setDeltaMovement(dx * horizontal, Math.max(target.getDeltaMovement().y, vertical), dz * horizontal);
+        target.hasImpulse = true;
+    }
+
+    public static void mcd2Dash(LivingEntity entity, float impulseStrength) {
+        double s = impulseStrength * MCD2_KNOCKBACK_SCALE;
+        float yaw = entity.getYRot() * Mth.DEG_TO_RAD;
+        entity.hurtMarked = true;
+        entity.setDeltaMovement(entity.getDeltaMovement().add(-Mth.sin(yaw) * s, 0.0D, Mth.cos(yaw) * s));
+        entity.hasImpulse = true;
+    }
+
+    public static void bossHurt(LivingEntity boss, DamageSource damageSource, float amount, float limit) {
+        if (!boss.isInvulnerableTo(damageSource)) {
+            LivingEntityAccessor accessor = (LivingEntityAccessor) boss;
+            amount = net.minecraftforge.common.ForgeHooks.onLivingHurt(boss, damageSource, amount);
+            if (amount <= 0) {
+                return;
+            }
+            amount = accessor.goety$invokeGetDamageAfterArmorAbsorb(damageSource, amount);
+            amount = accessor.goety$invokeGetDamageAfterMagicAbsorb(damageSource, amount);
+            float f1 = Math.max(amount - boss.getAbsorptionAmount(), 0.0F);
+            boss.setAbsorptionAmount(boss.getAbsorptionAmount() - (amount - f1));
+            float f = amount - f1;
+            if (f > 0.0F && f < 3.4028235E37F) {
+                Entity entity = damageSource.getEntity();
+                if (entity instanceof ServerPlayer serverplayer) {
+                    serverplayer.awardStat(Stats.DAMAGE_DEALT_ABSORBED, Math.round(f * 10.0F));
+                }
+            }
+
+            f1 = net.minecraftforge.common.ForgeHooks.onLivingDamage(boss, damageSource, f1);
+            if (!damageSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY)){
+                f1 = Math.min(f1, limit);
+            }
+            if (f1 != 0.0F) {
+                boss.getCombatTracker().recordDamage(damageSource, f1);
+                boss.setHealth(boss.getHealth() - f1);
+                boss.setAbsorptionAmount(boss.getAbsorptionAmount() - f1);
+                boss.gameEvent(GameEvent.ENTITY_DAMAGE);
+            }
+        }
     }
 }

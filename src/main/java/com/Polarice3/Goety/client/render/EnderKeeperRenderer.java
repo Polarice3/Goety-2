@@ -72,6 +72,7 @@ public class EnderKeeperRenderer<T extends EnderKeeper> extends MobRenderer<T, E
             pMatrixStack.popPose();
         }
         if (pEntity.isAlive()) {
+            ChargeAuraRenderer.render(pEntity, pEntity.chargeAura, pPartialTicks, pMatrixStack, pBuffer);
             double currentX = Mth.lerp(pPartialTicks, pEntity.xo, pEntity.getX());
             double currentY = Mth.lerp(pPartialTicks, pEntity.yo, pEntity.getY());
             double currentZ = Mth.lerp(pPartialTicks, pEntity.zo, pEntity.getZ());

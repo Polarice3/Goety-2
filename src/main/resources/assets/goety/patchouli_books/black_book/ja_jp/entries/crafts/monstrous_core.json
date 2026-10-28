@@ -1,0 +1,20 @@
+{
+  "name": "怪物のコア",
+  "icon": "goety:monstrous_core",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_terminus_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "あなたは、やがて大量破壊兵器となるその塊に、服従の言葉と複雑なルーンを刻み込んだ。それらは、兵器の「脳」および「動力源」として機能することになる。だが、それに真に命を宿すためには、膨大な魔力が必要です。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:monstrous_core"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:monstrous_core": 1
+  }
+}

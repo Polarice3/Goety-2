@@ -2,10 +2,7 @@ package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.api.entities.IHeretic;
 import com.Polarice3.Goety.api.entities.IOwned;
-import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.client.particles.PortalShockwaveParticleOption;
-import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
-import com.Polarice3.Goety.client.particles.WindGatherParticleOption;
+import com.Polarice3.Goety.client.particles.*;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
@@ -684,9 +681,9 @@ public abstract class AbstractObsidianMonolith extends AbstractMonolith {
             if (this.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.ObsidianMonolithSpread.get() && this.level.dimension() != Level.NETHER) {
                 if (this.startSpreading()) {
                     if (this.level.isEmptyBlock(BlockPos.containing(skyVec))) {
-                        ServerParticleUtil.addAuraParticles(serverLevel, ModParticleTypes.SPELL_CLOUD.get(), skyVec, 2.0F);
-                        ServerParticleUtil.addReverseAuraParticles(serverLevel, ModParticleTypes.SPELL_CLOUD.get(), skyVec, 6.0F);
-                        ServerParticleUtil.addAuraParticles(serverLevel, ModParticleTypes.SPELL_CLOUD.get(), skyVec, 10.0F);
+                        ServerParticleUtil.sendAlwaysVisibleParticles(serverLevel, new SwirlCloudParticleOption(this.getId(), false, 2.0F * (this.getRandom().nextFloat() + 1.0F), 2.0F, MathHelper.degreesToRadian(this.getRandom().nextFloat() * 360.0F), 0.001F + this.getRandom().nextFloat() * 0.05F, 0.0F, skyVec), skyVec.x, skyVec.y, skyVec.z, 1, 0, 0, 0, 0);
+                        ServerParticleUtil.sendAlwaysVisibleParticles(serverLevel, new SwirlCloudParticleOption(this.getId(), true, 2.0F * (this.getRandom().nextFloat() + 1.0F), 6.0F, MathHelper.degreesToRadian(this.getRandom().nextFloat() * 360.0F), 0.001F + this.getRandom().nextFloat() * 0.05F, 0.0F, skyVec), skyVec.x, skyVec.y, skyVec.z, 1, 0, 0, 0, 0);
+                        ServerParticleUtil.sendAlwaysVisibleParticles(serverLevel, new SwirlCloudParticleOption(this.getId(), false, 2.0F * (this.getRandom().nextFloat() + 1.0F), 10.0F, MathHelper.degreesToRadian(this.getRandom().nextFloat() * 360.0F), 0.001F + this.getRandom().nextFloat() * 0.05F, 0.0F, skyVec), skyVec.x, skyVec.y, skyVec.z, 1, 0, 0, 0, 0);
                     }
                     this.netherSpreaderUtil.updateCursors(this.level, this.blockPosition().below(), this.random, true);
 

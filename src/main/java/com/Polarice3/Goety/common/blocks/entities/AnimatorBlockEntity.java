@@ -12,6 +12,7 @@ import com.Polarice3.Goety.common.items.WaystoneItem;
 import com.Polarice3.Goety.common.magic.construct.SpawnFromBlock;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.config.MainConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.ItemHelper;
 import com.Polarice3.Goety.utils.SEHelper;
@@ -48,9 +49,17 @@ public class AnimatorBlockEntity extends BlockEntity implements IWaystoneBlock, 
     }
 
     public int getSoulCost(){
-        if (this.getPosition() != null){
-            double distance = this.getBlockPos().distToCenterSqr(this.getPosition().pos().getCenter());
-            return (int) (MainConfig.AnimatorCost.get() * distance);
+        if (this.level != null) {
+            GlobalPos globalPos = this.getPosition();
+            if (globalPos != null) {
+                BlockState blockState = this.level.getBlockState(globalPos.pos());
+                if (blockState.is(ModBlocks.MONSTROUS_CORE.get())) {
+                    return MobsConfig.MonstrositySoulCost.get();
+                } else {
+                    double distance = this.getBlockPos().distToCenterSqr(this.getPosition().pos().getCenter());
+                    return (int) (MainConfig.AnimatorCost.get() * distance);
+                }
+            }
         }
         return 0;
     }
@@ -87,11 +96,13 @@ public class AnimatorBlockEntity extends BlockEntity implements IWaystoneBlock, 
                                     hauntedArmorStand.showBreakingParticles();
                                     hauntedArmorStand.discard();
                                 }
-                            } else if (GolemType.getGolemList().containsKey(blockState)) {
-                                if (GolemType.getGolemList().get(blockState).spawnServant(this.getOwner(), itemStack, this.level, this.getPosition().pos())) {
+                            } else if (GolemType.hasMold(blockState)) {
+                                if (GolemType.spawnServant(this.getOwner(), itemStack, this.level, this.getPosition().pos())) {
                                     this.level.playSound(null, this.getBlockPos(), ModSounds.SUMMON_SPELL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
                                     this.level.playSound(null, this.getPosition().pos(), ModSounds.SUMMON_SPELL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
-                                    this.cursedCageTile.decreaseSouls(this.getSoulCost());
+                                    if (!blockState.is(ModBlocks.MONSTROUS_CORE.get())) {
+                                        this.cursedCageTile.decreaseSouls(this.getSoulCost());
+                                    }
                                     this.generateManyParticles();
                                 }
                             } else {

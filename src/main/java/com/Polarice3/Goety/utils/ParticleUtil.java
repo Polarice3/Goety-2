@@ -133,4 +133,9 @@ public class ParticleUtil {
             level.addParticle(new WindShockwaveParticleOption(color, width, height, increase, i * 0.125F, life, id), vec3.x(), vec3.y(), vec3.z(), 0.0D, 0.0D, 0.0D);
         }
     }
+
+    public static void setHdrColor(Particle particle, float r, float g, float b) {
+        float[] c = ColorUtil.toLdr(r, g, b);
+        particle.setColor(c[0], c[1], c[2]);
+    }
 }

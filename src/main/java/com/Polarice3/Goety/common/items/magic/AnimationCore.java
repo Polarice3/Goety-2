@@ -19,10 +19,9 @@ public class AnimationCore extends Item {
     public InteractionResult useOn(UseOnContext ctx) {
         ItemStack stack = ctx.getItemInHand();
         BlockState blockState = ctx.getLevel().getBlockState(ctx.getClickedPos());
-        if (GolemType.getGolemList().containsKey(blockState)){
-            if (GolemType.getGolemList().get(blockState).spawnServant(ctx.getPlayer(), stack, ctx.getLevel(), ctx.getClickedPos())){
-                return InteractionResult.sidedSuccess(ctx.getLevel().isClientSide);
-            }
+        if (GolemType.hasMold(blockState)
+                && GolemType.spawnServant(ctx.getPlayer(), stack, ctx.getLevel(), ctx.getClickedPos())) {
+            return InteractionResult.sidedSuccess(ctx.getLevel().isClientSide);
         }
         return SpawnFromBlock.spawnServant(ctx.getPlayer(), stack, ctx.getLevel(), ctx.getClickedPos()) ?
                 InteractionResult.sidedSuccess(ctx.getLevel().isClientSide)

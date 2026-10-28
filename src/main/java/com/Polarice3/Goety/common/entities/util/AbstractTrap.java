@@ -15,6 +15,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.common.Tags;
@@ -22,7 +23,7 @@ import net.minecraftforge.common.Tags;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public abstract class AbstractTrap extends Entity implements ISpellEntity {
+public abstract class AbstractTrap extends Entity implements ISpellEntity, OwnableEntity {
     private int duration = 100;
     public LivingEntity owner;
     private UUID ownerUniqueId;
@@ -82,6 +83,10 @@ public abstract class AbstractTrap extends Entity implements ISpellEntity {
     public void setOwner(@Nullable LivingEntity ownerIn) {
         this.owner = ownerIn;
         this.ownerUniqueId = ownerIn == null ? null : ownerIn.getUUID();
+    }
+
+    public UUID getOwnerUUID() {
+        return this.ownerUniqueId;
     }
 
     @Nullable

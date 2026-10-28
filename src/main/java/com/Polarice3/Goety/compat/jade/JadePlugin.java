@@ -14,6 +14,7 @@ import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieVillagerServ
 import com.Polarice3.Goety.common.entities.neutral.AbstractZombieVindicator;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.SpellEntity;
+import com.Polarice3.Goety.common.entities.util.AbstractTrap;
 import snownee.jade.addon.vanilla.MobBreedingProvider;
 import snownee.jade.addon.vanilla.MobGrowthProvider;
 import snownee.jade.api.IWailaClientRegistration;
@@ -30,6 +31,7 @@ public class JadePlugin implements IWailaPlugin {
         registration.registerEntityDataProvider(SummonOwnerProvider.INSTANCE, Owned.class);
         registration.registerEntityDataProvider(SummonOwnerProvider.INSTANCE, AbstractSpiderServant.class);
         registration.registerEntityDataProvider(SummonOwnerProvider.INSTANCE, SpellEntity.class);
+        registration.registerEntityDataProvider(SummonOwnerProvider.INSTANCE, AbstractTrap.class);
         registration.registerEntityDataProvider(HostileIndicatorProvider.INSTANCE, Owned.class);
         registration.registerEntityDataProvider(HostileIndicatorProvider.INSTANCE, AbstractSpiderServant.class);
         registration.registerEntityDataProvider(SummonLifespanProvider.INSTANCE, Owned.class);

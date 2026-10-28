@@ -235,17 +235,29 @@ public class ServerParticleUtil {
     }
 
     public static void addAuraParticles(ServerLevel serverLevel, ParticleOptions particleOptions, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, float radius){
-        serverLevel.sendParticles(particleOptions, x + Math.cos(serverLevel.getGameTime() * 0.25) * radius, y, z + Math.sin(serverLevel.getGameTime() * 0.25) * radius, 0, xSpeed, ySpeed, zSpeed, 0.5F);
-        serverLevel.sendParticles(particleOptions, x + Math.cos(serverLevel.getGameTime() * 0.25 + Math.PI) * radius, y, z + Math.sin(serverLevel.getGameTime() * 0.25 + Math.PI) * radius, 0, xSpeed, ySpeed, zSpeed, 0.5F);
+        addAuraParticles(serverLevel, particleOptions, x, y, z, xSpeed, ySpeed, zSpeed, 0.25D, radius);
+    }
+
+    public static void addAuraParticles(ServerLevel serverLevel, ParticleOptions particleOptions, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, double cloudSpeed, float radius){
+        serverLevel.sendParticles(particleOptions, x + Math.cos(serverLevel.getGameTime() * cloudSpeed) * radius, y, z + Math.sin(serverLevel.getGameTime() * cloudSpeed) * radius, 0, xSpeed, ySpeed, zSpeed, 0.5F);
+        serverLevel.sendParticles(particleOptions, x + Math.cos(serverLevel.getGameTime() * cloudSpeed + Math.PI) * radius, y, z + Math.sin(serverLevel.getGameTime() * cloudSpeed + Math.PI) * radius, 0, xSpeed, ySpeed, zSpeed, 0.5F);
     }
 
     public static void addVisibleAuraParticles(ServerLevel serverLevel, ParticleOptions particleOptions, Vec3 vec3, float radius){
         addVisibleAuraParticles(serverLevel, particleOptions, vec3.x, vec3.y, vec3.z, 0.0F, 0.0F, 0.0F, radius);
     }
 
+    public static void addVisibleAuraParticles(ServerLevel serverLevel, ParticleOptions particleOptions, Vec3 vec3, double cloudSpeed, float radius){
+        addVisibleAuraParticles(serverLevel, particleOptions, vec3.x, vec3.y, vec3.z, 0.0F, 0.0F, 0.0F, cloudSpeed, radius);
+    }
+
     public static void addVisibleAuraParticles(ServerLevel serverLevel, ParticleOptions particleOptions, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, float radius){
-        sendAlwaysVisibleParticles(serverLevel, particleOptions, x + Math.cos(serverLevel.getGameTime() * 0.25) * radius, y, z + Math.sin(serverLevel.getGameTime() * 0.25) * radius, 0, xSpeed, ySpeed, zSpeed, 0.5F);
-        sendAlwaysVisibleParticles(serverLevel, particleOptions, x + Math.cos(serverLevel.getGameTime() * 0.25 + Math.PI) * radius, y, z + Math.sin(serverLevel.getGameTime() * 0.25 + Math.PI) * radius, 0, xSpeed, ySpeed, zSpeed, 0.5F);
+        addVisibleAuraParticles(serverLevel, particleOptions, x, y, z, xSpeed, ySpeed, zSpeed, 0.25D, radius);
+    }
+
+    public static void addVisibleAuraParticles(ServerLevel serverLevel, ParticleOptions particleOptions, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, double cloudSpeed, float radius){
+        sendAlwaysVisibleParticles(serverLevel, particleOptions, x + Math.cos(serverLevel.getGameTime() * cloudSpeed) * radius, y, z + Math.sin(serverLevel.getGameTime() * cloudSpeed) * radius, 0, xSpeed, ySpeed, zSpeed, 0.5F);
+        sendAlwaysVisibleParticles(serverLevel, particleOptions, x + Math.cos(serverLevel.getGameTime() * cloudSpeed + Math.PI) * radius, y, z + Math.sin(serverLevel.getGameTime() * cloudSpeed + Math.PI) * radius, 0, xSpeed, ySpeed, zSpeed, 0.5F);
     }
 
     public static void addReverseAuraParticles(ServerLevel serverLevel, ParticleOptions particleOptions, Entity entity, float radius){
@@ -262,17 +274,29 @@ public class ServerParticleUtil {
     }
 
     public static void addReverseAuraParticles(ServerLevel serverLevel, ParticleOptions particleOptions, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, float radius){
-        serverLevel.sendParticles(particleOptions, x + Math.sin(serverLevel.getGameTime() * 0.25) * radius, y, z + Math.cos(serverLevel.getGameTime() * 0.25) * radius, 0, xSpeed, ySpeed, zSpeed, 0.5F);
-        serverLevel.sendParticles(particleOptions, x + Math.sin(serverLevel.getGameTime() * 0.25 + Math.PI) * radius, y, z + Math.cos(serverLevel.getGameTime() * 0.25 + Math.PI) * radius, 0, xSpeed, ySpeed, zSpeed, 0.5F);
+        addReverseAuraParticles(serverLevel, particleOptions, x, y, z, xSpeed, ySpeed, zSpeed, 0.25D, radius);
+    }
+
+    public static void addReverseAuraParticles(ServerLevel serverLevel, ParticleOptions particleOptions, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, double cloudSpeed, float radius){
+        serverLevel.sendParticles(particleOptions, x + Math.sin(serverLevel.getGameTime() * cloudSpeed) * radius, y, z + Math.cos(serverLevel.getGameTime() * cloudSpeed) * radius, 0, xSpeed, ySpeed, zSpeed, 0.5F);
+        serverLevel.sendParticles(particleOptions, x + Math.sin(serverLevel.getGameTime() * cloudSpeed + Math.PI) * radius, y, z + Math.cos(serverLevel.getGameTime() * cloudSpeed + Math.PI) * radius, 0, xSpeed, ySpeed, zSpeed, 0.5F);
     }
 
     public static void addReverseVisualAuraParticles(ServerLevel serverLevel, ParticleOptions particleOptions, Vec3 vec3, float radius){
         addReverseVisualAuraParticles(serverLevel, particleOptions, vec3.x, vec3.y, vec3.z, 0.0F, 0.0F, 0.0F, radius);
     }
 
+    public static void addReverseVisualAuraParticles(ServerLevel serverLevel, ParticleOptions particleOptions, Vec3 vec3, double cloudSpeed, float radius){
+        addReverseVisualAuraParticles(serverLevel, particleOptions, vec3.x, vec3.y, vec3.z, 0.0F, 0.0F, 0.0F, cloudSpeed, radius);
+    }
+
     public static void addReverseVisualAuraParticles(ServerLevel serverLevel, ParticleOptions particleOptions, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, float radius){
-        sendAlwaysVisibleParticles(serverLevel, particleOptions, x + Math.sin(serverLevel.getGameTime() * 0.25) * radius, y, z + Math.cos(serverLevel.getGameTime() * 0.25) * radius, 0, xSpeed, ySpeed, zSpeed, 0.5F);
-        sendAlwaysVisibleParticles(serverLevel, particleOptions, x + Math.sin(serverLevel.getGameTime() * 0.25 + Math.PI) * radius, y, z + Math.cos(serverLevel.getGameTime() * 0.25 + Math.PI) * radius, 0, xSpeed, ySpeed, zSpeed, 0.5F);
+        addReverseVisualAuraParticles(serverLevel, particleOptions, x, y, z, xSpeed, ySpeed, zSpeed, 0.25D, radius);
+    }
+
+    public static void addReverseVisualAuraParticles(ServerLevel serverLevel, ParticleOptions particleOptions, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, double cloudSpeed, float radius){
+        sendAlwaysVisibleParticles(serverLevel, particleOptions, x + Math.sin(serverLevel.getGameTime() * cloudSpeed) * radius, y, z + Math.cos(serverLevel.getGameTime() * cloudSpeed) * radius, 0, xSpeed, ySpeed, zSpeed, 0.5F);
+        sendAlwaysVisibleParticles(serverLevel, particleOptions, x + Math.sin(serverLevel.getGameTime() * cloudSpeed + Math.PI) * radius, y, z + Math.cos(serverLevel.getGameTime() * cloudSpeed + Math.PI) * radius, 0, xSpeed, ySpeed, zSpeed, 0.5F);
     }
 
     public static void outerCircleParticles(ServerLevel serverLevel, ParticleOptions particleOptions, Entity entity, float radius){
@@ -472,5 +496,20 @@ public class ServerParticleUtil {
             }
         }
 
+    }
+
+    public static void eruption(ServerLevel serverLevel, Vec3 origin, RandomSource random) {
+        double halfAngle = random.nextDouble() * 45.0D;
+        Vec3 vec3 = cone(random, 0.0D, halfAngle).scale(0.9D + random.nextDouble() * 0.9D);
+        serverLevel.sendParticles(new MCDEffectOption(ModParticleTypes.ERUPTION.get(), 0.13F + random.nextFloat() * 0.02F, 20 + random.nextInt(21), 1.0F, 0.2F + random.nextFloat() * 0.8F, 0.0F), origin.x, origin.y, origin.z, 0, vec3.x, vec3.y, vec3.z, 1.0F);
+    }
+
+    public static Vec3 cone(RandomSource randomSource, double minDeg, double maxDeg) {
+        double cosOuter = Math.cos(Math.toRadians(maxDeg));
+        double cosInner = Math.cos(Math.toRadians(minDeg));
+        double cos = Mth.lerp(randomSource.nextDouble(), cosOuter, cosInner);
+        double sin = Math.sqrt(Math.max(0.0D, 1.0D - cos * cos));
+        double phi = randomSource.nextDouble() * Math.PI * 2.0D;
+        return new Vec3(Math.cos(phi) * sin, cos, Math.sin(phi) * sin);
     }
 }

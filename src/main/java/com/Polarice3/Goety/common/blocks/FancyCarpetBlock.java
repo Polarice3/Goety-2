@@ -13,18 +13,28 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 
 public class FancyCarpetBlock extends StairCarpetBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    private final boolean corner;
 
     public FancyCarpetBlock(DyeColor p_58291_, Properties p_58292_) {
-        super(p_58291_, p_58292_);
+        this(p_58291_, p_58292_, false);
+    }
+
+    public FancyCarpetBlock(DyeColor color, Properties properties, boolean corner) {
+        super(color, properties);
+        this.corner = corner;
         this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
     }
 
-    public BlockState rotate(BlockState p_54125_, Rotation p_54126_) {
-        return p_54125_.setValue(FACING, p_54126_.rotate(p_54125_.getValue(FACING)));
+    @Override
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        return super.rotate(state, rotation).setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
-    public BlockState mirror(BlockState p_54122_, Mirror p_54123_) {
-        return p_54122_.rotate(p_54123_.getRotation(p_54122_.getValue(FACING)));
+    @Override
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        Direction facing = state.getValue(FACING);
+        Direction mirrored = this.corner ? mirror.mirror(facing.getCounterClockWise()) : mirror.mirror(facing);
+        return super.mirror(state, mirror).setValue(FACING, mirrored);
     }
 
     @Override

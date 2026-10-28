@@ -1,13 +1,13 @@
 {
   "name": "Monstruosidade de Redstone",
-  "icon": "goety:reinforced_redstone_block",
+  "icon": "goety:redstone_monstrosity_head",
   "category": "goety:summons",
   "advancement": "goety:goety/read_terminus_scroll",
   "secret": true,
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Nos tempos antigos, um monarca forjou uma arma poderosa, mais forte e aterrorizante que os Golems de Redstone, com a orientação de uma força externa, antes de bani-la por razões desconhecidas. No entanto, o processo de criação foi registrado, talvez em segredo, permitindo que você replique esta aterrorizante monstruosidade."
+      "text": "Nos tempos antigos, um monarca havia fabricado uma arma poderosa, mais forte e aterrorizante que os Golems de Redstone, com a orientação de uma força externa, antes de bani-la por razões desconhecidas. No entanto, o processo de criação foi registrado, talvez em segredo, permitindo que você replicasse esta monstruosidade aterrorizante."
     },
     {
       "type": "patchouli:entity",
@@ -17,7 +17,7 @@
     {
       "type": "multiblock",
       "multiblock_id": "goety:redstone_monstrosity",
-      "text": "Clique com o botão direito no Bloco de Redstone Reforçado central com um Núcleo de Animação."
+      "text": "Clique com o botão direito no $(l:goety:crafts/monstrous_core)Núcleo Monstruoso$() central com um Núcleo de Animação."
     },
     {
       "type": "goety:ritual",
@@ -25,12 +25,12 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Os Tijolos de Pedra podem ser substituídos por outros blocos similares, como Tijolos de Ardósia para o molde. A Monstruosidade é talvez um dos seres mais fortes que você já criou, seu poder é incomparável por outros servos. Elas podem ser reparadas clicando com o botão direito nelas com Blocos de Redstone."
+      "text": "Os Tijolos de Pedra podem ser substituídos por outros blocos similares, como Tijolos de Ardósia para o molde. A Monstruosidade é talvez um dos seres mais fortes que você criou, seu poder inigualável por outros servos. Eles podem ser reparados clicando com o botão direito neles com Blocos de Redstone."
     },
     {
       "type": "patchouli:spotlight",
       "item": "goety:redstone_monstrosity_head",
-      "text": "Se a Monstruosidade for derrotada em batalha ou por comando, ela deixará cair sua cabeça. A Cabeça pode ser usada para reviver a Monstruosidade de uma maneira mais barata. No entanto, a Cabeça se lembra de seu criador e mestre original e a Monstruosidade revivida só seguirá os comandos deles."
+      "text": "Se a Monstruosidade cair em batalha ou por comando, eles deixarão cair sua cabeça. A Cabeça pode ser usada para reviver a Monstruosidade de uma maneira mais barata. No entanto, a Cabeça lembra seu criador e mestre original, e a Monstruosidade revivida só seguirá os comandos deles."
     },
     {
       "type": "multiblock",
@@ -39,7 +39,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Monstruosidades de Redstone podem fazer parte de um $(l:goety:mutations/illager_servants)grupo de ataque$(), embora não possam ser líderes."
+      "text": "Monstruosidades de Redstone podem fazer parte de um $(l:goety:mutations/illager_servants)grupo de saque$, embora não possam ser líderes."
     }
   ],
   "extra_recipe_mappings": {

@@ -1,0 +1,29 @@
+{
+  "parent": "goety:goety/root",
+  "criteria": {
+    "terminus_scroll": {
+      "conditions": {
+        "item": {
+          "items": [
+            "goety:terminus_scroll"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "haunting_scroll": {
+      "conditions": {
+        "item": {
+          "items": [
+            "goety:haunting_scroll"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "requirements": [
+    ["terminus_scroll"],
+    ["haunting_scroll"]
+  ]
+}

@@ -899,12 +899,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob, Sho
     }
 
     protected void actuallyHurt(DamageSource source, float amount) {
-        float initialAmount = amount;
-        if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)){
-            amount = Math.min(initialAmount, AttributesConfig.ApostleDamageCap.get().floatValue());
-        }
         if (this.moddedInvul <= 0){
-            super.actuallyHurt(source, amount);
+            MobUtil.bossHurt(this, source, amount, AttributesConfig.ApostleDamageCap.get().floatValue());
             if (source.getEntity() != null) {
                 this.moddedInvul = MobsConfig.BossInvulnerabilityTime.get();
             }

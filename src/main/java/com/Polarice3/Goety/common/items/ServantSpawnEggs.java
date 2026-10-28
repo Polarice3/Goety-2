@@ -253,6 +253,12 @@ public class ServantSpawnEggs {
     public static final RegistryObject<ServantSpawnEggItem> REDSTONE_CUBE_SPAWN_EGG = ITEMS.register("redstone_cube_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.REDSTONE_CUBE, 0xcc200a, 0xffd800, egg()));
 
+    public static final RegistryObject<ServantSpawnEggItem> GRAVE_MONSTROSITY_SPAWN_EGG = ITEMS.register("grave_monstrosity_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.GRAVE_MONSTROSITY, 0x2c362e, 0x7cf2f5, egg()));
+
+    public static final RegistryObject<ServantSpawnEggItem> GRAVE_CUBE_SPAWN_EGG = ITEMS.register("grave_cube_spawn_egg",
+            () -> new ServantSpawnEggItem(ModEntityType.GRAVE_CUBE, 0x0f6d7b, 0xe9e7d5, egg()));
+
     public static final RegistryObject<ServantSpawnEggItem> ZPIGLIN_SERVANT_SPAWN_EGG = ITEMS.register("zpiglin_servant_spawn_egg",
             () -> new ServantSpawnEggItem(ModEntityType.ZPIGLIN_SERVANT, 0x594036, 0xf5da2a, egg()));
 

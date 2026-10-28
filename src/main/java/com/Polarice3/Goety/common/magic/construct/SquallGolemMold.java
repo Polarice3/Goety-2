@@ -123,6 +123,11 @@ public class SquallGolemMold implements IMold {
     }
 
     @Override
+    public boolean isStructureValid(Level level, BlockPos blockPos) {
+        return checkBlocks(level, blockPos);
+    }
+
+    @Override
     public boolean spawnServant(Player player, ItemStack stack, Level level, BlockPos blockPos) {
         if (!level.isClientSide) {
             if (level.getBlockState(blockPos).is(ModBlocks.JADE_BLOCK.get())) {

@@ -1,12 +1,14 @@
 package com.Polarice3.Goety.client.render.model;
 
+import com.Polarice3.Goety.common.entities.projectiles.SoulStar;
 import com.Polarice3.Goety.common.entities.projectiles.VoidShock;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.world.entity.Entity;
 
-public class VoidShockModel<T extends VoidShock> extends HierarchicalModel<T> {
+public class VoidShockModel<T extends Entity> extends HierarchicalModel<T> {
 	private final ModelPart root;
 	private final ModelPart bolt;
 
@@ -31,9 +33,16 @@ public class VoidShockModel<T extends VoidShock> extends HierarchicalModel<T> {
 	}
 
 	public void setupAnim(T entity, float p_103812_, float p_103813_) {
-		if (entity.hasTarget) {
-			this.bolt.yRot = p_103812_ * ((float) Math.PI / 180F);
-			this.bolt.xRot = p_103813_ * ((float) Math.PI / 180F);
+		if (entity instanceof VoidShock shock) {
+			if (shock.hasTarget) {
+				this.bolt.yRot = p_103812_ * ((float) Math.PI / 180F);
+				this.bolt.xRot = p_103813_ * ((float) Math.PI / 180F);
+			}
+		} else if (entity instanceof SoulStar star) {
+			if (star.hasTarget) {
+				this.bolt.yRot = p_103812_ * ((float) Math.PI / 180F);
+				this.bolt.xRot = p_103813_ * ((float) Math.PI / 180F);
+			}
 		}
 	}
 

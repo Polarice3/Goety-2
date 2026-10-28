@@ -2,12 +2,14 @@ package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.client.render.animation.RedstoneCubeAnimations;
 import com.Polarice3.Goety.common.entities.ally.golem.RedstoneCube;
+import com.Polarice3.Goety.common.entities.ally.undead.GraveCube;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.world.entity.Mob;
 
-public class RedstoneCubeModel<T extends RedstoneCube> extends HierarchicalModel<T> {
+public class RedstoneCubeModel<T extends Mob> extends HierarchicalModel<T> {
 	private final ModelPart root;
 	private final ModelPart bone;
 
@@ -28,11 +30,19 @@ public class RedstoneCubeModel<T extends RedstoneCube> extends HierarchicalModel
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animate(entity.idleAnimationState, RedstoneCubeAnimations.IDLE, ageInTicks);
-		if (entity.canAnimateMove()) {
-			this.animateWalk(RedstoneCubeAnimations.WALK, limbSwing, limbSwingAmount, 2.5F, 20.0F);
+		if (entity instanceof RedstoneCube cube) {
+			this.animate(cube.idleAnimationState, RedstoneCubeAnimations.IDLE, ageInTicks);
+			if (cube.canAnimateMove()) {
+				this.animateWalk(RedstoneCubeAnimations.WALK, limbSwing, limbSwingAmount, 2.5F, 20.0F);
+			}
+			this.animate(cube.attackAnimationState, RedstoneCubeAnimations.ATTACK, ageInTicks);
+		} else if (entity instanceof GraveCube cube) {
+			this.animate(cube.idleAnimationState, RedstoneCubeAnimations.IDLE, ageInTicks);
+			if (cube.canAnimateMove()) {
+				this.animateWalk(RedstoneCubeAnimations.WALK, limbSwing, limbSwingAmount, 2.5F, 20.0F);
+			}
+			this.animate(cube.attackAnimationState, RedstoneCubeAnimations.ATTACK, ageInTicks);
 		}
-		this.animate(entity.attackAnimationState, RedstoneCubeAnimations.ATTACK, ageInTicks);
 	}
 
 	@Override
