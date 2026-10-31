@@ -1,0 +1,35 @@
+{
+  "name": "诅咒底座",
+  "icon": "goety:plinth",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/read_haunting_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "诅咒底座是一种低矮的石质平台，傀儡或$(l:world/bestiary/haunted_armor)缠魂甲胄$()可以在上方休眠，并像雕像一样行动。处于这种情况的仆从会以2%每秒的速度恢复生命值、修补盔甲和武器，它们也不会发出声音或移动到别处，亦不会受到伤害。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:plinth"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "生物的朝向与诅咒底座放置时的朝向相同，你可以使用$(l:focuses/geomancy/rotation_focus)旋转聚晶$()来旋转底座和上方的生物。将空闲的诅咒底座与$(l:crafts/waystone)指路石$()绑定后，再对傀儡或缠魂甲胄使用此指路石就能将它们绑定，此时它们会走向底座，进入类似雕像的状态。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "当敌人靠近诅咒底座4格以内的范围，仆从就会退出雕像状态，开始攻击。如果雕像五秒内没有找到其它目标，它就会返回底座处重新休眠。诅咒底座可以接受范围魔咒，每级魔咒都能提高6格仆从检测合法目标的范围。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "单个的诅咒底座可以承载单个缠魂甲胄或小型傀儡。像呼啸傀儡和冰傀儡这种更大的傀儡就3x3的诅咒底座方阵，而最大型的傀儡需要5x5的方阵。对于诅咒底座方阵，仆从会在正中间的底座休眠，指路石绑定方阵中的任意一处底座均视作绑定整个方阵。构成同一个方阵的诅咒底座没有材质限制。底座在修补上方的守护者时会发光。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "诅咒底座和祭坛基座一样，可以制作成多种不同的石头材质变种，包括石质、深板岩、黑石、下界砖、末地石、海晶石、不祥石、高岭石、大理石、墓穴石和阴影石。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:plinth": 1
+  }
+}

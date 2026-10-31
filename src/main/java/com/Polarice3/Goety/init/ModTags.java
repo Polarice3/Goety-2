@@ -178,6 +178,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> SERVANTS = tag("servants");
         public static final TagKey<EntityType<?>> TALL_HEAD = tag("tall_head");
         public static final TagKey<EntityType<?>> REPAIRABLE = tag("repairable");
+        public static final TagKey<EntityType<?>> PLINTHABLE = tag("plinthable");
         public static final TagKey<EntityType<?>> VILLAGE_GUARDS = tag("village_guards");
         public static final TagKey<EntityType<?>> ZOMBIE_SERVANTS = tag("zombie_servants");
         public static final TagKey<EntityType<?>> SKELETON_SERVANTS = tag("skeleton_servants");

@@ -59,7 +59,7 @@ public class Ripple extends SpellEntity {
     private int delayBetween = 0;
     private boolean loop = false;
     private int lifespan = -1;
-    private int color = 0xFFFFFF;
+    private int color = 0xffffff;
     private float particleDensity = 1.0F;
     private long spawnTime = Long.MIN_VALUE;
     private float damage = 2.0F;

@@ -32,6 +32,9 @@ public class FancyCarpetBlock extends StairCarpetBlock {
 
     @Override
     public BlockState mirror(BlockState state, Mirror mirror) {
+        if (mirror == Mirror.NONE) {
+            return state;
+        }
         Direction facing = state.getValue(FACING);
         Direction mirrored = this.corner ? mirror.mirror(facing.getCounterClockWise()) : mirror.mirror(facing);
         return super.mirror(state, mirror).setValue(FACING, mirrored);

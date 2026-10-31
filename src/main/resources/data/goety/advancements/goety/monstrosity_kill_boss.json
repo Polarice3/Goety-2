@@ -2,7 +2,7 @@
   "parent": "goety:goety/servant_kill_mob",
   "display": {
     "icon": {
-      "item": "goety:monstrosity_core"
+      "item": "goety:monstrous_core"
     },
     "title": {
       "translate": "advancements.goety.monstrosity_kill_boss.title"
@@ -29,26 +29,7 @@
         ],
         "killing_blow": {
           "source_entity": {
-            "type": "goety:redstone_monstrosity"
-          }
-        }
-      },
-      "trigger": "goety:servant_killed_entity"
-    },
-    "kill2": {
-      "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "type": "#forge:bosses"
-            }
-          }
-        ],
-        "killing_blow": {
-          "source_entity": {
-            "type": "goety:grave_monstrosity"
+            "type": "#goety:monstrosities"
           }
         }
       },
@@ -58,9 +39,6 @@
   "requirements": [
     [
       "kill"
-    ],
-    [
-      "kill2"
     ]
   ]
 }

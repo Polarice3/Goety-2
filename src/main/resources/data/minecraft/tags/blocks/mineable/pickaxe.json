@@ -22,6 +22,7 @@
     "#goety:stone_throne",
     "#goety:dark_altars",
     "#goety:pedestals",
+    "#goety:plinths",
     "goety:cursed_infuser",
     "goety:grim_infuser",
     "goety:awakened_emerald_block",
@@ -36,6 +37,7 @@
     "goety:cursed_cage",
     "goety:cursed_bars",
     "goety:animator",
+    "goety:sealer",
     "goety:black_crystal",
     "goety:hook_bell",
     "goety:shriek_obelisk",
@@ -58,6 +60,7 @@
     "goety:end_rod_block",
     "goety:diamond_mold_block",
     "goety:dark_mold_block",
+    "goety:monstrous_core",
     "goety:reinforced_redstone_block"
   ]
 }

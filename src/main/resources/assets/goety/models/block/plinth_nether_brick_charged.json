@@ -1,0 +1,6 @@
+{
+	"parent": "goety:block/template_plinth_charged",
+	"textures": {
+		"plinth": "goety:block/plinth_nether_brick"
+	}
+}

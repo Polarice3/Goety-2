@@ -9,6 +9,7 @@ import com.Polarice3.Goety.common.items.magic.CommandFocus;
 import com.Polarice3.Goety.common.items.magic.CommandHorn;
 import com.Polarice3.Goety.common.items.magic.OrderFocus;
 import com.Polarice3.Goety.common.items.magic.TransferScroll;
+import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -75,6 +76,21 @@ public class MinecraftMixin {
                 }
                 if (player.isHolding(ModItems.COMMAND_HORN.get())) {
                     if (CommandHorn.getEntities(player.level, player).contains(livingEntity)) {
+                        cir.setReturnValue(true);
+                    }
+                }
+                if (player.isHolding(ModItems.GRIMOIRE_OF_GRUDGES.get())) {
+                    if (SEHelper.getGrudgeEntities(player).contains(livingEntity)) {
+                        cir.setReturnValue(true);
+                    }
+                }
+                if (player.isHolding(ModItems.GRIMOIRE_OF_GOODWILL.get())) {
+                    if (SEHelper.getAllyEntities(player).contains(livingEntity)) {
+                        cir.setReturnValue(true);
+                    }
+                }
+                if (player.isHolding(ModItems.GRIMOIRE_OF_GROUNDING.get())) {
+                    if (SEHelper.getGroundedEntities(player).contains(livingEntity)) {
                         cir.setReturnValue(true);
                     }
                 }

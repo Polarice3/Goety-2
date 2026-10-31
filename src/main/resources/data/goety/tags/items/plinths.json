@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "goety:plinth",
+    "goety:plinth_stone",
+    "goety:plinth_deepslate",
+    "goety:plinth_ominous_stone",
+    "goety:plinth_nether_brick",
+    "goety:plinth_blackstone",
+    "goety:plinth_end_stone",
+    "goety:plinth_highrock",
+    "goety:plinth_marble",
+    "goety:plinth_prismarine",
+    "goety:plinth_crypt_stone"
+  ]
+}

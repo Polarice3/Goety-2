@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.common.blocks.entities.SealerHooks;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.ColorUtil;
 import net.minecraft.core.BlockPos;
@@ -128,7 +129,7 @@ public class ApparitionDoorBlock extends Block {
     public void checkAndActivateCastleDoor(Level pLevel, BlockPos pPos) {
         BlockState state = pLevel.getBlockState(pPos);
 
-        if (state.getBlock() instanceof ApparitionDoorBlock && !state.getValue(VANISHED) && !state.getValue(ACTIVE)) {
+        if (state.getBlock() instanceof ApparitionDoorBlock && !state.getValue(VANISHED) && !state.getValue(ACTIVE) && !SealerHooks.isSealed(pLevel, pPos)) {
             this.changeToActiveBlock(pLevel, pPos, state);
         }
     }

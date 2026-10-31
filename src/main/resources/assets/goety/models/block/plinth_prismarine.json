@@ -1,0 +1,6 @@
+{
+	"parent": "goety:block/template_plinth",
+	"textures": {
+		"plinth": "goety:block/plinth_prismarine"
+	}
+}

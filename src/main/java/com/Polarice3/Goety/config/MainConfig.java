@@ -49,6 +49,8 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> ShriekObeliskCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShriekObeliskIncrease;
     public static final ForgeConfigSpec.ConfigValue<Integer> AnimatorCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SealerCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SealerIntervalCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> BlackCrystalSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> OminousIdolReviveCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> OminousIdolLimit;
@@ -253,6 +255,10 @@ public class MainConfig {
                 .define("ShriekObeliskRaid", true);
         AnimatorCost = BUILDER.comment("The amount of Soul Energy used to power the Animator per block distance, Default: 10")
                 .defineInRange("animatorCost", 10, 0, Integer.MAX_VALUE);
+        SealerCost = BUILDER.comment("The amount of Soul Energy used to power the Sealer, Default: 1")
+                .defineInRange("sealerCost", 1, 0, Integer.MAX_VALUE);
+        SealerIntervalCost = BUILDER.comment("How many seconds before Sealer needs to be powered with Soul Energy, Default: 60")
+                .defineInRange("sealerIntervalCost", 60, 0, Integer.MAX_VALUE);
         BlackCrystalSouls = BUILDER.comment("The amount of Soul Energy Black Crystal gives when draining a mob, Default: 1")
                 .defineInRange("blackCrystalSouls", 1, 0, Integer.MAX_VALUE);
         OminousIdolRevive = BUILDER.comment("Whether Ominous Idols can revive Illager Servants, Default: true")

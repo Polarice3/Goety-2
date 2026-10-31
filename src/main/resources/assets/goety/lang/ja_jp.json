@@ -3881,5 +3881,20 @@
   "subtitle.goety.grave_monstrosity_stagger_start": "Grave Monstrosity staggers",
   "subtitle.goety.grave_monstrosity_stagger_end": "Grave Monstrosity recovers",
   "advancements.goety.summon_grave_monstrosity.title": "歩く霊廟",
-  "advancements.goety.summon_grave_monstrosity.description": "グレイブの怪物をアニメーションコアで召喚する。"
+  "advancements.goety.summon_grave_monstrosity.description": "グレイブの怪物をアニメーションコアで召喚する。",
+  "block.goety.plinth": "呪われた台座",
+  "block.goety.plinth_stone": "呪われた台座",
+  "block.goety.plinth_deepslate": "呪われた台座",
+  "block.goety.plinth_ominous_stone": "呪われた台座",
+  "block.goety.plinth_nether_brick": "呪われた台座",
+  "block.goety.plinth_blackstone": "呪われた台座",
+  "block.goety.plinth_end_stone": "呪われた台座",
+  "block.goety.plinth_highrock": "呪われた台座",
+  "block.goety.plinth_marble": "呪われた台座",
+  "block.goety.plinth_prismarine": "呪われた台座",
+  "block.goety.plinth_crypt_stone": "呪われた台座",
+  "block.goety.sealer": "シーラー",
+  "info.goety.plinth.bind": "%sは呪われた台座に置かれます",
+  "info.goety.plinth.too_small": "呪われたの台座は%sに対して小さすぎます。正方形の形に並べた際、一辺が%s個分の呪われた台座が必要です",
+  "info.goety.sealer.sealed": "チェストは封印されています"
 }

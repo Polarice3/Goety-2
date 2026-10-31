@@ -4,6 +4,7 @@ import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
@@ -14,6 +15,7 @@ import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.common.Tags;
 
 public class MasterFangs extends Fangs {
     private boolean sentSnapEvent;
@@ -137,7 +139,15 @@ public class MasterFangs extends Fangs {
                 }
             }
             if (hurt) {
-                target.invulnerableTime = 15;
+                int time = 11;
+                AABB fake = EntityType.RAVAGER.getAABB(target.position().x, target.position().y, target.position().z);
+                if (target.getType().is(Tags.EntityTypes.BOSSES)
+                        || target.getType().is(ModTags.EntityTypes.MINI_BOSSES)
+                        || target.getType().is(ModTags.EntityTypes.POWERFUL_SERVANTS)
+                        || target.getBoundingBox().getSize() > fake.getSize() * 1.25F) {
+                    time = this.level.getRandom().nextInt(13, 15);
+                }
+                target.invulnerableTime = time;
                 target.knockback(1.0D, (this.getX() - target.getX()) * MathHelper.modelDegrees(45), (this.getZ() - target.getZ()) * MathHelper.modelDegrees(45));
             }
         }

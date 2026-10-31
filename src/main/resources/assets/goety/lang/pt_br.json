@@ -4020,5 +4020,20 @@
   "subtitle.goety.grave_monstrosity_stagger_start": "Monstruosidade do Túmulo cambaleia",
   "subtitle.goety.grave_monstrosity_stagger_end": "Monstruosidade do Túmulo recupera",
   "advancements.goety.summon_grave_monstrosity.title": "Mausoléu Ambulante",
-  "advancements.goety.summon_grave_monstrosity.description": "Invoca uma Monstruosidade do Túmulo com um Núcleo de Animação."
+  "advancements.goety.summon_grave_monstrosity.description": "Invoca uma Monstruosidade do Túmulo com um Núcleo de Animação.",
+  "block.goety.plinth": "Pedestal Amaldiçoado",
+  "block.goety.plinth_stone": "Pedestal Amaldiçoado",
+  "block.goety.plinth_deepslate": "Pedestal Amaldiçoado",
+  "block.goety.plinth_ominous_stone": "Pedestal Amaldiçoado",
+  "block.goety.plinth_nether_brick": "Pedestal Amaldiçoado",
+  "block.goety.plinth_blackstone": "Pedestal Amaldiçoado",
+  "block.goety.plinth_end_stone": "Pedestal Amaldiçoado",
+  "block.goety.plinth_highrock": "Pedestal Amaldiçoado",
+  "block.goety.plinth_marble": "Pedestal Amaldiçoado",
+  "block.goety.plinth_prismarine": "Pedestal Amaldiçoado",
+  "block.goety.plinth_crypt_stone": "Pedestal Amaldiçoado",
+  "block.goety.sealer": "Selador",
+  "info.goety.plinth.bind": "%s vai descansar no Pedestal Amaldiçoado",
+  "info.goety.plinth.too_small": "O Pedestal Amaldiçoado é pequeno demais para %s: precisa de um quadrado de %s Pedestais Amaldiçoados de largura",
+  "info.goety.sealer.sealed": "O baú está selado"
 }

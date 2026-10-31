@@ -51,6 +51,7 @@ public class VoidRift extends CastSpellTrap {
         map.put(7, Goety.location("textures/entity/projectiles/void_rift/rift_5.png"));
     });
     public int warmUp;
+    public int warmUpTotal;
     public boolean playEvent;
     public boolean isClosing;
 
@@ -90,6 +91,9 @@ public class VoidRift extends CastSpellTrap {
         if (compound.contains("WarmUp")) {
             this.warmUp = compound.getInt("WarmUp");
         }
+        if (compound.contains("WarmUpTotal")) {
+            this.warmUpTotal = compound.getInt("WarmUpTotal");
+        }
         if (compound.contains("PlayEvent")) {
             this.playEvent = compound.getBoolean("PlayEvent");
         }
@@ -103,6 +107,7 @@ public class VoidRift extends CastSpellTrap {
         compound.putFloat("Size", this.getSize());
         compound.putInt("TickTime", this.tickCount);
         compound.putInt("WarmUp", this.warmUp);
+        compound.putInt("WarmUpTotal", this.warmUpTotal);
         compound.putBoolean("PlayEvent", this.playEvent);
         compound.putBoolean("IsClosing", this.isClosing);
     }
@@ -135,42 +140,18 @@ public class VoidRift extends CastSpellTrap {
 
     public void setWarmUp(int warmUp){
         this.warmUp = warmUp;
+        this.warmUpTotal = warmUp;
         this.setDuration(this.getDuration() + warmUp);
     }
 
     public void tick() {
         super.tick();
-        if (!this.isActivated()){
-            int count = SpellConfig.RuptureDuration.get() / 3;
-            if (this.tickCount % count == 0) {
-                if (this.level.isClientSide) {
-                    if (this.getAnimation() < 2) {
-                        this.setAnimation(this.getAnimation() + 1);
-                    }
-                }
-                this.playSound(ModSounds.RUMBLE.get(), 2.0F, this.random.nextFloat() + 0.75F);
-            }
-        } else {
-            if (this.level.isClientSide) {
-                if (this.tickCount % 20 == 0) {
-                    if (this.isClosing) {
-                        if (this.getAnimation() > 0) {
-                            this.setAnimation(this.getAnimation() - 1);
-                        }
-                    } else {
-                        if (this.getAnimation() < 7) {
-                            this.setAnimation(this.getAnimation() + 1);
-                        } else {
-                            this.setAnimation(3);
-                        }
-                    }
-                }
-            }
-        }
         if (!this.level.isClientSide) {
+            this.updateAnimation();
             if (this.warmUp <= 0) {
                 if (!this.isActivated()) {
                     this.setActivated(true);
+                    this.setAnimation(3);
                     this.level.broadcastEntityEvent(this, (byte) 100);
                 }
                 if (!this.playEvent) {
@@ -243,6 +224,7 @@ public class VoidRift extends CastSpellTrap {
             if (this.tickCount >= this.getDuration()) {
                 if (!this.isClosing){
                     this.isClosing = true;
+                    this.setAnimation(2);
                     this.level.broadcastEntityEvent(this, (byte) 101);
                 }
                 if (this.tickCount >= this.getDuration() + 20) {
@@ -269,6 +251,26 @@ public class VoidRift extends CastSpellTrap {
                     }
                     this.discard();
                 }
+            }
+        }
+    }
+
+    private void updateAnimation() {
+        int stage = this.getAnimation();
+        if (!this.isActivated()) {
+            float progress = 1.0F - (float) this.warmUp / Math.max(1, this.warmUpTotal);
+            int opening = Mth.clamp((int) (progress * 3.0F), 0, 2);
+            if (opening != stage) {
+                this.setAnimation(opening);
+                this.playSound(ModSounds.RUMBLE.get(), 2.0F, this.random.nextFloat() + 0.75F);
+            }
+        } else if (this.tickCount % 20 == 0) {
+            if (this.isClosing) {
+                if (stage > 0) {
+                    this.setAnimation(stage - 1);
+                }
+            } else {
+                this.setAnimation(stage < 7 ? stage + 1 : 3);
             }
         }
     }

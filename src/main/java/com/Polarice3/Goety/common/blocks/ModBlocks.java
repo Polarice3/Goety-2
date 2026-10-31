@@ -75,6 +75,17 @@ public class ModBlocks {
     public static final RegistryObject<Block> PEDESTAL_MARBLE = register("pedestal_marble", () -> new PedestalBlock(MarbleProperties().noOcclusion()));
     public static final RegistryObject<Block> PEDESTAL_PRISMARINE = register("pedestal_prismarine", () -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.PRISMARINE_BRICKS).noOcclusion()));
     public static final RegistryObject<Block> PEDESTAL_CRYPT_STONE = register("pedestal_crypt_stone", () -> new PedestalBlock(CryptStoneProperties().noOcclusion()));
+    public static final RegistryObject<Block> PLINTH = register("plinth", PlinthBlock::new);
+    public static final RegistryObject<Block> PLINTH_STONE = register("plinth_stone", () -> new PlinthBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS)));
+    public static final RegistryObject<Block> PLINTH_DEEPSLATE = register("plinth_deepslate", () -> new PlinthBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICKS)));
+    public static final RegistryObject<Block> PLINTH_OMINOUS_STONE = register("plinth_ominous_stone", () -> new PlinthBlock(OminousStoneProperties()));
+    public static final RegistryObject<Block> PLINTH_NETHER_BRICK = register("plinth_nether_brick", () -> new PlinthBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_BRICKS)));
+    public static final RegistryObject<Block> PLINTH_BLACKSTONE = register("plinth_blackstone", () -> new PlinthBlock(BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE_BRICKS)));
+    public static final RegistryObject<Block> PLINTH_END_STONE = register("plinth_end_stone", () -> new PlinthBlock(BlockBehaviour.Properties.copy(Blocks.END_STONE_BRICKS)));
+    public static final RegistryObject<Block> PLINTH_HIGHROCK = register("plinth_highrock", () -> new PlinthBlock(HighrockProperties()));
+    public static final RegistryObject<Block> PLINTH_MARBLE = register("plinth_marble", () -> new PlinthBlock(MarbleProperties()));
+    public static final RegistryObject<Block> PLINTH_PRISMARINE = register("plinth_prismarine", () -> new PlinthBlock(BlockBehaviour.Properties.copy(Blocks.PRISMARINE_BRICKS)));
+    public static final RegistryObject<Block> PLINTH_CRYPT_STONE = register("plinth_crypt_stone", () -> new PlinthBlock(CryptStoneProperties()));
     public static final RegistryObject<Block> SOUL_ABSORBER = register("soul_absorber", SoulAbsorberBlock::new);
     public static final RegistryObject<Block> SOUL_MENDER = register("soul_mender", SoulMenderBlock::new);
     public static final RegistryObject<Block> ICE_BOUQUET_TRAP = register("ice_bouquet_trap", IceBouquetTrapBlock::new);
@@ -99,6 +110,13 @@ public class ModBlocks {
     public static final RegistryObject<Block> SHRIEKING_OBELISK = register("shriek_obelisk", ShriekObeliskBlock::new);
     public static final RegistryObject<Block> NECRO_BRAZIER = register("necro_brazier", NecroBrazierBlock::new);
     public static final RegistryObject<Block> ANIMATOR = register("animator", AnimatorBlock::new);
+    public static final RegistryObject<Block> SEALER = register("sealer", () -> new SealerBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_BLACK)
+            .requiresCorrectToolForDrops()
+            .strength(5.0F, 6.0F)
+            .sound(ModSoundTypes.MOD_METAL)
+            .noOcclusion()
+            .lightLevel(state -> state.getValue(SealerBlock.LIT) ? 7 : 0)));
     public static final RegistryObject<Block> BLACK_CRYSTAL = register("black_crystal", BlackCrystalBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> DARK_ANVIL = register("dark_anvil", DarkAnvilBlock::new);
     public static final RegistryObject<Block> CHIPPED_DARK_ANVIL = register("chipped_dark_anvil", DarkAnvilBlock::new);
@@ -298,20 +316,20 @@ public class ModBlocks {
     public static final RegistryObject<Block> ROYAL_CARPET = register("royal_carpet", () ->
             new StairCarpetBlock(DyeColor.RED, BlockBehaviour.Properties.copy(Blocks.RED_CARPET)));
     public static final RegistryObject<Block> ROYAL_CARPET_CORNER = register("royal_carpet_corner", () ->
-            new FancyCarpetBlock(DyeColor.RED, BlockBehaviour.Properties.copy(Blocks.RED_CARPET)));
+            new FancyCarpetBlock(DyeColor.RED, BlockBehaviour.Properties.copy(Blocks.RED_CARPET), true));
     public static final RegistryObject<Block> ROYAL_CARPET_EDGE = register("royal_carpet_edge", () ->
             new FancyCarpetBlock(DyeColor.RED, BlockBehaviour.Properties.copy(Blocks.RED_CARPET)));
     public static final RegistryObject<Block> ROYAL_CARPET_INNER_CORNER = register("royal_carpet_inner_corner", () ->
-            new FancyCarpetBlock(DyeColor.RED, BlockBehaviour.Properties.copy(Blocks.RED_CARPET)));
+            new FancyCarpetBlock(DyeColor.RED, BlockBehaviour.Properties.copy(Blocks.RED_CARPET), true));
 
     public static final RegistryObject<Block> FROSTY_CARPET = register("frosty_carpet", () ->
             new StairCarpetBlock(DyeColor.BLUE, BlockBehaviour.Properties.copy(Blocks.BLUE_CARPET)));
     public static final RegistryObject<Block> FROSTY_CARPET_CORNER = register("frosty_carpet_corner", () ->
-            new FancyCarpetBlock(DyeColor.BLUE, BlockBehaviour.Properties.copy(Blocks.BLUE_CARPET)));
+            new FancyCarpetBlock(DyeColor.BLUE, BlockBehaviour.Properties.copy(Blocks.BLUE_CARPET), true));
     public static final RegistryObject<Block> FROSTY_CARPET_EDGE = register("frosty_carpet_edge", () ->
             new FancyCarpetBlock(DyeColor.BLUE, BlockBehaviour.Properties.copy(Blocks.BLUE_CARPET)));
     public static final RegistryObject<Block> FROSTY_CARPET_INNER_CORNER = register("frosty_carpet_inner_corner", () ->
-            new FancyCarpetBlock(DyeColor.BLUE, BlockBehaviour.Properties.copy(Blocks.BLUE_CARPET)));
+            new FancyCarpetBlock(DyeColor.BLUE, BlockBehaviour.Properties.copy(Blocks.BLUE_CARPET), true));
 
     public static final RegistryObject<Block> SHADE_THRONE = enchantedRegister("shade_throne", () -> new StoneThroneBlock(ShadeStoneProperties().noOcclusion()));
     public static final RegistryObject<Block> STONE_THRONE = enchantedRegister("stone_throne", () -> new StoneThroneBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));

@@ -3938,5 +3938,20 @@
   "subtitle.goety.grave_monstrosity_stagger_start": "墓灵巨兽：踉跄",
   "subtitle.goety.grave_monstrosity_stagger_end": "墓灵巨兽：恢复",
   "advancements.goety.summon_grave_monstrosity.title": "行将就墓",
-  "advancements.goety.summon_grave_monstrosity.description": "使用活力仪式召唤一只墓灵巨兽。"
+  "advancements.goety.summon_grave_monstrosity.description": "使用活力仪式召唤一只墓灵巨兽。",
+  "block.goety.plinth": "诅咒底座",
+  "block.goety.plinth_stone": "诅咒底座",
+  "block.goety.plinth_deepslate": "诅咒底座",
+  "block.goety.plinth_ominous_stone": "诅咒底座",
+  "block.goety.plinth_nether_brick": "诅咒底座",
+  "block.goety.plinth_blackstone": "诅咒底座",
+  "block.goety.plinth_end_stone": "诅咒底座",
+  "block.goety.plinth_highrock": "诅咒底座",
+  "block.goety.plinth_marble": "诅咒底座",
+  "block.goety.plinth_prismarine": "诅咒底座",
+  "block.goety.plinth_crypt_stone": "诅咒底座",
+  "block.goety.sealer": "封印器",
+  "info.goety.plinth.bind": "%s将在诅咒底座休眠",
+  "info.goety.plinth.too_small": "这处诅咒底座对%s太小了：它需要%s格宽的方形诅咒底座阵列",
+  "info.goety.sealer.sealed": "这个箱子已被封印"
 }

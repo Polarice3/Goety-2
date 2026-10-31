@@ -1375,13 +1375,15 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
                     if (pPlayer.getMainHandItem().is(ModItems.REPAIR_PUTTY.get()) && pPlayer.getOffhandItem().is(ModTags.Items.HAMMERS)) {
                         return InteractionResult.PASS;
                     }
-                    //Don't care, let them ride in the air lol
-                    if (this.getFirstPassenger() != null && this.getFirstPassenger() != pPlayer){
-                        this.getFirstPassenger().stopRiding();
-                        return InteractionResult.SUCCESS;
-                    } else if (!(pPlayer.getItemInHand(pHand).getItem() instanceof IWand)){
-                        this.doPlayerRide(pPlayer);
-                        return InteractionResult.SUCCESS;
+                    if (pPlayer.getMainHandItem().isEmpty()) {
+                        //Don't care, let them ride in the air lol
+                        if (this.getFirstPassenger() != null && this.getFirstPassenger() != pPlayer) {
+                            this.getFirstPassenger().stopRiding();
+                            return InteractionResult.SUCCESS;
+                        } else if (!(pPlayer.getItemInHand(pHand).getItem() instanceof IWand)) {
+                            this.doPlayerRide(pPlayer);
+                            return InteractionResult.SUCCESS;
+                        }
                     }
                 }
             }

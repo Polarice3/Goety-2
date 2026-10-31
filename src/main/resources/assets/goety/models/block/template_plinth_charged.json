@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "texture_size": [64, 64],
+  "textures": {
+    "0": "#plinth",
+    "charge": "goety:block/plinth_charge",
+    "particle": "#plinth"
+  },
+  "elements": [
+    {
+      "from": [2, 0, 2],
+      "to": [14, 2, 14],
+      "faces": {
+        "north": { "uv": [3, 3, 6, 3.5], "texture": "#0" },
+        "east": { "uv": [0, 3, 3, 3.5], "texture": "#0" },
+        "south": { "uv": [9, 3, 12, 3.5], "texture": "#0" },
+        "west": { "uv": [6, 3, 9, 3.5], "texture": "#0" },
+        "up": { "uv": [6, 3, 3, 0], "texture": "#0" },
+        "down": { "uv": [9, 0, 6, 3], "texture": "#0" }
+      }
+    },
+    {
+      "from": [2, 2.01, 2],
+      "to": [14, 2.01, 14],
+      "neoforge_data": { "block_light": 15, "sky_light": 15 },
+      "faces": {
+        "up": { "uv": [6, 3, 3, 0], "texture": "#charge" }
+      }
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "Cursed Plinth",
+  "icon": "goety:plinth",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/read_haunting_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A Cursed Plinth is a low plate of stone on which golems and $(l:world/bestiary/haunted_armor)Haunted Armors$() can rest on and act as though they were statues. While in this state, they recover 2%% of their health every second, mend their armor and weapons at the same pace, makes no sound nor movement and cannot be harmed."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:plinth"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The creature faces the way the Plinth was placed, so a $(l:focuses/geomancy/rotation_focus)Rotation Focus$() can be used to turn the plate, and the creature with it. To bind a golem or haunted armor to it, use a $(l:crafts/waystone)Waystone$() that's bound to an empty Plinth on them, and it will walk to it and turn into a statue-like state. A servant simply told to guard a Plinth adopts it as well once it stands on it."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "When an enemy comes within 4 blocks of the Cursed Plinth, the servant leaves their statue-like state and attacks. Once it has had no target for five seconds it returns to its Plinth and rests again. The Plinth can also be enchanted with the Radius enchantment, where each level adds 6 blocks to how far a valid target can be close to it for the servant to awaken."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A single Cursed Plinth can carry a single Haunted Armor and smaller golems. Bigger golems like Squall, and Ice Golems need a square of 3x3 Plinths, and the biggest golems requires a square of 5x5. In the case of multiple plinths, the servant rests on the middle plinth, and a Waystone bound to any plinth of the square leads it there. The square can be made out of plinths of different materials. A Plinth glows while it is mending the servant on it."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Cursed Plinths are forged in the same way from any of the stones used for Pedestals: Stone, Deepslate, Blackstone, Nether Brick, End Stone, Prismarine, Ominous Stone, Highrock, Marble, Crypt Stone and Shade Stone."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:plinth": 1
+  }
+}

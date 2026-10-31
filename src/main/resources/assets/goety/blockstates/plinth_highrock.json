@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "charged=false,facing=north": { 
+      "model": "goety:block/plinth_highrock"
+    },
+    "charged=false,facing=east": { 
+      "model": "goety:block/plinth_highrock", 
+      "y": 90
+    },
+    "charged=false,facing=south": { 
+      "model": "goety:block/plinth_highrock", 
+      "y": 180
+    },
+    "charged=false,facing=west": { 
+      "model": "goety:block/plinth_highrock", 
+      "y": 270
+    },
+    "charged=true,facing=north": { 
+      "model": "goety:block/plinth_highrock_charged"
+    },
+    "charged=true,facing=east": { 
+      "model": "goety:block/plinth_highrock_charged", 
+      "y": 90
+    },
+    "charged=true,facing=south": { 
+      "model": "goety:block/plinth_highrock_charged", 
+      "y": 180
+    },
+    "charged=true,facing=west": { 
+      "model": "goety:block/plinth_highrock_charged", 
+      "y": 270
+    }
+  }
+}

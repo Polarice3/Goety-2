@@ -1,0 +1,31 @@
+{
+  "name": "Sealer",
+  "icon": "goety:sealer",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/craft_animation_core",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Tired of thieves and unwanted guests rummaging through your belongings, you've discovered a way to prevent such unwanted intrusions. The Sealer is a block that keeps a lockable container, like chests or barrels, or an $(l:world/crypts)Apparition Door$() shut for as long as it's active."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:sealer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "To start using it, bind a $(l:crafts/waystone)Waystone$() to a container or door and place it in the Sealer through right-clicking on it. If the Sealer already has a Waystone in it, you can right-click on the block with an empty hand to take it out. The bound container or door must be in the same dimension and within 32 blocks of the Sealer."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Sealer requires a redstone signal to seal the container or door. While sealed, the container cannot be opened and an Apparition Door cannot be made to vanish by hand nor redstone. Sealing one Apparition Door seals every door connected to it. Once the Sealer stops receiving a redstone signal, the seal is lifted. When sealed, the block also cannot be mined, blown up or broken by spells. While active, the Sealer glows, the Waystone inside starts turning, and nothing short of creative tools can break it while it is active."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A placed down Sealer requires Soul Energy from a filled $(l:intro/cursed_cage)Cursed Cage$() directly below it to stay active."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:sealer": 1
+  }
+}

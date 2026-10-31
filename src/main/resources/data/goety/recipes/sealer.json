@@ -1,0 +1,27 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:animator"
+  },
+  "craftType": "forge",
+  "soulCost": 5,
+  "duration": 20,
+  "ingredients": [
+    {
+      "item": "goety:dark_ingot"
+    },
+    {
+      "item": "minecraft:comparator"
+    },
+    {
+      "item": "goety:ectoplasm"
+    },
+    {
+      "item": "goety:ectoplasm"
+    }
+  ],
+  "result": {
+    "item": "goety:sealer"
+  }
+}

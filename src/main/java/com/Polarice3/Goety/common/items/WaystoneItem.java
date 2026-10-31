@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.items;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.IShowOutlines;
+import com.Polarice3.Goety.common.blocks.entities.PlinthHooks;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import net.minecraft.core.BlockPos;
@@ -166,6 +167,10 @@ public class WaystoneItem extends ItemBase implements IShowOutlines {
     public @NotNull InteractionResult interactLivingEntity(@NotNull ItemStack stack, Player player, @NotNull LivingEntity entity, @NotNull InteractionHand hand) {
         if (!player.level.isClientSide) {
             if (stack.getItem() instanceof WaystoneItem) {
+                InteractionResult plinthResult = PlinthHooks.tryBindToPlinth(stack, player, entity);
+                if (plinthResult.consumesAction()) {
+                    return plinthResult;
+                }
                 if (entity instanceof IServant owned) {
                     if (owned.getTrueOwner() == player) {
                         GlobalPos globalPos = getPosition(stack);

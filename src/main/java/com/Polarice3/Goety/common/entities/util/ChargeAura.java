@@ -36,7 +36,7 @@ public class ChargeAura {
         public static final Settings NECRO = new Settings(4.68F, 6.24F, 0.5F, 0.5F,
                 0.0F, 0.13F, 0.5F, 0.6F, 0.0F, 0.0275F, 0.3F,
                 0x88ff00, 0x0ab405, ModParticleTypes.NECRO_FIRE.get());
-        public static final Settings END = new Settings(2.14F, 3.84F, 0.5F, 0.5F,
+        public static final Settings END = new Settings(2.14F, 3.84F, 4.0F, 0.25F,
                 0.58F, 0.72F, 0.22F, 0.29F, 0.67F, 0.82F, 0.3F,
                 0xf4cdf6, 0xae00bc, ModParticleTypes.END_FIRE.get());
 

@@ -1,0 +1,31 @@
+{
+  "name": "封印器",
+  "icon": "goety:sealer",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/craft_animation_core",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "厌倦了小偷和不请自来之人乱翻你的私人物品，你终于找到了这种防范不速之客的方法——封印器，一种在激活后会将可上锁的容器（比如箱子或桶）或$(l:crafts/artifice/apparition_door)幻象门$()锁上的方块。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:sealer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "要使用封印器，你要先用一颗$(l:crafts/waystone)指路石$()绑定容器或幻象门，再右键封印器将指路石放入其中。如果一台封印器里已经有指路石，你可以空手右键将其中的指路石取出。被绑定的容器或幻象门必须与封印器处在同一维度，且相距不超过32格。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "封印器需要红石信号来封印容器或幻象门。容器被封印时无法被开启，幻象门被封印时则无法通过互动或红石触发令其消失。幻象门被封印时，与之相连的每一扇幻象门都会被一同封印。封印器失去红石信号时，封印就会被解除。被封印的方块无法通过挖掘、爆炸或聚晶等方式被破坏。封印器激活时会发光，内部的指路石会开始旋转，此时封印器无法被创造模式以外的手段破坏。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "被放置的封印器需要正下方存在$(l:intro/cursed_cage)诅咒之笼$()为其提供灵魂能量才能保持运行。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:sealer": 1
+  }
+}

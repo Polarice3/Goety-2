@@ -453,6 +453,7 @@ public class ClientInitEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.SHRIEKING_OBELISK.get(), ModBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.NECRO_BRAZIER.get(), NecroBrazierRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.ANIMATOR.get(), AnimatorRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.SEALER.get(), SealerRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.BLACK_CRYSTAL.get(), BlackCrystalRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.BREWING_CAULDRON.get(), BrewCauldronRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.HAUNTED_MIRROR.get(), ModBlockEntityRenderer::new);

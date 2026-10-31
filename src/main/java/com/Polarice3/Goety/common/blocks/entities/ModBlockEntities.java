@@ -43,6 +43,16 @@ public class ModBlockEntities {
             }
     );
 
+    public static final RegistryObject<BlockEntityType<PlinthBlockEntity>> PLINTH = BLOCK_ENTITY.register("plinth",
+            () -> {
+                Block[] blocks = ModBlocks.BLOCKS.getEntries().stream()
+                        .map(RegistryObject::get)
+                        .filter(block -> block instanceof PlinthBlock)
+                        .toArray(Block[]::new);
+                return BlockEntityType.Builder.of(PlinthBlockEntity::new, blocks).build(null);
+            }
+    );
+
     public static final RegistryObject<BlockEntityType<SoulAbsorberBlockEntity>> SOUL_ABSORBER = BLOCK_ENTITY.register("soul_absorber",
             () -> BlockEntityType.Builder.of(SoulAbsorberBlockEntity::new, ModBlocks.SOUL_ABSORBER.get()).build(null));
 
@@ -81,6 +91,9 @@ public class ModBlockEntities {
 
     public static final RegistryObject<BlockEntityType<AnimatorBlockEntity>> ANIMATOR = BLOCK_ENTITY.register("animator",
             () -> BlockEntityType.Builder.of(AnimatorBlockEntity::new, ModBlocks.ANIMATOR.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<SealerBlockEntity>> SEALER = BLOCK_ENTITY.register("sealer",
+            () -> BlockEntityType.Builder.of(SealerBlockEntity::new, ModBlocks.SEALER.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<BlackCrystalBlockEntity>> BLACK_CRYSTAL = BLOCK_ENTITY.register("black_crystal",
             () -> BlockEntityType.Builder.of(BlackCrystalBlockEntity::new, ModBlocks.BLACK_CRYSTAL.get()).build(null));

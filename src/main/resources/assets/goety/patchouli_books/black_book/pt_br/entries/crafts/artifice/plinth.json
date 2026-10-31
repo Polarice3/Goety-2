@@ -1,0 +1,35 @@
+{
+  "name": "Pedestal Amaldiçoado",
+  "icon": "goety:plinth_stone",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/read_haunting_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Um Pedestal Amaldiçoado é uma laje baixa de pedra sobre a qual golens e $(l:world/bestiary/haunted_armor)Armaduras Assombradas$() podem descansar e agir como se fossem estátuas. Enquanto neste estado, eles recuperam 2%% de sua saúde a cada segundo, consertam sua armadura e armas no mesmo ritmo, não emitem som nem movimento e não podem ser feridos."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:plinth"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A criatura fica virada para a direção em que o Pedestal foi colocado, então um $(l:focuses/geomancy/rotation_focus)Foco de Rotação$() pode ser usado para girar a laje, e a criatura junto com ela. Para vincular um golem ou armadura assombrada a ele, use uma $(l:crafts/waystone)Pedra da Orientação$() que esteja vinculada a um Pedestal vazio neles, e ele caminhará até ele e entrará em um estado semelhante a uma estátua. Um servo simplesmente ordenado a guardar um Pedestal também o adota assim que fica sobre ele."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Quando um inimigo se aproxima a menos de 4 blocos do Pedestal Amaldiçoado, o servo deixa seu estado de estátua e ataca. Assim que fica sem alvo por cinco segundos, retorna ao seu Pedestal e descansa novamente. O Pedestal também pode ser encantado com o encantamento Raio, onde cada nível adiciona 6 blocos à distância em que um alvo válido pode estar próximo dele para o servo despertar."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Um único Pedestal Amaldiçoado pode carregar uma única Armadura Assombrada e golens menores. Golens maiores, como os de Vendaval e Gelo, precisam de um quadrado de 3x3 Pedestais, e os maiores golens exigem um quadrado de 5x5. No caso de múltiplos pedestais, o servo descansa no pedestal central, e uma Pedra da Orientação vinculada a qualquer pedestal do quadrado o leva até lá. O quadrado pode ser feito de pedestais de materiais diferentes. Um Pedestal brilha enquanto está consertando o guardião sobre ele."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Pedestais Amaldiçoados são forjados da mesma forma a partir de qualquer uma das pedras usadas para Pedestais: Pedra, Ardósia, Pedra-Negra, Tijolo do Nether, Pedra do End, Prismarinho, Pedra Sinistra, Rocha Alta, Mármore, Pedra da Cripta e Pedra das Sombras."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:plinth": 1
+  }
+}

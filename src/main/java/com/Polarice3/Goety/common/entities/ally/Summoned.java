@@ -350,6 +350,10 @@ public class Summoned extends Owned implements IServant {
         return flag;
     }
 
+    public boolean doHurtTarget(float amount, Entity target){
+        return target.hurt(this.getServantAttack(), amount);
+    }
+
     protected void hurtArmor(DamageSource pDamageSource, float pDamage) {
         if (!(pDamage <= 0.0F)) {
             pDamage = pDamage / 4.0F;
