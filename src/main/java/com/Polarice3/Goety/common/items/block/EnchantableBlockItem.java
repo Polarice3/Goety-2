@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.items.block;
 
 import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.common.blocks.PlinthBlock;
 import com.Polarice3.Goety.common.blocks.ThroneBlock;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.config.MainConfig;
@@ -42,6 +43,9 @@ public class EnchantableBlockItem extends BlockItemBase {
             } else {
                 return stack.getCount() == 1 && enchantment == ModEnchantments.RADIUS.get();
             }
+        }
+        if (stack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof PlinthBlock){
+            return stack.getCount() == 1 && enchantment == ModEnchantments.RADIUS.get();
         }
         if (stack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof ThroneBlock) {
             return stack.getCount() == 1 && enchantment == ModEnchantments.ROYALTY.get();

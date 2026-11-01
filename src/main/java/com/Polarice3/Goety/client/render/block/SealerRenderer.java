@@ -75,7 +75,7 @@ public class SealerRenderer implements BlockEntityRenderer<SealerBlockEntity> {
     private void renderSeal(PoseStack poseStack, MultiBufferSource buffer, Level level, BlockPos pos, BlockState state, BlockPos offset, int alpha) {
         VoxelShape shape = state.getShape(level, pos, CollisionContext.empty());
         AABB box = shape.isEmpty() ? new AABB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D) : shape.bounds();
-        VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucentEmissive(SEAL));
+        VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutout(SEAL));
         poseStack.pushPose();
         poseStack.translate(offset.getX(), offset.getY(), offset.getZ());
         float x0 = (float) box.minX - INFLATE;

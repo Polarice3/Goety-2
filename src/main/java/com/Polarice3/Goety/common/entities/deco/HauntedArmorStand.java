@@ -66,8 +66,10 @@ public class HauntedArmorStand extends ArmorStand {
                     }
                 }
             }
+        } else {
+            return super.interactAt(playerIn, p_31595_, p_31596_);
         }
-        return super.interactAt(playerIn, p_31595_, p_31596_);
+        return InteractionResult.PASS;
     }
 
     public boolean hurt(DamageSource p_31579_, float p_31580_) {
