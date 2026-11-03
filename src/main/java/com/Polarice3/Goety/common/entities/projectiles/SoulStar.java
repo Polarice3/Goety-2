@@ -240,7 +240,7 @@ public class SoulStar extends SpellEntity {
             }
 
             if (this.launchTick < 0) {
-                this.setDeltaMovement(this.xPower, this.yPower, this.zPower); // warm-up drift, or no target yet
+                this.setDeltaMovement(this.xPower, this.yPower, this.zPower);
             } else {
                 this.homeInTarget();
             }

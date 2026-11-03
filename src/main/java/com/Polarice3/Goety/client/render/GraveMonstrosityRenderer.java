@@ -5,6 +5,7 @@ import com.Polarice3.Goety.client.render.model.GraveMonstrosityModel;
 import com.Polarice3.Goety.common.entities.ally.undead.GraveMonstrosity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -15,6 +16,9 @@ import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
+import org.joml.Vector4f;
 
 public class GraveMonstrosityRenderer<T extends GraveMonstrosity> extends MobRenderer<T, GraveMonstrosityModel<T>> {
     private static final ResourceLocation TEXTURES = Goety.location("textures/entity/servants/grave_monstrosity/grave_monstrosity.png");
@@ -34,6 +38,17 @@ public class GraveMonstrosityRenderer<T extends GraveMonstrosity> extends MobRen
     public void render(T pEntity, float entityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource bufferIn, int packedLightIn) {
         super.render(pEntity, entityYaw, pPartialTicks, pMatrixStack, bufferIn, packedLightIn);
         ChargeAuraRenderer.render(pEntity, pEntity.chargeAura, pPartialTicks, pMatrixStack, bufferIn);
+        this.captureRightHand(pEntity, pPartialTicks);
+    }
+
+    private void captureRightHand(T entity, float partialTicks) {
+        PoseStack stack = new PoseStack();
+        stack.mulPose(Axis.YP.rotationDegrees(180.0F - Mth.rotLerp(partialTicks, entity.yBodyRotO, entity.yBodyRot)));
+        stack.scale(-1.0F, -1.0F, 1.0F);
+        stack.translate(0.0F, -1.501F, 0.0F);
+        this.getModel().translateToRightHand(stack);
+        Vector4f hand = stack.last().pose().transform(new Vector4f(0.0F, 0.0F, 0.0F, 1.0F));
+        entity.setRightHandPos(new Vec3(Mth.lerp(partialTicks, entity.xo, entity.getX()) + hand.x(), Mth.lerp(partialTicks, entity.yo, entity.getY()) + hand.y(), Mth.lerp(partialTicks, entity.zo, entity.getZ()) + hand.z()));
     }
 
     @Override

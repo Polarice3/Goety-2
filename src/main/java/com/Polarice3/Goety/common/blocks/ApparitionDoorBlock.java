@@ -81,7 +81,7 @@ public class ApparitionDoorBlock extends Block {
     }
 
     private InteractionResult onActivation(Level pLevel, BlockPos pPos, BlockState pState) {
-        if (pState.getValue(VANISHED) || pState.getValue(ACTIVE)) {
+        if (pState.getValue(VANISHED) || pState.getValue(ACTIVE) || SealerHooks.isSealed(pLevel, pPos)) {
             return InteractionResult.FAIL;
         }
 
@@ -107,6 +107,10 @@ public class ApparitionDoorBlock extends Block {
             this.playReappearSound(pLevel, pPos);
         } else {
             if (pState.getValue(ACTIVE)) {
+                if (SealerHooks.isSealed(pLevel, pPos)) {
+                    pLevel.setBlockAndUpdate(pPos, pState.setValue(ACTIVE, false));
+                    return;
+                }
                 pLevel.setBlockAndUpdate(pPos, pState.setValue(VANISHED, true).setValue(ACTIVE, false));
                 pLevel.scheduleTick(pPos, this, 80);
                 this.playVanishSound(pLevel, pPos);

@@ -805,40 +805,40 @@ public class Ripple extends SpellEntity {
     public enum RippleStyle {
         NONE(1, Fade.NONE, new Band[0], new Emitter[0]),
         LIGHTNING(2, Fade.LATE_HALF, new Band[]{
-                new Band(Facing.CAMERA, true, 0.2F, 0.6F, 1.5F, 0.0F, 0x00FF9000, 0x50FFB020, 0x00FF9000),
-                Band.electric(Facing.CAMERA, 0.2F, 0.3F, 3.0F, 0xFFFFE040)   // 0.3 x (1..4), HDR yellow
+                new Band(Facing.CAMERA, true, 0.2F, 0.6F, 1.5F, 0.0F, 0x00ff9000, 0x50ffb020, 0x00ff9000),
+                Band.electric(Facing.CAMERA, 0.2F, 0.3F, 3.0F, 0xffffe040)
         }, new Emitter[0]),
         REDSTONE(2, Fade.LAST_TENTH, new Band[]{
-                new Band(Facing.CAMERA, false, 0.2F, 0.75F, 0.25F, 0.0F, 0x00200000, 0xB0400000, 0x00200000),
-                new Band(Facing.CAMERA, true, 0.2F, 0.9F, 0.25F, 0.0F, 0x00FF2000, 0x40FF3010, 0x00FF2000),
-                Band.electric(Facing.CAMERA, 0.2F, 0.6F, 0.25F, 0xFFFF4C1A)  // 0.3 x (2..2.5), (2.5, .25-.5, 0-.25)
+                new Band(Facing.CAMERA, false, 0.2F, 0.75F, 0.25F, 0.0F, 0x00200000, 0xb0400000, 0x00200000),
+                new Band(Facing.CAMERA, true, 0.2F, 0.9F, 0.25F, 0.0F, 0x00ff2000, 0x40ff3010, 0x00ff2000),
+                Band.electric(Facing.CAMERA, 0.2F, 0.6F, 0.25F, 0xffff4c1a)
         }, new Emitter[]{
-                new Emitter(ParticleFactory.PIXEL, 15.0F, Ramp.EASE_OUT, 0xFF1A00, 0xFF4020,
+                new Emitter(ParticleFactory.PIXEL, 15.0F, Ramp.EASE_OUT, 0xff1a00, 0xff4020,
                         0.06F, 0.12F, 8, 16, 0.25F, 0.2F, 0.08F, 0.15F, -0.01F, 0.03F),
-                new Emitter(ParticleFactory.DUST, 2.0F, Ramp.CONSTANT, 0xB01010, 0xC04040,
+                new Emitter(ParticleFactory.DUST, 2.0F, Ramp.CONSTANT, 0xb01010, 0xc04040,
                         2.5F, 4.0F, 4, 8, 0.25F, 0.3F, 0.0F, 0.02F, 0.0F, 0.02F)
         }),
         SCULK(2, Fade.LAST_FIFTH, new Band[]{
-                new Band(Facing.FLAT, true, 0.05F, 0.65F, 0.25F, 0.0F, 0x00008070, 0xB000D8D8, 0xFF60FFFF),
-                new Band(Facing.FLAT, true, 0.06F, 0.12F, 0.0F, 0.0F, 0x0040FFFF, 0xFFC0FFFF, 0x0040FFFF)
+                new Band(Facing.FLAT, true, 0.05F, 0.65F, 0.25F, 0.0F, 0x00008070, 0xb000d8d8, 0xff60ffff),
+                new Band(Facing.FLAT, true, 0.06F, 0.12F, 0.0F, 0.0F, 0x0040ffff, 0xffc0ffff, 0x0040ffff)
         }, new Emitter[]{
-                new Emitter(ParticleFactory.PIXEL, 5.0F, Ramp.CONSTANT, 0x30E0FF, 0x80FFFF,
+                new Emitter(ParticleFactory.PIXEL, 5.0F, Ramp.CONSTANT, 0x30e0ff, 0x80ffff,
                         0.04F, 0.07F, 2, 10, 0.05F, 0.1F, 0.0F, 0.0F, 0.02F, 0.03F),
-                new Emitter(ParticleFactory.PIXEL, 20.0F, Ramp.RAMP_UP, 0x001010, 0x002A2A,
+                new Emitter(ParticleFactory.PIXEL, 20.0F, Ramp.RAMP_UP, 0x001010, 0x002a2a,
                         0.07F, 0.13F, 2, 6, 0.05F, 0.1F, 0.0F, 0.0F, 0.02F, 0.03F),
                 new Emitter(ParticleFactory.PIXEL, 25.0F, Ramp.RAMP_UP, 0x000808, 0x001818,
                         0.05F, 0.09F, 2, 3, 0.05F, 0.1F, 0.0F, 0.0F, 0.75F, 1.0F)
         }),
         SOUL(2, Fade.LAST_FIFTH, new Band[]{
-                new Band(Facing.FLAT, true, 0.05F, 0.7F, 0.2F, 0.0F, 0x00205080, 0xA040B0FF, 0xFFA0F0FF),
-                new Band(Facing.CAMERA, true, 0.2F, 0.12F, 0.3F, 0.0F, 0x0060D0FF, 0xC0C0F8FF, 0x0060D0FF)
+                new Band(Facing.FLAT, true, 0.05F, 0.7F, 0.2F, 0.0F, 0x00205080, 0xa040b0ff, 0xffa0f0ff),
+                new Band(Facing.CAMERA, true, 0.2F, 0.12F, 0.3F, 0.0F, 0x0060d0ff, 0xc0c0f8ff, 0x0060d0ff)
         }, new Emitter[]{
-                new Emitter(ParticleFactory.PIXEL, 8.0F, Ramp.CONSTANT, 0x40C0FF, 0xA0F0FF,
+                new Emitter(ParticleFactory.PIXEL, 8.0F, Ramp.CONSTANT, 0x40c0ff, 0xa0f0ff,
                         0.04F, 0.08F, 4, 12, 0.1F, 0.15F, 0.0F, 0.02F, 0.02F, 0.05F)
         }),
         NECRO(2, Fade.LAST_FIFTH, new Band[]{
-                new Band(Facing.FLAT, true, 0.05F, 0.7F, 0.2F, 0.0F, 0x001B3600, 0xA036DC0B, 0xFF9DF431),
-                new Band(Facing.CAMERA, true, 0.2F, 0.12F, 0.3F, 0.0F, 0x0036DC0B, 0xC0C3FF80, 0x0036DC0B)
+                new Band(Facing.FLAT, true, 0.05F, 0.7F, 0.2F, 0.0F, 0x001b3600, 0xa036dc0b, 0xff9df431),
+                new Band(Facing.CAMERA, true, 0.2F, 0.12F, 0.3F, 0.0F, 0x0036dc0b, 0xc0c3ff80, 0x0036dc0b)
         }, new Emitter[]{
                 new Emitter(ParticleFactory.PIXEL, 8.0F, Ramp.CONSTANT, 0x36dc0b, 0x9df431,
                         0.04F, 0.08F, 4, 12, 0.1F, 0.15F, 0.0F, 0.02F, 0.02F, 0.05F)
@@ -849,7 +849,7 @@ public class Ripple extends SpellEntity {
                 int c = ripple.getColor() & 0xFFFFFF;
                 return new Band[]{
                         new Band(Facing.CAMERA, true, 0.2F, 0.7F, 1.0F, 0.0F, c, 0x50000000 | c, c),
-                        Band.electric(Facing.CAMERA, 0.2F, 0.35F, 1.5F, 0xFF000000 | lighten(c, 0.35F))
+                        Band.electric(Facing.CAMERA, 0.2F, 0.35F, 1.5F, 0xff000000 | lighten(c, 0.35F))
                 };
             }
 

@@ -259,4 +259,10 @@ public class ZombieRavager extends ModRavager {
 
         return i;
     }
+
+    @Override
+    @Nullable
+    public EntityType<? extends Mob> getNecroConvert() {
+        return null;
+    }
 }

@@ -725,6 +725,10 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> VOID_TOUCHED_DEACTIVATE = create("void_touched_deactivate");
     public static final RegistryObject<SoundEvent> VOID_TOUCHED_LOOP = create("void_touched_loop");
     public static final RegistryObject<SoundEvent> SOUL_EAT = create("soul_eat");
+    public static final RegistryObject<SoundEvent> SOUL_LEECH_START = create("soul_leech_start");
+    public static final RegistryObject<SoundEvent> SOUL_LEECH_LOOP_1 = create("soul_leech_loop_1");
+    public static final RegistryObject<SoundEvent> SOUL_LEECH_LOOP_2 = create("soul_leech_loop_2");
+    public static final RegistryObject<SoundEvent> SOUL_LEECH_END = create("soul_leech_end");
     public static final RegistryObject<SoundEvent> MASTER_FANG_TELEGRAPH = create("master_fang_telegraph");
     public static final RegistryObject<SoundEvent> MASTER_FANG_SUMMON = create("master_fang_summon");
     public static final RegistryObject<SoundEvent> MASTER_FANG_SPAWN = create("master_fang_spawn");

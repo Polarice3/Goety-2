@@ -5,6 +5,7 @@ import com.Polarice3.Goety.api.entities.IAutoRideable;
 import com.Polarice3.Goety.api.entities.IMonstrosity;
 import com.Polarice3.Goety.api.entities.IPoise;
 import com.Polarice3.Goety.api.items.magic.IWand;
+import com.Polarice3.Goety.client.particles.MegaPunchVFX;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.NecroVFXPalette;
 import com.Polarice3.Goety.client.particles.SoulSummonVFX;
@@ -56,6 +57,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -110,6 +112,12 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
     public static int PROJECTILE_COOLDOWN = MathHelper.secondsToTicks(5);
     public static int CALL_COOLDOWN = MathHelper.secondsToTicks(17);
     private int cubeSummonVFXTicks;
+    private int megaPunchVFXTicks;
+    @Nullable
+    private Vec3 rightHandPos;
+    private int rightHandPosTick;
+    @Nullable
+    private Vec3 lastRightHandPos;
     public int activateTick;
     public int attackTick;
     public int summonCount;
@@ -337,7 +345,15 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
 
             @Override
             public boolean canContinueToUse() {
-                LivingEntity target = entity.getTarget();
+                LivingEntity target = this.entity.getTarget();
+                if (target == null || target.isDeadOrDying() || !EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target) || target.distanceTo(this.entity) > 6.0F) {
+                    AABB aabb = new AABB(this.entity.position(), this.entity.position()).inflate(6.0F);
+                    target = this.entity.level.getNearestEntity(LivingEntity.class,
+                            TargetingConditions.forCombat()
+                            .range(6.0F)
+                            .selector(livingEntity -> MobUtil.isOwnedTargetable(this.entity, livingEntity)), this.entity, this.entity.getX(), this.entity.getY(), this.entity.getZ(), aabb);
+                    this.entity.setTarget(target);
+                }
                 this.punch = target != null && target.isAlive() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target) && this.entity.distanceTo(target) <= 6.0F;
                 if (this.entity.chubu) {
                     return false;
@@ -347,7 +363,7 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
 
             @Override
             public void stop() {
-                LivingEntity target = entity.getTarget();
+                LivingEntity target = this.entity.getTarget();
                 if (!this.punch) {
                     this.entity.setAnimationState(CHARGE_END);
                     if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target)) {
@@ -969,6 +985,8 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
                     case 8:
                         this.chargePunchAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.chargePunchAnimationState);
+                        this.megaPunchVFXTicks = 0;
+                        this.lastRightHandPos = null;
                         break;
                     case 9:
                         this.chargeEndAnimationState.start(this.tickCount);
@@ -1047,6 +1065,12 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
                     SoulSummonVFX.soul(this.level, this.position(), this.yBodyRot, 1.5D, true);
                 }
                 --this.cubeSummonVFXTicks;
+            }
+            if (this.isCurrentAnimation(CHARGE_PUNCH) && this.isAlive()) {
+                Vec3 hand = this.getRightHandPos();
+                MegaPunchVFX.tick(this.level, hand, this.lastRightHandPos != null ? this.lastRightHandPos : hand, this.megaPunchVFXTicks, true);
+                this.lastRightHandPos = hand;
+                ++this.megaPunchVFXTicks;
             }
         }
         if (!this.level.isClientSide){
@@ -1319,6 +1343,20 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
         } else {
             super.tryKill(player);
         }
+    }
+
+    public void setRightHandPos(Vec3 pos) {
+        this.rightHandPos = pos;
+        this.rightHandPosTick = this.tickCount;
+    }
+
+    public Vec3 getRightHandPos() {
+        if (this.rightHandPos != null && this.tickCount - this.rightHandPosTick <= 1) {
+            return this.rightHandPos;
+        }
+        float yaw = this.yBodyRot * Mth.DEG_TO_RAD;
+        double forward = 1.5D, right = 2.4D, up = 3.0D;
+        return this.position().add(-Mth.sin(yaw) * forward - Mth.cos(yaw) * right, up, Mth.cos(yaw) * forward - Mth.sin(yaw) * right);
     }
 
     public void handleEntityEvent(byte pId) {

@@ -8377,6 +8377,60 @@
     ],
     "subtitle": "subtitle.goety.soul_eat"
   },
+  "soul_leech_start": {
+    "sounds": [
+      {
+        "name": "goety:spell/soul_leech_start1"
+      },
+      {
+        "name": "goety:spell/soul_leech_start2"
+      }
+    ],
+    "subtitle": "subtitle.goety.soul_leech_start"
+  },
+  "soul_leech_loop_1": {
+    "sounds": [
+      {
+        "name": "goety:spell/soul_leech_loop1_1"
+      },
+      {
+        "name": "goety:spell/soul_leech_loop1_2"
+      },
+      {
+        "name": "goety:spell/soul_leech_loop1_3"
+      },
+      {
+        "name": "goety:spell/soul_leech_loop1_4"
+      }
+    ]
+  },
+  "soul_leech_loop_2": {
+    "sounds": [
+      {
+        "name": "goety:spell/soul_leech_loop2_1"
+      },
+      {
+        "name": "goety:spell/soul_leech_loop2_2"
+      },
+      {
+        "name": "goety:spell/soul_leech_loop2_3"
+      },
+      {
+        "name": "goety:spell/soul_leech_loop2_4"
+      }
+    ]
+  },
+  "soul_leech_end": {
+    "sounds": [
+      {
+        "name": "goety:spell/soul_leech_end1"
+      },
+      {
+        "name": "goety:spell/soul_leech_end2"
+      }
+    ],
+    "subtitle": "subtitle.goety.soul_leech_end"
+  },
   "soul_explode": {
     "sounds": [
       {

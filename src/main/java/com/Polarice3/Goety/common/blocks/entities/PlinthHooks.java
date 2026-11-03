@@ -4,6 +4,7 @@ import com.Polarice3.Goety.api.entities.IGolem;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.common.blocks.PlinthBlock;
+import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.neutral.AbstractHauntedArmor;
 import com.Polarice3.Goety.common.items.WaystoneItem;
@@ -23,6 +24,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raider;
@@ -432,7 +434,7 @@ public final class PlinthHooks {
         List<LivingEntity> candidates = level.getEntitiesOfClass(LivingEntity.class, new AABB(plinth.getBlockPos()).inflate(radius), EntitySelector.NO_CREATIVE_OR_SPECTATOR);
         for (LivingEntity candidate : candidates) {
             double distance = candidate.distanceToSqr(center);
-            if (distance <= radius * (double) radius && distance < best && isEnemy(occupant, candidate)) {
+            if (distance <= radius * (double) radius && distance < best && isEnemy(occupant, candidate, radius)) {
                 nearest = candidate;
                 best = distance;
             }
@@ -440,27 +442,16 @@ public final class PlinthHooks {
         return nearest;
     }
 
-    public static boolean isEnemy(Mob occupant, LivingEntity candidate) {
+    public static boolean isEnemy(Mob occupant, LivingEntity candidate, double radius) {
         if (candidate == occupant || !candidate.isAlive() || isResting(candidate)) {
             return false;
         }
-        LivingEntity owner = occupant instanceof IOwned owned ? owned.getTrueOwner() : null;
-        if (owner != null) {
-            if (candidate == owner || MobUtil.areAllies(owner, candidate) || MobUtil.areAllies(occupant, candidate)) {
-                return false;
-            }
-            if (candidate instanceof Enemy) {
-                return true;
-            }
-            return candidate instanceof Mob mob && mob.getTarget() != null && (mob.getTarget() == owner || MobUtil.areAllies(owner, mob.getTarget()));
-        }
-        if (candidate instanceof Player) {
-            return true;
-        }
-        if (candidate instanceof IOwned owned && owned.getTrueOwner() instanceof Player) {
-            return true;
-        }
-        return candidate instanceof Mob mob && mob.getTarget() == occupant;
+        return TargetingConditions.forCombat()
+                .range(radius)
+                .ignoreLineOfSight()
+                .selector(target -> MobUtil.isOwnedTargetable(occupant, target))
+                .test(occupant, candidate)
+                && occupant.hasLineOfSight(candidate);
     }
 
     public static void onDisturbed(Mob mob) {

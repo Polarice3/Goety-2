@@ -11,6 +11,7 @@ import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.NecroticPool;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -134,6 +135,24 @@ public class GraveCube extends AbstractGolemServant {
         }
 
         return super.doHurtTarget(entityIn);
+    }
+
+    @Override
+    protected float getDamageAfterMagicAbsorb(DamageSource damageSource, float damage) {
+        damage = super.getDamageAfterMagicAbsorb(damageSource, damage);
+        if (damageSource.getEntity() == this) {
+            damage = 0.0F;
+        }
+
+        if (damageSource.is(ModTags.DamageTypes.SOUL)) {
+            damage *= 0.65F;
+        }
+
+        if (damageSource.is(DamageTypeTags.IS_FIRE) || damageSource.is(ModTags.DamageTypes.FIRE_ATTACKS)) {
+            damage *= 1.5F;
+        }
+
+        return damage;
     }
 
     @Override

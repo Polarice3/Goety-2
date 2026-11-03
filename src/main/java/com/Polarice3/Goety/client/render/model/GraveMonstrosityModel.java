@@ -2,6 +2,7 @@ package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.client.render.animation.*;
 import com.Polarice3.Goety.common.entities.ally.undead.GraveMonstrosity;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
@@ -212,6 +213,19 @@ public class GraveMonstrosityModel<T extends GraveMonstrosity> extends Hierarchi
 	private void animateHeadLookTarget(float netHeadYaw, float headPitch) {
 		this.neck.yRot = netHeadYaw * ((float)Math.PI / 180F);
 		this.neck.xRot = headPitch * ((float)Math.PI / 180F);
+	}
+
+	public void translateToRightHand(PoseStack poseStack) {
+		this.root.translateAndRotate(poseStack);
+		this.monstrosity.translateAndRotate(poseStack);
+		this.hips.translateAndRotate(poseStack);
+		this.body.translateAndRotate(poseStack);
+		this.spine.translateAndRotate(poseStack);
+		this.shoulders.translateAndRotate(poseStack);
+		this.right_shoulder.translateAndRotate(poseStack);
+		this.right_elbow.translateAndRotate(poseStack);
+		this.right_wrist.translateAndRotate(poseStack);
+		this.right_hand.translateAndRotate(poseStack);
 	}
 
 	@Override

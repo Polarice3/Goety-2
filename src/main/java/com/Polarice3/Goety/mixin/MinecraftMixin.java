@@ -16,6 +16,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
@@ -81,12 +82,20 @@ public class MinecraftMixin {
                 }
                 if (player.isHolding(ModItems.GRIMOIRE_OF_GRUDGES.get())) {
                     if (SEHelper.getGrudgeEntities(player).contains(livingEntity)) {
-                        cir.setReturnValue(true);
+                        if (livingEntity instanceof Player player1) {
+                            cir.setReturnValue(player.hasLineOfSight(player1));
+                        } else {
+                            cir.setReturnValue(true);
+                        }
                     }
                 }
                 if (player.isHolding(ModItems.GRIMOIRE_OF_GOODWILL.get())) {
                     if (SEHelper.getAllyEntities(player).contains(livingEntity)) {
-                        cir.setReturnValue(true);
+                        if (livingEntity instanceof Player player1) {
+                            cir.setReturnValue(player.hasLineOfSight(player1));
+                        } else {
+                            cir.setReturnValue(true);
+                        }
                     }
                 }
                 if (player.isHolding(ModItems.GRIMOIRE_OF_GROUNDING.get())) {
