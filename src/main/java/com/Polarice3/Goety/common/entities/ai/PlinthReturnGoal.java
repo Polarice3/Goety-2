@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.entities.ai;
 
-import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.common.blocks.entities.PlinthBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.PlinthHooks;
 import net.minecraft.core.GlobalPos;
