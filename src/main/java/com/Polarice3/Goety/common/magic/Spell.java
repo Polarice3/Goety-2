@@ -7,6 +7,7 @@ import com.Polarice3.Goety.client.particles.FoggyCloudParticleOption;
 import com.Polarice3.Goety.client.particles.GatherTrailParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.magic.NamelessStaff;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SStaffParticlePacket;
 import com.Polarice3.Goety.utils.*;
@@ -179,9 +180,9 @@ public abstract class Spell implements ISpell {
             } else if (this.getSpellType() == SpellType.NECROMANCY){
                 int range = 1;
                 int color = 0xffffff;
-                if (stack.is(ModItems.NAMELESS_STAFF.get())){
+                if (stack.getItem() instanceof NamelessStaff staff){
                     range = 3;
-                    color = 0xa7fc3e;
+                    color = staff.hasCustomColor(stack) ? staff.getColor(stack) : 0xa7fc3e;
                 } else if (this.typeStaff(stack, SpellType.NECROMANCY)) {
                     color = 0x8FE6DF;
                 }

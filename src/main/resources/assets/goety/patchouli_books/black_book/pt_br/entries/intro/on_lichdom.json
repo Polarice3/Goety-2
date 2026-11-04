@@ -31,6 +31,13 @@
       "title": "Mudando Cores",
       "advancement": "goety:goety/read_haunting_scroll",
       "text": "Você também pode mudar a cor da sua Forma de Lich clicando com o botão direito em um Espelho Assombrado com um corante. Para remover a cor personalizada, clique com o botão direito no espelho com um balde de água."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:haunted_mirror",
+      "title": "Pernas",
+      "advancement": "goety:goety/read_haunting_scroll",
+      "text": "Você também pode dar a si mesmo, ou remover, suas pernas clicando com o botão direito no Espelho Assombrado com um Osso."
     }
   ]
 }

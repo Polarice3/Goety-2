@@ -2114,10 +2114,17 @@ public class MobUtil {
     }
 
     public static void mcd2Dash(LivingEntity entity, float impulseStrength) {
-        double s = impulseStrength * MCD2_KNOCKBACK_SCALE;
+        float blocks = impulseStrength / MCD2_UNITS_PER_BLOCK;
+        double drag = 0.91D;
+        if (entity.onGround()) {
+            BlockPos below = BlockPos.containing(entity.getX(), entity.getBoundingBox().minY - 0.5000001D, entity.getZ());
+            drag *= entity.level.getBlockState(below).getFriction(entity.level, below, entity);
+        }
+        double speed = blocks * (1.0D - drag);
         float yaw = entity.getYRot() * Mth.DEG_TO_RAD;
+        Vec3 motion = entity.getDeltaMovement();
+        entity.setDeltaMovement(-Mth.sin(yaw) * speed, motion.y, Mth.cos(yaw) * speed);
         entity.hurtMarked = true;
-        entity.setDeltaMovement(entity.getDeltaMovement().add(-Mth.sin(yaw) * s, 0.0D, Mth.cos(yaw) * s));
         entity.hasImpulse = true;
     }
 

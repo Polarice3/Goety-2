@@ -28,9 +28,16 @@
     {
       "type": "patchouli:spotlight",
       "item": "goety:haunted_mirror",
-      "title": "色変え",
+      "title": "色の変更",
       "advancement": "goety:goety/read_haunting_scroll",
-      "text": "幽霊の鏡を染料で右クリックすると、リッチフォームの色を変更することもできます。カスタムカラーを解除するには、水入りバケツで鏡を右クリックしてください。"
+      "text": "幽霊の鏡を染料で右クリックすると、リッチフォームの色を変更することもできます。設定した色を解除したい場合は、水入りバケツで鏡を右クリックしてください。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:haunted_mirror",
+      "title": "脚",
+      "advancement": "goety:goety/read_haunting_scroll",
+      "text": "幽霊の鏡を骨を持って右クリックすることで、自分に脚を生やしたり、脚を取り除いたりすることができます。"
     }
   ]
 }

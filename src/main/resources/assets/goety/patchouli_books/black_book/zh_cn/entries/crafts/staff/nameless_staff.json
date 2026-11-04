@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "透过禁书的秘密，你发现了一种利用暗夜之力打造一根强大魔杖的方法，让你在死灵法术中占据至高无上的地位"
+      "text": "透过禁书的秘密，你发现了一种利用暗夜之力打造一根强大魔杖的方法，让你在死灵法术中占据至高无上的地位。"
     },
     {
       "type": "goety:ritual",
@@ -19,7 +19,18 @@
     },
     {
       "type": "patchouli:text",
-      "text": "$(l:focuses/soul_bolt_focus)灵魂束$()会被这个套装扭曲成更强的死灵束，使用$(l:focuses/illusion_focus)幻象聚晶$()施法的同时穿着 $(l:crafts/garment/nameless_set)无名套$()将会让替身对你的目标发射死灵束"
+      "text": "从这根魔杖射出的$(l:focuses/soul_bolt_focus)灵魂束$()会转化为更强的死灵束。在穿着$(l:crafts/garment/nameless_set)无名套$()的同时使用$(l:focuses/illusion_focus)幻象聚晶$()施法，将会让替身对你的目标发射单发死灵束。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:haunted_mirror",
+      "title": "改变颜色",
+      "advancement": "goety:goety/read_haunting_scroll",
+      "text": "你还可以在副手持染料时右键点击缠魂魔镜来改变魔杖法球的颜色。倘若你还是喜欢原汁原味的暗夜之心，请副手持水桶时右键点击镜子。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:heart_of_the_night": 1,
+    "goety:nameless_staff": 2
+  }
 }

@@ -7546,6 +7546,22 @@
       }
     ]
   },
+  "lich_fly": {
+    "sounds": [
+      {
+        "name": "goety:lich/fly1"
+      },
+      {
+        "name": "goety:lich/fly2"
+      },
+      {
+        "name": "goety:lich/fly3"
+      },
+      {
+        "name": "goety:lich/fly4"
+      }
+    ]
+  },
   "lich_death": {
     "sounds": [
       {

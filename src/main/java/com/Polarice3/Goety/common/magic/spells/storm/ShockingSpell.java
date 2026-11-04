@@ -4,7 +4,7 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ally.SpriteMob;
-import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.magic.NamelessStaff;
 import com.Polarice3.Goety.common.magic.EverChargeSpell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.network.ModNetwork;
@@ -106,8 +106,8 @@ public class ShockingSpell extends EverChargeSpell {
             burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), caster);
         }
         ColorUtil colorUtil = new ColorUtil(0xb1abf1);
-        if (staff.is(ModItems.NAMELESS_STAFF.get())) {
-            colorUtil = new ColorUtil(0xa7fc3e);
+        if (staff.getItem() instanceof NamelessStaff staff1) {
+            colorUtil = new ColorUtil(staff1.hasCustomColor(staff) ? staff1.getColor(staff) : 0xa7fc3e);
         }
         damage += spellStat.getPotency();
         Vec3 vec3 = caster.getEyePosition();

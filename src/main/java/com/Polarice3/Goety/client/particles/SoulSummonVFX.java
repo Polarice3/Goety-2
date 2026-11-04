@@ -14,8 +14,12 @@ public final class SoulSummonVFX {
     private SoulSummonVFX() {
     }
 
-    public static void emitter(ServerLevel level, Vec3 pos, Emitter emitter, float yawDeg, boolean alternate) {
-        level.sendParticles(new MCDEffectOption(ModParticleTypes.SOUL_EMITTER.get(), 1.0F, emitter.ordinal(), yawDeg, 0.0F, 0.0F, alternate), pos.x, pos.y, pos.z, 0, 0.0D, 0.0D, 0.0D, 0.0D);
+    public static void emitter(Level level, Vec3 pos, Emitter emitter, float yawDeg, boolean alternate) {
+        if (level instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(new MCDEffectOption(ModParticleTypes.SOUL_EMITTER.get(), 1.0F, emitter.ordinal(), yawDeg, 0.0F, 0.0F, alternate), pos.x, pos.y, pos.z, 0, 0.0D, 0.0D, 0.0D, 0.0D);
+        } else {
+            level.addParticle(new MCDEffectOption(ModParticleTypes.SOUL_EMITTER.get(), 1.0F, emitter.ordinal(), yawDeg, 0.0F, 0.0F, alternate), pos.x, pos.y, pos.z, 0, 0, 0);
+        }
     }
 
     public static void emitter(ServerLevel level, Vec3 pos, Emitter emitter, float yawDeg) {
@@ -93,7 +97,11 @@ public final class SoulSummonVFX {
         Vec3 vec3 = cone(random, 0.0D, halfAngle).scale(0.9D + random.nextDouble() * 0.9D);
         float k = 0.2F + random.nextFloat() * 0.8F;
         float[] hue = alternate ? NecroVFXPalette.greenHue(k) : new float[]{0.0F, k, 1.0F};
-        level.addParticle(new MCDEffectOption(ModParticleTypes.SOUL_LAVA.get(), 0.13F + random.nextFloat() * 0.02F, 20 + random.nextInt(21), hue[0], hue[1], hue[2], alternate), origin.x, origin.y, origin.z, vec3.x, vec3.y, vec3.z);
+        if (level instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(new MCDEffectOption(ModParticleTypes.SOUL_LAVA.get(), 0.13F + random.nextFloat() * 0.02F, 20 + random.nextInt(21), hue[0], hue[1], hue[2], alternate), origin.x, origin.y, origin.z, 0, vec3.x, vec3.y, vec3.z, 1.0F);
+        } else {
+            level.addParticle(new MCDEffectOption(ModParticleTypes.SOUL_LAVA.get(), 0.13F + random.nextFloat() * 0.02F, 20 + random.nextInt(21), hue[0], hue[1], hue[2], alternate), origin.x, origin.y, origin.z, vec3.x, vec3.y, vec3.z);
+        }
     }
 
     public static void cubeFloatingSpark(Level level, Vec3 origin, RandomSource random, boolean alternate) {
@@ -101,7 +109,11 @@ public final class SoulSummonVFX {
         float blue = 5.0F + random.nextFloat() * 5.0F;
         float green = 1.0F + random.nextFloat() * 4.0F;
         float gravity = -(50.0F + random.nextFloat() * 100.0F) / 40000.0F;
-        level.addParticle(new MCDEffectOption(ModParticleTypes.SOUL_SPARK.get(), 0.06F + random.nextFloat() * 0.06F, 20 + random.nextInt(21), green / blue, blue, gravity, alternate), origin.x, origin.y, origin.z, vec3.x, vec3.y, vec3.z);
+        if (level instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(new MCDEffectOption(ModParticleTypes.SOUL_SPARK.get(), 0.06F + random.nextFloat() * 0.06F, 20 + random.nextInt(21), green / blue, blue, gravity, alternate), origin.x, origin.y, origin.z, 0, vec3.x, vec3.y, vec3.z, 1.0F);
+        } else {
+            level.addParticle(new MCDEffectOption(ModParticleTypes.SOUL_SPARK.get(), 0.06F + random.nextFloat() * 0.06F, 20 + random.nextInt(21), green / blue, blue, gravity, alternate), origin.x, origin.y, origin.z, vec3.x, vec3.y, vec3.z);
+        }
     }
 
     public static void cubeDust(Level level, Vec3 origin, RandomSource random, boolean alternate) {
@@ -110,7 +122,11 @@ public final class SoulSummonVFX {
         float[] colour = alternate
                 ? NecroVFXPalette.smokeColour(random.nextInt(NecroVFXPalette.smokeColours()))
                 : SOUL_SMOKE[random.nextInt(SOUL_SMOKE.length)];
-        level.addParticle(new MCDEffectOption(ModParticleTypes.SOUL_DUST.get(), 1.0F + random.nextFloat(), 16 + random.nextInt(45), colour[0], colour[1], colour[2], alternate), origin.x, origin.y + 0.1D, origin.z, vec3.x, vec3.y, vec3.z);
+        if (level instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(new MCDEffectOption(ModParticleTypes.SOUL_DUST.get(), 1.0F + random.nextFloat(), 16 + random.nextInt(45), colour[0], colour[1], colour[2], alternate), origin.x, origin.y + 0.1D, origin.z, 0, vec3.x, vec3.y, vec3.z, 1.0F);
+        } else {
+            level.addParticle(new MCDEffectOption(ModParticleTypes.SOUL_DUST.get(), 1.0F + random.nextFloat(), 16 + random.nextInt(45), colour[0], colour[1], colour[2], alternate), origin.x, origin.y + 0.1D, origin.z, vec3.x, vec3.y, vec3.z);
+        }
     }
 
     public static void bombSoul(Level level, Vec3 origin, RandomSource random, boolean alternate) {
@@ -132,6 +148,28 @@ public final class SoulSummonVFX {
             serverLevel.sendParticles(new MCDEffectOption(ModParticleTypes.SOUL_BURST.get(), 0.55F, 30 + random.nextInt(21), (float) -ox, 1.0F, (float) -oz, alternate), origin.x + ox, origin.y, origin.z + oz, 0, dirX * out, 0.05D + random.nextDouble() * 0.95D, dirZ * out, 1.0F);
         } else {
             level.addParticle(new MCDEffectOption(ModParticleTypes.SOUL_BURST.get(), 0.55F, 30 + random.nextInt(21), (float) -ox, 1.0F, (float) -oz, alternate), origin.x + ox, origin.y, origin.z + oz, dirX * out, 0.05D + random.nextDouble() * 0.95D, dirZ * out);
+        }
+    }
+
+    public static void shockwaveSoul(Level level, Vec3 origin, RandomSource random, int color) {
+        double r = Math.sqrt(random.nextDouble());
+        double angle = random.nextDouble() * Math.PI * 2.0D;
+        double ox = Math.cos(angle) * r, oz = Math.sin(angle) * r;
+        double out = 0.25D + random.nextDouble() * 0.25D;
+        double h = Math.sqrt(ox * ox + oz * oz);
+        double dirX, dirZ;
+        if (h > 1.0E-4D) {
+            dirX = ox / h;
+            dirZ = oz / h;
+        } else {
+            double a = random.nextDouble() * Math.PI * 2.0D;
+            dirX = Math.cos(a);
+            dirZ = Math.sin(a);
+        }
+        if (level instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(new SoulLeaderCCParticleOption(ModParticleTypes.SOUL_BURST_COLORED.get(), 0.55F, 30 + random.nextInt(21), (float) -ox, (float) -oz, color), origin.x + ox, origin.y, origin.z + oz, 0, dirX * out, 0.05D + random.nextDouble() * 0.95D, dirZ * out, 1.0F);
+        } else {
+            level.addParticle(new SoulLeaderCCParticleOption(ModParticleTypes.SOUL_BURST_COLORED.get(), 0.55F, 30 + random.nextInt(21), (float) -ox, (float) -oz, color), origin.x + ox, origin.y, origin.z + oz, dirX * out, 0.05D + random.nextDouble() * 0.95D, dirZ * out);
         }
     }
 

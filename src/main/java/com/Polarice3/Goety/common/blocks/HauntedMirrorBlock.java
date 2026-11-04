@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.blocks;
 
+import com.Polarice3.Goety.api.items.INamelessDyeable;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.entities.HauntedMirrorBlockEntity;
 import com.Polarice3.Goety.common.network.ModNetwork;
@@ -20,6 +21,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -100,18 +102,40 @@ public class HauntedMirrorBlock extends BaseEntityBlock implements SimpleWaterlo
     }
 
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (LichdomHelper.isLich(pPlayer)) {
-            ItemStack itemStack = pPlayer.getItemInHand(pHand);
-            if (itemStack.getItem() instanceof DyeItem dyeItem) {
+        ItemStack mainHand = pPlayer.getMainHandItem();
+        ItemStack offHand = pPlayer.getOffhandItem();
+        Item offItem = offHand.getItem();
+        boolean flag = false;
+        if (mainHand.getItem() instanceof DyeItem dyeItem) {
+            if (offItem instanceof INamelessDyeable dyeable && dyeable.canDye()) {
+                dyeable.setColor(offHand, dyeItem.getDyeColor().getTextColor());
+                flag = true;
+            } else if (LichdomHelper.isLich(pPlayer)) {
                 LichdomHelper.setLichModeColor(pPlayer, dyeItem.getDyeColor().getTextColor());
+                flag = true;
+            }
+            if (flag) {
                 pLevel.playSound(pPlayer, pPos.getX(), pPos.getY(), pPos.getZ(), ModSounds.CAST_SPELL.get(), pPlayer.getSoundSource(), 1.0F, 0.5F);
                 return InteractionResult.SUCCESS;
-            } else if (itemStack.is(Items.WATER_BUCKET) && LichdomHelper.lichModeColor(pPlayer) > -1) {
+            }
+        } else if (mainHand.is(Items.WATER_BUCKET)) {
+            if (offItem instanceof INamelessDyeable dyeable && dyeable.canDye()) {
+                dyeable.clearColor(offHand);
+                flag = true;
+            } else if (LichdomHelper.isLich(pPlayer) && LichdomHelper.lichModeColor(pPlayer) > -1) {
                 LichdomHelper.setLichModeColor(pPlayer, -1);
+                flag = true;
+            }
+            if (flag) {
                 pLevel.playSound(pPlayer, pPos.getX(), pPos.getY(), pPos.getZ(), SoundEvents.BUCKET_EMPTY, pPlayer.getSoundSource(), 1.0F, 1.0F);
                 pLevel.playSound(pPlayer, pPos.getX(), pPos.getY(), pPos.getZ(), ModSounds.CAST_SPELL.get(), pPlayer.getSoundSource(), 1.0F, 0.5F);
                 return InteractionResult.SUCCESS;
             }
+        } else if (mainHand.is(Items.BONE) && LichdomHelper.isLich(pPlayer)) {
+            LichdomHelper.setLegs(pPlayer, !LichdomHelper.hasLegs(pPlayer));
+            pLevel.playSound(pPlayer, pPos.getX(), pPos.getY(), pPos.getZ(), SoundEvents.SKELETON_AMBIENT, pPlayer.getSoundSource(), 1.0F, 1.0F);
+            pLevel.playSound(pPlayer, pPos.getX(), pPos.getY(), pPos.getZ(), ModSounds.CAST_SPELL.get(), pPlayer.getSoundSource(), 1.0F, 0.5F);
+            return InteractionResult.SUCCESS;
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }

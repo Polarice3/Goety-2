@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.items.curios;
 
+import com.Polarice3.Goety.api.items.INamelessDyeable;
 import com.Polarice3.Goety.compat.iron.IronAttributes;
 import com.Polarice3.Goety.compat.iron.IronLoaded;
 import com.Polarice3.Goety.config.ItemConfig;
@@ -20,12 +21,17 @@ import top.theillusivec4.curios.api.SlotContext;
 
 import java.util.UUID;
 
-public class NecroGarbs extends SingleStackItem {
+public class NecroGarbs extends SingleStackItem implements INamelessDyeable {
     public boolean isNameless;
 
     public NecroGarbs(boolean isNameless){
         super();
         this.isNameless = isNameless;
+    }
+
+    @Override
+    public boolean canDye() {
+        return this.isNameless;
     }
 
     public static class NecroCrownItem extends NecroGarbs {

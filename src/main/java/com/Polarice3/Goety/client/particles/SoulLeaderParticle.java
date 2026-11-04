@@ -42,7 +42,6 @@ public class SoulLeaderParticle extends Particle {
 
     private final Behaviour behaviour;
     private final double cx, cy, cz;
-    private final float greenMul;
     private final float[] hue;
     private final float width;
     private final float length;
@@ -68,7 +67,6 @@ public class SoulLeaderParticle extends Particle {
         this.cx = x + option.a;
         this.cy = y;
         this.cz = z + option.c;
-        this.greenMul = option.b;
         this.necro = option.alternate;
         if (this.necro) {
             this.hue = behaviour == Behaviour.BURST ? NecroVFXPalette.GREEN_HUE : NecroVFXPalette.lerp((option.b - 0.5F) * 2.0F, NecroVFXPalette.BRIGHT_HUE, NecroVFXPalette.CHARTREUSE_HUE);

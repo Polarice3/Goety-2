@@ -26,6 +26,7 @@
     }
   ],
   "result": {
-    "item": "goety:plinth_stone"
+    "item": "goety:plinth_stone",
+    "count": 3
   }
 }

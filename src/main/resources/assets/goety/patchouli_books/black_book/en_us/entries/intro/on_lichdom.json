@@ -31,6 +31,13 @@
       "title": "Changing Colors",
       "advancement": "goety:goety/read_haunting_scroll",
       "text": "You can also change the color of your Lich Form by right-clicking a Haunted Mirror with a dye. To remove the custom color, right-click the mirror with a bucket of water."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:haunted_mirror",
+      "title": "Legs",
+      "advancement": "goety:goety/read_haunting_scroll",
+      "text": "You can also add or remove your legs by right-clicking on the Haunted Mirror with a Bone."
     }
   ]
 }

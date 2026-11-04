@@ -31,6 +31,13 @@
       "title": "改变颜色",
       "advancement": "goety:goety/read_haunting_scroll",
       "text": "你也可以通过手持染料右键点击缠魂魔镜来改变巫妖形态的颜色。如果你想要移除自定义颜色，用水桶右键点击镜子。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:haunted_mirror",
+      "title": "腿",
+      "advancement": "goety:goety/read_haunting_scroll",
+      "text": "你还可以用骨头右键点击缠魂魔镜来给自己添加或移除腿。"
     }
   ]
 }

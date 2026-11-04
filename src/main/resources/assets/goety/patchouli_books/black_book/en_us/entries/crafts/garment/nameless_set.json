@@ -20,6 +20,13 @@
     {
       "type": "patchouli:text",
       "text": "The set functions the same as the old Necro Set with some improvements and does not give the wearer debuffs when under sunlight."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:haunted_mirror",
+      "title": "Changing Colors",
+      "advancement": "goety:goety/read_haunting_scroll",
+      "text": "You can also change the color of either of your Crown or Cape's gems and trimmings by right-clicking a Haunted Mirror with a dye while holding it offhand. To remove the custom color, right-click the mirror with a bucket of water also while holding it offhand."
     }
   ],
   "extra_recipe_mappings": {

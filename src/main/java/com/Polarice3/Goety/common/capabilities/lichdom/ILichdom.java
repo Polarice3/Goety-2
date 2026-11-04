@@ -5,6 +5,8 @@ public interface ILichdom {
     void setLichdom(boolean lichdom);
     boolean isLichMode();
     void setLichMode(boolean lichMode);
+    boolean hasLegs();
+    void setLegs(boolean legs);
     boolean nightVision();
     void setNightVision(boolean nightVision);
     int smited();

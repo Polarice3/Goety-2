@@ -1,5 +1,5 @@
 {
-  "name": "名も無き者セット",
+  "name": "名も無き者のセット",
   "icon": "goety:nameless_cape",
   "category": "goety:crafts/garment",
   "advancement": "goety:goety/read_forbidden_scroll",
@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "最も隠された死霊術の方法を発見した後、あなたは闇の芸術に対する熟練度を示すための新しい服装を考案しました。"
+      "text": "死霊術の最も秘められた奥義を見出したあなたは、闇の術に対する自身の習熟ぶりを示すべく、新たな装束を考案した。"
     },
     {
       "type": "goety:ritual",
@@ -19,7 +19,18 @@
     },
     {
       "type": "patchouli:text",
-      "text": "このセットの機能は古いネクロセットと同じですが、いくつかの改良が加えられています。"
+      "text": "このセットは従来のネクロセットと同様の機能を持ちつつ、いくつかの改善が加えられており、日光の下でも着用者にデバフを与えることはありません。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:haunted_mirror",
+      "title": "色の変更",
+      "advancement": "goety:goety/read_haunting_scroll",
+      "text": "また、オフハンドに幽霊の鏡を装備した状態で、染料を持ってその鏡を右クリックすると、王冠やマントにあしらわれた宝石や装飾の色を変更できます。設定した色を解除したい場合は、同じくオフハンドに幽霊の鏡を装備した状態で、水入りバケツを持って鏡を右クリックしてください。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:nameless_cape": 1,
+    "goety:nameless_crown": 2
+  }
 }

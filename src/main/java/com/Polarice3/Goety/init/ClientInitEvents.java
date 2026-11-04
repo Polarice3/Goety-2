@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.init;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.api.items.INamelessDyeable;
 import com.Polarice3.Goety.api.items.IPersist;
 import com.Polarice3.Goety.api.items.IPersistDecorator;
 import com.Polarice3.Goety.api.items.magic.ITotem;
@@ -166,6 +167,10 @@ public class ClientInitEvents {
                     , (stack, world, living, seed) -> EsotericTesseract.getServantsInTesseract(stack) > 0 ? 1.0F : 0.0F);
             ItemProperties.register(ModItems.ETERNAL_CAULDRON.get(), new ResourceLocation("filled")
                     , (stack, world, living, seed) -> !EternalCauldronItem.getBottle(stack).isEmpty() ? 1.0F : 0.0F);
+            ItemProperties.register(ModItems.NAMELESS_CROWN.get(), new ResourceLocation("colored")
+                    , (stack, world, living, seed) -> stack.getItem() instanceof INamelessDyeable dyeable && dyeable.hasCustomColor(stack) ? 1.0F : 0.0F);
+            ItemProperties.register(ModItems.NAMELESS_CAPE.get(), new ResourceLocation("colored")
+                    , (stack, world, living, seed) -> stack.getItem() instanceof INamelessDyeable dyeable && dyeable.hasCustomColor(stack) ? 1.0F : 0.0F);
         });
     }
 
@@ -831,6 +836,8 @@ public class ClientInitEvents {
     public static void colorItem(RegisterColorHandlersEvent.Item event){
         event.register((itemStack, i) -> i > 0 ? -1 : PotionUtils.getColor(itemStack),
                 ModItems.BREW.get(), ModItems.SPLASH_BREW.get(), ModItems.LINGERING_BREW.get(), ModItems.GAS_BREW.get());
+        event.register((itemStack, i) -> i > 0 ? -1 : itemStack.getItem() instanceof INamelessDyeable dyeable && dyeable.hasCustomColor(itemStack) ? dyeable.getColor(itemStack) : -1,
+                ModItems.NAMELESS_CROWN.get(), ModItems.NAMELESS_CAPE.get());
         event.register((itemStack, i) -> 3694022, ModBlocks.HAUNTED_JUG.get());
         event.register((itemStack, i) -> {
             BlockState blockstate = ((BlockItem)itemStack.getItem()).getBlock().defaultBlockState();

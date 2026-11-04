@@ -1693,13 +1693,14 @@ public class CrusherServant extends AbstractIllagerServant implements IMobCrafte
         public RepairRoyalGuardShield(AbstractIllagerServant illager){
             super(illager);
             this.predicate = itemStack -> itemStack.is(Tags.Items.INGOTS_IRON);
-            this.targetPredicate = living -> living instanceof RoyalGuardServant servant
-                    && servant.getTrueOwner() == illager.getTrueOwner()
-                    && servant.getShieldHealth() < servant.getMaxShieldHealth()
-                    && !servant.isRaiding()
-                    && !servant.isCelebrating()
-                    && servant.getMarked() == null
-                    && servant.getTarget() == null;
+            this.targetPredicate = living -> living instanceof IShielded shielded
+                    && living instanceof RaiderServant raider
+                    && raider.getTrueOwner() == illager.getTrueOwner()
+                    && shielded.getShieldHealth() < shielded.getMaxShieldHealth()
+                    && !raider.isRaiding()
+                    && !raider.isCelebrating()
+                    && raider.getMarked() == null
+                    && raider.getTarget() == null;
         }
 
         public void tick() {

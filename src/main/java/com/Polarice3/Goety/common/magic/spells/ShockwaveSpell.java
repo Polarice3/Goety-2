@@ -5,7 +5,7 @@ import com.Polarice3.Goety.client.particles.NecroVFXPalette;
 import com.Polarice3.Goety.client.particles.SoulSummonVFX;
 import com.Polarice3.Goety.client.particles.SphereExplodeParticleOption;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.magic.NamelessStaff;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.network.ModNetwork;
@@ -71,12 +71,24 @@ public class ShockwaveSpell extends Spell {
         }
         damage += potency;
         maxDamage += potency;
-        boolean nameless = staff.is(ModItems.NAMELESS_STAFF.get());
+        boolean nameless = staff.getItem() instanceof NamelessStaff;
+        int color = -1;
+        ColorUtil colorUtil = SHOCKWAVE_COLOR;
+        if (staff.getItem() instanceof NamelessStaff staff1) {
+            colorUtil = NAMELESS_COLOR;
+            if (staff1.hasCustomColor(staff)) {
+                colorUtil = new ColorUtil(staff1.getColor(staff));
+                color = staff1.getColor(staff);
+            }
+        }
         int souls = 2 + worldIn.getRandom().nextInt(2);
         for (int i = 0; i < souls; i++) {
-            SoulSummonVFX.bombSoul(worldIn, caster.position(), worldIn.getRandom(), nameless);
+            if (color > -1) {
+                SoulSummonVFX.shockwaveSoul(worldIn, caster.position(), worldIn.getRandom(), color);
+            } else {
+                SoulSummonVFX.bombSoul(worldIn, caster.position(), worldIn.getRandom(), nameless);
+            }
         }
-        ColorUtil colorUtil = nameless ? NAMELESS_COLOR : SHOCKWAVE_COLOR;
         worldIn.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius, 1), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 0, 0, 0, 0, 0);
         worldIn.sendParticles(new SphereExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius, 1), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 1, 0, 0, 0, 0);
         float trueDamage = Mth.clamp(damage + RandomUtil.nextInt(worldIn.getRandom(), (int) (maxDamage - damage)), damage, maxDamage);

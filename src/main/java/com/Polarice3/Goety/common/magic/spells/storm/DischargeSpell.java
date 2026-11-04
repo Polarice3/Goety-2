@@ -5,7 +5,7 @@ import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
 import com.Polarice3.Goety.client.particles.SphereExplodeParticleOption;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.magic.NamelessStaff;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.common.network.ModNetwork;
@@ -79,8 +79,11 @@ public class DischargeSpell extends Spell {
         damage += potency;
         maxDamage += potency;
         ColorUtil colorUtil = new ColorUtil(0xfef597);
-        if (staff.is(ModItems.NAMELESS_STAFF.get())) {
+        if (staff.getItem() instanceof NamelessStaff staff1) {
             colorUtil = new ColorUtil(0xa7fc3e);
+            if (staff1.hasCustomColor(staff)) {
+                colorUtil = new ColorUtil(staff1.getColor(staff));
+            }
         }
         worldIn.sendParticles(new ShockwaveParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue()), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 0, 0, 0, 0, 0);
         worldIn.sendParticles(new SphereExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius, 1), caster.getX(), caster.getY() + 0.5F, caster.getZ(), 1, 0, 0, 0, 0);

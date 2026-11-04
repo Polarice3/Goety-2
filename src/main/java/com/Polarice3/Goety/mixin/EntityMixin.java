@@ -6,10 +6,7 @@ import com.Polarice3.Goety.common.entities.neutral.AbstractVine;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSoundTypes;
-import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.MiscCapHelper;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.SEHelper;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -155,6 +152,18 @@ public abstract class EntityMixin {
         Entity entity = (Entity) (Object) this;
         if (entity instanceof LivingEntity livingEntity && MiscCapHelper.isSunscreen(livingEntity)) {
             cir.setReturnValue(0.0F);
+        }
+    }
+
+    @Inject(method = "canSpawnSprintParticle", at = @At(value = "HEAD"), cancellable = true)
+    public void canSpawnSprintParticle(CallbackInfoReturnable<Boolean> cir) {
+        Entity entity = (Entity) (Object) this;
+        if (entity instanceof Player player) {
+            if (LichdomHelper.isLich(player) && LichdomHelper.isInLichMode(player)) {
+                if (!LichdomHelper.hasLegs(player)) {
+                    cir.setReturnValue(false);
+                }
+            }
         }
     }
 

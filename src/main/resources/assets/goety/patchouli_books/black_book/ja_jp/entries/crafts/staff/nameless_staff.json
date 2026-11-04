@@ -19,7 +19,18 @@
     },
     {
       "type": "patchouli:text",
-      "text": "この杖から発射される$(l:focuses/soul_bolt_focus)ソウルボルト$()は、より強力なネクロボルトに変わります。$(l:focuses/illusion_focus)ミラースペル$()を同時に発動すると、$(l: crafts/garment/nameless_set)名もなきセットで$() を実行すると、代わりにターゲットにネクロ ボルトを 1 本発射します。"
+      "text": "この杖から放たれる$(l:focuses/soul_bolt_focus)ソウルボルト$()より強力な「ネクロボルト」へと変化します。また、名もなきセットを装備してイリュージョンのフォーカスを唱えると、代わりにターゲットに向けてネクロボルトが1発放たれるようになります。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:haunted_mirror",
+      "title": "色の変更",
+      "advancement": "goety:goety/read_haunting_scroll",
+      "text": "また、オフハンドに幽霊の鏡を装備した状態で、染料を持ってその鏡を右クリックすると、杖のオーブの色を変更できます。設定した色を解除したい場合は、同じくオフハンドに幽霊の鏡を装備した状態で、水入りバケツを持って鏡を右クリックしてください。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:heart_of_the_night": 1,
+    "goety:nameless_staff": 2
+  }
 }

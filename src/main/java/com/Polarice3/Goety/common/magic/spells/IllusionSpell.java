@@ -21,6 +21,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
@@ -81,6 +82,9 @@ public class IllusionSpell extends Spell {
                 summonedentity.setPersistenceRequired();
                 summonedentity.setUpgraded(CuriosFinder.hasIllusionRobe(caster));
                 summonedentity.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(BlockFinder.SummonRadius(caster.blockPosition(), summonedentity, worldIn)), MobSpawnType.MOB_SUMMONED, null, null);
+                if (undead) {
+                    summonedentity.setItemSlot(EquipmentSlot.MAINHAND, staff.copy());
+                }
                 LivingEntity target = this.getTarget(caster);
                 if (target != null) {
                     double d2 = target.getX() - summonedentity.getX();

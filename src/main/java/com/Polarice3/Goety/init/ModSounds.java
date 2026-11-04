@@ -623,6 +623,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> LICH_LAUGH = create("lich_laugh");
     public static final RegistryObject<SoundEvent> LICH_TELEPORT_IN = create("lich_teleport_in");
     public static final RegistryObject<SoundEvent> LICH_TELEPORT_OUT = create("lich_teleport_out");
+    public static final RegistryObject<SoundEvent> LICH_FLY = create("lich_fly");
     public static final RegistryObject<SoundEvent> LICH_DEATH = create("lich_death");
 
     public static final RegistryObject<SoundEvent> BIOMINE_SPAWN = create("biomine_spawn");

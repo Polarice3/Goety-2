@@ -22,9 +22,12 @@ import org.joml.Vector3f;
 
 public class NecroBoltRenderer<T extends NecroBolt> extends EntityRenderer<T> {
     public static final ResourceLocation BASE = Goety.location("textures/particle/necro_bolt_base.png");
+    public static final ResourceLocation BASE_COLORLESS = Goety.location("textures/particle/necro_bolt_base_colorless.png");
     public static final ResourceLocation MID = Goety.location("textures/particle/necro_bolt_mid.png");
     public static final ResourceLocation TOP = Goety.location("textures/particle/necro_bolt_top.png");
+    public static final ResourceLocation TOP_COLORLESS = Goety.location("textures/particle/necro_bolt_top_colorless.png");
     private static final ResourceLocation TRAIL = Goety.location("textures/entity/projectiles/trail.png");
+    private static final ColorUtil TRAIL_COLOR = new ColorUtil(0x9df530);
 
     public NecroBoltRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn);
@@ -36,19 +39,28 @@ public class NecroBoltRenderer<T extends NecroBolt> extends EntityRenderer<T> {
 
     public void render(T entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
+        int color = entityIn.getColor();
         PoseStack.Pose matrixstack$entry = matrixStackIn.last();
         Matrix4f matrix4f = matrixstack$entry.pose();
         Matrix3f matrix3f = matrixstack$entry.normal();
-        RenderType renderType = RenderType.entityTranslucent(this.getTextureLocation(entityIn));
+        ResourceLocation base = this.getTextureLocation(entityIn);
+        if (color > -1) {
+            base = BASE_COLORLESS;
+        }
+        RenderType renderType = RenderType.entityTranslucent(base);
         VertexConsumer ivertexbuilder = bufferIn.getBuffer(renderType);
         matrixStackIn.translate(0, 0.5, 0);
-        this.render(ivertexbuilder, this.entityRenderDispatcher.camera, entityIn, partialTicks, packedLightIn, matrix4f, matrix3f, 0);
+        this.render(ivertexbuilder, this.entityRenderDispatcher.camera, entityIn, partialTicks, packedLightIn, matrix4f, matrix3f, 0, color);
         RenderType renderType2 = RenderType.entityTranslucent(MID);
         VertexConsumer ivertexbuilder2 = bufferIn.getBuffer(renderType2);
-        this.render(ivertexbuilder2, this.entityRenderDispatcher.camera, entityIn, partialTicks, packedLightIn, matrix4f, matrix3f, 0);
-        RenderType renderType3 = RenderType.entityTranslucent(TOP);
+        this.render(ivertexbuilder2, this.entityRenderDispatcher.camera, entityIn, partialTicks, packedLightIn, matrix4f, matrix3f, 0, -1);
+        ResourceLocation top = TOP;
+        if (color > -1) {
+            top = TOP_COLORLESS;
+        }
+        RenderType renderType3 = RenderType.entityTranslucent(top);
         VertexConsumer ivertexbuilder3 = bufferIn.getBuffer(renderType3);
-        this.render(ivertexbuilder3, this.entityRenderDispatcher.camera, entityIn, partialTicks, packedLightIn, matrix4f, matrix3f, 1);
+        this.render(ivertexbuilder3, this.entityRenderDispatcher.camera, entityIn, partialTicks, packedLightIn, matrix4f, matrix3f, 1, color);
         matrixStackIn.popPose();
         if (entityIn.hasTrail()) {
             double x = Mth.lerp(partialTicks, entityIn.xOld, entityIn.getX());
@@ -56,14 +68,17 @@ public class NecroBoltRenderer<T extends NecroBolt> extends EntityRenderer<T> {
             double z = Mth.lerp(partialTicks, entityIn.zOld, entityIn.getZ());
             matrixStackIn.pushPose();
             matrixStackIn.translate(-x, -y, -z);
-            ColorUtil colorUtil = new ColorUtil(0x9df530);
+            ColorUtil colorUtil = TRAIL_COLOR;
+            if (color > -1) {
+                colorUtil = new ColorUtil(color);
+            }
             renderTrail(entityIn, partialTicks, matrixStackIn, bufferIn, colorUtil.red, colorUtil.green, colorUtil.blue, 0.6F, packedLightIn);
             matrixStackIn.popPose();
         }
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
-    public void render(VertexConsumer vertexConsumer, Camera camera, NecroBolt projectile, float partialTicks, int packedLightIn, Matrix4f matrix4f, Matrix3f matrix3f, int mode) {
+    public void render(VertexConsumer vertexConsumer, Camera camera, NecroBolt projectile, float partialTicks, int packedLightIn, Matrix4f matrix4f, Matrix3f matrix3f, int mode, int color) {
         Quaternionf quaternionf = new Quaternionf(camera.rotation());
         float f3 = Mth.lerp(partialTicks, projectile.oRoll, projectile.roll);
         float f4 = 0.5F;
@@ -81,10 +96,14 @@ public class NecroBoltRenderer<T extends NecroBolt> extends EntityRenderer<T> {
             vector3f.mul(f4);
         }
 
-        vertexConsumer.vertex(matrix4f, avector3f[0].x, avector3f[0].y, avector3f[0].z).color(255, 255, 255, 255).uv(0, 1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(packedLightIn).normal(matrix3f, 0.0F, 1.0F, 0.0F).endVertex();
-        vertexConsumer.vertex(matrix4f, avector3f[1].x, avector3f[1].y, avector3f[1].z).color(255, 255, 255, 255).uv(1, 1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(packedLightIn).normal(matrix3f, 0.0F, 1.0F, 0.0F).endVertex();
-        vertexConsumer.vertex(matrix4f, avector3f[2].x, avector3f[2].y, avector3f[2].z).color(255, 255, 255, 255).uv(1, 0).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(packedLightIn).normal(matrix3f, 0.0F, 1.0F, 0.0F).endVertex();
-        vertexConsumer.vertex(matrix4f, avector3f[3].x, avector3f[3].y, avector3f[3].z).color(255, 255, 255, 255).uv(0, 0).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(packedLightIn).normal(matrix3f, 0.0F, 1.0F, 0.0F).endVertex();
+        ColorUtil colorUtil = ColorUtil.WHITE;
+        if (color > -1) {
+            colorUtil = new ColorUtil(color);
+        }
+        vertexConsumer.vertex(matrix4f, avector3f[0].x, avector3f[0].y, avector3f[0].z).color(colorUtil.red, colorUtil.green, colorUtil.blue, colorUtil.alpha).uv(0, 1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(packedLightIn).normal(matrix3f, 0.0F, 1.0F, 0.0F).endVertex();
+        vertexConsumer.vertex(matrix4f, avector3f[1].x, avector3f[1].y, avector3f[1].z).color(colorUtil.red, colorUtil.green, colorUtil.blue, colorUtil.alpha).uv(1, 1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(packedLightIn).normal(matrix3f, 0.0F, 1.0F, 0.0F).endVertex();
+        vertexConsumer.vertex(matrix4f, avector3f[2].x, avector3f[2].y, avector3f[2].z).color(colorUtil.red, colorUtil.green, colorUtil.blue, colorUtil.alpha).uv(1, 0).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(packedLightIn).normal(matrix3f, 0.0F, 1.0F, 0.0F).endVertex();
+        vertexConsumer.vertex(matrix4f, avector3f[3].x, avector3f[3].y, avector3f[3].z).color(colorUtil.red, colorUtil.green, colorUtil.blue, colorUtil.alpha).uv(0, 0).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(packedLightIn).normal(matrix3f, 0.0F, 1.0F, 0.0F).endVertex();
     }
 
     /**

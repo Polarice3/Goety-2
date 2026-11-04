@@ -115,14 +115,16 @@ public class LichEvents {
                 }
             }
             if (LichdomHelper.isInLichMode(player)) {
-                if (player.tickCount % 5 == 0) {
-                    if (world.isClientSide) {
-                        int color = LichdomHelper.lichModeColor(player);
-                        if (color > -1) {
-                            ColorUtil colorUtil = new ColorUtil(color);
-                            world.addParticle(ModParticleTypes.LICH_COLORED.get(), player.getRandomX(0.5D), player.getY(), player.getRandomZ(0.5D), colorUtil.red(), colorUtil.green(), colorUtil.blue());
-                        } else {
-                            world.addParticle(ModParticleTypes.LICH.get(), player.getRandomX(0.5D), player.getY(), player.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
+                if (!LichdomHelper.hasLegs(player)) {
+                    if (player.tickCount % 5 == 0) {
+                        if (world.isClientSide) {
+                            int color = LichdomHelper.lichModeColor(player);
+                            if (color > -1) {
+                                ColorUtil colorUtil = new ColorUtil(color);
+                                world.addParticle(ModParticleTypes.LICH_COLORED.get(), player.getRandomX(0.5D), player.getY(), player.getRandomZ(0.5D), colorUtil.red(), colorUtil.green(), colorUtil.blue());
+                            } else {
+                                world.addParticle(ModParticleTypes.LICH.get(), player.getRandomX(0.5D), player.getY(), player.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
+                            }
                         }
                     }
                 }

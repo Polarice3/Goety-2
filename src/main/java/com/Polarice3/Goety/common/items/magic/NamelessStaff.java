@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.items.magic;
 
+import com.Polarice3.Goety.api.items.INamelessDyeable;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.client.render.item.CustomItemsRenderer;
 import com.Polarice3.Goety.config.ItemConfig;
@@ -8,7 +9,8 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
 import java.util.function.Consumer;
 
-public class NamelessStaff extends DarkStaff{
+public class NamelessStaff extends DarkStaff implements INamelessDyeable {
+
     public NamelessStaff() {
         super(ItemConfig.NamelessStaffDamage.get(), SpellType.NECROMANCY);
     }

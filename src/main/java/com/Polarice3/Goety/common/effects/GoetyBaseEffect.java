@@ -7,6 +7,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
+import com.Polarice3.Goety.compat.iron.IronLoaded;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.Direction;
@@ -229,18 +230,21 @@ public class GoetyBaseEffect extends MobEffect {
             }
         }
         if (this == GoetyEffects.SOUL_BURN.get()){
-            if (livingEntity.tickCount % 20 == 0) {
-                boolean flag = livingEntity.hurt(ModDamageSource.getDamageSource(world, ModDamageSource.SOUL_BURN), 2.0F);
-                if (livingEntity instanceof Player player && flag) {
-                    int amount;
-                    if (ISoulContainer.MAX_SOULS <= 100) {
-                        amount = 2;
-                    } else {
-                        amount = (ISoulContainer.MAX_SOULS / 100) * 2;
+            if (livingEntity.fireImmune() || livingEntity.hasEffect(MobEffects.FIRE_RESISTANCE) || IronLoaded.IRON_SPELLBOOKS.hasFirewardRing(livingEntity)) {
+                livingEntity.removeEffect(GoetyEffects.SOUL_BURN.get());
+            } else {
+                if (livingEntity.tickCount % 20 == 0) {
+                    boolean flag = livingEntity.hurt(ModDamageSource.getDamageSource(world, ModDamageSource.SOUL_BURN), 2.0F);
+                    if (livingEntity instanceof Player player && flag) {
+                        int amount;
+                        if (ISoulContainer.MAX_SOULS <= 100) {
+                            amount = 2;
+                        } else {
+                            amount = (ISoulContainer.MAX_SOULS / 100) * 2;
+                        }
+                        SEHelper.decreaseSoulsNoDiscount(player, amount);
                     }
-                    SEHelper.decreaseSoulsNoDiscount(player, amount);
                 }
-
             }
         }
         if (this == GoetyEffects.ENCHANTED.get()) {

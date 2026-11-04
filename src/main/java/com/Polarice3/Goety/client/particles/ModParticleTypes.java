@@ -42,6 +42,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> NECRO_EFFECT = PARTICLE_TYPES.register("necro_effect",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> ADDITIVE_EFFECT = PARTICLE_TYPES.register("additive_effect",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> NECRO_BOLT = PARTICLE_TYPES.register("necro_bolt",
             () -> new SimpleParticleType(false));
 
@@ -377,6 +380,9 @@ public class ModParticleTypes {
 
     public static final RegistryObject<ParticleType<MCDEffectOption>> SOUL_EMITTER = PARTICLE_TYPES.register("soul_emitter",
             MCDEffectOption::createType);
+
+    public static final RegistryObject<ParticleType<SoulLeaderCCParticleOption>> SOUL_BURST_COLORED = PARTICLE_TYPES.register("soul_burst_colored",
+            SoulLeaderCCParticleOption::createType);
 
     public static final RegistryObject<ParticleType<SparkleParticleOption>> SPARKLE = PARTICLE_TYPES.register("sparkle",
             () -> new ParticleType<>(false, SparkleParticleOption.DESERIALIZER) {

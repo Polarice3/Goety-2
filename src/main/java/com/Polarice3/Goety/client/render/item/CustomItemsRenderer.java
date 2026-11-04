@@ -4,7 +4,8 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.ModModelLayer;
 import com.Polarice3.Goety.client.render.ModRenderType;
 import com.Polarice3.Goety.client.render.model.NamelessStaffModel;
-import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.magic.NamelessStaff;
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
@@ -25,8 +26,10 @@ public class CustomItemsRenderer extends BlockEntityWithoutLevelRenderer {
     private final NamelessStaffModel<?> staffModel;
     private static final ResourceLocation NAMELESS_STAFF_TEXTURE = Goety.location("textures/item/nameless_staff_model.png");
     private static final ResourceLocation NAMELESS_STAFF_ORB_TEXTURE = Goety.location("textures/item/nameless_staff_orb.png");
+    private static final ResourceLocation NAMELESS_STAFF_ORB_COLORLESS_TEXTURE = Goety.location("textures/item/nameless_staff_orb_colorless.png");
     private static final ResourceLocation NAMELESS_STAFF_ORB_MID_TEXTURE = Goety.location("textures/item/nameless_staff_orb_mid.png");
     private static final ResourceLocation NAMELESS_STAFF_ORB_CENTER_TEXTURE = Goety.location("textures/item/nameless_staff_orb_center.png");
+    private static final ResourceLocation NAMELESS_STAFF_ORB_CENTER_COLORLESS_TEXTURE = Goety.location("textures/item/nameless_staff_orb_center_colorless.png");
 
     public CustomItemsRenderer() {
         this(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
@@ -52,7 +55,9 @@ public class CustomItemsRenderer extends BlockEntityWithoutLevelRenderer {
             tick = ticksExisted;
         }
 
-        if (itemStackIn.getItem() == ModItems.NAMELESS_STAFF.get()) {
+        if (itemStackIn.getItem() instanceof NamelessStaff staff) {
+            int color = staff.hasCustomColor(itemStackIn) ? staff.getColor(itemStackIn) : -1;
+            ColorUtil colorUtil = color > -1 ? new ColorUtil(color) : ColorUtil.WHITE;
             matrixStackIn.pushPose();
             matrixStackIn.translate(0.5F, 0.5F, 0.5F);
             matrixStackIn.scale(1.0F, -1.0F, -1.0F);
@@ -62,9 +67,13 @@ public class CustomItemsRenderer extends BlockEntityWithoutLevelRenderer {
             matrixStackIn.pushPose();
             matrixStackIn.translate(0.5F, 0.5F, 0.5F);
             matrixStackIn.scale(1.0F, -1.0F, -1.0F);
-            VertexConsumer vertexconsumer2 = bufferIn.getBuffer(RenderType.eyes(NAMELESS_STAFF_ORB_TEXTURE));
+            ResourceLocation orb = NAMELESS_STAFF_ORB_TEXTURE;
+            if (color > -1) {
+                orb = NAMELESS_STAFF_ORB_COLORLESS_TEXTURE;
+            }
+            VertexConsumer vertexconsumer2 = bufferIn.getBuffer(RenderType.eyes(orb));
             this.staffModel.animate(tick + partialTick);
-            this.staffModel.renderToBuffer(matrixStackIn, vertexconsumer2, 15728640, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            this.staffModel.renderToBuffer(matrixStackIn, vertexconsumer2, 15728640, OverlayTexture.NO_OVERLAY, colorUtil.red, colorUtil.green, colorUtil.blue, colorUtil.alpha);
             matrixStackIn.popPose();
             matrixStackIn.pushPose();
             matrixStackIn.translate(0.5F, 0.5F, 0.5F);
@@ -75,8 +84,12 @@ public class CustomItemsRenderer extends BlockEntityWithoutLevelRenderer {
             matrixStackIn.pushPose();
             matrixStackIn.translate(0.5F, 0.5F, 0.5F);
             matrixStackIn.scale(1.0F, -1.0F, -1.0F);
-            VertexConsumer vertexconsumer4 = bufferIn.getBuffer(ModRenderType.orbCenter(NAMELESS_STAFF_ORB_CENTER_TEXTURE));
-            this.staffModel.renderToBuffer(matrixStackIn, vertexconsumer4, 15728640, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            ResourceLocation orbCenter = NAMELESS_STAFF_ORB_CENTER_TEXTURE;
+            if (color > -1) {
+                orbCenter = NAMELESS_STAFF_ORB_CENTER_COLORLESS_TEXTURE;
+            }
+            VertexConsumer vertexconsumer4 = bufferIn.getBuffer(ModRenderType.orbCenter(orbCenter));
+            this.staffModel.renderToBuffer(matrixStackIn, vertexconsumer4, 15728640, OverlayTexture.NO_OVERLAY, colorUtil.red, colorUtil.green, colorUtil.blue, colorUtil.alpha);
             matrixStackIn.popPose();
         }
     }

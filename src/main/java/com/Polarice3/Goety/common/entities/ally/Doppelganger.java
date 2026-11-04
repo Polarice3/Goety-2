@@ -4,6 +4,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ai.CreatureBowAttackGoal;
 import com.Polarice3.Goety.common.entities.projectiles.NecroBolt;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.magic.NamelessStaff;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.ParticleOptions;
@@ -115,14 +116,16 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
             }
         }
         if (LichdomHelper.isInLichMode(this.getTrueOwner())) {
-            if (this.tickCount % 5 == 0) {
-                if (this.level.isClientSide) {
-                    int color = LichdomHelper.lichModeColor(this.getTrueOwner());
-                    if (color > -1) {
-                        ColorUtil colorUtil = new ColorUtil(color);
-                        this.level.addParticle(ModParticleTypes.LICH_COLORED.get(), this.getRandomX(0.5D), this.getY(), this.getRandomZ(0.5D), colorUtil.red(), colorUtil.green(), colorUtil.blue());
-                    } else {
-                        this.level.addParticle(ModParticleTypes.LICH.get(), this.getRandomX(0.5D), this.getY(), this.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
+            if (!(this.getTrueOwner() instanceof Player player) || !LichdomHelper.hasLegs(player)) {
+                if (this.tickCount % 5 == 0) {
+                    if (this.level.isClientSide) {
+                        int color = LichdomHelper.lichModeColor(this.getTrueOwner());
+                        if (color > -1) {
+                            ColorUtil colorUtil = new ColorUtil(color);
+                            this.level.addParticle(ModParticleTypes.LICH_COLORED.get(), this.getRandomX(0.5D), this.getY(), this.getRandomZ(0.5D), colorUtil.red(), colorUtil.green(), colorUtil.blue());
+                        } else {
+                            this.level.addParticle(ModParticleTypes.LICH.get(), this.getRandomX(0.5D), this.getY(), this.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
+                        }
                     }
                 }
             }
@@ -415,10 +418,15 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
             double d3 = target.getX() - this.getX();
             double d4 = (target.getY() + 0.5F) - (this.getY() + 0.5F);
             double d5 = target.getZ() - this.getZ();
-            NecroBolt soulBolt = new NecroBolt(this, d3, d4, d5, this.level);
-            soulBolt.setPos(this.getX(), this.getEyeY() - 0.2F, this.getZ());
-            soulBolt.setOwner(this);
-            if (this.level.addFreshEntity(soulBolt)) {
+            NecroBolt necroBolt = new NecroBolt(this, d3, d4, d5, this.level);
+            if (this.getMainHandItem().getItem() instanceof NamelessStaff staff1) {
+                if (staff1.hasCustomColor(this.getMainHandItem())) {
+                    necroBolt.setColor(staff1.getColor(this.getMainHandItem()));
+                }
+            }
+            necroBolt.setPos(this.getX(), this.getEyeY() - 0.2F, this.getZ());
+            necroBolt.setOwner(this);
+            if (this.level.addFreshEntity(necroBolt)) {
                 SoundUtil.playNecroBoltIllusion(this);
                 this.setShot(true);
             }

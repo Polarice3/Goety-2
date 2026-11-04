@@ -78,6 +78,21 @@ public class AdditiveSpellParticle extends TextureSheetParticle {
         }
     }
 
+    public static class ColorProvider implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet sprite;
+
+        public ColorProvider(SpriteSet p_107826_) {
+            this.sprite = p_107826_;
+        }
+
+        public Particle createParticle(SimpleParticleType p_107837_, ClientLevel p_107838_, double p_107839_, double p_107840_, double p_107841_, double p_107842_, double p_107843_, double p_107844_) {
+            AdditiveSpellParticle particle = new AdditiveSpellParticle(p_107838_, p_107839_, p_107840_, p_107841_, 0.0D, 0.0D, 0.0D, this.sprite);
+            particle.setColor((float)p_107842_, (float)p_107843_, (float)p_107844_);
+            particle.fullAlpha = true;
+            return particle;
+        }
+    }
+
     public static class MobProvider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprite;
 

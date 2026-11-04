@@ -20,6 +20,13 @@
     {
       "type": "patchouli:text",
       "text": "$(l:focuses/soul_bolt_focus)Projéteis de Alma$() lançados deste cajado se transformarão nos mais poderosos Projéteis Necros. Lançar o $(l:focuses/illusion_focus)Feitiço do Espelho$() enquanto estiver vestindo o $(l:crafts/garment/nameless_set)Conjunto Sem Nome$() fará com que eles disparem um único Projétil Necro no seu alvo."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:haunted_mirror",
+      "title": "Mudando Cores",
+      "advancement": "goety:goety/read_haunting_scroll",
+      "text": "Você também pode mudar a cor da orbe do seu cajado clicando com o botão direito em um Espelho Assombrado com um corante enquanto o segura na mão secundária. Para remover a cor personalizada, clique com o botão direito no espelho com um balde de água também enquanto o segura na mão secundária."
     }
   ],
   "extra_recipe_mappings": {

@@ -1,6 +1,17 @@
 {
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "goety:item/nameless_crown"
-  }
+  "parent": "goety:item/nameless_crown_normal",
+  "overrides": [
+    {
+      "predicate": {
+        "colored": 0.00000
+      },
+      "model": "goety:item/nameless_crown_normal"
+    },
+    {
+      "predicate": {
+        "colored": 1.00000
+      },
+      "model": "goety:item/nameless_crown_colored"
+    }
+  ]
 }

@@ -6,8 +6,12 @@ import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -29,6 +33,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 
 public class NecroBolt extends SpellHurtingProjectile {
+    public static final EntityDataAccessor<Integer> DATA_COLOR = SynchedEntityData.defineId(NecroBolt.class, EntityDataSerializers.INT);
     private final float rotSpeed;
     public float roll;
     public float oRoll;
@@ -53,6 +58,31 @@ public class NecroBolt extends SpellHurtingProjectile {
         super(ModEntityType.NECRO_BOLT.get(), pShooter, pXPower, pYPower, pZPower, pLevel);
         this.rotSpeed = 0.05F;
         this.roll = (float)Math.random() * ((float)Math.PI * 2F);
+    }
+
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_COLOR, -1);
+    }
+
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        if (compound.contains("CustomColor")) {
+            this.setColor(compound.getInt("CustomColor"));
+        }
+    }
+
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("CustomColor", this.getColor());
+    }
+
+    public int getColor() {
+        return this.entityData.get(DATA_COLOR);
+    }
+
+    public void setColor(int color) {
+        this.entityData.set(DATA_COLOR, color);
     }
 
     public boolean isOnFire() {
@@ -121,10 +151,15 @@ public class NecroBolt extends SpellHurtingProjectile {
         if (!this.level.isClientSide) {
             ServerLevel serverLevel = (ServerLevel) this.level;
             for (int p = 0; p < 8; ++p) {
-                double d0 = (double)this.getX() + this.level.random.nextDouble();
-                double d1 = (double)this.getY() + this.level.random.nextDouble();
-                double d2 = (double)this.getZ() + this.level.random.nextDouble();
-                serverLevel.sendParticles(ModParticleTypes.NECRO_EFFECT.get(), d0, d1, d2, 0, 0.45, 0.45, 0.45, 0.5F);
+                double d0 = this.getX() + this.level.getRandom().nextDouble();
+                double d1 = this.getY() + this.level.getRandom().nextDouble();
+                double d2 = this.getZ() + this.level.getRandom().nextDouble();
+                if (this.getColor() > -1) {
+                    ColorUtil colorUtil = new ColorUtil(this.getColor());
+                    serverLevel.sendParticles(ModParticleTypes.ADDITIVE_EFFECT.get(), d0, d1, d2, 0, colorUtil.red, colorUtil.green, colorUtil.blue, 1.0F);
+                } else {
+                    serverLevel.sendParticles(ModParticleTypes.NECRO_EFFECT.get(), d0, d1, d2, 0, 0.45, 0.45, 0.45, 0.5F);
+                }
                 serverLevel.sendParticles(ModParticleTypes.SUMMON_TRAIL.get(), d0, d1, d2, 1, 0.0F, 0.0F, 0.0F, 0);
             }
             this.discard();

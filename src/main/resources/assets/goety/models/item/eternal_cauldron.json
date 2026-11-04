@@ -1,5 +1,5 @@
 {
-  "parent": "goety:item/eternal_cauldron",
+  "parent": "goety:item/eternal_cauldron_empty",
   "overrides": [
     {
       "predicate": {

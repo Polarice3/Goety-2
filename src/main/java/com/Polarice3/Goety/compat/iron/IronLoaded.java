@@ -42,6 +42,9 @@ public enum IronLoaded {
     }
 
     public boolean hasFirewardRing(LivingEntity livingEntity) {
+        if (!this.isLoaded()) {
+            return false;
+        }
         return CuriosFinder.hasCurio(livingEntity, itemStack -> itemStack.getDescriptionId().contains("irons_spellbooks") && itemStack.getDescriptionId().contains("fireward_ring"));
     }
 

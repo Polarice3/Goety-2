@@ -28,6 +28,7 @@ public class ClientSideInit extends SidedInit {
         event.registerSpriteSet(ModParticleTypes.WHITE_EFFECT.get(), AdditiveSpellParticle.AlphaProvider::new);
         event.registerSpriteSet(ModParticleTypes.BULLET_EFFECT.get(), AdditiveSpellParticle.AlphaProvider::new);
         event.registerSpriteSet(ModParticleTypes.NECRO_EFFECT.get(), AdditiveSpellParticle.AlphaProvider::new);
+        event.registerSpriteSet(ModParticleTypes.ADDITIVE_EFFECT.get(), AdditiveSpellParticle.ColorProvider::new);
         event.registerSpriteSet(ModParticleTypes.GLOW_EFFECT.get(), AdditiveSpellParticle.AlphaProvider::new);
         event.registerSpriteSet(ModParticleTypes.LICH.get(), BigSpellParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.LICH_COLORED.get(), BigSpellParticle.LichProvider::new);
@@ -167,6 +168,7 @@ public class ClientSideInit extends SidedInit {
         event.registerSpecial(ModParticleTypes.SOUL_STREAK.get(), new SoulPixelParticle.Provider(SoulPixelParticle.Mode.STREAK));
         event.registerSpecial(ModParticleTypes.SOUL_LAVA.get(), new EruptionParticle.Provider(1.0F, 1.0F, 1.0F));
         event.registerSpecial(ModParticleTypes.SOUL_EMITTER.get(), new SoulEmitterParticle.Provider());
+        event.registerSpecial(ModParticleTypes.SOUL_BURST_COLORED.get(), new SoulLeaderCCParticle.Provider(SoulLeaderCCParticle.Behaviour.BURST));
         event.registerSpriteSet(ModParticleTypes.MAGIC_RUNES.get(), MagicRuneParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SWIRL_CLOUD.get(), SwirlCloudParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.GOD_RAY.get(), GodRayParticle.Provider::new);

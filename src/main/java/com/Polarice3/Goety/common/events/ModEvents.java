@@ -208,6 +208,10 @@ public class ModEvents {
 
         player.getCapability(LichProvider.CAPABILITY)
                 .ifPresent(lichdom ->
+                        lichdom.setLegs(capability2.hasLegs()));
+
+        player.getCapability(LichProvider.CAPABILITY)
+                .ifPresent(lichdom ->
                         lichdom.setNightVision(capability2.nightVision()));
 
         player.getCapability(LichProvider.CAPABILITY)

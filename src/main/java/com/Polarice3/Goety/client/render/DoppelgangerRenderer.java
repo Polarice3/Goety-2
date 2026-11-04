@@ -19,6 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
@@ -77,6 +78,10 @@ public class DoppelgangerRenderer extends HumanoidMobRenderer<Doppelganger, Play
         playermodel.rightPants.visible = doppelganger.isModelPartShown(PlayerModelPart.RIGHT_PANTS_LEG);
         playermodel.leftSleeve.visible = doppelganger.isModelPartShown(PlayerModelPart.LEFT_SLEEVE);
         playermodel.rightSleeve.visible = doppelganger.isModelPartShown(PlayerModelPart.RIGHT_SLEEVE);
+        if (doppelganger.getTrueOwner() instanceof Player player && LichdomHelper.isInLichMode(player)) {
+            playermodel.rightLeg.visible = LichdomHelper.hasLegs(player);
+            playermodel.leftLeg.visible = LichdomHelper.hasLegs(player);
+        }
         playermodel.crouching = doppelganger.isCrouching();
         HumanoidModel.ArmPose bipedmodel$armpose = getArmPose(doppelganger, InteractionHand.MAIN_HAND);
         HumanoidModel.ArmPose bipedmodel$armpose1 = getArmPose(doppelganger, InteractionHand.OFF_HAND);

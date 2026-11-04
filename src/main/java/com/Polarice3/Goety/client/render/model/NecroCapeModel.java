@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.client.render.model;
 
+import com.Polarice3.Goety.utils.LichdomHelper;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -13,6 +14,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ElytraItem;
 
@@ -173,7 +175,13 @@ public class NecroCapeModel<T extends LivingEntity> extends HumanoidModel<T> {
         if (this.riding){
             this.pants.xRot = -1.4137167F;
         } else {
-            this.pants.xRot = 0.0F;
+            if (pEntity instanceof Player player && LichdomHelper.isLich(player) && LichdomHelper.isInLichMode(player) && !LichdomHelper.hasLegs(player)) {
+                float f4 = Math.min(limbSwingAmount / 0.3F, 1.0F);
+                this.pants.xRot = f4 * MathHelper.modelDegrees(40.0F);
+                this.pants.xRot += Mth.cos(ageInTicks * 0.09F) * 0.1F + 0.1F;
+            } else {
+                this.pants.xRot = 0.0F;
+            }
         }
         float f = 1.0F;
         if (pEntity.getFallFlyingTicks() > 4) {

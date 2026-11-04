@@ -4,8 +4,10 @@ import com.Polarice3.Goety.client.render.model.DarkRobeModel;
 import com.Polarice3.Goety.client.render.model.GloveModel;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.curios.EternalCauldronItem;
+import com.Polarice3.Goety.common.items.curios.NecroGarbs;
 import com.Polarice3.Goety.common.items.curios.UnholyHatItem;
 import com.Polarice3.Goety.config.ItemConfig;
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -147,6 +149,11 @@ public record WearRenderer(ResourceLocation texture,
 
     private void render(LivingEntity livingEntity, ItemStack stack, PoseStack matrixStack, MultiBufferSource buffer, int light) {
         RenderType renderType = this.getModel().renderType(getTexture(livingEntity));
+        if (stack.getItem() instanceof NecroGarbs garbs && garbs.isNameless) {
+            if (garbs.hasCustomColor(stack)) {
+                renderType = this.getModel().renderType(CuriosRenderer.render("nameless_cape_colorless.png"));
+            }
+        }
         VertexConsumer vertexBuilder = buffer.getBuffer(renderType);
         this.getModel().renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
         if (stack.getItem() instanceof UnholyHatItem) {
@@ -156,6 +163,13 @@ public record WearRenderer(ResourceLocation texture,
             }
             VertexConsumer vertexBuilder2 = buffer.getBuffer(ModRenderType.wraith(CuriosRenderer.render(glow)));
             this.getModel().renderToBuffer(matrixStack, vertexBuilder2, 15728640, OverlayTexture.NO_OVERLAY, 1, 1, 1, 0.15F);
+        }
+        if (stack.getItem() instanceof NecroGarbs garbs && garbs.isNameless) {
+            if (garbs.hasCustomColor(stack)) {
+                ColorUtil colorUtil = new ColorUtil(garbs.getColor(stack));
+                VertexConsumer vertexBuilder2 = buffer.getBuffer(this.getModel().renderType(CuriosRenderer.render("nameless_cape_colorless_layer.png")));
+                this.getModel().renderToBuffer(matrixStack, vertexBuilder2, 15728640, OverlayTexture.NO_OVERLAY, colorUtil.red, colorUtil.green, colorUtil.blue, 1.0F);
+            }
         }
     }
 

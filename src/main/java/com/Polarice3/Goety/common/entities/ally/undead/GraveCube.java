@@ -296,6 +296,11 @@ public class GraveCube extends AbstractGolemServant {
         ++this.deathTime;
         if (this.deathTime == 20 && !this.level.isClientSide() && !this.isRemoved()) {
             if (this.deathReason != null && !this.deathReason.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+                for (int i = 0; i < 6; i++) {
+                    SoulSummonVFX.cubeFloatingSpark(this.level, this.position(), this.random, true);
+                    SoulSummonVFX.cubeDust(this.level, this.position(), this.random, true);
+                    SoulSummonVFX.soulLava(this.level, this.position(), this.random, true);
+                }
                 NecroticPool pool = new NecroticPool(ModEntityType.NECROTIC_POOL.get(), this.level);
                 pool.setWarmupDelayTicks(0);
                 if (this.deathReason == this.damageSources().generic()) {

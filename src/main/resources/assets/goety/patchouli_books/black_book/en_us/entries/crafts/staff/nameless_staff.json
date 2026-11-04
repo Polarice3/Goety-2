@@ -20,6 +20,13 @@
     {
       "type": "patchouli:text",
       "text": "$(l:focuses/soul_bolt_focus)Soul Bolts$() shot from this staff will turn into the more powerful Necro Bolts. Casting the $(l:focuses/illusion_focus)Mirror Spell$() while also wearing the $(l:crafts/garment/nameless_set)Nameless Set$() will cause them to shoot a single Necro Bolt at your target instead."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:haunted_mirror",
+      "title": "Changing Colors",
+      "advancement": "goety:goety/read_haunting_scroll",
+      "text": "You can also change the color of your staff's orb by right-clicking a Haunted Mirror with a dye while holding it offhand. To remove the custom color, right-click the mirror with a bucket of water also while holding it offhand."
     }
   ],
   "extra_recipe_mappings": {
