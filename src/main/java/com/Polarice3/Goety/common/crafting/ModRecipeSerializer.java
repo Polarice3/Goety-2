@@ -4,6 +4,7 @@ import com.Polarice3.Goety.Goety;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -63,6 +64,9 @@ public class ModRecipeSerializer {
 
     public static final RegistryObject<RecipeSerializer<ModShapelessRecipe>> MODDED_SHAPELESS = RECIPE_SERIALIZERS.register("crafting_shapeless",
             ModShapelessRecipe.Serializer::new);
+
+    public static final RegistryObject<RecipeSerializer<ScrollCloningRecipe>> SCROLL_CLONING = RECIPE_SERIALIZERS.register("scroll_cloning",
+            () -> new SimpleCraftingRecipeSerializer<>(ScrollCloningRecipe::new));
 
     static <T extends Recipe<?>> RegistryObject<RecipeType<T>> register(final String id) {
         return RECIPE_TYPES.register(id, () -> new RecipeType<T>() {

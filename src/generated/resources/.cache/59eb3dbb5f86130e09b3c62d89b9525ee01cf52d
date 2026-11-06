@@ -1,4 +1,4 @@
-// 1.20.1	2026-11-01T11:26:42.0957002	Loot Tables
+// 1.20.1	2026-11-06T10:15:21.5956041	Loot Tables
 1173ad0aef6067156a1c3161e3fe16b8e10b3f92 data/goety/loot_tables/blocks/animator.json
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
@@ -439,6 +439,7 @@ ded6334a40c2c066eeeb372482eee04caab394dd data/goety/loot_tables/blocks/plushie_1
 1de471216608903a6c3b12f94f8068cf6892809f data/goety/loot_tables/blocks/plushie_13.json
 3d0a7793d1c522d42e81d20717f77826f818441d data/goety/loot_tables/blocks/plushie_14.json
 4c84b47aed5b4c6a7a0dddfda809588e37e496f3 data/goety/loot_tables/blocks/plushie_15.json
+21526bb677c1840d11b1aa3a2c2f80e8157001ec data/goety/loot_tables/blocks/plushie_16.json
 19d5f3e07d876af8998ca139795e8b0e3b2cee28 data/goety/loot_tables/blocks/plushie_2.json
 1654529f676428d76a09727e68a1c54ef19f15d8 data/goety/loot_tables/blocks/plushie_3.json
 90f8080b9d8d13012b0ba3660acdcd1e598f6937 data/goety/loot_tables/blocks/plushie_4.json

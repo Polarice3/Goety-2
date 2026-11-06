@@ -65,6 +65,7 @@ public class ModLootTables {
     public static final ResourceLocation HERESIARCH_BARTER = register("gameplay/heresiarch_bartering");
 
     public static final ResourceLocation TREASURE_POUCH = register("gameplay/treasure_pouch");
+    public static final ResourceLocation PLUSHIE_REWARD = register("gameplay/plushie_reward");
     public static final ResourceLocation VOID_SPAWNER_LOOT = register("gameplay/void_spawner_loot");
     public static final ResourceLocation VOID_SPAWNER_KEY = register("gameplay/void_spawner_key");
     public static final ResourceLocation VOID_VAULT_REWARD = register("gameplay/void_vault_reward");

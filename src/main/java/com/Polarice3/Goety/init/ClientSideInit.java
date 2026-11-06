@@ -158,7 +158,7 @@ public class ClientSideInit extends SidedInit {
         event.registerSpecial(ModParticleTypes.SLAM.get(), new SlamParticle.Provider());
         event.registerSpecial(ModParticleTypes.SMASH.get(), new SmashParticle.Provider());
         event.registerSpecial(ModParticleTypes.SPHERE_EXPLODE.get(), new SphereExplodeParticle.Provider());
-        event.registerSpecial(ModParticleTypes.ERUPTION.get(), new EruptionParticle.Provider(1.0F, 0.1F, 0.1F));
+        event.registerSpecial(ModParticleTypes.ERUPTION.get(), new EruptionParticle.Provider());
         event.registerSpecial(ModParticleTypes.SOUL_LEADER.get(), new SoulLeaderParticle.Provider());
         event.registerSpecial(ModParticleTypes.SOUL_DUST.get(), new SoulDustParticle.Provider());
         event.registerSpecial(ModParticleTypes.SOUL_FLASH.get(), new SoulPixelParticle.FlashProvider());
@@ -166,7 +166,7 @@ public class ClientSideInit extends SidedInit {
         event.registerSpecial(ModParticleTypes.SOUL_ORBIT.get(), new SoulLeaderParticle.Provider(SoulLeaderParticle.Behaviour.ORBIT));
         event.registerSpecial(ModParticleTypes.SOUL_BURST.get(), new SoulLeaderParticle.Provider(SoulLeaderParticle.Behaviour.BURST));
         event.registerSpecial(ModParticleTypes.SOUL_STREAK.get(), new SoulPixelParticle.Provider(SoulPixelParticle.Mode.STREAK));
-        event.registerSpecial(ModParticleTypes.SOUL_LAVA.get(), new EruptionParticle.Provider(1.0F, 1.0F, 1.0F));
+        event.registerSpecial(ModParticleTypes.SOUL_LAVA.get(), new EruptionParticle.Provider());
         event.registerSpecial(ModParticleTypes.SOUL_EMITTER.get(), new SoulEmitterParticle.Provider());
         event.registerSpecial(ModParticleTypes.SOUL_BURST_COLORED.get(), new SoulLeaderCCParticle.Provider(SoulLeaderCCParticle.Behaviour.BURST));
         event.registerSpriteSet(ModParticleTypes.MAGIC_RUNES.get(), MagicRuneParticle.Provider::new);

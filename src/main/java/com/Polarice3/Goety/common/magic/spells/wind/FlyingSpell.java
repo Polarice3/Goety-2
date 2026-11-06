@@ -2,11 +2,14 @@ package com.Polarice3.Goety.common.magic.spells.wind;
 
 import com.Polarice3.Goety.api.magic.SpellPoses;
 import com.Polarice3.Goety.api.magic.SpellType;
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.EverChargeSpell;
 import com.Polarice3.Goety.common.magic.SpellStat;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.ColorUtil;
+import com.Polarice3.Goety.utils.LichdomHelper;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.particles.ParticleTypes;
@@ -77,8 +80,18 @@ public class FlyingSpell extends EverChargeSpell {
         caster.setDeltaMovement(vector3d.x * d0, vector3d.y * d0, vector3d.z * d0);
         caster.hasImpulse = true;
         caster.fallDistance = 0;
-        for (int i = 0; i < caster.level.random.nextInt(35) + 10; ++i) {
-            worldIn.sendParticles(ParticleTypes.CLOUD, caster.getX(), caster.getY(), caster.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
+        if (LichdomHelper.isLich(caster) && LichdomHelper.isInLichMode(caster) && !LichdomHelper.hasLegs(caster)) {
+            int color = LichdomHelper.lichModeColor(caster);
+            if (color > -1) {
+                ColorUtil colorUtil = new ColorUtil(color);
+                worldIn.sendParticles(ModParticleTypes.LICH_COLORED.get(), caster.getX(), caster.getY(), caster.getZ(), 0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.0F);
+            } else {
+                worldIn.sendParticles(ModParticleTypes.LICH.get(), caster.getX(), caster.getY(), caster.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
+            }
+        } else {
+            for (int i = 0; i < caster.level.random.nextInt(35) + 10; ++i) {
+                worldIn.sendParticles(ParticleTypes.CLOUD, caster.getX(), caster.getY(), caster.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
+            }
         }
     }
 }

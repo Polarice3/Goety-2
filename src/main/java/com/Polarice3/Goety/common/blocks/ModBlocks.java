@@ -1417,6 +1417,7 @@ public class ModBlocks {
     public static final RegistryObject<PlushieBlock> PLUSHIE_13 = curioIsterRegister("plushie_13", () -> new PlushieBlock(13));
     public static final RegistryObject<PlushieBlock> PLUSHIE_14 = curioIsterRegister("plushie_14", () -> new PlushieBlock(14));
     public static final RegistryObject<PlushieBlock> PLUSHIE_15 = curioIsterRegister("plushie_15", () -> new PlushieBlock(15));
+    public static final RegistryObject<PlushieBlock> PLUSHIE_16 = curioIsterRegister("plushie_16", () -> new PlushieBlock(16));
 
     public static final RegistryObject<SculpturedStatueBlock> SCULPTURED_STATUE = isterRegister("sculptured_statue", SculpturedStatueBlock::new);
     public static final RegistryObject<SculpturedStatueBlock> STATUE_1 = isterRegister("sculptured_statue_1", () -> new SculpturedStatueBlock(1));

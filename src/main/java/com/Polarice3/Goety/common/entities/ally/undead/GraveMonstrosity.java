@@ -10,6 +10,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.NecroVFXPalette;
 import com.Polarice3.Goety.client.particles.SoulSummonVFX;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.common.blocks.entities.PlinthHooks;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.path.LargeMobNavigation;
@@ -85,6 +86,7 @@ import java.util.function.Predicate;
 public class GraveMonstrosity extends AbstractGolemServant implements IAnimated, IPoise, IAutoRideable, IMonstrosity {
     private static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(GraveMonstrosity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> AUTO_MODE = SynchedEntityData.defineId(GraveMonstrosity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(GraveMonstrosity.class, EntityDataSerializers.BOOLEAN);
     public final ChargeAura chargeAura = new ChargeAura(ChargeAura.Settings.NECRO.scaled(1.2F));
     public static ColorUtil AURA_COLOR = new ColorUtil(NecroVFXPalette.DARK_HEX);
     public static String ACTIVATE = "activate";
@@ -100,6 +102,8 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
     public static String PROJECTILE = "projectile";
     public static String CALL = "call";
     public static String STAGGERED = "staggered";
+    public static String TO_SIT = "to_sit";
+    public static String TO_STAND = "to_stand";
     public static String DEATH = "death";
     public static float MCD2_COMBO_DAMAGE = 12.5F;
     public static float MCD2_SWIPE_DAMAGE = 20.0F;
@@ -111,6 +115,8 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
     public static int CHARGE_COOLDOWN = MathHelper.secondsToTicks(6);
     public static int PROJECTILE_COOLDOWN = MathHelper.secondsToTicks(5);
     public static int CALL_COOLDOWN = MathHelper.secondsToTicks(17);
+    public static int SIT_DOWN_TICKS = 12;
+    public static int STAND_UP_TICKS = 10;
     private int cubeSummonVFXTicks;
     private int megaPunchVFXTicks;
     @Nullable
@@ -124,6 +130,8 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
     public int summonMax;
     public int starCount;
     public Map<Integer, Vec3> belchPositions = new HashMap<>();
+    public int isSittingDown;
+    public int isStandingUp;
     public int chargeCool;
     public int summonCool;
     public int projectileCool;
@@ -149,6 +157,9 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
     public final AnimationState chargeEndAnimationState = new AnimationState();
     public final AnimationState projectileAnimationState = new AnimationState();
     public final AnimationState callAnimationState = new AnimationState();
+    public final AnimationState toSitAnimationState = new AnimationState();
+    public final AnimationState toStandAnimationState = new AnimationState();
+    public final AnimationState sitAnimationState = new AnimationState();
     public final AnimationState staggeredAnimationState = new AnimationState();
     public final AnimationState deathAnimationState = new AnimationState();
 
@@ -443,6 +454,7 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
         super.defineSynchedData();
         this.entityData.define(ANIM_STATE, 0);
         this.entityData.define(AUTO_MODE, false);
+        this.entityData.define(SITTING, false);
     }
 
     public void addAdditionalSaveData(CompoundTag pCompound) {
@@ -454,6 +466,7 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
         pCompound.putInt("SummonCool", this.summonCool);
         pCompound.putInt("ProjectileCool", this.projectileCool);
         pCompound.putInt("CallCool", this.callCool);
+        pCompound.putBoolean("Sitting", this.isSitting());
         this.savePoiseData(pCompound);
 
         ListTag listnbt = new ListTag();
@@ -490,6 +503,9 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
         }
         if (pCompound.contains("CallCool")) {
             this.callCool = pCompound.getInt("CallCool");
+        }
+        if (pCompound.contains("Sitting")) {
+            this.setSitting(pCompound.getBoolean("Sitting"));
         }
         this.readPoiseData(pCompound);
         if (pCompound.contains("Inventory")) {
@@ -604,6 +620,9 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
     }
 
     public boolean clientStopMoving(){
+        if (this.isSitting() || this.isCurrentAnimation(TO_SIT) || this.isCurrentAnimation(TO_STAND)) {
+            return true;
+        }
         if (this.level.isClientSide) {
             return this.clientStop;
         } else {
@@ -900,6 +919,10 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
             return 12;
         } else if (Objects.equals(animation, DEATH)){
             return 13;
+        } else if (Objects.equals(animation, TO_SIT)){
+            return 14;
+        } else if (Objects.equals(animation, TO_STAND)){
+            return 15;
         } else {
             return 0;
         }
@@ -919,6 +942,9 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
         list.add(this.chargeEndAnimationState);
         list.add(this.projectileAnimationState);
         list.add(this.callAnimationState);
+        list.add(this.toSitAnimationState);
+        list.add(this.toStandAnimationState);
+        list.add(this.sitAnimationState);
         list.add(this.staggeredAnimationState);
         list.add(this.deathAnimationState);
         return list;
@@ -930,7 +956,7 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
 
     @Override
     public boolean canAnimateMove() {
-        return this.isCurrentAnimation(IDLE);
+        return this.isCurrentAnimation(IDLE) && !this.isSitting();
     }
 
     public void handleDamageEvent(DamageSource p_270229_) {
@@ -948,11 +974,27 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
     }
 
     public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
+        if (SITTING.equals(accessor) && this.level.isClientSide && this.isCurrentAnimation(IDLE)) {
+            if (this.isSitting()) {
+                this.idleAnimationState.stop();
+                this.sitAnimationState.startIfStopped(this.tickCount);
+            } else {
+                this.sitAnimationState.stop();
+                if (!this.walkAnimation.isMoving()) {
+                    this.idleAnimationState.startIfStopped(this.tickCount);
+                }
+            }
+        }
         if (ANIM_STATE.equals(accessor)) {
             if (this.level.isClientSide){
                 switch (this.entityData.get(ANIM_STATE)){
                     case 0:
-                        this.stopMostAnimation(this.idleAnimationState);
+                        if (this.isSitting()) {
+                            this.sitAnimationState.startIfStopped(this.tickCount);
+                        } else if (!this.walkAnimation.isMoving()) {
+                            this.idleAnimationState.startIfStopped(this.tickCount);
+                        }
+                        this.stopMostAnimation(this.idleAnimationState, this.sitAnimationState);
                         break;
                     case 1:
                         this.activateAnimationState.start(this.tickCount);
@@ -1008,6 +1050,15 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
                         this.deathAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.deathAnimationState);
                         break;
+                    case 14:
+                        this.toSitAnimationState.start(this.tickCount);
+                        this.walkAnimation.setSpeed(0.0F);
+                        this.stopMostAnimation(this.toSitAnimationState);
+                        break;
+                    case 15:
+                        this.toStandAnimationState.start(this.tickCount);
+                        this.stopMostAnimation(this.toStandAnimationState);
+                        break;
                 }
             }
         }
@@ -1018,12 +1069,28 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
     }
 
     public boolean isAttacking() {
-        return !this.isCurrentAnimation(IDLE) && !this.isActivating() && !this.isDeadOrDying();
+        return !this.isCurrentAnimation(IDLE) && !this.isCurrentAnimation(TO_SIT) && !this.isCurrentAnimation(TO_STAND) && !this.isActivating() && !this.isDeadOrDying();
+    }
+
+    public boolean isSitting() {
+        return this.entityData.get(SITTING);
+    }
+
+    public void setSitting(boolean sitting) {
+        this.entityData.set(SITTING, sitting);
+    }
+
+    public boolean wantsToSit() {
+        LivingEntity target = this.getTarget();
+        return this.isStaying() && (target == null || !target.isAlive());
     }
 
     @Override
     public void tick() {
         super.tick();
+        if (PlinthHooks.isFrozen(this)) {
+            return;
+        }
         if (this.isDeadOrDying()){
             this.setAnimationState(DEATH);
             this.setYRot(this.deathRotation);
@@ -1031,6 +1098,8 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
         }
         if (this.hasPose(Pose.EMERGING)){
             ++this.activateTick;
+            this.isSittingDown = 0;
+            this.isStandingUp = 0;
             this.setAnimationState(ACTIVATE);
             if (this.activateTick == 1){
                 this.playSound(ModSounds.MONSTROSITY_SPAWN.get(), 10.0F, 1.0F);
@@ -1053,7 +1122,8 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
             }
         }
         if (this.level.isClientSide) {
-            this.idleAnimationState.animateWhen(this.isCurrentAnimation(IDLE) && !this.walkAnimation.isMoving(), this.tickCount);
+            this.idleAnimationState.animateWhen(this.isCurrentAnimation(IDLE) && !this.isSitting() && !this.walkAnimation.isMoving(), this.tickCount);
+            this.sitAnimationState.animateWhen(this.isCurrentAnimation(IDLE) && this.isSitting(), this.tickCount);
             this.chargeAura.tick(this, this.isCurrentAnimation(CHARGE_LOOP) && this.isAlive());
             this.glow();
             if (this.cubeSummonVFXTicks > 0) {
@@ -1075,6 +1145,35 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
         }
         if (!this.level.isClientSide){
             if (this.isAlive() && !this.isActivating()) {
+                if (!this.isAttacking()) {
+                    this.level.broadcastEntityEvent(this, (byte) 7);
+                    if (this.isCurrentAnimation(TO_SIT)) {
+                        this.stopForSitting();
+                        if (--this.isSittingDown <= 0) {
+                            this.setSitting(true);
+                            this.setAnimationState(IDLE);
+                        }
+                    } else if (this.isCurrentAnimation(TO_STAND)) {
+                        if (--this.isStandingUp <= 0) {
+                            this.setSitting(false);
+                            this.setAnimationState(IDLE);
+                        }
+                    } else if (this.wantsToSit() && !this.isSitting()) {
+                        this.isSittingDown = SIT_DOWN_TICKS;
+                        this.stopForSitting();
+                        this.setAnimationState(TO_SIT);
+                    } else if (!this.wantsToSit() && this.isSitting()) {
+                        this.isStandingUp = STAND_UP_TICKS;
+                        this.setAnimationState(TO_STAND);
+                    } else if (!this.isCurrentAnimation(IDLE)) {
+                        this.setAnimationState(IDLE);
+                    }
+                } else {
+                    this.level.broadcastEntityEvent(this, (byte) 6);
+                    this.isSittingDown = 0;
+                    this.isStandingUp = 0;
+                    this.setSitting(false);
+                }
                 if (!this.isCurrentAnimation(STAGGERED)) {
                     this.poiseTick();
                 }
@@ -1117,6 +1216,12 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
                 this.attackAI();
             }
         }
+    }
+
+    private void stopForSitting() {
+        this.getMoveControl().strafe(0, 0);
+        this.getNavigation().stop();
+        this.setDeltaMovement(0.0F, this.getDeltaMovement().y, 0.0F);
     }
 
     public void attackAI() {
@@ -1472,6 +1577,7 @@ public class GraveMonstrosity extends AbstractGolemServant implements IAnimated,
                     && target.isAlive()
                     && (this.attackRange <= 0.0F || this.entity.distanceTo(target) < this.attackRange)
                     && (this.attackOuterRange <= 0.0F || this.entity.distanceTo(target) >= this.attackOuterRange)
+                    && !this.entity.isSitting()
                     && this.entity.getCurrentAnimation() == this.currentAttackType;
         }
 

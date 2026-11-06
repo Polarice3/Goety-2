@@ -99,6 +99,7 @@ public class ModTags {
         public static final TagKey<Item> CLAWS = tag("claws");
         public static final TagKey<Item> SCYTHES = tag("scythes");
         public static final TagKey<Item> GRIMOIRES = tag("grimoires");
+        public static final TagKey<Item> REPLICABLE_SCROLLS = tag("replicable_scrolls");
         public static final TagKey<Item> PLUSHIE = tag("plushie");
         public static final TagKey<Item> PILLAGER_WEAPONS = tag("pillager_weapons");
         public static final TagKey<Item> VINDICATOR_WEAPONS = tag("vindicator_weapons");

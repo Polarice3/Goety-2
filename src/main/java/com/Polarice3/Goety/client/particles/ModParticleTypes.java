@@ -351,8 +351,8 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> MAGIC_RUNES = PARTICLE_TYPES.register("magic_runes",
             () -> new SimpleParticleType(true));
 
-    public static final RegistryObject<ParticleType<MCDEffectOption>> ERUPTION = PARTICLE_TYPES.register("eruption",
-            MCDEffectOption::createType);
+    public static final RegistryObject<ParticleType<EruptionParticleOption>> ERUPTION = PARTICLE_TYPES.register("eruption",
+            EruptionParticleOption::createType);
 
     public static final RegistryObject<ParticleType<MCDEffectOption>> SOUL_LEADER = PARTICLE_TYPES.register("soul_leader",
             MCDEffectOption::createType);
@@ -375,8 +375,8 @@ public class ModParticleTypes {
     public static final RegistryObject<ParticleType<MCDEffectOption>> SOUL_STREAK = PARTICLE_TYPES.register("soul_streak",
             MCDEffectOption::createType);
 
-    public static final RegistryObject<ParticleType<MCDEffectOption>> SOUL_LAVA = PARTICLE_TYPES.register("soul_lava",
-            MCDEffectOption::createType);
+    public static final RegistryObject<ParticleType<EruptionParticleOption>> SOUL_LAVA = PARTICLE_TYPES.register("soul_lava",
+            EruptionParticleOption::createType);
 
     public static final RegistryObject<ParticleType<MCDEffectOption>> SOUL_EMITTER = PARTICLE_TYPES.register("soul_emitter",
             MCDEffectOption::createType);

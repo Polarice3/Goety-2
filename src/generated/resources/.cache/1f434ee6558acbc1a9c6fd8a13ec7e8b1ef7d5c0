@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-22T21:29:09.9710425	Block States: goety
+// 1.20.1	2026-11-06T10:15:21.6085942	Block States: goety
 92a547327e71f54fb7e9d59c8b81d2e518a332b2 assets/goety/blockstates/big_end_stone_bricks.json
 82b39d96011dec7bfc2719744242e26b70c038fb assets/goety/blockstates/blooming_chorus_wood.json
 0868546e099bb6609c1b9df7cd57e1e80292eae2 assets/goety/blockstates/blossoming_chorus_wood.json
@@ -218,6 +218,7 @@ db26cf69181571699ce425d610342c2e6cd9451a assets/goety/blockstates/plushie_11.jso
 b950ff3448213fd07aa42e5ed9d3438e691da4e4 assets/goety/blockstates/plushie_13.json
 4422bbe7b0baf6caf5d7718b069e409d2048cd3c assets/goety/blockstates/plushie_14.json
 1f46ab9c26896847334df549417204f2b072d799 assets/goety/blockstates/plushie_15.json
+e3c6afeef75502ad68a320683c4c8cbf6fcfbebd assets/goety/blockstates/plushie_16.json
 aeaabfea84222785471c3faa9c88dccfeb447e03 assets/goety/blockstates/plushie_2.json
 203decfdca4011fd9490db9763b647e6dadf27df assets/goety/blockstates/plushie_3.json
 13fe6f4edda6659d093c5c6b1c5122e346bc60d2 assets/goety/blockstates/plushie_4.json
@@ -825,6 +826,7 @@ e0951856f2ef17b5983e5e4c2f63b3cb20e44f40 assets/goety/models/block/pine_trapdoor
 6d572e6f960820cab6a9d9c4ebc0f69ebf41c113 assets/goety/models/block/plushie_13.json
 6d572e6f960820cab6a9d9c4ebc0f69ebf41c113 assets/goety/models/block/plushie_14.json
 6d572e6f960820cab6a9d9c4ebc0f69ebf41c113 assets/goety/models/block/plushie_15.json
+6d572e6f960820cab6a9d9c4ebc0f69ebf41c113 assets/goety/models/block/plushie_16.json
 6d572e6f960820cab6a9d9c4ebc0f69ebf41c113 assets/goety/models/block/plushie_2.json
 6d572e6f960820cab6a9d9c4ebc0f69ebf41c113 assets/goety/models/block/plushie_3.json
 6d572e6f960820cab6a9d9c4ebc0f69ebf41c113 assets/goety/models/block/plushie_4.json
@@ -1368,6 +1370,7 @@ ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie_12.jso
 ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie_13.json
 ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie_14.json
 ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie_15.json
+ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie_16.json
 ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie_2.json
 ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie_3.json
 ef9d31f03f80545333126146f42ae974aed08cf6 assets/goety/models/item/plushie_4.json

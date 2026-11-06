@@ -47,6 +47,14 @@ public class LichdomHelper {
         sendLichUpdatePacket(player);
     }
 
+    public static boolean hasLegs(LivingEntity livingEntity){
+        if (livingEntity instanceof Player player){
+            return hasLegs(player);
+        } else {
+            return false;
+        }
+    }
+
     public static boolean hasLegs(Player player){
         return getCapability(player).hasLegs();
     }

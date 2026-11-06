@@ -206,6 +206,9 @@ public class GraveMonstrosityModel<T extends GraveMonstrosity> extends Hierarchi
 		this.animate(entity.chargeEndAnimationState, GraveMonstrosityAnimations3.CHARGE_END, ageInTicks);
 		this.animate(entity.projectileAnimationState, GraveMonstrosityAnimations2.BELCH, ageInTicks);
 		this.animate(entity.callAnimationState, GraveMonstrosityAnimations2.CALL, ageInTicks);
+		this.animate(entity.toSitAnimationState, NeoMonstrositySitStandAnimations.TO_SIT, ageInTicks);
+		this.animate(entity.toStandAnimationState, NeoMonstrositySitStandAnimations.TO_STAND, ageInTicks);
+		this.animate(entity.sitAnimationState, NeoMonstrositySitStandAnimations.SIT, ageInTicks);
 		this.animate(entity.staggeredAnimationState, GraveMonstrosityAnimations2.STAGGERED, ageInTicks);
 		this.animate(entity.deathAnimationState, NeoMonstrosityDeathAnimation.DEATH, ageInTicks);
 	}

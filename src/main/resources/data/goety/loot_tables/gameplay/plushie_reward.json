@@ -62,6 +62,36 @@
           "type": "minecraft:item",
           "name": "goety:plushie_10",
           "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goety:plushie_11",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goety:plushie_12",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goety:plushie_13",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goety:plushie_14",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goety:plushie_15",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goety:plushie_16",
+          "weight": 2
         }
       ],
       "rolls": 1.0

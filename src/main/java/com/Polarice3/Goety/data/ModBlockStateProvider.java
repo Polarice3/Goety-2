@@ -58,6 +58,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         plushie(ModBlocks.PLUSHIE_13.get());
         plushie(ModBlocks.PLUSHIE_14.get());
         plushie(ModBlocks.PLUSHIE_15.get());
+        plushie(ModBlocks.PLUSHIE_16.get());
 
         sculpturedStatue(ModBlocks.SCULPTURED_STATUE.get());
         sculpturedStatue(ModBlocks.STATUE_1.get());

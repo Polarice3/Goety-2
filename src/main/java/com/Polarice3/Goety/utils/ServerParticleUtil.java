@@ -499,9 +499,18 @@ public class ServerParticleUtil {
     }
 
     public static void eruption(ServerLevel serverLevel, Vec3 origin, RandomSource random) {
+        eruption(serverLevel, origin, random, 0xff1919, 1.0F, 0.2F + random.nextFloat() * 0.8F, 0.0F);
+    }
+
+    public static void eruption(ServerLevel serverLevel, Vec3 origin, RandomSource random, int baseColor, float redAmp, float greenAmp, float blueAmp) {
+        ColorUtil baseColorUtil = new ColorUtil(baseColor);
+        eruption(serverLevel, origin, random, baseColorUtil.red, baseColorUtil.green, baseColorUtil.blue, redAmp, greenAmp, blueAmp);
+    }
+
+    public static void eruption(ServerLevel serverLevel, Vec3 origin, RandomSource random, float baseRed, float baseGreen, float baseBlue, float redAmp, float greenAmp, float blueAmp) {
         double halfAngle = random.nextDouble() * 45.0D;
         Vec3 vec3 = cone(random, 0.0D, halfAngle).scale(0.9D + random.nextDouble() * 0.9D);
-        serverLevel.sendParticles(new MCDEffectOption(ModParticleTypes.ERUPTION.get(), 0.13F + random.nextFloat() * 0.02F, 20 + random.nextInt(21), 1.0F, 0.2F + random.nextFloat() * 0.8F, 0.0F), origin.x, origin.y, origin.z, 0, vec3.x, vec3.y, vec3.z, 1.0F);
+        serverLevel.sendParticles(new EruptionParticleOption(ModParticleTypes.ERUPTION.get(), 0.13F + random.nextFloat() * 0.02F, 20 + random.nextInt(21), baseRed, baseGreen, baseBlue, redAmp, greenAmp, blueAmp), origin.x, origin.y, origin.z, 0, vec3.x, vec3.y, vec3.z, 1.0F);
     }
 
     public static Vec3 cone(RandomSource randomSource, double minDeg, double maxDeg) {

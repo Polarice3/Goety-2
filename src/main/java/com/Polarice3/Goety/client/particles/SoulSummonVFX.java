@@ -98,9 +98,9 @@ public final class SoulSummonVFX {
         float k = 0.2F + random.nextFloat() * 0.8F;
         float[] hue = alternate ? NecroVFXPalette.greenHue(k) : new float[]{0.0F, k, 1.0F};
         if (level instanceof ServerLevel serverLevel) {
-            serverLevel.sendParticles(new MCDEffectOption(ModParticleTypes.SOUL_LAVA.get(), 0.13F + random.nextFloat() * 0.02F, 20 + random.nextInt(21), hue[0], hue[1], hue[2], alternate), origin.x, origin.y, origin.z, 0, vec3.x, vec3.y, vec3.z, 1.0F);
+            serverLevel.sendParticles(new EruptionParticleOption(ModParticleTypes.SOUL_LAVA.get(), 0.13F + random.nextFloat() * 0.02F, 20 + random.nextInt(21), 1.0F, 1.0F, 1.0F, hue[0], hue[1], hue[2]), origin.x, origin.y, origin.z, 0, vec3.x, vec3.y, vec3.z, 1.0F);
         } else {
-            level.addParticle(new MCDEffectOption(ModParticleTypes.SOUL_LAVA.get(), 0.13F + random.nextFloat() * 0.02F, 20 + random.nextInt(21), hue[0], hue[1], hue[2], alternate), origin.x, origin.y, origin.z, vec3.x, vec3.y, vec3.z);
+            level.addParticle(new EruptionParticleOption(ModParticleTypes.SOUL_LAVA.get(), 0.13F + random.nextFloat() * 0.02F, 20 + random.nextInt(21), 1.0F, 1.0F, 1.0F, hue[0], hue[1], hue[2]), origin.x, origin.y, origin.z, vec3.x, vec3.y, vec3.z);
         }
     }
 

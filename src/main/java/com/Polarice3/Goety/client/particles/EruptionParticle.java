@@ -19,28 +19,32 @@ public class EruptionParticle extends Particle {
     private static final float[] LAVA_SCALE_Y = {0.0F, 3.85F, 5.84F, 5.52F, 5.15F, 4.78F, 4.4F, 4.03F, 3.72F, 3.34F, 2.97F, 2.6F, 2.23F, 1.86F, 1.54F, 1.17F, 0.8F};
     private static final float BASE_LENGTH = 0.07F;
     private final float width;
-    private final float a, b, c;
+    private final float redAmp, greenAmp, blueAmp;
     private final float red, green, blue;
     private final float lavaGravity;
 
-    protected EruptionParticle(ClientLevel level, double x, double y, double z, double xd, double yd, double zd, MCDEffectOption option, float red, float green, float blue) {
+    protected EruptionParticle(ClientLevel level, double x, double y, double z, double xd, double yd, double zd, EruptionParticleOption option, float red, float green, float blue) {
         super(level, x, y, z);
         this.xd = xd;
         this.yd = yd;
         this.zd = zd;
         this.width = option.size;
         this.lifetime = Math.max(option.life, 1);
-        this.a = option.a;
-        this.b = option.b;
-        this.c = option.c;
         this.red = red;
         this.green = green;
         this.blue = blue;
+        this.redAmp = option.redAmp;
+        this.greenAmp = option.greenAmp;
+        this.blueAmp = option.blueAmp;
         this.lavaGravity = -(1000.0F + this.random.nextFloat() * 1000.0F) / 40000.0F;
         this.hasPhysics = false;
         this.friction = 1.0F;
         this.gravity = 0.0F;
         this.updateColor(0.0F);
+    }
+
+    public EruptionParticle(ClientLevel level, double x, double y, double z, double xd, double yd, double zd, EruptionParticleOption option) {
+        this(level, x, y, z, xd, yd, zd, option, option.baseRed, option.baseGreen, option.baseBlue);
     }
 
     @Override
@@ -70,7 +74,7 @@ public class EruptionParticle extends Particle {
 
     private void updateColor(float p) {
         float v = ColorUtil.sample(ERUPTION_SHADER, p);
-        ParticleUtil.setHdrColor(this, (this.red * v) * this.a, (this.green * v) * this.b, (this.blue * v) * this.c);
+        ParticleUtil.setHdrColor(this, (this.red * v) * this.redAmp, (this.green * v) * this.greenAmp, (this.blue * v) * this.blueAmp);
         this.alpha = 1.0F;
     }
 
@@ -108,18 +112,13 @@ public class EruptionParticle extends Particle {
                 this.rCol, this.gCol, this.bCol, this.alpha);
     }
 
-    public static class Provider implements ParticleProvider<MCDEffectOption> {
-        public float red, green, blue;
-
-        public Provider(float red, float green, float blue) {
-            this.red = red;
-            this.green = green;
-            this.blue = blue;
+    public static class Provider implements ParticleProvider<EruptionParticleOption> {
+        public Provider() {
         }
 
         @Override
-        public Particle createParticle(MCDEffectOption option, ClientLevel level, double x, double y, double z, double xd, double yd, double zd) {
-            return new EruptionParticle(level, x, y, z, xd, yd, zd, option, this.red, this.green, this.blue);
+        public Particle createParticle(EruptionParticleOption option, ClientLevel level, double x, double y, double z, double xd, double yd, double zd) {
+            return new EruptionParticle(level, x, y, z, xd, yd, zd, option);
         }
     }
 }
