@@ -211,7 +211,7 @@ public class Preacher extends HuntingIllagerEntity{
 
     @Override
     public SoundEvent getCelebrateSound() {
-        return null;
+        return ModSounds.PREACHER_AMBIENT.get();
     }
 
     public class PreacherHealGoal extends Goal{

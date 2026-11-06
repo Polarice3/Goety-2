@@ -23,6 +23,7 @@ public class LichModeModel<T extends LivingEntity> extends PlayerModel<T> {
     public static MeshDefinition createMesh(CubeDeformation p_170812_) {
         MeshDefinition meshdefinition = PlayerModel.createMesh(p_170812_, false);
         PartDefinition partdefinition = meshdefinition.getRoot();
+        partdefinition.addOrReplaceChild("jacket", CubeListBuilder.create().texOffs(16, 32).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F), PartPose.ZERO);
         partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(40, 16).addBox(-1.0F, -2.0F, -1.0F, 2.0F, 12.0F, 2.0F), PartPose.offset(-5.0F, 2.0F, 0.0F));
         partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 16).mirror().addBox(-1.0F, -2.0F, -1.0F, 2.0F, 12.0F, 2.0F), PartPose.offset(5.0F, 2.0F, 0.0F));
         partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 16).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F), PartPose.offset(-2.0F, 12.0F, 0.0F));
@@ -35,6 +36,7 @@ public class LichModeModel<T extends LivingEntity> extends PlayerModel<T> {
         super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
         if (pEntity instanceof Player player) {
             if (LichdomHelper.isInLichMode(player)) {
+                this.jacket.visible = LichdomHelper.hasLegs(player);
                 this.rightLeg.visible = LichdomHelper.hasLegs(player);
                 this.leftLeg.visible = LichdomHelper.hasLegs(player);
                 if (!LichdomHelper.hasLegs(player)) {
